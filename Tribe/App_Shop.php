@@ -128,7 +128,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 
 				$categories = array_unique( wp_list_pluck( $products, 'category' ) );
 
-				include_once( Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/app-shop.php' );
+				include_once( Tribe__Events__Main::instance()->pluginPath . 'common/admin-views/app-shop.php' );
 			}
 
 		}

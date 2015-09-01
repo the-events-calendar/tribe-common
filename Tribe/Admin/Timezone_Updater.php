@@ -96,7 +96,7 @@ class Tribe__Admin__Timezone_Updater {
 	 */
 	public function notice_assets() {
 		$plugin = Tribe__Main::instance();
-		$script = trailingslashit( $plugin->plugin_url ) . 'src/resources/js/events-admin-timezone-updater.js';
+		$script = trailingslashit( $plugin->plugin_url ) . 'common/resources/js/events-admin-timezone-updater.js';
 		$handle = 'tribe-events-ajax-timezone-update';
 
 		wp_enqueue_script( $handle, $script, array( 'jquery' ), false, true );
@@ -134,13 +134,13 @@ class Tribe__Admin__Timezone_Updater {
 
 		foreach ( $this->get_ids( $batch_size ) as $event_id ) {
 			$local_start_time = tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
-			$utc_start_time = Tribe__Events__Timezones::to_utc( $local_start_time, $site_timezone );
+			$utc_start_time = Tribe__Timezones::to_utc( $local_start_time, $site_timezone );
 
 			$local_end_time = tribe_get_end_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
-			$utc_end_time = Tribe__Events__Timezones::to_utc( $local_end_time, $site_timezone );
+			$utc_end_time = Tribe__Timezones::to_utc( $local_end_time, $site_timezone );
 
 			// The abbreviation needs to be calculated per event as it can vary according to the actual date
-			$site_timezone_abbr = Tribe__Events__Timezones::wp_timezone_abbr( $local_start_time );
+			$site_timezone_abbr = Tribe__Timezones::wp_timezone_abbr( $local_start_time );
 
 			update_post_meta( $event_id, '_EventTimezone', $site_timezone );
 			update_post_meta( $event_id, '_EventTimezoneAbbr', $site_timezone_abbr );

@@ -43,7 +43,7 @@ class Tribe__Asset__Factory {
 	}
 
 	/**
-	 * @return Tribe__Events__Asset__Factory
+	 * @return Tribe__Asset__Factory
 	 */
 	public static function instance() {
 		static $instance;
