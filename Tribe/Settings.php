@@ -447,9 +447,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 				if ( $option_id == Tribe__Main::OPTIONNAME ) {
 					// save using the Tribe__Events__Main method
-					Tribe__Events__Main::instance()->setOptions( $options );
+					Tribe__Settings_Manager::set_options( $options );
 				} elseif ( $option_id == Tribe__Main::OPTIONNAMENETWORK ) {
-					Tribe__Events__Main::instance()->setNetworkOptions( $options );
+					Tribe__Settings_Manager::set_network_options( $options );
 				} else {
 					// save using regular WP method
 					if ( is_network_admin() ) {

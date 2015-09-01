@@ -133,10 +133,10 @@ class Tribe__Admin__Timezone_Updater {
 		$site_timezone      = Tribe__Timezones::wp_timezone_string();
 
 		foreach ( $this->get_ids( $batch_size ) as $event_id ) {
-			$local_start_time = tribe_get_start_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			$local_start_time = tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
 			$utc_start_time = Tribe__Events__Timezones::to_utc( $local_start_time, $site_timezone );
 
-			$local_end_time = tribe_get_end_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			$local_end_time = tribe_get_end_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
 			$utc_end_time = Tribe__Events__Timezones::to_utc( $local_end_time, $site_timezone );
 
 			// The abbreviation needs to be calculated per event as it can vary according to the actual date
