@@ -133,7 +133,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				'mu plugins'         => $mu_plugins,
 				'theme'              => wp_get_theme()->get( 'Name' ),
 				'multisite'          => is_multisite(),
-				'settings'           => Tribe__Settings_Manager::get_option(),
+				'settings'           => Tribe__Settings_Manager::get_options(),
 				'WordPress timezone' => get_option( 'timezone_string', __( 'Unknown or not set', 'tribe-common' ) ),
 				'server timezone'    => date_default_timezone_get(),
 			);

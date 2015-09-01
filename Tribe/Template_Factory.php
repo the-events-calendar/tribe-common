@@ -138,7 +138,7 @@ class Tribe__Template_Factory {
 		$prefix = 'tribe-events'; // Tribe__Events__Main::POSTTYPE;
 
 		// setup plugin resources & 3rd party vendor urls
-		$vendor_url = trailingslashit( $common->pluginUrl ) . 'vendor/';
+		$vendor_url = trailingslashit( $common->plugin_url ) . 'vendor/';
 
 		self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $common );
 	}
