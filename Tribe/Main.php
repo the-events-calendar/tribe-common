@@ -42,6 +42,10 @@ class Tribe__Main {
 	public function init_libraries() {
 		Tribe__Debug::instance();
 		Tribe__Settings_Manager::instance();
+
+		require_once $this->plugin_path . 'common/functions/template-tags/general.php';
+		require_once $this->plugin_path . 'common/functions/template-tags/date.php';
+		require_once $this->plugin_path . 'common/functions/template-tags/day.php';
 	}
 
 	/**
