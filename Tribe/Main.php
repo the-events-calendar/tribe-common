@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Events__Main' ) ) {
+if ( class_exists( 'Tribe__Main' ) ) {
 	return;
 }
 
@@ -21,6 +21,8 @@ class Tribe__Main {
 	const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 	const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
+	protected $plugin_context;
+
 	public $plugin_dir;
 	public $plugin_path;
 	public $plugin_url;
@@ -28,12 +30,20 @@ class Tribe__Main {
 	/**
 	 * constructor
 	 */
-	public function __construct() {
+	public function __construct( $context ) {
+		$this->plugin_context = $context;
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->plugin_dir );
 
 		$this->init_libraries();
+	}
+
+	/**
+	 * Get's the instantiated context of this class. I.e. the object that instantiated this one.
+	 */
+	public function context() {
+		return $this->plugin_context;
 	}
 
 	/**
@@ -94,16 +104,25 @@ class Tribe__Main {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Events__Main
+	 * @return Tribe__Main
 	 */
-	public static function instance() {
-		static $instance;
+	public static function instance( $object ) {
+		static $instance = array();
 
-		if ( ! $instance ) {
+		$object_class = '';
+
+		if ( is_object( $object ) ) {
+			$object_class = get_class( $object );
+		} elseif ( is_string( $object ) ) {
+			$object_class = $object;
+			$object = new $object_class;
+		}
+
+		if ( ! isset( $instance[ $object_class ] ) ) {
 			$class_name = __CLASS__;
 			$instance = new $class_name;
 		}
 
-		return $instance;
+		return $instance[ $object_class ];
 	}
 }

@@ -154,7 +154,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function addPage() {
-			if ( ! is_multisite() || ( is_multisite() && '0' == Tribe__Events__Main::instance()->getNetworkOption( 'allSettingsTabsHidden', '0' ) ) ) {
+			if ( ! is_multisite() || ( is_multisite() && '0' == Tribe__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
 				$this->admin_page = add_submenu_page(
 					'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE,
 					__( 'The Events Calendar Settings', 'tribe-common' ),
