@@ -13,52 +13,6 @@ if ( ! class_exists( 'Tribe__Main' ) ) {
 }
 
 /**
- * Includes a template part, similar to the WP get template part, but looks
- * in the correct directories for Tribe Events templates
- *
- * @param string      $slug
- * @param null|string $name
- * @param array       $data optional array of vars to inject into the template part
- *
- * @uses Tribe__Events__Templates::getTemplateHierarchy
- **/
-function tribe_get_template_part( $slug, $name = null, array $data = null ) {
-
-	// Execute code for this part
-	do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name, $data );
-	// Setup possible parts
-	$templates = array();
-	if ( isset( $name ) ) {
-		$templates[] = $slug . '-' . $name . '.php';
-	}
-	$templates[] = $slug . '.php';
-
-	// Allow template parts to be filtered
-	$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
-
-	// Make any provided variables available in the template's symbol table
-	if ( is_array( $data ) ) {
-		extract( $data );
-	}
-
-	// loop through templates, return first one found.
-	foreach ( $templates as $template ) {
-		$file = Tribe__Templates::getTemplateHierarchy( $template, array( 'disable_view_check' => true ) );
-		$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
-		$file = apply_filters( 'tribe_get_template_part_path_' . $template, $file, $slug, $name );
-		if ( file_exists( $file ) ) {
-			ob_start();
-			do_action( 'tribe_before_get_template_part', $template, $file, $template, $slug, $name );
-			include( $file );
-			do_action( 'tribe_after_get_template_part', $template, $file, $slug, $name );
-			$html = ob_get_clean();
-			echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
-		}
-	}
-	do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name, $data );
-}
-
-/**
  * Get Options
  *
  * Retrieve specific key from options array, optionally provide a default return value
@@ -106,19 +60,6 @@ function tribe_get_network_option( $optionName, $default = '' ) {
 }
 
 /**
- * Current Template
- *
- * Get the current page template that we are on
- *
- * @category Events
- * @todo Update the function name to ensure there are no namespace conflicts.
- * @return string Page template
- */
-function tribe_get_current_template() {
-	return apply_filters( 'tribe_get_current_template', Tribe__Templates::get_current_page_template() );
-}
-
-/**
  * Returns or echoes a url to a file in the Events Calendar plugin resources directory
  *
  * @category Events
@@ -146,13 +87,18 @@ function tribe_resource_url( $resource, $echo = false ) {
 	}
 
 	$path = $resource_path . $resource;
+
+	$plugin_path = trailingslashit( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) );
+	$plugin_dir  = trailingslashit( basename( $plugin_path ) );
+	$url  = plugins_url( $plugin_dir );
+
 	/**
 	 * Filters the resource URL
 	 *
 	 * @param $url
 	 * @param $resource
 	 */
-	$url = apply_filters( 'tribe_resource_url', trailingslashit( Tribe__Events__Main::instance()->pluginUrl ) . $path, $resource );
+	$url = apply_filters( 'tribe_resource_url', $url . $path, $resource );
 
 	/**
 	 * Deprected the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
@@ -241,7 +187,7 @@ function tribe_get_time_format( ) {
  * @param string|bool $day_cutoff
  *
  * @return int
- * @see Tribe__Events__Date_Utils::date_diff()
+ * @see Tribe__Date_Utils::date_diff()
  **/
 function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
 	if ( $day_cutoff === false ) {
@@ -314,7 +260,7 @@ function tribe_prepare_for_json_deep( $value ) {
  * @param bool $echo Whether or not to echo the notices html
  *
  * @return void | string
- * @see Tribe__Events__Main::getNotices()
+ * @see Tribe__Notices::get()
  **/
 function tribe_the_notices( $echo = true ) {
 	$notices = Tribe__Notices::get();
