@@ -37,8 +37,8 @@ $displayTab = array(
 	/**
 	 * Filter the fields available on the display settings tab
 	 *
-	 * @param array $fields a nested associative array of fields & field info passed to Tribe__Events__Field
-	 * @see Tribe__Events__Field
+	 * @param array $fields a nested associative array of fields & field info passed to Tribe__Field
+	 * @see Tribe__Field
 	 */
 		apply_filters(
 		'tribe_display_settings_tab_fields', array(
@@ -54,7 +54,7 @@ $displayTab = array(
 				'type' => 'html',
 				'html' => '<p>' . sprintf(
 					__( 'The settings below control the display of your calendar. If things don\'t look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href="%s">our themer\'s guide</a> for instructions on custom modifications.', 'tribe-common' ),
-					Tribe__Events__Main::$tecUrl . 'knowledgebase/themers-guide/?utm_medium=plugin-tec&utm_source=generaltab&utm_campaign=in-app'
+					Tribe__Main::$tec_url . 'knowledgebase/themers-guide/?utm_medium=plugin-tec&utm_source=generaltab&utm_campaign=in-app'
 				) . '</p>',
 			),
 			'info-end'                           => array(

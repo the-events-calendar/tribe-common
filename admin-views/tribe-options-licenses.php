@@ -4,7 +4,7 @@ $link = add_query_arg(
 		'utm_campaign' => 'in-app',
 		'utm_medium'   => 'plugin-tec',
 		'utm_source'   => 'notice',
-	), Tribe__Events__Main::$tecUrl . 'license-keys/'
+	), Tribe__Main::$tec_url . 'license-keys/'
 );
 
 $link = esc_url( $link );
@@ -36,11 +36,11 @@ $licenses_tab = array(
 		'type' => 'html',
 		'html' => sprintf(
 			$html,
-			Tribe__Events__Main::$tecUrl,
+			Tribe__Main::$tec_url,
 			$link,
-			Tribe__Events__Main::$tecUrl . 'license-keys/',
+			Tribe__Main::$tec_url . 'license-keys/',
 			$link,
-			Tribe__Events__Main::$tecUrl . 'license-keys/',
+			Tribe__Main::$tec_url . 'license-keys/',
 			admin_url( '/update-core.php' )
 		),
 	),

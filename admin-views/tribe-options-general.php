@@ -23,7 +23,7 @@ $generalTabFields = array(
 	),
 	'upsell-info'                   => array(
 		'type'        => 'html',
-		'html'        => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-common' ) . ' <a href="' . Tribe__Events__Main::$tecUrl . 'products/?utm_source=generaltab&utm_medium=plugin-tec&utm_campaign=in-app">' . __( 'Check out the available add-ons', 'tribe-common' ) . '</a>.</p>',
+		'html'        => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-common' ) . ' <a href="' . Tribe__Main::$tec_url . 'products/?utm_source=generaltab&utm_medium=plugin-tec&utm_campaign=in-app">' . __( 'Check out the available add-ons', 'tribe-common' ) . '</a>.</p>',
 		'conditional' => ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ),
 	),
 	'donate-link-heading'           => array(

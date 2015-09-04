@@ -22,6 +22,10 @@ class Tribe__Main {
 	const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 	protected $plugin_context;
+	protected $plugin_context_class;
+
+	public static $tribe_url = 'http://tri.be/';
+	public static $tec_url = 'http://theeventscalendar.com/';
 
 	public $plugin_dir;
 	public $plugin_path;
@@ -30,8 +34,12 @@ class Tribe__Main {
 	/**
 	 * constructor
 	 */
-	public function __construct( $context ) {
-		$this->plugin_context = $context;
+	public function __construct( $context = null ) {
+		if ( is_object( $context ) ) {
+			$this->plugin_context = $context;
+			$this->plugin_context_class = get_class( $context );
+		}
+
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->plugin_dir );
@@ -44,6 +52,13 @@ class Tribe__Main {
 	 */
 	public function context() {
 		return $this->plugin_context;
+	}
+
+	/**
+	 * Get's the class name of the instantiated plugin context of this class. I.e. the class name of the object that instantiated this one.
+	 */
+	public function context_class() {
+		return $this->plugin_context_class;
 	}
 
 	/**
