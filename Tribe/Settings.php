@@ -175,7 +175,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 						__( 'Events', 'tribe-common' ),
 						__( 'Events', 'tribe-common' ),
 						apply_filters( 'tribe_common_event_page_capability', 'manage_options' ),
-						'tribe-common'
+						'tribe-common',
+						null,
+						'dashicon-calendar'
 					);
 				}
 
