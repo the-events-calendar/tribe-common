@@ -65,12 +65,13 @@ function tribe_get_network_option( $optionName, $default = '' ) {
  * @category Events
  * @param string $resource the filename of the resource
  * @param bool   $echo     whether or not to echo the url
+ * @param string $root_dir directory to hunt for resource files (src or common)
  *
  * @return string
  **/
-function tribe_resource_url( $resource, $echo = false ) {
+function tribe_resource_url( $resource, $echo = false, $root_dir = 'src' ) {
 	$extension = pathinfo( $resource, PATHINFO_EXTENSION );
-	$resources_path = 'src/resources/';
+	$resources_path = $root_dir . '/resources/';
 	switch ( $extension ) {
 		case 'css':
 			$resource_path = $resources_path .'css/';
@@ -363,22 +364,3 @@ function tribe_get_mobile_breakpoint( $default = 768 ) {
 	return apply_filters( 'tribe_events_mobile_breakpoint', $default );
 }
 
-/**
- * Gets the render context of the given query
- *
- * @param WP_Query $query Query object
- * @return string
- */
-function tribe_get_render_context( $query = null ) {
-	global $wp_query;
-
-	if ( ! $query instanceof WP_Query ) {
-		$query = $wp_query;
-	}
-
-	if ( empty( $query->query['tribe_render_context'] ) ) {
-		return 'default';
-	}
-
-	return $query->query['tribe_render_context'];
-}

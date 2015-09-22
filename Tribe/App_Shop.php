@@ -64,7 +64,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$menu_title = __( 'Event Add-Ons', 'tribe-common' );
 			$capability = apply_filters( 'tribe_events_addon_page_capability', 'install_plugins' );
 
-			$where = 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE;
+			$where = Tribe__Settings::$parent_slug;
 
 			$this->admin_page = add_submenu_page(
 				$where, $page_title, $menu_title, $capability, self::MENU_SLUG, array(
@@ -87,7 +87,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			if ( current_user_can( $capability ) ) {
 				global $wp_admin_bar;
 
-				$where = 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE;
+				$where = Tribe__Settings::$parent_slug;
 
 				$wp_admin_bar->add_menu( array(
 					'id'     => 'tribe-events-app-shop',
@@ -102,8 +102,8 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * Enqueue the styles and script
 		 */
 		public function enqueue() {
-			wp_enqueue_style( 'app-shop', tribe_events_resource_url( 'app-shop.css' ), array(), apply_filters( 'tribe_events_css_version', Tribe__Main::VERSION ) );
-			wp_enqueue_script( 'app-shop', tribe_events_resource_url( 'app-shop.js' ), array(), apply_filters( 'tribe_events_js_version', Tribe__Main::VERSION ) );
+			wp_enqueue_style( 'app-shop', tribe_resource_url( 'app-shop.css', false, 'common' ), array(), apply_filters( 'tribe_events_css_version', Tribe__Main::VERSION ) );
+			wp_enqueue_script( 'app-shop', tribe_resource_url( 'app-shop.js', false, 'common' ), array(), apply_filters( 'tribe_events_js_version', Tribe__Main::VERSION ) );
 		}
 
 		/**
@@ -128,7 +128,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 
 				$categories = array_unique( wp_list_pluck( $products, 'category' ) );
 
-				include_once( Tribe__Events__Main::instance()->pluginPath . 'common/admin-views/app-shop.php' );
+				include_once( Tribe__Main::instance()->plugin_path . 'common/admin-views/app-shop.php' );
 			}
 
 		}

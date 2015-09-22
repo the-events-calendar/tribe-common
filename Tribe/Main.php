@@ -91,6 +91,7 @@ class Tribe__Main {
 	 * Adds core hooks
 	 */
 	public function add_hooks() {
+		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_resources' ), 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
