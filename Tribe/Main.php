@@ -121,23 +121,14 @@ class Tribe__Main {
 	 *
 	 * @return Tribe__Main
 	 */
-	public static function instance( $object ) {
-		static $instance = array();
+	public static function instance() {
+		static $instance;
 
-		$object_class = '';
-
-		if ( is_object( $object ) ) {
-			$object_class = get_class( $object );
-		} elseif ( is_string( $object ) ) {
-			$object_class = $object;
-			$object = new $object_class;
-		}
-
-		if ( ! isset( $instance[ $object_class ] ) ) {
+		if ( ! $instance ) {
 			$class_name = __CLASS__;
 			$instance = new $class_name;
 		}
 
-		return $instance[ $object_class ];
+		return $instance;
 	}
 }

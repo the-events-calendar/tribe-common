@@ -1,25 +1,11 @@
 <?php
 
-$tec = Tribe__Events__Main::instance();
+$tec = Tribe__Main::instance();
 
 $generalTabFields = array(
 	'info-start'                    => array(
 		'type' => 'html',
 		'html' => '<div id="modern-tribe-info"><img src="' . plugins_url( 'resources/images/modern-tribe@2x.png', dirname( __FILE__ ) ) . '" alt="Modern Tribe Inc." title="Modern Tribe Inc.">',
-	),
-	'upsell-heading'                => array(
-		'type'        => 'heading',
-		'label'       => __( 'Finding & extending your calendar.', 'tribe-common' ),
-		'conditional' => ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ),
-	),
-	'finding-heading'               => array(
-		'type'        => 'heading',
-		'label'       => __( 'Finding your calendar.', 'tribe-common' ),
-		'conditional' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
-	),
-	'view-calendar-link'            => array(
-		'type' => 'html',
-		'html' => '<p>' . __( 'Where\'s my calendar?', 'tribe-common' ) . ' <a href="' . esc_url( Tribe__Events__Main::instance()->getLink() ) . '">' . __( 'Right here', 'tribe-common' ) . '</a>.</p>',
 	),
 	'upsell-info'                   => array(
 		'type'        => 'html',
@@ -57,71 +43,6 @@ $generalTabFields = array(
 	'tribeEventsDisplayThemeTitle'  => array(
 		'type' => 'html',
 		'html' => '<h3>' . __( 'General Settings', 'tribe-common' ) . '</h3>',
-	),
-	'postsPerPage'                  => array(
-		'type'            => 'text',
-		'label'           => __( 'Number of events to show per page', 'tribe-common' ),
-		'size'            => 'small',
-		'default'         => get_option( 'posts_per_page' ),
-		'validation_type' => 'positive_int',
-	),
-	'liveFiltersUpdate'             => array(
-		'type'            => 'checkbox_bool',
-		'label'           => __( 'Use Javascript to control date filtering', 'tribe-common' ),
-		'tooltip'         => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? __( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.', 'tribe-common' ) : __( 'Enable live ajax for datepicker on front end (User submit not required).', 'tribe-common' ),
-		'attributes'      => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? array( 'disabled' => 'disabled' ) : null,
-		'default'         => true,
-		'validation_type' => 'boolean',
-		'class'           => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? 'tribe-fieldset-disabled' : null,
-	),
-	'showComments'                  => array(
-		'type'            => 'checkbox_bool',
-		'label'           => __( 'Show comments', 'tribe-common' ),
-		'tooltip'         => __( 'Enable comments on event pages.', 'tribe-common' ),
-		'default'         => false,
-		'validation_type' => 'boolean',
-	),
-	'showEventsInMainLoop'          => array(
-		'type'            => 'checkbox_bool',
-		'label'           => __( 'Include events in main blog loop', 'tribe-common' ),
-		'tooltip'         => __( 'Show events with the site\'s other posts. When this box is checked, events will also continue to appear on the default events page.', 'tribe-common' ),
-		'default'         => false,
-		'validation_type' => 'boolean',
-	),
-	'unprettyPermalinksUrl'         => array(
-		'type'        => 'html',
-		'label'       => __( 'Events URL slug', 'tribe-common' ),
-		'html'        => '<p>' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%1$s">%2$s</a>. In order to edit the slug here, <a href="%3$soptions-permalink.php">enable pretty permalinks</a>.', 'tribe-common' ), esc_url( $tec->getLink( 'home' ) ), $tec->getLink( 'home ' ), esc_url( trailingslashit( get_admin_url() ) ) ) . '</p>',
-		'conditional' => ( '' == get_option( 'permalink_structure' ) ),
-	),
-	'eventsSlug'                    => array(
-		'type'            => 'text',
-		'label'           => __( 'Events URL slug', 'tribe-common' ),
-		'default'         => 'events',
-		'validation_type' => 'slug',
-		'conditional'     => ( '' != get_option( 'permalink_structure' ) ),
-	),
-	'current-events-slug'           => array(
-		'type'        => 'html',
-		'html'        => '<p class="tribe-field-indent tribe-field-description description">' . __( 'The slug used for building the events URL.', 'tribe-common' ) . sprintf( __( 'Your current events URL is: %s', 'tribe-common' ), '<code><a href="' . esc_url( tribe_get_events_link() ) . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>',
-		'conditional' => ( '' != get_option( 'permalink_structure' ) ),
-	),
-	'ical-info'                     => array(
-		'type'             => 'html',
-		'display_callback' => ( function_exists( 'tribe_get_ical_link' ) ) ? '<p id="ical-link" class="tribe-field-indent tribe-field-description description">' . __( 'Here is the iCal feed URL for your events:', 'tribe-common' ) . ' <code>' . tribe_get_ical_link() . '</code></p>' : '',
-		'conditional'      => function_exists( 'tribe_get_ical_link' ),
-	),
-	'singleEventSlug'               => array(
-		'type'            => 'text',
-		'label'           => __( 'Single event URL slug', 'tribe-common' ),
-		'default'         => 'event',
-		'validation_type' => 'slug',
-		'conditional'     => ( '' != get_option( 'permalink_structure' ) ),
-	),
-	'current-single-event-slug'     => array(
-		'type'        => 'html',
-		'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'The above should ideally be plural, and this singular.<br />Your single event URL is: %s', 'tribe-common' ), '<code>' . trailingslashit( home_url() ) . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/</code>' ) . '</p>',
-		'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 	),
 	'multiDayCutoff'                => array(
 		'type'            => 'dropdown',
@@ -188,11 +109,6 @@ $generalTabFields = array(
 	'tribeEventsMiscellaneousTitle' => array(
 		'type' => 'html',
 		'html' => '<h3>' . __( 'Miscellaneous Settings', 'tribe-common' ) . '</h3>',
-	),
-	'amalgamateDuplicates'          => array(
-		'type'        => 'html',
-		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'Duplicate Venues &amp; Organizers', 'tribe-common' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( __( 'Merge Duplicates', 'tribe-common' ) ) . '<p class="tribe-field-indent description">' . __( 'You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers.', 'tribe-common' ) . '</p></div></fieldset><div class="clear"></div>',
-		'conditional' => ( Tribe__Settings_Manager::get_option( 'organizer_venue_amalgamation', 0 ) < 1 ),
 	),
 	'viewWelcomePage'          => array(
 		'type'        => 'html',

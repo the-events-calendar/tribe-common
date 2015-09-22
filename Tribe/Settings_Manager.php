@@ -285,12 +285,12 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
-		$parent = 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE;
+		$parent = Tribe__Settings::$parent_slug;
 		$title  = __( 'Help', 'tribe-common' );
 		$slug   = esc_url(
 			add_query_arg(
 				array(
-					'post_type' => Tribe__Events__Main::POSTTYPE,
+					'post_type' => 'tribe_events',//Tribe__Events__Main::POSTTYPE,
 					'page'      => 'tribe-common',
 					'tab'       => 'help',
 				),
