@@ -1,7 +1,5 @@
 <?php
 
-$tec = Tribe__Main::instance();
-
 $generalTabFields = array(
 	'info-start'                    => array(
 		'type' => 'html',
@@ -84,27 +82,6 @@ $generalTabFields = array(
 		'tooltip'         => __( 'The currency symbol normally precedes the value. Enabling this option positions the symbol after the value.', 'tribe-common' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
-	),
-	'tribeEventsDisplayTitle'       => array(
-		'type' => 'html',
-		'html' => '<h3>' . __( 'Map Settings', 'tribe-common' ) . '</h3>',
-	),
-	'embedGoogleMaps'               => array(
-		'type'            => 'checkbox_bool',
-		'label'           => __( 'Enable Google Maps', 'tribe-common' ),
-		'tooltip'         => __( 'Check to enable maps for events and venues.', 'tribe-common' ),
-		'default'         => true,
-		'class'           => 'google-embed-size',
-		'validation_type' => 'boolean',
-	),
-	'embedGoogleMapsZoom'           => array(
-		'type'            => 'text',
-		'label'           => __( 'Google Maps default zoom level', 'tribe-common' ),
-		'tooltip'         => __( '0 = zoomed out; 21 = zoomed in.', 'tribe-common' ),
-		'size'            => 'small',
-		'default'         => 10,
-		'class'           => 'google-embed-field',
-		'validation_type' => 'number_or_percent',
 	),
 	'tribeEventsMiscellaneousTitle' => array(
 		'type' => 'html',

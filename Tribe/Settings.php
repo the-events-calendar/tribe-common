@@ -241,7 +241,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			}
 		}
 
-
 		/**
 		 * generate the main option page
 		 * includes the view file
@@ -309,7 +308,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				echo '</h2>';
 			}
 		}
-
 
 		/**
 		 * validate the settings

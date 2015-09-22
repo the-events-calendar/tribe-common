@@ -18,8 +18,7 @@ class Tribe__Main {
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
 	const VERSION           = '3.12a1';
-	const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
-	const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
+	const FEED_URL          = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -45,6 +44,7 @@ class Tribe__Main {
 		$this->plugin_url  = plugins_url( $this->plugin_dir );
 
 		$this->init_libraries();
+		$this->add_hooks();
 	}
 
 	/**
@@ -71,6 +71,37 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'common/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'common/functions/template-tags/date.php';
 		require_once $this->plugin_path . 'common/functions/template-tags/day.php';
+	}
+
+	/**
+	 * Registers resources that can/should be enqueued
+	 */
+	public function register_resources() {
+		$resources_url = plugins_url( 'common/resources', dirname( dirname( __FILE__ ) ) );
+
+		wp_register_style(
+			'tribe-common-admin',
+			$resources_url . '/css/tribe-common-admin.css',
+			array(),
+			apply_filters( 'tribe_events_css_version', self::VERSION )
+		);
+	}
+
+	/**
+	 * Adds core hooks
+	 */
+	public function add_hooks() {
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_resources' ), 1 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+	}
+
+	public function admin_enqueue_scripts( $screen ) {
+		if ( 'toplevel_page_tribe-common' !== $screen ) {
+			return;
+		}
+
+		do_action( 'debug_robot', '$screen :: ' . print_r( $screen, TRUE ) );
+		wp_enqueue_style( 'tribe-common-admin' );
 	}
 
 	/**
