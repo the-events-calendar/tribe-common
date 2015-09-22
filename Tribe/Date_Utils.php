@@ -262,7 +262,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			$curmonth  = date( 'n', $timestamp );
 			$curYear   = date( 'Y', $timestamp );
 			$nextmonth = mktime( 0, 0, 0, $curmonth + 1, 1, $curYear );
-			$lastDay   = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextmonth ) . ' - 1 day' );
+			$lastDay   = strtotime( date( self::DBDATETIMEFORMAT, $nextmonth ) . ' - 1 day' );
 
 			return date( 'j', $lastDay );
 		}
@@ -301,7 +301,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			$nextdate = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ), self::get_last_day_of_month( $curdate ), date( 'Y', $curdate ) );;
 
 			while ( date( 'N', $nextdate ) != $day_of_week && $day_of_week != - 1 ) {
-				$nextdate = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . ' - 1 day' );
+				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' - 1 day' );
 			}
 
 			return $nextdate;
@@ -321,7 +321,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			while ( ! ( $day_of_week > 0 && date( 'N', $nextdate ) == $day_of_week ) &&
 					! ( $day_of_week == - 1 && self::is_weekday( $nextdate ) ) &&
 					! ( $day_of_week == - 2 && self::is_weekend( $nextdate ) ) ) {
-				$nextdate = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . ' + 1 day' );
+				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' + 1 day' );
 			}
 
 			return $nextdate;

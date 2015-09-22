@@ -66,7 +66,7 @@ class Tribe__Template_Factory {
 	 * @param array               $deps          An array of dependency handles
 	 * @param string              $vendor_url    URL to vendor scripts and styles dir
 	 * @param string              $prefix        MT script and style prefix
-	 * @param Tribe__Events__Main $tec           An instance of the main plugin class
+	 * @param Tribe__Main         $tec           An instance of the main plugin class
 	 */
 	protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
 
@@ -135,7 +135,7 @@ class Tribe__Template_Factory {
 	public static function asset_package( $name, $deps = array() ) {
 
 		$common = Tribe__Main::instance();
-		$prefix = 'tribe-events'; // Tribe__Events__Main::POSTTYPE;
+		$prefix = 'tribe-events';
 
 		// setup plugin resources & 3rd party vendor urls
 		$vendor_url = trailingslashit( $common->plugin_url ) . 'vendor/';
