@@ -54,11 +54,7 @@ class Tribe__Admin__Helpers {
 			return false;
 		}
 
-		$defaults = array(
-			Tribe__Events__Main::POSTTYPE,
-			Tribe__Events__Main::VENUE_POST_TYPE,
-			Tribe__Events__Main::ORGANIZER_POST_TYPE,
-		);
+		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', array() );
 
 		// Match any Post Type form Tribe
 		if ( is_null( $post_type ) && in_array( $current_screen->post_type, $defaults ) ) {

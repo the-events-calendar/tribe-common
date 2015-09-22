@@ -21,6 +21,12 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public static $parent_slug = 'tribe-common';
 
 		/**
+		 * Page of the parent menu
+		 * @var string
+		 */
+		public static $parent_page = 'admin.php';
+
+		/**
 		 * singleton instance var
 		 * @var stdClass
 		 */
@@ -163,6 +169,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			if ( ! is_multisite() || ( is_multisite() && '0' == Tribe__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
 				if ( post_type_exists( 'tribe_events' ) ) {
 					self::$parent_slug = 'edit.php?post_type=tribe_events';
+					self::$parent_page = 'edit.php';
 				} else {
 					add_menu_page(
 						__( 'Events', 'tribe-common' ),
@@ -230,7 +237,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 								'page' => $this->adminSlug,
 								'tab'  => $this->currentTab,
 							),
-							admin_url( 'edit.php' )
+							admin_url( self::$parent_page )
 						)
 					);
 				}
@@ -558,7 +565,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public function get_url() {
 			return apply_filters( 'tribe_settings_url', add_query_arg( array(
 					'page'      => $this->adminSlug,
-				), admin_url( 'edit.php' )
+				), admin_url( self::$parent_page )
 			) );
 		}
 

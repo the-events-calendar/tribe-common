@@ -44,7 +44,7 @@
 		 * @param WP_Post $post    The current post object being saved.
 		 */
 		public function save_post( $post_id, $post ) {
-			if ( in_array( $post->post_type, Tribe__Events__Main::getPostTypes() ) ) {
+			if ( in_array( $post->post_type, Tribe__Main::get_post_types() ) ) {
 				$this->cache->set_last_occurrence( 'save_post' );
 			}
 		}

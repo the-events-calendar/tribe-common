@@ -288,13 +288,14 @@ class Tribe__Settings_Manager {
 		$parent = Tribe__Settings::$parent_slug;
 		$title  = __( 'Help', 'tribe-common' );
 		$slug   = esc_url(
-			add_query_arg(
-				array(
-					'post_type' => 'tribe_events',//Tribe__Events__Main::POSTTYPE,
-					'page'      => 'tribe-common',
-					'tab'       => 'help',
-				),
-				'edit.php'
+			apply_filters( 'tribe_settings_url', 
+				add_query_arg(
+					array(
+						'page'      => 'tribe-common',
+						'tab'       => 'help',
+					),
+					Tribe__Settings::$parent_page
+				)
 			)
 		);
 

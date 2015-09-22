@@ -101,8 +101,15 @@ class Tribe__Main {
 			return;
 		}
 
-		do_action( 'debug_robot', '$screen :: ' . print_r( $screen, TRUE ) );
 		wp_enqueue_style( 'tribe-common-admin' );
+	}
+
+	/**
+	 * Returns the post types registered by Tribe plugins
+	 */
+	public static function get_post_types() {
+		// we default the post type array to empty in tribe-common. Plugins like TEC add to it
+		return apply_filters( 'tribe_post_types', array() );
 	}
 
 	/**
