@@ -83,9 +83,9 @@ class Tribe__Template_Factory {
 	 * @param array               $deps          An array of dependency handles
 	 * @param string              $vendor_url    URL to vendor scripts and styles dir
 	 * @param string              $prefix        MT script and style prefix
-	 * @param Tribe__Events__Main $tec           An instance of the main plugin class
+	 * @param Tribe__Main         $common        An instance of the main plugin class
 	 */
-	protected static function prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $tec ) {
+	protected static function prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $common ) {
 		if ( ! $asset ) {
 			do_action( $prefix . '-' . $name );
 
@@ -96,7 +96,7 @@ class Tribe__Template_Factory {
 		$asset->set_deps( $deps );
 		$asset->set_vendor_url( $vendor_url );
 		$asset->set_prefix( $prefix );
-		$asset->set_tec( $tec );
+		$asset->set_tec( $common );
 
 		$asset->handle();
 	}
