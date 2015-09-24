@@ -141,7 +141,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public function __construct() {
 
 			// set instance variables
-			$this->menuName    = apply_filters( 'tribe_settings_menu_name', __( 'The Events Calendar', 'tribe-common' ) );
+			$this->menuName    = apply_filters( 'tribe_settings_menu_name', esc_html__( 'The Events Calendar', 'tribe-common' ) );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
 			$this->adminSlug   = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
 			$this->errors      = get_option( 'tribe_settings_errors', array() );
@@ -172,8 +172,8 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 					self::$parent_page = 'edit.php';
 				} else {
 					add_menu_page(
-						__( 'Events', 'tribe-common' ),
-						__( 'Events', 'tribe-common' ),
+						esc_html__( 'Events', 'tribe-common' ),
+						esc_html__( 'Events', 'tribe-common' ),
 						apply_filters( 'tribe_common_event_page_capability', 'manage_options' ),
 						'tribe-common',
 						null,
@@ -183,8 +183,8 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 				$this->admin_page = add_submenu_page(
 					self::$parent_slug,
-					__( 'The Events Calendar Settings', 'tribe-common' ),
-					__( 'Settings', 'tribe-common' ),
+					esc_html__( 'The Events Calendar Settings', 'tribe-common' ),
+					esc_html__( 'Settings', 'tribe-common' ),
 					$this->requiredCap,
 					$this->adminSlug,
 					array( $this, 'generatePage' )
@@ -199,7 +199,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 */
 		public function addNetworkPage() {
 			$this->admin_page = add_submenu_page(
-				'settings.php', __( 'The Events Calendar Settings', 'tribe-common' ), __( 'Events Settings', 'tribe-common' ), $this->requiredCap, $this->adminSlug, array(
+				'settings.php', esc_html__( 'The Events Calendar Settings', 'tribe-common' ), esc_html__( 'Events Settings', 'tribe-common' ), $this->requiredCap, $this->adminSlug, array(
 					$this,
 					'generatePage',
 				)
@@ -260,9 +260,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			do_action( 'tribe_settings_top' );
 			echo '<div class="tribe_settings wrap">';
 			screen_icon();
-			echo '<h2>';
-			printf( __( '%s Settings', 'tribe-common' ), $this->menuName );
-			echo '</h2>';
+			echo '<h1>';
+			printf( esc_html__( '%s Settings', 'tribe-common' ), $this->menuName );
+			echo '</h1>';
 			do_action( 'tribe_settings_above_tabs' );
 			$this->generateTabs( $this->currentTab );
 			do_action( 'tribe_settings_below_tabs' );
@@ -331,19 +331,19 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			if ( isset( $_POST['tribeSaveSettings'] ) && isset( $_POST['current-settings-tab'] ) ) {
 				// check permissions
 				if ( ! current_user_can( 'manage_options' ) ) {
-					$this->errors[]    = __( "You don't have permission to do that.", 'tribe-common' );
+					$this->errors[]    = esc_html__( "You don't have permission to do that.", 'tribe-common' );
 					$this->major_error = true;
 				}
 
 				// check the nonce
 				if ( ! wp_verify_nonce( $_POST['tribe-save-settings'], 'saving' ) ) {
-					$this->errors[]    = __( 'The request was sent insecurely.', 'tribe-common' );
+					$this->errors[]    = esc_html__( 'The request was sent insecurely.', 'tribe-common' );
 					$this->major_error = true;
 				}
 
 				// check that the request originated from the current tab
 				if ( $_POST['current-settings-tab'] != $this->currentTab ) {
-					$this->errors[]    = __( "The request wasn't sent from this tab.", 'tribe-common' );
+					$this->errors[]    = esc_html__( "The request wasn't sent from this tab.", 'tribe-common' );
 					$this->major_error = true;
 				}
 
@@ -511,7 +511,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				// output a message if we have errors
 
 				$output = '<div id="message" class="error"><p><strong>';
-				$output .= __( 'Your form had the following errors:', 'tribe-common' );
+				$output .= esc_html__( 'Your form had the following errors:', 'tribe-common' );
 				$output .= '</strong></p><ul class="tribe-errors-list">';
 
 				// loop through each error
@@ -520,7 +520,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				}
 
 				if ( count( $errors ) ) {
-					$message = ( isset( $this->major_error ) && $this->major_error ) ? __( 'None of your settings were saved. Please try again.' ) : _n( 'The above setting was not saved. Other settings were successfully saved.', 'The above settings were not saved. Other settings were successfully saved.', $count, 'tribe-common' );
+					$message = ( isset( $this->major_error ) && $this->major_error )
+						? esc_html__( 'None of your settings were saved. Please try again.' )
+						: esc_html( _n( 'The above setting was not saved. Other settings were successfully saved.', 'The above settings were not saved. Other settings were successfully saved.', $count, 'tribe-common' ) );
 				}
 
 				$output .= '</ul><p>' . $message . '</p></div>';
@@ -542,7 +544,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			// are we coming from the saving place?
 			if ( isset( $_GET['saved'] ) && ! apply_filters( 'tribe_settings_display_errors_or_not', ( $count > 0 ) ) ) {
 				// output the filtered message
-				$message = __( 'Settings saved.', 'tribe-common' );
+				$message = esc_html__( 'Settings saved.', 'tribe-common' );
 				$output  = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
 				echo apply_filters( 'tribe_settings_success_message', $output, $this->currentTab );
 			}

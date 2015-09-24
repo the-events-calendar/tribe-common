@@ -60,8 +60,8 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * Adds the page to the admin menu
 		 */
 		public function add_menu_page() {
-			$page_title = __( 'Event Add-Ons', 'tribe-common' );
-			$menu_title = __( 'Event Add-Ons', 'tribe-common' );
+			$page_title = esc_html__( 'Event Add-Ons', 'tribe-common' );
+			$menu_title = esc_html__( 'Event Add-Ons', 'tribe-common' );
 			$capability = apply_filters( 'tribe_events_addon_page_capability', 'install_plugins' );
 
 			$where = Tribe__Settings::$parent_slug;
@@ -91,7 +91,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 
 				$wp_admin_bar->add_menu( array(
 					'id'     => 'tribe-events-app-shop',
-					'title'  => __( 'Event Add-Ons', 'tribe-common' ),
+					'title'  => esc_html__( 'Event Add-Ons', 'tribe-common' ),
 					'href'   => esc_url( admin_url( untrailingslashit( $where ) . '&page=' . esc_attr( self::MENU_SLUG ) ) ),
 					'parent' => 'tribe-events-settings-group',
 				) );
@@ -128,7 +128,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 
 				$categories = array_unique( wp_list_pluck( $products, 'category' ) );
 
-				include_once( Tribe__Main::instance()->plugin_path . 'common/admin-views/app-shop.php' );
+				include_once Tribe__Main::instance()->plugin_path . 'common/admin-views/app-shop.php';
 			}
 
 		}

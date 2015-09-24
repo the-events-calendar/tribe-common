@@ -43,12 +43,12 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				return;
 			}
 
-			$system_text[] = '<p>' . __( "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood.", 'tribe-common' ) . '</p>';
-			$system_text[] = '<p>' . __( "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team.", 'tribe-common' ) . '</p>';
+			$system_text[] = '<p>' . esc_html__( "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood.", 'tribe-common' ) . '</p>';
+			$system_text[] = '<p>' . esc_html__( "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team.", 'tribe-common' ) . '</p>';
 			$system_text   = implode( $system_text );
 			?>
 
-			<h3><?php esc_html_e( 'System Information', 'tribe-common' ); ?></h3>
+			<h2><?php esc_html_e( 'System Information', 'tribe-common' ); ?></h2>
 			<?php
 			echo apply_filters( 'tribe_help_tab_system', $system_text );
 			echo $this->formattedSupportStats();
@@ -134,12 +134,12 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				'theme'              => wp_get_theme()->get( 'Name' ),
 				'multisite'          => is_multisite(),
 				'settings'           => Tribe__Settings_Manager::get_options(),
-				'WordPress timezone' => get_option( 'timezone_string', __( 'Unknown or not set', 'tribe-common' ) ),
+				'WordPress timezone' => get_option( 'timezone_string', esc_html__( 'Unknown or not set', 'tribe-common' ) ),
 				'server timezone'    => date_default_timezone_get(),
 			);
 
 			if ( $this->rewrite_rules_purged ) {
-				$systeminfo['rewrite rules purged'] = __( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'tribe-common' );
+				$systeminfo['rewrite rules purged'] = esc_html__( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'tribe-common' );
 			}
 
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );

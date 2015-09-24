@@ -14,11 +14,24 @@ $html = __( '<p>The license key you received when completing your purchase from 
 
 // Expand with extra information for mu network users
 if ( is_multisite() ) {
-	$network_all_sites_text = __( '<strong> Using our plugins in a multisite network? </strong>
-		Please note that your license key will be applied to the entire network, not just this site.', 'tribe-common' );
+	$network_all_sites_text = sprintf(
+		esc_html__( '%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site.', 'tribe-common' ),
+		'<strong>',
+		'</strong>'
+	);
 
-	$network_admin_only = is_network_admin() ? __( 'Only license fields for <strong>network activated</strong> plugins will be
-		listed on this screen. ', 'tribe-common' ) : '';
+	$network_admin_only = '';
+
+	if ( is_network_admin() ) {
+		$network_admin_only = sprintf(
+			esc_html__(
+				'Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. ',
+				'tribe-common'
+			),
+			'<strong>',
+			'</strong>'
+		);
+	}
 
 	$html .= "<p> $network_all_sites_text $network_admin_only </p>";
 }
@@ -30,7 +43,7 @@ $licenses_tab = array(
 	),
 	'info-box-title' => array(
 		'type' => 'html',
-		'html' => '<h2>' . __( 'Licenses', 'tribe-common' ) . '</h2>',
+		'html' => '<h2>' . esc_html__( 'Licenses', 'tribe-common' ) . '</h2>',
 	),
 	'info-box-description' => array(
 		'type' => 'html',

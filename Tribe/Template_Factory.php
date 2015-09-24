@@ -171,7 +171,7 @@ class Tribe__Template_Factory {
 		}
 	}
 
-	/*
+	/**
 	 * Playing ping-pong with WooCommerce. They keep changing their script.
 	 * See https://github.com/woothemes/woocommerce/issues/3623
 	 */

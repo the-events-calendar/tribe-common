@@ -12,11 +12,11 @@ $networkTab = array(
 			),
 			'info-box-title'       => array(
 				'type' => 'html',
-				'html' => '<h2>' . __( 'Network Settings', 'tribe-common' ) . '</h2>',
+				'html' => '<h2>' . esc_html__( 'Network Settings', 'tribe-common' ) . '</h2>',
 			),
 			'info-box-description' => array(
 				'type' => 'html',
-				'html' => '<p>' . __( 'This is where all of the global network settings for Modern Tribe\'s The Events Calendar can be modified.', 'tribe-common' ) . '</p>',
+				'html' => '<p>' . esc_html__( 'This is where all of the global network settings for Modern Tribe\'s The Events Calendar can be modified.', 'tribe-common' ) . '</p>',
 			),
 			'info-end'             => array(
 				'type' => 'html',
@@ -24,12 +24,12 @@ $networkTab = array(
 			),
 			'hideSettingsTabs'     => array(
 				'type'            => 'checkbox_list',
-				'label'           => __( 'Hide the following settings tabs on every site:', 'tribe-common' ),
+				'label'           => esc_html__( 'Hide the following settings tabs on every site:', 'tribe-common' ),
 				'default'         => false,
 				'options'         => $allTabs,
 				'validation_type' => 'options_multi',
 				'can_be_empty'    => true,
 			),
 		)
-	)
+	),
 );

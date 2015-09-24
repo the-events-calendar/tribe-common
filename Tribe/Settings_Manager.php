@@ -52,14 +52,14 @@ class Tribe__Settings_Manager {
 
 		$showNetworkTabs = $this->get_network_option( 'showSettingsTabs', false );
 
-		new Tribe__Settings_Tab( 'general', __( 'General', 'tribe-common' ), $generalTab );
-		new Tribe__Settings_Tab( 'display', __( 'Display', 'tribe-common' ), $displayTab );
+		new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'tribe-common' ), $generalTab );
+		new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
 
 		$this->do_licenses_tab();
 
 		new Tribe__Settings_Tab(
 			'help',
-			__( 'Help', 'tribe-common' ),
+			esc_html__( 'Help', 'tribe-common' ),
 			array(
 				'priority'  => 60,
 				'show_save' => false,
@@ -226,7 +226,7 @@ class Tribe__Settings_Manager {
 	public static function do_network_settings_tab() {
 		include_once Tribe__Main::instance()->plugin_path . 'common/admin-views/tribe-options-network.php';
 
-		new Tribe__Settings_Tab( 'network', __( 'Network', 'tribe-common' ), $networkTab );
+		new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'tribe-common' ), $networkTab );
 	}
 
 	/**
@@ -260,7 +260,7 @@ class Tribe__Settings_Manager {
 		 */
 		$license_fields = apply_filters( 'tribe_license_fields', $licenses_tab );
 
-		new Tribe__Settings_Tab( 'licenses', __( 'Licenses', 'tribe-common' ), array(
+		new Tribe__Settings_Tab( 'licenses', esc_html__( 'Licenses', 'tribe-common' ), array(
 			'priority'      => '40',
 			'fields'        => $license_fields,
 			'network_admin' => is_network_admin() ? true : false,
@@ -286,9 +286,9 @@ class Tribe__Settings_Manager {
 		}
 
 		$parent = Tribe__Settings::$parent_slug;
-		$title  = __( 'Help', 'tribe-common' );
+		$title  = esc_html__( 'Help', 'tribe-common' );
 		$slug   = esc_url(
-			apply_filters( 'tribe_settings_url', 
+			apply_filters( 'tribe_settings_url',
 				add_query_arg(
 					array(
 						'page'      => 'tribe-common',
