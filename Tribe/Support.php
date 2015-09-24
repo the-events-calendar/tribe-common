@@ -136,6 +136,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				'settings'           => Tribe__Settings_Manager::get_options(),
 				'WordPress timezone' => get_option( 'timezone_string', esc_html__( 'Unknown or not set', 'tribe-common' ) ),
 				'server timezone'    => date_default_timezone_get(),
+				'common library dir' => $GLOBALS['tribe-common-info']['dir'],
+				'common library version' => $GLOBALS['tribe-common-info']['version'],
 			);
 
 			if ( $this->rewrite_rules_purged ) {
