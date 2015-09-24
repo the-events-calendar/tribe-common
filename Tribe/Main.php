@@ -85,6 +85,26 @@ class Tribe__Main {
 			array(),
 			apply_filters( 'tribe_events_css_version', self::VERSION )
 		);
+
+		wp_register_script(
+			'ba-dotimeout',
+			$resources_url . '/js/jquery.ba-dotimeout.js',
+			array(
+				'jquery',
+			),
+			apply_filters( 'tribe_events_css_version', self::VERSION ),
+			true
+		);
+
+		wp_register_script(
+			'tribe-inline-bumpdown',
+			$resources_url . '/js/inline-bumpdown.js',
+			array(
+				'ba-dotimeout',
+			),
+			apply_filters( 'tribe_events_css_version', self::VERSION ),
+			true
+		);
 	}
 
 	/**
@@ -97,10 +117,7 @@ class Tribe__Main {
 	}
 
 	public function admin_enqueue_scripts( $screen ) {
-		if ( 'toplevel_page_tribe-common' !== $screen ) {
-			return;
-		}
-
+		wp_enqueue_script( 'tribe-inline-bumpdown' );
 		wp_enqueue_style( 'tribe-common-admin' );
 	}
 

@@ -364,3 +364,40 @@ a.tribe-rating-link {
 .tribe-update-bar .progress .bar {
 	background: #7ad03a;
 }
+
+/* bumpdown */
+.bumpdown {
+	background: #f1f1f1;
+	margin: 1rem 0;
+	padding: 1rem 1.5rem 1rem 1rem;
+	position: relative;
+}
+
+#poststuff .bumpdown h1,
+#poststuff .bumpdown h2,
+#poststuff .bumpdown h3,
+#poststuff .bumpdown h4,
+.bumpdown h1,
+.bumpdown h2,
+.bumpdown h3,
+.bumpdown h4 {
+	padding-left: 0;
+	padding-top: 0;
+}
+
+.bumpdown-arrow {
+	display: none;
+}
+
+.bumpdown-close {
+	color: #686868;
+	cursor: pointer;
+	position: absolute;
+	right: .5rem;
+	top: .5rem;
+	z-index: 2;
+}
+
+.bumpdown-trigger .target {
+	color: #0074a2;
+}
