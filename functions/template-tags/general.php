@@ -364,3 +364,37 @@ function tribe_get_mobile_breakpoint( $default = 768 ) {
 	return apply_filters( 'tribe_events_mobile_breakpoint', $default );
 }
 
+/**
+ * Receives a float and formats it with a currency symbol
+ *
+ * @category Cost
+ * @param string $cost pricing to format
+ * @param null|int $post_id
+ * @param null|string $currency_symbol
+ * @param null|bool $reverse_position
+ *
+ * @return string
+ */
+function tribe_format_currency( $cost, $post_id = null, $currency_symbol = null, $reverse_position = null ) {
+
+	$post_id = Tribe__Main::post_id_helper( $post_id );
+
+	$currency_symbol = apply_filters( 'tribe_currency_symbol', $currency_symbol, $post_id );
+
+	// if no currency symbol was passed, or we're not looking at a particular event,
+	// let's get the default currency symbol
+	if ( ! $post_id || ! $currency_symbol ) {
+		$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
+	}
+
+	$reverse_position = apply_filters( 'tribe_reverse_currency_position', $reverse_position, $post_id );
+
+	if ( ! $reverse_position || ! $post_id ) {
+		$reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
+	}
+
+	$cost = $reverse_position ? $cost . $currency_symbol : $currency_symbol . $cost;
+
+	return $cost;
+
+}

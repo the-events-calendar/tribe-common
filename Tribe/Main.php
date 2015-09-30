@@ -173,6 +173,28 @@ class Tribe__Main {
 	}
 
 	/**
+	 * Helper function for getting Post Id. Accepts null or a post id. If no $post object exists, returns false to avoid a PHP NOTICE
+	 *
+	 * @param int $postId (optional)
+	 *
+	 * @return int post ID
+	 */
+	public static function post_id_helper( $post_id = null ) {
+		if ( $post_id != null && is_numeric( $post_id ) > 0 ) {
+			return (int) $post_id;
+		} elseif ( is_object( $post_id ) && ! empty( $post_id->ID ) ) {
+			return (int) $post_id->ID;
+		} else {
+			global $post;
+			if ( is_object( $post ) ) {
+				return get_the_ID();
+			} else {
+				return false;
+			}
+		}
+	}
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Main
