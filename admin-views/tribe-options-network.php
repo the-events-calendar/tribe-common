@@ -12,7 +12,7 @@ $networkTab = array(
 			),
 			'info-box-title'       => array(
 				'type' => 'html',
-				'html' => '<h2>' . esc_html__( 'Network Settings', 'tribe-common' ) . '</h2>',
+				'html' => '<h1>' . esc_html__( 'Network Settings', 'tribe-common' ) . '</h1>',
 			),
 			'info-box-description' => array(
 				'type' => 'html',
