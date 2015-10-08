@@ -68,16 +68,16 @@ class Tribe__Main {
 		Tribe__Debug::instance();
 		Tribe__Settings_Manager::instance();
 
-		require_once $this->plugin_path . 'common/functions/template-tags/general.php';
-		require_once $this->plugin_path . 'common/functions/template-tags/date.php';
-		require_once $this->plugin_path . 'common/functions/template-tags/day.php';
+		require_once $this->plugin_path . 'common/src/functions/template-tags/general.php';
+		require_once $this->plugin_path . 'common/src/functions/template-tags/date.php';
+		require_once $this->plugin_path . 'common/src/functions/template-tags/day.php';
 	}
 
 	/**
 	 * Registers resources that can/should be enqueued
 	 */
 	public function register_resources() {
-		$resources_url = plugins_url( 'common/resources', dirname( dirname( __FILE__ ) ) );
+		$resources_url = plugins_url( 'common/src/resources', dirname( dirname( __FILE__ ) ) );
 
 		wp_register_style(
 			'tribe-common-admin',
