@@ -89,7 +89,7 @@ function tribe_resource_url( $resource, $echo = false, $root_dir = 'src' ) {
 
 	$path = $resource_path . $resource;
 
-	$plugin_path = trailingslashit( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) );
+	$plugin_path = trailingslashit( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) );
 	$plugin_dir  = trailingslashit( basename( $plugin_path ) );
 	$url  = plugins_url( $plugin_dir );
 
