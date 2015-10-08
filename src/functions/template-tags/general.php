@@ -71,6 +71,11 @@ function tribe_get_network_option( $optionName, $default = '' ) {
  **/
 function tribe_resource_url( $resource, $echo = false, $root_dir = 'src' ) {
 	$extension = pathinfo( $resource, PATHINFO_EXTENSION );
+
+	if ( 'src' !== $root_dir ) {
+		$root_dir .= '/src';
+	}
+
 	$resources_path = $root_dir . '/resources/';
 	switch ( $extension ) {
 		case 'css':

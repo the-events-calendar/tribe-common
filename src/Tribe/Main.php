@@ -77,7 +77,7 @@ class Tribe__Main {
 	 * Registers resources that can/should be enqueued
 	 */
 	public function register_resources() {
-		$resources_url = plugins_url( 'common/src/resources', dirname( dirname( __FILE__ ) ) );
+		$resources_url = plugins_url( 'common/src/resources', dirname( dirname( dirname( __FILE__ ) ) ) );
 
 		wp_register_style(
 			'tribe-common-admin',
