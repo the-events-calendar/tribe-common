@@ -39,9 +39,11 @@ class Tribe__Main {
 			$this->plugin_context_class = get_class( $context );
 		}
 
-		$this->plugin_path = trailingslashit( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) );
+		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->plugin_dir );
+
+		$this->init_autoloading();
 
 		$this->init_libraries();
 		$this->add_hooks();
@@ -52,6 +54,20 @@ class Tribe__Main {
 	 */
 	public function context() {
 		return $this->plugin_context;
+	}
+
+	/**
+	 * Setup the autoloader for common files
+	 */
+	protected function init_autoloading() {
+		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
+			require_once dirname( __FILE__ ) . '/Autoloader.php';
+		}
+
+		$prefixes = array( 'Tribe__' => dirname( __FILE__ ) );
+		$autoloader = Tribe__Autoloader::instance();
+		$autoloader->register_prefixes( $prefixes );
+		$autoloader->register_autoloader();
 	}
 
 	/**
@@ -68,16 +84,16 @@ class Tribe__Main {
 		Tribe__Debug::instance();
 		Tribe__Settings_Manager::instance();
 
-		require_once $this->plugin_path . 'common/src/functions/template-tags/general.php';
-		require_once $this->plugin_path . 'common/src/functions/template-tags/date.php';
-		require_once $this->plugin_path . 'common/src/functions/template-tags/day.php';
+		require_once $this->plugin_path . '/src/functions/template-tags/general.php';
+		require_once $this->plugin_path . '/src/functions/template-tags/date.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/day.php';
 	}
 
 	/**
 	 * Registers resources that can/should be enqueued
 	 */
 	public function register_resources() {
-		$resources_url = plugins_url( 'common/src/resources', dirname( dirname( dirname( __FILE__ ) ) ) );
+		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
 
 		wp_register_style(
 			'tribe-common-admin',
@@ -116,7 +132,7 @@ class Tribe__Main {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
-	public function admin_enqueue_scripts( $screen ) {
+	public function admin_enqueue_scripts() {
 		wp_enqueue_script( 'tribe-inline-bumpdown' );
 		wp_enqueue_style( 'tribe-common-admin' );
 	}

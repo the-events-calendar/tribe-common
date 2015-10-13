@@ -47,8 +47,8 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public function do_setting_tabs() {
-		include_once Tribe__Main::instance()->plugin_path . 'common/src/admin-views/tribe-options-general.php';
-		include_once Tribe__Main::instance()->plugin_path . 'common/src/admin-views/tribe-options-display.php';
+		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-general.php';
+		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-display.php';
 
 		$showNetworkTabs = $this->get_network_option( 'showSettingsTabs', false );
 
@@ -224,7 +224,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function do_network_settings_tab() {
-		include_once Tribe__Main::instance()->plugin_path . 'common/src/admin-views/tribe-options-network.php';
+		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-network.php';
 
 		new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'tribe-common' ), $networkTab );
 	}
@@ -251,7 +251,7 @@ class Tribe__Settings_Manager {
 		/**
 		 * @var $licenses_tab
 		 */
-		include Tribe__Main::instance()->plugin_path . 'common/src/admin-views/tribe-options-licenses.php';
+		include Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-licenses.php';
 
 		/**
 		 * Allows the fields displayed in the licenses tab to be modified.
@@ -271,7 +271,7 @@ class Tribe__Settings_Manager {
 	 * Create the help tab
 	 */
 	public function do_help_tab() {
-		include_once Tribe__Main::instance()->plugin_path . 'common/src/admin-views/tribe-options-help.php';
+		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-help.php';
 	}
 
 	/**
