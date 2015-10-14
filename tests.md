@@ -1,4 +1,4 @@
-# Events Calendar PRO tests
+# Tribe Common tests
 
 This is a brief and quick guide that's covering the bare essentials needed to set up the tests on your local plugin copy.
 Please refer to [Codeception](http://codeception.com/docs) and [WP Browser](https://github.com/lucatume/wp-browser) documentation for any issue that's not TEC related.
