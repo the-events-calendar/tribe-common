@@ -40,7 +40,7 @@ class Tribe__Notices {
 	 * @return bool
 	 */
 	public static function remove_notice( $key ) {
-		if ( self::isNotice( $key ) ) {
+		if ( self::is_notice( $key ) ) {
 			unset( self::instance()->notices[ $key ] );
 
 			return true;
