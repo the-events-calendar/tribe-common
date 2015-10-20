@@ -32,11 +32,11 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the list of plugins
 	 *
-	 * @param  string  $plugin    Should get only one plugin?
+	 * @param  string  $plugin_name    Should get only one plugin?
 	 * @param  boolean $is_active Only get active plugins?
 	 * @return array
 	 */
-	public function get_plugins( $plugin = null, $is_active = true ) {
+	public function get_plugins( $plugin_name = null, $is_active = true ) {
 		$plugins = array();
 
 		$plugins['the-events-calendar'] = array(
@@ -77,7 +77,7 @@ class Tribe__Admin__Help_Page {
 			'api' => 'http://wpapi.org/api/plugin/advanced-post-manager.php',
 			'repo' => 'http://wordpress.org/extend/plugins/advanced-post-manager/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/advanced-post-manager?filter=5',
-			'description' => null,
+			'description' => __( 'Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes.', 'tribe-common' ),
 			'is_active' => false,
 			'version' => null,
 		);
@@ -98,9 +98,9 @@ class Tribe__Admin__Help_Page {
 		}
 
 		// Do the search
-		if ( is_string( $plugin ) ) {
-			if ( isset( $plugins[ $plugin ] ) ) {
-				return $plugins[ $plugin ];
+		if ( is_string( $plugin_name ) ) {
+			if ( isset( $plugins[ $plugin_name ] ) ) {
+				return $plugins[ $plugin_name ];
 			} else {
 				return false;
 			}
@@ -184,7 +184,7 @@ class Tribe__Admin__Help_Page {
 		);
 
 		$addons[] = array(
-			'title' => esc_html__( 'Events Tickets Plus', 'tribe-common' ),
+			'title' => esc_html__( 'Event Tickets Plus', 'tribe-common' ),
 			'link'  => '@TODO',
 			'plugin' => array( 'event-tickets' ),
 			'is_active' => class_exists( 'Tribe__Tickets_Plus__Main' ),
