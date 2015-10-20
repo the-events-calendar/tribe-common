@@ -83,6 +83,7 @@ class Tribe__Admin__Help_Page {
 		);
 
 		if ( class_exists( 'Tribe_APM' ) ){
+			$plugins['advanced-post-manager']['version'] = 1;
 			$plugins['advanced-post-manager']['is_active'] = true;
 		}
 
@@ -338,6 +339,7 @@ class Tribe__Admin__Help_Page {
 		$plugin = (object) $this->get_plugins( $plugin, false );
 		$api_data = $this->get_plugin_api_data( $plugin );
 		$addons = $this->get_addons( $plugin->name );
+		$plugins = get_plugins();
 
 		if ( $api_data ) {
 			if ( ! function_exists( 'install_plugin_install_status' ) ) {
@@ -345,6 +347,7 @@ class Tribe__Admin__Help_Page {
 			}
 			$status = install_plugin_install_status( $api_data );
 			$plugin_active = is_plugin_active( $status['file'] );
+			$plugin_exists = isset( $plugins[ $status['file'] ] );
 
 			if ( 'install' !== $status['status'] && ! $plugin_active ){
 				$args = array(
@@ -364,7 +367,7 @@ class Tribe__Admin__Help_Page {
 				$update_url = wp_nonce_url( add_query_arg( $args, 'update.php' ), 'upgrade-plugin_' . $status['file'] );
 
 				$link = '<a class="button" href="' . $update_url . '">' . esc_html__( 'Upgrade Plugin', 'tribe-common' ) . '</a>';
-			} else {
+			} elseif ( $plugin_exists ) {
 				$link = '<a class="button disabled">' . esc_html__( 'You are up to date!', 'tribe-common' ) . '</a>';
 			}
 		}
