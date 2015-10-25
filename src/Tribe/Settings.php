@@ -510,8 +510,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 */
 		public function displayErrors() {
 
-			var_dump( $this->get_url() );
-
 			// fetch the errors and filter them
 			$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors );
 			$count  = apply_filters( 'tribe_settings_count_errors', count( $errors ) );
@@ -575,11 +573,16 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_url() {
-			return apply_filters( 'tribe_settings_url', add_query_arg( array(
-					'page'      => $this->adminSlug,
-				), admin_url( self::$parent_page )
-			) );
+		public function get_url( array $args = array() ) {
+			$defaults = array(
+				'page' => $this->adminSlug,
+			);
+
+			// Allow the link to be "changed" on the fly
+			$args = wp_parse_args( $args, $defaults );
+			$url = admin_url( self::$parent_page );
+
+			return esc_url( apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url ) );
 		}
 
 	} // end class
