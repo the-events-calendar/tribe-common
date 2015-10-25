@@ -89,12 +89,12 @@ $generalTabFields = array(
 	),
 	'viewWelcomePage'          => array(
 		'type'        => 'html',
-		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'View Welcome Page', 'tribe-common' ) . '</legend><div class="tribe-field-wrap"><a href="' . esc_url( get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-welcome-message' ) . '" class="button">' . esc_html__( 'View Welcome Page', 'tribe-common' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'tribe-common' ) . '</p></div></fieldset><div class="clear"></div>',
+		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'View Welcome Page', 'tribe-common' ) . '</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instace()->get_url( array( 'tec-welcome-message' => true ) ) . '" class="button">' . esc_html__( 'View Welcome Page', 'tribe-common' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'tribe-common' ) . '</p></div></fieldset><div class="clear"></div>',
 
 	),
 	'viewUpdatePage'          => array(
 		'type'        => 'html',
-		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'View Update Page', 'tribe-common' ) . '</legend><div class="tribe-field-wrap"><a href="' . esc_url( get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-update-message' ) . '" class="button">' . esc_html__( 'View Update Page', 'tribe-common' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you updated the plugin.', 'tribe-common' ) . '</p></div></fieldset><div class="clear"></div>',
+		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'View Update Page', 'tribe-common' ) . '</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instace()->get_url( array( 'tec-update-message' => true ) ) . '" class="button">' . esc_html__( 'View Update Page', 'tribe-common' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you updated the plugin.', 'tribe-common' ) . '</p></div></fieldset><div class="clear"></div>',
 	),
 );
 
