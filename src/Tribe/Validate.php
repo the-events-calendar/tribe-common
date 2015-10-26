@@ -178,7 +178,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must be a positive number.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a positive number.', 'tribe-common' ), $this->label );
 			}
 		}
 
@@ -192,7 +192,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must be a positive number or percent.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a positive number or percent.', 'tribe-common' ), $this->label );
 			}
 		}
 
