@@ -21,9 +21,8 @@ class Tribe__Admin__Helpers {
 	 * @return Tribe__Admin__Helpers
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) ) {
-			$className      = __CLASS__;
-			self::$instance = new $className;
+		if ( empty( self::$instance ) ) {
+			self::$instance = new self();
 		}
 
 		return self::$instance;

@@ -1,14 +1,9 @@
 <?php
 
 /**
- * Handles output of The Events Calendar credtis
+ * Handles output of The Events Calendar credits
  */
 class Tribe__Credits {
-
-	/**
-	 * @var $instance
-	 */
-	private static $instance = null;
 
 	public static function init() {
 		self::instance()->hook();
@@ -58,6 +53,11 @@ class Tribe__Credits {
 
 		return $footer_text;
 	}
+
+	/**
+	 * @var $instance
+	 */
+	private static $instance = null;
 
 	/**
 	 * @return self

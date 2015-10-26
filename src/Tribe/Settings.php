@@ -27,12 +27,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public static $parent_page = 'admin.php';
 
 		/**
-		 * singleton instance var
-		 * @var stdClass
-		 */
-		public static $instance;
-
-		/**
 		 * @var Tribe__Admin__Live_Date_Preview
 		 */
 		public $live_date_preview;
@@ -125,14 +119,19 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public $validated;
 
 		/**
+		 * Static Singleton Holder
+		 * @var Tribe__Settings|null
+		 */
+		private static $instance;
+
+		/**
 		 * Static Singleton Factory Method
 		 *
 		 * @return Tribe__Settings
 		 */
 		public static function instance() {
-			if ( ! isset( self::$instance ) ) {
-				$className      = __CLASS__;
-				self::$instance = new $className;
+			if ( empty( self::$instance ) ) {
+				self::$instance = new self();
 			}
 
 			return self::$instance;
@@ -574,11 +573,16 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_url() {
-			return apply_filters( 'tribe_settings_url', add_query_arg( array(
-					'page'      => $this->adminSlug,
-				), admin_url( self::$parent_page )
-			) );
+		public function get_url( array $args = array() ) {
+			$defaults = array(
+				'page' => $this->adminSlug,
+			);
+
+			// Allow the link to be "changed" on the fly
+			$args = wp_parse_args( $args, $defaults );
+			$url = admin_url( self::$parent_page );
+
+			return esc_url( apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url ) );
 		}
 
 	} // end class
