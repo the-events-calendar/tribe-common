@@ -164,7 +164,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->value         = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must contain numbers, letters and dots only', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters and dots only', 'tribe-common' ), $this->label );
 			}
 		}
 
