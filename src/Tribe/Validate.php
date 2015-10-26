@@ -164,7 +164,35 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->value         = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters and dots only', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( __( '%s must contain numbers, letters and dots only', 'tribe-common' ), $this->label );
+			}
+		}
+
+		/**
+		 * validates a field as being positive decimal
+		 *
+		 * @return stdClass validation result object
+		 */
+		public function positive_decimal() {
+			if ( preg_match( '/^[0-9]+(\.[0-9]+)?$/', $this->value ) && $this->value > 0 ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __( '%s must be a positive number.', 'tribe-events-calendar' ), $this->label );
+			}
+		}
+
+		/**
+		 * validates a field as being positive decimal or percent
+		 *
+		 * @return stdClass validation result object
+		 */
+		public function positive_decimal_or_percent() {
+			if ( preg_match( '/^[0-9]+(\.[0-9]+)?%?$/', $this->value ) && $this->value > 0 ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __( '%s must be a positive number or percent.', 'tribe-events-calendar' ), $this->label );
 			}
 		}
 
