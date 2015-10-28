@@ -211,7 +211,7 @@ class Tribe__Settings_Manager {
 	public static function add_network_options_page() {
 		$tribe_settings = Tribe__Settings::instance();
 		add_submenu_page(
-			'settings.php', $this->pluginName, $this->pluginName, 'manage_network_options', 'tribe-common', array(
+			'settings.php', $tribe_settings->menuName, $tribe_settings->menuName, 'manage_network_options', 'tribe-common', array(
 				$tribe_settings,
 				'generatePage',
 			)
