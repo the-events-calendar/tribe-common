@@ -40,10 +40,10 @@ class Tribe__Admin__Help_Page {
 
 		$plugins['the-events-calendar'] = array(
 			'name' => 'the-events-calendar',
-			'title' => __( 'The Events Calendar', 'tribe-common' ),
+			'title' => esc_html__( 'The Events Calendar', 'tribe-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/the-events-calendar/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5',
-			'description' => __( 'The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events.', 'tribe-common' ),
+			'description' => esc_html__( 'The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events.', 'tribe-common' ),
 			'is_active' => false,
 			'version' => null,
 		);
@@ -55,10 +55,10 @@ class Tribe__Admin__Help_Page {
 
 		$plugins['event-tickets'] = array(
 			'name' => 'event-tickets',
-			'title' => __( 'Event Tickets', 'tribe-common' ),
+			'title' => esc_html__( 'Event Tickets', 'tribe-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/event-tickets/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/event-tickets?filter=5',
-			'description' => __( 'Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events.', 'tribe-common' ),
+			'description' => esc_html__( 'Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events.', 'tribe-common' ),
 			'is_active' => false,
 			'version' => null,
 		);
@@ -70,10 +70,10 @@ class Tribe__Admin__Help_Page {
 
 		$plugins['advanced-post-manager'] = array(
 			'name' => 'advanced-post-manager',
-			'title' => __( 'Advanced Post Manager', 'tribe-common' ),
+			'title' => esc_html__( 'Advanced Post Manager', 'tribe-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/advanced-post-manager/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/advanced-post-manager?filter=5',
-			'description' => __( 'Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes.', 'tribe-common' ),
+			'description' => esc_html__( 'Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes.', 'tribe-common' ),
 			'is_active' => false,
 			'version' => null,
 		);
@@ -398,7 +398,7 @@ class Tribe__Admin__Help_Page {
 					's' => '',
 				);
 				$activate_url = wp_nonce_url( add_query_arg( $args, 'plugins.php' ), 'activate-plugin_' . $status['file'] );
-				$link = '<a class="button" href="' . $activate_url . '" aria-label="' . esc_attr( sprintf( __( 'Activate %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Activate Plugin', 'tribe-common' ) . '</a>';
+				$link = '<a class="button" href="' . $activate_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Activate %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Activate Plugin', 'tribe-common' ) . '</a>';
 			} elseif ( 'update_available' === $status['status'] ) {
 				$args = array(
 					'action' => 'upgrade-plugin',
@@ -422,7 +422,7 @@ class Tribe__Admin__Help_Page {
 					'height' => 600,
 				);
 				$iframe_url = add_query_arg( $args, admin_url( '/plugin-install.php' ) );
-				$link = '<a class="button thickbox" href="' . $iframe_url . '" aria-label="' . esc_attr( sprintf( __( 'Install %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Install Plugin', 'tribe-common' ) . '</a>';
+				$link = '<a class="button thickbox" href="' . $iframe_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Install %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Install Plugin', 'tribe-common' ) . '</a>';
 			} else {
 				$link = null;
 			}
@@ -438,25 +438,28 @@ class Tribe__Admin__Help_Page {
 			?>
 
 			<?php if ( $api_data ) { ?>
-			<div>
-				<b><?php esc_html_e( 'Latest Version:', 'tribe-common' ); ?></b> <?php echo esc_html( $api_data->version ); ?>
-				<br />
+			<dl>
+				<dt><?php esc_html_e( 'Latest Version:', 'tribe-common' ); ?></dt>
+				<dd><?php echo esc_html( $api_data->version ); ?></dd>
+				<br>
 
-				<b><?php esc_html_e( 'Requires:', 'tribe-common' ); ?></b> <?php echo esc_html__( 'WordPress ', 'tribe-common' ) . esc_html( $api_data->requires ); ?>+
-				<br />
+				<dt><?php esc_html_e( 'Requires:', 'tribe-common' ); ?></dt>
+				<dd><?php echo esc_html__( 'WordPress ', 'tribe-common' ) . esc_html( $api_data->requires ); ?>+</dd>
+				<br>
 
-				<b><?php esc_html_e( 'Active Users:', 'tribe-common' ); ?></b> <?php echo esc_html( number_format( $api_data->active_installs ) ); ?>+
-				<br />
+				<dt><?php esc_html_e( 'Active Users:', 'tribe-common' ); ?></dt>
+				<dd><?php echo esc_html( number_format( $api_data->active_installs ) ); ?>+</dd>
+				<br>
 
-				<b><?php esc_html_e( 'Rating:', 'tribe-common' ); ?></b>
-				<a href="<?php echo esc_url( $plugin->stars_url ); ?>" target="_blank">
+				<dt><?php esc_html_e( 'Rating:', 'tribe-common' ); ?></dt>
+				<dd><a href="<?php echo esc_url( $plugin->stars_url ); ?>" target="_blank">
 				<?php wp_star_rating( array(
 					'rating' => $api_data->rating,
 					'type'   => 'percent',
 					'number' => $api_data->num_ratings,
 				) );?>
-				</a>
-			</div>
+				</a></dd>
+			</dl>
 			<?php } ?>
 
 			<?php
