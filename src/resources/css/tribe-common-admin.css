@@ -93,7 +93,6 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-help-plugin-info dt,
 .tribe-help-plugin-info dd {
 	display: inline;
-	line-height: 1.9em;
 	margin: 0;
 }
 
@@ -102,8 +101,13 @@ td.tribe_message {padding-bottom: 10px !important;}
 }
 
 .tribe-help-plugin-info dd::after {
-	content: '';
-	display: block;
+  content: '';
+  display: block;
+  height: .4em;
+}
+
+.tribe-help-plugin-info dd:last-child::after {
+  height: 0;
 }
 
 .tribe-help-plugin-info + .tribe-help-plugin-info {
@@ -116,7 +120,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 
 .tribe-help-plugin-info .star-rating {
 	display: inline-block;
-	top: 2px;
+	top: -2px;
 	margin-left: 3px;
 	position: relative;
 }
