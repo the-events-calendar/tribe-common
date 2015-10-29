@@ -11,19 +11,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Tribe__Admin__Help_Page {
 	/**
 	 * Static Singleton Holder
-	 * @var Tribe__Admin__Helpers|null
+	 * @var Tribe__Admin__Help_Page|null
 	 */
 	protected static $instance;
 
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Admin__Helpers
+	 * @return Tribe__Admin__Help_Page
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
-			$className      = __CLASS__;
-			self::$instance = new $className;
+			self::$instance = new self;
 		}
 
 		return self::$instance;
@@ -42,7 +41,6 @@ class Tribe__Admin__Help_Page {
 		$plugins['the-events-calendar'] = array(
 			'name' => 'the-events-calendar',
 			'title' => __( 'The Events Calendar', 'tribe-common' ),
-			'api' => 'http://wpapi.org/api/plugin/the-events-calendar.php',
 			'repo' => 'http://wordpress.org/extend/plugins/the-events-calendar/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5',
 			'description' => __( 'The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events.', 'tribe-common' ),
@@ -58,7 +56,6 @@ class Tribe__Admin__Help_Page {
 		$plugins['event-tickets'] = array(
 			'name' => 'event-tickets',
 			'title' => __( 'Event Tickets', 'tribe-common' ),
-			'api' => 'http://wpapi.org/api/plugin/event-tickets.php',
 			'repo' => 'http://wordpress.org/extend/plugins/event-tickets/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/event-tickets?filter=5',
 			'description' => __( 'Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events.', 'tribe-common' ),
@@ -74,7 +71,6 @@ class Tribe__Admin__Help_Page {
 		$plugins['advanced-post-manager'] = array(
 			'name' => 'advanced-post-manager',
 			'title' => __( 'Advanced Post Manager', 'tribe-common' ),
-			'api' => 'http://wpapi.org/api/plugin/advanced-post-manager.php',
 			'repo' => 'http://wordpress.org/extend/plugins/advanced-post-manager/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/advanced-post-manager?filter=5',
 			'description' => __( 'Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes.', 'tribe-common' ),
@@ -251,7 +247,7 @@ class Tribe__Admin__Help_Page {
 			 *
 			 * @param int $max_items default 5
 			 */
-			$maxitems  = $news_rss->get_item_quantity( apply_filters( 'tribe_help_tab_rss_max_items', 5 ) );
+			$maxitems  = $news_rss->get_item_quantity( apply_filters( 'tribe_help_rss_max_items', 5 ) );
 			$rss_items = $news_rss->get_items( 0, $maxitems );
 			if ( count( $maxitems ) > 0 ) {
 				foreach ( $rss_items as $item ) {
@@ -279,9 +275,6 @@ class Tribe__Admin__Help_Page {
 		}
 
 		$plugin = (object) $plugin;
-		if ( empty( $plugin->api ) ){
-			return false;
-		}
 
 		/**
 		 * Filter the amount of time (seconds) we will keep api data to avoid too many external calls
@@ -327,6 +320,48 @@ class Tribe__Admin__Help_Page {
 		 * @var object The plugin object, check `$this->get_plugins()` for more info
 		 */
 		return (object) apply_filters( 'tribe_help_api_data', $data, $plugin );
+	}
+
+	public function get_html_from_text( $mixed = '' ) {
+		// If it's an StdObj or String it will be converted
+		$mixed = (array) $mixed;
+
+		// Loop to start the HTML
+		foreach ( $mixed as &$line ) {
+			if ( is_string( $line ) ){
+				continue;
+			} elseif ( is_array( $line ) ) {
+				// Allow the developer to pass some configuration
+				if ( empty( $line['type'] ) || ! in_array( $line['type'], array( 'ul', 'ol' ) ) ){
+					$line['type'] = 'ul';
+				}
+
+				$text = '<' . $line['type'] . '>' . "\n";
+				foreach ( $line as $key => $item ) {
+					// Don't add non-numeric items (a.k.a.: configuration)
+					if ( ! is_numeric( $key ) ) {
+						continue;
+					}
+
+					// Only add List Item if is a UL or OL
+					if ( in_array( $line['type'], array( 'ul', 'ol' ) ) ){
+						$text .= '<li>' . "\n";
+					}
+
+					$text .= $this->get_html_from_text( $item );
+
+					if ( in_array( $line['type'], array( 'ul', 'ol' ) ) ){
+						$text .= '</li>' . "\n";
+					}
+				}
+				$text .= '</' . $line['type'] . '>' . "\n";
+
+				// Create the list as html instead of array
+				$line = $text;
+			}
+		}
+
+		return wpautop( implode( "\n\n", $mixed ) );
 	}
 
 	/**
