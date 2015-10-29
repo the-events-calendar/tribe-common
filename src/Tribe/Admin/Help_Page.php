@@ -322,6 +322,11 @@ class Tribe__Admin__Help_Page {
 		return (object) apply_filters( 'tribe_help_api_data', $data, $plugin );
 	}
 
+	/**
+	 * Parses the help text from an Array to the final HTML
+	 * @param  string|array $mixed The mixed value to create the HTML from
+	 * @return string
+	 */
 	public function get_html_from_text( $mixed = '' ) {
 		// If it's an StdObj or String it will be converted
 		$mixed = (array) $mixed;
@@ -332,7 +337,7 @@ class Tribe__Admin__Help_Page {
 				continue;
 			} elseif ( is_array( $line ) ) {
 				// Allow the developer to pass some configuration
-				if ( empty( $line['type'] ) || ! in_array( $line['type'], array( 'ul', 'ol' ) ) ){
+				if ( empty( $line['type'] ) ){
 					$line['type'] = 'ul';
 				}
 
