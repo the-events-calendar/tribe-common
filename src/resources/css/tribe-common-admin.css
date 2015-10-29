@@ -84,7 +84,67 @@ td.tribe_message {padding-bottom: 10px !important;}
 #tribe-help-general, #tribe-help-sidebar {float: left;}
 #tribe-help-general {width: 70%;}
 #tribe-help-sidebar {width: 25%; max-width: 200px; margin: 20px 0 0 5%;}
-#tribe-help-plugin-info {border: 1px solid #CCC; padding: 0 12px;}
+
+.tribe-help-plugin-info {
+	border: 1px solid #CCC;
+	padding: 0 12px 12px;
+}
+
+.tribe-help-plugin-info dt,
+.tribe-help-plugin-info dd {
+	display: inline;
+	margin: 0;
+}
+
+.tribe-help-plugin-info dt {
+	font-weight: bold;
+}
+
+.tribe-help-plugin-info dd::after {
+  content: '';
+  display: block;
+  height: .4em;
+}
+
+.tribe-help-plugin-info dd:last-child::after {
+  height: 0;
+}
+
+.tribe-help-plugin-info + .tribe-help-plugin-info {
+	margin-top: 20px;
+}
+
+.tribe-help-plugin-info > div {
+	line-height: 2em;
+}
+
+.tribe-help-plugin-info .star-rating {
+	display: inline-block;
+	top: -2px;
+	margin-left: 3px;
+	position: relative;
+}
+
+.tribe-help-plugin-info .tribe-list-addons {
+	list-style: circle inside;
+	padding-left: 4px;
+	font-size: 24px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: #21A6CB;
+}
+
+.tribe-help-plugin-info .tribe-list-addons a {
+	font-size: 13px;
+	position: relative;
+	top: -5px;
+	left: -5px;
+}
+
+.tribe-help-plugin-info .tribe-list-addons .tribe-active-addon {
+	list-style: disc inside;
+}
+
 
 /* miscellaneous */
 .tribe-admin-box-left {float:left; width: 20%; margin: 20px 0; background-color: #f9f9f9; padding: 0px 20px 15px; border: 1px solid #ccc; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
