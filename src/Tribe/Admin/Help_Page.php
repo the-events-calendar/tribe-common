@@ -48,7 +48,7 @@ class Tribe__Admin__Help_Page {
 			'version' => null,
 		);
 
-		if ( class_exists( 'Tribe__Events__Main' ) ){
+		if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$plugins['the-events-calendar']['version'] = Tribe__Events__Main::VERSION;
 			$plugins['the-events-calendar']['is_active'] = true;
 		}
@@ -63,7 +63,7 @@ class Tribe__Admin__Help_Page {
 			'version' => null,
 		);
 
-		if ( class_exists( 'Tribe__Tickets__Main' ) ){
+		if ( class_exists( 'Tribe__Tickets__Main' ) ) {
 			$plugins['event-tickets']['version'] = Tribe__Tickets__Main::VERSION;
 			$plugins['event-tickets']['is_active'] = true;
 		}
@@ -78,7 +78,7 @@ class Tribe__Admin__Help_Page {
 			'version' => null,
 		);
 
-		if ( class_exists( 'Tribe_APM' ) ){
+		if ( class_exists( 'Tribe_APM' ) ) {
 			$plugins['advanced-post-manager']['version'] = 1;
 			$plugins['advanced-post-manager']['is_active'] = true;
 		}
@@ -86,9 +86,9 @@ class Tribe__Admin__Help_Page {
 		$plugins = (array) apply_filters( 'tribe_help_plugins', $plugins );
 
 		// Only active ones?
-		if ( true === $is_active ){
+		if ( true === $is_active ) {
 			foreach ( $plugins as $key => $plugin ) {
-				if ( true !== $plugin['is_active'] ){
+				if ( true !== $plugin['is_active'] ) {
 					unset( $plugins[ $key ] );
 				}
 			}
@@ -120,7 +120,7 @@ class Tribe__Admin__Help_Page {
 
 		foreach ( $plugins as $plugin ) {
 			$i++;
-			if ( $plugin['is_active'] !== $is_active ){
+			if ( $plugin['is_active'] !== $is_active ) {
 				continue;
 			}
 
@@ -194,14 +194,14 @@ class Tribe__Admin__Help_Page {
 		 */
 		$addons = (array) apply_filters( 'tribe_help_addons', $addons );
 
-		if ( is_null( $plugin ) ){
+		if ( is_null( $plugin ) ) {
 			return $addons;
 		}
 
 		// Allow for easily grab the addons for a plugin
 		$filtered = array();
 		foreach ( $addons as $addon ) {
-			if ( ! in_array( $plugin, (array) $addon['plugin'] ) ){
+			if ( ! in_array( $plugin, (array) $addon['plugin'] ) ) {
 				continue;
 			}
 
@@ -225,7 +225,7 @@ class Tribe__Admin__Help_Page {
 			'utm_campaign' => 'in-app',
 		);
 
-		if ( true === $relative ){
+		if ( true === $relative ) {
 			$link = trailingslashit( Tribe__Main::$tec_url . $link );
 		}
 
@@ -270,7 +270,7 @@ class Tribe__Admin__Help_Page {
 	 * @return object         An object with the API data
 	 */
 	private function get_plugin_api_data( $plugin = null ) {
-		if ( is_scalar( $plugin ) ){
+		if ( is_scalar( $plugin ) ) {
 			return false;
 		}
 
@@ -333,11 +333,11 @@ class Tribe__Admin__Help_Page {
 
 		// Loop to start the HTML
 		foreach ( $mixed as &$line ) {
-			if ( is_string( $line ) ){
+			if ( is_string( $line ) ) {
 				continue;
 			} elseif ( is_array( $line ) ) {
 				// Allow the developer to pass some configuration
-				if ( empty( $line['type'] ) ){
+				if ( empty( $line['type'] ) ) {
 					$line['type'] = 'ul';
 				}
 
@@ -349,13 +349,13 @@ class Tribe__Admin__Help_Page {
 					}
 
 					// Only add List Item if is a UL or OL
-					if ( in_array( $line['type'], array( 'ul', 'ol' ) ) ){
+					if ( in_array( $line['type'], array( 'ul', 'ol' ) ) ) {
 						$text .= '<li>' . "\n";
 					}
 
 					$text .= $this->get_html_from_text( $item );
 
-					if ( in_array( $line['type'], array( 'ul', 'ol' ) ) ){
+					if ( in_array( $line['type'], array( 'ul', 'ol' ) ) ) {
 						$text .= '</li>' . "\n";
 					}
 				}
@@ -389,7 +389,7 @@ class Tribe__Admin__Help_Page {
 			$plugin_active = is_plugin_active( $status['file'] );
 			$plugin_exists = isset( $plugins[ $status['file'] ] );
 
-			if ( 'install' !== $status['status'] && ! $plugin_active ){
+			if ( 'install' !== $status['status'] && ! $plugin_active ) {
 				$args = array(
 					'action' => 'activate',
 					'plugin' => $status['file'],
@@ -412,7 +412,7 @@ class Tribe__Admin__Help_Page {
 			}
 		}
 
-		if ( ! isset( $link ) ){
+		if ( ! isset( $link ) ) {
 			if ( $api_data ) {
 				$args = array(
 					'tab' => 'plugin-information',
@@ -461,7 +461,7 @@ class Tribe__Admin__Help_Page {
 
 			<?php
 			// Only show the link to the users can use it
-			if ( current_user_can( 'update_plugins' ) && current_user_can( 'install_plugins' ) ){
+			if ( current_user_can( 'update_plugins' ) && current_user_can( 'install_plugins' ) ) {
 				echo ( $link ? '<p style="text-align: center;">' . $link . '</p>' : '' );
 			}
 			?>
