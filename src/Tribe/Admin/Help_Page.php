@@ -441,15 +441,12 @@ class Tribe__Admin__Help_Page {
 			<dl>
 				<dt><?php esc_html_e( 'Latest Version:', 'tribe-common' ); ?></dt>
 				<dd><?php echo esc_html( $api_data->version ); ?></dd>
-				<br>
 
 				<dt><?php esc_html_e( 'Requires:', 'tribe-common' ); ?></dt>
 				<dd><?php echo esc_html__( 'WordPress ', 'tribe-common' ) . esc_html( $api_data->requires ); ?>+</dd>
-				<br>
 
 				<dt><?php esc_html_e( 'Active Users:', 'tribe-common' ); ?></dt>
 				<dd><?php echo esc_html( number_format( $api_data->active_installs ) ); ?>+</dd>
-				<br>
 
 				<dt><?php esc_html_e( 'Rating:', 'tribe-common' ); ?></dt>
 				<dd><a href="<?php echo esc_url( $plugin->stars_url ); ?>" target="_blank">

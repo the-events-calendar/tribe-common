@@ -90,16 +90,20 @@ td.tribe_message {padding-bottom: 10px !important;}
 	padding: 0 12px 12px;
 }
 
-.tribe-help-plugin-info dt {
-	display: inline-block;
-	font-weight: bold;
-	margin: 0 0 6px 0;
+.tribe-help-plugin-info dt,
+.tribe-help-plugin-info dd {
+	display: inline;
+	line-height: 1.9em;
+	margin: 0;
 }
 
-.tribe-help-plugin-info dd {
-	display: inline-block;
-	margin: 0 0 6px 0;
-	clear: both;
+.tribe-help-plugin-info dt {
+	font-weight: bold;
+}
+
+.tribe-help-plugin-info dd::after {
+	content: '';
+	display: block;
 }
 
 .tribe-help-plugin-info + .tribe-help-plugin-info {
@@ -112,7 +116,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 
 .tribe-help-plugin-info .star-rating {
 	display: inline-block;
-	top: -2px;
+	top: 2px;
 	margin-left: 3px;
 	position: relative;
 }
