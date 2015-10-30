@@ -56,23 +56,21 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 				'network_admin'    => false,
 			);
 
-			// parse args with defaults and extract them
+			// parse args with defaults
 			$this->args = wp_parse_args( $args, $this->defaults );
-			extract( $this->args );
 
 			// set each instance variable and filter
 			$this->id   = apply_filters( 'tribe_settings_tab_id', $id );
 			$this->name = apply_filters( 'tribe_settings_tab_name', $name );
 			foreach ( $this->defaults as $key => $value ) {
-				$this->{$key} = apply_filters( 'tribe_settings_tab_' . $key, $$key, $id );
+				$this->{$key} = apply_filters( 'tribe_settings_tab_' . $key, $this->args[ $key ], $id );
 			}
 
 			// run actions & filters
-			if ( ! $network_admin ) {
+			if ( ! $this->network_admin ) {
 				add_filter( 'tribe_settings_all_tabs', array( $this, 'addAllTabs' ) );
 			}
-			add_filter( 'tribe_settings_tabs', array( $this, 'addTab' ), $priority );
-
+			add_filter( 'tribe_settings_tabs', array( $this, 'addTab' ), $this->priority );
 		}
 
 		/**
