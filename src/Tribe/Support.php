@@ -43,8 +43,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				return;
 			}
 
-			$system_text[] = '<p>' . esc_html__( "Sometimes when troubleshooting a problem it is helpful to review the details of your system’s set-up.", 'tribe-common' ) . '</p>';
-			$system_text[] = '<p>' . esc_html__( "For your convenience we’ve put together this report. If you are posting in our premium forums, please copy and paste this information into the System Information field. That will help us help you faster!", 'tribe-common' ) . '</p>';
+			$system_text[] = '<p>' . esc_html__( 'Sometimes when troubleshooting a problem it is helpful to review the details of your system’s set-up.', 'tribe-common' ) . '</p>';
+			$system_text[] = '<p>' . esc_html__( 'For your convenience we’ve put together this report. If you are posting in our premium forums, please copy and paste this information into the System Information field. That will help us help you faster!', 'tribe-common' ) . '</p>';
 			$system_text   = implode( $system_text );
 			?>
 

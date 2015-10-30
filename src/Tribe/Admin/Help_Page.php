@@ -298,7 +298,7 @@ class Tribe__Admin__Help_Page {
 					'reviews' => true,
 					'downloaded' => true,
 					'active_installs' => true,
-				)
+				),
 			) );
 
 			if ( ! is_wp_error( $data ) ) {
@@ -462,7 +462,7 @@ class Tribe__Admin__Help_Page {
 			<?php
 			// Only show the link to the users can use it
 			if ( current_user_can( 'update_plugins' ) && current_user_can( 'install_plugins' ) ) {
-				echo ( $link ? '<p style="text-align: center;">' . $link . '</p>' : '' );
+				echo $link ? '<p style="text-align: center;">' . $link . '</p>' : '';
 			}
 			?>
 
