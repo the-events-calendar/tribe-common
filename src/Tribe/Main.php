@@ -122,18 +122,51 @@ class Tribe__Main {
 		);
 	}
 
+
+	/**
+	 * Registers vendor assets that can/should be enqueued
+	 */
+	public function register_vendor() {
+		$vendor_base = plugins_url( 'vendor', dirname( dirname( __FILE__ ) ) );
+
+		wp_register_style(
+			'tribe-jquery-ui-theme',
+			$vendor_base . '/jquery/ui.theme.css',
+			array(),
+			apply_filters( 'tribe_events_css_version', self::VERSION )
+		);
+
+		wp_register_style(
+			'tribe-jquery-ui-datepicker',
+			$vendor_base . '/jquery/ui.datepicker.css',
+			array( 'tribe-jquery-ui-theme' ),
+			apply_filters( 'tribe_events_css_version', self::VERSION )
+		);
+
+	}
+
 	/**
 	 * Adds core hooks
 	 */
 	public function add_hooks() {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'register_resources' ), 1 );
+
+		// Register for the assets to be availble everywhere
+		add_action( 'init', array( $this, 'register_resources' ), 1 );
+		add_action( 'init', array( $this, 'register_vendor' ), 1 );
+
+		// Enqueue only when needed (admin)
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	public function admin_enqueue_scripts() {
 		wp_enqueue_script( 'tribe-inline-bumpdown' );
 		wp_enqueue_style( 'tribe-common-admin' );
+
+		$helper = Tribe__Admin__Helpers::instance();
+		if ( $helper->is_post_type_screen() ) {
+			wp_enqueue_style( 'tribe-jquery-ui-datepicker' );
+		}
 	}
 
 	/**
