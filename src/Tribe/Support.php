@@ -44,8 +44,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			// Fetch the Help page Instance
 			$help = Tribe__Admin__Help_Page::instance();
 
-			$system_text[] = esc_html__( "Sometimes when troubleshooting a problem it is helpful to review the details of your system’s set-up.", 'tribe-common' );
-			$system_text[] = esc_html__( "For your convenience we’ve put together this report. If you are posting in our premium forums, please copy and paste this information into the System Information field. That will help us help you faster!", 'tribe-common' );
+			$system_text[] = esc_html__( 'Sometimes when troubleshooting a problem it is helpful to review the details of your system’s set-up.', 'tribe-common' );
+			$system_text[] = esc_html__( 'For your convenience we’ve put together this report. If you are posting in our premium forums, please copy and paste this information into the System Information field. That will help us help you faster!', 'tribe-common' );
 			?>
 
 			<h3><?php esc_html_e( 'System Information', 'tribe-common' ); ?></h3>
