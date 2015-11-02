@@ -42,7 +42,7 @@ $more_text  = esc_html__( 'More...', 'tribe-common' );
 		/**
 		 * Filter the text inside the box at the top of the Settings > Help tab
 		 *
-		 * @param string $text_featurebox
+		 * @param array $text_featurebox
 		 */
 		echo $help->get_html_from_text( apply_filters( 'tribe_help_text_featurebox', $text_featurebox ) ); ?>
 	</div>
@@ -54,7 +54,7 @@ $more_text  = esc_html__( 'More...', 'tribe-common' );
 		/**
 		 * Filter the "Getting Started" text on the Settings > Help tab
 		 *
-		 * @param string $intro_text
+		 * @param array $intro_text
 		 */
 		echo $help->get_html_from_text( apply_filters( 'tribe_help_text_intro', $intro_text ) );
 		?>
@@ -64,7 +64,7 @@ $more_text  = esc_html__( 'More...', 'tribe-common' );
 		/**
 		 * Filter the "Support Resources To Help You Be Awesome" text on the Settings > Help tab
 		 *
-		 * @param string $intro_text
+		 * @param array $intro_text
 		 */
 		echo $help->get_html_from_text( apply_filters( 'tribe_help_text_support', $support_text ) );
 		?>
@@ -74,7 +74,7 @@ $more_text  = esc_html__( 'More...', 'tribe-common' );
 		/**
 		 * Filter the "Forums: Because Everyone Needs A Buddy" text on the Settings > Help tab
 		 *
-		 * @param string $forum_text
+		 * @param array $forum_text
 		 */
 		echo $help->get_html_from_text( apply_filters( 'tribe_help_text_forum', $forum_text ) );
 		?>
@@ -84,7 +84,7 @@ $more_text  = esc_html__( 'More...', 'tribe-common' );
 		/**
 		 * Filter the "Not getting help?" text on the Settings > Help tab
 		 *
-		 * @param string $outro_text
+		 * @param array $outro_text
 		 */
 		echo $help->get_html_from_text( apply_filters( 'tribe_help_text_outro', $outro_text ) );
 

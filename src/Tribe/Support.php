@@ -1,8 +1,6 @@
 <?php
 /**
  * Class for managing technical support components
- *
- * @version 0.3
  */
 
 // Don't load directly
@@ -30,7 +28,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 		private function __construct() {
 			$this->must_escape = (array) apply_filters( 'tribe_help_must_escape_fields', $this->must_escape );
-			add_action( 'tribe_help_tab_sections', array( $this, 'displayHelpTabInfo' ), 10, 0 );
+			add_action( 'tribe_help_text_sections', array( $this, 'displayHelpTabInfo' ), 10, 0 );
 			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
 		}
 
@@ -43,14 +41,21 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				return;
 			}
 
-			$system_text[] = '<p>' . esc_html__( 'Sometimes when troubleshooting a problem it is helpful to review the details of your system’s set-up.', 'tribe-common' ) . '</p>';
-			$system_text[] = '<p>' . esc_html__( 'For your convenience we’ve put together this report. If you are posting in our premium forums, please copy and paste this information into the System Information field. That will help us help you faster!', 'tribe-common' ) . '</p>';
-			$system_text   = implode( $system_text );
+			// Fetch the Help page Instance
+			$help = Tribe__Admin__Help_Page::instance();
+
+			$system_text[] = esc_html__( "Sometimes when troubleshooting a problem it is helpful to review the details of your system’s set-up.", 'tribe-common' );
+			$system_text[] = esc_html__( "For your convenience we’ve put together this report. If you are posting in our premium forums, please copy and paste this information into the System Information field. That will help us help you faster!", 'tribe-common' );
 			?>
 
-			<h2><?php esc_html_e( 'System Information', 'tribe-common' ); ?></h2>
+			<h3><?php esc_html_e( 'System Information', 'tribe-common' ); ?></h3>
 			<?php
-			echo apply_filters( 'tribe_help_tab_system', $system_text );
+			/**
+			 * Filter the "System Information" text on the Settings > Help tab
+			 *
+			 * @param array $system_text
+			 */
+			echo $help->get_html_from_text( apply_filters( 'tribe_help_tab_system', $system_text ) );
 			echo $this->formattedSupportStats();
 			$this->formattedSupportStatsStyle();
 		}
