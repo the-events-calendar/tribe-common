@@ -122,7 +122,6 @@ class Tribe__Main {
 		);
 	}
 
-
 	/**
 	 * Registers vendor assets that can/should be enqueued
 	 */
