@@ -1,8 +1,6 @@
 <?php
 /**
  * Class for managing technical support components
- *
- * @version 0.3
  */
 
 // Don't load directly
@@ -39,7 +37,6 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		 */
 		public function append_system_info( $section ) {
 			$section->content[] = $this->formattedSupportStats();
-
 			return $section;
 		}
 

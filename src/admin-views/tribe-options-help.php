@@ -67,7 +67,69 @@ $sections = array(
 ?>
 
 <div id="tribe-help-general">
+<<<<<<< HEAD
 	<?php $help->render_sections( $sections ); ?>
+=======
+	<div id="modern-tribe-info">
+		<img src="<?php echo esc_url( plugins_url( 'resources/images/modern-tribe@2x.png', dirname( __FILE__ ) ) ); ?>" alt="Modern Tribe Inc." title="Modern Tribe Inc.">
+		<?php
+		/**
+		 * Filter the text inside the box at the top of the Settings > Help tab
+		 *
+		 * @param array $text_featurebox
+		 */
+		echo $help->get_html_from_text( apply_filters( 'tribe_help_text_featurebox', $text_featurebox ) ); ?>
+	</div>
+
+	<div class="tribe-settings-form-wrap">
+
+		<h3><?php esc_html_e( 'Getting Started', 'tribe-common' ); ?></h3>
+		<?php
+		/**
+		 * Filter the "Getting Started" text on the Settings > Help tab
+		 *
+		 * @param array $intro_text
+		 */
+		echo $help->get_html_from_text( apply_filters( 'tribe_help_text_intro', $intro_text ) );
+		?>
+
+		<h3><?php esc_html_e( 'Support Resources To Help You Be Awesome', 'tribe-common' ); ?></h3>
+		<?php
+		/**
+		 * Filter the "Support Resources To Help You Be Awesome" text on the Settings > Help tab
+		 *
+		 * @param array $intro_text
+		 */
+		echo $help->get_html_from_text( apply_filters( 'tribe_help_text_support', $support_text ) );
+		?>
+
+		<h3><?php esc_html_e( 'Forums: Because Everyone Needs A Buddy', 'tribe-common' ); ?></h3>
+		<?php
+		/**
+		 * Filter the "Forums: Because Everyone Needs A Buddy" text on the Settings > Help tab
+		 *
+		 * @param array $forum_text
+		 */
+		echo $help->get_html_from_text( apply_filters( 'tribe_help_text_forum', $forum_text ) );
+		?>
+
+		<h3><?php esc_html_e( 'Not getting help?', 'tribe-common' ); ?></h3>
+		<?php
+		/**
+		 * Filter the "Not getting help?" text on the Settings > Help tab
+		 *
+		 * @param array $outro_text
+		 */
+		echo $help->get_html_from_text( apply_filters( 'tribe_help_text_outro', $outro_text ) );
+
+		/**
+		 * Fires at the end of the help text content on the Settings > Help tab
+		 */
+		do_action( 'tribe_help_text_sections' ); ?>
+
+	</div>
+
+>>>>>>> master
 </div>
 
 

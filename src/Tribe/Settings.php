@@ -165,11 +165,36 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		}
 
 		/**
+		 * Determines whether or not the full admin pages should be initialized.
+		 *
+		 * When running in parallel with TEC 3.12.4, TEC should be relied on to handle the admin screens
+		 * that version of TEC (and lower) is tribe-common ignorant. Therefore, tribe-common has to be
+		 * the smarter, more lenient codebase.
+		 *
+		 * @return boolean
+		 */
+		public function should_setup_pages() {
+			if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+				return true;
+			}
+
+			if ( version_compare( Tribe__Events__Main::VERSION, '4.0', '>=' ) ) {
+				return true;
+			}
+
+			return false;
+		}
+
+		/**
 		 * create the main option page
 		 *
 		 * @return void
 		 */
 		public function addPage() {
+			if ( ! $this->should_setup_pages() ) {
+				return;
+			}
+
 			if ( ! is_multisite() || ( is_multisite() && '0' == Tribe__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
 				if ( post_type_exists( 'tribe_events' ) ) {
 					self::$parent_slug = 'edit.php?post_type=tribe_events';
@@ -202,6 +227,10 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function addNetworkPage() {
+			if ( ! $this->should_setup_pages() ) {
+				return;
+			}
+
 			$this->admin_page = add_submenu_page(
 				'settings.php', esc_html__( 'The Events Calendar Settings', 'tribe-common' ), esc_html__( 'Events Settings', 'tribe-common' ), $this->requiredCap, $this->adminSlug, array(
 					$this,
