@@ -42,6 +42,7 @@ class Tribe__Admin__Help_Page {
 			'name' => 'the-events-calendar',
 			'title' => esc_html__( 'The Events Calendar', 'tribe-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/the-events-calendar/',
+			'forum' => 'https://wordpress.org/support/plugin/the-events-calendar/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5',
 			'description' => esc_html__( 'The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events.', 'tribe-common' ),
 			'is_active' => false,
@@ -57,6 +58,7 @@ class Tribe__Admin__Help_Page {
 			'name' => 'event-tickets',
 			'title' => esc_html__( 'Event Tickets', 'tribe-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/event-tickets/',
+			'forum' => 'https://wordpress.org/support/plugin/event-tickets',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/event-tickets?filter=5',
 			'description' => esc_html__( 'Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events.', 'tribe-common' ),
 			'is_active' => false,
@@ -72,6 +74,7 @@ class Tribe__Admin__Help_Page {
 			'name' => 'advanced-post-manager',
 			'title' => esc_html__( 'Advanced Post Manager', 'tribe-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/advanced-post-manager/',
+			'forum' => 'https://wordpress.org/support/plugin/advanced-post-manager/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/advanced-post-manager?filter=5',
 			'description' => esc_html__( 'Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes.', 'tribe-common' ),
 			'is_active' => false,
@@ -104,6 +107,23 @@ class Tribe__Admin__Help_Page {
 		} else {
 			return $plugins;
 		}
+	}
+
+	/**
+	 * Get the formatted links of the possible plugins
+	 *
+	 * @param  boolean $is_active Filter only active plugins
+	 * @return array
+	 */
+	public function get_plugin_forum_links( $is_active = true ) {
+		$plugins = $this->get_plugins( null, $is_active );
+
+		$list = array();
+		foreach ( $plugins as $plugin ) {
+			$list[] = '<a href="' . esc_url( $plugin['forum'] ) . '" target="_blank">' . $plugin['title'] . '</a>';
+		}
+
+		return $list;
 	}
 
 	/**
@@ -367,6 +387,74 @@ class Tribe__Admin__Help_Page {
 		}
 
 		return wpautop( implode( "\n\n", $mixed ) );
+	}
+
+	/**
+	 * Based on an Array of sections it render the Help Page contents
+	 *
+	 * @param  array   $sections Array of sections
+	 * @param  boolean $print    Return or Print the HTML after
+	 * @return void|string
+	 */
+	public function render_sections( $sections = array(), $print = true ) {
+		/**
+		 * Allow developers to filter all the sections at once
+		 * @var array
+		 */
+		$sections = apply_filters( 'tribe_help_sections', $sections );
+
+		if ( ! is_array( $sections ) ){
+			return false;
+		}
+
+		$html = array();
+
+		foreach ( $sections as $index => $section ) {
+			$section = (object) $section;
+
+			// If it has no ID or Content, skip
+			if ( empty( $section->id ) || empty( $section->content ) ) {
+				continue;
+			}
+
+			// Set a Default type
+			if ( empty( $section->type ) ){
+				$section->type = 'default';
+			}
+
+			/**
+			 * Creates a way to filter a specific section based on the ID
+			 * @var object
+			 */
+			$section = apply_filters( 'tribe_help_section_' . $section->id, $section );
+
+			// Sorts the content array
+			ksort( $section->content );
+
+			$html[ $section->id . '-start' ] = '<div id="tribe-' . sanitize_html_class( $section->id ) . '" class="tribe-help-section clearfix tribe-section-type-' . sanitize_html_class( $section->type ) . '">';
+
+			if ( ! empty( $section->title ) ){
+				$html[ $section->id . '-title' ] = '<h3 class="tribe-help-title">' . esc_html__( $section->title ) . '</h3>';
+			}
+
+			$html[ $section->id . '-content' ] = $this->get_html_from_text( $section->content );
+
+			$html[ $section->id . '-end' ] = '</div>';
+		}
+
+		/**
+		 * Creates a way for developers to hook to the final HTML
+		 * @var array $html
+		 * @var array $sections
+		 */
+		$html = apply_filters( 'tribe_help_sections_html', $html, $sections );
+
+		if ( true === $print ) {
+			echo implode( "\n", $html );
+		} else {
+			return $html;
+		}
+
 	}
 
 	/**
