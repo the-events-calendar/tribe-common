@@ -7,6 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Class with a few helpers for the Administration Pages
+ *
+ * @since  4.0
+ *
  */
 class Tribe__Admin__Help_Page {
 	/**
@@ -31,6 +34,8 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Get the list of plugins
 	 *
+	 * @since  4.0
+	 *
 	 * @param  string  $plugin_name    Should get only one plugin?
 	 * @param  boolean $is_active Only get active plugins?
 	 * @return array
@@ -42,6 +47,7 @@ class Tribe__Admin__Help_Page {
 			'name' => 'the-events-calendar',
 			'title' => esc_html__( 'The Events Calendar', 'tribe-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/the-events-calendar/',
+			'forum' => 'https://wordpress.org/support/plugin/the-events-calendar/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5',
 			'description' => esc_html__( 'The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events.', 'tribe-common' ),
 			'is_active' => false,
@@ -57,6 +63,7 @@ class Tribe__Admin__Help_Page {
 			'name' => 'event-tickets',
 			'title' => esc_html__( 'Event Tickets', 'tribe-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/event-tickets/',
+			'forum' => 'https://wordpress.org/support/plugin/event-tickets',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/event-tickets?filter=5',
 			'description' => esc_html__( 'Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events.', 'tribe-common' ),
 			'is_active' => false,
@@ -72,6 +79,7 @@ class Tribe__Admin__Help_Page {
 			'name' => 'advanced-post-manager',
 			'title' => esc_html__( 'Advanced Post Manager', 'tribe-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/advanced-post-manager/',
+			'forum' => 'https://wordpress.org/support/plugin/advanced-post-manager/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/advanced-post-manager?filter=5',
 			'description' => esc_html__( 'Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes.', 'tribe-common' ),
 			'is_active' => false,
@@ -107,7 +115,28 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * Get the formatted links of the possible plugins
+	 *
+	 * @since  4.0
+	 *
+	 * @param  boolean $is_active Filter only active plugins
+	 * @return array
+	 */
+	public function get_plugin_forum_links( $is_active = true ) {
+		$plugins = $this->get_plugins( null, $is_active );
+
+		$list = array();
+		foreach ( $plugins as $plugin ) {
+			$list[] = '<a href="' . esc_url( $plugin['forum'] ) . '" target="_blank">' . $plugin['title'] . '</a>';
+		}
+
+		return $list;
+	}
+
+	/**
 	 * Get the formatted text of the possible plugins
+	 *
+	 * @since  4.0
 	 *
 	 * @param  boolean $is_active Filter only active plugins
 	 * @return string
@@ -138,6 +167,8 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Get the Addons
+	 *
+	 * @since  4.0
 	 *
 	 * @param  string $plugin Plugin Name to filter
 	 * @return array
@@ -214,6 +245,8 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * From a Given link returns it with a GA arguments
 	 *
+	 * @since  4.0
+	 *
 	 * @param  string  $link     An absolute or a Relative link
 	 * @param  boolean $relative Is the Link absolute or relative?
 	 * @return string            Link with the GA arguments
@@ -234,6 +267,8 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Gets the Feed items from the The Events Calendar Blog
+	 *
+	 * @since  4.0
 	 *
 	 * @return array Feed Title and Link
 	 */
@@ -265,6 +300,8 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Get the information from the Plugin API data
+	 *
+	 * @since  4.0
 	 *
 	 * @param  object $plugin Plugin Object to be used
 	 * @return object         An object with the API data
@@ -324,16 +361,47 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Parses the help text from an Array to the final HTML
+	 *
+	 * @since  4.0
+	 *
 	 * @param  string|array $mixed The mixed value to create the HTML from
 	 * @return string
 	 */
-	public function get_html_from_text( $mixed = '' ) {
+	public function get_content_html( $mixed = '' ) {
+		$html_allowed = array(
+			'a'      => array( 'href' => array(), 'title' => array(), 'target' => array(), 'style' => array(), 'class' => array(), 'id' => array() ),
+			'img'    => array( 'title' => array(), 'src' => array(), 'alt' => array(), 'style' => array(), 'class' => array(), 'id' => array() ),
+
+			'br'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'em'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'strong' => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'b'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'i'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'u'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+
+			'div'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'p'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'ol'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'ul'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'li'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'dl'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'dt'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'dd'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+		);
+
 		// If it's an StdObj or String it will be converted
 		$mixed = (array) $mixed;
 
 		// Loop to start the HTML
 		foreach ( $mixed as &$line ) {
+			// If we have content we use that
+			if ( ! empty( $line->content ) ){
+				$line = $line->content;
+			}
+
 			if ( is_string( $line ) ) {
+				// Make sure we are safe when it's a string
+				$line = wp_kses( $line, $html_allowed );
 				continue;
 			} elseif ( is_array( $line ) ) {
 				// Allow the developer to pass some configuration
@@ -353,7 +421,7 @@ class Tribe__Admin__Help_Page {
 						$text .= '<li>' . "\n";
 					}
 
-					$text .= $this->get_html_from_text( $item );
+					$text .= $this->get_content_html( $item );
 
 					if ( in_array( $line['type'], array( 'ul', 'ol' ) ) ) {
 						$text .= '</li>' . "\n";
@@ -370,7 +438,232 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * A Private storage for sections.
+	 *
+	 * @since 4.0
+	 *
+	 * @access private
+	 * @var array
+	 */
+	private $sections = array();
+
+	/**
+	 * Incremented with each method call, then stored in $section->uid.
+	 *
+	 * Used when sorting two instances whose priorities are equal.
+	 *
+	 * @since 4.0
+	 *
+	 * @static
+	 * @access protected
+	 * @var int
+	 */
+	protected static $section_count = 0;
+
+	/**
+	 * Helper function to compare two objects by priority, ensuring sort stability via uid.
+	 *
+	 * @since 4.0
+	 *
+	 * @access protected
+	 * @param object $a Object A.
+	 * @param object $b Object B.
+	 *
+	 * @return int
+	 */
+	protected function by_priority( $a, $b ) {
+		if ( empty( $a->priority ) || empty( $b->priority ) || $a->priority === $b->priority ) {
+			if ( empty( $a->unique_call_order ) || empty( $b->unique_call_order ) ){
+				return 0;
+			} else {
+				return $a->unique_call_order - $b->unique_call_order;
+			}
+		} else {
+			return $a->priority - $b->priority;
+		}
+	}
+
+	/**
+	 * Adds a new section to the Help Page
+	 *
+	 * @since  4.0
+	 *
+	 * @param string  $id       HTML like ID
+	 * @param string  $title    The Title of the section, doesn't allow HTML
+	 * @param integer $priority A Numeric ordering for the Section
+	 * @param string  $type     by default only 'default' or 'box'
+	 *
+	 * @return object The section added
+	 */
+	public function add_section( $id, $title = null, $priority = 10, $type = 'default' ) {
+		if ( empty( $id ) ) {
+			return false;
+		}
+
+		// Everytime you call this we will add this up
+		self::$section_count++;
+
+		$possible_types = (array) apply_filters( 'tribe_help_available_section_types', array( 'default', 'box' ) );
+
+		// Set a Default type
+		if ( empty( $type ) || ! in_array( $type, $possible_types ) ){
+			$type = 'default';
+		}
+
+		// Create the section and Sanitize the values to avoid having to do it later
+		$section = (object) array(
+			'id' => sanitize_html_class( $id ),
+			'title' => esc_html( $title ),
+			'priority' => absint( $priority ),
+			'type' => sanitize_html_class( $type ),
+
+			// This Method Unique count integer used for ordering with priority
+			'unique_call_order' => self::$section_count,
+
+			// Counter for ordering Content
+			'content_count' => 0,
+
+			// Setup the Base for the content to come
+			'content' => array(),
+ 		);
+
+		$this->sections[ $section->id ] = $section;
+
+		return $section;
+	}
+
+	/**
+	 * Add a New content Item to a Help page Section
+	 *
+	 * @since  4.0
+	 *
+	 * @param string  $section_id Which section this content should be assigned to
+	 * @param string|array  $content    Item text or array of items, will be passed to `$this->get_content_html`
+	 * @param integer $priority   A Numeric priority
+	 * @param array   $arguments  If you need arguments for item, they can be passed here
+	 *
+	 * @return object The content item added
+	 */
+	public function add_section_content( $section_id, $content, $priority = 10, $arguments = array() ) {
+		$section_id = sanitize_html_class( $section_id );
+
+		// Check if the section exists
+		if ( empty( $this->sections[ $section_id ] ) ) {
+			return false;
+		}
+
+		// Make sure we have arguments as Array
+		if ( ! is_array( $arguments ) ) {
+			return false;
+		}
+
+		$section = &$this->sections[ $section_id ];
+
+		// Increment the content counter
+		$section->content_count++;
+
+		$item = (object) $arguments;
+
+		// Set the priority
+		$item->priority = absint( $priority );
+
+		// Set the uid to help ordering
+		$item->unique_call_order = $section->content_count;
+
+		// Content is not Safe, will be Sanitized on Output
+		$item->content = $content;
+
+		$section->content[] = $item;
+
+		return $item;
+	}
+
+	/**
+	 * Based on an Array of sections it render the Help Page contents
+	 *
+	 * @since  4.0
+	 *
+	 * @param  boolean $print    Return or Print the HTML after
+	 * @return void|string
+	 */
+	public function get_sections( $print = true ) {
+		/**
+		 * Allow third-party sections here
+		 *
+		 * @var Tribe__Admin__Help_Page
+		 */
+		do_action( 'tribe_help_pre_get_sections', $this );
+
+		/**
+		 * Allow developers to filter all the sections at once
+		 * NOTE: You should be using `tribe_help_add_sections` to add new sections or content
+		 *
+		 * @var array
+		 */
+		$sections = apply_filters( 'tribe_help_sections', $this->sections );
+
+		if ( ! is_array( $sections ) || empty( $sections ) ){
+			return false;
+		}
+
+		// Sort by Priority
+		uasort( $sections, array( $this, 'by_priority' ) );
+
+		$html = array();
+
+		foreach ( $sections as $index => $section ) {
+			$section = (object) $section;
+
+			// If it has no ID or Content, skip
+			if ( empty( $section->id ) || empty( $section->content ) ) {
+				continue;
+			}
+
+			// Set a Default type
+			if ( empty( $section->type ) ){
+				$section->type = 'default';
+			}
+
+			/**
+			 * Creates a way to filter a specific section based on the ID
+			 *
+			 * @var object
+			 */
+			$section = apply_filters( 'tribe_help_section_' . $section->id, $section, $this );
+
+			// Sort by Priority
+			uasort( $section->content, array( $this, 'by_priority' ) );
+
+			$html[ $section->id . '-start' ] = '<div id="tribe-' . sanitize_html_class( $section->id ) . '" class="tribe-help-section clearfix tribe-section-type-' . sanitize_html_class( $section->type ) . '">';
+
+			if ( ! empty( $section->title ) ){
+				$html[ $section->id . '-title' ] = '<h3 class="tribe-help-title">' . esc_html__( $section->title ) . '</h3>';
+			}
+
+			$html[ $section->id . '-content' ] = $this->get_content_html( $section->content );
+
+			$html[ $section->id . '-end' ] = '</div>';
+		}
+
+		/**
+		 * Creates a way for developers to hook to the final HTML
+		 * @var array $html
+		 * @var array $sections
+		 */
+		$html = apply_filters( 'tribe_help_sections_html', $html, $sections );
+
+		if ( true === $print ) {
+			echo implode( "\n", $html );
+		} else {
+			return $html;
+		}
+
+	}
+
+	/**
 	 * Prints the Plugin box for the given plugin
+	 *
+	 * @since  4.0
 	 *
 	 * @param  string $plugin Plugin Name key
 	 * @return void
