@@ -28,16 +28,16 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 		private function __construct() {
 			$this->must_escape = (array) apply_filters( 'tribe_help_must_escape_fields', $this->must_escape );
-			add_action( 'tribe_help_section_system-info', array( $this, 'append_system_info' ), 10 );
+			add_action( 'tribe_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
 			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
 		}
 
 		/**
 		 * Display help tab info in events settings
+		 * @param Tribe__Admin__Help_Page $help The Help Page Instance
 		 */
-		public function append_system_info( $section ) {
-			$section->content[] = $this->formattedSupportStats();
-			return $section;
+		public function append_system_info( Tribe__Admin__Help_Page $help ) {
+			$help->add_section_content( 'system-info', $this->formattedSupportStats(), 10 );
 		}
 
 		/**
