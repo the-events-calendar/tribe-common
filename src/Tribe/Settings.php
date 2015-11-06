@@ -178,7 +178,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				return true;
 			}
 
-			if ( version_compare( Tribe__Events__Main::VERSION, '4.0', '>=' ) ) {
+			if ( version_compare( Tribe__Events__Main::VERSION, '4.0beta', '>=' ) ) {
 				return true;
 			}
 
@@ -218,6 +218,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 					$this->adminSlug,
 					array( $this, 'generatePage' )
 				);
+
 			}
 		}
 
