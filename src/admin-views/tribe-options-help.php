@@ -37,7 +37,7 @@ $help->add_section_content( 'extra-help', '<div style="text-align: right;"><a hr
 
 // Creates the System Info section
 $help->add_section( 'system-info', __( 'System Information', 'tribe-common' ), 30 );
-$help->add_section_content( 'system-info', __( 'The details of your plugins and settings is often needed for you or our staff to help troubleshoot an issue. Please copy and paste this information into the System Information field when opening a new thread and it will help us help you faster!', 'tribe-common' ), 0 );
+$help->add_section_content( 'system-info', __( 'The details of your plugins and settings are often needed for you or our staff to help troubleshoot an issue. Please copy and paste this information into the System Information field when opening a new thread and it will help us help you faster!', 'tribe-common' ), 0 );
 ?>
 
 <div id="tribe-help-general">
