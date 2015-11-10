@@ -43,8 +43,8 @@ class Tribe__Admin__Helpers {
 			return false;
 		}
 
-		// Not doing AJAX
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		// Doing AJAX? bail.
+		if ( Tribe__Main::instance()->doing_ajax() ) {
 			return false;
 		}
 
@@ -88,8 +88,8 @@ class Tribe__Admin__Helpers {
 			return false;
 		}
 
-		// Not doing AJAX
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		// Doing AJAX? bail.
+		if ( Tribe__Main::instance()->doing_ajax() ) {
 			return false;
 		}
 
@@ -138,8 +138,8 @@ class Tribe__Admin__Helpers {
 			return false;
 		}
 
-		// Not doing AJAX
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		// Doing AJAX? bail.
+		if ( Tribe__Main::instance()->doing_ajax() ) {
 			return false;
 		}
 
