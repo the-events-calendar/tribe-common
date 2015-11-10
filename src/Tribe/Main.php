@@ -22,6 +22,7 @@ class Tribe__Main {
 
 	protected $plugin_context;
 	protected $plugin_context_class;
+	protected $doing_ajax = false;
 
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url = 'http://theeventscalendar.com/';
@@ -47,6 +48,8 @@ class Tribe__Main {
 
 		$this->init_libraries();
 		$this->add_hooks();
+
+		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
 	/**
@@ -238,6 +241,23 @@ class Tribe__Main {
 				return false;
 			}
 		}
+	}
+
+	/**
+	 * Helper function to indicate whether the current execution context is AJAX
+	 *
+	 * This method exists to allow us test code that behaves differently depending on the execution
+	 * context.
+	 *
+	 * @since 4.0
+	 * @return boolean
+	 */
+	public function doing_ajax( $doing_ajax = null ) {
+		if ( ! is_null( $doing_ajax ) ) {
+			$this->doing_ajax = $doing_ajax;
+		}
+
+		return $this->doing_ajax;
 	}
 
 	/**
