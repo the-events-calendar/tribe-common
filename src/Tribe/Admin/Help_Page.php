@@ -143,13 +143,18 @@ class Tribe__Admin__Help_Page {
 	 */
 	public function get_plugins_text( $is_active = true ) {
 		$plugins = $this->get_plugins( null, $is_active );
-		$count = count( $plugins );
+
+		// Fetch all addons that are active and are important
+		foreach ( $this->get_addons( null, true, true ) as $addon ) {
+			$plugins[] = $addon;
+		}
+
 		$plugins_text = '';
 		$i = 0;
-
+		$count = count( $plugins );
 		foreach ( $plugins as $plugin ) {
 			$i++;
-			if ( $plugin['is_active'] !== $is_active ) {
+			if ( ! isset( $plugin['is_active'] ) || $plugin['is_active'] !== $is_active ) {
 				continue;
 			}
 
@@ -171,9 +176,11 @@ class Tribe__Admin__Help_Page {
 	 * @since  4.0
 	 *
 	 * @param  string $plugin Plugin Name to filter
+	 * @param  string $is_active Filter if it's active
+	 * @param  string $is_important filter if the plugin is important
 	 * @return array
 	 */
-	public function get_addons( $plugin = null ) {
+	public function get_addons( $plugin = null, $is_active = null, $is_important = null ) {
 		$addons = array();
 
 		$addons[] = array(
@@ -181,6 +188,7 @@ class Tribe__Admin__Help_Page {
 			'link'  => 'http://m.tri.be/dr',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Pro__Main' ),
+			'is_important' => true,
 		);
 
 		$addons[] = array(
@@ -216,6 +224,7 @@ class Tribe__Admin__Help_Page {
 			'link'  => '@TODO',
 			'plugin' => array( 'event-tickets' ),
 			'is_active' => class_exists( 'Tribe__Tickets_Plus__Main' ),
+			'is_important' => true,
 		);
 
 		/**
@@ -225,14 +234,31 @@ class Tribe__Admin__Help_Page {
 		 */
 		$addons = (array) apply_filters( 'tribe_help_addons', $addons );
 
-		if ( is_null( $plugin ) ) {
+		// Should I filter something
+		if ( is_null( $plugin ) && is_null( $is_active ) && is_null( $is_important ) ) {
 			return $addons;
 		}
 
 		// Allow for easily grab the addons for a plugin
 		$filtered = array();
 		foreach ( $addons as $addon ) {
-			if ( ! in_array( $plugin, (array) $addon['plugin'] ) ) {
+			if ( ! is_null( $plugin ) && ! in_array( $plugin, (array) $addon['plugin'] ) ) {
+				continue;
+			}
+
+			// Filter by is_active
+			if (
+				! is_null( $is_active ) &&
+				( ! isset( $addon['is_active'] ) || $is_active !== $addon['is_active'] )
+			) {
+				continue;
+			}
+
+			// Filter by is_important
+			if (
+				! is_null( $is_important ) &&
+				( ! isset( $addon['is_important'] ) || $is_important !== $addon['is_important'] )
+			) {
 				continue;
 			}
 
@@ -395,7 +421,7 @@ class Tribe__Admin__Help_Page {
 		// Loop to start the HTML
 		foreach ( $mixed as &$line ) {
 			// If we have content we use that
-			if ( ! empty( $line->content ) ){
+			if ( ! empty( $line->content ) ) {
 				$line = $line->content;
 			}
 
@@ -473,7 +499,7 @@ class Tribe__Admin__Help_Page {
 	 */
 	protected function by_priority( $a, $b ) {
 		if ( empty( $a->priority ) || empty( $b->priority ) || $a->priority === $b->priority ) {
-			if ( empty( $a->unique_call_order ) || empty( $b->unique_call_order ) ){
+			if ( empty( $a->unique_call_order ) || empty( $b->unique_call_order ) ) {
 				return 0;
 			} else {
 				return $a->unique_call_order - $b->unique_call_order;
@@ -506,7 +532,7 @@ class Tribe__Admin__Help_Page {
 		$possible_types = (array) apply_filters( 'tribe_help_available_section_types', array( 'default', 'box' ) );
 
 		// Set a Default type
-		if ( empty( $type ) || ! in_array( $type, $possible_types ) ){
+		if ( empty( $type ) || ! in_array( $type, $possible_types ) ) {
 			$type = 'default';
 		}
 
@@ -579,6 +605,48 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * Remove a section based on the ID
+	 * This method will remove any sections that are indexed at that ID on the sections array
+	 * And the sections that have a propriety of `id` equals to the given $section_id argument
+	 *
+	 * @param  string|int $section_id You can use Numeric or String indexes to search
+	 * @return bool|int               Returns `false` when no sections were removed and an `int` with the number of sections removed
+	 */
+	public function remove_section( $section_id ) {
+		if (
+			! isset( $this->sections[ $section_id ] ) &&
+			! in_array( (object) array( 'id' => $section_id ), $this->sections, true )
+		) {
+			// There are no sections to remove, so false
+			return false;
+		}
+
+		$removed = array();
+		foreach ( $this->sections as $id => $section ) {
+			if ( ! is_numeric( $id ) && ! is_numeric( $section_id ) && ! empty( $section->id ) ) {
+				if ( $section->id === $section_id ) {
+					unset( $this->sections[ $id ] );
+					// Mark that this section was removed
+					$removed[ $id ] = true;
+				}
+			} elseif ( $id === $section_id ) {
+				unset( $this->sections[ $section_id ] );
+				// Mark that this section was removed
+				$removed[ $id ] = true;
+			} else {
+				// Mark that this section was NOT removed
+				$removed[ $id ] = false;
+			}
+		}
+
+		// Count how many were removed
+		$total = count( array_filter( $removed ) );
+
+		// if Zero just return false
+		return $total === 0 ? false : $total;
+	}
+
+	/**
 	 * Based on an Array of sections it render the Help Page contents
 	 *
 	 * @since  4.0
@@ -602,7 +670,7 @@ class Tribe__Admin__Help_Page {
 		 */
 		$sections = apply_filters( 'tribe_help_sections', $this->sections );
 
-		if ( ! is_array( $sections ) || empty( $sections ) ){
+		if ( ! is_array( $sections ) || empty( $sections ) ) {
 			return false;
 		}
 
@@ -620,7 +688,7 @@ class Tribe__Admin__Help_Page {
 			}
 
 			// Set a Default type
-			if ( empty( $section->type ) ){
+			if ( empty( $section->type ) ) {
 				$section->type = 'default';
 			}
 
@@ -636,7 +704,7 @@ class Tribe__Admin__Help_Page {
 
 			$html[ $section->id . '-start' ] = '<div id="tribe-' . sanitize_html_class( $section->id ) . '" class="tribe-help-section clearfix tribe-section-type-' . sanitize_html_class( $section->type ) . '">';
 
-			if ( ! empty( $section->title ) ){
+			if ( ! empty( $section->title ) ) {
 				$html[ $section->id . '-title' ] = '<h3 class="tribe-help-title">' . esc_html__( $section->title ) . '</h3>';
 			}
 
