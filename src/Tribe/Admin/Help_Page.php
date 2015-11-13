@@ -421,7 +421,7 @@ class Tribe__Admin__Help_Page {
 		// Loop to start the HTML
 		foreach ( $mixed as &$line ) {
 			// If we have content we use that
-			if ( ! empty( $line->content ) ){
+			if ( ! empty( $line->content ) ) {
 				$line = $line->content;
 			}
 
@@ -499,7 +499,7 @@ class Tribe__Admin__Help_Page {
 	 */
 	protected function by_priority( $a, $b ) {
 		if ( empty( $a->priority ) || empty( $b->priority ) || $a->priority === $b->priority ) {
-			if ( empty( $a->unique_call_order ) || empty( $b->unique_call_order ) ){
+			if ( empty( $a->unique_call_order ) || empty( $b->unique_call_order ) ) {
 				return 0;
 			} else {
 				return $a->unique_call_order - $b->unique_call_order;
@@ -532,7 +532,7 @@ class Tribe__Admin__Help_Page {
 		$possible_types = (array) apply_filters( 'tribe_help_available_section_types', array( 'default', 'box' ) );
 
 		// Set a Default type
-		if ( empty( $type ) || ! in_array( $type, $possible_types ) ){
+		if ( empty( $type ) || ! in_array( $type, $possible_types ) ) {
 			$type = 'default';
 		}
 
@@ -616,15 +616,15 @@ class Tribe__Admin__Help_Page {
 		if (
 			! isset( $this->sections[ $section_id ] ) &&
 			! in_array( (object) array( 'id' => $section_id ), $this->sections, true )
-		){
+		) {
 			// There are no sections to remove, so false
 			return false;
 		}
 
 		$removed = array();
 		foreach ( $this->sections as $id => $section ) {
-			if ( ! is_numeric( $id ) && ! is_numeric( $section_id ) && ! empty( $section->id ) ){
-				if ( $section->id === $section_id ){
+			if ( ! is_numeric( $id ) && ! is_numeric( $section_id ) && ! empty( $section->id ) ) {
+				if ( $section->id === $section_id ) {
 					unset( $this->sections[ $id ] );
 					// Mark that this section was removed
 					$removed[ $id ] = true;
@@ -670,7 +670,7 @@ class Tribe__Admin__Help_Page {
 		 */
 		$sections = apply_filters( 'tribe_help_sections', $this->sections );
 
-		if ( ! is_array( $sections ) || empty( $sections ) ){
+		if ( ! is_array( $sections ) || empty( $sections ) ) {
 			return false;
 		}
 
@@ -688,7 +688,7 @@ class Tribe__Admin__Help_Page {
 			}
 
 			// Set a Default type
-			if ( empty( $section->type ) ){
+			if ( empty( $section->type ) ) {
 				$section->type = 'default';
 			}
 
@@ -704,7 +704,7 @@ class Tribe__Admin__Help_Page {
 
 			$html[ $section->id . '-start' ] = '<div id="tribe-' . sanitize_html_class( $section->id ) . '" class="tribe-help-section clearfix tribe-section-type-' . sanitize_html_class( $section->type ) . '">';
 
-			if ( ! empty( $section->title ) ){
+			if ( ! empty( $section->title ) ) {
 				$html[ $section->id . '-title' ] = '<h3 class="tribe-help-title">' . esc_html__( $section->title ) . '</h3>';
 			}
 
