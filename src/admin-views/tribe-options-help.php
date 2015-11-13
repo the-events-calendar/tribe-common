@@ -27,11 +27,6 @@ $help->add_section_content( 'extra-help', array(
 ), 10 );
 
 // By default these three will be gathered
-$help->add_section_content( 'extra-help', __( 'If you have tried the steps above and are still having trouble, you can post a new thread to our open-source forums on WordPress.org:', 'the-events-calendar' ), 20 );
-$help->add_section_content( 'extra-help', $help->get_plugin_forum_links(), 20 );
-$help->add_section_content( 'extra-help', __( 'Our support staff monitors these forums once a week and would be happy to assist you there.', 'the-events-calendar' ), 20 );
-
-$help->add_section_content( 'extra-help', sprintf( __( 'Looking for more immediate support? %s on our website with the purchase of any of our premium plugins. Pick up a license and you can post directly there and expect a response within 24-48 hours during weekdays.', 'the-events-calendar' ), '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'We offer premium support', 'the-events-calendar' ) . '</a>' ), 30 );
 $help->add_section_content( 'extra-help', __( 'Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums 😄.', 'tribe-common' ), 40 );
 $help->add_section_content( 'extra-help', '<div style="text-align: right;"><a href="http://m.tri.be/18ji" target="_blank" class="button">' . __( 'Read more about our support policy', 'tribe-common' ) . '</a></div>', 40 );
 

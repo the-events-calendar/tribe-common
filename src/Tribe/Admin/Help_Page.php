@@ -183,48 +183,52 @@ class Tribe__Admin__Help_Page {
 	public function get_addons( $plugin = null, $is_active = null, $is_important = null ) {
 		$addons = array();
 
-		$addons[] = array(
+		$addons['events-calendar-pro'] = array(
+			'id' => 'events-calendar-pro',
 			'title' => esc_html__( 'Events Calendar PRO', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/dr',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Pro__Main' ),
-			'is_important' => true,
 		);
 
-		$addons[] = array(
+		$addons['eventbrite-tickets'] = array(
+			'id' => 'eventbrite-tickets',
 			'title' => esc_html__( 'Eventbrite Tickets', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/ds',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ),
 		);
 
-		$addons[] = array(
+		$addons['community-events'] = array(
+			'id' => 'community-events',
 			'title' => esc_html__( 'Community Events', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/dt',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Community__Main' ),
 		);
 
-		$addons[] = array(
+		$addons['facebook-events'] = array(
+			'id' => 'facebook-events',
 			'title' => esc_html__( 'Facebook Events', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/du',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Facebook__Importer' ),
 		);
 
-		$addons[] = array(
+		$addons['events-filter-bar'] = array(
+			'id' => 'events-filter-bar',
 			'title' => esc_html__( 'Events Filter Bar', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/hu',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Filterbar__View' ),
 		);
 
-		$addons[] = array(
+		$addons['event-tickets-plus'] = array(
+			'id' => 'event-tickets-plus',
 			'title' => esc_html__( 'Event Tickets Plus', 'tribe-common' ),
-			'link'  => '@TODO',
+			'link'  => '@todo',
 			'plugin' => array( 'event-tickets' ),
 			'is_active' => class_exists( 'Tribe__Tickets_Plus__Main' ),
-			'is_important' => true,
 		);
 
 		/**
@@ -241,7 +245,7 @@ class Tribe__Admin__Help_Page {
 
 		// Allow for easily grab the addons for a plugin
 		$filtered = array();
-		foreach ( $addons as $addon ) {
+		foreach ( $addons as $id => $addon ) {
 			if ( ! is_null( $plugin ) && ! in_array( $plugin, (array) $addon['plugin'] ) ) {
 				continue;
 			}
@@ -262,10 +266,26 @@ class Tribe__Admin__Help_Page {
 				continue;
 			}
 
-			$filtered[] = $addon;
+			$filtered[ $id ] = $addon;
 		}
 
 		return $filtered;
+	}
+
+	public function is_active( $should_be_active ) {
+		$plugins = $this->get_plugins( null, true );
+		$addons = $this->get_addons( null, true );
+
+		$actives = array_merge( $plugins, $addons );
+		$is_active = array();
+
+		foreach ( $actives as $id => $active ) {
+			if ( in_array( $id, (array) $should_be_active ) ) {
+				$is_active[] = $id;
+			}
+		}
+
+		return count( array_filter( $is_active ) ) === 0 ? false : true;
 	}
 
 	/**
