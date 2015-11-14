@@ -27,7 +27,7 @@ $help->add_section_content( 'extra-help', array(
 ), 10 );
 
 // By default these three will be gathered
-$help->add_section_content( 'extra-help', __( 'Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums 😄.', 'tribe-common' ), 40 );
+$help->add_section_content( 'extra-help', __( 'Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums 😄', 'tribe-common' ), 40 );
 $help->add_section_content( 'extra-help', '<div style="text-align: right;"><a href="http://m.tri.be/18ji" target="_blank" class="button">' . __( 'Read more about our support policy', 'tribe-common' ) . '</a></div>', 40 );
 
 // Creates the System Info section

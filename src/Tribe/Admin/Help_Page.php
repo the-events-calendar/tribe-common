@@ -231,6 +231,14 @@ class Tribe__Admin__Help_Page {
 			'is_active' => class_exists( 'Tribe__Tickets_Plus__Main' ),
 		);
 
+		$addons['event-community-tickets'] = array(
+			'id' => 'event-community-tickets',
+			'title' => esc_html__( 'Event Community Tickets', 'tribe-common' ),
+			'link'  => '@todo',
+			'plugin' => array( 'event-tickets' ),
+			'is_active' => class_exists( 'Tribe__Events__Community__Tickets__Main' ),
+		);
+
 		/**
 		 * Filter the array of premium addons upsold on the sidebar of the Settings > Help tab
 		 *
