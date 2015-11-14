@@ -555,3 +555,8 @@ a.tribe-rating-link {
 .bumpdown-trigger .target {
 	color: #0074a2;
 }
+
+/* Useful to ensure modals rise above the grey 'miasma' */
+.ui-front {
+    z-index: 1000000;
+}
