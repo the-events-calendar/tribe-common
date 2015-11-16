@@ -142,12 +142,7 @@ class Tribe__Admin__Help_Page {
 	 * @return string
 	 */
 	public function get_plugins_text( $is_active = true ) {
-		$plugins = $this->get_plugins( null, $is_active );
-
-		// Fetch all addons that are active and are important
-		foreach ( $this->get_addons( null, true, true ) as $addon ) {
-			$plugins[] = $addon;
-		}
+		$plugins = array_merge( $this->get_plugins( null, $is_active ), $this->get_addons( null, $is_active, true ) );
 
 		$plugins_text = '';
 		$i = 0;
@@ -189,6 +184,7 @@ class Tribe__Admin__Help_Page {
 			'link'  => 'http://m.tri.be/dr',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Pro__Main' ),
+			'is_important' => true,
 		);
 
 		$addons['eventbrite-tickets'] = array(
@@ -229,6 +225,7 @@ class Tribe__Admin__Help_Page {
 			'link'  => '@todo',
 			'plugin' => array( 'event-tickets' ),
 			'is_active' => class_exists( 'Tribe__Tickets_Plus__Main' ),
+			'is_important' => true,
 		);
 
 		$addons['event-community-tickets'] = array(
