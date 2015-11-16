@@ -231,6 +231,14 @@ class Tribe__Admin__Help_Page {
 			'is_active' => class_exists( 'Tribe__Tickets_Plus__Main' ),
 		);
 
+		$addons['event-community-tickets'] = array(
+			'id' => 'event-community-tickets',
+			'title' => esc_html__( 'Event Community Tickets', 'tribe-common' ),
+			'link'  => '@todo',
+			'plugin' => array( 'event-tickets' ),
+			'is_active' => class_exists( 'Tribe__Events__Community__Tickets__Main' ),
+		);
+
 		/**
 		 * Filter the array of premium addons upsold on the sidebar of the Settings > Help tab
 		 *
@@ -851,15 +859,20 @@ class Tribe__Admin__Help_Page {
 				<h3><?php esc_html_e( 'Premium Add-Ons', 'tribe-common' ); ?></h3>
 				<ul class='tribe-list-addons'>
 					<?php foreach ( $addons as $addon ) {
-						echo '<li class="' . ( isset( $addon['is_active'] ) && $addon['is_active'] ? 'tribe-active-addon' : '' ) . '">';
-						if ( isset( $addon['link'] ) ) {
-							echo '<a href="' . esc_url( $addon['link'] ) . '" target="_blank">';
+						$addon = (object) $addon;
+
+						if ( isset( $addon->is_active ) && $addon->is_active ) {
+							$active_title = __( 'Plugin Active', 'tribe-common' );
+						} else {
+							$active_title = __( 'Plugin Inactive', 'tribe-common' );
 						}
-						echo esc_html( $addon['title'] );
-						if ( isset( $addon['coming_soon'] ) ) {
-							echo is_string( $addon['coming_soon'] ) ? ' ' . $addon['coming_soon'] : ' ' . esc_html__( '(Coming Soon!)', 'tribe-common' );
+
+						echo '<li title="' . esc_attr( $active_title ) . '" class="' . ( isset( $addon->is_active ) && $addon->is_active ? 'tribe-active-addon' : '' ) . '">';
+						if ( isset( $addon->link ) ) {
+							echo '<a href="' . esc_url( $addon->link ) . '" title="' . esc_attr__( 'Visit the Add-on Page', 'tribe-common' ) . '" target="_blank">';
 						}
-						if ( isset( $addon['link'] ) ) {
+						echo esc_html( $addon->title );
+						if ( isset( $addon->link ) ) {
 							echo '</a>';
 						}
 						echo '</li>';
