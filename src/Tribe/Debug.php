@@ -33,9 +33,9 @@ class Tribe__Debug {
 	public static function render( $title, $data = false, $format = 'log' ) {
 		$format = ucfirst( $format );
 		if ( Tribe__Settings_Manager::instance()->get_option( 'debugEvents' ) ) {
-			error_log( Tribe__Main::instance()->pluginName . " $format: $title" );
+			error_log( "$format: $title" );
 			if ( $data && $data != '' ) {
-				error_log( Tribe__Main::instance()->pluginName . " $format: " . print_r( $data, true ) );
+				error_log( "$format: " . print_r( $data, true ) );
 			}
 		}
 	}
