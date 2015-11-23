@@ -222,7 +222,7 @@ class Tribe__Admin__Help_Page {
 		$addons['event-tickets-plus'] = array(
 			'id' => 'event-tickets-plus',
 			'title' => esc_html__( 'Event Tickets Plus', 'tribe-common' ),
-			'link'  => '@todo',
+			'link'  => 'http://m.tri.be/18wa',
 			'plugin' => array( 'event-tickets' ),
 			'is_active' => class_exists( 'Tribe__Tickets_Plus__Main' ),
 			'is_important' => true,
@@ -231,7 +231,7 @@ class Tribe__Admin__Help_Page {
 		$addons['event-community-tickets'] = array(
 			'id' => 'event-community-tickets',
 			'title' => esc_html__( 'Community Tickets', 'tribe-common' ),
-			'link'  => '@todo',
+			'link'  => 'http://m.tri.be/18m2',
 			'plugin' => array( 'event-tickets' ),
 			'is_active' => class_exists( 'Tribe__Events__Community__Tickets__Main' ),
 		);
