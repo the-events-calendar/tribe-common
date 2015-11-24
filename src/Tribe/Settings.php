@@ -612,7 +612,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			$args = wp_parse_args( $args, $defaults );
 			$url = admin_url( self::$parent_page );
 
-			return esc_url( apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url ) );
+			return apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url );
 		}
 
 	} // end class
