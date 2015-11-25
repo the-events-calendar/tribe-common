@@ -176,7 +176,7 @@ if ( ! function_exists( 'tribe_get_start_time' ) ) {
 			return;
 		}
 
-		if ( Tribe__Date_Utils::is_all_day( tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			return;
 		}
 
@@ -220,7 +220,7 @@ if ( ! function_exists( 'tribe_get_end_time' ) ) {
 			return;
 		}
 
-		if ( Tribe__Date_Utils::is_all_day( tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			return;
 		}
 
@@ -264,7 +264,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 			return '';
 		}
 
-		if ( Tribe__Date_Utils::is_all_day( tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			$display_time = false;
 		}
 
@@ -305,7 +305,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 			return '';
 		}
 
-		if ( Tribe__Date_Utils::is_all_day( tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			$display_time = false;
 		}
 
