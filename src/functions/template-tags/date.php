@@ -148,3 +148,172 @@ if ( ! function_exists( 'tribe_get_datetime_separator' ) ) {
 		return apply_filters( 'tribe_datetime_separator', $separator );
 	}
 }//end if
+
+if ( ! function_exists( 'tribe_get_start_time' ) ) {
+	/**
+	 * Start Time
+	 *
+	 * Returns the event start time
+	 *
+	 * @category Events
+	 * @param int    $event       (optional)
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 *
+	 * @return string|null Time
+	 */
+	function tribe_get_start_time( $event = null, $dateFormat = '', $timezone = null ) {
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+
+		if ( is_numeric( $event ) ) {
+			$event = get_post( $event );
+		}
+
+		if ( ! is_object( $event ) ) {
+			return;
+		}
+
+		if ( Tribe__Date_Utils::is_all_day( tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) ) {
+			return;
+		}
+
+		// @todo move timezones to Common
+		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
+			$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
+		}
+
+		if ( '' == $dateFormat ) {
+			$dateFormat = tribe_get_time_format();
+		}
+
+		return tribe_format_date( $start_date, false, $dateFormat );
+	}
+}
+
+if ( ! function_exists( 'tribe_get_end_time' ) ) {
+	/**
+	 * End Time
+	 *
+	 * Returns the event end time
+	 *
+	 * @category Events
+	 * @param int    $event       (optional)
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 *
+	 * @return string|null Time
+	 */
+	function tribe_get_end_time( $event = null, $dateFormat = '', $timezone = null ) {
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+
+		if ( is_numeric( $event ) ) {
+			$event = get_post( $event );
+		}
+
+		if ( ! is_object( $event ) ) {
+			return;
+		}
+
+		if ( Tribe__Date_Utils::is_all_day( tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) ) {
+			return;
+		}
+
+		// @todo move timezones to Common
+		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
+			$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
+		}
+
+		if ( '' == $dateFormat ) {
+			$dateFormat = tribe_get_time_format();
+		}
+
+		return tribe_format_date( $end_date, false, $dateFormat );
+	}
+}
+
+if ( ! function_exists( 'tribe_get_start_date' ) ) {
+	/**
+	 * Start Date
+	 *
+	 * Returns the event start date and time
+	 *
+	 * @category Events
+	 * @param int    $event       (optional)
+	 * @param bool   $displayTime If true shows date and time, if false only shows date
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 * @return string|null Date
+	 */
+	function tribe_get_start_date( $event = null, $displayTime = true, $dateFormat = '', $timezone = null ) {
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+
+		if ( is_numeric( $event ) ) {
+			$event = get_post( $event );
+		}
+
+		if ( ! is_object( $event ) ) {
+			return '';
+		}
+
+		if ( Tribe__Date_Utils::is_all_day( tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) ) {
+			$displayTime = false;
+		}
+
+		// @todo move timezones to Common
+		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
+			$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
+		}
+
+		return tribe_format_date( $start_date, $displayTime, $dateFormat );
+	}
+}
+
+if ( ! function_exists( 'tribe_get_end_date' ) ) {
+	/**
+	 * End Date
+	 *
+	 * Returns the event end date
+	 *
+	 * @category Events
+	 * @param int    $event       (optional)
+	 * @param bool   $displayTime If true shows date and time, if false only shows date
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 *
+	 * @return string|null Date
+	 */
+	function tribe_get_end_date( $event = null, $displayTime = true, $dateFormat = '', $timezone = null ) {
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+
+		if ( is_numeric( $event ) ) {
+			$event = get_post( $event );
+		}
+
+		if ( ! is_object( $event ) ) {
+			return '';
+		}
+
+		if ( Tribe__Date_Utils::is_all_day( tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) ) {
+			$displayTime = false;
+		}
+
+		// @todo move timezones to Common
+		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
+			$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
+		}
+
+		return tribe_format_date( $end_date, $displayTime, $dateFormat );
+	}
+}
