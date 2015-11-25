@@ -70,12 +70,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 
 			$where = Tribe__Settings::$parent_slug;
 
-			$this->admin_page = add_submenu_page(
-				$where, $page_title, $menu_title, $capability, self::MENU_SLUG, array(
-					$this,
-					'do_menu_page',
-				)
-			);
+			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::MENU_SLUG, array( $this, 'do_menu_page' ) );
 
 			add_action( 'admin_print_styles-' . $this->admin_page, array( $this, 'enqueue' ) );
 		}
@@ -91,12 +86,10 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			if ( current_user_can( $capability ) ) {
 				global $wp_admin_bar;
 
-				$where = Tribe__Settings::$parent_slug;
-
 				$wp_admin_bar->add_menu( array(
 					'id'     => 'tribe-events-app-shop',
 					'title'  => esc_html__( 'Event Add-Ons', 'tribe-common' ),
-					'href'   => esc_url( admin_url( untrailingslashit( $where ) . '&page=' . esc_attr( self::MENU_SLUG ) ) ),
+					'href'   => Tribe__Settings::instance()->get_url( array( 'page' => self::MENU_SLUG ) ),
 					'parent' => 'tribe-events-settings-group',
 				) );
 			}
