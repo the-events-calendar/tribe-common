@@ -10,7 +10,7 @@ class Tribe__Changelog_Reader {
 	}
 
 	protected function default_readme_file() {
-		return dirname( dirname( dirname( __FILE__ ) ) ) . '/readme.txt';
+		return dirname( Tribe__Main::instance()->plugin_path ) . '/readme.txt';
 	}
 
 	public function get_changelog() {
@@ -26,11 +26,11 @@ class Tribe__Changelog_Reader {
 					break;
 				}
 				$header = trim( $line, '= ' );
-				$current_section = $header;
+				$current_section = esc_html( $header );
 				$sections[ $current_section ] = array();
 			} elseif ( strlen( $line ) > 0 ) {
 				$message = trim( $line, '* ' );
-				$sections[ $current_section ][] = $message;
+				$sections[ $current_section ][] = esc_html( $message );
 			}
 		}
 		return $sections;
