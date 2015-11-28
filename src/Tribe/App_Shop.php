@@ -68,7 +68,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$menu_title = esc_html__( 'Event Add-Ons', 'tribe-common' );
 			$capability = apply_filters( 'tribe_events_addon_page_capability', 'install_plugins' );
 
-			$where = Tribe__Settings::$parent_slug;
+			$where = Tribe__Settings::$parent_page;
 
 			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::MENU_SLUG, array( $this, 'do_menu_page' ) );
 
