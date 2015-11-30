@@ -749,7 +749,16 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return int The day timestamp
 		 */
 		public static function get_weekday_timestamp( $day_of_week, $week_in_month, $month, $year, $week_direction = 1 ) {
-			if ( ! ( is_numeric( $day_of_week ) && is_numeric( $week_in_month ) && is_numeric( $month ) && is_numeric( $year ) && is_numeric( $week_direction ) && in_array( $week_direction, array( - 1, 1 ) ) ) ) {
+			if (
+				! (
+					is_numeric( $day_of_week )
+					&& is_numeric( $week_in_month )
+					&& is_numeric( $month )
+					&& is_numeric( $year )
+					&& is_numeric( $week_direction )
+					&& in_array( $week_direction, array( - 1, 1 ) )
+				)
+			) {
 				return false;
 			}
 
