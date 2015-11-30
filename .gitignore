@@ -1,1 +1,6 @@
 codeception.yml
+tests/wpunit.suite.yml
+tests/unit.suite.yml
+tests/functional.suite.yml
+tests/functional/_bootstrap.php
+tests/acceptance.suite.yml
