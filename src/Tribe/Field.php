@@ -361,7 +361,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string the field
 		 */
 		public function heading() {
-			$field = '<h2>' . $this->label . '</h2>';
+			$field = '<h3>' . $this->label . '</h3>';
 
 			return $field;
 		}

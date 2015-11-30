@@ -142,14 +142,14 @@ class Tribe__Admin__Help_Page {
 	 * @return string
 	 */
 	public function get_plugins_text( $is_active = true ) {
-		$plugins = $this->get_plugins( null, $is_active );
-		$count = count( $plugins );
+		$plugins = array_merge( $this->get_plugins( null, $is_active ), $this->get_addons( null, $is_active, true ) );
+
 		$plugins_text = '';
 		$i = 0;
-
+		$count = count( $plugins );
 		foreach ( $plugins as $plugin ) {
 			$i++;
-			if ( $plugin['is_active'] !== $is_active ) {
+			if ( ! isset( $plugin['is_active'] ) || $plugin['is_active'] !== $is_active ) {
 				continue;
 			}
 
@@ -171,51 +171,69 @@ class Tribe__Admin__Help_Page {
 	 * @since  4.0
 	 *
 	 * @param  string $plugin Plugin Name to filter
+	 * @param  string $is_active Filter if it's active
+	 * @param  string $is_important filter if the plugin is important
 	 * @return array
 	 */
-	public function get_addons( $plugin = null ) {
+	public function get_addons( $plugin = null, $is_active = null, $is_important = null ) {
 		$addons = array();
 
-		$addons[] = array(
+		$addons['events-calendar-pro'] = array(
+			'id' => 'events-calendar-pro',
 			'title' => esc_html__( 'Events Calendar PRO', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/dr',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Pro__Main' ),
+			'is_important' => true,
 		);
 
-		$addons[] = array(
+		$addons['eventbrite-tickets'] = array(
+			'id' => 'eventbrite-tickets',
 			'title' => esc_html__( 'Eventbrite Tickets', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/ds',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ),
 		);
 
-		$addons[] = array(
+		$addons['community-events'] = array(
+			'id' => 'community-events',
 			'title' => esc_html__( 'Community Events', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/dt',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Community__Main' ),
 		);
 
-		$addons[] = array(
+		$addons['facebook-events'] = array(
+			'id' => 'facebook-events',
 			'title' => esc_html__( 'Facebook Events', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/du',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Facebook__Importer' ),
 		);
 
-		$addons[] = array(
+		$addons['events-filter-bar'] = array(
+			'id' => 'events-filter-bar',
 			'title' => esc_html__( 'Events Filter Bar', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/hu',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Filterbar__View' ),
 		);
 
-		$addons[] = array(
+		$addons['event-tickets-plus'] = array(
+			'id' => 'event-tickets-plus',
 			'title' => esc_html__( 'Event Tickets Plus', 'tribe-common' ),
-			'link'  => '@TODO',
+			'link'  => 'http://m.tri.be/18wa',
 			'plugin' => array( 'event-tickets' ),
 			'is_active' => class_exists( 'Tribe__Tickets_Plus__Main' ),
+			'is_important' => true,
+		);
+
+		$addons['event-community-tickets'] = array(
+			'id' => 'event-community-tickets',
+			'title' => esc_html__( 'Community Tickets', 'tribe-common' ),
+			'link'  => 'http://m.tri.be/18m2',
+			'plugin' => array( 'event-tickets' ),
+			'is_active' => class_exists( 'Tribe__Events__Community__Tickets__Main' ),
 		);
 
 		/**
@@ -225,21 +243,54 @@ class Tribe__Admin__Help_Page {
 		 */
 		$addons = (array) apply_filters( 'tribe_help_addons', $addons );
 
-		if ( is_null( $plugin ) ) {
+		// Should I filter something
+		if ( is_null( $plugin ) && is_null( $is_active ) && is_null( $is_important ) ) {
 			return $addons;
 		}
 
 		// Allow for easily grab the addons for a plugin
 		$filtered = array();
-		foreach ( $addons as $addon ) {
-			if ( ! in_array( $plugin, (array) $addon['plugin'] ) ) {
+		foreach ( $addons as $id => $addon ) {
+			if ( ! is_null( $plugin ) && ! in_array( $plugin, (array) $addon['plugin'] ) ) {
 				continue;
 			}
 
-			$filtered[] = $addon;
+			// Filter by is_active
+			if (
+				! is_null( $is_active ) &&
+				( ! isset( $addon['is_active'] ) || $is_active !== $addon['is_active'] )
+			) {
+				continue;
+			}
+
+			// Filter by is_important
+			if (
+				! is_null( $is_important ) &&
+				( ! isset( $addon['is_important'] ) || $is_important !== $addon['is_important'] )
+			) {
+				continue;
+			}
+
+			$filtered[ $id ] = $addon;
 		}
 
 		return $filtered;
+	}
+
+	public function is_active( $should_be_active ) {
+		$plugins = $this->get_plugins( null, true );
+		$addons = $this->get_addons( null, true );
+
+		$actives = array_merge( $plugins, $addons );
+		$is_active = array();
+
+		foreach ( $actives as $id => $active ) {
+			if ( in_array( $id, (array) $should_be_active ) ) {
+				$is_active[] = $id;
+			}
+		}
+
+		return count( array_filter( $is_active ) ) === 0 ? false : true;
 	}
 
 	/**
@@ -395,7 +446,7 @@ class Tribe__Admin__Help_Page {
 		// Loop to start the HTML
 		foreach ( $mixed as &$line ) {
 			// If we have content we use that
-			if ( ! empty( $line->content ) ){
+			if ( ! empty( $line->content ) ) {
 				$line = $line->content;
 			}
 
@@ -473,7 +524,7 @@ class Tribe__Admin__Help_Page {
 	 */
 	protected function by_priority( $a, $b ) {
 		if ( empty( $a->priority ) || empty( $b->priority ) || $a->priority === $b->priority ) {
-			if ( empty( $a->unique_call_order ) || empty( $b->unique_call_order ) ){
+			if ( empty( $a->unique_call_order ) || empty( $b->unique_call_order ) ) {
 				return 0;
 			} else {
 				return $a->unique_call_order - $b->unique_call_order;
@@ -506,7 +557,7 @@ class Tribe__Admin__Help_Page {
 		$possible_types = (array) apply_filters( 'tribe_help_available_section_types', array( 'default', 'box' ) );
 
 		// Set a Default type
-		if ( empty( $type ) || ! in_array( $type, $possible_types ) ){
+		if ( empty( $type ) || ! in_array( $type, $possible_types ) ) {
 			$type = 'default';
 		}
 
@@ -579,6 +630,48 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * Remove a section based on the ID
+	 * This method will remove any sections that are indexed at that ID on the sections array
+	 * And the sections that have a propriety of `id` equals to the given $section_id argument
+	 *
+	 * @param  string|int $section_id You can use Numeric or String indexes to search
+	 * @return bool|int               Returns `false` when no sections were removed and an `int` with the number of sections removed
+	 */
+	public function remove_section( $section_id ) {
+		if (
+			! isset( $this->sections[ $section_id ] ) &&
+			! in_array( (object) array( 'id' => $section_id ), $this->sections, true )
+		) {
+			// There are no sections to remove, so false
+			return false;
+		}
+
+		$removed = array();
+		foreach ( $this->sections as $id => $section ) {
+			if ( ! is_numeric( $id ) && ! is_numeric( $section_id ) && ! empty( $section->id ) ) {
+				if ( $section->id === $section_id ) {
+					unset( $this->sections[ $id ] );
+					// Mark that this section was removed
+					$removed[ $id ] = true;
+				}
+			} elseif ( $id === $section_id ) {
+				unset( $this->sections[ $section_id ] );
+				// Mark that this section was removed
+				$removed[ $id ] = true;
+			} else {
+				// Mark that this section was NOT removed
+				$removed[ $id ] = false;
+			}
+		}
+
+		// Count how many were removed
+		$total = count( array_filter( $removed ) );
+
+		// if Zero just return false
+		return $total === 0 ? false : $total;
+	}
+
+	/**
 	 * Based on an Array of sections it render the Help Page contents
 	 *
 	 * @since  4.0
@@ -602,7 +695,7 @@ class Tribe__Admin__Help_Page {
 		 */
 		$sections = apply_filters( 'tribe_help_sections', $this->sections );
 
-		if ( ! is_array( $sections ) || empty( $sections ) ){
+		if ( ! is_array( $sections ) || empty( $sections ) ) {
 			return false;
 		}
 
@@ -620,7 +713,7 @@ class Tribe__Admin__Help_Page {
 			}
 
 			// Set a Default type
-			if ( empty( $section->type ) ){
+			if ( empty( $section->type ) ) {
 				$section->type = 'default';
 			}
 
@@ -636,7 +729,7 @@ class Tribe__Admin__Help_Page {
 
 			$html[ $section->id . '-start' ] = '<div id="tribe-' . sanitize_html_class( $section->id ) . '" class="tribe-help-section clearfix tribe-section-type-' . sanitize_html_class( $section->type ) . '">';
 
-			if ( ! empty( $section->title ) ){
+			if ( ! empty( $section->title ) ) {
 				$html[ $section->id . '-title' ] = '<h3 class="tribe-help-title">' . esc_html__( $section->title ) . '</h3>';
 			}
 
@@ -763,15 +856,20 @@ class Tribe__Admin__Help_Page {
 				<h3><?php esc_html_e( 'Premium Add-Ons', 'tribe-common' ); ?></h3>
 				<ul class='tribe-list-addons'>
 					<?php foreach ( $addons as $addon ) {
-						echo '<li class="' . ( isset( $addon['is_active'] ) && $addon['is_active'] ? 'tribe-active-addon' : '' ) . '">';
-						if ( isset( $addon['link'] ) ) {
-							echo '<a href="' . esc_url( $addon['link'] ) . '" target="_blank">';
+						$addon = (object) $addon;
+
+						if ( isset( $addon->is_active ) && $addon->is_active ) {
+							$active_title = __( 'Plugin Active', 'tribe-common' );
+						} else {
+							$active_title = __( 'Plugin Inactive', 'tribe-common' );
 						}
-						echo esc_html( $addon['title'] );
-						if ( isset( $addon['coming_soon'] ) ) {
-							echo is_string( $addon['coming_soon'] ) ? ' ' . $addon['coming_soon'] : ' ' . esc_html__( '(Coming Soon!)', 'tribe-common' );
+
+						echo '<li title="' . esc_attr( $active_title ) . '" class="' . ( isset( $addon->is_active ) && $addon->is_active ? 'tribe-active-addon' : '' ) . '">';
+						if ( isset( $addon->link ) ) {
+							echo '<a href="' . esc_url( $addon->link ) . '" title="' . esc_attr__( 'Visit the Add-on Page', 'tribe-common' ) . '" target="_blank">';
 						}
-						if ( isset( $addon['link'] ) ) {
+						echo esc_html( $addon->title );
+						if ( isset( $addon->link ) ) {
 							echo '</a>';
 						}
 						echo '</li>';

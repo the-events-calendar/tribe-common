@@ -197,8 +197,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 			if ( ! is_multisite() || ( is_multisite() && '0' == Tribe__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
 				if ( post_type_exists( 'tribe_events' ) ) {
-					self::$parent_slug = 'edit.php?post_type=tribe_events';
-					self::$parent_page = 'edit.php';
+					self::$parent_page = 'edit.php?post_type=tribe_events';
 				} else {
 					add_menu_page(
 						esc_html__( 'Events', 'tribe-common' ),
@@ -211,7 +210,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				}
 
 				$this->admin_page = add_submenu_page(
-					self::$parent_slug,
+					self::$parent_page,
 					esc_html__( 'The Events Calendar Settings', 'tribe-common' ),
 					esc_html__( 'Settings', 'tribe-common' ),
 					$this->requiredCap,
@@ -612,7 +611,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			$args = wp_parse_args( $args, $defaults );
 			$url = admin_url( self::$parent_page );
 
-			return esc_url( apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url ) );
+			return apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url );
 		}
 
 	} // end class
