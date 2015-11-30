@@ -21,7 +21,7 @@ $help->add_section_content( 'extra-help', __( 'While the resources above help so
 $help->add_section_content( 'extra-help', array(
 	'type' => 'ol',
 
-	sprintf( __( '%s. All of the common (and not-so-common) answers to questions we see are all here. It’s often the fastest path to finding an answer!', 'tribe-common' ), '<strong><a href="http://m.tri.be/18j9" target="_blank">' . __( 'Check our Knowledgebase', 'tribe-common' ) . '</a></strong>' ),
+	sprintf( __( '%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!', 'tribe-common' ), '<strong><a href="http://m.tri.be/18j9" target="_blank">' . __( 'Check our Knowledgebase', 'tribe-common' ) . '</a></strong>' ),
 	sprintf( __( '%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful.', 'tribe-common' ), '<strong><a href="http://m.tri.be/18jh" target="_blank">' . __( 'Test for a theme or plugin conflict', 'tribe-common' ) . '</a></strong>' ),
 	sprintf( __( '%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review.', 'tribe-common' ), '<strong><a href="http://m.tri.be/4w/" target="_blank">' . __( 'Search our support forum', 'tribe-common' ) . '</a></strong>' ),
 ), 10 );
@@ -32,7 +32,7 @@ $help->add_section_content( 'extra-help', '<div style="text-align: right;"><a hr
 
 // Creates the System Info section
 $help->add_section( 'system-info', __( 'System Information', 'tribe-common' ), 30 );
-$help->add_section_content( 'system-info', __( 'The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our a premium forums, please copy and paste this information into the System Information field and it will help us help you faster!', 'tribe-common' ), 0 );
+$help->add_section_content( 'system-info', __( 'The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!', 'tribe-common' ), 0 );
 ?>
 
 <div id="tribe-help-general">
