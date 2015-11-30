@@ -1,0 +1,5 @@
+class_name: WpunitTester
+modules:
+    enabled:
+        - \Helper\Wpunit
+        - WPLoader
