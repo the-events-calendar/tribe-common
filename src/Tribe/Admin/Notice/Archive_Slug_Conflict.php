@@ -65,7 +65,7 @@ class Tribe__Admin__Notice__Archive_Slug_Conflict {
 		$settings_cap                = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
 		$admin_slug                  = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
 		$setting_page_link           = apply_filters( 'tribe_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#tribe-field-singleEventSlug' ) );
-		$can_edit_settings_link      = sprintf( __( '<a href="%s">edit The Events Calendar settings</a>.', 'tribe-common' ), $setting_page_link );
+		$can_edit_settings_link      = sprintf( __( '<a href="%s">edit Events settings</a>.', 'tribe-common' ), $setting_page_link );
 		$events_settings_link_string = current_user_can( $settings_cap ) ? $can_edit_settings_link : __( ' ask the site administrator set a different Events URL slug.', 'tribe-common' );
 
 		$line_2 = __( sprintf( '%1$s or %2$s', $page_edit_link_string, $events_settings_link_string ), 'tribe-common' );
