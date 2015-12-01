@@ -721,6 +721,68 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::is_timestamp' );
 			return self::is_timestamp( $timestamp );
 		}
+
+		/**
+		 * Gets the timestamp of a day in week, month and year context.
+		 *
+		 * Kudos to [icedwater StackOverflow user](http://stackoverflow.com/users/1091386/icedwater) in
+		 * [his answer](http://stackoverflow.com/questions/924246/get-the-first-or-last-friday-in-a-month).
+		 *
+		 * Usage examples:
+		 * "The second Wednesday of March 2015" - `get_day_timestamp( 3, 2, 3, 2015, 1)`
+		 * "The last Friday of December 2015" - `get_day_timestamp( 5, 1, 12, 2015, -1)`
+		 * "The first Monday of April 2016 - `get_day_timestamp( 1, 1, 4, 2016, 1)`
+		 * "The penultimate Thursday of January 2012" - `get_day_timestamp( 4, 2, 1, 2012, -1)`
+		 *
+		 * @param int $day_of_week    The day representing the number in the week, Monday is `1`, Tuesday is `2`, Sunday is `7`
+		 * @param int $week_in_month  The week number in the month; first week is `1`, second week is `2`; when direction is reverse
+		 *                  then `1` is last week of the month, `2` is penultimate week of the month and so on.
+		 * @param int $month          The month number in the year, January is `1`
+		 * @param int $year           The year number, e.g. "2015"
+		 * @param int $week_direction Either `1` or `-1`; the direction for the search referring to the week, defaults to `1`
+		 *                       to specify weeks in natural order so:
+		 *                       $week_direction `1` and $week_in_month `1` means "first week of the month"
+		 *                       $week_direction `1` and $week_in_month `3` means "third week of the month"
+		 *                       $week_direction `-1` and $week_in_month `1` means "last week of the month"
+		 *                       $week_direction `-1` and $week_in_month `2` means "penultimmate week of the month"
+		 *
+		 * @return int The day timestamp
+		 */
+		public static function get_weekday_timestamp( $day_of_week, $week_in_month, $month, $year, $week_direction = 1 ) {
+			if (
+				! (
+					is_numeric( $day_of_week )
+					&& is_numeric( $week_in_month )
+					&& is_numeric( $month )
+					&& is_numeric( $year )
+					&& is_numeric( $week_direction )
+					&& in_array( $week_direction, array( - 1, 1 ) )
+				)
+			) {
+				return false;
+			}
+
+			if ( $week_direction > 0 ) {
+				$startday = 1;
+			} else {
+				$startday = date( 't', mktime( 0, 0, 0, $month, 1, $year ) );
+			}
+
+			$start   = mktime( 0, 0, 0, $month, $startday, $year );
+			$weekday = date( 'N', $start );
+
+			if ( $week_direction * $day_of_week >= $week_direction * $weekday ) {
+				$offset = - $week_direction * 7;
+			} else {
+				$offset = 0;
+			}
+
+			$offset += $week_direction * ( $week_in_month * 7 ) + ( $day_of_week - $weekday );
+
+			return mktime( 0, 0, 0, $month, $startday + $offset, $year );
+		}
+
 		// @codingStandardsIgnoreEnd
 	}
+
 }
