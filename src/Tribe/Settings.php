@@ -614,5 +614,20 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			return apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url );
 		}
 
+		/**
+		 * The "slug" used for adding submenu pages
+		 *
+		 * @return string
+		 */
+		public function get_parent_slug() {
+			$slug = self::$parent_page;
+
+			// if we don't have an event post type, then we can just use the tribe-common slug
+			if ( 'admin.php' === $slug ) {
+				$slug = self::$parent_slug;
+			}
+
+			return $slug;
+		}
 	} // end class
 } // endif class_exists
