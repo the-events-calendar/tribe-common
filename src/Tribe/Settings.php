@@ -210,7 +210,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				}
 
 				$this->admin_page = add_submenu_page(
-					self::$parent_page,
+					$this->get_parent_slug(),
 					esc_html__( 'The Events Calendar Settings', 'tribe-common' ),
 					esc_html__( 'Settings', 'tribe-common' ),
 					$this->requiredCap,
