@@ -167,7 +167,8 @@ class Tribe__Main {
 	 * Loads the textdomain
 	 */
 	public function load_text_domain() {
-		load_plugin_textdomain( 'tribe-common', false, $this->plugin_dir . 'lang/' );
+		$dir = basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/';
+		load_plugin_textdomain( 'tribe-common', false, $dir );
 	}
 
 	public function admin_enqueue_scripts() {
