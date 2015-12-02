@@ -153,12 +153,21 @@ class Tribe__Main {
 	public function add_hooks() {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
 
+		add_action( 'init', array( $this, 'load_text_domain' ), 1 );
+
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'register_resources' ), 1 );
 		add_action( 'init', array( $this, 'register_vendor' ), 1 );
 
 		// Enqueue only when needed (admin)
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+	}
+
+	/**
+	 * Loads the textdomain
+	 */
+	public function load_text_domain() {
+		load_plugin_textdomain( 'tribe-common', false, $this->plugin_dir . 'lang/' );
 	}
 
 	public function admin_enqueue_scripts() {
