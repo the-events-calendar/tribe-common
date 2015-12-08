@@ -31,14 +31,15 @@ table.plugins .tribe-plugin-update-message {
 }
 
 table.plugins .tribe-plugin-update-message h4 {
-    background: white;
-    border-radius: 34px;
-    color: #d54e21;
-    display: inline-block;
-    float: left;
-    margin: 2px 12px 2px 2px;
-    padding: 10px 8px;
+    display: inline;
+    font-weight: bold;
+    margin-right: 8px;
 }
+
+table.plugins .tribe-plugin-update-message h4:after {
+    content: ' \00BB ';
+}
+
 
 table.plugins .tribe-plugin-update-message a {
     color: white;
