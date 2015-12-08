@@ -25,18 +25,19 @@ td.tribe_message {padding-bottom: 10px !important;}
 table.plugins .tribe-plugin-update-message {
     background: #d54e21; /* taken from colour scheme in list-tables.css */
     color: white;
+    display: inline-table;
     padding: 10px 12px;
     margin: 6px 0px;
 }
 
 table.plugins .tribe-plugin-update-message h4 {
     background: white;
-    border-radius: 30px;
+    border-radius: 34px;
     color: #d54e21;
     display: inline-block;
     float: left;
     margin: 2px 12px 2px 2px;
-    padding: 8px;
+    padding: 10px 8px;
 }
 
 table.plugins .tribe-plugin-update-message a {
