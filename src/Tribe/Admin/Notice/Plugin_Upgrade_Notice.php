@@ -69,14 +69,13 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	 */
 	protected function test_for_upgrade_notice() {
 		$cache_key = $this->cache_key();
-		$notice = get_transient( $cache_key );
+		$this->upgrade_notice = get_transient( $cache_key );
 
-		if ( false === $notice ) {
-			$notice = $this->discover_upgrade_notice();
+		if ( false === $this->upgrade_notice ) {
+			$this->discover_upgrade_notice();
 		}
 
-		set_transient( $cache_key, $notice, $this->cache_expiration() );
-		$this->upgrade_notice = $notice;
+		set_transient( $cache_key, $this->upgrade_notice, $this->cache_expiration() );
 	}
 
 	/**
@@ -180,7 +179,7 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 				break;
 			}
 
-			// Look out for hte start of the Upgrade Notice section
+			// Look out for the start of the Upgrade Notice section
 			if ( ! $in_upgrade_notice && preg_match( '/^==\s*Upgrade\s+Notice\s*==/i', $line ) ) {
 				$in_upgrade_notice = true;
 			}
