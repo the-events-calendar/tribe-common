@@ -45,7 +45,7 @@ modules:
             tablePrefix: wptests_
             domain: tec.tri.be
             adminEmail: admin@tec.tri.ve
-            title: 'Event Tickets Tests'
+            title: 'Event Common Tests'
             phpBinary: php
             language: ''
             plugins:

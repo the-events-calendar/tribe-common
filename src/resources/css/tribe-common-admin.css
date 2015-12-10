@@ -20,6 +20,32 @@ td.tribe_message {padding-bottom: 10px !important;}
 #tribe-upgrade {margin:20px 0 30px; border:1px solid #ccc; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; padding:0 20px 20px; background:#f6f6f6;}
 #tribe-upgrade .message {border-style:solid; border-width:1px; padding:6px 12px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; background-color:#FFFFE0; border-color:#E6DB55;}
 
+/* = Plugin Screen
+=============================================*/
+table.plugins .tribe-plugin-update-message {
+    background: #d54e21; /* taken from colour scheme in list-tables.css */
+    color: white;
+    display: inline-table;
+    padding: 10px 12px;
+    margin: 6px 0px;
+}
+
+table.plugins .tribe-plugin-update-message h4 {
+    display: inline;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+table.plugins .tribe-plugin-update-message h4:after {
+    content: ' \00BB ';
+}
+
+
+table.plugins .tribe-plugin-update-message a {
+    color: white;
+    text-decoration: underline;
+}
+
 /* = Settings Screen
 =============================================*/
 .tribe-settings-form { max-width: 1000px; }
@@ -346,9 +372,6 @@ only screen and (min--moz-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
-	.events-cal #icon-edit {
-		background-image: url(../images/events-screen-icon@2x.png);
-	}
 	#tribe-loading span {
 		background-image: url(../images/tribe-loading@2x.gif);
 	}
