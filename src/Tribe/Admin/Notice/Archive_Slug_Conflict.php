@@ -51,20 +51,18 @@ class Tribe__Admin__Notice__Archive_Slug_Conflict {
 	 * Echoes the admin notice to the page
 	 */
 	public function notice() {
-
 		// What's happening?
 		$page_title = apply_filters( 'the_title', $this->page->post_title );
 		$line_1     = __( sprintf( 'The page "%1$s" uses the "/%2$s" slug: the Events Calendar plugin will show its calendar in place of the page.', $page_title, $this->archive_slug ), 'tribe-common' );
 
 		// What the user can do
 		$page_edit_link = get_edit_post_link( $this->page->ID );
-//		$can_edit_page_link    = sprintf( __( '<a href="%s">Edit the page slug</a>', 'tribe-common' ), $page_edit_link );
 		$can_edit_page_link    = sprintf( __( '<a href="%s">Edit the page slug</a>', 'tribe-common' ), $page_edit_link );
 		$page_edit_link_string = current_user_can( 'edit_pages' ) ? $can_edit_page_link : __( 'Ask the site administrator to edit the page slug', 'tribe-common' );
 
 		$settings_cap                = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
 		$admin_slug                  = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
-		$setting_page_link           = apply_filters( 'tribe_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#tribe-field-singleEventSlug' ) );
+		$setting_page_link           = apply_filters( 'tribe_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#tribe-field-eventsSlug' ) );
 		$can_edit_settings_link      = sprintf( __( '<a href="%s">edit Events settings</a>.', 'tribe-common' ), $setting_page_link );
 		$events_settings_link_string = current_user_can( $settings_cap ) ? $can_edit_settings_link : __( ' ask the site administrator set a different Events URL slug.', 'tribe-common' );
 
