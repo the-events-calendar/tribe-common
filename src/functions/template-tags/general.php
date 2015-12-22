@@ -153,9 +153,9 @@ if ( ! function_exists( 'tribe_get_date_format' ) ) {
 	 */
 	function tribe_get_date_format( $with_year = false ) {
 		if ( $with_year ) {
-			$format = tribe_get_option( 'dateWithYearFormat', get_option( 'date_format' ) );
+			$format = tribe_get_date_option( 'dateWithYearFormat', get_option( 'date_format' ) );
 		} else {
-			$format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
+			$format = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
 		}
 
 		// Strip slashes - otherwise the slashes for escaped characters will themselves be escaped
