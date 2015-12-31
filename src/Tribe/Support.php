@@ -107,7 +107,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$keys = apply_filters( 'tribe-pue-install-keys', array() );
 
 			$systeminfo = array(
-				'url'                => 'http://' . $_SERVER['HTTP_HOST'],
+				'Home URL'           => get_home_url(),
+				'Site URL'           => get_site_url(),
 				'name'               => $user->display_name,
 				'email'              => $user->user_email,
 				'install keys'       => $keys,
