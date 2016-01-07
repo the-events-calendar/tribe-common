@@ -41,10 +41,16 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	public function bad_argument_formats() {
 		return array_map( function ( $arr ) {
 			return [ $arr ];
-		}, [
-			[ 'day', 2, 3, 2012, 1 ], [ 2, 'week', 3, 2012, 1 ], [ 2, 2, 'month', 2012, 1 ], [ 2, 2, 3, 'year', 1 ],
-			[ 2, 2, 3, 2012, 'direction' ], [ 2, 2, 3, 2012, 23 ], [ 2, 2, 3, 2012, - 2 ],
-		] );
+		},
+			[
+				[ 'day', 2, 3, 2012, 1 ],
+				[ 2, 'week', 3, 2012, 1 ],
+				[ 2, 2, 'month', 2012, 1 ],
+				[ 2, 2, 3, 'year', 1 ],
+				[ 2, 2, 3, 2012, 'direction' ],
+				[ 2, 2, 3, 2012, 23 ],
+				[ 2, 2, 3, 2012, - 2 ],
+			] );
 	}
 
 	/**
@@ -71,9 +77,12 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_get_weekday_timestamp_returns_right_timestamp_in_etc_natural_direction( $expected, $args ) {
 		date_default_timezone_set( 'Etc/GMT+0' );
-		$this->assertEquals( $expected, call_user_func_array( [
-			'Tribe__Date_Utils', 'get_weekday_timestamp'
-		], $args ) );
+		$this->assertEquals( $expected,
+			call_user_func_array( [
+				'Tribe__Date_Utils',
+				'get_weekday_timestamp'
+			],
+				$args ) );
 	}
 
 	/**
@@ -84,9 +93,12 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	public function test_get_weekday_timestamp_returns_right_timestamp_etc_minus_9_in_natural_direction( $expected, $args ) {
 		date_default_timezone_set( 'Etc/GMT-9' );
 		$nine_hours = 60 * 60 * 9;
-		$this->assertEquals( $expected - $nine_hours, call_user_func_array( [
-			'Tribe__Date_Utils', 'get_weekday_timestamp'
-		], $args ) );
+		$this->assertEquals( $expected - $nine_hours,
+			call_user_func_array( [
+				'Tribe__Date_Utils',
+				'get_weekday_timestamp'
+			],
+				$args ) );
 	}
 
 	/**
@@ -97,9 +109,12 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	public function test_get_weekday_timestamp_returns_right_timestamp_etc_plus_9_in_natural_direction( $expected, $args ) {
 		date_default_timezone_set( 'Etc/GMT+9' );
 		$nine_hours = 60 * 60 * 9;
-		$this->assertEquals( $expected + $nine_hours, call_user_func_array( [
-			'Tribe__Date_Utils', 'get_weekday_timestamp'
-		], $args ) );
+		$this->assertEquals( $expected + $nine_hours,
+			call_user_func_array( [
+				'Tribe__Date_Utils',
+				'get_weekday_timestamp'
+			],
+				$args ) );
 	}
 
 	public function etc_reverse_direction_expected_timestamps() {
@@ -118,9 +133,12 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_get_weekday_timestamp_returns_right_timestamp_in_etc_reverse_direction( $expected, $args ) {
 		date_default_timezone_set( 'Etc/GMT+0' );
-		$this->assertEquals( $expected, call_user_func_array( [
-			'Tribe__Date_Utils', 'get_weekday_timestamp'
-		], $args ) );
+		$this->assertEquals( $expected,
+			call_user_func_array( [
+				'Tribe__Date_Utils',
+				'get_weekday_timestamp'
+			],
+				$args ) );
 	}
 
 	/**
@@ -131,9 +149,12 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	public function test_get_weekday_timestamp_returns_right_timestamp_etc_minus_9_in_reverse_direction( $expected, $args ) {
 		date_default_timezone_set( 'Etc/GMT-9' );
 		$nine_hours = 60 * 60 * 9;
-		$this->assertEquals( $expected - $nine_hours, call_user_func_array( [
-			'Tribe__Date_Utils', 'get_weekday_timestamp'
-		], $args ) );
+		$this->assertEquals( $expected - $nine_hours,
+			call_user_func_array( [
+				'Tribe__Date_Utils',
+				'get_weekday_timestamp'
+			],
+				$args ) );
 	}
 
 	/**
@@ -144,8 +165,64 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	public function test_get_weekday_timestamp_returns_right_timestamp_etc_plus_9_in_reverse_direction( $expected, $args ) {
 		date_default_timezone_set( 'Etc/GMT+9' );
 		$nine_hours = 60 * 60 * 9;
-		$this->assertEquals( $expected + $nine_hours, call_user_func_array( [
-			'Tribe__Date_Utils', 'get_weekday_timestamp'
-		], $args ) );
+		$this->assertEquals( $expected + $nine_hours,
+			call_user_func_array( [
+				'Tribe__Date_Utils',
+				'get_weekday_timestamp'
+			],
+				$args ) );
+	}
+
+	/**
+	 * unescape_date_format will return input if not a string
+	 */
+	public function test_unescape_date_format_will_return_input_if_not_a_string() {
+		$bad_input = array( 23 );
+		$this->assertEquals( $bad_input, Date_Utils::unescape_date_format( $bad_input ) );
+	}
+
+	public function date_formats_not_to_escape() {
+		return [
+			[ 'tribe', 'tribe' ],
+			[ 'j \d\e F', 'j \d\e F' ],
+			[ 'F, \e\l j'   , 'F, \e\l j' ],
+			[ '\hH', '\hH' ],
+			[ 'i\m, s\s', 'i\m, s\s' ],
+			[ '\T\Z: T ', '\T\Z: T' ],
+		];
+	}
+
+	/**
+	 * unescape_date_format will return same string when nothing to escape
+	 *
+	 * @dataProvider date_formats_not_to_escape
+	 */
+	public function test_unescape_date_format_will_return_same_string_when_nothing_to_escape( $in ) {
+		$out = Date_Utils::unescape_date_format( $in );
+		$this->assertEquals( $in, $out );
+	}
+
+	public function date_formats_to_escape() {
+		return [
+			[ 'j \\d\\e F', 'j \d\e F' ],
+			[ 'F, \\e\\l j'   , 'F, \e\l j' ],
+			[ '\\hH', '\hH' ],
+			[ 'i\\m, s\\s', 'i\m, s\s' ],
+			[ '\\T\\Z: T', '\T\Z: T' ],
+			[ 'j \d\\e F', 'j \d\e F' ],
+			[ 'F, \e\\l j'   , 'F, \e\l j' ],
+			[ 'i\m, s\\s', 'i\m, s\s' ],
+			[ '\T\\Z: T' , '\T\Z: T' ],
+		];
+	}
+
+	/**
+	 * unescape_date_format will return escaped date format
+	 *
+	 * @dataProvider date_formats_to_escape
+	 */
+	public function test_unescape_date_format_will_return_escaped_date_format( $in, $expected_out ) {
+		$out = Date_Utils::unescape_date_format( $in );
+		$this->assertEquals( $expected_out, $out );
 	}
 }
