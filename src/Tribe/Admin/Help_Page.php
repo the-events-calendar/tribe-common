@@ -430,7 +430,8 @@ class Tribe__Admin__Help_Page {
 			'i'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
 			'u'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
 
-			'div'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'div'    => array( 'style' => array(), 'class' => array(), 'id' => array() ),
+			'h5'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
 			'p'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
 			'ol'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
 			'ul'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
