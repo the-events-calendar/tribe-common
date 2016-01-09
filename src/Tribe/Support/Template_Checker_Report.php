@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Assembles a report of recently updated plugin views and template overrides in
+ * possible revision, for each plugin that registeres itself and its template
+ * filepaths.
+ */
 class Tribe__Support__Template_Checker_Report {
 	const VERSION_INDEX         = 0;
 	const INCLUDED_VIEWS_INDEX  = 1;
