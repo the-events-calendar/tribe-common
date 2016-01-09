@@ -1,7 +1,7 @@
 <?php
 /**
  * Assembles a report of recently updated plugin views and template overrides in
- * possible revision, for each plugin that registeres itself and its template
+ * possible revision, for each plugin that registers itself and its template
  * filepaths.
  */
 class Tribe__Support__Template_Checker_Report {
