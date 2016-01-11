@@ -1,7 +1,8 @@
 <?php
-$src = dirname( __FILE__ ) . '/src';
-require_once $src . '/Tribe/Autoloader.php';
+$common = dirname( __FILE__ ) . '/src';
+
+require_once $common . '/Tribe/Autoloader.php';
 
 $autoloader = Tribe__Autoloader::instance();
-$autoloader->register_prefix('Tribe__',$src);
+$autoloader->register_prefix( 'Tribe__', $common . '/Tribe' );
 $autoloader->register_autoloader();
