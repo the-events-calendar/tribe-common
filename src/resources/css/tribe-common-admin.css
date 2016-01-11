@@ -210,7 +210,8 @@ table.plugins .tribe-plugin-update-message a {
 	list-style: circle;
 }
 
-#tribe-system-info dl.support-stats {
+#tribe-system-info dl.support-stats,
+.template-updates-wrapper {
 	background: #000;
 	color: #888;
 	padding: 10px;
@@ -219,7 +220,8 @@ table.plugins .tribe-plugin-update-message a {
 	border-radius: 2px;
 }
 
-#tribe-system-info dl.support-stats dt {
+#tribe-system-info dl.support-stats dt,
+.template-updates-wrapper dt {
 	text-transform: uppercase;
 	font-weight: bold;
 	width: 25%;
@@ -227,13 +229,15 @@ table.plugins .tribe-plugin-update-message a {
 	float: left;
 }
 
-#tribe-system-info dl.support-stats dd {
+#tribe-system-info dl.support-stats dd,
+.template-updates-wrapper  dd {
 	padding-left: 10px;
 	margin-left: 25%;
 }
 
-
-
+.template-updates-wrapper p {
+    margin-top: 0;
+}
 
 #tribe-help-sidebar {
 	width: 32%;
@@ -300,9 +304,6 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-help-plugin-info .tribe-list-addons .tribe-active-addon {
 	list-style: disc inside;
 }
-
-
-
 
 /* = jQuery UI
 =============================================*/
