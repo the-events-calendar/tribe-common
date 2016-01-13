@@ -153,9 +153,9 @@ if ( ! function_exists( 'tribe_get_date_format' ) ) {
 	 */
 	function tribe_get_date_format( $with_year = false ) {
 		if ( $with_year ) {
-			$format = tribe_get_option( 'dateWithYearFormat', get_option( 'date_format' ) );
+			$format = tribe_get_date_option( 'dateWithYearFormat', get_option( 'date_format' ) );
 		} else {
-			$format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
+			$format = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
 		}
 
 		// Strip slashes - otherwise the slashes for escaped characters will themselves be escaped
@@ -436,3 +436,22 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 
 	}
 }//end if
+
+if ( ! function_exists( 'tribe_get_date_option' ) ) {
+	/**
+	 * Get a date option.
+	 *
+	 * Retrieve an option value taking care to escape it to preserve date format slashes.
+	 *
+	 * @category Events
+	 * @param  string $optionName Name of the option to retrieve.
+	 * @param string  $default    Value to return if no such option is found.
+	 *
+	 * @return mixed Value of the option if found
+	 */
+	function tribe_get_date_option( $optionName, $default = '' ) {
+		$value = tribe_get_option( $optionName, $default );
+
+		return Tribe__Date_Utils::unescape_date_format($value);
+	}
+}
