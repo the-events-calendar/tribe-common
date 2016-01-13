@@ -782,6 +782,23 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			return mktime( 0, 0, 0, $month, $startday + $offset, $year );
 		}
 
+		/**
+		 * Unescapes date format strings to be used in functions like `date`.
+		 *
+		 * Double escaping happens when storing a date format in the database.
+		 *
+		 * @param mixed $date_format A date format string.
+		 *
+		 * @return mixed Either the original input or an unescaped date format string.
+		 */
+		public static function unescape_date_format( $date_format ) {
+			if ( ! is_string( $date_format ) ) {
+				return $date_format;
+			}
+
+			// Why so simple? Let's handle other cases as those come up. We have tests in place!
+			return str_replace( '\\\\', '\\', $date_format );
+		}
 		// @codingStandardsIgnoreEnd
 	}
 
