@@ -123,6 +123,14 @@ class Tribe__Main {
 			apply_filters( 'tribe_events_css_version', self::VERSION ),
 			true
 		);
+
+		wp_register_script(
+			'tribe-notice-dismiss',
+			$resources_url . '/js/notice-dismiss.js',
+			array( 'jquery' ),
+			apply_filters( 'tribe_events_css_version', self::VERSION ),
+			true
+		);
 	}
 
 	/**
@@ -173,6 +181,7 @@ class Tribe__Main {
 
 	public function admin_enqueue_scripts() {
 		wp_enqueue_script( 'tribe-inline-bumpdown' );
+		wp_enqueue_script( 'tribe-notice-dismiss' );
 		wp_enqueue_style( 'tribe-common-admin' );
 
 		$helper = Tribe__Admin__Helpers::instance();
