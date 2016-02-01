@@ -22,12 +22,30 @@ class Tribe__Support__Template_Checker {
 	 * @param string $theme_views_dir
 	 */
 	public function __construct( $plugin_version, $plugin_views_dir, $theme_views_dir = '' ) {
-		$this->plugin_version = $plugin_version;
+		$this->plugin_version = $this->base_version_number( $plugin_version );
 		$this->plugin_views_dir = $plugin_views_dir;
 		$this->theme_views_dir = $theme_views_dir;
 
 		$this->scan_view_directory();
 		$this->scan_for_overrides();
+	}
+
+	/**
+	 * Given a version number with an alpha/beta type suffix, strips that suffix and
+	 * returns the "base" version number.
+	 *
+	 * For example, given "9.8.2beta1" this method will return "9.8.2".
+	 *
+	 * The utility of this is that if the author of a template change sets the
+	 * version tag in the template header to 9.8.2 (to continue the same example) we
+	 * don't need to worry about updating that for each alpha, beta or RC we put out.
+	 *
+	 * @param string $version_number
+	 *
+	 * @return string
+	 */
+	protected function base_version_number( $version_number ) {
+		return preg_replace( '/[a-z]+[a-z0-9]*$/i', '', $version_number );
 	}
 
 	/**
