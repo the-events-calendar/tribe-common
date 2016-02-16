@@ -40,7 +40,7 @@ class Tribe__Post_Transient {
 		public function delete( $post_id, $transient, $value = null ) {
 			global $_wp_using_ext_object_cache;
 
-			if ( is_numeric( $post_id ) ){
+			if ( is_numeric( $post_id ) ) {
 				$post_id = (int) $post_id;
 			} else {
 				$post = get_post( $post_id );
@@ -68,7 +68,7 @@ class Tribe__Post_Transient {
 				}
 			}
 
-			if ( $result ){
+			if ( $result ) {
 				/**
 				 * Use this to attach an Action to when the Transient is deleted
 				 *
@@ -95,7 +95,7 @@ class Tribe__Post_Transient {
 		public function get( $post_id, $transient ) {
 			global $_wp_using_ext_object_cache;
 
-			if ( is_numeric( $post_id ) ){
+			if ( is_numeric( $post_id ) ) {
 				$post_id = (int) $post_id;
 			} else {
 				$post = get_post( $post_id );
@@ -159,7 +159,7 @@ class Tribe__Post_Transient {
 		public function set( $post_id, $transient, $value, $expiration = 0 ) {
 			global $_wp_using_ext_object_cache;
 
-			if ( is_numeric( $post_id ) ){
+			if ( is_numeric( $post_id ) ) {
 				$post_id = (int) $post_id;
 			} else {
 				$post = get_post( $post_id );
