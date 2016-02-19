@@ -234,12 +234,12 @@ class Tribe__Settings_Manager {
 	 * only if premium addons are detected.
 	 */
 	protected function do_licenses_tab() {
-		$show_tab = ( current_user_can( 'update_plugins' ) && $this->have_addons() );
+		$show_tab = ( current_user_can( 'activate_plugins' ) && $this->have_addons() );
 
 		/**
 		 * Provides an oppotunity to override the decision to show or hide the licenses tab
 		 *
-		 * Normally it will only show if the current user has the "update_plugins" capability
+		 * Normally it will only show if the current user has the "activate_plugins" capability
 		 * and there are some currently-activated premium plugins.
 		 *
 		 * @var bool
