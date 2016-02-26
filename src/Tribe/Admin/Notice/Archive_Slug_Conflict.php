@@ -52,7 +52,7 @@ class Tribe__Admin__Notice__Archive_Slug_Conflict {
 	 */
 	public function notice() {
 		// What's happening?
-		$page_title = apply_filters( 'the_title', $this->page->post_title );
+		$page_title = apply_filters( 'the_title', $this->page->post_title, $this->page->ID );
 		$line_1     = __( sprintf( 'The page "%1$s" uses the "/%2$s" slug: the Events Calendar plugin will show its calendar in place of the page.', $page_title, $this->archive_slug ), 'tribe-common' );
 
 		// What the user can do
