@@ -1,0 +1,8 @@
+[
+  "tribe-common.php",
+  "tribe-autoload.php",
+  "src/**/*",
+  "lang/**/*",
+  "README.md",
+  "vendor/jquery/**/*"
+]
