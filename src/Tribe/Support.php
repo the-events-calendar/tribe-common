@@ -16,6 +16,11 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		public $rewrite_rules_purged = false;
 
 		/**
+		 * @var Tribe__Support__Obfuscator
+		 */
+		protected $obfuscator;
+
+		/**
 		 * Fields listed here contain HTML and should be escaped before being
 		 * printed.
 		 *
@@ -24,6 +29,15 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		protected $must_escape = array(
 			'tribeEventsAfterHTML',
 			'tribeEventsBeforeHTML',
+		);
+
+		/**
+		 * Field prefixes here should be partially obfuscated before being printed.
+		 *
+		 * @var array
+		 */
+		protected $must_obfuscate_prefixes = array(
+			'pue_install_key_',
 		);
 
 		private function __construct() {
@@ -107,7 +121,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$keys = apply_filters( 'tribe-pue-install-keys', array() );
 
 			$systeminfo = array(
-				'url'                => 'http://' . $_SERVER['HTTP_HOST'],
+				'Home URL'           => get_home_url(),
+				'Site URL'           => get_site_url(),
 				'name'               => $user->display_name,
 				'email'              => $user->user_email,
 				'install keys'       => $keys,
@@ -178,6 +193,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 						if ( in_array( $obj_key, $this->must_escape ) ) {
 							$obj_val = esc_html( $obj_val );
 						}
+
+						$obj_val = $this->obfuscator->obfuscate( $obj_key, $obj_val );
+
 						if ( is_array( $obj_val ) ) {
 							$formatted_v[] = sprintf( '<li>%s = <pre>%s</pre></li>', $obj_key, print_r( $obj_val, true ) );
 						} else {
@@ -200,6 +218,15 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$this->rewrite_rules_purged = true;
 		}//end log_rewrite_rule_purge
 
+		/**
+		 * Sets the obfuscator to be used.
+		 *
+		 * @param Tribe__Support__Obfuscator $obfuscator
+		 */
+		public function set_obfuscator( Tribe__Support__Obfuscator $obfuscator ) {
+			$this->obfuscator = $obfuscator;
+		}
+
 		/****************** SINGLETON GUTS ******************/
 
 		/**
@@ -210,13 +237,13 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 		public static function getInstance() {
 			if ( null == self::$instance ) {
-				$className      = __CLASS__;
-				self::$instance = new $className;
+				$instance       = new self;
+				$instance->set_obfuscator( new Tribe__Support__Obfuscator( $instance->must_obfuscate_prefixes ) );
+				self::$instance = $instance;
 			}
 
 			return self::$instance;
 		}
-
 	}
 
 }

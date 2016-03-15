@@ -158,8 +158,7 @@ if ( ! function_exists( 'tribe_get_date_format' ) ) {
 			$format = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
 		}
 
-		// Strip slashes - otherwise the slashes for escaped characters will themselves be escaped
-		return apply_filters( 'tribe_date_format', stripslashes( $format ) );
+		return apply_filters( 'tribe_date_format', $format );
 	}
 }//end if
 
