@@ -92,6 +92,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'wp_ajax_' . $this->dismiss_upgrade, array( $this, 'dashboard_dismiss_upgrade' ) );
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
+			add_filter( 'upgrader_post_install', array( $this, 'maybe_relocate_plugin_directory' ), 10, 3 );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -855,6 +856,36 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return $keys;
+		}
+
+		/**
+		 * Relocates the unzipped PUE directory when it is butchered
+		 *
+		 * This method is hooked to the upgrader_post_install filter
+		 *
+		 * @param boolean $response
+		 * @param array $hook_extra Info about the plugin triggering the upgrade
+		 * @param array $dir_data Directory info from the upgrade
+		 *
+		 * @return boolean
+		 */
+		public function maybe_relocate_plugin_directory( $response, $hook_extra, $dir_data ) {
+			global $wp_filesystem;
+
+			// if the upgraded plugin doesn't have a funky name, we don't need to do our fancy dance
+			if ( ! preg_match( '/theeventscalendar.compu_request_plugin/', $dir_data['source'] ) ) {
+				return $response;
+			}
+
+			// Move the funky-named directory to the correct directory name
+			$destination = $dir_data['local_destination'] . '/' . dirname( $hook_extra['plugin'] );
+			$wp_filesystem->move(
+				$dir_data['destination'],
+				$destination
+			);
+
+			// return what the filter expects
+			return $response;
 		}
 	}
 }
