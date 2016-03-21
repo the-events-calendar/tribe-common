@@ -46,7 +46,7 @@ class Tribe__Admin__Notice__Archive_Slug_Conflict {
 		$this->page = $page;
 		$dimissed_notices = get_user_meta( get_current_user_id(), 'tribe-dismiss-notice' );
 
-		if ( in_array( 'archive-slug-conflict', $dimissed_notices ) ) {
+		if ( is_array( $dismissed_notices ) && in_array( 'archive-slug-conflict', $dimissed_notices ) ) {
 			return;
 		}
 		add_action( 'admin_notices', array( $this, 'notice' ) );
