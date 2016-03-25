@@ -94,7 +94,9 @@ class Tribe__Timezones {
 	}
 
 	/**
-	 * Generates a timezone string from a UTC offset
+	 * Helper function to retrieve the timezone string for a given UTC offset
+	 *
+	 * This is a close copy of WooCommerce's wc_timezone_string() method
 	 *
 	 * @param string $offset UTC offset
 	 *
@@ -115,9 +117,25 @@ class Tribe__Timezones {
 		list( $hours, $minutes ) = explode( ':', $offset );
 		$seconds = $hours * 60 * 60 + $minutes * 60;
 
-		$timezone = timezone_name_from_abbr( '', $seconds, 1 );
+		// attempt to guess the timezone string from the UTC offset
+		$timezone = timezone_name_from_abbr( '', $seconds, 0 );
+
 		if ( false === $timezone ) {
-			$timezone = timezone_name_from_abbr( '', $seconds, 0 );
+			$is_dst = date( 'I' );
+
+			foreach ( timezone_abbreviations_list() as $abbr ) {
+				foreach ( $abbr as $city ) {
+					if (
+						$city['dst'] == $is_dst
+						&& $city['offset'] == $seconds
+					) {
+						return $city['timezone_id'];
+					}
+				}
+			}
+
+			// fallback to UTC
+			return 'UTC';
 		}
 
 		return $timezone;
