@@ -94,6 +94,36 @@ class Tribe__Timezones {
 	}
 
 	/**
+	 * Generates a timezone string from a UTC offset
+	 *
+	 * @param string $offset UTC offset
+	 *
+	 * @return string
+	 */
+	public static function generate_timezone_string_from_utc_offset( $offset ) {
+		if ( ! self::is_utc_offset( $offset ) ) {
+			return $offset;
+		}
+
+		// ensure we have the minutes on the offset
+		if ( ! strpos( $offset, ':' ) ) {
+			$offset .= ':00';
+		}
+
+		$offset = str_replace( 'UTC', '', $offset );
+
+		list( $hours, $minutes ) = explode( ':', $offset );
+		$seconds = $hours * 60 * 60 + $minutes * 60;
+
+		$timezone = timezone_name_from_abbr( '', $seconds, 1 );
+		if ( false === $timezone ) {
+			$timezone = timezone_name_from_abbr( '', $seconds, 0 );
+		}
+
+		return $timezone;
+	}
+
+	/**
 	 * Tried to convert the provided $datetime to UTC from the timezone represented by $tzstring.
 	 *
 	 * Though the usual range of formats are allowed, $datetime ordinarily ought to be something
