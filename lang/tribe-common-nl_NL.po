@@ -2,13 +2,45 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-02 19:08:32+0000\n"
+"PO-Revision-Date: 2016-01-29 19:15:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
+
+#: src/admin-views/tribe-options-help.php:37
+msgid "Recent Template Changes"
+msgstr ""
+
+#: src/Tribe/Support/Template_Checker_Report.php:78
+msgid "No notable changes detected"
+msgstr ""
+
+#: src/Tribe/Support/Template_Checker_Report.php:82
+msgid "Templates introduced or updated with this release (%s):"
+msgstr ""
+
+#: src/Tribe/Support/Template_Checker_Report.php:92
+msgid "Existing theme overrides that may need revision:"
+msgstr ""
+
+#: src/Tribe/Support/Template_Checker_Report.php:96
+msgid "version data missing from override"
+msgstr ""
+
+#: src/Tribe/Support/Template_Checker_Report.php:97
+msgid "based on %s version"
+msgstr ""
+
+#: src/Tribe/Support/Template_Checker_Report.php:113
+msgid "No notable template changes detected."
+msgstr ""
+
+#: src/Tribe/Support/Template_Checker_Report.php:115
+msgid "Information about recent template changes and potentially impacted template overrides is provided below."
+msgstr ""
 
 #: src/admin-views/tribe-options-help.php:35
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
@@ -20,7 +52,7 @@ msgstr "Alleen licentie velden voor %1$snetwork geactiveerd %2$s plugins worden 
 
 #. Plugin Name of the plugin/theme
 msgid "Tribe Common"
-msgstr ""
+msgstr "Tribe Common"
 
 #. Description of the plugin/theme
 msgid "An event settings framework for managing shared options"
@@ -32,47 +64,47 @@ msgstr ""
 
 #: src/admin-views/tribe-options-help.php:31
 msgid "Read more about our support policy"
-msgstr ""
+msgstr "Lees meer over ons ondersteuningsbeleid"
 
 #: src/admin-views/tribe-options-help.php:26
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
-msgstr ""
+msgstr "%s. Er zijn maar weinig problemen die we niet eerder gezien hebben, dus de kans is groot dat een andere gebruiker jouw vraag ook al heeft gesteld en al antwoord heeft gehad van ons ondersteuningsteam. Het plaatsen van nieuwe berichten in het forum is alleen mogelijk voor betalende gebruikers, maar het is voor iedereen vrij om te doorzoeken. "
 
 #: src/admin-views/tribe-options-help.php:26
 msgid "Search our support forum"
-msgstr ""
+msgstr "Zoek in ons supportforum"
 
 #: src/admin-views/tribe-options-help.php:25
 msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
-msgstr ""
+msgstr "%s. Het testen of er een bestaand conflict is, is de beste start voor verdere troubleshooting. We zullen je in veel gevallen vragen deze stappen uit te voeren als je een nieuwe thread aanmaakt, dus als je deze stappen al van te voren uitvoert kunnen we je sneller helpen met het oplossen van je probleem."
 
 #: src/admin-views/tribe-options-help.php:25
 msgid "Test for a theme or plugin conflict"
-msgstr ""
+msgstr "Controleer of er sprake is van een thema- of pluginconflict"
 
 #: src/admin-views/tribe-options-help.php:24
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
-msgstr ""
+msgstr "%s. Alle veelvoorkomende (en niet-zoveel-voorkomende) antwoorden op vragen die we krijgen kan je hier vinden. Het is vaak de snelste manier om je antwoord te vinden!"
 
 #: src/admin-views/tribe-options-help.php:24
 msgid "Check our Knowledgebase"
-msgstr ""
+msgstr "Kijk in onze Kennisbank"
 
 #: src/admin-views/tribe-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
-msgstr ""
+msgstr "De %s op onze website is een geweldige plek om tips en tricks te vinden voor het gebruik en aanpassen van onze plug-ins."
 
 #: src/admin-views/tribe-options-help.php:15
 msgid "Knowledgebase"
-msgstr ""
+msgstr "Kennisbank"
 
 #: src/admin-views/tribe-options-help.php:16
 msgid "<strong>Want to dive deeper?</strong> Check out our %s for developers."
-msgstr ""
+msgstr "<strong>Wil je nog dieper in de materie duiken?</strong> Kijk dan eens naar onze %s voor ontwikkelaars."
 
 #: src/admin-views/tribe-options-help.php:16
 msgid "list of available functions"
-msgstr ""
+msgstr "overzicht van beschikbare functies"
 
 #: src/admin-views/tribe-options-help.php:19
 msgid "Getting More Help"
@@ -98,49 +130,49 @@ msgstr ""
 msgid "Community Tickets"
 msgstr "Community Tickets"
 
-#: src/Tribe/Admin/Help_Page.php:787
+#: src/Tribe/Admin/Help_Page.php:788
 msgid "Activate %s"
-msgstr ""
+msgstr "Activeer %s"
 
-#: src/Tribe/Admin/Help_Page.php:787
+#: src/Tribe/Admin/Help_Page.php:788
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Activeer plugin"
 
-#: src/Tribe/Admin/Help_Page.php:795
+#: src/Tribe/Admin/Help_Page.php:796
 msgid "Upgrade Plugin"
-msgstr ""
+msgstr "Plugin upgraden"
 
-#: src/Tribe/Admin/Help_Page.php:811
+#: src/Tribe/Admin/Help_Page.php:812
 msgid "Install %s"
-msgstr ""
+msgstr "Installeer %s"
 
-#: src/Tribe/Admin/Help_Page.php:811
+#: src/Tribe/Admin/Help_Page.php:812
 msgid "Install Plugin"
-msgstr ""
+msgstr "Plugin installeren"
 
-#: src/Tribe/Admin/Help_Page.php:834
+#: src/Tribe/Admin/Help_Page.php:835
 msgid "Active Users:"
-msgstr ""
+msgstr "Actieve gebruikers:"
 
-#: src/Tribe/Admin/Help_Page.php:837
+#: src/Tribe/Admin/Help_Page.php:838
 msgid "Rating:"
-msgstr ""
+msgstr "Waardering:"
 
-#: src/Tribe/Admin/Help_Page.php:862
+#: src/Tribe/Admin/Help_Page.php:863
 msgid "Plugin Active"
-msgstr ""
+msgstr "Plugin actief"
 
-#: src/Tribe/Admin/Help_Page.php:864
+#: src/Tribe/Admin/Help_Page.php:865
 msgid "Plugin Inactive"
-msgstr ""
+msgstr "Plugin uitgeschakeld"
 
-#: src/Tribe/Admin/Help_Page.php:869
+#: src/Tribe/Admin/Help_Page.php:870
 msgid "Visit the Add-on Page"
-msgstr ""
+msgstr "Bezoek de pagina met add-ons"
 
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:68
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
 msgid "<a href=\"%s\">edit Events settings</a>."
-msgstr ""
+msgstr "<a href=\"%s\">wijzig evenementinstellingen</a>."
 
 #: src/Tribe/Credits.php:46
 msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
@@ -148,27 +180,27 @@ msgstr "Stem op %3$sThe Events Calendar %4$s %1$s op %2$s om deze plugin gratis 
 
 #: src/Tribe/PUE/Checker.php:440
 msgid "Thanks for setting up a valid key, it will expire on %s"
-msgstr ""
+msgstr "Bedankt voor het instellen van een geldige licentiecode, het zal verlopen op %s"
 
 #: src/Tribe/Validate.php:195
 msgid "%s must be a positive number or percent."
-msgstr ""
+msgstr "%s moet een positief nummer of een percentage zijn."
 
 #: src/admin-views/tribe-options-display.php:31
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
-msgstr ""
+msgstr "Voer het formaat in waarin je datums met het jaartal wilt laten zien. Wordt gebruikt bij de weergave van een datum in een toekomstig jaar."
 
 #: src/admin-views/tribe-options-general.php:10
 msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
-msgstr ""
+msgstr "Bedankt voor het gebruiken van Event Tickets! Iedereen bij Modern Tribe waardeert je ondersteuning en we zijn erg blij om te zien dat je onze plug-ins gebruikt. Kijk ook eens in onze handige %1$sKickstarter voor nieuwe gebruikers%2$s om van start te gaan."
 
 #: src/Tribe/Admin/Help_Page.php:68
 msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
-msgstr ""
+msgstr "Events Tickets is een zorgvuldig gemaakte en uitbreidbare plug-in die je in staat stelt om makkelijk tickets te verkopen voor je evenementen."
 
 #: src/Tribe/Admin/Help_Page.php:80
 msgid "Advanced Post Manager"
-msgstr ""
+msgstr "Advanced Post Manager"
 
 #: src/Tribe/Admin/Help_Page.php:84
 msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
@@ -180,7 +212,7 @@ msgstr " en "
 
 #: src/Tribe/Admin/Help_Page.php:192
 msgid "Eventbrite Tickets"
-msgstr ""
+msgstr "Eventbrite Tickets"
 
 #: src/Tribe/Admin/Help_Page.php:208
 msgid "Facebook Events"
@@ -188,7 +220,7 @@ msgstr "Facebook Evenementen"
 
 #: src/Tribe/Admin/Help_Page.php:216
 msgid "Events Filter Bar"
-msgstr ""
+msgstr "Events Filter Bar"
 
 #: src/Tribe/Admin/Help_Page.php:224
 msgid "Event Tickets Plus"
@@ -196,7 +228,7 @@ msgstr "Event Tickets Plus"
 
 #: src/Tribe/Admin/Help_Page.php:52
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
-msgstr ""
+msgstr "Events Tickets is een zorgvuldig gemaakte en uitbreidbare plug-in die je in staat stelt om makkelijk je evenementen te delen."
 
 #: src/Tribe/Admin/Help_Page.php:64
 msgid "Event Tickets"
@@ -210,15 +242,15 @@ msgstr "Modern Tribe, Inc."
 msgid "http://m.tri.be/1x"
 msgstr "http://m.tri.be/1x"
 
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:62
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
 msgid "<a href=\"%s\">Edit the page slug</a>"
 msgstr "<a href=\"%s\">Bewerk de pagina slug</a>"
 
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:63
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:89
 msgid "Ask the site administrator to edit the page slug"
 msgstr "Vraag de website administrator om de pagina slug aan te passen"
 
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:69
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
 msgid " ask the site administrator set a different Events URL slug."
 msgstr "vraad de website administrator om een andere Events URL slug aan te maken."
 
@@ -234,13 +266,15 @@ msgstr "<p>De licentie code die je hebt gekregen bij het voltooien van de aankoo
 msgid "unknown date"
 msgstr "onbekende datum"
 
-#: src/Tribe/Support.php:129
+#: src/Tribe/Support.php:144
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 
 #: src/admin-views/tribe-options-licenses.php:18
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
 msgstr ""
+"%1$s  Gebruik je onze plugin in een multisite network? %2$s\n"
+"Let op dat je licentiecode  wordt toegepast op het hele netwerk, niet alleen deze site."
 
 #: src/Tribe/View_Helpers.php:355
 msgid "Rhode Island"
@@ -408,13 +442,13 @@ msgstr "niet beschikbaar"
 msgid "You need to upgrade!"
 msgstr "Je moet upgraden!"
 
-#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:797
+#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:798
 msgid "You are up to date!"
 msgstr "Je hebt de nieuwste versie!"
 
 #: src/Tribe/Admin/Help_Page.php:183
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "Events Calendar PRO"
 
 #: src/Tribe/View_Helpers.php:281
 msgid "Wallis And Futuna Islands"
@@ -488,7 +522,7 @@ msgstr "Idaho"
 msgid "Illinois"
 msgstr "Illinois"
 
-#: src/admin-views/tribe-options-help.php:60
+#: src/admin-views/tribe-options-help.php:63
 msgid "More..."
 msgstr "Meer..."
 
@@ -504,7 +538,7 @@ msgstr "Iowa"
 msgid "Kansas"
 msgstr "Kansas"
 
-#: src/Tribe/Admin/Help_Page.php:828
+#: src/Tribe/Admin/Help_Page.php:829
 msgid "Latest Version:"
 msgstr "Laatste versie:"
 
@@ -520,7 +554,7 @@ msgstr "Louisiana"
 msgid "Maine"
 msgstr "Maine"
 
-#: src/Tribe/Admin/Help_Page.php:831
+#: src/Tribe/Admin/Help_Page.php:832
 msgid "Requires:"
 msgstr "Benodigd:"
 
@@ -528,7 +562,7 @@ msgstr "Benodigd:"
 msgid "Maryland"
 msgstr "Maryland"
 
-#: src/Tribe/Admin/Help_Page.php:832
+#: src/Tribe/Admin/Help_Page.php:833
 msgid "WordPress "
 msgstr "Wordpress "
 
@@ -552,7 +586,7 @@ msgstr "Mississippi"
 msgid "Missouri"
 msgstr "Missouri"
 
-#: src/Tribe/Admin/Help_Page.php:856
+#: src/Tribe/Admin/Help_Page.php:857
 msgid "Premium Add-Ons"
 msgstr "Premium Add-Ons"
 
@@ -564,7 +598,7 @@ msgstr "Montana"
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: src/admin-views/tribe-options-help.php:54
+#: src/admin-views/tribe-options-help.php:57
 msgid "News and Tutorials"
 msgstr "Nieuws en tutorials"
 
@@ -1365,7 +1399,7 @@ msgstr "Saint Kitts en Nevis"
 
 #: src/Tribe/PUE/Checker.php:448
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr ""
+msgstr "Hmmm, er gaat iets fout met de validiteitscontrole. Neem contact op met %ssupport%s"
 
 #: src/Tribe/View_Helpers.php:228
 msgid "Saint Lucia"
@@ -1473,7 +1507,7 @@ msgstr "Systeem informatie"
 msgid "Somalia"
 msgstr "Somalië"
 
-#: src/Tribe/Support.php:122
+#: src/Tribe/Support.php:137
 msgid "Unknown or not set"
 msgstr "Onbekend of niet ingesteld"
 
