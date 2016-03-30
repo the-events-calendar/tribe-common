@@ -4,11 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tribe Common 4.1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2016-03-29 18:52:15+00:00\n"
+"POT-Creation-Date: 2016-03-30 13:23:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-03-29 18:52\n"
+"PO-Revision-Date: 2016-03-30 13:23\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -17,9 +17,7 @@ msgid "The Events Calendar"
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:52
-msgid ""
-"The Events Calendar is a carefully crafted, extensible plugin that lets you "
-"easily share your events."
+msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:64
@@ -27,9 +25,7 @@ msgid "Event Tickets"
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:68
-msgid ""
-"Events Tickets is a carefully crafted, extensible plugin that lets you "
-"easily sell tickets for your events."
+msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:80
@@ -37,9 +33,7 @@ msgid "Advanced Post Manager"
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:84
-msgid ""
-"Turbo charge your posts admin for any custom post type with sortable filters "
-"and columns, and auto-registration of metaboxes."
+msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:159
@@ -169,9 +163,7 @@ msgid "This calendar is powered by The Events Calendar."
 msgstr ""
 
 #: src/Tribe/Credits.php:46
-msgid ""
-"Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  "
-"Thanks from the friendly folks at Modern Tribe."
+msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
 msgstr ""
 
 #: src/Tribe/Field.php:209
@@ -235,8 +227,7 @@ msgid "Thanks for setting up a valid key, it will expire on %s"
 msgstr ""
 
 #: src/Tribe/PUE/Checker.php:448
-msgid ""
-"Hmmm... something's wrong with this validator. Please contact %ssupport%s."
+msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
 #: src/Tribe/Settings.php:148 src/Tribe/Settings.php:203
@@ -285,10 +276,8 @@ msgid "None of your settings were saved. Please try again."
 msgstr ""
 
 #: src/Tribe/Settings.php:561
-msgid ""
-"The above setting was not saved. Other settings were successfully saved."
-msgid_plural ""
-"The above settings were not saved. Other settings were successfully saved."
+msgid "The above setting was not saved. Other settings were successfully saved."
+msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -346,9 +335,7 @@ msgid "No notable template changes detected."
 msgstr ""
 
 #: src/Tribe/Support/Template_Checker_Report.php:115
-msgid ""
-"Information about recent template changes and potentially impacted template "
-"overrides is provided below."
+msgid "Information about recent template changes and potentially impacted template overrides is provided below."
 msgstr ""
 
 #: src/Tribe/Support.php:137
@@ -356,9 +343,7 @@ msgid "Unknown or not set"
 msgstr ""
 
 #: src/Tribe/Support.php:144
-msgid ""
-"Rewrite rules were purged on load of this help page. Chances are there is a "
-"rewrite rule flush occurring in a plugin or theme!"
+msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr ""
 
 #: src/Tribe/Validate.php:76 src/Tribe/Validate.php:117
@@ -409,9 +394,7 @@ msgid "%s must have a value that's part of its options."
 msgstr ""
 
 #: src/Tribe/Validate.php:308
-msgid ""
-"Comparison validation failed because no comparison value was provided, for "
-"field %s"
+msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr ""
 
 #: src/Tribe/Validate.php:315
@@ -431,8 +414,7 @@ msgid "%s must be a number between 0 and 21."
 msgstr ""
 
 #: src/Tribe/Validate.php:403
-msgid ""
-"%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
+msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 
 #: src/Tribe/Validate.php:419
@@ -448,9 +430,7 @@ msgid "%s must be a phone number."
 msgstr ""
 
 #: src/Tribe/Validate.php:463
-msgid ""
-"Country List must be formatted as one country per line in the following "
-"format: <br>US, United States <br> UK, United Kingdom."
+msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr ""
 
 #: src/Tribe/View_Helpers.php:26 src/Tribe/View_Helpers.php:45
@@ -1634,11 +1614,7 @@ msgid "Date Format Settings"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:26
-msgid ""
-"<p>The following three fields accept the date format options available to "
-"the php date() function. <a href=\"http://codex.wordpress.org/"
-"Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date "
-"format here</a>.</p>"
+msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:30
@@ -1646,9 +1622,7 @@ msgid "Date with year"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:31
-msgid ""
-"Enter the format to use for displaying dates with the year. Used when "
-"displaying a date in a future year."
+msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:38
@@ -1656,9 +1630,7 @@ msgid "Date time separator"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:39
-msgid ""
-"Enter the separator that will be placed between the date and time, when both "
-"are shown."
+msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:46
@@ -1670,24 +1642,15 @@ msgid "Select the date format to use in datepickers"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:10
-msgid ""
-"Thank you for using Event Tickets! All of us at Modern Tribe sincerely "
-"appreciate your support and we're excited to see you using our plugins. "
-"Check out our handy %1$sNew User Primer%2$s to get started."
+msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:15
-msgid ""
-"Optimize your site's event listings with %1$sThe Events Calendar%2$s, our "
-"free calendar plugin. Looking for additional functionality including "
-"recurring events, user-submission, advanced ticket sales and more? Check out "
-"our %3$spremium add-ons%4$s."
+msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:20
-msgid ""
-"Looking for additional functionality including recurring events, custom "
-"meta, community events, ticket sales and more?"
+msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:20
@@ -1699,11 +1662,7 @@ msgid "We hope our plugin is helping you out."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:30
-msgid ""
-"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
-"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
-"is recognition. Add a small text-only link at the bottom of your calendar "
-"pointing to The Events Calendar project."
+msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:30
@@ -1712,11 +1671,7 @@ msgid "See an example of the link"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:35
-msgid ""
-"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
-"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
-"is recognition. Add a small text only link at the bottom of your calendar "
-"pointing to The Events Calendar project."
+msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:40
@@ -1732,9 +1687,7 @@ msgid "Default currency symbol"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:60
-msgid ""
-"Set the default currency symbol for event costs. Note that this only impacts "
-"future events, and changes made will not apply retroactively."
+msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:67
@@ -1742,9 +1695,7 @@ msgid "Currency symbol follows value"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:68
-msgid ""
-"The currency symbol normally precedes the value. Enabling this option "
-"positions the symbol after the value."
+msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:74
@@ -1756,11 +1707,7 @@ msgid "Debug mode"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:87
-msgid ""
-"Enable this option to log debug information. By default this will log to "
-"your server PHP error log. If you'd like to see the log messages in your "
-"browser, then we recommend that you install the %s and look for the \"Tribe"
-"\" tab in the debug output."
+msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:87
@@ -1768,9 +1715,7 @@ msgid "Debug Bar Plugin"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:11
-msgid ""
-"Thanks you for using %s! All of us at Modern Tribe sincerely appreciate your "
-"support and we’re excited to see you using our plugins."
+msgid "Thanks you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:14
@@ -1778,9 +1723,7 @@ msgid "Getting Support"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:15
-msgid ""
-"Our website’s %s is a great place to find tips and tricks for using and "
-"customizing our plugins."
+msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:15
@@ -1800,17 +1743,11 @@ msgid "Getting More Help"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:20
-msgid ""
-"While the resources above help solve a majority of the issues we see, there "
-"are times you might be looking for extra support. If you need assistance "
-"using our plugins and would like us to take a look, please follow these "
-"steps:"
+msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:24
-msgid ""
-"%s. All of the common (and not-so-common) answers to questions we see are "
-"here. It’s often the fastest path to finding an answer!"
+msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:24
@@ -1818,10 +1755,7 @@ msgid "Check our Knowledgebase"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:25
-msgid ""
-"%s. Testing for an existing conflict is the best start for in-depth "
-"troubleshooting. We will often ask you to follow these steps when opening a "
-"new thread, so doing this ahead of time will be super helpful."
+msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:25
@@ -1829,11 +1763,7 @@ msgid "Test for a theme or plugin conflict"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:26
-msgid ""
-"%s. There are very few issues we haven’t seen and it’s likely another user "
-"has already asked your question and gotten an answer from our support staff. "
-"While posting to the forums is open only to paid customers, they are open "
-"for anyone to search and review."
+msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:26
@@ -1841,9 +1771,7 @@ msgid "Search our support forum"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:30
-msgid ""
-"Please note that all hands-on support is provided via the forums. You can "
-"email or tweet at us… ​but we will probably point you back to the forums 😄"
+msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums 😄"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:31
@@ -1855,12 +1783,7 @@ msgid "System Information"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:35
-msgid ""
-"The details of your calendar plugin and settings is often needed for you or "
-"our staff to help troubleshoot an issue. We may ask you to share this "
-"information if you ask for support. If you post in one of our premium "
-"forums, please copy and paste this information into the System Information "
-"field and it will help us help you faster!"
+msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:37
@@ -1876,32 +1799,15 @@ msgid "More..."
 msgstr ""
 
 #: src/admin-views/tribe-options-licenses.php:13
-msgid ""
-"<p>The license key you received when completing your purchase from %1$s will "
-"grant you access to support and updates until it expires. You do not need to "
-"enter the key below for the plugins to work, but you will need to enter it "
-"to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" "
-"target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own "
-"unique license key. Simply paste the key into its appropriate field on "
-"below, and give it a moment to validate. You know you're set when a green "
-"expiration date appears alongside a \"valid\" message.</p> <p>If you're "
-"seeing a red message telling you that your key isn't valid or is out of "
-"installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your "
-"installs or renew / upgrade your license.</p><p>Not seeing an update but "
-"expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> "
-"and click \"Check Again\".</p>"
+msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr ""
 
 #: src/admin-views/tribe-options-licenses.php:18
-msgid ""
-"%1$s Using our plugins in a multisite network? %2$s Please note that your "
-"license key will be applied to the entire network, not just this site."
+msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 
 #: src/admin-views/tribe-options-licenses.php:27
-msgid ""
-"Only license fields for %1$snetwork activated%2$s plugins will be listed on "
-"this screen. "
+msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
 msgstr ""
 
 #: src/admin-views/tribe-options-network.php:15
@@ -1909,15 +1815,12 @@ msgid "Network Settings"
 msgstr ""
 
 #: src/admin-views/tribe-options-network.php:19
-msgid ""
-"This is where all of the global network settings for Modern Tribe's The "
-"Events Calendar can be modified."
+msgid "This is where all of the global network settings for Modern Tribe's The Events Calendar can be modified."
 msgstr ""
 
 #: src/admin-views/tribe-options-network.php:27
 msgid "Hide the following settings tabs on every site:"
 msgstr ""
-
 #. Plugin Name of the plugin/theme
 msgid "Tribe Common"
 msgstr ""
