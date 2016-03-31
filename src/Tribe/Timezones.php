@@ -94,6 +94,54 @@ class Tribe__Timezones {
 	}
 
 	/**
+	 * Helper function to retrieve the timezone string for a given UTC offset
+	 *
+	 * This is a close copy of WooCommerce's wc_timezone_string() method
+	 *
+	 * @param string $offset UTC offset
+	 *
+	 * @return string
+	 */
+	public static function generate_timezone_string_from_utc_offset( $offset ) {
+		if ( ! self::is_utc_offset( $offset ) ) {
+			return $offset;
+		}
+
+		// ensure we have the minutes on the offset
+		if ( ! strpos( $offset, ':' ) ) {
+			$offset .= ':00';
+		}
+
+		$offset = str_replace( 'UTC', '', $offset );
+
+		list( $hours, $minutes ) = explode( ':', $offset );
+		$seconds = $hours * 60 * 60 + $minutes * 60;
+
+		// attempt to guess the timezone string from the UTC offset
+		$timezone = timezone_name_from_abbr( '', $seconds, 0 );
+
+		if ( false === $timezone ) {
+			$is_dst = date( 'I' );
+
+			foreach ( timezone_abbreviations_list() as $abbr ) {
+				foreach ( $abbr as $city ) {
+					if (
+						$city['dst'] == $is_dst
+						&& $city['offset'] == $seconds
+					) {
+						return $city['timezone_id'];
+					}
+				}
+			}
+
+			// fallback to UTC
+			return 'UTC';
+		}
+
+		return $timezone;
+	}
+
+	/**
 	 * Tried to convert the provided $datetime to UTC from the timezone represented by $tzstring.
 	 *
 	 * Though the usual range of formats are allowed, $datetime ordinarily ought to be something
