@@ -161,7 +161,7 @@ class Tribe__Main {
 	public function add_hooks() {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
 
-		add_action( 'init', array( $this, 'load_text_domain' ), 1 );
+		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'register_resources' ), 1 );
@@ -172,11 +172,31 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Loads the textdomain
+	 * A Helper method to load text domain
+	 * First it tries to load the wp-content/languages translation then if falls to the
+	 * try to load $dir language files
+	 *
+	 * @param string $domain The text domain that will be loaded
+	 * @param string $dir    What directory should be used to try to load if the default doenst work
+	 *
+	 * @return bool  If it was able to load the text domain
 	 */
-	public function load_text_domain() {
-		$dir = basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/';
-		load_plugin_textdomain( 'tribe-common', false, $dir );
+	public function load_text_domain( $domain, $dir = false ) {
+		// Added safety just in case this runs twice...
+		if ( is_textdomain_loaded( $domain ) ) {
+			return true;
+		}
+
+		$locale = get_locale();
+		$mofile = WP_LANG_DIR . '/plugins/' . $domain . '-' . $locale . '.mo';
+
+		$loaded = load_plugin_textdomain( $domain, false, $mofile );
+
+		if ( $dir !== false && ! $loaded ) {
+			return load_plugin_textdomain( $domain, false, $dir );
+		}
+
+		return $loaded;
 	}
 
 	public function admin_enqueue_scripts() {
