@@ -231,7 +231,7 @@ JSON;
 	 */
 	public function it_should_make_the_right_http_get_request_to_google_api() {
 		$address      = '10, Downing Street, London, UK';
-		$expected_url = esc_url( add_query_arg( array( 'address' => $address ), Coordinates_Provider::$google_api_base . Coordinates_Provider::$google_api_json_format . '/' ) );
+		$expected_url = esc_url( add_query_arg( array( 'address' => $address ), Coordinates_Provider::$google_api_base . Coordinates_Provider::$google_api_json_format ) );
 		$this->http->get( $expected_url )->shouldBeCalled();
 
 		$sut = $this->make_instance();

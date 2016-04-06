@@ -75,7 +75,7 @@ class Tribe__Utils__Coordinates_Provider {
 			return $location;
 		}
 
-		$base_request_url = trailingslashit( $this->get_google_api_base() ) . trailingslashit( $this->get_google_api_json_format() );
+		$base_request_url = trailingslashit( $this->get_google_api_base() ) . $this->get_google_api_json_format();
 		$url              = esc_url( add_query_arg( array( 'address' => $address ), $base_request_url ) );
 		$response         = $this->http->get( $url );
 
