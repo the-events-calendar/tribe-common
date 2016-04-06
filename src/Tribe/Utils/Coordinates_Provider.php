@@ -76,7 +76,7 @@ class Tribe__Utils__Coordinates_Provider {
 		}
 
 		$base_request_url = trailingslashit( $this->get_google_api_base() ) . trailingslashit( $this->get_google_api_json_format() );
-		$url              = add_query_arg( array( 'address' => esc_url( $address ) ), $base_request_url );
+		$url              = esc_url( add_query_arg( array( 'address' => $address ), $base_request_url ) );
 		$response         = $this->http->get( $url );
 
 		if ( is_wp_error( $response ) ) {

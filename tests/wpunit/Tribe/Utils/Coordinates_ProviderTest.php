@@ -231,7 +231,7 @@ JSON;
 	 */
 	public function it_should_make_the_right_http_get_request_to_google_api() {
 		$address      = '10, Downing Street, London, UK';
-		$expected_url = add_query_arg( array( 'address' => esc_url( $address ) ), Coordinates_Provider::$google_api_base . Coordinates_Provider::$google_api_json_format . '/' );
+		$expected_url = esc_url( add_query_arg( array( 'address' => $address ), Coordinates_Provider::$google_api_base . Coordinates_Provider::$google_api_json_format . '/' ) );
 		$this->http->get( $expected_url )->shouldBeCalled();
 
 		$sut = $this->make_instance();
@@ -283,9 +283,8 @@ JSON;
 	 * it should cache resolved addresses
 	 */
 	public function it_should_cache_resolved_addresses() {
-		$address      = '10, Downing Street, London, UK';
-		$expected_url = add_query_arg( array( 'address' => esc_url( $address ) ), Coordinates_Provider::$google_api_base . Coordinates_Provider::$google_api_json_format . '/' );
-		$this->http->get( $expected_url )->willReturn( $this->json_mock_response );
+		$address = '10, Downing Street, London, UK';
+		$this->http->get( Argument::type( 'string' ) )->willReturn( $this->json_mock_response );
 
 		$sut = $this->make_instance();
 
@@ -300,9 +299,8 @@ JSON;
 	 * it should fetch resolved addresses from cache
 	 */
 	public function it_should_fetch_resolved_addresses_from_cache() {
-		$address      = '10, Downing Street, London, UK';
-		$expected_url = add_query_arg( array( 'address' => esc_url( $address ) ), Coordinates_Provider::$google_api_base . Coordinates_Provider::$google_api_json_format . '/' );
-		$this->http->get( $expected_url )->willReturn( $this->json_mock_response )->shouldBeCalledTimes( 1 );
+		$address = '10, Downing Street, London, UK';
+		$this->http->get( Argument::type( 'string' ) )->willReturn( $this->json_mock_response )->shouldBeCalledTimes( 1 );
 
 		$sut = $this->make_instance();
 
@@ -321,9 +319,8 @@ JSON;
 	 * it should provide coordinates for string addresses
 	 */
 	public function it_should_provide_coordinates_for_string_addresses() {
-		$address      = '10, Downing Street, London, UK';
-		$expected_url = add_query_arg( array( 'address' => esc_url( $address ) ), Coordinates_Provider::$google_api_base . Coordinates_Provider::$google_api_json_format . '/' );
-		$this->http->get( $expected_url )->willReturn( $this->json_mock_response );
+		$address = '10, Downing Street, London, UK';
+		$this->http->get( Argument::type( 'string' ) )->willReturn( $this->json_mock_response );
 
 		$sut = $this->make_instance();
 
