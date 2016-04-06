@@ -51,7 +51,7 @@ class Coordinates_ProviderTest extends \Codeception\TestCase\WPTestCase {
         {
           "long_name": "United Kingdom",
           "short_name": "GB",
-          "types": [
+          "type": [
             "country",
             "political"
           ]
@@ -258,7 +258,7 @@ JSON;
 	 */
 	public function it_should_return_false_if_return_status_of_response_is_not_ok() {
 		$address = '10, Downing Street, London, UK';
-		$this->http->get( Argument::type( 'string' ) )->willReturn( $this->json_mock_not_ok_response );
+		$this->http->get( Argument::type( 'string' ) )->willReturn( array( 'body' => $this->json_mock_not_ok_response ) );
 
 		$sut = $this->make_instance();
 
@@ -271,7 +271,7 @@ JSON;
 	 */
 	public function it_should_return_false_if_location_lat_or_long_is_missing() {
 		$address = '10, Downing Street, London, UK';
-		$this->http->get( Argument::type( 'string' ) )->willReturn( $this->json_mock_not_ok_response );
+		$this->http->get( Argument::type( 'string' ) )->willReturn( array( 'body' => $this->json_mock_not_ok_response ) );
 
 		$sut = $this->make_instance();
 
@@ -284,7 +284,7 @@ JSON;
 	 */
 	public function it_should_cache_resolved_addresses() {
 		$address = '10, Downing Street, London, UK';
-		$this->http->get( Argument::type( 'string' ) )->willReturn( $this->json_mock_response );
+		$this->http->get( Argument::type( 'string' ) )->willReturn( array( 'body' => $this->json_mock_response ) );
 
 		$sut = $this->make_instance();
 
@@ -300,7 +300,7 @@ JSON;
 	 */
 	public function it_should_fetch_resolved_addresses_from_cache() {
 		$address = '10, Downing Street, London, UK';
-		$this->http->get( Argument::type( 'string' ) )->willReturn( $this->json_mock_response )->shouldBeCalledTimes( 1 );
+		$this->http->get( Argument::type( 'string' ) )->willReturn( array( 'body' => $this->json_mock_response ) )->shouldBeCalledTimes( 1 );
 
 		$sut = $this->make_instance();
 
@@ -320,7 +320,7 @@ JSON;
 	 */
 	public function it_should_provide_coordinates_for_string_addresses() {
 		$address = '10, Downing Street, London, UK';
-		$this->http->get( Argument::type( 'string' ) )->willReturn( $this->json_mock_response );
+		$this->http->get( Argument::type( 'string' ) )->willReturn( array( 'body' => $this->json_mock_response ) );
 
 		$sut = $this->make_instance();
 

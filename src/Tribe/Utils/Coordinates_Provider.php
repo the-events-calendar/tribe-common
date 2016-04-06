@@ -83,7 +83,7 @@ class Tribe__Utils__Coordinates_Provider {
 			return false;
 		}
 
-		$decoded = json_decode( $response, true );
+		$decoded = json_decode( $response['body'], true );
 
 		if ( empty( $decoded['status'] ) || 'OK' !== $decoded['status'] ) {
 			return false;
