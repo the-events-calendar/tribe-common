@@ -103,6 +103,23 @@ class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $root );
 	}
 
+	/**
+	 * @test
+	 * it should avoid root conflicts when generating roots for similarly titled posts
+	 */
+	public function it_should_avoid_root_conflicts_when_generating_roots_for_similarly_titled_posts() {
+		$post_1 = $this->factory()->post->create_and_get( [ 'post_title' => 'An Awesome Event', 'post_name' => 'an-awesome-event' ] );
+		$post_2 = $this->factory()->post->create_and_get( [ 'post_title' => 'An Appaling Event', 'post_name' => 'an-appaling-event' ] );
+
+		$sut = $this->make_instance();
+
+		$root_1 = $sut->generate_unique_root( $post_1 );
+		$root_2 = $sut->generate_unique_root( $post_2 );
+
+		$this->assertEquals( 'AAE-', $root_1 );
+		$this->assertEquals( 'AAEA-', $root_2 );
+	}
+
 	private function make_instance() {
 		return new \Tribe__Utils__Post_Root_Pool();
 	}
