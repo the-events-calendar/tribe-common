@@ -3,6 +3,9 @@
 
 class Tribe__Utils__Post_Root_Pool {
 
+	/**
+	 * @var string
+	 */
 	protected $pool_transient_name = 'tribe_ticket_prefix_pool';
 
 	/**
@@ -58,6 +61,13 @@ class Tribe__Utils__Post_Root_Pool {
 		$this->insert_root_in_pool( $candidate );
 
 		return $candidate;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_pool_transient_name() {
+		return $this->pool_transient_name;
 	}
 
 	/**
