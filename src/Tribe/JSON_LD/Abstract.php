@@ -83,8 +83,8 @@ abstract class Tribe__JSON_LD__Abstract {
 	 * puts together the actual html/json javascript block for output
 	 * @return string
 	 */
-	public function get_markup( $args = array() ) {
-		$data = $this->get_data( null, $args );
+	public function get_markup( $post = null, $args = array() ) {
+		$data = $this->get_data( $post, $args );
 
 		/**
 		 * Allows the event data to be modifed by themes and other plugins.
@@ -106,8 +106,8 @@ abstract class Tribe__JSON_LD__Abstract {
 		return implode( "\r\n", $html );
 	}
 
-	public function markup( $args = array() ) {
-		$html = $this->get_markup( $args );
+	public function markup( $post = null, $args = array() ) {
+		$html = $this->get_markup( $post, $args );
 
 		/**
 		 * Allows users to filter the end markup of JSON-LD
@@ -123,8 +123,6 @@ abstract class Tribe__JSON_LD__Abstract {
 		 */
 		$html = apply_filters( 'tribe_json_ld_markup', $html );
 
-
-		var_dump( $html );
 		echo $html;
 	}
 }
