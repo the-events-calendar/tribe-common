@@ -1,65 +1,130 @@
 <?php
 
+// Don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 /**
- * Handles output of Google structured data markup
+ * An Abstract class that will allow us to have a base to go for all
+ * the other JSON-LD classes.
+ *
+ * Always extend this when doing a new JSON-LD object
  */
 abstract class Tribe__JSON_LD__Abstract {
 
-	protected $filter = 'tribe_google_data';
+	/**
+	 * Holder of the Instances
+	 * @var array
+	 */
+	private static $instances = array();
+
+	/**
+	 * The class singleton constructor.
+	 *
+	 * @return Tribe__JSON_LD__Abstract
+	 */
+	public static function instance( $name = null ) {
+		if ( empty( self::$instances[ $name ] ) ) {
+			self::$instances[ $name ] = new $name();
+		}
+
+		return self::$instances[ $name ];
+	}
+
+	/**
+	 * Which type of element this actually is
+	 *
+	 * @see https://developers.google.com/structured-data/rich-snippets/
+	 * @var string
+	 */
+	public $type = 'Thing';
+
+	/**
+	 * A way for users to fetch the filter in which this was added
+	 * @return string
+	 */
+	public function get_filter() {
+		return 'tribe_json_ld_' . strtolower( esc_attr( $this->type ) ) . '_data';
+	}
 
 	/**
 	 * Compile the schema.org event data into an array
 	 */
-	protected function build_data() {
-		global $post;
-		$id             = $post->ID;
-		$data           = array();
+	public function get_data( $post = null, $args = array() ) {
+		$post = get_post( Tribe__Main::post_id_helper( $post ) );
+
+		if ( ! $post instanceof WP_Post ) {
+			return $data;
+		}
+
+		$data = (object) array();
+
+		// We may need to prevent the context to be triggered
+		if ( ! isset( $args['context'] ) || false !== $args['context'] ) {
+			$data->{'@context'} = 'http://schema.org';
+		}
+		$data->{'@type'}    = $this->type;
+
+		$data->name         = esc_js( get_the_title( $post ) );
+		$data->description  = esc_js( tribe_events_get_the_excerpt( $post ) );
+
+		if ( has_post_thumbnail( $post ) ) {
+			$data->image = wp_get_attachment_url( get_post_thumbnail_id( $post ) );
+		}
+		$data->url = esc_url_raw( get_permalink( $post ) );
 
 		// Index by ID: this will allow filter code to identify the actual event being referred to
 		// without injecting an additional property
-		$data[ $id ]               = new stdClass();
-		$data[ $id ]->{'@context'} = 'http://schema.org';
-		$data[ $id ]->{'@type'}    = 'Thing';
-		$data[ $id ]->name         = esc_js( get_the_title() );
-		$data[ $id ]->description  = esc_js( tribe_events_get_the_excerpt( $post ) );
-		if ( has_post_thumbnail() ) {
-			$data[ $id ]->image = wp_get_attachment_url( get_post_thumbnail_id( $id ) );
-		}
-		$data[ $id ]->url = esc_url_raw( get_permalink( $id ) );
-
-		return $data;
-	}
-
-	protected function filter_data( $data ) {
-		/**
-		 * Allows the event data to be modifed by themes and other plugins.
-		 *
-		 * @param array $data objects representing the Google Markup for each event.
-		 */
-		$data = apply_filters( $this->filter, $data );
-
-		// Strip the post ID indexing before returning
-		$data = array_values( $data );
-
-		return $data;
-
+		return array( $post->ID => $data );
 	}
 
 	/**
 	 * puts together the actual html/json javascript block for output
 	 * @return string
 	 */
-	public function script_block() {
-		$data = $this->build_data();
-		$data = $this->filter_data( $data );
+	public function get_markup( $args = array() ) {
+		$data = $this->get_data( null, $args );
 
-		$html = '';
+		/**
+		 * Allows the event data to be modifed by themes and other plugins.
+		 *
+		 * @param array $data objects representing the Google Markup for each event.
+		 * @param array $args the arguments used to get data
+		 */
+		$data = apply_filters( $this->get_filter(), $data, $args );
+
+		// Strip the post ID indexing before returning
+		$data = array_values( $data );
+
 		if ( ! empty( $data ) ) {
-			$html .= '<script type="application/ld+json">';
-			$html .= str_replace( '\/', '/', json_encode( $data ) );
-			$html .= '</script>';
+			$html[] = '<script type="application/ld+json">';
+			$html[] = str_replace( '\/', '/', json_encode( $data ) );
+			$html[] = '</script>';
 		}
 
-		return $html;
+		return implode( "\r\n", $html );
+	}
+
+	public function markup( $args = array() ) {
+		$html = $this->get_markup( $args );
+
+		/**
+		 * Allows users to filter the end markup of JSON-LD
+		 * @deprecated
+		 * @todo Remove on 4.4
+		 * @var string The HTML for the JSON LD markup
+		 */
+		$html = apply_filters( 'tribe_google_data_markup_json', $html );
+
+		/**
+		 * Allows users to filter the end markup of JSON-LD
+		 * @var string The HTML for the JSON LD markup
+		 */
+		$html = apply_filters( 'tribe_json_ld_markup', $html );
+
+
+		var_dump( $html );
+		echo $html;
 	}
 }
