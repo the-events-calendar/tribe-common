@@ -52,7 +52,10 @@ abstract class Tribe__JSON_LD__Abstract {
 	 * Compile the schema.org event data into an array
 	 */
 	public function get_data( $post = null, $args = array() ) {
-		$post = get_post( Tribe__Main::post_id_helper( $post ) );
+		if ( ! $post instanceof WP_Post ) {
+			$post = Tribe__Main::post_id_helper( $post );
+		}
+		$post = get_post( $post );
 
 		if ( ! $post instanceof WP_Post ) {
 			return $data;
@@ -75,18 +78,6 @@ abstract class Tribe__JSON_LD__Abstract {
 
 		$data->url = esc_url_raw( get_permalink( $post ) );
 
-		/**
-		 * Allows the event data to be modifed by themes and other plugins.
-		 *
-		 * @example tribe_json_ld_thing_data_object
-		 * @example tribe_json_ld_event_data_object
-		 *
-		 * @param object $data objects representing the Google Markup for each event.
-		 * @param array $args the arguments used to get data
-		 * @param WP_Post $post the arguments used to get data
-		 */
-		$data = apply_filters( $this->get_filter( 'object' ), $data, $args, $post );
-
 		// Index by ID: this will allow filter code to identify the actual event being referred to
 		// without injecting an additional property
 		return array( $post->ID => $data );
@@ -98,6 +89,20 @@ abstract class Tribe__JSON_LD__Abstract {
 	 */
 	public function get_markup( $post = null, $args = array() ) {
 		$data = $this->get_data( $post, $args );
+
+		foreach ( $data as $post_id => $_data ) {
+			/**
+			 * Allows the event data to be modifed by themes and other plugins.
+			 *
+			 * @example tribe_json_ld_thing_data_object
+			 * @example tribe_json_ld_event_data_object
+			 *
+			 * @param object $data objects representing the Google Markup for each event.
+			 * @param array $args the arguments used to get data
+			 * @param WP_Post $post the arguments used to get data
+			 */
+			$data[ $post_id ] = apply_filters( $this->get_filter( 'object' ), $_data, $args, get_post( $post_id ) );
+		}
 
 		/**
 		 * Allows the event data to be modifed by themes and other plugins.
