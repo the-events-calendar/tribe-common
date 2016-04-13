@@ -152,4 +152,13 @@ class Tribe__Utils__Post_Root_Pool {
 			set_transient( $this->pool_transient_name, $pool );
 		}
 	}
+
+	/**
+	 * Whether the pool transient has been primed or not.
+	 *
+	 * @return bool
+	 */
+	public function is_primed() {
+		return get_transient( $this->pool_transient_name ) !== false;
+	}
 }
