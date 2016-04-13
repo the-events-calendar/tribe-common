@@ -1,6 +1,8 @@
 <?php
 namespace Tribe\Utils;
 
+use \Tribe__Utils__Post_Root_Pool as Post_Root_Pool;
+
 class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 
 	public function setUp() {
@@ -8,6 +10,7 @@ class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// your set up methods here
+		Post_Root_Pool::reset_pool();
 	}
 
 	public function tearDown() {
@@ -85,6 +88,8 @@ class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 			[ 'barbecue-with-john', 'BWJ-' ],
 			[ 'barbecue-with-john-1', 'BWJ1-' ],
 			[ 'this-post-has-a-very-long-post-name-with-a-lot-of-words-in-it', 'TPHAVLPNWALOWII-' ],
+			[ 'oktoberfest-2016', 'O2016-' ],
+			[ 'burning-man-2016', 'BM2016-' ],
 		];
 	}
 
@@ -110,14 +115,36 @@ class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_avoid_root_conflicts_when_generating_roots_for_similarly_titled_posts() {
 		$post_1 = $this->factory()->post->create_and_get( [ 'post_title' => 'An Awesome Event', 'post_name' => 'an-awesome-event' ] );
 		$post_2 = $this->factory()->post->create_and_get( [ 'post_title' => 'An Appaling Event', 'post_name' => 'an-appaling-event' ] );
+		$post_3 = $this->factory()->post->create_and_get( [ 'post_title' => 'An Astonishing Event', 'post_name' => 'an-astonishing-event' ] );
+		$post_4 = $this->factory()->post->create_and_get( [ 'post_title' => 'An Amazing Event', 'post_name' => 'an-amazing-event' ] );
 
 		$sut = $this->make_instance();
 
 		$root_1 = $sut->generate_unique_root( $post_1 );
 		$root_2 = $sut->generate_unique_root( $post_2 );
+		$root_3 = $sut->generate_unique_root( $post_3 );
+		$root_4 = $sut->generate_unique_root( $post_4 );
 
 		$this->assertEquals( 'AAE-', $root_1 );
-		$this->assertEquals( 'AAEA-', $root_2 );
+		$this->assertEquals( 'AAE-1-', $root_2 );
+		$this->assertEquals( 'AAE-2-', $root_3 );
+		$this->assertEquals( 'AAE-3-', $root_4 );
+	}
+
+	/**
+	 * @test
+	 * it should handle n scale unique pool creation
+	 */
+	public function it_should_handle_n_scale_unique_pool_creation() {
+		$post = $this->factory()->post->create_and_get( [ 'post_title' => 'An Awesome Event', 'post_name' => 'an-awesome-event' ] );
+
+		$sut = $this->make_instance();
+
+		for ( $i = 0; $i < 200; $i ++ ) {
+			$root = $sut->generate_unique_root( $post );
+		}
+
+		$this->assertEquals( 'AAE-199-', $root );
 	}
 
 	private function make_instance() {
