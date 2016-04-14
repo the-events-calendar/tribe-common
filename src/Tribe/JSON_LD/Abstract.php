@@ -41,14 +41,6 @@ abstract class Tribe__JSON_LD__Abstract {
 	public $type = 'Thing';
 
 	/**
-	 * A way for users to fetch the filter in which this was added
-	 * @return string
-	 */
-	public function get_filter( $suffix = '' ) {
-		return 'tribe_json_ld_' . strtolower( esc_attr( $this->type ) ) . '_data' . ( ! empty( $suffix ) ? '_' . $suffix : '' );
-	}
-
-	/**
 	 * Compile the schema.org event data into an array
 	 */
 	public function get_data( $post = null, $args = array() ) {
@@ -90,30 +82,32 @@ abstract class Tribe__JSON_LD__Abstract {
 	public function get_markup( $post = null, $args = array() ) {
 		$data = $this->get_data( $post, $args );
 
+		$type = strtolower( esc_attr( $this->type ) );
+
 		foreach ( $data as $post_id => $_data ) {
 			/**
 			 * Allows the event data to be modifed by themes and other plugins.
 			 *
-			 * @example tribe_json_ld_thing_data_object
-			 * @example tribe_json_ld_event_data_object
+			 * @example tribe_json_ld_thing_object
+			 * @example tribe_json_ld_event_object
 			 *
 			 * @param object $data objects representing the Google Markup for each event.
 			 * @param array $args the arguments used to get data
 			 * @param WP_Post $post the arguments used to get data
 			 */
-			$data[ $post_id ] = apply_filters( $this->get_filter( 'object' ), $_data, $args, get_post( $post_id ) );
+			$data[ $post_id ] = apply_filters( "tribe_json_ld_{$type}_object", $_data, $args, get_post( $post_id ) );
 		}
 
 		/**
 		 * Allows the event data to be modifed by themes and other plugins.
 		 *
-		 * @example tribe_json_ld_thing_data_array
-		 * @example tribe_json_ld_event_data_array
+		 * @example tribe_json_ld_thing_data
+		 * @example tribe_json_ld_event_data
 		 *
 		 * @param array $data objects representing the Google Markup for each event.
 		 * @param array $args the arguments used to get data
 		 */
-		$data = apply_filters( $this->get_filter( 'array' ), $data, $args );
+		$data = apply_filters( "tribe_json_ld_{$type}_data", $data, $args );
 
 		// Strip the post ID indexing before returning
 		$data = array_values( $data );
@@ -134,13 +128,13 @@ abstract class Tribe__JSON_LD__Abstract {
 		 * Allows users to filter the end markup of JSON-LD
 		 * @deprecated
 		 * @todo Remove on 4.4
-		 * @var string The HTML for the JSON LD markup
+		 * @param string The HTML for the JSON LD markup
 		 */
 		$html = apply_filters( 'tribe_google_data_markup_json', $html );
 
 		/**
 		 * Allows users to filter the end markup of JSON-LD
-		 * @var string The HTML for the JSON LD markup
+		 * @param string The HTML for the JSON LD markup
 		 */
 		$html = apply_filters( 'tribe_json_ld_markup', $html );
 
