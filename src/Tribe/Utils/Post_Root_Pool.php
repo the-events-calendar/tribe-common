@@ -24,6 +24,11 @@ class Tribe__Utils__Post_Root_Pool {
 	protected $postfix = 1;
 
 	/**
+	 * @var WP_Post
+	 */
+	protected $current_post = null;
+
+	/**
 	 * Generates a unique root for a post using its post_name.
 	 *
 	 * @param WP_Post $post
@@ -32,6 +37,13 @@ class Tribe__Utils__Post_Root_Pool {
 	 */
 	public function generate_unique_root( WP_Post $post ) {
 		$post_name = $post->post_name;
+
+		$this->current_post = $post;
+		$flipped_pool       = array_flip( $this->fetch_pool() );
+
+		if ( isset( $flipped_pool[ $this->current_post->ID ] ) ) {
+			return $flipped_pool[ $this->current_post->ID ] . $this->root_separator;
+		}
 
 		$root = $this->build_root_from( $post_name );
 
@@ -83,7 +95,9 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @param string $candidate
 	 */
 	protected function is_in_pool( $candidate ) {
-		return in_array( $candidate, $this->fetch_pool() );
+		$pool = $this->fetch_pool();
+
+		return isset( $pool[ $candidate ] );
 	}
 
 	/**
@@ -109,9 +123,9 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @param string $unique_root
 	 */
 	protected function insert_root_in_pool( $unique_root ) {
-		$prefix_pool       = $this->fetch_pool();
-		$prefix_pool[]     = $unique_root;
-		self::$prefix_pool = $prefix_pool;
+		$prefix_pool                 = $this->fetch_pool();
+		$prefix_pool[ $unique_root ] = $this->current_post->ID;
+		self::$prefix_pool           = $prefix_pool;
 		set_transient( $this->pool_transient_name, $prefix_pool );
 	}
 
@@ -160,5 +174,12 @@ class Tribe__Utils__Post_Root_Pool {
 	 */
 	public function is_primed() {
 		return get_transient( $this->pool_transient_name ) !== false;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_pool() {
+		return $this->fetch_pool();
 	}
 }

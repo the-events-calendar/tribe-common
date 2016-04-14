@@ -136,18 +136,37 @@ class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 	 * it should handle n scale unique pool creation
 	 */
 	public function it_should_handle_n_scale_unique_pool_creation() {
-		$post = $this->factory()->post->create_and_get( [ 'post_title' => 'An Awesome Event', 'post_name' => 'an-awesome-event' ] );
-
 		$sut = $this->make_instance();
 
 		for ( $i = 0; $i < 200; $i ++ ) {
-			$root = $sut->generate_unique_root( $post );
+			$post_name = 'an-awesome-e' . md5( microtime() );
+			$post      = $this->factory()->post->create_and_get( [ 'post_title' => 'An Awesome Event', 'post_name' => $post_name ] );
+			$root      = $sut->generate_unique_root( $post );
 		}
 
 		$this->assertEquals( 'AAE-199-', $root );
 	}
 
+	/**
+	 * @test
+	 * it should not generate a root for the same post twice
+	 */
+	public function it_should_not_generate_a_root_for_the_same_post_twice() {
+		$post = $this->factory()->post->create_and_get( [ 'post_title' => 'An Awesome Event', 'post_name' => 'an-awesome-event' ] );
+
+		$sut = $this->make_instance();
+
+		$root_1 = $sut->generate_unique_root( $post );
+		$root_2 = $sut->generate_unique_root( $post );
+		$root_3 = $sut->generate_unique_root( $post );
+
+		$this->assertEquals( 'AAE-', $root_1 );
+		$this->assertEquals( 'AAE-', $root_2 );
+		$this->assertEquals( 'AAE-', $root_3 );
+		$this->assertEquals( array( 'AAE' => $post->ID ), $sut->get_pool() );
+	}
+
 	private function make_instance() {
-		return new \Tribe__Utils__Post_Root_Pool();
+		return new Post_Root_Pool();
 	}
 }
