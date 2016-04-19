@@ -2,6 +2,7 @@
 class Tribe__Log__Admin {
 	public function __construct() {
 		add_action( 'wp_ajax_tribe_logging_controls', array( $this, 'listen' ) );
+		add_action( 'init', array( $this, 'serve_log_downloads' ) );
 	}
 
 	/**
@@ -190,13 +191,41 @@ class Tribe__Log__Admin {
 	 */
 	protected function get_log_url( $log = null ) {
 		$query = array(
-			'download' => 'tribe-common-log',
-			'check'    => wp_create_nonce( 'download_log' )
+			'tribe-common-log' => 'download',
+			'check' => wp_create_nonce( 'download_log' )
 		);
 
 		$log_download_url = add_query_arg( $query, get_admin_url( null, 'edit.php' ) );
 
 		return esc_url( $log_download_url );
+	}
+
+	/**
+	 * Facilitate downloading of logs.
+	 */
+	public function serve_log_downloads() {
+		if ( empty( $_GET['tribe-common-log'] ) || 'download' !== $_GET['tribe-common-log'] ) {
+			return;
+		}
+
+		if ( ! wp_verify_nonce( @$_GET['check'], 'download_log' ) ) {
+			return;
+		}
+
+		if ( ! empty( $_GET['log'] ) && in_array( $_GET['log'], $this->get_available_logs() ) ) {
+			$log_name = filter_var( $_GET['log'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+			$this->current_logger()->use_log( $log_name );
+		}
+
+		header( 'Content-Disposition: attachment; filename="tribe-log-' . $log_name . '"' );
+		$output = fopen( 'php://output', 'w' );
+
+		foreach ( $this->current_logger()->retrieve() as $log_entry ) {
+			fputcsv( $output, $log_entry );
+		}
+
+		fclose( $output );
+		exit();
 	}
 
 	/**

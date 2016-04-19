@@ -2,13 +2,15 @@ var tribe_logger_admin = tribe_logger_admin || {};
 var tribe_logger_data  = tribe_logger_data || {};
 
 ( function( $, obj ) {
-	var working      = false;
-	var current_view = '';
-	var view_changed = false;
-	var $controls    = $( '#tribe-log-controls' );
-	var $options     = $controls.find( 'select' );
-	var $spinner     = $controls.find( '.working' );
-	var $viewer      = $( '#tribe-log-viewer' );
+	var working        = false;
+	var current_view   = '';
+	var current_engine = '';
+	var view_changed   = false;
+	var $controls      = $( '#tribe-log-controls' );
+	var $options       = $controls.find( 'select' );
+	var $spinner       = $controls.find( '.working' );
+	var $viewer        = $( '#tribe-log-viewer' );
+	var $download_link = $( 'a.download_log' );
 
 	function update() {
 		// If an update is already in progress let's wait until that job completes
@@ -47,6 +49,7 @@ var tribe_logger_data  = tribe_logger_data || {};
 
 		if ( $.isArray( data.data.entries ) ) {
 			$viewer.html( to_table( data.data.entries ) );
+			update_download_link();
 		}
 	}
 
@@ -70,6 +73,23 @@ var tribe_logger_data  = tribe_logger_data || {};
 		return html + '</table>';
 	}
 
+	function update_download_link() {
+		var url = $download_link.attr( 'href' );
+		var log = encodeURI( get_current_view() );
+		var matches = url.match(/&log=([a-z0-9\-]+)/i);
+
+		// Update or add the log parameter
+		if ( $.isArray( matches ) && 2 === matches.length ) {
+			url = url.replace( matches[0], '&log=' + log );
+		} else if ( url.indexOf( '?' ) ) {
+			url = url + '&log=' + log;
+		} else {
+			url = url + '?log=' + log;
+		}
+
+		$download_link.attr( 'href', url );
+	}
+
 	function on_error() {
 		unfreeze();
 	}
@@ -88,10 +108,12 @@ var tribe_logger_data  = tribe_logger_data || {};
 
 	function detect_view_change() {
 		var new_view = get_current_view();
+		var new_engine = get_current_engine();
 
-		if ( new_view !== current_view ) {
+		if ( new_view !== current_view || new_engine !== current_engine ) {
 			view_changed = true;
 			current_view = new_view;
+			current_engine = new_engine;
 		} else {
 			view_changed = false;
 		}
@@ -101,7 +123,14 @@ var tribe_logger_data  = tribe_logger_data || {};
 		return $( '#log-selector' ).find( ':selected' ).attr( 'name' );
 	}
 
+	function get_current_engine() {
+		return $( '#log-engine' ).find( ':selected' ).attr( 'name' );
+	}
+
 	// Setup
 	current_view = get_current_view();
+	current_engine = get_current_engine();
+
+	update_download_link();
 	$options.change( update );
 } )( jQuery, tribe_logger_admin );
