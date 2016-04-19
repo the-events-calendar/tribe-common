@@ -2,9 +2,9 @@
 namespace Tribe\Common;
 
 use Codeception\TestCase\WPTestCase,
-	Tribe__Log,
-	Tribe__Log__Logger,
-	Tribe__Main;
+    Tribe__Log,
+    Tribe__Log__Logger,
+    Tribe__Main;
 
 class Logging_Test extends WPTestCase {
 	/**
