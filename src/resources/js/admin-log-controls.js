@@ -12,6 +12,9 @@ var tribe_logger_data  = tribe_logger_data || {};
 	var $viewer        = $( '#tribe-log-viewer' );
 	var $download_link = $( 'a.download_log' );
 
+	/**
+	 * Update the log view based on changes to the various selectors.
+	 */
 	function update() {
 		// If an update is already in progress let's wait until that job completes
 		if ( working ) {
@@ -23,6 +26,10 @@ var tribe_logger_data  = tribe_logger_data || {};
 		request();
 	}
 
+	/**
+	 * Communicate any changes back to the server so we can obtain fresh log data
+	 * to display to the user.
+	 */
 	function request() {
 		var data = {
 			'action':     'tribe_logging_controls',
@@ -44,6 +51,11 @@ var tribe_logger_data  = tribe_logger_data || {};
 		} );
 	}
 
+	/**
+	 * Unfreeze the controls (following an update) and refresh on-screen data as needed.
+	 *
+	 * @param data
+	 */
 	function on_success( data ) {
 		unfreeze();
 
@@ -73,6 +85,10 @@ var tribe_logger_data  = tribe_logger_data || {};
 		return html + '</table>';
 	}
 
+	/**
+	 * Add, append or update the log download link so it points to the
+	 * currently selected log file.
+	 */
 	function update_download_link() {
 		var url = $download_link.attr( 'href' );
 		var log = encodeURI( get_current_view() );
@@ -90,22 +106,41 @@ var tribe_logger_data  = tribe_logger_data || {};
 		$download_link.attr( 'href', url );
 	}
 
+	/**
+	 * If our request back to the server failed, unfreeze the controls so
+	 * we can try again.
+	 *
+	 * @todo in a future iteration we should add substantive handling for this scenario
+	 */
 	function on_error() {
 		unfreeze();
 	}
 
+	/**
+	 * Freeze/disable the controls and show the spinner.
+	 */
 	function freeze() {
 		working = true;
 		$options.prop( 'disabled', true );
 		$spinner.removeClass( 'hidden' );
 	}
 
+	/**
+	 * Unfreeze/enable the controls and hide the spinner.
+	 */
 	function unfreeze() {
 		working = false;
 		$options.prop( 'disabled', false );
 		$spinner.addClass( 'hidden' );
 	}
 
+	/**
+	 * Check if a change in controls constituting a change of view has occured.
+	 *
+	 * This could be because the user changed logging engine or because they picked
+	 * a different log to peruse; a change in logging level on the other hand does
+	 * not count.
+	 */
 	function detect_view_change() {
 		var new_view = get_current_view();
 		var new_engine = get_current_engine();
