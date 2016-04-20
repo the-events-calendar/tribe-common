@@ -212,10 +212,20 @@ class Tribe__Log__Admin {
 			return;
 		}
 
-		if ( ! empty( $_GET['log'] ) && in_array( $_GET['log'], $this->get_available_logs() ) ) {
-			$log_name = filter_var( $_GET['log'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
-			$this->current_logger()->use_log( $log_name );
+		if ( empty( $_GET['log'] ) || ! in_array( $_GET['log'], $this->get_available_logs() ) ) {
+			return;
 		}
+
+		$log_name = filter_var( $_GET['log'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+		$this->current_logger()->use_log( $log_name );
+
+		/**
+		 * Provides an opportunity to modify the recommended filename for a downloaded
+		 * log file.
+		 * 
+		 * @param string $log_name
+		 */
+		$log_name = apply_filters( 'tribe_common_log_download_filename', $log_name );
 
 		header( 'Content-Disposition: attachment; filename="tribe-log-' . $log_name . '"' );
 		$output = fopen( 'php://output', 'w' );
