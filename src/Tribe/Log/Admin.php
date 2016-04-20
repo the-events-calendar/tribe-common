@@ -216,13 +216,13 @@ class Tribe__Log__Admin {
 			return;
 		}
 
-		$log_name = filter_var( $_GET['log'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+		$log_name = sanitize_file_name( $_GET['log'] );
 		$this->current_logger()->use_log( $log_name );
 
 		/**
 		 * Provides an opportunity to modify the recommended filename for a downloaded
 		 * log file.
-		 * 
+		 *
 		 * @param string $log_name
 		 */
 		$log_name = apply_filters( 'tribe_common_log_download_filename', $log_name );
