@@ -184,7 +184,7 @@ class Tribe__Log {
 			$engine = tribe_get_option( 'logging_engine', null );
 			$available = $this->get_logging_engines();
 
-			if ( empty( $engine ) || ! isset( $available[$engine] ) ) {
+			if ( empty( $engine ) || ! isset( $available[ $engine ] ) ) {
 				return null;
 			}
 
@@ -227,7 +227,7 @@ class Tribe__Log {
 			$object = new $class_name;
 
 			if ( is_a( $object, 'Tribe__Log__Logger' ) ) {
-				$this->loggers[$class_name] = new $class_name();
+				$this->loggers[ $class_name ] = new $class_name();
 			}
 		}
 
