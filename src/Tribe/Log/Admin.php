@@ -3,6 +3,7 @@ class Tribe__Log__Admin {
 	public function __construct() {
 		add_action( 'wp_ajax_tribe_logging_controls', array( $this, 'listen' ) );
 		add_action( 'init', array( $this, 'serve_log_downloads' ) );
+		add_action( 'init', array( $this, 'register_script' ) );
 	}
 
 	/**
@@ -37,7 +38,7 @@ class Tribe__Log__Admin {
 		) );
 
 		foreach ( $fields as &$single_field ) {
-			$single_field = filter_var( $single_field, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH );
+			$single_field = sanitize_text_field( $single_field );
 		}
 
 		if ( ! wp_verify_nonce( $fields['check'], 'logging-controls' ) ) {
@@ -97,17 +98,23 @@ class Tribe__Log__Admin {
 	}
 
 	/**
-	 * Adds a script to handle the event log settings.
+	 * Register our script early.
 	 */
-	protected function setup_script() {
-		wp_enqueue_script(
+	public function register_script() {
+		wp_register_script(
 			'tribe-common-logging-controls',
 			tribe_resource_url( 'admin-log-controls.js', false, 'common' ),
 			array( 'jquery' ),
 			Tribe__Main::VERSION,
 			true
 		);
+	}
 
+	/**
+	 * Adds a script to handle the event log settings.
+	 */
+	protected function setup_script() {
+		wp_enqueue_script( 'tribe-common-logging-controls' );
 		wp_localize_script( 'tribe-common-logging-controls', 'tribe_logger_data', array(
 			'check' => wp_create_nonce( 'logging-controls' )
 		) );
