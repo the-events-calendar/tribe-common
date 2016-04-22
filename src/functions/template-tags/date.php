@@ -338,7 +338,7 @@ if ( ! function_exists( 'tribe_normalize_manual_utc_offset' ) ) {
 	 */
 	function tribe_normalize_manual_utc_offset( $utc_offset ) {
 		$matches = array();
-		if ( preg_match( "/^UTC\\s*((\\+|-)(\\d{1,2}))((:|.|,)(\\d{1,2})+)*/ui", $utc_offset, $matches ) ) {
+		if ( preg_match( '/^UTC\\s*((\\+|-)(\\d{1,2}))((:|.|,)(\\d{1,2})+)*/ui', $utc_offset, $matches ) ) {
 			if ( ! empty( $matches[6] ) ) {
 				$minutes = $matches[6] > 10 && $matches[6] <= 60 ? $minutes = $matches[6] / 60 : $matches[6];
 				$minutes = str_replace( '0.', '', $minutes );
