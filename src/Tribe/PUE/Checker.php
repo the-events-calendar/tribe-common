@@ -455,11 +455,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// this default message should never show, but is here as a fallback just in case.
 			$message = sprintf(
 				esc_html__( 'Sorry, there is a problem with your license key. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
-				'+',//'<a href="https://theeventscalendar.com/license-keys/">',
-				'+'//'<a>'
+				'<a href="https://theeventscalendar.com/license-keys/">',
+				'</a>'
 			);
+
 			if ( ! empty( $info->api_invalid_message ) ) {
-				$message = $info->api_invalid_message;
+				$message = wp_kses( $info->api_invalid_message, 'post' );
 			}
 
 			$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $message );
