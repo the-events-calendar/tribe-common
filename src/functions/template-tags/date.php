@@ -21,7 +21,8 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	 * Returns formatted date
 	 *
 	 * @category Events
-	 * @param string $date        String representing the datetime, assumed to be UTC (relevant if timezone conversion is used)
+	 *
+	 * @param string $date         String representing the datetime, assumed to be UTC (relevant if timezone conversion is used)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
 	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
@@ -65,6 +66,7 @@ if ( ! function_exists( 'tribe_beginning_of_day' ) ) {
 	 * Returns formatted date for the official beginning of the day according to the Multi-day cutoff time option
 	 *
 	 * @category Events
+	 *
 	 * @param string $date   The date to find the beginning of the day, defaults to today
 	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
@@ -99,6 +101,7 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 	 * Returns formatted date for the official end of the day according to the Multi-day cutoff time option
 	 *
 	 * @category Events
+	 *
 	 * @param string $date   The date to find the end of the day, defaults to today
 	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
@@ -133,7 +136,7 @@ if ( ! function_exists( 'tribe_get_datetime_separator' ) ) {
 	 * Get the datetime saparator from the database option with escaped characters or not ;)
 	 *
 	 * @param string $default Default Separator if it's blank on the Database
-	 * @param bool $esc If it's going to be used on a `date` function or method it needs to be escaped
+	 * @param bool   $esc     If it's going to be used on a `date` function or method it needs to be escaped
 	 *
 	 * @filter tribe_datetime_separator
 	 *
@@ -145,6 +148,7 @@ if ( ! function_exists( 'tribe_get_datetime_separator' ) ) {
 			$separator = (array) str_split( $separator );
 			$separator = ( ! empty( $separator ) ? '\\' : '' ) . implode( '\\', $separator );
 		}
+
 		return apply_filters( 'tribe_datetime_separator', $separator );
 	}
 }//end if
@@ -156,8 +160,9 @@ if ( ! function_exists( 'tribe_get_start_time' ) ) {
 	 * Returns the event start time
 	 *
 	 * @category Events
+	 *
 	 * @param int    $event       (optional)
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $date_format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
 	 *
 	 * @return string|null Time
@@ -200,8 +205,9 @@ if ( ! function_exists( 'tribe_get_end_time' ) ) {
 	 * Returns the event end time
 	 *
 	 * @category Events
+	 *
 	 * @param int    $event       (optional)
-	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $date_format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
 	 *
 	 * @return string|null Time
@@ -244,10 +250,12 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 * Returns the event start date and time
 	 *
 	 * @category Events
-	 * @param int    $event       (optional)
+	 *
+	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
 	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param string $timezone     Timezone in which to present the date/time (or default behaviour if not set)
+	 *
 	 * @return string|null Date
 	 */
 	function tribe_get_start_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
@@ -284,10 +292,11 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 	 * Returns the event end date
 	 *
 	 * @category Events
-	 * @param int    $event       (optional)
+	 *
+	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
 	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param string $timezone     Timezone in which to present the date/time (or default behaviour if not set)
 	 *
 	 * @return string|null Date
 	 */
@@ -315,5 +324,30 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 		}
 
 		return tribe_format_date( $end_date, $display_time, $date_format );
+	}
+}
+
+if ( ! function_exists( 'tribe_normalize_manual_utc_offset' ) ) {
+	/**
+	 * Normalizes a manual UTC offset string.
+	 *
+	 * @param string $utc_offset
+	 *
+	 * @return string The normalized manual UTC offset.
+	 *                e.g. 'UTC+3', 'UTC-4.5', 'UTC+2.75'
+	 */
+	function tribe_normalize_manual_utc_offset( $utc_offset ) {
+		$matches = array();
+		if ( preg_match( "/^UTC\\s*((\\+|-)(\\d{1,2}))((:|.|,)(\\d{1,2})+)*/ui", $utc_offset, $matches ) ) {
+			if ( ! empty( $matches[6] ) ) {
+				$minutes = $matches[6] > 10 && $matches[6] <= 60 ? $minutes = $matches[6] / 60 : $matches[6];
+				$minutes = str_replace( '0.', '', $minutes );
+			}
+
+			$utc_offset = sprintf( 'UTC%s%s', $matches[1], ! empty( $minutes ) ? '.' . $minutes : '' );
+
+		}
+
+		return $utc_offset;
 	}
 }
