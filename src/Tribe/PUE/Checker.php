@@ -421,14 +421,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				if ( empty( $pluginInfo ) ) {
 					$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
 				} elseif ( isset( $pluginInfo->api_expired ) && $pluginInfo->api_expired == 1 ) {
-					$response['message'] = esc_html__( 'Sorry, this key is expired.', 'tribe-common' );
-
+					$response['message'] = $this->get_api_message( $pluginInfo );
 				} elseif ( isset( $pluginInfo->api_upgrade ) && $pluginInfo->api_upgrade == 1 ) {
-					$problem             = __( 'Sorry, this key is out of installs.', 'tribe-common' );
-					$helpful_link        = sprintf( '<a href="%s" target="_blank">%s</a>', 'http://m.tri.be/lz', __( 'Why am I seeing this message?' ) );
-					$response['message'] = "$problem $helpful_link";
+					$response['message'] = $this->get_api_message( $pluginInfo );
 				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
-					$response['message'] = esc_html__( 'Sorry, this key is not valid.', 'tribe-common' );
+					$response['message'] = $this->get_api_message( $pluginInfo );
 				} else {
 					$api_secret_key = get_option( $this->pue_install_key );
 					if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
@@ -451,6 +448,28 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			exit;
 		}
 
+		/**
+		 * processes variable substitutions for server-side API message
+		 */
+		private function get_api_message( $info ) {
+			// this default message should never show, but is here as a fallback just in case.
+			$message = sprintf(
+				esc_html__( 'Sorry, there is a problem with your license key. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
+				'<a href="https://theeventscalendar.com/license-keys/">',
+				'</a>'
+			);
+
+			if ( ! empty( $info->api_invalid_message ) ) {
+				$message = wp_kses( $info->api_invalid_message, 'post' );
+			}
+
+			$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $message );
+			$message = str_replace( '%plugin_slug%', $this->get_slug(), $message );
+			$message = str_replace( '%update_url%', $this->get_pue_update_url(), $message );
+			$message = str_replace( '%version%', $info->version, $message );
+
+			return $message;
+		}
 
 		/**
 		 * Echo JSON formatted errors
@@ -465,29 +484,34 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return;
 			}
 
+			if ( ! current_user_can( 'administrator' ) ) {
+				return;
+			}
+
 			//only display messages if there is a new version of the plugin.
 			if ( version_compare( $pluginInfo->version, $this->get_installed_version(), '>' ) ) {
-				if ( $pluginInfo->api_invalid && current_user_can( 'administrator' ) ) {
-					$msg = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $pluginInfo->api_invalid_message );
-					$msg = str_replace( '%plugin_slug%', $this->get_slug(), $msg );
-					$msg = str_replace( '%update_url%', $this->get_pue_update_url(), $msg );
-					$msg = str_replace( '%version%', $pluginInfo->version, $msg );
+				if ( empty( $pluginInfo->api_invalid ) || $pluginInfo->api_invalid != 1 ) {
+					return;
 				}
 
-				if ( isset( $msg ) ) {
-					//Dismiss code idea below is obtained from the Gravity Forms Plugin by rocketgenius.com
-					?>
-					<div class="updated" style="padding:5px; position:relative;" id="pu_dashboard_message"><?php echo $msg ?>
-						<a href="javascript:void(0);" onclick="PUDismissUpgrade();" style='float:right;'>[X]</a>
-					</div>
-					<script type="text/javascript">
-						function PUDismissUpgrade() {
-							jQuery("#pu_dashboard_message").slideUp();
-							jQuery.post(ajaxurl, {action: "<?php echo $this->dismiss_upgrade; ?>", version: "<?php echo $pluginInfo->version; ?>", cookie: encodeURIComponent(document.cookie)});
-						}
-					</script>
+				$msg = $this->get_api_message( $pluginInfo );
+
+				//Dismiss code idea below is obtained from the Gravity Forms Plugin by rocketgenius.com
+				?>
+				<div class="updated" style="padding:5px; position:relative;" id="pu_dashboard_message"><?php echo wp_kses( $msg, 'post' ); ?>
+					<a href="javascript:void(0);" onclick="PUDismissUpgrade();" style="float:right;">[X]</a>
+				</div>
+				<script type="text/javascript">
+					function PUDismissUpgrade() {
+						jQuery("#pu_dashboard_message").slideUp();
+						jQuery.post( ajaxurl, {
+							action: "<?php echo esc_attr( $this->dismiss_upgrade ); ?>",
+							version: "<?php echo esc_attr( $pluginInfo->version ); ?>",
+							cookie: encodeURIComponent(document.cookie)
+						} );
+					}
+				</script>
 				<?php
-				}
 			}
 		}
 
