@@ -66,7 +66,7 @@ class Tribe__Utils__Coordinates_Provider {
 	public function provide_coordinates_for_address( $address ) {
 
 		if ( is_array( $address ) ) {
-			$address = implode( ', ', $address );
+			$address = implode( ', ', array_filter( array_map( 'trim', $address ) ) );
 		}
 
 		$address = trim( $address );

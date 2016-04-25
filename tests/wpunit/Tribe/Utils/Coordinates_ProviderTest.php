@@ -241,6 +241,49 @@ JSON;
 
 	/**
 	 * @test
+	 * it should accept array addresses as arguments
+	 */
+	public function it_should_accept_array_addresses_as_well() {
+		$string_address      = '10, Downing Street, London, UK';
+		$address      = [
+			'10, Downing Street',
+			'London', 
+			'UK',
+		];
+		
+		$expected_url = esc_url( add_query_arg( array( 'address' => $string_address ), Coordinates_Provider::$google_api_base . Coordinates_Provider::$google_api_json_format ) );
+		$this->http->get( $expected_url )->shouldBeCalled();
+
+		$sut = $this->make_instance();
+
+		$sut->provide_coordinates_for_address( $address );
+	}
+
+	/**
+	 * @test
+	 * it should filter out empty strings from the address
+	 */
+	public function it_should_filter_out_empty_strings_from_the_address() {
+		$string_address      = '10, Downing Street, London, UK';
+		$address      = [
+			'10, Downing Street',
+			'',
+			'London',
+			'       ',
+			'UK',
+			'  ',
+		];
+
+		$expected_url = esc_url( add_query_arg( array( 'address' => $string_address ), Coordinates_Provider::$google_api_base . Coordinates_Provider::$google_api_json_format ) );
+		$this->http->get( $expected_url )->shouldBeCalled();
+
+		$sut = $this->make_instance();
+
+		$sut->provide_coordinates_for_address( $address );
+	}
+
+	/**
+	 * @test
 	 * it should return false if request fails
 	 */
 	public function it_should_return_false_if_request_fails() {
