@@ -175,9 +175,9 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * @return stdClass validation result object
 		 */
 		public function alpha_numeric_with_dashes_and_underscores() {
+			$this->value = trim( $this->value );
 			if ( preg_match( '/^[a-zA-Z0-9_-]+$/', $this->value ) ) {
 				$this->result->valid = true;
-				$this->value         = trim( $this->value );
 			} else {
 				$this->result->valid = false;
 				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters, dashes and undescores only', 'tribe-common' ), $this->label );
