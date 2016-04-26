@@ -816,12 +816,12 @@ class Tribe__Admin__Help_Page {
 
 					<dt><?php esc_html_e( 'Rating:', 'tribe-common' ); ?></dt>
 					<dd><a href="<?php echo esc_url( $plugin->stars_url ); ?>" target="_blank">
-							<?php wp_star_rating( array(
-								'rating' => $api_data->rating,
-								'type'   => 'percent',
-								'number' => $api_data->num_ratings,
-							) );?>
-						</a></dd>
+						<?php wp_star_rating( array(
+							'rating' => $api_data->rating,
+							'type'   => 'percent',
+							'number' => $api_data->num_ratings,
+						) );?>
+					</a></dd>
 				</dl>
 			<?php } ?>
 
