@@ -118,7 +118,7 @@ abstract class Tribe__JSON_LD__Abstract {
 			$html[] = '</script>';
 		}
 
-		return implode( "\r\n", $html );
+		return ! empty( $html ) ? implode( "\r\n", $html ) : '';
 	}
 
 	public function markup( $post = null, $args = array() ) {
