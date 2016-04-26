@@ -181,7 +181,7 @@ class Tribe__Log {
 	 */
 	public function get_current_logger() {
 		if ( ! $this->current_logger ) {
-			$engine = tribe_get_option( 'logging_engine', null );
+			$engine = tribe_get_option( 'logging_class', null );
 			$available = $this->get_logging_engines();
 
 			if ( empty( $engine ) || ! isset( $available[ $engine ] ) ) {
@@ -210,7 +210,7 @@ class Tribe__Log {
 			throw new Exception( sprintf( __( 'Cannot set %s as the current logging engine', 'tribe-common' ), $engine ) );
 		}
 
-		tribe_update_option( 'logging_engine', $engine );
+		tribe_update_option( 'logging_class', $engine );
 		$this->current_logger = $available_engines[ $engine ];
 	}
 
