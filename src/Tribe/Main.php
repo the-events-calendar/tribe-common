@@ -190,6 +190,17 @@ class Tribe__Main {
 		$locale = get_locale();
 		$mofile = WP_LANG_DIR . '/plugins/' . $domain . '-' . $locale . '.mo';
 
+		/**
+		 * Allows users to filter which file will be loaded for a given text domain
+		 * Be careful when using this filter, it will apply across the whole plugin suite.
+		 *
+		 * @param string      $mofile The path for the .mo File
+		 * @param string      $domain Which plugin domain we are trying to load
+		 * @param string      $locale Which Language we will load
+		 * @param string|bool $dir    If there was a custom directory passed on the method call
+		 */
+		$mofile = apply_filters( 'tribe_load_text_domain', $mofile, $domain, $locale, $dir );
+
 		$loaded = load_plugin_textdomain( $domain, false, $mofile );
 
 		if ( $dir !== false && ! $loaded ) {
