@@ -446,7 +446,30 @@ table.plugins .tribe-plugin-update-message a {
 	list-style: circle;
 }
 
+#tribe-log-controls {
+	padding-bottom: 1rem;
+	
+	/* For consistency with help screen h3 and p elements */
+	padding-left: 12px;
+
+	& > div {
+		display: inline-block;
+		padding-right: 1rem;
+	}
+
+	.working {
+		opacity: 1;
+		transition: opacity 0.2s;
+	}
+
+	.working.hidden {
+		opacity: 0;
+		transition: opacity 0.2s;
+	}
+}
+
 #tribe-system-info dl.support-stats,
+#tribe-log-viewer,
 .template-updates-wrapper {
 	background: #000;
 	border-radius: 2px;

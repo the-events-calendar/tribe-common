@@ -23,6 +23,7 @@ class Tribe__Main {
 	protected $plugin_context;
 	protected $plugin_context_class;
 	protected $doing_ajax = false;
+	protected $log;
 
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url = 'http://theeventscalendar.com/';
@@ -89,6 +90,9 @@ class Tribe__Main {
 
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
+
+		// Starting the log manager needs to wait until after the tribe_*_option() functions have loaded
+		$this->log = new Tribe__Log();
 	}
 
 	/**
@@ -219,6 +223,13 @@ class Tribe__Main {
 		if ( $helper->is_post_type_screen() ) {
 			wp_enqueue_style( 'tribe-jquery-ui-datepicker' );
 		}
+	}
+
+	/**
+	 * @return Tribe__Log
+	 */
+	public function log() {
+		return $this->log;
 	}
 
 	/**
