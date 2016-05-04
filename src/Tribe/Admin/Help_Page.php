@@ -411,7 +411,10 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Parses the help text from an Array to the final HTML
+	 * Parses the help text from an Array to the final HTML.
+	 *
+	 * It is the responsibility of code calling this function to ensure proper escaping
+	 * within any HTML.
 	 *
 	 * @since  4.0
 	 *
@@ -419,28 +422,6 @@ class Tribe__Admin__Help_Page {
 	 * @return string
 	 */
 	public function get_content_html( $mixed = '' ) {
-		$html_allowed = array(
-			'a'      => array( 'href' => array(), 'title' => array(), 'target' => array(), 'style' => array(), 'class' => array(), 'id' => array() ),
-			'img'    => array( 'title' => array(), 'src' => array(), 'alt' => array(), 'style' => array(), 'class' => array(), 'id' => array() ),
-
-			'br'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'em'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'strong' => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'b'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'i'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'u'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-
-			'div'    => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'h5'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'p'      => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'ol'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'ul'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'li'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'dl'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'dt'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-			'dd'     => array( 'style' => array(), 'class' => array(), 'id' => array() ),
-		);
-
 		// If it's an StdObj or String it will be converted
 		$mixed = (array) $mixed;
 
@@ -452,8 +433,6 @@ class Tribe__Admin__Help_Page {
 			}
 
 			if ( is_string( $line ) ) {
-				// Make sure we are safe when it's a string
-				$line = wp_kses( $line, $html_allowed );
 				continue;
 			} elseif ( is_array( $line ) ) {
 				// Allow the developer to pass some configuration
@@ -577,7 +556,7 @@ class Tribe__Admin__Help_Page {
 
 			// Setup the Base for the content to come
 			'content' => array(),
- 		);
+		);
 
 		$this->sections[ $section->id ] = $section;
 
@@ -825,25 +804,25 @@ class Tribe__Admin__Help_Page {
 			?>
 
 			<?php if ( $api_data ) { ?>
-			<dl>
-				<dt><?php esc_html_e( 'Latest Version:', 'tribe-common' ); ?></dt>
-				<dd><?php echo esc_html( $api_data->version ); ?></dd>
+				<dl>
+					<dt><?php esc_html_e( 'Latest Version:', 'tribe-common' ); ?></dt>
+					<dd><?php echo esc_html( $api_data->version ); ?></dd>
 
-				<dt><?php esc_html_e( 'Requires:', 'tribe-common' ); ?></dt>
-				<dd><?php echo esc_html__( 'WordPress ', 'tribe-common' ) . esc_html( $api_data->requires ); ?>+</dd>
+					<dt><?php esc_html_e( 'Requires:', 'tribe-common' ); ?></dt>
+					<dd><?php echo esc_html__( 'WordPress ', 'tribe-common' ) . esc_html( $api_data->requires ); ?>+</dd>
 
-				<dt><?php esc_html_e( 'Active Users:', 'tribe-common' ); ?></dt>
-				<dd><?php echo esc_html( number_format( $api_data->active_installs ) ); ?>+</dd>
+					<dt><?php esc_html_e( 'Active Users:', 'tribe-common' ); ?></dt>
+					<dd><?php echo esc_html( number_format( $api_data->active_installs ) ); ?>+</dd>
 
-				<dt><?php esc_html_e( 'Rating:', 'tribe-common' ); ?></dt>
-				<dd><a href="<?php echo esc_url( $plugin->stars_url ); ?>" target="_blank">
-				<?php wp_star_rating( array(
-					'rating' => $api_data->rating,
-					'type'   => 'percent',
-					'number' => $api_data->num_ratings,
-				) );?>
-				</a></dd>
-			</dl>
+					<dt><?php esc_html_e( 'Rating:', 'tribe-common' ); ?></dt>
+					<dd><a href="<?php echo esc_url( $plugin->stars_url ); ?>" target="_blank">
+						<?php wp_star_rating( array(
+							'rating' => $api_data->rating,
+							'type'   => 'percent',
+							'number' => $api_data->num_ratings,
+						) );?>
+					</a></dd>
+				</dl>
 			<?php } ?>
 
 			<?php
@@ -878,6 +857,6 @@ class Tribe__Admin__Help_Page {
 				</ul>
 			<?php } ?>
 		</div>
-	<?php
+		<?php
 	}
 }

@@ -153,7 +153,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		}
 
 		/**
-		 * validates a field as a string containing only letters,
+		 * Validates a field as a string containing only letters,
 		 * numbers, dots and carriage returns
 		 *
 		 * @return stdClass validation result object
@@ -165,6 +165,22 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			} else {
 				$this->result->valid = false;
 				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters and dots only', 'tribe-common' ), $this->label );
+			}
+		}
+		
+		/**
+		 * Validates a field as a string containing only letters,
+		 * numbers, dashes and underscores
+		 *
+		 * @return stdClass validation result object
+		 */
+		public function alpha_numeric_with_dashes_and_underscores() {
+			$this->value = trim( $this->value );
+			if ( preg_match( '/^[a-zA-Z0-9_-]+$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters, dashes and undescores only', 'tribe-common' ), $this->label );
 			}
 		}
 
@@ -479,6 +495,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		public function none() {
 			$this->result->valid = true;
 		}
-
+		
 	} // end class
 } // endif class_exists

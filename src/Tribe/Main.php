@@ -23,6 +23,7 @@ class Tribe__Main {
 	protected $plugin_context;
 	protected $plugin_context_class;
 	protected $doing_ajax = false;
+	protected $log;
 
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url = 'http://theeventscalendar.com/';
@@ -89,6 +90,9 @@ class Tribe__Main {
 
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
+
+		// Starting the log manager needs to wait until after the tribe_*_option() functions have loaded
+		$this->log = new Tribe__Log();
 	}
 
 	/**
@@ -161,7 +165,7 @@ class Tribe__Main {
 	public function add_hooks() {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
 
-		add_action( 'init', array( $this, 'load_text_domain' ), 1 );
+		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'register_resources' ), 1 );
@@ -172,11 +176,42 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Loads the textdomain
+	 * A Helper method to load text domain
+	 * First it tries to load the wp-content/languages translation then if falls to the
+	 * try to load $dir language files
+	 *
+	 * @param string $domain The text domain that will be loaded
+	 * @param string $dir    What directory should be used to try to load if the default doenst work
+	 *
+	 * @return bool  If it was able to load the text domain
 	 */
-	public function load_text_domain() {
-		$dir = basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/';
-		load_plugin_textdomain( 'tribe-common', false, $dir );
+	public function load_text_domain( $domain, $dir = false ) {
+		// Added safety just in case this runs twice...
+		if ( is_textdomain_loaded( $domain ) ) {
+			return true;
+		}
+
+		$locale = get_locale();
+		$mofile = WP_LANG_DIR . '/plugins/' . $domain . '-' . $locale . '.mo';
+
+		/**
+		 * Allows users to filter which file will be loaded for a given text domain
+		 * Be careful when using this filter, it will apply across the whole plugin suite.
+		 *
+		 * @param string      $mofile The path for the .mo File
+		 * @param string      $domain Which plugin domain we are trying to load
+		 * @param string      $locale Which Language we will load
+		 * @param string|bool $dir    If there was a custom directory passed on the method call
+		 */
+		$mofile = apply_filters( 'tribe_load_text_domain', $mofile, $domain, $locale, $dir );
+
+		$loaded = load_plugin_textdomain( $domain, false, $mofile );
+
+		if ( $dir !== false && ! $loaded ) {
+			return load_plugin_textdomain( $domain, false, $dir );
+		}
+
+		return $loaded;
 	}
 
 	public function admin_enqueue_scripts() {
@@ -188,6 +223,13 @@ class Tribe__Main {
 		if ( $helper->is_post_type_screen() ) {
 			wp_enqueue_style( 'tribe-jquery-ui-datepicker' );
 		}
+	}
+
+	/**
+	 * @return Tribe__Log
+	 */
+	public function log() {
+		return $this->log;
 	}
 
 	/**

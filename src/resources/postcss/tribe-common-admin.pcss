@@ -1,13 +1,3 @@
-/**
- * This CSS file was auto-generated via PostCSS
- *
- * Contributors should avoid editing this file, but instead edit the associated
- * src/resources/postcss/ file. For more information, check out our engineering
- * docs on how we handle CSS in our engineering docs.
- *
- * @see: http://moderntribe.github.io/products-engineering/css/
- */
-
 /* = Shared CSS Elements
 =============================================*/
 .invalid input {
@@ -36,7 +26,9 @@ textarea::-webkit-input-placeholder {
 	-khtml-border-radius: 3px;
 	background-color: #f9f9f9;
 	border-color: #dfdfdf;
-	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
 	border-spacing: 0;
 	border-style: solid;
 	border-style: solid;
@@ -49,6 +41,7 @@ textarea::-webkit-input-placeholder {
 td.tribe_message {
 	padding-bottom: 10px !important;
 }
+
 #tribe_thanks {
 	float: left;
 	margin: 5px 0 0 0;
@@ -60,23 +53,29 @@ td.tribe_message {
 	font-weight: normal;
 	margin: 8px 0;
 }
+
 /* = Upgrade Screen
 =============================================*/
 #tribe-upgrade {
 	background: #f6f6f6;
 	border: 1px solid #ccc;
-	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	        border-radius: 5px;
 	margin: 20px 0 30px;
 	padding: 0 20px 20px;
 }
 #tribe-upgrade .message {
 	background-color: #ffffe0;
 	border-color: #e6db55;
-	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
 	border-style: solid;
 	border-width: 1px;
 	padding: 6px 12px;
 }
+
 /* = Plugin Screen
 =============================================*/
 table.plugins .tribe-plugin-update-message {
@@ -86,18 +85,23 @@ table.plugins .tribe-plugin-update-message {
 	margin: 6px 0;
 	padding: 10px 12px;
 }
+
 table.plugins .tribe-plugin-update-message h4 {
 	display: inline;
 	font-weight: bold;
 	margin-right: 8px;
 }
+
 table.plugins .tribe-plugin-update-message h4:after {
 	content: ' \00BB ';
 }
+
+
 table.plugins .tribe-plugin-update-message a {
 	color: white;
 	text-decoration: underline;
 }
+
 /* = Settings Screen
 =============================================*/
 .tribe-settings-form {
@@ -190,7 +194,10 @@ table.plugins .tribe-plugin-update-message a {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+	     -o-border-radius: 4px;
+	        border-radius: 4px;
 	margin: 20px 0;
 	padding: 8px 20px 12px;
 }
@@ -206,6 +213,7 @@ table.plugins .tribe-plugin-update-message a {
 #modern-tribe-info ul ul {
 	list-style: circle;
 }
+
 /* sizes */
 .tribe-field-textarea.tribe-size-small textarea {
 	height: 60px;
@@ -219,6 +227,7 @@ table.plugins .tribe-plugin-update-message a {
 	height: 120px;
 	width: 450px;
 }
+
 .tribe-field-text.tribe-size-small input,
 .tribe-field-license_key.tribe-size-small input {
 	width: 50px;
@@ -231,6 +240,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-field-license_key.tribe-size-large input {
 	width: 450px;
 }
+
 .tribe-field-dropdown.tribe-size-small select {
 	width: 100px;
 }
@@ -240,6 +250,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-field-dropdown.tribe-size-large select {
 	width: 450px;
 }
+
 .tribe-field-dropdown_chosen.tribe-size-small select {
 	width: 100px;
 }
@@ -249,6 +260,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-field-dropdown_chosen.tribe-size-large select {
 	width: 300px;
 }
+
 /* license keys */
 .ajax-loading-license,
 .valid-key,
@@ -272,16 +284,21 @@ table.plugins .tribe-plugin-update-message a {
 .valid-key.service-msg {
 	color: #b72;
 }
+
 /* additional fields */
 #additional-field-table {
 	margin-bottom: 20px;
 }
+
 /* miscellaneous */
 .tribe-admin-box-left {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+	     -o-border-radius: 4px;
+	        border-radius: 4px;
 	float: left;
 	margin: 20px 0;
 	padding: 0 20px 15px;
@@ -291,7 +308,10 @@ table.plugins .tribe-plugin-update-message a {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+	     -o-border-radius: 4px;
+	        border-radius: 4px;
 	float: right;
 	margin: 20px 0;
 	padding: 0 20px 15px;
@@ -303,7 +323,8 @@ table.plugins .tribe-plugin-update-message a {
 }
 .tribe-arrangeable-item {
 	border: 1px solid lightGrey;
-	border-radius: 6px;
+	-moz-border-radius: 6px;
+	     border-radius: 6px;
 }
 .tribe-arrangeable-item .ui-state-default {
 	border: none;
@@ -346,88 +367,107 @@ table.plugins .tribe-plugin-update-message a {
 #event_organizer .organizer-email {
 	vertical-align: top;
 }
+
 .tribe-table-field-label {
 	max-width: 100%;
 	width: 200px;
 }
+
 /* = Help Screen
 =============================================*/
+
 #tribe-help-general,
 #tribe-help-sidebar {
 	float: left;
 	margin-top: 20px;
 }
+
 #tribe-help-general p {
 	margin-left: 15px;
 }
+
 #tribe-help-general ul {
 	list-style-type: square;
 	margin-bottom: 20px;
 	margin-left: 35px;
 }
+
 #tribe-help-general ol {
 	margin-bottom: 20px;
 	margin-left: 35px;
 }
+
 #tribe-help-general h3 {
 	background-color: #f9f9f9;
 	margin-bottom: 10px;
 	padding: 6px 0 6px 12px;
 }
+
 #tribe-help-general h3 ~ h3 {
 	margin-top: 2.25em;
 }
+
 #tribe-help-general h3 + p {
 	margin: 0 0 20px;
 	padding-left: 12px;
 }
+
 #tribe-help-general {
 	width: 65%;
 }
+
 .tribe-help-section {
 	padding-bottom: 10px;
 }
+
 .tribe-section-type-box {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+	     -o-border-radius: 4px;
+	        border-radius: 4px;
 	padding: 8px 20px 12px;
 }
+
 .tribe-section-type-box img {
 	height: auto;
 	margin: 10px 0;
 	max-width: 300px;
 }
+
 .tribe-section-type-box ul {
 	list-style: disc;
 	margin-left: 20px;
 }
+
 .tribe-section-type-box ul ul {
 	list-style: circle;
 }
+
 #tribe-log-controls {
-	padding-bottom: 16px;
 	padding-bottom: 1rem;
 	
 	/* For consistency with help screen h3 and p elements */
 	padding-left: 12px;
+
+	& > div {
+		display: inline-block;
+		padding-right: 1rem;
+	}
+
+	.working {
+		opacity: 1;
+		transition: opacity 0.2s;
+	}
+
+	.working.hidden {
+		opacity: 0;
+		transition: opacity 0.2s;
+	}
 }
-#tribe-log-controls > div {
-	display: inline-block;
-	padding-right: 16px;
-	padding-right: 1rem;
-}
-#tribe-log-controls .working {
-	opacity: 1;
-	-webkit-transition: opacity 0.2s;
-	transition: opacity 0.2s;
-}
-#tribe-log-controls .working.hidden {
-	opacity: 0;
-	-webkit-transition: opacity 0.2s;
-	transition: opacity 0.2s;
-}
+
 #tribe-system-info dl.support-stats,
 #tribe-log-viewer,
 .template-updates-wrapper {
@@ -438,6 +478,7 @@ table.plugins .tribe-plugin-update-message a {
 	overflow: scroll;
 	padding: 10px;
 }
+
 #tribe-system-info dl.support-stats dt,
 .template-updates-wrapper dt {
 	clear: both;
@@ -446,51 +487,63 @@ table.plugins .tribe-plugin-update-message a {
 	text-transform: uppercase;
 	width: 25%;
 }
+
 #tribe-system-info dl.support-stats dd,
 .template-updates-wrapper  dd {
 	margin-left: 25%;
 	padding-left: 10px;
 }
+
 .template-updates-wrapper p {
 	margin-top: 0;
 }
+
 #tribe-help-sidebar {
 	margin: 20px 0 0 3%;
 	max-width: 225px;
 	width: 32%;
 }
+
 .tribe-help-plugin-info {
 	border: 1px solid #ccc;
 	padding: 0 12px 12px;
 }
+
 .tribe-help-plugin-info dt,
 .tribe-help-plugin-info dd {
 	display: inline;
 	margin: 0;
 }
+
 .tribe-help-plugin-info dt {
 	font-weight: bold;
 }
+
 .tribe-help-plugin-info dd::after {
 	content: '';
 	display: block;
 	height: .4em;
 }
+
 .tribe-help-plugin-info dd:last-child::after {
 	height: 0;
 }
+
 .tribe-help-plugin-info + .tribe-help-plugin-info {
 	margin-top: 20px;
 }
+
 .tribe-help-plugin-info > div {
 	line-height: 2em;
 }
+
 .tribe-help-plugin-info .star-rating {
 	display: inline-block;
 	margin-left: 3px;
 	position: relative;
 	top: -2px;
 }
+
 .tribe-help-plugin-info .tribe-list-addons {
 	color: #21a6cb;
 	font-size: 24px;
@@ -499,15 +552,18 @@ table.plugins .tribe-plugin-update-message a {
 	margin-top: 10px;
 	padding-left: 4px;
 }
+
 .tribe-help-plugin-info .tribe-list-addons a {
 	font-size: 13px;
 	left: -5px;
 	position: relative;
 	top: -5px;
 }
+
 .tribe-help-plugin-info .tribe-list-addons .tribe-active-addon {
 	list-style: disc inside;
 }
+
 /* = jQuery UI
 =============================================*/
 .ui-widget-overlay {
@@ -673,6 +729,7 @@ table.plugins .tribe-plugin-update-message a {
 #ui-datepicker-div {
 	display: none;
 }
+
 #tribe-loading {
 	background: #fff;
 	background: rgba(255, 255, 255, .8);
@@ -681,15 +738,19 @@ table.plugins .tribe-plugin-update-message a {
 	left: 0;
 	position: absolute;
 	top: 0;
-	-webkit-transition: all 1s linear;
-	transition: all 1s linear;
+	-moz-transition: all 1s linear;
+	 -ms-transition: all 1s linear;
+	  -o-transition: all 1s linear;
+	     transition: all 1s linear;
 	webkit-transition: all 1s linear;
 	width: 100%;
 	z-index: 4;
 }
+
 #tribe-loading span {
 	background: url(../images/tribe-loading.gif) 0 0 no-repeat;
-	background-size: 32px 32px;
+	-webkit-background-size: 32px 32px;
+	        background-size: 32px 32px;
 	height: 32px;
 	left: 50%;
 	margin: -16px 0 0 -16px;
@@ -697,40 +758,59 @@ table.plugins .tribe-plugin-update-message a {
 	top: 50%;
 	width: 32px;
 }
+
 /* = Admin Retina Bits
 =============================================*/
+@media
+only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
+	#tribe-loading span {
+		background-image: url(../images/tribe-loading@2x.gif);
+	}
+}
+
 /* = TEC Welcome & Update Pages // Displays after installation & plugin update
 ===============================================================================*/
+
 .tribe_welcome_page,
 .tribe_update_page {
 	max-width: 1000px;
 }
+
 .tribe-half-column {
 	float: left;
 	margin-bottom: 30px;
 	margin-right: 5%;
 	width: 45%;
 }
+
 .tribe-row:before,
 .tribe-row:after {
 	content: '';
 	display: table;
 }
+
 .tribe-row:after {
 	clear: both;
 }
+
 .tribe-row {
 	clear: both;
 }
+
 .tribe-row .tribe-half-column:last-child {
 	margin-right: 0;
 	width: 50%;
 }
+
 .tribe_welcome_page h2,
 .tribe_update_page h2 {
 	font-size: 30px;
 	margin-bottom: 20px;
 }
+
 .tribe_welcome_page h3,
 .tribe_update_page h3 {
 	font-size: 24px;
@@ -738,6 +818,7 @@ table.plugins .tribe-plugin-update-message a {
 	line-height: 24px;
 	margin-top: 0;
 }
+
 .tribe_welcome_page h4,
 .tribe_update_page h4 {
 	font-size: 18px;
@@ -745,14 +826,17 @@ table.plugins .tribe-plugin-update-message a {
 	line-height: 18px;
 	margin: 0;
 }
+
 .tribe_welcome_page p,
 .tribe_update_page p {
 	font-size: 14px;
 }
+
 p.tribe-welcome-message {
 	font-size: 20px;
 	font-weight: 400;
 }
+
 .tribe_welcome_page h2:before,
 .tribe_update_page h2:before {
 	content: '\f145';
@@ -763,6 +847,7 @@ p.tribe-welcome-message {
 	position: relative;
 	top: 5px;
 }
+
 .tribe-welcome-video-wrapper {
 	height: 0;
 	margin-bottom: 40px;
@@ -770,6 +855,7 @@ p.tribe-welcome-message {
 	padding-top: 25px;
 	position: relative;
 }
+
 .tribe-welcome-video-wrapper iframe {
 	height: 100%;
 	left: 0;
@@ -777,60 +863,98 @@ p.tribe-welcome-message {
 	top: 0;
 	width: 100%;
 }
+
 a.tribe-rating-link {
 	text-decoration: none;
 }
+
 .tribe-welcome-links,
 .tribe-update-links {
 	margin-top: 30px;
 }
+
 .tribe_welcome_page li:before,
 .tribe_update_page li:before {
 	content: '\2022';
 	padding-right: 3px;
 }
+
 .tribe_update_page .rss-widget {
 	margin: 1em 0;
 }
+
 .tribe_update_page a.rsswidget {
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 1;
 }
+
 .tribe_update_page .rss-widget li:before {
 	display: none;
 }
+
 /* Media Queries for Mobile Dashboard */
+@media screen and (max-width: 782px) {
+	.tribe-half-column,
+	.tribe-row .tribe-half-column:last-child {
+		margin: 0 0 20px 0;
+		width: 100%;
+	}
+
+	input[type='email'] {
+		width: 100%;
+	}
+}
+
+
+@media screen and ( max-width: 782px ) {
+	.events-cal .subsubsub {
+		float: none;
+	}
+
+	.events-cal .search-box {
+		width: 98%;
+	}
+
+	.events-cal #search-submit {
+		width: 100%;
+	}
+
+	.events-cal .tablenav.top {
+		display: none;
+	}
+}
+
 .tribe-update-bar {
 	display: inline-block;
 }
+
 .tribe-update-bar .progress {
 	border: 1px solid #ccc;
 	float: left;
-	margin-right: 16px;
 	margin-right: 1rem;
 	padding: 1px;
-	width: 288px;
 	width: 18rem;
 }
+
 .tribe-update-bar .progress .bar {
 	background: #ffba00;
-	height: 16px;
 	height: 1rem;
 	width: 1%;
 }
+
 .tribe-update-bar .progress .bar {
 	background: #7ad03a;
 }
+
 /* bumpdown */
 .bumpdown {
 	background: #f1f1f1;
-	margin: 16px 0;
 	margin: 1rem 0;
-	padding: 16px 24px 16px 16px;
 	padding: 1rem 1.5rem 1rem 1rem;
 	position: relative;
 }
+
 #poststuff .bumpdown h1,
 #poststuff .bumpdown h2,
 #poststuff .bumpdown h3,
@@ -842,53 +966,25 @@ a.tribe-rating-link {
 	padding-left: 0;
 	padding-top: 0;
 }
+
 .bumpdown-arrow {
 	display: none;
 }
+
 .bumpdown-close {
 	color: #686868;
 	cursor: pointer;
 	position: absolute;
-	right: 8px;
 	right: .5rem;
-	top: 8px;
 	top: .5rem;
 	z-index: 2;
 }
+
 .bumpdown-trigger .target {
 	color: #0074a2;
 }
+
 /* Useful to ensure modals rise above the grey 'miasma' */
 .ui-front {
 	z-index: 1000000;
-}
-@media
-only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-	#tribe-loading span {
-		background-image: url(../images/tribe-loading@2x.gif);
-	}
-}
-@media screen and (max-width: 782px) {
-	.tribe-half-column,
-	.tribe-row .tribe-half-column:last-child {
-		margin: 0 0 20px 0;
-		width: 100%;
-	}
-	input[type='email'] {
-		width: 100%;
-	}
-}
-@media screen and ( max-width: 782px ) {
-	.events-cal .subsubsub {
-		float: none;
-	}
-	.events-cal .search-box {
-		width: 98%;
-	}
-	.events-cal #search-submit {
-		width: 100%;
-	}
-	.events-cal .tablenav.top {
-		display: none;
-	}
 }
