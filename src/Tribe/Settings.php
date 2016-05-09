@@ -161,7 +161,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			add_action( 'admin_init', array( $this, 'initTabs' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displayErrors' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displaySuccess' ) );
-			add_action( 'shutdown', array( $this, 'deleteOptions' ) );
 		}
 
 		/**
@@ -565,6 +564,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 				// final output, filtered of course
 				echo apply_filters( 'tribe_settings_error_message', $output );
+
+				// Now that we've displayed the errors we can delete them
+				$this->deleteOptions();
 			}
 		}
 
