@@ -279,6 +279,8 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 		// @todo move timezones to Common
 		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
 			$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
+		} else {
+			return null;
 		}
 
 		return tribe_format_date( $start_date, $display_time, $date_format );
@@ -321,6 +323,8 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 		// @todo move timezones to Common
 		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
 			$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
+		} else {
+			return null;
 		}
 
 		return tribe_format_date( $end_date, $display_time, $date_format );
