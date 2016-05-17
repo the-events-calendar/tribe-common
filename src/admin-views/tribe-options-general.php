@@ -50,14 +50,6 @@ $generalTabFields = array(
 		'type' => 'html',
 		'html' => '<div class="tribe-settings-form-wrap">',
 	),
-	'tribeEventsDisplayThemeTitle'  => array(
-		'type' => 'html',
-		'html' => '<h3>' . esc_html__( 'General Settings', 'tribe-common' ) . '</h3>',
-	),
-	'tribeEventsMiscellaneousTitle' => array(
-		'type' => 'html',
-		'html' => '<h3>' . esc_html__( 'Miscellaneous Settings', 'tribe-common' ) . '</h3>',
-	),
 );
 
 if ( is_super_admin() ) {
