@@ -25,22 +25,6 @@ $displayTab = array(
 				'type' => 'html',
 				'html' => __( '<p>The following three fields accept the date format options available to the php date() function. <a href="http://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">Learn how to make your own date format here</a>.</p>', 'tribe-common' ),
 			),
-			'dateWithYearFormat'                 => array(
-				'type'            => 'text',
-				'label'           => esc_html__( 'Date with year', 'tribe-common' ),
-				'tooltip'         => esc_html__( 'Enter the format to use for displaying dates with the year. Used when displaying a date in a future year.', 'tribe-common' ),
-				'default'         => get_option( 'date_format' ),
-				'size'            => 'medium',
-				'validation_type' => 'html',
-			),
-			'dateTimeSeparator'                  => array(
-				'type'            => 'text',
-				'label'           => esc_html__( 'Date time separator', 'tribe-common' ),
-				'tooltip'         => esc_html__( 'Enter the separator that will be placed between the date and time, when both are shown.', 'tribe-common' ),
-				'default'         => ' @ ',
-				'size'            => 'small',
-				'validation_type' => 'html',
-			),
 			'datepickerFormat'                   => array(
 				'type'            => 'dropdown_select2',
 				'label'           => esc_html__( 'Datepicker Date Format', 'tribe-common' ),
