@@ -44,6 +44,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$this->must_escape = (array) apply_filters( 'tribe_help_must_escape_fields', $this->must_escape );
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
 			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
+
+			add_action( 'rest_api_init', array( $this, 'create_sysinfo_endpoint' ) );
+			add_action( 'wp_ajax_tribe_toggle_sysinfo_optin', [ $this, 'ajax_sysinfo_optin' ] );
 		}
 
 		/**
@@ -226,6 +229,74 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		public function set_obfuscator( Tribe__Support__Obfuscator $obfuscator ) {
 			$this->obfuscator = $obfuscator;
 		}
+
+		public static function opt_in() {
+
+			$keys = apply_filters( 'tribe-pue-install-keys', array() );
+
+			//print_r($keys);
+			$checked = '';
+			$optin_key = get_option( 'tribe_systeminfo_optin' );
+			if ( $optin_key ) {
+				$checked = 'checked';
+			}
+
+			if ( is_array( $keys ) ) {
+				$opt_in = '<input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin" ' . esc_attr( $checked ) . '/>';
+				$opt_in .= '<label for="tribe_auto_sysinfo_opt_in">Opt In For System Info for Support</label>';
+			} else {
+				$opt_in = 'Add a license key to opt in for support info';
+			}
+
+			return $opt_in;
+		}
+
+		public function sysinfo_query( $query ) {
+
+				$optin_key = get_option( 'tribe_systeminfo_optin' );
+
+				if ( ! $optin_key ) {
+					return __( 'Invalid Opt-in Key', 'tribe-common');
+				}
+
+				$key = $query['key'];
+				if ( $key != $optin_key ) {
+					return __( 'Invalid System Info Key', 'tribe-common');
+				}
+
+				$support = Tribe__Support::getInstance();
+				$systeminfo = $support->formattedSupportStats();
+
+			    return $systeminfo;
+			}
+
+			public static function create_sysinfo_endpoint( ) {
+				$optin_key = get_option( 'tribe_systeminfo_optin' );
+				if ( $optin_key ) {
+					register_rest_route( 'tribe_events/v2', '/(?P<key>[a-z0-9\-]+)/sysinfo/', array(
+						'methods'  => 'GET',
+						'callback' => array( 'Tribe__Support', 'sysinfo_query' ),
+					) );
+				}
+			}
+
+			public static function ajax_sysinfo_optin( ) {
+				if ( ! isset( $_POST['confirm'] ) || ! wp_verify_nonce( $_POST['confirm'], 'sysinfo_optin' ) ) {
+					exit( '-1' );
+				}
+
+				if ( $_POST['generate_key'] ) {
+					$random = base_convert( rand( 0, getrandmax() ), 10, 36 );
+					$optin_key = hash('sha1', $random);
+					update_option( 'tribe_systeminfo_optin', $optin_key );
+					exit( '1' );
+				}
+
+				delete_option( 'tribe_systeminfo_optin' );
+
+				exit( '1' );
+
+			}
 
 		/****************** SINGLETON GUTS ******************/
 

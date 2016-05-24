@@ -30,6 +30,9 @@ $help->add_section_content( 'extra-help', array(
 $help->add_section_content( 'extra-help', __( 'Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums 😄', 'tribe-common' ), 40 );
 $help->add_section_content( 'extra-help', '<div style="text-align: right;"><a href="http://m.tri.be/18ji" target="_blank" class="button">' . __( 'Read more about our support policy', 'tribe-common' ) . '</a></div>', 40 );
 
+$help->add_section( 'auto-system-info', __( 'Auto System Info', 'tribe-common' ), 30 );
+$help->add_section_content( 'auto-system-info', Tribe__Support::opt_in() );
+
 // Creates the System Info section
 $help->add_section( 'system-info', __( 'System Information', 'tribe-common' ), 30 );
 $help->add_section_content( 'system-info', __( 'The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!', 'tribe-common' ), 0 );
@@ -71,3 +74,34 @@ $help->add_section_content( 'template-changes', Tribe__Support__Template_Checker
 	do_action( 'tribe_help_sidebar_after' ); ?>
 
 </div>
+
+<script>
+jQuery( function ( $ ) {
+	$( "#tribe_auto_sysinfo_opt_in" ).change(function() {
+		if(this.checked) {
+			console.log( "genrate and send" );
+			do_optin_change( "generate" );
+		} else {
+			console.log( "delete" );
+			do_optin_change();
+		}
+	});
+
+	/**
+	 * Handle Opt-in Change
+	 */
+	function do_optin_change( generate=null ) {
+		var request = {
+			"action": "tribe_toggle_sysinfo_optin",
+			"confirm": "<?php echo wp_create_nonce( 'sysinfo_optin' ) ?>",
+			"generate_key": generate
+		};
+
+		// Send our request
+		$.post( ajaxurl, request, function() {
+
+		});
+	}
+
+});
+</script>
