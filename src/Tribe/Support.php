@@ -230,6 +230,11 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$this->obfuscator = $obfuscator;
 		}
 
+		/**
+		 * Creates Fields in Help Tab to Opt In to System Info
+		 *
+		 * @return string
+		 */
 		public static function opt_in() {
 
 			$keys = apply_filters( 'tribe-pue-install-keys', array() );
@@ -251,6 +256,14 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			return $opt_in;
 		}
 
+		/**
+		 * Method to send back sysinfo
+		 *
+		 * @param $query
+		 *
+		 * @return string|void
+		 *
+		 */
 		public function sysinfo_query( $query ) {
 
 				$optin_key = get_option( 'tribe_systeminfo_optin' );
@@ -269,7 +282,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 			    return $systeminfo;
 			}
-
+			/*
+			 * Create Unique Enpoint Per Site
+			 */
 			public static function create_sysinfo_endpoint( ) {
 				$optin_key = get_option( 'tribe_systeminfo_optin' );
 				if ( $optin_key ) {
@@ -280,15 +295,22 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				}
 			}
 
+		/**
+		 * Ajax Method to Create Unique Key and send to tec.com
+		 */
 			public static function ajax_sysinfo_optin( ) {
 				if ( ! isset( $_POST['confirm'] ) || ! wp_verify_nonce( $_POST['confirm'], 'sysinfo_optin' ) ) {
 					exit( '-1' );
 				}
 
 				if ( $_POST['generate_key'] ) {
-					$random = base_convert( rand( 0, getrandmax() ), 10, 36 );
-					$optin_key = hash('sha1', $random);
+					$random    = base_convert( rand( 0, getrandmax() ), 10, 36 );
+					$optin_key = hash( 'sha1', $random );
 					update_option( 'tribe_systeminfo_optin', $optin_key );
+					$url = urlencode( str_replace( array( 'http://', 'https://' ), '', get_site_url() ) );
+					$pue = new Tribe__PUE__Checker( 'http://tri.be/', 'events-calendar' );
+					$query          = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url;
+					$response       = wp_remote_get( esc_url( $query ) );
 					exit( '1' );
 				}
 
