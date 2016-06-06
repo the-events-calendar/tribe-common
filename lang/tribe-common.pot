@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.1\n"
+"Project-Id-Version: Tribe Common 4.2beta1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2016-03-30 13:23:11+00:00\n"
+"POT-Creation-Date: 2016-06-01 21:00:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-03-30 13:23\n"
+"PO-Revision-Date: 2016-06-01 21:00\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -77,63 +77,63 @@ msgstr ""
 msgid "You need to upgrade!"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:798
+#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:777
 msgid "You are up to date!"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:788
+#: src/Tribe/Admin/Help_Page.php:767
 msgid "Activate %s"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:788
+#: src/Tribe/Admin/Help_Page.php:767
 msgid "Activate Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:796
+#: src/Tribe/Admin/Help_Page.php:775
 msgid "Upgrade Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:812
+#: src/Tribe/Admin/Help_Page.php:791
 msgid "Install %s"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:812
+#: src/Tribe/Admin/Help_Page.php:791
 msgid "Install Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:829
+#: src/Tribe/Admin/Help_Page.php:808
 msgid "Latest Version:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:832
+#: src/Tribe/Admin/Help_Page.php:811
 msgid "Requires:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:833
+#: src/Tribe/Admin/Help_Page.php:812
 msgid "WordPress "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:835
+#: src/Tribe/Admin/Help_Page.php:814
 msgid "Active Users:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:838
+#: src/Tribe/Admin/Help_Page.php:817
 msgid "Rating:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:857
+#: src/Tribe/Admin/Help_Page.php:836
 msgid "Premium Add-Ons"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:863
+#: src/Tribe/Admin/Help_Page.php:842
 msgid "Plugin Active"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:865
+#: src/Tribe/Admin/Help_Page.php:844
 msgid "Plugin Inactive"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:870
+#: src/Tribe/Admin/Help_Page.php:849
 msgid "Visit the Add-on Page"
 msgstr ""
 
@@ -182,6 +182,40 @@ msgstr ""
 msgid "No select options specified"
 msgstr ""
 
+#: src/Tribe/Log/Admin.php:132
+msgctxt "log selector"
+msgid "None currently available"
+msgstr ""
+
+#: src/Tribe/Log/Admin.php:147
+msgctxt "log engines"
+msgid "None currently available"
+msgstr ""
+
+#: src/Tribe/Log/File_Logger.php:116
+msgid "Default (uses temporary files)"
+msgstr ""
+
+#: src/Tribe/Log.php:210
+msgid "Cannot set %s as the current logging engine"
+msgstr ""
+
+#: src/Tribe/Log.php:309
+msgid "Disabled"
+msgstr ""
+
+#: src/Tribe/Log.php:310
+msgid "Only errors"
+msgstr ""
+
+#: src/Tribe/Log.php:311
+msgid "Warnings and errors"
+msgstr ""
+
+#: src/Tribe/Log.php:312
+msgid "Full debug (all events)"
+msgstr ""
+
 #: src/Tribe/PUE/Checker.php:308
 msgid "License Key"
 msgstr ""
@@ -202,86 +236,74 @@ msgstr ""
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:424
-msgid "Sorry, this key is expired."
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:427
-msgid "Sorry, this key is out of installs."
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:428
-msgid "Why am I seeing this message?"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:431
-msgid "Sorry, this key is not valid."
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:435
+#: src/Tribe/PUE/Checker.php:432
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:440
+#: src/Tribe/PUE/Checker.php:437
 msgid "Thanks for setting up a valid key, it will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:448
+#: src/Tribe/PUE/Checker.php:445
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:203
-#: src/Tribe/Settings.php:204
+#: src/Tribe/PUE/Checker.php:457
+msgid "Sorry, there is a problem with your license key. You'll need to %scheck your license%s to have access to updates, downloads, and support."
+msgstr ""
+
+#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:202
+#: src/Tribe/Settings.php:203
 msgid "Events"
 msgstr ""
 
-#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
+#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
 msgid "Events Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:215
+#: src/Tribe/Settings.php:214
 msgid "Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:300
+#: src/Tribe/Settings.php:299
 msgid "%s Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:314
+#: src/Tribe/Settings.php:313
 msgid "You've requested a non-existent tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:322
+#: src/Tribe/Settings.php:321
 msgid "Save Changes"
 msgstr ""
 
-#: src/Tribe/Settings.php:370
+#: src/Tribe/Settings.php:369
 msgid "You don't have permission to do that."
 msgstr ""
 
-#: src/Tribe/Settings.php:376
+#: src/Tribe/Settings.php:375
 msgid "The request was sent insecurely."
 msgstr ""
 
-#: src/Tribe/Settings.php:382
+#: src/Tribe/Settings.php:381
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:550
+#: src/Tribe/Settings.php:549
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:559
 msgid "None of your settings were saved. Please try again."
 msgstr ""
 
-#: src/Tribe/Settings.php:561
+#: src/Tribe/Settings.php:560
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Settings.php:583
+#: src/Tribe/Settings.php:585
 msgid "Settings saved."
 msgstr ""
 
@@ -372,64 +394,68 @@ msgstr ""
 msgid "%s must contain numbers, letters and dots only"
 msgstr ""
 
-#: src/Tribe/Validate.php:181 src/Tribe/Validate.php:209
+#: src/Tribe/Validate.php:183
+msgid "%s must contain numbers, letters, dashes and undescores only"
+msgstr ""
+
+#: src/Tribe/Validate.php:197 src/Tribe/Validate.php:225
 msgid "%s must be a positive number."
 msgstr ""
 
-#: src/Tribe/Validate.php:195
+#: src/Tribe/Validate.php:211
 msgid "%s must be a positive number or percent."
 msgstr ""
 
-#: src/Tribe/Validate.php:224
+#: src/Tribe/Validate.php:240
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr ""
 
-#: src/Tribe/Validate.php:239
+#: src/Tribe/Validate.php:255
 msgid "%s must be a valid absolute URL."
 msgstr ""
 
-#: src/Tribe/Validate.php:255 src/Tribe/Validate.php:272
-#: src/Tribe/Validate.php:294
+#: src/Tribe/Validate.php:271 src/Tribe/Validate.php:288
+#: src/Tribe/Validate.php:310
 msgid "%s must have a value that's part of its options."
 msgstr ""
 
-#: src/Tribe/Validate.php:308
+#: src/Tribe/Validate.php:324
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr ""
 
-#: src/Tribe/Validate.php:315
+#: src/Tribe/Validate.php:331
 msgid "%s cannot be the same as %s."
 msgstr ""
 
-#: src/Tribe/Validate.php:317
+#: src/Tribe/Validate.php:333
 msgid "%s cannot be a duplicate"
 msgstr ""
 
-#: src/Tribe/Validate.php:333
+#: src/Tribe/Validate.php:349
 msgid "%s must be a number or percentage."
 msgstr ""
 
-#: src/Tribe/Validate.php:387
+#: src/Tribe/Validate.php:403
 msgid "%s must be a number between 0 and 21."
 msgstr ""
 
-#: src/Tribe/Validate.php:403
+#: src/Tribe/Validate.php:419
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 
-#: src/Tribe/Validate.php:419
+#: src/Tribe/Validate.php:435
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr ""
 
-#: src/Tribe/Validate.php:433
+#: src/Tribe/Validate.php:449
 msgid "%s must consist of 5 numbers."
 msgstr ""
 
-#: src/Tribe/Validate.php:447
+#: src/Tribe/Validate.php:463
 msgid "%s must be a phone number."
 msgstr ""
 
-#: src/Tribe/Validate.php:463
+#: src/Tribe/Validate.php:479
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr ""
 
@@ -1609,6 +1635,26 @@ msgstr ""
 msgid "Last Update"
 msgstr ""
 
+#: src/admin-views/event-log.php:21
+msgid "Logging level"
+msgstr ""
+
+#: src/admin-views/event-log.php:39
+msgid "Method"
+msgstr ""
+
+#: src/admin-views/event-log.php:57
+msgid "View"
+msgstr ""
+
+#: src/admin-views/event-log.php:99
+msgid "The selected log file is empty or has not been generated yet."
+msgstr ""
+
+#: src/admin-views/event-log.php:104
+msgid "Download log"
+msgstr ""
+
 #: src/admin-views/tribe-options-display.php:22
 msgid "Date Format Settings"
 msgstr ""
@@ -1618,26 +1664,10 @@ msgid "<p>The following three fields accept the date format options available to
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:30
-msgid "Date with year"
-msgstr ""
-
-#: src/admin-views/tribe-options-display.php:31
-msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
-msgstr ""
-
-#: src/admin-views/tribe-options-display.php:38
-msgid "Date time separator"
-msgstr ""
-
-#: src/admin-views/tribe-options-display.php:39
-msgid "Enter the separator that will be placed between the date and time, when both are shown."
-msgstr ""
-
-#: src/admin-views/tribe-options-display.php:46
 msgid "Datepicker Date Format"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:47
+#: src/admin-views/tribe-options-display.php:31
 msgid "Select the date format to use in datepickers"
 msgstr ""
 
@@ -1678,39 +1708,15 @@ msgstr ""
 msgid "Show The Events Calendar link"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:55
-msgid "General Settings"
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:59
-msgid "Default currency symbol"
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:60
-msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:67
-msgid "Currency symbol follows value"
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:68
-msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:74
-msgid "Miscellaneous Settings"
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:81
+#: src/admin-views/tribe-options-general.php:58
 msgid "Debug mode"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:87
+#: src/admin-views/tribe-options-general.php:64
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:87
+#: src/admin-views/tribe-options-general.php:64
 msgid "Debug Bar Plugin"
 msgstr ""
 

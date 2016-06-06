@@ -10,6 +10,64 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Log/Admin.php:132
+msgctxt "log selector"
+msgid "None currently available"
+msgstr ""
+
+#: src/Tribe/Log/Admin.php:147
+msgctxt "log engines"
+msgid "None currently available"
+msgstr ""
+
+#: src/Tribe/Log/File_Logger.php:116
+msgid "Default (uses temporary files)"
+msgstr ""
+
+#: src/Tribe/Log.php:210
+msgid "Cannot set %s as the current logging engine"
+msgstr ""
+
+#: src/Tribe/Log.php:309
+msgid "Disabled"
+msgstr ""
+
+#: src/Tribe/Log.php:310
+msgid "Only errors"
+msgstr ""
+
+#: src/Tribe/Log.php:311
+msgid "Warnings and errors"
+msgstr ""
+
+#: src/Tribe/Log.php:312
+msgid "Full debug (all events)"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:457
+msgid "Sorry, there is a problem with your license key. You'll need to %scheck your license%s to have access to updates, downloads, and support."
+msgstr ""
+
+#: src/Tribe/Validate.php:183
+msgid "%s must contain numbers, letters, dashes and undescores only"
+msgstr ""
+
+#: src/admin-views/event-log.php:21
+msgid "Logging level"
+msgstr ""
+
+#: src/admin-views/event-log.php:39
+msgid "Method"
+msgstr ""
+
+#: src/admin-views/event-log.php:99
+msgid "The selected log file is empty or has not been generated yet."
+msgstr ""
+
+#: src/admin-views/event-log.php:104
+msgid "Download log"
+msgstr ""
+
 #: src/admin-views/tribe-options-help.php:37
 msgid "Recent Template Changes"
 msgstr "Aktuelle Änderungen an Templates"
@@ -130,43 +188,43 @@ msgstr "Optimieren Sie Ihre Veranstaltungswebsite mit %1$sThe Events Calendar%2$
 msgid "Community Tickets"
 msgstr "Community Tickets"
 
-#: src/Tribe/Admin/Help_Page.php:788
+#: src/Tribe/Admin/Help_Page.php:767
 msgid "Activate %s"
 msgstr "Aktiviere %s"
 
-#: src/Tribe/Admin/Help_Page.php:788
+#: src/Tribe/Admin/Help_Page.php:767
 msgid "Activate Plugin"
 msgstr "Aktiviere Plugin"
 
-#: src/Tribe/Admin/Help_Page.php:796
+#: src/Tribe/Admin/Help_Page.php:775
 msgid "Upgrade Plugin"
 msgstr "Upgrade Plugin"
 
-#: src/Tribe/Admin/Help_Page.php:812
+#: src/Tribe/Admin/Help_Page.php:791
 msgid "Install %s"
 msgstr "Installiere %s"
 
-#: src/Tribe/Admin/Help_Page.php:812
+#: src/Tribe/Admin/Help_Page.php:791
 msgid "Install Plugin"
 msgstr "Installiere Plugin"
 
-#: src/Tribe/Admin/Help_Page.php:835
+#: src/Tribe/Admin/Help_Page.php:814
 msgid "Active Users:"
 msgstr "Aktive Nutzer:"
 
-#: src/Tribe/Admin/Help_Page.php:838
+#: src/Tribe/Admin/Help_Page.php:817
 msgid "Rating:"
 msgstr "Bewertung:"
 
-#: src/Tribe/Admin/Help_Page.php:863
+#: src/Tribe/Admin/Help_Page.php:842
 msgid "Plugin Active"
 msgstr "Plugin aktiv"
 
-#: src/Tribe/Admin/Help_Page.php:865
+#: src/Tribe/Admin/Help_Page.php:844
 msgid "Plugin Inactive"
 msgstr "Plugin inaktiv"
 
-#: src/Tribe/Admin/Help_Page.php:870
+#: src/Tribe/Admin/Help_Page.php:849
 msgid "Visit the Add-on Page"
 msgstr "Die Add-On Seite besuchen"
 
@@ -178,17 +236,13 @@ msgstr "<a href=\"%s\">Veranstaltungseinstellungen bearbeiten</a>."
 msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
 msgstr "Bewerte %3$sThe Events Calendar%4$s %1$s auf %2$s um dieses Plugin kostenfrei zu halten. Vielen Dank von den freundlichen Kollegen von Modern Tribe."
 
-#: src/Tribe/PUE/Checker.php:440
+#: src/Tribe/PUE/Checker.php:437
 msgid "Thanks for setting up a valid key, it will expire on %s"
 msgstr "Danke für das Nutzen einen gültigen Lizenzschlüssels. Er wird am %s auslaufen."
 
-#: src/Tribe/Validate.php:195
+#: src/Tribe/Validate.php:211
 msgid "%s must be a positive number or percent."
 msgstr "%s muss eine positive Zahl oder ein Prozentwert sein."
-
-#: src/admin-views/tribe-options-display.php:31
-msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
-msgstr "Geben Sie das Format ein, wie ein Datum mit einem Jahr angezeigt werden soll. Wird verwendet wenn ein Datum in einem zukünftigen ihr angezeigt wird."
 
 #: src/admin-views/tribe-options-general.php:10
 msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
@@ -254,7 +308,7 @@ msgstr "Fragen Sie den Seitenadministrator den Seiten Slug (URL) zu bearbeiten"
 msgid " ask the site administrator set a different Events URL slug."
 msgstr "fragen Sie den Seitenadministrator eine andere Seiten Slug (URL) festzulegen."
 
-#: src/Tribe/Settings.php:322
+#: src/Tribe/Settings.php:321
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
@@ -338,6 +392,10 @@ msgstr "Version"
 msgid "Last Update"
 msgstr "Letzte Aktualisierung"
 
+#: src/admin-views/event-log.php:57
+msgid "View"
+msgstr "Ansehen"
+
 #: src/admin-views/tribe-options-display.php:22
 msgid "Date Format Settings"
 msgstr "Einstellungen Datumsformat"
@@ -347,22 +405,10 @@ msgid "<p>The following three fields accept the date format options available to
 msgstr "<p>In die folgenden Felder können die Formatierungsoptionen der php date() Funktion verwendet werden. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Erfahren Sie hier mehr über die Formatierungsmöglichkeiten</a>.</p>"
 
 #: src/admin-views/tribe-options-display.php:30
-msgid "Date with year"
-msgstr "Datum mit Jahresangabe"
-
-#: src/admin-views/tribe-options-display.php:38
-msgid "Date time separator"
-msgstr "Datum Zeit Trennzeichen"
-
-#: src/admin-views/tribe-options-display.php:39
-msgid "Enter the separator that will be placed between the date and time, when both are shown."
-msgstr "Geben Sie das Trennzeichen ein, das Datum und Uhrzeit trennt, wenn beides angezeigt wird."
-
-#: src/admin-views/tribe-options-display.php:46
 msgid "Datepicker Date Format"
 msgstr "Datumswahl Format (\"Datepicker\")"
 
-#: src/admin-views/tribe-options-display.php:47
+#: src/admin-views/tribe-options-display.php:31
 msgid "Select the date format to use in datepickers"
 msgstr "Wählen Sie das Datumsformat, welches bei der Datumwahl (\"Datepicker\") verwendet wird."
 
@@ -395,39 +441,15 @@ msgstr "Sie finden: \"Wow, das Plugin ist fantastisch! Ich sollte Modern Tribe d
 msgid "Show The Events Calendar link"
 msgstr "Den Link zum Veranstaltungskalender anzeigen"
 
-#: src/admin-views/tribe-options-general.php:55
-msgid "General Settings"
-msgstr "Allgemeine Einstellungen"
-
-#: src/admin-views/tribe-options-general.php:59
-msgid "Default currency symbol"
-msgstr "Standard Währungssymbol"
-
-#: src/admin-views/tribe-options-general.php:60
-msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
-msgstr "Legen Sie das Standard Währungssymbol für die Veranstaltungspreise fest. Bitte beachten Sie, dass dies nur zukünftige Veranstaltungen betrifft und nicht vergangene Verstaltungen beeinflußt."
-
-#: src/admin-views/tribe-options-general.php:67
-msgid "Currency symbol follows value"
-msgstr "Währungssymbol nach dem Betrag anzeigen"
-
-#: src/admin-views/tribe-options-general.php:68
-msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
-msgstr "Das Währungssymbol ist normalerweise dem Betrag vorangestellt. Durch Aktivieren dieser Option wird das Währungssymbol hinter dem Betrag angezeigt."
-
-#: src/admin-views/tribe-options-general.php:74
-msgid "Miscellaneous Settings"
-msgstr "Weitere Einstellungen"
-
-#: src/admin-views/tribe-options-general.php:81
+#: src/admin-views/tribe-options-general.php:58
 msgid "Debug mode"
 msgstr "Debug Modus"
 
-#: src/admin-views/tribe-options-general.php:87
+#: src/admin-views/tribe-options-general.php:64
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "Aktivieren Sie die Option, um Debuginformationen mit zu loggen. Standardmäßig werden die Informationen in Ihr PHP Server Error Log geschrieben. Wenn Sie die Debuginfos in Ihrem Browser sehen möchten, empfehlen wir das %s zu installieren. Die Ausgabe der Debuginfos finden Sie im \"Tribe\"  Tab."
 
-#: src/admin-views/tribe-options-general.php:87
+#: src/admin-views/tribe-options-general.php:64
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar Plugin"
 
@@ -440,7 +462,7 @@ msgstr "n/v"
 msgid "You need to upgrade!"
 msgstr "Sie müssen updaten!"
 
-#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:798
+#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:777
 msgid "You are up to date!"
 msgstr "Sie sind auf dem neuesten Stand!"
 
@@ -536,7 +558,7 @@ msgstr "Iowa"
 msgid "Kansas"
 msgstr "Kansas"
 
-#: src/Tribe/Admin/Help_Page.php:829
+#: src/Tribe/Admin/Help_Page.php:808
 msgid "Latest Version:"
 msgstr "Neueste Version:"
 
@@ -552,7 +574,7 @@ msgstr "Louisiana"
 msgid "Maine"
 msgstr "Maine"
 
-#: src/Tribe/Admin/Help_Page.php:832
+#: src/Tribe/Admin/Help_Page.php:811
 msgid "Requires:"
 msgstr "Benötigt:"
 
@@ -560,7 +582,7 @@ msgstr "Benötigt:"
 msgid "Maryland"
 msgstr "Maryland"
 
-#: src/Tribe/Admin/Help_Page.php:833
+#: src/Tribe/Admin/Help_Page.php:812
 msgid "WordPress "
 msgstr "WordPress "
 
@@ -584,7 +606,7 @@ msgstr "Mississippi"
 msgid "Missouri"
 msgstr "Missouri"
 
-#: src/Tribe/Admin/Help_Page.php:857
+#: src/Tribe/Admin/Help_Page.php:836
 msgid "Premium Add-Ons"
 msgstr "Premium Add-Ons"
 
@@ -905,7 +927,7 @@ msgstr "Frankreich (mit Korsika)"
 msgid "French Guiana"
 msgstr "Französisch-Guayana"
 
-#: src/Tribe/Settings.php:583
+#: src/Tribe/Settings.php:585
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert.."
 
@@ -941,8 +963,8 @@ msgstr "Ghana"
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:203
-#: src/Tribe/Settings.php:204
+#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:202
+#: src/Tribe/Settings.php:203
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -1271,7 +1293,7 @@ msgstr "Nigeria"
 msgid "Niue"
 msgstr "Niue"
 
-#: src/Tribe/Settings.php:215
+#: src/Tribe/Settings.php:214
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -1355,39 +1377,23 @@ msgstr "Sorry, der Lizensierungsserver ist nicht erreichbar."
 msgid "Qatar"
 msgstr "Katar"
 
-#: src/Tribe/PUE/Checker.php:424
-msgid "Sorry, this key is expired."
-msgstr "Sorry, der Lizenzschlüssel ist abgelaufen"
-
 #: src/Tribe/View_Helpers.php:223
 msgid "Reunion"
 msgstr "Reunion"
-
-#: src/Tribe/PUE/Checker.php:427
-msgid "Sorry, this key is out of installs."
-msgstr "Sorry, der Lizenzschlüssel wurde schon bei einer anderen Installation verwendet"
 
 #: src/Tribe/View_Helpers.php:224
 msgid "Romania"
 msgstr "Rumänien"
 
-#: src/Tribe/PUE/Checker.php:428
-msgid "Why am I seeing this message?"
-msgstr "Warum sehe ich diese Nachricht?"
-
 #: src/Tribe/View_Helpers.php:225
 msgid "Russian Federation"
 msgstr "Russland / Russische Föderation"
-
-#: src/Tribe/PUE/Checker.php:431
-msgid "Sorry, this key is not valid."
-msgstr "Sorry, der Lizenzschlüssel ist ungültig"
 
 #: src/Tribe/View_Helpers.php:226
 msgid "Rwanda"
 msgstr "Ruanda"
 
-#: src/Tribe/PUE/Checker.php:435
+#: src/Tribe/PUE/Checker.php:432
 msgid "Valid Key! Expires on %s"
 msgstr "Gültiger Schlüssel! Erlischt am %s"
 
@@ -1395,7 +1401,7 @@ msgstr "Gültiger Schlüssel! Erlischt am %s"
 msgid "Saint Kitts And Nevis"
 msgstr "St. Kitts und Nevis"
 
-#: src/Tribe/PUE/Checker.php:448
+#: src/Tribe/PUE/Checker.php:445
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmm... irgendwas ist schiefgelaufen. Bitte kontaktieren Sie den %sSupport%s."
 
@@ -1407,7 +1413,7 @@ msgstr "Saint Lucia"
 msgid "Saint Vincent And The Grenadines"
 msgstr "St. Vincent und die Grenadinen"
 
-#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
+#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
 msgid "Events Settings"
 msgstr "Veranstaltungseinstellungen"
 
@@ -1415,7 +1421,7 @@ msgstr "Veranstaltungseinstellungen"
 msgid "Samoa"
 msgstr "Samoa"
 
-#: src/Tribe/Settings.php:300
+#: src/Tribe/Settings.php:299
 msgid "%s Settings"
 msgstr "%s Einstellungen"
 
@@ -1423,7 +1429,7 @@ msgstr "%s Einstellungen"
 msgid "San Marino"
 msgstr "San Marino"
 
-#: src/Tribe/Settings.php:314
+#: src/Tribe/Settings.php:313
 msgid "You've requested a non-existent tab."
 msgstr "Sie wollen einen nicht vorhandenen Reiter anzeigen."
 
@@ -1431,7 +1437,7 @@ msgstr "Sie wollen einen nicht vorhandenen Reiter anzeigen."
 msgid "Sao Tome And Principe"
 msgstr "S&atilde;o Tom&eacute; und Pr&iacute;ncipe"
 
-#: src/Tribe/Settings.php:370
+#: src/Tribe/Settings.php:369
 msgid "You don't have permission to do that."
 msgstr "Sie besitzen nicht die nötigen Rechte dafür."
 
@@ -1439,7 +1445,7 @@ msgstr "Sie besitzen nicht die nötigen Rechte dafür."
 msgid "Saudi Arabia"
 msgstr "Saudi-Arabien"
 
-#: src/Tribe/Settings.php:376
+#: src/Tribe/Settings.php:375
 msgid "The request was sent insecurely."
 msgstr "Die Anfrage wurde unverschlüsselt gesendet."
 
@@ -1447,7 +1453,7 @@ msgstr "Die Anfrage wurde unverschlüsselt gesendet."
 msgid "Senegal"
 msgstr "Senegal"
 
-#: src/Tribe/Settings.php:382
+#: src/Tribe/Settings.php:381
 msgid "The request wasn't sent from this tab."
 msgstr "Die Anfrage wurde nicht von diesem Reiter gesendet."
 
@@ -1455,7 +1461,7 @@ msgstr "Die Anfrage wurde nicht von diesem Reiter gesendet."
 msgid "Serbia"
 msgstr "Serbien"
 
-#: src/Tribe/Settings.php:550
+#: src/Tribe/Settings.php:549
 msgid "Your form had the following errors:"
 msgstr "Ihr Formular hat folgende Fehler:"
 
@@ -1463,7 +1469,7 @@ msgstr "Ihr Formular hat folgende Fehler:"
 msgid "Seychelles"
 msgstr "Seychellen"
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:559
 msgid "None of your settings were saved. Please try again."
 msgstr "Die Eintellungen konnten gespeichert werden. Versuchen Sie es erneut."
 
@@ -1471,7 +1477,7 @@ msgstr "Die Eintellungen konnten gespeichert werden. Versuchen Sie es erneut."
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/Tribe/Settings.php:561
+#: src/Tribe/Settings.php:560
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Die obige Einstellung wurde nicht gespeichert. Andere Einstellungen wurden erfolgreich gespeichert."
@@ -1687,60 +1693,60 @@ msgstr "%s darf nur Zahlen und Buchstaben enthalten"
 msgid "%s must contain numbers, letters and dots only"
 msgstr "%s darf nur Zahlen, Buchstaben oder Punkte enthalten"
 
-#: src/Tribe/Validate.php:181 src/Tribe/Validate.php:209
+#: src/Tribe/Validate.php:197 src/Tribe/Validate.php:225
 msgid "%s must be a positive number."
 msgstr "%s muss eine positive Zahl sein."
 
-#: src/Tribe/Validate.php:224
+#: src/Tribe/Validate.php:240
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr "%s muss eine gültige Ausgangsform haben (Nummern, Buchstaben, Gedankenstriche und Unterstreichungen)."
 
-#: src/Tribe/Validate.php:239
+#: src/Tribe/Validate.php:255
 msgid "%s must be a valid absolute URL."
 msgstr "%s muss eine gültige URL sein."
 
-#: src/Tribe/Validate.php:255 src/Tribe/Validate.php:272
-#: src/Tribe/Validate.php:294
+#: src/Tribe/Validate.php:271 src/Tribe/Validate.php:288
+#: src/Tribe/Validate.php:310
 msgid "%s must have a value that's part of its options."
 msgstr "%s muss eine Wert haben, der Teil der Optionen ist."
 
-#: src/Tribe/Validate.php:308
+#: src/Tribe/Validate.php:324
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "Der Vergleich ist fehlgeschlagen, weil keine Eingabe im Feld %s gefunden wurde"
 
-#: src/Tribe/Validate.php:315
+#: src/Tribe/Validate.php:331
 msgid "%s cannot be the same as %s."
 msgstr "%s kann nicht dasselbe sein wie %s."
 
-#: src/Tribe/Validate.php:317
+#: src/Tribe/Validate.php:333
 msgid "%s cannot be a duplicate"
 msgstr "%s kann nicht vervielfältigt werden"
 
-#: src/Tribe/Validate.php:333
+#: src/Tribe/Validate.php:349
 msgid "%s must be a number or percentage."
 msgstr "%s muss eine Zahl oder Prozentsatz sein."
 
-#: src/Tribe/Validate.php:387
+#: src/Tribe/Validate.php:403
 msgid "%s must be a number between 0 and 21."
 msgstr "%s muss eine Zahl zwischen 0 und 21 sein."
 
-#: src/Tribe/Validate.php:403
+#: src/Tribe/Validate.php:419
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s darf nur aus Buchstaben, Zahlen, Gedankenstrichen, Apostrophe und Leerzeichen bestehen. "
 
-#: src/Tribe/Validate.php:419
+#: src/Tribe/Validate.php:435
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s muss aus Buchstaben, Leerzeichen, Apostrophe und Gedankenstrichen bestehen."
 
-#: src/Tribe/Validate.php:433
+#: src/Tribe/Validate.php:449
 msgid "%s must consist of 5 numbers."
 msgstr "%s muss aus fünf Ziffern bestehen."
 
-#: src/Tribe/Validate.php:447
+#: src/Tribe/Validate.php:463
 msgid "%s must be a phone number."
 msgstr "%s muss eine Telefonnummer sein."
 
-#: src/Tribe/Validate.php:463
+#: src/Tribe/Validate.php:479
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "Die Länder-Liste muss als ein Land pro Zeile in der folgenden Weise formatiert sein: <br>US, United States <br> UK, United Kingdom."
 

@@ -10,6 +10,64 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Log/Admin.php:132
+msgctxt "log selector"
+msgid "None currently available"
+msgstr ""
+
+#: src/Tribe/Log/Admin.php:147
+msgctxt "log engines"
+msgid "None currently available"
+msgstr ""
+
+#: src/Tribe/Log/File_Logger.php:116
+msgid "Default (uses temporary files)"
+msgstr ""
+
+#: src/Tribe/Log.php:210
+msgid "Cannot set %s as the current logging engine"
+msgstr ""
+
+#: src/Tribe/Log.php:309
+msgid "Disabled"
+msgstr ""
+
+#: src/Tribe/Log.php:310
+msgid "Only errors"
+msgstr ""
+
+#: src/Tribe/Log.php:311
+msgid "Warnings and errors"
+msgstr ""
+
+#: src/Tribe/Log.php:312
+msgid "Full debug (all events)"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:457
+msgid "Sorry, there is a problem with your license key. You'll need to %scheck your license%s to have access to updates, downloads, and support."
+msgstr ""
+
+#: src/Tribe/Validate.php:183
+msgid "%s must contain numbers, letters, dashes and undescores only"
+msgstr ""
+
+#: src/admin-views/event-log.php:21
+msgid "Logging level"
+msgstr ""
+
+#: src/admin-views/event-log.php:39
+msgid "Method"
+msgstr ""
+
+#: src/admin-views/event-log.php:99
+msgid "The selected log file is empty or has not been generated yet."
+msgstr ""
+
+#: src/admin-views/event-log.php:104
+msgid "Download log"
+msgstr ""
+
 #: src/admin-views/tribe-options-help.php:37
 msgid "Recent Template Changes"
 msgstr ""
@@ -130,43 +188,43 @@ msgstr ""
 msgid "Community Tickets"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:788
+#: src/Tribe/Admin/Help_Page.php:767
 msgid "Activate %s"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:788
+#: src/Tribe/Admin/Help_Page.php:767
 msgid "Activate Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:796
+#: src/Tribe/Admin/Help_Page.php:775
 msgid "Upgrade Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:812
+#: src/Tribe/Admin/Help_Page.php:791
 msgid "Install %s"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:812
+#: src/Tribe/Admin/Help_Page.php:791
 msgid "Install Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:835
+#: src/Tribe/Admin/Help_Page.php:814
 msgid "Active Users:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:838
+#: src/Tribe/Admin/Help_Page.php:817
 msgid "Rating:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:863
+#: src/Tribe/Admin/Help_Page.php:842
 msgid "Plugin Active"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:865
+#: src/Tribe/Admin/Help_Page.php:844
 msgid "Plugin Inactive"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:870
+#: src/Tribe/Admin/Help_Page.php:849
 msgid "Visit the Add-on Page"
 msgstr ""
 
@@ -178,16 +236,12 @@ msgstr ""
 msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:440
+#: src/Tribe/PUE/Checker.php:437
 msgid "Thanks for setting up a valid key, it will expire on %s"
 msgstr ""
 
-#: src/Tribe/Validate.php:195
+#: src/Tribe/Validate.php:211
 msgid "%s must be a positive number or percent."
-msgstr ""
-
-#: src/admin-views/tribe-options-display.php:31
-msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:10
@@ -254,7 +308,7 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Settings.php:322
+#: src/Tribe/Settings.php:321
 msgid "Save Changes"
 msgstr "保存更改"
 
@@ -338,6 +392,10 @@ msgstr "版本"
 msgid "Last Update"
 msgstr "最後更新"
 
+#: src/admin-views/event-log.php:57
+msgid "View"
+msgstr "檢視"
+
 #: src/admin-views/tribe-options-display.php:22
 msgid "Date Format Settings"
 msgstr "日期格式設定"
@@ -347,22 +405,10 @@ msgid "<p>The following three fields accept the date format options available to
 msgstr "<p>以下 3 個欄位接受 php date() 功能內置的日期格式選項 <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">由此學習如何創建你自己的日期格式</a>。</p>"
 
 #: src/admin-views/tribe-options-display.php:30
-msgid "Date with year"
-msgstr "日期中包含年"
-
-#: src/admin-views/tribe-options-display.php:38
-msgid "Date time separator"
-msgstr "日期時間分隔符號"
-
-#: src/admin-views/tribe-options-display.php:39
-msgid "Enter the separator that will be placed between the date and time, when both are shown."
-msgstr "輸入分隔符號，當日期與時間同時顯示時，此符號將置於兩者之間作為區分。"
-
-#: src/admin-views/tribe-options-display.php:46
 msgid "Datepicker Date Format"
 msgstr "日期選擇器的日期格式"
 
-#: src/admin-views/tribe-options-display.php:47
+#: src/admin-views/tribe-options-display.php:31
 msgid "Select the date format to use in datepickers"
 msgstr "選擇用於日期選擇器中的日期格式"
 
@@ -395,39 +441,15 @@ msgstr "你正想著 \"哇，這個外掛產品太棒了！我們應該感謝 Mo
 msgid "Show The Events Calendar link"
 msgstr "顯示 The Events Calendar 連結"
 
-#: src/admin-views/tribe-options-general.php:55
-msgid "General Settings"
-msgstr "一般設定"
-
-#: src/admin-views/tribe-options-general.php:59
-msgid "Default currency symbol"
-msgstr "預設貨幣符號"
-
-#: src/admin-views/tribe-options-general.php:60
-msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
-msgstr "設定活動費用的預設貨幣符號，請注意此項設定只會對未來的活動產生影響並不會追溯到以前。"
-
-#: src/admin-views/tribe-options-general.php:67
-msgid "Currency symbol follows value"
-msgstr "貨幣符號在數值之後"
-
-#: src/admin-views/tribe-options-general.php:68
-msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
-msgstr "貨幣符號通常會出現在數值之前，啟用此選項貨幣符號將會出現在數值 之後。"
-
-#: src/admin-views/tribe-options-general.php:74
-msgid "Miscellaneous Settings"
-msgstr "其他設定"
-
-#: src/admin-views/tribe-options-general.php:81
+#: src/admin-views/tribe-options-general.php:58
 msgid "Debug mode"
 msgstr "除錯模式"
 
-#: src/admin-views/tribe-options-general.php:87
+#: src/admin-views/tribe-options-general.php:64
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "啟用此選項以記錄除錯報告，預設將記錄你的伺服器 PHP 錯誤報告，如果你想於你的瀏覽器閱讀紀錄的訊息，我們推薦安裝 %s 並於除錯輸出中搜尋 \"Tribe\" 工具列標籤。"
 
-#: src/admin-views/tribe-options-general.php:87
+#: src/admin-views/tribe-options-general.php:64
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar Plugin"
 
@@ -440,7 +462,7 @@ msgstr "n/a"
 msgid "You need to upgrade!"
 msgstr "你需要升級！"
 
-#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:798
+#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:777
 msgid "You are up to date!"
 msgstr "你的版本是最新的！"
 
@@ -536,7 +558,7 @@ msgstr "愛荷華州"
 msgid "Kansas"
 msgstr "堪薩斯州"
 
-#: src/Tribe/Admin/Help_Page.php:829
+#: src/Tribe/Admin/Help_Page.php:808
 msgid "Latest Version:"
 msgstr "最新版本："
 
@@ -552,7 +574,7 @@ msgstr "路易斯安那州"
 msgid "Maine"
 msgstr "緬因州"
 
-#: src/Tribe/Admin/Help_Page.php:832
+#: src/Tribe/Admin/Help_Page.php:811
 msgid "Requires:"
 msgstr "需求："
 
@@ -560,7 +582,7 @@ msgstr "需求："
 msgid "Maryland"
 msgstr "馬里蘭州"
 
-#: src/Tribe/Admin/Help_Page.php:833
+#: src/Tribe/Admin/Help_Page.php:812
 msgid "WordPress "
 msgstr "WordPress "
 
@@ -584,7 +606,7 @@ msgstr "密西西比州"
 msgid "Missouri"
 msgstr "密蘇里州"
 
-#: src/Tribe/Admin/Help_Page.php:857
+#: src/Tribe/Admin/Help_Page.php:836
 msgid "Premium Add-Ons"
 msgstr "超值附加元件"
 
@@ -905,7 +927,7 @@ msgstr "法國本土"
 msgid "French Guiana"
 msgstr "法屬圭亞那"
 
-#: src/Tribe/Settings.php:583
+#: src/Tribe/Settings.php:585
 msgid "Settings saved."
 msgstr "設定已儲存。"
 
@@ -941,8 +963,8 @@ msgstr "迦納"
 msgid "Gibraltar"
 msgstr "直布羅陀"
 
-#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:203
-#: src/Tribe/Settings.php:204
+#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:202
+#: src/Tribe/Settings.php:203
 msgid "Events"
 msgstr "活動"
 
@@ -1271,7 +1293,7 @@ msgstr "奈及利亞"
 msgid "Niue"
 msgstr "紐埃"
 
-#: src/Tribe/Settings.php:215
+#: src/Tribe/Settings.php:214
 msgid "Settings"
 msgstr "設定"
 
@@ -1355,39 +1377,23 @@ msgstr "抱歉，密鑰認證伺服器忙碌中。"
 msgid "Qatar"
 msgstr "卡達"
 
-#: src/Tribe/PUE/Checker.php:424
-msgid "Sorry, this key is expired."
-msgstr "抱歉，此密鑰已到期。"
-
 #: src/Tribe/View_Helpers.php:223
 msgid "Reunion"
 msgstr "留尼旺"
-
-#: src/Tribe/PUE/Checker.php:427
-msgid "Sorry, this key is out of installs."
-msgstr "抱歉，此密鑰尚未安裝。"
 
 #: src/Tribe/View_Helpers.php:224
 msgid "Romania"
 msgstr "羅馬尼亞"
 
-#: src/Tribe/PUE/Checker.php:428
-msgid "Why am I seeing this message?"
-msgstr ""
-
 #: src/Tribe/View_Helpers.php:225
 msgid "Russian Federation"
 msgstr "俄羅斯聯邦"
-
-#: src/Tribe/PUE/Checker.php:431
-msgid "Sorry, this key is not valid."
-msgstr "抱歉，此密鑰無效。"
 
 #: src/Tribe/View_Helpers.php:226
 msgid "Rwanda"
 msgstr "盧安達"
 
-#: src/Tribe/PUE/Checker.php:435
+#: src/Tribe/PUE/Checker.php:432
 msgid "Valid Key! Expires on %s"
 msgstr "有效密鑰！到期日為 %s"
 
@@ -1395,7 +1401,7 @@ msgstr "有效密鑰！到期日為 %s"
 msgid "Saint Kitts And Nevis"
 msgstr "聖克里斯多福與尼維斯"
 
-#: src/Tribe/PUE/Checker.php:448
+#: src/Tribe/PUE/Checker.php:445
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
@@ -1407,7 +1413,7 @@ msgstr "聖盧西亞"
 msgid "Saint Vincent And The Grenadines"
 msgstr "聖文森及格瑞那丁"
 
-#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
+#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
 msgid "Events Settings"
 msgstr "活動設定"
 
@@ -1415,7 +1421,7 @@ msgstr "活動設定"
 msgid "Samoa"
 msgstr "薩摩亞"
 
-#: src/Tribe/Settings.php:300
+#: src/Tribe/Settings.php:299
 msgid "%s Settings"
 msgstr "%s 設定"
 
@@ -1423,7 +1429,7 @@ msgstr "%s 設定"
 msgid "San Marino"
 msgstr "聖馬利諾"
 
-#: src/Tribe/Settings.php:314
+#: src/Tribe/Settings.php:313
 msgid "You've requested a non-existent tab."
 msgstr "你要求的工具列標籤不存在。"
 
@@ -1431,7 +1437,7 @@ msgstr "你要求的工具列標籤不存在。"
 msgid "Sao Tome And Principe"
 msgstr "聖多美與普林希比"
 
-#: src/Tribe/Settings.php:370
+#: src/Tribe/Settings.php:369
 msgid "You don't have permission to do that."
 msgstr "你的操作不被允許。"
 
@@ -1439,7 +1445,7 @@ msgstr "你的操作不被允許。"
 msgid "Saudi Arabia"
 msgstr "沙烏地阿拉伯"
 
-#: src/Tribe/Settings.php:376
+#: src/Tribe/Settings.php:375
 msgid "The request was sent insecurely."
 msgstr "以不安全的方式傳送要求。"
 
@@ -1447,7 +1453,7 @@ msgstr "以不安全的方式傳送要求。"
 msgid "Senegal"
 msgstr "塞內加爾"
 
-#: src/Tribe/Settings.php:382
+#: src/Tribe/Settings.php:381
 msgid "The request wasn't sent from this tab."
 msgstr "請求未從此工具列標籤傳送。"
 
@@ -1455,7 +1461,7 @@ msgstr "請求未從此工具列標籤傳送。"
 msgid "Serbia"
 msgstr "塞爾維亞"
 
-#: src/Tribe/Settings.php:550
+#: src/Tribe/Settings.php:549
 msgid "Your form had the following errors:"
 msgstr "你的表格含有下列錯誤："
 
@@ -1463,7 +1469,7 @@ msgstr "你的表格含有下列錯誤："
 msgid "Seychelles"
 msgstr "塞席爾群島"
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:559
 msgid "None of your settings were saved. Please try again."
 msgstr "你的設定未儲存，請稍後重試。"
 
@@ -1471,7 +1477,7 @@ msgstr "你的設定未儲存，請稍後重試。"
 msgid "Sierra Leone"
 msgstr "獅子山共和國"
 
-#: src/Tribe/Settings.php:561
+#: src/Tribe/Settings.php:560
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "以上設定未儲存，其餘設定已成功儲存。"
@@ -1686,60 +1692,60 @@ msgstr "%s 必須只包含數字與字元"
 msgid "%s must contain numbers, letters and dots only"
 msgstr "%s 必須只包含數字、字元和點。"
 
-#: src/Tribe/Validate.php:181 src/Tribe/Validate.php:209
+#: src/Tribe/Validate.php:197 src/Tribe/Validate.php:225
 msgid "%s must be a positive number."
 msgstr "%s 必須為正數。"
 
-#: src/Tribe/Validate.php:224
+#: src/Tribe/Validate.php:240
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr "%s 必須是有效的代稱 (數字、字元、破折號及底線)。"
 
-#: src/Tribe/Validate.php:239
+#: src/Tribe/Validate.php:255
 msgid "%s must be a valid absolute URL."
 msgstr "%s 必須是有效完整的網址。"
 
-#: src/Tribe/Validate.php:255 src/Tribe/Validate.php:272
-#: src/Tribe/Validate.php:294
+#: src/Tribe/Validate.php:271 src/Tribe/Validate.php:288
+#: src/Tribe/Validate.php:310
 msgid "%s must have a value that's part of its options."
 msgstr "%s 必須有一個數值是選項中的一部份。"
 
-#: src/Tribe/Validate.php:308
+#: src/Tribe/Validate.php:324
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "比較確認失敗的原因是由於沒有提供比較數值給欄位 %s。"
 
-#: src/Tribe/Validate.php:315
+#: src/Tribe/Validate.php:331
 msgid "%s cannot be the same as %s."
 msgstr "%s 不能和 %s 完全一樣。"
 
-#: src/Tribe/Validate.php:317
+#: src/Tribe/Validate.php:333
 msgid "%s cannot be a duplicate"
 msgstr "%s 不能是複製的"
 
-#: src/Tribe/Validate.php:333
+#: src/Tribe/Validate.php:349
 msgid "%s must be a number or percentage."
 msgstr "%s 必須是數字或百分比符號。"
 
-#: src/Tribe/Validate.php:387
+#: src/Tribe/Validate.php:403
 msgid "%s must be a number between 0 and 21."
 msgstr "%s 必須是介於 0 到 21之間的數字。"
 
-#: src/Tribe/Validate.php:403
+#: src/Tribe/Validate.php:419
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s 必須只由字元、數字、點、撇號及空格所組成。"
 
-#: src/Tribe/Validate.php:419
+#: src/Tribe/Validate.php:435
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s 必須由字元、數字、空格、撇號及點所組成。"
 
-#: src/Tribe/Validate.php:433
+#: src/Tribe/Validate.php:449
 msgid "%s must consist of 5 numbers."
 msgstr "%s 必須由 5 個數字所組成。"
 
-#: src/Tribe/Validate.php:447
+#: src/Tribe/Validate.php:463
 msgid "%s must be a phone number."
 msgstr "%s 必須是電話號碼數字。"
 
-#: src/Tribe/Validate.php:463
+#: src/Tribe/Validate.php:479
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "國家列表必須以每行一個國家的格式表列於以下的格式中：<br>US, United States <br> UK, United Kingdom."
 
