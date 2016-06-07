@@ -1,90 +1,72 @@
 <?php
-
+// Don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 /**
  * Class Tribe__Admin__Notice__Archive_Slug_Conflict
  *
  * Takes care of adding an admin notice if a page with the `/events` slug has been created in the site.
  */
-class Tribe__Admin__Notice__Archive_Slug_Conflict {
-
+class Tribe__Admin__Notice__Archive_Slug_Conflict extends Tribe__Admin__Notice__Abstract {
 	/**
-	 * @var static
-	 */
-	protected static $instance;
-
-	/**
-	 * @var string The slug of The Events Calendar archive page.
-	 */
-	protected $archive_slug;
-
-	/**
-	 * @var WP_Post The page post object.
-	 */
-	protected $page;
-
-	/**
+	 * On PHP 5.2 the child class doesn't get spawned on the Parent one, so we don't have
+	 * access to that information on the other side unless we pass it around as a param
+	 * so we throw __CLASS__ to the parent::instance() method to be able to spawn new instance
+	 * of this class and save on the parent::$instances variable.
+	 *
 	 * @return Tribe__Admin__Notice__Archive_Slug_Conflict
 	 */
-	public static function instance() {
-		if ( empty( self::$instance ) ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
+	public static function instance( $name = null ) {
+		return parent::instances( __CLASS__ );
 	}
 
+
 	/**
-	 * Hooks the action to show an admin notice if a page with the `/events` slug exists on the site.
+	 * Method to get the Slug of this Notice
+	 *
+	 * @return string
 	 */
-	public function maybe_add_admin_notice() {
-		$this->archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
-		$page               = get_page_by_path( $this->archive_slug );
-		if ( ! $page || $page->post_status == 'trash' ) {
-			return;
-		}
-		$this->page = $page;
-		$dismissed_notices = get_user_meta( get_current_user_id(), 'tribe-dismiss-notice' );
-
-		if ( is_array( $dismissed_notices ) && in_array( 'archive-slug-conflict', $dismissed_notices ) ) {
-			return;
-		}
-		add_action( 'admin_notices', array( $this, 'notice' ) );
+	public function get_slug() {
+		return 'archive-slug-conflict';
 	}
 
 	/**
-	 * Hooked before maybe_add_admin_notice to prevent a notice to show it has been dimissed
-	 * @return void
+	 * Method returning a boolean to determine if the notice is visible
+	 *
+	 * @return boolean
 	 */
-	public function maybe_dismiss() {
-		if ( empty( $_GET['tribe-dismiss-notice'] ) ) {
-			return;
+	public function is_visible() {
+		$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+		$page         = get_page_by_path( $archive_slug );
+
+		if ( ! $page || 'trash' === $page->post_status ) {
+			return false;
 		}
 
-		$notice = esc_attr( $_GET['tribe-dismiss-notice'] );
-
-		if ( 'archive-slug-conflict' !== $notice ) {
-			return;
+		if ( $this->has_user_dimissed() ) {
+			return false;
 		}
 
-		$dimissed_notices = get_user_meta( get_current_user_id(), 'tribe-dismiss-notice' );
-		if ( in_array( 'archive-slug-conflict', $dimissed_notices ) ) {
-			return;
-		}
-
-		add_user_meta( get_current_user_id(), 'tribe-dismiss-notice', 'archive-slug-conflict', false );
+		return true;
 	}
 
 	/**
-	 * Echoes the admin notice to the page
+	 * Display the Notice on the Admin page if `$this->is_visible()` returns true
+	 *
+	 * @return  void
 	 */
 	public function notice() {
+		$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+		$page = get_page_by_path( $archive_slug );
+
 		// What's happening?
-		$page_title = apply_filters( 'the_title', $this->page->post_title, $this->page->ID );
-		$line_1     = __( sprintf( 'The page "%1$s" uses the "/%2$s" slug: the Events Calendar plugin will show its calendar in place of the page.', $page_title, $this->archive_slug ), 'tribe-common' );
+		$page_title = apply_filters( 'the_title', $page->post_title, $page->ID );
+		$line_1     = __( sprintf( 'The page "%1$s" uses the "/%2$s" slug: the Events Calendar plugin will show its calendar in place of the page.', $page_title, $archive_slug ), 'tribe-common' );
 
 		// What the user can do
-		$page_edit_link = get_edit_post_link( $this->page->ID );
+		$page_edit_link        = get_edit_post_link( $page->ID );
 		$can_edit_page_link    = sprintf( __( '<a href="%s">Edit the page slug</a>', 'tribe-common' ), $page_edit_link );
 		$page_edit_link_string = current_user_can( 'edit_pages' ) ? $can_edit_page_link : __( 'Ask the site administrator to edit the page slug', 'tribe-common' );
 
