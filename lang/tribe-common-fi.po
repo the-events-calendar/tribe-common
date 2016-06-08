@@ -2,13 +2,71 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-02 19:08:14+0000\n"
+"PO-Revision-Date: 2016-05-26 04:49:16+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
+
+#: src/Tribe/Log/Admin.php:132
+msgctxt "log selector"
+msgid "None currently available"
+msgstr ""
+
+#: src/Tribe/Log/Admin.php:147
+msgctxt "log engines"
+msgid "None currently available"
+msgstr ""
+
+#: src/Tribe/Log/File_Logger.php:116
+msgid "Default (uses temporary files)"
+msgstr ""
+
+#: src/Tribe/Log.php:210
+msgid "Cannot set %s as the current logging engine"
+msgstr ""
+
+#: src/Tribe/Log.php:309
+msgid "Disabled"
+msgstr ""
+
+#: src/Tribe/Log.php:310
+msgid "Only errors"
+msgstr ""
+
+#: src/Tribe/Log.php:311
+msgid "Warnings and errors"
+msgstr ""
+
+#: src/Tribe/Log.php:312
+msgid "Full debug (all events)"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:457
+msgid "Sorry, there is a problem with your license key. You'll need to %scheck your license%s to have access to updates, downloads, and support."
+msgstr ""
+
+#: src/Tribe/Validate.php:183
+msgid "%s must contain numbers, letters, dashes and undescores only"
+msgstr ""
+
+#: src/admin-views/event-log.php:21
+msgid "Logging level"
+msgstr ""
+
+#: src/admin-views/event-log.php:39
+msgid "Method"
+msgstr ""
+
+#: src/admin-views/event-log.php:99
+msgid "The selected log file is empty or has not been generated yet."
+msgstr ""
+
+#: src/admin-views/event-log.php:104
+msgid "Download log"
+msgstr ""
 
 #: src/admin-views/tribe-options-help.php:37
 msgid "Recent Template Changes"
@@ -130,43 +188,43 @@ msgstr ""
 msgid "Community Tickets"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:788
+#: src/Tribe/Admin/Help_Page.php:767
 msgid "Activate %s"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:788
+#: src/Tribe/Admin/Help_Page.php:767
 msgid "Activate Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:796
+#: src/Tribe/Admin/Help_Page.php:775
 msgid "Upgrade Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:812
+#: src/Tribe/Admin/Help_Page.php:791
 msgid "Install %s"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:812
+#: src/Tribe/Admin/Help_Page.php:791
 msgid "Install Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:835
+#: src/Tribe/Admin/Help_Page.php:814
 msgid "Active Users:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:838
+#: src/Tribe/Admin/Help_Page.php:817
 msgid "Rating:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:863
+#: src/Tribe/Admin/Help_Page.php:842
 msgid "Plugin Active"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:865
+#: src/Tribe/Admin/Help_Page.php:844
 msgid "Plugin Inactive"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:870
+#: src/Tribe/Admin/Help_Page.php:849
 msgid "Visit the Add-on Page"
 msgstr ""
 
@@ -178,16 +236,12 @@ msgstr ""
 msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:440
+#: src/Tribe/PUE/Checker.php:437
 msgid "Thanks for setting up a valid key, it will expire on %s"
 msgstr ""
 
-#: src/Tribe/Validate.php:195
+#: src/Tribe/Validate.php:211
 msgid "%s must be a positive number or percent."
-msgstr ""
-
-#: src/admin-views/tribe-options-display.php:31
-msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:10
@@ -254,7 +308,7 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Settings.php:322
+#: src/Tribe/Settings.php:321
 msgid "Save Changes"
 msgstr ""
 
@@ -338,6 +392,10 @@ msgstr "Versio"
 msgid "Last Update"
 msgstr "Viimeisin päivitys"
 
+#: src/admin-views/event-log.php:57
+msgid "View"
+msgstr "Katso"
+
 #: src/admin-views/tribe-options-display.php:22
 msgid "Date Format Settings"
 msgstr "Päivämäärän muotoilun asetukset"
@@ -347,22 +405,10 @@ msgid "<p>The following three fields accept the date format options available to
 msgstr "<p>Seuraavat kolme kenttää hyväksyvät php date() funktiolla tehdyt päivämäärän muotoiluasetukset. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Opi täältä kuinka tehdään omat päivämäärän muotoiluasetukset</a>.</p>"
 
 #: src/admin-views/tribe-options-display.php:30
-msgid "Date with year"
-msgstr "Päivämäärä vuodella"
-
-#: src/admin-views/tribe-options-display.php:38
-msgid "Date time separator"
-msgstr "Päivämäärän ja ajan erottaja"
-
-#: src/admin-views/tribe-options-display.php:39
-msgid "Enter the separator that will be placed between the date and time, when both are shown."
-msgstr "Anna erottaja, joka sijoitetaan päivämäärän ja ajan väliin, kun kumpikin näytetään."
-
-#: src/admin-views/tribe-options-display.php:46
 msgid "Datepicker Date Format"
 msgstr "Päivämäärän valinnan muotoilu"
 
-#: src/admin-views/tribe-options-display.php:47
+#: src/admin-views/tribe-options-display.php:31
 msgid "Select the date format to use in datepickers"
 msgstr "Valitse muotoilu, jota käytetään päivämäärää valittaessa"
 
@@ -395,39 +441,15 @@ msgstr "Ajatteletko, \"Vau, tämä lisäosa on hämmästyttävä! Minun pitäisi
 msgid "Show The Events Calendar link"
 msgstr "Näytä The Events Calendar -linkki"
 
-#: src/admin-views/tribe-options-general.php:55
-msgid "General Settings"
-msgstr "Yleiset asetukset"
-
-#: src/admin-views/tribe-options-general.php:59
-msgid "Default currency symbol"
-msgstr "Oletusvaluuttasymboli"
-
-#: src/admin-views/tribe-options-general.php:60
-msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
-msgstr "Aseta oletusvaluutta tapahtuman hinnalle. Huomaa, että tämä muutos koskee ainoastaan tulevia tapahtumia."
-
-#: src/admin-views/tribe-options-general.php:67
-msgid "Currency symbol follows value"
-msgstr "Valuutan symboli seuraa arvoa"
-
-#: src/admin-views/tribe-options-general.php:68
-msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
-msgstr "Valuutan symboli on yleensä ennen arvoa. Valitsemalla tämän vaihtoehdon symboli sijoitetaan arvon jälkeen."
-
-#: src/admin-views/tribe-options-general.php:74
-msgid "Miscellaneous Settings"
-msgstr "Muut asetukset"
-
-#: src/admin-views/tribe-options-general.php:81
+#: src/admin-views/tribe-options-general.php:58
 msgid "Debug mode"
 msgstr "Debug-tila"
 
-#: src/admin-views/tribe-options-general.php:87
+#: src/admin-views/tribe-options-general.php:64
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "Ota tämä asetus käyttöön tallentaaksesi debug-tietoja. Oletuksena tiedot kirjatuvat palvelimelle PHP:n virhelokiin. Jos haluat nähdä lokeja selaimessasi, suosittelemme, että asennat %s, ja etsit \"Tribe\"-välilehden debug-tiedoista."
 
-#: src/admin-views/tribe-options-general.php:87
+#: src/admin-views/tribe-options-general.php:64
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar -lisäosa"
 
@@ -440,13 +462,13 @@ msgstr "n/a"
 msgid "You need to upgrade!"
 msgstr "Sinun täytyy päivittää!"
 
-#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:798
+#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:777
 msgid "You are up to date!"
 msgstr "Olet ajan tasalla!"
 
 #: src/Tribe/Admin/Help_Page.php:183
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "Events Calendar PRO"
 
 #: src/Tribe/View_Helpers.php:281
 msgid "Wallis And Futuna Islands"
@@ -536,7 +558,7 @@ msgstr "Iowa"
 msgid "Kansas"
 msgstr "Kansas"
 
-#: src/Tribe/Admin/Help_Page.php:829
+#: src/Tribe/Admin/Help_Page.php:808
 msgid "Latest Version:"
 msgstr "Uusin versio:"
 
@@ -552,7 +574,7 @@ msgstr "Louisiana"
 msgid "Maine"
 msgstr "Maine"
 
-#: src/Tribe/Admin/Help_Page.php:832
+#: src/Tribe/Admin/Help_Page.php:811
 msgid "Requires:"
 msgstr "Vaatii:"
 
@@ -560,7 +582,7 @@ msgstr "Vaatii:"
 msgid "Maryland"
 msgstr "Maryland"
 
-#: src/Tribe/Admin/Help_Page.php:833
+#: src/Tribe/Admin/Help_Page.php:812
 msgid "WordPress "
 msgstr "WordPress "
 
@@ -584,7 +606,7 @@ msgstr "Mississippi"
 msgid "Missouri"
 msgstr "Missouri"
 
-#: src/Tribe/Admin/Help_Page.php:857
+#: src/Tribe/Admin/Help_Page.php:836
 msgid "Premium Add-Ons"
 msgstr "Maksulliset lisäosat"
 
@@ -905,7 +927,7 @@ msgstr "Ranska, Metropolitan"
 msgid "French Guiana"
 msgstr "Ranskan Guayana"
 
-#: src/Tribe/Settings.php:583
+#: src/Tribe/Settings.php:585
 msgid "Settings saved."
 msgstr "Asetukset tallennettu."
 
@@ -941,8 +963,8 @@ msgstr "Ghana"
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:203
-#: src/Tribe/Settings.php:204
+#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:202
+#: src/Tribe/Settings.php:203
 msgid "Events"
 msgstr "tapahtumat"
 
@@ -1271,7 +1293,7 @@ msgstr "Nigeria"
 msgid "Niue"
 msgstr "Niue"
 
-#: src/Tribe/Settings.php:215
+#: src/Tribe/Settings.php:214
 msgid "Settings"
 msgstr "Asetukset"
 
@@ -1355,39 +1377,23 @@ msgstr "Pahoittelemme, validointiavaimen vahvistusserveri ei ole saatavilla."
 msgid "Qatar"
 msgstr "Qatar"
 
-#: src/Tribe/PUE/Checker.php:424
-msgid "Sorry, this key is expired."
-msgstr "Pahoittelemme, tämä avain on vanhentunut."
-
 #: src/Tribe/View_Helpers.php:223
 msgid "Reunion"
 msgstr "Reunion"
-
-#: src/Tribe/PUE/Checker.php:427
-msgid "Sorry, this key is out of installs."
-msgstr "Pahoittelemme, tämän avaimen asennusmäärien raja on saavutettu."
 
 #: src/Tribe/View_Helpers.php:224
 msgid "Romania"
 msgstr "Romania"
 
-#: src/Tribe/PUE/Checker.php:428
-msgid "Why am I seeing this message?"
-msgstr "Miksi näen tämän viestin?"
-
 #: src/Tribe/View_Helpers.php:225
 msgid "Russian Federation"
 msgstr "Venäjä"
-
-#: src/Tribe/PUE/Checker.php:431
-msgid "Sorry, this key is not valid."
-msgstr "Pahoittelemme, tämä avain ei kelpaa."
 
 #: src/Tribe/View_Helpers.php:226
 msgid "Rwanda"
 msgstr "Ruanda"
 
-#: src/Tribe/PUE/Checker.php:435
+#: src/Tribe/PUE/Checker.php:432
 msgid "Valid Key! Expires on %s"
 msgstr "Lisenssiavain kelvollinen! Erääntyy %s"
 
@@ -1395,7 +1401,7 @@ msgstr "Lisenssiavain kelvollinen! Erääntyy %s"
 msgid "Saint Kitts And Nevis"
 msgstr "Saint Kitts ja Nevis"
 
-#: src/Tribe/PUE/Checker.php:448
+#: src/Tribe/PUE/Checker.php:445
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
@@ -1407,7 +1413,7 @@ msgstr "Saint Lucia"
 msgid "Saint Vincent And The Grenadines"
 msgstr "Saint Vincent ja Grenadiinit"
 
-#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
+#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
 msgid "Events Settings"
 msgstr "Tapahtumien asetukset"
 
@@ -1415,7 +1421,7 @@ msgstr "Tapahtumien asetukset"
 msgid "Samoa"
 msgstr "Samoa"
 
-#: src/Tribe/Settings.php:300
+#: src/Tribe/Settings.php:299
 msgid "%s Settings"
 msgstr "%s asetukset"
 
@@ -1423,7 +1429,7 @@ msgstr "%s asetukset"
 msgid "San Marino"
 msgstr "San Marino"
 
-#: src/Tribe/Settings.php:314
+#: src/Tribe/Settings.php:313
 msgid "You've requested a non-existent tab."
 msgstr "Välilehteä ei ole olemassa."
 
@@ -1431,7 +1437,7 @@ msgstr "Välilehteä ei ole olemassa."
 msgid "Sao Tome And Principe"
 msgstr "Sao Tome ja Principe"
 
-#: src/Tribe/Settings.php:370
+#: src/Tribe/Settings.php:369
 msgid "You don't have permission to do that."
 msgstr "Sinulla ei ole lupaa tehdä tätä."
 
@@ -1439,7 +1445,7 @@ msgstr "Sinulla ei ole lupaa tehdä tätä."
 msgid "Saudi Arabia"
 msgstr "Saudi-Arabia"
 
-#: src/Tribe/Settings.php:376
+#: src/Tribe/Settings.php:375
 msgid "The request was sent insecurely."
 msgstr "Pyyntö lähetettiin suojaamattomana."
 
@@ -1447,7 +1453,7 @@ msgstr "Pyyntö lähetettiin suojaamattomana."
 msgid "Senegal"
 msgstr "Senegal"
 
-#: src/Tribe/Settings.php:382
+#: src/Tribe/Settings.php:381
 msgid "The request wasn't sent from this tab."
 msgstr "Pyyntöä ei lähetetty tältä välilehdeltä."
 
@@ -1455,7 +1461,7 @@ msgstr "Pyyntöä ei lähetetty tältä välilehdeltä."
 msgid "Serbia"
 msgstr "Serbia"
 
-#: src/Tribe/Settings.php:550
+#: src/Tribe/Settings.php:549
 msgid "Your form had the following errors:"
 msgstr "Lomakkeessa oli seuraavat virheet:"
 
@@ -1463,7 +1469,7 @@ msgstr "Lomakkeessa oli seuraavat virheet:"
 msgid "Seychelles"
 msgstr "Seychellit"
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:559
 msgid "None of your settings were saved. Please try again."
 msgstr "Asetuksia ei tallennettu. Ole hyvä ja yritä uudelleen."
 
@@ -1471,7 +1477,7 @@ msgstr "Asetuksia ei tallennettu. Ole hyvä ja yritä uudelleen."
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/Tribe/Settings.php:561
+#: src/Tribe/Settings.php:560
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Edellä olevaa asetusta ei tallennettu. Muiden asetusten tallennus onnistui."
@@ -1687,60 +1693,60 @@ msgstr "%s saa sisältää vain numeroita ja kirjaimia"
 msgid "%s must contain numbers, letters and dots only"
 msgstr "%s saa sisältää vain numeroita, kirjaimia ja pisteitä"
 
-#: src/Tribe/Validate.php:181 src/Tribe/Validate.php:209
+#: src/Tribe/Validate.php:197 src/Tribe/Validate.php:225
 msgid "%s must be a positive number."
 msgstr "%s täytyy olla positiivinen luku."
 
-#: src/Tribe/Validate.php:224
+#: src/Tribe/Validate.php:240
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr "%s on oltava osoite-muotoa (numeroita, kirjaimia, väliviivoja ja alaviivoja)."
 
-#: src/Tribe/Validate.php:239
+#: src/Tribe/Validate.php:255
 msgid "%s must be a valid absolute URL."
 msgstr "%s on oltava kelvollinen URL."
 
-#: src/Tribe/Validate.php:255 src/Tribe/Validate.php:272
-#: src/Tribe/Validate.php:294
+#: src/Tribe/Validate.php:271 src/Tribe/Validate.php:288
+#: src/Tribe/Validate.php:310
 msgid "%s must have a value that's part of its options."
 msgstr "%s on oltava arvo, joka on sen asetuksissa."
 
-#: src/Tribe/Validate.php:308
+#: src/Tribe/Validate.php:324
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "Kentän %s validointi epäonnistui, koska vertailuarvoa ei annettu"
 
-#: src/Tribe/Validate.php:315
+#: src/Tribe/Validate.php:331
 msgid "%s cannot be the same as %s."
 msgstr "%s ei voi olla sama kuin %s ."
 
-#: src/Tribe/Validate.php:317
+#: src/Tribe/Validate.php:333
 msgid "%s cannot be a duplicate"
 msgstr "%s ei voi olla kaksoiskappale"
 
-#: src/Tribe/Validate.php:333
+#: src/Tribe/Validate.php:349
 msgid "%s must be a number or percentage."
 msgstr "%s täytyy olla numero tai prosenttiluku."
 
-#: src/Tribe/Validate.php:387
+#: src/Tribe/Validate.php:403
 msgid "%s must be a number between 0 and 21."
 msgstr "%s täytyy olla numero väliltä 0 ja 21."
 
-#: src/Tribe/Validate.php:403
+#: src/Tribe/Validate.php:419
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s saa sisältää vain kirjaimia, numeroita, väliviivoja, heittomerkkejä ja välilyöntejä."
 
-#: src/Tribe/Validate.php:419
+#: src/Tribe/Validate.php:435
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s saa olla vain kirjaimia, välilyöntejä, heittomerkkejä ja viivoja."
 
-#: src/Tribe/Validate.php:433
+#: src/Tribe/Validate.php:449
 msgid "%s must consist of 5 numbers."
 msgstr "%s täytyy sisältää 5 numeroa."
 
-#: src/Tribe/Validate.php:447
+#: src/Tribe/Validate.php:463
 msgid "%s must be a phone number."
 msgstr "%s on oltava puhelinnumero."
 
-#: src/Tribe/Validate.php:463
+#: src/Tribe/Validate.php:479
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "Maaluettelossa tulee olla yksi maa per rivi seuraavassa muodossa: <br>US, Yhdysvallat <br> UK, Iso-Britannia."
 
