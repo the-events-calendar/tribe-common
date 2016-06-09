@@ -170,6 +170,7 @@ class Tribe__Main {
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'register_resources' ), 1 );
 		add_action( 'init', array( $this, 'register_vendor' ), 1 );
+		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
 
 		// Enqueue only when needed (admin)
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
