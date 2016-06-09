@@ -103,7 +103,7 @@ class Tribe__Admin__Notices {
 	 * This is a helper to actually print the Message
 	 *
 	 * @param  string  $slug    The Name of the Notice
-	 * @param  string  $content The content of the notice
+	 * @param  string  $content The content of the n
 	 * @param  boolean $return  Echo or return the content
 	 * @return boolean|string
 	 */
@@ -241,7 +241,7 @@ class Tribe__Admin__Notices {
 			return $this->notices;
 		}
 
-		if ( ! empty( $this->notices[ $slug ] ) ){
+		if ( ! empty( $this->notices[ $slug ] ) ) {
 			return $this->notices[ $slug ];
 		}
 
