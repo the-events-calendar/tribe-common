@@ -181,7 +181,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 				$plugin_details    = explode( '/', $this->get_plugin_file() );
 				$plugin_folder     = get_plugins( '/' . $plugin_details[0] );
-				$this->plugin_name = $plugin_folder[ $plugin_details[1] ]['Name'];
+				$this->plugin_name = isset( $plugin_details[1] ) ? $plugin_folder[ $plugin_details[1] ]['Name'] : null;
 			}
 		}
 
@@ -381,69 +381,79 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		}
 
+		public function validate_key( $key ) {
+			$response           = array();
+			$response['status'] = 0;
+
+			if ( ! $key ) {
+				$response['message'] = sprintf( esc_html__( 'Hmmm... something\'s wrong with this validator. Please contact %ssupport%s.', 'tribe-common' ), '<a href="http://m.tri.be/1u">', '</a>' );
+				return $response;
+			}
+
+			$queryArgs = array(
+				'pu_install_key'          => trim( $key ),
+				'pu_checking_for_updates' => '1',
+			);
+
+			//include version info
+			$queryArgs['pue_active_version'] = $this->get_installed_version();
+
+			global $wp_version;
+			$queryArgs['wp_version'] = $wp_version;
+
+			// For multisite, return the network-level siteurl ... in
+			// all other cases return the actual URL being serviced
+			$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
+
+			if ( is_multisite() ) {
+				$queryArgs['multisite']         = 1;
+				$queryArgs['network_activated'] = is_plugin_active_for_network( $this->get_plugin_file() );
+				global $wpdb;
+				$queryArgs['active_sites'] = $wpdb->get_var( "SELECT count(blog_id) FROM $wpdb->blogs WHERE public = '1' AND archived = '0' AND spam = '0' AND deleted = '0'" );
+			} else {
+				$queryArgs['multisite']         = 0;
+				$queryArgs['network_activated'] = 0;
+				$queryArgs['active_sites']      = 1;
+			}
+
+			$pluginInfo = $this->request_info( $queryArgs );
+			$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : esc_html__( 'unknown date', 'tribe-common' );
+
+			if ( empty( $pluginInfo ) ) {
+				$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
+			} elseif ( isset( $pluginInfo->api_expired ) && $pluginInfo->api_expired == 1 ) {
+				$response['message'] = $this->get_api_message( $pluginInfo );
+			} elseif ( isset( $pluginInfo->api_upgrade ) && $pluginInfo->api_upgrade == 1 ) {
+				$response['message'] = $this->get_api_message( $pluginInfo );
+			} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
+				$response['message'] = $this->get_api_message( $pluginInfo );
+			} else {
+				$api_secret_key = get_option( $this->pue_install_key );
+				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
+					$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration );
+				} else {
+					// Set the key
+					update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
+
+					$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key, it will expire on %s', 'tribe-common' ), $expiration );
+				}
+
+				$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
+				$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
+				$response['expiration'] = $expiration;
+			}
+
+			return $response;
+		}
+
 		/**
 		 * Echo JSON results for key validation
 		 */
 		public function ajax_validate_key() {
-			$response           = array();
-			$response['status'] = 0;
-			if ( isset( $_POST['key'] ) ) {
+			$key = isset( $_POST['key'] ) ? $_POST['key'] : null;
 
-				$queryArgs = array(
-					'pu_install_key'          => trim( $_POST['key'] ),
-					'pu_checking_for_updates' => '1',
-				);
+			$response = $this->validate_key( $key );
 
-				//include version info
-				$queryArgs['pue_active_version'] = $this->get_installed_version();
-
-				global $wp_version;
-				$queryArgs['wp_version'] = $wp_version;
-
-				// For multisite, return the network-level siteurl ... in
-				// all other cases return the actual URL being serviced
-				$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
-
-				if ( is_multisite() ) {
-					$queryArgs['multisite']         = 1;
-					$queryArgs['network_activated'] = is_plugin_active_for_network( $this->get_plugin_file() );
-					global $wpdb;
-					$queryArgs['active_sites'] = $wpdb->get_var( "SELECT count(blog_id) FROM $wpdb->blogs WHERE public = '1' AND archived = '0' AND spam = '0' AND deleted = '0'" );
-				} else {
-					$queryArgs['multisite']         = 0;
-					$queryArgs['network_activated'] = 0;
-					$queryArgs['active_sites']      = 1;
-				}
-
-				$pluginInfo = $this->request_info( $queryArgs );
-				$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : esc_html__( 'unknown date', 'tribe-common' );
-
-				if ( empty( $pluginInfo ) ) {
-					$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
-				} elseif ( isset( $pluginInfo->api_expired ) && $pluginInfo->api_expired == 1 ) {
-					$response['message'] = $this->get_api_message( $pluginInfo );
-				} elseif ( isset( $pluginInfo->api_upgrade ) && $pluginInfo->api_upgrade == 1 ) {
-					$response['message'] = $this->get_api_message( $pluginInfo );
-				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
-					$response['message'] = $this->get_api_message( $pluginInfo );
-				} else {
-					$api_secret_key = get_option( $this->pue_install_key );
-					if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
-						$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration );
-					} else {
-						// Set the key
-						update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
-
-						$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key, it will expire on %s', 'tribe-common' ), $expiration );
-					}
-
-					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
-					$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
-					$response['expiration'] = $expiration;
-				}
-			} else {
-				$response['message'] = sprintf( esc_html__( 'Hmmm... something\'s wrong with this validator. Please contact %ssupport%s.', 'tribe-common' ), '<a href="http://m.tri.be/1u">', '</a>' );
-			}
 			echo json_encode( $response );
 			exit;
 		}
