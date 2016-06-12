@@ -80,13 +80,15 @@ class Tribe__Admin__Notice__Archive_Slug_Conflict {
 	 */
 	public function notice() {
 		// What's happening?
-		$page_title = apply_filters( 'the_title', $this->page->post_title, $this->page->ID );
-		$line_1     = __( sprintf( 'The page "%1$s" uses the "/%2$s" slug: the Events Calendar plugin will show its calendar in place of the page.', $page_title, $this->archive_slug ), 'tribe-common' );
+		$page_title     = apply_filters( 'the_title', $this->page->post_title, $this->page->ID );
+		$post_type_name = $this->get_post_type_name();
+
+		$line_1         = __( sprintf( 'The %1$s "%2$s" uses the "/%3$s" slug: the Events Calendar plugin will show its calendar in place of the %4$s.', $post_type_name, $page_title, $this->archive_slug, $post_type_name ), 'tribe-common' );
 
 		// What the user can do
 		$page_edit_link = get_edit_post_link( $this->page->ID );
-		$can_edit_page_link    = sprintf( __( '<a href="%s">Edit the page slug</a>', 'tribe-common' ), $page_edit_link );
-		$page_edit_link_string = current_user_can( 'edit_pages' ) ? $can_edit_page_link : __( 'Ask the site administrator to edit the page slug', 'tribe-common' );
+		$can_edit_page_link    = sprintf( __( '<a href="%1$s">Edit the %2$s slug</a>', 'tribe-common' ), $page_edit_link, $post_type_name );
+		$page_edit_link_string = current_user_can( 'edit_pages' ) ? $can_edit_page_link : sprintf( __( 'Ask the site administrator to edit the %s slug', 'tribe-common' ), $post_type_name );
 
 		$settings_cap                = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
 		$admin_slug                  = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
@@ -97,5 +99,21 @@ class Tribe__Admin__Notice__Archive_Slug_Conflict {
 		$line_2 = __( sprintf( '%1$s or %2$s', $page_edit_link_string, $events_settings_link_string ), 'tribe-common' );
 
 		echo sprintf( '<div id="message" class="notice error is-dismissible tribe-dismiss-notice" data-ref="archive-slug-conflict"><p>%s</p><p>%s</p></div>', $line_1, $line_2 );
+	}
+
+	/**
+	 * Gets the singular name of the post type of the item whose slug conflicts.
+	 *
+	 * @return string
+	 */
+	public function get_post_type_name() {
+
+		$post_type = get_post_type_object( get_post_type( $this->page->ID ) );
+
+		if ( empty( $post_type ) || ! isset( $post_type->labels->singular_name ) ) {
+			return 'page';
+		}
+
+		return strtolower( $post_type->labels->singular_name );
 	}
 }
