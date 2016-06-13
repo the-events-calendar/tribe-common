@@ -127,10 +127,14 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			if ( is_array( $keys ) && ! empty( $keys ) ) {
 				$secure_keys = array();
 				foreach ( $keys as $plugin => $license ) {
-					$secure_keys[ $plugin ] = substr_replace( $license, 'xxxxx', - 30 );;
+					$secure_keys[ $plugin ] = preg_replace( '/^(.{4}).*(.{4})$/', '$1' . str_repeat( '#', 32 ) . '$2', $license );
 				}
 				$keys = $secure_keys;
 			}
+
+			//Server
+			$server = explode( ' ', $_SERVER['SERVER_SOFTWARE'] );
+			$server = explode( '/', reset( $server ) );
 
 			//PHP Information
 			$php_info = array();
@@ -144,8 +148,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			);
 			global $wpdb;
 			foreach ( $php_vars as $php_var ) {
-				if ( isset( $wpdb->qm_php_vars ) and isset( $wpdb->qm_php_vars[$php_var] ) ) {
-					$val = $wpdb->qm_php_vars[$php_var];
+				if ( isset( $wpdb->qm_php_vars ) and isset( $wpdb->qm_php_vars[ $php_var ] ) ) {
+					$val = $wpdb->qm_php_vars[ $php_var ];
 				} else {
 					$val = ini_get( $php_var );
 				}
@@ -155,26 +159,30 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$systeminfo = array(
 				'Home URL'               => get_home_url(),
 				'Site URL'               => get_site_url(),
-				'name'                   => $user->display_name,
-				'email'                  => $user->user_email,
-				'install keys'           => $keys,
+				'Site Language'          => get_option( 'WPLANG' ) ? get_option( 'WPLANG' ) : esc_html__( 'English', 'tribe-common' ),
+				'Character Set'          => get_option( 'blog_charset' ),
+				'Name'                   => $user->display_name,
+				'Email'                  => $user->user_email,
+				'Install keys'           => $keys,
 				'WordPress version'      => get_bloginfo( 'version' ),
 				'PHP version'            => phpversion(),
 				'PHP'                    => $php_info,
-				'sapi'                   => php_sapi_name(),
-				'plugins'                => $plugins,
-				'network plugins'        => $network_plugins,
-				'mu plugins'             => $mu_plugins,
-				'theme'                  => wp_get_theme()->get( 'Name' ),
-				'multisite'              => is_multisite(),
-				'settings'               => Tribe__Settings_Manager::get_options(),
-				'WP timezone'            => get_option( 'timezone_string', esc_html__( 'Unknown or not set', 'tribe-common' ) ),
-				'WP GMT Offset'          => ' ' . get_option( 'gmt_offset', esc_html__( 'Unknown or not set', 'tribe-common' ) ),
-				'server timezone'        => date_default_timezone_get(),
+				'Server'                 => $server[0],
+				'SAPI'                   => php_sapi_name(),
+				'Plugins'                => $plugins,
+				'Network Plugins'        => $network_plugins,
+				'MU Plugins'             => $mu_plugins,
+				'Theme'                  => wp_get_theme()->get( 'Name' ),
+				'Multisite'              => is_multisite(),
+				'Settings'               => Tribe__Settings_Manager::get_options(),
+				'WP Timezone'            => get_option( 'timezone_string' ) ? get_option( 'timezone_string' ) : esc_html__( 'Unknown or not set', 'tribe-common' ),
+				'WP GMT Offset'          => get_option( 'gmt_offset' ) ? ' ' . get_option( 'gmt_offset' ) : esc_html__( 'Unknown or not set', 'tribe-common' ),
+				'Server Timezone'        => date_default_timezone_get(),
 				'WP Date Format'         => get_option( 'date_format' ),
 				'WP Time Format'         => get_option( 'time_format' ),
-				'common library dir'     => $GLOBALS['tribe-common-info']['dir'],
-				'common library version' => $GLOBALS['tribe-common-info']['version'],
+				'Week Starts On'         => get_option( 'start_of_week' ),
+				'Common Library Dir'     => $GLOBALS['tribe-common-info']['dir'],
+				'Common Library Version' => $GLOBALS['tribe-common-info']['version'],
 			);
 
 			if ( $this->rewrite_rules_purged ) {
@@ -289,8 +297,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 							console.log( "genrate and send" );
 							do_optin_change( "generate" );
 						} else {
-							console.log( "delete" );
-							do_optin_change();
+							console.log( "remove" );
+							do_optin_change( "remove" );
 						}
 					});
 
@@ -374,10 +382,10 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		public static function ajax_sysinfo_optin() {
 
 			if ( ! isset( $_POST['confirm'] ) || ! wp_verify_nonce( $_POST['confirm'], 'sysinfo_optin' ) ) {
-				exit( '-1' );
+				Tribe__Support::ajax_error( 'Permission Error' );
 			}
 
-			if ( $_POST['generate_key'] ) {
+			if ( 'generate' == $_POST['generate_key'] ) {
 
 				$random    = base_convert( rand( 0, getrandmax() ), 10, 36 );
 				$optin_key = hash( 'sha1', $random );
@@ -386,38 +394,45 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				//Only Connect If a License Exists
 				$keys = apply_filters( 'tribe-pue-install-keys', array() );
 				if ( is_array( $keys ) && ! empty( $keys ) ) {
-					log_me( 'optin' );
 					Tribe__Support::send_sysinfo_key( $optin_key );
 
-					exit( '1' );
 				}
 
 
 				Tribe__Support::ajax_ok( 'System Info Key Generated' );
 
-				exit( '1' );
+			} elseif ( 'remove' == $_POST['generate_key'] ) {
+				$optin_key = get_option( 'tribe_systeminfo_optin' );
+
+				delete_option( 'tribe_systeminfo_optin' );
+
+				Tribe__Support::send_sysinfo_key( $optin_key, null, 'remove' );
 
 			}
 
-			delete_option( 'tribe_systeminfo_optin' );
-
-			Tribe__Support::ajax_ok( 'System Info Key Deleted' );
-
-			exit( '1' );
+			Tribe__Support::ajax_error( 'Permission Error' );
 
 		}
 
 		/**
 		 * Contact Tribe Website to Add SysInfo Key
 		 */
-		public static function send_sysinfo_key( $optin_key = null, $url = null ) {
+		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null ) {
 
-			$url      = $url ? $url : urlencode( str_replace( array( 'http://', 'https://' ), '', get_site_url() ) );
-			$pue      = new Tribe__PUE__Checker( 'http://tri.be/', 'events-calendar' );
-			$query    = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url;
+			$url   = $url ? $url : urlencode( str_replace( array( 'http://', 'https://' ), '', get_site_url() ) );
+			$pue   = new Tribe__PUE__Checker( 'http://tri.be/', 'events-calendar' );
+			$query = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url . $remove;
+			if ( $remove ) {
+				$query = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url . '?status=remove';
+			}
 			$response = wp_remote_get( esc_url( $query ) );
 
-			Tribe__Support::ajax_ok( json_encode( $response ) );
+			// make sure the response came back okay
+			if ( is_wp_error( $response ) ) {
+				SysInfo::ajax_error( json_decode( wp_remote_retrieve_body( $response ) ) );
+			}
+
+			Tribe__Support::ajax_ok( json_decode( wp_remote_retrieve_body( $response ) ) );
 
 		}
 
@@ -429,12 +444,10 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		private static function ajax_ok( $message ) {
 
 			header( 'Content-type: application/json' );
-			echo json_encode(
-				array(
-					"success" => true,
-					"message"    => $message
-				)
-			);
+			echo json_encode( array(
+				"success" => true,
+				"message" => $message
+			) );
 			exit;
 		}
 
@@ -447,12 +460,10 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		private static function ajax_error( $message = "" ) {
 			header( 'Content-type: application/json' );
 
-			echo json_encode(
-				array(
-					"success" => false,
-					"message" => $message
-				)
-			);
+			echo json_encode( array(
+				"success" => false,
+				"message" => $message
+			) );
 			die;
 		}
 
