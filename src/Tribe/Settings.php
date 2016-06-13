@@ -24,7 +24,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * Page of the parent menu
 		 * @var string
 		 */
-		public static $parent_page = 'admin.php';
+		public static $parent_page = 'edit.php';
 
 		/**
 		 * @var Tribe__Admin__Live_Date_Preview
@@ -612,10 +612,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			// Allow the link to be "changed" on the fly
 			$args = wp_parse_args( $args, $defaults );
 			$parent = self::$parent_page;
-
-			if ( ! is_admin() ) {
-				$parent = 'admin.php';
-			}
 
 			$url = admin_url( $parent );
 
