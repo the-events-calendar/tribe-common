@@ -157,6 +157,14 @@ class Tribe__Main {
 			apply_filters( 'tribe_events_css_version', self::VERSION )
 		);
 
+		wp_register_script(
+			'tribe-clipboard-js',
+			$vendor_base . '/clipboard-js/dist/clipboard.js',
+			array( 'jquery' ),
+			apply_filters( 'tribe_events_css_version', self::VERSION ),
+			true
+		);
+
 	}
 
 	/**
@@ -222,6 +230,7 @@ class Tribe__Main {
 		$helper = Tribe__Admin__Helpers::instance();
 		if ( $helper->is_post_type_screen() ) {
 			wp_enqueue_style( 'tribe-jquery-ui-datepicker' );
+			wp_enqueue_script( 'tribe-clipboard-js' );
 		}
 	}
 
