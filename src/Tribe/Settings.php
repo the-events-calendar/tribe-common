@@ -615,6 +615,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 			$url = admin_url( $args['parent'] );
 
+			// keep the resulting URL args clean
+			unset( $args['parent'] );
+
 			return apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url );
 		}
 
