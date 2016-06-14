@@ -584,7 +584,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				echo apply_filters( 'tribe_settings_success_message', $output, $this->currentTab );
 			}
 
-			//Delete Temporary Options Even if No Errors so changes are shown
+			//Delete Temporary Options After Display Errors and Success
 			$this->deleteOptions();
 		}
 
