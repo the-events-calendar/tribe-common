@@ -607,13 +607,13 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public function get_url( array $args = array() ) {
 			$defaults = array(
 				'page' => $this->adminSlug,
+				'parent' => self::$parent_page,
 			);
 
 			// Allow the link to be "changed" on the fly
 			$args = wp_parse_args( $args, $defaults );
-			$parent = self::$parent_page;
 
-			$url = admin_url( $parent );
+			$url = admin_url( $args['parent'] );
 
 			return apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url );
 		}
