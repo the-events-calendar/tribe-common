@@ -564,9 +564,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 				// final output, filtered of course
 				echo apply_filters( 'tribe_settings_error_message', $output );
-
-				// Now that we've displayed the errors we can delete them
-				$this->deleteOptions();
 			}
 		}
 
@@ -586,6 +583,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				$output  = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
 				echo apply_filters( 'tribe_settings_success_message', $output, $this->currentTab );
 			}
+
+			//Delete Temporary Options After Display Errors and Success
+			$this->deleteOptions();
 		}
 
 		/**
