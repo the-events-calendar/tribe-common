@@ -285,53 +285,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				$checked = 'checked';
 			}
 
-			$opt_in = '<input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin" ' . esc_attr( $checked ) . '/>';
-			$opt_in .= '<label for="tribe_auto_sysinfo_opt_in">' . esc_html__( 'Yes, automatically share my system information with the Modern Tribe support team', 'tribe-common' ) . '</label>';
+			$opt_in = '<p class="system-info"><input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin" ' . esc_attr( $checked ) . '/><label for="tribe_auto_sysinfo_opt_in">' . esc_html__( 'Yes, automatically share my system information with the Modern Tribe support team', 'tribe-common' ) . '</label></p>';
 			$opt_in .= '<p class="tooltip description">' . esc_html__( 'Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties.', 'tribe-common' ) . '</p>';
 			$opt_in .= '<p class="tribe-sysinfo-optin-msg"></p>';
-
-			$opt_in .= '<script>
-				jQuery( function ( $ ) {
-					$( "#tribe_auto_sysinfo_opt_in" ).change(function() {
-						if(this.checked) {
-							console.log( "genrate and send" );
-							do_optin_change( "generate" );
-						} else {
-							console.log( "remove" );
-							do_optin_change( "remove" );
-						}
-					});
-
-					/**
-					 * Handle Opt-in Change
-					 */
-					function do_optin_change( generate=null ) {
-
-						var request = {
-							"action": "tribe_toggle_sysinfo_optin",
-							"confirm": "' . wp_create_nonce( "sysinfo_optin" ) . '",
-							"generate_key": generate
-						};
-
-						// Send our request
-						$.post(
-							ajaxurl,
-							request,
-							function( results ) {
-							if ( results.success ) {
-								$( ".tribe-sysinfo-optin-msg" ).text( results.message );
-							}
-						},"json"
-
-						).fail( function( results ) {
-							$( ".tribe-sysinfo-optin-msg" ).text( results.message );
-						});
-
-					}
-
-				});
-				</script>';
-
 
 			return $opt_in;
 		}
@@ -349,12 +305,12 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$optin_key = get_option( 'tribe_systeminfo_optin' );
 
 			if ( ! $optin_key ) {
-				return __( 'Invalid Opt-in Key', 'tribe-common' );
+				Tribe__Support::ajax_error( __( 'Invalid Key', 'tribe-common' ) );
 			}
 
 			$key = $query['key'];
 			if ( $key != $optin_key ) {
-				return __( 'Invalid System Info Key', 'tribe-common' );
+				Tribe__Support::ajax_error( __( 'Invalid Key', 'tribe-common' ) );
 			}
 
 			$support    = Tribe__Support::getInstance();
@@ -395,11 +351,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				$keys = apply_filters( 'tribe-pue-install-keys', array() );
 				if ( is_array( $keys ) && ! empty( $keys ) ) {
 					Tribe__Support::send_sysinfo_key( $optin_key );
-
 				}
-
-
-				Tribe__Support::ajax_ok( 'System Info Key Generated' );
 
 			} elseif ( 'remove' == $_POST['generate_key'] ) {
 				$optin_key = get_option( 'tribe_systeminfo_optin' );
@@ -416,6 +368,10 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 		/**
 		 * Contact Tribe Website to Add SysInfo Key
+		 *
+		 * @param null $optin_key provide key for system info
+		 * @param null $url domain of current site
+		 * @param null $remove string used if removing $optin_key from tec.com
 		 */
 		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null ) {
 
@@ -426,20 +382,23 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				$query = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url . '?status=remove';
 			}
 			$response = wp_remote_get( esc_url( $query ) );
+			$response = json_decode( wp_remote_retrieve_body( $response ) );
 
 			// make sure the response came back okay
-			if ( is_wp_error( $response ) ) {
-				SysInfo::ajax_error( json_decode( wp_remote_retrieve_body( $response ) ) );
+			if ( ! $response->success ) {
+				Tribe__Support::ajax_error( $response->message );
 			}
 
-			Tribe__Support::ajax_ok( json_decode( wp_remote_retrieve_body( $response ) ) );
+			Tribe__Support::ajax_ok( $response->message );
 
 		}
 
 		/**
 		 * Sets an AJAX response, returns a JSON array and ends the execution.
 		 *
-		 * @param $data
+		 * @version 4.3
+		 *
+		 * @param $message text to send back to script on success
 		 */
 		private static function ajax_ok( $message ) {
 
@@ -455,7 +414,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		/**
 		 * Sets an AJAX error, returns a JSON array and ends the execution.
 		 *
-		 * @param string $message
+		 * version 4.3
+		 *
+		 * @param string $message text to send back to script on fail
 		 */
 		private static function ajax_error( $message = "" ) {
 			header( 'Content-type: application/json' );

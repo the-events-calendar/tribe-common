@@ -135,6 +135,14 @@ class Tribe__Main {
 			apply_filters( 'tribe_events_css_version', self::VERSION ),
 			true
 		);
+
+		wp_register_script(
+			'tribe-common-js',
+			$resources_url . '/js/tribe-common-js.js',
+			array( 'jquery' ),
+			apply_filters( 'tribe_events_css_version', self::VERSION ),
+			true
+		);
 	}
 
 	/**
@@ -217,12 +225,19 @@ class Tribe__Main {
 	public function admin_enqueue_scripts() {
 		wp_enqueue_script( 'tribe-inline-bumpdown' );
 		wp_enqueue_script( 'tribe-notice-dismiss' );
+		wp_enqueue_script( 'tribe-common-js' );
 		wp_enqueue_style( 'tribe-common-admin' );
 
 		$helper = Tribe__Admin__Helpers::instance();
 		if ( $helper->is_post_type_screen() ) {
 			wp_enqueue_style( 'tribe-jquery-ui-datepicker' );
 		}
+
+		//Localize script
+		wp_localize_script( 'tribe-notice-dismiss', 'systeminfo', array(
+			'sysinfo_optin' => wp_create_nonce( 'sysinfo_optin' )
+		) );
+
 	}
 
 	/**
