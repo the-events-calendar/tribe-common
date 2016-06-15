@@ -432,35 +432,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
 					$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration );
 				} else {
-<<<<<<< HEAD
-					$api_secret_key = get_option( $this->pue_install_key );
-					if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
-						$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration );
-					} else {
-						// Set the key
-						update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
-
-						$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key, it will expire on %s', 'tribe-common' ), $expiration );
-
-						//Set SysInfo Key on Tec.com After Successful Validation of License
-						$optin_key = get_option( 'tribe_systeminfo_optin' );
-
-						if ( $optin_key ) {
-							Tribe__Support::send_sysinfo_key( $optin_key, $queryArgs['domain'] );
-						}
-
-					}
-
-					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
-					$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
-					$response['expiration'] = $expiration;
-
-=======
 					// Set the key
 					update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
 
 					$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key, it will expire on %s', 'tribe-common' ), $expiration );
->>>>>>> origin/develop
 				}
 
 				$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
