@@ -204,7 +204,8 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 						apply_filters( 'tribe_common_event_page_capability', 'manage_options' ),
 						'tribe-common',
 						null,
-						'dashicons-calendar'
+						'dashicons-calendar',
+						6
 					);
 				}
 
