@@ -338,7 +338,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		public static function ajax_sysinfo_optin() {
 
 			if ( ! isset( $_POST['confirm'] ) || ! wp_verify_nonce( $_POST['confirm'], 'sysinfo_optin' ) ) {
-				Tribe__Support::ajax_error( 'Permission Error' );
+				Tribe__Support::ajax_error( __( 'Permission Error', 'tribe-common' ) );
 			}
 
 			if ( 'generate' == $_POST['generate_key'] ) {
@@ -351,6 +351,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				$keys = apply_filters( 'tribe-pue-install-keys', array() );
 				if ( is_array( $keys ) && ! empty( $keys ) ) {
 					Tribe__Support::send_sysinfo_key( $optin_key );
+				} else {
+					Tribe__Support::ajax_ok( __( 'Unique System Info Key Generated', 'tribe-common' ) );
 				}
 
 			} elseif ( 'remove' == $_POST['generate_key'] ) {
@@ -362,7 +364,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 			}
 
-			Tribe__Support::ajax_error( 'Permission Error' );
+			Tribe__Support::ajax_error( __( 'Permission Error', 'tribe-common' ) );
 
 		}
 
@@ -373,7 +375,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		 * @param null $url domain of current site
 		 * @param null $remove string used if removing $optin_key from tec.com
 		 */
-		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null ) {
+		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null, $pueadd = null ) {
 
 			$url   = $url ? $url : urlencode( str_replace( array( 'http://', 'https://' ), '', get_site_url() ) );
 			$pue   = new Tribe__PUE__Checker( 'http://tri.be/', 'events-calendar' );
@@ -384,13 +386,14 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$response = wp_remote_get( esc_url( $query ) );
 			$response = json_decode( wp_remote_retrieve_body( $response ) );
 
-			// make sure the response came back okay
-			if ( ! $response->success ) {
-				Tribe__Support::ajax_error( $response->message );
+			if ( ! $pueadd ) {
+				// make sure the response came back okay
+				if ( ! $response->success ) {
+					Tribe__Support::ajax_error( $response->message );
+				}
+
+				Tribe__Support::ajax_ok( $response->message );
 			}
-
-			Tribe__Support::ajax_ok( $response->message );
-
 		}
 
 		/**
