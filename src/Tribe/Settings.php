@@ -611,13 +611,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 			// Allow the link to be "changed" on the fly
 			$args = wp_parse_args( $args, $defaults );
-			$parent = self::$parent_page;
-
-			if ( ! is_admin() ) {
-				$parent = 'admin.php';
-			}
-
-			$url = admin_url( $parent );
+			$url = admin_url( self::$parent_page );
 
 			return apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url );
 		}
