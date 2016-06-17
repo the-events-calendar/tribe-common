@@ -68,6 +68,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'attributes'       => array(),
 				'class'            => null,
 				'label'            => null,
+				'placeholder'      => null,
 				'tooltip'          => null,
 				'size'             => 'medium',
 				'html'             => null,
@@ -81,7 +82,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'clear_after'      => true,
 			);
 
-			// a list of valid field types, to prevent screwy behaviour
+			// a list of valid field types, to prevent screwy behavior
 			$this->valid_field_types = array(
 				'heading',
 				'html',
@@ -106,6 +107,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$id         = esc_attr( $id );
 			$type       = esc_attr( $args['type'] );
 			$name       = esc_attr( $args['name'] );
+			$placeholder = esc_attr( $args['placeholder'] );
 			$class      = sanitize_html_class( $args['class'] );
 			$label      = wp_kses(
 				$args['label'], array(
@@ -175,7 +177,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 			// epicness
 			$this->doField();
-
 		}
 
 		/**
@@ -340,6 +341,20 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		}
 
 		/**
+		 * returns the field's placeholder
+		 *
+		 * @return string the field value
+		 */
+		public function do_field_placeholder() {
+			$return = '';
+			if ( $this->placeholder ) {
+				$return = ' placeholder="' . $this->placeholder . '"';
+			}
+
+			return apply_filters( 'tribe_field_placeholder', $return, $this->placeholder, $this );
+		}
+
+		/**
 		 * Return a string of attributes for the field
 		 *
 		 * @return string
@@ -391,6 +406,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= ' type="text"';
 			$field .= $this->doFieldName();
 			$field .= $this->doFieldValue();
+			$field .= $this->do_field_placeholder();
 			$field .= '/>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
