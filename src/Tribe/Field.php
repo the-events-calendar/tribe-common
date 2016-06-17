@@ -345,7 +345,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 *
 		 * @return string the field value
 		 */
-		public function doFieldPlaceholder() {
+		public function do_field_placeholder() {
 			$return = '';
 			if ( $this->placeholder ) {
 				$return = ' placeholder="' . $this->placeholder . '"';
@@ -406,7 +406,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= ' type="text"';
 			$field .= $this->doFieldName();
 			$field .= $this->doFieldValue();
-			$field .= $this->doFieldPlaceholder();
+			$field .= $this->do_field_placeholder();
 			$field .= '/>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
