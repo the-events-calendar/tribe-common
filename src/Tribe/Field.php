@@ -272,7 +272,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string the field div end
 		 */
 		public function do_field_div_end() {
-			$return = $this->doToolTip();
+			$return = $this->do_tool_tip();
 			$return .= '</div>';
 
 			return apply_filters( 'tribe_field_div_end', $return, $this );
