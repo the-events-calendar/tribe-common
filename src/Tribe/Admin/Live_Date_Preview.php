@@ -52,7 +52,7 @@ class Tribe__Admin__Live_Date_Preview {
 	 * Enquues a script to handle live refresh of the date previews.
 	 */
 	public function live_refresh_script() {
-		$url = Tribe__Template_Factory::getMinFile( tribe_resource_url( 'admin-date-preview.js', false, 'common' ), true );
+		$url = Tribe__Template_Factory::getMinFile( tribe_resource_url( 'admin-date-preview.js', false, null, Tribe__Main::instance() ), true );
 		wp_enqueue_script( 'tribe-date-live-refresh', $url, array( 'jquery' ), false, true );
 	}
 }

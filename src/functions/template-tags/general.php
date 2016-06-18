@@ -70,40 +70,50 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 	 * Returns or echoes a url to a file in the Events Calendar plugin resources directory
 	 *
 	 * @category Events
+	 *
 	 * @param string $resource the filename of the resource
 	 * @param bool   $echo     whether or not to echo the url
-	 * @param string $root_dir directory to hunt for resource files (src or common)
+	 * @param string $root_dir directory to hunt for resource files (null or the actual path)
+	 * @param object $origin   Which plugin we are dealing with
 	 *
 	 * @return string
 	 **/
-	function tribe_resource_url( $resource, $echo = false, $root_dir = 'src' ) {
+	function tribe_resource_url( $resource, $echo = false, $root_dir = null, $origin = null ) {
 		$extension = pathinfo( $resource, PATHINFO_EXTENSION );
+		$resource_path = '';
 
-		if ( 'src' !== $root_dir ) {
-			$root_dir .= '/src';
-		}
-
-		$resources_path = $root_dir . '/resources/';
-		switch ( $extension ) {
-			case 'css':
-				$resource_path = $resources_path .'css/';
-				break;
-			case 'js':
-				$resource_path = $resources_path .'js/';
-				break;
-			case 'scss':
-				$resource_path = $resources_path .'scss/';
-				break;
-			default:
-				$resource_path = $resources_path;
-				break;
+		if ( is_null( $root_dir ) ) {
+			$resources_path = 'src/resources/';
+			switch ( $extension ) {
+				case 'css':
+					$resource_path = $resources_path .'css/';
+					break;
+				case 'js':
+					$resource_path = $resources_path .'js/';
+					break;
+				case 'scss':
+					$resource_path = $resources_path .'scss/';
+					break;
+				default:
+					$resource_path = $resources_path;
+					break;
+			}
+		} else {
+			$resource_path = $root_dir;
 		}
 
 		$path = $resource_path . $resource;
 
-		$plugin_path = trailingslashit( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) );
-		$plugin_dir  = trailingslashit( basename( $plugin_path ) );
-		$url  = plugins_url( $plugin_dir );
+		if ( is_object( $origin ) ) {
+			$plugin_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath );
+		} else {
+			$plugin_path = trailingslashit( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) );
+		}
+
+		$file = $plugin_path . $path;
+
+		// Turn the Path into a URL
+		$url = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
 
 		/**
 		 * Filters the resource URL
@@ -111,7 +121,7 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		 * @param $url
 		 * @param $resource
 		 */
-		$url = apply_filters( 'tribe_resource_url', $url . $path, $resource );
+		$url = apply_filters( 'tribe_resource_url', $url, $resource );
 
 		/**
 		 * Deprected the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
@@ -453,4 +463,30 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 
 		return Tribe__Date_Utils::unescape_date_format($value);
 	}
+}
+
+function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $arguments = array() ) {
+	return Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $action, $arguments );
+}
+
+function tribe_assets( $origin, $assets, $action = null, $arguments = array() ) {
+	$registred = array();
+
+	foreach ( $assets as $asset ) {
+		if ( ! is_array( $asset ) ) {
+			continue;
+		}
+
+		$slug = reset( $asset );
+		if ( empty( $asset[1] ) ) {
+			continue;
+		}
+
+		$file = $asset[1];
+		$deps = ! empty( $asset[2] ) ? $asset[1] : array();
+
+		$registred[] = tribe_asset( $origin, $slug, $file, $deps, $action, $arguments );
+	}
+
+	return $registred;
 }
