@@ -67,12 +67,12 @@ class Tribe__Templates {
 	 * @version 4.2.1
 	 */
 	public static function is_embed() {
-	    global $wp_version;
-	    if ( version_compare( $wp_version, '4.4', '<' ) || ! function_exists( 'is_embed' ) ) {
-	        return false;
-	    } else {
-	        return is_embed();
-	    }
+		global $wp_version;
+		if ( version_compare( $wp_version, '4.4', '<' ) || ! function_exists( 'is_embed' ) ) {
+			return false;
+		} else {
+			return is_embed();
+		}
 	}
 
 }//end class
