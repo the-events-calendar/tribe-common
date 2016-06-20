@@ -70,9 +70,10 @@ class Tribe__Templates {
 		global $wp_version;
 		if ( version_compare( $wp_version, '4.4', '<' ) || ! function_exists( 'is_embed' ) ) {
 			return false;
-		} else {
-			return is_embed();
 		}
+
+		return is_embed();
+
 	}
 
 }//end class
