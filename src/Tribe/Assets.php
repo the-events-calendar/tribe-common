@@ -33,9 +33,7 @@ class Tribe__Assets {
 	 */
 	private function __construct() {
 		// Hook the actual rendering of notices
-		add_action( 'wp_enqueue_scripts', array( $this, 'hook' ), 1 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'hook' ), 1 );
-		add_action( 'login_enqueue_scripts', array( $this, 'hook' ), 1 );
+		add_action( 'init', array( $this, 'hook' ), 1 );
 	}
 
 	public function hook() {
