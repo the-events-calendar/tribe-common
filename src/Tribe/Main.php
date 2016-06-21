@@ -100,10 +100,13 @@ class Tribe__Main {
 	 */
 	public function load_assets() {
 		// These ones are only registred
-		tribe_assets( $this, array(
-			array( 'ba-dotimeout', 'jquery.ba-dotimeout.js', array( 'jquery' ) ),
-			array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
-		) );
+		tribe_assets(
+			$this,
+			array(
+				array( 'ba-dotimeout', 'jquery.ba-dotimeout.js', array( 'jquery' ) ),
+				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
+			)
+		);
 
 		// These ones will be loaded on `admin_enqueue_scripts` if the conditional method on filter is met
 		tribe_assets(
@@ -116,7 +119,7 @@ class Tribe__Main {
 			),
 			'admin_enqueue_scripts',
 			array(
-				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' )
+				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
 			)
 		);
 	}
