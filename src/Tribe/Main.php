@@ -105,19 +105,20 @@ class Tribe__Main {
 			array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
 		) );
 
-		// These ones will be loaded on `admin_enqueue_scripts`
-		tribe_assets( $this, array(
-			array( 'tribe-common-admin', 'tribe-common-admin.css' ),
-			array( 'tribe-inline-bumpdown', 'inline-bumpdown.js', array( 'ba-dotimeout' ) ),
-			array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
-		), 'admin_enqueue_scripts' );
-
-		// This one will be loaded on `admin_enqueue_scripts` if the conditionals are met
-		tribe_asset( $this, 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css', array( 'tribe-jquery-ui-theme' ), 'admin_enqueue_scripts', array(
-			'conditionals' => array(
-				array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' )
+		// These ones will be loaded on `admin_enqueue_scripts` if the conditional method on filter is met
+		tribe_assets(
+			$this,
+			array(
+				array( 'tribe-common-admin', 'tribe-common-admin.css' ),
+				array( 'tribe-inline-bumpdown', 'inline-bumpdown.js', array( 'ba-dotimeout' ) ),
+				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
+				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css', array( 'tribe-jquery-ui-theme' ) ),
+			),
+			'admin_enqueue_scripts',
+			array(
+				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' )
 			)
-		) );
+		);
 	}
 
 	/**

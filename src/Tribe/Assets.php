@@ -16,6 +16,13 @@ class Tribe__Assets {
 	protected static $instance;
 
 	/**
+	 * Stores all the Assets and it's configurations
+	 *
+	 * @var array
+	 */
+	private $assets = array();
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return self
@@ -32,11 +39,16 @@ class Tribe__Assets {
 	 * Register the Methods in the correct places
 	 */
 	private function __construct() {
-		// Hook the actual rendering of notices
-		add_action( 'init', array( $this, 'hook' ), 1 );
+		// Hook the actual registering of
+		add_action( 'init', array( $this, 'action_maybe_register' ), 1 );
 	}
 
-	public function hook() {
+	/**
+	 * Register the Assets on the correct hooks
+	 *
+	 * @return void
+	 */
+	public function action_maybe_register() {
 		foreach ( $this->assets as $asset ) {
 			if ( 'js' === $asset->type ) {
 				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
@@ -44,10 +56,12 @@ class Tribe__Assets {
 				wp_register_style( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->media );
 			}
 
+			// If we don't have an action we don't even register the action to enqueue
 			if ( ! is_string( $asset->action ) ) {
 				continue;
 			}
 
+			// Now add an action to enqueue the registred assets
 			add_action( $asset->action, array( $this, 'enqueue' ), $asset->priority );
 		}
 	}
@@ -64,17 +78,26 @@ class Tribe__Assets {
 				continue;
 			}
 
-			// If we have a set of conditionals we loop on then and get if they are true
-			if ( ! empty( $asset->conditionals ) ) {
-				$conditionals = array();
-				foreach ( $asset->conditionals as $conditional ) {
-					$conditionals[] = call_user_func_array( $conditional, array() );
-				}
+			/**
+			 * Allows developers to hook-in and prevent an asset from been loaded
+			 *
+			 * @param bool   $enqueue If we should enqueue or not a given asset
+			 * @param object $asset   Which asset we are dealing with
+			 */
+			$enqueue = apply_filters( 'tribe_asset_enqueue', true, $asset );
 
-				// If any of them are false we skip this one
-				if ( in_array( false, $conditionals ) ) {
-					continue;
-				}
+			/**
+			 * Allows developers to hook-in and prevent an asset from been loaded
+			 *
+			 * Note: When you pass callables on the `$asset->filter` argument this will be hooked here
+			 *
+			 * @param bool   $enqueue If we should enqueue or not a given asset
+			 * @param object $asset   Which asset we are dealing with
+			 */
+			$enqueue = apply_filters( 'tribe_asset_enqueue_' . $asset->slug, $enqueue, $asset );
+
+			if ( ! $enqueue ) {
+				continue;
 			}
 
 			if ( 'js' === $asset->type ) {
@@ -118,18 +141,14 @@ class Tribe__Assets {
 	}
 
 	/**
-	 * Stores all the Assets and it's configurations
+	 * Register an Asset and attach a callback to the required action to display it correctly
 	 *
-	 * @var array
-	 */
-	private $assets = array();
-
-	/**
-	 * Register a Asset and attach a callback to the required action to display it correctly
-	 *
+	 * @param  object   $origin    The main Object for the plugin you are enqueueing the script/style for
 	 * @param  string   $slug      Slug to save the asset
-	 * @param  callable $callback  A callable Method/Fuction to actually display the asset
-	 * @param  array    $arguments Arguments to Setup a asset
+	 * @param  string   $file      Which file will be loaded, either CSS or JS
+	 * @param  array    $deps      Dependencies
+	 * @param  string   $action    A WordPress Action, needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
+	 * @param  array    $arguments Arguments to setup the asset
 	 *
 	 * @return string
 	 */
@@ -159,21 +178,21 @@ class Tribe__Assets {
 			return false;
 		}
 
-		// Uses Common by default
+		// Fetches the version on the Origin Version constant
 		$version = constant( $origin_name . '::VERSION' );
 
 		// Default variables to prevent notices
 		$defaults = array(
-			'action'       => null,
-			'priority'     => 10,
-			'file'         => false,
-			'type'         => null,
-			'deps'         => array(),
-			'version'      => $version,
-			'media'        => 'all',
-			'in_footer'    => true,
-			'localize'     => array(),
-			'conditionals' => array(),
+			'action'    => null,
+			'priority'  => 10,
+			'file'      => false,
+			'type'      => null,
+			'deps'      => array(),
+			'version'   => $version,
+			'media'     => 'all',
+			'in_footer' => true,
+			'localize'  => array(),
+			'filter'   => array(),
 		);
 
 		// Merge Arguments
@@ -243,9 +262,23 @@ class Tribe__Assets {
 
 		/**
 		 * Filter an Asset loading variables
+		 *
 		 * @param object $asset
 		 */
 		$asset = apply_filters( 'tribe_asset', $asset );
+
+		// If we have any type of input on Filter we hook it
+		if ( ! empty( $asset->filter ) ) {
+			// This allows us to
+			if ( is_array( $asset->filter ) && is_callable( $asset->filter ) ) {
+				$asset->filter = array( $asset->filter );
+			}
+
+			// To make this work we will use the 0 as the number of arguments
+			foreach ( $asset->filter as $filter ) {
+				add_filter( 'tribe_asset_enqueue_' . $asset->slug, $filter, 10, 0 );
+			}
+		}
 
 		// Set the Asset on the array of notices
 		$this->assets[ $slug ] = $asset;
@@ -254,6 +287,13 @@ class Tribe__Assets {
 		return $asset;
 	}
 
+	/**
+	 * Removes an Asset from been registred and enqueue
+	 *
+	 * @param  string $slug Slug of the Asset
+	 *
+	 * @return bool
+	 */
 	public function remove( $slug ) {
 		if ( ! $this->exists( $slug ) ) {
 			return false;
@@ -263,6 +303,13 @@ class Tribe__Assets {
 		return true;
 	}
 
+	/**
+	 * Get the Asset Object configuration
+	 *
+	 * @param  string $slug Slug of the Asset
+	 *
+	 * @return bool
+	 */
 	public function get( $slug = null ) {
 		// Prevent weird stuff here
 		$slug = sanitize_title_with_dashes( $slug );
@@ -278,6 +325,13 @@ class Tribe__Assets {
 		return null;
 	}
 
+	/**
+	 * Checks if an Asset exists
+	 *
+	 * @param  string $slug Slug of the Asset
+	 *
+	 * @return bool
+	 */
 	public function exists( $slug ) {
 		return is_object( $this->get( $slug ) ) ? true : false;
 	}
