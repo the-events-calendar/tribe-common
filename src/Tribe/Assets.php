@@ -33,11 +33,19 @@ class Tribe__Assets {
 	 */
 	private function __construct() {
 		// Hook the actual rendering of notices
-		add_action( 'init', array( $this, 'hook' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'hook' ), 1 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'hook' ), 1 );
+		add_action( 'login_enqueue_scripts', array( $this, 'hook' ), 1 );
 	}
 
 	public function hook() {
 		foreach ( $this->assets as $asset ) {
+			if ( 'js' === $asset->type ) {
+				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
+			} else {
+				wp_register_style( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->media );
+			}
+
 			if ( ! is_string( $asset->action ) ) {
 				continue;
 			}
@@ -215,6 +223,11 @@ class Tribe__Assets {
 		$asset->in_footer = (bool) $asset->in_footer;
 		$asset->media     = esc_attr( $asset->media );
 
+		// Ensures that we have a priority over 1
+		if ( $asset->priority < 1 ) {
+			$asset->priority = 1;
+		}
+
 		$is_vendor = strpos( $asset->file, 'vendor/' ) !== false ? true : false;
 
 		// Setup the actual URL
@@ -238,12 +251,6 @@ class Tribe__Assets {
 
 		// Set the Asset on the array of notices
 		$this->assets[ $slug ] = $asset;
-
-		if ( 'js' === $asset->type ) {
-			wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
-		} else {
-			wp_register_style( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->media );
-		}
 
 		// Return the Slug because it might be modified
 		return $asset;
