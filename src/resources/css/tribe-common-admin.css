@@ -409,7 +409,7 @@ table.plugins .tribe-plugin-update-message a {
 #tribe-log-controls {
 	padding-bottom: 16px;
 	padding-bottom: 1rem;
-	
+
 	/* For consistency with help screen h3 and p elements */
 	padding-left: 12px;
 }
@@ -843,7 +843,15 @@ a.tribe-rating-link {
 	padding-top: 0;
 }
 .bumpdown-arrow {
-	display: none;
+	position: absolute;
+	width: 0;
+	height: 0;
+    top: -11px;
+    margin-left: -12px;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+
+	border-bottom: 11px solid #f1f1f1;
 }
 .bumpdown-close {
 	color: #686868;

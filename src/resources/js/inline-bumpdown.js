@@ -11,6 +11,9 @@
 		}//end if
 
 		$bumpdown.slideUp( 'fast' );
+
+		var $trigger = $( '#' + $bumpdown.data( 'trigger' ) );
+		$trigger.removeClass( 'tribe-active' );
 	};
 
 	methods.open_bumpdown = function( $bumpdown ) {
@@ -23,6 +26,9 @@
 		$bumpdown.slideDown( 'fast', function() {
 			methods.opening = false;
 		});
+
+		var $trigger = $( '#' + $bumpdown.data( 'trigger' ) );
+		$trigger.addClass( 'tribe-active' );
 	};
 
 	$.fn.bumpdown = function() {
