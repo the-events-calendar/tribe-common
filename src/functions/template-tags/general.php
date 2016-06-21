@@ -465,12 +465,41 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 	}
 }
 
+/**
+ * Shortcut for Tribe__Assets::register(), include a single asset
+ *
+ * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
+ * @param  string   $slug       Slug to save the asset
+ * @param  string   $file       Which file will be loaded, either CSS or JS
+ * @param  array    $deps       Dependencies
+ * @param  string   $action     A WordPress Action, needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
+ * @param  array    $arguments  Look at `Tribe__Assets::register()` for more info
+ *
+ * @return array             Which Assets was registered
+ */
 function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $arguments = array() ) {
 	return Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $action, $arguments );
 }
 
+/**
+ * Function to include more the one asset, based on `tribe_asset`
+ *
+ * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
+ * @param  array    $assets     {
+ *    Indexed array, don't use any associative key.
+ *    E.g.: array( 'slug-my-script', 'my/own/path.js', array( 'jquery' ) )
+ *
+ *    @type  string   $slug       Slug to save the asset
+ *    @type  string   $file       Which file will be loaded, either CSS or JS
+ *    @type  array    $deps       (optional) Dependencies
+ * }
+ * @param  string   $action     A WordPress Action, needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
+ * @param  array    $arguments  Look at `Tribe__Assets::register()` for more info
+ *
+ * @return array             Which Assets were registered
+ */
 function tribe_assets( $origin, $assets, $action = null, $arguments = array() ) {
-	$registred = array();
+	$registered = array();
 
 	foreach ( $assets as $asset ) {
 		if ( ! is_array( $asset ) ) {
@@ -485,8 +514,8 @@ function tribe_assets( $origin, $assets, $action = null, $arguments = array() ) 
 		$file = $asset[1];
 		$deps = ! empty( $asset[2] ) ? $asset[1] : array();
 
-		$registred[] = tribe_asset( $origin, $slug, $file, $deps, $action, $arguments );
+		$registered[] = tribe_asset( $origin, $slug, $file, $deps, $action, $arguments );
 	}
 
-	return $registred;
+	return $registered;
 }

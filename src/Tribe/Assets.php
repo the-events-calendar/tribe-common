@@ -61,7 +61,7 @@ class Tribe__Assets {
 				continue;
 			}
 
-			// Now add an action to enqueue the registred assets
+			// Now add an action to enqueue the registered assets
 			add_action( $asset->action, array( $this, 'enqueue' ), $asset->priority );
 		}
 	}
@@ -122,33 +122,59 @@ class Tribe__Assets {
 	 * @return string|false The path/url to minified version or false, if file not found.
 	 */
 	public static function maybe_get_min_file( $url ) {
+		$urls = array();
+		// If need add the Min Files
 		if ( ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false ) {
 			if ( substr( $url, - 3, 3 ) === '.js' ) {
-				$url = substr_replace( $url, '.min', - 3, 0 );
+				$urls[] = substr_replace( $url, '.min', - 3, 0 );
 			}
 
 			if ( substr( $url, - 4, 4 ) === '.css' ) {
-				$url = substr_replace( $url, '.min', - 4, 0 );
+				$urls[] = substr_replace( $url, '.min', - 4, 0 );
 			}
 		}
 
-		$file = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url );
-		if ( file_exists( $file ) ) {
-			return $url;
-		} else {
-			return false;
+		// Add the actual url after having the Min file added
+		$urls[] = $url;
+
+		// Check for all Urls added to the array
+		foreach ( $urls as $key => $url ) {
+			$file = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url );
+
+			if ( file_exists( $file ) ) {
+				return $url;
+			}
 		}
+
+		// If we don't have any real file return false
+		return false;
 	}
 
 	/**
 	 * Register an Asset and attach a callback to the required action to display it correctly
 	 *
-	 * @param  object   $origin    The main Object for the plugin you are enqueueing the script/style for
-	 * @param  string   $slug      Slug to save the asset
-	 * @param  string   $file      Which file will be loaded, either CSS or JS
-	 * @param  array    $deps      Dependencies
-	 * @param  string   $action    A WordPress Action, needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
-	 * @param  array    $arguments Arguments to setup the asset
+	 * @param  object       $origin    The main Object for the plugin you are enqueueing the script/style for
+	 * @param  string       $slug      Slug to save the asset
+	 * @param  string       $file      Which file will be loaded, either CSS or JS
+	 * @param  array        $deps      Dependencies
+	 * @param  string|null  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
+	 * @param  string|array $query {
+	 *     Optional. Array or string of parameters for this asset
+	 *
+	 *     @type string|null  $action         Which WordPress action this asset will be loaded on
+	 *     @type int          $priority       Priority in which this asset will be loaded on the WordPress action
+	 *     @type string       $file           The relative path to the File that will be enqueued, uses the $origin to get the full path
+	 *     @type string       $type           Asset Type, `js` or `css`
+	 *     @type array        $deps           An array of other asset as dependencies
+	 *     @type string       $version        Version number, used for cache expiring
+	 *     @type string       $media          Used only for CSS, when to load the file
+	 *     @type bool         $in_footer      A boolean determining if the javascript should be loaded on the footer
+	 *     @type array|object $localize       Variables needed on the JavaScript side {
+	 *          @type string 		$name     Name of the JS variable
+	 *          @type string|array  $data     Contents of the JS variable
+	 *     }
+	 *     @type callable[]   $filter         An callable method or an array of them, that will determine if the asset is loaded or not
+	 * }
 	 *
 	 * @return string
 	 */
@@ -192,7 +218,7 @@ class Tribe__Assets {
 			'media'     => 'all',
 			'in_footer' => true,
 			'localize'  => array(),
-			'filter'   => array(),
+			'filter'    => array(),
 		);
 
 		// Merge Arguments
@@ -222,6 +248,9 @@ class Tribe__Assets {
 
 		/**
 		 * Deprecated filter to allow changing version based on the type of Asset
+		 *
+		 * @todo remove on 4.6
+		 * @deprecated 4.3
 		 *
 		 * @param string $version
 		 */
@@ -288,7 +317,7 @@ class Tribe__Assets {
 	}
 
 	/**
-	 * Removes an Asset from been registred and enqueue
+	 * Removes an Asset from been registered and enqueue
 	 *
 	 * @param  string $slug Slug of the Asset
 	 *
