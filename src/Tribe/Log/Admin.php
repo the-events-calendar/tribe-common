@@ -103,7 +103,7 @@ class Tribe__Log__Admin {
 	public function register_script() {
 		wp_register_script(
 			'tribe-common-logging-controls',
-			tribe_resource_url( 'admin-log-controls.js', false, 'common' ),
+			tribe_resource_url( 'admin-log-controls.js', false, null, Tribe__Main::instance() ),
 			array( 'jquery' ),
 			Tribe__Main::VERSION,
 			true
