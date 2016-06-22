@@ -450,7 +450,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			wp_editor( html_entity_decode( ( $this->value ) ), $this->name, $settings );
 			$editor = ob_get_clean();
 			$field  = $this->do_field_start();
-			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
 			$field .= $editor;
 			$field .= $this->do_screen_reader_label();
@@ -467,7 +467,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public function radio() {
 			$field = $this->do_field_start();
-			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
 			if ( is_array( $this->options ) ) {
 				foreach ( $this->options as $option_id => $title ) {
@@ -494,7 +494,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public function checkbox_list() {
 			$field = $this->do_field_start();
-			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
 
 			if ( ! is_array( $this->value ) ) {
@@ -530,7 +530,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public function checkbox_bool() {
 			$field = $this->do_field_start();
-			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
 			$field .= '<input type="checkbox"';
 			$field .= $this->do_field_name();
@@ -551,7 +551,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public function dropdown() {
 			$field = $this->do_field_start();
-			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
 			if ( is_array( $this->options ) && ! empty( $this->options ) ) {
 				$field .= '<select';
@@ -612,7 +612,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public function license_key() {
 			$field = $this->do_field_start();
-			$field .= $this->do_screen_reader_label();
+			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
 			$field .= '<input';
 			$field .= ' type="text"';
