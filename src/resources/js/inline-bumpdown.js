@@ -1,4 +1,4 @@
-(function( $ ) {
+(function( $, _ ) {
 	'use strict';
 	var methods = {};
 
@@ -10,6 +10,7 @@
 			return;
 		}//end if
 
+		$bumpdown.find( '.tribe-bumpdown-close, .tribe-bumpdown-arrow' ).remove()
 		$bumpdown.slideUp( 'fast' );
 
 		var $trigger = $( '#' + $bumpdown.data( 'trigger' ) );
@@ -21,84 +22,110 @@
 			return;
 		}//end if
 
+		var bumpdown = $bumpdown.data( 'bumpdown' ),
+			source = {};
+
+		source.halfway = bumpdown.$trigger.position().left;
+		if ( 'block' === bumpdown.type ) {
+			source.halfway = source.halfway - bumpdown.$parent.offset().left;
+		}
+
+		$bumpdown.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
+		$bumpdown.prepend( '<span class="tribe-bumpdown-arrow" style="left: ' + source.halfway + 'px;"></span>' );
+
 		methods.opening = true;
 
 		$bumpdown.slideDown( 'fast', function() {
 			methods.opening = false;
 		});
 
-		var $trigger = $( '#' + $bumpdown.data( 'trigger' ) );
-		$trigger.addClass( 'tribe-active' );
+		bumpdown.$trigger.addClass( 'tribe-active' );
 	};
 
 	$.fn.bumpdown = function() {
 		return this.each( function() {
-			var $el = $( this );
-			var the_id = $el.attr( 'id' );
-			var $trigger_source = $el.find( '.target' );
+			var $trigger = $( this ),
+				ID = $trigger.attr( 'id' ),
+				html = $trigger.data( 'bumpdown' ),
+				$bumpdown;
 
-			$el.addClass( 'bumpdown-trigger' );
+			// If we currently don't have the ID, set it up
+			if ( ! ID ) {
+				ID = _.uniqueId( 'tribe-bumpdown-' );
+				$trigger.attr( 'id', ID );
+			}
 
-			// get the first block-level parent
-			var $parent = $el.parents().filter( function() {
-				return 'block' === $( this ).css( 'display' );
+			// Fetch the first Block-Level parent
+			var $parent = $trigger.parents().filter( function() {
+				return $.inArray( $( this ).css( 'display' ), [ 'block', 'table', 'table-cell', 'table-row' ] );
 			}).first();
 
-			if ( ! $trigger_source.length ) {
-				$trigger_source = $el;
-			}//end if
+			$trigger.addClass( 'tribe-bumpdown-trigger' );
 
-			if ( ! the_id ) {
-				$.error( 'bumpdowns need an id' );
-			}//end if
+			var bumpdownSelector = '[data-trigger="' + ID + '"]',
+				type;
 
-			var bumpdown_selector = '[data-trigger="' + the_id + '"]';
+			if ( ! html ) {
+				$bumpdown = $( bumpdownSelector );
+				type = 'block';
+			} else {
+				type = $parent.is( 'td, tr, td, table' ) ? 'table' : 'block';
 
-			var $bumpdown = $( bumpdown_selector );
+				if ( 'table' === type ) {
+					$bumpdown = $( '<td>' ).attr( { colspan: 2, 'data-trigger': ID } ).addClass( 'tribe-bumpdown-cell' ).html( html );
+					var $row = $( '<tr>' ).append( $bumpdown ).addClass( 'tribe-bumpdown-row' );
 
-			$bumpdown.addClass( 'bumpdown' );
+					$parent = $trigger.parents( 'tr' ).first();
 
-			var source = {};
+					$parent.after( $row );
+				} else {
+					$bumpdown = $( '<div>' ).attr( { 'data-trigger': ID } ).addClass( 'tribe-bumpdown-block' ).html( html );
+					$trigger.after( $bumpdown );
+				}
+			}
 
-			source.offset = $trigger_source.offset();
-			source.width = $trigger_source.outerWidth();
-			source.halfway = ( source.offset.left - $parent.offset().left ) + Math.round( source.width / 2 ) - 16;
+			$bumpdown.data( 'bumpdown', {
+				ID: ID,
+				$trigger: $trigger,
+				$parent: $parent,
+				type: type
+			} ).addClass( 'tribe-bumpdown' );
 
-			$bumpdown.prepend( '<a class="bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
-			$bumpdown.prepend( '<span class="bumpdown-arrow" style="left: ' + source.halfway + 'px;"></span>' );
-
-			$( document ).on( 'click', bumpdown_selector, function() {
+			$( document ).on( 'click', bumpdownSelector, function() {
 				if ( $bumpdown.is( ':visible' ) && ! methods.opening ) {
 					methods.clicked = true;
-				}//end if
+				}
 			});
 
 			$( document ).on( 'click', function() {
 				if ( ! methods.clicked && ! methods.opening && $bumpdown.is( ':visible' ) ) {
 					methods.close_bumpdown( $bumpdown );
-				}//end if
+				}
 
 				methods.clicked = false;
 			});
 
-			$el.on( 'mouseover', function() {
-				$el.doTimeout( the_id, 300, function() {
+			$( document ).hoverIntent( {
+				over: function() {
 					if ( ! $bumpdown.is( ':visible' ) ) {
 						methods.open_bumpdown( $bumpdown );
-					}//end if
-				});
-			});
+					}
+				},
+				out: function() {}, // Prevents Notice on JS
+				selector: '.bumpdown-trigger',
+				interval: 300,
+			} );
 
-			$el.on( 'click', function( e ) {
+			$trigger.on( 'click', function( e ) {
 				e.preventDefault();
 
 				if ( ! $bumpdown.is( ':visible' ) ) {
 					e.stopPropagation();
 					methods.open_bumpdown( $bumpdown );
-				}//end if
+				}
 			});
 
-			$bumpdown.find( '.bumpdown-close' ).on( 'click', function( e ) {
+			$bumpdown.find( '.tribe-bumpdown-close' ).on( 'click', function( e ) {
 				e.preventDefault();
 				e.stopPropagation();
 
@@ -106,4 +133,4 @@
 			});
 		});
 	};
-}( jQuery ));
+}( jQuery, _ ) );
