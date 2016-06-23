@@ -103,7 +103,6 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-hoverintent', 'jquery.hoverintent.js', array( 'jquery' ) ),
 				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
 			)
 		);
@@ -113,9 +112,8 @@ class Tribe__Main {
 			$this,
 			array(
 				array( 'tribe-common-admin', 'tribe-common-admin.css' ),
-				array( 'tribe-inline-bumpdown', 'inline-bumpdown.js', array( 'jquery', 'underscore', 'tribe-hoverintent' ) ),
+				array( 'tribe-inline-bumpdown', 'inline-bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
-				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css', array( 'tribe-jquery-ui-theme' ) ),
 			),
 			'admin_enqueue_scripts',
 			array(

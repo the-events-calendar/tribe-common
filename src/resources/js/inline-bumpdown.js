@@ -112,7 +112,7 @@
 					}
 				},
 				out: function() {}, // Prevents Notice on JS
-				selector: '.bumpdown-trigger',
+				selector: '.tribe-bumpdown-trigger',
 				interval: 300,
 			} );
 
