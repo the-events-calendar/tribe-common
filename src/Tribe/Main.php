@@ -108,7 +108,7 @@ class Tribe__Main {
 			)
 		);
 
-		// These ones will be loaded on `admin_enqueue_scripts` if the conditional method on filter is met
+		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
 		tribe_assets(
 			$this,
 			array(
