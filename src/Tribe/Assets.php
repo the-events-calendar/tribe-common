@@ -189,7 +189,7 @@ class Tribe__Assets {
 		if ( is_string( $origin ) ) {
 			// Origin needs to be a class with a `instance` method and a Version constant
 			if ( class_exists( $origin ) && method_exists( $origin, 'instance' ) && defined( $origin . '::VERSION' ) ) {
-				$origin = call_user_func_array( array( $origin, 'instance' ) );
+				$origin = call_user_func( array( $origin, 'instance' ) );
 			}
 		}
 
