@@ -111,8 +111,10 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-common-admin', 'tribe-common-admin.css' ),
-				array( 'tribe-inline-bumpdown', 'inline-bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
+				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style' ) ),
+				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
+				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
+				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
 			),
 			'admin_enqueue_scripts',

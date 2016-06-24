@@ -40,7 +40,7 @@ class Tribe__Assets {
 	 */
 	private function __construct() {
 		// Hook the actual registering of
-		add_action( 'init', array( $this, 'register_in_wp' ), 1 );
+		add_action( 'init', array( $this, 'register_in_wp' ), 1, 0 );
 	}
 
 	/**
@@ -49,7 +49,15 @@ class Tribe__Assets {
 	 * @return void
 	 */
 	public function register_in_wp( $assets = null ) {
-		foreach ( $this->assets as $asset ) {
+		if ( is_null( $assets ) ) {
+			$assets = $this->assets;
+		}
+
+		if ( ! is_array( $assets ) ) {
+			$assets = array( $assets );
+		}
+
+		foreach ( $assets as $asset ) {
 			if ( 'js' === $asset->type ) {
 				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
 			} else {
@@ -76,17 +84,18 @@ class Tribe__Assets {
 				continue;
 			}
 
-			// If here is no action we are just registering this asset
+			// If any single conditional returns true, then we need to enqueue the asset
 			if ( ! is_string( $asset->action ) ) {
 				continue;
 			}
 
 			// If this asset was late called
-			// if ( ! $asset->is_registered ) {
-			// 	$this->register_in_wp( $asset );
-			// }
+			if ( ! $asset->is_registered ) {
+				$this->register_in_wp( $asset );
+			}
 
-			// By default we will enqueue this asset because it's already
+			// Default to enqueuing the asset if there are no conditionals,
+			// and default to not enqueuing it if there *are* conditionals
 			$enqueue = empty( $asset->conditionals );
 
 			// If we have a set of conditionals we loop on then and get if they are true
