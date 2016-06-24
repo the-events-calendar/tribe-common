@@ -51,15 +51,17 @@
 					) {
 						$dependent
 							.addClass( selectors.active.replace( '.', '' ) )
-							.find( selectors.fields ).prop( 'disabled', false );
+							.find( selectors.fields ).prop( 'disabled', false )
+							.end().find( '.select2-container' ).select2( 'enable', false );
 					} else {
 						$dependent
 							.removeClass( selectors.active.replace( '.', '' ) )
-							.find( selectors.fields ).prop( 'disabled', true );
+							.find( selectors.fields ).prop( 'disabled', true )
+							.end().find( '.select2-container' ).select2( 'enable', true );
 					}
 
 					// Checks if any child elements have dependencies
-					$dependent.find( selectors.dependency ).trigger( 'verify.dependency' );
+					$dependent.find( selectors.dependency ).trigger( 'change' );
 				} );
 			},
 			'change.dependency': function( e ) {
