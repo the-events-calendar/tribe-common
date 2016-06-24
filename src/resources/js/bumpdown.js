@@ -68,7 +68,7 @@
 				},
 				out: function() {}, // Prevents Notice on JS
 				selector: selectors.trigger,
-				interval: 200,
+				interval: 200
 			} )
 
 			// Setup Events on Trigger
