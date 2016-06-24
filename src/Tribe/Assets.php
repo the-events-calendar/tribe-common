@@ -40,7 +40,7 @@ class Tribe__Assets {
 	 */
 	private function __construct() {
 		// Hook the actual registering of
-		add_action( 'init', array( $this, 'action_maybe_register' ), 1 );
+		add_action( 'init', array( $this, 'register_in_wp' ), 1, 0 );
 	}
 
 	/**
@@ -48,13 +48,24 @@ class Tribe__Assets {
 	 *
 	 * @return void
 	 */
-	public function action_maybe_register() {
-		foreach ( $this->assets as $asset ) {
+	public function register_in_wp( $assets = null ) {
+		if ( is_null( $assets ) ) {
+			$assets = $this->assets;
+		}
+
+		if ( ! is_array( $assets ) ) {
+			$assets = array( $assets );
+		}
+
+		foreach ( $assets as $asset ) {
 			if ( 'js' === $asset->type ) {
 				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
 			} else {
 				wp_register_style( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->media );
 			}
+
+			// Register that this asset is actually registered on the WP methods
+			$asset->is_registered = true;
 
 			// If we don't have an action we don't even register the action to enqueue
 			if ( ! is_string( $asset->action ) ) {
@@ -73,9 +84,26 @@ class Tribe__Assets {
 				continue;
 			}
 
-			// If here is no action we are just registering this asset
+			// If any single conditional returns true, then we need to enqueue the asset
 			if ( ! is_string( $asset->action ) ) {
 				continue;
+			}
+
+			// If this asset was late called
+			if ( ! $asset->is_registered ) {
+				$this->register_in_wp( $asset );
+			}
+
+			// Default to enqueuing the asset if there are no conditionals,
+			// and default to not enqueuing it if there *are* conditionals
+			$enqueue = empty( $asset->conditionals );
+
+			// If we have a set of conditionals we loop on then and get if they are true
+			foreach ( $asset->conditionals as $conditional ) {
+				$enqueue = call_user_func( $conditional );
+				if ( $enqueue ) {
+					break;
+				}
 			}
 
 			/**
@@ -84,7 +112,7 @@ class Tribe__Assets {
 			 * @param bool   $enqueue If we should enqueue or not a given asset
 			 * @param object $asset   Which asset we are dealing with
 			 */
-			$enqueue = apply_filters( 'tribe_asset_enqueue', true, $asset );
+			$enqueue = apply_filters( 'tribe_asset_enqueue', $enqueue, $asset );
 
 			/**
 			 * Allows developers to hook-in and prevent an asset from been loaded
@@ -173,7 +201,7 @@ class Tribe__Assets {
 	 *          @type string 		$name     Name of the JS variable
 	 *          @type string|array  $data     Contents of the JS variable
 	 *     }
-	 *     @type callable[]   $filter         An callable method or an array of them, that will determine if the asset is loaded or not
+	 *     @type callable[]   $conditionals   An callable method or an array of them, that will determine if the asset is loaded or not
 	 * }
 	 *
 	 * @return string
@@ -209,16 +237,17 @@ class Tribe__Assets {
 
 		// Default variables to prevent notices
 		$defaults = array(
-			'action'    => null,
-			'priority'  => 10,
-			'file'      => false,
-			'type'      => null,
-			'deps'      => array(),
-			'version'   => $version,
-			'media'     => 'all',
-			'in_footer' => true,
-			'localize'  => array(),
-			'filter'    => array(),
+			'action'        => null,
+			'priority'      => 10,
+			'file'          => false,
+			'type'          => null,
+			'deps'          => array(),
+			'version'       => $version,
+			'media'         => 'all',
+			'in_footer'     => true,
+			'localize'      => array(),
+			'conditionals'  => array(),
+			'is_registered' => false,
 		);
 
 		// Merge Arguments
@@ -289,25 +318,17 @@ class Tribe__Assets {
 			}
 		}
 
+		// Looks for a single conditional callable and places it in an Array
+		if ( ! empty( $asset->conditionals ) && is_callable( $asset->conditionals ) ) {
+			$asset->conditionals = array( $asset->conditionals );
+		}
+
 		/**
 		 * Filter an Asset loading variables
 		 *
 		 * @param object $asset
 		 */
-		$asset = apply_filters( 'tribe_asset', $asset );
-
-		// If we have any type of input on Filter we hook it
-		if ( ! empty( $asset->filter ) ) {
-			// This allows us to
-			if ( is_array( $asset->filter ) && is_callable( $asset->filter ) ) {
-				$asset->filter = array( $asset->filter );
-			}
-
-			// To make this work we will use the 0 as the number of arguments
-			foreach ( $asset->filter as $filter ) {
-				add_filter( 'tribe_asset_enqueue_' . $asset->slug, $filter, 10, 0 );
-			}
-		}
+		$asset = apply_filters( 'tribe_asset_pre_register', $asset );
 
 		// Set the Asset on the array of notices
 		$this->assets[ $slug ] = $asset;

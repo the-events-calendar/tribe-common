@@ -512,7 +512,7 @@ function tribe_assets( $origin, $assets, $action = null, $arguments = array() ) 
 		}
 
 		$file = $asset[1];
-		$deps = ! empty( $asset[2] ) ? $asset[1] : array();
+		$deps = ! empty( $asset[2] ) ? $asset[2] : array();
 
 		$registered[] = tribe_asset( $origin, $slug, $file, $deps, $action, $arguments );
 	}
