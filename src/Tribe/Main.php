@@ -116,6 +116,7 @@ class Tribe__Main {
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
+				array( 'tribe-common', 'tribe-common.js' ),
 				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css', array( 'tribe-jquery-ui-theme' ) ),
 			),
 			'admin_enqueue_scripts',
@@ -123,6 +124,11 @@ class Tribe__Main {
 				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
 			)
 		);
+
+		//Localize script
+		wp_localize_script( 'tribe-common', 'systeminfo', array(
+			'sysinfo_optin' => wp_create_nonce( 'sysinfo_optin' )
+		) );
 	}
 
 	/**
