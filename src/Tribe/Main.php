@@ -103,19 +103,19 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'ba-dotimeout', 'jquery.ba-dotimeout.js', array( 'jquery' ) ),
 				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
 			)
 		);
 
-		// These ones will be loaded on `admin_enqueue_scripts` if the conditional method on filter is met
+		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-common-admin', 'tribe-common-admin.css' ),
-				array( 'tribe-inline-bumpdown', 'inline-bumpdown.js', array( 'ba-dotimeout' ) ),
+				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style' ) ),
+				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
+				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
+				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
-				array( 'tribe-common', 'tribe-common.js' ),
 				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css', array( 'tribe-jquery-ui-theme' ) ),
 			),
 			'admin_enqueue_scripts',
@@ -175,17 +175,6 @@ class Tribe__Main {
 		}
 
 		return $loaded;
-	}
-
-	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'tribe-inline-bumpdown' );
-		wp_enqueue_script( 'tribe-notice-dismiss' );
-		wp_enqueue_style( 'tribe-common-admin' );
-
-		$helper = Tribe__Admin__Helpers::instance();
-		if ( $helper->is_post_type_screen() ) {
-			wp_enqueue_style( 'tribe-jquery-ui-datepicker' );
-		}
 	}
 
 	/**
