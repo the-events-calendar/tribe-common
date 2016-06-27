@@ -105,9 +105,8 @@ class Tribe__Admin__Helpers {
 
 		// Match any post type page in the supported post types
 		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', Tribe__Main::get_post_types() );
-
-		if ( in_array( $current_screen->post_type, $defaults ) ) {
-			return true;
+		if ( ! in_array( $current_screen->post_type, $defaults ) ) {
+			return false;
 		}
 
 		// Match any of the pages set

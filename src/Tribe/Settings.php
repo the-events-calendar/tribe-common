@@ -24,7 +24,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * Page of the parent menu
 		 * @var string
 		 */
-		public static $parent_page = 'admin.php';
+		public static $parent_page = 'edit.php';
 
 		/**
 		 * @var Tribe__Admin__Live_Date_Preview
@@ -204,7 +204,8 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 						apply_filters( 'tribe_common_event_page_capability', 'manage_options' ),
 						'tribe-common',
 						null,
-						'dashicons-calendar'
+						'dashicons-calendar',
+						6
 					);
 				}
 
@@ -564,9 +565,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 				// final output, filtered of course
 				echo apply_filters( 'tribe_settings_error_message', $output );
-
-				// Now that we've displayed the errors we can delete them
-				$this->deleteOptions();
 			}
 		}
 
@@ -586,6 +584,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				$output  = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
 				echo apply_filters( 'tribe_settings_success_message', $output, $this->currentTab );
 			}
+
+			//Delete Temporary Options After Display Errors and Success
+			$this->deleteOptions();
 		}
 
 		/**
@@ -607,17 +608,16 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public function get_url( array $args = array() ) {
 			$defaults = array(
 				'page' => $this->adminSlug,
+				'parent' => self::$parent_page,
 			);
 
 			// Allow the link to be "changed" on the fly
 			$args = wp_parse_args( $args, $defaults );
-			$parent = self::$parent_page;
 
-			if ( ! is_admin() ) {
-				$parent = 'admin.php';
-			}
+			$url = admin_url( $args['parent'] );
 
-			$url = admin_url( $parent );
+			// keep the resulting URL args clean
+			unset( $args['parent'] );
 
 			return apply_filters( 'tribe_settings_url', add_query_arg( $args, $url ), $args, $url );
 		}
