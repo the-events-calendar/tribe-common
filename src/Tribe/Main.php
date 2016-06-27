@@ -115,6 +115,7 @@ class Tribe__Main {
 				array( 'tribe-common-admin', 'tribe-common-admin.css' ),
 				array( 'tribe-inline-bumpdown', 'inline-bumpdown.js', array( 'ba-dotimeout' ) ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
+				array( 'tribe-common', 'tribe-common.js' ),
 				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css', array( 'tribe-jquery-ui-theme' ) ),
 			),
 			'admin_enqueue_scripts',
