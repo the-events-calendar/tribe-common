@@ -21,7 +21,15 @@
 
 	$( document ).ready( function() {
 		$( '.tribe-dismiss-notice.is-dismissible' ).on( 'click', '.notice-dismiss', function() {
-			window.location.href = update_query_string( window.location.href, 'tribe-dismiss-notice', $( this ).parents( '.tribe-dismiss-notice' ).data( 'ref' ) );
+			var dismiss_ajaxurl = update_query_string( ajaxurl, 'tribe-dismiss-notice', $( this ).parents( '.tribe-dismiss-notice' ).data( 'ref' ) );
+
+			$.ajax( dismiss_ajaxurl, {
+				dataType: 'json',
+				method: 'POST',
+				data: {
+					action: 'tribe_notice_dismiss'
+				}
+			} );
 		} );
 	} );
 }( jQuery ) );
