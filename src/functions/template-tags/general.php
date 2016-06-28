@@ -115,6 +115,9 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		// Turn the Path into a URL
 		$url = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
 
+		// Make it compatible with Windows and other OS
+		$url = str_replace( DIRECTORY_SEPARATOR, '/', $url );
+
 		/**
 		 * Filters the resource URL
 		 *
