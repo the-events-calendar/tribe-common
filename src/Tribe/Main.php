@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION           = '4.2';
+	const VERSION           = '4.2.1';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -98,65 +98,30 @@ class Tribe__Main {
 	/**
 	 * Registers resources that can/should be enqueued
 	 */
-	public function register_resources() {
-		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
-
-		wp_register_style(
-			'tribe-common-admin',
-			$resources_url . '/css/tribe-common-admin.css',
-			array(),
-			apply_filters( 'tribe_events_css_version', self::VERSION )
-		);
-
-		wp_register_script(
-			'ba-dotimeout',
-			$resources_url . '/js/jquery.ba-dotimeout.js',
+	public function load_assets() {
+		// These ones are only registred
+		tribe_assets(
+			$this,
 			array(
-				'jquery',
-			),
-			apply_filters( 'tribe_events_css_version', self::VERSION ),
-			true
+				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
+			)
 		);
 
-		wp_register_script(
-			'tribe-inline-bumpdown',
-			$resources_url . '/js/inline-bumpdown.js',
+		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
+		tribe_assets(
+			$this,
 			array(
-				'ba-dotimeout',
+				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style' ) ),
+				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
+				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
+				array( 'tribe-dependency-style', 'dependency.css' ),
+				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
 			),
-			apply_filters( 'tribe_events_css_version', self::VERSION ),
-			true
+			'admin_enqueue_scripts',
+			array(
+				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
+			)
 		);
-
-		wp_register_script(
-			'tribe-notice-dismiss',
-			$resources_url . '/js/notice-dismiss.js',
-			array( 'jquery' ),
-			apply_filters( 'tribe_events_css_version', self::VERSION ),
-			true
-		);
-	}
-
-	/**
-	 * Registers vendor assets that can/should be enqueued
-	 */
-	public function register_vendor() {
-		$vendor_base = plugins_url( 'vendor', dirname( dirname( __FILE__ ) ) );
-
-		wp_register_style(
-			'tribe-jquery-ui-theme',
-			$vendor_base . '/jquery/ui.theme.css',
-			array(),
-			apply_filters( 'tribe_events_css_version', self::VERSION )
-		);
-
-		wp_register_style(
-			'tribe-jquery-ui-datepicker',
-			$vendor_base . '/jquery/ui.datepicker.css',
-			array( 'tribe-jquery-ui-theme' ),
-			apply_filters( 'tribe_events_css_version', self::VERSION )
-		);
-
 	}
 
 	/**
@@ -164,16 +129,13 @@ class Tribe__Main {
 	 */
 	public function add_hooks() {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
+		add_action( 'plugins_loaded', array( 'Tribe__Assets', 'instance' ), 1 );
 
 		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		// Register for the assets to be availble everywhere
-		add_action( 'init', array( $this, 'register_resources' ), 1 );
-		add_action( 'init', array( $this, 'register_vendor' ), 1 );
+		add_action( 'init', array( $this, 'load_assets' ), 1 );
 		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
-
-		// Enqueue only when needed (admin)
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	/**
@@ -213,17 +175,6 @@ class Tribe__Main {
 		}
 
 		return $loaded;
-	}
-
-	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'tribe-inline-bumpdown' );
-		wp_enqueue_script( 'tribe-notice-dismiss' );
-		wp_enqueue_style( 'tribe-common-admin' );
-
-		$helper = Tribe__Admin__Helpers::instance();
-		if ( $helper->is_post_type_screen() ) {
-			wp_enqueue_style( 'tribe-jquery-ui-datepicker' );
-		}
 	}
 
 	/**
