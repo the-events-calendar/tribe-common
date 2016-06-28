@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION           = '4.2.1';
+	const VERSION           = '4.2.1.1';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -44,6 +44,8 @@ class Tribe__Main {
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->plugin_dir );
+
+		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		$this->init_autoloading();
 
@@ -131,8 +133,6 @@ class Tribe__Main {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'Tribe__Assets', 'instance' ), 1 );
 
-		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
-
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'load_assets' ), 1 );
 		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
@@ -150,7 +150,7 @@ class Tribe__Main {
 	 */
 	public function load_text_domain( $domain, $dir = false ) {
 		// Added safety just in case this runs twice...
-		if ( is_textdomain_loaded( $domain ) ) {
+		if ( is_textdomain_loaded( $domain ) && ! is_a( $GLOBALS['l10n'][ $domain ], 'NOOP_Translations' ) ) {
 			return true;
 		}
 
