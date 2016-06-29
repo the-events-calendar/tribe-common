@@ -24,7 +24,7 @@ class Tribe__Exception extends Exception {
 
 	/**
 	 * Handles the exception throwing the original when debugging (`WP_DEBUG` defined and `true`)
-	 * or quietly logging when `WP_DEBUG` is false or not set.
+	 * or quietly logging when `WP_DEBUG` is `false` or not set.
 	 *
 	 * @return bool  `true` if the message was logged, `false` otherwise.
 	 *
@@ -55,7 +55,8 @@ class Tribe__Exception extends Exception {
 	 * @return string
 	 */
 	private function get_log_type_for_exception_code( $code ) {
-		$map = array(// @todo: let's add a decent exception code to log type map here
+		$map = array(
+			// @todo: let's add a decent exception code to log type map here
 		);
 
 		return isset( $map[ $code ] ) ? $map[ $code ] : Tribe__Log::ERROR;
