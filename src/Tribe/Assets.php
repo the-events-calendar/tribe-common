@@ -171,7 +171,7 @@ class Tribe__Assets {
 			$file = $url;
 
 			//Detect if $url is actually a file path
-			if (  false !== strpos($url, wp_normalize_path( WP_CONTENT_DIR )) ) {
+			if ( false !== strpos( $url, wp_normalize_path( WP_CONTENT_DIR ) ) ) {
 				// Turn file Path to URL in Windows
 				$url = str_replace( wp_normalize_path( WP_CONTENT_DIR ), WP_CONTENT_URL, $url );
 			} else {
