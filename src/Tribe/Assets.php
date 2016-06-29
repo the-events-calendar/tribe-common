@@ -169,7 +169,7 @@ class Tribe__Assets {
 		foreach ( $urls as $key => $url ) {
 			//set path to file for Windows
 			$file = $url;
-			//Set content normalized directory
+			//Set variable for content normalized directory
 			$noramlized_content_dir = wp_normalize_path( WP_CONTENT_DIR );
 
 			//Detect if $url is actually a file path
