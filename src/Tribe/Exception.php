@@ -3,7 +3,7 @@
 
 /**
  * Class Tribe__Exception
- * 
+ *
  * Handles exceptions to log when not in debug mode.
  */
 class Tribe__Exception extends Exception {
@@ -34,9 +34,46 @@ class Tribe__Exception extends Exception {
 		$debug = defined( 'WP_DEBUG' ) && WP_DEBUG;
 
 		if ( $debug ) {
-			throw  $this->original_exception;
+			$this->throw_original_exception();
 		}
 
+		return $this->log_original_exception_message();
+	}
+
+	/**
+	 * @return string
+	 */
+	private function get_log_type_for_exception_code( $code ) {
+		$map = array(
+			// @todo: let's add a decent exception code to log type map here
+		);
+
+		return isset( $map[ $code ] ) ? $map[ $code ] : Tribe__Log::ERROR;
+	}
+
+	/**
+	 * Throws the original exception.
+	 *
+	 * Provided as a manual override over the default `WP_DEBUG` dependent behaviour.
+	 *
+	 * @see Tribe__Exception::handle()
+	 *
+	 * @throws Exception
+	 */
+	public function throw_original_exception() {
+		throw  $this->original_exception;
+	}
+
+	/**
+	 * Logs the original exception message.
+	 *
+	 * Provided as a manual override over the default `WP_DEBUG` dependent behaviour.
+	 *
+	 * @see Tribe__Exception::handle()
+	 *
+	 * @return bool  `true` if the message was logged, `false` otherwise.
+	 */
+	private function log_original_exception_message() {
 		if ( ! class_exists( 'Tribe__Log' ) ) {
 			return false;
 		}
@@ -49,16 +86,5 @@ class Tribe__Exception extends Exception {
 		$logger->log( $message, $log_type, $src );
 
 		return true;
-	}
-
-	/**
-	 * @return string
-	 */
-	private function get_log_type_for_exception_code( $code ) {
-		$map = array(
-			// @todo: let's add a decent exception code to log type map here
-		);
-
-		return isset( $map[ $code ] ) ? $map[ $code ] : Tribe__Log::ERROR;
 	}
 }
