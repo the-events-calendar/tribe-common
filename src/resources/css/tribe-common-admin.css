@@ -729,6 +729,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe_welcome_page h2,
 .tribe_update_page h2 {
 	font-size: 30px;
+	line-height: 1.2;
 	margin-bottom: 20px;
 }
 .tribe_welcome_page h3,
