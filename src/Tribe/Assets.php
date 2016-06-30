@@ -167,12 +167,21 @@ class Tribe__Assets {
 
 		// Check for all Urls added to the array
 		foreach ( $urls as $key => $url ) {
-			// Turn URL into file Path
-			$file = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url );
+			//set path to file for Windows
+			$file = $url;
+			//Set variable for content normalized directory
+			$normalized_content_dir = wp_normalize_path( WP_CONTENT_DIR );
 
-			// Make it compatible with Windows and other OS
-			$file = str_replace( '/', DIRECTORY_SEPARATOR, $file );
+			//Detect if $url is actually a file path
+			if ( false !== strpos( $url, $normalized_content_dir ) ) {
+				// Turn file Path to URL in Windows
+				$url = str_replace( $normalized_content_dir, WP_CONTENT_URL, $url );
+			} else {
+				// Turn URL into file Path
+				$file = str_replace( WP_CONTENT_URL, $normalized_content_dir, $url );
+			}
 
+			//if file exists return url
 			if ( file_exists( $file ) ) {
 				return $url;
 			}
