@@ -119,18 +119,24 @@ class Tribe__Main {
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
 				array( 'tribe-common', 'tribe-common.js' ),
-				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css', array( 'tribe-jquery-ui-theme' ) ),
+				array(
+					'tribe-jquery-ui-datepicker',
+					'vendor/jquery/ui.datepicker.css',
+					array( 'tribe-jquery-ui-theme' )
+				),
 			),
 			'admin_enqueue_scripts',
 			array(
 				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
+				'localize' => (object) array(
+					'name' => 'system_info',
+					'data' => array(
+						'sysinfo_optin' => wp_create_nonce( 'sysinfo_optin' ),
+					),
+				)
 			)
 		);
 
-		//Localize script
-		wp_localize_script( 'tribe-common', 'systeminfo', array(
-			'sysinfo_optin' => wp_create_nonce( 'sysinfo_optin' )
-		) );
 	}
 
 	/**
