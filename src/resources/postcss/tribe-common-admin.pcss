@@ -448,7 +448,7 @@ table.plugins .tribe-plugin-update-message a {
 
 #tribe-log-controls {
 	padding-bottom: 1rem;
-	
+
 	/* For consistency with help screen h3 and p elements */
 	padding-left: 12px;
 
@@ -948,30 +948,41 @@ a.tribe-rating-link {
 }
 
 /* bumpdown */
-.bumpdown {
+.wrap .tribe-bumpdown {
 	background: #f1f1f1;
+	display: none;
 	margin: 1rem 0;
-	padding: 1rem 1.5rem 1rem 1rem;
+	padding: 10px;
+	font-size: 12px;
+	font-style: italic;
 	position: relative;
 }
 
-#poststuff .bumpdown h1,
-#poststuff .bumpdown h2,
-#poststuff .bumpdown h3,
-#poststuff .bumpdown h4,
-.bumpdown h1,
-.bumpdown h2,
-.bumpdown h3,
-.bumpdown h4 {
+#poststuff .tribe-bumpdown h1,
+#poststuff .tribe-bumpdown h2,
+#poststuff .tribe-bumpdown h3,
+#poststuff .tribe-bumpdown h4,
+.tribe-bumpdown h1,
+.tribe-bumpdown h2,
+.tribe-bumpdown h3,
+.tribe-bumpdown h4 {
 	padding-left: 0;
 	padding-top: 0;
 }
 
-.bumpdown-arrow {
-	display: none;
+.tribe-bumpdown-arrow {
+	position: absolute;
+	width: 0;
+	height: 0;
+	top: -11px;
+	margin-left: -18px;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+
+	border-bottom: 11px solid #f1f1f1;
 }
 
-.bumpdown-close {
+.tribe-bumpdown-close {
 	color: #686868;
 	cursor: pointer;
 	position: absolute;
@@ -980,7 +991,7 @@ a.tribe-rating-link {
 	z-index: 2;
 }
 
-.bumpdown-trigger .target {
+.tribe-bumpdown-trigger .target {
 	color: #0074a2;
 }
 
@@ -988,3 +999,9 @@ a.tribe-rating-link {
 .ui-front {
 	z-index: 1000000;
 }
+
+/* Select2 Specific rule */
+.select2-container .select2-choice abbr {
+	top: 6px;
+}
+
