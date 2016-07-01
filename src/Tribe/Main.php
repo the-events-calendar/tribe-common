@@ -118,12 +118,20 @@ class Tribe__Main {
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
+				array( 'tribe-common', 'tribe-common.js' ),
 			),
 			'admin_enqueue_scripts',
 			array(
 				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
+				'localize' => (object) array(
+					'name' => 'system_info',
+					'data' => array(
+						'sysinfo_optin' => wp_create_nonce( 'sysinfo_optin' ),
+					),
+				)
 			)
 		);
+
 	}
 
 	/**

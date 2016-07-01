@@ -36,6 +36,9 @@ if ( is_multisite() ) {
 	$html .= "<p> $network_all_sites_text $network_admin_only </p>";
 }
 
+// Explanatory text about license settings for the tab information box
+$support_html = __( '<p>The details of your calendar plugin and settings are often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums <a href="%1$s" target="_blank">forums</a>. You can see exactly what information you\'ll be sharing by viewing the System Info section on the <a href="%2$s" target="_blank">Help Tab</a>.</p>', 'tribe-common' );
+
 $licenses_tab = array(
 	'info-start' => array(
 		'type' => 'html',
@@ -65,6 +68,24 @@ $licenses_tab = array(
 		'type' => 'html',
 		'html' => '<div class="tribe-settings-form-wrap">',
 	),
+
+	'sysinfo-box-title' => array(
+		'type' => 'html',
+		'html' => '<h3>' . esc_html__( 'Support', 'tribe-common' ) . '</h3>',
+	),
+	'sysinfo-box-description' => array(
+		'type' => 'html',
+		'html' => sprintf(
+			$support_html,
+			'http://m.tri.be/194m',
+			Tribe__Settings::instance()->get_url( array( 'tab' => 'help' ) )
+		),
+	),
+	'sysinfo-optin-checkbox' => array(
+		'type' => 'html',
+		'html' => Tribe__Support::opt_in(),
+	),
+
 	// TODO: Figure out how properly close this wrapper after the license content
 	'tribe-form-content-end'   => array(
 		'type' => 'html',
