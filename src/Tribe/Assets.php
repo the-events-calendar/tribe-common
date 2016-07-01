@@ -170,15 +170,15 @@ class Tribe__Assets {
 			//set path to file for Windows
 			$file = $url;
 			//Set variable for content normalized directory
-			$noramlized_content_dir = wp_normalize_path( WP_CONTENT_DIR );
+			$normalized_content_dir = wp_normalize_path( WP_CONTENT_DIR );
 
 			//Detect if $url is actually a file path
-			if ( false !== strpos( $url, $noramlized_content_dir ) ) {
+			if ( false !== strpos( $url, $normalized_content_dir ) ) {
 				// Turn file Path to URL in Windows
-				$url = str_replace( $noramlized_content_dir, WP_CONTENT_URL, $url );
+				$url = str_replace( $normalized_content_dir, WP_CONTENT_URL, $url );
 			} else {
 				// Turn URL into file Path
-				$file = str_replace( WP_CONTENT_URL, $noramlized_content_dir, $url );
+				$file = str_replace( WP_CONTENT_URL, $normalized_content_dir, $url );
 			}
 
 			//if file exists return url
