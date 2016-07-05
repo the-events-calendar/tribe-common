@@ -31,7 +31,7 @@ tribe_auto_sysinfo.ajax = {
 	 */
 	my.init_ajax = function () {
 
-		this.$system_info_opt_in = $( "#tribe_auto_sysinfo_opt_in" );
+		this.$system_info_opt_in     = $( "#tribe_auto_sysinfo_opt_in" );
 		this.$system_info_opt_in_msg = $( ".tribe-sysinfo-optin-msg" );
 
 		this.$system_info_opt_in.change( function () {
