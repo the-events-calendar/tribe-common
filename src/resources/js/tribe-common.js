@@ -49,7 +49,7 @@ tribe_auto_sysinfo.ajax = {
 
 		var request = {
 			"action": "tribe_toggle_sysinfo_optin",
-			"confirm": systeminfo.sysinfo_optin,
+			"confirm": tribe_system_info.sysinfo_optin_nonce,
 			"generate_key": generate
 		};
 
