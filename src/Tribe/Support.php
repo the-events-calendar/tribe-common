@@ -45,8 +45,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
 			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
 
-			add_action( 'rest_api_init', array( $this, 'create_sysinfo_endpoint' ) );
-			add_action( 'wp_ajax_tribe_toggle_sysinfo_optin', [ $this, 'ajax_sysinfo_optin' ] );
+			add_action( 'rest_api_init', array( __CLASS__, 'create_sysinfo_endpoint' ) );
+			add_action( 'wp_ajax_tribe_toggle_sysinfo_optin', array( __CLASS__, 'ajax_sysinfo_optin' ) );
 		}
 
 		/**
@@ -64,6 +64,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		 * @return array of system data for support
 		 */
 		public function getSupportStats() {
+			global $wpdb;
 			$user = wp_get_current_user();
 
 			$plugins = array();
@@ -146,9 +147,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				'display_errors',
 				'log_errors',
 			);
-			global $wpdb;
+
 			foreach ( $php_vars as $php_var ) {
-				if ( isset( $wpdb->qm_php_vars ) and isset( $wpdb->qm_php_vars[ $php_var ] ) ) {
+				if ( isset( $wpdb->qm_php_vars ) && isset( $wpdb->qm_php_vars[ $php_var ] ) ) {
 					$val = $wpdb->qm_php_vars[ $php_var ];
 				} else {
 					$val = ini_get( $php_var );
@@ -337,7 +338,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		 */
 		public static function ajax_sysinfo_optin() {
 
-			if ( ! isset( $_POST['confirm'] ) || ! wp_verify_nonce( $_POST['confirm'], 'sysinfo_optin' ) ) {
+			if ( ! isset( $_POST['confirm'] ) || ! wp_verify_nonce( $_POST['confirm'], 'sysinfo_optin_nonce' ) ) {
 				Tribe__Support::ajax_error( __( 'Permission Error', 'tribe-common' ) );
 			}
 

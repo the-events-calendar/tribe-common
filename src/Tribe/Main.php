@@ -126,7 +126,7 @@ class Tribe__Main {
 				'localize' => (object) array(
 					'name' => 'system_info',
 					'data' => array(
-						'sysinfo_optin' => wp_create_nonce( 'sysinfo_optin' ),
+						'sysinfo_optin_nonce' => wp_create_nonce( 'sysinfo_optin_nonce' ),
 					),
 				)
 			)
