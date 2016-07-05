@@ -152,6 +152,8 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-settings-form .tribe-settings-form-wrap h3 ~ h3 {
 	margin-top: 2.25em;
 }
+.tribe-settings-form .tribe-settings-form-wrap .tribe-sysinfo-optin-msg,
+.tribe-settings-form .tribe-settings-form-wrap .system-info,
 .tribe-settings-form .tribe-settings-form-wrap h3 + p {
 	margin: 0 0 10px;
 	padding-left: 12px;
@@ -275,9 +277,11 @@ table.plugins .tribe-plugin-update-message a {
 .key-validity {
 	display: inline-block;
 }
+.optin-fail,
 .invalid-key {
 	color: red;
 }
+.optin-success,
 .valid-key {
 	color: green;
 }
@@ -808,6 +812,7 @@ only screen and (min-device-pixel-ratio: 2) {
 .tribe_welcome_page h2,
 .tribe_update_page h2 {
 	font-size: 30px;
+	line-height: 1.2;
 	margin-bottom: 20px;
 }
 
