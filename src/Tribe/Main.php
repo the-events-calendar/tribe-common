@@ -124,7 +124,7 @@ class Tribe__Main {
 			array(
 				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
 				'localize' => (object) array(
-					'name' => 'system_info',
+					'name' => 'tribe_system_info',
 					'data' => array(
 						'sysinfo_optin_nonce' => wp_create_nonce( 'sysinfo_optin_nonce' ),
 					),

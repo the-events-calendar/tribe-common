@@ -375,8 +375,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		 * @param null $optin_key provide key for system info
 		 * @param null $url domain of current site
 		 * @param null $remove string used if removing $optin_key from tec.com
+		 * @param null $pueadd boolean to disable messaging when coming from pue script
 		 */
-		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null, $pueadd = null ) {
+		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null, $pueadd = false ) {
 
 			$url   = $url ? $url : urlencode( str_replace( array( 'http://', 'https://' ), '', get_site_url() ) );
 			$pue   = new Tribe__PUE__Checker( 'http://tri.be/', 'events-calendar' );
