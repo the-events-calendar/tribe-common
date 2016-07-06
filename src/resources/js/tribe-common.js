@@ -9,6 +9,21 @@ tribe_auto_sysinfo.ajax = {
 
 	my.init = function () {
 		this.init_ajax();
+		this.init_copy();
+	};
+
+	/**
+	 * Initialize system info opt in copy
+	 */
+	my.init_copy = function () {
+
+		new Clipboard( '.system-info-copy-btn' );
+
+		//Prevent Button From Doing Anything Else
+		$( ".system-info-copy-btn" ).click( function ( e ) {
+			e.preventDefault();
+		} );
+
 	};
 
 	/**
