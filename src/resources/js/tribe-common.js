@@ -44,9 +44,9 @@ tribe_auto_sysinfo.ajax = {
 			request,
 			function ( results ) {
 				if ( results.success ) {
-					my.$system_info_opt_in_msg.html( "<p class=\'optin-success\'>" + results.message + "</p>" );
+					my.$system_info_opt_in_msg.html( "<p class=\'optin-success\'>" + results.data + "</p>" );
 				} else {
-					my.$system_info_opt_in_msg.html( "<p class=\'optin-fail\'>" + results.message + "</p>" );
+					my.$system_info_opt_in_msg.html( "<p class=\'optin-fail\'>" + results.data + "</p>" );
 				}
 			} );
 
