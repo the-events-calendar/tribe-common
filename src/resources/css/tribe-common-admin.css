@@ -455,6 +455,12 @@ table.plugins .tribe-plugin-update-message a {
 	margin-left: 25%;
 	padding-left: 10px;
 }
+.system-info-copy .system-info-copy-btn {
+	padding: 6px;
+}
+.system-info-copy .system-info-copy-btn .dashicons {
+	padding-right: 10px;
+}
 .template-updates-wrapper p {
 	margin-top: 0;
 }

@@ -119,6 +119,7 @@ class Tribe__Main {
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
 				array( 'tribe-common', 'tribe-common.js' ),
+				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 			),
 			'admin_enqueue_scripts',
 			array(
@@ -131,7 +132,6 @@ class Tribe__Main {
 				)
 			)
 		);
-
 	}
 
 	/**
