@@ -306,12 +306,12 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$optin_key = get_option( 'tribe_systeminfo_optin' );
 
 			if ( ! $optin_key ) {
-				Tribe__Support::ajax_error( __( 'Invalid Key', 'tribe-common' ) );
+				wp_send_json_error( __( 'Invalid Key', 'tribe-common' ) );
 			}
 
 			$key = $query['key'];
 			if ( $key != $optin_key ) {
-				Tribe__Support::ajax_error( __( 'Invalid Key', 'tribe-common' ) );
+				wp_send_json_error( __( 'Invalid Key', 'tribe-common' ) );
 			}
 
 			$support    = Tribe__Support::getInstance();
@@ -339,7 +339,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		public static function ajax_sysinfo_optin() {
 
 			if ( ! isset( $_POST['confirm'] ) || ! wp_verify_nonce( $_POST['confirm'], 'sysinfo_optin_nonce' ) ) {
-				Tribe__Support::ajax_error( __( 'Permission Error', 'tribe-common' ) );
+				wp_send_json_error( __( 'Permission Error', 'tribe-common' ) );
 			}
 
 			if ( 'generate' == $_POST['generate_key'] ) {
@@ -353,7 +353,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				if ( is_array( $keys ) && ! empty( $keys ) ) {
 					Tribe__Support::send_sysinfo_key( $optin_key );
 				} else {
-					Tribe__Support::ajax_ok( __( 'Unique System Info Key Generated', 'tribe-common' ) );
+					wp_send_json_success( __( 'Unique System Info Key Generated', 'tribe-common' ) );
 				}
 
 			} elseif ( 'remove' == $_POST['generate_key'] ) {
@@ -365,7 +365,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 			}
 
-			Tribe__Support::ajax_error( __( 'Permission Error', 'tribe-common' ) );
+			wp_send_json_error( __( 'Permission Error', 'tribe-common' ) );
 
 		}
 
@@ -386,52 +386,19 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				$query = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url . '?status=remove';
 			}
 			$response = wp_remote_get( esc_url( $query ) );
+
 			$response = json_decode( wp_remote_retrieve_body( $response ) );
 
 			if ( ! $pueadd ) {
 				// make sure the response came back okay
 				if ( ! $response->success ) {
-					Tribe__Support::ajax_error( $response->message );
+					wp_send_json_error( $response->data );
 				}
 
-				Tribe__Support::ajax_ok( $response->message );
+				wp_send_json_success( $response->data );
 			}
 		}
 
-		/**
-		 * Sets an AJAX response, returns a JSON array and ends the execution.
-		 *
-		 * @version 4.3
-		 *
-		 * @param $message text to send back to script on success
-		 */
-		private static function ajax_ok( $message ) {
-
-			header( 'Content-type: application/json' );
-			echo json_encode( array(
-				"success" => true,
-				"message" => $message
-			) );
-			exit;
-		}
-
-
-		/**
-		 * Sets an AJAX error, returns a JSON array and ends the execution.
-		 *
-		 * version 4.3
-		 *
-		 * @param string $message text to send back to script on fail
-		 */
-		private static function ajax_error( $message = "" ) {
-			header( 'Content-type: application/json' );
-
-			echo json_encode( array(
-				"success" => false,
-				"message" => $message
-			) );
-			die;
-		}
 
 		/****************** SINGLETON GUTS ******************/
 
