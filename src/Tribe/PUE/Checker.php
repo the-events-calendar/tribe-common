@@ -181,7 +181,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 				$plugin_details    = explode( '/', $this->get_plugin_file() );
 				$plugin_folder     = get_plugins( '/' . $plugin_details[0] );
-				$this->plugin_name = isset( $plugin_details[1] ) ? $plugin_folder[ $plugin_details[1] ]['Name'] : null;
+				$this->plugin_name = isset( $plugin_details[1] ) && isset( $plugin_folder[ $plugin_details[1] ] ) ? $plugin_folder[ $plugin_details[1] ]['Name'] : null;
 			}
 		}
 
