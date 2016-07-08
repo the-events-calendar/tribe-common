@@ -25,7 +25,7 @@ class Tribe__Credits {
 	public function html_comment_credit( $after_html ) {
 
 		if ( ! class_exists( 'Tribe__Events__Main' ) ) {
-			return;
+			return $after_html;
 		}
 
 		$html_credit = "\n<!--\n" . esc_html__( 'This calendar is powered by %1$s.', 'tribe-common' ) . "\nhttp://m.tri.be/18wn\n-->\n";
