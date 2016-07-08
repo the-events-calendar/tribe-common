@@ -178,11 +178,36 @@ class Tribe__Admin__Notices {
 		}
 
 		// If this user has dimissed we don't care either
-		if ( $this->has_user_dimissed( $user_id ) ) {
+		if ( $this->has_user_dimissed( $slug, $user_id ) ) {
 			return true;
 		}
 
 		return add_user_meta( $user_id, self::$meta_key, $slug, false );
+	}
+
+	/**
+	 * Removes the User meta holding if a notice was dimissed
+	 *
+	 * @param  string    $slug    The Name of the Notice
+	 * @param  int|null  $user_id The user ID
+	 *
+	 * @return boolean
+	 */
+	public function undismiss( $slug, $user_id = null ) {
+		if ( ! $this->exists( $slug ) ) {
+			return false;
+		}
+
+		if ( is_null( $user_id ) ) {
+			$user_id = get_current_user_id();
+		}
+
+		// If this user has dimissed we don't care either
+		if ( ! $this->has_user_dimissed( $slug, $user_id ) ) {
+			return false;
+		}
+
+		return delete_user_meta( $user_id, self::$meta_key, $slug );
 	}
 
 	/**
