@@ -106,6 +106,7 @@ class Tribe__Main {
 			$this,
 			array(
 				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
+				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 			)
 		);
 
@@ -118,8 +119,7 @@ class Tribe__Main {
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
-				array( 'tribe-common', 'tribe-common.js' ),
-				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
+				array( 'tribe-common', 'tribe-common.js', array( 'tribe-clipboard' ) ),
 			),
 			'admin_enqueue_scripts',
 			array(
