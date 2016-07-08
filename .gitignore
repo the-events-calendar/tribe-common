@@ -12,4 +12,4 @@ tests/wpunit/_bootstrap.php
 # by default ignore all, need a vendor dep in the repo? use !vendor/acme
 vendor
 !vendor/jquery
-!vendor/clipboard-js
+!vendor/clipboard
