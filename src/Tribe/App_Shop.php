@@ -18,7 +18,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		/**
 		 * URL of the API
 		 */
-		const API_ENDPOINT = 'http://tri.be/api/app-shop/';
+		const API_ENDPOINT = 'https://theeventscalendar.com/api/app-shop/';
 
 		/**
 		 * Base name for the transients key
@@ -107,27 +107,24 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * Renders the Shop App page
 		 */
 		public function do_menu_page() {
+			$products = null;
+			$banner = null;
+			$categories = null;
+
 			$remote = $this->get_all_products();
 
 			if ( ! empty( $remote ) ) {
-				$products = null;
 				if ( property_exists( $remote, 'data' ) ) {
 					$products = $remote->data;
+					$categories = array_unique( wp_list_pluck( $products, 'category' ) );
 				}
-				$banner = null;
+
 				if ( property_exists( $remote, 'banner' ) ) {
 					$banner = $remote->banner;
 				}
-
-				if ( empty( $products ) ) {
-					return;
-				}
-
-				$categories = array_unique( wp_list_pluck( $products, 'category' ) );
-
-				include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/app-shop.php';
 			}
 
+			include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/app-shop.php';
 		}
 
 		/**
@@ -152,7 +149,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			}
 
 			return $products;
-
 		}
 
 		/**
@@ -174,7 +170,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			}
 
 			return null;
-
 		}
 
 		/**
@@ -190,6 +185,5 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 
 			return self::$instance;
 		}
-
 	}
 }
