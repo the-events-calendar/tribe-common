@@ -55,8 +55,7 @@ class Tribe__Credits {
 					'</strong>',
 					'<a href="' . $review_url . '" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
 				);
-			}
-			else {
+			} else {
 				$review_url = 'https://wordpress.org/support/view/plugin-reviews/event-tickets?filter=5';
 
 				$footer_text = sprintf(
