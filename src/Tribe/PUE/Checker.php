@@ -492,41 +492,30 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function display_json_error() {
 			$pluginInfo = $this->json_error;
-			var_dump($pluginInfo);
-			$version = $pluginInfo->version;
+//			var_dump($pluginInfo);
 
-			$plugin_info = array(
-				$plugin_name = $this->get_plugin_name(),
+			$plugins_info =  array(
+				'plugin_name' => $this->get_plugin_name(),
+				'plugin_slug' => $this->get_slug(),
 			);
-			var_dump($plugin_info);
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
 
 			//only display messages if there is a new version of the plugin.
-			if ( version_compare( $version, $this->get_installed_version(), '>' ) ) {
+			if ( version_compare( $pluginInfo->version , $this->get_installed_version(), '>' ) ) {
 				if ( empty( $pluginInfo->api_invalid ) || $pluginInfo->api_invalid != 1 ) {
 					return;
 				}
 
 				$msg = $this->get_api_message( $pluginInfo );
-
-				//Dismiss code idea below is obtained from the Gravity Forms Plugin by rocketgenius.com
+				$message = str_replace( '%plugin_name%', '<b>' . $plugins_info['plugin_slug'] . '</b>', $msg );
 				?>
-				<div class="updated" id="pu-dashboard-message"><?php echo $version . wp_kses( $msg, 'post' ); ?>
-					<a href="javascript:void(0);" onclick="PUDismissUpgrade();" style="float:right;">[X]</a>
+
+				<div class="notice notice-info is-dismissable" id="pu-dashboard-message">
+					<?php echo wp_kses( $message, 'post' ); ?>
 				</div>
-				<script type="text/javascript">
-					function PUDismissUpgrade() {
-						jQuery("#pu_dashboard_message").slideUp();
-						jQuery.post( ajaxurl, {
-							action: "<?php echo esc_attr( $this->dismiss_upgrade ); ?>",
-							version: "<?php echo esc_attr( $pluginInfo->version ); ?>",
-							cookie: encodeURIComponent(document.cookie)
-						} );
-					}
-				</script>
 				<?php
 			}
 		}
