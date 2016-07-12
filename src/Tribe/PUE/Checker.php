@@ -84,7 +84,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_license_fields', array( $this, 'do_license_key_fields' ) );
 			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
-			add_action( 'admin_notices', array( $this, 'display_empty_license_field_json_error' ), 10, 2 );
 
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
@@ -492,63 +491,26 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Echo JSON formatted errors
 		 */
 		public function display_json_error() {
-			$pluginInfo = $this->json_error;
-//			var_dump($pluginInfo);
 
 			$plugins_info =  array(
 				'plugin_name' => $this->get_plugin_name(),
 				'plugin_slug' => $this->get_slug(),
 			);
 
-			if ( ! current_user_can( 'administrator' ) ) {
-				return;
-			}
-
-			//only display messages if there is a new version of the plugin.
-			if ( version_compare( $pluginInfo->version , $this->get_installed_version(), '>' ) ) {
-				if ( empty( $pluginInfo->api_invalid ) || $pluginInfo->api_invalid != 1 ) {
-					return;
-				}
-
-				$msg = $this->get_api_message( $pluginInfo );
-				$message = str_replace( '%plugin_name%', '<b>' . $plugins_info['plugin_slug'] . '</b>', $msg );
-				?>
-
-				<div class="notice notice-info is-dismissable" id="pu-dashboard-message">
-					<?php echo wp_kses( $message, 'post' ); ?>
-				</div>
-				<?php
-			}
-		}
-
-		public function display_empty_license_field_json_error() {
-			$pluginInfo = $this->json_error;
-//			var_dump($pluginInfo);
-
-			$plugins_info =  array(
-				'plugin_name' => $this->get_plugin_name(),
-				'plugin_slug' => $this->get_slug(),
-			);
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
 
-			//only display messages if there is a new version of the plugin.
-			if ( version_compare( $pluginInfo->version , $this->get_installed_version(), '>' ) ) {
-				if ( empty( $pluginInfo->api_invalid ) || $pluginInfo->api_invalid != 1 ) {
-					return;
-				}
-
-				$msg = $this->get_api_message( $pluginInfo );
-				$message = str_replace( '%plugin_name%', '<b>' . $plugins_info['plugin_slug'] . '</b>', $msg );
+				$msg = __( '<p>Looks like you\'re using %plugin_name%, but you don\'t have a license key entered. Add your license key on the Settings page so that you can always have access to our latest versions!</p>', 'tribe-common' );
+				$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $msg );
 				?>
 
-				<div class="notice notice-info is-dismissable" id="pu-dashboard-message">
+				<div class="notice notice-info is-dismissible" id="pu-dashboard-message">
 					<?php echo wp_kses( $message, 'post' ); ?>
 				</div>
 				<?php
-			}
+
 		}
 
 		/**
