@@ -491,21 +491,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Echo JSON formatted errors
 		 */
 		public function display_json_error() {
-			$pluginInfo       = $this->json_error;
-			$update_dismissed = $this->get_option( $this->dismiss_upgrade );
+			$pluginInfo = $this->json_error;
+			var_dump($pluginInfo);
+			$version = $pluginInfo->version;
 
-			$is_dismissed = ! empty( $update_dismissed ) && in_array( $pluginInfo->version, $update_dismissed ) ? true : false;
-
-			if ( $is_dismissed ) {
-				return;
-			}
+			$plugin_info = array(
+				$plugin_name = $this->get_plugin_name(),
+			);
+			var_dump($plugin_info);
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
 
 			//only display messages if there is a new version of the plugin.
-			if ( version_compare( $pluginInfo->version, $this->get_installed_version(), '>' ) ) {
+			if ( version_compare( $version, $this->get_installed_version(), '>' ) ) {
 				if ( empty( $pluginInfo->api_invalid ) || $pluginInfo->api_invalid != 1 ) {
 					return;
 				}
@@ -514,7 +514,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 				//Dismiss code idea below is obtained from the Gravity Forms Plugin by rocketgenius.com
 				?>
-				<div class="updated" style="padding:5px; position:relative;" id="pu_dashboard_message"><?php echo wp_kses( $msg, 'post' ); ?>
+				<div class="updated" id="pu-dashboard-message"><?php echo $version . wp_kses( $msg, 'post' ); ?>
 					<a href="javascript:void(0);" onclick="PUDismissUpgrade();" style="float:right;">[X]</a>
 				</div>
 				<script type="text/javascript">
