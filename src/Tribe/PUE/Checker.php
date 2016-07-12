@@ -502,7 +502,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$response = $this->validate_key( $key );
 
 			if ( isset( $key ) && $response->status == 0 ) {
-
 				$expired_license_msg     = __( '<p class="expired-license-message">There is an update for %plugin_name% available but your license is expired.</p>', 'tribe-common' );
 				$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
 				?>
@@ -517,7 +516,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				</div>
 				<?php
 			}
-
 		}
 
 		/**
