@@ -500,15 +500,23 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return;
 			}
 
-			if( empty( $this->api_secret_key ) ) {
+			if( empty( $this->api_secret_key ) && '' != $this->get_plugin_name() ) {
 
-				$msg     = __( '<p>Looks like you\'re using %plugin_name%, but you don\'t have a license key entered. <a href="' . $license_settings_url . '">Add your license key</a> so that you can always have access to our latest versions!</p>', 'tribe-common' );
+				$msg     = __( '<p>Looks like you\'re using %plugin_name%, but you don\'t have a license key entered. <a href="' . $license_settings_url . '">Add your license key</a> so that you can always have access to our latest versions!I</p>', 'tribe-common' );
 				$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $msg );
 				?>
 				<div class="notice notice-info is-dismissible" id="pu-dashboard-message">
 					<?php echo wp_kses( $message, 'post' ); ?>
 				</div>
 				<?php
+			} else {
+				$msg     = __( '<p>Looks like you\'re using a Premium Events Calendar plugin but don\'t have a license key entered. <a href="' . $license_settings_url . '">Add your license key</a> so that you can always have access to our latest versions!</p>', 'tribe-common' );
+				$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $msg );
+				?>
+				<div class="notice notice-info is-dismissible" id="pu-dashboard-message">
+					<?php echo wp_kses( $message, 'post' ); ?>
+				</div>
+<?php
 			}
 		}
 
