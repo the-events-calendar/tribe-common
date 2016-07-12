@@ -491,26 +491,19 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Echo JSON formatted errors
 		 */
 		public function display_json_error() {
-
-			$plugins_info =  array(
-				'plugin_name' => $this->get_plugin_name(),
-				'plugin_slug' => $this->get_slug(),
-			);
-
+			$license_settings_url = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
 
-				$msg = __( '<p>Looks like you\'re using %plugin_name%, but you don\'t have a license key entered. Add your license key on the Settings page so that you can always have access to our latest versions!</p>', 'tribe-common' );
-				$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $msg );
-				?>
-
-				<div class="notice notice-info is-dismissible" id="pu-dashboard-message">
-					<?php echo wp_kses( $message, 'post' ); ?>
-				</div>
-				<?php
-
+			$msg = __( '<p>Looks like you\'re using %plugin_name%, but you don\'t have a license key entered. <a href="' . $license_settings_url . '">Add your license key</a> so that you can always have access to our latest versions!</p>', 'tribe-common' );
+			$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $msg );
+			?>
+			<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
+				<?php echo wp_kses( $message, 'post' ); ?>
+			</div>
+			<?php
 		}
 
 		/**
