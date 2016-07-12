@@ -502,7 +502,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			if ( isset( $pluginInfo->api_expired ) && $pluginInfo->api_expired == 1 ) {
 
-				$expired_license_msg     = __( '<p class="expired-license-message">There is an update for %plugin_name% available but your license is expired. <a href="https://theeventscalendar.com/license-keys/">Renew your license</a> to get access to the latest versions including bug fixes, security updates, and new features.</p></div>', 'tribe-common' );
+				$expired_license_msg     = __( '<p class="expired-license-message">There is an update for %plugin_name% available but your license is expired. <a href="https://tri.be/license/">Renew your license</a> to get access to the latest versions including bug fixes, security updates, and new features.</p></div>', 'tribe-common' );
 				$expired_license_message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $expired_license_msg );
 				?>
 				<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
