@@ -1020,3 +1020,17 @@ a.tribe-rating-link {
 	top: 6px;
 }
 
+.tribe-message {
+	&:before,
+	&:after {
+		content: '';
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+
+	.spirit-animal {
+		float: right;
+	}
+}

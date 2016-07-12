@@ -887,6 +887,17 @@ a.tribe-rating-link {
 .select2-container .select2-choice abbr {
 	top: 6px;
 }
+.tribe-message:before,
+	.tribe-message:after {
+	content: '';
+	display: table;
+}
+.tribe-message:after {
+	clear: both;
+}
+.tribe-message .spirit-animal {
+	float: right;
+}
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
 	#tribe-loading span {
@@ -917,4 +928,3 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 		display: none;
 	}
 }
-

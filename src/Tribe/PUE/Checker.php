@@ -84,6 +84,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_license_fields', array( $this, 'do_license_key_fields' ) );
 			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
+			add_action( 'admin_notices', array( $this, 'display_expired_license_message' ) );
 
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
@@ -488,47 +489,31 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Echo JSON formatted errors
+		 * Displays an error notice if a premium plugin is activated and the license is expired
+		 *
+		 * @since 4.3
 		 */
-		public function display_json_error() {
+		public function display_expired_license_message() {
 			$pluginInfo       = $this->json_error;
-			$update_dismissed = $this->get_option( $this->dismiss_upgrade );
-
-			$is_dismissed = ! empty( $update_dismissed ) && in_array( $pluginInfo->version, $update_dismissed ) ? true : false;
-
-			if ( $is_dismissed ) {
-				return;
-			}
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
 
-			//only display messages if there is a new version of the plugin.
-			if ( version_compare( $pluginInfo->version, $this->get_installed_version(), '>' ) ) {
-				if ( empty( $pluginInfo->api_invalid ) || $pluginInfo->api_invalid != 1 ) {
-					return;
-				}
+			if ( isset( $pluginInfo->api_expired ) && $pluginInfo->api_expired == 1 ) {
 
-				$msg = $this->get_api_message( $pluginInfo );
-
-				//Dismiss code idea below is obtained from the Gravity Forms Plugin by rocketgenius.com
+				$expired_license_msg     = __( '<p class="expired-license-message">There is an update for %plugin_name% available but your license is expired. <a href="https://theeventscalendar.com/license-keys/">Renew your license</a> to get access to the latest versions including bug fixes, security updates, and new features.</p></div>', 'tribe-common' );
+				$expired_license_message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $expired_license_msg );
 				?>
-				<div class="updated" style="padding:5px; position:relative;" id="pu_dashboard_message"><?php echo wp_kses( $msg, 'post' ); ?>
-					<a href="javascript:void(0);" onclick="PUDismissUpgrade();" style="float:right;">[X]</a>
+				<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
+					<?php
+					echo '<div class="tribe-message"><div class="spirit-animal"><img src="' . plugins_url( '../../src/resources/images/tec-panda.png', dirname(__FILE__) ) . '" ></div>';
+					echo wp_kses( $expired_license_message, 'post' );
+					?>
 				</div>
-				<script type="text/javascript">
-					function PUDismissUpgrade() {
-						jQuery("#pu_dashboard_message").slideUp();
-						jQuery.post( ajaxurl, {
-							action: "<?php echo esc_attr( $this->dismiss_upgrade ); ?>",
-							version: "<?php echo esc_attr( $pluginInfo->version ); ?>",
-							cookie: encodeURIComponent(document.cookie)
-						} );
-					}
-				</script>
 				<?php
 			}
+
 		}
 
 		/**
