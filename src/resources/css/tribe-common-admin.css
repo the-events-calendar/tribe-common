@@ -887,6 +887,9 @@ a.tribe-rating-link {
 .select2-container .select2-choice abbr {
 	top: 6px;
 }
+.tribe-message {
+	padding: 1em 0;
+}
 .tribe-message:before,
 	.tribe-message:after {
 	content: '';
