@@ -84,7 +84,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_license_fields', array( $this, 'do_license_key_fields' ) );
 			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
-			add_action( 'admin_notices', array( $this, 'display_expired_license_message' ) );
 
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
@@ -361,7 +360,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					}
 				}
 			</script>
-		<?php
+			<?php
 		}
 
 		/**
@@ -494,30 +493,24 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @since 4.3
 		 */
 		public function display_expired_license_message() {
-			$plugin_info =
+			$plugin_info  = (array)$this->json_error;
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
-			$key = get_option( 'pue_install_key_events_calendar_pro' );
-			$response = $this->validate_key( $key );
 
-			if ( empty( $key ) ) {
+			if ( $plugin_info['api_invalid'] == true && '' != $this->get_plugin_name() ) {
 
-			}
-
-			if ( isset( $key ) && $response->status == 0 ) {
-				$expired_license_msg     = __( '<p class="expired-license-message">There is an update for %plugin_name% available but your license is expired.</p>', 'tribe-common' );
+				$expired_license_msg     = __( 'There is an update available for %plugin_name% but your license key is invalid.', 'tribe-common' );
 				$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
 				?>
 				<div class="notice notice-info is-dismissible" id="pu-dashboard-message">
-					<?php
-					echo '<div class="tribe-message">';
-					echo '<img class="spirit-animal" src="' . plugins_url( '../../src/resources/images/tec-panda.png', dirname( __FILE__ ) ) . '" >';
-					echo wp_kses( $expired_license_message, 'post' );
-					_e( '<a href="https://tri.be/license/">Renew your license</a> to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' );
-					echo '</div>';
-					?>
+					<div class="tribe-message">
+						<?php
+						echo '<img class="spirit-animal" src="' . plugins_url( '../../src/resources/images/tec-panda.png', dirname( __FILE__ ) ) . '">'; ?>
+						<p><?php echo wp_kses( $expired_license_message, 'post' ); ?></p>
+						<p><a href="https://tri.be/license/"><?php _e( 'Renew your license', 'tribe-common' ); ?></a> <?php _e( 'to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ); ?></p>
+					</div>
 				</div>
 				<?php
 			}
