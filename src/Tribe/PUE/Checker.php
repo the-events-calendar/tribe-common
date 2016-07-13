@@ -494,12 +494,17 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @since 4.3
 		 */
 		public function display_expired_license_message() {
+			$plugin_info =
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
 			$key = get_option( 'pue_install_key_events_calendar_pro' );
 			$response = $this->validate_key( $key );
+
+			if ( empty( $key ) ) {
+
+			}
 
 			if ( isset( $key ) && $response->status == 0 ) {
 				$expired_license_msg     = __( '<p class="expired-license-message">There is an update for %plugin_name% available but your license is expired.</p>', 'tribe-common' );
@@ -631,7 +636,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			//admin display for if the update check reveals that there is a new version but the API key isn't valid.
 			if ( isset( $pluginInfo->api_invalid ) ) { //we have json_error returned let's display a message
 				$this->json_error = $pluginInfo;
-				add_action( 'admin_notices', array( &$this, 'display_json_error' ) );
+				add_action( 'admin_notices', array( &$this, 'display_expired_license_message' ) );
 
 				return null;
 			}
