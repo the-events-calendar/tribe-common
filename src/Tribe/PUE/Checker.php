@@ -84,7 +84,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_license_fields', array( $this, 'do_license_key_fields' ) );
 			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
-			add_action( 'admin_notices', array( $this, 'display_empty_license_message' ) );
 
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
@@ -493,30 +492,25 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @since 4.3
 		 */
-		public function display_empty_license_message() {
+		public function display_json_error() {
+			$plugin_info = (array) $this->json_error;
 			$license_settings_url = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
+
+			var_dump($plugin_info);
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
 
-			if( empty( $this->api_secret_key ) && '' != $this->get_plugin_name() ) {
+			if( '' != $this->get_plugin_name() ) {
 
-				$msg     = __( '<p>Looks like you\'re using %plugin_name%, but you don\'t have a license key entered. <a href="' . $license_settings_url . '">Add your license key</a> so that you can always have access to our latest versions!I</p>', 'tribe-common' );
+				$msg     = $plugin_info['api_invalid_message'];
 				$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $msg );
 				?>
-				<div class="notice notice-info is-dismissible" id="pu-dashboard-message">
+				<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
 					<?php echo wp_kses( $message, 'post' ); ?>
 				</div>
 				<?php
-			} else {
-				$msg     = __( '<p>Looks like you\'re using a Premium Events Calendar plugin but don\'t have a license key entered. <a href="' . $license_settings_url . '">Add your license key</a> so that you can always have access to our latest versions!</p>', 'tribe-common' );
-				$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $msg );
-				?>
-				<div class="notice notice-info is-dismissible" id="pu-dashboard-message">
-					<?php echo wp_kses( $message, 'post' ); ?>
-				</div>
-<?php
 			}
 		}
 
@@ -631,12 +625,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return null;
 			}
 			//admin display for if the update check reveals that there is a new version but the API key isn't valid.
-//			if ( isset( $pluginInfo->api_invalid ) ) { //we have json_error returned let's display a message
-//				$this->json_error = $pluginInfo;
-//				add_action( 'admin_notices', array( &$this, 'display_empty_license_message' ) );
-//
-//				return null;
-//			}
+			if ( isset( $pluginInfo->api_invalid ) ) { //we have json_error returned let's display a message
+				$this->json_error = $pluginInfo;
+				add_action( 'admin_notices', array( &$this, 'display_json_error' ) );
+
+				return null;
+			}
 
 			if ( isset( $pluginInfo->new_install_key ) ) {
 				$this->update_option( $this->pue_install_key, $pluginInfo->new_install_key );
