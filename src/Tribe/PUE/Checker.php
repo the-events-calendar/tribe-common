@@ -500,7 +500,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return;
 			}
 
-			if( '' != $this->get_plugin_name() ) {
+			if ( '' != $this->get_plugin_name() ) {
 
 				$msg     = $plugin_info['api_invalid_message'];
 				$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $msg );
