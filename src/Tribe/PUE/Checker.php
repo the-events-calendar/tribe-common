@@ -494,7 +494,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function display_json_error() {
 			$plugin_info = (array) $this->json_error;
-			$license_settings_url = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
