@@ -506,7 +506,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				?>
 				<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
 					<div class="tribe-message">
-						<img class="spirit-animal" src="<?php echo plugins_url( '../../src/resources/images/tec-panda.png', dirname( __FILE__ ) );?>">
+						<img class="spirit-animal" src="<?php esc_html_e( plugins_url( '../../src/resources/images/tec-panda.png', dirname( __FILE__ ) ) );?>">
 
 						<p><?php echo wp_kses( $expired_license_message, 'post' ); ?></p>
 						<p><a href="https://tri.be/license/"><?php esc_html_e( 'Renew your license', 'tribe-common' ); ?></a> <?php esc_html_e( 'to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ); ?></p>
