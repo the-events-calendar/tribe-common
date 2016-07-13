@@ -504,7 +504,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$expired_license_msg     = __( 'There is an update available for %plugin_name% but your license key is invalid.', 'tribe-common' );
 				$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
 				?>
-				<div class="notice notice-info is-dismissible" id="pu-dashboard-message">
+				<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
 					<div class="tribe-message">
 						<?php
 						echo '<img class="spirit-animal" src="' . plugins_url( '../../src/resources/images/tec-panda.png', dirname( __FILE__ ) ) . '">'; ?>
