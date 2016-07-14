@@ -467,7 +467,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * processes variable substitutions for server-side API message
 		 */
-		private function get_api_message( $info ) {
+		private function get_api_message( $pluginInfo ) {
 			// this default message should never show, but is here as a fallback just in case.
 			$message = sprintf(
 				esc_html__( 'Sorry, there is a problem with your license key. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
@@ -475,14 +475,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				'</a>'
 			);
 
-			if ( ! empty( $info->api_invalid_message ) ) {
-				$message = wp_kses( $info->api_invalid_message, 'post' );
+			if ( ! empty( $pluginInfo->api_invalid_message ) ) {
+				$message = wp_kses( $pluginInfo->api_invalid_message, 'post' );
 			}
 
 			$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $message );
 			$message = str_replace( '%plugin_slug%', $this->get_slug(), $message );
 			$message = str_replace( '%update_url%', $this->get_pue_update_url(), $message );
-			$message = str_replace( '%version%', $info->version, $message );
+			$message = str_replace( '%version%', $pluginInfo->version, $message );
 
 			return $message;
 		}
@@ -493,27 +493,24 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @since 4.3
 		 */
 		public function display_expired_license_message() {
-			$plugin_info  = (array) $this->json_error;
+			$pluginInfo  = $this->json_error;
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
+			$expired_license_msg     = $this->get_api_message( $pluginInfo );
+			$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
+			?>
+			<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
+				<div class="tribe-message">
+					<img class="spirit-animal" src="<?php esc_html_e( plugins_url( '../../src/resources/images/tec-panda.png', dirname( __FILE__ ) ) );?>">
 
-			if ( $plugin_info['api_invalid'] == true && '' != $this->get_plugin_name() ) {
-
-				$expired_license_msg     = __( 'There is an update available for %plugin_name% but your license key is invalid.', 'tribe-common' );
-				$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
-				?>
-				<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
-					<div class="tribe-message">
-						<img class="spirit-animal" src="<?php esc_html_e( plugins_url( '../../src/resources/images/tec-panda.png', dirname( __FILE__ ) ) );?>">
-
-						<p><?php echo wp_kses( $expired_license_message, 'post' ); ?></p>
-						<p><a href="https://tri.be/license/"><?php esc_html_e( 'Renew your license', 'tribe-common' ); ?></a> <?php esc_html_e( 'to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ); ?></p>
-					</div>
+					<p><?php echo wp_kses( $expired_license_message, 'post' ); ?></p>
+					<p><a href="https://theeventscalendar.com/my-account/"><?php esc_html_e( 'Renew your license', 'tribe-common' ); ?></a> <?php esc_html_e( 'to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ); ?></p>
 				</div>
-				<?php
-			}
+			</div>
+			<?php
+
 		}
 
 		/**
@@ -658,14 +655,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @param $plugin_data
 		 */
 		public function in_plugin_update_message( $plugin_data ) {
-			$plugininfo = $this->json_error;
+			$plugin_info = $this->json_error;
+			var_dump($plugin_info);
 			//only display messages if there is a new version of the plugin.
-			if ( is_object( $plugininfo ) && version_compare( $plugininfo->version, $this->get_installed_version(), '>' ) ) {
-				if ( $plugininfo->api_invalid ) {
-					$msg = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $plugininfo->api_inline_invalid_message );
+			if ( is_object( $plugin_info ) && version_compare( $plugin_info->version, $this->get_installed_version(), '>' ) ) {
+				if ( $plugin_info->api_invalid ) {
+					$msg = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $plugin_info->api_inline_invalid_message );
 					$msg = str_replace( '%plugin_slug%', $this->get_slug(), $msg );
 					$msg = str_replace( '%update_url%', $this->get_pue_update_url(), $msg );
-					$msg = str_replace( '%version%', $plugininfo->version, $msg );
+					$msg = str_replace( '%version%', $plugin_info->version, $msg );
 					$msg = str_replace( '%changelog%', '<a class="thickbox" title="' . $this->get_plugin_name() . '" href="plugin-install.php?tab=plugin-information&plugin=' . $this->get_slug() . '&TB_iframe=true&width=640&height=808">what\'s new</a>', $msg );
 					echo '</tr><tr class="plugin-update-tr"><td colspan="3" class="plugin-update"><div class="update-message">' . $msg . '</div></td>';
 				}
