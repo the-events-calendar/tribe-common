@@ -498,6 +498,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
+
+			//only display messages if there is a new version of the plugin.
+			if ( version_compare( $plugin_info->version, $this->get_installed_version(), '>' ) ) {
+				if ( empty( $plugin_info->api_invalid ) || $plugin_info->api_invalid != 1 ) {
+					return;
+				}
+			}
+
+
 			$expired_license_msg     = $this->get_api_message( $plugin_info );
 			$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
 			?>
