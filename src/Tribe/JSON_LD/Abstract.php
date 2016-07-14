@@ -67,7 +67,7 @@ abstract class Tribe__JSON_LD__Abstract {
 			return array();
 		}
 
-		$skip_duplicates = ! empty( $args['skip_duplicates'] );
+		$skip_duplicates = ! isset( $args['skip_duplicates'] ) || $args['skip_duplicates'] == true;
 		if ( $skip_duplicates && in_array( $post->ID, $this->fetched_post_ids ) ) {
 			return array();
 		}
