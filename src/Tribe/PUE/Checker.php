@@ -513,7 +513,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 								'%1$sRenew your license%2$s to get access to the latest versions including bug fixes, security updates, and new features.',
 								'tribe-common'
 							),
-							'<a href="https://theeventscalendar.com/my-account/">',
+							'<a href="http://m.tri.be/195d">',
 							'</a>'
 						);
 						?>
