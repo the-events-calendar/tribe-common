@@ -493,12 +493,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @since 4.3
 		 */
 		public function display_license_error_message() {
-			$pluginInfo  = $this->json_error;
+			$plugin_info  = $this->json_error;
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
-			$expired_license_msg     = $this->get_api_message( $pluginInfo );
+			$expired_license_msg     = $this->get_api_message( $plugin_info );
 			$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
 			?>
 			<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
