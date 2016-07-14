@@ -902,6 +902,12 @@ a.tribe-rating-link {
 	float: right;
 	margin-left: 2em;
 }
+.tribe-message a {
+	text-decoration: none;
+}
+.tribe-message a:hover {
+	text-decoration: underline;
+}
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
 	#tribe-loading span {
