@@ -493,7 +493,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function display_license_error_message() {
 			$plugin_info  = $this->json_error;
-			$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
@@ -518,6 +517,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 							if ( isset( $plugin_info->api_expired ) ) {
 								printf( esc_html__( '%1$sRenew your license%2$s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), '<a href="https://theeventscalendar.com/my-account/">', '</a>' );
 							} else {
+								$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
 								echo '<a href="' . esc_url( $license_tab ) . '">' . esc_html__( 'Add your license key' ) . '</a>';
 								printf( esc_html__( ' so that you can always have access to our latest versions. You can find your %1$slicense keys%2$s in your account on %3$stheeventscalendar.com%4$s', 'tribe-common' ), '<a href="https://theeventscalendar.com/my-account/">', '</a>', '<a href="https://theeventscalendar.com/">', '</a>' );
 							}
