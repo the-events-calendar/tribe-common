@@ -505,8 +505,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					return;
 				}
 			}
-
-
+			
 			$expired_license_msg     = $this->get_api_message( $plugin_info );
 			$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
 			?>
