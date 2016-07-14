@@ -467,7 +467,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * processes variable substitutions for server-side API message
 		 */
-		private function get_api_message( $pluginInfo ) {
+		private function get_api_message( $info ) {
 			// this default message should never show, but is here as a fallback just in case.
 			$message = sprintf(
 				esc_html__( 'Sorry, there is a problem with your license key. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
@@ -475,14 +475,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				'</a>'
 			);
 
-			if ( ! empty( $pluginInfo->api_invalid_message ) ) {
-				$message = wp_kses( $pluginInfo->api_invalid_message, 'post' );
+			if ( ! empty( $info->api_invalid_message ) ) {
+				$message = wp_kses( $info->api_invalid_message, 'post' );
 			}
 
 			$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $message );
 			$message = str_replace( '%plugin_slug%', $this->get_slug(), $message );
 			$message = str_replace( '%update_url%', $this->get_pue_update_url(), $message );
-			$message = str_replace( '%version%', $pluginInfo->version, $message );
+			$message = str_replace( '%version%', $info->version, $message );
 
 			return $message;
 		}
