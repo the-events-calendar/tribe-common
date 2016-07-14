@@ -490,10 +490,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Displays an error notice if a premium plugin is activated and the license is expired
 		 *
-		 * @since 4.3
 		 */
 		public function display_license_error_message() {
 			$plugin_info  = $this->json_error;
+			$license_tab = admin_url( 'wp-admin/edit.php?post_type=tribe_events&page=tribe-common' );
+			var_dump($plugin_info);
 
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
@@ -508,14 +509,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					<p><?php echo wp_kses( $expired_license_message, 'post' ); ?></p>
 					<p>
 						<?php
-						printf(
-							esc_html__(
-								'%1$sRenew your license%2$s to get access to the latest versions including bug fixes, security updates, and new features.',
-								'tribe-common'
-							),
-							'<a href="https://theeventscalendar.com/my-account/">',
-							'</a>'
-						);
+							if ( isset( $plugin_info->api_expired ) ) {
+								printf( esc_html__( '%1$sRenew your license%2$s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), '<a href="https://theeventscalendar.com/my-account/">', '</a>' );
+							} else {
+								echo '<a href="' . $license_tab . '">' . esc_html__( 'Add your license key' ) . '</a>';
+								printf( esc_html__( ' so that you can always have access to our latest versions. You can find your %1$slicense keys%2$s in your account on %3$stheeventscalendar.com%4$s', 'tribe-common' ), '<a href="https://theeventscalendar.com/my-account/">', '</a>',  '<a href="https://theeventscalendar.com/">', '</a>' );
+							}
 						?>
 					</p>
 				</div>
