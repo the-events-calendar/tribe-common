@@ -511,7 +511,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 							if ( isset( $plugin_info->api_expired ) ) {
 								printf( esc_html__( '%1$sRenew your license%2$s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), '<a href="https://theeventscalendar.com/my-account/">', '</a>' );
 							} else {
-								echo '<a href="' . $license_tab . '">' . esc_html__( 'Add your license key' ) . '</a>';
+								echo '<a href="' . esc_url( $license_tab ) . '">' . esc_html__( 'Add your license key' ) . '</a>';
 								printf( esc_html__( ' so that you can always have access to our latest versions. You can find your %1$slicense keys%2$s in your account on %3$stheeventscalendar.com%4$s', 'tribe-common' ), '<a href="https://theeventscalendar.com/my-account/">', '</a>', '<a href="https://theeventscalendar.com/">', '</a>' );
 							}
 						?>
