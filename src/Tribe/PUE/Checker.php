@@ -492,7 +492,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @since 4.3
 		 */
-		public function display_expired_license_message() {
+		public function display_license_error_message() {
 			$pluginInfo  = $this->json_error;
 
 			if ( ! current_user_can( 'administrator' ) ) {
@@ -626,7 +626,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			//admin display for if the update check reveals that there is a new version but the API key isn't valid.
 			if ( isset( $pluginInfo->api_invalid ) ) { //we have json_error returned let's display a message
 				$this->json_error = $pluginInfo;
-				add_action( 'admin_notices', array( &$this, 'display_expired_license_message' ) );
+				add_action( 'admin_notices', array( &$this, 'display_license_error_message' ) );
 
 				return null;
 			}
