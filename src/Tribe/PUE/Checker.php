@@ -656,7 +656,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function in_plugin_update_message( $plugin_data ) {
 			$plugin_info = $this->json_error;
-			var_dump($plugin_info);
 			//only display messages if there is a new version of the plugin.
 			if ( is_object( $plugin_info ) && version_compare( $plugin_info->version, $this->get_installed_version(), '>' ) ) {
 				if ( $plugin_info->api_invalid ) {
