@@ -108,8 +108,8 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-jquery-ui-theme', $this->plugin_url . 'vendor/jquery/ui.theme.css' ),
-				array( 'tribe-clipboard', $this->plugin_url . 'vendor/clipboard/clipboard.js' ),
+				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
+				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 			)
 		);
 
