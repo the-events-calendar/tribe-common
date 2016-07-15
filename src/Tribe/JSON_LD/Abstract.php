@@ -50,20 +50,21 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Compile the schema.org event data into an array
 	 *
-	 * @param mixed $post             Either a post ID or a WP_post object.
-	 * @param array $args {
-	 *          Optional. An array of arguments to control the returned data.
-	 *              @type string $context         The value of the `@context` tag, defaults to 'https://schema.org'
-	 *              @type bool   $skip_duplicates If set to `true` fetching data for same post a second time will
+	 * @param mixed $post            Either a post ID or a WP_post object.
+	 * @param array $args            {
+	 *                               Optional. An array of arguments to control the returned data.
+	 *
+	 * @type string $context         The value of the `@context` tag, defaults to 'https://schema.org'
+	 * @type bool   $skip_duplicates If set to `true` fetching data for same post a second time will
 	 *                                            return an empty array. Default `true`.
-	 * }
+	 *                                            }
 	 *
 	 * @return array Either an array containing a post data or an empty array if the post data cannot
 	 *               be generated, the `$post` parameter is not a valid post ID or object or the data
 	 *               for the post has been fetched already and the `skip_duplicates` argument is truthy.
 	 */
 	public function get_data( $post = null, $args = array() ) {
-		$post = $this->get_post_object($post);
+		$post = $this->get_post_object( $post );
 
 		if ( empty( $post ) ) {
 			return array();
@@ -74,7 +75,9 @@ abstract class Tribe__JSON_LD__Abstract {
 			return array();
 		}
 
-		self::$fetched_post_ids[] = $post->ID;
+		if ( ! in_array( $post->ID, self::$fetched_post_ids ) ) {
+			self::$fetched_post_ids[] = $post->ID;
+		}
 
 
 		$data = (object) array();
@@ -192,7 +195,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	}
 
 	public function reset_fetched_post_ids() {
-		self::$fetched_post_ids = array();
+		self::class_reset_fetched_post_ids();
 	}
 
 	public function unset_fetched_post_id( $post ) {
@@ -221,5 +224,9 @@ abstract class Tribe__JSON_LD__Abstract {
 		}
 
 		return $post;
+	}
+
+	public static function class_reset_fetched_post_ids() {
+		self::$fetched_post_ids = array();
 	}
 }

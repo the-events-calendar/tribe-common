@@ -16,6 +16,7 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 	public function tearDown() {
 		// your tear down methods here
+		\Tribe__JSON_LD__Abstract::class_reset_fetched_post_ids();
 
 		// then
 		parent::tearDown();
