@@ -503,8 +503,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			?>
 			<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
 				<div class="tribe-message">
-					<img class="spirit-animal"
-						 src="<?php echo esc_url( plugins_url( '../../src/resources/images/spirit-animal.png', dirname( __FILE__ ) ) ); ?>">
+					<img class="tribe-spirit-animal" src="<?php echo esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' );?>">
 					<p><?php echo wp_kses( $expired_license_message, 'post' ); ?></p>
 					<p>
 						<?php

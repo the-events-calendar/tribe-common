@@ -898,7 +898,7 @@ a.tribe-rating-link {
 .tribe-message:after {
 	clear: both;
 }
-.tribe-message .spirit-animal {
+.tribe-message .tribe-spirit-animal {
 	float: right;
 	margin-left: 2em;
 }
