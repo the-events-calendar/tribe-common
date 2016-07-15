@@ -41,6 +41,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public $install_key = false; //used to hold the install_key if set (included here for addons that will extend PUE to use install key checks)
 		public $dismiss_upgrade; //for setting the dismiss upgrade option (per plugin).
 		public $pue_install_key; //we'll customize this later so each plugin can have it's own install key!
+		public $plugin_notice;
 
 		/**
 		 * Class constructor.
@@ -84,6 +85,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_license_fields', array( $this, 'do_license_key_fields' ) );
 			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
+			add_action( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
 
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
@@ -529,6 +531,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				</script>
 				<?php
 			}
+		}
+
+		public function display_json_error_on_plugins_page() {
+			$plugin_info = $this->json_error;
+			$slug = $this->get_slug();
+
+			$this->plugin_notice = array(
+				'slug' => $slug,
+				'message' => $this->get_api_message( $plugin_info ),
+			);
+			add_filter( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
+		}
+
+		public function add_notice_to_plugin_notices( $notices ) {
+			$notices[ $this->plugin_notice['slug'] ] = $this->plugin_notice;
 		}
 
 		/**
