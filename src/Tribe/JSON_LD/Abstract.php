@@ -24,7 +24,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * @var array
 	 */
-	protected $fetched_post_ids = array();
+	protected static $fetched_post_ids = array();
 
 	/**
 	 * The class singleton constructor.
@@ -70,11 +70,11 @@ abstract class Tribe__JSON_LD__Abstract {
 		}
 
 		$skip_duplicates = ! isset( $args['skip_duplicates'] ) || $args['skip_duplicates'] == true;
-		if ( $skip_duplicates && in_array( $post->ID, $this->fetched_post_ids ) ) {
+		if ( $skip_duplicates && in_array( $post->ID, self::$fetched_post_ids ) ) {
 			return array();
 		}
 
-		$this->fetched_post_ids[] = $post->ID;
+		self::$fetched_post_ids[] = $post->ID;
 
 
 		$data = (object) array();
@@ -173,7 +173,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	 * @return array An array of post IDs.
 	 */
 	public function get_fetched_post_ids() {
-		return $this->fetched_post_ids;
+		return self::$fetched_post_ids;
 	}
 
 	/**
@@ -184,25 +184,25 @@ abstract class Tribe__JSON_LD__Abstract {
 	public function set_fetched_post_id( $post ) {
 		$post = $this->get_post_object( $post );
 
-		if ( empty( $post ) || in_array( $post->ID, $this->fetched_post_ids ) ) {
+		if ( empty( $post ) || in_array( $post->ID, self::$fetched_post_ids ) ) {
 			return;
 		}
 
-		$this->fetched_post_ids[] = $post->ID;
+		self::$fetched_post_ids[] = $post->ID;
 	}
 
 	public function reset_fetched_post_ids() {
-		$this->fetched_post_ids = array();
+		self::$fetched_post_ids = array();
 	}
 
 	public function unset_fetched_post_id( $post ) {
 		$post = $this->get_post_object( $post );
 
-		if ( empty( $post ) || ! in_array( $post->ID, $this->fetched_post_ids ) ) {
+		if ( empty( $post ) || ! in_array( $post->ID, self::$fetched_post_ids ) ) {
 			return;
 		}
 
-		$this->fetched_post_ids = array_diff( $this->fetched_post_ids, array( $post->ID ) );
+		self::$fetched_post_ids = array_diff( self::$fetched_post_ids, array( $post->ID ) );
 	}
 
 	/**
