@@ -199,13 +199,13 @@ abstract class Tribe__JSON_LD__Abstract {
 	}
 
 	public function unset_fetched_post_id( $post ) {
-		$post = $this->get_post_object( $post );
+		$post_id = Tribe__Main::post_id_helper( $post );
 
-		if ( empty( $post ) || ! in_array( $post->ID, self::$fetched_post_ids ) ) {
+		if ( empty( $post_id ) || ! in_array( $post_id, self::$fetched_post_ids ) ) {
 			return;
 		}
 
-		self::$fetched_post_ids = array_diff( self::$fetched_post_ids, array( $post->ID ) );
+		self::$fetched_post_ids = array_diff( self::$fetched_post_ids, array( $post_id ) );
 	}
 
 	/**
