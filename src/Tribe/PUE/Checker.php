@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function hooks() {
 			// Override requests for plugin information
-			add_filter( 'plugins_api', array( &$this, 'inject_info' ), 10, 3 );
+			add_filter( 'plugins_api', array( $this, 'inject_info' ), 10, 3 );
 
 			// Check for updates when the WP updates are checked and inject our update if needed.
 			// Only add filter if the TRIBE_DISABLE_PUE constant is not set as true.
@@ -92,6 +92,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'wp_ajax_' . $this->dismiss_upgrade, array( $this, 'dashboard_dismiss_upgrade' ) );
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
+
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -496,30 +497,27 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$plugin_info = $this->json_error;
 
 			if ( ! current_user_can( 'install_plugins' ) ) {
-				return;
-			}
 
-			if ( isset( $plugin_info->api_invalid ) ) {
-				$expired_license_msg     = $this->get_api_message( $plugin_info );
-				$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
-				?>
-				<div class="notice notice-warning is-dismissable">
-				<img class="tribe-spirit-animal" src="<?php echo esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ); ?>">
-				<p><?php echo wp_kses( $expired_license_message, 'post' ); ?></p>
-				<p>
-					<?php
-					printf(
-						esc_html__(
-							'%1$sRenew your license%2$s to get access to the latest versions including bug fixes, security updates, and new features.',
-							'tribe-common'
-						),
-						'<a href="http://m.tri.be/195d">',
-						'</a>'
-					);
-					?>
-				</p>
-				</div>
-				<?php
+
+				if ( isset( $plugin_info->api_invalid ) ) {
+					$expired_license_msg     = $this->get_api_message( $plugin_info );
+					$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
+					$html                    = '';
+					$html .= '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
+					$html .= '<p>' . wp_kses( $expired_license_message, 'post' ) . '</p>';
+					$html .= '<p>' .
+					         printf(
+						         esc_html__(
+							         '%1$sRenew your license%2$s to get access to the latest versions including bug fixes, security updates, and new features.',
+							         'tribe-common'
+						         ),
+						         '<a href="http://m.tri.be/195d">',
+						         '</a>'
+					         ) .
+					         '</p>';
+
+					return Tribe__Admin__Notices::instance()->render( 'display_license_error_message', $html );
+				}
 			}
 		}
 
@@ -636,6 +634,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			//admin display for if the update check reveals that there is a new version but the API key isn't valid.
 			if ( isset( $pluginInfo->api_invalid ) ) { //we have json_error returned let's display a message
 				$this->json_error = $pluginInfo;
+
 				Tribe__Admin__Notices::instance()->register( 'pue-admin-notice',
 					array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
 
