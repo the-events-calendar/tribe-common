@@ -19,13 +19,26 @@ tribe_auto_sysinfo.ajax = {
 
 		var clipboard = new Clipboard( '.system-info-copy-btn' );
 
+		var button_text = '<span class="dashicons dashicons-clipboard license-btn"></span>Copy to clipboard';
+
 		//Prevent Button From Doing Anything Else
 		$( ".system-info-copy-btn" ).click( function ( e ) {
 			e.preventDefault();
 		} );
 
-		clipboard.on('error', function(e) {
-		    alert( 'Press Command+C to copy' );
+		clipboard.on('success', function(event) {
+		    event.clearSelection();
+		    event.trigger.innerHTML = 'System Info Copied';
+		    window.setTimeout(function() {
+		        event.trigger.innerHTML = button_text;
+		    }, 2000);
+		});
+
+		clipboard.on('error', function(event) {
+		    event.trigger.innerHTML = 'Press "Cmd + C" to copy';
+		    window.setTimeout(function() {
+		        event.trigger.innerHTML = button_text;
+		    }, 4000);
 		});
 
 	};
