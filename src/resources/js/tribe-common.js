@@ -17,12 +17,16 @@ tribe_auto_sysinfo.ajax = {
 	 */
 	my.init_copy = function () {
 
-		new Clipboard( '.system-info-copy-btn' );
+		var clipboard = new Clipboard( '.system-info-copy-btn' );
 
 		//Prevent Button From Doing Anything Else
 		$( ".system-info-copy-btn" ).click( function ( e ) {
 			e.preventDefault();
 		} );
+
+		clipboard.on('error', function(e) {
+		    alert( 'Press Command+C to copy' );
+		});
 
 	};
 
