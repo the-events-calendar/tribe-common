@@ -85,7 +85,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_license_fields', array( $this, 'do_license_key_fields' ) );
 			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
-			add_action( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
+
+			add_action( 'update_option_' . $this->pue_install_key, array( $this, 'check_for_api_key_error' ), 10, 2 );
 
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
@@ -94,6 +95,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'wp_ajax_' . $this->dismiss_upgrade, array( $this, 'dashboard_dismiss_upgrade' ) );
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
+
+			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -533,19 +536,32 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 		}
 
-		public function display_json_error_on_plugins_page() {
-			$plugin_info = $this->json_error;
-			$slug = $this->get_slug();
+		public function maybe_display_json_error_on_plugins_page( $page ) {
+			if ( 'plugins.php' !== $page ) {
+				return;
+			}
+
+			$state = $this->get_option( $this->pue_option_name, false, false );
+
+			if ( empty( $state->update->license_error ) ) {
+				return;
+			}
 
 			$this->plugin_notice = array(
-				'slug' => $slug,
-				'message' => $this->get_api_message( $plugin_info ),
+				'slug' => $this->get_slug(),
+				'message' => $state->update->license_error,
 			);
 			add_filter( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
 		}
 
 		public function add_notice_to_plugin_notices( $notices ) {
+			if ( ! $this->plugin_notice ) {
+				return $notices;
+			}
+
 			$notices[ $this->plugin_notice['slug'] ] = $this->plugin_notice;
+
+			return $notices;
 		}
 
 		/**
@@ -658,15 +674,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( $pluginInfo == null ) {
 				return null;
 			}
-			//admin display for if the update check reveals that there is a new version but the API key isn't valid.
-			if ( isset( $pluginInfo->api_invalid ) ) { //we have json_error returned let's display a message
+
+			// admin display for if the update check reveals that there is a new version but the API key isn't valid.
+			if ( isset( $pluginInfo->api_invalid ) ) {
+				do_action( 'debug_robot', "API is invalid" );
+				//we have json_error returned let's display a message
 				$this->json_error = $pluginInfo;
 				add_action( 'admin_notices', array( &$this, 'display_json_error' ) );
 
-				return null;
+				$pluginInfo = Tribe__PUE__Utility::from_plugin_info( $pluginInfo );
+				$pluginInfo->license_error = $this->get_api_message( $pluginInfo );
+				return $pluginInfo;
 			}
 
 			if ( isset( $pluginInfo->new_install_key ) ) {
+				do_action( 'debug_robot', "updating option with new install key" );
 				$this->update_option( $this->pue_install_key, $pluginInfo->new_install_key );
 			}
 
@@ -744,11 +766,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param string     $option_key
 		 * @param bool|mixed $default
+		 * @param bool       $use_cache
 		 *
 		 * @return null|mixed
 		 */
-		public function get_option( $option_key, $default = false ) {
-			return get_site_option( $option_key, $default );
+		public function get_option( $option_key, $default = false, $use_cache = true ) {
+			return get_site_option( $option_key, $default, $use_cache );
 		}
 
 		/**
@@ -770,7 +793,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 */
 		public function check_for_updates( $updates = array() ) {
-			$state = $this->get_option( $this->pue_option_name );
+			$state = $this->get_option( $this->pue_option_name, false, false );
 			if ( empty( $state ) ) {
 				$state                 = new StdClass;
 				$state->lastCheck      = 0;
@@ -780,12 +803,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$state->lastCheck      = time();
 			$state->checkedVersion = $this->get_installed_version();
+			do_action( 'debug_robot', "updating option with pre-check" );
 			$this->update_option( $this->pue_option_name, $state ); //Save before checking in case something goes wrong
 
 			$state->update = $this->request_update();
 
 			// If a null update was returned, skip the end of the function.
 			if ( $state->update == null ) {
+				do_action( 'debug_robot', "updating option with update message" );
+				$this->update_option( $this->pue_option_name, $state );
 				return $updates;
 			}
 
@@ -794,10 +820,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$updates->response[ $this->get_plugin_file() ] = $state->update->to_wp_format();
 			}
 
+			do_action( 'debug_robot', "updating option with state" );
 			$this->update_option( $this->pue_option_name, $state );
 			add_action( 'after_plugin_row_' . $this->get_plugin_file(), array( &$this, 'in_plugin_update_message' ) );
 
 			return $updates;
+		}
+
+		/**
+		 * Clears out the site external site option and re-checks the license key
+		 */
+		public function check_for_api_key_error( $old_value, $value ) {
+			delete_site_option( $this->pue_option_name );
+			do_action( 'debug_robot', '$this->get_option( $this->pue_option_name ) :: ' . print_r( $this->get_option( $this->pue_option_name ), TRUE ) );
+
+			$this->check_for_updates();
 		}
 
 		/**

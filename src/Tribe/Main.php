@@ -123,7 +123,7 @@ class Tribe__Main {
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
 				array( 'tribe-common', 'tribe-common.js', array( 'tribe-clipboard' ) ),
-				array( 'tribe-pue-notices', 'pue-notices.js' ),
+				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
 			),
 			'admin_enqueue_scripts',
 			array(
@@ -148,7 +148,7 @@ class Tribe__Main {
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'load_assets' ), 1 );
 		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
-		add_action( 'admin_enqueue_scripts', 'store_admin_notices' );
+		add_action( 'admin_enqueue_scripts', array( $this, 'store_admin_notices' ) );
 	}
 
 	/**
