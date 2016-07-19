@@ -50,14 +50,14 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Compile the schema.org event data into an array
 	 *
-	 * @param mixed $post            Either a post ID or a WP_post object.
-	 * @param array $args            {
-	 *                               Optional. An array of arguments to control the returned data.
+	 * @param mixed $post Either a post ID or a WP_post object.
+	 * @param array $args {
+	 *       Optional. An array of arguments to control the returned data.
 	 *
-	 * @type string $context         The value of the `@context` tag, defaults to 'https://schema.org'
-	 * @type bool   $skip_duplicates If set to `true` fetching data for same post a second time will
-	 *                                            return an empty array. Default `true`.
-	 *                                            }
+	 *      @type string $context         The value of the `@context` tag, defaults to 'https://schema.org'
+	 *      @type bool   $skip_duplicates If set to `true` fetching data for same post a second time will
+	 *                                    return an empty array. Default `true`.
+	 * }
 	 *
 	 * @return array Either an array containing a post data or an empty array if the post data cannot
 	 *               be generated, the `$post` parameter is not a valid post ID or object or the data
