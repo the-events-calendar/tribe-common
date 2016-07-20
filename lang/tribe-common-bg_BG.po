@@ -2,13 +2,17 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-11 11:33:56+0000\n"
+"PO-Revision-Date: 2016-06-06 15:10:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
+
+#: src/Tribe/Log/Null_Logger.php:26
+msgid "Null logger (will log nothing)"
+msgstr ""
 
 #: src/Tribe/Log/Admin.php:132
 msgctxt "log selector"
@@ -308,7 +312,7 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Settings.php:321
+#: src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr ""
 
@@ -468,7 +472,7 @@ msgstr "Разполагате с най-новата версия!"
 
 #: src/Tribe/Admin/Help_Page.php:183
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "Events Calendar PRO"
 
 #: src/Tribe/View_Helpers.php:281
 msgid "Wallis And Futuna Islands"
@@ -927,7 +931,7 @@ msgstr "Франция, Метрополия"
 msgid "French Guiana"
 msgstr "Френска Гвиана"
 
-#: src/Tribe/Settings.php:585
+#: src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "Настройките са записани."
 
@@ -1293,7 +1297,7 @@ msgstr "Нигерия"
 msgid "Niue"
 msgstr "Ниуе"
 
-#: src/Tribe/Settings.php:214
+#: src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Настройки"
 
@@ -1413,7 +1417,7 @@ msgstr "Сейнт Лусия"
 msgid "Saint Vincent And The Grenadines"
 msgstr "Сейнт Винсент и Гренадини"
 
-#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
+#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "Настройки на събития"
 
@@ -1421,7 +1425,7 @@ msgstr "Настройки на събития"
 msgid "Samoa"
 msgstr "Самоа"
 
-#: src/Tribe/Settings.php:299
+#: src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s Настройки"
 
@@ -1429,7 +1433,7 @@ msgstr "%s Настройки"
 msgid "San Marino"
 msgstr "Сан Марино"
 
-#: src/Tribe/Settings.php:313
+#: src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "Търсите несъществуващ таб."
 
@@ -1437,7 +1441,7 @@ msgstr "Търсите несъществуващ таб."
 msgid "Sao Tome And Principe"
 msgstr "Сао Томе и Принсипи"
 
-#: src/Tribe/Settings.php:369
+#: src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "Нямате достъп."
 
@@ -1445,7 +1449,7 @@ msgstr "Нямате достъп."
 msgid "Saudi Arabia"
 msgstr "Саудитска Арабия"
 
-#: src/Tribe/Settings.php:375
+#: src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "Заявката не е изпратена криптирано."
 
@@ -1453,7 +1457,7 @@ msgstr "Заявката не е изпратена криптирано."
 msgid "Senegal"
 msgstr "Сенегал"
 
-#: src/Tribe/Settings.php:381
+#: src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "Заявката не е изпратена от този таб."
 
@@ -1461,7 +1465,7 @@ msgstr "Заявката не е изпратена от този таб."
 msgid "Serbia"
 msgstr "Сърбия"
 
-#: src/Tribe/Settings.php:549
+#: src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "Формуляра Ви има следните грешки:"
 
@@ -1469,7 +1473,7 @@ msgstr "Формуляра Ви има следните грешки:"
 msgid "Seychelles"
 msgstr "Сейшели"
 
-#: src/Tribe/Settings.php:559
+#: src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "Вашите настройки не бяха запаметени. Моля опитайте отново."
 
@@ -1477,7 +1481,7 @@ msgstr "Вашите настройки не бяха запаметени. Мо
 msgid "Sierra Leone"
 msgstr "Сиера Леоне"
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Настройката по-горе не са запаметена. Другите настройки са успешно запаметени."
