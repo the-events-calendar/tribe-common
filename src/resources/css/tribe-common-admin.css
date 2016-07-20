@@ -879,6 +879,48 @@ a.tribe-rating-link {
 .tribe-bumpdown-trigger .target {
 	color: #0074a2;
 }
+/* = Modals/thickbox dialogs
+============================ */
+#tribe-dialog-wrapper > div {
+	padding: 16px;
+	padding: 1rem;
+}
+#tribe-dialog-wrapper > div .stage {
+	display: none;
+}
+#tribe-dialog-wrapper #heading {
+	background: white;
+}
+#tribe-dialog-wrapper label {
+	display: block;
+}
+#tribe-dialog-wrapper .select-single-container {
+	border: 1px solid #888;
+	overflow-y: scroll;
+	height: 300px;
+}
+#tribe-dialog-wrapper .select-single-container label {
+	opacity: 1;
+	padding: 3px 5px;
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+}
+#tribe-dialog-wrapper .select-single-container label:nth-child(odd) {
+	background: white;
+}
+#tribe-dialog-wrapper .select-single-container label.selected {
+	background: #0073aa;
+	color: white;
+	font-weight: bold;
+}
+#tribe-dialog-wrapper .select-single-container label input {
+	display: none;
+}
+#tribe-dialog-wrapper .select-single-container.updating label {
+	opacity: 0.35;
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+}
 /* Useful to ensure modals rise above the grey 'miasma' */
 .ui-front {
 	z-index: 1000000;
