@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+
 /**
  * An Abstract class that will allow us to have a base to go for all
  * the other JSON-LD classes.
@@ -15,9 +16,15 @@ abstract class Tribe__JSON_LD__Abstract {
 
 	/**
 	 * Holder of the Instances
+	 *
 	 * @var array
 	 */
 	private static $instances = array();
+
+	/**
+	 * @var array
+	 */
+	protected static $fetched_post_ids = array();
 
 	/**
 	 * The class singleton constructor.
@@ -42,16 +49,36 @@ abstract class Tribe__JSON_LD__Abstract {
 
 	/**
 	 * Compile the schema.org event data into an array
+	 *
+	 * @param mixed $post Either a post ID or a WP_post object.
+	 * @param array $args {
+	 *       Optional. An array of arguments to control the returned data.
+	 *
+	 *      @type string $context         The value of the `@context` tag, defaults to 'https://schema.org'
+	 *      @type bool   $skip_duplicates If set to `true` fetching data for same post a second time will
+	 *                                    return an empty array. Default `true`.
+	 * }
+	 *
+	 * @return array Either an array containing a post data or an empty array if the post data cannot
+	 *               be generated, the `$post` parameter is not a valid post ID or object or the data
+	 *               for the post has been fetched already and the `skip_duplicates` argument is truthy.
 	 */
 	public function get_data( $post = null, $args = array() ) {
-		if ( ! $post instanceof WP_Post ) {
-			$post = Tribe__Main::post_id_helper( $post );
-		}
-		$post = get_post( $post );
+		$post = $this->get_post_object( $post );
 
-		if ( ! $post instanceof WP_Post ) {
+		if ( empty( $post ) ) {
 			return array();
 		}
+
+		$skip_duplicates = ! isset( $args['skip_duplicates'] ) || $args['skip_duplicates'] == true;
+		if ( $skip_duplicates && in_array( $post->ID, self::$fetched_post_ids ) ) {
+			return array();
+		}
+
+		if ( ! in_array( $post->ID, self::$fetched_post_ids ) ) {
+			self::$fetched_post_ids[] = $post->ID;
+		}
+
 
 		$data = (object) array();
 
@@ -59,10 +86,10 @@ abstract class Tribe__JSON_LD__Abstract {
 		if ( ! isset( $args['context'] ) || false !== $args['context'] ) {
 			$data->{'@context'} = 'http://schema.org';
 		}
-		$data->{'@type'}    = $this->type;
+		$data->{'@type'} = $this->type;
 
-		$data->name         = esc_js( get_the_title( $post ) );
-		$data->description  = esc_js( tribe_events_get_the_excerpt( $post ) );
+		$data->name        = esc_js( get_the_title( $post ) );
+		$data->description = esc_js( tribe_events_get_the_excerpt( $post ) );
 
 		if ( has_post_thumbnail( $post ) ) {
 			$data->image = wp_get_attachment_url( get_post_thumbnail_id( $post ) );
@@ -77,6 +104,7 @@ abstract class Tribe__JSON_LD__Abstract {
 
 	/**
 	 * puts together the actual html/json javascript block for output
+	 *
 	 * @return string
 	 */
 	public function get_markup( $post = null, $args = array() ) {
@@ -91,8 +119,8 @@ abstract class Tribe__JSON_LD__Abstract {
 			 * @example tribe_json_ld_thing_object
 			 * @example tribe_json_ld_event_object
 			 *
-			 * @param object $data objects representing the Google Markup for each event.
-			 * @param array $args the arguments used to get data
+			 * @param object  $data objects representing the Google Markup for each event.
+			 * @param array   $args the arguments used to get data
 			 * @param WP_Post $post the arguments used to get data
 			 */
 			$data[ $post_id ] = apply_filters( "tribe_json_ld_{$type}_object", $_data, $args, get_post( $post_id ) );
@@ -126,18 +154,79 @@ abstract class Tribe__JSON_LD__Abstract {
 
 		/**
 		 * Allows users to filter the end markup of JSON-LD
+		 *
 		 * @deprecated
 		 * @todo Remove on 4.4
+		 *
 		 * @param string The HTML for the JSON LD markup
 		 */
 		$html = apply_filters( 'tribe_google_data_markup_json', $html );
 
 		/**
 		 * Allows users to filter the end markup of JSON-LD
+		 *
 		 * @param string The HTML for the JSON LD markup
 		 */
 		$html = apply_filters( 'tribe_json_ld_markup', $html );
 
 		echo $html;
+	}
+
+	/**
+	 * @return array An array of post IDs.
+	 */
+	public function get_fetched_post_ids() {
+		return self::$fetched_post_ids;
+	}
+
+	/**
+	 * Marks a post as already fetched.
+	 *
+	 * @param int|WP_Post $post
+	 */
+	public function set_fetched_post_id( $post ) {
+		$post = $this->get_post_object( $post );
+
+		if ( empty( $post ) || in_array( $post->ID, self::$fetched_post_ids ) ) {
+			return;
+		}
+
+		self::$fetched_post_ids[] = $post->ID;
+	}
+
+	public function reset_fetched_post_ids() {
+		self::class_reset_fetched_post_ids();
+	}
+
+	public function unset_fetched_post_id( $post ) {
+		$post_id = Tribe__Main::post_id_helper( $post );
+
+		if ( empty( $post_id ) || ! in_array( $post_id, self::$fetched_post_ids ) ) {
+			return;
+		}
+
+		self::$fetched_post_ids = array_diff( self::$fetched_post_ids, array( $post_id ) );
+	}
+
+	/**
+	 * @param $post
+	 *
+	 * @return array|bool|int|null|WP_Post
+	 */
+	protected function get_post_object( $post ) {
+		if ( ! $post instanceof WP_Post ) {
+			$post = Tribe__Main::post_id_helper( $post );
+		}
+		$post = get_post( $post );
+
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		return $post;
+	}
+
+	public static function class_reset_fetched_post_ids() {
+		self::$fetched_post_ids = array();
 	}
 }
