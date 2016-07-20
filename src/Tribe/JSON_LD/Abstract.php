@@ -64,13 +64,13 @@ abstract class Tribe__JSON_LD__Abstract {
 	 *               for the post has been fetched already.
 	 */
 	public function get_data( $post = null, $args = array() ) {
-		// This prevents a JSON_LD from existing twice one the same page
-		if ( $this->exists( $post ) ) {
+		$post_id = Tribe__Main::post_id_helper( $post );
+		if ( ! $post_id ) {
 			return array();
 		}
 
-		$post_id = Tribe__Main::post_id_helper( $post );
-		if ( ! $post_id ) {
+		// This prevents a JSON_LD from existing twice one the same page
+		if ( $this->exists( $post_id ) ) {
 			return array();
 		}
 
