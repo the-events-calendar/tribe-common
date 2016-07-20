@@ -18,6 +18,9 @@
 div.tribe-dependent.tribe-active {
 	display: block;
 }
+div.tribe-dependent.tribe-active.select2-container {
+	display: inline-block;
+}
 td.tribe-dependent.tribe-active {
 	display: table-cell;
 }

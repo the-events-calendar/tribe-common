@@ -107,6 +107,10 @@
 					e.preventDefault();
 					e.stopPropagation();
 
+					if ( 'undefined' === typeof data.$bumpdown ) {
+						return;
+					}
+
 					data.$bumpdown.trigger( 'close.bumpdown' );
 				},
 			}, selectors.close )
