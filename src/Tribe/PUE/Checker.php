@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function hooks() {
 			// Override requests for plugin information
-			add_filter( 'plugins_api', array( &$this, 'inject_info' ), 10, 3 );
+			add_filter( 'plugins_api', array( $this, 'inject_info' ), 10, 3 );
 
 			// Check for updates when the WP updates are checked and inject our update if needed.
 			// Only add filter if the TRIBE_DISABLE_PUE constant is not set as true.
@@ -92,6 +92,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'wp_ajax_' . $this->dismiss_upgrade, array( $this, 'dashboard_dismiss_upgrade' ) );
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
+
+			Tribe__Admin__Notices::instance()->register( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
+
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -490,14 +493,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Displays an error notice if a premium plugin is activated and the license is expired
 		 *
+<<<<<<< HEAD
+=======
+		 * @since 4.3
+		 *
+		 * @return bool|string
+>>>>>>> feature/45620-improve-expired-license-prompt
 		 */
 		public function display_license_error_message() {
-			$plugin_info  = $this->json_error;
+			$plugin_info = $this->plugin_info;
 
-			if ( ! current_user_can( 'administrator' ) ) {
-				return;
+			if ( ! current_user_can( 'install_plugins' ) ) {
+				return false;
 			}
 
+<<<<<<< HEAD
 			//only display messages if there is a new version of the plugin.
 			if ( version_compare( $plugin_info->version, $this->get_installed_version(), '>' ) ) {
 				if ( empty( $plugin_info->api_invalid ) || $plugin_info->api_invalid != 1 ) {
@@ -526,6 +536,22 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				</div>
 			</div>
 			<?php
+=======
+			if ( ! isset( $plugin_info->api_invalid ) ) {
+				return false;
+			}
+
+			$expired_license_msg     = $this->get_api_message( $plugin_info );
+			$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
+
+			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
+			$html[] = '<p>' . wp_kses( $expired_license_message, 'post' ) . '</p>';
+
+			$link = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%s</a>', esc_html__( 'Renew your license', 'tribe-common' ) );
+			$html[] = '<p>' . sprintf( __( '%s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $link ) . '</p>';
+
+			return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
+>>>>>>> feature/45620-improve-expired-license-prompt
 		}
 
 		/**
@@ -632,16 +658,23 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return Tribe__PUE__Utility An instance of Tribe__PUE__Utility, or NULL when no updates are available.
 		 */
 		public function request_update() {
-			//For the sake of simplicity, this function just calls request_info()
-			//and transforms the result accordingly.
-			$pluginInfo = $this->request_info( array( 'pu_checking_for_updates' => '1' ) );
-			if ( $pluginInfo == null ) {
+			// For the sake of simplicity, this function just calls request_info()
+			// and transforms the result accordingly.
+			$this->plugin_info = $pluginInfo = $this->request_info( array( 'pu_checking_for_updates' => '1' ) );
+
+			if ( null === $pluginInfo ) {
 				return null;
 			}
-			//admin display for if the update check reveals that there is a new version but the API key isn't valid.
+
+			// admin display for if the update check reveals that there is a new version but the API key isn't valid.
 			if ( isset( $pluginInfo->api_invalid ) ) { //we have json_error returned let's display a message
-				$this->json_error = $pluginInfo;
-				add_action( 'admin_notices', array( &$this, 'display_license_error_message' ) );
+				/**
+				 * For backwards compatibility this will be kept in the code for 2 versions
+				 *
+				 * @deprecated
+				 * @todo  remove on 4.5
+				 */
+				$this->json_error = $this->plugin_info;
 
 				return null;
 			}

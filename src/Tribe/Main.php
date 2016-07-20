@@ -43,7 +43,10 @@ class Tribe__Main {
 
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
-		$this->plugin_url  = plugins_url( $this->plugin_dir );
+
+		$parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
+
+		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
 
 		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
@@ -129,7 +132,7 @@ class Tribe__Main {
 					'data' => array(
 						'sysinfo_optin_nonce' => wp_create_nonce( 'sysinfo_optin_nonce' ),
 					),
-				)
+				),
 			)
 		);
 	}
