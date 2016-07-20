@@ -108,7 +108,6 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
 				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 			)
 		);
@@ -123,6 +122,8 @@ class Tribe__Main {
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
 				array( 'tribe-common', 'tribe-common.js', array( 'tribe-clipboard' ) ),
+				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
+				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css' ),
 			),
 			'admin_enqueue_scripts',
 			array(
