@@ -515,13 +515,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '<p>' . wp_kses( $expired_license_message, 'post' ) . '</p>';
 
 			if ( isset( $plugin_info->api_expired ) ) {
-				$link   = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%s</a>', esc_html__( 'Renew your license', 'tribe-common' ) );
-				$html[] = '<p>' . sprintf( __( '%s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $link ) . '</p>';
+				$expired_link   = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%1$s <span class="screen-reader-text">%2$s</span></a>', esc_html__( 'Renew your license', 'tribe-common' ), esc_html__( '(opens in a new window)', 'tribe-common' ) );
+				$html[] = '<p>' . sprintf( __( '%s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $expired_link ) . '</p>';
 			} else {
 				$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
-				$license_tab_link = sprintf( '<a href="' . $license_tab . '" target="_blank">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
-				$tec_link = sprintf( '<a href="https://theeventscalendar.com" target="_blank">%s</a>', esc_html__( 'theeventscalendar.com', 'tribe-common' ) );
-				$link   = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%s</a>', esc_html__( 'license keys', 'tribe-common' ) );
+				$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
+				$tec_link = sprintf( '<a href="https://theeventscalendar.com" target="_blank">%1$s <span class="screen-reader-text">%2$s</span></a>', esc_html__( 'theeventscalendar.com', 'tribe-common' ), esc_html__( '(opens in a new window)', 'tribe-common' ) );
+				$link   = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%1$s <span class="screen-reader-text">%2$s</span></a>', esc_html__( 'license keys', 'tribe-common' ), esc_html__( '(opens in a new window)', 'tribe-common' ) );
 				$html[] = '<p>' . sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
 				$html[] = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
 			}
