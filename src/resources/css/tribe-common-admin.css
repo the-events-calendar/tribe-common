@@ -902,10 +902,10 @@ a.tribe-rating-link {
 	float: right;
 	margin-left: 2em;
 }
-.tribe-message a {
+.tribe-notice-pue-validation a {
 	text-decoration: none;
 }
-.tribe-message a:hover {
+.tribe-notice-pue-validation a:hover {
 	text-decoration: underline;
 }
 @media

@@ -493,12 +493,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Displays an error notice if a premium plugin is activated and the license is expired
 		 *
-<<<<<<< HEAD
-=======
 		 * @since 4.3
 		 *
 		 * @return bool|string
->>>>>>> feature/45620-improve-expired-license-prompt
 		 */
 		public function display_license_error_message() {
 			$plugin_info = $this->plugin_info;
@@ -507,36 +504,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return false;
 			}
 
-<<<<<<< HEAD
-			//only display messages if there is a new version of the plugin.
-			if ( version_compare( $plugin_info->version, $this->get_installed_version(), '>' ) ) {
-				if ( empty( $plugin_info->api_invalid ) || $plugin_info->api_invalid != 1 ) {
-					return;
-				}
-			}
-			$expired_license_msg     = $this->get_api_message( $plugin_info );
-			$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
-			?>
-			<div class="notice notice-warning is-dismissible" id="pu-dashboard-message">
-				<div class="tribe-message">
-					<img class="spirit-animal"
-						 src="<?php echo esc_url( plugins_url( '../../src/resources/images/spirit-animal.png', dirname( __FILE__ ) ) ); ?>">
-					<p><?php echo wp_kses( $expired_license_message, 'post' ); ?></p>
-					<p>
-						<?php
-							if ( isset( $plugin_info->api_expired ) ) {
-								printf( esc_html__( '%1$sRenew your license%2$s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), '<a href="https://theeventscalendar.com/my-account/">', '</a>' );
-							} else {
-								$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
-								echo '<a href="' . esc_url( $license_tab ) . '">' . esc_html__( 'Add your license key' ) . '</a>';
-								printf( esc_html__( ' so that you can always have access to our latest versions. You can find your %1$slicense keys%2$s in your account on %3$stheeventscalendar.com%4$s', 'tribe-common' ), '<a href="https://theeventscalendar.com/my-account/">', '</a>', '<a href="https://theeventscalendar.com/">', '</a>' );
-							}
-						?>
-					</p>
-				</div>
-			</div>
-			<?php
-=======
 			if ( ! isset( $plugin_info->api_invalid ) ) {
 				return false;
 			}
@@ -547,11 +514,18 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
 			$html[] = '<p>' . wp_kses( $expired_license_message, 'post' ) . '</p>';
 
-			$link = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%s</a>', esc_html__( 'Renew your license', 'tribe-common' ) );
-			$html[] = '<p>' . sprintf( __( '%s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $link ) . '</p>';
-
+			if ( isset( $plugin_info->api_expired ) ) {
+				$link   = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%s</a>', esc_html__( 'Renew your license', 'tribe-common' ) );
+				$html[] = '<p>' . sprintf( __( '%s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $link ) . '</p>';
+			} else {
+				$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
+				$license_tab_link = sprintf( '<a href="' . $license_tab . '" target="_blank">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
+				$tec_link = sprintf( '<a href="https://theeventscalendar.com" target="_blank">%s</a>', esc_html__( 'theeventscalendar.com', 'tribe-common' ) );
+				$link   = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%s</a>', esc_html__( 'license keys', 'tribe-common' ) );
+				$html[] = '<p>' . sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
+				$html[] = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
+			}
 			return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
->>>>>>> feature/45620-improve-expired-license-prompt
 		}
 
 		/**
