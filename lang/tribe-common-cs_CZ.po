@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-03-16 17:31:33+0000\n"
+"PO-Revision-Date: 2016-07-17 14:19:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,63 +10,67 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Log/Null_Logger.php:26
+msgid "Null logger (will log nothing)"
+msgstr "Nulový logger (bez protokolování)"
+
 #: src/Tribe/Log/Admin.php:132
 msgctxt "log selector"
 msgid "None currently available"
-msgstr ""
+msgstr "Momentálně není žádný k dispozici"
 
 #: src/Tribe/Log/Admin.php:147
 msgctxt "log engines"
 msgid "None currently available"
-msgstr ""
+msgstr "Momentálně není žádný k dispozici"
 
 #: src/Tribe/Log/File_Logger.php:116
 msgid "Default (uses temporary files)"
-msgstr ""
+msgstr "Výchozí (používá dočasné soubory)"
 
 #: src/Tribe/Log.php:210
 msgid "Cannot set %s as the current logging engine"
-msgstr ""
+msgstr "Nelze nastavit %s jako aktuální nástroj protokolování"
 
 #: src/Tribe/Log.php:309
 msgid "Disabled"
-msgstr ""
+msgstr "Vypnuto"
 
 #: src/Tribe/Log.php:310
 msgid "Only errors"
-msgstr ""
+msgstr "Pouze chyby"
 
 #: src/Tribe/Log.php:311
 msgid "Warnings and errors"
-msgstr ""
+msgstr "Varování a chyby"
 
 #: src/Tribe/Log.php:312
 msgid "Full debug (all events)"
-msgstr ""
+msgstr "Plný debug (všechny události)"
 
 #: src/Tribe/PUE/Checker.php:457
 msgid "Sorry, there is a problem with your license key. You'll need to %scheck your license%s to have access to updates, downloads, and support."
-msgstr ""
+msgstr "Omlouváme se, ale vyskytl se problém s vaším licenčním klíčem. Pro přístup k aktualizacím a podpoře si musíte %szkontrolovat svou licenci%s."
 
 #: src/Tribe/Validate.php:183
 msgid "%s must contain numbers, letters, dashes and undescores only"
-msgstr ""
+msgstr "%s se musí skládat pouze z číslic, písmen, pomlček a podtržítek"
 
 #: src/admin-views/event-log.php:21
 msgid "Logging level"
-msgstr ""
+msgstr "Úroveň protokolování"
 
 #: src/admin-views/event-log.php:39
 msgid "Method"
-msgstr ""
+msgstr "Metoda"
 
 #: src/admin-views/event-log.php:99
 msgid "The selected log file is empty or has not been generated yet."
-msgstr ""
+msgstr "Zvolený soubor protokolu je prázdný nebo ještě nebyl vytvořen."
 
 #: src/admin-views/event-log.php:104
 msgid "Download log"
-msgstr ""
+msgstr "Stáhnout protokol"
 
 #: src/admin-views/tribe-options-help.php:37
 msgid "Recent Template Changes"
@@ -118,7 +122,7 @@ msgstr "Framework pro správu sdílených nastavení pro akce"
 
 #: src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
-msgstr ""
+msgstr "Berte prosím na vědomí, že veškerá podpora je poskytována skrze fóra. Můžete nám napsat email nebo tweet, ale pravděpodobně vás odkážeme zpět na fóra "
 
 #: src/admin-views/tribe-options-help.php:31
 msgid "Read more about our support policy"
@@ -308,7 +312,7 @@ msgstr "Požádejte administrátora webu aby upravil název v URL u stránky"
 msgid " ask the site administrator set a different Events URL slug."
 msgstr "požádejte administrátora webu aby změnil název v URL u akcí."
 
-#: src/Tribe/Settings.php:321
+#: src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr "Uložit změny"
 
@@ -927,7 +931,7 @@ msgstr "Metropolitní Francie"
 msgid "French Guiana"
 msgstr "Francouzská Guyana"
 
-#: src/Tribe/Settings.php:585
+#: src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "Nastavení bylo uloženo."
 
@@ -1293,7 +1297,7 @@ msgstr "Nigérie"
 msgid "Niue"
 msgstr "Niue"
 
-#: src/Tribe/Settings.php:214
+#: src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -1413,7 +1417,7 @@ msgstr "Svatá Lucie"
 msgid "Saint Vincent And The Grenadines"
 msgstr "Svatý Vincenc a Grenadiny"
 
-#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
+#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "Nastavení akcí"
 
@@ -1421,7 +1425,7 @@ msgstr "Nastavení akcí"
 msgid "Samoa"
 msgstr "Samoa"
 
-#: src/Tribe/Settings.php:299
+#: src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "Nastavení %s"
 
@@ -1429,7 +1433,7 @@ msgstr "Nastavení %s"
 msgid "San Marino"
 msgstr "San Marino"
 
-#: src/Tribe/Settings.php:313
+#: src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "Požadovaný panel neexistuje."
 
@@ -1437,7 +1441,7 @@ msgstr "Požadovaný panel neexistuje."
 msgid "Sao Tome And Principe"
 msgstr "Svatý Tomáš a Princův ostrov"
 
-#: src/Tribe/Settings.php:369
+#: src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "Nemáte dostatečné oprávnění pro tuto činnost."
 
@@ -1445,7 +1449,7 @@ msgstr "Nemáte dostatečné oprávnění pro tuto činnost."
 msgid "Saudi Arabia"
 msgstr "Saúdská Arábie"
 
-#: src/Tribe/Settings.php:375
+#: src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "Požadavek byl odeslán nezabezpečený."
 
@@ -1453,7 +1457,7 @@ msgstr "Požadavek byl odeslán nezabezpečený."
 msgid "Senegal"
 msgstr "Senegal"
 
-#: src/Tribe/Settings.php:381
+#: src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "Požadavek nebyl odeslán z tohoto panelu."
 
@@ -1461,7 +1465,7 @@ msgstr "Požadavek nebyl odeslán z tohoto panelu."
 msgid "Serbia"
 msgstr "Srbsko"
 
-#: src/Tribe/Settings.php:549
+#: src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "Ve formuláři se vyskytly následující chyby:"
 
@@ -1469,7 +1473,7 @@ msgstr "Ve formuláři se vyskytly následující chyby:"
 msgid "Seychelles"
 msgstr "Seychely"
 
-#: src/Tribe/Settings.php:559
+#: src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "Žádné z vašich nastavení nebylo uloženo. Zkuste to prosím znovu."
 
@@ -1477,7 +1481,7 @@ msgstr "Žádné z vašich nastavení nebylo uloženo. Zkuste to prosím znovu."
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Výše uvedené nastavení nebylo uloženo. Ostatní nastavení byla úspěšně uložena."
