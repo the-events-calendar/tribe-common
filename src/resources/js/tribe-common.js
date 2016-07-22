@@ -18,9 +18,7 @@ tribe_auto_sysinfo.ajax = {
 	my.init_copy = function () {
 
 		var clipboard = new Clipboard( '.system-info-copy-btn' );
-
 		var button_icon = '<span class="dashicons dashicons-clipboard license-btn"></span>';
-
 		var button_text = tribe_system_info.clipboard_btn_text;
 
 		//Prevent Button From Doing Anything Else
@@ -28,20 +26,20 @@ tribe_auto_sysinfo.ajax = {
 			e.preventDefault();
 		} );
 
-		clipboard.on('success', function(event) {
-		    event.clearSelection();
-		    event.trigger.innerHTML = button_icon + '<span class="optin-success">' + tribe_system_info.clipboard_copied_text + '<span>';
-		    window.setTimeout(function() {
-		        event.trigger.innerHTML = button_icon + button_text;
-		    }, 5000);
-		});
+		clipboard.on( 'success', function ( event ) {
+			event.clearSelection();
+			event.trigger.innerHTML = button_icon + '<span class="optin-success">' + tribe_system_info.clipboard_copied_text + '<span>';
+			window.setTimeout( function () {
+				event.trigger.innerHTML = button_icon + button_text;
+			}, 5000 );
+		} );
 
-		clipboard.on('error', function(event) {
-		    event.trigger.innerHTML = button_icon + '<span class="optin-fail">' + tribe_system_info.clipboard_fail_text + '<span>';
-		    window.setTimeout(function() {
-		        event.trigger.innerHTML = button_icon + button_text;
-		    }, 5000);
-		});
+		clipboard.on( 'error', function ( event ) {
+			event.trigger.innerHTML = button_icon + '<span class="optin-fail">' + tribe_system_info.clipboard_fail_text + '<span>';
+			window.setTimeout( function () {
+				event.trigger.innerHTML = button_icon + button_text;
+			}, 5000 );
+		} );
 
 	};
 
