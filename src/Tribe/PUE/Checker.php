@@ -58,8 +58,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		/**
 		 * Storing any `json_error` data that get's returned so we can display an admin notice.
+		 * For backwards compatibility this will be kept in the code for 2 versions
+		 *
 		 * @var array|null
+		 *
 		 * @deprecated
+		 * @todo  remove on 4.5
 		 */
 		public $json_error;
 
@@ -527,7 +531,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function display_license_error_message() {
 			$plugin_info = $this->plugin_info;
-			var_dump($plugin_info);
 
 			if ( ! current_user_can( 'install_plugins' ) ) {
 				return false;
@@ -671,14 +674,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// admin display for if the update check reveals that there is a new version but the API key isn't valid.
 			if ( isset( $pluginInfo->api_invalid ) ) { //we have json_error returned let's display a message
-				/**
-				 * For backwards compatibility this will be kept in the code for 2 versions
-				 *
-				 * @deprecated
-				 * @todo  remove on 4.5
-				 */
 				$this->json_error = $this->plugin_info;
-
 				return null;
 			}
 
