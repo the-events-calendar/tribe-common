@@ -22,9 +22,11 @@ abstract class Tribe__JSON_LD__Abstract {
 	private static $instances = array();
 
 	/**
+	 * Holder for the Already fetched Posts
+	 *
 	 * @var array
 	 */
-	protected static $fetched_post_ids = array();
+	protected static $posts = array();
 
 	/**
 	 * The class singleton constructor.
@@ -52,34 +54,27 @@ abstract class Tribe__JSON_LD__Abstract {
 	 *
 	 * @param mixed $post Either a post ID or a WP_post object.
 	 * @param array $args {
-	 *       Optional. An array of arguments to control the returned data.
+	 *      Optional. An array of arguments to control the returned data.
 	 *
 	 *      @type string $context         The value of the `@context` tag, defaults to 'https://schema.org'
-	 *      @type bool   $skip_duplicates If set to `true` fetching data for same post a second time will
-	 *                                    return an empty array. Default `true`.
 	 * }
 	 *
 	 * @return array Either an array containing a post data or an empty array if the post data cannot
 	 *               be generated, the `$post` parameter is not a valid post ID or object or the data
-	 *               for the post has been fetched already and the `skip_duplicates` argument is truthy.
+	 *               for the post has been fetched already.
 	 */
 	public function get_data( $post = null, $args = array() ) {
-		$post = $this->get_post_object( $post );
-
-		if ( empty( $post ) ) {
+		$post_id = Tribe__Main::post_id_helper( $post );
+		if ( ! $post_id ) {
 			return array();
 		}
 
-		$skip_duplicates = ! isset( $args['skip_duplicates'] ) || $args['skip_duplicates'] == true;
-		if ( $skip_duplicates && in_array( $post->ID, self::$fetched_post_ids ) ) {
+		// This prevents a JSON_LD from existing twice one the same page
+		if ( $this->exists( $post_id ) ) {
 			return array();
 		}
 
-		if ( ! in_array( $post->ID, self::$fetched_post_ids ) ) {
-			self::$fetched_post_ids[] = $post->ID;
-		}
-
-
+		$post = get_post( $post_id );
 		$data = (object) array();
 
 		// We may need to prevent the context to be triggered
@@ -124,6 +119,9 @@ abstract class Tribe__JSON_LD__Abstract {
 			 * @param WP_Post $post the arguments used to get data
 			 */
 			$data[ $post_id ] = apply_filters( "tribe_json_ld_{$type}_object", $_data, $args, get_post( $post_id ) );
+
+			// Register this post as done already
+			$this->register( $post_id );
 		}
 
 		/**
@@ -173,60 +171,70 @@ abstract class Tribe__JSON_LD__Abstract {
 	}
 
 	/**
-	 * @return array An array of post IDs.
+	 * Gets from the Posts index a specific post or fetch all of them
+	 *
+	 * @param  int|WP_Post  $post The Post Object or ID
+	 *
+	 * @return null|array|WP_Post         Returns an Indexed Array of Posts, a found Post or Null if not found
 	 */
-	public function get_fetched_post_ids() {
-		return self::$fetched_post_ids;
+	public function get( $post = null ) {
+		if ( is_null( $post ) ) {
+			return self::$posts;
+		}
+		$id = Tribe__Main::post_id_helper( $post );
+
+		if ( $this->exists( $id ) ) {
+			return self::$posts[ $id ];
+		}
+
+		return null;
 	}
 
 	/**
-	 * Marks a post as already fetched.
+	 * Checks if a Post has been registered to the JSON-LD index
 	 *
-	 * @param int|WP_Post $post
+	 * @param  int|WP_Post  $post The Post Object or ID
+	 *
+	 * @return bool
 	 */
-	public function set_fetched_post_id( $post ) {
-		$post = $this->get_post_object( $post );
-
-		if ( empty( $post ) || in_array( $post->ID, self::$fetched_post_ids ) ) {
-			return;
-		}
-
-		self::$fetched_post_ids[] = $post->ID;
-	}
-
-	public function reset_fetched_post_ids() {
-		self::class_reset_fetched_post_ids();
-	}
-
-	public function unset_fetched_post_id( $post ) {
-		$post_id = Tribe__Main::post_id_helper( $post );
-
-		if ( empty( $post_id ) || ! in_array( $post_id, self::$fetched_post_ids ) ) {
-			return;
-		}
-
-		self::$fetched_post_ids = array_diff( self::$fetched_post_ids, array( $post_id ) );
+	public function exists( $post ) {
+		return isset( self::$posts[ Tribe__Main::post_id_helper( $post ) ] );
 	}
 
 	/**
-	 * @param $post
+	 * Register the new Post on the Index of created ones
 	 *
-	 * @return array|bool|int|null|WP_Post
+	 * @param  int|WP_Post  $post The Post Object or ID
+	 *
+	 * @return WP_Post            The Post Object that was registered
 	 */
-	protected function get_post_object( $post ) {
-		if ( ! $post instanceof WP_Post ) {
-			$post = Tribe__Main::post_id_helper( $post );
+	public function register( $post ) {
+		$id = Tribe__Main::post_id_helper( $post );
+		if ( $this->exists( $id ) ) {
+			return self::$posts[ $id ];
 		}
-		$post = get_post( $post );
 
-		if ( ! $post instanceof WP_Post ) {
+		self::$posts[ $id ] = get_post( $id );
+
+		return self::$posts[ $id ];
+	}
+
+	/**
+	 * Remove an Post from the Indexed list
+	 *
+	 * @param  int|WP_Post  $post The Post Object or ID
+	 *
+	 * @return bool
+	 */
+	public function remove( $post ) {
+		$id = Tribe__Main::post_id_helper( $post );
+
+		if ( ! $this->exists( $id ) ) {
 			return false;
 		}
 
-		return $post;
-	}
+		unset( self::$posts[ $id ] );
 
-	public static function class_reset_fetched_post_ids() {
-		self::$fetched_post_ids = array();
+		return true;
 	}
 }

@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Log/Null_Logger.php:26
+msgid "Null logger (will log nothing)"
+msgstr ""
+
 #: src/Tribe/Log/Admin.php:132
 msgctxt "log selector"
 msgid "None currently available"
@@ -308,7 +312,7 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Settings.php:321
+#: src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr ""
 
@@ -927,7 +931,7 @@ msgstr "France, Metropolitan"
 msgid "French Guiana"
 msgstr "French Guiana"
 
-#: src/Tribe/Settings.php:585
+#: src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "Verstellings Gestoor"
 
@@ -1293,7 +1297,7 @@ msgstr "Nigeria"
 msgid "Niue"
 msgstr "Niue"
 
-#: src/Tribe/Settings.php:214
+#: src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Verstellings"
 
@@ -1413,7 +1417,7 @@ msgstr "Saint Lucia"
 msgid "Saint Vincent And The Grenadines"
 msgstr "Saint Vincent And The Grenadines"
 
-#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
+#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "Gebeurtenis Verstellings"
 
@@ -1421,7 +1425,7 @@ msgstr "Gebeurtenis Verstellings"
 msgid "Samoa"
 msgstr "Samoa"
 
-#: src/Tribe/Settings.php:299
+#: src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s Verstellings"
 
@@ -1429,7 +1433,7 @@ msgstr "%s Verstellings"
 msgid "San Marino"
 msgstr "San Marino"
 
-#: src/Tribe/Settings.php:313
+#: src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "Jy het 'n nie-bestaande afdeling gekies."
 
@@ -1437,7 +1441,7 @@ msgstr "Jy het 'n nie-bestaande afdeling gekies."
 msgid "Sao Tome And Principe"
 msgstr "Sao Tome And Principe"
 
-#: src/Tribe/Settings.php:369
+#: src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "Jy het nie toestemming om dit te doen nie."
 
@@ -1445,7 +1449,7 @@ msgstr "Jy het nie toestemming om dit te doen nie."
 msgid "Saudi Arabia"
 msgstr "Saudi Arabia"
 
-#: src/Tribe/Settings.php:375
+#: src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "Die versoek is onveilig gestuur."
 
@@ -1453,7 +1457,7 @@ msgstr "Die versoek is onveilig gestuur."
 msgid "Senegal"
 msgstr "Senegal"
 
-#: src/Tribe/Settings.php:381
+#: src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "Die versoek is nie van hierdie afdeling af gestuur nie."
 
@@ -1461,7 +1465,7 @@ msgstr "Die versoek is nie van hierdie afdeling af gestuur nie."
 msgid "Serbia"
 msgstr "Serbia"
 
-#: src/Tribe/Settings.php:549
+#: src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "Jou vorm het die volgende probleme gehad:"
 
@@ -1469,7 +1473,7 @@ msgstr "Jou vorm het die volgende probleme gehad:"
 msgid "Seychelles"
 msgstr "Seychelles"
 
-#: src/Tribe/Settings.php:559
+#: src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "Nie een van jou stellings is gestoor nie. Probeer asseblief weer."
 
@@ -1477,7 +1481,7 @@ msgstr "Nie een van jou stellings is gestoor nie. Probeer asseblief weer."
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""

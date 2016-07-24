@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Log/Null_Logger.php:26
+msgid "Null logger (will log nothing)"
+msgstr ""
+
 #: src/Tribe/Log/Admin.php:132
 msgctxt "log selector"
 msgid "None currently available"
@@ -308,7 +312,7 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Settings.php:321
+#: src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr ""
 
@@ -927,7 +931,7 @@ msgstr "法国本土"
 msgid "French Guiana"
 msgstr "法属圭亚那"
 
-#: src/Tribe/Settings.php:585
+#: src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "设定已储存。"
 
@@ -1293,7 +1297,7 @@ msgstr "奈及利亚"
 msgid "Niue"
 msgstr "纽埃"
 
-#: src/Tribe/Settings.php:214
+#: src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "设定"
 
@@ -1413,7 +1417,7 @@ msgstr "圣卢西亚"
 msgid "Saint Vincent And The Grenadines"
 msgstr "圣文森及格瑞那丁"
 
-#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
+#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "活动设定"
 
@@ -1421,7 +1425,7 @@ msgstr "活动设定"
 msgid "Samoa"
 msgstr "萨摩亚"
 
-#: src/Tribe/Settings.php:299
+#: src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s 设定"
 
@@ -1429,7 +1433,7 @@ msgstr "%s 设定"
 msgid "San Marino"
 msgstr "圣马利诺"
 
-#: src/Tribe/Settings.php:313
+#: src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "你要求的工具列标籤不存在。"
 
@@ -1437,7 +1441,7 @@ msgstr "你要求的工具列标籤不存在。"
 msgid "Sao Tome And Principe"
 msgstr "圣多美与普林希比"
 
-#: src/Tribe/Settings.php:369
+#: src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "你的操作不被允许。"
 
@@ -1445,7 +1449,7 @@ msgstr "你的操作不被允许。"
 msgid "Saudi Arabia"
 msgstr "沙乌地阿拉伯"
 
-#: src/Tribe/Settings.php:375
+#: src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "以不安全的方式传送要求。"
 
@@ -1453,7 +1457,7 @@ msgstr "以不安全的方式传送要求。"
 msgid "Senegal"
 msgstr "塞内加尔"
 
-#: src/Tribe/Settings.php:381
+#: src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "请求未从此工具列标籤传送。"
 
@@ -1461,7 +1465,7 @@ msgstr "请求未从此工具列标籤传送。"
 msgid "Serbia"
 msgstr "塞尔维亚"
 
-#: src/Tribe/Settings.php:549
+#: src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "你的表格含有下列错误："
 
@@ -1469,7 +1473,7 @@ msgstr "你的表格含有下列错误："
 msgid "Seychelles"
 msgstr "塞席尔群岛"
 
-#: src/Tribe/Settings.php:559
+#: src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "你的设定未储存，请稍后重试。"
 
@@ -1477,7 +1481,7 @@ msgstr "你的设定未储存，请稍后重试。"
 msgid "Sierra Leone"
 msgstr "狮子山共和国"
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "以上设定未储存，其馀设定已成功储存。"
