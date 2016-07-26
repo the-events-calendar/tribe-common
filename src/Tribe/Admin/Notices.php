@@ -1,8 +1,6 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
+defined( 'WPINC' ) or die;
 
 /**
  * @since  4.3
@@ -117,6 +115,8 @@ class Tribe__Admin__Notices {
 
 		$classes = array( 'tribe-dismiss-notice', 'notice' );
 		$classes[] = sanitize_html_class( 'notice-' . $notice->type );
+		$classes[] = sanitize_html_class( 'tribe-notice-' . $notice->slug );
+
 		if ( $notice->dismiss ) {
 			$classes[] = 'is-dismissible';
 		}
