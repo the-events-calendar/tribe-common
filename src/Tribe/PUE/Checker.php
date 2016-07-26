@@ -52,7 +52,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		/**
 		 * We'll customize this later so each plugin can have it's own install key!
-		 * @var [type]
+		 * @var string
 		 */
 		public $pue_install_key;
 
@@ -552,8 +552,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} else {
 				$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
 				$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
-				$tec_link = sprintf( '<a href="https://theeventscalendar.com" target="_blank">%1$s <span class="screen-reader-text">%2$s</span></a>', esc_html__( 'theeventscalendar.com', 'tribe-common' ), esc_html__( '(opens in a new window)', 'tribe-common' ) );
-				$link   = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%1$s <span class="screen-reader-text">%2$s</span></a>', esc_html__( 'license keys', 'tribe-common' ), esc_html__( '(opens in a new window)', 'tribe-common' ) );
+				$tec_link = '<a href="https://theeventscalendar.com" target="_blank">' . esc_html__( 'theeventscalendar.com', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
+				$link   = '<a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'license keys', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
 				$html[] = '<p>' . sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
 				$html[] = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
 			}
