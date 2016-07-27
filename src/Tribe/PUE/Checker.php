@@ -52,14 +52,18 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		/**
 		 * We'll customize this later so each plugin can have it's own install key!
-		 * @var [type]
+		 * @var string
 		 */
 		public $pue_install_key;
 
 		/**
 		 * Storing any `json_error` data that get's returned so we can display an admin notice.
+		 * For backwards compatibility this will be kept in the code for 2 versions
+		 *
 		 * @var array|null
+		 *
 		 * @deprecated
+		 * @todo  remove on 4.5
 		 */
 		public $json_error;
 
@@ -542,9 +546,17 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
 			$html[] = '<p>' . wp_kses( $expired_license_message, 'post' ) . '</p>';
 
-			$link = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%s</a>', esc_html__( 'Renew your license', 'tribe-common' ) );
-			$html[] = '<p>' . sprintf( __( '%s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $link ) . '</p>';
-
+			if ( isset( $plugin_info->api_expired ) ) {
+				$expired_link   = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%1$s <span class="screen-reader-text">%2$s</span></a>', esc_html__( 'Renew your license', 'tribe-common' ), esc_html__( '(opens in a new window)', 'tribe-common' ) );
+				$html[] = '<p>' . sprintf( __( '%s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $expired_link ) . '</p>';
+			} else {
+				$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
+				$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
+				$tec_link = '<a href="https://theeventscalendar.com" target="_blank">' . esc_html__( 'theeventscalendar.com', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
+				$link   = '<a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'license keys', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
+				$html[] = '<p>' . sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
+				$html[] = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
+			}
 			return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
 		}
 
@@ -662,14 +674,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// admin display for if the update check reveals that there is a new version but the API key isn't valid.
 			if ( isset( $pluginInfo->api_invalid ) ) { //we have json_error returned let's display a message
-				/**
-				 * For backwards compatibility this will be kept in the code for 2 versions
-				 *
-				 * @deprecated
-				 * @todo  remove on 4.5
-				 */
 				$this->json_error = $this->plugin_info;
-
 				return null;
 			}
 
