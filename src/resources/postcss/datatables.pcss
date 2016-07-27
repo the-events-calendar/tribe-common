@@ -47,6 +47,36 @@ table.dataTable {
 		}
 	}
 
+	&.widefat {
+		thead,
+		tfoot {
+			th,
+			td {
+				input {
+					margin: 0 0 0 8px;
+					vertical-align: text-top;
+				}
+			}
+
+			td.check-column {
+				padding-top: 4px;
+				vertical-align: middle;
+			}
+		}
+
+		thead,
+		tfoot,
+		tbody {
+			th.check-column {
+				padding: 11px 0 0 3px;
+			}
+		}
+	}
+
+	.check-column {
+		width: 2.2em;
+	}
+
 	tbody tr.selected {
 		background-color: #B0BED9;
 	}
@@ -281,12 +311,11 @@ table.dataTable {
 		text-align: right;
 
 		.paginate_button {
-			background: #f7f7f7;
-			border-color: #cccccc;
+			border-color: transparent;
 			border-radius: 3px;
 			border-style: solid;
 			border-width: 1px;
-			box-shadow: 0 1px 0 #eee;
+			box-shadow: none;
 			box-sizing: border-box;
 			color: #555;
 			cursor: pointer;
@@ -339,6 +368,7 @@ table.dataTable {
 				border-color: #999;
 				box-shadow: 0 1px 0 #cccccc;
 				color: #23282d;
+				text-decoration: none;
 			}
 
 			&.disabled,
