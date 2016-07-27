@@ -20,9 +20,8 @@
 				active: '.tribe-active'
 			},
 			methods = {
-				open: function() {
-					var $bumpdown = $( this ),
-						data      = $bumpdown.data( 'bumpdown' ),
+				open: function( $bumpdown ) {
+					var data = $bumpdown.data( 'bumpdown' ),
 						arrow;
 
 					if ( $bumpdown.is( ':visible' ) ) {
@@ -35,13 +34,15 @@
 
 					$bumpdown.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
 					$bumpdown.prepend( '<span class="tribe-bumpdown-arrow" style="left: ' + arrow + 'px;"></span>' );
-					$bumpdown.slideDown( 'fast' );
+					$bumpdown.data( 'preventClose', true );
+					$bumpdown.slideDown( 'fast', function() {
+						$bumpdown.data( 'preventClose', false );
+					} );
 				},
-				close: function() {
-					var $bumpdown = $( this ),
-						data      = $bumpdown.data( 'bumpdown' );
+				close: function( $bumpdown ) {
+					var data = $bumpdown.data( 'bumpdown' );
 
-					if ( ! $bumpdown.is( ':visible' ) ) {
+					if ( ! $bumpdown.is( ':visible' ) || $bumpdown.data( 'preventClose' ) ) {
 						return;
 					}
 
@@ -96,8 +97,8 @@
 						data.$bumpdown.trigger( 'open.bumpdown' );
 					}
 				},
-				'open.bumpdown': methods.open,
-				'close.bumpdown': methods.close
+				'open.bumpdown': function() { methods.open( $( this ) ); },
+				'close.bumpdown': function() { methods.close( $( this ) ); }
 			}, selectors.trigger )
 
 			// Setup Events on Trigger
@@ -129,8 +130,8 @@
 
 			// Creates actions on the actual bumpdown
 			.on( {
-				'open.bumpdown': methods.open,
-				'close.bumpdown': methods.close
+				'open.bumpdown': function() { methods.open( $( this ) ); },
+				'close.bumpdown': function() { methods.close( $( this ) ); }
 			}, selectors.bumpdown );
 
 		// Configure all the fields
@@ -205,6 +206,14 @@
 
 				// Mark it as the Bumpdown
 				.addClass( selectors.bumpdown.replace( '.', '' ) );
+
+			// support our dependency library
+			if ( data.$trigger.data( 'depends' ) ) {
+				var field_ids = data.$trigger.data( 'depends' );// + ',' + data.$trigger.data( 'depends' ).replace( '#', '#s2id_' );
+				$( document ).on( 'change', field_ids, function() {
+					methods.close( data.$bumpdown );
+				} );
+			}
 		});
 	};
 }( jQuery, _ ) );
