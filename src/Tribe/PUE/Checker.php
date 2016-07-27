@@ -499,7 +499,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function display_license_error_message() {
 			$plugin_info = $this->plugin_info;
-			var_dump($plugin_info);
 
 			if ( ! current_user_can( 'install_plugins' ) ) {
 				return false;
