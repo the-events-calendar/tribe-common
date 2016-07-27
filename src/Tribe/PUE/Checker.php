@@ -16,31 +16,59 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 	/**
 	 * A custom plugin update checker.
-	 *
-	 * @original author (c) Janis Elsts
-	 * @heavily  modified by Darren Ethier
-	 * @slighty  modified by Nick Ciske
-	 * @slighty  modified by Joachim Kudish
-	 * @heavily  modified by Peter Chester
-	 * @license  GPL2 or greater.
-	 * @version  1.7
-	 * @access   public
+	 * @since  1.7
 	 */
 	class Tribe__PUE__Checker {
 
-		private $pue_update_url = ''; //The URL of the plugin's metadata file.
-		private $plugin_file = ''; //Plugin filename relative to the plugins directory.
-		private $plugin_name = ''; //variable used to hold the plugin_name as set by the constructor.
-		private $slug = ''; //Plugin slug. (with .php extension)
-		private $download_query = array(); //used to hold the query variables for download checks;
+		// The URL of the plugin's metadata file.
+		private $pue_update_url = '';
 
-		public $check_period = 12; //How often to check for updates (in hours).
-		public $pue_option_name = ''; //Where to store the update info.
-		public $json_error = ''; //for storing any json_error data that get's returned so we can display an admin notice.
-		public $api_secret_key = ''; //used to hold the user API.  If not set then nothing will work!
-		public $install_key = false; //used to hold the install_key if set (included here for addons that will extend PUE to use install key checks)
-		public $dismiss_upgrade; //for setting the dismiss upgrade option (per plugin).
-		public $pue_install_key; //we'll customize this later so each plugin can have it's own install key!
+		// Plugin filename relative to the plugins directory.
+		private $plugin_file = '';
+
+		// variable used to hold the plugin_name as set by the constructor.
+		private $plugin_name = '';
+
+		// Plugin slug. (with .php extension)
+		private $slug = '';
+
+		// used to hold the query variables for download checks;
+		private $download_query = array();
+
+		// How often to check for updates (in hours).
+		public $check_period = 12;
+
+		// Where to store the update info.
+		public $pue_option_name = '';
+
+		// used to hold the user API.  If not set then nothing will work!
+		public $api_secret_key = '';
+
+		// used to hold the install_key if set (included here for addons that will extend PUE to use install key checks)
+		public $install_key = false;
+
+		// for setting the dismiss upgrade option (per plugin).
+		public $dismiss_upgrade;
+
+		/**
+		 * We'll customize this later so each plugin can have it's own install key!
+		 * @var [type]
+		 */
+		public $pue_install_key;
+
+		/**
+		 * Storing any `json_error` data that get's returned so we can display an admin notice.
+		 * @var array|null
+		 * @deprecated
+		 */
+		public $json_error;
+
+		/**
+		 * Storing any `plugin_info` data that get's returned so we can display an admin notice.
+		 * @var array|null
+		 */
+		public $plugin_info;
+
 
 		/**
 		 * Class constructor.
@@ -677,7 +705,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @param $plugin_data
 		 */
 		public function in_plugin_update_message( $plugin_data ) {
-			$plugin_info = $this->json_error;
+			$plugin_info = $this->plugin_info;
+
 			//only display messages if there is a new version of the plugin.
 			if ( is_object( $plugin_info ) && version_compare( $plugin_info->version, $this->get_installed_version(), '>' ) ) {
 				if ( $plugin_info->api_invalid ) {

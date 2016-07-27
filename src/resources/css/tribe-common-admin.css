@@ -929,6 +929,21 @@ a.tribe-rating-link {
 .select2-container .select2-choice abbr {
 	top: 6px;
 }
+.tribe-notice-pue-validation {
+	padding: 1em;
+}
+.tribe-notice-pue-validation:before,
+	.tribe-notice-pue-validation:after {
+	content: '';
+	display: table;
+}
+.tribe-notice-pue-validation:after {
+	clear: both;
+}
+.tribe-notice-pue-validation .tribe-spirit-animal {
+	float: right;
+	margin-left: 2em;
+}
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
 	#tribe-loading span {
@@ -959,4 +974,3 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 		display: none;
 	}
 }
-
