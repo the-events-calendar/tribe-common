@@ -109,6 +109,17 @@ class Tribe__Main {
 			$this,
 			array(
 				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
+				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
+				array( 'datatables-css', 'datatables.css' ),
+				array( 'datatables-responsive', 'vendor/datatables/extensions/Responsive/js/dataTables.responsive.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-responsive-css', 'vendor/datatables/extensions/Responsive/css/responsive.dataTables.css' ),
+				array( 'datatables-select', 'vendor/datatables/extensions/Select/js/dataTables.select.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-select-css', 'vendor/datatables/extensions/Select/css/select.dataTables.css' ),
+				array( 'datatables-scroller', 'vendor/datatables/extensions/Scroller/js/dataTables.scroller.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-scroller-css', 'vendor/datatables/extensions/Scroller/css/scroller.dataTables.css' ),
+				array( 'datatables-fixedheader', 'vendor/datatables/extensions/FixedHeader/js/dataTables.fixedHeader.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-fixedheader-css', 'vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables.css' ),
+				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables', 'datatables-select' ) ),
 			)
 		);
 
@@ -121,7 +132,6 @@ class Tribe__Main {
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
-				array( 'tribe-common', 'tribe-common.js', array( 'tribe-clipboard' ) ),
 				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
 				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css' ),
 			),
@@ -135,6 +145,44 @@ class Tribe__Main {
 						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
 						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
 						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
+					),
+				),
+			)
+		);
+
+		tribe_asset(
+			$this,
+			'tribe-common',
+			'tribe-common.js',
+			array( 'tribe-clipboard' ),
+			'admin_enqueue_scripts',
+			array(
+				'localize' => array(
+					'name' => 'tribe_l10n_datatables',
+					'data' => array(
+						'aria' => array(
+							'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
+							'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
+						),
+						'length_menu'   => __( 'Show _MENU_ entries', 'tribe-common' ),
+						'empty_table'   => __( 'No data available in table', 'tribe-common' ),
+						'info'          => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'tribe-common' ),
+						'info_empty'    => __( 'Showing 0 to 0 of 0 entries', 'tribe-common' ),
+						'info_filtered' => __( '(filtered from _MAX_ total entries)', 'tribe-common' ),
+						'zero_records'  => __( 'No matching records found', 'tribe-common' ),
+						'search'        => __( 'Search:', 'tribe-common' ),
+						'pagination' => array(
+							'all' => __( 'All', 'tribe-common' ),
+							'next' => __( 'Next', 'tribe-common' ),
+							'previous' => __( 'Previous', 'tribe-common' ),
+						),
+						'select' => array(
+							'rows' => array(
+								0 => '',
+								'_' => __( ': Selected %d rows', 'tribe-common' ),
+								1 => __( ': Selected 1 row', 'tribe-common' ),
+							),
+						),
 					),
 				),
 			)
