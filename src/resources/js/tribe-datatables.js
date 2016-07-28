@@ -34,6 +34,11 @@
 			],
 		}, options );
 
+		var only_data = false;
+		if ( this.is( '.dataTable' ) ) {
+			only_data = true;
+		}
+
 		var methods = {
 			toggle_global_checkbox: function( $checkbox, table ) {
 				var $table = $checkbox.closest( '.dataTable' );
@@ -68,7 +73,19 @@
 
 		return this.each( function() {
 			var $el = $( this );
-			var table = $el.DataTable( settings );
+			var table;
+
+			if ( only_data ) {
+				table = $el.DataTable();
+			} else {
+				table = $el.DataTable( settings );
+			}
+
+			if ( 'undefined' !== typeof settings.data ) {
+				table.clear().draw();
+				table.rows.add( settings.data );
+				table.draw();
+			}
 
 			$el.on(
 				'click',
