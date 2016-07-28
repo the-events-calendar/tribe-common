@@ -49,7 +49,7 @@
 					// When we close we reset the flag about hoverintent
 					$( this ).removeData( 'is_hoverintent_queued' );
 
-					$bumpdown.find( '.tribe-bumpdown-close, .tribe-bumpdown-arrow' ).remove()
+					$bumpdown.find( '.tribe-bumpdown-close, .tribe-bumpdown-arrow' ).remove();
 					$bumpdown.slideUp( 'fast' );
 
 					data.$trigger.removeClass( selectors.active.replace( '.', '' ) );
@@ -209,7 +209,7 @@
 
 			// support our dependency library
 			if ( data.$trigger.data( 'depends' ) ) {
-				var field_ids = data.$trigger.data( 'depends' );// + ',' + data.$trigger.data( 'depends' ).replace( '#', '#s2id_' );
+				var field_ids = data.$trigger.data( 'depends' );
 				$( document ).on( 'change', field_ids, function() {
 					methods.close( data.$bumpdown );
 				} );
