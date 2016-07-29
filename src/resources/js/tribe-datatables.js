@@ -81,6 +81,8 @@
 				table = $el.DataTable( settings );
 			}
 
+			$el.data( 'table', table );
+
 			if ( 'undefined' !== typeof settings.data ) {
 				table.clear().draw();
 				table.rows.add( settings.data );

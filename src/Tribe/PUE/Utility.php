@@ -60,7 +60,19 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 		 */
 		public static function from_plugin_info( $info ) {
 			$update     = new Tribe__PUE__Utility();
-			$copyFields = array( 'id', 'slug', 'version', 'homepage', 'download_url', 'upgrade_notice', 'sections', 'plugin' );
+			$copyFields = array(
+				'id',
+				'slug',
+				'version',
+				'homepage',
+				'download_url',
+				'upgrade_notice',
+				'sections',
+				'plugin',
+				'api_expired',
+				'api_upgrade',
+				'api_invalid',
+			);
 			foreach ( $copyFields as $field ) {
 				$update->$field = $info->$field;
 			}
