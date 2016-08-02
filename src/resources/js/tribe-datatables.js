@@ -1,3 +1,5 @@
+window.tribe_data_table = null;
+
 ( function( $ ) {
 	'use strict';
 
@@ -81,7 +83,7 @@
 				table = $el.DataTable( settings );
 			}
 
-			$el.data( 'table', table );
+			window.tribe_data_table = table;
 
 			if ( 'undefined' !== typeof settings.data ) {
 				table.clear().draw();
