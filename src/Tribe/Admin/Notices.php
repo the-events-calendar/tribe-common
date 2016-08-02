@@ -58,7 +58,7 @@ class Tribe__Admin__Notices {
 		}
 
 		// Hook the actual rendering of notices
-		add_action( 'current_screen', array( $this, 'hook' ) );
+		add_action( 'current_screen', array( $this, 'hook' ), 20 );
 	}
 
 	/**
