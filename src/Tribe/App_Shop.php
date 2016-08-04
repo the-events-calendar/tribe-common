@@ -12,24 +12,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 	class Tribe__App_Shop {
 
 		/**
-		 * Version of the data model
-		 */
-		const API_VERSION = '1.0';
-		/**
-		 * URL of the API
-		 */
-		const API_ENDPOINT = 'https://theeventscalendar.com/api/app-shop/';
-
-		/**
-		 * Base name for the transients key
-		 */
-		const CACHE_KEY_BASE = 'tribe-app-shop';
-		/**
-		 * Duration of the transients, in seconds.
-		 */
-		const CACHE_EXPIRATION = 300; //5 min
-
-		/**
 		 * Slug of the WP admin menu item
 		 */
 		const MENU_SLUG = 'tribe-app-shop';
@@ -46,7 +28,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * @var string
 		 */
 		private $admin_page = null;
-
 
 		/**
 		 * Class constructor
@@ -107,23 +88,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * Renders the Shop App page
 		 */
 		public function do_menu_page() {
-			$products = null;
-			$banner = null;
-			$categories = null;
-
-			$remote = $this->get_all_products();
-
-			if ( ! empty( $remote ) ) {
-				if ( property_exists( $remote, 'data' ) ) {
-					$products = $remote->data;
-					$categories = array_unique( wp_list_pluck( $products, 'category' ) );
-				}
-
-				if ( property_exists( $remote, 'banner' ) ) {
-					$banner = $remote->banner;
-				}
-			}
-
+			$products = $this->get_all_products();
 			include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/app-shop.php';
 		}
 
@@ -133,43 +98,71 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * @return array|WP_Error
 		 */
 		private function get_all_products() {
-
-			$cache_key = self::CACHE_KEY_BASE . '-products';
-			$products  = get_transient( $cache_key );
-
-			if ( ! $products ) {
-				$products = $this->remote_get( 'get-products' );
-				if ( $products && ! $products->error ) {
-					set_transient( $cache_key, $products, self::CACHE_EXPIRATION );
-				}
-			}
-
-			if ( is_string( $products ) ) {
-				$products = json_decode( $products );
-			}
+			$products = array(
+				(object) array(
+					'title' => __( 'Filter Bar', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/wordpress-events-filterbar/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-filterbar&utm_content=appstoreembedded-1',
+					'description' => __( 'It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar.', 'tribe-common' ),
+					'image' => 'images/app-shop-filter-bar.jpg',
+				),
+				(object) array(
+					'title' => __( 'Events Calendar PRO', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/wordpress-events-calendar-pro/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-calendar-pro&utm_content=appstoreembedded-1',
+					'description' => sprintf(
+						__( 'The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more.', 'tribe-common' ),
+						'<a href="http://m.tri.be/18vc">',
+						'</a>'
+					),
+					'image' => 'images/app-shop-pro.jpg',
+				),
+				(object) array(
+					'title' => __( 'Community Events', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/wordpress-community-events/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-community-events&utm_content=appstoreembedded-1',
+					'description' => __( 'Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go.', 'tribe-common' ),
+					'image' => 'images/app-shop-community.jpg',
+				),
+				(object) array(
+					'title' => __( 'Community Tickets', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/community-tickets/?utm_campaign=in-app&utm_source=addonspage&utm_medium=community-tickets&utm_content=appstoreembedded-1',
+					'description' => __( 'Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin', 'tribe-common' ),
+						'requires' => _x( 'Event Tickets Plus and Community Events', 'Names of required plugins for Community Tickets', 'tribe-common' ),
+					'image' => 'images/app-shop-community-tickets.jpg',
+				),
+				(object) array(
+					'title' => __( 'Event Tickets Plus', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/wordpress-event-tickets-plus/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-event-tickets-plus&utm_content=appstoreembedded-1',
+					'description' => sprintf(
+						__( 'Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings.', 'tribe-common' ),
+						'<a href="http://m.tri.be/18vc">',
+						'</a>'
+					),
+					'image' => 'images/app-shop-tickets-plus.jpg',
+				),
+				(object) array(
+					'title' => __( 'Eventbrite Tickets', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/wordpress-eventbrite-tickets/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-eventbrite-tickets&utm_content=appstoreembedded-1',
+					'description' => sprintf(
+						__( 'The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar.', 'tribe-common' ),
+						'<a href="http://www.eventbrite.com/r/etp">',
+						'</a>'
+					),
+					'image' => 'images/app-shop-eventbrite.jpg',
+				),
+				(object) array(
+					'title' => __( 'Facebook Events', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/facebook-events/?utm_campaign=in-app&utm_source=addonspage&utm_medium=facebook-events&utm_content=appstoreembedded-1',
+					'description' => __( 'With the Facebook Events add-on, imported events are manually or automagically created as entries in The Events Calendar. Basic event data along with venue and organizer are populated appropriately. No more entering information in two places, or having to recreate someone else\'s listing for a public event you want to include on your WordPress calendar.', 'tribe-common' ),
+					'image' => 'images/app-shop-facebook.jpg',
+				),
+				(object) array(
+					'title' => __( 'iCal Importer', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/ical-importer/?utm_campaign=in-app&utm_source=addonspage&utm_medium=ical-importer&utm_content=appstoreembedded-1',
+					'description' => __( 'The iCal Importer helps you keep your events calendar full of interesting events! You can import events from any website that publishes an iCal (aka ICS) feed and add them to your listings. The recurring import feature lets you keep your calendar brimming without manual oversight (though you can review every imported event if you like). Add filtering by keyword or geographic region and you can be sure that the kinds of events you get are the kinds you want.', 'tribe-common' ),
+					'image' => 'images/app-shop-ical.jpg',
+				),
+			);
 
 			return $products;
-		}
-
-		/**
-		 * Makes the remote call to the API endpoint
-		 *
-		 * @param            $action
-		 * @param array|null $args
-		 *
-		 * @return array|WP_Error
-		 */
-		private function remote_get( $action, $args = null ) {
-
-			$url = trailingslashit( self::API_ENDPOINT . self::API_VERSION ) . $action;
-
-			$ret = wp_remote_get( $url );
-
-			if ( ! is_wp_error( $ret ) && isset( $ret['body'] ) ) {
-				return json_decode( $ret['body'] );
-			}
-
-			return null;
 		}
 
 		/**
