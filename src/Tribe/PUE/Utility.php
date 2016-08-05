@@ -74,6 +74,10 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 				'api_invalid',
 			);
 			foreach ( $copyFields as $field ) {
+				if ( ! isset( $info->$field ) ) {
+					continue;
+				}
+
 				$update->$field = $info->$field;
 			}
 
