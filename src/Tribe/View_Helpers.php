@@ -96,7 +96,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 					'CD' => esc_html__( 'Congo, The Democratic Republic Of The', 'tribe-common' ),
 					'CK' => esc_html__( 'Cook Islands', 'tribe-common' ),
 					'CR' => esc_html__( 'Costa Rica', 'tribe-common' ),
-					'CI' => esc_html__( "Cote D'Ivoire", 'tribe-common' ),
+					'CI' => esc_html__( "C&ocirc;te d'Ivoire", 'tribe-common' ),
 					'HR' => esc_html__( 'Croatia (Local Name: Hrvatska)', 'tribe-common' ),
 					'CU' => esc_html__( 'Cuba', 'tribe-common' ),
 					'CY' => esc_html__( 'Cyprus', 'tribe-common' ),

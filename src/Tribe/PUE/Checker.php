@@ -16,23 +16,62 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 	/**
 	 * A custom plugin update checker.
-	 *
-	 * @original author (c) Janis Elsts
-	 * @heavily  modified by Darren Ethier
-	 * @slighty  modified by Nick Ciske
-	 * @slighty  modified by Joachim Kudish
-	 * @heavily  modified by Peter Chester
-	 * @license  GPL2 or greater.
-	 * @version  1.7
-	 * @access   public
+	 * @since  1.7
 	 */
 	class Tribe__PUE__Checker {
 
-		private $pue_update_url = ''; //The URL of the plugin's metadata file.
-		private $plugin_file = ''; //Plugin filename relative to the plugins directory.
-		private $plugin_name = ''; //variable used to hold the plugin_name as set by the constructor.
-		private $slug = ''; //Plugin slug. (with .php extension)
-		private $download_query = array(); //used to hold the query variables for download checks;
+		// The URL of the plugin's metadata file.
+		private $pue_update_url = '';
+
+		// Plugin filename relative to the plugins directory.
+		private $plugin_file = '';
+
+		// variable used to hold the plugin_name as set by the constructor.
+		private $plugin_name = '';
+
+		// Plugin slug. (with .php extension)
+		private $slug = '';
+
+		// used to hold the query variables for download checks;
+		private $download_query = array();
+
+		// How often to check for updates (in hours).
+		public $check_period = 12;
+
+		// Where to store the update info.
+		public $pue_option_name = '';
+
+		// used to hold the user API.  If not set then nothing will work!
+		public $api_secret_key = '';
+
+		// used to hold the install_key if set (included here for addons that will extend PUE to use install key checks)
+		public $install_key = false;
+
+		// for setting the dismiss upgrade option (per plugin).
+		public $dismiss_upgrade;
+
+		/**
+		 * We'll customize this later so each plugin can have it's own install key!
+		 * @var string
+		 */
+		public $pue_install_key;
+
+		/**
+		 * Storing any `json_error` data that get's returned so we can display an admin notice.
+		 * For backwards compatibility this will be kept in the code for 2 versions
+		 *
+		 * @var array|null
+		 *
+		 * @deprecated
+		 * @todo  remove on 4.5
+		 */
+		public $json_error;
+
+		/**
+		 * Storing any `plugin_info` data that get's returned so we can display an admin notice.
+		 * @var array|null
+		 */
+		public $plugin_info;
 
 		public $check_period = 12; //How often to check for updates (in hours).
 		public $pue_option_name = ''; //Where to store the update info.
@@ -73,7 +112,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function hooks() {
 			// Override requests for plugin information
-			add_filter( 'plugins_api', array( &$this, 'inject_info' ), 10, 3 );
+			add_filter( 'plugins_api', array( $this, 'inject_info' ), 10, 3 );
 
 			// Check for updates when the WP updates are checked and inject our update if needed.
 			// Only add filter if the TRIBE_DISABLE_PUE constant is not set as true.
@@ -97,6 +136,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
+
+			Tribe__Admin__Notices::instance()->register( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -365,7 +406,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					}
 				}
 			</script>
-		<?php
+			<?php
 		}
 
 		/**
@@ -493,47 +534,41 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Echo JSON formatted errors
+		 * Displays an error notice if a premium plugin is activated and the license is expired
+		 *
+		 * @since 4.3
+		 *
+		 * @return bool|string
 		 */
-		public function display_json_error() {
-			$pluginInfo       = $this->json_error;
-			$update_dismissed = $this->get_option( $this->dismiss_upgrade );
+		public function display_license_error_message() {
+			$plugin_info = $this->plugin_info;
 
-			$is_dismissed = ! empty( $update_dismissed ) && in_array( $pluginInfo->version, $update_dismissed ) ? true : false;
-
-			if ( $is_dismissed ) {
-				return;
+			if ( ! current_user_can( 'install_plugins' ) ) {
+				return false;
 			}
 
-			if ( ! current_user_can( 'administrator' ) ) {
-				return;
+			if ( ! isset( $plugin_info->api_invalid ) ) {
+				return false;
 			}
 
-			//only display messages if there is a new version of the plugin.
-			if ( version_compare( $pluginInfo->version, $this->get_installed_version(), '>' ) ) {
-				if ( empty( $pluginInfo->api_invalid ) || $pluginInfo->api_invalid != 1 ) {
-					return;
-				}
+			$expired_license_msg     = $this->get_api_message( $plugin_info );
+			$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
 
-				$msg = $this->get_api_message( $pluginInfo );
+			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
+			$html[] = '<p>' . wp_kses( $expired_license_message, 'post' ) . '</p>';
 
-				//Dismiss code idea below is obtained from the Gravity Forms Plugin by rocketgenius.com
-				?>
-				<div class="updated" style="padding:5px; position:relative;" id="pu_dashboard_message"><?php echo wp_kses( $msg, 'post' ); ?>
-					<a href="javascript:void(0);" onclick="PUDismissUpgrade();" style="float:right;">[X]</a>
-				</div>
-				<script type="text/javascript">
-					function PUDismissUpgrade() {
-						jQuery("#pu_dashboard_message").slideUp();
-						jQuery.post( ajaxurl, {
-							action: "<?php echo esc_attr( $this->dismiss_upgrade ); ?>",
-							version: "<?php echo esc_attr( $pluginInfo->version ); ?>",
-							cookie: encodeURIComponent(document.cookie)
-						} );
-					}
-				</script>
-				<?php
+			if ( isset( $plugin_info->api_expired ) ) {
+				$expired_link   = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%1$s <span class="screen-reader-text">%2$s</span></a>', esc_html__( 'Renew your license', 'tribe-common' ), esc_html__( '(opens in a new window)', 'tribe-common' ) );
+				$html[] = '<p>' . sprintf( __( '%s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $expired_link ) . '</p>';
+			} else {
+				$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
+				$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
+				$tec_link = '<a href="https://theeventscalendar.com" target="_blank">' . esc_html__( 'theeventscalendar.com', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
+				$link   = '<a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'license keys', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
+				$html[] = '<p>' . sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
+				$html[] = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
 			}
+			return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
 		}
 
 		public function maybe_display_json_error_on_plugins_page( $page ) {
@@ -668,10 +703,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return Tribe__PUE__Utility An instance of Tribe__PUE__Utility, or NULL when no updates are available.
 		 */
 		public function request_update() {
-			//For the sake of simplicity, this function just calls request_info()
-			//and transforms the result accordingly.
-			$pluginInfo = $this->request_info( array( 'pu_checking_for_updates' => '1' ) );
-			if ( $pluginInfo == null ) {
+			// For the sake of simplicity, this function just calls request_info()
+			// and transforms the result accordingly.
+			$this->plugin_info = $pluginInfo = $this->request_info( array( 'pu_checking_for_updates' => '1' ) );
+
+			if ( null === $pluginInfo ) {
 				return null;
 			}
 
@@ -679,7 +715,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( isset( $pluginInfo->api_invalid ) ) {
 				do_action( 'debug_robot', "API is invalid" );
 				//we have json_error returned let's display a message
-				$this->json_error = $pluginInfo;
+				$this->json_error = $this->plugin_info;
 				add_action( 'admin_notices', array( &$this, 'display_json_error' ) );
 
 				$pluginInfo = Tribe__PUE__Utility::from_plugin_info( $pluginInfo );
@@ -712,14 +748,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @param $plugin_data
 		 */
 		public function in_plugin_update_message( $plugin_data ) {
-			$plugininfo = $this->json_error;
+			$plugin_info = $this->plugin_info;
+
 			//only display messages if there is a new version of the plugin.
-			if ( is_object( $plugininfo ) && version_compare( $plugininfo->version, $this->get_installed_version(), '>' ) ) {
-				if ( $plugininfo->api_invalid ) {
-					$msg = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $plugininfo->api_inline_invalid_message );
+			if ( is_object( $plugin_info ) && version_compare( $plugin_info->version, $this->get_installed_version(), '>' ) ) {
+				if ( $plugin_info->api_invalid ) {
+					$msg = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $plugin_info->api_inline_invalid_message );
 					$msg = str_replace( '%plugin_slug%', $this->get_slug(), $msg );
 					$msg = str_replace( '%update_url%', $this->get_pue_update_url(), $msg );
-					$msg = str_replace( '%version%', $plugininfo->version, $msg );
+					$msg = str_replace( '%version%', $plugin_info->version, $msg );
 					$msg = str_replace( '%changelog%', '<a class="thickbox" title="' . $this->get_plugin_name() . '" href="plugin-install.php?tab=plugin-information&plugin=' . $this->get_slug() . '&TB_iframe=true&width=640&height=808">what\'s new</a>', $msg );
 					echo '</tr><tr class="plugin-update-tr"><td colspan="3" class="plugin-update"><div class="update-message">' . $msg . '</div></td>';
 				}

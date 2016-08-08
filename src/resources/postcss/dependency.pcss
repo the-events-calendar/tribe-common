@@ -4,15 +4,21 @@
 
 	&.tribe-active {
 		display: inline-block;
-	}
-}
 
-div.tribe-dependent.tribe-active {
-	display: block;
-}
-td.tribe-dependent.tribe-active {
-	display: table-cell;
-}
-tr.tribe-dependent.tribe-active {
-	display: table-row;
+		div& {
+			display: block;
+
+			&.select2-container {
+				display: inline-block;
+			}
+		}
+
+		td& {
+			display: table-cell;
+		}
+
+		tr& {
+			display: table-row;
+		}
+	}
 }

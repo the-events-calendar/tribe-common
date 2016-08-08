@@ -55,7 +55,7 @@ class Tribe__Admin__Helpers {
 
 		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', Tribe__Main::get_post_types() );
 
-		// Match any Post Type form Tribe
+		// Match any Post Type from Tribe
 		if ( is_null( $post_type ) && in_array( $current_screen->post_type, $defaults ) ) {
 			return true;
 		}

@@ -37,27 +37,38 @@
 				$dependents.each( function( k, dependent ) {
 					var $dependent = $( dependent ),
 						condition = $dependent.data( 'condition' ),
+						not_condition = $dependent.data( 'conditionNot' ),
 						is_not_empty = $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
 						is_empty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
-						is_disabled = $field.is( ':disabled' );
+						is_disabled = $field.is( ':disabled' ),
+						active_class = selectors.active.replace( '.', '' );
 
 					if (
 						(
-							( is_empty && '' == value )  ||
-							( is_not_empty && '' != value ) ||
-							( _.isArray( condition ) && -1 !== _.findIndex( condition, value ) ) ||
-							( value == condition )
+							( is_empty && '' == value )
+							|| ( is_not_empty && '' != value )
+							|| ( _.isArray( condition ) && -1 !== _.findIndex( condition, value ) )
+							|| ( 'undefined' !== typeof condition && value == condition )
+							|| ( 'undefined' !== typeof not_condition && value != not_condition )
 						) && ! is_disabled
 					) {
 						$dependent
-							.addClass( selectors.active.replace( '.', '' ) )
+							.addClass( active_class )
 							.find( selectors.fields ).prop( 'disabled', false )
 							.end().find( '.select2-container' ).select2( 'enable', false );
+
+						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
+							$( '#s2id_' + $dependent.attr( 'id' ) ).addClass( active_class );
+						}
 					} else {
 						$dependent
-							.removeClass( selectors.active.replace( '.', '' ) )
+							.removeClass( active_class )
 							.find( selectors.fields ).prop( 'disabled', true )
 							.end().find( '.select2-container' ).select2( 'enable', true );
+
+						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
+							$( '#s2id_' + $dependent.attr( 'id' ) ).removeClass( active_class );
+						}
 					}
 
 					// Checks if any child elements have dependencies

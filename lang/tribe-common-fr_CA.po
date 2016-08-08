@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Log/Null_Logger.php:26
+msgid "Null logger (will log nothing)"
+msgstr ""
+
 #: src/Tribe/Log/Admin.php:132
 msgctxt "log selector"
 msgid "None currently available"
@@ -308,7 +312,7 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Settings.php:321
+#: src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr ""
 
@@ -927,7 +931,7 @@ msgstr "France (métropole)"
 msgid "French Guiana"
 msgstr "Guyane Française"
 
-#: src/Tribe/Settings.php:585
+#: src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "Paramètres enregistrés."
 
@@ -1293,7 +1297,7 @@ msgstr "Nigéria"
 msgid "Niue"
 msgstr "Niue"
 
-#: src/Tribe/Settings.php:214
+#: src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -1413,7 +1417,7 @@ msgstr "Sainte-Lucie"
 msgid "Saint Vincent And The Grenadines"
 msgstr "Saint-Vincent-et-les-Grenadines,"
 
-#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
+#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "Paramètres d'événements"
 
@@ -1421,7 +1425,7 @@ msgstr "Paramètres d'événements"
 msgid "Samoa"
 msgstr "Samoa"
 
-#: src/Tribe/Settings.php:299
+#: src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s Paramètres"
 
@@ -1429,7 +1433,7 @@ msgstr "%s Paramètres"
 msgid "San Marino"
 msgstr "San Marino"
 
-#: src/Tribe/Settings.php:313
+#: src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "Vous avez demandé un onglet inexistant."
 
@@ -1437,7 +1441,7 @@ msgstr "Vous avez demandé un onglet inexistant."
 msgid "Sao Tome And Principe"
 msgstr "Sao Tome et Principe"
 
-#: src/Tribe/Settings.php:369
+#: src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "Vous n’avez pas la permission d’effectuer ceci."
 
@@ -1445,7 +1449,7 @@ msgstr "Vous n’avez pas la permission d’effectuer ceci."
 msgid "Saudi Arabia"
 msgstr "Arabie Saoudite"
 
-#: src/Tribe/Settings.php:375
+#: src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "Cette requête a été envoyer de manière non-sécurisée."
 
@@ -1453,7 +1457,7 @@ msgstr "Cette requête a été envoyer de manière non-sécurisée."
 msgid "Senegal"
 msgstr "Sénégal"
 
-#: src/Tribe/Settings.php:381
+#: src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "La requête n’à pas été envoyé depuis cet onglet."
 
@@ -1461,7 +1465,7 @@ msgstr "La requête n’à pas été envoyé depuis cet onglet."
 msgid "Serbia"
 msgstr "Serbie"
 
-#: src/Tribe/Settings.php:549
+#: src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "Votre formulaire a les erreurs suivantes :"
 
@@ -1469,7 +1473,7 @@ msgstr "Votre formulaire a les erreurs suivantes :"
 msgid "Seychelles"
 msgstr "Seychelles"
 
-#: src/Tribe/Settings.php:559
+#: src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "Aucuns de vos réglages n’ont été sauvés. Merci de réessayer à nouveau."
 
@@ -1477,7 +1481,7 @@ msgstr "Aucuns de vos réglages n’ont été sauvés. Merci de réessayer à no
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Le paramètre ci-dessus n'était pas enregistré. Les autres paramètres ont été enregistrés avec succès."

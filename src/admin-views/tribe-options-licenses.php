@@ -37,7 +37,7 @@ if ( is_multisite() ) {
 }
 
 // Explanatory text about license settings for the tab information box
-$support_html = '<p>' . __( 'The details of your calendar plugin and settings are often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums <a href="%1$s" target="_blank">forums</a>. You can see exactly what information you\'ll be sharing by viewing the System Info section on the <a href="%2$s" target="_blank">Help Tab</a>.', 'tribe-common' ) . '</p>';
+$support_html = '<p>' . __( 'The details of your calendar plugin and settings are often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our <a href="%1$s" target="_blank">forums</a>. You can see exactly what information you\'ll be sharing by viewing the System Info section on the <a href="%2$s" target="_blank">Help Tab</a>.', 'tribe-common' ) . '</p>';
 
 $licenses_tab = array(
 	'info-start' => array(

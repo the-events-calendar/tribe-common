@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.2.1dev1\n"
+"Project-Id-Version: Tribe Common 4.2.1.1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2016-06-22 15:44:47+00:00\n"
+"POT-Creation-Date: 2016-07-20 12:59:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-06-22 15:44\n"
+"PO-Revision-Date: 2016-07-20 12:59\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -158,12 +158,16 @@ msgstr ""
 msgid "Event Add-Ons"
 msgstr ""
 
-#: src/Tribe/Credits.php:26
-msgid "This calendar is powered by The Events Calendar."
+#: src/Tribe/Credits.php:31
+msgid "This calendar is powered by %1$s."
 msgstr ""
 
-#: src/Tribe/Credits.php:46
-msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
+#: src/Tribe/Credits.php:55
+msgid "Rate %1$sThe Events Calendar%2$s %3$s"
+msgstr ""
+
+#: src/Tribe/Credits.php:64
+msgid "Rate %1$sEvent Tickets%2$s %3$s"
 msgstr ""
 
 #: src/Tribe/Field.php:209
@@ -256,40 +260,40 @@ msgstr ""
 msgid "Sorry, there is a problem with your license key. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:202
-#: src/Tribe/Settings.php:203
+#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:204
+#: src/Tribe/Settings.php:205
 msgid "Events"
 msgstr ""
 
-#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
+#: src/Tribe/Settings.php:216 src/Tribe/Settings.php:236
 msgid "Events Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:215
+#: src/Tribe/Settings.php:217
 msgid "Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:300
+#: src/Tribe/Settings.php:301
 msgid "%s Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:314
+#: src/Tribe/Settings.php:315
 msgid "You've requested a non-existent tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:322
+#: src/Tribe/Settings.php:323
 msgid "Save Changes"
 msgstr ""
 
-#: src/Tribe/Settings.php:370
+#: src/Tribe/Settings.php:371
 msgid "You don't have permission to do that."
 msgstr ""
 
-#: src/Tribe/Settings.php:376
+#: src/Tribe/Settings.php:377
 msgid "The request was sent insecurely."
 msgstr ""
 
-#: src/Tribe/Settings.php:382
+#: src/Tribe/Settings.php:383
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
@@ -1629,6 +1633,10 @@ msgstr ""
 
 #: src/admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
+msgstr ""
+
+#: src/admin-views/app-shop.php:23
+msgid "Get Add-Ons"
 msgstr ""
 
 #: src/admin-views/app-shop.php:54
