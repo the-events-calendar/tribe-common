@@ -73,13 +73,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public $plugin_info;
 
-		public $check_period = 12; //How often to check for updates (in hours).
-		public $pue_option_name = ''; //Where to store the update info.
-		public $json_error = ''; //for storing any json_error data that get's returned so we can display an admin notice.
-		public $api_secret_key = ''; //used to hold the user API.  If not set then nothing will work!
-		public $install_key = false; //used to hold the install_key if set (included here for addons that will extend PUE to use install key checks)
-		public $dismiss_upgrade; //for setting the dismiss upgrade option (per plugin).
-		public $pue_install_key; //we'll customize this later so each plugin can have it's own install key!
 		public $plugin_notice;
 
 		/**
@@ -716,7 +709,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				do_action( 'debug_robot', "API is invalid" );
 				//we have json_error returned let's display a message
 				$this->json_error = $this->plugin_info;
-				add_action( 'admin_notices', array( &$this, 'display_json_error' ) );
+				add_action( 'admin_notices', array( &$this, 'maybe_display_json_error_on_plugins_page' ) );
 
 				$pluginInfo = Tribe__PUE__Utility::from_plugin_info( $pluginInfo );
 				$pluginInfo->license_error = $this->get_api_message( $pluginInfo );
