@@ -98,6 +98,27 @@ class Tribe__Admin__Notices {
 	}
 
 	/**
+	 * Allows a Magic to remove the Requirement of creating a callback
+	 *
+	 * @param  string $name       Name of the Method used to create the Slug of the Notice
+	 * @param  array  $arguments  Which arguments were used, normally empty
+	 *
+	 * @return string
+	 */
+	public function __call( $name, $arguments ) {
+		// Transform from Method name to Notice number
+		$slug = preg_replace( '/render_/', '', $name, 1 );
+		if ( ! $this->exists( $slug ) ) {
+			return false;
+		}
+
+		$notice = $this->get( $slug );
+
+		// Return the rendered HTML
+		return $this->render( $slug, $notice->content );
+	}
+
+	/**
 	 * This is a helper to actually print the Message
 	 *
 	 * @param  string  $slug    The Name of the Notice
@@ -213,9 +234,9 @@ class Tribe__Admin__Notices {
 	/**
 	 * Register a Notice and attach a callback to the required action to display it correctly
 	 *
-	 * @param  string   $slug      Slug to save the notice
-	 * @param  callable $callback  A callable Method/Fuction to actually display the notice
-	 * @param  array    $arguments Arguments to Setup a notice
+	 * @param  string          $slug      Slug to save the notice
+	 * @param  callable|string $callback  A callable Method/Fuction to actually display the notice
+	 * @param  array           $arguments Arguments to Setup a notice
 	 *
 	 * @return string
 	 */
@@ -224,13 +245,21 @@ class Tribe__Admin__Notices {
 		$slug = sanitize_title_with_dashes( $slug );
 
 		$defaults = array(
-			'callback' => $callback,
+			'callback' => null,
+			'content'  => null,
 			'action'   => 'admin_notices',
 			'priority' => 10,
 			'expire'   => false,
 			'dismiss'  => false,
 			'type'     => 'error',
 		);
+
+		if ( is_callable( $callback ) ) {
+			$defaults['callback'] = $callback;
+		} else {
+			$defaults['callback'] = array( $this, 'render_' . $slug );
+			$defaults['content'] = $callback;
+		}
 
 		// Merge Arguments
 		$notice = (object) wp_parse_args( $arguments, $defaults );
