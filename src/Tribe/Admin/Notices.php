@@ -109,7 +109,6 @@ class Tribe__Admin__Notices {
 		// Transform from Method name to Notice number
 		$slug = preg_replace( '/render_/', '', $name, 1 );
 
-		var_dump( $name, $slug );
 		if ( ! $this->exists( $slug ) ) {
 			return false;
 		}
