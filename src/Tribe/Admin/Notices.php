@@ -108,6 +108,8 @@ class Tribe__Admin__Notices {
 	public function __call( $name, $arguments ) {
 		// Transform from Method name to Notice number
 		$slug = preg_replace( '/render_/', '', $name, 1 );
+
+		var_dump( $name, $slug );
 		if ( ! $this->exists( $slug ) ) {
 			return false;
 		}
@@ -238,7 +240,7 @@ class Tribe__Admin__Notices {
 	 * @param  callable|string $callback  A callable Method/Fuction to actually display the notice
 	 * @param  array           $arguments Arguments to Setup a notice
 	 *
-	 * @return string
+	 * @return stdClass
 	 */
 	public function register( $slug, $callback, $arguments = array() ) {
 		// Prevent weird stuff here
@@ -275,8 +277,8 @@ class Tribe__Admin__Notices {
 		// Set the Notice on the array of notices
 		$this->notices[ $slug ] = $notice;
 
-		// Return the Slug because it might be modified
-		return $slug;
+		// Return the notice Object because it might be modified
+		return $notice;
 	}
 
 	public function remove( $slug ) {

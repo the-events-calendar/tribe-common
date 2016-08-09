@@ -469,6 +469,19 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 }
 
 /**
+ * Shortcut for Tribe__Admin__Notices::register(), create a Admin Notice easily
+ *
+ * @param  string          $slug      Slug to save the notice
+ * @param  callable|string $callback  A callable Method/Fuction to actually display the notice
+ * @param  array           $arguments Arguments to Setup a notice
+ *
+ * @return stdClass        Which notice was registred
+ */
+function tribe_notice( $slug, $callback, $arguments = array() ) {
+	return Tribe__Admin__Notices::instance()->register( $slug, $callback, $arguments );
+}
+
+/**
  * Shortcut for Tribe__Assets::register(), include a single asset
  *
  * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
