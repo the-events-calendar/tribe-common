@@ -125,7 +125,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 
-			Tribe__Admin__Notices::instance()->register( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
+			tribe_notice( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
 
 		}
 
