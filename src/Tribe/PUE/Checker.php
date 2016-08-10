@@ -130,7 +130,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 
-			Tribe__Admin__Notices::instance()->register( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
+			tribe_notice( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
 		}
 
 		/********************** Getter / Setter Functions **********************/
