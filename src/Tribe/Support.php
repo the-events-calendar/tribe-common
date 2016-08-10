@@ -301,7 +301,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		 * @return string|void
 		 *
 		 */
-		public function sysinfo_query( $query ) {
+		public static function sysinfo_query( $query ) {
 
 			$optin_key = get_option( 'tribe_systeminfo_optin' );
 
