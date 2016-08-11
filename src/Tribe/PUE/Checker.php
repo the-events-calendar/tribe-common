@@ -461,7 +461,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( empty( $plugin_info ) ) {
 				$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
 			} elseif ( isset( $plugin_info->api_expired ) && $plugin_info->api_expired == 1 ) {
-				$response['message'] = $this->get_api_message( $plugin_info );
+				$response['message'] = $this->get_license_expired_message();
 			} elseif ( isset( $plugin_info->api_upgrade ) && $plugin_info->api_upgrade == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
 			} elseif ( isset( $plugin_info->api_invalid ) && $plugin_info->api_invalid == 1 ) {
@@ -551,8 +551,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '<p>' . wp_kses( $expired_license_message, 'post' ) . '</p>';
 
 			if ( isset( $plugin_info->api_expired ) ) {
-				$expired_link   = sprintf( '<a href="http://m.tri.be/195d" target="_blank">%1$s <span class="screen-reader-text">%2$s</span></a>', esc_html__( 'Renew your license', 'tribe-common' ), esc_html__( '(opens in a new window)', 'tribe-common' ) );
-				$html[] = '<p>' . sprintf( __( '%s to get access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $expired_link ) . '</p>';
+				$html[] = '<p>' . $this->get_license_expired_message() . '</p>';
 			} else {
 				$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
 				$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
@@ -562,6 +561,19 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$html[] = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
 			}
 			return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
+		}
+
+		public function get_license_expired_message() {
+			$helper_text = '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'tribe-common' ) . '</span>';
+			return sprintf(
+				__(
+					'This license key is expired! You need to %1$srenew your license %2$s %3$s to get access to the latest versions including bug fixes, security updates, and new features.',
+					'tribe-common'
+				),
+				'<a href="http://m.tri.be/195y" target="_blank">',
+				$helper_text,
+				'</a>'
+			);
 		}
 
 		/**

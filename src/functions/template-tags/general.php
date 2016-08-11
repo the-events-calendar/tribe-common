@@ -482,6 +482,31 @@ function tribe_notice( $slug, $callback, $arguments = array() ) {
 }
 
 /**
+ * A quick internal way of sending errors using WP_Error
+ *
+ * @param  string|array $indexes Which Error we are looking for
+ * @param  array        $context Gives the Error context
+ * @param  array        $sprintf Allows variables on the message
+ *
+ * @return WP_Error
+ */
+function tribe_error( $indexes, $context = array(), $sprintf = array() ) {
+	return Tribe__Error::instance()->send( $indexes, $context, $sprintf );
+}
+
+/**
+ * Register a new error based on a Namespace
+ *
+ * @param  string|array  $indexes  A list of the namespaces and last item should be the error name
+ * @param  string        $message  What is going to be the message associate with this indexes
+ *
+ * @return boolean
+ */
+function tribe_register_error( $indexes, $message ) {
+	return Tribe__Error::instance()->register( $indexes, $message );
+}
+
+/**
  * Shortcut for Tribe__Assets::register(), include a single asset
  *
  * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
