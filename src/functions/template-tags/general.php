@@ -481,6 +481,20 @@ function tribe_notice( $slug, $callback, $arguments = array() ) {
 	return Tribe__Admin__Notices::instance()->register( $slug, $callback, $arguments );
 }
 
+
+/**
+ * A quick internal way of sending errors using WP_Error
+ *
+ * @param  string|array $indexes Which Error we are looking for
+ * @param  array        $context Gives the Error context
+ * @param  array        $sprintf Allows variables on the message
+ *
+ * @return WP_Error
+ */
+function tribe_error( $indexes, $context = array(), $sprintf = array() ) {
+	return Tribe__Error::instance()->send( $indexes, $context, $sprintf );
+}
+
 /**
  * Shortcut for Tribe__Assets::register(), include a single asset
  *
