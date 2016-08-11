@@ -132,6 +132,8 @@ class Tribe__Main {
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
+				array( 'tribe-common', 'tribe-common.js', array( 'tribe-clipboard' ) ),
+				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
 				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
 				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css' ),
 			),
@@ -199,6 +201,7 @@ class Tribe__Main {
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'load_assets' ), 1 );
 		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'store_admin_notices' ) );
 	}
 
 	/**
@@ -349,5 +352,17 @@ class Tribe__Main {
 		}
 
 		return $instance;
+	}
+
+	/**
+	 * Adds a hook
+	 *
+	 */
+	public function store_admin_notices( $page ) {
+		if ( 'plugins.php' !== $page ) {
+			return;
+		}
+		$notices = apply_filters( 'tribe_plugin_notices', array() );
+		wp_localize_script( 'tribe-pue-notices', 'tribe_plugin_notices', $notices );
 	}
 }

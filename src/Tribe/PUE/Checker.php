@@ -73,6 +73,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public $plugin_info;
 
+		public $plugin_notice;
 
 		/**
 		 * Class constructor.
@@ -117,6 +118,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
 
+			add_action( 'update_option_' . $this->pue_install_key, array( $this, 'check_for_api_key_error' ), 10, 2 );
+
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
 
@@ -125,8 +128,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 
-			tribe_notice( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
+			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 
+			tribe_notice( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -451,17 +455,17 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$queryArgs['active_sites']      = 1;
 			}
 
-			$pluginInfo = $this->request_info( $queryArgs );
-			$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : esc_html__( 'unknown date', 'tribe-common' );
+			$plugin_info = $this->request_info( $queryArgs );
+			$expiration = isset( $plugin_info->expiration ) ? $plugin_info->expiration : esc_html__( 'unknown date', 'tribe-common' );
 
-			if ( empty( $pluginInfo ) ) {
+			if ( empty( $plugin_info ) ) {
 				$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
-			} elseif ( isset( $pluginInfo->api_expired ) && $pluginInfo->api_expired == 1 ) {
+			} elseif ( isset( $plugin_info->api_expired ) && $plugin_info->api_expired == 1 ) {
 				$response['message'] = $this->get_license_expired_message();
-			} elseif ( isset( $pluginInfo->api_upgrade ) && $pluginInfo->api_upgrade == 1 ) {
-				$response['message'] = $this->get_api_message( $pluginInfo );
-			} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
-				$response['message'] = $this->get_api_message( $pluginInfo );
+			} elseif ( isset( $plugin_info->api_upgrade ) && $plugin_info->api_upgrade == 1 ) {
+				$response['message'] = $this->get_api_message( $plugin_info );
+			} elseif ( isset( $plugin_info->api_invalid ) && $plugin_info->api_invalid == 1 ) {
+				$response['message'] = $this->get_api_message( $plugin_info );
 			} else {
 				$api_secret_key = get_option( $this->pue_install_key );
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
@@ -479,8 +483,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					}
 				}
 
-				$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
-				$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
+				$response['status']     = isset( $plugin_info->api_message ) ? 2 : 1;
+				$response['message']    = isset( $plugin_info->api_message ) ? wp_kses( $plugin_info->api_message, 'data' ) : $default_success_msg;
 				$response['expiration'] = $expiration;
 			}
 
@@ -573,12 +577,43 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
+		 * Displays a PUE message on the page if it is relevant
+		 */
+		public function maybe_display_json_error_on_plugins_page( $page ) {
+			if ( 'plugins.php' !== $page ) {
+				return;
+			}
+
+			$state = $this->get_option( $this->pue_option_name, false, false );
+
+			if ( empty( $state->update->license_error ) ) {
+				return;
+			}
+
+			$this->plugin_notice = array(
+				'slug' => $this->get_slug(),
+				'message' => $state->update->license_error,
+			);
+			add_filter( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
+		}
+
+		public function add_notice_to_plugin_notices( $notices ) {
+			if ( ! $this->plugin_notice ) {
+				return $notices;
+			}
+
+			$notices[ $this->plugin_notice['slug'] ] = $this->plugin_notice;
+
+			return $notices;
+		}
+
+		/**
 		 * Retrieve plugin info from the configured API endpoint.
 		 *
 		 * @param array $queryArgs Additional query arguments to append to the request. Optional.
 		 *
 		 * @uses wp_remote_get()
-		 * @return string $pluginInfo
+		 * @return string $plugin_info
 		 */
 		public function request_info( $queryArgs = array() ) {
 			//Query args to append to the URL. Plugins can add their own by using a filter callback (see add_query_arg_filter()).
@@ -643,15 +678,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			);
 
 			//Try to parse the response
-			$pluginInfo = null;
+			$plugin_info = null;
 			if ( ! is_wp_error( $result ) && isset( $result['response']['code'] ) && ( $result['response']['code'] == 200 ) && ! empty( $result['body'] ) ) {
-				$pluginInfo = Tribe__PUE__Plugin_Info::from_json( $result['body'] );
+				$plugin_info = Tribe__PUE__Plugin_Info::from_json( $result['body'] );
 			}
-			$pluginInfo = apply_filters( 'tribe_puc_request_info_result-' . $this->get_slug(), $pluginInfo, $result );
+			$plugin_info = apply_filters( 'tribe_puc_request_info_result-' . $this->get_slug(), $plugin_info, $result );
 
-			$plugin_info_cache[ $key ] = $pluginInfo;
+			$plugin_info_cache[ $key ] = $plugin_info;
 
-			return $pluginInfo;
+			return $plugin_info;
 		}
 
 		/**
@@ -678,33 +713,46 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function request_update() {
 			// For the sake of simplicity, this function just calls request_info()
 			// and transforms the result accordingly.
-			$this->plugin_info = $pluginInfo = $this->request_info( array( 'pu_checking_for_updates' => '1' ) );
+			$args = array(
+				'pu_checking_for_updates' => 1,
+			);
 
-			if ( null === $pluginInfo ) {
+			if ( ! empty( $_POST['key'] ) ) {
+				$args['pu_install_key'] = $_POST['key'];
+			}
+
+			$this->plugin_info = $plugin_info = $this->request_info( $args );
+
+			if ( null === $plugin_info ) {
 				return null;
 			}
 
 			// admin display for if the update check reveals that there is a new version but the API key isn't valid.
-			if ( isset( $pluginInfo->api_invalid ) ) { //we have json_error returned let's display a message
+			if ( isset( $plugin_info->api_invalid ) ) {
+				//we have json_error returned let's display a message
 				$this->json_error = $this->plugin_info;
-				return null;
+				add_action( 'admin_notices', array( &$this, 'maybe_display_json_error_on_plugins_page' ) );
+
+				$plugin_info = Tribe__PUE__Utility::from_plugin_info( $plugin_info );
+				$plugin_info->license_error = $this->get_api_message( $plugin_info );
+				return $plugin_info;
 			}
 
-			if ( isset( $pluginInfo->new_install_key ) ) {
-				$this->update_option( $this->pue_install_key, $pluginInfo->new_install_key );
+			if ( isset( $plugin_info->new_install_key ) ) {
+				$this->update_option( $this->pue_install_key, $plugin_info->new_install_key );
 			}
 
 			//need to correct the download url so it contains the custom user data (i.e. api and any other paramaters)
 
 			$download_query = $this->get_download_query();
 			if ( ! empty( $download_query ) ) {
-				$pluginInfo->download_url = esc_url_raw( add_query_arg( $download_query, $pluginInfo->download_url ) );
+				$plugin_info->download_url = esc_url_raw( add_query_arg( $download_query, $plugin_info->download_url ) );
 			}
 
 			// Add plugin dirname/file (this will be expected by WordPress when it builds the plugin list table)
-			$pluginInfo->plugin = $this->get_plugin_file();
+			$plugin_info->plugin = $this->get_plugin_file();
 
-			return Tribe__PUE__Utility::from_plugin_info( $pluginInfo );
+			return Tribe__PUE__Utility::from_plugin_info( $plugin_info );
 		}
 
 
@@ -769,11 +817,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param string     $option_key
 		 * @param bool|mixed $default
+		 * @param bool       $use_cache
 		 *
 		 * @return null|mixed
 		 */
-		public function get_option( $option_key, $default = false ) {
-			return get_site_option( $option_key, $default );
+		public function get_option( $option_key, $default = false, $use_cache = true ) {
+			return get_site_option( $option_key, $default, $use_cache );
 		}
 
 		/**
@@ -795,7 +844,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 */
 		public function check_for_updates( $updates = array() ) {
-			$state = $this->get_option( $this->pue_option_name );
+			$state = $this->get_option( $this->pue_option_name, false, false );
 			if ( empty( $state ) ) {
 				$state                 = new StdClass;
 				$state->lastCheck      = 0;
@@ -811,6 +860,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// If a null update was returned, skip the end of the function.
 			if ( $state->update == null ) {
+				$this->update_option( $this->pue_option_name, $state );
 				return $updates;
 			}
 
@@ -823,6 +873,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'after_plugin_row_' . $this->get_plugin_file(), array( &$this, 'in_plugin_update_message' ) );
 
 			return $updates;
+		}
+
+		/**
+		 * Clears out the site external site option and re-checks the license key
+		 */
+		public function check_for_api_key_error( $old_value, $value ) {
+			delete_site_option( $this->pue_option_name );
+
+			$this->check_for_updates();
 		}
 
 		/**
@@ -843,9 +902,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return $result;
 			}
 
-			$pluginInfo = $this->request_info( array( 'pu_checking_for_updates' => '1' ) );
-			if ( $pluginInfo ) {
-				return $pluginInfo->to_wp_format();
+			$plugin_info = $this->request_info( array( 'pu_checking_for_updates' => '1' ) );
+			if ( $plugin_info ) {
+				return $plugin_info->to_wp_format();
 			}
 
 			return $result;

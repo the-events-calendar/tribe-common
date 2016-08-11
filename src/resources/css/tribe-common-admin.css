@@ -929,6 +929,9 @@ a.tribe-rating-link {
 .select2-container .select2-choice abbr {
 	top: 6px;
 }
+.wp-list-table.plugins .column-description .update-message {
+	color: #d54e21;
+}
 .tribe-notice-pue-validation {
 	padding: 1em;
 }
