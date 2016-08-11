@@ -359,7 +359,7 @@ class Tribe__Main {
 	 *
 	 */
 	public function store_admin_notices( $page ) {
-		if ( 'plugins.php' != $page ) {
+		if ( 'plugins.php' !== $page ) {
 			return;
 		}
 		$notices = apply_filters( 'tribe_plugin_notices', array() );
