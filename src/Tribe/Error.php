@@ -94,7 +94,7 @@ class Tribe__Error {
 
 		// Will create the Indexes based on the $slug
 		foreach ( $indexes as $i => $index ) {
-			if ( $count === $i+1 ) {
+			if ( $count === $i + 1 ) {
 				$variable[ $index ] = $message;
 			} else {
 				$variable = &$variable[ $index ];
@@ -127,7 +127,7 @@ class Tribe__Error {
 		$count    = count( $indexes );
 
 		foreach ( $indexes as $i => $index ) {
-			if ( $count === $i+1 ) {
+			if ( $count === $i + 1 ) {
 				unset( $variable[ $index ] );
 			} else {
 				$variable = &$variable[ $index ];
@@ -161,7 +161,7 @@ class Tribe__Error {
 		foreach ( $indexes as $i => $index ) {
 			if ( ! isset( $variable[ $index ] ) ) {
 				// If we are on the last item and we don't have it set make it Null
-				if ( $count === $i+1 ) {
+				if ( $count === $i + 1 ) {
 					return null;
 				}
 				continue;
