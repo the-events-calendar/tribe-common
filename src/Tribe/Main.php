@@ -132,7 +132,6 @@ class Tribe__Main {
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
-				array( 'tribe-common', 'tribe-common.js', array( 'tribe-clipboard' ) ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
 				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
 				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css' ),
