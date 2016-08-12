@@ -475,7 +475,7 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
  * @param  callable|string $callback  A callable Method/Fuction to actually display the notice
  * @param  array           $arguments Arguments to Setup a notice
  *
- * @return stdClass        Which notice was registred
+ * @return stdClass        Which notice was registered
  */
 function tribe_notice( $slug, $callback, $arguments = array() ) {
 	return Tribe__Admin__Notices::instance()->register( $slug, $callback, $arguments );
