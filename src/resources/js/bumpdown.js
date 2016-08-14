@@ -17,7 +17,7 @@
 				trigger: '.tribe-bumpdown-trigger',
 				close: '.tribe-bumpdown-close',
 				permanent: '.tribe-bumpdown-permanent',
-				active: '.tribe-active'
+				active: '.tribe-bumpdown-active'
 			},
 			methods = {
 				open: function( $bumpdown ) {
