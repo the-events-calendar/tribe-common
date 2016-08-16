@@ -866,7 +866,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			//Is there an update to insert?
 			if ( version_compare( $state->update->version, $this->get_installed_version(), '>' ) ) {
-				$updates->response[ $this->get_plugin_file() ] = $state->update->to_wp_format();
+				$updates['response'] = empty( $updates['response'] ) ? array() : $updates['response'];
+				$updates['response'][ $this->get_plugin_file() ] = $state->update->to_wp_format();
 			}
 
 			$this->update_option( $this->pue_option_name, $state );
