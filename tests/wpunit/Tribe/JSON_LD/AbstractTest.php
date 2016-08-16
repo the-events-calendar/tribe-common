@@ -3,6 +3,7 @@ namespace Tribe\JSON_LD;
 
 require_once codecept_data_dir( 'classes/Tribe__JSON_LD__Test_Class.php' );
 
+use Tribe__Events__Main as Main;
 use Tribe__JSON_LD__Test_Class as Jsonld;
 
 class AbstractTest extends \Codeception\TestCase\WPTestCase {
@@ -16,7 +17,7 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 	public function tearDown() {
 		// your tear down methods here
-		\Tribe__JSON_LD__Abstract::class_reset_fetched_post_ids();
+		\Tribe__JSON_LD__Abstract::unregister_all();
 
 		// then
 		parent::tearDown();
@@ -39,7 +40,7 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 	public function empties() {
 		return [
 			[ '' ],
-			[ [ ] ],
+			[ [] ],
 			[ null ],
 			[ 0 ]
 		];
@@ -71,14 +72,14 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should return an empty array when trying to get data for same post a second time and skip duplicates is set to true
+	 * it should return an empty array when trying to get data for same post a second time
 	 */
-	public function it_should_return_an_empty_array_when_trying_to_get_data_for_same_post_a_second_time_and_skip_duplicates_is_set_to_true() {
-		$post = $this->factory()->post->create();
+	public function it_should_return_an_empty_array_when_trying_to_get_data_for_same_post_a_second_time() {
+		$post = $this->factory()->post->create_and_get( [ 'post_type' => Main::POSTTYPE ] );
 
 		$sut = $this->make_instance();
-		$sut->get_data( $post );
-		$second_fetch_data = $sut->get_data( $post, [ 'skip_duplicates' => true ] );
+		$sut->register( $post );
+		$second_fetch_data = $sut->get_data( $post );
 
 		$this->assertInternalType( 'array', $second_fetch_data );
 		$this->assertEmpty( $second_fetch_data );
@@ -86,51 +87,18 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should return the same date when trying to get data for same post a second time and skip duplicates is set to false
-	 */
-	public function it_should_return_the_same_date_when_trying_to_get_data_for_same_post_a_second_time_and_skip_duplicates_is_set_to_false() {
-		$post = $this->factory()->post->create();
-
-		$sut               = $this->make_instance();
-		$first_fetch_data  = $sut->get_data( $post );
-		$second_fetch_data = $sut->get_data( $post, [ 'skip_duplicates' => false ] );
-
-		$this->assertInternalType( 'array', $second_fetch_data );
-		$this->assertEqualSets( $first_fetch_data, $second_fetch_data );
-	}
-
-	/**
-	 * @test
 	 * it should allow getting already fetched post IDs
 	 */
 	public function it_should_allow_getting_already_fetched_post_i_ds() {
-		$ids = $this->factory()->post->create_many( 3 );
+		$ids = $this->factory()->post->create_many( 3, [ 'post_type' => Main::POSTTYPE ] );
 
 		$sut = $this->make_instance();
 
 		foreach ( $ids as $id ) {
-			$sut->get_data( $id );
+			$sut->register( $id );
 		}
 
-		$this->assertEqualSets( $ids, $sut->get_fetched_post_ids() );
-	}
-
-	/**
-	 * @test
-	 * it should not store duplicate post IDs among the already fetched ones
-	 */
-	public function it_should_not_store_duplicate_post_i_ds_among_the_already_fetched_ones() {
-		$ids = $this->factory()->post->create_many( 3 );
-
-		$sut = $this->make_instance();
-
-		foreach ( $ids as $id ) {
-			$sut->get_data( $id );
-		}
-
-		$sut->set_fetched_post_id( reset( $ids ) );
-
-		$this->assertCount( count( $ids ), $sut->get_fetched_post_ids() );
+		$this->assertEqualSets( $ids, Jsonld::get_registered_post_ids() );
 	}
 
 	/**
@@ -138,39 +106,39 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 	 * it should allow resetting the fetched post IDs
 	 */
 	public function it_should_allow_resetting_the_fetched_post_i_ds() {
-		$ids = $this->factory()->post->create_many( 3 );
+		$ids = $this->factory()->post->create_many( 3, [ 'post_type' => Main::POSTTYPE ] );
 
 		$sut = $this->make_instance();
 
 		foreach ( $ids as $id ) {
-			$sut->get_data( $id );
+			$sut->register( $id );
 		}
 
-		$this->assertCount( count( $ids ), $sut->get_fetched_post_ids() );
+		$this->assertCount( count( $ids ), Jsonld::get_registered_post_ids() );
 
-		$sut->reset_fetched_post_ids();
+		Jsonld::unregister_all();
 
-		$this->assertEmpty( $sut->get_fetched_post_ids() );
+		$this->assertEmpty( Jsonld::get_registered_post_ids() );
 	}
 
 	/**
 	 * @test
-	 * it should allow unsetting a fetched post ID
+	 * it should allow removing a fetched post ID
 	 */
-	public function it_should_allow_unsetting_a_fetched_post_id() {
-		$ids = $this->factory()->post->create_many( 3 );
+	public function it_should_allow_removing_a_fetched_post_id() {
+		$ids = $this->factory()->post->create_many( 3, [ 'post_type' => Main::POSTTYPE ] );
 
 		$sut = $this->make_instance();
 
 		foreach ( $ids as $id ) {
-			$sut->get_data( $id );
+			$sut->register( $id );
 		}
 
-		$this->assertCount( count( $ids ), $sut->get_fetched_post_ids() );
+		$this->assertCount( count( $ids ), $sut->get_registered_post_ids() );
 
-		$sut->unset_fetched_post_id( reset( $ids ) );
+		$sut->remove( reset( $ids ) );
 
-		$this->assertEqualSets( array_splice( $ids, 1 ), $sut->get_fetched_post_ids() );
+		$this->assertEqualSets( array_splice( $ids, 1 ), $sut->get_registered_post_ids() );
 	}
 
 }

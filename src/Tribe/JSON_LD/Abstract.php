@@ -237,4 +237,22 @@ abstract class Tribe__JSON_LD__Abstract {
 
 		return true;
 	}
+
+	/**
+	 * Empties the registered posts cache variable.
+	 *
+	 * Added for testing purposes.
+	 */
+	public static function unregister_all() {
+		self::$posts = array();
+	}
+
+	/**
+	 * Returns an array of the registered post IDs.
+	 *
+	 * @return array
+	 */
+	public static function get_registered_post_ids() {
+		return array_keys( self::$posts );
+	}
 }
