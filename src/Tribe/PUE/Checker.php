@@ -564,9 +564,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		public function get_license_expired_message() {
-			$expired_message = '<a href="http://m.tri.be/195y" target="_blank" class="button button-primary">' . __( 'Renew Your License Now', 'tribe-common' ) . '</a>';
-
-			$expired_message .= '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'tribe-common' ) . '</span>';
+			$expired_message = '<a href="http://m.tri.be/195y" target="_blank" class="button button-primary">' .
+			__( 'Renew Your License Now', 'tribe-common' ) .
+			'<span class="screen-reader-text">' .
+			__( ' (opens in a new window)', 'tribe-common' ) .
+			'</span></a>';
 
 			return $expired_message;
 		}
