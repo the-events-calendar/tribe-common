@@ -4,7 +4,7 @@ defined( 'WPINC' ) or die;
 
 class Tribe__Error {
 	/**
-	 * All the Errors Registred
+	 * All the Errors Registered
 	 * @var array
 	 */
 	private $items = array();
@@ -35,7 +35,7 @@ class Tribe__Error {
 	 * @return void
 	 */
 	private function __construct() {
-		$this->register( 'unknown', esc_html__( 'An Unknown error occured' ) );
+		$this->register( 'unknown', esc_html__( 'An Unknown error occurred' ) );
 	}
 
 	/**
