@@ -123,14 +123,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
 
-			// Dashboard message "dismiss upgrade" link
-			add_action( 'wp_ajax_' . $this->dismiss_upgrade, array( $this, 'dashboard_dismiss_upgrade' ) );
+//			// Dashboard message "dismiss upgrade" link
+//			add_action( 'wp_ajax_' . $this->dismiss_upgrade, array( $this, 'dashboard_dismiss_upgrade' ) );
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 
-			tribe_notice( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
+			tribe_notice( 'pue-validation', array( $this, 'display_license_activation_prompt' ), 'dismiss=1&type=warning' );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -533,35 +533,29 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @return bool|string
 		 */
-		public function display_license_error_message() {
-			$plugin_info = $this->plugin_info;
+		public function display_license_activation_prompt() {
 
-			if ( ! current_user_can( 'install_plugins' ) ) {
-				return false;
-			}
+			if ( 'true' == $this->plugin_info->api_invalid ) {
 
-			if ( ! isset( $plugin_info->api_invalid ) ) {
-				return false;
-			}
-
-			$expired_license_msg     = $this->get_api_message( $plugin_info );
-			$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
-
-			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-			$html[] = '<p>' . wp_kses( $expired_license_message, 'post' ) . '</p>';
-
-			if ( isset( $plugin_info->api_expired ) ) {
-				$html[] = '<p>' . $this->get_license_expired_message() . '</p>';
-			} else {
-				$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
+				$html[]           = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
+				$license_tab      = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
 				$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
-				$tec_link = '<a href="https://theeventscalendar.com" target="_blank">' . esc_html__( 'theeventscalendar.com', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
-				$link   = '<a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'license keys', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
-				$html[] = '<p>' . sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
+				$tec_link         = '<a href="https://theeventscalendar.com" target="_blank">' . esc_html__( 'theeventscalendar.com', 'tribe-common' ) . '<span class="screen-reader-text">' . esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
+				$link             = '<a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'license keys', 'tribe-common' ) . '<span class="screen-reader-text">' . esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
+
+				$html[] = '<p>' . sprintf( __( 'Looks like you\'re using <strong>%s</strong>, but you don\'t have a license key entered.', 'tribe-common' ), $this->get_plugin_name() );
+				$html[] = sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
 				$html[] = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
+
+
+				return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
 			}
-			return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
 		}
+
+		/**
+		 * Displays the expired license message
+		 *
+		 */
 
 		public function get_license_expired_message() {
 			$expired_message = '<a href="http://m.tri.be/195y" target="_blank" class="button button-primary">' .
@@ -719,6 +713,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			$this->plugin_info = $plugin_info = $this->request_info( $args );
+//			var_dump($this->plugin_info);
 
 			if ( null === $plugin_info ) {
 				return null;
@@ -728,7 +723,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( isset( $plugin_info->api_invalid ) ) {
 				//we have json_error returned let's display a message
 				$this->json_error = $this->plugin_info;
-				add_action( 'admin_notices', array( &$this, 'maybe_display_json_error_on_plugins_page' ) );
+				add_action( 'admin_notices', array( $this, 'maybe_display_json_error_on_plugins_page' ) );
+				add_action( 'admin_notices', array( $this, 'display_license_activation_prompt' ) );
 
 				$plugin_info = Tribe__PUE__Utility::from_plugin_info( $plugin_info );
 				$plugin_info->license_error = $this->get_api_message( $plugin_info );
