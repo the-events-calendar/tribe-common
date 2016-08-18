@@ -527,7 +527,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Displays an error notice if a premium plugin is activated and the license is expired
+		 * Displays an error notice if a premium plugin is activated and the license is invalid
 		 *
 		 * @since 4.3
 		 *
@@ -535,18 +535,18 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function display_license_activation_prompt() {
 
-			if ( 'true' == $this->plugin_info->api_invalid ) {
+			if ( isset( $this->plugin_info->api_invalid ) && ! isset( $this->plugin_info->api_expired )  ) {
 
-				$html[]           = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-				$license_tab      = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
-				$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
-				$tec_link         = '<a href="https://theeventscalendar.com" target="_blank">' . esc_html__( 'theeventscalendar.com', 'tribe-common' ) . '<span class="screen-reader-text">' . esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
-				$link             = '<a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'license keys', 'tribe-common' ) . '<span class="screen-reader-text">' . esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
+				$license_tab        = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
+				$license_tab_link   = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
+				$tec_link           = '<a href="https://theeventscalendar.com" target="_blank">' . esc_html__( 'theeventscalendar.com', 'tribe-common' ) . '<span class="screen-reader-text">' . esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
+				$link               = '<a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'license keys', 'tribe-common' ) . '<span class="screen-reader-text">' . esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
+				$plugin_name        = '<strong>' . $this->get_plugin_name() . '</strong>';
 
-				$html[] = '<p>' . sprintf( __( 'Looks like you\'re using <strong>%s</strong>, but you don\'t have a license key entered.', 'tribe-common' ), $this->get_plugin_name() );
-				$html[] = sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
-				$html[] = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
-
+				$html[]             = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
+				$html[]             = '<p>' . sprintf( __( 'Looks like you\'re using %s, but you don\'t have a license key entered.', 'tribe-common' ), $plugin_name ) . '</p>';
+				$html[]             = '<p>' . sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
+				$html[]             = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
 
 				return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
 			}
@@ -713,7 +713,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			$this->plugin_info = $plugin_info = $this->request_info( $args );
-//			var_dump($this->plugin_info);
 
 			if ( null === $plugin_info ) {
 				return null;
