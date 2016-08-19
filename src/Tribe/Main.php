@@ -17,6 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
+
 	const VERSION           = '4.3dev3';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
 
@@ -26,7 +27,7 @@ class Tribe__Main {
 	protected $log;
 
 	public static $tribe_url = 'http://tri.be/';
-	public static $tec_url = 'http://theeventscalendar.com/';
+	public static $tec_url = 'https://theeventscalendar.com/';
 
 	public $plugin_dir;
 	public $plugin_path;
