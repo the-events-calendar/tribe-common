@@ -130,7 +130,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 
-			tribe_notice( 'pue-validation', array( $this, 'display_license_activation_prompt' ), 'dismiss=1&type=warning' );
+			tribe_notice( 'license-activation', array( $this, 'display_license_activation_prompt' ), 'dismiss=1&type=warning' );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -534,19 +534,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return bool|string
 		 */
 		public function display_license_activation_prompt() {
-			$plugin_info = $this->plugin_info;
-
-			if ( ! current_user_can( 'install_plugins' ) ) {
-				return false;
-			}
-
-			if ( ! isset( $plugin_info->api_invalid ) ) {
-				return false;
-			}
-
-			if ( isset( $plugin_info->api_expired )  ) {
-				return false;
-			}
 
 			$license_tab        = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
 			$license_tab_link   = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
@@ -559,7 +546,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[]             = '<p>' . sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
 			$html[]             = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
 
-			return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
+			return Tribe__Admin__Notices::instance()->render( 'license-activation', implode( "\r\n", $html ) );
 
 		}
 
