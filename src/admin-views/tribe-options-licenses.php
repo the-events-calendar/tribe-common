@@ -1,5 +1,5 @@
 <?php
-$link = add_query_arg(
+$utm_link = add_query_arg(
 	array(
 		'utm_campaign' => 'in-app',
 		'utm_medium'   => 'plugin-tec',
@@ -7,13 +7,14 @@ $link = add_query_arg(
 	), Tribe__Main::$tec_url . 'license-keys/'
 );
 
-$utm_link = esc_url( $link );
+$utm_link = esc_url( $utm_link );
+$license_link = '<a href="' . $utm_link . '" target="_blank">' . Tribe__Main::$tec_url . '<span class="screen-reader-text">' . __( ' (opens in new window)', 'tribe-common' ) . '</span></a>';
 
 // Explanatory text about license settings for the tab information box
 $html = '<p>' . sprintf(
 		esc_html__( 'The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s.', 'tribe-common' ),
-		'<a href="' . Tribe__Main::$tec_url . '" target="_blank">' . Tribe__Main::$tec_url . '</a>',
-		'<a href="' . $utm_link . '" target="_blank">' . Tribe__Main::$tec_url . '</a>',
+		'<a href="' . Tribe__Main::$tec_url . '" target="_blank">' . Tribe__Main::$tec_url . '<span class="screen-reader-text">' . __( ' (opens in new window)', 'tribe-common' ) . '</span></a>',
+		$license_link,
 		'<strong>',
 		'</strong>'
 	) . '</p>';
@@ -22,7 +23,7 @@ $html .= '<p>' . esc_html__( 'Each paid add-on has its own unique license key. S
 
 $html .= '<p>' . sprintf(
 		esc_html__( 'If you\'re seeing a red message telling you that your key isn\'t valid or is out of installs, visit %1$s to manage your installs or renew / upgrade your license.', 'tribe-common' ),
-		'<a href="' . $utm_link . '" target="_blank">' . Tribe__Main::$tec_url . '</a>'
+		$license_link
 	) . '</p>';
 
 $html .= '<p>' . sprintf(
@@ -59,7 +60,7 @@ if ( is_multisite() ) {
 $support_html = '<p>' . sprintf(
 		esc_html__( 'The details of your plugin and settings are often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums%2$s. You can see exactly what information you\'ll be sharing by viewing the System Info section on the %3$sHelp Tab%2$s.', 'tribe-common' ),
 		'<a href="http://m.tri.be/194m" target="_blank">',
-		'</a>',
+		'<span class="screen-reader-text">' . __( ' (opens in new window)', 'tribe-common' ) . '</span></a>',
 		'<a href="' . Tribe__Settings::instance()->get_url( array( 'tab' => 'help' ) ) . '" target="_blank">'
 	) . '</p>';
 
