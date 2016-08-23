@@ -60,6 +60,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		 * @return array of system data for support
 		 */
 		public function getSupportStats() {
+			global $wpdb;
 			$user = wp_get_current_user();
 
 			$plugins = array();
@@ -119,31 +120,72 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			}
 
 			$keys = apply_filters( 'tribe-pue-install-keys', array() );
+			//Obfuscate the License Keys for Security
+			if ( is_array( $keys ) && ! empty( $keys ) ) {
+				$secure_keys = array();
+				foreach ( $keys as $plugin => $license ) {
+					$secure_keys[ $plugin ] = preg_replace( '/^(.{4}).*(.{4})$/', '$1' . str_repeat( '#', 32 ) . '$2', $license );
+				}
+				$keys = $secure_keys;
+			}
+
+			//Server
+			$server = explode( ' ', $_SERVER['SERVER_SOFTWARE'] );
+			$server = explode( '/', reset( $server ) );
+
+			//PHP Information
+			$php_info = array();
+			$php_vars = array(
+				'max_execution_time',
+				'memory_limit',
+				'upload_max_filesize',
+				'post_max_size',
+				'display_errors',
+				'log_errors',
+			);
+
+			foreach ( $php_vars as $php_var ) {
+				if ( isset( $wpdb->qm_php_vars ) && isset( $wpdb->qm_php_vars[ $php_var ] ) ) {
+					$val = $wpdb->qm_php_vars[ $php_var ];
+				} else {
+					$val = ini_get( $php_var );
+				}
+				$php_info[ $php_var ] = $val;
+			}
 
 			$systeminfo = array(
-				'Home URL'           => get_home_url(),
-				'Site URL'           => get_site_url(),
-				'name'               => $user->display_name,
-				'email'              => $user->user_email,
-				'install keys'       => $keys,
-				'WordPress version'  => get_bloginfo( 'version' ),
-				'PHP version'        => phpversion(),
-				'plugins'            => $plugins,
-				'network plugins'    => $network_plugins,
-				'mu plugins'         => $mu_plugins,
-				'theme'              => wp_get_theme()->get( 'Name' ),
-				'multisite'          => is_multisite(),
-				'settings'           => Tribe__Settings_Manager::get_options(),
-				'WordPress timezone' => get_option( 'timezone_string', esc_html__( 'Unknown or not set', 'tribe-common' ) ),
-				'server timezone'    => date_default_timezone_get(),
-				'common library dir' => $GLOBALS['tribe-common-info']['dir'],
-				'common library version' => $GLOBALS['tribe-common-info']['version'],
+				'Home URL'               => get_home_url(),
+				'Site URL'               => get_site_url(),
+				'Site Language'          => get_option( 'WPLANG' ) ? get_option( 'WPLANG' ) : esc_html__( 'English', 'tribe-common' ),
+				'Character Set'          => get_option( 'blog_charset' ),
+				'Name'                   => $user->display_name,
+				'Email'                  => $user->user_email,
+				'Install keys'           => $keys,
+				'WordPress version'      => get_bloginfo( 'version' ),
+				'PHP version'            => phpversion(),
+				'PHP'                    => $php_info,
+				'Server'                 => $server[0],
+				'SAPI'                   => php_sapi_name(),
+				'Plugins'                => $plugins,
+				'Network Plugins'        => $network_plugins,
+				'MU Plugins'             => $mu_plugins,
+				'Theme'                  => wp_get_theme()->get( 'Name' ),
+				'Multisite'              => is_multisite(),
+				'Settings'               => Tribe__Settings_Manager::get_options(),
+				'WP Permalinks'          => get_option( 'permalink_structure' ),
+				'WP Timezone'            => get_option( 'timezone_string' ) ? get_option( 'timezone_string' ) : esc_html__( 'Unknown or not set', 'tribe-common' ),
+				'WP GMT Offset'          => get_option( 'gmt_offset' ) ? ' ' . get_option( 'gmt_offset' ) : esc_html__( 'Unknown or not set', 'tribe-common' ),
+				'Server Timezone'        => date_default_timezone_get(),
+				'WP Date Format'         => get_option( 'date_format' ),
+				'WP Time Format'         => get_option( 'time_format' ),
+				'Week Starts On'         => get_option( 'start_of_week' ),
+				'Common Library Dir'     => $GLOBALS['tribe-common-info']['dir'],
+				'Common Library Version' => $GLOBALS['tribe-common-info']['version'],
 			);
 
 			if ( $this->rewrite_rules_purged ) {
 				$systeminfo['rewrite rules purged'] = esc_html__( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'tribe-common' );
 			}
-
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
 
 			return $systeminfo;
