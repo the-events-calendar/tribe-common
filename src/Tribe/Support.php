@@ -391,8 +391,12 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 			if ( ! $pueadd ) {
 				// make sure the response came back okay
-				if ( ! $response->success ) {
-					wp_send_json_error( $response->data );
+				if ( ! isset( $response->success ) ) {
+					//on error delete the key
+					delete_option( 'tribe_systeminfo_optin' );
+
+					//send error response
+					wp_send_json_error( $response );
 				}
 
 				wp_send_json_success( $response->data );

@@ -78,7 +78,8 @@ tribe_auto_sysinfo.ajax = {
 				if ( results.success ) {
 					my.$system_info_opt_in_msg.html( "<p class=\'optin-success\'>" + results.data + "</p>" );
 				} else {
-					my.$system_info_opt_in_msg.html( "<p class=\'optin-fail\'>" + results.data + "</p>" );
+					my.$system_info_opt_in_msg.html( "<p class=\'optin-fail\'>" + results.data.message + " Code:" + results.data.code + " Status:" + results.data.data.status + "</p>" );
+					$( "#tribe_auto_sysinfo_opt_in" ).prop( "checked", false );
 				}
 			} );
 
