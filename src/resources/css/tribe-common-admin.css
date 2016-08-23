@@ -145,9 +145,6 @@ table.plugins .tribe-plugin-update-message a {
 	margin-bottom: 10px;
 	padding: 6px 0 6px 12px;
 }
-.tribe-settings-form .tribe-settings-form-wrap h3 ~ h3 {
-	margin-top: 2.25em;
-}
 .tribe-settings-form .tribe-settings-form-wrap .tribe-sysinfo-optin-msg,
 .tribe-settings-form .tribe-settings-form-wrap .system-info,
 .tribe-settings-form .tribe-settings-form-wrap h3 + p {
@@ -841,7 +838,6 @@ a.tribe-rating-link {
 	margin: 1rem 0;
 	padding: 10px 30px 10px 10px;
 	font-size: 12px;
-	font-style: italic;
 	position: relative;
 }
 #poststuff .tribe-bumpdown h1,
