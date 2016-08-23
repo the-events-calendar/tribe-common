@@ -508,8 +508,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		private function get_api_message( $info ) {
 			// this default message should never show, but is here as a fallback just in case.
-			$message = sprintf(
-				esc_html__( 'Sorry, there is a problem with your license key. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
+			$msg = sprintf(
+				esc_html__( 'There is an update for %s. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
+				$this->get_plugin_name(),
 				'<a href="https://theeventscalendar.com/license-keys/">',
 				'</a>'
 			);
@@ -518,10 +519,27 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$message = wp_kses( $info->api_invalid_message, 'post' );
 			}
 
-			$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $message );
-			$message = str_replace( '%plugin_slug%', $this->get_slug(), $message );
-			$message = str_replace( '%update_url%', $this->get_pue_update_url(), $message );
-			$message = str_replace( '%version%', $info->version, $message );
+			$message = str_replace( '%plugin_name%', $this->get_plugin_name(), $msg );
+			$message = str_replace( '%plugin_slug%', $this->get_slug(), $msg );
+			$message = str_replace( '%update_url%', $this->get_pue_update_url(), $msg );
+			$message = str_replace( '%version%', $info->version, $msg );
+
+			return $message;
+		}
+
+		private function get_api_update_message() {
+			$plugin_info = $this->plugin_info;
+
+			if ( ! isset( $plugin_info->api_invalid_message ) ) {
+				return false;
+			}
+
+			$message = sprintf(
+				esc_html__( 'There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features.', 'tribe-common' ),
+				$this->get_plugin_name(),
+				'<a href="https://theeventscalendar.com/license-keys/">',
+				'</a>'
+			);
 
 			return $message;
 		}
@@ -589,7 +607,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$this->plugin_notice = array(
 				'slug' => $this->get_slug(),
-				'message' => $state->update->license_error,
+				'message' => $this->get_api_update_message(),
 			);
 			add_filter( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
 		}
