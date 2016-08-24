@@ -75,6 +75,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		public $plugin_notice;
 
+		public $plugin_names;
+
 		/**
 		 * Class constructor.
 		 *
@@ -128,9 +130,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 
+			add_filter( 'tribe_pue_plugin_names', array( $this, 'get_plugin_names' ) );
+
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 
-			tribe_notice( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
+//			tribe_notice( 'license-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
+
+			tribe_notice( 'license-validation_' .  $this->get_plugin_name(), array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -508,7 +514,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		private function get_api_message( $info ) {
 			// this default message should never show, but is here as a fallback just in case.
-			$msg = sprintf(
+			$message = sprintf(
 				esc_html__( 'There is an update for %s. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
 				$this->get_plugin_name(),
 				'<a href="https://theeventscalendar.com/license-keys/">',
@@ -519,10 +525,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$message = wp_kses( $info->api_invalid_message, 'post' );
 			}
 
-			$message = str_replace( '%plugin_name%', $this->get_plugin_name(), $msg );
-			$message = str_replace( '%plugin_slug%', $this->get_slug(), $msg );
-			$message = str_replace( '%update_url%', $this->get_pue_update_url(), $msg );
-			$message = str_replace( '%version%', $info->version, $msg );
+			$message = str_replace( '%plugin_name%', $this->get_plugin_name(), $message );
+			$message = str_replace( '%plugin_slug%', $this->get_slug(), $message );
+			$message = str_replace( '%update_url%', $this->get_pue_update_url(), $message );
+			$message = str_replace( '%version%', $info->version, $message );
 
 			return $message;
 		}
@@ -553,6 +559,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function display_license_error_message() {
 			$plugin_info = $this->plugin_info;
+			$plugin_names = (array) $this->get_plugin_name();
+
 
 			if ( ! current_user_can( 'install_plugins' ) ) {
 				return false;
@@ -562,24 +570,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return false;
 			}
 
-			$expired_license_msg     = $this->get_api_message( $plugin_info );
-			$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
-
 			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-			$html[] = '<p>' . wp_kses( $expired_license_message, 'post' ) . '</p>';
+			$html[] = $plugin_names['0'];
 
-			if ( isset( $plugin_info->api_expired ) ) {
-				$html[] = '<p>' . $this->get_license_expired_message() . '</p>';
-			} else {
-				$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
-				$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
-				$tec_link = '<a href="https://theeventscalendar.com" target="_blank">' . esc_html__( 'theeventscalendar.com', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
-				$link   = '<a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'license keys', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
-				$html[] = '<p>' . sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
-				$html[] = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
-			}
-			return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
+			return Tribe__Admin__Notices::instance()->render( 'license-validation_' . $this->get_plugin_name(), implode( "\r\n", $html ) );
 		}
+
+
 
 		public function get_license_expired_message() {
 			$expired_message = '<a href="http://m.tri.be/195y" target="_blank" class="button button-primary">' .
