@@ -929,25 +929,28 @@ a.tribe-rating-link {
 .wp-list-table.plugins .column-description .update-message {
 	color: #d54e21;
 }
-.tribe-notice-pue-validation {
+.tribe-notice-license-validation {
 	padding: 1em;
 }
-.tribe-notice-pue-validation:before,
-	.tribe-notice-pue-validation:after {
+.tribe-notice-license-validation:before,
+	.tribe-notice-license-validation:after {
 	content: '';
 	display: table;
 }
-.tribe-notice-pue-validation:after {
+.tribe-notice-license-validation:after {
 	clear: both;
 }
-.tribe-notice-pue-validation .tribe-spirit-animal {
+.tribe-notice-license-validation .tribe-spirit-animal {
 	float: right;
-	margin-left: 2em;
+	margin: 0 2em;
 }
-.tribe-notice-pue-validation a {
+.tribe-notice-license-validation p {
+	margin-bottom: 1em;
+}
+.tribe-notice-license-validation a {
 	text-decoration: none;
 }
-.tribe-notice-pue-validation a:hover {
+.tribe-notice-license-validation a:hover {
 	text-decoration: underline;
 }
 @media

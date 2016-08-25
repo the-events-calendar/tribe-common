@@ -40,9 +40,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		protected static $license_failures = array();
 
-		protected static $plugin_api_info = array();
+		protected static $plugin_api_invalid_info = array();
 
-		protected static $plugin_expired_info = array();
+		protected static $plugin_license_expired_info = array();
+
+		protected static $plugin_has_install_key;
 
 		// Plugin slug. (with .php extension)
 		private $slug = '';
@@ -566,17 +568,26 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 *  Gets api expires boolean
+		 * Check for invalid api or is there a new version?
 		 */
-		public function get_plugin_expired_info() {
-			self::$plugin_expired_info[] = $this->plugin_info->api_expired;
+		public function get_plugin_api_info() {
+			$state = $this->get_option( $this->pue_option_name, false, false );
+			self::$plugin_api_invalid_info[] = $state->update->api_invalid;
 		}
 
 		/**
-		 * Gets api invalid boolean
+		 *  Checks for expired license
 		 */
-		public function get_plugin_api_info() {
-			self::$plugin_api_info[] = $this->plugin_info->api_invalid;
+		public function get_plugin_expired_info() {
+			$state = $this->get_option( $this->pue_option_name, false, false );
+			self::$plugin_license_expired_info[] = $state->update->api_expired;
+		}
+
+		/**
+		 *  Check for Install Key
+		 */
+		public function get_plugin_install_key_info() {
+			self::$plugin_has_install_key = $this->install_key;
 		}
 
 		public static function setup_warnings() {
@@ -584,17 +595,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return false;
 			}
 
-			$expired = array_intersect( self::$license_failures, self::$plugin_expired_info );
-			var_dump($expired);
-
-			$invalid = array_combine( self::$license_failures, self::$plugin_api_info );
-			var_dump($invalid);
-
-
-			// Unhook self
 			remove_action( 'tribe-check-licenses', __CLASS__ . '::setup_warnings' );
-			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
 
+			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
 			$html[] = '<p>' . 'There is an update available for ' . join( ', ', self::$license_failures );
 			$html[] = 'but your license is expired.' . '</p>';
 			$html[] = self::get_license_expired_message();
