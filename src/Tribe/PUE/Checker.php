@@ -29,6 +29,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		// variable used to hold the plugin_name as set by the constructor.
 		private $plugin_name = '';
 
+		/**
+		 * @var string
+		 */
+		protected $plugin_slug;
+
+		/**
+		 * Array used to hold plugin names for use in admin notices
+		 * @var array
+		 */
+		protected static $license_failures = array();
+
+		protected static $plugin_api_info = array();
+
+		protected static $plugin_expired_info = array();
+
 		// Plugin slug. (with .php extension)
 		private $slug = '';
 
@@ -75,8 +90,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		public $plugin_notice;
 
-		public $plugin_names;
-
 		/**
 		 * Class constructor.
 		 *
@@ -91,7 +104,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @param string $plugin_file    fully qualified path to the main plugin file.
 		 */
 		public function __construct( $pue_update_url, $slug = '', $options = array(), $plugin_file = '' ) {
-
 			$this->set_slug( $slug );
 			$this->set_pue_update_url( $pue_update_url );
 			$this->set_plugin_file( $plugin_file );
@@ -130,13 +142,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 
-			add_filter( 'tribe_pue_plugin_names', array( $this, 'get_plugin_names' ) );
-
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 
-//			tribe_notice( 'license-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
-
-			tribe_notice( 'license-validation_' .  $this->get_plugin_name(), array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
+			tribe_notice( 'license-validation', __CLASS__ . '::setup_warnings', 'dismiss=1&type=warning' );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -551,6 +559,50 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
+		 * Gets the plugin names for use in the static message
+		 */
+		public function check_licenses() {
+			self::$license_failures[] = $this->get_plugin_name();
+		}
+
+		/**
+		 *  Gets api expires boolean
+		 */
+		public function get_plugin_expired_info() {
+			self::$plugin_expired_info[] = $this->plugin_info->api_expired;
+		}
+
+		/**
+		 * Gets api invalid boolean
+		 */
+		public function get_plugin_api_info() {
+			self::$plugin_api_info[] = $this->plugin_info->api_invalid;
+		}
+
+		public static function setup_warnings() {
+			if ( ! current_user_can( 'install_plugins' ) ) {
+				return false;
+			}
+
+			$expired = array_intersect( self::$license_failures, self::$plugin_expired_info );
+			var_dump($expired);
+
+			$invalid = array_combine( self::$license_failures, self::$plugin_api_info );
+			var_dump($invalid);
+
+
+			// Unhook self
+			remove_action( 'tribe-check-licenses', __CLASS__ . '::setup_warnings' );
+			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
+
+			$html[] = '<p>' . 'There is an update available for ' . join( ', ', self::$license_failures );
+			$html[] = 'but your license is expired.' . '</p>';
+			$html[] = self::get_license_expired_message();
+
+			return Tribe__Admin__Notices::instance()->render( 'license-validation', implode( "\r\n", $html ));
+		}
+
+		/**
 		 * Displays an error notice if a premium plugin is activated and the license is expired
 		 *
 		 * @since 4.3
@@ -559,7 +611,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function display_license_error_message() {
 			$plugin_info = $this->plugin_info;
-			$plugin_names = (array) $this->get_plugin_name();
+			$plugin_names = $this->get_plugin_name();
 
 
 			if ( ! current_user_can( 'install_plugins' ) ) {
@@ -571,9 +623,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-			$html[] = $plugin_names['0'];
+			$html[] = $plugin_names;
 
-			return Tribe__Admin__Notices::instance()->render( 'license-validation_' . $this->get_plugin_name(), implode( "\r\n", $html ) );
+//			return Tribe__Admin__Notices::instance()->render( 'license-validation', implode( "\r\n", $html ) );
 		}
 
 
@@ -743,7 +795,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( isset( $plugin_info->api_invalid ) ) {
 				//we have json_error returned let's display a message
 				$this->json_error = $this->plugin_info;
-				add_action( 'admin_notices', array( &$this, 'maybe_display_json_error_on_plugins_page' ) );
+				add_action( 'admin_notices', array( $this, 'maybe_display_json_error_on_plugins_page' ) );
+				add_action( 'admin_notices', array( $this, 'check_licenses' ) );
+				add_action( 'admin_notices', array( $this, 'get_plugin_expired_info' ) );
+				add_action( 'admin_notices', array( $this, 'get_plugin_api_info' ) );
 
 				$plugin_info = Tribe__PUE__Utility::from_plugin_info( $plugin_info );
 				$plugin_info->license_error = $this->get_api_message( $plugin_info );
