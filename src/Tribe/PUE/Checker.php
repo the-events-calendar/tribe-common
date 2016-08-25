@@ -598,7 +598,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			remove_action( 'tribe-check-licenses', __CLASS__ . '::setup_warnings' );
 
 			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-			$html[] = '<p>' . 'There is an update available for ' . join( ', ', self::$license_failures );
+			$html[] = '<p>' . 'There is an update available for ' . join( ' &amp; ', array_filter( array_merge( array( join( ', ', array_slice( self::$license_failures, 0, -1 ) ) ), array_slice( self::$license_failures, -1 ) ), 'strlen' ) );
 			$html[] = 'but your license is expired.' . '</p>';
 			$html[] = self::get_license_expired_message();
 
