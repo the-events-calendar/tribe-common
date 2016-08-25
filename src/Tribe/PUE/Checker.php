@@ -34,17 +34,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		protected $plugin_slug;
 
-		/**
-		 * Array used to hold plugin names for use in admin notices
-		 * @var array
-		 */
-		protected static $license_failures = array();
-
-		protected static $plugin_api_invalid_info = array();
-
-		protected static $plugin_license_expired_info = array();
-
-		protected static $plugin_has_install_key;
+		public static $checkers = array();
 
 		// Plugin slug. (with .php extension)
 		private $slug = '';
@@ -111,6 +101,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->set_plugin_file( $plugin_file );
 			$this->set_options( $options );
 			$this->hooks();
+			self::$checkers[ $this->get_plugin_name() ] = $this;
 
 		}
 
@@ -138,9 +129,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
-
-			// Dashboard message "dismiss upgrade" link
-			add_action( 'wp_ajax_' . $this->dismiss_upgrade, array( $this, 'dashboard_dismiss_upgrade' ) );
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 
@@ -560,75 +548,20 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			return $message;
 		}
 
-		/**
-		 * Gets the plugin names for use in the static message
-		 */
-		public function check_licenses() {
-			self::$license_failures[] = $this->get_plugin_name();
-		}
-
-		/**
-		 * Check for invalid api or is there a new version?
-		 */
-		public function get_plugin_api_info() {
-			$state = $this->get_option( $this->pue_option_name, false, false );
-			self::$plugin_api_invalid_info[] = $state->update->api_invalid;
-		}
-
-		/**
-		 *  Checks for expired license
-		 */
-		public function get_plugin_expired_info() {
-			$state = $this->get_option( $this->pue_option_name, false, false );
-			self::$plugin_license_expired_info[] = $state->update->api_expired;
-		}
-
-		/**
-		 *  Check for Install Key
-		 */
-		public function get_plugin_install_key_info() {
-			self::$plugin_has_install_key = $this->install_key;
-		}
-
 		public static function setup_warnings() {
 			if ( ! current_user_can( 'install_plugins' ) ) {
 				return false;
 			}
-
 			remove_action( 'tribe-check-licenses', __CLASS__ . '::setup_warnings' );
+			$results = self::$checkers;
+			$plugins = array_keys( self::$checkers );
 
 			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-			$html[] = '<p>' . 'There is an update available for ' . join( ' &amp; ', array_filter( array_merge( array( join( ', ', array_slice( self::$license_failures, 0, -1 ) ) ), array_slice( self::$license_failures, -1 ) ), 'strlen' ) );
+			$html[] = '<p>' . 'There is an update available for ' . join( ' &amp; ', array_filter( array_merge( array( join( ', ', array_slice( $plugins, 0, -1 ) ) ), array_slice( $plugins, -1 ) ), 'strlen' ) );
 			$html[] = 'but your license is expired.' . '</p>';
 			$html[] = self::get_license_expired_message();
 
 			return Tribe__Admin__Notices::instance()->render( 'license-validation', implode( "\r\n", $html ));
-		}
-
-		/**
-		 * Displays an error notice if a premium plugin is activated and the license is expired
-		 *
-		 * @since 4.3
-		 *
-		 * @return bool|string
-		 */
-		public function display_license_error_message() {
-			$plugin_info = $this->plugin_info;
-			$plugin_names = $this->get_plugin_name();
-
-
-			if ( ! current_user_can( 'install_plugins' ) ) {
-				return false;
-			}
-
-			if ( ! isset( $plugin_info->api_invalid ) ) {
-				return false;
-			}
-
-			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-			$html[] = $plugin_names;
-
-//			return Tribe__Admin__Notices::instance()->render( 'license-validation', implode( "\r\n", $html ) );
 		}
 
 
@@ -799,9 +732,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				//we have json_error returned let's display a message
 				$this->json_error = $this->plugin_info;
 				add_action( 'admin_notices', array( $this, 'maybe_display_json_error_on_plugins_page' ) );
-				add_action( 'admin_notices', array( $this, 'check_licenses' ) );
-				add_action( 'admin_notices', array( $this, 'get_plugin_expired_info' ) );
-				add_action( 'admin_notices', array( $this, 'get_plugin_api_info' ) );
 
 				$plugin_info = Tribe__PUE__Utility::from_plugin_info( $plugin_info );
 				$plugin_info->license_error = $this->get_api_message( $plugin_info );
@@ -853,19 +783,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function display_changelog() {
 			//contents of changelog display page when api-key is invalid or missing.  It will ONLY show the changelog (hook into existing thickbox?)
-		}
-
-		/**
-		 * Update option to dismiss the upgrade notice.
-		 */
-		public function dashboard_dismiss_upgrade() {
-			$os_ary = $this->get_option( $this->dismiss_upgrade );
-			if ( ! is_array( $os_ary ) ) {
-				$os_ary = array();
-			}
-
-			$os_ary[] = $_POST['version'];
-			$this->update_option( $this->dismiss_upgrade, $os_ary );
 		}
 
 		/**
