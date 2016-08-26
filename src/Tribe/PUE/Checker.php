@@ -554,14 +554,34 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 			remove_action( 'tribe-check-licenses', __CLASS__ . '::setup_warnings' );
 			$results = self::$checkers;
-			$plugins = array_keys( self::$checkers );
+			var_dump($results);
 
-			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-			$html[] = '<p>' . 'There is an update available for ' . join( ' &amp; ', array_filter( array_merge( array( join( ', ', array_slice( $plugins, 0, -1 ) ) ), array_slice( $plugins, -1 ) ), 'strlen' ) );
-			$html[] = 'but your license is expired.' . '</p>';
-			$html[] = self::get_license_expired_message();
+			// The following is pseudo code
 
-			return Tribe__Admin__Notices::instance()->render( 'license-validation', implode( "\r\n", $html ));
+			foreach ($results['plugin_name']->json_error as $key => $value) {
+				switch ($key) {
+					case 'invalid' :
+						// tribe-notice for invalid or missing key
+						break ;
+					case 'expired' :
+						// tribe-notice for expired license
+						break ;
+					case 'upgrade' : // version_compare
+						// tribe-notice for new plugin version
+						break ;
+				}
+			}
+
+
+
+				$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
+				$html[] = '<p>' . 'There is an update available for ';
+				$html[] = ' but your license is expired.' . '</p>';
+				$html[] = self::get_license_expired_message();
+
+				return Tribe__Admin__Notices::instance()->render( 'license-validation', implode( "\r\n", $html ));
+
+
 		}
 
 
