@@ -1,8 +1,6 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
+defined( 'WPINC' ) or die;
 
 /**
  * @since  4.3
@@ -60,7 +58,7 @@ class Tribe__Admin__Notices {
 		}
 
 		// Hook the actual rendering of notices
-		add_action( 'current_screen', array( $this, 'hook' ) );
+		add_action( 'current_screen', array( $this, 'hook' ), 20 );
 	}
 
 	/**
@@ -100,6 +98,28 @@ class Tribe__Admin__Notices {
 	}
 
 	/**
+	 * Allows a Magic to remove the Requirement of creating a callback
+	 *
+	 * @param  string $name       Name of the Method used to create the Slug of the Notice
+	 * @param  array  $arguments  Which arguments were used, normally empty
+	 *
+	 * @return string
+	 */
+	public function __call( $name, $arguments ) {
+		// Transform from Method name to Notice number
+		$slug = preg_replace( '/render_/', '', $name, 1 );
+
+		if ( ! $this->exists( $slug ) ) {
+			return false;
+		}
+
+		$notice = $this->get( $slug );
+
+		// Return the rendered HTML
+		return $this->render( $slug, $notice->content );
+	}
+
+	/**
 	 * This is a helper to actually print the Message
 	 *
 	 * @param  string  $slug    The Name of the Notice
@@ -117,6 +137,8 @@ class Tribe__Admin__Notices {
 
 		$classes = array( 'tribe-dismiss-notice', 'notice' );
 		$classes[] = sanitize_html_class( 'notice-' . $notice->type );
+		$classes[] = sanitize_html_class( 'tribe-notice-' . $notice->slug );
+
 		if ( $notice->dismiss ) {
 			$classes[] = 'is-dismissible';
 		}
@@ -213,24 +235,32 @@ class Tribe__Admin__Notices {
 	/**
 	 * Register a Notice and attach a callback to the required action to display it correctly
 	 *
-	 * @param  string   $slug      Slug to save the notice
-	 * @param  callable $callback  A callable Method/Fuction to actually display the notice
-	 * @param  array    $arguments Arguments to Setup a notice
+	 * @param  string          $slug      Slug to save the notice
+	 * @param  callable|string $callback  A callable Method/Fuction to actually display the notice
+	 * @param  array           $arguments Arguments to Setup a notice
 	 *
-	 * @return string
+	 * @return stdClass
 	 */
 	public function register( $slug, $callback, $arguments = array() ) {
 		// Prevent weird stuff here
 		$slug = sanitize_title_with_dashes( $slug );
 
 		$defaults = array(
-			'callback' => $callback,
+			'callback' => null,
+			'content'  => null,
 			'action'   => 'admin_notices',
 			'priority' => 10,
 			'expire'   => false,
 			'dismiss'  => false,
 			'type'     => 'error',
 		);
+
+		if ( is_callable( $callback ) ) {
+			$defaults['callback'] = $callback;
+		} else {
+			$defaults['callback'] = array( $this, 'render_' . $slug );
+			$defaults['content'] = $callback;
+		}
 
 		// Merge Arguments
 		$notice = (object) wp_parse_args( $arguments, $defaults );
@@ -246,8 +276,8 @@ class Tribe__Admin__Notices {
 		// Set the Notice on the array of notices
 		$this->notices[ $slug ] = $notice;
 
-		// Return the Slug because it might be modified
-		return $slug;
+		// Return the notice Object because it might be modified
+		return $notice;
 	}
 
 	public function remove( $slug ) {

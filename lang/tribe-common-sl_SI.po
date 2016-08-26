@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Log/Null_Logger.php:26
+msgid "Null logger (will log nothing)"
+msgstr ""
+
 #: src/Tribe/Log/Admin.php:132
 msgctxt "log selector"
 msgid "None currently available"
@@ -308,7 +312,7 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Settings.php:321
+#: src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr ""
 
@@ -927,7 +931,7 @@ msgstr "Francija, Metropolitan"
 msgid "French Guiana"
 msgstr "Francoska Guiana"
 
-#: src/Tribe/Settings.php:585
+#: src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "Nastavitve shranjene."
 
@@ -1293,7 +1297,7 @@ msgstr "Nigerija"
 msgid "Niue"
 msgstr "Niue"
 
-#: src/Tribe/Settings.php:214
+#: src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Nastavitve"
 
@@ -1413,7 +1417,7 @@ msgstr "Saint Lucia"
 msgid "Saint Vincent And The Grenadines"
 msgstr "Saint Vincent And The Grenadines"
 
-#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
+#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "Nastavitve dogodkov"
 
@@ -1421,7 +1425,7 @@ msgstr "Nastavitve dogodkov"
 msgid "Samoa"
 msgstr "Samo"
 
-#: src/Tribe/Settings.php:299
+#: src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s nastavitve"
 
@@ -1429,7 +1433,7 @@ msgstr "%s nastavitve"
 msgid "San Marino"
 msgstr "San Marino"
 
-#: src/Tribe/Settings.php:313
+#: src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "Zahtevali ste neobstoječ zavihek."
 
@@ -1437,7 +1441,7 @@ msgstr "Zahtevali ste neobstoječ zavihek."
 msgid "Sao Tome And Principe"
 msgstr "Sao Tome And Principe"
 
-#: src/Tribe/Settings.php:369
+#: src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "Nimate dovoljenja za ta ukaz."
 
@@ -1445,7 +1449,7 @@ msgstr "Nimate dovoljenja za ta ukaz."
 msgid "Saudi Arabia"
 msgstr "Savdska Arabija"
 
-#: src/Tribe/Settings.php:375
+#: src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "Ukaz je bil poslan nezavarovano."
 
@@ -1453,7 +1457,7 @@ msgstr "Ukaz je bil poslan nezavarovano."
 msgid "Senegal"
 msgstr "Senegal"
 
-#: src/Tribe/Settings.php:381
+#: src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "Ukaz ni bil poslan iz tega zavihka."
 
@@ -1461,7 +1465,7 @@ msgstr "Ukaz ni bil poslan iz tega zavihka."
 msgid "Serbia"
 msgstr "Srbija"
 
-#: src/Tribe/Settings.php:549
+#: src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "Vaš obrazec ima naslednje napake"
 
@@ -1469,7 +1473,7 @@ msgstr "Vaš obrazec ima naslednje napake"
 msgid "Seychelles"
 msgstr "Sejšeli"
 
-#: src/Tribe/Settings.php:559
+#: src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "Nobena od vaših nastavitev ni bila shranjena. Prosim poizkusite znova."
 
@@ -1477,7 +1481,7 @@ msgstr "Nobena od vaših nastavitev ni bila shranjena. Prosim poizkusite znova."
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Zgornja nastavitev ni bila shranjena. Ostale nastavitve so bile shranjene uspešno."

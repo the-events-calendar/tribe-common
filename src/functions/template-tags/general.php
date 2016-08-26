@@ -469,6 +469,44 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 }
 
 /**
+ * Shortcut for Tribe__Admin__Notices::register(), create a Admin Notice easily
+ *
+ * @param  string          $slug      Slug to save the notice
+ * @param  callable|string $callback  A callable Method/Fuction to actually display the notice
+ * @param  array           $arguments Arguments to Setup a notice
+ *
+ * @return stdClass        Which notice was registered
+ */
+function tribe_notice( $slug, $callback, $arguments = array() ) {
+	return Tribe__Admin__Notices::instance()->register( $slug, $callback, $arguments );
+}
+
+/**
+ * A quick internal way of sending errors using WP_Error
+ *
+ * @param  string|array $indexes Which Error we are looking for
+ * @param  array        $context Gives the Error context
+ * @param  array        $sprintf Allows variables on the message
+ *
+ * @return WP_Error
+ */
+function tribe_error( $indexes, $context = array(), $sprintf = array() ) {
+	return Tribe__Error::instance()->send( $indexes, $context, $sprintf );
+}
+
+/**
+ * Register a new error based on a Namespace
+ *
+ * @param  string|array  $indexes  A list of the namespaces and last item should be the error name
+ * @param  string        $message  What is going to be the message associate with this indexes
+ *
+ * @return boolean
+ */
+function tribe_register_error( $indexes, $message ) {
+	return Tribe__Error::instance()->register( $indexes, $message );
+}
+
+/**
  * Shortcut for Tribe__Assets::register(), include a single asset
  *
  * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for

@@ -17,7 +17,8 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION           = '4.3dev1';
+
+	const VERSION           = '4.3dev3';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -26,7 +27,7 @@ class Tribe__Main {
 	protected $log;
 
 	public static $tribe_url = 'http://tri.be/';
-	public static $tec_url = 'http://theeventscalendar.com/';
+	public static $tec_url = 'https://theeventscalendar.com/';
 
 	public $plugin_dir;
 	public $plugin_path;
@@ -43,7 +44,10 @@ class Tribe__Main {
 
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
-		$this->plugin_url  = plugins_url( $this->plugin_dir );
+
+		$parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
+
+		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
 
 		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
@@ -105,8 +109,18 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
 				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
+				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
+				array( 'datatables-css', 'datatables.css' ),
+				array( 'datatables-responsive', 'vendor/datatables/extensions/Responsive/js/dataTables.responsive.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-responsive-css', 'vendor/datatables/extensions/Responsive/css/responsive.dataTables.css' ),
+				array( 'datatables-select', 'vendor/datatables/extensions/Select/js/dataTables.select.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-select-css', 'vendor/datatables/extensions/Select/css/select.dataTables.css' ),
+				array( 'datatables-scroller', 'vendor/datatables/extensions/Scroller/js/dataTables.scroller.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-scroller-css', 'vendor/datatables/extensions/Scroller/css/scroller.dataTables.css' ),
+				array( 'datatables-fixedheader', 'vendor/datatables/extensions/FixedHeader/js/dataTables.fixedHeader.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-fixedheader-css', 'vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables.css' ),
+				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables', 'datatables-select' ) ),
 			)
 		);
 
@@ -119,7 +133,9 @@ class Tribe__Main {
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-notice-dismiss', 'notice-dismiss.js' ),
-				array( 'tribe-common', 'tribe-common.js', array( 'tribe-clipboard' ) ),
+				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
+				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
+				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css' ),
 			),
 			'admin_enqueue_scripts',
 			array(
@@ -127,9 +143,50 @@ class Tribe__Main {
 				'localize' => (object) array(
 					'name' => 'tribe_system_info',
 					'data' => array(
-						'sysinfo_optin_nonce' => wp_create_nonce( 'sysinfo_optin_nonce' ),
+						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
+						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
+						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
+						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
 					),
-				)
+				),
+			)
+		);
+
+		tribe_asset(
+			$this,
+			'tribe-common',
+			'tribe-common.js',
+			array( 'tribe-clipboard' ),
+			'admin_enqueue_scripts',
+			array(
+				'localize' => array(
+					'name' => 'tribe_l10n_datatables',
+					'data' => array(
+						'aria' => array(
+							'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
+							'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
+						),
+						'length_menu'   => __( 'Show _MENU_ entries', 'tribe-common' ),
+						'empty_table'   => __( 'No data available in table', 'tribe-common' ),
+						'info'          => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'tribe-common' ),
+						'info_empty'    => __( 'Showing 0 to 0 of 0 entries', 'tribe-common' ),
+						'info_filtered' => __( '(filtered from _MAX_ total entries)', 'tribe-common' ),
+						'zero_records'  => __( 'No matching records found', 'tribe-common' ),
+						'search'        => __( 'Search:', 'tribe-common' ),
+						'pagination' => array(
+							'all' => __( 'All', 'tribe-common' ),
+							'next' => __( 'Next', 'tribe-common' ),
+							'previous' => __( 'Previous', 'tribe-common' ),
+						),
+						'select' => array(
+							'rows' => array(
+								0 => '',
+								'_' => __( ': Selected %d rows', 'tribe-common' ),
+								1 => __( ': Selected 1 row', 'tribe-common' ),
+							),
+						),
+					),
+				),
 			)
 		);
 	}
@@ -144,6 +201,7 @@ class Tribe__Main {
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'load_assets' ), 1 );
 		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'store_admin_notices' ) );
 	}
 
 	/**
@@ -294,5 +352,17 @@ class Tribe__Main {
 		}
 
 		return $instance;
+	}
+
+	/**
+	 * Adds a hook
+	 *
+	 */
+	public function store_admin_notices( $page ) {
+		if ( 'plugins.php' !== $page ) {
+			return;
+		}
+		$notices = apply_filters( 'tribe_plugin_notices', array() );
+		wp_localize_script( 'tribe-pue-notices', 'tribe_plugin_notices', $notices );
 	}
 }

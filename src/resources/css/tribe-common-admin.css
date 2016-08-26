@@ -124,7 +124,8 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-settings-form .tribe-field-radio label,
 .tribe-settings-form .tribe-field-checkbox_list label {
 	display: block;
-	margin: 5px 0;
+	margin: 5px 0 5px 20px;
+	text-indent: -20px;
 }
 .tribe-settings-form .tribe-field-radio label input,
 .tribe-settings-form .tribe-field-checkbox_list label input {
@@ -144,9 +145,6 @@ table.plugins .tribe-plugin-update-message a {
 	background-color: #f9f9f9;
 	margin-bottom: 10px;
 	padding: 6px 0 6px 12px;
-}
-.tribe-settings-form .tribe-settings-form-wrap h3 ~ h3 {
-	margin-top: 2.25em;
 }
 .tribe-settings-form .tribe-settings-form-wrap .tribe-sysinfo-optin-msg,
 .tribe-settings-form .tribe-settings-form-wrap .system-info,
@@ -839,9 +837,8 @@ a.tribe-rating-link {
 	display: none;
 	margin: 16px 0;
 	margin: 1rem 0;
-	padding: 10px;
+	padding: 10px 30px 10px 10px;
 	font-size: 12px;
-	font-style: italic;
 	position: relative;
 }
 #poststuff .tribe-bumpdown h1,
@@ -879,6 +876,48 @@ a.tribe-rating-link {
 .tribe-bumpdown-trigger .target {
 	color: #0074a2;
 }
+/* = Modals/thickbox dialogs
+============================ */
+#tribe-dialog-wrapper > div {
+	padding: 16px;
+	padding: 1rem;
+}
+#tribe-dialog-wrapper > div .stage {
+	display: none;
+}
+#tribe-dialog-wrapper #heading {
+	background: white;
+}
+#tribe-dialog-wrapper label {
+	display: block;
+}
+#tribe-dialog-wrapper .select-single-container {
+	border: 1px solid #888;
+	overflow-y: scroll;
+	height: 300px;
+}
+#tribe-dialog-wrapper .select-single-container label {
+	opacity: 1;
+	padding: 3px 5px;
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+}
+#tribe-dialog-wrapper .select-single-container label:nth-child(odd) {
+	background: white;
+}
+#tribe-dialog-wrapper .select-single-container label.selected {
+	background: #0073aa;
+	color: white;
+	font-weight: bold;
+}
+#tribe-dialog-wrapper .select-single-container label input {
+	display: none;
+}
+#tribe-dialog-wrapper .select-single-container.updating label {
+	opacity: 0.35;
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+}
 /* Useful to ensure modals rise above the grey 'miasma' */
 .ui-front {
 	z-index: 1000000;
@@ -886,6 +925,30 @@ a.tribe-rating-link {
 /* Select2 Specific rule */
 .select2-container .select2-choice abbr {
 	top: 6px;
+}
+.wp-list-table.plugins .column-description .update-message {
+	color: #d54e21;
+}
+.tribe-notice-pue-validation {
+	padding: 1em;
+}
+.tribe-notice-pue-validation:before,
+	.tribe-notice-pue-validation:after {
+	content: '';
+	display: table;
+}
+.tribe-notice-pue-validation:after {
+	clear: both;
+}
+.tribe-notice-pue-validation .tribe-spirit-animal {
+	float: right;
+	margin-left: 2em;
+}
+.tribe-notice-pue-validation a {
+	text-decoration: none;
+}
+.tribe-notice-pue-validation a:hover {
+	text-decoration: underline;
 }
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
@@ -917,4 +980,3 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 		display: none;
 	}
 }
-

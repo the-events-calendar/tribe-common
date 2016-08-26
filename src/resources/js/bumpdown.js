@@ -17,12 +17,11 @@
 				trigger: '.tribe-bumpdown-trigger',
 				close: '.tribe-bumpdown-close',
 				permanent: '.tribe-bumpdown-permanent',
-				active: '.tribe-active'
+				active: '.tribe-bumpdown-active'
 			},
 			methods = {
-				open: function() {
-					var $bumpdown = $( this ),
-						data      = $bumpdown.data( 'bumpdown' ),
+				open: function( $bumpdown ) {
+					var data = $bumpdown.data( 'bumpdown' ),
 						arrow;
 
 					if ( $bumpdown.is( ':visible' ) ) {
@@ -35,20 +34,22 @@
 
 					$bumpdown.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
 					$bumpdown.prepend( '<span class="tribe-bumpdown-arrow" style="left: ' + arrow + 'px;"></span>' );
-					$bumpdown.slideDown( 'fast' );
+					$bumpdown.data( 'preventClose', true );
+					$bumpdown.slideDown( 'fast', function() {
+						$bumpdown.data( 'preventClose', false );
+					} );
 				},
-				close: function() {
-					var $bumpdown = $( this ),
-						data      = $bumpdown.data( 'bumpdown' );
+				close: function( $bumpdown ) {
+					var data = $bumpdown.data( 'bumpdown' );
 
-					if ( ! $bumpdown.is( ':visible' ) ) {
+					if ( ! $bumpdown.is( ':visible' ) || $bumpdown.data( 'preventClose' ) ) {
 						return;
 					}
 
 					// When we close we reset the flag about hoverintent
 					$( this ).removeData( 'is_hoverintent_queued' );
 
-					$bumpdown.find( '.tribe-bumpdown-close, .tribe-bumpdown-arrow' ).remove()
+					$bumpdown.find( '.tribe-bumpdown-close, .tribe-bumpdown-arrow' ).remove();
 					$bumpdown.slideUp( 'fast' );
 
 					data.$trigger.removeClass( selectors.active.replace( '.', '' ) );
@@ -96,8 +97,8 @@
 						data.$bumpdown.trigger( 'open.bumpdown' );
 					}
 				},
-				'open.bumpdown': methods.open,
-				'close.bumpdown': methods.close
+				'open.bumpdown': function() { methods.open( $( this ) ); },
+				'close.bumpdown': function() { methods.close( $( this ) ); }
 			}, selectors.trigger )
 
 			// Setup Events on Trigger
@@ -106,6 +107,10 @@
 					var data = $( this ).parents( selectors.bumpdown ).first().data( 'bumpdown' );
 					e.preventDefault();
 					e.stopPropagation();
+
+					if ( 'undefined' === typeof data.$bumpdown ) {
+						return;
+					}
 
 					data.$bumpdown.trigger( 'close.bumpdown' );
 				},
@@ -125,8 +130,8 @@
 
 			// Creates actions on the actual bumpdown
 			.on( {
-				'open.bumpdown': methods.open,
-				'close.bumpdown': methods.close
+				'open.bumpdown': function() { methods.open( $( this ) ); },
+				'close.bumpdown': function() { methods.close( $( this ) ); }
 			}, selectors.bumpdown );
 
 		// Configure all the fields
@@ -201,6 +206,14 @@
 
 				// Mark it as the Bumpdown
 				.addClass( selectors.bumpdown.replace( '.', '' ) );
+
+			// support our dependency library
+			if ( data.$trigger.data( 'depends' ) ) {
+				var field_ids = data.$trigger.data( 'depends' );
+				$( document ).on( 'change', field_ids, function() {
+					methods.close( data.$bumpdown );
+				} );
+			}
 		});
 	};
 }( jQuery, _ ) );

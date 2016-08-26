@@ -198,11 +198,13 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				if ( post_type_exists( 'tribe_events' ) ) {
 					self::$parent_page = 'edit.php?post_type=tribe_events';
 				} else {
+					self::$parent_page = 'admin.php?page=tribe-common';
+
 					add_menu_page(
 						esc_html__( 'Events', 'tribe-common' ),
 						esc_html__( 'Events', 'tribe-common' ),
 						apply_filters( 'tribe_common_event_page_capability', 'manage_options' ),
-						'tribe-common',
+						self::$parent_slug,
 						null,
 						'dashicons-calendar',
 						6
@@ -214,10 +216,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 					esc_html__( 'Events Settings', 'tribe-common' ),
 					esc_html__( 'Settings', 'tribe-common' ),
 					$this->requiredCap,
-					$this->adminSlug,
+					self::$parent_slug,
 					array( $this, 'generatePage' )
 				);
-
 			}
 		}
 
@@ -529,7 +530,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			add_option( 'tribe_settings_major_error', $this->major_error );
 			wp_redirect( esc_url_raw( add_query_arg( array( 'saved' => true ), $this->url ) ) );
 			exit;
-
 		}
 
 		/**
@@ -631,7 +631,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			$slug = self::$parent_page;
 
 			// if we don't have an event post type, then we can just use the tribe-common slug
-			if ( 'admin.php' === $slug ) {
+			if ( 'edit.php' === $slug || 'admin.php?page=tribe-common' === $slug ) {
 				$slug = self::$parent_slug;
 			}
 

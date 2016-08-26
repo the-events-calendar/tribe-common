@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Log/Null_Logger.php:26
+msgid "Null logger (will log nothing)"
+msgstr ""
+
 #: src/Tribe/Log/Admin.php:132
 msgctxt "log selector"
 msgid "None currently available"
@@ -308,7 +312,7 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Settings.php:321
+#: src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr ""
 
@@ -927,7 +931,7 @@ msgstr "Metropolitné Francúzsko"
 msgid "French Guiana"
 msgstr "Francúzska Guyana"
 
-#: src/Tribe/Settings.php:585
+#: src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "Nastavenia boli uložené."
 
@@ -1293,7 +1297,7 @@ msgstr "Nigéria"
 msgid "Niue"
 msgstr "Niue"
 
-#: src/Tribe/Settings.php:214
+#: src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Nastavenia"
 
@@ -1413,7 +1417,7 @@ msgstr "Svätá Lucia"
 msgid "Saint Vincent And The Grenadines"
 msgstr "Svätý Vincent a Grenadíny"
 
-#: src/Tribe/Settings.php:213 src/Tribe/Settings.php:234
+#: src/Tribe/Settings.php:214 src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "Nastavenia udalostí"
 
@@ -1421,7 +1425,7 @@ msgstr "Nastavenia udalostí"
 msgid "Samoa"
 msgstr "Samoa"
 
-#: src/Tribe/Settings.php:299
+#: src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s Nastavenia"
 
@@ -1429,7 +1433,7 @@ msgstr "%s Nastavenia"
 msgid "San Marino"
 msgstr "San Maríno"
 
-#: src/Tribe/Settings.php:313
+#: src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "Požadujete neexistujúcu záložku."
 
@@ -1437,7 +1441,7 @@ msgstr "Požadujete neexistujúcu záložku."
 msgid "Sao Tome And Principe"
 msgstr "Svätý Tomáš a Princov ostrov"
 
-#: src/Tribe/Settings.php:369
+#: src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "Nemáte práva pre vykonanie."
 
@@ -1445,7 +1449,7 @@ msgstr "Nemáte práva pre vykonanie."
 msgid "Saudi Arabia"
 msgstr "Saudská Arábia"
 
-#: src/Tribe/Settings.php:375
+#: src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "Požiadavka bola odoslaná nezabezpečene."
 
@@ -1453,7 +1457,7 @@ msgstr "Požiadavka bola odoslaná nezabezpečene."
 msgid "Senegal"
 msgstr "Senegal"
 
-#: src/Tribe/Settings.php:381
+#: src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "Požiadavka nebola odoslaná z tejto záložky."
 
@@ -1461,7 +1465,7 @@ msgstr "Požiadavka nebola odoslaná z tejto záložky."
 msgid "Serbia"
 msgstr "Srbsko"
 
-#: src/Tribe/Settings.php:549
+#: src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "Váš formulár obsahuje nasledovné chyby:"
 
@@ -1469,7 +1473,7 @@ msgstr "Váš formulár obsahuje nasledovné chyby:"
 msgid "Seychelles"
 msgstr "Seychely"
 
-#: src/Tribe/Settings.php:559
+#: src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "Nastavenia neboli uložené. Skúste to znovu."
 
@@ -1477,7 +1481,7 @@ msgstr "Nastavenia neboli uložené. Skúste to znovu."
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/Tribe/Settings.php:560
+#: src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Vyššie uvedené nastavenie nebolo uložené. Ostatné nastavenia boli úspešne uložené."
