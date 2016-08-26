@@ -474,7 +474,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					// Set the key
 					update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
 
-					$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key, it will expire on %s', 'tribe-common' ), $expiration );
+					$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ), $expiration );
 
 					//Set SysInfo Key on Tec.com After Successful Validation of License
 					$optin_key = get_option( 'tribe_systeminfo_optin' );
