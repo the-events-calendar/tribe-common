@@ -552,39 +552,36 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( ! current_user_can( 'install_plugins' ) ) {
 				return false;
 			}
+
 			remove_action( 'tribe-check-licenses', __CLASS__ . '::setup_warnings' );
-			$results = self::$checkers;
-			var_dump($results);
 
-			// The following is pseudo code
+			$results = array_values( self::$checkers );
+//			var_dump( $results );
 
-			foreach ($results['plugin_name']->json_error as $key => $value) {
-				switch ($key) {
-					case 'invalid' :
-						// tribe-notice for invalid or missing key
-						break ;
-					case 'expired' :
-						// tribe-notice for expired license
-						break ;
-					case 'upgrade' : // version_compare
-						// tribe-notice for new plugin version
-						break ;
+			foreach( $results as $plugin ) {
+				if ( isset( $plugin->plugin_name ) ) {
+					echo $plugin->plugin_name . ', ' . $plugin->json_error->api_invalid . ', ' . $plugin->json_error->version . '<br>';
+
+					switch ( $key ) {
+						case 'invalid' :
+							// tribe-notice for invalid or missing key
+							break;
+						case 'expired' :
+							// tribe-notice for expired license
+							break;
+						case 'upgrade' : // version_compare
+							// tribe-notice for new plugin version
+							break;
+					}
 				}
 			}
+			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
+			$html[] = '<p>' . 'There is an update available for ';
+			$html[] = ' but your license is expired.' . '</p>';
+			$html[] = self::get_license_expired_message();
 
-
-
-				$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-				$html[] = '<p>' . 'There is an update available for ';
-				$html[] = ' but your license is expired.' . '</p>';
-				$html[] = self::get_license_expired_message();
-
-				return Tribe__Admin__Notices::instance()->render( 'license-validation', implode( "\r\n", $html ));
-
-
+			return Tribe__Admin__Notices::instance()->render( 'license-validation', implode( "\r\n", $html ));
 		}
-
-
 
 		public function get_license_expired_message() {
 			$expired_message = '<a href="http://m.tri.be/195y" target="_blank" class="button button-primary">' .
