@@ -174,11 +174,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 
-			tribe_notice( 'license-invalid-validation', __CLASS__ . '::is_api_invalid_warning', 'dismiss=1&type=warning' );
+			tribe_notice( 'license-invalid', __CLASS__ . '::is_api_invalid_warning', 'dismiss=1&type=warning' );
 
-			tribe_notice( 'license-expired-validation', __CLASS__ . '::is_api_expired_warning', 'dismiss=1&type=warning' );
+			tribe_notice( 'license-expired', __CLASS__ . '::is_api_expired_warning', 'dismiss=1&type=warning' );
 
-			tribe_notice( 'license-upgrade-validation', __CLASS__ . '::is_api_upgrade_warning', 'dismiss=1&type=warning' );
+			tribe_notice( 'license-upgrade', __CLASS__ . '::is_api_upgrade_warning', 'dismiss=1&type=warning' );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -595,6 +595,46 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/********************** Admin Notices **********************/
 
 		/**
+		 * Generates the Notice for plugins with an invalid license
+		 *
+		 * @return bool|string
+		 * @since 4.3
+		 */
+		public static function is_api_invalid_warning() {
+			if ( ! current_user_can( 'install_plugins' ) ) {
+				return false;
+			}
+//			remove_action( 'tribe-check-licenses', __CLASS__ . '::setup_warnings' );
+			$results = self::$checkers;
+
+			// Message vars
+			$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
+			$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
+
+			// Begin message
+			$html[] = '<div class="api-check">';
+			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
+			$html[] = '<p>' . esc_html__( 'Looks like you\'re using', 'tribe-common' );
+			$html[] = '<span class="plugin-list">';
+
+			foreach ( $results as $plugin ) {
+				if ( ! empty( $plugin->plugin_info->api_invalid ) && empty( $plugin->plugin_info->api_expired ) && empty( $plugin->plugin_info->api_upgrade ) ) {
+					if ( isset( $plugin->plugin_name ) ) {
+						$html[] = '<span class="plugin-invalid"><strong>' . $plugin->plugin_name . '</strong></span>';
+					}
+				}
+			}
+
+			$html[] = '</span>';
+			$html[] = sprintf( __( 'but you don\'t have a license key entered. %s so that you can always have access to our latest versions!', 'tribe-common' ), $license_tab_link ) . '</p>';
+			$html[] = '<p><a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'You can find your license key in your account on theeventscalendar.com ', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a></p>';
+			$html[] = '</div>';
+			// end message
+
+			return Tribe__Admin__Notices::instance()->render( 'license-invalid', implode( "\r\n", $html ) );
+		}
+
+		/**
 		 * Generates the Notice for plugins with an Invalid or missing license
 		 *
 		 * @return bool|string
@@ -630,47 +670,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '</div>';
 			// end message
 
-			return Tribe__Admin__Notices::instance()->render( 'license-invalid-validation', implode( "\r\n", $html ) );
-		}
-
-		/**
-		 * Generates the Notice for plugins with an invalid license
-		 *
-		 * @return bool|string
-		 * @since 4.3
-		 */
-		public static function is_api_invalid_warning() {
-			if ( ! current_user_can( 'install_plugins' ) ) {
-				return false;
-			}
-			remove_action( 'tribe-check-licenses', __CLASS__ . '::setup_warnings' );
-			$results = self::$checkers;
-
-			// Message vars
-			$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
-			$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
-
-			// Begin message
-			$html[] = '<div class="api-check">';
-			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-			$html[] = '<p>' . esc_html__( 'Looks like you\'re using', 'tribe-common' );
-			$html[] = '<span class="plugin-list">';
-
-			foreach ( $results as $plugin ) {
-				if ( ! empty( $plugin->plugin_info->api_invalid ) && empty( $plugin->plugin_info->api_expired ) && empty( $plugin->plugin_info->api_upgrade ) ) {
-					if ( isset( $plugin->plugin_name ) ) {
-						$html[] = '<span class="plugin-invalid"><strong>' . $plugin->plugin_name . '</strong></span>';
-					}
-				}
-			}
-
-			$html[] = '</span>';
-			$html[] = sprintf( __( 'but you don\'t have a license key entered. %s so that you can always have access to our latest versions!', 'tribe-common' ), $license_tab_link ) . '</p>';
-			$html[] = '<p><a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'You can find your license key in your account on theeventscalendar.com ', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a></p>';
-			$html[] = '</div>';
-			// end message
-
-			return Tribe__Admin__Notices::instance()->render( 'license-expired-validation', implode( "\r\n", $html ) );
+			return Tribe__Admin__Notices::instance()->render( 'license-expired', implode( "\r\n", $html ) );
 		}
 
 		/**
@@ -708,7 +708,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '</div>';
 			// end message
 
-			return Tribe__Admin__Notices::instance()->render( 'license-upgrade-validation', implode( "\r\n", $html ) );
+			return Tribe__Admin__Notices::instance()->render( 'license-upgrade', implode( "\r\n", $html ) );
 		}
 
 		/**
