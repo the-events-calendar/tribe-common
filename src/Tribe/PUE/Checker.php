@@ -624,7 +624,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '</div>';
 			// end message
 
-			return Tribe__Admin__Notices::instance()->render( 'license-invalid-validation', implode( "\r\n", $html ));
+			return Tribe__Admin__Notices::instance()->render( 'license-invalid-validation', implode( "\r\n", $html ) );
 		}
 
 		/**
@@ -664,7 +664,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '</div>';
 			// end message
 
-			return Tribe__Admin__Notices::instance()->render( 'license-expired-validation', implode( "\r\n", $html ));
+			return Tribe__Admin__Notices::instance()->render( 'license-expired-validation', implode( "\r\n", $html ) );
 		}
 
 		/**
