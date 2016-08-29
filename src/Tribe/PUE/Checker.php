@@ -116,6 +116,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public $plugin_info;
 
+		public $plugin_notice;
+
 		/**
 		 * Class constructor.
 		 *
@@ -136,7 +138,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->set_options( $options );
 			$this->hooks();
 			self::$checkers[ $this->slug ] = $this;
-
 		}
 
 		/**
@@ -168,7 +169,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 
-			tribe_notice( 'license-invalid-validation', __CLASS__ . '::is_api_invalid_warning', 'dismiss=1&type=warning' );
+			tribe_notice( 'license-invalid-validation', array( $this, 'is_api_invalid_warning' ), 'dismiss=1&type=warning' );
 
 			tribe_notice( 'license-expired-validation', __CLASS__ . '::is_api_expired_warning', 'dismiss=1&type=warning' );
 
@@ -624,7 +625,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '</div>';
 			// end message
 
-			return Tribe__Admin__Notices::instance()->render( 'license-invalid-validation', implode( "\r\n", $html ));
+			return Tribe__Admin__Notices::instance()->render( 'license-expired-validation', implode( "\r\n", $html ));
 		}
 
 		/**
@@ -637,8 +638,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( ! current_user_can( 'install_plugins' ) ) {
 				return false;
 			}
-			remove_action( 'tribe-check-licenses', __CLASS__ . '::setup_warnings' );
+
+//			remove_action( 'tribe-check-licenses', __CLASS__ . '::setup_warnings' );
 			$results = self::$checkers;
+			var_dump($results);
 
 			// Message vars
 			$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
@@ -651,7 +654,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '<span class="plugin-list">';
 
 			foreach( $results as $plugin ) {
-				if ( ! empty( $plugin->plugin_info->api_invalid ) && empty( $plugin->plugin_info->api_expired ) && empty( $plugin->plugin_info->api_upgrade ) ) {
+				if ( ! empty( $plugin->plugin_info->api_invalid ) ) {
 					if ( isset( $plugin->plugin_name ) ) {
 						$html[] = '<span class="plugin-invalid"><strong>' . $plugin->plugin_name . '</strong></span>';
 					}
@@ -664,7 +667,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '</div>';
 			// end message
 
-			return Tribe__Admin__Notices::instance()->render( 'license-expired-validation', implode( "\r\n", $html ));
+			return Tribe__Admin__Notices::instance()->render( 'license-invalid-validation', implode( "\r\n", $html ));
 		}
 
 		/**
