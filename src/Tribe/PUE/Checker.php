@@ -610,7 +610,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '<p>' . esc_html__( 'There is an update available for', 'tribe-common' );
 			$html[] = '<span class="plugin-list">';
 
-			foreach( $results as $plugin ) {
+			foreach ( $results as $plugin ) {
 				if ( ! empty( $plugin->plugin_info->api_expired ) ) {
 					if ( isset( $plugin->plugin_name ) ) {
 						$html[] = '<span class="plugin-invalid"><strong>' . $plugin->plugin_name . '</strong></span>';
@@ -650,7 +650,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '<p>' . esc_html__( 'Looks like you\'re using', 'tribe-common' );
 			$html[] = '<span class="plugin-list">';
 
-			foreach( $results as $plugin ) {
+			foreach ( $results as $plugin ) {
 				if ( ! empty( $plugin->plugin_info->api_invalid ) && empty( $plugin->plugin_info->api_expired ) && empty( $plugin->plugin_info->api_upgrade ) ) {
 					if ( isset( $plugin->plugin_name ) ) {
 						$html[] = '<span class="plugin-invalid"><strong>' . $plugin->plugin_name . '</strong></span>';
@@ -689,7 +689,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$html[] = '<p>' . esc_html__( 'There is an update available for', 'tribe-common' );
 			$html[] = '<span class="plugin-list">';
 
-			foreach( $results as $plugin ) {
+			foreach ( $results as $plugin ) {
 				if ( ! empty( $plugin->plugin_info->api_upgrade ) ) {
 					if ( isset( $plugin->plugin_name ) ) {
 						$html[] = '<span class="plugin-invalid"><strong>' . $plugin->plugin_name . '</strong></span>';
