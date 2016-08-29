@@ -117,6 +117,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public $plugin_info;
 
 		/**
+		 * Storing the `plugin_notice` message.
+		 * @var string
+		 */
+		public $plugin_notice;
+
+		/**
 		 * Class constructor.
 		 *
 		 * @param string $pue_update_url The URL of the plugin's metadata file.
