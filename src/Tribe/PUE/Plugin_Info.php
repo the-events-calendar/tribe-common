@@ -96,6 +96,9 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 				'downloaded',
 				'homepage',
 				'last_updated',
+				'api_expired',
+				'api_upgrade',
+				'api_invalid',
 			);
 			foreach ( $sameFormat as $field ) {
 				if ( isset( $this->$field ) ) {

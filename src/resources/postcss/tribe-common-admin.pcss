@@ -1077,7 +1077,7 @@ a.tribe-rating-link {
 	}
 }
 
-.tribe-notice-license-validation {
+.api-check {
 	padding: 1em;
 
 	&:before,
@@ -1104,6 +1104,26 @@ a.tribe-rating-link {
 
 		&:hover {
 			text-decoration: underline;
+		}
+	}
+	.plugin-list {
+		display: inline-block;
+		font-weight: 600;
+		margin: 0;
+		padding: 0;
+
+		span.plugin-invalid {
+
+			&:after {
+				content: ', ';
+			}
+
+			&:last-of-type {
+
+				&:after {
+					content: '';
+				}
+			}
 		}
 	}
 }
