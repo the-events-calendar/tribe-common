@@ -68,7 +68,7 @@ class Tribe__PUE__Notices {
 	 * @param string $notice_type
 	 */
 	public function add_notice( $plugin_name, $notice_type ) {
-		$this->clear_notices( $plugin_name );
+		$this->clear_notices( $plugin_name, true );
 		$this->notices[ $notice_type ][] = $plugin_name;
 		$this->save_notices();
 	}
@@ -79,13 +79,22 @@ class Tribe__PUE__Notices {
 	 * Useful when a valid license key is detected for a plugin, where previously
 	 * it might have been included under a warning notification.
 	 *
-	 * @param $plugin_name
+	 * If the optional second param is set to true then this change will not
+	 * immediately be committed to storage (useful if we know this will happen in
+	 * any case later on in the same request).
+	 *
+	 * @param string $plugin_name
+	 * @param bool $defer_saving_change = false
 	 */
-	public function clear_notices( $plugin_name ) {
+	public function clear_notices( $plugin_name, $defer_saving_change = false ) {
 		foreach ( $this->notices as $notice_type => &$list_of_plugins ) {
 			$list_of_plugins = array_flip( $list_of_plugins );
 			unset( $list_of_plugins[ $plugin_name ] );
 			$list_of_plugins = array_flip( $list_of_plugins );
+		}
+
+		if ( ! $defer_saving_change ) {
+			$this->save_notices();
 		}
 	}
 
