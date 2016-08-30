@@ -59,7 +59,10 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	 */
 	protected function obtain_handle() {
 		$this->close_handle();
-		$this->handle = is_readable( $this->log_file ) && fopen( $this->log_file, $this->context );
+
+		if ( is_readable( $this->log_file ) ) {
+			$this->handle = fopen( $this->log_file, $this->context );
+		}
 	}
 
 	/**
