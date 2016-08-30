@@ -177,8 +177,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
 
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
-
-			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -607,7 +605,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function license_key_status( $query_args ) {
 			$pue_notices = Tribe__Main::instance()->pue_notices();
 			$plugin_info = $this->request_info( $query_args );
-			$plugin_name = $this->plugin_name;
+			$plugin_name = empty( $this->plugin_name ) ? $this->get_plugin_name() : $this->plugin_name;
 
 			if ( empty( $plugin_name ) ) {
 				return $plugin_info;
