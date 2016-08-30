@@ -337,6 +337,11 @@ class Tribe__Log {
 			$this->build_prioritized_levels();
 		}
 
+		// Protect against the possibility non-existent level codes might be passed in
+		if ( ! isset( $this->prioritized_levels[ $level_code ] ) ) {
+			return false;
+		}
+
 		return $this->prioritized_levels[ $level_code ] <= $this->prioritized_levels[ $this->current_level ];
 	}
 
@@ -348,7 +353,7 @@ class Tribe__Log {
 	 */
 	protected function build_prioritized_levels() {
 		foreach ( $this->get_logging_levels() as $index => $level_data ) {
-			$this->prioritized_levels[ $level_data[1] ] = $index;
+			$this->prioritized_levels[ $level_data[ 0 ] ] = $index;
 		}
 	}
 }
