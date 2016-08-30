@@ -604,7 +604,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @return Tribe__PUE__Plugin_Info|null
 		 */
-		protected function license_key_status( $query_args ) {
+		public function license_key_status( $query_args ) {
 			$pue_notices = Tribe__Main::instance()->pue_notices();
 			$plugin_info = $this->request_info( $query_args );
 			$plugin_name = $this->plugin_name;
