@@ -593,39 +593,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Displays a PUE message on the page if it is relevant
-		 *
-		 * @since 4.3
-		 */
-		public function maybe_display_json_error_on_plugins_page( $page ) {
-			if ( 'plugins.php' !== $page ) {
-				return;
-			}
-
-			$state = $this->get_option( $this->pue_option_name, false, false );
-
-			if ( empty( $state->update->license_error ) ) {
-				return;
-			}
-
-			$this->plugin_notice = array(
-				'slug' => $this->get_slug(),
-				'message' => $this->get_api_update_message(),
-			);
-			add_filter( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
-		}
-
-		public function add_notice_to_plugin_notices( $notices ) {
-			if ( ! $this->plugin_notice ) {
-				return $notices;
-			}
-
-			$notices[ $this->plugin_notice['slug'] ] = $this->plugin_notice;
-
-			return $notices;
-		}
-
-		/**
 		 * Returns plugin/license key data based on the provided query arguments.
 		 *
 		 * Calling this method will also take care of setting up admin notices for any
@@ -790,10 +757,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// admin display for if the update check reveals that there is a new version but the API key isn't valid.
 			if ( isset( $plugin_info->api_invalid ) ) {
-				//we have json_error returned let's display a message
-				$this->json_error = $this->plugin_info;
-				add_action( 'admin_notices', array( $this, 'maybe_display_json_error_on_plugins_page' ) );
-
 				$plugin_info = Tribe__PUE__Utility::from_plugin_info( $plugin_info );
 				$plugin_info->license_error = $this->get_api_message( $plugin_info );
 				return $plugin_info;
