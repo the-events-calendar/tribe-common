@@ -166,7 +166,9 @@ class Tribe__Timezones {
 			$utc   = self::get_timezone( 'UTC' );
 
 			// We can't use method chaining here (ie "date_create(...)->setTimezone(...)") due to PHP 5.2 compatibility concerns
-			if ( $datetime = date_create( $datetime, $local ) && false !== $datetime->setTimezone( $utc ) ) {
+			$datetime = date_create( $datetime, $local );
+
+			if ( $datetime && false !== $datetime->setTimezone( $utc ) ) {
 				return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 			}
 		}
@@ -196,7 +198,9 @@ class Tribe__Timezones {
 			$utc   = self::get_timezone( 'UTC' );
 
 			// We can't use method chaining here (ie "date_create(...)->setTimezone(...)") due to PHP 5.2 compatibility concerns
-			if ( $datetime = date_create( $datetime, $utc ) && false !== $datetime->setTimezone( $local ) ) {
+			$datetime = date_create( $datetime, $utc );
+
+			if ( $datetime && false !== $datetime->setTimezone( $local ) ) {
 				return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 			}
 		}
@@ -251,7 +255,9 @@ class Tribe__Timezones {
 			$offset = $offset . ' minutes';
 
 			// We can't use method chaining here (ie "date_create(...)->modify(...)") due to PHP 5.2 compatibility concerns
-			if ( $datetime = date_create( $datetime ) && false !== $datetime->modify( $offset ) ) {
+			$datetime = date_create( $datetime );
+
+			if ( $datetime && false !== $datetime->modify( $offset ) ) {
 				return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 			}
 		}
