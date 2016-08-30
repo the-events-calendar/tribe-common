@@ -172,10 +172,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
 
 			add_action( 'update_option_' . $this->pue_install_key, array( $this, 'check_for_api_key_error' ), 10, 2 );
+			add_action( 'update_site_option_' . $this->pue_install_key, array( $this, 'check_for_api_key_error' ), 10, 2 );
 
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
-
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 		}
 
@@ -537,6 +537,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			return $response;
 		}
 
+		public function get_license_expired_message() {
+			return '<a href="http://m.tri.be/195y" target="_blank" class="button button-primary">' .
+				__( 'Renew Your License Now', 'tribe-common' ) .
+				'<span class="screen-reader-text">' .
+				__( ' (opens in a new window)', 'tribe-common' ) .
+				'</span></a>';
+		}
+
 		/**
 		 * Echo JSON results for key validation
 		 */
@@ -611,15 +619,24 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return $plugin_info;
 			}
 
+			// Check for empty keys first of all (*must* happen before the api_invalid test)
 			if ( ! trim( $this->install_key ) ) {
 				$pue_notices->add_notice( $plugin_name, Tribe__PUE__Notices::MISSING_KEY );
-			} elseif ( ! empty( $plugin_info->api_expired ) ) {
+			}
+			// Check for expired keys
+			elseif ( ! empty( $plugin_info->api_expired ) ) {
 				$pue_notices->add_notice( $plugin_name, Tribe__PUE__Notices::EXPIRED_KEY );
-			} elseif ( ! empty( $plugin_info->api_ugrade ) ) {
+			}
+			// Check for keys that are out of installs (*must* happen before the api_invalid test)
+			elseif ( ! empty( $plugin_info->api_upgrade ) ) {
 				$pue_notices->add_notice( $plugin_name, Tribe__PUE__Notices::UPGRADE_KEY );
-			} elseif ( ! empty( $plugin_info->api_invalid ) ) {
+			}
+			// Check for invalid keys last of all (upgrades/empty keys will be flagged as invalid)
+			elseif ( ! empty( $plugin_info->api_invalid ) ) {
 				$pue_notices->add_notice( $plugin_name, Tribe__PUE__Notices::INVALID_KEY );
-			} else {
+			}
+			// If none of the above were satisfied we can assume the key is valid
+			else {
 				$pue_notices->clear_notices( $plugin_name );
 			}
 
