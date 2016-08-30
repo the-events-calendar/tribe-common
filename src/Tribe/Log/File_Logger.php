@@ -141,6 +141,11 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 			$this->set_context( 'a' );
 		}
 
+		// Couldn't obtain the file handle? We'll bail out without causing further disruption
+		if ( ! $this->handle ) {
+			return;
+		}
+
 		fputcsv( $this->handle, array( date_i18n( 'Y-m-d H:i:s' ), $entry, $type, $src ) );
 	}
 
@@ -161,6 +166,11 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 		// Ensure we're in 'read' mode before we try to retrieve
 		if ( 'r' !== $this->context ) {
 			$this->set_context( 'r' );
+		}
+
+		// Couldn't obtain the file handle? We'll bail out without causing further disruption
+		if ( ! $this->handle ) {
+			return array();
 		}
 
 		$rows = array();
