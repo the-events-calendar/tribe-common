@@ -16,78 +16,91 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 	/**
 	 * A custom plugin update checker.
+	 *
 	 * @since  1.7
 	 */
 	class Tribe__PUE__Checker {
 
 		/**
 		 * The URL of the plugin's metadata file.
+		 *
 		 * @var string
 		 */
 		private $pue_update_url = '';
 
 		/**
 		 * Plugin filename relative to the plugins directory.
+		 *
 		 * @var string
 		 */
 		private $plugin_file = '';
 
 		/**
 		 * Used to hold the plugin_name as set by the constructor.
+		 *
 		 * @var string
 		 */
 		private $plugin_name = '';
 
 		/**
 		 * The plugin slug (without the .php extension)
+		 *
 		 * @var string
 		 */
 		protected $plugin_slug;
 
 		/**
 		 * Plugin slug. (with .php extension)
+		 *
 		 * @var string
 		 */
 		private $slug = '';
 
 		/**
 		 * Used to hold the query variables for download checks
+		 *
 		 * @var array
 		 */
 		private $download_query = array();
 
 		/**
 		 * How often to check for updates (in hours).
+		 *
 		 * @var int
 		 */
 		public $check_period = 12;
 
 		/**
 		 * Where to store the update info.
+		 *
 		 * @var string
 		 */
 		public $pue_option_name = '';
 
 		/**
 		 * used to hold the user API.  If not set then nothing will work!
+		 *
 		 * @var string
 		 */
 		public $api_secret_key = '';
 
 		/**
 		 * used to hold the install_key if set (included here for addons that will extend PUE to use install key checks)
+		 *
 		 * @var bool
 		 */
 		public $install_key = false;
 
 		/**
 		 * For setting the dismiss upgrade option (per plugin).
+		 *
 		 * @var
 		 */
 		public $dismiss_upgrade;
 
 		/**
 		 * We'll customize this later so each plugin can have it's own install key!
+		 *
 		 * @var string
 		 */
 		public $pue_install_key;
@@ -105,12 +118,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		/**
 		 * Storing any `plugin_info` data that get's returned so we can display an admin notice.
+		 *
 		 * @var array|null
 		 */
 		public $plugin_info;
 
 		/**
 		 * Storing the `plugin_notice` message.
+		 *
 		 * @var string
 		 */
 		public $plugin_notice;
