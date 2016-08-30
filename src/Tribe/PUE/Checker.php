@@ -45,13 +45,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		protected $plugin_slug;
 
 		/**
-		 * Info returned from PUE checkers in each of the activated premium plugins
-		 * @var array
-		 * @since 4.3
-		 */
-		public static $checkers = array();
-
-		/**
 		 * Plugin slug. (with .php extension)
 		 * @var string
 		 */
@@ -141,7 +134,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->set_plugin_file( $plugin_file );
 			$this->set_options( $options );
 			$this->hooks();
-			self::$checkers[ $this->slug ] = $this;
 		}
 
 		/**
