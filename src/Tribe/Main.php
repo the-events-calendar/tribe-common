@@ -26,6 +26,19 @@ class Tribe__Main {
 	protected $doing_ajax = false;
 	protected $log;
 
+	/**
+	 * Manages PUE license key notifications.
+	 *
+	 * It's important for the sanity of our users that only one instance of this object
+	 * be created. However, multiple Tribe__Main objects can and will be instantiated, hence
+	 * why for the time being we need to make this field static.
+	 *
+	 * @see https://central.tri.be/issues/65755
+	 *
+	 * @var Tribe__PUE__Notices
+	 */
+	protected static $pue_notices;
+
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url = 'https://theeventscalendar.com/';
 
@@ -93,6 +106,7 @@ class Tribe__Main {
 	public function init_libraries() {
 		Tribe__Debug::instance();
 		Tribe__Settings_Manager::instance();
+		$this->pue_notices();
 
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
@@ -248,6 +262,17 @@ class Tribe__Main {
 	 */
 	public function log() {
 		return $this->log;
+	}
+
+	/**
+	 * @return Tribe__PUE__Notices
+	 */
+	public function pue_notices() {
+		if ( empty( self::$pue_notices ) ) {
+			self::$pue_notices = new Tribe__PUE__Notices;
+		}
+
+		return self::$pue_notices;
 	}
 
 	/**

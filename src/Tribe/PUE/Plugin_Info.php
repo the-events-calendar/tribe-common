@@ -41,6 +41,10 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 		public $downloaded;
 		public $last_updated;
 
+		public $api_expired;
+		public $api_invalid;
+		public $api_upgrade;
+
 		public $id = 0; // The native WP.org API returns numeric plugin IDs, but they're not used for anything.
 
 		/**
