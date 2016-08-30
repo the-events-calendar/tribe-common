@@ -126,7 +126,11 @@ class Tribe__Log__Admin {
 	 * @return array
 	 */
 	protected function get_available_logs() {
-		$available_logs = $this->current_logger()->list_available_logs();
+		$current_logger = $this->current_logger();
+
+		if ( $current_logger ) {
+			$available_logs = $this->current_logger()->list_available_logs();
+		}
 
 		if ( empty( $available_logs ) ) {
 			return array( '' => _x( 'None currently available', 'log selector', 'tribe-common' ) );
@@ -165,9 +169,10 @@ class Tribe__Log__Admin {
 	 * @return array
 	 */
 	protected function get_log_entries( $log = null ) {
-		$logger = $this->current_logger();
-		$logger->use_log( $log );
-		return $logger->retrieve();
+		if ( $logger = $this->current_logger() ) {
+			$logger->use_log( $log );
+			return $logger->retrieve();
+		}
 	}
 
 	/**
