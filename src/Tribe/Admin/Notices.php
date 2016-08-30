@@ -3,7 +3,7 @@
 defined( 'WPINC' ) or die;
 
 /**
- * @since  4.3
+ * @since 4.3
  */
 class Tribe__Admin__Notices {
 	/**
@@ -59,6 +59,15 @@ class Tribe__Admin__Notices {
 
 		// Hook the actual rendering of notices
 		add_action( 'current_screen', array( $this, 'hook' ), 20 );
+
+		// Add our notice dismissal script
+		tribe_asset(
+			Tribe__Main::instance(),
+			'tribe-notice-dismiss',
+			'notice-dismiss.js',
+			array( 'jquery' ),
+			'admin_enqueue_scripts'
+		);
 	}
 
 	/**
@@ -77,7 +86,11 @@ class Tribe__Admin__Notices {
 	}
 
 	/**
-	 * This will allow the user to Dimiss the Notice using JS
+	 * This will allow the user to Dimiss the Notice using JS.
+	 *
+	 * We will dismiss the notice without checking to see if the slug was already
+	 * registered (via a call to exists()) for the reason that, during a dismiss
+	 * ajax request, some valid notices may not have been registered yet.
 	 *
 	 * @return void
 	 */
@@ -87,11 +100,6 @@ class Tribe__Admin__Notices {
 		}
 
 		$slug = sanitize_title_with_dashes( $_GET[ self::$meta_key ] );
-
-		// We also don't care about it when it's not registred
-		if ( ! $this->exists( $slug ) ) {
-			wp_send_json( false );
-		}
 
 		// Send a JSON answer with the status of dimissal
 		wp_send_json( $this->dismiss( $slug ) );
@@ -191,10 +199,6 @@ class Tribe__Admin__Notices {
 	 * @return boolean
 	 */
 	public function dismiss( $slug, $user_id = null ) {
-		if ( ! $this->exists( $slug ) ) {
-			return false;
-		}
-
 		if ( is_null( $user_id ) ) {
 			$user_id = get_current_user_id();
 		}
