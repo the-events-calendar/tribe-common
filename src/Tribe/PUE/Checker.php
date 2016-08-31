@@ -462,10 +462,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
 			} elseif ( isset( $plugin_info->api_expired ) && $plugin_info->api_expired == 1 ) {
 				$response['message'] = $this->get_license_expired_message();
+				$response['api_expired'] = true;
 			} elseif ( isset( $plugin_info->api_upgrade ) && $plugin_info->api_upgrade == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
+				$response['api_upgrade'] = true;
 			} elseif ( isset( $plugin_info->api_invalid ) && $plugin_info->api_invalid == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
+				$response['api_invalid'] = true;
 			} else {
 				$api_secret_key = get_option( $this->pue_install_key );
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
