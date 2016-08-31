@@ -177,6 +177,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -596,6 +597,38 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			);
 
 			return $message;
+		}
+
+		/**
+		 * Displays a PUE message on the page if it is relevant
+		 */
+		public function maybe_display_json_error_on_plugins_page( $page ) {
+			if ( 'plugins.php' !== $page ) {
+				return;
+			}
+
+			$state = $this->get_option( $this->pue_option_name, false, false );
+
+			if ( empty( $state->update->license_error ) ) {
+				return;
+			}
+
+			$this->plugin_notice = array(
+				'slug' => $this->get_slug(),
+				'message' => $state->update->license_error,
+			);
+
+			add_filter( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
+		}
+
+		public function add_notice_to_plugin_notices( $notices ) {
+			if ( ! $this->plugin_notice ) {
+				return $notices;
+			}
+
+			$notices[ $this->plugin_notice['slug'] ] = $this->plugin_notice;
+
+			return $notices;
 		}
 
 		/**
