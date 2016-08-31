@@ -134,16 +134,16 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			$dt = array();
 
 			// Now try to match it
-			if ( preg_match( '#^' . $regex . '$#', $date, $dt ) ){
+			if ( preg_match( '#^' . $regex . '$#', $date, $dt ) ) {
 				// Remove unwanted Indexes
-				foreach ( $dt as $k => $v ){
-					if ( is_int( $k ) ){
+				foreach ( $dt as $k => $v ) {
+					if ( is_int( $k ) ) {
 						unset( $dt[ $k ] );
 					}
 				}
 
 				// We need at least Month + Day + Year to work with
-				if ( ! checkdate( $dt['month'], $dt['day'], $dt['year'] ) ){
+				if ( ! checkdate( $dt['month'], $dt['day'], $dt['year'] ) ) {
 					return false;
 				}
 			} else {
@@ -181,14 +181,15 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Returns the date only.
+		 * Returns the time only.
 		 *
 		 * @param string $date The date.
 		 *
 		 * @return string The time only in DB format.
 		 */
 		public static function time_only( $date ) {
-			return date( self::DBTIMEFORMAT, strtotime( $date ) );
+			$date = is_numeric( $date ) ? $date : strtotime( $date );
+			return date( self::DBTIMEFORMAT, $date );
 		}
 
 		/**
@@ -199,7 +200,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The hour only.
 		 */
 		public static function hour_only( $date ) {
-			return date( self::HOURFORMAT, strtotime( $date ) );
+			$date = is_numeric( $date ) ? $date : strtotime( $date );
+			return date( self::HOURFORMAT, $date );
 		}
 
 		/**
@@ -210,7 +212,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The minute only.
 		 */
 		public static function minutes_only( $date ) {
-			return date( self::MINUTEFORMAT, strtotime( $date ) );
+			$date = is_numeric( $date ) ? $date : strtotime( $date );
+			return date( self::MINUTEFORMAT, $date );
 		}
 
 		/**
@@ -221,7 +224,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The meridian only in DB format.
 		 */
 		public static function meridian_only( $date ) {
-			return date( self::MERIDIANFORMAT, strtotime( $date ) );
+			$date = is_numeric( $date ) ? $date : strtotime( $date );
+			return date( self::MERIDIANFORMAT, $date );
 		}
 
 		/**
