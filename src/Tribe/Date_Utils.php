@@ -181,7 +181,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Returns the date only.
+		 * Returns the time only.
 		 *
 		 * @param string $date The date.
 		 *
