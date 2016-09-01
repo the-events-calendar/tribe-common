@@ -2,10 +2,12 @@ node_modules
 codeception.yml
 tests/acceptance.suite.yml
 tests/functional.suite.yml
+tests/integration.suite.yml
 tests/wpunit.suite.yml
 tests/unit.suite.yml
 tests/acceptance/_bootstrap.php
 tests/functional/_bootstrap.php
+tests/integration/_bootstrap.php
 tests/unit/_bootstrap.php
 tests/wpunit/_bootstrap.php
 
@@ -13,3 +15,5 @@ tests/wpunit/_bootstrap.php
 vendor/*
 !vendor/jquery
 !vendor/clipboard
+
+tests/_output/*

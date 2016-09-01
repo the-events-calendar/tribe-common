@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.3dev3\n"
+"Project-Id-Version: Tribe Common 4.2.6\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2016-08-30 19:53:49+00:00\n"
+"POT-Creation-Date: 2016-08-30 19:51:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-08-30 19:53\n"
+"PO-Revision-Date: 2016-08-30 19:51\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -137,6 +137,22 @@ msgstr ""
 msgid "Visit the Add-on Page"
 msgstr ""
 
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
+msgid "<a href=\"%s\">Edit the page slug</a>"
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:89
+msgid "Ask the site administrator to edit the page slug"
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
+msgid "<a href=\"%s\">edit Events settings</a>."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
+msgid " ask the site administrator set a different Events URL slug."
+msgstr ""
+
 #: src/Tribe/App_Shop.php:48 src/Tribe/App_Shop.php:49
 #: src/Tribe/App_Shop.php:72
 msgid "Event Add-Ons"
@@ -199,23 +215,19 @@ msgstr ""
 msgid "Rate %1$sEvent Tickets%2$s %3$s"
 msgstr ""
 
-#: src/Tribe/Error.php:38
-msgid "An Unknown error occurred"
-msgstr ""
-
-#: src/Tribe/Field.php:210
+#: src/Tribe/Field.php:209
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:482
+#: src/Tribe/Field.php:466
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:518
+#: src/Tribe/Field.php:502
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:574
+#: src/Tribe/Field.php:558
 msgid "No select options specified"
 msgstr ""
 
@@ -257,140 +269,40 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:147 src/admin-views/tribe-options-help.php:36
-msgid "Copy to clipboard"
-msgstr ""
-
-#: src/Tribe/Main.php:148
-msgid "System info copied"
-msgstr ""
-
-#: src/Tribe/Main.php:149
-msgid "Press \"Cmd + C\" to copy"
-msgstr ""
-
-#: src/Tribe/Main.php:166
-msgid ": activate to sort column ascending"
-msgstr ""
-
-#: src/Tribe/Main.php:167
-msgid ": activate to sort column descending"
-msgstr ""
-
-#: src/Tribe/Main.php:169
-msgid "Show _MENU_ entries"
-msgstr ""
-
-#: src/Tribe/Main.php:170
-msgid "No data available in table"
-msgstr ""
-
-#: src/Tribe/Main.php:171
-msgid "Showing _START_ to _END_ of _TOTAL_ entries"
-msgstr ""
-
-#: src/Tribe/Main.php:172
-msgid "Showing 0 to 0 of 0 entries"
-msgstr ""
-
-#: src/Tribe/Main.php:173
-msgid "(filtered from _MAX_ total entries)"
-msgstr ""
-
-#: src/Tribe/Main.php:174
-msgid "No matching records found"
-msgstr ""
-
-#: src/Tribe/Main.php:175
-msgid "Search:"
-msgstr ""
-
-#: src/Tribe/Main.php:177
-msgid "All"
-msgstr ""
-
-#: src/Tribe/Main.php:178
-msgid "Next"
-msgstr ""
-
-#: src/Tribe/Main.php:179
-msgid "Previous"
-msgstr ""
-
-#: src/Tribe/Main.php:184
-msgid ": Selected %d rows"
-msgstr ""
-
-#: src/Tribe/Main.php:185
-msgid ": Selected 1 row"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:347
+#: src/Tribe/PUE/Checker.php:308
 msgid "License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:348
+#: src/Tribe/PUE/Checker.php:309
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:419
+#: src/Tribe/PUE/Checker.php:380
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:428
-msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:459
+#: src/Tribe/PUE/Checker.php:419
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:462
+#: src/Tribe/PUE/Checker.php:422
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:472
+#: src/Tribe/PUE/Checker.php:432
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:477
-msgid "Thanks for setting up a valid key. It will expire on %s"
+#: src/Tribe/PUE/Checker.php:437
+msgid "Thanks for setting up a valid key, it will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:512
+#: src/Tribe/PUE/Checker.php:445
+msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:457
 msgid "Sorry, there is a problem with your license key. You'll need to %scheck your license%s to have access to updates, downloads, and support."
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:557
-msgid "Add your license key"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:558
-msgid "theeventscalendar.com"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:558 src/Tribe/PUE/Checker.php:559
-msgid "opens in a new window"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:559
-msgid "license keys"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:560
-msgid "%s so that you can always have access to the latest versions including bug fixes, security updates, and new features."
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:561
-msgid "You can find your %1$s in your account on %2$s."
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:568
-msgid "Renew Your License Now"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:570
-msgid " (opens in a new window)"
 msgstr ""
 
 #: src/Tribe/Settings.php:148 src/Tribe/Settings.php:204
@@ -465,7 +377,7 @@ msgid "Network"
 msgstr ""
 
 #: src/Tribe/Settings_Manager.php:263
-#: src/admin-views/tribe-options-licenses.php:74
+#: src/admin-views/tribe-options-licenses.php:46
 msgid "Licenses"
 msgstr ""
 
@@ -501,36 +413,16 @@ msgstr ""
 msgid "Information about recent template changes and potentially impacted template overrides is provided below."
 msgstr ""
 
-#: src/Tribe/Support.php:163
+#: src/Tribe/Support.php:159
 msgid "English"
 msgstr ""
 
-#: src/Tribe/Support.php:179 src/Tribe/Support.php:180
+#: src/Tribe/Support.php:176 src/Tribe/Support.php:177
 msgid "Unknown or not set"
 msgstr ""
 
-#: src/Tribe/Support.php:190
+#: src/Tribe/Support.php:187
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
-msgstr ""
-
-#: src/Tribe/Support.php:289
-msgid "Yes, automatically share my system information with the Modern Tribe support team"
-msgstr ""
-
-#: src/Tribe/Support.php:290
-msgid "Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties."
-msgstr ""
-
-#: src/Tribe/Support.php:309 src/Tribe/Support.php:314
-msgid "Invalid Key"
-msgstr ""
-
-#: src/Tribe/Support.php:342 src/Tribe/Support.php:368
-msgid "Permission Error"
-msgstr ""
-
-#: src/Tribe/Support.php:356
-msgid "Unique System Info Key Generated"
 msgstr ""
 
 #: src/Tribe/Validate.php:76 src/Tribe/Validate.php:117
@@ -841,7 +733,7 @@ msgid "Costa Rica"
 msgstr ""
 
 #: src/Tribe/View_Helpers.php:99
-msgid "C&ocirc;te d'Ivoire"
+msgid "Cote D'Ivoire"
 msgstr ""
 
 #: src/Tribe/View_Helpers.php:100
@@ -1949,54 +1841,28 @@ msgstr ""
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:38
+#: src/admin-views/tribe-options-help.php:37
 msgid "Recent Template Changes"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:58
+#: src/admin-views/tribe-options-help.php:57
 msgid "News and Tutorials"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:64
+#: src/admin-views/tribe-options-help.php:63
 msgid "More..."
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:11
-#: src/admin-views/tribe-options-licenses.php:16
-#: src/admin-views/tribe-options-licenses.php:63
-msgid " (opens in new window)"
+#: src/admin-views/tribe-options-licenses.php:13
+msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:15
-msgid "The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s."
-msgstr ""
-
-#: src/admin-views/tribe-options-licenses.php:22
-msgid "Each paid add-on has its own unique license key. Simply paste the key into its appropriate field below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message."
-msgstr ""
-
-#: src/admin-views/tribe-options-licenses.php:25
-msgid "If you're seeing a red message telling you that your key isn't valid or is out of installs, visit %1$s to manage your installs or renew / upgrade your license."
-msgstr ""
-
-#: src/admin-views/tribe-options-licenses.php:30
-msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
-msgstr ""
-
-#: src/admin-views/tribe-options-licenses.php:38
+#: src/admin-views/tribe-options-licenses.php:18
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:47
+#: src/admin-views/tribe-options-licenses.php:27
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
-msgstr ""
-
-#: src/admin-views/tribe-options-licenses.php:61
-msgid "The details of your plugin and settings are often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums%2$s. You can see exactly what information you'll be sharing by viewing the System Info section on the %3$sHelp Tab%2$s."
-msgstr ""
-
-#: src/admin-views/tribe-options-licenses.php:91
-msgid "Support"
 msgstr ""
 
 #: src/admin-views/tribe-options-network.php:15

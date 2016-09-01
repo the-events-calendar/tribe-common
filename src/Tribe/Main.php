@@ -94,6 +94,7 @@ class Tribe__Main {
 		Tribe__Debug::instance();
 		Tribe__Settings_Manager::instance();
 
+		require_once $this->plugin_path . 'src/functions/utils.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 
