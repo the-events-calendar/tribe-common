@@ -364,16 +364,27 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			?>
 			<script>
 				jQuery(document).ready(function ($) {
+					$( '.tribe-field-license_key' ).each( function() {
+						var $el = $( this );
+						var $field = $el.find( 'input' );
+
+						if ( '' === $.trim( $field.val() ) ) {
+							$el.find( '.license-test-results' ).hide();
+						}
+					} );
+
 					$('#tribe-field-<?php echo $this->pue_install_key ?>').change(function () {
 						<?php echo $this->pue_install_key ?>_validateKey();
 					});
 					<?php echo $this->pue_install_key ?>_validateKey();
 				});
+
 				function <?php echo $this->pue_install_key ?>_validateKey() {
 					var this_id       = '#tribe-field-<?php echo $this->pue_install_key ?>';
 					var $validity_msg = jQuery(this_id + ' .key-validity');
 
 					if (jQuery(this_id + ' input').val() != '') {
+						jQuery( this_id + ' .license-test-results' ).show();
 						jQuery(this_id + ' .tooltip').hide();
 						jQuery(this_id + ' .ajax-loading-license').show();
 						$validity_msg.hide();
