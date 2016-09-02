@@ -60,6 +60,10 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	protected function obtain_handle() {
 		$this->close_handle();
 
+		if ( ! file_exists( $this->log_file ) ) {
+			touch( $this->log_file );
+		}
+
 		if ( is_readable( $this->log_file ) ) {
 			$this->handle = fopen( $this->log_file, $this->context );
 		}
