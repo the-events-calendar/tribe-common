@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.2.1.1\n"
+"Project-Id-Version: Tribe Common 4.2.6\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2016-07-20 12:59:09+00:00\n"
+"POT-Creation-Date: 2016-08-30 19:51:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-07-20 12:59\n"
+"PO-Revision-Date: 2016-08-30 19:51\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -40,19 +40,19 @@ msgstr ""
 msgid " and "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:183
+#: src/Tribe/Admin/Help_Page.php:183 src/Tribe/App_Shop.php:109
 msgid "Events Calendar PRO"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:192
+#: src/Tribe/Admin/Help_Page.php:192 src/Tribe/App_Shop.php:142
 msgid "Eventbrite Tickets"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:200
+#: src/Tribe/Admin/Help_Page.php:200 src/Tribe/App_Shop.php:119
 msgid "Community Events"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:208
+#: src/Tribe/Admin/Help_Page.php:208 src/Tribe/App_Shop.php:152
 msgid "Facebook Events"
 msgstr ""
 
@@ -60,11 +60,11 @@ msgstr ""
 msgid "Events Filter Bar"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:224
+#: src/Tribe/Admin/Help_Page.php:224 src/Tribe/App_Shop.php:132
 msgid "Event Tickets Plus"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:233
+#: src/Tribe/Admin/Help_Page.php:233 src/Tribe/App_Shop.php:125
 msgid "Community Tickets"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 msgid "Latest Version:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:811
+#: src/Tribe/Admin/Help_Page.php:811 src/admin-views/app-shop.php:26
 msgid "Requires:"
 msgstr ""
 
@@ -153,9 +153,54 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:67 src/Tribe/App_Shop.php:68
-#: src/Tribe/App_Shop.php:91
+#: src/Tribe/App_Shop.php:48 src/Tribe/App_Shop.php:49
+#: src/Tribe/App_Shop.php:72
 msgid "Event Add-Ons"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:103
+msgid "Filter Bar"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:105
+msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:112
+msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:121
+msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:127
+msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:128
+msgctxt "Names of required plugins for Community Tickets"
+msgid "Event Tickets Plus and Community Events"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:135
+msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:145
+msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:154
+msgid "With the Facebook Events add-on, imported events are manually or automagically created as entries in The Events Calendar. Basic event data along with venue and organizer are populated appropriately. No more entering information in two places, or having to recreate someone else's listing for a public event you want to include on your WordPress calendar."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:158
+msgid "iCal Importer"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:160
+msgid "The iCal Importer helps you keep your events calendar full of interesting events! You can import events from any website that publishes an iCal (aka ICS) feed and add them to your listings. The recurring import feature lets you keep your calendar brimming without manual oversight (though you can review every imported event if you like). Add filtering by keyword or geographic region and you can be sure that the kinds of events you get are the kinds you want."
 msgstr ""
 
 #: src/Tribe/Credits.php:31
@@ -368,11 +413,15 @@ msgstr ""
 msgid "Information about recent template changes and potentially impacted template overrides is provided below."
 msgstr ""
 
-#: src/Tribe/Support.php:137
+#: src/Tribe/Support.php:159
+msgid "English"
+msgstr ""
+
+#: src/Tribe/Support.php:176 src/Tribe/Support.php:177
 msgid "Unknown or not set"
 msgstr ""
 
-#: src/Tribe/Support.php:144
+#: src/Tribe/Support.php:187
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr ""
 
@@ -1633,18 +1682,6 @@ msgstr ""
 
 #: src/admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
-msgstr ""
-
-#: src/admin-views/app-shop.php:23
-msgid "Get Add-Ons"
-msgstr ""
-
-#: src/admin-views/app-shop.php:54
-msgid "Version"
-msgstr ""
-
-#: src/admin-views/app-shop.php:57
-msgid "Last Update"
 msgstr ""
 
 #: src/admin-views/event-log.php:21

@@ -51,7 +51,13 @@ window.tribe_data_table = null;
 					$table.find( 'tbody .check-column input:checkbox' ).prop( 'checked', true );
 					$header_checkbox.prop( 'checked', true );
 					$footer_checkbox.prop( 'checked', true );
-					table.rows().select();
+					var $filtered = table.$( 'tr', { 'filter': 'applied' } );
+
+					if ( $filtered.length ) {
+						table.rows( { search: 'applied' } ).select();
+					} else {
+						table.rows().select();
+					}
 					return;
 				}
 

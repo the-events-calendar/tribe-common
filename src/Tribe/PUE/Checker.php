@@ -411,16 +411,27 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			?>
 			<script>
 				jQuery(document).ready(function ($) {
+					$( '.tribe-field-license_key' ).each( function() {
+						var $el = $( this );
+						var $field = $el.find( 'input' );
+
+						if ( '' === $.trim( $field.val() ) ) {
+							$el.find( '.license-test-results' ).hide();
+						}
+					} );
+
 					$('#tribe-field-<?php echo $this->pue_install_key ?>').change(function () {
 						<?php echo $this->pue_install_key ?>_validateKey();
 					});
 					<?php echo $this->pue_install_key ?>_validateKey();
 				});
+
 				function <?php echo $this->pue_install_key ?>_validateKey() {
 					var this_id       = '#tribe-field-<?php echo $this->pue_install_key ?>';
 					var $validity_msg = jQuery(this_id + ' .key-validity');
 
 					if (jQuery(this_id + ' input').val() != '') {
+						jQuery( this_id + ' .license-test-results' ).show();
 						jQuery(this_id + ' .tooltip').hide();
 						jQuery(this_id + ' .ajax-loading-license').show();
 						$validity_msg.hide();
@@ -509,10 +520,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
 			} elseif ( isset( $plugin_info->api_expired ) && $plugin_info->api_expired == 1 ) {
 				$response['message'] = $this->get_license_expired_message();
+				$response['api_expired'] = true;
 			} elseif ( isset( $plugin_info->api_upgrade ) && $plugin_info->api_upgrade == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
+				$response['api_upgrade'] = true;
 			} elseif ( isset( $plugin_info->api_invalid ) && $plugin_info->api_invalid == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
+				$response['api_invalid'] = true;
 			} else {
 				$api_secret_key = get_option( $this->pue_install_key );
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
@@ -521,7 +535,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					// Set the key
 					update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
 
-					$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key, it will expire on %s', 'tribe-common' ), $expiration );
+					$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ), $expiration );
 
 					//Set SysInfo Key on Tec.com After Successful Validation of License
 					$optin_key = get_option( 'tribe_systeminfo_optin' );

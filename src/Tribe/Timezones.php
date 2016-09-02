@@ -165,12 +165,16 @@ class Tribe__Timezones {
 			$local = self::get_timezone( $tzstring );
 			$utc   = self::get_timezone( 'UTC' );
 
-			$datetime = date_create( $datetime, $local )->setTimezone( $utc );
-			return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			// We can't use method chaining here (ie "date_create(...)->setTimezone(...)") due to PHP 5.2 compatibility concerns
+			$datetime = date_create( $datetime, $local );
+
+			if ( $datetime && false !== $datetime->setTimezone( $utc ) ) {
+				return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			}
 		}
-		catch ( Exception $e ) {
-			return $datetime;
-		}
+		catch ( Exception $e ) {}
+
+		return $datetime;
 	}
 
 	/**
@@ -193,12 +197,16 @@ class Tribe__Timezones {
 			$local = self::get_timezone( $tzstring );
 			$utc   = self::get_timezone( 'UTC' );
 
-			$datetime = date_create( $datetime, $utc )->setTimezone( $local );
-			return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			// We can't use method chaining here (ie "date_create(...)->setTimezone(...)") due to PHP 5.2 compatibility concerns
+			$datetime = date_create( $datetime, $utc );
+
+			if ( $datetime && false !== $datetime->setTimezone( $local ) ) {
+				return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			}
 		}
-		catch ( Exception $e ) {
-			return $datetime;
-		}
+		catch ( Exception $e ) {}
+
+		return $datetime;
 	}
 
 	/**
@@ -246,12 +254,16 @@ class Tribe__Timezones {
 			if ( $offset > 0 ) $offset = '+' . $offset;
 			$offset = $offset . ' minutes';
 
-			$datetime = date_create( $datetime )->modify( $offset );
-			return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			// We can't use method chaining here (ie "date_create(...)->modify(...)") due to PHP 5.2 compatibility concerns
+			$datetime = date_create( $datetime );
+
+			if ( $datetime && false !== $datetime->modify( $offset ) ) {
+				return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			}
 		}
-		catch ( Exception $e ) {
-			return $datetime;
-		}
+		catch ( Exception $e ) {}
+
+		return $datetime;
 	}
 
 	/**
@@ -267,7 +279,9 @@ class Tribe__Timezones {
 		try {
 			$local = self::get_timezone( $tzstring );
 			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
-			return date_create_from_format( 'Y-m-d H:i:s', $datetime, $local )->getTimestamp();
+
+			// We prefer format('U') to getTimestamp() here due to our requirement for compatibility with PHP 5.2
+			return date_create_from_format( 'Y-m-d H:i:s', $datetime, $local )->format( 'U' );
 		}
 		catch( Exception $e ) {
 			return $unix_timestamp;

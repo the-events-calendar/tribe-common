@@ -43,11 +43,11 @@ class Tribe__Templates {
 			return $fallback;
 		}
 		foreach ( $stylesheets as $filename ) {
-			if ( file_exists( STYLESHEETPATH . '/' . $filename ) ) {
+			if ( file_exists( get_stylesheet_directory() . '/' . $filename ) ) {
 				$located = trailingslashit( get_stylesheet_directory_uri() ) . $filename;
 				break;
 			} else {
-				if ( file_exists( TEMPLATEPATH . '/' . $filename ) ) {
+				if ( file_exists( get_template_directory() . '/' . $filename ) ) {
 					$located = trailingslashit( get_template_directory_uri() ) . $filename;
 					break;
 				}
