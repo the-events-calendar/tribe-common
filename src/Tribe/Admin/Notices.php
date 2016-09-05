@@ -137,10 +137,6 @@ class Tribe__Admin__Notices {
 	 * @return boolean|string
 	 */
 	public function render( $slug, $content = null, $return = false ) {
-		if ( ! $this->exists( $slug ) ) {
-			return false;
-		}
-
 		$notice = $this->get( $slug );
 
 		$classes = array( 'tribe-dismiss-notice', 'notice' );
@@ -169,10 +165,6 @@ class Tribe__Admin__Notices {
 	 * @return boolean
 	 */
 	public function has_user_dimissed( $slug, $user_id = null ) {
-		if ( ! $this->exists( $slug ) ) {
-			return false;
-		}
-
 		if ( is_null( $user_id ) ) {
 			$user_id = get_current_user_id();
 		}
@@ -220,10 +212,6 @@ class Tribe__Admin__Notices {
 	 * @return boolean
 	 */
 	public function undismiss( $slug, $user_id = null ) {
-		if ( ! $this->exists( $slug ) ) {
-			return false;
-		}
-
 		if ( is_null( $user_id ) ) {
 			$user_id = get_current_user_id();
 		}
@@ -234,6 +222,30 @@ class Tribe__Admin__Notices {
 		}
 
 		return delete_user_meta( $user_id, self::$meta_key, $slug );
+	}
+
+	/**
+	 * Undismisses the specified notice for all users.
+	 *
+	 * @param string $slug
+	 *
+	 * @return int
+	 */
+	public function undismiss_for_all( $slug ) {
+		$user_query = new WP_User_Query( array(
+			'meta_key'   => self::$meta_key,
+			'meta_value' => $slug,
+		) );
+
+		$affected = 0;
+
+		foreach ( $user_query->get_results() as $user ) {
+			if ( $this->undismiss( $slug, $user->ID ) ) {
+				$affected++;
+			}
+		}
+
+		return $affected;
 	}
 
 	/**
