@@ -856,29 +856,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			return Tribe__PUE__Utility::from_plugin_info( $plugin_info );
 		}
 
-
-		/**
-		 * Display the upgrade message in the plugin list under the plugin.
-		 *
-		 * @param $plugin_data
-		 */
-		public function in_plugin_update_message( $plugin_data ) {
-			$plugin_info = $this->plugin_info;
-
-			//only display messages if there is a new version of the plugin.
-			if ( is_object( $plugin_info ) && version_compare( $plugin_info->version, $this->get_installed_version(), '>' ) ) {
-				if ( $plugin_info->api_invalid ) {
-					$msg = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $plugin_info->api_inline_invalid_message );
-					$msg = str_replace( '%plugin_slug%', $this->get_slug(), $msg );
-					$msg = str_replace( '%update_url%', $this->get_pue_update_url(), $msg );
-					$msg = str_replace( '%version%', $plugin_info->version, $msg );
-					$msg = str_replace( '%changelog%', '<a class="thickbox" title="' . $this->get_plugin_name() . '" href="plugin-install.php?tab=plugin-information&plugin=' . $this->get_slug() . '&TB_iframe=true&width=640&height=808">what\'s new</a>', $msg );
-					echo '</tr><tr class="plugin-update-tr"><td colspan="3" class="plugin-update"><div class="update-message">' . $msg . '</div></td>';
-				}
-			}
-		}
-
-
 		/**
 		 * Display a changelog when the api key is missing.
 		 */
@@ -966,7 +943,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			$this->update_option( $this->pue_option_name, $state );
-			add_action( 'after_plugin_row_' . $this->get_plugin_file(), array( &$this, 'in_plugin_update_message' ) );
 
 			return $updates;
 		}
