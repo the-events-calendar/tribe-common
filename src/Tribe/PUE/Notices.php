@@ -5,12 +5,12 @@
  * @internal
  */
 class Tribe__PUE__Notices {
-	const MISSING_KEY = 'missing_key';
 	const INVALID_KEY = 'invalid_key';
 	const UPGRADE_KEY = 'upgrade_key';
 	const EXPIRED_KEY = 'expired_key';
-	const TRANSIENT   = 'tribe_pue_key_notices';
+	const STORE_KEY   = 'tribe_pue_key_notices';
 
+	protected $saved_notices = array();
 	protected $notices = array();
 
 	/**
@@ -19,6 +19,7 @@ class Tribe__PUE__Notices {
 	public function __construct() {
 		$this->populate();
 		add_action( 'current_screen', array( $this, 'setup_notices' ) );
+		add_action( 'tribe_pue_notices_save_notices', array( $this, 'maybe_undismiss_notices' ) );
 	}
 
 	/**
@@ -26,13 +27,13 @@ class Tribe__PUE__Notices {
 	 * groups.
 	 */
 	protected function populate() {
-		$saved_notices = (array) get_transient( self::TRANSIENT );
+		$this->saved_notices = (array) get_option( self::STORE_KEY, array() );
 
-		if ( empty( $saved_notices ) ) {
+		if ( empty( $this->saved_notices ) ) {
 			return;
 		}
 
-		$this->notices = array_merge_recursive( $this->notices, $saved_notices );
+		$this->notices = array_merge_recursive( $this->notices, $this->saved_notices );
 
 		// Cleanup
 		foreach ( $this->notices as $key => &$plugin_lists ) {
@@ -41,9 +42,6 @@ class Tribe__PUE__Notices {
 				unset( $this->notices[ $key ] );
 				continue;
 			}
-
-			// Remove any duplicates
-			$plugin_lists = array_unique( $plugin_lists );
 		}
 	}
 
@@ -51,7 +49,41 @@ class Tribe__PUE__Notices {
 	 * Saves any license key notices already added.
 	 */
 	public function save_notices() {
-		set_transient( self::TRANSIENT, $this->notices );
+		update_option( self::STORE_KEY, $this->notices );
+
+		/**
+		 * Fires after PUE license key notices have been saved.
+		 *
+		 * @param array $current_notices
+		 * @param array $previously_saved_notices
+		 */
+		do_action( 'tribe_pue_notices_save_notices', $this->notices, $this->saved_notices );
+	}
+
+	/**
+	 * Undismisses license key notifications where appropriate.
+	 *
+	 * The idea is that if an invalid key is detected for one or more plugins, we show a notification
+	 * until a user dismisses it. That user will not then see the notification again unless or until
+	 * an additional plugin name is added to the invalid key list.
+	 *
+	 * Example:
+	 *
+	 *     - Notification listing "Eventbrite" and "Pro" keys as invalid shows
+	 *     - User X dismisses the notification
+	 *     - The "Pro" license is fixed/corrected - notification remains in a "dismissed" status for User X
+	 *     - "Filter Bar" is added to the list of invalid keys
+	 *     - The invalid key notification is undismissed, to make all users (including User X) aware of
+	 *       the problem re Filter Bar
+	 */
+	public function maybe_undismiss_notices() {
+		foreach ( $this->notices as $notice_type => $plugin_list ) {
+			$new_plugins = array_diff_key( $this->notices[ $notice_type ], $this->saved_notices[ $notice_type ] );
+
+			if ( ! empty( $new_plugins ) ) {
+				Tribe__Admin__Notices::instance()->undismiss_for_all( 'pue_key-' . $notice_type );
+			}
+		}
 	}
 
 	/**
@@ -64,12 +96,12 @@ class Tribe__PUE__Notices {
 	 * was already added to the MISSING_KEY group and is subsequently added to the
 	 * INVALID_KEY group, the previous entry (under MISSING_KEY) will be cleared.
 	 *
-	 * @param string $plugin_name
 	 * @param string $notice_type
+	 * @param string $plugin_name
 	 */
-	public function add_notice( $plugin_name, $notice_type ) {
+	public function add_notice( $notice_type, $plugin_name ) {
 		$this->clear_notices( $plugin_name, true );
-		$this->notices[ $notice_type ][] = $plugin_name;
+		$this->notices[ $notice_type ][ $plugin_name ] = true;
 		$this->save_notices();
 	}
 
@@ -88,9 +120,7 @@ class Tribe__PUE__Notices {
 	 */
 	public function clear_notices( $plugin_name, $defer_saving_change = false ) {
 		foreach ( $this->notices as $notice_type => &$list_of_plugins ) {
-			$list_of_plugins = array_flip( $list_of_plugins );
 			unset( $list_of_plugins[ $plugin_name ] );
-			$list_of_plugins = array_flip( $list_of_plugins );
 		}
 
 		if ( ! $defer_saving_change ) {
@@ -127,32 +157,23 @@ class Tribe__PUE__Notices {
 	}
 
 	/**
-	 * Generate a notice listing any plugins for which license keys have not yet been entered.
-	 */
-	public function render_missing_key() {
-		$prompt = sprintf( _n(
-				"It looks like you're using %s, but you haven't entered a license key. Add your license key so that you can always have access to our latest versions!",
-				"It looks like you're using %s, but you haven't entered any license keys. Add your license keys so that you can always have access to our latest versions!",
-				count( $this->notices[ self::MISSING_KEY ] ),
-				'tribe-common'
-			),
-			$this->get_formatted_plugin_names( self::MISSING_KEY )
-		);
-
-		$action_steps = $this->find_your_key_text();
-
-		$this->render_notice( 'pue_key-' . self::MISSING_KEY, "<p>$prompt</p> <p>$action_steps</p>" );
-	}
-
-	/**
 	 * Generate a notice listing any plugins for which license keys have been entered but
 	 * are invalid (in the sense of not matching PUE server records or having been revoked
 	 * rather than having expired which is handled separately).
+	 *
+	 * In the context of the plugin admin screen, will not render if the key-has-expired
+	 * notice is also scheduled to display.
 	 */
 	public function render_invalid_key() {
+		global $pagenow;
+
+		if ( 'plugins.php' === $pagenow && ! empty( $this->notices[ self::EXPIRED_KEY ] ) ) {
+			return;
+		}
+
 		$prompt = sprintf( _n(
-			"It looks like you're using %s, but the license key you supplied does not appear to be valid. Please review and fix so that you can always have access to our latest versions!",
-			"It looks like you're using %s, but the license keys you supplied do not appear to be valid. Please review and fix so that you can always have access to our latest versions!",
+			"It looks like you're using %s, but the license key you supplied does not appear to be valid or is missing. Please review and fix so that you can always have access to our latest versions!",
+			"It looks like you're using %s, but the license keys you supplied do not appear to be valid or are missing. Please review and fix so that you can always have access to our latest versions!",
 			count( $this->notices[ self::INVALID_KEY ] ),
 			'tribe-common'
 		),
@@ -161,13 +182,22 @@ class Tribe__PUE__Notices {
 
 		$action_steps = $this->find_your_key_text();
 
-		$this->render_notice( 'pue_key-' . self::EXPIRED_KEY, "<p>$prompt</p> <p>$action_steps</p>" );
+		$this->render_notice( 'pue_key-' . self::INVALID_KEY, "<p>$prompt</p> <p>$action_steps</p>" );
 	}
 
 	/**
 	 * Generate a notice listing any plugins for which license keys have expired.
+	 *
+	 * This notice should only appear at the top of the plugin admin screen and "trumps"
+	 * the missing/invalid key notice on that screen only.
 	 */
 	public function render_expired_key() {
+		global $pagenow;
+
+		if ( 'plugins.php' !== $pagenow ) {
+			return;
+		}
+
 		$prompt = sprintf( _n(
 				'There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s',
 				'Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s',
@@ -195,9 +225,8 @@ class Tribe__PUE__Notices {
 	 */
 	public function render_upgrade_key() {
 		$prompt = sprintf( _n(
-			'There is an update available for %1$s but your license key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one.',
-			'Updates are available for %1$s but your license keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones.',
-			count( $this->notices[ self::UPGRADE_KEY ] ),
+			'You have entered a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one.',
+			'You have entered license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones.',			count( $this->notices[ self::UPGRADE_KEY ] ),
 			'tribe-common'
 		),
 			$this->get_formatted_plugin_names( self::UPGRADE_KEY ),
@@ -267,13 +296,15 @@ class Tribe__PUE__Notices {
 			$html = __( 'Unknown Plugin(s)', 'tribe-common' );
 		}
 
+		$plugin_list = array_keys( $this->notices[ $group ] );
+
 		if ( 1 === $num_plugins ) {
-			$html = current( $this->notices[ $group ] );
+			$html = current( $plugin_list );
 		}
 
 		if ( 1 < $num_plugins ) {
-			$all_but_last = join( ', ', array_slice( $this->notices[ $group ], 0, count( $this->notices[ $group ] ) - 1 ) );
-			$last = current( array_slice( $this->notices[ $group ], count( $this->notices[ $group ] ) - 1, 1 ) );
+			$all_but_last = join( ', ', array_slice( $plugin_list, 0, count( $plugin_list ) - 1 ) );
+			$last = current( array_slice( $plugin_list, count( $plugin_list ) - 1, 1 ) );
 			$html = sprintf( _x( '%1$s and %2$s', 'formatted plugin list', 'tribe-common' ), $all_but_last, $last );
 		}
 

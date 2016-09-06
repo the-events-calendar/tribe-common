@@ -178,6 +178,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
+			add_action( 'admin_init', array( $this, 'detect_missing_key' ) );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -513,7 +514,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$queryArgs['active_sites']      = 1;
 			}
 
-			$plugin_info = $this->license_key_status( $queryArgs );
+			// This method is primarily used during when validating keys by ajax, before they are
+			// formally committed or saved by the user: for that reason we call request_info()
+			// rather than license_key_status() as at this stage invalid or missing keys should
+			// not result in admin notices being generated
+			$plugin_info = $this->request_info( $queryArgs );
 			$expiration = isset( $plugin_info->expiration ) ? $plugin_info->expiration : esc_html__( 'unknown date', 'tribe-common' );
 
 			if ( empty( $plugin_info ) ) {
@@ -666,21 +671,17 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return $plugin_info;
 			}
 
-			// Check for empty keys first of all (*must* happen before the api_invalid test)
-			if ( ! trim( $this->install_key ) ) {
-				$pue_notices->add_notice( $plugin_name, Tribe__PUE__Notices::MISSING_KEY );
-			}
 			// Check for expired keys
-			elseif ( ! empty( $plugin_info->api_expired ) ) {
-				$pue_notices->add_notice( $plugin_name, Tribe__PUE__Notices::EXPIRED_KEY );
+			if ( ! empty( $plugin_info->api_expired ) ) {
+				$pue_notices->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $plugin_name );
 			}
 			// Check for keys that are out of installs (*must* happen before the api_invalid test)
 			elseif ( ! empty( $plugin_info->api_upgrade ) ) {
-				$pue_notices->add_notice( $plugin_name, Tribe__PUE__Notices::UPGRADE_KEY );
+				$pue_notices->add_notice( Tribe__PUE__Notices::UPGRADE_KEY, $plugin_name );
 			}
 			// Check for invalid keys last of all (upgrades/empty keys will be flagged as invalid)
 			elseif ( ! empty( $plugin_info->api_invalid ) ) {
-				$pue_notices->add_notice( $plugin_name, Tribe__PUE__Notices::INVALID_KEY );
+				$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
 			}
 			// If none of the above were satisfied we can assume the key is valid
 			else {
@@ -688,6 +689,18 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return $plugin_info;
+		}
+
+		/**
+		 * If the license key has not been entered or has been cleared, we should trigger an appropriate
+		 * admin notice (INVALID_KEY).
+		 */
+		public function detect_missing_key() {
+			$plugin_name = empty( $this->plugin_name ) ? $this->get_plugin_name() : $this->plugin_name;
+
+			if ( empty( $this->install_key ) ) {
+				Tribe__Main::instance()->pue_notices()->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
+			}
 		}
 
 		/**
@@ -809,6 +822,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			if ( ! empty( $_POST['key'] ) ) {
 				$args['pu_install_key'] = $_POST['key'];
+			} elseif ( ! empty( $_POST[ $this->pue_install_key ] ) ) {
+				$args['pu_install_key'] = $_POST[ $this->pue_install_key ];
 			}
 
 			$this->plugin_info = $plugin_info = $this->license_key_status( $args );
@@ -943,6 +958,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					$updates = (object) array( 'response' => array() );
 				}
 				$updates->response[ $this->get_plugin_file() ] = $state->update->to_wp_format();
+
+				// If the key has expired we should register an appropriate admin notice
+				if ( $this->plugin_info->api_expired ) {
+					Tribe__Main::instance()->pue_notices()->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $this->plugin_name );
+				}
 			}
 
 			$this->update_option( $this->pue_option_name, $state );
