@@ -267,6 +267,7 @@ class Tribe__PUE__Notices {
 			'<a href="' . admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' ) . '">'
 		);
 	}
+
 	/**
 	 * Transforms the array referenced by group into a human readable,
 	 * comma delimited list.
