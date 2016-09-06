@@ -170,7 +170,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_license_fields', array( $this, 'do_license_key_fields' ) );
 			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
-
+			add_action( 'load-plugins.php', array( $this, 'remove_default_inline_update_msg' ), 50 );
 			add_action( 'update_option_' . $this->pue_install_key, array( $this, 'check_for_api_key_error' ), 10, 2 );
 			add_action( 'update_site_option_' . $this->pue_install_key, array( $this, 'check_for_api_key_error' ), 10, 2 );
 
@@ -1068,6 +1068,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return $keys;
+		}
+
+		/**
+		 * Prevent the default inline update-available messages from appearing, as we
+		 * have implemented our own.
+		 *
+		 * @see resources/js/pue-notices.js
+		 */
+		public function remove_default_inline_update_msg() {
+			remove_action( "after_plugin_row_{$this->plugin_file}", 'wp_plugin_update_row' );
 		}
 	}
 }
