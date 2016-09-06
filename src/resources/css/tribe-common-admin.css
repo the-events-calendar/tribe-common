@@ -929,26 +929,41 @@ a.tribe-rating-link {
 .wp-list-table.plugins .column-description .update-message {
 	color: #d54e21;
 }
-.tribe-notice-pue-validation {
+.api-check {
 	padding: 1em;
 }
-.tribe-notice-pue-validation:before,
-	.tribe-notice-pue-validation:after {
+.api-check:before,
+	.api-check:after {
 	content: '';
 	display: table;
 }
-.tribe-notice-pue-validation:after {
+.api-check:after {
 	clear: both;
 }
-.tribe-notice-pue-validation .tribe-spirit-animal {
+.api-check .tribe-spirit-animal {
 	float: right;
-	margin-left: 2em;
+	margin: 0 2em;
 }
-.tribe-notice-pue-validation a {
+.api-check p {
+	margin-bottom: 1em;
+}
+.api-check a {
 	text-decoration: none;
 }
-.tribe-notice-pue-validation a:hover {
+.api-check a:hover {
 	text-decoration: underline;
+}
+.api-check .plugin-list {
+	display: inline-block;
+	font-weight: 600;
+	margin: 0;
+	padding: 0;
+}
+.api-check .plugin-list span.plugin-invalid:after {
+	content: ', ';
+}
+.api-check .plugin-list span.plugin-invalid:last-of-type:after {
+	content: '';
 }
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
