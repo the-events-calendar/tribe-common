@@ -105,8 +105,13 @@
 			.on( {
 				click: function( e ) {
 					var data = $( this ).parents( selectors.bumpdown ).first().data( 'bumpdown' );
+
 					e.preventDefault();
 					e.stopPropagation();
+
+					if ( 'undefined' === typeof data ) {
+						return;
+					}
 
 					if ( 'undefined' === typeof data.$bumpdown ) {
 						return;
