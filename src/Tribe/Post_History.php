@@ -51,12 +51,12 @@ class Tribe__Post_History {
 		$datetime = current_time( 'mysql' );
 		$checksum = uniqid( substr( hash( 'md5', $datetime . $message . serialize( $data ) ), 0, 8 ) . '_' );
 
-		$log_entry = json_encode( array(
+		$log_entry = wp_slash( json_encode( array(
 			'datetime' => $datetime,
 			'message'  => $message,
 			'data'     => $data,
 			'checksum' => $checksum,
-		) );
+		) ) );
 
 		add_post_meta( $this->post_id, self::HISTORY_KEY, $log_entry );
 	}
