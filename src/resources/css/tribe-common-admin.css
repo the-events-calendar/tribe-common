@@ -942,9 +942,15 @@ a.tribe-rating-link {
 }
 .api-check .tribe-spirit-animal {
 	float: right;
-	margin: 0 2em;
+	margin-left: 3%;
+	width: 10%;
+}
+.api-check .notice-content {
+	float: left;
+	width: 85%;
 }
 .api-check p {
+	line-height: 1.7;
 	margin-bottom: 1em;
 }
 .api-check a {
@@ -954,7 +960,7 @@ a.tribe-rating-link {
 	text-decoration: underline;
 }
 .api-check .plugin-list {
-	display: inline-block;
+	display: inline;
 	font-weight: 600;
 	margin: 0;
 	padding: 0;

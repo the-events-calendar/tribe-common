@@ -246,12 +246,13 @@ class Tribe__PUE__Notices {
 	protected function render_notice( $slug, $inner_html ) {
 		$spirit_animal = esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' );
 
-		$html = "
-			<div class='api-check'>
-				<img class='tribe-spirit-animal' src='$spirit_animal' />
-				$inner_html
-			</div>
-		";
+		$html =
+			'<div class="api-check">
+				<div class="tribe-spirit-animal">
+					<img src="' . $spirit_animal . '"/>
+				</div>
+				<div class="notice-content">' . $inner_html . '</div>
+			</div>';
 
 		Tribe__Admin__Notices::instance()->render( $slug, $html );
 	}
