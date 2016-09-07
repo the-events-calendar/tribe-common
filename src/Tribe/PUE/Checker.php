@@ -578,7 +578,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * processes variable substitutions for server-side API message
+		 * Processes variable substitutions for server-side API message.
+		 *
+		 * @param Tribe__PUE__Plugin_Info $info
+		 *
+		 * @return string
 		 */
 		private function get_api_message( $info ) {
 			// this default message should never show, but is here as a fallback just in case.
@@ -589,14 +593,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				'</a>'
 			);
 
-			if ( ! empty( $info->api_invalid_message ) ) {
-				$message = wp_kses( $info->api_invalid_message, 'post' );
+			if ( ! empty( $info->api_inline_invalid_message ) ) {
+				$message = wp_kses( $info->api_inline_invalid_message, 'post' );
 			}
 
 			$message = str_replace( '%plugin_name%', $this->get_plugin_name(), $message );
 			$message = str_replace( '%plugin_slug%', $this->get_slug(), $message );
 			$message = str_replace( '%update_url%', $this->get_pue_update_url(), $message );
 			$message = str_replace( '%version%', $info->version, $message );
+			$message = str_replace( '%changelog%', '<a class="thickbox" title="' . $this->get_plugin_name() . '" href="plugin-install.php?tab=plugin-information&plugin=' . $this->get_slug() . '&TB_iframe=true&width=640&height=808">what\'s new</a>', $message );
 
 			return $message;
 		}
@@ -620,6 +625,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		/**
 		 * Displays a PUE message on the page if it is relevant
+		 *
+		 * @param string $page
 		 */
 		public function maybe_display_json_error_on_plugins_page( $page ) {
 			if ( 'plugins.php' !== $page ) {
@@ -634,7 +641,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$this->plugin_notice = array(
 				'slug' => $this->get_slug(),
-				'message' => $state->update->license_error,
+				'message_row_html' => "
+					<tr class='plugin-update-tr active'> <td colspan='3' class='plugin-update'>
+						<div class='update-message notice inline notice-warning notice-alt'>
+							{$state->update->license_error}
+						</div>
+					</td> </tr>
+				",
 			);
 
 			add_filter( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
