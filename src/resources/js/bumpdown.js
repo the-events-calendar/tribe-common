@@ -50,7 +50,7 @@
 					$( this ).removeData( 'is_hoverintent_queued' );
 
 					$bumpdown.find( '.tribe-bumpdown-close, .tribe-bumpdown-arrow' ).remove();
-					$bumpdown.slideUp( 'fast' );
+					$bumpdown.not( '.tribe-bumpdown-trigger' ).slideUp( 'fast' );
 
 					data.$trigger.removeClass( selectors.active.replace( '.', '' ) );
 				}
