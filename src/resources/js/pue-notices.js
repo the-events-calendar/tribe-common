@@ -1,31 +1,31 @@
-var tribe_pue_notices = tribe_pue_notices || {};
+var tribe_plugin_notices = tribe_plugin_notices || {};
 
+/**
+ * Appends license key notifications inline within the plugin table.
+ *
+ * This is done via JS because the options for achieving the same things
+ * server-side are currently limited.
+ */
 (function( $, my ) {
 	'use strict';
 
 	my.init = function() {
-		if ( 'undefined' === typeof tribe_plugin_notices ) {
-			return;
-		}
-
-		for ( var i in tribe_plugin_notices ) {
-			if ( ! tribe_plugin_notices.hasOwnProperty( i ) ) {
+		for ( var plugin_slug in tribe_plugin_notices ) {
+			if ( ! tribe_plugin_notices.hasOwnProperty( plugin_slug ) ) {
 				continue;
 			}
 
-			var $row = $( '<div class="update-message">' + tribe_plugin_notices[ i ].message + '</div>' );
-			var $active_plugin_row = $( 'tr[data-plugin$="' + i + '.php"].active' );
+			var $row = $( tribe_plugin_notices[ plugin_slug ].message_row_html );
+			var $active_plugin_row = $( 'tr[data-plugin$="' + plugin_slug + '.php"].active' );
 
-			// We remove the 'update' class to prevent formatting issues (normally WP would insert an inline
-			// message of its own, however this messaging replaces that and is styled differently)
-			$active_plugin_row.removeClass( 'update' );
-
-			// Insert our custom message
-			$active_plugin_row.find( '.plugin-version-author-uri' ).after( $row );
+			// Add the .update class to the plugin row and append our new row with the update message
+			$active_plugin_row.addClass( 'update' ).after( $row );
 		}
 	};
 
 	$( function() {
-		my.init();
+		if ( 'object' === typeof tribe_plugin_notices ) {
+			my.init();
+		}
 	});
-})( jQuery, tribe_pue_notices );
+})( jQuery, tribe_plugin_notices );

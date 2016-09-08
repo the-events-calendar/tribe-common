@@ -72,6 +72,8 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 				'api_expired',
 				'api_upgrade',
 				'api_invalid',
+				'api_invalid_message',
+				'api_inline_invalid_message',
 			);
 
 			foreach ( $copyFields as $field ) {
