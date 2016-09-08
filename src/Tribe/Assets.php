@@ -319,7 +319,11 @@ class Tribe__Assets {
 		$is_vendor = strpos( $asset->file, 'vendor/' ) !== false ? true : false;
 
 		// Setup the actual URL
-		$asset->url = $this->maybe_get_min_file( tribe_resource_url( $asset->file, false, ( $is_vendor ? '' : null ), $asset->origin ) );
+		if ( filter_var( $asset->file, FILTER_VALIDATE_URL ) ) {
+			$asset->url = $asset->file;
+		} else {
+			$asset->url = $this->maybe_get_min_file( tribe_resource_url( $asset->file, false, ( $is_vendor ? '' : null ), $asset->origin ) );
+		}
 
 		// If you are passing localize, you need `name` and `data`
 		if ( ! empty( $asset->localize ) && ( is_array( $asset->localize ) || is_object( $asset->localize ) ) ) {

@@ -929,26 +929,123 @@ a.tribe-rating-link {
 .wp-list-table.plugins .column-description .update-message {
 	color: #d54e21;
 }
-.tribe-notice-pue-validation {
+.api-check {
 	padding: 1em;
 }
-.tribe-notice-pue-validation:before,
-	.tribe-notice-pue-validation:after {
+.api-check:before,
+	.api-check:after {
 	content: '';
 	display: table;
 }
-.tribe-notice-pue-validation:after {
+.api-check:after {
 	clear: both;
 }
-.tribe-notice-pue-validation .tribe-spirit-animal {
-	float: right;
-	margin-left: 2em;
+.api-check:hover .tribe-spirit-animal {
+	-webkit-animation: flip 1s ease-in-out;
+	        animation: flip 1s ease-in-out
 }
-.tribe-notice-pue-validation a {
+.api-check .tribe-spirit-animal {
+	float: right;
+	margin-left: 3%;
+	width: 10%;
+}
+.api-check .notice-content {
+	float: left;
+	width: 85%;
+}
+.api-check p {
+	line-height: 1.7;
+	margin-bottom: 1em;
+}
+.api-check a {
 	text-decoration: none;
 }
-.tribe-notice-pue-validation a:hover {
+.api-check a:hover {
 	text-decoration: underline;
+}
+.api-check .plugin-list {
+	display: inline;
+	font-weight: 600;
+	margin: 0;
+	padding: 0;
+}
+.api-check .plugin-list span.plugin-invalid:after {
+	content: ', ';
+}
+.api-check .plugin-list span.plugin-invalid:last-of-type:after {
+	content: '';
+}
+@-webkit-keyframes flip {
+	from {
+		-webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
+		        transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
+		-webkit-animation-timing-function: ease-out;
+		        animation-timing-function: ease-out;
+	}
+
+	40% {
+		-webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+		        transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+		-webkit-animation-timing-function: ease-out;
+		        animation-timing-function: ease-out;
+	}
+
+	50% {
+		-webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+		        transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+		-webkit-animation-timing-function: ease-in;
+		        animation-timing-function: ease-in;
+	}
+
+	80% {
+		-webkit-transform: perspective(400px) scale3d(.95, .95, .95);
+		        transform: perspective(400px) scale3d(.95, .95, .95);
+		-webkit-animation-timing-function: ease-in;
+		        animation-timing-function: ease-in;
+	}
+
+	to {
+		-webkit-transform: perspective(400px);
+		        transform: perspective(400px);
+		-webkit-animation-timing-function: ease-in;
+		        animation-timing-function: ease-in;
+	}
+}
+@keyframes flip {
+	from {
+		-webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
+		        transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
+		-webkit-animation-timing-function: ease-out;
+		        animation-timing-function: ease-out;
+	}
+
+	40% {
+		-webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+		        transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+		-webkit-animation-timing-function: ease-out;
+		        animation-timing-function: ease-out;
+	}
+
+	50% {
+		-webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+		        transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+		-webkit-animation-timing-function: ease-in;
+		        animation-timing-function: ease-in;
+	}
+
+	80% {
+		-webkit-transform: perspective(400px) scale3d(.95, .95, .95);
+		        transform: perspective(400px) scale3d(.95, .95, .95);
+		-webkit-animation-timing-function: ease-in;
+		        animation-timing-function: ease-in;
+	}
+
+	to {
+		-webkit-transform: perspective(400px);
+		        transform: perspective(400px);
+		-webkit-animation-timing-function: ease-in;
+		        animation-timing-function: ease-in;
+	}
 }
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {

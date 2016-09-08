@@ -380,7 +380,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null, $pueadd = false ) {
 
 			$url   = $url ? $url : urlencode( str_replace( array( 'http://', 'https://' ), '', get_site_url() ) );
-			$pue   = new Tribe__PUE__Checker( 'http://tri.be/', 'events-calendar' );
+			$pue   = new Tribe__PUE__Checker( 'https://theeventscalendar.com/', 'events-calendar' );
 			$query = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url . $remove;
 			if ( $remove ) {
 				$query = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url . '?status=remove';
@@ -391,8 +391,12 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 			if ( ! $pueadd ) {
 				// make sure the response came back okay
-				if ( ! $response->success ) {
-					wp_send_json_error( $response->data );
+				if ( ! isset( $response->success ) ) {
+					//on error delete the key
+					delete_option( 'tribe_systeminfo_optin' );
+
+					//send error response
+					wp_send_json_error( $response );
 				}
 
 				wp_send_json_success( $response->data );

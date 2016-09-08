@@ -16,42 +16,91 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 	/**
 	 * A custom plugin update checker.
+	 *
 	 * @since  1.7
 	 */
 	class Tribe__PUE__Checker {
 
-		// The URL of the plugin's metadata file.
+		/**
+		 * The URL of the plugin's metadata file.
+		 *
+		 * @var string
+		 */
 		private $pue_update_url = '';
 
-		// Plugin filename relative to the plugins directory.
+		/**
+		 * Plugin filename relative to the plugins directory.
+		 *
+		 * @var string
+		 */
 		private $plugin_file = '';
 
-		// variable used to hold the plugin_name as set by the constructor.
+		/**
+		 * Used to hold the plugin_name as set by the constructor.
+		 *
+		 * @var string
+		 */
 		private $plugin_name = '';
 
-		// Plugin slug. (with .php extension)
+		/**
+		 * The plugin slug (without the .php extension)
+		 *
+		 * @var string
+		 */
+		protected $plugin_slug;
+
+		/**
+		 * Plugin slug. (with .php extension)
+		 *
+		 * @var string
+		 */
 		private $slug = '';
 
-		// used to hold the query variables for download checks;
+		/**
+		 * Used to hold the query variables for download checks
+		 *
+		 * @var array
+		 */
 		private $download_query = array();
 
-		// How often to check for updates (in hours).
+		/**
+		 * How often to check for updates (in hours).
+		 *
+		 * @var int
+		 */
 		public $check_period = 12;
 
-		// Where to store the update info.
+		/**
+		 * Where to store the update info.
+		 *
+		 * @var string
+		 */
 		public $pue_option_name = '';
 
-		// used to hold the user API.  If not set then nothing will work!
+		/**
+		 * used to hold the user API.  If not set then nothing will work!
+		 *
+		 * @var string
+		 */
 		public $api_secret_key = '';
 
-		// used to hold the install_key if set (included here for addons that will extend PUE to use install key checks)
+		/**
+		 * used to hold the install_key if set (included here for addons that will extend PUE to use install key checks)
+		 *
+		 * @var bool
+		 */
 		public $install_key = false;
 
-		// for setting the dismiss upgrade option (per plugin).
+		/**
+		 * For setting the dismiss upgrade option (per plugin).
+		 *
+		 * @var
+		 */
 		public $dismiss_upgrade;
 
 		/**
 		 * We'll customize this later so each plugin can have it's own install key!
+		 *
 		 * @var string
 		 */
 		public $pue_install_key;
@@ -69,10 +118,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		/**
 		 * Storing any `plugin_info` data that get's returned so we can display an admin notice.
+		 *
 		 * @var array|null
 		 */
 		public $plugin_info;
 
+		/**
+		 * Storing the `plugin_notice` message.
+		 *
+		 * @var string
+		 */
 		public $plugin_notice;
 
 		/**
@@ -89,13 +144,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @param string $plugin_file    fully qualified path to the main plugin file.
 		 */
 		public function __construct( $pue_update_url, $slug = '', $options = array(), $plugin_file = '' ) {
-
 			$this->set_slug( $slug );
 			$this->set_pue_update_url( $pue_update_url );
 			$this->set_plugin_file( $plugin_file );
 			$this->set_options( $options );
 			$this->hooks();
-
 		}
 
 		/**
@@ -117,20 +170,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_license_fields', array( $this, 'do_license_key_fields' ) );
 			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
-
+			add_action( 'load-plugins.php', array( $this, 'remove_default_inline_update_msg' ), 50 );
 			add_action( 'update_option_' . $this->pue_install_key, array( $this, 'check_for_api_key_error' ), 10, 2 );
+			add_action( 'update_site_option_' . $this->pue_install_key, array( $this, 'check_for_api_key_error' ), 10, 2 );
 
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
-
-			// Dashboard message "dismiss upgrade" link
-			add_action( 'wp_ajax_' . $this->dismiss_upgrade, array( $this, 'dashboard_dismiss_upgrade' ) );
-
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
-
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
-
-			tribe_notice( 'pue-validation', array( $this, 'display_license_error_message' ), 'dismiss=1&type=warning' );
+			add_action( 'admin_init', array( $this, 'detect_missing_key' ) );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -364,16 +412,27 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			?>
 			<script>
 				jQuery(document).ready(function ($) {
+					$( '.tribe-field-license_key' ).each( function() {
+						var $el = $( this );
+						var $field = $el.find( 'input' );
+
+						if ( '' === $.trim( $field.val() ) ) {
+							$el.find( '.license-test-results' ).hide();
+						}
+					} );
+
 					$('#tribe-field-<?php echo $this->pue_install_key ?>').change(function () {
 						<?php echo $this->pue_install_key ?>_validateKey();
 					});
 					<?php echo $this->pue_install_key ?>_validateKey();
 				});
+
 				function <?php echo $this->pue_install_key ?>_validateKey() {
 					var this_id       = '#tribe-field-<?php echo $this->pue_install_key ?>';
 					var $validity_msg = jQuery(this_id + ' .key-validity');
 
 					if (jQuery(this_id + ' input').val() != '') {
+						jQuery( this_id + ' .license-test-results' ).show();
 						jQuery(this_id + ' .tooltip').hide();
 						jQuery(this_id + ' .ajax-loading-license').show();
 						$validity_msg.hide();
@@ -455,6 +514,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$queryArgs['active_sites']      = 1;
 			}
 
+			// This method is primarily used during when validating keys by ajax, before they are
+			// formally committed or saved by the user: for that reason we call request_info()
+			// rather than license_key_status() as at this stage invalid or missing keys should
+			// not result in admin notices being generated
 			$plugin_info = $this->request_info( $queryArgs );
 			$expiration = isset( $plugin_info->expiration ) ? $plugin_info->expiration : esc_html__( 'unknown date', 'tribe-common' );
 
@@ -462,10 +525,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
 			} elseif ( isset( $plugin_info->api_expired ) && $plugin_info->api_expired == 1 ) {
 				$response['message'] = $this->get_license_expired_message();
+				$response['api_expired'] = true;
 			} elseif ( isset( $plugin_info->api_upgrade ) && $plugin_info->api_upgrade == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
+				$response['api_upgrade'] = true;
 			} elseif ( isset( $plugin_info->api_invalid ) && $plugin_info->api_invalid == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
+				$response['api_invalid'] = true;
 			} else {
 				$api_secret_key = get_option( $this->pue_install_key );
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
@@ -491,6 +557,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			return $response;
 		}
 
+		public function get_license_expired_message() {
+			return '<a href="http://m.tri.be/195y" target="_blank" class="button button-primary">' .
+				__( 'Renew Your License Now', 'tribe-common' ) .
+				'<span class="screen-reader-text">' .
+				__( ' (opens in a new window)', 'tribe-common' ) .
+				'</span></a>';
+		}
+
 		/**
 		 * Echo JSON results for key validation
 		 */
@@ -509,7 +583,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private function get_api_message( $info ) {
 			// this default message should never show, but is here as a fallback just in case.
 			$message = sprintf(
-				esc_html__( 'Sorry, there is a problem with your license key. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
+				esc_html__( 'There is an update for %s. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
+				$this->get_plugin_name(),
 				'<a href="https://theeventscalendar.com/license-keys/">',
 				'</a>'
 			);
@@ -518,7 +593,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$message = wp_kses( $info->api_invalid_message, 'post' );
 			}
 
-			$message = str_replace( '%plugin_name%', '<b>' . $this->get_plugin_name() . '</b>', $message );
+			$message = str_replace( '%plugin_name%', $this->get_plugin_name(), $message );
 			$message = str_replace( '%plugin_slug%', $this->get_slug(), $message );
 			$message = str_replace( '%update_url%', $this->get_pue_update_url(), $message );
 			$message = str_replace( '%version%', $info->version, $message );
@@ -526,51 +601,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			return $message;
 		}
 
-		/**
-		 * Displays an error notice if a premium plugin is activated and the license is expired
-		 *
-		 * @since 4.3
-		 *
-		 * @return bool|string
-		 */
-		public function display_license_error_message() {
+		private function get_api_update_message() {
 			$plugin_info = $this->plugin_info;
 
-			if ( ! current_user_can( 'install_plugins' ) ) {
+			if ( ! isset( $plugin_info->api_invalid_message ) ) {
 				return false;
 			}
 
-			if ( ! isset( $plugin_info->api_invalid ) ) {
-				return false;
-			}
+			$message = sprintf(
+				esc_html__( 'There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features.', 'tribe-common' ),
+				$this->get_plugin_name(),
+				'<a href="https://theeventscalendar.com/license-keys/">',
+				'</a>'
+			);
 
-			$expired_license_msg     = $this->get_api_message( $plugin_info );
-			$expired_license_message = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $expired_license_msg );
-
-			$html[] = '<img class="tribe-spirit-animal" src="' . esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' ) . '">';
-			$html[] = '<p>' . wp_kses( $expired_license_message, 'post' ) . '</p>';
-
-			if ( isset( $plugin_info->api_expired ) ) {
-				$html[] = '<p>' . $this->get_license_expired_message() . '</p>';
-			} else {
-				$license_tab = admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' );
-				$license_tab_link = sprintf( '<a href="' . $license_tab . '">%s</a>', esc_html__( 'Add your license key', 'tribe-common' ) );
-				$tec_link = '<a href="https://theeventscalendar.com" target="_blank">' . esc_html__( 'theeventscalendar.com', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
-				$link   = '<a href="http://m.tri.be/195d" target="_blank">' . esc_html__( 'license keys', 'tribe-common' ) . '<span class="screen-reader-text">' .  esc_html__( 'opens in a new window', 'tribe-common' ) . '</span></a>';
-				$html[] = '<p>' . sprintf( __( '%s so that you can always have access to the latest versions including bug fixes, security updates, and new features.', 'tribe-common' ), $license_tab_link ) . '</p>';
-				$html[] = '<p>' . sprintf( __( 'You can find your %1$s in your account on %2$s.', 'tribe-common' ), $link, $tec_link ) . '</p>';
-			}
-			return Tribe__Admin__Notices::instance()->render( 'pue-validation', implode( "\r\n", $html ) );
-		}
-
-		public function get_license_expired_message() {
-			$expired_message = '<a href="http://m.tri.be/195y" target="_blank" class="button button-primary">' .
-			__( 'Renew Your License Now', 'tribe-common' ) .
-			'<span class="screen-reader-text">' .
-			__( ' (opens in a new window)', 'tribe-common' ) .
-			'</span></a>';
-
-			return $expired_message;
+			return $message;
 		}
 
 		/**
@@ -591,6 +636,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				'slug' => $this->get_slug(),
 				'message' => $state->update->license_error,
 			);
+
 			add_filter( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
 		}
 
@@ -605,11 +651,71 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
+		 * Returns plugin/license key data based on the provided query arguments.
+		 *
+		 * Calling this method will also take care of setting up admin notices for any
+		 * keys that are invalid or have expired, etc.
+		 *
+		 * @see Tribe__PUE__Checker::request_info()
+		 *
+		 * @param $query_args
+		 *
+		 * @return Tribe__PUE__Plugin_Info|null
+		 */
+		public function license_key_status( $query_args ) {
+			$pue_notices = Tribe__Main::instance()->pue_notices();
+			$plugin_info = $this->request_info( $query_args );
+			$plugin_name = empty( $this->plugin_name ) ? $this->get_plugin_name() : $this->plugin_name;
+
+			if ( empty( $plugin_name ) ) {
+				return $plugin_info;
+			}
+
+			// Check for expired keys
+			if ( ! empty( $plugin_info->api_expired ) ) {
+				$pue_notices->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $plugin_name );
+			}
+			// Check for keys that are out of installs (*must* happen before the api_invalid test)
+			elseif ( ! empty( $plugin_info->api_upgrade ) ) {
+				$pue_notices->add_notice( Tribe__PUE__Notices::UPGRADE_KEY, $plugin_name );
+			}
+			// Check for invalid keys last of all (upgrades/empty keys will be flagged as invalid)
+			elseif ( ! empty( $plugin_info->api_invalid ) ) {
+				$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
+			}
+			// If none of the above were satisfied we can assume the key is valid
+			else {
+				$pue_notices->clear_notices( $plugin_name );
+			}
+
+			return $plugin_info;
+		}
+
+		/**
+		 * If the license key has not been entered or has been cleared, we should trigger an appropriate
+		 * admin notice (INVALID_KEY).
+		 */
+		public function detect_missing_key() {
+			$plugin_name = empty( $this->plugin_name ) ? $this->get_plugin_name() : $this->plugin_name;
+
+			if ( empty( $this->install_key ) ) {
+				Tribe__Main::instance()->pue_notices()->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
+			}
+		}
+
+		/**
 		 * Retrieve plugin info from the configured API endpoint.
+		 *
+		 * In general, this method should not be called directly and it is preferable to call
+		 * the license_key_status() method instead. That method returns the same result, but
+		 * also analyses each response to set up appropriate license key notifications in the
+		 * admin environment.
+		 *
+		 * @uses wp_remote_get()
+		 * @see Tribe__PUE__Checker::license_key_status()
 		 *
 		 * @param array $queryArgs Additional query arguments to append to the request. Optional.
 		 *
-		 * @uses wp_remote_get()
 		 * @return string $plugin_info
 		 */
 		public function request_info( $queryArgs = array() ) {
@@ -716,9 +822,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			if ( ! empty( $_POST['key'] ) ) {
 				$args['pu_install_key'] = $_POST['key'];
+			} elseif ( ! empty( $_POST[ $this->pue_install_key ] ) ) {
+				$args['pu_install_key'] = $_POST[ $this->pue_install_key ];
 			}
 
-			$this->plugin_info = $plugin_info = $this->request_info( $args );
+			$this->plugin_info = $plugin_info = $this->license_key_status( $args );
 
 			if ( null === $plugin_info ) {
 				return null;
@@ -726,10 +834,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// admin display for if the update check reveals that there is a new version but the API key isn't valid.
 			if ( isset( $plugin_info->api_invalid ) ) {
-				//we have json_error returned let's display a message
-				$this->json_error = $this->plugin_info;
-				add_action( 'admin_notices', array( &$this, 'maybe_display_json_error_on_plugins_page' ) );
-
 				$plugin_info = Tribe__PUE__Utility::from_plugin_info( $plugin_info );
 				$plugin_info->license_error = $this->get_api_message( $plugin_info );
 				return $plugin_info;
@@ -752,47 +856,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			return Tribe__PUE__Utility::from_plugin_info( $plugin_info );
 		}
 
-
-		/**
-		 * Display the upgrade message in the plugin list under the plugin.
-		 *
-		 * @param $plugin_data
-		 */
-		public function in_plugin_update_message( $plugin_data ) {
-			$plugin_info = $this->plugin_info;
-
-			//only display messages if there is a new version of the plugin.
-			if ( is_object( $plugin_info ) && version_compare( $plugin_info->version, $this->get_installed_version(), '>' ) ) {
-				if ( $plugin_info->api_invalid ) {
-					$msg = str_replace( '%plugin_name%', '<strong>' . $this->get_plugin_name() . '</strong>', $plugin_info->api_inline_invalid_message );
-					$msg = str_replace( '%plugin_slug%', $this->get_slug(), $msg );
-					$msg = str_replace( '%update_url%', $this->get_pue_update_url(), $msg );
-					$msg = str_replace( '%version%', $plugin_info->version, $msg );
-					$msg = str_replace( '%changelog%', '<a class="thickbox" title="' . $this->get_plugin_name() . '" href="plugin-install.php?tab=plugin-information&plugin=' . $this->get_slug() . '&TB_iframe=true&width=640&height=808">what\'s new</a>', $msg );
-					echo '</tr><tr class="plugin-update-tr"><td colspan="3" class="plugin-update"><div class="update-message">' . $msg . '</div></td>';
-				}
-			}
-		}
-
-
 		/**
 		 * Display a changelog when the api key is missing.
 		 */
 		public function display_changelog() {
 			//contents of changelog display page when api-key is invalid or missing.  It will ONLY show the changelog (hook into existing thickbox?)
-		}
-
-		/**
-		 * Update option to dismiss the upgrade notice.
-		 */
-		public function dashboard_dismiss_upgrade() {
-			$os_ary = $this->get_option( $this->dismiss_upgrade );
-			if ( ! is_array( $os_ary ) ) {
-				$os_ary = array();
-			}
-
-			$os_ary[] = $_POST['version'];
-			$this->update_option( $this->dismiss_upgrade, $os_ary );
 		}
 
 		/**
@@ -867,10 +935,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					$updates = (object) array( 'response' => array() );
 				}
 				$updates->response[ $this->get_plugin_file() ] = $state->update->to_wp_format();
+
+				// If the key has expired we should register an appropriate admin notice
+				if ( $this->plugin_info->api_expired ) {
+					Tribe__Main::instance()->pue_notices()->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $this->plugin_name );
+				}
 			}
 
 			$this->update_option( $this->pue_option_name, $state );
-			add_action( 'after_plugin_row_' . $this->get_plugin_file(), array( &$this, 'in_plugin_update_message' ) );
 
 			return $updates;
 		}
@@ -902,7 +974,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return $result;
 			}
 
-			$plugin_info = $this->request_info( array( 'pu_checking_for_updates' => '1' ) );
+			$plugin_info = $this->license_key_status( array( 'pu_checking_for_updates' => '1' ) );
 			if ( $plugin_info ) {
 				return $plugin_info->to_wp_format();
 			}
@@ -996,6 +1068,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return $keys;
+		}
+
+		/**
+		 * Prevent the default inline update-available messages from appearing, as we
+		 * have implemented our own.
+		 *
+		 * @see resources/js/pue-notices.js
+		 */
+		public function remove_default_inline_update_msg() {
+			remove_action( "after_plugin_row_{$this->plugin_file}", 'wp_plugin_update_row' );
 		}
 	}
 }

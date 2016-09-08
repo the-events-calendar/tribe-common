@@ -1,0 +1,15 @@
+# Codeception Test Suite Configuration
+
+# Suite for WordPress acceptance tests.
+# Perform tests using or simulating a browser.
+
+
+class_name: AcceptanceTester
+modules:
+    enabled:
+        - \Helper\Acceptance
+        - WPBrowser:
+            url: 'http://wp.local'
+            adminUsername: admin
+            adminPassword: password
+            adminPath: /wp-admin
