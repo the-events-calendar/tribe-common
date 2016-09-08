@@ -1090,12 +1090,25 @@ a.tribe-rating-link {
 		clear: both;
 	}
 
+	&:hover {
+		.tribe-spirit-animal {
+			animation: flip 1s ease-in-out
+		}
+	}
+
 	.tribe-spirit-animal {
 		float: right;
-		margin: 0 2em;
+		margin-left: 3%;
+		width: 10%;
+	}
+
+	.notice-content {
+		float: left;
+		width: 85%;
 	}
 
 	p {
+		line-height: 1.7;
 		margin-bottom: 1em;
 	}
 
@@ -1107,7 +1120,7 @@ a.tribe-rating-link {
 		}
 	}
 	.plugin-list {
-		display: inline-block;
+		display: inline;
 		font-weight: 600;
 		margin: 0;
 		padding: 0;
@@ -1125,5 +1138,32 @@ a.tribe-rating-link {
 				}
 			}
 		}
+	}
+}
+
+@keyframes flip {
+	from {
+		transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
+		animation-timing-function: ease-out;
+	}
+
+	40% {
+		transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+		animation-timing-function: ease-out;
+	}
+
+	50% {
+		transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+		animation-timing-function: ease-in;
+	}
+
+	80% {
+		transform: perspective(400px) scale3d(.95, .95, .95);
+		animation-timing-function: ease-in;
+	}
+
+	to {
+		transform: perspective(400px);
+		animation-timing-function: ease-in;
 	}
 }
