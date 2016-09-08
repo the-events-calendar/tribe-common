@@ -178,7 +178,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
-			add_action( 'admin_init', array( $this, 'detect_missing_key' ) );
+			add_action( 'admin_init', array( $this, 'general_notifications' ) );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -705,12 +705,17 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * If the license key has not been entered or has been cleared, we should trigger an appropriate
-		 * admin notice (INVALID_KEY).
+		 * Sets up and manages those license key notifications which don't depend on communicating with a remote
+		 * PUE server, etc.
 		 */
-		public function detect_missing_key() {
+		public function general_notifications() {
 			$plugin_name = empty( $this->plugin_name ) ? $this->get_plugin_name() : $this->plugin_name;
 
+			// Register our plugin name for use in messages (thus if we're deactivated, any previously
+			// added persistent messaging can be cleared)
+			Tribe__Main::instance()->pue_notices()->register_name( $plugin_name );
+
+			// Detect and setup notices for missing keys
 			if ( empty( $this->install_key ) ) {
 				Tribe__Main::instance()->pue_notices()->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
 			}

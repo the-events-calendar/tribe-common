@@ -10,6 +10,7 @@ class Tribe__PUE__Notices {
 	const EXPIRED_KEY = 'expired_key';
 	const STORE_KEY   = 'tribe_pue_key_notices';
 
+	protected $registered = array();
 	protected $saved_notices = array();
 	protected $notices = array();
 
@@ -20,6 +21,20 @@ class Tribe__PUE__Notices {
 		$this->populate();
 		add_action( 'current_screen', array( $this, 'setup_notices' ) );
 		add_action( 'tribe_pue_notices_save_notices', array( $this, 'maybe_undismiss_notices' ) );
+	}
+
+	/**
+	 * Registers a plugin name that should be used in license key notifications.
+	 *
+	 * If, on a given request, the name is not registered then the plugin name will not
+	 * feature in any notifications. The benefit is that if a plugin is suddenly removed,
+	 * it's name can be automatically dropped from any pre-registered persistent
+	 * notifications.
+	 *
+	 * @param string $plugin_name
+	 */
+	public function register_name( $plugin_name ) {
+		$this->registered[] = $plugin_name;
 	}
 
 	/**
@@ -225,10 +240,10 @@ class Tribe__PUE__Notices {
 	 */
 	public function render_upgrade_key() {
 		$prompt = sprintf( _n(
-			'You have entered a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one.',
-			'You have entered license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones.', count( $this->notices[ self::UPGRADE_KEY ] ),
-			'tribe-common'
-		),
+				'You have entered a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one.',
+				'You have entered license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones.', count( $this->notices[ self::UPGRADE_KEY ] ),
+				'tribe-common'
+			),
 			$this->get_formatted_plugin_names( self::UPGRADE_KEY ),
 			'<a href="http://m.tri.be/195d" target="_blank">',
 			'</a>'
@@ -294,10 +309,10 @@ class Tribe__PUE__Notices {
 		$num_plugins = count( $this->notices[ $group ] );
 
 		if ( ! $num_plugins ) {
-			$html = __( 'Unknown Plugin(s)', 'tribe-common' );
+			return '';
 		}
 
-		$plugin_list = array_keys( $this->notices[ $group ] );
+		$plugin_list = array_intersect( $this->registered, array_keys( $this->notices[ $group ] ) );
 
 		if ( 1 === $num_plugins ) {
 			$html = current( $plugin_list );
