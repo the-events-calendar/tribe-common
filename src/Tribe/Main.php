@@ -136,6 +136,8 @@ class Tribe__Main {
 				array( 'datatables-fixedheader', 'vendor/datatables/extensions/FixedHeader/js/dataTables.fixedHeader.js', array( 'jquery', 'datatables' ) ),
 				array( 'datatables-fixedheader-css', 'vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables.css' ),
 				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables', 'datatables-select' ) ),
+				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
+				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
 			)
 		);
 
@@ -145,6 +147,7 @@ class Tribe__Main {
 			array(
 				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style' ) ),
 				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
+				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
@@ -212,7 +215,7 @@ class Tribe__Main {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'Tribe__Assets', 'instance' ), 1 );
 
-		// Register for the assets to be availble everywhere
+		// Register for the assets to be available everywhere
 		add_action( 'init', array( $this, 'load_assets' ), 1 );
 		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'store_admin_notices' ) );
