@@ -8,11 +8,11 @@
  * @see: http://moderntribe.github.io/products-engineering/css/
  */
 
-
 /* = Bumpdown CSS
 =============================================*/
 .wrap .tribe-bumpdown,
-.tribe-bumpdown {
+.tribe-bumpdown,
+.tribe-bumpdown-cell.tribe-bumpdown {
 	background: #f1f1f1;
 	display: none;
 	margin: 16px 0;
