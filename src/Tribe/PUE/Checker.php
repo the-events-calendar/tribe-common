@@ -756,7 +756,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$queryArgs['wp_version'] = $wp_version;
 
 			//include domain and multisite stats
-			$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
+			$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $this->get_site_domain();
 
 			if ( is_multisite() ) {
 				$queryArgs['multisite']         = 1;
@@ -1096,6 +1096,26 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function remove_default_inline_update_msg() {
 			remove_action( "after_plugin_row_{$this->plugin_file}", 'wp_plugin_update_row' );
+		}
+
+		/**
+		 * Returns the domain of the single site installation
+		 *
+		 * Will try to read it from the $_SERVER['SERVER_NAME'] variable
+		 * and fall back on the one contained in the siteurl option.
+		 *
+		 * @return string
+		 */
+		protected function get_site_domain() {
+			if ( isset( $_SERVER['SERVER_NAME'] ) ) {
+				return $_SERVER['SERVER_NAME'];
+			}
+			$site_url = parse_url( get_option( 'siteurl' ) );
+			if ( ! $site_url || ! isset( $site_url['host'] ) ) {
+				return '';
+			} else {
+				return strtolower( $site_url['host'] );
+			}
 		}
 	}
 }
