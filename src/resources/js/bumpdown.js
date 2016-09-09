@@ -50,7 +50,7 @@
 					$( this ).removeData( 'is_hoverintent_queued' );
 
 					$bumpdown.find( '.tribe-bumpdown-close, .tribe-bumpdown-arrow' ).remove();
-					$bumpdown.slideUp( 'fast' );
+					$bumpdown.not( '.tribe-bumpdown-trigger' ).slideUp( 'fast' );
 
 					data.$trigger.removeClass( selectors.active.replace( '.', '' ) );
 				}
@@ -170,6 +170,9 @@
 			// We fetch from `[data-bumpdown]` attr the possible HTML for this Bumpdown
 			data.html = data.$trigger.data( 'bumpdown' );
 
+			// We fetch from `[data-bumpdown-class]` attr the possible class(es) for this Bumpdown
+			data.class = data.$trigger.data( 'bumpdown-class' );
+
 			// Flags about if this bumpdown is permanent, meaning it only closes when clicking on the close button or the trigger
 			data.is_permanent = data.$trigger.is( selectors.permanent );
 
@@ -186,7 +189,8 @@
 
 				if ( 'table' === data.type ) {
 					data.$bumpdown = $( '<td>' ).attr( { colspan: 2 } ).addClass( 'tribe-bumpdown-cell' ).html( data.html );
-					var $row = $( '<tr>' ).append( data.$bumpdown ).addClass( 'tribe-bumpdown-row' );
+					var classes = data.class ? 'tribe-bumpdown-row ' + data.class : 'tribe-bumpdown-row',
+						$row = $( '<tr>' ).append( data.$bumpdown ).addClass( classes );
 
 					data.$parent = data.$trigger.parents( 'tr' ).first();
 
