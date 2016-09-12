@@ -82,7 +82,7 @@ if (! class_exists( 'Tribe__Plugin_Dependencies' ) ) {
 				'path'    => $path,
 			);
 
-			$this->active_plugins[ 'class' ] = $plugin;
+			$this->active_plugins[ $main_class ] = $plugin;
 		}
 
 
