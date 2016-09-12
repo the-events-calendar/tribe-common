@@ -2,11 +2,11 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-if ( ! class_exists( 'Tribe__Plugins_List' ) ) {
+if ( ! class_exists( 'Tribe__Plugins' ) ) {
 	/**
 	 * A list of Tribe's major plugins. Useful when encouraging users to download one of these.
 	 */
-	class Tribe__Plugins_List {
+	class Tribe__Plugins {
 
 		/**
 		 * A list of tribe plugin's details in this format:

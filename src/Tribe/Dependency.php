@@ -53,7 +53,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		private function add_legacy_plugins() {
 			// Version 4.2 and under of the plugins do not register themselves here, so we'll register them
 
-			$tribe_plugins = new Tribe__Plugins_List();
+			$tribe_plugins = new Tribe__Plugins();
 
 			foreach ( $tribe_plugins->get_list() as $plugin ) {
 				if ( ! class_exists( $plugin['class'] ) ) {

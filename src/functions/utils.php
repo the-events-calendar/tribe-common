@@ -45,7 +45,7 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 
 			return true;
 		} elseif ( is_admin() ) {
-			$tribe_plugins = new Tribe__Plugins_List();
+			$tribe_plugins = new Tribe__Plugins();
 			$admin_notice  = new Tribe__Plugin_Download_Notice( $file_path );
 
 			foreach ( $classes_req as $class => $version ) {
