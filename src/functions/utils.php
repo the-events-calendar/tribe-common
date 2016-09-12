@@ -15,7 +15,7 @@ if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 		$merged = $array1;
 
 		foreach ( $array2 as $key => &$value ) {
-			if ( is_array( $value ) && isset ( $merged [ $key ] ) && is_array( $merged [ $key ] ) ) {
+			if ( is_array( $value ) && isset( $merged [ $key ] ) && is_array( $merged [ $key ] ) ) {
 				$merged [ $key ] = tribe_array_merge_recursive( $merged [ $key ], $value );
 			} else {
 				$merged [ $key ] = $value;
@@ -26,7 +26,7 @@ if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tribe_can_plugin_run' ) ) {
+if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	/**
 	 * Checks if this plugin has permission to run, if not it notifies the admin
 	 *
@@ -37,8 +37,8 @@ if ( ! function_exists( 'tribe_can_plugin_run' ) ) {
 	 *
 	 * @return bool Indicates if plugin should continue initialization
 	 */
-	function tribe_can_plugin_run( $file_path, $main_class, $version, $classes_req = array() ) {
-		$tribe_plugins = Tribe__Plugin_Dependencies::instance();
+	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array() ) {
+		$tribe_plugins = Tribe__Dependency::instance();
 
 		if ( $tribe_plugins->has_requisite_plugins( $classes_req ) ) {
 			$tribe_plugins->add_active_plugin( $main_class, $version, $file_path );
@@ -52,7 +52,6 @@ if ( ! function_exists( 'tribe_can_plugin_run' ) ) {
 				$plugin = $tribe_plugins->get_plugin_by_class( $class );
 				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'] );
 			}
-
 		}
 
 		return false;

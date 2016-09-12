@@ -1,6 +1,8 @@
-<?php defined( 'WPINC' ) or die;
+<?php
+// Don't load directly
+defined( 'WPINC' ) or die;
 
-if (! class_exists( 'Tribe__Plugins_List' ) ) {
+if ( ! class_exists( 'Tribe__Plugins_List' ) ) {
 	/**
 	 * A list of Tribe's major plugins. Useful when encouraging users to download one of these.
 	 */

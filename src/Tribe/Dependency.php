@@ -1,37 +1,44 @@
-<?php defined( 'WPINC' ) or die;
+<?php
+// Don't load directly
+defined( 'WPINC' ) or die;
 
-if (! class_exists( 'Tribe__Plugin_Dependencies' ) ) {
+if ( ! class_exists( 'Tribe__Dependency' ) ) {
 	/**
 	 * Tracks which tribe plugins are currently activated
 	 */
-	class Tribe__Plugin_Dependencies {
+	class Tribe__Dependency {
 
 		/**
 		 * An multidimensional array of active tribe plugins in the following format
 		 *
 		 * array(
 		 *  'class'   => 'main class name',
-		 *  'version' => 'version num',
-		 *  'path'    => 'Path to the main plugin/bootstrap file'
+		 *  'version' => 'version num', (optional)
+		 *  'path'    => 'Path to the main plugin/bootstrap file' (optional)
 		 * )
 		 */
 		protected $active_plugins = array();
 
-		protected static $instance;
+		/**
+		 * Static Singleton Holder
+		 *
+		 * @var self
+		 */
+		private static $instance;
+
 
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @return Tribe__Plugin_Dependencies
+		 * @return self
 		 */
 		public static function instance() {
-			if ( ! isset( self::$instance ) ) {
-				$className      = __CLASS__;
-				self::$instance = new $className;
+			if ( ! self::$instance ) {
+				self::$instance = new self;
 			}
-
 			return self::$instance;
 		}
+
 
 		public function __construct() {
 			$this->add_legacy_plugins();
@@ -40,19 +47,22 @@ if (! class_exists( 'Tribe__Plugin_Dependencies' ) ) {
 
 		/**
 		 * Registers older plugins that did not use this class
+		 *
+		 * @TODO Consider removing this in 5.0
 		 */
-		private function add_legacy_plugins () {
+		private function add_legacy_plugins() {
 			// Version 4.2 and under of the plugins do not register themselves here, so we'll register them
-			// @TODO Consider removing this in 5.0
 
 			$tribe_plugins = new Tribe__Plugins_List();
 
-			foreach( $tribe_plugins->get_list() as $plugin ) {
-				if ( ! class_exists( $plugin[ 'class' ] ) ) continue;
+			foreach ( $tribe_plugins->get_list() as $plugin ) {
+				if ( ! class_exists( $plugin['class'] ) ) {
+					continue;
+				}
 
-				$version = constant( $plugin[ 'class' ] . '::VERSION' );
+				$version = constant( $plugin['class'] . '::VERSION' );
 
-				$this->add_active_plugin( $plugin[ 'class' ], $version );
+				$this->add_active_plugin( $plugin['class'], $version );
 			}
 		}
 
@@ -82,7 +92,7 @@ if (! class_exists( 'Tribe__Plugin_Dependencies' ) ) {
 				'path'    => $path,
 			);
 
-			$this->active_plugins[ 'class' ] = $plugin;
+			$this->active_plugins[ $main_class ] = $plugin;
 		}
 
 
@@ -127,7 +137,7 @@ if (! class_exists( 'Tribe__Plugin_Dependencies' ) ) {
 		public function get_plugin_version( $main_class ) {
 			$plugin = $this->get_plugin_by_class( $main_class );
 
-			return ( isset( $plugin[ 'version' ] ) ? $plugin[ 'version' ] : null );
+			return ( isset( $plugin['version'] ) ? $plugin['version'] : null );
 		}
 
 
@@ -163,16 +173,21 @@ if (! class_exists( 'Tribe__Plugin_Dependencies' ) ) {
 		/**
 		 * Checks if each plugin is active and exceeds the specified version number
 		 *
-		 * @param array $plugins_required
+		 * @param array $plugins_required Each item is a 'class_name' => 'min version' pair. Min ver can be null.
 		 *
 		 * @return bool
 		 */
 		public function has_requisite_plugins( $plugins_required = array() ) {
 
-			foreach( $plugins_required as $class => $version ) {
+			foreach ( $plugins_required as $class => $version ) {
 				// Return false if the plugin is not set or is a lesser version
-				if( ! $this->is_plugin_active( $class ) ) return false;
-				if( $version !== null && ! $this->is_plugin_version( $class, $version ) ) return false;
+				if ( ! $this->is_plugin_active( $class ) ) {
+					return false;
+				}
+
+				if ( null !== $version && ! $this->is_plugin_version( $class, $version ) ) {
+					return false;
+				}
 			}
 
 			return true;
