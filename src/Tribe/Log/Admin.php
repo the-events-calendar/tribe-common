@@ -171,8 +171,10 @@ class Tribe__Log__Admin {
 	protected function get_log_entries( $log = null ) {
 		if ( $logger = $this->current_logger() ) {
 			$logger->use_log( $log );
-			return $logger->retrieve();
+			return (array) $logger->retrieve();
 		}
+
+		return array();
 	}
 
 	/**
