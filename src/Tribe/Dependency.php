@@ -164,10 +164,17 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool
 		 */
 		public function is_plugin_version( $main_class, $version, $compare = '>=' ) {
-			return (
-				$this->is_plugin_active( $main_class ) &&
-				version_compare( $this->get_plugin_version( $main_class ), $version, $compare )
-			);
+
+			if ( ! $this->is_plugin_active( $main_class ) ) {
+				return false;
+			} elseif ( version_compare( $this->get_plugin_version( $main_class ), $version, $compare ) ) {
+				return true;
+			} elseif ( $this->get_plugin_version( $main_class ) === null ) {
+				// If the plugin version is not set default to assuming it's a compatible version
+				return true;
+			}
+
+			return false;
 		}
 
 
