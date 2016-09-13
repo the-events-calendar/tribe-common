@@ -60,7 +60,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 					continue;
 				}
 
-				$version = constant( $plugin['class'] . '::VERSION' );
+				$ver_const = $plugin['class'] . '::VERSION';
+				$version = defined( $ver_const ) ? constant( $ver_const ) : null;
 
 				$this->add_active_plugin( $plugin['class'], $version );
 			}
