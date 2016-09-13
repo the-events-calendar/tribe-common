@@ -1059,6 +1059,7 @@ a.tribe-rating-link {
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#325f81', endColorstr='#3d87c0',GradientType=1 );
 		border-left: 4px solid #eee;
 		bottom: 0;
+		display: none;
 		padding: 1rem;
 		position: absolute;
 		right: 0;
@@ -1079,10 +1080,17 @@ a.tribe-rating-link {
 			max-width: 96%;
 			vertical-align: middle;
 		}
+
+		@media screen and (min-width: 500px) {
+			display: block;
+		}
 	}
 
 	.notice-content {
-		margin-right: 180px;
+
+		@media screen and (min-width: 500px) {
+			margin-right: 180px;
+		}
 	}
 
 	p {
@@ -1116,32 +1124,5 @@ a.tribe-rating-link {
 				}
 			}
 		}
-	}
-}
-
-@keyframes flip {
-	from {
-		transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
-		animation-timing-function: ease-out;
-	}
-
-	40% {
-		transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
-		animation-timing-function: ease-out;
-	}
-
-	50% {
-		transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
-		animation-timing-function: ease-in;
-	}
-
-	80% {
-		transform: perspective(400px) scale3d(.95, .95, .95);
-		animation-timing-function: ease-in;
-	}
-
-	to {
-		transform: perspective(400px);
-		animation-timing-function: ease-in;
 	}
 }

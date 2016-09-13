@@ -905,6 +905,7 @@ a.tribe-rating-link {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#325f81', endColorstr='#3d87c0',GradientType=1 );
 	border-left: 4px solid #eee;
 	bottom: 0;
+	display: none;
 	padding: 16px;
 	padding: 1rem;
 	position: absolute;
@@ -924,9 +925,6 @@ a.tribe-rating-link {
 	max-height: 100%;
 	max-width: 96%;
 	vertical-align: middle;
-}
-.api-check .notice-content {
-	margin-right: 180px;
 }
 .api-check p {
 	line-height: 1.7;
@@ -949,78 +947,6 @@ a.tribe-rating-link {
 }
 .api-check .plugin-list span.plugin-invalid:last-of-type:after {
 	content: '';
-}
-@-webkit-keyframes flip {
-	from {
-		-webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
-		        transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
-		-webkit-animation-timing-function: ease-out;
-		        animation-timing-function: ease-out;
-	}
-
-	40% {
-		-webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
-		        transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
-		-webkit-animation-timing-function: ease-out;
-		        animation-timing-function: ease-out;
-	}
-
-	50% {
-		-webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
-		        transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
-		-webkit-animation-timing-function: ease-in;
-		        animation-timing-function: ease-in;
-	}
-
-	80% {
-		-webkit-transform: perspective(400px) scale3d(.95, .95, .95);
-		        transform: perspective(400px) scale3d(.95, .95, .95);
-		-webkit-animation-timing-function: ease-in;
-		        animation-timing-function: ease-in;
-	}
-
-	to {
-		-webkit-transform: perspective(400px);
-		        transform: perspective(400px);
-		-webkit-animation-timing-function: ease-in;
-		        animation-timing-function: ease-in;
-	}
-}
-@keyframes flip {
-	from {
-		-webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
-		        transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
-		-webkit-animation-timing-function: ease-out;
-		        animation-timing-function: ease-out;
-	}
-
-	40% {
-		-webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
-		        transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
-		-webkit-animation-timing-function: ease-out;
-		        animation-timing-function: ease-out;
-	}
-
-	50% {
-		-webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
-		        transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
-		-webkit-animation-timing-function: ease-in;
-		        animation-timing-function: ease-in;
-	}
-
-	80% {
-		-webkit-transform: perspective(400px) scale3d(.95, .95, .95);
-		        transform: perspective(400px) scale3d(.95, .95, .95);
-		-webkit-animation-timing-function: ease-in;
-		        animation-timing-function: ease-in;
-	}
-
-	to {
-		-webkit-transform: perspective(400px);
-		        transform: perspective(400px);
-		-webkit-animation-timing-function: ease-in;
-		        animation-timing-function: ease-in;
-	}
 }
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
@@ -1050,5 +976,13 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 	}
 	.events-cal .tablenav.top {
 		display: none;
+	}
+}
+@media screen and (min-width: 500px) {
+	.api-check .tribe-spirit-animal {
+		display: block;
+	}
+	.api-check .notice-content {
+		margin-right: 180px;
 	}
 }
