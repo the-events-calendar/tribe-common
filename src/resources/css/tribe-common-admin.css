@@ -905,6 +905,7 @@ a.tribe-rating-link {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#325f81', endColorstr='#3d87c0',GradientType=1 );
 	border-left: 4px solid #eee;
 	bottom: 0;
+	display: none;
 	padding: 16px;
 	padding: 1rem;
 	position: absolute;
@@ -924,9 +925,6 @@ a.tribe-rating-link {
 	max-height: 100%;
 	max-width: 96%;
 	vertical-align: middle;
-}
-.api-check .notice-content {
-	margin-right: 180px;
 }
 .api-check p {
 	line-height: 1.7;
@@ -1050,5 +1048,13 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 	}
 	.events-cal .tablenav.top {
 		display: none;
+	}
+}
+@media screen and (min-width: 500px) {
+	.api-check .tribe-spirit-animal {
+		display: block;
+	}
+	.api-check .notice-content {
+		margin-right: 180px;
 	}
 }

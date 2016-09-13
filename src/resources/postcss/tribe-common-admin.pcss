@@ -1059,6 +1059,7 @@ a.tribe-rating-link {
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#325f81', endColorstr='#3d87c0',GradientType=1 );
 		border-left: 4px solid #eee;
 		bottom: 0;
+		display: none;
 		padding: 1rem;
 		position: absolute;
 		right: 0;
@@ -1079,10 +1080,17 @@ a.tribe-rating-link {
 			max-width: 96%;
 			vertical-align: middle;
 		}
+
+		@media screen and (min-width: 500px) {
+			display: block;
+		}
 	}
 
 	.notice-content {
-		margin-right: 180px;
+
+		@media screen and (min-width: 500px) {
+			margin-right: 180px;
+		}
 	}
 
 	p {
