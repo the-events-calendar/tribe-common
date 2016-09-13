@@ -887,6 +887,9 @@ a.tribe-rating-link {
 .api-check {
 	padding: 1em;
 }
+.api-check + .notice-dismiss:hover:before {
+	color: #fff;
+}
 .api-check:before,
 	.api-check:after {
 	content: '';
@@ -895,18 +898,35 @@ a.tribe-rating-link {
 .api-check:after {
 	clear: both;
 }
-.api-check:hover .tribe-spirit-animal {
-	-webkit-animation: flip 1s ease-in-out;
-	        animation: flip 1s ease-in-out
-}
 .api-check .tribe-spirit-animal {
-	float: right;
-	margin-left: 3%;
-	width: 10%;
+	background: #325f81;
+	background: -webkit-linear-gradient(45deg, #325f81 0%,#3d87c0 100%);
+	background: linear-gradient(45deg, #325f81 0%,#3d87c0 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#325f81', endColorstr='#3d87c0',GradientType=1 );
+	border-left: 4px solid #eee;
+	bottom: 0;
+	padding: 16px;
+	padding: 1rem;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 180px;
+}
+.api-check .tribe-spirit-animal:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	width: 1%;
+	vertical-align: middle;
+}
+.api-check .tribe-spirit-animal img {
+	display: inline-block;
+	max-height: 100%;
+	max-width: 96%;
+	vertical-align: middle;
 }
 .api-check .notice-content {
-	float: left;
-	width: 85%;
+	margin-right: 180px;
 }
 .api-check p {
 	line-height: 1.7;
