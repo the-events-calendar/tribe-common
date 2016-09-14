@@ -64,6 +64,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private $download_query = array();
 
 		/**
+		 * The context in which this license key is used. May be 'component'
+		 * in the case of a downloadable set of files such as a plugin or
+		 * theme or else 'service' if the license key is used to utilize a
+		 * remote SaaS platform.
+		 *
+		 * @var string
+		 */
+		private $context = 'component';
+
+		/**
 		 * How often to check for updates (in hours).
 		 *
 		 * @var int
@@ -135,12 +145,17 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 * @param string $pue_update_url The URL of the plugin's metadata file.
 		 * @param string $slug           The plugin's 'slug'.
-		 * @param array  $options        Contains any options that need to be set in the class initialization for construct.  These are the keys:
+		 * @param array  $options {
+		 *        Contains any options that need to be set in the class initialization for construct.
 		 *
-		 * @key integer $check_period How often to check for updates (in hours). Defaults to checking every 12 hours. Set to 0 to disable automatic update checks.
-		 * @key string $pue_option_name Where to store book-keeping info about update checks. Defaults to 'external_updates-$slug'.
-		 * @key string $apikey used to authorize download updates from developer server
-		 *
+		 *        @type integer $check_period     How often to check for updates (in hours). Defaults to checking every
+		 *                                        12 hours. Set to 0 to disable automatic update checks.
+		 *        @type string  $pue_option_name  Where to store book-keeping info about update checks. Defaults to
+		 *                                        'external_updates-$slug'.
+		 *        @type string  $apikey           Used to authorize download updates from developer server
+		 *        @type string  $context          Defaults to 'component' which is expected for plugins (or themes).
+		 *                                        If set to 'service' it will not hook into WP update checks.
+		 * }
 		 * @param string $plugin_file    fully qualified path to the main plugin file.
 		 */
 		public function __construct( $pue_update_url, $slug = '', $options = array(), $plugin_file = '' ) {
@@ -161,8 +176,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_filter( 'plugins_api', array( $this, 'inject_info' ), 10, 3 );
 
 			// Check for updates when the WP updates are checked and inject our update if needed.
-			// Only add filter if the TRIBE_DISABLE_PUE constant is not set as true.
-			if ( ! defined( 'TRIBE_DISABLE_PUE' ) || TRIBE_DISABLE_PUE !== true ) {
+			// Only add filter if the TRIBE_DISABLE_PUE constant is not set as true and where
+			// the context is not 'service'
+			if ( ( ! defined( 'TRIBE_DISABLE_PUE' ) || TRIBE_DISABLE_PUE !== true ) && 'service' !== $this->context ) {
 				add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_for_updates' ) );
 			}
 
@@ -298,12 +314,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'apikey'          => '',
 					'installkey'      => false,
 					'check_period'    => 12,
+					'context'         => 'component',
 				)
 			);
 
 			$this->pue_option_name = $options['pue_option_name'];
 			$this->check_period    = (int) $options['check_period'];
 			$this->api_secret_key  = $options['apikey'];
+			$this->context         = $options['context'];
+
 			if ( isset( $options['installkey'] ) && $options['installkey'] ) {
 				$this->install_key = trim( $options['installkey'] );
 			} else {
@@ -969,9 +988,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Clears out the site external site option and re-checks the license key
 		 */
 		public function check_for_api_key_error( $old_value, $value ) {
-			delete_site_option( $this->pue_option_name );
-
-			$this->check_for_updates();
+			if ( 'service' !== $this->context ) {
+				delete_site_option( $this->pue_option_name );
+				$this->check_for_updates();
+			}
 		}
 
 		/**
