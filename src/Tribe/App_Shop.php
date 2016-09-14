@@ -88,6 +88,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * Renders the Shop App page
 		 */
 		public function do_menu_page() {
+			$main = Tribe__Main::instance();
 			$products = $this->get_all_products();
 			include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/app-shop.php';
 		}
