@@ -735,7 +735,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			Tribe__Main::instance()->pue_notices()->register_name( $plugin_name );
 
 			// Detect and setup notices for missing keys
-			if ( empty( $this->install_key ) ) {
+			if ( empty( $this->install_key ) && 'service' !== $this->context ) {
 				Tribe__Main::instance()->pue_notices()->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
 			}
 		}
