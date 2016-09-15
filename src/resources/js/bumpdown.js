@@ -21,8 +21,7 @@
 			},
 			methods = {
 				open: function( $bumpdown ) {
-					var data = $bumpdown.data( 'bumpdown' ),
-						arrow;
+					var data = $bumpdown.data( 'bumpdown' );
 
 					if ( $bumpdown.is( ':visible' ) ) {
 						return;
@@ -30,10 +29,10 @@
 
 					// Adds a Class to signal it's active
 					data.$trigger.addClass( selectors.active.replace( '.', '' ) );
-					arrow = data.$trigger.position().left - ( 'block' === data.type ? data.$parent.offset().left : 0 );
-
 					$bumpdown.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
-					$bumpdown.prepend( '<span class="tribe-bumpdown-arrow" style="left: ' + arrow + 'px;"></span>' );
+					$bumpdown.prepend( '<span class="tribe-bumpdown-arrow"></span>' );
+					methods.arrow( $bumpdown );
+
 					$bumpdown.data( 'preventClose', true );
 					$bumpdown.slideDown( 'fast', function() {
 						$bumpdown.data( 'preventClose', false );
@@ -53,8 +52,24 @@
 					$bumpdown.not( '.tribe-bumpdown-trigger' ).slideUp( 'fast' );
 
 					data.$trigger.removeClass( selectors.active.replace( '.', '' ) );
+				},
+				arrow: function( $bumpdown ) {
+					var data = $bumpdown.data( 'bumpdown' ),
+						arrow;
+
+					arrow = Math.ceil( data.$trigger.position().left - ( 'block' === data.type ? data.$parent.offset().left : 0 ) );
+
+					data.$bumpdown.find( '.tribe-bumpdown-arrow' ).css( 'left', arrow );
 				}
 			};
+
+		$( window ).on( {
+			'resize.bumpdown': function() {
+				$document.find( selectors.active ).each( function() {
+					methods.arrow( $( this ) );
+				} );
+			}
+		} );
 
 		$document
 			// Use hoverIntent to make sure we are not opening Bumpdown on a fast hover

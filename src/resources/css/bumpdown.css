@@ -17,7 +17,7 @@
 	display: none;
 	margin: 16px 0;
 	margin: 1rem 0;
-	padding: 10px 30px 10px 10px;
+	padding: 10px 35px 10px 10px;
 	font-size: 12px;
 	position: relative;
 }
@@ -55,4 +55,12 @@
 }
 .tribe-bumpdown-trigger .target {
 	color: #0074a2;
+}
+@media screen and (max-width: 782px) {
+	.wrap td.tribe-bumpdown {
+		padding-right: 35px;
+	}
+	.tribe-bumpdown-arrow {
+		margin-left: -15px;
+	}
 }
