@@ -19,7 +19,7 @@
 }
 .wrap .tribe-bumpdown .tribe-bumpdown-content, .tribe-bumpdown .tribe-bumpdown-content, .tribe-bumpdown-cell.tribe-bumpdown .tribe-bumpdown-content {
 	background: #f1f1f1;
-	padding: 10px 30px 10px 10px;
+	padding: 10px 35px 10px 10px;
 	font-size: 12px;
 	position: relative;
 }
@@ -60,4 +60,12 @@
 }
 .tribe-bumpdown-trigger .target {
 	color: #0074a2;
+}
+@media screen and (max-width: 782px) {
+	.wrap td.tribe-bumpdown {
+		padding-right: 35px;
+	}
+	.tribe-bumpdown-arrow {
+		margin-left: -15px;
+	}
 }
