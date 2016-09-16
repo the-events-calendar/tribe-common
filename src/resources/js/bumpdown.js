@@ -14,14 +14,17 @@
 					return '[data-trigger="' + ID + '"]';
 				},
 				bumpdown: '.tribe-bumpdown',
+				content: '.tribe-bumpdown-content',
 				trigger: '.tribe-bumpdown-trigger',
+				hover_trigger: '.tribe-bumpdown-trigger:not(.tribe-bumpdown-nohover)',
 				close: '.tribe-bumpdown-close',
 				permanent: '.tribe-bumpdown-permanent',
 				active: '.tribe-bumpdown-active'
 			},
 			methods = {
 				open: function( $bumpdown ) {
-					var data = $bumpdown.data( 'bumpdown' );
+					var data = $bumpdown.data( 'bumpdown' ),
+						width_rule = data.$trigger.data( 'width-rule' );
 
 					if ( $bumpdown.is( ':visible' ) ) {
 						return;
@@ -29,8 +32,36 @@
 
 					// Adds a Class to signal it's active
 					data.$trigger.addClass( selectors.active.replace( '.', '' ) );
-					$bumpdown.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
-					$bumpdown.prepend( '<span class="tribe-bumpdown-arrow"></span>' );
+
+					var $content = $bumpdown.find( selectors.content );
+
+					if ( 'string' === typeof width_rule && 'all-triggers' === width_rule ) {
+						var min_width = 600;
+						var trigger_position = 0;
+						$( selectors.trigger ).each( function() {
+							var $el = $( this );
+
+							// only attempt to align items with a width rule
+							if ( ! $el.data( 'width-rule' ) ) {
+								return;
+							}
+
+							var position = $el.position();
+
+							if ( position.left > trigger_position ) {
+								trigger_position = position.left;
+							}
+						} );
+
+						if ( trigger_position ) {
+							trigger_position = trigger_position > min_width ? trigger_position : min_width;
+
+							$content.css( 'max-width', trigger_position + 'px' );
+						}
+					}
+
+					$content.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
+					$content.prepend( '<span class="tribe-bumpdown-arrow"></span>' );
 					methods.arrow( $bumpdown );
 
 					$bumpdown.data( 'preventClose', true );
@@ -76,6 +107,7 @@
 			.hoverIntent( {
 				over: function() {
 					var data = $( this ).data( 'bumpdown' );
+
 					// Flags that it's open
 					data.$trigger.data( 'is_hoverintent_queued', false );
 
@@ -83,7 +115,7 @@
 					data.$bumpdown.trigger( 'open.bumpdown' );
 				},
 				out: function() {}, // Prevents Notice on JS
-				selector: selectors.trigger,
+				selector: selectors.hover_trigger,
 				interval: 200
 			} )
 
@@ -184,6 +216,7 @@
 
 			// We fetch from `[data-bumpdown]` attr the possible HTML for this Bumpdown
 			data.html = data.$trigger.data( 'bumpdown' );
+			data.html = '<div class="tribe-bumpdown-content">' + data.html + '</div>';
 
 			// We fetch from `[data-bumpdown-class]` attr the possible class(es) for this Bumpdown
 			data.class = data.$trigger.data( 'bumpdown-class' );
