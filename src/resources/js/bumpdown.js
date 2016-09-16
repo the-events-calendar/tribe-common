@@ -14,7 +14,9 @@
 					return '[data-trigger="' + ID + '"]';
 				},
 				bumpdown: '.tribe-bumpdown',
+				content: '.tribe-bumpdown-content',
 				trigger: '.tribe-bumpdown-trigger',
+				hover_trigger: '.tribe-bumpdown-trigger:not(.tribe-bumpdown-nohover)',
 				close: '.tribe-bumpdown-close',
 				permanent: '.tribe-bumpdown-permanent',
 				active: '.tribe-bumpdown-active'
@@ -22,6 +24,7 @@
 			methods = {
 				open: function( $bumpdown ) {
 					var data = $bumpdown.data( 'bumpdown' ),
+						width_rule = data.$trigger.data( 'width-rule' ),
 						arrow;
 
 					if ( $bumpdown.is( ':visible' ) ) {
@@ -32,8 +35,37 @@
 					data.$trigger.addClass( selectors.active.replace( '.', '' ) );
 					arrow = data.$trigger.position().left - ( 'block' === data.type ? data.$parent.offset().left : 0 );
 
-					$bumpdown.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
-					$bumpdown.prepend( '<span class="tribe-bumpdown-arrow" style="left: ' + arrow + 'px;"></span>' );
+					var $content = $bumpdown.find( selectors.content );
+
+					if ( 'undefined' !== typeof width_rule && width_rule ) {
+						if ( 'all-triggers' === width_rule ) {
+							var min_width = 600;
+							var trigger_position = 0;
+							$( selectors.trigger ).each( function() {
+								var $el = $( this );
+
+								// only attempt to align items with a width rule
+								if ( ! $el.data( 'width-rule' ) ) {
+									return;
+								}
+
+								var position = $el.position();
+
+								if ( position.left > trigger_position ) {
+									trigger_position = position.left;
+								}
+							} );
+
+							if ( trigger_position ) {
+								trigger_position = trigger_position > min_width ? trigger_position : min_width;
+
+								$content.css( 'max-width', trigger_position + 'px' );
+							}
+						}
+					}
+
+					$content.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
+					$content.prepend( '<span class="tribe-bumpdown-arrow" style="left: ' + arrow + 'px;"></span>' );
 					$bumpdown.data( 'preventClose', true );
 					$bumpdown.slideDown( 'fast', function() {
 						$bumpdown.data( 'preventClose', false );
@@ -61,6 +93,7 @@
 			.hoverIntent( {
 				over: function() {
 					var data = $( this ).data( 'bumpdown' );
+
 					// Flags that it's open
 					data.$trigger.data( 'is_hoverintent_queued', false );
 
@@ -68,7 +101,7 @@
 					data.$bumpdown.trigger( 'open.bumpdown' );
 				},
 				out: function() {}, // Prevents Notice on JS
-				selector: selectors.trigger,
+				selector: selectors.hover_trigger,
 				interval: 200
 			} )
 
@@ -169,6 +202,7 @@
 
 			// We fetch from `[data-bumpdown]` attr the possible HTML for this Bumpdown
 			data.html = data.$trigger.data( 'bumpdown' );
+			data.html = '<div class="tribe-bumpdown-content">' + data.html + '</div>';
 
 			// We fetch from `[data-bumpdown-class]` attr the possible class(es) for this Bumpdown
 			data.class = data.$trigger.data( 'bumpdown-class' );
