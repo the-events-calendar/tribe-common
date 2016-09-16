@@ -57,3 +57,25 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 		return false;
 	}
 }
+
+if ( ! function_exists( 'tribe_append_path' ) ) {
+	function tribe_append_path( $url, $path ) {
+		$path = trim( $path, '/' );
+
+		$query = @parse_url( $url, PHP_URL_QUERY );
+		$frag  = @parse_url( $url, PHP_URL_FRAGMENT );
+
+		if ( ! ( empty( $query ) && empty( $frag ) ) ) {
+			$url = str_replace( '?' . $query, '', $url );
+			$url = str_replace( '#' . $frag, '', $url );
+			$query = $query ? '?' . $query : '';
+			$frag  = $frag ? '#' . $frag : '';
+		}
+
+		$url = trailingslashit( esc_url_raw( trailingslashit( $url ) . $path ) );
+		$url .= $query . $frag;
+
+		return $url;
+	}
+}
+
