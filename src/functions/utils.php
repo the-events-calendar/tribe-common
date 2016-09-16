@@ -59,6 +59,17 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 }
 
 if ( ! function_exists( 'tribe_append_path' ) ) {
+	/**
+	 * Append a path fragment to a URL preserving query arguments
+	 * and fragments.
+	 *
+	 * @param string $url A full URL in the `http://example.com/?query=var#frag` format.
+	 * @param string $path The path to append to the existing, if any, one., e.g. `/some/path`
+	 *
+	 * @return mixed|string
+	 *
+	 * @since 4.3
+	 */
 	function tribe_append_path( $url, $path ) {
 		$path = trim( $path, '/' );
 
@@ -66,8 +77,8 @@ if ( ! function_exists( 'tribe_append_path' ) ) {
 		$frag  = @parse_url( $url, PHP_URL_FRAGMENT );
 
 		if ( ! ( empty( $query ) && empty( $frag ) ) ) {
-			$url = str_replace( '?' . $query, '', $url );
-			$url = str_replace( '#' . $frag, '', $url );
+			$url   = str_replace( '?' . $query, '', $url );
+			$url   = str_replace( '#' . $frag, '', $url );
 			$query = $query ? '?' . $query : '';
 			$frag  = $frag ? '#' . $frag : '';
 		}
