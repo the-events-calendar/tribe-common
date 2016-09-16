@@ -37,7 +37,7 @@
 
 					var $content = $bumpdown.find( selectors.content );
 
-					if ( 'string' === typeof width_rule && width_rule && 'all-triggers' === width_rule ) {
+					if ( 'string' === typeof width_rule && 'all-triggers' === width_rule ) {
 						var min_width = 600;
 						var trigger_position = 0;
 						$( selectors.trigger ).each( function() {
