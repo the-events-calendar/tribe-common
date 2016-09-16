@@ -37,30 +37,28 @@
 
 					var $content = $bumpdown.find( selectors.content );
 
-					if ( 'undefined' !== typeof width_rule && width_rule ) {
-						if ( 'all-triggers' === width_rule ) {
-							var min_width = 600;
-							var trigger_position = 0;
-							$( selectors.trigger ).each( function() {
-								var $el = $( this );
+					if ( 'string' === typeof width_rule && width_rule && 'all-triggers' === width_rule ) {
+						var min_width = 600;
+						var trigger_position = 0;
+						$( selectors.trigger ).each( function() {
+							var $el = $( this );
 
-								// only attempt to align items with a width rule
-								if ( ! $el.data( 'width-rule' ) ) {
-									return;
-								}
-
-								var position = $el.position();
-
-								if ( position.left > trigger_position ) {
-									trigger_position = position.left;
-								}
-							} );
-
-							if ( trigger_position ) {
-								trigger_position = trigger_position > min_width ? trigger_position : min_width;
-
-								$content.css( 'max-width', trigger_position + 'px' );
+							// only attempt to align items with a width rule
+							if ( ! $el.data( 'width-rule' ) ) {
+								return;
 							}
+
+							var position = $el.position();
+
+							if ( position.left > trigger_position ) {
+								trigger_position = position.left;
+							}
+						} );
+
+						if ( trigger_position ) {
+							trigger_position = trigger_position > min_width ? trigger_position : min_width;
+
+							$content.css( 'max-width', trigger_position + 'px' );
 						}
 					}
 
