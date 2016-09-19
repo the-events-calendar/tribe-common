@@ -93,7 +93,7 @@ class Tribe__PUE__Notices {
 	 */
 	public function maybe_undismiss_notices() {
 		foreach ( $this->notices as $notice_type => $plugin_list ) {
-			if ( is_array( $this->saved_notices ) ) {
+			if ( is_array( $this->saved_notices ) && ! empty( $this->saved_notices[ $notice_type ] ) ) {
 				$new_plugins = array_diff_key( $this->notices[ $notice_type ], $this->saved_notices[ $notice_type ] );
 			} else {
 				$new_plugins = $this->notices[ $notice_type ];
