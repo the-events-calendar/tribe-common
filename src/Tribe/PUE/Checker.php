@@ -712,7 +712,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$pue_notices->add_notice( Tribe__PUE__Notices::UPGRADE_KEY, $plugin_name );
 			}
 			// Check for invalid keys last of all (upgrades/empty keys will be flagged as invalid)
-			elseif ( ! empty( $plugin_info->api_invalid ) ) {
+			elseif (
+				! empty( $plugin_info->api_invalid )
+				&& (
+					'component' === $this->context
+					|| (
+						'service' === $this->context
+						&& $this->install_key
+					)
+				)
+			) {
 				$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
 			}
 			// If none of the above were satisfied we can assume the key is valid
