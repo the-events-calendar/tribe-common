@@ -125,6 +125,28 @@ class Tribe__PUE__Notices {
 	}
 
 	/**
+	 * Returns whether or not a given plugin name has a specific notice
+	 *
+	 * @param string $plugin_name
+	 * @param string|null $notice_type
+	 *
+	 * @return boolean
+	 */
+	public function has_notice( $plugin_name, $notice_type = null ) {
+		if ( $notice_type ) {
+			return ! empty( $this->notices[ $notice_type ][ $plugin_name ] );
+		}
+
+		foreach ( $this->notices as $notice_type => $plugins ) {
+			if ( ! empty( $plugins[ $plugin_name ] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Removes any notifications for the specified plugin.
 	 *
 	 * Useful when a valid license key is detected for a plugin, where previously

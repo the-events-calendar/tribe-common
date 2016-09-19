@@ -540,17 +540,23 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$plugin_info = $this->request_info( $queryArgs );
 			$expiration = isset( $plugin_info->expiration ) ? $plugin_info->expiration : esc_html__( 'unknown date', 'tribe-common' );
 
+			$pue_notices = Tribe__Main::instance()->pue_notices();
+			$plugin_name = $this->get_plugin_name();
+
 			if ( empty( $plugin_info ) ) {
 				$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
 			} elseif ( isset( $plugin_info->api_expired ) && $plugin_info->api_expired == 1 ) {
 				$response['message'] = $this->get_license_expired_message();
 				$response['api_expired'] = true;
+				$pue_notices->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $plugin_name );
 			} elseif ( isset( $plugin_info->api_upgrade ) && $plugin_info->api_upgrade == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
 				$response['api_upgrade'] = true;
+				$pue_notices->add_notice( Tribe__PUE__Notices::UPGRADE_KEY, $plugin_name );
 			} elseif ( isset( $plugin_info->api_invalid ) && $plugin_info->api_invalid == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
 				$response['api_invalid'] = true;
+				$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
 			} else {
 				$api_secret_key = get_option( $this->pue_install_key );
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
@@ -567,6 +573,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						Tribe__Support::send_sysinfo_key( $optin_key, $queryArgs['domain'], false, true );
 					}
 				}
+
+				$pue_notices->clear_notices( $plugin_name );
 
 				$response['status']     = isset( $plugin_info->api_message ) ? 2 : 1;
 				$response['message']    = isset( $plugin_info->api_message ) ? wp_kses( $plugin_info->api_message, 'data' ) : $default_success_msg;
