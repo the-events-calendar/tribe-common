@@ -548,15 +548,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} elseif ( isset( $plugin_info->api_expired ) && $plugin_info->api_expired == 1 ) {
 				$response['message'] = $this->get_license_expired_message();
 				$response['api_expired'] = true;
-				$pue_notices->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $plugin_name );
 			} elseif ( isset( $plugin_info->api_upgrade ) && $plugin_info->api_upgrade == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
 				$response['api_upgrade'] = true;
-				$pue_notices->add_notice( Tribe__PUE__Notices::UPGRADE_KEY, $plugin_name );
 			} elseif ( isset( $plugin_info->api_invalid ) && $plugin_info->api_invalid == 1 ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
 				$response['api_invalid'] = true;
-				$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
 			} else {
 				$api_secret_key = get_option( $this->pue_install_key );
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
@@ -1000,6 +997,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				delete_site_option( $this->pue_option_name );
 				$this->check_for_updates();
 			}
+
+			// are we saving THIS PUE key to the options table?
+			if ( empty( $_POST[ $this->pue_install_key ] ) || $value !== $_POST[ $this->pue_install_key ] ) {
+				return;
+			}
+
+			// if we are saving this PUE key, we need to make sure we update the license key notices
+			// appropriately. Otherwise, we could have an invalid license key in place but the notices
+			// aren't being thrown globally
+			$args = array(
+				'pu_checking_for_updates' => 1,
+				'pu_install_key' => $_POST[ $this->pue_install_key ],
+			);
+
+			$this->license_key_status( $args );
 		}
 
 		/**
