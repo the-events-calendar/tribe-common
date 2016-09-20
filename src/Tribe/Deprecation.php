@@ -43,7 +43,9 @@ class Tribe__Deprecation {
 	 *
 	 * @var array
 	 */
-	protected $deprecated_actions = array();
+	protected $deprecated_actions = array(
+		'tribe_pre_rewrite'=> array('4.3','tribe_events_pre_rewrite'),
+	);
 
 	/**
 	 * @return Tribe__Deprecation
