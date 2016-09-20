@@ -5,6 +5,8 @@
  * Class Tribe__Cost_Utils
  *
  * Utility methods to deal with costs.
+ *
+ * @since 4.3
  */
 class Tribe__Cost_Utils {
 
