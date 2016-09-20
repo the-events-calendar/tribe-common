@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.2.6\n"
+"Project-Id-Version: Tribe Common 4.2.7\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2016-08-30 19:51:21+00:00\n"
+"POT-Creation-Date: 2016-09-14 15:54:58+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-08-30 19:51\n"
+"PO-Revision-Date: 2016-09-14 15:54\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -303,6 +303,10 @@ msgstr ""
 
 #: src/Tribe/PUE/Checker.php:457
 msgid "Sorry, there is a problem with your license key. You'll need to %scheck your license%s to have access to updates, downloads, and support."
+msgstr ""
+
+#: src/Tribe/Plugin_Download_Notice.php:68
+msgid "To begin using %1$s, please install and activate the latest version(s) of %2$s."
 msgstr ""
 
 #: src/Tribe/Settings.php:148 src/Tribe/Settings.php:204

@@ -540,6 +540,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$plugin_info = $this->request_info( $queryArgs );
 			$expiration = isset( $plugin_info->expiration ) ? $plugin_info->expiration : esc_html__( 'unknown date', 'tribe-common' );
 
+			$pue_notices = Tribe__Main::instance()->pue_notices();
+			$plugin_name = $this->get_plugin_name();
+
 			if ( empty( $plugin_info ) ) {
 				$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
 			} elseif ( isset( $plugin_info->api_expired ) && $plugin_info->api_expired == 1 ) {
@@ -567,6 +570,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						Tribe__Support::send_sysinfo_key( $optin_key, $queryArgs['domain'], false, true );
 					}
 				}
+
+				$pue_notices->clear_notices( $plugin_name );
 
 				$response['status']     = isset( $plugin_info->api_message ) ? 2 : 1;
 				$response['message']    = isset( $plugin_info->api_message ) ? wp_kses( $plugin_info->api_message, 'data' ) : $default_success_msg;
@@ -712,7 +717,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$pue_notices->add_notice( Tribe__PUE__Notices::UPGRADE_KEY, $plugin_name );
 			}
 			// Check for invalid keys last of all (upgrades/empty keys will be flagged as invalid)
-			elseif ( ! empty( $plugin_info->api_invalid ) ) {
+			elseif (
+				! empty( $plugin_info->api_invalid )
+				&& (
+					'component' === $this->context
+					|| (
+						'service' === $this->context
+						&& $this->install_key
+					)
+				)
+			) {
 				$pue_notices->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
 			}
 			// If none of the above were satisfied we can assume the key is valid
@@ -992,6 +1006,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				delete_site_option( $this->pue_option_name );
 				$this->check_for_updates();
 			}
+
+			// are we saving THIS PUE key to the options table?
+			if ( empty( $_POST[ $this->pue_install_key ] ) || $value !== $_POST[ $this->pue_install_key ] ) {
+				return;
+			}
+
+			// if we are saving this PUE key, we need to make sure we update the license key notices
+			// appropriately. Otherwise, we could have an invalid license key in place but the notices
+			// aren't being thrown globally
+			$args = array(
+				'pu_checking_for_updates' => 1,
+				'pu_install_key' => $_POST[ $this->pue_install_key ],
+			);
+
+			$this->license_key_status( $args );
 		}
 
 		/**
