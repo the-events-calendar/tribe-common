@@ -10,6 +10,10 @@ class DeprecationTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// your set up methods here
+		remove_filter('tribe_current', '__return_empty_string');
+		remove_action('tribe_current', '__return_empty_string');
+		remove_filter('tribe_deprecated', '__return_empty_string');
+		remove_action('tribe_deprecated', '__return_empty_string');
 	}
 
 	public function tearDown() {
@@ -51,30 +55,58 @@ class DeprecationTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should not trigger a deprecated message if there are no functions on deprecated filter
+	 * it should trigger a deprecated notice when calling deprecated filter
+	 *
+	 * Test we can be stupid.
 	 */
-	public function it_should_not_trigger_a_deprecated_message_if_there_are_no_functions_on_deprecated_filter() {
+	public function it_should_trigger_a_deprecated_notice_when_calling_deprecated_filter() {
+		$sut = $this->make_instance();
+		$sut->set_deprecated_filters( [ 'tribe_current' => [ '4.3', 'tribe_deprecated' ] ] );
+		$sut->deprecate_filters();
+
+		$this->setExpectedDeprecated( 'The tribe_deprecated filter' );
+
+		apply_filters( 'tribe_deprecated', 'some_value' );
+	}
+
+	/**
+	 * @test
+	 * it should trigger a deprecated notice when calling deprecated action
+	 *
+	 * Test we can be stupid.
+	 */
+	public function it_should_trigger_a_deprecated_notice_when_calling_deprecated_action() {
+		$sut = $this->make_instance();
+		$sut->set_deprecated_actions( [ 'tribe_current' => [ '4.3', 'tribe_deprecated' ] ] );
+		$sut->deprecate_actions();
+
+		$this->setExpectedDeprecated( 'The tribe_deprecated action' );
+
+		do_action( 'tribe_deprecated', 'some_value' );
+	}
+
+	/**
+	 * @test
+	 * it should not trigger any deprecated notice when calling the new filter
+	 */
+	public function it_should_not_trigger_any_deprecated_notice_when_calling_the_new_filter() {
 		$sut = $this->make_instance();
 		$sut->set_deprecated_filters( [ 'tribe_current' => [ '4.3', 'tribe_deprecated' ] ] );
 		$sut->deprecate_filters();
 
 		apply_filters( 'tribe_current', 'some_value' );
-
-		$this->assertEmpty( $this->caught_deprecated );
 	}
 
 	/**
 	 * @test
-	 * it should not trigger a deprecated message if there are no functions on deprecated action
+	 * it should not trigger any deprecated notice when calling the new action
 	 */
-	public function it_should_not_trigger_a_deprecated_message_if_there_are_no_functions_on_deprecated_action() {
+	public function it_should_not_trigger_any_deprecated_notice_when_calling_the_new_action() {
 		$sut = $this->make_instance();
 		$sut->set_deprecated_actions( [ 'tribe_current' => [ '4.3', 'tribe_deprecated' ] ] );
 		$sut->deprecate_actions();
 
 		do_action( 'tribe_current', 'some_value' );
-
-		$this->assertEmpty( $this->caught_deprecated );
 	}
 
 	/**

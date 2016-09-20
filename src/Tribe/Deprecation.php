@@ -5,6 +5,8 @@
  * Class Tribe__Deprecation
  *
  * Utilities to deprecate code.
+ *
+ * @since 4.3
  */
 class Tribe__Deprecation {
 
@@ -65,8 +67,11 @@ class Tribe__Deprecation {
 	 * @internal
 	 */
 	public function deprecate_actions() {
-		foreach ( array_keys( $this->deprecated_actions ) as $deprecated_action ) {
-			add_action( $deprecated_action, array( $this, 'deprecated_action_message' ), 99 );
+		foreach ( array_keys( $this->deprecated_actions ) as $new_action_tag ) {
+			add_action( $new_action_tag, array( $this, 'deprecated_action_message' ) );
+			add_filter(
+				$this->deprecated_actions[ $new_action_tag ][1], array( $this, 'deprecated_action_message' )
+			);
 		}
 	}
 
@@ -76,8 +81,11 @@ class Tribe__Deprecation {
 	 * @internal
 	 */
 	public function deprecate_filters() {
-		foreach ( array_keys( $this->deprecated_filters ) as $deprecated_filter ) {
-			add_filter( $deprecated_filter, array( $this, 'deprecated_filter_message' ), 99 );
+		foreach ( array_keys( $this->deprecated_filters ) as $new_filter_tag ) {
+			add_filter( $new_filter_tag, array( $this, 'deprecated_filter_message' ) );
+			add_filter(
+				$this->deprecated_filters[ $new_filter_tag ][1], array( $this, 'deprecated_filter_message' )
+			);
 		}
 	}
 
@@ -85,26 +93,46 @@ class Tribe__Deprecation {
 	 * Triggers a deprecation notice if there is any callback hooked on a deprecated action.
 	 */
 	public function deprecated_action_message() {
-		$action         = current_action();
-		$deprecated_tag = $this->deprecated_actions[ $action ][1];
-		if ( has_action( $deprecated_tag ) ) {
+		$action = current_action();
+		if ( isset( $this->deprecated_actions[ $action ] ) ) {
+			$deprecated_tag = $this->deprecated_actions[ $action ][1];
+		} else {
+			$deprecated_tag = $action;
+			$action         = $this->get_action_for_deprecated_tag( $action );
+		}
+
+		remove_action( $deprecated_tag, array( $this, 'deprecated_action_message' ) );
+
+		if ( doing_action( $deprecated_tag ) || has_filter( $deprecated_tag ) ) {
 			_deprecated_function(
 				'The ' . $deprecated_tag . ' action', $this->deprecated_actions[ $action ][0], $action
 			);
 		}
+
+		add_action( $deprecated_tag, array( $this, 'deprecated_action_message' ) );
 	}
 
 	/**
 	 * Triggers a deprecation notice if there is any callback hooked on a deprecated filter.
 	 */
 	public function deprecated_filter_message() {
-		$filter         = current_filter();
-		$deprecated_tag = $this->deprecated_filters[ $filter ][1];
-		if ( has_filter( $deprecated_tag ) ) {
+		$filter = current_filter();
+		if ( isset( $this->deprecated_filters[ $filter ] ) ) {
+			$deprecated_tag = $this->deprecated_filters[ $filter ][1];
+		} else {
+			$deprecated_tag = $filter;
+			$filter         = $this->get_filter_for_deprecated_tag( $filter );
+		}
+
+		remove_filter( $deprecated_tag, array( $this, 'deprecated_filter_message' ) );
+
+		if ( has_filter( $deprecated_tag ) || doing_filter( $deprecated_tag ) ) {
 			_deprecated_function(
 				'The ' . $deprecated_tag . ' filter', $this->deprecated_filters[ $filter ][0], $filter
 			);
 		}
+
+		add_filter( $deprecated_tag, array( $this, 'deprecated_filter_message' ) );
 	}
 
 	/**
@@ -123,5 +151,31 @@ class Tribe__Deprecation {
 	 */
 	public function set_deprecated_actions( $deprecated_actions ) {
 		$this->deprecated_actions = $deprecated_actions;
+	}
+
+	/**
+	 * @param string $deprecated_tag
+	 *
+	 * @return int|string
+	 */
+	protected function get_action_for_deprecated_tag( $deprecated_tag ) {
+		foreach ( $this->deprecated_actions as $new_tag => $args ) {
+			if ( $args[1] === $deprecated_tag ) {
+				return $new_tag;
+			}
+		}
+	}
+
+	/**
+	 * @param string $deprecated_tag
+	 *
+	 * @return int|string
+	 */
+	protected function get_filter_for_deprecated_tag( $deprecated_tag ) {
+		foreach ( $this->deprecated_filters as $new_tag => $args ) {
+			if ( $args[1] === $deprecated_tag ) {
+				return $new_tag;
+			}
+		}
 	}
 }
