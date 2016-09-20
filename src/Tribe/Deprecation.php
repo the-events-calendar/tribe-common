@@ -17,7 +17,7 @@ class Tribe__Deprecation {
 	 * An array specifying the tag, version and optional replacements
 	 * for deprecated filters.
 	 *
-	 * Use the format `<new_filter> => array(<version>, <deprecated_filter>)`.
+	 * Use the format `<new_filter_tag> => array(<version>, <deprecated_filter_tag>)`.
 	 * e.g. `'tribe_current' => array ('4.3', 'tribe_deprecated')`
 	 *
 	 * For performance reasons this array is manually set and **not**
@@ -25,13 +25,15 @@ class Tribe__Deprecation {
 	 *
 	 * @var array
 	 */
-	protected $deprecated_filters = array();
+	protected $deprecated_filters = array(
+		'tribe_cost_regex' => array( '4.3', 'tribe_events_cost_regex' ),
+	);
 
 	/**
 	 * An array specifying the tag, version and optional replacements
 	 * for deprecated actions.
 	 *
-	 * Use the format `<new_action> => array(<version>, <deprecated_action>)`.
+	 * Use the format `<new_action_tag> => array(<version>, <deprecated_action_tag>)`.
 	 * e.g. `'tribe_current' => array ('4.3', 'tribe_deprecated')`
 	 *
 	 * For performance reasons this array is manually set and **not**
@@ -79,6 +81,9 @@ class Tribe__Deprecation {
 		}
 	}
 
+	/**
+	 * Triggers a deprecation notice if there is any callback hooked on a deprecated action.
+	 */
 	public function deprecated_action_message() {
 		$action         = current_action();
 		$deprecated_tag = $this->deprecated_actions[ $action ][1];
@@ -89,6 +94,9 @@ class Tribe__Deprecation {
 		}
 	}
 
+	/**
+	 * Triggers a deprecation notice if there is any callback hooked on a deprecated filter.
+	 */
 	public function deprecated_filter_message() {
 		$filter         = current_filter();
 		$deprecated_tag = $this->deprecated_filters[ $filter ][1];
