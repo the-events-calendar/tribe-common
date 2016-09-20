@@ -27,6 +27,7 @@ class Tribe__Admin__Activation_Page {
 	public function __construct( array $args = array() ) {
 		$this->args = wp_parse_args( $args, array(
 			'slug'                  => '',
+			'activation_transient'  => '',
 			'version'               => '',
 			'plugin_path'           => '',
 			'version_history_slug'  => '',
@@ -113,11 +114,11 @@ class Tribe__Admin__Activation_Page {
 		}
 
 		// bail if we aren't activating a plugin
-		if ( ! get_transient( '_tribe_events_activation_redirect' ) ) {
+		if ( ! get_transient( $this->args['activation_transient'] ) ) {
 			return;
 		}
 
-		delete_transient( '_tribe_events_activation_redirect' );
+		delete_transient( $this->args['activation_transient'] );
 
 		if ( ! current_user_can( Tribe__Settings::instance()->requiredCap ) ){
 			return;
@@ -225,10 +226,10 @@ class Tribe__Admin__Activation_Page {
 	public function register_page() {
 		if ( isset( $_GET[ $this->welcome_slug ] ) ) {
 			$this->disable_default_settings_page();
-			add_action( 'tribe_events_page_' . Tribe__Settings::$parent_slug, array( $this, 'display_page' ) );
+			add_action( Tribe__Settings::instance()->admin_page, array( $this, 'display_page' ) );
 		} elseif ( isset( $_GET[ $this->update_slug ] ) ) {
 			$this->disable_default_settings_page();
-			add_action( 'tribe_events_page_' . Tribe__Settings::$parent_slug, array( $this, 'display_page' ) );
+			add_action( Tribe__Settings::instance()->admin_page, array( $this, 'display_page' ) );
 		}
 	}
 
@@ -237,7 +238,7 @@ class Tribe__Admin__Activation_Page {
 	 * in the Events > Settings slot instead, for this request only).
 	 */
 	protected function disable_default_settings_page() {
-		remove_action( 'tribe_events_page_' . Tribe__Settings::$parent_slug, array( Tribe__Settings::instance(), 'generatePage' ) );
+		remove_action( Tribe__Settings::instance()->admin_page, array( Tribe__Settings::instance(), 'generatePage' ) );
 	}
 
 	/**
