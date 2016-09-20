@@ -17,9 +17,8 @@ class Tribe__Deprecation {
 	 * An array specifying the tag, version and optional replacements
 	 * for deprecated filters.
 	 *
-	 * Use the format `<tag> => array(<version> [, <replacement>])`.
-	 * e.g. `'tribe_deprecated' => array ('4.3', 'tribe_use_this')`
-	 * e.g. `'tribe_deprecated' => array ('4.3')`
+	 * Use the format `<new_filter> => array(<version>, <deprecated_filter>)`.
+	 * e.g. `'tribe_current' => array ('4.3', 'tribe_deprecated')`
 	 *
 	 * For performance reasons this array is manually set and **not**
 	 * dynamically populated.
@@ -32,9 +31,8 @@ class Tribe__Deprecation {
 	 * An array specifying the tag, version and optional replacements
 	 * for deprecated actions.
 	 *
-	 * Use the format `<tag> => array(<version> [, <replacement>])`.
-	 * e.g. `'tribe_deprecated' => array ('4.3', 'tribe_use_this')`
-	 * e.g. `'tribe_deprecated' => array ('4.3')`
+	 * Use the format `<new_action> => array(<version>, <deprecated_action>)`.
+	 * e.g. `'tribe_current' => array ('4.3', 'tribe_deprecated')`
 	 *
 	 * For performance reasons this array is manually set and **not**
 	 * dynamically populated.
@@ -59,30 +57,46 @@ class Tribe__Deprecation {
 		return self::$instance;
 	}
 
-	protected function deprecate_actions() {
+	/**
+	 * Hooks the deprecation notices for actions.
+	 *
+	 * @internal
+	 */
+	public function deprecate_actions() {
 		foreach ( array_keys( $this->deprecated_actions ) as $deprecated_action ) {
-			add_action( $deprecated_action, array( $this, 'deprecated_action_message' ), 1 );
+			add_action( $deprecated_action, array( $this, 'deprecated_action_message' ), 99 );
 		}
 	}
 
-	protected function deprecate_filters() {
+	/**
+	 * Hooks the deprecation notices for filters.
+	 *
+	 * @internal
+	 */
+	public function deprecate_filters() {
 		foreach ( array_keys( $this->deprecated_filters ) as $deprecated_filter ) {
-			add_filter( $deprecated_filter, array( $this, 'deprecated_filter_message' ), 1 );
+			add_filter( $deprecated_filter, array( $this, 'deprecated_filter_message' ), 99 );
 		}
 	}
 
 	public function deprecated_action_message() {
-		$action      = current_action();
-		$replacement = ! empty( $this->deprecated_actions[ $action ][1] ) ? $this->deprecated_actions[ $action ][1] :
-			null;
-		_deprecated_function( 'The ' . $action . 'action', $this->deprecated_actions[ $action ][0], $replacement );
+		$action         = current_action();
+		$deprecated_tag = $this->deprecated_actions[ $action ][1];
+		if ( has_action( $deprecated_tag ) ) {
+			_deprecated_function(
+				'The ' . $deprecated_tag . ' action', $this->deprecated_actions[ $action ][0], $action
+			);
+		}
 	}
 
 	public function deprecated_filter_message() {
-		$filter      = current_filter();
-		$replacement = ! empty( $this->deprecated_filters[ $filter ][1] ) ? $this->deprecated_filters[ $filter ][1] :
-			null;
-		_deprecated_function( 'The ' . $filter . 'filter', $this->deprecated_filters[ $filter ][0], $replacement );
+		$filter         = current_filter();
+		$deprecated_tag = $this->deprecated_filters[ $filter ][1];
+		if ( has_filter( $deprecated_tag ) ) {
+			_deprecated_function(
+				'The ' . $deprecated_tag . ' filter', $this->deprecated_filters[ $filter ][0], $filter
+			);
+		}
 	}
 
 	/**
