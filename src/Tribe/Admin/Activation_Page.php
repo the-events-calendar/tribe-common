@@ -245,13 +245,19 @@ class Tribe__Admin__Activation_Page {
 	 * Prints the splash screen.
 	 *
 	 * @param string $context
+	 *
+	 * @return string|null
 	 */
 	public function display_page( $context = 'welcome' ) {
+		if ( empty( $this->args[ $context . '_page_title' ] ) || empty( $this->args[ $context . '_page_template'] ) ) {
+			return null;
+		}
+
 		do_action( 'tribe_settings_top' );
 
 		$context = isset( $_GET[ $this->welcome_slug ] ) ? 'welcome': 'update';
-		$title   = esc_html( @$this->args[ $context . '_page_title'] );
-		$html    = $this->get_view( @$this->args[ $context . '_page_template'] );
+		$title   = esc_html( $this->args[ $context . '_page_title'] );
+		$html    = $this->get_view( $this->args[ $context . '_page_template'] );
 
 		echo "
 			<div class='tribe_settings tribe_{$context}_page wrap'>
