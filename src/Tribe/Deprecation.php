@@ -28,7 +28,8 @@ class Tribe__Deprecation {
 	 * @var array
 	 */
 	protected $deprecated_filters = array(
-		'tribe_cost_regex' => array( '4.3', 'tribe_events_cost_regex' ),
+		'tribe_cost_regex'            => array( '4.3', 'tribe_events_cost_regex' ),
+		'tribe_rewrite_prepared_slug' => array( '4.3', 'tribe_events_rewrite_prepared_slug' ),
 	);
 
 	/**
@@ -44,7 +45,7 @@ class Tribe__Deprecation {
 	 * @var array
 	 */
 	protected $deprecated_actions = array(
-		'tribe_pre_rewrite'=> array('4.3','tribe_events_pre_rewrite'),
+		'tribe_pre_rewrite' => array( '4.3', 'tribe_events_pre_rewrite' ),
 	);
 
 	/**
