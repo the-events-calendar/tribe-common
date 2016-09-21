@@ -100,7 +100,7 @@ class Tribe__Rewrite {
 		 *
 		 * @var Tribe__Events__Rewrite $rewrite
 		 *
-		 * @deprecated 4.3 Use `tribe_events_rewrite`
+		 * @deprecated 4.3 Use `tribe_pre_rewrite`
 		 */
 		do_action( 'tribe_events_pre_rewrite', $this );
 
@@ -114,7 +114,7 @@ class Tribe__Rewrite {
 		 *
 		 * @var Tribe__Rewrite $rewrite
 		 */
-		do_action( 'tribe_events_rewrite', $this );
+		do_action( 'tribe_pre_rewrite', $this );
 	}
 
 
