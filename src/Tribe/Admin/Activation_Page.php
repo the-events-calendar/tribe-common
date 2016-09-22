@@ -6,7 +6,7 @@ class Tribe__Admin__Activation_Page {
 	protected $args = array();
 	protected $update_slug = 'update-message-';
 	protected $welcome_slug = 'welcome-message-';
-
+	protected $current_context = 'welcome';
 
 	/**
 	 * Handles the update/welcome splash screen.
@@ -225,9 +225,12 @@ class Tribe__Admin__Activation_Page {
 	 */
 	public function register_page() {
 		if ( isset( $_GET[ $this->welcome_slug ] ) ) {
-			$this->disable_default_settings_page();
-			add_action( Tribe__Settings::instance()->admin_page, array( $this, 'display_page' ) );
+			$this->current_context = 'welcome';
 		} elseif ( isset( $_GET[ $this->update_slug ] ) ) {
+			$this->current_context = 'update';
+		}
+
+		if ( ! empty( $this->current_context ) ) {
 			$this->disable_default_settings_page();
 			add_action( Tribe__Settings::instance()->admin_page, array( $this, 'display_page' ) );
 		}
@@ -248,8 +251,8 @@ class Tribe__Admin__Activation_Page {
 	 *
 	 * @return string|null
 	 */
-	public function display_page( $context = 'welcome' ) {
-		if ( empty( $this->args[ $context . '_page_title' ] ) || empty( $this->args[ $context . '_page_template'] ) ) {
+	public function display_page() {
+		if ( empty( $this->args[ $this->current_context . '_page_title' ] ) || empty( $this->args[ $this->current_context . '_page_template'] ) ) {
 			return null;
 		}
 
