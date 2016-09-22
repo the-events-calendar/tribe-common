@@ -103,6 +103,7 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 		 * Filters the callback to call in place of `die()`.
 		 *
 		 * @param callable $handler The `die` replacement callback.
+		 * @param string   $status  The exit/die status.
 		 */
 		$handler = apply_filters( 'tribe_exit', $handler, $status );
 
