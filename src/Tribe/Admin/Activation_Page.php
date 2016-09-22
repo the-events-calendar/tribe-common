@@ -6,7 +6,7 @@ class Tribe__Admin__Activation_Page {
 	protected $args = array();
 	protected $update_slug = 'update-message-';
 	protected $welcome_slug = 'welcome-message-';
-	protected $current_context = 'welcome';
+	protected $current_context = '';
 
 	/**
 	 * Handles the update/welcome splash screen.
