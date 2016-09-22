@@ -95,6 +95,9 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 	 * Filterable `die` wrapper.
 	 *
 	 * @param string $status
+	 *
+	 * @return void|mixed Depending on the handler this function might return
+	 *                    a value or `die` before anything is returned.
 	 */
 	function tribe_exit( $status = '' ) {
 		$handler = 'die';
@@ -107,7 +110,7 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 		 */
 		$handler = apply_filters( 'tribe_exit', $handler, $status );
 
-		call_user_func( $handler, $status );
+		return call_user_func( $handler, $status );
 	}
 }
 
