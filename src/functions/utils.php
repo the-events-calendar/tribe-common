@@ -90,3 +90,23 @@ if ( ! function_exists( 'tribe_append_path' ) ) {
 	}
 }
 
+if ( ! function_exists( 'tribe_exit' ) ) {
+	/**
+	 * Filterable `die` wrapper.
+	 *
+	 * @param string $status
+	 */
+	function tribe_exit( $status = '' ) {
+		$handler = 'die';
+
+		/**
+		 * Filters the callback to call in place of `die()`.
+		 *
+		 * @param callable $handler The `die` replacement callback.
+		 */
+		$handler = apply_filters( 'tribe_exit', $handler, $status );
+
+		call_user_func( $handler, $status );
+	}
+}
+
