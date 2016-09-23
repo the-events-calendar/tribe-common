@@ -57,6 +57,24 @@ class Tribe__PUE__Notices {
 				unset( $this->notices[ $key ] );
 				continue;
 			}
+
+			// Filter out plugins that aren't active.
+			$plugins_requiring_notice = array();
+			foreach ( $plugin_lists as $name => $value ) {
+				if ( ! in_array( $name, $this->registered ) ) {
+					continue;
+				}
+
+				$plugins_requiring_notice[ $name ] = $value;
+			}
+
+			if ( empty( $plugins_requiring_notice ) ) {
+				unset( $this->notices[ $key ] );
+				continue;
+			}
+
+			// override the plugin list for the notice to make sure we only have plugins we care about
+			$plugin_lists = $plugins_requiring_notice;
 		}
 	}
 
