@@ -212,13 +212,19 @@ class Tribe__PUE__Notices {
 			return;
 		}
 
+		$plugin_names = $this->get_formatted_plugin_names( self::INVALID_KEY );
+
+		if ( empty( $plugin_names ) ) {
+			return;
+		}
+
 		$prompt = sprintf( _n(
 			"It looks like you're using %s, but the license key you supplied does not appear to be valid or is missing. Please review and fix so that you can always have access to our latest versions!",
 			"It looks like you're using %s, but the license keys you supplied do not appear to be valid or are missing. Please review and fix so that you can always have access to our latest versions!",
 			count( $this->notices[ self::INVALID_KEY ] ),
 			'tribe-common'
 		),
-			$this->get_formatted_plugin_names( self::INVALID_KEY )
+			$plugin_names
 		);
 
 		$action_steps = $this->find_your_key_text();
@@ -239,13 +245,19 @@ class Tribe__PUE__Notices {
 			return;
 		}
 
+		$plugin_names = $this->get_formatted_plugin_names( self::EXPIRED_KEY );
+
+		if ( empty( $plugin_names ) ) {
+			return;
+		}
+
 		$prompt = sprintf( _n(
 				'There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s',
 				'Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s',
 				count( $this->notices[ self::EXPIRED_KEY ] ),
 				'tribe-common'
 			),
-			$this->get_formatted_plugin_names( self::EXPIRED_KEY ),
+			$plugin_names,
 			'<a href="http://m.tri.be/195d" target="_blank">',
 			'</a>'
 		);
@@ -265,12 +277,18 @@ class Tribe__PUE__Notices {
 	 * have met or exceeded the permitted number of installations they can be applied to.
 	 */
 	public function render_upgrade_key() {
+		$plugin_names = $this->get_formatted_plugin_names( self::UPGRADE_KEY );
+
+		if ( empty( $plugin_names ) ) {
+			return;
+		}
+
 		$prompt = sprintf( _n(
 				'You have entered a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one.',
 				'You have entered license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones.', count( $this->notices[ self::UPGRADE_KEY ] ),
 				'tribe-common'
 			),
-			$this->get_formatted_plugin_names( self::UPGRADE_KEY ),
+			$plugin_names,
 			'<a href="http://m.tri.be/195d" target="_blank">',
 			'</a>'
 		);
