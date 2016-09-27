@@ -28,7 +28,6 @@ class Tribe__Settings_Manager {
 		add_action( 'admin_menu', array( $this, 'add_help_admin_menu_item' ), 50 );
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_setting_tabs' ) );
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_network_settings_tab' ), 400 );
-		add_action( 'tribe_settings_content_tab_help', array( $this, 'do_help_tab' ) );
 		add_action( 'tribe_settings_validate_tab_network', array( $this, 'save_all_tabs_hidden' ) );
 	}
 
@@ -56,15 +55,6 @@ class Tribe__Settings_Manager {
 		new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
 
 		$this->do_licenses_tab();
-
-		new Tribe__Settings_Tab(
-			'help',
-			esc_html__( 'Help', 'tribe-common' ),
-			array(
-				'priority'  => 60,
-				'show_save' => false,
-			)
-		);
 	}
 
 	/**
@@ -285,21 +275,11 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
-		$parent = Tribe__Settings::$parent_slug;
+		$parent = Tribe__Settings::$parent_page;
 		$title  = esc_html__( 'Help', 'tribe-common' );
-		$slug   = esc_url(
-			apply_filters( 'tribe_settings_url',
-				add_query_arg(
-					array(
-						'page'      => 'tribe-common',
-						'tab'       => 'help',
-					),
-					Tribe__Settings::$parent_page
-				)
-			)
-		);
+		$slug   = 'tribe-help';
 
-		add_submenu_page( $parent, $title, $title, 'manage_options', $slug, '' );
+		add_submenu_page( $parent, $title, $title, 'manage_options', $slug, array( $this, 'do_help_tab' ) );
 	}
 
 	/**
