@@ -360,11 +360,9 @@ class Tribe__PUE__Notices {
 
 		if ( 0 === $num_plugins ) {
 			return '';
-		}
-		elseif ( 1 === $num_plugins ) {
+		} elseif ( 1 === $num_plugins ) {
 			$html = current( $plugin_list );
-		}
-		elseif ( 1 < $num_plugins ) {
+		} elseif ( 1 < $num_plugins ) {
 			$all_but_last = join( ', ', array_slice( $plugin_list, 0, count( $plugin_list ) - 1 ) );
 			$last = current( array_slice( $plugin_list, count( $plugin_list ) - 1, 1 ) );
 			$html = sprintf( _x( '%1$s and %2$s', 'formatted plugin list', 'tribe-common' ), $all_but_last, $last );
