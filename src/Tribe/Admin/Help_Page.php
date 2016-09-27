@@ -428,7 +428,7 @@ class Tribe__Admin__Help_Page {
 		// Loop to start the HTML
 		foreach ( $mixed as &$line ) {
 			// If we have content we use that
-			if ( ! empty( $line->content ) ) {
+			if ( isset( $line->content ) ) {
 				$line = $line->content;
 			}
 
@@ -503,14 +503,14 @@ class Tribe__Admin__Help_Page {
 	 * @return int
 	 */
 	protected function by_priority( $a, $b ) {
-		if ( empty( $a->priority ) || empty( $b->priority ) || $a->priority === $b->priority ) {
-			if ( empty( $a->unique_call_order ) || empty( $b->unique_call_order ) ) {
+		if ( ! isset( $a->priority ) || ! isset( $b->priority ) || $a->priority === $b->priority ) {
+			if ( ! isset( $a->unique_call_order ) || ! isset( $b->unique_call_order ) ) {
 				return 0;
 			} else {
-				return $a->unique_call_order - $b->unique_call_order;
+				return $a->unique_call_order > $b->unique_call_order ? 1 : -1;
 			}
 		} else {
-			return $a->priority - $b->priority;
+			return $a->priority > $b->priority ? 1 : -1;
 		}
 	}
 
