@@ -351,19 +351,18 @@ class Tribe__PUE__Notices {
 	 * @return string
 	 */
 	protected function get_formatted_plugin_names( $group ) {
-		$num_plugins = count( $this->notices[ $group ] );
-
-		if ( ! $num_plugins ) {
+		if ( ! count( $this->notices[ $group ] ) ) {
 			return '';
 		}
 
 		$plugin_list = array_intersect( $this->registered, array_keys( $this->notices[ $group ] ) );
+		$num_plugins = count( $plugin_list );
 
-		if ( 1 === $num_plugins ) {
+		if ( 0 === $num_plugins ) {
+			return '';
+		} elseif ( 1 === $num_plugins ) {
 			$html = current( $plugin_list );
-		}
-
-		if ( 1 < $num_plugins ) {
+		} elseif ( 1 < $num_plugins ) {
 			$all_but_last = join( ', ', array_slice( $plugin_list, 0, count( $plugin_list ) - 1 ) );
 			$last = current( array_slice( $plugin_list, count( $plugin_list ) - 1, 1 ) );
 			$html = sprintf( _x( '%1$s and %2$s', 'formatted plugin list', 'tribe-common' ), $all_but_last, $last );
