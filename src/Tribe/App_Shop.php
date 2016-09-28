@@ -150,15 +150,9 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'image' => 'images/app-shop-eventbrite.jpg',
 				),
 				(object) array(
-					'title' => __( 'Facebook Events', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/facebook-events/?utm_campaign=in-app&utm_source=addonspage&utm_medium=facebook-events&utm_content=appstoreembedded-1',
-					'description' => __( 'With the Facebook Events add-on, imported events are manually or automagically created as entries in The Events Calendar. Basic event data along with venue and organizer are populated appropriately. No more entering information in two places, or having to recreate someone else\'s listing for a public event you want to include on your WordPress calendar.', 'tribe-common' ),
-					'image' => 'images/app-shop-facebook.jpg',
-				),
-				(object) array(
-					'title' => __( 'iCal Importer', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/ical-importer/?utm_campaign=in-app&utm_source=addonspage&utm_medium=ical-importer&utm_content=appstoreembedded-1',
-					'description' => __( 'The iCal Importer helps you keep your events calendar full of interesting events! You can import events from any website that publishes an iCal (aka ICS) feed and add them to your listings. The recurring import feature lets you keep your calendar brimming without manual oversight (though you can review every imported event if you like). Add filtering by keyword or geographic region and you can be sure that the kinds of events you get are the kinds you want.', 'tribe-common' ),
+					'title' => __( 'Event Aggregator', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/event-aggregator/?utm_campaign=in-app&utm_source=addonspage&utm_medium=event-aggregator&utm_content=appstoreembedded-1',
+					'description' => __( 'Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more.', 'tribe-common' ),
 					'image' => 'images/app-shop-ical.jpg',
 				),
 			);
