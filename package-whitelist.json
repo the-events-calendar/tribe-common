@@ -4,6 +4,7 @@
   "src/**/*",
   "lang/**/*",
   "README.md",
+  "vendor/clipboard/*.js",
   "vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables*.css",
   "vendor/datatables/extensions/FixedHeader/js/dataTables*.js",
   "vendor/datatables/extensions/Responsive/css/responsive.dataTables*.css",
