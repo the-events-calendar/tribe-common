@@ -11,7 +11,7 @@
 			$i = 0;
 			foreach ( $products as $product ) {
 				?>
-				<div class="tribe-addon<?php echo ( $i % 4 == 0 ) ? ' first tribe-clearfix' : '';?>">
+				<div class="tribe-addon<?php echo ( 0 === $i ) ? ' first tribe-clearfix' : '';?>">
 					<div class="thumb">
 						<a href="<?php echo esc_url( $product->link ); ?>"><img src="<?php echo esc_url( tribe_resource_url( $product->image, false, null, $main ) ); ?>" /></a>
 					</div>

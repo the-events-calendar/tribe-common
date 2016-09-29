@@ -101,10 +101,10 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		private function get_all_products() {
 			$products = array(
 				(object) array(
-					'title' => __( 'Filter Bar', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/wordpress-events-filterbar/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-filterbar&utm_content=appstoreembedded-1',
-					'description' => __( 'It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar.', 'tribe-common' ),
-					'image' => 'images/app-shop-filter-bar.jpg',
+					'title' => __( 'Event Aggregator', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/event-aggregator/?utm_campaign=in-app&utm_source=addonspage&utm_medium=event-aggregator&utm_content=appstoreembedded-1',
+					'description' => __( 'Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more.', 'tribe-common' ),
+					'image' => 'images/app-shop-ical.jpg',
 				),
 				(object) array(
 					'title' => __( 'Events Calendar PRO', 'tribe-common' ),
@@ -115,6 +115,22 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 						'</a>'
 					),
 					'image' => 'images/app-shop-pro.jpg',
+				),
+				(object) array(
+					'title' => __( 'Event Tickets Plus', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/wordpress-event-tickets-plus/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-event-tickets-plus&utm_content=appstoreembedded-1',
+					'description' => sprintf(
+						__( 'Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings.', 'tribe-common' ),
+						'<a href="http://m.tri.be/18vc">',
+						'</a>'
+					),
+					'image' => 'images/app-shop-tickets-plus.jpg',
+				),
+				(object) array(
+					'title' => __( 'Filter Bar', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/wordpress-events-filterbar/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-filterbar&utm_content=appstoreembedded-1',
+					'description' => __( 'It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar.', 'tribe-common' ),
+					'image' => 'images/app-shop-filter-bar.jpg',
 				),
 				(object) array(
 					'title' => __( 'Community Events', 'tribe-common' ),
@@ -130,16 +146,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'image' => 'images/app-shop-community-tickets.jpg',
 				),
 				(object) array(
-					'title' => __( 'Event Tickets Plus', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/wordpress-event-tickets-plus/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-event-tickets-plus&utm_content=appstoreembedded-1',
-					'description' => sprintf(
-						__( 'Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings.', 'tribe-common' ),
-						'<a href="http://m.tri.be/18vc">',
-						'</a>'
-					),
-					'image' => 'images/app-shop-tickets-plus.jpg',
-				),
-				(object) array(
 					'title' => __( 'Eventbrite Tickets', 'tribe-common' ),
 					'link' => 'https://theeventscalendar.com/product/wordpress-eventbrite-tickets/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-eventbrite-tickets&utm_content=appstoreembedded-1',
 					'description' => sprintf(
@@ -148,12 +154,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 						'</a>'
 					),
 					'image' => 'images/app-shop-eventbrite.jpg',
-				),
-				(object) array(
-					'title' => __( 'Event Aggregator', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/event-aggregator/?utm_campaign=in-app&utm_source=addonspage&utm_medium=event-aggregator&utm_content=appstoreembedded-1',
-					'description' => __( 'Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more.', 'tribe-common' ),
-					'image' => 'images/app-shop-ical.jpg',
 				),
 			);
 
