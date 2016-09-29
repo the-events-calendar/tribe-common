@@ -101,10 +101,10 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		private function get_all_products() {
 			$products = array(
 				(object) array(
-					'title' => __( 'Filter Bar', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/wordpress-events-filterbar/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-filterbar&utm_content=appstoreembedded-1',
-					'description' => __( 'It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar.', 'tribe-common' ),
-					'image' => 'images/app-shop-filter-bar.jpg',
+					'title' => __( 'Event Aggregator', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/event-aggregator/?utm_campaign=in-app&utm_source=addonspage&utm_medium=event-aggregator&utm_content=appstoreembedded-1',
+					'description' => __( 'Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more.', 'tribe-common' ),
+					'image' => 'images/app-shop-ical.jpg',
 				),
 				(object) array(
 					'title' => __( 'Events Calendar PRO', 'tribe-common' ),
@@ -115,6 +115,22 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 						'</a>'
 					),
 					'image' => 'images/app-shop-pro.jpg',
+				),
+				(object) array(
+					'title' => __( 'Event Tickets Plus', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/wordpress-event-tickets-plus/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-event-tickets-plus&utm_content=appstoreembedded-1',
+					'description' => sprintf(
+						__( 'Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings.', 'tribe-common' ),
+						'<a href="http://m.tri.be/18vc">',
+						'</a>'
+					),
+					'image' => 'images/app-shop-tickets-plus.jpg',
+				),
+				(object) array(
+					'title' => __( 'Filter Bar', 'tribe-common' ),
+					'link' => 'https://theeventscalendar.com/product/wordpress-events-filterbar/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-filterbar&utm_content=appstoreembedded-1',
+					'description' => __( 'It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar.', 'tribe-common' ),
+					'image' => 'images/app-shop-filter-bar.jpg',
 				),
 				(object) array(
 					'title' => __( 'Community Events', 'tribe-common' ),
@@ -130,16 +146,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'image' => 'images/app-shop-community-tickets.jpg',
 				),
 				(object) array(
-					'title' => __( 'Event Tickets Plus', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/wordpress-event-tickets-plus/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-event-tickets-plus&utm_content=appstoreembedded-1',
-					'description' => sprintf(
-						__( 'Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings.', 'tribe-common' ),
-						'<a href="http://m.tri.be/18vc">',
-						'</a>'
-					),
-					'image' => 'images/app-shop-tickets-plus.jpg',
-				),
-				(object) array(
 					'title' => __( 'Eventbrite Tickets', 'tribe-common' ),
 					'link' => 'https://theeventscalendar.com/product/wordpress-eventbrite-tickets/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-eventbrite-tickets&utm_content=appstoreembedded-1',
 					'description' => sprintf(
@@ -148,18 +154,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 						'</a>'
 					),
 					'image' => 'images/app-shop-eventbrite.jpg',
-				),
-				(object) array(
-					'title' => __( 'Facebook Events', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/facebook-events/?utm_campaign=in-app&utm_source=addonspage&utm_medium=facebook-events&utm_content=appstoreembedded-1',
-					'description' => __( 'With the Facebook Events add-on, imported events are manually or automagically created as entries in The Events Calendar. Basic event data along with venue and organizer are populated appropriately. No more entering information in two places, or having to recreate someone else\'s listing for a public event you want to include on your WordPress calendar.', 'tribe-common' ),
-					'image' => 'images/app-shop-facebook.jpg',
-				),
-				(object) array(
-					'title' => __( 'iCal Importer', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/ical-importer/?utm_campaign=in-app&utm_source=addonspage&utm_medium=ical-importer&utm_content=appstoreembedded-1',
-					'description' => __( 'The iCal Importer helps you keep your events calendar full of interesting events! You can import events from any website that publishes an iCal (aka ICS) feed and add them to your listings. The recurring import feature lets you keep your calendar brimming without manual oversight (though you can review every imported event if you like). Add filtering by keyword or geographic region and you can be sure that the kinds of events you get are the kinds you want.', 'tribe-common' ),
-					'image' => 'images/app-shop-ical.jpg',
 				),
 			);
 
