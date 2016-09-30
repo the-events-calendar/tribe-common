@@ -110,6 +110,11 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 		 */
 		$handler = apply_filters( 'tribe_exit', $handler, $status );
 
+		// Die and exit are language constructs that cannot be used as callbacks on all PHP runtimes
+		if ( 'die' === $handler || 'exit' === $handler ) {
+			exit;
+		}
+
 		return call_user_func( $handler, $status );
 	}
 }
