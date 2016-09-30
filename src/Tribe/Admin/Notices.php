@@ -123,8 +123,18 @@ class Tribe__Admin__Notices {
 
 		$notice = $this->get( $slug );
 
-		// Return the rendered HTML
-		return $this->render( $slug, $notice->content );
+		if (
+			empty( $notice->active_callback )
+			|| (
+				is_callable( $notice->active_callback )
+				&& true == call_user_func( $notice->active_callback )
+		     )
+		) {
+			// Return the rendered HTML
+			return $this->render( $slug, $notice->content );
+		}
+
+		return false;
 	}
 
 	/**
@@ -254,21 +264,23 @@ class Tribe__Admin__Notices {
 	 * @param  string          $slug      Slug to save the notice
 	 * @param  callable|string $callback  A callable Method/Fuction to actually display the notice
 	 * @param  array           $arguments Arguments to Setup a notice
+	 * @param callable|null    $active_callback An optional callback that should return bool values
+	 *                                          to indicate whether the notice should display or not.
 	 *
 	 * @return stdClass
 	 */
-	public function register( $slug, $callback, $arguments = array() ) {
+	public function register( $slug, $callback, $arguments = array(), $active_callback = null ) {
 		// Prevent weird stuff here
 		$slug = sanitize_title_with_dashes( $slug );
 
 		$defaults = array(
-			'callback' => null,
-			'content'  => null,
-			'action'   => 'admin_notices',
-			'priority' => 10,
-			'expire'   => false,
-			'dismiss'  => false,
-			'type'     => 'error',
+			'callback'        => null,
+			'content'         => null,
+			'action'          => 'admin_notices',
+			'priority'        => 10,
+			'expire'          => false,
+			'dismiss'         => false,
+			'type'            => 'error',
 		);
 
 		if ( is_callable( $callback ) ) {
@@ -276,6 +288,10 @@ class Tribe__Admin__Notices {
 		} else {
 			$defaults['callback'] = array( $this, 'render_' . $slug );
 			$defaults['content'] = $callback;
+		}
+
+		if ( is_callable( $active_callback ) ) {
+			$defaults['active_callback'] = $active_callback;
 		}
 
 		// Merge Arguments
