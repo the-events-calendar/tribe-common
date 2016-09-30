@@ -41,22 +41,24 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 
 		public function __construct() {
+			// Add legacy plugins after plugins_loaded
+			add_action( 'plugins_loaded', array( $this, 'add_legacy_plugins' ), 100 );
+			// Call legacy plugins now, in case this class was constructed after plugins_loaded
 			$this->add_legacy_plugins();
 		}
 
 
 		/**
-		 * Registers older plugins that did not use this class
+		 * Registers older plugins that did not implement this class
 		 *
 		 * @TODO Consider removing this in 5.0
 		 */
-		private function add_legacy_plugins() {
-			// Version 4.2 and under of the plugins do not register themselves here, so we'll register them
-
+		public function add_legacy_plugins() {
 			$tribe_plugins = new Tribe__Plugins();
 
 			foreach ( $tribe_plugins->get_list() as $plugin ) {
-				if ( ! class_exists( $plugin['class'] ) ) {
+				// Only add plugin if it's present and not already added
+				if ( ! class_exists( $plugin['class'] ) || $this->get_plugin_by_class( $plugin['class'] ) !== null ) {
 					continue;
 				}
 
