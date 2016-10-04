@@ -81,6 +81,14 @@ class Tribe__Admin__Notices {
 				continue;
 			}
 
+			if (
+				!empty( $notice->active_callback )
+				&& is_callable( $notice->active_callback )
+				&& false == call_user_func( $notice->active_callback )
+			) {
+				continue;
+			}
+
 			add_action( $notice->action, $notice->callback, $notice->priority );
 		}
 	}
