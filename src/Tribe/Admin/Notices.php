@@ -148,13 +148,14 @@ class Tribe__Admin__Notices {
 	/**
 	 * This is a helper to actually print the Message
 	 *
-	 * @param  string  $slug    The Name of the Notice
-	 * @param  string  $content The content of the notice
-	 * @param  boolean $return  Echo or return the content
+	 * @param  string      $slug    The Name of the Notice
+	 * @param  string      $content The content of the notice
+	 * @param  boolean     $return  Echo or return the content
+	 * @param  string|bool $wrap    An optional HTML tag to wrap the content.
 	 *
-	 * @return boolean|string
+	 * @return bool|string
 	 */
-	public function render( $slug, $content = null, $return = false ) {
+	public function render( $slug, $content = null, $return = false, $wrap = false ) {
 		$notice = $this->get( $slug );
 
 		$classes = array( 'tribe-dismiss-notice', 'notice' );
@@ -165,6 +166,10 @@ class Tribe__Admin__Notices {
 			$classes[] = 'is-dismissible';
 		}
 
+		if ( is_string( $wrap ) ) {
+			$content = sprintf( '<%1$s>' . $content . '</%1$s>', $wrap );
+		}
+
 		$html = sprintf( '<div class="%s" data-ref="%s">%s</div>', implode( ' ', $classes ), $notice->slug, $content );
 
 		if ( ! $return ) {
@@ -172,6 +177,19 @@ class Tribe__Admin__Notices {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * This is a helper to print the message surrounded by `p` tags.
+	 *
+	 * @param  string  $slug    The Name of the Notice
+	 * @param  string  $content The content of the notice
+	 * @param  boolean $return  Echo or return the content
+	 *
+	 * @return boolean|string
+	 */
+	public function render_paragraph( $slug, $content = null, $return = false ) {
+		return $this->render( $slug, $content, $return, 'p' );
 	}
 
 	/**
