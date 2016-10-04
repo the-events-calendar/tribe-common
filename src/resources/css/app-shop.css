@@ -21,10 +21,8 @@
 	margin-top: 10px;
 }
 #tribe-app-shop .tribe-addon {
-	box-sizing: border-box;
 	background-color: #fff;
 	border-bottom: 1px solid #dfdfdf;
-	border-radius: 3px 3px 3px 3px;
 	display: inline-block;
 	margin: 0 15px 15px 0;
 	overflow: hidden;
@@ -32,6 +30,8 @@
 	position: relative;
 	vertical-align: top;
 	width: 300px;
+	border-radius: 3px 3px 3px 3px;
+	box-sizing: border-box;
 }
 #tribe-app-shop .tribe-addon h4 {
 	font-size: 1.17em;
