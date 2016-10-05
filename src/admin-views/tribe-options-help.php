@@ -32,8 +32,15 @@ $help->add_section_content( 'extra-help', '<div style="text-align: right;"><a hr
 
 // Creates the System Info section
 $help->add_section( 'system-info', __( 'System Information', 'tribe-common' ), 30 );
-$help->add_section_content( 'system-info', __( 'The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!', 'tribe-common' ), 0 );
-$help->add_section_content( 'system-info', '<div class="system-info-copy"><button data-clipboard-action="copy" class="system-info-copy-btn" data-clipboard-target=".support-stats" ><span class="dashicons dashicons-clipboard license-btn"></span>' .  __( 'Copy to clipboard', 'tribe-common' ) . '</button></div>', 0 );
+$help->add_section_content( 'system-info', __( 'The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums.', 'tribe-common' ), 0 );
+
+$help->add_section_content(
+	'system-info',
+	Tribe__Support::opt_in(),
+	10
+);
+
+$help->add_section_content( 'system-info', '<div class="system-info-copy"><button data-clipboard-action="copy" class="system-info-copy-btn" data-clipboard-target=".support-stats" ><span class="dashicons dashicons-clipboard license-btn"></span>' .  __( 'Copy to clipboard', 'tribe-common' ) . '</button></div>', 10 );
 
 $help->add_section( 'template-changes', __( 'Recent Template Changes', 'tribe-common' ), 40 );
 $help->add_section_content( 'template-changes', Tribe__Support__Template_Checker_Report::generate() );
@@ -45,7 +52,6 @@ $help->add_section_content( 'event-log', Tribe__Main::instance()->log()->admin()
 <div id="tribe-help-general">
 	<?php $help->get_sections(); ?>
 </div>
-
 
 <div id="tribe-help-sidebar">
 	<?php

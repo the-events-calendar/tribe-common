@@ -90,3 +90,32 @@ if ( ! function_exists( 'tribe_append_path' ) ) {
 	}
 }
 
+if ( ! function_exists( 'tribe_exit' ) ) {
+	/**
+	 * Filterable `die` wrapper.
+	 *
+	 * @param string $status
+	 *
+	 * @return void|mixed Depending on the handler this function might return
+	 *                    a value or `die` before anything is returned.
+	 */
+	function tribe_exit( $status = '' ) {
+		$handler = 'die';
+
+		/**
+		 * Filters the callback to call in place of `die()`.
+		 *
+		 * @param callable $handler The `die` replacement callback.
+		 * @param string   $status  The exit/die status.
+		 */
+		$handler = apply_filters( 'tribe_exit', $handler, $status );
+
+		// Die and exit are language constructs that cannot be used as callbacks on all PHP runtimes
+		if ( 'die' === $handler || 'exit' === $handler ) {
+			exit;
+		}
+
+		return call_user_func( $handler, $status );
+	}
+}
+

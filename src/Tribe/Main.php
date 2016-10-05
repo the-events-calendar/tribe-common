@@ -86,9 +86,16 @@ class Tribe__Main {
 			require_once dirname( __FILE__ ) . '/Autoloader.php';
 		}
 
-		$prefixes = array( 'Tribe__' => dirname( __FILE__ ) );
 		$autoloader = Tribe__Autoloader::instance();
+
+		$prefixes = array( 'Tribe__' => dirname( __FILE__ ) );
 		$autoloader->register_prefixes( $prefixes );
+
+		foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
+			$class_name = str_replace( '.php', '', basename( $file ) );
+			$autoloader->register_class( $class_name, $file );
+		}
+
 		$autoloader->register_autoloader();
 	}
 
