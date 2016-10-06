@@ -2,15 +2,31 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.2.7\n"
+"Project-Id-Version: Tribe Common 4.3\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2016-09-14 15:54:58+00:00\n"
+"POT-Creation-Date: 2016-10-06 11:31:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-09-14 15:54\n"
+"PO-Revision-Date: 2016-10-06 11:31\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+
+#: src/Tribe/Admin/Activation_Page.php:77
+msgid "Go to plugins page"
+msgstr ""
+
+#: src/Tribe/Admin/Activation_Page.php:77
+msgid "Return to Plugins page"
+msgstr ""
+
+#: src/Tribe/Admin/Activation_Page.php:85
+msgid "Go to WordPress Updates page"
+msgstr ""
+
+#: src/Tribe/Admin/Activation_Page.php:85
+msgid "Return to WordPress Updates"
+msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:48
 msgid "The Events Calendar"
@@ -40,19 +56,19 @@ msgstr ""
 msgid " and "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:183 src/Tribe/App_Shop.php:109
+#: src/Tribe/Admin/Help_Page.php:183 src/Tribe/App_Shop.php:110
 msgid "Events Calendar PRO"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:192 src/Tribe/App_Shop.php:142
+#: src/Tribe/Admin/Help_Page.php:192 src/Tribe/App_Shop.php:149
 msgid "Eventbrite Tickets"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:200 src/Tribe/App_Shop.php:119
+#: src/Tribe/Admin/Help_Page.php:200 src/Tribe/App_Shop.php:136
 msgid "Community Events"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:208 src/Tribe/App_Shop.php:152
+#: src/Tribe/Admin/Help_Page.php:208
 msgid "Facebook Events"
 msgstr ""
 
@@ -60,11 +76,11 @@ msgstr ""
 msgid "Events Filter Bar"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:224 src/Tribe/App_Shop.php:132
+#: src/Tribe/Admin/Help_Page.php:224 src/Tribe/App_Shop.php:120
 msgid "Event Tickets Plus"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:233 src/Tribe/App_Shop.php:125
+#: src/Tribe/Admin/Help_Page.php:233 src/Tribe/App_Shop.php:142
 msgid "Community Tickets"
 msgstr ""
 
@@ -137,70 +153,50 @@ msgstr ""
 msgid "Visit the Add-on Page"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
-msgid "<a href=\"%s\">Edit the page slug</a>"
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:89
-msgid "Ask the site administrator to edit the page slug"
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
-msgid "<a href=\"%s\">edit Events settings</a>."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
-msgid " ask the site administrator set a different Events URL slug."
-msgstr ""
-
 #: src/Tribe/App_Shop.php:48 src/Tribe/App_Shop.php:49
 #: src/Tribe/App_Shop.php:72
 msgid "Event Add-Ons"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:103
-msgid "Filter Bar"
+#: src/Tribe/App_Shop.php:104
+msgid "Event Aggregator"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:105
-msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
+#: src/Tribe/App_Shop.php:106
+msgid "Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:112
+#: src/Tribe/App_Shop.php:113
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:121
+#: src/Tribe/App_Shop.php:123
+msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:130
+msgid "Filter Bar"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:132
+msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:138
 msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:127
+#: src/Tribe/App_Shop.php:144
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:128
+#: src/Tribe/App_Shop.php:145
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:135
-msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
-msgstr ""
-
-#: src/Tribe/App_Shop.php:145
+#: src/Tribe/App_Shop.php:152
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
-msgstr ""
-
-#: src/Tribe/App_Shop.php:154
-msgid "With the Facebook Events add-on, imported events are manually or automagically created as entries in The Events Calendar. Basic event data along with venue and organizer are populated appropriately. No more entering information in two places, or having to recreate someone else's listing for a public event you want to include on your WordPress calendar."
-msgstr ""
-
-#: src/Tribe/App_Shop.php:158
-msgid "iCal Importer"
-msgstr ""
-
-#: src/Tribe/App_Shop.php:160
-msgid "The iCal Importer helps you keep your events calendar full of interesting events! You can import events from any website that publishes an iCal (aka ICS) feed and add them to your listings. The recurring import feature lets you keep your calendar brimming without manual oversight (though you can review every imported event if you like). Add filtering by keyword or geographic region and you can be sure that the kinds of events you get are the kinds you want."
 msgstr ""
 
 #: src/Tribe/Credits.php:31
@@ -215,33 +211,37 @@ msgstr ""
 msgid "Rate %1$sEvent Tickets%2$s %3$s"
 msgstr ""
 
-#: src/Tribe/Field.php:209
+#: src/Tribe/Error.php:38
+msgid "An Unknown error occurred"
+msgstr ""
+
+#: src/Tribe/Field.php:210
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:466
+#: src/Tribe/Field.php:482
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:502
+#: src/Tribe/Field.php:518
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:558
+#: src/Tribe/Field.php:574
 msgid "No select options specified"
 msgstr ""
 
-#: src/Tribe/Log/Admin.php:132
+#: src/Tribe/Log/Admin.php:136
 msgctxt "log selector"
 msgid "None currently available"
 msgstr ""
 
-#: src/Tribe/Log/Admin.php:147
+#: src/Tribe/Log/Admin.php:151
 msgctxt "log engines"
 msgid "None currently available"
 msgstr ""
 
-#: src/Tribe/Log/File_Logger.php:116
+#: src/Tribe/Log/File_Logger.php:123
 msgid "Default (uses temporary files)"
 msgstr ""
 
@@ -269,40 +269,147 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:308
+#: src/Tribe/Main.php:168 src/admin-views/tribe-options-help.php:43
+msgid "Copy to clipboard"
+msgstr ""
+
+#: src/Tribe/Main.php:169
+msgid "System info copied"
+msgstr ""
+
+#: src/Tribe/Main.php:170
+msgid "Press \"Cmd + C\" to copy"
+msgstr ""
+
+#: src/Tribe/Main.php:187
+msgid ": activate to sort column ascending"
+msgstr ""
+
+#: src/Tribe/Main.php:188
+msgid ": activate to sort column descending"
+msgstr ""
+
+#: src/Tribe/Main.php:190
+msgid "Show _MENU_ entries"
+msgstr ""
+
+#: src/Tribe/Main.php:191
+msgid "No data available in table"
+msgstr ""
+
+#: src/Tribe/Main.php:192
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr ""
+
+#: src/Tribe/Main.php:193
+msgid "Showing 0 to 0 of 0 entries"
+msgstr ""
+
+#: src/Tribe/Main.php:194
+msgid "(filtered from _MAX_ total entries)"
+msgstr ""
+
+#: src/Tribe/Main.php:195
+msgid "No matching records found"
+msgstr ""
+
+#: src/Tribe/Main.php:196
+msgid "Search:"
+msgstr ""
+
+#: src/Tribe/Main.php:198
+msgid "All"
+msgstr ""
+
+#: src/Tribe/Main.php:199
+msgid "Next"
+msgstr ""
+
+#: src/Tribe/Main.php:200
+msgid "Previous"
+msgstr ""
+
+#: src/Tribe/Main.php:205
+msgid ": Selected %d rows"
+msgstr ""
+
+#: src/Tribe/Main.php:206
+msgid ": Selected 1 row"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:414
 msgid "License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:309
+#: src/Tribe/PUE/Checker.php:415
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:380
+#: src/Tribe/PUE/Checker.php:497
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:419
-msgid "unknown date"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:422
-msgid "Sorry, key validation server is not available."
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:432
-msgid "Valid Key! Expires on %s"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:437
-msgid "Thanks for setting up a valid key, it will expire on %s"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:445
+#: src/Tribe/PUE/Checker.php:506
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:457
-msgid "Sorry, there is a problem with your license key. You'll need to %scheck your license%s to have access to updates, downloads, and support."
+#: src/Tribe/PUE/Checker.php:541
+msgid "unknown date"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:547
+msgid "Sorry, key validation server is not available."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:560
+msgid "Valid Key! Expires on %s"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:565
+msgid "Thanks for setting up a valid key. It will expire on %s"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:586 src/Tribe/PUE/Notices.php:267
+msgid "Renew Your License Now"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:588 src/Tribe/PUE/Notices.php:269
+msgid " (opens in a new window)"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:614
+msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:641
+msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
+msgstr ""
+
+#: src/Tribe/PUE/Notices.php:221
+msgid "It looks like you're using %s, but the license key you supplied does not appear to be valid or is missing. Please review and fix so that you can always have access to our latest versions!"
+msgid_plural "It looks like you're using %s, but the license keys you supplied do not appear to be valid or are missing. Please review and fix so that you can always have access to our latest versions!"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Tribe/PUE/Notices.php:254
+msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
+msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Tribe/PUE/Notices.php:286
+msgid "You have entered a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one."
+msgid_plural "You have entered license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Tribe/PUE/Notices.php:324
+msgid "You can find your license keys by logging in to %1$syour account on theeventscalendar.com%2$s and you can enter them over on the %3$ssettings page%2$s."
+msgstr ""
+
+#: src/Tribe/PUE/Notices.php:368
+msgctxt "formatted plugin list"
+msgid "%1$s and %2$s"
 msgstr ""
 
 #: src/Tribe/Plugin_Download_Notice.php:68
@@ -364,25 +471,25 @@ msgstr[1] ""
 msgid "Settings saved."
 msgstr ""
 
-#: src/Tribe/Settings_Manager.php:55
+#: src/Tribe/Settings_Manager.php:54
 msgid "General"
 msgstr ""
 
-#: src/Tribe/Settings_Manager.php:56
+#: src/Tribe/Settings_Manager.php:55
 msgid "Display"
 msgstr ""
 
-#: src/Tribe/Settings_Manager.php:62 src/Tribe/Settings_Manager.php:289
-msgid "Help"
-msgstr ""
-
-#: src/Tribe/Settings_Manager.php:229
+#: src/Tribe/Settings_Manager.php:219
 msgid "Network"
 msgstr ""
 
-#: src/Tribe/Settings_Manager.php:263
-#: src/admin-views/tribe-options-licenses.php:46
+#: src/Tribe/Settings_Manager.php:253
+#: src/admin-views/tribe-options-licenses.php:66
 msgid "Licenses"
+msgstr ""
+
+#: src/Tribe/Settings_Manager.php:279
+msgid "Help"
 msgstr ""
 
 #: src/Tribe/Settings_Tab.php:222
@@ -417,16 +524,36 @@ msgstr ""
 msgid "Information about recent template changes and potentially impacted template overrides is provided below."
 msgstr ""
 
-#: src/Tribe/Support.php:159
+#: src/Tribe/Support.php:163
 msgid "English"
 msgstr ""
 
-#: src/Tribe/Support.php:176 src/Tribe/Support.php:177
+#: src/Tribe/Support.php:179 src/Tribe/Support.php:180
 msgid "Unknown or not set"
 msgstr ""
 
-#: src/Tribe/Support.php:187
+#: src/Tribe/Support.php:190
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
+msgstr ""
+
+#: src/Tribe/Support.php:289
+msgid "Yes, automatically share my system information with the Modern Tribe support team"
+msgstr ""
+
+#: src/Tribe/Support.php:290
+msgid "Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties."
+msgstr ""
+
+#: src/Tribe/Support.php:309 src/Tribe/Support.php:314
+msgid "Invalid Key"
+msgstr ""
+
+#: src/Tribe/Support.php:342 src/Tribe/Support.php:368
+msgid "Permission Error"
+msgstr ""
+
+#: src/Tribe/Support.php:356
+msgid "Unique System Info Key Generated"
 msgstr ""
 
 #: src/Tribe/Validate.php:76 src/Tribe/Validate.php:117
@@ -737,7 +864,7 @@ msgid "Costa Rica"
 msgstr ""
 
 #: src/Tribe/View_Helpers.php:99
-msgid "Cote D'Ivoire"
+msgid "C&ocirc;te d'Ivoire"
 msgstr ""
 
 #: src/Tribe/View_Helpers.php:100
@@ -1685,7 +1812,15 @@ msgid "Wyoming"
 msgstr ""
 
 #: src/admin-views/app-shop.php:4
-msgid "Tribe Event Add-Ons"
+msgid "Events Add-Ons"
+msgstr ""
+
+#: src/admin-views/app-shop.php:5
+msgid "Browse All Add-Ons"
+msgstr ""
+
+#: src/admin-views/app-shop.php:32
+msgid "Buy This Add-On"
 msgstr ""
 
 #: src/admin-views/event-log.php:21
@@ -1700,11 +1835,11 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: src/admin-views/event-log.php:99
+#: src/admin-views/event-log.php:88
 msgid "The selected log file is empty or has not been generated yet."
 msgstr ""
 
-#: src/admin-views/event-log.php:104
+#: src/admin-views/event-log.php:105
 msgid "Download log"
 msgstr ""
 
@@ -1842,30 +1977,51 @@ msgid "System Information"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:35
-msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
+msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:37
+#: src/admin-views/tribe-options-help.php:45
 msgid "Recent Template Changes"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:57
+#: src/admin-views/tribe-options-help.php:48
+msgid "Event Log"
+msgstr ""
+
+#: src/admin-views/tribe-options-help.php:67
 msgid "News and Tutorials"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:63
+#: src/admin-views/tribe-options-help.php:73
 msgid "More..."
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:13
-msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
+#: src/admin-views/tribe-options-licenses.php:11
+#: src/admin-views/tribe-options-licenses.php:16
+msgid " (opens in new window)"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:18
+#: src/admin-views/tribe-options-licenses.php:15
+msgid "The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s."
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:22
+msgid "Each paid add-on has its own unique license key. Simply paste the key into its appropriate field below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message."
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:25
+msgid "If you're seeing a red message telling you that your key isn't valid or is out of installs, visit %1$s to manage your installs or renew / upgrade your license."
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:30
+msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:38
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:27
+#: src/admin-views/tribe-options-licenses.php:47
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
 msgstr ""
 
