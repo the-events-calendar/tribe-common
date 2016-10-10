@@ -75,6 +75,11 @@ abstract class Tribe__JSON_LD__Abstract {
 		}
 
 		$post = get_post( $post_id );
+
+		if ( empty( $post->ID ) ) {
+			return array();
+		}
+
 		$data = (object) array();
 
 		// We may need to prevent the context to be triggered
