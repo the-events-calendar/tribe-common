@@ -69,6 +69,13 @@ class Tribe__Main {
 		$this->add_hooks();
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+
+		/**
+		 * Runs once all common libs are loaded and initial hooks are in place.
+		 *
+		 * @since 4.3
+		 */
+		do_action( 'tribe_common_loaded' );
 	}
 
 	/**
@@ -218,6 +225,7 @@ class Tribe__Main {
 	public function add_hooks() {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'Tribe__Assets', 'instance' ), 1 );
+		add_action( 'plugins_loaded', array( $this, 'tribe_plugins_loaded' ), PHP_INT_MAX );
 
 		// Register for the assets to be available everywhere
 		add_action( 'init', array( $this, 'load_assets' ), 1 );
@@ -396,5 +404,17 @@ class Tribe__Main {
 		}
 		$notices = apply_filters( 'tribe_plugin_notices', array() );
 		wp_localize_script( 'tribe-pue-notices', 'tribe_plugin_notices', $notices );
+	}
+
+	/**
+	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
+	 */
+	public function tribe_plugins_loaded() {
+		/**
+		 * Runs after all plugins including Tribe ones have loaded
+		 *
+		 * @since 4.3
+		 */
+		do_action( 'tribe_plugins_loaded' );
 	}
 }
