@@ -30,7 +30,7 @@ class Tabbed_ViewTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_be_instantiatable() {
 		$sut = $this->make_instance();
 
-		$this->assertInstanceOf( Tabbed_View::class, $sut );
+		$this->assertInstanceOf( \Tribe__Tabbed_View::class, $sut );
 	}
 
 	/**
