@@ -154,11 +154,20 @@ class Tribe__Tabbed_View {
 	}
 
 	/**
-	 * @param Tribe__Tabbed_View__Abstract_Tab $tab
+	 * @param Tribe__Tabbed_View__Abstract_Tab|string $tab
 	 *
 	 * @return Tribe__Tabbed_View__Abstract_Tab
 	 */
-	public function register( Tribe__Tabbed_View__Abstract_Tab $tab ) {
+	public function register( $tab ) {
+		$is_object = is_a( $tab, 'Tribe__Tabbed_View__Abstract_Tab' );
+		if ( ! ( $is_object || is_string( $tab ) ) ) {
+			return false;
+		}
+
+		if ( ! $is_object ) {
+			$tab = $this->get_new_tab_instance( $tab );
+		}
+
 		// Set the Tab Item on the array of Tabs
 		$this->items[ $tab->get_slug() ] = $tab;
 
@@ -173,5 +182,18 @@ class Tribe__Tabbed_View {
 	 */
 	public function get_tabs() {
 		return array_values( $this->items );
+	}
+
+	/**
+	 * Builds an instance of the specified tab class.
+	 *
+	 * @param string $tab
+	 *
+	 * @return Tribe__Tabbed_View__Abstract_Tab
+	 */
+	protected function get_new_tab_instance( $tab ) {
+		$tab = call_user_func( array( $tab, '__construct' ) );
+
+		return $tab;
 	}
 }
