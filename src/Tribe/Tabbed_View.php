@@ -18,6 +18,18 @@ abstract class Tribe__Tabbed_View {
 	protected $default_tab;
 
 	/**
+	 * @var string The absolute path to this tabbed view template file.
+	 */
+	protected $template;
+
+	/**
+	 * An array or value object of data that should be used to render the tabbed view.
+	 *
+	 * @var array|object
+	 */
+	protected $data = array();
+
+	/**
 	 * Returns the main admin settings URL.
 	 *
 	 * @param array|string $args     Query String or Array with the arguments
@@ -25,7 +37,21 @@ abstract class Tribe__Tabbed_View {
 	 *
 	 * @return string
 	 */
-	abstract  public function get_url( $args, $relative );
+	abstract public function get_url( $args, $relative );
+
+	/**
+	 * @return string
+	 */
+	public function get_template() {
+		return $this->template;
+	}
+
+	/**
+	 * @param string $template
+	 */
+	public function set_template( $template ) {
+		$this->template = $template;
+	}
 
 	/**
 	 * A method to sort tabs by priority
@@ -206,4 +232,32 @@ abstract class Tribe__Tabbed_View {
 
 		return $tab;
 	}
+
+	/**
+	 * Renders the tabbed view and returns the resulting HTML.
+	 *
+	 * @return string
+	 */
+	public function render() {
+		ob_start();
+
+		$template = $this->template;
+
+		if ( empty( $template ) ) {
+			return '';
+		}
+
+		$default_data = array(
+			'tabbed_view' => $this,
+		);
+
+		$data = array_merge( $default_data, (array) $this->data );
+
+		extract( $data );
+
+		include $template;
+
+		$html = ob_get_clean();
+
+		return $htm	}
 }

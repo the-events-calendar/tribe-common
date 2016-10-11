@@ -53,8 +53,8 @@ abstract class Tribe__Tabbed_View__Tab {
 	}
 
 	public function get_template() {
-		return $this->template
-}
+		return $this->template;
+	}
 
 	/**
 	 * @param string $template
@@ -86,9 +86,9 @@ abstract class Tribe__Tabbed_View__Tab {
 
 		ob_start();
 
-		$file = $this->template;
+		$template = $this->template;
 
-		if ( emtpy( $file ) ) {
+		if ( empty( $template ) ) {
 			return '';
 		}
 
@@ -100,7 +100,7 @@ abstract class Tribe__Tabbed_View__Tab {
 
 		extract( $data );
 
-		include $file;
+		include $template;
 
 		$html = ob_get_clean();
 
