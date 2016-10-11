@@ -38,8 +38,10 @@ class TabTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( \Tribe__Tabbed_View__Tab::class, $sut );
 	}
 
+	/**
+	 * @return Tab
+	 */
 	private function make_instance() {
 		return new Tab( $this->tabbed_view->reveal() );
 	}
-
 }
