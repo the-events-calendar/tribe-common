@@ -30,7 +30,7 @@ abstract class Tribe__Tabbed_View {
 	protected $data = array();
 
 	/**
-	 * Returns the main admin settings URL.
+	 * Returns the tabbed view URL.
 	 *
 	 * @param array|string $args     Query String or Array with the arguments
 	 * @param boolean      $relative Return a relative URL or absolute
