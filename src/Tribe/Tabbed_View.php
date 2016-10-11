@@ -259,5 +259,6 @@ abstract class Tribe__Tabbed_View {
 
 		$html = ob_get_clean();
 
-		return $htm	}
+		return $html;
+	}
 }
