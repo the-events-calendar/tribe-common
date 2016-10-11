@@ -1,7 +1,7 @@
 <?php
 
 
-class Tribe__Tabbed_View {
+abstract class Tribe__Tabbed_View {
 
 	/**
 	 * A list of all the tabs registered for the tabbed view.
@@ -16,6 +16,16 @@ class Tribe__Tabbed_View {
 	 * @var string
 	 */
 	protected $default_tab;
+
+	/**
+	 * Returns the main admin settings URL.
+	 *
+	 * @param array|string $args     Query String or Array with the arguments
+	 * @param boolean      $relative Return a relative URL or absolute
+	 *
+	 * @return string
+	 */
+	abstract  public function get_url( $args, $relative );
 
 	/**
 	 * A method to sort tabs by priority
@@ -124,7 +134,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * Fetches the current active tab instance.
 	 *
-	 * @return Tribe__Tabbed_View__Abstract_Tab
+	 * @return Tribe__Tabbed_View__Tab
 	 */
 	public function get_active() {
 		$tab = ! empty( $_GET['tab'] ) && $this->exists( $_GET['tab'] ) ? $_GET['tab'] : $this->get_default_tab();
@@ -154,12 +164,12 @@ class Tribe__Tabbed_View {
 	}
 
 	/**
-	 * @param Tribe__Tabbed_View__Abstract_Tab|string $tab
+	 * @param Tribe__Tabbed_View__Tab|string $tab
 	 *
-	 * @return Tribe__Tabbed_View__Abstract_Tab
+	 * @return Tribe__Tabbed_View__Tab
 	 */
 	public function register( $tab ) {
-		$is_object = is_a( $tab, 'Tribe__Tabbed_View__Abstract_Tab' );
+		$is_object = is_a( $tab, 'Tribe__Tabbed_View__Tab' );
 		if ( ! ( $is_object || is_string( $tab ) ) ) {
 			return false;
 		}
@@ -178,7 +188,7 @@ class Tribe__Tabbed_View {
 	/**
 	 * Returns all the registered tabs.
 	 *
-	 * @return Tribe__Tabbed_View__Abstract_Tab[]
+	 * @return Tribe__Tabbed_View__Tab[]
 	 */
 	public function get_tabs() {
 		return array_values( $this->items );
@@ -189,7 +199,7 @@ class Tribe__Tabbed_View {
 	 *
 	 * @param string $tab
 	 *
-	 * @return Tribe__Tabbed_View__Abstract_Tab
+	 * @return Tribe__Tabbed_View__Tab
 	 */
 	protected function get_new_tab_instance( $tab ) {
 		$tab = call_user_func( array( $tab, '__construct' ) );
