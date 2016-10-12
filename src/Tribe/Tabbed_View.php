@@ -259,7 +259,7 @@ abstract class Tribe__Tabbed_View {
 		}
 
 		$default_data = array(
-			'tabbed_view' => $this,
+			'view' => $this,
 		);
 
 		$data = array_merge( $default_data, (array) $this->data );
