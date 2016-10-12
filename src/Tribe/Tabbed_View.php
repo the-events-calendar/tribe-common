@@ -77,6 +77,15 @@ class Tribe__Tabbed_View {
 	}
 
 	/**
+	 * Returns only the visible tabs for this tabbed view.
+	 *
+	 * @return Tribe__Tabbed_View__Tab[] An array of all the active and visible tabs.
+	 */
+	public function get_visibles() {
+		return array_filter( $this->get(), array( $this, 'is_tab_visible' ) );
+	}
+
+	/**
 	 * A method to sort tabs by priority in ascending order.
 	 *
 	 * @access private
@@ -271,7 +280,7 @@ class Tribe__Tabbed_View {
 	 * @return string
 	 */
 	public function render() {
-		if ( empty( $this->get() ) ) {
+		if ( empty( $this->get_visibles() ) ) {
 			return '';
 		}
 
@@ -312,5 +321,14 @@ class Tribe__Tabbed_View {
 	 */
 	public function set_default_tab( $default_tab ) {
 		$this->default_tab = $default_tab;
+	}
+
+	/**
+	 * @param Tribe__Tabbed_View__Tab $tab
+	 *
+	 * @return bool
+	 */
+	protected function is_tab_visible( Tribe__Tabbed_View__Tab $tab ) {
+		return $tab->is_visible();
 	}
 }

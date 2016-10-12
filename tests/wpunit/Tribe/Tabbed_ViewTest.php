@@ -278,8 +278,50 @@ class Tabbed_ViewTest extends \Codeception\TestCase\WPTestCase {
 	 * it should not render if no tabs are registered
 	 */
 	public function it_should_not_render_if_no_tabs_are_registered() {
-		$sut= $this->make_instance();
+		$sut = $this->make_instance();
 
-		$this->assertEquals('', $sut->render() );
+		$this->assertEquals( '', $sut->render() );
+	}
+
+	/**
+	 * @test
+	 * it should allow fetching active and visible tabs only
+	 */
+	public function it_should_allow_fetching_active_and_visible_tabs_only() {
+		$one = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$one->get_slug()->willReturn( 'one' );
+		$one->get_priority()->willReturn( 10 );
+		$one->is_active()->willReturn( true );
+		$one->is_visible()->willReturn( true );
+
+		$two = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$two->get_slug()->willReturn( 'two' );
+		$two->get_priority()->willReturn();
+		$two->is_active()->willReturn( true );
+		$two->is_visible()->willReturn( false );
+
+		$three = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$three->get_slug()->willReturn( 'three' );
+		$three->get_priority()->willReturn();
+		$three->is_active()->willReturn( false );
+		$three->is_visible()->willReturn( true );
+
+		$four = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$four->get_slug()->willReturn( 'four' );
+		$four->get_priority()->willReturn();
+		$four->is_active()->willReturn( true );
+		$four->is_visible()->willReturn( true );
+
+		$sut = $this->make_instance();
+		$sut->register( $one->reveal() );
+		$sut->register( $two->reveal() );
+		$sut->register( $three->reveal() );
+		$sut->register( $four->reveal() );
+
+		$tabs = $sut->get_visibles();
+
+		$this->assertCount( 2, $tabs );
+		$this->assertEquals( 'four', reset( $tabs )->get_slug() );
+		$this->assertEquals( 'one', end( $tabs )->get_slug() );
 	}
 }
