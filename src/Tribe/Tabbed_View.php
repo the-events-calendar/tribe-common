@@ -35,6 +35,11 @@ class Tribe__Tabbed_View {
 	protected $label;
 
 	/**
+	 * @var string
+	 */
+	protected $url;
+
+	/**
 	 * Returns the tabbed view URL.
 	 *
 	 * @param array|string $args     Query String or Array with the arguments
@@ -83,6 +88,13 @@ class Tribe__Tabbed_View {
 	 */
 	public function get_visibles() {
 		return array_filter( $this->get(), array( $this, 'is_tab_visible' ) );
+	}
+
+	/**
+	 * @param string $url
+	 */
+	public function set_url( $url ) {
+		$this->url = $url;
 	}
 
 	/**
