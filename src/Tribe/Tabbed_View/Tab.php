@@ -52,7 +52,7 @@ class Tribe__Tabbed_View__Tab {
 	 */
 	public function __construct( Tribe__Tabbed_View $tabbed_view, $slug = null ) {
 		$this->tabbed_view = $tabbed_view;
-		$this->slug        = $slug;
+		$this->slug        = ! empty( $slug ) ? $slug : $this->slug;
 	}
 
 	public function get_priority() {
