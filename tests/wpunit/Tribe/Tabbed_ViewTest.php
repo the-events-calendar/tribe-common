@@ -272,4 +272,14 @@ class Tabbed_ViewTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertFalse( $sut->get_active() );
 	}
+
+	/**
+	 * @test
+	 * it should not render if no tabs are registered
+	 */
+	public function it_should_not_render_if_no_tabs_are_registered() {
+		$sut= $this->make_instance();
+
+		$this->assertEquals('', $sut->render() );
+	}
 }

@@ -271,6 +271,10 @@ class Tribe__Tabbed_View {
 	 * @return string
 	 */
 	public function render() {
+		if ( empty( $this->get() ) ) {
+			return '';
+		}
+
 		if ( empty( $this->template ) ) {
 			$this->template = Tribe__Main::instance()->plugin_path . '/src/admin-views/tabbed-view/tabbed-view.php';
 		}
