@@ -25,5 +25,6 @@ class Tab_Extension extends Tribe__Tabbed_View__Tab {
 	 * @return string
 	 */
 	public function get_slug() {
+		return 'tab_extension';
 	}
 }

@@ -54,7 +54,7 @@ abstract class Tribe__Tabbed_View {
 	}
 
 	/**
-	 * A method to sort tabs by priority
+	 * A method to sort tabs by priority in ascending order.
 	 *
 	 * @access private
 	 *
@@ -63,12 +63,15 @@ abstract class Tribe__Tabbed_View {
 	 *
 	 * @return int
 	 */
-	protected function _sort_by_priority( $a, $b ) {
-		if ( $a->priority == $b->priority ) {
+	protected function sort_by_priority( $a, $b ) {
+		$a_priority = $a->get_priority();
+		$b_priority = $b->get_priority();
+
+		if ( $a_priority == $b_priority ) {
 			return 0;
 		}
 
-		return ( $a->priority < $b->priority ) ? - 1 : 1;
+		return ( $a_priority < $b_priority ) ? - 1 : 1;
 	}
 
 	/**
@@ -107,8 +110,7 @@ abstract class Tribe__Tabbed_View {
 	 * @return null|array|object        If we couldn't find the tab it will be null, if the slug is null will return all tabs
 	 */
 	public function get( $slug = null ) {
-		// Sort Tabs by priority
-		uasort( $this->items, array( $this, '_sort_by_priority' ) );
+		uasort( $this->items, array( $this, 'sort_by_priority' ) );
 
 		if ( is_null( $slug ) ) {
 			return $this->items;
@@ -160,13 +162,14 @@ abstract class Tribe__Tabbed_View {
 	/**
 	 * Fetches the current active tab instance.
 	 *
-	 * @return Tribe__Tabbed_View__Tab
+	 * @return Tribe__Tabbed_View__Tab|bool The active tab, the default tab if no tab is active,
+	 *                                      `false` if no tabs are registered in the Tabbed View.
 	 */
 	public function get_active() {
 		$tab = ! empty( $_GET['tab'] ) && $this->exists( $_GET['tab'] ) ? $_GET['tab'] : $this->get_default_tab();
 
 		// Return the active tab or the default one
-		return $this->get( $tab );
+		return ! empty( $tab ) ? $this->get( $tab ) : false;
 	}
 
 	/**
@@ -176,7 +179,7 @@ abstract class Tribe__Tabbed_View {
 	 *                a default tab is not set, `false` otherwise.
 	 */
 	public function get_default_tab() {
-		if ( ! empty( $this->default_tab ) ) {
+		if ( ! empty( $this->default_tab ) && $this->exists( $this->default_tab ) ) {
 			return $this->default_tab;
 		}
 
@@ -196,7 +199,7 @@ abstract class Tribe__Tabbed_View {
 	 */
 	public function register( $tab ) {
 		$is_object = is_a( $tab, 'Tribe__Tabbed_View__Tab' );
-		if ( ! ( $is_object || is_string( $tab ) ) ) {
+		if ( ! ( $is_object || ( is_string( $tab ) && class_exists( $tab ) ) ) ) {
 			return false;
 		}
 
@@ -205,7 +208,13 @@ abstract class Tribe__Tabbed_View {
 		}
 
 		// Set the Tab Item on the array of Tabs
-		$this->items[ $tab->get_slug() ] = $tab;
+		$tab_slug = $tab->get_slug();
+
+		if ( empty( $tab_slug ) ) {
+			return false;
+		}
+
+		$this->items[ $tab_slug ] = $tab;
 
 		// Return the tab
 		return $tab;
@@ -217,20 +226,20 @@ abstract class Tribe__Tabbed_View {
 	 * @return Tribe__Tabbed_View__Tab[]
 	 */
 	public function get_tabs() {
+		uasort( $this->items, array( $this, 'sort_by_priority' ) );
+
 		return array_values( $this->items );
 	}
 
 	/**
 	 * Builds an instance of the specified tab class.
 	 *
-	 * @param string $tab
+	 * @param string $tab_class
 	 *
 	 * @return Tribe__Tabbed_View__Tab
 	 */
-	protected function get_new_tab_instance( $tab ) {
-		$tab = call_user_func( array( $tab, '__construct' ) );
-
-		return $tab;
+	protected function get_new_tab_instance( $tab_class ) {
+		return new $tab_class( $this );
 	}
 
 	/**
@@ -239,7 +248,9 @@ abstract class Tribe__Tabbed_View {
 	 * @return string
 	 */
 	public function render() {
-		ob_start();
+		if ( empty( $this->template ) ) {
+			$this->template = Tribe__Main::instance()->plugin_path . '/src/admin-views/tabbed-view/tabbed-view.php';
+		}
 
 		$template = $this->template;
 
@@ -255,10 +266,24 @@ abstract class Tribe__Tabbed_View {
 
 		extract( $data );
 
+		ob_start();
+
 		include $template;
 
 		$html = ob_get_clean();
 
 		return $html;
+	}
+
+	/**
+	 * Sets the default tab for the tabbed view.
+	 *
+	 * Please note that no check is made on the tabbed view items to ensure the value
+	 * corresponds to a registered tab.
+	 *
+	 * @param string $default_tab The slug of the default tab.
+	 */
+	public function set_default_tab( $default_tab ) {
+		$this->default_tab = $default_tab;
 	}
 }

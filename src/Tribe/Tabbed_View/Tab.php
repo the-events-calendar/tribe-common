@@ -29,8 +29,20 @@ abstract class Tribe__Tabbed_View__Tab {
 	 */
 	protected $tabbed_view;
 
-	public function __construct( Tribe__Tabbed_View $tabbed_view ) {
+	/**
+	 * @var string
+	 */
+	protected $slug;
+
+	/**
+	 * Tribe__Tabbed_View__Tab constructor.
+	 *
+	 * @param Tribe__Tabbed_View $tabbed_view
+	 * @param string             $slug
+	 */
+	public function __construct( Tribe__Tabbed_View $tabbed_view, $slug = null ) {
 		$this->tabbed_view = $tabbed_view;
+		$this->slug        = $slug;
 	}
 
 	public function get_priority() {
@@ -83,8 +95,9 @@ abstract class Tribe__Tabbed_View__Tab {
 	 * @return string Content of the tab
 	 */
 	public function render() {
-
-		ob_start();
+		if ( empty( $this->template ) ) {
+			$this->template = Tribe__Main::instance()->plugin_path . '/src/admin-views/tabbed-view/tab.php';
+		}
 
 		$template = $this->template;
 
@@ -99,6 +112,8 @@ abstract class Tribe__Tabbed_View__Tab {
 		$data = array_merge( $default_data, (array) $this->data );
 
 		extract( $data );
+
+		ob_start();
 
 		include $template;
 
@@ -140,7 +155,9 @@ abstract class Tribe__Tabbed_View__Tab {
 	 * @return boolean
 	 */
 	public function is_active() {
-		return $this->slug === $this->tabbed_view->get_active()->get_slug();
+		$active = $this->tabbed_view->get_active();
+
+		return ! empty( $active ) ? $this->slug === $active->get_slug() : false;
 	}
 
 	/**
