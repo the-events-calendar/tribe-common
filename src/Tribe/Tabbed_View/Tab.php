@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class Tribe__Tabbed_View__Tab {
+class Tribe__Tabbed_View__Tab {
 
 	/**
 	 * To Order the Tabs on the UI you need to change the priority
@@ -33,6 +33,16 @@ abstract class Tribe__Tabbed_View__Tab {
 	 * @var string
 	 */
 	protected $slug;
+
+	/**
+	 * @var bool
+	 */
+	protected $visible = true;
+
+	/**
+	 * @var string
+	 */
+	protected $label = '';
 
 	/**
 	 * Tribe__Tabbed_View__Tab constructor.
@@ -80,14 +90,18 @@ abstract class Tribe__Tabbed_View__Tab {
 	 *
 	 * @return boolean
 	 */
-	abstract public function is_visible();
+	public function is_visible() {
+		return $this->visible;
+	}
 
 	/**
 	 * Enforces a method to return the Label of the Tab
 	 *
 	 * @return string
 	 */
-	abstract public function get_label();
+	public function get_label() {
+		return $this->label;
+	}
 
 	/**
 	 * Creates a way to include the this tab HTML easily
@@ -147,7 +161,9 @@ abstract class Tribe__Tabbed_View__Tab {
 	 *
 	 * @return string
 	 */
-	abstract public function get_slug();
+	public function get_slug() {
+		return $this->slug;
+	}
 
 	/**
 	 * Determines if this Tab is currently displayed
@@ -169,5 +185,19 @@ abstract class Tribe__Tabbed_View__Tab {
 		$this->tabbed_view = $tabbed_view;
 
 		return $this;
+	}
+
+	/**
+	 * @param boolean $visible
+	 */
+	public function set_visible( $visible ) {
+		$this->visible = $visible;
+	}
+
+	/**
+	 * @param string $label
+	 */
+	public function set_label( $label ) {
+		$this->label = $label;
 	}
 }

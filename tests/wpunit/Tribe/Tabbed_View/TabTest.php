@@ -1,11 +1,8 @@
 <?php
 namespace Tribe\Tabbed_View;
 
-require_once codecept_data_dir( 'classes/Tab_Extension.php' );
-
-
 use Prophecy\Argument;
-use Tab_Extension as Tab;
+use Tribe__Tabbed_View__Tab as Tab;
 
 class TabTest extends \Codeception\TestCase\WPTestCase {
 

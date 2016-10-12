@@ -2,10 +2,9 @@
 
 namespace Tribe;
 
-require_once codecept_data_dir( 'classes/Tabbed_View_Extension.php' );
 require_once codecept_data_dir( 'classes/Tab_Extension.php' );
 
-use Tabbed_View_Extension as Tabbed_View;
+use Tribe__Tabbed_View as Tabbed_View;
 
 class Tabbed_ViewTest extends \Codeception\TestCase\WPTestCase {
 
@@ -198,7 +197,7 @@ class Tabbed_ViewTest extends \Codeception\TestCase\WPTestCase {
 		$tab->get_slug()->willReturn( 'foo' );
 		$tab->get_priority()->willReturn( 10 );
 
-		$sut = $this->make_instance();
+		$sut          = $this->make_instance();
 		$revealed_tab = $tab->reveal();
 		$sut->register( $revealed_tab );
 		$sut->set_default_tab( 'foo' );

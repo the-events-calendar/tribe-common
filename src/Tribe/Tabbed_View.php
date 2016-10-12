@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class Tribe__Tabbed_View {
+class Tribe__Tabbed_View {
 
 	/**
 	 * A list of all the tabs registered for the tabbed view.
@@ -37,7 +37,11 @@ abstract class Tribe__Tabbed_View {
 	 *
 	 * @return string
 	 */
-	abstract public function get_url( $args, $relative );
+	public function get_url( $args, $relative ) {
+		$relative_path = add_query_arg( $args, $this->url );
+
+		return $relative ? $relative_path : admin_url( $relative_path );
+	}
 
 	/**
 	 * @return string
