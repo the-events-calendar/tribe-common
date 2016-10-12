@@ -3,7 +3,7 @@
  * The default template for a Tabbed View.
  */
 ?>
-
+<h1><?php echo esc_html( $view->get_label() ); ?></h1>
 <h2 class="nav-tab-wrapper">
 	<?php foreach ( $view->get() as $tab ): ?>
 		<?php

@@ -30,6 +30,11 @@ class Tribe__Tabbed_View {
 	protected $data = array();
 
 	/**
+	 * @var string
+	 */
+	protected $label;
+
+	/**
 	 * Returns the tabbed view URL.
 	 *
 	 * @param array|string $args     Query String or Array with the arguments
@@ -55,6 +60,20 @@ class Tribe__Tabbed_View {
 	 */
 	public function set_template( $template ) {
 		$this->template = $template;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_label() {
+		return $this->label;
+	}
+
+	/**
+	 * @param string $label
+	 */
+	public function set_label( $label ) {
+		$this->label = $label;
 	}
 
 	/**
