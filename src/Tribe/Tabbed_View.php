@@ -40,6 +40,11 @@ class Tribe__Tabbed_View {
 	protected $url;
 
 	/**
+	 * @var string
+	 */
+	protected $active;
+
+	/**
 	 * Returns the tabbed view URL.
 	 *
 	 * @param array|string $args     Query String or Array with the arguments
@@ -95,6 +100,17 @@ class Tribe__Tabbed_View {
 	 */
 	public function set_url( $url ) {
 		$this->url = $url;
+	}
+
+	/**
+	 * Sets the slug of the currently active tab.
+	 *
+	 * This value, if the tab exists, will override the value specified in the GET request.
+	 *
+	 * @param string $active
+	 */
+	public function set_active( $active ) {
+		$this->active = $active;
 	}
 
 	/**
@@ -210,6 +226,10 @@ class Tribe__Tabbed_View {
 	 *                                      `false` if no tabs are registered in the Tabbed View.
 	 */
 	public function get_active() {
+		if ( ! empty( $this->active ) && $this->exists( $this->active ) ) {
+			return $this->get( $this->active );
+		}
+
 		$tab = ! empty( $_GET['tab'] ) && $this->exists( $_GET['tab'] ) ? $_GET['tab'] : $this->get_default_tab();
 
 		// Return the active tab or the default one

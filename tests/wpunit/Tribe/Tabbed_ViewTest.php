@@ -285,9 +285,9 @@ class Tabbed_ViewTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should allow fetching active and visible tabs only
+	 * it should allow fetching visible tabs only
 	 */
-	public function it_should_allow_fetching_active_and_visible_tabs_only() {
+	public function it_should_allow_fetching_visible_tabs_only() {
 		$one = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
 		$one->get_slug()->willReturn( 'one' );
 		$one->get_priority()->willReturn( 10 );
@@ -320,8 +320,88 @@ class Tabbed_ViewTest extends \Codeception\TestCase\WPTestCase {
 
 		$tabs = $sut->get_visibles();
 
-		$this->assertCount( 2, $tabs );
-		$this->assertEquals( 'four', reset( $tabs )->get_slug() );
-		$this->assertEquals( 'one', end( $tabs )->get_slug() );
+		$this->assertCount( 3, $tabs );
+	}
+
+	/**
+	 * @test
+	 * it should allow setting the active tab overriding the GET one
+	 */
+	public function it_should_allow_setting_the_active_tab_overriding_the_get_one() {
+		$_GET['tab'] = 'one';
+
+		$one = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$one->get_slug()->willReturn( 'one' );
+		$one->get_priority()->willReturn( 10 );
+		$one->is_active()->willReturn( true );
+		$one->is_visible()->willReturn( true );
+
+		$two = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$two->get_slug()->willReturn( 'two' );
+		$two->get_priority()->willReturn();
+		$two->is_active()->willReturn( false );
+		$two->is_visible()->willReturn( false );
+
+		$three = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$three->get_slug()->willReturn( 'three' );
+		$three->get_priority()->willReturn();
+		$three->is_active()->willReturn( false );
+		$three->is_visible()->willReturn( true );
+
+		$four = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$four->get_slug()->willReturn( 'four' );
+		$four->get_priority()->willReturn();
+		$four->is_active()->willReturn( false );
+		$four->is_visible()->willReturn( true );
+
+		$sut = $this->make_instance();
+		$sut->register( $one->reveal() );
+		$sut->register( $two->reveal() );
+		$sut->register( $three->reveal() );
+		$sut->register( $four->reveal() );
+
+		$sut->set_active( 'three' );
+		$this->assertEquals( 'three', $sut->get_active()->get_slug() );
+	}
+
+	/**
+	 * @test
+	 * it should return the default tab if active set to non registered
+	 */
+	public function it_should_return_the_default_tab_if_active_set_to_non_registered() {
+		unset( $_GET['tab'] );
+
+		$one = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$one->get_slug()->willReturn( 'one' );
+		$one->get_priority()->willReturn( 10 );
+		$one->is_active()->willReturn( true );
+		$one->is_visible()->willReturn( true );
+
+		$two = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$two->get_slug()->willReturn( 'two' );
+		$two->get_priority()->willReturn( 20 );
+		$two->is_active()->willReturn( false );
+		$two->is_visible()->willReturn( false );
+
+		$three = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$three->get_slug()->willReturn( 'three' );
+		$three->get_priority()->willReturn( 20 );
+		$three->is_active()->willReturn( false );
+		$three->is_visible()->willReturn( true );
+
+		$four = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
+		$four->get_slug()->willReturn( 'four' );
+		$four->get_priority()->willReturn( 20 );
+		$four->is_active()->willReturn( false );
+		$four->is_visible()->willReturn( true );
+
+		$sut = $this->make_instance();
+		$sut->register( $one->reveal() );
+		$sut->register( $two->reveal() );
+		$sut->register( $three->reveal() );
+		$sut->register( $four->reveal() );
+
+		$sut->set_active( 'five' );
+		$this->assertEquals( 'one', $sut->get_active()->get_slug() );
 	}
 }
