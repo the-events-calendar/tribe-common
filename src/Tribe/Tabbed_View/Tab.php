@@ -1,6 +1,11 @@
 <?php
 
 
+/**
+ * Class Tribe__Tabbed_View__Tab
+ *
+ * Models a tab part of a tabbed view.
+ */
 class Tribe__Tabbed_View__Tab {
 
 	/**
@@ -25,6 +30,8 @@ class Tribe__Tabbed_View__Tab {
 	protected $template;
 
 	/**
+	 * The tabbed view instance containing this tab.
+	 *
 	 * @var Tribe__Tabbed_View
 	 */
 	protected $tabbed_view;
@@ -60,14 +67,23 @@ class Tribe__Tabbed_View__Tab {
 		$this->slug        = ! empty( $slug ) ? $slug : $this->slug;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function get_priority() {
 		return $this->priority;
 	}
 
+	/**
+	 * @param $priority
+	 */
 	public function set_priority( $priority ) {
 		$this->priority = $priority;
 	}
 
+	/**
+	 * @return array|object
+	 */
 	public function get_data() {
 		return $this->data;
 	}
@@ -79,8 +95,11 @@ class Tribe__Tabbed_View__Tab {
 		$this->data = $data;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_template() {
-		return $this->template;
+		return ! empty( $this->template ) ? $this->template : $this->get_default_template_path();
 	}
 
 	/**
@@ -91,7 +110,16 @@ class Tribe__Tabbed_View__Tab {
 	}
 
 	/**
-	 * Enforces a method to display the tab or not
+	 * Returns the absolute path to the default template for the tab.
+	 *
+	 * @return string
+	 */
+	public function get_default_template_path() {
+		return Tribe__Main::instance()->plugin_path . '/src/admin-views/tabbed-view/tab.php';
+	}
+
+	/**
+	 * Whether the tab should display or not.
 	 *
 	 * @return boolean
 	 */
@@ -100,8 +128,13 @@ class Tribe__Tabbed_View__Tab {
 	}
 
 	/**
-	 * Enforces a method to return the Label of the Tab
-	 *
+	 * @param boolean $visible
+	 */
+	public function set_visible( $visible ) {
+		$this->visible = $visible;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function get_label() {
@@ -109,9 +142,16 @@ class Tribe__Tabbed_View__Tab {
 	}
 
 	/**
+	 * @param string $label
+	 */
+	public function set_label( $label ) {
+		$this->label = $label;
+	}
+
+	/**
 	 * Creates a way to include the this tab HTML easily
 	 *
-	 * @return string Content of the tab
+	 * @return string HTML content of the tab
 	 */
 	public function render() {
 		if ( empty( $this->template ) ) {
@@ -142,7 +182,7 @@ class Tribe__Tabbed_View__Tab {
 	}
 
 	/**
-	 * Fetches the link to this tab
+	 * Returns the link to this tab
 	 *
 	 * @param array|string $args     Query String or Array with the arguments
 	 * @param boolean      $relative Return a relative URL or absolute
@@ -166,7 +206,18 @@ class Tribe__Tabbed_View__Tab {
 	}
 
 	/**
-	 * Enforces a method to return the Tab Slug
+	 * Sets this tab URL.
+	 *
+	 * This URL will override the tab natural URL.
+	 *
+	 * @param string $url
+	 */
+	public function set_url( $url ) {
+		$this->url = $url;
+	}
+
+	/**
+	 * Returns the tab slug
 	 *
 	 * @return string
 	 */
@@ -183,37 +234,5 @@ class Tribe__Tabbed_View__Tab {
 		$active = $this->tabbed_view->get_active();
 
 		return ! empty( $active ) ? $this->get_slug() === $active->get_slug() : false;
-	}
-
-	/**
-	 * @param Tribe__Tabbed_View $tabbed_view
-	 *
-	 * @return Tribe__Tabbed_View__Tab
-	 */
-	public function set_tabbed_view( $tabbed_view ) {
-		$this->tabbed_view = $tabbed_view;
-
-		return $this;
-	}
-
-	/**
-	 * @param boolean $visible
-	 */
-	public function set_visible( $visible ) {
-		$this->visible = $visible;
-	}
-
-	/**
-	 * @param string $label
-	 */
-	public function set_label( $label ) {
-		$this->label = $label;
-	}
-
-	/**
-	 * @param string $url
-	 */
-	public function set_url( $url ) {
-		$this->url = $url;
 	}
 }

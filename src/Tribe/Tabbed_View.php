@@ -1,6 +1,11 @@
 <?php
 
 
+/**
+ * Class Tribe__Tabbed_View
+ *
+ * Models a tabbed view containing tabs.
+ */
 class Tribe__Tabbed_View {
 
 	/**
@@ -59,10 +64,12 @@ class Tribe__Tabbed_View {
 	}
 
 	/**
+	 * The currently set template for this tabbed view.
+	 *
 	 * @return string
 	 */
 	public function get_template() {
-		return $this->template;
+		return ! empty( $this->template ) ? $this->template : $this->get_default_template_path();
 	}
 
 	/**
@@ -317,7 +324,7 @@ class Tribe__Tabbed_View {
 		}
 
 		if ( empty( $this->template ) ) {
-			$this->template = Tribe__Main::instance()->plugin_path . '/src/admin-views/tabbed-view/tabbed-view.php';
+			$this->template = $this->get_default_template_path();
 		}
 
 		$template = $this->template;
@@ -362,5 +369,14 @@ class Tribe__Tabbed_View {
 	 */
 	protected function is_tab_visible( Tribe__Tabbed_View__Tab $tab ) {
 		return $tab->is_visible();
+	}
+
+	/**
+	 * Returns the absolute path to the default template for the tabbed view.
+	 *
+	 * @return string
+	 */
+	public function get_default_template_path() {
+		return Tribe__Main::instance()->plugin_path . '/src/admin-views/tabbed-view/tabbed-view.php';
 	}
 }
