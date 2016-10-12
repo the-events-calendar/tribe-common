@@ -45,6 +45,11 @@ class Tribe__Tabbed_View__Tab {
 	protected $label = '';
 
 	/**
+	 * @var string
+	 */
+	protected $url = '';
+
+	/**
 	 * Tribe__Tabbed_View__Tab constructor.
 	 *
 	 * @param Tribe__Tabbed_View $tabbed_view
@@ -145,6 +150,10 @@ class Tribe__Tabbed_View__Tab {
 	 * @return string
 	 */
 	public function get_url( $args = array(), $relative = false ) {
+		if ( ! empty( $this->url ) ) {
+			return $this->url;
+		}
+
 		$defaults = array(
 			'tab' => $this->get_slug(),
 		);
@@ -199,5 +208,12 @@ class Tribe__Tabbed_View__Tab {
 	 */
 	public function set_label( $label ) {
 		$this->label = $label;
+	}
+
+	/**
+	 * @param string $url
+	 */
+	public function set_url( $url ) {
+		$this->url = $url;
 	}
 }
