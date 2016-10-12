@@ -24,6 +24,6 @@ $tabs = $view->get_visibles();
 			<?php endforeach; ?>
         </h2>
     </div>
-<? else: ?>
+<?php else: ?>
     <h1><?php esc_html_e( reset( $tabs )->get_label() ); ?></h1>
 <?php endif; ?>

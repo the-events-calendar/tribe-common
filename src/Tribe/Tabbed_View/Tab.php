@@ -173,7 +173,7 @@ class Tribe__Tabbed_View__Tab {
 	public function is_active() {
 		$active = $this->tabbed_view->get_active();
 
-		return ! empty( $active ) ? $this->slug === $active->get_slug() : false;
+		return ! empty( $active ) ? $this->get_slug() === $active->get_slug() : false;
 	}
 
 	/**
