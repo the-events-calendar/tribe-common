@@ -4,8 +4,8 @@
  */
 class Tribe__Admin__Activation_Page {
 	protected $args = array();
-	protected $update_slug = 'update-message-';
-	protected $welcome_slug = 'welcome-message-';
+	public $update_slug = 'update-message-';
+	public $welcome_slug = 'welcome-message-';
 	protected $current_context = '';
 
 	/**
