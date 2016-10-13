@@ -65,7 +65,6 @@ class TabTest extends \Codeception\TestCase\WPTestCase {
 		$tab->get_slug()->willReturn( 'bar' );
 		$this->tabbed_view->get_active()->willReturn( $tab->reveal() );
 
-
 		$sut       = $this->make_instance();
 		$is_active = $sut->is_active();
 
@@ -81,7 +80,6 @@ class TabTest extends \Codeception\TestCase\WPTestCase {
 		$tab->get_slug()->willReturn( 'foo' );
 		$this->tabbed_view->get_active()->willReturn( $tab->reveal() );
 
-
 		$sut       = $this->make_instance();
 		$is_active = $sut->is_active();
 
@@ -95,7 +93,6 @@ class TabTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_not_be_active_if_active_is_undefined_on_tabbed_view() {
 		$tab = $this->prophesize( \Tribe__Tabbed_View__Tab::class );
 		$this->tabbed_view->get_active()->willReturn( false );
-
 
 		$sut       = $this->make_instance();
 		$is_active = $sut->is_active();

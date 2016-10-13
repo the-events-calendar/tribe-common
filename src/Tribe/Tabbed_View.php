@@ -123,8 +123,6 @@ class Tribe__Tabbed_View {
 	/**
 	 * A method to sort tabs by priority in ascending order.
 	 *
-	 * @access private
-	 *
 	 * @param  object $a First tab to compare
 	 * @param  object $b Second tab to compare
 	 *
