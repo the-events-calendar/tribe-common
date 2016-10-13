@@ -1,19 +1,19 @@
 <?php
-if ( ! class_exists( 'Tribe__DI' ) ) {
+if ( ! class_exists( 'Tribe__Container' ) ) {
 	/**
-	 * Class Tribe__DI
+	 * Class Tribe__Container
 	 *
 	 * Tribe Dependency Injection Container.
 	 */
-	class Tribe__DI extends tad_DI52_Container {
+	class Tribe__Container extends tad_DI52_Container {
 
 		/**
-		 * @var Tribe__DI
+		 * @var Tribe__Container
 		 */
 		protected static $instance;
 
 		/**
-		 * @return Tribe__DI
+		 * @return Tribe__Container
 		 */
 		public static function instance() {
 			if ( empty( self::$instance ) ) {
@@ -68,7 +68,7 @@ if ( ! function_exists( 'tribe_singleton' ) ) {
 	 *                                      or a callback that will return the instance of the class.
 	 */
 	function tribe_singleton( $slug, $class ) {
-		Tribe__DI::instance()->singleton( $slug, $class );
+		Tribe__Container::instance()->singleton( $slug, $class );
 	}
 }
 
@@ -120,7 +120,7 @@ if ( ! function_exists( 'tribe_register' ) ) {
 	 *                                      or a callback that will return the instance of the class.
 	 */
 	function tribe_register( $slug, $class ) {
-		Tribe__DI::instance()->bind( $slug, $class );
+		Tribe__Container::instance()->bind( $slug, $class );
 	}
 }
 
@@ -145,7 +145,7 @@ if ( ! function_exists( 'tribe' ) ) {
 	 *                      or `tribe_register`.
 	 */
 	function tribe( $slug_or_class ) {
-		return Tribe__DI::instance()->make( $slug_or_class );
+		return Tribe__Container::instance()->make( $slug_or_class );
 	}
 }
 
@@ -161,7 +161,7 @@ if ( ! function_exists( 'tribe_set_var' ) ) {
 	 * @param mixed  $value The variable value.
 	 */
 	function tribe_set_var( $slug, $value ) {
-		$container = Tribe__DI::instance();
+		$container = Tribe__Container::instance();
 		$container->set_var( $slug, $value );
 	}
 }
@@ -184,7 +184,7 @@ if ( ! function_exists( 'tribe_get_var' ) ) {
 	 *               is not registered.
 	 */
 	function tribe_get_var( $slug, $default = null ) {
-		$container = Tribe__DI::instance();
+		$container = Tribe__Container::instance();
 
 		try {
 			$var = $container->get_var( $slug );

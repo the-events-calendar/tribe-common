@@ -49,6 +49,12 @@ class Tribe__Main {
 	 * constructor
 	 */
 	public function __construct( $context = null ) {
+		// the 5.2 compatible autoload file
+		require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload_52.php';
+
+		// the DI container start
+		require_once dirname( __FILE__ ) . '/Container.php';
+
 		if ( is_object( $context ) ) {
 			$this->plugin_context = $context;
 			$this->plugin_context_class = get_class( $context );
