@@ -27,6 +27,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+// the 5.2 compatible autoload file
+require_once dirname(__FILE__) . '/vendor/autoload_52.php';
+
+// the DI container start
+require_once dirname(__FILE__) . '/tribe-container.php';
 
 // the main plugin class
 require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
