@@ -52,7 +52,7 @@ class Tribe__Main {
 		// the 5.2 compatible autoload file
 		require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload_52.php';
 
-		// the DI container start
+		// the DI container class
 		require_once dirname( __FILE__ ) . '/Container.php';
 
 		if ( is_object( $context ) ) {
