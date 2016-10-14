@@ -1,0 +1,1331 @@
+Humbug running test suite to generate logs and code coverage data...
+Humbug has completed the initial test run successfully.
+Tests: 100 Line Coverage: 95.87%
+Humbug is analysing source files...
+Mutation Testing is commencing on 18 files...
+(.: killed, M: escaped, S: uncovered, E: fatal error, T: timed out)
+EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE |   60 ( 7/18)
+EEEEEEEEEEEEEEEEEEEEEE
+82 mutations were generated:
+       0 mutants were killed
+       0 mutants were not covered by tests
+       0 covered mutants were not detected
+      82 fatal errors were encountered
+       0 time outs were encountered
+
+Metrics:
+    Mutation Score Indicator (MSI): 100%
+    Mutation Code Coverage: 100%
+    Covered Code MSI: 100%
+
+Remember that some mutants will inevitably be harmless (i.e. false positives).
+Time: 19.35 seconds Memory: 8.75MB
+Humbug results are being logged as TEXT to: humbuglog.txt
+
+------
+Errors
+------
+
+
+1) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Arg::create() in /Users/Luca/Desktop/di52/src/tad/DI52/Arg.php:
+--- Original
++++ New
+@@ @@
+             case '%':
+-                $instance = new tad_DI52_ReferredVarArgValue(substr($value, 0, -1), $container);
++                $instance = new tad_DI52_ReferredVarArgValue(substr($value, 1, -1), $container);
+                 break;
+             case '#':
+                 $instance = new tad_DI52_ReferredVarArgValue($value, $container);
+                 break;
+             case '~':
+                 $instance = tad_DI52_NewInstanceArgValue::create($value);
+
+
+2) \Humbug\Mutator\Arithmetic\Subtraction
+Diff on \tad_DI52_Arg::create() in /Users/Luca/Desktop/di52/src/tad/DI52/Arg.php:
+--- Original
++++ New
+@@ @@
+             case '%':
+-                $instance = new tad_DI52_ReferredVarArgValue(substr($value, 0, -1), $container);
++                $instance = new tad_DI52_ReferredVarArgValue(substr($value, 0, +1), $container);
+                 break;
+             case '#':
+                 $instance = new tad_DI52_ReferredVarArgValue($value, $container);
+                 break;
+             case '~':
+                 $instance = tad_DI52_NewInstanceArgValue::create($value);
+
+
+3) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Arg::create() in /Users/Luca/Desktop/di52/src/tad/DI52/Arg.php:
+--- Original
++++ New
+@@ @@
+             case '%':
+-                $instance = new tad_DI52_ReferredVarArgValue(substr($value, 0, -1), $container);
++                $instance = new tad_DI52_ReferredVarArgValue(substr($value, 0, -0), $container);
+                 break;
+             case '#':
+                 $instance = new tad_DI52_ReferredVarArgValue($value, $container);
+                 break;
+             case '~':
+                 $instance = tad_DI52_NewInstanceArgValue::create($value);
+
+
+4) \Humbug\Mutator\Boolean\LogicalAnd
+Diff on \tad_DI52_Arg::get_arg_details() in /Users/Luca/Desktop/di52/src/tad/DI52/Arg.php:
+--- Original
++++ New
+@@ @@
+         $matches = array();
+-        $is_referred_value = is_string($arg) && preg_match("/^(#|@|~|%)(.*)(%)*$/", $arg, $matches);
++        $is_referred_value = is_string($arg) || preg_match("/^(#|@|~|%)(.*)(%)*$/", $arg, $matches);
+         if ($is_referred_value) {
+             $type = $matches[1];
+             $value = $matches[2];
+         } else {
+             $type = 'real_value';
+             $value = $arg;
+
+
+5) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Arg::get_arg_details() in /Users/Luca/Desktop/di52/src/tad/DI52/Arg.php:
+--- Original
++++ New
+@@ @@
+         if ($is_referred_value) {
+-            $type = $matches[1];
++            $type = $matches[0];
+             $value = $matches[2];
+         } else {
+             $type = 'real_value';
+             $value = $arg;
+         }
+ 
+
+
+6) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Arg::get_arg_details() in /Users/Luca/Desktop/di52/src/tad/DI52/Arg.php:
+--- Original
++++ New
+@@ @@
+             $type = $matches[1];
+-            $value = $matches[2];
++            $value = $matches[3];
+         } else {
+             $type = 'real_value';
+             $value = $arg;
+         }
+ 
+         return array($type, $value);
+
+
+7) \Humbug\Mutator\ReturnValue\FunctionCall
+Diff on \tad_DI52_Bindings_CallbackImplementation::instance() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/CallbackImplementation.php:
+--- Original
++++ New
+@@ @@
+     {
+-        return call_user_func($this->implementation, $this->resolver, $this->container);
++        call_user_func($this->implementation, $this->resolver, $this->container); return null;
+     }
+ }
+
+
+
+8) \Humbug\Mutator\Boolean\TrueValue
+Diff on \tad_DI52_Bindings_Resolver::singleton() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+     {
+-        $this->_bind($interfaceOrClass, $implementation, $skipImplementationCheck, true);
++        $this->_bind($interfaceOrClass, $implementation, $skipImplementationCheck, false);
+         $this->singletons[] = $interfaceOrClass;
+     }
+ 
+     /**
+      * Tags an array of implementation bindings.
+      *
+
+
+9) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::tag() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!is_string($tag)) {
++        if (is_string($tag)) {
+             throw new InvalidArgumentException('Tag must be a string.');
+         }
+         $this->tagged[$tag] = $implementationsArray;
+     }
+ 
+     /**
+
+
+10) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::tagged() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!is_string($tag)) {
++        if (is_string($tag)) {
+             throw new InvalidArgumentException('Tag must be a string.');
+         }
+         if (!isset($this->tagged[$tag])) {
+             throw new InvalidArgumentException("No implementations array was tagged [$tag]");
+         }
+ 
+
+
+11) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::tagged() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         }
+-        if (!isset($this->tagged[$tag])) {
++        if (isset($this->tagged[$tag])) {
+             throw new InvalidArgumentException("No implementations array was tagged [$tag]");
+         }
+ 
+         return array_map(array($this, 'resolve'), $this->tagged[$tag]);
+     }
+ 
+
+
+12) \Humbug\Mutator\ReturnValue\FunctionCall
+Diff on \tad_DI52_Bindings_Resolver::tagged() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+ 
+-        return array_map(array($this, 'resolve'), $this->tagged[$tag]);
++        array_map(array($this, 'resolve'), $this->tagged[$tag]); return null;
+     }
+ 
+     /**
+      * Registers a service provider implementation.
+      *
+      * @param string $serviceProviderClass
+
+
+13) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::register() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!class_exists($serviceProviderClass)) {
++        if (class_exists($serviceProviderClass)) {
+             throw new InvalidArgumentException("Service provider class [{$serviceProviderClass}] does not exist.");
+         }
+         if (!in_array('tad_DI52_ServiceProviderInterface', class_implements($serviceProviderClass))) {
+             throw new InvalidArgumentException("Service provider class [{$serviceProviderClass}] is not an implementation of the [tad_DI52_ServiceProviderInterface] interface.");
+         }
+ 
+
+
+14) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::register() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         }
+-        if (!in_array('tad_DI52_ServiceProviderInterface', class_implements($serviceProviderClass))) {
++        if (in_array('tad_DI52_ServiceProviderInterface', class_implements($serviceProviderClass))) {
+             throw new InvalidArgumentException("Service provider class [{$serviceProviderClass}] is not an implementation of the [tad_DI52_ServiceProviderInterface] interface.");
+         }
+ 
+         /** @var tad_DI52_ServiceProviderInterface $serviceProvider */
+         $serviceProvider = new $serviceProviderClass($this->container);
+         $this->serviceProviders[] = $serviceProvider;
+
+
+15) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Bindings_Resolver::register() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+             $providedClasses = $serviceProvider->provides();
+-            $buffer = array_combine($providedClasses, array_fill(0, count($providedClasses), $serviceProvider));
++            $buffer = array_combine($providedClasses, array_fill(1, count($providedClasses), $serviceProvider));
+             $this->deferredServiceProviders = array_merge($this->deferredServiceProviders, $buffer);
+         } else {
+             $serviceProvider->register();
+         }
+ 
+         return $serviceProvider;
+
+
+16) \Humbug\Mutator\ReturnValue\FunctionCall
+Diff on \tad_DI52_Bindings_Resolver::boot() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         }
+-        return array_map(array($this, 'bootServiceProvider'), $this->serviceProviders);
++        array_map(array($this, 'bootServiceProvider'), $this->serviceProviders); return null;
+     }
+ 
+     /**
+      * Checks whether if an interface or class has been bound to a concrete implementation.
+      *
+      * @param string $classOrInterface
+
+
+17) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::isBound() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!is_string($classOrInterface)) {
++        if (is_string($classOrInterface)) {
+             throw new InvalidArgumentException('Class or interface must be a string');
+         }
+ 
+         return isset($this->bindings[$classOrInterface]);
+     }
+ 
+
+
+18) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::hasTag() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!is_string($tag)) {
++        if (is_string($tag)) {
+             throw new InvalidArgumentException('Tag must be a string');
+         }
+ 
+         return isset($this->tagged[$tag]);
+     }
+ 
+
+
+19) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::ensureClassOrInterfaceExists() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         $isInterface = interface_exists($classOrInterface);
+-        if (!($isInterface || $isClass)) {
++        if (($isInterface || $isClass)) {
+             throw new InvalidArgumentException("[{$classOrInterface}] does not exist");
+         }
+     }
+ 
+     /**
+      * @param $classOrInterface
+
+
+20) \Humbug\Mutator\Boolean\LogicalOr
+Diff on \tad_DI52_Bindings_Resolver::ensureClassOrInterfaceExists() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         $isInterface = interface_exists($classOrInterface);
+-        if (!($isInterface || $isClass)) {
++        if (!($isInterface && $isClass)) {
+             throw new InvalidArgumentException("[{$classOrInterface}] does not exist");
+         }
+     }
+ 
+     /**
+      * @param $classOrInterface
+
+
+21) \Humbug\Mutator\Boolean\LogicalAnd
+Diff on \tad_DI52_Bindings_Resolver::_bind() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+ 
+-        if ($isSingleton && $index = array_search($implementation, $this->singletonImplementations)) {
++        if ($isSingleton || $index = array_search($implementation, $this->singletonImplementations)) {
+             $implementation_object = $this->singletonImplementationObjects[$index];
+         } elseif (is_string($implementation)) {
+             if (!(class_exists($implementation))) {
+                 throw new InvalidArgumentException("Implementation class [{$implementation}] does not exist.");
+             }
+             if (!$skipImplementationCheck) {
+
+
+22) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::_bind() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         } elseif (is_string($implementation)) {
+-            if (!(class_exists($implementation))) {
++            if ((class_exists($implementation))) {
+                 throw new InvalidArgumentException("Implementation class [{$implementation}] does not exist.");
+             }
+             if (!$skipImplementationCheck) {
+                 if ($interfaceExists && !in_array($classOrInterface, class_implements($implementation))) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should implement interface [{$classOrInterface}].");
+                 } elseif ($classExists && !(in_array($classOrInterface, class_parents($implementation)) || $implementation === $classOrInterface)) {
+
+
+23) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::_bind() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+             }
+-            if (!$skipImplementationCheck) {
++            if ($skipImplementationCheck) {
+                 if ($interfaceExists && !in_array($classOrInterface, class_implements($implementation))) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should implement interface [{$classOrInterface}].");
+                 } elseif ($classExists && !(in_array($classOrInterface, class_parents($implementation)) || $implementation === $classOrInterface)) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should extend class [{$classOrInterface}].");
+                 }
+             }
+
+
+24) \Humbug\Mutator\Boolean\LogicalAnd
+Diff on \tad_DI52_Bindings_Resolver::_bind() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+             if (!$skipImplementationCheck) {
+-                if ($interfaceExists && !in_array($classOrInterface, class_implements($implementation))) {
++                if ($interfaceExists || !in_array($classOrInterface, class_implements($implementation))) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should implement interface [{$classOrInterface}].");
+                 } elseif ($classExists && !(in_array($classOrInterface, class_parents($implementation)) || $implementation === $classOrInterface)) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should extend class [{$classOrInterface}].");
+                 }
+             }
+             $implementation_object = new tad_DI52_Bindings_ConstructorImplementation($implementation, $this->container, $this);
+
+
+25) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::_bind() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+             if (!$skipImplementationCheck) {
+-                if ($interfaceExists && !in_array($classOrInterface, class_implements($implementation))) {
++                if ($interfaceExists && in_array($classOrInterface, class_implements($implementation))) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should implement interface [{$classOrInterface}].");
+                 } elseif ($classExists && !(in_array($classOrInterface, class_parents($implementation)) || $implementation === $classOrInterface)) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should extend class [{$classOrInterface}].");
+                 }
+             }
+             $implementation_object = new tad_DI52_Bindings_ConstructorImplementation($implementation, $this->container, $this);
+
+
+26) \Humbug\Mutator\Boolean\LogicalAnd
+Diff on \tad_DI52_Bindings_Resolver::_bind() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should implement interface [{$classOrInterface}].");
+-                } elseif ($classExists && !(in_array($classOrInterface, class_parents($implementation)) || $implementation === $classOrInterface)) {
++                } elseif ($classExists || !(in_array($classOrInterface, class_parents($implementation)) || $implementation === $classOrInterface)) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should extend class [{$classOrInterface}].");
+                 }
+             }
+             $implementation_object = new tad_DI52_Bindings_ConstructorImplementation($implementation, $this->container, $this);
+         } elseif ($isCallbackImplementation) {
+             $implementation_object = new tad_DI52_Bindings_CallbackImplementation($implementation, $this->container, $this);
+
+
+27) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::_bind() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should implement interface [{$classOrInterface}].");
+-                } elseif ($classExists && !(in_array($classOrInterface, class_parents($implementation)) || $implementation === $classOrInterface)) {
++                } elseif ($classExists && (in_array($classOrInterface, class_parents($implementation)) || $implementation === $classOrInterface)) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should extend class [{$classOrInterface}].");
+                 }
+             }
+             $implementation_object = new tad_DI52_Bindings_ConstructorImplementation($implementation, $this->container, $this);
+         } elseif ($isCallbackImplementation) {
+             $implementation_object = new tad_DI52_Bindings_CallbackImplementation($implementation, $this->container, $this);
+
+
+28) \Humbug\Mutator\Boolean\LogicalOr
+Diff on \tad_DI52_Bindings_Resolver::_bind() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should implement interface [{$classOrInterface}].");
+-                } elseif ($classExists && !(in_array($classOrInterface, class_parents($implementation)) || $implementation === $classOrInterface)) {
++                } elseif ($classExists && !(in_array($classOrInterface, class_parents($implementation)) && $implementation === $classOrInterface)) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should extend class [{$classOrInterface}].");
+                 }
+             }
+             $implementation_object = new tad_DI52_Bindings_ConstructorImplementation($implementation, $this->container, $this);
+         } elseif ($isCallbackImplementation) {
+             $implementation_object = new tad_DI52_Bindings_CallbackImplementation($implementation, $this->container, $this);
+
+
+29) \Humbug\Mutator\ConditionalNegation\Identical
+Diff on \tad_DI52_Bindings_Resolver::_bind() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should implement interface [{$classOrInterface}].");
+-                } elseif ($classExists && !(in_array($classOrInterface, class_parents($implementation)) || $implementation === $classOrInterface)) {
++                } elseif ($classExists && !(in_array($classOrInterface, class_parents($implementation)) || $implementation !== $classOrInterface)) {
+                     throw new InvalidArgumentException("Implementation class [{$implementation}] should extend class [{$classOrInterface}].");
+                 }
+             }
+             $implementation_object = new tad_DI52_Bindings_ConstructorImplementation($implementation, $this->container, $this);
+         } elseif ($isCallbackImplementation) {
+             $implementation_object = new tad_DI52_Bindings_CallbackImplementation($implementation, $this->container, $this);
+
+
+30) \Humbug\Mutator\Boolean\LogicalOr
+Diff on \tad_DI52_Bindings_Resolver::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         $isCustomBound = array_key_exists($classOrInterface, $this->customBindings);
+-        $isBound = $isCustomBound || isset($this->bindings[$classOrInterface]);
++        $isBound = $isCustomBound && isset($this->bindings[$classOrInterface]);
+         $isDecoratorChain = !$this->resolvingDecorator && isset($this->decoratorsChain[$classOrInterface]);
+ 
+         $isSingleton = in_array($classOrInterface, $this->singletons);
+         if (!$isBound) {
+             $resolved = $this->resolveUnbound($classOrInterface);
+             return $resolved;
+
+
+31) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         $isBound = $isCustomBound || isset($this->bindings[$classOrInterface]);
+-        $isDecoratorChain = !$this->resolvingDecorator && isset($this->decoratorsChain[$classOrInterface]);
++        $isDecoratorChain = $this->resolvingDecorator && isset($this->decoratorsChain[$classOrInterface]);
+ 
+         $isSingleton = in_array($classOrInterface, $this->singletons);
+         if (!$isBound) {
+             $resolved = $this->resolveUnbound($classOrInterface);
+             return $resolved;
+         }
+
+
+32) \Humbug\Mutator\Boolean\LogicalAnd
+Diff on \tad_DI52_Bindings_Resolver::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         $isBound = $isCustomBound || isset($this->bindings[$classOrInterface]);
+-        $isDecoratorChain = !$this->resolvingDecorator && isset($this->decoratorsChain[$classOrInterface]);
++        $isDecoratorChain = !$this->resolvingDecorator || isset($this->decoratorsChain[$classOrInterface]);
+ 
+         $isSingleton = in_array($classOrInterface, $this->singletons);
+         if (!$isBound) {
+             $resolved = $this->resolveUnbound($classOrInterface);
+             return $resolved;
+         }
+
+
+33) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         $isSingleton = in_array($classOrInterface, $this->singletons);
+-        if (!$isBound) {
++        if ($isBound) {
+             $resolved = $this->resolveUnbound($classOrInterface);
+             return $resolved;
+         }
+ 
+         if ($isSingleton && isset($this->resolvedSingletons[$classOrInterface])) {
+             return $this->resolvedSingletons[$classOrInterface];
+
+
+34) \Humbug\Mutator\Boolean\LogicalAnd
+Diff on \tad_DI52_Bindings_Resolver::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+ 
+-        if ($isSingleton && isset($this->resolvedSingletons[$classOrInterface])) {
++        if ($isSingleton || isset($this->resolvedSingletons[$classOrInterface])) {
+             return $this->resolvedSingletons[$classOrInterface];
+         }
+ 
+         if ($isCustomBound) {
+             $customImplementations = $this->customBindings[$classOrInterface];
+             $subResolver = clone $this;
+
+
+35) \Humbug\Mutator\ConditionalNegation\NotIdentical
+Diff on \tad_DI52_Bindings_Resolver::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+             foreach ($this->singletonAliases as $alias => $aliasIndex) {
+-                if ($alias !== $classOrInterface && $aliasIndex === $index) {
++                if ($alias === $classOrInterface && $aliasIndex === $index) {
+                     $this->resolvedSingletons[$alias] = $resolved;
+                 }
+             }
+         }
+ 
+         return $resolved;
+
+
+36) \Humbug\Mutator\Boolean\LogicalAnd
+Diff on \tad_DI52_Bindings_Resolver::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+             foreach ($this->singletonAliases as $alias => $aliasIndex) {
+-                if ($alias !== $classOrInterface && $aliasIndex === $index) {
++                if ($alias !== $classOrInterface || $aliasIndex === $index) {
+                     $this->resolvedSingletons[$alias] = $resolved;
+                 }
+             }
+         }
+ 
+         return $resolved;
+
+
+37) \Humbug\Mutator\ConditionalNegation\Identical
+Diff on \tad_DI52_Bindings_Resolver::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+             foreach ($this->singletonAliases as $alias => $aliasIndex) {
+-                if ($alias !== $classOrInterface && $aliasIndex === $index) {
++                if ($alias !== $classOrInterface && $aliasIndex !== $index) {
+                     $this->resolvedSingletons[$alias] = $resolved;
+                 }
+             }
+         }
+ 
+         return $resolved;
+
+
+38) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Bindings_Resolver::resolveUnbound() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+ 
+-        if (!$reflector->isInstantiable()) {
++        if ($reflector->isInstantiable()) {
+             throw new \Exception("[{$classOrInterface}] is not instantiable");
+         }
+ 
+         $constructor = $reflector->getConstructor();
+ 
+         if (is_null($constructor)) {
+
+
+39) \Humbug\Mutator\ReturnValue\NewObject
+Diff on \tad_DI52_Bindings_Resolver::resolveUnbound() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+         if (is_null($constructor)) {
+-            return new $classOrInterface;
++            new $classOrInterface; return null;
+         }
+ 
+         $parameters = $constructor->getParameters();
+         $dependencies = $this->getDependencies($parameters);
+ 
+         return $reflector->newInstanceArgs($dependencies);
+
+
+40) \Humbug\Mutator\Boolean\TrueValue
+Diff on \tad_DI52_Bindings_Resolver::resolveBoundDecoratorChain() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+ 
+-        $this->resolvingDecorator = true;
++        $this->resolvingDecorator = false;
+ 
+         foreach (array_reverse($chain) as $decorator) {
+             $resolvedDecorator = $this->resolveUnbound($decorator);
+             $this->bind($classOrInterface, $resolvedDecorator);
+         }
+ 
+
+
+41) \Humbug\Mutator\Boolean\FalseValue
+Diff on \tad_DI52_Bindings_Resolver::resolveBoundDecoratorChain() in /Users/Luca/Desktop/di52/src/tad/DI52/Bindings/Resolver.php:
+--- Original
++++ New
+@@ @@
+ 
+-        $this->resolvingDecorator = false;
++        $this->resolvingDecorator = true;
+ 
+         return $resolvedDecorator;
+     }
+ 
+     protected function resetCustomBindings()
+     {
+
+
+42) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Container::set_var() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!isset($this->vars[$alias])) {
++        if (isset($this->vars[$alias])) {
+             $this->vars[$alias] = tad_DI52_Var::create($value, $this);
+         }
+ 
+         return $this;
+     }
+ 
+
+
+43) \Humbug\Mutator\ReturnValue\This
+Diff on \tad_DI52_Container::set_var() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+ 
+-        return $this;
++        return null;
+     }
+ 
+     public function get_var($alias)
+     {
+         $this->assert_var_alias($alias);
+ 
+
+
+44) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Container::set_ctor() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+         $func_args = func_get_args();
+-        $args = array_splice($func_args, 2);
++        $args = array_splice($func_args, 3);
+ 
+         return $this->ctors[$alias] = tad_DI52_Ctor::create($class_and_method, $args, $this);
+     }
+ 
+     /**
+      * Builds and returns a class instance.
+
+
+45) \Humbug\Mutator\IfStatement\FunctionCallNegation
+Diff on \tad_DI52_Container::make() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (interface_exists($alias) || class_exists($alias)) {
++        if (!interface_exists($alias) || class_exists($alias)) {
+             return $this->bindingsResolver->resolve($alias);
+         }
+ 
+         $this->assert_ctor_alias($alias);
+ 
+         $ctor = $this->ctors[$alias];
+
+
+46) \Humbug\Mutator\Boolean\LogicalOr
+Diff on \tad_DI52_Container::make() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (interface_exists($alias) || class_exists($alias)) {
++        if (interface_exists($alias) && class_exists($alias)) {
+             return $this->bindingsResolver->resolve($alias);
+         }
+ 
+         $this->assert_ctor_alias($alias);
+ 
+         $ctor = $this->ctors[$alias];
+
+
+47) \Humbug\Mutator\IfStatement\FunctionCallNegation
+Diff on \tad_DI52_Container::make() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (interface_exists($alias) || class_exists($alias)) {
++        if (interface_exists($alias) || !class_exists($alias)) {
+             return $this->bindingsResolver->resolve($alias);
+         }
+ 
+         $this->assert_ctor_alias($alias);
+ 
+         $ctor = $this->ctors[$alias];
+
+
+48) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Container::assert_ctor_alias() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!array_key_exists($alias, $this->ctors)) {
++        if (array_key_exists($alias, $this->ctors)) {
+             throw new InvalidArgumentException("No constructor with the $alias alias is registered");
+         }
+     }
+ 
+     /**
+      * @param $alias
+
+
+49) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Container::assert_var_alias() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!array_key_exists($alias, $this->vars)) {
++        if (array_key_exists($alias, $this->vars)) {
+             throw new InvalidArgumentException("No variable with the $alias alias is registered");
+         }
+     }
+ 
+     /**
+      * Sets a singleton (shared) object instance to be returned each time requested.
+
+
+50) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Container::set_shared() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!isset($this->ctors[$alias])) {
++        if (isset($this->ctors[$alias])) {
+             $func_args = func_get_args();
+             $args = array_splice($func_args, 2);
+             $this->ctors[$alias] = tad_DI52_Singleton::create($class_and_method, $args, $this);
+         }
+ 
+         return $this;
+
+
+51) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Container::set_shared() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+             $func_args = func_get_args();
+-            $args = array_splice($func_args, 2);
++            $args = array_splice($func_args, 3);
+             $this->ctors[$alias] = tad_DI52_Singleton::create($class_and_method, $args, $this);
+         }
+ 
+         return $this;
+     }
+ 
+
+
+52) \Humbug\Mutator\ReturnValue\This
+Diff on \tad_DI52_Container::set_shared() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+ 
+-        return $this;
++        return null;
+     }
+ 
+     /**
+      * Whether a offset exists
+      * @link http://php.net/manual/en/arrayaccess.offsetexists.php
+      * @param mixed $offset <p>
+
+
+53) \Humbug\Mutator\IfStatement\FunctionCallNegation
+Diff on \tad_DI52_Container::offsetGet() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (interface_exists($offset) || class_exists($offset)) {
++        if (!interface_exists($offset) || class_exists($offset)) {
+             return $this->bindingsResolver->resolve($offset);
+         }
+         if (isset($this->ctors[$offset])) {
+             return $this->make($offset);
+         } else {
+             return $this->get_var($offset);
+
+
+54) \Humbug\Mutator\Boolean\LogicalOr
+Diff on \tad_DI52_Container::offsetGet() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (interface_exists($offset) || class_exists($offset)) {
++        if (interface_exists($offset) && class_exists($offset)) {
+             return $this->bindingsResolver->resolve($offset);
+         }
+         if (isset($this->ctors[$offset])) {
+             return $this->make($offset);
+         } else {
+             return $this->get_var($offset);
+
+
+55) \Humbug\Mutator\IfStatement\FunctionCallNegation
+Diff on \tad_DI52_Container::offsetGet() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (interface_exists($offset) || class_exists($offset)) {
++        if (interface_exists($offset) || !class_exists($offset)) {
+             return $this->bindingsResolver->resolve($offset);
+         }
+         if (isset($this->ctors[$offset])) {
+             return $this->make($offset);
+         } else {
+             return $this->get_var($offset);
+
+
+56) \Humbug\Mutator\IfStatement\FunctionCallNegation
+Diff on \tad_DI52_Container::offsetSet() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (interface_exists($offset) || class_exists($offset)) {
++        if (!interface_exists($offset) || class_exists($offset)) {
+             $this->bindingsResolver->singleton($offset, $value, false);
+             return;
+         }
+         $_value = is_array($value) ? $value : array($value);
+         $class_and_method = $_value[0];
+         if (strpos($class_and_method, '::') || class_exists($class_and_method)) {
+
+
+57) \Humbug\Mutator\Boolean\LogicalOr
+Diff on \tad_DI52_Container::offsetSet() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (interface_exists($offset) || class_exists($offset)) {
++        if (interface_exists($offset) && class_exists($offset)) {
+             $this->bindingsResolver->singleton($offset, $value, false);
+             return;
+         }
+         $_value = is_array($value) ? $value : array($value);
+         $class_and_method = $_value[0];
+         if (strpos($class_and_method, '::') || class_exists($class_and_method)) {
+
+
+58) \Humbug\Mutator\IfStatement\FunctionCallNegation
+Diff on \tad_DI52_Container::offsetSet() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (interface_exists($offset) || class_exists($offset)) {
++        if (interface_exists($offset) || !class_exists($offset)) {
+             $this->bindingsResolver->singleton($offset, $value, false);
+             return;
+         }
+         $_value = is_array($value) ? $value : array($value);
+         $class_and_method = $_value[0];
+         if (strpos($class_and_method, '::') || class_exists($class_and_method)) {
+
+
+59) \Humbug\Mutator\Boolean\FalseValue
+Diff on \tad_DI52_Container::offsetSet() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+         if (interface_exists($offset) || class_exists($offset)) {
+-            $this->bindingsResolver->singleton($offset, $value, false);
++            $this->bindingsResolver->singleton($offset, $value, true);
+             return;
+         }
+         $_value = is_array($value) ? $value : array($value);
+         $class_and_method = $_value[0];
+         if (strpos($class_and_method, '::') || class_exists($class_and_method)) {
+             $args = array_merge(array($offset), $_value);
+
+
+60) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Container::offsetSet() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+         $_value = is_array($value) ? $value : array($value);
+-        $class_and_method = $_value[0];
++        $class_and_method = $_value[1];
+         if (strpos($class_and_method, '::') || class_exists($class_and_method)) {
+             $args = array_merge(array($offset), $_value);
+             call_user_func_array(array($this, 'set_shared'), $args);
+         } else {
+             $this->set_var($offset, $value);
+         }
+
+
+61) \Humbug\Mutator\Boolean\LogicalOr
+Diff on \tad_DI52_Container::offsetSet() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+         $class_and_method = $_value[0];
+-        if (strpos($class_and_method, '::') || class_exists($class_and_method)) {
++        if (strpos($class_and_method, '::') && class_exists($class_and_method)) {
+             $args = array_merge(array($offset), $_value);
+             call_user_func_array(array($this, 'set_shared'), $args);
+         } else {
+             $this->set_var($offset, $value);
+         }
+     }
+
+
+62) \Humbug\Mutator\Boolean\LogicalOr
+Diff on \tad_DI52_Container::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (interface_exists($alias) || class_exists($alias)) {
++        if (interface_exists($alias) && class_exists($alias)) {
+             return $this->bindingsResolver->resolve($alias);
+         }
+         if (is_string($alias)) {
+             $matches = array();
+             if (preg_match('/^@(.*)$/', $alias, $matches)) {
+                 return $this->make($matches[1]);
+
+
+63) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Container::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+             if (preg_match('/^@(.*)$/', $alias, $matches)) {
+-                return $this->make($matches[1]);
++                return $this->make($matches[0]);
+             } elseif (preg_match('/^#(.*)$/', $alias, $matches)) {
+                 return $this->get_var($matches[1]);
+             } elseif (preg_match('/^%(.*)%$/', $alias, $matches)) {
+                 return $this->get_var($matches[1]);
+             }
+         }
+
+
+64) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Container::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+             } elseif (preg_match('/^#(.*)$/', $alias, $matches)) {
+-                return $this->get_var($matches[1]);
++                return $this->get_var($matches[0]);
+             } elseif (preg_match('/^%(.*)%$/', $alias, $matches)) {
+                 return $this->get_var($matches[1]);
+             }
+         }
+ 
+         return $alias;
+
+
+65) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Container::resolve() in /Users/Luca/Desktop/di52/src/tad/DI52/Container.php:
+--- Original
++++ New
+@@ @@
+             } elseif (preg_match('/^%(.*)%$/', $alias, $matches)) {
+-                return $this->get_var($matches[1]);
++                return $this->get_var($matches[0]);
+             }
+         }
+ 
+         return $alias;
+     }
+ 
+
+
+66) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Ctor::__call() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+         $args = func_get_args();
+-        $args = $args[1];
++        $args = $args[0];
+ 
+         return $this->store_method_and_args($method_name, $args);
+     }
+ 
+     public function call_method($method_name, $arg1 = null)
+     {
+
+
+67) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_Ctor::get_class_and_method() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!is_string($class_and_method)) {
++        if (is_string($class_and_method)) {
+             throw new InvalidArgumentException("Class and method should be a single string");
+         }
+         $frags = explode('::', $class_and_method);
+         if (count($frags) > 2) {
+             throw new InvalidArgumentException("One :: separator only");
+         }
+
+
+68) \Humbug\Mutator\ConditionalBoundary\GreaterThan
+Diff on \tad_DI52_Ctor::get_class_and_method() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+         $frags = explode('::', $class_and_method);
+-        if (count($frags) > 2) {
++        if (count($frags) >= 2) {
+             throw new InvalidArgumentException("One :: separator only");
+         }
+ 
+         return count($frags) === 1 ? array(
+             $frags[0],
+             '__construct'
+
+
+69) \Humbug\Mutator\ConditionalNegation\GreaterThan
+Diff on \tad_DI52_Ctor::get_class_and_method() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+         $frags = explode('::', $class_and_method);
+-        if (count($frags) > 2) {
++        if (count($frags) <= 2) {
+             throw new InvalidArgumentException("One :: separator only");
+         }
+ 
+         return count($frags) === 1 ? array(
+             $frags[0],
+             '__construct'
+
+
+70) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Ctor::get_class_and_method() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+         $frags = explode('::', $class_and_method);
+-        if (count($frags) > 2) {
++        if (count($frags) > 3) {
+             throw new InvalidArgumentException("One :: separator only");
+         }
+ 
+         return count($frags) === 1 ? array(
+             $frags[0],
+             '__construct'
+
+
+71) \Humbug\Mutator\ReturnValue\FunctionCall
+Diff on \tad_DI52_Ctor::get_class_and_method() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+ 
+-        return count($frags) === 1 ? array(
++        count($frags) === 1 ? array(
+             $frags[0],
+             '__construct'
+-        ) : $frags;
++        ) : $frags; return null;
+     }
+ 
+
+
+72) \Humbug\Mutator\ConditionalNegation\Identical
+Diff on \tad_DI52_Ctor::get_class_and_method() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+ 
+-        return count($frags) === 1 ? array(
++        return count($frags) !== 1 ? array(
+             $frags[0],
+             '__construct'
+         ) : $frags;
+     }
+ 
+     public function get_object_instance()
+
+
+73) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Ctor::get_class_and_method() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+ 
+-        return count($frags) === 1 ? array(
++        return count($frags) === 0 ? array(
+             $frags[0],
+             '__construct'
+         ) : $frags;
+     }
+ 
+     public function get_object_instance()
+
+
+74) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Ctor::get_class_and_method() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+         return count($frags) === 1 ? array(
+-            $frags[0],
++            $frags[1],
+             '__construct'
+         ) : $frags;
+     }
+ 
+     public function get_object_instance()
+     {
+
+
+75) \Humbug\Mutator\ConditionalNegation\Identical
+Diff on \tad_DI52_Ctor::create_instance() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if ($this->method === '__construct') {
++        if ($this->method !== '__construct') {
+             $rc = new ReflectionClass($this->class);
+ 
+             return count($args) ? $rc->newInstanceArgs($args) : $rc->newInstance();
+         }
+ 
+         return call_user_func_array(array(
+
+
+76) \Humbug\Mutator\ReturnValue\FunctionCall
+Diff on \tad_DI52_Ctor::create_instance() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+ 
+-            return count($args) ? $rc->newInstanceArgs($args) : $rc->newInstance();
++            count($args) ? $rc->newInstanceArgs($args) : $rc->newInstance(); return null;
+         }
+ 
+         return call_user_func_array(array(
+             $this->class,
+             $this->method
+         ), $args);
+
+
+77) \Humbug\Mutator\ReturnValue\FunctionCall
+Diff on \tad_DI52_Ctor::create_instance() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+ 
+-        return call_user_func_array(array(
++        call_user_func_array(array(
+             $this->class,
+             $this->method
+-        ), $args);
++        ), $args); return null;
+     }
+ 
+
+
+78) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Ctor::call_further_methods() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+             /** @var tad_DI52_Var $arg */
+-            foreach ($call[1] as $arg) {
++            foreach ($call[0] as $arg) {
+                 $arg_values[] = $arg->get_value();
+             }
+             call_user_func_array(array(
+                 $instance,
+                 $call[0]
+             ), $arg_values);
+
+
+79) \Humbug\Mutator\Number\IntegerValue
+Diff on \tad_DI52_Ctor::call_further_methods() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+                 $instance,
+-                $call[0]
++                $call[1]
+             ), $arg_values);
+         }
+     }
+ 
+     protected function store_method_and_args($method, array $args = array())
+     {
+
+
+80) \Humbug\Mutator\ReturnValue\This
+Diff on \tad_DI52_Ctor::store_method_and_args() in /Users/Luca/Desktop/di52/src/tad/DI52/Ctor.php:
+--- Original
++++ New
+@@ @@
+ 
+-        return $this;
++        return null;
+     }
+ }
+
+
+
+81) \Humbug\Mutator\Boolean\LogicalNot
+Diff on \tad_DI52_NewInstanceArgValue::create() in /Users/Luca/Desktop/di52/src/tad/DI52/NewInstanceArgValue.php:
+--- Original
++++ New
+@@ @@
+     {
+-        if (!class_exists($class_name)) {
++        if (class_exists($class_name)) {
+             throw new InvalidArgumentException("Class $class_name does not exist");
+         }
+         $instance = new self;
+         $instance->class_name = $class_name;
+ 
+         return $instance;
+
+
+82) \Humbug\Mutator\ReturnValue\NewObject
+Diff on \tad_DI52_NewInstanceArgValue::get_value() in /Users/Luca/Desktop/di52/src/tad/DI52/NewInstanceArgValue.php:
+--- Original
++++ New
+@@ @@
+     {
+-        return new $this->class_name;
++        new $this->class_name; return null;
+     }
+ }
+
+
