@@ -69,14 +69,14 @@ class Tribe__Admin__Activation_Page {
 			$plugins = explode( ',', esc_attr( $_GET['plugins'] ) );
 		}
 
-		if ( ! in_array( $this->args['plugin_path'], $plugins ) ){
+		if ( ! in_array( $this->args['plugin_path'], $plugins ) ) {
 			return $actions;
 		}
 
 		if ( isset( $actions['plugins_page'] ) ) {
 			$actions['plugins_page'] = '<a href="' . esc_url( self_admin_url( 'plugins.php?tribe-skip-welcome' ) ) . '" title="' . esc_attr__( 'Go to plugins page', 'tribe-common' ) . '" target="_parent">' . esc_html__( 'Return to Plugins page' ) . '</a>';
 
-			if ( ! current_user_can( 'activate_plugins' ) ){
+			if ( ! current_user_can( 'activate_plugins' ) ) {
 				unset( $actions['plugins_page'] );
 			}
 		}
@@ -120,7 +120,7 @@ class Tribe__Admin__Activation_Page {
 
 		delete_transient( $this->args['activation_transient'] );
 
-		if ( ! current_user_can( Tribe__Settings::instance()->requiredCap ) ){
+		if ( ! current_user_can( Tribe__Settings::instance()->requiredCap ) ) {
 			return;
 		}
 
