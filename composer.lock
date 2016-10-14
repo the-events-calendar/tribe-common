@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "lucatume/di52",
-            "version": "1.3.2",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/di52.git",
-                "reference": "1f952db076c5dd472e15b1f17da51bd1335d3522"
+                "reference": "e72ef6f37c689b7a9c38b232cb9bbebc78329827"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/1f952db076c5dd472e15b1f17da51bd1335d3522",
-                "reference": "1f952db076c5dd472e15b1f17da51bd1335d3522",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/e72ef6f37c689b7a9c38b232cb9bbebc78329827",
+                "reference": "e72ef6f37c689b7a9c38b232cb9bbebc78329827",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                 }
             ],
             "description": "A PHP 5.2 compatible dependency injection container.",
-            "time": "2016-07-28 14:13:32"
+            "time": "2016-10-14 12:02:09"
         },
         {
             "name": "xrstf/composer-php52",

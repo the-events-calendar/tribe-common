@@ -100,7 +100,7 @@ $four = $container->make('InterfaceOne');
 Finally the container can resolve the request for an interface or class implementation to an object instance:
     
 ```PHP
- $classOne = new ClassOne();
+$classOne = new ClassOne();
 $container->bind('InterfaceOne', $classOne);
 
 $one = $container->make('InterfaceOne');
@@ -122,6 +122,43 @@ $container['InterfaceOne'] = $classOne;
 $three = $container->make('InterfaceOne');
 $four = $container->make('InterfaceOne');
 // $three === $four;
+```
+
+### After build methods
+Sometimes objects will require some methods to run after the construction is done to be completely operational.  
+In that case those methods can be queued in the container passing an addtional array argument to the `bind` or `singleton` methods:
+
+```php
+$classOne = new ClassOne();
+$container->bind('InterfaceOne', $classOne, ['init', 'connect', 'register']);
+
+/**
+ * Equivalent to:
+ *      $one = new ClassOne();
+ *      $one->init();
+ *      $one->connect();
+ *      $one->register();
+ */
+$one = $container->make('InterfaceOne');
+```
+
+The same can be applied to singletons: methods will be called but just on the first instantiation.
+
+```php
+$classOne = new ClassOne();
+$container->singleton('InterfaceOne', $classOne, ['init', 'connect', 'register']);
+
+/**
+ * Equivalent to:
+ *      $one = new ClassOne();
+ *      $one->init();
+ *      $one->connect();
+ *      $one->register();
+ */
+$one = $container->make('InterfaceOne');
+
+// already built, will not call constructor and after build methods again.
+$one = $container->make('InterfaceOne');
 ```
 
 ### Decorator binding

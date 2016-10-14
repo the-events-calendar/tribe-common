@@ -7,9 +7,9 @@ interface tad_DI52_Bindings_ResolverInterface
      *
      * @param string $classOrInterface
      * @param string $implementation
-     * extension of the class.
+     * @param array $afterBuildMethods
      */
-    public function bind($classOrInterface, $implementation);
+    public function bind($classOrInterface, $implementation, array $afterBuildMethods = null);
 
     /**
      * Returns an instance of the class or object bound to an interface.
@@ -24,9 +24,9 @@ interface tad_DI52_Bindings_ResolverInterface
      *
      * @param string $classOrInterface
      * @param string $implementation
-     * extension of the class.
+     * @param array $afterBuildMethods
      */
-    public function singleton($classOrInterface, $implementation);
+    public function singleton($classOrInterface, $implementation, array $afterBuildMethods = null);
 
     /**
      * Tags an array of implementation bindings.

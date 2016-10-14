@@ -24,20 +24,9 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
         $this->_setBindingsResolver(new tad_DI52_Bindings_Resolver($this));
     }
 
-    public function set_var($alias, $value = null)
+    public function _setBindingsResolver(tad_DI52_Bindings_ResolverInterface $bindingsResolver)
     {
-        if (!isset($this->vars[$alias])) {
-            $this->vars[$alias] = tad_DI52_Var::create($value, $this);
-        }
-
-        return $this;
-    }
-
-    public function get_var($alias)
-    {
-        $this->assert_var_alias($alias);
-
-        return $this->vars[$alias]->get_value();
+        $this->bindingsResolver = $bindingsResolver;
     }
 
     /**
@@ -55,49 +44,6 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
         $args = array_splice($func_args, 2);
 
         return $this->ctors[$alias] = tad_DI52_Ctor::create($class_and_method, $args, $this);
-    }
-
-    /**
-     * Builds and returns a class instance.
-     *
-     * @param $alias
-     *
-     * @return mixed|object
-     */
-    public function make($alias)
-    {
-        try {
-            return $this->bindingsResolver->resolve($alias);
-        } catch (Exception $e) {
-
-            $this->assert_ctor_alias($alias);
-
-            $ctor = $this->ctors[$alias];
-
-            $instance = $ctor->get_object_instance();
-
-            return $instance;
-        }
-    }
-
-    /**
-     * @param $alias
-     */
-    protected function assert_ctor_alias($alias)
-    {
-        if (!array_key_exists($alias, $this->ctors)) {
-            throw new InvalidArgumentException("No constructor with the $alias alias is registered");
-        }
-    }
-
-    /**
-     * @param $alias
-     */
-    protected function assert_var_alias($alias)
-    {
-        if (!array_key_exists($alias, $this->vars)) {
-            throw new InvalidArgumentException("No variable with the $alias alias is registered");
-        }
     }
 
     /**
@@ -161,6 +107,56 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
     }
 
     /**
+     * Builds and returns a class instance.
+     *
+     * @param $alias
+     *
+     * @return mixed|object
+     */
+    public function make($alias)
+    {
+        try {
+            return $this->bindingsResolver->resolve($alias);
+        } catch (Exception $e) {
+
+            $this->assert_ctor_alias($alias);
+
+            $ctor = $this->ctors[$alias];
+
+            $instance = $ctor->get_object_instance();
+
+            return $instance;
+        }
+    }
+
+    /**
+     * @param $alias
+     */
+    protected function assert_ctor_alias($alias)
+    {
+        if (!array_key_exists($alias, $this->ctors)) {
+            throw new InvalidArgumentException("No constructor with the $alias alias is registered");
+        }
+    }
+
+    public function get_var($alias)
+    {
+        $this->assert_var_alias($alias);
+
+        return $this->vars[$alias]->get_value();
+    }
+
+    /**
+     * @param $alias
+     */
+    protected function assert_var_alias($alias)
+    {
+        if (!array_key_exists($alias, $this->vars)) {
+            throw new InvalidArgumentException("No variable with the $alias alias is registered");
+        }
+    }
+
+    /**
      * Offset to set
      * @link http://php.net/manual/en/arrayaccess.offsetset.php
      * @param mixed $offset <p>
@@ -175,7 +171,7 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
     public function offsetSet($offset, $value)
     {
         if (interface_exists($offset) || class_exists($offset)) {
-            $this->bindingsResolver->singleton($offset, $value, false);
+            $this->bindingsResolver->singleton($offset, $value);
             return;
         }
         $_value = is_array($value) ? $value : array($value);
@@ -186,6 +182,15 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
         } else {
             $this->set_var($offset, $value);
         }
+    }
+
+    public function set_var($alias, $value = null)
+    {
+        if (!isset($this->vars[$alias])) {
+            $this->vars[$alias] = tad_DI52_Var::create($value, $this);
+        }
+
+        return $this;
     }
 
     /**
@@ -230,16 +235,11 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
      *
      * @param string $classOrInterface
      * @param string $implementation
-     * extension of the class.
+     * @param array $afterBuildMethods
      */
-    public function bind($classOrInterface, $implementation)
+    public function bind($classOrInterface, $implementation, array $afterBuildMethods = null)
     {
-        return $this->bindingsResolver->bind($classOrInterface, $implementation);
-    }
-
-    public function _setBindingsResolver(tad_DI52_Bindings_ResolverInterface $bindingsResolver)
-    {
-        $this->bindingsResolver = $bindingsResolver;
+        return $this->bindingsResolver->bind($classOrInterface, $implementation, $afterBuildMethods);
     }
 
     /**
@@ -247,11 +247,11 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
      *
      * @param string $classOrInterface
      * @param string $implementation
-     * extension of the class.
+     * @param array $afterBuildMethods
      */
-    public function singleton($classOrInterface, $implementation)
+    public function singleton($classOrInterface, $implementation, array $afterBuildMethods = null)
     {
-        return $this->bindingsResolver->singleton($classOrInterface, $implementation);
+        return $this->bindingsResolver->singleton($classOrInterface, $implementation, $afterBuildMethods);
     }
 
     /**

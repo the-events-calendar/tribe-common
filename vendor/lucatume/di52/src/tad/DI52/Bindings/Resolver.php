@@ -3,7 +3,7 @@
 class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
 {
     /**
-     * @var tad_DI52_Bindings_ImplementationCallback[]
+     * @var tad_DI52_Bindings_AbstractImplementation[]
      */
     protected $bindings = array();
 
@@ -75,12 +75,12 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
     /**
      * @var array
      */
-    protected $resolvedDependencies = array();
+    protected $classNameBindings = array();
 
     /**
      * @var array
      */
-    protected $resolvedClassDependencies;
+    protected $afterBuildMethods = array();
 
     /**
      * @param tad_DI52_Container $container
@@ -88,31 +88,6 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
     public function __construct(tad_DI52_Container $container)
     {
         $this->container = $container;
-    }
-
-    /**
-     * Binds an interface or class to an implementation.
-     *
-     * @param string $classOrInterface
-     * @param string $implementation
-     * extension of the class.
-     */
-    public function bind($classOrInterface, $implementation)
-    {
-        $this->_bind($classOrInterface, $implementation);
-    }
-
-    /**
-     * Binds an interface or class to an implementation and will always return the same instance.
-     *
-     * @param string $classOrInterface
-     * @param string $implementation
-     * extension of the class.
-     */
-    public function singleton($classOrInterface, $implementation)
-    {
-        $this->_bind($classOrInterface, $implementation, true);
-        $this->singletons[$classOrInterface] = $classOrInterface;
     }
 
     /**
@@ -183,7 +158,7 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
     public function boot()
     {
         if (empty($this->serviceProviders)) {
-            return;
+            return array();
         }
         return array_map(array($this, 'bootServiceProvider'), $this->serviceProviders);
     }
@@ -218,7 +193,6 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
         return isset($this->tagged[$tag]);
     }
 
-
     /**
      * Binds a chain of decorators to a class or interface.
      *
@@ -232,31 +206,35 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
     }
 
     /**
-     * Binds a chain of decorators to a class or interface to be returned as a singleton.
+     * Binds an interface or class to an implementation.
      *
-     * @param $classOrInterface
-     * @param array $decorators
+     * @param string $classOrInterface
+     * @param string $implementation
+     * @param array $afterBuildMethods
      */
-    public function singletonDecorators($classOrInterface, $decorators)
+    public function bind($classOrInterface, $implementation, array $afterBuildMethods = null)
     {
-        $this->singleton($classOrInterface, end($decorators));
-        $this->decoratorsChain[$classOrInterface] = $decorators;
-    }
-
-    protected function bootServiceProvider(tad_DI52_ServiceProviderInterface $serviceProvider)
-    {
-        return $serviceProvider->boot();
+        $this->_bind($classOrInterface, $implementation, false, $afterBuildMethods);
     }
 
     /**
      * @param string $classOrInterface
      * @param mixed $implementation
      * @param bool $isSingleton
+     * @param array $afterBuildMethods
      */
-    protected function _bind($classOrInterface, $implementation, $isSingleton = false)
+    protected function _bind($classOrInterface, $implementation, $isSingleton = false, array $afterBuildMethods = null)
     {
         $isCallbackImplementation = is_callable($implementation);
         $isInstanceImplementation = is_object($implementation);
+
+        if (is_string($implementation)) {
+            $this->classNameBindings[$classOrInterface] = $implementation;
+        }
+
+        if (!empty($afterBuildMethods)) {
+            $this->afterBuildMethods[$classOrInterface] = $afterBuildMethods;
+        }
 
         $implementation_object = null;
 
@@ -285,6 +263,74 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
     }
 
     /**
+     * Binds a chain of decorators to a class or interface to be returned as a singleton.
+     *
+     * @param $classOrInterface
+     * @param array $decorators
+     */
+    public function singletonDecorators($classOrInterface, $decorators)
+    {
+        $this->singleton($classOrInterface, end($decorators));
+        $this->decoratorsChain[$classOrInterface] = $decorators;
+    }
+
+    /**
+     * Binds an interface or class to an implementation and will always return the same instance.
+     *
+     * @param string $classOrInterface
+     * @param string $implementation
+     * @param array $afterBuildMethods
+     */
+    public function singleton($classOrInterface, $implementation, array $afterBuildMethods = null)
+    {
+        $this->_bind($classOrInterface, $implementation, true, $afterBuildMethods);
+        $this->singletons[$classOrInterface] = $classOrInterface;
+    }
+
+    protected function bootServiceProvider(tad_DI52_ServiceProviderInterface $serviceProvider)
+    {
+        return $serviceProvider->boot();
+    }
+
+    /**
+     * @param ReflectionParameter $parameter
+     *
+     * @return mixed The resolved dependency.
+     */
+    protected function resolveDependency(ReflectionParameter $parameter)
+    {
+        $dependency = $parameter->getClass();
+        $slugAliasDependency = !empty($dependency)
+            && class_exists($dependency->getName())
+            && $resolvedDependency = $this->resolveSlugAliasedDependency($dependency->getName());
+        if (!$slugAliasDependency) {
+            try {
+                $resolvedDependency = $dependency === null ? $this->resolveNonClass($parameter) : $this->resolve($dependency->name);
+            } catch (InvalidArgumentException $e) {
+                if (!$parameter->isDefaultValueAvailable()) {
+                    throw $e;
+                }
+                $resolvedDependency = $parameter->getDefaultValue();
+            }
+        }
+
+        return $resolvedDependency;
+    }
+
+    protected function resolveSlugAliasedDependency($className)
+    {
+        if (empty($className)) {
+            return false;
+        }
+
+        if (in_array($className, $this->classNameBindings)) {
+            return $this->resolve(array_search($className, $this->classNameBindings));
+        }
+
+        return false;
+    }
+
+    /**
      * Returns an instance of the class or object bound to an interface.
      *
      * @param string $classOrInterface A fully qualified class or interface name.
@@ -292,9 +338,16 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
      */
     public function resolve($classOrInterface)
     {
+
         if (isset($this->deferredServiceProviders[$classOrInterface])) {
             $serviceProvider = $this->deferredServiceProviders[$classOrInterface];
             $serviceProvider->register();
+        }
+
+        $isBound = isset($this->bindings[$classOrInterface]);
+
+        if (!($isBound || class_exists($classOrInterface))) {
+            throw new InvalidArgumentException("[{$classOrInterface}] is not a bound slug, implementation or existing class.");
         }
 
         $isSingleton = isset($this->singletons[$classOrInterface]);
@@ -302,7 +355,6 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
             return $this->resolvedSingletons[$classOrInterface];
         }
 
-        $isBound = isset($this->bindings[$classOrInterface]);
         $isDecoratorChain = !$this->resolvingDecorator && isset($this->decoratorsChain[$classOrInterface]);
 
         if (!$isBound) {
@@ -310,8 +362,13 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
             return $resolved;
         }
 
-
         $resolved = $isDecoratorChain ? $this->resolveBoundDecoratorChain($classOrInterface) : $this->resolveBound($classOrInterface);
+
+        if (isset($this->afterBuildMethods[$classOrInterface])) {
+            foreach ($this->afterBuildMethods[$classOrInterface] as $method) {
+                call_user_func(array($resolved, $method));
+            }
+        }
 
         if ($isSingleton) {
             $this->resolvedSingletons[$classOrInterface] = $resolved;
@@ -324,38 +381,6 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
         }
 
         return $resolved;
-    }
-
-
-    /**
-     * @param ReflectionParameter[] $parameters
-     * @param string $classOrInterface
-     * @return array
-     */
-    protected function getDependencies(array $parameters, $classOrInterface)
-    {
-        if (isset($this->resolvedClassDependencies[$classOrInterface])) {
-            return $this->resolvedClassDependencies[$classOrInterface];
-        }
-
-        $this->currentlyResolvingClassOrInterface = $classOrInterface;
-
-        $dependencies = array_map(array($this, 'resolveDependency'), $parameters);
-
-        $this->currentlyResolvingClassOrInterface = false;
-
-        $this->resolvedClassDependencies[$classOrInterface] = $dependencies;
-
-        return $dependencies;
-    }
-
-    protected function resolveNonClass(ReflectionParameter $parameter)
-    {
-        if ($parameter->isDefaultValueAvailable()) {
-            return $parameter->getDefaultValue();
-        }
-
-        throw new InvalidArgumentException("Cannot resolve parameter [$parameter->name] of class [$this->currentlyResolvingClassOrInterface]: default value for primitive misssing");
     }
 
     protected function resolveUnbound($classOrInterface)
@@ -382,10 +407,20 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
         return $reflector->newInstanceArgs($dependencies);
     }
 
-    protected function resolveBound($classOrInterface)
+    /**
+     * @param ReflectionParameter[] $parameters
+     * @param string $classOrInterface
+     * @return array
+     */
+    protected function getDependencies(array $parameters, $classOrInterface)
     {
-        $implementation = $this->bindings[$classOrInterface];
-        return $implementation->getImplementation() === $classOrInterface ? $this->resolveUnbound($classOrInterface) : $implementation->instance();
+        $this->currentlyResolvingClassOrInterface = $classOrInterface;
+
+        $dependencies = array_map(array($this, 'resolveDependency'), $parameters);
+
+        $this->currentlyResolvingClassOrInterface = false;
+
+        return $dependencies;
     }
 
     protected function resolveBoundDecoratorChain($classOrInterface)
@@ -407,22 +442,18 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
         return $resolvedDecorator;
     }
 
-    /**
-     * @param ReflectionParameter $parameter
-     *
-     * @return mixed The resolved dependency.
-     */
-    protected function resolveDependency(ReflectionParameter $parameter)
+    protected function resolveBound($classOrInterface)
     {
-        $parameterKey = $this->currentlyResolvingClassOrInterface . $parameter->name;
-        if (isset($this->resolvedDependencies[$parameterKey])) {
-            $resolvedDependency = $this->resolvedDependencies[$parameterKey];
-        } else {
-            $dependency = $parameter->getClass();
-            $resolvedDependency = $dependency === null ? $this->resolveNonClass($parameter) : $this->resolve($dependency->name);
-            $this->resolvedDependencies[$parameterKey] = $resolvedDependency;
+        $implementation = $this->bindings[$classOrInterface];
+        return $implementation->getImplementation() === $classOrInterface ? $this->resolveUnbound($classOrInterface) : $implementation->instance();
+    }
+
+    protected function resolveNonClass(ReflectionParameter $parameter)
+    {
+        if ($parameter->isDefaultValueAvailable()) {
+            return $parameter->getDefaultValue();
         }
 
-        return $resolvedDependency;
+        throw new InvalidArgumentException("Cannot resolve parameter [$parameter->name] of class [$this->currentlyResolvingClassOrInterface]: default value for primitive misssing");
     }
 }
