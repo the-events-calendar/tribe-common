@@ -17,5 +17,4 @@ vendor/*
 !vendor/clipboard
 !vendor/lucatume/di52
 !vendor/xrstf/composer-php52
-
 tests/_output/*
