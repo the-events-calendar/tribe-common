@@ -489,6 +489,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$response['status']     = isset( $plugin_info->api_message ) ? 2 : 1;
 				$response['message']    = isset( $plugin_info->api_message ) ? wp_kses( $plugin_info->api_message, 'data' ) : $default_success_msg;
 				$response['expiration'] = $expiration;
+
+				if ( isset( $plugin_info->daily_limit ) ) {
+					$response['daily_limit'] = intval( $plugin_info->daily_limit );
+				}
 			}
 
 			return $response;
