@@ -65,7 +65,9 @@ abstract class Tribe__Extension {
 	 * Get singleton instance of child class
 	 *
 	 * @param string $child_class (optional) Name of child class.
-	 * @param string $plugin_file Required for the first time this instance is called.
+	 * @param string $plugin_file (optional) Where the extension's plugin file is located.
+	 *                            This is only used when child class is first instantiated.
+	 *                            Defaults to file where child class is located.
 	 *
 	 * @return object|null The extension's instance, or nothing if it can't be instantiated
 	 */
@@ -80,13 +82,10 @@ abstract class Tribe__Extension {
 
 		if ( ! isset( self::$instances[ $child_class ] ) ) {
 
+			// If this is not set assume the extension's plugin class is the plugin file.
 			if ( ! is_string( $plugin_file ) ) {
-				_doing_it_wrong(
-					__FUNCTION__,
-					'The first time you call an instance you must pass the $plugin_file argument.',
-					'4.3'
-				);
-				return null;
+				$reflection = new ReflectionClass( $child_class );
+				$plugin_file = $reflection->getFileName();
 			}
 
 			self::$instances[ $child_class ] = new $child_class( $plugin_file );
