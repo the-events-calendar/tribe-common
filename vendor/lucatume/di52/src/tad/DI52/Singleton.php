@@ -10,10 +10,10 @@ class tad_DI52_Singleton extends tad_DI52_Ctor
     protected $instance;
 
 
-    public function get_object_instance()
+    public function getObjectInstance()
     {
         if (empty($this->instance)) {
-            $instance = parent::get_object_instance();
+            $instance = parent::getObjectInstance();
             $this->instance = $instance;
         }
 
@@ -23,6 +23,6 @@ class tad_DI52_Singleton extends tad_DI52_Ctor
     public static function create($class_and_method, array $args = array(), tad_DI52_Container $container)
     {
         $instance = new self;
-        return self::instance_set_up($class_and_method, $args, $container, $instance);
+        return self::instanceSetUp($class_and_method, $args, $container, $instance);
     }
 }

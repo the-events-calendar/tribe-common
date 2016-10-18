@@ -12,7 +12,7 @@ class tad_DI52_Arg
     public static function create($arg, tad_DI52_Container $container)
     {
 
-        list($type, $value) = self::get_arg_details($arg);
+        list($type, $value) = self::getArgDetails($arg);
 
         switch ($type) {
             case '@':
@@ -35,7 +35,7 @@ class tad_DI52_Arg
         return $instance;
     }
 
-    private static function get_arg_details($arg)
+    private static function getArgDetails($arg)
     {
         $matches = array();
         $is_referred_value = is_string($arg) && preg_match("/^(#|@|~|%)(.*)(%)*$/", $arg, $matches);

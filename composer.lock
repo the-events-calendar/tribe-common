@@ -9,24 +9,25 @@
     "packages": [
         {
             "name": "lucatume/di52",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/di52.git",
-                "reference": "e72ef6f37c689b7a9c38b232cb9bbebc78329827"
+                "reference": "6597bea22191ce5a6ee013ce005fccbb79b65aa3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/e72ef6f37c689b7a9c38b232cb9bbebc78329827",
-                "reference": "e72ef6f37c689b7a9c38b232cb9bbebc78329827",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/6597bea22191ce5a6ee013ce005fccbb79b65aa3",
+                "reference": "6597bea22191ce5a6ee013ce005fccbb79b65aa3",
                 "shasum": ""
             },
             "require": {
+                "php": ">=5.2",
                 "xrstf/composer-php52": "1.*"
             },
             "require-dev": {
-                "humbug/humbug": "~1.0@dev",
-                "phpunit/phpunit": "~4.4"
+                "phpunit/phpunit-mock-objects-php52": "dev-1.1.0-php52",
+                "phpunit/phpunit-php52": "dev-3.6.12-php52"
             },
             "type": "library",
             "autoload": {
@@ -38,7 +39,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL 2.0"
+                "GPL-3.0"
             ],
             "authors": [
                 {
@@ -47,7 +48,7 @@
                 }
             ],
             "description": "A PHP 5.2 compatible dependency injection container.",
-            "time": "2016-10-14 12:02:09"
+            "time": "2016-10-18 13:15:16"
         },
         {
             "name": "xrstf/composer-php52",

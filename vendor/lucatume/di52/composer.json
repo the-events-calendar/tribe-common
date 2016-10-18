@@ -1,14 +1,13 @@
 {
   "name": "lucatume/di52",
   "description": "A PHP 5.2 compatible dependency injection container.",
-  "license": "GPL 2.0",
+  "license": "GPL-3.0",
   "authors": [
     {
       "name": "Luca Tumedei",
       "email": "luca@theaveragedev.com"
     }
   ],
-  "minimum-stability": "stable",
   "autoload": {
     "psr-0": {
       "tad_DI52_": [
@@ -16,13 +15,25 @@
       ]
     }
   },
+  "minimum-stability": "dev",
   "require": {
+    "php": ">=5.2",
     "xrstf/composer-php52": "1.*"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.4",
-    "humbug/humbug": "~1.0@dev"
+    "phpunit/phpunit-php52": "dev-3.6.12-php52",
+    "phpunit/phpunit-mock-objects-php52": "dev-1.1.0-php52"
   },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/garex/phpunit"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/garex/phpunit-mock-objects"
+    }
+  ],
   "scripts": {
     "post-install-cmd": [
       "xrstf\\Composer52\\Generator::onPostInstallCmd"

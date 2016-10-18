@@ -187,7 +187,7 @@ if ( ! function_exists( 'tribe_set_var' ) ) {
 	 */
 	function tribe_set_var( $slug, $value ) {
 		$container = Tribe__Container::instance();
-		$container->set_var( $slug, $value );
+		$container->setVar( $slug, $value );
 	}
 }
 
@@ -212,7 +212,7 @@ if ( ! function_exists( 'tribe_get_var' ) ) {
 		$container = Tribe__Container::instance();
 
 		try {
-			$var = $container->get_var( $slug );
+			$var = $container->getVar( $slug );
 		} catch ( InvalidArgumentException $e ) {
 			return $default;
 		}

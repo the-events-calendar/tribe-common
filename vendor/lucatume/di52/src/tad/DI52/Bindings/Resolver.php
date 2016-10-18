@@ -214,7 +214,7 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
      */
     public function bind($classOrInterface, $implementation, array $afterBuildMethods = null)
     {
-        $this->_bind($classOrInterface, $implementation, false, $afterBuildMethods);
+        $this->realBind($classOrInterface, $implementation, false, $afterBuildMethods);
     }
 
     /**
@@ -223,7 +223,7 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
      * @param bool $isSingleton
      * @param array $afterBuildMethods
      */
-    protected function _bind($classOrInterface, $implementation, $isSingleton = false, array $afterBuildMethods = null)
+    protected function realBind($classOrInterface, $implementation, $isSingleton = false, array $afterBuildMethods = null)
     {
         $isCallbackImplementation = is_callable($implementation);
         $isInstanceImplementation = is_object($implementation);
@@ -283,7 +283,7 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
      */
     public function singleton($classOrInterface, $implementation, array $afterBuildMethods = null)
     {
-        $this->_bind($classOrInterface, $implementation, true, $afterBuildMethods);
+        $this->realBind($classOrInterface, $implementation, true, $afterBuildMethods);
         $this->singletons[$classOrInterface] = $classOrInterface;
     }
 

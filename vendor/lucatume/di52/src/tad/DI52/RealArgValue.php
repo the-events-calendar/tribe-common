@@ -12,7 +12,7 @@
 			return $instance;
 		}
 
-		public function get_value() {
+		public function getValue() {
 			return $this->value;
 		}
 	}
