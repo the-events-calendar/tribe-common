@@ -11,5 +11,5 @@ abstract class tad_DI52_ReferredArgValue {
 		$this->container = $container;
 	}
 
-	abstract public function get_value();
+	abstract public function getValue();
 }

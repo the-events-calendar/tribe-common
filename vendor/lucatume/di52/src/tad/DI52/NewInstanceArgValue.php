@@ -17,7 +17,7 @@ class tad_DI52_NewInstanceArgValue
         return $instance;
     }
 
-    public function get_value()
+    public function getValue()
     {
         return new $this->class_name;
     }

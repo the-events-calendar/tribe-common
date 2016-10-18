@@ -19,16 +19,16 @@ class tad_DI52_Var
     public static function create($value = null, tad_DI52_Container $container)
     {
         $instance = new self($container);
-        $instance->set_value($value);
+        $instance->setValue($value);
 
         return $instance;
     }
 
-    public function get_value()
+    public function getValue()
     {
         $value = null;
         if (is_array($this->value)) {
-            $value = array_map(array($this, 'resolve_value'), $this->value);
+            $value = array_map(array($this, 'resolveValue'), $this->value);
         } else {
             $value = $this->value;
         }
@@ -36,12 +36,12 @@ class tad_DI52_Var
         return $value;
     }
 
-    public function set_value($value)
+    public function setValue($value)
     {
         $this->value = $value;
     }
 
-    protected function resolve_value($value)
+    protected function resolveValue($value)
     {
         return $this->container->resolve($value);
     }

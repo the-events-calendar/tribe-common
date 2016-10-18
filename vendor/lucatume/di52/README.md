@@ -382,10 +382,10 @@ In the instance that the need for a shared variable arises the container allows 
 ```PHP
 $c = new tad_DI52_Container();
 
-$c->set_var('someVar', 'foo');
+$c->setVar('someVar', 'foo');
 
 // prints 'foo'
-print($c->get_var('someVar'));
+print($c->getVar('someVar'));
 ```
 
 The opinionated path the container takes about variables, and objects as well, is that those should be set once and later modification will not be allowed; parametrized arguments can be used for that
@@ -393,15 +393,15 @@ The opinionated path the container takes about variables, and objects as well, i
 ```PHP
 $c = new tad_DI52_Container();
 
-$c->set_var('someVar', 'foo');
+$c->setVar('someVar', 'foo');
 
 // prints 'foo'
-print($c->get_var('someVar'));
+print($c->getVar('someVar'));
 
-$c->set_var('someVar', 'bar');
+$c->setVar('someVar', 'bar');
 
 // prints 'foo'
-print($c->get_var('someVar'));
+print($c->getVar('someVar'));
 ```
 
 ### Setting and getting constructor methods
@@ -425,7 +425,7 @@ its contstructor can be set in the container like this
 ```PHP
 $c = new tad_DI52_Container();
 
-$c->set_ctor('some class', 'SomeClass');
+$c->setCtor('some class', 'SomeClass');
 
 $someClass = $c->make('some class');
 
@@ -452,7 +452,7 @@ and *might* take advantage of the container like this
 ```PHP
 $c = new tad_DI52_Container();
 
-$c->set_ctor('some class', 'SomeClass', new One(), 'foo');
+$c->setCtor('some class', 'SomeClass', new One(), 'foo');
 
 $someClass1 = $c->make('some class');
 $someClass2 = $c->make('some class');
@@ -475,10 +475,10 @@ The possibility to refer previously registered variables and constructors exists
 ```PHP
 $c = new tad_DI52_Container();
 
-$c->set_ctor('one', 'One');
-$c->set_var('string', 'foo');
+$c->setCtor('one', 'One');
+$c->setVar('string', 'foo');
 
-$c->set_ctor('some class', 'SomeClass', '@one', '#string');
+$c->setCtor('some class', 'SomeClass', '@one', '#string');
 
 $someClass1 = $c->make('some class');
 $someClass2 = $c->make('some class');
@@ -518,10 +518,10 @@ then the registration of the class constructor in the container is possible appe
 ```PHP
 $c = new tad_DI52_Container();
 
-$c->set_ctor('one', 'One');
-$c->set_var('string', 'foo');
+$c->setCtor('one', 'One');
+$c->setVar('string', 'foo');
 
-$c->set_ctor('another class', 'AnotherClass::one', '@one', '#string');
+$c->setCtor('another class', 'AnotherClass::one', '@one', '#string');
 
 $anotherClass = $c->make('another class');
 ```
@@ -532,10 +532,10 @@ There might be the need to call some further methods on the instance after it ha
 ```PHP
 $c = new tad_DI52_Container();
 
-$c->set_ctor('one', 'One');
-$c->set_var('string', 'foo');
+$c->setCtor('one', 'One');
+$c->setVar('string', 'foo');
 
-$c->set_ctor('still another class', 'StillAnotherClass')
+$c->setCtor('still another class', 'StillAnotherClass')
     ->setOne('@one')
     ->setString('#string');
 
@@ -553,7 +553,7 @@ $i->setString($string);
 If the method to call is *covered* by the container methods or there is the desire for a more explicit interface then the `call_method` method can be used; in the example above
 
 ```PHP
-$c->set_ctor('still another class', 'StillAnotherClass')
+$c->setCtor('still another class', 'StillAnotherClass')
     ->call_method('setOne', '@one')
     ->call_method('setString', '#string');
 ```
@@ -564,7 +564,7 @@ Singleton is a notorious and nefarious anti-pattern (and a testing sworn enemy) 
 ```PHP
 $c = new tad_DI52_Container();
 
-$c->set_shared('singleton', 'NotASingleton');
+$c->setShared('singleton', 'NotASingleton');
 
 $i1 = $c->make('singleton');
 $i2 = $c->make('singleton');
@@ -585,7 +585,7 @@ $c['some-class'] = 'SomeClass';
 
 // is the same as
 
-$c->set_shared('some-class','SomeClass');
+$c->setShared('some-class','SomeClass');
 ```
 
 The same syntax is available for variables too
@@ -595,13 +595,13 @@ $c['some-var'] = 'some string';
 
 // is the same as
 
-$c->set_var('some-var','some string');
+$c->setVar('some-var','some string');
 ```
 
 on the same page more complex constructors can be set
 
 ```PHP
-$c->set_shared('some-class', 'SomeClass::instance', 'one', 23);
+$c->setShared('some-class', 'SomeClass::instance', 'one', 23);
 
 // is the same as
 
@@ -654,3 +654,4 @@ Should a list of container instantiated objects or values be needed the containe
 ```
 
 This can only be done using the array access API.
+

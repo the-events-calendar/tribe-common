@@ -21,10 +21,10 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
 
     public function __construct()
     {
-        $this->_setBindingsResolver(new tad_DI52_Bindings_Resolver($this));
+        $this->setBindingsResolver(new tad_DI52_Bindings_Resolver($this));
     }
 
-    public function _setBindingsResolver(tad_DI52_Bindings_ResolverInterface $bindingsResolver)
+    public function setBindingsResolver(tad_DI52_Bindings_ResolverInterface $bindingsResolver)
     {
         $this->bindingsResolver = $bindingsResolver;
     }
@@ -38,7 +38,7 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
      *
      * @return bool|tad_DI52_Ctor Either a new constructor instance or `false` if the constructor alias
      */
-    public function set_ctor($alias, $class_and_method, $arg_one = null)
+    public function setCtor($alias, $class_and_method, $arg_one = null)
     {
         $func_args = func_get_args();
         $args = array_splice($func_args, 2);
@@ -57,7 +57,7 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
      *
      * @return $this
      */
-    public function set_shared($alias, $class_and_method, $arg_one = null)
+    public function setShared($alias, $class_and_method, $arg_one = null)
     {
         if (!isset($this->ctors[$alias])) {
             $func_args = func_get_args();
@@ -102,7 +102,7 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
         if (isset($this->ctors[$offset])) {
             return $this->make($offset);
         } else {
-            return $this->get_var($offset);
+            return $this->getVar($offset);
         }
     }
 
@@ -119,11 +119,11 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
             return $this->bindingsResolver->resolve($alias);
         } catch (Exception $e) {
 
-            $this->assert_ctor_alias($alias);
+            $this->assertCtorAlias($alias);
 
             $ctor = $this->ctors[$alias];
 
-            $instance = $ctor->get_object_instance();
+            $instance = $ctor->getObjectInstance();
 
             return $instance;
         }
@@ -132,24 +132,24 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
     /**
      * @param $alias
      */
-    protected function assert_ctor_alias($alias)
+    protected function assertCtorAlias($alias)
     {
         if (!array_key_exists($alias, $this->ctors)) {
             throw new InvalidArgumentException("No constructor with the $alias alias is registered");
         }
     }
 
-    public function get_var($alias)
+    public function getVar($alias)
     {
-        $this->assert_var_alias($alias);
+        $this->assertVarAlias($alias);
 
-        return $this->vars[$alias]->get_value();
+        return $this->vars[$alias]->getValue();
     }
 
     /**
      * @param $alias
      */
-    protected function assert_var_alias($alias)
+    protected function assertVarAlias($alias)
     {
         if (!array_key_exists($alias, $this->vars)) {
             throw new InvalidArgumentException("No variable with the $alias alias is registered");
@@ -178,13 +178,13 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
         $class_and_method = $_value[0];
         if (strpos($class_and_method, '::') || class_exists($class_and_method)) {
             $args = array_merge(array($offset), $_value);
-            call_user_func_array(array($this, 'set_shared'), $args);
+            call_user_func_array(array($this, 'setShared'), $args);
         } else {
-            $this->set_var($offset, $value);
+            $this->setVar($offset, $value);
         }
     }
 
-    public function set_var($alias, $value = null)
+    public function setVar($alias, $value = null)
     {
         if (!isset($this->vars[$alias])) {
             $this->vars[$alias] = tad_DI52_Var::create($value, $this);
@@ -221,9 +221,9 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
             if (preg_match('/^@(.*)$/', $alias, $matches)) {
                 return $this->make($matches[1]);
             } elseif (preg_match('/^#(.*)$/', $alias, $matches)) {
-                return $this->get_var($matches[1]);
+                return $this->getVar($matches[1]);
             } elseif (preg_match('/^%(.*)%$/', $alias, $matches)) {
-                return $this->get_var($matches[1]);
+                return $this->getVar($matches[1]);
             }
         }
 

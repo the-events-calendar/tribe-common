@@ -25,16 +25,6 @@ abstract class tad_DI52_ServiceProvider implements tad_DI52_ServiceProviderInter
     }
 
     /**
-     * Binds and sets up implementations.
-     */
-    abstract public function register();
-
-    /**
-     * Binds and sets up implementations at boot time.
-     */
-    abstract public function boot();
-
-    /**
      * Whether the service provider will be a deferred one or not.
      *
      * @return bool

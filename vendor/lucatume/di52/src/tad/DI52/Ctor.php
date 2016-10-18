@@ -21,7 +21,7 @@ class tad_DI52_Ctor
     public static function create($class_and_method, array $args = array(), tad_DI52_Container $container)
     {
         $instance = new self;
-        return self::instance_set_up($class_and_method, $args, $container, $instance);
+        return self::instanceSetUp($class_and_method, $args, $container, $instance);
     }
 
     /**
@@ -31,10 +31,10 @@ class tad_DI52_Ctor
      * @param $instance
      * @return mixed
      */
-    protected static function instance_set_up($class_and_method, array $args, tad_DI52_Container $container, $instance)
+    protected static function instanceSetUp($class_and_method, array $args, tad_DI52_Container $container, $instance)
     {
         /** @var tad_DI52_Ctor $instance */
-        list($class, $method) = $instance->get_class_and_method($class_and_method);
+        list($class, $method) = $instance->getClassAndMethod($class_and_method);
         $instance->class = $class;
         $instance->method = $method;
         $instance->container = $container;
@@ -51,19 +51,19 @@ class tad_DI52_Ctor
         $args = func_get_args();
         $args = $args[1];
 
-        return $this->store_method_and_args($method_name, $args);
+        return $this->storeMethodAndArgs($method_name, $args);
     }
 
-    public function call_method($method_name, $arg1 = null)
+    public function callMethod($method_name)
     {
         $args = func_get_args();
         array_shift($args);
 
-        return $this->store_method_and_args($method_name, $args);
+        return $this->storeMethodAndArgs($method_name, $args);
     }
 
 
-    protected function get_class_and_method($class_and_method)
+    protected function getClassAndMethod($class_and_method)
     {
         if (!is_string($class_and_method)) {
             throw new InvalidArgumentException("Class and method should be a single string");
@@ -79,23 +79,23 @@ class tad_DI52_Ctor
         ) : $frags;
     }
 
-    public function get_object_instance()
+    public function getObjectInstance()
     {
-        $args = $this->get_arg_values();
+        $args = $this->getArgValues();
 
-        $instance = $this->create_instance($args);
+        $instance = $this->createInstance($args);
 
-        $this->call_further_methods($instance);
+        $this->callFurtherMethods($instance);
 
         return $instance;
     }
 
-    private function get_arg_values()
+    private function getArgValues()
     {
         $values = array();
         /** @var tad_DI52_Var $arg */
         foreach ($this->args as $arg) {
-            $values[] = $arg->get_value();
+            $values[] = $arg->getValue();
         }
 
         return $values;
@@ -106,12 +106,12 @@ class tad_DI52_Ctor
      *
      * @return mixed|object
      */
-    protected function create_instance($args)
+    protected function createInstance($args)
     {
         if ($this->method === '__construct') {
             $rc = new ReflectionClass($this->class);
 
-            return isset($args) ? $rc->newInstanceArgs($args) : $rc->newInstance();
+            return !empty($args) ? $rc->newInstanceArgs($args) : $rc->newInstance();
         }
 
         return call_user_func_array(array(
@@ -123,7 +123,7 @@ class tad_DI52_Ctor
     /**
      * @param $instance
      */
-    protected function call_further_methods($instance)
+    protected function callFurtherMethods($instance)
     {
         if (empty($this->calls)) {
             return;
@@ -132,7 +132,7 @@ class tad_DI52_Ctor
             $arg_values = array();
             /** @var tad_DI52_Var $arg */
             foreach ($call[1] as $arg) {
-                $arg_values[] = $arg->get_value();
+                $arg_values[] = $arg->getValue();
             }
             call_user_func_array(array(
                 $instance,
@@ -141,7 +141,7 @@ class tad_DI52_Ctor
         }
     }
 
-    protected function store_method_and_args($method, array $args = array())
+    protected function storeMethodAndArgs($method, array $args = array())
     {
         $_args = array();
 
@@ -156,3 +156,4 @@ class tad_DI52_Ctor
         return $this;
     }
 }
+
