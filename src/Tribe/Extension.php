@@ -48,7 +48,7 @@ class Tribe__Extension {
 	 *                               resulting data is stored in this.
 	 * }
 	 */
-	protected $_args = array();
+	protected $args = array();
 
 	/**
 	 * The various extension instances
@@ -62,7 +62,7 @@ class Tribe__Extension {
 	 *      @type object $child_class_name instance
 	 * }
 	 */
-	private static $_instances = array();
+	private static $instances = array();
 
 	/**
 	 * Get singleton instance of child class
@@ -80,11 +80,11 @@ class Tribe__Extension {
 			return null;
 		}
 
-		if ( ! isset( self::$_instances[ $child_class ] ) ) {
-			self::$_instances[ $child_class ] = new $child_class();
+		if ( ! isset( self::$instances[ $child_class ] ) ) {
+			self::$instances[ $child_class ] = new $child_class();
 		}
 
-		return self::$_instances[ $child_class ];
+		return self::$instances[ $child_class ];
 	}
 
 	/**
@@ -209,7 +209,7 @@ class Tribe__Extension {
 	/**
 	 * Gets the plugin data from the plugin file header
 	 *
-	 * This is somewhat resource intensive, so data is stored in $_args
+	 * This is somewhat resource intensive, so data is stored in $args
 	 * in case of subsequent calls.
 	 *
 	 * @see get_plugin_data() for WP Admin only function this is similar to.
@@ -274,7 +274,7 @@ class Tribe__Extension {
 		$key = (array) $key;
 
 		// This reference will point to the arg, however many levels deep it is.
-		$arg = &$this->_args;
+		$arg = &$this->args;
 
 		// Multiple nested keys specified, iterate through each level.
 		foreach ( $key as $i ) {
@@ -283,7 +283,7 @@ class Tribe__Extension {
 				// $arg is set but is not an array. Converting it to an array
 				// would likely lead to unexpected problems for whatever first set it.
 				$error = sprintf(
-					'Attempted to set $_args[%1s] but %2s is already set and is not an array.',
+					'Attempted to set $args[%1s] but %2s is already set and is not an array.',
 					implode( $key, '][' ),
 					$i
 				);
@@ -312,7 +312,7 @@ class Tribe__Extension {
 	 * @return mixed Returns the args value or the default if arg is not found.
 	 */
 	final public function get( $key, $default = null ) {
-		return self::search_var( $this->_args, $key, $default );
+		return self::search_var( $this->args, $key, $default );
 	}
 
 	/**
