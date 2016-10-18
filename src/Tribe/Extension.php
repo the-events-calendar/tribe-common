@@ -128,7 +128,7 @@ abstract class Tribe__Extension {
 	 *
 	 * Declare this inside the child and put any custom code inside of it.
 	 */
-	abstract function init();
+	public abstract function init();
 
 	/**
 	 * Adds a Tribe Plugin to the list of plugins this extension depends upon.
