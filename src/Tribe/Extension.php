@@ -1,5 +1,5 @@
 <?php
-defined( 'WPINC' ) or die; // Do not load directly.
+defined( 'WPINC' ) || die; // Do not load directly.
 
 /**
  * Base Extension class
@@ -12,7 +12,7 @@ defined( 'WPINC' ) or die; // Do not load directly.
  * @subpackage Extension
  * @since 4.3.1
  */
-class Tribe__Extension {
+abstract class Tribe__Extension {
 
 	/**
 	 * Extension arguments
@@ -65,10 +65,11 @@ class Tribe__Extension {
 	 * Get singleton instance of child class
 	 *
 	 * @param string $child_class (optional) Name of child class.
+	 * @param string $plugin_file Required for the first time this instance is called.
 	 *
 	 * @return object|null The extension's instance, or nothing if it can't be instantiated
 	 */
-	public static function instance( $child_class = null ) {
+	public static function instance( $child_class = null, $plugin_file = null ) {
 		// Defaults to the name of the class that called this instance.
 		$child_class = empty( $child_class ) ? self::get_called_class() : $child_class;
 
@@ -78,18 +79,32 @@ class Tribe__Extension {
 		}
 
 		if ( ! isset( self::$instances[ $child_class ] ) ) {
-			self::$instances[ $child_class ] = new $child_class();
+
+			if ( ! is_string( $plugin_file ) ) {
+				_doing_it_wrong(
+					__FUNCTION__,
+					'The first time you call an instance you must pass the $plugin_file argument.',
+					'4.3'
+				);
+				return null;
+			}
+
+			self::$instances[ $child_class ] = new $child_class( $plugin_file );
 		}
 
 		return self::$instances[ $child_class ];
 	}
 
 	/**
-	 * Initializes the extension
+	 * Initializes the extension.
 	 *
 	 * Waits until after the init hook has fired.
+	 *
+	 * @param string $plugin_file The full path to the plugin file.
 	 */
-	final private function __construct() {
+	final private function __construct( string $plugin_file ) {
+		$this->set( 'file', $plugin_file );
+
 		$this->construct();
 
 		// The init() action/hook.
@@ -107,6 +122,13 @@ class Tribe__Extension {
 	 * Empty function typically overriden by child class
 	 */
 	protected function construct() {}
+
+	/**
+	 * This is where the magic begins
+	 *
+	 * Declare this inside the child and put any custom code inside of it.
+	 */
+	abstract function init();
 
 	/**
 	 * Adds a Tribe Plugin to the list of plugins this extension depends upon.
@@ -155,16 +177,7 @@ class Tribe__Extension {
 	 * @return string File path
 	 */
 	final public function get_plugin_file() {
-		$path = $this->get( 'plugin_file' );
-
-		// Defaults to the child class' file if empty.
-		if ( empty( $path ) ) {
-			$reflection  = new ReflectionClass( $this->get( 'class', get_class( $this ) ) );
-			$path = $reflection->getFileName();
-			$this->set( 'plugin_file', $reflection->getFileName() );
-		}
-
-		return $path;
+		return $this->get( 'plugin_file' );
 	}
 
 	/**
