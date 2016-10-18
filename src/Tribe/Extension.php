@@ -95,7 +95,7 @@ class Tribe__Extension {
 	final private function __construct() {
 		$this->construct();
 
-		// The init() action/hook
+		// The init() action/hook.
 		$init_hook = $this->get_init_hook();
 
 		// Continue plugin run after $init_hook has fired.
@@ -118,7 +118,7 @@ class Tribe__Extension {
 	 * init() will not run.
 	 *
 	 * @param string      $main_class      The Main class for this Tribe plugin.
-	 * @param string|null $minimum_version Minimum acceptable version of plugin
+	 * @param string|null $minimum_version Minimum acceptable version of plugin.
 	 */
 	final protected function add_required_plugin( $main_class, $minimum_version = null ) {
 		$this->set( array( 'requires', $main_class ), $minimum_version );
@@ -127,7 +127,7 @@ class Tribe__Extension {
 	/**
 	 * Set the extension's tec.com URL
 	 *
-	 * @param string $url URL to the extension's page
+	 * @param string $url URL to the extension's page.
 	 */
 	final protected function set_url( $url ) {
 		$this->set( 'url', $url );
@@ -251,7 +251,7 @@ class Tribe__Extension {
 	final public function get_arg_or_plugin_data( $arg, $plugin_data_key ) {
 		$arg_value = $this->get( $arg, null );
 
-		// See if the arg is already set, if not get default from plugin data and set it
+		// See if the arg is already set, if not get default from plugin data and set it.
 		if ( null === $arg_value ) {
 			$pdata = $this->get_plugin_data();
 			$arg_value = isset( $pdata[ $plugin_data_key ] ) ? $pdata[ $plugin_data_key ] : null;
@@ -278,7 +278,7 @@ class Tribe__Extension {
 
 		// Multiple nested keys specified, iterate through each level.
 		foreach ( $key as $i ) {
-			// Ensure current array depth can have children set
+			// Ensure current array depth can have children set.
 			if ( ! is_array( $arg ) ) {
 				// $arg is set but is not an array. Converting it to an array
 				// would likely lead to unexpected problems for whatever first set it.
@@ -288,13 +288,13 @@ class Tribe__Extension {
 					$i
 				);
 
-				_doing_it_wrong( __FUNCTION__, $error, '4.3' );
+				_doing_it_wrong( __FUNCTION__, esc_html( $error ), '4.3' );
 				break;
 			} elseif ( ! isset( $arg[ $i ] ) ) {
 				$arg[ $i ] = array();
 			}
 
-			// Dive one level deeper into nested array
+			// Dive one level deeper into nested array.
 			$arg = &$arg[ $i ];
 		}
 
@@ -321,7 +321,7 @@ class Tribe__Extension {
 	 * Example: search_var( $a, [ 0, 1, 2 ] ) returns the value of $a[0][1][2].
 	 *
 	 * @param  array $variable  Array or object to search within.
-	 * @param  array $indexes   Indexes. Specify each nested index in order.
+	 * @param  array $indexes   Specify each nested index in order.
 	 *                          Example: array( 'lvl1', 'lvl2' );
 	 * @param  mixed $default   Default value if the search finds nothing.
 	 *
@@ -359,7 +359,7 @@ class Tribe__Extension {
 
 		$callback = array( $this, 'filter_meta_links' );
 		// See if we need to hook our filter up.
-		if ( ! has_action( 'plugin_row_meta' , $callback ) ) {
+		if ( ! has_action( 'plugin_row_meta', $callback ) ) {
 			add_action( 'plugin_row_meta', $callback, 10, 2 );
 		}
 	}
@@ -473,7 +473,7 @@ class Tribe__Extension {
 	final private function __clone() {
 		_doing_it_wrong(
 			__FUNCTION__,
-			__( 'Can not use this method on singletons.', 'tribe-common' ),
+			'Can not use this method on singletons.',
 			'4.3'
 		);
 	}
@@ -486,7 +486,7 @@ class Tribe__Extension {
 	final private function __wakeup() {
 		_doing_it_wrong(
 			__FUNCTION__,
-			__( 'Can not use this method on singletons.', 'tribe-common' ),
+			'Can not use this method on singletons.',
 			'4.3'
 		);
 	}
