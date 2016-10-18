@@ -195,6 +195,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 			add_action( 'admin_init', array( $this, 'general_notifications' ) );
+
+			// Package name
+			add_filter( 'upgrader_pre_download', array( Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ) );
 		}
 
 		/********************** Getter / Setter Functions **********************/
