@@ -197,7 +197,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'admin_init', array( $this, 'general_notifications' ) );
 
 			// Package name
-			add_filter( 'upgrader_pre_download', array( Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ) );
+			add_filter( 'upgrader_pre_download', array( Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ), 5, 3 );
 		}
 
 		/********************** Getter / Setter Functions **********************/
