@@ -53,9 +53,6 @@ class Tribe__Extension {
 	/**
 	 * The various extension instances
 	 *
-	 * If you directly modify this inside of a child class then you're arguably
-	 * an evil person.
-	 *
 	 * @var array {
 	 *      Each instance of an extension that extends this class
 	 *
