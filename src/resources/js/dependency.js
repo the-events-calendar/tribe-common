@@ -55,7 +55,7 @@
 						$dependent
 							.addClass( active_class )
 							.find( selectors.fields ).prop( 'disabled', false )
-							.end().find( '.select2-container' ).select2( 'enable', false );
+							.end().find( '.select2-container' ).select2( 'enable', true );
 
 						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
 							$( '#s2id_' + $dependent.attr( 'id' ) ).addClass( active_class );
@@ -64,7 +64,7 @@
 						$dependent
 							.removeClass( active_class )
 							.find( selectors.fields ).prop( 'disabled', true )
-							.end().find( '.select2-container' ).select2( 'enable', true );
+							.end().find( '.select2-container' ).select2( 'enable', false );
 
 						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
 							$( '#s2id_' + $dependent.attr( 'id' ) ).removeClass( active_class );
