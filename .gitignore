@@ -15,5 +15,7 @@ tests/wpunit/_bootstrap.php
 vendor/*
 !vendor/jquery
 !vendor/clipboard
-
+!vendor/composer
+!vendor/lucatume/di52
+!vendor/xrstf/composer-php52
 tests/_output/*
