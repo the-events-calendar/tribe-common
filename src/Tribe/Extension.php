@@ -176,7 +176,7 @@ abstract class Tribe__Extension {
 	 * @return string File path
 	 */
 	final public function get_plugin_file() {
-		return $this->get( 'plugin_file' );
+		return $this->get( 'file' );
 	}
 
 	/**
@@ -292,7 +292,7 @@ abstract class Tribe__Extension {
 				// $arg is set but is not an array. Converting it to an array
 				// would likely lead to unexpected problems for whatever first set it.
 				$error = sprintf(
-					'Attempted to set $args[%1s] but %2s is already set and is not an array.',
+					'Attempted to set $args[%1$s] but %2$s is already set and is not an array.',
 					implode( $key, '][' ),
 					$i
 				);
@@ -391,7 +391,7 @@ abstract class Tribe__Extension {
 
 		foreach ( $arg_links as $title => $url ) {
 			$links[] = sprintf(
-				'<a href="%1s" target="_blank">%2s</a>',
+				'<a href="%1$s" target="_blank">%2$s</a>',
 				esc_url( $url ),
 				esc_html( $title )
 			);
