@@ -102,7 +102,13 @@ class Tribe__PUE__Package_Handler {
 	protected function download( $package ) {
 		if ( empty( $this->filesystem ) ) {
 			$this->upgrader->fs_connect( array( WP_CONTENT_DIR, WP_PLUGIN_DIR ) );
+
 			global $wp_filesystem;
+
+			if ( empty( $wp_filesystem ) ) {
+				return false;
+			}
+
 			$this->filesystem = $wp_filesystem;
 		}
 
