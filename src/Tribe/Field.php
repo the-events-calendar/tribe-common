@@ -96,6 +96,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'dropdown_chosen',
 				'dropdown_select2',
 				'license_key',
+				'wrapped_html',
 			);
 
 			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
@@ -682,6 +683,24 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public function doScreenReaderLabel() {
 			_deprecated_function( __METHOD__, '4.3', __CLASS__ . '::do_screen_reader_label' );
 			return $this->do_screen_reader_label();
+		}
+
+		/**
+		 * Generate a wrapped html field.
+		 *
+		 * This is useful to print some HTML that should be inline with the other fieldsets.
+		 *
+		 * @return string The field markup.
+		 */
+		public function wrapped_html() {
+			$field = $this->do_field_start();
+			$field .= $this->do_field_label();
+			$field .= $this->do_field_div_start();
+			$field .= $this->html;
+			$field .= $this->do_field_div_start();
+			$field .= $this->do_field_end();
+
+			return $field;
 		}
 	} // end class
 } // endif class_exists
