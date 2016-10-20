@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.3\n"
+"Project-Id-Version: Tribe Common 4.3.1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2016-10-06 11:31:19+00:00\n"
+"POT-Creation-Date: 2016-10-20 15:14:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-10-06 11:31\n"
+"PO-Revision-Date: 2016-10-20 15:14\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -153,6 +153,20 @@ msgstr ""
 msgid "Visit the Add-on Page"
 msgstr ""
 
+#: src/Tribe/Admin/Notice/Plugin_Download.php:75
+msgid "To begin using %1$s, please install and activate the latest version of %2$s."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Plugin_Download.php:91
+msgctxt "separator used in a list of items"
+msgid ", "
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Plugin_Download.php:92
+msgctxt "the final separator in a list of two or more items"
+msgid " and "
+msgstr ""
+
 #: src/Tribe/App_Shop.php:48 src/Tribe/App_Shop.php:49
 #: src/Tribe/App_Shop.php:72
 msgid "Event Add-Ons"
@@ -269,119 +283,119 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:168 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:175 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Main.php:169
+#: src/Tribe/Main.php:176
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:170
+#: src/Tribe/Main.php:177
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:187
+#: src/Tribe/Main.php:194
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:188
+#: src/Tribe/Main.php:195
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:190
+#: src/Tribe/Main.php:197
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:191
+#: src/Tribe/Main.php:198
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:192
+#: src/Tribe/Main.php:199
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:193
+#: src/Tribe/Main.php:200
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:194
+#: src/Tribe/Main.php:201
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:195
+#: src/Tribe/Main.php:202
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:196
+#: src/Tribe/Main.php:203
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:198
+#: src/Tribe/Main.php:205
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:199
+#: src/Tribe/Main.php:206
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:200
+#: src/Tribe/Main.php:207
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:205
+#: src/Tribe/Main.php:212
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:206
+#: src/Tribe/Main.php:213
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:414
+#: src/Tribe/PUE/Checker.php:417
 msgid "License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:415
+#: src/Tribe/PUE/Checker.php:418
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:497
+#: src/Tribe/PUE/Checker.php:500
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:506
+#: src/Tribe/PUE/Checker.php:509
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:541
+#: src/Tribe/PUE/Checker.php:544
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:547
+#: src/Tribe/PUE/Checker.php:550
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:560
+#: src/Tribe/PUE/Checker.php:563
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:565
+#: src/Tribe/PUE/Checker.php:568
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:586 src/Tribe/PUE/Notices.php:267
+#: src/Tribe/PUE/Checker.php:593 src/Tribe/PUE/Notices.php:267
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:588 src/Tribe/PUE/Notices.php:269
+#: src/Tribe/PUE/Checker.php:595 src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:614
+#: src/Tribe/PUE/Checker.php:621
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:641
+#: src/Tribe/PUE/Checker.php:648
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
@@ -410,10 +424,6 @@ msgstr ""
 #: src/Tribe/PUE/Notices.php:368
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
-msgstr ""
-
-#: src/Tribe/Plugin_Download_Notice.php:68
-msgid "To begin using %1$s, please install and activate the latest version(s) of %2$s."
 msgstr ""
 
 #: src/Tribe/Settings.php:148 src/Tribe/Settings.php:204
