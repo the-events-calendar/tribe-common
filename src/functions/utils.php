@@ -38,23 +38,28 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	 * @return bool Indicates if plugin should continue initialization
 	 */
 	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array() ) {
-		$tribe_plugins = Tribe__Dependency::instance();
+		$tribe_dependency = Tribe__Dependency::instance();
+		$should_plugin_run = true;
 
-		if ( $tribe_plugins->has_requisite_plugins( $classes_req ) ) {
-			$tribe_plugins->add_active_plugin( $main_class, $version, $file_path );
+		// Checks to see if the plugins are active
+		if ( ! empty( $classes_req ) && ! $tribe_dependency->has_requisite_plugins( $classes_req ) ) {
+			$should_plugin_run = false;
 
-			return true;
-		} elseif ( is_admin() ) {
 			$tribe_plugins = new Tribe__Plugins();
-			$admin_notice  = new Tribe__Plugin_Download_Notice( $file_path );
+			$admin_notice  = new Tribe__Admin__Notice__Plugin_Download( $file_path );
 
 			foreach ( $classes_req as $class => $version ) {
-				$plugin = $tribe_plugins->get_plugin_by_class( $class );
-				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'] );
+				$plugin    = $tribe_plugins->get_plugin_by_class( $class );
+				$is_active = $tribe_dependency->is_plugin_version( $class, $version );
+				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active );
 			}
 		}
 
-		return false;
+		if ( $should_plugin_run ) {
+			$tribe_dependency->add_active_plugin( $main_class, $version, $file_path );
+		}
+
+		return $should_plugin_run;
 	}
 }
 

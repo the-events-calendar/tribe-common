@@ -40,44 +40,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		}
 
 
-		public function __construct() {
-			$this->add_legacy_plugins();
-		}
-
-
-		/**
-		 * Registers older plugins that did not use this class
-		 *
-		 * @TODO Consider removing this in 5.0
-		 */
-		private function add_legacy_plugins() {
-			// Version 4.2 and under of the plugins do not register themselves here, so we'll register them
-
-			$tribe_plugins = new Tribe__Plugins();
-
-			foreach ( $tribe_plugins->get_list() as $plugin ) {
-				if ( ! class_exists( $plugin['class'] ) ) {
-					continue;
-				}
-
-				$ver_const = $plugin['class'] . '::VERSION';
-				$version = defined( $ver_const ) ? constant( $ver_const ) : null;
-
-				$this->add_active_plugin( $plugin['class'], $version );
-			}
-		}
-
-
-		/**
-		 * Retrieves active plugin array
-		 *
-		 * @return array
-		 */
-		public function get_active_plugins() {
-			return $this->active_plugins;
-		}
-
-
 		/**
 		 * Adds a plugin to the active list
 		 *
@@ -98,6 +60,18 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 
 		/**
+		 * Retrieves active plugin array
+		 *
+		 * @return array
+		 */
+		public function get_active_plugins() {
+			$this->add_legacy_plugins();
+
+			return $this->active_plugins;
+		}
+
+
+		/**
 		 * Searches the plugin list for key/value pair and return the full details for that plugin
 		 *
 		 * @param string $search_key The array key this value will appear in
@@ -106,7 +80,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return array|null
 		 */
 		public function get_plugin_by_key( $search_key, $search_val ) {
-			foreach ( $this->active_plugins as $plugin ) {
+			foreach ( $this->get_active_plugins() as $plugin ) {
 				if ( isset( $plugin[ $search_key ] ) && $plugin[ $search_key ] === $search_val ) {
 					return $plugin;
 				}
@@ -199,6 +173,29 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			}
 
 			return true;
+		}
+
+
+		/**
+		 * Registers older plugins that did not implement this class
+		 *
+		 * @TODO Consider removing this in 5.0
+		 */
+		public function add_legacy_plugins() {
+
+			$tribe_plugins = new Tribe__Plugins();
+
+			foreach ( $tribe_plugins->get_list() as $plugin ) {
+				// Only add plugin if it's present and not already added
+				if ( ! class_exists( $plugin['class'] ) || array_key_exists( $plugin['class'], $this->active_plugins ) ) {
+					continue;
+				}
+
+				$ver_const = $plugin['class'] . '::VERSION';
+				$version = defined( $ver_const ) ? constant( $ver_const ) : null;
+
+				$this->add_active_plugin( $plugin['class'], $version );
+			}
 		}
 
 	}
