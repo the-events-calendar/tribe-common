@@ -317,7 +317,8 @@ class Tribe__Tabbed_View {
 	 * @return string
 	 */
 	public function render() {
-		if ( empty( $this->get_visibles() ) ) {
+		$visibles = $this->get_visibles();
+		if ( empty( $visibles ) ) {
 			return '';
 		}
 
