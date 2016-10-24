@@ -1,0 +1,11 @@
+<phpunit bootstrap='tests/bootstrap.php'
+         colors='true'>
+    <testsuites>
+        <testsuite name='All'>
+            <file>tests/ContainerTest.php</file>
+            <directory>tests/bindings</directory>
+            <directory>tests/functional</directory>
+            <directory suffix="Test.php" phpVersion="5.3.0" phpVersionOperator=">=">tests/closure</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

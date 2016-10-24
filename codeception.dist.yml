@@ -38,7 +38,7 @@ modules:
             dbCollate: ''
             tablePrefix: wptests_
             domain: tec.tri.be
-            adminEmail: admin@tec.tri.ve
+            adminEmail: admin@tec.tri.be
             title: 'Event Common Tests'
             phpBinary: php
             language: ''
