@@ -144,7 +144,7 @@ class Tribe__Extension_Loader {
 	 *
 	 * @param string $plugin_file Full path to extension's plugin file header.
 	 *
-	 * @return bool Indicates if plugin was activated succesfully;
+	 * @return bool Indicates if extension was instantiated successfully.
 	 */
 	public function instantiate_extension( $plugin_file ) {
 		$plugin_data = $this->get_cached_plugin_data( $plugin_file );
@@ -204,8 +204,6 @@ class Tribe__Extension_Loader {
 		 * - Extension has manually set version number and it does not match stored value in database.
 		 * Or, we could continue on with the following flexibility and slight performance penalty.
 		 */
-
-		$output = null;
 		$plugin_basename = plugin_basename( $plugin_path );
 
 		if ( ! array_key_exists( $plugin_basename, $this->plugin_data ) ) {
