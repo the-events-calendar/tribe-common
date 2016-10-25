@@ -64,12 +64,12 @@ class Tribe__Main {
 		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		$this->init_autoloading();
-
 		$this->init_libraries();
 		$this->add_hooks();
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
+		Tribe__Extension_Loader::instance();
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
 		 *
