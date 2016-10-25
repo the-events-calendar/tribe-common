@@ -158,6 +158,7 @@ class Tribe__Main {
 				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
 				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
 				array( 'tribe-jquery-timepicker', 'vendor/jquery-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
+				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-timepicker/jquery.timepicker.css' ),
 			)
 		);
 
