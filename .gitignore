@@ -19,3 +19,10 @@ vendor/*
 !vendor/lucatume/di52
 !vendor/xrstf/composer-php52
 tests/_output/*
+/.DS_Store
+/src/.DS_Store
+/src/resources/.DS_Store
+/src/resources/postcss/.DS_Store
+/src/resources/images/.DS_Store
+/src/resources/postcss/tec.sublime-project
+/src/resources/postcss/tec.sublime-workspace
