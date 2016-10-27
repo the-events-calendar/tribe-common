@@ -207,6 +207,10 @@ table.plugins .tribe-plugin-update-message a {
 	list-style: circle;
 }
 /* sizes */
+.tribe-field-inline-text {
+	line-height: 28px;
+	margin: 0 2px;
+}
 .tribe-field-textarea.tribe-size-small textarea {
 	height: 60px;
 	width: 180px;
@@ -948,6 +952,25 @@ a.tribe-rating-link {
 .api-check .plugin-list span.plugin-invalid:last-of-type:after {
 	content: '';
 }
+.tribe-ea-dropdown.select2-container-active .select2-choice, .tribe-dropdown.select2-container-active .select2-choice {
+	border-color: #5897fb;
+	box-shadow: 0 0 5px rgba( 0, 0, 0, .1 );
+}
+.tribe-ea-dropdown.select2-dropdown-open .select2-choice, .tribe-dropdown.select2-dropdown-open .select2-choice {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-color: #aaa;
+}
+.tribe-ea-dropdown .select2-choice, .tribe-dropdown .select2-choice {
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+}
+.tribe-ea-dropdown .select2-choice div, .tribe-dropdown .select2-choice div {
+	border-left: 0;
+	background: none;
+	background-image: none;
+}
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
 	#tribe-loading span {
@@ -986,3 +1009,4 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 		margin-right: 180px;
 	}
 }
+

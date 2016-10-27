@@ -35,8 +35,15 @@
 				var $dependents = $document.find( '[data-depends="' + selector + '"]' );
 
 				$dependents.each( function( k, dependent ) {
-					var $dependent = $( dependent ),
-						condition = $dependent.data( 'condition' ),
+					var container_parent = $( this ).data( 'parent' );
+					var $dependent = null;
+					if ( container_parent ) {
+						$dependent = $( this ).closest( container_parent ).find( dependent );
+					} else {
+						$dependent = $( dependent );
+					}
+
+					var condition = $dependent.data( 'condition' ),
 						not_condition = $dependent.data( 'conditionNot' ),
 						is_not_empty = $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
 						is_empty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
