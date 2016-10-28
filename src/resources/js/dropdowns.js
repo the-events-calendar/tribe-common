@@ -22,7 +22,12 @@
 
 		$elements.each(function(){
 			var $select = $(this),
-				args = {};
+				args = {
+					dropdownAutoWidth: true,
+					dropdownCss: {
+						'min-width': '5rem'
+					}
+				};
 
 			if ( ! $select.is( 'select' ) ) {
 				// Better Method for finding the ID
@@ -45,10 +50,12 @@
 				args.minimumResultsForSearch = Infinity;
 			}
 
-			// allows free-form entry
+			// Allows freeform entry
 			if ( $select.is( '[data-freeform]' ) ) {
-				args.createSearchChoice = function(term, data) {
-					return { id: term, text: term };
+				args.createSearchChoice = function( term, data ) {
+					if ( term.match( args.regexToken ) ) {
+						return { id: term, text: term };
+					}
 				};
 			}
 
@@ -172,8 +179,6 @@
 					};
 				};
 			}
-
-			console.info( args );
 
 			$select.select2( args );
 		})
