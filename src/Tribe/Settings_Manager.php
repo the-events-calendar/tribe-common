@@ -317,13 +317,6 @@ class Tribe__Settings_Manager {
 	 * @return Tribe__Settings_Manager
 	 */
 	public static function instance() {
-		static $instance;
-
-		if ( ! $instance ) {
-			$class_name = __CLASS__;
-			$instance = new $class_name;
-		}
-
-		return $instance;
+		return tribe( 'settings.manager' );
 	}
 }

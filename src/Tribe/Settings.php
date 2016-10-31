@@ -13,7 +13,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 	 *
 	 */
 	class Tribe__Settings {
-
 		/**
 		 * Slug of the parent menu slug
 		 * @var string
@@ -71,10 +70,17 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public $noSaveTabs;
 
 		/**
-		 * the slug used in the admin to generate the settings page
+		 * The slug used in the admin to generate the settings page
 		 * @var string
 		 */
 		public $adminSlug;
+
+		/**
+		 * The slug used in the admin to generate the help page
+		 * @var string
+		 */
+		protected $help_slug;
+
 
 		/**
 		 * the menu name used for the settings page
@@ -148,6 +154,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			$this->menuName    = apply_filters( 'tribe_settings_menu_name', esc_html__( 'Events', 'tribe-common' ) );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
 			$this->adminSlug   = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
+			$this->help_slug   = apply_filters( 'tribe_settings_help_slug', 'tribe-common-help' );
 			$this->errors      = get_option( 'tribe_settings_errors', array() );
 			$this->major_error = get_option( 'tribe_settings_major_error', false );
 			$this->sent_data   = get_option( 'tribe_settings_sent_data', array() );
@@ -236,6 +243,18 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				'settings.php', esc_html__( 'Events Settings', 'tribe-common' ), esc_html__( 'Events Settings', 'tribe-common' ), $this->requiredCap, $this->adminSlug, array(
 					$this,
 					'generatePage',
+				)
+			);
+
+			$this->admin_page = add_submenu_page(
+				'settings.php',
+				esc_html__( 'Events Help', 'tribe-common' ),
+				esc_html__( 'Events Help', 'tribe-common' ),
+				$this->requiredCap,
+				$this->help_slug,
+				array(
+					tribe( 'settings.manager' ),
+					'do_help_tab',
 				)
 			);
 		}
