@@ -136,11 +136,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return Tribe__Settings
 		 */
 		public static function instance() {
-			if ( empty( self::$instance ) ) {
-				self::$instance = new self();
-			}
-
-			return self::$instance;
+			return tribe( 'settings' );
 		}
 
 		/**
@@ -655,6 +651,13 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			}
 
 			return $slug;
+		}
+
+		/**
+		 * @return string
+		 */
+		public function get_help_slug() {
+			return $this->help_slug;
 		}
 	} // end class
 } // endif class_exists

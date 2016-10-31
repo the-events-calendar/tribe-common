@@ -433,5 +433,6 @@ class Tribe__Main {
 	 */
 	public function bind_implementations(  ) {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
+		tribe_singleton( 'settings', 'Tribe__Settings' );
 	}
 }
