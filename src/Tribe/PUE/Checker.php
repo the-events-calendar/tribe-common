@@ -655,8 +655,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return bool
 		 */
 		public function is_network_licensed() {
-			$show_license = true;
-
 			if ( is_multisite()
 			     && ! is_network_admin()
 			     && is_plugin_active_for_network( $this->get_network_plugin_file( $this->plugin_file ) )
@@ -664,12 +662,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$network_key = get_network_option( null, $this->pue_install_key );
 				$local_key   = get_option( $this->pue_install_key );
 
-				$show_license = $network_key !== $local_key;
-
-				return $show_license;
+				return $network_key === $local_key;
 			}
 
-			return $show_license;
+			return false;
 		}
 
 		private function get_api_update_message() {
