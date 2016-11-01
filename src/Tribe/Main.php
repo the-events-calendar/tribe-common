@@ -71,6 +71,8 @@ class Tribe__Main {
 
 		$this->init_autoloading();
 
+		$this->bind_implementations();
+
 		$this->init_libraries();
 		$this->add_hooks();
 
@@ -124,7 +126,7 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		Tribe__Debug::instance();
-		Tribe__Settings_Manager::instance();
+		tribe('settings.manager');
 		$this->pue_notices();
 
 		require_once $this->plugin_path . 'src/functions/utils.php';
@@ -423,5 +425,13 @@ class Tribe__Main {
 		 * @since 4.3
 		 */
 		do_action( 'tribe_plugins_loaded' );
+	}
+
+	/**
+	 * Registers the slug bound to the implementations in the container.
+	 */
+	public function bind_implementations(  ) {
+		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
+		tribe_singleton( 'settings', 'Tribe__Settings' );
 	}
 }
