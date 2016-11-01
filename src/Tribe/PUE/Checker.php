@@ -403,19 +403,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return array Modified list of fields.
 		 */
 		public function do_license_key_fields( $fields ) {
-		    $show_license = true;
-
-			if(
-                is_multisite()
-                && !is_network_admin()
-                && is_plugin_active_for_network( $this->get_network_plugin_file($this->plugin_file) ) ){
-		        $network_key = get_network_option(null,$this->pue_install_key);
-		        $local_key = get_option($this->pue_install_key);
-
-		        $show_license = $network_key !== $local_key;
-            }
-
-            // common fields whether licenses should be hidden or not
+			// common fields whether licenses should be hidden or not
 			$to_insert = array(
 				$this->pue_install_key . '-heading' => array(
 					'type'  => 'heading',
@@ -424,7 +412,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			);
 
 			// we want to inject the following license settings at the end of the licenses tab
-			if ( $show_license ) {
+			if ( ! $this->is_network_licensed() ) {
 				$to_insert[$this->pue_install_key ] = array(
 						'type'            => 'license_key',
 						'size'            => 'large',
@@ -661,6 +649,29 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			return $message;
 		}
 
+		/**
+         * Whether the plugin is network activated and licensed or not.
+         *
+		 * @return bool
+		 */
+		public function is_network_licensed() {
+			$show_license = true;
+
+			if ( is_multisite()
+			     && ! is_network_admin()
+			     && is_plugin_active_for_network( $this->get_network_plugin_file( $this->plugin_file ) )
+			) {
+				$network_key = get_network_option( null, $this->pue_install_key );
+				$local_key   = get_option( $this->pue_install_key );
+
+				$show_license = $network_key !== $local_key;
+
+				return $show_license;
+			}
+
+			return $show_license;
+		}
+
 		private function get_api_update_message() {
 			$plugin_info = $this->plugin_info;
 
@@ -709,7 +720,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		public function add_notice_to_plugin_notices( $notices ) {
-			if ( ! $this->plugin_notice ) {
+			if ( ! $this->plugin_notice || $this->is_network_licensed() ) {
 				return $notices;
 			}
 
