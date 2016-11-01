@@ -101,16 +101,16 @@ class Tribe__Settings_Manager {
 	 * @param array $options formatted the same as from get_options()
 	 * @param bool  $apply_filters
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public static function set_options( $options, $apply_filters = true ) {
 		if ( ! is_array( $options ) ) {
-			return;
+			return false;
 		}
 		if ( $apply_filters == true ) {
 			$options = apply_filters( 'tribe-events-save-options', $options );
 		}
-		update_option( Tribe__Main::OPTIONNAME, $options );
+		return update_option( Tribe__Main::OPTIONNAME, $options );
 	}
 
 	/**
@@ -119,13 +119,13 @@ class Tribe__Settings_Manager {
 	 * @param string $name
 	 * @param mixed  $value
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public static function set_option( $name, $value ) {
 		$newOption        = array();
 		$newOption[ $name ] = $value;
 		$options          = self::get_options();
-		self::set_options( wp_parse_args( $newOption, $options ) );
+		return self::set_options( wp_parse_args( $newOption, $options ) );
 	}
 
 	/**

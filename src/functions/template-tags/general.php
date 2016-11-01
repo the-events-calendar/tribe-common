@@ -40,10 +40,10 @@ if ( ! function_exists( 'tribe_update_option' ) ) {
 	 * @param string $optionName Name of the option to retrieve.
 	 * @param string $value      Value to save
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	function tribe_update_option( $optionName, $value ) {
-		Tribe__Settings_Manager::set_option( $optionName, $value );
+		return Tribe__Settings_Manager::set_option( $optionName, $value );
 	}
 }//end if
 
