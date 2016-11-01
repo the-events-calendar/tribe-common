@@ -131,6 +131,12 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		private static $instance;
 
 		/**
+		 * The settings page URL.
+		 * @var string
+		 */
+		protected $url;
+
+		/**
 		 * Static Singleton Factory Method
 		 *
 		 * @return Tribe__Settings
