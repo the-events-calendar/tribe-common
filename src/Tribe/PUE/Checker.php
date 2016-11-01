@@ -650,8 +650,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-         * Whether the plugin is network activated and licensed or not.
-         *
+		 * Whether the plugin is network activated and licensed or not.
+		 *
 		 * @return bool
 		 */
 		public function is_network_licensed() {
@@ -1206,23 +1206,23 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-         * Returns the plugin file to use when checking for the licensed component or plugin.
-         *
+		 * Returns the plugin file to use when checking for the licensed component or plugin.
+		 *
 		 * @param string $plugin_file The component or plugin file in the `<dir>/<file>.php` format.
 		 *
 		 * @return string A component or plugins file in the `<dir>/<file>.php` format.
 		 */
 		protected function get_network_plugin_file( $plugin_file ) {
-		    $map = array(
-		     'event-aggregator/event-aggregator.php' => 'the-events-calendar/the-events-calendar.php',
-            );
+			$map = array(
+				'event-aggregator/event-aggregator.php' => 'the-events-calendar/the-events-calendar.php',
+			);
 
-		    return isset($map[$plugin_file]) ? $map[$plugin_file] : $plugin_file;
+			return isset( $map[ $plugin_file ] ) ? $map[ $plugin_file ] : $plugin_file;
 		}
 
 		/**
 		 * Returns the localized string for a plugin or component license state.
-         *
+		 *
 		 * @return string The localized state string.
 		 */
 		protected function get_network_license_state_string() {
