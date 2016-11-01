@@ -1232,8 +1232,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$states = array(
 				'licensed'     => esc_html_x( 'Licensed', 'The license for this plugin is valid.', 'tribe-common' ),
-				'not-licensed' => esc_html( 'No license entered. Consult your network administrator.', 'tribe-common' ),
-				'expired'      => esc_html( 'Expired license. Consult your network administrator.', 'tribe-common' ),
+				'not-licensed' => esc_html__( 'No license entered. Consult your network administrator.', 'tribe-common' ),
+				'expired'      => esc_html__( 'Expired license. Consult your network administrator.', 'tribe-common' ),
 			);
 
 			if ( is_string( $state ) && array_key_exists( $state, $states ) ) {
