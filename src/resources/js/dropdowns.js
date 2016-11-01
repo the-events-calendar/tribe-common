@@ -1,4 +1,6 @@
 ( function( $, obj ) {
+	'use strict';
+
 	obj.selector = {
 		dropdown: 'tribe-dropdown'
 	};
@@ -43,6 +45,10 @@
 			// If we are dealing with a Input Hidden we need to set the Data for it to work
 			if ( $select.is( '[data-options]' ) ) {
 				args.data = $select.data( 'options' );
+
+				if ( ! $select.is( 'select' ) ) {
+					args.initSelection = obj.setup_initSelection( args, $select );
+				}
 			}
 
 			// Prevents the Search box to show
@@ -53,7 +59,16 @@
 			// Allows freeform entry
 			if ( $select.is( '[data-freeform]' ) ) {
 				args.createSearchChoice = function( term, data ) {
-					if ( term.match( args.regexToken ) ) {
+					if (
+						term.match( args.regexToken )
+						&& (
+							! $select.is( '[data-int]' )
+							|| (
+								$select.is( '[data-int]' )
+								&& term.match( /\d+/ )
+							)
+						)
+					) {
 						return { id: term, text: term };
 					}
 				};
@@ -61,8 +76,8 @@
 
 			if ( 'tribe-ea-field-origin' === $select.attr( 'id' ) ) {
 				args.formatResult = args.upsellFormatter,
-    			args.formatSelection = args.upsellFormatter,
-    			args.escapeMarkup = function(m) { return m; };
+					args.formatSelection = args.upsellFormatter,
+					args.escapeMarkup = function(m) { return m; };
 			}
 
 			if ( $select.is( '[multiple]' ) ) {
@@ -115,28 +130,9 @@
 
 			// Select also allows Tags, so we go with that too
 			if ( $select.is( '[data-tags]' ) ){
-				args.tags = $select.data( 'options' );
+				args.tags = $select.data( 'tags' );
 
-				args.initSelection = function ( element, callback ) {
-					var data = [];
-					$( element.val().split( args.regexSplit ) ).each( function () {
-						var item = { id: this, text: this };
-						if ( args.tags.length > 0  && _.isObject( args.tags[0] ) ) {
-							var _item = _.where( args.tags, { value: this } );
-							if ( _item.length > 0 ){
-								item = _item[0];
-								item = {
-									id: item.value,
-									text: item.text,
-								};
-							}
-						}
-
-						data.push( item );
-
-					} );
-					callback( data );
-				};
+				args.initSelection = obj.setup_initSelection( args, $select );
 
 				args.createSearchChoice = function(term, data) {
 					if ( term.match( args.regexToken ) ) {
@@ -220,7 +216,7 @@
 	 * @return {string}   ID of the object
 	 */
 	obj.search_id = function ( e ) {
-		var id = null;
+		var id = undefined;
 
 		if ( 'undefined' !== typeof e.id ){
 			id = e.id;
@@ -229,7 +225,36 @@
 		} else if ( 'undefined' !== typeof e.value ){
 			id = e.value;
 		}
-		return e == undefined ? null : id;
+		return undefined === e ? undefined : id;
+	};
+
+	/**
+	 */
+	obj.setup_initSelection = function( args, $select ) {
+		var is_multiple = $select.is( '[data-multiple]' );
+
+		return function ( element, callback ) {
+			var data = [];
+			$( element.val().split( args.regexSplit ) ).each( function () {
+				var item = { id: this, text: this };
+				if ( args.data.length > 0  && _.isObject( args.data[0] ) ) {
+					var _item = _.where( args.data, { text: this.valueOf() } );
+					if ( _item.length > 0 ){
+						item = _item[0];
+					}
+				}
+
+				if ( is_multiple ) {
+					data.push( item );
+				} else {
+					callback( item );
+				}
+			} );
+
+			if ( is_multiple ) {
+				callback( data );
+			}
+		};
 	};
 
 	$( function() {
