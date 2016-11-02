@@ -347,7 +347,7 @@ class Tribe__Timezones {
 	 *
 	 * @return string
 	 */
-	public static function jo_tz( $datetime, $tzstring ) {
+	public static function to_tz( $datetime, $tzstring ) {
 		if ( Tribe__Events__Timezones::is_utc_offset( $tzstring ) ) {
 			return Tribe__Events__Timezones::apply_offset( $datetime, $tzstring );
 		}
