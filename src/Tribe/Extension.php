@@ -65,13 +65,12 @@ abstract class Tribe__Extension {
 	 * Get singleton instance of child class
 	 *
 	 * @param string $child_class (optional) Name of child class.
-	 * @param string $plugin_file (optional) Where the extension's plugin file is located.
-	 *                            This is only used when child class is first instantiated.
-	 *                            Defaults to file where child class is located.
+	 * @param array $args         (optional) Any args that should be set on construct.
+	 *                            Only used the first time the extension is instantiated.
 	 *
-	 * @return object|null The extension's instance, or nothing if it can't be instantiated
+	 * @return object|null The extension's instance, or null if it can't be instantiated
 	 */
-	public static function instance( $child_class = null, $plugin_file = null ) {
+	public static function instance( $child_class, $args = null ) {
 		// Defaults to the name of the class that called this instance.
 		$child_class = empty( $child_class ) ? self::get_called_class() : $child_class;
 
@@ -81,14 +80,10 @@ abstract class Tribe__Extension {
 		}
 
 		if ( ! isset( self::$instances[ $child_class ] ) ) {
+			$args = (array) $args;
+			$args['class'] = $child_class;
 
-			// If this is not set assume the extension's plugin class is the plugin file.
-			if ( ! is_string( $plugin_file ) ) {
-				$reflection = new ReflectionClass( $child_class );
-				$plugin_file = $reflection->getFileName();
-			}
-
-			self::$instances[ $child_class ] = new $child_class( $plugin_file );
+			self::$instances[ $child_class ] = new $child_class( $args );
 		}
 
 		return self::$instances[ $child_class ];
@@ -99,11 +94,10 @@ abstract class Tribe__Extension {
 	 *
 	 * Waits until after the init hook has fired.
 	 *
-	 * @param string $plugin_file The full path to the plugin file.
+	 * @param array $args The full path to the plugin file.
 	 */
-	final private function __construct( string $plugin_file ) {
-		$this->set( 'file', $plugin_file );
-
+	final private function __construct( array $args ) {
+		$this->args = $args;
 		$this->construct();
 
 		// The init() action/hook.
@@ -158,7 +152,7 @@ abstract class Tribe__Extension {
 	final public function register() {
 		$is_plugin_authorized = tribe_register_plugin(
 			$this->get_plugin_file(),
-			$this->get( 'class', get_class( $this ) ),
+			$this->get( 'class' ),
 			$this->get_version(),
 			$this->get( 'requires', array() )
 		);
@@ -176,7 +170,16 @@ abstract class Tribe__Extension {
 	 * @return string File path
 	 */
 	final public function get_plugin_file() {
-		return $this->get( 'file' );
+		$file = $this->get( 'file' );
+
+		// If this is not set assume the extension's plugin class is the plugin file.
+		if ( empty( $file ) ) {
+			$reflection = new ReflectionClass( $this->get( 'class' ) );
+			$file = $reflection->getFileName();
+			$this->set( 'file', $file );
+		}
+
+		return $file;
 	}
 
 	/**

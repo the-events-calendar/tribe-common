@@ -147,21 +147,22 @@ class Tribe__Extension_Loader {
 	 * @return bool Indicates if extension was instantiated successfully.
 	 */
 	public function instantiate_extension( $plugin_file ) {
-		$plugin_data = $this->get_cached_plugin_data( $plugin_file );
-		$plugin_folder = trailingslashit( dirname( $plugin_file ) );
+		$p_data = $this->get_cached_plugin_data( $plugin_file );
+		$p_folder = trailingslashit( dirname( $plugin_file ) );
 		$success = false;
 
-		// Set default extension file.
-		// @TODO Discuss if this should default to something else like $plugin_file.
-		if ( ! empty( $plugin_data['ExtensionFile'] ) ) {
-			$class_file = $plugin_folder . $plugin_data['ExtensionFile'];
-		} else {
-			$class_file = $plugin_folder . 'extension.php';
+		// Nothing to instantiate if class is not set.
+		if ( empty( $p_data['ExtensionClass'] ) ) {
+			return $success;
 		}
 
+		// Default to plugin file when empty.
+		$class_file = ! empty( $p_data['ExtensionFile'] ) ? $p_folder . $p_data['ExtensionFile'] : $plugin_file;
+
+		// Include file.
 		if ( file_exists( $class_file ) ) {
 			// Prevent loading class twice in edge cases where require_once wouldn't work.
-			if ( ! class_exists( $plugin_data['ExtensionClass'] ) ) {
+			if ( ! class_exists( $p_data['ExtensionClass'] ) ) {
 				require( $class_file );
 			}
 		} else {
@@ -172,13 +173,22 @@ class Tribe__Extension_Loader {
 			);
 		}
 
-		if ( class_exists( $plugin_data['ExtensionClass'] ) ) {
+		// Class instantiation.
+		if ( class_exists( $p_data['ExtensionClass'] ) ) {
+			$extension_args = array(
+				'file' => $plugin_file,
+				'plugin_data' => $p_data,
+			);
+
 			// Instantiates extension instance.
-			$plugin_data['ExtensionClass']::instance( $plugin_data['ExtensionClass'], $plugin_file );
-			$success = true;
+			$extension = $p_data['ExtensionClass']::instance( $p_data['ExtensionClass'], $extension_args );
+
+			if ( null !== $extension ) {
+				$success = true;
+			}
 		} else {
 			_doing_it_wrong(
-				esc_html( $plugin_data['ExtensionClass'] ),
+				esc_html( $p_data['ExtensionClass'] ),
 				'Specified extension class does not exist. Please double check that this class is declared in the extension file.',
 				'4.3'
 			);
