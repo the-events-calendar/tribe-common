@@ -662,7 +662,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$network_key = get_network_option( null, $this->pue_install_key );
 				$local_key   = get_option( $this->pue_install_key );
 
-				return $network_key === $local_key;
+				return ! empty( $network_key ) && $network_key !== $local_key;
 			}
 
 			return false;
