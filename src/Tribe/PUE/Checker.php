@@ -662,10 +662,20 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$network_key = get_network_option( null, $this->pue_install_key );
 				$local_key   = get_option( $this->pue_install_key );
 
-				return ! empty( $network_key ) && $network_key !== $local_key;
+
+				return ! ( ! empty( $local_key ) && ( empty( $network_key ) || $network_key !== $local_key ) );
 			}
 
 			return false;
+		}
+
+		/**
+         * Returns tet name of the option that stores the license key.
+         *
+		 * @return string
+		 */
+		public function get_license_option_key() {
+		    return $this->pue_install_key;
 		}
 
 		private function get_api_update_message() {
