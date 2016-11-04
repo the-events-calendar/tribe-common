@@ -172,8 +172,7 @@ class Tribe__Main {
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
-				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
-				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css' ),
+				array( 'tribe-datepicker', 'datepicker.css' ),
 			),
 			'admin_enqueue_scripts',
 			array(
