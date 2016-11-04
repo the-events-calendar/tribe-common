@@ -427,7 +427,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} else {
 				$to_insert[$this->pue_install_key. '-state' ] = array(
 					'type'  => 'html',
-					'label' => sprintf( esc_attr__( 'License Key State', 'tribe-common' ) ),
+					'label' => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
 					'html'  => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
 				);
             }
@@ -1231,7 +1231,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$state = get_transient( $transient_key );
 
 			$states = array(
-				'licensed'     => esc_html_x( 'Licensed', 'The license for this plugin is valid.', 'tribe-common' ),
+				'licensed'     => esc_html__( 'A valid license has been entered by your network administrator.', 'tribe-common' ),
 				'not-licensed' => esc_html__( 'No license entered. Consult your network administrator.', 'tribe-common' ),
 				'expired'      => esc_html__( 'Expired license. Consult your network administrator.', 'tribe-common' ),
 			);
