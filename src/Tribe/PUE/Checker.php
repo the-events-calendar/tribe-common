@@ -663,7 +663,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$local_key   = get_option( $this->pue_install_key );
 
 
-				return ! ( ! empty( $local_key ) && ( empty( $network_key ) || $network_key !== $local_key ) );
+				return ! ( ! empty( $local_key ) && ( empty( $network_key ) || (string) $network_key != (string) $local_key ) );
 			}
 
 			return false;
@@ -1236,7 +1236,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string The localized state string.
 		 */
 		protected function get_network_license_state_string() {
-			$transient_key = 'pue-' . $this->plugin_slug . '-key_state';
+			$transient_key = 'pue-' . $this->slug . '-key_state';
 
 			$state = get_transient( $transient_key );
 
