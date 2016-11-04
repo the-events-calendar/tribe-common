@@ -738,7 +738,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					$value = implode( ' ', $value );
 				}
 				$quote     = false !== strpos( $value, '"' ) ? "'" : '"';
-				$concat [] = esc_attr( $attribute ) . '=' . $quote . esc_attr( $value ) . $quote;
+				$concat[] = esc_attr( $attribute ) . '=' . $quote . esc_attr( $value ) . $quote;
 			}
 
 			return implode( ' ', $concat );
