@@ -428,6 +428,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$to_insert[$this->pue_install_key. '-state' ] = array(
 					'type'  => 'html',
 					'label' => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
+					'label_attributes' => array( 'style' => 'width:auto;' ),
 					'html'  => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
 				);
             }

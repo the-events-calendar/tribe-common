@@ -68,6 +68,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'attributes'       => array(),
 				'class'            => null,
 				'label'            => null,
+				'label_attributes' => null,
 				'placeholder'      => null,
 				'tooltip'          => null,
 				'size'             => 'medium',
@@ -126,6 +127,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					),
 				)
 			);
+			$label_attributes = $args['label_attributes'];
 			$tooltip    = wp_kses(
 				$args['tooltip'], array(
 					'a'      => array( 'href' => array(), 'title' => array(), 'target' => array() ),
@@ -250,7 +252,13 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public function do_field_label() {
 			$return = '';
 			if ( $this->label ) {
-				$return = '<legend class="tribe-field-label">' . $this->label . '</legend>';
+				if ( isset( $this->label_attributes ) ) {
+					$this->label_attributes['class'] = isset( $this->label_attributes['class'] ) ?
+						implode( ' ', array_merge( array( 'tribe-field-label' ), $this->label_attributes['class'] ) ) :
+						array( 'tribe-field-label' );
+					$this->label_attributes = tribe_concat_attributes( $this->label_attributes );
+				}
+				$return = sprintf( '<legend class="tribe-field-label" %s>%s</legend>', $this->label_attributes, $this->label );
 			}
 
 			return apply_filters( 'tribe_field_label', $return, $this->label, $this );
