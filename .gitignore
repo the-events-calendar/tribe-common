@@ -3,11 +3,13 @@ codeception.yml
 tests/acceptance.suite.yml
 tests/functional.suite.yml
 tests/integration.suite.yml
+tests/muintegration.suite.yml
 tests/wpunit.suite.yml
 tests/unit.suite.yml
 tests/acceptance/_bootstrap.php
 tests/functional/_bootstrap.php
 tests/integration/_bootstrap.php
+tests/muintegration/_bootstrap.php
 tests/unit/_bootstrap.php
 tests/wpunit/_bootstrap.php
 

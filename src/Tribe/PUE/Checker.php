@@ -427,7 +427,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} else {
 				$to_insert[$this->pue_install_key. '-state' ] = array(
 					'type'  => 'html',
-					'label' => sprintf( esc_attr__( 'License Key State', 'tribe-common' ) ),
+					'label' => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
+					'label_attributes' => array( 'style' => 'width:auto;' ),
 					'html'  => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
 				);
             }
@@ -662,10 +663,20 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$network_key = get_network_option( null, $this->pue_install_key );
 				$local_key   = get_option( $this->pue_install_key );
 
-				return ! empty( $network_key ) && $network_key !== $local_key;
+
+				return ! ( ! empty( $local_key ) && ( empty( $network_key ) || (string) $network_key != (string) $local_key ) );
 			}
 
 			return false;
+		}
+
+		/**
+         * Returns tet name of the option that stores the license key.
+         *
+		 * @return string
+		 */
+		public function get_license_option_key() {
+		    return $this->pue_install_key;
 		}
 
 		private function get_api_update_message() {
@@ -1226,12 +1237,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string The localized state string.
 		 */
 		protected function get_network_license_state_string() {
-			$transient_key = 'pue-' . $this->plugin_slug . '-key_state';
+			$transient_key = 'pue-' . $this->slug . '-key_state';
 
 			$state = get_transient( $transient_key );
 
 			$states = array(
-				'licensed'     => esc_html_x( 'Licensed', 'The license for this plugin is valid.', 'tribe-common' ),
+				'licensed'     => esc_html__( 'A valid license has been entered by your network administrator.', 'tribe-common' ),
 				'not-licensed' => esc_html__( 'No license entered. Consult your network administrator.', 'tribe-common' ),
 				'expired'      => esc_html__( 'Expired license. Consult your network administrator.', 'tribe-common' ),
 			);
