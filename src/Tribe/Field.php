@@ -256,7 +256,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					$this->label_attributes['class'] = isset( $this->label_attributes['class'] ) ?
 						implode( ' ', array_merge( array( 'tribe-field-label' ), $this->label_attributes['class'] ) ) :
 						array( 'tribe-field-label' );
-					$this->label_attributes = tribe_concat_attributes( $this->label_attributes );
+					$this->label_attributes = $this->concat_attributes( $this->label_attributes );
 				}
 				$return = sprintf( '<legend class="tribe-field-label" %s>%s</legend>', $this->label_attributes, $this->label );
 			}
@@ -709,6 +709,39 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= $this->do_field_end();
 
 			return $field;
+		}
+
+		/**
+		 * Concatenatates an array of attributes to use in HTML tags.
+		 *
+		 * Example usage:
+		 *
+		 *      $attrs = array( 'class' => array('one', 'two'), 'style' => 'color:red;' );
+		 *      printf ( '<p %s>%s</p>', tribe_concat_attributes( $attrs ), 'bar' );
+		 *
+		 *      // <p> class="one two" style="color:red;">bar</p>
+		 *
+		 * @param array $attributes An array of attributes in the format
+		 *                          [<attribute1> => <value>, <attribute2> => <value>]
+		 *                          where `value` can be a string or an array.
+		 *
+		 * @return string The concatenated attributes.
+		 */
+		protected function concat_attributes( array $attributes = array() ) {
+			if ( empty( $attributes ) ) {
+				return '';
+			}
+
+			$concat = array();
+			foreach ( $attributes as $attribute => $value ) {
+				if ( is_array( $value ) ) {
+					$value = implode( ' ', $value );
+				}
+				$quote     = false !== strpos( $value, '"' ) ? "'" : '"';
+				$concat [] = esc_attr( $attribute ) . '=' . $quote . esc_attr( $value ) . $quote;
+			}
+
+			return implode( ' ', $concat );
 		}
 	} // end class
 } // endif class_exists

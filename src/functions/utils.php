@@ -123,37 +123,3 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 		return call_user_func( $handler, $status );
 	}
 }
-
-if(!function_exists('tribe_concat_attributes')){
-	/**
-	 * Concatenatates an array of attributes to use in HTML tags.
-	 *
-	 * Example usage:
-	 *
-	 *      $attrs = array( 'class' => array('one', 'two'), 'style' => 'color:red;' );
-	 *      printf ( '<p %s>%s</p>', tribe_concat_attributes( $attrs ), 'bar' );
-	 *
-	 *      // <p> class="one two" style="color:red;">bar</p>
-	 *
-	 * @param array $attributes An array of attributes in the format
-	 *                          [<attribute1> => <value>, <attribute2> => <value>]
-	 *                          where `value` can be a string or an array.
-	 *
-	 * @return string The concatenated attributes.
-	 */
-	function tribe_concat_attributes( array $attributes = array() ) {
-		if ( empty( $attributes ) ) {
-			return '';
-		}
-
-		$concat = array();
-		foreach ( $attributes as $attribute => $value ) {
-			if ( is_array( $value ) ) {
-				$value = implode( ' ', $value );
-			}
-			$concat [] = $attribute . '=' . esc_attr( $value );
-		}
-
-		return implode( ' ', $concat );
-	}
-}
