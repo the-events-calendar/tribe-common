@@ -241,6 +241,11 @@
 					var _item = _.where( args.data, { text: this.valueOf() } );
 					if ( _item.length > 0 ){
 						item = _item[0];
+					} else {
+						_item = _.where( args.data, { id: parseInt( this.valueOf(), 10 ) } );
+						if ( _item.length > 0 ){
+							item = _item[0];
+						}
 					}
 				}
 
