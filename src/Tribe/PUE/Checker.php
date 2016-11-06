@@ -403,24 +403,37 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return array Modified list of fields.
 		 */
 		public function do_license_key_fields( $fields ) {
+			// common fields whether licenses should be hidden or not
+			$to_insert = array(
+				$this->pue_install_key . '-heading' => array(
+					'type'  => 'heading',
+					'label' => $this->get_plugin_name(),
+				)
+			);
 
 			// we want to inject the following license settings at the end of the licenses tab
-			$fields = self::array_insert_after_key( 'tribe-form-content-start', $fields, array(
-					$this->pue_install_key . '-heading' => array(
-						'type'  => 'heading',
-						'label' => $this->get_plugin_name(),
-					),
-					$this->pue_install_key => array(
+			if ( ! $this->is_network_licensed() ) {
+				$to_insert[$this->pue_install_key ] = array(
 						'type'            => 'license_key',
 						'size'            => 'large',
 						'validation_type' => 'license_key',
 						'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
-						'tooltip'         => esc_html__( 'A valid license key is required for support and updates', 'tribe-common' ),
+						'tooltip'         => esc_html__(
+							'A valid license key is required for support and updates', 'tribe-common'
+						),
 						'parent_option'   => false,
 						'network_option'  => true,
-					),
-				)
-			);
+				);
+			} else {
+				$to_insert[$this->pue_install_key. '-state' ] = array(
+					'type'  => 'html',
+					'label' => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
+					'label_attributes' => array( 'style' => 'width:auto;' ),
+					'html'  => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
+				);
+            }
+
+			$fields    = self::array_insert_after_key( 'tribe-form-content-start', $fields, $to_insert );
 
 			return $fields;
 		}
@@ -637,6 +650,35 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			return $message;
 		}
 
+		/**
+		 * Whether the plugin is network activated and licensed or not.
+		 *
+		 * @return bool
+		 */
+		public function is_network_licensed() {
+			if ( is_multisite()
+			     && ! is_network_admin()
+			     && is_plugin_active_for_network( $this->get_network_plugin_file( $this->plugin_file ) )
+			) {
+				$network_key = get_network_option( null, $this->pue_install_key );
+				$local_key   = get_option( $this->pue_install_key );
+
+
+				return ! ( ! empty( $local_key ) && ( empty( $network_key ) || (string) $network_key != (string) $local_key ) );
+			}
+
+			return false;
+		}
+
+		/**
+         * Returns tet name of the option that stores the license key.
+         *
+		 * @return string
+		 */
+		public function get_license_option_key() {
+		    return $this->pue_install_key;
+		}
+
 		private function get_api_update_message() {
 			$plugin_info = $this->plugin_info;
 
@@ -685,7 +727,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		public function add_notice_to_plugin_notices( $notices ) {
-			if ( ! $this->plugin_notice ) {
+			if ( ! $this->plugin_notice || $this->is_network_licensed() ) {
 				return $notices;
 			}
 
@@ -1172,6 +1214,56 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} else {
 				return strtolower( $site_url['host'] );
 			}
+		}
+
+		/**
+		 * Returns the plugin file to use when checking for the licensed component or plugin.
+		 *
+		 * @param string $plugin_file The component or plugin file in the `<dir>/<file>.php` format.
+		 *
+		 * @return string A component or plugins file in the `<dir>/<file>.php` format.
+		 */
+		protected function get_network_plugin_file( $plugin_file ) {
+			$map = array(
+				'event-aggregator/event-aggregator.php' => 'the-events-calendar/the-events-calendar.php',
+			);
+
+			return isset( $map[ $plugin_file ] ) ? $map[ $plugin_file ] : $plugin_file;
+		}
+
+		/**
+		 * Returns the localized string for a plugin or component license state.
+		 *
+		 * @return string The localized state string.
+		 */
+		protected function get_network_license_state_string() {
+			$transient_key = 'pue-' . $this->slug . '-key_state';
+
+			$state = get_transient( $transient_key );
+
+			$states = array(
+				'licensed'     => esc_html__( 'A valid license has been entered by your network administrator.', 'tribe-common' ),
+				'not-licensed' => esc_html__( 'No license entered. Consult your network administrator.', 'tribe-common' ),
+				'expired'      => esc_html__( 'Expired license. Consult your network administrator.', 'tribe-common' ),
+			);
+
+			if ( is_string( $state ) && array_key_exists( $state, $states ) ) {
+				return $states[ $state ];
+			}
+
+			$response = $this->validate_key( get_network_option( null, $this->pue_install_key ) );
+
+			if ( isset( $response['status'] ) && $response['status'] === 1 ) {
+				$state = 'licensed';
+			} else if ( isset( $response['api_expired'] ) && $response['api_expired'] == true ) {
+				$state = 'expired';
+			} else {
+				$state = 'not-licensed';
+			}
+
+			set_transient( $transient_key, $state, 900 );
+
+			return $states[ $state ];
 		}
 	}
 }

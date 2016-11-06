@@ -108,24 +108,6 @@ abstract class Tribe__Customizer__Section {
 	private static $instances;
 
 	/**
-	 * Method to return the Private instance of the Class
-	 *
-	 * @since 4.0
-	 *
-	 * @access public
-	 * @return Tribe__Events__Pro__Customizer__Section
-	 */
-	public static function instance( $name ) {
-		$slug = self::get_section_slug( $name );
-
-		if ( ! isset( self::$instances[ $slug ] ) ) {
-			self::$instances[ $slug ] = new $name;
-		}
-
-		return self::$instances[ $slug ];
-	}
-
-	/**
 	 * Get the section slug based on the Class name
 	 *
 	 * @param  string $class_name The name of this Class
@@ -151,18 +133,10 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @since  4.0
 	 *
-	 * @see  self::instance()
-	 * @access private
-	 *
-	 * @return void
+	 * @return Tribe__Customizer__Section
 	 */
-	final private function __construct() {
+	final public function __construct() {
 		$slug = self::get_section_slug( get_class( $this ) );
-
-		// Don't create a new one
-		if ( isset( self::$instances[ $slug ] ) ){
-			return;
-		}
 
 		// If for weird reason we don't have the Section name
 		if ( ! is_string( $this->ID ) ){

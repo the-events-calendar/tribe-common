@@ -123,4 +123,3 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 		return call_user_func( $handler, $status );
 	}
 }
-
