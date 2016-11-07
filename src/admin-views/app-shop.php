@@ -63,7 +63,7 @@
 				$i = 0;
 				foreach ( $products as $product ) {
 					?>
-					<div class="tribe-addon<?php echo in_array( $i, $wide_indexes ) ? ' first' : '';?>">
+					<div class="tribe-addon<?php echo in_array( $i, $wide_indexes ) ? ' first' : ''; ?>">
 						<div class="thumb">
 							<a href="<?php echo esc_url( $product->link ); ?>"><img src="<?php echo esc_url( tribe_resource_url( $product->image, false, null, $main ) ); ?>" /></a>
 						</div>
@@ -75,7 +75,7 @@
 								<?php
 								if ( isset( $product->requires ) ) {
 									?>
-									<p><strong><?php esc_html_e( 'Requires:', 'tribe-common' );?></strong> <?php echo esc_html( $product->requires );?></p>
+									<p><strong><?php esc_html_e( 'Requires:', 'tribe-common' );?></strong> <?php echo esc_html( $product->requires ); ?></p>
 									<?php
 								}
 								?>
