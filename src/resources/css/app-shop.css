@@ -46,6 +46,14 @@
 	position: absolute;
 	width: 123px;
 }
+#tribe-app-shop .tribe-addon .button-disabled {
+	padding-left: 3px;
+	width: 100px;
+}
+#tribe-app-shop .tribe-addon .button-disabled .dashicons {
+	font-size: 28px;
+	padding-right: 9px;
+}
 #tribe-app-shop .tribe-addon .caption {
 	padding: 0 15px 45px 15px;
 }
