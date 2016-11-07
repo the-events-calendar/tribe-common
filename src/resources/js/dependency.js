@@ -47,6 +47,8 @@
 						not_condition = $dependent.data( 'conditionNot' ),
 						is_not_empty = $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
 						is_empty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
+						is_numeric = $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ),
+						is_not_numeric = $dependent.data( 'conditionIsNotNumeric' ) || $dependent.is( '[data-condition-is-not-numeric]' ),
 						is_disabled = $field.is( ':disabled' ),
 						active_class = selectors.active.replace( '.', '' );
 
@@ -55,6 +57,8 @@
 							( is_empty && '' == value )
 							|| ( is_not_empty && '' != value )
 							|| ( _.isArray( condition ) && -1 !== _.findIndex( condition, value ) )
+							|| ( is_numeric && $.isNumeric( value ) )
+							|| ( is_not_numeric && ! $.isNumeric( value ) )
 							|| ( 'undefined' !== typeof condition && value == condition )
 							|| ( 'undefined' !== typeof not_condition && value != not_condition )
 						) && ! is_disabled
