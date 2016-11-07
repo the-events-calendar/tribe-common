@@ -215,6 +215,11 @@ table.plugins .tribe-plugin-update-message a {
 }
 
 /* sizes */
+.tribe-field-inline-text {
+	line-height: 28px;
+	margin: 0 2px;
+}
+
 .tribe-field-textarea.tribe-size-small textarea {
 	height: 60px;
 	width: 180px;
@@ -1126,3 +1131,34 @@ a.tribe-rating-link {
 		}
 	}
 }
+
+.tribe-ea-dropdown,
+.tribe-dropdown {
+	&.select2-container-active {
+		.select2-choice {
+			border-color: #5897fb;
+			box-shadow: 0 0 5px rgba( 0, 0, 0, .1 );
+		}
+	}
+
+	&.select2-dropdown-open {
+		.select2-choice {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+			border-color: #aaa;
+		}
+	}
+
+	.select2-choice {
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius: 6px;
+
+		div {
+			border-left: 0;
+			background: none;
+			background-image: none;
+		}
+	}
+}
+
