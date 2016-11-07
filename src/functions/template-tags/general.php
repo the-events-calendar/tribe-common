@@ -113,7 +113,7 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		$file = $plugin_path . $path;
 
 		// Turn the Path into a URL
-		$url = str_replace( wp_normalize_path( WP_CONTENT_DIR ), WP_CONTENT_URL, $file );
+		$url = str_replace( wp_normalize_path( WP_CONTENT_DIR ), content_url(), $file );
 
 		// Make it compatible with Windows and other OS
 		$url = str_replace( DIRECTORY_SEPARATOR, '/', $url );
