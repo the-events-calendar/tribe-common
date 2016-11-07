@@ -105,6 +105,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'link' => 'https://theeventscalendar.com/product/event-aggregator/?utm_campaign=in-app&utm_source=addonspage&utm_medium=event-aggregator&utm_content=appstoreembedded-1',
 					'description' => __( 'Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more.', 'tribe-common' ),
 					'image' => 'images/app-shop-ical.jpg',
+					'is_installed' => Tribe__Events__Aggregator::is_service_active(),
 				),
 				(object) array(
 					'title' => __( 'Events Calendar PRO', 'tribe-common' ),
@@ -115,6 +116,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 						'</a>'
 					),
 					'image' => 'images/app-shop-pro.jpg',
+					'is_installed' => class_exists( 'Tribe__Events__Pro__Main' ),
 				),
 				(object) array(
 					'title' => __( 'Event Tickets Plus', 'tribe-common' ),
@@ -125,18 +127,21 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 						'</a>'
 					),
 					'image' => 'images/app-shop-tickets-plus.jpg',
+					'is_installed' => class_exists( 'Tribe__Tickets_Plus__Main' ),
 				),
 				(object) array(
 					'title' => __( 'Filter Bar', 'tribe-common' ),
 					'link' => 'https://theeventscalendar.com/product/wordpress-events-filterbar/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-filterbar&utm_content=appstoreembedded-1',
 					'description' => __( 'It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar.', 'tribe-common' ),
 					'image' => 'images/app-shop-filter-bar.jpg',
+					'is_installed' => class_exists( 'Tribe__Events__Filterbar__View' ),
 				),
 				(object) array(
 					'title' => __( 'Community Events', 'tribe-common' ),
 					'link' => 'https://theeventscalendar.com/product/wordpress-community-events/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-community-events&utm_content=appstoreembedded-1',
 					'description' => __( 'Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go.', 'tribe-common' ),
 					'image' => 'images/app-shop-community.jpg',
+					'is_installed' => class_exists( 'Tribe__Events__Community__Main' ),
 				),
 				(object) array(
 					'title' => __( 'Community Tickets', 'tribe-common' ),
@@ -144,6 +149,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'description' => __( 'Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin', 'tribe-common' ),
 						'requires' => _x( 'Event Tickets Plus and Community Events', 'Names of required plugins for Community Tickets', 'tribe-common' ),
 					'image' => 'images/app-shop-community-tickets.jpg',
+					'is_installed' => class_exists( 'Tribe__Events__Community__Tickets__Main' ),
 				),
 				(object) array(
 					'title' => __( 'Eventbrite Tickets', 'tribe-common' ),
@@ -154,6 +160,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 						'</a>'
 					),
 					'image' => 'images/app-shop-eventbrite.jpg',
+					'is_installed' => class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ),
 				),
 			);
 
