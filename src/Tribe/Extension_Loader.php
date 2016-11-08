@@ -205,15 +205,6 @@ class Tribe__Extension_Loader {
 	 * @return array|null Plugin data or null.
 	 */
 	public function get_cached_plugin_data( $plugin_path ) {
-		/*
-		 * @TODO Discuss caching this data in the database.
-		 *
-		 * We could build the DB cache each time an admin visits a plugin install, update or info page.
-		 * This would not account for manual plugin updates. So we could also rebuild the cache if:
-		 * - Extension class or file does not exist
-		 * - Extension has manually set version number and it does not match stored value in database.
-		 * Or, we could continue on with the following flexibility and slight performance penalty.
-		 */
 		$plugin_basename = plugin_basename( $plugin_path );
 
 		if ( ! array_key_exists( $plugin_basename, $this->plugin_data ) ) {
