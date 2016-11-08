@@ -1237,19 +1237,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string The localized state string.
 		 */
 		protected function get_network_license_state_string() {
-			$transient_key = 'pue-' . $this->slug . '-key_state';
-
-			$state = get_transient( $transient_key );
-
 			$states = array(
 				'licensed'     => esc_html__( 'A valid license has been entered by your network administrator.', 'tribe-common' ),
 				'not-licensed' => esc_html__( 'No license entered. Consult your network administrator.', 'tribe-common' ),
 				'expired'      => esc_html__( 'Expired license. Consult your network administrator.', 'tribe-common' ),
 			);
-
-			if ( is_string( $state ) && array_key_exists( $state, $states ) ) {
-				return $states[ $state ];
-			}
 
 			$response = $this->validate_key( get_network_option( null, $this->pue_install_key ) );
 
@@ -1260,8 +1252,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} else {
 				$state = 'not-licensed';
 			}
-
-			set_transient( $transient_key, $state, 900 );
 
 			return $states[ $state ];
 		}
