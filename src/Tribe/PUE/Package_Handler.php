@@ -100,6 +100,21 @@ class Tribe__PUE__Package_Handler {
 	 * @return string|WP_Error The full path to the downloaded package file, or a WP_Error object.
 	 */
 	protected function download( $package ) {
+		if ( empty( $this->filesystem ) ) {
+			// try to connect
+			$this->upgrader->fs_connect( array( WP_CONTENT_DIR, WP_PLUGIN_DIR ) );
+
+			global $wp_filesystem;
+
+			// still empty?
+			if ( empty( $wp_filesystem ) ) {
+				// bail
+				return false;
+			}
+
+			$this->filesystem = $wp_filesystem;
+		}
+
 		$this->upgrader->skin->feedback( 'downloading_package', $package );
 
 		$download_file = download_url( $package );
