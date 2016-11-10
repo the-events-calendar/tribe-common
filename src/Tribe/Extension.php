@@ -143,7 +143,7 @@ abstract class Tribe__Extension {
 	 */
 	final protected function set_url( $url ) {
 		$this->set( 'url', $url );
-		$this->add_meta_link( __( 'View Details' ), $url );
+		$this->add_meta_link( __( 'Tutorial', 'tribe-common' ), $url );
 	}
 
 	/**
@@ -339,7 +339,7 @@ abstract class Tribe__Extension {
 	 *
 	 * @return mixed The value of the specified index or the default if not found.
 	 */
-	public static function search_var( $variable, $indexes, $default = null ) {
+	final private static function search_var( $variable, $indexes, $default = null ) {
 		if ( is_object( $variable ) ) {
 			$variable = (array) $variable;
 		}
