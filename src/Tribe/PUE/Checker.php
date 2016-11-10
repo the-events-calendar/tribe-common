@@ -285,6 +285,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 				}
 
+				// Prevents get_plugins from throwing a weird notice
+				if ( ! file_exists( WP_PLUGIN_DIR . '/' . $this->get_plugin_file()  ) ) {
+					return;
+				}
+
 				$plugin_details    = explode( '/', $this->get_plugin_file() );
 				$plugin_folder     = get_plugins( '/' . $plugin_details[0] );
 				$this->plugin_name = isset( $plugin_details[1] ) && isset( $plugin_folder[ $plugin_details[1] ] ) ? $plugin_folder[ $plugin_details[1] ]['Name'] : null;
