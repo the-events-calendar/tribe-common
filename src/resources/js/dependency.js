@@ -89,7 +89,7 @@
 			'change.dependency': function( e ) {
 				$( this ).trigger( 'verify.dependency' );
 			}
-		}, selectors.dependency )
+		}, selectors.dependency );
 
 	// Configure on Document ready for the default trigger
 	$document.ready( function() {
