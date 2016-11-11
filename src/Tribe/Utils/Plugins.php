@@ -70,7 +70,7 @@ class Tribe__Utils__Plugins {
 		foreach ( $full_list as $plugin ) {
 			$base = plugin_basename( $plugin );
 
-			if ( Tribe__Utils__Array::strpos( $base, $prefix ) === 0 ) {
+			if ( 0 === Tribe__Utils__Array::strpos( $base, $prefix ) ) {
 				$filtered_list[] = $plugin;
 			}
 		}

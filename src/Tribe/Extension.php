@@ -143,9 +143,7 @@ abstract class Tribe__Extension {
 			$this->get_plugin_file(),
 			__( 'Tutorial', 'tribe-common' ),
 			$url,
-			array(
-				'class' => 'tribe-meta-link-extension',
-			)
+			array( 'class' => 'tribe-meta-link-extension' )
 		);
 	}
 
