@@ -34,6 +34,7 @@
 					'depends',
 					'condition',
 					'conditionNot',
+					'condition-not',
 					'conditionNotEmpty',
 					'condition-not-empty',
 					'conditionEmpty',
