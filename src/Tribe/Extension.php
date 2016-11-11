@@ -38,12 +38,6 @@ abstract class Tribe__Extension {
 	 *          @type string $main_class Minimum version number
 	 *      }
 	 *
-	 *      @type array  $meta_links {
-	 *          Meta links added to extension in WP Admin > Plugins page
-	 *
-	 *          @type string $name URL
-	 *      }
-	 *
 	 *      @type array $plugin_data If the plugin file header is parsed, the
 	 *                               resulting data is stored in this.
 	 * }
@@ -143,7 +137,16 @@ abstract class Tribe__Extension {
 	 */
 	final protected function set_url( $url ) {
 		$this->set( 'url', $url );
-		$this->add_meta_link( __( 'Tutorial', 'tribe-common' ), $url );
+
+		// Adds this as a tutorial <a> link to Wp Admin > Plugins page.
+		Tribe__Plugin_Meta_Links::instance()->add_link(
+			$this->get_plugin_file(),
+			__( 'Tutorial', 'tribe-common' ),
+			$url,
+			array(
+				'class' => 'tribe-meta-link-extension',
+			)
+		);
 	}
 
 	/**
@@ -231,22 +234,9 @@ abstract class Tribe__Extension {
 	final public function get_plugin_data() {
 		$plugin_data = $this->get( 'plugin_data' );
 
-		// Set version number to match plugin header.
+		// Set the plugin data arg/cache to match.
 		if ( empty( $plugin_data ) ) {
-			$default_headers = array(
-				'Name' => 'Plugin Name',
-				'PluginURI' => 'Plugin URI',
-				'Version' => 'Version',
-				'Description' => 'Description',
-				'Author' => 'Author',
-				'AuthorURI' => 'Author URI',
-				'TextDomain' => 'Text Domain',
-				'DomainPath' => 'Domain Path',
-				'Network' => 'Network',
-			);
-
-			$plugin_data = get_file_data( $this->get_plugin_file(), $default_headers, 'plugin' );
-			$this->set( 'plugin_data', $plugin_data );
+			$this->set( 'plugin_data', Tribe__Utils__Plugins::get_plugin_data( $this->get_plugin_file() ) );
 		}
 
 		return $plugin_data;
@@ -273,7 +263,7 @@ abstract class Tribe__Extension {
 	}
 
 	/**
-	 * Sets an arg, including one nested inside of multidimensional array
+	 * Sets an arg, including one nested a few levels deep
 	 *
 	 * @param string|array $key    To set an arg nested multiple levels deep pass an array
 	 *                             specifying each key in order as a value.
@@ -281,40 +271,11 @@ abstract class Tribe__Extension {
 	 * @param mixed         $value The value.
 	 */
 	final protected function set( $key, $value ) {
-
-		// Convert strings and such to array.
-		$key = (array) $key;
-
-		// This reference will point to the arg, however many levels deep it is.
-		$arg = &$this->args;
-
-		// Multiple nested keys specified, iterate through each level.
-		foreach ( $key as $i ) {
-			// Ensure current array depth can have children set.
-			if ( ! is_array( $arg ) ) {
-				// $arg is set but is not an array. Converting it to an array
-				// would likely lead to unexpected problems for whatever first set it.
-				$error = sprintf(
-					'Attempted to set $args[%1$s] but %2$s is already set and is not an array.',
-					implode( $key, '][' ),
-					$i
-				);
-
-				_doing_it_wrong( __FUNCTION__, esc_html( $error ), '4.3' );
-				break;
-			} elseif ( ! isset( $arg[ $i ] ) ) {
-				$arg[ $i ] = array();
-			}
-
-			// Dive one level deeper into nested array.
-			$arg = &$arg[ $i ];
-		}
-
-		$arg = $value;
+		$this->args = Tribe__Utils__Array::set( $this->args, $key, $value );
 	}
 
 	/**
-	 * Retrieves arg, including one nested inside of a multidimensional array
+	 * Retrieves arg, including one nested a few levels deep
 	 *
 	 * @param string|array $key     To select an arg nested multiple levels deep pass an
 	 *                              array specifying each key in order as a value.
@@ -324,83 +285,7 @@ abstract class Tribe__Extension {
 	 * @return mixed Returns the args value or the default if arg is not found.
 	 */
 	final public function get( $key, $default = null ) {
-		return self::search_var( $this->args, $key, $default );
-	}
-
-	/**
-	 * Find a value nested inside of a multidimensional array or object
-	 *
-	 * Example: search_var( $a, [ 0, 1, 2 ] ) returns the value of $a[0][1][2].
-	 *
-	 * @param  array $variable  Array or object to search within.
-	 * @param  array $indexes   Specify each nested index in order.
-	 *                          Example: array( 'lvl1', 'lvl2' );
-	 * @param  mixed $default   Default value if the search finds nothing.
-	 *
-	 * @return mixed The value of the specified index or the default if not found.
-	 */
-	final private static function search_var( $variable, $indexes, $default = null ) {
-		if ( is_object( $variable ) ) {
-			$variable = (array) $variable;
-		}
-
-		if ( ! is_array( $variable ) ) {
-			return $default;
-		}
-
-		foreach ( (array) $indexes as $index ) {
-			if ( ! is_array( $variable ) || ! isset( $variable[ $index ] ) ) {
-				$variable = $default;
-				break;
-			}
-
-			$variable = $variable[ $index ];
-		}
-
-		return $variable;
-	}
-
-	/**
-	 * Add a meta link to the plugins list page
-	 *
-	 * @param string $title Title of the meta link.
-	 * @param string $url   URL for the link.
-	 */
-	final public function add_meta_link( $title, $url ) {
-		$this->set( array( 'meta_links', $title ), $url );
-
-		$callback = array( $this, 'filter_meta_links' );
-		// See if we need to hook our filter up.
-		if ( ! has_action( 'plugin_row_meta', $callback ) ) {
-			add_action( 'plugin_row_meta', $callback, 10, 2 );
-		}
-	}
-
-	/**
-	 * Adds meta links to this extension on the plugins list page
-	 *
-	 * @param array  $links The current plugin's links.
-	 * @param string $file  The plugin currently being filtered.
-	 *
-	 * @return array Filtered action links array.
-	 */
-	final public function filter_meta_links( $links, $file ) {
-		$plugin_basename = basename( $this->get_plugin_file() );
-		$arg_links = $this->get( 'meta_links', array() );
-
-		if ( $file !== $plugin_basename ) {
-			return $links;
-		}
-
-		foreach ( $arg_links as $title => $url ) {
-			$links[] = sprintf(
-				'<a href="%1$s" target="_blank">%2$s</a>',
-				esc_url( $url ),
-				esc_html( $title )
-			);
-		}
-
-		return $links;
+		return Tribe__Utils__Array::get( $this->args, $key, $default );
 	}
 
 	/**

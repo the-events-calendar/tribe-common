@@ -1,4 +1,6 @@
 <?php
+defined( 'WPINC' ) || die; // Do not load directly.
+
 /**
  * Class Tribe__Extension_Loader
  */
@@ -36,92 +38,12 @@ class Tribe__Extension_Loader {
 	 */
 	private function __construct() {
 		$prefixes = self::get_extension_file_prefixes();
-		$extension_filepaths = self::get_plugins_with_prefix( $prefixes );
+		$extension_filepaths = Tribe__Utils__Plugins::get_plugins_with_prefix( $prefixes );
 
 		foreach ( $extension_filepaths as $plugin_file ) {
 			$this->instantiate_extension( $plugin_file );
 		}
 	}
-
-	/**
-	 * Get list of active plugins with a given prefix in the plugin folder path.
-	 *
-	 * @param string|array $prefix Prefixes you want to retrieve.
-	 *
-	 * @return array List of plugins with prefix in path.
-	 */
-	public static function get_plugins_with_prefix( $prefix ) {
-		$plugin_list = wp_get_active_and_valid_plugins();
-
-		if ( is_multisite() ) {
-			$plugin_list = array_merge( $plugin_list, wp_get_active_network_plugins() );
-		}
-
-		$extension_list = array();
-
-		foreach ( $plugin_list as $plugin ) {
-			$base = plugin_basename( $plugin );
-
-			if ( self::strpos_array( $base, $prefix ) === 0 ) {
-				$extension_list[] = $plugin;
-			}
-		}
-
-		return $extension_list;
-	}
-
-	/**
-	 * Gets the plugin data from the plugin file header
-	 *
-	 * @param string $plugin_file Absolute path to plugin file containing header.
-	 *
-	 * @see get_plugin_data() for WP Admin only function this is similar to.
-	 *
-	 * @return array Plugin data; keys match capitalized file header declarations.
-	 */
-	public static function get_plugin_data( $plugin_file ) {
-		$default_headers = array(
-			'Name' => 'Plugin Name',
-			'PluginURI' => 'Plugin URI',
-			'Version' => 'Version',
-			'ExtensionClass' => 'Extension Class',
-			'ExtensionFile' => 'Extension File',
-			'Description' => 'Description',
-			'Author' => 'Author',
-			'AuthorURI' => 'Author URI',
-			'TextDomain' => 'Text Domain',
-			'DomainPath' => 'Domain Path',
-			'Network' => 'Network',
-		);
-
-		return get_file_data( $plugin_file, $default_headers, 'plugin' );
-	}
-
-	/**
-	 * Behaves exactly like strpos(), but accepts an array of needles.
-	 *
-	 * @see strpos()
-	 *
-	 * @param string       $haystack String to search in.
-	 * @param array|string $needles  Strings to search for.
-	 * @param int          $offset   Starting position of search.
-	 *
-	 * @return false|int Integer position of first needle occurrence.
-	 */
-	public static function strpos_array( $haystack, $needles, $offset = 0 ) {
-		$needles = (array) $needles;
-
-		foreach ( $needles as $i ) {
-			$search = strpos( $haystack, $i, $offset );
-
-			if ( false !== $search ) {
-				return $search;
-			}
-		}
-
-		return false;
-	}
-
 
 	/**
 	 * Gets tribe extension plugin foldername prefixes
@@ -208,7 +130,7 @@ class Tribe__Extension_Loader {
 		$plugin_basename = plugin_basename( $plugin_path );
 
 		if ( ! array_key_exists( $plugin_basename, $this->plugin_data ) ) {
-			$this->plugin_data[ $plugin_basename ] = self::get_plugin_data( $plugin_path );
+			$this->plugin_data[ $plugin_basename ] = Tribe__Utils__Plugins::get_plugin_data( $plugin_path );
 		}
 
 		return $this->plugin_data[ $plugin_basename ];
