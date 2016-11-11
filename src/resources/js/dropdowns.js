@@ -29,7 +29,22 @@
 					dropdownCss: {
 						'min-width': '5rem'
 					}
-				};
+				},
+				carryOverData = [
+					'depends',
+					'condition',
+					'conditionNot',
+					'condition-not',
+					'conditionNotEmpty',
+					'condition-not-empty',
+					'conditionEmpty',
+					'condition-empty',
+					'conditionIsNumeric',
+					'condition-is-numeric',
+					'conditionIsNotNumeric',
+					'condition-is-not-numeric'
+				],
+				$container;
 
 			if ( ! $select.is( 'select' ) ) {
 				// Better Method for finding the ID
@@ -176,7 +191,20 @@
 				};
 			}
 
-			$select.select2( args );
+			$container = ( $select.select2( args ) ).select2( 'container' );
+
+			if ( carryOverData.length > 0 ) {
+				carryOverData.map( function ( dataKey ) {
+					var attr = 'data-' + dataKey,
+						val = $select.attr( attr );
+
+					if ( ! val ) {
+						return;
+					}
+
+					this.attr( attr, val );
+				}, $container );
+			}
 		})
 		.on( 'change', function( event ) {
 			var $select = $(this),
