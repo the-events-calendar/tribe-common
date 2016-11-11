@@ -236,7 +236,7 @@ abstract class Tribe__Extension {
 
 		// Set the plugin data arg/cache to match.
 		if ( empty( $plugin_data ) ) {
-			$this->set( 'plugin_data', Tribe__Utils__Plugins::get_plugin_data( $this->get_plugin_file() ) );
+			$plugin_data = $this->set( 'plugin_data', Tribe__Utils__Plugins::get_plugin_data( $this->get_plugin_file() ) );
 		}
 
 		return $plugin_data;
