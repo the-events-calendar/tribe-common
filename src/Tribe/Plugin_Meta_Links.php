@@ -16,7 +16,7 @@ class Tribe__Plugin_Meta_Links {
 	 * The various meta links that will be added
 	 *
 	 * @var array {
-	 *      Each plugin's that will be filtered.
+	 *      Each plugin that will be filtered.
 	 *
 	 *      @type array $plugin_basename {
 	 *          Meta links added to this plugin.
@@ -73,7 +73,7 @@ class Tribe__Plugin_Meta_Links {
 	 *
 	 * @param string $plugin Path to plugin file.
 	 * @param string $html   Full HTML for this link.
-	 * @param bool   $remove Whether to remove this HTML/link or add it.
+	 * @param bool   $remove Whether to add this HTML/link or match and remove it.
 	 */
 	public function set( $plugin, $html, $remove = false ) {
 		$basename = plugin_basename( $plugin );

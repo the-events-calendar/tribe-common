@@ -56,9 +56,9 @@ class Tribe__Utils__Array {
 	}
 
 	/**
-	 * Find a value nested inside of a array or object.
+	 * Find a value inside of an array or object, including one nested a few levels deep.
 	 *
-	 * Example: get( $a, [ 0, 1, 2 ] ) returns the value of $a[0][1][2].
+	 * Example: get( $a, [ 0, 1, 2 ] ) returns the value of $a[0][1][2] or the default.
 	 *
 	 * @param  array $variable  Array or object to search within.
 	 * @param  array $indexes   Specify each nested index in order.
