@@ -190,14 +190,14 @@
 				};
 			}
 
-			$container = ($select.select2( args )).select2('container');
+			$container = ( $select.select2( args ) ).select2( 'container' );
 
 			if ( carryOverData.length > 0 ) {
 				carryOverData.map( function ( dataKey ) {
 					var attr = 'data-' + dataKey,
 						val = $select.attr( attr );
 
-					if ( !val ) {
+					if ( ! val ) {
 						return;
 					}
 
