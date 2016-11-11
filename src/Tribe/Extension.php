@@ -64,7 +64,7 @@ abstract class Tribe__Extension {
 	 *
 	 * @return object|null The extension's instance, or null if it can't be instantiated
 	 */
-	public static function instance( $child_class, $args = null ) {
+	public static function instance( $child_class = null, $args = null ) {
 		// Defaults to the name of the class that called this instance.
 		$child_class = empty( $child_class ) ? self::get_called_class() : $child_class;
 
@@ -106,7 +106,7 @@ abstract class Tribe__Extension {
 	}
 
 	/**
-	 * Empty function typically overriden by child class
+	 * Empty function typically overridden by child class
 	 */
 	protected function construct() {}
 
