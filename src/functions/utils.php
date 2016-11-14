@@ -123,3 +123,27 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 		return call_user_func( $handler, $status );
 	}
 }
+
+if ( ! function_exists( 'tribe_get_request_var' ) ) {
+	/**
+	 * Tests to see if the requested variable is set either as a post field or as a URL
+	 * param and returns the value if so.
+	 *
+	 * Post data takes priority over fields passed in the URL query. If the field is not
+	 * set then $default (null unless a different value is specified) will be returned.
+	 *
+	 * @param string $var
+	 * @param mixed  $default
+	 *
+	 * @return mixed
+	 */
+	function tribe_get_request_var( $var, $default = null ) {
+		if ( isset( $_POST[ $var ] ) ) {
+			return $_POST[ $var ];
+		} elseif ( isset( $_GET[ $var ] ) ) {
+			return $_GET[ $var ];
+		} else {
+			return $default;
+		}
+	}
+}
