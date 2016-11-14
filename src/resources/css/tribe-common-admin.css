@@ -966,6 +966,11 @@ a.tribe-rating-link {
 	border: 1px solid #ccc;
 	border-radius: 6px;
 }
+.tribe-ea-dropdown .select2-choice .select2-arrow, .tribe-dropdown .select2-choice .select2-arrow {
+	background: transparent;
+	background-image: none;
+	border-left: 0;
+}
 .tribe-ea-dropdown .select2-choice div, .tribe-dropdown .select2-choice div {
 	border-left: 0;
 	background: none;
