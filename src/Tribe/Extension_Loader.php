@@ -103,7 +103,7 @@ class Tribe__Extension_Loader {
 			);
 
 			// Instantiates extension instance.
-			$extension = $p_data['ExtensionClass']::instance( $p_data['ExtensionClass'], $extension_args );
+			$extension = call_user_func( array( $p_data['ExtensionClass'], 'instance' ), $p_data['ExtensionClass'], $extension_args );
 
 			if ( null !== $extension ) {
 				$success = true;
