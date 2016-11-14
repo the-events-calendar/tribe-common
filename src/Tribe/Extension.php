@@ -148,6 +148,15 @@ abstract class Tribe__Extension {
 	}
 
 	/**
+	 * Set the extension's version number
+	 *
+	 * @param string $version Extensions semantic version number.
+	 */
+	final protected function set_version( $version ) {
+		$this->set( 'version', $version );
+	}
+
+	/**
 	 * Checks if the extension has permission to run, if so runs init() in child class
 	 */
 	final public function register() {
