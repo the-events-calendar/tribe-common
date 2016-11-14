@@ -43,8 +43,8 @@
 						$dependent = $( dependent );
 					}
 
-					var condition = $dependent.data( 'condition' ),
-						not_condition = $dependent.data( 'conditionNot' ),
+					var condition = $dependent.data( 'condition' ) || false ,
+						not_condition = $dependent.data( 'conditionNot' ) || false,
 						is_not_empty = $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
 						is_empty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
 						is_numeric = $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ),
@@ -56,12 +56,10 @@
 						(
 							( is_empty && '' == value )
 							|| ( is_not_empty && '' != value )
-							|| ( _.isArray( condition ) && -1 !== _.findIndex( condition, value ) )
-							|| ( _.isArray( not_condition ) && -1 === _.findIndex( not_condition, value ) )
 							|| ( is_numeric && $.isNumeric( value ) )
-							|| ( is_not_numeric && ! $.isNumeric( value ) )
-							|| ( 'undefined' !== typeof condition && value == condition )
-							|| ( 'undefined' !== typeof not_condition && value != not_condition )
+							|| ( is_not_numeric && !$.isNumeric( value ) )
+							|| ( condition && ( _.isArray( condition ) ? -1 !== condition.indexOf( value ) : value == condition ) )
+							|| ( not_condition && ( _.isArray( not_condition ) ? -1 === not_condition.indexOf( value ) : value != not_condition ) )
 						) && ! is_disabled
 					) {
 						$dependent
