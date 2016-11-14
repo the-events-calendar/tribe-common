@@ -57,6 +57,7 @@
 							( is_empty && '' == value )
 							|| ( is_not_empty && '' != value )
 							|| ( _.isArray( condition ) && -1 !== _.findIndex( condition, value ) )
+							|| ( _.isArray( not_condition ) && -1 === _.findIndex( not_condition, value ) )
 							|| ( is_numeric && $.isNumeric( value ) )
 							|| ( is_not_numeric && ! $.isNumeric( value ) )
 							|| ( 'undefined' !== typeof condition && value == condition )
