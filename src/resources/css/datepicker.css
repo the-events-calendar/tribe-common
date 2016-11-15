@@ -8,10 +8,6 @@
  * @see: http://moderntribe.github.io/products-engineering/css/
  */
 
-.ui-datepicker {
-	font-family: "Verdana", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-}
-
 .ui-datepicker body,
 	.ui-datepicker button,
 	.ui-datepicker input,
