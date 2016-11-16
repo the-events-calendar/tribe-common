@@ -61,9 +61,6 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$user = $this->factory()->user->create();
 		$blog = $this->factory()->blog->create( [ 'domain' => 'sub1', 'path' => '/', 'user' => $user ] );
 
-		// @todo: remove this when wp-loader will support network wide activated plugins
-		activate_plugin( $this->network_plugin_file, '', true, true );
-
 		$sut = $this->make_instance();
 
 		// no network option
@@ -87,9 +84,6 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_mark_a_plugin_as_network_activated_if_network_key_is_set_and_local_key_is_not_set() {
 		$user = $this->factory()->user->create();
 		$blog = $this->factory()->blog->create( [ 'domain' => 'sub1', 'path' => '/', 'user' => $user ] );
-
-		// @todo: remove this when wp-loader will support network wide activated plugins
-		activate_plugin( $this->network_plugin_file, '', true, true );
 
 		$sut = $this->make_instance();
 
@@ -115,9 +109,6 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$user = $this->factory()->user->create();
 		$blog = $this->factory()->blog->create( [ 'domain' => 'sub1', 'path' => '/', 'user' => $user ] );
 
-		// @todo: remove this when wp-loader will support network wide activated plugins
-		activate_plugin( $this->network_plugin_file, '', true, true );
-
 		$sut = $this->make_instance();
 
 		// no network option
@@ -142,9 +133,6 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		$user = $this->factory()->user->create();
 		$blog = $this->factory()->blog->create( [ 'domain' => 'sub1', 'path' => '/', 'user' => $user ] );
 
-		// @todo: remove this when wp-loader will support network wide activated plugins
-		activate_plugin( $this->network_plugin_file, '', true, true );
-
 		$sut = $this->make_instance();
 
 		// no network option
@@ -168,9 +156,6 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_mark_plugin_as_locally_activated_if_network_and_local_key_are_set_and_different() {
 		$user = $this->factory()->user->create();
 		$blog = $this->factory()->blog->create( [ 'domain' => 'sub1', 'path' => '/', 'user' => $user ] );
-
-		// @todo: remove this when wp-loader will support network wide activated plugins
-		activate_plugin( $this->network_plugin_file, '', true, true );
 
 		$sut = $this->make_instance();
 
