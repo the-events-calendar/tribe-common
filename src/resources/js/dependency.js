@@ -64,29 +64,29 @@
 							|| ( not_condition && ( _.isArray( not_condition ) ? -1 === not_condition.indexOf( value ) : value != not_condition ) )
 						) && ! is_disabled
 					) {
-						$dependent
-							.addClass( active_class )
-							.find( selectors.fields ).prop( 'disabled', false )
-							.end().find( '.select2-container' ).select2( 'enable', true );
+						$dependent.addClass( active_class );
 
 						// ideally the class should be enough, but just in case...
 						if ( $dependent.is( ':hidden' ) ) {
 							$dependent.show();
 						}
 
+						$dependent.find( selectors.fields ).prop( 'disabled', false )
+							.end().find( '.select2-container' ).select2( 'enable', true );
+
 						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
 							$( '#s2id_' + $dependent.attr( 'id' ) ).addClass( active_class );
 						}
 					} else {
-						$dependent
-							.removeClass( active_class )
-							.find( selectors.fields ).prop( 'disabled', true )
-							.end().find( '.select2-container' ).select2( 'enable', false );
+						$dependent.removeClass( active_class );
 
 						// ideally the class should be enough, but just in case...
 						if ( $dependent.is( ':visible' ) ) {
 							$dependent.hide();
 						}
+
+						$dependent.find( selectors.fields ).prop( 'disabled', true )
+							.end().find( '.select2-container' ).select2( 'enable', false );
 
 						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
 							$( '#s2id_' + $dependent.attr( 'id' ) ).removeClass( active_class );
