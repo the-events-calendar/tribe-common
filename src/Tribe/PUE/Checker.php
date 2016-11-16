@@ -465,7 +465,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'type'                => 'license_key',
 					'size'                => 'large',
 					'validation_type'     => 'license_key',
-					'label'               => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
+					'label'               => sprintf( esc_attr__( 'Site License Key', 'tribe-common' ) ),
 					'tooltip'             => esc_html__(
 						'A valid license key is required for support and updates', 'tribe-common'
 					),
@@ -473,8 +473,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'network_option'      => false,
 					'class'               => 'tribe-dependent',
 					'fieldset_attributes' => array(
-						'data-depends' => '#' . $override_id . '-field',
-						'data-condition-empty'     => true,
+						'data-depends'           => '#' . $override_id . '-field',
+						'data-condition-checked' => true,
 					),
 				);
 			} else {
