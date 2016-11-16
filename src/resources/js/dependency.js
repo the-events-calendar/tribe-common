@@ -65,20 +65,28 @@
 						) && ! is_disabled
 					) {
 						$dependent
-							.show()
 							.addClass( active_class )
 							.find( selectors.fields ).prop( 'disabled', false )
 							.end().find( '.select2-container' ).select2( 'enable', true );
+
+						// ideally the class should be enough, but just in case...
+						if ( $dependent.is( ':hidden' ) ) {
+							$dependent.show();
+						}
 
 						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
 							$( '#s2id_' + $dependent.attr( 'id' ) ).addClass( active_class );
 						}
 					} else {
 						$dependent
-							.hide()
 							.removeClass( active_class )
 							.find( selectors.fields ).prop( 'disabled', true )
 							.end().find( '.select2-container' ).select2( 'enable', false );
+
+						// ideally the class should be enough, but just in case...
+						if ( $dependent.is( ':visible' ) ) {
+							$dependent.hide();
+						}
 
 						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
 							$( '#s2id_' + $dependent.attr( 'id' ) ).removeClass( active_class );
