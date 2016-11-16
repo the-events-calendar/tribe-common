@@ -65,6 +65,7 @@
 						) && ! is_disabled
 					) {
 						$dependent
+							.show()
 							.addClass( active_class )
 							.find( selectors.fields ).prop( 'disabled', false )
 							.end().find( '.select2-container' ).select2( 'enable', true );
@@ -74,6 +75,7 @@
 						}
 					} else {
 						$dependent
+							.hide()
 							.removeClass( active_class )
 							.find( selectors.fields ).prop( 'disabled', true )
 							.end().find( '.select2-container' ).select2( 'enable', false );
