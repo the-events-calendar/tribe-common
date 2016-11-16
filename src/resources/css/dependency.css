@@ -10,7 +10,7 @@
 
 /* Dependency CSS */
 .tribe-dependent {
-	display: none;
+	display: none !important;
 }
 .tribe-dependent.tribe-active {
 	display: inline-block;
