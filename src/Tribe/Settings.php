@@ -704,7 +704,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				return true;
 			}
 
-
 			if ( version_compare( Tribe__Events__Main::VERSION, '4.0beta', '>=' ) ) {
 				return true;
 			}
