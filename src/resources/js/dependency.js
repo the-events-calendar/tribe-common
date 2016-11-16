@@ -50,7 +50,7 @@
 						is_empty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
 						is_numeric = $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ),
 						is_not_numeric = $dependent.data( 'conditionIsNotNumeric' ) || $dependent.is( '[data-condition-is-not-numeric]' ),
-						is_checked = $dependent.data('conditionChecked') || $dependent.is( '[data-condition-is-checked]'),
+						is_checked = $dependent.data( 'conditionChecked' ) || $dependent.is( '[data-condition-is-checked]' ),
 						is_disabled = $field.is( ':disabled' ),
 						active_class = selectors.active.replace( '.', '' );
 					if (
