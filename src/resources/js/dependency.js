@@ -33,7 +33,7 @@
 				}
 
 				// Fetch dependent elements
-				var $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '[id^="s2id_autogen"]' );
+				var $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '.select2-container' );
 
 				$dependents.each( function( k, dependent ) {
 					var container_parent = $( this ).data( 'parent' );
