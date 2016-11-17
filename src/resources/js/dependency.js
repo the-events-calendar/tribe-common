@@ -25,7 +25,7 @@
 				var $field = $( this ),
 					selector = '#' + $field.attr( 'id' ),
 					value = $field.val(),
-					checked = $field.is( ':checkbox' ) ? $field.is( ':checked' ) : false;
+					constraint_conditions;
 
 				// We need an ID to make something depend on this
 				if ( ! selector ) {
@@ -34,6 +34,32 @@
 
 				// Fetch dependent elements
 				var $dependents = $document.find( '[data-depends="' + selector + '"]' );
+
+				// setup each constraint truth condition
+				// each function will be passed the value, the constraint and the depending field
+				constraint_conditions = {
+					'condition': function ( val, constraint ) {
+						return _.isArray( constraint ) ? -1 !== constraint.indexOf( val ) : val == constraint;
+					},
+					'not_condition': function ( val, constraint ) {
+						return _.isArray( constraint ) ? -1 === constraint.indexOf( val ) : val != constraint;
+					},
+					'is_not_empty': function ( val ) {
+						return '' != val;
+					},
+					'is_empty': function ( val ) {
+						return '' === val;
+					},
+					'is_numeric': function ( val ) {
+						return $.isNumeric( val );
+					},
+					'is_not_numeric': function ( val ) {
+						return !$.isNumeric( val );
+					},
+					'is_checked': function ( _, __, $field ) {
+						return $field.is( ':checkbox' ) ? $field.is( ':checked' ) : false;
+					}
+				};
 
 				$dependents.each( function( k, dependent ) {
 					var container_parent = $( this ).data( 'parent' );
@@ -44,26 +70,35 @@
 						$dependent = $( dependent );
 					}
 
-					var condition = $dependent.data( 'condition' ) || false ,
-						not_condition = $dependent.data( 'conditionNot' ) || false,
-						is_not_empty = $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
-						is_empty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
-						is_numeric = $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ),
-						is_not_numeric = $dependent.data( 'conditionIsNotNumeric' ) || $dependent.is( '[data-condition-is-not-numeric]' ),
-						is_checked = $dependent.data( 'conditionChecked' ) || $dependent.is( '[data-condition-is-checked]' ),
+					var constraints = {
+							condition: $dependent.data( 'condition' ) || false,
+							not_condition: $dependent.data( 'conditionNot' ) || false,
+							is_not_empty: $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
+							is_empty: $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
+							is_numeric: $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ),
+							is_not_numeric: $dependent.data( 'conditionIsNotNumeric' ) || $dependent.is( '[data-condition-is-not-numeric]' ),
+							is_checked: $dependent.data( 'conditionChecked' ) || $dependent.is( '[data-condition-is-checked]' ),
+						},
+						active_class = selectors.active.replace( '.', '' ),
 						is_disabled = $field.is( ':disabled' ),
-						active_class = selectors.active.replace( '.', '' );
-					if (
-						(
-							( is_empty && '' == value )
-							|| ( is_not_empty && '' != value )
-							|| ( is_numeric && $.isNumeric( value ) )
-							|| ( is_checked && checked )
-							|| ( is_not_numeric && !$.isNumeric( value ) )
-							|| ( condition && ( _.isArray( condition ) ? -1 !== condition.indexOf( value ) : value == condition ) )
-							|| ( not_condition && ( _.isArray( not_condition ) ? -1 === not_condition.indexOf( value ) : value != not_condition ) )
-						) && ! is_disabled
-					) {
+						condition_relation = $dependent.data( 'condition-relation' ) || 'or',
+						passes;
+
+					constraints = _.pick( constraints, function ( is_applicable ) {
+						return is_applicable;
+					} );
+
+					if ( condition_relation === 'or' ) {
+						passes = _.reduce( constraints, function ( passes, constraint, key ) {
+							return passes || constraint_conditions[ key ]( value, constraint, $field );
+						}, false );
+					} else {
+						passes = _.reduce( constraints, function ( passes, constraint, key ) {
+							return passes && constraint_conditions[ key ]( value, constraint, $field );
+						}, true );
+					}
+
+					if ( passes && ! is_disabled ) {
 						$dependent.addClass( active_class );
 
 						// ideally the class should be enough, but just in case...
