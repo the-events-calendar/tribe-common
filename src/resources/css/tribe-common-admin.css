@@ -976,6 +976,10 @@ a.tribe-rating-link {
 	background: none;
 	background-image: none;
 }
+.select2-results li.select2-result-with-children.select2-result-unselectable > .select2-result-label {
+	color: #939393;
+	font-weight: normal;
+}
 /*
 Red button styles.
 
@@ -1063,4 +1067,3 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 		margin-right: 180px;
 	}
 }
-

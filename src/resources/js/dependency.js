@@ -33,7 +33,7 @@
 				}
 
 				// Fetch dependent elements
-				var $dependents = $document.find( '[data-depends="' + selector + '"]' );
+				var $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '.select2-container' );
 
 				// setup each constraint truth condition
 				// each function will be passed the value, the constraint and the depending field
@@ -54,7 +54,7 @@
 						return $.isNumeric( val );
 					},
 					'is_not_numeric': function ( val ) {
-						return !$.isNumeric( val );
+						return ! $.isNumeric( val );
 					},
 					'is_checked': function ( _, __, $field ) {
 						return $field.is( ':checkbox' ) ? $field.is( ':checked' ) : false;
