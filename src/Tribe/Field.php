@@ -26,7 +26,13 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public $name;
 
 		/**
-		 * the field's attributes
+		 * the fieldset attributes
+		 * @var array
+		 */
+		public $fieldset_attributes;
+
+		/**
+		 * the field attributes
 		 * @var array
 		 */
 		public $attributes;
@@ -63,24 +69,25 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 
 			// setup the defaults
 			$this->defaults = array(
-				'type'             => 'html',
-				'name'             => $id,
-				'attributes'       => array(),
-				'class'            => null,
-				'label'            => null,
-				'label_attributes' => null,
-				'placeholder'      => null,
-				'tooltip'          => null,
-				'size'             => 'medium',
-				'html'             => null,
-				'error'            => false,
-				'value'            => $value,
-				'options'          => null,
-				'conditional'      => true,
-				'display_callback' => null,
-				'if_empty'         => null,
-				'can_be_empty'     => false,
-				'clear_after'      => true,
+				'type'                => 'html',
+				'name'                => $id,
+				'fieldset_attributes' => array(),
+				'attributes'          => array(),
+				'class'               => null,
+				'label'               => null,
+				'label_attributes'    => null,
+				'placeholder'         => null,
+				'tooltip'             => null,
+				'size'                => 'medium',
+				'html'                => null,
+				'error'               => false,
+				'value'               => $value,
+				'options'             => null,
+				'conditional'         => true,
+				'display_callback'    => null,
+				'if_empty'            => null,
+				'can_be_empty'        => false,
+				'clear_after'         => true,
 			);
 
 			// a list of valid field types, to prevent screwy behavior
@@ -146,6 +153,12 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					'span'   => array(),
 				)
 			);
+			$fieldset_attributes = $args['fieldset_attributes'];
+			if ( is_array( $fieldset_attributes ) ) {
+				foreach ( $fieldset_attributes as $key => &$val ) {
+					$val = esc_attr( $val );
+				}
+			}
 			$attributes = $args['attributes'];
 			if ( is_array( $attributes ) ) {
 				foreach ( $attributes as $key => &$val ) {
@@ -227,6 +240,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$return .= ( $this->error ) ? ' tribe-error' : '';
 			$return .= ( $this->size ) ? ' tribe-size-' . $this->size : '';
 			$return .= ( $this->class ) ? ' ' . $this->class . '"' : '"';
+			$return .= ( $this->fieldset_attributes ) ? ' ' . $this->do_fieldset_attributes() . '"' : '"';
 			$return .= '>';
 
 			return apply_filters( 'tribe_field_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
@@ -377,6 +391,22 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			}
 
 			return apply_filters( 'tribe_field_attributes', $return, $this->name, $this );
+		}
+
+		/**
+		 * Return a string of attributes for the fieldset
+		 *
+		 * @return string
+		 **/
+		public function do_fieldset_attributes() {
+			$return = '';
+			if ( ! empty( $this->fieldset_attributes ) ) {
+				foreach ( $this->fieldset_attributes as $key => $value ) {
+					$return .= ' ' . $key . '="' . $value . '"';
+				}
+			}
+
+			return apply_filters( 'tribe_fieldset_attributes', $return, $this->name, $this );
 		}
 
 		/**
@@ -627,6 +657,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$field .= ' type="text"';
 			$field .= $this->do_field_name();
 			$field .= $this->do_field_value();
+			$field .= $this->do_field_attributes();
 			$field .= '/>';
 			$field .= '<p class="license-test-results"><img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading-license" alt="Loading" style="display: none"/>';
 			$field .= '<span class="key-validity"></span>';

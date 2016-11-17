@@ -24,7 +24,8 @@
 			'verify.dependency': function( e ) {
 				var $field = $( this ),
 					selector = '#' + $field.attr( 'id' ),
-					value = $field.val();
+					value = $field.val(),
+					checked = $field.is( ':checkbox' ) ? $field.is( ':checked' ) : false;
 
 				// We need an ID to make something depend on this
 				if ( ! selector ) {
@@ -49,31 +50,42 @@
 						is_empty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
 						is_numeric = $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ),
 						is_not_numeric = $dependent.data( 'conditionIsNotNumeric' ) || $dependent.is( '[data-condition-is-not-numeric]' ),
+						is_checked = $dependent.data( 'conditionChecked' ) || $dependent.is( '[data-condition-is-checked]' ),
 						is_disabled = $field.is( ':disabled' ),
 						active_class = selectors.active.replace( '.', '' );
-
 					if (
 						(
 							( is_empty && '' == value )
 							|| ( is_not_empty && '' != value )
 							|| ( is_numeric && $.isNumeric( value ) )
+							|| ( is_checked && checked )
 							|| ( is_not_numeric && ! $.isNumeric( value ) )
 							|| ( condition && ( _.isArray( condition ) ? -1 !== condition.indexOf( value ) : value == condition ) )
 							|| ( not_condition && ( _.isArray( not_condition ) ? -1 === not_condition.indexOf( value ) : value != not_condition ) )
 						) && ! is_disabled
 					) {
-						$dependent
-							.addClass( active_class )
-							.find( selectors.fields ).prop( 'disabled', false )
+						$dependent.addClass( active_class );
+
+						// ideally the class should be enough, but just in case...
+						if ( $dependent.is( ':hidden' ) ) {
+							$dependent.show();
+						}
+
+						$dependent.find( selectors.fields ).prop( 'disabled', false )
 							.end().find( '.select2-container' ).select2( 'enable', true );
 
 						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
 							$( '#s2id_' + $dependent.attr( 'id' ) ).addClass( active_class );
 						}
 					} else {
-						$dependent
-							.removeClass( active_class )
-							.find( selectors.fields ).prop( 'disabled', true )
+						$dependent.removeClass( active_class );
+
+						// ideally the class should be enough, but just in case...
+						if ( $dependent.is( ':visible' ) ) {
+							$dependent.hide();
+						}
+
+						$dependent.find( selectors.fields ).prop( 'disabled', true )
 							.end().find( '.select2-container' ).select2( 'enable', false );
 
 						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
