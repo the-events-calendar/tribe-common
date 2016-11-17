@@ -81,24 +81,24 @@
 						},
 						active_class = selectors.active.replace( '.', '' ),
 						is_disabled = $field.is( ':disabled' ),
-						condition_relation = $dependent.data( 'relation' ) || 'and',
+						condition_relation = $dependent.data( 'condition-relation' ) || 'or',
 						passes;
 
 					constraints = _.pick( constraints, function ( is_applicable ) {
 						return is_applicable;
 					} );
 
-					if ( condition_relation === 'and' ) {
+					if ( condition_relation === 'or' ) {
 						passes = _.reduce( constraints, function ( passes, constraint, key ) {
-							return passes && constraint_conditions[key]( value, constraint, $field );
-						}, true );
+							return passes || constraint_conditions[ key ]( value, constraint, $field );
+						}, false );
 					} else {
 						passes = _.reduce( constraints, function ( passes, constraint, key ) {
-							return passes || constraint_conditions[key]( value, constraint, $field );
-						}, false );
+							return passes && constraint_conditions[ key ]( value, constraint, $field );
+						}, true );
 					}
 
-					if ( passes && !is_disabled ) {
+					if ( passes && ! is_disabled ) {
 						$dependent.addClass( active_class );
 
 						// ideally the class should be enough, but just in case...
