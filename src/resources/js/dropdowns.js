@@ -27,7 +27,7 @@
 				args = {
 					dropdownAutoWidth: true,
 					dropdownCss: {
-						'min-width': '5rem'
+						'width': 'auto'
 					}
 				},
 				carryOverData = [

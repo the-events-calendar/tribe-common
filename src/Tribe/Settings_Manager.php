@@ -275,7 +275,7 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
-		$parent = Tribe__Settings::$parent_page;
+		$parent = class_exists( 'Tribe__Events__Main' ) ? Tribe__Settings::$parent_page : Tribe__Settings::$parent_slug;
 		$title  = esc_html__( 'Help', 'tribe-common' );
 		$slug   = 'tribe-help';
 

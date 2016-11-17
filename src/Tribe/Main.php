@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION           = '4.3.1';
+	const VERSION           = '4.4dev1';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -78,6 +78,7 @@ class Tribe__Main {
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
+		Tribe__Extension_Loader::instance();
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
 		 *
@@ -435,6 +436,6 @@ class Tribe__Main {
 	 */
 	public function bind_implementations(  ) {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
-		tribe_singleton( 'settings', 'Tribe__Settings' );
+		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
 	}
 }
