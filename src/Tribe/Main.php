@@ -78,6 +78,7 @@ class Tribe__Main {
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
+		Tribe__Extension_Loader::instance();
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
 		 *
