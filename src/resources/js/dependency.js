@@ -32,7 +32,7 @@
 				}
 
 				// Fetch dependent elements
-				var $dependents = $document.find( '[data-depends="' + selector + '"]' );
+				var $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '[id^="s2id_autogen"]' );
 
 				$dependents.each( function( k, dependent ) {
 					var container_parent = $( this ).data( 'parent' );
@@ -57,7 +57,7 @@
 							( is_empty && '' == value )
 							|| ( is_not_empty && '' != value )
 							|| ( is_numeric && $.isNumeric( value ) )
-							|| ( is_not_numeric && !$.isNumeric( value ) )
+							|| ( is_not_numeric && ! $.isNumeric( value ) )
 							|| ( condition && ( _.isArray( condition ) ? -1 !== condition.indexOf( value ) : value == condition ) )
 							|| ( not_condition && ( _.isArray( not_condition ) ? -1 === not_condition.indexOf( value ) : value != not_condition ) )
 						) && ! is_disabled

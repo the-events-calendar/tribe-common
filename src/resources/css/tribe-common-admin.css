@@ -976,6 +976,10 @@ a.tribe-rating-link {
 	background: none;
 	background-image: none;
 }
+.select2-results li.select2-result-with-children.select2-result-unselectable > .select2-result-label {
+	color: #939393;
+	font-weight: normal;
+}
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
 	#tribe-loading span {
@@ -1014,4 +1018,3 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 		margin-right: 180px;
 	}
 }
-
