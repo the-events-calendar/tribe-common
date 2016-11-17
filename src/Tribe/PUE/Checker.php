@@ -567,7 +567,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		}
 
-		public function validate_key( $key ) {
+		/**
+		 * Checks for the license key status with MT servers.
+		 *
+		 * @param string $key
+		 * @param bool   $network Whether the key to check for is a network one or not.
+		 *
+		 * @return array An associative array containing the license status response.
+		 */
+		public function validate_key( $key, $network = false ) {
 			$response           = array();
 			$response['status'] = 0;
 
@@ -624,12 +632,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
 				$response['api_invalid'] = true;
 			} else {
-				$api_secret_key = get_option( $this->pue_install_key );
+				if ( $network && is_multisite() ) {
+					$api_secret_key = get_network_option( null, $this->pue_install_key );
+				} else {
+					$api_secret_key = get_option( $this->pue_install_key );
+				}
+
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
 					$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration );
 				} else {
 					// Set the key
-					update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
+					if ( $network && is_multisite() ) {
+						update_network_option( null, $this->pue_install_key, $queryArgs['pu_install_key'] );
+					} else {
+						update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
+					}
 
 					$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ), $expiration );
 
@@ -1296,7 +1313,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				'expired'      => esc_html__( 'Expired license. Consult your network administrator.', 'tribe-common' ),
 			);
 
-			$response = $this->validate_key( get_network_option( null, $this->pue_install_key ) );
+			$response = $this->validate_key( get_network_option( null, $this->pue_install_key ), true );
 
 			if ( isset( $response['status'] ) && $response['status'] === 1 ) {
 				$state = 'licensed';
