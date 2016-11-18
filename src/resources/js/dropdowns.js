@@ -2,7 +2,7 @@
 	'use strict';
 
 	obj.selector = {
-		dropdown: 'tribe-dropdown'
+		dropdown: '.tribe-dropdown'
 	};
 
 	// Setup a Dependent
@@ -66,6 +66,10 @@
 				}
 			}
 
+			if ( $select.is( '[data-allow-html]' ) ) {
+				args.escapeMarkup = function(m) { return m; };
+			}
+
 			// Prevents the Search box to show
 			if ( $select.is( '[data-hide-search]' ) ) {
 				args.minimumResultsForSearch = Infinity;
@@ -84,15 +88,20 @@
 							)
 						)
 					) {
-						return { id: term, text: term };
+						var choice = { id: term, text: term, new: true };
+						if ( $select.is( '[data-create-choice-template]' ) ) {
+							choice.text = _.template( $select.data( 'createChoiceTemplate' ) )( { term: term } );
+						}
+
+						return choice;
 					}
 				};
 			}
 
 			if ( 'tribe-ea-field-origin' === $select.attr( 'id' ) ) {
-				args.formatResult = args.upsellFormatter,
-					args.formatSelection = args.upsellFormatter,
-					args.escapeMarkup = function(m) { return m; };
+				args.formatResult = args.upsellFormatter;
+				args.formatSelection = args.upsellFormatter;
+				args.escapeMarkup = function(m) { return m; };
 			}
 
 			if ( $select.is( '[multiple]' ) ) {
@@ -206,6 +215,20 @@
 				}, $container );
 			}
 		})
+		.on( 'select2-open', function( event ) {
+			var $select = $( this );
+
+			// If we have a placeholder for search, apply it!
+			if ( $select.is( '[data-search-placeholder]' ) ){
+				$( '.select2-input' ).attr( 'placeholder', $select.data( 'searchPlaceholder' ) );
+			}
+		} )
+		.on( 'select2-close', function( event ) {
+			var $select = $( this );
+
+			// Regardless if it had any search-placeholder we remove it
+			$( '.select2-input' ).attr( 'placeholder', null );
+		} )
 		.on( 'change', function( event ) {
 			var $select = $(this),
 				data = $( this ).data( 'value' );
