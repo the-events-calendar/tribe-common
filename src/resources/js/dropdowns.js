@@ -44,7 +44,7 @@
 					'conditionIsNotNumeric',
 					'condition-is-not-numeric',
 					'conditionChecked',
-					'condition-is-checked',
+					'condition-is-checked'
 				],
 				$container;
 
