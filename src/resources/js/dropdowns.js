@@ -315,7 +315,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		var $select = $( this );
 
 		// Remove the Search
-		if ( $select.is( '[data-permanent-search]' ) && $select.is( '[data-last-search]' )  ) {
+		if ( $select.is( '[data-sticky-search]' ) && $select.is( '[data-last-search]' )  ) {
 			$select.removeAttr( 'data-last-search' ).removeData( 'lastSeach' );
 		}
 	};
@@ -325,7 +325,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			$search = $( '.select2-input.select2-focused' );
 
 		// If we had a value we apply it again
-		if ( $select.is( '[data-permanent-search]' ) ) {
+		if ( $select.is( '[data-sticky-search]' ) ) {
 			$search.off( 'keyup-change.tribe' );
 		}
 	};
@@ -340,7 +340,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		}
 
 		// If we had a value we apply it again
-		if ( $select.is( '[data-permanent-search]' ) ){
+		if ( $select.is( '[data-sticky-search]' ) ){
 			$search.on( 'keyup-change.tribe', function(){
 				$select.data( 'lastSearch', $( this ).val() ).attr( 'data-last-search', $( this ).val() );
 			} );
