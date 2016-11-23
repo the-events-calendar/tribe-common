@@ -121,6 +121,9 @@ table.plugins .tribe-plugin-update-message a {
 	float: left;
 	max-width: 500px;
 }
+.tribe-settings-form .tribe-field-wrap *:first-child {
+	margin-top: 0;
+}
 .tribe-settings-form .tribe-field-radio label,
 .tribe-settings-form .tribe-field-checkbox_list label {
 	display: block;
