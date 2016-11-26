@@ -105,7 +105,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'link' => 'https://theeventscalendar.com/product/event-aggregator/?utm_campaign=in-app&utm_source=addonspage&utm_medium=event-aggregator&utm_content=appstoreembedded-1',
 					'description' => __( 'Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more.', 'tribe-common' ),
 					'image' => 'images/app-shop-ical.jpg',
-					'is_installed' => Tribe__Events__Aggregator::is_service_active(),
+					'is_installed' => class_exists( 'Tribe__Events__Aggregator' ) && Tribe__Events__Aggregator::is_service_active(),
 				),
 				(object) array(
 					'title' => __( 'Events Calendar PRO', 'tribe-common' ),
