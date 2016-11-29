@@ -142,6 +142,11 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		// Auto define the Width of the Select2
 		args.dropdownAutoWidth = true;
 
+		// CSS for the container
+		args.containerCss = {
+			'display': 'inline-block'
+		};
+
 		// CSS for the dropdown
 		args.dropdownCss = {
 			'width': 'auto'
@@ -267,8 +272,6 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		// Save data on Dropdown
 		$select.data( 'dropdown', args );
-
-		args.containerCss = { 'display': 'inline-block' };
 
 		$container = ( $select.select2( args ) ).select2( 'container' );
 
