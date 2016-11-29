@@ -101,7 +101,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'checkbox_bool',
 				'checkbox_list',
 				'dropdown',
-				'dropdown_chosen',
 				'dropdown_select2',
 				'license_key',
 				'wrapped_html',
