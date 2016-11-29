@@ -268,6 +268,8 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		// Save data on Dropdown
 		$select.data( 'dropdown', args );
 
+		args.containerCss = { 'display': 'inline-block' };
+
 		$container = ( $select.select2( args ) ).select2( 'container' );
 
 		if ( carryOverData.length > 0 ) {
