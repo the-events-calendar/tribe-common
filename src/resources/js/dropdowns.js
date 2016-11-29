@@ -143,9 +143,12 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		args.dropdownAutoWidth = true;
 
 		// CSS for the container
-		args.containerCss = {
-			'display': 'inline-block'
-		};
+		args.containerCss = {};
+
+		// Only apply visibility when it's a Visible Select2
+		if ( $select.is( ':visible' ) ) {
+			args.containerCss.display = 'inline-block';
+		}
 
 		// CSS for the dropdown
 		args.dropdownCss = {
