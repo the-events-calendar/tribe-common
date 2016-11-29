@@ -101,7 +101,9 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'checkbox_bool',
 				'checkbox_list',
 				'dropdown',
-				'dropdown_select2',
+				'dropdown',
+				'dropdown_select2', // Deprecated use `dropdown`
+				'dropdown_chosen', // Deprecated use `dropdown`
 				'license_key',
 				'wrapped_html',
 			);
@@ -623,6 +625,8 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * regular dropdown but wrapped so it can have the
 		 * right css class applied to it
 		 *
+		 * @deprecated
+		 *
 		 * @return string the field
 		 */
 		public function dropdown_chosen() {
@@ -635,6 +639,8 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * generate a select2 dropdown field - the same as the
 		 * regular dropdown but wrapped so it can have the
 		 * right css class applied to it
+		 *
+		 * @deprecated
 		 *
 		 * @return string the field
 		 */
