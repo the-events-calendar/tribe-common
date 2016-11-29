@@ -142,6 +142,11 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		// Auto define the Width of the Select2
 		args.dropdownAutoWidth = true;
 
+		// CSS for the container
+		args.containerCss = {
+			'display': 'inline-block'
+		};
+
 		// CSS for the dropdown
 		args.dropdownCss = {
 			'width': 'auto'
