@@ -88,7 +88,7 @@
 						return is_applicable;
 					} );
 
-					if ( condition_relation === 'or' ) {
+					if ( 'or' === condition_relation ) {
 						passes = _.reduce( constraints, function ( passes, constraint, key ) {
 							return passes || constraint_conditions[ key ]( value, constraint, $field );
 						}, false );
@@ -99,19 +99,25 @@
 					}
 
 					if ( passes && ! is_disabled ) {
-						$dependent.addClass( active_class );
+						if ( $dependent.data( 'select2' ) ) {
+							$dependent.data( 'select2' ).container.addClass( active_class );
 
-						// ideally the class should be enough, but just in case...
-						if ( $dependent.is( ':hidden' ) ) {
-							$dependent.show();
+							// ideally the class should be enough, but just in case...
+							if ( $dependent.data( 'select2' ).container.is( ':hidden' ) ) {
+								$dependent.data( 'select2' ).container.show();
+							}
+						} else {
+							$dependent.addClass( active_class );
+
+							// ideally the class should be enough, but just in case...
+							if ( $dependent.is( ':hidden' ) ) {
+								$dependent.show();
+							}
 						}
 
-						$dependent.find( selectors.fields ).prop( 'disabled', false )
+						$dependent
+							.find( selectors.fields ).prop( 'disabled', false )
 							.end().find( '.select2-container' ).select2( 'enable', true );
-
-						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
-							$( '#s2id_' + $dependent.attr( 'id' ) ).addClass( active_class );
-						}
 					} else {
 						$dependent.removeClass( active_class );
 
@@ -120,11 +126,12 @@
 							$dependent.hide();
 						}
 
-						$dependent.find( selectors.fields ).prop( 'disabled', true )
+						$dependent
+							.find( selectors.fields ).prop( 'disabled', true )
 							.end().find( '.select2-container' ).select2( 'enable', false );
 
-						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
-							$( '#s2id_' + $dependent.attr( 'id' ) ).removeClass( active_class );
+						if ( $dependent.data( 'select2' ) ) {
+							$dependent.data( 'select2' ).container.removeClass( active_class );
 						}
 					}
 
