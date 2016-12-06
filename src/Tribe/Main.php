@@ -17,8 +17,8 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION           = '4.3.3';
-	const FEED_URL          = 'https://theeventscalendar.com/feed/';
+	const VERSION             = '4.3.4';
+	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -46,9 +46,40 @@ class Tribe__Main {
 	public $plugin_url;
 
 	/**
-	 * constructor
+	 * Static Singleton Holder
+	 * @var self
+	 */
+	protected static $instance;
+
+	/**
+	 * Get (and instantiate, if necessary) the instance of the class
+	 *
+	 * @param  mixed $context An instance of the Main class of the plugin that instantiated Common
+	 *
+	 * @return self
+	 */
+	public static function instance( $context = null ) {
+		if ( ! self::$instance ) {
+			self::$instance = new self( $context );
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Constructor for Common Class
+	 *
+	 * @access public
+	 * We are using a `public` constructor here for backwards compatibility.
+	 *
+	 * The way our code used to work we would have `new Tribe__Main()` called directly
+	 * which causes fatals if you have an older version of Core/Tickets active along side a new one
 	 */
 	public function __construct( $context = null ) {
+		if ( self::$instance ) {
+			return;
+		}
+
 		if ( is_object( $context ) ) {
 			$this->plugin_context = $context;
 			$this->plugin_context_class = get_class( $context );
@@ -86,6 +117,13 @@ class Tribe__Main {
 	}
 
 	/**
+	 * Get's the class name of the instantiated plugin context of this class. I.e. the class name of the object that instantiated this one.
+	 */
+	public function context_class() {
+		return $this->plugin_context_class;
+	}
+
+	/**
 	 * Setup the autoloader for common files
 	 */
 	protected function init_autoloading() {
@@ -104,13 +142,6 @@ class Tribe__Main {
 		}
 
 		$autoloader->register_autoloader();
-	}
-
-	/**
-	 * Get's the class name of the instantiated plugin context of this class. I.e. the class name of the object that instantiated this one.
-	 */
-	public function context_class() {
-		return $this->plugin_context_class;
 	}
 
 	/**
@@ -231,6 +262,30 @@ class Tribe__Main {
 		add_action( 'init', array( $this, 'load_assets' ), 1 );
 		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'store_admin_notices' ) );
+
+		add_filter( 'body_class', array( $this, 'add_js_class' ) );
+		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
+	}
+
+	public function add_js_class( $classes = array() ) {
+		if ( ! is_array( $classes ) ) {
+			$classes = explode( ' ', $classes );
+		}
+
+		$classes[] = 'tribe-no-js';
+
+		return array_filter( array_unique( $classes ) );
+	}
+
+	public function toggle_js_class() {
+		?>
+		<script>
+		( function ( body ) {
+			'use strict';
+			body.className = body.className.replace( /\btribe-no-js\b/, 'tribe-js' );
+		} )( document.body );
+		</script>";
+		<?php
 	}
 
 	/**
@@ -377,21 +432,6 @@ class Tribe__Main {
 		}
 
 		return $this->doing_ajax;
-	}
-
-	/**
-	 * Static Singleton Factory Method
-	 *
-	 * @return Tribe__Main
-	 */
-	public static function instance() {
-		static $instance;
-
-		if ( ! $instance ) {
-			$instance = new self;
-		}
-
-		return $instance;
 	}
 
 	/**
