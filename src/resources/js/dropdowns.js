@@ -83,37 +83,75 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		return result;
 	};
 
-	obj.init_selection = function ( element, callback ) {
-		var $select = element,
-			args = $select.data( 'dropdown' ),
-			data = [],
-			is_multiple = $select.is( '[data-multiple]' );
+	/**
+	 * If the element used as the basis of a dropdown specifies one or more numeric/text
+	 * identifiers in its val attribute, then use those to preselect the appropriate options.
+	 *
+	 * @param {object}   $select
+	 * @param {function} make_selection
+	 */
+	obj.init_selection = function( $select, make_selection ) {
+		var is_multiple    = $select.is( '[data-multiple]' ),
+		    options        = $select.data( 'dropdown' ),
+		    current_values = $select.val().split( options.regexSplit ),
+		    selected_items = [];
 
-		$( element.val().split( args.regexSplit ) ).each( function () {
-			var item = { id: this, text: this };
-			if ( args.data.length > 0  && _.isObject( args.data[0] ) ) {
-				var _item = _.where( args.data, { text: this.valueOf() } );
-				if ( _item.length > 0 ){
-					item = _item[0];
-				} else {
-					_item = _.where( args.data, { id: parseInt( this.valueOf(), 10 ) } );
-					if ( _item.length > 0 ){
-						item = _item[0];
-					}
-				}
-			}
+		$( current_values ).each( function() {
+			var search_for   = { id: this, text: this };
+			var located_item = find_item( search_for, options.data  );
 
-			if ( is_multiple ) {
-				data.push( item );
-			} else {
-				callback( item );
+			if ( located_item ) {
+				selected_items.push( located_item );
 			}
 		} );
 
-		if ( is_multiple ) {
-			callback( data );
+		if ( selected_items.length && is_multiple ) {
+			make_selection( selected_items );
+		} else if ( selected_items.length ) {
+			make_selection( selected_items[ 0 ] );
 		}
 	};
+
+	/**
+	 * Searches array 'haystack' for objects that match 'description'.
+	 *
+	 * The 'description' object should take the form { id: number, text: string }. The first
+	 * object within the haystack that matches one of those two properties will be returned.
+	 *
+	 * If objects contain an array named 'children', then that array will also be searched.
+	 *
+	 * @param {Object} description
+	 * @param {Array}  haystack
+	 *
+	 * @return {Object|boolean}
+	 */
+	function find_item( description, haystack ) {
+		if ( ! $.isArray( haystack ) ) {
+			return false;
+		}
+
+		for ( var index in haystack ) {
+			var possible_match = haystack[ index ];
+
+			if ( possible_match.hasOwnProperty( 'id' ) && possible_match.id == description.id ) {
+				return possible_match;
+			}
+
+			if ( possible_match.hasOwnProperty( 'text' ) && possible_match.text == description.text ) {
+				return possible_match;
+			}
+
+			if ( possible_match.hasOwnProperty( 'children' ) && $.isArray( possible_match.children ) ) {
+				var subsearch = find_item( description, possible_match.children );
+
+				if ( subsearch ) {
+					return subsearch;
+				}
+			}
+		}
+
+		return false;
+	}
 
 	obj.element = function ( event ) {
 		var $select = $( this ),
