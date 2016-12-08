@@ -121,6 +121,9 @@ table.plugins .tribe-plugin-update-message a {
 	float: left;
 	max-width: 500px;
 }
+.tribe-settings-form .tribe-field-wrap *:first-child {
+	margin-top: 0;
+}
 .tribe-settings-form .tribe-field-radio label,
 .tribe-settings-form .tribe-field-checkbox_list label {
 	display: block;
@@ -207,6 +210,10 @@ table.plugins .tribe-plugin-update-message a {
 	list-style: circle;
 }
 /* sizes */
+.tribe-field-inline-text {
+	line-height: 28px;
+	margin: 0 2px;
+}
 .tribe-field-textarea.tribe-size-small textarea {
 	height: 60px;
 	width: 180px;
@@ -947,6 +954,86 @@ a.tribe-rating-link {
 }
 .api-check .plugin-list span.plugin-invalid:last-of-type:after {
 	content: '';
+}
+.tribe-ea-dropdown.select2-container-active .select2-choice, .tribe-dropdown.select2-container-active .select2-choice {
+	border-color: #5897fb;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+}
+.tribe-ea-dropdown.select2-dropdown-open .select2-choice, .tribe-dropdown.select2-dropdown-open .select2-choice {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-color: #aaa;
+}
+.tribe-ea-dropdown .select2-choice, .tribe-dropdown .select2-choice {
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+}
+.tribe-ea-dropdown .select2-choice .select2-arrow, .tribe-dropdown .select2-choice .select2-arrow {
+	background: transparent;
+	background-image: none;
+	border-left: 0;
+}
+.tribe-ea-dropdown .select2-choice div, .tribe-dropdown .select2-choice div {
+	border-left: 0;
+	background: none;
+	background-image: none;
+}
+.select2-results li.select2-result-with-children.select2-result-unselectable > .select2-result-label {
+	color: #939393;
+	font-weight: normal;
+}
+/*
+Red button styles.
+
+Credit to https://github.com/jensjns/wp-admin-red-button
+=============================================*/
+.wp-core-ui .button-red {
+	background-color: #a00;
+	border-color: #9B2124;
+	border-bottom-color: #8D1F21;
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, .5);
+	color: #fff;
+	text-decoration: none;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+}
+.wp-core-ui .button-red.hover,
+.wp-core-ui .button-red:hover,
+.wp-core-ui .button-red.focus,
+.wp-core-ui .button-red:focus {
+	background-color: #a00;
+	border-color: #7F1C1F;
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, .6);
+	color: #fff;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
+}
+.wp-core-ui .button-red.focus,
+.wp-core-ui .button-red:focus {
+	border-color: #500F0E;
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, .6), 1px 1px 2px rgba(0, 0, 0, .4);
+}
+.wp-core-ui .button-red.active,
+.wp-core-ui .button-red.active:hover,
+.wp-core-ui .button-red.active:focus,
+.wp-core-ui .button-red:active {
+	background: #7F1C1F;
+	border-color: #601312 #AE2426 #AE2426 #AE2426;
+	color: rgba(255, 255, 255, .95);
+	box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+}
+.wp-core-ui .button-red[disabled],
+.wp-core-ui .button-red:disabled,
+.wp-core-ui .button-red-disabled {
+	color: #E79496 !important;
+	background: #BA292B !important;
+	border-color: #7F1C1F !important;
+	box-shadow:         none !important;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, .1) !important;
+	cursor: default;
+}
+.ticket_form .select2-container .select2-choice .select2-arrow {
+	display: none;
 }
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {

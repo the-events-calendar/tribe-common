@@ -24,7 +24,8 @@
 			'verify.dependency': function( e ) {
 				var $field = $( this ),
 					selector = '#' + $field.attr( 'id' ),
-					value = $field.val();
+					value = $field.val(),
+					constraint_conditions;
 
 				// We need an ID to make something depend on this
 				if ( ! selector ) {
@@ -32,42 +33,105 @@
 				}
 
 				// Fetch dependent elements
-				var $dependents = $document.find( '[data-depends="' + selector + '"]' );
+				var $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '.select2-container' );
+
+				// setup each constraint truth condition
+				// each function will be passed the value, the constraint and the depending field
+				constraint_conditions = {
+					'condition': function ( val, constraint ) {
+						return _.isArray( constraint ) ? -1 !== constraint.indexOf( val ) : val == constraint;
+					},
+					'not_condition': function ( val, constraint ) {
+						return _.isArray( constraint ) ? -1 === constraint.indexOf( val ) : val != constraint;
+					},
+					'is_not_empty': function ( val ) {
+						return '' != val;
+					},
+					'is_empty': function ( val ) {
+						return '' === val;
+					},
+					'is_numeric': function ( val ) {
+						return $.isNumeric( val );
+					},
+					'is_not_numeric': function ( val ) {
+						return ! $.isNumeric( val );
+					},
+					'is_checked': function ( _, __, $field ) {
+						return $field.is( ':checkbox' ) ? $field.is( ':checked' ) : false;
+					}
+				};
 
 				$dependents.each( function( k, dependent ) {
-					var $dependent = $( dependent ),
-						condition = $dependent.data( 'condition' ),
-						not_condition = $dependent.data( 'conditionNot' ),
-						is_not_empty = $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
-						is_empty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
-						is_disabled = $field.is( ':disabled' ),
-						active_class = selectors.active.replace( '.', '' );
+					var container_parent = $( this ).data( 'parent' );
+					var $dependent = null;
+					if ( container_parent ) {
+						$dependent = $( this ).closest( container_parent ).find( dependent );
+					} else {
+						$dependent = $( dependent );
+					}
 
-					if (
-						(
-							( is_empty && '' == value )
-							|| ( is_not_empty && '' != value )
-							|| ( _.isArray( condition ) && -1 !== _.findIndex( condition, value ) )
-							|| ( 'undefined' !== typeof condition && value == condition )
-							|| ( 'undefined' !== typeof not_condition && value != not_condition )
-						) && ! is_disabled
-					) {
+					var constraints = {
+							condition: $dependent.data( 'condition' ) || false,
+							not_condition: $dependent.data( 'conditionNot' ) || false,
+							is_not_empty: $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
+							is_empty: $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
+							is_numeric: $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ),
+							is_not_numeric: $dependent.data( 'conditionIsNotNumeric' ) || $dependent.is( '[data-condition-is-not-numeric]' ),
+							is_checked: $dependent.data( 'conditionChecked' ) || $dependent.is( '[data-condition-is-checked]' ),
+						},
+						active_class = selectors.active.replace( '.', '' ),
+						is_disabled = $field.is( ':disabled' ),
+						condition_relation = $dependent.data( 'condition-relation' ) || 'or',
+						passes;
+
+					constraints = _.pick( constraints, function ( is_applicable ) {
+						return is_applicable;
+					} );
+
+					if ( 'or' === condition_relation ) {
+						passes = _.reduce( constraints, function ( passes, constraint, key ) {
+							return passes || constraint_conditions[ key ]( value, constraint, $field );
+						}, false );
+					} else {
+						passes = _.reduce( constraints, function ( passes, constraint, key ) {
+							return passes && constraint_conditions[ key ]( value, constraint, $field );
+						}, true );
+					}
+
+					if ( passes && ! is_disabled ) {
+						if ( $dependent.data( 'select2' ) ) {
+							$dependent.data( 'select2' ).container.addClass( active_class );
+
+							// ideally the class should be enough, but just in case...
+							if ( $dependent.data( 'select2' ).container.is( ':hidden' ) ) {
+								$dependent.data( 'select2' ).container.show();
+							}
+						} else {
+							$dependent.addClass( active_class );
+
+							// ideally the class should be enough, but just in case...
+							if ( $dependent.is( ':hidden' ) ) {
+								$dependent.show();
+							}
+						}
+
 						$dependent
-							.addClass( active_class )
 							.find( selectors.fields ).prop( 'disabled', false )
 							.end().find( '.select2-container' ).select2( 'enable', true );
-
-						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
-							$( '#s2id_' + $dependent.attr( 'id' ) ).addClass( active_class );
-						}
 					} else {
+						$dependent.removeClass( active_class );
+
+						// ideally the class should be enough, but just in case...
+						if ( $dependent.is( ':visible' ) ) {
+							$dependent.hide();
+						}
+
 						$dependent
-							.removeClass( active_class )
 							.find( selectors.fields ).prop( 'disabled', true )
 							.end().find( '.select2-container' ).select2( 'enable', false );
 
-						if ( $( '#s2id_' + $dependent.attr( 'id' ) ).length ) {
-							$( '#s2id_' + $dependent.attr( 'id' ) ).removeClass( active_class );
+						if ( $dependent.data( 'select2' ) ) {
+							$dependent.data( 'select2' ).container.removeClass( active_class );
 						}
 					}
 
@@ -78,7 +142,7 @@
 			'change.dependency': function( e ) {
 				$( this ).trigger( 'verify.dependency' );
 			}
-		}, selectors.dependency )
+		}, selectors.dependency );
 
 	// Configure on Document ready for the default trigger
 	$document.ready( function() {
