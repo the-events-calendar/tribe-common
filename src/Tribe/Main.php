@@ -284,7 +284,7 @@ class Tribe__Main {
 			'use strict';
 			body.className = body.className.replace( /\btribe-no-js\b/, 'tribe-js' );
 		} )( document.body );
-		</script>";
+		</script>
 		<?php
 	}
 
