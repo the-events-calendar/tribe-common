@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.3.4.1';
+	const VERSION             = '4.4dev2';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -80,6 +80,12 @@ class Tribe__Main {
 			return;
 		}
 
+		// the 5.2 compatible autoload file
+		require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload_52.php';
+
+		// the DI container class
+		require_once dirname( __FILE__ ) . '/Container.php';
+
 		if ( is_object( $context ) ) {
 			$this->plugin_context = $context;
 			$this->plugin_context_class = get_class( $context );
@@ -95,6 +101,9 @@ class Tribe__Main {
 		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		$this->init_autoloading();
+
+		$this->bind_implementations();
+
 		$this->init_libraries();
 		$this->add_hooks();
 
@@ -149,7 +158,7 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		Tribe__Debug::instance();
-		Tribe__Settings_Manager::instance();
+		tribe('settings.manager');
 		$this->pue_notices();
 
 		require_once $this->plugin_path . 'src/functions/utils.php';
@@ -170,6 +179,8 @@ class Tribe__Main {
 			array(
 				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
+				array( 'tribe-select2', 'vendor/select2/select2.js', array( 'jquery' ) ),
+				array( 'tribe-select2-css', 'vendor/select2/select2.css' ),
 				array( 'datatables-css', 'datatables.css' ),
 				array( 'datatables-responsive', 'vendor/datatables/extensions/Responsive/js/dataTables.responsive.js', array( 'jquery', 'datatables' ) ),
 				array( 'datatables-responsive-css', 'vendor/datatables/extensions/Responsive/css/responsive.dataTables.css' ),
@@ -182,6 +193,9 @@ class Tribe__Main {
 				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables', 'datatables-select' ) ),
 				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
 				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
+				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
+				array( 'tribe-jquery-timepicker', 'vendor/jquery-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
+				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-timepicker/jquery.timepicker.css' ),
 			)
 		);
 
@@ -193,8 +207,7 @@ class Tribe__Main {
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
-				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
-				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css' ),
+				array( 'tribe-datepicker', 'datepicker.css' ),
 			),
 			'admin_enqueue_scripts',
 			array(
@@ -456,5 +469,13 @@ class Tribe__Main {
 		 * @since 4.3
 		 */
 		do_action( 'tribe_plugins_loaded' );
+	}
+
+	/**
+	 * Registers the slug bound to the implementations in the container.
+	 */
+	public function bind_implementations(  ) {
+		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
+		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
 	}
 }

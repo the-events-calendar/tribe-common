@@ -2,7 +2,7 @@
 /*
 Plugin Name: Tribe Common
 Description: An event settings framework for managing shared options
-Version: 4.3.4.1
+Version: 4.4dev2
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/1x
 Text Domain: tribe-common
@@ -26,7 +26,6 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-
 
 // the main plugin class
 require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';

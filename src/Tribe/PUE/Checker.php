@@ -408,24 +408,85 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return array Modified list of fields.
 		 */
 		public function do_license_key_fields( $fields ) {
-
-			// we want to inject the following license settings at the end of the licenses tab
-			$fields = self::array_insert_after_key( 'tribe-form-content-start', $fields, array(
-					$this->pue_install_key . '-heading' => array(
-						'type'  => 'heading',
-						'label' => $this->get_plugin_name(),
-					),
-					$this->pue_install_key => array(
-						'type'            => 'license_key',
-						'size'            => 'large',
-						'validation_type' => 'license_key',
-						'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
-						'tooltip'         => esc_html__( 'A valid license key is required for support and updates', 'tribe-common' ),
-						'parent_option'   => false,
-						'network_option'  => true,
-					),
+			// common fields whether licenses should be hidden or not
+			$to_insert = array(
+				$this->pue_install_key . '-heading' => array(
+					'type'  => 'heading',
+					'label' => $this->get_plugin_name(),
 				)
 			);
+
+			// we want to inject the following license settings at the end of the licenses tab
+			if($this->should_show_network_editable_license() ){
+				$to_insert[$this->pue_install_key ] = array(
+					'type'            => 'license_key',
+					'size'            => 'large',
+					'validation_type' => 'license_key',
+					'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
+					'tooltip'         => esc_html__(
+						'A valid license key is required for support and updates', 'tribe-common'
+					),
+					'parent_option'   => false,
+					'network_option'  => true,
+				);
+			} elseif($this->should_show_subsite_editable_license()){
+				$to_insert[$this->pue_install_key ] = array(
+					'type'            => 'license_key',
+					'size'            => 'large',
+					'validation_type' => 'license_key',
+					'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
+					'tooltip'         => esc_html__(
+						'A valid license key is required for support and updates', 'tribe-common'
+					),
+					'parent_option'   => false,
+					'network_option'  => false,
+				);
+			} elseif($this->should_show_overrideable_license()){
+				$to_insert[$this->pue_install_key. '-state' ] = array(
+					'type'  => 'html',
+					'label' => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
+					'label_attributes' => array( 'style' => 'width:auto;' ),
+					'html'  => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
+				);
+
+				$override_id = $this->pue_install_key . '-override';
+
+				$to_insert[ $override_id ] = array(
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( 'Override network license key', 'tribe-common' ),
+					'tooltip'         => esc_html__( 'Check this box if you wish to override the network license key with your own', 'tribe-common' ),
+					'default'         => false,
+					'validation_type' => 'boolean',
+					'parent_option'   => false,
+					'attributes'      => array( 'id' => $override_id . '-field' ),
+				);
+
+				$to_insert[ $this->pue_install_key ] = array(
+					'type'                => 'license_key',
+					'size'                => 'large',
+					'validation_type'     => 'license_key',
+					'label'               => sprintf( esc_attr__( 'Site License Key', 'tribe-common' ) ),
+					'tooltip'             => esc_html__(
+						'A valid license key is required for support and updates', 'tribe-common'
+					),
+					'parent_option'       => false,
+					'network_option'      => false,
+					'class'               => 'tribe-dependent',
+					'fieldset_attributes' => array(
+						'data-depends'           => '#' . $override_id . '-field',
+						'data-condition-checked' => true,
+					),
+				);
+			} else {
+				$to_insert[$this->pue_install_key. '-state' ] = array(
+					'type'  => 'html',
+					'label' => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
+					'label_attributes' => array( 'style' => 'width:auto;' ),
+					'html'  => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
+				);
+            }
+
+			$fields    = self::array_insert_after_key( 'tribe-form-content-start', $fields, $to_insert );
 
 			return $fields;
 		}
@@ -506,7 +567,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		}
 
-		public function validate_key( $key ) {
+		/**
+		 * Checks for the license key status with MT servers.
+		 *
+		 * @param string $key
+		 * @param bool   $network Whether the key to check for is a network one or not.
+		 *
+		 * @return array An associative array containing the license status response.
+		 */
+		public function validate_key( $key, $network = false ) {
 			$response           = array();
 			$response['status'] = 0;
 
@@ -563,12 +632,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
 				$response['api_invalid'] = true;
 			} else {
-				$api_secret_key = get_option( $this->pue_install_key );
+				if ( $network && is_multisite() ) {
+					$api_secret_key = get_network_option( null, $this->pue_install_key );
+				} else {
+					$api_secret_key = get_option( $this->pue_install_key );
+				}
+
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
 					$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration );
 				} else {
 					// Set the key
-					update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
+					if ( $network && is_multisite() ) {
+						update_network_option( null, $this->pue_install_key, $queryArgs['pu_install_key'] );
+					} else {
+						update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
+					}
 
 					$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ), $expiration );
 
@@ -642,6 +720,35 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			return $message;
 		}
 
+		/**
+		 * Whether the plugin is network activated and licensed or not.
+		 *
+		 * @return bool
+		 */
+		public function is_network_licensed() {
+			if ( is_multisite()
+			     && ! is_network_admin()
+			     && is_plugin_active_for_network( $this->get_real_plugin_file( $this->plugin_file ) )
+			) {
+				$network_key = get_network_option( null, $this->pue_install_key );
+				$local_key   = get_option( $this->pue_install_key );
+
+
+				return ! ( ! empty( $local_key ) && ( empty( $network_key ) || (string) $network_key != (string) $local_key ) );
+			}
+
+			return false;
+		}
+
+		/**
+         * Returns tet name of the option that stores the license key.
+         *
+		 * @return string
+		 */
+		public function get_license_option_key() {
+		    return $this->pue_install_key;
+		}
+
 		private function get_api_update_message() {
 			$plugin_info = $this->plugin_info;
 
@@ -690,7 +797,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		public function add_notice_to_plugin_notices( $notices ) {
-			if ( ! $this->plugin_notice ) {
+			if ( ! $this->plugin_notice || $this->is_network_licensed() ) {
 				return $notices;
 			}
 
@@ -1177,6 +1284,106 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} else {
 				return strtolower( $site_url['host'] );
 			}
+		}
+
+		/**
+		 * Returns the plugin file to use when checking for the licensed component or plugin.
+		 *
+		 * @param string $plugin_file The component or plugin file in the `<dir>/<file>.php` format.
+		 *
+		 * @return string A component or plugins file in the `<dir>/<file>.php` format.
+		 */
+		protected function get_real_plugin_file( $plugin_file ) {
+			$map = array(
+				'event-aggregator/event-aggregator.php' => 'the-events-calendar/the-events-calendar.php',
+			);
+
+			return isset( $map[ $plugin_file ] ) ? $map[ $plugin_file ] : $plugin_file;
+		}
+
+		/**
+		 * Returns the localized string for a plugin or component license state.
+		 *
+		 * @return string The localized state string.
+		 */
+		protected function get_network_license_state_string() {
+			$states = array(
+				'licensed'     => esc_html__( 'A valid license has been entered by your network administrator.', 'tribe-common' ),
+				'not-licensed' => esc_html__( 'No license entered. Consult your network administrator.', 'tribe-common' ),
+				'expired'      => esc_html__( 'Expired license. Consult your network administrator.', 'tribe-common' ),
+			);
+
+			$response = $this->validate_key( get_network_option( null, $this->pue_install_key ), true );
+
+			if ( isset( $response['status'] ) && $response['status'] === 1 ) {
+				$state = 'licensed';
+			} else if ( isset( $response['api_expired'] ) && $response['api_expired'] == true ) {
+				$state = 'expired';
+			} else {
+				$state = 'not-licensed';
+			}
+
+			return $states[ $state ];
+		}
+
+		/**
+		 * Whether the user should be shown the fully editable subsite license field or not.
+		 *
+		 * This check will happen in the context of the plugin administration area; checks on the user
+		 * capability to edit the plugin settings have been made before.
+		 *
+		 * @return bool
+		 */
+		public function should_show_subsite_editable_license() {
+			if ( ! is_multisite() ) {
+				return true;
+			}
+
+			if ( is_network_admin() ) {
+				return false;
+			}
+
+			if ( is_plugin_active_for_network( $this->get_real_plugin_file( $this->plugin_file ) ) && ! is_super_admin() ) {
+				return false;
+			}
+
+			return true;
+		}
+
+		/**
+		 * Whether the user should be shown the override control to override the network license key or not.
+		 *
+		 * This check will happen in the context of the plugin administration area; checks on the user
+		 * capability to edit the plugin settings have been made before.
+		 *
+		 * @return bool
+		 */
+		public function should_show_overrideable_license() {
+			if ( is_network_admin() ) {
+				return false;
+			}
+
+			if (is_super_admin()) {
+				return false;
+			}
+
+			if ( ! is_plugin_active_for_network( $this->get_real_plugin_file( $this->plugin_file ) ) ) {
+				return false;
+			}
+
+			return true;
+		}
+
+		/**
+		 * Whether the user should be shown the fully editable network license field or not.
+		 *
+		 * This check will happen in the context of the network plugin administration area; checks on the user
+		 * capability to edit the network plugin settings have been made before.
+		 *
+		 * @return bool
+		 */
+		public function should_show_network_editable_license() {
+			return is_network_admin() && is_super_admin();
 		}
 	}
 }
