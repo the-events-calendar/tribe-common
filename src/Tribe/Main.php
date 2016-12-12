@@ -269,7 +269,7 @@ class Tribe__Main {
 							'prevText'        => esc_html__( 'Prev', 'the-events-calendar' ),
 							'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
 							'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
-						)
+						),
 					),
 				),
 			)
