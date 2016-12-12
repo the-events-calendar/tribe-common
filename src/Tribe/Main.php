@@ -224,6 +224,8 @@ class Tribe__Main {
 			)
 		);
 
+		$datepicker_months = array_values( Tribe__Date_Utils::get_localized_months_full() );
+
 		tribe_asset(
 			$this,
 			'tribe-common',
@@ -257,6 +259,17 @@ class Tribe__Main {
 								1 => __( ': Selected 1 row', 'tribe-common' ),
 							),
 						),
+						'datepicker' => array(
+							'dayNames'        => Tribe__Date_Utils::get_localized_weekdays_full(),
+							'dayNamesShort'   => Tribe__Date_Utils::get_localized_weekdays_short(),
+							'dayNamesMin'     => Tribe__Date_Utils::get_localized_weekdays_initial(),
+							'monthNames'      => $datepicker_months,
+							'monthNamesShort' => $datepicker_months, // We deliberately use full month names here
+							'nextText'        => esc_html__( 'Next', 'the-events-calendar' ),
+							'prevText'        => esc_html__( 'Prev', 'the-events-calendar' ),
+							'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
+							'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
+						)
 					),
 				),
 			)
