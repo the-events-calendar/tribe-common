@@ -234,7 +234,7 @@ class Tribe__Main {
 			'admin_enqueue_scripts'
 		);
 
-		tribe( 'tribe.asset.script-data' )->add( 'tribe_l10n_datatables', array(
+		tribe( 'tribe.asset.data' )->add( 'tribe_l10n_datatables', array(
 			'aria' => array(
 				'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
 				'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
@@ -486,6 +486,6 @@ class Tribe__Main {
 	public function bind_implementations() {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
-		tribe_singleton( 'tribe.asset.script-data', 'Tribe__Asset__Script_Data', array( 'hook' ) );
+		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Script_Data', array( 'hook' ) );
 	}
 }

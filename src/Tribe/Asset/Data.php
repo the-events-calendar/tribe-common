@@ -6,7 +6,7 @@
  * Should generally be accessed via tribe( 'tribe.asset.script-data' )
  * rather than via direct instantiation.
  */
-class Tribe__Asset__Script_Data {
+class Tribe__Asset__Data {
 	/**
 	 * Container for any JS data objects that should be added to the page.
 	 *
