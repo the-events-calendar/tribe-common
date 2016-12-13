@@ -30,9 +30,9 @@ class Tribe__Asset__Data {
 	 * to other scripts.
 	 *
 	 * @param string $object_name
-	 * @param array  $data
+	 * @param mixed  $data
 	 */
-	public function add( $object_name, array $data ) {
+	public function add( $object_name, $data ) {
 		$this->objects[ $object_name ] = $data;
 	}
 
