@@ -77,15 +77,31 @@ class Tribe__Assets {
 		}
 	}
 
-	public function enqueue() {
+	/**
+	 * Enqueues registered assets.
+	 *
+	 * This method is called on whichever action (if any) was declared during registration.
+	 *
+	 * It can also be called directly with a list of asset slugs to forcibly enqueue, which may be
+	 * useful where an asset is required in a situation not anticipated when it was originally
+	 * registered.
+	 *
+	 * @param string|array $forcibly_enqueue
+	 */
+	public function enqueue( $forcibly_enqueue = null ) {
+		$forcibly_enqueue = (array) $forcibly_enqueue;
+
 		foreach ( $this->assets as $asset ) {
-			// Skip if we are not on the correct filter
-			if ( current_filter() !== $asset->action ) {
+			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
+			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
+
+			// Skip if we are not on the correct filter (unless we are forcibly enqueuing)
+			if ( current_filter() !== $asset->action && ! $must_enqueue ) {
 				continue;
 			}
 
 			// If any single conditional returns true, then we need to enqueue the asset
-			if ( ! is_string( $asset->action ) ) {
+			if ( ! is_string( $asset->action ) && ! $must_enqueue ) {
 				continue;
 			}
 
@@ -124,7 +140,7 @@ class Tribe__Assets {
 			 */
 			$enqueue = apply_filters( 'tribe_asset_enqueue_' . $asset->slug, $enqueue, $asset );
 
-			if ( ! $enqueue ) {
+			if ( ! $enqueue && ! $must_enqueue ) {
 				continue;
 			}
 
