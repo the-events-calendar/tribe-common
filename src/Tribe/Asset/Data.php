@@ -48,7 +48,7 @@ class Tribe__Asset__Data {
 		echo '<script type=\'text/javascript\'> /* <![CDATA[ */';
 
 		foreach ( $this->objects as $object_name => $data ) {
-			echo "var $object_name = " . wp_json_encode( $data ) . ';';
+			echo 'var ' . esc_html( $object_name ) . ' = ' . wp_json_encode( $data ) . ';';
 		}
 
 		echo '/* ]]> */ </script>';
