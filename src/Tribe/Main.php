@@ -231,49 +231,45 @@ class Tribe__Main {
 			'tribe-common',
 			'tribe-common.js',
 			array( 'tribe-clipboard' ),
-			'admin_enqueue_scripts',
-			array(
-				'localize' => array(
-					'name' => 'tribe_l10n_datatables',
-					'data' => array(
-						'aria' => array(
-							'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
-							'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
-						),
-						'length_menu'   => __( 'Show _MENU_ entries', 'tribe-common' ),
-						'empty_table'   => __( 'No data available in table', 'tribe-common' ),
-						'info'          => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'tribe-common' ),
-						'info_empty'    => __( 'Showing 0 to 0 of 0 entries', 'tribe-common' ),
-						'info_filtered' => __( '(filtered from _MAX_ total entries)', 'tribe-common' ),
-						'zero_records'  => __( 'No matching records found', 'tribe-common' ),
-						'search'        => __( 'Search:', 'tribe-common' ),
-						'pagination' => array(
-							'all' => __( 'All', 'tribe-common' ),
-							'next' => __( 'Next', 'tribe-common' ),
-							'previous' => __( 'Previous', 'tribe-common' ),
-						),
-						'select' => array(
-							'rows' => array(
-								0 => '',
-								'_' => __( ': Selected %d rows', 'tribe-common' ),
-								1 => __( ': Selected 1 row', 'tribe-common' ),
-							),
-						),
-						'datepicker' => array(
-							'dayNames'        => Tribe__Date_Utils::get_localized_weekdays_full(),
-							'dayNamesShort'   => Tribe__Date_Utils::get_localized_weekdays_short(),
-							'dayNamesMin'     => Tribe__Date_Utils::get_localized_weekdays_initial(),
-							'monthNames'      => $datepicker_months,
-							'monthNamesShort' => $datepicker_months, // We deliberately use full month names here
-							'nextText'        => esc_html__( 'Next', 'the-events-calendar' ),
-							'prevText'        => esc_html__( 'Prev', 'the-events-calendar' ),
-							'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
-							'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
-						),
-					),
-				),
-			)
+			'admin_enqueue_scripts'
 		);
+
+		tribe( 'tribe.asset.data' )->add( 'tribe_l10n_datatables', array(
+			'aria' => array(
+				'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
+				'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
+			),
+			'length_menu'   => __( 'Show _MENU_ entries', 'tribe-common' ),
+			'empty_table'   => __( 'No data available in table', 'tribe-common' ),
+			'info'          => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'tribe-common' ),
+			'info_empty'    => __( 'Showing 0 to 0 of 0 entries', 'tribe-common' ),
+			'info_filtered' => __( '(filtered from _MAX_ total entries)', 'tribe-common' ),
+			'zero_records'  => __( 'No matching records found', 'tribe-common' ),
+			'search'        => __( 'Search:', 'tribe-common' ),
+			'pagination' => array(
+				'all' => __( 'All', 'tribe-common' ),
+				'next' => __( 'Next', 'tribe-common' ),
+				'previous' => __( 'Previous', 'tribe-common' ),
+			),
+			'select' => array(
+				'rows' => array(
+					0 => '',
+					'_' => __( ': Selected %d rows', 'tribe-common' ),
+					1 => __( ': Selected 1 row', 'tribe-common' ),
+				),
+			),
+			'datepicker' => array(
+				'dayNames'        => Tribe__Date_Utils::get_localized_weekdays_full(),
+				'dayNamesShort'   => Tribe__Date_Utils::get_localized_weekdays_short(),
+				'dayNamesMin'     => Tribe__Date_Utils::get_localized_weekdays_initial(),
+				'monthNames'      => $datepicker_months,
+				'monthNamesShort' => $datepicker_months, // We deliberately use full month names here
+				'nextText'        => esc_html__( 'Next', 'the-events-calendar' ),
+				'prevText'        => esc_html__( 'Prev', 'the-events-calendar' ),
+				'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
+				'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
+			),
+		) );
 	}
 
 	/**
@@ -487,8 +483,9 @@ class Tribe__Main {
 	/**
 	 * Registers the slug bound to the implementations in the container.
 	 */
-	public function bind_implementations(  ) {
+	public function bind_implementations() {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
+		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Script_Data', array( 'hook' ) );
 	}
 }
