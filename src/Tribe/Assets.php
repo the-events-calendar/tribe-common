@@ -175,10 +175,10 @@ class Tribe__Assets {
 			//Detect if $url is actually a file path
 			if ( false !== strpos( $url, $normalized_content_dir ) ) {
 				// Turn file Path to URL in Windows
-				$url = str_replace( $normalized_content_dir, WP_CONTENT_URL, $url );
+				$url = str_replace( $normalized_content_dir, content_url(), $url );
 			} else {
 				// Turn URL into file Path
-				$file = str_replace( WP_CONTENT_URL, $normalized_content_dir, $url );
+				$file = str_replace( content_url(), $normalized_content_dir, $url );
 			}
 
 			//if file exists return url
