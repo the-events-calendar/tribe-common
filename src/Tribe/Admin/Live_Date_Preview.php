@@ -30,7 +30,7 @@ class Tribe__Admin__Live_Date_Preview {
 	 * Adds live date previews to the display settings tab (nothing is setup unless
 	 * the user is actually on that tab).
 	 */
-	protected function __construct() {
+	public function __construct() {
 		add_action( 'tribe_settings_after_do_tabs', array( $this, 'listen' ) );
 	}
 
