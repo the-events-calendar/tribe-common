@@ -248,7 +248,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public function initTabs() {
 			if ( isset( $_GET['page'] ) && $_GET['page'] == $this->adminSlug ) {
 				// Load settings tab-specific helpers and enhancements
-				$this->live_date_preview = new Tribe__Admin__Live_Date_Preview;
+				Tribe__Admin__Live_Date_Preview::instance();
 
 				do_action( 'tribe_settings_do_tabs' ); // this is the hook to use to add new tabs
 				$this->tabs       = (array) apply_filters( 'tribe_settings_tabs', array() );
