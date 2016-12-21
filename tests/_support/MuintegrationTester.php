@@ -16,9 +16,9 @@
  *
  * @SuppressWarnings(PHPMD)
 */
-class IntegrationTester extends \Codeception\Actor
+class MuintegrationTester extends \Codeception\Actor
 {
-    use _generated\IntegrationTesterActions;
+    use _generated\MuintegrationTesterActions;
 
    /**
     * Define custom actions here

@@ -21,6 +21,10 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		const DBTIMEFORMAT          = 'H:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
 
+		private static $localized_months_full  = array();
+		private static $localized_months_short = array();
+		private static $localized_weekdays     = array();
+
 		/**
 		 * Get the datepicker format, that is used to translate the option from the DB to a string
 		 *
@@ -550,6 +554,115 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$seconds = intval( $offset * HOUR_IN_SECONDS );
 				$timestamp = strtotime( $string ) - $seconds;
 				return $timestamp;
+			}
+		}
+
+		/**
+		 * Returns an array of localized full month names.
+		 *
+		 * @return array
+		 */
+		public static function get_localized_months_full() {
+			global $wp_locale;
+
+			if ( empty( self::$localized_months_full ) ) {
+				self::$localized_months_full = array(
+					'January'   => $wp_locale->get_month( '01' ),
+					'February'  => $wp_locale->get_month( '02' ),
+					'March'     => $wp_locale->get_month( '03' ),
+					'April'     => $wp_locale->get_month( '04' ),
+					'May'       => $wp_locale->get_month( '05' ),
+					'June'      => $wp_locale->get_month( '06' ),
+					'July'      => $wp_locale->get_month( '07' ),
+					'August'    => $wp_locale->get_month( '08' ),
+					'September' => $wp_locale->get_month( '09' ),
+					'October'   => $wp_locale->get_month( '10' ),
+					'November'  => $wp_locale->get_month( '11' ),
+					'December'  => $wp_locale->get_month( '12' ),
+				);
+			}
+
+			return self::$localized_months_full;
+		}
+
+		/**
+		 * Returns an array of localized short month names.
+		 *
+		 * @return array
+		 */
+		public static function get_localized_months_short() {
+			global $wp_locale;
+
+			if ( empty( self::$localized_months_short ) ) {
+				self::$localized_months_short = array(
+					'Jan' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '01' ) ),
+					'Feb' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '02' ) ),
+					'Mar' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '03' ) ),
+					'Apr' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '04' ) ),
+					'May' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '05' ) ),
+					'Jun' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '06' ) ),
+					'Jul' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '07' ) ),
+					'Aug' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '08' ) ),
+					'Sep' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '09' ) ),
+					'Oct' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '10' ) ),
+					'Nov' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '11' ) ),
+					'Dec' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '12' ) ),
+				);
+			}
+
+			return self::$localized_months_short;
+		}
+
+		/**
+		 * Returns an array of localized full week day names.
+		 *
+		 * @return array
+		 */
+		public static function get_localized_weekdays_full() {
+			if ( empty( self::$localized_weekdays ) ) {
+				self::build_localized_weekdays();
+			}
+
+			return self::$localized_weekdays['full'];
+		}
+
+		/**
+		 * Returns an array of localized short week day names.
+		 *
+		 * @return array
+		 */
+		public static function get_localized_weekdays_short() {
+			if ( empty( self::$localized_weekdays ) ) {
+				self::build_localized_weekdays();
+			}
+
+			return self::$localized_weekdays['short'];
+		}
+
+		/**
+		 * Returns an array of localized week day initials.
+		 *
+		 * @return array
+		 */
+		public static function get_localized_weekdays_initial() {
+			if ( empty( self::$localized_weekdays ) ) {
+				self::build_localized_weekdays();
+			}
+
+			return self::$localized_weekdays['initial'];
+		}
+
+		/**
+		 * Builds arrays of localized full, short and initialized weekdays.
+		 */
+		private static function build_localized_weekdays() {
+			global $wp_locale;
+
+			for ( $i = 0; $i <= 6; $i++ ) {
+				$day = $wp_locale->get_weekday( $i );
+				self::$localized_weekdays['full'][ $i ]    = $day;
+				self::$localized_weekdays['short'][ $i ]   = $wp_locale->get_weekday_abbrev( $day );
+				self::$localized_weekdays['initial'][ $i ] = $wp_locale->get_weekday_initial( $day );
 			}
 		}
 
