@@ -162,7 +162,7 @@ class Tribe__Template_Factory {
 			}
 		}
 
-		if ( isset( $url_new ) && file_exists( str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url_new ) ) ) {
+		if ( isset( $url_new ) && file_exists( str_replace( content_url(), WP_CONTENT_DIR, $url_new ) ) ) {
 			return $url_new;
 		} elseif ( $default_to_original ) {
 			return $url;
@@ -177,8 +177,12 @@ class Tribe__Template_Factory {
 	 */
 	public static function get_placeholder_handle() {
 		$placeholder_handle = 'jquery-placeholder';
+
 		global $woocommerce;
-		if ( class_exists( 'Woocommerce' ) && version_compare( $woocommerce->version, '2.0.11', '>=' ) && version_compare( $woocommerce->version, '2.0.13', '<=' )
+		if (
+			class_exists( 'Woocommerce' ) &&
+			version_compare( $woocommerce->version, '2.0.11', '>=' ) &&
+			version_compare( $woocommerce->version, '2.0.13', '<=' )
 		) {
 			$placeholder_handle = 'tribe-placeholder';
 		}
