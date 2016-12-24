@@ -312,7 +312,7 @@ table.plugins .tribe-plugin-update-message a {
 }
 .tribe-arrangeable-item {
 	border: 1px solid lightGrey;
-	border-radius: 6px;
+	border-radius: 3px;
 }
 .tribe-arrangeable-item .ui-state-default {
 	border: none;
@@ -967,7 +967,7 @@ a.tribe-rating-link {
 .tribe-ea-dropdown .select2-choice, .tribe-dropdown .select2-choice {
 	background-image: none;
 	border: 1px solid #ccc;
-	border-radius: 6px;
+	border-radius: 3px;
 }
 .tribe-ea-dropdown .select2-choice .select2-arrow, .tribe-dropdown .select2-choice .select2-arrow {
 	background: transparent;

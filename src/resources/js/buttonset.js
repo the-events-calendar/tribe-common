@@ -72,7 +72,7 @@ var tribe_buttonset = tribe_buttonset || {};
 
 		if ( $button.is( '[data-value]' ) ) {
 			// Apply the value
-			$input.val( value ).trigger( 'change' );
+			$input.val( value );
 		}
 
 		if ( 'checkbox' === $input.attr( 'type' ) ) {
@@ -80,6 +80,8 @@ var tribe_buttonset = tribe_buttonset || {};
 		} else {
 			$input.prop( 'disabled', ! $button.is( obj.selector.active ) );
 		}
+
+		$input.trigger( 'change' );
 
 		event.preventDefault();
 		return false;
