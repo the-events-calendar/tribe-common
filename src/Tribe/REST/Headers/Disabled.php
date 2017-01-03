@@ -18,6 +18,6 @@ class Tribe__REST__Headers__Disabled extends Tribe__REST__Headers__Base_Header i
 			return;
 		}
 
-		header( '' . $this->base->get_api_version_header() . ': disabled' );
+		header( $this->base->get_api_version_header() . ': disabled' );
 	}
 }

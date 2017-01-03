@@ -107,7 +107,7 @@ abstract class Tribe__REST__Main {
 		 * @param int    $blog_id Blog ID.
 		 * @param string $scheme  Sanitization scheme.
 		 */
-		return apply_filters( 'tribe_events_rest_url', $url, $path, $blog_id, $scheme );
+		return apply_filters( 'tribe_rest_url', $url, $path, $blog_id, $scheme );
 	}
 
 	/**
