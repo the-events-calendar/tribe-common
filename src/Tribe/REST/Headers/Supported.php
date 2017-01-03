@@ -25,9 +25,9 @@ class Tribe__REST__Headers__Supported extends Tribe__REST__Headers__Base_Header 
 
 		printf(
 			'<meta name="%s" content="%s"> <link rel="%s" href="%s" />',
-			$this->base->get_api_version_meta_name(),
-			$this->main->get_version(),
-			$this->main->get_reference_url(),
+			esc_attr( $this->base->get_api_version_meta_name() ),
+			esc_attr( $this->main->get_version() ),
+			esc_attr( $this->main->get_reference_url() ),
 			esc_url( $api_root )
 		);
 	}
