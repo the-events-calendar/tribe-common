@@ -14,8 +14,8 @@ class Tribe__REST__Headers__Unsupported extends Tribe__REST__Headers__Base_Heade
 	 * @param Tribe__REST__Headers__Base_Interface $base
 	 * @param Tribe__REST__Main                    $main
 	 */
-	public function __construct(Tribe__REST__Headers__Base_Interface $base, Tribe__REST__Main $main  ) {
-		parent::__construct($base);
+	public function __construct( Tribe__REST__Headers__Base_Interface $base, Tribe__REST__Main $main ) {
+		parent::__construct( $base );
 		$this->main = $main;
 	}
 
