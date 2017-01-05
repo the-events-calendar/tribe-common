@@ -10,6 +10,30 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Extension.php:368
+msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
+msgstr ""
+
+#: src/Tribe/View_Helpers.php:298
+msgid "$defaultCountry[1]"
+msgstr ""
+
+#: src/Tribe/View_Helpers.php:299
+msgid "$selectCountry"
+msgstr ""
+
+#: src/Tribe/Extension.php:144
+msgid "Tutorial"
+msgstr ""
+
+#: src/admin-views/app-shop.php:29
+msgid "Installed Add-Ons"
+msgstr ""
+
+#: src/admin-views/app-shop.php:31
+msgid "Installed"
+msgstr ""
+
 #: src/Tribe/Admin/Notice/Plugin_Download.php:91
 msgctxt "separator used in a list of items"
 msgid ", "
@@ -32,11 +56,11 @@ msgstr "Event Log"
 msgid "Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more."
 msgstr "Evenementen importeren uit meerdere bronnen was nog nooit zo makkelijk! Event Aggregator helpt je met het beheren van import-feeds van Facebook, Meetup, Google Calendar, iCalendar, CSV en ICS. Je kan handmatig importeren, maar ook automatische imports instellen. Event Aggregator biedt een handig dashboard om bulk imports, filters, one-way synchronisatie, importeergeschiedenis en meer inzichtelijk te hebben en te beheren."
 
-#: src/Tribe/PUE/Checker.php:621
+#: src/Tribe/PUE/Checker.php:626
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr "Er is een update voor %s. Je moet %sje licentie checken%s om toegang te hebben tot updates, downloads en ondersteuning."
 
-#: src/Tribe/PUE/Checker.php:648
+#: src/Tribe/PUE/Checker.php:653
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr "Er is een update voor %s. %sVernieuw je licentie%s om toegang te krijgen tot bugfixes, beveiligingsupdates en nieuwe functies."
 
@@ -75,7 +99,7 @@ msgstr "Events Add-Ons"
 msgid "Browse All Add-Ons"
 msgstr "Blader door alle Add-Ons"
 
-#: src/admin-views/app-shop.php:32
+#: src/admin-views/app-shop.php:26
 msgid "Buy This Add-On"
 msgstr "Koop deze Add-On"
 
@@ -103,80 +127,76 @@ msgstr "Zie je geen update, maar verwacht je er wel één? Ga in WordPress naar 
 msgid "The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s."
 msgstr "De licentiesleutel die je hebt gekregen tijdens de afronding van je aankoop van %1$s geeft je toegang tot ondersteuning en updates totdat het verloopt. Je hoeft de sleutel niet hieronder in te voeren om de plugins te laten werken, maar je hebt het nodig om automatische updates te krijgen. %3$sVind je licentiesleutels op %2$s%4$s."
 
-#: src/admin-views/tribe-options-licenses.php:11
+#: src/admin-views/tribe-options-licenses.php:11,
 #: src/admin-views/tribe-options-licenses.php:16
 msgid " (opens in new window)"
 msgstr "(opent in nieuw venster)"
 
-#: src/Tribe/Error.php:38
-msgid "An Unknown error occurred"
-msgstr "Een onbekende fout is opgetreden"
-
-#: src/Tribe/Main.php:175 src/admin-views/tribe-options-help.php:43
+#: src/admin-views/tribe-options-help.php:43, src/Tribe/Main.php:206
 msgid "Copy to clipboard"
 msgstr "Kopieer naar klembord"
 
-#: src/Tribe/Main.php:176
+#: src/Tribe/Main.php:207
 msgid "System info copied"
 msgstr "Systeeminformatie gekopieerd"
 
-#: src/Tribe/Main.php:177
+#: src/Tribe/Main.php:208
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Druk op \"Cmd + C\" om te kopiëren"
 
-#: src/Tribe/Main.php:194
+#: src/Tribe/Main.php:225
 msgid ": activate to sort column ascending"
 msgstr ": activeer om de kolom aflopend te sorteren"
 
-#: src/Tribe/Main.php:195
+#: src/Tribe/Main.php:226
 msgid ": activate to sort column descending"
 msgstr ": activeer om de kolom oplopend te sorteren"
 
-#: src/Tribe/Main.php:197
+#: src/Tribe/Main.php:228
 msgid "Show _MENU_ entries"
 msgstr "Toon _MENU_ entries"
 
-#: src/Tribe/Main.php:198
+#: src/Tribe/Main.php:229
 msgid "No data available in table"
 msgstr "Geen data beschikbaar in tabel"
 
-#: src/Tribe/Main.php:199
+#: src/Tribe/Main.php:230
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Toont _START_ tot _END_ van _TOTAL_ resultaten"
 
-#: src/Tribe/Main.php:200
+#: src/Tribe/Main.php:231
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Toont 0 tot 0 van 0 resultaten"
 
-#: src/Tribe/Main.php:201
+#: src/Tribe/Main.php:232
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(gefilterd van _MAX_ totale resultaten)"
 
-#: src/Tribe/Main.php:202
+#: src/Tribe/Main.php:233
 msgid "No matching records found"
 msgstr "Geen resultaten gevonden"
 
-#: src/Tribe/Main.php:205
+#: src/Tribe/Main.php:236
 msgid "All"
 msgstr "Alle"
 
-#: src/Tribe/Main.php:207
+#: src/Tribe/Main.php:238
 msgid "Previous"
 msgstr "Vorige"
 
-#: src/Tribe/Main.php:212
+#: src/Tribe/Main.php:243
 msgid ": Selected %d rows"
 msgstr ": %d rijen geselecteerd"
 
-#: src/Tribe/Main.php:213
+#: src/Tribe/Main.php:244
 msgid ": Selected 1 row"
 msgstr ": 1 rij geselecteerd"
 
-#: src/Tribe/PUE/Checker.php:593 src/Tribe/PUE/Notices.php:267
+#: src/Tribe/PUE/Checker.php:598, src/Tribe/PUE/Notices.php:267
 msgid "Renew Your License Now"
 msgstr "Verleng je licentie nu"
 
-#: src/Tribe/PUE/Checker.php:595 src/Tribe/PUE/Notices.php:269
+#: src/Tribe/PUE/Checker.php:600, src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
 msgstr "(opent in een nieuw scherm)"
 
@@ -192,11 +212,11 @@ msgstr "Ja, ik wil mijn systeeminformatie automatisch delen met het Modern Tribe
 msgid "Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties."
 msgstr "Je systeeminformatie zal alleen door het Modern Tribe-ondersteuningsteam gebruikt worden. Alle informatie is veilig opgeslagen. We delen deze informatie niet met derden."
 
-#: src/Tribe/Support.php:309 src/Tribe/Support.php:314
+#: src/Tribe/Support.php:309, src/Tribe/Support.php:314
 msgid "Invalid Key"
 msgstr "Ongeldige sleutel"
 
-#: src/Tribe/Support.php:342 src/Tribe/Support.php:368
+#: src/Tribe/Support.php:342, src/Tribe/Support.php:368
 msgid "Permission Error"
 msgstr "Toestemmingsfout"
 
@@ -208,36 +228,36 @@ msgstr "Unieke systeeminformatiesleutel gegenereerd"
 msgid "C&ocirc;te d'Ivoire"
 msgstr "C&ocirc;te d'Ivoire"
 
-#: src/Tribe/App_Shop.php:152
+#: src/Tribe/App_Shop.php:158
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
 msgstr "De Eventbrite Tickets add-on geeft je de mogelijkheid om tickets te maken en verkopen via The Events Calendar, gebruik makend van de kracht van %1$sEventbrite%2$s. Of je nu via je WordPress-omgeving tickets aanmaakt, of dat je ze importeert uit een reeds bestaand evenement op %1$sEventbrite.com%2$s, deze add-on brengt de kracht van de Eventbrite API naar je kalender."
 
-#: src/Tribe/App_Shop.php:144
+#: src/Tribe/App_Shop.php:149
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
 msgstr "Stel organisatoren van Community Events om tickets aan te bieden voor hun evenementen. Je kan flexibele betalingsopties instellen. Ze kunnen ook deelnemers inchecken! Dit kan allemaal beheerd worden vanaf de frontend van de site, zodat ze geen toegang hoeven te hebben tot de admin-omgeving van je site."
 
-#: src/Tribe/App_Shop.php:145
+#: src/Tribe/App_Shop.php:150
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
 msgstr "Event Tickets Plus en Community Events"
 
-#: src/Tribe/App_Shop.php:123
+#: src/Tribe/App_Shop.php:125
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
 msgstr "Event Tickets Plus geeft je de gelegenheid om tickets voor je evenementen te verkopen via WooCommerce, Shopp, WP eCommerce of Easy Digital Downloads. Gebruik het in je berichten en pagina's, of voeg %1$sThe Events Calendar%2$s toe en verkoop tickets via je evenementenpagina's."
 
-#: src/Tribe/App_Shop.php:138
+#: src/Tribe/App_Shop.php:142
 msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
 msgstr "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
 
-#: src/Tribe/App_Shop.php:113
+#: src/Tribe/App_Shop.php:114
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
 msgstr "The Events Calendar PRO is een betaalde add-on op onze open-source WordPress plugin %1$sThe Events Calendar%2$s. PRO biedt een uitgebreide set aan kalenderfuncties, inclusief terugkerende evenementen, aangepaste event-attributen, opgeslagen locaties en organisatoren, aparte pagina's voor je locaties, geavanceerd evenementbeheer en veel meer."
 
-#: src/Tribe/App_Shop.php:132
+#: src/Tribe/App_Shop.php:135
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr "Het is geweldig dat je kalender <em>DE PLEK</em> is om in contact te komen met uitstekende keuzes om tijd door te brengen. Jabba de Hutt heeft minder vetrollen dan jij evenementen hebt. Wel jammer dat bezoekers een persoonlijke assistent inhuren om door alle keuzes te zoeken. Heb je altijd al de mogelijkheid willen hebben om de kalender te filteren om alleen maar evenementen te zien die op loopafstand zijn, in een weekend plaatsvinden, die gratis zijn? BOOM. Nu kan dat. We introduceren... de Filter Bar."
 
-#: src/Tribe/App_Shop.php:130
+#: src/Tribe/App_Shop.php:133
 msgid "Filter Bar"
 msgstr "Filter Bar"
 
@@ -347,17 +367,9 @@ msgstr "Informatie over de recente templateveranderingen en potentieel geraakte 
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
 msgstr "Alleen licenties voor plug-ins die %1$sgeactiveerd zijn via het netwerk%2$s worden in dit scherm weergegeven."
 
-#. Plugin Name of the plugin/theme
-msgid "Tribe Common"
-msgstr "Tribe Common"
-
-#. Description of the plugin/theme
-msgid "An event settings framework for managing shared options"
-msgstr "Een raamwerk voor evenementinstellingen waarin je gedeelde opties kan beheren"
-
 #: src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
-msgstr "Let er op dat alle hands-on ondersteuning wordt geleverd via de forums. Je kan ons e-mailen of tweeten... maar waarschijnlijk verwijzen we je weer terug naar de forums"
+msgstr ""
 
 #: src/admin-views/tribe-options-help.php:31
 msgid "Read more about our support policy"
@@ -423,7 +435,7 @@ msgstr "Ondersteuning krijgen"
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
 msgstr "\"Optimaliseer je evenementoverzichten met %1$sThe Events Calendar%2$s, onze gratis kalenderplug-in. Ben je op zoek naar aanvullende functionaliteiten zoals terugkerende evenementen, evenementen toe laten voegen door gebruikers, geavanceerde ticketverkoop en meer? Kijk dan zeker eens naar onze %3$spremium add-ons%4$s."
 
-#: src/Tribe/Admin/Help_Page.php:233 src/Tribe/App_Shop.php:142
+#: src/Tribe/Admin/Help_Page.php:233, src/Tribe/App_Shop.php:147
 msgid "Community Tickets"
 msgstr "Community Tickets"
 
@@ -467,7 +479,7 @@ msgstr "Plugin inactief"
 msgid "Visit the Add-on Page"
 msgstr "Bezoek de pagina met add-ons"
 
-#: src/Tribe/PUE/Checker.php:568
+#: src/Tribe/PUE/Checker.php:573
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr "Bedankt voor het instellen van een geldige licentie. Het verloopt op %s"
 
@@ -495,7 +507,7 @@ msgstr "Geef beheer van je pagina's een extra boost met sorteerbare filters en k
 msgid " and "
 msgstr "en "
 
-#: src/Tribe/Admin/Help_Page.php:192 src/Tribe/App_Shop.php:149
+#: src/Tribe/Admin/Help_Page.php:192, src/Tribe/App_Shop.php:155
 msgid "Eventbrite Tickets"
 msgstr "Eventbrite Tickets"
 
@@ -507,7 +519,7 @@ msgstr "Facebook Events"
 msgid "Events Filter Bar"
 msgstr "Events Filter Bar"
 
-#: src/Tribe/Admin/Help_Page.php:224 src/Tribe/App_Shop.php:120
+#: src/Tribe/Admin/Help_Page.php:224, src/Tribe/App_Shop.php:122
 msgid "Event Tickets Plus"
 msgstr "Event Tickets Plus"
 
@@ -519,14 +531,6 @@ msgstr "Events Tickets is een zorgvuldig gemaakte en uitbreidbare plug-in die je
 msgid "Event Tickets"
 msgstr "Event Tickets"
 
-#. Author of the plugin/theme
-msgid "Modern Tribe, Inc."
-msgstr "Modern Tribe, Inc."
-
-#. Author URI of the plugin/theme
-msgid "http://m.tri.be/1x"
-msgstr "http://m.tri.be/1x"
-
 #: src/Tribe/Settings.php:323
 msgid "Save Changes"
 msgstr "Wijzigingen opslaan"
@@ -535,19 +539,11 @@ msgstr "Wijzigingen opslaan"
 msgid "Go to plugins page"
 msgstr "Ga naar pluginpagina"
 
-#: src/Tribe/Admin/Activation_Page.php:77
-msgid "Return to Plugins page"
-msgstr "Keer terug naar pluginpagina"
-
 #: src/Tribe/Admin/Activation_Page.php:85
 msgid "Go to WordPress Updates page"
 msgstr "Ga naar Wordpress updates pagina"
 
-#: src/Tribe/Admin/Activation_Page.php:85
-msgid "Return to WordPress Updates"
-msgstr "Keer terug naar Wordpress updates pagina"
-
-#: src/Tribe/PUE/Checker.php:544
+#: src/Tribe/PUE/Checker.php:549
 msgid "unknown date"
 msgstr "onbekende datum"
 
@@ -609,7 +605,7 @@ msgstr "Wisconsin"
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: src/Tribe/Admin/Help_Page.php:200 src/Tribe/App_Shop.php:136
+#: src/Tribe/Admin/Help_Page.php:200, src/Tribe/App_Shop.php:140
 msgid "Community Events"
 msgstr "Community Events"
 
@@ -649,7 +645,7 @@ msgstr "We hopen dat onze plugin je helpt."
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "Denk je \"Wow, deze plugin is verbazingwekkend! Ik moet Modern Tribe bedanken voor hun harde werk\"?  De grootste dank waar we om kunnen vragen is erkenning. Voeg een kleine tekstlink toe aan je kalender die verwijst naar het 'The Events Calendar'-project."
 
-#: src/admin-views/tribe-options-general.php:30
+#: src/admin-views/tribe-options-general.php:30,
 #: src/admin-views/tribe-options-general.php:35
 msgid "See an example of the link"
 msgstr "Bekijk een voorbeeld van deze link"
@@ -683,11 +679,11 @@ msgstr "niet beschikbaar"
 msgid "You need to upgrade!"
 msgstr "Je moet upgraden!"
 
-#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:777
+#: src/Tribe/Admin/Help_Page.php:402, src/Tribe/Admin/Help_Page.php:777
 msgid "You are up to date!"
 msgstr "Je hebt de nieuwste versie!"
 
-#: src/Tribe/Admin/Help_Page.php:183 src/Tribe/App_Shop.php:110
+#: src/Tribe/Admin/Help_Page.php:183, src/Tribe/App_Shop.php:111
 msgid "Events Calendar PRO"
 msgstr "Events Calendar PRO"
 
@@ -795,7 +791,7 @@ msgstr "Louisiana"
 msgid "Maine"
 msgstr "Maine"
 
-#: src/Tribe/Admin/Help_Page.php:811 src/admin-views/app-shop.php:26
+#: src/admin-views/app-shop.php:78, src/Tribe/Admin/Help_Page.php:811
 msgid "Requires:"
 msgstr "Benodigd:"
 
@@ -923,7 +919,7 @@ msgstr "Bolivia"
 msgid "Bosnia And Herzegowina"
 msgstr "Bosnië en Herzegovina"
 
-#: src/Tribe/App_Shop.php:48 src/Tribe/App_Shop.php:49
+#: src/Tribe/App_Shop.php:48, src/Tribe/App_Shop.php:49,
 #: src/Tribe/App_Shop.php:72
 msgid "Event Add-Ons"
 msgstr "Event Add-Ons"
@@ -1160,7 +1156,7 @@ msgstr "Gabon"
 msgid "Gambia"
 msgstr "Gambia"
 
-#: src/Tribe/View_Helpers.php:127 src/Tribe/View_Helpers.php:326
+#: src/Tribe/View_Helpers.php:127, src/Tribe/View_Helpers.php:326
 msgid "Georgia"
 msgstr "Georgië"
 
@@ -1176,7 +1172,7 @@ msgstr "Ghana"
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#: src/Tribe/Settings.php:148 src/Tribe/Settings.php:204
+#: src/Tribe/Settings.php:148, src/Tribe/Settings.php:204,
 #: src/Tribe/Settings.php:205
 msgid "Events"
 msgstr "Evenementen"
@@ -1233,8 +1229,8 @@ msgstr "Heard en McDonaldeilanden"
 msgid "Holy See (Vatican City State)"
 msgstr "Vaticaanstad"
 
+#: src/admin-views/tribe-options-licenses.php:66,
 #: src/Tribe/Settings_Manager.php:253
-#: src/admin-views/tribe-options-licenses.php:66
 msgid "Licenses"
 msgstr "Licenties"
 
@@ -1430,7 +1426,7 @@ msgstr "Micronesia"
 msgid "Moldova, Republic Of"
 msgstr "Moldavië"
 
-#: src/Tribe/Main.php:206
+#: src/Tribe/Main.php:237
 msgid "Next"
 msgstr "Volgende"
 
@@ -1534,7 +1530,7 @@ msgstr "Oman"
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: src/Tribe/Main.php:203
+#: src/Tribe/Main.php:234
 msgid "Search:"
 msgstr "Zoeken:"
 
@@ -1566,7 +1562,7 @@ msgstr "Filipijnen"
 msgid "Pitcairn"
 msgstr "Pitcairneilanden"
 
-#: src/Tribe/PUE/Checker.php:417
+#: src/Tribe/PUE/Checker.php:422
 msgid "License Key"
 msgstr "Licentie sleutel"
 
@@ -1574,7 +1570,7 @@ msgstr "Licentie sleutel"
 msgid "Poland"
 msgstr "Polen"
 
-#: src/Tribe/PUE/Checker.php:418
+#: src/Tribe/PUE/Checker.php:423
 msgid "A valid license key is required for support and updates"
 msgstr "Een geldige licentie sleutel is nodig voor support en updates"
 
@@ -1582,7 +1578,7 @@ msgstr "Een geldige licentie sleutel is nodig voor support en updates"
 msgid "Portugal"
 msgstr "Portugal"
 
-#: src/Tribe/PUE/Checker.php:500
+#: src/Tribe/PUE/Checker.php:505
 msgid "License key(s) updated."
 msgstr "Licentie sleutel(s) code bijgewerkt. "
 
@@ -1590,7 +1586,7 @@ msgstr "Licentie sleutel(s) code bijgewerkt. "
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: src/Tribe/PUE/Checker.php:550
+#: src/Tribe/PUE/Checker.php:555
 msgid "Sorry, key validation server is not available."
 msgstr "Sorry, licentie validatie server is niet beschikbaar."
 
@@ -1614,7 +1610,7 @@ msgstr "Rusland"
 msgid "Rwanda"
 msgstr "Rwanda"
 
-#: src/Tribe/PUE/Checker.php:563
+#: src/Tribe/PUE/Checker.php:568
 msgid "Valid Key! Expires on %s"
 msgstr "Geldige licentie! Verloopt op %s"
 
@@ -1622,7 +1618,7 @@ msgstr "Geldige licentie! Verloopt op %s"
 msgid "Saint Kitts And Nevis"
 msgstr "Saint Kitts en Nevis"
 
-#: src/Tribe/PUE/Checker.php:509
+#: src/Tribe/PUE/Checker.php:514
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmmm, er gaat iets fout met de validiteitscontrole. Neem contact op met %ssupport%s"
 
@@ -1634,7 +1630,8 @@ msgstr "Saint Lucia"
 msgid "Saint Vincent And The Grenadines"
 msgstr "Saint Vincent en de Grenadines"
 
-#: src/Tribe/Settings.php:216 src/Tribe/Settings.php:236
+#: src/Tribe/Settings.php:216, src/Tribe/Settings.php:236,
+#: src/Tribe/Settings.php:236
 msgid "Events Settings"
 msgstr "Evenementinstellingen"
 
@@ -1690,10 +1687,6 @@ msgstr "Je formulier heeft de volgende fouten:"
 msgid "Seychelles"
 msgstr "Seychellen"
 
-#: src/Tribe/Settings.php:560
-msgid "None of your settings were saved. Please try again."
-msgstr "Geen van je instellingen is opgeslagen. Probeer het nogmaals."
-
 #: src/Tribe/View_Helpers.php:237
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
@@ -1732,7 +1725,7 @@ msgstr "Systeeminformatie"
 msgid "Somalia"
 msgstr "Somalië"
 
-#: src/Tribe/Support.php:179 src/Tribe/Support.php:180
+#: src/Tribe/Support.php:179, src/Tribe/Support.php:180
 msgid "Unknown or not set"
 msgstr "Onbekend of niet ingesteld"
 
@@ -1888,11 +1881,11 @@ msgstr "Britse Maagdeneilanden"
 msgid "Virgin Islands (U.S.)"
 msgstr "Amerikaanse Maagdeneilanden"
 
-#: src/Tribe/Validate.php:76 src/Tribe/Validate.php:117
+#: src/Tribe/Validate.php:76, src/Tribe/Validate.php:117
 msgid "Invalid or incomplete field passed"
 msgstr "Ongeldig of incompleet veld"
 
-#: src/Tribe/Validate.php:77 src/Tribe/Validate.php:112
+#: src/Tribe/Validate.php:77, src/Tribe/Validate.php:112,
 #: src/Tribe/Validate.php:118
 msgid "Field ID:"
 msgstr "Veld-ID:"
@@ -1906,7 +1899,7 @@ msgctxt "non-existant function name passed for field validation"
 msgid "with function name:"
 msgstr "met functienaam:"
 
-#: src/Tribe/Validate.php:135 src/Tribe/Validate.php:151
+#: src/Tribe/Validate.php:135, src/Tribe/Validate.php:151
 msgid "%s must contain numbers and letters only"
 msgstr "%s mag alleen cijfers en letters bevatten"
 
@@ -1914,7 +1907,7 @@ msgstr "%s mag alleen cijfers en letters bevatten"
 msgid "%s must contain numbers, letters and dots only"
 msgstr "%s mag alleen cijfers, letters en punten bevatten"
 
-#: src/Tribe/Validate.php:197 src/Tribe/Validate.php:225
+#: src/Tribe/Validate.php:197, src/Tribe/Validate.php:225
 msgid "%s must be a positive number."
 msgstr "%s moet een positief getal zijn."
 
@@ -1926,7 +1919,7 @@ msgstr "%s moet een geldige slug zijn (nummers, letters, streepjes en underscore
 msgid "%s must be a valid absolute URL."
 msgstr "%s moet een valide absolute URL zijn."
 
-#: src/Tribe/Validate.php:271 src/Tribe/Validate.php:288
+#: src/Tribe/Validate.php:271, src/Tribe/Validate.php:288,
 #: src/Tribe/Validate.php:310
 msgid "%s must have a value that's part of its options."
 msgstr "%s moet een waarde hebben die deel is van de opties."
@@ -1971,7 +1964,7 @@ msgstr "%s moet een telefoonnummer zijn."
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "Landenlijst moet geformatteerd zijn als een land per regel in het volgende formaat <br>US, United States <br> UK, United Kingdom."
 
-#: src/Tribe/View_Helpers.php:26 src/Tribe/View_Helpers.php:45
+#: src/Tribe/View_Helpers.php:26, src/Tribe/View_Helpers.php:45
 msgid "Select a Country:"
 msgstr "Selecteer een land:"
 
