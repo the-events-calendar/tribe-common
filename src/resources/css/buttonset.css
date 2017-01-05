@@ -14,6 +14,7 @@
 
 .tribe-button-field {
 	color: #444;
+	cursor: pointer;
 	display: inline-block;
 	text-decoration: none;
 	font-size: 13px;
@@ -21,7 +22,6 @@
 	height: 28px;
 	margin: 0 0 3px;
 	padding: 0 10px 1px;
-	cursor: pointer;
 	background-color: #fff;
 	border-width: 1px;
 	border-style: solid;
@@ -34,6 +34,6 @@
 
 .tribe-button-field.tribe-active {
 	color: #fff;
-	background-color: #0085ba;
-	border-color: #0073aa;
+	background-color: #585858;
+	border-color: #585858;
 }
