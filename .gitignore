@@ -22,6 +22,9 @@ vendor/*
 vendor/composer/composer/tests
 vendor/composer/composer/doc
 vendor/composer/composer/.github
+vendor/composer/ca-bundle
+vendor/composer/semver
+vendor/composer/spdx-licenses
 !vendor/lucatume/di52
 !vendor/xrstf/composer-php52
 tests/_output/*
