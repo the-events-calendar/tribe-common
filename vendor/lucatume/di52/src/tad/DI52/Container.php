@@ -337,4 +337,14 @@ class tad_DI52_Container implements ArrayAccess, tad_DI52_Bindings_ResolverInter
     {
         return $this->bindingsResolver->singletonDecorators($classOrInterface, $decorators);
     }
+
+    public function replaceBind($classOrInterface, $implementation, array $afterBuildMethods = null)
+    {
+        return $this->bindingsResolver->replaceBind($classOrInterface, $implementation, $afterBuildMethods);
+    }
+
+    public function replaceSingleton($classOrInterface, $implementation, array $afterBuildMethods = null)
+    {
+        return $this->bindingsResolver->replaceSingleton($classOrInterface, $implementation, $afterBuildMethods);
+    }
 }

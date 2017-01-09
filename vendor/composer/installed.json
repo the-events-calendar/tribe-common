@@ -33,51 +33,6 @@
         ]
     },
     {
-        "name": "lucatume/di52",
-        "version": "1.4.4",
-        "version_normalized": "1.4.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/lucatume/di52.git",
-            "reference": "7b871542389deb5af1b564004dc70a05bd32b0f5"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/lucatume/di52/zipball/7b871542389deb5af1b564004dc70a05bd32b0f5",
-            "reference": "7b871542389deb5af1b564004dc70a05bd32b0f5",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2",
-            "xrstf/composer-php52": "1.*"
-        },
-        "require-dev": {
-            "phpunit/phpunit-mock-objects-php52": "dev-1.1.0-php52",
-            "phpunit/phpunit-php52": "dev-3.6.12-php52"
-        },
-        "time": "2017-01-09 13:36:15",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "tad_DI52_": [
-                    "src/"
-                ]
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Luca Tumedei",
-                "email": "luca@theaveragedev.com"
-            }
-        ],
-        "description": "A PHP 5.2 compatible dependency injection container."
-    },
-    {
         "name": "wp-cli/php-cli-tools",
         "version": "v0.11.1",
         "version_normalized": "0.11.1.0",
@@ -4161,5 +4116,50 @@
             "codeception",
             "wordpress"
         ]
+    },
+    {
+        "name": "lucatume/di52",
+        "version": "1.4.4.1",
+        "version_normalized": "1.4.4.1",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lucatume/di52.git",
+            "reference": "acac8c5f6f7144d9fbd0c5af0be91b820b4b8d51"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lucatume/di52/zipball/acac8c5f6f7144d9fbd0c5af0be91b820b4b8d51",
+            "reference": "acac8c5f6f7144d9fbd0c5af0be91b820b4b8d51",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2",
+            "xrstf/composer-php52": "1.*"
+        },
+        "require-dev": {
+            "phpunit/phpunit-mock-objects-php52": "dev-1.1.0-php52",
+            "phpunit/phpunit-php52": "dev-3.6.12-php52"
+        },
+        "time": "2017-01-09 13:50:27",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "tad_DI52_": [
+                    "src/"
+                ]
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Luca Tumedei",
+                "email": "luca@theaveragedev.com"
+            }
+        ],
+        "description": "A PHP 5.2 compatible dependency injection container."
     }
 ]

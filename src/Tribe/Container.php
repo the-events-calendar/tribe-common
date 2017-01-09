@@ -81,7 +81,7 @@ if ( ! function_exists( 'tribe_singleton' ) ) {
 	 *                                                    construction.
 	 */
 	function tribe_singleton( $slug, $class, array $after_build_methods = null ) {
-		Tribe__Container::instance()->singleton( $slug, $class, $after_build_methods );
+		Tribe__Container::instance()->replaceSingleton( $slug, $class, $after_build_methods );
 	}
 }
 
@@ -145,7 +145,7 @@ if ( ! function_exists( 'tribe_register' ) ) {
 	 *                                                    will be called each time after the instance contstruction.
 	 */
 	function tribe_register( $slug, $class, array $after_build_methods = null ) {
-		Tribe__Container::instance()->bind( $slug, $class, $after_build_methods );
+		Tribe__Container::instance()->replaceBind( $slug, $class, $after_build_methods );
 	}
 }
 
