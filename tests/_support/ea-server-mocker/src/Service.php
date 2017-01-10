@@ -25,6 +25,7 @@ class Tribe__Events__Aggregator_Mocker__Service
 		return array(
 			'ea_mocker-origins-mock_response',
 			'ea_mocker-import-mock_response',
+			'ea_mocker-import-post_import_mock_response',
 		);
 	}
 
@@ -57,6 +58,30 @@ class Tribe__Events__Aggregator_Mocker__Service
 
 		return parent::get_import( $import_id );
 	}
+
+	/**
+	 * Creates an import
+	 *
+	 * Note: This method exists because WordPress by default doesn't allow multipart/form-data
+	 *       with boundaries to happen
+	 *
+	 * @param array $args        {
+	 *                           Array of arguments. See REST docs for details. 1 exception listed below:
+	 *
+	 * @type array  $source_file Source file array using the $_FILES array values
+	 * }
+	 *
+	 * @return string
+	 */
+	public function post_import( $args ) {
+		$mocked_response = get_option( 'ea_mocker-import-post_import_mock_response' );
+		if ( ! empty( $mocked_response ) ) {
+			return json_decode( $mocked_response );
+		}
+
+		return parent::post_import( $args );
+	}
+
 
 	/**
 	 * Binds mock implementations overriding the existing ones.

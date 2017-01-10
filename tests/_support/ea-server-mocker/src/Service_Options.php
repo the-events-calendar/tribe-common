@@ -180,6 +180,18 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				),
 			) ),
 		) ), array( 'nextMonth' => $next_month ) );
+
+		$this->examples['post_import'] = array();
+
+		$this->examples['post_import']['queued'] = set_object_state( array(
+			'status'       => 'queued',
+			'message_code' => 'queued',
+			'message'      => 'The import will be starting soon.',
+			'data'         => set_object_state( array(
+				'import_id' => '98aea8827263d1bd55b78e90d43bbd827802f00b98caee076b1cb5627f497aa8',
+				'position'  => 1,
+			) ),
+		) );
 	}
 
 	/**
@@ -189,6 +201,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 		return array(
 			'ea_mocker-origins-mock_response',
 			'ea_mocker-import-mock_response',
+			'ea_mocker-import-post_import_mock_response',
 		);
 	}
 
@@ -201,6 +214,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 		return array(
 			'ea_mocker-origins-mock_response',
 			'ea_mocker-import-mock_response',
+			'ea_mocker-import-post_import_mock_response',
 		);
 	}
 
@@ -224,6 +238,22 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				<div class="default" data-slug="all_inactive"><?php echo json_encode( $this->examples['all_inactive'] ); ?></div>
 				<button class="button-secondary insert-default" data-slug="one_active">One active</button>
 				<div class="default" data-slug="one_active"><?php echo json_encode( $this->examples['one_active'] ); ?></div>
+			</td>
+		</tr>
+
+		<tr valign="top">
+			<th scope="row">Post Import Mock response</th>
+			<td>
+				<label for="ea_mocker-import-post_import_mock_response">
+					Paste a JSON representation of the post import request response array here to mock it; if blank the import response will not be mocked. </label>
+				<textarea name="ea_mocker-import-post_import_mock_response"
+						  id="ea_mocker-import-post_import_mock_response"
+						  class="json"
+						  cols="30"
+						  rows="20"
+				><?php echo get_option( 'ea_mocker-import-post_import_mock_response' ); ?></textarea>
+				<button class="button-secondary insert-default" data-slug="queued">Queued (success)</button>
+				<div class="default" data-slug="queued"><?php echo json_encode( $this->examples['post_import']['queued'] ); ?></div>
 			</td>
 		</tr>
 
