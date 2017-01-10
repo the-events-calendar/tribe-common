@@ -34,6 +34,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options
 				</label>
 				<textarea name="ea_mocker-origins-mock_response"
 						  id="ea_mocker-origins-mock_response"
+						  class="json"
 						  cols="30"
 						  rows="10"
 				><?php echo get_option( 'ea_mocker-origins-mock_response' ); ?></textarea>

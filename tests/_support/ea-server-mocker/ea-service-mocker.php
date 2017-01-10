@@ -75,6 +75,7 @@ class Tribe__Events__Aggregator_Mocker {
 	}
 
 	public function enqueue_scripts() {
+		wp_enqueue_script( 'ea-mocker-js', plugin_dir_url( __FILE__ ) . '/js/ea-mocker.js', array( 'jquery' ) );
 		wp_enqueue_style( 'ea-mocker-style', plugin_dir_url( __FILE__ ) . '/css/ea-mocker-style.css' );
 	}
 
