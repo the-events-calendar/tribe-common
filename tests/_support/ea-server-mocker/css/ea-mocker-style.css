@@ -6,5 +6,7 @@
 #ea-mocker textarea {
   clear: both;
   width: 100%; }
+#ea-mocker .default {
+  display: none; }
 
 /*# sourceMappingURL=ea-mocker-style.css.map */
