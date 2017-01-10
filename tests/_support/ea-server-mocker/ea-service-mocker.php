@@ -29,7 +29,7 @@ class Tribe__Events__Aggregator_Mocker {
 	 * @var Tribe__Events__Aggregator_Mocker__Option_Provider_Interface[]
 	 */
 	protected static $option_providers = array(
-			'Tribe__Events__Aggregator_Mocker__Service_Options',
+		'Tribe__Events__Aggregator_Mocker__Service_Options',
 	);
 
 	/**
