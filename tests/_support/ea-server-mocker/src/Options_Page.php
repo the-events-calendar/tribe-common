@@ -22,9 +22,11 @@ class Tribe__Events__Aggregator_Mocker__Options_Page {
 
 		if ( ! empty( $settings ) ) {
 			foreach ( $settings as $setting ) {
-				register_setting( 'ea-mocker', $setting );
+				register_setting( 'ea_mocker', $setting );
 			}
 		}
+
+		register_setting( 'ea_mocker', 'ea_mocker-enable' );
 	}
 
 	public function render() {
@@ -32,9 +34,20 @@ class Tribe__Events__Aggregator_Mocker__Options_Page {
 		<div class="wrap">
 			<h1>Event Aggregator Server Mocker Settings</h1>
 			<form method="post" action="options.php" id="ea-mocker">
-				<?php settings_fields( 'ea-mocker' ); ?>
-				<?php do_settings_sections( 'ea-mocker' ); ?>
+				<?php settings_fields( 'ea_mocker' ); ?>
+				<?php do_settings_sections( 'ea_mocker' ); ?>
 				<table class="form-table">
+
+					<tr valign="top">
+						<th scope="row">Enable mocking</th>
+						<td>
+							<label>
+								<input type="checkbox" value="yes" name="ea_mocker-enable" <?php checked('yes',get_option('ea_mocker-enable')); ?>>
+								Enable server mocking
+							</label>
+						</td>
+					</tr>
+
 					<?php
 					/**
 					 * Use this action to print your settings.

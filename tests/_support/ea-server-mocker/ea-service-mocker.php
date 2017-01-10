@@ -52,6 +52,7 @@ class Tribe__Events__Aggregator_Mocker {
 				delete_option( $option );
 			}
 		}
+		delete_option( 'ea_mocker-enable' );
 	}
 
 	public function autoload( $class ) {
@@ -64,14 +65,25 @@ class Tribe__Events__Aggregator_Mocker {
 	}
 
 	public function mock() {
-		add_action( 'tribe_events_bound_implementations', array( $this, 'replace_bindings' ) );
 		$this->hook();
+
+		if ( empty( get_option( 'ea_mocker-enable' ) ) ) {
+			return;
+		}
+
+		add_action( 'tribe_events_bound_implementations', array( $this, 'replace_bindings' ) );
 	}
 
 	protected function hook() {
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Options_Page(), 'hook' ) );
-		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Service_Options(), 'hook' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
+		if ( empty( get_option( 'ea_mocker-enable' ) ) ) {
+			return;
+		}
+
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Service_Options(), 'hook' ) );
+		add_action( 'admin_notices', array( new Tribe__Events__Aggregator_Mocker__Notices(), 'render' ) );
 	}
 
 	public function enqueue_scripts() {
