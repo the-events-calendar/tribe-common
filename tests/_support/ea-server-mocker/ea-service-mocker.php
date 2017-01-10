@@ -66,7 +66,7 @@ class Tribe__Events__Aggregator_Mocker {
 	public function mock() {
 		$this->hook();
 
-		if ( empty( get_option( 'ea_mocker-enable' ) ) ) {
+		if ( $this->is_disabled() ) {
 			return;
 		}
 
@@ -77,7 +77,7 @@ class Tribe__Events__Aggregator_Mocker {
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Options_Page(), 'hook' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-		if ( empty( get_option( 'ea_mocker-enable' ) ) ) {
+		if ( $this->is_disabled() ) {
 			return;
 		}
 
@@ -98,7 +98,7 @@ class Tribe__Events__Aggregator_Mocker {
 		foreach ( $this->bindings_providers as $provider ) {
 			$enable_on = $provider::enable_on();
 			$enabled = false;
-			if ( $enable_on === true ) {
+			if ( true === $enable_on ) {
 				$provider::bind();
 				continue;
 			}
@@ -112,5 +112,14 @@ class Tribe__Events__Aggregator_Mocker {
 
 			$provider::bind();
 		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function is_disabled() {
+		$enabled = get_option( 'ea_mocker-enable' );
+
+		return empty( $enabled );
 	}
 }

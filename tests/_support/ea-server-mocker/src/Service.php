@@ -34,9 +34,12 @@ class Tribe__Events__Aggregator_Mocker__Service
 	 * @return array
 	 */
 	public function get_origins() {
-		if ( ! empty( get_option( 'ea_mocker-origins-mock_response' ) ) ) {
-			return json_decode( get_option( 'ea_mocker-origins-mock_response' ) );
+		$mocked_response = get_option( 'ea_mocker-origins-mock_response' );
+		if ( ! empty( $mocked_response ) ) {
+			return json_decode( $mocked_response );
 		}
+
+		return parent::get_origins();
 	}
 
 	/**
@@ -47,9 +50,12 @@ class Tribe__Events__Aggregator_Mocker__Service
 	 * @return stdClass|WP_Error
 	 */
 	public function get_import( $import_id ) {
-		if ( ! empty( json_decode( get_option( 'ea_mocker-import-mock_response' ) ) ) ) {
-			return json_decode( get_option( 'ea_mocker-import-mock_response' ) );
+		$mocked_response = get_option( 'ea_mocker-import-mock_response' );
+		if ( ! empty( $mocked_response ) ) {
+			return json_decode( $mocked_response );
 		}
+
+		return parent::get_import( $import_id );
 	}
 
 	/**

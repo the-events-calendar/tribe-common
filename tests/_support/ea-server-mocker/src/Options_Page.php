@@ -9,7 +9,13 @@ class Tribe__Events__Aggregator_Mocker__Options_Page {
 	}
 
 	public function register_menu() {
-		add_menu_page( 'Event Aggregator Server Mocker', 'EA Mocker', 'administrator', 'ea-mocker', array( $this, 'render' ) );
+		add_menu_page(
+				'Event Aggregator Server Mocker',
+				'EA Mocker',
+				'administrator',
+				'ea-mocker',
+				array( $this, 'render' )
+		);
 	}
 
 	public function register_settings() {
