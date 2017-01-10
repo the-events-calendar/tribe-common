@@ -14,6 +14,7 @@ add_action( 'plugins_loaded', array( $mocker, 'mock' ), -1 );
 
 register_deactivation_hook( __FILE__, array( 'Tribe__Events__Aggregator_Mocker', 'deactivate' ) );
 
+require_once dirname( __FILE__ ) . '/src/functions.php';
 
 class Tribe__Events__Aggregator_Mocker {
 

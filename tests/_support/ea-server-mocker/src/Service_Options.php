@@ -84,17 +84,104 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				),
 			),
 			'one_active'   => array(
-				array(
-					'origin' => array(
-						0 => array(
-							'id'       => 'some-source',
-							'name'     => 'Some Source',
-							'disabled' => false,
-						),
+				'origin' => array(
+					0 => array(
+						'id'       => 'some-source',
+						'name'     => 'Some Source',
+						'disabled' => false,
 					),
-				)
+				),
 			)
 		);
+
+	public function __construct() {
+		$this->examples['fetching'] = set_object_state( array(
+			'status'       => 'fetching',
+			'message_code' => 'fetching',
+			'message'      => 'The import is in progress.',
+			'data'         => set_object_state( array(
+				'import_id' => '7cb60ba64ad6f3f807e90b561d62de02b6e2306525472c0e8ba6867ed4b6d38e',
+			) ),
+		) );
+
+		$this->examples['no_events'] = set_object_state( array(
+			'status'       => 'success',
+			'message_code' => 'success:import-complete',
+			'message'      => 'Import is complete',
+			'data'         => set_object_state( array(
+				'import_id'   => 'ab9fc1664e97c20926ea03da53b13d92943ec56df290ba1c24f0b92b6ed7e463',
+				'source_name' => 'Test calendar',
+				'events'      => array(),
+			) ),
+		) );
+
+		$next_month = date( 'Y-m', strtotime( '+1 month' ) );
+		$this->examples['three_events'] = ea_mocker_template( set_object_state( array(
+			'status'       => 'success',
+			'message_code' => 'success:import-complete',
+			'message'      => 'Import is complete',
+			'data'         => set_object_state( array(
+				'import_id'   => 'ab9fc1664e97c20926ea03da53b13d92943ec56df290ba1c24f0b92b6ed7e463',
+				'source_name' => 'Test calendar',
+				'events'      => array(
+					0 => set_object_state( array(
+						'title'          => 'Event 001',
+						'description'    => '',
+						'start_date'     => '{{nextMonth}}-12',
+						'end_date'       => '{{nextMonth}}-12',
+						'start_hour'     => '09',
+						'end_hour'       => '12',
+						'start_minute'   => '00',
+						'end_minute'     => '00',
+						'timezone'       => 'Europe/Rome',
+						'url'            => '',
+						'venue'          => set_object_state( array(
+							'venue' => '',
+						) ),
+						'uid'            => 'qepjt972ptir73oc5d7oi6drgg@google.com0',
+						'start_date_utc' => '{{nextMonth}}-12 08:00:00',
+						'end_date_utc'   => '{{nextMonth}}-12 11:00:00',
+					) ),
+					1 => set_object_state( array(
+						'title'          => 'Event 002',
+						'description'    => '',
+						'start_date'     => '{{nextMonth}}-13',
+						'end_date'       => '{{nextMonth}}-13',
+						'start_hour'     => '09',
+						'end_hour'       => '14',
+						'start_minute'   => '00',
+						'end_minute'     => '30',
+						'timezone'       => 'Europe/Rome',
+						'url'            => '',
+						'venue'          => set_object_state( array(
+							'venue' => '',
+						) ),
+						'uid'            => 'ujhsklpa0mo32q1421n5lh707s@google.com0',
+						'start_date_utc' => '{{nextMonth}}-13 08:00:00',
+						'end_date_utc'   => '{{nextMonth}}-13 13:30:00',
+					) ),
+					2 => set_object_state( array(
+						'title'          => 'Event 003',
+						'description'    => '',
+						'start_date'     => '{{nextMonth}}-14',
+						'end_date'       => '{{nextMonth}}-14',
+						'start_hour'     => '09',
+						'end_hour'       => '16',
+						'start_minute'   => '00',
+						'end_minute'     => '00',
+						'timezone'       => 'Europe/Rome',
+						'url'            => '',
+						'venue'          => set_object_state( array(
+							'venue' => '',
+						) ),
+						'uid'            => 'gbj09k3es51a50u59jidccsag8@google.com0',
+						'start_date_utc' => '{{nextMonth}}-14 08:00:00',
+						'end_date_utc'   => '{{nextMonth}}-14 15:00:00',
+					) ),
+				),
+			) ),
+		) ), array( 'nextMonth' => $next_month ) );
+	}
 
 	/**
 	 * Returns an array of options the class uses.
@@ -102,6 +189,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 	public static function provides_options() {
 		return array(
 			'ea_mocker-origins-mock_response',
+			'ea_mocker-origins-mock_import_response',
 		);
 	}
 
@@ -132,12 +220,34 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				><?php echo get_option( 'ea_mocker-origins-mock_response' ); ?></textarea>
 				<button class="button-secondary insert-default" data-slug="all_active">All active</button>
 				<div class="default" data-slug="all_active"><?php echo json_encode( $this->examples['all_active'] ); ?></div>
-				<button class="button-secondary insert-default" data-slug="all_inactive">One active</button>
+				<button class="button-secondary insert-default" data-slug="all_inactive">All inactive</button>
 				<div class="default" data-slug="all_inactive"><?php echo json_encode( $this->examples['all_inactive'] ); ?></div>
 				<button class="button-secondary insert-default" data-slug="one_active">One active</button>
 				<div class="default" data-slug="one_active"><?php echo json_encode( $this->examples['one_active'] ); ?></div>
 			</td>
 		</tr>
+
+		<tr valign="top">
+			<th scope="row">Import Mock response</th>
+			<td>
+				<label for="ea_mocker-import-mock_response">
+					Paste a JSON representation of the import request response array here to mock it; if blank the import response will not be mocked.
+				</label>
+				<textarea name="ea_mocker-import-mock_response"
+						  id="ea_mocker-import-mock_response"
+						  class="json"
+						  cols="30"
+						  rows="20"
+				><?php echo get_option( 'ea_mocker-origins-mock_import_response' ); ?></textarea>
+				<button class="button-secondary insert-default" data-slug="fetching">Fetching</button>
+				<div class="default" data-slug="fetching"><?php echo json_encode( $this->examples['fetching'] ); ?></div>
+				<button class="button-secondary insert-default" data-slug="no_events">No Events</button>
+				<div class="default" data-slug="no_events"><?php echo json_encode( $this->examples['no_events'] ); ?></div>
+				<button class="button-secondary insert-default" data-slug="three_events">Three Events</button>
+				<div class="default" data-slug="three_events"><?php echo json_encode( $this->examples['three_events'] ); ?></div>
+			</td>
+		</tr>
+
 		<?php
 	}
 }
