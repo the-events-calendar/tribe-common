@@ -33,6 +33,11 @@ class Tribe__Events__Aggregator_Mocker__Options_Page {
 		?>
 		<div class="wrap">
 			<h1>Event Aggregator Server Mocker Settings</h1>
+
+			<p>This tool <strong>will not</strong> delete existing transients and options: that's on purpose to allow you to set up complex fixtures.</p>
+			<p>If you do not know what you are doing (exactly) but want to experiment: if things go downhill deactivate and re-activate the plugin to clear all its data.</p>
+			<p>Just in case: deactivating the plugin <strong>will wipe all its data.</strong></p>
+
 			<form method="post" action="options.php" id="ea-mocker">
 				<?php settings_fields( 'ea_mocker' ); ?>
 				<?php do_settings_sections( 'ea_mocker' ); ?>
@@ -42,7 +47,8 @@ class Tribe__Events__Aggregator_Mocker__Options_Page {
 						<th scope="row">Enable mocking</th>
 						<td>
 							<label>
-								<input type="checkbox" value="yes" name="ea_mocker-enable" <?php checked('yes',get_option('ea_mocker-enable')); ?>>
+								<input type="checkbox" value="yes" name="ea_mocker-enable" <?php checked( 'yes',
+									get_option( 'ea_mocker-enable' ) ); ?>>
 								Enable server mocking
 							</label>
 						</td>
