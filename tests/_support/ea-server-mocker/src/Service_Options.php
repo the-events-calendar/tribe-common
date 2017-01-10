@@ -5,83 +5,83 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 
 	protected $examples = array(
 		'all_active'   => array(
-							'origin' => array(
-							0 => array(
-							'id'       => 'csv',
-							'name'     => 'csv file',
-							'disabled' => false,
-							),
-							1 => array(
-							'id'       => 'facebook',
-							'name'     => 'facebook',
-							'disabled' => false,
-							),
-							2 => array(
-							'id'       => 'gcal',
-							'name'     => 'google calendar',
-							'disabled' => false,
-							),
-							3 => array(
-							'id'       => 'ical',
-							'name'     => 'icalendar',
-							'disabled' => false,
-							),
-							4 => array(
-							'id'       => 'ics',
-							'name'     => 'ics file',
-							'disabled' => false,
-							),
-							5 => array(
-							'id'       => 'meetup',
-							'name'     => 'meetup',
-							'disabled' => false,
-							),
-							6 => array(
-							'id'       => 'url',
-							'name'     => 'other url',
-							'disabled' => false,
-							),
-							),
-							   ),
+			'origin' => array(
+				0 => array(
+					'id'       => 'csv',
+					'name'     => 'csv file',
+					'disabled' => false,
+				),
+				1 => array(
+					'id'       => 'facebook',
+					'name'     => 'facebook',
+					'disabled' => false,
+				),
+				2 => array(
+					'id'       => 'gcal',
+					'name'     => 'google calendar',
+					'disabled' => false,
+				),
+				3 => array(
+					'id'       => 'ical',
+					'name'     => 'icalendar',
+					'disabled' => false,
+				),
+				4 => array(
+					'id'       => 'ics',
+					'name'     => 'ics file',
+					'disabled' => false,
+				),
+				5 => array(
+					'id'       => 'meetup',
+					'name'     => 'meetup',
+					'disabled' => false,
+				),
+				6 => array(
+					'id'       => 'url',
+					'name'     => 'other url',
+					'disabled' => false,
+				),
+			),
+		),
 		'all_inactive' => array(
-							'origin' => array(
-							0 => array(
-							'id'       => 'csv',
-							'name'     => 'csv file',
-							'disabled' => true,
-							),
-							1 => array(
-							'id'       => 'facebook',
-							'name'     => 'facebook',
-							'disabled' => true,
-							),
-							2 => array(
-							'id'       => 'gcal',
-							'name'     => 'google calendar',
-							'disabled' => true,
-							),
-							3 => array(
-							'id'       => 'ical',
-							'name'     => 'icalendar',
-							'disabled' => true,
-							),
-							4 => array(
-							'id'       => 'ics',
-							'name'     => 'ics file',
-							'disabled' => true,
-							),
-							5 => array(
-							'id'       => 'meetup',
-							'name'     => 'meetup',
-							'disabled' => true,
-							),
-							6 => array(
-							'id'       => 'url',
-							'name'     => 'other url',
-							'disabled' => true,
-							),
-							),
-							   ),
+			'origin' => array(
+				0 => array(
+					'id'       => 'csv',
+					'name'     => 'csv file',
+					'disabled' => true,
+				),
+				1 => array(
+					'id'       => 'facebook',
+					'name'     => 'facebook',
+					'disabled' => true,
+				),
+				2 => array(
+					'id'       => 'gcal',
+					'name'     => 'google calendar',
+					'disabled' => true,
+				),
+				3 => array(
+					'id'       => 'ical',
+					'name'     => 'icalendar',
+					'disabled' => true,
+				),
+				4 => array(
+					'id'       => 'ics',
+					'name'     => 'ics file',
+					'disabled' => true,
+				),
+				5 => array(
+					'id'       => 'meetup',
+					'name'     => 'meetup',
+					'disabled' => true,
+				),
+				6 => array(
+					'id'       => 'url',
+					'name'     => 'other url',
+					'disabled' => true,
+				),
+			),
+		),
 		'one_active'   => array(
 			'origin' => array(
 				0 => array(
@@ -91,7 +91,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				),
 			),
 		)
-	);
+		);
 
 	public function __construct() {
 		$this->examples['fetching'] = set_object_state( array(
