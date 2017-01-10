@@ -25,13 +25,17 @@ if ( ! function_exists( 'set_object_state' ) ) {
 }
 
 if ( ! function_exists( 'template' ) ) {
+	/**
+	 * An Handlebars dumb clone to replace occurences of double fenced instances of a word in a template.
+	 *
+	 * @param      array|object|string $template
+	 * @param array                    $data
+	 *
+	 * @return array|object|string
+	 */
 	function ea_mocker_template( $template, array $data = array() ) {
 		if ( empty( $data ) ) {
 			return $template;
-		}
-
-		if ( is_array( $template ) || is_object( $template ) ) {
-			$template = json_encode( (array) $template );
 		}
 
 		$keys = array();
@@ -41,7 +45,14 @@ if ( ! function_exists( 'template' ) ) {
 			$keys[] = '{{' . $data_keys[ $i ] . '}}';
 		}
 
+		if ( is_string( $template ) ) {
+			return str_replace( $keys, array_values( $data ), $template );
+		}
+
+		if ( is_array( $template ) || is_object( $template ) ) {
+			$template = json_encode( (array) $template );
+		}
+
 		return json_decode( str_replace( $keys, array_values( $data ), $template ) );
 	}
 }
-

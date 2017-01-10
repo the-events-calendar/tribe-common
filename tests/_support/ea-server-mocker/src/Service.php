@@ -24,7 +24,7 @@ class Tribe__Events__Aggregator_Mocker__Service
 	public static function enable_on() {
 		return array(
 			'ea_mocker-origins-mock_response',
-			'ea_mocker-origins-mock_import_response',
+			'ea_mocker-import-mock_response',
 		);
 	}
 
@@ -47,8 +47,8 @@ class Tribe__Events__Aggregator_Mocker__Service
 	 * @return stdClass|WP_Error
 	 */
 	public function get_import( $import_id ) {
-		if ( ! empty( json_decode( get_option( 'ea_mocker-origins-mock_import_response' ) ) ) ) {
-			return json_decode( get_option( 'ea_mocker-origins-mock_import_response' ) );
+		if ( ! empty( json_decode( get_option( 'ea_mocker-import-mock_response' ) ) ) ) {
+			return json_decode( get_option( 'ea_mocker-import-mock_response' ) );
 		}
 	}
 

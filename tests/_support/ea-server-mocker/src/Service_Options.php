@@ -3,96 +3,95 @@
 
 class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events__Aggregator_Mocker__Option_Provider_Interface {
 
-	protected $examples
-		= array(
-			'all_active'   => array(
-				'origin' => array(
-					0 => array(
-						'id'       => 'csv',
-						'name'     => 'csv file',
-						'disabled' => false,
-					),
-					1 => array(
-						'id'       => 'facebook',
-						'name'     => 'facebook',
-						'disabled' => false,
-					),
-					2 => array(
-						'id'       => 'gcal',
-						'name'     => 'google calendar',
-						'disabled' => false,
-					),
-					3 => array(
-						'id'       => 'ical',
-						'name'     => 'icalendar',
-						'disabled' => false,
-					),
-					4 => array(
-						'id'       => 'ics',
-						'name'     => 'ics file',
-						'disabled' => false,
-					),
-					5 => array(
-						'id'       => 'meetup',
-						'name'     => 'meetup',
-						'disabled' => false,
-					),
-					6 => array(
-						'id'       => 'url',
-						'name'     => 'other url',
-						'disabled' => false,
-					),
+	protected $examples = array(
+		'all_active'   => array(
+							'origin' => array(
+							0 => array(
+							'id'       => 'csv',
+							'name'     => 'csv file',
+							'disabled' => false,
+							),
+							1 => array(
+							'id'       => 'facebook',
+							'name'     => 'facebook',
+							'disabled' => false,
+							),
+							2 => array(
+							'id'       => 'gcal',
+							'name'     => 'google calendar',
+							'disabled' => false,
+							),
+							3 => array(
+							'id'       => 'ical',
+							'name'     => 'icalendar',
+							'disabled' => false,
+							),
+							4 => array(
+							'id'       => 'ics',
+							'name'     => 'ics file',
+							'disabled' => false,
+							),
+							5 => array(
+							'id'       => 'meetup',
+							'name'     => 'meetup',
+							'disabled' => false,
+							),
+							6 => array(
+							'id'       => 'url',
+							'name'     => 'other url',
+							'disabled' => false,
+							),
+							),
+							   ),
+		'all_inactive' => array(
+							'origin' => array(
+							0 => array(
+							'id'       => 'csv',
+							'name'     => 'csv file',
+							'disabled' => true,
+							),
+							1 => array(
+							'id'       => 'facebook',
+							'name'     => 'facebook',
+							'disabled' => true,
+							),
+							2 => array(
+							'id'       => 'gcal',
+							'name'     => 'google calendar',
+							'disabled' => true,
+							),
+							3 => array(
+							'id'       => 'ical',
+							'name'     => 'icalendar',
+							'disabled' => true,
+							),
+							4 => array(
+							'id'       => 'ics',
+							'name'     => 'ics file',
+							'disabled' => true,
+							),
+							5 => array(
+							'id'       => 'meetup',
+							'name'     => 'meetup',
+							'disabled' => true,
+							),
+							6 => array(
+							'id'       => 'url',
+							'name'     => 'other url',
+							'disabled' => true,
+							),
+							),
+							   ),
+		'one_active'   => array(
+			'origin' => array(
+				0 => array(
+					'id'       => 'some-source',
+					'name'     => 'Some Source',
+					'disabled' => false,
 				),
 			),
-			'all_inactive' => array(
-				'origin' => array(
-					0 => array(
-						'id'       => 'csv',
-						'name'     => 'csv file',
-						'disabled' => true,
-					),
-					1 => array(
-						'id'       => 'facebook',
-						'name'     => 'facebook',
-						'disabled' => true,
-					),
-					2 => array(
-						'id'       => 'gcal',
-						'name'     => 'google calendar',
-						'disabled' => true,
-					),
-					3 => array(
-						'id'       => 'ical',
-						'name'     => 'icalendar',
-						'disabled' => true,
-					),
-					4 => array(
-						'id'       => 'ics',
-						'name'     => 'ics file',
-						'disabled' => true,
-					),
-					5 => array(
-						'id'       => 'meetup',
-						'name'     => 'meetup',
-						'disabled' => true,
-					),
-					6 => array(
-						'id'       => 'url',
-						'name'     => 'other url',
-						'disabled' => true,
-					),
-				),
-			),
-			'one_active'   => array(
-				'origin' => array(
-					0 => array(
-						'id'       => 'some-source',
-						'name'     => 'Some Source',
-						'disabled' => false,
-					),
-				),
-			)
-		);
+		)
+	);
 
 	public function __construct() {
 		$this->examples['fetching'] = set_object_state( array(
@@ -189,7 +188,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 	public static function provides_options() {
 		return array(
 			'ea_mocker-origins-mock_response',
-			'ea_mocker-origins-mock_import_response',
+			'ea_mocker-import-mock_response',
 		);
 	}
 
@@ -201,6 +200,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 	public function settings() {
 		return array(
 			'ea_mocker-origins-mock_response',
+			'ea_mocker-import-mock_response',
 		);
 	}
 
@@ -231,14 +231,13 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			<th scope="row">Import Mock response</th>
 			<td>
 				<label for="ea_mocker-import-mock_response">
-					Paste a JSON representation of the import request response array here to mock it; if blank the import response will not be mocked.
-				</label>
+					Paste a JSON representation of the import request response array here to mock it; if blank the import response will not be mocked. </label>
 				<textarea name="ea_mocker-import-mock_response"
 						  id="ea_mocker-import-mock_response"
 						  class="json"
 						  cols="30"
 						  rows="20"
-				><?php echo get_option( 'ea_mocker-origins-mock_import_response' ); ?></textarea>
+				><?php echo get_option( 'ea_mocker-import-mock_response' ); ?></textarea>
 				<button class="button-secondary insert-default" data-slug="fetching">Fetching</button>
 				<div class="default" data-slug="fetching"><?php echo json_encode( $this->examples['fetching'] ); ?></div>
 				<button class="button-secondary insert-default" data-slug="no_events">No Events</button>

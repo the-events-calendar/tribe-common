@@ -28,20 +28,18 @@ class Tribe__Events__Aggregator_Mocker {
 	 *
 	 * @var Tribe__Events__Aggregator_Mocker__Option_Provider_Interface[]
 	 */
-	protected static $option_providers
-		= array(
+	protected static $option_providers = array(
 			'Tribe__Events__Aggregator_Mocker__Service_Options',
-		);
+	);
 
 	/**
 	 * Adding a class that needs to rebind implementations? Add its name here.
 	 *
 	 * @var array
 	 */
-	protected $bindings_providers
-		= array(
+	protected $bindings_providers = array(
 			'Tribe__Events__Aggregator_Mocker__Service',
-		);
+	);
 
 	/**
 	 * Sweeps and cleans the mess we made.
