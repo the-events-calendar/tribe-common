@@ -229,7 +229,7 @@ protected $import_id = '7cb60ba64ad6f3f807e90b561d62de02b6e2306525472c0e8ba6867e
 			<th scope="row">Import ID generator</th>
 			<td>
 				<label for="ea_mocker-import_id">
-					Generate (or enter) an import ID and replace any occurrence of import ids in the examples with it.
+					Enter or modify an import ID to replace any occurrence of import ids in the current mock values.
 					<div class="inline">
 						<input type="text" value="<?php echo $this->import_id ?>" name="ea_mocker-import_id" id="ea_mocker-import_id">
 						<input type="button"
