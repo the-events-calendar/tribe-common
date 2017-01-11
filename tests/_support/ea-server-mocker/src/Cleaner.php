@@ -35,7 +35,7 @@ class Tribe__Events__Aggregator_Mocker__Cleaner
 				$post_types = array( 'tribe_events', 'tribe-ea-record', 'tribe_venue', 'tribe_organizer' );
 			}
 
-			if ( empty( $post_type ) ) {
+			if ( empty( $post_types ) ) {
 				continue;
 			}
 
@@ -43,13 +43,13 @@ class Tribe__Events__Aggregator_Mocker__Cleaner
 			global $wpdb;
 
 			foreach ( $post_types as $post_type ) {
-				$ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type IN '({$post_type})'" );
+				$ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type ='{$post_type}'" );
 
 				if ( empty( $ids ) ) {
 					continue;
 				}
 
-				$delete_meta = "DELETE pm FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE p.post_type ='({$post_type})'";
+				$delete_meta = "DELETE pm FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE p.post_type = '{$post_type}'";
 				$delete_posts = "DELETE FROM {$wpdb->posts} WHERE post_type ='{$post_type}'";
 
 				$deleted_meta = $wpdb->query( $delete_meta );
