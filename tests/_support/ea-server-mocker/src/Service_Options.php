@@ -192,7 +192,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			'message'      => 'Import is complete',
 			'data'         => set_object_state( array(
 				'import_id'   => $this->import_id,
-				'source_name' => 'Test calendar',
+				'source_name' => 'http://example.com',
 				'events'      => array(
 					0 => set_object_state( array(
 						'ID'             => '23',
