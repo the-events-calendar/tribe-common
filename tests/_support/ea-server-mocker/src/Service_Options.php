@@ -120,7 +120,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 		) );
 
 		$next_month = date( 'Y-m', strtotime( '+1 month' ) );
-		$this->examples['three_events'] = ea_mocker_template( set_object_state( array(
+		$this->examples['ical']['three_events'] = ea_mocker_template( set_object_state( array(
 			'status'       => 'success',
 			'message_code' => 'success:import-complete',
 			'message'      => 'Import is complete',
@@ -175,6 +175,74 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 						'end_minute'     => '00',
 						'timezone'       => 'Europe/Rome',
 						'url'            => '',
+						'venue'          => set_object_state( array(
+							'venue' => '',
+						) ),
+						'uid'            => 'gbj09k3es51a50u59jidccsag8@google.com0',
+						'start_date_utc' => '{{nextMonth}}-14 08:00:00',
+						'end_date_utc'   => '{{nextMonth}}-14 15:00:00',
+					) ),
+				),
+			) ),
+		) ), array( 'nextMonth' => $next_month ) );
+
+		$this->examples['url']['three_events'] = ea_mocker_template( set_object_state( array(
+			'status'       => 'success',
+			'message_code' => 'success:import-complete',
+			'message'      => 'Import is complete',
+			'data'         => set_object_state( array(
+				'import_id'   => $this->import_id,
+				'source_name' => 'Test calendar',
+				'events'      => array(
+					0 => set_object_state( array(
+						'ID'             => '23',
+						'title'          => 'Event 001',
+						'description'    => '',
+						'start_date'     => '{{nextMonth}}-12',
+						'end_date'       => '{{nextMonth}}-12',
+						'start_hour'     => '09',
+						'end_hour'       => '12',
+						'start_minute'   => '00',
+						'end_minute'     => '00',
+						'timezone'       => 'Europe/Rome',
+						'url'            => '',
+						'venue'          => set_object_state( array(
+							'venue' => '',
+						) ),
+						'start_date_utc' => '{{nextMonth}}-12 08:00:00',
+						'end_date_utc'   => '{{nextMonth}}-12 11:00:00',
+					) ),
+					1 => set_object_state( array(
+						'ID'           => '2389',
+						'title'        => 'Event 002',
+						'description'  => '',
+						'start_date'   => '{{nextMonth}}-13',
+						'end_date'     => '{{nextMonth}}-13',
+						'start_hour'   => '09',
+						'end_hour'     => '14',
+						'start_minute' => '00',
+						'end_minute'   => '30',
+						'timezone'     => 'Europe/Rome',
+						'url'          => '',
+						'venue'          => set_object_state( array(
+							'venue' => '',
+						) ),
+						'uid'            => 'ujhsklpa0mo32q1421n5lh707s@google.com0',
+						'start_date_utc' => '{{nextMonth}}-13 08:00:00',
+						'end_date_utc'   => '{{nextMonth}}-13 13:30:00',
+					) ),
+					2 => set_object_state( array(
+						'ID'           => '89',
+						'title'        => 'Event 003',
+						'description'  => '',
+						'start_date'   => '{{nextMonth}}-14',
+						'end_date'     => '{{nextMonth}}-14',
+						'start_hour'   => '09',
+						'end_hour'     => '16',
+						'start_minute' => '00',
+						'end_minute'   => '00',
+						'timezone'     => 'Europe/Rome',
+						'url'          => '',
 						'venue'          => set_object_state( array(
 							'venue' => '',
 						) ),
@@ -294,8 +362,10 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				<div class="default" data-slug="fetching"><?php echo json_encode( $this->examples['fetching'] ); ?></div>
 				<button class="button-secondary insert-default" data-slug="no_events">No Events</button>
 				<div class="default" data-slug="no_events"><?php echo json_encode( $this->examples['no_events'] ); ?></div>
-				<button class="button-secondary insert-default" data-slug="three_events">Three Events</button>
-				<div class="default" data-slug="three_events"><?php echo json_encode( $this->examples['three_events'] ); ?></div>
+				<button class="button-secondary insert-default" data-slug="three_ical_events">Three iCal-like Events</button>
+				<div class="default" data-slug="three_ical_events"><?php echo json_encode( $this->examples['ical']['three_events'] ); ?></div>
+				<button class="button-secondary insert-default" data-slug="three_url_events">Three URL (REST) Events</button>
+				<div class="default" data-slug="three_url_events"><?php echo json_encode( $this->examples['url']['three_events'] ); ?></div>
 			</td>
 		</tr>
 

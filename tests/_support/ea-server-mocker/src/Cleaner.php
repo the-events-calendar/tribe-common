@@ -43,31 +43,33 @@ class Tribe__Events__Aggregator_Mocker__Cleaner
 				continue;
 			}
 
-			$deleted_meta
-				= $wpdb->query( "DELETE pm FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE p.post_type ='{$post_type}'" );
-			$deleted_posts = $wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type ='{$post_type}'" );
+			$delete_meta = "DELETE pm FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE p.post_type ='{$post_type}'";
+			$delete_posts = "DELETE FROM {$wpdb->posts} WHERE post_type ='{$post_type}'";
 
-			$this->deleted[ $post_type ] = array( 'posts' => count( $deleted_posts ), 'meta' => count( $deleted_meta ) );
+			$deleted_meta = $wpdb->query( $delete_meta );
+			$deleted_posts = $wpdb->query( $delete_posts );
+
+			$this->deleted[ $post_type ] = array( 'posts' => $deleted_posts, 'meta' => $deleted_meta );
 		}
 
-		update_option( 'ea_mocker-cleaner-show_notice', true );
+		update_option( 'ea_mocker-cleaner-show_notice', $this->deleted );
 	}
 
 	public function notices() {
-		$show = get_option( 'ea_mocker-cleaner-show_notice' );
+		$option = get_option( 'ea_mocker-cleaner-show_notice' );
 
-		if ( empty($show) || empty( $_GET['settings-updated'] ) || empty( $_GET['page'] ) || 'ea-mocker' !== $_GET['page'] ) {
+		if ( empty( $option ) || empty( $_GET['settings-updated'] ) || empty( $_GET['page'] ) || 'ea-mocker' !== $_GET['page'] ) {
 			return;
 		}
 
 		delete_option( 'ea_mocker-cleaner-show_notice' );
 
-		if ( ! empty( $this->deleted ) ) {
+		if ( ! empty( $option) ) {
 			?>
 			<div class="notice notice-success">
 				<p>Clean results:</p>
 				<ul>
-					<?php foreach ( $this->deleted as $post_type => $count ) : ?>
+					<?php foreach ( $option as $post_type => $count ) : ?>
 						<li><?php printf( "%d <code>%s</code> posts and %d meta entries", $count['posts'], $post_type,
 								$count['meta'] ) ?></li>
 					<?php endforeach; ?>
