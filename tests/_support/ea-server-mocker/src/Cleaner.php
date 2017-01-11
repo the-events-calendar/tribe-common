@@ -8,6 +8,8 @@ class Tribe__Events__Aggregator_Mocker__Cleaner
 
 	protected $clean_on = array(
 		'ea_mocker-clean-events',
+		'ea_mocker-clean-venues',
+		'ea_mocker-clean-organizers',
 		'ea_mocker-clean-ea-records',
 	);
 
