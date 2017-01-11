@@ -56,9 +56,9 @@ class Tribe__Events__Aggregator_Mocker__Cleaner
 	}
 
 	public function notices() {
-		$option = get_option( 'ea_mocker-cleaner-show_notice' );
+		$option = get_option( 'ea_mocker-cleaner-show_notice', false );
 
-		if ( empty( $option ) || empty( $_GET['settings-updated'] ) || empty( $_GET['page'] ) || 'ea-mocker' !== $_GET['page'] ) {
+		if ( false === $option || empty( $_GET['settings-updated'] ) || empty( $_GET['page'] ) || 'ea-mocker' !== $_GET['page'] ) {
 			return;
 		}
 
