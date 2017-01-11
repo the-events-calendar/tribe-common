@@ -7,6 +7,7 @@ class Tribe__Events__Aggregator_Mocker__Cleaner
 	protected $deleted = array();
 
 	protected $clean_on = array(
+		'ea_mocker-clean-all',
 		'ea_mocker-clean-events',
 		'ea_mocker-clean-venues',
 		'ea_mocker-clean-organizers',
@@ -28,7 +29,11 @@ class Tribe__Events__Aggregator_Mocker__Cleaner
 				continue;
 			}
 
-			$post_type = filter_var( $_POST[ $trigger ], FILTER_SANITIZE_STRING );
+			if ( $trigger !== 'ea_mocker-clean-all' ) {
+				$post_types = (array) filter_var( $_POST[ $trigger ], FILTER_SANITIZE_STRING );
+			} else {
+				$post_types = array( 'tribe_events', 'tribe-ea-record', 'tribe_venue', 'tribe_organizer' );
+			}
 
 			if ( empty( $post_type ) ) {
 				continue;
@@ -37,19 +42,21 @@ class Tribe__Events__Aggregator_Mocker__Cleaner
 			/** @var \wpdb $wpdb */
 			global $wpdb;
 
-			$ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type = '{$post_type}'" );
+			foreach ( $post_types as $post_type ) {
+				$ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type IN '({$post_type})'" );
 
-			if ( empty( $ids ) ) {
-				continue;
+				if ( empty( $ids ) ) {
+					continue;
+				}
+
+				$delete_meta = "DELETE pm FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE p.post_type ='({$post_type})'";
+				$delete_posts = "DELETE FROM {$wpdb->posts} WHERE post_type ='{$post_type}'";
+
+				$deleted_meta = $wpdb->query( $delete_meta );
+				$deleted_posts = $wpdb->query( $delete_posts );
+
+				$this->deleted[ $post_type ] = array( 'posts' => $deleted_posts, 'meta' => $deleted_meta );
 			}
-
-			$delete_meta = "DELETE pm FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE p.post_type ='{$post_type}'";
-			$delete_posts = "DELETE FROM {$wpdb->posts} WHERE post_type ='{$post_type}'";
-
-			$deleted_meta = $wpdb->query( $delete_meta );
-			$deleted_posts = $wpdb->query( $delete_posts );
-
-			$this->deleted[ $post_type ] = array( 'posts' => $deleted_posts, 'meta' => $deleted_meta );
 		}
 
 		update_option( 'ea_mocker-cleaner-show_notice', $this->deleted );

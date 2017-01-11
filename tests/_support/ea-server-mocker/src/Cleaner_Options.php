@@ -29,6 +29,7 @@ class Tribe__Events__Aggregator_Mocker__Cleaner_Options {
 					All EA Records (posts of type <code>tribe-ea-record</code> and meta)
 				</label>
 				<input type="submit" class="button-primary" value="Clean">
+				<input type="submit" class="button-primary" value="Clean all" name="ea_mocker-clean-all">
 
 				<?php do_action( 'ea_mocker-cleaner-messages' ); ?>
 
