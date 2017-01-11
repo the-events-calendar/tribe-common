@@ -3,6 +3,11 @@
 
 class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events__Aggregator_Mocker__Option_Provider_Interface {
 
+	/**
+	 * @var string The string itself is of no particular relevance if not as a placeholder.
+	 */
+protected $import_id = '7cb60ba64ad6f3f807e90b561d62de02b6e2306525472c0e8ba6867ed4b6d38e';
+
 	protected $examples = array(
 		'all_active'   => array(
 			'origin' => array(
@@ -99,7 +104,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			'message_code' => 'fetching',
 			'message'      => 'The import is in progress.',
 			'data'         => set_object_state( array(
-				'import_id' => '7cb60ba64ad6f3f807e90b561d62de02b6e2306525472c0e8ba6867ed4b6d38e',
+				'import_id' => $this->import_id,
 			) ),
 		) );
 
@@ -108,7 +113,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			'message_code' => 'success:import-complete',
 			'message'      => 'Import is complete',
 			'data'         => set_object_state( array(
-				'import_id'   => 'ab9fc1664e97c20926ea03da53b13d92943ec56df290ba1c24f0b92b6ed7e463',
+				'import_id'   => $this->import_id,
 				'source_name' => 'Test calendar',
 				'events'      => array(),
 			) ),
@@ -120,7 +125,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			'message_code' => 'success:import-complete',
 			'message'      => 'Import is complete',
 			'data'         => set_object_state( array(
-				'import_id'   => 'ab9fc1664e97c20926ea03da53b13d92943ec56df290ba1c24f0b92b6ed7e463',
+				'import_id'   => $this->import_id,
 				'source_name' => 'Test calendar',
 				'events'      => array(
 					0 => set_object_state( array(
@@ -188,7 +193,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			'message_code' => 'queued',
 			'message'      => 'The import will be starting soon.',
 			'data'         => set_object_state( array(
-				'import_id' => '98aea8827263d1bd55b78e90d43bbd827802f00b98caee076b1cb5627f497aa8',
+				'import_id' => $this->import_id,
 				'position'  => 1,
 			) ),
 		) );
@@ -220,6 +225,23 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 
 	public function fields() {
 		?>
+		<tr valign="top">
+			<th scope="row">Import ID generator</th>
+			<td>
+				<label for="ea_mocker-import_id">
+					Generate (or enter) an import ID and replace any occurrence of import ids in the examples with it.
+					<div class="inline">
+						<input type="text" value="<?php echo $this->import_id ?>" name="ea_mocker-import_id" id="ea_mocker-import_id">
+						<input type="button"
+							   class="button-secondary"
+							   id="ea_mocker-replace_import_id"
+							   value="Replace import id"
+							   data-placeholder="<?php echo $this->import_id ?>">
+					</div>
+				</label>
+			</td>
+		</tr>
+
 		<tr valign="top">
 			<th scope="row">Origins Mock response</th>
 			<td>
