@@ -6,7 +6,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 	/**
 	 * @var string The string itself is of no particular relevance if not as a placeholder.
 	 */
-protected $import_id = '7cb60ba64ad6f3f807e90b561d62de02b6e2306525472c0e8ba6867ed4b6d38e';
+	protected $import_id = '7cb60ba64ad6f3f807e90b561d62de02b6e2306525472c0e8ba6867ed4b6d38e';
 
 	protected $examples = array(
 		'all_active'   => array(
