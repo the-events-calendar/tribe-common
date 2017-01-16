@@ -8,16 +8,15 @@
 
 $mocker = new Tribe__Events__Aggregator_Mocker();
 
-spl_autoload_register(array($mocker, 'autoload'));
+spl_autoload_register( array( $mocker, 'autoload' ) );
 
-add_action('plugins_loaded', array($mocker, 'mock'), -1);
+add_action( 'plugins_loaded', array( $mocker, 'mock' ), - 1 );
 
-register_deactivation_hook(__FILE__, array('Tribe__Events__Aggregator_Mocker', 'deactivate'));
+register_deactivation_hook( __FILE__, array( 'Tribe__Events__Aggregator_Mocker', 'deactivate' ) );
 
-require_once dirname(__FILE__) . '/src/functions.php';
+require_once dirname( __FILE__ ) . '/src/functions.php';
 
-class Tribe__Events__Aggregator_Mocker
-{
+class Tribe__Events__Aggregator_Mocker {
 
 	/**
 	 * Adding a class that uses  options? Add it here.
@@ -48,78 +47,72 @@ class Tribe__Events__Aggregator_Mocker
 	/**
 	 * Sweeps and cleans the mess we made.
 	 */
-	public static function deactivate()
-	{
-		foreach (self::$option_providers as $provider) {
-			$provided = call_user_func(array($provider, 'provides_options'));
-			foreach ($provided as $option) {
-				delete_option($option);
+	public static function deactivate() {
+		foreach ( self::$option_providers as $provider ) {
+			$provided = call_user_func( array( $provider, 'provides_options' ) );
+			foreach ( $provided as $option ) {
+				delete_option( $option );
 			}
 		}
-		delete_option('ea_mocker-enable');
+		delete_option( 'ea_mocker-enable' );
 	}
 
-	public function autoload($class)
-	{
+	public function autoload( $class ) {
 		$prefix = 'Tribe__Events__Aggregator_Mocker__';
-		if (strpos($class, $prefix) === 0) {
-			$class_path = str_replace(array($prefix, '__'), array('', DIRECTORY_SEPARATOR), $class);
+		if ( strpos( $class, $prefix ) === 0 ) {
+			$class_path = str_replace( array( $prefix, '__' ), array( '', DIRECTORY_SEPARATOR ), $class );
 			/** @noinspection PhpIncludeInspection */
-			require dirname(__FILE__) . '/src/' . $class_path . '.php';
+			require dirname( __FILE__ ) . '/src/' . $class_path . '.php';
 		}
 	}
 
-	public function mock()
-	{
+	public function mock() {
 		$this->hook();
 
-		if ($this->is_disabled()) {
+		if ( $this->is_disabled() ) {
 			return;
 		}
 
-		add_action('tribe_events_bound_implementations', array($this, 'replace_bindings'));
+		add_action( 'tribe_events_bound_implementations', array( $this, 'replace_bindings' ) );
 	}
 
-	protected function hook()
-	{
-		add_action('init', array(new Tribe__Events__Aggregator_Mocker__Options_Page(), 'hook'));
-		add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
+	protected function hook() {
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Options_Page(), 'hook' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-		if ($this->is_disabled()) {
+		if ( $this->is_disabled() ) {
 			return;
 		}
 
-		add_action('init', array(new Tribe__Events__Aggregator_Mocker__Service_Options(), 'hook'));
-		add_action('admin_notices', array(new Tribe__Events__Aggregator_Mocker__Notices(), 'render'));
-		add_action('init', array(new Tribe__Events__Aggregator_Mocker__Cleaner(), 'hook'));
-		add_action('init', array(new Tribe__Events__Aggregator_Mocker__Cleaner_Options(), 'hook'));
-		add_action('init', array(new Tribe__Events__Aggregator_Mocker__License_Options(), 'hook'));
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Service_Options(), 'hook' ) );
+		add_action( 'admin_notices', array( new Tribe__Events__Aggregator_Mocker__Notices(), 'render' ) );
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner(), 'hook' ) );
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner_Options(), 'hook' ) );
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__License_Options(), 'hook' ) );
 	}
 
-	public function enqueue_scripts()
-	{
-		wp_enqueue_script('ea-mocker-js', plugin_dir_url(__FILE__) . '/js/ea-mocker.js', array('jquery'));
-		wp_enqueue_style('ea-mocker-style', plugin_dir_url(__FILE__) . '/css/ea-mocker-style.css');
+	public function enqueue_scripts() {
+		wp_enqueue_script( 'ea-mocker-js', plugin_dir_url( __FILE__ ) . '/js/ea-mocker.js', array( 'jquery' ) );
+		wp_enqueue_style( 'ea-mocker-style', plugin_dir_url( __FILE__ ) . '/css/ea-mocker-style.css' );
 	}
 
 	/**
 	 * Replaces container bindings with mocking implementations.
 	 */
-	public function replace_bindings()
-	{
+	public function replace_bindings() {
 		/** @var Tribe__Events__Aggregator_Mocker__Binding_Provider_Interface $provider */
-		foreach ($this->bindings_providers as $provider) {
+		foreach ( $this->bindings_providers as $provider ) {
 			$enable_on = $provider::enable_on();
-			$enabled = false;
-			if (true === $enable_on) {
+			$enabled   = false;
+			if ( true === $enable_on ) {
 				$provider::bind();
 				continue;
 			}
 
-			foreach ($enable_on as $option) {
-				$enabled = $enabled || (bool)get_option($option);
+			foreach ( $enable_on as $option ) {
+				$enabled = $enabled || (bool) get_option( $option );
 			}
-			if (!$enabled) {
+			if ( ! $enabled ) {
 				continue;
 			}
 
@@ -130,10 +123,9 @@ class Tribe__Events__Aggregator_Mocker
 	/**
 	 * @return bool
 	 */
-	protected function is_disabled()
-	{
-		$enabled = get_option('ea_mocker-enable');
+	protected function is_disabled() {
+		$enabled = get_option( 'ea_mocker-enable' );
 
-		return empty($enabled);
+		return empty( $enabled );
 	}
 }
