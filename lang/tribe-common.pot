@@ -1,18 +1,23 @@
-# Copyright (C) 2016 Tribe Common 4.3.4
-# This file is distributed under the same license as the Tribe Common 4.3.4 package.
+# Copyright (C) 2017 Tribe Common 4.4.0
+# This file is distributed under the same license as the Tribe Common 4.4.0 package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.3.4\n"
+"Project-Id-Version: Tribe Common 4.4.0\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"X-Generated-Time: 2017-01-05T22:55:29.339Z\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: common\n"
+"X-Poedit-SearchPathExcluded-2: lang\n"
+"X-Poedit-SearchPathExcluded-3: tests\n"
+"X-Poedit-SearchPathExcluded-4: vendor\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/admin-views/app-shop.php:4
@@ -43,19 +48,19 @@ msgstr ""
 msgid "Logging level"
 msgstr ""
 
-#: src/admin-views/event-log.php:39
+#: src/admin-views/event-log.php:43
 msgid "Method"
 msgstr ""
 
-#: src/admin-views/event-log.php:57
+#: src/admin-views/event-log.php:65
 msgid "View"
 msgstr ""
 
-#: src/admin-views/event-log.php:88
+#: src/admin-views/event-log.php:100
 msgid "The selected log file is empty or has not been generated yet."
 msgstr ""
 
-#: src/admin-views/event-log.php:105
+#: src/admin-views/event-log.php:117
 msgid "Download log"
 msgstr ""
 
@@ -195,7 +200,7 @@ msgstr ""
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:43, src/Tribe/Main.php:206
+#: src/admin-views/tribe-options-help.php:43, src/Tribe/Main.php:219
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -267,7 +272,7 @@ msgstr ""
 msgid "Go to WordPress Updates page"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:48
+#: src/Tribe/Admin/Help_Page.php:48, src/Tribe/Customizer.php:565
 msgid "The Events Calendar"
 msgstr ""
 
@@ -459,6 +464,10 @@ msgstr ""
 msgid "Rate %1$sEvent Tickets%2$s %3$s"
 msgstr ""
 
+#: src/Tribe/Customizer.php:566
+msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
+msgstr ""
+
 #: src/Tribe/Extension.php:144
 msgid "Tutorial"
 msgstr ""
@@ -467,19 +476,19 @@ msgstr ""
 msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
 msgstr ""
 
-#: src/Tribe/Field.php:210
+#: src/Tribe/Field.php:227
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:482
+#: src/Tribe/Field.php:522
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:518
+#: src/Tribe/Field.php:558
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:574
+#: src/Tribe/Field.php:615
 msgid "No select options specified"
 msgstr ""
 
@@ -521,116 +530,144 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:207
+#: src/Tribe/Main.php:220
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:208
+#: src/Tribe/Main.php:221
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:225
+#: src/Tribe/Main.php:239
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:226
+#: src/Tribe/Main.php:240
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:228
+#: src/Tribe/Main.php:242
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:229
+#: src/Tribe/Main.php:243
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:230
+#: src/Tribe/Main.php:244
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:231
+#: src/Tribe/Main.php:245
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:232
+#: src/Tribe/Main.php:246
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:233
+#: src/Tribe/Main.php:247
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:234
+#: src/Tribe/Main.php:248
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:236
+#: src/Tribe/Main.php:250
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:237
+#: src/Tribe/Main.php:251
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:238
+#: src/Tribe/Main.php:252
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:257
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:258
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:422
+#: src/Tribe/PUE/Checker.php:425, src/Tribe/PUE/Checker.php:437
 msgid "License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:423
+#: src/Tribe/PUE/Checker.php:426, src/Tribe/PUE/Checker.php:438, src/Tribe/PUE/Checker.php:469
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:505
+#: src/Tribe/PUE/Checker.php:447, src/Tribe/PUE/Checker.php:483
+msgid "License Key Status:"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:456
+msgid "Override network license key"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:457
+msgid "Check this box if you wish to override the network license key with your own"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:468
+msgid "Site License Key"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:566
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:514
+#: src/Tribe/PUE/Checker.php:583
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:549
+#: src/Tribe/PUE/Checker.php:618
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:555
+#: src/Tribe/PUE/Checker.php:624
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:568
+#: src/Tribe/PUE/Checker.php:642
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:573
+#: src/Tribe/PUE/Checker.php:651
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:598, src/Tribe/PUE/Notices.php:267
+#: src/Tribe/PUE/Checker.php:676, src/Tribe/PUE/Notices.php:267
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:600, src/Tribe/PUE/Notices.php:269
+#: src/Tribe/PUE/Checker.php:678, src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:626
+#: src/Tribe/PUE/Checker.php:704
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:653
+#: src/Tribe/PUE/Checker.php:760
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:1311
+msgid "A valid license has been entered by your network administrator."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:1312
+msgid "No license entered. Consult your network administrator."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:1313
+msgid "Expired license. Consult your network administrator."
 msgstr ""
 
 #: src/Tribe/PUE/Notices.php:221
@@ -680,53 +717,57 @@ msgstr ""
 msgid "There are no fields setup for this tab yet."
 msgstr ""
 
-#: src/Tribe/Settings.php:148, src/Tribe/Settings.php:204, src/Tribe/Settings.php:205
+#: src/Tribe/Settings.php:165, src/Tribe/Settings.php:229, src/Tribe/Settings.php:230
 msgid "Events"
 msgstr ""
 
-#: src/Tribe/Settings.php:216, src/Tribe/Settings.php:236, src/Tribe/Settings.php:236
+#: src/Tribe/Settings.php:241, src/Tribe/Settings.php:261, src/Tribe/Settings.php:261
 msgid "Events Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:217
+#: src/Tribe/Settings.php:242
 msgid "Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:301
+#: src/Tribe/Settings.php:269, src/Tribe/Settings.php:270
+msgid "Events Help"
+msgstr ""
+
+#: src/Tribe/Settings.php:338
 msgid "%s Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:315
+#: src/Tribe/Settings.php:352
 msgid "You've requested a non-existent tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:323
+#: src/Tribe/Settings.php:360
 msgid "Save Changes"
 msgstr ""
 
-#: src/Tribe/Settings.php:371
+#: src/Tribe/Settings.php:408
 msgid "You don't have permission to do that."
 msgstr ""
 
-#: src/Tribe/Settings.php:377
+#: src/Tribe/Settings.php:414
 msgid "The request was sent insecurely."
 msgstr ""
 
-#: src/Tribe/Settings.php:383
+#: src/Tribe/Settings.php:420
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:550
+#: src/Tribe/Settings.php:587
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: src/Tribe/Settings.php:561
+#: src/Tribe/Settings.php:598
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Settings.php:583
+#: src/Tribe/Settings.php:620
 msgid "Settings saved."
 msgstr ""
 
