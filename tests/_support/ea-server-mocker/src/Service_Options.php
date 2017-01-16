@@ -118,8 +118,8 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				'import_id' => $this->import_id,
 				'source_name' => 'Test calendar',
 				'events' => array(),
+				'origin' => '{{origin}}',
 			) ),
-			'origin' => '{{origin}}',
 		) );
 
 		$next_month = date( 'Y-m', strtotime( '+1 month' ) );
@@ -130,6 +130,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			'data' => set_object_state( array(
 				'import_id' => $this->import_id,
 				'source_name' => 'Test calendar',
+				'origin' => 'ical',
 				'events' => array(
 					0 => set_object_state( array(
 						'title' => 'Event 001',
@@ -187,7 +188,6 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 					) ),
 				),
 			) ),
-			'origin' => 'ical',
 		) ), array( 'nextMonth' => $next_month ) );
 
 		$this->examples['url']['three_events'] = ea_mocker_template( set_object_state( array(
@@ -197,6 +197,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			'data' => set_object_state( array(
 				'import_id' => $this->import_id,
 				'source_name' => 'http://example.com',
+				'origin' => 'url',
 				'events' => array(
 					0 => set_object_state( array(
 						'ID' => '23',
@@ -256,7 +257,6 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 					) ),
 				),
 			) ),
-			'origin' => 'url',
 		) ), array( 'nextMonth' => $next_month ) );
 
 		$this->examples['post_import'] = array();
@@ -280,8 +280,8 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 					'import_id' => $this->import_id,
 					'iCalParsingError' => 10,
 					'iCalContents' => 'Not what we expected',
+					'origin' => 'ical',
 				) ),
-			'origin' => 'ical',
 		) );
 
 		$this->examples['errors']['rest-error'] = set_object_state( array(
@@ -291,8 +291,8 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			'data' =>
 				set_object_state( array(
 					'import_id' => $this->import_id,
+					'origin' => 'url',
 				) ),
-			'origin' => 'url',
 		) );
 	}
 
