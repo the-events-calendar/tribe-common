@@ -20,11 +20,11 @@ class Tribe__Events__Aggregator_Mocker__License_Options
 		add_action('ea_mocker-options_form', array($this, 'fields'), 4);
 	}
 
-	public function settings()
+	public function settings(array $settings)
 	{
-		return array(
+		return array_merge( $settings, array(
 			'ea_mocker-license-mock_enabled',
-		);
+		) );
 	}
 
 	public function fields()
@@ -38,7 +38,7 @@ class Tribe__Events__Aggregator_Mocker__License_Options
 						type="checkbox"
 						name="ea_mocker-license-mock_enabled"
 						value="yes"
-						<?php checked('yes', get_option('ea_mocker-license-mock_enabled')) ?>
+						<?php checked( 'yes', get_option( 'ea_mocker-license-mock_enabled' ) ) ?>
 					>
 					Will mock the license key and short-circuit the check.
 				</label>

@@ -271,7 +271,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			) ),
 		) );
 
-		$this->examples['erors']['ical-invalid-url'] = set_object_state( array(
+		$this->examples['errors']['ical-invalid-url'] = set_object_state( array(
 			'status' => 'error',
 			'message_code' => 'error:invalid-ical-url',
 			'message' => 'The URL provided did not have events in the proper format.',
@@ -314,13 +314,13 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 		add_action( 'ea_mocker-options_form', array( $this, 'fields' ) );
 	}
 
-	public function settings()
+	public function settings( array $settings = array() )
 	{
-		return array(
+		return array_merge( $settings, array(
 			'ea_mocker-origins-mock_response',
 			'ea_mocker-import-mock_response',
 			'ea_mocker-import-post_import_mock_response',
-		);
+		) );
 	}
 
 	public function fields()
@@ -403,7 +403,8 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				<div class="default" data-slug="fetching"><?php echo json_encode( $this->examples['fetching'] ); ?></div>
 
 				<button class="button-secondary insert-default" data-slug="no_events">No Events</button>
-				<div class="default" data-slug="no_events"><?php echo json_encode( ea_mocker_template( $this->examples['no_events'], array( 'origin' => 'ical' ) ) ); ?></div>
+				<div class="default"
+					 data-slug="no_events"><?php echo json_encode( ea_mocker_template( $this->examples['no_events'], array( 'origin' => 'ical' ) ) ); ?></div>
 
 				<button class="button-secondary insert-default" data-slug="three_ical_events">Three iCal-like Events</button>
 				<div class="default" data-slug="three_ical_events"><?php echo json_encode( $this->examples['ical']['three_events'] ); ?></div>
@@ -412,10 +413,12 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				<div class="default" data-slug="three_url_events"><?php echo json_encode( $this->examples['url']['three_events'] ); ?></div>
 
 				<button class="button-secondary insert-default" data-slug="rest_no_events">No URL (REST) Events</button>
-				<div class="default" data-slug="rest_no_events"><?php echo json_encode( ea_mocker_template( $this->examples['no_events'], array( 'origin' => 'url' ) ) ); ?></div>
+				<div class="default"
+					 data-slug="rest_no_events"><?php echo json_encode( ea_mocker_template( $this->examples['no_events'], array( 'origin' => 'url' ) ) ); ?></div>
 
 				<button class="button-secondary insert-default" data-slug="ical_error_invalid_url">Invalid iCal URL error</button>
-				<div class="default" data-slug="ical_error_invalid_url"><?php echo json_encode( $this->examples['errors']['invalid-ical-url'] ); ?></div>
+				<div class="default"
+					 data-slug="ical_error_invalid_url"><?php echo json_encode( $this->examples['errors']['ical-invalid-url'] ); ?></div>
 
 				<button class="button-secondary insert-default" data-slug="rest_error">URL (REST) error</button>
 				<div class="default" data-slug="rest_error"><?php echo json_encode( $this->examples['errors']['rest-error'] ); ?></div>
