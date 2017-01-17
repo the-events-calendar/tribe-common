@@ -6,10 +6,18 @@
     margin-bottom : .3em;
   }
   textarea {
-    clear     : both;
-    width     : 100%;
+    clear : both;
+    width : 100%;
   }
-  .default{
+  .default {
     display : none;
+  }
+  .inline {
+    input[type="text"] {
+      width :80%;
+    }
+    input[type="button"]{
+      margin-left: .3em;
+    }
   }
 }

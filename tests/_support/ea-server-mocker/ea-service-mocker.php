@@ -30,6 +30,7 @@ class Tribe__Events__Aggregator_Mocker {
 	 */
 	protected static $option_providers = array(
 		'Tribe__Events__Aggregator_Mocker__Service_Options',
+		'Tribe__Events__Aggregator_Mocker__Cleaner',
 	);
 
 	/**
@@ -38,7 +39,8 @@ class Tribe__Events__Aggregator_Mocker {
 	 * @var array
 	 */
 	protected $bindings_providers = array(
-			'Tribe__Events__Aggregator_Mocker__Service',
+		'Tribe__Events__Aggregator_Mocker__Service',
+		'Tribe__Events__Aggregator_Mocker__Cleaner',
 	);
 
 	/**
@@ -83,6 +85,8 @@ class Tribe__Events__Aggregator_Mocker {
 
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Service_Options(), 'hook' ) );
 		add_action( 'admin_notices', array( new Tribe__Events__Aggregator_Mocker__Notices(), 'render' ) );
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner(), 'hook' ) );
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner_Options(), 'hook' ) );
 	}
 
 	public function enqueue_scripts() {

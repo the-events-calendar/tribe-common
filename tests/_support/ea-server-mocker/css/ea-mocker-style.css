@@ -8,5 +8,9 @@
   width: 100%; }
 #ea-mocker .default {
   display: none; }
+#ea-mocker .inline input[type="text"] {
+  width: 80%; }
+#ea-mocker .inline input[type="button"] {
+  margin-left: .3em; }
 
 /*# sourceMappingURL=ea-mocker-style.css.map */
