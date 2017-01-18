@@ -96,7 +96,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				),
 			),
 		)
-		);
+	);
 
 	public function __construct() {
 		$this->examples['fetching'] = set_object_state( array(
@@ -116,10 +116,11 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				'import_id'   => $this->import_id,
 				'source_name' => 'Test calendar',
 				'events'      => array(),
+				'origin'      => '{{origin}}',
 			) ),
 		) );
 
-		$next_month = date( 'Y-m', strtotime( '+1 month' ) );
+		$next_month                             = date( 'Y-m', strtotime( '+1 month' ) );
 		$this->examples['ical']['three_events'] = ea_mocker_template( set_object_state( array(
 			'status'       => 'success',
 			'message_code' => 'success:import-complete',
@@ -127,6 +128,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			'data'         => set_object_state( array(
 				'import_id'   => $this->import_id,
 				'source_name' => 'Test calendar',
+				'origin'      => 'ical',
 				'events'      => array(
 					0 => set_object_state( array(
 						'title'          => 'Event 001',
@@ -193,6 +195,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			'data'         => set_object_state( array(
 				'import_id'   => $this->import_id,
 				'source_name' => 'http://example.com',
+				'origin'      => 'url',
 				'events'      => array(
 					0 => set_object_state( array(
 						'ID'             => '23',
@@ -213,17 +216,17 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 						'end_date_utc'   => '{{nextMonth}}-12 11:00:00',
 					) ),
 					1 => set_object_state( array(
-						'ID'           => '2389',
-						'title'        => 'Event 002',
-						'description'  => '',
-						'start_date'   => '{{nextMonth}}-13',
-						'end_date'     => '{{nextMonth}}-13',
-						'start_hour'   => '09',
-						'end_hour'     => '14',
-						'start_minute' => '00',
-						'end_minute'   => '30',
-						'timezone'     => 'Europe/Rome',
-						'url'          => '',
+						'ID'             => '2389',
+						'title'          => 'Event 002',
+						'description'    => '',
+						'start_date'     => '{{nextMonth}}-13',
+						'end_date'       => '{{nextMonth}}-13',
+						'start_hour'     => '09',
+						'end_hour'       => '14',
+						'start_minute'   => '00',
+						'end_minute'     => '30',
+						'timezone'       => 'Europe/Rome',
+						'url'            => '',
 						'venue'          => set_object_state( array(
 							'venue' => '',
 						) ),
@@ -232,17 +235,17 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 						'end_date_utc'   => '{{nextMonth}}-13 13:30:00',
 					) ),
 					2 => set_object_state( array(
-						'ID'           => '89',
-						'title'        => 'Event 003',
-						'description'  => '',
-						'start_date'   => '{{nextMonth}}-14',
-						'end_date'     => '{{nextMonth}}-14',
-						'start_hour'   => '09',
-						'end_hour'     => '16',
-						'start_minute' => '00',
-						'end_minute'   => '00',
-						'timezone'     => 'Europe/Rome',
-						'url'          => '',
+						'ID'             => '89',
+						'title'          => 'Event 003',
+						'description'    => '',
+						'start_date'     => '{{nextMonth}}-14',
+						'end_date'       => '{{nextMonth}}-14',
+						'start_hour'     => '09',
+						'end_hour'       => '16',
+						'start_minute'   => '00',
+						'end_minute'     => '00',
+						'timezone'       => 'Europe/Rome',
+						'url'            => '',
 						'venue'          => set_object_state( array(
 							'venue' => '',
 						) ),
@@ -265,6 +268,30 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				'position'  => 1,
 			) ),
 		) );
+
+		$this->examples['errors']['ical-invalid-url'] = set_object_state( array(
+			'status'       => 'error',
+			'message_code' => 'error:invalid-ical-url',
+			'message'      => 'The URL provided did not have events in the proper format.',
+			'data'         =>
+				set_object_state( array(
+					'import_id'        => $this->import_id,
+					'iCalParsingError' => 10,
+					'iCalContents'     => 'Not what we expected',
+					'origin'           => 'ical',
+				) ),
+		) );
+
+		$this->examples['errors']['rest-error'] = set_object_state( array(
+			'status'       => 'error',
+			'message_code' => 'error:some-rest-error',
+			'message'      => 'A REST error happened',
+			'data'         =>
+				set_object_state( array(
+					'import_id' => $this->import_id,
+					'origin'    => 'url',
+				) ),
+		) );
 	}
 
 	/**
@@ -283,12 +310,12 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 		add_action( 'ea_mocker-options_form', array( $this, 'fields' ) );
 	}
 
-	public function settings() {
-		return array(
+	public function settings( array $settings = array() ) {
+		return array_merge( $settings, array(
 			'ea_mocker-origins-mock_response',
 			'ea_mocker-import-mock_response',
 			'ea_mocker-import-post_import_mock_response',
-		);
+		) );
 	}
 
 	public function fields() {
@@ -299,7 +326,8 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 				<label for="ea_mocker-import_id">
 					Enter or modify an import ID to replace any occurrence of import ids in the current mock values.
 					<div class="inline">
-						<input type="text" value="<?php echo $this->import_id ?>" name="ea_mocker-import_id" id="ea_mocker-import_id">
+						<input type="text" value="<?php echo $this->import_id ?>" name="ea_mocker-import_id"
+							   id="ea_mocker-import_id">
 						<input type="button"
 							   class="button-secondary"
 							   id="ea_mocker-replace_import_id"
@@ -314,7 +342,8 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			<th scope="row">Origins Mock response</th>
 			<td>
 				<label for="ea_mocker-origins-mock_response">
-					Paste a JSON representation of the origins response array here to mock it; if blank the origins response will not be mocked.
+					Paste a JSON representation of the origins response array here to mock it; if blank the origins
+					response will not be mocked.
 				</label>
 				<textarea name="ea_mocker-origins-mock_response"
 						  id="ea_mocker-origins-mock_response"
@@ -323,11 +352,14 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 						  rows="10"
 				><?php echo get_option( 'ea_mocker-origins-mock_response' ); ?></textarea>
 				<button class="button-secondary insert-default" data-slug="all_active">All active</button>
-				<div class="default" data-slug="all_active"><?php echo json_encode( $this->examples['all_active'] ); ?></div>
+				<div class="default"
+					 data-slug="all_active"><?php echo json_encode( $this->examples['all_active'] ); ?></div>
 				<button class="button-secondary insert-default" data-slug="all_inactive">All inactive</button>
-				<div class="default" data-slug="all_inactive"><?php echo json_encode( $this->examples['all_inactive'] ); ?></div>
+				<div class="default"
+					 data-slug="all_inactive"><?php echo json_encode( $this->examples['all_inactive'] ); ?></div>
 				<button class="button-secondary insert-default" data-slug="one_active">One active</button>
-				<div class="default" data-slug="one_active"><?php echo json_encode( $this->examples['one_active'] ); ?></div>
+				<div class="default"
+					 data-slug="one_active"><?php echo json_encode( $this->examples['one_active'] ); ?></div>
 			</td>
 		</tr>
 
@@ -335,7 +367,8 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			<th scope="row">Post Import Mock response</th>
 			<td>
 				<label for="ea_mocker-import-post_import_mock_response">
-					Paste a JSON representation of the post import request response array here to mock it; if blank the import response will not be mocked. </label>
+					Paste a JSON representation of the post import request response array here to mock it; if blank the
+					import response will not be mocked. </label>
 				<textarea name="ea_mocker-import-post_import_mock_response"
 						  id="ea_mocker-import-post_import_mock_response"
 						  class="json"
@@ -343,7 +376,8 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 						  rows="20"
 				><?php echo get_option( 'ea_mocker-import-post_import_mock_response' ); ?></textarea>
 				<button class="button-secondary insert-default" data-slug="queued">Queued (success)</button>
-				<div class="default" data-slug="queued"><?php echo json_encode( $this->examples['post_import']['queued'] ); ?></div>
+				<div class="default"
+					 data-slug="queued"><?php echo json_encode( $this->examples['post_import']['queued'] ); ?></div>
 			</td>
 		</tr>
 
@@ -351,7 +385,8 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 			<th scope="row">Import Mock response</th>
 			<td>
 				<label for="ea_mocker-import-mock_response">
-					Paste a JSON representation of the import request response array here to mock it; if blank the import response will not be mocked. </label>
+					Paste a JSON representation of the import request response array here to mock it; if blank the
+					import response will not be mocked. </label>
 				<textarea name="ea_mocker-import-mock_response"
 						  id="ea_mocker-import-mock_response"
 						  class="json"
@@ -359,13 +394,36 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
 						  rows="20"
 				><?php echo get_option( 'ea_mocker-import-mock_response' ); ?></textarea>
 				<button class="button-secondary insert-default" data-slug="fetching">Fetching</button>
-				<div class="default" data-slug="fetching"><?php echo json_encode( $this->examples['fetching'] ); ?></div>
+				<div class="default"
+					 data-slug="fetching"><?php echo json_encode( $this->examples['fetching'] ); ?></div>
+
 				<button class="button-secondary insert-default" data-slug="no_events">No Events</button>
-				<div class="default" data-slug="no_events"><?php echo json_encode( $this->examples['no_events'] ); ?></div>
-				<button class="button-secondary insert-default" data-slug="three_ical_events">Three iCal-like Events</button>
-				<div class="default" data-slug="three_ical_events"><?php echo json_encode( $this->examples['ical']['three_events'] ); ?></div>
-				<button class="button-secondary insert-default" data-slug="three_url_events">Three URL (REST) Events</button>
-				<div class="default" data-slug="three_url_events"><?php echo json_encode( $this->examples['url']['three_events'] ); ?></div>
+				<div class="default"
+					 data-slug="no_events"><?php echo json_encode( ea_mocker_template( $this->examples['no_events'], array( 'origin' => 'ical' ) ) ); ?></div>
+
+				<button class="button-secondary insert-default" data-slug="three_ical_events">Three iCal-like Events
+				</button>
+				<div class="default"
+					 data-slug="three_ical_events"><?php echo json_encode( $this->examples['ical']['three_events'] ); ?></div>
+
+				<button class="button-secondary insert-default" data-slug="three_url_events">Three URL (REST) Events
+				</button>
+				<div class="default"
+					 data-slug="three_url_events"><?php echo json_encode( $this->examples['url']['three_events'] ); ?></div>
+
+				<button class="button-secondary insert-default" data-slug="rest_no_events">No URL (REST) Events</button>
+				<div class="default"
+					 data-slug="rest_no_events"><?php echo json_encode( ea_mocker_template( $this->examples['no_events'], array( 'origin' => 'url' ) ) ); ?></div>
+
+				<button class="button-secondary insert-default" data-slug="ical_error_invalid_url">Invalid iCal URL
+					error
+				</button>
+				<div class="default"
+					 data-slug="ical_error_invalid_url"><?php echo json_encode( $this->examples['errors']['ical-invalid-url'] ); ?></div>
+
+				<button class="button-secondary insert-default" data-slug="rest_error">URL (REST) error</button>
+				<div class="default"
+					 data-slug="rest_error"><?php echo json_encode( $this->examples['errors']['rest-error'] ); ?></div>
 			</td>
 		</tr>
 

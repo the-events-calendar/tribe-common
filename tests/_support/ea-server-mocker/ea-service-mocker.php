@@ -10,7 +10,7 @@ $mocker = new Tribe__Events__Aggregator_Mocker();
 
 spl_autoload_register( array( $mocker, 'autoload' ) );
 
-add_action( 'plugins_loaded', array( $mocker, 'mock' ), -1 );
+add_action( 'plugins_loaded', array( $mocker, 'mock' ), - 1 );
 
 register_deactivation_hook( __FILE__, array( 'Tribe__Events__Aggregator_Mocker', 'deactivate' ) );
 
@@ -41,6 +41,7 @@ class Tribe__Events__Aggregator_Mocker {
 	protected $bindings_providers = array(
 		'Tribe__Events__Aggregator_Mocker__Service',
 		'Tribe__Events__Aggregator_Mocker__Cleaner',
+		'Tribe__Events__Aggregator_Mocker__License',
 	);
 
 	/**
@@ -87,6 +88,7 @@ class Tribe__Events__Aggregator_Mocker {
 		add_action( 'admin_notices', array( new Tribe__Events__Aggregator_Mocker__Notices(), 'render' ) );
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner(), 'hook' ) );
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner_Options(), 'hook' ) );
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__License_Options(), 'hook' ) );
 	}
 
 	public function enqueue_scripts() {
@@ -101,7 +103,7 @@ class Tribe__Events__Aggregator_Mocker {
 		/** @var Tribe__Events__Aggregator_Mocker__Binding_Provider_Interface $provider */
 		foreach ( $this->bindings_providers as $provider ) {
 			$enable_on = $provider::enable_on();
-			$enabled = false;
+			$enabled   = false;
 			if ( true === $enable_on ) {
 				$provider::bind();
 				continue;
