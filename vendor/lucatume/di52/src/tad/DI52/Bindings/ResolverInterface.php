@@ -87,4 +87,22 @@ interface tad_DI52_Bindings_ResolverInterface
      * @param array $decorators
      */
     public function singletonDecorators($classOrInterface, $decorators);
+
+    /**
+     * Replaces the a bound interface or class implementation.
+     *
+     * @param string $classOrInterface
+     * @param string $implementation
+     * @param array $afterBuildMethods
+     */
+    public function replaceBind($classOrInterface, $implementation, array $afterBuildMethods = null);
+
+    /**
+     * Replaces a bound interface or class singleton implementation.
+     *
+     * @param string $classOrInterface
+     * @param string $implementation
+     * @param array $afterBuildMethods
+     */
+    public function replaceSingleton($classOrInterface, $implementation, array $afterBuildMethods = null);
 }

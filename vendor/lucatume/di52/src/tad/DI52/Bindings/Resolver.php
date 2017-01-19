@@ -82,12 +82,18 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
      */
     protected $afterBuildMethods = array();
 
-    /**
+	/**
+	 * @var string
+	 */
+	protected $idPrefix;
+
+	/**
      * @param tad_DI52_Container $container
      */
     public function __construct(tad_DI52_Container $container)
     {
         $this->container = $container;
+        $this->idPrefix = uniqid();
     }
 
     /**
@@ -223,8 +229,12 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
      * @param bool $isSingleton
      * @param array $afterBuildMethods
      */
-    protected function realBind($classOrInterface, $implementation, $isSingleton = false, array $afterBuildMethods = null)
-    {
+    protected function realBind(
+        $classOrInterface,
+        $implementation,
+        $isSingleton = false,
+        array $afterBuildMethods = null
+    ) {
         $isCallbackImplementation = is_callable($implementation);
         $isInstanceImplementation = is_object($implementation);
 
@@ -241,11 +251,14 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
         if ($isSingleton && $index = array_search($implementation, $this->singletonImplementations)) {
             $implementation_object = $this->singletonImplementationObjects[$index];
         } elseif (is_string($implementation)) {
-            $implementation_object = new tad_DI52_Bindings_ConstructorImplementation($implementation, $this->container, $this);
+            $implementation_object = new tad_DI52_Bindings_ConstructorImplementation($implementation, $this->container,
+                $this);
         } elseif ($isCallbackImplementation) {
-            $implementation_object = new tad_DI52_Bindings_CallbackImplementation($implementation, $this->container, $this);
+            $implementation_object = new tad_DI52_Bindings_CallbackImplementation($implementation, $this->container,
+                $this);
         } elseif ($isInstanceImplementation) {
-            $implementation_object = new tad_DI52_Bindings_InstanceImplementation($implementation, $this->container, $this);
+            $implementation_object = new tad_DI52_Bindings_InstanceImplementation($implementation, $this->container,
+                $this);
         } else {
             throw new InvalidArgumentException("Implementation should be a class name, a callback or an object instance.");
         }
@@ -254,7 +267,7 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
 
         if ($isSingleton) {
             if (empty($index)) {
-                $index = microtime();
+				$index = md5($classOrInterface . $this->idPrefix . rand(1, 99999));
                 $this->singletonImplementations[$index] = $implementation;
                 $this->singletonImplementationObjects[$index] = $implementation_object;
             }
@@ -283,6 +296,35 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
      */
     public function singleton($classOrInterface, $implementation, array $afterBuildMethods = null)
     {
+        $this->realBind($classOrInterface, $implementation, true, $afterBuildMethods);
+        $this->singletons[$classOrInterface] = $classOrInterface;
+    }
+
+    /**
+     * Replaces the a bound interface or class implementation.
+     *
+     * @param string $classOrInterface
+     * @param string $implementation
+     * @param array $afterBuildMethods
+     */
+    public function replaceBind($classOrInterface, $implementation, array $afterBuildMethods = null)
+    {
+        unset($this->bindings[$classOrInterface], $this->singletons[$classOrInterface], $this->resolvedSingletons[$classOrInterface]);
+
+        $this->realBind($classOrInterface, $implementation, false, $afterBuildMethods);
+    }
+
+    /**
+     * Replaces a bound interface or class singleton implementation.
+     *
+     * @param string $classOrInterface
+     * @param string $implementation
+     * @param array $afterBuildMethods
+     */
+    public function replaceSingleton($classOrInterface, $implementation, array $afterBuildMethods = null)
+    {
+        unset($this->bindings[$classOrInterface], $this->singletons[$classOrInterface], $this->resolvedSingletons[$classOrInterface]);
+
         $this->realBind($classOrInterface, $implementation, true, $afterBuildMethods);
         $this->singletons[$classOrInterface] = $classOrInterface;
     }
@@ -456,4 +498,5 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
 
         throw new InvalidArgumentException("Cannot resolve parameter [$parameter->name] of class [$this->currentlyResolvingClassOrInterface]: default value for primitive misssing");
     }
+
 }
