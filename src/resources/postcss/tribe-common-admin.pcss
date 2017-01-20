@@ -1170,6 +1170,33 @@ a.tribe-rating-link {
 			background-image: none;
 		}
 	}
+
+	&.select2-container-multi {
+		.select2-choices {
+			background-image: none;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			min-height: 26px;
+
+			.select2-search-field {
+				line-height: 26px;
+				input {
+					padding-top: 0;
+					padding-bottom: 0;
+				}
+			}
+
+			.select2-search-choice {
+				margin-top: 2px;
+				padding-top: 0;
+				padding-bottom: 0;
+				line-height: 19px;
+				div {
+					line-height: inherit;
+				}
+			}
+		}
+	}
 }
 
 .select2-results {
