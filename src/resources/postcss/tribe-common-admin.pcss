@@ -334,8 +334,8 @@ table.plugins .tribe-plugin-update-message a {
 }
 .tribe-arrangeable-item {
 	border: 1px solid lightGrey;
-	-moz-border-radius: 6px;
-	     border-radius: 6px;
+	-moz-border-radius: 3px;
+	     border-radius: 3px;
 }
 .tribe-arrangeable-item .ui-state-default {
 	border: none;
@@ -1156,7 +1156,7 @@ a.tribe-rating-link {
 	.select2-choice {
 		background-image: none;
 		border: 1px solid #ccc;
-		border-radius: 6px;
+		border-radius: 3px;
 
 		.select2-arrow {
 			background: transparent;
@@ -1168,6 +1168,39 @@ a.tribe-rating-link {
 			border-left: 0;
 			background: none;
 			background-image: none;
+		}
+	}
+
+	&.select2-container-multi {
+		.select2-choices {
+			background-image: none;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			min-height: 25px;
+
+			.select2-search-field {
+				line-height: 25px;
+				input {
+					padding-top: 0;
+					padding-bottom: 0;
+				}
+			}
+
+			.select2-search-choice {
+				margin-top: 2px;
+				padding-top: 0;
+				padding-bottom: 0;
+				line-height: 19px;
+				div {
+					line-height: inherit;
+				}
+			}
+
+			.select2-search-choice-close {
+				top: 3px;
+				left: 4px;
+				transition-property: border,color;
+			}
 		}
 	}
 }
@@ -1247,5 +1280,21 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 				display: none;
 			}
 		}
+	}
+}
+
+/* Clearfix Utility */
+
+.clear {
+	zoom: 1;
+
+	&:after,
+	&:before {
+		content: " ";
+		display: table;
+	}
+
+	&:after {
+		clear: both;
 	}
 }
