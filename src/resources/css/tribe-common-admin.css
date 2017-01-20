@@ -1001,6 +1001,12 @@ a.tribe-rating-link {
 .tribe-ea-dropdown.select2-container-multi .select2-choices .select2-search-choice div, .tribe-dropdown.select2-container-multi .select2-choices .select2-search-choice div {
 	line-height: inherit;
 }
+.tribe-ea-dropdown.select2-container-multi .select2-choices .select2-search-choice-close, .tribe-dropdown.select2-container-multi .select2-choices .select2-search-choice-close {
+	top: 3px;
+	left: 4px;
+	-webkit-transition-property: border,color;
+	transition-property: border,color;
+}
 .select2-results li.select2-result-with-children.select2-result-unselectable > .select2-result-label {
 	color: #939393;
 	font-weight: normal;
