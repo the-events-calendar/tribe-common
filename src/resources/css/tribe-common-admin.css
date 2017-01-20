@@ -1035,6 +1035,18 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .ticket_form .select2-container .select2-choice .select2-arrow {
 	display: none;
 }
+/* Clearfix Utility */
+.clear {
+	zoom: 1;
+}
+.clear:after,
+	.clear:before {
+	content: " ";
+	display: table;
+}
+.clear:after {
+	clear: both;
+}
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
 	#tribe-loading span {

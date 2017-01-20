@@ -1249,3 +1249,19 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 		}
 	}
 }
+
+/* Clearfix Utility */
+
+.clear {
+	zoom: 1;
+
+	&:after,
+	&:before {
+		content: " ";
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
+}
