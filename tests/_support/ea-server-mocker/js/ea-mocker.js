@@ -1,16 +1,16 @@
 (function ( $, undefined ) {
-	var formatJSONString = function ( text ) {
+	var format_json_string = function (text ) {
 		return JSON.stringify( JSON.parse( text ), undefined, 4 );
 	};
 
-	var formatJSONContent = function ( el ) {
+	var formta_json_content = function (el ) {
 		if ( undefined !== el.target ) {
 			el = el.target;
 		}
 		var $this = $( el ), ugly, pretty, parsed;
 		try {
 			ugly = $this[0].value;
-			pretty = formatJSONString( ugly );
+			pretty = format_json_string( ugly );
 			$this[0].value = pretty;
 		} catch ( e ) {
 			if ( undefined !== console ) {
@@ -19,7 +19,7 @@
 		}
 	};
 
-	var insertDefault = function ( ev ) {
+	var insert_default = function (ev ) {
 		ev.preventDefault();
 		var $this = $( this ),
 			slug = $this.data( 'slug' ),
@@ -27,11 +27,11 @@
 		if ( $default ) {
 			var $textarea = $this.siblings( '.json' ).first();
 			$textarea.val( $default.text() );
-			formatJSONContent( $textarea[0] );
+			formta_json_content( $textarea[0] );
 		}
 	};
 
-	var replaceImportId = function ( ev ) {
+	var replace_import_id = function (ev ) {
 		var $this = $( ev.target ), placeholder, importId;
 		placeholder = $this.data( 'placeholder' );
 		importId = $( '#ea_mocker-import_id' ).val();
@@ -48,23 +48,23 @@
 			}
 
 			replaced = $this.val().replace( placeholder, importId );
-			$this.val( formatJSONString( replaced ) );
+			$this.val( format_json_string( replaced ) );
 		} );
 	};
 
 	var start = function () {
 		var $jsonFields = $( '#ea-mocker' ).find( '.json' );
 		$jsonFields.each( function () {
-			formatJSONContent( this );
+			formta_json_content( this );
 			var $this = $( this );
-			$this.on( 'change', formatJSONContent );
+			$this.on( 'change', formta_json_content );
 			var $insert = $this.siblings( '.insert-default' );
 			if ( undefined !== $insert ) {
-				$insert.on( 'click', insertDefault );
+				$insert.on( 'click', insert_default );
 			}
 		} );
 
-		$( '#ea_mocker-replace_import_id' ).on( 'click', replaceImportId );
+		$( '#ea_mocker-replace_import_id' ).on( 'click', replace_import_id );
 	};
 
 	$( document ).ready( start );
