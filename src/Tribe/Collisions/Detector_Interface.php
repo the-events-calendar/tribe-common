@@ -2,7 +2,7 @@
 
 interface Tribe__Collisions__Detector_Interface {
 	/**
-	 * Computes the collision-based difference of two arrays of segments returning an array of elements from the first
+	 * Computes the collision-based difference of two or more arrays of segments returning an array of elements from the first
 	 * array not colliding with any element from the second array according to the collision detection strategy
 	 * implemented by the class.
 	 *
