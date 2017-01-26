@@ -14,4 +14,16 @@ interface Tribe__Collisions__Detector_Interface {
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
 	public function diff( array $a, array $b );
+
+	/**
+	 * Returns an array of segments given starts and length.
+	 *
+	 * Note: points are segments with a length of 0.
+	 *
+	 * @param array $starts An array of starting points
+	 * @param int   $length The length of each segment
+	 *
+	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 */
+	public function points_to_segments( array $starts, $length );
 }

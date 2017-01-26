@@ -156,4 +156,36 @@ class Matching_Start_End_DetectorTest extends \Codeception\TestCase\WPTestCase {
 		return new Detector();
 	}
 
+	/**
+	 * @test
+	 * it should allow generating segments from points
+	 */
+	public function it_should_allow_generating_segments_from_points() {
+		$sut = $this->make_instance();
+
+		$points    = [ 1, 4, - 3, 0, - 23, 23 ];
+		$length    = 10;
+		$generated = $sut->points_to_segments( $points, $length );
+
+		$this->assertCount( count( $points ), $generated );
+		foreach ( $generated as $segment ) {
+			$this->assertEquals( $length, $segment[1] - $segment[0] );
+		}
+	}
+
+	/**
+	 * @test
+	 * it should allow generating 0 length segments from points
+	 */
+	public function it_should_allow_generating_0_length_segments_from_points() {
+		$sut = $this->make_instance();
+
+		$points    = [ 1, 4, - 3, 0, - 23, 23 ];
+		$generated = $sut->points_to_segments( $points, 0 );
+
+		$this->assertCount( count( $points ), $generated );
+		foreach ( $generated as $segment ) {
+			$this->assertEquals( $segment[1], $segment[0] );
+		}
+	}
 }
