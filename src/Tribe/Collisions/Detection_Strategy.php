@@ -3,9 +3,9 @@
 abstract class Tribe__Collisions__Detection_Strategy {
 
 	/**
-	 * Computes the collision-based difference of two or more arrays of segments returning an array of elements from the first
-	 * array not colliding with any element from the second array according to the collision detection strategy
-	 * implemented by the class.
+	 * Computes the collision-based difference of two or more arrays of segments returning an array of elements from
+	 * the first array not colliding with any element from the second array according to the collision detection
+	 * strategy implemented by the class.
 	 *
 	 * Note: points are segments with matching start and end.
 	 *
@@ -40,6 +40,9 @@ abstract class Tribe__Collisions__Detection_Strategy {
 
 			foreach ( $a as $segment ) {
 				if ( $this->detect_collision( $segment, $b_starts, $b_ends ) ) {
+					if ( false !== $i = array_search( $segment, $diffed ) ) {
+						unset( $diffed[ $i ] );
+					}
 					continue;
 				}
 
@@ -52,9 +55,15 @@ abstract class Tribe__Collisions__Detection_Strategy {
 				$diffed_ends[]   = $segment[1];
 				$diffed[]        = $segment;
 			}
+
+			if ( empty( $diffed ) ) {
+				break;
+			}
+
+			$a = $diffed;
 		}
 
-		return $diffed;
+		return array_values( $diffed );
 	}
 
 	/**

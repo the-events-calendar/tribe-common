@@ -150,6 +150,25 @@ class Matching_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @test
+	 * it should allow diffing with multiple bs
+	 */
+	public function it_should_allow_diffing_with_multiple_bs() {
+		$sut = $this->make_instance();
+
+		$a        = [ [ 1, 2 ], [ 4, 5 ], [ 7, 8 ], [ 9, 10 ], [ 11, 12 ] ];
+		$b        = [ [ 1, 3 ], [ 3, 5 ] ];
+		$c        = [ [ 4, 6 ], [ 6, 7 ] ];
+		$d        = [ [ 7, 8 ], [ 8, 9 ] ];
+
+		$expected = [ [ 9, 10 ], [ 11, 12 ] ];
+
+		$diffed = $sut->diff( $a, $b, $c, $d );
+
+		$this->assertEquals( $expected, $diffed );
+	}
+
+	/**
 	 * @return Detector
 	 */
 	private function make_instance() {
