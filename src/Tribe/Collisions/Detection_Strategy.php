@@ -68,7 +68,17 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 */
 	abstract protected function detect_collision( array $segment, array $b_starts, array $b_ends );
 
-	protected function compare_starts( array $a, array $b ) {
+	/**
+	 * Compares two segments.
+	 *
+	 * Used in `usort` calls.
+	 *
+	 * @param array $b_starts An array of starting points from the diff array
+	 * @param array $b_ends   An array of end points form the diff array
+	 *
+	 * @return int
+	 */
+	public function compare_starts( array $a, array $b ) {
 		if ( $a[0] == $b[0] ) {
 			return 0;
 		}
