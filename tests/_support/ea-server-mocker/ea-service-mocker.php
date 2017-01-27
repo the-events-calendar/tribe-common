@@ -2,8 +2,9 @@
 /**
  * Plugin Name: Event Aggregator Server Mocker
  * Plugin URI: http://theAverageDev.com
- * Description: Mock Event Aggregator Server responses and interactions; symlink this from its location to the WordPress plugins
- * folder. Version: 1.0 Author: Modern Tribe Author URI: http://theeventscalendar.com License: Private
+ * Description: Mock Event Aggregator Server responses and interactions; symlink this from its location to the
+ * WordPress plugins folder. Version: 1.0 Author: Modern Tribe Author URI: http://theeventscalendar.com License:
+ * Private
  */
 
 $mocker = new Tribe__Events__Aggregator_Mocker();
@@ -102,10 +103,10 @@ class Tribe__Events__Aggregator_Mocker {
 	public function replace_bindings() {
 		/** @var Tribe__Events__Aggregator_Mocker__Binding_Provider_Interface $provider */
 		foreach ( $this->bindings_providers as $provider ) {
-			$enable_on = $provider->enable_on();
-			$enabled   = false;
+			$enable_on = call_user_func( array( $provider, 'enable_on' ) );
+			$enabled = false;
 			if ( true === $enable_on ) {
-				$provider->bind();
+				call_user_func( array( $provider, 'bind' ) );
 				continue;
 			}
 
@@ -116,7 +117,7 @@ class Tribe__Events__Aggregator_Mocker {
 				continue;
 			}
 
-			$provider->bind();
+			call_user_func( array( $provider, 'bind' ) );
 		}
 	}
 
