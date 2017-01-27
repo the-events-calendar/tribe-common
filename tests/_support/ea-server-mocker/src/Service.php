@@ -89,4 +89,29 @@ class Tribe__Events__Aggregator_Mocker__Service
 	public static function bind() {
 		tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator_Mocker__Service' );
 	}
+
+	/**
+	 * Builds an endpoint URL
+	 *
+	 * @param string $endpoint Endpoint for the Event Aggregator service
+	 * @param array  $data     Parameters to add to the URL
+	 *
+	 * @return string|WP_Error
+	 */
+	public function build_url( $endpoint, $data = array() ) {
+		$mock_domain = get_option( 'ea_mocker-service_domain' );
+
+		if ( ! empty( $mock_domain ) ) {
+			$this->api = $this->api();
+			if ( is_array( $this->api ) ) {
+				$this->api['domain'] = trailingslashit( $mock_domain );
+			} else {
+				$this->api->domain = trailingslashit( $mock_domain );
+			}
+		}
+
+		return parent::build_url( $endpoint, $data );
+	}
+
+
 }
