@@ -102,10 +102,10 @@ class Tribe__Events__Aggregator_Mocker {
 	public function replace_bindings() {
 		/** @var Tribe__Events__Aggregator_Mocker__Binding_Provider_Interface $provider */
 		foreach ( $this->bindings_providers as $provider ) {
-			$enable_on = $provider::enable_on();
+			$enable_on = $provider->enable_on();
 			$enabled   = false;
 			if ( true === $enable_on ) {
-				$provider::bind();
+				$provider->bind();
 				continue;
 			}
 
@@ -116,7 +116,7 @@ class Tribe__Events__Aggregator_Mocker {
 				continue;
 			}
 
-			$provider::bind();
+			$provider->bind();
 		}
 	}
 
