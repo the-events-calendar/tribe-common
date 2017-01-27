@@ -21,14 +21,18 @@ class Tribe__Events__Aggregator_Mocker__License
 	public static function bind() {
 		$should_mock = get_option( 'ea_mocker-license-mock_enabled' );
 
+		$mock_key     = 'mock-key-mock-key-mock-key-mock-key-mock-key-mock-key';
+
 		if ( empty( $should_mock ) ) {
-			delete_option( 'pue_install_key_event_aggregator' );
-			update_option( 'pue_install_key_event_aggregator', get_option( 'pue_install_key_event_aggregator-backup' ) );
+			if ( get_option( 'pue_install_key_event_aggregator' ) === $mock_key ) {
+				delete_option( 'pue_install_key_event_aggregator' );
+				update_option( 'pue_install_key_event_aggregator', get_option( 'pue_install_key_event_aggregator-backup' ) );
+				delete_option( 'pue_install_key_event_aggregator-backup' );
+			}
 
 			return;
 		}
 
-		$mock_key     = 'mock-key-mock-key-mock-key-mock-key-mock-key-mock-key';
 		$existing_key = get_option( 'pue_install_key_event_aggregator' );
 
 		if ( $existing_key === $mock_key ) {
