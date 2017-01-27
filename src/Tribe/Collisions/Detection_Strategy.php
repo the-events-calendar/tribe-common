@@ -32,6 +32,8 @@ abstract class Tribe__Collisions__Detection_Strategy {
 		$diffed_starts = array();
 		$diffed_ends   = array();
 
+		$duplicate_collision_detector = new Tribe__Collisions__Matching_Start_End_Detector();
+
 		foreach ( $bs as $b ) {
 			usort( $b, array( $this, 'compare_starts' ) );
 
@@ -47,7 +49,7 @@ abstract class Tribe__Collisions__Detection_Strategy {
 				}
 
 				// avoid duplicates
-				if ( $this->detect_collision( $segment, $diffed_starts, $diffed_ends ) ) {
+				if ( $duplicate_collision_detector->detect_collision( $segment, $diffed_starts, $diffed_ends ) ) {
 					continue;
 				}
 
