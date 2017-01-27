@@ -88,6 +88,7 @@ class Tribe__Events__Aggregator_Mocker__Service
 	 */
 	public static function bind() {
 		tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator_Mocker__Service' );
+		delete_transient('tribe_aggregator_origins');
 	}
 
 	/**
