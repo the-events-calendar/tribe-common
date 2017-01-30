@@ -1,5 +1,7 @@
 A PHP 5.2 compatible dependency injection container heavily inspired by [Laravel IOC](https://laravel.com/docs/5.0/container "Service Container - Laravel - The PHP Framework For Web Artisans").
 
+[![Build Status](https://travis-ci.org/lucatume/di52.svg?branch=master)](https://travis-ci.org/lucatume/di52)
+
 ## Installation
 Use [Composer](https://getcomposer.org/) to require the library:
 
@@ -62,7 +64,38 @@ $three = $container->make('InterfaceOne');
 $four = $container->make('InterfaceOne');
 // $three === $four;
 ```
-    
+
+### Replacing bound implementations
+The container allows replacing a bound implementation or a bound singleton implementation using the `replaceBind` and `replaceSingleton` methods:
+
+```php
+$container->bind('InterfaceOne', 'ClassOne');
+
+// $one instanceof ClassOne === true
+$one = $container->make('InterfaceOne'
+
+$container->replaceBind('InterfaceOne', 'AnotherOneImplementation');
+
+// $one instanceof ClassOne !== true
+// $one instanceof AnotherOneImplementation !== true
+$one = $container->make('InterfaceOne'
+```
+
+The same applies to singletons:
+
+```php
+$container->singleton('InterfaceOne', 'ClassOne');
+
+// $one instanceof ClassOne === true
+$one = $container->make('InterfaceOne'
+
+$container->replaceSingleton('InterfaceOne', 'AnotherOneImplementation');
+
+// $one instanceof ClassOne !== true
+// $one instanceof AnotherOneImplementation !== true
+$one = $container->make('InterfaceOne'
+```
+
 ### Callback binding
 The container can be told to resolve a request for an interface or concrete class to a callback function:
 

@@ -4,6 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.4.5] - 2017-01-19
+### Fixed
+- an issue where singleton resolution would result in circular reference on some Windows versions (thanks @bordoni)
+
+## [1.4.4] - 2017-01-09
+### Added
+- support for binding replacement
+
 ## [1.4.3] - 2016-10-18
 ### Changed
 - snake_case method names are now set to camelCase
