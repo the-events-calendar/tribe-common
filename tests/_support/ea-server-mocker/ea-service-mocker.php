@@ -31,7 +31,9 @@ class Tribe__Events__Aggregator_Mocker {
 	 */
 	protected static $option_providers = array(
 		'Tribe__Events__Aggregator_Mocker__Service_Options',
+		'Tribe__Events__Aggregator_Mocker__License_Options',
 		'Tribe__Events__Aggregator_Mocker__Cleaner',
+		'Tribe__Events__Aggregator_Mocker__Recorder_Options',
 	);
 
 	/**
@@ -43,6 +45,8 @@ class Tribe__Events__Aggregator_Mocker {
 		'Tribe__Events__Aggregator_Mocker__Service',
 		'Tribe__Events__Aggregator_Mocker__Cleaner',
 		'Tribe__Events__Aggregator_Mocker__License',
+		// this has to go **after** the service mocker as it decorates a service implementation!
+		'Tribe__Events__Aggregator_Mocker__Recorder',
 	);
 
 	/**
@@ -90,6 +94,7 @@ class Tribe__Events__Aggregator_Mocker {
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner(), 'hook' ) );
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner_Options(), 'hook' ) );
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__License_Options(), 'hook' ) );
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Recorder_Options(), 'hook' ) );
 	}
 
 	public function enqueue_scripts() {
