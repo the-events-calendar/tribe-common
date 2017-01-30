@@ -41,8 +41,7 @@ class Tribe__Events__Aggregator_Mocker__Recorder_Options
 								value="yes"
 								<?php checked( 'yes', $enabled ) ?>
 						>
-						Enable recording of all Event Aggregator requests and responses on the database; <code>ea_mocker-recorder-recorded-calls</code>
-						and <code>ea_mocker-recorder-recorded-responses</code> respectively. <strong>Will disable
+						Enable recording of all Event Aggregator requests and responses on the database. <strong>Will disable
 							service mocking!</strong>
 					</label>
 					<?php if ( $enabled === 'yes' ) : ?>
