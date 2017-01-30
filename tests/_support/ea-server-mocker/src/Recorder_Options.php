@@ -10,7 +10,6 @@ class Tribe__Events__Aggregator_Mocker__Recorder_Options
 		return array(
 			'ea_mocker-recorder-enabled',
 			'ea_mocker-recorder-recorded-responses',
-			'ea_mocker-recorder-recorded-calls',
 		);
 	}
 
@@ -22,41 +21,46 @@ class Tribe__Events__Aggregator_Mocker__Recorder_Options
 	public function settings( array $settings ) {
 		return array_merge( $settings, array(
 			'ea_mocker-recorder-enabled',
+			'ea_mocker-recorder-recorded-responses',
 		) );
 	}
 
 	public function fields() {
-		$enabled = get_option( 'ea_mocker-recorder-enabled' );
+		$enabled  = get_option( 'ea_mocker-recorder-enabled' );
+		$recorded = get_option( 'ea_mocker-recorder-recorded-responses' );
+		$recorded = empty( $recorded ) ? '' : json_encode( unserialize( $recorded ) );
 		?>
-        <tr valign="top">
-            <th scope="row">Record Event Aggregator API calls and responses</th>
-            <td>
-                <fieldset>
-                    <label>
-                        <input
-                                type="checkbox"
-                                name="ea_mocker-recorder-enabled"
-                                value="yes"
-							<?php
-							checked( 'yes', $enabled ) ?>
-                        >
-                        Enable recording of all Event Aggregator requests and responses on the database; <code>ea_mocker-recorder-recorded-calls</code>
-                        and <code>ea_mocker-recorder-recorded-responses</code> respectively.
-                    </label>
+		<tr valign="top">
+			<th scope="row">Record Event Aggregator API calls and responses</th>
+			<td>
+				<fieldset>
+					<label>
+						<input
+								type="checkbox"
+								name="ea_mocker-recorder-enabled"
+								value="yes"
+								<?php checked( 'yes', $enabled ) ?>
+						>
+						Enable recording of all Event Aggregator requests and responses on the database; <code>ea_mocker-recorder-recorded-calls</code>
+						and <code>ea_mocker-recorder-recorded-responses</code> respectively. <strong>Will disable
+							service mocking!</strong>
+					</label>
 					<?php if ( $enabled === 'yes' ) : ?>
-                        <label for="ea_mocker-recorder-"><b>Recorded responses</b></label>
-                        <textarea name="ea_mocker-recorder-recorded-responses"
-                                  id="ea_mocker-recorder-recorded-responses"
-                                  class="json"
-                                  cols="30"
-                                  rows="20"
-                                  disabled
-                        ><?php echo get_option( 'ea_mocker-import-mock_response' ); ?></textarea>
-                        <button class="clean button-secondary" data-target="#ea_mocker-recorder-recorded-responses">Clear</button>
+						<label for="ea_mocker-recorder-"><b>Recorded responses</b></label>
+						<textarea name="ea_mocker-recorder-recorded-responses"
+						          id="ea_mocker-recorder-recorded-responses"
+						          class="json"
+						          cols="30"
+						          rows="20"
+						          readonly="readonly"
+						><?php echo $recorded; ?></textarea>
+						<button class="clean button-secondary" data-target="#ea_mocker-recorder-recorded-responses">
+							Clear
+						</button>
 					<?php endif; ?>
-                </fieldset>
-            </td>
-        </tr>
+				</fieldset>
+			</td>
+		</tr>
 		<?php
 	}
 }

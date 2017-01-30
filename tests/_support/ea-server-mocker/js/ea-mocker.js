@@ -53,11 +53,10 @@
     };
 
     var clean_target = function ( ev ) {
-        ev.preventDefault();
         var $this = $( ev.target ),
-            target = $( $this.data( 'target' ) );
+            $target = $( $this.data( 'target' ) );
 
-        if ( !target ) {
+        if ( !$target ) {
             return;
         }
 
@@ -79,7 +78,7 @@
         $( '#ea_mocker-replace_import_id' ).on( 'click', replace_import_id );
 
         $( '#ea-mocker' ).find( 'button.clean' ).each( function () {
-            $( this ).on( 'click', 'clean_target' );
+            $( this ).on( 'click', clean_target );
         } );
     };
 

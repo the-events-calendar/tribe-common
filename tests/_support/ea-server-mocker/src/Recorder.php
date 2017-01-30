@@ -1,6 +1,7 @@
 <?php
 
 class Tribe__Events__Aggregator_Mocker__Recorder
+	extends Tribe__Events__Aggregator__Service
 	implements Tribe__Events__Aggregator_Mocker__Binding_Provider_Interface {
 
 	/**
@@ -13,15 +14,6 @@ class Tribe__Events__Aggregator_Mocker__Recorder
 	 * @var string
 	 */
 	protected $responses = 'ea_mocker-recorder-recorded-responses';
-
-	/**
-	 * Tribe__Events__Aggregator_Mocker__Recorder constructor.
-	 *
-	 * @param Tribe__Events__Aggregator__Service $service
-	 */
-	public function __construct( Tribe__Events__Aggregator__Service $service ) {
-		$this->service = $service;
-	}
 
 	/**
 	 * Returns an array of options that should trigger the mocker as enabled.
@@ -41,13 +33,7 @@ class Tribe__Events__Aggregator_Mocker__Recorder
 	 * Binds mock implementations overriding the existing ones.
 	 */
 	public static function bind() {
-		$service = tribe( 'events-aggregator.service', 'Tribe__Events__Aggregator_Mocker__Service' );
-		$recorder = new self( $service );
-		tribe_singleton( 'events-aggregator.service', $recorder );
-	}
-
-	public function __call( $name, $arguments ) {
-		return call_user_func_array( array( $this->service, $name ), $arguments );
+		tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator_Mocker__Recorder' );
 	}
 
 	/**
@@ -56,25 +42,59 @@ class Tribe__Events__Aggregator_Mocker__Recorder
 	 * Decorates the GET request recording the response.
 	 *
 	 * @param string $endpoint Endpoint for the Event Aggregator service
-	 * @param array  $data     Parameters to send to the endpoint
+	 * @param array $data Parameters to send to the endpoint
 	 *
 	 * @return stdClass|WP_Error
 	 */
 	public function get( $endpoint, $data = array() ) {
-		$response = $this->service->get( $endpoint, $data );
+		$response = parent::get( $endpoint, $data );
 
+		$this->record( $endpoint, $data, 'GET', $response );
+
+		return $response;
+	}
+
+	/**
+	 * Performs a POST request against the Event Aggregator service
+	 *
+	 * @param string $endpoint Endpoint for the Event Aggregator service
+	 * @param array $data Parameters to send to the endpoint
+	 *
+	 * @return stdClass|WP_Error
+	 */
+	public function post( $endpoint, $data = array() ) {
+		$response = parent::post( $endpoint, $data );
+
+		$this->record( $endpoint, $data, 'POST', $response );
+
+		return $response;
+	}
+
+	/**
+	 * @param $endpoint
+	 * @param $data
+	 * @param $method
+	 * @param $response
+	 */
+	protected function record( $endpoint, $data, $method, $response ) {
 		$logged = get_option( $this->responses );
 
-		$pretty = json_encode( array(
-			'date'         => date( 'Y-m-d H:i:s' ),
-			'method'       => 'GET',
+		if ( ! empty( $logged ) ) {
+			$logged = unserialize( $logged );
+		} else {
+			$logged = array();
+		}
+
+		$date   = date( 'Y-m-d H:i:s' );
+		$pretty = array(
+			'method'       => $method,
 			'endpoint'     => $endpoint,
 			'request_data' => $data,
 			'response'     => $response
-		) );
+		);
 
-		update_option( $this->responses, $logged . "\n\n" . $pretty );
+		$logged[ $date ] = $pretty;
 
-		return $response;
+		update_option( $this->responses, serialize( $logged ) );
 	}
 }
