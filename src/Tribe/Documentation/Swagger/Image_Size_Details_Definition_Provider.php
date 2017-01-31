@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Documentation__Swagger__Image_Size_Details_Definition_Provider
+class Tribe__Documentation__Swagger__Image_Size_Definition_Provider
 	implements Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
