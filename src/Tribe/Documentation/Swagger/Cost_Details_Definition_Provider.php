@@ -19,9 +19,9 @@ class Tribe__Documentation__Swagger__Cost_Details_Definition_Provider
 		$documentation = array(
 			'type'       => 'array',
 			'properties' => array(
-				'currency_symbol'    => array( 'type' => 'string', 'description' => __( 'The cost currency symbol', 'the-events-calendar' ) ),
-				'currency_position ' => array( 'type' => 'string', 'description' => __( 'The position of the currency symbol in the cost string', 'the-events-calendar' ), 'enum' => array( 'prefix', 'postfix' ) ),
-				'values'             => array( 'type' => 'array', 'description' => __( 'An sorted array of all the numeric values for the cost', 'the-events-calendar' ) ),
+				'currency_symbol'    => array( 'type' => 'string', 'description' => __( 'The cost currency symbol', 'tribe-common' ) ),
+				'currency_position ' => array( 'type' => 'string', 'description' => __( 'The position of the currency symbol in the cost string', 'tribe-common' ), 'enum' => array( 'prefix', 'postfix' ) ),
+				'values'             => array( 'type' => 'array', 'description' => __( 'An sorted array of all the numeric values for the cost', 'tribe-common' ) ),
 			),
 		);
 

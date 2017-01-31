@@ -19,12 +19,12 @@ class Tribe__Documentation__Swagger__Date_Details_Definition_Provider
 		$documentation = array(
 			'type'       => 'array',
 			'properties' => array(
-				'year'    => array( 'type' => 'int', 'description' => __( 'The date year', 'the-events-calendar' ) ),
-				'month'   => array( 'type' => 'int', 'description' => __( 'The date month', 'the-events-calendar' ) ),
-				'day'     => array( 'type' => 'int', 'description' => __( 'The date day', 'the-events-calendar' ) ),
-				'hour'    => array( 'type' => 'int', 'description' => __( 'The date hour', 'the-events-calendar' ) ),
-				'minutes' => array( 'type' => 'int', 'description' => __( 'The date minutes', 'the-events-calendar' ) ),
-				'seconds' => array( 'type' => 'int', 'description' => __( 'The date seconds', 'the-events-calendar' ) ),
+				'year'    => array( 'type' => 'int', 'description' => __( 'The date year', 'tribe-common' ) ),
+				'month'   => array( 'type' => 'int', 'description' => __( 'The date month', 'tribe-common' ) ),
+				'day'     => array( 'type' => 'int', 'description' => __( 'The date day', 'tribe-common' ) ),
+				'hour'    => array( 'type' => 'int', 'description' => __( 'The date hour', 'tribe-common' ) ),
+				'minutes' => array( 'type' => 'int', 'description' => __( 'The date minutes', 'tribe-common' ) ),
+				'seconds' => array( 'type' => 'int', 'description' => __( 'The date seconds', 'tribe-common' ) ),
 			),
 		);
 

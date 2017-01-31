@@ -19,10 +19,10 @@ class Tribe__Documentation__Swagger__Image_Size_Details_Definition_Provider
 		$documentation = array(
 			'type'       => 'object',
 			'properties' => array(
-				'width'     => array( 'type' => 'int', 'description' => __( 'The image width in pixels in the specified size', 'the-events-calendar' ) ),
-				'height'    => array( 'type' => 'int', 'description' => __( 'The image height in pixels in the specified size', 'the-events-calendar' ) ),
-				'mime-type' => array( 'type' => 'string', 'description' => __( 'The image mime-type', 'the-events-calendar' ) ),
-				'url'       => array( 'type' => 'string', 'description' => __( 'The link to the image in the specified size on the site', 'the-events-calendar' ) ),
+				'width'     => array( 'type' => 'int', 'description' => __( 'The image width in pixels in the specified size', 'tribe-common' ) ),
+				'height'    => array( 'type' => 'int', 'description' => __( 'The image height in pixels in the specified size', 'tribe-common' ) ),
+				'mime-type' => array( 'type' => 'string', 'description' => __( 'The image mime-type', 'tribe-common' ) ),
+				'url'       => array( 'type' => 'string', 'description' => __( 'The link to the image in the specified size on the site', 'tribe-common' ) ),
 			),
 		);
 

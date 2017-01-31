@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Documentation__Swagger__Image_Details_Definition_Provider
+class Tribe__Documentation__Swagger__Image_Definition_Provider
 	implements Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
@@ -19,11 +19,12 @@ class Tribe__Documentation__Swagger__Image_Details_Definition_Provider
 		$documentation = array(
 			'type'       => 'object',
 			'properties' => array(
-				'ID'     => array( 'type' => 'int', 'description' => __( 'The image WordPress post ID', 'the-events-calendar' ) ),
-				'width'  => array( 'type' => 'int', 'description' => __( 'The image natural width in pixels', 'the-events-calendar' ) ),
-				'height' => array( 'type' => 'int', 'description' => __( 'The image natura height in pixels', 'the-events-calendar' ) ),
-				'url'    => array( 'type' => 'string', 'description' => __( 'The link to the image on the site', 'the-events-calendar' ) ),
-				'sizes'  => array( 'type' => 'array', 'description' => __( 'The details about each size available for the image', 'the-events-calendar' ), '$ref' => '#/definitions/ImageSizeDetails' ),
+				'url'       => array( 'type' =>'string', 'description' =>__('The URL to the full size version of the image','tribe-common') ),
+				'id'        => array( 'type' => 'int', 'description' => __( 'The image WordPress post ID', 'tribe-common' ) ),
+				'extension' => array( 'type' =>'string', 'description' =>__('The image file extension','tribe-common') ),
+				'width'     => array( 'type' => 'int', 'description' => __( 'The image natural width in pixels', 'tribe-common' ) ),
+				'height'    => array( 'type' => 'int', 'description' => __( 'The image natura height in pixels', 'tribe-common' ) ),
+				'sizes'     => array( 'type' => 'array', 'description' => __( 'The details about each size available for the image', 'tribe-common' ), '$ref' => '#/definitions/ImageSizeDetails' ),
 			),
 		);
 
