@@ -19,12 +19,31 @@ class Tribe__Documentation__Swagger__Image_Definition_Provider
 		$documentation = array(
 			'type'       => 'object',
 			'properties' => array(
-				'url'       => array( 'type' =>'string', 'description' =>__('The URL to the full size version of the image','tribe-common') ),
-				'id'        => array( 'type' => 'int', 'description' => __( 'The image WordPress post ID', 'tribe-common' ) ),
-				'extension' => array( 'type' =>'string', 'description' =>__('The image file extension','tribe-common') ),
-				'width'     => array( 'type' => 'int', 'description' => __( 'The image natural width in pixels', 'tribe-common' ) ),
-				'height'    => array( 'type' => 'int', 'description' => __( 'The image natura height in pixels', 'tribe-common' ) ),
-				'sizes'     => array( 'type' => 'array', 'description' => __( 'The details about each size available for the image', 'tribe-common' ), '$ref' => '#/definitions/ImageSize' ),
+				'url' => array(
+					'type' =>'string',
+					'description' =>__('The URL to the full size version of the image', 'tribe-common'),
+				),
+				'id' => array(
+					'type' => 'int',
+					'description' => __( 'The image WordPress post ID', 'tribe-common' ),
+				),
+				'extension' => array(
+					'type' =>'string',
+					'description' =>__('The image file extension', 'tribe-common'),
+				),
+				'width' => array(
+					'type' => 'int',
+					'description' => __( 'The image natural width in pixels', 'tribe-common' ),
+				),
+				'height' => array(
+					'type' => 'int',
+					'description' => __( 'The image natura height in pixels', 'tribe-common' ),
+				),
+				'sizes' => array(
+					'type' => 'array',
+					'description' => __( 'The details about each size available for the image', 'tribe-common' ),
+					'$ref' => '#/definitions/ImageSize',
+				),
 			),
 		);
 

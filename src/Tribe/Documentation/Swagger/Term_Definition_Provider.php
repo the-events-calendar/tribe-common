@@ -19,14 +19,38 @@ class Tribe__Documentation__Swagger__Term_Definition_Provider
 		$documentation = array(
 			'type'       => 'object',
 			'properties' => array(
-				'id'          => array( 'type' => 'int', 'description' => __( 'The WordPress term ID', 'tribe-common' ) ),
-				'name'        => array( 'type' => 'string', 'description' => __( 'The term name', 'tribe-common' ) ),
-				'slug'        => array( 'type' => 'string', 'description' => __( 'The term slug', 'tribe-common' ) ),
-				'taxonomy'    => array( 'type' => 'string', 'description' => __( 'The taxonomy the term belongs to', 'tribe-common' ) ),
-				'description' => array( 'type' => 'string', 'description' => __( 'The term description', 'tribe-common' ) ),
-				'parent'      => array( 'type' => 'int', 'description' => __( 'The term parent term if any', 'tribe-common' ) ),
-				'count'       => array( 'type' => 'int', 'description' => __( 'The number of posts associated with the term', 'tribe-common' ) ),
-				'link'        => array( 'type' => 'string', 'description' => __( 'The URL to the term archive page', 'tribe-common' ) ),
+				'id' => array(
+					'type' => 'int',
+					'description' => __( 'The WordPress term ID', 'tribe-common' ),
+				),
+				'name' => array(
+					'type' => 'string',
+					'description' => __( 'The term name', 'tribe-common' ),
+				),
+				'slug' => array(
+					'type' => 'string',
+					'description' => __( 'The term slug', 'tribe-common' ),
+				),
+				'taxonomy' => array(
+					'type' => 'string',
+					'description' => __( 'The taxonomy the term belongs to', 'tribe-common' ),
+				),
+				'description' => array(
+					'type' => 'string',
+					'description' => __( 'The term description', 'tribe-common' ),
+				),
+				'parent' => array(
+					'type' => 'int',
+					'description' => __( 'The term parent term if any', 'tribe-common' ),
+				),
+				'count' => array(
+					'type' => 'int',
+					'description' => __( 'The number of posts associated with the term', 'tribe-common' ),
+				),
+				'link' => array(
+					'type' => 'string',
+					'description' => __( 'The URL to the term archive page', 'tribe-common' ),
+				),
 			),
 		);
 
