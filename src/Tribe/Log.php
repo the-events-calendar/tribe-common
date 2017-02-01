@@ -226,7 +226,7 @@ class Tribe__Log {
 		if ( ! isset( $this->loggers[ $class_name ] ) ) {
 			$object = new $class_name;
 
-			if ( is_a( $object, 'Tribe__Log__Logger' ) ) {
+			if ( $object instanceof Tribe__Log__Logger ) {
 				$this->loggers[ $class_name ] = new $class_name();
 			}
 		}
