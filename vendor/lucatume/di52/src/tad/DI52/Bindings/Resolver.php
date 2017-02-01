@@ -82,12 +82,18 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
      */
     protected $afterBuildMethods = array();
 
-    /**
+	/**
+	 * @var string
+	 */
+	protected $idPrefix;
+
+	/**
      * @param tad_DI52_Container $container
      */
     public function __construct(tad_DI52_Container $container)
     {
         $this->container = $container;
+        $this->idPrefix = uniqid();
     }
 
     /**
@@ -261,7 +267,7 @@ class tad_DI52_Bindings_Resolver implements tad_DI52_Bindings_ResolverInterface
 
         if ($isSingleton) {
             if (empty($index)) {
-                $index = microtime();
+				$index = md5($classOrInterface . $this->idPrefix . rand(1, 99999));
                 $this->singletonImplementations[$index] = $implementation;
                 $this->singletonImplementationObjects[$index] = $implementation_object;
             }

@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e0ba040b3956c241bc579b079eac728b",
-    "content-hash": "e0023d55e06cbae063a5c181f66c9f3c",
+    "hash": "46e1eed8c687381251cea240534c984c",
+    "content-hash": "4ab9bcd2daaf9599afb95320138b074c",
     "packages": [
         {
             "name": "lucatume/di52",
-            "version": "1.4.4.1",
+            "version": "1.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/di52.git",
-                "reference": "acac8c5f6f7144d9fbd0c5af0be91b820b4b8d51"
+                "reference": "f8f67c0e9e74b2ea210cfbedfcde4992bdb578c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/acac8c5f6f7144d9fbd0c5af0be91b820b4b8d51",
-                "reference": "acac8c5f6f7144d9fbd0c5af0be91b820b4b8d51",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/f8f67c0e9e74b2ea210cfbedfcde4992bdb578c4",
+                "reference": "f8f67c0e9e74b2ea210cfbedfcde4992bdb578c4",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +48,7 @@
                 }
             ],
             "description": "A PHP 5.2 compatible dependency injection container.",
-            "time": "2017-01-09 13:50:27"
+            "time": "2017-01-19 12:56:51"
         },
         {
             "name": "xrstf/composer-php52",
