@@ -194,7 +194,13 @@ if ( ! function_exists( 'tribe_get_start_time' ) ) {
 			$date_format = tribe_get_time_format();
 		}
 
-		return tribe_format_date( $start_date, false, $date_format );
+		/**
+		 * Filters the returned event start time
+		 *
+		 * @param string  $start_date
+		 * @param WP_Post $event
+		 */
+		return apply_filters( 'tribe_events_get_start_time', tribe_format_date( $start_date, false, $date_format ), $event );
 	}
 }
 
@@ -239,7 +245,13 @@ if ( ! function_exists( 'tribe_get_end_time' ) ) {
 			$date_format = tribe_get_time_format();
 		}
 
-		return tribe_format_date( $end_date, false, $date_format );
+		/**
+		 * Filters the returned event end time
+		 *
+		 * @param string  $end_date
+		 * @param WP_Post $event
+		 */
+		return apply_filters( 'tribe_events_get_end_time', tribe_format_date( $end_date, false, $date_format ), $event );
 	}
 }
 
@@ -283,7 +295,13 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 			return null;
 		}
 
-		return tribe_format_date( $start_date, $display_time, $date_format );
+		/**
+		 * Filters the returned event start date and time
+		 *
+		 * @param string  $start_date
+		 * @param WP_Post $event
+		 */
+		return apply_filters( 'tribe_events_get_start_date', tribe_format_date( $start_date, $display_time, $date_format ), $event );
 	}
 }
 
@@ -327,7 +345,13 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 			return null;
 		}
 
-		return tribe_format_date( $end_date, $display_time, $date_format );
+		/**
+		 * Filters the returned event end date and time
+		 *
+		 * @param string  $end_date
+		 * @param WP_Post $event
+		 */
+		return apply_filters( 'tribe_events_get_end_date', tribe_format_date( $end_date, $display_time, $date_format ), $event );
 	}
 }
 
