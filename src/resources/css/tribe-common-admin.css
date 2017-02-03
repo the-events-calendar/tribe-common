@@ -210,6 +210,10 @@ table.plugins .tribe-plugin-update-message a {
 	list-style: circle;
 }
 /* sizes */
+.tribe-field-inline-dropdown {
+	margin-left: 0;
+	margin-right: 0;
+}
 .tribe-field-inline-text {
 	line-height: 28px;
 	margin: 0 2px;
