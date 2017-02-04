@@ -85,7 +85,7 @@ class Tribe__Admin__Template {
 	 * @param  boolean $echo If we should also print the Template
 	 * @return string        Final Content HTML
 	 */
-	public function template( $name, $data = array(), $echo = true ) {
+	public function render( $name, $data = array(), $echo = true ) {
 		// If name is String make it an Array
 		if ( is_string( $name ) ) {
 			$name = (array) explode( '/', $name );
@@ -103,10 +103,10 @@ class Tribe__Admin__Template {
 		/**
 		 * A more Specific Filter that will include the template name
 		 *
-		 * @param string $file     Complete path to include the PHP File
-		 * @param string $name     Template name
-		 * @param array  $data     The Data that will be used on this template
-		 * @param self   $origin   Current instance of the Tribe__Admin__Template
+		 * @param string $file      Complete path to include the PHP File
+		 * @param string $name      Template name
+		 * @param array  $data      The Data that will be used on this template
+		 * @param self   $template  Current instance of the Tribe__Admin__Template
 		 */
 		$file = apply_filters( 'tribe_admin_template_file', $file, $name, $data, $this );
 
@@ -118,10 +118,10 @@ class Tribe__Admin__Template {
 		/**
 		 * Fires an Action before including the template file
 		 *
-		 * @param string $file     Complete path to include the PHP File
-		 * @param string $name     Template name
-		 * @param array  $data     The Data that will be used on this template
-		 * @param self   $origin   Current instance of the Tribe__Admin__Template
+		 * @param string $file      Complete path to include the PHP File
+		 * @param string $name      Template name
+		 * @param array  $data      The Data that will be used on this template
+		 * @param self   $template  Current instance of the Tribe__Admin__Template
 		 */
 		do_action( 'tribe_admin_template_before_include', $file, $name, $data, $this );
 
@@ -136,10 +136,10 @@ class Tribe__Admin__Template {
 		/**
 		 * Fires an Action After including the template file
 		 *
-		 * @param string $file     Complete path to include the PHP File
-		 * @param string $name     Template name
-		 * @param array  $data     The Data that will be used on this template
-		 * @param self   $origin   Current instance of the Tribe__Admin__Template
+		 * @param string $file      Complete path to include the PHP File
+		 * @param string $name      Template name
+		 * @param array  $data      The Data that will be used on this template
+		 * @param self   $template  Current instance of the Tribe__Admin__Template
 		 */
 		do_action( 'tribe_admin_template_after_include', $file, $name, $data, $this );
 		$html = ob_get_clean();
@@ -147,11 +147,11 @@ class Tribe__Admin__Template {
 		/**
 		 * Allow users to filter the final HTML
 		 *
-		 * @param string $html     The final HTML
-		 * @param string $file     Complete path to include the PHP File
-		 * @param string $name     Template name
-		 * @param array  $data     The Data that will be used on this template
-		 * @param self   $origin   Current instance of the Tribe__Admin__Template
+		 * @param string $html      The final HTML
+		 * @param string $file      Complete path to include the PHP File
+		 * @param string $name      Template name
+		 * @param array  $data      The Data that will be used on this template
+		 * @param self   $template  Current instance of the Tribe__Admin__Template
 		 */
 		$html = apply_filters( 'tribe_admin_template_html', $html, $file, $name, $data, $this );
 
