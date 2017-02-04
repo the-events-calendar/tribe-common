@@ -119,7 +119,7 @@ final class Tribe__Customizer {
 		// Hook the Registering methods
 		add_action( 'customize_register', array( $this, 'register' ), 15 );
 
-		add_action( 'wp_print_footer_scripts', array( $this, 'print_css_template' ), 15 );
+		add_action( 'wp_head', array( $this, 'print_css_template' ), 15 );
 
 		add_filter( "default_option_{$this->ID}", array( $this, 'maybe_fallback_get_option' ) );
 	}
