@@ -7,7 +7,7 @@ class Tribe__Admin__Template {
 	 * The folders into we will look for the template
 	 * @var string
 	 */
-	public $folder = array();
+	private $folder = array();
 
 	/**
 	 * The origin class for the plugin where the template lives
