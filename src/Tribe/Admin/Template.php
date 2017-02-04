@@ -16,16 +16,27 @@ class Tribe__Admin__Template {
 	public $origin;
 
 	/**
-	 * The base data context for this instance of templates
-	 * @var string
+	 * The local context for templates, muteable on every self::template() call
+	 * @var array
 	 */
-	private $data;
+	private $context;
+
+	/**
+	 * The global context for this instance of templates
+	 * @var array
+	 */
+	private $global;
+
+	/**
+	 * Allow chaing if class will extract data from the local context
+	 * @var boolean
+	 */
+	private $extract = false;
 
 	/**
 	 * Creates a new Instance of Admin Templates
 	 */
-	public function __construct( $origin, $folder, $data = array() ) {
-
+	public function __construct( $origin, $folder, $context = array() ) {
 		if ( is_string( $origin ) ) {
 			// Origin needs to be a class with a `instance` method
 			if ( class_exists( $origin ) && method_exists( $origin, 'instance' ) ) {
@@ -48,7 +59,7 @@ class Tribe__Admin__Template {
 		$this->folder = (array) $folder;
 
 		// Cast as Array and save
-		$this->data = (array) $data;
+		$this->context = (array) $context;
 	}
 
 	/**
@@ -67,25 +78,83 @@ class Tribe__Admin__Template {
 	}
 
 	/**
-	 * Gets the default data context for this Instance of Admin Template
+	 * Sets a Index inside of the global or local context
 	 *
-	 * @todo  add filter for the default data
+	 * @see    Tribe__Utils__Array::set
 	 *
-	 * @return string
+	 * @param  array    $index     Specify each nested index in order.
+	 *                             Example: array( 'lvl1', 'lvl2' );
+	 * @param  mixed    $default   Default value if the search finds nothing.
+	 * @param  boolean  $is_local  Use the Local or Global context
+	 *
+	 * @return mixed The value of the specified index or the default if not found.
 	 */
-	public function get_data() {
-		return $this->data;
+	public function get( $index, $default = null, $is_local = true ) {
+		$context = $this->global;
+
+		if ( true === $is_local ) {
+			$context = $this->context;
+		}
+
+		return Tribe__Utils__Array::get( $context, $index, $default );
+	}
+
+	/**
+	 * Sets a Index inside of the global or local context
+	 *
+	 * @see    Tribe__Utils__Array::set
+	 *
+	 * @param  string|array  $index     To set a key nested multiple levels deep pass an array
+	 *                                  specifying each key in order as a value.
+	 *                                  Example: array( 'lvl1', 'lvl2', 'lvl3' );
+	 * @param  mixed         $value     The value.
+	 * @param  boolean       $is_local  Use the Local or Global context
+	 *
+	 * @return array Full array with the key set to the specified value.
+	 */
+	public function set( $index, $value = null, $is_local = true ) {
+		if ( true === $is_local ) {
+			return Tribe__Utils__Array::set( $this->context, $index, $value );
+		} else {
+			return Tribe__Utils__Array::set( $this->global, $index, $value );
+		}
+	}
+
+	/**
+	 * Merges local and global context, and saves it locally
+	 *
+	 * @param  array  $context  Local Context array of data
+	 * @param  string $file     Complete path to include the PHP File
+	 * @param  array  $name     Template name
+	 *
+	 * @return array
+	 */
+	public function merge( $context = array(), $file = null, $name = null ) {
+		// Applies local context on top of Global one
+		$context = wp_parse_args( (array) $context, $this->global );
+
+		/**
+		 * Allows filtering the Local context
+		 *
+		 * @param array  $context   Local Context array of data
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Admin__Template
+		 */
+		$this->context = apply_filters( 'tribe_admin_context_local', $context, $file, $name, $this );
+
+		return $this->context;
 	}
 
 	/**
 	 * A very simple method to include a Aggregator Template, allowing filtering and additions using hooks.
 	 *
-	 * @param  string  $name Which file we are talking about including
-	 * @param  array   $data Any context data you need to expose to this file
-	 * @param  boolean $echo If we should also print the Template
-	 * @return string        Final Content HTML
+	 * @param  string  $name     Which file we are talking about including
+	 * @param  array   $context  Any context data you need to expose to this file
+	 * @param  boolean $echo     If we should also print the Template
+	 * @return string            Final Content HTML
 	 */
-	public function render( $name, $data = array(), $echo = true ) {
+	public function template( $name, $context = array(), $echo = true ) {
 		// If name is String make it an Array
 		if ( is_string( $name ) ) {
 			$name = (array) explode( '/', $name );
@@ -98,38 +167,40 @@ class Tribe__Admin__Template {
 		$name[ count( $name ) - 1 ] .= '.php';
 
 		// Build the File Path
-		$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $this->get_base_path(), (array) $file ) );
+		$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $this->get_base_path(), $name ) );
 
 		/**
 		 * A more Specific Filter that will include the template name
 		 *
 		 * @param string $file      Complete path to include the PHP File
-		 * @param string $name      Template name
-		 * @param array  $data      The Data that will be used on this template
+		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Admin__Template
 		 */
-		$file = apply_filters( 'tribe_admin_template_file', $file, $name, $data, $this );
+		$file = apply_filters( 'tribe_admin_template_file', $file, $name, $this );
 
 		if ( ! file_exists( $file ) ) {
 			return false;
 		}
 
 		ob_start();
+
+		// Merges the local data passed to template to the global scope
+		$this->merge( $context, $file, $name );
+
 		/**
 		 * Fires an Action before including the template file
 		 *
 		 * @param string $file      Complete path to include the PHP File
-		 * @param string $name      Template name
-		 * @param array  $data      The Data that will be used on this template
+		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Admin__Template
 		 */
-		do_action( 'tribe_admin_template_before_include', $file, $name, $data, $this );
+		do_action( 'tribe_admin_template_before_include', $file, $name, $this );
 
-		// Applies the Data on top of the default data for this template
-		$data = wp_parse_args( (array) $data, $this->get_data() );
-
-		// Make any provided variables available in the template's symbol table
-		extract( $data );
+		// Only do this if really needed (by default it wont)
+		if ( true === $this->extract && ! empty( $this->context ) ) {
+			// Make any provided variables available in the template variable scope
+			extract( $this->context );
+		}
 
 		include $file;
 
@@ -137,11 +208,10 @@ class Tribe__Admin__Template {
 		 * Fires an Action After including the template file
 		 *
 		 * @param string $file      Complete path to include the PHP File
-		 * @param string $name      Template name
-		 * @param array  $data      The Data that will be used on this template
+		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Admin__Template
 		 */
-		do_action( 'tribe_admin_template_after_include', $file, $name, $data, $this );
+		do_action( 'tribe_admin_template_after_include', $file, $name, $this );
 		$html = ob_get_clean();
 
 		/**
@@ -149,11 +219,10 @@ class Tribe__Admin__Template {
 		 *
 		 * @param string $html      The final HTML
 		 * @param string $file      Complete path to include the PHP File
-		 * @param string $name      Template name
-		 * @param array  $data      The Data that will be used on this template
+		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Admin__Template
 		 */
-		$html = apply_filters( 'tribe_admin_template_html', $html, $file, $name, $data, $this );
+		$html = apply_filters( 'tribe_admin_template_html', $html, $file, $name, $this );
 
 		if ( $echo ) {
 			echo $html;
