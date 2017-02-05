@@ -102,8 +102,6 @@ class Tribe__Admin__Template {
 	/**
 	 * Gets the base path for this Instance of Admin Templates
 	 *
-	 * @todo  add filter for the base path
-	 *
 	 * @return string
 	 */
 	public function get_base_path() {
@@ -111,11 +109,20 @@ class Tribe__Admin__Template {
 		$path = array_merge( (array) $this->origin->plugin_path, $this->folder );
 
 		// Implode to avoid Window Problems
-		return implode( DIRECTORY_SEPARATOR, $path );
+		$path = implode( DIRECTORY_SEPARATOR, $path );
+
+		/**
+		 * Allows filtering of the base path for templates
+		 *
+		 * @param string $path      Complete path to include the base folder
+		 * @param self   $template  Current instance of the Tribe__Admin__Template
+		 */
+		return apply_filters( 'tribe_admin_template_base_path', $path, $this );
 	}
 
 	/**
 	 * Sets a Index inside of the global or local context
+	 * Final to prevent extending the class when the `get` already exists on the child class
 	 *
 	 * @see    Tribe__Utils__Array::set
 	 *
@@ -126,11 +133,27 @@ class Tribe__Admin__Template {
 	 *
 	 * @return mixed The value of the specified index or the default if not found.
 	 */
-	public function get( $index, $default = null, $is_local = true ) {
+	final public function get( $index, $default = null, $is_local = true ) {
 		$context = $this->global;
 
 		if ( true === $is_local ) {
 			$context = $this->context;
+		}
+
+		/**
+		 * Allows filtering the the getting of Context variables, also short circuiting
+		 * Following the same strucuture as WP Core
+		 *
+		 * @param  mixed    $value     The value that will be filtered
+		 * @param  array    $index     Specify each nested index in order.
+		 *                             Example: array( 'lvl1', 'lvl2' );
+		 * @param  mixed    $default   Default value if the search finds nothing.
+		 * @param  boolean  $is_local  Use the Local or Global context
+		 * @param  self     $template  Current instance of the Tribe__Admin__Template
+		 */
+		$value = apply_filters( 'tribe_admin_template_context_get', null, $index, $default, $is_local, $this );
+		if ( null !== $value ) {
+			return $value;
 		}
 
 		return Tribe__Utils__Array::get( $context, $index, $default );
@@ -138,6 +161,7 @@ class Tribe__Admin__Template {
 
 	/**
 	 * Sets a Index inside of the global or local context
+	 * Final to prevent extending the class when the `set` already exists on the child class
 	 *
 	 * @see    Tribe__Utils__Array::set
 	 *
@@ -149,7 +173,7 @@ class Tribe__Admin__Template {
 	 *
 	 * @return array Full array with the key set to the specified value.
 	 */
-	public function set( $index, $value = null, $is_local = true ) {
+	final public function set( $index, $value = null, $is_local = true ) {
 		if ( true === $is_local ) {
 			return Tribe__Utils__Array::set( $this->context, $index, $value );
 		} else {
@@ -178,7 +202,7 @@ class Tribe__Admin__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Admin__Template
 		 */
-		$this->context = apply_filters( 'tribe_admin_context_local', $context, $file, $name, $this );
+		$this->context = apply_filters( 'tribe_admin_template_context', $context, $file, $name, $this );
 
 		return $this->context;
 	}
