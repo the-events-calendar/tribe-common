@@ -5,13 +5,13 @@ defined( 'WPINC' ) or die;
 class Tribe__Admin__Template {
 	/**
 	 * The folders into we will look for the template
-	 * @var string
+	 * @var array
 	 */
 	private $folder = array();
 
 	/**
 	 * The origin class for the plugin where the template lives
-	 * @var string
+	 * @var object
 	 */
 	public $origin;
 
