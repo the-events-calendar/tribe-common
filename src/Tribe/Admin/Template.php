@@ -34,9 +34,17 @@ class Tribe__Admin__Template {
 	private $extract = false;
 
 	/**
-	 * Creates a new Instance of Admin Templates
+	 * Configures the class origin plugin path
+	 *
+	 * @param  object|string  $origin   The base origin for the templates
+	 *
+	 * @return self
 	 */
-	public function __construct( $origin, $folder, $context = array() ) {
+	public function set_template_origin( $origin = null, $folder = null, $context = array() ) {
+		if ( ! isset( $origin ) ) {
+			$origin = $this->origin;
+		}
+
 		if ( is_string( $origin ) ) {
 			// Origin needs to be a class with a `instance` method
 			if ( class_exists( $origin ) && method_exists( $origin, 'instance' ) ) {
@@ -50,6 +58,22 @@ class Tribe__Admin__Template {
 
 		$this->origin = $origin;
 
+		return $this;
+	}
+
+	/**
+	 * Configures the class with the base folder in relation to the Origin
+	 *
+	 * @param  array|string   $folder  Which folder we are going to look for templates
+	 *
+	 * @return self
+	 */
+	public function set_template_folder( $folder = null ) {
+		// Allows configuring a already set class
+		if ( ! isset( $folder ) ) {
+			$folder = $this->folder;
+		}
+
 		// If Folder is String make it an Array
 		if ( is_string( $folder ) ) {
 			$folder = (array) explode( '/', $folder );
@@ -58,8 +82,21 @@ class Tribe__Admin__Template {
 		// Cast as Array and save
 		$this->folder = (array) $folder;
 
+		return $this;
+	}
+
+	/**
+	 * Configures the class global context
+	 *
+	 * @param  array          $context  Default global Context
+	 *
+	 * @return self
+	 */
+	public function set_template_globals( $context = array() ) {
 		// Cast as Array and save
-		$this->context = (array) $context;
+		$this->global = (array) $context;
+
+		return $this;
 	}
 
 	/**
