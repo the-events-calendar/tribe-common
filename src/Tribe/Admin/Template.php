@@ -40,7 +40,7 @@ class Tribe__Admin__Template {
 	 *
 	 * @return self
 	 */
-	public function set_template_origin( $origin = null, $folder = null, $context = array() ) {
+	public function set_template_origin( $origin = null ) {
 		if ( ! isset( $origin ) ) {
 			$origin = $this->origin;
 		}
