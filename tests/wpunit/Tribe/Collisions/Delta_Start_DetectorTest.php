@@ -148,4 +148,21 @@ class Delta_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, $intersected );
 	}
+
+	/**
+	 * @test
+	 * it should allow intersecting with multiple segments
+	 */
+	public function it_should_allow_intersecting_with_multiple_segments() {
+		$sut = $this->make_instance( 2 );
+
+		$a = [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
+		$b = [ [ 1, 2 ] ];
+		$c = [ [ 0, 1 ] ];
+		$d = [ [ 0, 0 ] ];
+
+		$this->assertEquals( [ [ 1, 2 ], [ 3, 4 ] ], $sut->intersect( $a, $b ) );
+		$this->assertEquals( [ [ 1, 2 ], [ 3, 4 ] ], $sut->intersect( $a, $b, $c ) );
+		$this->assertEquals( [ [ 1, 2 ] ], $sut->intersect( $a, $b, $c, $d ) );
+	}
 }

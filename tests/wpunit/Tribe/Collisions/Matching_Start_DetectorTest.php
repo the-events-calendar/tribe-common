@@ -211,4 +211,21 @@ class Matching_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 		return new Detector();
 	}
 
+	/**
+	 * @test
+	 * it should allow intersecting with multiple segments
+	 */
+	public function it_should_allow_intersecting_with_multiple_segments() {
+		$sut = $this->make_instance();
+
+		$a = [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
+		$b = [ [ 1, 2 ], [ 3, 5 ] ];
+		$c = [ [ 1, 3 ], [ 5, 9 ] ];
+		$d = [ [ 1, 1 ] ];
+
+		$this->assertEquals( [ [ 1, 2 ], [ 3, 4 ] ], $sut->intersect( $a, $b ) );
+		$this->assertEquals( [ [ 1, 2 ] ], $sut->intersect( $a, $b, $c ) );
+		$this->assertEquals( [ [ 1, 2 ] ], $sut->intersect( $a, $b, $c, $d ) );
+	}
+
 }

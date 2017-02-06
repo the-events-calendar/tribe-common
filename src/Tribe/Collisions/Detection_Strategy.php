@@ -27,6 +27,8 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 * Computes the collision-based intersection of two or more arrays of segments returning an array of elements from
 	 * the first array colliding with at least one element from the second array according to the collision detection
 	 * strategy implemented by the class.
+	 * If more than one array is specified then a segment from the first array has to collide with at least one segment
+	 * from each intersecting segment.
 	 *
 	 * Note: points are segments with matching start and end.
 	 *
