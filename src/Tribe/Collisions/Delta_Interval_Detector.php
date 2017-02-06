@@ -32,9 +32,9 @@ class Tribe__Collisions__Delta_Interval_Detector
 	 * @param array $b_starts An array of starting points from the diff array
 	 * @param array $b_ends   An array of end points form the diff array
 	 *
-	 * @return bool Whether a collision was detected or not.
+	 * @return bool|array Whether a collision was detected or not or the colliding "b" segment if $report is `true`
 	 */
-	protected function detect_collision( array $segment, array $b_starts, array $b_ends ) {
+	protected function detect_collision( array $segment, array $b_starts, array $b_ends, $report = true ) {
 		$start = $segment[0];
 		$end = $segment[1];
 
@@ -48,7 +48,7 @@ class Tribe__Collisions__Delta_Interval_Detector
 			$lower = $interval[0] - $this->delta;
 			$upper = $interval[1] + $this->delta;
 			if ( $lower <= $start && $upper >= $end ) {
-				return true;
+				return $report ? [ $interval[0], $interval[1] ] : true;
 			}
 		}
 

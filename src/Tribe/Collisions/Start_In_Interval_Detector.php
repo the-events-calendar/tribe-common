@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Tribe__Collisions__Start_In_Interval_Detector
  *
@@ -13,11 +14,11 @@ class Tribe__Collisions__Start_In_Interval_Detector
 	 *
 	 * @param array $segment  An array defining the end and start of a segment in the format [<start>, <end>].
 	 * @param array $b_starts An array of starting points from the diff array
-	 * @param array $b_ends   An array of end points form the diff array
+	 * @param bool  $report   Whether the colliding "b" segment should be returned or not.
 	 *
-	 * @return bool Whether a collision was detected or not.
+	 * @return bool|array Whether a collision was detected or not or the colliding "b" segment if $report is `true`
 	 */
-	protected function detect_collision( array $segment, array $b_starts, array $b_ends ) {
+	protected function detect_collision( array $segment, array $b_starts, array $b_ends, $report = false ) {
 		$start = $segment[0];
 
 		$intervals = array();
@@ -28,7 +29,7 @@ class Tribe__Collisions__Start_In_Interval_Detector
 
 		foreach ( $intervals as $interval ) {
 			if ( $interval[0] <= $start && $interval[1] >= $start ) {
-				return true;
+				return $report ? array( $interval[0], $interval[1] ) : true;
 			}
 		}
 

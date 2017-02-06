@@ -237,7 +237,7 @@ class Matching_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_allow_touching_arrays() {
 		$sut = $this->make_instance();
 
-		$a = [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [7,8] ];
+		$a = [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ] ];
 		$b = [ [ 1, 2 ], [ 3, 5 ] ];
 		$c = [ [ 1, 3 ], [ 5, 9 ] ];
 		$d = [ [ 1, 1 ] ];
@@ -247,4 +247,38 @@ class Matching_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], $sut->touch( $a, $b, $c, $d ) );
 	}
 
+	/**
+	 * @test
+	 * it should allow reporting when intersecting with multiple Bs
+	 */
+	public function it_should_allow_reporting_when_intersecting_with_multiple_bs() {
+		$a                    = [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
+		$b                    = [ [ 1, 2 ] ];
+		$c                    = [ [ 1, 4 ] ];
+		$expected_intersected = [ [ 1, 2 ] ];
+		$expected_matches     = [ [ 1, 2 ] ];
+
+		$sut = $this->make_instance();
+
+		$intersected = $sut->report_intersect( $a, $b, $c );
+		$this->assertEquals( [ $expected_intersected, $expected_matches ], $intersected );
+	}
+
+	/**
+	 * @test
+	 * it should allow reporting when touching with multiple Bs
+	 */
+	public function it_should_allow_reporting_when_touching_with_multiple_bs() {
+		$a                = [ [ - 3, - 2 ], [ - 1, 0 ], [ 0, 1 ], [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
+		$b                = [ [ 1, 2 ] ];
+		$c                = [ [ 2, 3 ] ];
+		$d                = [ [ 5, 7 ] ];
+		$expected_touched = [ [ 1, 2 ], [ 5, 6 ] ];
+		$expected_matches = [ [ 1, 2 ], [ 5, 7 ] ];
+
+		$sut = $this->make_instance();
+
+		$intersected = $sut->report_touch( $a, $b, $c, $d );
+		$this->assertEquals( [ $expected_touched, $expected_matches ], $intersected );
+	}
 }

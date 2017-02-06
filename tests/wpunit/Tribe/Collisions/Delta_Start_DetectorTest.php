@@ -145,7 +145,7 @@ class Delta_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance( $delta );
 
 		$intersected = $sut->intersect( $a, $b );
-		$touched = $sut->touch( $a, $b );
+		$touched     = $sut->touch( $a, $b );
 
 		$this->assertEquals( $expected, $intersected );
 		$this->assertEquals( $expected, $touched );
@@ -166,5 +166,74 @@ class Delta_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( [ [ 1, 2 ], [ 3, 4 ] ], $sut->intersect( $a, $b ) );
 		$this->assertEquals( [ [ 1, 2 ], [ 3, 4 ] ], $sut->intersect( $a, $b, $c ) );
 		$this->assertEquals( [ [ 1, 2 ] ], $sut->intersect( $a, $b, $c, $d ) );
+	}
+
+	/**
+	 * @test
+	 * it should allow reporting when intersecting
+	 */
+	public function it_should_allow_reporting_when_intersecting() {
+		$a                    = [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
+		$b                    = [ [ 1, 2 ] ];
+		$expected_intersected = [ [ 1, 2 ], [ 3, 4 ] ];
+		$expected_matches     = [ [ 1, 2 ], [ 1, 2 ] ];
+
+		$sut = $this->make_instance( 2 );
+
+
+		$intersected = $sut->report_intersect( $a, $b );
+		$this->assertEquals( [ $expected_intersected, $expected_matches ], $intersected );
+	}
+
+	/**
+	 * @test
+	 * it should allow reporting when touching
+	 */
+	public function it_should_allow_reporting_when_touching() {
+		$a                = [ [ - 3, - 2 ], [ - 1, 0 ], [ 0, 1 ], [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
+		$b                = [ [ 1, 2 ] ]; // -1 to 4
+		$expected_touched = [ [ - 1, 0 ], [ 0, 1 ], [ 1, 2 ], [ 3, 4 ] ];
+		$expected_matches = [ [ 1, 2 ], [ 1, 2 ], [ 1, 2 ], [ 1, 2 ] ];
+
+		$sut = $this->make_instance( 2 );
+
+
+		$intersected = $sut->report_touch( $a, $b );
+		$this->assertEquals( [ $expected_touched, $expected_matches ], $intersected );
+	}
+
+	/**
+	 * @test
+	 * it should allow reporting when intersecting with multiple Bs
+	 */
+	public function it_should_allow_reporting_when_intersecting_with_multiple_bs() {
+		$a                    = [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
+		$b                    = [ [ 1, 2 ] ]; // -1 to 4
+		$c                    = [ [ 2, 3 ] ]; // 0 to 5
+		$d                    = [ [ - 1, 0 ] ]; // -3 to 2
+		$expected_intersected = [ [ 1, 2 ] ];
+		$expected_matches     = [ [ 1, 2 ] ];
+
+		$sut = $this->make_instance( 2 );
+
+		$intersected = $sut->report_intersect( $a, $b, $c, $d );
+		$this->assertEquals( [ $expected_intersected, $expected_matches ], $intersected );
+	}
+
+	/**
+	 * @test
+	 * it should allow reporting when touching with multiple Bs
+	 */
+	public function it_should_allow_reporting_when_touching_with_multiple_bs() {
+		$a                = [ [ - 3, - 2 ], [ - 1, 0 ], [ 0, 1 ], [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
+		$b                = [ [ 1, 2 ] ]; // -1 to 4
+		$c                = [ [ 2, 3 ] ];
+		$expected_touched = [ [ - 1, 0 ], [ 0, 1 ], [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
+		$expected_matches = [ [ 1, 2 ], [ 1, 2 ], [ 1, 2 ], [ 1, 2 ], [ 2, 3 ] ];
+
+		$sut = $this->make_instance( 2 );
+
+		$intersected = $sut->report_touch( $a, $b, $c );
+		$this->assertEquals( [ $expected_touched, $expected_matches ], $intersected );
 	}
 }

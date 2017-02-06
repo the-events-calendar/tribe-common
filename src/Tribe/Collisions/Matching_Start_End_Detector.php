@@ -16,9 +16,24 @@ class Tribe__Collisions__Matching_Start_End_Detector
 	 * @param array $b_starts An array of starting points from the diff array
 	 * @param array $b_ends   An array of end points form the diff array
 	 *
-	 * @return bool Whether a collision was detected or not.
+	 * @return bool|array Whether a collision was detected or not or the colliding "b" segment if $report is `true`
+	 *
+	 * @return bool|array Whether a collision was detected or not or the colliding "b" segment if $report is `true`
 	 */
-	protected function detect_collision( array $segment, array $b_starts, array $b_ends ) {
-		return false !== array_search( $segment[0], $b_starts ) && false !== array_search( $segment[1], $b_ends );
+	protected function detect_collision( array $segment, array $b_starts, array $b_ends, $report = false ) {
+		$start = $segment[0];
+		$end   = $segment[1];
+
+		while ( false !== $start_match = array_search( $start, $b_starts ) ) {
+			$end_match = $end === $b_ends[ $start_match ];
+
+			if ( $end_match ) {
+				return $report ? array( $b_starts[ $start_match ], $b_ends[ $start_match ] ) : true;
+			}
+
+			unset( $b_starts[ $start_match ], $b_ends[ $start_match ] );
+		}
+
+		return false;
 	}
 }
