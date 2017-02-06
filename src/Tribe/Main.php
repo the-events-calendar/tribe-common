@@ -489,5 +489,6 @@ class Tribe__Main {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
 		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
+		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
 	}
 }
