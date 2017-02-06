@@ -145,8 +145,10 @@ class Delta_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance( $delta );
 
 		$intersected = $sut->intersect( $a, $b );
+		$touched = $sut->touch( $a, $b );
 
 		$this->assertEquals( $expected, $intersected );
+		$this->assertEquals( $expected, $touched );
 	}
 
 	/**

@@ -200,8 +200,10 @@ class Matching_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$intersected = $sut->intersect( $a, $b );
+		$touched     = $sut->touch( $a, $b );
 
 		$this->assertEquals( $expected, $intersected );
+		$this->assertEquals( $expected, $touched );
 	}
 
 	/**
@@ -226,6 +228,23 @@ class Matching_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( [ [ 1, 2 ], [ 3, 4 ] ], $sut->intersect( $a, $b ) );
 		$this->assertEquals( [ [ 1, 2 ] ], $sut->intersect( $a, $b, $c ) );
 		$this->assertEquals( [ [ 1, 2 ] ], $sut->intersect( $a, $b, $c, $d ) );
+	}
+
+	/**
+	 * @test
+	 * it should allow touching arrays
+	 */
+	public function it_should_allow_touching_arrays() {
+		$sut = $this->make_instance();
+
+		$a = [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [7,8] ];
+		$b = [ [ 1, 2 ], [ 3, 5 ] ];
+		$c = [ [ 1, 3 ], [ 5, 9 ] ];
+		$d = [ [ 1, 1 ] ];
+
+		$this->assertEquals( [ [ 1, 2 ], [ 3, 4 ] ], $sut->touch( $a, $b ) );
+		$this->assertEquals( [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], $sut->touch( $a, $b, $c ) );
+		$this->assertEquals( [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], $sut->touch( $a, $b, $c, $d ) );
 	}
 
 }

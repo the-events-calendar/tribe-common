@@ -29,8 +29,11 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 * strategy implemented by the class.
 	 * If more than one array is specified then a segment from the first array has to collide with at least one segment
 	 * from each intersecting segment.
+	 * If a lax intersection is needed use `touch`.
 	 *
 	 * Note: points are segments with matching start and end.
+	 *
+	 * @see Tribe__Collisions__Detection_Strategy::touch()
 	 *
 	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
 	 *                     <end>].
@@ -43,7 +46,47 @@ abstract class Tribe__Collisions__Detection_Strategy {
 		$args = func_get_args();
 		$a    = array_shift( $args );
 
-		return $this->collide( $a, $args, false );
+		return $this->collide( $a, $args, false, true );
+	}
+
+	/**
+	 * Computes the collision-based lax intersection of two or more arrays of segments returning an array of elements
+	 * from the first array colliding with at least one element from the second array according to the collision
+	 * detection strategy implemented by the class. If more than one array is specified then a segment from the first
+	 * array has to collide with at least one segment from one of the intersecting segment arrays; this method will
+	 * work exactly like `intersect` when applied to 1 vs 1 arrays of segments; the "lax" part comes into play when
+	 * used in 1 vs many.
+	 *
+	 * @see Tribe__Collisions__Detection_Strategy::intersect()
+	 *
+	 * Note: points are segments with matching start and end.
+	 *
+	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
+	 *                     <end>].
+	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
+	 *                     format [<start>, <end>].
+	 *
+	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 */
+	public function touch( array $a, array $b ) {
+		$bs = func_get_args();
+		$a  = array_shift( $bs );
+
+		$touching = array();
+
+		foreach ( $bs as $b ) {
+			$touching[] = $this->intersect( $a, $b );
+		}
+
+		$duplicate_detector = new Tribe__Collisions__Matching_Start_End_Detector();
+		$merged = array_shift($touching);
+		foreach ( $touching as $t ) {
+			$merged = array_merge( $merged, $duplicate_detector->diff( $t, $merged ) );
+		}
+
+		usort( $merged, array( $this, 'compare_starts' ) );
+
+		return array_values( array_filter( $merged ) );
 	}
 
 	/**
