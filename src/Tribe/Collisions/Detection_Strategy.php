@@ -3,9 +3,14 @@
 abstract class Tribe__Collisions__Detection_Strategy {
 
 	/**
-	 * Computes the collision-based difference of two or more arrays of segments returning an array of elements from
-	 * the first array not colliding with any element from the second array according to the collision detection
-	 * strategy implemented by the class.
+	 * Computes the collision-based lax intersection of two or more arrays of segments returning an array of elements
+	 * from the first array colliding with at least one element from the second array according to the collision
+	 * detection strategy implemented by the class. If more than one array is specified then a segment from the first
+	 * array has to collide with at least one segment from one of the intersecting segment arrays; this method will
+	 * work exactly like `intersect` when applied to 1 vs 1 arrays of segments; the "lax" part comes into play when
+	 * used in 1 vs many.
+	 *
+	 * @see Tribe__Collisions__Detection_Strategy::intersect()
 	 *
 	 * Note: points are segments with matching start and end.
 	 *
@@ -14,22 +19,10 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
 	 *                     format [<start>, <end>].
 	 *
-	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 * @return array An array of arrays of elements each defining the start and end of a segment in the format
+	 *               [<start>, <end>]; the first array contains the segments of $a that collided while the second array
+	 *               contains the segments that did collide with each colliding element of $a
 	 */
-	public function diff( array $a, array $b ) {
-		$args = func_get_args();
-		$a    = array_shift( $args );
-
-		return $this->collide( $a, $args, true );
-	}
-
-	public function report_intersect( array $a, array $b ) {
-		$args = func_get_args();
-		$a    = array_shift( $args );
-
-		return $this->collide( $a, $args, false, true );
-	}
-
 	public function report_touch( array $a, array $b ) {
 		$bs = func_get_args();
 		$a  = array_shift( $bs );
@@ -75,101 +68,15 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
 	 *                     format [<start>, <end>].
 	 *
-	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 * @return array An array of arrays of elements each defining the start and end of a segment in the format
+	 *               [<start>, <end>]; the first array contains the segments of $a that collided while the second array
+	 *               contains the segments that did collide with each colliding element of $a
 	 */
-	public function intersect( array $a, array $b ) {
+	public function report_intersect( array $a, array $b ) {
 		$args = func_get_args();
 		$a    = array_shift( $args );
 
-		return $this->collide( $a, $args, false );
-	}
-
-	/**
-	 * Computes the collision-based lax intersection of two or more arrays of segments returning an array of elements
-	 * from the first array colliding with at least one element from the second array according to the collision
-	 * detection strategy implemented by the class. If more than one array is specified then a segment from the first
-	 * array has to collide with at least one segment from one of the intersecting segment arrays; this method will
-	 * work exactly like `intersect` when applied to 1 vs 1 arrays of segments; the "lax" part comes into play when
-	 * used in 1 vs many.
-	 *
-	 * @see Tribe__Collisions__Detection_Strategy::intersect()
-	 *
-	 * Note: points are segments with matching start and end.
-	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
-	 *
-	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
-	 */
-	public function touch( array $a, array $b ) {
-		$bs = func_get_args();
-		$a  = array_shift( $bs );
-
-		$touching = array();
-
-		foreach ( $bs as $b ) {
-			$touching[] = $this->intersect( $a, $b );
-		}
-
-		$duplicate_detector = new Tribe__Collisions__Matching_Start_End_Detector();
-		$merged             = array_shift( $touching );
-		foreach ( $touching as $t ) {
-			$merged = array_merge( $merged, $duplicate_detector->diff( $t, $merged ) );
-		}
-
-		return array_values( array_filter( $merged ) );
-	}
-
-	/**
-	 * Detects the collision of a segment with specified start and end points.
-	 *
-	 * @param array $segment  An array defining the end and start of a segment in the format [<start>, <end>].
-	 * @param array $b_starts An array of starting points from the diff array
-	 * @param array $b_ends   An array of end points form the diff array
-	 * @param bool  $report   Whether the colliding "b" segment should be returned or not.
-	 *
-	 * @return bool|array Whether a collision was detected or not or the colliding "b" segment if $report is `true`
-	 */
-	abstract protected function detect_collision( array $segment, array $b_starts, array $b_ends, $report = false );
-
-	/**
-	 * Compares two segments.
-	 *
-	 * Used in `usort` calls.
-	 *
-	 * @param array $b_starts An array of starting points from the diff array
-	 * @param array $b_ends   An array of end points form the diff array
-	 *
-	 * @return int
-	 */
-	public function compare_starts( array $a, array $b ) {
-		if ( $a[0] == $b[0] ) {
-			return 0;
-		}
-
-		return ( $a[0] < $b[0] ) ? - 1 : 1;
-	}
-
-	/**
-	 * Returns an array of segments given starts and length.
-	 *
-	 * Note: points are segments with a length of 0.
-	 *
-	 * @param array $starts An array of starting points
-	 * @param int   $length The length of each segment
-	 *
-	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
-	 */
-	public function points_to_segments( array $starts, $length ) {
-		$segments = array();
-
-		foreach ( $starts as $start ) {
-			$segments[] = array( $start, $start + $length );
-		}
-
-		return $segments;
+		return $this->collide( $a, $args, false, true );
 	}
 
 	/**
@@ -240,5 +147,140 @@ abstract class Tribe__Collisions__Detection_Strategy {
 		$reported = array_values( $reported );
 
 		return $report ? array( $diffed, $reported ) : $diffed;
+	}
+
+	/**
+	 * Detects the collision of a segment with specified start and end points.
+	 *
+	 * @param array $segment  An array defining the end and start of a segment in the format [<start>, <end>].
+	 * @param array $b_starts An array of starting points from the diff array
+	 * @param array $b_ends   An array of end points form the diff array
+	 * @param bool  $report   Whether the colliding "b" segment should be returned or not.
+	 *
+	 * @return bool|array Whether a collision was detected or not or the colliding "b" segment if $report is `true`
+	 */
+	abstract protected function detect_collision( array $segment, array $b_starts, array $b_ends, $report = false );
+
+	/**
+	 * Computes the collision-based difference of two or more arrays of segments returning an array of elements from
+	 * the first array not colliding with any element from the second array according to the collision detection
+	 * strategy implemented by the class.
+	 *
+	 * Note: points are segments with matching start and end.
+	 *
+	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
+	 *                     <end>].
+	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
+	 *                     format [<start>, <end>].
+	 *
+	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 */
+	public function diff( array $a, array $b ) {
+		$args = func_get_args();
+		$a    = array_shift( $args );
+
+		return $this->collide( $a, $args, true );
+	}
+
+	/**
+	 * Computes the collision-based lax intersection of two or more arrays of segments returning an array of elements
+	 * from the first array colliding with at least one element from the second array according to the collision
+	 * detection strategy implemented by the class. If more than one array is specified then a segment from the first
+	 * array has to collide with at least one segment from one of the intersecting segment arrays; this method will
+	 * work exactly like `intersect` when applied to 1 vs 1 arrays of segments; the "lax" part comes into play when
+	 * used in 1 vs many.
+	 *
+	 * @see Tribe__Collisions__Detection_Strategy::intersect()
+	 *
+	 * Note: points are segments with matching start and end.
+	 *
+	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
+	 *                     <end>].
+	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
+	 *                     format [<start>, <end>].
+	 *
+	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 */
+	public function touch( array $a, array $b ) {
+		$bs = func_get_args();
+		$a  = array_shift( $bs );
+
+		$touching = array();
+
+		foreach ( $bs as $b ) {
+			$touching[] = $this->intersect( $a, $b );
+		}
+
+		$duplicate_detector = new Tribe__Collisions__Matching_Start_End_Detector();
+		$merged             = array_shift( $touching );
+		foreach ( $touching as $t ) {
+			$merged = array_merge( $merged, $duplicate_detector->diff( $t, $merged ) );
+		}
+
+		return array_values( array_filter( $merged ) );
+	}
+
+	/**
+	 * Computes the collision-based intersection of two or more arrays of segments returning an array of elements from
+	 * the first array colliding with at least one element from the second array according to the collision detection
+	 * strategy implemented by the class.
+	 * If more than one array is specified then a segment from the first array has to collide with at least one segment
+	 * from each intersecting segment.
+	 * If a lax intersection is needed use `touch`.
+	 *
+	 * Note: points are segments with matching start and end.
+	 *
+	 * @see Tribe__Collisions__Detection_Strategy::touch()
+	 *
+	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
+	 *                     <end>].
+	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
+	 *                     format [<start>, <end>].
+	 *
+	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 */
+	public function intersect( array $a, array $b ) {
+		$args = func_get_args();
+		$a    = array_shift( $args );
+
+		return $this->collide( $a, $args, false );
+	}
+
+	/**
+	 * Compares two segments.
+	 *
+	 * Used in `usort` calls.
+	 *
+	 * @param array $b_starts An array of starting points from the diff array
+	 * @param array $b_ends   An array of end points form the diff array
+	 *
+	 * @return int
+	 */
+	public function compare_starts( array $a, array $b ) {
+		if ( $a[0] == $b[0] ) {
+			return 0;
+		}
+
+		return ( $a[0] < $b[0] ) ? - 1 : 1;
+	}
+
+	/**
+	 * Returns an array of segments given starts and length.
+	 *
+	 * Note: points are segments with a length of 0.
+	 *
+	 * @param array $starts An array of starting points
+	 * @param int   $length The length of each segment
+	 *
+	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 */
+	public function points_to_segments( array $starts, $length ) {
+		$segments = array();
+
+		foreach ( $starts as $start ) {
+			$segments[] = array( $start, $start + $length );
+		}
+
+		return $segments;
 	}
 }
