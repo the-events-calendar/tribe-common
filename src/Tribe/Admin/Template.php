@@ -25,13 +25,13 @@ class Tribe__Admin__Template {
 	 * The global context for this instance of templates
 	 * @var array
 	 */
-	private $global;
+	private $global = array();
 
 	/**
 	 * Allow chaing if class will extract data from the local context
 	 * @var boolean
 	 */
-	private $extract = false;
+	private $extract_context = false;
 
 	/**
 	 * Configures the class origin plugin path
@@ -52,7 +52,7 @@ class Tribe__Admin__Template {
 			}
 		}
 
-		if ( empty( $origin->plugin_path ) ) {
+		if ( empty( $origin->plugin_path ) && empty( $origin->pluginPath ) ) {
 			throw new InvalidArgumentException( 'Invalid Origin Class for Admin Template Instance' );
 		}
 
@@ -88,13 +88,27 @@ class Tribe__Admin__Template {
 	/**
 	 * Configures the class global context
 	 *
-	 * @param  array          $context  Default global Context
+	 * @param  array  $context  Default global Context
 	 *
 	 * @return self
 	 */
-	public function set_template_globals( $context = array() ) {
-		// Cast as Array and save
-		$this->global = (array) $context;
+	public function add_template_globals( $context = array() ) {
+		// Cast as Array merge and save
+		$this->global = wp_parse_args( (array) $context, $this->global );
+
+		return $this;
+	}
+
+	/**
+	 * Configures if the class will extract context for template
+	 *
+	 * @param  bool  $value  Should we extract context for templates
+	 *
+	 * @return self
+	 */
+	public function set_template_context_extract( $value = false ) {
+		// Cast as bool and save
+		$this->extract_context = (bool) $value;
 
 		return $this;
 	}
@@ -105,8 +119,9 @@ class Tribe__Admin__Template {
 	 * @return string
 	 */
 	public function get_base_path() {
+		$origin_path = ! empty( $this->origin->plugin_path ) ? $this->origin->plugin_path : $this->origin->pluginPath;
 		// Craft the Base Path
-		$path = array_merge( (array) $this->origin->plugin_path, $this->folder );
+		$path = array_merge( (array) $origin_path, $this->folder );
 
 		// Implode to avoid Window Problems
 		$path = implode( DIRECTORY_SEPARATOR, $path );
@@ -258,7 +273,7 @@ class Tribe__Admin__Template {
 		do_action( 'tribe_admin_template_before_include', $file, $name, $this );
 
 		// Only do this if really needed (by default it wont)
-		if ( true === $this->extract && ! empty( $this->context ) ) {
+		if ( true === $this->extract_context && ! empty( $this->context ) ) {
 			// Make any provided variables available in the template variable scope
 			extract( $this->context );
 		}
