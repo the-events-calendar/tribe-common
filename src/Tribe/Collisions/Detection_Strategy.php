@@ -32,6 +32,7 @@ abstract class Tribe__Collisions__Detection_Strategy {
 		$diffed_starts = array();
 		$diffed_ends   = array();
 
+		// no matter the strategy a "duplicate" is always a segment with same start and end
 		$duplicate_collision_detector = new Tribe__Collisions__Matching_Start_End_Detector();
 
 		foreach ( $bs as $b ) {
