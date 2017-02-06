@@ -17,56 +17,31 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
 	public function diff( array $a, array $b ) {
-		$bs = func_get_args();
-		$a  = array_shift( $bs );
+		$args = func_get_args();
+		$a    = array_shift( $args );
 
-		$bs = array_filter( $bs );
+		return $this->collide( $a, $args, true );
+	}
 
-		if ( empty( $bs ) ) {
-			return $a;
-		}
+	/**
+	 * Computes the collision-based intersection of two or more arrays of segments returning an array of elements from
+	 * the first array colliding with at least one element from the second array according to the collision detection
+	 * strategy implemented by the class.
+	 *
+	 * Note: points are segments with matching start and end.
+	 *
+	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
+	 *                     <end>].
+	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
+	 *                     format [<start>, <end>].
+	 *
+	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 */
+	public function intersect( array $a, array $b ) {
+		$args = func_get_args();
+		$a    = array_shift( $args );
 
-		usort( $a, array( $this, 'compare_starts' ) );
-
-		$diffed        = array();
-		$diffed_starts = array();
-		$diffed_ends   = array();
-
-		// no matter the strategy a "duplicate" is always a segment with same start and end
-		$duplicate_collision_detector = new Tribe__Collisions__Matching_Start_End_Detector();
-
-		foreach ( $bs as $b ) {
-			usort( $b, array( $this, 'compare_starts' ) );
-
-			$b_starts = wp_list_pluck( $b, 0 );
-			$b_ends   = wp_list_pluck( $b, 1 );
-
-			foreach ( $a as $segment ) {
-				if ( $this->detect_collision( $segment, $b_starts, $b_ends ) ) {
-					if ( false !== $i = array_search( $segment, $diffed ) ) {
-						unset( $diffed[ $i ] );
-					}
-					continue;
-				}
-
-				// avoid duplicates
-				if ( $duplicate_collision_detector->detect_collision( $segment, $diffed_starts, $diffed_ends ) ) {
-					continue;
-				}
-
-				$diffed_starts[] = $segment[0];
-				$diffed_ends[]   = $segment[1];
-				$diffed[]        = $segment;
-			}
-
-			if ( empty( $diffed ) ) {
-				break;
-			}
-
-			$a = $diffed;
-		}
-
-		return array_values( $diffed );
+		return $this->collide( $a, $args, false );
 	}
 
 	/**
@@ -116,5 +91,64 @@ abstract class Tribe__Collisions__Detection_Strategy {
 		}
 
 		return $segments;
+	}
+
+	/**
+	 *
+	 * Detects collisions betwenn 2+ arrays of segments.
+	 *
+	 * @param array $a       An array of elements each defining the start and end of a segment in the format [<start>,
+	 *                       <end>].
+	 * @param array $b,...   An array (ore more arrays) of elements each defining the start and end of a segment in the
+	 *                       format [<start>, <end>].
+	 * @param bool  $discard Whether the detection of a collisions should discard (diff) or keep (intersect) a segment
+	 *                       from the first array.
+	 *
+	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 */
+	protected function collide( array $a, array $b, $discard = true ) {
+		$bs = (array) $b;
+
+		usort( $a, array( $this, 'compare_starts' ) );
+
+		$diffed        = array();
+		$diffed_starts = array();
+		$diffed_ends   = array();
+
+		// no matter the strategy a "duplicate" is always a segment with same start and end
+		$duplicate_collision_detector = new Tribe__Collisions__Matching_Start_End_Detector();
+
+		foreach ( $bs as $b ) {
+			usort( $b, array( $this, 'compare_starts' ) );
+
+			$b_starts = wp_list_pluck( $b, 0 );
+			$b_ends   = wp_list_pluck( $b, 1 );
+
+			foreach ( $a as $segment ) {
+				if ( $discard === $this->detect_collision( $segment, $b_starts, $b_ends ) ) {
+					if ( false !== $i = array_search( $segment, $diffed ) ) {
+						unset( $diffed[ $i ] );
+					}
+					continue;
+				}
+
+				// avoid duplicates
+				if ( $duplicate_collision_detector->detect_collision( $segment, $diffed_starts, $diffed_ends ) ) {
+					continue;
+				}
+
+				$diffed_starts[] = $segment[0];
+				$diffed_ends[]   = $segment[1];
+				$diffed[]        = $segment;
+			}
+
+			if ( empty( $diffed ) ) {
+				break;
+			}
+
+			$a = $diffed;
+		}
+
+		return array_values( $diffed );
 	}
 }

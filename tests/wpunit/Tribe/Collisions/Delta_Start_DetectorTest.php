@@ -37,7 +37,7 @@ class Delta_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_return_the_original_array_if_diff_array_is_empty() {
 		$sut = $this->make_instance();
 
-		$a = [ [ 1, 2 ] ];
+		$a      = [ [ 1, 2 ] ];
 		$diffed = $sut->diff( $a, [] );
 
 		$this->assertEquals( $a, $diffed );
@@ -50,7 +50,7 @@ class Delta_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_return_empty_array_when_diffing_array_with_itself() {
 		$sut = $this->make_instance();
 
-		$a = [ [ 1, 2 ], [ 3, 4 ] ];
+		$a      = [ [ 1, 2 ], [ 3, 4 ] ];
 		$diffed = $sut->diff( $a, $a );
 
 		$this->assertEquals( [], $diffed );
@@ -63,8 +63,8 @@ class Delta_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_detect_collisions_no_matter_the_order_of_the_segments() {
 		$sut = $this->make_instance();
 
-		$a = [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
-		$b = [ [ 5, 6 ], [ 1, 2 ], [ 3, 4 ] ];
+		$a      = [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ];
+		$b      = [ [ 5, 6 ], [ 1, 2 ], [ 3, 4 ] ];
 		$diffed = $sut->diff( $a, $b );
 
 		$this->assertEquals( [], $diffed );
@@ -76,7 +76,12 @@ class Delta_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ 0, 0 ] ], 2, [ [ 3, 4 ] ] ],
 			[ [ [ - 1, 0 ], [ 1, 2 ], [ 3, 4 ] ], [ [ 0, 0 ] ], 2, [ [ 3, 4 ] ] ],
 			[ [ [ - 2, - 1 ], [ - 1, 0 ], [ 1, 2 ], [ 3, 4 ] ], [ [ 0, 0 ] ], 2, [ [ 3, 4 ] ] ],
-			[ [ [ - 3, - 2 ], [ - 2, - 1 ], [ - 1, 0 ], [ 1, 2 ], [ 3, 4 ] ], [ [ 0, 0 ] ], 2, [ [ - 3, - 2 ],[3,4] ] ],
+			[
+				[ [ - 3, - 2 ], [ - 2, - 1 ], [ - 1, 0 ], [ 1, 2 ], [ 3, 4 ] ],
+				[ [ 0, 0 ] ],
+				2,
+				[ [ - 3, - 2 ], [ 3, 4 ] ]
+			],
 			[ [ [ 1, 2 ] ], [ [ 0, 0 ] ], 1, [] ],
 			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ 0, 0 ] ], 1, [ [ 3, 4 ] ] ],
 			[ [ [ - 1, 0 ], [ 1, 2 ], [ 3, 4 ] ], [ [ 0, 0 ] ], 1, [ [ 3, 4 ] ] ],
@@ -117,5 +122,30 @@ class Delta_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	private function make_instance( $delta = 1 ) {
 		return new Detector( $delta );
+	}
+
+	public function intersect_segments() {
+		return [
+			[ [], [], 2, [] ],
+			[ [ [ 1, 2 ] ], [], 2, [] ],
+			[ [ [ 1, 2 ] ], [ [ 1, 2, ] ], 2, [ [ 1, 2 ] ] ],
+			[ [ [ 1, 2 ] ], [ [ 1, 4, ] ], 2, [ [ 1, 2 ] ] ],
+			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ 1, 4, ] ], 2, [ [ 1, 2 ], [ 3, 4 ] ] ],
+			[ [ [ 1, 2 ], [ 3, 4 ], [ 6, 7 ] ], [ [ 1, 4, ] ], 2, [ [ 1, 2 ], [ 3, 4 ], [ 6, 7 ] ] ],
+			[ [ [ 1, 2 ], [ 3, 4 ], [ 6, 7 ] ], [ [ 1, 4, ] ], 1, [ [ 1, 2 ], [ 3, 4 ] ] ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should allow intersecting segments
+	 * @dataProvider intersect_segments
+	 */
+	public function it_should_allow_intersecting_segments( array $a, array $b, $delta, array $expected ) {
+		$sut = $this->make_instance( $delta );
+
+		$intersected = $sut->intersect( $a, $b );
+
+		$this->assertEquals( $expected, $intersected );
 	}
 }
