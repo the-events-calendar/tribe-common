@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class Tribe__Collisions__Matching_Start_End_Detector
+ * Class Tribe__Collisions__Delta_Interval_Detector
  *
  * A collision happens when a segment is contained in another segment +/- a delta.
  * E.g [4,7] will collide with [5,6] with a delta of 1 or above; (5-1 = 4) && (6+1 = 7).

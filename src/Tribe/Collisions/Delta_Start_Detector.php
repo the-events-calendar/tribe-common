@@ -1,11 +1,16 @@
 <?php
+
 /**
- * Class Tribe__Collisions__Start_In_Interval_Detector
+ * Class Tribe__Collisions__Delta_Start_Detector
  *
- * A collision happens when a segment has its start contained in another segment.
+ * A collisions happens when a segment start is contained in another segment +/- a delta.
+ * E.g. [4,7] collides with [5,6] +/- 1 (5-1 = 4 and 6+1 = 7)
+ * E.g. [4,7] collides with [4,5] +/- 0
+ * E.g. [4,7] does not collide with [1,2] +/- 1
+ * E.g. [4,7] collides with [2,3] +/- 1
  */
-class Tribe__Collisions__Start_In_Interval_Detector
-	extends Tribe__Collisions__Detection_Strategy
+class Tribe__Collisions__Delta_Start_Detector
+	extends Tribe__Collisions__Delta_Interval_Detector
 	implements Tribe__Collisions__Detector_Interface {
 
 	/**
@@ -27,7 +32,9 @@ class Tribe__Collisions__Start_In_Interval_Detector
 		}
 
 		foreach ( $intervals as $interval ) {
-			if ( $interval[0] <= $start && $interval[1] >= $start ) {
+			$lower = $interval[0] - $this->delta;
+			$upper = $interval[1] + $this->delta;
+			if ( $lower <= $start && $upper >= $start ) {
 				return true;
 			}
 		}

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class Tribe__Collisions__Matching_Start_End_Detector
+ * Class Tribe__Collisions__Start_End_In_Interval_Detector
  *
  * A collision happens when a segment has its start AND its end in in contained in another segment.
  */
