@@ -91,7 +91,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	 * @param {function} make_selection
 	 */
 	obj.init_selection = function( $select, make_selection ) {
-		var is_multiple    = $select.is( '[data-multiple]' ),
+		var is_multiple    = $select.is( '[multiple]' ),
 		    options        = $select.data( 'dropdown' ),
 		    current_values = $select.val().split( options.regexSplit ),
 		    selected_items = [];
@@ -240,6 +240,11 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		if ( $select.is( '[multiple]' ) ) {
 			args.multiple = true;
 
+			// If you don't have separator, add one (comma)
+			if ( ! $select.is( 'data-separator' ) ) {
+				$select.data( 'separator', ',' );
+			}
+
 			if ( ! _.isArray( $select.data( 'separator' ) ) ) {
 				args.tokenSeparators = [ $select.data( 'separator' ) ];
 			} else {
@@ -337,6 +342,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		if ( ! $select.is( '[multiple]' ) ){
 			return;
 		}
+
 		if ( ! $select.is( '[data-source]' ) ){
 			return;
 		}

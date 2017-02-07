@@ -186,6 +186,10 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 			'yes',
 			'true',
 		) );
+		// Makes sure we are dealing with lowercase for testing
+		if ( is_string( $var ) ) {
+			$var = strtolower( $var );
+		}
 
 		// If $var is a string, it is only true if it is contained in the above array
 		if ( in_array( $var, $truthy_strings, true ) ) {
