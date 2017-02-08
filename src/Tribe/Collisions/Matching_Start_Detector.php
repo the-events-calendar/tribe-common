@@ -19,7 +19,7 @@ class Tribe__Collisions__Matching_Start_Detector
 	 *
 	 * @return bool Whether a collision was detected or not.
 	 */
-	protected function detect_collision( array $segment, array $b_starts, array $b_ends ,$report = false ) {
+	protected function detect_collision( array $segment, array $b_starts, array $b_ends, $report = false ) {
 		$index = array_search( $segment[0], $b_starts );
 
 		if ( false === $index ) {
