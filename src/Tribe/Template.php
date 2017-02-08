@@ -143,7 +143,7 @@ class Tribe__Template {
 		 * @param string $path      Complete path to include the base folder
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		return apply_filters( 'tribe_admin_template_base_path', $path, $this );
+		return apply_filters( 'tribe_template_base_path', $path, $this );
 	}
 
 	/**
@@ -177,7 +177,7 @@ class Tribe__Template {
 		 * @param  boolean  $is_local  Use the Local or Global context
 		 * @param  self     $template  Current instance of the Tribe__Template
 		 */
-		$value = apply_filters( 'tribe_admin_template_context_get', null, $index, $default, $is_local, $this );
+		$value = apply_filters( 'tribe_template_context_get', null, $index, $default, $is_local, $this );
 		if ( null !== $value ) {
 			return $value;
 		}
@@ -228,7 +228,7 @@ class Tribe__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		$this->context = apply_filters( 'tribe_admin_template_context', $context, $file, $name, $this );
+		$this->context = apply_filters( 'tribe_template_context', $context, $file, $name, $this );
 
 		return $this->context;
 	}
@@ -263,7 +263,7 @@ class Tribe__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		$file = apply_filters( 'tribe_admin_template_file', $file, $name, $this );
+		$file = apply_filters( 'tribe_template_file', $file, $name, $this );
 
 		if ( ! file_exists( $file ) ) {
 			return false;
@@ -281,7 +281,7 @@ class Tribe__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		do_action( 'tribe_admin_template_before_include', $file, $name, $this );
+		do_action( 'tribe_template_before_include', $file, $name, $this );
 
 		// Only do this if really needed (by default it wont)
 		if ( true === $this->template_context_extract && ! empty( $this->context ) ) {
@@ -298,7 +298,7 @@ class Tribe__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		do_action( 'tribe_admin_template_after_include', $file, $name, $this );
+		do_action( 'tribe_template_after_include', $file, $name, $this );
 		$html = ob_get_clean();
 
 		/**
@@ -309,7 +309,7 @@ class Tribe__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		$html = apply_filters( 'tribe_admin_teplate_html', $html, $file, $name, $this );
+		$html = apply_filters( 'tribe_teplate_html', $html, $file, $name, $this );
 
 		if ( $echo ) {
 			echo $html;
