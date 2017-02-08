@@ -2,12 +2,12 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-class Tribe__Admin__Template {
+class Tribe__Template {
 	/**
 	 * The folders into we will look for the template
 	 * @var array
 	 */
-	private $folder = array();
+	protected $folder = array();
 
 	/**
 	 * The origin class for the plugin where the template lives
@@ -19,19 +19,26 @@ class Tribe__Admin__Template {
 	 * The local context for templates, muteable on every self::template() call
 	 * @var array
 	 */
-	private $context;
+	protected $context;
 
 	/**
 	 * The global context for this instance of templates
 	 * @var array
 	 */
-	private $global = array();
+	protected $global = array();
 
 	/**
 	 * Allow chaing if class will extract data from the local context
 	 * @var boolean
 	 */
-	private $extract_context = false;
+	protected $template_context_extract = false;
+
+
+	/**
+	 * Base template for where to look for template
+	 * @var array
+	 */
+	protected $template_base_path;
 
 	/**
 	 * Configures the class origin plugin path
@@ -52,11 +59,16 @@ class Tribe__Admin__Template {
 			}
 		}
 
-		if ( empty( $origin->plugin_path ) && empty( $origin->pluginPath ) ) {
-			throw new InvalidArgumentException( 'Invalid Origin Class for Admin Template Instance' );
+		if ( empty( $origin->plugin_path ) && empty( $origin->pluginPath ) && ! is_dir( $origin ) ) {
+			throw new InvalidArgumentException( 'Invalid Origin Class for Template Instance' );
 		}
 
-		$this->origin = $origin;
+		if ( ! is_string( $origin ) ) {
+			$this->origin = $origin;
+			$this->template_base_path = ! empty( $this->origin->plugin_path ) ? $this->origin->plugin_path : $this->origin->pluginPath;
+		} else {
+			$this->template_base_path = (array) explode( '/', $origin );
+		}
 
 		return $this;
 	}
@@ -108,20 +120,19 @@ class Tribe__Admin__Template {
 	 */
 	public function set_template_context_extract( $value = false ) {
 		// Cast as bool and save
-		$this->extract_context = (bool) $value;
+		$this->template_context_extract = (bool) $value;
 
 		return $this;
 	}
 
 	/**
-	 * Gets the base path for this Instance of Admin Templates
+	 * Gets the base path for this Instance of Templates
 	 *
 	 * @return string
 	 */
 	public function get_base_path() {
-		$origin_path = ! empty( $this->origin->plugin_path ) ? $this->origin->plugin_path : $this->origin->pluginPath;
 		// Craft the Base Path
-		$path = array_merge( (array) $origin_path, $this->folder );
+		$path = array_merge( (array) $this->template_base_path, $this->folder );
 
 		// Implode to avoid Window Problems
 		$path = implode( DIRECTORY_SEPARATOR, $path );
@@ -130,7 +141,7 @@ class Tribe__Admin__Template {
 		 * Allows filtering of the base path for templates
 		 *
 		 * @param string $path      Complete path to include the base folder
-		 * @param self   $template  Current instance of the Tribe__Admin__Template
+		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		return apply_filters( 'tribe_admin_template_base_path', $path, $this );
 	}
@@ -164,7 +175,7 @@ class Tribe__Admin__Template {
 		 *                             Example: array( 'lvl1', 'lvl2' );
 		 * @param  mixed    $default   Default value if the search finds nothing.
 		 * @param  boolean  $is_local  Use the Local or Global context
-		 * @param  self     $template  Current instance of the Tribe__Admin__Template
+		 * @param  self     $template  Current instance of the Tribe__Template
 		 */
 		$value = apply_filters( 'tribe_admin_template_context_get', null, $index, $default, $is_local, $this );
 		if ( null !== $value ) {
@@ -215,7 +226,7 @@ class Tribe__Admin__Template {
 		 * @param array  $context   Local Context array of data
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Admin__Template
+		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		$this->context = apply_filters( 'tribe_admin_template_context', $context, $file, $name, $this );
 
@@ -250,7 +261,7 @@ class Tribe__Admin__Template {
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Admin__Template
+		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		$file = apply_filters( 'tribe_admin_template_file', $file, $name, $this );
 
@@ -268,12 +279,12 @@ class Tribe__Admin__Template {
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Admin__Template
+		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		do_action( 'tribe_admin_template_before_include', $file, $name, $this );
 
 		// Only do this if really needed (by default it wont)
-		if ( true === $this->extract_context && ! empty( $this->context ) ) {
+		if ( true === $this->template_context_extract && ! empty( $this->context ) ) {
 			// Make any provided variables available in the template variable scope
 			extract( $this->context );
 		}
@@ -285,7 +296,7 @@ class Tribe__Admin__Template {
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Admin__Template
+		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		do_action( 'tribe_admin_template_after_include', $file, $name, $this );
 		$html = ob_get_clean();
@@ -296,9 +307,9 @@ class Tribe__Admin__Template {
 		 * @param string $html      The final HTML
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Admin__Template
+		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		$html = apply_filters( 'tribe_admin_template_html', $html, $file, $name, $this );
+		$html = apply_filters( 'tribe_admin_teplate_html', $html, $file, $name, $this );
 
 		if ( $echo ) {
 			echo $html;
