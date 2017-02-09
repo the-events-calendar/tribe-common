@@ -263,6 +263,44 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 	}
 
 	/**
+	 * @test
+	 * it should allow for a margin
+	 */
+	public function it_should_allow_for_a_margin() {
+		$detector = new Detector();
+
+		$a = [ [ 1, 2 ], [ 10, 11 ] ];
+		$b = [ [ 3, 4 ], [ 16,17 ] ];
+
+		$intersected = $detector->report_intersect( $a, $b );
+
+		// average is (2+6)/2 = 4 -> [10,11] is too far from 16
+		$surviving = $intersected[0];
+		$matching = $intersected[1];
+		$this->assertEquals( [ [ 1, 2 ] ], $surviving );
+		$this->assertEquals( [ [ 3, 4 ] ], $matching );
+
+		$detector->set_margin( 1 );
+		$intersected = $detector->report_intersect( $a, $b );
+
+		// average is (2+6)/2 = 4+1 -> [10,11] is still too far from 16
+		$surviving = $intersected[0];
+		$matching = $intersected[1];
+		$this->assertEquals( [ [ 1, 2 ] ], $surviving );
+		$this->assertEquals( [ [ 3, 4 ] ], $matching );
+
+		$detector->set_margin( 2 );
+		$intersected = $detector->report_intersect( $a, $b );
+
+		// average is (2+6)/2 = 4+2 -> [10,11] is finally inside the match boundaries
+		$surviving = $intersected[0];
+		$matching = $intersected[1];
+		$this->assertEquals( [ [ 1, 2 ], [ 10, 11 ] ], $surviving );
+		$this->assertEquals( [ [ 3, 4 ], [ 16, 17 ] ], $matching );
+
+	}
+
+	/**
 	 * @return Detector
 	 */
 	private function make_instance() {

@@ -3,6 +3,22 @@
 class Tribe__Collisions__Average_Proximity_Start_Detector
 	extends Tribe__Collisions__Closest_Unique_Start_Detector
 	implements Tribe__Collisions__Detector_Interface {
+
+	/**
+	 * A margin that should be applied to the delta to allow for broader matching.
+	 * @var int
+	 */
+	protected $margin;
+
+	/**
+	 * Tribe__Collisions__Average_Proximity_Start_Detector constructor.
+	 *
+	 * @param int $margin
+	 */
+	public function __construct($margin  = 0) {
+		$this->margin = $margin;
+	}
+
 	/**
 	 * Computes the collision-based difference of two or more arrays of segments returning an array of elements from
 	 * the first array not colliding with any element from the second array according to the collision detection
@@ -37,10 +53,6 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 		}
 
 		return $diffed;
-	}
-
-	protected function get_distance( array $starts ) {
-		return abs( $starts[1] - $starts[0] );
 	}
 
 	/**
@@ -81,7 +93,11 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 			$starts[] = array( $as[ $i ][0], $bs[ $i ][0] );
 		}
 
-		$average_distance = array_sum( array_map( array( $this, 'get_distance' ), $starts ) ) / $count;
+		$average_distance = ( array_sum( array_map( array( $this, 'get_distance' ), $starts ) ) / $count );
+		$average_distance += $this->margin;
+
+		// sanity check
+		$average_distance = $average_distance < 0 ? 0 : $average_distance;
 
 		$surviving = array( array(), array() );
 		for ( $i = 0; $i < $count; $i ++ ) {
@@ -95,5 +111,22 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 		}
 
 		return $surviving;
+	}
+
+	/**
+	 * Sets the margin that should be applied to the average distance to broaden the matches.
+	 *
+	 * @param int $margin
+	 */
+	public function set_margin($margin) {
+		if ( ! is_numeric( $margin ) ) {
+			throw new InvalidArgumentException( __( 'Margin must be an integer', 'tribe-common' ) );
+		}
+
+		$this->margin = intval( $margin );
+	}
+
+	protected function get_distance( array $starts ) {
+		return abs( $starts[1] - $starts[0] );
 	}
 }

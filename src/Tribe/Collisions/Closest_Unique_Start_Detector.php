@@ -11,24 +11,6 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	protected $segment;
 
 	/**
-	 * Detects the collision of a segment with specified start and end points.
-	 *
-	 * @param array $segment  An array defining the end and start of a segment in the format [<start>, <end>].
-	 * @param array $b_starts An array of starting points from the diff array
-	 * @param array $b_ends   An array of end points form the diff array
-	 * @param bool  $report   Whether the colliding "b" segment should be returned or not.
-	 *
-	 * @return bool|array Whether a collision was detected or not or the colliding "b" segment if $report is `true`
-	 */
-	protected function detect_collision( array $segment, array $b_starts, array $b_ends, $report = false ) {
-		if ( empty( $b_starts ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Computes the collision-based difference of two or more arrays of segments returning an array of elements from
 	 * the first array not colliding with any element from the second array according to the collision detection
 	 * strategy implemented by the class.
@@ -81,19 +63,6 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 		$reported = call_user_func_array( array( $this, 'report_intersect' ), func_get_args() );
 
 		return reset( $reported );
-	}
-
-	protected function find_closest_segment( $current_closest, $candidate ) {
-		if ( - 1 === $current_closest ) {
-			// first iteration
-			return $candidate;
-		}
-
-		$start = $this->segment[0];
-		$distance = abs( $candidate[0] - $start );
-		$current_closest_distance = abs( $current_closest[0] - $start );
-
-		return $distance < $current_closest_distance ? $candidate : $current_closest;
 	}
 
 	/**
@@ -220,6 +189,37 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 */
 	public function report_touch( array $a, array $b ) {
 		return call_user_func_array( array( $this, 'report_intersect' ), func_get_args() );
+	}
+
+	/**
+	 * Detects the collision of a segment with specified start and end points.
+	 *
+	 * @param array $segment  An array defining the end and start of a segment in the format [<start>, <end>].
+	 * @param array $b_starts An array of starting points from the diff array
+	 * @param array $b_ends   An array of end points form the diff array
+	 * @param bool  $report   Whether the colliding "b" segment should be returned or not.
+	 *
+	 * @return bool|array Whether a collision was detected or not or the colliding "b" segment if $report is `true`
+	 */
+	protected function detect_collision( array $segment, array $b_starts, array $b_ends, $report = false ) {
+		if ( empty( $b_starts ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	protected function find_closest_segment( $current_closest, $candidate ) {
+		if ( - 1 === $current_closest ) {
+			// first iteration
+			return $candidate;
+		}
+
+		$start = $this->segment[0];
+		$distance = abs( $candidate[0] - $start );
+		$current_closest_distance = abs( $current_closest[0] - $start );
+
+		return $distance < $current_closest_distance ? $candidate : $current_closest;
 	}
 
 	protected function compare_serialized_starts( $a, $b ) {
