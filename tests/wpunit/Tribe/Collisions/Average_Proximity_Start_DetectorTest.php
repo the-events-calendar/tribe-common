@@ -2,9 +2,9 @@
 
 namespace Tribe\Collisions;
 
-use Tribe__Collisions__Closest_Unique_Start_Detector as Detector;
+use Tribe__Collisions__Average_Proximity_Start_Detector as Detector;
 
-class Closest_Unique_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
+class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 * it should be instantiatable
@@ -50,16 +50,53 @@ class Closest_Unique_Start_DetectorTest extends \Codeception\TestCase\WPTestCase
 		];
 	}
 
+	public function to_diff() {
+		return [
+			[ [], [], [] ],
+			[ [ [ 1, 2 ] ], [], [ [ 1, 2 ] ] ],
+			[ [ [ 1, 2 ] ], [ [ 3400, 5000 ] ], [] ],
+			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ 3400, 5000 ] ], [ [ 1, 2 ] ] ],
+			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ - 2, 0 ] ], [ [ 3, 4 ] ] ],
+			[ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], [ [ 0, 1 ], [ 7, 9 ] ], [ [ 3, 4 ], [ 5, 6 ] ] ],
+			[ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], [ [ 0, 1 ], [ 6, 9 ] ], [ [ 3, 4 ] ] ],
+			[ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], [ [ 0, 1 ], [ 6, 9 ], [ 4, 3 ] ], [] ],
+		];
+	}
+
 	/**
 	 * @test
-	 * it should always return emtpy array when diffing
-	 * @dataProvider array_comparisons
+	 * it should handle diffing two arrays
+	 * @dataProvider to_diff
 	 */
-	public function it_should_always_return_emtpy_array_when_diffing( $a, $b ) {
-		$detector = new Detector();
+	public function it_should_handle_diffing_two_arrays( $a, $b, $expected ) {
+		$detector = $this->make_instance();
+
 		$diffed = $detector->diff( $a, $b );
 
-		$this->assertEmpty( $diffed );
+		$this->assertEquals( $expected, $diffed );
+	}
+
+	public function multiple_diffing_arrays() {
+		return [
+			// $a, $b, $c, $expected
+			[ [], [], [], [] ],
+			[ [ [ 1, 2 ] ], [], [ [ 3, 4 ] ], [] ],
+			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ 3400, 5000 ] ], [ [ - 100, 200 ] ], [ [ 3, 4 ] ] ],
+			[ [ [ 10, 20 ], [ 30, 40 ], [ 100, 110 ] ], [ [ 50, 60 ] ], [ [ 10, 20 ] ], [ [ 30, 40 ], [ 100, 110 ] ] ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should handle diffing more arrays
+	 * @dataProvider multiple_diffing_arrays
+	 */
+	public function it_should_handle_diffing_more_arrays( $a, $b, $c, $expected ) {
+		$detector = $this->make_instance();
+
+		$diffed = $detector->diff( $a, $b, $c );
+
+		$this->assertEquals( $expected, $diffed );
 	}
 
 	/**
@@ -138,16 +175,16 @@ class Closest_Unique_Start_DetectorTest extends \Codeception\TestCase\WPTestCase
 				[ [ - 2, 1 ], [ 7, 8 ] ],
 			],
 			[
-				[ [ 1, 2 ], [ 3, 4 ] ],
-				[ [ 2.5, 4 ] ],
-				[ [ 3, 4 ] ],
-				[ [ 2.5, 4 ] ],
+				[ [ 1, 2 ], [ 3, 4 ], [ 4, 5 ] ],
+				[ [ - 3, 1 ], [ 7, 8 ] ],
+				[ [ 4, 5 ] ],
+				[ [ 7, 8 ] ],
 			],
 			[
-				[ [ 3, 3 ], [ 3, 4 ], [ 3, 5 ], [ 3, 9 ] ],
-				[ [ 2, 4 ] ],
-				[ [ 3, 3 ] ],
-				[ [ 2, 4 ] ],
+				[ [ 1, 2 ], [ 3, 4 ], [ 4, 5 ], [ 5, 6 ] ],
+				[ [ - 3, 1 ], [ 7, 8 ] ],
+				[ [ 5, 6 ] ],
+				[ [ 7, 8 ] ],
 			],
 		];
 	}

@@ -70,7 +70,10 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
 	public function intersect( array $a, array $b ) {
-		if ( empty( $b ) ) {
+		$bs = func_get_args();
+		array_shift( $bs );
+
+		if ( empty( array_filter( $bs ) ) ) {
 			return array();
 		}
 
