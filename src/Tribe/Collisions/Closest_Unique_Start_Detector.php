@@ -73,7 +73,8 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 		$bs = func_get_args();
 		array_shift( $bs );
 
-		if ( empty( array_filter( $bs ) ) ) {
+		$bs = array_filter( $bs );
+		if ( empty( $bs ) ) {
 			return array();
 		}
 
@@ -186,7 +187,6 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 					$as_and_closest_bs[ serialize( $new_closest_a ) ] = $closest_b;
 				}
 			}
-
 		}
 
 		uksort( $as_and_closest_bs, array( $this, 'compare_serialized_starts' ) );

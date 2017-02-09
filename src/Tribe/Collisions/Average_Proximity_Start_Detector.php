@@ -21,7 +21,8 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 		$bs = func_get_args();
 		$a = array_shift( $bs );
 
-		if ( empty( array_filter( $bs ) ) ) {
+		$bs = array_filter( $bs );
+		if ( empty( $bs ) ) {
 			return $a;
 		}
 
