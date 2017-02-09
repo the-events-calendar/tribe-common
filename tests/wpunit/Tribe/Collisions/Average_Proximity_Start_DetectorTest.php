@@ -42,6 +42,18 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 		$this->assertEquals( [], $diffed );
 	}
 
+	/**
+	 * @test
+	 * it should return empty array when diffing empty array
+	 */
+	public function it_should_return_empty_array_when_diffing_empty_array() {
+		$b = [ [ 1, 2 ], [ 3, 4 ] ];
+
+		$detector = new Detector();
+		$this->assertEmpty( $detector->diff( [], [] ) );
+		$this->assertEmpty( $detector->diff( [], $b ) );
+	}
+
 	public function array_comparisons() {
 		return [
 			[ [], [ [ 7, 8 ] ] ],
@@ -82,7 +94,7 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 			[ [], [], [], [] ],
 			[ [ [ 1, 2 ] ], [], [ [ 3, 4 ] ], [] ],
 			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ 3400, 5000 ] ], [ [ - 100, 200 ] ], [ [ 3, 4 ] ] ],
-			[ [ [ 10, 20 ], [ 30, 40 ], [ 100, 110 ] ], [ [ 50, 60 ] ], [ [ 10, 20 ] ], [ [ 30, 40 ], [ 100, 110 ] ] ],
+			[ [ [ 10, 20 ], [ 30, 40 ], [ 100, 110 ] ], [ [ 50, 60 ] ], [ [ 10, 20 ] ], [ [ 100, 110 ] ] ],
 		];
 	}
 
@@ -91,7 +103,7 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 	 * it should handle diffing more arrays
 	 * @dataProvider multiple_diffing_arrays
 	 */
-	public function it_should_handle_diffing_more_arrays( $a, $b, $c, $expected ) {
+	public function kt_should_handle_diffing_more_arrays( $a, $b, $c, $expected ) {
 		$detector = $this->make_instance();
 
 		$diffed = $detector->diff( $a, $b, $c );
@@ -110,6 +122,34 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 		$intersected = $detector->intersect( $a, [] );
 
 		$this->assertEmpty( $intersected );
+	}
+
+	/**
+	 * @test
+	 * it should return empty array when intersecting empty array
+	 */
+	public function it_should_return_empty_array_when_intersecting_empty_array() {
+		$b = [ [ 1, 2 ], [ 3, 4 ] ];
+
+		$detector = new Detector();
+		$this->assertEmpty( $detector->intersect( [], [] ) );
+		$this->assertEmpty( $detector->intersect( [], $b ) );
+		$this->assertEmpty( $detector->report_intersect( [], [] ) );
+		$this->assertEmpty( $detector->report_intersect( [], $b ) );
+	}
+
+	/**
+	 * @test
+	 * it should return empty array when touching empty array
+	 */
+	public function it_should_return_empty_array_when_touching_empty_array() {
+		$b = [ [ 1, 2 ], [ 3, 4 ] ];
+
+		$detector = new Detector();
+		$this->assertEmpty( $detector->touch( [], [] ) );
+		$this->assertEmpty( $detector->touch( [], $b ) );
+		$this->assertEmpty( $detector->report_touch( [], [] ) );
+		$this->assertEmpty( $detector->report_touch( [], $b ) );
 	}
 
 	/**
@@ -270,7 +310,7 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 		$detector = new Detector();
 
 		$a = [ [ 1, 2 ], [ 10, 11 ] ];
-		$b = [ [ 3, 4 ], [ 16,17 ] ];
+		$b = [ [ 3, 4 ], [ 16, 17 ] ];
 
 		$intersected = $detector->report_intersect( $a, $b );
 
@@ -297,7 +337,27 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 		$matching = $intersected[1];
 		$this->assertEquals( [ [ 1, 2 ], [ 10, 11 ] ], $surviving );
 		$this->assertEquals( [ [ 3, 4 ], [ 16, 17 ] ], $matching );
+	}
 
+	/**
+	 * @test
+	 * it should not factor coincidents in calculating average
+	 */
+	public function it_should_not_factor_coincidents_in_calculating_average() {
+		$detector = new Detector();
+
+		// 1 apart save for [4,5]
+		// including [4,5] the average would be 4/5=.8
+		// excluding [4,5] the average would be 1
+		$a = [ [ 1, 2 ], [ 3, 4 ], [ 4, 5 ], [ 5, 6 ], [ 7, 8 ] ];
+		$b = [ [ 2, 3 ], [ 4, 5 ], [ 6, 7 ], [ 8, 9 ] ];
+
+		$intersected = $detector->report_intersect( $a, $b );
+
+		$surviving = $intersected[0];
+		$matching = $intersected[1];
+		$this->assertEquals( [ [ 1, 2 ], [ 4, 5 ], [ 5, 6 ], [ 7, 8 ] ], $surviving );
+		$this->assertEquals( $b, $matching );
 	}
 
 	/**

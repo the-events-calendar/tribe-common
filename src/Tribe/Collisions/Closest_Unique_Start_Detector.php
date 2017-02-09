@@ -52,6 +52,10 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
 	public function intersect( array $a, array $b ) {
+		if ( empty( $a ) ) {
+			return array();
+		}
+
 		$bs = func_get_args();
 		array_shift( $bs );
 
@@ -85,6 +89,10 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
 	public function touch( array $a, array $b ) {
+		if ( empty( $a ) ) {
+			return array();
+		}
+
 		return call_user_func_array( array( $this, 'intersect' ), func_get_args() );
 	}
 
@@ -110,6 +118,10 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 *               contains the segments that did collide with each colliding element of $a
 	 */
 	public function report_intersect( array $a, array $b ) {
+		if ( empty( $a ) ) {
+			return array();
+		}
+
 		$bs = func_get_args();
 		$a = array_shift( $bs );
 
@@ -188,6 +200,10 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 *               contains the segments that did collide with each colliding element of $a
 	 */
 	public function report_touch( array $a, array $b ) {
+		if ( empty( $a ) ) {
+			return array();
+		}
+
 		return call_user_func_array( array( $this, 'report_intersect' ), func_get_args() );
 	}
 

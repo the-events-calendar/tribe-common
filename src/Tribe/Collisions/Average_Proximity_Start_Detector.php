@@ -15,7 +15,7 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 	 *
 	 * @param int $margin
 	 */
-	public function __construct($margin  = 0) {
+	public function __construct( $margin = 0 ) {
 		$this->margin = $margin;
 	}
 
@@ -93,7 +93,17 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 			$starts[] = array( $as[ $i ][0], $bs[ $i ][0] );
 		}
 
-		$average_distance = ( array_sum( array_map( array( $this, 'get_distance' ), $starts ) ) / $count );
+		// exclude coincident starts from the average
+		$ne_starts = array_filter( $starts, array( $this, 'not_equal' ) );
+		$ne_starts_count = count( $ne_starts );
+
+		$average_distance = 0;
+
+		$ne_starts_distance = array_map( array( $this, 'get_distance' ), $ne_starts );
+		if ( $ne_starts_count ) {
+			$average_distance = ( array_sum( $ne_starts_distance ) / $ne_starts_count );
+		}
+
 		$average_distance += $this->margin;
 
 		// sanity check
@@ -118,7 +128,7 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 	 *
 	 * @param int $margin
 	 */
-	public function set_margin($margin) {
+	public function set_margin( $margin ) {
 		if ( ! is_numeric( $margin ) ) {
 			throw new InvalidArgumentException( __( 'Margin must be an integer', 'tribe-common' ) );
 		}
@@ -126,7 +136,12 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 		$this->margin = intval( $margin );
 	}
 
+	protected function not_equal( array $starts ) {
+		return $starts[0] !== $starts[1];
+	}
+
 	protected function get_distance( array $starts ) {
 		return abs( $starts[1] - $starts[0] );
 	}
+
 }
