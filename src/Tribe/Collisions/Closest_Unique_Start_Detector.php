@@ -126,14 +126,14 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 			return array();
 		}
 
-		$bs = func_get_args();
-		$set_a = array_shift( $bs );
+		$b_sets = func_get_args();
+		$set_a = array_shift( $b_sets );
 
 		// remove duplicates
 		$set_a = array_map( 'unserialize', array_unique( array_map( 'serialize', $set_a ) ) );
 
 		$closest_as = array();
-		foreach ( $bs as $set_b ) {
+		foreach ( $b_sets as $set_b ) {
 			foreach ( $set_b as $b_segment ) {
 				// find the a closest to each b
 				$this->segment = $b_segment;
@@ -146,21 +146,21 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 			}
 		}
 
-		$as_and_closest_bs = array();
-		foreach ( $closest_as as $key => $closest_bs ) {
+		$a_and_closest_b_sets = array();
+		foreach ( $closest_as as $key => $closest_b_sets ) {
 			$a_segment = unserialize( $key );
 
-			if ( count( $closest_bs ) === 1 ) {
-				$closest_b = reset( $closest_bs );
+			if ( count( $closest_b_sets ) === 1 ) {
+				$closest_b = reset( $closest_b_sets );
 			} else {
-				$initial = array_shift( $closest_bs );
+				$initial = array_shift( $closest_b_sets );
 				$this->segment = $a_segment;
-				$closest_b = array_reduce( $closest_bs, array( $this, 'find_closest_segment' ), $initial );
+				$closest_b = array_reduce( $closest_b_sets, array( $this, 'find_closest_segment' ), $initial );
 			}
 
-			$i = array_search( $closest_b, $as_and_closest_bs );
+			$i = array_search( $closest_b, $a_and_closest_b_sets );
 			if ( false === $i ) {
-				$as_and_closest_bs[ $key ] = $closest_b;
+				$a_and_closest_b_sets[ $key ] = $closest_b;
 			} else {
 				// only the a closest to this b survives
 				$current_closest_a = unserialize( $i );
@@ -168,16 +168,16 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 				$input = array( $current_closest_a, $a_segment );
 				$new_closest_a = array_reduce( $input, array( $this, 'find_closest_segment' ), - 1 );
 				if ( $new_closest_a !== $current_closest_a ) {
-					unset( $as_and_closest_bs[ $i ] );
-					$as_and_closest_bs[ serialize( $new_closest_a ) ] = $closest_b;
+					unset( $a_and_closest_b_sets[ $i ] );
+					$a_and_closest_b_sets[ serialize( $new_closest_a ) ] = $closest_b;
 				}
 			}
 		}
 
-		uksort( $as_and_closest_bs, array( $this, 'compare_serialized_starts' ) );
+		uksort( $a_and_closest_b_sets, array( $this, 'compare_serialized_starts' ) );
 
-		$intersected = array_map( 'unserialize', array_keys( $as_and_closest_bs ) );
-		$intersecting = array_values( $as_and_closest_bs );
+		$intersected = array_map( 'unserialize', array_keys( $a_and_closest_b_sets ) );
+		$intersecting = array_values( $a_and_closest_b_sets );
 
 		return array( $intersected, $intersecting );
 	}

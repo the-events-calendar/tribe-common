@@ -25,13 +25,13 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 *               contains the segments that did collide with each colliding element of $a
 	 */
 	public function report_touch( array $set_a, array $set_b ) {
-		$bs = func_get_args();
-		$set_a = array_shift( $bs );
+		$b_sets = func_get_args();
+		$set_a = array_shift( $b_sets );
 
 		$touching = array();
 		$matching = array();
 
-		foreach ( $bs as $set_b ) {
+		foreach ( $b_sets as $set_b ) {
 			list( $touched, $matched ) = $this->report_intersect( $set_a, $set_b );
 			$touching[] = $touched;
 			$matching[] = $matched;
@@ -98,7 +98,7 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
 	protected function collide( array $set_a, array $set_b, $discard = true, $report = false ) {
-		$bs = (array) $set_b;
+		$b_sets = (array) $set_b;
 
 		usort( $set_a, array( $this, 'compare_starts' ) );
 
@@ -110,7 +110,7 @@ abstract class Tribe__Collisions__Detection_Strategy {
 		// no matter the strategy a "duplicate" is always a segment with same start and end
 		$duplicate_collision_detector = new Tribe__Collisions__Matching_Start_End_Detector();
 
-		foreach ( $bs as $set_b ) {
+		foreach ( $b_sets as $set_b ) {
 			usort( $set_b, array( $this, 'compare_starts' ) );
 
 			$b_starts = wp_list_pluck( $set_b, 0 );
@@ -208,12 +208,12 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
 	public function touch( array $set_a, array $set_b ) {
-		$bs = func_get_args();
-		$set_a = array_shift( $bs );
+		$b_sets = func_get_args();
+		$set_a = array_shift( $b_sets );
 
 		$touching = array();
 
-		foreach ( $bs as $set_b ) {
+		foreach ( $b_sets as $set_b ) {
 			$touching[] = $this->intersect( $set_a, $set_b );
 		}
 
