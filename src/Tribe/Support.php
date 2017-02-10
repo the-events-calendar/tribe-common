@@ -383,8 +383,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 			$teccom_url = 'https://theeventscalendar.com/';
 
-			if ( defined( 'PUE_TEC_URL' ) ) {
-				$teccom_url = trailingslashit( PUE_TEC_URL );
+			if ( defined( 'TEC_URL' ) ) {
+				$teccom_url = trailingslashit( TEC_URL );
 			}
 
 			$query = $teccom_url . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url;
