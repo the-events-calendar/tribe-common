@@ -17,16 +17,17 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 *
 	 * Note: points are segments with matching start and end.
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
-	public function diff( array $a, array $b ) {
-		if ( empty( $b ) ) {
-			return $a;
+	public function diff( array $set_a, array $set_b ) {
+		if ( empty( $set_b ) ) {
+			return $set_a;
 		}
 
 		return array();
@@ -44,23 +45,24 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 *
 	 * @see Tribe__Collisions__Detection_Strategy::touch()
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $b_set,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
-	public function intersect( array $a, array $b ) {
-		if ( empty( $a ) ) {
+	public function intersect( array $set_a, array $b_set ) {
+		if ( empty( $set_a ) ) {
 			return array();
 		}
 
-		$bs = func_get_args();
-		array_shift( $bs );
+		$b_sets = func_get_args();
+		array_shift( $b_sets );
 
-		$bs = array_filter( $bs );
-		if ( empty( $bs ) ) {
+		$b_sets = array_filter( $b_sets );
+		if ( empty( $b_sets ) ) {
 			return array();
 		}
 
@@ -81,15 +83,16 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 *
 	 * Note: points are segments with matching start and end.
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
-	public function touch( array $a, array $b ) {
-		if ( empty( $a ) ) {
+	public function touch( array $set_a, array $set_b ) {
+		if ( empty( $set_a ) ) {
 			return array();
 		}
 
@@ -108,32 +111,33 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 *
 	 * @see Tribe__Collisions__Detection_Strategy::touch()
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of arrays of elements each defining the start and end of a segment in the format
 	 *               [<start>, <end>]; the first array contains the segments of $a that collided while the second array
 	 *               contains the segments that did collide with each colliding element of $a
 	 */
-	public function report_intersect( array $a, array $b ) {
-		if ( empty( $a ) ) {
+	public function report_intersect( array $set_a, array $set_b ) {
+		if ( empty( $set_a ) ) {
 			return array();
 		}
 
 		$bs = func_get_args();
-		$a = array_shift( $bs );
+		$set_a = array_shift( $bs );
 
 		// remove duplicates
-		$a = array_map( 'unserialize', array_unique( array_map( 'serialize', $a ) ) );
+		$set_a = array_map( 'unserialize', array_unique( array_map( 'serialize', $set_a ) ) );
 
 		$closest_as = array();
-		foreach ( $bs as $b ) {
-			foreach ( $b as $b_segment ) {
+		foreach ( $bs as $set_b ) {
+			foreach ( $set_b as $b_segment ) {
 				// find the a closest to each b
 				$this->segment = $b_segment;
-				$closest_a = array_reduce( $a, array( $this, 'find_closest_segment' ), - 1 );
+				$closest_a = array_reduce( $set_a, array( $this, 'find_closest_segment' ), - 1 );
 				$key = serialize( $closest_a );
 				if ( ! isset( $closest_as[ $key ] ) ) {
 					$closest_as[ $key ] = array();
@@ -190,17 +194,17 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 	 *
 	 * Note: points are segments with matching start and end.
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format [<start>,
 	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
 	 *                     format [<start>, <end>].
 	 *
 	 * @return array An array of arrays of elements each defining the start and end of a segment in the format
 	 *               [<start>, <end>]; the first array contains the segments of $a that collided while the second array
 	 *               contains the segments that did collide with each colliding element of $a
 	 */
-	public function report_touch( array $a, array $b ) {
-		if ( empty( $a ) ) {
+	public function report_touch( array $set_a, array $set_b ) {
+		if ( empty( $set_a ) ) {
 			return array();
 		}
 

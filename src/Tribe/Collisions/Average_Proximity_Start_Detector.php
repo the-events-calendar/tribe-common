@@ -26,27 +26,28 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 	 *
 	 * Note: points are segments with matching start and end.
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
-	public function diff( array $a, array $b ) {
-		$bs = func_get_args();
-		$a = array_shift( $bs );
+	public function diff( array $set_a, array $set_b ) {
+		$b_sets = func_get_args();
+		$set_a = array_shift( $b_sets );
 
-		$bs = array_filter( $bs );
-		if ( empty( $bs ) ) {
-			return $a;
+		$b_sets = array_filter( $b_sets );
+		if ( empty( $b_sets ) ) {
+			return $set_a;
 		}
 
 		$intersected = call_user_func_array( array( $this, 'intersect' ), func_get_args() );
 
 		$diffed = array();
 
-		foreach ( $a as $candidate ) {
+		foreach ( $set_a as $candidate ) {
 			if ( ! in_array( $candidate, $intersected ) ) {
 				$diffed[] = $candidate;
 			}
@@ -67,30 +68,31 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 	 *
 	 * @see Tribe__Collisions__Detection_Strategy::touch()
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of arrays of elements each defining the start and end of a segment in the format
 	 *               [<start>, <end>]; the first array contains the segments of $a that collided while the second array
 	 *               contains the segments that did collide with each colliding element of $a
 	 */
-	public function report_intersect( array $a, array $b ) {
+	public function report_intersect( array $set_a, array $set_b ) {
 		$reported = call_user_func_array( array( 'parent', 'report_intersect' ), func_get_args() );
 
 		if ( empty( $reported ) ) {
 			return array();
 		}
 
-		$as = reset( $reported );
-		$bs = end( $reported );
+		$a_sets = reset( $reported );
+		$b_sets = end( $reported );
 
-		$count = count( $as );
+		$count = count( $a_sets );
 
 		$starts = array();
 		for ( $i = 0; $i < $count; $i ++ ) {
-			$starts[] = array( $as[ $i ][0], $bs[ $i ][0] );
+			$starts[] = array( $a_sets[ $i ][0], $b_sets[ $i ][0] );
 		}
 
 		$average_distance = $this->get_distance_threshold( $starts );
