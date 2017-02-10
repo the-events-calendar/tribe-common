@@ -2,9 +2,10 @@
 
 namespace Tribe\Collisions;
 
-use Tribe__Collisions__Average_Proximity_Start_Detector as Detector;
+use Tribe__Collisions__Median_Proximity_Start_Detector as Detector;
 
-class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
+class Median_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestCase {
+
 	/**
 	 * @test
 	 * it should be instantiatable
@@ -56,14 +57,24 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 
 	public function to_diff() {
 		return [
-			[ [], [], [] ],
-			[ [ [ 1, 2 ] ], [], [ [ 1, 2 ] ] ],
-			[ [ [ 1, 2 ] ], [ [ 3400, 5000 ] ], [] ],
-			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ 3400, 5000 ] ], [ [ 1, 2 ] ] ],
-			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ - 2, 0 ] ], [ [ 3, 4 ] ] ],
-			[ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], [ [ 0, 1 ], [ 7, 9 ] ], [ [ 3, 4 ], [ 5, 6 ] ] ],
-			[ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], [ [ 0, 1 ], [ 6, 9 ] ], [ [ 3, 4 ] ] ],
-			[ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], [ [ 0, 1 ], [ 6, 9 ], [ 4, 3 ] ], [] ],
+//			[ [], [], [] ],
+//			[ [ [ 1, 2 ] ], [], [ [ 1, 2 ] ] ],
+//			[ [ [ 1, 2 ] ], [ [ 3400, 5000 ] ], [] ],
+//			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ 3400, 5000 ] ], [ [ 1, 2 ] ] ],
+//			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ - 2, 0 ] ], [ [ 3, 4 ] ] ],
+//			[ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], [ [ 0, 1 ], [ 7, 9 ] ], [ [ 3, 4 ], [ 5, 6 ] ] ],
+//			[ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], [ [ 0, 1 ], [ 6, 9 ] ], [ [ 3, 4 ] ] ],
+//			[ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ], [ [ 0, 1 ], [ 6, 9 ], [ 4, 3 ] ], [] ],
+			[
+				[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 3, 4 ], [ 5, 6 ] ],
+				[ [ 0, 1 ], [ 6, 9 ], [ 4, 3 ] ],
+				[ [ 1, 3 ], [ 1, 4 ], [ 1, 5 ] ]
+			],
+			[
+				[ [ 1, 2 ], [ 2, 3 ], [ 3, 4 ], [ 4, 5 ], [ 5, 6 ], [ 7, 8 ] ],
+				[ [ 0, 1 ], [ 3, 4 ], [ 4, 5 ], [ 5, 6 ] ], // median is 1 from (0,0,0,1) as 0s are excluded
+				[ [ 2, 3 ], [ 7, 8 ] ]
+			],
 		];
 	}
 
@@ -87,6 +98,12 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 			[ [ [ 1, 2 ] ], [], [ [ 3, 4 ] ], [] ],
 			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ 3400, 5000 ] ], [ [ - 100, 200 ] ], [ [ 3, 4 ] ] ],
 			[ [ [ 10, 20 ], [ 30, 40 ], [ 100, 110 ] ], [ [ 50, 60 ] ], [ [ 10, 20 ] ], [ [ 100, 110 ] ] ],
+			[
+				[ [ 10, 20 ], [ 30, 40 ], [ 100, 110 ] ],
+				[ [ 20, 25 ] ],
+				[ [ 40, 50 ], [ 75, 80 ] ],
+				[ [ 100, 110 ] ] //median is 10 out of (10, 10, 25)
+			],
 		];
 	}
 
@@ -95,7 +112,7 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 	 * it should handle diffing more arrays
 	 * @dataProvider multiple_diffing_arrays
 	 */
-	public function kt_should_handle_diffing_more_arrays( $a, $b, $c, $expected ) {
+	public function it_should_handle_diffing_more_arrays( $a, $b, $c, $expected ) {
 		$detector = $this->make_instance();
 
 		$diffed = $detector->diff( $a, $b, $c );
@@ -218,6 +235,18 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 				[ [ 5, 6 ] ],
 				[ [ 7, 8 ] ],
 			],
+			[
+				[ [ 10, 15 ], [ 20, 25 ], [ 30, 35 ], [ 40, 45 ] ],
+				[ [ 12, 14 ], [ 23, 25 ], [ 26, 28 ], [ 42, 44 ] ], // median is 2 out of (2,2,3,4)
+				[ [ 10, 15 ], [ 40, 45 ] ],
+				[ [ 12, 14 ], [ 42, 44 ] ],
+			],
+			[
+				[ [ 10, 15 ], [ 20, 25 ], [ 30, 35 ], [ 40, 45 ] ],
+				[ [ 12, 14 ], [ 23, 25 ], [ 26, 28 ], [ 43, 44 ], ], // median is 3 out of (2,3,3,4)
+				[ [ 10, 15 ], [ 20, 25 ], [ 40, 45 ] ],
+				[ [ 12, 14 ], [ 23, 25 ], [ 43, 44 ] ],
+			],
 		];
 	}
 
@@ -251,105 +280,6 @@ class Average_Proximity_Start_DetectorTest extends \Codeception\TestCase\WPTestC
 		$matching = end( $touched );
 		$this->assertEquals( $expected_survivors, $surviving );
 		$this->assertEquals( $expected_matching, $matching );
-	}
-
-	public function three_array_intersections() {
-		// $a, $b, $c, $expected_survivors, $expected_matching
-		return [
-			[ [ [ 1, 2 ] ], [ [ 4, 5 ] ], [ [ 5, 6 ] ], [ [ 1, 2 ] ], [ [ 4, 5 ] ] ],
-			[ [ [ 1, 2 ], [ 3, 4 ] ], [ [ 4, 5 ] ], [ [ 3, 4 ] ], [ [ 3, 4 ] ], [ [ 3, 4 ] ] ],
-			[ [ [ 1, 2 ], [ 3, 4 ], [ 3, 6 ] ], [ [ 4, 5 ] ], [ [ 3, 4 ] ], [ [ 3, 4 ] ], [ [ 3, 4 ] ] ],
-		];
-	}
-
-	/**
-	 * @test
-	 * it should handle multiple array intersection
-	 * @dataProvider three_array_intersections
-	 */
-	public function it_should_handle_multiple_array_intersection( $a, $b, $c, $expected_survivors, $expected_matching ) {
-		$detector = new Detector();
-		$intersected = $detector->report_intersect( $a, $b, $c );
-
-		$this->assertCount( 2, $intersected );
-		$surviving = reset( $intersected );
-		$matching = end( $intersected );
-		$this->assertEquals( $expected_survivors, $surviving );
-		$this->assertEquals( $expected_matching, $matching );
-	}
-
-	/**
-	 * @test
-	 * it should handle multiple array touch
-	 * @dataProvider three_array_intersections
-	 */
-	public function it_should_handle_multiple_array_touch( $a, $b, $c, $expected_survivors, $expected_matching ) {
-		$detector = new Detector();
-		$touched = $detector->report_touch( $a, $b, $c );
-
-		$this->assertCount( 2, $touched );
-		$surviving = reset( $touched );
-		$matching = end( $touched );
-		$this->assertEquals( $expected_survivors, $surviving );
-		$this->assertEquals( $expected_matching, $matching );
-	}
-
-	/**
-	 * @test
-	 * it should allow for a margin
-	 */
-	public function it_should_allow_for_a_margin() {
-		$detector = new Detector();
-
-		$a = [ [ 1, 2 ], [ 10, 11 ] ];
-		$b = [ [ 3, 4 ], [ 16, 17 ] ];
-
-		$intersected = $detector->report_intersect( $a, $b );
-
-		// average is (2+6)/2 = 4 -> [10,11] is too far from 16
-		$surviving = $intersected[0];
-		$matching = $intersected[1];
-		$this->assertEquals( [ [ 1, 2 ] ], $surviving );
-		$this->assertEquals( [ [ 3, 4 ] ], $matching );
-
-		$detector->set_margin( 1 );
-		$intersected = $detector->report_intersect( $a, $b );
-
-		// average is (2+6)/2 = 4+1 -> [10,11] is still too far from 16
-		$surviving = $intersected[0];
-		$matching = $intersected[1];
-		$this->assertEquals( [ [ 1, 2 ] ], $surviving );
-		$this->assertEquals( [ [ 3, 4 ] ], $matching );
-
-		$detector->set_margin( 2 );
-		$intersected = $detector->report_intersect( $a, $b );
-
-		// average is (2+6)/2 = 4+2 -> [10,11] is finally inside the match boundaries
-		$surviving = $intersected[0];
-		$matching = $intersected[1];
-		$this->assertEquals( [ [ 1, 2 ], [ 10, 11 ] ], $surviving );
-		$this->assertEquals( [ [ 3, 4 ], [ 16, 17 ] ], $matching );
-	}
-
-	/**
-	 * @test
-	 * it should not factor coincidents in calculating average
-	 */
-	public function it_should_not_factor_coincidents_in_calculating_average() {
-		$detector = new Detector();
-
-		// 1 apart save for [4,5]
-		// including [4,5] the average would be 4/5=.8
-		// excluding [4,5] the average would be 1
-		$a = [ [ 1, 2 ], [ 3, 4 ], [ 4, 5 ], [ 5, 6 ], [ 7, 8 ] ];
-		$b = [ [ 2, 3 ], [ 4, 5 ], [ 6, 7 ], [ 8, 9 ] ];
-
-		$intersected = $detector->report_intersect( $a, $b );
-
-		$surviving = $intersected[0];
-		$matching = $intersected[1];
-		$this->assertEquals( [ [ 1, 2 ], [ 4, 5 ], [ 5, 6 ], [ 7, 8 ] ], $surviving );
-		$this->assertEquals( $b, $matching );
 	}
 
 	/**

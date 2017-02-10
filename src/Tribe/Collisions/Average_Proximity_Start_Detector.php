@@ -93,16 +93,7 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 			$starts[] = array( $as[ $i ][0], $bs[ $i ][0] );
 		}
 
-		// exclude coincident starts from the average
-		$ne_starts = array_filter( $starts, array( $this, 'not_equal' ) );
-		$ne_starts_count = count( $ne_starts );
-
-		$average_distance = 0;
-
-		$ne_starts_distance = array_map( array( $this, 'get_distance' ), $ne_starts );
-		if ( $ne_starts_count ) {
-			$average_distance = ( array_sum( $ne_starts_distance ) / $ne_starts_count );
-		}
+		$average_distance = $this->get_distance_threshold( $starts );
 
 		$average_distance += $this->margin;
 
@@ -121,6 +112,32 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 		}
 
 		return $surviving;
+	}
+
+	/**
+	 * Returns the distance threshold calculated according to the rule internals.
+	 *
+	 * @param array $starts An array of value couples in the format [a_start, b_start].
+	 *
+	 * @return float|int The distance threshold
+	 */
+	protected function get_distance_threshold( $starts ) {
+		$average = 0;
+
+		// exclude coincident starts from the average
+		$ne_starts = array_filter( $starts, array( $this, 'not_equal' ) );
+		$ne_starts_count = count( $ne_starts );
+
+		if ( empty( $ne_starts_count ) ) {
+			return $average;
+		}
+
+		$ne_starts_distance = array_map( array( $this, 'get_distance' ), $ne_starts );
+		if ( $ne_starts_count ) {
+			$average = ( array_sum( $ne_starts_distance ) / $ne_starts_count );
+		}
+
+		return $average;
 	}
 
 	/**
