@@ -14,24 +14,25 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 *
 	 * Note: points are segments with matching start and end.
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of arrays of elements each defining the start and end of a segment in the format
 	 *               [<start>, <end>]; the first array contains the segments of $a that collided while the second array
 	 *               contains the segments that did collide with each colliding element of $a
 	 */
-	public function report_touch( array $a, array $b ) {
-		$bs = func_get_args();
-		$a  = array_shift( $bs );
+	public function report_touch( array $set_a, array $set_b ) {
+		$b_sets = func_get_args();
+		$set_a = array_shift( $b_sets );
 
 		$touching = array();
 		$matching = array();
 
-		foreach ( $bs as $b ) {
-			list( $touched, $matched ) = $this->report_intersect( $a, $b );
+		foreach ( $b_sets as $set_b ) {
+			list( $touched, $matched ) = $this->report_intersect( $set_a, $set_b );
 			$touching[] = $touched;
 			$matching[] = $matched;
 		}
@@ -63,56 +64,59 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 *
 	 * @see Tribe__Collisions__Detection_Strategy::touch()
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of arrays of elements each defining the start and end of a segment in the format
 	 *               [<start>, <end>]; the first array contains the segments of $a that collided while the second array
 	 *               contains the segments that did collide with each colliding element of $a
 	 */
-	public function report_intersect( array $a, array $b ) {
+	public function report_intersect( array $set_a, array $set_b ) {
 		$args = func_get_args();
-		$a    = array_shift( $args );
+		$set_a = array_shift( $args );
 
-		return $this->collide( $a, $args, false, true );
+		return $this->collide( $set_a, $args, false, true );
 	}
 
 	/**
 	 *
 	 * Detects collisions betwenn 2+ arrays of segments.
 	 *
-	 * @param array $a       An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                       <end>].
-	 * @param array $b,...   An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                       format [<start>, <end>].
-	 * @param bool  $discard Whether the detection of a collisions should discard (diff) or keep (intersect) a segment
-	 *                       from the first array.
-	 * @param bool  $report  Whether colliding segments should be reported or not; defaults to `false`.
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
+	 * @param bool  $discard   Whether the detection of a collisions should discard (diff) or keep (intersect) a
+	 *                         segment
+	 *                         from the first array.
+	 * @param bool  $report    Whether colliding segments should be reported or not; defaults to `false`.
 	 *
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
-	protected function collide( array $a, array $b, $discard = true, $report = false ) {
-		$bs = (array) $b;
+	protected function collide( array $set_a, array $set_b, $discard = true, $report = false ) {
+		$b_sets = (array) $set_b;
 
-		usort( $a, array( $this, 'compare_starts' ) );
+		usort( $set_a, array( $this, 'compare_starts' ) );
 
-		$diffed        = array();
+		$diffed = array();
 		$diffed_starts = array();
-		$diffed_ends   = array();
-		$reported      = array();
+		$diffed_ends = array();
+		$reported = array();
 
 		// no matter the strategy a "duplicate" is always a segment with same start and end
 		$duplicate_collision_detector = new Tribe__Collisions__Matching_Start_End_Detector();
 
-		foreach ( $bs as $b ) {
-			usort( $b, array( $this, 'compare_starts' ) );
+		foreach ( $b_sets as $set_b ) {
+			usort( $set_b, array( $this, 'compare_starts' ) );
 
-			$b_starts = wp_list_pluck( $b, 0 );
-			$b_ends   = wp_list_pluck( $b, 1 );
+			$b_starts = wp_list_pluck( $set_b, 0 );
+			$b_ends = wp_list_pluck( $set_b, 1 );
 
-			foreach ( $a as $segment ) {
+			foreach ( $set_a as $segment ) {
 				$match = $this->detect_collision( $segment, $b_starts, $b_ends, true );
 
 				if ( $discard === (bool) $match ) {
@@ -132,18 +136,18 @@ abstract class Tribe__Collisions__Detection_Strategy {
 				}
 
 				$diffed_starts[] = $segment[0];
-				$diffed_ends[]   = $segment[1];
-				$diffed[]        = $segment;
+				$diffed_ends[] = $segment[1];
+				$diffed[] = $segment;
 			}
 
 			if ( empty( $diffed ) ) {
 				break;
 			}
 
-			$a = $diffed;
+			$set_a = $diffed;
 		}
 
-		$diffed   = array_values( $diffed );
+		$diffed = array_values( $diffed );
 		$reported = array_values( $reported );
 
 		return $report ? array( $diffed, $reported ) : $diffed;
@@ -168,18 +172,19 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 *
 	 * Note: points are segments with matching start and end.
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
-	public function diff( array $a, array $b ) {
+	public function diff( array $set_a, array $set_b ) {
 		$args = func_get_args();
-		$a    = array_shift( $args );
+		$set_a = array_shift( $args );
 
-		return $this->collide( $a, $args, true );
+		return $this->collide( $set_a, $args, true );
 	}
 
 	/**
@@ -194,25 +199,26 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 *
 	 * Note: points are segments with matching start and end.
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
-	public function touch( array $a, array $b ) {
-		$bs = func_get_args();
-		$a  = array_shift( $bs );
+	public function touch( array $set_a, array $set_b ) {
+		$b_sets = func_get_args();
+		$set_a = array_shift( $b_sets );
 
 		$touching = array();
 
-		foreach ( $bs as $b ) {
-			$touching[] = $this->intersect( $a, $b );
+		foreach ( $b_sets as $set_b ) {
+			$touching[] = $this->intersect( $set_a, $set_b );
 		}
 
 		$duplicate_detector = new Tribe__Collisions__Matching_Start_End_Detector();
-		$merged             = array_shift( $touching );
+		$merged = array_shift( $touching );
 		foreach ( $touching as $t ) {
 			$merged = array_merge( $merged, $duplicate_detector->diff( $t, $merged ) );
 		}
@@ -232,22 +238,23 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 *
 	 * @see Tribe__Collisions__Detection_Strategy::touch()
 	 *
-	 * @param array $a     An array of elements each defining the start and end of a segment in the format [<start>,
-	 *                     <end>].
-	 * @param array $b,... An array (ore more arrays) of elements each defining the start and end of a segment in the
-	 *                     format [<start>, <end>].
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $b_set,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
 	 *
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
-	public function intersect( array $a, array $b ) {
+	public function intersect( array $set_a, array $b_set ) {
 		$args = func_get_args();
-		$a    = array_shift( $args );
+		$set_a = array_shift( $args );
 
-		return $this->collide( $a, $args, false );
+		return $this->collide( $set_a, $args, false );
 	}
 
 	/**
-	 * Compares two segments.
+	 * Compares two segments starting points.
 	 *
 	 * Used in `usort` calls.
 	 *
@@ -256,12 +263,12 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 *
 	 * @return int
 	 */
-	public function compare_starts( array $a, array $b ) {
-		if ( $a[0] == $b[0] ) {
+	public function compare_starts( array $segment_a, array $segment_b ) {
+		if ( $segment_a[0] == $segment_b[0] ) {
 			return 0;
 		}
 
-		return ( $a[0] < $b[0] ) ? - 1 : 1;
+		return ( $segment_a[0] < $segment_b[0] ) ? - 1 : 1;
 	}
 
 	/**
@@ -269,16 +276,16 @@ abstract class Tribe__Collisions__Detection_Strategy {
 	 *
 	 * Note: points are segments with a length of 0.
 	 *
-	 * @param array $starts An array of starting points
-	 * @param int   $length The length of each segment
+	 * @param array $set_starts An array of starting points
+	 * @param int   $set_length The length of each segment
 	 *
 	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
 	 */
-	public function points_to_segments( array $starts, $length ) {
+	public function points_to_segments( array $set_starts, $set_length ) {
 		$segments = array();
 
-		foreach ( $starts as $start ) {
-			$segments[] = array( $start, $start + $length );
+		foreach ( $set_starts as $start ) {
+			$segments[] = array( $start, $start + $set_length );
 		}
 
 		return $segments;
