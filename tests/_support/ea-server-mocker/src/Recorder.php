@@ -77,7 +77,7 @@ class Tribe__Events__Aggregator_Mocker__Recorder
 	 * @param $response
 	 */
 	protected function record( $endpoint, $data, $method, $response ) {
-		$logged = get_option( $this->responses );
+		$logged = get_option( $this->responses, false );
 
 		if ( ! empty( $logged ) ) {
 			$logged = unserialize( $logged );
