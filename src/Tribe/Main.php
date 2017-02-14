@@ -105,6 +105,7 @@ class Tribe__Main {
 		$this->bind_implementations();
 
 		$this->init_libraries();
+
 		$this->add_hooks();
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
@@ -289,6 +290,14 @@ class Tribe__Main {
 
 		add_filter( 'body_class', array( $this, 'add_js_class' ) );
 		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
+
+		add_filter( 'cron_schedules', array( tribe( 'cron' ), 'filter_cron_schedules' ) );
+
+		// Queue hooks
+		add_action( 'admin_head', array( 'Tribe__Queue', 'work' ) );
+		add_action( 'wp_ajax_tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
+		add_action( 'wp_ajax_nopriv_tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
+		add_action( 'tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
 	}
 
 	public function add_js_class( $classes = array() ) {
@@ -489,5 +498,7 @@ class Tribe__Main {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
 		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
+		tribe_singleton( 'cron', 'Tribe__Cron', array( 'schedule' ) );
+		tribe_singleton( 'queue', 'Tribe__Queue' );
 	}
 }
