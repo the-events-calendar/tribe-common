@@ -40,7 +40,7 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 
 		$work_id = $sut->queue_work( [], 'trailingslashit' )->save();
 
-		$this->assertEquals( Worker::DONE, $sut->get_work_status( $work_id ) );
+		$this->assertEquals( Worker::$done, $sut->get_work_status( $work_id ) );
 	}
 
 	/**
@@ -56,11 +56,11 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut->work_on( $work_id );
 
-		$this->assertEquals( Worker::WORKING, $sut->get_work_status( $work_id ) );
+		$this->assertEquals( Worker::$working, $sut->get_work_status( $work_id ) );
 
 		$sut->work_on( $work_id );
 
-		$this->assertEquals( Worker::DONE, $sut->get_work_status( $work_id ) );
+		$this->assertEquals( Worker::$done, $sut->get_work_status( $work_id ) );
 	}
 
 	/**
@@ -76,12 +76,12 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut->work_on( $work_id );
 
-		$this->assertEquals( Worker::WORKING, $sut->get_work_status( $work_id ) );
+		$this->assertEquals( Worker::$working, $sut->get_work_status( $work_id ) );
 		$this->assertEquals( 'a/b/c/', get_option( 'foo' ) );
 
 		$sut->work_on( $work_id );
 
-		$this->assertEquals( Worker::DONE, $sut->get_work_status( $work_id ) );
+		$this->assertEquals( Worker::$done, $sut->get_work_status( $work_id ) );
 		$this->assertEquals( 'a/b/c/d/e/f/', get_option( 'foo' ) );
 	}
 
@@ -100,12 +100,12 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut->work_on( $work_id );
 
-		$this->assertEquals( Worker::WORKING, $sut->get_work_status( $work_id ) );
+		$this->assertEquals( Worker::$working, $sut->get_work_status( $work_id ) );
 		$this->assertEquals( 'a/b/c/', get_option( 'foo' ) );
 
 		$sut->work_on( $work_id );
 
-		$this->assertEquals( Worker::DONE, $sut->get_work_status( $work_id ) );
+		$this->assertEquals( Worker::$done, $sut->get_work_status( $work_id ) );
 		$this->assertEquals( 'a/b/c/d/e/f/', get_option( 'foo' ) );
 	}
 
@@ -123,12 +123,12 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut->work_on( $work_id );
 
-		$this->assertEquals( Worker::WORKING, $sut->get_work_status( $work_id ) );
+		$this->assertEquals( Worker::$working, $sut->get_work_status( $work_id ) );
 		$this->assertEquals( $targets, $sut->get_work( $work_id )->get_remaining() );
 
 		$sut->work_on( $work_id );
 
-		$this->assertEquals( Worker::WORKING, $sut->get_work_status( $work_id ) );
+		$this->assertEquals( Worker::$working, $sut->get_work_status( $work_id ) );
 		$this->assertEquals( $targets, $sut->get_work( $work_id )->get_remaining() );
 	}
 
@@ -156,54 +156,54 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 
 		do_action( 'some_action' );
 
-		$this->assertEquals( Worker::WORKING, $check_factory->get_work_status( $work_one ) );
-		$this->assertEquals( Worker::QUEUED, $check_factory->get_work_status( $work_two ) );
-		$this->assertEquals( Worker::QUEUED, $check_factory->get_work_status( $work_three ) );
+		$this->assertEquals( Worker::$working, $check_factory->get_work_status( $work_one ) );
+		$this->assertEquals( Worker::$queued, $check_factory->get_work_status( $work_two ) );
+		$this->assertEquals( Worker::$queued, $check_factory->get_work_status( $work_three ) );
 		$this->assertEquals( 'a/b/c/', get_option( 'foo' ) );
-		$expected_list = [ $work_one => Worker::WORKING, $work_two => Worker::QUEUED, $work_three => Worker::QUEUED ];
+		$expected_list = [ $work_one => Worker::$working, $work_two => Worker::$queued, $work_three => Worker::$queued ];
 		$this->assertEquals( $expected_list, $check_factory->get_work_list() );
 
 		do_action( 'some_action' );
 
-		$this->assertEquals( Worker::DONE, $check_factory->get_work_status( $work_one ) );
-		$this->assertEquals( Worker::QUEUED, $check_factory->get_work_status( $work_two ) );
-		$this->assertEquals( Worker::QUEUED, $check_factory->get_work_status( $work_three ) );
+		$this->assertEquals( Worker::$done, $check_factory->get_work_status( $work_one ) );
+		$this->assertEquals( Worker::$queued, $check_factory->get_work_status( $work_two ) );
+		$this->assertEquals( Worker::$queued, $check_factory->get_work_status( $work_three ) );
 		$this->assertEquals( 'a/b/c/d/e/f/', get_option( 'foo' ) );
-		$expected_list = [ $work_two => Worker::QUEUED, $work_three => Worker::QUEUED ];
+		$expected_list = [ $work_two => Worker::$queued, $work_three => Worker::$queued ];
 		$this->assertEquals( $expected_list, $check_factory->get_work_list() );
 
 		do_action( 'some_action' );
 
-		$this->assertEquals( Worker::DONE, $check_factory->get_work_status( $work_one ) );
-		$this->assertEquals( Worker::WORKING, $check_factory->get_work_status( $work_two ) );
-		$this->assertEquals( Worker::QUEUED, $check_factory->get_work_status( $work_three ) );
+		$this->assertEquals( Worker::$done, $check_factory->get_work_status( $work_one ) );
+		$this->assertEquals( Worker::$working, $check_factory->get_work_status( $work_two ) );
+		$this->assertEquals( Worker::$queued, $check_factory->get_work_status( $work_three ) );
 		$this->assertEquals( 'a/b/c/d/e/f/foo/baz/', get_option( 'foo' ) );
-		$expected_list = [ $work_two => Worker::WORKING, $work_three => Worker::QUEUED ];
+		$expected_list = [ $work_two => Worker::$working, $work_three => Worker::$queued ];
 		$this->assertEquals( $expected_list, $check_factory->get_work_list() );
 
 		do_action( 'some_action' );
 
-		$this->assertEquals( Worker::DONE, $check_factory->get_work_status( $work_one ) );
-		$this->assertEquals( Worker::DONE, $check_factory->get_work_status( $work_two ) );
-		$this->assertEquals( Worker::QUEUED, $check_factory->get_work_status( $work_three ) );
+		$this->assertEquals( Worker::$done, $check_factory->get_work_status( $work_one ) );
+		$this->assertEquals( Worker::$done, $check_factory->get_work_status( $work_two ) );
+		$this->assertEquals( Worker::$queued, $check_factory->get_work_status( $work_three ) );
 		$this->assertEquals( 'a/b/c/d/e/f/foo/baz/bar/', get_option( 'foo' ) );
-		$expected_list = [ $work_three => Worker::QUEUED ];
+		$expected_list = [ $work_three => Worker::$queued ];
 		$this->assertEquals( $expected_list, $check_factory->get_work_list() );
 
 		do_action( 'some_action' );
 
-		$this->assertEquals( Worker::DONE, $check_factory->get_work_status( $work_one ) );
-		$this->assertEquals( Worker::DONE, $check_factory->get_work_status( $work_two ) );
-		$this->assertEquals( Worker::WORKING, $check_factory->get_work_status( $work_three ) );
+		$this->assertEquals( Worker::$done, $check_factory->get_work_status( $work_one ) );
+		$this->assertEquals( Worker::$done, $check_factory->get_work_status( $work_two ) );
+		$this->assertEquals( Worker::$working, $check_factory->get_work_status( $work_three ) );
 		$this->assertEquals( 'a/b/c/d/e/f/foo/baz/bar/john/paul/', get_option( 'foo' ) );
-		$expected_list = [ $work_three => Worker::WORKING ];
+		$expected_list = [ $work_three => Worker::$working ];
 		$this->assertEquals( $expected_list, $check_factory->get_work_list() );
 
 		do_action( 'some_action' );
 
-		$this->assertEquals( Worker::DONE, $check_factory->get_work_status( $work_one ) );
-		$this->assertEquals( Worker::DONE, $check_factory->get_work_status( $work_two ) );
-		$this->assertEquals( Worker::DONE, $check_factory->get_work_status( $work_three ) );
+		$this->assertEquals( Worker::$done, $check_factory->get_work_status( $work_one ) );
+		$this->assertEquals( Worker::$done, $check_factory->get_work_status( $work_two ) );
+		$this->assertEquals( Worker::$done, $check_factory->get_work_status( $work_three ) );
 		$this->assertEquals( 'a/b/c/d/e/f/foo/baz/bar/john/paul/george/ringo/', get_option( 'foo' ) );
 		$expected_list = [];
 		$this->assertEquals( $expected_list, $check_factory->get_work_list() );
@@ -221,12 +221,12 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should return NOT_FOUND when trying to get status of non existing job
+	 * it should return self::$not_found when trying to get status of non existing job
 	 */
 	public function it_should_return_not_found_when_trying_to_get_status_of_non_existing_job() {
 		$sut = $this->make_instance();
 
-		$this->assertEquals( Worker::NOT_FOUND, $sut->get_work_status( 'bada.boom' ) );
+		$this->assertEquals( Worker::$not_found, $sut->get_work_status( 'bada.boom' ) );
 	}
 
 	/**
@@ -234,7 +234,7 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 	 * it should return empty array if list option is not set
 	 */
 	public function it_should_return_empty_array_if_list_option_is_not_set() {
-		delete_option( Queue::WORKS_OPTION );
+		delete_option( Queue::$works_option );
 
 		$sut = $this->make_instance();
 
@@ -252,7 +252,7 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 		$work_two = $sut->queue_work( [ 'a', 'b', 'c', 'e' ], [ __CLASS__, 'callback_one' ] )->set_priority( 1 )->save();
 		$work_three = $sut->queue_work( [ 'a', 'b', 'c', 'f' ], [ __CLASS__, 'callback_one' ] )->set_priority( 10 )->save();
 
-		$expected = [ $work_two => Worker::QUEUED, $work_one => Worker::QUEUED, $work_three => Worker::QUEUED ];
+		$expected = [ $work_two => Worker::$queued, $work_one => Worker::$queued, $work_three => Worker::$queued ];
 		$list = $sut->get_work_list();
 		$this->assertSame( $expected, $list );
 	}

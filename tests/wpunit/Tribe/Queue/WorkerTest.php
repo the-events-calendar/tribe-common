@@ -32,7 +32,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 	 * it should save its state in a transient
 	 */
 	public function it_should_save_its_state_in_a_transient() {
-		$worker = new Worker( [ 'a', 'b', 'c' ], [ 'a', 'b' ], 'trailingslashit', [ 'foo' => 'bar' ], Worker::DONE );
+		$worker = new Worker( [ 'a', 'b', 'c' ], [ 'a', 'b' ], 'trailingslashit', [ 'foo' => 'bar' ], Worker::$done );
 
 		$worker->save();
 
@@ -41,7 +41,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'remaining'  => [ 'a', 'b' ],
 			'callback'   => 'trailingslashit',
 			'data'       => [ 'foo' => 'bar' ],
-			'status'     => Worker::DONE,
+			'status'     => Worker::$done,
 			'batch_size' => 10,
 			'priority' => 10,
 		] ) );
@@ -62,7 +62,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'remaining'  => [],
 			'callback'   => 'trailingslashit',
 			'data'       => '',
-			'status'     => Worker::DONE,
+			'status'     => Worker::$done,
 			'batch_size' => 10,
 			'priority'   => 10,
 		];
@@ -84,7 +84,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'remaining'  => [ 'c', 'd' ],
 			'callback'   => 'trailingslashit',
 			'data'       => '',
-			'status'     => Worker::WORKING,
+			'status'     => Worker::$working,
 			'batch_size' => 2,
 			'priority'   => 10,
 		];
@@ -97,7 +97,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'remaining'  => [],
 			'callback'   => 'trailingslashit',
 			'data'       => '',
-			'status'     => Worker::DONE,
+			'status'     => Worker::$done,
 			'batch_size' => 2,
 			'priority'   => 10,
 		];
@@ -120,7 +120,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'remaining'  => [ 'd', 'e', 'c' ],
 			'callback'   => array( __CLASS__, 'callback_one' ),
 			'data'       => '',
-			'status'     => Worker::WORKING,
+			'status'     => Worker::$working,
 			'batch_size' => 3,
 			'priority'   => 10,
 		];
@@ -133,7 +133,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'remaining'  => [ 'c' ],
 			'callback'   => array( __CLASS__, 'callback_one' ),
 			'data'       => '',
-			'status'     => Worker::WORKING,
+			'status'     => Worker::$working,
 			'batch_size' => 3,
 			'priority'   => 10,
 		];
@@ -156,7 +156,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'remaining'  => [ 'd', 'e', 'c' ],
 			'callback'   => array( __CLASS__, 'callback_two' ),
 			'data'       => '',
-			'status'     => Worker::WORKING,
+			'status'     => Worker::$working,
 			'batch_size' => 3,
 			'priority'   => 10,
 		];
@@ -169,7 +169,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'remaining'  => [ 'c' ],
 			'callback'   => array( __CLASS__, 'callback_two' ),
 			'data'       => '',
-			'status'     => Worker::WORKING,
+			'status'     => Worker::$working,
 			'batch_size' => 3,
 			'priority'   => 10,
 		];

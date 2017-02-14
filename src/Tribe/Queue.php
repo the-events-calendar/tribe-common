@@ -4,7 +4,7 @@ class Tribe__Queue {
 	/**
 	 * The name of the option that stores the queue current works and their stati.
 	 */
-	const WORKS_OPTION = 'tribe_q_works';
+	public static $works_option = 'tribe_q_works';
 
 	/**
 	 * Tells the factory to work on all the available works.
@@ -42,7 +42,7 @@ class Tribe__Queue {
 
 		$work->work();
 
-		if ( $work->get_status() === Tribe__Queue__Worker::DONE ) {
+		if ( $work->get_status() === Tribe__Queue__Worker::$done ) {
 			$this->remove_work_from_list( $work );
 		} else {
 			$this->update_work_status( $work );
@@ -56,7 +56,7 @@ class Tribe__Queue {
 
 		unset( $list[ $work->get_id() ] );
 
-		update_option( self::WORKS_OPTION, $list );
+		update_option( self::$works_option, $list );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Tribe__Queue {
 	 */
 	public function queue_work( array $targets, $callback, $data = null ) {
 		// let the Tribe__Queue__Work class make its own verifications
-		$work = new Tribe__Queue__Worker( $targets, $targets, $callback, $data, Tribe__Queue__Worker::QUEUED );
+		$work = new Tribe__Queue__Worker( $targets, $targets, $callback, $data, Tribe__Queue__Worker::$queued );
 
 		$this->update_work_status( $work );
 
@@ -90,14 +90,14 @@ class Tribe__Queue {
 
 		$list[ $work->get_id() ] = $work->get_status();
 
-		update_option( self::WORKS_OPTION, $list );
+		update_option( self::$works_option, $list );
 	}
 
 	/**
 	 * @return array
 	 */
 	public function get_work_list() {
-		$list = get_option( self::WORKS_OPTION );
+		$list = get_option( self::$works_option );
 
 		if ( empty( $list ) ) {
 			$list = array();
@@ -131,7 +131,7 @@ class Tribe__Queue {
 			$work = $work_id;
 		}
 
-		return false !== $work ? $work->get_status() : Tribe__Queue__Worker::NOT_FOUND;
+		return false !== $work ? $work->get_status() : Tribe__Queue__Worker::$not_found;
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Tribe__Queue {
 	 * @return string The complete transient name.
 	 */
 	protected function build_transient_name( $work_id ) {
-		$transient = Tribe__Queue__Worker::TRANSIENT_PREFIX . $work_id;
+		$transient = Tribe__Queue__Worker::$transient_prefix . $work_id;
 
 		return $transient;
 	}
@@ -209,7 +209,7 @@ class Tribe__Queue {
 	 * @return bool
 	 */
 	protected function can_work( Tribe__Queue__Worker $worker ) {
-		$working_stati = array( Tribe__Queue__Worker::WORKING, Tribe__Queue__Worker::QUEUED );
+		$working_stati = array( Tribe__Queue__Worker::$working, Tribe__Queue__Worker::$queued );
 
 		return in_array( $worker->get_status(), $working_stati );
 	}

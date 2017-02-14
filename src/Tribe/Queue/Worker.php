@@ -2,11 +2,11 @@
 
 class Tribe__Queue__Worker {
 
-	const QUEUED = 'queued';
-	const WORKING = 'working';
-	const DONE = 'done';
-	const NOT_FOUND = 'not-found';
-	const TRANSIENT_PREFIX = 'tribe_q_';
+	public static $queued = 'queued';
+	public static $working = 'working';
+	public static $done = 'done';
+	public static $not_found = 'not-found';
+	public static $transient_prefix = 'tribe_q_';
 
 	/**
 	 * @var array All the targets for this work.
@@ -63,10 +63,11 @@ class Tribe__Queue__Worker {
 	 * @param mixed                 $data      Some additional data that will be passed to the work callback.
 	 * @param string                $status    A string representing  the status of this Worker.
 	 */
-	public function __construct( array $targets, array $remaining, $callback, $data = null, $status = self::QUEUED, $priority = 10 ) {
+	public function __construct( array $targets, array $remaining, $callback, $data = null, $status = null, $priority = 10 ) {
 		$this->id = md5( serialize( $targets ) . serialize( $callback ) . serialize( $data ) );
 		$this->targets = $targets;
 		$this->remaining = $remaining;
+		$this->status = null !== $status ? $status : self::$queued;
 
 		if ( ! ( is_callable( $callback ) || $this->is_container_callback( $callback ) ) ) {
 			throw new InvalidArgumentException( "Callback argument must be a callable or a container reference in the ['tribe', <alias>, <method>]" );
@@ -74,7 +75,7 @@ class Tribe__Queue__Worker {
 
 		$this->callback = $callback;
 		$this->data = $data;
-		$this->status = empty( $targets ) ? self::DONE : $status;
+		$this->status = empty( $targets ) ? self::$done : $status;
 		$this->priority = $priority;
 	}
 
@@ -124,7 +125,7 @@ class Tribe__Queue__Worker {
 	 * @return string The complete transient name.
 	 */
 	protected function build_transient_name() {
-		$transient = self::TRANSIENT_PREFIX . $this->id;
+		$transient = self::$transient_prefix . $this->id;
 
 		return $transient;
 	}
@@ -154,7 +155,7 @@ class Tribe__Queue__Worker {
 	 */
 	public function work() {
 		if ( empty( $this->remaining ) ) {
-			$this->status = self::DONE;
+			$this->status = self::$done;
 
 			return $this->save();
 		}
@@ -185,9 +186,9 @@ class Tribe__Queue__Worker {
 		$this->remaining = array_merge( $this->remaining, $failures );
 
 		if ( empty( $this->remaining ) ) {
-			$this->status = self::DONE;
+			$this->status = self::$done;
 		} else {
-			$this->status = self::WORKING;
+			$this->status = self::$working;
 		}
 
 		return $this->save();
