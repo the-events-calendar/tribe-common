@@ -243,17 +243,18 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should allow prepending works to the work queue
+	 * it should sort works by priority when getting the list
 	 */
-	public function it_should_allow_prepending_works_to_the_work_queue() {
+	public function it_should_sort_works_by_priority_when_getting_the_list() {
 		$sut = $this->make_instance();
 
-		$work_one = $sut->queue_work( [ 'a', 'b', 'c' ], [ __CLASS__, 'callback_one' ] )->save();
-		$work_two = $sut->queue_work( [ 'a', 'b', 'c' ], [ __CLASS__, 'callback_one' ] )->save();
-		$work_three = $sut->prepend_work( [ 'a', 'b', 'c' ], [ __CLASS__, 'callback_one' ] )->save();
+		$work_one = $sut->queue_work( [ 'a', 'b', 'c', 'd' ], [ __CLASS__, 'callback_one' ] )->set_priority( 5 )->save();
+		$work_two = $sut->queue_work( [ 'a', 'b', 'c', 'e' ], [ __CLASS__, 'callback_one' ] )->set_priority( 1 )->save();
+		$work_three = $sut->queue_work( [ 'a', 'b', 'c', 'f' ], [ __CLASS__, 'callback_one' ] )->set_priority( 10 )->save();
 
-		$expected = [ $work_three => Worker::QUEUED, $work_one => Worker::QUEUED, $work_two => Worker::QUEUED ];
-		$this->assertEquals( $expected, $sut->get_work_list() );
+		$expected = [ $work_two => Worker::QUEUED, $work_one => Worker::QUEUED, $work_three => Worker::QUEUED ];
+		$list = $sut->get_work_list();
+		$this->assertSame( $expected, $list );
 	}
 
 	/**

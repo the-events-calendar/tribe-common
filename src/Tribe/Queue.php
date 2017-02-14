@@ -81,39 +81,14 @@ class Tribe__Queue {
 	}
 
 	/**
-	 * Prepends a new work to the queue.
-	 *
-	 * @param array                 $targets
-	 * @param       callable| array $callback  Either a callable object or array or a container reference in the
-	 *                                         ['tribe', <alias>, <method>] format.
-	 *                                         The callback will receive three arguments: the current target, the
-	 *                                         target index in the complete list of targets and the data for this work.
-	 * @param mixed                 $data      Some additional data that will be passed to the work callback.
-	 *
-	 * @return Tribe__Queue__Worker
-	 */
-	public function prepend_work( array $targets, $callback, $data = null ) {
-		// let the Tribe__Queue__Work class make its own verifications
-		$work = new Tribe__Queue__Worker( $targets, $targets, $callback, $data, Tribe__Queue__Worker::QUEUED );
-
-		$this->update_work_status( $work, false );
-
-		return $work;
-	}
-
-	/**
 	 * Updates the status of a work in the Factory managed option.
 	 *
 	 * @param $work
 	 */
-	protected function update_work_status( Tribe__Queue__Worker $work, $append = true ) {
+	protected function update_work_status( Tribe__Queue__Worker $work ) {
 		$list = $this->get_work_list();
 
-		if ( $append ) {
-			$list[ $work->get_id() ] = $work->get_status();
-		} else {
-			$list = array_merge( array( $work->get_id() => $work->get_status() ), $list );
-		}
+		$list[ $work->get_id() ] = $work->get_status();
 
 		update_option( self::WORKS_OPTION, $list );
 	}
@@ -128,31 +103,33 @@ class Tribe__Queue {
 			$list = array();
 		}
 
-		$working_stati = array( Tribe__Queue__Worker::WORKING, Tribe__Queue__Worker::QUEUED );
+		$valid = array_filter( array_map( array( $this, 'get_work' ), array_keys( $list ) ) );
+		$filtered = array_filter( $valid, array( $this, 'can_work' ) );
 
-		$filtered = array();
-		foreach ( $list as $work_id => $work_status ) {
-			$work = $this->get_work( $work_id );
-			if ( empty( $work ) || ! in_array( $work_status, $working_stati ) ) {
-				continue;
-			}
-			$filtered[ $work_id ] = $work_status;
-		}
+		// sort the works by priority
+		uasort( $filtered, array( $this, 'compare_priorities' ) );
 
-		return $filtered;
+		$ids = array_map( array( $this, 'get_work_id' ), $filtered );
+		$stati = array_map( array( $this, 'get_work_status' ), $filtered );
+
+		return array_combine( $ids, $stati );
 	}
 
 	/**
 	 * Returns the status of a work.
 	 *
-	 * @param string $work_id
+	 * @param Tribe__Queue__Worker|string $work_id or a Worker object
 	 *
 	 * @see Tribe__Queue__Worker for possible stati.
 	 *
 	 * @return string
 	 */
 	public function get_work_status( $work_id ) {
-		$work = $this->get_work( $work_id );
+		if ( ! $work_id instanceof Tribe__Queue__Worker ) {
+			$work = $this->get_work( $work_id );
+		} else {
+			$work = $work_id;
+		}
 
 		return false !== $work ? $work->get_status() : Tribe__Queue__Worker::NOT_FOUND;
 	}
@@ -196,12 +173,53 @@ class Tribe__Queue {
 	 * @return Tribe__Queue__Worker
 	 */
 	protected function build_from_data( stdClass $work_data ) {
-		$work = new Tribe__Queue__Worker( $work_data->targets, $work_data->remaining, $work_data->callback, $work_data->data, $work_data->status );
+		$work = new Tribe__Queue__Worker( $work_data->targets, $work_data->remaining, $work_data->callback, $work_data->data, $work_data->status, $work_data->priority );
 
 		if ( isset( $work_data->batch_size ) ) {
 			$work->set_batch_size( $work_data->batch_size );
 		}
 
 		return $work;
+	}
+
+	/**
+	 * Compares the priorities of two workers to sort them.
+	 *
+	 * @param Tribe__Queue__Worker $worker_a
+	 * @param Tribe__Queue__Worker $worker_b
+	 *
+	 * @return int
+	 */
+	protected function compare_priorities( Tribe__Queue__Worker $worker_a, Tribe__Queue__Worker $worker_b ) {
+		$a = $worker_a->get_priority();
+		$b = $worker_b->get_priority();
+
+		if ( $a === $b ) {
+			return 0;
+		}
+
+		return ( $a < $b ) ? - 1 : 1;
+	}
+
+	/**
+	 * Whether the worker can work or not.
+	 *
+	 * @param Tribe__Queue__Worker $worker
+	 *
+	 * @return bool
+	 */
+	protected function can_work( Tribe__Queue__Worker $worker ) {
+		$working_stati = array( Tribe__Queue__Worker::WORKING, Tribe__Queue__Worker::QUEUED );
+
+		return in_array( $worker->get_status(), $working_stati );
+	}
+
+	/**
+	 * @param Tribe__Queue__Worker $worker
+	 *
+	 * @return string
+	 */
+	protected function get_work_id( Tribe__Queue__Worker $worker ) {
+		return $worker->get_id();
 	}
 }

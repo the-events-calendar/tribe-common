@@ -63,7 +63,7 @@ class Tribe__Queue__Worker {
 	 * @param mixed                 $data      Some additional data that will be passed to the work callback.
 	 * @param string                $status    A string representing  the status of this Worker.
 	 */
-	public function __construct( array $targets, array $remaining, $callback, $data = null, $status = self::QUEUED ) {
+	public function __construct( array $targets, array $remaining, $callback, $data = null, $status = self::QUEUED, $priority = 10 ) {
 		$this->id = md5( serialize( $targets ) . serialize( $callback ) . serialize( $data ) );
 		$this->targets = $targets;
 		$this->remaining = $remaining;
@@ -75,6 +75,7 @@ class Tribe__Queue__Worker {
 		$this->callback = $callback;
 		$this->data = $data;
 		$this->status = empty( $targets ) ? self::DONE : $status;
+		$this->priority = $priority;
 	}
 
 	/**
@@ -253,6 +254,8 @@ class Tribe__Queue__Worker {
 		}
 
 		$this->priority = intval( $priority );
+
+		return $this;
 	}
 
 	/**
