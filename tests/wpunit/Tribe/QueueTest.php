@@ -242,6 +242,21 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @test
+	 * it should allow prepending works to the work queue
+	 */
+	public function it_should_allow_prepending_works_to_the_work_queue() {
+		$sut = $this->make_instance();
+
+		$work_one = $sut->queue_work( [ 'a', 'b', 'c' ], [ __CLASS__, 'callback_one' ] )->save();
+		$work_two = $sut->queue_work( [ 'a', 'b', 'c' ], [ __CLASS__, 'callback_one' ] )->save();
+		$work_three = $sut->prepend_work( [ 'a', 'b', 'c' ], [ __CLASS__, 'callback_one' ] )->save();
+
+		$expected = [ $work_three => Worker::QUEUED, $work_one => Worker::QUEUED, $work_two => Worker::QUEUED ];
+		$this->assertEquals( $expected, $sut->get_work_list() );
+	}
+
+	/**
 	 * @return Queue
 	 */
 	private function make_instance() {

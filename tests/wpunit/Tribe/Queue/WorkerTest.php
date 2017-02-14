@@ -43,6 +43,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'data'       => [ 'foo' => 'bar' ],
 			'status'     => Worker::DONE,
 			'batch_size' => 10,
+			'priority' => 10,
 		] ) );
 		$this->assertEquals( $expected, $worker->read() );
 	}
@@ -63,6 +64,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'data'       => '',
 			'status'     => Worker::DONE,
 			'batch_size' => 10,
+			'priority'   => 10,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 	}
@@ -84,6 +86,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'data'       => '',
 			'status'     => Worker::WORKING,
 			'batch_size' => 2,
+			'priority'   => 10,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 
@@ -96,6 +99,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'data'       => '',
 			'status'     => Worker::DONE,
 			'batch_size' => 2,
+			'priority'   => 10,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 	}
@@ -118,6 +122,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'data'       => '',
 			'status'     => Worker::WORKING,
 			'batch_size' => 3,
+			'priority'   => 10,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 
@@ -130,6 +135,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'data'       => '',
 			'status'     => Worker::WORKING,
 			'batch_size' => 3,
+			'priority'   => 10,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 	}
@@ -152,6 +158,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'data'       => '',
 			'status'     => Worker::WORKING,
 			'batch_size' => 3,
+			'priority'   => 10,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 
@@ -164,8 +171,46 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'data'       => '',
 			'status'     => Worker::WORKING,
 			'batch_size' => 3,
+			'priority'   => 10,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
+	}
+
+	/**
+	 * @test
+	 * it should set the default priority of a work to 10
+	 */
+	public function it_should_set_the_default_priority_of_a_work_to_10() {
+		$targets = [ 'a', 'b', 'c', 'd', 'e' ];
+		$worker = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
+
+		$this->assertEquals( 10, $worker->get_priority() );
+
+	}
+
+	/**
+	 * @test
+	 * it should throw if trying to set the priority of a work to non integer value
+	 */
+	public function it_should_throw_if_trying_to_set_the_priority_of_a_work_to_non_integer_value() {
+		$this->expectException( \InvalidArgumentException::class );
+
+		$targets = [ 'a', 'b', 'c', 'd', 'e' ];
+		$worker = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
+		$worker->set_batch_size( 3 );
+		$worker->set_priority( 'foo' );
+	}
+
+	/**
+	 * @test
+	 * it should allow setting the priority for the work
+	 */
+	public function it_should_allow_setting_the_priority_for_the_work() {
+		$targets = [ 'a', 'b', 'c', 'd', 'e' ];
+		$worker = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
+		$worker->set_priority( '23' );
+
+		$this->assertEquals( 23, $worker->get_priority() );
 	}
 
 	public static function callback_one( $_, $index ) {

@@ -42,6 +42,11 @@ class Tribe__Queue__Worker {
 	protected $batch_size = 10;
 
 	/**
+	 * @var int
+	 */
+	protected $priority = 10;
+
+	/**
 	 * @var mixed Additional data that will be passed to the callback function to comp
 	 */
 	private $data;
@@ -97,6 +102,7 @@ class Tribe__Queue__Worker {
 			'data'       => $this->data,
 			'status'     => $this->status,
 			'batch_size' => $this->batch_size,
+			'priority'   => $this->priority,
 		);
 	}
 
@@ -234,5 +240,27 @@ class Tribe__Queue__Worker {
 	 */
 	protected function is_container_callback( $callback ) {
 		return is_array( $callback ) && count( $callback ) === 3 && 'tribe' === $callback[0];
+	}
+
+	/**
+	 * Sets the work priority in a way similar to the one used by WordPress hooks and filters: lower goes first.
+	 *
+	 * @param int $priority
+	 */
+	public function set_priority( $priority ) {
+		if ( ! filter_var( $priority, FILTER_VALIDATE_INT ) ) {
+			throw new InvalidArgumentException( 'Priority must be an integer.' );
+		}
+
+		$this->priority = intval( $priority );
+	}
+
+	/**
+	 * Returns the work priority.
+	 *
+	 * @return int
+	 */
+	public function get_priority() {
+		return $this->priority;
 	}
 }

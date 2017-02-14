@@ -1,6 +1,9 @@
 <?php
 
 class Tribe__Queue {
+	/**
+	 * The name of the option that stores the queue current works and their stati.
+	 */
 	const WORKS_OPTION = 'tribe_q_works';
 
 	/**
@@ -57,6 +60,8 @@ class Tribe__Queue {
 	}
 
 	/**
+	 * Appends a new work to the queue.
+	 *
 	 * @param array                 $targets
 	 * @param       callable| array $callback  Either a callable object or array or a container reference in the
 	 *                                         ['tribe', <alias>, <method>] format.
@@ -76,14 +81,39 @@ class Tribe__Queue {
 	}
 
 	/**
+	 * Prepends a new work to the queue.
+	 *
+	 * @param array                 $targets
+	 * @param       callable| array $callback  Either a callable object or array or a container reference in the
+	 *                                         ['tribe', <alias>, <method>] format.
+	 *                                         The callback will receive three arguments: the current target, the
+	 *                                         target index in the complete list of targets and the data for this work.
+	 * @param mixed                 $data      Some additional data that will be passed to the work callback.
+	 *
+	 * @return Tribe__Queue__Worker
+	 */
+	public function prepend_work( array $targets, $callback, $data = null ) {
+		// let the Tribe__Queue__Work class make its own verifications
+		$work = new Tribe__Queue__Worker( $targets, $targets, $callback, $data, Tribe__Queue__Worker::QUEUED );
+
+		$this->update_work_status( $work, false );
+
+		return $work;
+	}
+
+	/**
 	 * Updates the status of a work in the Factory managed option.
 	 *
 	 * @param $work
 	 */
-	protected function update_work_status( Tribe__Queue__Worker $work ) {
+	protected function update_work_status( Tribe__Queue__Worker $work, $append = true ) {
 		$list = $this->get_work_list();
 
-		$list[ $work->get_id() ] = $work->get_status();
+		if ( $append ) {
+			$list[ $work->get_id() ] = $work->get_status();
+		} else {
+			$list = array_merge( array( $work->get_id() => $work->get_status() ), $list );
+		}
 
 		update_option( self::WORKS_OPTION, $list );
 	}
