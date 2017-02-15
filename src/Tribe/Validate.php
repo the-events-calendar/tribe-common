@@ -229,6 +229,12 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * validates a field as being an integer
 		 *
+		 * The expected value is a whole number (positive or negative). This method is named "int" to
+		 * match the mathematical definition of the word AND to closely match the pre-exiting method
+		 * with a similar name: positive_int(). This method WILL validate whole numbers that go beyond
+		 * values that PHP's int type supports, however, if someone enters something like that, that's
+		 * on them. Smart people do smart things.
+		 *
 		 * @return stdClass validation result object
 		 */
 		public function int() {
