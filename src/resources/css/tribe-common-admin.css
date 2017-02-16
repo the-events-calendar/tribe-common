@@ -906,11 +906,6 @@ a.tribe-rating-link {
 	clear: both;
 }
 .api-check .tribe-spirit-animal {
-	background: #325f81;
-	background: -webkit-linear-gradient(45deg, #325f81 0%,#3d87c0 100%);
-	background: linear-gradient(45deg, #325f81 0%,#3d87c0 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#325f81', endColorstr='#3d87c0',GradientType=1 );
-	border-left: 4px solid #eee;
 	bottom: 0;
 	display: none;
 	padding: 16px;
@@ -957,7 +952,7 @@ a.tribe-rating-link {
 }
 .tribe-ea-dropdown.select2-container-active .select2-choice, .tribe-dropdown.select2-container-active .select2-choice {
 	border-color: #5897fb;
-	box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+	box-shadow: 0 0 5px rgba( 0, 0, 0, .1 );
 }
 .tribe-ea-dropdown.select2-dropdown-open .select2-choice, .tribe-dropdown.select2-dropdown-open .select2-choice {
 	border-bottom-left-radius: 0;
@@ -1020,10 +1015,10 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	background-color: #a00;
 	border-color: #9B2124;
 	border-bottom-color: #8D1F21;
-	box-shadow: inset 0 1px 0 rgba(120, 200, 230, .5);
+	box-shadow: inset 0 1px 0 rgba(120,200,230,0.5);
 	color: #fff;
 	text-decoration: none;
-	text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.1);
 }
 .wp-core-ui .button-red.hover,
 .wp-core-ui .button-red:hover,
@@ -1031,14 +1026,14 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .wp-core-ui .button-red:focus {
 	background-color: #a00;
 	border-color: #7F1C1F;
-	box-shadow: inset 0 1px 0 rgba(120, 200, 230, .6);
+	box-shadow: inset 0 1px 0 rgba(120,200,230,0.6);
 	color: #fff;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
 }
 .wp-core-ui .button-red.focus,
 .wp-core-ui .button-red:focus {
 	border-color: #500F0E;
-	box-shadow: inset 0 1px 0 rgba(120, 200, 230, .6), 1px 1px 2px rgba(0, 0, 0, .4);
+	box-shadow: inset 0 1px 0 rgba(120,200,230,0.6), 1px 1px 2px rgba(0,0,0,0.4);
 }
 .wp-core-ui .button-red.active,
 .wp-core-ui .button-red.active:hover,
@@ -1046,9 +1041,9 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .wp-core-ui .button-red:active {
 	background: #7F1C1F;
 	border-color: #601312 #AE2426 #AE2426 #AE2426;
-	color: rgba(255, 255, 255, .95);
-	box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1);
-	text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+	color: rgba(255,255,255,0.95);
+	box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.1);
 }
 .wp-core-ui .button-red[disabled],
 .wp-core-ui .button-red:disabled,
@@ -1057,7 +1052,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	background: #BA292B !important;
 	border-color: #7F1C1F !important;
 	box-shadow:         none !important;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, .1) !important;
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.1) !important;
 	cursor: default;
 }
 .ticket_form .select2-container .select2-choice .select2-arrow {
