@@ -762,7 +762,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 					break;
 			}
 
-			return self::$localized_weekdays['full'][ $weekday ];
+			return self::$localized_weekdays[ $type ][ $weekday ];
 		}
 
 		/**
