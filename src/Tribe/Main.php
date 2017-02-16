@@ -210,8 +210,7 @@ class Tribe__Main {
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
 				array( 'tribe-datepicker', 'datepicker.css' ),
-				array( 'tribe-ui-styles', 'tribe-ui-styles.css' ),
-				array( 'tribe-utilities-styles', 'tribe-utilities-styles.css' ),
+				array( 'tribe-ui-style', 'tribe-ui.css' ),
 			),
 			'admin_enqueue_scripts',
 			array(
