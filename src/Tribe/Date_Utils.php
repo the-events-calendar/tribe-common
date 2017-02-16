@@ -24,6 +24,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		private static $localized_months_full  = array();
 		private static $localized_months_short = array();
 		private static $localized_weekdays     = array();
+		private static $localized_months       = array();
 
 		/**
 		 * Get the datepicker format, that is used to translate the option from the DB to a string
@@ -565,20 +566,24 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		public static function get_localized_months_full() {
 			global $wp_locale;
 
+			if ( empty( self::$localized_months ) ) {
+				self::build_localized_months();
+			}
+
 			if ( empty( self::$localized_months_full ) ) {
 				self::$localized_months_full = array(
-					'January'   => $wp_locale->get_month( '01' ),
-					'February'  => $wp_locale->get_month( '02' ),
-					'March'     => $wp_locale->get_month( '03' ),
-					'April'     => $wp_locale->get_month( '04' ),
-					'May'       => $wp_locale->get_month( '05' ),
-					'June'      => $wp_locale->get_month( '06' ),
-					'July'      => $wp_locale->get_month( '07' ),
-					'August'    => $wp_locale->get_month( '08' ),
-					'September' => $wp_locale->get_month( '09' ),
-					'October'   => $wp_locale->get_month( '10' ),
-					'November'  => $wp_locale->get_month( '11' ),
-					'December'  => $wp_locale->get_month( '12' ),
+					'January'   => self::$localized_months['full']['01'],
+					'February'  => self::$localized_months['full']['02'],
+					'March'     => self::$localized_months['full']['03'],
+					'April'     => self::$localized_months['full']['04'],
+					'May'       => self::$localized_months['full']['05'],
+					'June'      => self::$localized_months['full']['06'],
+					'July'      => self::$localized_months['full']['07'],
+					'August'    => self::$localized_months['full']['08'],
+					'September' => self::$localized_months['full']['09'],
+					'October'   => self::$localized_months['full']['10'],
+					'November'  => self::$localized_months['full']['11'],
+					'December'  => self::$localized_months['full']['12'],
 				);
 			}
 
@@ -593,20 +598,24 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		public static function get_localized_months_short() {
 			global $wp_locale;
 
+			if ( empty( self::$localized_months ) ) {
+				self::build_localized_months();
+			}
+
 			if ( empty( self::$localized_months_short ) ) {
 				self::$localized_months_short = array(
-					'Jan' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '01' ) ),
-					'Feb' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '02' ) ),
-					'Mar' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '03' ) ),
-					'Apr' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '04' ) ),
-					'May' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '05' ) ),
-					'Jun' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '06' ) ),
-					'Jul' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '07' ) ),
-					'Aug' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '08' ) ),
-					'Sep' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '09' ) ),
-					'Oct' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '10' ) ),
-					'Nov' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '11' ) ),
-					'Dec' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '12' ) ),
+					'Jan' => self::$localized_months['short']['01'],
+					'Feb' => self::$localized_months['short']['02'],
+					'Mar' => self::$localized_months['short']['03'],
+					'Apr' => self::$localized_months['short']['04'],
+					'May' => self::$localized_months['short']['05'],
+					'Jun' => self::$localized_months['short']['06'],
+					'Jul' => self::$localized_months['short']['07'],
+					'Aug' => self::$localized_months['short']['08'],
+					'Sep' => self::$localized_months['short']['09'],
+					'Oct' => self::$localized_months['short']['10'],
+					'Nov' => self::$localized_months['short']['11'],
+					'Dec' => self::$localized_months['short']['12'],
 				);
 			}
 
@@ -667,6 +676,20 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
+		 * Builds arrays of localized full, short and initialized weekdays.
+		 */
+		private static function build_localized_months() {
+			global $wp_locale;
+
+			for ( $i = 1; $i <= 12; $i++ ) {
+				$month_number = str_pad( $i, 2, '0', STR_PAD_LEFT );
+				$month        = $wp_locale->get_month( $month_number );
+				self::$localized_months['full'][ $month_number ]  = $month;
+				self::$localized_months['short'][ $month_number ] = $wp_locale->get_month_abbrev( $day );
+			}
+		}
+
+		/**
 		 * Return a WP Locale weekday in the specified format
 		 *
 		 * @param int|string $weekday Day of week
@@ -675,6 +698,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string
 		 */
 		public static function wp_locale_weekday( $weekday, $format = 'weekday' ) {
+			$weekday = trim( $weekday );
+
 			$valid_formats = array(
 				'full',
 				'weekday',
@@ -697,32 +722,17 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			// if the weekday isn't numeric, we need to convert to numeric in order to
 			// leverage self::localized_weekdays
 			if ( ! is_numeric( $weekday ) ) {
-				if ( 1 === strlen( $weekday ) ) {
-					// if we've received a weekday of length 1, we can't safely localize it. Gotta return
-					return $weekday;
-				} elseif ( 3 === strlen( $weekday ) ) {
-					$days_of_week = array(
-						'Sun',
-						'Mon',
-						'Tue',
-						'Wed',
-						'Thu',
-						'Fri',
-						'Sat',
-					);
-				} else {
-					$days_of_week = array(
-						'Sunday',
-						'Monday',
-						'Tuesday',
-						'Wednesday',
-						'Thursday',
-						'Friday',
-						'Saturday',
-					);
-				}
+				$days_of_week = array(
+					'Sun',
+					'Mon',
+					'Tue',
+					'Wed',
+					'Thu',
+					'Fri',
+					'Sat',
+				);
 
-				$day_index = array_search( ucwords( $weekday ), $days_of_week );
+				$day_index = array_search( ucwords( substr( $weekday, 0, 3 ) ), $days_of_week );
 
 				if ( false === $day_index ) {
 					return $weekday;
@@ -760,6 +770,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string
 		 */
 		public static function wp_locale_month( $month, $format = 'month' ) {
+			$month = trim( $month );
+
 			$valid_formats = array(
 				'full',
 				'month',
@@ -774,44 +786,52 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return $month;
 			}
 
-			// initialize month_formatted with a reasonable value in the event we fail to format
-			$month_formatted = $month;
-
-			// default to month abbreviation format
-			$date_format_for_month = 'M';
-
-			// if we want the full month, let's set that instead
-			if ( 'full' === $format || 'month' === $format ) {
-				$date_format_for_month = 'F';
+			if ( empty( self::$localized_months ) ) {
+				self::build_localized_months();
 			}
 
 			// make sure numeric months are valid
 			if ( is_numeric( $month ) ) {
-				$month_int = (int) $month_formatted;
+				$month_num = (int) $month;
 
-				// if the month integer falls out of range, bail without localizing
-				if ( 0 > $month_int || 12 < $month_int ) {
+				// if the month num falls out of range, bail without localizing
+				if ( 0 > $month_num || 12 < $month_num ) {
+					return $month;
+				}
+			} else {
+				$months = array(
+					'Jan',
+					'Feb',
+					'Mar',
+					'Apr',
+					'May',
+					'Jun',
+					'Jul',
+					'Aug',
+					'Sep',
+					'Oct',
+					'Nov',
+					'Dec',
+				);
+
+				// convert the provided month to a 3-character month and find it in the months array so we
+				// can build an appropriate month number
+				$month_num = array_search( ucwords( substr( $month, 0, 3 ) ), $months );
+
+				// if we can't find the provided month in our month list, bail without localizing
+				if ( false === $month_num ) {
 					return $month;
 				}
 
-				$month_formatted = str_pad( $month_formatted, 2, '0', STR_PAD_LEFT );
-
-				// get the appropriately formatted month name (we don't care about the year, let's use 2000)
-				$month_formatted = date( $date_format_for_month, strtotime( '2000-' . $month_formatted . '-10' ) );
-			} else {
-				// get the appropriately formatted month name (we don't care about the year, let's use 2000)
-				$month_formatted = date( $date_format_for_month, strtotime( $month_formatted . ' 10, 2000' ) );
+				// let's increment the num because months start at 01 rather than 00
+				$month_num++;
 			}
 
-			// gather the appropriate collection of months
-			if ( 'full' === $format || 'month' === $format ) {
-				$months = self::get_localized_months_full();
-			} else {
-				$months = self::get_localized_months_short();
-			}
+			$month_num = str_pad( $month_num, 2, '0', STR_PAD_LEFT );
 
-			// return the localized month if found
-			return empty( $months[ $month_formatted ] ) ? $months[ $month_formatted ] : $month;
+			$type = ( 'full' === $format || 'month' === $format ) ? 'full' : 'short';
+
+			return self::$localized_months[ $type ][ $month_num ];
 		}
 
 		// DEPRECATED METHODS
