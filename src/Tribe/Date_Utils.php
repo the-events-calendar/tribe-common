@@ -677,6 +677,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 		/**
 		 * Builds arrays of localized full and short months.
+		 *
+		 * @since 4.4.3
 		 */
 		private static function build_localized_months() {
 			global $wp_locale;
@@ -691,6 +693,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 		/**
 		 * Return a WP Locale weekday in the specified format
+		 *
+		 * @since 4.4.3
 		 *
 		 * @param int|string $weekday Day of week
 		 * @param string $format Weekday format: full, weekday, initial, abbreviation, abbrev, abbr, short
@@ -763,6 +767,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 		/**
 		 * Return a WP Locale month in the specified format
+		 *
+		 * @since 4.4.3
 		 *
 		 * @param int|string $month Month of year
 		 * @param string $format Month format: full, month, abbreviation, abbrev, abbr, short
