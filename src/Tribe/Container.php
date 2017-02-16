@@ -223,3 +223,21 @@ if ( ! function_exists( 'tribe_get_var' ) ) {
 		return $var;
 	}
 }
+
+if ( ! function_exists( 'tribe_register_provider' ) ) {
+	/**
+	 * Registers a service provider in the container.
+	 *
+	 * Service providers must implement the `tad_DI52_ServiceProviderInterface` interface or extend the `tad_DI52_ServiceProvider` class.
+	 *
+	 * @see tad_DI52_ServiceProvider
+	 * @see tad_DI52_ServiceProviderInterface
+	 *
+	 * @param string $provider_class
+	 */
+	function tribe_register_provider( $provider_class ) {
+		$container = Tribe__Container::instance();
+
+		$container->register( $provider_class );
+	}
+}
