@@ -687,7 +687,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$month_number = str_pad( $i, 2, '0', STR_PAD_LEFT );
 				$month        = $wp_locale->get_month( $month_number );
 				self::$localized_months['full'][ $month_number ]  = $month;
-				self::$localized_months['short'][ $month_number ] = $wp_locale->get_month_abbrev( $day );
+				self::$localized_months['short'][ $month_number ] = $wp_locale->get_month_abbrev( $month );
 			}
 		}
 
