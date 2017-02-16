@@ -666,6 +666,154 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 		}
 
+		/**
+		 * Return a WP Locale weekday in the specified format
+		 *
+		 * @param int|string $weekday Day of week
+		 * @param string $format Weekday format: full, weekday, initial, abbreviation, abbrev, abbr, short
+		 *
+		 * @return string
+		 */
+		public static function wp_locale_weekday( $weekday, $format = 'weekday' ) {
+			$valid_formats = array(
+				'full',
+				'weekday',
+				'initial',
+				'abbreviation',
+				'abbrev',
+				'abbr',
+				'short',
+			);
+
+			// if there isn't a valid format, bail without providing a localized string
+			if ( ! in_array( $format, $valid_formats ) ) {
+				return $weekday;
+			}
+
+			if ( empty( self::$localized_weekdays ) ) {
+				self::build_localized_weekdays();
+			}
+
+			// if the weekday isn't numeric, we need to convert to numeric in order to
+			// leverage self::localized_weekdays
+			if ( ! is_numeric( $weekday ) ) {
+				if ( 1 === strlen( $weekday ) ) {
+					// if we've received a weekday of length 1, we can't safely localize it. Gotta return
+					return $weekday;
+				} elseif ( 3 === strlen( $weekday ) ) {
+					$days_of_week = array(
+						'Sun',
+						'Mon',
+						'Tue',
+						'Wed',
+						'Thu',
+						'Fri',
+						'Sat',
+					);
+				} else {
+					$days_of_week = array(
+						'Sunday',
+						'Monday',
+						'Tuesday',
+						'Wednesday',
+						'Thursday',
+						'Friday',
+						'Saturday',
+					);
+				}
+
+				$day_index = array_search( ucwords( $weekday ), $days_of_week );
+
+				if ( false === $day_index ) {
+					return $weekday;
+				}
+
+				$weekday = $day_index;
+			}
+
+			switch ( $format ) {
+				case 'initial':
+					$type = 'initial';
+					break;
+				case 'abbreviation':
+				case 'abbrev':
+				case 'abbr':
+				case 'short':
+					$type = 'short';
+					break;
+				case 'weekday':
+				case 'full':
+				default:
+					$type = 'full';
+					break;
+			}
+
+			return self::$localized_weekdays['full'][ $weekday ];
+		}
+
+		/**
+		 * Return a WP Locale month in the specified format
+		 *
+		 * @param int|string $month Month of year
+		 * @param string $format Month format: full, month, abbreviation, abbrev, abbr, short
+		 *
+		 * @return string
+		 */
+		public static function wp_locale_month( $month, $format = 'month' ) {
+			$valid_formats = array(
+				'full',
+				'month',
+				'abbreviation',
+				'abbrev',
+				'abbr',
+				'short',
+			);
+
+			// if there isn't a valid format, bail without providing a localized string
+			if ( ! in_array( $format, $valid_formats ) ) {
+				return $month;
+			}
+
+			// initialize month_formatted with a reasonable value in the event we fail to format
+			$month_formatted = $month;
+
+			// default to month abbreviation format
+			$date_format_for_month = 'M';
+
+			// if we want the full month, let's set that instead
+			if ( 'full' === $format || 'month' === $format ) {
+				$date_format_for_month = 'F';
+			}
+
+			// make sure numeric months are valid
+			if ( is_numeric( $month ) ) {
+				$month_int = (int) $month_formatted;
+
+				// if the month integer falls out of range, bail without localizing
+				if ( 0 > $month_int || 12 < $month_int ) {
+					return $month;
+				}
+
+				$month_formatted = str_pad( $month_formatted, 2, '0', STR_PAD_LEFT );
+
+				// get the appropriately formatted month name (we don't care about the year, let's use 2000)
+				$month_formatted = date( $date_format_for_month, strtotime( '2000-' . $month_formatted . '-10' ) );
+			} else {
+				// get the appropriately formatted month name (we don't care about the year, let's use 2000)
+				$month_formatted = date( $date_format_for_month, strtotime( $month_formatted . ' 10, 2000' ) );
+			}
+
+			// gather the appropriate collection of months
+			if ( 'full' === $format || 'month' === $format ) {
+				$months = self::get_localized_months_full();
+			} else {
+				$months = self::get_localized_months_short();
+			}
+
+			// return the localized month if found
+			return empty( $months[ $month_formatted ] ) ? $months[ $month_formatted ] : $month;
+		}
+
 		// DEPRECATED METHODS
 		// @codingStandardsIgnoreStart
 		/**
