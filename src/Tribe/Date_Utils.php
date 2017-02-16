@@ -676,7 +676,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Builds arrays of localized full, short and initialized weekdays.
+		 * Builds arrays of localized full and short months.
 		 */
 		private static function build_localized_months() {
 			global $wp_locale;
