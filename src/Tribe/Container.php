@@ -161,16 +161,19 @@ if ( ! function_exists( 'tribe' ) ) {
 	 *
 	 *      tribe( 'common.main' )->do_something();
 	 *
-	 * @param string $slug_or_class Either the slug of a binding previously registered using
-	 *                              `tribe_singleton` or `tribe_register` or the full class
-	 *                              name that should be automagically created.
+	 * @param string|null $slug_or_class Either the slug of a binding previously registered using `tribe_singleton` or
+	 *                                   `tribe_register` or the full class name that should be automagically created or
+	 *                                   `null` to get the container instance itself.
 	 *
-	 * @return mixed|object The instance of the requested class. Please note that the cardinality of
-	 *                      the class is controlled registering it as a singleton using `tribe_singleton`
-	 *                      or `tribe_register`.
+	 * @return mixed|object|Tribe__Container The instance of the requested class. Please note that the cardinality of
+	 *                                       the class is controlled registering it as a singleton using `tribe_singleton`
+	 *                                       or `tribe_register`; if the `$slug_or_class` parameter is null then the
+	 *                                       container itself will be returned.
 	 */
-	function tribe( $slug_or_class ) {
-		return Tribe__Container::instance()->make( $slug_or_class );
+	function tribe( $slug_or_class = null ) {
+		$container = Tribe__Container::instance();
+
+		return null === $slug_or_class ? $container : $container->make( $slug_or_class );
 	}
 }
 
@@ -218,5 +221,24 @@ if ( ! function_exists( 'tribe_get_var' ) ) {
 		}
 
 		return $var;
+	}
+}
+
+if ( ! function_exists( 'tribe_register_provider' ) ) {
+	/**
+	 * Registers a service provider in the container.
+	 *
+	 * Service providers must implement the `tad_DI52_ServiceProviderInterface` interface or extend
+	 * the `tad_DI52_ServiceProvider` class.
+	 *
+	 * @see tad_DI52_ServiceProvider
+	 * @see tad_DI52_ServiceProviderInterface
+	 *
+	 * @param string $provider_class
+	 */
+	function tribe_register_provider( $provider_class ) {
+		$container = Tribe__Container::instance();
+
+		$container->register( $provider_class );
 	}
 }
