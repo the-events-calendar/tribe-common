@@ -173,7 +173,9 @@ class Tribe__Queue {
 	 * @return Tribe__Queue__Worker
 	 */
 	protected function build_from_data( stdClass $work_data ) {
-		$work = new Tribe__Queue__Worker( $work_data->targets, $work_data->remaining, $work_data->callback, $work_data->data, $work_data->status, $work_data->priority );
+		$targets = (array) $work_data->targets;
+		$remaining = (array) $work_data->remaining;
+		$work = new Tribe__Queue__Worker( $targets, $remaining, $work_data->callback, $work_data->data, $work_data->status, $work_data->priority );
 
 		if ( isset( $work_data->batch_size ) ) {
 			$work->set_batch_size( $work_data->batch_size );

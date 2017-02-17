@@ -1,6 +1,6 @@
 <?php
 
-abstract class Tribe__Collisions__Detection_Strategy {
+abstract class Tribe__Collisions__Detection_Strategy implements Tribe__Collisions__Detector_Interface {
 
 	/**
 	 * Computes the collision-based lax intersection of two or more arrays of segments returning an array of elements

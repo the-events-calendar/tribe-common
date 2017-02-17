@@ -40,4 +40,96 @@ interface Tribe__Collisions__Detector_Interface {
 	 * @return int
 	 */
 	public function compare_starts( array $segment_a, array $segment_b );
+
+	/**
+	 * Computes the collision-based lax intersection of two or more arrays of segments returning an array of elements
+	 * from the first array colliding with at least one element from the second array according to the collision
+	 * detection strategy implemented by the class. If more than one array is specified then a segment from the first
+	 * array has to collide with at least one segment from one of the intersecting segment arrays; this method will
+	 * work exactly like `intersect` when applied to 1 vs 1 arrays of segments; the "lax" part comes into play when
+	 * used in 1 vs many.
+	 *
+	 * @see Tribe__Collisions__Detection_Strategy::intersect()
+	 *
+	 * Note: points are segments with matching start and end.
+	 *
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
+	 *
+	 * @return array An array of arrays of elements each defining the start and end of a segment in the format
+	 *               [<start>, <end>]; the first array contains the segments of $a that collided while the second array
+	 *               contains the segments that did collide with each colliding element of $a
+	 */
+	public function report_touch( array $set_a, array $set_b );
+
+	/**
+	 * Computes the collision-based intersection of two or more arrays of segments returning an array of elements from
+	 * the first array colliding with at least one element from the second array according to the collision detection
+	 * strategy implemented by the class.
+	 * If more than one array is specified then a segment from the first array has to collide with at least one segment
+	 * from each intersecting segment.
+	 * If a lax intersection is needed use `touch`.
+	 *
+	 * Note: points are segments with matching start and end.
+	 *
+	 * @see Tribe__Collisions__Detection_Strategy::touch()
+	 *
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
+	 *
+	 * @return array An array of arrays of elements each defining the start and end of a segment in the format
+	 *               [<start>, <end>]; the first array contains the segments of $a that collided while the second array
+	 *               contains the segments that did collide with each colliding element of $a
+	 */
+	public function report_intersect( array $set_a, array $set_b );
+
+	/**
+	 * Computes the collision-based lax intersection of two or more arrays of segments returning an array of elements
+	 * from the first array colliding with at least one element from the second array according to the collision
+	 * detection strategy implemented by the class. If more than one array is specified then a segment from the first
+	 * array has to collide with at least one segment from one of the intersecting segment arrays; this method will
+	 * work exactly like `intersect` when applied to 1 vs 1 arrays of segments; the "lax" part comes into play when
+	 * used in 1 vs many.
+	 *
+	 * @see Tribe__Collisions__Detection_Strategy::intersect()
+	 *
+	 * Note: points are segments with matching start and end.
+	 *
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $set_b,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
+	 *
+	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 */
+	public function touch( array $set_a, array $set_b );
+
+	/**
+	 * Computes the collision-based intersection of two or more arrays of segments returning an array of elements from
+	 * the first array colliding with at least one element from the second array according to the collision detection
+	 * strategy implemented by the class.
+	 * If more than one array is specified then a segment from the first array has to collide with at least one segment
+	 * from each intersecting segment.
+	 * If a lax intersection is needed use `touch`.
+	 *
+	 * Note: points are segments with matching start and end.
+	 *
+	 * @see Tribe__Collisions__Detection_Strategy::touch()
+	 *
+	 * @param array $set_a     An array of elements each defining the start and end of a segment in the format
+	 *                         [<start>,
+	 *                         <end>].
+	 * @param array $b_set,... An array (ore more arrays) of elements each defining the start and end of a segment in
+	 *                         the format [<start>, <end>].
+	 *
+	 * @return array An array of elements each defining the start and end of a segment in the format [<start>, <end>].
+	 */
+	public function intersect( array $set_a, array $b_set );
 }
