@@ -200,7 +200,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
                 'origin' => 'url',
                 'events' => array(
                     0 => set_object_state(array(
-                        'ID' => '23',
+                        'id' => '23',
                         'title' => 'Event 001',
                         'description' => '',
                         'start_date' => '{{nextMonth}}-12',
@@ -218,7 +218,7 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
                         'end_date_utc' => '{{nextMonth}}-12 11:00:00',
                     )),
                     1 => set_object_state(array(
-                        'ID' => '2389',
+                        'id' => '2389',
                         'title' => 'Event 002',
                         'description' => '',
                         'start_date' => '{{nextMonth}}-13',
@@ -232,12 +232,11 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
                         'venue' => set_object_state(array(
                             'venue' => '',
                         )),
-                        'uid' => 'ujhsklpa0mo32q1421n5lh707s@google.com0',
                         'start_date_utc' => '{{nextMonth}}-13 08:00:00',
                         'end_date_utc' => '{{nextMonth}}-13 13:30:00',
                     )),
                     2 => set_object_state(array(
-                        'ID' => '89',
+                        'id' => '89',
                         'title' => 'Event 003',
                         'description' => '',
                         'start_date' => '{{nextMonth}}-14',

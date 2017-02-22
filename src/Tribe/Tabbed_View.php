@@ -267,7 +267,7 @@ class Tribe__Tabbed_View {
 	 * @return Tribe__Tabbed_View__Tab
 	 */
 	public function register( $tab ) {
-		$is_object = is_a( $tab, 'Tribe__Tabbed_View__Tab' );
+		$is_object = $tab instanceof Tribe__Tabbed_View__Tab;
 		if ( ! ( $is_object || ( is_string( $tab ) && class_exists( $tab ) ) ) ) {
 			return false;
 		}

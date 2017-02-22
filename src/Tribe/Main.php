@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.4.1';
+	const VERSION             = '4.4.2';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -105,6 +105,7 @@ class Tribe__Main {
 		$this->bind_implementations();
 
 		$this->init_libraries();
+
 		$this->add_hooks();
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
@@ -291,6 +292,14 @@ class Tribe__Main {
 
 		add_filter( 'body_class', array( $this, 'add_js_class' ) );
 		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
+
+		add_filter( 'cron_schedules', array( tribe( 'cron' ), 'filter_cron_schedules' ) );
+
+		// Queue hooks
+		add_action( 'admin_head', array( 'Tribe__Queue', 'work' ) );
+		add_action( 'wp_ajax_tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
+		add_action( 'wp_ajax_nopriv_tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
+		add_action( 'tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
 	}
 
 	public function add_js_class( $classes = array() ) {
@@ -326,7 +335,7 @@ class Tribe__Main {
 	 */
 	public function load_text_domain( $domain, $dir = false ) {
 		// Added safety just in case this runs twice...
-		if ( is_textdomain_loaded( $domain ) && ! is_a( $GLOBALS['l10n'][ $domain ], 'NOOP_Translations' ) ) {
+		if ( is_textdomain_loaded( $domain ) && ! $GLOBALS['l10n'][ $domain ] instanceof NOOP_Translations ) {
 			return true;
 		}
 
@@ -492,5 +501,7 @@ class Tribe__Main {
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
 		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
 		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
+		tribe_singleton( 'cron', 'Tribe__Cron', array( 'schedule' ) );
+		tribe_singleton( 'queue', 'Tribe__Queue' );
 	}
 }
