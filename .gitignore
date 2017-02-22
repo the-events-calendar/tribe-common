@@ -17,6 +17,7 @@ tests/wpunit/_bootstrap.php
 vendor/*
 !vendor/jquery
 !vendor/select2
+!vendor/handlebars
 !vendor/clipboard
 !vendor/composer
 vendor/composer/composer/tests
