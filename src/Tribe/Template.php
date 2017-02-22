@@ -48,7 +48,7 @@ class Tribe__Template {
 	 * @return self
 	 */
 	public function set_template_origin( $origin = null ) {
-		if ( ! isset( $origin ) ) {
+		if ( empty( $origin ) ) {
 			$origin = $this->origin;
 		}
 
