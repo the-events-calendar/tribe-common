@@ -1,0 +1,5 @@
+<?php
+
+class Tribe__Change_Authority__From_Overrides_To_Policy implements Tribe__Change_Authority__Policy_Interface {
+
+}
