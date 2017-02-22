@@ -100,7 +100,7 @@ class Tribe__Queue {
 		$list = get_option( self::$works_option );
 
 		if ( empty( $list ) ) {
-			$list = array();
+			return $list;
 		}
 
 		$valid = array_filter( array_map( array( $this, 'get_work' ), array_keys( $list ) ) );
