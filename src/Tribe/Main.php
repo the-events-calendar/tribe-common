@@ -177,8 +177,9 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
+				array( 'handlebars', 'vendor/handlebars/handlebars.js', array() ),
 				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
+				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 				array( 'tribe-select2', 'vendor/select2/select2.js', array( 'jquery' ) ),
 				array( 'tribe-select2-css', 'vendor/select2/select2.css' ),
 				array( 'datatables-css', 'datatables.css' ),
@@ -192,6 +193,7 @@ class Tribe__Main {
 				array( 'datatables-fixedheader-css', 'vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables.css' ),
 				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables', 'datatables-select' ) ),
 				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
+				array( 'tribe-handlebars-utils', 'tribe-handlebars-utils.js', array( 'handlebars' ) ),
 				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
 				array( 'tribe-buttonset-style', 'buttonset.css' ),
 				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
