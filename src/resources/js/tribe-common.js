@@ -1,3 +1,13 @@
+// Run some magic to allow a better handling of class names for jQuery.hasClass type of methods
+String.prototype.className = function () {
+	return this.replace( '.', '' );
+};
+
+// Add a method to convert ID/Classes into JS easy/safe variable
+String.prototype.varName = function () {
+	return this.replace( '-', '_' );
+};
+
 var tribe_auto_sysinfo = tribe_auto_sysinfo || {};
 
 tribe_auto_sysinfo.ajax = {

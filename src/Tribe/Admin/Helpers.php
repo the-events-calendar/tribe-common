@@ -10,22 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Tribe__Admin__Helpers {
 	/**
-	 * Static Singleton Holder
-	 * @var Tribe__Admin__Helpers|null
-	 */
-	protected static $instance;
-
-	/**
 	 * Static Singleton Factory Method
+	 *
+	 * @deprecated 4.5
 	 *
 	 * @return Tribe__Admin__Helpers
 	 */
 	public static function instance() {
-		if ( empty( self::$instance ) ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
+		return tribe( 'admin.helpers' );
 	}
 
 	/**

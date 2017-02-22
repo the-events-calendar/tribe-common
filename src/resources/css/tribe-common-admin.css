@@ -10,28 +10,55 @@
 
 /* = Shared CSS Elements
 =============================================*/
+
+.tribe-field_size-tiny {
+	width: 75px;
+}
+
+.tribe-field_size-small {
+	width: 100px;
+}
+
+.tribe-field_size-medium {
+	width: 150px;
+}
+
+.tribe-field_size-large {
+	width: 200px;
+}
+
+.tribe-field_size-xlarge {
+	width: 405px;
+}
+
 .invalid input {
 	border: 2px solid red !important;
 }
+
 .valid input {
 	border: 1px solid green;
 }
+
 .clearfix {
 	zoom: 1; /* For IE */
 }
+
 .placeholder {
 	color: #999;
 	cursor: text;
 	padding: 4px 4px 4px 4px;
 }
+
 input:placeholder,
 textarea:placeholder {
 	color: #999;
 }
+
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
 	color: #999;
 }
+
 .bubble {
 	-khtml-border-radius: 3px;
 	background-color: #f9f9f9;
@@ -43,25 +70,31 @@ textarea::-webkit-input-placeholder {
 	border-width: 1px;
 	padding: 10px;
 }
+
 .tribe-sticky-tooltip {
 	color: #bbb;
 }
+
 td.tribe_message {
 	padding-bottom: 10px !important;
 }
+
 #tribe_thanks {
 	float: left;
 	margin: 5px 0 0 0;
 	width: 200px;
 }
+
 .tribe_brand {
 	font-family: Georgia !important;
 	font-size: 17px !important;
 	font-weight: normal;
 	margin: 8px 0;
 }
+
 /* = Upgrade Screen
 =============================================*/
+
 #tribe-upgrade {
 	background: #f6f6f6;
 	border: 1px solid #ccc;
@@ -69,6 +102,7 @@ td.tribe_message {
 	margin: 20px 0 30px;
 	padding: 0 20px 20px;
 }
+
 #tribe-upgrade .message {
 	background-color: #ffffe0;
 	border-color: #e6db55;
@@ -77,8 +111,10 @@ td.tribe_message {
 	border-width: 1px;
 	padding: 6px 12px;
 }
+
 /* = Plugin Screen
 =============================================*/
+
 table.plugins .tribe-plugin-update-message {
 	background: #d54e21; /* taken from colour scheme in list-tables.css */
 	color: white;
@@ -86,109 +122,137 @@ table.plugins .tribe-plugin-update-message {
 	margin: 6px 0;
 	padding: 10px 12px;
 }
+
 table.plugins .tribe-plugin-update-message h4 {
 	display: inline;
 	font-weight: bold;
 	margin-right: 8px;
 }
+
 table.plugins .tribe-plugin-update-message h4:after {
 	content: ' \00BB ';
 }
+
 table.plugins .tribe-plugin-update-message a {
 	color: white;
 	text-decoration: underline;
 }
+
 /* = Settings Screen
 =============================================*/
+
 .tribe-settings-form {
 	max-width: 1000px;
 }
+
 .tribe-settings-form fieldset {
 	clear: both;
 	display: inline-block;
 	padding: 10px 0;
 }
+
 .tribe-settings-form legend {
 	float: left;
 	font-weight: bold;
 	margin-right: 20px;
 	width: 220px;
 }
+
 .tribe-settings-form fieldset.tribe-field-license_key legend {
 	width: auto;
 }
+
 .tribe-settings-form .tribe-field-wrap {
 	float: left;
 	max-width: 500px;
 }
+
 .tribe-settings-form .tribe-field-wrap *:first-child {
 	margin-top: 0;
 }
+
 .tribe-settings-form .tribe-field-radio label,
 .tribe-settings-form .tribe-field-checkbox_list label {
 	display: block;
 	margin: 5px 0 5px 20px;
 	text-indent: -20px;
 }
+
 .tribe-settings-form .tribe-field-radio label input,
 .tribe-settings-form .tribe-field-checkbox_list label input {
 	margin-right: 5px;
 }
+
 .tribe-settings-form .tribe-settings-form-wrap fieldset,
 .tribe-settings-form .tribe-settings-form-wrap .description,
 .tribe-settings-form fieldset[id^='tribe-field-geoloc_'] {
 	padding-left: 12px;
 }
+
 .tribe-settings-form .tribe-settings-form-wrap fieldset .description {
 	margin-left: 0;
 	max-width: 450px;
 	padding-left: 0;
 }
+
 .tribe-settings-form .tribe-settings-form-wrap h3 {
 	background-color: #f9f9f9;
 	margin-bottom: 10px;
 	padding: 6px 0 6px 12px;
 }
+
 .tribe-settings-form .tribe-settings-form-wrap .tribe-sysinfo-optin-msg,
 .tribe-settings-form .tribe-settings-form-wrap .system-info,
 .tribe-settings-form .tribe-settings-form-wrap h3 + p {
 	margin: 0 0 10px;
 	padding-left: 12px;
 }
+
 .tribe_settings .tribe-field-indent {
 	margin-left: 245px;
 }
+
 .tribe_settings #pu_dashboard_message {
 	display: none;
 }
+
 .tribe_settings .tribe-errors-list {
 	margin-left: 15px;
 }
+
 .tribe_settings .expiring-license {
 	color: red;
 }
+
 .tribe_settings .tribe-error {
 	border: 1px solid #f00;
 }
+
 .tribe_settings .tribe-field-description {
 	margin-bottom: 0;
 	position: relative;
 	top: -12px;
 }
+
 .tribe_settings #ical-link {
 	top: -14px;
 }
+
 .tribe-settings-form #tribe-field-stylesheetOption label {
 	margin-left: 20px;
 }
+
 .tribe-settings-form #tribe-field-stylesheetOption input {
 	margin-left: -20px;
 	margin-right: 8px;
 }
+
 .tribe-settings-form #tribe-field-stylesheetOption p.description {
 	color: #999;
 }
+
 /* Modern Tribe box */
+
 #modern-tribe-info {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
@@ -197,99 +261,128 @@ table.plugins .tribe-plugin-update-message a {
 	margin: 20px 0;
 	padding: 8px 20px 12px;
 }
+
 #modern-tribe-info img {
 	height: 18px;
 	margin: 10px 0;
 	width: 250px;
 }
+
 #modern-tribe-info ul {
 	list-style: disc;
 	margin-left: 20px;
 }
+
 #modern-tribe-info ul ul {
 	list-style: circle;
 }
+
 /* sizes */
+
 .tribe-field-inline-dropdown {
 	margin-left: 0;
 	margin-right: 0;
 }
+
 .tribe-field-inline-text {
 	line-height: 28px;
 	margin: 0 2px;
 }
+
 .tribe-field-textarea.tribe-size-small textarea {
 	height: 60px;
 	width: 180px;
 }
+
 .tribe-field-textarea.tribe-size-medium textarea {
 	height: 80px;
 	width: 300px;
 }
+
 .tribe-field-textarea.tribe-size-large textarea {
 	height: 120px;
 	width: 450px;
 }
+
 .tribe-field-text.tribe-size-small input,
 .tribe-field-license_key.tribe-size-small input {
 	width: 50px;
 }
+
 .tribe-field-text.tribe-size-medium input,
 .tribe-field-license_key.tribe-size-medium input {
 	width: 225px;
 }
+
 .tribe-field-text.tribe-size-large input,
 .tribe-field-license_key.tribe-size-large input {
 	width: 450px;
 }
+
 .tribe-field-dropdown.tribe-size-small select {
 	width: 100px;
 }
+
 .tribe-field-dropdown.tribe-size-medium select {
 	width: 300px;
 }
+
 .tribe-field-dropdown.tribe-size-large select {
 	width: 450px;
 }
+
 .tribe-field-dropdown_chosen.tribe-size-small select {
 	width: 100px;
 }
+
 .tribe-field-dropdown_chosen.tribe-size-medium select {
 	width: 200px;
 }
+
 .tribe-field-dropdown_chosen.tribe-size-large select {
 	width: 300px;
 }
+
 /* license keys */
+
 .ajax-loading-license,
 .valid-key,
 .invalid-key {
 	display: none;
 	margin: 0 5px;
 }
+
 .ajax-loading-license {
 	position: relative;
 	top: 5px;
 }
+
 .key-validity {
 	display: inline-block;
 }
+
 .optin-fail,
 .invalid-key {
 	color: red;
 }
+
 .optin-success,
 .valid-key {
 	color: green;
 }
+
 .valid-key.service-msg {
 	color: #b72;
 }
+
 /* additional fields */
+
 #additional-field-table {
 	margin-bottom: 20px;
 }
+
 /* miscellaneous */
+
 .tribe-admin-box-left {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
@@ -300,6 +393,7 @@ table.plugins .tribe-plugin-update-message a {
 	padding: 0 20px 15px;
 	width: 20%;
 }
+
 .tribe-admin-box-right {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
@@ -310,96 +404,121 @@ table.plugins .tribe-plugin-update-message a {
 	padding: 0 20px 15px;
 	width: 68%;
 }
+
 .ajax-loader {
 	float: right;
 	margin: 10px;
 }
+
 .tribe-arrangeable-item {
 	border: 1px solid lightGrey;
 	border-radius: 3px;
 }
+
 .tribe-arrangeable-item .ui-state-default {
 	border: none;
 }
+
 .tribe-arrangeable-item-top {
 	padding: 6px;
 }
+
 .tribe-arrangeable-item-top:hover {
 	cursor: move;
 }
+
 .tribe-arrangeable-action {
 	float: right;
 }
+
 .tribe-arrangeable-child {
 	background-color: #f9f9f9;
 	border-top: 1px solid lightGrey;
 	display: none;
 	padding: 25px;
 }
+
 .tribe-arrangeable-child label {
 	display: block;
 	margin: 0 0 7px 0;
 }
+
 .tribe_events_active_filter_type_options {
 	margin: 10px 0;
 }
+
 .tribe_events_active_filter_type_options label {
 	margin: 7px 0;
 }
+
 .tribe-settings-form .tribe-settings-form-wrap fieldset .tribe-style-selection {
 	margin-bottom: 18px;
 }
+
 .OrganizerInfo td small,
 #event_organizer td small {
 	display: block;
 	margin: 0;
 	max-width: 250px;
 }
+
 .OrganizerInfo .organizer-email,
 #event_organizer .organizer-email {
 	vertical-align: top;
 }
+
 .tribe-table-field-label {
 	max-width: 100%;
 	width: 200px;
 }
+
 /* = Help Screen
 =============================================*/
+
 #tribe-help-general,
 #tribe-help-sidebar {
 	float: left;
 	margin-top: 20px;
 }
+
 #tribe-help-general p {
 	margin-left: 15px;
 }
+
 #tribe-help-general ul {
 	list-style-type: square;
 	margin-bottom: 20px;
 	margin-left: 35px;
 }
+
 #tribe-help-general ol {
 	margin-bottom: 20px;
 	margin-left: 35px;
 }
+
 #tribe-help-general h3 {
 	background-color: #f9f9f9;
 	margin-bottom: 10px;
 	padding: 6px 0 6px 12px;
 }
+
 #tribe-help-general h3 ~ h3 {
 	margin-top: 2.25em;
 }
+
 #tribe-help-general h3 + p {
 	margin: 0 0 20px;
 	padding-left: 12px;
 }
+
 #tribe-help-general {
 	width: 65%;
 }
+
 .tribe-help-section {
 	padding-bottom: 10px;
 }
+
 .tribe-section-type-box {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
@@ -407,18 +526,22 @@ table.plugins .tribe-plugin-update-message a {
 	border-radius: 4px;
 	padding: 8px 20px 12px;
 }
+
 .tribe-section-type-box img {
 	height: auto;
 	margin: 10px 0;
 	max-width: 300px;
 }
+
 .tribe-section-type-box ul {
 	list-style: disc;
 	margin-left: 20px;
 }
+
 .tribe-section-type-box ul ul {
 	list-style: circle;
 }
+
 #tribe-log-controls {
 	padding-bottom: 16px;
 	padding-bottom: 1rem;
@@ -426,21 +549,25 @@ table.plugins .tribe-plugin-update-message a {
 	/* For consistency with help screen h3 and p elements */
 	padding-left: 12px;
 }
+
 #tribe-log-controls > div {
 	display: inline-block;
 	padding-right: 16px;
 	padding-right: 1rem;
 }
+
 #tribe-log-controls .working {
 	opacity: 1;
 	-webkit-transition: opacity 0.2s;
 	transition: opacity 0.2s;
 }
+
 #tribe-log-controls .working.hidden {
 	opacity: 0;
 	-webkit-transition: opacity 0.2s;
 	transition: opacity 0.2s;
 }
+
 #tribe-system-info dl.support-stats,
 #tribe-log-viewer,
 .template-updates-wrapper {
@@ -451,6 +578,7 @@ table.plugins .tribe-plugin-update-message a {
 	overflow: scroll;
 	padding: 10px;
 }
+
 #tribe-system-info dl.support-stats dt,
 .template-updates-wrapper dt {
 	clear: both;
@@ -459,57 +587,71 @@ table.plugins .tribe-plugin-update-message a {
 	text-transform: uppercase;
 	width: 25%;
 }
+
 #tribe-system-info dl.support-stats dd,
 .template-updates-wrapper  dd {
 	margin-left: 25%;
 	padding-left: 10px;
 }
+
 .system-info-copy .system-info-copy-btn {
 	padding: 6px;
 }
+
 .system-info-copy .system-info-copy-btn .dashicons {
 	padding-right: 10px;
 }
+
 .template-updates-wrapper p {
 	margin-top: 0;
 }
+
 #tribe-help-sidebar {
 	margin: 20px 0 0 3%;
 	max-width: 225px;
 	width: 32%;
 }
+
 .tribe-help-plugin-info {
 	border: 1px solid #ccc;
 	padding: 0 12px 12px;
 }
+
 .tribe-help-plugin-info dt,
 .tribe-help-plugin-info dd {
 	display: inline;
 	margin: 0;
 }
+
 .tribe-help-plugin-info dt {
 	font-weight: bold;
 }
+
 .tribe-help-plugin-info dd::after {
 	content: '';
 	display: block;
 	height: .4em;
 }
+
 .tribe-help-plugin-info dd:last-child::after {
 	height: 0;
 }
+
 .tribe-help-plugin-info + .tribe-help-plugin-info {
 	margin-top: 20px;
 }
+
 .tribe-help-plugin-info > div {
 	line-height: 2em;
 }
+
 .tribe-help-plugin-info .star-rating {
 	display: inline-block;
 	margin-left: 3px;
 	position: relative;
 	top: -2px;
 }
+
 .tribe-help-plugin-info .tribe-list-addons {
 	color: #21a6cb;
 	font-size: 24px;
@@ -518,22 +660,27 @@ table.plugins .tribe-plugin-update-message a {
 	margin-top: 10px;
 	padding-left: 4px;
 }
+
 .tribe-help-plugin-info .tribe-list-addons a {
 	font-size: 13px;
 	left: -5px;
 	position: relative;
 	top: -5px;
 }
+
 .tribe-help-plugin-info .tribe-list-addons .tribe-active-addon {
 	list-style: disc inside;
 }
+
 /* = jQuery UI
 =============================================*/
+
 .ui-widget-overlay {
 	background: #666;
 	filter: Alpha(Opacity=50);
 	opacity: .50;
 }
+
 .ui-widget-shadow {
 	background: #000;
 	-webkit-border-radius: 5px;
@@ -543,19 +690,23 @@ table.plugins .tribe-plugin-update-message a {
 	opacity: .20;
 	padding: 5px;
 }
+
 .ui-resizable {
 	position: relative;
 }
+
 .ui-resizable-handle {
 	display: block;
 	font-size: .1px;
 	position: absolute;
 	z-index: 99999;
 }
+
 .ui-resizable-disabled .ui-resizable-handle,
 .ui-resizable-autohide .ui-resizable-handle {
 	display: none;
 }
+
 .ui-resizable-n {
 	cursor: n-resize;
 	height: 7px;
@@ -563,6 +714,7 @@ table.plugins .tribe-plugin-update-message a {
 	top: -5px;
 	width: 100%;
 }
+
 .ui-resizable-s {
 	bottom: -5px;
 	cursor: s-resize;
@@ -570,6 +722,7 @@ table.plugins .tribe-plugin-update-message a {
 	left: 0;
 	width: 100%;
 }
+
 .ui-resizable-e {
 	cursor: e-resize;
 	height: 100%;
@@ -577,6 +730,7 @@ table.plugins .tribe-plugin-update-message a {
 	top: 0;
 	width: 7px;
 }
+
 .ui-resizable-w {
 	cursor: w-resize;
 	height: 100%;
@@ -584,6 +738,7 @@ table.plugins .tribe-plugin-update-message a {
 	top: 0;
 	width: 7px;
 }
+
 .ui-resizable-se {
 	bottom: 1px;
 	cursor: se-resize;
@@ -591,6 +746,7 @@ table.plugins .tribe-plugin-update-message a {
 	right: 1px;
 	width: 12px;
 }
+
 .ui-resizable-sw {
 	bottom: -5px;
 	cursor: sw-resize;
@@ -598,6 +754,7 @@ table.plugins .tribe-plugin-update-message a {
 	left: -5px;
 	width: 9px;
 }
+
 .ui-resizable-nw {
 	cursor: nw-resize;
 	height: 9px;
@@ -605,6 +762,7 @@ table.plugins .tribe-plugin-update-message a {
 	top: -5px;
 	width: 9px;
 }
+
 .ui-resizable-ne {
 	cursor: ne-resize;
 	height: 9px;
@@ -612,19 +770,23 @@ table.plugins .tribe-plugin-update-message a {
 	top: -5px;
 	width: 9px;
 }
+
 .ui-dialog {
 	padding: .2em;
 	position: relative;
 	width: 375px;
 }
+
 .ui-dialog .ui-dialog-titlebar {
 	padding: .5em .3em .3em 1em;
 	position: relative;
 }
+
 .ui-dialog .ui-dialog-title {
 	float: left;
 	margin: .1em 0 .2em;
 }
+
 .ui-dialog .ui-dialog-titlebar-close {
 	height: 18px;
 	margin: -10px 0 0 0;
@@ -634,15 +796,18 @@ table.plugins .tribe-plugin-update-message a {
 	top: 50%;
 	width: 19px;
 }
+
 .ui-dialog .ui-dialog-titlebar-close span {
 	display: block;
 	margin-left: -8px;
 	margin-top: -8px;
 }
+
 .ui-dialog .ui-dialog-titlebar-close:hover,
 .ui-dialog .ui-dialog-titlebar-close:focus {
 	padding: 0;
 }
+
 .ui-dialog .ui-dialog-content {
 	background: none;
 	border: 0;
@@ -650,6 +815,7 @@ table.plugins .tribe-plugin-update-message a {
 	padding: .5em 1em;
 	zoom: 1;
 }
+
 .ui-dialog .ui-dialog-buttonpane {
 	background-image: none;
 	border-width: 1px 0 0 0;
@@ -657,6 +823,7 @@ table.plugins .tribe-plugin-update-message a {
 	padding: .3em 1em .5em !important;
 	text-align: right;
 }
+
 .ui-dialog .ui-dialog-buttonpane button {
 	cursor: pointer;
 	line-height: 1.4em;
@@ -666,32 +833,40 @@ table.plugins .tribe-plugin-update-message a {
 	text-shadow: none;
 	width: auto;
 }
+
 .ui-dialog .ui-resizable-se {
 	bottom: 3px;
 	height: 14px;
 	right: 3px;
 	width: 14px;
 }
+
 .ui-draggable .ui-dialog-titlebar {
 	cursor: move;
 }
+
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
 	float: none !important;
 	text-align: center;
 }
+
 .ui-button-text-only .ui-button-text {
 	padding: .4em 1em;
 }
+
 .ui-button .ui-button-text {
 	display: block;
 	line-height: 1.4;
 }
+
 .ui-datepicker {
 	font-size: 8pt;
 }
+
 #ui-datepicker-div {
 	display: none;
 }
+
 #tribe-loading {
 	background: #fff;
 	background: rgba(255, 255, 255, .8);
@@ -706,6 +881,7 @@ table.plugins .tribe-plugin-update-message a {
 	width: 100%;
 	z-index: 4;
 }
+
 #tribe-loading span {
 	background: url(../images/tribe-loading.gif) 0 0 no-repeat;
 	background-size: 32px 32px;
@@ -716,41 +892,51 @@ table.plugins .tribe-plugin-update-message a {
 	top: 50%;
 	width: 32px;
 }
+
 /* = Admin Retina Bits
 =============================================*/
+
 /* = TEC Welcome & Update Pages // Displays after installation & plugin update
 ===============================================================================*/
+
 .tribe_welcome_page,
 .tribe_update_page {
 	max-width: 1000px;
 }
+
 .tribe-half-column {
 	float: left;
 	margin-bottom: 30px;
 	margin-right: 5%;
 	width: 45%;
 }
+
 .tribe-row:before,
 .tribe-row:after {
 	content: '';
 	display: table;
 }
+
 .tribe-row:after {
 	clear: both;
 }
+
 .tribe-row {
 	clear: both;
 }
+
 .tribe-row .tribe-half-column:last-child {
 	margin-right: 0;
 	width: 50%;
 }
+
 .tribe_welcome_page h2,
 .tribe_update_page h2 {
 	font-size: 30px;
 	line-height: 1.2;
 	margin-bottom: 20px;
 }
+
 .tribe_welcome_page h3,
 .tribe_update_page h3 {
 	font-size: 24px;
@@ -758,6 +944,7 @@ table.plugins .tribe-plugin-update-message a {
 	line-height: 24px;
 	margin-top: 0;
 }
+
 .tribe_welcome_page h4,
 .tribe_update_page h4 {
 	font-size: 18px;
@@ -765,14 +952,17 @@ table.plugins .tribe-plugin-update-message a {
 	line-height: 18px;
 	margin: 0;
 }
+
 .tribe_welcome_page p,
 .tribe_update_page p {
 	font-size: 14px;
 }
+
 p.tribe-welcome-message {
 	font-size: 20px;
 	font-weight: 400;
 }
+
 .tribe_welcome_page h2:before,
 .tribe_update_page h2:before {
 	content: '\f145';
@@ -783,6 +973,7 @@ p.tribe-welcome-message {
 	position: relative;
 	top: 5px;
 }
+
 .tribe-welcome-video-wrapper {
 	height: 0;
 	margin-bottom: 40px;
@@ -790,6 +981,7 @@ p.tribe-welcome-message {
 	padding-top: 25px;
 	position: relative;
 }
+
 .tribe-welcome-video-wrapper iframe {
 	height: 100%;
 	left: 0;
@@ -797,33 +989,42 @@ p.tribe-welcome-message {
 	top: 0;
 	width: 100%;
 }
+
 a.tribe-rating-link {
 	text-decoration: none;
 }
+
 .tribe-welcome-links,
 .tribe-update-links {
 	margin-top: 30px;
 }
+
 .tribe_welcome_page li:before,
 .tribe_update_page li:before {
 	content: '\2022';
 	padding-right: 3px;
 }
+
 .tribe_update_page .rss-widget {
 	margin: 1em 0;
 }
+
 .tribe_update_page a.rsswidget {
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 1;
 }
+
 .tribe_update_page .rss-widget li:before {
 	display: none;
 }
+
 /* Media Queries for Mobile Dashboard */
+
 .tribe-update-bar {
 	display: inline-block;
 }
+
 .tribe-update-bar .progress {
 	border: 1px solid #ccc;
 	float: left;
@@ -833,82 +1034,105 @@ a.tribe-rating-link {
 	width: 288px;
 	width: 18rem;
 }
+
 .tribe-update-bar .progress .bar {
 	background: #ffba00;
 	height: 16px;
 	height: 1rem;
 	width: 1%;
 }
+
 .tribe-update-bar .progress .bar {
 	background: #7ad03a;
 }
+
 /* = Modals/thickbox dialogs
 ============================ */
+
 #tribe-dialog-wrapper > div {
 	padding: 16px;
 	padding: 1rem;
 }
+
 #tribe-dialog-wrapper > div .stage {
 	display: none;
 }
+
 #tribe-dialog-wrapper #heading {
 	background: white;
 }
+
 #tribe-dialog-wrapper label {
 	display: block;
 }
+
 #tribe-dialog-wrapper .select-single-container {
 	border: 1px solid #888;
 	overflow-y: scroll;
 	height: 300px;
 }
+
 #tribe-dialog-wrapper .select-single-container label {
 	opacity: 1;
 	padding: 3px 5px;
 	-webkit-transition: opacity 0.2s;
 	transition: opacity 0.2s;
 }
+
 #tribe-dialog-wrapper .select-single-container label:nth-child(odd) {
 	background: white;
 }
+
 #tribe-dialog-wrapper .select-single-container label.selected {
 	background: #0073aa;
 	color: white;
 	font-weight: bold;
 }
+
 #tribe-dialog-wrapper .select-single-container label input {
 	display: none;
 }
+
 #tribe-dialog-wrapper .select-single-container.updating label {
 	opacity: 0.35;
 	-webkit-transition: opacity 0.2s;
 	transition: opacity 0.2s;
 }
+
 /* Useful to ensure modals rise above the grey 'miasma' */
+
 .ui-front {
 	z-index: 1000000;
 }
+
 /* Select2 Specific rule */
+
 .select2-container .select2-choice abbr {
 	top: 6px;
 }
+
 .wp-list-table.plugins .column-description .update-message {
 	color: #d54e21;
 }
+
 .api-check {
 	padding: 1em;
 }
+
 .api-check + .notice-dismiss:hover:before {
 	color: #fff;
 }
+
 .api-check:before,
 	.api-check:after {
 	content: '';
 	display: table;
 }
+
 .api-check:after {
 	clear: both;
 }
+
 .api-check .tribe-spirit-animal {
 	background: #325f81;
 	background: -webkit-linear-gradient(45deg, #325f81 0%,#3d87c0 100%);
@@ -924,6 +1148,7 @@ a.tribe-rating-link {
 	top: 0;
 	width: 180px;
 }
+
 .api-check .tribe-spirit-animal:before {
 	content: '';
 	display: inline-block;
@@ -931,95 +1156,117 @@ a.tribe-rating-link {
 	width: 1%;
 	vertical-align: middle;
 }
+
 .api-check .tribe-spirit-animal img {
 	display: inline-block;
 	max-height: 100%;
 	max-width: 96%;
 	vertical-align: middle;
 }
+
 .api-check p {
 	line-height: 1.7;
 	margin-bottom: 1em;
 }
+
 .api-check a {
 	text-decoration: none;
 }
+
 .api-check a:hover {
 	text-decoration: underline;
 }
+
 .api-check .plugin-list {
 	display: inline;
 	font-weight: 600;
 	margin: 0;
 	padding: 0;
 }
+
 .api-check .plugin-list span.plugin-invalid:after {
 	content: ', ';
 }
+
 .api-check .plugin-list span.plugin-invalid:last-of-type:after {
 	content: '';
 }
+
 .tribe-ea-dropdown.select2-container-active .select2-choice, .tribe-dropdown.select2-container-active .select2-choice {
 	border-color: #5897fb;
 	box-shadow: 0 0 5px rgba(0, 0, 0, .1);
 }
+
 .tribe-ea-dropdown.select2-dropdown-open .select2-choice, .tribe-dropdown.select2-dropdown-open .select2-choice {
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 	border-color: #aaa;
 }
+
 .tribe-ea-dropdown .select2-choice, .tribe-dropdown .select2-choice {
 	background-image: none;
 	border: 1px solid #ccc;
 	border-radius: 3px;
 }
+
 .tribe-ea-dropdown .select2-choice .select2-arrow, .tribe-dropdown .select2-choice .select2-arrow {
 	background: transparent;
 	background-image: none;
 	border-left: 0;
 }
+
 .tribe-ea-dropdown .select2-choice div, .tribe-dropdown .select2-choice div {
 	border-left: 0;
 	background: none;
 	background-image: none;
 }
+
 .tribe-ea-dropdown.select2-container-multi .select2-choices, .tribe-dropdown.select2-container-multi .select2-choices {
 	background-image: none;
 	border: 1px solid #ccc;
 	border-radius: 3px;
 	min-height: 25px;
 }
+
 .tribe-ea-dropdown.select2-container-multi .select2-choices .select2-search-field, .tribe-dropdown.select2-container-multi .select2-choices .select2-search-field {
 	line-height: 25px;
 }
-.tribe-ea-dropdown.select2-container-multi .select2-choices .select2-search-field input, .tribe-dropdown.select2-container-multi .select2-choices .select2-search-field input {
+
+.tribe-ea-dropdown.select2-container-multi .select2-choices .select2-search-field input[type="text"], .tribe-dropdown.select2-container-multi .select2-choices .select2-search-field input[type="text"] {
 	padding-top: 0;
 	padding-bottom: 0;
+	height: auto;
 }
+
 .tribe-ea-dropdown.select2-container-multi .select2-choices .select2-search-choice, .tribe-dropdown.select2-container-multi .select2-choices .select2-search-choice {
 	margin-top: 2px;
 	padding-top: 0;
 	padding-bottom: 0;
 	line-height: 19px;
 }
+
 .tribe-ea-dropdown.select2-container-multi .select2-choices .select2-search-choice div, .tribe-dropdown.select2-container-multi .select2-choices .select2-search-choice div {
 	line-height: inherit;
 }
+
 .tribe-ea-dropdown.select2-container-multi .select2-choices .select2-search-choice-close, .tribe-dropdown.select2-container-multi .select2-choices .select2-search-choice-close {
 	top: 3px;
 	left: 4px;
 	-webkit-transition-property: border,color;
 	transition-property: border,color;
 }
+
 .select2-results li.select2-result-with-children.select2-result-unselectable > .select2-result-label {
 	color: #939393;
 	font-weight: normal;
 }
+
 /*
 Red button styles.
 
 Credit to https://github.com/jensjns/wp-admin-red-button
 =============================================*/
+
 .wp-core-ui .button-red {
 	background-color: #a00;
 	border-color: #9B2124;
@@ -1029,6 +1276,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	text-decoration: none;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
 }
+
 .wp-core-ui .button-red.hover,
 .wp-core-ui .button-red:hover,
 .wp-core-ui .button-red.focus,
@@ -1039,11 +1287,13 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	color: #fff;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
 }
+
 .wp-core-ui .button-red.focus,
 .wp-core-ui .button-red:focus {
 	border-color: #500F0E;
 	box-shadow: inset 0 1px 0 rgba(120, 200, 230, .6), 1px 1px 2px rgba(0, 0, 0, .4);
 }
+
 .wp-core-ui .button-red.active,
 .wp-core-ui .button-red.active:hover,
 .wp-core-ui .button-red.active:focus,
@@ -1054,6 +1304,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1);
 	text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
 }
+
 .wp-core-ui .button-red[disabled],
 .wp-core-ui .button-red:disabled,
 .wp-core-ui .button-red-disabled {
@@ -1064,55 +1315,73 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, .1) !important;
 	cursor: default;
 }
+
 .ticket_form .select2-container .select2-choice .select2-arrow {
 	display: none;
 }
+
 /* Clearfix Utility */
+
 .clear {
 	zoom: 1;
 }
+
 .clear:after,
 	.clear:before {
 	content: " ";
 	display: table;
 }
+
 .clear:after {
 	clear: both;
 }
+
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+
 	#tribe-loading span {
 		background-image: url(../images/tribe-loading@2x.gif);
 	}
 }
+
 @media screen and (max-width: 782px) {
+
 	.tribe-half-column,
 	.tribe-row .tribe-half-column:last-child {
 		margin: 0 0 20px 0;
 		width: 100%;
 	}
+
 	input[type='email'] {
 		width: 100%;
 	}
 }
+
 @media screen and ( max-width: 782px ) {
+
 	.events-cal .subsubsub {
 		float: none;
 	}
+
 	.events-cal .search-box {
 		width: 98%;
 	}
+
 	.events-cal #search-submit {
 		width: 100%;
 	}
+
 	.events-cal .tablenav.top {
 		display: none;
 	}
 }
+
 @media screen and (min-width: 500px) {
+
 	.api-check .tribe-spirit-animal {
 		display: block;
 	}
+
 	.api-check .notice-content {
 		margin-right: 180px;
 	}
