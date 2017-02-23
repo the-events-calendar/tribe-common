@@ -122,7 +122,16 @@ class Tribe__Post_Transient {
 			} else {
 				$meta_timeout = '_transient_timeout_' . $transient;
 				$meta = '_transient_' . $transient;
-				$value = get_post_meta( $post_id, $meta, true );
+				$value = get_post_meta( $post_id, $meta, false );
+
+				// if there aren't any values, communicate that it did not fetch data from post transient
+				if ( 0 === count( $value ) ) {
+					return false;
+				}
+
+				// grab the first value, because that's all we care about
+				$value = current( $value );
+
 				if ( $value && ! defined( 'WP_INSTALLING' ) ) {
 					if ( get_post_meta( $post_id, $meta_timeout, true ) < time() ) {
 						$this->delete( $post_id, $transient );

@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.4.2\n"
+"Project-Id-Version: Tribe Common 4.4.3\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2017-02-08 22:57:37+00:00\n"
+"POT-Creation-Date: 2017-02-21 20:26:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-02-08 22:57\n"
+"PO-Revision-Date: 2017-02-21 20:26\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -665,56 +665,60 @@ msgstr ""
 msgid "%s must be a positive number or percent."
 msgstr ""
 
-#: src/Tribe/Validate.php:240
+#: src/Tribe/Validate.php:245
+msgid "%s must be a whole number."
+msgstr ""
+
+#: src/Tribe/Validate.php:260
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr ""
 
-#: src/Tribe/Validate.php:255
+#: src/Tribe/Validate.php:275
 msgid "%s must be a valid absolute URL."
 msgstr ""
 
-#: src/Tribe/Validate.php:271 src/Tribe/Validate.php:288
-#: src/Tribe/Validate.php:310
+#: src/Tribe/Validate.php:291 src/Tribe/Validate.php:308
+#: src/Tribe/Validate.php:330
 msgid "%s must have a value that's part of its options."
 msgstr ""
 
-#: src/Tribe/Validate.php:324
+#: src/Tribe/Validate.php:344
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr ""
 
-#: src/Tribe/Validate.php:331
+#: src/Tribe/Validate.php:351
 msgid "%s cannot be the same as %s."
 msgstr ""
 
-#: src/Tribe/Validate.php:333
+#: src/Tribe/Validate.php:353
 msgid "%s cannot be a duplicate"
 msgstr ""
 
-#: src/Tribe/Validate.php:349
+#: src/Tribe/Validate.php:369
 msgid "%s must be a number or percentage."
 msgstr ""
 
-#: src/Tribe/Validate.php:403
+#: src/Tribe/Validate.php:423
 msgid "%s must be a number between 0 and 21."
 msgstr ""
 
-#: src/Tribe/Validate.php:419
+#: src/Tribe/Validate.php:439
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 
-#: src/Tribe/Validate.php:435
+#: src/Tribe/Validate.php:455
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr ""
 
-#: src/Tribe/Validate.php:449
+#: src/Tribe/Validate.php:469
 msgid "%s must consist of 5 numbers."
 msgstr ""
 
-#: src/Tribe/Validate.php:463
+#: src/Tribe/Validate.php:483
 msgid "%s must be a phone number."
 msgstr ""
 
-#: src/Tribe/Validate.php:479
+#: src/Tribe/Validate.php:499
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr ""
 
