@@ -43,6 +43,12 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	];
 
 	/**
+	 * An array specifying the taxonomies that should be propagated from the source post to the destination post.
+	 * @var array
+	 */
+	protected $propagate_taxonomies = array();
+
+	/**
 	 * Whether a field should be propagated from the source to the destination.
 	 *
 	 * @param mixed  $from  The source object or data.
@@ -69,6 +75,10 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 
 		if ( in_array( $field, $this->blocked_post_fields ) ) {
 			return false;
+		}
+
+		if ( $this->is_taxonomy( $field ) ) {
+			return $this->propagate_taxonomy_terms( $from, $to, $field );
 		}
 
 		if ( ! $this->is_post_field( $field ) ) {
@@ -152,5 +162,42 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	 */
 	protected function propagate_post_field( WP_Post $from, WP_Post $to, $field ) {
 		return (bool) wp_update_post( array( 'ID' => $to->ID, $field => $from->{$field} ) );
+	}
+
+	/**
+	 * Sets the names of the taxonomies that should be propagated from the source to the destination.
+	 *
+	 * @param array $taxonomies
+	 */
+	public function set_taxonomies( array $taxonomies ) {
+		$this->propagate_taxonomies = $taxonomies;
+	}
+
+	/**
+	 * Whether the field is a taxonomy name or not.
+	 *
+	 * @param string $field
+	 *
+	 * @return bool
+	 */
+	protected function is_taxonomy( $field ) {
+		return taxonomy_exists( $field );
+	}
+
+	/**
+	 * Replaces the destination taxonomy terms with the source taxonomy terms.
+	 *
+	 * @param WP_Post $from
+	 * @param WP_Post $to
+	 * @param  string $field
+	 *
+	 * @return array|bool
+	 */
+	protected function propagate_taxonomy_terms( WP_Post $from, WP_Post $to, $field ) {
+		$from_terms = wp_get_object_terms( $from->ID, $field, array( 'fields' => 'ids' ) );
+
+		$set = wp_set_object_terms( $to->ID, $from_terms, $field, false );
+
+		return is_wp_error($set) ? false : $set;
 	}
 }
