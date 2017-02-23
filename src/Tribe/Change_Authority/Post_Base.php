@@ -198,6 +198,6 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 
 		$set = wp_set_object_terms( $to->ID, $from_terms, $field, false );
 
-		return is_wp_error($set) ? false : $set;
+		return is_wp_error( $set ) ? false : $set;
 	}
 }
