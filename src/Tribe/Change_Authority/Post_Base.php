@@ -1,11 +1,16 @@
 <?php
 
+/**
+ * Class Tribe__Change_Authority__Post_Base
+ *
+ * The basic change authority to handle post fields and meta propagation.
+ */
 abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authority__Base {
 	/**
+	 * The fields that indicate a `posts` table column.
 	 * @var array
 	 */
 	protected $post_fields = array(
-		'ID',
 		'post_author',
 		'post_date',
 		'post_date_gmt',
@@ -16,19 +21,26 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 		'comment_status',
 		'ping_status',
 		'post_password',
-		'post_name',
 		'to_ping',
 		'pinged',
-		'post_modified',
-		'post_modified_gmt',
 		'post_content_filtered',
-		'post_parent',
-		'guid',
 		'menu_order',
 		'post_type',
 		'post_mime_type',
-		'comment_count',
 	);
+
+	/** The fields that indicate a `posts` table column that should never be propagated.
+	 * @var array
+	 */
+	protected $blocked_post_fields = [
+		'ID',
+		'post_name',
+		'post_modified',
+		'post_modified_gmt',
+		'post_parent',
+		'guid',
+		'comment_count',
+	];
 
 	/**
 	 * Whether a field should be propagated from the source to the destination.
@@ -40,7 +52,7 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	 * @return bool Whether the field should be propagated or not.
 	 */
 	public function should_propagate( $from, $to, $field ) {
-		return true && parent::should_propagate( $from, $to, $field );
+		return ! in_array( $field, $this->blocked_post_fields ) && parent::should_propagate( $from, $to, $field );
 	}
 
 	/**
@@ -54,6 +66,10 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	 */
 	public function propagate_field( $from, $to, $field ) {
 		list( $from, $to ) = $this->cast_to_post( $from, $to );
+
+		if ( in_array( $field, $this->blocked_post_fields ) ) {
+			return false;
+		}
 
 		if ( ! $this->is_post_field( $field ) ) {
 			return $this->propagate_meta_field( $from, $to, $field );
@@ -119,7 +135,7 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 
 		$done = true;
 		foreach ( $from_meta as $entry ) {
-			$done &= (bool) update_post_meta( $to->ID, $field, $entry );
+			$done &= (bool) add_post_meta( $to->ID, $field, $entry );
 		}
 
 		return $done;
