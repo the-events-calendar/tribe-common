@@ -111,14 +111,11 @@ abstract class Tribe__Change_Authority__Base implements Tribe__Change_Authority_
 		}
 
 		foreach ( $this->propagation_conditions as $callback ) {
-			try {
-				if ( false != call_user_func( $callback, $from, $to, $field ) ) {
-					continue;
-				}
-				throw new RuntimeException( 'Should not propagate' );
-			} catch ( Exception $e ) {
-				return false;
+			if ( false != call_user_func( $callback, $from, $to, $field ) ) {
+				continue;
 			}
+
+			return false;
 		}
 
 		return true;
