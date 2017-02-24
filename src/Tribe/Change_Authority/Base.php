@@ -60,9 +60,9 @@ abstract class Tribe__Change_Authority__Base implements Tribe__Change_Authority_
 	/**
 	 * Whether a field should be propagated from the source to the destination.
 	 *
-	 * @param mixed  $from The source object or data.
-	 * @param mixed  $to   The destination object or data.
-	 * @param string $type The name of the field that's to be evaluated for propagation.
+	 * @param mixed  $from  The source object or data.
+	 * @param mixed  $to    The destination object or data.
+	 * @param string $field The name of the field that's to be evaluated for propagation.
 	 *
 	 * @return bool Whether the field should be propagated or not.
 	 */
