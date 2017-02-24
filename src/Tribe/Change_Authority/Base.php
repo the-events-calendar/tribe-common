@@ -22,8 +22,6 @@ abstract class Tribe__Change_Authority__Base implements Tribe__Change_Authority_
 	 * Sets the fields the change authority should apply a propagation policy to.
 	 *
 	 * @param array $fields
-	 *
-	 * @return mixed
 	 */
 	public function set_fields( array $fields ) {
 		$this->fields = $fields;
