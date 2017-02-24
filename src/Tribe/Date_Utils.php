@@ -24,6 +24,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		private static $localized_months_full  = array();
 		private static $localized_months_short = array();
 		private static $localized_weekdays     = array();
+		private static $localized_months       = array();
 
 		/**
 		 * Get the datepicker format, that is used to translate the option from the DB to a string
@@ -565,20 +566,24 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		public static function get_localized_months_full() {
 			global $wp_locale;
 
+			if ( empty( self::$localized_months ) ) {
+				self::build_localized_months();
+			}
+
 			if ( empty( self::$localized_months_full ) ) {
 				self::$localized_months_full = array(
-					'January'   => $wp_locale->get_month( '01' ),
-					'February'  => $wp_locale->get_month( '02' ),
-					'March'     => $wp_locale->get_month( '03' ),
-					'April'     => $wp_locale->get_month( '04' ),
-					'May'       => $wp_locale->get_month( '05' ),
-					'June'      => $wp_locale->get_month( '06' ),
-					'July'      => $wp_locale->get_month( '07' ),
-					'August'    => $wp_locale->get_month( '08' ),
-					'September' => $wp_locale->get_month( '09' ),
-					'October'   => $wp_locale->get_month( '10' ),
-					'November'  => $wp_locale->get_month( '11' ),
-					'December'  => $wp_locale->get_month( '12' ),
+					'January'   => self::$localized_months['full']['01'],
+					'February'  => self::$localized_months['full']['02'],
+					'March'     => self::$localized_months['full']['03'],
+					'April'     => self::$localized_months['full']['04'],
+					'May'       => self::$localized_months['full']['05'],
+					'June'      => self::$localized_months['full']['06'],
+					'July'      => self::$localized_months['full']['07'],
+					'August'    => self::$localized_months['full']['08'],
+					'September' => self::$localized_months['full']['09'],
+					'October'   => self::$localized_months['full']['10'],
+					'November'  => self::$localized_months['full']['11'],
+					'December'  => self::$localized_months['full']['12'],
 				);
 			}
 
@@ -593,20 +598,24 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		public static function get_localized_months_short() {
 			global $wp_locale;
 
+			if ( empty( self::$localized_months ) ) {
+				self::build_localized_months();
+			}
+
 			if ( empty( self::$localized_months_short ) ) {
 				self::$localized_months_short = array(
-					'Jan' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '01' ) ),
-					'Feb' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '02' ) ),
-					'Mar' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '03' ) ),
-					'Apr' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '04' ) ),
-					'May' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '05' ) ),
-					'Jun' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '06' ) ),
-					'Jul' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '07' ) ),
-					'Aug' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '08' ) ),
-					'Sep' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '09' ) ),
-					'Oct' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '10' ) ),
-					'Nov' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '11' ) ),
-					'Dec' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '12' ) ),
+					'Jan' => self::$localized_months['short']['01'],
+					'Feb' => self::$localized_months['short']['02'],
+					'Mar' => self::$localized_months['short']['03'],
+					'Apr' => self::$localized_months['short']['04'],
+					'May' => self::$localized_months['short']['05'],
+					'Jun' => self::$localized_months['short']['06'],
+					'Jul' => self::$localized_months['short']['07'],
+					'Aug' => self::$localized_months['short']['08'],
+					'Sep' => self::$localized_months['short']['09'],
+					'Oct' => self::$localized_months['short']['10'],
+					'Nov' => self::$localized_months['short']['11'],
+					'Dec' => self::$localized_months['short']['12'],
 				);
 			}
 
@@ -664,6 +673,171 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				self::$localized_weekdays['short'][ $i ]   = $wp_locale->get_weekday_abbrev( $day );
 				self::$localized_weekdays['initial'][ $i ] = $wp_locale->get_weekday_initial( $day );
 			}
+		}
+
+		/**
+		 * Builds arrays of localized full and short months.
+		 *
+		 * @since 4.4.3
+		 */
+		private static function build_localized_months() {
+			global $wp_locale;
+
+			for ( $i = 1; $i <= 12; $i++ ) {
+				$month_number = str_pad( $i, 2, '0', STR_PAD_LEFT );
+				$month        = $wp_locale->get_month( $month_number );
+				self::$localized_months['full'][ $month_number ]  = $month;
+				self::$localized_months['short'][ $month_number ] = $wp_locale->get_month_abbrev( $month );
+			}
+		}
+
+		/**
+		 * Return a WP Locale weekday in the specified format
+		 *
+		 * @since 4.4.3
+		 *
+		 * @param int|string $weekday Day of week
+		 * @param string $format Weekday format: full, weekday, initial, abbreviation, abbrev, abbr, short
+		 *
+		 * @return string
+		 */
+		public static function wp_locale_weekday( $weekday, $format = 'weekday' ) {
+			$weekday = trim( $weekday );
+
+			$valid_formats = array(
+				'full',
+				'weekday',
+				'initial',
+				'abbreviation',
+				'abbrev',
+				'abbr',
+				'short',
+			);
+
+			// if there isn't a valid format, bail without providing a localized string
+			if ( ! in_array( $format, $valid_formats ) ) {
+				return $weekday;
+			}
+
+			if ( empty( self::$localized_weekdays ) ) {
+				self::build_localized_weekdays();
+			}
+
+			// if the weekday isn't numeric, we need to convert to numeric in order to
+			// leverage self::localized_weekdays
+			if ( ! is_numeric( $weekday ) ) {
+				$days_of_week = array(
+					'Sun',
+					'Mon',
+					'Tue',
+					'Wed',
+					'Thu',
+					'Fri',
+					'Sat',
+				);
+
+				$day_index = array_search( ucwords( substr( $weekday, 0, 3 ) ), $days_of_week );
+
+				if ( false === $day_index ) {
+					return $weekday;
+				}
+
+				$weekday = $day_index;
+			}
+
+			switch ( $format ) {
+				case 'initial':
+					$type = 'initial';
+					break;
+				case 'abbreviation':
+				case 'abbrev':
+				case 'abbr':
+				case 'short':
+					$type = 'short';
+					break;
+				case 'weekday':
+				case 'full':
+				default:
+					$type = 'full';
+					break;
+			}
+
+			return self::$localized_weekdays[ $type ][ $weekday ];
+		}
+
+		/**
+		 * Return a WP Locale month in the specified format
+		 *
+		 * @since 4.4.3
+		 *
+		 * @param int|string $month Month of year
+		 * @param string $format Month format: full, month, abbreviation, abbrev, abbr, short
+		 *
+		 * @return string
+		 */
+		public static function wp_locale_month( $month, $format = 'month' ) {
+			$month = trim( $month );
+
+			$valid_formats = array(
+				'full',
+				'month',
+				'abbreviation',
+				'abbrev',
+				'abbr',
+				'short',
+			);
+
+			// if there isn't a valid format, bail without providing a localized string
+			if ( ! in_array( $format, $valid_formats ) ) {
+				return $month;
+			}
+
+			if ( empty( self::$localized_months ) ) {
+				self::build_localized_months();
+			}
+
+			// make sure numeric months are valid
+			if ( is_numeric( $month ) ) {
+				$month_num = (int) $month;
+
+				// if the month num falls out of range, bail without localizing
+				if ( 0 > $month_num || 12 < $month_num ) {
+					return $month;
+				}
+			} else {
+				$months = array(
+					'Jan',
+					'Feb',
+					'Mar',
+					'Apr',
+					'May',
+					'Jun',
+					'Jul',
+					'Aug',
+					'Sep',
+					'Oct',
+					'Nov',
+					'Dec',
+				);
+
+				// convert the provided month to a 3-character month and find it in the months array so we
+				// can build an appropriate month number
+				$month_num = array_search( ucwords( substr( $month, 0, 3 ) ), $months );
+
+				// if we can't find the provided month in our month list, bail without localizing
+				if ( false === $month_num ) {
+					return $month;
+				}
+
+				// let's increment the num because months start at 01 rather than 00
+				$month_num++;
+			}
+
+			$month_num = str_pad( $month_num, 2, '0', STR_PAD_LEFT );
+
+			$type = ( 'full' === $format || 'month' === $format ) ? 'full' : 'short';
+
+			return self::$localized_months[ $type ][ $month_num ];
 		}
 
 		// DEPRECATED METHODS
