@@ -32,7 +32,7 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	/** The fields that indicate a `posts` table column that should never be propagated.
 	 * @var array
 	 */
-	protected $blocked_post_fields = [
+	protected $blocked_post_fields = array(
 		'ID',
 		'post_name',
 		'post_modified',
@@ -40,7 +40,7 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 		'post_parent',
 		'guid',
 		'comment_count',
-	];
+	);
 
 	/**
 	 * An array specifying the taxonomies that should be propagated from the source post to the destination post.

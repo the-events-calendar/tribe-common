@@ -5,7 +5,7 @@
  *
  * The basic general purpose change authority to propagate data from a generic source to a generic destination.
  */
-abstract class Tribe__Change_Authority__Base implements Tribe__Change_Authority__Interface {
+abstract class Tribe__Change_Authority__Base {
 	/**
 	 * An array defining the name of the fields that should be propagated.
 	 * @var array
@@ -69,17 +69,6 @@ abstract class Tribe__Change_Authority__Base implements Tribe__Change_Authority_
 	public function should_propagate( $from, $to, $field ) {
 		return $this->evaluate_propagation_conditions( $from, $to, $field ) && in_array( $field, $this->fields );
 	}
-
-	/**
-	 * Propagates a field from the source to the destination.
-	 *
-	 * @param mixed  $from  The source object or data.
-	 * @param mixed  $to    The destination object or data.
-	 * @param string $field The name of the field that's to be evaluated for propagation.
-	 *
-	 * @return bool Whether the field was propagated or not.
-	 */
-	abstract public function propagate_field( $from, $to, $field );
 
 	/**
 	 * Sets a condition that will be evaluated before a field propagation is done to check whether the propagation
