@@ -330,20 +330,6 @@ class Tribe__Events__Aggregator_Mocker__Service_Options implements Tribe__Events
         ?>
         <?php if (!$recorder_enabled) : ?>
         <tr valign="top">
-            <th scope="row">Mock the server domain</th>
-            <td>
-                <label for="ea_mocker-import_id">
-                    Enter the full URL of the server that should be hit by requests; this includes the HTTP scheme; e.g.
-                    <code>https://ea.dev</code>. Leave it blank to avoid mocking.
-                    <div class="inline">
-                        <input type="text" value="<?php echo get_option('ea_mocker-service_domain') ?>"
-                               name="ea_mocker-service_domain"
-                               id="ea_mocker-service_domain">
-                    </div>
-                </label>
-            </td>
-        </tr>
-        <tr valign="top">
             <th scope="row">Import ID generator</th>
             <td>
                 <label for="ea_mocker-import_id">
