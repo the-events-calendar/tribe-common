@@ -28,7 +28,7 @@ class Tribe__Credits {
 			return $after_html;
 		}
 
-		$html_credit = "\n<!--\n" . esc_html__( 'This calendar is powered by %1$s.', 'tribe-common' ) . "\nhttp://m.tri.be/18wn\n-->\n";
+		$html_credit = "\n<!--\n" . esc_html__( 'This calendar is powered by The Events Calendar.', 'tribe-common' ) . "\nhttp://m.tri.be/18wn\n-->\n";
 		$after_html .= apply_filters( 'tribe_html_credit', $html_credit );
 		return $after_html;
 	}
