@@ -437,9 +437,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'network_option'  => true,
 				);
 			} elseif ( $this->should_show_subsite_editable_license() ) {
-
-
-
 				$to_insert[ $this->pue_install_key ] = array(
 					'type'            => 'license_key',
 					'size'            => 'large',
