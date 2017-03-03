@@ -634,6 +634,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$queryArgs = array(
 				'pu_install_key'          => sanitize_text_field( $key ),
+				'pu_default_install_key'  => sanitize_text_field( $this->get_default_key() ),
 				'pu_checking_for_updates' => 1,
 			);
 
