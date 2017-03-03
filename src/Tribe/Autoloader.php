@@ -60,6 +60,13 @@
 			protected $prefixes;
 
 			/**
+			 * An array of registered prefixes with unique slugs.
+			 *
+			 * @var string[]
+			 */
+			protected $prefix_slugs;
+
+			/**
 			 * The string acting as a directory separator in a class name.
 			 *
 			 * E.g.: given `__` as `$dir_separator` then `Admin__Metabox__Some_Metabox`
@@ -109,14 +116,19 @@
 			 * @param string $prefix   A class prefix, e.g. `Tribe__Admin__`
 			 * @param string $root_dir The absolute path to the dir containing
 			 *                         the prefixed classes.
+			 * @param string $slug     An optional unique slug to associate to the prefix.
 			 */
-			public function register_prefix( $prefix, $root_dir ) {
+			public function register_prefix( $prefix, $root_dir, $slug = '' ) {
 				$root_dir = $this->normalize_root_dir( $root_dir );
 
 				if ( ! isset( $this->prefixes[ $prefix ] ) ) {
 					$this->prefixes[ $prefix ] = array();
 				}
 				$this->prefixes[ $prefix ][] = $root_dir;
+
+				if ( $slug ) {
+					$this->prefix_slugs[ $slug ] = $prefix;
+				}
 			}
 
 			/**
@@ -207,6 +219,24 @@
 				$fallback_path = $this->get_fallback_path( $class );
 
 				return $fallback_path ? $fallback_path : '';
+			}
+
+			/**
+			 * Get the registered prefix by slug
+			 *
+			 * @param string $slug Unique slug for registered prefix.
+			 *
+			 * @return false|string Either the prefix registered to the
+			 *                      unique slug or false if not found.
+			 */
+			public function get_prefix_by_slug( $slug ) {
+				$prefix = false;
+
+				if ( isset( $this->prefix_slugs[ $slug ] ) ) {
+					$prefix = $this->prefix_slugs[ $slug ];
+				}
+
+				return $prefix;
 			}
 
 			/**
