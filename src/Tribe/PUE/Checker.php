@@ -633,25 +633,28 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			$queryArgs = array(
-				'pu_install_key'          => trim( $key ),
-				'pu_checking_for_updates' => '1',
+				'pu_install_key'          => sanitize_text_field( $key ),
+				'pu_checking_for_updates' => 1,
 			);
 
 			//include version info
-			$queryArgs['pue_active_version'] = $this->get_installed_version();
+			$queryArgs['pue_active_version'] = sanitize_text_field( $this->get_installed_version() );
 
 			global $wp_version;
-			$queryArgs['wp_version'] = $wp_version;
+			$queryArgs['wp_version'] = sanitize_text_field( $wp_version );
 
 			// For multisite, return the network-level siteurl ... in
 			// all other cases return the actual URL being serviced
-			$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
+			$domain = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
+
+			$queryArgs['domain'] = sanitize_text_field( $domain );
 
 			if ( is_multisite() ) {
 				$queryArgs['multisite']         = 1;
-				$queryArgs['network_activated'] = is_plugin_active_for_network( $this->get_plugin_file() );
+				$queryArgs['network_activated'] = (int) is_plugin_active_for_network( $this->get_plugin_file() );
+
 				global $wpdb;
-				$queryArgs['active_sites'] = $wpdb->get_var( "SELECT count(blog_id) FROM $wpdb->blogs WHERE public = '1' AND archived = '0' AND spam = '0' AND deleted = '0'" );
+				$queryArgs['active_sites'] = (int) $wpdb->get_var( "SELECT COUNT(`blog_id`) FROM `{$wpdb->blogs}` WHERE `public` = '1' AND `archived` = '0' AND `spam` = '0' AND `deleted` = '0'" );
 			} else {
 				$queryArgs['multisite']         = 0;
 				$queryArgs['network_activated'] = 0;
@@ -663,13 +666,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// rather than license_key_status() as at this stage invalid or missing keys should
 			// not result in admin notices being generated
 			$plugin_info = $this->request_info( $queryArgs );
-			$expiration = isset( $plugin_info->expiration ) ? $plugin_info->expiration : esc_html__( 'unknown date', 'tribe-common' );
+			$expiration = isset( $plugin_info->expiration ) ? $plugin_info->expiration : __( 'unknown date', 'tribe-common' );
 
 			$pue_notices = Tribe__Main::instance()->pue_notices();
 			$plugin_name = $this->get_plugin_name();
 
 			if ( empty( $plugin_info ) ) {
-				$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
+				$response['message'] = __( 'Sorry, key validation server is not available.', 'tribe-common' );
 			} elseif ( isset( $plugin_info->api_expired ) && $plugin_info->api_expired == 1 ) {
 				$response['message'] = $this->get_license_expired_message();
 				$response['api_expired'] = true;
@@ -683,7 +686,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$api_secret_key = $this->get_key( $network );
 
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
-					$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration );
+					$default_success_msg = esc_html( sprintf( __( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration ) );
 				} else {
 					// Set the key
 					if ( $network && is_multisite() ) {
@@ -692,7 +695,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
 					}
 
-					$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ), $expiration );
+					$default_success_msg = esc_html( sprintf( __( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ), $expiration ) );
 
 					//Set SysInfo Key on Tec.com After Successful Validation of License
 					$optin_key = get_option( 'tribe_systeminfo_optin' );
@@ -704,13 +707,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$pue_notices->clear_notices( $plugin_name );
 
 				$response['status']     = isset( $plugin_info->api_message ) ? 2 : 1;
-				$response['message']    = isset( $plugin_info->api_message ) ? wp_kses( $plugin_info->api_message, 'data' ) : $default_success_msg;
-				$response['expiration'] = $expiration;
+				$response['message']    = isset( $plugin_info->api_message ) ? $plugin_info->api_message : $default_success_msg;
+				$response['expiration'] = esc_html( $expiration );
 
 				if ( isset( $plugin_info->daily_limit ) ) {
 					$response['daily_limit'] = intval( $plugin_info->daily_limit );
 				}
 			}
+
+			$response['message'] = wp_kses( $response['message'], 'data' );
 
 			return $response;
 		}
