@@ -680,11 +680,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
 				$response['api_invalid'] = true;
 			} else {
-				if ( $network && is_multisite() ) {
-					$api_secret_key = get_network_option( null, $this->pue_install_key );
-				} else {
-					$api_secret_key = get_option( $this->pue_install_key );
-				}
+				$api_secret_key = $this->get_key( $network );
 
 				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
 					$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration );
