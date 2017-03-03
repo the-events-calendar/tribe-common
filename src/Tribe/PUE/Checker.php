@@ -568,6 +568,54 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
+		 * Get current license key.
+		 *
+		 * @param bool $network Whether the key to get is a network one or not.
+		 *
+		 * @return string
+		 */
+		public function get_key( $network = false ) {
+
+			if ( $network && is_multisite() ) {
+				$license_key = get_network_option( null, $this->pue_install_key, '' );
+			} else {
+				$license_key = get_option( $this->pue_install_key, '' );
+			}
+
+			if ( empty( $license_key ) ) {
+				$license_key = $this->get_default_key();
+			}
+
+			return $license_key;
+
+		}
+
+		/**
+		 * Get default license key.
+		 *
+		 * @return string
+		 */
+		public function get_default_key() {
+
+			$license_key = '';
+
+			$autoloader = Tribe__Autoloader::instance();
+
+			$class_name = $autoloader->get_prefix_by_slug( $this->get_slug() );
+
+			if ( $class_name ) {
+				$class_name .= 'PUE__Helper';
+
+				if ( ! empty( $class_name::DATA ) ) {
+					$license_key = $class_name::DATA;
+				}
+			}
+
+			return $license_key;
+
+		}
+
+		/**
 		 * Checks for the license key status with MT servers.
 		 *
 		 * @param string $key
