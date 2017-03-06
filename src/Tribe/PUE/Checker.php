@@ -551,6 +551,91 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
+		 * Build stats for endpoints
+		 */
+		public function build_stats() {
+
+			global $wpdb;
+
+			$theme = wp_get_theme();
+
+			$current_offset = (int) get_option( 'gmt_offset', 0 );
+			$timezone       = get_option( 'timezone_string' );
+
+			// Remove old Etc mappings. Fallback to gmt_offset.
+			if ( false !== strpos( $tzstring, 'Etc/GMT' ) ) {
+				$timezone = '';
+			}
+
+			// Create a UTC+- zone if no timezone string exists
+			if ( empty( $tzstring ) ) {
+				if ( 0 === $current_offset ) {
+					$timezone = 'UTC+0';
+				} elseif ( $current_offset < 0 ) {
+					$timezone = 'UTC' . $current_offset;
+				} else {
+					$timezone = 'UTC+' . $current_offset;
+				}
+			}
+
+			$stats = array(
+				'versions'      => array(
+					'wp'    => sanitize_text_field( $GLOBALS['wp_version'] ),
+					'php'   => sanitize_text_field( phpversion() ),
+					'mysql' => sanitize_text_field( $wpdb->db_version() ),
+				),
+				'theme'         => array(
+					'name'       => sanitize_text_field( $theme->get( 'Name' ) ),
+					'version'    => sanitize_text_field( $theme->get( 'Version' ) ),
+					'stylesheet' => sanitize_text_field( $theme->get_stylesheet() ),
+					'template'   => sanitize_text_field( $theme->get_template() ),
+				),
+				'domain'        => sanitize_text_field( $_SERVER['SERVER_NAME'] ),
+				'network'       => array(
+					'multisite'         => 0,
+					'network_activated' => 0,
+					'active_sites'      => 1,
+				),
+				'site_language' => sanitize_text_field( get_locale() ),
+				'user_language' => sanitize_text_field( get_user_locale() ),
+				'is_public'     => (int) get_option( 'blog_public', 0 ),
+				'wp_debug'      => (int) ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
+				'site_timezone' => sanitize_text_field( $timezone ),
+				'totals'        => array(
+					'all_post_types'   => (int) $wpdb->get_var( "SELECT COUNT(*) FROM `{$wpdb->posts}`" ),
+					'events'           => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_events' ) ),
+					'venues'           => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_venue' ) ),
+					'organizers'       => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_organizer' ) ),
+					'event_categories' => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->term_taxonomy}` WHERE taxonomy = %s", 'tribe_events_cat' ) ),
+					//'tickets'        => 0,
+				),
+			);
+
+			if ( is_multisite() ) {
+				global $wpdb;
+
+				$sql_count = "
+					SELECT COUNT( `blog_id` )
+					FROM `{$wpdb->blogs}`
+					WHERE
+						`public` = '1'
+						AND `archived` = '0'
+						AND `spam` = '0'
+						AND `deleted` = '0'
+				";
+
+				// For multisite, return the network-level siteurl
+				$stats['domain']            = sanitize_text_field( $this->get_network_domain() );
+				$stats['multisite']         = 1;
+				$stats['network_activated'] = (int) $this->is_plugin_active_for_network();
+				$stats['active_sites']      = (int) $wpdb->get_var( $sql_count );
+			}
+
+			return $stats;
+
+		}
+
+		/**
 		 * Get current license key.
 		 *
 		 * @param string $type The type of key to get (any, network, local, default)
@@ -629,26 +714,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			//include version info
 			$query_args['pue_active_version'] = sanitize_text_field( $this->get_installed_version() );
 
-			global $wp_version;
-			$query_args['wp_version'] = sanitize_text_field( $wp_version );
-
-			// For multisite, return the network-level siteurl ... in
-			// all other cases return the actual URL being serviced
-			$domain = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
-
-			$query_args['domain'] = sanitize_text_field( $domain );
-
-			if ( is_multisite() ) {
-				$query_args['multisite']         = 1;
-				$query_args['network_activated'] = (int) $this->is_plugin_active_for_network();
-
-				global $wpdb;
-				$query_args['active_sites'] = (int) $wpdb->get_var( "SELECT COUNT(`blog_id`) FROM `{$wpdb->blogs}` WHERE `public` = '1' AND `archived` = '0' AND `spam` = '0' AND `deleted` = '0'" );
-			} else {
-				$query_args['multisite']         = 0;
-				$query_args['network_activated'] = 0;
-				$query_args['active_sites']      = 1;
-			}
+			// add stats
+			$query_args['pue_stats'] = $this->build_stats();
 
 			// This method is primarily used during when validating keys by ajax, before they are
 			// formally committed or saved by the user: for that reason we call request_info()
@@ -947,24 +1014,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			//include version info
 			$query_args['pue_active_version'] = $this->get_installed_version();
 
-			global $wp_version;
-			$query_args['wp_version'] = $wp_version;
-
-			//include domain and multisite stats
-			$query_args['domain'] = is_multisite() ? $this->get_network_domain() : $this->get_site_domain();
-
-			if ( is_multisite() ) {
-				$query_args['multisite']         = 1;
-				$query_args['network_activated'] = (int) $this->is_plugin_active_for_network();
-
-				global $wpdb;
-				$query_args['active_sites'] = (int) $wpdb->get_var( "SELECT count(blog_id) FROM $wpdb->blogs WHERE public = '1' AND archived = '0' AND spam = '0' AND deleted = '0'" );
-
-			} else {
-				$query_args['multisite']         = 0;
-				$query_args['network_activated'] = 0;
-				$query_args['active_sites']      = 1;
-			}
+			// add stats
+			$query_args['pue_stats'] = $this->build_stats();
 
 			$query_args = apply_filters( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $query_args );
 
@@ -1042,6 +1093,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			} elseif ( ! empty( $_POST[ $this->pue_install_key ] ) ) {
 				$args['pu_install_key'] = sanitize_text_field( $_POST[ $this->pue_install_key ] );
 			}
+
+			// add stats
+			$args['pue_stats'] = $this->build_stats();
 
 			$this->plugin_info = $plugin_info = $this->license_key_status( $args );
 
