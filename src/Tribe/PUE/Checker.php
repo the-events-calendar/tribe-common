@@ -819,7 +819,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return;
 			}
 
-			$state = $this->get_option( $this->pue_option_name, false, false );
+			$state = $this->get_state();
 
 			if ( empty( $state->update->license_error ) ) {
 				return;
@@ -1093,26 +1093,34 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Get MU compatible options.
+		 * Get plugin update state
 		 *
-		 * @param string     $option_key
-		 * @param bool|mixed $default
-		 * @param bool       $use_cache
-		 *
-		 * @return null|mixed
+		 * @return object
 		 */
-		public function get_option( $option_key, $default = false, $use_cache = true ) {
-			return get_site_option( $option_key, $default, $use_cache );
+		public function get_state() {
+
+			$state = get_site_option( $this->pue_option_name, false, false );
+
+			if ( empty( $state ) ) {
+				$state                 = new stdClass;
+				$state->lastCheck      = 0;
+				$state->checkedVersion = '';
+				$state->update         = null;
+			}
+
+			return $state;
+
 		}
 
 		/**
-		 * Update MU compatible options.
+		 * Update plugin update state
 		 *
-		 * @param mixed $option_key
-		 * @param mixed $value
+		 * @param object $value
 		 */
-		public function update_option( $option_key, $value ) {
-			update_site_option( $option_key, $value );
+		public function update_state( $value ) {
+
+			update_site_option( $this->pue_option_name, $value );
+
 		}
 
 		/**
@@ -1124,40 +1132,34 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 */
 		public function check_for_updates( $updates = array() ) {
-			$state = $this->get_option( $this->pue_option_name, false, false );
-			if ( empty( $state ) ) {
-				$state                 = new StdClass;
-				$state->lastCheck      = 0;
-				$state->checkedVersion = '';
-				$state->update         = null;
-			}
+			$state = $this->get_state();
 
 			$state->lastCheck      = time();
 			$state->checkedVersion = $this->get_installed_version();
-			$this->update_option( $this->pue_option_name, $state ); //Save before checking in case something goes wrong
+
+			// Save before checking in case something goes wrong
+			$this->update_state( $state );
 
 			$state->update = $this->request_update();
 
 			// If a null update was returned, skip the end of the function.
-			if ( $state->update == null ) {
-				$this->update_option( $this->pue_option_name, $state );
-				return $updates;
-			}
+			if ( null !== $state->update ) {
+				//Is there an update to insert?
+				if ( version_compare( $state->update->version, $this->get_installed_version(), '>' ) ) {
+					if ( empty( $updates ) ) {
+						$updates = (object) array( 'response' => array() );
+					}
 
-			//Is there an update to insert?
-			if ( version_compare( $state->update->version, $this->get_installed_version(), '>' ) ) {
-				if ( empty( $updates ) ) {
-					$updates = (object) array( 'response' => array() );
-				}
-				$updates->response[ $this->get_plugin_file() ] = $state->update->to_wp_format();
+					$updates->response[ $this->get_plugin_file() ] = $state->update->to_wp_format();
 
-				// If the key has expired we should register an appropriate admin notice
-				if ( $this->plugin_info->api_expired ) {
-					Tribe__Main::instance()->pue_notices()->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $this->plugin_name );
+					// If the key has expired we should register an appropriate admin notice
+					if ( $this->plugin_info->api_expired ) {
+						Tribe__Main::instance()->pue_notices()->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $this->plugin_name );
+					}
 				}
 			}
 
-			$this->update_option( $this->pue_option_name, $state );
+			$this->update_state( $state );
 
 			return $updates;
 		}
