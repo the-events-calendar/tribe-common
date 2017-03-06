@@ -346,12 +346,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			//the following is for install key inclusion (will apply later with PUE addons.)
-			if ( isset( $this->install_key ) ) {
-				$this->download_query['pu_install_key'] = $this->install_key;
-			}
+			$install_key = $this->get_key();
 
-			if ( ! empty( $this->api_secret_key ) ) {
-				$this->download_query['pu_plugin_api'] = $this->api_secret_key;
+			if ( ! empty( $install_key ) ) {
+				$this->download_query['pu_install_key'] = $install_key;
 			}
 
 		}
@@ -555,20 +553,34 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Get current license key.
 		 *
-		 * @param bool $network Whether the key to get is a network one or not.
+		 * @param string $type The type of key to get (any, network, local, default)
 		 *
 		 * @return string
 		 */
-		public function get_key( $network = false ) {
+		public function get_key( $type = 'any' ) {
 
-			if ( $network && is_multisite() ) {
+			$license_key = '';
+
+			if ( ( 'network' === $type || 'any' === $type ) && is_multisite() ) {
 				$license_key = get_network_option( null, $this->pue_install_key, '' );
-			} else {
+			}
+
+			if ( empty( $license_key ) && ( 'local' === $type || 'any' === $type ) ) {
 				$license_key = get_option( $this->pue_install_key, '' );
 			}
 
-			if ( empty( $license_key ) ) {
-				$license_key = $this->get_default_key();
+			if ( empty( $license_key ) && ( 'default' === $type || 'any' === $type ) ) {
+				$autoloader = Tribe__Autoloader::instance();
+
+				$class_name = $autoloader->get_prefix_by_slug( $this->get_slug() );
+
+				if ( $class_name ) {
+					$class_name .= 'PUE__Helper';
+
+					if ( ! empty( $class_name::DATA ) ) {
+						$license_key = $class_name::DATA;
+					}
+				}
 			}
 
 			return $license_key;
@@ -576,27 +588,18 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Get default license key.
+		 * Get current license key.
 		 *
-		 * @return string
+		 * @param string $license_key The new license key value
+		 * @param string $type        The type of key to update (network or local)
 		 */
-		public function get_default_key() {
+		public function update_key( $license_key, $type = 'local' ) {
 
-			$license_key = '';
-
-			$autoloader = Tribe__Autoloader::instance();
-
-			$class_name = $autoloader->get_prefix_by_slug( $this->get_slug() );
-
-			if ( $class_name ) {
-				$class_name .= 'PUE__Helper';
-
-				if ( ! empty( $class_name::DATA ) ) {
-					$license_key = $class_name::DATA;
-				}
+			if ( 'network' === $type && is_multisite() ) {
+				update_network_option( null, $this->pue_install_key, sanitize_text_field( $license_key ) );
+			} elseif ( 'local' === $type ) {
+				update_option( $this->pue_install_key, sanitize_text_field( $license_key ) );
 			}
-
-			return $license_key;
 
 		}
 
@@ -617,9 +620,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return $response;
 			}
 
-			$queryArgs = array(
+			$query_args = array(
 				'pu_install_key'          => sanitize_text_field( $key ),
-				'pu_default_install_key'  => sanitize_text_field( $this->get_default_key() ),
+				'pu_default_install_key'  => sanitize_text_field( $this->get_key( 'default' ) ),
 				'pu_checking_for_updates' => 1,
 			);
 
@@ -669,17 +672,19 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
 				$response['api_invalid'] = true;
 			} else {
-				$api_secret_key = $this->get_key( $network );
+				$key_type = 'site';
 
-				if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
+				if ( $network ) {
+					$key_type = 'network';
+				}
+
+				$current_install_key = $this->get_key( $key_type );
+
+				if ( $current_install_key && $current_install_key === $query_args['pu_install_key'] ) {
 					$default_success_msg = esc_html( sprintf( __( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration ) );
 				} else {
 					// Set the key
-					if ( $network && is_multisite() ) {
-						update_network_option( null, $this->pue_install_key, $queryArgs['pu_install_key'] );
-					} else {
-						update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
-					}
+					$this->update_key( $query_args['pu_install_key'], $key_type );
 
 					$default_success_msg = esc_html( sprintf( __( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ), $expiration ) );
 
@@ -763,18 +768,19 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return bool
 		 */
 		public function is_network_licensed() {
-			if ( is_multisite()
-			     && ! is_network_admin()
-			     && is_plugin_active_for_network( $this->get_real_plugin_file( $this->plugin_file ) )
-			) {
-				$network_key = get_network_option( null, $this->pue_install_key );
-				$local_key   = get_option( $this->pue_install_key );
+			$is_network_licensed = false;
 
+			if ( ! is_network_admin() && $this->is_plugin_active_for_network() ) {
+				$network_key = $this->get_key( 'network' );
+				$local_key   = $this->get_key( 'local' );
 
-				return ! ( ! empty( $local_key ) && ( empty( $network_key ) || (string) $network_key != (string) $local_key ) );
+				// Check whether the network is licensed and NOT overridden by local license
+				if ( $network_key && ( empty( $local_key ) || $local_key === $network_key ) ) {
+					$is_network_licensed = true;
+				}
 			}
 
-			return false;
+			return $is_network_licensed;
 		}
 
 		/**
@@ -864,6 +870,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return $plugin_info;
 			}
 
+			$install_key = $this->get_key();
+
 			// Check for expired keys
 			if ( ! empty( $plugin_info->api_expired ) ) {
 				$pue_notices->add_notice( Tribe__PUE__Notices::EXPIRED_KEY, $plugin_name );
@@ -877,7 +885,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'component' === $this->context
 					|| (
 						'service' === $this->context
-						&& $this->install_key
+						&& $install_key
 					)
 				)
 			) {
@@ -902,7 +910,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			Tribe__Main::instance()->pue_notices()->register_name( $plugin_name );
 
 			// Detect and setup notices for missing keys
-			if ( empty( $this->install_key ) && 'service' !== $this->context ) {
+			$install_key = $this->get_key();
+
+			if ( empty( $install_key ) && 'service' !== $this->context ) {
 				Tribe__Main::instance()->pue_notices()->add_notice( Tribe__PUE__Notices::INVALID_KEY, $plugin_name );
 			}
 		}
@@ -1021,6 +1031,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// and transforms the result accordingly.
 			$args = array(
 				'pu_checking_for_updates' => 1,
+				'pu_default_install_key'  => sanitize_text_field( $this->get_key( 'default' ) ),
+				'pu_install_key'          => sanitize_text_field( $this->get_key() ),
 			);
 
 			if ( ! empty( $_POST['key'] ) ) {
@@ -1320,18 +1332,28 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Returns the plugin file to use when checking for the licensed component or plugin.
+		 * Check whether the current plugin is active for the network or not.
 		 *
-		 * @param string $plugin_file The component or plugin file in the `<dir>/<file>.php` format.
-		 *
-		 * @return string A component or plugins file in the `<dir>/<file>.php` format.
+		 * @return boolean Whether the plugin is network activated
 		 */
-		protected function get_real_plugin_file( $plugin_file ) {
+		protected function is_plugin_active_for_network() {
+
+			if ( ! is_multisite() ) {
+				return false;
+			}
+
 			$map = array(
 				'event-aggregator/event-aggregator.php' => 'the-events-calendar/the-events-calendar.php',
 			);
 
-			return isset( $map[ $plugin_file ] ) ? $map[ $plugin_file ] : $plugin_file;
+			$plugin_file = $this->get_plugin_file();
+
+			if ( isset( $map[ $this->plugin_file ] ) ) {
+				$plugin_file = $map[ $this->plugin_file ];
+			}
+
+			return is_plugin_active_for_network( $plugin_file );
+
 		}
 
 		/**
@@ -1346,7 +1368,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				'expired'      => esc_html__( 'Expired license. Consult your network administrator.', 'tribe-common' ),
 			);
 
-			$response = $this->validate_key( get_network_option( null, $this->pue_install_key ), true );
+			$response = $this->validate_key( $this->get_key( 'network' ), true );
 
 			if ( isset( $response['status'] ) && 1 === (int) $response['status'] ) {
 				$state = 'licensed';
@@ -1376,7 +1398,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return false;
 			}
 
-			if ( is_plugin_active_for_network( $this->get_real_plugin_file( $this->plugin_file ) ) && ! is_super_admin() ) {
+			if ( $this->is_plugin_active_for_network() && ! is_super_admin() ) {
 				return false;
 			}
 
@@ -1400,7 +1422,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return false;
 			}
 
-			if ( ! is_plugin_active_for_network( $this->get_real_plugin_file( $this->plugin_file ) ) ) {
+			if ( ! $this->is_plugin_active_for_network() ) {
 				return false;
 			}
 
