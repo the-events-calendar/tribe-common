@@ -1054,8 +1054,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return $plugin_info;
 			}
 
-			if ( isset( $plugin_info->new_install_key ) ) {
-				$this->update_option( $this->pue_install_key, $plugin_info->new_install_key );
+			if ( ! empty( $plugin_info->new_install_key ) ) {
+				$this->update_key( $plugin_info->new_install_key );
 			}
 
 			//need to correct the download url so it contains the custom user data (i.e. api and any other paramaters)
