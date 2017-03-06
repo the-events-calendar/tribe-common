@@ -724,6 +724,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function ajax_validate_key() {
 
+			// @todo SKC: Add nonce check
 			$key = isset( $_POST['key'] ) ? wp_unslash( $_POST['key'] ) : null;
 
 			$response = $this->validate_key( $key );
@@ -1035,6 +1036,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				'pu_install_key'          => sanitize_text_field( $this->get_key() ),
 			);
 
+			// @todo SKC: Add nonce check for confirming interaction with $_POST
 			if ( ! empty( $_POST['key'] ) ) {
 				$args['pu_install_key'] = sanitize_text_field( $_POST['key'] );
 			} elseif ( ! empty( $_POST[ $this->pue_install_key ] ) ) {
@@ -1172,6 +1174,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				delete_site_option( $this->pue_option_name );
 				$this->check_for_updates();
 			}
+
+			// @todo SKC: Add nonce check for confirming interaction with $_POST
 
 			// are we saving THIS PUE key to the options table?
 			if ( empty( $_POST[ $this->pue_install_key ] ) || $value !== $_POST[ $this->pue_install_key ] ) {
