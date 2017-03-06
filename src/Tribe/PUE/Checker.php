@@ -88,13 +88,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public $pue_option_name = '';
 
 		/**
-		 * used to hold the user API.  If not set then nothing will work!
-		 *
-		 * @var string
-		 */
-		public $api_secret_key = '';
-
-		/**
 		 * used to hold the install_key if set (included here for addons that will extend PUE to use install key checks)
 		 *
 		 * @var bool
@@ -320,7 +313,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$options, array(
 					'pue_option_name' => 'external_updates-' . $this->get_slug(),
 					'apikey'          => '',
-					'installkey'      => false,
 					'check_period'    => 12,
 					'context'         => 'component',
 				)
@@ -328,14 +320,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$this->pue_option_name = $options['pue_option_name'];
 			$this->check_period    = (int) $options['check_period'];
-			$this->api_secret_key  = $options['apikey'];
 			$this->context         = $options['context'];
-
-			if ( isset( $options['installkey'] ) && $options['installkey'] ) {
-				$this->install_key = trim( $options['installkey'] );
-			} else {
-				$this->install_key = trim( $this->get_option( $this->pue_install_key ) );
-			}
 
 		}
 
