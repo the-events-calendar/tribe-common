@@ -636,7 +636,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Get current license key.
+		 * Get current license key, optionally of a specific type.
 		 *
 		 * @param string $type The type of key to get (any, network, local, default)
 		 *
@@ -673,7 +673,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Get current license key.
+		 * Update license key for specific type of license.
 		 *
 		 * @param string $license_key The new license key value
 		 * @param string $type        The type of key to update (network or local)
