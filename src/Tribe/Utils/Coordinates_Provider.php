@@ -106,7 +106,7 @@ class Tribe__Utils__Coordinates_Provider {
 	 * @return null|WP_Http
 	 */
 	public function get_http() {
-		return $this->http;
+		return $this->https;
 	}
 
 	protected function get_google_api_base() {
