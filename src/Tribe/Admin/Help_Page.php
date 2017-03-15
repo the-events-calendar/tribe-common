@@ -203,17 +203,17 @@ class Tribe__Admin__Help_Page {
 			'is_active' => class_exists( 'Tribe__Events__Community__Main' ),
 		);
 
-		$addons['facebook-events'] = array(
-			'id' => 'facebook-events',
-			'title' => esc_html__( 'Facebook Events', 'tribe-common' ),
-			'link'  => 'http://m.tri.be/du',
+		$addons['event-aggregator'] = array(
+			'id' => 'event-aggregator',
+			'title' => esc_html__( 'Event Aggregator', 'tribe-common' ),
+			'link'  => 'http://m.tri.be/19mk',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'Tribe__Events__Facebook__Importer' ),
+			'is_active' => tribe( 'events-aggregator.main' )->is_service_active(),
 		);
 
 		$addons['events-filter-bar'] = array(
 			'id' => 'events-filter-bar',
-			'title' => esc_html__( 'Events Filter Bar', 'tribe-common' ),
+			'title' => esc_html__( 'Filter Bar', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/hu',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Filterbar__View' ),
