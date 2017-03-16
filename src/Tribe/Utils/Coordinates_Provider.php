@@ -31,7 +31,7 @@ class Tribe__Utils__Coordinates_Provider {
 	/**
 	 * @var WP_Http
 	 */
-	private $https;
+	private $http;
 
 	/**
 	 * @var Tribe__Utils__Coordinates_Provider
@@ -57,7 +57,7 @@ class Tribe__Utils__Coordinates_Provider {
 	 * @param WP_Http|null $https
 	 */
 	public function __construct( WP_Http $https = null ) {
-		$this->https = ! empty( $https ) ? $https : _wp_http_get_object();
+		$this->http = ! empty( $https ) ? $https : _wp_http_get_object();
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Tribe__Utils__Coordinates_Provider {
 
 		$base_request_url = trailingslashit( $this->get_google_api_base() ) . $this->get_google_api_json_format();
 		$url              = esc_url( add_query_arg( array( 'address' => $address ), $base_request_url ) );
-		$response         = $this->https->get( $url );
+		$response         = $this->http->get( $url );
 
 		if ( is_wp_error( $response ) ) {
 			return false;
@@ -106,7 +106,7 @@ class Tribe__Utils__Coordinates_Provider {
 	 * @return null|WP_Http
 	 */
 	public function get_http() {
-		return $this->https;
+		return $this->http;
 	}
 
 	protected function get_google_api_base() {
