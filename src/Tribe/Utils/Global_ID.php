@@ -46,7 +46,7 @@ class Tribe__Utils__Global_ID {
 
 		$name = strtolower( $name );
 
-		if ( ! in_array( $name, $this->valid_types ) ){
+		if ( ! in_array( $name, $this->valid_types ) ) {
 			return false;
 		}
 
