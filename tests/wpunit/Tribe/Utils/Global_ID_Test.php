@@ -17,7 +17,7 @@ class Global_ID_Test extends \Codeception\TestCase\WPTestCase {
 	public function it_should_be_instantiatable() {
 		$global_id = new Global_ID;
 
-		$this->assertInstanceOf( 'Tribe\Event_Aggregator\Utils\Global_ID', $global_id );
+		$this->assertInstanceOf( 'Tribe__Utils__Global_ID', $global_id );
 	}
 
 	/**
