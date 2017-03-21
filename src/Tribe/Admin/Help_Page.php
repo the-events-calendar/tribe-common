@@ -208,7 +208,7 @@ class Tribe__Admin__Help_Page {
 			'title' => esc_html__( 'Event Aggregator', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/19mk',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => tribe( 'events-aggregator.main' )->is_service_active(),
+			'is_active' => class_exists( 'Tribe__Events__Aggregator' ) && tribe( 'events-aggregator.main' )->is_service_active(),
 		);
 
 		$addons['events-filter-bar'] = array(
