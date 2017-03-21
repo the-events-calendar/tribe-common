@@ -49,7 +49,7 @@ class Tribe__Credits {
 		if ( $admin_helpers->is_screen() || $admin_helpers->is_post_type_screen() ) {
 
 			if ( class_exists( 'Tribe__Events__Main' ) ) {
-				$review_url = 'https://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5';
+				$review_url = 'https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5';
 
 				$footer_text = sprintf(
 					esc_html__( 'Rate %1$sThe Events Calendar%2$s %3$s', 'tribe-common' ),
@@ -58,7 +58,7 @@ class Tribe__Credits {
 					'<a href="' . $review_url . '" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
 				);
 			} else {
-				$review_url = 'https://wordpress.org/support/view/plugin-reviews/event-tickets?filter=5';
+				$review_url = 'https://wordpress.org/support/plugin/event-tickets/reviews/?filter=5';
 
 				$footer_text = sprintf(
 					esc_html__( 'Rate %1$sEvent Tickets%2$s %3$s', 'tribe-common' ),
