@@ -62,12 +62,11 @@ class Tribe__Utils__Global_ID {
 	 * @return mixed               Will return False on invalid origin or the Origin in String
 	 */
 	public function origin( $url = null ) {
-		if ( is_null( $url ) ) {
-			return $this->origin;
-		}
-
 		if ( ! empty( $this->type_origins[ $this->type ] ) ) {
 			$this->origin = $this->type_origins[ $this->type ];
+		}
+
+		if ( is_null( $url ) ) {
 			return $this->origin;
 		}
 
