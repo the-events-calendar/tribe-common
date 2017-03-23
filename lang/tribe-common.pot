@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.4.4dev1\n"
+"Project-Id-Version: Tribe Common 4.4.5dev1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2017-03-08 16:31:52+00:00\n"
+"POT-Creation-Date: 2017-03-23 18:29:42+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-03-08 16:31\n"
+"PO-Revision-Date: 2017-03-23 18:29\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -68,12 +68,12 @@ msgstr ""
 msgid "Community Events"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:208
-msgid "Facebook Events"
+#: src/Tribe/Admin/Help_Page.php:208 src/Tribe/App_Shop.php:104
+msgid "Event Aggregator"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:216
-msgid "Events Filter Bar"
+#: src/Tribe/Admin/Help_Page.php:216 src/Tribe/App_Shop.php:133
+msgid "Filter Bar"
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:224 src/Tribe/App_Shop.php:122
@@ -172,10 +172,6 @@ msgstr ""
 msgid "Event Add-Ons"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:104
-msgid "Event Aggregator"
-msgstr ""
-
 #: src/Tribe/App_Shop.php:106
 msgid "Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more."
 msgstr ""
@@ -186,10 +182,6 @@ msgstr ""
 
 #: src/Tribe/App_Shop.php:125
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
-msgstr ""
-
-#: src/Tribe/App_Shop.php:133
-msgid "Filter Bar"
 msgstr ""
 
 #: src/Tribe/App_Shop.php:135
