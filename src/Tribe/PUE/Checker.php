@@ -413,36 +413,41 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$this->pue_install_key . '-heading' => array(
 					'type'  => 'heading',
 					'label' => $this->get_plugin_name(),
-				)
+				),
 			);
 
+			$no_license_tooltip = esc_html__( 'A valid license key is required for support and updates', 'tribe-common' );
+			if ( 'event-aggregator' === $this->get_slug() ) {
+				$no_license_tooltip = sprintf(
+					esc_html__( '%1$sBuy a license%2$s for the Event Aggregator service to access additional import features.', 'tribe-common' ),
+					'<a href="http://m.tri.be/196y" target="_blank">',
+					'</a>'
+				);
+			}
+
 			// we want to inject the following license settings at the end of the licenses tab
-			if($this->should_show_network_editable_license() ){
-				$to_insert[$this->pue_install_key ] = array(
+			if ( $this->should_show_network_editable_license() ) {
+				$to_insert[ $this->pue_install_key ] = array(
 					'type'            => 'license_key',
 					'size'            => 'large',
 					'validation_type' => 'license_key',
 					'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
-					'tooltip'         => esc_html__(
-						'A valid license key is required for support and updates', 'tribe-common'
-					),
+					'tooltip'         => $no_license_tooltip,
 					'parent_option'   => false,
 					'network_option'  => true,
 				);
-			} elseif($this->should_show_subsite_editable_license()){
-				$to_insert[$this->pue_install_key ] = array(
+			} elseif ( $this->should_show_subsite_editable_license() ) {
+				$to_insert[ $this->pue_install_key ] = array(
 					'type'            => 'license_key',
 					'size'            => 'large',
 					'validation_type' => 'license_key',
 					'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
-					'tooltip'         => esc_html__(
-						'A valid license key is required for support and updates', 'tribe-common'
-					),
+					'tooltip'         => $no_license_tooltip,
 					'parent_option'   => false,
 					'network_option'  => false,
 				);
-			} elseif($this->should_show_overrideable_license()){
-				$to_insert[$this->pue_install_key. '-state' ] = array(
+			} elseif ( $this->should_show_overrideable_license() ) {
+				$to_insert[ $this->pue_install_key. '-state' ] = array(
 					'type'  => 'html',
 					'label' => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
 					'label_attributes' => array( 'style' => 'width:auto;' ),
@@ -466,9 +471,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'size'                => 'large',
 					'validation_type'     => 'license_key',
 					'label'               => sprintf( esc_attr__( 'Site License Key', 'tribe-common' ) ),
-					'tooltip'             => esc_html__(
-						'A valid license key is required for support and updates', 'tribe-common'
-					),
+					'tooltip'             => $no_license_tooltip,
 					'parent_option'       => false,
 					'network_option'      => false,
 					'class'               => 'tribe-dependent',
@@ -478,7 +481,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					),
 				);
 			} else {
-				$to_insert[$this->pue_install_key. '-state' ] = array(
+				$to_insert[ $this->pue_install_key. '-state' ] = array(
 					'type'  => 'html',
 					'label' => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
 					'label_attributes' => array( 'style' => 'width:auto;' ),
@@ -509,14 +512,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						}
 					} );
 
-					$('#tribe-field-<?php echo $this->pue_install_key ?>').change(function () {
-						<?php echo $this->pue_install_key ?>_validateKey();
+					$('#tribe-field-<?php echo esc_attr( $this->pue_install_key ) ?>').change(function () {
+						<?php echo esc_attr( $this->pue_install_key ) ?>_validateKey();
 					});
-					<?php echo $this->pue_install_key ?>_validateKey();
+					<?php echo esc_attr( $this->pue_install_key ) ?>_validateKey();
 				});
 
-				function <?php echo $this->pue_install_key ?>_validateKey() {
-					var this_id       = '#tribe-field-<?php echo $this->pue_install_key ?>';
+				function <?php echo esc_attr( $this->pue_install_key ) ?>_validateKey() {
+					var this_id       = '#tribe-field-<?php echo esc_attr( $this->pue_install_key ) ?>';
 					var $validity_msg = jQuery(this_id + ' .key-validity');
 
 					if (jQuery(this_id + ' input').val() != '') {
@@ -526,10 +529,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						$validity_msg.hide();
 
 						// Strip whitespace from key
-						var <?php echo $this->pue_install_key ?>_license_key = jQuery(this_id + ' input').val().replace(/^\s+|\s+$/g, "");
-						jQuery(this_id + ' input').val(<?php echo $this->pue_install_key ?>_license_key);
+						var <?php echo esc_attr( $this->pue_install_key ) ?>_license_key = jQuery(this_id + ' input').val().replace(/^\s+|\s+$/g, "");
+						jQuery(this_id + ' input').val(<?php echo esc_attr( $this->pue_install_key ) ?>_license_key);
 
-						var data = { action: 'pue-validate-key_<?php echo $this->get_slug(); ?>', key: <?php echo $this->pue_install_key ?>_license_key };
+						var data = { action: 'pue-validate-key_<?php echo esc_attr( $this->get_slug() ); ?>', key: <?php echo esc_attr( $this->pue_install_key ) ?>_license_key };
 						jQuery.post(ajaxurl, data, function (response) {
 							var data          = jQuery.parseJSON(response);
 
@@ -1317,7 +1320,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			if ( isset( $response['status'] ) && $response['status'] === 1 ) {
 				$state = 'licensed';
-			} else if ( isset( $response['api_expired'] ) && $response['api_expired'] == true ) {
+			} elseif ( isset( $response['api_expired'] ) && $response['api_expired'] == true ) {
 				$state = 'expired';
 			} else {
 				$state = 'not-licensed';
@@ -1363,7 +1366,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return false;
 			}
 
-			if (is_super_admin()) {
+			if ( is_super_admin() ) {
 				return false;
 			}
 
