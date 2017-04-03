@@ -109,6 +109,9 @@ class Tribe__Main {
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
+		// Initialize the Modifications Tracker
+		tribe( 'tracker' );
+
 		Tribe__Extension_Loader::instance();
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
@@ -489,5 +492,6 @@ class Tribe__Main {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
 		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
+		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 	}
 }
