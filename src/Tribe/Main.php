@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.4.3';
+	const VERSION             = '4.5dev1';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -109,9 +109,6 @@ class Tribe__Main {
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
-		// Initialize the Modifications Tracker
-		tribe( 'tracker' );
-
 		Tribe__Extension_Loader::instance();
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
@@ -161,7 +158,8 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		Tribe__Debug::instance();
-		tribe('settings.manager');
+		tribe( 'settings.manager' );
+		tribe( 'tracker' );
 		$this->pue_notices();
 
 		require_once $this->plugin_path . 'src/functions/utils.php';

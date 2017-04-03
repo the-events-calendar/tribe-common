@@ -9,6 +9,9 @@ class Tribe__Tracker {
 		// Track the Meta Updates for Meta That came from the correct Post Types
 		add_filter( 'update_post_metadata', array( $this, 'filter_watch_updated_meta' ), PHP_INT_MAX - 1, 5 );
 
+		// After a meta is added we mark that is has been modified
+		add_action( 'added_post_meta', array( $this, 'filter_watch_added_meta' ), PHP_INT_MAX - 1, 4 );
+
 		// Track the Post Fields Updates for Meta in the correct Post Types
 		add_action( 'post_updated', array( $this, 'filter_watch_post_fields' ), 10, 3 );
 	}
@@ -53,11 +56,7 @@ class Tribe__Tracker {
 	 */
 	public function get_post_types() {
 		// By default we are not tracking anything
-		$tracked_post_types = array(
-			Tribe__Events__Main::POSTTYPE,
-			Tribe__Events__Venue::POSTTYPE,
-			Tribe__Events__Organizer::POSTTYPE,
-		);
+		$tracked_post_types = array();
 
 		/**
 		 * Adds a way for Developers to add and remove which post types will be tracked
@@ -73,7 +72,94 @@ class Tribe__Tracker {
 	}
 
 	/**
-	 * Make sure we are tracking all meta fields related to Event Aggregator
+	 * Easy way to see currenlty which meta values are been tracked by our code
+	 *
+	 * @return array
+	 */
+	public function get_excluded_meta_keys() {
+		// By default we are not tracking anything
+		$excluded_keys = array(
+			'_edit_lock',
+			self::$field_key,
+		);
+
+		/**
+		 * Adds a way for Developers remove Meta Keys that shouldn't be tracked
+		 *
+		 * Note: Removing any of the default methods will affect how we deal with fields
+		 *       affected by the authority settings defined on this installation
+		 *
+		 * @var array
+		 */
+		$excluded_keys = (array) apply_filters( 'tribe_tracker_excluded_meta_keys', $excluded_keys );
+
+		return $excluded_keys;
+	}
+
+	/**
+	 * Make sure we are tracking all meta fields related on the correct Post Types
+	 *
+	 * @since 4.5
+	 *
+	 * @param int       $meta_id    Meta ID
+	 * @param int       $post_id    Post ID.
+	 * @param string    $meta_key   Meta key.
+	 * @param mixed     $meta_value Meta value. Must be serializable if non-scalar.
+	 */
+	public function filter_watch_added_meta( $meta_id, $post_id, $meta_key, $meta_value ) {
+		/**
+		 * Allows toggling the Modified fields tracking
+		 * @var bool
+		 */
+		$is_tracking_modified_fields = (bool) apply_filters( 'tribe_tracker_enabled', true );
+
+		// Bail if we shouldn't be tracking modifications
+		if ( false === $is_tracking_modified_fields ) {
+			return;
+		}
+
+		// Try to fetch the post object
+		$post = get_post( $post_id );
+
+		// We only go forward if we have the Post Object
+		if ( ! $post instanceof WP_Post ) {
+			return;
+		}
+
+		// Fetch from a unified method which meta keys are been excluded
+		$excluded_keys = $this->get_excluded_meta_keys();
+
+		// Bail when this meta is set to be excluded
+		if ( in_array( $meta_key, $excluded_keys ) ) {
+			return;
+		}
+
+		// Fetch from a unified method which post types are been tracked
+		$tracked_post_types = $this->get_post_types();
+
+		// Only track if the meta is from a post that is been tracked
+		if ( ! in_array( $post->post_type, $tracked_post_types ) ) {
+			return;
+		}
+
+		// Gets the Current Timestamp
+		$now = current_time( 'timestamp' );
+
+		// Fetch the current data from the modified fields
+		$modified = get_post_meta( $post->ID, self::$field_key, true );
+		if ( ! is_array( $modified ) ) {
+			$modified = array();
+		}
+
+		// If we got here we will update the Modified Meta
+		$modified[ $meta_key ] = $now;
+
+		// Actually do the Update
+		update_post_meta( $post->ID, self::$field_key, $modified );
+	}
+
+	/**
+	 * Make sure we are tracking all meta fields related to the correct Post Types
 	 *
 	 * @since 4.5
 	 *
@@ -86,7 +172,6 @@ class Tribe__Tracker {
 	 * @return null|bool            This should be ignored, only used to not break the WordPress filters
 	 */
 	public function filter_watch_updated_meta( $check, $post_id, $meta_key, $meta_value, $prev_value = null ) {
-		bdump( $meta_key );
 		/**
 		 * Allows toggling the Modified fields tracking
 		 * @var bool
@@ -111,8 +196,11 @@ class Tribe__Tracker {
 			return $check;
 		}
 
-		// Bail when it's the actual modified field key
-		if ( self::$field_key === $meta_key ) {
+		// Fetch from a unified method which meta keys are been excluded
+		$excluded_keys = $this->get_excluded_meta_keys();
+
+		// Bail when this meta is set to be excluded
+		if ( in_array( $meta_key, $excluded_keys ) ) {
 			return $check;
 		}
 
@@ -145,8 +233,6 @@ class Tribe__Tracker {
 
 		// If we got here we will update the Modified Meta
 		$modified[ $meta_key ] = $now;
-
-		bdump( $modified );
 
 		// Actually do the Update
 		update_post_meta( $post->ID, self::$field_key, $modified );
