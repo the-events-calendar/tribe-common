@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Class Tribe__Tracker
+ *
+ * Tracks changes of post attributes.
+ */
 class Tribe__Tracker {
 	/**
 	 * @var string The meta field used to track changes.
@@ -317,6 +323,22 @@ class Tribe__Tracker {
 		}
 	}
 
+	/**
+	 * Track term changes for the tracked post types and  terms.
+	 *
+	 * Meant to run on the `set_object_terms` action.
+	 *
+	 * @see wp_set_object_terms()
+	 *
+	 * @param $object_id
+	 * @param $terms
+	 * @param $tt_ids
+	 * @param $taxonomy
+	 * @param $append
+	 * @param $old_tt_ids
+	 *
+	 * @return bool `true` if the post type and taxonomy are tracked, `false` otherwise.
+	 */
 	public function track_taxonomy_term_changes( $object_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids ) {
 		/**
 		 * Allows toggling the post taxonomy terms tracking
