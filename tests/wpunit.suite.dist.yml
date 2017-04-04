@@ -2,4 +2,18 @@ class_name: WpunitTester
 modules:
     enabled:
         - \Helper\Wpunit
-        - WPLoader
+        - WPLoader:
+            wpRootFolder: ~/www/wordpress
+            dbName: tec-tests
+            dbHost: localhost
+            dbUser: root
+            dbPassword: password
+            wpDebug: true
+            tablePrefix: wptests_
+            domain: tec.tri.be
+            adminEmail: admin@tec.tri.be
+            title: 'Event Common Tests'
+            plugins:
+                - the-events-calendar/the-events-calendar.php
+            activatePlugins:
+                - the-events-calendar/the-events-calendar.php

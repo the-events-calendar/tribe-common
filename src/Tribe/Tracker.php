@@ -1,6 +1,30 @@
 <?php
+
+/**
+ * Class Tribe__Tracker
+ *
+ * Tracks changes of post attributes.
+ */
 class Tribe__Tracker {
+	/**
+	 * @var string The meta field used to track changes.
+	 */
 	public static $field_key = '_tribe_modified_fields';
+
+	/**
+	 * @var bool Whether the class is tracking terms or not.
+	 */
+	protected $track_terms = true;
+
+	/**
+	 * @var array An array of the tracked post types.
+	 */
+	protected $tracked_post_types = array();
+
+	/**
+	 * @var array An array of the tracked taxonomies.
+	 */
+	protected $tracked_taxonomies = array();
 
 	/**
 	 * Hooks up the methods that will actually track the fields we are looking for.
@@ -14,6 +38,9 @@ class Tribe__Tracker {
 
 		// Track the Post Fields Updates for Meta in the correct Post Types
 		add_action( 'post_updated', array( $this, 'filter_watch_post_fields' ), 10, 3 );
+
+		// Track the Post term updates
+		add_action( 'set_object_terms', array( $this, 'track_taxonomy_term_changes' ), 10, 6 );
 	}
 
 	/**
@@ -50,7 +77,7 @@ class Tribe__Tracker {
 	}
 
 	/**
-	 * Easy way to see currenlty which post types are been tracked by our code
+	 * Easy way to see currently which post types are been tracked by our code.
 	 *
 	 * @return array
 	 */
@@ -66,7 +93,7 @@ class Tribe__Tracker {
 		 *
 		 * @var array
 		 */
-		$tracked_post_types = (array) apply_filters( 'tribe_tracker_post_types', $tracked_post_types );
+		$tracked_post_types = (array) apply_filters( 'tribe_tracker_post_types', $this->tracked_post_types );
 
 		return $tracked_post_types;
 	}
@@ -294,5 +321,107 @@ class Tribe__Tracker {
 		if ( $modified ) {
 			update_post_meta( $post_id, self::$field_key, $modified );
 		}
+	}
+
+	/**
+	 * Track term changes for the tracked post types and  terms.
+	 *
+	 * Meant to run on the `set_object_terms` action.
+	 *
+	 * @see wp_set_object_terms()
+	 *
+	 * @param $object_id
+	 * @param $terms
+	 * @param $tt_ids
+	 * @param $taxonomy
+	 * @param $append
+	 * @param $old_tt_ids
+	 *
+	 * @return bool `true` if the post type and taxonomy are tracked, `false` otherwise.
+	 */
+	public function track_taxonomy_term_changes( $object_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids ) {
+		/**
+		 * Allows toggling the post taxonomy terms tracking
+		 *
+		 * @var bool $track_terms Whether the class is currently tracking terms or not.
+		 */
+		$is_tracking_taxonomy_terms = (bool) apply_filters( 'tribe_tracker_enabled_for_terms', $this->track_terms );
+
+		if ( false === $is_tracking_taxonomy_terms ) {
+			return false;
+		}
+
+		$tracked_post_types = $this->get_post_types();
+
+		$post = get_post( $object_id );
+		if ( empty( $post ) || ! in_array( $post->post_type, $tracked_post_types ) ) {
+			return false;
+		}
+
+		$tracked_taxonomies = $this->get_taxonomies();
+
+		if ( ! in_array( $taxonomy, $tracked_taxonomies ) ) {
+			return false;
+		}
+
+		if ( ! $modified = get_post_meta( $post->ID, self::$field_key, true ) ) {
+			$modified = array();
+		}
+
+		if ( $tt_ids == $old_tt_ids ) {
+			// nothing to update, still we did the job
+			return true;
+		}
+
+		$modified[ $taxonomy ] = time();
+		update_post_meta( $post->ID, self::$field_key, $modified );
+
+		return true;
+	}
+
+	/**
+	 * Easy way to see currently which taxonomies are been tracked by our code.
+	 *
+	 * @return array
+	 */
+	public function get_taxonomies() {
+		/**
+		 * Adds a way for Developers to add and remove which taxonomies will be tracked
+		 *
+		 * Note: Removing any of the default methods will affect how we deal with fields
+		 *       affected by the authority settings defined on this installation
+		 *
+		 * @var array $tracked_taxonomies An array of the tracker taxonomies names.
+		 */
+		$tracked_taxonomies = (array) apply_filters( 'tribe_tracker_taxonomies', $this->tracked_taxonomies );
+
+		return $tracked_taxonomies;
+	}
+
+	/**
+	 * Whether taxonomy term changes should be tracked or not by the class.
+	 *
+	 * @param bool $track_terms
+	 */
+	public function should_track_terms( $track_terms ) {
+		$this->track_terms = $track_terms;
+	}
+
+	/**
+	 * Sets the taxonomies the tracker should track.
+	 *
+	 * @param array $tracked_taxonomies
+	 */
+	public function set_tracked_taxonomies( array $tracked_taxonomies ) {
+		$this->tracked_taxonomies = $tracked_taxonomies;
+	}
+
+	/**
+	 * Sets the post types the tracker should track.
+	 *
+	 * @param array $tracked_post_types
+	 */
+	public function set_tracked_post_types( array $tracked_post_types ) {
+		$this->tracked_post_types = $tracked_post_types;
 	}
 }
