@@ -2,6 +2,10 @@
 This is a brief and quick guide that's covering the bare essentials needed to set up the tests on your local plugin copy.
 Please refer to [Codeception](http://codeception.com/docs) and [WP Browser](https://github.com/lucatume/wp-browser) documentation for any issue that's not TEC related.
 
+## The commitment
+Modern Tribe has a long-term commitment to automate testing and improve test coverage.  
+Writing test for the your code is not a fashion, someone's mania or a passing whim: do your part.
+
 ## Set up
 After cloning the repository on your local machine change directory to the plugin root folder and pull in any needed dependency using [Composer](https://getcomposer.org/):
 
@@ -45,8 +49,7 @@ Do not use the command to run all suites at the same time as we have, in many pl
 The command will take care of the rest.  
 If the test case has already been added add a test method (a `function`) to the test case (the `class somethingTest`).
 
-### Where and what should I add
-Please spend some time to understand what you are doing reading something about testing.  
+### Where and what should I add my tests
 In short:  
 
 * **Acceptance** tests are meant to test the UI/API from a client perspective, run against the full application stack and do not "peek" at the database and set the testing fixture using a db dump and UI only; typical modules: `WPBrowser`, `WPWebDriver`, `WPDb`)
@@ -57,11 +60,45 @@ In short:
 
 We do a mostly WordPress Unit tests.
 
-## Testing dos and donts
-1. If you break it you fix it.
-2. Removing a test is not fixing; it should **never** be done unless the tested class/case/module has been removed.
-3. Use namespacing for testing: the test framework requires PHP 5.6: stop writing code for PHP 5.2 in tests.
-4. Avoid "clever" code in tests: clarity is paramount in testing over smart code.
-5. When in doubt call for help.
+## Testing Club rules
+1. You talk about the Testing Club. A lot.
+2. If you break it you fix it.
+3. Removing a test is not fixing it; it should **never** be done unless the tested class/case/module has been removed.
+4. Use namespacing for testing: the test framework requires PHP 5.6: stop writing code for PHP 5.2 in tests.
+5. Avoid "clever" code in tests: clarity is paramount in testing over smart code.
+6. If a test is complicated to write either you are trying to test too much or the thing you are testing it too complicated: refactor the code you are testing and get back.
+7. Test one thing per per test method. E.g. an object reads and writes? Write a test for the reading and a test for the writing.
+8. While you can use XDebug while running tests that's usually a good hint you should write a new assertion
+9. Look around the test code and use it as an example.
+10. When in doubt call for help: you are working in a place of smart and helpful people and will get help.
 
 Read [Codeception](http://codeception.com/ "Codeception - BDD-style PHP testing.") and [wp-browser](https://github.com/lucatume/wp-browser "lucatume/wp-browser · GitHub") documentation to understand what you are doing.
+
+## Running the tests
+Do not run all the suites at the same time, run each suite separately (why? WordPress loves globals, tests don't):
+
+```shell
+./vendor/bin/codecept run <suite>
+```
+
+The name of a suite is the same as the configuration file: e.g. `wpunit.suite.yml` is for the `wpunit` suite:
+
+```shell
+./vendor/bin/codecept run wpunit
+```
+
+### Running a single testcase 
+You might want to run just a test case (a class), in that case point Codeception to it:
+
+```shell
+./vendor/bin/codecept run tests/path/to/the/ClassTest.php
+```
+
+### Running a single testcase test method
+If you find yourself in need to run just one test method from a test case point Codeception to the testcase **and** the method:
+
+```shell
+./vendor/bin/codecept run tests/path/to/the/ClassTest.php:test_something
+```
+
+
