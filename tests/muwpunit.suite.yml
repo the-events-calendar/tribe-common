@@ -4,7 +4,7 @@ modules:
         - \Helper\Muwpunit
         - WPLoader:
             multisite: true
-            wpRootFolder: /home/luca/sites/tribe
+            wpRootFolder: /home/luca/Sites/tribe
             dbName: tribeTests
             dbHost: localhost
             dbUser: root
