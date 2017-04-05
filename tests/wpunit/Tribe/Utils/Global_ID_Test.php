@@ -145,7 +145,7 @@ class Global_ID_Test extends \Codeception\TestCase\WPTestCase {
 	public function verify_url_id_generation() {
 		$global_id = new Global_ID;
 		$global_id->type( 'url' );
-		$global_id->origin( 'example.com' );
+		$global_id->origin( 'http://example.com' );
 
 		$this->assertEquals( $global_id->generate( [ 'id' => '1234567890' ] ), 'example.com?id=1234567890', 'Check if url id gets set correctly' );
 	}
