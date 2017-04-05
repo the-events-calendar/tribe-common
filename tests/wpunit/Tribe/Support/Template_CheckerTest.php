@@ -10,7 +10,7 @@ class Template_CheckerTest extends WPTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$test_data_dir = dirname( __DIR__ ) . '/_data';
+		$test_data_dir = codecept_data_dir();
 
 		$this->template_checker = new Template_Checker(
 			'2.1',
