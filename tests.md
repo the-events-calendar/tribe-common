@@ -49,6 +49,10 @@ Do not use the command to run all suites at the same time as we have, in many pl
 The command will take care of the rest.  
 If the test case has already been added add a test method (a `function`) to the test case (the `class somethingTest`).
 
+### codecept, wpcept... What's the difference?
+The `wpcept` command in an *extension* of the `codecept` command; as such it can do anything the `codecept` command can do and more.  
+When in doubt use `wpcept`.
+
 ### Where and what should I add my tests
 In short:  
 
@@ -68,7 +72,7 @@ We do a mostly WordPress Unit tests.
 5. Avoid "clever" code in tests: clarity is paramount in testing over smart code.
 6. If a test is complicated to write either you are trying to test too much or the thing you are testing it too complicated: refactor the code you are testing and get back.
 7. Test one thing per per test method. E.g. an object reads and writes? Write a test for the reading and a test for the writing.
-8. While you can use XDebug while running tests that's usually a good hint you should write a new assertion
+8. While you can use XDebug while running tests that's usually a good hint you should write a new assertion or a new test method.
 9. Look around the test code and use it as an example.
 10. When in doubt call for help: you are working in a place of smart and helpful people and will get help.
 
@@ -100,5 +104,3 @@ If you find yourself in need to run just one test method from a test case point 
 ```shell
 ./vendor/bin/codecept run tests/path/to/the/ClassTest.php:test_something
 ```
-
-
