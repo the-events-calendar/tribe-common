@@ -11,7 +11,7 @@ class Tribe__Utils__Coordinates_Provider {
 	/**
 	 * @var string
 	 */
-	public static $google_api_base = 'http://maps.googleapis.com/maps/api/geocode/';
+	public static $google_api_base = 'https://maps.googleapis.com/maps/api/geocode/';
 
 	/**
 	 * @var string
@@ -54,10 +54,10 @@ class Tribe__Utils__Coordinates_Provider {
 	/**
 	 * Tribe__Utils__Coordinates_Provider constructor.
 	 *
-	 * @param WP_Http|null $http
+	 * @param WP_Http|null $https
 	 */
-	public function __construct( WP_Http $http = null ) {
-		$this->http = ! empty( $http ) ? $http : _wp_http_get_object();
+	public function __construct( WP_Http $https = null ) {
+		$this->http = ! empty( $https ) ? $https : _wp_http_get_object();
 	}
 
 	/**
