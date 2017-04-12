@@ -801,7 +801,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				);
 
 				$update_message = sprintf(
-					__( 'There is a new version of %1$s available. %2$s', 'tribe-common' ),
+					esc_html__( 'There is a new version of %1$s available. %2$s', 'tribe-common' ),
 					$this->plugin_name,
 					$update_now_link
 				);
@@ -813,7 +813,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			if ( ! empty( $messages ) ) {
-				$message_row_html = "<tr class='plugin-update-tr active'><td colspan='3' class='plugin-update'>";
+				$message_row_html = '<tr class="plugin-update-tr active"><td colspan="3" class="plugin-update">';
 
 				foreach ( $messages as $message ) {
 					$message_row_html .= sprintf(
@@ -822,7 +822,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					);
 				}
 
-				$message_row_html .= "</td></tr>";
+				$message_row_html .= '</td></tr>';
 
 				$this->plugin_notice = array(
 					'slug' => $this->plugin_file,
