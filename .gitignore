@@ -1,4 +1,6 @@
 node_modules
+
+# Local Codeception files
 codeception.yml
 tests/acceptance.suite.yml
 tests/functional.suite.yml
@@ -6,12 +8,7 @@ tests/integration.suite.yml
 tests/muintegration.suite.yml
 tests/wpunit.suite.yml
 tests/unit.suite.yml
-tests/acceptance/_bootstrap.php
-tests/functional/_bootstrap.php
-tests/integration/_bootstrap.php
-tests/muintegration/_bootstrap.php
-tests/unit/_bootstrap.php
-tests/wpunit/_bootstrap.php
+tests/_output/*
 
 # by default ignore all, need a vendor dep in the repo? use !vendor/acme
 vendor/*
@@ -28,4 +25,3 @@ vendor/composer/semver
 vendor/composer/spdx-licenses
 !vendor/lucatume/di52
 !vendor/xrstf/composer-php52
-tests/_output/*

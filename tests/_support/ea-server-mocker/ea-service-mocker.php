@@ -84,6 +84,8 @@ class Tribe__Events__Aggregator_Mocker {
 	protected function hook() {
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Options_Page(), 'hook' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner(), 'hook' ) );
+		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner_Options(), 'hook' ) );
 
 		if ( $this->is_disabled() ) {
 			return;
@@ -91,8 +93,6 @@ class Tribe__Events__Aggregator_Mocker {
 
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Service_Options(), 'hook' ) );
 		add_action( 'admin_notices', array( new Tribe__Events__Aggregator_Mocker__Notices(), 'render' ) );
-		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner(), 'hook' ) );
-		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Cleaner_Options(), 'hook' ) );
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__License_Options(), 'hook' ) );
 		add_action( 'init', array( new Tribe__Events__Aggregator_Mocker__Recorder_Options(), 'hook' ) );
 	}

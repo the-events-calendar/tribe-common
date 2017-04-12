@@ -1,8 +1,9 @@
-class_name: WpunitTester
+class_name: MuwpunitTester
 modules:
     enabled:
-        - \Helper\Wpunit
+        - \Helper\Muwpunit
         - WPLoader:
+            multisite: true
             wpRootFolder: ~/www/wordpress
             dbName: tec-tests
             dbHost: localhost
