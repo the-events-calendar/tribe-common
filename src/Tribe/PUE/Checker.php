@@ -784,32 +784,33 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$plugin_updates = get_plugin_updates();
 			$update_available = isset( $plugin_updates[ $this->plugin_file ] );
 
+			// Check to see if there is an licensing error or update message we should show
 			if ( ! empty( $state->update->license_error ) ) {
 				$messages[] = $state->update->license_error;
 			} elseif ( $update_available && current_user_can( 'update_plugins' ) ) {
 				// A plugin update is available
-
 				$update_now = sprintf(
+					esc_html__( 'Update now to version %s.', 'tribe-common' ),
+					$state->update->version
+				);
+
+				$update_now_link = sprintf(
 					' <a href="%1$s" class="update-link">%2$s</a>',
 					wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $this->plugin_file, 'upgrade-plugin_' . $this->plugin_file ),
-					esc_html__( 'Update Now.', 'tribe-common' )
+					$update_now
 				);
 
-				$update_details = '';
-
-				if ( ! empty( $state->update->upgrade_notice ) ) {
-					$update_details = $state->update->upgrade_notice;
-				}
+				$update_message = sprintf(
+					__( 'There is a new version of %1$s available. %2$s', 'tribe-common' ),
+					$this->plugin_name,
+					$update_now_link
+				);
 
 				$messages[] = sprintf(
-					__( 'There is a new version of %1$s available. %2$s %3$s' ),
-					$this->plugin_name,
-					$update_now,
-					$update_details
+					'<p>%s</p>',
+					$update_message
 				);
 			}
-
-//			$messages[] = '<p>test</p>';
 
 			if ( ! empty( $messages ) ) {
 				$message_row_html = "<tr class='plugin-update-tr active'><td colspan='3' class='plugin-update'>";
@@ -824,7 +825,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$message_row_html .= "</td></tr>";
 
 				$this->plugin_notice = array(
-					'slug' => $this->get_slug(),
+					'slug' => $this->plugin_file,
 					'message_row_html' => $message_row_html,
 				);
 
