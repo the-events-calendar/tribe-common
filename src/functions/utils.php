@@ -226,12 +226,12 @@ if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
 			if ( is_object( $term ) && ! empty( $term->{$field} ) ) {
 				$normalized[] = $term->{$field};
 			} elseif ( is_numeric( $term ) ) {
-				$term = get_term_by( 'id', $taxonomy );
+				$term = get_term_by( 'id', $term, $taxonomy );
 				if ( $term instanceof WP_Term ) {
 					$normalized[] = $term->{$field};
 				}
 			} elseif ( is_string( $term ) ) {
-				$term = get_term_by( 'slug', $taxonomy );
+				$term = get_term_by( 'slug', $term, $taxonomy );
 				if ( $term instanceof WP_Term ) {
 					$normalized[] = $term->{$field};
 				}
