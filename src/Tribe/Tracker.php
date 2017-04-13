@@ -33,6 +33,9 @@ class Tribe__Tracker {
 		// Track the Meta Updates for Meta That came from the correct Post Types
 		add_filter( 'update_post_metadata', array( $this, 'filter_watch_updated_meta' ), PHP_INT_MAX - 1, 5 );
 
+		// Before a meta is removed we mark that is has been modified
+		add_filter( 'delete_post_metadata', array( $this, 'filter_watch_updated_meta' ), PHP_INT_MAX - 1, 5 );
+
 		// After a meta is added we mark that is has been modified
 		add_action( 'added_post_meta', array( $this, 'filter_watch_added_meta' ), PHP_INT_MAX - 1, 4 );
 
@@ -239,8 +242,7 @@ class Tribe__Tracker {
 			return $check;
 		}
 
-		// If we don't have any Prev Value we check for it from the Database
-		if ( is_null( $prev_value ) || '' === $prev_value ) {
+		if ( empty( $prev_value ) ) {
 			$prev_value = get_post_meta( $post->ID, $meta_key, true );
 		}
 
