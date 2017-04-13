@@ -219,7 +219,9 @@ if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
 	 * @return array An array of the valid normalized terms.
 	 */
 	function tribe_normalize_terms_list( $terms, $taxonomy, $field = 'term_id' ) {
-		$terms = is_array( $terms ) ? $terms : array( $terms );
+		if ( ! is_array( $terms ) ) {
+			$terms = array( $terms t);
+		}
 
 		$normalized = array();
 		foreach ( $terms as $term ) {
