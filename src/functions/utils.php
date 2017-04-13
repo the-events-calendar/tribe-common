@@ -220,7 +220,7 @@ if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
 	 */
 	function tribe_normalize_terms_list( $terms, $taxonomy, $field = 'term_id' ) {
 		if ( ! is_array( $terms ) ) {
-			$terms = array( $terms t);
+			$terms = array( $terms );
 		}
 
 		$normalized = array();
