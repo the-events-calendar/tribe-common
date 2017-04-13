@@ -305,6 +305,7 @@ class Tribe__Tracker {
 		$fields_to_check_for_changes = array(
 			'post_title',
 			'post_content',
+			'post_excerpt',
 			'post_status',
 			'post_type',
 			'post_parent',
