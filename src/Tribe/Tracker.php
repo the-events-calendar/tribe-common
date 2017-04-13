@@ -33,11 +33,11 @@ class Tribe__Tracker {
 		// Track the Meta Updates for Meta That came from the correct Post Types
 		add_filter( 'update_post_metadata', array( $this, 'filter_watch_updated_meta' ), PHP_INT_MAX - 1, 5 );
 
-		// Before a meta is removed we mark that is has been modified
-		add_filter( 'delete_post_metadata', array( $this, 'filter_watch_updated_meta' ), PHP_INT_MAX - 1, 5 );
-
 		// After a meta is added we mark that is has been modified
-		add_action( 'added_post_meta', array( $this, 'filter_watch_added_meta' ), PHP_INT_MAX - 1, 4 );
+		add_action( 'added_post_meta', array( $this, 'register_added_deleted_meta' ), PHP_INT_MAX - 1, 4 );
+
+		// Before a meta is removed we mark that is has been modified
+		add_action( 'delete_post_meta', array( $this, 'register_added_deleted_meta' ), PHP_INT_MAX - 1, 4 );
 
 		// Track the Post Fields Updates for Meta in the correct Post Types
 		add_action( 'post_updated', array( $this, 'filter_watch_post_fields' ), 10, 3 );
@@ -136,7 +136,7 @@ class Tribe__Tracker {
 	 * @param string    $meta_key   Meta key.
 	 * @param mixed     $meta_value Meta value. Must be serializable if non-scalar.
 	 */
-	public function filter_watch_added_meta( $meta_id, $post_id, $meta_key, $meta_value ) {
+	public function register_added_deleted_meta( $meta_id, $post_id, $meta_key, $meta_value ) {
 		/**
 		 * Allows toggling the Modified fields tracking
 		 * @var bool
