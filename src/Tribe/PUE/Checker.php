@@ -812,25 +812,27 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				);
 			}
 
-			if ( ! empty( $messages ) ) {
-				$message_row_html = '<tr class="plugin-update-tr active"><td colspan="3" class="plugin-update">';
-
-				foreach ( $messages as $message ) {
-					$message_row_html .= sprintf(
-						'<div class="update-message notice inline notice-warning notice-alt">%s</div>',
-						$message
-					);
-				}
-
-				$message_row_html .= '</td></tr>';
-
-				$this->plugin_notice = array(
-					'slug' => $this->plugin_file,
-					'message_row_html' => $message_row_html,
-				);
-
-				add_filter( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
+			if ( empty( $messages ) ) {
+				return;
 			}
+
+			$message_row_html = '<tr class="plugin-update-tr active"><td colspan="3" class="plugin-update">';
+
+			foreach ( $messages as $message ) {
+				$message_row_html .= sprintf(
+					'<div class="update-message notice inline notice-warning notice-alt">%s</div>',
+					$message
+				);
+			}
+
+			$message_row_html .= '</td></tr>';
+
+			$this->plugin_notice = array(
+				'slug' => $this->plugin_file,
+				'message_row_html' => $message_row_html,
+			);
+
+			add_filter( 'tribe_plugin_notices', array( $this, 'add_notice_to_plugin_notices' ) );
 
 		}
 
