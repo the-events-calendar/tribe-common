@@ -627,7 +627,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$theme = wp_get_theme();
 
 			$current_offset = (int) get_option( 'gmt_offset', 0 );
-			$timezone       = get_option( 'timezone_string' );
+			$tzstring       = get_option( 'timezone_string' );
 
 			// Remove old Etc mappings. Fallback to gmt_offset.
 			if ( false !== strpos( $tzstring, 'Etc/GMT' ) ) {
