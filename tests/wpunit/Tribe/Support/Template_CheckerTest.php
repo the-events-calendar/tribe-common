@@ -1,13 +1,18 @@
 <?php
-class Tribe__Template_Checker_Test extends Codeception\TestCase\WPTestCase {
-	/** @var Tribe__Support__Template_Checker */
+namespace Tribe\Support;
+
+use Codeception\TestCase\WPTestCase;
+use Tribe__Support__Template_Checker as Template_Checker;
+
+class Template_CheckerTest extends WPTestCase {
+	/** @var \Tribe__Support__Template_Checker */
 	protected $template_checker;
 
 	public function setUp() {
 		parent::setUp();
-		$test_data_dir = dirname( __DIR__ ) . '/_data';
+		$test_data_dir = codecept_data_dir();
 
-		$this->template_checker = new Tribe__Support__Template_Checker(
+		$this->template_checker = new Template_Checker(
 			'2.1',
 			$test_data_dir . '/plugin-views',
 			$test_data_dir . '/theme-views'

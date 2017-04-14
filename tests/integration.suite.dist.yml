@@ -1,7 +1,13 @@
-class_name: WpunitTester
+# Codeception Test Suite Configuration
+
+# Suite for WordPress functional tests.
+# Emulate web requests and make the WordPress application process them.
+
+
+class_name: IntegrationTester
 modules:
     enabled:
-        - \Helper\Wpunit
+        - \Helper\Integration
         - WPLoader:
             wpRootFolder: ~/www/wordpress
             dbName: tec-tests

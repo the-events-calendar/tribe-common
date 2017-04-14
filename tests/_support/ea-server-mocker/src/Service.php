@@ -54,7 +54,7 @@ class Tribe__Events__Aggregator_Mocker__Service
      *
      * @return stdClass|WP_Error
      */
-    public function get_import($import_id)
+	public function get_import( $import_id, $data = array() )
     {
         $mocked_response = get_option('ea_mocker-import-mock_response');
         if (!empty($mocked_response)) {

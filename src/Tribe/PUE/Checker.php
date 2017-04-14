@@ -466,6 +466,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				),
 			);
 
+			$no_license_tooltip = esc_html__( 'A valid license key is required for support and updates', 'tribe-common' );
+			if ( 'event-aggregator' === $this->get_slug() ) {
+				$no_license_tooltip = sprintf(
+					esc_html__( '%1$sBuy a license%2$s for the Event Aggregator service to access additional import features.', 'tribe-common' ),
+					'<a href="https://m.tri.be/196y" target="_blank">',
+					'</a>'
+				);
+			}
+
 			// we want to inject the following license settings at the end of the licenses tab
 			if ( $this->should_show_network_editable_license() ) {
 				$to_insert[ $this->pue_install_key ] = array(
@@ -473,9 +482,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'size'            => 'large',
 					'validation_type' => 'license_key',
 					'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
-					'tooltip'         => esc_html__(
-						'A valid license key is required for support and updates', 'tribe-common'
-					),
+					'tooltip'         => $no_license_tooltip,
 					'parent_option'   => false,
 					'network_option'  => true,
 				);
@@ -485,9 +492,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'size'            => 'large',
 					'validation_type' => 'license_key',
 					'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
-					'tooltip'         => esc_html__(
-						'A valid license key is required for support and updates', 'tribe-common'
-					),
+					'tooltip'         => $no_license_tooltip,
 					'parent_option'   => false,
 					'network_option'  => false,
 				);
@@ -516,9 +521,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'size'                => 'large',
 					'validation_type'     => 'license_key',
 					'label'               => sprintf( esc_attr__( 'Site License Key', 'tribe-common' ) ),
-					'tooltip'             => esc_html__(
-						'A valid license key is required for support and updates', 'tribe-common'
-					),
+					'tooltip'             => $no_license_tooltip,
 					'parent_option'       => false,
 					'network_option'      => false,
 					'class'               => 'tribe-dependent',
@@ -799,7 +802,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$response['status'] = 0;
 
 			if ( ! $key ) {
-				$response['message'] = sprintf( esc_html__( 'Hmmm... something\'s wrong with this validator. Please contact %ssupport%s.', 'tribe-common' ), '<a href="http://m.tri.be/1u">', '</a>' );
+				$response['message'] = sprintf( esc_html__( 'Hmmm... something\'s wrong with this validator. Please contact %ssupport%s.', 'tribe-common' ), '<a href="https://m.tri.be/1u">', '</a>' );
 				return $response;
 			}
 
@@ -869,7 +872,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		public function get_license_expired_message() {
-			return '<a href="http://m.tri.be/195y" target="_blank" class="button button-primary">' .
+			return '<a href="https://m.tri.be/195y" target="_blank" class="button button-primary">' .
 				__( 'Renew Your License Now', 'tribe-common' ) .
 				'<span class="screen-reader-text">' .
 				__( ' (opens in a new window)', 'tribe-common' ) .
