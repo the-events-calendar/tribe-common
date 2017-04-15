@@ -302,8 +302,27 @@ var tribe_dropdowns = tribe_dropdowns || {};
 				dataType: 'json',
 				type: 'POST',
 				url: window.ajaxurl,
-				results: function ( data ) { // parse the results into the format expected by Select2.
-					return data.data;
+				results: function ( response ) { // parse the results into the format expected by Select2.
+					if ( ! $.isPlainObject( response ) || 'undefined' === typeof response.success ) {
+						console.error( 'We received a malformed Object, could not complete the Select2 Search.' );
+						return { results: [] };
+					}
+
+					if ( ! $.isPlainObject( response.data ) || 'undefined' === typeof response.data.results ) {
+						console.error( 'We received a malformet results array, could not complete the Select2 Search.' );
+						return { results: [] };
+					}
+
+					if ( ! response.success ) {
+						if ( 'string' === jQuery.type( response.data.message ) ) {
+							console.error( response.data.message )
+						} else {
+							console.error( 'The Select2 search failed in some way... Verify the source.' );
+						}
+						return { results: [] };
+					}
+
+					return response.data;
 				}
 			};
 
