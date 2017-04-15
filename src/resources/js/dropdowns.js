@@ -270,7 +270,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		}
 
 		// Select also allows Tags, so we go with that too
-		if ( $select.is( '[data-tags]' ) ){
+		if ( $select.is( '[data-tags]' ) ) {
 			args.tags = $select.data( 'tags' );
 
 			args.initSelection = obj.init_selection;
@@ -281,8 +281,8 @@ var tribe_dropdowns = tribe_dropdowns || {};
 				}
 			};
 
-			if ( 0 === args.tags.length ){
-				args.formatNoMatches = function(){
+			if ( 0 === args.tags.length ) {
+				args.formatNoMatches = function() {
 					return $select.attr( 'placeholder' );
 				};
 			}
@@ -310,9 +310,11 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			// By default only send the source
 			args.ajax.data = function( search, page ) {
 				return {
-					action: 'tribe_dropdown_' + source,
+					action: 'tribe_dropdown',
+					source: source,
 					search: search,
 					page: page,
+					args: $select.data( 'source-args' ),
 				};
 			};
 		}
@@ -340,11 +342,11 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		var $select = $( this ),
 			data = $( this ).data( 'value' );
 
-		if ( ! $select.is( '[multiple]' ) ){
+		if ( ! $select.is( '[multiple]' ) ) {
 			return;
 		}
 
-		if ( ! $select.is( '[data-source]' ) ){
+		if ( ! $select.is( '[data-source]' ) ) {
 			return;
 		}
 
@@ -370,7 +372,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		// Remove the Search
 		if ( $select.is( '[data-sticky-search]' ) && $select.is( '[data-last-search]' )  ) {
-			$select.removeAttr( 'data-last-search' ).removeData( 'lastSeach' );
+			$select.removeAttr( 'data-last-search' ).removeData( 'lastSearch' );
 		}
 	};
 
@@ -389,17 +391,17 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			$search = $( '.select2-input:visible' );
 
 		// If we have a placeholder for search, apply it!
-		if ( $select.is( '[data-search-placeholder]' ) ){
+		if ( $select.is( '[data-search-placeholder]' ) ) {
 			$search.attr( 'placeholder', $select.data( 'searchPlaceholder' ) );
 		}
 
 		// If we had a value we apply it again
-		if ( $select.is( '[data-sticky-search]' ) ){
-			$search.on( 'keyup-change.tribe', function(){
+		if ( $select.is( '[data-sticky-search]' ) ) {
+			$search.on( 'keyup-change.tribe', function() {
 				$select.data( 'lastSearch', $( this ).val() ).attr( 'data-last-search', $( this ).val() );
 			} );
 
-			if ( $select.is( '[data-last-search]' ) ){
+			if ( $select.is( '[data-last-search]' ) ) {
 				$search.val( $select.data( 'lastSearch' ) ).trigger( 'keyup-change' );
 			}
 		}
