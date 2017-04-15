@@ -310,8 +310,9 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			// By default only send the source
 			args.ajax.data = function( search, page ) {
 				return {
-					// @todo remove aggregator reference
-					action: 'tribe_aggregator_dropdown_' + source,
+					action: 'tribe_dropdown_' + source,
+					search: search,
+					page: page,
 				};
 			};
 		}
