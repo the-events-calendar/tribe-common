@@ -50,6 +50,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private $slug = '';
 
 		/**
+		 * Current domain.
+		 *
+		 * @var string
+		 */
+		private static $domain = '';
+
+		/**
 		 * Used to hold the query variables for download checks
 		 *
 		 * @var array
@@ -419,6 +426,26 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			return apply_filters( 'pue_get_validate_query', $this->validate_query, $this->get_slug() );
+		}
+
+		/**
+		 * Get current domain
+		 *
+		 * @return string
+		 */
+		public function get_domain() {
+
+			if ( empty( self::$domain ) ) {
+				$domain = $_SERVER['SERVER_NAME'];
+
+				if ( is_multisite() ) {
+					// For multisite, return the network-level siteurl
+					$domain = $this->get_network_domain();
+				}
+			}
+
+			return self::$domain;
+
 		}
 
 
