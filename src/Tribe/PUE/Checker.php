@@ -591,7 +591,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						var <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key = jQuery(this_id + ' input').val().replace(/^\s+|\s+$/g, "");
 						jQuery(this_id + ' input').val(<?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key);
 
-						var data = { action: 'pue-validate-key_<?php echo esc_attr( $this->get_slug() ); ?>', key: <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key };
+						var data = {
+							action: 'pue-validate-key_<?php echo esc_attr( $this->get_slug() ); ?>',
+							key: <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key
+							_wpnonce: '<?php echo esc_attr( wp_create_nonce( 'pue-validate-key_' . $this->get_slug() ) ); ?>'
+						};
 						jQuery.post(ajaxurl, data, function (response) {
 							var data          = jQuery.parseJSON(response);
 
@@ -904,10 +908,17 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function ajax_validate_key() {
 
-			// @todo SKC: Add nonce check
-			$key = isset( $_POST['key'] ) ? wp_unslash( $_POST['key'] ) : null;
+			$key   = isset( $_POST['key'] ) ? wp_unslash( $_POST['key'] ) : null;
+			$nonce = isset( $_POST['_wpnonce'] ) ? wp_unslash( $_POST['_wpnonce'] ) : null;
 
-			$response = $this->validate_key( $key );
+			if ( empty( $nonce ) || false === wp_verify_nonce( $nonce, 'wp_ajax_pue-validate-key_' . $this->get_slug() ) ) {
+				$response = array(
+					'status'  => 0,
+					'message' => __( 'Please refresh the page and try your request again.', 'tribe-common'),
+				);
+			} else {
+				$response = $this->validate_key( $key );
+			}
 
 			echo json_encode( $response );
 			exit;
@@ -1187,7 +1198,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// and transforms the result accordingly.
 			$query_args = $this->get_validate_query();
 
-			// @todo SKC: Add nonce check for confirming interaction with $_POST
 			if ( ! empty( $_POST['key'] ) ) {
 				$query_args['key'] = sanitize_text_field( $_POST['key'] );
 			} elseif ( ! empty( $_POST[ $this->pue_install_key ] ) ) {
@@ -1323,12 +1333,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->update_state( $state );
 
 			return $updates;
-		}
-
-		public function handle_updates( $force_check = false ) {
-
-			// @todo handle which key we're checking with
-
 		}
 
 		/**
