@@ -227,9 +227,19 @@ class Tribe__PUE__Notices {
 			$plugin_names
 		);
 
-		$action_steps = $this->find_your_key_text();
+		/**
+		 * Filters the actions that can be taken if an invalid key is present
+		 *
+		 * @param string $actions Actions
+		 * @param array $plugin_names Plugin names the message applies to
+		 */
+		$action_steps = apply_filters( 'tribe_notice_invalid_key_actions', $this->find_your_key_text(), $plugin_names );
 
-		$this->render_notice( 'pue_key-' . self::INVALID_KEY, "<p>$prompt</p> <p>$action_steps</p>" );
+		if ( $action_steps ) {
+			$action_steps = "<p>{$action_steps}</p>';
+		}
+
+		$this->render_notice( 'pue_key-' . self::INVALID_KEY, "<p>{$prompt}</p> {$action_steps}" );
 	}
 
 	/**
