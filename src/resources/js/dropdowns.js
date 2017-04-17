@@ -298,14 +298,6 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			// Allows HTML from Select2 AJAX calls
 			args.escapeMarkup = obj.allow_html_markup;
 
-			args.formatResult = function( item ) {
-				if ( 'number' === jQuery.type( item.pad ) ) {
-					item.text = '&#8212;'.repeat( item.pad ) + ' ' + item.text;
-				}
-				return item.text;
-			};
-
-
 			args.ajax = { // instead of writing the function to execute the request we use Select2's convenient helper
 				dataType: 'json',
 				type: 'POST',
@@ -415,7 +407,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 	obj.action_select2_open = function( event ) {
 		var $select = $( this ),
-			$search = $( '.select2-input:visible' );
+			$search = $( '.select2-drop .select2-input:visible' );
 
 		// If we have a placeholder for search, apply it!
 		if ( $select.is( '[data-search-placeholder]' ) ) {

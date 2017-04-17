@@ -1132,6 +1132,9 @@ a.tribe-rating-link {
 
 .tribe-ea-dropdown,
 .tribe-dropdown {
+	width: auto;
+	max-width: 100%;
+
 	&.select2-container-active {
 		.select2-choice {
 			border-color: #5897fb;
@@ -1151,6 +1154,10 @@ a.tribe-rating-link {
 		background-image: none;
 		border: 1px solid #ccc;
 		border-radius: 3px;
+
+		> .select2-chosen {
+			white-space: normal;
+		}
 
 		.select2-arrow {
 			background: transparent;
