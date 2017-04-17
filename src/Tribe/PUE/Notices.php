@@ -236,7 +236,7 @@ class Tribe__PUE__Notices {
 		$action_steps = apply_filters( 'tribe_notice_invalid_key_actions', $this->find_your_key_text(), $plugin_names );
 
 		if ( $action_steps ) {
-			$action_steps = "<p>{$action_steps}</p>';
+			$action_steps = "<p>{$action_steps}</p>";
 		}
 
 		$this->render_notice( 'pue_key-' . self::INVALID_KEY, "<p>{$prompt}</p> {$action_steps}" );
