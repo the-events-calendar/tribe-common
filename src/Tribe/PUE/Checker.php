@@ -674,7 +674,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'stylesheet' => sanitize_text_field( $theme->get_stylesheet() ),
 					'template'   => sanitize_text_field( $theme->get_template() ),
 				),
-				'domain'        => sanitize_text_field( $_SERVER['SERVER_NAME'] ),
 				'network'       => array(
 					'multisite'         => 0,
 					'network_activated' => 0,
@@ -700,8 +699,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						AND `deleted` = '0'
 				";
 
-				// For multisite, return the network-level siteurl
-				$stats['domain']            = sanitize_text_field( $this->get_network_domain() );
 				$stats['multisite']         = 1;
 				$stats['network_activated'] = (int) $this->is_plugin_active_for_network();
 				$stats['active_sites']      = (int) $wpdb->get_var( $sql_count );
