@@ -914,7 +914,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( empty( $nonce ) || false === wp_verify_nonce( $nonce, 'wp_ajax_pue-validate-key_' . $this->get_slug() ) ) {
 				$response = array(
 					'status'  => 0,
-					'message' => __( 'Please refresh the page and try your request again.', 'tribe-common'),
+					'message' => __( 'Please refresh the page and try your request again.', 'tribe-common' ),
 				);
 			} else {
 				$response = $this->validate_key( $key );
