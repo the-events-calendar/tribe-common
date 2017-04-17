@@ -572,12 +572,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					} );
 
 					$('#tribe-field-<?php echo esc_attr( $this->pue_install_key ); ?>').change(function () {
-						<?php echo esc_js( $this->pue_install_key ); ?>_validateKey();
+						<?php echo sanitize_html_class( $this->pue_install_key ); ?>_validateKey();
 					});
-					<?php echo esc_js( $this->pue_install_key ); ?>_validateKey();
+					<?php echo sanitize_html_class( $this->pue_install_key ); ?>_validateKey();
 				});
 
-				function <?php echo esc_js( $this->pue_install_key ); ?>_validateKey() {
+				function <?php echo sanitize_html_class( $this->pue_install_key ); ?>_validateKey() {
 					var this_id       = '#tribe-field-<?php echo esc_attr( $this->pue_install_key ); ?>';
 					var $validity_msg = jQuery(this_id + ' .key-validity');
 
@@ -588,10 +588,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						$validity_msg.hide();
 
 						// Strip whitespace from key
-						var <?php echo esc_js( $this->pue_install_key ); ?>_license_key = jQuery(this_id + ' input').val().replace(/^\s+|\s+$/g, "");
-						jQuery(this_id + ' input').val(<?php echo esc_js( $this->pue_install_key ); ?>_license_key);
+						var <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key = jQuery(this_id + ' input').val().replace(/^\s+|\s+$/g, "");
+						jQuery(this_id + ' input').val(<?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key);
 
-						var data = { action: 'pue-validate-key_<?php echo esc_attr( $this->get_slug() ); ?>', key: <?php echo esc_js( $this->pue_install_key ); ?>_license_key };
+						var data = { action: 'pue-validate-key_<?php echo esc_attr( $this->get_slug() ); ?>', key: <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key };
 						jQuery.post(ajaxurl, data, function (response) {
 							var data          = jQuery.parseJSON(response);
 
