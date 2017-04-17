@@ -357,6 +357,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( ! empty( $install_key ) ) {
 				// @todo key
 				$this->download_query['pu_install_key'] = $install_key;
+
+				$this->download_query['dk'] = $this->get_key( 'default' );
+				$this->download_query['o']  = $this->get_key( 'any', 'origin' );
 			}
 
 		}
@@ -387,30 +390,25 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return;
 			}
 
-			// @todo Update parameters with new ones
-
-			// checking for updates query flag
-			$this->validate_query['pu_checking_for_updates'] = 1;
-
-			// plugin slug
-			$this->validate_query['pu_request_plugin'] = $this->get_slug();
-			//$this->validate_query['plugin'] = $this->get_slug();
-
-			// include current version
-			$version = $this->get_installed_version();
-			if ( $version ) {
-				$this->validate_query['installed_version']  = $version;
-				$this->validate_query['pue_active_version'] = $version;
-			}
-
 			// the following is for install key inclusion (will apply later with PUE addons.)
-			$this->validate_query['pu_install_key'] = sanitize_text_field( $this->get_key() );
-			//$this->validate_query['key'] = sanitize_text_field( $this->get_key() );
+			$this->validate_query['key'] = sanitize_text_field( $this->get_key() );
 
 			// include default key
-			$this->validate_query['pu_default_install_key'] = sanitize_text_field( $this->get_key( 'default' ) );
-			//$this->validate_query['pu_default_install_key'] = sanitize_text_field( $this->get_key( 'default' ) );
+			$this->validate_query['default_key'] = sanitize_text_field( $this->get_key( 'default' ) );
 
+			// include license origin
+			$this->validate_query['license_origin'] = sanitize_text_field( $this->get_key( 'any', 'origin' ) );
+
+			// plugin slug
+			$this->validate_query['plugin'] = sanitize_text_field( $this->get_slug() );
+
+			// include current version
+			$this->validate_query['version'] = sanitize_text_field( $this->get_installed_version() );
+
+			// include current domain
+			$this->validate_query['domain'] = sanitize_text_field( $this->get_domain() );
+
+			// include plugin stats
 			$this->validate_query['stats'] = $this->get_stats();
 
 		}
@@ -716,6 +714,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				'event_categories' => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->term_taxonomy}` WHERE taxonomy = %s", 'tribe_events_cat' ) ),
 			);
 
+			self::$stats = $stats;
+
 			return $stats;
 
 		}
@@ -750,13 +750,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Get current license key, optionally of a specific type.
 		 *
-		 * @param string $type The type of key to get (any, network, local, default)
+		 * @param string $type        The type of key to get (any, network, local, default)
+		 * @param string $return_type The type of data to return (key, origin)
 		 *
 		 * @return string
 		 */
-		public function get_key( $type = 'any' ) {
+		public function get_key( $type = 'any', $return_type = 'key' ) {
 
-			$license_key = '';
+			$license_key    = '';
+			$license_origin = 'm';
 
 			if ( ( 'network' === $type || 'any' === $type ) && is_multisite() ) {
 				$license_key = get_network_option( null, $this->pue_install_key, '' );
@@ -776,8 +778,22 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 					if ( ! empty( $class_name::DATA ) ) {
 						$license_key = $class_name::DATA;
+
+						$license_origin = 'e';
 					}
 				}
+			}
+
+			if ( 'origin' === $return_type ) {
+				if ( 'm' === $license_origin ) {
+					$default_key = $this->get_key( 'default' );
+
+					if ( $license_key !== $default_key ) {
+						$license_origin = 'o';
+					}
+				}
+
+				return $license_origin;
 			}
 
 			return $license_key;
@@ -819,7 +835,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$query_args = $this->get_validate_query();
 
-			$query_args['pu_install_key'] = sanitize_text_field( $key );
+			$query_args['key'] = sanitize_text_field( $key );
 
 			// This method is primarily used during when validating keys by ajax, before they are
 			// formally committed or saved by the user: for that reason we call request_info()
@@ -851,11 +867,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 				$current_install_key = $this->get_key( $key_type );
 
-				if ( $current_install_key && $current_install_key === $query_args['pu_install_key'] ) {
+				if ( $current_install_key && $current_install_key === $query_args['key'] ) {
 					$default_success_msg = esc_html( sprintf( __( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration ) );
 				} else {
 					// Set the key
-					$this->update_key( $query_args['pu_install_key'], $key_type );
+					$this->update_key( $query_args['key'], $key_type );
 
 					$default_success_msg = esc_html( sprintf( __( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ), $expiration ) );
 
@@ -1180,9 +1196,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// @todo SKC: Add nonce check for confirming interaction with $_POST
 			if ( ! empty( $_POST['key'] ) ) {
-				$query_args['pu_install_key'] = sanitize_text_field( $_POST['key'] );
+				$query_args['key'] = sanitize_text_field( $_POST['key'] );
 			} elseif ( ! empty( $_POST[ $this->pue_install_key ] ) ) {
-				$query_args['pu_install_key'] = sanitize_text_field( $_POST[ $this->pue_install_key ] );
+				$query_args['key'] = sanitize_text_field( $_POST[ $this->pue_install_key ] );
 			}
 
 			$this->plugin_info = $plugin_info = $this->license_key_status( $query_args );
@@ -1203,8 +1219,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			//need to correct the download url so it contains the custom user data (i.e. api and any other paramaters)
-
 			$download_query = $this->get_download_query();
+
 			if ( ! empty( $download_query ) ) {
 				$plugin_info->download_url = esc_url_raw( add_query_arg( $download_query, $plugin_info->download_url ) );
 			}
@@ -1362,7 +1378,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$query_args = $this->get_validate_query();
 
-			$query_args['pu_install_key'] = sanitize_text_field( $value );
+			$query_args['key'] = sanitize_text_field( $value );
 
 			$this->license_key_status( $query_args );
 
