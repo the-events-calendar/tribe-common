@@ -298,18 +298,26 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			// Allows HTML from Select2 AJAX calls
 			args.escapeMarkup = obj.allow_html_markup;
 
+			args.formatResult = function( item ) {
+				if ( 'number' === jQuery.type( item.pad ) ) {
+					item.text = '&#8212;'.repeat( item.pad ) + ' ' + item.text;
+				}
+				return item.text;
+			};
+
+
 			args.ajax = { // instead of writing the function to execute the request we use Select2's convenient helper
 				dataType: 'json',
 				type: 'POST',
 				url: window.ajaxurl,
-				results: function ( response ) { // parse the results into the format expected by Select2.
+				results: function ( response, page, query ) { // parse the results into the format expected by Select2.
 					if ( ! $.isPlainObject( response ) || 'undefined' === typeof response.success ) {
 						console.error( 'We received a malformed Object, could not complete the Select2 Search.' );
 						return { results: [] };
 					}
 
 					if ( ! $.isPlainObject( response.data ) || 'undefined' === typeof response.data.results ) {
-						console.error( 'We received a malformet results array, could not complete the Select2 Search.' );
+						console.error( 'We received a malformed results array, could not complete the Select2 Search.' );
 						return { results: [] };
 					}
 

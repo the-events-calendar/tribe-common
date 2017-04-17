@@ -1200,7 +1200,36 @@ a.tribe-rating-link {
 }
 
 .select2-results {
+
+	.select2-selected {
+		display: block;
+
+		> .select2-result-label {
+			background-color: #efefef;
+			cursor: default;
+			color: #a1a1a1;
+		}
+	}
+
 	li.select2-result-with-children {
+		> .select2-result-label {
+			font-weight: normal;
+		}
+
+		&.select2-selected {
+			display: block;
+
+			.select2-result {
+				display: block;
+			}
+
+			> .select2-result-label {
+				background-color: #efefef;
+				cursor: default;
+				color: #a1a1a1;
+			}
+		}
+
 		&.select2-result-unselectable > .select2-result-label {
 			color: #939393;
 			font-weight: normal;
