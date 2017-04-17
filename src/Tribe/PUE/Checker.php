@@ -22,13 +22,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 	class Tribe__PUE__Checker {
 
 		/**
-		 * The URL of the plugin's metadata file.
-		 *
-		 * @var string
-		 */
-		private $pue_update_url = '';
-
-		/**
 		 * Plugin filename relative to the plugins directory.
 		 *
 		 * @var string
@@ -143,7 +136,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Class constructor.
 		 *
-		 * @param string $pue_update_url The URL of the plugin's metadata file.
+		 * @param string $pue_update_url Deprecated. The URL of the plugin's metadata file.
 		 * @param string $slug           The plugin's 'slug'.
 		 * @param array  $options {
 		 *        Contains any options that need to be set in the class initialization for construct.
@@ -160,7 +153,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function __construct( $pue_update_url, $slug = '', $options = array(), $plugin_file = '' ) {
 			$this->set_slug( $slug );
-			$this->set_pue_update_url( $pue_update_url );
 			$this->set_plugin_file( $plugin_file );
 			$this->set_options( $options );
 			$this->hooks();
@@ -228,18 +220,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string
 		 */
 		public function get_pue_update_url() {
-			return apply_filters( 'pue_get_update_url', $this->pue_update_url, $this->get_slug() );
-		}
+			$pue_update_url = 'https://pue.tri.be/';
 
-		/**
-		 * Set the PUE update URL
-		 *
-		 * This can be overridden using the global constant 'PUE_UPDATE_URL'
-		 *
-		 * @param string $pue_update_url
-		 */
-		private function set_pue_update_url( $pue_update_url ) {
-			$this->pue_update_url = ( defined( 'PUE_UPDATE_URL' ) ) ? trailingslashit( PUE_UPDATE_URL ) : trailingslashit( $pue_update_url );
+			if ( defined( 'PUE_UPDATE_URL' ) ) {
+				$pue_update_url = trailingslashit( PUE_UPDATE_URL );
+			}
+
+			return apply_filters( 'pue_get_update_url', $pue_update_url, $this->get_slug() );
 		}
 
 		/**
