@@ -337,26 +337,19 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return;
 			}
 
-			// @todo Update parameters with new ones
-
-			// download query flag
-			$this->download_query['pu_get_download'] = 1;
-
 			// plugin slug
-			$this->download_query['pu_request_plugin'] = $this->get_slug();
+			$this->download_query['plugin'] = $this->get_slug();
 
 			// include current version
 			if ( $version = $this->get_installed_version() ) {
-				// @todo installed_version
-				$this->download_query['pue_active_version'] = $version;
+				$this->download_query['installed_version'] = $version;
 			}
 
 			// the following is for install key inclusion (will apply later with PUE addons.)
 			$install_key = $this->get_key();
 
 			if ( ! empty( $install_key ) ) {
-				// @todo key
-				$this->download_query['pu_install_key'] = $install_key;
+				$this->download_query['key'] = $install_key;
 
 				$this->download_query['dk'] = $this->get_key( 'default' );
 				$this->download_query['o']  = $this->get_key( 'any', 'origin' );
@@ -702,12 +695,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$stats['active_sites']      = (int) $wpdb->get_var( $sql_count );
 			}
 
-			// @todo Store general static $stats
-
 			$stats['totals'] = array(
 				'all_post_types'   => (int) $wpdb->get_var( "SELECT COUNT(*) FROM `{$wpdb->posts}`" ),
-
-				// @todo Filter this in Events plugin and add it there instead
 				'events'           => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_events' ) ),
 				'venues'           => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_venue' ) ),
 				'organizers'       => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_organizer' ) ),
