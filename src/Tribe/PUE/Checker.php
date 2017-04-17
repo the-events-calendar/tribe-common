@@ -426,16 +426,20 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		public function get_domain() {
 
-			if ( empty( self::$domain ) ) {
+			$domain = self::$domain;
+
+			if ( empty( $domain ) ) {
 				$domain = $_SERVER['SERVER_NAME'];
 
 				if ( is_multisite() ) {
 					// For multisite, return the network-level siteurl
 					$domain = $this->get_network_domain();
 				}
+
+				self::$domain = $domain;
 			}
 
-			return self::$domain;
+			return $domain;
 
 		}
 
