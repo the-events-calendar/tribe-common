@@ -1107,8 +1107,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function request_info( $query_args = array() ) {
 			$query_args = apply_filters( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $query_args );
 
+			// Sort parameter keys
+			ksort( $query_args );
+
 			//Various options for the wp_remote_get() call. Plugins can filter these, too.
 			$options = array(
+				'body'    => $query_args,
 				'timeout' => 15, //seconds
 				'headers' => array(
 					'Accept' => 'application/json',
@@ -1116,24 +1120,27 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			);
 			$options = apply_filters( 'tribe_puc_request_info_options-' . $this->get_slug(), $options );
 
-			$url = $this->get_pue_update_url();
-			if ( ! empty( $query_args ) ) {
-				$url = esc_url_raw( add_query_arg( $query_args, $url ) );
-			}
+			$url = sprintf( '%s/api/plugins/v2/license/validate', $this->get_pue_update_url() );
 
 			// Cache the API call so it only needs to be made once per plugin per page load.
 			static $plugin_info_cache;
-			$key = crc32( implode( '', $query_args ) );
+
+			// Flatten hashed data
+			$hash_data = json_encode( $query_args );
+
+			// Generate unique hash
+			$key = hash( 'sha256', $hash_data );
+
 			if ( isset( $plugin_info_cache[ $key ] ) ) {
 				return $plugin_info_cache[ $key ];
 			}
 
-			$result = wp_remote_get(
+			$result = wp_remote_post(
 				$url,
 				$options
 			);
 
-			//Try to parse the response
+			// Try to parse the response
 			$plugin_info = null;
 			if ( ! is_wp_error( $result ) && isset( $result['response']['code'] ) && ( 200 === (int) $result['response']['code'] ) && ! empty( $result['body'] ) ) {
 				$plugin_info = Tribe__PUE__Plugin_Info::from_json( $result['body'] );
