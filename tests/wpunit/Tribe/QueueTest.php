@@ -258,6 +258,38 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should start works immediately when using the start_work method
+	 *
+	 * @test
+	 */
+	public function start_works_immediately_when_using_the_start_work_method() {
+		$sut = $this->make_instance();
+
+		$targets = [ 'a', 'b', 'c', 'd' ];
+		$work = $sut->start_work( $targets, [ __CLASS__, 'callback_one' ] );
+		$work_id = $work->get_id();
+
+		$list = $sut->get_work_list( false );
+		$this->assertArrayHasKey( $work_id, $list );
+		$this->assertEmpty( $work->get_remaining() );
+	}
+
+	/**
+	 * It should process specified number of targets when using the start_work method
+	 *
+	 * @test
+	 */
+	public function process_specified_number_of_targets_when_using_the_start_work_method() {
+		$sut = $this->make_instance();
+
+		$targets = [ 'a', 'b', 'c', 'd' ];
+		$work = $sut->start_work( $targets, [ __CLASS__, 'callback_four' ], null, 2 );
+
+		$this->assertCount( 2, get_option( '__callback_four_processed' ) );
+		$this->assertCount( 2, $work->get_remaining() );
+	}
+
+	/**
 	 * @return Queue
 	 */
 	private function make_instance() {
@@ -274,5 +306,16 @@ class QueueTest extends \Codeception\TestCase\WPTestCase {
 
 	public function callback_three() {
 		throw new \RuntimeException();
+	}
+
+	public function callback_four($target){
+		$option = '__callback_four_processed';
+		$stored = get_option( $option );
+
+		$stored = empty( $stored ) ? [ $target ] : array_merge( $stored, [ $target ] );
+
+		update_option( $option, $stored );
+
+		return true;
 	}
 }
