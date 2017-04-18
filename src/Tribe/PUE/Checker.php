@@ -227,13 +227,17 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string
 		 */
 		public function get_pue_update_url() {
-			$pue_update_url = 'https://pue.tri.be/';
+			$pue_update_url = 'https://pue.tri.be';
 
 			if ( defined( 'PUE_UPDATE_URL' ) ) {
-				$pue_update_url = trailingslashit( PUE_UPDATE_URL );
+				$pue_update_url = PUE_UPDATE_URL;
 			}
 
-			return apply_filters( 'pue_get_update_url', $pue_update_url, $this->get_slug() );
+			$pue_update_url = apply_filters( 'pue_get_update_url', $pue_update_url, $this->get_slug() );
+
+			$pue_update_url = untrailingslashit( $pue_update_url );
+
+			return $pue_update_url;
 		}
 
 		/**
@@ -911,7 +915,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$key   = isset( $_POST['key'] ) ? wp_unslash( $_POST['key'] ) : null;
 			$nonce = isset( $_POST['_wpnonce'] ) ? wp_unslash( $_POST['_wpnonce'] ) : null;
 
-			if ( empty( $nonce ) || false === wp_verify_nonce( $nonce, 'wp_ajax_pue-validate-key_' . $this->get_slug() ) ) {
+			if ( empty( $nonce ) || false === wp_verify_nonce( $nonce, 'pue-validate-key_' . $this->get_slug() ) ) {
 				$response = array(
 					'status'  => 0,
 					'message' => __( 'Please refresh the page and try your request again.', 'tribe-common' ),
@@ -947,7 +951,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$message = str_replace( '%plugin_name%', $this->get_plugin_name(), $message );
 			$message = str_replace( '%plugin_slug%', $this->get_slug(), $message );
-			$message = str_replace( '%update_url%', $this->get_pue_update_url(), $message );
+			$message = str_replace( '%update_url%', $this->get_pue_update_url() . '/', $message );
 			$message = str_replace( '%version%', $info->version, $message );
 			$message = str_replace( '%changelog%', '<a class="thickbox" title="' . $this->get_plugin_name() . '" href="plugin-install.php?tab=plugin-information&plugin=' . $this->get_slug() . '&TB_iframe=true&width=640&height=808">what\'s new</a>', $message );
 
@@ -1127,8 +1131,23 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function request_info( $query_args = array() ) {
 			$query_args = apply_filters( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $query_args );
 
+			// Cache the API call so it only needs to be made once per plugin per page load.
+			static $plugin_info_cache;
+
 			// Sort parameter keys
-			ksort( $query_args );
+			$hash_data = $query_args;
+
+			ksort( $hash_data );
+
+			// Flatten hashed data
+			$hash_data = json_encode( $hash_data );
+
+			// Generate unique hash
+			$key = hash( 'sha256', $hash_data );
+
+			if ( isset( $plugin_info_cache[ $key ] ) ) {
+				return $plugin_info_cache[ $key ];
+			}
 
 			//Various options for the wp_remote_get() call. Plugins can filter these, too.
 			$options = array(
@@ -1141,19 +1160,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$options = apply_filters( 'tribe_puc_request_info_options-' . $this->get_slug(), $options );
 
 			$url = sprintf( '%s/api/plugins/v2/license/validate', $this->get_pue_update_url() );
-
-			// Cache the API call so it only needs to be made once per plugin per page load.
-			static $plugin_info_cache;
-
-			// Flatten hashed data
-			$hash_data = json_encode( $query_args );
-
-			// Generate unique hash
-			$key = hash( 'sha256', $hash_data );
-
-			if ( isset( $plugin_info_cache[ $key ] ) ) {
-				return $plugin_info_cache[ $key ];
-			}
 
 			$result = wp_remote_post(
 				$url,
