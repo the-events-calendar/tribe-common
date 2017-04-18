@@ -4,6 +4,36 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.4] - 2017-02-22
+### Fixed
+- allow unbound classes with `__construct` method requirements to be used in `instance` callbacks
+
+## [2.0.3] - 2017-02-07
+### Fixed
+- support for use of `callback` to feed `instance` and viceversa
+
+## [2.0.2] - 2017-02-02
+### Fixed
+- support for built objects in `instance` and `callback` methods
+
+## [2.0.1] - 2017-01-23
+### Fixed
+- an issue where re-binding implementations could lead to built objects still using previous bindings
+
+#### Changed
+- removed some dead code left over from previous iterations
+
+## [2.0.0] - 2017-01-21
+### Added
+- `instance` and `callback` methods
+
+### Changed
+- refactored the code completely
+- the README file to update it to the new code
+
+### Removed
+- support for array based construction instructions (see `instance` methods)
+
 ## [1.4.5] - 2017-01-19
 ### Fixed
 - an issue where singleton resolution would result in circular reference on some Windows versions (thanks @bordoni)
@@ -107,7 +137,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - array resolution support for the Array Access API.
 - the changelog.
 
-[Unreleased]: https://github.com/lucatume/di52/compare/1.4.3...HEAD
+[Unreleased]: https://github.com/lucatume/di52/compare/2.0.4...HEAD
+[2.0.4]: https://github.com/lucatume/di52/compare/2.0.3...2.0.4
+[2.0.3]: https://github.com/lucatume/di52/compare/2.0.2...2.0.3
+[2.0.2]: https://github.com/lucatume/di52/compare/2.0.1...2.0.2
+[2.0.1]: https://github.com/lucatume/di52/compare/2.0.0...2.0.1
+[2.0.0]: https://github.com/lucatume/di52/compare/1.4.5...2.0.0
+[1.4.5]: https://github.com/lucatume/di52/compare/1.4.4...1.4.5
+[1.4.4]: https://github.com/lucatume/di52/compare/1.4.3...1.4.4
 [1.4.3]: https://github.com/lucatume/di52/compare/1.4.2...1.4.3
 [1.4.2]: https://github.com/lucatume/di52/compare/1.4.1b...1.4.2
 [1.4.1b]: https://github.com/lucatume/di52/compare/1.4.1...1.4.1b
