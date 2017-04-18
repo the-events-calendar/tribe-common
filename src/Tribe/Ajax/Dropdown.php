@@ -22,12 +22,18 @@ class Tribe__Ajax__Dropdown {
 		$args['fields'] = 'all';
 		$args['get'] = 'all';
 
+		if ( ! empty( $search ) ) {
+			$args['search'] = $search;
+		}
+
 		// On versions older than 4.5 taxonomy goes as an Param
 		if ( version_compare( $GLOBALS['wp_version'], '4.5', '<' ) ) {
 			$terms = get_terms( $args['taxonomy'], $args );
 		} else {
 			$terms = get_terms( $args );
 		}
+
+		// var_dump( $terms );
 
 		// $results = array();
 		// foreach ( $terms as $key => $term ) {
@@ -40,8 +46,29 @@ class Tribe__Ajax__Dropdown {
 		// }
 
 		$results = array();
-		$this->sort_terms_hierarchicaly( $terms, $results );
-		$results = $this->convert_children_to_array( $results );
+
+		if ( empty( $args['search'] ) ) {
+			$this->sort_terms_hierarchicaly( $terms, $results );
+			$results = $this->convert_children_to_array( $results );
+		} else {
+			foreach ( $terms as $term ) {
+				// Prep for Select2
+				$term->id = $term->term_id;
+				$term->text = $term->name;
+				$term->breadcrumbs = array();
+
+				if ( 0 !== (int) $term->parent ) {
+					$ancestors = get_ancestors( $term->id, $term->taxonomy );
+					$ancestors = array_reverse( $ancestors );
+					foreach ( $ancestors as $ancestor ) {
+						$ancestor = get_term( $ancestor );
+						$term->breadcrumbs[] = $ancestor->name;
+					}
+				}
+
+				$results[] = $term;
+			}
+		}
 
 		$data['results'] = $results;
 		$data['taxonomies'] = get_taxonomies();
@@ -173,10 +200,10 @@ class Tribe__Ajax__Dropdown {
 
 	public function parse_params( $params ) {
 		$defaults = array(
-			'page'   => 0,
-			'source' => null,
-			'args'   => array(),
 			'search' => null,
+			'page'   => 0,
+			'args'   => array(),
+			'source' => null,
 		);
 
 		$arguments = wp_parse_args( $params, $defaults );

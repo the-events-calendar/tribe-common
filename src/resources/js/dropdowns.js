@@ -298,6 +298,15 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			// Allows HTML from Select2 AJAX calls
 			args.escapeMarkup = obj.allow_html_markup;
 
+			// Format for Parents breadcrumbs
+			args.formatResult = function ( item, container, query ) {
+				if ( 'undefined' !== typeof item.breadcrumbs ) {
+					return $.merge( item.breadcrumbs, [ item.text ] ).join( ' &#187; ' );
+				}
+
+				return item.text;
+			};
+
 			args.ajax = { // instead of writing the function to execute the request we use Select2's convenient helper
 				dataType: 'json',
 				type: 'POST',
