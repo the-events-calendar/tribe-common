@@ -593,7 +593,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 						var data = {
 							action: 'pue-validate-key_<?php echo esc_attr( $this->get_slug() ); ?>',
-							key: <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key
+							key: <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key,
 							_wpnonce: '<?php echo esc_attr( wp_create_nonce( 'pue-validate-key_' . $this->get_slug() ) ); ?>'
 						};
 						jQuery.post(ajaxurl, data, function (response) {
