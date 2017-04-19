@@ -404,9 +404,46 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		}
 	};
 
+	/**
+	 * When a Group of Items is selected and it has an ID attached
+	 * all the child items will be hidden too because of a bug inside of select2 Core Code
+	 *
+	 * This method will be applied on `select2-loaded` to remove `select2-selected` class
+	 * from all items that were not actually selected
+	 */
+	obj.action_bugfix_group_select = function( event ) {
+		var $select = $( this ),
+			items = $select.select2( 'data' ),
+			$drop = $( '.select2-drop:visible' );
+
+		// Loop on all selected items to see which match our bug
+		$drop.find( '.select2-selected' ).each( function(  ) {
+			var $item = $( this ),
+				item = $item.data( 'select2-data' ),
+				remove = true;
+
+			// Dont mess with non-parent items
+			if ( 'undefined' === typeof item.children ) {
+				return;
+			}
+
+			// Loop on Selected items mark them as not to remove class
+			$.each( items, function( k, selected ) {
+				if ( obj.search_id( item ) == obj.search_id( selected ) ) {
+					remove = false;
+				}
+			} );
+
+			// Actually remove the class
+			if ( remove ) {
+				$item.removeClass( 'select2-selected' );
+			}
+		} );
+	};
+
 	obj.action_select2_close = function( event ) {
 		var $select = $( this ),
-			$search = $( '.select2-input.select2-focused' );
+			$search = $( '.select2-drop .select2-input.select2-focused' );
 
 		// If we had a value we apply it again
 		if ( $select.is( '[data-sticky-search]' ) ) {
@@ -433,7 +470,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 				$search.val( $select.data( 'lastSearch' ) ).trigger( 'keyup-change' );
 			}
 		}
-	}
+	};
 
 	/**
 	 * Configure the Drop Down Fields
@@ -449,6 +486,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		.on( 'select2-open', obj.action_select2_open )
 		.on( 'select2-close', obj.action_select2_close )
 		.on( 'select2-removed', obj.action_select2_removed )
+		.on( 'select2-loaded', obj.action_bugfix_group_select )
 		.on( 'change', obj.action_change );
 
 		// return to be able to chain jQuery calls
