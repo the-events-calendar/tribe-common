@@ -342,7 +342,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 					source: source,
 					search: search,
 					page: page,
-					args: $select.data( 'source-args' ),
+					args: $select.data( 'source-args' )
 				};
 			};
 		}
