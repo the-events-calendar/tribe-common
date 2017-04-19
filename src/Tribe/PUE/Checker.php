@@ -342,22 +342,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			// plugin slug
-			$this->download_query['plugin'] = $this->get_slug();
+			$this->download_query['plugin'] = sanitize_text_field( $this->get_slug() );
 
 			// include current version
-			if ( $version = $this->get_installed_version() ) {
-				$this->download_query['installed_version'] = $version;
-			}
+			$this->download_query['installed_version'] = sanitize_text_field( $this->get_installed_version() );
 
 			// the following is for install key inclusion (will apply later with PUE addons.)
-			$install_key = $this->get_key();
-
-			if ( ! empty( $install_key ) ) {
-				$this->download_query['key'] = $install_key;
-
-				$this->download_query['dk'] = $this->get_key( 'default' );
-				$this->download_query['o']  = $this->get_key( 'any', 'origin' );
-			}
+			$this->download_query['key'] = sanitize_text_field( $this->get_key() );
+			$this->download_query['dk']  = sanitize_text_field( $this->get_key( 'default' ) );
+			$this->download_query['o']   = sanitize_text_field( $this->get_key( 'any', 'origin' ) );
 
 		}
 
