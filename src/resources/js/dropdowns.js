@@ -323,7 +323,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 					}
 
 					if ( ! response.success ) {
-						if ( 'string' === jQuery.type( response.data.message ) ) {
+						if ( 'string' === $.type( response.data.message ) ) {
 							console.error( response.data.message )
 						} else {
 							console.error( 'The Select2 search failed in some way... Verify the source.' );
