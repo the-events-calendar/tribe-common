@@ -1,17 +1,36 @@
 <?php
 
 /**
- * Class Tribe__Ajax__Dropdown
- *
  * Handles common AJAX operations.
+ *
+ * @since  4.6
  */
 class Tribe__Ajax__Dropdown {
 
+	/**
+	 * Hooks the AJAX for Select2 Dropdowns
+	 *
+	 * @since  4.6
+	 *
+	 * @return void
+	 */
 	public function hook() {
 		add_action( 'wp_ajax_tribe_dropdown', array( $this, 'route' ) );
 		add_action( 'wp_ajax_nopriv_tribe_dropdown', array( $this, 'route' ) );
 	}
 
+	/**
+	 * Search for Terms using Select2
+	 *
+	 * @since  4.6
+	 *
+	 * @param  string $search Search string from Select2
+	 * @param  int    $page   When we deal with pagination
+	 * @param  array  $args   Which arguments we got from the Template
+	 * @param  string $source What source it is
+	 *
+	 * @return array
+	 */
 	public function search_terms( $search, $page, $args, $source ) {
 		$data = array();
 
@@ -64,6 +83,17 @@ class Tribe__Ajax__Dropdown {
 		return $data;
 	}
 
+	/**
+	 * Sorts Hierarchically all the Terms for Select2
+	 *
+	 * @since  4.6
+	 *
+	 * @param  array   &$terms Array of Terms from `get_terms`
+	 * @param  array   &$into  Variable where we will store the
+	 * @param  integer $parent Used for the recursion
+	 *
+	 * @return array
+	 */
 	public function sort_terms_hierarchically( &$terms, &$into, $parent = 0 ) {
 		foreach ( $terms as $i => $term ) {
 			if ( $term->parent === $parent ) {
@@ -82,6 +112,15 @@ class Tribe__Ajax__Dropdown {
 		}
 	}
 
+	/**
+	 * Makes sure we have arrays for the JS data for Select2
+	 *
+	 * @since  4.6
+	 *
+	 * @param  array  $results  The Select2
+	 *
+	 * @return array
+	 */
 	public function convert_children_to_array( $results ) {
 		if ( isset( $results->children ) ) {
 			$results->children = $this->convert_children_to_array( $results->children );
@@ -94,6 +133,14 @@ class Tribe__Ajax__Dropdown {
 		return array_values( $results );
 	}
 
+	/**
+	 * Parses the Params coming from Select2 Search box
+	 *
+	 * @since  4.6
+	 *
+	 * @param  array  $params Params to overwrite the defaults
+	 * @return object
+	 */
 	public function parse_params( $params ) {
 		$defaults = array(
 			'search' => null,
@@ -108,6 +155,14 @@ class Tribe__Ajax__Dropdown {
 		return (object) $arguments;
 	}
 
+	/**
+	 * The default Method that will route all the AJAX calls from our Dropdown AJAX requests
+	 * It is like a Catch All on `wp_ajax_tribe_dropdown` and `wp_ajax_nopriv_tribe_dropdown`
+	 *
+	 * @since  4.6
+	 *
+	 * @return void
+	 */
 	public function route() {
 		// Push all POST params into a Default set of data
 		$args = $this->parse_params( empty( $_POST ) ? array() : $_POST );
@@ -132,6 +187,14 @@ class Tribe__Ajax__Dropdown {
 		}
 	}
 
+	/**
+	 * Prints a success message and ensures that we don't hit bugs on Select2
+	 *
+	 * @since  4.6
+	 *
+	 * @param  array $data
+	 * @return void
+	 */
 	private function success( $data ) {
 		// We need a Results item for Select2 Work
 		if ( ! isset( $data['results'] ) ) {
@@ -141,6 +204,14 @@ class Tribe__Ajax__Dropdown {
 		wp_send_json_success( $data );
 	}
 
+	/**
+	 * Prints a error message and ensures that we don't hit bugs on Select2
+	 *
+	 * @since  4.6
+	 *
+	 * @param  array $data
+	 * @return void
+	 */
 	private function error( $message ) {
 		$data = array(
 			'message' => $message,
@@ -149,6 +220,16 @@ class Tribe__Ajax__Dropdown {
 		wp_send_json_error( $data );
 	}
 
+	/**
+	 * Avoid throwing fatals or notices on sources that are invalid
+	 *
+	 * @since  4.6
+	 *
+	 * @param  string $name
+	 * @param  mixed  $arguments
+	 *
+	 * @return void
+	 */
 	public function __call( $name, $arguments ) {
 		$message = __( 'The "%s" source is invalid and cannot be reached on "%s" instance.', 'tribe-common' );
 		return $this->error( sprintf( $message, $name, __CLASS__ ) );
