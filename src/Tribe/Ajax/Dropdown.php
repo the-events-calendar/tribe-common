@@ -36,7 +36,7 @@ class Tribe__Ajax__Dropdown {
 		$results = array();
 
 		if ( empty( $args['search'] ) ) {
-			$this->sort_terms_hierarchicaly( $terms, $results );
+			$this->sort_terms_hierarchically( $terms, $results );
 			$results = $this->convert_children_to_array( $results );
 		} else {
 			foreach ( $terms as $term ) {
@@ -64,7 +64,7 @@ class Tribe__Ajax__Dropdown {
 		return $data;
 	}
 
-	public function sort_terms_hierarchicaly( &$terms, &$into, $parent = 0 ) {
+	public function sort_terms_hierarchically( &$terms, &$into, $parent = 0 ) {
 		foreach ( $terms as $i => $term ) {
 			if ( $term->parent === $parent ) {
 				// Prep for Select2
@@ -78,7 +78,7 @@ class Tribe__Ajax__Dropdown {
 
 		foreach ( $into as $term ) {
 			$term->children = array();
-			$this->sort_terms_hierarchicaly( $terms, $term->children, $term->term_id );
+			$this->sort_terms_hierarchically( $terms, $term->children, $term->term_id );
 		}
 	}
 
@@ -110,7 +110,7 @@ class Tribe__Ajax__Dropdown {
 
 	public function route() {
 		// Push all POST params into a Default set of data
-		$args = $this->parse_params( $_POST );
+		$args = $this->parse_params( empty( $_POST ) ? array() : $_POST );
 
 		if ( empty( $args->source ) ) {
 			$this->error( esc_attr__( 'Missing data source for this dropdown', 'tribe-common' ) );
