@@ -1,0 +1,20 @@
+class_name: MuwpunitTester
+modules:
+    enabled:
+        - \Helper\Muwpunit
+        - WPLoader:
+            multisite: true
+            wpRootFolder: ~/www/wordpress
+            dbName: tec-tests
+            dbHost: localhost
+            dbUser: root
+            dbPassword: password
+            wpDebug: true
+            tablePrefix: wptests_
+            domain: tec.tri.be
+            adminEmail: admin@tec.tri.be
+            title: 'Event Common Tests'
+            plugins:
+                - the-events-calendar/the-events-calendar.php
+            activatePlugins:
+                - the-events-calendar/the-events-calendar.php

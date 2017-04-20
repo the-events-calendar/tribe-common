@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.4.5';
+	const VERSION             = '4.5';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -158,7 +158,8 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		Tribe__Debug::instance();
-		tribe('settings.manager');
+		tribe( 'settings.manager' );
+		tribe( 'tracker' );
 		$this->pue_notices();
 
 		require_once $this->plugin_path . 'src/functions/utils.php';
@@ -492,5 +493,6 @@ class Tribe__Main {
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
 		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
 		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', array( 'hook' ) );
+		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 	}
 }

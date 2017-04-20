@@ -14,7 +14,7 @@
             "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8",
             "shasum": ""
         },
-        "time": "2016-04-16 21:52:24",
+        "time": "2016-04-16T21:52:24+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -55,7 +55,7 @@
             "phpunit/phpunit-mock-objects-php52": "dev-1.1.0-php52",
             "phpunit/phpunit-php52": "dev-3.6.12-php52"
         },
-        "time": "2017-01-19 12:56:51",
+        "time": "2017-01-19T12:56:51+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

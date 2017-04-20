@@ -1,0 +1,16 @@
+#ea-mocker label {
+  display: block;
+  clear: both;
+  width: 100%;
+  margin-bottom: .3em; }
+#ea-mocker textarea {
+  clear: both;
+  width: 100%; }
+#ea-mocker .default {
+  display: none; }
+#ea-mocker .inline input[type="text"] {
+  width: 80%; }
+#ea-mocker .inline input[type="button"] {
+  margin-left: .3em; }
+
+/*# sourceMappingURL=ea-mocker-style.css.map */
