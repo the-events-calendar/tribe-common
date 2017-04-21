@@ -241,4 +241,22 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 
 		$container->register( $provider_class );
 	}
+
+	if ( ! function_exists( 'tribe_callback' ) ) {
+		/**
+		 * Returns a lambda function suitable to use as a callback; when called the function will build the implementation
+		 * bound to `$classOrInterface` and return the value of a call to `$method` method with the call arguments.
+		 *
+		 * @param string $slug                   A class or interface fully qualified name or a string slug.
+		 * @param string $method                 The method that should be called on the resolved implementation with the
+		 *                                       specified array arguments.
+		 *
+		 * @return mixed The called method return value.
+		 */
+		function tribe_callback( $slug, $method ) {
+			$container = Tribe__Container::init();
+
+			return $container->callback( $slug, $method );
+		}
+	}
 }
