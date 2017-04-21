@@ -219,12 +219,14 @@ class Tribe__PUE__Notices {
 		}
 
 		$prompt = sprintf( _n(
-			"It looks like you're using %s, but the license key you supplied does not appear to be valid or is missing. Please review and fix so that you can always have access to our latest versions!",
-			"It looks like you're using %s, but the license keys you supplied do not appear to be valid or are missing. Please review and fix so that you can always have access to our latest versions!",
+			"It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s.",
+			"It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s.",
 			count( $this->notices[ self::INVALID_KEY ] ),
 			'tribe-common'
 		),
-			$plugin_names
+			$plugin_names,
+			'<a href="http://m.tri.be/19n4" target="_blank">',
+			'</a>'
 		);
 
 		/**
@@ -294,8 +296,8 @@ class Tribe__PUE__Notices {
 		}
 
 		$prompt = sprintf( _n(
-				'You have entered a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one.',
-				'You have entered license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones.', count( $this->notices[ self::UPGRADE_KEY ] ),
+				'You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one.',
+				'You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones.', count( $this->notices[ self::UPGRADE_KEY ] ),
 				'tribe-common'
 			),
 			$plugin_names,
@@ -331,10 +333,9 @@ class Tribe__PUE__Notices {
 	 */
 	protected function find_your_key_text() {
 		return sprintf(
-			__( 'You can find your license keys by logging in to %1$syour account on theeventscalendar.com%2$s and you can enter them over on the %3$ssettings page%2$s.', 'tribe-common' ),
+			__( 'You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s.', 'tribe-common' ),
 			'<a href="http://m.tri.be/195d" target="_blank">',
-			'</a>',
-			'<a href="' . admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' ) . '">'
+			'</a>'
 		);
 	}
 
