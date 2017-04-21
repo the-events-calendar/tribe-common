@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.5] - 2017-02-22
+### Changed
+- change internal method visibility to improve compatibility with monkey patching libraries
+
 ## [2.0.4] - 2017-02-22
 ### Fixed
 - allow unbound classes with `__construct` method requirements to be used in `instance` callbacks
@@ -137,7 +141,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - array resolution support for the Array Access API.
 - the changelog.
 
-[Unreleased]: https://github.com/lucatume/di52/compare/2.0.4...HEAD
+[Unreleased]: https://github.com/lucatume/di52/compare/2.0.5...HEAD
+[2.0.5]: https://github.com/lucatume/di52/compare/2.0.4...2.0.5
 [2.0.4]: https://github.com/lucatume/di52/compare/2.0.3...2.0.4
 [2.0.3]: https://github.com/lucatume/di52/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/lucatume/di52/compare/2.0.1...2.0.2

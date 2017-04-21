@@ -369,7 +369,7 @@ class tad_DI52_Container implements ArrayAccess {
 			$classReflection = $this->reflections[$implementation];
 			$constructor = $classReflection->getConstructor();
 			$parameters = empty($constructor) ? array() : $constructor->getParameters();
-			$this->parameterReflections[$implementation] = array_map(array($this, 'getParameter'), $parameters);
+			$this->parameterReflections[$implementation] = array_map(array($this, '_getParameter'), $parameters);
 		}
 
 		$instance = !empty($this->parameterReflections[$implementation]) ?
@@ -797,7 +797,7 @@ class tad_DI52_Container implements ArrayAccess {
 		return $f;
 	}
 
-	protected function getParameter(ReflectionParameter $parameter) {
+	public function _getParameter(ReflectionParameter $parameter) {
 		$class = $parameter->getClass();
 
 		if (null === $class) {

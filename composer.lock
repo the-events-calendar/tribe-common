@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ab9bcd2daaf9599afb95320138b074c",
+    "content-hash": "f0c90ea07ea69e95a08e22621f2be8dd",
     "packages": [
         {
             "name": "lucatume/di52",
-            "version": "1.4.5",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/di52.git",
-                "reference": "f8f67c0e9e74b2ea210cfbedfcde4992bdb578c4"
+                "reference": "94a52605fe1f93b3c25f119e072f04907e8b5f8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/f8f67c0e9e74b2ea210cfbedfcde4992bdb578c4",
-                "reference": "f8f67c0e9e74b2ea210cfbedfcde4992bdb578c4",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/94a52605fe1f93b3c25f119e072f04907e8b5f8c",
+                "reference": "94a52605fe1f93b3c25f119e072f04907e8b5f8c",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                 }
             ],
             "description": "A PHP 5.2 compatible dependency injection container.",
-            "time": "2017-01-19T12:56:51+00:00"
+            "time": "2017-04-21T14:33:07+00:00"
         },
         {
             "name": "xrstf/composer-php52",
@@ -1021,7 +1021,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v5.4.17",
+            "version": "v5.4.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -1063,16 +1063,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v5.4.17",
+            "version": "v5.4.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "c7e7c9daf5044e76b46085b8351f8235a3e979c6"
+                "reference": "b8cb37e15331c59da51c8ee5838038baa22d7955"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/c7e7c9daf5044e76b46085b8351f8235a3e979c6",
-                "reference": "c7e7c9daf5044e76b46085b8351f8235a3e979c6",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/b8cb37e15331c59da51c8ee5838038baa22d7955",
+                "reference": "b8cb37e15331c59da51c8ee5838038baa22d7955",
                 "shasum": ""
             },
             "require": {
@@ -1116,7 +1116,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2017-03-28T12:49:45+00:00"
+            "time": "2017-04-09T14:34:57+00:00"
         },
         {
             "name": "justinrainbow/json-schema",

@@ -296,7 +296,7 @@ $container->bind('DBInterface', function(tad_DI52_Container $container){
 });
 ```
 
-## Binding implementations to clases
+## Binding implementations to classes
 Binding implementations to interfaces works when the object constructor methods type hint interfaces but that might not always be the case; the container will handle that case allowing implementations to be bound to classes supporting both the `bind` and the `singleton` methods:
 
 ```php
