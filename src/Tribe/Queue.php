@@ -94,9 +94,13 @@ class Tribe__Queue {
 	}
 
 	/**
+	 * Returns a list of registered works.
+	 *
+	 * @param bool $workable_only Whether only in progress or queued works should be returned (`true`) or all (`false`).
+	 *
 	 * @return array
 	 */
-	public function get_work_list() {
+	public function get_work_list( $workable_only = true ) {
 		$list = get_option( self::$works_option );
 
 		if ( empty( $list ) ) {
@@ -104,13 +108,15 @@ class Tribe__Queue {
 		}
 
 		$valid = array_filter( array_map( array( $this, 'get_work' ), array_keys( $list ) ) );
-		$filtered = array_filter( $valid, array( $this, 'can_work' ) );
+		if ( $workable_only ) {
+			$valid = array_filter( $valid, array( $this, 'can_work' ) );
+		}
 
 		// sort the works by priority
-		uasort( $filtered, array( $this, 'compare_priorities' ) );
+		uasort( $valid, array( $this, 'compare_priorities' ) );
 
-		$ids = array_map( array( $this, 'get_work_id' ), $filtered );
-		$stati = array_map( array( $this, 'get_work_status' ), $filtered );
+		$ids = array_map( array( $this, 'get_work_id' ), $valid );
+		$stati = array_map( array( $this, 'get_work_status' ), $valid );
 
 		return array_combine( $ids, $stati );
 	}
@@ -180,6 +186,30 @@ class Tribe__Queue {
 		if ( isset( $work_data->batch_size ) ) {
 			$work->set_batch_size( $work_data->batch_size );
 		}
+
+		return $work;
+	}
+
+	/**
+	 * Appends a new work to the queue and starts it.
+	 *
+	 * @param array                 $targets
+	 * @param       callable| array $callback  Either a callable object or array or a container reference in the
+	 *                                         ['tribe', <alias>, <method>] format.
+	 *                                         The callback will receive three arguments: the current target, the
+	 *                                         target index in the complete list of targets and the data for this work.
+	 * @param mixed                 $data      Some additional data that will be passed to the work callback.
+	 * @param int                   $batch_size The batch size to use for this work.
+	 *
+	 * @return Tribe__Queue__Worker
+	 */
+	public function start_work( array $targets, $callback, $data = null, $batch_size = 10 ) {
+		$work = $this->queue_work( $targets, $callback, $data );
+
+		$work_id = $work->set_batch_size( $batch_size )->save();
+
+		$work = $this->get_work( $work_id );
+		$work->work();
 
 		return $work;
 	}
