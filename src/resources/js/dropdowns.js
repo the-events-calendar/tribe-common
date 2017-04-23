@@ -97,8 +97,9 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		    selected_items = [];
 
 		$( current_values ).each( function() {
-			var search_for   = { id: this, text: this };
-			var located_item = find_item( search_for, options.data  );
+			var search_for   = { id: this, text: this },
+				data = options.ajax ? $select.data( 'options' ) : options.data,
+				located_item = find_item( search_for, data );
 
 			if ( located_item ) {
 				selected_items.push( located_item );
