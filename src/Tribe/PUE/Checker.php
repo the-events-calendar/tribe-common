@@ -141,6 +141,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private static $stats = array();
 
 		/**
+		 * Full Stats
+		 *
+		 * @var array
+		 */
+		private static $stats_full = array();
+
+		/**
 		 * Class constructor.
 		 *
 		 * @param string $pue_update_url Deprecated. The URL of the plugin's metadata file.
@@ -346,6 +353,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// include current version
 			$this->download_query['installed_version'] = sanitize_text_field( $this->get_installed_version() );
+
+			$this->download_query['domain'] = sanitize_text_field( $this->get_domain() );
+
+			// get general stats
+			$stats = $this->get_stats();
+
+			$this->download_query['multisite']         = $stats['network']['multisite'];
+			$this->download_query['network_activated'] = $stats['network']['network_activated'];
+			$this->download_query['active_sites']      = $stats['network']['active_sites'];
+			$this->download_query['wp_version']        = $stats['versions']['wp'];
 
 			// the following is for install key inclusion (will apply later with PUE addons.)
 			$this->download_query['key'] = sanitize_text_field( $this->get_key() );
@@ -632,8 +649,54 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		/**
 		 * Build stats for endpoints
+		 *
+		 * @return array
 		 */
 		public function build_stats() {
+
+			global $wpdb;
+
+			$stats = array(
+				'versions' => array(
+					'wp' => sanitize_text_field( $GLOBALS['wp_version'] ),
+				),
+				'network'  => array(
+					'multisite'         => 0,
+					'network_activated' => 0,
+					'active_sites'      => 1,
+				),
+			);
+
+			if ( is_multisite() ) {
+				$sql_count = "
+					SELECT COUNT( `blog_id` )
+					FROM `{$wpdb->blogs}`
+					WHERE
+						`public` = '1'
+						AND `archived` = '0'
+						AND `spam` = '0'
+						AND `deleted` = '0'
+				";
+
+				$stats['multisite']         = 1;
+				$stats['network_activated'] = (int) $this->is_plugin_active_for_network();
+				$stats['active_sites']      = (int) $wpdb->get_var( $sql_count );
+			}
+
+			self::$stats = $stats;
+
+			return $stats;
+
+		}
+
+		/**
+		 * Build full stats for endpoints
+		 *
+		 * @param array $stats Initial stats
+		 *
+		 * @return array
+		 */
+		public function build_full_stats( $stats ) {
 
 			global $wpdb;
 
@@ -658,47 +721,24 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				}
 			}
 
-			$stats = array(
-				'versions'      => array(
-					'wp'    => sanitize_text_field( $GLOBALS['wp_version'] ),
-					'php'   => sanitize_text_field( phpversion() ),
-					'mysql' => sanitize_text_field( $wpdb->db_version() ),
-				),
-				'theme'         => array(
-					'name'       => sanitize_text_field( $theme->get( 'Name' ) ),
-					'version'    => sanitize_text_field( $theme->get( 'Version' ) ),
-					'stylesheet' => sanitize_text_field( $theme->get_stylesheet() ),
-					'template'   => sanitize_text_field( $theme->get_template() ),
-				),
-				'network'       => array(
-					'multisite'         => 0,
-					'network_activated' => 0,
-					'active_sites'      => 1,
-				),
-				'site_language' => sanitize_text_field( get_locale() ),
-				'user_language' => sanitize_text_field( get_user_locale() ),
-				'is_public'     => (int) get_option( 'blog_public', 0 ),
-				'wp_debug'      => (int) ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
-				'site_timezone' => sanitize_text_field( $timezone ),
+			$stats['versions'] = array(
+				'wp'    => sanitize_text_field( $GLOBALS['wp_version'] ),
+				'php'   => sanitize_text_field( phpversion() ),
+				'mysql' => sanitize_text_field( $wpdb->db_version() ),
 			);
 
-			if ( is_multisite() ) {
-				global $wpdb;
+			$stats['theme'] = array(
+				'name'       => sanitize_text_field( $theme->get( 'Name' ) ),
+				'version'    => sanitize_text_field( $theme->get( 'Version' ) ),
+				'stylesheet' => sanitize_text_field( $theme->get_stylesheet() ),
+				'template'   => sanitize_text_field( $theme->get_template() ),
+			);
 
-				$sql_count = "
-					SELECT COUNT( `blog_id` )
-					FROM `{$wpdb->blogs}`
-					WHERE
-						`public` = '1'
-						AND `archived` = '0'
-						AND `spam` = '0'
-						AND `deleted` = '0'
-				";
-
-				$stats['multisite']         = 1;
-				$stats['network_activated'] = (int) $this->is_plugin_active_for_network();
-				$stats['active_sites']      = (int) $wpdb->get_var( $sql_count );
-			}
+			$stats['site_language'] = sanitize_text_field( get_locale() );
+			$stats['user_language'] = sanitize_text_field( get_user_locale() );
+			$stats['is_public']     = (int) get_option( 'blog_public', 0 );
+			$stats['wp_debug']      = (int) ( defined( 'WP_DEBUG' ) && WP_DEBUG );
+			$stats['site_timezone'] = sanitize_text_field( $timezone );
 
 			$stats['totals'] = array(
 				'all_post_types'   => (int) $wpdb->get_var( "SELECT COUNT(*) FROM `{$wpdb->posts}`" ),
@@ -708,7 +748,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				'event_categories' => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->term_taxonomy}` WHERE taxonomy = %s", 'tribe_events_cat' ) ),
 			);
 
-			self::$stats = $stats;
+			self::$stats_full = $stats;
 
 			return $stats;
 
@@ -728,15 +768,33 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			/**
+			 * Allow full stats data to be built and sent.
+			 *
+			 * @param boolean $use_full_stats Whether to send full stats
+			 *
+			 * @since 4.5.1
+			 */
+			$use_full_stats = apply_filters( 'pue_use_full_stats', false );
+
+			if ( $use_full_stats ) {
+				$stats_full = self::$stats_full;
+
+				if ( empty( $stats_full ) ) {
+					$stats = $this->build_full_stats( $stats );
+				}
+			}
+
+			/**
 			 * Filter stats and allow plugins to add their own stats
 			 * for tracking specific points of data.
 			 *
-			 * @param array                $stats   Stats gathered by PUE Checker class
-			 * @param \Tribe__PUE__Checker $checker PUE Checker class object
+			 * @param array                $stats          Stats gathered by PUE Checker class
+			 * @param boolean              $use_full_stats Whether to send full stats
+			 * @param \Tribe__PUE__Checker $checker        PUE Checker class object
 			 *
-			 * @since 2.0
+			 * @since 4.5.1
 			 */
-			$stats = apply_filters( 'pue_stats', $stats, $this );
+			$stats = apply_filters( 'pue_stats', $stats, $use_full_stats, $this );
 
 			return $stats;
 		}
