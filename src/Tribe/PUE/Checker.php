@@ -354,6 +354,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// include current version
 			$this->download_query['installed_version'] = sanitize_text_field( $this->get_installed_version() );
 
+			$this->download_query['domain'] = sanitize_text_field( $this->get_domain() );
+
+			// get general stats
+			$stats = $this->get_stats();
+
+			$this->download_query['multisite']         = $stats['network']['multisite'];
+			$this->download_query['network_activated'] = $stats['network']['network_activated'];
+			$this->download_query['active_sites']      = $stats['network']['active_sites'];
+			$this->download_query['wp_version']        = $stats['versions']['wp'];
+
 			// the following is for install key inclusion (will apply later with PUE addons.)
 			$this->download_query['key'] = sanitize_text_field( $this->get_key() );
 			$this->download_query['dk']  = sanitize_text_field( $this->get_key( 'default' ) );
