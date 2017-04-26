@@ -770,8 +770,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				if ( $class_name ) {
 					$class_name .= 'PUE__Helper';
 
-					if ( ! empty( $class_name::DATA ) ) {
-						$license_key = $class_name::DATA;
+					if ( constant( $class_name . '::DATA' ) ) {
+						$license_key = constant( $class_name . '::DATA' );
 
 						$license_origin = 'e';
 					}
