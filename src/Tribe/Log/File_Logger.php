@@ -64,7 +64,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 			touch( $this->log_file );
 		}
 
-		if ( is_readable( $this->log_file ) ) {
+		if ( is_readable( $this->log_file ) && is_writable( $this->log_file ) ) {
 			$this->handle = fopen( $this->log_file, $this->context );
 		}
 	}
