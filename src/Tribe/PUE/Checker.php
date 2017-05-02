@@ -998,6 +998,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			return $message;
 		}
 
+		/**
+		* Displays a PUE message on the page if it is relevant
+		*
+		* @param string $page
+		*/
 		public function maybe_display_json_error_on_plugins_page( $page ) {
 			if ( 'plugins.php' !== $page ) {
 				return;
