@@ -34,6 +34,6 @@ class Tribe__REST__Headers__Unsupported extends Tribe__REST__Headers__Base_Heade
 			return;
 		}
 
-		header( $this->main->get_api_version_header() . ': unsupported' );
+		header( $this->base->get_api_version_header() . ': unsupported' );
 	}
 }
