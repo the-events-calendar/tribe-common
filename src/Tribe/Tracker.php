@@ -34,7 +34,10 @@ class Tribe__Tracker {
 		add_filter( 'update_post_metadata', array( $this, 'filter_watch_updated_meta' ), PHP_INT_MAX - 1, 5 );
 
 		// After a meta is added we mark that is has been modified
-		add_action( 'added_post_meta', array( $this, 'filter_watch_added_meta' ), PHP_INT_MAX - 1, 4 );
+		add_action( 'added_post_meta', array( $this, 'register_added_deleted_meta' ), PHP_INT_MAX - 1, 3 );
+
+		// Before a meta is removed we mark that is has been modified
+		add_action( 'delete_post_meta', array( $this, 'register_added_deleted_meta' ), PHP_INT_MAX - 1, 3 );
 
 		// Track the Post Fields Updates for Meta in the correct Post Types
 		add_action( 'post_updated', array( $this, 'filter_watch_post_fields' ), 10, 3 );
@@ -131,9 +134,8 @@ class Tribe__Tracker {
 	 * @param int       $meta_id    Meta ID
 	 * @param int       $post_id    Post ID.
 	 * @param string    $meta_key   Meta key.
-	 * @param mixed     $meta_value Meta value. Must be serializable if non-scalar.
 	 */
-	public function filter_watch_added_meta( $meta_id, $post_id, $meta_key, $meta_value ) {
+	public function register_added_deleted_meta( $meta_id, $post_id, $meta_key ) {
 		/**
 		 * Allows toggling the Modified fields tracking
 		 * @var bool
@@ -239,8 +241,7 @@ class Tribe__Tracker {
 			return $check;
 		}
 
-		// If we don't have any Prev Value we check for it from the Database
-		if ( is_null( $prev_value ) || '' === $prev_value ) {
+		if ( empty( $prev_value ) ) {
 			$prev_value = get_post_meta( $post->ID, $meta_key, true );
 		}
 
@@ -305,6 +306,7 @@ class Tribe__Tracker {
 		$fields_to_check_for_changes = array(
 			'post_title',
 			'post_content',
+			'post_excerpt',
 			'post_status',
 			'post_type',
 			'post_parent',
