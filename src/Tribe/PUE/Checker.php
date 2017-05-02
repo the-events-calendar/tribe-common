@@ -546,7 +546,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'size'                => 'large',
 					'validation_type'     => 'license_key',
 					'label'               => sprintf( esc_attr__( 'Site License Key', 'tribe-common' ) ),
-					'default'             => $this->get_key( 'default' ),
 					'tooltip'             => $no_license_tooltip,
 					'parent_option'       => false,
 					'network_option'      => false,
