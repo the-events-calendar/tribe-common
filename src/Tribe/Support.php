@@ -380,11 +380,19 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null, $pueadd = false ) {
 
 			$url   = $url ? $url : urlencode( str_replace( array( 'http://', 'https://' ), '', get_site_url() ) );
-			$pue   = new Tribe__PUE__Checker( 'https://theeventscalendar.com/', 'events-calendar' );
-			$query = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url . $remove;
-			if ( $remove ) {
-				$query = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url . '?status=remove';
+
+			$teccom_url = 'https://theeventscalendar.com/';
+
+			if ( defined( 'TEC_URL' ) ) {
+				$teccom_url = trailingslashit( TEC_URL );
 			}
+
+			$query = $teccom_url . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url;
+
+			if ( $remove ) {
+				$query .= '?status=remove';
+			}
+
 			$response = wp_remote_get( esc_url( $query ) );
 
 			$response = json_decode( wp_remote_retrieve_body( $response ) );

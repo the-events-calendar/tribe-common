@@ -1,0 +1,25 @@
+# Codeception Test Suite Configuration
+
+# Suite for WordPress functional tests.
+# Emulate web requests and make the WordPress application process them.
+
+
+class_name: IntegrationTester
+modules:
+    enabled:
+        - \Helper\Integration
+        - WPLoader:
+            wpRootFolder: ~/www/wordpress
+            dbName: tec-tests
+            dbHost: localhost
+            dbUser: root
+            dbPassword: password
+            wpDebug: true
+            tablePrefix: wptests_
+            domain: tec.tri.be
+            adminEmail: admin@tec.tri.be
+            title: 'Event Common Tests'
+            plugins:
+                - the-events-calendar/the-events-calendar.php
+            activatePlugins:
+                - the-events-calendar/the-events-calendar.php
