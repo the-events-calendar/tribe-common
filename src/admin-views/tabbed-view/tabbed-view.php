@@ -17,9 +17,14 @@ $tabs = $view->get_visibles();
 
 		<h2 class="nav-tab-wrapper">
 			<?php foreach ( $tabs as $tab ): ?>
-				<a id="<?php echo esc_attr( $tab->get_slug() ); ?>"
-				   class="nav-tab<?php echo( $tab->is_active() ? ' nav-tab-active' : '' ); ?>"
-				   href="<?php echo esc_url( $tab->get_url() ); ?>"><?php echo esc_html( $tab->get_label() ); ?>
+				<?php $data = $tab->get_data(); ?>
+				<a
+					id="<?php echo esc_attr( $tab->get_slug() ); ?>"
+					class="nav-tab<?php echo( $tab->is_active() ? ' nav-tab-active' : '' ); ?>"
+					href="<?php echo esc_url( $tab->get_url() ); ?>"
+					<?php echo ( ! empty( $data['tab_selector'] ) ? 'data-tab-selector="' . esc_attr( $data['tab_selector'] ) . '"' : '' ); ?>
+				>
+				   <?php echo esc_html( $tab->get_label() ); ?>
 				</a>
 			<?php endforeach; ?>
 		</h2>

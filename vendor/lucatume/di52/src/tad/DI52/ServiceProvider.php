@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class tad_DI52_ServiceProvider
+ * @codeCoverageIgnore
+ */
 abstract class tad_DI52_ServiceProvider implements tad_DI52_ServiceProviderInterface
 {
     /**
@@ -42,5 +46,13 @@ abstract class tad_DI52_ServiceProvider implements tad_DI52_ServiceProviderInter
     public function provides()
     {
         return array();
+    }
+
+    /**
+     * Binds and sets up implementations at boot time.
+     */
+    public function boot()
+    {
+        // no-op
     }
 }

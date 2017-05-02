@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.5dev1';
+	const VERSION             = '4.5.0.1';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -105,6 +105,7 @@ class Tribe__Main {
 		$this->bind_implementations();
 
 		$this->init_libraries();
+
 		$this->add_hooks();
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
@@ -178,8 +179,9 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
+				array( 'handlebars', 'vendor/handlebars/handlebars.js', array() ),
 				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
+				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 				array( 'tribe-select2', 'vendor/select2/select2.js', array( 'jquery' ) ),
 				array( 'tribe-select2-css', 'vendor/select2/select2.css' ),
 				array( 'datatables-css', 'datatables.css' ),
@@ -193,6 +195,7 @@ class Tribe__Main {
 				array( 'datatables-fixedheader-css', 'vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables.css' ),
 				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables', 'datatables-select' ) ),
 				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
+				array( 'tribe-handlebars-utils', 'tribe-handlebars-utils.js', array( 'handlebars' ) ),
 				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
 				array( 'tribe-buttonset-style', 'buttonset.css' ),
 				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
@@ -290,6 +293,14 @@ class Tribe__Main {
 
 		add_filter( 'body_class', array( $this, 'add_js_class' ) );
 		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
+
+		add_filter( 'cron_schedules', array( tribe( 'cron' ), 'filter_cron_schedules' ) );
+
+		// Queue hooks
+		add_action( 'admin_head', array( 'Tribe__Queue', 'work' ) );
+		add_action( 'wp_ajax_tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
+		add_action( 'wp_ajax_nopriv_tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
+		add_action( 'tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
 	}
 
 	public function add_js_class( $classes = array() ) {
@@ -490,6 +501,9 @@ class Tribe__Main {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
 		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
+		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
+		tribe_singleton( 'cron', 'Tribe__Cron', array( 'schedule' ) );
+		tribe_singleton( 'queue', 'Tribe__Queue' );
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 	}
 }

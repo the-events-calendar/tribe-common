@@ -2,18 +2,14 @@ node_modules
 
 # Local Codeception files
 codeception.yml
-tests/acceptance.suite.yml
-tests/functional.suite.yml
-tests/integration.suite.yml
-tests/muintegration.suite.yml
-tests/wpunit.suite.yml
-tests/unit.suite.yml
+tests/*.suite.yml
 tests/_output/*
 
 # by default ignore all, need a vendor dep in the repo? use !vendor/acme
 vendor/*
 !vendor/jquery
 !vendor/select2
+!vendor/handlebars
 !vendor/clipboard
 !vendor/composer
 vendor/composer/composer/tests
