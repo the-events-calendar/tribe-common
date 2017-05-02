@@ -190,9 +190,17 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		}
 
 		// CSS for the dropdown
-		args.dropdownCss = {
-			'width': 'auto'
-		};
+		args.dropdownCss = {};
+		args.dropdownCss.width = 'auto';
+
+		// When we have this we replace the default with what's in the param
+		if ( $select.is( '[data-dropdown-css-width]' ) ) {
+			args.dropdownCss.width = $select.data( 'dropdown-css-width' );
+
+			if ( ! args.dropdownCss.width ) {
+				delete args.dropdownCss.width;
+			}
+		}
 
 		// How do we match the Search
 		args.matcher = obj.matcher;
