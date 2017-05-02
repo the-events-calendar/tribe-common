@@ -219,8 +219,8 @@ class Tribe__PUE__Notices {
 		}
 
 		$prompt = sprintf( _n(
-			"It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s.",
-			"It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s.",
+			"It looks like you're using %1\$s, but the license key is invalid. Please download the latest version %2\$sfrom your account%3\$s.",
+			"It looks like you're using %1\$s, but the license keys are invalid. Please download the latest versions %2\$sfrom your account%3\$s.",
 			count( $this->notices[ self::INVALID_KEY ] ),
 			'tribe-common'
 		),
