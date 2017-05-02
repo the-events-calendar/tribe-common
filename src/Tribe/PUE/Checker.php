@@ -505,6 +505,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'size'            => 'large',
 					'validation_type' => 'license_key',
 					'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
+					'default'         => $this->get_key( 'default' ),
 					'tooltip'         => $no_license_tooltip,
 					'parent_option'   => false,
 					'network_option'  => true,
@@ -515,6 +516,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'size'            => 'large',
 					'validation_type' => 'license_key',
 					'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
+					'default'         => $this->get_key( 'default' ),
 					'tooltip'         => $no_license_tooltip,
 					'parent_option'   => false,
 					'network_option'  => false,
@@ -544,6 +546,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'size'                => 'large',
 					'validation_type'     => 'license_key',
 					'label'               => sprintf( esc_attr__( 'Site License Key', 'tribe-common' ) ),
+					'default'             => $this->get_key( 'default' ),
 					'tooltip'             => $no_license_tooltip,
 					'parent_option'       => false,
 					'network_option'      => false,
@@ -1550,8 +1553,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *
 		 */
 		public function return_install_key( $keys = array() ) {
-			if ( ! empty( $this->install_key ) ) {
-				$keys[ $this->get_slug() ] = $this->install_key;
+			$key = $this->get_key();
+
+			if ( ! empty( $key ) ) {
+				$keys[ $this->get_slug() ] = $key;
 			}
 
 			return $keys;
