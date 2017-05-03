@@ -167,7 +167,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters and dots only', 'tribe-common' ), $this->label );
 			}
 		}
-		
+
 		/**
 		 * Validates a field as a string containing only letters,
 		 * numbers, dashes and underscores
@@ -223,6 +223,26 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			} else {
 				$this->result->valid = false;
 				$this->result->error = sprintf( esc_html__( '%s must be a positive number.', 'tribe-common' ), $this->label );
+			}
+		}
+
+		/**
+		 * validates a field as being an integer
+		 *
+		 * The expected value is a whole number (positive or negative). This method is named "int" to
+		 * match the mathematical definition of the word AND to closely match the pre-exiting method
+		 * with a similar name: positive_int(). This method WILL validate whole numbers that go beyond
+		 * values that PHP's int type supports, however, if someone enters something like that, that's
+		 * on them. Smart people do smart things.
+		 *
+		 * @return stdClass validation result object
+		 */
+		public function int() {
+			if ( preg_match( '/^-?[0-9]+$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( esc_html__( '%s must be a whole number.', 'tribe-common' ), $this->label );
 			}
 		}
 
@@ -495,6 +515,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		public function none() {
 			$this->result->valid = true;
 		}
-		
+
 	} // end class
 } // endif class_exists

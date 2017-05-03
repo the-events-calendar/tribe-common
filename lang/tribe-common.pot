@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.4.2\n"
+"Project-Id-Version: Tribe Common 4.5\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2017-02-08 22:57:37+00:00\n"
+"POT-Creation-Date: 2017-05-01 15:16:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-02-08 22:57\n"
+"PO-Revision-Date: 2017-05-01 15:16\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -68,12 +68,12 @@ msgstr ""
 msgid "Community Events"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:208
-msgid "Facebook Events"
+#: src/Tribe/Admin/Help_Page.php:208 src/Tribe/App_Shop.php:104
+msgid "Event Aggregator"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:216
-msgid "Events Filter Bar"
+#: src/Tribe/Admin/Help_Page.php:216 src/Tribe/App_Shop.php:133
+msgid "Filter Bar"
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:224 src/Tribe/App_Shop.php:122
@@ -172,10 +172,6 @@ msgstr ""
 msgid "Event Add-Ons"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:104
-msgid "Event Aggregator"
-msgstr ""
-
 #: src/Tribe/App_Shop.php:106
 msgid "Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more."
 msgstr ""
@@ -186,10 +182,6 @@ msgstr ""
 
 #: src/Tribe/App_Shop.php:125
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
-msgstr ""
-
-#: src/Tribe/App_Shop.php:133
-msgid "Filter Bar"
 msgstr ""
 
 #: src/Tribe/App_Shop.php:135
@@ -218,7 +210,7 @@ msgid "Free"
 msgstr ""
 
 #: src/Tribe/Credits.php:31
-msgid "This calendar is powered by %1$s."
+msgid "This calendar is powered by The Events Calendar."
 msgstr ""
 
 #: src/Tribe/Credits.php:55
@@ -231,6 +223,114 @@ msgstr ""
 
 #: src/Tribe/Customizer.php:566
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:24
+msgid "The cost currency symbol"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:28
+msgid "The position of the currency symbol in the cost string"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:33
+msgid "An sorted array of all the numeric values for the cost"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:24
+msgid "The date year"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:28
+msgid "The date month"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:32
+msgid "The date day"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:36
+msgid "The date hour"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:40
+msgid "The date minutes"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:44
+msgid "The date seconds"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:24
+msgid "The URL to the full size version of the image"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:28
+msgid "The image WordPress post ID"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:32
+msgid "The image file extension"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:36
+msgid "The image natural width in pixels"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
+msgid "The image natura height in pixels"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
+msgid "The details about each size available for the image"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:24
+msgid "The image width in pixels in the specified size"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:28
+msgid "The image height in pixels in the specified size"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:32
+msgid "The image mime-type"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
+msgid "The link to the image in the specified size on the site"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:24
+msgid "The WordPress term ID"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:28
+msgid "The term name"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:32
+msgid "The term slug"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:36
+msgid "The taxonomy the term belongs to"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:40
+msgid "The term description"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:44
+msgid "The term parent term if any"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:48
+msgid "The number of posts associated with the term"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:52
+msgid "The URL to the term archive page"
 msgstr ""
 
 #: src/Tribe/Error.php:38
@@ -299,160 +399,163 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:221 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:222 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Main.php:222
+#: src/Tribe/Main.php:223
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:223
+#: src/Tribe/Main.php:224
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:241
+#: src/Tribe/Main.php:242
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:243
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:245
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:246
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:247
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:248
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:249
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:250
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:251
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:253
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:253 src/Tribe/Main.php:269
+#: src/Tribe/Main.php:254 src/Tribe/Main.php:270
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:255
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:260
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:261
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:270
+#: src/Tribe/Main.php:271
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:272
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:273
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:425 src/Tribe/PUE/Checker.php:437
-msgid "License Key"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:426 src/Tribe/PUE/Checker.php:438
-#: src/Tribe/PUE/Checker.php:469
+#: src/Tribe/PUE/Checker.php:419
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:447 src/Tribe/PUE/Checker.php:483
+#: src/Tribe/PUE/Checker.php:422
+msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:434 src/Tribe/PUE/Checker.php:444
+msgid "License Key"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:452 src/Tribe/PUE/Checker.php:486
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:456
+#: src/Tribe/PUE/Checker.php:461
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:457
+#: src/Tribe/PUE/Checker.php:462
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:468
+#: src/Tribe/PUE/Checker.php:473
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:566
+#: src/Tribe/PUE/Checker.php:569
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:583
+#: src/Tribe/PUE/Checker.php:586
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:618
+#: src/Tribe/PUE/Checker.php:621
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:624
+#: src/Tribe/PUE/Checker.php:627
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:642
+#: src/Tribe/PUE/Checker.php:645
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:651
+#: src/Tribe/PUE/Checker.php:654
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:676 src/Tribe/PUE/Notices.php:267
+#: src/Tribe/PUE/Checker.php:679 src/Tribe/PUE/Notices.php:267
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:678 src/Tribe/PUE/Notices.php:269
+#: src/Tribe/PUE/Checker.php:681 src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:704
+#: src/Tribe/PUE/Checker.php:707
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:760
+#: src/Tribe/PUE/Checker.php:763
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1311
+#: src/Tribe/PUE/Checker.php:1314
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1312
+#: src/Tribe/PUE/Checker.php:1315
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1313
+#: src/Tribe/PUE/Checker.php:1316
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
@@ -665,56 +768,60 @@ msgstr ""
 msgid "%s must be a positive number or percent."
 msgstr ""
 
-#: src/Tribe/Validate.php:240
+#: src/Tribe/Validate.php:245
+msgid "%s must be a whole number."
+msgstr ""
+
+#: src/Tribe/Validate.php:260
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr ""
 
-#: src/Tribe/Validate.php:255
+#: src/Tribe/Validate.php:275
 msgid "%s must be a valid absolute URL."
 msgstr ""
 
-#: src/Tribe/Validate.php:271 src/Tribe/Validate.php:288
-#: src/Tribe/Validate.php:310
+#: src/Tribe/Validate.php:291 src/Tribe/Validate.php:308
+#: src/Tribe/Validate.php:330
 msgid "%s must have a value that's part of its options."
 msgstr ""
 
-#: src/Tribe/Validate.php:324
+#: src/Tribe/Validate.php:344
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr ""
 
-#: src/Tribe/Validate.php:331
+#: src/Tribe/Validate.php:351
 msgid "%s cannot be the same as %s."
 msgstr ""
 
-#: src/Tribe/Validate.php:333
+#: src/Tribe/Validate.php:353
 msgid "%s cannot be a duplicate"
 msgstr ""
 
-#: src/Tribe/Validate.php:349
+#: src/Tribe/Validate.php:369
 msgid "%s must be a number or percentage."
 msgstr ""
 
-#: src/Tribe/Validate.php:403
+#: src/Tribe/Validate.php:423
 msgid "%s must be a number between 0 and 21."
 msgstr ""
 
-#: src/Tribe/Validate.php:419
+#: src/Tribe/Validate.php:439
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 
-#: src/Tribe/Validate.php:435
+#: src/Tribe/Validate.php:455
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr ""
 
-#: src/Tribe/Validate.php:449
+#: src/Tribe/Validate.php:469
 msgid "%s must consist of 5 numbers."
 msgstr ""
 
-#: src/Tribe/Validate.php:463
+#: src/Tribe/Validate.php:483
 msgid "%s must be a phone number."
 msgstr ""
 
-#: src/Tribe/Validate.php:479
+#: src/Tribe/Validate.php:499
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr ""
 

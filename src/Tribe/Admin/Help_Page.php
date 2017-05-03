@@ -46,9 +46,9 @@ class Tribe__Admin__Help_Page {
 		$plugins['the-events-calendar'] = array(
 			'name' => 'the-events-calendar',
 			'title' => esc_html__( 'The Events Calendar', 'tribe-common' ),
-			'repo' => 'http://wordpress.org/extend/plugins/the-events-calendar/',
+			'repo' => 'https://wordpress.org/plugins/the-events-calendar/',
 			'forum' => 'https://wordpress.org/support/plugin/the-events-calendar/',
-			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5',
+			'stars_url' => 'https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5',
 			'description' => esc_html__( 'The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events.', 'tribe-common' ),
 			'is_active' => false,
 			'version' => null,
@@ -62,9 +62,9 @@ class Tribe__Admin__Help_Page {
 		$plugins['event-tickets'] = array(
 			'name' => 'event-tickets',
 			'title' => esc_html__( 'Event Tickets', 'tribe-common' ),
-			'repo' => 'http://wordpress.org/extend/plugins/event-tickets/',
+			'repo' => 'https://wordpress.org/plugins/event-tickets/',
 			'forum' => 'https://wordpress.org/support/plugin/event-tickets',
-			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/event-tickets?filter=5',
+			'stars_url' => 'https://wordpress.org/support/plugin/event-tickets/reviews/?filter=5',
 			'description' => esc_html__( 'Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events.', 'tribe-common' ),
 			'is_active' => false,
 			'version' => null,
@@ -78,9 +78,9 @@ class Tribe__Admin__Help_Page {
 		$plugins['advanced-post-manager'] = array(
 			'name' => 'advanced-post-manager',
 			'title' => esc_html__( 'Advanced Post Manager', 'tribe-common' ),
-			'repo' => 'http://wordpress.org/extend/plugins/advanced-post-manager/',
+			'repo' => 'https://wordpress.org/plugins/advanced-post-manager/',
 			'forum' => 'https://wordpress.org/support/plugin/advanced-post-manager/',
-			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/advanced-post-manager?filter=5',
+			'stars_url' => 'https://wordpress.org/support/plugin/advanced-post-manager/reviews/?filter=5',
 			'description' => esc_html__( 'Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes.', 'tribe-common' ),
 			'is_active' => false,
 			'version' => null,
@@ -203,17 +203,17 @@ class Tribe__Admin__Help_Page {
 			'is_active' => class_exists( 'Tribe__Events__Community__Main' ),
 		);
 
-		$addons['facebook-events'] = array(
-			'id' => 'facebook-events',
-			'title' => esc_html__( 'Facebook Events', 'tribe-common' ),
-			'link'  => 'http://m.tri.be/du',
+		$addons['event-aggregator'] = array(
+			'id' => 'event-aggregator',
+			'title' => esc_html__( 'Event Aggregator', 'tribe-common' ),
+			'link'  => 'http://m.tri.be/19mk',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'Tribe__Events__Facebook__Importer' ),
+			'is_active' => class_exists( 'Tribe__Events__Aggregator' ) && tribe( 'events-aggregator.main' )->is_service_active(),
 		);
 
 		$addons['events-filter-bar'] = array(
 			'id' => 'events-filter-bar',
-			'title' => esc_html__( 'Events Filter Bar', 'tribe-common' ),
+			'title' => esc_html__( 'Filter Bar', 'tribe-common' ),
 			'link'  => 'http://m.tri.be/hu',
 			'plugin' => array( 'the-events-calendar' ),
 			'is_active' => class_exists( 'Tribe__Events__Filterbar__View' ),

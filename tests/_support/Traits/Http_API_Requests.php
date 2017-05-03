@@ -27,7 +27,9 @@ trait Http_API_Requests {
 	protected function mock_http_requests_for( $url, array $mocks = array() ) {
 		$test_case = $this;
 		add_filter( 'pre_http_request', function ( $handle, array $args, $requested_url ) use ( $url, $test_case, $mocks ) {
-			if ( $url !== $requested_url || empty( $mocks ) ) {
+			$is_regex = false !== @preg_match( $url, $requested_url );
+			$matches = $is_regex && preg_match( $url, $requested_url );
+			if ( ( ! $matches && $url !== $requested_url ) || empty( $mocks ) ) {
 				// do not mock it
 				return false;
 			}

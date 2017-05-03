@@ -23,13 +23,9 @@ class Tribe__REST__Headers__Supported extends Tribe__REST__Headers__Base_Header 
 			return;
 		}
 
-		printf(
-			'<meta name="%s" content="%s"> <link rel="%s" href="%s" />',
-			esc_attr( $this->base->get_api_version_meta_name() ),
-			esc_attr( $this->main->get_version() ),
-			esc_attr( $this->main->get_reference_url() ),
-			esc_url( $api_root )
-		);
+		printf( '<meta name="%s" content="%s">', esc_attr( $this->base->get_api_version_meta_name() ), esc_attr( $this->main->get_version() ) );
+		printf( '<meta name="%s" content="%s">', esc_attr( $this->base->get_api_origin_meta_name() ), esc_url( $this->base->get_rest_origin_url() ) );
+		printf( '<link rel="%s" href="%s" />', esc_attr( $this->main->get_reference_url() ), esc_url( $api_root ) );
 	}
 
 	/**
@@ -48,5 +44,6 @@ class Tribe__REST__Headers__Supported extends Tribe__REST__Headers__Base_Header 
 
 		header( $this->base->get_api_version_header() . ': ' . $this->main->get_version() );
 		header( $this->base->get_api_root_header() . ': ' . esc_url_raw( $api_root ) );
+		header( $this->base->get_api_origin_header() . ': ' . esc_url_raw( $this->base->get_rest_origin_url() ) );
 	}
 }
