@@ -1,0 +1,293 @@
+<?php
+
+namespace Tribe\Meta;
+
+use Tribe__Meta__Chunker as Chunker;
+
+class ChunkerTest extends \Codeception\TestCase\WPTestCase {
+
+	public $post_types = [ 'post' ];
+
+	public function setUp() {
+		// before
+		parent::setUp();
+
+		// your set up methods here
+	}
+
+	public function tearDown() {
+		// your tear down methods here
+
+		// then
+		parent::tearDown();
+	}
+
+	/**
+	 * It should be instantiatable
+	 *
+	 * @test
+	 */
+	public function be_instantiatable() {
+		$this->assertInstanceOf( Chunker::class, $this->make_instance() );
+	}
+
+	/**
+	 * @return Chunker
+	 */
+	protected function make_instance() {
+		$instance = new Chunker();
+		$instance->set_post_types( $this->post_types );
+		$instance->hook();
+
+		return $instance;
+
+	}
+
+	/**
+	 * It should mark as chunkable when meta is over max size
+	 *
+	 * @test
+	 */
+	public function it_should_mark_as_chunkable_when_meta_is_over_max_size() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+
+		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
+	}
+
+	/**
+	 * It should not mark as chunkable when data is not over max size
+	 *
+	 * @test
+	 */
+	public function it_should_not_mark_as_chunkable_when_data_is_not_over_max_size() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( 2 * $sut->get_byte_size( $meta_value ) );
+		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+
+		$this->assertFalse( $sut->is_chunkable( $id, $meta_key ) );
+	}
+
+	/**
+	 * It should store meta key for chunkable meta
+	 *
+	 * @test
+	 */
+	public function it_should_store_meta_key_for_chunkable_meta() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+
+		$this->assertTrue( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( $meta_key ), true ) );
+	}
+
+	/**
+	 * It should not store meta for non chunkable meta
+	 *
+	 * @test
+	 */
+	public function it_should_not_store_meta_for_non_chunkable_meta() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+		$max_size = 2 * strlen( $meta_value );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) * 2 );
+		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+
+		$this->assertFalse( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( $meta_key ), true ) );
+	}
+
+	/**
+	 * It should store chunkable meta on the database in different chunks when adding meta
+	 *
+	 * @test
+	 */
+	public function it_should_store_chunkable_meta_on_the_database_in_different_chunks_when_adding_meta() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$chunks = $sut->get_chunks_for( $id, $meta_key );
+
+		$this->assertNotEmpty( $chunks );
+		$this->assertCount( 3, $chunks );
+		$this->assertEquals( $meta_value, $sut->glue_chunks( $chunks ) );
+	}
+
+	/**
+	 * It should replace existing meta when adding same meta two times
+	 *
+	 * No multiple instances of chunkable meta are supported.
+	 *
+	 * @test
+	 */
+	public function it_should_replace_existing_meta_when_adding_same_meta_two_times() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value_1 = str_repeat( 'foo', 20 );
+		$meta_value_2 = str_repeat( 'bar', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value_1 ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key, $meta_value_1 );
+
+		add_post_meta( $id, $meta_key, $meta_value_1 );
+		add_post_meta( $id, $meta_key, $meta_value_2 );
+
+		$chunks = $sut->get_chunks_for( $id, $meta_key );
+
+		$this->assertNotEmpty( $chunks );
+		$this->assertCount( 3, $chunks );
+		$this->assertEquals( $meta_value_2, $sut->glue_chunks( $chunks ) );
+	}
+
+	/**
+	 * It should delete all chunked meta
+	 *
+	 * @test
+	 */
+	public function it_should_delete_all_chunked_meta() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertNotEmpty( $sut->get_chunks_for( $id, $meta_key ) );
+
+		delete_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertEmpty( get_post_meta( $id, $meta_key, true ) );
+		$this->assertEmpty( get_post_meta( $id, $meta_key, false ) );
+		$this->assertEmpty( $sut->get_chunks_for( $id, $meta_key ) );
+	}
+
+	/**
+	 * It should allow getting single chunked meta
+	 *
+	 * @test
+	 */
+	public function it_should_allow_getting_single_chunked_meta() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertEquals( $meta_value, get_post_meta( $id, $meta_key, true ) );
+	}
+
+	/**
+	 * It should not chunk meta that is not registered to be chunked
+	 *
+	 * @test
+	 */
+	public function it_should_not_chunk_meta_that_is_not_registered_to_be_chunked() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertFalse( $sut->is_chunkable( $id, $meta_key ) );
+	}
+
+	/**
+	 * It should not chunk meta registered to be chunked that is not large enough
+	 *
+	 * @test
+	 */
+	public function it_should_not_chunk_meta_registered_to_be_chunked_that_is_not_large_enough() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) * 2 );
+		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertFalse( $sut->is_chunkable( $id, $meta_key ) );
+	}
+
+	/**
+	 * It should not chunk meta for non supported post types
+	 *
+	 * @test
+	 */
+	public function it_should_not_chunk_meta_for_non_supported_post_types() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$this->post_types = [ 'page' ]; // not posts
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) * 2 );
+		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertFalse( $sut->is_chunkable( $id, $meta_key ) );
+	}
+
+	/**
+	 * It should make chunking survive across instances
+	 *
+	 * @test
+	 */
+	public function it_should_make_chunking_survive_across_instances() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut_1 = $this->make_instance();
+		$sut_1->set_max_chunk_size( $sut_1->get_byte_size( $meta_value ) / 2 );
+		$sut_1->register_chunking_for( $id, $meta_key, $meta_value );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertTrue( $sut_1->is_chunkable( $id, $meta_key ) );
+
+		$sut_1->unhook();
+		unset( $sut_1 );
+
+		$sut_2 = $this->make_instance();
+		$this->assertTrue( $sut_2->is_chunkable( $id, $meta_key ) );
+		$this->assertCount( 3, $sut_2->get_chunks_for( $id, $meta_key ) );
+	}
+
+
+}
