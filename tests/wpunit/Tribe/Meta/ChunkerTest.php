@@ -35,6 +35,10 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	 * @return Chunker
 	 */
 	protected function make_instance() {
+		if ( tribe()->isBound( 'chunker' ) ) {
+			tribe( 'chunker' )->unhook();
+			tribe()->offsetUnset( 'chunker' );
+		}
 		$instance = new Chunker();
 		$instance->set_post_types( $this->post_types );
 		$instance->hook();
@@ -350,7 +354,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		delete_post_meta( $id, $meta_key );
 
-		$this->assertEmpty(  get_post_meta( $id, $meta_key, true ) );
+		$this->assertEmpty( get_post_meta( $id, $meta_key, true ) );
 		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
 		$this->assertFalse( $sut->is_chunked( $id, $meta_key ) );
 	}
@@ -363,5 +367,36 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_allow_getting_the_max_chunk_size_from_the_db_max_allowed_packet() {
 		$sut = $this->make_instance();
 		$this->assertTrue( is_numeric( $sut->get_max_chunk_size() ) );
+	}
+
+	/**
+	 * It should set the chunked meta normal meta key too when chunking meta
+	 *
+	 * @test
+	 */
+	public function it_should_set_the_chunked_meta_normal_meta_key_too_when_chunking_meta() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertEquals( $meta_value, get_post_meta( $id, $meta_key, true ) );
+		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
+		$this->assertTrue( $sut->is_chunked( $id, $meta_key ) );
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$this->assertCount( 1, $wpdb->get_results( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '{$meta_key}'" ) );
+
+		delete_post_meta( $id, $meta_key );
+
+		$this->assertEmpty( get_post_meta( $id, $meta_key, true ) );
+		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
+		$this->assertFalse( $sut->is_chunked( $id, $meta_key ) );
+		$this->assertEmpty( $wpdb->get_results( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '{$meta_key}'" ) );
 	}
 }

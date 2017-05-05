@@ -34,6 +34,7 @@
  * or filter the `tribe_meta_chunker_post_types` filter.
  */
 class Tribe__Meta__Chunker {
+	public $id;
 	/**
 	 * @var array The cache that will store chunks to avoid middleware operations from fetching the database.
 	 */
@@ -64,6 +65,10 @@ class Tribe__Meta__Chunker {
 	 */
 	protected $max_chunk_size;
 
+	public function __construct(  ) {
+		$this->id = uniqid( rand( 1, 999 ) );
+	}
+
 	/**
 	 * Hooks the chunker on metadata operations for each supported post types.
 	 *
@@ -81,12 +86,10 @@ class Tribe__Meta__Chunker {
 
 		$this->prime_chunked_cache();
 
-		foreach ( $this->post_types as $post_type ) {
-			add_filter( "update_{$post_type}_metadata", array( $this, 'filter_update_metadata' ), $this->filter_p, 4 );
-			add_filter( "delete_{$post_type}_metadata", array( $this, 'filter_delete_metadata' ), $this->filter_p, 3 );
-			add_filter( "add_{$post_type}_metadata", array( $this, 'filter_add_metadata' ), $this->filter_p, 4 );
-			add_filter( "get_{$post_type}_metadata", array( $this, 'filter_get_metadata' ), $this->filter_p, 4 );
-		}
+		add_filter( "update_post_metadata", array( $this, 'filter_update_metadata' ), $this->filter_p, 4 );
+		add_filter( "delete_post_metadata", array( $this, 'filter_delete_metadata' ), $this->filter_p, 3 );
+		add_filter( "add_post_metadata", array( $this, 'filter_add_metadata' ), $this->filter_p, 4 );
+		add_filter( "get_post_metadata", array( $this, 'filter_get_metadata' ), $this->filter_p, 4 );
 	}
 
 	/**
@@ -131,9 +134,7 @@ class Tribe__Meta__Chunker {
 	 * @return bool `false` if the post type is not supported, `true` otherwise
 	 */
 	public function register_chunking_for( $post_id, $meta_key ) {
-		$post = get_post( $post_id );
-
-		if ( empty( $post ) || ! in_array( $post->post_type, $this->post_types ) ) {
+		if ( ! $this->is_supported_post_type( $post_id ) ) {
 			return false;
 		}
 
@@ -198,26 +199,22 @@ class Tribe__Meta__Chunker {
 	 * @return bool
 	 */
 	public function filter_update_metadata( $check, $object_id, $meta_key, $meta_value ) {
-		if ( $this->is_chunker_logic_meta( $meta_key ) ) {
+		if ( ! $this->applies( $object_id, $meta_key ) ) {
 			return $check;
 		}
 
-		remove_filter( current_filter(), array( $this, 'filter_update_metadata' ), $this->filter_p );
+		$this->delete_chunks( $object_id, $meta_key );
 
-		if ( $this->is_chunkable( $object_id, $meta_key )
-		) {
-			$this->delete_chunks( $object_id, $meta_key );
+		if ( $this->should_be_chunked( $object_id, $meta_key, $meta_value ) ) {
+			$this->insert_chunks( $object_id, $meta_key );
 
-			if ( $this->should_be_chunked( $object_id, $meta_key, $meta_value ) ) {
-				$this->insert_chunks( $object_id, $meta_key );
-
-				return true;
-			}
-
+			return true;
+		} else {
 			$this->cache_delete( $object_id, $meta_key );
-		}
+			$this->insert_meta( $object_id, $meta_key, $meta_value );
 
-		add_filter( current_filter(), array( $this, 'filter_update_metadata' ), $this->filter_p, 4 );
+			return true;
+		}
 
 		return $check;
 	}
@@ -256,11 +253,9 @@ class Tribe__Meta__Chunker {
 	protected function delete_chunks( $object_id, $meta_key ) {
 		/** @var wpdb $wpdb */
 		global $wpdb;
-		$criteria = array(
-			'post_id'  => $object_id,
-			'meta_key' => $this->get_chunk_meta_key( $meta_key ),
-		);
-		$wpdb->delete( $wpdb->postmeta, $criteria );
+		$chunk_meta_key = $this->get_chunk_meta_key( $meta_key );
+		$delete = "DELETE FROM {$wpdb->postmeta} WHERE (meta_key = %s OR meta_key = %s) AND post_id = %d";
+		$wpdb->query( $wpdb->prepare( $delete, $chunk_meta_key, $meta_key, $object_id ) );
 	}
 
 	/**
@@ -392,13 +387,12 @@ class Tribe__Meta__Chunker {
 		$key = $this->get_key( $object_id, $meta_key );
 		$chunks = $this->chunks_cache[ $key ];
 		$chunk_meta_key = $this->get_chunk_meta_key( $meta_key );
-		$prepared_chunks = array();
+		$this->insert_meta( $object_id, $meta_key, $chunks[0] );
 		foreach ( $chunks as $chunk ) {
-			$prepared_chunks[] = $wpdb->prepare( '(%d, %s, %s)', $object_id, $chunk_meta_key, $chunk );
+			$prepared = $wpdb->prepare( '(%d, %s, %s)', $object_id, $chunk_meta_key, $chunk );
+			$query = "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) VALUES {$prepared}";
+			$wpdb->query( $query );
 		}
-		$query = "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) VALUES ";
-		$query .= implode( ",\n", $prepared_chunks );
-		$wpdb->query( $query );
 	}
 
 	/**
@@ -426,7 +420,7 @@ class Tribe__Meta__Chunker {
 	 * @see delete_metadata()
 	 */
 	public function filter_delete_metadata( $check, $object_id, $meta_key ) {
-		if ( $this->is_chunker_logic_meta( $meta_key ) ) {
+		if ( ! $this->applies( $object_id, $meta_key ) ) {
 			return $check;
 		}
 
@@ -467,20 +461,21 @@ class Tribe__Meta__Chunker {
 	 * @see get_metadata()
 	 */
 	public function filter_get_metadata( $check, $object_id, $meta_key, $single = true ) {
-		if ( $this->is_chunker_logic_meta( $meta_key ) ) {
+		if ( ! $this->applies( $object_id, $meta_key ) ) {
 			return $check;
 		}
 
 		$key = $this->get_key( $object_id, $meta_key );
 		if ( array_key_exists( $key, $this->chunks_cache ) && is_array( $this->chunks_cache[ $key ] ) ) {
-			return $this->glue_chunks( $this->chunks_cache[ $key ] );
+			$glued = maybe_unserialize( $this->glue_chunks( $this->chunks_cache[ $key ] ) );
+		} elseif ( $this->is_chunked( $object_id, $meta_key ) ) {
+			$chunks = $this->get_chunks_for( $object_id, $meta_key );
+			$glued = maybe_unserialize( $this->glue_chunks( $chunks ) );
 		}
 
-		if ( $this->is_chunked( $object_id, $meta_key ) ) {
-			$chunks = $this->get_chunks_for( $object_id, $meta_key );
-			$check = maybe_unserialize( $this->glue_chunks( $chunks ) );
-
-			return $single ? $check : array( $check );
+		if ( ! empty( $glued ) ) {
+			// why not take $single into account? See condition check on the filter to understand.
+			return array( $glued );
 		}
 
 		return $check;
@@ -573,12 +568,71 @@ class Tribe__Meta__Chunker {
 	 *
 	 * @param array $post_types
 	 */
-	public function set_post_types( array $post_types = array() ) {
-		/**
-		 * Filters the chunk-able post types.
-		 *
-		 * @param array $post_types
-		 */
-		$this->post_types = apply_filters( 'tribe_meta_chunker_post_types', $post_types );
+	public function set_post_types( array $post_types = null ) {
+		if ( null === $post_types ) {
+			/**
+			 * Filters the chunk-able post types.
+			 *
+			 * @param array $post_types
+			 */
+			$this->post_types = apply_filters( 'tribe_meta_chunker_post_types', $this->post_types );
+
+			return;
+		}
+
+		$this->post_types = $post_types;
+	}
+
+	/**
+	 * Whether a post type is supported or not.
+	 *
+	 * @param int $object_id
+	 *
+	 * @return bool
+	 */
+	protected function is_supported_post_type( $object_id ) {
+		$post = get_post( $object_id );
+		if ( empty( $post ) || ! in_array( $post->post_type, $this->post_types ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Whether the chunker should operate on this post ID and meta key couple or not.
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 *
+	 * @return bool
+	 */
+	protected function applies( $object_id, $meta_key ) {
+		$applies = ! empty( $meta_key )
+		           && ! $this->is_chunker_logic_meta( $meta_key )
+		           && $this->is_supported_post_type( $object_id )
+		           && $this->is_chunkable( $object_id, $meta_key );
+
+		return $applies;
+	}
+
+	/**
+	 * Inserts a meta value in the database.
+	 *
+	 * Convenience method to avoid infinite loop in hooks.
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 * @param mixed $meta_value
+	 */
+	protected function insert_meta( $object_id, $meta_key, $meta_value ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$data = array(
+			'post_id'    => $object_id,
+			'meta_key'   => $meta_key,
+			'meta_value' => $meta_value
+		);
+		$wpdb->insert( $wpdb->postmeta, $data );
 	}
 }
