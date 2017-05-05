@@ -57,7 +57,7 @@ class Tribe__Meta__Chunker {
 	/**
 	 * @var string The meta key prefix applied ot any Chunker related post meta.
 	 */
-	protected $meta_key_prefix = "_tribe_chunker_";
+	protected $meta_key_prefix = '_tribe_chunker_';
 
 	/**
 	 * @var int The largest size allowed by the Chunker.
@@ -258,7 +258,7 @@ class Tribe__Meta__Chunker {
 		global $wpdb;
 		$criteria = array(
 			'post_id'  => $object_id,
-			'meta_key' => $this->get_chunk_meta_key( $meta_key )
+			'meta_key' => $this->get_chunk_meta_key( $meta_key ),
 		);
 		$wpdb->delete( $wpdb->postmeta, $criteria );
 	}
@@ -394,7 +394,7 @@ class Tribe__Meta__Chunker {
 		$chunk_meta_key = $this->get_chunk_meta_key( $meta_key );
 		$prepared_chunks = array();
 		foreach ( $chunks as $chunk ) {
-			$prepared_chunks[] = $wpdb->prepare( "(%d, %s, %s)", $object_id, $chunk_meta_key, $chunk );
+			$prepared_chunks[] = $wpdb->prepare( '(%d, %s, %s)', $object_id, $chunk_meta_key, $chunk );
 		}
 		$query = "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) VALUES ";
 		$query .= implode( ",\n", $prepared_chunks );
@@ -500,7 +500,7 @@ class Tribe__Meta__Chunker {
 	public function glue_chunks( array $chunks ) {
 		$ordered_chunks = array();
 		foreach ( $chunks as $chunk ) {
-			preg_match( "/(\\d+)" . preg_quote( $this->chunk_separator ) . "(.*)/", $chunk, $matches );
+			preg_match( '/(\\d+)' . preg_quote( $this->chunk_separator ) . '(.*)/', $chunk, $matches );
 			$ordered_chunks[ $matches[1] ] = $matches[2];
 		}
 		ksort( $ordered_chunks );
