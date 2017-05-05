@@ -573,6 +573,11 @@ class Tribe__Meta__Chunker {
 	 * @param array $post_types
 	 */
 	public function set_post_types( array $post_types = array() ) {
+		/**
+		 * Filters the chunk-able post types.
+		 *
+		 * @param array $post_types
+		 */
 		$this->post_types = apply_filters( 'tribe_meta_chunker_post_types', $post_types );
 	}
 }
