@@ -43,7 +43,9 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 			return $set_a;
 		}
 
-		$intersected = call_user_func_array( array( $this, 'intersect' ), func_get_args() );
+		// On PHP 5.2 you cannot use func_get_args as a param
+		$args = func_get_args();
+		$intersected = call_user_func_array( array( $this, 'intersect' ), $args );
 
 		$diffed = array();
 
@@ -79,7 +81,9 @@ class Tribe__Collisions__Average_Proximity_Start_Detector
 	 *               contains the segments that did collide with each colliding element of $a
 	 */
 	public function report_intersect( array $set_a, array $set_b ) {
-		$reported = call_user_func_array( array( 'parent', 'report_intersect' ), func_get_args() );
+		// On PHP 5.2 you cannot use func_get_args as a param
+		$args = func_get_args();
+		$reported = call_user_func_array( array( 'parent', 'report_intersect' ), $args );
 
 		if ( empty( $reported ) ) {
 			return array();

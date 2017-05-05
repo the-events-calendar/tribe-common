@@ -65,8 +65,9 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 		if ( empty( $b_sets ) ) {
 			return array();
 		}
-
-		$reported = call_user_func_array( array( $this, 'report_intersect' ), func_get_args() );
+		// On PHP 5.2 you cannot use func_get_args as a param
+		$args = func_get_args();
+		$reported = call_user_func_array( array( $this, 'report_intersect' ), $args );
 
 		return reset( $reported );
 	}
@@ -96,7 +97,9 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 			return array();
 		}
 
-		return call_user_func_array( array( $this, 'intersect' ), func_get_args() );
+		// On PHP 5.2 you cannot use func_get_args as a param
+		$args = func_get_args();
+		return call_user_func_array( array( $this, 'intersect' ), $args );
 	}
 
 	/**
@@ -208,7 +211,9 @@ class Tribe__Collisions__Closest_Unique_Start_Detector
 			return array();
 		}
 
-		return call_user_func_array( array( $this, 'report_intersect' ), func_get_args() );
+		// On PHP 5.2 you cannot use func_get_args as a param
+		$args = func_get_args();
+		return call_user_func_array( array( $this, 'report_intersect' ), $args );
 	}
 
 	/**
