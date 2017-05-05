@@ -61,7 +61,7 @@ class Tribe__Meta__Chunker {
 	/**
 	 * @var int The largest size allowed by the Chunker.
 	 */
-	protected $max_chunk_size = 1048576;
+	protected $max_chunk_size;
 
 	/**
 	 * Hooks the chunker on metadata operations for each supported post types.
@@ -299,21 +299,18 @@ class Tribe__Meta__Chunker {
 	}
 
 	/**
-	 * Returns the max chunk size
+	 * Returns the max chunk size in bytes.
 	 *
 	 * @return array|int|null|object
 	 */
-	protected function get_max_chunk_size() {
+	public function get_max_chunk_size() {
 		if ( ! empty( $this->max_chunk_size ) ) {
 			return $this->max_chunk_size;
 		}
 		/** @var wpdb $wpdb */
 		global $wpdb;
-		$max_size = $wpdb->get_results( "SHOW VARIABLES LIKE 'max_allowed_packet';" );
-		if ( empty( $max_size ) ) {
-			// let's assume 1M
-			$max_size = 1048576;
-		}
+		$max_size = $wpdb->get_results( "SHOW VARIABLES LIKE 'max_allowed_packet';", ARRAY_A );
+		$max_size = ! empty( $max_size[0]['Value'] ) ? $max_size[0]['Value'] : 1048576;
 
 		/**
 		 * Filters the max size of the of the chunks in bytes.

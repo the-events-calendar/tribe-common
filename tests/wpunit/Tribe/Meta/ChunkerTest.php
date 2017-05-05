@@ -354,4 +354,14 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
 		$this->assertFalse( $sut->is_chunked( $id, $meta_key ) );
 	}
+
+	/**
+	 * It should allow getting the max chunk size from the db max_allowed_packet
+	 *
+	 * @test
+	 */
+	public function it_should_allow_getting_the_max_chunk_size_from_the_db_max_allowed_packet() {
+		$sut = $this->make_instance();
+		$this->assertTrue( is_numeric( $sut->get_max_chunk_size() ) );
+	}
 }
