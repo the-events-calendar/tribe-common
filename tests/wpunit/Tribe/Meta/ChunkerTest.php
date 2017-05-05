@@ -44,37 +44,20 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should mark as chunkable when meta is over max size
+	 * It should allow marking meta as chunkable
 	 *
 	 * @test
 	 */
-	public function it_should_mark_as_chunkable_when_meta_is_over_max_size() {
+	public function it_should_allow_marking_meta_as_chunkable() {
 		$id = $this->factory()->post->create();
 		$meta_key = 'foo';
 		$meta_value = str_repeat( 'foo', 20 );
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
-		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+		$sut->register_chunking_for( $id, $meta_key );
 
 		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
-	}
-
-	/**
-	 * It should not mark as chunkable when data is not over max size
-	 *
-	 * @test
-	 */
-	public function it_should_not_mark_as_chunkable_when_data_is_not_over_max_size() {
-		$id = $this->factory()->post->create();
-		$meta_key = 'foo';
-		$meta_value = str_repeat( 'foo', 20 );
-
-		$sut = $this->make_instance();
-		$sut->set_max_chunk_size( 2 * $sut->get_byte_size( $meta_value ) );
-		$sut->register_chunking_for( $id, $meta_key, $meta_value );
-
-		$this->assertFalse( $sut->is_chunkable( $id, $meta_key ) );
 	}
 
 	/**
@@ -89,7 +72,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
-		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+		$sut->register_chunking_for( $id, $meta_key );
 
 		$this->assertTrue( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( $meta_key ), true ) );
 	}
@@ -107,9 +90,10 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) * 2 );
-		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+		$sut->register_chunking_for( $id, $meta_key );
 
-		$this->assertFalse( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( $meta_key ), true ) );
+		$this->assertTrue( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( $meta_key ), true ) );
+		$this->assertFalse( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( 'bar' ), true ) );
 	}
 
 	/**
@@ -124,7 +108,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
-		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+		$sut->register_chunking_for( $id, $meta_key );
 
 		add_post_meta( $id, $meta_key, $meta_value );
 
@@ -150,7 +134,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value_1 ) / 2 );
-		$sut->register_chunking_for( $id, $meta_key, $meta_value_1 );
+		$sut->register_chunking_for( $id, $meta_key );
 
 		add_post_meta( $id, $meta_key, $meta_value_1 );
 		add_post_meta( $id, $meta_key, $meta_value_2 );
@@ -174,7 +158,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
-		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+		$sut->register_chunking_for( $id, $meta_key );
 
 		add_post_meta( $id, $meta_key, $meta_value );
 
@@ -199,7 +183,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
-		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+		$sut->register_chunking_for( $id, $meta_key );
 
 		add_post_meta( $id, $meta_key, $meta_value );
 
@@ -236,11 +220,12 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) * 2 );
-		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+		$sut->register_chunking_for( $id, $meta_key );
 
 		add_post_meta( $id, $meta_key, $meta_value );
 
-		$this->assertFalse( $sut->is_chunkable( $id, $meta_key ) );
+		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
+		$this->assertFalse( $sut->is_chunked( $id, $meta_key ) );
 	}
 
 	/**
@@ -256,7 +241,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$this->post_types = [ 'page' ]; // not posts
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) * 2 );
-		$sut->register_chunking_for( $id, $meta_key, $meta_value );
+		$sut->register_chunking_for( $id, $meta_key );
 
 		add_post_meta( $id, $meta_key, $meta_value );
 
@@ -275,7 +260,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut_1 = $this->make_instance();
 		$sut_1->set_max_chunk_size( $sut_1->get_byte_size( $meta_value ) / 2 );
-		$sut_1->register_chunking_for( $id, $meta_key, $meta_value );
+		$sut_1->register_chunking_for( $id, $meta_key );
 
 		add_post_meta( $id, $meta_key, $meta_value );
 
@@ -289,5 +274,84 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( 3, $sut_2->get_chunks_for( $id, $meta_key ) );
 	}
 
+	/**
+	 * It should reflect latest content of meta after updates
+	 *
+	 * @test
+	 */
+	public function it_should_reflect_latest_content_of_meta_after_updates() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
 
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		update_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertEquals( $meta_value, get_post_meta( $id, $meta_key, true ) );
+		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
+		$this->assertTrue( $sut->is_chunked( $id, $meta_key ) );
+
+		update_post_meta( $id, $meta_key, 'just this' );
+
+		$this->assertEquals( 'just this', get_post_meta( $id, $meta_key, true ) );
+		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
+		$this->assertFalse( $sut->is_chunked( $id, $meta_key ) );
+	}
+
+	/**
+	 * It should reflect latest state of meta after additions
+	 *
+	 * @test
+	 */
+	public function it_should_reflect_latest_state_of_meta_after_additions() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertEquals( $meta_value, get_post_meta( $id, $meta_key, true ) );
+		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
+		$this->assertTrue( $sut->is_chunked( $id, $meta_key ) );
+
+		add_post_meta( $id, $meta_key, 'just this' );
+
+		$this->assertEquals( 'just this', get_post_meta( $id, $meta_key, true ) );
+		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
+		$this->assertFalse( $sut->is_chunked( $id, $meta_key ) );
+	}
+
+	/**
+	 * It should reflect latest value after meta deletion
+	 *
+	 * @test
+	 */
+	public function it_should_reflect_latest_value_after_meta_deletion() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$this->assertEquals( $meta_value, get_post_meta( $id, $meta_key, true ) );
+		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
+		$this->assertTrue( $sut->is_chunked( $id, $meta_key ) );
+
+		delete_post_meta( $id, $meta_key );
+
+		$this->assertEmpty(  get_post_meta( $id, $meta_key, true ) );
+		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
+		$this->assertFalse( $sut->is_chunked( $id, $meta_key ) );
+	}
 }
