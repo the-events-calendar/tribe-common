@@ -31,6 +31,7 @@
  *          return $post_types;
  *      }
  *
+ * or filter the `tribe_meta_chunker_post_types` filter.
  */
 class Tribe__Meta__Chunker {
 	/**
