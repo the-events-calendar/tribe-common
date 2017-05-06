@@ -3,10 +3,10 @@
 /**
  * Class Tribe__Meta__Chunker
  *
- * Chunks large meta to avoid kiling the database in queries.
+ * Chunks large meta to avoid killing the database in queries.
  *
  * Databases can have a `max_allowed_packet` value set as low as 1M; we often need to store large blobs of data way
- * over that and doing so would kill hte database ("MySQL server has gone away"...); registering a meta to be chunked
+ * over that and doing so would kill the database ("MySQL server has gone away"...); registering a meta to be chunked
  * if needed avoids that.
  *
  * Example usage:
