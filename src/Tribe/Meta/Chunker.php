@@ -86,10 +86,10 @@ class Tribe__Meta__Chunker {
 
 		$this->prime_chunked_cache();
 
-		add_filter( "update_post_metadata", array( $this, 'filter_update_metadata' ), $this->filter_p, 4 );
-		add_filter( "delete_post_metadata", array( $this, 'filter_delete_metadata' ), $this->filter_p, 3 );
-		add_filter( "add_post_metadata", array( $this, 'filter_add_metadata' ), $this->filter_p, 4 );
-		add_filter( "get_post_metadata", array( $this, 'filter_get_metadata' ), $this->filter_p, 4 );
+		add_filter( 'update_post_metadata', array( $this, 'filter_update_metadata' ), $this->filter_p, 4 );
+		add_filter( 'delete_post_metadata', array( $this, 'filter_delete_metadata' ), $this->filter_p, 3 );
+		add_filter( 'add_post_metadata', array( $this, 'filter_add_metadata' ), $this->filter_p, 4 );
+		add_filter( 'get_post_metadata', array( $this, 'filter_get_metadata' ), $this->filter_p, 3 );
 	}
 
 	/**
@@ -282,7 +282,7 @@ class Tribe__Meta__Chunker {
 	 * @return bool
 	 */
 	protected function is_chunker_canary_key( $meta_key ) {
-		return 0 === strpos($meta_key, $this->meta_key_prefix) && !preg_match( '/_chunk$/', $meta_key );
+		return 0 === strpos( $meta_key, $this->meta_key_prefix ) && ! preg_match( '/_chunk$/', $meta_key );
 	}
 
 	/**
@@ -515,7 +515,7 @@ class Tribe__Meta__Chunker {
 	 *
 	 * @see get_metadata()
 	 */
-	public function filter_get_metadata( $check, $object_id, $meta_key, $single = true ) {
+	public function filter_get_metadata( $check, $object_id, $meta_key ) {
 		if ( ! $this->applies( $object_id, $meta_key ) ) {
 			return $check;
 		}
@@ -690,7 +690,7 @@ class Tribe__Meta__Chunker {
 		$data = array(
 			'post_id'    => $object_id,
 			'meta_key'   => $meta_key,
-			'meta_value' => $meta_value
+			'meta_value' => $meta_value,
 		);
 		$wpdb->insert( $wpdb->postmeta, $data );
 	}
