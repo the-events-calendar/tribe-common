@@ -226,8 +226,63 @@ class Tribe__Meta__Chunker {
 	 *
 	 * @return bool
 	 */
-	protected function is_chunker_logic_meta( $meta_key ) {
+	protected function is_chunker_logic_meta_key( $meta_key ) {
 		return 0 === strpos( $meta_key, $this->meta_key_prefix );
+	}
+
+	/**
+	 * Returns all the meta for a post ID.
+	 *
+	 * The meta includes the chunked one but not the chunker logic meta keys.
+	 * The return format is the same used by the `get_post_meta( $post_id )` function.
+	 *
+	 * @param int $object_id
+	 *
+	 * @return array An array containing all meta including the chunked one.
+	 *
+	 * @see get_post_meta() with empty `$meta_key` argument.
+	 */
+	public function get_all_meta_for( $object_id ) {
+		$all_meta = $this->get_all_meta( $object_id );
+
+		if ( empty( $all_meta ) ) {
+			return array();
+		}
+
+		// remove the chunk entries
+		$grouped = array();
+		foreach ( $all_meta as $entry ) {
+			if ( ! isset( $grouped[ $entry['meta_key'] ] ) ) {
+				$grouped[ $entry['meta_key'] ] = array( $entry['meta_value'] );
+			} else {
+				$grouped[ $entry['meta_key'] ][] = $entry['meta_value'];
+			}
+		}
+		$chunker_meta_keys = array_filter( array_keys( $grouped ), array( $this, 'is_chunker_logic_meta_key' ) );
+		$chunker_meta_canary_keys = array_filter( $chunker_meta_keys, array( $this, 'is_chunker_canary_key' ) );
+		$chunker_meta = array_intersect_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
+		$normal_meta = array_diff_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
+		foreach ( $chunker_meta_canary_keys as $canary_key ) {
+			$normal_meta_key = str_replace( $this->meta_key_prefix, '', $canary_key );
+			if ( ! isset( $normal_meta[ $normal_meta_key ] ) ) {
+				continue;
+			}
+			$chunk_meta_key = $this->get_chunk_meta_key( $normal_meta_key );
+			$normal_meta[ $normal_meta_key ] = array( $this->glue_chunks( $chunker_meta[ $chunk_meta_key ] ) );
+		}
+
+		return $normal_meta;
+	}
+
+	/**
+	 * Asserts that a meta key is not a chunk meta key.
+	 *
+	 * @param string $meta_key
+	 *
+	 * @return bool
+	 */
+	protected function is_chunker_canary_key( $meta_key ) {
+		return 0 === strpos($meta_key, $this->meta_key_prefix) && !preg_match( '/_chunk$/', $meta_key );
 	}
 
 	/**
@@ -465,6 +520,11 @@ class Tribe__Meta__Chunker {
 			return $check;
 		}
 
+		// getting all the meta
+		if ( empty( $meta_key ) ) {
+			return $this->get_all_meta_for( $object_id );
+		}
+
 		$key = $this->get_key( $object_id, $meta_key );
 		if ( array_key_exists( $key, $this->chunks_cache ) && is_array( $this->chunks_cache[ $key ] ) ) {
 			$glued = maybe_unserialize( $this->glue_chunks( $this->chunks_cache[ $key ] ) );
@@ -608,10 +668,9 @@ class Tribe__Meta__Chunker {
 	 * @return bool
 	 */
 	protected function applies( $object_id, $meta_key ) {
-		$applies = ! empty( $meta_key )
-		           && ! $this->is_chunker_logic_meta( $meta_key )
+		$applies = ! $this->is_chunker_logic_meta_key( $meta_key )
 		           && $this->is_supported_post_type( $object_id )
-		           && $this->is_chunkable( $object_id, $meta_key );
+		           && ( empty( $meta_key ) || $this->is_chunkable( $object_id, $meta_key ) );
 
 		return $applies;
 	}
@@ -634,5 +693,21 @@ class Tribe__Meta__Chunker {
 			'meta_value' => $meta_value
 		);
 		$wpdb->insert( $wpdb->postmeta, $data );
+	}
+
+	/**
+	 * Fetches all the meta for a post.
+	 *
+	 * @param int $object_id
+	 *
+	 * @return array|null|object
+	 */
+	protected function get_all_meta( $object_id ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$query = $wpdb->prepare( "SELECT meta_key, meta_value FROM {$wpdb->postmeta} WHERE post_id = %d", $object_id );
+		$results = $wpdb->get_results( $query, ARRAY_A );
+
+		return ! empty( $results ) && is_array( $results ) ? $results : array();
 	}
 }

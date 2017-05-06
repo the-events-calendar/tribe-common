@@ -399,4 +399,37 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $sut->is_chunked( $id, $meta_key ) );
 		$this->assertEmpty( $wpdb->get_results( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '{$meta_key}'" ) );
 	}
+
+	/**
+	 * It should allow getting chunked meta in the context of all meta
+	 *
+	 * @test
+	 */
+	public function it_should_allow_getting_chunked_meta_in_the_context_of_all_meta() {
+		$id = $this->factory()->post->create( [ 'meta_input' => [ 'bar' => 23, 'baz' => 89 ] ] );
+		add_post_meta( $id, 'two', 'one' );
+		add_post_meta( $id, 'two', 'two' );
+		$meta_key = 'foo';
+		$keys = [ 'foo', 'baz', 'bar' ];
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, $meta_key, $meta_value );
+
+		$all_meta = get_post_meta( $id );
+		// remove keys we've not created
+		$all_meta = array_intersect_key( $all_meta, array_combine( $keys, $keys ) );
+
+		$this->assertCount( 3, $all_meta );
+		$this->assertArrayHasKey( 'foo', $all_meta );
+		$this->assertArrayHasKey( 'bar', $all_meta );
+		$this->assertArrayHasKey( 'baz', $all_meta );
+		$this->assertContainsOnly('array',$all_meta);
+		$this->assertEquals( $meta_value, reset( $all_meta['foo'] ) );
+		$this->assertEquals( 23, reset( $all_meta['bar'] ) );
+		$this->assertEquals( 89, reset( $all_meta['baz'] ) );
+	}
 }
