@@ -65,7 +65,7 @@ class Tribe__Meta__Chunker {
 	 */
 	protected $max_chunk_size;
 
-	public function __construct(  ) {
+	public function __construct() {
 		$this->id = uniqid( rand( 1, 999 ) );
 	}
 
