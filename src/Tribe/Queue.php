@@ -118,6 +118,10 @@ class Tribe__Queue {
 		$ids = array_map( array( $this, 'get_work_id' ), $valid );
 		$stati = array_map( array( $this, 'get_work_status' ), $valid );
 
+		if ( empty( $ids ) || empty( $stati ) ) {
+			return array();
+		}
+
 		return array_combine( $ids, $stati );
 	}
 
