@@ -313,7 +313,7 @@ class Tribe__Meta__Chunker {
 		global $wpdb;
 		$data = array(
 			'post_id'  => $object_id,
-			'meta_key' => $this->get_checksum_key( $meta_key )
+			'meta_key' => $this->get_checksum_key( $meta_key ),
 		);
 		$wpdb->delete( $wpdb->postmeta, $data );
 	}
@@ -460,7 +460,7 @@ class Tribe__Meta__Chunker {
 		$wpdb->insert( $wpdb->postmeta, array(
 			'post_id'    => $object_id,
 			'meta_key'   => $checksum_key,
-			'meta_value' => md5( $glued )
+			'meta_value' => md5( $glued ),
 		) );
 	}
 
@@ -642,7 +642,7 @@ class Tribe__Meta__Chunker {
 	/**
 	 * Handles the object destruction cycle to leave no traces behind.
 	 */
-	function __destruct() {
+	public function __destruct() {
 		$this->unhook();
 	}
 
