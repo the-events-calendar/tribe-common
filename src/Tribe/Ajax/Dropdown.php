@@ -130,7 +130,11 @@ class Tribe__Ajax__Dropdown {
 			}
 		}
 
-		return array_values( $results );
+		if ( empty( $results ) ) {
+			return array();
+		}
+
+		return array_values( (array) $results );
 	}
 
 	/**
