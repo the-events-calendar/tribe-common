@@ -60,15 +60,15 @@ class Tribe__Ajax__Dropdown {
 		} else {
 			foreach ( $terms as $term ) {
 				// Prep for Select2
-				$term->id = $term->term_id;
-				$term->text = $term->name;
+				$term->id          = 'post_tag' === $term->taxonomy ? $term->slug : $term->term_id;
+				$term->text        = $term->name;
 				$term->breadcrumbs = array();
 
 				if ( 0 !== (int) $term->parent ) {
 					$ancestors = get_ancestors( $term->id, $term->taxonomy );
 					$ancestors = array_reverse( $ancestors );
 					foreach ( $ancestors as $ancestor ) {
-						$ancestor = get_term( $ancestor );
+						$ancestor            = get_term( $ancestor );
 						$term->breadcrumbs[] = $ancestor->name;
 					}
 				}
@@ -98,7 +98,7 @@ class Tribe__Ajax__Dropdown {
 		foreach ( $terms as $i => $term ) {
 			if ( $term->parent === $parent ) {
 				// Prep for Select2
-				$term->id = $term->term_id;
+				$term->id   = 'post_tag' === $term->taxonomy ? $term->slug : $term->term_id;
 				$term->text = $term->name;
 
 				$into[ $term->term_id ] = $term;
@@ -130,7 +130,11 @@ class Tribe__Ajax__Dropdown {
 			}
 		}
 
-		return array_values( $results );
+		if ( empty( $results ) ) {
+			return array();
+		}
+
+		return array_values( (array) $results );
 	}
 
 	/**
