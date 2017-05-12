@@ -15,7 +15,7 @@ abstract class Tribe__REST__Main {
 	 *
 	 * @var string
 	 */
-	protected $namespace = '/tribe';
+	protected $namespace = 'tribe';
 
 	/**
 	 * Returns the namespace of Modern Tribe REST APIs.
