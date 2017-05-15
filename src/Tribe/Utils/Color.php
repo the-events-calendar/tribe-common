@@ -43,7 +43,7 @@ class Tribe__Utils__Color {
 
 		// Make sure it's 6 digits
 		if ( strlen( $color ) === 3 ) {
-			$color = $color[0].$color[0].$color[1].$color[1].$color[2].$color[2];
+			$color = preg_replace( '/(.)(.)(.)/', '$1$1$2$2$3$3', $color );
 		} elseif ( strlen( $color ) != 6 ) {
 			throw new Exception( 'HEX color needs to be 6 or 3 digits long' );
 		}
