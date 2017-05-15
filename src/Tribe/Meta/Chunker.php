@@ -34,7 +34,6 @@
  * or filter the `tribe_meta_chunker_post_types` filter.
  */
 class Tribe__Meta__Chunker {
-	public $id;
 	/**
 	 * @var array The cache that will store chunks to avoid middleware operations from fetching the database.
 	 */
