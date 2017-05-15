@@ -53,7 +53,7 @@ class Tribe__Meta__Chunker {
 	/**
 	 * @var int The filter priority at which Chunker will operate on meta CRUD operations.
 	 */
-	protected $filter_p = - 1;
+	protected $filter_priority = - 1;
 
 	/**
 	 * @var string The meta key prefix applied ot any Chunker related post meta.
@@ -64,10 +64,6 @@ class Tribe__Meta__Chunker {
 	 * @var int The largest size allowed by the Chunker.
 	 */
 	protected $max_chunk_size;
-
-	public function __construct() {
-		$this->id = uniqid( rand( 1, 999 ) );
-	}
 
 	/**
 	 * Hooks the chunker on metadata operations for each supported post types.
@@ -86,10 +82,10 @@ class Tribe__Meta__Chunker {
 
 		$this->prime_chunked_cache();
 
-		add_filter( 'update_post_metadata', array( $this, 'filter_update_metadata' ), $this->filter_p, 4 );
-		add_filter( 'delete_post_metadata', array( $this, 'filter_delete_metadata' ), $this->filter_p, 3 );
-		add_filter( 'add_post_metadata', array( $this, 'filter_add_metadata' ), $this->filter_p, 4 );
-		add_filter( 'get_post_metadata', array( $this, 'filter_get_metadata' ), $this->filter_p, 3 );
+		add_filter( 'update_post_metadata', array( $this, 'filter_update_metadata' ), $this->filter_priority, 4 );
+		add_filter( 'delete_post_metadata', array( $this, 'filter_delete_metadata' ), $this->filter_priority, 3 );
+		add_filter( 'add_post_metadata', array( $this, 'filter_add_metadata' ), $this->filter_priority, 4 );
+		add_filter( 'get_post_metadata', array( $this, 'filter_get_metadata' ), $this->filter_priority, 3 );
 	}
 
 	/**
@@ -344,6 +340,7 @@ class Tribe__Meta__Chunker {
 		$max_allowed_packet = $this->get_max_chunk_size();
 		$serialized = maybe_serialize( $meta_value );
 		$byte_size = $this->get_byte_size( $serialized );
+		// we use .8 and not 1 to allow for MySQL instructions to use 20% of the string size
 		if ( $byte_size > .8 * $max_allowed_packet ) {
 			$chunk_size = ceil( $max_allowed_packet * 0.75 );
 			$key = $this->get_key( $post_id, $meta_key );
@@ -449,9 +446,11 @@ class Tribe__Meta__Chunker {
 		$chunk_meta_key = $this->get_chunk_meta_key( $meta_key );
 		$this->insert_meta( $object_id, $meta_key, $chunks[0] );
 		foreach ( $chunks as $chunk ) {
-			$prepared = $wpdb->prepare( '(%d, %s, %s)', $object_id, $chunk_meta_key, $chunk );
-			$query = "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) VALUES {$prepared}";
-			$wpdb->query( $query );
+			$wpdb->insert( $wpdb->postmeta, array(
+				'post_id'    => $object_id,
+				'meta_key'   => $chunk_meta_key,
+				'meta_value' => $chunk,
+			) );
 		}
 
 		$glued = $this->glue_chunks( $this->get_chunks_for( $object_id, $meta_key ) );
@@ -601,9 +600,7 @@ class Tribe__Meta__Chunker {
 		$key = $this->get_key( $object_id, $meta_key );
 		$chunked_in_cache = array_key_exists( $key, $this->chunks_cache ) && is_array( $this->chunks_cache[ $key ] );
 
-		return false === $check_db ?
-			$chunked_in_cache
-			: $this->verify_chunks_for( $object_id, $meta_key );
+		return false === $check_db ? $chunked_in_cache : $this->verify_chunks_for( $object_id, $meta_key );
 	}
 
 	/**
@@ -651,10 +648,10 @@ class Tribe__Meta__Chunker {
 	 */
 	public function unhook() {
 		foreach ( $this->post_types as $post_type ) {
-			remove_filter( "update_{$post_type}_metadata", array( $this, 'filter_update_metadata' ), $this->filter_p );
-			remove_filter( "delete_{$post_type}_metadata", array( $this, 'filter_delete_metadata' ), $this->filter_p );
-			remove_filter( "add_{$post_type}_metadata", array( $this, 'filter_add_metadata' ), $this->filter_p );
-			remove_filter( "get_{$post_type}_metadata", array( $this, 'filter_get_metadata' ), $this->filter_p );
+			remove_filter( "update_{$post_type}_metadata", array( $this, 'filter_update_metadata' ), $this->filter_priority );
+			remove_filter( "delete_{$post_type}_metadata", array( $this, 'filter_delete_metadata' ), $this->filter_priority );
+			remove_filter( "add_{$post_type}_metadata", array( $this, 'filter_add_metadata' ), $this->filter_priority );
+			remove_filter( "get_{$post_type}_metadata", array( $this, 'filter_get_metadata' ), $this->filter_priority );
 		}
 	}
 
