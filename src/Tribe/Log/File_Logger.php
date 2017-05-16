@@ -64,6 +64,11 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 			touch( $this->log_file );
 		}
 
+		// Bail if we're attempting to write but don't have permission.
+		if ( 'r' !== $this->context && ! is_writable( $this->log_file ) ) {
+			return;
+		}
+
 		if ( is_readable( $this->log_file ) ) {
 			$this->handle = fopen( $this->log_file, $this->context );
 		}

@@ -57,6 +57,12 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 		 */
 		public static function from_json( $json ) {
 			$apiResponse = json_decode( $json );
+
+			// Get first item of the response array
+			if ( $apiResponse && ! empty( $apiResponse->results ) ) {
+				$apiResponse = current( $apiResponse->results );
+			}
+
 			if ( empty( $apiResponse ) || ! is_object( $apiResponse ) ) {
 				return null;
 			}
