@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+    "hash": "7ec75e33ab9efbaac7c5171ca6a7d764",
     "content-hash": "21d2d1cfe07d9e4e835907431fc9c87e",
     "packages": [
         {
@@ -35,7 +36,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2016-04-16T21:52:24+00:00"
+            "time": "2016-04-16 21:52:24"
         }
     ],
     "packages-dev": [
@@ -92,7 +93,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2012-09-19T00:00:00+00:00"
+            "time": "2012-09-19 00:00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -137,7 +138,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2012-09-22T00:00:00+00:00"
+            "time": "2012-09-22 00:00:00"
         },
         {
             "name": "phpunit/php-text-template",
@@ -181,7 +182,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2012-09-23T00:00:00+00:00"
+            "time": "2012-09-23 00:00:00"
         },
         {
             "name": "phpunit/php-timer",
@@ -225,7 +226,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2012-09-23T00:00:00+00:00"
+            "time": "2012-09-23 00:00:00"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -270,7 +271,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2012-09-23T00:00:00+00:00"
+            "time": "2012-09-23 00:00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects-php52",
@@ -295,7 +296,7 @@
             "include-path": [
                 ""
             ],
-            "time": "2014-10-02T16:51:34+00:00"
+            "time": "2014-10-02 18:21:59"
         },
         {
             "name": "phpunit/phpunit-php52",
@@ -343,7 +344,7 @@
                     "xrstf\\Composer52\\Generator::onPostInstallCmd"
                 ]
             },
-            "time": "2015-10-20T11:09:30+00:00"
+            "time": "2015-10-20 11:09:30"
         },
         {
             "name": "symfony/yaml",
@@ -351,12 +352,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "dcbd318c241341c82444a8d92b7a0ddf6419f496"
+                "reference": "f3abbc0c63c0c7803db79a7398bb983e5b089f53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/dcbd318c241341c82444a8d92b7a0ddf6419f496",
-                "reference": "dcbd318c241341c82444a8d92b7a0ddf6419f496",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/f3abbc0c63c0c7803db79a7398bb983e5b089f53",
+                "reference": "f3abbc0c63c0c7803db79a7398bb983e5b089f53",
                 "shasum": ""
             },
             "require": {
@@ -398,7 +399,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-01T15:01:29+00:00"
+            "time": "2016-09-28 14:20:56"
         }
     ],
     "aliases": [],
