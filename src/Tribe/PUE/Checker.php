@@ -1024,7 +1024,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$local_key   = $this->get_key( 'local' );
 
 				// Check whether the network is licensed and NOT overridden by local license
-				if ( $network_key && ( empty( $local_key ) || $local_key === $network_key ) ) {
+				if ( ( $network_key && ( empty( $local_key ) ) || $local_key === $network_key ) ) {
 					$is_network_licensed = true;
 				}
 			}
