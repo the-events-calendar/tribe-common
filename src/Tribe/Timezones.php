@@ -172,7 +172,7 @@ class Tribe__Timezones {
 	}
 
 	/**
-	 * Accepts a unix timestamp and adjusts it so that when it is used to consitute
+	 * Accepts a unix timestamp and adjusts it so that when it is used to constitute
 	 * a new datetime string, that string reflects the designated timezone.
 	 *
 	 * @param string $unix_timestamp
