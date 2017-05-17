@@ -505,6 +505,7 @@ class Tribe__Main {
 		tribe_singleton( 'cron', 'Tribe__Cron', array( 'schedule' ) );
 		tribe_singleton( 'queue', 'Tribe__Queue' );
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
+		tribe_singleton( 'admin-notices', 'Tribe__Admin__Notices' );
 		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
 	}
 }
