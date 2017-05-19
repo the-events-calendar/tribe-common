@@ -126,7 +126,7 @@
  *      }
  *
  * Validation, conversion and aliases will apply to nested values too.
- * Due to the size the format maps can reach the way to use this is to extendthis class in a specialized class that will set up its own
+ * Due to the size the format maps can reach the way to use this is to extend class in a specialized class that will set up its own
  * format map and context.
  */
 class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
