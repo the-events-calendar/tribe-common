@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Interface Tribe__Validator__Interface
+ *
+ * Models any class that provides methods to validate values.
+ */
 interface Tribe__Validator__Interface {
 	/**
 	 * @param mixed $value

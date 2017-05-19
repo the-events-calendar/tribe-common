@@ -1,6 +1,10 @@
 <?php
 
-
+/**
+ * Class Tribe__Validator__Base
+ *
+ * Provides methods to validate values.
+ */
 class Tribe__Validator__Base implements Tribe__Validator__Interface {
 
 	/**

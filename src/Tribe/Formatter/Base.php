@@ -131,6 +131,11 @@
  */
 class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	/**
+	 * @var string
+	 */
+	public $name = 'Base';
+
+	/**
 	 * @var array The format map that will be used to format and validate the raw input.
 	 */
 	protected $format_map = array();
@@ -141,12 +146,30 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	protected $context = array();
 
 	/**
+	 * Returns the format map the formatter is using.
+	 *
+	 * @return array
+	 */
+	public function get_format_map() {
+		return $this->format_map;
+	}
+
+	/**
 	 * Sets the format map for this formatter.
 	 *
 	 * @param array $format_map
 	 */
 	public function set_format_map( array $format_map ) {
 		$this->format_map = $format_map;
+	}
+
+	/**
+	 * Returns the formatter current context.
+	 *
+	 * @return array
+	 */
+	public function get_context() {
+		return (array) $this->context;
 	}
 
 	/**
@@ -161,13 +184,15 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	}
 
 	/**
+	 * Processes an array of raw input validating, converting and pruning its elements.
+	 *
 	 * @param array $raw The input to format.
 	 *
 	 * @return array The formatted input.
 	 *
 	 * @throws InvalidArgumentException If a required argument is missing or not valid.
 	 */
-	public function process( array $raw ) {
+	public function process( array $raw = array() ) {
 		return $this->format( $raw, $this->format_map, $this->context );
 	}
 
@@ -277,7 +302,7 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	 *
 	 * @return string
 	 */
-	public function get_required_error_for( array $context = array() ) {
+	protected function get_required_error_for( array $context = array() ) {
 		$context = implode( ' > ', $context );
 
 		return sprintf( __( 'Argument "%1$s" is required', 'tribe-common' ), $context );
@@ -290,7 +315,7 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	 *
 	 * @return string
 	 */
-	public function get_invalid_error_for( $context ) {
+	protected function get_invalid_error_for( $context ) {
 		$context = implode( ' > ', $context );
 
 		return sprintf( __( 'The value provided for "%1$s" is invalid.', 'tribe-common' ), $context );
@@ -308,5 +333,23 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 		$context = implode( ' > ', $context );
 
 		return sprintf( __( 'Error while converting "%1$s": %2$s', 'tribe-common' ), $context, $exception->getMessage() );
+	}
+
+	/**
+	 * Returns this formatter name.
+	 *
+	 * @return string
+	 */
+	public function get_name() {
+		return $this->name;
+	}
+
+	/**
+	 * Sets the formatter name.
+	 *
+	 * @param $name
+	 */
+	public function set_name( $name ) {
+		$this->name = $name;
 	}
 }
