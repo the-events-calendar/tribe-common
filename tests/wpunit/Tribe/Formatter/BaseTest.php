@@ -1193,7 +1193,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$formatted = $sut->process( $raw );
 
 		$this->assertEquals( [
-			'one'   => 23,
+			'one' => 23,
 		], $formatted );
 	}
 
@@ -1203,5 +1203,36 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_apply_validation_and_conversion_on_default_value() {
+		$sut = $this->make_instance();
+
+		$validated = false;
+		$converted = false;
+
+		$validate = function ( $value ) use ( &$validated ) {
+			$validated = $value;
+
+			return true;
+		};
+
+		$convert = function ( $value ) use ( &$converted ) {
+			$converted = $value;
+
+			return $value + 2;
+		};
+
+		$sut->set_format_map( [
+			'one' => [ 'required' => false, 'default' => 23, 'validate_callback' => $validate, 'conversion_callback' => $convert ],
+		] );
+
+		$raw = [
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( 23, $validated );
+		$this->assertEquals( 23, $converted );
+		$this->assertEquals( [
+			'one' => 25,
+		], $formatted );
 	}
 }

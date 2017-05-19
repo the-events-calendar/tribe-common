@@ -350,7 +350,13 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	 * @return mixed
 	 */
 	protected function call_callback_for( $value, $callback ) {
-		$ref = new ReflectionFunction( $callback );
+		if ( is_array( $callback ) ) {
+			$ref = new ReflectionMethod( $callback[0], $callback[1] );
+		} else {
+			// closure or function
+			$ref = new ReflectionFunction( $callback );
+		}
+
 		$args = array( $value, &$this->generated_data, $this->raw );
 		$args = array_splice( $args, 0, $ref->getNumberOfParameters() );
 		$valid = call_user_func_array( $callback, $args );
