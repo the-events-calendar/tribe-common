@@ -22,6 +22,17 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should return empty array if raw array is empty
+	 *
+	 * @test
+	 */
+	public function it_should_return_empty_array_if_raw_array_is_empty() {
+		$sut = $this->make_instance();
+
+		$this->assertEquals( [], $sut->process( [] ) );
+	}
+
+	/**
 	 * It should format monodimensional arrays.
 	 *
 	 * @test
@@ -1124,4 +1135,73 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$sut->process( $raw );
 	}
 
+	/**
+	 * It should allow conversion callbacks to generate data and have it merged in the processed array
+	 *
+	 * @test
+	 */
+	public function it_should_allow_conversion_callbacks_to_generate_data_and_have_it_merged_in_the_processed_array() {
+		$sut = $this->make_instance();
+
+		$add_element_one = function ( $value, &$generated_data ) {
+			$generated_data['three'] = 'zzap';
+
+			return $value;
+		};
+
+		$add_element_two = function ( $value, &$generated_data ) {
+			$generated_data['four'] = 'zort';
+
+			return $value;
+		};
+
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'conversion_callback' => $add_element_one ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric', 'conversion_callback' => $add_element_two ],
+		] );
+
+		$raw = [
+			'one' => 23,
+			'two' => 89,
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'one'   => 23,
+			'two'   => 89,
+			'three' => 'zzap',
+			'four'  => 'zort',
+		], $formatted );
+	}
+
+	/**
+	 * It should allow specifying a default value for the keys
+	 *
+	 * @test
+	 */
+	public function it_should_allow_specifying_a_default_value_for_the_fields() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'one' => [ 'required' => false, 'default' => 23 ],
+		] );
+
+		$raw = [
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'one'   => 23,
+		], $formatted );
+	}
+
+	/**
+	 * It should apply validation and conversion on default value
+	 *
+	 * @test
+	 */
+	public function it_should_apply_validation_and_conversion_on_default_value() {
+	}
 }

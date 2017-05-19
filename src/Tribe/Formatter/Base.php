@@ -133,7 +133,7 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	/**
 	 * @var string
 	 */
-	public $name = 'Base';
+	protected $name = 'Base';
 
 	/**
 	 * @var array The format map that will be used to format and validate the raw input.
@@ -144,6 +144,15 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	 * @var array The components of the context for this formatter.
 	 */
 	protected $context = array();
+	/**
+	 * @var array An array of data generated during the formatting.
+	 */
+	protected $generated_data = array();
+
+	/**
+	 * @var array The starting raw input.
+	 */
+	protected $raw = array();
 
 	/**
 	 * Returns the format map the formatter is using.
@@ -193,7 +202,23 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	 * @throws InvalidArgumentException If a required argument is missing or not valid.
 	 */
 	public function process( array $raw = array() ) {
-		return $this->format( $raw, $this->format_map, $this->context );
+		$this->reset_data( $raw );
+
+		$data = $this->format( $raw, $this->format_map, $this->context );
+
+		$data = array_merge_recursive( $data, $this->generated_data );
+
+		return $data;
+	}
+
+	/**
+	 * Resets the raw input and the generated data.
+	 *
+	 * @param array $raw
+	 */
+	protected function reset_data( array $raw ) {
+		$this->raw = $raw;
+		$this->generated_data = array();
 	}
 
 	/**
@@ -205,10 +230,12 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	 *
 	 * @return array
 	 */
-	protected function format( $value, array $format_map, array &$context = null ) {
+	protected function format( $value, array $format_map, &$context = null ) {
 		if ( null === $context ) {
 			$context = $this->context;
 		}
+
+		$context = is_array( $context ) ? $context : array( $context );
 
 		$data = array();
 
@@ -216,7 +243,7 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 			foreach ( array_keys( $format_map ) as $key ) {
 				$alias = ! empty( $format_map[ $key ]['alias'] ) ? $this->find_alias( $format_map[ $key ]['alias'], $value ) : $key;
 
-				if ( empty( $value[ $alias ] ) && empty( $value[ $key ] ) ) {
+				if ( empty( $value[ $alias ] ) && empty( $value[ $key ] ) && ! isset( $format_map[ $key ]['default'] ) ) {
 					$is_required_key = ! empty( $format_map[ $key ]['required'] ) || $this->contains_required_keys( $format_map[ $key ] );
 					if ( $is_required_key ) {
 						$context[] = $alias === $key ? $key : sprintf( '%s (%s)', $key, implode( '|', (array) $alias ) );
@@ -225,21 +252,27 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 					continue;
 				}
 
+				if ( empty( $value[ $alias ] ) && empty( $value[ $key ] ) ) {
+					$value[ $key ] = $format_map[ $key ]['default'];
+				}
+
 				$context[] = $alias === $key ? $key : sprintf( '%s (%s)', $key, implode( '|', (array) $alias ) );
 				$target = ! empty( $value[ $key ] ) ? $value[ $key ] : $value[ $alias ];
 				$data[ $key ] = $this->format( $target, $format_map[ $key ], $context );
 			}
 			$value = $data;
 		} else {
-			$valid = call_user_func( $format_map['validate_callback'], $value );
+			if ( ! empty( $format_map['validate_callback'] ) ) {
+				$valid = $this->call_callback_for( $value, $format_map['validate_callback'] );
 
-			if ( false === $valid ) {
-				throw new InvalidArgumentException( $this->get_invalid_error_for( $context ) );
+				if ( false === $valid ) {
+					throw new InvalidArgumentException( $this->get_invalid_error_for( $context ) );
+				}
 			}
 
 			if ( ! empty( $format_map['conversion_callback'] ) ) {
 				try {
-					$value = call_user_func( $format_map['conversion_callback'], $value );
+					$value = $this->call_callback_for( $value, $format_map['conversion_callback'] );
 				} catch ( Exception $e ) {
 					throw new InvalidArgumentException( $this->get_conversion_error_for( $context, $e ) );
 				}
@@ -306,6 +339,23 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 		$context = implode( ' > ', $context );
 
 		return sprintf( __( 'Argument "%1$s" is required', 'tribe-common' ), $context );
+	}
+
+	/**
+	 * Calls the specified callback with the right number of parameters.
+	 *
+	 * @param mixed    $value
+	 * @param callable $callback
+	 *
+	 * @return mixed
+	 */
+	protected function call_callback_for( $value, $callback ) {
+		$ref = new ReflectionFunction( $callback );
+		$args = array( $value, &$this->generated_data, $this->raw );
+		$args = array_splice( $args, 0, $ref->getNumberOfParameters() );
+		$valid = call_user_func_array( $callback, $args );
+
+		return $valid;
 	}
 
 	/**
