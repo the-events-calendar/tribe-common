@@ -12,14 +12,14 @@ $license_link = '<a href="' . $utm_link . '" target="_blank">' . Tribe__Main::$t
 
 // Explanatory text about license settings for the tab information box
 $html = '<p>' . sprintf(
-		esc_html__( 'The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s.', 'tribe-common' ),
+		esc_html__( 'The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s.', 'the-events-calendar' ),
 		'<a href="' . Tribe__Main::$tec_url . '" target="_blank">' . Tribe__Main::$tec_url . '<span class="screen-reader-text">' . __( ' (opens in new window)', 'tribe-common' ) . '</span></a>',
 		$license_link,
 		'<strong>',
 		'</strong>'
 	) . '</p>';
 
-$html .= '<p>' . esc_html__( 'Each paid add-on has its own unique license key. Simply paste the key into its appropriate field below, and give it a moment to validate. You know you\'re set when a green expiration date appears alongside a "valid" message.', 'tribe-common' ) . '</p>';
+$html .= '<p>' . esc_html__( 'Each paid add-on has its own unique license key. Simply paste the key into its appropriate field below, and give it a moment to validate. You know you\'re set when a green expiration date appears alongside a "valid" message.', 'the-events-calendar' ) . '</p>';
 
 $html .= '<p>' . sprintf(
 		esc_html__( 'If you\'re seeing a red message telling you that your key isn\'t valid or is out of installs, visit %1$s to manage your installs or renew / upgrade your license.', 'tribe-common' ),
