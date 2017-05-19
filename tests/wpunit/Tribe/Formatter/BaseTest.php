@@ -6,26 +6,6 @@ use Tribe__Formatter__Base as Formatter;
 
 class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
-	 * @var \Tribe__REST__Validator_Interface
-	 */
-	protected $validator;
-
-	public function setUp() {
-		// before
-		parent::setUp();
-
-		// your set up methods here
-		$this->validator = $this->prophesize( \Tribe__REST__Validator_Interface::class );
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
-	}
-
-	/**
 	 * It should be instantiatable
 	 *
 	 * @test
@@ -38,7 +18,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @return Formatter
 	 */
 	protected function make_instance() {
-		return new Formatter( new \Tribe__REST__Validator() );
+		return new Formatter( new \Tribe__Validator__Base() );
 	}
 
 	/**
@@ -375,4 +355,773 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut->process( $raw );
 	}
+
+	/**
+	 * It should throw if nested optional key is invalid
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_nested_optional_key_is_invalid() {
+		$sut = $this->make_instance();
+
+		$sut->set_context( [ 'Some context' ] );
+		$sut->set_format_map( [
+			'foo' => [
+				'one' => [ 'required' => true, 'validate_callback' => 'is_numeric' ],
+				'sub' => [
+					'two'     => [ 'required' => true, 'validate_callback' => 'is_numeric' ],
+					'sub-sub' => [
+						'three' => [ 'required' => false, 'validate_callback' => 'is_numeric' ],
+					]
+				]
+			],
+		] );
+
+		$raw = [
+			'foo' => [
+				'one' => 13,
+				'sub' => [
+					'two'     => 23,
+					'sub-sub' => [
+						'three' => 'nan',
+					],
+				],
+			],
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > foo > sub > sub-sub > three"/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should allow aliasing keys in monodimensional array
+	 *
+	 * @test
+	 */
+	public function it_should_allow_aliasing_keys_in_monodimensional_array() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => 'foo' ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric', 'alias' => 'baz' ],
+		] );
+
+		$raw = [
+			'foo' => 23,
+			'two' => 89,
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'one' => 23,
+			'two' => '89',
+		], $formatted );
+	}
+
+	/**
+	 * It should use the key over the alias in monodimensional arrays
+	 *
+	 * @test
+	 */
+	public function it_should_use_the_key_over_the_alias_in_monodimensional_arrays() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => 'foo' ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric', 'alias' => 'baz' ],
+		] );
+
+		$raw = [
+			'one' => 17,
+			'foo' => 23,
+			'baz' => 111,
+			'two' => 89,
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'one' => 17,
+			'two' => 89,
+		], $formatted );
+	}
+
+	/**
+	 * It should throw when aliased required key is missing
+	 *
+	 * @test
+	 */
+	public function it_should_throw_when_aliased_required_key_is_missing() {
+		$sut = $this->make_instance();
+
+		$sut->set_context( [ 'Some context' ] );
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => 'foo' ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric', 'alias' => 'baz' ],
+		] );
+
+		$raw = [
+			'baz' => 89,
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/Some context > one \\(foo\\)/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should throw when aliased key is invalid
+	 *
+	 * @test
+	 */
+	public function it_should_throw_when_aliased_key_is_invalid() {
+		$sut = $this->make_instance();
+
+		$sut->set_context( [ 'Some context' ] );
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => 'foo' ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric', 'alias' => 'baz' ],
+		] );
+
+		$raw = [
+			'foo' => 'nan',
+			'two' => 89,
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/Some context > one \\(foo\\)/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should allow aliasing keys in nested array
+	 *
+	 * @test
+	 */
+	public function it_should_allow_aliasing_keys_in_nested_array() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'one' => [
+				'sub' => [
+					'sub-sub' => [
+						'two' => [ 'required' => false, 'validate_callback' => 'is_string', 'alias' => 'bar' ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'one' => [
+				'some-key' => 23,
+				'sub'      => [
+					'sub-sub' => [
+						'bar' => 'some string'
+					],
+				],
+			],
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'one' => [
+				'sub' => [
+					'sub-sub' => [
+						'two' => 'some string'
+					]
+				]
+			]
+		], $formatted );
+	}
+
+	/**
+	 * It should use key over alias in nested array
+	 *
+	 * @test
+	 */
+	public function it_should_use_key_over_alias_in_nested_array() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'one' => [
+				'sub' => [
+					'sub-sub' => [
+						'two' => [ 'required' => false, 'validate_callback' => 'is_string', 'alias' => 'bar' ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'one' => [
+				'some-key' => 23,
+				'sub'      => [
+					'sub-sub' => [
+						'bar' => 'some string',
+						'two' => 'two string'
+					],
+				],
+			],
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'one' => [
+				'sub' => [
+					'sub-sub' => [
+						'two' => 'two string'
+					]
+				]
+			]
+		], $formatted );
+	}
+
+	/**
+	 * It should throw if aliased reuired key is missing
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_aliased_reuired_key_is_missing() {
+		$sut = $this->make_instance();
+
+		$sut->set_context( 'Some context' );
+		$sut->set_format_map( [
+			'one' => [
+				'sub' => [
+					'sub-sub' => [
+						'two' => [ 'required' => true, 'validate_callback' => 'is_string', 'alias' => 'bar' ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'one' => [
+				'sub' => [
+					'sub-sub' => [
+						'not-bar' => 'some string',
+					],
+				],
+			],
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > one > sub > sub-sub > two \\(bar\\)"/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should throw if nested aliased key is invalid
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_nested_aliased_key_is_invalid() {
+		$sut = $this->make_instance();
+
+		$sut->set_context( 'Some context' );
+		$sut->set_format_map( [
+			'one' => [
+				'sub' => [
+					'sub-sub' => [
+						'two' => [ 'required' => false, 'validate_callback' => 'is_numeric', 'alias' => 'bar' ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'one' => [
+				'sub' => [
+					'sub-sub' => [
+						'bar' => 'nan',
+					],
+				],
+			],
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > one > sub > sub-sub > two \\(bar\\)"/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should allow converting valid values in monodimensional array
+	 *
+	 * @test
+	 */
+	public function it_should_allow_converting_valid_values_in_monodimensional_array() {
+		$sut = $this->make_instance();
+
+		$add_two = function ( $val ) {
+			return $val + 2;
+		};
+
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'conversion_callback' => $add_two ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric', 'conversion_callback' => $add_two ],
+		] );
+
+		$raw = [
+			'one' => 23,
+			'two' => 89,
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'one' => 25,
+			'two' => 91,
+		], $formatted );
+	}
+
+	/**
+	 * It should throw if conversion fails for key
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_conversion_fails_for_key() {
+		$sut = $this->make_instance();
+
+		$throwing = function () {
+			throw new \RuntimeException( 'Something happened' );
+		};
+
+		$sut->set_context( 'Some context' );
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'conversion_callback' => $throwing ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric', 'conversion_callback' => $throwing ],
+		] );
+
+		$raw = [
+			'one' => 23,
+			'two' => 89,
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > one"/' );
+		$this->expectExceptionMessageRegExp( '/Something happened/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should throw if conversion fails for aliased key
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_conversion_fails_for_aliased_key() {
+		$sut = $this->make_instance();
+
+		$throwing = function () {
+			throw new \RuntimeException( 'Something happened' );
+		};
+
+		$sut->set_context( 'Some context' );
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => 'foo', 'conversion_callback' => $throwing ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric', 'conversion_callback' => $throwing ],
+		] );
+
+		$raw = [
+			'foo' => 23,
+			'two' => 89,
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > one \\(foo\\)"/' );
+		$this->expectExceptionMessageRegExp( '/Something happened/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should convert nested keys
+	 *
+	 * @test
+	 */
+	public function it_should_convert_nested_keys() {
+		$sut = $this->make_instance();
+
+		$add_two = function ( $val ) {
+			return $val + 2;
+		};
+
+		$sut->set_format_map( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'conversion_callback' => $add_two ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => 23
+					],
+				],
+			],
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => 25
+					],
+				],
+			],
+		], $formatted );
+	}
+
+	/**
+	 * It should throw if conversion fails for nested key
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_conversion_fails_for_nested_key() {
+		$sut = $this->make_instance();
+
+		$throwing = function () {
+			throw new \RuntimeException( 'Something happened' );
+		};
+
+		$sut->set_format_map( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'conversion_callback' => $throwing ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => 23
+					],
+				],
+			],
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > main > sub > sub-sub > one"/' );
+		$this->expectExceptionMessageRegExp( '/Something happened/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should throw if conversion fails for aliased nested key
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_conversion_fails_for_aliased_nested_key() {
+		$sut = $this->make_instance();
+
+		$throwing = function () {
+			throw new \RuntimeException( 'Something happened' );
+		};
+
+		$sut->set_format_map( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => 'foo', 'conversion_callback' => $throwing ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => 23
+					],
+				],
+			],
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > main > sub > sub-sub > one \\(foo\\)"/' );
+		$this->expectExceptionMessageRegExp( '/Something happened/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should support multiple aliases for a key
+	 *
+	 * @test
+	 */
+	public function it_should_support_multiple_aliases_for_a_key() {
+		$sut = $this->make_instance();
+
+		$sut->set_context( 'Some context' );
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => [ 'foo', 'bar', 'baz' ] ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric' ],
+		] );
+
+		$raw = [
+			'bar' => 23,
+			'two' => 89,
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'one' => 23,
+			'two' => 89,
+		], $formatted );
+	}
+
+	/**
+	 * It should check for aliases in order
+	 *
+	 * @test
+	 */
+	public function it_should_check_for_aliases_in_order() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => [ 'foo', 'bar', 'baz' ] ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric' ],
+		] );
+
+		$raw = [
+			'bar' => 23,
+			'two' => 89,
+			'foo' => 21,
+			'baz' => 22,
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'one' => 21,
+			'two' => 89,
+		], $formatted );
+	}
+
+	/**
+	 * It should support multiple aliases for nested key
+	 *
+	 * @test
+	 */
+	public function it_should_support_multiple_aliases_for_nested_key() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => [ 'foo', 'baz', 'bar' ] ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'bar' => 23
+					],
+				],
+			],
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => 23
+					],
+				],
+			],
+		], $formatted );
+	}
+
+	/**
+	 * It should check for multiple aliases in order in nested key
+	 *
+	 * @test
+	 */
+	public function it_should_check_for_multiple_aliases_in_order_in_nested_key() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => [ 'foo', 'baz', 'bar' ] ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'bar' => 23,
+						'foo' => 21,
+						'baz' => 22,
+					],
+				],
+			],
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertEquals( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => 21
+					],
+				],
+			],
+		], $formatted );
+	}
+
+	/**
+	 * It should throw if multiple aliased key is missing
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_multiple_aliased_key_is_missing() {
+		$sut = $this->make_instance();
+
+		$sut->set_context( 'Some context' );
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => [ 'foo', 'bar', 'baz' ] ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric' ],
+		] );
+
+		$raw = [
+			'two' => 89,
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > one \\(foo|bar|baz\\)"/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should throw if multiple aliased key is invalid
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_multiple_aliased_key_is_invalid() {
+		$sut = $this->make_instance();
+
+		$sut->set_context( 'Some context' );
+		$sut->set_format_map( [
+			'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => [ 'foo', 'bar', 'baz' ] ],
+			'two' => [ 'required' => false, 'validate_callback' => 'is_numeric' ],
+		] );
+
+		$raw = [
+			'bar' => 'nan',
+			'two' => 89,
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > one \\(foo|bar|baz\\)"/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should throw if multiple aliased required nested key is missing
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_multiple_aliased_required_nested_key_is_missing() {
+		$sut = $this->make_instance();
+
+		$sut->set_context( 'Some context' );
+		$sut->set_format_map( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => [ 'foo', 'baz', 'bar' ] ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'two' => 23,
+					],
+				],
+			],
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > main > sub > sub-sub > one \\(foo|baz|bar\\)"/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should throw if multiple aliased nested key is invalid
+	 *
+	 * @test
+	 */
+	public function it_should_throw_if_multiple_aliased_nested_key_is_invalid() {
+		$sut = $this->make_instance();
+
+		$sut->set_context( 'Some context' );
+		$sut->set_format_map( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => [ 'required' => true, 'validate_callback' => 'is_numeric', 'alias' => [ 'foo', 'baz', 'bar' ] ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'bar' => 'nan',
+					],
+				],
+			],
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > main > sub > sub-sub > one \\(foo|baz|bar\\)"/' );
+
+		$sut->process( $raw );
+	}
+
 }
