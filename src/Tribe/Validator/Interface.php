@@ -1,6 +1,6 @@
 <?php
 
-interface Tribe__REST__Validator_Interface {
+interface Tribe__Validator__Interface {
 	/**
 	 * @param mixed $value
 	 *

@@ -1,7 +1,7 @@
 <?php
 
 
-class Tribe__REST__Validator implements Tribe__REST__Validator_Interface {
+class Tribe__Validator__Base implements Tribe__Validator__Interface {
 
 	/**
 	 * @param mixed $value
