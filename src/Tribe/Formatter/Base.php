@@ -263,7 +263,11 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 			$value = $data;
 		} else {
 			if ( ! empty( $format_map['validate_callback'] ) ) {
-				$valid = $this->call_callback_for( $value, $format_map['validate_callback'] );
+				try {
+					$valid = $this->call_callback_for( $value, $format_map['validate_callback'] );
+				} catch ( Exception $e ) {
+					throw new InvalidArgumentException( $this->get_invalid_error_for( $context, $e ) );
+				}
 
 				if ( false === $valid ) {
 					throw new InvalidArgumentException( $this->get_invalid_error_for( $context ) );
@@ -367,14 +371,21 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	/**
 	 * Returns the error message produced for an invalid key.
 	 *
-	 * @param array $context
+	 * @param array          $context
+	 * @param Exception|null $exception
 	 *
 	 * @return string
 	 */
-	protected function get_invalid_error_for( $context ) {
+	protected function get_invalid_error_for( $context, Exception $exception = null ) {
 		$context = implode( ' > ', $context );
 
-		return sprintf( __( 'The value provided for "%1$s" is invalid.', 'tribe-common' ), $context );
+		if ( null === $exception ) {
+			$message = sprintf( __( 'The value provided for "%1$s" is invalid.', 'tribe-common' ), $context );
+		} else {
+			$message = sprintf( __( 'Error while validating "%1$s": %2$s.', 'tribe-common' ), $context, $exception->getMessage() );
+		}
+
+		return $message;
 	}
 
 	/**

@@ -1235,4 +1235,74 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 			'one' => 25,
 		], $formatted );
 	}
+
+	/**
+	 * It should capture exceptions generated during validation in flat array
+	 *
+	 * @test
+	 */
+	public function it_should_capture_exceptions_generated_during_validation_in_flat_array() {
+		$sut = $this->make_instance();
+
+		$throwing =function(){
+			throw new \RuntimeException('Invalid!');
+		};
+
+		$sut->set_context('Some context');
+		$sut->set_format_map( [
+			'foo' => [ 'required' => true, 'validate_callback' => 'is_string' ],
+			'baz' => [ 'required' => true, 'validate_callback' => $throwing ],
+			'bar' => [ 'required' => false, 'validate_callback' => 'is_numeric' ],
+		] );
+
+		$raw = [
+			'foo' => 'some string',
+			'bar' => 89,
+			'baz' => 'lorem',
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > baz"/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should capture exceptions generated during validation in nested array
+	 *
+	 * @test
+	 */
+	public function it_should_capture_exceptions_generated_during_validation_in_nested_array() {
+		$sut = $this->make_instance();
+
+		$throwing =function(){
+			throw new \RuntimeException('Invalid!');
+		};
+
+		$sut->set_context('Some context');
+		$sut->set_format_map( [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => [ 'required' => true, 'validate_callback' => $throwing ],
+					],
+				],
+			],
+		] );
+
+		$raw = [
+			'main' => [
+				'sub' => [
+					'sub-sub' => [
+						'one' => 23,
+					],
+				],
+			],
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
+		$this->expectExceptionMessageRegExp( '/"Some context > main > sub > sub-sub > one"/' );
+
+		$sut->process( $raw );
+	}
 }
