@@ -71,4 +71,21 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( isset( $cache[ $key ] ) );
 		$this->assertEquals('bar',$cache[$key]);
 	}
+
+	/**
+	 * It should correctly generate key for numeric array components
+	 *
+	 * @test
+	 */
+	public function it_should_correctly_generate_key_for_numeric_array_components() {
+		$components_1 = [ __FILE__, [ 23, 89 ], [ 1 => 'bar', 23 => 'baz', 89 => 'bar' ] ];
+		$components_2 = [ __FILE__, [ 23, 89 ], [ 89 => 'bar', 23 => 'baz', 1 => 'bar' ] ];
+
+		$cache = $this->make_instance();
+
+		$this->assertEquals( $cache->make_key( $components_1 ), $cache->make_key( $components_2 ) );
+		$this->assertEquals( $cache->make_key( $components_1, 'pre' ), $cache->make_key( $components_2, 'pre' ) );
+		$this->assertNotEquals( $cache->make_key( $components_1, 'foo' ), $cache->make_key( $components_2, 'pre' ) );
+		$this->assertNotEquals( $cache->make_key( $components_1, '', false ), $cache->make_key( $components_2, '', false ) );
+	}
 }
