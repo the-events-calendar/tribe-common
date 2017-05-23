@@ -1,25 +1,10 @@
 <?php
 
-namespace Tribe\REST;
+namespace Tribe\Validator;
 
-use Tribe__REST__Validator as Validator;
+use Tribe__Validator__Base as Validator;
 
-class ValidatorTest extends \Codeception\TestCase\WPTestCase {
-
-	public function setUp() {
-		// before
-		parent::setUp();
-
-		// your set up methods here
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
-	}
-
+class BaseTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * It should be instantiatable
 	 *
@@ -107,24 +92,25 @@ class ValidatorTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $this->make_instance()->is_time( $value ) );
 	}
 
-	public function is_user_bad_users(  ) {
+	public function is_user_bad_users() {
 		return [
-			[null],
-			[false],
-			[23],
-			['23'],
-			[array(23)],
-			[array('user' => 23)],
+			[ null ],
+			[ false ],
+			[ 23 ],
+			[ '23' ],
+			[ array( 23 ) ],
+			[ array( 'user' => 23 ) ],
 		];
-}
+	}
+
 	/**
 	 * Test is_user bad users
 	 *
 	 * @test
 	 * @dataProvider is_user_bad_users
 	 */
-	public function test_is_user_bad_users($bad_user) {
-		$this->assertFalse( $this->make_instance()->is_user( $bad_user ) );
+	public function test_is_user_bad_users( $bad_user ) {
+		$this->assertFalse( $this->make_instance()->is_user_id( $bad_user ) );
 	}
 
 	/**
@@ -134,6 +120,48 @@ class ValidatorTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_is_user_with_good_user() {
 		$user_id = $this->factory()->user->create();
-		$this->assertTrue( $this->make_instance()->is_user( $user_id ) );
+		$this->assertTrue( $this->make_instance()->is_user_id( $user_id ) );
+	}
+
+	public function is_positive_int_inputs() {
+		return [
+			[ 3, true ],
+			[ 0, false ],
+			[ - 1, false ],
+			[ '3', true ],
+			[ '0', false ],
+			[ '-1', false ],
+		];
+	}
+
+	/**
+	 * Test is_positive_int
+	 *
+	 * @test
+	 * @dataProvider is_positive_int_inputs
+	 */
+	public function test_is_positive_int( $value, $expected ) {
+		$this->assertEquals( $expected, $this->make_instance()->is_positive_int( $value ) );
+	}
+
+	public function trim_inputs() {
+		return [
+			[ 'foo', 'foo' ],
+			[ 'foo ', 'foo' ],
+			[ ' foo ', 'foo' ],
+			[ ' foo  ', 'foo' ],
+			[ [ 'foo' => 'bar' ], [ 'foo' => 'bar' ] ],
+			[ 23, 23 ],
+		];
+	}
+
+	/**
+	 * Test trim
+	 *
+	 * @test
+	 * @dataProvider trim_inputs
+	 */
+	public function test_trim( $value, $expected ) {
+		$this->assertEquals( $expected, $this->make_instance()->trim( $value ) );
 	}
 }
