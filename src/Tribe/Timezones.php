@@ -406,5 +406,28 @@ class Tribe__Timezones {
 
 		return $timezone;
 	}
+
+	/**
+	 * Localizes a date or timestamp using WordPress timezone and returns it in the specified format.
+	 *
+	 * @param string $format
+	 * @param mixed $date
+	 *
+	 * @return string
+	 */
+	public static function localize_date( $format, $date ) {
+		$timezone = Tribe__Timezones::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
+		$timezone_object = new DateTimeZone( $timezone );
+
+		if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
+			$date = new DateTime( "@{$date}" );
+		} else {
+			$date = new DateTime( $date );
+		}
+
+		$date->setTimezone( $timezone_object );
+
+		return $date->format( $format );
+	}
 }
 
