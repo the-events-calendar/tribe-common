@@ -164,4 +164,57 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	public function test_trim( $value, $expected ) {
 		$this->assertEquals( $expected, $this->make_instance()->trim( $value ) );
 	}
+
+	public function bad_post_tags() {
+		return [
+			[ 0 ],
+			[ '0' ],
+			[ 'foo' ],
+			[ 23 ], // not present
+			[ '23' ], // not present
+		];
+	}
+
+	/**
+	 * Test is_post_tag with bad tags
+	 *
+	 * @test
+	 * @dataProvider bad_post_tags
+	 */
+	public function test_is_post_tag_with_bad_tags( $tag ) {
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_post_tag( $tag ) );
+	}
+
+	/**
+	 * Test is_post_tag with good tags
+	 *
+	 * @test
+	 */
+	public function test_is_post_tag_with_good_tags() {
+		$tag_1 = $this->factory()->tag->create( [ 'slug' => 'foo' ] );
+		$tag_2 = $this->factory()->tag->create();
+
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->is_post_tag( $tag_1 ) );
+		$this->assertTrue( $sut->is_post_tag( $tag_2 ) );
+	}
+
+	/**
+	 * Test is_post_tag with multiple tags
+	 *
+	 * @test
+	 */
+	public function test_is_post_tag_with_multiple_tags() {
+		$tag_1 = $this->factory()->tag->create( [ 'slug' => 'foo' ] );
+		$tag_2 = $this->factory()->tag->create();
+		$category = $this->factory()->category->create();
+
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->is_post_tag( [ $tag_1, $tag_2 ] ) );
+		$this->assertFalse( $sut->is_post_tag( [ $tag_1, $tag_2, $category ] ) );
+	}
 }

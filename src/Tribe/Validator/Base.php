@@ -70,4 +70,35 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	public function trim( $value ) {
 		return is_string( $value ) ? trim( $value ) : $value;
 	}
+
+	/**
+	 * Whether the value(s) all map to existing post tags.
+	 *
+	 * @param mixed $tag
+	 *
+	 * @return bool
+	 */
+	public function is_post_tag( $tag ) {
+		return $this->is_term_of_taxonomy( $tag, 'post_tag' );
+	}
+
+	/**
+	 * Whether the term exists and is a term of the specified taxonomy.
+	 *
+	 * @param mixed  $term Either a single term `term_id` or `slug` or an array of
+	 *                     `term_id`s and `slug`s
+	 * @param string $taxonomy
+	 *
+	 * @return bool
+	 */
+	public function is_term_of_taxonomy( $term, $taxonomy ) {
+		$terms = (array) $term;
+		foreach ( $terms as $_t ) {
+			if ( ! term_exists( $_t, $taxonomy ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
