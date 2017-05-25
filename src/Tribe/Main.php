@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.5.1';
+	const VERSION             = '4.5.3';
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -491,5 +491,7 @@ class Tribe__Main {
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
 		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
+		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
+		tribe_singleton( 'cache', 'Tribe__Cache' );
 	}
 }
