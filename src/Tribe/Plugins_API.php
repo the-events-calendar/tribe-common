@@ -180,7 +180,7 @@ class Tribe__Plugins_API {
 		}
 
 		if ( ! empty( $product['description'] ) && empty( $product['short_description'] ) ) {
-			$product['short_description'] = $product['description'];
+			$product['short_description'] = wp_trim_words( $product['description'], 27 );
 		}
 
 		if ( ! empty( $product['image'] ) && empty( $product['icons']['default'] ) ) {
