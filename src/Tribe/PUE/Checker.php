@@ -1120,7 +1120,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			);
 
 			$this->plugin_notice = array(
-				'slug' => $this->plugin_file,
+				'slug'             => $this->plugin_file,
 				'message_row_html' => $message_row_html,
 			);
 
