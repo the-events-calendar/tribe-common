@@ -112,4 +112,33 @@ class Tribe__Utils__Array {
 
 		return false;
 	}
+
+	/**
+	 * Converts a list to an array filtering out empty string elements.
+	 *
+	 * @param     mixed   $value A string representing a list of values separated by the specified separator
+	 *                           or an array.
+	 * @param string $sep The char(s) separating the list elements; will be ignored if the list is an array.
+	 *
+	 * @return array An array of list elements.
+	 */
+	public static function list_to_array( $value, $sep = ',' ) {
+		if ( empty( $value ) ) {
+			return array();
+		}
+
+		if ( ! is_array( $value ) ) {
+			$value = preg_split( '/\\s*' . preg_quote( $sep ) . '\\s*/', $value );
+		}
+
+		$filtered = array();
+		foreach ( $value as $v ) {
+			if ( $v === '' ) {
+				continue;
+			}
+			$filtered[] = $v;
+		}
+
+		return $filtered;
+	}
 }
