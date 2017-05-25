@@ -410,19 +410,31 @@ class Tribe__Timezones {
 	/**
 	 * Localizes a date or timestamp using WordPress timezone and returns it in the specified format.
 	 *
-	 * @param string $format
-	 * @param mixed $date
+	 * @param string     $format   The format the date shouuld be formatted to.
+	 * @param string|int $date     The date UNIX timestamp or `strtotime` parseable string.
+	 * @param string     $timezone An optional timezone string identifying the timezone the date shoudl be localized
+	 *                             to; defaults to the WordPress installation timezone (if available) or to the system
+	 *                             timezone.
 	 *
-	 * @return string
+	 * @return string|bool The parsed date in the specified format and localized to the system or specified
+	 *                     timezone, or `false` if the specified date is not a valid date string or timestamp
+	 *                     or the specified timezone is not a valid timezone string.
 	 */
-	public static function localize_date( $format, $date ) {
-		$timezone = Tribe__Timezones::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
-		$timezone_object = new DateTimeZone( $timezone );
+	public static function localize_date( $format = null, $date = null, $timezone = null ) {
+		if ( empty( $timezone ) ) {
+			$timezone = self::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
+		}
 
-		if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
-			$date = new DateTime( "@{$date}" );
-		} else {
-			$date = new DateTime( $date );
+		try {
+			$timezone_object = new DateTimeZone( $timezone );
+
+			if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
+				$date = new DateTime( "@{$date}" );
+			} else {
+				$date = new DateTime( $date );
+			}
+		} catch ( Exception $e ) {
+			return false;
 		}
 
 		$date->setTimezone( $timezone_object );

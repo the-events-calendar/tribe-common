@@ -1134,7 +1134,6 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			// Why so simple? Let's handle other cases as those come up. We have tests in place!
 			return str_replace( '\\\\', '\\', $date_format );
 		}
-		// @codingStandardsIgnoreEnd
 	}
 
 }

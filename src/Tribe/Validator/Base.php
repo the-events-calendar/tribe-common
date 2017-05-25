@@ -92,9 +92,14 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 * @return bool
 	 */
 	public function is_term_of_taxonomy( $term, $taxonomy ) {
-		$terms = (array) $term;
-		foreach ( $terms as $_t ) {
-			if ( ! term_exists( $_t, $taxonomy ) ) {
+		$terms = Tribe__Utils__Array::list_to_array( $term, ',' );
+
+		if ( empty( $terms ) ) {
+			return false;
+		}
+
+		foreach ( $terms as $t ) {
+			if ( ! term_exists( $t, $taxonomy ) ) {
 				return false;
 			}
 		}

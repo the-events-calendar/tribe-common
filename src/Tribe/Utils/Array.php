@@ -136,7 +136,7 @@ class Tribe__Utils__Array {
 			if ( $v === '' ) {
 				continue;
 			}
-			$filtered[] = $v;
+			$filtered[] = is_numeric( $v ) ? $v + 0 : $v;
 		}
 
 		return $filtered;

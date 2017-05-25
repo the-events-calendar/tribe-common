@@ -200,6 +200,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertTrue( $sut->is_post_tag( $tag_1 ) );
 		$this->assertTrue( $sut->is_post_tag( $tag_2 ) );
+		$this->assertTrue( $sut->is_post_tag( [ $tag_1, $tag_2 ] ) );
+		$this->assertTrue( $sut->is_post_tag( "{$tag_1},{$tag_2}" ) );
 	}
 
 	/**
