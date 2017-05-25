@@ -1068,6 +1068,41 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .clear:after {
 	clear: both;
 }
+/*
+ * Plugin install CSS
+ */
+.plugin-card-the-events-calendar .column-rating,
+	.plugin-card-the-events-calendar .column-updated,
+	.plugin-card-the-events-calendar .column-downloaded,
+	.plugin-card-events-calendar-pro .column-rating,
+	.plugin-card-events-calendar-pro .column-updated,
+	.plugin-card-events-calendar-pro .column-downloaded,
+	.plugin-card-event-tickets .column-rating,
+	.plugin-card-event-tickets .column-updated,
+	.plugin-card-event-tickets .column-downloaded,
+	.plugin-card-event-tickets-plus .column-rating,
+	.plugin-card-event-tickets-plus .column-updated,
+	.plugin-card-event-tickets-plus .column-downloaded,
+	.plugin-card-events-community .column-rating,
+	.plugin-card-events-community .column-updated,
+	.plugin-card-events-community .column-downloaded,
+	.plugin-card-events-community-tickets .column-rating,
+	.plugin-card-events-community-tickets .column-updated,
+	.plugin-card-events-community-tickets .column-downloaded,
+	.plugin-card-tribe-eventbrite .column-rating,
+	.plugin-card-tribe-eventbrite .column-updated,
+	.plugin-card-tribe-eventbrite .column-downloaded,
+	.plugin-card-tribe-filterbar .column-rating,
+	.plugin-card-tribe-filterbar .column-updated,
+	.plugin-card-tribe-filterbar .column-downloaded,
+	.plugin-card-image-widget .column-rating,
+	.plugin-card-image-widget .column-updated,
+	.plugin-card-image-widget .column-downloaded,
+	.plugin-card-image-widget-plus .column-rating,
+	.plugin-card-image-widget-plus .column-updated,
+	.plugin-card-image-widget-plus .column-downloaded {
+	display: none;
+}
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
 	#tribe-loading span {
