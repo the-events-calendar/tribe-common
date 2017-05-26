@@ -78,7 +78,9 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
-		$this->assertTrue( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( $meta_key ), true ) );
+		$option = get_option( $sut->get_key_option_name() );
+		$this->assertNotEmpty( $option[ $id ] );
+		$this->assertEquals( [ 'foo' ], $option[ $id ] );
 	}
 
 	/**
@@ -88,6 +90,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_not_store_meta_for_non_chunkable_meta() {
 		$id = $this->factory()->post->create();
+		add_post_meta($id,'bar', 'some value');
 		$meta_key = 'foo';
 		$meta_value = str_repeat( 'foo', 20 );
 		$max_size = 2 * strlen( $meta_value );
@@ -96,8 +99,9 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) * 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
-		$this->assertTrue( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( $meta_key ), true ) );
-		$this->assertFalse( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( 'bar' ), true ) );
+		$option = get_option( $sut->get_key_option_name() );
+		$this->assertNotEmpty( $option[ $id ] );
+		$this->assertNotContains( 'bar' , $option[ $id ] );
 	}
 
 	/**
@@ -580,13 +584,13 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$id = $this->factory()->post->create();
 		$meta_key = 'foo';
 		$meta_value = array_fill( 0, 20, 'foo' );
-		$serialized_meta_value = serialize($meta_value);
+		$serialized_meta_value = serialize( $meta_value );
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $serialized_meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
-		add_post_meta($id,$meta_key,$meta_value);
+		add_post_meta( $id, $meta_key, $meta_value );
 
 		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
 		$this->assertTrue( $sut->is_chunked( $id, $meta_key ) );
@@ -598,7 +602,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$chunk_meta_key = $sut->get_chunk_meta_key( $meta_key );
-		$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id = {$id} AND meta_key = '{$chunk_meta_key}' LIMIT 1");
+		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE post_id = {$id} AND meta_key = '{$chunk_meta_key}' LIMIT 1" );
 
 		$sut_2 = $this->make_instance();
 		$sut_2->set_max_chunk_size( $sut_2->get_byte_size( $serialized_meta_value ) / 2 );
@@ -608,8 +612,8 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $sut_2->is_chunked( $id, $meta_key ) );
 		$db_meta = get_post_meta( $id, $meta_key, true );
 		$this->assertNotEmpty( $db_meta );
-		$this->assertNotEquals($meta_value,$db_meta);
-		$this->assertInternalType('string', $db_meta);
+		$this->assertNotEquals( $meta_value, $db_meta );
+		$this->assertInternalType( 'string', $db_meta );
 	}
 
 	/**
@@ -621,13 +625,13 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$id = $this->factory()->post->create();
 		$meta_key = 'foo';
 		$meta_value = array_fill( 0, 20, 'foo' );
-		$serialized_meta_value = serialize($meta_value);
+		$serialized_meta_value = serialize( $meta_value );
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $serialized_meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
-		add_post_meta($id,$meta_key,$meta_value);
+		add_post_meta( $id, $meta_key, $meta_value );
 
 		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
 		$this->assertTrue( $sut->is_chunked( $id, $meta_key ) );
@@ -640,7 +644,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$chunk_meta_key = $sut->get_chunk_meta_key( $meta_key );
-		$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id = {$id} AND meta_key = '{$chunk_meta_key}' LIMIT 1");
+		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE post_id = {$id} AND meta_key = '{$chunk_meta_key}' LIMIT 1" );
 
 		$sut_2 = $this->make_instance();
 		$sut_2->set_max_chunk_size( $sut_2->get_byte_size( $serialized_meta_value ) / 2 );
@@ -648,7 +652,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertTrue( $sut_2->is_chunkable( $id, $meta_key ) );
 		$this->assertFalse( $sut_2->is_chunked( $id, $meta_key ) );
-		$db_meta = get_post_meta( $id);
+		$db_meta = get_post_meta( $id );
 		$this->assertNotEmpty( $db_meta[ $meta_key ] );
 		$this->assertNotEquals( $meta_value, $db_meta[ $meta_key ] );
 		$this->assertInternalType( 'string', $db_meta[ $meta_key ][0] );

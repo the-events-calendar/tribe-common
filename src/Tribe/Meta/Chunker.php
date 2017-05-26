@@ -34,6 +34,7 @@
  * or filter the `tribe_meta_chunker_post_types` filter.
  */
 class Tribe__Meta__Chunker {
+	public $chunked_keys_option_name = '_tribe_chunker_chunked_keys';
 	/**
 	 * @var array The cache that will store chunks to avoid middleware operations from fetching the database.
 	 */
@@ -93,19 +94,18 @@ class Tribe__Meta__Chunker {
 	 * This will just fetch the keys for the supported post types, not the values.
 	 */
 	protected function prime_chunked_cache() {
-		/** @var wpdb $wpdb */
-		global $wpdb;
-		$query = $wpdb->prepare( "SELECT post_id, meta_key FROM {$wpdb->postmeta}
-			WHERE meta_key LIKE %s
-			AND meta_key NOT LIKE %s",
-			$this->meta_key_prefix . '%', $this->meta_key_prefix . '%_chunk'
-		);
-		$results = $wpdb->get_results( $query );
-
 		$this->chunks_cache = array();
-		foreach ( $results as $result ) {
-			$real_meta_key = str_replace( $this->meta_key_prefix, '', $result->meta_key );
-			$this->chunks_cache[ $this->get_key( $result->post_id, $real_meta_key ) ] = null;
+
+		$chunked_keys = get_option( $this->chunked_keys_option_name );
+
+		if ( empty( $chunked_keys ) ) {
+			return;
+		}
+
+		foreach ( $chunked_keys as $post_id => $keys ) {
+			foreach ( $keys as $key ) {
+				$this->chunks_cache[ $this->get_key( $post_id, $key ) ] = null;
+			}
 		}
 	}
 
@@ -165,7 +165,16 @@ class Tribe__Meta__Chunker {
 		if ( ! array_key_exists( $key, $this->chunks_cache ) ) {
 			$this->chunks_cache[ $key ] = null;
 		}
-		update_post_meta( $post_id, $this->get_chunkable_meta_key( $meta_key ), true );
+
+		$option = (array) get_option( $this->chunked_keys_option_name );
+
+		if ( ! isset( $option[ $post_id ] ) ) {
+			$option[ $post_id ] = array( $meta_key );
+		} else {
+			$option[ $post_id ][] = $meta_key;
+		}
+
+		update_option( $this->chunked_keys_option_name, array_filter( $option ) );
 	}
 
 	/**
@@ -726,16 +735,16 @@ class Tribe__Meta__Chunker {
 			return $grouped;
 		}
 
-		$chunker_meta_canary_keys = array_filter( $chunker_meta_keys, array( $this, 'is_chunker_canary_key' ) );
+		$checksum_keys = array_filter( $chunker_meta_keys, array( $this, 'is_chunker_checksum_key' ) );
 
-		if ( empty( $chunker_meta_canary_keys ) ) {
+		if ( empty( $checksum_keys ) ) {
 			return array_diff_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
 		}
 
 		$chunker_meta = array_intersect_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
 		$normal_meta = array_diff_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
-		foreach ( $chunker_meta_canary_keys as $canary_key ) {
-			$normal_meta_key = str_replace( $this->meta_key_prefix, '', $canary_key );
+		foreach ( $checksum_keys as $checksum_key ) {
+			$normal_meta_key = str_replace( array( $this->meta_key_prefix, '_checksum' ), '', $checksum_key );
 			if ( ! isset( $normal_meta[ $normal_meta_key ] ) ) {
 				continue;
 			}
@@ -795,13 +804,22 @@ class Tribe__Meta__Chunker {
 	}
 
 	/**
+	 * Returns the name of the option that stores the keys registered for chunking for each post.
+	 *
+	 * @return string
+	 */
+	public function get_key_option_name() {
+		return $this->chunked_keys_option_name;
+	}
+
+	/**
 	 * Asserts that a meta key is not a chunk meta key.
 	 *
 	 * @param string $meta_key
 	 *
 	 * @return bool
 	 */
-	protected function is_chunker_canary_key( $meta_key ) {
-		return 0 === strpos( $meta_key, $this->meta_key_prefix ) && ! preg_match( '/_chunk$/', $meta_key );
+	protected function is_chunker_checksum_key( $meta_key ) {
+		return preg_match( "/^{$this->meta_key_prefix}.*_checksum$/", $meta_key );
 	}
 }
