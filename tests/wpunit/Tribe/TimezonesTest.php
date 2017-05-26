@@ -69,4 +69,37 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( Timezones::localize_date( 'Y-m-d H:i:s', 'tomorrow 9am', 'This is not a timezone' ) );
 	}
 
+	public function convert_from_timezone_inputs() {
+		return [
+			[ 'tomorrow 11am', 'America/New_York', 'UTC' ],
+			[ 'tomorrow 11am', 'America/New_York', 'America/New_York' ],
+			[ 'tomorrow 11am', 'UTC', 'UTC' ],
+			[ 'tomorrow 11am', 'UTC', 'America/New_York' ],
+		];
+	}
+
+	/**
+	 * Test convert_date_from_timezone
+	 *
+	 * @test
+	 * @dataProvider convert_from_timezone_inputs
+	 */
+	public function test_convert_date_from_timezone( $date, $from_timezone, $to_timezone ) {
+		$from_date = new \DateTime( $date, new \DateTimeZone( $from_timezone ) );
+		$from_date_timestamp = $from_date->format( 'U' );
+		$to_date = new \DateTime( "@{$from_date_timestamp}", new \DateTimeZone( $to_timezone ) );
+
+		$format = 'Y-m-d H:i:s';
+		$expected = $to_date->format( $format );
+		$expected_timestamp = $to_date->format( 'U' );
+
+		$this->assertEquals( $expected, Timezones::convert_date_from_timezone( $date, $from_timezone, $to_timezone, $format ) );
+		$this->assertEquals( $expected_timestamp, Timezones::convert_date_from_timezone( $date, $from_timezone, $to_timezone, 'U' ) );
+		$this->assertEquals( $expected, Timezones::convert_date_from_timezone( $from_date_timestamp, $from_timezone, $to_timezone, $format ) );
+		$this->assertEquals( $expected_timestamp, Timezones::convert_date_from_timezone( $from_date_timestamp, $from_timezone, $to_timezone, 'U' ) );
+		if ( $from_timezone === $to_timezone ) {
+			$this->assertEquals( $from_date_timestamp, Timezones::convert_date_from_timezone( $date, $from_timezone, $to_timezone, 'U' ) );
+		}
+	}
+
 }

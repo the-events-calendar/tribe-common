@@ -441,5 +441,28 @@ class Tribe__Timezones {
 
 		return $date->format( $format );
 	}
+
+	/**
+	 * Converts a date string or timestamp to a destination timezone.
+	 *
+	 * @param string|int $date          Either a string parseable by the `strtotime` function or a UNIX timestamp.
+	 * @param string     $from_timezone The timezone of the source date.
+	 * @param string     $to_timezone   The timezone the destination date should use.
+	 * @param string     $format        The format that should be used for the destination date.
+	 *
+	 * @return string The formatted and converted date.
+	 */
+	public static function convert_date_from_timezone( $date, $from_timezone, $to_timezone, $format ) {
+		if ( ! Tribe__Date_Utils::is_timestamp( $date ) ) {
+			$from_date = new DateTime( $date, new DateTimeZone( $from_timezone ) );
+			$timestamp = $from_date->format( 'U' );
+		} else {
+			$timestamp = $date;
+		}
+
+		$to_date = new DateTime( "@{$timestamp}", new DateTimeZone( $to_timezone ) );
+
+		return $to_date->format( $format );
+	}
 }
 
