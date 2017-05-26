@@ -117,7 +117,7 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 
 			$content_type = wp_remote_retrieve_header( $response, 'content-type' );
 
-			if ( empty( $content_type ) ) {
+			if ( empty( $content_type ) || 0 !== strpos( $content_type, 'image' ) ) {
 				return false;
 			}
 

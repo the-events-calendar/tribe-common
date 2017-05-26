@@ -252,7 +252,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_is_image_with_good_inputs() {
 		$image_url = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
-		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.foo', \Tribe__Events__Main::instance()->plugin_file );
+		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
 		$image_uploader = new \Tribe__Image__Uploader( $image_url );
 		$image_id = $image_uploader->upload_and_get_attachment();
 
@@ -260,5 +260,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertTrue( $sut->is_image( $image_url ) );
 		$this->assertTrue( $sut->is_image( $image_id ) );
+		$this->assertFalse( $sut->is_image( $bad_image_url ) );
 	}
 }
