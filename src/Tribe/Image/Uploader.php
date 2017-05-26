@@ -39,7 +39,7 @@ class Tribe__Image__Uploader {
 	 * @return int|bool The attachment post ID if the uploading and attachment is successful or the ID refers to an attachment;
 	 *                  `false` otherwise.
 	 */
-	public function upload_and_get_attachment() {
+	public function upload_and_get_attachment_id() {
 		if ( empty( $this->featured_image ) ) {
 			return false;
 		}

@@ -44,7 +44,7 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_return_false_if_record_does_not_contain_featured_image() {
 		$sut = new Image_Uploader( 'some_value' );
 
-		$out = $sut->upload_and_get_attachment();
+		$out = $sut->upload_and_get_attachment_id();
 
 		$this->assertFalse( $out );
 	}
@@ -57,7 +57,7 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 		$image_url = 'redneck url';
 
 		$sut = new Image_Uploader( $image_url );
-		$id  = $sut->upload_and_get_attachment();
+		$id  = $sut->upload_and_get_attachment_id();
 
 		$this->assertFalse( $id );
 	}
@@ -70,7 +70,7 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 		$image_url = 33.2;
 
 		$sut = new Image_Uploader( $image_url );
-		$id  = $sut->upload_and_get_attachment();
+		$id  = $sut->upload_and_get_attachment_id();
 
 		$this->assertFalse( $id );
 	}
@@ -83,7 +83,7 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 		$image_url = 'http://some-fake/image.jpg';
 
 		$sut = new Image_Uploader( $image_url );
-		$id  = $sut->upload_and_get_attachment();
+		$id  = $sut->upload_and_get_attachment_id();
 
 		$this->assertFalse( $id );
 	}
@@ -96,7 +96,7 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 		$image_url = $this->get_image_url( 'raw' );
 
 		$sut = new Image_Uploader( $image_url );
-		$id  = $sut->upload_and_get_attachment();
+		$id  = $sut->upload_and_get_attachment_id();
 
 		$this->assertFalse( $id );
 	}
@@ -107,7 +107,7 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_return_false_when_trying_to_upload_non_existing_attachment_id() {
 		$sut = new Image_Uploader( 2233 );
-		$id  = $sut->upload_and_get_attachment();
+		$id  = $sut->upload_and_get_attachment_id();
 
 		$this->assertFalse( $id );
 	}
@@ -120,7 +120,7 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 		$image_url = $this->get_image_url();
 
 		$sut = new Image_Uploader( $image_url );
-		$id  = $sut->upload_and_get_attachment();
+		$id  = $sut->upload_and_get_attachment_id();
 
 		$this->assertNotFalse( $id );
 		$this->assertEquals( 'attachment', get_post( $id )->post_type );
@@ -135,7 +135,7 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 		$existing_attachment_id = $this->factory()->attachment->create_upload_object( $image_path );
 
 		$sut = new Image_Uploader( $existing_attachment_id );
-		$id  = $sut->upload_and_get_attachment();
+		$id  = $sut->upload_and_get_attachment_id();
 
 		$this->assertNotFalse( $id );
 		$this->assertEquals( $existing_attachment_id, $id );
@@ -152,10 +152,10 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 		$attachment_url         = $attachment_post->guid;
 
 		$sut_1 = new Image_Uploader( $attachment_url );
-		$id_1  = $sut_1->upload_and_get_attachment();
+		$id_1  = $sut_1->upload_and_get_attachment_id();
 
 		$sut_2 = new Image_Uploader( $attachment_url );
-		$id_2  = $sut_2->upload_and_get_attachment();
+		$id_2  = $sut_2->upload_and_get_attachment_id();
 
 		$this->assertEquals( $id_1, $id_2 );
 	}
@@ -168,10 +168,10 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 		$image_url              = $this->get_image_url();
 
 		$sut_1 = new Image_Uploader( $image_url );
-		$id_1  = $sut_1->upload_and_get_attachment();
+		$id_1  = $sut_1->upload_and_get_attachment_id();
 
 		$sut_2 = new Image_Uploader( $image_url );
-		$id_2  = $sut_2->upload_and_get_attachment();
+		$id_2  = $sut_2->upload_and_get_attachment_id();
 
 		$this->assertEquals( $id_1, $id_2 );
 	}
@@ -184,8 +184,8 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 		$image_path             = $this->get_image_url();
 
 		$sut  = new Image_Uploader( $image_path );
-		$id_1 = $sut->upload_and_get_attachment();
-		$id_2 = $sut->upload_and_get_attachment();
+		$id_1 = $sut->upload_and_get_attachment_id();
+		$id_2 = $sut->upload_and_get_attachment_id();
 
 		$this->assertEquals( $id_1, $id_2 );
 	}
