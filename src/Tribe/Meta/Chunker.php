@@ -34,7 +34,11 @@
  * or filter the `tribe_meta_chunker_post_types` filter.
  */
 class Tribe__Meta__Chunker {
-	public $chunked_keys_option_name = '_tribe_chunker_chunked_keys';
+	/**
+	 * @var string
+	 */
+	protected $chunked_keys_option_name = '_tribe_chunker_chunked_keys';
+
 	/**
 	 * @var array The cache that will store chunks to avoid middleware operations from fetching the database.
 	 */
