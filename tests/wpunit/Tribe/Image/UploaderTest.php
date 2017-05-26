@@ -181,7 +181,22 @@ class Tribe__Image__UploaderTest extends \Codeception\TestCase\WPTestCase {
 	 * it should not insert same image twice in same run
 	 */
 	public function it_should_not_insert_same_image_twice_in_same_run() {
-		$image_path             = $this->get_image_url();
+		$image_url             = $this->get_image_url();
+
+		$sut  = new Image_Uploader( $image_url );
+		$id_1 = $sut->upload_and_get_attachment_id();
+		$id_2 = $sut->upload_and_get_attachment_id();
+
+		$this->assertEquals( $id_1, $id_2 );
+	}
+
+	/**
+	 * It should allow uploading a file by path
+	 *
+	 * @test
+	 */
+	public function it_should_allow_uploading_a_file_by_path() {
+		$image_path             = $this->get_image_path();
 
 		$sut  = new Image_Uploader( $image_path );
 		$id_1 = $sut->upload_and_get_attachment_id();
