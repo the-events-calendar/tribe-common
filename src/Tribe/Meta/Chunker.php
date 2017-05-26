@@ -174,7 +174,7 @@ class Tribe__Meta__Chunker {
 			$option[ $post_id ][] = $meta_key;
 		}
 
-		update_option( $this->chunked_keys_option_name, array_filter( $option ) );
+		update_option( $this->chunked_keys_option_name, array_filter( $option ), true );
 	}
 
 	/**
