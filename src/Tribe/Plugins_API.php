@@ -49,7 +49,7 @@ class Tribe__Plugins_API {
 					'button',
 					esc_url( $plugin['buy-now'] ),
 					esc_attr( sprintf( __( 'Buy %s now', 'tribe-common' ), $plugin['name'] ) ),
-					esc_html( __( 'Buy Now', 'tribe-common' ) )
+					esc_html__( 'Buy Now', 'tribe-common' )
 				);
 			}
 
@@ -58,7 +58,7 @@ class Tribe__Plugins_API {
 				'thickbox open-plugin-details-modal',
 				esc_url( $plugin['buy-now'] . '#TB_iframe=true&width=600&height=550' ),
 				esc_attr( sprintf( __( 'More information about %s', 'tribe-common' ), $plugin['name'] ) ),
-				esc_html( __( 'More Details', 'tribe-common' ) )
+				esc_html__( 'More Details', 'tribe-common' )
 			);
 		}
 
@@ -142,35 +142,35 @@ class Tribe__Plugins_API {
 	 */
 	public function build_product_data( $product_data ) {
 		$defaults = array(
-			'name' => null,
-			'slug' => null,
-			'version' => null,
-			'author' => '<a href="https://theeventscalendar.com">Modern Tribe, Inc.</a>',
-			'author_profile' => null,
-			'requires' => '3.9',
-			'tested' => '4.7.5',
-			'rating' => null,
-			'ratings' => array(),
-			'num_ratings' => null,
-			'support_threads' => null,
+			'name'                     => null,
+			'slug'                     => null,
+			'version'                  => null,
+			'author'                   => '<a href="https://theeventscalendar.com">Modern Tribe, Inc.</a>',
+			'author_profile'           => null,
+			'requires'                 => '3.9',
+			'tested'                   => '4.7.5',
+			'rating'                   => null,
+			'ratings'                  => array(),
+			'num_ratings'              => null,
+			'support_threads'          => null,
 			'support_threads_resolved' => null,
-			'active_installs' => null,
-			'downloaded' => null,
-			'last_updated' => null,
-			'added' => null,
-			'homepage' => '',
-			'sections' => array(),
-			'short_description' => null,
-			'download_link' => '',
-			'screenshots' => array(),
-			'tags' => array(),
-			'versions' => array(),
-			'donate_link' => null,
-			'icons' => array(
-				'default' => null,
+			'active_installs'          => null,
+			'downloaded'               => null,
+			'last_updated'             => null,
+			'added'                    => null,
+			'homepage'                 => '',
+			'sections'                 => array(),
+			'short_description'        => null,
+			'download_link'            => '',
+			'screenshots'              => array(),
+			'tags'                     => array(),
+			'versions'                 => array(),
+			'donate_link'              => null,
+			'contributors'             => array(),
+			'tribe-result'             => true,
+			'icons'                    => array(
+        'default' => null,
 			),
-			'contributors' => array(),
-			'tribe-result' => true,
 		);
 
 		$product = array_merge( $defaults, $product_data );
