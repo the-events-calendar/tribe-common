@@ -2,13 +2,32 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "Project-Id-Version: Tribe Common 4.5.1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
 "POT-Creation-Date: 2017-05-08 20:24:32+00:00\n"
+=======
+<<<<<<< HEAD
+"Project-Id-Version: Tribe Common 4.6dev1\n"
+"Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
+"POT-Creation-Date: 2017-05-08 20:24:00+00:00\n"
+>>>>>>> 48ca2e4d08dcf675719d20d5bd3b95dc4700a990
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2017-05-08 20:24\n"
+<<<<<<< HEAD
+=======
+=======
+"Project-Id-Version: Tribe Common 4.5.2\n"
+"Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
+"POT-Creation-Date: 2017-05-17 14:36:25+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-05-17 14:36\n"
+>>>>>>> origin/master
+>>>>>>> 48ca2e4d08dcf675719d20d5bd3b95dc4700a990
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -174,6 +193,22 @@ msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr ""
 
+#: src/Tribe/Ajax/Dropdown.php:38
+msgid "Cannot look for Terms without a taxonomy"
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:171
+msgid "Missing data source for this dropdown"
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:184
+msgid "Empty data set for this dropdown"
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:234
+msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
+msgstr ""
+
 #: src/Tribe/App_Shop.php:48 src/Tribe/App_Shop.php:49
 #: src/Tribe/App_Shop.php:72
 msgid "Event Add-Ons"
@@ -244,6 +279,24 @@ msgid ""
 "creating your ticket on the WordPress dashboard or importing the details of "
 "an already-existing event from %1$sEventbrite.com%2$s, this add-on brings "
 "the power of the Eventbrite API to your calendar."
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+msgstr ""
+
+#: src/Tribe/App_Shop.php:166
+msgid "Image Widget Plus"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:168
+msgid ""
+"Take your image widgets to the next level with Image Widget Plus! We've "
+"taken the simple functionality of our basic Image Widget and amped it up "
+"with several popular feature requests - multiple image support, slideshow, "
+"lightbox, and random image - all backed by a full year of premium support."
+>>>>>>> origin/master
+>>>>>>> 48ca2e4d08dcf675719d20d5bd3b95dc4700a990
 msgstr ""
 
 #: src/Tribe/Cost_Utils.php:108
@@ -446,6 +499,7 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:223 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr ""
@@ -523,6 +577,85 @@ msgid "Today"
 msgstr ""
 
 #: src/Tribe/Main.php:274
+=======
+#: src/Tribe/Main.php:224 src/admin-views/tribe-options-help.php:43
+msgid "Copy to clipboard"
+msgstr ""
+
+#: src/Tribe/Main.php:225
+msgid "System info copied"
+msgstr ""
+
+#: src/Tribe/Main.php:226
+msgid "Press \"Cmd + C\" to copy"
+msgstr ""
+
+#: src/Tribe/Main.php:244
+msgid ": activate to sort column ascending"
+msgstr ""
+
+#: src/Tribe/Main.php:245
+msgid ": activate to sort column descending"
+msgstr ""
+
+#: src/Tribe/Main.php:247
+msgid "Show _MENU_ entries"
+msgstr ""
+
+#: src/Tribe/Main.php:248
+msgid "No data available in table"
+msgstr ""
+
+#: src/Tribe/Main.php:249
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr ""
+
+#: src/Tribe/Main.php:250
+msgid "Showing 0 to 0 of 0 entries"
+msgstr ""
+
+#: src/Tribe/Main.php:251
+msgid "(filtered from _MAX_ total entries)"
+msgstr ""
+
+#: src/Tribe/Main.php:252
+msgid "No matching records found"
+msgstr ""
+
+#: src/Tribe/Main.php:253
+msgid "Search:"
+msgstr ""
+
+#: src/Tribe/Main.php:255
+msgid "All"
+msgstr ""
+
+#: src/Tribe/Main.php:256 src/Tribe/Main.php:272
+msgid "Next"
+msgstr ""
+
+#: src/Tribe/Main.php:257
+msgid "Previous"
+msgstr ""
+
+#: src/Tribe/Main.php:262
+msgid ": Selected %d rows"
+msgstr ""
+
+#: src/Tribe/Main.php:263
+msgid ": Selected 1 row"
+msgstr ""
+
+#: src/Tribe/Main.php:273
+msgid "Prev"
+msgstr ""
+
+#: src/Tribe/Main.php:274
+msgid "Today"
+msgstr ""
+
+#: src/Tribe/Main.php:275
+>>>>>>> 48ca2e4d08dcf675719d20d5bd3b95dc4700a990
 msgid "Done"
 msgstr ""
 
@@ -592,6 +725,7 @@ msgstr ""
 
 #: src/Tribe/PUE/Checker.php:974
 msgid "Please refresh the page and try your request again."
+<<<<<<< HEAD
 msgstr ""
 
 #: src/Tribe/PUE/Checker.php:995
@@ -606,6 +740,33 @@ msgid ""
 "fixes, security updates, and new features."
 msgstr ""
 
+=======
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:995
+msgid ""
+"There is an update for %s. You'll need to %scheck your license%s to have "
+"access to updates, downloads, and support."
+<<<<<<< HEAD
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:1052
+msgid ""
+"There is an update for %s. %sRenew your license%s to get access to bug "
+"fixes, security updates, and new features."
+msgstr ""
+
+=======
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:1052
+msgid ""
+"There is an update for %s. %sRenew your license%s to get access to bug "
+"fixes, security updates, and new features."
+msgstr ""
+
+>>>>>>> origin/master
+>>>>>>> 48ca2e4d08dcf675719d20d5bd3b95dc4700a990
 #: src/Tribe/PUE/Checker.php:1626
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
