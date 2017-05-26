@@ -12,15 +12,6 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 *
 	 * @return bool
 	 */
-	public function is_numeric( $value ) {
-		return is_numeric( $value );
-	}
-
-	/**
-	 * @param mixed $value
-	 *
-	 * @return bool
-	 */
 	public function is_string( $value ) {
 		return ! empty( $value ) && is_string( $value );
 	}
@@ -105,5 +96,45 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Whether the provided value points to an existing attachment ID or an existing image URL.
+	 *
+	 * @param int|string $image
+	 *
+	 * @return mixed
+	 */
+	public function is_image( $image ) {
+		if ( $this->is_numeric( $image ) ) {
+			return wp_attachment_is_image( $image );
+		} elseif ( is_string( $image ) ) {
+			$response = wp_remote_head( $image );
+
+			if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+				return false;
+			}
+
+			$content_type = wp_remote_retrieve_header( $response, 'content-type' );
+
+			if ( empty( $content_type ) ) {
+				return false;
+			}
+
+			$allowed_mime_types = get_allowed_mime_types();
+
+			return ( in_array( $content_type, $allowed_mime_types ) );
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
+	public function is_numeric( $value ) {
+		return is_numeric( $value );
 	}
 }

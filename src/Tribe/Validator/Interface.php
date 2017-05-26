@@ -77,4 +77,13 @@ interface Tribe__Validator__Interface {
 	 * @return bool
 	 */
 	public function is_term_of_taxonomy( $term, $taxonomy );
+
+	/**
+	 * Whether the provided value points to an existing attachment ID or an existing image URL.
+	 *
+	 * @param int|string $image
+	 *
+	 * @return mixed
+	 */
+	public function is_image( $image );
 }
