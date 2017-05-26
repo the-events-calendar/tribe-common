@@ -42,7 +42,7 @@ class Tribe__Meta__Chunker {
 	/**
 	 * @var array The cache that will store chunks to avoid middleware operations from fetching the database.
 	 */
-	protected $chunks_cache = array();
+	protected $chunks_cache = null;
 
 	/**
 	 * @var string The separator that's used to mark the start of each chunk.
@@ -84,8 +84,6 @@ class Tribe__Meta__Chunker {
 			return;
 		}
 
-		$this->prime_chunked_cache();
-
 		add_filter( 'update_post_metadata', array( $this, 'filter_update_metadata' ), $this->filter_priority, 4 );
 		add_filter( 'delete_post_metadata', array( $this, 'filter_delete_metadata' ), $this->filter_priority, 3 );
 		add_filter( 'add_post_metadata', array( $this, 'filter_add_metadata' ), $this->filter_priority, 4 );
@@ -97,7 +95,11 @@ class Tribe__Meta__Chunker {
 	 *
 	 * This will just fetch the keys for the supported post types, not the values.
 	 */
-	protected function prime_chunked_cache() {
+	protected function prime_chunks_cache() {
+		if ( null !== $this->chunks_cache ) {
+			return;
+		}
+
 		$this->chunks_cache = array();
 
 		$chunked_keys = get_option( $this->chunked_keys_option_name );
@@ -166,6 +168,9 @@ class Tribe__Meta__Chunker {
 	 */
 	protected function tag_as_chunkable( $post_id, $meta_key ) {
 		$key = $this->get_key( $post_id, $meta_key );
+
+		$this->prime_chunks_cache();
+
 		if ( ! array_key_exists( $key, $this->chunks_cache ) ) {
 			$this->chunks_cache[ $key ] = null;
 		}
@@ -282,6 +287,8 @@ class Tribe__Meta__Chunker {
 	public function is_chunkable( $post_id, $meta_key ) {
 		$key = $this->get_key( $post_id, $meta_key );
 
+		$this->prime_chunks_cache();
+
 		return array_key_exists( $key, $this->chunks_cache );
 	}
 
@@ -352,6 +359,9 @@ class Tribe__Meta__Chunker {
 		$max_allowed_packet = $this->get_max_chunk_size();
 		$serialized = maybe_serialize( $meta_value );
 		$byte_size = $this->get_byte_size( $serialized );
+
+		$this->prime_chunks_cache();
+
 		// we use .8 and not 1 to allow for MySQL instructions to use 20% of the string size
 		if ( $byte_size > .8 * $max_allowed_packet ) {
 			$chunk_size = ceil( $max_allowed_packet * 0.75 );
@@ -453,6 +463,8 @@ class Tribe__Meta__Chunker {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
+		$this->prime_chunks_cache();
+
 		$key = $this->get_key( $object_id, $meta_key );
 		$chunks = $this->chunks_cache[ $key ];
 		$chunk_meta_key = $this->get_chunk_meta_key( $meta_key );
@@ -530,6 +542,8 @@ class Tribe__Meta__Chunker {
 	public function get_chunks_for( $object_id, $meta_key ) {
 		$key = $this->get_key( $object_id, $meta_key );
 
+		$this->prime_chunks_cache();
+
 		if ( ! empty( $this->chunks_cache[ $key ] ) ) {
 			return $this->chunks_cache[ $key ];
 		}
@@ -568,6 +582,9 @@ class Tribe__Meta__Chunker {
 	 */
 	protected function cache_delete( $object_id, $meta_key ) {
 		$key = $this->get_key( $object_id, $meta_key );
+
+		$this->prime_chunks_cache();
+
 		if ( isset( $this->chunks_cache[ $key ] ) ) {
 			$this->chunks_cache[ $key ] = null;
 		}
@@ -610,6 +627,9 @@ class Tribe__Meta__Chunker {
 	 */
 	public function is_chunked( $object_id, $meta_key, $check_db = false ) {
 		$key = $this->get_key( $object_id, $meta_key );
+
+		$this->prime_chunks_cache();
+
 		$chunked_in_cache = array_key_exists( $key, $this->chunks_cache ) && is_array( $this->chunks_cache[ $key ] );
 
 		return false === $check_db ? $chunked_in_cache : $this->verify_chunks_for( $object_id, $meta_key );
