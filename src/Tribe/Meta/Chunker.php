@@ -857,7 +857,7 @@ class Tribe__Meta__Chunker {
 		$this->prime_chunks_cache();
 
 		foreach ( $this->chunks_cache as $key => $value ) {
-			if ( 0 === strpos( $key, '' . $post_id ) ) {
+			if ( 0 === strpos( $key, (string) $post_id ) ) {
 				unset( $this->chunks_cache[ $key ] );
 			}
 		}
