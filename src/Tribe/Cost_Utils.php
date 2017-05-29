@@ -114,15 +114,24 @@ class Tribe__Cost_Utils {
 	/**
 	 * Formats a cost with a currency symbol
 	 *
-	 * @param int|float|string $cost Cost to format
+	 * @param int|float|string $cost              Cost to format
 	 *
 	 * return string
+	 * @param int|WP_Post      $event             An event post ID or post object.
+	 * @param string           $currency_symbol
+	 * @param string           $currency_position Either "prefix" or "posfix"
+	 *
+	 * @return float|int|string
 	 */
-	public function maybe_format_with_currency( $cost ) {
+	public function maybe_format_with_currency( $cost, $event = null, $currency_symbol = null, $currency_position = null ) {
 		// check if the currency symbol is desired, and it's just a number in the field
 		// be sure to account for european formats in decimals, and thousands separators
 		if ( is_numeric( str_replace( $this->get_separators(), '', $cost ) ) ) {
-			$cost = tribe_format_currency( $cost );
+			$reverse_position = null;
+			if ( null !== $currency_position ) {
+				$reverse_position = 'prefix' === $currency_position ? false : true;
+			}
+			$cost = tribe_format_currency( $cost, $event, $currency_symbol, $reverse_position );
 		}
 
 		return $cost;

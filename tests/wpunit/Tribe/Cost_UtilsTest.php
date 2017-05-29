@@ -79,4 +79,22 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $sut->parse_currency_position( $input ) );
 	}
 
+	public function maybe_format_with_currency_inputs() {
+		return [
+			['20','$','postfix', '20$'],
+			['20','$','prefix', '$20'],
+		];
+	}
+	/**
+	 * Test maybe_format_with_currency
+	 *
+	 * @test
+	 * @dataProvider maybe_format_with_currency_inputs
+	 */
+	public function test_maybe_format_with_currency( $cost, $symbol, $position, $expected ) {
+		$sut = $this->make_instance();
+
+		$this->assertEquals( $expected, $sut->maybe_format_with_currency( $cost, null, $symbol, $position ) );
+	}
+
 }
