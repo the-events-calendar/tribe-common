@@ -88,6 +88,7 @@ class Tribe__Meta__Chunker {
 		add_filter( 'delete_post_metadata', array( $this, 'filter_delete_metadata' ), $this->filter_priority, 3 );
 		add_filter( 'add_post_metadata', array( $this, 'filter_add_metadata' ), $this->filter_priority, 4 );
 		add_filter( 'get_post_metadata', array( $this, 'filter_get_metadata' ), $this->filter_priority, 3 );
+		add_action( 'deleted_post', array( $this, 'remove_post_entry' ) );
 	}
 
 	/**
@@ -122,7 +123,7 @@ class Tribe__Meta__Chunker {
 	 * @param string $meta_key
 	 * @return string
 	 */
-	protected function get_key( $post_id, $meta_key ) {
+	public function get_key( $post_id, $meta_key ) {
 		return "{$post_id}::{$meta_key}";
 	}
 
@@ -845,5 +846,26 @@ class Tribe__Meta__Chunker {
 	 */
 	protected function is_chunker_checksum_key( $meta_key ) {
 		return preg_match( "/^{$this->meta_key_prefix}.*_checksum$/", $meta_key );
+	}
+
+	/**
+	 * Removes the entries associated with a deleted post from the cache and the database option.
+	 *
+	 * @param int $post_id A post ID
+	 */
+	public function remove_post_entry( $post_id ) {
+		$this->prime_chunks_cache();
+
+		foreach ( $this->chunks_cache as $key => $value ) {
+			if ( 0 === strpos( $key, (string) $post_id ) ) {
+				unset( $this->chunks_cache[ $key ] );
+			}
+		}
+
+		if ( ! empty( $this->chunks_cache ) ) {
+			update_option( $this->chunked_keys_option_name, $this->chunks_cache );
+		} else {
+			delete_option( $this->chunked_keys_option_name );
+		}
 	}
 }
