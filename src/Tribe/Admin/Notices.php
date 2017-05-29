@@ -19,11 +19,7 @@ class Tribe__Admin__Notices {
 	 * @return self
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'admin-notices' );
 	}
 
 	/**
@@ -41,9 +37,9 @@ class Tribe__Admin__Notices {
 	private $notices = array();
 
 	/**
-	 * Register the Methods in the correct places
+	 * Tribe__Admin__Notices constructor.
 	 */
-	private function __construct() {
+	public function __construct() {
 		// Not in the admin we don't even care
 		if ( ! is_admin() ) {
 			return;

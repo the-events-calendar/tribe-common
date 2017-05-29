@@ -2,6 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "Project-Id-Version: Tribe Common 4.5.2\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
 "POT-Creation-Date: 2017-05-17 14:36:25+00:00\n"
@@ -9,6 +10,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2017-05-17 14:36\n"
+=======
+"Project-Id-Version: Tribe Common 4.5.1\n"
+"Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
+"POT-Creation-Date: 2017-05-08 20:24:41+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-05-08 20:24\n"
+>>>>>>> dbddd1e0b5919b0d931c2486458de8bd4366d79a
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -246,6 +256,7 @@ msgid ""
 "the power of the Eventbrite API to your calendar."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/App_Shop.php:166
 msgid "Image Widget Plus"
 msgstr ""
@@ -256,6 +267,10 @@ msgid ""
 "taken the simple functionality of our basic Image Widget and amped it up "
 "with several popular feature requests - multiple image support, slideshow, "
 "lightbox, and random image - all backed by a full year of premium support."
+=======
+#: src/Tribe/Collisions/Average_Proximity_Start_Detector.php:152
+msgid "Margin must be an integer"
+>>>>>>> dbddd1e0b5919b0d931c2486458de8bd4366d79a
 msgstr ""
 
 #: src/Tribe/Cost_Utils.php:108
@@ -272,6 +287,10 @@ msgstr ""
 
 #: src/Tribe/Credits.php:64
 msgid "Rate %1$sEvent Tickets%2$s %3$s"
+msgstr ""
+
+#: src/Tribe/Cron.php:15
+msgid "Every Thirty Seconds"
 msgstr ""
 
 #: src/Tribe/Customizer.php:566
@@ -458,83 +477,83 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:222 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:225 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Main.php:223
+#: src/Tribe/Main.php:226
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:224
+#: src/Tribe/Main.php:227
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:245
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:246
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:248
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:249
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:250
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:251
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:252
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:253
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:254
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:253
+#: src/Tribe/Main.php:256
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:254 src/Tribe/Main.php:270
+#: src/Tribe/Main.php:257 src/Tribe/Main.php:273
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:258
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:263
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:264
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:274
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:275
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:273
+#: src/Tribe/Main.php:276
 msgid "Done"
 msgstr ""
 

@@ -809,6 +809,13 @@ class tad_DI52_Container implements ArrayAccess {
 
 		$parameterClass = $parameter->getClass()->getName();
 
+		if (!$this->isBound($parameterClass) && !$parameter->getClass()->isInstantiable()) {
+			if (!$parameter->isDefaultValueAvailable()) {
+				throw new RuntimeException("parameter '{$parameter->name}' of '{$this->resolving}::__construct' does not have a default value.");
+			}
+			return $parameter->getDefaultValue();
+		}
+
 		if (!isset($this->dependants[$parameterClass])) {
 			$this->dependants[$parameterClass] = array($this->resolving);
 		} else {
