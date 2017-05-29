@@ -279,11 +279,13 @@ class Tribe__Cost_Utils {
 	 * If a range isn't provided, the resulting array will hold a single
 	 * value.
 	 *
-	 * @param $cost string Cost to parse.
+	 * @param string|array $costs        A cost string or an array of cost strings.
+	 * @param null         $max_decimals The maximum number of decimal values that should be returned in the range.
+	 * @param bool         $sort         Whether the returned values should be sorted.
 	 *
-	 * @return array
+	 * @return array An associative array of parsed costs in [ <string cost> => <cost number> ] format.
 	 */
-	public function parse_cost_range( $costs, $max_decimals = null ) {
+	public function parse_cost_range( $costs, $max_decimals = null, $sort = false ) {
 		if ( ! is_array( $costs ) && ! is_string( $costs ) ) {
 			return array();
 		}
@@ -340,7 +342,9 @@ class Tribe__Cost_Utils {
 		}
 
 		// Filter keeping the Keys
-		ksort( $output_costs );
+		if ( $sort ) {
+			ksort( $output_costs );
+		}
 
 		return (array) $output_costs;
 	}
@@ -396,4 +400,73 @@ class Tribe__Cost_Utils {
 		return preg_match( $pattern, $value, $matches ) ? $matches[1] : $value;
 	}
 
+	/**
+	 * Parses the currency symbol part of a cost string.
+	 *
+	 * @param string|array $cost A string cost, a comma separated array of string costs or an array of costs.
+	 *
+	 * @return false|string Either the inferred currency symbol or `false` if the currency symbol is missing or not consistent.
+	 */
+	public function parse_currency_symbol( $cost ) {
+		if ( empty( $cost ) ) {
+			return false;
+		}
+
+		$original_costs = is_array( $cost ) ? $cost : preg_split( '/\\s*,\\s*/', $cost );
+		$costs = $this->parse_cost_range( $original_costs, null, false );
+
+		if ( empty( $costs ) ) {
+			return false;
+		}
+
+		$currency_symbols = array();
+		$i = 0;
+		foreach ( $costs as $string => $value ) {
+			if ( is_numeric( $string ) ) {
+				$currency_symbols[] = trim( str_replace( $value, '', $original_costs[ $i ] ) );
+				if ( end( $currency_symbols ) !== reset( $currency_symbols ) ) {
+					return false;
+				}
+			}
+
+			$i ++;
+		}
+
+		return ! empty( $currency_symbols ) ? reset($currency_symbols) : false;
+	}
+
+	/**
+	 * Parses the currency symbol position  part of a cost string.
+	 *
+	 * @param string|array $cost A string cost, a comma separated array of string costs or an array of costs.
+	 *
+	 * @return false|string Either the inferred currency symbol position or `false` if not present or not consistent.
+	 */
+	public function parse_currency_position( $cost ) {
+		if ( empty( $cost ) ) {
+			return false;
+		}
+
+		$original_costs = is_array( $cost ) ? $cost : preg_split( '/\\s*,\\s*/', $cost );
+		$currency_symbol = $this->parse_currency_symbol( $original_costs );
+
+		if ( empty( $currency_symbol ) ) {
+			return false;
+		}
+
+		$currency_positions = array();
+		foreach ( $original_costs as $original_cost ) {
+			$currency_symbol_position = strpos( trim( $original_cost ), $currency_symbol );
+			if ( false === $currency_symbol_position ) {
+				continue;
+			}
+
+			$currency_positions[] = 0 === $currency_symbol_position ? 'prefix' : 'postfix';
+			if ( end( $currency_positions ) !== reset( $currency_positions ) ) {
+				return false;
+			}
+		}
+
+		return ! empty( $currency_positions ) ? reset( $currency_positions ) : false;
+	}
 }
