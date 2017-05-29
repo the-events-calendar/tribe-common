@@ -90,7 +90,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_not_store_meta_for_non_chunkable_meta() {
 		$id = $this->factory()->post->create();
-		add_post_meta($id,'bar', 'some value');
+		add_post_meta( $id, 'bar', 'some value' );
 		$meta_key = 'foo';
 		$meta_value = str_repeat( 'foo', 20 );
 		$max_size = 2 * strlen( $meta_value );
@@ -101,7 +101,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$option = get_option( $sut->get_key_option_name() );
 		$this->assertNotEmpty( $option[ $id ] );
-		$this->assertNotContains( 'bar' , $option[ $id ] );
+		$this->assertNotContains( 'bar', $option[ $id ] );
 	}
 
 	/**
@@ -656,5 +656,55 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertNotEmpty( $db_meta[ $meta_key ] );
 		$this->assertNotEquals( $meta_value, $db_meta[ $meta_key ] );
 		$this->assertInternalType( 'string', $db_meta[ $meta_key ][0] );
+	}
+
+	/**
+	 * It should remove a post ID entry from the chunkable keys option when the post is deleted
+	 *
+	 * @test
+	 */
+	public function it_should_remove_a_post_id_entry_from_the_chunkable_keys_option_when_the_post_is_deleted() {
+		$post_id = $this->factory()->post->create();
+		$post_id_2 = $this->factory()->post->create();
+
+		$sut = $this->make_instance();
+		$sut->register_chunking_for( $post_id, 'foo' );
+		$sut->register_chunking_for( $post_id, 'bar' );
+		$sut->register_chunking_for( $post_id, 'baz' );
+		$sut->register_chunking_for( $post_id_2, 'bar' );
+
+		$this->assertTrue( $sut->is_chunkable( $post_id, 'foo' ) );
+
+		wp_delete_post( $post_id, true );
+
+		$this->assertFalse( $sut->is_chunkable( $post_id, 'foo' ) );
+		$this->assertFalse( $sut->is_chunkable( $post_id, 'bar' ) );
+		$this->assertFalse( $sut->is_chunkable( $post_id, 'baz' ) );
+
+		$option = get_option( $sut->get_key_option_name() );
+		$this->assertNotEmpty( $option );
+		$this->assertEquals( [ $sut->get_key( $post_id_2, 'bar' ) => null ], $option );
+	}
+
+	/**
+	 * It should remove the option entirely when there are no registered couples
+	 *
+	 * @test
+	 */
+	public function it_should_remove_the_option_entirely_when_there_are_no_registered_couples() {
+		$post_id = $this->factory()->post->create();
+		$post_id_2 = $this->factory()->post->create();
+
+		$sut = $this->make_instance();
+		$sut->register_chunking_for( $post_id, 'foo' );
+		$sut->register_chunking_for( $post_id_2, 'bar' );
+
+		$this->assertTrue( $sut->is_chunkable( $post_id, 'foo' ) );
+
+		wp_delete_post( $post_id, true );
+		wp_delete_post( $post_id_2, true );
+
+		$option = get_option( $sut->get_key_option_name() );
+		$this->assertEmpty( $option );
 	}
 }
