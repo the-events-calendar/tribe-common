@@ -137,4 +137,33 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	public function is_numeric( $value ) {
 		return is_numeric( $value );
 	}
+
+	/**
+	 * Whether a string represents a valid array or not.
+	 *
+	 * Valid means that the string looks like a URL, not that the URL is online and reachable.
+	 *
+	 * @param string $input
+	 *
+	 * @return bool
+	 */
+	public function is_url( $input ) {
+		return (bool) filter_var( $input, FILTER_VALIDATE_URL );
+	}
+
+	/**
+	 * Whether a string represents a valid and registered post status or not.
+	 *
+	 * @param string $post_status
+	 *
+	 * @return bool
+	 */
+	public function is_post_status( $post_status ) {
+		$post_stati = get_post_stati();
+		if ( empty( $post_stati ) ) {
+			return false;
+		}
+
+		return in_array( $post_status, $post_stati );
+	}
 }

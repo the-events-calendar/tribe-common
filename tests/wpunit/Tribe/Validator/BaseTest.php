@@ -262,4 +262,63 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_image( $image_id ) );
 		$this->assertFalse( $sut->is_image( $bad_image_url ) );
 	}
+
+	public function is_url_inputs() {
+		return [
+			[ 'foo', false ],
+			[ 23, false ],
+			[ '23', false ],
+			[ array( 'foo' => 'http://example.com' ), false ],
+			[ 'http://foo.bar', true ],
+			[ 'http://foo.com', true ],
+			[ 'http://foo.com/foo/bar/baz', true ],
+			[ 'https://foo.bar', true ],
+			[ 'https://foo.com', true ],
+			[ 'https://foo.com/foo/bar/baz', true ],
+			[ 'http://foo.bar:8080', true ],
+			[ 'http://foo.com:8080', true ],
+			[ 'http://foo.com:8080/foo/bar/baz', true ],
+			[ 'https://foo.bar:8080', true ],
+			[ 'https://foo.com:8080', true ],
+			[ 'https://foo.com:8080/foo/bar/baz', true ],
+			[ 'foo/bar/baz', false ],
+			[ '/foo/bar/baz', false ],
+		];
+	}
+
+	/**
+	 * Test is_url
+	 *
+	 * @test
+	 * @dataProvider is_url_inputs
+	 */
+	public function test_is_url( $input, $expected ) {
+		$sut = $this->make_instance();
+
+		$this->assertEquals( $expected, $sut->is_url( $input ) );
+	}
+
+	public function is_post_status_inputs() {
+		return [
+			[ 'publish', true ],
+			[ 'foo', false ],
+			[ 'draft', true ],
+			[ 23, false ],
+			[ '23', false ],
+			[ 'foo publish', false ],
+			[ 'future', true ],
+		];
+	}
+
+	/**
+	 * Test is_post_status
+	 *
+	 * @test
+	 * @dataProvider is_post_status_inputs
+	 */
+	public function test_is_post_status( $input, $expected ) {
+		$sut = $this->make_instance();
+
+		$this->assertEquals( $expected, $sut->is_post_status( $input ) );
+	}
 }
