@@ -848,6 +848,11 @@ class Tribe__Meta__Chunker {
 		return preg_match( "/^{$this->meta_key_prefix}.*_checksum$/", $meta_key );
 	}
 
+	/**
+	 * Removes the entries associated with a deleted post from the cache and the database option.
+	 *
+	 * @param int $post_id A post ID
+	 */
 	public function remove_post_entry( $post_id ) {
 		$this->prime_chunks_cache();
 
