@@ -15,7 +15,7 @@ abstract class Tribe__REST__Main {
 	 *
 	 * @var string
 	 */
-	protected $namespace = '/tribe';
+	protected $namespace = 'tribe';
 
 	/**
 	 * Returns the namespace of Modern Tribe REST APIs.
@@ -40,8 +40,8 @@ abstract class Tribe__REST__Main {
 			$prefix = apply_filters( 'rest_url_prefix', 'wp-json' );
 		}
 
-		$default_tec_prefix = $this->namespace . $this->url_prefix();
-		$prefix = rtrim( $prefix, '/' ) . $default_tec_prefix;
+		$default_tec_prefix = $this->namespace . '/' . trim( $this->url_prefix(), '/' );
+		$prefix = rtrim( $prefix, '/' ) . '/' . trim( $default_tec_prefix, '/' );
 
 		/**
 		 * Filters the TEC REST API URL prefix
@@ -70,7 +70,7 @@ abstract class Tribe__REST__Main {
 			$path = '/';
 		}
 
-		$tec_path = $this->namespace . $this->url_prefix() . '/' . ltrim( $path, '/' );
+		$tec_path = '/' . trim( $this->namespace, '/' ) . $this->url_prefix() . '/' . ltrim( $path, '/' );
 
 		if ( $this->use_builtin() ) {
 			$url = get_rest_url( $blog_id, $tec_path, $scheme );

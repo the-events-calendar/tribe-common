@@ -10,7 +10,137 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
-#: src/Tribe/PUE/Checker.php:422
+#: src/Tribe/App_Shop.php:168
+msgid "Take your image widgets to the next level with Image Widget Plus! We've taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:974
+msgid "Please refresh the page and try your request again."
+msgstr ""
+
+#: src/Tribe/PUE/Notices.php:221
+msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
+msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Tribe/PUE/Notices.php:336
+msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:166
+msgid "Image Widget Plus"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:24
+msgid "The cost currency symbol"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:28
+msgid "The position of the currency symbol in the cost string"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:33
+msgid "An sorted array of all the numeric values for the cost"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:24
+msgid "The date year"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:28
+msgid "The date month"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:32
+msgid "The date day"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:36
+msgid "The date hour"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:40
+msgid "The date minutes"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:44
+msgid "The date seconds"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:24
+msgid "The URL to the full size version of the image"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:28
+msgid "The image WordPress post ID"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:32
+msgid "The image file extension"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:36
+msgid "The image natural width in pixels"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
+msgid "The image natura height in pixels"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
+msgid "The details about each size available for the image"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:24
+msgid "The image width in pixels in the specified size"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:28
+msgid "The image height in pixels in the specified size"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:32
+msgid "The image mime-type"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
+msgid "The link to the image in the specified size on the site"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:24
+msgid "The WordPress term ID"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:28
+msgid "The term name"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:32
+msgid "The term slug"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:36
+msgid "The taxonomy the term belongs to"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:40
+msgid "The term description"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:44
+msgid "The term parent term if any"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:48
+msgid "The number of posts associated with the term"
+msgstr ""
+
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:52
+msgid "The URL to the term archive page"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:495
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
@@ -22,31 +152,31 @@ msgstr ""
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:452 src/Tribe/PUE/Checker.php:486
+#: src/Tribe/PUE/Checker.php:527 src/Tribe/PUE/Checker.php:561
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:461
+#: src/Tribe/PUE/Checker.php:536
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:462
+#: src/Tribe/PUE/Checker.php:537
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:473
+#: src/Tribe/PUE/Checker.php:548
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1314
+#: src/Tribe/PUE/Checker.php:1626
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1315
+#: src/Tribe/PUE/Checker.php:1627
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1316
+#: src/Tribe/PUE/Checker.php:1628
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
@@ -92,37 +222,27 @@ msgstr ""
 msgid "Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:707
+#: src/Tribe/PUE/Checker.php:995
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:763
+#: src/Tribe/PUE/Checker.php:1052
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:221
-msgid "It looks like you're using %s, but the license key you supplied does not appear to be valid or is missing. Please review and fix so that you can always have access to our latest versions!"
-msgid_plural "It looks like you're using %s, but the license keys you supplied do not appear to be valid or are missing. Please review and fix so that you can always have access to our latest versions!"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/Tribe/PUE/Notices.php:254
+#: src/Tribe/PUE/Notices.php:266
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:286
-msgid "You have entered a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one."
-msgid_plural "You have entered license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones."
+#: src/Tribe/PUE/Notices.php:298
+msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one."
+msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:324
-msgid "You can find your license keys by logging in to %1$syour account on theeventscalendar.com%2$s and you can enter them over on the %3$ssettings page%2$s."
-msgstr ""
-
-#: src/Tribe/PUE/Notices.php:368
+#: src/Tribe/PUE/Notices.php:379
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr ""
@@ -172,71 +292,71 @@ msgstr ""
 msgid "An Unknown error occurred"
 msgstr ""
 
-#: src/Tribe/Main.php:221 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:222 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Main.php:222
+#: src/Tribe/Main.php:223
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:223
+#: src/Tribe/Main.php:224
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:241
+#: src/Tribe/Main.php:242
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:243
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:245
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:246
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:247
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:248
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:249
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:250
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:253
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:255
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:260
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:261
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:679 src/Tribe/PUE/Notices.php:267
+#: src/Tribe/PUE/Checker.php:957 src/Tribe/PUE/Notices.php:279
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:681 src/Tribe/PUE/Notices.php:269
+#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:281
 msgid " (opens in a new window)"
 msgstr ""
 
@@ -323,7 +443,7 @@ msgctxt "log engines"
 msgid "None currently available"
 msgstr ""
 
-#: src/Tribe/Log/File_Logger.php:123
+#: src/Tribe/Log/File_Logger.php:128
 msgid "Default (uses temporary files)"
 msgstr ""
 
@@ -523,7 +643,7 @@ msgstr ""
 msgid "Visit the Add-on Page"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:654
+#: src/Tribe/PUE/Checker.php:930
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
@@ -595,7 +715,7 @@ msgstr ""
 msgid "Return to WordPress Updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:621
+#: src/Tribe/PUE/Checker.php:899
 msgid "unknown date"
 msgstr ""
 
@@ -1484,7 +1604,7 @@ msgstr "Etats fédéraux de Micronésie"
 msgid "Moldova, Republic Of"
 msgstr "République de Moldavie"
 
-#: src/Tribe/Main.php:253 src/Tribe/Main.php:269
+#: src/Tribe/Main.php:254 src/Tribe/Main.php:270
 msgid "Next"
 msgstr "Prochain"
 
@@ -1492,7 +1612,7 @@ msgstr "Prochain"
 msgid "Monaco"
 msgstr "Monaco"
 
-#: src/Tribe/Main.php:270
+#: src/Tribe/Main.php:271
 msgid "Prev"
 msgstr "Précédent"
 
@@ -1500,7 +1620,7 @@ msgstr "Précédent"
 msgid "Mongolia"
 msgstr "Mongolie"
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:272
 msgid "Today"
 msgstr "Aujourd'hui"
 
@@ -1508,7 +1628,7 @@ msgstr "Aujourd'hui"
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:273
 msgid "Done"
 msgstr "Terminer"
 
@@ -1600,7 +1720,7 @@ msgstr "Oman"
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:251
 msgid "Search:"
 msgstr ""
 
@@ -1632,7 +1752,7 @@ msgstr "Philippines"
 msgid "Pitcairn"
 msgstr "Îles Pitcairn"
 
-#: src/Tribe/PUE/Checker.php:434 src/Tribe/PUE/Checker.php:444
+#: src/Tribe/PUE/Checker.php:507 src/Tribe/PUE/Checker.php:518
 msgid "License Key"
 msgstr "Clé de Licence"
 
@@ -1640,7 +1760,7 @@ msgstr "Clé de Licence"
 msgid "Poland"
 msgstr "Pologne"
 
-#: src/Tribe/PUE/Checker.php:419
+#: src/Tribe/PUE/Checker.php:492
 msgid "A valid license key is required for support and updates"
 msgstr "Une clé de licence valide est nécessaire pour le support et les mises à jour"
 
@@ -1648,7 +1768,7 @@ msgstr "Une clé de licence valide est nécessaire pour le support et les mises 
 msgid "Portugal"
 msgstr "Portugal"
 
-#: src/Tribe/PUE/Checker.php:569
+#: src/Tribe/PUE/Checker.php:648
 msgid "License key(s) updated."
 msgstr "Clé(s) de licence mise(s) à jour."
 
@@ -1656,7 +1776,7 @@ msgstr "Clé(s) de licence mise(s) à jour."
 msgid "Puerto Rico"
 msgstr "Porto Rico"
 
-#: src/Tribe/PUE/Checker.php:627
+#: src/Tribe/PUE/Checker.php:905
 msgid "Sorry, key validation server is not available."
 msgstr "Désolé, le serveur de validation des clés n’est pas disponible."
 
@@ -1680,7 +1800,7 @@ msgstr "Fédération de Russie"
 msgid "Rwanda"
 msgstr "Rwanda"
 
-#: src/Tribe/PUE/Checker.php:645
+#: src/Tribe/PUE/Checker.php:925
 msgid "Valid Key! Expires on %s"
 msgstr "﻿Clé valide! Expire le%s"
 
@@ -1688,7 +1808,7 @@ msgstr "﻿Clé valide! Expire le%s"
 msgid "Saint Kitts And Nevis"
 msgstr "Saint-Christophe-et-Niévès"
 
-#: src/Tribe/PUE/Checker.php:586
+#: src/Tribe/PUE/Checker.php:886
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 

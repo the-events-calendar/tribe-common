@@ -162,6 +162,13 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'image' => 'images/app-shop-eventbrite.jpg',
 					'is_installed' => class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ),
 				),
+				(object) array(
+					'title' => __( 'Image Widget Plus', 'tribe-common' ),
+					'link' => 'http://m.tri.be/19nv',
+					'description' => __( 'Take your image widgets to the next level with Image Widget Plus! We\'ve taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support.', 'tribe-common' ),
+					'image' => 'images/app-shop-image-widget-plus.jpg',
+					'is_installed' => class_exists( 'Tribe__Image__Plus__Main' ),
+				),
 			);
 
 			return $products;
