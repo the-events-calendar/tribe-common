@@ -96,4 +96,35 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 		$created = Terms::translate_terms_to_ids( 'foo', 'bar' );
 		$this->assertCount( 0, $created );
 	}
+
+	/**
+	 * Test translate_terms_to_ids accepts comma separated strings of slugs ans IDs
+	 *
+	 * @test
+	 */
+	public function test_translate_terms_to_ids_accepts_comma_separated_strings_of_slugs_ans_i_ds() {
+		$foo = $this->factory()->term->create( [ 'slug' => 'foo', 'taxonomy' => 'post_tag' ] );
+		$bar = $this->factory()->term->create( [ 'slug' => 'bar', 'taxonomy' => 'post_tag' ] );
+
+		$this->assertTrue( (bool) term_exists( 'foo', 'post_tag' ) );
+		$this->assertTrue( (bool) term_exists( 'bar', 'post_tag' ) );
+		$this->assertFalse( (bool) term_exists( 'baz', 'post_tag' ) );
+
+		$created = Terms::translate_terms_to_ids( 'foo,bar,baz', 'post_tag' );
+
+		$this->assertCount( 3, $created );
+		$this->assertContains( $foo, $created );
+		$this->assertContains( $bar, $created );
+		$this->assertTrue( (bool) term_exists( 'foo', 'post_tag' ) );
+		$this->assertTrue( (bool) term_exists( 'bar', 'post_tag' ) );
+		$this->assertTrue( (bool) term_exists( 'baz', 'post_tag' ) );
+		$baz = end( $created );
+
+		$created = Terms::translate_terms_to_ids( implode( ',', [ $foo, 'bar', 'baz' ] ), 'post_tag' );
+
+		$this->assertCount( 3, $created );
+		$this->assertContains( $foo, $created );
+		$this->assertContains( $bar, $created );
+		$this->assertContains( $baz, $created );
+	}
 }

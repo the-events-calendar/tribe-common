@@ -4,7 +4,7 @@
 class Tribe__Terms {
 
 	public static function translate_terms_to_ids( $terms, $taxonomy ) {
-		$terms = (array) $terms;
+		$terms = is_string( $terms ) ? preg_split( '/\\s*,\\s*/', $terms ) : (array) $terms;
 
 		$term_ids = array();
 		foreach ( $terms as $term ) {
