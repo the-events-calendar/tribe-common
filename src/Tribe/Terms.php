@@ -3,7 +3,17 @@
 
 class Tribe__Terms {
 
-	public static function translate_terms_to_ids( $terms, $taxonomy ) {
+	/**
+	 * Translates an array or list of `term_id`s or `slug`s to an array of `term_id`s; if a term is missing and specified by `slug` it
+	 * will be created.
+	 *
+	 * @param      array|string $terms An array or comma separated list of term `term_id` or `slug` or a single `term_id` or `slug`.
+	 * @param      string $taxonomy
+	 * @param bool $create_missing Whether terms that could not be found by `term_id` or `slug` should be creater or not.
+	 *
+	 * @return array An array containing the `term_id`s of the created terms.
+	 */
+	public static function translate_terms_to_ids( $terms, $taxonomy, $create_missing = true ) {
 		$terms = is_string( $terms ) ? preg_split( '/\\s*,\\s*/', $terms ) : (array) $terms;
 
 		$term_ids = array();
@@ -24,7 +34,12 @@ class Tribe__Terms {
 				if ( is_numeric( $term ) ) {
 					continue;
 				}
-				$term_info = wp_insert_term( $term, $taxonomy );
+
+				if ( true == $create_missing ) {
+					$term_info = wp_insert_term( $term, $taxonomy );
+				} else {
+					continue;
+				}
 			}
 
 			if ( is_wp_error( $term_info ) ) {

@@ -127,4 +127,33 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertContains( $bar, $created );
 		$this->assertContains( $baz, $created );
 	}
+
+	/**
+	 * Test translate_terms_to_ids does not create missing terms if told
+	 *
+	 * @test
+	 */
+	public function test_translate_terms_to_ids_does_not_create_missing_terms_if_told() {
+		$foo = $this->factory()->term->create( [ 'slug' => 'foo', 'taxonomy' => 'post_tag' ] );
+		$bar = $this->factory()->term->create( [ 'slug' => 'bar', 'taxonomy' => 'post_tag' ] );
+
+		$this->assertTrue( (bool) term_exists( 'foo', 'post_tag' ) );
+		$this->assertTrue( (bool) term_exists( 'bar', 'post_tag' ) );
+		$this->assertFalse( (bool) term_exists( 'baz', 'post_tag' ) );
+
+		$created = Terms::translate_terms_to_ids( 'foo,bar,baz', 'post_tag', false );
+
+		$this->assertCount( 2, $created );
+		$this->assertContains( $foo, $created );
+		$this->assertContains( $bar, $created );
+		$this->assertTrue( (bool) term_exists( 'foo', 'post_tag' ) );
+		$this->assertTrue( (bool) term_exists( 'bar', 'post_tag' ) );
+		$this->assertFalse( (bool) term_exists( 'baz', 'post_tag' ) );
+
+		$created = Terms::translate_terms_to_ids( implode( ',', [ $foo, 'bar', 'baz' ] ), 'post_tag',false );
+
+		$this->assertCount( 2, $created );
+		$this->assertContains( $foo, $created );
+		$this->assertContains( $bar, $created );
+	}
 }
