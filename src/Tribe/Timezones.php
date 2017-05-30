@@ -422,7 +422,7 @@ class Tribe__Timezones {
 	 */
 	public static function localize_date( $format = null, $date = null, $timezone = null ) {
 		if ( empty( $timezone ) ) {
-			$timezone = self::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
+			$timezone = self::generate_timezone_string_from_utc_offset( self::wp_timezone_string() );
 		}
 
 		try {

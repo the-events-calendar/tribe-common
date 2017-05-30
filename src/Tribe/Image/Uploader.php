@@ -112,10 +112,12 @@ class Tribe__Image__Uploader {
 		$this->maybe_init_attachment_guids_cache();
 		$this->maybe_init_attachment_original_urls_cache();
 
-		if ( isset( self::$attachment_guids_cache[ $featured_image ] ) ) {
-			return self::$attachment_guids_cache[ $featured_image ];
-		} elseif ( isset( self::$original_urls_cache[ $featured_image ] ) ) {
-			return self::$original_urls_cache[ $featured_image ];
+		$guids_cache = self::$attachment_guids_cache;
+		$original_urls_cache = self::$original_urls_cache;
+		if ( isset( $guids_cache[ $featured_image ] ) ) {
+			return $guids_cache[ $featured_image ];
+		} elseif ( isset( $original_urls_cache[ $featured_image ] ) ) {
+			return $original_urls_cache[ $featured_image ];
 		}
 
 		return false;

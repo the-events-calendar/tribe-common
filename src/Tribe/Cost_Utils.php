@@ -441,7 +441,7 @@ class Tribe__Cost_Utils {
 			$i ++;
 		}
 
-		return ! empty( $currency_symbols ) ? reset($currency_symbols) : false;
+		return ! empty( $currency_symbols ) ? reset( $currency_symbols ) : false;
 	}
 
 	/**
