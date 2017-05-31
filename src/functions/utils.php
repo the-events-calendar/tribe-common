@@ -245,3 +245,20 @@ if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
 		return $normalized;
 	}
 }
+
+if ( ! function_exists( 'tribe_is_error' ) ) {
+	/**
+	 * Check whether variable is a WordPress or Tribe Error.
+	 *
+	 * Returns true if $thing is an object of the Tribe_Error or WP_Error class.
+	 *
+	 * @since 4.5.3
+	 *
+	 * @param mixed $thing Any old variable will do.
+	 *
+	 * @return bool Indicates if $thing was an error.
+	 */
+	function tribe_is_error( $thing ) {
+		return ( $thing instanceof Tribe__Error || is_wp_error( $thing ) );
+	}
+}

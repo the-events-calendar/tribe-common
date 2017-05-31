@@ -99,76 +99,17 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * @return array|WP_Error
 		 */
 		private function get_all_products() {
+			$all_products = tribe( 'plugins.api' )->get_products();
+
 			$products = array(
-				(object) array(
-					'title' => __( 'Event Aggregator', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/event-aggregator/?utm_campaign=in-app&utm_source=addonspage&utm_medium=event-aggregator&utm_content=appstoreembedded-1',
-					'description' => __( 'Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more.', 'tribe-common' ),
-					'image' => 'images/app-shop-ical.jpg',
-					'is_installed' => class_exists( 'Tribe__Events__Aggregator' ) && Tribe__Events__Aggregator::is_service_active(),
-				),
-				(object) array(
-					'title' => __( 'Events Calendar PRO', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/wordpress-events-calendar-pro/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-calendar-pro&utm_content=appstoreembedded-1',
-					'description' => sprintf(
-						__( 'The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more.', 'tribe-common' ),
-						'<a href="http://m.tri.be/18vc">',
-						'</a>'
-					),
-					'image' => 'images/app-shop-pro.jpg',
-					'is_installed' => class_exists( 'Tribe__Events__Pro__Main' ),
-				),
-				(object) array(
-					'title' => __( 'Event Tickets Plus', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/wordpress-event-tickets-plus/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-event-tickets-plus&utm_content=appstoreembedded-1',
-					'description' => sprintf(
-						__( 'Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings.', 'tribe-common' ),
-						'<a href="http://m.tri.be/18vc">',
-						'</a>'
-					),
-					'image' => 'images/app-shop-tickets-plus.jpg',
-					'is_installed' => class_exists( 'Tribe__Tickets_Plus__Main' ),
-				),
-				(object) array(
-					'title' => __( 'Filter Bar', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/wordpress-events-filterbar/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-filterbar&utm_content=appstoreembedded-1',
-					'description' => __( 'It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar.', 'tribe-common' ),
-					'image' => 'images/app-shop-filter-bar.jpg',
-					'is_installed' => class_exists( 'Tribe__Events__Filterbar__View' ),
-				),
-				(object) array(
-					'title' => __( 'Community Events', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/wordpress-community-events/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-community-events&utm_content=appstoreembedded-1',
-					'description' => __( 'Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go.', 'tribe-common' ),
-					'image' => 'images/app-shop-community.jpg',
-					'is_installed' => class_exists( 'Tribe__Events__Community__Main' ),
-				),
-				(object) array(
-					'title' => __( 'Community Tickets', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/community-tickets/?utm_campaign=in-app&utm_source=addonspage&utm_medium=community-tickets&utm_content=appstoreembedded-1',
-					'description' => __( 'Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin', 'tribe-common' ),
-						'requires' => _x( 'Event Tickets Plus and Community Events', 'Names of required plugins for Community Tickets', 'tribe-common' ),
-					'image' => 'images/app-shop-community-tickets.jpg',
-					'is_installed' => class_exists( 'Tribe__Events__Community__Tickets__Main' ),
-				),
-				(object) array(
-					'title' => __( 'Eventbrite Tickets', 'tribe-common' ),
-					'link' => 'https://theeventscalendar.com/product/wordpress-eventbrite-tickets/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-eventbrite-tickets&utm_content=appstoreembedded-1',
-					'description' => sprintf(
-						__( 'The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar.', 'tribe-common' ),
-						'<a href="http://www.eventbrite.com/r/etp">',
-						'</a>'
-					),
-					'image' => 'images/app-shop-eventbrite.jpg',
-					'is_installed' => class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ),
-				),
-				(object) array(
-					'title' => __( 'Image Widget Plus', 'tribe-common' ),
-					'link' => 'http://m.tri.be/19nv',
-					'description' => __( 'Take your image widgets to the next level with Image Widget Plus! We\'ve taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support.', 'tribe-common' ),
-					'image' => 'images/app-shop-image-widget-plus.jpg',
-					'is_installed' => class_exists( 'Tribe__Image__Plus__Main' ),
-				),
+				(object) $all_products['event-aggregator'],
+				(object) $all_products['events-calendar-pro'],
+				(object) $all_products['event-tickets-plus'],
+				(object) $all_products['tribe-filterbar'],
+				(object) $all_products['events-community'],
+				(object) $all_products['events-community-tickets'],
+				(object) $all_products['tribe-eventbrite'],
+				(object) $all_products['image-widget-plus'],
 			);
 
 			return $products;

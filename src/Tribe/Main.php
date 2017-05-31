@@ -161,6 +161,7 @@ class Tribe__Main {
 		Tribe__Debug::instance();
 		tribe( 'settings.manager' );
 		tribe( 'tracker' );
+		tribe( 'plugins.api' );
 		$this->pue_notices();
 
 		require_once $this->plugin_path . 'src/functions/utils.php';
@@ -496,5 +497,7 @@ class Tribe__Main {
 		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', array( 'hook' ) );
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
+		tribe_singleton( 'cache', 'Tribe__Cache' );
+		tribe_singleton( 'plugins.api', 'Tribe__Plugins_API', array( 'hook' ) );
 	}
 }
