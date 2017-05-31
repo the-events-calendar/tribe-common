@@ -319,7 +319,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			args.ajax = { // instead of writing the function to execute the request we use Select2's convenient helper
 				dataType: 'json',
 				type: 'POST',
-				url: window.ajaxurl,
+				url: obj.ajaxurl(),
 				results: function ( response, page, query ) { // parse the results into the format expected by Select2.
 					if ( ! $.isPlainObject( response ) || 'undefined' === typeof response.success ) {
 						console.error( 'We received a malformed Object, could not complete the Select2 Search.' );
@@ -402,6 +402,18 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		}
 
 		$select.data( 'value', data ).attr( 'data-value', JSON.stringify( data ) );
+	};
+
+	obj.ajaxurl = function () {
+		if ( 'undefined' !== typeof window.ajaxurl ) {
+			return window.ajaxurl;
+		}
+
+		if ( 'undefined' !== typeof TEC && 'undefined' !== typeof TEC.ajaxurl ) {
+			return TEC.ajaxurl;
+		}
+
+		console.error( 'Dropdowns framework cannot properly do a AJAX request without the WordPress `ajaxurl` variable setup.' )
 	};
 
 	obj.action_select2_removed = function( event ) {
