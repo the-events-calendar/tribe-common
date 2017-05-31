@@ -413,7 +413,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			return TEC.ajaxurl;
 		}
 
-		console.error( 'Dropdowns framework cannot properly do a AJAX request without the WordPress `ajaxurl` variable setup.' )
+		console.error( 'Dropdowns framework cannot properly do an AJAX request without the WordPress `ajaxurl` variable setup.' )
 	};
 
 	obj.action_select2_removed = function( event ) {
