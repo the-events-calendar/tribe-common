@@ -145,7 +145,7 @@ if ( ! function_exists( 'tribe_register' ) ) {
 	 *                                                    will be called each time after the instance contstruction.
 	 */
 	function tribe_register( $slug, $class, array $after_build_methods = null ) {
-		Tribe__Container::init()->bind( $slug, $class, $after_build_methods );
+		Tribe__Container::instance()->bind( $slug, $class, $after_build_methods );
 	}
 }
 
