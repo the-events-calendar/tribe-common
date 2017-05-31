@@ -95,9 +95,11 @@ class Tribe__Meta__Chunker {
 	 * Primes the chunked cache.
 	 *
 	 * This will just fetch the keys for the supported post types, not the values.
+	 *
+	 * @param bool $force Whether the cache should be reprimed even if already primed.
 	 */
-	protected function prime_chunks_cache() {
-		if ( null !== $this->chunks_cache ) {
+	public function prime_chunks_cache( $force = false ) {
+		if ( false === $force && null !== $this->chunks_cache ) {
 			return;
 		}
 
@@ -110,6 +112,9 @@ class Tribe__Meta__Chunker {
 		}
 
 		foreach ( $chunked_keys as $post_id => $keys ) {
+			if ( ! is_array( $keys ) || empty( $keys ) ) {
+				continue;
+			}
 			foreach ( $keys as $key ) {
 				$this->chunks_cache[ $this->get_key( $post_id, $key ) ] = null;
 			}
@@ -633,22 +638,7 @@ class Tribe__Meta__Chunker {
 
 		$chunked_in_cache = array_key_exists( $key, $this->chunks_cache ) && is_array( $this->chunks_cache[ $key ] );
 
-		return false === $check_db ? $chunked_in_cache : $this->verify_chunks_for( $object_id, $meta_key );
-	}
-
-	/**
-	 * Verifies that the chunks stored on the database for an object meta still form a coherent value.
-	 *
-	 * @param int    $object_id
-	 * @param string $meta_key
-	 *
-	 * @return bool `true` if the meta is still valid, `false` otherwise.
-	 */
-	public function verify_chunks_for( $object_id, $meta_key ) {
-		$chunks = $this->get_chunks_for( $object_id, $meta_key );
-		$glued = $this->glue_chunks( $chunks );
-
-		return md5( maybe_serialize( $glued ) ) === $this->get_checksum_for( $object_id, $meta_key );
+		return $chunked_in_cache;
 	}
 
 	/**
@@ -713,9 +703,6 @@ class Tribe__Meta__Chunker {
 		$key = $this->get_key( $object_id, $meta_key );
 		if ( $this->is_chunked( $object_id, $meta_key ) ) {
 			$glued = maybe_unserialize( $this->glue_chunks( $this->chunks_cache[ $key ] ) );
-		} elseif ( $this->is_chunked( $object_id, $meta_key, true ) ) {
-			$chunks = $this->get_chunks_for( $object_id, $meta_key );
-			$glued = maybe_unserialize( $this->glue_chunks( $chunks ) );
 		}
 
 		if ( ! empty( $glued ) ) {
@@ -763,20 +750,19 @@ class Tribe__Meta__Chunker {
 		$checksum_keys = array_filter( $chunker_meta_keys, array( $this, 'is_chunker_checksum_key' ) );
 
 		if ( empty( $checksum_keys ) ) {
-			return array_diff_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
+			return $grouped;
 		}
 
 		$chunker_meta = array_intersect_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
 		$normal_meta = array_diff_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
 		foreach ( $checksum_keys as $checksum_key ) {
 			$normal_meta_key = str_replace( array( $this->meta_key_prefix, '_checksum' ), '', $checksum_key );
-			if ( ! isset( $normal_meta[ $normal_meta_key ] ) ) {
-				continue;
-			}
 			$chunk_meta_key = $this->get_chunk_meta_key( $normal_meta_key );
+
 			if ( empty( $chunker_meta[ $chunk_meta_key ] ) ) {
 				continue;
 			}
+
 			$normal_meta[ $normal_meta_key ] = array( $this->glue_chunks( $chunker_meta[ $chunk_meta_key ] ) );
 		}
 

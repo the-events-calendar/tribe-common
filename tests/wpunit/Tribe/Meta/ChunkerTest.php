@@ -707,4 +707,189 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$option = get_option( $sut->get_key_option_name() );
 		$this->assertEmpty( $option );
 	}
+
+	/**
+	 * It should remove a post entry when no meta keys are associated with it
+	 *
+	 * @test
+	 */
+	public function it_should_remove_a_post_entry_when_no_meta_keys_are_associated_with_it() {
+		$post_id = $this->factory()->post->create();
+
+		$sut = $this->make_instance();
+		$sut->register_chunking_for( $post_id, 'foo' );
+		$sut->register_chunking_for( $post_id, 'bar' );
+
+		$this->assertTrue( $sut->is_chunkable( $post_id, 'foo' ) );
+		$this->assertTrue( $sut->is_chunkable( $post_id, 'bar' ) );
+
+		$option = get_option( $sut->get_key_option_name() );
+
+		$this->assertNotEmpty( $option );
+		$this->assertArrayHasKey( $post_id, $option );
+		$this->assertEqualSets( [ 'foo', 'bar' ], $option[ $post_id ] );
+
+		update_option( $sut->get_key_option_name(), [ $post_id => [] ] );
+
+		$sut->prime_chunks_cache( true );
+		$this->assertFalse( $sut->is_chunkable( $post_id, 'foo' ) );
+		$this->assertFalse( $sut->is_chunkable( $post_id, 'bar' ) );
+	}
+
+	/**
+	 * It should return empty array when trying to get all meta for non existing post
+	 *
+	 * @test
+	 */
+	public function it_should_return_empty_array_when_trying_to_get_all_meta_for_non_existing_post() {
+		$sut = $this->make_instance();
+
+		$this->assertEmpty( $sut->get_all_meta_for( 23 ) );
+	}
+
+	/**
+	 * It should return empty array when trying to get all meta for post with no meta
+	 *
+	 * @test
+	 */
+	public function it_should_return_empty_array_when_trying_to_get_all_meta_for_post_with_no_meta() {
+		$post_id = $this->factory()->post->create();
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$wpdb->query( "delete from {$wpdb->postmeta} where post_id = {$post_id}" );
+
+		$sut = $this->make_instance();
+
+		$this->assertEmpty( $sut->get_all_meta_for( $post_id ) );
+	}
+
+	/**
+	 * It should return all meta for post that has no chunked meta
+	 *
+	 * @test
+	 */
+	public function it_should_return_all_meta_for_post_that_has_no_chunked_meta() {
+		$post_id = $this->factory()->post->create();
+		add_post_meta( $post_id, 'foo', 23 );
+		add_post_meta( $post_id, 'foo', 89 );
+		add_post_meta( $post_id, 'bar', 'baz' );
+
+		$sut = $this->make_instance();
+
+		$got = $sut->get_all_meta_for( $post_id );
+
+		$expected = [
+			'foo' => [ '23', '89' ],
+			'bar' => [ 'baz' ],
+		];
+		$this->assertEqualSets( $expected, array_intersect_key( $expected, $got ) );
+	}
+
+	/**
+	 * It should return chunks as they are if checksum is missing
+	 *
+	 * @test
+	 */
+	public function it_should_return_chunks_as_they_are_if_checksum_is_missing() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, 'foo', $meta_value );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$checksum_key = $sut->get_checksum_key( 'foo' );
+		$wpdb->query( "delete from {$wpdb->postmeta} where meta_key = '{$checksum_key}'" );
+
+		$all_meta = $sut->get_all_meta_for( $id );
+		$this->assertNotEmpty( $all_meta );
+		$chunk_meta_key = $sut->get_chunk_meta_key( 'foo' );
+		$this->assertArrayHasKey( $chunk_meta_key, $all_meta );
+		$this->assertCount( 3, $all_meta[ $chunk_meta_key ] );
+	}
+
+	/**
+	 * It should return meta chunks if normal meta key is missing
+	 *
+	 * @test
+	 */
+	public function it_should_return_meta_chunks_if_normal_meta_key_is_missing() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, 'foo', $meta_value );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$wpdb->query( "delete from {$wpdb->postmeta} where meta_key = 'foo'" );
+
+		$all_meta = $sut->get_all_meta_for( $id );
+		$this->assertNotEmpty( $all_meta );
+		$this->assertArrayHasKey( 'foo', $all_meta );
+		$this->assertCount( 1, $all_meta['foo'] );
+		$this->assertEquals( $meta_value, $all_meta['foo'][0] );
+		$chunk_meta_key = $sut->get_chunk_meta_key( 'foo' );
+		$this->assertArrayNotHasKey( $chunk_meta_key, $all_meta );
+	}
+
+	/**
+	 * It should return the normal meta if the chunks have been deleted
+	 *
+	 * @test
+	 */
+	public function it_should_return_the_normal_meta_if_the_chunks_have_been_deleted() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, 'foo', $meta_value );
+
+		$chunks = $sut->get_chunks_for( $id, 'foo' );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$chunk_meta_key = $sut->get_chunk_meta_key( 'foo' );
+		$wpdb->query( "delete from {$wpdb->postmeta} where meta_key = '{$chunk_meta_key}'" );
+
+		$all_meta = $sut->get_all_meta_for( $id );
+		$this->assertNotEmpty( $all_meta );
+		$this->assertArrayHasKey( 'foo', $all_meta );
+		$this->assertCount( 1, $all_meta['foo'] );
+		$this->assertEquals( $chunks[0], $all_meta['foo'][0] );
+		$this->assertArrayNotHasKey( $chunk_meta_key, $all_meta );
+	}
+
+	/**
+	 * It should store the checksum for each chunked meta
+	 *
+	 * @test
+	 */
+	public function it_should_store_the_checksum_for_each_chunked_meta() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, 'foo', $meta_value );
+
+		$this->assertNotEmpty( $sut->get_checksum_for( $id, 'foo' ) );
+	}
 }
