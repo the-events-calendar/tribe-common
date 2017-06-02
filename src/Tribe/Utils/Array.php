@@ -133,7 +133,7 @@ class Tribe__Utils__Array {
 
 		$filtered = array();
 		foreach ( $value as $v ) {
-			if ( $v === '' ) {
+			if ( '' === $v ) {
 				continue;
 			}
 			$filtered[] = is_numeric( $v ) ? $v + 0 : $v;

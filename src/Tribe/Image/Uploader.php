@@ -129,8 +129,9 @@ class Tribe__Image__Uploader {
 			global $wpdb;
 			$guids = $wpdb->get_results( "SELECT ID, guid FROM $wpdb->posts where post_type = 'attachment'" );
 
-			self::$attachment_guids_cache = $guids ? array_combine( wp_list_pluck( $guids, 'guid' ), wp_list_pluck( $guids, 'ID' ) ) :
-				array();
+			self::$attachment_guids_cache = $guids ?
+				array_combine( wp_list_pluck( $guids, 'guid' ), wp_list_pluck( $guids, 'ID' ) )
+				: array();
 		}
 	}
 
@@ -144,7 +145,8 @@ class Tribe__Image__Uploader {
 					WHERE p.post_type = 'attachment' AND pm.meta_key = '_tribe_importer_original_url'" );
 
 			self::$original_urls_cache = $original_urls ?
-				array_combine( wp_list_pluck( $original_urls, 'meta_value' ), wp_list_pluck( $original_urls, 'ID' ) ) : array();
+				array_combine( wp_list_pluck( $original_urls, 'meta_value' ), wp_list_pluck( $original_urls, 'ID' ) )
+				: array();
 		}
 	}
 }
