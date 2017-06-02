@@ -213,6 +213,7 @@ a.ui-state-active {
 }
 
 button.ui-datepicker-close {
+	background: -webkit-linear-gradient(96deg, rgba(10, 85, 160, 1.00) 0%, rgba(18, 136, 235, 1.00) 100%);
 	background: linear-gradient(354deg, rgba(10, 85, 160, 1.00) 0%, rgba(18, 136, 235, 1.00) 100%);
 	border: 1px solid #0085ba;
 	color: #fff !important;
@@ -349,6 +350,7 @@ a.ui-button:focus {
 a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
+	background: -webkit-linear-gradient(96deg, rgba(10, 85, 160, 1.00) 0%, rgba(18, 136, 235, 1.00) 100%);
 	background: linear-gradient(354deg, rgba(10, 85, 160, 1.00) 0%, rgba(18, 136, 235, 1.00) 100%);
 	color: #fff;
 }

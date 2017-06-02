@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.5.3\n"
+"Project-Id-Version: Tribe Common 4.6\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2017-05-31 18:10:43+00:00\n"
+"POT-Creation-Date: 2017-05-31 21:01:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-05-31 18:10\n"
+"PO-Revision-Date: 2017-05-31 21:01\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -173,6 +173,22 @@ msgstr ""
 #: src/Tribe/Admin/Notice/Plugin_Download.php:92
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:38
+msgid "Cannot look for Terms without a taxonomy"
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:175
+msgid "Missing data source for this dropdown"
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:188
+msgid "Empty data set for this dropdown"
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:238
+msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
 msgstr ""
 
 #: src/Tribe/App_Shop.php:48 src/Tribe/App_Shop.php:49
@@ -380,83 +396,83 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:223 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:226 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Main.php:224
+#: src/Tribe/Main.php:227
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:225
+#: src/Tribe/Main.php:228
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:246
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:247
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:249
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:250
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:251
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:252
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:253
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:254
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:255
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:257
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:255 src/Tribe/Main.php:271
+#: src/Tribe/Main.php:258 src/Tribe/Main.php:274
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:259
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:264
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:265
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:275
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:273
+#: src/Tribe/Main.php:276
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:274
+#: src/Tribe/Main.php:277
 msgid "Done"
 msgstr ""
 
