@@ -294,7 +294,7 @@ class Tribe__Cost_Utils {
 	 *
 	 * @return array An associative array of parsed costs in [ <string cost> => <cost number> ] format.
 	 */
-	public function parse_cost_range( $costs, $max_decimals = null, $sort = false ) {
+	public function parse_cost_range( $costs, $max_decimals = null, $sort = true ) {
 		if ( ! is_array( $costs ) && ! is_string( $costs ) ) {
 			return array();
 		}
