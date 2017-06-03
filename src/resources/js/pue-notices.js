@@ -10,13 +10,13 @@ var tribe_plugin_notices = tribe_plugin_notices || {};
 	'use strict';
 
 	my.init = function() {
-		for ( var plugin_slug in tribe_plugin_notices ) {
-			if ( ! tribe_plugin_notices.hasOwnProperty( plugin_slug ) ) {
+		for ( var plugin_file in tribe_plugin_notices ) {
+			if ( ! tribe_plugin_notices.hasOwnProperty( plugin_file ) ) {
 				continue;
 			}
 
-			var $row = $( tribe_plugin_notices[ plugin_slug ].message_row_html );
-			var $active_plugin_row = $( 'tr[data-plugin$="' + plugin_slug + '.php"].active' );
+			var $row = $( tribe_plugin_notices[ plugin_file ].message_row_html );
+			var $active_plugin_row = $( 'tr[data-plugin="' + plugin_file + '"].active' );
 
 			// Add the .update class to the plugin row and append our new row with the update message
 			$active_plugin_row.addClass( 'update' ).after( $row );

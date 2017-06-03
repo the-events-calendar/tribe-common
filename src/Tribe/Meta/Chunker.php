@@ -35,9 +35,14 @@
  */
 class Tribe__Meta__Chunker {
 	/**
+	 * @var string
+	 */
+	protected $chunked_keys_option_name = '_tribe_chunker_chunked_keys';
+
+	/**
 	 * @var array The cache that will store chunks to avoid middleware operations from fetching the database.
 	 */
-	protected $chunks_cache = array();
+	protected $chunks_cache = null;
 
 	/**
 	 * @var string The separator that's used to mark the start of each chunk.
@@ -79,33 +84,40 @@ class Tribe__Meta__Chunker {
 			return;
 		}
 
-		$this->prime_chunked_cache();
-
 		add_filter( 'update_post_metadata', array( $this, 'filter_update_metadata' ), $this->filter_priority, 4 );
 		add_filter( 'delete_post_metadata', array( $this, 'filter_delete_metadata' ), $this->filter_priority, 3 );
 		add_filter( 'add_post_metadata', array( $this, 'filter_add_metadata' ), $this->filter_priority, 4 );
 		add_filter( 'get_post_metadata', array( $this, 'filter_get_metadata' ), $this->filter_priority, 3 );
+		add_action( 'deleted_post', array( $this, 'remove_post_entry' ) );
 	}
 
 	/**
 	 * Primes the chunked cache.
 	 *
 	 * This will just fetch the keys for the supported post types, not the values.
+	 *
+	 * @param bool $force Whether the cache should be reprimed even if already primed.
 	 */
-	protected function prime_chunked_cache() {
-		/** @var wpdb $wpdb */
-		global $wpdb;
-		$query = $wpdb->prepare( "SELECT post_id, meta_key FROM {$wpdb->postmeta}
-			WHERE meta_key LIKE %s
-			AND meta_key NOT LIKE %s",
-			$this->meta_key_prefix . '%', $this->meta_key_prefix . '%_chunk'
-		);
-		$results = $wpdb->get_results( $query );
+	public function prime_chunks_cache( $force = false ) {
+		if ( false === $force && null !== $this->chunks_cache ) {
+			return;
+		}
 
 		$this->chunks_cache = array();
-		foreach ( $results as $result ) {
-			$real_meta_key = str_replace( $this->meta_key_prefix, '', $result->meta_key );
-			$this->chunks_cache[ $this->get_key( $result->post_id, $real_meta_key ) ] = null;
+
+		$chunked_keys = get_option( $this->chunked_keys_option_name );
+
+		if ( empty( $chunked_keys ) ) {
+			return;
+		}
+
+		foreach ( $chunked_keys as $post_id => $keys ) {
+			if ( ! is_array( $keys ) || empty( $keys ) ) {
+				continue;
+			}
+			foreach ( $keys as $key ) {
+				$this->chunks_cache[ $this->get_key( $post_id, $key ) ] = null;
+			}
 		}
 	}
 
@@ -116,7 +128,7 @@ class Tribe__Meta__Chunker {
 	 * @param string $meta_key
 	 * @return string
 	 */
-	protected function get_key( $post_id, $meta_key ) {
+	public function get_key( $post_id, $meta_key ) {
 		return "{$post_id}::{$meta_key}";
 	}
 
@@ -162,10 +174,22 @@ class Tribe__Meta__Chunker {
 	 */
 	protected function tag_as_chunkable( $post_id, $meta_key ) {
 		$key = $this->get_key( $post_id, $meta_key );
+
+		$this->prime_chunks_cache();
+
 		if ( ! array_key_exists( $key, $this->chunks_cache ) ) {
 			$this->chunks_cache[ $key ] = null;
 		}
-		update_post_meta( $post_id, $this->get_chunkable_meta_key( $meta_key ), true );
+
+		$option = (array) get_option( $this->chunked_keys_option_name );
+
+		if ( ! isset( $option[ $post_id ] ) ) {
+			$option[ $post_id ] = array( $meta_key );
+		} else {
+			$option[ $post_id ][] = $meta_key;
+		}
+
+		update_option( $this->chunked_keys_option_name, array_filter( $option ), true );
 	}
 
 	/**
@@ -269,6 +293,8 @@ class Tribe__Meta__Chunker {
 	public function is_chunkable( $post_id, $meta_key ) {
 		$key = $this->get_key( $post_id, $meta_key );
 
+		$this->prime_chunks_cache();
+
 		return array_key_exists( $key, $this->chunks_cache );
 	}
 
@@ -339,6 +365,9 @@ class Tribe__Meta__Chunker {
 		$max_allowed_packet = $this->get_max_chunk_size();
 		$serialized = maybe_serialize( $meta_value );
 		$byte_size = $this->get_byte_size( $serialized );
+
+		$this->prime_chunks_cache();
+
 		// we use .8 and not 1 to allow for MySQL instructions to use 20% of the string size
 		if ( $byte_size > .8 * $max_allowed_packet ) {
 			$chunk_size = ceil( $max_allowed_packet * 0.75 );
@@ -440,6 +469,8 @@ class Tribe__Meta__Chunker {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
+		$this->prime_chunks_cache();
+
 		$key = $this->get_key( $object_id, $meta_key );
 		$chunks = $this->chunks_cache[ $key ];
 		$chunk_meta_key = $this->get_chunk_meta_key( $meta_key );
@@ -517,6 +548,8 @@ class Tribe__Meta__Chunker {
 	public function get_chunks_for( $object_id, $meta_key ) {
 		$key = $this->get_key( $object_id, $meta_key );
 
+		$this->prime_chunks_cache();
+
 		if ( ! empty( $this->chunks_cache[ $key ] ) ) {
 			return $this->chunks_cache[ $key ];
 		}
@@ -555,6 +588,9 @@ class Tribe__Meta__Chunker {
 	 */
 	protected function cache_delete( $object_id, $meta_key ) {
 		$key = $this->get_key( $object_id, $meta_key );
+
+		$this->prime_chunks_cache();
+
 		if ( isset( $this->chunks_cache[ $key ] ) ) {
 			$this->chunks_cache[ $key ] = null;
 		}
@@ -597,24 +633,12 @@ class Tribe__Meta__Chunker {
 	 */
 	public function is_chunked( $object_id, $meta_key, $check_db = false ) {
 		$key = $this->get_key( $object_id, $meta_key );
+
+		$this->prime_chunks_cache();
+
 		$chunked_in_cache = array_key_exists( $key, $this->chunks_cache ) && is_array( $this->chunks_cache[ $key ] );
 
-		return false === $check_db ? $chunked_in_cache : $this->verify_chunks_for( $object_id, $meta_key );
-	}
-
-	/**
-	 * Verifies that the chunks stored on the database for an object meta still form a coherent value.
-	 *
-	 * @param int    $object_id
-	 * @param string $meta_key
-	 *
-	 * @return bool `true` if the meta is still valid, `false` otherwise.
-	 */
-	public function verify_chunks_for( $object_id, $meta_key ) {
-		$chunks = $this->get_chunks_for( $object_id, $meta_key );
-		$glued = $this->glue_chunks( $chunks );
-
-		return md5( maybe_serialize( $glued ) ) === $this->get_checksum_for( $object_id, $meta_key );
+		return $chunked_in_cache;
 	}
 
 	/**
@@ -679,9 +703,6 @@ class Tribe__Meta__Chunker {
 		$key = $this->get_key( $object_id, $meta_key );
 		if ( $this->is_chunked( $object_id, $meta_key ) ) {
 			$glued = maybe_unserialize( $this->glue_chunks( $this->chunks_cache[ $key ] ) );
-		} elseif ( $this->is_chunked( $object_id, $meta_key, true ) ) {
-			$chunks = $this->get_chunks_for( $object_id, $meta_key );
-			$glued = maybe_unserialize( $this->glue_chunks( $chunks ) );
 		}
 
 		if ( ! empty( $glued ) ) {
@@ -726,23 +747,22 @@ class Tribe__Meta__Chunker {
 			return $grouped;
 		}
 
-		$chunker_meta_canary_keys = array_filter( $chunker_meta_keys, array( $this, 'is_chunker_canary_key' ) );
+		$checksum_keys = array_filter( $chunker_meta_keys, array( $this, 'is_chunker_checksum_key' ) );
 
-		if ( empty( $chunker_meta_canary_keys ) ) {
-			return array_diff_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
+		if ( empty( $checksum_keys ) ) {
+			return $grouped;
 		}
 
 		$chunker_meta = array_intersect_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
 		$normal_meta = array_diff_key( $grouped, array_combine( $chunker_meta_keys, $chunker_meta_keys ) );
-		foreach ( $chunker_meta_canary_keys as $canary_key ) {
-			$normal_meta_key = str_replace( $this->meta_key_prefix, '', $canary_key );
-			if ( ! isset( $normal_meta[ $normal_meta_key ] ) ) {
-				continue;
-			}
+		foreach ( $checksum_keys as $checksum_key ) {
+			$normal_meta_key = str_replace( array( $this->meta_key_prefix, '_checksum' ), '', $checksum_key );
 			$chunk_meta_key = $this->get_chunk_meta_key( $normal_meta_key );
+
 			if ( empty( $chunker_meta[ $chunk_meta_key ] ) ) {
 				continue;
 			}
+
 			$normal_meta[ $normal_meta_key ] = array( $this->glue_chunks( $chunker_meta[ $chunk_meta_key ] ) );
 		}
 
@@ -795,13 +815,43 @@ class Tribe__Meta__Chunker {
 	}
 
 	/**
+	 * Returns the name of the option that stores the keys registered for chunking for each post.
+	 *
+	 * @return string
+	 */
+	public function get_key_option_name() {
+		return $this->chunked_keys_option_name;
+	}
+
+	/**
 	 * Asserts that a meta key is not a chunk meta key.
 	 *
 	 * @param string $meta_key
 	 *
 	 * @return bool
 	 */
-	protected function is_chunker_canary_key( $meta_key ) {
-		return 0 === strpos( $meta_key, $this->meta_key_prefix ) && ! preg_match( '/_chunk$/', $meta_key );
+	protected function is_chunker_checksum_key( $meta_key ) {
+		return preg_match( "/^{$this->meta_key_prefix}.*_checksum$/", $meta_key );
+	}
+
+	/**
+	 * Removes the entries associated with a deleted post from the cache and the database option.
+	 *
+	 * @param int $post_id A post ID
+	 */
+	public function remove_post_entry( $post_id ) {
+		$this->prime_chunks_cache();
+
+		foreach ( $this->chunks_cache as $key => $value ) {
+			if ( 0 === strpos( $key, (string) $post_id ) ) {
+				unset( $this->chunks_cache[ $key ] );
+			}
+		}
+
+		if ( ! empty( $this->chunks_cache ) ) {
+			update_option( $this->chunked_keys_option_name, $this->chunks_cache );
+		} else {
+			delete_option( $this->chunked_keys_option_name );
+		}
 	}
 }
