@@ -1134,6 +1134,38 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			// Why so simple? Let's handle other cases as those come up. We have tests in place!
 			return str_replace( '\\\\', '\\', $date_format );
 		}
+
+		/**
+		 * Converts an ordinal into an integer value.
+		 *
+		 * @param string $ordinal
+		 *
+		 * @return int|false The integer number corresponding to the ordinal or `false` if the ordinal number does not exist.
+		 */
+		public static function ordinal_to_number( $ordinal ) {
+			if ( is_numeric( $ordinal ) ) {
+				return intval( $ordinal );
+			}
+
+			$map = array(
+				'first'   => 1,
+				'second'  => 2,
+				'third'   => 3,
+				'fourth'  => 4,
+				'fifth'   => 5,
+				'sixth'   => 6,
+				'seventh' => 7,
+				'eighth'  => 8,
+				'ninth'   => 9,
+				'tenth'   => 10,
+			);
+
+			$key = strtolower( $ordinal );
+
+			$number =  isset($map[$key]) ? $map[$key] : false;
+
+			return apply_filters( 'tribe_events_ordinal_to_number', $number, $ordinal );
+		}
 		// @codingStandardsIgnoreEnd
 	}
 

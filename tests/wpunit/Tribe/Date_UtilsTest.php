@@ -1,7 +1,8 @@
 <?php
-namespace Tribe\Events\Common;
 
-use \Tribe__Date_Utils as Date_Utils;
+namespace Tribe;
+
+use Tribe__Date_Utils as Date_Utils;
 
 class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 
@@ -80,7 +81,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -96,7 +97,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected - $nine_hours,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -112,7 +113,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected + $nine_hours,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -136,7 +137,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -152,7 +153,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected - $nine_hours,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -168,7 +169,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected + $nine_hours,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -185,7 +186,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			[ 'tribe', 'tribe' ],
 			[ 'j \d\e F', 'j \d\e F' ],
-			[ 'F, \e\l j'   , 'F, \e\l j' ],
+			[ 'F, \e\l j', 'F, \e\l j' ],
 			[ '\hH', '\hH' ],
 			[ 'i\m, s\s', 'i\m, s\s' ],
 			[ '\T\Z: T ', '\T\Z: T' ],
@@ -205,14 +206,14 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	public function date_formats_to_escape() {
 		return [
 			[ 'j \\d\\e F', 'j \d\e F' ],
-			[ 'F, \\e\\l j'   , 'F, \e\l j' ],
+			[ 'F, \\e\\l j', 'F, \e\l j' ],
 			[ '\\hH', '\hH' ],
 			[ 'i\\m, s\\s', 'i\m, s\s' ],
 			[ '\\T\\Z: T', '\T\Z: T' ],
 			[ 'j \d\\e F', 'j \d\e F' ],
-			[ 'F, \e\\l j'   , 'F, \e\l j' ],
+			[ 'F, \e\\l j', 'F, \e\l j' ],
 			[ 'i\m, s\\s', 'i\m, s\s' ],
-			[ '\T\\Z: T' , '\T\Z: T' ],
+			[ '\T\\Z: T', '\T\Z: T' ],
 		];
 	}
 
@@ -224,5 +225,35 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	public function test_unescape_date_format_will_return_escaped_date_format( $in, $expected_out ) {
 		$out = Date_Utils::unescape_date_format( $in );
 		$this->assertEquals( $expected_out, $out );
+	}
+
+	public function ordinal_to_number_inputs() {
+		return [
+			[ 'first', 1 ],
+			[ 'second', 2 ],
+			[ 'third', 3 ],
+			[ 'fourth', 4 ],
+			[ 'fifth', 5 ],
+			[ 'sixth', 6 ],
+			[ 'seventh', 7 ],
+			[ 'eighth', 8 ],
+			[ 'ninth', 9 ],
+			[ 'tenth', 10 ],
+			[ 'foo', false ],
+			[ 23, 23 ],
+			[ '23', 23 ],
+			[ 23.5, 23 ],
+			[ '23.5', 23 ],
+		];
+	}
+
+	/**
+	 * Test ordinal_to_number
+	 *
+	 * @test
+	 * @dataProvider ordinal_to_number_inputs
+	 */
+	public function test_ordinal_to_number( $input, $expected ) {
+		$this->assertEquals( $expected, Date_Utils::ordinal_to_number( $input ) );
 	}
 }
