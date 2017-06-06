@@ -10,7 +10,39 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
-#: src/Tribe/App_Shop.php:168
+#: src/Tribe/Plugins_API.php:239
+msgid "Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:1082
+msgid "Update now to version %s."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:1093
+msgid "There is a new version of %1$s available. %2$s"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:51
+msgid "Buy %s now"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:52
+msgid "Buy Now"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:60
+msgid "More information about %s"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:61
+msgid "More Details"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:210
+msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:302
 msgid "Take your image widgets to the next level with Image Widget Plus! We've taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support."
 msgstr ""
 
@@ -28,7 +60,7 @@ msgstr[1] ""
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:166
+#: src/Tribe/Plugins_API.php:298
 msgid "Image Widget Plus"
 msgstr ""
 
@@ -168,15 +200,15 @@ msgstr ""
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1626
+#: src/Tribe/PUE/Checker.php:1666
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1627
+#: src/Tribe/PUE/Checker.php:1667
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1628
+#: src/Tribe/PUE/Checker.php:1668
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
@@ -218,7 +250,7 @@ msgstr ""
 msgid "Event Log"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:106
+#: src/Tribe/Plugins_API.php:218
 msgid "Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more."
 msgstr ""
 
@@ -259,7 +291,7 @@ msgstr ""
 msgid "Buy This Add-On"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:208 src/Tribe/App_Shop.php:104
+#: src/Tribe/Admin/Help_Page.php:208 src/Tribe/Plugins_API.php:215
 msgid "Event Aggregator"
 msgstr ""
 
@@ -292,63 +324,63 @@ msgstr ""
 msgid "An Unknown error occurred"
 msgstr ""
 
-#: src/Tribe/Main.php:222 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:223 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Main.php:223
+#: src/Tribe/Main.php:224
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:224
+#: src/Tribe/Main.php:225
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:243
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:244
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:246
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:247
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:248
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:249
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:250
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:251
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:253
+#: src/Tribe/Main.php:254
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:256
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:261
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:262
 msgid ": Selected 1 row"
 msgstr ""
 
@@ -388,36 +420,36 @@ msgstr ""
 msgid "C&ocirc;te d'Ivoire"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:158
+#: src/Tribe/Plugins_API.php:290
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:149
+#: src/Tribe/Plugins_API.php:279
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:150
+#: src/Tribe/Plugins_API.php:280
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:125
+#: src/Tribe/Plugins_API.php:249
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:142
+#: src/Tribe/Plugins_API.php:270
 msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:114
+#: src/Tribe/Plugins_API.php:228
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:135
+#: src/Tribe/Plugins_API.php:261
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:216 src/Tribe/App_Shop.php:133
+#: src/Tribe/Admin/Help_Page.php:216 src/Tribe/Plugins_API.php:257
 msgid "Filter Bar"
 msgstr ""
 
@@ -599,7 +631,7 @@ msgstr ""
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:233 src/Tribe/App_Shop.php:147
+#: src/Tribe/Admin/Help_Page.php:233 src/Tribe/Plugins_API.php:275
 msgid "Community Tickets"
 msgstr ""
 
@@ -671,11 +703,11 @@ msgstr ""
 msgid " and "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:192 src/Tribe/App_Shop.php:155
+#: src/Tribe/Admin/Help_Page.php:192 src/Tribe/Plugins_API.php:285
 msgid "Eventbrite Tickets"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:224 src/Tribe/App_Shop.php:122
+#: src/Tribe/Admin/Help_Page.php:224 src/Tribe/Plugins_API.php:244
 msgid "Event Tickets Plus"
 msgstr ""
 
@@ -683,7 +715,7 @@ msgstr ""
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:64
+#: src/Tribe/Admin/Help_Page.php:64 src/Tribe/Plugins_API.php:236
 msgid "Event Tickets"
 msgstr ""
 
@@ -779,7 +811,7 @@ msgstr "Wyoming"
 msgid "Free"
 msgstr "Gratuit"
 
-#: src/Tribe/Admin/Help_Page.php:200 src/Tribe/App_Shop.php:140
+#: src/Tribe/Admin/Help_Page.php:200 src/Tribe/Plugins_API.php:266
 msgid "Community Events"
 msgstr "Événements communautaires"
 
@@ -857,7 +889,7 @@ msgstr "Vous devez mettre à niveau !"
 msgid "You are up to date!"
 msgstr "Vous êtes à jour !"
 
-#: src/Tribe/Admin/Help_Page.php:183 src/Tribe/App_Shop.php:111
+#: src/Tribe/Admin/Help_Page.php:183 src/Tribe/Plugins_API.php:223
 msgid "Events Calendar PRO"
 msgstr ""
 
@@ -1364,6 +1396,7 @@ msgid "Greenland"
 msgstr "Groenland"
 
 #: src/Tribe/Admin/Help_Page.php:48 src/Tribe/Customizer.php:565
+#: src/Tribe/Plugins_API.php:207
 msgid "The Events Calendar"
 msgstr "Calendrier d'événements"
 
@@ -1604,7 +1637,7 @@ msgstr "Etats fédéraux de Micronésie"
 msgid "Moldova, Republic Of"
 msgstr "République de Moldavie"
 
-#: src/Tribe/Main.php:254 src/Tribe/Main.php:270
+#: src/Tribe/Main.php:255 src/Tribe/Main.php:271
 msgid "Next"
 msgstr "Prochain"
 
@@ -1612,7 +1645,7 @@ msgstr "Prochain"
 msgid "Monaco"
 msgstr "Monaco"
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:272
 msgid "Prev"
 msgstr "Précédent"
 
@@ -1620,7 +1653,7 @@ msgstr "Précédent"
 msgid "Mongolia"
 msgstr "Mongolie"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:273
 msgid "Today"
 msgstr "Aujourd'hui"
 
@@ -1628,7 +1661,7 @@ msgstr "Aujourd'hui"
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: src/Tribe/Main.php:273
+#: src/Tribe/Main.php:274
 msgid "Done"
 msgstr "Terminer"
 
@@ -1720,7 +1753,7 @@ msgstr "Oman"
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:252
 msgid "Search:"
 msgstr ""
 

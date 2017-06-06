@@ -39,7 +39,7 @@ class Tribe__Ajax__Dropdown {
 		}
 		// We always want all the fields so we overwrite it
 		$args['fields'] = 'all';
-		$args['get'] = 'all';
+		$args['get']    = 'all';
 
 		if ( ! empty( $search ) ) {
 			$args['search'] = $search;
@@ -60,7 +60,7 @@ class Tribe__Ajax__Dropdown {
 		} else {
 			foreach ( $terms as $term ) {
 				// Prep for Select2
-				$term->id          = 'post_tag' === $term->taxonomy ? $term->slug : $term->term_id;
+				$term->id          = $term->term_id;
 				$term->text        = $term->name;
 				$term->breadcrumbs = array();
 
@@ -98,7 +98,7 @@ class Tribe__Ajax__Dropdown {
 		foreach ( $terms as $i => $term ) {
 			if ( $term->parent === $parent ) {
 				// Prep for Select2
-				$term->id   = 'post_tag' === $term->taxonomy ? $term->slug : $term->term_id;
+				$term->id   = $term->term_id;
 				$term->text = $term->name;
 
 				$into[ $term->term_id ] = $term;
