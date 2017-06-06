@@ -114,7 +114,8 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 		if ( is_null( $date ) || empty( $date ) ) {
 			$date = date( $format, strtotime( 'tomorrow  +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 );
 		} else {
-			$date = date( $format, strtotime( date( 'Y-m-d', strtotime( $date ) ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 );
+			$date_timestamp = is_numeric( $date ) ? $date : strtotime( $date );
+			$date = date( $format, strtotime( date( 'Y-m-d', $date_timestamp ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 );
 		}
 
 		/**

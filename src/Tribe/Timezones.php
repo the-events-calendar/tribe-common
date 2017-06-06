@@ -185,7 +185,7 @@ class Tribe__Timezones {
 			$local = self::get_timezone( $tzstring );
 
 			// Important not to use `date_create_from_format` since it's not PHP 5.2 compatible
-			$datetime = new DateTime( $unix_timestamp );
+			$datetime = new DateTime( '@' . $unix_timestamp );
 			$datetime = $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 			// Important not to use `date_create_from_format` since it's not PHP 5.2 compatible
