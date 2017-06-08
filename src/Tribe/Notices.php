@@ -18,7 +18,9 @@ class Tribe__Notices {
 	public static function set_notice( $key, $notice ) {
 
 		/**
-		 * Make notices filterable.
+		 * Provides an opportunity to alter the text of admin notices.
+		 *
+		 * @since 4.5.5
 		 *
 		 * @param string $notice The notice text.
 		 * @param string $key The key of the notice being filtered.
