@@ -18,10 +18,9 @@ class Tribe__Image__Uploader {
 	/**
 	 * Tribe__Events__Importer__Featured_Image_Uploader constructor.
 	 *
-	 * @var array A single importing file row.
+	 * @var string A single importing file row.
 	 */
 	public function __construct( $featured_image = null ) {
-
 		$this->featured_image = $featured_image;
 	}
 
@@ -57,7 +56,7 @@ class Tribe__Image__Uploader {
 	}
 
 	/**
-	 * @param strin $file_url
+	 * @param string $file_url
 	 *
 	 * @return int
 	 */
@@ -143,10 +142,13 @@ class Tribe__Image__Uploader {
 		if ( false === self::$original_urls_cache ) {
 			/** @var \wpdb $wpdb */
 			global $wpdb;
-			$original_urls = $wpdb->get_results( "SELECT p.ID, pm.meta_value FROM $wpdb->posts p
-					JOIN $wpdb->postmeta pm
-					ON p.ID = pm.post_id
-					WHERE p.post_type = 'attachment' AND pm.meta_key = '_tribe_importer_original_url'" );
+			$original_urls = $wpdb->get_results( "
+				SELECT p.ID, pm.meta_value FROM $wpdb->posts p
+				JOIN $wpdb->postmeta pm
+				ON p.ID = pm.post_id
+				WHERE p.post_type = 'attachment'
+				AND pm.meta_key = '_tribe_importer_original_url'
+			" );
 
 			if ( $original_urls ) {
 				$keys = wp_list_pluck( $original_urls, 'meta_value' );
