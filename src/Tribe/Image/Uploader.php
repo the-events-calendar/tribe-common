@@ -48,7 +48,7 @@ class Tribe__Image__Uploader {
 			$existing = $this->get_attachment_ID_from_url( $this->featured_image );
 			$id = $existing ? $existing : $this->upload_file( $this->featured_image );
 		} elseif ( $post = get_post( $this->featured_image ) ) {
-			$id = $post && $post->post_type === 'attachment' ? $this->featured_image : false;
+			$id = $post && 'attachment' === $post->post_type ? $this->featured_image : false;
 		} else {
 			$id = false;
 		}
@@ -67,7 +67,7 @@ class Tribe__Image__Uploader {
 		}
 
 		$contents = @file_get_contents( $file_url );
-		if ( $contents === false ) {
+		if ( false === $contents ) {
 			return false;
 		}
 
@@ -124,19 +124,23 @@ class Tribe__Image__Uploader {
 	}
 
 	protected function maybe_init_attachment_guids_cache() {
-		if ( self::$attachment_guids_cache === false ) {
+		if ( false === self::$attachment_guids_cache ) {
 			/** @var \wpdb $wpdb */
 			global $wpdb;
 			$guids = $wpdb->get_results( "SELECT ID, guid FROM $wpdb->posts where post_type = 'attachment'" );
 
-			self::$attachment_guids_cache = $guids ?
-				array_combine( wp_list_pluck( $guids, 'guid' ), wp_list_pluck( $guids, 'ID' ) )
-				: array();
+			if ( $guids ) {
+				$keys = wp_list_pluck( $guids, 'guid' );
+				$values = wp_list_pluck( $guids, 'ID' );
+				self::$attachment_guids_cache = array_combine( $keys, $values );
+			} else {
+				self::$attachment_guids_cache = array();
+			}
 		}
 	}
 
 	protected function maybe_init_attachment_original_urls_cache() {
-		if ( self::$original_urls_cache === false ) {
+		if ( false === self::$original_urls_cache ) {
 			/** @var \wpdb $wpdb */
 			global $wpdb;
 			$original_urls = $wpdb->get_results( "SELECT p.ID, pm.meta_value FROM $wpdb->posts p
@@ -144,9 +148,13 @@ class Tribe__Image__Uploader {
 					ON p.ID = pm.post_id
 					WHERE p.post_type = 'attachment' AND pm.meta_key = '_tribe_importer_original_url'" );
 
-			self::$original_urls_cache = $original_urls ?
-				array_combine( wp_list_pluck( $original_urls, 'meta_value' ), wp_list_pluck( $original_urls, 'ID' ) )
-				: array();
+			if ( $original_urls ) {
+				$keys = wp_list_pluck( $original_urls, 'meta_value' );
+				$values = wp_list_pluck( $original_urls, 'ID' );
+				self::$original_urls_cache = array_combine( $keys, $values );
+			} else {
+				self::$original_urls_cache = array();
+			}
 		}
 	}
 }
