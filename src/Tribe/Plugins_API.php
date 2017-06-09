@@ -267,7 +267,7 @@ class Tribe__Plugins_API {
 				'slug' => 'events-community',
 				'link' => 'https://theeventscalendar.com/product/wordpress-community-events/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-community-events&utm_content=appstoreembedded-1',
 				'buy-now' => 'http://m.tri.be/19o7',
-				'description' => __( 'Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go.', 'tribe-common' ),
+				'description' => __( 'Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go.', 'tribe-common' ),
 				'image' => 'images/app-shop-community.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Community__Main' ),
 			),

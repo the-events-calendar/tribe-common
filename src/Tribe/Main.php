@@ -18,6 +18,7 @@ class Tribe__Main {
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
 	const VERSION             = '4.5.5';
+
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
