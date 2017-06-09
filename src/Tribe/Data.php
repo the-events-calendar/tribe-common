@@ -123,7 +123,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 *
 	 * @return array
 	 */
-	public function get_data(): array {
+	public function get_data() {
 		return $this->data;
 	}
 
