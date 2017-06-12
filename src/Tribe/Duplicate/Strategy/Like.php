@@ -40,7 +40,7 @@ class Tribe__Duplicate__Strategy__Like
 	 * @param $value
 	 * @return array
 	 */
-	protected function get_where_frags( $value ): array {
+	protected function get_where_frags( $value ) {
 		$snaked = preg_replace( '/[^a-z\d-]+/i', '_', $value );
 		$frags = array_filter( explode( '_', $snaked ) );
 
