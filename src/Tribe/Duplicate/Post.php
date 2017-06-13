@@ -4,6 +4,8 @@
  * Class Tribe__Duplicate__Post
  *
  * Provides the functionality to find an existing post starting from the post data.
+ *
+ * @since TBD
  */
 class Tribe__Duplicate__Post {
 	/**
@@ -54,6 +56,8 @@ class Tribe__Duplicate__Post {
 	 * Tribe__Duplicate__Post constructor.
 	 *
 	 * @param Tribe__Duplicate__Strategy_Factory|null $factory
+	 *
+	 * @since TBD
 	 */
 	public function __construct( Tribe__Duplicate__Strategy_Factory $factory = null ) {
 		$this->factory = null !== $factory ? $factory : tribe( 'post-duplicate.strategy-factory' );
@@ -66,6 +70,8 @@ class Tribe__Duplicate__Post {
 	 * If not the strategy will be set to the default one.
 	 *
 	 * @param array $post_fields
+	 *
+	 * @since TBD
 	 */
 	public function use_post_fields( array $post_fields ) {
 		if ( empty( $post_fields ) ) {
@@ -84,6 +90,8 @@ class Tribe__Duplicate__Post {
 	 * @param array $fields
 	 *
 	 * @return array
+	 *
+	 * @since TBD
 	 */
 	protected function cast_to_strategy( array $fields ) {
 		$cast = array();
@@ -112,6 +120,8 @@ class Tribe__Duplicate__Post {
 	 * @param array $postarr An array of post data, post fields and custom fields, that should be used to find the duplicate.
 	 *
 	 * @return bool|int `false` if a duplicate was not found, the post ID of the duplicate if found.
+	 *
+	 * @since TBD
 	 */
 	public function find_for( array $postarr ) {
 		if ( empty( $this->post_fields ) && empty( $this->custom_fields ) ) {
@@ -166,6 +176,8 @@ class Tribe__Duplicate__Post {
 	 * If not the strategy will be set to the default one.
 	 *
 	 * @param array $custom_fields
+	 *
+	 * @since TBD
 	 */
 	public function use_custom_fields( array $custom_fields ) {
 		$cast = $this->cast_to_strategy( $custom_fields );

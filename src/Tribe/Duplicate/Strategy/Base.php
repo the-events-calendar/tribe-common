@@ -4,6 +4,8 @@
  * Class Tribe__Duplicate__Strategy__Base
  *
  * The common root for duplicate finding strategies.
+ *
+ * @since TBD
  */
 abstract class Tribe__Duplicate__Strategy__Base {
 
@@ -13,6 +15,8 @@ abstract class Tribe__Duplicate__Strategy__Base {
 	 * @param string $key
 	 *
 	 * @return bool
+	 *
+	 * @since TBD
 	 */
 	protected function is_a_numeric_post_field( $key ) {
 		return in_array( $key, array( 'ID', 'post_author', 'post_parent', 'menu_order', 'comment_count' ) );
