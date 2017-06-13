@@ -44,18 +44,14 @@ class Strategy_FactoryTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_build_the_filtered_strategy_associated_to_a_slug() {
-		$sut = $this->make_instance();
-		$sut->set_strategy_map( [
-			'default' => \Tribe__Duplicate__Strategy__Like::class,
-			'foo'     => \Tribe__Duplicate__Strategy__Like::class,
-			'bar'     => \Tribe__Duplicate__Strategy__Same::class,
-		] );
 		add_filter( 'tribe_duplicate_post_strategies', function () {
 			return [
 				'default' => \Tribe__Duplicate__Strategy__Like::class,
 				'wooz'    => \Tribe__Duplicate__Strategy__Same::class,
 			];
 		} );
+
+		$sut = $this->make_instance();
 
 		$this->assertInstanceOf( \Tribe__Duplicate__Strategy__Same::class, $sut->make( 'wooz' ) );
 		// default
@@ -104,5 +100,24 @@ class Strategy_FactoryTest extends \Codeception\TestCase\WPTestCase {
 		$sut->set_strategy_map( [] );
 
 		$this->assertFalse( $sut->make( 'wooz' ) );
+	}
+
+	/**
+	 * It should allow overriding the factory operations completely
+	 *
+	 * @test
+	 */
+	public function it_should_allow_overriding_the_factory_operations_completely() {
+		$sut = $this->make_instance();
+		$sut->set_strategy_map( [
+			'default' => \Tribe__Duplicate__Strategy__Like::class,
+			'foo'     => \Tribe__Duplicate__Strategy__Like::class,
+			'bar'     => \Tribe__Duplicate__Strategy__Same::class,
+		] );
+		add_filter( 'tribe_duplicate_post_strategy', function () {
+			return 'foo bar';
+		} );
+
+		$this->assertEquals( 'foo bar', $sut->make( 'wooz' ) );
 	}
 }
