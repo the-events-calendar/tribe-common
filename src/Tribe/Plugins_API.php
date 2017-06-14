@@ -4,7 +4,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 *
 	 * @return Tribe__Plugins_API
 	 */
@@ -15,7 +15,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Setup hooks
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 */
 	public function hook() {
 		add_filter( 'plugins_api_result', array( $this, 'filter_api_result' ), 10, 3 );
@@ -25,7 +25,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Filters the action links for the plugin install page
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 *
 	 * @param array $links  Links for plugin
 	 * @param array $plugin Plugin data
@@ -68,7 +68,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Filter plugin fetching API results to inject our own plugins
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 *
 	 * @param object|WP_Error $result Response object or WP_Error.
 	 * @param string          $action The type of information being requested from the Plugin Install API.
@@ -134,7 +134,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Convert our own product data to match API results
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 *
 	 * @param array $product_data
 	 *
@@ -197,7 +197,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Get product info
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 *
 	 * @return array
 	 */
