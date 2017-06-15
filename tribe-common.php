@@ -2,7 +2,7 @@
 /*
 Plugin Name: Tribe Common
 Description: An event settings framework for managing shared options
-Version: 4.5.6
+Version: 4.5.6rc1
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/1x
 Text Domain: tribe-common
