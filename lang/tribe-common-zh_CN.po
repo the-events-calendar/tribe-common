@@ -10,6 +10,30 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Plugins_API.php:270
+msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:218
+msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:38
+msgid "Cannot look for Terms without a taxonomy"
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:175
+msgid "Missing data source for this dropdown"
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:188
+msgid "Empty data set for this dropdown"
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:238
+msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
+msgstr ""
+
 #: src/Tribe/Plugins_API.php:239
 msgid "Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings."
 msgstr ""
@@ -72,7 +96,7 @@ msgid "The position of the currency symbol in the cost string"
 msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:33
-msgid "An sorted array of all the numeric values for the cost"
+msgid "A sorted array of all the numeric values for the cost"
 msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:24
@@ -116,7 +140,7 @@ msgid "The image natural width in pixels"
 msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
-msgid "The image natura height in pixels"
+msgid "The image natural height in pixels"
 msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
@@ -249,10 +273,6 @@ msgstr ""
 msgid "Event Log"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:218
-msgid "Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more."
-msgstr ""
-
 #: src/Tribe/PUE/Checker.php:995
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
@@ -321,63 +341,63 @@ msgstr ""
 msgid "An Unknown error occurred"
 msgstr ""
 
-#: src/Tribe/Main.php:223 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:226 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Main.php:224
+#: src/Tribe/Main.php:227
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:225
+#: src/Tribe/Main.php:228
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:246
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:247
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:249
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:250
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:251
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:252
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:253
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:254
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:257
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:259
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:264
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:265
 msgid ": Selected 1 row"
 msgstr ""
 
@@ -432,10 +452,6 @@ msgstr ""
 
 #: src/Tribe/Plugins_API.php:249
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:270
-msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:228
@@ -1634,7 +1650,7 @@ msgstr "密克罗尼西亚联邦"
 msgid "Moldova, Republic Of"
 msgstr "摩尔多瓦"
 
-#: src/Tribe/Main.php:255 src/Tribe/Main.php:271
+#: src/Tribe/Main.php:258 src/Tribe/Main.php:274
 msgid "Next"
 msgstr "下一页"
 
@@ -1642,7 +1658,7 @@ msgstr "下一页"
 msgid "Monaco"
 msgstr "摩纳哥"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:275
 msgid "Prev"
 msgstr "上一页"
 
@@ -1650,7 +1666,7 @@ msgstr "上一页"
 msgid "Mongolia"
 msgstr "蒙古"
 
-#: src/Tribe/Main.php:273
+#: src/Tribe/Main.php:276
 msgid "Today"
 msgstr "今天"
 
@@ -1658,7 +1674,7 @@ msgstr "今天"
 msgid "Montenegro"
 msgstr "蒙特内哥罗"
 
-#: src/Tribe/Main.php:274
+#: src/Tribe/Main.php:277
 msgid "Done"
 msgstr "已完成"
 
@@ -1750,7 +1766,7 @@ msgstr "阿曼"
 msgid "Pakistan"
 msgstr "巴基斯坦"
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:255
 msgid "Search:"
 msgstr "搜索"
 

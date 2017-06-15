@@ -4,7 +4,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 *
 	 * @return Tribe__Plugins_API
 	 */
@@ -15,7 +15,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Setup hooks
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 */
 	public function hook() {
 		add_filter( 'plugins_api_result', array( $this, 'filter_api_result' ), 10, 3 );
@@ -25,7 +25,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Filters the action links for the plugin install page
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 *
 	 * @param array $links  Links for plugin
 	 * @param array $plugin Plugin data
@@ -68,7 +68,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Filter plugin fetching API results to inject our own plugins
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 *
 	 * @param object|WP_Error $result Response object or WP_Error.
 	 * @param string          $action The type of information being requested from the Plugin Install API.
@@ -134,7 +134,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Convert our own product data to match API results
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 *
 	 * @param array $product_data
 	 *
@@ -197,7 +197,7 @@ class Tribe__Plugins_API {
 	/**
 	 * Get product info
 	 *
-	 * @since tbd
+	 * @since 4.5.3
 	 *
 	 * @return array
 	 */
@@ -215,7 +215,7 @@ class Tribe__Plugins_API {
 				'title' => __( 'Event Aggregator', 'tribe-common' ),
 				'slug' => 'event-aggregator',
 				'link' => 'https://theeventscalendar.com/product/event-aggregator/?utm_campaign=in-app&utm_source=addonspage&utm_medium=event-aggregator&utm_content=appstoreembedded-1',
-				'description' => __( 'Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more.', 'tribe-common' ),
+				'description' => __( 'Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support.', 'tribe-common' ),
 				'image' => 'images/app-shop-ical.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Aggregator' ) && Tribe__Events__Aggregator::is_service_active(),
 			),
@@ -267,7 +267,7 @@ class Tribe__Plugins_API {
 				'slug' => 'events-community',
 				'link' => 'https://theeventscalendar.com/product/wordpress-community-events/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-community-events&utm_content=appstoreembedded-1',
 				'buy-now' => 'http://m.tri.be/19o7',
-				'description' => __( 'Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go.', 'tribe-common' ),
+				'description' => __( 'Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go.', 'tribe-common' ),
 				'image' => 'images/app-shop-community.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Community__Main' ),
 			),

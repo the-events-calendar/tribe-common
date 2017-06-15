@@ -37,7 +37,7 @@ class Tribe__Documentation__Swagger__Image_Definition_Provider
 				),
 				'height' => array(
 					'type' => 'int',
-					'description' => __( 'The image natura height in pixels', 'tribe-common' ),
+					'description' => __( 'The image natural height in pixels', 'tribe-common' ),
 				),
 				'sizes' => array(
 					'type' => 'array',
