@@ -72,7 +72,7 @@ class Tribe__PUE__Package_Handler {
 	protected function is_mt_package( $package ) {
 		if ( empty( $package )
 		     || ! preg_match( '!^(http|https|ftp)://!i', $package )
-		     || file_exists( $package )
+		     || ( is_file( $package ) && file_exists( $package ) )
 		) {
 			return false;
 		}
