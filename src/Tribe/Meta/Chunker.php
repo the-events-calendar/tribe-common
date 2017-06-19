@@ -45,6 +45,12 @@ class Tribe__Meta__Chunker {
 	protected $chunks_cache = null;
 
 	/**
+	 * @var array The cache that will store the IDs of the posts that have at least one meta key registered
+	 *            for chunking.
+	 */
+	protected $post_ids_cache = null;
+
+	/**
 	 * @var string The separator that's used to mark the start of each chunk.
 	 */
 	protected $chunk_separator = '{{{TCSEP}}}';
@@ -103,7 +109,8 @@ class Tribe__Meta__Chunker {
 			return;
 		}
 
-		$this->chunks_cache = array();
+		$this->chunks_cache   = array();
+		$this->post_ids_cache = array();
 
 		$chunked_keys = get_option( $this->chunked_keys_option_name );
 
@@ -115,6 +122,7 @@ class Tribe__Meta__Chunker {
 			if ( ! is_array( $keys ) || empty( $keys ) ) {
 				continue;
 			}
+			$this->post_ids_cache[] = $post_id;
 			foreach ( $keys as $key ) {
 				$this->chunks_cache[ $this->get_key( $post_id, $key ) ] = null;
 			}
@@ -181,6 +189,8 @@ class Tribe__Meta__Chunker {
 			$this->chunks_cache[ $key ] = null;
 		}
 
+		$this->post_ids_cache[] = $post_id;
+
 		$option = (array) get_option( $this->chunked_keys_option_name );
 
 		if ( ! isset( $option[ $post_id ] ) ) {
@@ -238,6 +248,23 @@ class Tribe__Meta__Chunker {
 			return $check;
 		}
 
+		/**
+		 * Filters the chunked meta update operation.
+		 *
+		 * Returning a non null value here will make the function return that value immediately.
+		 *
+		 * @param mixed $updated
+		 * @param int $object_id The post ID
+		 * @param string $meta_key
+		 * @param mixed $meta_value
+		 *
+		 * @since TBD
+		 */
+		$updated = apply_filters( 'tribe_meta_chunker_update_meta', null, $object_id, $meta_key, $meta_value );
+		if ( null !== $updated ) {
+			return $updated;
+		}
+
 		$this->delete_chunks( $object_id, $meta_key );
 		$this->remove_checksum_for( $object_id, $meta_key );
 
@@ -266,9 +293,20 @@ class Tribe__Meta__Chunker {
 	protected function applies( $object_id, $meta_key ) {
 		$applies = ! $this->is_chunker_logic_meta_key( $meta_key )
 		           && $this->is_supported_post_type( $object_id )
-		           && ( empty( $meta_key ) || $this->is_chunkable( $object_id, $meta_key ) );
+		           && $this->is_chunkable( $object_id, $meta_key );
 
-		return $applies;
+		/**
+		 * Filters whether the meta chunker will apply to a post ID and meta key or not.
+		 *
+		 * The `$meta_key` parameter might be empty.
+		 *
+		 * @param bool $applies
+		 * @param int $object_id
+		 * @param string $meta_key
+		 *
+		 * @since TBD
+		 */
+		return apply_filters( 'tribe_meta_chunker_applies', $applies, $object_id, $meta_key );
 	}
 
 	/**
@@ -285,17 +323,20 @@ class Tribe__Meta__Chunker {
 	/**
 	 * Whether a post ID and meta key couple is registered as chunkable or not.
 	 *
+	 * If no meta key is passed then the function will check if there is at least
+	 * one meta key registered for chunking for the specified post ID.
+	 *
 	 * @param int    $post_id
 	 * @param string $meta_key
 	 *
 	 * @return bool
 	 */
-	public function is_chunkable( $post_id, $meta_key ) {
-		$key = $this->get_key( $post_id, $meta_key );
-
+	public function is_chunkable( $post_id, $meta_key = null ) {
 		$this->prime_chunks_cache();
 
-		return array_key_exists( $key, $this->chunks_cache );
+		return ! empty( $meta_key )
+			? array_key_exists( $this->get_key( $post_id, $meta_key ), $this->chunks_cache )
+			: in_array( $post_id, $this->post_ids_cache );
 	}
 
 	/**
@@ -612,6 +653,22 @@ class Tribe__Meta__Chunker {
 			return $check;
 		}
 
+		/**
+		 * Filters the value returned when deleting a specific meta for a post.
+		 *
+		 * Returning a non null value here will make the function return that value immediately.
+		 *
+		 * @param mixed $deleted
+		 * @param int $object_id The post ID
+		 * @param string $meta_key The requested meta key
+		 *
+		 * @since TBD
+		 */
+		$deleted = apply_filters( 'tribe_meta_chunker_delete_meta', null, $object_id, $meta_key );
+		if ( null !== $deleted ) {
+			return $deleted;
+		}
+
 		$has_chunked_meta = $this->is_chunked( $object_id, $meta_key );
 		if ( ! $has_chunked_meta ) {
 			return $check;
@@ -670,12 +727,11 @@ class Tribe__Meta__Chunker {
 	 * Unhooks the Chunker from the metadata operations.
 	 */
 	public function unhook() {
-		foreach ( $this->post_types as $post_type ) {
-			remove_filter( "update_{$post_type}_metadata", array( $this, 'filter_update_metadata' ), $this->filter_priority );
-			remove_filter( "delete_{$post_type}_metadata", array( $this, 'filter_delete_metadata' ), $this->filter_priority );
-			remove_filter( "add_{$post_type}_metadata", array( $this, 'filter_add_metadata' ), $this->filter_priority );
-			remove_filter( "get_{$post_type}_metadata", array( $this, 'filter_get_metadata' ), $this->filter_priority );
-		}
+		remove_filter( 'update_post_metadata', array( $this, 'filter_update_metadata' ), $this->filter_priority );
+		remove_filter( 'delete_post_metadata', array( $this, 'filter_delete_metadata' ), $this->filter_priority );
+		remove_filter( 'add_post_metadata', array( $this, 'filter_add_metadata' ), $this->filter_priority );
+		remove_filter( 'get_post_metadata', array( $this, 'filter_get_metadata' ), $this->filter_priority );
+		remove_action( 'deleted_post', array( $this, 'remove_post_entry' ) );
 	}
 
 	/**
@@ -698,6 +754,23 @@ class Tribe__Meta__Chunker {
 		// getting all the meta
 		if ( empty( $meta_key ) ) {
 			return $this->get_all_meta_for( $object_id );
+		}
+
+		/**
+		 * Filters the value returned when getting a specific meta for a post.
+		 *
+		 * Returning a non null value here will make the function return that value immediately.
+		 *
+		 * @param mixed $meta
+		 * @param int $object_id The post ID
+		 * @param string $meta_key The requested meta key
+		 *
+		 * @since TBD
+		 */
+		$meta = apply_filters( 'tribe_meta_chunker_get_meta', null, $object_id, $meta_key );
+
+		if ( null !== $meta ) {
+			return $meta;
 		}
 
 		$key = $this->get_key( $object_id, $meta_key );
@@ -777,6 +850,21 @@ class Tribe__Meta__Chunker {
 	 * @return array|null|object
 	 */
 	protected function get_all_meta( $object_id ) {
+		/**
+		 * Filters the value returned when getting all the meta for a post.
+		 *
+		 * Returning a non null value here will make the function return that value immediately.
+		 *
+		 * @param mixed $all_meta
+		 * @param int $object_id The post ID
+		 *
+		 * @since TBD
+		 */
+		$all_meta = apply_filters( 'tribe_meta_chunker_get_all_meta', null, $object_id );
+		if ( null !== $all_meta ) {
+			return $all_meta;
+		}
+
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$query = $wpdb->prepare( "SELECT meta_key, meta_value FROM {$wpdb->postmeta} WHERE post_id = %d", $object_id );
