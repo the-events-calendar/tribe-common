@@ -37,6 +37,11 @@ class Tribe__Meta__Chunker {
 	/**
 	 * @var string
 	 */
+	protected $cache_group = 'tribe_chunker_meta';
+
+	/**
+	 * @var string
+	 */
 	protected $chunked_keys_option_name = '_tribe_chunker_chunked_keys';
 
 	/**
@@ -93,7 +98,7 @@ class Tribe__Meta__Chunker {
 		add_filter( 'update_post_metadata', array( $this, 'filter_update_metadata' ), $this->filter_priority, 4 );
 		add_filter( 'delete_post_metadata', array( $this, 'filter_delete_metadata' ), $this->filter_priority, 3 );
 		add_filter( 'add_post_metadata', array( $this, 'filter_add_metadata' ), $this->filter_priority, 4 );
-		add_filter( 'get_post_metadata', array( $this, 'filter_get_metadata' ), $this->filter_priority, 3 );
+		add_filter( 'get_post_metadata', array( $this, 'filter_get_metadata' ), $this->filter_priority, 4 );
 		add_action( 'deleted_post', array( $this, 'remove_post_entry' ) );
 	}
 
@@ -267,6 +272,7 @@ class Tribe__Meta__Chunker {
 
 		$this->delete_chunks( $object_id, $meta_key );
 		$this->remove_checksum_for( $object_id, $meta_key );
+		wp_cache_delete( $object_id, $this->cache_group );
 
 		if ( $this->should_be_chunked( $object_id, $meta_key, $meta_value ) ) {
 			$this->insert_chunks( $object_id, $meta_key );
@@ -675,6 +681,7 @@ class Tribe__Meta__Chunker {
 		}
 		$this->cache_delete( $object_id, $meta_key );
 		$this->delete_chunks( $object_id, $meta_key );
+		wp_cache_delete( $object_id, $this->cache_group );
 
 		return true;
 	}
@@ -746,44 +753,46 @@ class Tribe__Meta__Chunker {
 	 *
 	 * @see get_metadata()
 	 */
-	public function filter_get_metadata( $check, $object_id, $meta_key ) {
+	public function filter_get_metadata( $check, $object_id, $meta_key, $single ) {
 		if ( ! $this->applies( $object_id, $meta_key ) ) {
 			return $check;
 		}
 
+		$all_meta = wp_cache_get( $object_id, $this->cache_group );
+
+		if ( ! $all_meta ) {
+			$all_meta = $this->get_all_meta_for( $object_id );
+			wp_cache_set( $object_id, $all_meta, $this->cache_group );
+		}
+
 		// getting all the meta
 		if ( empty( $meta_key ) ) {
-			return $this->get_all_meta_for( $object_id );
+			return $all_meta;
 		}
+
+		// why not take $single into account? See condition check on the filter to understand.
+		$meta_value = isset( $all_meta[ $meta_key ] )
+			? array_map( 'maybe_unserialize', $all_meta[ $meta_key ] )
+			: '';
 
 		/**
 		 * Filters the value returned when getting a specific meta for a post.
 		 *
 		 * Returning a non null value here will make the function return that value immediately.
 		 *
-		 * @param mixed $meta
+		 * @param mixed $meta_value
 		 * @param int $object_id The post ID
 		 * @param string $meta_key The requested meta key
 		 *
 		 * @since TBD
 		 */
-		$meta = apply_filters( 'tribe_meta_chunker_get_meta', null, $object_id, $meta_key );
+		$meta_value = apply_filters( 'tribe_meta_chunker_get_meta', $meta_value, $object_id, $meta_key );
 
-		if ( null !== $meta ) {
-			return $meta;
+		if ( $single ) {
+			return (array)$meta_value;
+		} else {
+			return ! empty( $meta_value ) ? $meta_value : '';
 		}
-
-		$key = $this->get_key( $object_id, $meta_key );
-		if ( $this->is_chunked( $object_id, $meta_key ) ) {
-			$glued = maybe_unserialize( $this->glue_chunks( $this->chunks_cache[ $key ] ) );
-		}
-
-		if ( ! empty( $glued ) ) {
-			// why not take $single into account? See condition check on the filter to understand.
-			return array( $glued );
-		}
-
-		return $check;
 	}
 
 	/**
@@ -909,6 +918,15 @@ class Tribe__Meta__Chunker {
 	 */
 	public function get_key_option_name() {
 		return $this->chunked_keys_option_name;
+	}
+
+	/**
+	 * Returns the cache group used by the meta chunker.
+	 *
+	 * @return string
+	 */
+	public function get_cache_group() {
+		return $this->cache_group;
 	}
 
 	/**
