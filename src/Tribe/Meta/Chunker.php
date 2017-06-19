@@ -35,7 +35,7 @@
  */
 class Tribe__Meta__Chunker {
 	/**
-	 * @var string
+	 * @var string The key used to cache the class results in the WordPress object cache.
 	 */
 	protected $cache_group = 'post_meta';
 
