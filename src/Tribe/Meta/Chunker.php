@@ -37,7 +37,7 @@ class Tribe__Meta__Chunker {
 	/**
 	 * @var string
 	 */
-	protected $cache_group = 'tribe_chunker_meta';
+	protected $cache_group = 'post_meta';
 
 	/**
 	 * @var string
