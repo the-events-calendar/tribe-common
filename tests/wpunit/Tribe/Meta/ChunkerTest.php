@@ -943,7 +943,10 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		      $this->fail( 'Should not hit this filter when trying to get meta of post that has not registered chunked meta' );
 	      } );
 	      add_filter( 'tribe_meta_chunker_get_all_meta', function () {
-		      $this->fail( 'Should not hit this filter when trying to get all meta of post that has not registered chunked meta' );
+		      /* we cannot know, without making a query to get all the current post meta, if a post that has at least
+		      one meta key registered for chunking, should be filtered when getting all meta or not. */
+
+		      return null;
 	      } );
 	      add_filter( 'tribe_meta_chunker_update_meta', function () {
 		      $this->fail( 'Should not hit this filter when trying to update meta of post that has not registered chunked meta' );
