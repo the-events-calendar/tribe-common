@@ -789,7 +789,7 @@ class Tribe__Meta__Chunker {
 		$meta_value = apply_filters( 'tribe_meta_chunker_get_meta', $meta_value, $object_id, $meta_key );
 
 		if ( $single ) {
-			return (array)$meta_value;
+			return (array) $meta_value;
 		} else {
 			return ! empty( $meta_value ) ? $meta_value : '';
 		}
