@@ -600,6 +600,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $meta_value, get_post_meta( $id, $meta_key, true ) );
 
 		$sut->__destruct();
+		wp_cache_delete( $id, $sut->get_cache_group() );
 
 		// now compromise the chunks in the db
 		/** @var wpdb $wpdb */
@@ -964,4 +965,32 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	      $this->assertEquals( 'bar', get_post_meta( $id, 'foo', true ) );
 	      delete_post_meta( $id, 'foo' );
       }
+      
+      /**
+       * It should hit the cache when getting same post meta
+       * @test
+       */
+       public function it_should_hit_the_cache_when_getting_same_post_meta() {
+	       $id = $this->factory()->post->create( [ 'post_type' => 'post' ] );
+
+
+	       $sut = $this->make_instance();
+	       $sut->set_post_types( [ 'post' ] );
+	       $sut->register_chunking_for( $id, 'foo' );
+
+	       get_post_meta( $id );
+
+	       global $wpdb;
+	       $num_queries_before = $wpdb->num_queries;
+
+	       get_post_meta( $id );
+	       get_post_meta( $id );
+	       get_post_meta( $id );
+	       get_post_meta($id, 'foo');
+	       get_post_meta($id, 'foo');
+	       get_post_meta($id, 'foo');
+
+
+	       $this->assertEquals($num_queries_before, $wpdb->num_queries);
+       }
 }
