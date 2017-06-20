@@ -177,7 +177,7 @@ class Tribe__Main {
 	 * Registers resources that can/should be enqueued
 	 */
 	public function load_assets() {
-		// These ones are only registred
+		// These ones are only registered
 		tribe_assets(
 			$this,
 			array(
@@ -201,6 +201,7 @@ class Tribe__Main {
 				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
 				array( 'tribe-jquery-timepicker', 'vendor/jquery-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
 				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-timepicker/jquery.timepicker.css' ),
+
 			)
 		);
 

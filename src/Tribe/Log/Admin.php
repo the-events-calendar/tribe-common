@@ -3,7 +3,7 @@ class Tribe__Log__Admin {
 	public function __construct() {
 		add_action( 'wp_ajax_tribe_logging_controls', array( $this, 'listen' ) );
 		add_action( 'init', array( $this, 'serve_log_downloads' ) );
-		add_action( 'init', array( $this, 'register_script' ) );
+		add_action( 'plugins_loaded', array( $this, 'register_script' ) );
 	}
 
 	/**
@@ -101,12 +101,11 @@ class Tribe__Log__Admin {
 	 * Register our script early.
 	 */
 	public function register_script() {
-		wp_register_script(
+		tribe_asset(
+			Tribe__Main::instance(),
 			'tribe-common-logging-controls',
-			tribe_resource_url( 'admin-log-controls.js', false, null, Tribe__Main::instance() ),
-			array( 'jquery' ),
-			Tribe__Main::VERSION,
-			true
+			'admin-log-controls.js',
+			array( 'jquery' )
 		);
 	}
 
