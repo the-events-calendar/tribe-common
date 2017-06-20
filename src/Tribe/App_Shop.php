@@ -96,9 +96,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * Enqueue the styles and script
 		 */
 		public function enqueue() {
-
-
-
 			wp_enqueue_style( 'app-shop-css' );
 			wp_enqueue_script( 'app-shop-js' );
 		}
