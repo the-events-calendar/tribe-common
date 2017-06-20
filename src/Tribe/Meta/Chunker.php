@@ -263,7 +263,7 @@ class Tribe__Meta__Chunker {
 		 * @param string $meta_key
 		 * @param mixed $meta_value
 		 *
-		 * @since TBD
+		 * @since 4.5.6
 		 */
 		$updated = apply_filters( 'tribe_meta_chunker_update_meta', null, $object_id, $meta_key, $meta_value );
 		if ( null !== $updated ) {
@@ -310,7 +310,7 @@ class Tribe__Meta__Chunker {
 		 * @param int $object_id
 		 * @param string $meta_key
 		 *
-		 * @since TBD
+		 * @since 4.5.6
 		 */
 		return apply_filters( 'tribe_meta_chunker_applies', $applies, $object_id, $meta_key );
 	}
@@ -668,7 +668,7 @@ class Tribe__Meta__Chunker {
 		 * @param int $object_id The post ID
 		 * @param string $meta_key The requested meta key
 		 *
-		 * @since TBD
+		 * @since 4.5.6
 		 */
 		$deleted = apply_filters( 'tribe_meta_chunker_delete_meta', null, $object_id, $meta_key );
 		if ( null !== $deleted ) {
@@ -784,7 +784,7 @@ class Tribe__Meta__Chunker {
 		 * @param int $object_id The post ID
 		 * @param string $meta_key The requested meta key
 		 *
-		 * @since TBD
+		 * @since 4.5.6
 		 */
 		$meta_value = apply_filters( 'tribe_meta_chunker_get_meta', $meta_value, $object_id, $meta_key );
 
@@ -867,7 +867,7 @@ class Tribe__Meta__Chunker {
 		 * @param mixed $all_meta
 		 * @param int $object_id The post ID
 		 *
-		 * @since TBD
+		 * @since 4.5.6
 		 */
 		$all_meta = apply_filters( 'tribe_meta_chunker_get_all_meta', null, $object_id );
 		if ( null !== $all_meta ) {
