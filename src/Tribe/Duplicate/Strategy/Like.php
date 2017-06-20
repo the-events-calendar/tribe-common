@@ -33,8 +33,8 @@ class Tribe__Duplicate__Strategy__Like
 
 		$where_frags = array();
 		foreach ( $frags as $frag ) {
-			$prepared = $wpdb->prepare( '%s', '%' . strtolower( trim( $frag ) ) . '%' );
-			$where_frags[] = "{$key} LIKE {$prepared}";
+			$formatted_frag = '%' . $wpdb->esc_like( strtolower( trim( $frag ) ) ) . '%';
+			$where_frags[]  = $wpdb->prepare( "{$key} LIKE %s", $formatted_frag );
 		}
 
 		return implode( ' AND ', $where_frags );
@@ -75,8 +75,9 @@ class Tribe__Duplicate__Strategy__Like
 
 		$where_frags = array();
 		foreach ( $frags as $frag ) {
-			$meta_value = $wpdb->prepare( '%s', '%' . strtolower( trim( $frag ) ) . '%' );
-			$where_frags[] = $wpdb->prepare( "{$table_alias}.meta_key = %s AND {$table_alias}.meta_value LIKE ", $key ) . $meta_value;
+			$formatted_frag = '%' . $wpdb->esc_like( strtolower( trim( $frag ) ) ) . '%';
+			$query          = "{$table_alias}.meta_key = %s AND {$table_alias}.meta_value LIKE %s";
+			$where_frags[]  = $wpdb->prepare( $query, $key, $formatted_frag );
 		}
 
 		return implode( " \n\tAND ", $where_frags );
