@@ -128,7 +128,7 @@ class Tribe__Duplicate__Post {
 			return false;
 		}
 
-		$where_frags = [];
+		$where_frags = array();
 		$join = '';
 
 		/** @var wpdb $wpdb */
@@ -156,8 +156,8 @@ class Tribe__Duplicate__Post {
 				$i ++;
 			}
 			$join = '';
-			$count = $i < count( $where_frags );
-			for ( $i = 0; $count; $i ++ ) {
+			$count = count( $where_frags );
+			for ( $i = 0; $i < $count; $i ++ ) {
 				$join .= " \nLEFT JOIN {$wpdb->postmeta} pm{$i} ON pm{$i}.post_id = {$wpdb->posts}.ID ";
 			}
 		}
