@@ -82,7 +82,7 @@ class Tribe__Assets {
 
 			// Enqueue the registered assets at the appropriate time
 			if ( did_action( $asset->action ) > 0 ) {
-				call_user_func( array( $this, 'enqueue' ) );
+				$this->enqueue();
 			} else {
 				add_action( $asset->action, array( $this, 'enqueue' ), $asset->priority );
 			}
