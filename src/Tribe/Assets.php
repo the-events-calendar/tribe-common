@@ -6,6 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Class used to register and enqueue assets across our plugins
+ *
+ * @since 4.3
  */
 class Tribe__Assets {
 	/**
@@ -25,6 +27,8 @@ class Tribe__Assets {
 	/**
 	 * Static Singleton Factory Method
 	 *
+	 * @since 4.3
+	 *
 	 * @return self
 	 */
 	public static function instance() {
@@ -37,6 +41,8 @@ class Tribe__Assets {
 
 	/**
 	 * Register the Methods in the correct places
+	 *
+	 * @since 4.3
 	 */
 	private function __construct() {
 		// Hook the actual registering of
@@ -45,6 +51,8 @@ class Tribe__Assets {
 
 	/**
 	 * Register the Assets on the correct hooks
+	 *
+	 * @since 4.3
 	 *
 	 * @return void
 	 */
@@ -90,6 +98,8 @@ class Tribe__Assets {
 	 * useful where an asset is required in a situation not anticipated when it was originally
 	 * registered.
 	 *
+	 * @since 4.3
+	 *
 	 * @param string|array $forcibly_enqueue
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
@@ -133,6 +143,8 @@ class Tribe__Assets {
 			/**
 			 * Allows developers to hook-in and prevent an asset from been loaded
 			 *
+			 * @since 4.3
+			 *
 			 * @param bool   $enqueue If we should enqueue or not a given asset
 			 * @param object $asset   Which asset we are dealing with
 			 */
@@ -140,6 +152,8 @@ class Tribe__Assets {
 
 			/**
 			 * Allows developers to hook-in and prevent an asset from been loaded
+			 *
+			 * @since 4.3
 			 *
 			 * @param bool   $enqueue If we should enqueue or not a given asset
 			 * @param object $asset   Which asset we are dealing with
@@ -168,6 +182,8 @@ class Tribe__Assets {
 	/**
 	 * Returns the path to a minified version of a js or css file, if it exists.
 	 * If the file does not exist, returns false.
+	 *
+	 * @since 4.3
 	 *
 	 * @param string $url   The path or URL to the un-minified file.
 	 *
@@ -217,6 +233,8 @@ class Tribe__Assets {
 
 	/**
 	 * Register an Asset and attach a callback to the required action to display it correctly
+	 *
+	 * @since 4.3
 	 *
 	 * @param  object       $origin    The main Object for the plugin you are enqueueing the script/style for
 	 * @param  string       $slug      Slug to save the asset
@@ -382,6 +400,8 @@ class Tribe__Assets {
 	/**
 	 * Removes an Asset from been registered and enqueue
 	 *
+	 * @since 4.3
+	 *
 	 * @param  string $slug Slug of the Asset
 	 *
 	 * @return bool
@@ -397,6 +417,8 @@ class Tribe__Assets {
 
 	/**
 	 * Get the Asset Object configuration
+	 *
+	 * @since 4.3
 	 *
 	 * @param  string $slug Slug of the Asset
 	 *

@@ -522,6 +522,8 @@ function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $a
 /**
  * Function to include more the one asset, based on `tribe_asset`
  *
+ * @since 4.3
+ *
  * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
  * @param  array    $assets     {
  *    Indexed array, don't use any associative key.
