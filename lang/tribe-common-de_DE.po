@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-18 22:36:27+0000\n"
+"PO-Revision-Date: 2017-06-06 13:04:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,37 +10,61 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Plugins_API.php:270
+msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:218
+msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
+msgstr ""
+
+#: src/Tribe/Ajax/Dropdown.php:38
+msgid "Cannot look for Terms without a taxonomy"
+msgstr "Kann nicht nach dem Begriff ohne eine Taxonomy suchen"
+
+#: src/Tribe/Ajax/Dropdown.php:175
+msgid "Missing data source for this dropdown"
+msgstr "Keine Datenquelle für diese Dropdownmenü verfügbar"
+
+#: src/Tribe/Ajax/Dropdown.php:188
+msgid "Empty data set for this dropdown"
+msgstr "Keine Daten für dieses Dropdownmenü festgelegt"
+
+#: src/Tribe/Ajax/Dropdown.php:238
+msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
+msgstr "\"%s\" ist ungültig und kann auf der \"%s\" Instanz nicht erreicht werden."
+
 #: src/Tribe/Plugins_API.php:239
 msgid "Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings."
-msgstr ""
+msgstr "Event Tickets ermöglicht einen einfachen Weg sich für eine Veranstaltung zu registrieren. Als einen Standalone Plugin erweitert es Beiträge oder Seiten um eine RSVP Funktionalität. In Kombination mit dem Events Calendar kann diese Funktion direkt in die Veranstaltungsübersicht integriert werden."
 
 #: src/Tribe/PUE/Checker.php:1082
 msgid "Update now to version %s."
-msgstr ""
+msgstr "Jetzt auf die neuste %s Version aktualisieren."
 
 #: src/Tribe/PUE/Checker.php:1093
 msgid "There is a new version of %1$s available. %2$s"
-msgstr ""
+msgstr "Die neue Version von %1$s ist verfügbar. %2$s"
 
 #: src/Tribe/Plugins_API.php:51
 msgid "Buy %s now"
-msgstr ""
+msgstr "Jetzt %s kaufen"
 
 #: src/Tribe/Plugins_API.php:52
 msgid "Buy Now"
-msgstr ""
+msgstr "Jetzt kaufen"
 
 #: src/Tribe/Plugins_API.php:60
 msgid "More information about %s"
-msgstr ""
+msgstr "Mehr Informationen über %s"
 
 #: src/Tribe/Plugins_API.php:61
 msgid "More Details"
-msgstr ""
+msgstr "Mehr Details"
 
 #: src/Tribe/Plugins_API.php:210
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
-msgstr ""
+msgstr "Erstellen und managen Sie einen Veranstaltungskalender mit Leichtigkeit. Das Events Calendar Plugin stellt viele Features und hochprofessionelle Qualität zur Verfügung."
 
 #: src/Tribe/Plugins_API.php:302
 msgid "Take your image widgets to the next level with Image Widget Plus! We've taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support."
@@ -73,8 +97,8 @@ msgid "The position of the currency symbol in the cost string"
 msgstr "Die Position des Währungsysmbols in der Eintrittszeichenkette"
 
 #: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:33
-msgid "An sorted array of all the numeric values for the cost"
-msgstr "Ein sortiertes Array aller numerischen Werte des Eintrittspreises"
+msgid "A sorted array of all the numeric values for the cost"
+msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:24
 msgid "The date year"
@@ -117,8 +141,8 @@ msgid "The image natural width in pixels"
 msgstr "Die Bildbreite in Pixel"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
-msgid "The image natura height in pixels"
-msgstr "Die Bildhöhe in Pixel"
+msgid "The image natural height in pixels"
+msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
 msgid "The details about each size available for the image"
@@ -250,10 +274,6 @@ msgstr "Die Details Ihres Kalender Plugins und die Einstellungen werden oft von 
 msgid "Event Log"
 msgstr "Veranstaltungsprotokoll"
 
-#: src/Tribe/Plugins_API.php:218
-msgid "Importing events from multiple sources has never been easier! Event Aggregator helps you curate and manage event import feeds from Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports or manually import events when you’re ready. Event Aggregator provides a convenient dashboard to manage bulk imports, filters, one-way sync, import history, and more."
-msgstr "Das Importieren von Ereignissen aus mehreren Quellen war nie einfacher! Event Aggregator hilft Ihnen, Eventimport-Feeds von Facebook, Meetup, Google Kalender, iCalendar, CSV und ICS festzulegen und zu verwalten. Planen Sie automatische oder manuelle Importe von Veranstaltungen. Event Aggregator bietet ein bequemes Dashboard, um Massenimporte, Filter, One-Way-Synchronisierung, Importverlauf und vieles mehr zu verwalten."
-
 #: src/Tribe/PUE/Checker.php:995
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr "Es gibt ein Update für %s. Sie müssen %sSie Ihre Lizenz überprüfen%s, um Zugriff auf Updates, Downloads und Support zu erhalten."
@@ -271,8 +291,8 @@ msgstr[1] "Für %1$s steht ein Update zur Verfügung, aber Ihre Lizenzen sind ab
 #: src/Tribe/PUE/Notices.php:298
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sie haben einen Lizenzschlüssel für %1$s eingegeben, aber der Schlüssel wird schon verwendet. %2$sBesuchen Sie die  Events Calendar Website%3$s, um Ihre Installationen zu verwalten, Ihre Lizenz zu aktualisieren oder eine neue zu kaufen."
+msgstr[1] "Sie haben Lizenzschlüssel für %1$s eingegeben, aber die Schlüssel werden schon verwendet. %2$sBesuchen Sie die  Events Calendar Website%3$s, um Ihre Installationen zu verwalten, Ihre Lizenzen zu aktualisieren oder neue zu kaufen."
 
 #: src/Tribe/PUE/Notices.php:379
 msgctxt "formatted plugin list"
@@ -324,63 +344,63 @@ msgstr "(in neuem Fenster öffnen)"
 msgid "An Unknown error occurred"
 msgstr "Es ist ein unbekannter Fehler aufgetreten"
 
-#: src/Tribe/Main.php:223 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:226 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr "In Zwischenablage kopieren"
 
-#: src/Tribe/Main.php:224
+#: src/Tribe/Main.php:227
 msgid "System info copied"
 msgstr "System Info kopiert"
 
-#: src/Tribe/Main.php:225
+#: src/Tribe/Main.php:228
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Drücke \"CTRL + C\" um zu kopieren"
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:246
 msgid ": activate to sort column ascending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:247
 msgid ": activate to sort column descending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:249
 msgid "Show _MENU_ entries"
 msgstr "_MENU_ Einträge anzeigen"
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:250
 msgid "No data available in table"
 msgstr "Keine Daten verfügbar in der Tabelle"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:251
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Zeige von _START_ bis _END_ von ingesamt _TOTAL_ Einträgen"
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:252
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Zeige 0 bis 0 von 0 Einträgen"
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:253
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(gefiltert von _MAX_ Gesamt Einträgen)"
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:254
 msgid "No matching records found"
 msgstr "Keine Zeilen gefunden"
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:257
 msgid "All"
 msgstr "Alle"
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:259
 msgid "Previous"
 msgstr "Vorherige"
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:264
 msgid ": Selected %d rows"
 msgstr ": Ausgewählte %d Zeilen"
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:265
 msgid ": Selected 1 row"
 msgstr ": Ausgewählte 1 Zeile"
 
@@ -436,10 +456,6 @@ msgstr "Event Tickets Plus and Community Events"
 #: src/Tribe/Plugins_API.php:249
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
 msgstr "Event Ticket Plus ermöglicht Karten für Ihre Veranstaltungen mit WooCommerce, Shopp, WP eCommerce oder Easy Digital Downloads zu verkaufen. Nutzen Sie Ihre Artikel oder Seiten oder verkaufen Sie mit %1$sThe Events Calendar%2$s Karten. "
-
-#: src/Tribe/Plugins_API.php:270
-msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
-msgstr "Ermöglichen Sie Ihren Benutzern Veranstaltungen in Ihrem Kalender mit dem Community Events Plugin hinzuzufügen und zu verwalten. Benutzer können Events anonym oder mit einem Benutzerkonto hinzufügen. Sie möchten sicherstellen, dass keine unerwünschten Veranstaltungen veröffentlicht werden? Schalten Sie einfach die Moderation ein entscheiden Sie, ob Benutzer Veranstaltungen bearbeiten oder einfach einreichen können. Das Plugin hat ein einfach Setup. Nur aktivieren, Optionen konfigurieren und schon kann es losgehen. "
 
 #: src/Tribe/Plugins_API.php:228
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
@@ -1637,7 +1653,7 @@ msgstr "Mikronesien"
 msgid "Moldova, Republic Of"
 msgstr "Moldawien"
 
-#: src/Tribe/Main.php:255 src/Tribe/Main.php:271
+#: src/Tribe/Main.php:258 src/Tribe/Main.php:274
 msgid "Next"
 msgstr "Nächste"
 
@@ -1645,7 +1661,7 @@ msgstr "Nächste"
 msgid "Monaco"
 msgstr "Monaco"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:275
 msgid "Prev"
 msgstr "Vorherige"
 
@@ -1653,7 +1669,7 @@ msgstr "Vorherige"
 msgid "Mongolia"
 msgstr "Mongolei"
 
-#: src/Tribe/Main.php:273
+#: src/Tribe/Main.php:276
 msgid "Today"
 msgstr "Heute"
 
@@ -1661,7 +1677,7 @@ msgstr "Heute"
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: src/Tribe/Main.php:274
+#: src/Tribe/Main.php:277
 msgid "Done"
 msgstr "Erledigt"
 
@@ -1753,7 +1769,7 @@ msgstr "Oman"
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:255
 msgid "Search:"
 msgstr "Suche:"
 

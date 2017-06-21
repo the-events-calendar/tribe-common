@@ -52,7 +52,7 @@ class Tribe__Meta__Chunker {
 	/**
 	 * @var array The post types supported by the Chunker.
 	 */
-	protected $post_types = array( 'post' );
+	protected $post_types = array();
 
 	/**
 	 * @var int The filter priority at which Chunker will operate on meta CRUD operations.

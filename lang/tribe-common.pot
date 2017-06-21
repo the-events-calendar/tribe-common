@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.6\n"
+"Project-Id-Version: Tribe Common 4.5.5\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2017-05-31 21:01:07+00:00\n"
+"POT-Creation-Date: 2017-06-14 15:06:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-05-31 21:01\n"
+"PO-Revision-Date: 2017-06-14 15:06\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -227,7 +227,7 @@ msgid "The position of the currency symbol in the cost string"
 msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:33
-msgid "An sorted array of all the numeric values for the cost"
+msgid "A sorted array of all the numeric values for the cost"
 msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:24
@@ -271,7 +271,7 @@ msgid "The image natural width in pixels"
 msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
-msgid "The image natura height in pixels"
+msgid "The image natural height in pixels"
 msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
@@ -644,12 +644,11 @@ msgstr ""
 
 #: src/Tribe/Plugins_API.php:218
 msgid ""
-"Importing events from multiple sources has never been easier! Event "
-"Aggregator helps you curate and manage event import feeds from Facebook, "
-"Meetup, Google Calendar, iCalendar, CSV, and ICS. Schedule automatic imports "
-"or manually import events when you’re ready. Event Aggregator provides a "
-"convenient dashboard to manage bulk imports, filters, one-way sync, import "
-"history, and more."
+"Import events from across the web! Event Aggregator makes it easy to run "
+"scheduled or manual imports from Facebook, Meetup, Google Calendar, and "
+"iCalendar, along with uploads from CSV and ICS files. You can also import "
+"directly from other sites running The Events Calendar thanks to our built-in "
+"REST API support."
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:228
@@ -688,11 +687,12 @@ msgstr ""
 
 #: src/Tribe/Plugins_API.php:270
 msgid ""
-"Enable users to submit events to your calendar with Community Events. You "
-"can require user accounts or allow visitors to submit without an account. "
-"Want to make sure that nothing fishy is going on? Just turn on moderation. "
-"Decide if users can edit and manage their own events, or simply submit. "
-"Plus, no scary form setup! Just activate, configure the options & off you go."
+"Accept user-submitted events on your site! With Community Events, you can "
+"accept public submissions or require account sign-on. Settings give you the "
+"options to save as a draft or publish automatically, enable categories and "
+"tags, and choose whether users can edit/manage their own events or simply "
+"submit. Best of all - setup is easy! Just activate, configure the options, "
+"and off you go."
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:279
