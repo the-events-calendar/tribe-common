@@ -54,8 +54,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$where = Tribe__Settings::instance()->get_parent_slug();
 
 			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::MENU_SLUG, array( $this, 'do_menu_page' ) );
-
-			add_action( 'admin_print_styles-' . $this->admin_page, array( $this, 'enqueue' ) );
 		}
 
 		/**
@@ -85,19 +83,25 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			tribe_assets(
 				Tribe__Main::instance(),
 				array(
-					array( 'app-shop-css', 'app-shop.css' ),
-					array( 'app-shop-js', 'app-shop.js' ),
+					array( 'tribe-app-shop-css', 'app-shop.css' ),
+					array( 'tribe-app-shop-js', 'app-shop.js', array( 'jquery' ) ),
 				),
-				'admin_print_styles-' . $this->admin_page
+				'admin_enqueue_scripts',
+				array(
+					'filter' => array( $this, 'is_current_page' ),
+				)
 			);
 		}
 
 		/**
-		 * Enqueue the styles and script
+		 * Checks if the current page is the app shop
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
 		 */
-		public function enqueue() {
-			wp_enqueue_style( 'app-shop-css' );
-			wp_enqueue_script( 'app-shop-js' );
+		public function is_current_page() {
+			return Tribe__Admin__Helpers::instance()->is_screen( 'tribe_events_page_tribe-app-shop' );
 		}
 
 		/**

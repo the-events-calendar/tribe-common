@@ -19,8 +19,6 @@ class Tribe__Log__Admin {
 		$log_entries  = $this->get_log_entries();
 		$download_url = $this->get_log_url();
 
-		$this->setup_script();
-
 		ob_start();
 		include trailingslashit( Tribe__Main::instance()->plugin_path ) . 'src/admin-views/event-log.php';
 		return ob_get_clean();
@@ -105,18 +103,18 @@ class Tribe__Log__Admin {
 			Tribe__Main::instance(),
 			'tribe-common-logging-controls',
 			'admin-log-controls.js',
-			array( 'jquery' )
+			array( 'jquery' ),
+			'admin_enqueue_scripts',
+			array(
+				'filter' => array( Tribe__Admin__Help_Page::instance(), 'is_current_page' ),
+				'localize' => (object) array(
+					'name' => 'tribe_logger_data',
+					'data' => array(
+						'check' => wp_create_nonce( 'logging-controls' ),
+					),
+				),
+			)
 		);
-	}
-
-	/**
-	 * Adds a script to handle the event log settings.
-	 */
-	protected function setup_script() {
-		wp_enqueue_script( 'tribe-common-logging-controls' );
-		wp_localize_script( 'tribe-common-logging-controls', 'tribe_logger_data', array(
-			'check' => wp_create_nonce( 'logging-controls' )
-		) );
 	}
 
 	/**
