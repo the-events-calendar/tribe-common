@@ -181,14 +181,28 @@ if ( ! function_exists( 'tribe_get_datetime_format' ) ) {
 	 * @return mixed|void
 	 */
 	function tribe_get_datetime_format( $with_year = false ) {
-		$separator = (array) str_split( tribe_get_option( 'dateTimeSeparator', ' @ ' ) );
+
+		$raw_separator = tribe_get_option( 'dateTimeSeparator', ' @ ' );
+		$separator     = (array) str_split( $raw_separator );
+
+		if ( empty( $raw_separator ) ) {
+		    /**
+			 * Filterable fallback for when the dateTimeSeparator is an empty string. Defaults to a space.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $fallback The string to use as the fallback.
+			 * @param string $raw_separator The raw value of the dateTimeSeparator option.
+			 * @return string
+			 */	
+			$separator[0] = apply_filters( 'tribe_empty_datetime_separator_fallback', ' ', $raw_separator );
+		}
 
 		$format = tribe_get_date_format( $with_year );
 		$format .= ( ! empty( $separator ) ? '\\' : '' ) . implode( '\\', $separator );
 		$format .= get_option( 'time_format' );
 
 		return apply_filters( 'tribe_datetime_format', $format );
-
 	}
 }//end if
 
