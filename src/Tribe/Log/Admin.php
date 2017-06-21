@@ -106,7 +106,7 @@ class Tribe__Log__Admin {
 			array( 'jquery' ),
 			'admin_enqueue_scripts',
 			array(
-				'filter' => array( Tribe__Admin__Help_Page::instance(), 'is_current_page' ),
+				'conditionals' => array( Tribe__Admin__Help_Page::instance(), 'is_current_page' ),
 				'localize' => (object) array(
 					'name' => 'tribe_logger_data',
 					'data' => array(

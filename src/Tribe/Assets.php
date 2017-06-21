@@ -6,6 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Class used to register and enqueue assets across our plugins
+ *
+ * @since 4.3
  */
 class Tribe__Assets {
 	/**
@@ -25,6 +27,8 @@ class Tribe__Assets {
 	/**
 	 * Static Singleton Factory Method
 	 *
+	 * @since 4.3
+	 *
 	 * @return self
 	 */
 	public static function instance() {
@@ -37,6 +41,8 @@ class Tribe__Assets {
 
 	/**
 	 * Register the Methods in the correct places
+	 *
+	 * @since 4.3
 	 */
 	private function __construct() {
 		// Hook the actual registering of
@@ -45,6 +51,8 @@ class Tribe__Assets {
 
 	/**
 	 * Register the Assets on the correct hooks
+	 *
+	 * @since 4.3
 	 *
 	 * @return void
 	 */
@@ -72,8 +80,12 @@ class Tribe__Assets {
 				continue;
 			}
 
-			// Now add an action to enqueue the registered assets
-			add_action( $asset->action, array( $this, 'enqueue' ), $asset->priority );
+			// Enqueue the registered assets at the appropriate time
+			if ( did_action( $asset->action ) > 0 ) {
+				$this->enqueue();
+			} else {
+				add_action( $asset->action, array( $this, 'enqueue' ), $asset->priority );
+			}
 		}
 	}
 
@@ -86,17 +98,23 @@ class Tribe__Assets {
 	 * useful where an asset is required in a situation not anticipated when it was originally
 	 * registered.
 	 *
+	 * @since 4.3
+	 *
 	 * @param string|array $forcibly_enqueue
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
 		$forcibly_enqueue = (array) $forcibly_enqueue;
 
 		foreach ( $this->assets as $asset ) {
+			if ( $asset->already_enqueued ) {
+				continue;
+			}
+
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
 			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
 
-			// Skip if we are not on the correct filter (unless we are forcibly enqueuing)
-			if ( current_filter() !== $asset->action && ! $must_enqueue ) {
+			// Skip if the correct hook hasn't begun firing yet (unless we are forcibly enqueuing)
+			if ( did_action( $asset->action ) < 1 && ! $must_enqueue ) {
 				continue;
 			}
 
@@ -125,6 +143,8 @@ class Tribe__Assets {
 			/**
 			 * Allows developers to hook-in and prevent an asset from been loaded
 			 *
+			 * @since 4.3
+			 *
 			 * @param bool   $enqueue If we should enqueue or not a given asset
 			 * @param object $asset   Which asset we are dealing with
 			 */
@@ -133,7 +153,7 @@ class Tribe__Assets {
 			/**
 			 * Allows developers to hook-in and prevent an asset from been loaded
 			 *
-			 * Note: When you pass callables on the `$asset->filter` argument this will be hooked here
+			 * @since 4.3
 			 *
 			 * @param bool   $enqueue If we should enqueue or not a given asset
 			 * @param object $asset   Which asset we are dealing with
@@ -154,12 +174,16 @@ class Tribe__Assets {
 			} else {
 				wp_enqueue_style( $asset->slug );
 			}
+
+			$asset->already_enqueued = true;
 		}
 	}
 
 	/**
 	 * Returns the path to a minified version of a js or css file, if it exists.
 	 * If the file does not exist, returns false.
+	 *
+	 * @since 4.3
 	 *
 	 * @param string $url   The path or URL to the un-minified file.
 	 *
@@ -209,6 +233,8 @@ class Tribe__Assets {
 
 	/**
 	 * Register an Asset and attach a callback to the required action to display it correctly
+	 *
+	 * @since 4.3
 	 *
 	 * @param  object       $origin    The main Object for the plugin you are enqueueing the script/style for
 	 * @param  string       $slug      Slug to save the asset
@@ -283,12 +309,13 @@ class Tribe__Assets {
 		$asset = (object) wp_parse_args( $arguments, $defaults );
 
 		// Enforce these one
-		$asset->slug        = $slug;
-		$asset->file        = $file;
-		$asset->deps        = $deps;
-		$asset->origin      = $origin;
-		$asset->origin_name = $origin_name;
-		$asset->action      = $action;
+		$asset->slug             = $slug;
+		$asset->file             = $file;
+		$asset->deps             = $deps;
+		$asset->origin           = $origin;
+		$asset->origin_name      = $origin_name;
+		$asset->action           = $action;
+		$asset->already_enqueued = false;
 
 		// If we don't have a type on the arguments we grab from the File path
 		if ( is_null( $asset->type ) ) {
@@ -373,6 +400,8 @@ class Tribe__Assets {
 	/**
 	 * Removes an Asset from been registered and enqueue
 	 *
+	 * @since 4.3
+	 *
 	 * @param  string $slug Slug of the Asset
 	 *
 	 * @return bool
@@ -388,6 +417,8 @@ class Tribe__Assets {
 
 	/**
 	 * Get the Asset Object configuration
+	 *
+	 * @since 4.3
 	 *
 	 * @param  string $slug Slug of the Asset
 	 *
