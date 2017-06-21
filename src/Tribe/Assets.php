@@ -141,8 +141,6 @@ class Tribe__Assets {
 			/**
 			 * Allows developers to hook-in and prevent an asset from been loaded
 			 *
-			 * Note: When you pass callables on the `$asset->conditionals` argument this will be hooked here
-			 *
 			 * @param bool   $enqueue If we should enqueue or not a given asset
 			 * @param object $asset   Which asset we are dealing with
 			 */
