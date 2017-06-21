@@ -493,5 +493,7 @@ class Tribe__Main {
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
 		tribe_singleton( 'cost-utils', array( 'Tribe__Cost_Utils', 'instance' ) );
+		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
+		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
 	}
 }

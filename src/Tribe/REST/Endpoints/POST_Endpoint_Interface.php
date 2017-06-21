@@ -19,4 +19,9 @@ interface Tribe__REST__Endpoints__POST_Endpoint_Interface {
 	 * @return array
 	 */
 	public function POST_args();
+
+	/**
+	 * @return bool Whether the current user can post or not.
+	 */
+	public function can_post(  );
 }
