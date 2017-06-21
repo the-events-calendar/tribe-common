@@ -80,9 +80,9 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 	 **/
 	function tribe_resource_url( $resource, $echo = false, $root_dir = null, $origin = null ) {
 		$extension = pathinfo( $resource, PATHINFO_EXTENSION );
-		$resource_path = '';
+		$resource_path = $root_dir;
 
-		if ( is_null( $root_dir ) ) {
+		if ( is_null( $resource_path ) ) {
 			$resources_path = 'src/resources/';
 			switch ( $extension ) {
 				case 'css':
@@ -98,8 +98,6 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 					$resource_path = $resources_path;
 					break;
 			}
-		} else {
-			$resource_path = $root_dir;
 		}
 
 		$path = $resource_path . $resource;
@@ -110,13 +108,10 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 			$plugin_path = trailingslashit( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) );
 		}
 
-		$file = $plugin_path . $path;
+		$file = wp_normalize_path( $plugin_path . $path );
 
 		// Turn the Path into a URL
-		$url = str_replace( wp_normalize_path( WP_CONTENT_DIR ), content_url(), $file );
-
-		// Make it compatible with Windows and other OS
-		$url = str_replace( DIRECTORY_SEPARATOR, '/', $url );
+		$url = plugins_url( basename( $file ), $file );
 
 		/**
 		 * Filters the resource URL
@@ -127,7 +122,7 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		$url = apply_filters( 'tribe_resource_url', $url, $resource );
 
 		/**
-		 * Deprected the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
+		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
 		 */
 		$url = apply_filters( 'tribe_events_resource_url', $url, $resource );
 
