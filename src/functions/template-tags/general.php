@@ -531,7 +531,7 @@ function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $a
  *    @type  string   $file       Which file will be loaded, either CSS or JS
  *    @type  array    $deps       (optional) Dependencies
  * }
- * @param  string   $action     A WordPress Action, needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
+ * @param  string   $action     A WordPress hook that will automatically enqueue this asset once fired
  * @param  array    $arguments  Look at `Tribe__Assets::register()` for more info
  *
  * @return array             Which Assets were registered

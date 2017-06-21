@@ -88,7 +88,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				),
 				'admin_enqueue_scripts',
 				array(
-					'filter' => array( $this, 'is_current_page' ),
+					'conditionals' => array( $this, 'is_current_page' ),
 				)
 			);
 		}
@@ -101,7 +101,16 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * @return bool
 		 */
 		public function is_current_page() {
-			return Tribe__Admin__Helpers::instance()->is_screen( 'tribe_events_page_tribe-app-shop' );
+			if ( is_null( $this->admin_page ) ) {
+				_doing_it_wrong(
+					__FUNCTION__,
+					'Function was called before it is possible to accurately determine what the current page is.',
+					'4.5.6'
+				);
+				return false;
+			}
+
+			return Tribe__Admin__Helpers::instance()->is_screen( $this->admin_page );
 		}
 
 		/**

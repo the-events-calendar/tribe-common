@@ -72,8 +72,12 @@ class Tribe__Assets {
 				continue;
 			}
 
-			// Now add an action to enqueue the registered assets
-			add_action( $asset->action, array( $this, 'enqueue' ), $asset->priority );
+			// Enqueue the registered assets at the appropriate time
+			if ( did_action( $asset->action ) > 0 ) {
+				call_user_func( array( $this, 'enqueue' ) );
+			} else {
+				add_action( $asset->action, array( $this, 'enqueue' ), $asset->priority );
+			}
 		}
 	}
 
@@ -91,12 +95,16 @@ class Tribe__Assets {
 	public function enqueue( $forcibly_enqueue = null ) {
 		$forcibly_enqueue = (array) $forcibly_enqueue;
 
-		foreach ( $this->assets as $asset ) {
+		foreach ( $this->assets as $key => $asset ) {
+			if ( $asset->already_enqueued ) {
+				continue;
+			}
+
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
 			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
 
-			// Skip if we are not on the correct filter (unless we are forcibly enqueuing)
-			if ( current_filter() !== $asset->action && ! $must_enqueue ) {
+			// Skip if the correct hook hasn't begun firing yet (unless we are forcibly enqueuing)
+			if ( did_action( $asset->action ) < 1 && ! $must_enqueue ) {
 				continue;
 			}
 
@@ -133,7 +141,7 @@ class Tribe__Assets {
 			/**
 			 * Allows developers to hook-in and prevent an asset from been loaded
 			 *
-			 * Note: When you pass callables on the `$asset->filter` argument this will be hooked here
+			 * Note: When you pass callables on the `$asset->conditionals` argument this will be hooked here
 			 *
 			 * @param bool   $enqueue If we should enqueue or not a given asset
 			 * @param object $asset   Which asset we are dealing with
@@ -154,6 +162,8 @@ class Tribe__Assets {
 			} else {
 				wp_enqueue_style( $asset->slug );
 			}
+
+			$this->assets[ $key ]->already_enqueued = true;
 		}
 	}
 
@@ -283,12 +293,13 @@ class Tribe__Assets {
 		$asset = (object) wp_parse_args( $arguments, $defaults );
 
 		// Enforce these one
-		$asset->slug        = $slug;
-		$asset->file        = $file;
-		$asset->deps        = $deps;
-		$asset->origin      = $origin;
-		$asset->origin_name = $origin_name;
-		$asset->action      = $action;
+		$asset->slug             = $slug;
+		$asset->file             = $file;
+		$asset->deps             = $deps;
+		$asset->origin           = $origin;
+		$asset->origin_name      = $origin_name;
+		$asset->action           = $action;
+		$asset->already_enqueued = false;
 
 		// If we don't have a type on the arguments we grab from the File path
 		if ( is_null( $asset->type ) ) {

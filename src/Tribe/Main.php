@@ -219,7 +219,7 @@ class Tribe__Main {
 			),
 			'admin_enqueue_scripts',
 			array(
-				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
+				'conditionals' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
 				'localize' => (object) array(
 					'name' => 'tribe_system_info',
 					'data' => array(
