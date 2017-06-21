@@ -22,5 +22,5 @@ interface Tribe__REST__Endpoints__DELETE_Endpoint_Interface {
 	/**
 	 * @return bool Whether the current user can delete or not.
 	 */
-	public function can_delete(  );
+	public function can_delete();
 }
