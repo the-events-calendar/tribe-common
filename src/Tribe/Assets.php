@@ -105,7 +105,7 @@ class Tribe__Assets {
 	public function enqueue( $forcibly_enqueue = null ) {
 		$forcibly_enqueue = (array) $forcibly_enqueue;
 
-		foreach ( $this->assets as $key => $asset ) {
+		foreach ( $this->assets as $asset ) {
 			if ( $asset->already_enqueued ) {
 				continue;
 			}
@@ -175,7 +175,7 @@ class Tribe__Assets {
 				wp_enqueue_style( $asset->slug );
 			}
 
-			$this->assets[ $key ]->already_enqueued = true;
+			$asset->already_enqueued = true;
 		}
 	}
 
