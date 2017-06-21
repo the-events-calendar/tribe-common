@@ -189,12 +189,12 @@ if ( ! function_exists( 'tribe_get_datetime_format' ) ) {
 		    /**
 			 * Filterable fallback for when the dateTimeSeparator is an empty string. Defaults to a space.
 			 *
-			 * @since TBD
+			 * @since 4.5.6
 			 *
 			 * @param string $fallback The string to use as the fallback.
 			 * @param string $raw_separator The raw value of the dateTimeSeparator option.
 			 * @return string
-			 */	
+			 */
 			$separator[0] = apply_filters( 'tribe_empty_datetime_separator_fallback', ' ', $raw_separator );
 		}
 
