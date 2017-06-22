@@ -278,7 +278,8 @@ class Tribe__Timezones {
 
 		$new_datetime = date_create( $datetime, $local );
 
-		if ( $new_datetime && $new_datetime->setTimezone( $utc ) ) {
+		if ( $new_datetime ) {
+			$new_datetime->setTimezone( $utc );
 			$format = ! empty( $format ) ? $format : Tribe__Date_Utils::DBDATETIMEFORMAT;
 
 			return $new_datetime->format( $format );
