@@ -465,5 +465,25 @@ class Tribe__Timezones {
 
 		return $to_date->format( $format );
 	}
+
+	/**
+	 * Whether the candidate timezone is a valid PHP timezone or a supported UTC offset.
+	 *
+	 * @param string $candidate
+	 *
+	 * @return bool
+	 */
+	public static function is_valid_timezone( $candidate ) {
+		if ( self::is_utc_offset( $candidate ) ) {
+			return true;
+		}
+		try {
+			new DateTimeZone( $candidate );
+		} catch ( Exception $e ) {
+			return false;
+		}
+
+		return true;
+	}
 }
 
