@@ -149,7 +149,13 @@ class Tribe__Assets {
 
 				// Only localize on JS and if we have data
 				if ( ! empty( $asset->localize ) ) {
-					wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
+					if ( is_array( $asset->localize ) ) {
+						foreach( $asset->localize as $localized ) {
+							wp_localize_script( $asset->slug, $localized->name, $localized->data );
+						}
+					} else {
+						wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
+					}
 				}
 			} else {
 				wp_enqueue_style( $asset->slug );
@@ -215,7 +221,7 @@ class Tribe__Assets {
 	 * @param  string       $file      Which file will be loaded, either CSS or JS
 	 * @param  array        $deps      Dependencies
 	 * @param  string|null  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
-	 * @param  string|array $query {
+	 * @param  string|array $arguments {
 	 *     Optional. Array or string of parameters for this asset
 	 *
 	 *     @type string|null  $action         Which WordPress action this asset will be loaded on
@@ -343,11 +349,17 @@ class Tribe__Assets {
 
 		// If you are passing localize, you need `name` and `data`
 		if ( ! empty( $asset->localize ) && ( is_array( $asset->localize ) || is_object( $asset->localize ) ) ) {
-			$asset->localize = (object) $asset->localize;
+			if ( is_array( $asset->localize ) && empty( $asset->localize['name'] )  ) {
+				foreach( $asset->localize as $index => $local) {
+					$asset->localize[$index] = (object) $local;
+				}
+			} else {
+				$asset->localize = (object) $asset->localize;
 
-			// if we don't have both reset localize
-			if ( ! isset( $asset->localize->data, $asset->localize->name ) ) {
-				$asset->localize = array();
+				// if we don't have both reset localize
+				if ( ! isset( $asset->localize->data, $asset->localize->name ) ) {
+					$asset->localize = array();
+				}
 			}
 		}
 
