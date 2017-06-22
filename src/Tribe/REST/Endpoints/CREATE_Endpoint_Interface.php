@@ -1,7 +1,7 @@
 <?php
 
 
-interface Tribe__REST__Endpoints__POST_Endpoint_Interface {
+interface Tribe__REST__Endpoints__CREATE_Endpoint_Interface {
 	/**
 	 * Handles POST requests on the endpoint.
 	 *
@@ -18,7 +18,7 @@ interface Tribe__REST__Endpoints__POST_Endpoint_Interface {
 	 *
 	 * @return array
 	 */
-	public function POST_args();
+	public function CREATE_args();
 
 	/**
 	 * @return bool Whether the current user can post or not.

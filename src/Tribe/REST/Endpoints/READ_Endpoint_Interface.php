@@ -1,7 +1,7 @@
 <?php
 
 
-interface Tribe__REST__Endpoints__GET_Endpoint_Interface {
+interface Tribe__REST__Endpoints__READ_Endpoint_Interface {
 
 	/**
 	 * Handles GET requests on the endpoint.
@@ -18,5 +18,5 @@ interface Tribe__REST__Endpoints__GET_Endpoint_Interface {
 	 *
 	 * @return array
 	 */
-	public function GET_args();
+	public function READ_args();
 }
