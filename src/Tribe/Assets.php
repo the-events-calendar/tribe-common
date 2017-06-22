@@ -350,7 +350,7 @@ class Tribe__Assets {
 		// If you are passing localize, you need `name` and `data`
 		if ( ! empty( $asset->localize ) && ( is_array( $asset->localize ) || is_object( $asset->localize ) ) ) {
 			if ( is_array( $asset->localize ) && empty( $asset->localize['name'] )  ) {
-				foreach( $asset->localize as $index => $local ) {
+				foreach ( $asset->localize as $index => $local ) {
 					$asset->localize[ $index ] = (object) $local;
 				}
 			} else {
