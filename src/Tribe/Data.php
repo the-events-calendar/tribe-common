@@ -226,6 +226,8 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 * Converts the data object in an array.
 	 *
 	 * @return array
+	 *
+	 * @since TBD
 	 */
 	public function to_array() {
 		return $this->get_data();
