@@ -278,7 +278,8 @@ class Tribe__Timezones {
 
 		$new_datetime = date_create( $datetime, $local );
 
-		if ( $new_datetime && $new_datetime->setTimezone( $utc ) ) {
+		if ( $new_datetime ) {
+			$new_datetime->setTimezone( $utc );
 			$format = ! empty( $format ) ? $format : Tribe__Date_Utils::DBDATETIMEFORMAT;
 
 			return $new_datetime->format( $format );
@@ -463,6 +464,26 @@ class Tribe__Timezones {
 		$to_date = new DateTime( "@{$timestamp}", new DateTimeZone( $to_timezone ) );
 
 		return $to_date->format( $format );
+	}
+
+	/**
+	 * Whether the candidate timezone is a valid PHP timezone or a supported UTC offset.
+	 *
+	 * @param string $candidate
+	 *
+	 * @return bool
+	 */
+	public static function is_valid_timezone( $candidate ) {
+		if ( self::is_utc_offset( $candidate ) ) {
+			return true;
+		}
+		try {
+			new DateTimeZone( $candidate );
+		} catch ( Exception $e ) {
+			return false;
+		}
+
+		return true;
 	}
 }
 

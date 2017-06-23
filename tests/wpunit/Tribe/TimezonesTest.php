@@ -102,4 +102,28 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 		}
 	}
 
+	public function is_valid_timezone_inputs() {
+		return [
+			[ '', false ],
+			[ 'foo', false ],
+			[ 'foo bar', false ],
+			[ 23, false ],
+			[ '23', false ],
+			[ 'Europe/Rome', true ],
+			[ 'America/New_York', true ],
+			[ 'UTC', true ],
+			[ 'UTC+5', true ],
+			[ 'UTC-5', true ],
+			[ 'UTC+5.5', true ],
+			[ 'UTC-5.5', true ],
+		];
+	}
+
+	/**
+	 * Test is_valid_timezone
+	 * @dataProvider is_valid_timezone_inputs
+	 */
+	public function test_is_valid_timezone( $input, $expected ) {
+		$this->assertEquals( $expected, \Tribe__Timezones::is_valid_timezone( $input ) );
+	}
 }
