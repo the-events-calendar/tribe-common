@@ -221,4 +221,15 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	public function rewind() {
 		$this->index = 0;
 	}
+
+	/**
+	 * Converts the data object in an array.
+	 *
+	 * @return array
+	 *
+	 * @since TBD
+	 */
+	public function to_array() {
+		return $this->get_data();
+	}
 }

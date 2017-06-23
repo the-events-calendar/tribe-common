@@ -22,5 +22,5 @@ interface Tribe__REST__Endpoints__UPDATE_Endpoint_Interface {
 	/**
 	 * @return bool Whether the current user can update or not.
 	 */
-	public function can_update();
+	public function can_edit();
 }
