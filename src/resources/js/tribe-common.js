@@ -104,9 +104,11 @@ tribe_auto_sysinfo.ajax = {
 	my.maybe_navigate_to_id_on_doc_ready = function() {
 		var target = my.get_url_fragment( window.location.href );
 
-		if ( target.length ) {
-			my.adjust_scroll_position( target );
+		if ( ! target.length ) {
+			return;
 		}
+
+		my.adjust_scroll_position( target );
 	};
 
 	/**
@@ -143,7 +145,22 @@ tribe_auto_sysinfo.ajax = {
 	 * @param {String} id
 	 */
 	my.adjust_scroll_position = function( id ) {
-		console.log( id );
+		// No toolbar, no problem
+		if ( ! $( '#wpadminbar' ).length ) {
+			return;
+		}
+
+		var element_position = $( '#' + id ).position();
+
+		// Bail if the element doesn't actually exist
+		if ( ! element_position ) {
+			return;
+		}
+
+		// A fractional delay is needed to ensure our adjustment sticks
+		setTimeout( function() {
+			window.scroll( window.scrollX, element_position.top );
+		} );
 	};
 
 	/**

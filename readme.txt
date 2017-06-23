@@ -7,4 +7,5 @@
 * Fix - Made the App Shop and help pages work on Windows. [77975]
 * Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
 * Fix - Avoid notices during plugin update and installation checks [80492]
+* Tweak - Improve navigation to elements inside admin pages (don't let the admin toolbar obscure things) [41829]
 * Tweak - Textual corrections (with thanks to @garrett-eclipse) [77196]
