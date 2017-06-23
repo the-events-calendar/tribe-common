@@ -112,11 +112,8 @@ tribe_auto_sysinfo.ajax = {
 	};
 
 	/**
-	 * If it looks like a click event happened in response to a user following a link
-	 * containing an element ID/fragment, make an offset/scroll position adjustment
-	 *
-	 * We don't stop event propagation or return false, though: if a URL was followed
-	 * which will take the user to a different screen we don't need to worry about it.
+	 * If it looks like the user has navigated to a specific anchor within the page
+	 * then trigger our scroll position adjustment.
 	 *
 	 * @param event
 	 */
