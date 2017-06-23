@@ -149,15 +149,18 @@ class Tribe__Assets {
 				wp_enqueue_script( $asset->slug );
 
 				// Only localize on JS and if we have data
-				if ( ! empty( $asset->localize ) && ! in_array( $local_asset->name, $localized[] ) ) {
+				if ( ! empty( $asset->localize ) ) {
 					if ( is_array( $asset->localize ) ) {
 						foreach ( $asset->localize as $local_asset ) {
+							if ( in_array( $local_asset->name, $localized ) ) {
+								continue;
+							}
 							wp_localize_script( $asset->slug, $local_asset->name, $local_asset->data );
 							$localized[] = $local_asset->name;
 						}
 					} else {
 						wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
-						$localized[] = $local_asset->name;
+						$localized[] = $asset->localize->name;
 					}
 				}
 			} else {
