@@ -90,16 +90,20 @@ tribe_auto_sysinfo.ajax = {
 	 * Sets up listeners and callbacks to handle navigation to page #elements
 	 * gracefully and in a way that doesn't result in the admin toolbar obscuring
 	 * the target.
+	 *
+	 * @since 4.5.6
 	 */
 	my.navigate_to_id = function() {
 		$( document ).ready( my.maybe_navigate_to_id_on_doc_ready );
-		$( '.tribe_events_page_tribe-common' ).click( my.maybe_navigate_to_id_after_click );
+		$( document ).on( 'click', '.tribe_events_page_tribe-common', my.maybe_navigate_to_id_after_click );
 	};
 
 	/**
 	 * When the document is ready, check and see if the current location included
 	 * a reference to a specific ID and trigger our offset/scroll position adjustment
 	 * code if so.
+	 *
+	 * @since 4.5.6
 	 */
 	my.maybe_navigate_to_id_on_doc_ready = function() {
 		var target = my.get_url_fragment( window.location.href );
@@ -114,6 +118,8 @@ tribe_auto_sysinfo.ajax = {
 	/**
 	 * If it looks like the user has navigated to a specific anchor within the page
 	 * then trigger our scroll position adjustment.
+	 *
+	 * @since 4.5.6
 	 *
 	 * @param event
 	 */
@@ -139,6 +145,8 @@ tribe_auto_sysinfo.ajax = {
 	 * Adjust the scroll/viewport offset if necessary to stop the admin toolbar
 	 * from obscuring the target element.
 	 *
+	 * @since 4.5.6
+	 *
 	 * @param {String} id
 	 */
 	my.adjust_scroll_position = function( id ) {
@@ -163,6 +171,8 @@ tribe_auto_sysinfo.ajax = {
 	/**
 	 * Attempts to extract the "#fragment" string from a URL and returns it
 	 * (will be empty if not set).
+	 *
+	 * @since 4.5.6
 	 *
 	 * @param {String} url
 	 *
