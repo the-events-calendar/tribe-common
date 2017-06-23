@@ -81,7 +81,7 @@ class Tribe__Duplicate__Post {
 		}
 
 		$cast = $this->cast_to_strategy( $post_fields );
-		$this->post_fields = array_intersect_key( $cast, array_combine( self::post_table_columns, self::post_table_columns ) );
+		$this->post_fields = array_intersect_key( $cast, array_combine( self::$post_table_columns, self::$post_table_columns ) );
 	}
 
 	/**
