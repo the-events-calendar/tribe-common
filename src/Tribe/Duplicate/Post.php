@@ -11,7 +11,7 @@ class Tribe__Duplicate__Post {
 	/**
 	 * @var array The columns of the post table.
 	 */
-	protected $post_table_columns = array(
+	public static $post_table_columns = array(
 		'ID',
 		'post_author',
 		'post_date',
@@ -81,7 +81,7 @@ class Tribe__Duplicate__Post {
 		}
 
 		$cast = $this->cast_to_strategy( $post_fields );
-		$this->post_fields = array_intersect_key( $cast, array_combine( $this->post_table_columns, $this->post_table_columns ) );
+		$this->post_fields = array_intersect_key( $cast, array_combine( self::post_table_columns, self::post_table_columns ) );
 	}
 
 	/**
