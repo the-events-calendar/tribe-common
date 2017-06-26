@@ -188,7 +188,10 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 		$sut->use_post_fields( [ 'post_title' ] );
 
-		$this->assertEquals( $post->ID, $sut->find_for( [ 'post_title' => $post->post_title, 'foo_bar' => 'some value' ] ) );
+		$this->assertEquals( $post->ID, $sut->find_for( [
+			'post_title' => $post->post_title,
+			'foo_bar'    => 'some value'
+		] ) );
 	}
 
 	/**
@@ -318,7 +321,10 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider mixed_match_criteria_inputs
 	 */
 	public function it_should_allow_finding_duplicates_using_mixed_post_fields_and_meta_and_different_strategies( $should_match, $input ) {
-		$post = $this->factory()->post->create( [ 'post_title' => 'A post', 'post_content' => 'Some content [shortcode]' ] );
+		$post = $this->factory()->post->create( [
+			'post_title'   => 'A post',
+			'post_content' => 'Some content [shortcode]'
+		] );
 		update_post_meta( $post, 'foo', 'Foo Value' );
 		update_post_meta( $post, 'bar', 'Bar value' );
 
@@ -371,5 +377,325 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $post, $sut->find_for( [ 'foo' => 'one' ] ) );
 		$this->assertEquals( $post, $sut->find_for( [ 'foo' => [ 'one' ] ] ) );
 		$this->assertEquals( $post, $sut->find_for( [ 'foo' => [ 'one', 'two' ] ] ) ); // will only use the first
+	}
+
+	/**
+	 * It should not find duplicates of other post type
+	 * @test
+	 */
+	public function it_should_not_find_duplicates_of_other_post_type() {
+		$post = $this->factory()->post->create();
+		add_post_meta( $post, 'foo', 'One' );
+		add_post_meta( $post, 'foo', 'Two' );
+		add_post_meta( $post, 'foo', 'Three' );
+
+		$page = $this->factory()->post->create( [ 'post_type' => 'page' ] );
+		add_post_meta( $page, 'foo', 'One' );
+		add_post_meta( $page, 'foo', 'Two' );
+		add_post_meta( $page, 'foo', 'Three' );
+
+		$sut = $this->make_instance();
+		$sut->use_custom_fields( [ 'foo' => [ 'match' => 'like' ] ] );
+		$sut->set_post_type( 'page' );
+
+		$this->assertEquals( $page, $sut->find_for( [ 'foo' => 'one' ] ) );
+		$this->assertEquals( $page, $sut->find_for( [ 'foo' => [ 'one' ] ] ) );
+		$this->assertCount( 1, $sut->find_all_for( [ 'foo' => 'one' ] ) );
+	}
+
+	/**
+	 * It should allow finding all duplicates in OR logic
+	 * @test
+	 */
+	public function it_should_allow_finding_all_duplicates_in_or_logic() {
+		$post_1 = $this->factory()->post->create( [ 'post_title' => 'foo', 'post_content' => 'foo' ] );
+		$post_2 = $this->factory()->post->create( [ 'post_title' => 'foo', 'post_content' => 'bar' ] );
+		$post_3 = $this->factory()->post->create( [ 'post_title' => 'bar', 'post_content' => 'bar' ] );
+		$post_4 = $this->factory()->post->create( [ 'post_title' => 'bar', 'post_content' => 'foo' ] );
+
+		$sut = $this->make_instance();
+		$sut->set_where_operator( 'or' );
+		$sut->use_post_fields( [ 'post_title', 'post_content' ] );
+
+		$this->assertCount( 2, $sut->find_all_for( [ 'post_title' => 'foo' ] ) );
+		$this->assertCount( 2, $sut->find_all_for( [ 'post_title' => 'bar' ] ) );
+		$found_1 = $sut->find_all_for( [
+			'post_title'   => 'foo',
+			// OR
+			'post_content' => 'foo'
+		] );
+		$this->assertEqualSets( [ $post_1, $post_2, $post_4 ], $found_1 );
+		$this->assertCount( 3, $found_1 );
+		$found_2 = $sut->find_all_for( [
+			'post_title'   => 'bar',
+			// OR
+			'post_content' => 'foo'
+		] );
+		$this->assertCount( 3, $found_2 );
+		$this->assertEqualSets( [ $post_1, $post_3, $post_4 ], $found_2 );
+	}
+
+	/**
+	 * It should cut the joined query for custom fields down
+	 * @test
+	 */
+	public function it_should_cut_the_joined_query_for_custom_fields_down() {
+		$post_fields = [ 'post_title', 'post_content' ];
+		$custom_fields = [
+			'one',
+			'two',
+			'three',
+			'four',
+			'five',
+			'six',
+			'seven',
+			'eight',
+			'nine',
+			'ten',
+		];
+		$post = $this->factory()->post->create( [ 'post_title' => 'foo', 'post_content' => 'foo' ] );
+		foreach ( $custom_fields as $field ) {
+			add_post_meta( $post, $field, 'foo' );
+		}
+
+		$sut = $this->make_instance();
+		$sut->use_post_fields( $post_fields );
+		$sut->use_custom_fields( $custom_fields );
+		$sut->set_join_limit( 2 );
+
+		global $wpdb;
+		$queries_before = $wpdb->num_queries;
+
+		$merged = array_merge( $post_fields, $custom_fields );
+		$found = $sut->find_for( array_combine(
+			$merged,
+			array_fill( 0, count( $merged ), 'foo' )
+		) );
+
+		$queries_after = $wpdb->num_queries;
+
+		$this->assertEquals( 5, $queries_after - $queries_before );
+		$this->assertEquals( $post, $found );
+	}
+
+	/**
+	 * It should make just one query if AND operator and nothing is found
+	 * @test
+	 */
+	public function it_should_make_just_one_query_if_and_operator_and_nothing_is_found() {
+		$post_fields = [ 'post_title', 'post_content' ];
+		$custom_fields = [
+			'one',
+			'two',
+			'three',
+			'four',
+			'five',
+			'six',
+			'seven',
+			'eight',
+			'nine',
+			'ten',
+		];
+		$post = $this->factory()->post->create();
+
+		$sut = $this->make_instance();
+		$sut->use_post_fields( $post_fields );
+		$sut->use_custom_fields( $custom_fields );
+		$sut->set_join_limit( 2 );
+
+		global $wpdb;
+		$queries_before = $wpdb->num_queries;
+
+		$merged = array_merge( $post_fields, $custom_fields );
+		$found = $sut->find_for( array_combine(
+			$merged,
+			array_fill( 0, count( $merged ), 'foo' )
+		) );
+
+		$queries_after = $wpdb->num_queries;
+
+		$this->assertEquals( 1, $queries_after - $queries_before );
+		$this->assertEmpty( $found );
+	}
+
+	/**
+	 * It should make min number of queries when OR operator
+	 * @test
+	 */
+	public function it_should_make_min_number_of_queries_when_or_operator() {
+		$post_fields = [ 'post_title', 'post_content' ];
+		$custom_fields = [
+			'one',
+			'two',
+			'three',
+			'four',
+			'five',
+			'six',
+			'seven',
+			'eight',
+			'nine',
+			'ten',
+		];
+		$post = $this->factory()->post->create();
+		foreach ( $custom_fields as $field ) {
+			if ( 'six' === $field ) {
+				// should find a match on 3rd query
+				add_post_meta( $post, $field, 'foo' );
+			} else {
+				add_post_meta( $post, $field, 'bar' );
+			}
+		}
+
+		$sut = $this->make_instance();
+		$sut->use_post_fields( $post_fields );
+		$sut->use_custom_fields( $custom_fields );
+		$sut->set_join_limit( 2 );
+		$sut->set_where_operator( 'or' );
+
+		global $wpdb;
+		$queries_before = $wpdb->num_queries;
+
+		$merged = array_merge( $post_fields, $custom_fields );
+		$found = $sut->find_for( array_combine(
+			$merged,
+			array_fill( 0, count( $merged ), 'foo' )
+		) );
+
+		$queries_after = $wpdb->num_queries;
+
+		$this->assertEquals( 3, $queries_after - $queries_before );
+		$this->assertEquals( $post, $found );
+	}
+
+	/**
+	 * It should cut the joined query for custom fields down on find all
+	 * @test
+	 */
+	public function it_should_cut_the_joined_query_for_custom_fields_down_on_find_all() {
+		$post_fields = [ 'post_title', 'post_content' ];
+		$custom_fields = [
+			'one',
+			'two',
+			'three',
+			'four',
+			'five',
+			'six',
+			'seven',
+			'eight',
+			'nine',
+			'ten',
+		];
+		$post = $this->factory()->post->create( [ 'post_title' => 'foo', 'post_content' => 'foo' ] );
+		foreach ( $custom_fields as $field ) {
+			add_post_meta( $post, $field, 'foo' );
+		}
+
+		$sut = $this->make_instance();
+		$sut->use_post_fields( $post_fields );
+		$sut->use_custom_fields( $custom_fields );
+		$sut->set_join_limit( 2 );
+
+		global $wpdb;
+		$queries_before = $wpdb->num_queries;
+
+		$merged = array_merge( $post_fields, $custom_fields );
+		$found = $sut->find_all_for( array_combine(
+			$merged,
+			array_fill( 0, count( $merged ), 'foo' )
+		) );
+
+		$queries_after = $wpdb->num_queries;
+
+		$this->assertEquals( 5, $queries_after - $queries_before );
+		$this->assertEquals( [ $post ], $found );
+	}
+
+	/**
+	 * It should make just one query if AND operator and nothing is found on find all
+	 * @test
+	 */
+	public function it_should_make_just_one_query_if_and_operator_and_nothing_is_found_on_find_all() {
+		$post_fields = [ 'post_title', 'post_content' ];
+		$custom_fields = [
+			'one',
+			'two',
+			'three',
+			'four',
+			'five',
+			'six',
+			'seven',
+			'eight',
+			'nine',
+			'ten',
+		];
+		$post = $this->factory()->post->create();
+
+		$sut = $this->make_instance();
+		$sut->use_post_fields( $post_fields );
+		$sut->use_custom_fields( $custom_fields );
+		$sut->set_join_limit( 2 );
+
+		global $wpdb;
+		$queries_before = $wpdb->num_queries;
+
+		$merged = array_merge( $post_fields, $custom_fields );
+		$found = $sut->find_all_for( array_combine(
+			$merged,
+			array_fill( 0, count( $merged ), 'foo' )
+		) );
+
+		$queries_after = $wpdb->num_queries;
+
+		$this->assertEquals( 1, $queries_after - $queries_before );
+		$this->assertEmpty( $found );
+	}
+
+	/**
+	 * It should make max number of queries when OR operator on find all
+	 * @test
+	 */
+	public function it_should_make_max_number_of_queries_when_or_operator_on_find_all() {
+		$post_fields = [ 'post_title', 'post_content' ];
+		$custom_fields = [
+			'one',
+			'two',
+			'three',
+			'four',
+			'five',
+			'six',
+			'seven',
+			'eight',
+			'nine',
+			'ten',
+		];
+		$post = $this->factory()->post->create();
+		foreach ( $custom_fields as $field ) {
+			if ( 'six' === $field ) {
+				// should find a match on 3rd query
+				add_post_meta( $post, $field, 'foo' );
+			} else {
+				add_post_meta( $post, $field, 'bar' );
+			}
+		}
+
+		$sut = $this->make_instance();
+		$sut->use_post_fields( $post_fields );
+		$sut->use_custom_fields( $custom_fields );
+		$sut->set_join_limit( 2 );
+		$sut->set_where_operator( 'or' );
+
+		global $wpdb;
+		$queries_before = $wpdb->num_queries;
+
+		$merged = array_merge( $post_fields, $custom_fields );
+		$found = $sut->find_all_for( array_combine(
+			$merged,
+			array_fill( 0, count( $merged ), 'foo' )
+		) );
+
+		$queries_after = $wpdb->num_queries;
+
+		$this->assertEquals( 5, $queries_after - $queries_before );
+		$this->assertEquals( [ $post ], $found );
 	}
 }
