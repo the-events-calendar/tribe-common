@@ -23,6 +23,13 @@ class Tribe__Assets {
 	private $assets = array();
 
 	/**
+	 * Stores the localized scripts for reference
+	 *
+	 * @var array
+	 */
+	private $localized = array();
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return self
@@ -90,7 +97,6 @@ class Tribe__Assets {
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
 		$forcibly_enqueue = (array) $forcibly_enqueue;
-		$localized = array();
 
 		foreach ( $this->assets as $asset ) {
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
@@ -152,15 +158,16 @@ class Tribe__Assets {
 				if ( ! empty( $asset->localize ) ) {
 					if ( is_array( $asset->localize ) ) {
 						foreach ( $asset->localize as $local_asset ) {
-							if ( in_array( $local_asset->name, $localized ) ) {
-								continue;
+							if ( ! in_array( $local_asset->name, $this->localized ) ) {
+								wp_localize_script( $asset->slug, $local_asset->name, $local_asset->data );
+								$this->localized[] = $local_asset->name;
 							}
-							wp_localize_script( $asset->slug, $local_asset->name, $local_asset->data );
-							$localized[] = $local_asset->name;
 						}
 					} else {
-						wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
-						$localized[] = $asset->localize->name;
+						if ( ! in_array( $asset->localize->name, $this->localized ) ) {
+							wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
+							$this->localized[] = $asset->localize->name;
+						}
 					}
 				}
 			} else {
