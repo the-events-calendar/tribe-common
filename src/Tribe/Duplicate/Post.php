@@ -223,7 +223,7 @@ class Tribe__Duplicate__Post {
 
 				$ids = empty( $ids )
 					? $this_ids
-					: array_intersect( (array)$ids, (array)$this_ids );
+					: array_intersect( (array) $ids, (array) $this_ids );
 
 				if ( empty( $ids ) ) {
 					return false;
