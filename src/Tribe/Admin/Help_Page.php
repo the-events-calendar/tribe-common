@@ -34,7 +34,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Checks if the current page is the Help one
 	 *
-	 * @since TBD
+	 * @since 4.5.7
 	 *
 	 * @return bool
 	 */

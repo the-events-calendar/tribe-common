@@ -96,7 +96,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		/**
 		 * Checks if the current page is the app shop
 		 *
-		 * @since TBD
+		 * @since 4.5.7
 		 *
 		 * @return bool
 		 */
