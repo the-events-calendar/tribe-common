@@ -212,6 +212,15 @@ class Tribe__PUE__Notices {
 			return;
 		}
 
+		// Only show our invalid key messaging on the plugin admin screen and on our own admin screens
+		// @todo review and revise in MR 17.13
+		if (
+			'plugins.php' !== $pagenow
+			&& ! Tribe__Admin__Helpers::instance()->is_screen()
+		) {
+			return;
+		}
+
 		$plugin_names = $this->get_formatted_plugin_names( self::INVALID_KEY );
 
 		if ( empty( $plugin_names ) ) {
