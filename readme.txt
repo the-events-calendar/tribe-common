@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.5.7] 2017-06-27 =
+= [4.5.7] 2017-06-28 =
 
 * Fix - Made the App Shop and help pages work on Windows. [77975]
 * Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
