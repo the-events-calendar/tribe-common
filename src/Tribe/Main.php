@@ -219,7 +219,7 @@ class Tribe__Main {
 			),
 			'admin_enqueue_scripts',
 			array(
-				'conditionals' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
+				'conditionals' => array( $this, 'is_post_type_or_plugins_screen' ),
 			)
 		);
 
@@ -318,6 +318,21 @@ class Tribe__Main {
 		} )( document.body );
 		</script>
 		<?php
+	}
+
+	/**
+	 * Tells us if we're on a post type screen or the Plugins page, the two places
+	 * where we need to ensure tribe-common-admin.css is enqueued.
+	 *
+	 * @since 4.5.7
+	 *
+	 * @return bool
+	 */
+	public function is_post_type_or_plugins_screen() {
+
+		$helper = Tribe__Admin__Helpers::instance();
+
+		return $helper->is_post_type_screen() || $helper->is_screen( 'plugins' );
 	}
 
 	/**
