@@ -219,7 +219,7 @@ class Tribe__Main {
 			),
 			'admin_enqueue_scripts',
 			array(
-				'conditionals' => array( $this, 'is_post_type_or_plugins_screen' ),
+				'conditionals' => array( $this, 'should_load_common_admin_css' ),
 			)
 		);
 
@@ -321,18 +321,29 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Tells us if we're on a post type screen or the Plugins page, the two places
-	 * where we need to ensure tribe-common-admin.css is enqueued.
+	 * Tells us if we're on an admin screen that needs the Common admin CSS.
+	 *
+	 * Currently this includes post type screens, the Plugins page, Settings pages
+	 * and tabs, Tribe App Shop page, and the Help screen.
 	 *
 	 * @since 4.5.7
 	 *
 	 * @return bool
 	 */
-	public function is_post_type_or_plugins_screen() {
-
+	public function should_load_common_admin_css() {
 		$helper = Tribe__Admin__Helpers::instance();
 
-		return $helper->is_post_type_screen() || $helper->is_screen( 'plugins' );
+		// Are we on a post type screen?
+		$is_post_type = $helper->is_post_type_screen();
+
+		// Are we on the Plugins page?
+		$is_plugins = $helper->is_screen( 'plugins' );
+
+		// Are we viewing a generic Tribe screen?
+		// Includes: Events > Settings, Events > Help, App Shop page, and more.
+		$is_tribe_screen = $helper->is_screen();
+
+		return $is_post_type || $is_plugins || $is_tribe_screen;
 	}
 
 	/**
