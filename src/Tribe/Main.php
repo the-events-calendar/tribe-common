@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.5.6';
+	const VERSION             = '4.5.7';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -178,7 +178,7 @@ class Tribe__Main {
 	 * Registers resources that can/should be enqueued
 	 */
 	public function load_assets() {
-		// These ones are only registred
+		// These ones are only registered
 		tribe_assets(
 			$this,
 			array(
@@ -202,6 +202,7 @@ class Tribe__Main {
 				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
 				array( 'tribe-jquery-timepicker', 'vendor/jquery-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
 				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-timepicker/jquery.timepicker.css' ),
+
 			)
 		);
 
@@ -218,16 +219,7 @@ class Tribe__Main {
 			),
 			'admin_enqueue_scripts',
 			array(
-				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
-				'localize' => (object) array(
-					'name' => 'tribe_system_info',
-					'data' => array(
-						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
-						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
-						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
-						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
-					),
-				),
+				'conditionals' => array( $this, 'should_load_common_admin_css' ),
 			)
 		);
 
@@ -238,7 +230,18 @@ class Tribe__Main {
 			'tribe-common',
 			'tribe-common.js',
 			array( 'tribe-clipboard' ),
-			'admin_enqueue_scripts'
+			'admin_enqueue_scripts',
+			array(
+				'localize' => (object) array(
+					'name' => 'tribe_system_info',
+					'data' => array(
+						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
+						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
+						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
+						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
+					),
+				),
+			)
 		);
 
 		tribe( 'tribe.asset.data' )->add( 'tribe_l10n_datatables', array(
@@ -315,6 +318,32 @@ class Tribe__Main {
 		} )( document.body );
 		</script>
 		<?php
+	}
+
+	/**
+	 * Tells us if we're on an admin screen that needs the Common admin CSS.
+	 *
+	 * Currently this includes post type screens, the Plugins page, Settings pages
+	 * and tabs, Tribe App Shop page, and the Help screen.
+	 *
+	 * @since 4.5.7
+	 *
+	 * @return bool
+	 */
+	public function should_load_common_admin_css() {
+		$helper = Tribe__Admin__Helpers::instance();
+
+		// Are we on a post type screen?
+		$is_post_type = $helper->is_post_type_screen();
+
+		// Are we on the Plugins page?
+		$is_plugins = $helper->is_screen( 'plugins' );
+
+		// Are we viewing a generic Tribe screen?
+		// Includes: Events > Settings, Events > Help, App Shop page, and more.
+		$is_tribe_screen = $helper->is_screen();
+
+		return $is_post_type || $is_plugins || $is_tribe_screen;
 	}
 
 	/**

@@ -35,6 +35,8 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		public function __construct() {
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 100 );
 			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
+
+			$this->register_assets();
 		}
 
 		/**
@@ -52,8 +54,6 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$where = Tribe__Settings::instance()->get_parent_slug();
 
 			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::MENU_SLUG, array( $this, 'do_menu_page' ) );
-
-			add_action( 'admin_print_styles-' . $this->admin_page, array( $this, 'enqueue' ) );
 		}
 
 		/**
@@ -77,11 +77,40 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		}
 
 		/**
-		 * Enqueue the styles and script
+		 * Registers the plugin assets
 		 */
-		public function enqueue() {
-			wp_enqueue_style( 'app-shop', tribe_resource_url( 'app-shop.css', false, null, Tribe__Main::instance() ), array(), apply_filters( 'tribe_events_css_version', Tribe__Main::VERSION ) );
-			wp_enqueue_script( 'app-shop', tribe_resource_url( 'app-shop.js', false, null, Tribe__Main::instance() ), array(), apply_filters( 'tribe_events_js_version', Tribe__Main::VERSION ) );
+		protected function register_assets() {
+			tribe_assets(
+				Tribe__Main::instance(),
+				array(
+					array( 'tribe-app-shop-css', 'app-shop.css' ),
+					array( 'tribe-app-shop-js', 'app-shop.js', array( 'jquery' ) ),
+				),
+				'admin_enqueue_scripts',
+				array(
+					'conditionals' => array( $this, 'is_current_page' ),
+				)
+			);
+		}
+
+		/**
+		 * Checks if the current page is the app shop
+		 *
+		 * @since 4.5.7
+		 *
+		 * @return bool
+		 */
+		public function is_current_page() {
+			if ( is_null( $this->admin_page ) ) {
+				_doing_it_wrong(
+					__FUNCTION__,
+					'Function was called before it is possible to accurately determine what the current page is.',
+					'4.5.6'
+				);
+				return false;
+			}
+
+			return Tribe__Admin__Helpers::instance()->is_screen( $this->admin_page );
 		}
 
 		/**
