@@ -10,6 +10,7 @@ tribe_auto_sysinfo.ajax = {
 	my.init = function () {
 		this.init_ajax();
 		this.init_copy();
+		my.navigate_to_id();
 	};
 
 	/**
@@ -83,6 +84,109 @@ tribe_auto_sysinfo.ajax = {
 				}
 			} );
 
+	};
+
+	/**
+	 * Sets up listeners and callbacks to handle navigation to page #elements
+	 * gracefully and in a way that doesn't result in the admin toolbar obscuring
+	 * the target.
+	 *
+	 * @since 4.5.6
+	 */
+	my.navigate_to_id = function() {
+		$( document ).ready( my.maybe_navigate_to_id_on_doc_ready );
+		$( document ).on( 'click', '.tribe_events_page_tribe-common', my.maybe_navigate_to_id_after_click );
+	};
+
+	/**
+	 * When the document is ready, check and see if the current location included
+	 * a reference to a specific ID and trigger our offset/scroll position adjustment
+	 * code if so.
+	 *
+	 * @since 4.5.6
+	 */
+	my.maybe_navigate_to_id_on_doc_ready = function() {
+		var target = my.get_url_fragment( window.location.href );
+
+		if ( ! target.length ) {
+			return;
+		}
+
+		my.adjust_scroll_position( target );
+	};
+
+	/**
+	 * If it looks like the user has navigated to a specific anchor within the page
+	 * then trigger our scroll position adjustment.
+	 *
+	 * @since 4.5.6
+	 *
+	 * @param event
+	 */
+	my.maybe_navigate_to_id_after_click = function( event ) {
+		var src_link = $( event.target ).attr( 'href' );
+
+		// If we couldn't determine the URL, bail
+		if ( 'undefined' === typeof src_link ) {
+			return;
+		}
+
+		var target_id = my.get_url_fragment( src_link );
+
+		// No ID/fragment in the URL? Bail
+		if ( ! target_id ) {
+			return;
+		}
+
+		my.adjust_scroll_position( target_id );
+	}
+
+	/**
+	 * Adjust the scroll/viewport offset if necessary to stop the admin toolbar
+	 * from obscuring the target element.
+	 *
+	 * @since 4.5.6
+	 *
+	 * @param {String} id
+	 */
+	my.adjust_scroll_position = function( id ) {
+		// No toolbar, no problem
+		if ( ! $( '#wpadminbar' ).length ) {
+			return;
+		}
+
+		var element_position = $( '#' + id ).position();
+
+		// Bail if the element doesn't actually exist
+		if ( ! element_position ) {
+			return;
+		}
+
+		// A fractional delay is needed to ensure our adjustment sticks
+		setTimeout( function() {
+			window.scroll( window.scrollX, element_position.top );
+		} );
+	};
+
+	/**
+	 * Attempts to extract the "#fragment" string from a URL and returns it
+	 * (will be empty if not set).
+	 *
+	 * @since 4.5.6
+	 *
+	 * @param {String} url
+	 *
+	 * @returns {String}
+	 */
+	my.get_url_fragment = function( url ) {
+		var fragment = url.match( /#([a-z0-9_-]+)$/i )
+
+		if ( null === fragment ) {
+			return '';
+		}
+
+		// Return the first captured group
+		return fragment[ 1 ];
 	};
 
 	$( function () {

@@ -289,8 +289,8 @@ msgstr[0] "Er is een update beschikbaar voor %1$s, maar je licentie is verlopen.
 msgstr[1] "Er zijn updates beschikbaar voor %1$s maar je licentiesleutels zijn verlopen. %2$sBezoek de Events Calendar website om je licenties te vernieuwen.%3$s"
 
 #: src/Tribe/PUE/Notices.php:298
-msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one."
-msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones."
+msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
+msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -311,7 +311,7 @@ msgstr "Blader door alle Add-Ons"
 msgid "Buy This Add-On"
 msgstr "Koop deze Add-On"
 
-#: src/Tribe/Admin/Help_Page.php:208 src/Tribe/Plugins_API.php:215
+#: src/Tribe/Admin/Help_Page.php:219 src/Tribe/Plugins_API.php:215
 msgid "Event Aggregator"
 msgstr "Event Aggregator"
 
@@ -344,63 +344,63 @@ msgstr "(opent in nieuw venster)"
 msgid "An Unknown error occurred"
 msgstr "Een onbekende fout is opgetreden"
 
-#: src/Tribe/Main.php:226 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:239 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr "Kopieer naar klembord"
 
-#: src/Tribe/Main.php:227
+#: src/Tribe/Main.php:240
 msgid "System info copied"
 msgstr "Systeeminformatie gekopieerd"
 
-#: src/Tribe/Main.php:228
+#: src/Tribe/Main.php:241
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Druk op \"Cmd + C\" om te kopiëren"
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:249
 msgid ": activate to sort column ascending"
 msgstr ": activeer om de kolom aflopend te sorteren"
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:250
 msgid ": activate to sort column descending"
 msgstr ": activeer om de kolom oplopend te sorteren"
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:252
 msgid "Show _MENU_ entries"
 msgstr "Toon _MENU_ entries"
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:253
 msgid "No data available in table"
 msgstr "Geen data beschikbaar in tabel"
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:254
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Toont _START_ tot _END_ van _TOTAL_ resultaten"
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:255
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Toont 0 tot 0 van 0 resultaten"
 
-#: src/Tribe/Main.php:253
+#: src/Tribe/Main.php:256
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(gefilterd van _MAX_ totale resultaten)"
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:257
 msgid "No matching records found"
 msgstr "Geen resultaten gevonden"
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:260
 msgid "All"
 msgstr "Alle"
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:262
 msgid "Previous"
 msgstr "Vorige"
 
-#: src/Tribe/Main.php:264
+#: src/Tribe/Main.php:267
 msgid ": Selected %d rows"
 msgstr ": %d rijen geselecteerd"
 
-#: src/Tribe/Main.php:265
+#: src/Tribe/Main.php:268
 msgid ": Selected 1 row"
 msgstr ": 1 rij geselecteerd"
 
@@ -465,7 +465,7 @@ msgstr "The Events Calendar PRO is een betaalde add-on op onze open-source WordP
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr "Het is geweldig dat je kalender <em>DE PLEK</em> is om in contact te komen met uitstekende keuzes om tijd door te brengen. Jabba de Hutt heeft minder vetrollen dan jij evenementen hebt. Wel jammer dat bezoekers een persoonlijke assistent inhuren om door alle keuzes te zoeken. Heb je altijd al de mogelijkheid willen hebben om de kalender te filteren om alleen maar evenementen te zien die op loopafstand zijn, in een weekend plaatsvinden, die gratis zijn? BOOM. Nu kan dat. We introduceren... de Filter Bar."
 
-#: src/Tribe/Admin/Help_Page.php:216 src/Tribe/Plugins_API.php:257
+#: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:257
 msgid "Filter Bar"
 msgstr "Filter Bar"
 
@@ -481,12 +481,12 @@ msgstr "Beoordeel %1$sEvent Tickets%2$s %3$s"
 msgid "Null logger (will log nothing)"
 msgstr "Null logger (zal niets loggen)"
 
-#: src/Tribe/Log/Admin.php:136
+#: src/Tribe/Log/Admin.php:133
 msgctxt "log selector"
 msgid "None currently available"
 msgstr "Geen die momenteel beschikbaar zijn"
 
-#: src/Tribe/Log/Admin.php:151
+#: src/Tribe/Log/Admin.php:148
 msgctxt "log engines"
 msgid "None currently available"
 msgstr "Geen die momenteel beschikbaar zijn"
@@ -647,47 +647,47 @@ msgstr "Ondersteuning krijgen"
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
 msgstr "\"Optimaliseer je evenementoverzichten met %1$sThe Events Calendar%2$s, onze gratis kalenderplug-in. Ben je op zoek naar aanvullende functionaliteiten zoals terugkerende evenementen, evenementen toe laten voegen door gebruikers, geavanceerde ticketverkoop en meer? Kijk dan zeker eens naar onze %3$spremium add-ons%4$s."
 
-#: src/Tribe/Admin/Help_Page.php:233 src/Tribe/Plugins_API.php:275
+#: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:275
 msgid "Community Tickets"
 msgstr "Community Tickets"
 
-#: src/Tribe/Admin/Help_Page.php:767
+#: src/Tribe/Admin/Help_Page.php:778
 msgid "Activate %s"
 msgstr "Activeer %s"
 
-#: src/Tribe/Admin/Help_Page.php:767
+#: src/Tribe/Admin/Help_Page.php:778
 msgid "Activate Plugin"
 msgstr "Activeer plugin"
 
-#: src/Tribe/Admin/Help_Page.php:775
+#: src/Tribe/Admin/Help_Page.php:786
 msgid "Upgrade Plugin"
 msgstr "Plugin upgraden"
 
-#: src/Tribe/Admin/Help_Page.php:791
+#: src/Tribe/Admin/Help_Page.php:802
 msgid "Install %s"
 msgstr "Installeer %s"
 
-#: src/Tribe/Admin/Help_Page.php:791
+#: src/Tribe/Admin/Help_Page.php:802
 msgid "Install Plugin"
 msgstr "Plugin installeren"
 
-#: src/Tribe/Admin/Help_Page.php:814
+#: src/Tribe/Admin/Help_Page.php:825
 msgid "Active Users:"
 msgstr "Actieve gebruikers:"
 
-#: src/Tribe/Admin/Help_Page.php:817
+#: src/Tribe/Admin/Help_Page.php:828
 msgid "Rating:"
 msgstr "Waardering:"
 
-#: src/Tribe/Admin/Help_Page.php:842
+#: src/Tribe/Admin/Help_Page.php:853
 msgid "Plugin Active"
 msgstr "Plugin actief"
 
-#: src/Tribe/Admin/Help_Page.php:844
+#: src/Tribe/Admin/Help_Page.php:855
 msgid "Plugin Inactive"
 msgstr "Plugin inactief"
 
-#: src/Tribe/Admin/Help_Page.php:849
+#: src/Tribe/Admin/Help_Page.php:860
 msgid "Visit the Add-on Page"
 msgstr "Bezoek de pagina met add-ons"
 
@@ -703,35 +703,35 @@ msgstr "%s moet een positief nummer of een percentage zijn."
 msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
 msgstr "Bedankt voor het gebruiken van Event Tickets! Iedereen bij Modern Tribe waardeert je ondersteuning en we zijn erg blij om te zien dat je onze plug-ins gebruikt. Kijk ook eens in onze handige %1$sKickstarter voor nieuwe gebruikers%2$s om van start te gaan."
 
-#: src/Tribe/Admin/Help_Page.php:68
+#: src/Tribe/Admin/Help_Page.php:79
 msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
 msgstr "Events Tickets is een zorgvuldig gemaakte en uitbreidbare plug-in die je in staat stelt om makkelijk tickets te verkopen voor je evenementen."
 
-#: src/Tribe/Admin/Help_Page.php:80
+#: src/Tribe/Admin/Help_Page.php:91
 msgid "Advanced Post Manager"
 msgstr "Advanced Post Manager"
 
-#: src/Tribe/Admin/Help_Page.php:84
+#: src/Tribe/Admin/Help_Page.php:95
 msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
 msgstr "Geef beheer van je pagina's een extra boost met sorteerbare filters en kolommen en automatische registratie van metaboxes."
 
-#: src/Tribe/Admin/Help_Page.php:159
+#: src/Tribe/Admin/Help_Page.php:170
 msgid " and "
 msgstr "en "
 
-#: src/Tribe/Admin/Help_Page.php:192 src/Tribe/Plugins_API.php:285
+#: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:285
 msgid "Eventbrite Tickets"
 msgstr "Eventbrite Tickets"
 
-#: src/Tribe/Admin/Help_Page.php:224 src/Tribe/Plugins_API.php:244
+#: src/Tribe/Admin/Help_Page.php:235 src/Tribe/Plugins_API.php:244
 msgid "Event Tickets Plus"
 msgstr "Event Tickets Plus"
 
-#: src/Tribe/Admin/Help_Page.php:52
+#: src/Tribe/Admin/Help_Page.php:63
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
 msgstr "Events Tickets is een zorgvuldig gemaakte en uitbreidbare plug-in die je in staat stelt om makkelijk je evenementen te delen."
 
-#: src/Tribe/Admin/Help_Page.php:64 src/Tribe/Plugins_API.php:236
+#: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:236
 msgid "Event Tickets"
 msgstr "Event Tickets"
 
@@ -829,7 +829,7 @@ msgstr "Wyoming"
 msgid "Free"
 msgstr "Gratis"
 
-#: src/Tribe/Admin/Help_Page.php:200 src/Tribe/Plugins_API.php:266
+#: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:266
 msgid "Community Events"
 msgstr "Community Events"
 
@@ -894,20 +894,20 @@ msgstr "Vink deze optie aan om debuggegevens te loggen. Dit logt standaard naar 
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar Plugin"
 
-#: src/Tribe/Admin/Help_Page.php:394
+#: src/Tribe/Admin/Help_Page.php:405
 msgctxt "not available"
 msgid "n/a"
 msgstr "niet beschikbaar"
 
-#: src/Tribe/Admin/Help_Page.php:402
+#: src/Tribe/Admin/Help_Page.php:413
 msgid "You need to upgrade!"
 msgstr "Je moet upgraden!"
 
-#: src/Tribe/Admin/Help_Page.php:402 src/Tribe/Admin/Help_Page.php:777
+#: src/Tribe/Admin/Help_Page.php:413 src/Tribe/Admin/Help_Page.php:788
 msgid "You are up to date!"
 msgstr "Je hebt de nieuwste versie!"
 
-#: src/Tribe/Admin/Help_Page.php:183 src/Tribe/Plugins_API.php:223
+#: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:223
 msgid "Events Calendar PRO"
 msgstr "Events Calendar PRO"
 
@@ -999,7 +999,7 @@ msgstr "Iowa"
 msgid "Kansas"
 msgstr "Kansas"
 
-#: src/Tribe/Admin/Help_Page.php:808
+#: src/Tribe/Admin/Help_Page.php:819
 msgid "Latest Version:"
 msgstr "Laatste versie:"
 
@@ -1015,7 +1015,7 @@ msgstr "Louisiana"
 msgid "Maine"
 msgstr "Maine"
 
-#: src/Tribe/Admin/Help_Page.php:811 src/admin-views/app-shop.php:78
+#: src/Tribe/Admin/Help_Page.php:822 src/admin-views/app-shop.php:78
 msgid "Requires:"
 msgstr "Benodigd:"
 
@@ -1023,7 +1023,7 @@ msgstr "Benodigd:"
 msgid "Maryland"
 msgstr "Maryland"
 
-#: src/Tribe/Admin/Help_Page.php:812
+#: src/Tribe/Admin/Help_Page.php:823
 msgid "WordPress "
 msgstr "Wordpress "
 
@@ -1047,7 +1047,7 @@ msgstr "Mississippi"
 msgid "Missouri"
 msgstr "Missouri"
 
-#: src/Tribe/Admin/Help_Page.php:836
+#: src/Tribe/Admin/Help_Page.php:847
 msgid "Premium Add-Ons"
 msgstr "Premium Add-Ons"
 
@@ -1143,7 +1143,7 @@ msgstr "Bolivia"
 msgid "Bosnia And Herzegowina"
 msgstr "Bosnië en Herzegovina"
 
-#: src/Tribe/App_Shop.php:48 src/Tribe/App_Shop.php:49
+#: src/Tribe/App_Shop.php:50 src/Tribe/App_Shop.php:51
 #: src/Tribe/App_Shop.php:72
 msgid "Event Add-Ons"
 msgstr "Event Add-Ons"
@@ -1413,7 +1413,7 @@ msgstr "Griekenland"
 msgid "Greenland"
 msgstr "Groenland"
 
-#: src/Tribe/Admin/Help_Page.php:48 src/Tribe/Customizer.php:565
+#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:565
 #: src/Tribe/Plugins_API.php:207
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
@@ -1655,7 +1655,7 @@ msgstr "Micronesia"
 msgid "Moldova, Republic Of"
 msgstr "Moldavië"
 
-#: src/Tribe/Main.php:258 src/Tribe/Main.php:274
+#: src/Tribe/Main.php:261 src/Tribe/Main.php:277
 msgid "Next"
 msgstr "Volgende"
 
@@ -1663,7 +1663,7 @@ msgstr "Volgende"
 msgid "Monaco"
 msgstr "Monaco"
 
-#: src/Tribe/Main.php:275
+#: src/Tribe/Main.php:278
 msgid "Prev"
 msgstr "Vorige"
 
@@ -1671,7 +1671,7 @@ msgstr "Vorige"
 msgid "Mongolia"
 msgstr "Mongolië"
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:279
 msgid "Today"
 msgstr "Vandaag"
 
@@ -1679,7 +1679,7 @@ msgstr "Vandaag"
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:280
 msgid "Done"
 msgstr "Gereed"
 
@@ -1771,7 +1771,7 @@ msgstr "Oman"
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:258
 msgid "Search:"
 msgstr "Zoeken:"
 
