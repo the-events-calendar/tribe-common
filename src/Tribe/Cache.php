@@ -163,17 +163,13 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * Whether a offset exists
+	 * Whether an offset exists
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
-	 * @param mixed $offset <p>
-	 *                      An offset to check for.
-	 *                      </p>
+	 * @param mixed $offset An offset to check for.
 	 * @return boolean true on success or false on failure.
-	 *                      </p>
-	 *                      <p>
 	 *                      The return value will be casted to boolean if non-boolean was returned.
-	 * @since 5.0.0
+	 * @since TBD
 	 */
 	public function offsetExists( $offset ) {
 		return in_array( $offset, $this->non_persistent_keys );
@@ -183,11 +179,10 @@ class Tribe__Cache implements ArrayAccess {
 	 * Offset to retrieve
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-	 * @param mixed $offset <p>
-	 *                      The offset to retrieve.
-	 *                      </p>
+	 * @param mixed $offset The offset to retrieve.
 	 * @return mixed Can return all value types.
-	 * @since 5.0.0
+	 *
+	 * @since TBD
 	 */
 	public function offsetGet( $offset ) {
 		return $this->get( $offset );
@@ -197,14 +192,12 @@ class Tribe__Cache implements ArrayAccess {
 	 * Offset to set
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetset.php
-	 * @param mixed $offset <p>
-	 *                      The offset to assign the value to.
-	 *                      </p>
-	 * @param mixed $value  <p>
-	 *                      The value to set.
-	 *                      </p>
+	 * @param mixed $offset The offset to assign the value to.
+	 * @param mixed $value  The value to set.
+	 *
 	 * @return void
-	 * @since 5.0.0
+	 *
+	 * @since TBD
 	 */
 	public function offsetSet( $offset, $value ) {
 		$this->set( $offset, $value, self::NON_PERSISTENT );
@@ -214,11 +207,11 @@ class Tribe__Cache implements ArrayAccess {
 	 * Offset to unset
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
-	 * @param mixed $offset <p>
-	 *                      The offset to unset.
-	 *                      </p>
+	 * @param mixed $offset The offset to unset.
+	 *
 	 * @return void
-	 * @since 5.0.0
+	 *
+	 * @since TBD
 	 */
 	public function offsetUnset( $offset ) {
 		$this->delete( $offset );
