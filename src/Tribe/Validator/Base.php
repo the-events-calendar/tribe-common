@@ -68,6 +68,9 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 * @return string
 	 */
 	public function trim( $value ) {
+		if ( ! is_string( $value ) ) {
+			return $value;
+		}
 		return trim( $value );
 	}
 }
