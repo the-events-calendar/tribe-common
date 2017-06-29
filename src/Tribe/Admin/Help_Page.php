@@ -32,6 +32,17 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
+	 * Checks if the current page is the Help one
+	 *
+	 * @since 4.5.7
+	 *
+	 * @return bool
+	 */
+	public function is_current_page() {
+		return Tribe__Admin__Helpers::instance()->is_screen( 'tribe_events_page_tribe-help' );
+	}
+
+	/**
 	 * Get the list of plugins
 	 *
 	 * @since  4.0

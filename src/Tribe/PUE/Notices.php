@@ -212,6 +212,15 @@ class Tribe__PUE__Notices {
 			return;
 		}
 
+		// Only show our invalid key messaging on the plugin admin screen and on our own admin screens
+		// @todo review and revise in MR 17.13
+		if (
+			'plugins.php' !== $pagenow
+			&& ! Tribe__Admin__Helpers::instance()->is_screen()
+		) {
+			return;
+		}
+
 		$plugin_names = $this->get_formatted_plugin_names( self::INVALID_KEY );
 
 		if ( empty( $plugin_names ) ) {
@@ -296,8 +305,8 @@ class Tribe__PUE__Notices {
 		}
 
 		$prompt = sprintf( _n(
-				'You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one.',
-				'You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones.', count( $this->notices[ self::UPGRADE_KEY ] ),
+				'You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one.',
+				'You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones.', count( $this->notices[ self::UPGRADE_KEY ] ),
 				'tribe-common'
 			),
 			$plugin_names,
