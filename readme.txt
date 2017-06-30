@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.5.8] TBD =
+
+* ...
+
 = [4.5.7] 2017-06-28 =
 
 * Fix - Made the App Shop and help pages work on Windows. [77975]
