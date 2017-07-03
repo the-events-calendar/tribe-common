@@ -4,7 +4,7 @@
 
 = [4.5.8] TBD =
 
-* ...
+* Tweak - Add helper to retrieve anonymous objects using the class name, hook and callback priority [74938]
 
 = [4.5.7] 2017-06-28 =
 
