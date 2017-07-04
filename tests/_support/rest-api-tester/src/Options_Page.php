@@ -48,12 +48,18 @@ class Tribe__RAP__Options_Page {
 
 		ksort( $endpoints );
 
+		$priority = 0;
 		foreach ( $endpoints as $path => $endpoint ) {
 			$tabbed_view = new Tribe__RAP__Tabs__Endpoint( $tabs, sanitize_title( $path ) );
 			$tabbed_view->set_label( esc_html( $path ) );
 			$tabbed_view->set_endpoint( $endpoint );
+			$tabbed_view->set_priority( $priority );
 			$tabs->register( $tabbed_view );
+			$priority += 1;
 		}
+
+		echo '<h1>TEC REST API testing tool</h1>';
+		echo '<p>Make requests and see stuff happen!</p>';
 
 		echo $tabs->render();
 
