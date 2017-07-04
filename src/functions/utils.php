@@ -282,8 +282,11 @@ if ( ! function_exists( 'tribe_retrieve_object_by_hook' ) ) {
 	function tribe_retrieve_object_by_hook( $class_name, $hook, $priority ) {
 		global $wp_filter;
 
-		// Not such hook/no callbacks registered for this hook?
-		if ( ! isset( $wp_filter[ $hook ] ) ) {
+		// No callbacks registered for this hook and priority?
+		if (
+			! isset( $wp_filter[ $hook ] )
+			|| ! isset( $wp_filter[ $hook ][ $priority ] )
+		) {
 			return false;
 		}
 
@@ -292,17 +295,17 @@ if ( ! function_exists( 'tribe_retrieve_object_by_hook' ) ) {
 			// Skip if this callback isn't an object method
 			if (
 				! is_array( $callback['function'] )
-				|| ! is_object( $callback['function'][ 0 ] )
+				|| ! is_object( $callback['function'][0] )
 			) {
 				continue;
 			}
 
 			// If this isn't the callback we're looking for let's skip ahead
-			if ( $class_name !== get_class( $callback['function'][ 0 ] ) ) {
+			if ( $class_name !== get_class( $callback['function'][0] ) ) {
 				continue;
 			}
 
-			return $callback['function'][ 0 ];
+			return $callback['function'][0];
 		}
 
 		return false;
