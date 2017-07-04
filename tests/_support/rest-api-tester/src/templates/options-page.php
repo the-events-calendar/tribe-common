@@ -25,7 +25,7 @@
 
 	<h3>Request</h3>
 	<div class="request">
-		<div>
+		<div class="margin">
 			<label for="trap-request-method">Method:</label>
 			<select name="trap-request-method" id="trap-request-method">
 				<option value="get">GET</option>
@@ -37,7 +37,7 @@
 			</select>
 		</div>
 
-		<div>
+		<div class="margin">
 			<label for="trap-user-id">User:</label>
 			<select name="trap-user-id" id="trap-user-id">
 				<option value="0">Visitor (not logged-in)</option>
@@ -59,7 +59,7 @@
 						<h3><?php echo strtoupper( $method ); ?> Request parameters</h3>
 
 						<?php foreach ( $data['parameters'] as $parameter ) : ?>
-							<div class="method-parameter">
+							<div class="method-parameter margin">
 								<?php
 								$required = true === ! empty( $parameter['required'] ) ? 'required' : '';
 								$default  = ! empty( $parameter['default'] ) ? $parameter['default'] : '';
@@ -85,16 +85,17 @@
 	</div>
 
 	<div>
-		<button id="trap-request" class="button-primary">
+		<button id="trap-request" class="button-primary margin">
 			Request
 		</button>
 	</div>
 
-	<h3>Documentation</h3>
-	<div class="documentation">
-		<?php var_dump( $documentation ); ?>
-	</div>
-
-	<br>
+	<?php if ( ! $is_documentation ) : ?>
+		<h3>Documentation</h3>
+		<div id="trap-documentation-json" class="hidden">
+			<?php echo $documentation_json; ?>
+		</div>
+		<div id="trap-documentation"></div>
+	<?php endif; ?>
 </div>
 

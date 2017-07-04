@@ -15,7 +15,11 @@
     display: none;
 }
 
-#trap-wrap #trap-response {
+#trap-wrap .margin{
+    margin-bottom: 1em;
+}
+
+#trap-response, #trap-documentation {
     background-color: #303030;
     font-size: 120%;
 }

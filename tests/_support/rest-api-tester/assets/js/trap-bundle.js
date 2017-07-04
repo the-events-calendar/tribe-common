@@ -1,7 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function ($, undefined) {
     var renderjson = require('renderjson');
-    renderjson.set_show_to_level(3);
     var setRequestResponse = function (data, status, response) {
         var json = data.responseJSON || data;
         var status = data.status || response.status || 200;
@@ -30,6 +29,7 @@
         $button.text(Trap.button_loading_response_text);
     };
     var formatResponseJson = function () {
+        renderjson.set_show_to_level(3);
         var json = $('#trap-json').text().trim();
         var $response = $('#trap-response');
         if (!json) {
@@ -37,6 +37,16 @@
             return;
         }
         document.getElementById('trap-response').appendChild(renderjson(JSON.parse(json)));
+    };
+    var formatDocumentationJson = function () {
+        renderjson.set_show_to_level(5);
+        var json = $('#trap-documentation-json').text().trim();
+        var $doc = $('#trap-documentation');
+        if (!json) {
+            $doc.empty();
+            return;
+        }
+        document.getElementById('trap-documentation').appendChild(renderjson(JSON.parse(json)));
     };
     var showMethodParameters = function (evt) {
         var method = '';
@@ -126,6 +136,7 @@
     };
     $(document).ready(function () {
         formatResponseJson();
+        formatDocumentationJson();
         showMethodParameters();
         $('#trap-request-method').on('change', showMethodParameters);
         generateUserNonce();

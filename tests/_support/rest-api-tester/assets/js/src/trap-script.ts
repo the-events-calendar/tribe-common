@@ -1,7 +1,6 @@
 (
 	function ( $, undefined ) {
 		var renderjson = require( 'renderjson' );
-		renderjson.set_show_to_level( 3 );
 
 		var setRequestResponse = function ( data, status, response ) {
 			var json = data.responseJSON || data;
@@ -36,6 +35,7 @@
 		};
 
 		var formatResponseJson = function () {
+			renderjson.set_show_to_level( 3 );
 			var json = $( '#trap-json' ).text().trim();
 			var $response = $( '#trap-response' );
 
@@ -45,6 +45,19 @@
 			}
 
 			document.getElementById( 'trap-response' ).appendChild( renderjson( JSON.parse( json ) ) );
+		};
+
+		var formatDocumentationJson = function(){
+			renderjson.set_show_to_level( 5 );
+			var json = $( '#trap-documentation-json' ).text().trim();
+			var $doc = $( '#trap-documentation' );
+
+			if ( ! json ) {
+				$doc.empty();
+				return;
+			}
+
+			document.getElementById( 'trap-documentation' ).appendChild( renderjson( JSON.parse( json ) ) );
 		};
 
 		var showMethodParameters = function ( evt?: Event ) {
@@ -156,6 +169,7 @@
 
 		$( document ).ready( function () {
 			formatResponseJson();
+			formatDocumentationJson();
 			showMethodParameters();
 			$( '#trap-request-method' ).on( 'change', showMethodParameters );
 			generateUserNonce();

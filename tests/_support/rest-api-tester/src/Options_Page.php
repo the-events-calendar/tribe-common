@@ -73,7 +73,8 @@ class Tribe__RAP__Options_Page {
 			? json_encode( $current_endpoint->get_documentation() )
 			: '';
 
-		$documentation = $current_endpoint->get_documentation();
+		$documentation      = $current_endpoint->get_documentation();
+		$documentation_json = json_encode( $documentation );
 
 		/** @noinspection PhpIncludeInspection */
 		include tribe()->getVar( 'trap.templates' ) . '/options-page.php';
