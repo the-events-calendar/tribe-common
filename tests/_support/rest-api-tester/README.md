@@ -1,4 +1,4 @@
-#The Events Calendar REST API test plugin.
+# The Events Calendar REST API test plugin.
 
 ## Installation
 1. Copy the plugin from its current location (`the-events-calendar/common/tests/_support`) to the WordPress plugins folder.  
@@ -38,3 +38,7 @@ Same infrastructure, different APIs with similar behaviours.
 
 ## Good readings
 The [REST API handbook](https://developer.wordpress.org/rest-api/) is a good starting point.  
+
+## Development requirements
+You will need [Browserify](https://developer.wordpress.org/rest-api/) and [Typescript](https://www.typescriptlang.org/) to work and recompile the JS code.
+
