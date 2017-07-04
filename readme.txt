@@ -4,7 +4,7 @@
 
 = [4.5.8] TBD =
 
-* ...
+* Fix - Fixes to the plugin upgrade notice parser including support for environments where the data stream wrapper is unavailable [69486]
 
 = [4.5.7] 2017-06-28 =
 
