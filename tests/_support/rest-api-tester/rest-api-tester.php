@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: TEC REST API Tester
+Plugin Name: The Events Calendar REST API Tester
 Plugin URI: https://theeventscalendar.com/
 Description: Test The Events Calendar REST API with a fancy UI
 Version: 0.1.0
@@ -12,8 +12,19 @@ include 'src/autoload.php';
 // after TEC
 add_action( 'plugins_loaded', 'trap_init', 99 );
 
+function trap_notice() {
+	?>
+	<div class="error notice">
+		<p><b>The Events Calendar plugin is not activated!</b></p>
+		<p>The Events Calendar REST API Tester plugin will not work until The Events Calendar is not activated.</p>
+	</div>
+	<?php
+}
+
 function trap_init() {
 	if ( ! class_exists( 'Tribe__Events__REST__V1__Main' ) ) {
+		add_action( 'admin_notices', 'trap_notice' );
+
 		return;
 	}
 
