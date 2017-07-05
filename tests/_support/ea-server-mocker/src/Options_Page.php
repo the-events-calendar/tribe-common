@@ -40,12 +40,15 @@ class Tribe__Events__Aggregator_Mocker__Options_Page {
         <div class="wrap">
             <h1>Event Aggregator Server Mocker Settings</h1>
 
-            <p>This tool <strong>will not</strong> delete existing transients and options: that's on purpose to allow you to set up complex fixtures.
+            <p>This tool <strong>will not</strong> delete existing transients and options: that's on purpose to allow
+                you to set up complex fixtures.
             </p>
-            <p>If you do not know what you are doing (exactly) but want to experiment: if things go downhill deactivate and re-activate the plugin to
+            <p>If you do not know what you are doing (exactly) but want to experiment: if things go downhill deactivate
+                and re-activate the plugin to
                 clear all its data.</p>
             <p>Just in case: deactivating the plugin <strong>will wipe all its data.</strong></p>
-            <p>Want to make this even more awesome? Learn to use <a href="http://www.openvim.com/" target="_blank">vim</a> and then install <a
+            <p>Want to make this even more awesome? Learn to use <a href="http://www.openvim.com/"
+                                                                    target="_blank">vim</a> and then install <a
                         href="http://appsweets.net/wasavi/" target="_blank">wasavi</a>.</p>
 
             <form method="post" action="options.php" id="ea-mocker">
