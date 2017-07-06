@@ -57,7 +57,7 @@
 						return ! $.isNumeric( val );
 					},
 					'is_checked': function ( _, __, $field ) {
-						return $field.is( ':checkbox' ) ? $field.is( ':checked' ) : false;
+						return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? $field.is( ':checked' ) : false;
 					}
 				};
 
