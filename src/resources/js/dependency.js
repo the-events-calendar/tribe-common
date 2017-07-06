@@ -6,7 +6,8 @@
 			active: '.tribe-active',
 			dependency: '.tribe-dependency',
 			fields: 'input, select, textarea',
-			advanced_fields: '.select2-container'
+			advanced_fields: '.select2-container',
+			linked: '.tribe-dependent-linked'
 		};
 
 	// Setup a Dependent
@@ -39,16 +40,11 @@
 				 * @since TBD
 				 */
 				if ( $field.is( ':radio' ) ) {
-					var $radios = $( "[name='" + $field.attr('name') + "']");
+					var $radios = $( "[name='" + $field.attr( 'name' ) + "']" );
 
-					$radios.each( function() {
-							if( ! $(this).data( 'dependent-linked' ) ) {
-								$(this).data( 'dependent-linked', 1 );
-								$(this).on( 'change', function() {
-									$radios.trigger( 'verify.dependency' );
-								});
-							}
-					} );
+			    $radios.not( selectors.linked ).on( 'change', function() {
+			        $radios.trigger( 'verify.dependency' );
+			    } ).addClass( selectors.linked.replace( '.', '' ) );
 				}
 
 				// Fetch dependent elements
