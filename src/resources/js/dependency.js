@@ -32,6 +32,25 @@
 					return;
 				}
 
+				/**
+				 * If we're hooking to a radio, we need to make sure changing
+				 * any similarly _named_ ones trigger verify on all of them.
+				 * The base code only triggers on direct interations.
+				 * @since TBD
+				 */
+				if ( $field.is( ':radio' ) ) {
+					var $radios = $( "[name='" + $field.attr('name') + "']");
+
+					$radios.each( function() {
+							if( ! $(this).data( 'dependent-linked' ) ) {
+								$(this).data( 'dependent-linked', 1 );
+								$(this).on( 'change', function() {
+									$radios.trigger( 'verify.dependency' );
+								});
+							}
+					} );
+				}
+
 				// Fetch dependent elements
 				var $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '.select2-container' );
 
@@ -57,7 +76,7 @@
 						return ! $.isNumeric( val );
 					},
 					'is_checked': function ( _, __, $field ) {
-						return $field.is( ':checkbox' ) ? $field.is( ':checked' ) : false;
+						return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? $field.prop( 'checked' ) : false;
 					}
 				};
 
