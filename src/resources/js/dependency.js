@@ -32,6 +32,20 @@
 					return;
 				}
 
+				/**
+				 * If we're hooking to a radio, we need to amke sure changing
+				 * any similarly named ones triggers verify on all of them
+				 * @since TBD
+				 */
+				if ( $field.is( ':radio' ) ) {
+					var $radios = $( "[name='" + $field.attr('name') + "']").not( $field );
+					$radios.each( function() {
+							$(this).on( 'change', function() {
+								$radios.trigger( 'verify.dependency' );
+							});
+					} );
+				}
+
 				// Fetch dependent elements
 				var $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '.select2-container' );
 
@@ -57,7 +71,7 @@
 						return ! $.isNumeric( val );
 					},
 					'is_checked': function ( _, __, $field ) {
-						return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? $field.is( ':checked' ) : false;
+						return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? $field.prop( 'checked' ) : false;
 					}
 				};
 
@@ -112,6 +126,18 @@
 							// ideally the class should be enough, but just in case...
 							if ( $dependent.is( ':hidden' ) ) {
 								$dependent.show();
+							}
+
+							/**
+							 * If we're hooking to a radio, we need to make sure changing
+							 * any similarly named ones triggers verify on all of them
+							 * @since TBD
+							 */
+							if ( $field.is( ':radio' ) ) {
+								var $radios = $( "[name='" + $field.attr('name') + "']").not( $field );
+								$radios.each( function() {
+											$radios.trigger( 'verify.dependency' );
+								} );
 							}
 						}
 
