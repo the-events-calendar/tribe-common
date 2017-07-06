@@ -33,16 +33,21 @@
 				}
 
 				/**
-				 * If we're hooking to a radio, we need to amke sure changing
-				 * any similarly named ones triggers verify on all of them
+				 * If we're hooking to a radio, we need to make sure changing
+				 * any similarly _named_ ones trigger verify on all of them.
+				 * The base code only triggers on direct interations.
 				 * @since TBD
 				 */
 				if ( $field.is( ':radio' ) ) {
-					var $radios = $( "[name='" + $field.attr('name') + "']").not( $field );
+					var $radios = $( "[name='" + $field.attr('name') + "']");
+
 					$radios.each( function() {
-							$(this).on( 'change', function() {
-								$radios.trigger( 'verify.dependency' );
-							});
+							if( ! $(this).data( 'dependent-linked' ) ) {
+								$(this).data( 'dependent-linked', 1 );
+								$(this).on( 'change', function() {
+									$radios.trigger( 'verify.dependency' );
+								});
+							}
 					} );
 				}
 
@@ -126,18 +131,6 @@
 							// ideally the class should be enough, but just in case...
 							if ( $dependent.is( ':hidden' ) ) {
 								$dependent.show();
-							}
-
-							/**
-							 * If we're hooking to a radio, we need to make sure changing
-							 * any similarly named ones triggers verify on all of them
-							 * @since TBD
-							 */
-							if ( $field.is( ':radio' ) ) {
-								var $radios = $( "[name='" + $field.attr('name') + "']").not( $field );
-								$radios.each( function() {
-											$radios.trigger( 'verify.dependency' );
-								} );
 							}
 						}
 
