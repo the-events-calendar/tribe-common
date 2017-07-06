@@ -8,7 +8,6 @@
 
 #trap-wrap .medium-height {
     height: 30em;
-    overflow: scroll;
 }
 
 #trap-wrap .hidden {
@@ -22,6 +21,8 @@
 #trap-response, #trap-documentation {
     background-color: #303030;
     font-size: 120%;
+    overflow: scroll;
+    resize: both;
 }
 
 #trap-response .response-header {
