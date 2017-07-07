@@ -8,6 +8,7 @@
 * Fix - Ensure the multichoice settings configured to allow no selection work as expected [73183]
 * Fix - Enqueue expired notice and CSS on every admin page [81714]
 * Tweak - Add helper to retrieve anonymous objects using the class name, hook and callback priority [74938]
+* Tweak - Allow dependency.js to handle radio buttons. ensure that they are linked correctly. [82510]
 * Fix - Allow passing multiple localize-scripts to tribe-assets. Don't output a localized scrip more than once. [81644]
 
 = [4.5.7] 2017-06-28 =
