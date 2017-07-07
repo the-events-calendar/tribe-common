@@ -42,9 +42,9 @@
 				if ( $field.is( ':radio' ) ) {
 					var $radios = $( "[name='" + $field.attr( 'name' ) + "']" );
 
-			    $radios.not( selectors.linked ).on( 'change', function() {
-			        $radios.trigger( 'verify.dependency' );
-			    } ).addClass( selectors.linked.replace( '.', '' ) );
+					$radios.not( selectors.linked ).on( 'change', function() {
+							$radios.trigger( 'verify.dependency' );
+					} ).addClass( selectors.linked.replace( '.', '' ) );
 				}
 
 				// Fetch dependent elements
