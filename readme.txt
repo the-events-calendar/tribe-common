@@ -6,6 +6,7 @@
 
 * Fix - Fixes to the plugin upgrade notice parser including support for environments where the data stream wrapper is unavailable [69486]
 * Fix - Ensure the multichoice settings configured to allow no selection work as expected [73183]
+* Fix - Enqueue expired notice and CSS on every admin page [81714]
 * Tweak - Add helper to retrieve anonymous objects using the class name, hook and callback priority [74938]
 
 = [4.5.7] 2017-06-28 =
