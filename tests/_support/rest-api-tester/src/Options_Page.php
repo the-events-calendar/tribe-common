@@ -81,6 +81,11 @@ class Tribe__RAP__Options_Page {
 
 		$documentation      = $current_endpoint->get_documentation();
 		$documentation_json = json_encode( $documentation );
+		$methods_map = array(
+			'get'    => explode( ', ', WP_REST_Server::READABLE ),
+			'post'   => explode( ', ', WP_REST_Server::EDITABLE ),
+			'delete' => explode( ', ', WP_REST_Server::DELETABLE ),
+		);
 
 		/** @noinspection PhpIncludeInspection */
 		include tribe()->getVar( 'trap.templates' ) . '/options-page.php';

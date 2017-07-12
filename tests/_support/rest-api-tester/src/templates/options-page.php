@@ -3,9 +3,11 @@
  * @var string $json
  * @var array $users
  * @var bool $is_documentation
- * @var string $documentation
+ * @var array $documentation
  * @var string $current_path
  * @var string $current_url
+ * @var array $methods_map
+ * @var string $documentation_json
  */
 ?>
 <div id="trap-wrap">
@@ -52,32 +54,39 @@
 
 		<?php if ( ! $is_documentation ) : ?>
 			<div>
-				<?php foreach ( $documentation as $method => $data ) : ?>
-					<?php $method = strtolower( $method ); ?>
-					<fieldgroup class="method-parameters" id="<?php echo $method; ?>-method-parameters">
+				<?php foreach ( $documentation as $parent_method => $data ) : ?>
+					<?php
+					$parent_method = strtolower( $parent_method );
+					$methods       = $methods_map[ $parent_method ];
+					?>
+					<?php foreach ( $methods as $method ) : ?>
+						<?php $method = strtolower( $method ); ?>
+						<fieldgroup class="method-parameters" id="<?php echo $method; ?>-method-parameters">
 
-						<h3><?php echo strtoupper( $method ); ?> Request parameters</h3>
+							<h3><?php echo strtoupper( $method ); ?> Request parameters</h3>
 
-						<?php foreach ( $data['parameters'] as $parameter ) : ?>
-							<div class="method-parameter margin">
-								<?php
-								$required = true === ! empty( $parameter['required'] ) ? 'required' : '';
-								$default  = ! empty( $parameter['default'] ) ? $parameter['default'] : '';
-								$name     = "{$method}-{$parameter['name']}";
-								$in       = ! empty( $parameter['in'] ) ? $parameter['in'] : 'query';
-								?>
-								<label for="<?php echo $name; ?>"><?php echo $parameter['description']; ?></label>
-								<input
+							<?php foreach ( $data['parameters'] as $parameter ) : ?>
+								<div class="method-parameter margin">
+									<?php
+									$required = true === ! empty( $parameter['required'] ) ? 'required' : '';
+									$default  = ! empty( $parameter['default'] ) ? $parameter['default'] : '';
+									$name     = "{$method}-{$parameter['name']}";
+									$in       = ! empty( $parameter['in'] ) ? $parameter['in'] : 'query';
+									?>
+									<label
+										for="<?php echo $name; ?>"><?php echo $parameter['description']; ?></label>
+									<input
 										type="text"
 										name="<?php echo $name; ?>"
 										id="<?php echo $name; ?>" <?php echo $required; ?>
 										value="<?php echo $default; ?>"
 										data-name="<?php echo $parameter['name']; ?>"
 										data-in="<?php echo $in; ?>"
-								>
-							</div>
-						<?php endforeach; ?>
-					</fieldgroup>
+									>
+								</div>
+							<?php endforeach; ?>
+						</fieldgroup>
+					<?php endforeach; ?>
 				<?php endforeach; ?>
 			</div>
 		<?php endif; ?>
