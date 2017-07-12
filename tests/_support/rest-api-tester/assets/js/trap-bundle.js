@@ -120,6 +120,8 @@
             }
             queryArgs[name] = value;
         });
+        // remove any remaining placeholders
+        url = url.replace(new RegExp('\{.*\}', 'g'), '');
         var args = {
             url: url,
             method: method,
