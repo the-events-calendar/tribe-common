@@ -122,17 +122,22 @@
         });
         // remove any remaining placeholders
         url = url.replace(new RegExp('\{.*\}', 'g'), '');
+        method = method.toUpperCase();
         var args = {
             url: url,
             method: method,
+            type: method,
             beforeSend: null,
             data: queryArgs,
         };
-        if (nonce) {
-            args.beforeSend = function (xhr) {
-                xhr.setRequestHeader('X-WP-Nonce', nonce);
-            };
-        }
+
+		args.beforeSend = function (xhr) {
+			xhr.setRequestHeader( 'X-TEC-REST-API-User', user );
+			if ( nonce ) {
+				xhr.setRequestHeader( 'X-WP-Nonce', nonce );
+			}
+		};
+
         startLoadingResponse();
         $.ajax(args).always(stopLoading).done(setRequestResponse).fail(setRequestResponse);
     };

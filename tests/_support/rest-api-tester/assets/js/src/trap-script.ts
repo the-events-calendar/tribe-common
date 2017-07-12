@@ -151,10 +151,12 @@
 
 			// remove any remaining placeholders
 			url = url.replace( new RegExp( '\{.*\}', 'g' ), '' );
+			method = method.toUpperCase();
 
 			var args = {
 				url: url,
 				method: method,
+				type: method,
 				beforeSend: null,
 				data: queryArgs,
 			};

@@ -39,8 +39,8 @@ class Tribe__RAP__Endpoints__Nonce
 	}
 
 	public function set_current_user( $user_id ) {
-		if ( isset( $_REQUEST['user'] ) && filter_var( $_REQUEST['user'], FILTER_VALIDATE_INT ) ) {
-			return intval( $_REQUEST['user'] );
+		if ( isset( $_SERVER['HTTP_X_TEC_REST_API_USER'] ) && filter_var( $_SERVER['HTTP_X_TEC_REST_API_USER'], FILTER_VALIDATE_INT ) ) {
+			return (int) $_SERVER['HTTP_X_TEC_REST_API_USER'];
 		}
 
 		return $user_id;
