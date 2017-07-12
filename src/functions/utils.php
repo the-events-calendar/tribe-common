@@ -271,7 +271,7 @@ if ( ! function_exists( 'tribe_retrieve_object_by_hook' ) ) {
 	 * This is useful when third party code registers callbacks that belong to anonymous
 	 * objects and it isn't possible to obtain the reference any other way.
 	 *
-	 * @since TBD
+	 * @since 4.5.8
 	 *
 	 * @param string   $class_name
 	 * @param string   $hook

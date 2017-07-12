@@ -37,7 +37,8 @@
 				 * If we're hooking to a radio, we need to make sure changing
 				 * any similarly _named_ ones trigger verify on all of them.
 				 * The base code only triggers on direct interations.
-				 * @since TBD
+				 *
+				 * @since 4.5.8
 				 */
 				if ( $field.is( ':radio' ) ) {
 					var $radios = $( "[name='" + $field.attr( 'name' ) + "']" );
