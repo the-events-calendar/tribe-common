@@ -33,7 +33,30 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 * @return bool
 	 */
 	public function is_time( $value ) {
-		return is_numeric( $value ) || ( is_string( $value ) && strtotime( $value ) );
+		// If it is time we just know it's time
+		if ( is_numeric( $value ) ) {
+			return true;
+		}
+
+		if ( is_string( $value ) ) {
+			// First we just try the value
+			if ( strtotime( $value ) ) {
+				return true;
+			}
+
+			// Fetch the DatePicker Format
+			$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
+			// Format based on Datepicker from DB
+			$time = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $value );
+
+			// Check the time returned from
+			if ( strtotime( $time ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

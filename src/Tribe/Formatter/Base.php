@@ -327,9 +327,10 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	 * @return bool
 	 */
 	protected function contains_required_keys( array $format_map ) {
-		$serialized = serialize( $format_map );
+		// Use JSON encode because Serialization might contain Object private/protected props
+		$json = json_encode( $format_map );
 
-		return false !== strpos( $serialized, 's:8:"required";b:1;' );
+		return false !== strpos( $json, '"required":true' );
 	}
 
 	/**
