@@ -43,6 +43,11 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				'm-d-Y',
 				'j-n-Y',
 				'd-m-Y',
+				'Y.m.d',
+				'n.j.Y',
+				'm.d.Y',
+				'j.n.Y',
+				'd.m.Y',
 			);
 
 			if ( is_null( $translate ) ) {
