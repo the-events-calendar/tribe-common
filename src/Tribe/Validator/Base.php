@@ -33,17 +33,23 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 * @return bool
 	 */
 	public function is_time( $value ) {
+		return is_numeric( $value ) || ( is_string( $value ) && strtotime( $value ) );
+	}
+
+	/**
+	 * Whether the value is a datepicker string parseable by the strtotime function
+	 *
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
+	public function is_datepicker_time( $value ) {
 		// If it is time we just know it's time
-		if ( is_numeric( $value ) ) {
+		if ( $this->is_time( $value ) ) {
 			return true;
 		}
 
 		if ( is_string( $value ) ) {
-			// First we just try the value
-			if ( strtotime( $value ) ) {
-				return true;
-			}
-
 			// Fetch the DatePicker Format
 			$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 
@@ -58,6 +64,8 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 
 		return false;
 	}
+
+
 
 	/**
 	 * Whether the value corresponds to an existing user ID or not.
