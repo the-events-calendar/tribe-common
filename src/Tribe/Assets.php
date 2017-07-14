@@ -25,6 +25,13 @@ class Tribe__Assets {
 	private $assets = array();
 
 	/**
+	 * Stores the localized scripts for reference
+	 *
+	 * @var array
+	 */
+	private $localized = array();
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @since 4.3
@@ -169,7 +176,23 @@ class Tribe__Assets {
 
 				// Only localize on JS and if we have data
 				if ( ! empty( $asset->localize ) ) {
-					wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
+					/**
+					 * check to ensure we haven't already localized it before
+					 * @since 4.5.8
+					 */
+					if ( is_array( $asset->localize ) ) {
+						foreach ( $asset->localize as $local_asset ) {
+							if ( ! in_array( $local_asset->name, $this->localized ) ) {
+								wp_localize_script( $asset->slug, $local_asset->name, $local_asset->data );
+								$this->localized[] = $local_asset->name;
+							}
+						}
+					} else {
+						if ( ! in_array( $asset->localize->name, $this->localized ) ) {
+							wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
+							$this->localized[] = $asset->localize->name;
+						}
+					}
 				}
 			} else {
 				wp_enqueue_style( $asset->slug );
@@ -241,7 +264,7 @@ class Tribe__Assets {
 	 * @param  string       $file      Which file will be loaded, either CSS or JS
 	 * @param  array        $deps      Dependencies
 	 * @param  string|null  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
-	 * @param  string|array $query {
+	 * @param  string|array $arguments {
 	 *     Optional. Array or string of parameters for this asset
 	 *
 	 *     @type string|null  $action         Which WordPress action this asset will be loaded on
@@ -371,10 +394,17 @@ class Tribe__Assets {
 		// If you are passing localize, you need `name` and `data`
 		if ( ! empty( $asset->localize ) && ( is_array( $asset->localize ) || is_object( $asset->localize ) ) ) {
 			$asset->localize = (object) $asset->localize;
+			if ( is_array( $asset->localize ) && empty( $asset->localize['name'] )  ) {
+				foreach ( $asset->localize as $index => $local ) {
+					$asset->localize[ $index ] = (object) $local;
+				}
+			} else {
+				$asset->localize = (object) $asset->localize;
 
-			// if we don't have both reset localize
-			if ( ! isset( $asset->localize->data, $asset->localize->name ) ) {
-				$asset->localize = array();
+				// if we don't have both reset localize
+				if ( ! isset( $asset->localize->data, $asset->localize->name ) ) {
+					$asset->localize = array();
+				}
 			}
 		}
 
