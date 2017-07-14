@@ -73,6 +73,9 @@
 					},
 					'is_checked': function ( _, __, $field ) {
 						return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? $field.is( ':checked' ) : false;
+					},
+					'is_not_checked': function ( _, __, $field ) {
+						return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? ! $field.is( ':checked' ) : false;
 					}
 				};
 
@@ -93,6 +96,7 @@
 							is_numeric: $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ),
 							is_not_numeric: $dependent.data( 'conditionIsNotNumeric' ) || $dependent.is( '[data-condition-is-not-numeric]' ),
 							is_checked: $dependent.data( 'conditionChecked' ) || $dependent.is( '[data-condition-is-checked]' ),
+							is_not_checked: $dependent.data( 'conditionNotChecked' ) || $dependent.is( '[data-condition-is-checked]' ),
 						},
 						active_class = selectors.active.replace( '.', '' ),
 						is_disabled = $field.is( ':disabled' ),
