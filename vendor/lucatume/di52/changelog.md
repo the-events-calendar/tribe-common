@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.7] - 2017-06-15
+### Fixed
+- issue where non registered classes object dependencies would be built just the first time (issue #2)
+
 ## [2.0.6] - 2017-05-09
 ### Fixed
 - fix handling of unbound interface arguments
@@ -145,7 +149,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - array resolution support for the Array Access API.
 - the changelog.
 
-[Unreleased]: https://github.com/lucatume/di52/compare/2.0.6...HEAD
+[Unreleased]: https://github.com/lucatume/di52/compare/2.0.7...HEAD
+[2.0.7]: https://github.com/lucatume/di52/compare/2.0.6...2.0.7
 [2.0.6]: https://github.com/lucatume/di52/compare/2.0.5...2.0.6
 [2.0.5]: https://github.com/lucatume/di52/compare/2.0.4...2.0.5
 [2.0.4]: https://github.com/lucatume/di52/compare/2.0.3...2.0.4
