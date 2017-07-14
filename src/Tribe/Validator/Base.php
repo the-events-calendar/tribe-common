@@ -37,6 +37,37 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	}
 
 	/**
+	 * Whether the value is a datepicker string parseable by the strtotime function
+	 *
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
+	public function is_datepicker_time( $value ) {
+		// If it is time we just know it's time
+		if ( $this->is_time( $value ) ) {
+			return true;
+		}
+
+		if ( is_string( $value ) ) {
+			// Fetch the DatePicker Format
+			$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
+			// Format based on Datepicker from DB
+			$time = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $value );
+
+			// Check the time returned from
+			if ( strtotime( $time ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+
+	/**
 	 * Whether the value corresponds to an existing user ID or not.
 	 *
 	 * @param mixed $value
