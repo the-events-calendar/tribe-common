@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.5.9] TBD =
+
+* 
+
 = [4.5.8] 2017-07-13 =
 
 * Fix - Fixes to the plugin upgrade notice parser including support for environments where the data stream wrapper is unavailable [69486]
