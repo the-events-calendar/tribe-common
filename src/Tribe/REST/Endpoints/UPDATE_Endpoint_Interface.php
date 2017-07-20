@@ -20,6 +20,8 @@ interface Tribe__REST__Endpoints__UPDATE_Endpoint_Interface {
 	public function EDIT_args();
 
 	/**
+	 * Whether the current user can update content of this type or not.
+	 *
 	 * @return bool Whether the current user can update or not.
 	 */
 	public function can_edit();

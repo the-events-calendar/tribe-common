@@ -21,6 +21,8 @@ interface Tribe__REST__Endpoints__CREATE_Endpoint_Interface {
 	public function CREATE_args();
 
 	/**
+	 * Whether the current user can create content of the specified type or not.
+	 *
 	 * @return bool Whether the current user can post or not.
 	 */
 	public function can_create();
