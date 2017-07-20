@@ -55,11 +55,6 @@ class tad_DI52_Container implements ArrayAccess {
 	/**
 	 * @var array
 	 */
-	protected $parameterReflections = array();
-
-	/**
-	 * @var array
-	 */
 	protected $afterbuild = array();
 
 	/**
@@ -364,16 +359,14 @@ class tad_DI52_Container implements ArrayAccess {
 			$this->reflections[$implementation] = new ReflectionClass($implementation);
 		}
 
-		if (!isset($this->parameterReflections[$implementation])) {
-			/** @var ReflectionClass $classReflection */
-			$classReflection = $this->reflections[$implementation];
-			$constructor = $classReflection->getConstructor();
-			$parameters = empty($constructor) ? array() : $constructor->getParameters();
-			$this->parameterReflections[$implementation] = array_map(array($this, 'getParameter'), $parameters);
-		}
+		/** @var ReflectionClass $classReflection */
+		$classReflection = $this->reflections[$implementation];
+		$constructor = $classReflection->getConstructor();
+		$parameters = empty($constructor) ? array() : $constructor->getParameters();
+		$builtParams = array_map(array($this, '_getParameter'), $parameters);
 
-		$instance = !empty($this->parameterReflections[$implementation]) ?
-			$this->reflections[$implementation]->newInstanceArgs($this->parameterReflections[$implementation])
+		$instance = !empty($builtParams) ?
+			$this->reflections[$implementation]->newInstanceArgs($builtParams)
 			: new $implementation;
 
 		return $instance;
@@ -607,15 +600,8 @@ class tad_DI52_Container implements ArrayAccess {
 			$this->callables[$offset],
 			$this->contexts[$offset],
 			$this->tags[$offset],
-			$this->chains[$offset],
-			$this->parameterReflections[$offset]
+			$this->chains[$offset]
 		);
-
-		if (isset($this->dependants[$offset])) {
-			foreach ($this->dependants[$offset] as $dependant) {
-				unset($this->parameterReflections[$dependant]);
-			}
-		}
 	}
 
 	/**
@@ -711,10 +697,6 @@ class tad_DI52_Container implements ArrayAccess {
 
 		$this->bindings[$classOrInterface] = $classOrInterface;
 
-		if (is_string($implementation)) {
-			unset($this->parameterReflections[$implementation]);
-		}
-
 		if (is_callable($implementation)) {
 			$this->callables[$classOrInterface] = $implementation;
 			return;
@@ -797,7 +779,7 @@ class tad_DI52_Container implements ArrayAccess {
 		return $f;
 	}
 
-	protected function getParameter(ReflectionParameter $parameter) {
+	public function _getParameter(ReflectionParameter $parameter) {
 		$class = $parameter->getClass();
 
 		if (null === $class) {
@@ -808,6 +790,13 @@ class tad_DI52_Container implements ArrayAccess {
 		}
 
 		$parameterClass = $parameter->getClass()->getName();
+
+		if (!$this->isBound($parameterClass) && !$parameter->getClass()->isInstantiable()) {
+			if (!$parameter->isDefaultValueAvailable()) {
+				throw new RuntimeException("parameter '{$parameter->name}' of '{$this->resolving}::__construct' does not have a default value.");
+			}
+			return $parameter->getDefaultValue();
+		}
 
 		if (!isset($this->dependants[$parameterClass])) {
 			$this->dependants[$parameterClass] = array($this->resolving);
