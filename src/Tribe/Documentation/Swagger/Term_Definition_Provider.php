@@ -54,7 +54,7 @@ class Tribe__Documentation__Swagger__Term_Definition_Provider
 				'urls' => array(
 					'type' => 'array',
 					'description' => __( 'A list of links to the term own, archive and parent REST URL', 'tribe-common' ),
-				)
+				),
 			),
 		);
 
