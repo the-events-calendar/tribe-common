@@ -1167,6 +1167,38 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			return apply_filters( 'tribe_events_ordinal_to_number', $number, $ordinal );
 		}
 		// @codingStandardsIgnoreEnd
-	}
 
+		/**
+		 * Formats a date in an input-aware format.
+		 *
+		 * @since TBD
+		 *
+		 * @param string|int $date A date in a datepicker supported format, in a string parse-able by the `strtotime` function or
+		 *                         a UNIX timestamp.
+		 *
+		 * @return bool|string The formatted date or `false` if the date could not be formatted. If the input date contains time details the output
+		 *                     will contain time details too; if the input date only specifies a date then the output will only contain date information.
+		 */
+		public static function format_date_from_datepicker( $date ) {
+			$datepicker_format = self::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
+			// Format based on datepicker from DB
+			$parsed = self::datetime_from_format( $datepicker_format, $date );
+
+			if ( false !== $parsed ) {
+				return $parsed;
+			}
+
+			// try again converting the date in the format 'Y-m-d H:i:s'
+			$timestamp = $date;
+			if ( ! is_numeric( $date ) ) {
+				$timestamp = strtotime( $date );
+				if ( false === $timestamp ) {
+					return false;
+				}
+			}
+
+			return self::datetime_from_format( $datepicker_format, date( 'Y-m-d H:i:s', $timestamp ) );
+		}
+	}
 }
