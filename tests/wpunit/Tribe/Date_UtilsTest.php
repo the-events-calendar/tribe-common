@@ -256,4 +256,27 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	public function test_ordinal_to_number( $input, $expected ) {
 		$this->assertEquals( $expected, Date_Utils::ordinal_to_number( $input ) );
 	}
+
+	public function format_date_from_datepicker_inputs() {
+		return [
+			[ 'today', 'Y-m-d H:i:s' ],
+			[ '+20 days', 'Y-m-d H:i:s' ],
+			[ '-3 days', 'Y-m-d H:i:s' ],
+			[ '2016-04-05', 'Y-m-d' ],
+			[ '2016-04-05 09:30:00', 'Y-m-d H:i:s' ],
+			[ 1488326400, 'Y-m-d H:i:s' ] // 2016-3-1
+		];
+	}
+
+	/**
+	 * Test format_date_from_datepicker
+	 *
+	 * @dataProvider  format_date_from_datepicker_inputs
+	 */
+	public function test_format_date_from_datepicker( $input, $output_format ) {
+		$input_timestamp = ! is_numeric( $input ) ? strtotime( $input ) : $input;
+		$expected        = date( $output_format, $input_timestamp );
+
+		$this->assertEquals( $expected, Date_Utils::format_date_from_datepicker( $input ) );
+	}
 }
