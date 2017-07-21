@@ -443,7 +443,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$domain = self::$domain;
 
 			if ( empty( $domain ) ) {
-				$domain = $_SERVER['SERVER_NAME'];
+				if ( isset( $_SERVER['SERVER_NAME'] ) ) {
+				    $domain = $_SERVER['SERVER_NAME'];
+				}
 
 				if ( is_multisite() ) {
 					// For multisite, return the network-level siteurl
