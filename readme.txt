@@ -4,6 +4,7 @@
 
 = [4.5.9] TBD =
 
+* Tweak - Cleanup logic responsible for handling the default country option and remove confusing translation calls (our thanks to Oliver for flagging this!) [72113]
 * Tweak - Added period "." separator to datepicker formats [65282]
 * Tweak - Avoid noise relating to PUE checks during WP CLI requests
 
