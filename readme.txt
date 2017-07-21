@@ -4,7 +4,8 @@
 
 = [4.5.9] TBD =
 
-* Tweak - Added period "." separator to datepicker formats. [65282]
+* Tweak - Added period "." separator to datepicker formats [65282]
+* Tweak - Avoid noise relating to PUE checks during WP CLI requests
 
 = [4.5.8] 2017-07-13 =
 
