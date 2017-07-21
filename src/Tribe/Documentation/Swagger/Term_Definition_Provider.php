@@ -47,9 +47,13 @@ class Tribe__Documentation__Swagger__Term_Definition_Provider
 					'type' => 'int',
 					'description' => __( 'The number of posts associated with the term', 'tribe-common' ),
 				),
-				'link' => array(
+				'url' => array(
 					'type' => 'string',
 					'description' => __( 'The URL to the term archive page', 'tribe-common' ),
+				),
+				'urls' => array(
+					'type' => 'array',
+					'description' => __( 'A list of links to the term own, archive and parent REST URL', 'tribe-common' ),
 				),
 			),
 		);
