@@ -4,6 +4,7 @@
 
 = [4.5.9] TBD =
 
+* Fix - Avoid accidental overwrite of options when settings are saved in a multisite context [79728]
 * Tweak - Added period "." separator to datepicker formats [65282]
 * Tweak - Avoid noise relating to PUE checks during WP CLI requests
 
