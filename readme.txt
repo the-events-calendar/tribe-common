@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.5.9] TBD =
+= [4.5.9] 2017-007-26 =
 
 * Fix - Avoid accidental overwrite of options when settings are saved in a multisite context [79728]
 * Tweak - Cleanup logic responsible for handling the default country option and remove confusing translation calls (our thanks to Oliver for flagging this!) [72113]
