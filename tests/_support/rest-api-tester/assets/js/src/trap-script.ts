@@ -3,6 +3,14 @@
 		var renderjson = require( 'renderjson' );
 
 		var setRequestResponse = function ( data, status, response ) {
+			if ( 'success' === status && null === data ) {
+				status = 500;
+				data = {
+					responseJson: 'Internal error! Contact your nearest developer to report!',
+					status: '500',
+				};
+			}
+
 			var json = data.responseJSON || data;
 			var status = data.status || response.status || 200;
 			var color = 'green';
