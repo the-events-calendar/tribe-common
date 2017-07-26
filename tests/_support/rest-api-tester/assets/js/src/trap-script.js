@@ -1,6 +1,13 @@
 (function ($, undefined) {
     var renderjson = require('renderjson');
     var setRequestResponse = function (data, status, response) {
+        if ('success' === status && null === data) {
+            status = 500;
+            data = {
+                responseJson: 'Internal error! Contact your nearest developer to report!',
+                status: '500',
+            };
+        }
         var json = data.responseJSON || data;
         var status = data.status || response.status || 200;
         var color = 'green';
@@ -129,14 +136,11 @@
             beforeSend: null,
             data: queryArgs,
         };
-
-		args.beforeSend = function (xhr) {
-			xhr.setRequestHeader( 'X-TEC-REST-API-User', user );
-			if ( nonce ) {
-				xhr.setRequestHeader( 'X-WP-Nonce', nonce );
-			}
-		};
-
+        if (nonce) {
+            args.beforeSend = function (xhr) {
+                xhr.setRequestHeader('X-WP-Nonce', nonce);
+            };
+        }
         startLoadingResponse();
         $.ajax(args).always(stopLoading).done(setRequestResponse).fail(setRequestResponse);
     };
