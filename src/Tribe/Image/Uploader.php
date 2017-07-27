@@ -65,7 +65,12 @@ class Tribe__Image__Uploader {
 			return false;
 		}
 
-		$contents = @file_get_contents( $file_url );
+		try {
+			$contents = @file_get_contents( $file_url );
+		} catch ( Exception $e ) {
+			return false;
+		}
+
 		if ( false === $contents ) {
 			return false;
 		}
