@@ -70,13 +70,13 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	obj.matcher = function ( term, text ) {
 		var $select = this.element,
 			args = $select.data( 'dropdown' ),
-			result = text.toUpperCase().indexOf( term.toUpperCase() ) == 0;
+			result = text.toUpperCase().indexOf( term.toUpperCase() ) !== -1;
 
 		if ( ! result && 'undefined' !== typeof args.tags ){
 			var possible = _.where( args.tags, { text: text } );
 			if ( args.tags.length > 0  && _.isObject( possible ) ){
 				var test_value = obj.search_id( possible[0] );
-				result = test_value.toUpperCase().indexOf( term.toUpperCase() ) == 0;
+				result = test_value.toUpperCase().indexOf( term.toUpperCase() ) !== -1;
 			}
 		}
 
