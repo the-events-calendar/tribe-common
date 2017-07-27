@@ -97,8 +97,9 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		    selected_items = [];
 
 		$( current_values ).each( function() {
-			var search_for   = { id: this, text: this };
-			var located_item = find_item( search_for, options.data  );
+			var search_for   = { id: this, text: this },
+				data = options.ajax ? $select.data( 'options' ) : options.data,
+				located_item = find_item( search_for, data );
 
 			if ( located_item ) {
 				selected_items.push( located_item );
@@ -189,9 +190,17 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		}
 
 		// CSS for the dropdown
-		args.dropdownCss = {
-			'width': 'auto'
-		};
+		args.dropdownCss = {};
+		args.dropdownCss.width = 'auto';
+
+		// When we have this we replace the default with what's in the param
+		if ( $select.is( '[data-dropdown-css-width]' ) ) {
+			args.dropdownCss.width = $select.data( 'dropdown-css-width' );
+
+			if ( ! args.dropdownCss.width ) {
+				delete args.dropdownCss.width;
+			}
+		}
 
 		// How do we match the Search
 		args.matcher = obj.matcher;
@@ -270,7 +279,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		}
 
 		// Select also allows Tags, so we go with that too
-		if ( $select.is( '[data-tags]' ) ){
+		if ( $select.is( '[data-tags]' ) ) {
 			args.tags = $select.data( 'tags' );
 
 			args.initSelection = obj.init_selection;
@@ -281,8 +290,8 @@ var tribe_dropdowns = tribe_dropdowns || {};
 				}
 			};
 
-			if ( 0 === args.tags.length ){
-				args.formatNoMatches = function(){
+			if ( 0 === args.tags.length ) {
+				args.formatNoMatches = function() {
 					return $select.attr( 'placeholder' );
 				};
 			}
@@ -298,20 +307,51 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			// Allows HTML from Select2 AJAX calls
 			args.escapeMarkup = obj.allow_html_markup;
 
+			// Format for Parents breadcrumbs
+			args.formatResult = function ( item, container, query ) {
+				if ( 'undefined' !== typeof item.breadcrumbs ) {
+					return $.merge( item.breadcrumbs, [ item.text ] ).join( ' &#187; ' );
+				}
+
+				return item.text;
+			};
+
 			args.ajax = { // instead of writing the function to execute the request we use Select2's convenient helper
 				dataType: 'json',
 				type: 'POST',
-				url: window.ajaxurl,
-				results: function ( data ) { // parse the results into the format expected by Select2.
-					return data.data;
+				url: obj.ajaxurl(),
+				results: function ( response, page, query ) { // parse the results into the format expected by Select2.
+					if ( ! $.isPlainObject( response ) || 'undefined' === typeof response.success ) {
+						console.error( 'We received a malformed Object, could not complete the Select2 Search.' );
+						return { results: [] };
+					}
+
+					if ( ! $.isPlainObject( response.data ) || 'undefined' === typeof response.data.results ) {
+						console.error( 'We received a malformed results array, could not complete the Select2 Search.' );
+						return { results: [] };
+					}
+
+					if ( ! response.success ) {
+						if ( 'string' === $.type( response.data.message ) ) {
+							console.error( response.data.message )
+						} else {
+							console.error( 'The Select2 search failed in some way... Verify the source.' );
+						}
+						return { results: [] };
+					}
+
+					return response.data;
 				}
 			};
 
 			// By default only send the source
 			args.ajax.data = function( search, page ) {
 				return {
-					// @todo remove aggregator reference
-					action: 'tribe_aggregator_dropdown_' + source,
+					action: 'tribe_dropdown',
+					source: source,
+					search: search,
+					page: page,
+					args: $select.data( 'source-args' )
 				};
 			};
 		}
@@ -339,11 +379,11 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		var $select = $( this ),
 			data = $( this ).data( 'value' );
 
-		if ( ! $select.is( '[multiple]' ) ){
+		if ( ! $select.is( '[multiple]' ) ) {
 			return;
 		}
 
-		if ( ! $select.is( '[data-source]' ) ){
+		if ( ! $select.is( '[data-source]' ) ) {
 			return;
 		}
 
@@ -364,18 +404,67 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		$select.data( 'value', data ).attr( 'data-value', JSON.stringify( data ) );
 	};
 
+	obj.ajaxurl = function () {
+		if ( 'undefined' !== typeof window.ajaxurl ) {
+			return window.ajaxurl;
+		}
+
+		if ( 'undefined' !== typeof TEC && 'undefined' !== typeof TEC.ajaxurl ) {
+			return TEC.ajaxurl;
+		}
+
+		console.error( 'Dropdowns framework cannot properly do an AJAX request without the WordPress `ajaxurl` variable setup.' )
+	};
+
 	obj.action_select2_removed = function( event ) {
 		var $select = $( this );
 
 		// Remove the Search
 		if ( $select.is( '[data-sticky-search]' ) && $select.is( '[data-last-search]' )  ) {
-			$select.removeAttr( 'data-last-search' ).removeData( 'lastSeach' );
+			$select.removeAttr( 'data-last-search' ).removeData( 'lastSearch' );
 		}
+	};
+
+	/**
+	 * When a Group of Items is selected and it has an ID attached
+	 * all the child items will be hidden too because of a bug inside of select2 Core Code
+	 *
+	 * This method will be applied on `select2-loaded` to remove `select2-selected` class
+	 * from all items that were not actually selected
+	 */
+	obj.action_bugfix_group_select = function( event ) {
+		var $select = $( this ),
+			items = $select.select2( 'data' ),
+			$drop = $( '.select2-drop:visible' );
+
+		// Loop on all selected items to see which match our bug
+		$drop.find( '.select2-selected' ).each( function(  ) {
+			var $item = $( this ),
+				item = $item.data( 'select2-data' ),
+				remove = true;
+
+			// Dont mess with non-parent items
+			if ( 'undefined' === typeof item.children ) {
+				return;
+			}
+
+			// Loop on Selected items mark them as not to remove class
+			$.each( items, function( k, selected ) {
+				if ( obj.search_id( item ) == obj.search_id( selected ) ) {
+					remove = false;
+				}
+			} );
+
+			// Actually remove the class
+			if ( remove ) {
+				$item.removeClass( 'select2-selected' );
+			}
+		} );
 	};
 
 	obj.action_select2_close = function( event ) {
 		var $select = $( this ),
-			$search = $( '.select2-input.select2-focused' );
+			$search = $( '.select2-drop .select2-input.select2-focused' );
 
 		// If we had a value we apply it again
 		if ( $select.is( '[data-sticky-search]' ) ) {
@@ -385,24 +474,24 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 	obj.action_select2_open = function( event ) {
 		var $select = $( this ),
-			$search = $( '.select2-input:visible' );
+			$search = $( '.select2-drop .select2-input:visible' );
 
 		// If we have a placeholder for search, apply it!
-		if ( $select.is( '[data-search-placeholder]' ) ){
+		if ( $select.is( '[data-search-placeholder]' ) ) {
 			$search.attr( 'placeholder', $select.data( 'searchPlaceholder' ) );
 		}
 
 		// If we had a value we apply it again
-		if ( $select.is( '[data-sticky-search]' ) ){
-			$search.on( 'keyup-change.tribe', function(){
+		if ( $select.is( '[data-sticky-search]' ) ) {
+			$search.on( 'keyup-change.tribe', function() {
 				$select.data( 'lastSearch', $( this ).val() ).attr( 'data-last-search', $( this ).val() );
 			} );
 
-			if ( $select.is( '[data-last-search]' ) ){
+			if ( $select.is( '[data-last-search]' ) ) {
 				$search.val( $select.data( 'lastSearch' ) ).trigger( 'keyup-change' );
 			}
 		}
-	}
+	};
 
 	/**
 	 * Configure the Drop Down Fields
@@ -418,6 +507,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		.on( 'select2-open', obj.action_select2_open )
 		.on( 'select2-close', obj.action_select2_close )
 		.on( 'select2-removed', obj.action_select2_removed )
+		.on( 'select2-loaded', obj.action_bugfix_group_select )
 		.on( 'change', obj.action_change );
 
 		// return to be able to chain jQuery calls

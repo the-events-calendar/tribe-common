@@ -16,6 +16,19 @@ class Tribe__Notices {
 	 * @return bool
 	 */
 	public static function set_notice( $key, $notice ) {
+
+		/**
+		 * Provides an opportunity to alter the text of admin notices.
+		 *
+		 * @since 4.5.5
+		 *
+		 * @param string $notice The notice text.
+		 * @param string $key The key of the notice being filtered.
+		 *
+		 * @return string.
+		 */
+		$notice = apply_filters( 'tribe_events_set_notice', $notice, $key );
+
 		self::instance()->notices[ $key ] = $notice;
 
 		return true;

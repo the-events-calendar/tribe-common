@@ -78,7 +78,9 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
-		$this->assertTrue( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( $meta_key ), true ) );
+		$option = get_option( $sut->get_key_option_name() );
+		$this->assertNotEmpty( $option[ $id ] );
+		$this->assertEquals( [ 'foo' ], $option[ $id ] );
 	}
 
 	/**
@@ -88,6 +90,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_not_store_meta_for_non_chunkable_meta() {
 		$id = $this->factory()->post->create();
+		add_post_meta( $id, 'bar', 'some value' );
 		$meta_key = 'foo';
 		$meta_value = str_repeat( 'foo', 20 );
 		$max_size = 2 * strlen( $meta_value );
@@ -96,8 +99,9 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) * 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
-		$this->assertTrue( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( $meta_key ), true ) );
-		$this->assertFalse( (bool) get_post_meta( $id, $sut->get_chunkable_meta_key( 'bar' ), true ) );
+		$option = get_option( $sut->get_key_option_name() );
+		$this->assertNotEmpty( $option[ $id ] );
+		$this->assertNotContains( 'bar', $option[ $id ] );
 	}
 
 	/**
@@ -414,6 +418,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$meta_value = str_repeat( 'foo', 20 );
 
 		$sut = $this->make_instance();
+		$sut->set_post_types( [ 'post' ] );
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
@@ -508,6 +513,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		};
 
 		$sut = $this->make_instance();
+		$sut->set_post_types( [ 'post' ] );
 		$sut->set_max_chunk_size( $sut->get_byte_size( $first_meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
@@ -547,6 +553,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		};
 
 		$sut = $this->make_instance();
+		$sut->set_post_types( [ 'post' ] );
 		$sut->set_max_chunk_size( $sut->get_byte_size( $second_meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
@@ -580,25 +587,26 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$id = $this->factory()->post->create();
 		$meta_key = 'foo';
 		$meta_value = array_fill( 0, 20, 'foo' );
-		$serialized_meta_value = serialize($meta_value);
+		$serialized_meta_value = serialize( $meta_value );
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $serialized_meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
-		add_post_meta($id,$meta_key,$meta_value);
+		add_post_meta( $id, $meta_key, $meta_value );
 
 		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
 		$this->assertTrue( $sut->is_chunked( $id, $meta_key ) );
 		$this->assertEquals( $meta_value, get_post_meta( $id, $meta_key, true ) );
 
 		$sut->__destruct();
+		wp_cache_delete( $id, $sut->get_cache_group() );
 
 		// now compromise the chunks in the db
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$chunk_meta_key = $sut->get_chunk_meta_key( $meta_key );
-		$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id = {$id} AND meta_key = '{$chunk_meta_key}' LIMIT 1");
+		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE post_id = {$id} AND meta_key = '{$chunk_meta_key}' LIMIT 1" );
 
 		$sut_2 = $this->make_instance();
 		$sut_2->set_max_chunk_size( $sut_2->get_byte_size( $serialized_meta_value ) / 2 );
@@ -608,8 +616,8 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $sut_2->is_chunked( $id, $meta_key ) );
 		$db_meta = get_post_meta( $id, $meta_key, true );
 		$this->assertNotEmpty( $db_meta );
-		$this->assertNotEquals($meta_value,$db_meta);
-		$this->assertInternalType('string', $db_meta);
+		$this->assertNotEquals( $meta_value, $db_meta );
+		$this->assertInternalType( 'string', $db_meta );
 	}
 
 	/**
@@ -621,13 +629,13 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$id = $this->factory()->post->create();
 		$meta_key = 'foo';
 		$meta_value = array_fill( 0, 20, 'foo' );
-		$serialized_meta_value = serialize($meta_value);
+		$serialized_meta_value = serialize( $meta_value );
 
 		$sut = $this->make_instance();
 		$sut->set_max_chunk_size( $sut->get_byte_size( $serialized_meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
-		add_post_meta($id,$meta_key,$meta_value);
+		add_post_meta( $id, $meta_key, $meta_value );
 
 		$this->assertTrue( $sut->is_chunkable( $id, $meta_key ) );
 		$this->assertTrue( $sut->is_chunked( $id, $meta_key ) );
@@ -640,7 +648,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$chunk_meta_key = $sut->get_chunk_meta_key( $meta_key );
-		$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id = {$id} AND meta_key = '{$chunk_meta_key}' LIMIT 1");
+		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE post_id = {$id} AND meta_key = '{$chunk_meta_key}' LIMIT 1" );
 
 		$sut_2 = $this->make_instance();
 		$sut_2->set_max_chunk_size( $sut_2->get_byte_size( $serialized_meta_value ) / 2 );
@@ -648,9 +656,341 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertTrue( $sut_2->is_chunkable( $id, $meta_key ) );
 		$this->assertFalse( $sut_2->is_chunked( $id, $meta_key ) );
-		$db_meta = get_post_meta( $id);
+		$db_meta = get_post_meta( $id );
 		$this->assertNotEmpty( $db_meta[ $meta_key ] );
 		$this->assertNotEquals( $meta_value, $db_meta[ $meta_key ] );
 		$this->assertInternalType( 'string', $db_meta[ $meta_key ][0] );
 	}
+
+	/**
+	 * It should remove a post ID entry from the chunkable keys option when the post is deleted
+	 *
+	 * @test
+	 */
+	public function it_should_remove_a_post_id_entry_from_the_chunkable_keys_option_when_the_post_is_deleted() {
+		$post_id = $this->factory()->post->create();
+		$post_id_2 = $this->factory()->post->create();
+
+		$sut = $this->make_instance();
+		$sut->register_chunking_for( $post_id, 'foo' );
+		$sut->register_chunking_for( $post_id, 'bar' );
+		$sut->register_chunking_for( $post_id, 'baz' );
+		$sut->register_chunking_for( $post_id_2, 'bar' );
+
+		$this->assertTrue( $sut->is_chunkable( $post_id, 'foo' ) );
+
+		wp_delete_post( $post_id, true );
+
+		$this->assertFalse( $sut->is_chunkable( $post_id, 'foo' ) );
+		$this->assertFalse( $sut->is_chunkable( $post_id, 'bar' ) );
+		$this->assertFalse( $sut->is_chunkable( $post_id, 'baz' ) );
+
+		$option = get_option( $sut->get_key_option_name() );
+		$this->assertNotEmpty( $option );
+		$this->assertEquals( [ $sut->get_key( $post_id_2, 'bar' ) => null ], $option );
+	}
+
+	/**
+	 * It should remove the option entirely when there are no registered couples
+	 *
+	 * @test
+	 */
+	public function it_should_remove_the_option_entirely_when_there_are_no_registered_couples() {
+		$post_id = $this->factory()->post->create();
+		$post_id_2 = $this->factory()->post->create();
+
+		$sut = $this->make_instance();
+		$sut->register_chunking_for( $post_id, 'foo' );
+		$sut->register_chunking_for( $post_id_2, 'bar' );
+
+		$this->assertTrue( $sut->is_chunkable( $post_id, 'foo' ) );
+
+		wp_delete_post( $post_id, true );
+		wp_delete_post( $post_id_2, true );
+
+		$option = get_option( $sut->get_key_option_name() );
+		$this->assertEmpty( $option );
+	}
+
+	/**
+	 * It should remove a post entry when no meta keys are associated with it
+	 *
+	 * @test
+	 */
+	public function it_should_remove_a_post_entry_when_no_meta_keys_are_associated_with_it() {
+		$post_id = $this->factory()->post->create();
+
+		$sut = $this->make_instance();
+		$sut->register_chunking_for( $post_id, 'foo' );
+		$sut->register_chunking_for( $post_id, 'bar' );
+
+		$this->assertTrue( $sut->is_chunkable( $post_id, 'foo' ) );
+		$this->assertTrue( $sut->is_chunkable( $post_id, 'bar' ) );
+
+		$option = get_option( $sut->get_key_option_name() );
+
+		$this->assertNotEmpty( $option );
+		$this->assertArrayHasKey( $post_id, $option );
+		$this->assertEqualSets( [ 'foo', 'bar' ], $option[ $post_id ] );
+
+		update_option( $sut->get_key_option_name(), [ $post_id => [] ] );
+
+		$sut->prime_chunks_cache( true );
+		$this->assertFalse( $sut->is_chunkable( $post_id, 'foo' ) );
+		$this->assertFalse( $sut->is_chunkable( $post_id, 'bar' ) );
+	}
+
+	/**
+	 * It should return empty array when trying to get all meta for non existing post
+	 *
+	 * @test
+	 */
+	public function it_should_return_empty_array_when_trying_to_get_all_meta_for_non_existing_post() {
+		$sut = $this->make_instance();
+
+		$this->assertEmpty( $sut->get_all_meta_for( 23 ) );
+	}
+
+	/**
+	 * It should return empty array when trying to get all meta for post with no meta
+	 *
+	 * @test
+	 */
+	public function it_should_return_empty_array_when_trying_to_get_all_meta_for_post_with_no_meta() {
+		$post_id = $this->factory()->post->create();
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$wpdb->query( "delete from {$wpdb->postmeta} where post_id = {$post_id}" );
+
+		$sut = $this->make_instance();
+
+		$this->assertEmpty( $sut->get_all_meta_for( $post_id ) );
+	}
+
+	/**
+	 * It should return all meta for post that has no chunked meta
+	 *
+	 * @test
+	 */
+	public function it_should_return_all_meta_for_post_that_has_no_chunked_meta() {
+		$post_id = $this->factory()->post->create();
+		add_post_meta( $post_id, 'foo', 23 );
+		add_post_meta( $post_id, 'foo', 89 );
+		add_post_meta( $post_id, 'bar', 'baz' );
+
+		$sut = $this->make_instance();
+
+		$got = $sut->get_all_meta_for( $post_id );
+
+		$expected = [
+			'foo' => [ '23', '89' ],
+			'bar' => [ 'baz' ],
+		];
+		$this->assertEqualSets( $expected, array_intersect_key( $expected, $got ) );
+	}
+
+	/**
+	 * It should return chunks as they are if checksum is missing
+	 *
+	 * @test
+	 */
+	public function it_should_return_chunks_as_they_are_if_checksum_is_missing() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, 'foo', $meta_value );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$checksum_key = $sut->get_checksum_key( 'foo' );
+		$wpdb->query( "delete from {$wpdb->postmeta} where meta_key = '{$checksum_key}'" );
+
+		$all_meta = $sut->get_all_meta_for( $id );
+		$this->assertNotEmpty( $all_meta );
+		$chunk_meta_key = $sut->get_chunk_meta_key( 'foo' );
+		$this->assertArrayHasKey( $chunk_meta_key, $all_meta );
+		$this->assertCount( 3, $all_meta[ $chunk_meta_key ] );
+	}
+
+	/**
+	 * It should return meta chunks if normal meta key is missing
+	 *
+	 * @test
+	 */
+	public function it_should_return_meta_chunks_if_normal_meta_key_is_missing() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, 'foo', $meta_value );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$wpdb->query( "delete from {$wpdb->postmeta} where meta_key = 'foo'" );
+
+		$all_meta = $sut->get_all_meta_for( $id );
+		$this->assertNotEmpty( $all_meta );
+		$this->assertArrayHasKey( 'foo', $all_meta );
+		$this->assertCount( 1, $all_meta['foo'] );
+		$this->assertEquals( $meta_value, $all_meta['foo'][0] );
+		$chunk_meta_key = $sut->get_chunk_meta_key( 'foo' );
+		$this->assertArrayNotHasKey( $chunk_meta_key, $all_meta );
+	}
+
+	/**
+	 * It should return the normal meta if the chunks have been deleted
+	 *
+	 * @test
+	 */
+	public function it_should_return_the_normal_meta_if_the_chunks_have_been_deleted() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, 'foo', $meta_value );
+
+		$chunks = $sut->get_chunks_for( $id, 'foo' );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$chunk_meta_key = $sut->get_chunk_meta_key( 'foo' );
+		$wpdb->query( "delete from {$wpdb->postmeta} where meta_key = '{$chunk_meta_key}'" );
+
+		$all_meta = $sut->get_all_meta_for( $id );
+		$this->assertNotEmpty( $all_meta );
+		$this->assertArrayHasKey( 'foo', $all_meta );
+		$this->assertCount( 1, $all_meta['foo'] );
+		$this->assertEquals( $chunks[0], $all_meta['foo'][0] );
+		$this->assertArrayNotHasKey( $chunk_meta_key, $all_meta );
+	}
+
+	/**
+	 * It should store the checksum for each chunked meta
+	 *
+	 * @test
+	 */
+	public function it_should_store_the_checksum_for_each_chunked_meta() {
+		$id = $this->factory()->post->create();
+		$meta_key = 'foo';
+		$meta_value = str_repeat( 'foo', 20 );
+
+		$sut = $this->make_instance();
+		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
+		$sut->register_chunking_for( $id, $meta_key );
+
+		add_post_meta( $id, 'foo', $meta_value );
+
+		$this->assertNotEmpty( $sut->get_checksum_for( $id, 'foo' ) );
+	}
+
+    /**
+     * It should not hit the filtering function when handling meta for non supported types
+     * @test
+     */
+     public function it_should_not_hit_the_filtering_function_when_handling_meta_for_non_supported_types() {
+	     $id = $this->factory()->post->create( [ 'post_type' => 'post' ] );
+
+	     $sut = $this->make_instance();
+	     $sut->set_post_types( [ 'page' ] );
+
+	     add_filter( 'tribe_meta_chunker_get_meta', function () {
+		     $this->fail( 'Should not hit this filter when trying to get meta of non supported post type' );
+	     } );
+	     add_filter( 'tribe_meta_chunker_get_all_meta', function () {
+		     $this->fail( 'Should not hit this filter when trying to get all meta of non supported post type' );
+	     } );
+	     add_filter( 'tribe_meta_chunker_update_meta', function () {
+		     $this->fail( 'Should not hit this filter when trying to update meta of non supported post type' );
+	     } );
+	     add_filter( 'tribe_meta_chunker_delete_meta', function () {
+		     $this->fail( 'Should not hit this filter when trying to delete meta of non supported post type' );
+	     } );
+
+	     $sut->register_chunking_for( $id, 'foo' );
+
+	     $all_meta = get_post_meta( $id );
+	     add_post_meta( $id, 'foo', 23 );
+	     $this->assertEquals( 23, get_post_meta( $id, 'foo', true ) );
+	     update_post_meta( $id, 'foo', 'bar' );
+	     $this->assertEquals( 'bar', get_post_meta( $id, 'foo', true ) );
+	     delete_post_meta( $id, 'foo' );
+     }
+     
+     /**
+      * It should not hit the filtering functions when handling meta for non registered posts and meta ids
+      * @test
+      */
+      public function it_should_not_hit_the_filtering_functions_when_handling_meta_for_non_registered_posts_and_meta_ids() {
+	      $id = $this->factory()->post->create( [ 'post_type' => 'post' ] );
+
+	      $sut = $this->make_instance();
+	      $sut->set_post_types( [ 'post' ] );
+
+	      add_filter( 'tribe_meta_chunker_get_meta', function () {
+		      $this->fail( 'Should not hit this filter when trying to get meta of post that has not registered chunked meta' );
+	      } );
+	      add_filter( 'tribe_meta_chunker_get_all_meta', function () {
+		      /* we cannot know, without making a query to get all the current post meta, if a post that has at least
+		      one meta key registered for chunking, should be filtered when getting all meta or not. */
+
+		      return null;
+	      } );
+	      add_filter( 'tribe_meta_chunker_update_meta', function () {
+		      $this->fail( 'Should not hit this filter when trying to update meta of post that has not registered chunked meta' );
+	      } );
+	      add_filter( 'tribe_meta_chunker_delete_meta', function () {
+		      $this->fail( 'Should not hit this filter when trying to delete meta of post that has not registered chunked meta' );
+	      } );
+
+	      $sut->register_chunking_for( $id, 'not_foo' );
+
+	      $all_meta = get_post_meta( $id );
+	      add_post_meta( $id, 'foo', 23 );
+	      $this->assertEquals( 23, get_post_meta( $id, 'foo', true ) );
+	      update_post_meta( $id, 'foo', 'bar' );
+	      $this->assertEquals( 'bar', get_post_meta( $id, 'foo', true ) );
+	      delete_post_meta( $id, 'foo' );
+      }
+      
+      /**
+       * It should hit the cache when getting same post meta
+       * @test
+       */
+       public function it_should_hit_the_cache_when_getting_same_post_meta() {
+	       $id = $this->factory()->post->create( [ 'post_type' => 'post' ] );
+
+
+	       $sut = $this->make_instance();
+	       $sut->set_post_types( [ 'post' ] );
+	       $sut->register_chunking_for( $id, 'foo' );
+
+	       get_post_meta( $id );
+
+	       global $wpdb;
+	       $num_queries_before = $wpdb->num_queries;
+
+	       get_post_meta( $id );
+	       get_post_meta( $id );
+	       get_post_meta( $id );
+	       get_post_meta($id, 'foo');
+	       get_post_meta($id, 'foo');
+	       get_post_meta($id, 'foo');
+
+
+	       $this->assertEquals($num_queries_before, $wpdb->num_queries);
+       }
 }
