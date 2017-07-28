@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-15 21:23:27+0000\n"
+"PO-Revision-Date: 2017-06-29 09:32:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -74,13 +74,13 @@ msgstr "Bringen Ihre Image-Widgets auf die nächste Stufe mit Image Widget Plus!
 msgid "Please refresh the page and try your request again."
 msgstr "Bitte aktualisieren Sie die Seite und versuchen Sie es erneut."
 
-#: src/Tribe/PUE/Notices.php:221
+#: src/Tribe/PUE/Notices.php:225
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] "Es sieht so aus, als würdest du %1$s verwenden, aber der Lizenzschlüssel ist ungültig. Bitte laden Sie die neueste Version %2$s von Ihrem Konto %3$s."
 msgstr[1] "Es sieht so aus, als würdest du %1$s verwenden, aber die Lizenzschlüssel sind ungültig. Bitte laden Sie die neueste Version %2$s von Ihrem Konto %3$s."
 
-#: src/Tribe/PUE/Notices.php:336
+#: src/Tribe/PUE/Notices.php:340
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr "Sie können den Status Ihrer Lizenzen jederzeit überprüfen, indem Sie sich in %1$s Ihrem Konto auf theeventscalendar.com%2$s anmelden."
 
@@ -282,19 +282,19 @@ msgstr "Es gibt ein Update für %s. Sie müssen %sSie Ihre Lizenz überprüfen%s
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr "Es gibt ein Update für %s.  %sErneuern Sie Ihre Lizenz%s, um Zugriff auf Fehlerkorrekturen, Sicherheitsupdates und neue Funktionen zu erhalten."
 
-#: src/Tribe/PUE/Notices.php:266
+#: src/Tribe/PUE/Notices.php:270
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] "Für %1$s steht ein Update zur Verfügung, aber Ihre Lizenz ist abgelaufen. %2$sBesuchen Sie die Events Calendar Website, um Ihre Lizenz zu verlängern.%3$s"
 msgstr[1] "Für %1$s steht ein Update zur Verfügung, aber Ihre Lizenzen sind abgelaufen. %2$sBesuchen Sie die Events Calendar Website, um Ihre Lizenz zu verlängern.%3$s"
 
-#: src/Tribe/PUE/Notices.php:298
+#: src/Tribe/PUE/Notices.php:302
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sie haben einen Lizenzschlüssel für %1$s eingegeben, aber der Schlüssel wird schon verwendet. %2$sBesuchen Sie die  Events Calendar Website%3$s, um Ihre Installationen zu verwalten, Ihre Lizenz zu aktualisieren oder eine neue zu kaufen."
+msgstr[1] "Sie haben Lizenzschlüssel für %1$s eingegeben, aber die Schlüssel werden schon verwendet. %2$sBesuchen Sie die  Events Calendar Website%3$s, um Ihre Installationen zu verwalten, Ihre Lizenzen zu aktualisieren oder neue zu kaufen."
 
-#: src/Tribe/PUE/Notices.php:379
+#: src/Tribe/PUE/Notices.php:383
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr "%1$s und %2$s"
@@ -404,11 +404,11 @@ msgstr ": Ausgewählte %d Zeilen"
 msgid ": Selected 1 row"
 msgstr ": Ausgewählte 1 Zeile"
 
-#: src/Tribe/PUE/Checker.php:957 src/Tribe/PUE/Notices.php:279
+#: src/Tribe/PUE/Checker.php:957 src/Tribe/PUE/Notices.php:283
 msgid "Renew Your License Now"
 msgstr "Lizenz jetzt erneuern"
 
-#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:281
+#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:285
 msgid " (opens in a new window)"
 msgstr "(in neuem Fenster öffnen)"
 

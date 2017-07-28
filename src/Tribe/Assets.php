@@ -176,6 +176,10 @@ class Tribe__Assets {
 
 				// Only localize on JS and if we have data
 				if ( ! empty( $asset->localize ) ) {
+					/**
+					 * check to ensure we haven't already localized it before
+					 * @since 4.5.8
+					 */
 					if ( is_array( $asset->localize ) ) {
 						foreach ( $asset->localize as $local_asset ) {
 							if ( ! in_array( $local_asset->name, $this->localized ) ) {
@@ -389,6 +393,7 @@ class Tribe__Assets {
 
 		// If you are passing localize, you need `name` and `data`
 		if ( ! empty( $asset->localize ) && ( is_array( $asset->localize ) || is_object( $asset->localize ) ) ) {
+			$asset->localize = (object) $asset->localize;
 			if ( is_array( $asset->localize ) && empty( $asset->localize['name'] )  ) {
 				foreach ( $asset->localize as $index => $local ) {
 					$asset->localize[ $index ] = (object) $local;

@@ -212,27 +212,22 @@ class Tribe__PUE__Notices {
 			return;
 		}
 
-		// Only show our invalid key messaging on the plugin admin screen and on our own admin screens
-		// @todo review and revise in MR 17.13
-		if (
-			'plugins.php' !== $pagenow
-			&& ! Tribe__Admin__Helpers::instance()->is_screen()
-		) {
-			return;
-		}
-
 		$plugin_names = $this->get_formatted_plugin_names( self::INVALID_KEY );
 
 		if ( empty( $plugin_names ) ) {
 			return;
 		}
 
-		$prompt = sprintf( _n(
-			"It looks like you're using %1\$s, but the license key is invalid. Please download the latest version %2\$sfrom your account%3\$s.",
-			"It looks like you're using %1\$s, but the license keys are invalid. Please download the latest versions %2\$sfrom your account%3\$s.",
-			count( $this->notices[ self::INVALID_KEY ] ),
-			'tribe-common'
-		),
+		// Enqueue the notice CSS.
+		Tribe__Assets::instance()->enqueue( array( 'tribe-common-admin' ) );
+
+		$prompt = sprintf(
+			_n(
+				"It looks like you're using %1\$s, but the license key is invalid. Please download the latest version %2\$sfrom your account%3\$s.",
+				"It looks like you're using %1\$s, but the license keys are invalid. Please download the latest versions %2\$sfrom your account%3\$s.",
+				count( $this->notices[ self::INVALID_KEY ] ),
+				'tribe-common'
+			),
 			$plugin_names,
 			'<a href="http://m.tri.be/19n4" target="_blank">',
 			'</a>'
