@@ -218,12 +218,16 @@ class Tribe__PUE__Notices {
 			return;
 		}
 
-		$prompt = sprintf( _n(
-			"It looks like you're using %1\$s, but the license key is invalid. Please download the latest version %2\$sfrom your account%3\$s.",
-			"It looks like you're using %1\$s, but the license keys are invalid. Please download the latest versions %2\$sfrom your account%3\$s.",
-			count( $this->notices[ self::INVALID_KEY ] ),
-			'tribe-common'
-		),
+		// Enqueue the notice CSS.
+		Tribe__Assets::instance()->enqueue( array( 'tribe-common-admin' ) );
+
+		$prompt = sprintf(
+			_n(
+				"It looks like you're using %1\$s, but the license key is invalid. Please download the latest version %2\$sfrom your account%3\$s.",
+				"It looks like you're using %1\$s, but the license keys are invalid. Please download the latest versions %2\$sfrom your account%3\$s.",
+				count( $this->notices[ self::INVALID_KEY ] ),
+				'tribe-common'
+			),
 			$plugin_names,
 			'<a href="http://m.tri.be/19n4" target="_blank">',
 			'</a>'
@@ -296,8 +300,8 @@ class Tribe__PUE__Notices {
 		}
 
 		$prompt = sprintf( _n(
-				'You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your license, or purchase a new one.',
-				'You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to to manage your installs, upgrade your licenses, or purchase new ones.', count( $this->notices[ self::UPGRADE_KEY ] ),
+				'You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one.',
+				'You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones.', count( $this->notices[ self::UPGRADE_KEY ] ),
 				'tribe-common'
 			),
 			$plugin_names,
