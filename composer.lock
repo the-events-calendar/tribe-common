@@ -84,16 +84,16 @@
     "packages-dev": [
         {
             "name": "antecedent/patchwork",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antecedent/patchwork.git",
-                "reference": "d8e772ee90390960c23c6c64e09f1279d8a7b0df"
+                "reference": "5d3556e0586df8c0a237c9b8f541ffe0731924c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/d8e772ee90390960c23c6c64e09f1279d8a7b0df",
-                "reference": "d8e772ee90390960c23c6c64e09f1279d8a7b0df",
+                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/5d3556e0586df8c0a237c9b8f541ffe0731924c2",
+                "reference": "5d3556e0586df8c0a237c9b8f541ffe0731924c2",
                 "shasum": ""
             },
             "require": {
@@ -121,7 +121,7 @@
                 "runkit",
                 "testing"
             ],
-            "time": "2017-07-11T07:22:21+00:00"
+            "time": "2017-07-27T17:13:25+00:00"
         },
         {
             "name": "bacon/bacon-string-utils",
@@ -1234,16 +1234,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.21.12",
+            "version": "1.21.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "e7cd95cb2fe65d629bfdce7d2b8b7fb25a66226c"
+                "reference": "0052fea84bef02773a2d806cf3e2eee41628df36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/e7cd95cb2fe65d629bfdce7d2b8b7fb25a66226c",
-                "reference": "e7cd95cb2fe65d629bfdce7d2b8b7fb25a66226c",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/0052fea84bef02773a2d806cf3e2eee41628df36",
+                "reference": "0052fea84bef02773a2d806cf3e2eee41628df36",
                 "shasum": ""
             },
             "require": {
@@ -1292,7 +1292,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2017-07-26T18:13:24+00:00"
+            "time": "2017-07-28T16:04:37+00:00"
         },
         {
             "name": "lucatume/wp-browser-commons",
@@ -4213,16 +4213,16 @@
         },
         {
             "name": "wp-cli/autoload-splitter",
-            "version": "v0.1.3",
+            "version": "v0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/autoload-splitter.git",
-                "reference": "446f73de57ab4e7bf38a4ba2779cd3630905185c"
+                "reference": "ad9e4c67b64002b7a60368998ea536b861eb2b53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/autoload-splitter/zipball/446f73de57ab4e7bf38a4ba2779cd3630905185c",
-                "reference": "446f73de57ab4e7bf38a4ba2779cd3630905185c",
+                "url": "https://api.github.com/repos/wp-cli/autoload-splitter/zipball/ad9e4c67b64002b7a60368998ea536b861eb2b53",
+                "reference": "ad9e4c67b64002b7a60368998ea536b861eb2b53",
                 "shasum": ""
             },
             "require": {
@@ -4250,7 +4250,7 @@
             ],
             "description": "Composer plugin for splitting a generated autoloader into two distinct parts.",
             "homepage": "https://wp-cli.org",
-            "time": "2017-05-03T06:21:26+00:00"
+            "time": "2017-07-24T13:19:52+00:00"
         },
         {
             "name": "wp-cli/cache-command",
