@@ -1,8 +1,8 @@
 <?php
 if ( ! function_exists( 'tribe_post_count' ) ) {
 	/**
-	 * Counts the amount of posts we have for a given Series, it's important to note this will be cached
-	 * and not using WP_Query for performance purposes
+	 * Counts the amount of posts we have on each Post Status based on the Params
+	 * Immportant: this will be cached and not using WP_Query for performance purposes
 	 *
 	 * @see    wp_count_posts  This method is highly based on the work from WP Core on that Function
 	 *
