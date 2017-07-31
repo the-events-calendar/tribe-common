@@ -18,9 +18,9 @@ if ( ! function_exists( 'tribe_post_count' ) ) {
 		global $wpdb;
 
 		$args = (object) array(
-			'post_type' => (array) $post_type;
-			'parent'    => (array) $parent;
-			'author'    => (array) $author;
+			'post_type' => (array) $post_type,
+			'parent'    => (array) $parent,
+			'author'    => (array) $author,
 		);
 
 		/**
