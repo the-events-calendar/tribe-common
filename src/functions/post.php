@@ -38,10 +38,11 @@ if ( ! function_exists( 'tribe_post_count' ) ) {
 
 		// Use an array to build the query, which allows better filtering
 		$query = array(
-			'select' => 'SELECT post_status, COUNT( * ) AS num_posts',
-			'from'   => "FROM {$wpdb->posts}",
-			'join'   => '',
-			'where'  => array( 'WHERE 1=1' ),
+			'select'  => 'SELECT post_status, COUNT( * ) AS num_posts',
+			'from'    => "FROM {$wpdb->posts}",
+			'join'    => '',
+			'where'   => array( 'WHERE 1=1' ),
+			'groupby' => 'GROUP BY post_status',
 		);
 
 		if ( 1 === count( $args->post_type ) ) {
@@ -80,7 +81,6 @@ if ( ! function_exists( 'tribe_post_count' ) ) {
 				);
 			}
 		}
-		$query['groupby'] = 'GROUP BY post_status';
 
 		/**
 		 * Filters the counting SQL
@@ -100,7 +100,7 @@ if ( ! function_exists( 'tribe_post_count' ) ) {
 
 		if ( ! $has_cache ) {
 			// Make the query a string
-			$query['where'] = implode( " AND ", $query['where'] );
+			$query['where'] = implode( ' AND ', $query['where'] );
 			$query = implode( " \n", array_filter( $query ) );
 
 			$results = (array) $wpdb->get_results( $query );
