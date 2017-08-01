@@ -160,11 +160,11 @@ class Tribe__Admin__Helpers {
 	}
 
 	/**
-	 * Matcher for administration pages action
+	 * Matcher for administration pages base
 	 *
 	 * @since  TBD
 	 *
-	 * @param  string|array|null $action What will be checked to see if we return true or false
+	 * @param  string|array|null $base What will be checked to see if we return true or false
 	 *
 	 * @return boolean
 	 */
