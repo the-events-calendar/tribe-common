@@ -12,6 +12,7 @@ class Tribe__Admin__Helpers {
 	/**
 	 * Static Singleton Factory Method
 	 *
+	 * @since      4.0.1
 	 * @deprecated 4.5
 	 *
 	 * @return Tribe__Admin__Helpers
@@ -23,7 +24,9 @@ class Tribe__Admin__Helpers {
 	/**
 	 * Matcher for Admin Pages related to Post Types
 	 *
-	 * @param string|array|null $id What will be checked to see if we return true or false
+	 * @since  4.0.1
+	 *
+	 * @param  string|array|null $id What will be checked to see if we return true or false
 	 *
 	 * @return boolean
 	 */
@@ -67,6 +70,8 @@ class Tribe__Admin__Helpers {
 
 	/**
 	 * Matcher for administration pages that are from Tribe the easier way
+	 *
+	 * @since  4.0.1
 	 *
 	 * @param  string|array|null $id What will be checked to see if we return true or false
 	 *
@@ -117,6 +122,8 @@ class Tribe__Admin__Helpers {
 	/**
 	 * Matcher for administration pages action
 	 *
+	 * @since  4.0.1
+	 *
 	 * @param  string|array|null $action What will be checked to see if we return true or false
 	 *
 	 * @return boolean
@@ -139,13 +146,53 @@ class Tribe__Admin__Helpers {
 			return false;
 		}
 
-		// Match any of the pages set
+		// Match any of the actions passed
 		if ( ! is_scalar( $action ) && in_array( $current_screen->action, (array) $action ) ) {
 			return true;
 		}
 
-		// Match a specific page
+		// Match a specific page action
 		if ( $current_screen->action === $action ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Matcher for administration pages base
+	 *
+	 * @since  TBD
+	 *
+	 * @param  string|array|null $base What will be checked to see if we return true or false
+	 *
+	 * @return boolean
+	 */
+	public function is_base( $base = null ) {
+		global $current_screen;
+
+		// Not in the admin we don't even care
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		// Doing AJAX? bail.
+		if ( Tribe__Main::instance()->doing_ajax() ) {
+			return false;
+		}
+
+		// Avoid Notices by checking the object type of WP_Screen
+		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+			return false;
+		}
+
+		// Match any of the bases for the screen
+		if ( ! is_scalar( $base ) && in_array( $current_screen->base, (array) $base ) ) {
+			return true;
+		}
+
+		// Match a specific base for the screen
+		if ( $current_screen->base === $base ) {
 			return true;
 		}
 
