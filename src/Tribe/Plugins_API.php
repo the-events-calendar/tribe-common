@@ -2,6 +2,32 @@
 
 class Tribe__Plugins_API {
 	/**
+	 * Transient key used to store premium plugin stats.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $cached_stats_key = '_tribe_plugins_api_stats';
+
+	/**
+	 * Our current (or most recent available) plugin statistics, including
+	 * ratings, download count etc.
+	 *
+	 * @var array
+	 */
+	protected $current_stats = array();
+
+	/**
+	 * Endpoint for discovering current plugin statistics.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $stats_url = 'https://m.tri.be/plugin-stats';
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @since 4.5.3
@@ -102,7 +128,7 @@ class Tribe__Plugins_API {
 		$count = 0;
 		$products_to_inject = array();
 		foreach ( $products as $key => $product ) {
-			$products[ $key ] = $product = $this->build_product_data( $product );
+			$products[ $key ] = $product = $this->build_product_data( $product, $key );
 
 			// if the product is already installed, skip it
 			if ( $product['is_installed'] ) {
@@ -136,11 +162,12 @@ class Tribe__Plugins_API {
 	 *
 	 * @since 4.5.3
 	 *
-	 * @param array $product_data
+	 * @param array  $product_data
+	 * @param string $product_slug
 	 *
 	 * @return array
 	 */
-	public function build_product_data( $product_data ) {
+	public function build_product_data( $product_data, $product_slug ) {
 		$defaults = array(
 			'name'                     => null,
 			'slug'                     => null,
@@ -148,15 +175,15 @@ class Tribe__Plugins_API {
 			'author'                   => '<a href="http://m.tri.be/19o3">Modern Tribe, Inc.</a>',
 			'author_profile'           => null,
 			'requires'                 => '3.9',
-			'tested'                   => '4.7.5',
-			'rating'                   => null,
+			'tested'                   => $GLOBALS['wp_version'],
+			'rating'                   => 100,
 			'ratings'                  => array(),
-			'num_ratings'              => null,
+			'num_ratings'              => 10000,
 			'support_threads'          => null,
 			'support_threads_resolved' => null,
-			'active_installs'          => null,
+			'active_installs'          => 25000,
 			'downloaded'               => null,
-			'last_updated'             => null,
+			'last_updated'             => date_i18n( 'Y-m-d' ),
 			'added'                    => null,
 			'homepage'                 => '',
 			'sections'                 => array(),
@@ -169,11 +196,15 @@ class Tribe__Plugins_API {
 			'contributors'             => array(),
 			'tribe-result'             => true,
 			'icons'                    => array(
-        'default' => null,
+				'default' => null,
 			),
 		);
 
-		$product = array_merge( $defaults, $product_data );
+		$product = array_merge(
+			$defaults,
+			$product_data,
+			$this->get_sanitized_plugin_stats( $product_slug )
+		);
 
 		if ( ! empty( $product['title'] ) && empty( $product['name'] ) ) {
 			$product['name'] = $product['title'];
@@ -202,6 +233,8 @@ class Tribe__Plugins_API {
 	 * @return array
 	 */
 	public function get_products() {
+		$this->get_current_stats();
+
 		$products = array(
 			'the-events-calendar' => array(
 				'title' => __( 'The Events Calendar', 'tribe-common' ),
@@ -306,5 +339,68 @@ class Tribe__Plugins_API {
 		);
 
 		return $products;
+	}
+
+	/**
+	 * Fetches the latest statistics for our premium plugins.
+	 *
+	 * @since TBD
+	 */
+	protected function get_current_stats() {
+		$plugin_stats = get_transient( $this->cached_stats_key );
+
+		if ( empty( $plugin_stats ) ) {
+			$plugin_stats = $this->fetch_current_stats();
+			set_transient( $this->cached_stats_key, $plugin_stats, HOUR_IN_SECONDS * 6 );
+		}
+
+		$this->current_stats = $plugin_stats;
+	}
+
+	/**
+	 * Fetches current plugin statistics from our remote endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return array|mixed
+	 */
+	protected function fetch_current_stats() {
+		$response = wp_remote_get( $this->stats_url );
+
+		if ( is_wp_error( $response ) || '200' != $response['response']['code'] ) {
+			return;
+		}
+
+		$data = json_decode( $response['body'] );
+
+		if ( empty( $data ) || ! is_object( $data ) ) {
+			return;
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Fetches stats for the specified plugin.
+	 *
+	 * Result is an array (may be empty if we have no stats available) in which every value
+	 * is an HTML-escaped string.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $slug
+	 *
+	 * @return array
+	 */
+	protected function get_sanitized_plugin_stats( $slug ) {
+		$stats = isset( $this->current_stats->$slug )
+			? (array) $this->current_stats->$slug
+			: array();
+
+		foreach ( $stats as &$value ) {
+			$value = esc_html( (string) $value );
+		}
+
+		return $stats;
 	}
 }

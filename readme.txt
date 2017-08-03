@@ -4,7 +4,7 @@
 
 = [4.5.10] TBD =
 
-
+* Tweak - Improve integration with the plugins API/add new plugins screen [82223]
 
 = [4.5.9] 2017-007-26 =
 
