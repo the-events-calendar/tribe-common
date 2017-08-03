@@ -13,7 +13,7 @@ class Tribe__RAP__Options_Page {
 	}
 
 	public function enqueue_scripts() {
-		if ( empty( $_GET ) || 'trap-tester' !== $_GET['page'] ) {
+		if ( empty( $_GET['page'] ) || 'trap-tester' !== $_GET['page'] ) {
 			return;
 		}
 
