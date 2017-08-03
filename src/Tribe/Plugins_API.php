@@ -367,7 +367,7 @@ class Tribe__Plugins_API {
 	protected function fetch_current_stats() {
 		$response = wp_remote_get( $this->stats_url );
 
-		if ( is_wp_error( $response ) || '200' != $response['response']['code'] ) {
+		if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
 			return;
 		}
 
