@@ -22,9 +22,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		public static function constructCountries( $postId = '', $useDefault = true ) {
 
 			if ( tribe_get_option( 'tribeEventsCountries' ) != '' ) {
-				$countries = array(
-					'' => esc_html__( 'Select a Country:', 'tribe-common' ),
-				);
+				$countries = array();
 
 				$country_rows = explode( "\n", tribe_get_option( 'tribeEventsCountries' ) );
 				foreach ( $country_rows as $crow ) {
@@ -42,7 +40,6 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 
 			if ( ! isset( $countries ) || ! is_array( $countries ) || count( $countries ) == 1 ) {
 				$countries = array(
-					''   => esc_html__( 'Select a Country:', 'tribe-common' ),
 					'US' => esc_html__( 'United States', 'tribe-common' ),
 					'AF' => esc_html__( 'Afghanistan', 'tribe-common' ),
 					'AL' => esc_html__( 'Albania', 'tribe-common' ),
@@ -285,6 +282,15 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 					'ZW' => esc_html__( 'Zimbabwe', 'tribe-common' ),
 				);
 			}
+
+			// Perform a natural sort: this maintains the key -> index associations but ensures the countries
+			// are in the expected order, even once translated
+			natsort( $countries );
+
+			// Placeholder option ('Select a Country') first by default
+			$select_country = array( '' => esc_html__( 'Select a Country:', 'tribe-common' ) );
+			$countries = $select_country + $countries;
+
 			if ( ( $postId || $useDefault ) ) {
 				$countryValue = get_post_meta( $postId, '_EventCountry', true );
 				if ( $countryValue ) {
