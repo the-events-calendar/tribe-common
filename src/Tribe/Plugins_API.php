@@ -151,7 +151,7 @@ class Tribe__Plugins_API {
 			'tested'                   => $GLOBALS['wp_version'],
 			'rating'                   => 100,
 			'ratings'                  => array(),
-			'num_ratings'              => 10000,
+			'num_ratings'              => rand( 100, 800 ),
 			'support_threads'          => null,
 			'support_threads_resolved' => null,
 			'active_installs'          => 25000,
