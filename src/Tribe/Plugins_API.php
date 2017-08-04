@@ -245,7 +245,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings.', 'tribe-common' ),
 				'image' => 'https://ps.w.org/event-tickets/assets/icon-128x128.png?rev=1299138',
 				'is_installed' => class_exists( 'Tribe__Tickets__Main' ),
-				'active_installs' => 20000
+				'active_installs' => 20000,
 			),
 			'event-tickets-plus' => array(
 				'title' => __( 'Event Tickets Plus', 'tribe-common' ),
@@ -259,7 +259,7 @@ class Tribe__Plugins_API {
 				),
 				'image' => 'images/app-shop-tickets-plus.jpg',
 				'is_installed' => class_exists( 'Tribe__Tickets_Plus__Main' ),
-				'active_installs' => 10000
+				'active_installs' => 10000,
 			),
 			'tribe-filterbar' => array(
 				'title' => __( 'Filter Bar', 'tribe-common' ),
@@ -279,7 +279,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go.', 'tribe-common' ),
 				'image' => 'images/app-shop-community.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Community__Main' ),
-				'active_installs' => 20000
+				'active_installs' => 20000,
 			),
 			'events-community-tickets' => array(
 				'title' => __( 'Community Tickets', 'tribe-common' ),
