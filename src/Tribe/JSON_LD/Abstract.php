@@ -186,7 +186,6 @@ abstract class Tribe__JSON_LD__Abstract {
 	 * @return false|string Link to the post or false
 	 */
 	protected function get_link( $post ) {
-		$test = get_permalink( $post );
 		return get_permalink( $post );
 	}
 
