@@ -6,6 +6,7 @@
 
 * Fix - Added support to tribe_asset() for altering plugin dir or using WPMU plugins. Thanks to @squirrelandnnuts for reporting this [82809]
 * Fix - Made JSON LD permalinks overridable by all post types, so they can be filtered [76411]
+* Tweak - Improve the Select2 search experience (props to @fabianmarz) [84496]
 
 = [4.5.9] 2017-007-26 =
 
