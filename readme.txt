@@ -5,10 +5,12 @@
 = [4.5.10] TBD =
 
 * Tweak - Improve integration with the plugins API/add new plugins screen [82223]
+* Fix - Added support to tribe_asset() for altering plugin dir or using WPMU plugins. Thanks to @squirrelandnnuts for reporting this [82809]
 
 = [4.5.9] 2017-007-26 =
 
 * Fix - Avoid accidental overwrite of options when settings are saved in a multisite context [79728]
+* Fix - Provide a well sorted list of countries even when this list is translated (our thanks to Johannes in the forums for highlighting this) [69550]
 * Tweak - Cleanup logic responsible for handling the default country option and remove confusing translation calls (our thanks to Oliver for flagging this!) [72113]
 * Tweak - Added period "." separator to datepicker formats [65282]
 * Tweak - Avoid noise relating to PUE checks during WP CLI requests
