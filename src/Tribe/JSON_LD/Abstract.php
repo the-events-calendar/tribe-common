@@ -181,6 +181,8 @@ abstract class Tribe__JSON_LD__Abstract {
 	 * Children of this class are likely to override it with their
 	 * own functions that only work with their designated post type.
 	 *
+	 * @since TBD
+	 *
 	 * @param  int|WP_Post  $post The Post Object or ID
 	 *
 	 * @return false|string Link to the post or false
