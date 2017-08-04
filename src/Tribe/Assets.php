@@ -218,14 +218,18 @@ class Tribe__Assets {
 
 		if ( 0 === strpos( $url, WPMU_PLUGIN_URL ) ) {
 			// URL inside WPMU plugin dir.
-			$plugins_dir = wp_normalize_path( WPMU_PLUGIN_DIR );
-			$base_url   = WPMU_PLUGIN_URL;
+			$base_dir = wp_normalize_path( WPMU_PLUGIN_DIR );
+			$base_url = WPMU_PLUGIN_URL;
 		} elseif ( 0 === strpos( $url, WP_PLUGIN_URL ) ) {
 			// URL inside WP plugin dir.
-			$plugins_dir = wp_normalize_path( WP_PLUGIN_DIR );
-			$base_url   = WP_PLUGIN_URL;
+			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_url = WP_PLUGIN_URL;
+		} elseif ( 0 === strpos( $url, WP_CONTENT_URL ) ) {
+			// URL inside WP content dir.
+			$base_dir = wp_normalize_path( WP_CONTENT_DIR );
+			$base_url = WP_CONTENT_URL;
 		} else {
-			// Resource needs to be inside a plugins dir, if not we can't check if it exists.
+			// Resource needs to be inside a wp-content or a plugins dir.
 			return false;
 		}
 
@@ -247,10 +251,10 @@ class Tribe__Assets {
 		$urls[] = $relative_location;
 
 		// Check for all Urls added to the array.
-		foreach ( $urls as $relative_location ) {
-			$file_path = wp_normalize_path( $plugins_dir . $relative_location );
+		foreach ( $urls as $partial_path ) {
+			$file_path = wp_normalize_path( $base_dir . $partial_path );
 			$file_url  = plugins_url( basename( $file_path ), $file_path );
-			// If file exists return url.
+
 			if ( file_exists( $file_path ) ) {
 				return $file_url;
 			}
