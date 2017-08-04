@@ -2,32 +2,6 @@
 
 class Tribe__Plugins_API {
 	/**
-	 * Transient key used to store premium plugin stats.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected $cached_stats_key = '_tribe_plugins_api_stats';
-
-	/**
-	 * Our current (or most recent available) plugin statistics, including
-	 * ratings, download count etc.
-	 *
-	 * @var array
-	 */
-	protected $current_stats = array();
-
-	/**
-	 * Endpoint for discovering current plugin statistics.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected $stats_url = 'https://m.tri.be/plugin-stats';
-
-	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @since 4.5.3
@@ -163,11 +137,10 @@ class Tribe__Plugins_API {
 	 * @since 4.5.3
 	 *
 	 * @param array  $product_data
-	 * @param string $product_slug
 	 *
 	 * @return array
 	 */
-	public function build_product_data( $product_data, $product_slug ) {
+	public function build_product_data( $product_data ) {
 		$defaults = array(
 			'name'                     => null,
 			'slug'                     => null,
@@ -202,8 +175,7 @@ class Tribe__Plugins_API {
 
 		$product = array_merge(
 			$defaults,
-			$product_data,
-			$this->get_sanitized_plugin_stats( $product_slug )
+			$product_data
 		);
 
 		if ( ! empty( $product['title'] ) && empty( $product['name'] ) ) {
@@ -233,8 +205,6 @@ class Tribe__Plugins_API {
 	 * @return array
 	 */
 	public function get_products() {
-		$this->get_current_stats();
-
 		$products = array(
 			'the-events-calendar' => array(
 				'title' => __( 'The Events Calendar', 'tribe-common' ),
@@ -243,6 +213,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust.', 'tribe-common' ),
 				'image' => 'https://ps.w.org/the-events-calendar/assets/icon-128x128.png?rev=1342379',
 				'is_installed' => class_exists( 'Tribe__Events__Main' ),
+				'active_installs' => 500000,
 			),
 			'event-aggregator' => array(
 				'title' => __( 'Event Aggregator', 'tribe-common' ),
@@ -251,6 +222,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support.', 'tribe-common' ),
 				'image' => 'images/app-shop-ical.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Aggregator' ) && Tribe__Events__Aggregator::is_service_active(),
+				'active_installs' => 20000,
 			),
 			'events-calendar-pro' => array(
 				'title' => __( 'Events Calendar PRO', 'tribe-common' ),
@@ -264,6 +236,7 @@ class Tribe__Plugins_API {
 				),
 				'image' => 'images/app-shop-pro.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Pro__Main' ),
+				'active_installs' => 100000,
 			),
 			'event-tickets' => array(
 				'title' => __( 'Event Tickets', 'tribe-common' ),
@@ -272,6 +245,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings.', 'tribe-common' ),
 				'image' => 'https://ps.w.org/event-tickets/assets/icon-128x128.png?rev=1299138',
 				'is_installed' => class_exists( 'Tribe__Tickets__Main' ),
+				'active_installs' => 20000
 			),
 			'event-tickets-plus' => array(
 				'title' => __( 'Event Tickets Plus', 'tribe-common' ),
@@ -285,6 +259,7 @@ class Tribe__Plugins_API {
 				),
 				'image' => 'images/app-shop-tickets-plus.jpg',
 				'is_installed' => class_exists( 'Tribe__Tickets_Plus__Main' ),
+				'active_installs' => 10000
 			),
 			'tribe-filterbar' => array(
 				'title' => __( 'Filter Bar', 'tribe-common' ),
@@ -294,6 +269,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar.', 'tribe-common' ),
 				'image' => 'images/app-shop-filter-bar.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Filterbar__View' ),
+				'active_installs' => 20000,
 			),
 			'events-community' => array(
 				'title' => __( 'Community Events', 'tribe-common' ),
@@ -303,6 +279,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go.', 'tribe-common' ),
 				'image' => 'images/app-shop-community.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Community__Main' ),
+				'active_installs' => 20000
 			),
 			'events-community-tickets' => array(
 				'title' => __( 'Community Tickets', 'tribe-common' ),
@@ -313,6 +290,7 @@ class Tribe__Plugins_API {
 					'requires' => _x( 'Event Tickets Plus and Community Events', 'Names of required plugins for Community Tickets', 'tribe-common' ),
 				'image' => 'images/app-shop-community-tickets.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Community__Tickets__Main' ),
+				'active_installs' => 10000,
 			),
 			'tribe-eventbrite' => array(
 				'title' => __( 'Eventbrite Tickets', 'tribe-common' ),
@@ -326,6 +304,7 @@ class Tribe__Plugins_API {
 				),
 				'image' => 'images/app-shop-eventbrite.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ),
+				'active_installs' => 20000,
 			),
 			'image-widget-plus' => array(
 				'title' => __( 'Image Widget Plus', 'tribe-common' ),
@@ -335,72 +314,10 @@ class Tribe__Plugins_API {
 				'description' => __( 'Take your image widgets to the next level with Image Widget Plus! We\'ve taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support.', 'tribe-common' ),
 				'image' => 'images/app-shop-image-widget-plus.jpg',
 				'is_installed' => class_exists( 'Tribe__Image__Plus__Main' ),
+				'active_installs' => 2500,
 			),
 		);
 
 		return $products;
-	}
-
-	/**
-	 * Fetches the latest statistics for our premium plugins.
-	 *
-	 * @since TBD
-	 */
-	protected function get_current_stats() {
-		$plugin_stats = get_transient( $this->cached_stats_key );
-
-		if ( empty( $plugin_stats ) ) {
-			$plugin_stats = $this->fetch_current_stats();
-			set_transient( $this->cached_stats_key, $plugin_stats, HOUR_IN_SECONDS * 6 );
-		}
-
-		$this->current_stats = $plugin_stats;
-	}
-
-	/**
-	 * Fetches current plugin statistics from our remote endpoint.
-	 *
-	 * @since TBD
-	 *
-	 * @return array|mixed
-	 */
-	protected function fetch_current_stats() {
-		$response = wp_remote_get( $this->stats_url );
-
-		if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
-			return;
-		}
-
-		$data = json_decode( $response['body'] );
-
-		if ( empty( $data ) || ! is_object( $data ) ) {
-			return;
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Fetches stats for the specified plugin.
-	 *
-	 * Result is an array (may be empty if we have no stats available) in which every value
-	 * is an HTML-escaped string.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $slug
-	 *
-	 * @return array
-	 */
-	protected function get_sanitized_plugin_stats( $slug ) {
-		$stats = isset( $this->current_stats->$slug )
-			? (array) $this->current_stats->$slug
-			: array();
-
-		foreach ( $stats as &$value ) {
-			$value = esc_html( (string) $value );
-		}
-
-		return $stats;
 	}
 }
