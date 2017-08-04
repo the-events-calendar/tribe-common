@@ -5,6 +5,7 @@
 = [4.5.10] TBD =
 
 * Fix - Added support to tribe_asset() for altering plugin dir or using WPMU plugins. Thanks to @squirrelandnnuts for reporting this [82809]
+* Fix - Made JSON LD permalinks overridable by all post types, so they can be filtered [76411]
 
 = [4.5.9] 2017-007-26 =
 
