@@ -102,7 +102,7 @@ class Tribe__Plugins_API {
 		$count = 0;
 		$products_to_inject = array();
 		foreach ( $products as $key => $product ) {
-			$products[ $key ] = $product = $this->build_product_data( $product, $key );
+			$products[ $key ] = $product = $this->build_product_data( $product );
 
 			// if the product is already installed, skip it
 			if ( $product['is_installed'] ) {
