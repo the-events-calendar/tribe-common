@@ -85,7 +85,7 @@ class Tribe__Admin__Notices {
 				continue;
 			}
 
-			add_action( $notice->action, $notice->callback, $notice->priority );
+			add_action( $notice->action, $notice->callback, $notice->priority, 0 );
 		}
 	}
 
