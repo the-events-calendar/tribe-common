@@ -2,6 +2,13 @@
 
 == Changelog ==
 
+= [4.5.9] 2017-007-26 =
+
+* Fix - Avoid accidental overwrite of options when settings are saved in a multisite context [79728]
+* Tweak - Cleanup logic responsible for handling the default country option and remove confusing translation calls (our thanks to Oliver for flagging this!) [72113]
+* Tweak - Added period "." separator to datepicker formats [65282]
+* Tweak - Avoid noise relating to PUE checks during WP CLI requests
+
 = [4.5.8] 2017-07-13 =
 
 * Fix - Fixes to the plugin upgrade notice parser including support for environments where the data stream wrapper is unavailable [69486]

@@ -295,8 +295,8 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 				if ( $defaultCountry && $defaultCountry[0] != '' ) {
 					$selectCountry = array_shift( $countries );
 					asort( $countries );
-					$countries = array( $defaultCountry[0] => __( $defaultCountry[1], 'tribe-common' ) ) + $countries;
-					$countries = array( '' => __( $selectCountry, 'tribe-common' ) ) + $countries;
+					$countries = array( $defaultCountry[0] => $defaultCountry[1] ) + $countries;
+					$countries = array( '' => $selectCountry ) + $countries;
 					array_unique( $countries );
 				}
 

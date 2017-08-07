@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.5.8\n"
+"Project-Id-Version: Tribe Common 4.5.9\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2017-07-12 14:58:51+00:00\n"
+"POT-Creation-Date: 2017-07-25 17:35:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-07-12 14:58\n"
+"PO-Revision-Date: 2017-07-25 17:35\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -476,103 +476,103 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:492
+#: src/Tribe/PUE/Checker.php:494
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:495
+#: src/Tribe/PUE/Checker.php:497
 msgid ""
 "%1$sBuy a license%2$s for the Event Aggregator service to access additional "
 "import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:507 src/Tribe/PUE/Checker.php:518
+#: src/Tribe/PUE/Checker.php:509 src/Tribe/PUE/Checker.php:520
 msgid "License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:527 src/Tribe/PUE/Checker.php:561
+#: src/Tribe/PUE/Checker.php:529 src/Tribe/PUE/Checker.php:563
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:536
+#: src/Tribe/PUE/Checker.php:538
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:537
+#: src/Tribe/PUE/Checker.php:539
 msgid ""
 "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:548
+#: src/Tribe/PUE/Checker.php:550
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:648
+#: src/Tribe/PUE/Checker.php:650
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:886
+#: src/Tribe/PUE/Checker.php:888
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:899
+#: src/Tribe/PUE/Checker.php:901
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:905
+#: src/Tribe/PUE/Checker.php:907
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:925
+#: src/Tribe/PUE/Checker.php:927
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:930
+#: src/Tribe/PUE/Checker.php:932
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:957 src/Tribe/PUE/Notices.php:283
+#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:283
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:285
+#: src/Tribe/PUE/Checker.php:961 src/Tribe/PUE/Notices.php:285
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:974
+#: src/Tribe/PUE/Checker.php:976
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:995
+#: src/Tribe/PUE/Checker.php:997
 msgid ""
 "There is an update for %s. You'll need to %scheck your license%s to have "
 "access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1052
+#: src/Tribe/PUE/Checker.php:1054
 msgid ""
 "There is an update for %s. %sRenew your license%s to get access to bug "
 "fixes, security updates, and new features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1082
+#: src/Tribe/PUE/Checker.php:1084
 msgid "Update now to version %s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1093
+#: src/Tribe/PUE/Checker.php:1095
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1666
+#: src/Tribe/PUE/Checker.php:1668
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1667
+#: src/Tribe/PUE/Checker.php:1669
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1668
+#: src/Tribe/PUE/Checker.php:1670
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 

@@ -33,6 +33,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string|array            If $translate is not set returns the full array, if not returns the `Y-m-d`
 		 */
 		public static function datepicker_formats( $translate = null ) {
+
+			// The datepicker has issues when a period separator and no leading zero is used. Those formats are purposefully omitted.
 			$formats = array(
 				'Y-m-d',
 				'n/j/Y',
@@ -43,6 +45,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				'm-d-Y',
 				'j-n-Y',
 				'd-m-Y',
+				'Y.m.d',
+				'm.d.Y',
+				'd.m.Y',
 			);
 
 			if ( is_null( $translate ) ) {

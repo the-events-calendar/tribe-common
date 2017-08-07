@@ -38,11 +38,11 @@ msgstr ""
 msgid "Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1082
+#: src/Tribe/PUE/Checker.php:1084
 msgid "Update now to version %s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1093
+#: src/Tribe/PUE/Checker.php:1095
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
@@ -70,7 +70,7 @@ msgstr ""
 msgid "Take your image widgets to the next level with Image Widget Plus! We've taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:974
+#: src/Tribe/PUE/Checker.php:976
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
@@ -200,7 +200,7 @@ msgstr ""
 msgid "The URL to the term archive page"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:495
+#: src/Tribe/PUE/Checker.php:497
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
@@ -212,31 +212,31 @@ msgstr ""
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:527 src/Tribe/PUE/Checker.php:561
+#: src/Tribe/PUE/Checker.php:529 src/Tribe/PUE/Checker.php:563
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:536
+#: src/Tribe/PUE/Checker.php:538
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:537
+#: src/Tribe/PUE/Checker.php:539
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:548
+#: src/Tribe/PUE/Checker.php:550
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1666
+#: src/Tribe/PUE/Checker.php:1668
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1667
+#: src/Tribe/PUE/Checker.php:1669
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1668
+#: src/Tribe/PUE/Checker.php:1670
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
@@ -278,11 +278,11 @@ msgstr ""
 msgid "Event Log"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:995
+#: src/Tribe/PUE/Checker.php:997
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1052
+#: src/Tribe/PUE/Checker.php:1054
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
@@ -416,11 +416,11 @@ msgstr ""
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:957 src/Tribe/PUE/Notices.php:283
+#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:283
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:285
+#: src/Tribe/PUE/Checker.php:961 src/Tribe/PUE/Notices.php:285
 msgid " (opens in a new window)"
 msgstr ""
 
@@ -703,7 +703,7 @@ msgstr ""
 msgid "Visit the Add-on Page"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:930
+#: src/Tribe/PUE/Checker.php:932
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
@@ -775,7 +775,7 @@ msgstr ""
 msgid "Return to WordPress Updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:899
+#: src/Tribe/PUE/Checker.php:901
 msgid "unknown date"
 msgstr ""
 
@@ -1813,7 +1813,7 @@ msgstr "الفلبين"
 msgid "Pitcairn"
 msgstr "بيتكيرن"
 
-#: src/Tribe/PUE/Checker.php:507 src/Tribe/PUE/Checker.php:518
+#: src/Tribe/PUE/Checker.php:509 src/Tribe/PUE/Checker.php:520
 msgid "License Key"
 msgstr ""
 
@@ -1821,7 +1821,7 @@ msgstr ""
 msgid "Poland"
 msgstr "بولندا"
 
-#: src/Tribe/PUE/Checker.php:492
+#: src/Tribe/PUE/Checker.php:494
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
@@ -1829,7 +1829,7 @@ msgstr ""
 msgid "Portugal"
 msgstr "البرتغال"
 
-#: src/Tribe/PUE/Checker.php:648
+#: src/Tribe/PUE/Checker.php:650
 msgid "License key(s) updated."
 msgstr ""
 
@@ -1837,7 +1837,7 @@ msgstr ""
 msgid "Puerto Rico"
 msgstr "بورتوريكو"
 
-#: src/Tribe/PUE/Checker.php:905
+#: src/Tribe/PUE/Checker.php:907
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
@@ -1861,7 +1861,7 @@ msgstr "الفيدرالية الروسية"
 msgid "Rwanda"
 msgstr "رواندا"
 
-#: src/Tribe/PUE/Checker.php:925
+#: src/Tribe/PUE/Checker.php:927
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
@@ -1869,7 +1869,7 @@ msgstr ""
 msgid "Saint Kitts And Nevis"
 msgstr "سانت كيتس ونيفيس"
 
-#: src/Tribe/PUE/Checker.php:886
+#: src/Tribe/PUE/Checker.php:888
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
