@@ -214,7 +214,7 @@ class Tribe__Main {
 			array(
 				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ) ),
 				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'handlebars' ) ),
-				array( 'tribe-validation-style', 'validation.js', array() ),
+				array( 'tribe-validation-style', 'validation.css', array() ),
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
 				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),

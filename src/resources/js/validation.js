@@ -1,7 +1,9 @@
 /**
  * Configures this Object in the Global Tribe variable
  *
- * @type {Object}
+ * @since  TBD
+ *
+ * @type   {Object}
  */
 tribe.validation = {};
 
@@ -21,6 +23,7 @@ tribe.validation = {};
 		fields: 'input, select, textarea',
 		submit: 'input[type="submit"], button',
 		error: '.tribe-validation-error',
+		valid: '.tribe-validation-valid',
 	};
 
 	/**
@@ -39,6 +42,9 @@ tribe.validation = {};
 	 *
 	 * @since  TBD
 	 *
+	 * @param  {int}  index  Field Index
+	 * @param  {DOM}  item   DOM element for the item
+	 *
 	 * @type   {function}
 	 */
 	obj.setup = function ( i, item ) {
@@ -47,39 +53,186 @@ tribe.validation = {};
 		// First we add the Class for the Form
 		$item.addClass( obj.selectors.item.className() );
 
+		// On Form Submit
+		$item.on( 'submit.tribe', obj.on_submit );
+
+		// Actual Validation
+		$item.on( 'validation.tribe', obj.on_validation );
+
+		// Show the errors for all the fields
+		$item.on( 'displayErrors.tribe', obj.on_display_errors );
+
 		// Prevent form normal invalidation to be triggered.
-		$item.find( obj.selectors.submit ).on( 'click', obj.on_click_submit_buttons );
-
+		$document.on( 'click.tribe', obj.selectors.submit, obj.on_click_submit_buttons );
 	};
 
-	obj.on_validate = function ( event ) {
+	obj.conditions = {
+		required: function ( val ) {
+			return '' == val;
+		}
+	};
+
+	/**
+	 * Validates a single Field
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {int}  index  Field Index
+	 * @param  {DOM}  item   DOM element for the field
+	 *
+	 * @return {void}
+	 */
+	obj.validate = function( index, field ) {
+		var $field = $( field );
+		var isValid = obj.is_valid( $field );
+
+		// If it's valid we bail
+		if ( isValid ) {
+			return;
+		}
+
+		$field.addClass( obj.selectors.error.className() );
+		$field.one( 'change', obj.on_change_field_remove_error );
+	};
+
+	/**
+	 * Validates a single Field
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {object}  $field  jQuery Object for the field
+	 *
+	 * @return {bool}
+	 */
+	obj.is_valid = function( $field ) {
+		var valid = true;
+		var value = $field.val();
+		var isDisabled = $field.is( ':disabled' );
+		var constraints = {
+				required: $field.data( 'required' ) || $field.is( '[data-required]' ) || $field.is( '[required]' ) || false,
+			};
+
+		// Bail if it's a disabled field
+		if ( isDisabled ) {
+			return valid;
+		}
+
+		// Check which ones of these are valid
+		constraints = _.pick( constraints, function ( isApplicable ) {
+			return isApplicable;
+		} );
+
+		// Verifies if we have a valid set of constraints
+		valid = _.reduce( constraints, function ( passes, constraint, key ) {
+			return passes || obj.conditions[ key ]( value, constraint, $field );
+		}, true );
+
+		return valid;
+	};
+
+	/**
+	 * Actually does the validation for the Form
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {object} event JQuery Event
+	 *
+	 * @return {void|false}
+	 */
+	obj.on_validation = function ( event ) {
 		var $item = $( this );
+		var $fields = $item.find( obj.selectors.fields );
 
-		console.log(  )
+		$fields.each( obj.validate );
+
+		var $errors = $item.find( obj.selectors.error );
+
+		// if there are errors we show the message and bail
+		if ( 0 !== $errors.length ) {
+			$item.trigger( 'displayErrors.tribe' );
+			return;
+		}
+
+		// If we got here add the valid class
+		$item.addClass( obj.selectors.valid.className() );
 	};
 
+	/**
+	 * Fired on `displayErrors` for a validation form
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {object} event JQuery Event
+	 *
+	 * @return {void}
+	 */
+	obj.on_display_errors = function ( event ) {
+		var $item = $( this );
+		var $wpHeaderEnd = $( '.wp-header-end' );
+		var $container = $( '<div>' ).addClass( 'notice notice-error tribe-notice' );
+		var $errors = $item.find( obj.selectors.error );
+		var $list = $( '<ul>' );
+
+		$errors.each( function ( i, field ) {
+			var $field = $( field );
+			var message = $field.data( 'validationError' );
+			var $listItem = $( '<li>' ).text( message );
+			$list.append( $listItem );
+		} );
+
+		$container.append( $list );
+
+		$wpHeaderEnd.after( $container );
+	};
+
+	/**
+	 * Hooks to the submit and if invalid prevents submit to happen
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {object} event JQuery Event
+	 *
+	 * @return {void|false}
+	 */
 	obj.on_submit = function ( event ) {
 		var $item = $( this );
 
 		$item.trigger( 'validation.tribe' );
+
+		var is_valid = $item.is( obj.selectors.valid );
+
+		// When Invalid we prevent the submit to happen
+		if ( ! is_valid ) {
+			event.preventDefault();
+			return false;
+		}
 	};
 
-
 	/**
-	 * Hijack the Browser the Invalidation for when we click publish
+	 * Hijack the Browser the Invalidation
 	 *
 	 * Note that it this weird multi-method is required to go around
 	 * the usage of 'invalid' event, which doesn't bubble up to 'form'
 	 * only happens on the Field, which prevents us to use it on
 	 * the ones that are created by JavaScript Templates
 	 *
-	 * @uses obj.on_invalid_field
+	 * @since  TBD
+	 *
+	 * @uses   obj.on_invalid_field
+	 *
+	 * @param  {object} event JQuery Event
 	 *
 	 * @return {void}
 	 */
 	obj.on_click_submit_buttons = function( event ) {
 		var $submit = $( this );
 		var $item = $submit.parents( obj.selectors.item );
+
+		// If we are not inside of the Validation just bail
+		if ( 0 === $item.length ) {
+			return;
+		}
+
 		var $fields = $item.find( obj.selectors.fields );
 
 		// Makes sure we don't have any invalid event on any fields.
@@ -90,18 +243,29 @@ tribe.validation = {};
 	};
 
 	/**
-	 * Add a class to mark fields that are invalid
+	 * Add a class to mark fields that are invalid and add an one time
+	 * event for these same fields to remove the class on `change`
 	 *
-	 * Mostly used right now to avoid datepickers from opening
+	 * @since  TBD
 	 *
 	 * @uses obj.on_change_field_remove_error
 	 *
-	 * @return {void}
+	 * @param  {object} event JQuery Event
+	 *
+	 * @return {void|false}
 	 */
 	obj.on_invalid_field = function( event ) {
 		var $field = $( this );
+		var $item = $field.parents( obj.selectors.item );
 
-		$field.addClass( obj.selectors.error.className() ).one( 'change', obj.on_change_field_remove_error );
+		// Adds the Class for marking the field with an error
+		$field.addClass( obj.selectors.error.className() );
+
+		// Shows the errors
+		$item.trigger( 'displayErrors.tribe' );
+
+		// Adds the Change event to allow removing the error class
+		$field.one( 'change', obj.on_change_field_remove_error );
 
 		event.preventDefault();
 		return false;
@@ -127,7 +291,7 @@ tribe.validation = {};
 	 *
 	 * @param  {object} event jQuery Event
 	 *
-	 * @type   {function}
+	 * @return {void}
 	 */
 	obj.on_ready = function ( event ) {
 		$( obj.selectors.item ).validation();
@@ -138,7 +302,7 @@ tribe.validation = {};
 	 *
 	 * @since  TBD
 	 *
-	 * @type   {function}
+	 * @return {void}
 	 */
 	$.fn.validation = obj.fn;
 
