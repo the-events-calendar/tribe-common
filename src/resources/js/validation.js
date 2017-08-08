@@ -27,6 +27,19 @@ tribe.validation = {};
 	};
 
 	/**
+	 * Object containing all the conditions for the Fields
+	 *
+	 * @since  TBD
+	 *
+	 * @type   {object}
+	 */
+	obj.conditions = {
+		required: function ( val ) {
+			return '' == val;
+		}
+	};
+
+	/**
 	 * FN (prototype) method from jQuery
 	 *
 	 * @since  TBD
@@ -64,12 +77,6 @@ tribe.validation = {};
 
 		// Prevent form normal invalidation to be triggered.
 		$document.on( 'click.tribe', obj.selectors.submit, obj.on_click_submit_buttons );
-	};
-
-	obj.conditions = {
-		required: function ( val ) {
-			return '' == val;
-		}
 	};
 
 	/**
