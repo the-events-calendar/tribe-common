@@ -215,18 +215,18 @@
 			}
 
 			// We fetch from `[data-bumpdown]` attr the possible HTML for this Bumpdown
-			data.html = data.$trigger.data( 'bumpdown' );
+			data.html = data.$trigger.attr( 'data-bumpdown' );
 			data.html = '<div class="tribe-bumpdown-content">' + data.html + '</div>';
 
 			// We fetch from `[data-bumpdown-class]` attr the possible class(es) for this Bumpdown
-			data.class = data.$trigger.data( 'bumpdown-class' );
+			data.class = data.$trigger.attr( 'data-bumpdown-class' );
 
 			// Flags about if this bumpdown is permanent, meaning it only closes when clicking on the close button or the trigger
 			data.is_permanent = data.$trigger.is( selectors.permanent );
 
 			// Fetch the first Block-Level parent
 			data.$parent = data.$trigger.parents().filter( function() {
-				return $.inArray( $( this ).css( 'display' ), [ 'block', 'table', 'table-cell', 'table-row' ] );
+				return -1 < $.inArray( $( this ).css( 'display' ), [ 'block', 'table', 'table-cell', 'table-row' ] );
 			}).first();
 
 			if ( ! data.html ) {
