@@ -1,3 +1,24 @@
+// Run some magic to allow a better handling of class names for jQuery.hasClass type of methods
+String.prototype.className = function () {
+	return this.replace( '.', '' );
+};
+
+// Add a method to convert ID/Classes into JS easy/safe variable
+String.prototype.varName = function () {
+	return this.replace( '-', '_' );
+};
+
+/**
+ * Creates a global Tribe Variable where we should start to store all the things
+ * @type {object}
+ */
+var tribe = tribe || {};
+
+/**
+ * @todo  All these lines below should be copied into another file.
+ *        we don't need all of this JS on all pages
+ */
+
 var tribe_auto_sysinfo = tribe_auto_sysinfo || {};
 
 tribe_auto_sysinfo.ajax = {
