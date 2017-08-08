@@ -333,28 +333,32 @@ class Tribe__Assets {
 			'url'           => false,
 			'action'        => null,
 			'priority'      => 10,
-			'file'          => false,
 			'type'          => null,
 			'deps'          => array(),
 			'version'       => $version,
 			'media'         => 'all',
 			'in_footer'     => true,
+			'is_registered' => false,
+			'origin_path'   => null,
+			'origin_url'    => null,
+			'origin_name'   => null,
+
+			// Bigger Variables at the end
 			'localize'      => array(),
 			'conditionals'  => array(),
-			'is_registered' => false,
 		);
 
 		// Merge Arguments
 		$asset = (object) wp_parse_args( $arguments, $defaults );
 
 		// Enforce these one
-		$asset->slug             = $slug;
-		$asset->file             = $file;
-		$asset->deps             = $deps;
-		$asset->origin           = $origin;
-		$asset->origin_name      = $origin_name;
-		$asset->action           = $action;
-		$asset->already_enqueued = false;
+		$asset->slug        = $slug;
+		$asset->file        = $file;
+		$asset->deps        = $deps;
+		$asset->origin_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath );;
+		$asset->origin_url  = trailingslashit( ! empty( $origin->plugin_url ) ? $origin->plugin_url : $origin->pluginUrl );;
+		$asset->origin_name = $origin_name;
+		$asset->action      = $action;
 
 		// If we don't have a type on the arguments we grab from the File path
 		if ( is_null( $asset->type ) ) {
@@ -404,7 +408,7 @@ class Tribe__Assets {
 		if ( filter_var( $asset->file, FILTER_VALIDATE_URL ) ) {
 			$asset->url = $asset->file;
 		} else {
-			$asset->url = $this->maybe_get_min_file( tribe_resource_url( $asset->file, false, ( $is_vendor ? '' : null ), $asset->origin ) );
+			$asset->url = $this->maybe_get_min_file( tribe_resource_url( $asset->file, false, ( $is_vendor ? '' : null ), $origin ) );
 		}
 
 		// If you are passing localize, you need `name` and `data`
@@ -438,6 +442,9 @@ class Tribe__Assets {
 		// Set the Asset on the array of notices
 		$this->assets[ $slug ] = $asset;
 
+		// Sorts by priority
+		uasort( $this->assets, array( $this, 'order_by_priority' ) );
+
 		// Return the Slug because it might be modified
 		return $asset;
 	}
@@ -470,18 +477,32 @@ class Tribe__Assets {
 	 * @return bool
 	 */
 	public function get( $slug = null ) {
-		// Prevent weird stuff here
-		$slug = sanitize_title_with_dashes( $slug );
-
 		if ( is_null( $slug ) ) {
 			return $this->assets;
 		}
+
+		// Prevent weird stuff here
+		$slug = sanitize_title_with_dashes( $slug );
 
 		if ( ! empty( $this->assets[ $slug ] ) ) {
 			return $this->assets[ $slug ];
 		}
 
 		return null;
+	}
+
+	/**
+	 * Add the Priority ordering, which was causing an issue of not respecting which order stuff was registered
+	 *
+	 * @since  TBD
+	 *
+	 * @param  object  $a  First Subject to compare
+	 * @param  object  $b  Second subject to compare
+	 *
+	 * @return boolean
+	 */
+	public function order_by_priority( $a, $b ) {
+		return (int) $a->priority === (int) $b->priority ? 0 : (int) $a->priority > (int) $b->priority;
 	}
 
 	/**

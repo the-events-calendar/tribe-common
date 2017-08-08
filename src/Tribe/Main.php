@@ -221,12 +221,24 @@ class Tribe__Main {
 				array( 'tribe-validation-style', 'validation.js', array() ),
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
+				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
 				array( 'tribe-datepicker', 'datepicker.css' ),
 			),
 			'admin_enqueue_scripts',
 			array(
 				'conditionals' => array( $this, 'should_load_common_admin_css' ),
+				'priority' => 5,
+				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
+				'localize' => (object) array(
+					'name' => 'tribe_system_info',
+					'data' => array(
+						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
+						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
+						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
+						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
+					),
+				),
 			)
 		);
 
@@ -239,15 +251,7 @@ class Tribe__Main {
 			array( 'tribe-clipboard' ),
 			'admin_enqueue_scripts',
 			array(
-				'localize' => (object) array(
-					'name' => 'tribe_system_info',
-					'data' => array(
-						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
-						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
-						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
-						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
-					),
-				),
+				'priority' => 0,
 			)
 		);
 
