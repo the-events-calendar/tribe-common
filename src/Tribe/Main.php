@@ -212,15 +212,18 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style' ) ),
+				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'handlebars' ) ),
+				array( 'tribe-validation-style', 'validation.js', array() ),
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
+				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
 				array( 'tribe-datepicker', 'datepicker.css' ),
 			),
 			'admin_enqueue_scripts',
 			array(
+				'priority' => 5,
 				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
 				'localize' => (object) array(
 					'name' => 'tribe_system_info',
@@ -241,7 +244,10 @@ class Tribe__Main {
 			'tribe-common',
 			'tribe-common.js',
 			array( 'tribe-clipboard' ),
-			'admin_enqueue_scripts'
+			'admin_enqueue_scripts',
+			array(
+				'priority' => 0,
+			)
 		);
 
 		tribe( 'tribe.asset.data' )->add( 'tribe_l10n_datatables', array(
