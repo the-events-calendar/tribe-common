@@ -15,7 +15,7 @@ if ( ! class_exists( 'Tribe__Container' ) ) {
 		/**
 		 * @return Tribe__Container
 		 */
-		public static function instance() {
+		public static function init() {
 			if ( empty( self::$instance ) ) {
 				self::$instance = new self();
 			}
@@ -81,7 +81,7 @@ if ( ! function_exists( 'tribe_singleton' ) ) {
 	 *                                                    construction.
 	 */
 	function tribe_singleton( $slug, $class, array $after_build_methods = null ) {
-		Tribe__Container::instance()->replaceSingleton( $slug, $class, $after_build_methods );
+		Tribe__Container::init()->singleton( $slug, $class, $after_build_methods );
 	}
 }
 
@@ -145,7 +145,7 @@ if ( ! function_exists( 'tribe_register' ) ) {
 	 *                                                    will be called each time after the instance contstruction.
 	 */
 	function tribe_register( $slug, $class, array $after_build_methods = null ) {
-		Tribe__Container::instance()->replaceBind( $slug, $class, $after_build_methods );
+		Tribe__Container::init()->bind( $slug, $class, $after_build_methods );
 	}
 }
 
@@ -171,7 +171,7 @@ if ( ! function_exists( 'tribe' ) ) {
 	 *                                       container itself will be returned.
 	 */
 	function tribe( $slug_or_class = null ) {
-		$container = Tribe__Container::instance();
+		$container = Tribe__Container::init();
 
 		return null === $slug_or_class ? $container : $container->make( $slug_or_class );
 	}
@@ -189,7 +189,7 @@ if ( ! function_exists( 'tribe_set_var' ) ) {
 	 * @param mixed  $value The variable value.
 	 */
 	function tribe_set_var( $slug, $value ) {
-		$container = Tribe__Container::instance();
+		$container = Tribe__Container::init();
 		$container->setVar( $slug, $value );
 	}
 }
@@ -212,7 +212,7 @@ if ( ! function_exists( 'tribe_get_var' ) ) {
 	 *               is not registered.
 	 */
 	function tribe_get_var( $slug, $default = null ) {
-		$container = Tribe__Container::instance();
+		$container = Tribe__Container::init();
 
 		try {
 			$var = $container->getVar( $slug );
@@ -237,8 +237,26 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 	 * @param string $provider_class
 	 */
 	function tribe_register_provider( $provider_class ) {
-		$container = Tribe__Container::instance();
+		$container = Tribe__Container::init();
 
 		$container->register( $provider_class );
+	}
+
+	if ( ! function_exists( 'tribe_callback' ) ) {
+		/**
+		 * Returns a lambda function suitable to use as a callback; when called the function will build the implementation
+		 * bound to `$classOrInterface` and return the value of a call to `$method` method with the call arguments.
+		 *
+		 * @param string $slug                   A class or interface fully qualified name or a string slug.
+		 * @param string $method                 The method that should be called on the resolved implementation with the
+		 *                                       specified array arguments.
+		 *
+		 * @return mixed The called method return value.
+		 */
+		function tribe_callback( $slug, $method ) {
+			$container = Tribe__Container::init();
+
+			return $container->callback( $slug, $method );
+		}
 	}
 }
