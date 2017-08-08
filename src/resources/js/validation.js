@@ -34,7 +34,7 @@ tribe.validation = {};
 	 * @type   {object}
 	 */
 	obj.conditions = {
-		required: function ( val ) {
+		required: function( val ) {
 			return '' == val;
 		}
 	};
@@ -46,7 +46,7 @@ tribe.validation = {};
 	 *
 	 * @type   {function}
 	 */
-	obj.fn = function () {
+	obj.fn = function() {
 		return this.each( obj.setup );
 	};
 
@@ -60,23 +60,23 @@ tribe.validation = {};
 	 *
 	 * @type   {function}
 	 */
-	obj.setup = function ( i, item ) {
+	obj.setup = function( i, item ) {
 		var $item = $( item );
 
 		// First we add the Class for the Form
 		$item.addClass( obj.selectors.item.className() );
 
 		// On Form Submit
-		$item.on( 'submit.tribe', obj.on_submit );
+		$item.on( 'submit.tribe', obj.onSubmit );
 
 		// Actual Validation
-		$item.on( 'validation.tribe', obj.on_validation );
+		$item.on( 'validation.tribe', obj.onValidation );
 
 		// Show the errors for all the fields
-		$item.on( 'displayErrors.tribe', obj.on_display_errors );
+		$item.on( 'displayErrors.tribe', obj.onDisplayErrors );
 
 		// Prevent form normal invalidation to be triggered.
-		$document.on( 'click.tribe', obj.selectors.submit, obj.on_click_submit_buttons );
+		$document.on( 'click.tribe', obj.selectors.submit, obj.onClickSubmitButtons );
 	};
 
 	/**
@@ -91,7 +91,7 @@ tribe.validation = {};
 	 */
 	obj.validate = function( index, field ) {
 		var $field = $( field );
-		var isValid = obj.is_valid( $field );
+		var isValid = obj.isValid( $field );
 
 		// If it's valid we bail
 		if ( isValid ) {
@@ -99,7 +99,7 @@ tribe.validation = {};
 		}
 
 		$field.addClass( obj.selectors.error.className() );
-		$field.one( 'change', obj.on_change_field_remove_error );
+		$field.one( 'change', obj.onChangeFieldRemoveError );
 	};
 
 	/**
@@ -111,7 +111,7 @@ tribe.validation = {};
 	 *
 	 * @return {bool}
 	 */
-	obj.is_valid = function( $field ) {
+	obj.isValid = function( $field ) {
 		var valid = true;
 		var value = $field.val();
 		var isDisabled = $field.is( ':disabled' );
@@ -125,12 +125,12 @@ tribe.validation = {};
 		}
 
 		// Check which ones of these are valid
-		constraints = _.pick( constraints, function ( isApplicable ) {
+		constraints = _.pick( constraints, function( isApplicable ) {
 			return isApplicable;
 		} );
 
 		// Verifies if we have a valid set of constraints
-		valid = _.reduce( constraints, function ( passes, constraint, key ) {
+		valid = _.reduce( constraints, function( passes, constraint, key ) {
 			return passes || obj.conditions[ key ]( value, constraint, $field );
 		}, true );
 
@@ -146,7 +146,7 @@ tribe.validation = {};
 	 *
 	 * @return {void|false}
 	 */
-	obj.on_validation = function ( event ) {
+	obj.onValidation = function( event ) {
 		var $item = $( this );
 		var $fields = $item.find( obj.selectors.fields );
 
@@ -173,14 +173,14 @@ tribe.validation = {};
 	 *
 	 * @return {void}
 	 */
-	obj.on_display_errors = function ( event ) {
+	obj.onDisplayErrors = function( event ) {
 		var $item = $( this );
 		var $wpHeaderEnd = $( '.wp-header-end' );
 		var $container = $( '<div>' ).addClass( 'notice notice-error tribe-notice' );
 		var $errors = $item.find( obj.selectors.error );
 		var $list = $( '<ul>' );
 
-		$errors.each( function ( i, field ) {
+		$errors.each( function( i, field ) {
 			var $field = $( field );
 			var message = $field.data( 'validationError' );
 			var $listItem = $( '<li>' ).text( message );
@@ -201,15 +201,15 @@ tribe.validation = {};
 	 *
 	 * @return {void|false}
 	 */
-	obj.on_submit = function ( event ) {
+	obj.onSubmit = function( event ) {
 		var $item = $( this );
 
 		$item.trigger( 'validation.tribe' );
 
-		var is_valid = $item.is( obj.selectors.valid );
+		var isValid = $item.is( obj.selectors.valid );
 
 		// When Invalid we prevent the submit to happen
-		if ( ! is_valid ) {
+		if ( ! isValid ) {
 			event.preventDefault();
 			return false;
 		}
@@ -225,13 +225,13 @@ tribe.validation = {};
 	 *
 	 * @since  TBD
 	 *
-	 * @uses   obj.on_invalid_field
+	 * @uses   obj.onInvalidField
 	 *
 	 * @param  {object} event JQuery Event
 	 *
 	 * @return {void}
 	 */
-	obj.on_click_submit_buttons = function( event ) {
+	obj.onClickSubmitButtons = function( event ) {
 		var $submit = $( this );
 		var $item = $submit.parents( obj.selectors.item );
 
@@ -246,7 +246,7 @@ tribe.validation = {};
 		$fields.off( 'invalid.tribe' );
 
 		// Configures one invalid trigger
-		$fields.one( 'invalid.tribe', obj.on_invalid_field );
+		$fields.one( 'invalid.tribe', obj.onInvalidField );
 	};
 
 	/**
@@ -255,13 +255,13 @@ tribe.validation = {};
 	 *
 	 * @since  TBD
 	 *
-	 * @uses obj.on_change_field_remove_error
+	 * @uses obj.onChangeFieldRemoveError
 	 *
 	 * @param  {object} event JQuery Event
 	 *
 	 * @return {void|false}
 	 */
-	obj.on_invalid_field = function( event ) {
+	obj.onInvalidField = function( event ) {
 		var $field = $( this );
 		var $item = $field.parents( obj.selectors.item );
 
@@ -272,7 +272,7 @@ tribe.validation = {};
 		$item.trigger( 'displayErrors.tribe' );
 
 		// Adds the Change event to allow removing the error class
-		$field.one( 'change', obj.on_change_field_remove_error );
+		$field.one( 'change', obj.onChangeFieldRemoveError );
 
 		event.preventDefault();
 		return false;
@@ -283,7 +283,7 @@ tribe.validation = {};
 	 *
 	 * @return {void}
 	 */
-	obj.on_change_field_remove_error = function( event ) {
+	obj.onChangeFieldRemoveError = function( event ) {
 		var $field = $( this );
 
 		if ( $field.hasClass( obj.selectors.error.className() ) ) {
@@ -300,7 +300,7 @@ tribe.validation = {};
 	 *
 	 * @return {void}
 	 */
-	obj.on_ready = function ( event ) {
+	obj.onReady = function( event ) {
 		$( obj.selectors.item ).validation();
 	};
 
@@ -318,5 +318,5 @@ tribe.validation = {};
 	 *
 	 * @since  TBD
 	 */
-	$document.ready( obj.on_ready );
+	$document.ready( obj.onReady );
 }( tribe.validation, jQuery, _ ) );
