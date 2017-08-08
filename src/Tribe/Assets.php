@@ -293,10 +293,16 @@ class Tribe__Assets {
 		$asset->slug        = $slug;
 		$asset->file        = $file;
 		$asset->deps        = $deps;
-		$asset->origin_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath );;
-		$asset->origin_url  = trailingslashit( ! empty( $origin->plugin_url ) ? $origin->plugin_url : $origin->pluginUrl );;
-		$asset->origin_name = $origin_name;
 		$asset->action      = $action;
+		$asset->origin_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath );
+		$asset->origin_name = $origin_name;
+
+		// Origin URL might throw notices so we double check
+		$asset->origin_url  = ! empty( $origin->plugin_url ) ? $origin->plugin_url : null;
+		$asset->origin_url  = ! empty( $origin->pluginUrl ) ? $origin->pluginUrl : null;
+		if ( ! empty( $asset->origin_url ) ) {
+			$asset->origin_url = trailingslashit( $asset->origin_url );
+		}
 
 		// If we don't have a type on the arguments we grab from the File path
 		if ( is_null( $asset->type ) ) {
