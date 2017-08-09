@@ -328,6 +328,9 @@ class Tribe__Assets {
 
 		// Default variables to prevent notices
 		$defaults = array(
+			'slug'          => null,
+			'file'          => false,
+			'url'           => false,
 			'action'        => null,
 			'priority'      => 10,
 			'file'          => false,
