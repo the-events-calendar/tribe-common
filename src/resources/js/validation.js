@@ -25,7 +25,8 @@ tribe.validation = {};
 		error: '.tribe-validation-error',
 		valid: '.tribe-validation-valid',
 		notice: '.tribe-notice-validation',
-		noticeAfter: '.wp-header-end'
+		noticeAfter: '.wp-header-end',
+		noticeDismiss: '.notice-dismiss'
 	};
 
 	/**
@@ -79,6 +80,9 @@ tribe.validation = {};
 
 		// Prevent form normal invalidation to be triggered.
 		$document.on( 'click.tribe', obj.selectors.submit, obj.onClickSubmitButtons );
+
+		// When click on dismiss of the notice for errors
+		$document.on( 'click.tribe', obj.selectors.noticeDismiss, obj.onClickDismissNotice );
 	};
 
 	/**
@@ -179,16 +183,24 @@ tribe.validation = {};
 		var $item = $( this );
 		var $errors = $item.find( obj.selectors.error );
 		var $list = $( '<ul>' );
+		var $dismiss = $( '<span>' ).addClass( obj.selectors.noticeDismiss.className() );
 
 		// Tries to fetch if we have a given notice
 		var $notice = $document.find( obj.selectors.notice );
-		var $newNotice = $( '<div>' ).addClass( 'notice notice-error tribe-notice' ).addClass( obj.selectors.notice.className() );
+		var $newNotice = $( '<div>' ).addClass( 'notice notice-error is-dismissible tribe-notice' ).addClass( obj.selectors.notice.className() ).append( $dismiss );
 
 		// Builds based on the errors found in the form
 		$errors.each( function( i, field ) {
 			var $field = $( field );
 			var message = $field.data( 'validationError' );
 			var $listItem = $( '<li>' ).text( message );
+
+			// Add which field has thrown the error
+			$listItem.data( 'validationField', $field );
+
+			// Add which notice item is related to this error field
+			$field.data( 'validationNoticeItem', $field );
+
 			$list.append( $listItem );
 		} );
 
@@ -293,6 +305,8 @@ tribe.validation = {};
 	/**
 	 * Removes error class on fields after they change
 	 *
+	 * @since  TBD
+	 *
 	 * @return {void}
 	 */
 	obj.onChangeFieldRemoveError = function( event ) {
@@ -301,6 +315,21 @@ tribe.validation = {};
 		if ( $field.hasClass( obj.selectors.error.className() ) ) {
 			$field.removeClass( obj.selectors.error.className() );
 		}
+	};
+
+	/**
+	 * Removes the Notice
+	 *
+	 * @since  TBD
+	 *
+	 * @return {void}
+	 */
+	obj.onClickDismissNotice = function( event ) {
+		var $dismiss = $( this );
+		var $notice = $dismiss.parents( obj.selectors.notice );
+
+		// Deletes the Notice
+		$notice.remove();
 	};
 
 	/**
