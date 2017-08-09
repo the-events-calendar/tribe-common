@@ -24,6 +24,7 @@ tribe.validation = {};
 		submit: 'input[type="submit"], button',
 		error: '.tribe-validation-error',
 		valid: '.tribe-validation-valid',
+		notice: '.tribe-notice-validation'
 	};
 
 	/**
@@ -175,11 +176,14 @@ tribe.validation = {};
 	 */
 	obj.onDisplayErrors = function( event ) {
 		var $item = $( this );
-		var $wpHeaderEnd = $( '.wp-header-end' );
-		var $container = $( '<div>' ).addClass( 'notice notice-error tribe-notice' );
 		var $errors = $item.find( obj.selectors.error );
 		var $list = $( '<ul>' );
 
+		// Tries to fetch if we have a given notice
+		var $notice = $document.find( obj.selectors.notice );
+		var $newNotice = $( '<div>' ).addClass( 'notice notice-error tribe-notice' ).addClass( obj.selectors.notice.className() );
+
+		// Builds based on the errors found in the form
 		$errors.each( function( i, field ) {
 			var $field = $( field );
 			var message = $field.data( 'validationError' );
@@ -187,9 +191,16 @@ tribe.validation = {};
 			$list.append( $listItem );
 		} );
 
-		$container.append( $list );
+		// Appends the List of errors
+		$newNotice.append( $list );
 
-		$wpHeaderEnd.after( $container );
+		// Verify if we need to add to the page or replace the existing
+		if ( 0 === $notice.length ) {
+			var $wpHeaderEnd = $document.find( '.wp-header-end' );
+			$wpHeaderEnd.after( $newNotice );
+		} else{
+			$notice.replaceWith( $newNotice );
+		}
 	};
 
 	/**
