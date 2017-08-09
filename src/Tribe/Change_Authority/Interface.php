@@ -5,6 +5,8 @@ interface Tribe__Change_Authority__Interface {
 	/**
 	 * Sets the fields the change authority should apply a propagation policy to.
 	 *
+	 * @since TBD
+	 *
 	 * @param array $fields
 	 *
 	 * @return mixed
@@ -13,6 +15,8 @@ interface Tribe__Change_Authority__Interface {
 
 	/**
 	 * Whether a field should be propagated from the source to the destination.
+	 *
+	 * @since TBD
 	 *
 	 * @param mixed  $from  The source object or data.
 	 * @param mixed  $to    The destination object or data.
@@ -25,6 +29,8 @@ interface Tribe__Change_Authority__Interface {
 	/**
 	 * Propagates the changes from the source to the destination.
 	 *
+	 * @since TBD
+	 *
 	 * @param mixed $from The source object or data.
 	 * @param mixed $to   The destination object or data.
 	 *
@@ -35,6 +41,8 @@ interface Tribe__Change_Authority__Interface {
 	/**
 	 * Propagates a field from the source to the destination.
 	 *
+	 * @since TBD
+	 *
 	 * @param mixed  $from  The source object or data.
 	 * @param mixed  $to    The destination object or data.
 	 * @param string $field The name of the field that's to be evaluated for propagation.
@@ -42,4 +50,15 @@ interface Tribe__Change_Authority__Interface {
 	 * @return bool Whether the field was propagated or not.
 	 */
 	public function propagate_field( $from, $to, $field );
+
+	/**
+	 * Changes the change authority to a new one, returning a new object, depending on the provided data.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|object $data
+	 *
+	 * @return Tribe__Change_Authority__Interface
+	 */
+	public function change( $data );
 }
