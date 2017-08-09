@@ -6,14 +6,14 @@
 
 
 
-= [4.5.10] TBD =
+= [4.5.10] 2017-08-09 =
 
 * Tweak - Improve integration with the plugins API/add new plugins screen [82223]
 * Fix - Added support to tribe_asset() for altering plugin dir or using WPMU plugins. Thanks to @squirrelandnnuts for reporting this [82809]
 * Fix - Made JSON LD permalinks overridable by all post types, so they can be filtered [76411]
 * Tweak - Improve the Select2 search experience (props to @fabianmarz) [84496]
 
-= [4.5.9] 2017-007-26 =
+= [4.5.9] 2017-07-26 =
 
 * Fix - Avoid accidental overwrite of options when settings are saved in a multisite context [79728]
 * Fix - Provide a well sorted list of countries even when this list is translated (our thanks to Johannes in the forums for highlighting this) [69550]
