@@ -4,6 +4,7 @@ node_modules
 codeception.yml
 tests/*.suite.yml
 tests/_output/*
+.env.local
 
 # by default ignore all, need a vendor dep in the repo? use !vendor/acme
 vendor/*
