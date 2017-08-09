@@ -268,7 +268,7 @@ class Tribe__Assets {
 		$defaults = array(
 			'slug'          => null,
 			'file'          => false,
-			'url'          => false,
+			'url'           => false,
 			'action'        => null,
 			'priority'      => 10,
 			'type'          => null,

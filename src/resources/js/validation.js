@@ -116,8 +116,8 @@ tribe.validation = {};
 		var value = $field.val();
 		var isDisabled = $field.is( ':disabled' );
 		var constraints = {
-				required: $field.data( 'required' ) || $field.is( '[data-required]' ) || $field.is( '[required]' ) || false,
-			};
+			required: $field.data( 'required' ) || $field.is( '[data-required]' ) || $field.is( '[required]' ) || false,
+		};
 
 		// Bail if it's a disabled field
 		if ( isDisabled ) {
