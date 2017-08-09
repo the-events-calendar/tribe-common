@@ -24,7 +24,8 @@ tribe.validation = {};
 		submit: 'input[type="submit"], button',
 		error: '.tribe-validation-error',
 		valid: '.tribe-validation-valid',
-		notice: '.tribe-notice-validation'
+		notice: '.tribe-notice-validation',
+		noticeAfter: '.wp-header-end'
 	};
 
 	/**
@@ -196,7 +197,7 @@ tribe.validation = {};
 
 		// Verify if we need to add to the page or replace the existing
 		if ( 0 === $notice.length ) {
-			var $wpHeaderEnd = $document.find( '.wp-header-end' );
+			var $wpHeaderEnd = $document.find( obj.selectors.noticeAfter );
 			$wpHeaderEnd.after( $newNotice );
 		} else{
 			$notice.replaceWith( $newNotice );
