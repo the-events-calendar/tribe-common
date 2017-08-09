@@ -226,7 +226,7 @@
 
 			// Fetch the first Block-Level parent
 			data.$parent = data.$trigger.parents().filter( function() {
-				return $.inArray( $( this ).css( 'display' ), [ 'block', 'table', 'table-cell', 'table-row' ] );
+				return -1 < $.inArray( $( this ).css( 'display' ), [ 'block', 'table', 'table-cell', 'table-row' ] );
 			}).first();
 
 			if ( ! data.html ) {
