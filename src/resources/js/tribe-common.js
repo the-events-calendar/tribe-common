@@ -8,6 +8,17 @@ String.prototype.varName = function () {
 	return this.replace( '-', '_' );
 };
 
+/**
+ * Creates a global Tribe Variable where we should start to store all the things
+ * @type {object}
+ */
+var tribe = tribe || {};
+
+/**
+ * @todo  All these lines below should be copied into another file.
+ *        we don't need all of this JS on all pages
+ */
+
 var tribe_auto_sysinfo = tribe_auto_sysinfo || {};
 
 tribe_auto_sysinfo.ajax = {
@@ -18,8 +29,8 @@ tribe_auto_sysinfo.ajax = {
 	'use strict';
 
 	my.init = function () {
-		this.init_ajax();
-		this.init_copy();
+		my.init_ajax();
+		my.init_copy();
 	};
 
 	/**
