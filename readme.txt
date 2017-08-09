@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.5.11] TBD =
+
+
+
 = [4.5.10] TBD =
 
 * Tweak - Improve integration with the plugins API/add new plugins screen [82223]
