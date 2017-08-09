@@ -8,10 +8,11 @@
 
 = [4.5.10] 2017-08-09 =
 
-* Tweak - Improve integration with the plugins API/add new plugins screen [82223]
-* Fix - Added support to tribe_asset() for altering plugin dir or using WPMU plugins. Thanks to @squirrelandnnuts for reporting this [82809]
+* Fix - Added support to tribe_asset() for non-default plugin directions/usage from within the mu-plugin directory (our thanks to @squirrelandnnuts for reporting this) [82809]
 * Fix - Made JSON LD permalinks overridable by all post types, so they can be filtered [76411]
+* Tweak - Improve integration with the plugins API/add new plugins screen (our thanks to David Sharpe for highlighting this) [82223]
 * Tweak - Improve the Select2 search experience (props to @fabianmarz) [84496]
+* Language - 0 new strings added, 312 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.5.9] 2017-07-26 =
 

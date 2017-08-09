@@ -10,11 +10,11 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Tribe Common\n"
 
-#: src/Tribe/Plugins_API.php:270
+#: src/Tribe/Plugins_API.php:279
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:218
+#: src/Tribe/Plugins_API.php:222
 msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
 msgstr ""
 
@@ -34,7 +34,7 @@ msgstr ""
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:239
+#: src/Tribe/Plugins_API.php:245
 msgid "Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings."
 msgstr ""
 
@@ -62,11 +62,11 @@ msgstr ""
 msgid "More Details"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:210
+#: src/Tribe/Plugins_API.php:213
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:302
+#: src/Tribe/Plugins_API.php:314
 msgid "Take your image widgets to the next level with Image Widget Plus! We've taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support."
 msgstr ""
 
@@ -84,7 +84,7 @@ msgstr[1] ""
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:298
+#: src/Tribe/Plugins_API.php:310
 msgid "Image Widget Plus"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgstr ""
 msgid "Buy This Add-On"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:219 src/Tribe/Plugins_API.php:215
+#: src/Tribe/Admin/Help_Page.php:219 src/Tribe/Plugins_API.php:219
 msgid "Event Aggregator"
 msgstr ""
 
@@ -436,36 +436,36 @@ msgstr ""
 msgid "Unique System Info Key Generated"
 msgstr ""
 
-#: src/Tribe/View_Helpers.php:99
+#: src/Tribe/View_Helpers.php:96
 msgid "C&ocirc;te d'Ivoire"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:290
+#: src/Tribe/Plugins_API.php:301
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:279
+#: src/Tribe/Plugins_API.php:289
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:280
+#: src/Tribe/Plugins_API.php:290
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:249
+#: src/Tribe/Plugins_API.php:256
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:228
+#: src/Tribe/Plugins_API.php:233
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:261
+#: src/Tribe/Plugins_API.php:269
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:257
+#: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:265
 msgid "Filter Bar"
 msgstr "Filter Bar"
 
@@ -647,7 +647,7 @@ msgstr ""
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:275
+#: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:285
 msgid "Community Tickets"
 msgstr ""
 
@@ -719,11 +719,11 @@ msgstr ""
 msgid " and "
 msgstr ", og"
 
-#: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:285
+#: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:296
 msgid "Eventbrite Tickets"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:235 src/Tribe/Plugins_API.php:244
+#: src/Tribe/Admin/Help_Page.php:235 src/Tribe/Plugins_API.php:251
 msgid "Event Tickets Plus"
 msgstr ""
 
@@ -731,7 +731,7 @@ msgstr ""
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:236
+#: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:242
 msgid "Event Tickets"
 msgstr ""
 
@@ -775,51 +775,51 @@ msgstr "Rewrite rules blev slettet da denne side blev indlæst. Det er sandsynli
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 
-#: src/Tribe/View_Helpers.php:355
+#: src/Tribe/View_Helpers.php:361
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: src/Tribe/View_Helpers.php:356
+#: src/Tribe/View_Helpers.php:362
 msgid "South Carolina"
 msgstr "South Carolina"
 
-#: src/Tribe/View_Helpers.php:357
+#: src/Tribe/View_Helpers.php:363
 msgid "South Dakota"
 msgstr "South Dakota"
 
-#: src/Tribe/View_Helpers.php:358
+#: src/Tribe/View_Helpers.php:364
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: src/Tribe/View_Helpers.php:359
+#: src/Tribe/View_Helpers.php:365
 msgid "Texas"
 msgstr "Texas"
 
-#: src/Tribe/View_Helpers.php:360
+#: src/Tribe/View_Helpers.php:366
 msgid "Utah"
 msgstr "Utah"
 
-#: src/Tribe/View_Helpers.php:361
+#: src/Tribe/View_Helpers.php:367
 msgid "Vermont"
 msgstr "Vermont"
 
-#: src/Tribe/View_Helpers.php:362
+#: src/Tribe/View_Helpers.php:368
 msgid "Virginia"
 msgstr "Virginia"
 
-#: src/Tribe/View_Helpers.php:363
+#: src/Tribe/View_Helpers.php:369
 msgid "Washington"
 msgstr "Washington"
 
-#: src/Tribe/View_Helpers.php:364
+#: src/Tribe/View_Helpers.php:370
 msgid "West Virginia"
 msgstr "West Virginia"
 
-#: src/Tribe/View_Helpers.php:365
+#: src/Tribe/View_Helpers.php:371
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: src/Tribe/View_Helpers.php:366
+#: src/Tribe/View_Helpers.php:372
 msgid "Wyoming"
 msgstr "Wyoming"
 
@@ -827,7 +827,7 @@ msgstr "Wyoming"
 msgid "Free"
 msgstr "Gratis"
 
-#: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:266
+#: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:275
 msgid "Community Events"
 msgstr "Community begivenheder"
 
@@ -905,79 +905,79 @@ msgstr "Opgradering kræves!"
 msgid "You are up to date!"
 msgstr "Du har den nyeste version!"
 
-#: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:223
+#: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:228
 msgid "Events Calendar PRO"
 msgstr ""
 
-#: src/Tribe/View_Helpers.php:281
+#: src/Tribe/View_Helpers.php:278
 msgid "Wallis And Futuna Islands"
 msgstr "Wallis And Futuna Islands"
 
-#: src/Tribe/View_Helpers.php:282
+#: src/Tribe/View_Helpers.php:279
 msgid "Western Sahara"
 msgstr "Western Sahara"
 
-#: src/Tribe/View_Helpers.php:283
+#: src/Tribe/View_Helpers.php:280
 msgid "Yemen"
 msgstr "Yemen"
 
-#: src/Tribe/View_Helpers.php:284
+#: src/Tribe/View_Helpers.php:281
 msgid "Zambia"
 msgstr "Zambia"
 
-#: src/Tribe/View_Helpers.php:285
+#: src/Tribe/View_Helpers.php:282
 msgid "Zimbabwe"
 msgstr "Zimbabwe"
 
-#: src/Tribe/View_Helpers.php:316
+#: src/Tribe/View_Helpers.php:322
 msgid "Alabama"
 msgstr "Alabama"
 
-#: src/Tribe/View_Helpers.php:317
+#: src/Tribe/View_Helpers.php:323
 msgid "Alaska"
 msgstr "Alaska"
 
-#: src/Tribe/View_Helpers.php:318
+#: src/Tribe/View_Helpers.php:324
 msgid "Arizona"
 msgstr "Arizona"
 
-#: src/Tribe/View_Helpers.php:319
+#: src/Tribe/View_Helpers.php:325
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: src/Tribe/View_Helpers.php:320
+#: src/Tribe/View_Helpers.php:326
 msgid "California"
 msgstr "California"
 
-#: src/Tribe/View_Helpers.php:321
+#: src/Tribe/View_Helpers.php:327
 msgid "Colorado"
 msgstr "Colorado"
 
-#: src/Tribe/View_Helpers.php:322
+#: src/Tribe/View_Helpers.php:328
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: src/Tribe/View_Helpers.php:323
+#: src/Tribe/View_Helpers.php:329
 msgid "Delaware"
 msgstr "Delaware"
 
-#: src/Tribe/View_Helpers.php:324
+#: src/Tribe/View_Helpers.php:330
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: src/Tribe/View_Helpers.php:325
+#: src/Tribe/View_Helpers.php:331
 msgid "Florida"
 msgstr "Florida"
 
-#: src/Tribe/View_Helpers.php:327
+#: src/Tribe/View_Helpers.php:333
 msgid "Hawaii"
 msgstr "Hawaii"
 
-#: src/Tribe/View_Helpers.php:328
+#: src/Tribe/View_Helpers.php:334
 msgid "Idaho"
 msgstr "Idaho"
 
-#: src/Tribe/View_Helpers.php:329
+#: src/Tribe/View_Helpers.php:335
 msgid "Illinois"
 msgstr "Illinois"
 
@@ -985,15 +985,15 @@ msgstr "Illinois"
 msgid "More..."
 msgstr "Mere…"
 
-#: src/Tribe/View_Helpers.php:330
+#: src/Tribe/View_Helpers.php:336
 msgid "Indiana"
 msgstr "Indiana"
 
-#: src/Tribe/View_Helpers.php:331
+#: src/Tribe/View_Helpers.php:337
 msgid "Iowa"
 msgstr "Iowa"
 
-#: src/Tribe/View_Helpers.php:332
+#: src/Tribe/View_Helpers.php:338
 msgid "Kansas"
 msgstr "Kansas"
 
@@ -1001,15 +1001,15 @@ msgstr "Kansas"
 msgid "Latest Version:"
 msgstr "Seneste version:"
 
-#: src/Tribe/View_Helpers.php:333
+#: src/Tribe/View_Helpers.php:339
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: src/Tribe/View_Helpers.php:334
+#: src/Tribe/View_Helpers.php:340
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: src/Tribe/View_Helpers.php:335
+#: src/Tribe/View_Helpers.php:341
 msgid "Maine"
 msgstr "Maine"
 
@@ -1017,7 +1017,7 @@ msgstr "Maine"
 msgid "Requires:"
 msgstr "Kræver:"
 
-#: src/Tribe/View_Helpers.php:336
+#: src/Tribe/View_Helpers.php:342
 msgid "Maryland"
 msgstr "Maryland"
 
@@ -1025,23 +1025,23 @@ msgstr "Maryland"
 msgid "WordPress "
 msgstr "WordPress "
 
-#: src/Tribe/View_Helpers.php:337
+#: src/Tribe/View_Helpers.php:343
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: src/Tribe/View_Helpers.php:338
+#: src/Tribe/View_Helpers.php:344
 msgid "Michigan"
 msgstr "Michigan"
 
-#: src/Tribe/View_Helpers.php:339
+#: src/Tribe/View_Helpers.php:345
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: src/Tribe/View_Helpers.php:340
+#: src/Tribe/View_Helpers.php:346
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: src/Tribe/View_Helpers.php:341
+#: src/Tribe/View_Helpers.php:347
 msgid "Missouri"
 msgstr "Missouri"
 
@@ -1049,11 +1049,11 @@ msgstr "Missouri"
 msgid "Premium Add-Ons"
 msgstr "Premium Add-Ons"
 
-#: src/Tribe/View_Helpers.php:342
+#: src/Tribe/View_Helpers.php:348
 msgid "Montana"
 msgstr "Montana"
 
-#: src/Tribe/View_Helpers.php:343
+#: src/Tribe/View_Helpers.php:349
 msgid "Nebraska"
 msgstr "Nebraska"
 
@@ -1061,7 +1061,7 @@ msgstr "Nebraska"
 msgid "News and Tutorials"
 msgstr "News and Tutorials"
 
-#: src/Tribe/View_Helpers.php:344
+#: src/Tribe/View_Helpers.php:350
 msgid "Nevada"
 msgstr "Nevada"
 
@@ -1069,7 +1069,7 @@ msgstr "Nevada"
 msgid "Network Settings"
 msgstr "Netværksindstillinger"
 
-#: src/Tribe/View_Helpers.php:345
+#: src/Tribe/View_Helpers.php:351
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
@@ -1077,7 +1077,7 @@ msgstr "New Hampshire"
 msgid "This is where all of the global network settings for Modern Tribe's The Events Calendar can be modified."
 msgstr "Her kan alle globale netværksindstillinger for Modern Tribe's The Events Calendar indstilles."
 
-#: src/Tribe/View_Helpers.php:346
+#: src/Tribe/View_Helpers.php:352
 msgid "New Jersey"
 msgstr "New Jersey"
 
@@ -1085,59 +1085,59 @@ msgstr "New Jersey"
 msgid "Hide the following settings tabs on every site:"
 msgstr "Gem følgende indstillingsfaner på alle sites:"
 
-#: src/Tribe/View_Helpers.php:347
+#: src/Tribe/View_Helpers.php:353
 msgid "New Mexico"
 msgstr "New Mexico"
 
-#: src/Tribe/View_Helpers.php:348
+#: src/Tribe/View_Helpers.php:354
 msgid "New York"
 msgstr "New York"
 
-#: src/Tribe/View_Helpers.php:349
+#: src/Tribe/View_Helpers.php:355
 msgid "North Carolina"
 msgstr "North Carolina"
 
-#: src/Tribe/View_Helpers.php:350
+#: src/Tribe/View_Helpers.php:356
 msgid "North Dakota"
 msgstr "North Dakota"
 
-#: src/Tribe/View_Helpers.php:351
+#: src/Tribe/View_Helpers.php:357
 msgid "Ohio"
 msgstr "Ohio"
 
-#: src/Tribe/View_Helpers.php:352
+#: src/Tribe/View_Helpers.php:358
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: src/Tribe/View_Helpers.php:353
+#: src/Tribe/View_Helpers.php:359
 msgid "Oregon"
 msgstr "Oregon"
 
-#: src/Tribe/View_Helpers.php:354
+#: src/Tribe/View_Helpers.php:360
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: src/Tribe/View_Helpers.php:68
+#: src/Tribe/View_Helpers.php:65
 msgid "Belize"
 msgstr "Belize"
 
-#: src/Tribe/View_Helpers.php:69
+#: src/Tribe/View_Helpers.php:66
 msgid "Benin"
 msgstr "Benin"
 
-#: src/Tribe/View_Helpers.php:70
+#: src/Tribe/View_Helpers.php:67
 msgid "Bermuda"
 msgstr "Bermuda"
 
-#: src/Tribe/View_Helpers.php:71
+#: src/Tribe/View_Helpers.php:68
 msgid "Bhutan"
 msgstr "Bhutan"
 
-#: src/Tribe/View_Helpers.php:72
+#: src/Tribe/View_Helpers.php:69
 msgid "Bolivia"
 msgstr "Bolivia"
 
-#: src/Tribe/View_Helpers.php:73
+#: src/Tribe/View_Helpers.php:70
 msgid "Bosnia And Herzegowina"
 msgstr "Bosnia And Herzegowina"
 
@@ -1146,7 +1146,7 @@ msgstr "Bosnia And Herzegowina"
 msgid "Event Add-Ons"
 msgstr "Event Add-Ons"
 
-#: src/Tribe/View_Helpers.php:74
+#: src/Tribe/View_Helpers.php:71
 msgid "Botswana"
 msgstr "Botswana"
 
@@ -1154,15 +1154,15 @@ msgstr "Botswana"
 msgid "This calendar is powered by The Events Calendar."
 msgstr "Denne kalender er drevet af The Events Calendar."
 
-#: src/Tribe/View_Helpers.php:75
+#: src/Tribe/View_Helpers.php:72
 msgid "Bouvet Island"
 msgstr "Bouvet Island"
 
-#: src/Tribe/View_Helpers.php:76
+#: src/Tribe/View_Helpers.php:73
 msgid "Brazil"
 msgstr "Brazil"
 
-#: src/Tribe/View_Helpers.php:77
+#: src/Tribe/View_Helpers.php:74
 msgid "British Indian Ocean Territory"
 msgstr "British Indian Ocean Territory"
 
@@ -1170,7 +1170,7 @@ msgstr "British Indian Ocean Territory"
 msgid "Invalid field type specified"
 msgstr "Forkert felttype valgt"
 
-#: src/Tribe/View_Helpers.php:78
+#: src/Tribe/View_Helpers.php:75
 msgid "Brunei Darussalam"
 msgstr "Brunei Darussalam"
 
@@ -1178,7 +1178,7 @@ msgstr "Brunei Darussalam"
 msgid "No radio options specified"
 msgstr "Ingen radio options valgt"
 
-#: src/Tribe/View_Helpers.php:79
+#: src/Tribe/View_Helpers.php:76
 msgid "Bulgaria"
 msgstr "Bulgaria"
 
@@ -1186,7 +1186,7 @@ msgstr "Bulgaria"
 msgid "No checkbox options specified"
 msgstr "Ingen checkbox options valgt"
 
-#: src/Tribe/View_Helpers.php:80
+#: src/Tribe/View_Helpers.php:77
 msgid "Burkina Faso"
 msgstr "Burkina Faso"
 
@@ -1194,15 +1194,15 @@ msgstr "Burkina Faso"
 msgid "No select options specified"
 msgstr "Ingen select options valgt"
 
-#: src/Tribe/View_Helpers.php:81
+#: src/Tribe/View_Helpers.php:78
 msgid "Burundi"
 msgstr "Burundi"
 
-#: src/Tribe/View_Helpers.php:82
+#: src/Tribe/View_Helpers.php:79
 msgid "Cambodia"
 msgstr "Cambodia"
 
-#: src/Tribe/View_Helpers.php:83
+#: src/Tribe/View_Helpers.php:80
 msgid "Cameroon"
 msgstr "Cameroon"
 
@@ -1210,155 +1210,155 @@ msgstr "Cameroon"
 msgid "General"
 msgstr "General"
 
-#: src/Tribe/View_Helpers.php:84
+#: src/Tribe/View_Helpers.php:81
 msgid "Canada"
 msgstr "Canada"
 
-#: src/Tribe/View_Helpers.php:85
+#: src/Tribe/View_Helpers.php:82
 msgid "Cape Verde"
 msgstr "Cape Verde"
 
-#: src/Tribe/View_Helpers.php:86
+#: src/Tribe/View_Helpers.php:83
 msgid "Cayman Islands"
 msgstr "Cayman Islands"
 
-#: src/Tribe/View_Helpers.php:87
+#: src/Tribe/View_Helpers.php:84
 msgid "Central African Republic"
 msgstr "Central African Republic"
 
-#: src/Tribe/View_Helpers.php:88
+#: src/Tribe/View_Helpers.php:85
 msgid "Chad"
 msgstr "Chad"
 
-#: src/Tribe/View_Helpers.php:89
+#: src/Tribe/View_Helpers.php:86
 msgid "Chile"
 msgstr "Chile"
 
-#: src/Tribe/View_Helpers.php:90
+#: src/Tribe/View_Helpers.php:87
 msgid "China"
 msgstr "China"
 
-#: src/Tribe/View_Helpers.php:91
+#: src/Tribe/View_Helpers.php:88
 msgid "Christmas Island"
 msgstr "Christmas Island"
 
-#: src/Tribe/View_Helpers.php:92
+#: src/Tribe/View_Helpers.php:89
 msgid "Cocos (Keeling) Islands"
 msgstr "Cocos (Keeling) Islands"
 
-#: src/Tribe/View_Helpers.php:93
+#: src/Tribe/View_Helpers.php:90
 msgid "Colombia"
 msgstr "Colombia"
 
-#: src/Tribe/View_Helpers.php:94
+#: src/Tribe/View_Helpers.php:91
 msgid "Comoros"
 msgstr "Comoros"
 
-#: src/Tribe/View_Helpers.php:95
+#: src/Tribe/View_Helpers.php:92
 msgid "Congo"
 msgstr "Congo"
 
-#: src/Tribe/View_Helpers.php:96
+#: src/Tribe/View_Helpers.php:93
 msgid "Congo, The Democratic Republic Of The"
 msgstr "Congo, The Democratic Republic Of The"
 
-#: src/Tribe/View_Helpers.php:97
+#: src/Tribe/View_Helpers.php:94
 msgid "Cook Islands"
 msgstr "Cook Islands"
 
-#: src/Tribe/View_Helpers.php:98
+#: src/Tribe/View_Helpers.php:95
 msgid "Costa Rica"
 msgstr "Costa Rica"
 
-#: src/Tribe/View_Helpers.php:100
+#: src/Tribe/View_Helpers.php:97
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "Croatia (Local Name: Hrvatska)"
 
-#: src/Tribe/View_Helpers.php:101
+#: src/Tribe/View_Helpers.php:98
 msgid "Cuba"
 msgstr "Cuba"
 
-#: src/Tribe/View_Helpers.php:102
+#: src/Tribe/View_Helpers.php:99
 msgid "Cyprus"
 msgstr "Cyprus"
 
-#: src/Tribe/View_Helpers.php:103
+#: src/Tribe/View_Helpers.php:100
 msgid "Czech Republic"
 msgstr "Czech Republic"
 
-#: src/Tribe/View_Helpers.php:104
+#: src/Tribe/View_Helpers.php:101
 msgid "Denmark"
 msgstr "Danmark"
 
-#: src/Tribe/View_Helpers.php:105
+#: src/Tribe/View_Helpers.php:102
 msgid "Djibouti"
 msgstr "Djibouti"
 
-#: src/Tribe/View_Helpers.php:106
+#: src/Tribe/View_Helpers.php:103
 msgid "Dominica"
 msgstr "Dominica"
 
-#: src/Tribe/View_Helpers.php:107
+#: src/Tribe/View_Helpers.php:104
 msgid "Dominican Republic"
 msgstr "Dominican Republic"
 
-#: src/Tribe/View_Helpers.php:108
+#: src/Tribe/View_Helpers.php:105
 msgid "East Timor"
 msgstr "East Timor"
 
-#: src/Tribe/View_Helpers.php:109
+#: src/Tribe/View_Helpers.php:106
 msgid "Ecuador"
 msgstr "Ecuador"
 
-#: src/Tribe/View_Helpers.php:110
+#: src/Tribe/View_Helpers.php:107
 msgid "Egypt"
 msgstr "Egypt"
 
-#: src/Tribe/View_Helpers.php:111
+#: src/Tribe/View_Helpers.php:108
 msgid "El Salvador"
 msgstr "El Salvador"
 
-#: src/Tribe/View_Helpers.php:112
+#: src/Tribe/View_Helpers.php:109
 msgid "Equatorial Guinea"
 msgstr "Equatorial Guinea"
 
-#: src/Tribe/View_Helpers.php:113
+#: src/Tribe/View_Helpers.php:110
 msgid "Eritrea"
 msgstr "Eritrea"
 
-#: src/Tribe/View_Helpers.php:114
+#: src/Tribe/View_Helpers.php:111
 msgid "Estonia"
 msgstr "Estonia"
 
-#: src/Tribe/View_Helpers.php:115
+#: src/Tribe/View_Helpers.php:112
 msgid "Ethiopia"
 msgstr "Ethiopia"
 
-#: src/Tribe/View_Helpers.php:116
+#: src/Tribe/View_Helpers.php:113
 msgid "Falkland Islands (Malvinas)"
 msgstr "Falkland Islands (Malvinas)"
 
-#: src/Tribe/View_Helpers.php:117
+#: src/Tribe/View_Helpers.php:114
 msgid "Faroe Islands"
 msgstr "Faroe Islands"
 
-#: src/Tribe/View_Helpers.php:118
+#: src/Tribe/View_Helpers.php:115
 msgid "Fiji"
 msgstr "Fiji"
 
-#: src/Tribe/View_Helpers.php:119
+#: src/Tribe/View_Helpers.php:116
 msgid "Finland"
 msgstr "Finland"
 
-#: src/Tribe/View_Helpers.php:120
+#: src/Tribe/View_Helpers.php:117
 msgid "France"
 msgstr "France"
 
-#: src/Tribe/View_Helpers.php:121
+#: src/Tribe/View_Helpers.php:118
 msgid "France, Metropolitan"
 msgstr "France, Metropolitan"
 
-#: src/Tribe/View_Helpers.php:122
+#: src/Tribe/View_Helpers.php:119
 msgid "French Guiana"
 msgstr "French Guiana"
 
@@ -1366,35 +1366,35 @@ msgstr "French Guiana"
 msgid "Settings saved."
 msgstr "Indstillingerne blev gemt."
 
-#: src/Tribe/View_Helpers.php:123
+#: src/Tribe/View_Helpers.php:120
 msgid "French Polynesia"
 msgstr "French Polynesia"
 
-#: src/Tribe/View_Helpers.php:124
+#: src/Tribe/View_Helpers.php:121
 msgid "French Southern Territories"
 msgstr "French Southern Territories"
 
-#: src/Tribe/View_Helpers.php:125
+#: src/Tribe/View_Helpers.php:122
 msgid "Gabon"
 msgstr "Gabon"
 
-#: src/Tribe/View_Helpers.php:126
+#: src/Tribe/View_Helpers.php:123
 msgid "Gambia"
 msgstr "Gambia"
 
-#: src/Tribe/View_Helpers.php:127 src/Tribe/View_Helpers.php:326
+#: src/Tribe/View_Helpers.php:124 src/Tribe/View_Helpers.php:332
 msgid "Georgia"
 msgstr "Georgia"
 
-#: src/Tribe/View_Helpers.php:128
+#: src/Tribe/View_Helpers.php:125
 msgid "Germany"
 msgstr "Germany"
 
-#: src/Tribe/View_Helpers.php:129
+#: src/Tribe/View_Helpers.php:126
 msgid "Ghana"
 msgstr "Ghana"
 
-#: src/Tribe/View_Helpers.php:130
+#: src/Tribe/View_Helpers.php:127
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
@@ -1403,56 +1403,56 @@ msgstr "Gibraltar"
 msgid "Events"
 msgstr "Begivenheder"
 
-#: src/Tribe/View_Helpers.php:131
+#: src/Tribe/View_Helpers.php:128
 msgid "Greece"
 msgstr "Greece"
 
-#: src/Tribe/View_Helpers.php:132
+#: src/Tribe/View_Helpers.php:129
 msgid "Greenland"
 msgstr "Greenland"
 
 #: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:565
-#: src/Tribe/Plugins_API.php:207
+#: src/Tribe/Plugins_API.php:210
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: src/Tribe/View_Helpers.php:133
+#: src/Tribe/View_Helpers.php:130
 msgid "Grenada"
 msgstr "Grenada"
 
-#: src/Tribe/View_Helpers.php:134
+#: src/Tribe/View_Helpers.php:131
 msgid "Guadeloupe"
 msgstr "Guadeloupe"
 
-#: src/Tribe/View_Helpers.php:135
+#: src/Tribe/View_Helpers.php:132
 msgid "Guam"
 msgstr "Guam"
 
-#: src/Tribe/View_Helpers.php:136
+#: src/Tribe/View_Helpers.php:133
 msgid "Guatemala"
 msgstr "Guatemala"
 
-#: src/Tribe/View_Helpers.php:137
+#: src/Tribe/View_Helpers.php:134
 msgid "Guinea"
 msgstr "Guinea"
 
-#: src/Tribe/View_Helpers.php:138
+#: src/Tribe/View_Helpers.php:135
 msgid "Guinea-Bissau"
 msgstr "Guinea-Bissau"
 
-#: src/Tribe/View_Helpers.php:139
+#: src/Tribe/View_Helpers.php:136
 msgid "Guyana"
 msgstr "Guyana"
 
-#: src/Tribe/View_Helpers.php:140
+#: src/Tribe/View_Helpers.php:137
 msgid "Haiti"
 msgstr "Haiti"
 
-#: src/Tribe/View_Helpers.php:141
+#: src/Tribe/View_Helpers.php:138
 msgid "Heard And Mc Donald Islands"
 msgstr "Heard And Mc Donald Islands"
 
-#: src/Tribe/View_Helpers.php:142
+#: src/Tribe/View_Helpers.php:139
 msgid "Holy See (Vatican City State)"
 msgstr "Holy See (Vatican City State)"
 
@@ -1461,7 +1461,7 @@ msgstr "Holy See (Vatican City State)"
 msgid "Licenses"
 msgstr "Licenser"
 
-#: src/Tribe/View_Helpers.php:143
+#: src/Tribe/View_Helpers.php:140
 msgid "Honduras"
 msgstr "Honduras"
 
@@ -1469,7 +1469,7 @@ msgstr "Honduras"
 msgid "Display"
 msgstr "Vis"
 
-#: src/Tribe/View_Helpers.php:144
+#: src/Tribe/View_Helpers.php:141
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
@@ -1477,179 +1477,179 @@ msgstr "Hong Kong"
 msgid "Help"
 msgstr "Hjælp"
 
-#: src/Tribe/View_Helpers.php:145
+#: src/Tribe/View_Helpers.php:142
 msgid "Hungary"
 msgstr "Hungary"
 
-#: src/Tribe/View_Helpers.php:146
+#: src/Tribe/View_Helpers.php:143
 msgid "Iceland"
 msgstr "Iceland"
 
-#: src/Tribe/View_Helpers.php:147
+#: src/Tribe/View_Helpers.php:144
 msgid "India"
 msgstr "India"
 
-#: src/Tribe/View_Helpers.php:148
+#: src/Tribe/View_Helpers.php:145
 msgid "Indonesia"
 msgstr "Indonesia"
 
-#: src/Tribe/View_Helpers.php:149
+#: src/Tribe/View_Helpers.php:146
 msgid "Iran (Islamic Republic Of)"
 msgstr "Iran (Islamic Republic Of)"
 
-#: src/Tribe/View_Helpers.php:150
+#: src/Tribe/View_Helpers.php:147
 msgid "Iraq"
 msgstr "Iraq"
 
-#: src/Tribe/View_Helpers.php:151
+#: src/Tribe/View_Helpers.php:148
 msgid "Ireland"
 msgstr "Ireland"
 
-#: src/Tribe/View_Helpers.php:152
+#: src/Tribe/View_Helpers.php:149
 msgid "Israel"
 msgstr "Israel"
 
-#: src/Tribe/View_Helpers.php:153
+#: src/Tribe/View_Helpers.php:150
 msgid "Italy"
 msgstr "Italy"
 
-#: src/Tribe/View_Helpers.php:154
+#: src/Tribe/View_Helpers.php:151
 msgid "Jamaica"
 msgstr "Jamaica"
 
-#: src/Tribe/View_Helpers.php:155
+#: src/Tribe/View_Helpers.php:152
 msgid "Japan"
 msgstr "Japan"
 
-#: src/Tribe/View_Helpers.php:156
+#: src/Tribe/View_Helpers.php:153
 msgid "Jordan"
 msgstr "Jordan"
 
-#: src/Tribe/View_Helpers.php:157
+#: src/Tribe/View_Helpers.php:154
 msgid "Kazakhstan"
 msgstr "Kazakhstan"
 
-#: src/Tribe/View_Helpers.php:158
+#: src/Tribe/View_Helpers.php:155
 msgid "Kenya"
 msgstr "Kenya"
 
-#: src/Tribe/View_Helpers.php:159
+#: src/Tribe/View_Helpers.php:156
 msgid "Kiribati"
 msgstr "Kiribati"
 
-#: src/Tribe/View_Helpers.php:160
+#: src/Tribe/View_Helpers.php:157
 msgid "Korea, Democratic People's Republic Of"
 msgstr "Korea, Democratic People's Republic Of"
 
-#: src/Tribe/View_Helpers.php:161
+#: src/Tribe/View_Helpers.php:158
 msgid "Korea, Republic Of"
 msgstr "Korea, Republic Of"
 
-#: src/Tribe/View_Helpers.php:162
+#: src/Tribe/View_Helpers.php:159
 msgid "Kuwait"
 msgstr "Kuwait"
 
-#: src/Tribe/View_Helpers.php:163
+#: src/Tribe/View_Helpers.php:160
 msgid "Kyrgyzstan"
 msgstr "Kyrgyzstan"
 
-#: src/Tribe/View_Helpers.php:164
+#: src/Tribe/View_Helpers.php:161
 msgid "Lao People's Democratic Republic"
 msgstr "Lao People's Democratic Republic"
 
-#: src/Tribe/View_Helpers.php:165
+#: src/Tribe/View_Helpers.php:162
 msgid "Latvia"
 msgstr "Latvia"
 
-#: src/Tribe/View_Helpers.php:166
+#: src/Tribe/View_Helpers.php:163
 msgid "Lebanon"
 msgstr "Lebanon"
 
-#: src/Tribe/View_Helpers.php:167
+#: src/Tribe/View_Helpers.php:164
 msgid "Lesotho"
 msgstr "Lesotho"
 
-#: src/Tribe/View_Helpers.php:168
+#: src/Tribe/View_Helpers.php:165
 msgid "Liberia"
 msgstr "Liberia"
 
-#: src/Tribe/View_Helpers.php:169
+#: src/Tribe/View_Helpers.php:166
 msgid "Libya"
 msgstr "Libya"
 
-#: src/Tribe/View_Helpers.php:170
+#: src/Tribe/View_Helpers.php:167
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
-#: src/Tribe/View_Helpers.php:171
+#: src/Tribe/View_Helpers.php:168
 msgid "Lithuania"
 msgstr "Lithuania"
 
-#: src/Tribe/View_Helpers.php:172
+#: src/Tribe/View_Helpers.php:169
 msgid "Luxembourg"
 msgstr "Luxembourg"
 
-#: src/Tribe/View_Helpers.php:173
+#: src/Tribe/View_Helpers.php:170
 msgid "Macau"
 msgstr "Macau"
 
-#: src/Tribe/View_Helpers.php:174
+#: src/Tribe/View_Helpers.php:171
 msgid "Macedonia"
 msgstr "Macedonia"
 
-#: src/Tribe/View_Helpers.php:175
+#: src/Tribe/View_Helpers.php:172
 msgid "Madagascar"
 msgstr "Madagascar"
 
-#: src/Tribe/View_Helpers.php:176
+#: src/Tribe/View_Helpers.php:173
 msgid "Malawi"
 msgstr "Malawi"
 
-#: src/Tribe/View_Helpers.php:177
+#: src/Tribe/View_Helpers.php:174
 msgid "Malaysia"
 msgstr "Malaysia"
 
-#: src/Tribe/View_Helpers.php:178
+#: src/Tribe/View_Helpers.php:175
 msgid "Maldives"
 msgstr "Maldives"
 
-#: src/Tribe/View_Helpers.php:179
+#: src/Tribe/View_Helpers.php:176
 msgid "Mali"
 msgstr "Mali"
 
-#: src/Tribe/View_Helpers.php:180
+#: src/Tribe/View_Helpers.php:177
 msgid "Malta"
 msgstr "Malta"
 
-#: src/Tribe/View_Helpers.php:181
+#: src/Tribe/View_Helpers.php:178
 msgid "Marshall Islands"
 msgstr "Marshall Islands"
 
-#: src/Tribe/View_Helpers.php:182
+#: src/Tribe/View_Helpers.php:179
 msgid "Martinique"
 msgstr "Martinique"
 
-#: src/Tribe/View_Helpers.php:183
+#: src/Tribe/View_Helpers.php:180
 msgid "Mauritania"
 msgstr "Mauritania"
 
-#: src/Tribe/View_Helpers.php:184
+#: src/Tribe/View_Helpers.php:181
 msgid "Mauritius"
 msgstr "Mauritius"
 
-#: src/Tribe/View_Helpers.php:185
+#: src/Tribe/View_Helpers.php:182
 msgid "Mayotte"
 msgstr "Mayotte"
 
-#: src/Tribe/View_Helpers.php:186
+#: src/Tribe/View_Helpers.php:183
 msgid "Mexico"
 msgstr "Mexico"
 
-#: src/Tribe/View_Helpers.php:187
+#: src/Tribe/View_Helpers.php:184
 msgid "Micronesia, Federated States Of"
 msgstr "Micronesia, Federated States Of"
 
-#: src/Tribe/View_Helpers.php:188
+#: src/Tribe/View_Helpers.php:185
 msgid "Moldova, Republic Of"
 msgstr "Moldova, Republic Of"
 
@@ -1657,7 +1657,7 @@ msgstr "Moldova, Republic Of"
 msgid "Next"
 msgstr "Næste"
 
-#: src/Tribe/View_Helpers.php:189
+#: src/Tribe/View_Helpers.php:186
 msgid "Monaco"
 msgstr "Monaco"
 
@@ -1665,7 +1665,7 @@ msgstr "Monaco"
 msgid "Prev"
 msgstr "Forrige"
 
-#: src/Tribe/View_Helpers.php:190
+#: src/Tribe/View_Helpers.php:187
 msgid "Mongolia"
 msgstr "Mongolia"
 
@@ -1673,7 +1673,7 @@ msgstr "Mongolia"
 msgid "Today"
 msgstr "I dag"
 
-#: src/Tribe/View_Helpers.php:191
+#: src/Tribe/View_Helpers.php:188
 msgid "Montenegro"
 msgstr "Montenegro"
 
@@ -1681,7 +1681,7 @@ msgstr "Montenegro"
 msgid "Done"
 msgstr "Færdig"
 
-#: src/Tribe/View_Helpers.php:192
+#: src/Tribe/View_Helpers.php:189
 msgid "Montserrat"
 msgstr "Montserrat"
 
@@ -1689,59 +1689,59 @@ msgstr "Montserrat"
 msgid "Network"
 msgstr "Nerværk"
 
-#: src/Tribe/View_Helpers.php:193
+#: src/Tribe/View_Helpers.php:190
 msgid "Morocco"
 msgstr "Morocco"
 
-#: src/Tribe/View_Helpers.php:194
+#: src/Tribe/View_Helpers.php:191
 msgid "Mozambique"
 msgstr "Mozambique"
 
-#: src/Tribe/View_Helpers.php:195
+#: src/Tribe/View_Helpers.php:192
 msgid "Myanmar"
 msgstr "Myanmar"
 
-#: src/Tribe/View_Helpers.php:196
+#: src/Tribe/View_Helpers.php:193
 msgid "Namibia"
 msgstr "Namibia"
 
-#: src/Tribe/View_Helpers.php:197
+#: src/Tribe/View_Helpers.php:194
 msgid "Nauru"
 msgstr "Nauru"
 
-#: src/Tribe/View_Helpers.php:198
+#: src/Tribe/View_Helpers.php:195
 msgid "Nepal"
 msgstr "Nepal"
 
-#: src/Tribe/View_Helpers.php:199
+#: src/Tribe/View_Helpers.php:196
 msgid "Netherlands"
 msgstr "Netherlands"
 
-#: src/Tribe/View_Helpers.php:200
+#: src/Tribe/View_Helpers.php:197
 msgid "Netherlands Antilles"
 msgstr "Netherlands Antilles"
 
-#: src/Tribe/View_Helpers.php:201
+#: src/Tribe/View_Helpers.php:198
 msgid "New Caledonia"
 msgstr "New Caledonia"
 
-#: src/Tribe/View_Helpers.php:202
+#: src/Tribe/View_Helpers.php:199
 msgid "New Zealand"
 msgstr "New Zealand"
 
-#: src/Tribe/View_Helpers.php:203
+#: src/Tribe/View_Helpers.php:200
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
-#: src/Tribe/View_Helpers.php:204
+#: src/Tribe/View_Helpers.php:201
 msgid "Niger"
 msgstr "Niger"
 
-#: src/Tribe/View_Helpers.php:205
+#: src/Tribe/View_Helpers.php:202
 msgid "Nigeria"
 msgstr "Nigeria"
 
-#: src/Tribe/View_Helpers.php:206
+#: src/Tribe/View_Helpers.php:203
 msgid "Niue"
 msgstr "Niue"
 
@@ -1749,23 +1749,23 @@ msgstr "Niue"
 msgid "Settings"
 msgstr "Indstillinger"
 
-#: src/Tribe/View_Helpers.php:207
+#: src/Tribe/View_Helpers.php:204
 msgid "Norfolk Island"
 msgstr "Norfolk Island"
 
-#: src/Tribe/View_Helpers.php:208
+#: src/Tribe/View_Helpers.php:205
 msgid "Northern Mariana Islands"
 msgstr "Northern Mariana Islands"
 
-#: src/Tribe/View_Helpers.php:209
+#: src/Tribe/View_Helpers.php:206
 msgid "Norway"
 msgstr "Norway"
 
-#: src/Tribe/View_Helpers.php:210
+#: src/Tribe/View_Helpers.php:207
 msgid "Oman"
 msgstr "Oman"
 
-#: src/Tribe/View_Helpers.php:211
+#: src/Tribe/View_Helpers.php:208
 msgid "Pakistan"
 msgstr "Pakistan"
 
@@ -1773,31 +1773,31 @@ msgstr "Pakistan"
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/View_Helpers.php:212
+#: src/Tribe/View_Helpers.php:209
 msgid "Palau"
 msgstr "Palau"
 
-#: src/Tribe/View_Helpers.php:213
+#: src/Tribe/View_Helpers.php:210
 msgid "Panama"
 msgstr "Panama"
 
-#: src/Tribe/View_Helpers.php:214
+#: src/Tribe/View_Helpers.php:211
 msgid "Papua New Guinea"
 msgstr "Papua New Guinea"
 
-#: src/Tribe/View_Helpers.php:215
+#: src/Tribe/View_Helpers.php:212
 msgid "Paraguay"
 msgstr "Paraguay"
 
-#: src/Tribe/View_Helpers.php:216
+#: src/Tribe/View_Helpers.php:213
 msgid "Peru"
 msgstr "Peru"
 
-#: src/Tribe/View_Helpers.php:217
+#: src/Tribe/View_Helpers.php:214
 msgid "Philippines"
 msgstr "Philippines"
 
-#: src/Tribe/View_Helpers.php:218
+#: src/Tribe/View_Helpers.php:215
 msgid "Pitcairn"
 msgstr "Pitcairn"
 
@@ -1805,7 +1805,7 @@ msgstr "Pitcairn"
 msgid "License Key"
 msgstr "Licensnøgle"
 
-#: src/Tribe/View_Helpers.php:219
+#: src/Tribe/View_Helpers.php:216
 msgid "Poland"
 msgstr "Poland"
 
@@ -1813,7 +1813,7 @@ msgstr "Poland"
 msgid "A valid license key is required for support and updates"
 msgstr "Der kræves en gyldig licensnøgle for support og opdateringer"
 
-#: src/Tribe/View_Helpers.php:220
+#: src/Tribe/View_Helpers.php:217
 msgid "Portugal"
 msgstr "Portugal"
 
@@ -1821,7 +1821,7 @@ msgstr "Portugal"
 msgid "License key(s) updated."
 msgstr "Licensnøgle(r) opdateret."
 
-#: src/Tribe/View_Helpers.php:221
+#: src/Tribe/View_Helpers.php:218
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
@@ -1829,23 +1829,23 @@ msgstr "Puerto Rico"
 msgid "Sorry, key validation server is not available."
 msgstr "Desværre, nøglevalideringsserveren er ikke tilgængelig."
 
-#: src/Tribe/View_Helpers.php:222
+#: src/Tribe/View_Helpers.php:219
 msgid "Qatar"
 msgstr "Qatar"
 
-#: src/Tribe/View_Helpers.php:223
+#: src/Tribe/View_Helpers.php:220
 msgid "Reunion"
 msgstr "Reunion"
 
-#: src/Tribe/View_Helpers.php:224
+#: src/Tribe/View_Helpers.php:221
 msgid "Romania"
 msgstr "Romania"
 
-#: src/Tribe/View_Helpers.php:225
+#: src/Tribe/View_Helpers.php:222
 msgid "Russian Federation"
 msgstr "Russian Federation"
 
-#: src/Tribe/View_Helpers.php:226
+#: src/Tribe/View_Helpers.php:223
 msgid "Rwanda"
 msgstr "Rwanda"
 
@@ -1853,7 +1853,7 @@ msgstr "Rwanda"
 msgid "Valid Key! Expires on %s"
 msgstr "Gyldig nøgle! Udløber %s"
 
-#: src/Tribe/View_Helpers.php:227
+#: src/Tribe/View_Helpers.php:224
 msgid "Saint Kitts And Nevis"
 msgstr "Saint Kitts And Nevis"
 
@@ -1861,11 +1861,11 @@ msgstr "Saint Kitts And Nevis"
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/View_Helpers.php:228
+#: src/Tribe/View_Helpers.php:225
 msgid "Saint Lucia"
 msgstr "Saint Lucia"
 
-#: src/Tribe/View_Helpers.php:229
+#: src/Tribe/View_Helpers.php:226
 msgid "Saint Vincent And The Grenadines"
 msgstr "Saint Vincent And The Grenadines"
 
@@ -1873,7 +1873,7 @@ msgstr "Saint Vincent And The Grenadines"
 msgid "Events Settings"
 msgstr "Indstillinger for Begivenheder"
 
-#: src/Tribe/View_Helpers.php:230
+#: src/Tribe/View_Helpers.php:227
 msgid "Samoa"
 msgstr "Samoa"
 
@@ -1881,7 +1881,7 @@ msgstr "Samoa"
 msgid "%s Settings"
 msgstr "%s indstillinger"
 
-#: src/Tribe/View_Helpers.php:231
+#: src/Tribe/View_Helpers.php:228
 msgid "San Marino"
 msgstr "San Marino"
 
@@ -1889,7 +1889,7 @@ msgstr "San Marino"
 msgid "You've requested a non-existent tab."
 msgstr "Det efterspurgte faneblad findes ikke."
 
-#: src/Tribe/View_Helpers.php:232
+#: src/Tribe/View_Helpers.php:229
 msgid "Sao Tome And Principe"
 msgstr "Sao Tome And Principe"
 
@@ -1897,7 +1897,7 @@ msgstr "Sao Tome And Principe"
 msgid "You don't have permission to do that."
 msgstr "Du har ikke rettigheder til dette."
 
-#: src/Tribe/View_Helpers.php:233
+#: src/Tribe/View_Helpers.php:230
 msgid "Saudi Arabia"
 msgstr "Saudi Arabia"
 
@@ -1905,7 +1905,7 @@ msgstr "Saudi Arabia"
 msgid "The request was sent insecurely."
 msgstr "Forespørgslen er ikke afsendt sikkert."
 
-#: src/Tribe/View_Helpers.php:234
+#: src/Tribe/View_Helpers.php:231
 msgid "Senegal"
 msgstr "Senegal"
 
@@ -1913,7 +1913,7 @@ msgstr "Senegal"
 msgid "The request wasn't sent from this tab."
 msgstr "Forespørgslen var ikke sendt fra dette faneblad."
 
-#: src/Tribe/View_Helpers.php:235
+#: src/Tribe/View_Helpers.php:232
 msgid "Serbia"
 msgstr "Serbia"
 
@@ -1921,7 +1921,7 @@ msgstr "Serbia"
 msgid "Your form had the following errors:"
 msgstr "Din formular oplevede følgende fejl:"
 
-#: src/Tribe/View_Helpers.php:236
+#: src/Tribe/View_Helpers.php:233
 msgid "Seychelles"
 msgstr "Seychelles"
 
@@ -1929,7 +1929,7 @@ msgstr "Seychelles"
 msgid "None of your settings were saved. Please try again."
 msgstr "Dine indstillinger blev ikke gemt. Prøv igen."
 
-#: src/Tribe/View_Helpers.php:237
+#: src/Tribe/View_Helpers.php:234
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
@@ -1939,7 +1939,7 @@ msgid_plural "The above settings were not saved. Other settings were successfull
 msgstr[0] "Indstillingen ovenfor blev ikke gemt. Andre indstillinger blev gemt."
 msgstr[1] "Indstillingerne ovenfor blev ikke gemt. Andre indstillinger blev gemt."
 
-#: src/Tribe/View_Helpers.php:238
+#: src/Tribe/View_Helpers.php:235
 msgid "Singapore"
 msgstr "Singapore"
 
@@ -1947,15 +1947,15 @@ msgstr "Singapore"
 msgid "There are no fields setup for this tab yet."
 msgstr "Der er endnu ikke sat nogen felter op på dette faneblad."
 
-#: src/Tribe/View_Helpers.php:239
+#: src/Tribe/View_Helpers.php:236
 msgid "Slovakia (Slovak Republic)"
 msgstr "Slovakia (Slovak Republic)"
 
-#: src/Tribe/View_Helpers.php:240
+#: src/Tribe/View_Helpers.php:237
 msgid "Slovenia"
 msgstr "Slovenia"
 
-#: src/Tribe/View_Helpers.php:241
+#: src/Tribe/View_Helpers.php:238
 msgid "Solomon Islands"
 msgstr "Solomon Islands"
 
@@ -1963,7 +1963,7 @@ msgstr "Solomon Islands"
 msgid "System Information"
 msgstr "Systeminformation"
 
-#: src/Tribe/View_Helpers.php:242
+#: src/Tribe/View_Helpers.php:239
 msgid "Somalia"
 msgstr "Somalia"
 
@@ -1971,155 +1971,155 @@ msgstr "Somalia"
 msgid "Unknown or not set"
 msgstr "Ukendt eller ikke valgt"
 
-#: src/Tribe/View_Helpers.php:243
+#: src/Tribe/View_Helpers.php:240
 msgid "South Africa"
 msgstr "South Africa"
 
-#: src/Tribe/View_Helpers.php:244
+#: src/Tribe/View_Helpers.php:241
 msgid "South Georgia, South Sandwich Islands"
 msgstr "South Georgia, South Sandwich Islands"
 
-#: src/Tribe/View_Helpers.php:245
+#: src/Tribe/View_Helpers.php:242
 msgid "Spain"
 msgstr "Spain"
 
-#: src/Tribe/View_Helpers.php:246
+#: src/Tribe/View_Helpers.php:243
 msgid "Sri Lanka"
 msgstr "Sri Lanka"
 
-#: src/Tribe/View_Helpers.php:247
+#: src/Tribe/View_Helpers.php:244
 msgid "St. Helena"
 msgstr "St. Helena"
 
-#: src/Tribe/View_Helpers.php:248
+#: src/Tribe/View_Helpers.php:245
 msgid "St. Pierre And Miquelon"
 msgstr "St. Pierre And Miquelon"
 
-#: src/Tribe/View_Helpers.php:249
+#: src/Tribe/View_Helpers.php:246
 msgid "Sudan"
 msgstr "Sudan"
 
-#: src/Tribe/View_Helpers.php:250
+#: src/Tribe/View_Helpers.php:247
 msgid "Suriname"
 msgstr "Suriname"
 
-#: src/Tribe/View_Helpers.php:251
+#: src/Tribe/View_Helpers.php:248
 msgid "Svalbard And Jan Mayen Islands"
 msgstr "Svalbard And Jan Mayen Islands"
 
-#: src/Tribe/View_Helpers.php:252
+#: src/Tribe/View_Helpers.php:249
 msgid "Swaziland"
 msgstr "Swaziland"
 
-#: src/Tribe/View_Helpers.php:253
+#: src/Tribe/View_Helpers.php:250
 msgid "Sweden"
 msgstr "Sweden"
 
-#: src/Tribe/View_Helpers.php:254
+#: src/Tribe/View_Helpers.php:251
 msgid "Switzerland"
 msgstr "Switzerland"
 
-#: src/Tribe/View_Helpers.php:255
+#: src/Tribe/View_Helpers.php:252
 msgid "Syrian Arab Republic"
 msgstr "Syrian Arab Republic"
 
-#: src/Tribe/View_Helpers.php:256
+#: src/Tribe/View_Helpers.php:253
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: src/Tribe/View_Helpers.php:257
+#: src/Tribe/View_Helpers.php:254
 msgid "Tajikistan"
 msgstr "Tajikistan"
 
-#: src/Tribe/View_Helpers.php:258
+#: src/Tribe/View_Helpers.php:255
 msgid "Tanzania, United Republic Of"
 msgstr "Tanzania, United Republic Of"
 
-#: src/Tribe/View_Helpers.php:259
+#: src/Tribe/View_Helpers.php:256
 msgid "Thailand"
 msgstr "Thailand"
 
-#: src/Tribe/View_Helpers.php:260
+#: src/Tribe/View_Helpers.php:257
 msgid "Togo"
 msgstr "Togo"
 
-#: src/Tribe/View_Helpers.php:261
+#: src/Tribe/View_Helpers.php:258
 msgid "Tokelau"
 msgstr "Tokelau"
 
-#: src/Tribe/View_Helpers.php:262
+#: src/Tribe/View_Helpers.php:259
 msgid "Tonga"
 msgstr "Tonga"
 
-#: src/Tribe/View_Helpers.php:263
+#: src/Tribe/View_Helpers.php:260
 msgid "Trinidad And Tobago"
 msgstr "Trinidad And Tobago"
 
-#: src/Tribe/View_Helpers.php:264
+#: src/Tribe/View_Helpers.php:261
 msgid "Tunisia"
 msgstr "Tunisia"
 
-#: src/Tribe/View_Helpers.php:265
+#: src/Tribe/View_Helpers.php:262
 msgid "Turkey"
 msgstr "Turkey"
 
-#: src/Tribe/View_Helpers.php:266
+#: src/Tribe/View_Helpers.php:263
 msgid "Turkmenistan"
 msgstr "Turkmenistan"
 
-#: src/Tribe/View_Helpers.php:267
+#: src/Tribe/View_Helpers.php:264
 msgid "Turks And Caicos Islands"
 msgstr "Turks And Caicos Islands"
 
-#: src/Tribe/View_Helpers.php:268
+#: src/Tribe/View_Helpers.php:265
 msgid "Tuvalu"
 msgstr "Tuvalu"
 
-#: src/Tribe/View_Helpers.php:269
+#: src/Tribe/View_Helpers.php:266
 msgid "Uganda"
 msgstr "Uganda"
 
-#: src/Tribe/View_Helpers.php:270
+#: src/Tribe/View_Helpers.php:267
 msgid "Ukraine"
 msgstr "Ukraine"
 
-#: src/Tribe/View_Helpers.php:271
+#: src/Tribe/View_Helpers.php:268
 msgid "United Arab Emirates"
 msgstr "United Arab Emirates"
 
-#: src/Tribe/View_Helpers.php:272
+#: src/Tribe/View_Helpers.php:269
 msgid "United Kingdom"
 msgstr "United Kingdom"
 
-#: src/Tribe/View_Helpers.php:273
+#: src/Tribe/View_Helpers.php:270
 msgid "United States Minor Outlying Islands"
 msgstr "United States Minor Outlying Islands"
 
-#: src/Tribe/View_Helpers.php:274
+#: src/Tribe/View_Helpers.php:271
 msgid "Uruguay"
 msgstr "Uruguay"
 
-#: src/Tribe/View_Helpers.php:275
+#: src/Tribe/View_Helpers.php:272
 msgid "Uzbekistan"
 msgstr "Uzbekistan"
 
-#: src/Tribe/View_Helpers.php:276
+#: src/Tribe/View_Helpers.php:273
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
-#: src/Tribe/View_Helpers.php:277
+#: src/Tribe/View_Helpers.php:274
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: src/Tribe/View_Helpers.php:278
+#: src/Tribe/View_Helpers.php:275
 msgid "Viet Nam"
 msgstr "Viet Nam"
 
-#: src/Tribe/View_Helpers.php:279
+#: src/Tribe/View_Helpers.php:276
 msgid "Virgin Islands (British)"
 msgstr "Virgin Islands (British)"
 
-#: src/Tribe/View_Helpers.php:280
+#: src/Tribe/View_Helpers.php:277
 msgid "Virgin Islands (U.S.)"
 msgstr "Virgin Islands (U.S.)"
 
@@ -2206,94 +2206,94 @@ msgstr "%s skal være et telefonnummer."
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "Landelisten skal formatteres med ét land per linje:<br>US, United States <br> UK, United Kingdom."
 
-#: src/Tribe/View_Helpers.php:26 src/Tribe/View_Helpers.php:45
+#: src/Tribe/View_Helpers.php:291
 msgid "Select a Country:"
 msgstr "Vælg et land:"
 
-#: src/Tribe/View_Helpers.php:47
+#: src/Tribe/View_Helpers.php:44
 msgid "Afghanistan"
 msgstr "Afghanistan"
 
-#: src/Tribe/View_Helpers.php:48
+#: src/Tribe/View_Helpers.php:45
 msgid "Albania"
 msgstr "Albania"
 
-#: src/Tribe/View_Helpers.php:49
+#: src/Tribe/View_Helpers.php:46
 msgid "Algeria"
 msgstr "Algeria"
 
-#: src/Tribe/View_Helpers.php:50
+#: src/Tribe/View_Helpers.php:47
 msgid "American Samoa"
 msgstr "American Samoa"
 
-#: src/Tribe/View_Helpers.php:51
+#: src/Tribe/View_Helpers.php:48
 msgid "Andorra"
 msgstr "Andorra"
 
-#: src/Tribe/View_Helpers.php:52
+#: src/Tribe/View_Helpers.php:49
 msgid "Angola"
 msgstr "Angola"
 
-#: src/Tribe/View_Helpers.php:53
+#: src/Tribe/View_Helpers.php:50
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: src/Tribe/View_Helpers.php:54
+#: src/Tribe/View_Helpers.php:51
 msgid "Antarctica"
 msgstr "Antarctica"
 
-#: src/Tribe/View_Helpers.php:55
+#: src/Tribe/View_Helpers.php:52
 msgid "Antigua And Barbuda"
 msgstr "Antigua And Barbuda"
 
-#: src/Tribe/View_Helpers.php:56
+#: src/Tribe/View_Helpers.php:53
 msgid "Argentina"
 msgstr "Argentina"
 
-#: src/Tribe/View_Helpers.php:57
+#: src/Tribe/View_Helpers.php:54
 msgid "Armenia"
 msgstr "Armenia"
 
-#: src/Tribe/View_Helpers.php:58
+#: src/Tribe/View_Helpers.php:55
 msgid "Aruba"
 msgstr "Aruba"
 
-#: src/Tribe/View_Helpers.php:59
+#: src/Tribe/View_Helpers.php:56
 msgid "Australia"
 msgstr "Australia"
 
-#: src/Tribe/View_Helpers.php:46
+#: src/Tribe/View_Helpers.php:43
 msgid "United States"
 msgstr "United States"
 
-#: src/Tribe/View_Helpers.php:60
+#: src/Tribe/View_Helpers.php:57
 msgid "Austria"
 msgstr "Austria"
 
-#: src/Tribe/View_Helpers.php:61
+#: src/Tribe/View_Helpers.php:58
 msgid "Azerbaijan"
 msgstr "Azerbaijan"
 
-#: src/Tribe/View_Helpers.php:62
+#: src/Tribe/View_Helpers.php:59
 msgid "Bahamas"
 msgstr "Bahamas"
 
-#: src/Tribe/View_Helpers.php:63
+#: src/Tribe/View_Helpers.php:60
 msgid "Bahrain"
 msgstr "Bahrain"
 
-#: src/Tribe/View_Helpers.php:64
+#: src/Tribe/View_Helpers.php:61
 msgid "Bangladesh"
 msgstr "Bangladesh"
 
-#: src/Tribe/View_Helpers.php:65
+#: src/Tribe/View_Helpers.php:62
 msgid "Barbados"
 msgstr "Barbados"
 
-#: src/Tribe/View_Helpers.php:66
+#: src/Tribe/View_Helpers.php:63
 msgid "Belarus"
 msgstr "Belarus"
 
-#: src/Tribe/View_Helpers.php:67
+#: src/Tribe/View_Helpers.php:64
 msgid "Belgium"
 msgstr "Belgium"
