@@ -34,3 +34,6 @@ td.tribe-dependent.tribe-active {
 tr.tribe-dependent.tribe-active {
 	display: table-row;
 }
+.tribe-dependency.tribe-dependency-hide-checked:checked {
+	display: none;
+}
