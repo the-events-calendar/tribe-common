@@ -23,7 +23,7 @@ $displayTab = array(
 			),
 			'tribeEventsDateFormatExplanation'   => array(
 				'type' => 'html',
-				'html' => __( '<p>The following three fields accept the date format options available to the php date() function. <a href="http://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">Learn how to make your own date format here</a>.</p>', 'tribe-common' ),
+				'html' => '<p>' . __( 'The following three fields accept the date format options available to the php date() function. <a href="http://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">Learn how to make your own date format here</a>.', 'tribe-common' ) . '</p>',
 			),
 			'datepickerFormat'                   => array(
 				'type'            => 'dropdown',
