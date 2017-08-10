@@ -26,7 +26,7 @@ $displayTab = array(
 				'html' => '<p>' . sprintf(
 					__( 'The following three fields accept the date format options available to the PHP %1$s function. <a href="%2$s" target="_blank">Learn how to make your own date format here</a>.', 'tribe-common' ),
 					'<code>date()</code>',
-					'http://codex.wordpress.org/Formatting_Date_and_Time'
+					'https://codex.wordpress.org/Formatting_Date_and_Time'
 				). '</p>',
 			),
 			'datepickerFormat'                   => array(
