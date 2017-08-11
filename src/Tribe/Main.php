@@ -225,15 +225,6 @@ class Tribe__Main {
 			array(
 				'priority' => 5,
 				'conditionals' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
-				'localize' => (object) array(
-					'name' => 'tribe_system_info',
-					'data' => array(
-						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
-						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
-						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
-						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
-					),
-				),
 			)
 		);
 
@@ -247,6 +238,15 @@ class Tribe__Main {
 			'admin_enqueue_scripts',
 			array(
 				'priority' => 0,
+				'localize' => (object) array(
+					'name' => 'tribe_system_info',
+					'data' => array(
+						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
+						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
+						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
+						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
+					),
+				),
 			)
 		);
 
