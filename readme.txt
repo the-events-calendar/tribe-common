@@ -4,7 +4,7 @@
 
 = [4.5.11] TBD =
 
-
+* Fix - Ensure valid license keys save as expected [84966]
 
 = [4.5.10] 2017-08-09 =
 
