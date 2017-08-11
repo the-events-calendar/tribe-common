@@ -109,4 +109,15 @@ abstract class Tribe__Change_Authority__Base {
 
 		return true;
 	}
+
+	/**
+	 * Propagates a field from the source to the destination.
+	 *
+	 * @param mixed  $from  The source object or data.
+	 * @param mixed  $to    The destination object or data.
+	 * @param string $field The name of the field that's to be evaluated for propagation.
+	 *
+	 * @return bool Whether the field was propagated or not.
+	 */
+	abstract protected function propagate_field( $from, $to, $field );
 }

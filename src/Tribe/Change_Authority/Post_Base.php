@@ -71,7 +71,7 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	 * @return bool Whether the field was propagated or not.
 	 */
 	public function propagate_field( $from, $to, $field ) {
-		list( $from, $to ) = $this->cast_to_post( $from, $to );
+		list( $from, $to ) = $this->cast_to_objects( $from, $to );
 
 		if ( in_array( $field, $this->blocked_post_fields ) ) {
 			return false;
@@ -89,13 +89,24 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	}
 
 	/**
+	 * Casts the source and destinations to parseable objects.
+	 *
 	 * @param $from
 	 * @param $to
 	 *
 	 * @return array
 	 */
-	protected function cast_to_post( $from, $to ) {
-		$from = get_post( $from );
+	protected function cast_to_objects( $from, $to ) {
+		if ( is_object( $from ) && ! $from instanceof WP_Post ) {
+			$from = (array) $from;
+		}
+
+		$from_post = get_post( $from );
+		if ( null !== $from_post ) {
+			$from = $from_post;
+		} else {
+			$from = is_array( $from ) || is_object( $from ) ? (object) $from : null;
+		}
 		$to = get_post( $to );
 
 		return array( $from, $to );
@@ -121,7 +132,7 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	 * @return array An associative array in the format [ <field> => <propagated> ]
 	 */
 	public function propagate( $from, $to ) {
-		list( $from, $to ) = $this->cast_to_post( $from, $to );
+		list( $from, $to ) = $this->cast_to_objects( $from, $to );
 
 		return parent::propagate( $from, $to );
 	}
@@ -129,13 +140,13 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	/**
 	 * Propagates all the values of a post meta field from the source to the destination.
 	 *
-	 * @param WP_Post        $from
-	 * @param WP_Post        $to
-	 * @param         string $field
+	 * @param WP_Post|stdClass $from
+	 * @param WP_Post          $to
+	 * @param         string   $field
 	 *
 	 * @return bool Whether the custom field was propagated or not.
 	 */
-	protected function propagate_meta_field( WP_Post $from, WP_Post $to, $field ) {
+	protected function propagate_meta_field( $from, WP_Post $to, $field ) {
 		$from_meta = get_post_meta( $from->ID, $field );
 		delete_post_meta( $to->ID, $field );
 
@@ -154,14 +165,14 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	/**
 	 * Propagates a post field from the source to the destination.
 	 *
-	 * @param WP_Post        $from
-	 * @param WP_Post        $to
-	 * @param         string $field
+	 * @param WP_Post|stdClass $from
+	 * @param WP_Post          $to
+	 * @param string           $field
 	 *
 	 * @return bool Whether the field was propagated or not.
 	 */
-	protected function propagate_post_field( WP_Post $from, WP_Post $to, $field ) {
-		return (bool) wp_update_post( array( 'ID' => $to->ID, $field => $from->{$field} ) );
+	protected function propagate_post_field( $from, WP_Post $to, $field ) {
+		return (bool) wp_update_post( array( 'ID' => $to->ID, $field => $from->$field ) );
 	}
 
 	/**
@@ -187,13 +198,13 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	/**
 	 * Replaces the destination taxonomy terms with the source taxonomy terms.
 	 *
-	 * @param WP_Post $from
+	 * @param WP_Post|stdClass $from
 	 * @param WP_Post $to
 	 * @param  string $field
 	 *
 	 * @return array|bool
 	 */
-	protected function propagate_taxonomy_terms( WP_Post $from, WP_Post $to, $field ) {
+	protected function propagate_taxonomy_terms( $from, WP_Post $to, $field ) {
 		$from_terms = wp_get_object_terms( $from->ID, $field, array( 'fields' => 'ids' ) );
 
 		$set = wp_set_object_terms( $to->ID, $from_terms, $field, false );
