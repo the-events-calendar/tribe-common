@@ -83,15 +83,18 @@ class Tribe__Assets {
 			$asset->is_registered = true;
 
 			// If we don't have an action we don't even register the action to enqueue
-			if ( ! is_string( $asset->action ) ) {
+			if ( empty( $asset->action ) ) {
 				continue;
 			}
 
-			// Enqueue the registered assets at the appropriate time
-			if ( did_action( $asset->action ) > 0 ) {
-				$this->enqueue();
-			} else {
-				add_action( $asset->action, array( $this, 'enqueue' ), $asset->priority );
+			// Now add an action to enqueue the registered assets
+			foreach ( (array) $asset->action as $action ) {
+				// Enqueue the registered assets at the appropriate time
+				if ( did_action( $action ) > 0 ) {
+					$this->enqueue();
+				} else {
+					add_action( $action, array( $this, 'enqueue' ), $asset->priority );
+				}
 			}
 		}
 	}
@@ -119,14 +122,15 @@ class Tribe__Assets {
 
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
 			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
+			$in_filter    = in_array( current_filter(), (array) $asset->action );
 
-			// Skip if the correct hook hasn't begun firing yet (unless we are forcibly enqueuing)
-			if ( did_action( $asset->action ) < 1 && ! $must_enqueue ) {
+			// Skip if we are not on the correct filter (unless we are forcibly enqueuing)
+			if ( ! $in_filter && ! $must_enqueue ) {
 				continue;
 			}
 
 			// If any single conditional returns true, then we need to enqueue the asset
-			if ( ! is_string( $asset->action ) && ! $must_enqueue ) {
+			if ( empty( $asset->action ) && ! $must_enqueue ) {
 				continue;
 			}
 
