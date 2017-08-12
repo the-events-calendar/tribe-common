@@ -176,22 +176,29 @@ class Tribe__Assets {
 
 				// Only localize on JS and if we have data
 				if ( ! empty( $asset->localize ) ) {
+					// Makes sure we have an Array of Localize data
+					if ( is_object( $asset->localize ) ) {
+						$localization = array( $asset->localize );
+					} else {
+						$localization = (array) $asset->localize;
+					}
+
 					/**
-					 * check to ensure we haven't already localized it before
+					 * Check to ensure we haven't already localized it before
 					 * @since 4.5.8
 					 */
-					if ( is_array( $asset->localize ) ) {
-						foreach ( $asset->localize as $local_asset ) {
-							if ( ! in_array( $local_asset->name, $this->localized ) ) {
-								wp_localize_script( $asset->slug, $local_asset->name, $local_asset->data );
-								$this->localized[] = $local_asset->name;
-							}
+					foreach ( $localization as $localize ) {
+						if ( in_array( $localize->name, $this->localized ) ) {
+							continue;
 						}
-					} else {
-						if ( ! in_array( $asset->localize->name, $this->localized ) ) {
-							wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
-							$this->localized[] = $asset->localize->name;
+
+						// If we have a Callable as the Localize data we execute it
+						if ( is_callable( $localize->data ) ) {
+							$localize->data = call_user_func_array( $localize->data, array( $asset ) );
 						}
+
+						wp_localize_script( $asset->slug, $localize->name, $localize->data );
+						$this->localized[] = $localize->name;
 					}
 				}
 			} else {
