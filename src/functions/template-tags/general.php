@@ -525,6 +525,19 @@ function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $a
 }
 
 /**
+ * Shortcut for Tribe__Assets::enqueue(), include a single asset
+ *
+ * @since  TBD
+ *
+ * @param  string|array  $slug  Slug to save the asset
+ *
+ * @return string
+ */
+function tribe_asset_enqueue( $slug ) {
+	return Tribe__Assets::instance()->enqueue( $slug );
+}
+
+/**
  * Function to include more the one asset, based on `tribe_asset`
  *
  * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
