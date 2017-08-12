@@ -68,12 +68,14 @@ class Tribe__Assets {
 			$asset->is_registered = true;
 
 			// If we don't have an action we don't even register the action to enqueue
-			if ( ! is_string( $asset->action ) ) {
+			if ( empty( $asset->action ) ) {
 				continue;
 			}
 
 			// Now add an action to enqueue the registered assets
-			add_action( $asset->action, array( $this, 'enqueue' ), $asset->priority );
+			foreach ( (array) $asset->action as $action ) {
+				add_action( $action, array( $this, 'enqueue' ), $asset->priority );
+			}
 		}
 	}
 
@@ -94,14 +96,15 @@ class Tribe__Assets {
 		foreach ( $this->assets as $asset ) {
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
 			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
+			$in_filter    = in_array( current_filter(), (array) $asset->action );
 
 			// Skip if we are not on the correct filter (unless we are forcibly enqueuing)
-			if ( current_filter() !== $asset->action && ! $must_enqueue ) {
+			if ( ! $in_filter && ! $must_enqueue ) {
 				continue;
 			}
 
 			// If any single conditional returns true, then we need to enqueue the asset
-			if ( ! is_string( $asset->action ) && ! $must_enqueue ) {
+			if ( empty( $asset->action ) && ! $must_enqueue ) {
 				continue;
 			}
 
@@ -216,12 +219,12 @@ class Tribe__Assets {
 	/**
 	 * Register an Asset and attach a callback to the required action to display it correctly
 	 *
-	 * @param  object       $origin    The main Object for the plugin you are enqueueing the script/style for
-	 * @param  string       $slug      Slug to save the asset
-	 * @param  string       $file      Which file will be loaded, either CSS or JS
-	 * @param  array        $deps      Dependencies
-	 * @param  string|null  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
-	 * @param  string|array $query {
+	 * @param  object             $origin    The main Object for the plugin you are enqueueing the script/style for
+	 * @param  string             $slug      Slug to save the asset
+	 * @param  string             $file      Which file will be loaded, either CSS or JS
+	 * @param  array              $deps      Dependencies
+	 * @param  string|null|array  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
+	 * @param  string|array       $query     {
 	 *     Optional. Array or string of parameters for this asset
 	 *
 	 *     @type string|null  $action         Which WordPress action this asset will be loaded on
