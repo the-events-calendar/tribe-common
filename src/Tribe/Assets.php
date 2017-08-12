@@ -149,6 +149,12 @@ class Tribe__Assets {
 
 				// Only localize on JS and if we have data
 				if ( ! empty( $asset->localize ) ) {
+					if ( is_callable( $asset->localize->data ) ) {
+						$data = call_user_func_array( $asset->localize->data, array( $asset ) );
+					} else {
+						$data = $asset->localize->data;
+					}
+
 					wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
 				}
 			} else {
