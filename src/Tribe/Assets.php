@@ -113,7 +113,7 @@ class Tribe__Assets {
 	 * @param string|array $forcibly_enqueue
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
-		$forcibly_enqueue = (array) $forcibly_enqueue;
+		$forcibly_enqueue = array_filter( (array) $forcibly_enqueue );
 
 		foreach ( $this->assets as $asset ) {
 			if ( $asset->already_enqueued ) {
