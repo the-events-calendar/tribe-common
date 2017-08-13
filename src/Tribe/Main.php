@@ -160,6 +160,7 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		Tribe__Debug::instance();
+		tribe( 'assets' );
 		tribe( 'settings.manager' );
 		tribe( 'tracker' );
 		tribe( 'plugins.api' );
@@ -228,8 +229,6 @@ class Tribe__Main {
 			)
 		);
 
-		$datepicker_months = array_values( Tribe__Date_Utils::get_localized_months_full() );
-
 		tribe_asset(
 			$this,
 			'tribe-common',
@@ -238,7 +237,7 @@ class Tribe__Main {
 			'admin_enqueue_scripts',
 			array(
 				'priority' => 0,
-				'localize' => (object) array(
+				'localize' => array(
 					'name' => 'tribe_system_info',
 					'data' => array(
 						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
@@ -249,8 +248,19 @@ class Tribe__Main {
 				),
 			)
 		);
+	 }
 
-		tribe( 'tribe.asset.data' )->add( 'tribe_l10n_datatables', array(
+	/**
+	 * Load All localization data create by `asset.data`
+	 *
+	 * @since  TBD
+	 *
+	 * @return void
+	 */
+	public function load_localize_data() {
+		$datepicker_months = array_values( Tribe__Date_Utils::get_localized_months_full() );
+
+		tribe( 'asset.data' )->add( 'tribe_l10n_datatables', array(
 			'aria' => array(
 				'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
 				'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
@@ -293,11 +303,11 @@ class Tribe__Main {
 	 */
 	public function add_hooks() {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
-		add_action( 'plugins_loaded', array( 'Tribe__Assets', 'instance' ), 1 );
 		add_action( 'plugins_loaded', array( $this, 'tribe_plugins_loaded' ), PHP_INT_MAX );
 
 		// Register for the assets to be available everywhere
-		add_action( 'init', array( $this, 'load_assets' ), 1 );
+		add_action( 'tribe_common_loaded', array( $this, 'load_assets' ), 1 );
+		add_action( 'init', array( $this, 'load_localize_data' ) );
 		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'store_admin_notices' ) );
 
@@ -510,7 +520,8 @@ class Tribe__Main {
 	public function bind_implementations() {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
-		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
+		tribe_singleton( 'assets', 'Tribe__Assets' );
+		tribe_singleton( 'asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
 		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
 		tribe_singleton( 'cron', 'Tribe__Cron', array( 'schedule' ) );
 		tribe_singleton( 'queue', 'Tribe__Queue' );
