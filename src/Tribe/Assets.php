@@ -91,7 +91,7 @@ class Tribe__Assets {
 	 * @param string|array $forcibly_enqueue
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
-		$forcibly_enqueue = (array) $forcibly_enqueue;
+		$forcibly_enqueue = array_filter( (array) $forcibly_enqueue );
 
 		foreach ( $this->assets as $asset ) {
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
@@ -158,7 +158,7 @@ class Tribe__Assets {
 						$data = $asset->localize->data;
 					}
 
-					wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
+					wp_localize_script( $asset->slug, $asset->localize->name, $data );
 				}
 			} else {
 				wp_enqueue_style( $asset->slug );
