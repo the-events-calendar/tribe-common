@@ -66,6 +66,33 @@ class Tribe__Assets {
 	}
 
 	/**
+	 * Enqueues registered assets based on their groups.
+	 *
+	 * @since   TBD
+	 *
+	 * @uses    self::enqueue
+	 *
+	 * @param   string|array $groups Which groups will be enqueued
+	 *
+	 * @return  void
+	 */
+	public function enqueue_group( $groups ) {
+		$assets = $this->get();
+		$enqueue = array();
+
+		foreach ( $assets as $asset ) {
+			$instersect = array_intersect( $groups, $asset->groups );
+			if ( empty( $instersect ) ) {
+				continue;
+			}
+
+			$enqueue[] = $asset->slug;
+		}
+
+		$this->enqueue( $enqueue );
+	}
+
+	/**
 	 * Enqueues registered assets.
 	 *
 	 * This method is called on whichever action (if any) was declared during registration.
@@ -269,6 +296,7 @@ class Tribe__Assets {
 			'priority'      => 10,
 			'type'          => null,
 			'deps'          => array(),
+			'groups'        => array(),
 			'version'       => $version,
 			'media'         => 'all',
 			'in_footer'     => true,
@@ -364,6 +392,13 @@ class Tribe__Assets {
 		// Looks for a single conditional callable and places it in an Array
 		if ( ! empty( $asset->conditionals ) && is_callable( $asset->conditionals ) ) {
 			$asset->conditionals = array( $asset->conditionals );
+		}
+
+		// Groups is always an array of unique strings
+		if ( ! empty( $asset->groups ) ) {
+			$asset->groups = (array) $asset->groups;
+			$asset->groups = array_filter( $asset->groups, 'is_string' );
+			$asset->groups = array_unique( $asset->groups );
 		}
 
 		/**
