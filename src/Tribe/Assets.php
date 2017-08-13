@@ -1,9 +1,4 @@
 <?php
-// Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
-
 /**
  * Class used to register and enqueue assets across our plugins
  *
@@ -11,18 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Tribe__Assets {
 	/**
-	 * Static Singleton Holder
-	 *
-	 * @var self|null
-	 */
-	protected static $instance;
-
-	/**
 	 * Stores all the Assets and it's configurations
 	 *
 	 * @var array
 	 */
-	private $assets = array();
+	protected $assets = array();
 
 	/**
 	 * Stores the localized scripts for reference
@@ -39,11 +27,7 @@ class Tribe__Assets {
 	 * @return self
 	 */
 	public static function instance() {
-		if ( empty( self::$instance ) ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'assets' );
 	}
 
 	/**
@@ -51,7 +35,7 @@ class Tribe__Assets {
 	 *
 	 * @since 4.3
 	 */
-	private function __construct() {
+	public function __construct() {
 		// Hook the actual registering of
 		add_action( 'init', array( $this, 'register_in_wp' ), 1, 0 );
 	}
@@ -71,6 +55,8 @@ class Tribe__Assets {
 		if ( ! is_array( $assets ) ) {
 			$assets = array( $assets );
 		}
+
+		uasort( $assets, array( $this, 'order_by_priority' ) );
 
 		foreach ( $assets as $asset ) {
 			if ( 'js' === $asset->type ) {
@@ -114,12 +100,9 @@ class Tribe__Assets {
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
 		$forcibly_enqueue = array_filter( (array) $forcibly_enqueue );
+		$assets = $this->get();
 
-		foreach ( $this->assets as $asset ) {
-			if ( $asset->already_enqueued ) {
-				continue;
-			}
-
+		foreach ( $assets as $asset ) {
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
 			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
 			$in_filter    = in_array( current_filter(), (array) $asset->action );
@@ -494,6 +477,8 @@ class Tribe__Assets {
 	 * @return bool
 	 */
 	public function get( $slug = null ) {
+		uasort( $this->assets, array( $this, 'order_by_priority' ) );
+
 		if ( is_null( $slug ) ) {
 			return $this->assets;
 		}

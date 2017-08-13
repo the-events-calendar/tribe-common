@@ -520,6 +520,8 @@ function tribe_register_error( $indexes, $message ) {
 /**
  * Shortcut for Tribe__Assets::register(), include a single asset
  *
+ * @since 4.3
+ *
  * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
  * @param  string   $slug       Slug to save the asset
  * @param  string   $file       Which file will be loaded, either CSS or JS
@@ -530,7 +532,20 @@ function tribe_register_error( $indexes, $message ) {
  * @return array             Which Assets was registered
  */
 function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $arguments = array() ) {
-	return Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $action, $arguments );
+	return tribe( 'assets' )->register( $origin, $slug, $file, $deps, $action, $arguments );
+}
+
+/**
+ * Shortcut for Tribe__Assets::enqueue(), include a single asset
+ *
+ * @since  TBD
+ *
+ * @param  string|array  $slug  Slug to save the asset
+ *
+ * @return string
+ */
+function tribe_asset_enqueue( $slug ) {
+	return tribe( 'assets' )->enqueue( $slug );
 }
 
 /**
