@@ -4,7 +4,7 @@
 
 = [4.5.11] TBD =
 
-
+* Fix - Fixed issue with JS/CSS files not loading when WordPress URL is HTTPS but Site URL is not (our thanks to @carcal1 for first reporting this) [85017]
 
 = [4.5.10] 2017-08-09 =
 
