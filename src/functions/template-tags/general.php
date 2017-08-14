@@ -83,35 +83,39 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		$resource_path = $root_dir;
 
 		if ( is_null( $resource_path ) ) {
-			$resources_path = 'src/resources/';
+			$resource_path = 'src/resources/';
 			switch ( $extension ) {
 				case 'css':
-					$resource_path = $resources_path .'css/';
+					$resource_path .= 'css/';
 					break;
 				case 'js':
-					$resource_path = $resources_path .'js/';
+					$resource_path .= 'js/';
 					break;
 				case 'scss':
-					$resource_path = $resources_path .'scss/';
+					$resource_path .= 'scss/';
 					break;
 				default:
-					$resource_path = $resources_path;
 					break;
 			}
 		}
 
-		$path = $resource_path . $resource;
+		$relative_file_path = $resource_path . $resource;
 
 		if ( is_object( $origin ) ) {
-			$plugin_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath );
+			$plugin_path = ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath;
 		} else {
-			$plugin_path = trailingslashit( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) );
+			$plugin_path = __FILE__;
 		}
 
-		$file = wp_normalize_path( $plugin_path . $path );
+		$plugin_path = plugin_basename( $plugin_path );
+
+		// We only want the first directory, the basename of the plugin.
+		$plugin_path = substr( $plugin_path, 0, strpos( $plugin_path, '/' ) );
+
+		$file = wp_normalize_path( trailingslashit( $plugin_path ) . $relative_file_path );
 
 		// Turn the Path into a URL
-		$url = plugins_url( basename( $file ), $file );
+		$url = plugins_url( $file );
 
 		/**
 		 * Filters the resource URL
@@ -186,7 +190,7 @@ if ( ! function_exists( 'tribe_get_datetime_format' ) ) {
 		$separator     = (array) str_split( $raw_separator );
 
 		if ( empty( $raw_separator ) ) {
-		    /**
+			/**
 			 * Filterable fallback for when the dateTimeSeparator is an empty string. Defaults to a space.
 			 *
 			 * @since 4.5.6
