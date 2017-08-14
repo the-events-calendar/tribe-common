@@ -97,16 +97,12 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	 * @return array
 	 */
 	protected function cast_to_objects( $from, $to ) {
-		if ( is_object( $from ) && ! $from instanceof WP_Post ) {
-			$from = (array) $from;
+		if ( is_numeric( $from ) ) {
+			$from = get_post( $from );
+		} elseif ( ! is_object( $from ) ) {
+			$from = (object) $from;
 		}
 
-		$from_post = get_post( $from );
-		if ( null !== $from_post ) {
-			$from = $from_post;
-		} else {
-			$from = is_array( $from ) || is_object( $from ) ? (object) $from : null;
-		}
 		$to = get_post( $to );
 
 		return array( $from, $to );
