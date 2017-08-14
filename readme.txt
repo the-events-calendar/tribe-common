@@ -4,7 +4,7 @@
 
 = [4.5.11] TBD =
 
-
+* Fix - Fixed incorrect URL for CSS & JS files when using a symlinked plugin dir (our thanks to @bigfishdesign for catching this) [74413]
 
 = [4.5.10] 2017-08-09 =
 
