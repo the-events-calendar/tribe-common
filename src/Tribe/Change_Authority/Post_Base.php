@@ -143,8 +143,19 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	 * @return bool Whether the custom field was propagated or not.
 	 */
 	protected function propagate_meta_field( $from, WP_Post $to, $field ) {
-		$from_meta = get_post_meta( $from->ID, $field );
+		// we need this due to WP_Post magic __get method
+		$from_array = (array) $from;
+		if ( isset( $from_array[ $field ] ) ) {
+			$from_meta = $from_array[ $field ];
+		} else {
+			$from_meta = get_post_meta( $from->ID, $field );
+		}
+
 		delete_post_meta( $to->ID, $field );
+
+		if ( ! is_array( $from_meta ) ) {
+			$from_meta = array( $from_meta );
+		}
 
 		if ( empty( $from_meta ) ) {
 			return true;
