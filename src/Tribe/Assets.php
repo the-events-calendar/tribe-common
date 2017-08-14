@@ -1,26 +1,14 @@
 <?php
-// Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
-
 /**
  * Class used to register and enqueue assets across our plugins
  */
 class Tribe__Assets {
 	/**
-	 * Static Singleton Holder
-	 *
-	 * @var self|null
-	 */
-	protected static $instance;
-
-	/**
 	 * Stores all the Assets and it's configurations
 	 *
 	 * @var array
 	 */
-	private $assets = array();
+	protected $assets = array();
 
 	/**
 	 * Static Singleton Factory Method
@@ -28,17 +16,13 @@ class Tribe__Assets {
 	 * @return self
 	 */
 	public static function instance() {
-		if ( empty( self::$instance ) ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'assets' );
 	}
 
 	/**
 	 * Register the Methods in the correct places
 	 */
-	private function __construct() {
+	public function __construct() {
 		// Hook the actual registering of
 		add_action( 'init', array( $this, 'register_in_wp' ), 1, 0 );
 	}
@@ -57,6 +41,8 @@ class Tribe__Assets {
 			$assets = array( $assets );
 		}
 
+		uasort( $assets, array( $this, 'order_by_priority' ) );
+
 		foreach ( $assets as $asset ) {
 			if ( 'js' === $asset->type ) {
 				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
@@ -68,13 +54,42 @@ class Tribe__Assets {
 			$asset->is_registered = true;
 
 			// If we don't have an action we don't even register the action to enqueue
-			if ( ! is_string( $asset->action ) ) {
+			if ( empty( $asset->action ) ) {
 				continue;
 			}
 
 			// Now add an action to enqueue the registered assets
-			add_action( $asset->action, array( $this, 'enqueue' ), $asset->priority );
+			foreach ( (array) $asset->action as $action ) {
+				add_action( $action, array( $this, 'enqueue' ), $asset->priority );
+			}
 		}
+	}
+
+	/**
+	 * Enqueues registered assets based on their groups.
+	 *
+	 * @since   TBD
+	 *
+	 * @uses    self::enqueue
+	 *
+	 * @param   string|array $groups Which groups will be enqueued
+	 *
+	 * @return  void
+	 */
+	public function enqueue_group( $groups ) {
+		$assets = $this->get();
+		$enqueue = array();
+
+		foreach ( $assets as $asset ) {
+			$instersect = array_intersect( $groups, $asset->groups );
+			if ( empty( $instersect ) ) {
+				continue;
+			}
+
+			$enqueue[] = $asset->slug;
+		}
+
+		$this->enqueue( $enqueue );
 	}
 
 	/**
@@ -89,19 +104,21 @@ class Tribe__Assets {
 	 * @param string|array $forcibly_enqueue
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
-		$forcibly_enqueue = (array) $forcibly_enqueue;
+		$forcibly_enqueue = array_filter( (array) $forcibly_enqueue );
+		$assets = $this->get();
 
-		foreach ( $this->assets as $asset ) {
+		foreach ( $assets as $asset ) {
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
 			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
+			$in_filter    = in_array( current_filter(), (array) $asset->action );
 
 			// Skip if we are not on the correct filter (unless we are forcibly enqueuing)
-			if ( current_filter() !== $asset->action && ! $must_enqueue ) {
+			if ( ! $in_filter && ! $must_enqueue ) {
 				continue;
 			}
 
 			// If any single conditional returns true, then we need to enqueue the asset
-			if ( ! is_string( $asset->action ) && ! $must_enqueue ) {
+			if ( empty( $asset->action ) && ! $must_enqueue ) {
 				continue;
 			}
 
@@ -149,7 +166,13 @@ class Tribe__Assets {
 
 				// Only localize on JS and if we have data
 				if ( ! empty( $asset->localize ) ) {
-					wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
+					if ( is_callable( $asset->localize->data ) ) {
+						$data = call_user_func_array( $asset->localize->data, array( $asset ) );
+					} else {
+						$data = $asset->localize->data;
+					}
+
+					wp_localize_script( $asset->slug, $asset->localize->name, $data );
 				}
 			} else {
 				wp_enqueue_style( $asset->slug );
@@ -210,12 +233,12 @@ class Tribe__Assets {
 	/**
 	 * Register an Asset and attach a callback to the required action to display it correctly
 	 *
-	 * @param  object       $origin    The main Object for the plugin you are enqueueing the script/style for
-	 * @param  string       $slug      Slug to save the asset
-	 * @param  string       $file      Which file will be loaded, either CSS or JS
-	 * @param  array        $deps      Dependencies
-	 * @param  string|null  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
-	 * @param  string|array $query {
+	 * @param  object             $origin    The main Object for the plugin you are enqueueing the script/style for
+	 * @param  string             $slug      Slug to save the asset
+	 * @param  string             $file      Which file will be loaded, either CSS or JS
+	 * @param  array              $deps      Dependencies
+	 * @param  string|null|array  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
+	 * @param  string|array       $query     {
 	 *     Optional. Array or string of parameters for this asset
 	 *
 	 *     @type string|null  $action         Which WordPress action this asset will be loaded on
@@ -273,6 +296,7 @@ class Tribe__Assets {
 			'priority'      => 10,
 			'type'          => null,
 			'deps'          => array(),
+			'groups'        => array(),
 			'version'       => $version,
 			'media'         => 'all',
 			'in_footer'     => true,
@@ -370,6 +394,13 @@ class Tribe__Assets {
 			$asset->conditionals = array( $asset->conditionals );
 		}
 
+		// Groups is always an array of unique strings
+		if ( ! empty( $asset->groups ) ) {
+			$asset->groups = (array) $asset->groups;
+			$asset->groups = array_filter( $asset->groups, 'is_string' );
+			$asset->groups = array_unique( $asset->groups );
+		}
+
 		/**
 		 * Filter an Asset loading variables
 		 *
@@ -411,6 +442,8 @@ class Tribe__Assets {
 	 * @return bool
 	 */
 	public function get( $slug = null ) {
+		uasort( $this->assets, array( $this, 'order_by_priority' ) );
+
 		if ( is_null( $slug ) ) {
 			return $this->assets;
 		}
