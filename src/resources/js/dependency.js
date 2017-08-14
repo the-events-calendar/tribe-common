@@ -26,7 +26,6 @@
 					selector = '#' + $field.attr( 'id' ),
 					value = $field.val(),
 					constraint_conditions;
-
 				// We need an ID to make something depend on this
 				if ( ! selector ) {
 					return;
@@ -64,13 +63,23 @@
 					}
 				};
 
+				console.info('info');
+				console.warn('warn')
+
 				$dependents.each( function( k, dependent ) {
-					var container_parent = $( this ).data( 'parent' );
-					var $dependent = null;
-					if ( container_parent ) {
-						$dependent = $( this ).closest( container_parent ).find( dependent );
-					} else {
-						$dependent = $( dependent );
+					var $dependent         = $( dependent );
+					var hasDependentParent = $dependent.is( '[data-dependent-parent]' );
+
+					if ( hasDependentParent ) {
+						var dependentParent  = $dependent.data( 'dependentParent' );
+						var $dependentParent = $dependent.closest( dependentParent );
+
+						if ( 0 === $dependentParent.length ) {
+							console.warn( 'Dependency: `data-dependent-parent` has bad selector', $dependent );
+							return;
+						}
+
+						$dependent = $dependentParent.find( dependent );
 					}
 
 					var constraints = {
