@@ -2,12 +2,12 @@
 	'use strict';
 	var $document = $( document );
 	var selectors = {
-			dependent: '.tribe-dependent',
-			active: '.tribe-active',
-			dependency: '.tribe-dependency',
-			fields: 'input, select, textarea',
-			advanced_fields: '.select2-container'
-		};
+		dependent: '.tribe-dependent',
+		active: '.tribe-active',
+		dependency: '.tribe-dependency',
+		fields: 'input, select, textarea',
+		advanced_fields: '.select2-container'
+	};
 
 	// Setup a Dependent
 	$.fn.dependency = function () {
@@ -80,21 +80,6 @@
 					}
 
 					var constraints = {
-<<<<<<< HEAD
-							condition: $dependent.data( 'condition' ) || false,
-							not_condition: $dependent.data( 'conditionNot' ) || false,
-							is_not_empty: $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
-							is_empty: $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
-							is_numeric: $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ),
-							is_not_numeric: $dependent.data( 'conditionIsNotNumeric' ) || $dependent.is( '[data-condition-is-not-numeric]' ),
-							is_checked: $dependent.data( 'conditionChecked' ) || $dependent.is( '[data-condition-is-checked]' ),
-							is_not_checked: $dependent.data( 'conditionIsNotChecked' ) || $dependent.is( '[data-condition-is-not-checked]' )
-						},
-						active_class = selectors.active.replace( '.', '' ),
-						is_disabled = $field.is( ':disabled' ),
-						condition_relation = $dependent.data( 'condition-relation' ) || 'or',
-						passes;
-=======
 						condition: $dependent.data( 'condition' ) || false,
 						not_condition: $dependent.data( 'conditionNot' ) || false,
 						is_not_empty: $dependent.data( 'conditionIsNotEmpty' ) || $dependent.is( '[data-condition-is-not-empty]' ) || $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
@@ -108,7 +93,6 @@
 					var is_disabled = $field.is( ':disabled' );
 					var condition_relation = $dependent.data( 'condition-relation' ) || 'or';
 					var passes;
->>>>>>> 9c51712c... $.fn.dependency return jQuery Objects + Code STD
 
 					constraints = _.pick( constraints, function ( is_applicable ) {
 						return is_applicable;
