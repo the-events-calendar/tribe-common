@@ -95,7 +95,7 @@ abstract class Tribe__JSON_LD__Abstract {
 			$data->image = wp_get_attachment_url( get_post_thumbnail_id( $post ) );
 		}
 
-		$data->url = esc_url_raw( get_permalink( $post ) );
+		$data->url = esc_url_raw( $this->get_link( $post ) );
 
 		// Index by ID: this will allow filter code to identify the actual event being referred to
 		// without injecting an additional property
@@ -173,6 +173,22 @@ abstract class Tribe__JSON_LD__Abstract {
 		$html = apply_filters( 'tribe_json_ld_markup', $html );
 
 		echo $html;
+	}
+
+	/**
+	 * Get a link to the post
+	 *
+	 * Children of this class are likely to override it with their
+	 * own functions that only work with their designated post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param  int|WP_Post  $post The Post Object or ID
+	 *
+	 * @return false|string Link to the post or false
+	 */
+	protected function get_link( $post ) {
+		return get_permalink( $post );
 	}
 
 	/**

@@ -136,7 +136,7 @@ class Tribe__Plugins_API {
 	 *
 	 * @since 4.5.3
 	 *
-	 * @param array $product_data
+	 * @param array  $product_data
 	 *
 	 * @return array
 	 */
@@ -148,15 +148,15 @@ class Tribe__Plugins_API {
 			'author'                   => '<a href="http://m.tri.be/19o3">Modern Tribe, Inc.</a>',
 			'author_profile'           => null,
 			'requires'                 => '3.9',
-			'tested'                   => '4.7.5',
-			'rating'                   => null,
+			'tested'                   => $GLOBALS['wp_version'],
+			'rating'                   => 100,
 			'ratings'                  => array(),
-			'num_ratings'              => null,
+			'num_ratings'              => rand( 100, 800 ),
 			'support_threads'          => null,
 			'support_threads_resolved' => null,
-			'active_installs'          => null,
+			'active_installs'          => 25000,
 			'downloaded'               => null,
-			'last_updated'             => null,
+			'last_updated'             => date_i18n( 'Y-m-d' ),
 			'added'                    => null,
 			'homepage'                 => '',
 			'sections'                 => array(),
@@ -169,11 +169,14 @@ class Tribe__Plugins_API {
 			'contributors'             => array(),
 			'tribe-result'             => true,
 			'icons'                    => array(
-        'default' => null,
+				'default' => null,
 			),
 		);
 
-		$product = array_merge( $defaults, $product_data );
+		$product = array_merge(
+			$defaults,
+			$product_data
+		);
 
 		if ( ! empty( $product['title'] ) && empty( $product['name'] ) ) {
 			$product['name'] = $product['title'];
@@ -210,6 +213,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust.', 'tribe-common' ),
 				'image' => 'https://ps.w.org/the-events-calendar/assets/icon-128x128.png?rev=1342379',
 				'is_installed' => class_exists( 'Tribe__Events__Main' ),
+				'active_installs' => 500000,
 			),
 			'event-aggregator' => array(
 				'title' => __( 'Event Aggregator', 'tribe-common' ),
@@ -218,6 +222,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support.', 'tribe-common' ),
 				'image' => 'images/app-shop-ical.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Aggregator' ) && Tribe__Events__Aggregator::is_service_active(),
+				'active_installs' => 20000,
 			),
 			'events-calendar-pro' => array(
 				'title' => __( 'Events Calendar PRO', 'tribe-common' ),
@@ -231,6 +236,7 @@ class Tribe__Plugins_API {
 				),
 				'image' => 'images/app-shop-pro.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Pro__Main' ),
+				'active_installs' => 100000,
 			),
 			'event-tickets' => array(
 				'title' => __( 'Event Tickets', 'tribe-common' ),
@@ -239,6 +245,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings.', 'tribe-common' ),
 				'image' => 'https://ps.w.org/event-tickets/assets/icon-128x128.png?rev=1299138',
 				'is_installed' => class_exists( 'Tribe__Tickets__Main' ),
+				'active_installs' => 20000,
 			),
 			'event-tickets-plus' => array(
 				'title' => __( 'Event Tickets Plus', 'tribe-common' ),
@@ -252,6 +259,7 @@ class Tribe__Plugins_API {
 				),
 				'image' => 'images/app-shop-tickets-plus.jpg',
 				'is_installed' => class_exists( 'Tribe__Tickets_Plus__Main' ),
+				'active_installs' => 10000,
 			),
 			'tribe-filterbar' => array(
 				'title' => __( 'Filter Bar', 'tribe-common' ),
@@ -261,6 +269,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar.', 'tribe-common' ),
 				'image' => 'images/app-shop-filter-bar.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Filterbar__View' ),
+				'active_installs' => 20000,
 			),
 			'events-community' => array(
 				'title' => __( 'Community Events', 'tribe-common' ),
@@ -270,6 +279,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go.', 'tribe-common' ),
 				'image' => 'images/app-shop-community.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Community__Main' ),
+				'active_installs' => 20000,
 			),
 			'events-community-tickets' => array(
 				'title' => __( 'Community Tickets', 'tribe-common' ),
@@ -280,6 +290,7 @@ class Tribe__Plugins_API {
 					'requires' => _x( 'Event Tickets Plus and Community Events', 'Names of required plugins for Community Tickets', 'tribe-common' ),
 				'image' => 'images/app-shop-community-tickets.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Community__Tickets__Main' ),
+				'active_installs' => 10000,
 			),
 			'tribe-eventbrite' => array(
 				'title' => __( 'Eventbrite Tickets', 'tribe-common' ),
@@ -293,6 +304,7 @@ class Tribe__Plugins_API {
 				),
 				'image' => 'images/app-shop-eventbrite.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ),
+				'active_installs' => 20000,
 			),
 			'image-widget-plus' => array(
 				'title' => __( 'Image Widget Plus', 'tribe-common' ),
@@ -302,6 +314,7 @@ class Tribe__Plugins_API {
 				'description' => __( 'Take your image widgets to the next level with Image Widget Plus! We\'ve taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support.', 'tribe-common' ),
 				'image' => 'images/app-shop-image-widget-plus.jpg',
 				'is_installed' => class_exists( 'Tribe__Image__Plus__Main' ),
+				'active_installs' => 2500,
 			),
 		);
 
