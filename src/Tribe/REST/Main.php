@@ -86,7 +86,7 @@ abstract class Tribe__REST__Main {
 
 				$url .= '/' . ltrim( $path, '/' );
 			} else {
-				$url = trailingslashit( get_home_url( $blog_id, '', $scheme ) );
+				$url = get_home_url( $blog_id, 'index.php', $scheme );
 
 				$url = add_query_arg( 'rest_route', $tec_path, $url );
 			}
