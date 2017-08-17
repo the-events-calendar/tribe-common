@@ -37,10 +37,248 @@ tribe.validation = {};
 	 * @type   {object}
 	 */
 	obj.conditions = {
-		required: function( val ) {
-			return '' == val;
+		isRequired: function( value ) {
+			return '' != value;
+		},
+		isGreaterThan: function( value, constraint, $field ) {
+			var type = $field.data( 'validationType' );
+			var $constraint = null;
+
+			// If it's not Numeric we treat it like a Selector
+			if ( ! _.isNumber( constraint ) ) {
+				$constraint = $( constraint );
+				constraint = $constraint.val();
+			}
+
+			// Applies the type of validation
+			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
+				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
+				value = obj.parseType[ type ]( value, $constraint, $field );
+			}
+
+			return constraint < value;
+		},
+		isGreaterOrEqualTo: function( value, constraint, $field ) {
+			var type = $field.data( 'validationType' );
+			var $constraint = null;
+
+			// If it's not Numeric we treat it like a Selector
+			if ( ! _.isNumber( constraint ) ) {
+				$constraint = $( constraint );
+				constraint = $constraint.val();
+			}
+
+			// Applies the type of validation
+			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
+				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
+				value = obj.parseType[ type ]( value, $constraint, $field );
+			}
+
+			return constraint <= value;
+		},
+		isLessThan: function( value, constraint, $field ) {
+			var type = $field.data( 'validationType' );
+			var $constraint = null;
+
+			// If it's not Numeric we treat it like a Selector
+			if ( ! _.isNumber( constraint ) ) {
+				$constraint = $( constraint );
+				constraint = $constraint.val();
+			}
+
+			// Applies the type of validation
+			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
+				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
+				value = obj.parseType[ type ]( value, $constraint, $field );
+			}
+
+			return constraint > value;
+		},
+		isLessOrEqualTo: function( value, constraint, $field ) {
+			var type = $field.data( 'validationType' );
+			var $constraint = null;
+
+			// If it's not Numeric we treat it like a Selector
+			if ( ! _.isNumber( constraint ) ) {
+				$constraint = $( constraint );
+				constraint = $constraint.val();
+			}
+
+			// Applies the type of validation
+			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
+				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
+				value = obj.parseType[ type ]( value, $constraint, $field );
+			}
+
+			return constraint >= value;
+		},
+		isEqualTo: function( value, constraint, $field ) {
+			var type = $field.data( 'validationType' );
+			var $constraint = null;
+
+			// If it's not Numeric we treat it like a Selector
+			if ( ! _.isNumber( constraint ) ) {
+				$constraint = $( constraint );
+				constraint = $constraint.val();
+			}
+
+			// Applies the type of validation
+			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
+				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
+				value = obj.parseType[ type ]( value, $constraint, $field );
+			}
+
+			return constraint == value;
+		},
+		isNotEqualTo: function( value, constraint, $field ) {
+			var type = $field.data( 'validationType' );
+			var $constraint = null;
+
+			// If it's not Numeric we treat it like a Selector
+			if ( ! _.isNumber( constraint ) ) {
+				$constraint = $( constraint );
+				constraint = $constraint.val();
+			}
+
+			// Applies the type of validation
+			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
+				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
+				value = obj.parseType[ type ]( value, $constraint, $field );
+			}
+
+			return constraint != value;
 		}
 	};
+
+	/**
+	 * Object containing types of fields supported
+	 *
+	 * @since  TBD
+	 *
+	 * @type   {object}
+	 */
+	obj.parseType = {
+		datepicker: function( value, $constraint, $field ) {
+			var formats = [
+				'yyyy-mm-dd',
+				'm/d/yyyy',
+				'mm/dd/yyyy',
+				'd/m/yyyy',
+				'dd/mm/yyyy',
+				'm-d-yyyy',
+				'mm-dd-yyyy',
+				'd-m-yyyy',
+				'dd-mm-yyyy'
+			];
+
+			// Default Format Key
+			var formatKey = 0;
+
+			if ( $constraint.length && $constraint.attr( 'data-datepicker_format' ) ) {
+				formatKey = $constraint.attr( 'data-datepicker_format' );
+			} else if ( _.isString( formats[ $constraint ] ) ) {
+				formatKey = formats[ $constraint ];
+			}
+
+			var format = formats[ formatKey ];
+
+			value = moment( value, format ).format( 'X' );
+			return value;
+		}
+	};
+
+	/**
+	 * Object containing all the constraints for the Fields
+	 *
+	 * @since  TBD
+	 *
+	 * @type   {object}
+	 */
+	obj.constraints = {
+		isRequired: function( $field ) {
+			// Default to Null to prevent Conflicts
+			var value = null;
+
+			// Verify by Data value
+			value = $field.data( 'required' ) || value;
+			value = $field.data( 'validationRequired' ) || value;
+			value = $field.data( 'validationIsRequired' ) || value;
+
+			// Verify by Attributes
+			value = $field.is( '[required]' ) || value;
+			value = $field.is( '[data-required]' ) || value;
+			value = $field.is( '[data-validation-required]' ) || value;
+			value = $field.is( '[data-validation-is-required]' ) || value;
+
+			return value;
+		},
+		isGreaterThan: function( $field ) {
+			// Default to Null to prevent Conflicts
+			var value = null;
+
+			// If we have attribute, fetch the data value
+			if ( $field.is( '[data-validation-is-greater-than]' ) ) {
+				value = $field.data( 'validationIsGreaterThan' );
+			}
+
+			return value;
+		},
+		isGreaterOrEqualTo: function( $field ) {
+			// Default to Null to prevent Conflicts
+			var value = null;
+
+			// If we have attribute, fetch the data value
+			if ( $field.is( '[data-validation-is-greater-or-equal-to]' ) ) {
+				value = $field.data( 'validationIsGreaterOrEqualTo' );
+			}
+
+			return value;
+		},
+		isLessThan: function( $field ) {
+			// Default to Null to prevent Conflicts
+			var value = null;
+
+			// If we have attribute, fetch the data value
+			if ( $field.is( '[data-validation-is-less-than]' ) ) {
+				value = $field.data( 'validationIsLessThan' );
+			}
+
+			return value;
+		},
+		isLessOrEqualTo: function( $field ) {
+			// Default to Null to prevent Conflicts
+			var value = null;
+
+			// If we have attribute, fetch the data value
+			if ( $field.is( '[data-validation-is-less-or-equal-to]' ) ) {
+				value = $field.data( 'validationIsLessOrEqualTo' );
+			}
+
+			return value;
+		},
+		isEqualTo: function( $field ) {
+			// Default to Null to prevent Conflicts
+			var value = null;
+
+			// If we have attribute, fetch the data value
+			if ( $field.is( '[data-validation-is-equal-to]' ) ) {
+				value = $field.data( 'validationIsEqualTo' );
+			}
+
+			return value;
+		},
+		isNotEqualTo: function( $field ) {
+			// Default to Null to prevent Conflicts
+			var value = null;
+
+			// If we have attribute, fetch the data value
+			if ( $field.is( '[data-validation-is-not-equal-to]' ) ) {
+				value = $field.data( 'validationIsNotEqualTo' );
+			}
+
+			return value;
+		}
+	}
 
 	/**
 	 * FN (prototype) method from jQuery
@@ -118,30 +356,60 @@ tribe.validation = {};
 	 * @return {bool}
 	 */
 	obj.isValid = function( $field ) {
+		var constraints = obj.getConstraints( $field );
+
+		if ( ! _.isObject( constraints ) ) {
+			return constraints;
+		}
+
+		// It needs to be valid on all to be valid
+		var valid = _.every( constraints );
+
+		return valid;
+	};
+
+	/**
+	 * Gets which constrains have Passed
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {object}  $field  jQuery Object for the field
+	 *
+	 * @return {object}
+	 */
+	obj.getConstraints = function( $field ) {
 		var valid = true;
 		var value = $field.val();
 		var isDisabled = $field.is( ':disabled' );
-		var constraints = {
-			required: $field.data( 'required' ) || $field.is( '[data-required]' ) || $field.is( '[required]' ) || false,
-		};
+		var constraints = obj.constraints;
 
 		// Bail if it's a disabled field
 		if ( isDisabled ) {
 			return valid;
 		}
 
-		// Check which ones of these are valid
-		constraints = _.pick( constraints, function( isApplicable ) {
-			return isApplicable;
+		// Fetch the values for each one of these
+		constraints = _.mapObject( constraints, function( isApplicable ) {
+			return isApplicable( $field );
 		} );
 
-		// Verifies if we have a valid set of constraints
-		valid = _.reduce( constraints, function( passes, constraint, key ) {
-			return passes || obj.conditions[ key ]( value, constraint, $field );
-		}, true );
+		// Check which ones of these are not null
+		constraints = _.pick( constraints, function( value ) {
+			return null !== value;
+		} );
 
-		return valid;
-	};
+		// When we don't have constrains it's always valid
+		if ( _.isEmpty( constraints ) ) {
+			return valid;
+		}
+
+		// Verifies if we have a valid set of constraints
+		constraints = _.mapObject( constraints, function( constraint, key ) {
+			return obj.conditions[ key ]( value, constraint, $field );
+		} );
+
+		return constraints;
+	}
 
 	/**
 	 * Actually does the validation for the Form
@@ -193,15 +461,27 @@ tribe.validation = {};
 		$errors.each( function( i, field ) {
 			var $field = $( field );
 			var message = $field.data( 'validationError' );
-			var $listItem = $( '<li>' ).text( message );
 
-			// Add which field has thrown the error
-			$listItem.data( 'validationField', $field );
+			if ( _.isObject( message ) ) {
+				var messages = {};
+				var failed = obj.getConstraints( $field, false );
 
-			// Add which notice item is related to this error field
-			$field.data( 'validationNoticeItem', $field );
+				// Maps the new Keys with CamelCase
+				_.each( message, function( value, key ) {
+					messages[ tribe.utils.camelCase( key ) ] = value;
+				} );
 
-			$list.append( $listItem );
+				_.each( failed, function( value, key ) {
+					// Only add error if this validation failed
+					if ( value ) {
+						return;
+					}
+
+					obj.addErrorLine( messages[ key ], $field, $list );
+				} );
+			} else {
+				obj.addErrorLine( message, $field, $list );
+			}
 		} );
 
 		// Appends the List of errors
@@ -214,6 +494,29 @@ tribe.validation = {};
 		} else{
 			$notice.replaceWith( $newNotice );
 		}
+	};
+
+	/**
+	 * Validates a single Field
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {string}  message  Message to be Attached
+	 * @param  {object}  $field   jQuery Object for the field
+	 * @param  {object}  $list    jQuery Object for list of Errors
+	 *
+	 * @return {void}
+	 */
+	obj.addErrorLine = function( message, $field, $list ) {
+		var $listItem = $( '<li>' ).text( message );
+
+		// Add which field has thrown the error
+		$listItem.data( 'validationField', $field );
+
+		// Add which notice item is related to this error field
+		$field.data( 'validationNoticeItem', $field );
+
+		$list.append( $listItem );
 	};
 
 	/**
