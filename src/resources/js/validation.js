@@ -41,112 +41,34 @@ tribe.validation = {};
 			return '' != value;
 		},
 		isGreaterThan: function( value, constraint, $field ) {
-			var type = $field.data( 'validationType' );
-			var $constraint = null;
+			var condition = obj.parseConditon( 'isGreaterThan', value, constraint, $field );
 
-			// If it's not Numeric we treat it like a Selector
-			if ( ! _.isNumber( constraint ) ) {
-				$constraint = $( constraint );
-				constraint = $constraint.val();
-			}
-
-			// Applies the type of validation
-			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
-				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
-				value = obj.parseType[ type ]( value, $constraint, $field );
-			}
-
-			return constraint < value;
+			return condition.constraint < condition.value;
 		},
 		isGreaterOrEqualTo: function( value, constraint, $field ) {
-			var type = $field.data( 'validationType' );
-			var $constraint = null;
+			var condition = obj.parseConditon( 'isGreaterOrEqualTo', value, constraint, $field );
 
-			// If it's not Numeric we treat it like a Selector
-			if ( ! _.isNumber( constraint ) ) {
-				$constraint = $( constraint );
-				constraint = $constraint.val();
-			}
-
-			// Applies the type of validation
-			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
-				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
-				value = obj.parseType[ type ]( value, $constraint, $field );
-			}
-
-			return constraint <= value;
+			return condition.constraint <= condition.value;
 		},
 		isLessThan: function( value, constraint, $field ) {
-			var type = $field.data( 'validationType' );
-			var $constraint = null;
+			var condition = obj.parseConditon( 'isLessThan', value, constraint, $field );
 
-			// If it's not Numeric we treat it like a Selector
-			if ( ! _.isNumber( constraint ) ) {
-				$constraint = $( constraint );
-				constraint = $constraint.val();
-			}
-
-			// Applies the type of validation
-			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
-				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
-				value = obj.parseType[ type ]( value, $constraint, $field );
-			}
-
-			return constraint > value;
+			return condition.constraint > condition.value;
 		},
 		isLessOrEqualTo: function( value, constraint, $field ) {
-			var type = $field.data( 'validationType' );
-			var $constraint = null;
+			var condition = obj.parseConditon( 'isLessOrEqualTo', value, constraint, $field );
 
-			// If it's not Numeric we treat it like a Selector
-			if ( ! _.isNumber( constraint ) ) {
-				$constraint = $( constraint );
-				constraint = $constraint.val();
-			}
-
-			// Applies the type of validation
-			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
-				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
-				value = obj.parseType[ type ]( value, $constraint, $field );
-			}
-
-			return constraint >= value;
+			return condition.constraint >= condition.value;
 		},
 		isEqualTo: function( value, constraint, $field ) {
-			var type = $field.data( 'validationType' );
-			var $constraint = null;
+			var condition = obj.parseConditon( 'isEqualTo', value, constraint, $field );
 
-			// If it's not Numeric we treat it like a Selector
-			if ( ! _.isNumber( constraint ) ) {
-				$constraint = $( constraint );
-				constraint = $constraint.val();
-			}
-
-			// Applies the type of validation
-			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
-				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
-				value = obj.parseType[ type ]( value, $constraint, $field );
-			}
-
-			return constraint == value;
+			return condition.constraint == condition.value;
 		},
 		isNotEqualTo: function( value, constraint, $field ) {
-			var type = $field.data( 'validationType' );
-			var $constraint = null;
+			var condition = obj.parseConditon( 'isNotEqualTo', value, constraint, $field );
 
-			// If it's not Numeric we treat it like a Selector
-			if ( ! _.isNumber( constraint ) ) {
-				$constraint = $( constraint );
-				constraint = $constraint.val();
-			}
-
-			// Applies the type of validation
-			if ( type && _.isFunction( obj.parseType[ type ] ) ) {
-				constraint = obj.parseType[ type ]( constraint, $constraint, $field );
-				value = obj.parseType[ type ]( value, $constraint, $field );
-			}
-
-			return constraint != value;
+			return condition.constraint != condition.value;
 		}
 	};
 
@@ -279,6 +201,44 @@ tribe.validation = {};
 			return value;
 		}
 	}
+
+	/**
+	 * Parses the Condition for all the types of conditional and returns a
+	 * better state of Value and Contraint based on the rules for each
+	 *
+	 * @since  TBD
+	 *
+	 * @type   {function}
+	 *
+	 * @return {object}
+	 */
+	obj.parseConditon = function( conditional, value, constraint, $field ) {
+		var type = $field.data( 'validationType' );
+		var $constraint = null;
+		var condition = { value: value, constraint: constraint };
+
+		// If it's not Numeric we treat it like a Selector
+		if ( ! _.isNumber( constraint ) ) {
+			$constraint = $( constraint );
+
+			// Check if we got a valid selector
+			if ( ! $constraint.length ) {
+				// Throws a warning so it's easy to spot on development and support
+				console.warning( 'Tribe Validation:', 'Invalid selector for', $field, selector );
+				return condition;
+			}
+
+			constraint = $constraint.val();
+		}
+
+		// Applies the type of validation
+		if ( type && _.isFunction( obj.parseType[ type ] ) ) {
+			condition.constraint = obj.parseType[ type ]( constraint, $constraint, $field );
+			condition.value = obj.parseType[ type ]( value, $constraint, $field );
+		}
+
+		return condition;
+	};
 
 	/**
 	 * FN (prototype) method from jQuery
@@ -520,7 +480,7 @@ tribe.validation = {};
 	};
 
 	/**
-	 * Hooks to the submit and if invalid prevents submit to happen
+	 * Hooks to the submit and if invalid prevents submit from completing
 	 *
 	 * @since  TBD
 	 *
@@ -535,7 +495,7 @@ tribe.validation = {};
 
 		var isValid = $item.is( obj.selectors.valid );
 
-		// When Invalid we prevent the submit to happen
+		// When Invalid we prevents submit from completing
 		if ( ! isValid ) {
 			event.preventDefault();
 			return false;
