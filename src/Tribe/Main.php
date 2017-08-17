@@ -200,6 +200,7 @@ class Tribe__Main {
 				array( 'datatables-fixedheader-css', 'vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables.css' ),
 				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables', 'datatables-select' ) ),
 				array( 'tribe-handlebars-utils', 'tribe-handlebars-utils.js', array( 'handlebars' ) ),
+				array( 'tribe-utils-camelcase', 'utils-camelcase.js', array( 'underscore' ) ),
 				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
 				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
 				array( 'tribe-buttonset-style', 'buttonset.css' ),
@@ -214,7 +215,7 @@ class Tribe__Main {
 			$this,
 			array(
 				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ) ),
-				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'handlebars' ) ),
+				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'handlebars', 'tribe-common', 'tribe-utils-camelcase' ) ),
 				array( 'tribe-validation-style', 'validation.css', array() ),
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
