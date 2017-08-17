@@ -190,7 +190,7 @@ class Tribe__Log {
 				WP_CLI::success( $entry );
 				break;
 			case self::DEBUG:
-				WP_CLI::debug( $entry, 'aggregator' );
+				WP_CLI::debug( $entry, $src );
 				break;
 
 			case self::COLORIZE:
