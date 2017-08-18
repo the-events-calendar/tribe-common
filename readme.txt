@@ -5,6 +5,9 @@
 = [4.5.11] TBD =
 
 * Fix - Ensure valid license keys save as expected [84966]
+
+= [4.5.10.1] 2017-08-16 =
+
 * Fix - Fixed issue with JS/CSS files not loading when WordPress URL is HTTPS but Site URL is not (our thanks to @carcal1 for first reporting this) [85017]
 
 = [4.5.10] 2017-08-09 =
