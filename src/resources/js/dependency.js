@@ -80,8 +80,8 @@
 					}
 
 					var constraints = {
-						condition: $dependent.data( 'condition' ) || false,
-						not_condition: $dependent.data( 'conditionNot' ) || false,
+						condition: $dependent.is( '[data-condition]' ) ? $dependent.data( 'condition' ) : false,
+						not_condition: $dependent.is( '[data-condition-not]' ) ? $dependent.data( 'conditionNot' ) : false,
 						is_not_empty: $dependent.data( 'conditionIsNotEmpty' ) || $dependent.is( '[data-condition-is-not-empty]' ) || $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
 						is_empty: $dependent.data( 'conditionIsEmpty' ) || $dependent.is( '[data-condition-is-empty]' ) || $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' ),
 						is_numeric: $dependent.data( 'conditionIsNumeric' ) || $dependent.is( '[data-condition-is-numeric]' ) || $dependent.data( 'conditionNumeric' ) || $dependent.is( '[data-condition-numeric]' ),
@@ -89,13 +89,14 @@
 						is_checked: $dependent.data( 'conditionIsChecked' ) || $dependent.is( '[data-condition-is-checked]' ) || $dependent.data( 'conditionChecked' ) || $dependent.is( '[data-condition-checked]' ),
 						is_not_checked: $dependent.data( 'conditionIsNotChecked' ) || $dependent.is( '[data-condition-is-not-checked]' ) || $dependent.data( 'conditionNotChecked' ) || $dependent.is( '[data-condition-not-checked]' ),
 					};
+
 					var active_class = selectors.active.replace( '.', '' );
 					var is_disabled = $field.is( ':disabled' );
 					var condition_relation = $dependent.data( 'condition-relation' ) || 'or';
 					var passes;
 
 					constraints = _.pick( constraints, function ( is_applicable ) {
-						return is_applicable;
+						return false !== is_applicable;
 					} );
 
 					if ( 'or' === condition_relation ) {
