@@ -100,6 +100,8 @@ tribe.validation = {};
 				formatKey = $constraint.attr( 'data-datepicker_format' );
 			} else if ( _.isString( formats[ $constraint ] ) ) {
 				formatKey = formats[ $constraint ];
+			} else if ( $constraint.parents( '[data-datepicker_format]' ).length ) {
+				formatKey = $constraint.parents( '[data-datepicker_format]' ).eq( 0 ).data( 'datepicker_format' );
 			}
 
 			var format = formats[ formatKey ];
@@ -526,6 +528,9 @@ tribe.validation = {};
 		if ( 0 === $item.length ) {
 			return;
 		}
+
+		// Triggers our validation also on the click of submit
+		$item.trigger( 'validation.tribe' );
 
 		var $fields = $item.find( obj.selectors.fields );
 
