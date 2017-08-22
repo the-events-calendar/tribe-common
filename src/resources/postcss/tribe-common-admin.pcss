@@ -1225,11 +1225,17 @@ a.tribe-rating-link {
 	}
 }
 
-.select2-results {
-	li.select2-result-with-children {
-		&.select2-result-unselectable > .select2-result-label {
-			color: #939393;
-			font-weight: normal;
+.select2-drop {
+	&.select2-drop-above.select2-drop-active {
+		border-bottom: 1px solid #5897fb;
+	}
+
+	.select2-results {
+		li.select2-result-with-children {
+			&.select2-result-unselectable > .select2-result-label {
+				color: #939393;
+				font-weight: normal;
+			}
 		}
 	}
 }
