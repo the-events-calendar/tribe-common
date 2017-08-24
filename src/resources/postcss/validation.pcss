@@ -25,6 +25,10 @@
 	textarea {
 		&.tribe-validation-error {
 			border-color: var(--error-border-color);
+
+			&:focus {
+				box-shadow: 0 0 2px rgba(var(--error-border-color), 0.8);
+			}
 		}
 	}
 
