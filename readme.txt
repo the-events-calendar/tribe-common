@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.5.11] TBD =
+= [4.5.11] 2017-08-24 =
 
 * Fix - Ensure valid license keys save as expected [84966]
 * Tweak - Removing WP Plugin API result adjustments
