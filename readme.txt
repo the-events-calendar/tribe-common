@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.5.11] TBD =
+
+* Fix - Added check to see if log directory is readable before listing logs within it (thank you @rodrigochallengeday-org and @richmondmom for reporting this) [86091]
+
 = [4.5.10.1] 2017-08-16 =
 
 * Fix - Fixed issue with JS/CSS files not loading when WordPress URL is HTTPS but Site URL is not (our thanks to @carcal1 for first reporting this) [85017]
