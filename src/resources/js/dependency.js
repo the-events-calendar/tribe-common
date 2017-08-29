@@ -121,9 +121,9 @@
 
 					var active_class       = selectors.active.replace( '.', '' );
 					// Allows us to check a disabled dependency
-					var allow_disabled     = $dependent.data( 'dependencyCheckDisabled' ) || $dependent.is( '[data-dependency-check-disabled]' );
-					// If allow_disabled, then false - we don't care!
-					var is_disabled        = allow_disabled ? false : $field.is( ':disabled' );
+					var allowDisabled     = $dependent.data( 'dependencyCheckDisabled' ) || $dependent.is( '[data-dependency-check-disabled]' );
+					// If allowDisabled, then false - we don't care!
+					var is_disabled        = allowDisabled ? false : $field.is( ':disabled' );
 					var condition_relation = $dependent.data( 'condition-relation' ) || 'or';
 					var passes;
 
