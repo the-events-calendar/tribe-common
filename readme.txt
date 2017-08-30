@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.5.10.1] 2017-08-16 =
+
+* Fix - Fixed issue with JS/CSS files not loading when WordPress URL is HTTPS but Site URL is not (our thanks to @carcal1 for first reporting this) [85017]
+
 = [4.5.10] 2017-08-09 =
 
 * Fix - Added support to tribe_asset() for non-default plugin directions/usage from within the mu-plugin directory (our thanks to @squirrelandnnuts for reporting this) [82809]
