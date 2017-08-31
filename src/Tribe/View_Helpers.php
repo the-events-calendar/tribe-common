@@ -372,6 +372,13 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 				'WY' => esc_html__( 'Wyoming', 'tribe-common' ),
 			);
 
+			/**
+			 * Enables filtering the list of states in the USA available to venues.
+			 *
+			 * @since 4.5.12
+			 *
+			 * @param array $states The list of states.
+			 */
 			return apply_filters( 'tribe_get_state_options', $states );
 		}
 
