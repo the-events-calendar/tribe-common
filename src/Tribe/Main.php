@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.5.9';
+	const VERSION             = '4.7dev1';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -106,6 +106,7 @@ class Tribe__Main {
 		$this->bind_implementations();
 
 		$this->init_libraries();
+
 		$this->add_hooks();
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
@@ -159,12 +160,14 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		Tribe__Debug::instance();
+		tribe( 'assets' );
 		tribe( 'settings.manager' );
 		tribe( 'tracker' );
 		tribe( 'plugins.api' );
 		$this->pue_notices();
 
 		require_once $this->plugin_path . 'src/functions/utils.php';
+		require_once $this->plugin_path . 'src/functions/post.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 
@@ -182,10 +185,12 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
+				array( 'handlebars', 'vendor/handlebars/handlebars.js', array() ),
 				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
+				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 				array( 'tribe-select2', 'vendor/select2/select2.js', array( 'jquery' ) ),
 				array( 'tribe-select2-css', 'vendor/select2/select2.css' ),
+				array( 'tribe-moment', 'vendor/momentjs/moment.min.js' ),
 				array( 'datatables-css', 'datatables.css' ),
 				array( 'datatables-responsive', 'vendor/datatables/extensions/Responsive/js/dataTables.responsive.js', array( 'jquery', 'datatables' ) ),
 				array( 'datatables-responsive-css', 'vendor/datatables/extensions/Responsive/css/responsive.dataTables.css' ),
@@ -196,6 +201,8 @@ class Tribe__Main {
 				array( 'datatables-fixedheader', 'vendor/datatables/extensions/FixedHeader/js/dataTables.fixedHeader.js', array( 'jquery', 'datatables' ) ),
 				array( 'datatables-fixedheader-css', 'vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables.css' ),
 				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables', 'datatables-select' ) ),
+				array( 'tribe-handlebars-utils', 'tribe-handlebars-utils.js', array( 'handlebars' ) ),
+				array( 'tribe-utils-camelcase', 'utils-camelcase.js', array( 'underscore' ) ),
 				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
 				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
 				array( 'tribe-buttonset-style', 'buttonset.css' ),
@@ -210,20 +217,21 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
-				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),
-				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style' ) ),
+				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ) ),
+				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'handlebars', 'tribe-common', 'tribe-utils-camelcase' ) ),
+				array( 'tribe-validation-style', 'validation.css', array() ),
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
+				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
 				array( 'tribe-datepicker', 'datepicker.css' ),
 			),
 			'admin_enqueue_scripts',
 			array(
+				'priority' => 5,
 				'conditionals' => array( $this, 'should_load_common_admin_css' ),
 			)
 		);
-
-		$datepicker_months = array_values( Tribe__Date_Utils::get_localized_months_full() );
 
 		tribe_asset(
 			$this,
@@ -232,6 +240,8 @@ class Tribe__Main {
 			array( 'tribe-clipboard' ),
 			'admin_enqueue_scripts',
 			array(
+				'priority' => 0,
+				'conditionals' => array( $this, 'should_load_common_admin_css' ),
 				'localize' => (object) array(
 					'name' => 'tribe_system_info',
 					'data' => array(
@@ -243,8 +253,19 @@ class Tribe__Main {
 				),
 			)
 		);
+	 }
 
-		tribe( 'tribe.asset.data' )->add( 'tribe_l10n_datatables', array(
+	/**
+	 * Load All localization data create by `asset.data`
+	 *
+	 * @since  TBD
+	 *
+	 * @return void
+	 */
+	public function load_localize_data() {
+		$datepicker_months = array_values( Tribe__Date_Utils::get_localized_months_full() );
+
+		tribe( 'asset.data' )->add( 'tribe_l10n_datatables', array(
 			'aria' => array(
 				'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
 				'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
@@ -287,16 +308,24 @@ class Tribe__Main {
 	 */
 	public function add_hooks() {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
-		add_action( 'plugins_loaded', array( 'Tribe__Assets', 'instance' ), 1 );
 		add_action( 'plugins_loaded', array( $this, 'tribe_plugins_loaded' ), PHP_INT_MAX );
 
 		// Register for the assets to be available everywhere
-		add_action( 'init', array( $this, 'load_assets' ), 1 );
+		add_action( 'tribe_common_loaded', array( $this, 'load_assets' ), 1 );
+		add_action( 'init', array( $this, 'load_localize_data' ) );
 		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'store_admin_notices' ) );
 
 		add_filter( 'body_class', array( $this, 'add_js_class' ) );
 		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
+
+		add_filter( 'cron_schedules', array( tribe( 'cron' ), 'filter_cron_schedules' ) );
+
+		// Queue hooks
+		add_action( 'admin_head', array( 'Tribe__Queue', 'work' ) );
+		add_action( 'wp_ajax_tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
+		add_action( 'wp_ajax_nopriv_tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
+		add_action( 'tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
 	}
 
 	public function add_js_class( $classes = array() ) {
@@ -522,9 +551,14 @@ class Tribe__Main {
 	public function bind_implementations() {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
-		tribe_singleton( 'tribe.asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
+		tribe_singleton( 'assets', 'Tribe__Assets' );
+		tribe_singleton( 'asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
+		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
+		tribe_singleton( 'cron', 'Tribe__Cron', array( 'schedule' ) );
+		tribe_singleton( 'queue', 'Tribe__Queue' );
 		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', array( 'hook' ) );
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
+		tribe_singleton( 'admin-notices', 'Tribe__Admin__Notices' );
 		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
 		tribe_singleton( 'cost-utils', array( 'Tribe__Cost_Utils', 'instance' ) );
 		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );

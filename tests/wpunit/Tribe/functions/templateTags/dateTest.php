@@ -1,4 +1,5 @@
 <?php
+
 namespace Tribe\functions\templateTags;
 
 class dateTest extends \Codeception\TestCase\WPTestCase {
@@ -88,4 +89,38 @@ class dateTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, tribe_normalize_manual_utc_offset( $input ) );
 	}
 
+	public function tribe_end_of_day_inputs() {
+		return [
+			[ 'today', ( new \DateTime( 'today' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ 'today 9am', ( new \DateTime( 'today' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ 'today midnight', ( new \DateTime( 'today' ) )->format( 'Y-m-d' ) . ' 23:59:59' ], //2
+			[ 'tomorrow', ( new \DateTime( 'tomorrow' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ 'tomorrow 9am', ( new \DateTime( 'tomorrow' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ 'tomorrow midnight', ( new \DateTime( 'tomorrow' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ '+1 week', ( new \DateTime( '+1 week' ) )->format( 'Y-m-d' ) . ' 23:59:59' ], // 6
+			[ '+1 week 9am', ( new \DateTime( '+1 week' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ '+1 week midnight', ( new \DateTime( '+1 week' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ ( new \DateTime( 'today' ) )->format( 'U' ), ( new \DateTime( 'today' ) )->format( 'Y-m-d' ) . ' 23:59:59' ], // 9
+			[ ( new \DateTime( 'today 9am' ) )->format( 'U' ), ( new \DateTime( 'today' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ ( new \DateTime( 'today midnight' ) )->format( 'U' ), ( new \DateTime( 'today' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ ( new \DateTime( 'tomorrow' ) )->format( 'U' ), ( new \DateTime( 'tomorrow' ) )->format( 'Y-m-d' ) . ' 23:59:59' ], // 12
+			[ ( new \DateTime( 'tomorrow 9am' ) )->format( 'U' ), ( new \DateTime( 'tomorrow' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ ( new \DateTime( 'tomorrow midnight' ) )->format( 'U' ), ( new \DateTime( 'tomorrow' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ ( new \DateTime( '+1 week' ) )->format( 'U' ), ( new \DateTime( '+1 week' ) )->format( 'Y-m-d' ) . ' 23:59:59' ], // 15
+			[ ( new \DateTime( '+1 week 9am' ) )->format( 'U' ), ( new \DateTime( '+1 week' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+			[ ( new \DateTime( '+1 week midnight' ) )->format( 'U' ), ( new \DateTime( '+1 week' ) )->format( 'Y-m-d' ) . ' 23:59:59' ],
+		];
+	}
+
+	/**
+	 * Test tribe_end_of_day
+	 *
+	 * @test
+	 * @dataProvider tribe_end_of_day_inputs
+	 */
+	public function test_tribe_end_of_day( $input, $expected ) {
+		// reset to a know condition
+		date_default_timezone_set( 'UTC' );
+		$this->assertEquals( $expected, tribe_end_of_day( $input ) );
+	}
 }

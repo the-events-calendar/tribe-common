@@ -5,7 +5,14 @@
 	&.tribe-active {
 		display: inline-block;
 
-		div& {
+		div&,
+		p&,
+		h1&,
+		h2&,
+		h3&,
+		h4&,
+		h5&,
+		h6& {
 			display: block;
 
 			&.select2-container {
@@ -21,5 +28,11 @@
 		tr& {
 			display: table-row;
 		}
+	}
+}
+
+.tribe-dependency {
+	&.tribe-dependency-hide-checked:checked {
+		display: none;
 	}
 }

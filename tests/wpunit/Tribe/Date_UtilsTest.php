@@ -1,5 +1,7 @@
 <?php
 
+namespace Tribe;
+
 use Tribe__Date_Utils as Date_Utils;
 
 class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
@@ -79,7 +81,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -95,7 +97,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected - $nine_hours,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -111,7 +113,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected + $nine_hours,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -135,7 +137,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -151,7 +153,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected - $nine_hours,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -167,7 +169,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected + $nine_hours,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
-				'get_weekday_timestamp'
+				'get_weekday_timestamp',
 			],
 				$args ) );
 	}
@@ -247,5 +249,58 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $date->format( 'U' ), Date_Utils::reformat( $input, 'U' ) );
 		$this->assertEquals( $date->format( $format ), Date_Utils::reformat( $date->format( 'U' ), $format ) );
 		$this->assertEquals( $date->format( 'U' ), Date_Utils::reformat( $date->format( 'U' ), 'U' ) );
+	}
+
+	public function ordinal_to_number_inputs() {
+		return [
+			[ 'first', 1 ],
+			[ 'second', 2 ],
+			[ 'third', 3 ],
+			[ 'fourth', 4 ],
+			[ 'fifth', 5 ],
+			[ 'sixth', 6 ],
+			[ 'seventh', 7 ],
+			[ 'eighth', 8 ],
+			[ 'ninth', 9 ],
+			[ 'tenth', 10 ],
+			[ 'foo', false ],
+			[ 23, 23 ],
+			[ '23', 23 ],
+			[ 23.5, 23 ],
+			[ '23.5', 23 ],
+		];
+	}
+
+	/**
+	 * Test ordinal_to_number
+	 *
+	 * @test
+	 * @dataProvider ordinal_to_number_inputs
+	 */
+	public function test_ordinal_to_number( $input, $expected ) {
+		$this->assertEquals( $expected, Date_Utils::ordinal_to_number( $input ) );
+	}
+
+	public function format_date_from_datepicker_inputs() {
+		return [
+			[ 'today', 'Y-m-d H:i:s' ],
+			[ '+20 days', 'Y-m-d H:i:s' ],
+			[ '-3 days', 'Y-m-d H:i:s' ],
+			[ '2016-04-05', 'Y-m-d' ],
+			[ '2016-04-05 09:30:00', 'Y-m-d H:i:s' ],
+			[ 1488326400, 'Y-m-d H:i:s' ] // 2016-3-1
+		];
+	}
+
+	/**
+	 * Test format_date_from_datepicker
+	 *
+	 * @dataProvider  format_date_from_datepicker_inputs
+	 */
+	public function test_format_date_from_datepicker( $input, $output_format ) {
+		$input_timestamp = ! is_numeric( $input ) ? strtotime( $input ) : $input;
+		$expected        = date( $output_format, $input_timestamp );
+
+		$this->assertEquals( $expected, Date_Utils::format_date_from_datepicker( $input ) );
 	}
 }

@@ -1139,6 +1139,71 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			// Why so simple? Let's handle other cases as those come up. We have tests in place!
 			return str_replace( '\\\\', '\\', $date_format );
 		}
-	}
 
+		/**
+		 * Converts an ordinal into an integer value.
+		 *
+		 * @param string $ordinal
+		 *
+		 * @return int|false The integer number corresponding to the ordinal or `false` if the ordinal number does not exist.
+		 */
+		public static function ordinal_to_number( $ordinal ) {
+			if ( is_numeric( $ordinal ) ) {
+				return intval( $ordinal );
+			}
+
+			$map = array(
+				'first'   => 1,
+				'second'  => 2,
+				'third'   => 3,
+				'fourth'  => 4,
+				'fifth'   => 5,
+				'sixth'   => 6,
+				'seventh' => 7,
+				'eighth'  => 8,
+				'ninth'   => 9,
+				'tenth'   => 10,
+			);
+
+			$key = strtolower( $ordinal );
+
+			$number =  isset($map[$key]) ? $map[$key] : false;
+
+			return apply_filters( 'tribe_events_ordinal_to_number', $number, $ordinal );
+		}
+		// @codingStandardsIgnoreEnd
+
+		/**
+		 * Formats a date in an input-aware format.
+		 *
+		 * @since TBD
+		 *
+		 * @param string|int $date A date in a datepicker supported format, in a string parse-able by the `strtotime` function or
+		 *                         a UNIX timestamp.
+		 *
+		 * @return bool|string The formatted date or `false` if the date could not be formatted. If the input date contains time details the output
+		 *                     will contain time details too; if the input date only specifies a date then the output will only contain date information.
+		 */
+		public static function format_date_from_datepicker( $date ) {
+			$datepicker_format = self::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
+			// Format based on datepicker from DB
+			$parsed = self::datetime_from_format( $datepicker_format, $date );
+
+			if ( false !== $parsed ) {
+				return $parsed;
+			}
+
+			// try again converting the date in the format 'Y-m-d H:i:s'
+			$timestamp = $date;
+			if ( ! is_numeric( $date ) ) {
+				$timestamp = strtotime( $date );
+				if ( false === $timestamp ) {
+					return false;
+				}
+			}
+
+			return self::datetime_from_format( $datepicker_format, date( 'Y-m-d H:i:s', $timestamp ) );
+		}
+	}
 }

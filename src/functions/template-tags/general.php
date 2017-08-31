@@ -531,7 +531,33 @@ function tribe_register_error( $indexes, $message ) {
  * @return array             Which Assets was registered
  */
 function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $arguments = array() ) {
-	return Tribe__Assets::instance()->register( $origin, $slug, $file, $deps, $action, $arguments );
+	return tribe( 'assets' )->register( $origin, $slug, $file, $deps, $action, $arguments );
+}
+
+/**
+ * Shortcut for Tribe__Assets::enqueue(), include assets
+ *
+ * @since  TBD
+ *
+ * @param  string|array  $slug  Slug to enqueue
+ *
+ * @return string
+ */
+function tribe_asset_enqueue( $slug ) {
+	return tribe( 'assets' )->enqueue( $slug );
+}
+
+/**
+ * Shortcut for Tribe__Assets::enqueue_group() include assets by groups
+ *
+ * @since  TBD
+ *
+ * @param  string|array  $group  Which group(s) should be enqueued
+ *
+ * @return string
+ */
+function tribe_asset_enqueue_group( $group ) {
+	return tribe( 'assets' )->enqueue_group( $group );
 }
 
 /**

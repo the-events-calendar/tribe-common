@@ -183,10 +183,16 @@ class Tribe__Timezones {
 	public static function adjust_timestamp( $unix_timestamp, $tzstring ) {
 		try {
 			$local = self::get_timezone( $tzstring );
-			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+
+			// Important not to use `date_create_from_format` since it's not PHP 5.2 compatible
+			$datetime = new DateTime( '@' . $unix_timestamp );
+			$datetime = $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+
+			// Important not to use `date_create_from_format` since it's not PHP 5.2 compatible
+			$tz_datetime = new DateTime( $datetime, $local );
 
 			// We prefer format('U') to getTimestamp() here due to our requirement for compatibility with PHP 5.2
-			return date_create_from_format( 'Y-m-d H:i:s', $datetime, $local )->format( 'U' );
+			return $tz_datetime->format( 'U' );
 		}
 		catch( Exception $e ) {
 			return $unix_timestamp;

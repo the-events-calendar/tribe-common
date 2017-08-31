@@ -4,6 +4,8 @@
   "src/**/*",
   "lang/**/*",
   "README.md",
+  "vendor/handlebars/*.js",
+  "vendor/momentjs/*.js",
   "vendor/clipboard/*.js",
   "vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables*.css",
   "vendor/datatables/extensions/FixedHeader/js/dataTables*.js",

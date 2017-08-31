@@ -111,11 +111,17 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
 		$hours_to_add    = $multiday_cutoff[0];
 		$minutes_to_add  = $multiday_cutoff[1];
+		$minutes = $minutes_to_add + (60 * $hours_to_add) + (60 * 24);
+
 		if ( is_null( $date ) || empty( $date ) ) {
-			$date = date( $format, strtotime( 'tomorrow  +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 );
+			$timestamp = strtotime( "tomorrow +{$minutes} minutes" ) - 1;
 		} else {
-			$date = date( $format, strtotime( date( 'Y-m-d', strtotime( $date ) ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 );
+			$date_timestamp = is_numeric( $date ) ? $date : strtotime( $date );
+			$ymd            = date( 'Y-m-d', $date_timestamp );
+			$timestamp      = strtotime( "{$ymd} +{$minutes} minutes" ) - 1;
 		}
+
+		$date = date( $format, $timestamp );
 
 		/**
 		 * Deprecated filter tribe_event_end_of_day in 4.0 in favor of tribe_end_of_day. Remove in 5.0

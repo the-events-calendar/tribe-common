@@ -79,17 +79,70 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 			[ '+5 days', true ],
 			[ 'yesterday', true ],
 			[ strtotime( 'tomorrow 8am' ), true ],
+
+			// Datepicker Formats
+			[ '2017-01-15', true ],  // 'Y-m-d'
+			[ '1/15/2017', true ],   // 'n/j/Y'
+			[ '01/15/2017', true ],  // 'm/d/Y'
+			[ '15/1/2017', false ],  // 'j/n/Y'
+			[ '15/01/2017', false ], // 'd/m/Y'
+			[ '1-15-2017', false ],  // 'n-j-Y'
+			[ '01-15-2017', false ], // 'm-d-Y'
+			[ '15-1-2017', true ],   // 'j-n-Y'
+			[ '15-01-2017', true ],  // 'd-m-Y'
 		];
 	}
 
 	/**
 	 * Test is_time
+	 * Note that a few of our DatePicker formats will fail
 	 *
 	 * @test
 	 * @dataProvider is_time_data
 	 */
 	public function test_is_time( $value, $expected ) {
 		$this->assertEquals( $expected, $this->make_instance()->is_time( $value ) );
+	}
+
+	public function is_datepicker_time_data() {
+		return [
+			[ '', false ],
+			[ null, false ],
+			[ array( 'foo' => 'bar' ), false ],
+			[ array( 'foo', 'bar' ), false ],
+			[ new \StdClass(), false ],
+			[ '23', true ],
+			[ 23, true ],
+			[ 'tomorrow 9am', true ],
+			[ '+5 days', true ],
+			[ 'yesterday', true ],
+			[ strtotime( 'tomorrow 8am' ), true ],
+
+			// Datepicker Formats
+			[ '2017-01-15', true, 0 ],  // 'Y-m-d'
+			[ '1/15/2017', true, 1 ],   // 'n/j/Y'
+			[ '01/15/2017', true, 2 ],  // 'm/d/Y'
+			[ '15/1/2017', true, 3 ],   // 'j/n/Y'
+			[ '15/01/2017', true, 4 ],  // 'd/m/Y'
+			[ '1-15-2017', true, 5 ],   // 'n-j-Y'
+			[ '01-15-2017', true, 6 ],  // 'm-d-Y'
+			[ '15-1-2017', true, 7 ],   // 'j-n-Y'
+			[ '15-01-2017', true, 8 ],  // 'd-m-Y'
+		];
+	}
+
+	/**
+	 * Test is_datepicker_time
+	 *
+	 * @test
+	 * @dataProvider is_datepicker_time_data
+	 */
+	public function test_is_datepicker_time( $value, $expected, $format = null ) {
+		if ( ! is_null( $format ) ) {
+			tribe_update_option( 'datepickerFormat', $format );
+		}
+
+		$this->assertEquals( $expected, $this->make_instance()->is_datepicker_time( $value ) );
 	}
 
 	public function is_user_bad_users() {
