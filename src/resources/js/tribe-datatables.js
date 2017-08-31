@@ -42,53 +42,62 @@ window.tribe_data_table = null;
 		}
 
 		var methods = {
-			toggle_global_checkbox: function( $checkbox, table ) {
-				var $table = $checkbox.closest( '.dataTable' );
+			setVisibleCheckboxes: function( $table, table, value ) {
 				var $thead = $table.find( 'thead' );
 				var $tfoot = $table.find( 'tfoot' );
 				var $header_checkbox = $thead.find( '.column-cb input:checkbox' );
 				var $footer_checkbox = $tfoot.find( '.column-cb input:checkbox' );
 
-				if ( $checkbox.is( ':checked' ) ) {
-					$table.find( 'tbody .check-column input:checkbox' ).prop( 'checked', true );
-					$header_checkbox.prop( 'checked', true );
-					$footer_checkbox.prop( 'checked', true );
+				// Defaults to false
+				if ( 'undefined' === typeof value ) {
+					value = false;
+				}
 
-					var $link = $( '<a>' ).attr( 'href', '#select-all' ).text( tribe_l10n_datatables.select_all_link );
-					var $text = $( '<div>' ).css( 'text-align', 'center' ).text( tribe_l10n_datatables.all_selected_text ).append( $link );
-					var $column = $( '<th>' ).attr( 'colspan', table.columns()[0].length ).append( $text );
-					var $row = $( '<tr>' ).addClass( 'tribe-datatables-all-pages-checkbox' ).append( $column );
+				$table.find( 'tbody .check-column input:checkbox' ).prop( 'checked', value );
+				$header_checkbox.prop( 'checked', value );
+				$footer_checkbox.prop( 'checked', value );
 
-					$link.one( 'click', function( event ) {
-						table.rows().select();
+				if ( value ) {
+					table.rows( { page: 'current' } ).select();
+					methods.addGlobalCheckboxLine( $table, table )
+				} else {
+					$table.find( '.tribe-datatables-all-pages-checkbox' ).remove();
+					table.rows().deselect();
+				}
+			},
+			addGlobalCheckboxLine: function( $table, table ) {
+				var $thead = $table.find( 'thead' );
+				var $tfoot = $table.find( 'tfoot' );
+				var $header_checkbox = $thead.find( '.column-cb input:checkbox' );
+				var $footer_checkbox = $tfoot.find( '.column-cb input:checkbox' );
 
-						$link.text( tribe_l10n_datatables.clear_selection ).one( 'click', function() {
-							$row.remove();
-							$table.find( 'tbody .check-column input:checkbox' ).prop( 'checked', false );
-							$header_checkbox.prop( 'checked', false );
-							$footer_checkbox.prop( 'checked', false );
-							table.rows().deselect();
+				var $link = $( '<a>' ).attr( 'href', '#select-all' ).text( tribe_l10n_datatables.select_all_link );
+				var $text = $( '<div>' ).css( 'text-align', 'center' ).text( tribe_l10n_datatables.all_selected_text ).append( $link );
+				var $column = $( '<th>' ).attr( 'colspan', table.columns()[0].length ).append( $text );
+				var $row = $( '<tr>' ).addClass( 'tribe-datatables-all-pages-checkbox' ).append( $column );
 
-							event.preventDefault();
-							return false;
-						} );
+				$link.one( 'click', function( event ) {
+					// Selects all items (even the not visible ones)
+					table.rows().select();
+
+					$link.text( tribe_l10n_datatables.clear_selection ).one( 'click', function() {
+						methods.setVisibleCheckboxes( $table, table, false );
 
 						event.preventDefault();
 						return false;
 					} );
 
-					$thead.append( $row );
-					table.rows( { page: 'current' } ).select();
-					return;
-				}
+					event.preventDefault();
+					return false;
+				} );
 
-				$table.find( '.tribe-datatables-all-pages-checkbox' ).remove();
-				$table.find( 'tbody .check-column input:checkbox' ).prop( 'checked', false );
-				$header_checkbox.prop( 'checked', false );
-				$footer_checkbox.prop( 'checked', false );
-				table.rows().deselect();
+				$thead.append( $row );
 			},
-			toggle_row_checkbox: function( $checkbox, table ) {
+			togglePageCheckbox: function( $checkbox, table ) {
+				var $table = $checkbox.closest( '.dataTable' );
+				methods.setVisibleCheckboxes( $table, table, $checkbox.is( ':checked' ) );
+			},
+			toggleRowCheckbox: function( $checkbox, table ) {
 				var $row = $checkbox.closest( 'tr' );
 
 				if ( $checkbox.is( ':checked' ) ) {
@@ -119,11 +128,23 @@ window.tribe_data_table = null;
 				table.draw();
 			}
 
+			var resetSelection = function ( event, settings ) {
+				methods.setVisibleCheckboxes( $el, table, false );
+			};
+
+			// If anything happens to the page, we reset the Checked ones
+			$el.on( {
+				'order.dt': resetSelection,
+				'search.dt': resetSelection,
+				'length.dt': resetSelection,
+				'page.dt': resetSelection
+			} );
+
 			$el.on(
 				'click',
 				'thead .column-cb input:checkbox, tfoot .column-cb input:checkbox',
 				function() {
-					methods.toggle_global_checkbox( $( this ), table );
+					methods.togglePageCheckbox( $( this ), table );
 				}
 			);
 
@@ -131,7 +152,7 @@ window.tribe_data_table = null;
 				'click',
 				'tbody .check-column input:checkbox',
 				function() {
-					methods.toggle_row_checkbox( $( this ), table );
+					methods.toggleRowCheckbox( $( this ), table );
 				}
 			);
 		} );
