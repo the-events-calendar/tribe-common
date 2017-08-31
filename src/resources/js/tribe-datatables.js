@@ -44,23 +44,45 @@ window.tribe_data_table = null;
 		var methods = {
 			toggle_global_checkbox: function( $checkbox, table ) {
 				var $table = $checkbox.closest( '.dataTable' );
-				var $header_checkbox = $table.find( 'thead .column-cb input:checkbox' );
-				var $footer_checkbox = $table.find( 'tfoot .column-cb input:checkbox' );
+				var $thead = $table.find( 'thead' );
+				var $tfoot = $table.find( 'tfoot' );
+				var $header_checkbox = $thead.find( '.column-cb input:checkbox' );
+				var $footer_checkbox = $tfoot.find( '.column-cb input:checkbox' );
 
 				if ( $checkbox.is( ':checked' ) ) {
 					$table.find( 'tbody .check-column input:checkbox' ).prop( 'checked', true );
 					$header_checkbox.prop( 'checked', true );
 					$footer_checkbox.prop( 'checked', true );
-					var $filtered = table.$( 'tr', { 'filter': 'applied' } );
 
-					if ( $filtered.length ) {
-						table.rows( { search: 'applied' } ).select();
-					} else {
+					var $link = $( '<a>' ).attr( 'href', '#select-all' ).text( tribe_l10n_datatables.select_all_link );
+					var $text = $( '<div>' ).css( 'text-align', 'center' ).text( tribe_l10n_datatables.all_selected_text ).append( $link );
+					var $column = $( '<th>' ).attr( 'colspan', table.columns()[0].length ).append( $text );
+					var $row = $( '<tr>' ).addClass( 'tribe-datatables-all-pages-checkbox' ).append( $column );
+
+					$link.one( 'click', function( event ) {
 						table.rows().select();
-					}
+
+						$link.text( tribe_l10n_datatables.clear_selection ).one( 'click', function() {
+							$row.remove();
+							$table.find( 'tbody .check-column input:checkbox' ).prop( 'checked', false );
+							$header_checkbox.prop( 'checked', false );
+							$footer_checkbox.prop( 'checked', false );
+							table.rows().deselect();
+
+							event.preventDefault();
+							return false;
+						} );
+
+						event.preventDefault();
+						return false;
+					} );
+
+					$thead.append( $row );
+					table.rows( { page: 'current' } ).select();
 					return;
 				}
 
+				$table.find( '.tribe-datatables-all-pages-checkbox' ).remove();
 				$table.find( 'tbody .check-column input:checkbox' ).prop( 'checked', false );
 				$header_checkbox.prop( 'checked', false );
 				$footer_checkbox.prop( 'checked', false );
