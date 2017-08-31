@@ -5,6 +5,7 @@
 = [4.5.11] TBD =
 
 * Fix - Added check to see if log directory is readable before listing logs within it (thank you @rodrigochallengeday-org and @richmondmom for reporting this) [86091]
+* Tweak - Datatables Head and Foot checkboxes will not select all items, only the current page [77395]
 
 = [4.5.10.1] 2017-08-16 =
 
