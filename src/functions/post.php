@@ -8,13 +8,14 @@ if ( ! function_exists( 'tribe_post_count' ) ) {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  array|string  $post_type  Which Post Type we should be counting for
-	 * @param  array|int     $parent     Which Parent Post we should be counting for
-	 * @param  array|int     $author     Which Post Author we should be counting for
+	 * @param  array|string $post_type  Which Post Type we should be counting for
+	 * @param  array|int    $parent     Which Parent Post we should be counting for
+	 * @param  array|int    $author     Which Post Author we should be counting for
+	 * @param bool          $skip_cache Whether the function should use cached results or not.
 	 *
 	 * @return object  Return how many posts in total for each Post Status
 	 */
-	function tribe_post_count( $post_type = array(), $parent = array(), $author = array() ) {
+	function tribe_post_count( $post_type = array(), $parent = array(), $author = array(), $skip_cache = false ) {
 		global $wpdb;
 
 		$args = (object) array(
@@ -57,6 +58,7 @@ if ( ! function_exists( 'tribe_post_count' ) ) {
 			$query['where']['post_parent'] = "post_parent IN ( '" . implode( "', '", $args->parent ) . "' )";
 		}
 
+		$args->author = array_filter( $args->author, 'is_numeric' );
 		if ( 1 === count( $args->author ) ) {
 			$query['where']['post_author'] = $wpdb->prepare( 'post_author = %d', $args->author );
 		} elseif ( ! empty( $args->author ) ) {
@@ -95,7 +97,7 @@ if ( ! function_exists( 'tribe_post_count' ) ) {
 		$query = apply_filters( 'tribe_post_count_sql', $query, $args->post_type, $args->parent, $args->author );
 
 		$cache_key = 'count-' . substr( md5( maybe_serialize( $query ) ), 0, 16 );
-		$counts    = tribe( 'cache' )->get( $cache_key );
+		$counts    = false !== $skip_cache ? tribe( 'cache' )->get( $cache_key ) : false;
 		$has_cache = false !== $counts;
 
 		if ( ! $has_cache ) {
