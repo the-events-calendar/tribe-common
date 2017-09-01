@@ -77,8 +77,10 @@ class Tribe__Assets {
 			if ( did_action( $asset->action ) > 0 ) {
 				$this->enqueue();
 			} else {
-			foreach ( (array) $asset->actionas $action ) {
-				add_action( $action, array( $this, 'enqueue' ), $asset->priority );}
+				foreach ( (array) $asset->action as $action ) {
+					add_action( $action, array( $this, 'enqueue' ), $asset->priority );
+				}
+			}
 		}
 	}
 
@@ -376,7 +378,6 @@ class Tribe__Assets {
 
 		// Origin URL might throw notices so we double check
 		$asset->origin_url  = ! empty( $origin->plugin_url ) ? $origin->plugin_url : null;
-		$asset->origin_url  = ! empty( $origin->pluginUrl ) ? $origin->pluginUrl : null;
 		if ( ! empty( $asset->origin_url ) ) {
 			$asset->origin_url = trailingslashit( $asset->origin_url );
 		}
