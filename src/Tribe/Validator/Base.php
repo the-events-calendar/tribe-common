@@ -65,8 +65,6 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 		return false;
 	}
 
-
-
 	/**
 	 * Whether the value corresponds to an existing user ID or not.
 	 *
@@ -170,15 +168,6 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 		}
 
 		return false;
-	}
-
-	/**
-	 * @param mixed $value
-	 *
-	 * @return bool
-	 */
-	public function is_numeric( $value ) {
-		return is_numeric( $value );
 	}
 
 	/**
