@@ -29,7 +29,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Try to format a Date to the Default Datepicker format
 		 *
-		 * @since  TBD
+		 * @since  4.5.12
 		 *
 		 * @param  string      $date       Original Date that came from a datepicker
 		 * @param  string|int  $datepicker Datepicker format
