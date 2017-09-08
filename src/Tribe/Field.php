@@ -596,6 +596,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			if ( is_array( $this->options ) && ! empty( $this->options ) ) {
 				$field .= '<select';
 				$field .= $this->do_field_name();
+				$field .= " id='{$this->id}-select'";
 				$field .= " class='tribe-dropdown'";
 				$field .= '>';
 				foreach ( $this->options as $option_id => $title ) {
