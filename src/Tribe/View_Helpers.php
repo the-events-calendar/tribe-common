@@ -115,7 +115,6 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 					'FJ' => esc_html__( 'Fiji', 'tribe-common' ),
 					'FI' => esc_html__( 'Finland', 'tribe-common' ),
 					'FR' => esc_html__( 'France', 'tribe-common' ),
-					'FX' => esc_html__( 'France, Metropolitan', 'tribe-common' ),
 					'GF' => esc_html__( 'French Guiana', 'tribe-common' ),
 					'PF' => esc_html__( 'French Polynesia', 'tribe-common' ),
 					'TF' => esc_html__( 'French Southern Territories', 'tribe-common' ),
