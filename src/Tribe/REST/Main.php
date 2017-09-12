@@ -88,6 +88,10 @@ abstract class Tribe__REST__Main {
 			} else {
 				$url = trailingslashit( get_home_url( $blog_id, '', $scheme ) );
 
+				if ( 'index.php' !== substr( $url, 9 ) ) {
+					$url .= 'index.php';
+				}
+
 				$url = add_query_arg( 'rest_route', $tec_path, $url );
 			}
 
