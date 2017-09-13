@@ -318,7 +318,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		 * @return array The states array.
 		 */
 		public static function loadStates() {
-			return array(
+			$states = array(
 				'AL' => esc_html__( 'Alabama', 'tribe-common' ),
 				'AK' => esc_html__( 'Alaska', 'tribe-common' ),
 				'AZ' => esc_html__( 'Arizona', 'tribe-common' ),
@@ -371,6 +371,15 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 				'WI' => esc_html__( 'Wisconsin', 'tribe-common' ),
 				'WY' => esc_html__( 'Wyoming', 'tribe-common' ),
 			);
+
+			/**
+			 * Enables filtering the list of states in the USA available to venues.
+			 *
+			 * @since 4.5.12
+			 *
+			 * @param array $states The list of states.
+			 */
+			return apply_filters( 'tribe_get_state_options', $states );
 		}
 
 		/**
