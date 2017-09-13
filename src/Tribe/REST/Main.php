@@ -75,7 +75,7 @@ abstract class Tribe__REST__Main {
 		if ( $this->use_builtin() ) {
 			$url = get_rest_url( $blog_id, $tec_path, $scheme );
 		} else {
-			if ( is_multisite() && get_blog_option( $blog_id, 'permalink_structure' ) || get_option( 'permalink_structure' ) ) {
+			if ( ( is_multisite() && get_blog_option( $blog_id, 'permalink_structure' ) ) || get_option( 'permalink_structure' ) ) {
 				global $wp_rewrite;
 
 				if ( $wp_rewrite->using_index_permalinks() ) {
@@ -86,7 +86,7 @@ abstract class Tribe__REST__Main {
 
 				$url .= '/' . ltrim( $path, '/' );
 			} else {
-				$url = trailingslashit( get_home_url( $blog_id, '', $scheme ) );
+				$url = get_home_url( $blog_id, 'index.php', $scheme );
 
 				$url = add_query_arg( 'rest_route', $tec_path, $url );
 			}
