@@ -2,6 +2,19 @@
 
 == Changelog ==
 
+= [4.5.12] 2017-09-06 =
+
+* Fix - Added check to see if log directory is readable before listing logs within it (thank you @rodrigochallengeday-org and @richmondmom for reporting this) [86091]
+* Tweak - Datatables Head and Foot checkboxes will not select all items, only the current page [77395]
+* Tweak - Added method into Date Utils class to allow us to easily convert all datepicker formats into the default one [77819]
+* Tweak - Added a filter to customize the list of states in the USA that are available to drop-downs when creating or editing venues.
+* Language - 3 new strings added, 46 updated, 1 fuzzied, and 4 obsoleted
+
+= [4.5.11] 2017-08-24 =
+
+* Fix - Ensure valid license keys save as expected [84966]
+* Tweak - Removing WP Plugin API result adjustments
+
 = [4.5.10.1] 2017-08-16 =
 
 * Fix - Fixed issue with JS/CSS files not loading when WordPress URL is HTTPS but Site URL is not (our thanks to @carcal1 for first reporting this) [85017]

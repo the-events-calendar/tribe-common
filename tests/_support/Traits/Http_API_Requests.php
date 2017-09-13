@@ -37,7 +37,7 @@ trait Http_API_Requests {
 			$method = $args['method'];
 			if ( isset( $mocks[ $method ] ) ) {
 				if ( is_callable( $mocks[ $method ] ) ) {
-					return call_user_func_array( $mocks[ $method ], [ $url, $args, $test_case ] );
+					return call_user_func_array( $mocks[ $method ], [ $requested_url, $args, $test_case ] );
 				}
 
 				return $mocks[ $method ];
