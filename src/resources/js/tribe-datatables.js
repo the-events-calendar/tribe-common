@@ -66,6 +66,9 @@ window.tribe_data_table = null;
 				}
 			},
 			addGlobalCheckboxLine: function( $table, table ) {
+				// Remove the Previous All Pages checkbox
+				$table.find( '.tribe-datatables-all-pages-checkbox' ).remove();
+
 				var $thead = $table.find( 'thead' );
 				var $tfoot = $table.find( 'tfoot' );
 				var $header_checkbox = $thead.find( '.column-cb input:checkbox' );
@@ -136,8 +139,7 @@ window.tribe_data_table = null;
 			$el.on( {
 				'order.dt': resetSelection,
 				'search.dt': resetSelection,
-				'length.dt': resetSelection,
-				'page.dt': resetSelection
+				'length.dt': resetSelection
 			} );
 
 			$el.on(
