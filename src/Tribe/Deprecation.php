@@ -130,7 +130,7 @@ class Tribe__Deprecation {
 		remove_filter( $deprecated_tag, array( $this, 'deprecated_filter_message' ) );
 
 		if ( has_filter( $deprecated_tag ) || doing_filter( $deprecated_tag ) ) {
-			$version = Tribe__Utils__Array::get( $this->deprecated_filters, array ( $filter, 0 ), null );
+			$version = Tribe__Utils__Array::get( $this->deprecated_filters, array( $filter, 0 ), null );
 
 			_deprecated_function(
 				'The ' . $deprecated_tag . ' filter', $version, $filter
