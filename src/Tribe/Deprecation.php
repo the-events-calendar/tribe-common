@@ -124,7 +124,7 @@ class Tribe__Deprecation {
 	 *
 	 * @return mixed
 	 */
-	public function deprecated_filter_message( $value ) {
+	public function deprecated_filter_message( $value = null ) {
 		$filter = current_filter();
 		if ( isset( $this->deprecated_filters[ $filter ] ) ) {
 			$deprecated_tag = $this->deprecated_filters[ $filter ][1];
