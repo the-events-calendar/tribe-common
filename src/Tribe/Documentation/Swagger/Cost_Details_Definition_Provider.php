@@ -17,7 +17,7 @@ class Tribe__Documentation__Swagger__Cost_Details_Definition_Provider
 	 */
 	public function get_documentation() {
 		$documentation = array(
-			'type'       => 'array',
+			'type'       => 'object',
 			'properties' => array(
 				'currency_symbol' => array(
 					'type' => 'string',
