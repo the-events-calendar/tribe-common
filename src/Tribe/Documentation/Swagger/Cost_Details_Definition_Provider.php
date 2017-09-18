@@ -30,6 +30,7 @@ class Tribe__Documentation__Swagger__Cost_Details_Definition_Provider
 				),
 				'values' => array(
 					'type' => 'array',
+					'items' => array( 'type' => 'integer' ),
 					'description' => __( 'A sorted array of all the numeric values for the cost', 'tribe-common' ),
 				),
 			),
