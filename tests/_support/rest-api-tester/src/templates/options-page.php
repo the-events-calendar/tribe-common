@@ -70,19 +70,42 @@
 									<?php
 									$required = true === ! empty( $parameter['required'] ) ? 'required' : '';
 									$default  = ! empty( $parameter['default'] ) ? $parameter['default'] : '';
+									$type     = ! empty( $parameter['type'] ) ? $parameter['type'] : 'string';
 									$name     = "{$method}-{$parameter['name']}";
 									$in       = ! empty( $parameter['in'] ) ? $parameter['in'] : 'query';
 									?>
 									<label
 										for="<?php echo $name; ?>"><?php echo $parameter['description']; ?></label>
-									<input
-										type="text"
-										name="<?php echo $name; ?>"
-										id="<?php echo $name; ?>" <?php echo $required; ?>
-										value="<?php echo $default; ?>"
-										data-name="<?php echo $parameter['name']; ?>"
-										data-in="<?php echo $in; ?>"
-									>
+									<?php if ( 'boolean' === $type ) : ?>
+										<input
+											type="checkbox"
+											name="<?php echo esc_attr( $name ); ?>"
+											id="<?php echo esc_attr( $name ); ?>" <?php echo $required; ?>
+											value="1"
+											data-name="<?php echo esc_attr( $parameter['name'] ); ?>"
+											data-in="<?php echo esc_attr( $in ); ?>"
+											<?php checked( 1, $default ); ?>
+										>
+									<?php elseif ( in_array( $type, array( 'number', 'integer' ), true ) ) : ?>
+										<input
+											type="number"
+											name="<?php echo esc_attr( $name ); ?>"
+											id="<?php echo esc_attr( $name ); ?>" <?php echo $required; ?>
+											value="<?php echo esc_attr( $default ); ?>"
+											data-name="<?php echo esc_attr( $parameter['name'] ); ?>"
+											data-in="<?php echo esc_attr( $in ); ?>"
+											<?php checked( 1, $default ); ?>
+										>
+									<?php else : ?>
+										<input
+											type="text"
+											name="<?php echo esc_attr( $name ); ?>"
+											id="<?php echo esc_attr( $name ); ?>" <?php echo $required; ?>
+											value="<?php echo esc_attr( $default ); ?>"
+											data-name="<?php echo esc_attr( $parameter['name'] ); ?>"
+											data-in="<?php echo esc_attr( $in ); ?>"
+										>
+									<?php endif; ?>
 								</div>
 							<?php endforeach; ?>
 						</fieldgroup>
