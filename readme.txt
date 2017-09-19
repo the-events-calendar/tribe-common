@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.5.13] TBD =
+= [4.5.13] 2017-09-20 =
 
 * Fix - Initialize Tribe__Deprecation on every page. [64421]
 * Feature - Remove 'France, Metropolitan' option from country list to prevent issues with Google Maps API (thanks @varesanodotfr for pointing this out) [78023]

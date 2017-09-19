@@ -118,7 +118,7 @@ class Tribe__Deprecation {
 	/**
 	 * Triggers a deprecation notice if there is any callback hooked on a deprecated filter.
 	 *
-	 * @since TBD the filtered value is passed through unchanged
+	 * @since 4.5.13 the filtered value is passed through unchanged
 	 *
 	 * @param mixed $value
 	 *
