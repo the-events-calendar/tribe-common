@@ -24,7 +24,7 @@ class Tribe__Documentation__Swagger__Image_Definition_Provider
 					'description' =>__('The URL to the full size version of the image', 'tribe-common'),
 				),
 				'id' => array(
-					'type' => 'int',
+					'type' => 'integer',
 					'description' => __( 'The image WordPress post ID', 'tribe-common' ),
 				),
 				'extension' => array(
@@ -32,11 +32,11 @@ class Tribe__Documentation__Swagger__Image_Definition_Provider
 					'description' =>__('The image file extension', 'tribe-common'),
 				),
 				'width' => array(
-					'type' => 'int',
+					'type' => 'integer',
 					'description' => __( 'The image natural width in pixels', 'tribe-common' ),
 				),
 				'height' => array(
-					'type' => 'int',
+					'type' => 'integer',
 					'description' => __( 'The image natural height in pixels', 'tribe-common' ),
 				),
 				'sizes' => array(
