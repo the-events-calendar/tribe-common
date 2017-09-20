@@ -27,6 +27,34 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		private static $localized_months       = array();
 
 		/**
+		 * Try to format a Date to the Default Datepicker format
+		 *
+		 * @since  4.5.12
+		 *
+		 * @param  string      $date       Original Date that came from a datepicker
+		 * @param  string|int  $datepicker Datepicker format
+		 * @return string
+		 */
+		public static function maybe_format_from_datepicker( $date, $datepicker = null ) {
+			if ( ! is_numeric( $datepicker ) ) {
+				$datepicker = tribe_get_option( 'datepickerFormat' );
+			}
+
+			if ( is_numeric( $datepicker ) ) {
+				$datepicker = self::datepicker_formats( $datepicker );
+			}
+
+			$default_datepicker = self::datepicker_formats( 0 );
+
+			// If the current datepicker is the default we don't care
+			if ( $datepicker === $default_datepicker ) {
+				return $date;
+			}
+
+			return self::datetime_from_format( $datepicker, $date );
+		}
+
+		/**
 		 * Get the datepicker format, that is used to translate the option from the DB to a string
 		 *
 		 * @param  int $translate The db Option from datepickerFormat
