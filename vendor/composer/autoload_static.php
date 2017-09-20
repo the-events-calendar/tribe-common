@@ -23,10 +23,35 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
         ),
     );
 
+    public static $classMap = array (
+        'tad_DI52_Arg' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Arg.php',
+        'tad_DI52_Bindings_AbstractImplementation' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Bindings/AbstractImplementation.php',
+        'tad_DI52_Bindings_CallbackImplementation' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Bindings/CallbackImplementation.php',
+        'tad_DI52_Bindings_ConstructorImplementation' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Bindings/ConstructorImplementation.php',
+        'tad_DI52_Bindings_ImplementationInterface' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Bindings/ImplementationInterface.php',
+        'tad_DI52_Bindings_InstanceImplementation' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Bindings/InstanceImplementation.php',
+        'tad_DI52_Bindings_Resolver' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Bindings/Resolver.php',
+        'tad_DI52_Bindings_ResolverInterface' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Bindings/ResolverInterface.php',
+        'tad_DI52_Container' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Container.php',
+        'tad_DI52_Ctor' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Ctor.php',
+        'tad_DI52_NewInstanceArgValue' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/NewInstanceArgValue.php',
+        'tad_DI52_RealArgValue' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/RealArgValue.php',
+        'tad_DI52_ReferredArgValue' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/ReferredArgValue.php',
+        'tad_DI52_ReferredInstanceArgValue' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/ReferredInstanceArgValue.php',
+        'tad_DI52_ReferredVarArgValue' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/ReferredVarArgValue.php',
+        'tad_DI52_ServiceProvider' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/ServiceProvider.php',
+        'tad_DI52_ServiceProviderInterface' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/ServiceProviderInterface.php',
+        'tad_DI52_Singleton' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Singleton.php',
+        'tad_DI52_Var' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Var.php',
+        'xrstf\\Composer52\\AutoloadGenerator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
+        'xrstf\\Composer52\\Generator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixesPsr0 = ComposerStaticInit453516e196e1be4c43fa495b9bb9d572::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit453516e196e1be4c43fa495b9bb9d572::$classMap;
 
         }, null, ClassLoader::class);
     }
