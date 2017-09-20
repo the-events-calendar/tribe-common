@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.5.14] TBD =
+
+* Language - Improvement to composition of various strings, to aid translatability (props: @ramiy) [88982]
+
 = [4.5.13] TBD =
 
 * Fix - Initialize Tribe__Deprecation on every page. [64421]
