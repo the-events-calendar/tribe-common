@@ -13,7 +13,14 @@ $help->add_section_content( 'feature-box', sprintf( esc_html__( 'Thanks you for 
 // Creates the Support section
 $help->add_section( 'support', __( 'Getting Support', 'tribe-common' ), 10 );
 $help->add_section_content( 'support', sprintf( __( 'Our website’s %s is a great place to find tips and tricks for using and customizing our plugins.', 'tribe-common' ), '<a href="http://m.tri.be/18j9" target="_blank">' . __( 'Knowledgebase', 'tribe-common' ) . '</a>' ), 0 );
-$help->add_section_content( 'support', sprintf( __( '<strong>Want to dive deeper?</strong> Check out our %s for developers.', 'tribe-common' ), '<a href="http://m.tri.be/18jf" target="_blank">' . __( 'list of available functions', 'tribe-common' ) . '</a>' ), 50 );
+$help->add_section_content( 'support', sprintf(
+	'<strong>%1$s</strong> %2$s',
+	esc_html__( 'Want to dive deeper?', 'tribe-common' ),
+	sprintf(
+		__( 'Check out our %s for developers.', 'tribe-common' ),
+		'<a href="http://m.tri.be/18jf" target="_blank">' . esc_html__( 'list of available functions', 'tribe-common' ) . '</a>'
+	)
+), 50 );
 
 // Creates the Extra Help section
 $help->add_section( 'extra-help', __( 'Getting More Help', 'tribe-common' ), 20 );
