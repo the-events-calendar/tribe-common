@@ -24,6 +24,10 @@ class Tribe__Main {
 	protected $plugin_context;
 	protected $plugin_context_class;
 	protected $doing_ajax = false;
+
+	/**
+	 * @var Tribe__Log
+	 */
 	protected $log;
 
 	/**
@@ -112,6 +116,7 @@ class Tribe__Main {
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
 		Tribe__Extension_Loader::instance();
+
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
 		 *
@@ -270,13 +275,16 @@ class Tribe__Main {
 				'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
 				'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
 			),
-			'length_menu'   => __( 'Show _MENU_ entries', 'tribe-common' ),
-			'empty_table'   => __( 'No data available in table', 'tribe-common' ),
-			'info'          => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'tribe-common' ),
-			'info_empty'    => __( 'Showing 0 to 0 of 0 entries', 'tribe-common' ),
-			'info_filtered' => __( '(filtered from _MAX_ total entries)', 'tribe-common' ),
-			'zero_records'  => __( 'No matching records found', 'tribe-common' ),
-			'search'        => __( 'Search:', 'tribe-common' ),
+			'length_menu'       => __( 'Show _MENU_ entries', 'tribe-common' ),
+			'empty_table'       => __( 'No data available in table', 'tribe-common' ),
+			'info'              => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'tribe-common' ),
+			'info_empty'        => __( 'Showing 0 to 0 of 0 entries', 'tribe-common' ),
+			'info_filtered'     => __( '(filtered from _MAX_ total entries)', 'tribe-common' ),
+			'zero_records'      => __( 'No matching records found', 'tribe-common' ),
+			'search'            => __( 'Search:', 'tribe-common' ),
+			'all_selected_text' => __( 'All items on this page were selected. ', 'tribe-common' ),
+			'select_all_link'   => __( 'Select all pages', 'tribe-common' ),
+			'clear_selection'   => __( 'Clear Selection.', 'tribe-common' ),
 			'pagination' => array(
 				'all' => __( 'All', 'tribe-common' ),
 				'next' => __( 'Next', 'tribe-common' ),
@@ -560,10 +568,11 @@ class Tribe__Main {
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 		tribe_singleton( 'admin-notices', 'Tribe__Admin__Notices' );
 		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
+		tribe_singleton( 'cache', 'Tribe__Cache' );
+		tribe_singleton( 'plugins.api', new Tribe__Plugins_API );
+		tribe_singleton( 'logger', array( $this, 'log' ) );
 		tribe_singleton( 'cost-utils', array( 'Tribe__Cost_Utils', 'instance' ) );
 		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
 		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
-		tribe_singleton( 'cache', 'Tribe__Cache', array( 'setup' ) );
-		tribe_singleton( 'plugins.api', 'Tribe__Plugins_API', array( 'hook' ) );
 	}
 }

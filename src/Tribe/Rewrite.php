@@ -266,19 +266,6 @@ class Tribe__Rewrite {
 		 * @var string $prepared_slug
 		 * @var string $permastruct_name
 		 * @var string $original_slug
-		 *
-		 * @deprecated 4.3 use `tribe_rewrite_prepared_slug`
-		 */
-		$prepared_slug = apply_filters( 'tribe_events_rewrite_prepared_slug', $prepared_slug, $permastruct_name,
-		                                $slug );
-
-		/**
-		 * Provides an opportunity to modify the sanitized slug which will be used
-		 * in rewrite rules relating to $permastruct_name.
-		 *
-		 * @var string $prepared_slug
-		 * @var string $permastruct_name
-		 * @var string $original_slug
 		 */
 		return apply_filters( 'tribe_rewrite_prepared_slug', $prepared_slug, $permastruct_name, $slug );
 	}
