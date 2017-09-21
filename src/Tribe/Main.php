@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.5.12';
+	const VERSION             = '4.5.13';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -115,6 +115,7 @@ class Tribe__Main {
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
 		Tribe__Extension_Loader::instance();
+
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
 		 *

@@ -154,16 +154,16 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					'span'   => array(),
 				)
 			);
-			$fieldset_attributes = $args['fieldset_attributes'];
-			if ( is_array( $fieldset_attributes ) ) {
-				foreach ( $fieldset_attributes as $key => &$val ) {
-					$val = esc_attr( $val );
+			$fieldset_attributes = array();
+			if ( is_array( $args['fieldset_attributes'] ) ) {
+				foreach ( $args['fieldset_attributes'] as $key => $val ) {
+					$fieldset_attributes[ $key ] = esc_attr( $val );
 				}
 			}
-			$attributes = $args['attributes'];
-			if ( is_array( $attributes ) ) {
-				foreach ( $attributes as $key => &$val ) {
-					$val = esc_attr( $val );
+			$attributes = array();
+			if ( is_array( $args['attributes'] ) ) {
+				foreach ( $args['attributes'] as $key => $val ) {
+					$attributes[ $key ] = esc_attr( $val );
 				}
 			}
 			if ( is_array( $args['options'] ) ) {
@@ -596,6 +596,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			if ( is_array( $this->options ) && ! empty( $this->options ) ) {
 				$field .= '<select';
 				$field .= $this->do_field_name();
+				$field .= " id='{$this->id}-select'";
 				$field .= " class='tribe-dropdown'";
 				$field .= '>';
 				foreach ( $this->options as $option_id => $title ) {

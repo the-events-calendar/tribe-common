@@ -11,15 +11,15 @@ msgstr ""
 "Language: lt\n"
 "Project-Id-Version: Tribe Common\n"
 
-#: src/Tribe/Main.php:265
+#: src/Tribe/Main.php:267
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:264
+#: src/Tribe/Main.php:266
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:263
+#: src/Tribe/Main.php:265
 msgid "All items on this page were selected. "
 msgstr ""
 
@@ -376,63 +376,63 @@ msgstr ""
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/Main.php:275
+#: src/Tribe/Main.php:277
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:274
+#: src/Tribe/Main.php:276
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:269
+#: src/Tribe/Main.php:271
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:267
+#: src/Tribe/Main.php:269
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:263
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:262
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:261
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:258
+#: src/Tribe/Main.php:260
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:259
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:258
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:256
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:253
+#: src/Tribe/Main.php:255
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:247
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:246
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:243 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:245 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -897,865 +897,861 @@ msgstr "Peržiūrėti"
 msgid "Community Events"
 msgstr "Bendruomenės renginiai"
 
-#: src/Tribe/View_Helpers.php:372
+#: src/Tribe/View_Helpers.php:371
 msgid "Wyoming"
 msgstr "Vajomingas"
 
-#: src/Tribe/View_Helpers.php:371
+#: src/Tribe/View_Helpers.php:370
 msgid "Wisconsin"
 msgstr "Viskonsinas"
 
-#: src/Tribe/View_Helpers.php:370
+#: src/Tribe/View_Helpers.php:369
 msgid "West Virginia"
 msgstr "Vakarų Virdžinija"
 
-#: src/Tribe/View_Helpers.php:369
+#: src/Tribe/View_Helpers.php:368
 msgid "Washington"
 msgstr "Vašingtonas"
 
-#: src/Tribe/View_Helpers.php:368
+#: src/Tribe/View_Helpers.php:367
 msgid "Virginia"
 msgstr "Virdžinija"
 
-#: src/Tribe/View_Helpers.php:367
+#: src/Tribe/View_Helpers.php:366
 msgid "Vermont"
 msgstr "Vermontas"
 
-#: src/Tribe/View_Helpers.php:366
+#: src/Tribe/View_Helpers.php:365
 msgid "Utah"
 msgstr "Juta"
 
-#: src/Tribe/View_Helpers.php:365
+#: src/Tribe/View_Helpers.php:364
 msgid "Texas"
 msgstr "Teksasas"
 
-#: src/Tribe/View_Helpers.php:364
+#: src/Tribe/View_Helpers.php:363
 msgid "Tennessee"
 msgstr "Tenesis"
 
-#: src/Tribe/View_Helpers.php:363
+#: src/Tribe/View_Helpers.php:362
 msgid "South Dakota"
 msgstr "Pietų Dakota"
 
-#: src/Tribe/View_Helpers.php:362
+#: src/Tribe/View_Helpers.php:361
 msgid "South Carolina"
 msgstr "Pietų Karolina"
 
-#: src/Tribe/View_Helpers.php:361
+#: src/Tribe/View_Helpers.php:360
 msgid "Rhode Island"
 msgstr "Rod Ailandas"
 
-#: src/Tribe/View_Helpers.php:360
+#: src/Tribe/View_Helpers.php:359
 msgid "Pennsylvania"
 msgstr "Pensilvania"
 
-#: src/Tribe/View_Helpers.php:359
+#: src/Tribe/View_Helpers.php:358
 msgid "Oregon"
 msgstr "Oregonas"
 
-#: src/Tribe/View_Helpers.php:358
+#: src/Tribe/View_Helpers.php:357
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: src/Tribe/View_Helpers.php:357
+#: src/Tribe/View_Helpers.php:356
 msgid "Ohio"
 msgstr "Ohajas"
 
-#: src/Tribe/View_Helpers.php:356
+#: src/Tribe/View_Helpers.php:355
 msgid "North Dakota"
 msgstr "Šiaurės Dakota"
 
-#: src/Tribe/View_Helpers.php:355
+#: src/Tribe/View_Helpers.php:354
 msgid "North Carolina"
 msgstr "Šiaurės Karolina"
 
-#: src/Tribe/View_Helpers.php:354
+#: src/Tribe/View_Helpers.php:353
 msgid "New York"
 msgstr "Niujorkas"
 
-#: src/Tribe/View_Helpers.php:353
+#: src/Tribe/View_Helpers.php:352
 msgid "New Mexico"
 msgstr "Naujoji Meksika"
 
-#: src/Tribe/View_Helpers.php:352
+#: src/Tribe/View_Helpers.php:351
 msgid "New Jersey"
 msgstr "Naujasis Džersis"
 
-#: src/Tribe/View_Helpers.php:351
+#: src/Tribe/View_Helpers.php:350
 msgid "New Hampshire"
 msgstr "Naujasis Hampšyras"
 
-#: src/Tribe/View_Helpers.php:350
+#: src/Tribe/View_Helpers.php:349
 msgid "Nevada"
 msgstr "Nevada"
 
-#: src/Tribe/View_Helpers.php:349
+#: src/Tribe/View_Helpers.php:348
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: src/Tribe/View_Helpers.php:348
+#: src/Tribe/View_Helpers.php:347
 msgid "Montana"
 msgstr "Montana"
 
-#: src/Tribe/View_Helpers.php:347
+#: src/Tribe/View_Helpers.php:346
 msgid "Missouri"
 msgstr "Misūris"
 
-#: src/Tribe/View_Helpers.php:346
+#: src/Tribe/View_Helpers.php:345
 msgid "Mississippi"
 msgstr "Misisipė"
 
-#: src/Tribe/View_Helpers.php:345
+#: src/Tribe/View_Helpers.php:344
 msgid "Minnesota"
 msgstr "Minesota"
 
-#: src/Tribe/View_Helpers.php:344
+#: src/Tribe/View_Helpers.php:343
 msgid "Michigan"
 msgstr "Mičiganas"
 
-#: src/Tribe/View_Helpers.php:343
+#: src/Tribe/View_Helpers.php:342
 msgid "Massachusetts"
 msgstr "Masačiusetsas"
 
-#: src/Tribe/View_Helpers.php:342
+#: src/Tribe/View_Helpers.php:341
 msgid "Maryland"
 msgstr "Merilendas"
 
-#: src/Tribe/View_Helpers.php:341
+#: src/Tribe/View_Helpers.php:340
 msgid "Maine"
 msgstr "Meinas"
 
-#: src/Tribe/View_Helpers.php:340
+#: src/Tribe/View_Helpers.php:339
 msgid "Louisiana"
 msgstr "Luisiana"
 
-#: src/Tribe/View_Helpers.php:339
+#: src/Tribe/View_Helpers.php:338
 msgid "Kentucky"
 msgstr "Kentukis"
 
-#: src/Tribe/View_Helpers.php:338
+#: src/Tribe/View_Helpers.php:337
 msgid "Kansas"
 msgstr "Kanzasas"
 
-#: src/Tribe/View_Helpers.php:337
+#: src/Tribe/View_Helpers.php:336
 msgid "Iowa"
 msgstr "Ajova"
 
-#: src/Tribe/View_Helpers.php:336
+#: src/Tribe/View_Helpers.php:335
 msgid "Indiana"
 msgstr "Indiana"
 
-#: src/Tribe/View_Helpers.php:335
+#: src/Tribe/View_Helpers.php:334
 msgid "Illinois"
 msgstr "Ilinojus"
 
-#: src/Tribe/View_Helpers.php:334
+#: src/Tribe/View_Helpers.php:333
 msgid "Idaho"
 msgstr "Aidahas"
 
-#: src/Tribe/View_Helpers.php:333
+#: src/Tribe/View_Helpers.php:332
 msgid "Hawaii"
 msgstr "Havajai"
 
-#: src/Tribe/View_Helpers.php:331
+#: src/Tribe/View_Helpers.php:330
 msgid "Florida"
 msgstr "Florida"
 
-#: src/Tribe/View_Helpers.php:330
+#: src/Tribe/View_Helpers.php:329
 msgid "District of Columbia"
 msgstr "Kolumbijos rajonas"
 
-#: src/Tribe/View_Helpers.php:329
+#: src/Tribe/View_Helpers.php:328
 msgid "Delaware"
 msgstr "Delaveras"
 
-#: src/Tribe/View_Helpers.php:328
+#: src/Tribe/View_Helpers.php:327
 msgid "Connecticut"
 msgstr "Konektikutas"
 
-#: src/Tribe/View_Helpers.php:327
+#: src/Tribe/View_Helpers.php:326
 msgid "Colorado"
 msgstr "Koloradas"
 
-#: src/Tribe/View_Helpers.php:326
+#: src/Tribe/View_Helpers.php:325
 msgid "California"
 msgstr "Kalifornija"
 
-#: src/Tribe/View_Helpers.php:325
+#: src/Tribe/View_Helpers.php:324
 msgid "Arkansas"
 msgstr "Arkanzasas"
 
-#: src/Tribe/View_Helpers.php:324
+#: src/Tribe/View_Helpers.php:323
 msgid "Arizona"
 msgstr "Arizona"
 
-#: src/Tribe/View_Helpers.php:323
+#: src/Tribe/View_Helpers.php:322
 msgid "Alaska"
 msgstr "Aliaska"
 
-#: src/Tribe/View_Helpers.php:322
+#: src/Tribe/View_Helpers.php:321
 msgid "Alabama"
 msgstr "Alabama"
 
-#: src/Tribe/View_Helpers.php:282
+#: src/Tribe/View_Helpers.php:281
 msgid "Zimbabwe"
 msgstr "Zimbabvė"
 
-#: src/Tribe/View_Helpers.php:281
+#: src/Tribe/View_Helpers.php:280
 msgid "Zambia"
 msgstr "Zambija"
 
-#: src/Tribe/View_Helpers.php:280
+#: src/Tribe/View_Helpers.php:279
 msgid "Yemen"
 msgstr "Jemenas"
 
-#: src/Tribe/View_Helpers.php:279
+#: src/Tribe/View_Helpers.php:278
 msgid "Western Sahara"
 msgstr "Vakarų Sachara"
 
-#: src/Tribe/View_Helpers.php:278
+#: src/Tribe/View_Helpers.php:277
 msgid "Wallis And Futuna Islands"
 msgstr "Volis ir Futūna salos"
 
-#: src/Tribe/View_Helpers.php:277
+#: src/Tribe/View_Helpers.php:276
 msgid "Virgin Islands (U.S.)"
 msgstr "Mergelių salos (JAV)"
 
-#: src/Tribe/View_Helpers.php:276
+#: src/Tribe/View_Helpers.php:275
 msgid "Virgin Islands (British)"
 msgstr "Mergelių salos (Britų)"
 
-#: src/Tribe/View_Helpers.php:275
+#: src/Tribe/View_Helpers.php:274
 msgid "Viet Nam"
 msgstr "Vietnamas"
 
-#: src/Tribe/View_Helpers.php:274
+#: src/Tribe/View_Helpers.php:273
 msgid "Venezuela"
 msgstr "Venesuela"
 
-#: src/Tribe/View_Helpers.php:273
+#: src/Tribe/View_Helpers.php:272
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
-#: src/Tribe/View_Helpers.php:272
+#: src/Tribe/View_Helpers.php:271
 msgid "Uzbekistan"
 msgstr "Uzbekistanas"
 
-#: src/Tribe/View_Helpers.php:271
+#: src/Tribe/View_Helpers.php:270
 msgid "Uruguay"
 msgstr "Urugvajus"
 
-#: src/Tribe/View_Helpers.php:270
+#: src/Tribe/View_Helpers.php:269
 msgid "United States Minor Outlying Islands"
 msgstr "Jungtinių Valstijų mažosios aplinkinės salos"
 
-#: src/Tribe/View_Helpers.php:269
+#: src/Tribe/View_Helpers.php:268
 msgid "United Kingdom"
 msgstr "Jungtinė Karalystė"
 
-#: src/Tribe/View_Helpers.php:268
+#: src/Tribe/View_Helpers.php:267
 msgid "United Arab Emirates"
 msgstr "Jungtiniai Arabų Emyratai"
 
-#: src/Tribe/View_Helpers.php:267
+#: src/Tribe/View_Helpers.php:266
 msgid "Ukraine"
 msgstr "Ukraina"
 
-#: src/Tribe/View_Helpers.php:266
+#: src/Tribe/View_Helpers.php:265
 msgid "Uganda"
 msgstr "Uganda"
 
-#: src/Tribe/View_Helpers.php:265
+#: src/Tribe/View_Helpers.php:264
 msgid "Tuvalu"
 msgstr "Tuvalu"
 
-#: src/Tribe/View_Helpers.php:264
+#: src/Tribe/View_Helpers.php:263
 msgid "Turks And Caicos Islands"
 msgstr "Terkso ir Kaikoso salos"
 
-#: src/Tribe/View_Helpers.php:263
+#: src/Tribe/View_Helpers.php:262
 msgid "Turkmenistan"
 msgstr "Turkmėnistanas"
 
-#: src/Tribe/View_Helpers.php:262
+#: src/Tribe/View_Helpers.php:261
 msgid "Turkey"
 msgstr "Turkija"
 
-#: src/Tribe/View_Helpers.php:261
+#: src/Tribe/View_Helpers.php:260
 msgid "Tunisia"
 msgstr "Tunisas"
 
-#: src/Tribe/View_Helpers.php:260
+#: src/Tribe/View_Helpers.php:259
 msgid "Trinidad And Tobago"
 msgstr "Trinidadas ir Tobagas"
 
-#: src/Tribe/View_Helpers.php:259
+#: src/Tribe/View_Helpers.php:258
 msgid "Tonga"
 msgstr "Tonga"
 
-#: src/Tribe/View_Helpers.php:258
+#: src/Tribe/View_Helpers.php:257
 msgid "Tokelau"
 msgstr "Tokelau"
 
-#: src/Tribe/View_Helpers.php:257
+#: src/Tribe/View_Helpers.php:256
 msgid "Togo"
 msgstr "Togas"
 
-#: src/Tribe/View_Helpers.php:256
+#: src/Tribe/View_Helpers.php:255
 msgid "Thailand"
 msgstr "Tailandas"
 
-#: src/Tribe/View_Helpers.php:255
+#: src/Tribe/View_Helpers.php:254
 msgid "Tanzania, United Republic Of"
 msgstr "Tanzanijos Jungtinė Respublika"
 
-#: src/Tribe/View_Helpers.php:254
+#: src/Tribe/View_Helpers.php:253
 msgid "Tajikistan"
 msgstr "Tadžikistanas"
 
-#: src/Tribe/View_Helpers.php:253
+#: src/Tribe/View_Helpers.php:252
 msgid "Taiwan"
 msgstr "Taivanas"
 
-#: src/Tribe/View_Helpers.php:252
+#: src/Tribe/View_Helpers.php:251
 msgid "Syrian Arab Republic"
 msgstr "Sirijos Arabų Respublika"
 
-#: src/Tribe/View_Helpers.php:251
+#: src/Tribe/View_Helpers.php:250
 msgid "Switzerland"
 msgstr "Šveicarija"
 
-#: src/Tribe/View_Helpers.php:250
+#: src/Tribe/View_Helpers.php:249
 msgid "Sweden"
 msgstr "Švedija"
 
-#: src/Tribe/View_Helpers.php:249
+#: src/Tribe/View_Helpers.php:248
 msgid "Swaziland"
 msgstr "Svazilendas"
 
-#: src/Tribe/View_Helpers.php:248
+#: src/Tribe/View_Helpers.php:247
 msgid "Svalbard And Jan Mayen Islands"
 msgstr "Svalbardos ir Jan Majeno salos"
 
-#: src/Tribe/View_Helpers.php:247
+#: src/Tribe/View_Helpers.php:246
 msgid "Suriname"
 msgstr "Surinamas"
 
-#: src/Tribe/View_Helpers.php:246
+#: src/Tribe/View_Helpers.php:245
 msgid "Sudan"
 msgstr "Sudanas"
 
-#: src/Tribe/View_Helpers.php:245
+#: src/Tribe/View_Helpers.php:244
 msgid "St. Pierre And Miquelon"
 msgstr "Švento Pjero ir Mikelono salos"
 
-#: src/Tribe/View_Helpers.php:244
+#: src/Tribe/View_Helpers.php:243
 msgid "St. Helena"
 msgstr "Šventosios Elenos sala"
 
-#: src/Tribe/View_Helpers.php:243
+#: src/Tribe/View_Helpers.php:242
 msgid "Sri Lanka"
 msgstr "Šri Lanka"
 
-#: src/Tribe/View_Helpers.php:242
+#: src/Tribe/View_Helpers.php:241
 msgid "Spain"
 msgstr "Ispanija"
 
-#: src/Tribe/View_Helpers.php:241
+#: src/Tribe/View_Helpers.php:240
 msgid "South Georgia, South Sandwich Islands"
 msgstr "Pietų Džordžija, Pietų Sandvičo Salos"
 
-#: src/Tribe/View_Helpers.php:240
+#: src/Tribe/View_Helpers.php:239
 msgid "South Africa"
 msgstr "Pietų Afrika"
 
-#: src/Tribe/View_Helpers.php:239
+#: src/Tribe/View_Helpers.php:238
 msgid "Somalia"
 msgstr "Somalis"
 
-#: src/Tribe/View_Helpers.php:238
+#: src/Tribe/View_Helpers.php:237
 msgid "Solomon Islands"
 msgstr "Saliamono Salos"
 
-#: src/Tribe/View_Helpers.php:237
+#: src/Tribe/View_Helpers.php:236
 msgid "Slovenia"
 msgstr "Slovėnija"
 
-#: src/Tribe/View_Helpers.php:236
+#: src/Tribe/View_Helpers.php:235
 msgid "Slovakia (Slovak Republic)"
 msgstr "Slovakija (Slovakijos Respublika)"
 
-#: src/Tribe/View_Helpers.php:235
+#: src/Tribe/View_Helpers.php:234
 msgid "Singapore"
 msgstr "Singapūras"
 
-#: src/Tribe/View_Helpers.php:234
+#: src/Tribe/View_Helpers.php:233
 msgid "Sierra Leone"
 msgstr "Siera Leonė"
 
-#: src/Tribe/View_Helpers.php:233
+#: src/Tribe/View_Helpers.php:232
 msgid "Seychelles"
 msgstr "Seišeliai"
 
-#: src/Tribe/View_Helpers.php:232
+#: src/Tribe/View_Helpers.php:231
 msgid "Serbia"
 msgstr "Serbija"
 
-#: src/Tribe/View_Helpers.php:231
+#: src/Tribe/View_Helpers.php:230
 msgid "Senegal"
 msgstr "Senegalas"
 
-#: src/Tribe/View_Helpers.php:230
+#: src/Tribe/View_Helpers.php:229
 msgid "Saudi Arabia"
 msgstr "Saudo Arabija"
 
-#: src/Tribe/View_Helpers.php:229
+#: src/Tribe/View_Helpers.php:228
 msgid "Sao Tome And Principe"
 msgstr "San Tomė ir Prinsipė"
 
-#: src/Tribe/View_Helpers.php:228
+#: src/Tribe/View_Helpers.php:227
 msgid "San Marino"
 msgstr "San Marinas"
 
-#: src/Tribe/View_Helpers.php:227
+#: src/Tribe/View_Helpers.php:226
 msgid "Samoa"
 msgstr "Samoa"
 
-#: src/Tribe/View_Helpers.php:226
+#: src/Tribe/View_Helpers.php:225
 msgid "Saint Vincent And The Grenadines"
 msgstr "Sent Vinsentas ir Grenadinai"
 
-#: src/Tribe/View_Helpers.php:225
+#: src/Tribe/View_Helpers.php:224
 msgid "Saint Lucia"
 msgstr "Sent Lusija"
 
-#: src/Tribe/View_Helpers.php:224
+#: src/Tribe/View_Helpers.php:223
 msgid "Saint Kitts And Nevis"
 msgstr "Sent Kitsas ir Nevis"
 
-#: src/Tribe/View_Helpers.php:223
+#: src/Tribe/View_Helpers.php:222
 msgid "Rwanda"
 msgstr "Ruanda"
 
-#: src/Tribe/View_Helpers.php:222
+#: src/Tribe/View_Helpers.php:221
 msgid "Russian Federation"
 msgstr "Rusijos Federacija"
 
-#: src/Tribe/View_Helpers.php:221
+#: src/Tribe/View_Helpers.php:220
 msgid "Romania"
 msgstr "Rumunija"
 
-#: src/Tribe/View_Helpers.php:220
+#: src/Tribe/View_Helpers.php:219
 msgid "Reunion"
 msgstr "Reunionas"
 
-#: src/Tribe/View_Helpers.php:219
+#: src/Tribe/View_Helpers.php:218
 msgid "Qatar"
 msgstr "Kataras"
 
-#: src/Tribe/View_Helpers.php:218
+#: src/Tribe/View_Helpers.php:217
 msgid "Puerto Rico"
 msgstr "Puerto Rikas"
 
-#: src/Tribe/View_Helpers.php:217
+#: src/Tribe/View_Helpers.php:216
 msgid "Portugal"
 msgstr "Portugalija"
 
-#: src/Tribe/View_Helpers.php:216
+#: src/Tribe/View_Helpers.php:215
 msgid "Poland"
 msgstr "Lenkija"
 
-#: src/Tribe/View_Helpers.php:215
+#: src/Tribe/View_Helpers.php:214
 msgid "Pitcairn"
 msgstr "Pitkernas"
 
-#: src/Tribe/View_Helpers.php:214
+#: src/Tribe/View_Helpers.php:213
 msgid "Philippines"
 msgstr "Filipinai"
 
-#: src/Tribe/View_Helpers.php:213
+#: src/Tribe/View_Helpers.php:212
 msgid "Peru"
 msgstr "Peru"
 
-#: src/Tribe/View_Helpers.php:212
+#: src/Tribe/View_Helpers.php:211
 msgid "Paraguay"
 msgstr "Paragvajus"
 
-#: src/Tribe/View_Helpers.php:211
+#: src/Tribe/View_Helpers.php:210
 msgid "Papua New Guinea"
 msgstr "Papua ir Naujoji Gvinėja"
 
-#: src/Tribe/View_Helpers.php:210
+#: src/Tribe/View_Helpers.php:209
 msgid "Panama"
 msgstr "Panama"
 
-#: src/Tribe/View_Helpers.php:209
+#: src/Tribe/View_Helpers.php:208
 msgid "Palau"
 msgstr "Palau"
 
-#: src/Tribe/View_Helpers.php:208
+#: src/Tribe/View_Helpers.php:207
 msgid "Pakistan"
 msgstr "Pakistanas"
 
-#: src/Tribe/View_Helpers.php:207
+#: src/Tribe/View_Helpers.php:206
 msgid "Oman"
 msgstr "Omanas"
 
-#: src/Tribe/View_Helpers.php:206
+#: src/Tribe/View_Helpers.php:205
 msgid "Norway"
 msgstr "Norvegija"
 
-#: src/Tribe/View_Helpers.php:205
+#: src/Tribe/View_Helpers.php:204
 msgid "Northern Mariana Islands"
 msgstr "Marianos šiaurinės salos"
 
-#: src/Tribe/View_Helpers.php:204
+#: src/Tribe/View_Helpers.php:203
 msgid "Norfolk Island"
 msgstr "Norfolko sala"
 
-#: src/Tribe/View_Helpers.php:203
+#: src/Tribe/View_Helpers.php:202
 msgid "Niue"
 msgstr "Niue salos"
 
-#: src/Tribe/View_Helpers.php:202
+#: src/Tribe/View_Helpers.php:201
 msgid "Nigeria"
 msgstr "Nigerija"
 
-#: src/Tribe/View_Helpers.php:201
+#: src/Tribe/View_Helpers.php:200
 msgid "Niger"
 msgstr "Nigeris"
 
-#: src/Tribe/View_Helpers.php:200
+#: src/Tribe/View_Helpers.php:199
 msgid "Nicaragua"
 msgstr "Nikaragva"
 
-#: src/Tribe/View_Helpers.php:199
+#: src/Tribe/View_Helpers.php:198
 msgid "New Zealand"
 msgstr "Naujoji Zelandija"
 
-#: src/Tribe/View_Helpers.php:198
+#: src/Tribe/View_Helpers.php:197
 msgid "New Caledonia"
 msgstr "Naujoji Kaledonija"
 
-#: src/Tribe/View_Helpers.php:197
+#: src/Tribe/View_Helpers.php:196
 msgid "Netherlands Antilles"
 msgstr "Olandijos Antilai"
 
-#: src/Tribe/View_Helpers.php:196
+#: src/Tribe/View_Helpers.php:195
 msgid "Netherlands"
 msgstr "Olandija"
 
-#: src/Tribe/View_Helpers.php:195
+#: src/Tribe/View_Helpers.php:194
 msgid "Nepal"
 msgstr "Nepalas"
 
-#: src/Tribe/View_Helpers.php:194
+#: src/Tribe/View_Helpers.php:193
 msgid "Nauru"
 msgstr "Nauru"
 
-#: src/Tribe/View_Helpers.php:193
+#: src/Tribe/View_Helpers.php:192
 msgid "Namibia"
 msgstr "Namibija"
 
-#: src/Tribe/View_Helpers.php:192
+#: src/Tribe/View_Helpers.php:191
 msgid "Myanmar"
 msgstr "Mianmaras"
 
-#: src/Tribe/View_Helpers.php:191
+#: src/Tribe/View_Helpers.php:190
 msgid "Mozambique"
 msgstr "Mozambikas"
 
-#: src/Tribe/View_Helpers.php:190
+#: src/Tribe/View_Helpers.php:189
 msgid "Morocco"
 msgstr "Marokas"
 
-#: src/Tribe/View_Helpers.php:189
+#: src/Tribe/View_Helpers.php:188
 msgid "Montserrat"
 msgstr "Montseratas"
 
-#: src/Tribe/View_Helpers.php:188
+#: src/Tribe/View_Helpers.php:187
 msgid "Montenegro"
 msgstr "Montenegras"
 
-#: src/Tribe/View_Helpers.php:187
+#: src/Tribe/View_Helpers.php:186
 msgid "Mongolia"
 msgstr "Mongolija"
 
-#: src/Tribe/View_Helpers.php:186
+#: src/Tribe/View_Helpers.php:185
 msgid "Monaco"
 msgstr "Monakas"
 
-#: src/Tribe/View_Helpers.php:185
+#: src/Tribe/View_Helpers.php:184
 msgid "Moldova, Republic Of"
 msgstr "Moldovos Respublika"
 
-#: src/Tribe/View_Helpers.php:184
+#: src/Tribe/View_Helpers.php:183
 msgid "Micronesia, Federated States Of"
 msgstr "Mikronezijos Federacinė Valstija"
 
-#: src/Tribe/View_Helpers.php:183
+#: src/Tribe/View_Helpers.php:182
 msgid "Mexico"
 msgstr "Meksika"
 
-#: src/Tribe/View_Helpers.php:182
+#: src/Tribe/View_Helpers.php:181
 msgid "Mayotte"
 msgstr "Majotas"
 
-#: src/Tribe/View_Helpers.php:181
+#: src/Tribe/View_Helpers.php:180
 msgid "Mauritius"
 msgstr "Mauricijus"
 
-#: src/Tribe/View_Helpers.php:180
+#: src/Tribe/View_Helpers.php:179
 msgid "Mauritania"
 msgstr "Mauritanija"
 
-#: src/Tribe/View_Helpers.php:179
+#: src/Tribe/View_Helpers.php:178
 msgid "Martinique"
 msgstr "Martinika"
 
-#: src/Tribe/View_Helpers.php:178
+#: src/Tribe/View_Helpers.php:177
 msgid "Marshall Islands"
 msgstr "Maršalo salos"
 
-#: src/Tribe/View_Helpers.php:177
+#: src/Tribe/View_Helpers.php:176
 msgid "Malta"
 msgstr "Malta"
 
-#: src/Tribe/View_Helpers.php:176
+#: src/Tribe/View_Helpers.php:175
 msgid "Mali"
 msgstr "Malis"
 
-#: src/Tribe/View_Helpers.php:175
+#: src/Tribe/View_Helpers.php:174
 msgid "Maldives"
 msgstr "Maldyvai"
 
-#: src/Tribe/View_Helpers.php:174
+#: src/Tribe/View_Helpers.php:173
 msgid "Malaysia"
 msgstr "Malaizija"
 
-#: src/Tribe/View_Helpers.php:173
+#: src/Tribe/View_Helpers.php:172
 msgid "Malawi"
 msgstr "Malavis"
 
-#: src/Tribe/View_Helpers.php:172
+#: src/Tribe/View_Helpers.php:171
 msgid "Madagascar"
 msgstr "Madagaskaras"
 
-#: src/Tribe/View_Helpers.php:171
+#: src/Tribe/View_Helpers.php:170
 msgid "Macedonia"
 msgstr "Makedonija"
 
-#: src/Tribe/View_Helpers.php:170
+#: src/Tribe/View_Helpers.php:169
 msgid "Macau"
 msgstr "Makao"
 
-#: src/Tribe/View_Helpers.php:169
+#: src/Tribe/View_Helpers.php:168
 msgid "Luxembourg"
 msgstr "Liuksemburgas"
 
-#: src/Tribe/View_Helpers.php:168
+#: src/Tribe/View_Helpers.php:167
 msgid "Lithuania"
 msgstr "Lietuva"
 
-#: src/Tribe/View_Helpers.php:167
+#: src/Tribe/View_Helpers.php:166
 msgid "Liechtenstein"
 msgstr "Lichtenšteinas"
 
-#: src/Tribe/View_Helpers.php:166
+#: src/Tribe/View_Helpers.php:165
 msgid "Libya"
 msgstr "Libija"
 
-#: src/Tribe/View_Helpers.php:165
+#: src/Tribe/View_Helpers.php:164
 msgid "Liberia"
 msgstr "Liberija"
 
-#: src/Tribe/View_Helpers.php:164
+#: src/Tribe/View_Helpers.php:163
 msgid "Lesotho"
 msgstr "Lesotas"
 
-#: src/Tribe/View_Helpers.php:163
+#: src/Tribe/View_Helpers.php:162
 msgid "Lebanon"
 msgstr "Libanas"
 
-#: src/Tribe/View_Helpers.php:162
+#: src/Tribe/View_Helpers.php:161
 msgid "Latvia"
 msgstr "Latvija"
 
-#: src/Tribe/View_Helpers.php:161
+#: src/Tribe/View_Helpers.php:160
 msgid "Lao People's Democratic Republic"
 msgstr "Laoso Liaudies Demokratinė Respublika"
 
-#: src/Tribe/View_Helpers.php:160
+#: src/Tribe/View_Helpers.php:159
 msgid "Kyrgyzstan"
 msgstr "Kirgizija"
 
-#: src/Tribe/View_Helpers.php:159
+#: src/Tribe/View_Helpers.php:158
 msgid "Kuwait"
 msgstr "Kuveitas"
 
-#: src/Tribe/View_Helpers.php:158
+#: src/Tribe/View_Helpers.php:157
 msgid "Korea, Republic Of"
 msgstr "Korėjos Respublika"
 
-#: src/Tribe/View_Helpers.php:157
+#: src/Tribe/View_Helpers.php:156
 msgid "Korea, Democratic People's Republic Of"
 msgstr "Korėja, Demokratinė Liaudies Respublika"
 
-#: src/Tribe/View_Helpers.php:156
+#: src/Tribe/View_Helpers.php:155
 msgid "Kiribati"
 msgstr "Kiribatis"
 
-#: src/Tribe/View_Helpers.php:155
+#: src/Tribe/View_Helpers.php:154
 msgid "Kenya"
 msgstr "Kenija"
 
-#: src/Tribe/View_Helpers.php:154
+#: src/Tribe/View_Helpers.php:153
 msgid "Kazakhstan"
 msgstr "Kazachstanas"
 
-#: src/Tribe/View_Helpers.php:153
+#: src/Tribe/View_Helpers.php:152
 msgid "Jordan"
 msgstr "Jordanija"
 
-#: src/Tribe/View_Helpers.php:152
+#: src/Tribe/View_Helpers.php:151
 msgid "Japan"
 msgstr "Japonija"
 
-#: src/Tribe/View_Helpers.php:151
+#: src/Tribe/View_Helpers.php:150
 msgid "Jamaica"
 msgstr "Jamaika"
 
-#: src/Tribe/View_Helpers.php:150
+#: src/Tribe/View_Helpers.php:149
 msgid "Italy"
 msgstr "Italija"
 
-#: src/Tribe/View_Helpers.php:149
+#: src/Tribe/View_Helpers.php:148
 msgid "Israel"
 msgstr "Izraelis"
 
-#: src/Tribe/View_Helpers.php:148
+#: src/Tribe/View_Helpers.php:147
 msgid "Ireland"
 msgstr "Airija"
 
-#: src/Tribe/View_Helpers.php:147
+#: src/Tribe/View_Helpers.php:146
 msgid "Iraq"
 msgstr "Irakas"
 
-#: src/Tribe/View_Helpers.php:146
+#: src/Tribe/View_Helpers.php:145
 msgid "Iran (Islamic Republic Of)"
 msgstr "Iranas (Islamo Respublika)"
 
-#: src/Tribe/View_Helpers.php:145
+#: src/Tribe/View_Helpers.php:144
 msgid "Indonesia"
 msgstr "Indonezija"
 
-#: src/Tribe/View_Helpers.php:144
+#: src/Tribe/View_Helpers.php:143
 msgid "India"
 msgstr "Indija"
 
-#: src/Tribe/View_Helpers.php:143
+#: src/Tribe/View_Helpers.php:142
 msgid "Iceland"
 msgstr "Islandija"
 
-#: src/Tribe/View_Helpers.php:142
+#: src/Tribe/View_Helpers.php:141
 msgid "Hungary"
 msgstr "Vengrija"
 
-#: src/Tribe/View_Helpers.php:141
+#: src/Tribe/View_Helpers.php:140
 msgid "Hong Kong"
 msgstr "Honkongas"
 
-#: src/Tribe/View_Helpers.php:140
+#: src/Tribe/View_Helpers.php:139
 msgid "Honduras"
 msgstr "Hondūras"
 
-#: src/Tribe/View_Helpers.php:139
+#: src/Tribe/View_Helpers.php:138
 msgid "Holy See (Vatican City State)"
 msgstr "Šventasis Sostas (Vatikano Miesto Valstybė)"
 
-#: src/Tribe/View_Helpers.php:138
+#: src/Tribe/View_Helpers.php:137
 msgid "Heard And Mc Donald Islands"
 msgstr "Kaimanų salos"
 
-#: src/Tribe/View_Helpers.php:137
+#: src/Tribe/View_Helpers.php:136
 msgid "Haiti"
 msgstr "Haitis"
 
-#: src/Tribe/View_Helpers.php:136
+#: src/Tribe/View_Helpers.php:135
 msgid "Guyana"
 msgstr "Gajana"
 
-#: src/Tribe/View_Helpers.php:135
+#: src/Tribe/View_Helpers.php:134
 msgid "Guinea-Bissau"
 msgstr "Bisau Gvinėja"
 
-#: src/Tribe/View_Helpers.php:134
+#: src/Tribe/View_Helpers.php:133
 msgid "Guinea"
 msgstr "Gvinėja"
 
-#: src/Tribe/View_Helpers.php:133
+#: src/Tribe/View_Helpers.php:132
 msgid "Guatemala"
 msgstr "Gvatemala"
 
-#: src/Tribe/View_Helpers.php:132
+#: src/Tribe/View_Helpers.php:131
 msgid "Guam"
 msgstr "Guamas"
 
-#: src/Tribe/View_Helpers.php:131
+#: src/Tribe/View_Helpers.php:130
 msgid "Guadeloupe"
 msgstr "Gvadelupa"
 
-#: src/Tribe/View_Helpers.php:130
+#: src/Tribe/View_Helpers.php:129
 msgid "Grenada"
 msgstr "Grenada"
 
-#: src/Tribe/View_Helpers.php:129
+#: src/Tribe/View_Helpers.php:128
 msgid "Greenland"
 msgstr "Grenlandija"
 
-#: src/Tribe/View_Helpers.php:128
+#: src/Tribe/View_Helpers.php:127
 msgid "Greece"
 msgstr "Graikija"
 
-#: src/Tribe/View_Helpers.php:127
+#: src/Tribe/View_Helpers.php:126
 msgid "Gibraltar"
 msgstr "Gibraltaras"
 
-#: src/Tribe/View_Helpers.php:126
+#: src/Tribe/View_Helpers.php:125
 msgid "Ghana"
 msgstr "Gana"
 
-#: src/Tribe/View_Helpers.php:125
+#: src/Tribe/View_Helpers.php:124
 msgid "Germany"
 msgstr "Vokietija"
 
-#: src/Tribe/View_Helpers.php:124 src/Tribe/View_Helpers.php:332
+#: src/Tribe/View_Helpers.php:123 src/Tribe/View_Helpers.php:331
 msgid "Georgia"
 msgstr "Gruzija"
 
-#: src/Tribe/View_Helpers.php:123
+#: src/Tribe/View_Helpers.php:122
 msgid "Gambia"
 msgstr "Gambija"
 
-#: src/Tribe/View_Helpers.php:122
+#: src/Tribe/View_Helpers.php:121
 msgid "Gabon"
 msgstr "Gabonas"
 
-#: src/Tribe/View_Helpers.php:121
+#: src/Tribe/View_Helpers.php:120
 msgid "French Southern Territories"
 msgstr "Prancūzijos pietinės teritorijos"
 
-#: src/Tribe/View_Helpers.php:120
+#: src/Tribe/View_Helpers.php:119
 msgid "French Polynesia"
 msgstr "Prancūzijos Polinezija"
 
-#: src/Tribe/View_Helpers.php:119
+#: src/Tribe/View_Helpers.php:118
 msgid "French Guiana"
 msgstr "Prancūzijos Gviana"
-
-#: src/Tribe/View_Helpers.php:118
-msgid "France, Metropolitan"
-msgstr "Prancūzija, Metropolitenas"
 
 #: src/Tribe/View_Helpers.php:117
 msgid "France"
@@ -2049,7 +2045,7 @@ msgstr "Albanija"
 msgid "Afghanistan"
 msgstr "Afganistanas"
 
-#: src/Tribe/View_Helpers.php:291
+#: src/Tribe/View_Helpers.php:290
 msgid "Select a Country:"
 msgstr "Pasirinkite šalį:"
 
@@ -2211,7 +2207,7 @@ msgstr "Pagalbai ir atnaujinimams reikalingas galiojantis licencijos raktas"
 msgid "License Key"
 msgstr "Licencijavimo raktas"
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:264
 msgid "Search:"
 msgstr ""
 
@@ -2223,19 +2219,19 @@ msgstr "Nustatymai"
 msgid "Network"
 msgstr "Tinklas"
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:289
 msgid "Done"
 msgstr "Įvykdyta"
 
-#: src/Tribe/Main.php:286
+#: src/Tribe/Main.php:288
 msgid "Today"
 msgstr "Šiandien"
 
-#: src/Tribe/Main.php:285
+#: src/Tribe/Main.php:287
 msgid "Prev"
 msgstr "Ankstesnis"
 
-#: src/Tribe/Main.php:268 src/Tribe/Main.php:284
+#: src/Tribe/Main.php:270 src/Tribe/Main.php:286
 msgid "Next"
 msgstr "Kitas"
 
@@ -2270,7 +2266,7 @@ msgstr "Nustatymai išsaugoti"
 msgid "General"
 msgstr "Bendras"
 
-#: src/Tribe/Field.php:615
+#: src/Tribe/Field.php:616
 msgid "No select options specified"
 msgstr "Nenurodytas joks pasirinkimas"
 
