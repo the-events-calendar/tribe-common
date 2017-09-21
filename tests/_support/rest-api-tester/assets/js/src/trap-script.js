@@ -116,6 +116,11 @@
             var $element = $(element);
             var value = $element.val().trim();
             if ('' === value) {
+                // Empty value
+                return;
+            }
+            else if ('checkbox' === $element.prop('type') && false === $element.prop('checked')) {
+                // Checkbox that is not checked
                 return;
             }
             var name = $element.data('name');
