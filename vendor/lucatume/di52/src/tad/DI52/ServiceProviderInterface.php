@@ -12,11 +12,6 @@ interface tad_DI52_ServiceProviderInterface
      */
     public function boot();
 
-    /**
-     * Returns an array of implementations provided by the service provider.
-     *
-     * @return array
-     */
     public function provides();
 
     /**
