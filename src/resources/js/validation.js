@@ -21,7 +21,8 @@ tribe.validation = {};
 	obj.selectors = {
 		item: '.tribe-validation',
 		fields: 'input, select, textarea',
-		submit: 'input[type="submit"], button',
+		submit: '.tribe-validation-submit',
+		submitButtons: 'input[type="submit"], button',
 		error: '.tribe-validation-error',
 		valid: '.tribe-validation-valid',
 		notice: '.tribe-notice-validation',
@@ -268,6 +269,9 @@ tribe.validation = {};
 
 		// First we add the Class for the Form
 		$item.addClass( obj.selectors.item.className() );
+
+		// Make the Submit buttons have the required class for The Click
+		$item.find( obj.selectors.submitButtons ).addClass( obj.selectors.submit.className() )
 
 		// On Form Submit
 		$item.on( 'submit.tribe', obj.onSubmit );
