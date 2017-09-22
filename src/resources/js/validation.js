@@ -346,7 +346,7 @@ tribe.validation = {};
 	obj.hasErrors = function( $item ) {
 		var $errors = $item.find( obj.selectors.error ).not( ':disabled' );
 
-		return 0 !== $item.length;
+		return 0 !== $errors.length;
 	}
 
 	/**
