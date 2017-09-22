@@ -105,9 +105,9 @@ tribe.validation = {};
 				formatKey = $constraint.parents( '[data-datepicker_format]' ).eq( 0 ).data( 'datepicker_format' );
 			}
 
-			var format = formats[ formatKey ];
-
+			var format = formats[ formatKey ].toUpperCase();
 			value = moment( value, format ).format( 'X' );
+
 			return value;
 		}
 	};
@@ -359,25 +359,16 @@ tribe.validation = {};
 	 * @return {object}
 	 */
 	obj.getConstraints = function( $field ) {
-		var valid = true;
-		var value = $field.val();
 		var isDisabled = $field.is( ':disabled' );
-		var constraints = obj.constraints;
+		var valid = true;
 
 		// Bail if it's a disabled field
 		if ( isDisabled ) {
 			return valid;
 		}
 
-		// Fetch the values for each one of these
-		constraints = _.mapObject( constraints, function( isApplicable ) {
-			return isApplicable( $field );
-		} );
-
-		// Check which ones of these are not null
-		constraints = _.pick( constraints, function( value ) {
-			return null !== value;
-		} );
+		var constraints = obj.getConstraintsValue( $field );
+		var value = $field.val();
 
 		// When we don't have constrains it's always valid
 		if ( _.isEmpty( constraints ) ) {
@@ -391,6 +382,81 @@ tribe.validation = {};
 
 		return constraints;
 	}
+
+	/**
+	 * Gets which constrainst have valid values
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {object}  $constraints  Object with all the values for the contraints of a field
+	 *
+	 * @return {object}
+	 */
+	obj.getConstraintsValue = function( $field ) {
+		var isDisabled = $field.is( ':disabled' );
+		var constraints = {};
+
+		// Bail if it's a disabled field
+		if ( isDisabled ) {
+			return constraints;
+		}
+
+		// Set to all contraints
+		constraints = obj.constraints;
+
+		// Fetch the values for each one of these
+		constraints = _.mapObject( constraints, function( isApplicable ) {
+			return isApplicable( $field );
+		} );
+
+		// Check which ones of these are not null
+		constraints = _.pick( constraints, function( value ) {
+			return null !== value;
+		} );
+
+		return constraints;
+	};
+
+	/**
+	 * Gets which jQuery objects are related to a fields constraints
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {object}  $fields  jQuery Object for the fields
+	 *
+	 * @return {object}
+	 */
+	obj.getConstraintsFields = function( $field ) {
+		var constraints = obj.getConstraintsValue( $field );
+
+		// Fetch the values for each one of these
+		constraints = _.mapObject( constraints, function( constraint ) {
+			var $constraint = null;
+			if ( ! _.isNumber( constraint ) && ! _.isBoolean( constraint ) ) {
+				$constraint = $( constraint );
+			}
+
+			return $constraint;
+		} );
+
+		// Check which ones of these are not null
+		constraints = _.pick( constraints, function( value ) {
+			return value instanceof jQuery;
+		} );
+
+		// Turn this into an proper array
+		constraints = _.values( constraints );
+
+		// Add the current field
+		constraints.unshift( $field );
+
+		// Conver to jQuery collection
+		constraints = $( constraints ).map( function () {
+			return this.get();
+		} );
+
+		return constraints;
+	};
 
 	/**
 	 * Actually does the validation for the Form
@@ -598,9 +664,12 @@ tribe.validation = {};
 	 */
 	obj.onChangeFieldRemoveError = function( event ) {
 		var $field = $( this );
+		var $relatedFields = obj.getConstraintsFields( $field );
 
-		if ( $field.hasClass( obj.selectors.error.className() ) ) {
-			$field.removeClass( obj.selectors.error.className() );
+		console.log( $relatedFields );
+
+		if ( 0 !== $relatedFields.filter( obj.selectors.error ).length ) {
+			$relatedFields.removeClass( obj.selectors.error.className() );
 		}
 	};
 
