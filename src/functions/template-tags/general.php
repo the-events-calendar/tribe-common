@@ -438,9 +438,8 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 
 		$currency_symbol = apply_filters( 'tribe_currency_symbol', $currency_symbol, $post_id );
 
-		// if no currency symbol was passed and we're not looking at a particular event,
-		// let's get the default currency symbol
-		if ( null === $currency_symbol && ! $post_id ) {
+		// if no currency symbol was passed let's get the default currency symbol
+		if ( ! $currency_symbol ) {
 			$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
 		}
 

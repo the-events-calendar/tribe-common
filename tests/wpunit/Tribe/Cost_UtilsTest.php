@@ -80,9 +80,27 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	public function maybe_format_with_currency_inputs() {
+		$post_id = wp_insert_post( [
+			'post_title' => 'Test event',
+		] );
+
 		return [
-			['20','$','postfix', '20$'],
-			['20','$','prefix', '$20'],
+			'post_id, prefix, symbol=$'         => [ $post_id, '20', 'prefix',  '$',   '$20' ],
+			'post_id, prefix, symbol=false'     => [ $post_id, '20', 'prefix',  false, '$20' ],
+			'post_id, prefix, symbol=null'      => [ $post_id, '20', 'prefix',  null,  '$20' ],
+			'post_id, prefix, symbol=0'         => [ $post_id, '20', 'prefix',  0,     '$20' ],
+			'post_id, postfix, symbol=$'        => [ $post_id, '20', 'postfix', '$',   '20$' ],
+			'post_id, postfix, symbol=false'    => [ $post_id, '20', 'postfix', false, '20$' ],
+			'post_id, postfix, symbol=null'     => [ $post_id, '20', 'postfix', null,  '20$' ],
+			'post_id, postfix, symbol=0'        => [ $post_id, '20', 'postfix', 0,     '20$' ],
+			'no post_id, prefix, symbol=$'      => [ null,     '20', 'prefix',  '$',   '$20' ],
+			'no post_id, prefix, symbol=false'  => [ null,     '20', 'prefix',  false, '$20' ],
+			'no post_id, prefix, symbol=null'   => [ null,     '20', 'prefix',  null,  '$20' ],
+			'no post_id, prefix, symbol=0'      => [ null,     '20', 'prefix',  0,     '$20' ],
+			'no post_id, postfix, symbol=$'     => [ null,     '20', 'postfix', '$',   '20$' ],
+			'no post_id, postfix, symbol=false' => [ null,     '20', 'postfix', false, '20$' ],
+			'no post_id, postfix, symbol=null'  => [ null,     '20', 'postfix', null,  '20$' ],
+			'no post_id, postfix, symbol=0'     => [ null,     '20', 'postfix', 0,     '20$' ],
 		];
 	}
 	/**
@@ -91,10 +109,10 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 * @dataProvider maybe_format_with_currency_inputs
 	 */
-	public function test_maybe_format_with_currency( $cost, $symbol, $position, $expected ) {
+	public function test_maybe_format_with_currency( $post_id, $cost, $position, $symbol, $expected ) {
 		$sut = $this->make_instance();
 
-		$this->assertEquals( $expected, $sut->maybe_format_with_currency( $cost, null, $symbol, $position ) );
+		$this->assertEquals( $expected, $sut->maybe_format_with_currency( $cost, $post_id, $symbol, $position ) );
 	}
 
 }
