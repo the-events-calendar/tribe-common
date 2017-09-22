@@ -666,8 +666,6 @@ tribe.validation = {};
 		var $field = $( this );
 		var $relatedFields = obj.getConstraintsFields( $field );
 
-		console.log( $relatedFields );
-
 		if ( 0 !== $relatedFields.filter( obj.selectors.error ).length ) {
 			$relatedFields.removeClass( obj.selectors.error.className() );
 		}
