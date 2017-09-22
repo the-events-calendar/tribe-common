@@ -335,6 +335,21 @@ tribe.validation = {};
 	};
 
 	/**
+	 * Validates if a given Section has Errors
+	 *
+	 * @since  TBD
+	 *
+	 * @param  {object}  $field  jQuery Object for the Section been validated
+	 *
+	 * @return {bool}
+	 */
+	obj.hasErrors = function( $item ) {
+		var $errors = $item.find( obj.selectors.error ).not( ':disabled' );
+
+		return 0 !== $item.length;
+	}
+
+	/**
 	 * Gets which constrains have Passed
 	 *
 	 * @since  TBD
@@ -392,7 +407,7 @@ tribe.validation = {};
 
 		$fields.each( obj.validate );
 
-		var $errors = $item.find( obj.selectors.error );
+		var $errors = $item.find( obj.selectors.error ).not( ':disabled' );
 
 		// if there are errors we show the message and bail
 		if ( 0 !== $errors.length ) {
@@ -415,7 +430,7 @@ tribe.validation = {};
 	 */
 	obj.onDisplayErrors = function( event ) {
 		var $item = $( this );
-		var $errors = $item.find( obj.selectors.error );
+		var $errors = $item.find( obj.selectors.error ).not( ':disabled' );
 		var $list = $( '<ul>' );
 		var $dismiss = $( '<span>' ).addClass( obj.selectors.noticeDismiss.className() );
 
