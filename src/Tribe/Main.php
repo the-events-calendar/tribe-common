@@ -193,6 +193,7 @@ class Tribe__Main {
 				array( 'tribe-select2', 'vendor/select2/select2.js', array( 'jquery' ) ),
 				array( 'tribe-select2-css', 'vendor/select2/select2.css' ),
 				array( 'tribe-moment', 'vendor/momentjs/moment.min.js' ),
+				array( 'tribe-utils-camelcase', 'utils-camelcase.js', array( 'underscore' ) ),
 				array( 'datatables-css', 'datatables.css' ),
 				array( 'datatables-responsive', 'vendor/datatables/extensions/Responsive/js/dataTables.responsive.js', array( 'jquery', 'datatables' ) ),
 				array( 'datatables-responsive-css', 'vendor/datatables/extensions/Responsive/css/responsive.dataTables.css' ),
@@ -218,7 +219,7 @@ class Tribe__Main {
 			$this,
 			array(
 				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ) ),
-				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore' ) ),
+				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase' ) ),
 				array( 'tribe-validation-style', 'validation.css', array() ),
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-dependency-style', 'dependency.css' ),
