@@ -5,7 +5,7 @@
  *
  * Models a close matching strategy; rougly a `==` equivalent.
  *
- * @since TBD
+ * @since 4.6
  */
 class Tribe__Duplicate__Strategy__Same
 	extends Tribe__Duplicate__Strategy__Base
@@ -18,7 +18,7 @@ class Tribe__Duplicate__Strategy__Same
 	 *
 	 * @return string
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function where( $key, $value ) {
 		/** @var wpdb $wpdb */
@@ -40,7 +40,7 @@ class Tribe__Duplicate__Strategy__Same
 	 *
 	 * @return string
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function where_custom_field( $key, $value, $table_alias ) {
 		/** @var wpdb $wpdb */

@@ -5,7 +5,7 @@
  *
  * Provides built and ready to use strategies to find duplicates.
  *
- * @since TBD
+ * @since 4.6
  */
 class Tribe__Duplicate__Strategy_Factory {
 	protected $strategy_map = array();
@@ -25,7 +25,7 @@ class Tribe__Duplicate__Strategy_Factory {
 		 * @param array                              $strategy_map An array that maps strategy slugs to strategy classes.
 		 * @param Tribe__Duplicate__Strategy_Factory $this         This factory object.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$this->strategy_map = apply_filters( 'tribe_duplicate_post_strategies', $strategy_map, $this );
 	}
@@ -37,7 +37,7 @@ class Tribe__Duplicate__Strategy_Factory {
 	 *
 	 * @return Tribe__Duplicate__Strategy__Interface|bool A built strategy or `false` if the strategy could not be built.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function make( $strategy ) {
 		/**
@@ -50,7 +50,7 @@ class Tribe__Duplicate__Strategy_Factory {
 		 * @param string                                $strategy       The requested strategy slug.
 		 * @param Tribe__Duplicate__Strategy_Factory    $this           This factory object.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$built_strategy = apply_filters( 'tribe_duplicate_post_strategy', null, $strategy, $this );
 
@@ -63,7 +63,7 @@ class Tribe__Duplicate__Strategy_Factory {
 		 *                                                              for the slug.
 		 * @param Tribe__Duplicate__Strategy_Factory    $this           This factory object.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$built_strategy = apply_filters( "tribe_duplicate_post_{$strategy}_strategy", $built_strategy, $this );
 
@@ -89,7 +89,7 @@ class Tribe__Duplicate__Strategy_Factory {
 	 *
 	 * @return array
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function get_strategy_map() {
 		return $this->strategy_map;
@@ -100,7 +100,7 @@ class Tribe__Duplicate__Strategy_Factory {
 	 *
 	 * @param array $strategy_map
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function set_strategy_map( array $strategy_map ) {
 		$this->strategy_map = $strategy_map;
