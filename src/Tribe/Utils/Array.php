@@ -141,4 +141,26 @@ class Tribe__Utils__Array {
 
 		return $filtered;
 	}
+
+	/**
+	 * Returns a list separated by the specified separator.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed  $list
+	 * @param string $sep
+	 *
+	 * @return string The list separated by the specified separator or the original list if the list is empty.
+	 */
+	public static function to_list( $list, $sep = ',' ) {
+		if ( empty( $list ) ) {
+			return $list;
+		}
+
+		if ( is_array( $list ) ) {
+			return implode( $sep, $list );
+		}
+
+		return $list;
+	}
 }
