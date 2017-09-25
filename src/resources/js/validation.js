@@ -22,7 +22,7 @@ tribe.validation = {};
 		item: '.tribe-validation',
 		fields: 'input, select, textarea',
 		submit: '.tribe-validation-submit',
-		submitButtons: 'input[type="submit"], button',
+		submitButtons: 'input[type="submit"], button[type="submit"]',
 		error: '.tribe-validation-error',
 		valid: '.tribe-validation-valid',
 		notice: '.tribe-notice-validation',
