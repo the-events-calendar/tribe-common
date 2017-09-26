@@ -16,6 +16,7 @@ vendor/*
 !vendor/select2
 !vendor/clipboard
 !vendor/composer
+!vendor/jquery-tribe-timepicker
 vendor/composer/composer/tests
 vendor/composer/composer/doc
 vendor/composer/composer/.github
