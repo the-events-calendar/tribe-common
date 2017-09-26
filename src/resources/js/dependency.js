@@ -2,12 +2,13 @@
 	'use strict';
 	var $document = $( document );
 	var selectors = {
-		dependent: '.tribe-dependent',
-		active: '.tribe-active',
-		dependency: '.tribe-dependency',
-		fields: 'input, select, textarea',
-		advanced_fields: '.select2-container'
-	};
+			dependent: '.tribe-dependent',
+			active: '.tribe-active',
+			dependency: '.tribe-dependency',
+			fields: 'input, select, textarea',
+			advanced_fields: '.select2-container',
+			linked: '.tribe-dependent-linked'
+		};
 
 	// Setup a Dependent
 	$.fn.dependency = function () {
@@ -26,9 +27,25 @@
 				var selector = '#' + $field.attr( 'id' );
 				var value = $field.val();
 				var constraint_conditions;
+
 				// We need an ID to make something depend on this
 				if ( ! selector ) {
 					return;
+				}
+
+				/**
+				 * If we're hooking to a radio, we need to make sure changing
+				 * any similarly _named_ ones trigger verify on all of them.
+				 * The base code only triggers on direct interations.
+				 *
+				 * @since 4.5.8
+				 */
+				if ( $field.is( ':radio' ) ) {
+					var $radios = $( "[name='" + $field.attr( 'name' ) + "']" );
+
+					$radios.not( selectors.linked ).on( 'change', function() {
+						$radios.trigger( 'verify.dependency' );
+					} ).addClass( selectors.linked.replace( '.', '' ) );
 				}
 
 				// Fetch dependent elements
@@ -56,10 +73,10 @@
 						return ! $.isNumeric( val );
 					},
 					'is_checked': function ( _, __, $field ) {
-						return $field.is( ':checkbox' ) ? $field.is( ':checked' ) : false;
+						return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? $field.is( ':checked' ) : false;
 					},
 					'is_not_checked': function ( _, __, $field ) {
-						return $field.is( ':checkbox' ) ? ! $field.is( ':checked' ) : false;
+						return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? ! $field.is( ':checked' ) : false;
 					}
 				};
 

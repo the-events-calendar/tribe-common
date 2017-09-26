@@ -12,6 +12,8 @@ class Tribe__Log {
 	const WARNING = 'warning';
 	const ERROR   = 'error';
 	const CLEANUP = 'tribe_common_log_cleanup';
+	const SUCCESS = 'success';
+	const COLORIZE = 'colorize';
 
 	/**
 	 * @var Tribe__Log__Admin
@@ -131,13 +133,70 @@ class Tribe__Log {
 	}
 
 	/**
-	 * Adds an entry to the log (if it is at the appropriate level, etc).
+	 * Logs a successful operation.
+	 *
+	 * @param string $entry
+	 * @param string $src
+	 */
+	public function log_success( $entry, $src ) {
+		$this->log( $entry, self::SUCCESS, $src );
+	}
+
+	/**
+	 * Logs an entry colorizing it.
+	 *
+	 * This will only apply to WP-CLI based logging.
+	 *
+	 * @param string $entry
+	 * @param string $src
+	 */
+	public function log_colorized( $entry, $src ) {
+		$this->log( $entry, self::COLORIZE, $src );
+	}
+
+	/**
+	 * Adds an entry to the log (if it is at the appropriate level, etc) and outputs information using WP-CLI if available.
 	 *
 	 * This is simply a shorthand for calling log() on the current logger.
 	 */
 	public function log( $entry, $type = self::DEBUG, $src = '' ) {
+		$original_type = $type;
+
+		// some levels are really just debug information
+		$debug_types = array( self::SUCCESS, self::COLORIZE );
+
+		if ( in_array( $type, $debug_types ) ) {
+			$type = self::DEBUG;
+		}
+
 		if ( $this->should_log( $type ) ) {
 			$this->get_current_logger()->log( $entry, $type, $src );
+		}
+
+		// Only go further if we have WP_CLI
+		if ( ! class_exists( 'WP_CLI' ) ) {
+			return false;
+		}
+
+		// We are always logging to WP-CLI if available
+		switch ( $original_type ) {
+			case self::ERROR:
+				WP_CLI::error( $entry );
+				break;
+			case self::WARNING:
+				WP_CLI::warning( $entry );
+				break;
+			case self::SUCCESS:
+				WP_CLI::success( $entry );
+				break;
+			case self::DEBUG:
+				WP_CLI::debug( $entry, $src );
+				break;
+
+			case self::COLORIZE:
+			default:
+				WP_CLI::log( WP_CLI::colorize( $entry ) );
+				break;
 		}
 	}
 

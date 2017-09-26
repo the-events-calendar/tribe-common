@@ -24,6 +24,10 @@ class Tribe__Main {
 	protected $plugin_context;
 	protected $plugin_context_class;
 	protected $doing_ajax = false;
+
+	/**
+	 * @var Tribe__Log
+	 */
 	protected $log;
 
 	/**
@@ -112,6 +116,7 @@ class Tribe__Main {
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
 		Tribe__Extension_Loader::instance();
+
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
 		 *
@@ -171,6 +176,8 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 
+		tribe( 'ajax.dropdown' );
+
 		// Starting the log manager needs to wait until after the tribe_*_option() functions have loaded
 		$this->log = new Tribe__Log();
 	}
@@ -179,7 +186,7 @@ class Tribe__Main {
 	 * Registers resources that can/should be enqueued
 	 */
 	public function load_assets() {
-		// These ones are only registred
+		// These ones are only registered
 		tribe_assets(
 			$this,
 			array(
@@ -207,6 +214,7 @@ class Tribe__Main {
 				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
 				array( 'tribe-jquery-timepicker', 'vendor/jquery-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
 				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-timepicker/jquery.timepicker.css' ),
+
 			)
 		);
 
@@ -226,7 +234,7 @@ class Tribe__Main {
 			'admin_enqueue_scripts',
 			array(
 				'priority' => 5,
-				'conditionals' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
+				'conditionals' => array( $this, 'should_load_common_admin_css' ),
 			)
 		);
 
@@ -238,7 +246,8 @@ class Tribe__Main {
 			'admin_enqueue_scripts',
 			array(
 				'priority' => 0,
-				'localize' => array(
+				'conditionals' => array( $this, 'should_load_common_admin_css' ),
+				'localize' => (object) array(
 					'name' => 'tribe_system_info',
 					'data' => array(
 						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
@@ -266,13 +275,16 @@ class Tribe__Main {
 				'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
 				'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
 			),
-			'length_menu'   => __( 'Show _MENU_ entries', 'tribe-common' ),
-			'empty_table'   => __( 'No data available in table', 'tribe-common' ),
-			'info'          => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'tribe-common' ),
-			'info_empty'    => __( 'Showing 0 to 0 of 0 entries', 'tribe-common' ),
-			'info_filtered' => __( '(filtered from _MAX_ total entries)', 'tribe-common' ),
-			'zero_records'  => __( 'No matching records found', 'tribe-common' ),
-			'search'        => __( 'Search:', 'tribe-common' ),
+			'length_menu'       => __( 'Show _MENU_ entries', 'tribe-common' ),
+			'empty_table'       => __( 'No data available in table', 'tribe-common' ),
+			'info'              => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'tribe-common' ),
+			'info_empty'        => __( 'Showing 0 to 0 of 0 entries', 'tribe-common' ),
+			'info_filtered'     => __( '(filtered from _MAX_ total entries)', 'tribe-common' ),
+			'zero_records'      => __( 'No matching records found', 'tribe-common' ),
+			'search'            => __( 'Search:', 'tribe-common' ),
+			'all_selected_text' => __( 'All items on this page were selected. ', 'tribe-common' ),
+			'select_all_link'   => __( 'Select all pages', 'tribe-common' ),
+			'clear_selection'   => __( 'Clear Selection.', 'tribe-common' ),
 			'pagination' => array(
 				'all' => __( 'All', 'tribe-common' ),
 				'next' => __( 'Next', 'tribe-common' ),
@@ -343,6 +355,32 @@ class Tribe__Main {
 		} )( document.body );
 		</script>
 		<?php
+	}
+
+	/**
+	 * Tells us if we're on an admin screen that needs the Common admin CSS.
+	 *
+	 * Currently this includes post type screens, the Plugins page, Settings pages
+	 * and tabs, Tribe App Shop page, and the Help screen.
+	 *
+	 * @since 4.5.7
+	 *
+	 * @return bool
+	 */
+	public function should_load_common_admin_css() {
+		$helper = Tribe__Admin__Helpers::instance();
+
+		// Are we on a post type screen?
+		$is_post_type = $helper->is_post_type_screen();
+
+		// Are we on the Plugins page?
+		$is_plugins = $helper->is_screen( 'plugins' );
+
+		// Are we viewing a generic Tribe screen?
+		// Includes: Events > Settings, Events > Help, App Shop page, and more.
+		$is_tribe_screen = $helper->is_screen();
+
+		return $is_post_type || $is_plugins || $is_tribe_screen;
 	}
 
 	/**
@@ -526,10 +564,15 @@ class Tribe__Main {
 		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
 		tribe_singleton( 'cron', 'Tribe__Cron', array( 'schedule' ) );
 		tribe_singleton( 'queue', 'Tribe__Queue' );
+		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', array( 'hook' ) );
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 		tribe_singleton( 'admin-notices', 'Tribe__Admin__Notices' );
 		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
 		tribe_singleton( 'cache', 'Tribe__Cache' );
-		tribe_singleton( 'plugins.api', 'Tribe__Plugins_API', array( 'hook' ) );
+		tribe_singleton( 'plugins.api', new Tribe__Plugins_API );
+		tribe_singleton( 'logger', array( $this, 'log' ) );
+		tribe_singleton( 'cost-utils', array( 'Tribe__Cost_Utils', 'instance' ) );
+		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
+		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
 	}
 }

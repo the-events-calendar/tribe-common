@@ -117,8 +117,14 @@ class Tribe__Deprecation {
 
 	/**
 	 * Triggers a deprecation notice if there is any callback hooked on a deprecated filter.
+	 *
+	 * @since 4.5.13 the filtered value is passed through unchanged
+	 *
+	 * @param mixed $value
+	 *
+	 * @return mixed
 	 */
-	public function deprecated_filter_message() {
+	public function deprecated_filter_message( $value = null ) {
 		$filter = current_filter();
 		if ( isset( $this->deprecated_filters[ $filter ] ) ) {
 			$deprecated_tag = $this->deprecated_filters[ $filter ][1];
@@ -130,12 +136,16 @@ class Tribe__Deprecation {
 		remove_filter( $deprecated_tag, array( $this, 'deprecated_filter_message' ) );
 
 		if ( has_filter( $deprecated_tag ) || doing_filter( $deprecated_tag ) ) {
+			$version = Tribe__Utils__Array::get( $this->deprecated_filters, array( $filter, 0 ), null );
+
 			_deprecated_function(
-				'The ' . $deprecated_tag . ' filter', $this->deprecated_filters[ $filter ][0], $filter
+				'The ' . $deprecated_tag . ' filter', $version, $filter
 			);
 		}
 
 		add_filter( $deprecated_tag, array( $this, 'deprecated_filter_message' ) );
+
+		return $value;
 	}
 
 	/**

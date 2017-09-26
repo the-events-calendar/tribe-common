@@ -227,6 +227,30 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected_out, $out );
 	}
 
+	public function reformat_inputs() {
+		return [
+			[ 'tomorrow 9am', 'U' ],
+			[ 'tomorrow 9am', 'Y-m-d' ],
+			[ 'tomorrow 9am', 'H:i:s' ],
+			[ 'tomorrow 9am', 'Y-m-d H:i:s' ],
+		];
+	}
+
+	/**
+	 * Test reformat
+	 *
+	 * @test
+	 * @dataProvider reformat_inputs
+	 */
+	public function test_reformat( $input, $format ) {
+		$date = new DateTime( $input );
+
+		$this->assertEquals( $date->format( $format ), Date_Utils::reformat( $input, $format ) );
+		$this->assertEquals( $date->format( 'U' ), Date_Utils::reformat( $input, 'U' ) );
+		$this->assertEquals( $date->format( $format ), Date_Utils::reformat( $date->format( 'U' ), $format ) );
+		$this->assertEquals( $date->format( 'U' ), Date_Utils::reformat( $date->format( 'U' ), 'U' ) );
+	}
+
 	public function ordinal_to_number_inputs() {
 		return [
 			[ 'first', 1 ],

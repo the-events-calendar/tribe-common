@@ -86,6 +86,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		if ( ! isset( $args['context'] ) || false !== $args['context'] ) {
 			$data->{'@context'} = 'http://schema.org';
 		}
+
 		$data->{'@type'} = $this->type;
 
 		$data->name        = esc_js( get_the_title( $post ) );
@@ -95,7 +96,21 @@ abstract class Tribe__JSON_LD__Abstract {
 			$data->image = wp_get_attachment_url( get_post_thumbnail_id( $post ) );
 		}
 
-		$data->url = esc_url_raw( get_permalink( $post ) );
+		$data->url = esc_url_raw( $this->get_link( $post ) );
+
+		$type = strtolower( esc_attr( $this->type ) );
+
+		/**
+		 * Allows the event data to be modifed by themes and other plugins.
+		 *
+		 * @example tribe_json_ld_thing_object
+		 * @example tribe_json_ld_event_object
+		 *
+		 * @param object  $data The JSON-LD object
+		 * @param array   $args The arguments used to get data
+		 * @param WP_Post $post The post object
+		 */
+		$data = apply_filters( "tribe_json_ld_{$type}_object", $data, $args, $post );
 
 		// Index by ID: this will allow filter code to identify the actual event being referred to
 		// without injecting an additional property
@@ -113,18 +128,6 @@ abstract class Tribe__JSON_LD__Abstract {
 		$type = strtolower( esc_attr( $this->type ) );
 
 		foreach ( $data as $post_id => $_data ) {
-			/**
-			 * Allows the event data to be modifed by themes and other plugins.
-			 *
-			 * @example tribe_json_ld_thing_object
-			 * @example tribe_json_ld_event_object
-			 *
-			 * @param object  $data objects representing the Google Markup for each event.
-			 * @param array   $args the arguments used to get data
-			 * @param WP_Post $post the arguments used to get data
-			 */
-			$data[ $post_id ] = apply_filters( "tribe_json_ld_{$type}_object", $_data, $args, get_post( $post_id ) );
-
 			// Register this post as done already
 			$this->register( $post_id );
 		}
@@ -173,6 +176,22 @@ abstract class Tribe__JSON_LD__Abstract {
 		$html = apply_filters( 'tribe_json_ld_markup', $html );
 
 		echo $html;
+	}
+
+	/**
+	 * Get a link to the post
+	 *
+	 * Children of this class are likely to override it with their
+	 * own functions that only work with their designated post type.
+	 *
+	 * @since 4.5.10
+	 *
+	 * @param  int|WP_Post  $post The Post Object or ID
+	 *
+	 * @return false|string Link to the post or false
+	 */
+	protected function get_link( $post ) {
+		return get_permalink( $post );
 	}
 
 	/**

@@ -49,7 +49,7 @@ return array(
     'Term_Command' => $vendorDir . '/wp-cli/entity-command/src/Term_Command.php', 
     'Term_Meta_Command' => $vendorDir . '/wp-cli/entity-command/src/Term_Meta_Command.php', 
     'Theme_Command' => $vendorDir . '/wp-cli/extension-command/src/Theme_Command.php', 
-    'Theme_Mod_command' => $vendorDir . '/wp-cli/extension-command/src/Theme_Mod_Command.php', 
+    'Theme_Mod_Command' => $vendorDir . '/wp-cli/extension-command/src/Theme_Mod_Command.php', 
     'Transient_Command' => $vendorDir . '/wp-cli/cache-command/src/Transient_Command.php', 
     'User_Command' => $vendorDir . '/wp-cli/entity-command/src/User_Command.php', 
     'User_Meta_Command' => $vendorDir . '/wp-cli/entity-command/src/User_Meta_Command.php', 

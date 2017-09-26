@@ -80,9 +80,9 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 	 **/
 	function tribe_resource_url( $resource, $echo = false, $root_dir = null, $origin = null ) {
 		$extension = pathinfo( $resource, PATHINFO_EXTENSION );
-		$resource_path = '';
+		$resource_path = $root_dir;
 
-		if ( is_null( $root_dir ) ) {
+		if ( is_null( $resource_path ) ) {
 			$resources_path = 'src/resources/';
 			switch ( $extension ) {
 				case 'css':
@@ -98,8 +98,6 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 					$resource_path = $resources_path;
 					break;
 			}
-		} else {
-			$resource_path = $root_dir;
 		}
 
 		$path = $resource_path . $resource;
@@ -110,13 +108,10 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 			$plugin_path = trailingslashit( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) );
 		}
 
-		$file = $plugin_path . $path;
+		$file = wp_normalize_path( $plugin_path . $path );
 
 		// Turn the Path into a URL
-		$url = str_replace( wp_normalize_path( WP_CONTENT_DIR ), content_url(), $file );
-
-		// Make it compatible with Windows and other OS
-		$url = str_replace( DIRECTORY_SEPARATOR, '/', $url );
+		$url = plugins_url( basename( $file ), $file );
 
 		/**
 		 * Filters the resource URL
@@ -127,7 +122,7 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		$url = apply_filters( 'tribe_resource_url', $url, $resource );
 
 		/**
-		 * Deprected the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
+		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
 		 */
 		$url = apply_filters( 'tribe_events_resource_url', $url, $resource );
 
@@ -186,14 +181,28 @@ if ( ! function_exists( 'tribe_get_datetime_format' ) ) {
 	 * @return mixed|void
 	 */
 	function tribe_get_datetime_format( $with_year = false ) {
-		$separator = (array) str_split( tribe_get_option( 'dateTimeSeparator', ' @ ' ) );
+
+		$raw_separator = tribe_get_option( 'dateTimeSeparator', ' @ ' );
+		$separator     = (array) str_split( $raw_separator );
+
+		if ( empty( $raw_separator ) ) {
+		    /**
+			 * Filterable fallback for when the dateTimeSeparator is an empty string. Defaults to a space.
+			 *
+			 * @since 4.5.6
+			 *
+			 * @param string $fallback The string to use as the fallback.
+			 * @param string $raw_separator The raw value of the dateTimeSeparator option.
+			 * @return string
+			 */
+			$separator[0] = apply_filters( 'tribe_empty_datetime_separator_fallback', ' ', $raw_separator );
+		}
 
 		$format = tribe_get_date_format( $with_year );
 		$format .= ( ! empty( $separator ) ? '\\' : '' ) . implode( '\\', $separator );
 		$format .= get_option( 'time_format' );
 
 		return apply_filters( 'tribe_datetime_format', $format );
-
 	}
 }//end if
 
@@ -425,20 +434,21 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 	 * @return string
 	 */
 	function tribe_format_currency( $cost, $post_id = null, $currency_symbol = null, $reverse_position = null ) {
-
 		$post_id = Tribe__Main::post_id_helper( $post_id );
 
 		$currency_symbol = apply_filters( 'tribe_currency_symbol', $currency_symbol, $post_id );
 
-		// if no currency symbol was passed, or we're not looking at a particular event,
+		// if no currency symbol was passed and we're not looking at a particular event,
 		// let's get the default currency symbol
-		if ( ! $post_id || ! $currency_symbol ) {
+		if ( null === $currency_symbol && ! $post_id ) {
 			$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
 		}
 
 		$reverse_position = apply_filters( 'tribe_reverse_currency_position', $reverse_position, $post_id );
 
-		if ( ! $reverse_position || ! $post_id ) {
+		// if no currency position was passed and we're not looking at a particular event,
+		// let's get the default currency position
+		if ( null === $reverse_position && ! $post_id ) {
 			$reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
 		}
 
@@ -553,6 +563,8 @@ function tribe_asset_enqueue_group( $group ) {
 /**
  * Function to include more the one asset, based on `tribe_asset`
  *
+ * @since 4.3
+ *
  * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
  * @param  array    $assets     {
  *    Indexed array, don't use any associative key.
@@ -562,7 +574,7 @@ function tribe_asset_enqueue_group( $group ) {
  *    @type  string   $file       Which file will be loaded, either CSS or JS
  *    @type  array    $deps       (optional) Dependencies
  * }
- * @param  string   $action     A WordPress Action, needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
+ * @param  string   $action     A WordPress hook that will automatically enqueue this asset once fired
  * @param  array    $arguments  Look at `Tribe__Assets::register()` for more info
  *
  * @return array             Which Assets were registered

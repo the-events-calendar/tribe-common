@@ -443,7 +443,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$domain = self::$domain;
 
 			if ( empty( $domain ) ) {
-				$domain = $_SERVER['SERVER_NAME'];
+				if ( isset( $_SERVER['SERVER_NAME'] ) ) {
+				    $domain = $_SERVER['SERVER_NAME'];
+				}
 
 				if ( is_multisite() ) {
 					// For multisite, return the network-level siteurl
@@ -913,7 +915,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$response['message'] = $this->get_api_message( $plugin_info );
 				$response['api_invalid'] = true;
 			} else {
-				$key_type = 'site';
+				$key_type = 'local';
 
 				if ( $network ) {
 					$key_type = 'network';
@@ -1460,7 +1462,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$network_option = (boolean) $validated_field->field['network_option'];
 			}
 
-			$key_type = 'site';
+			$key_type = 'local';
 
 			if ( $network_option ) {
 				$key_type = 'network';

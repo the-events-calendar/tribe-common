@@ -22,9 +22,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		public static function constructCountries( $postId = '', $useDefault = true ) {
 
 			if ( tribe_get_option( 'tribeEventsCountries' ) != '' ) {
-				$countries = array(
-					'' => esc_html__( 'Select a Country:', 'tribe-common' ),
-				);
+				$countries = array();
 
 				$country_rows = explode( "\n", tribe_get_option( 'tribeEventsCountries' ) );
 				foreach ( $country_rows as $crow ) {
@@ -42,7 +40,6 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 
 			if ( ! isset( $countries ) || ! is_array( $countries ) || count( $countries ) == 1 ) {
 				$countries = array(
-					''   => esc_html__( 'Select a Country:', 'tribe-common' ),
 					'US' => esc_html__( 'United States', 'tribe-common' ),
 					'AF' => esc_html__( 'Afghanistan', 'tribe-common' ),
 					'AL' => esc_html__( 'Albania', 'tribe-common' ),
@@ -118,7 +115,6 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 					'FJ' => esc_html__( 'Fiji', 'tribe-common' ),
 					'FI' => esc_html__( 'Finland', 'tribe-common' ),
 					'FR' => esc_html__( 'France', 'tribe-common' ),
-					'FX' => esc_html__( 'France, Metropolitan', 'tribe-common' ),
 					'GF' => esc_html__( 'French Guiana', 'tribe-common' ),
 					'PF' => esc_html__( 'French Polynesia', 'tribe-common' ),
 					'TF' => esc_html__( 'French Southern Territories', 'tribe-common' ),
@@ -285,6 +281,15 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 					'ZW' => esc_html__( 'Zimbabwe', 'tribe-common' ),
 				);
 			}
+
+			// Perform a natural sort: this maintains the key -> index associations but ensures the countries
+			// are in the expected order, even once translated
+			natsort( $countries );
+
+			// Placeholder option ('Select a Country') first by default
+			$select_country = array( '' => esc_html__( 'Select a Country:', 'tribe-common' ) );
+			$countries = $select_country + $countries;
+
 			if ( ( $postId || $useDefault ) ) {
 				$countryValue = get_post_meta( $postId, '_EventCountry', true );
 				if ( $countryValue ) {
@@ -295,8 +300,8 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 				if ( $defaultCountry && $defaultCountry[0] != '' ) {
 					$selectCountry = array_shift( $countries );
 					asort( $countries );
-					$countries = array( $defaultCountry[0] => __( $defaultCountry[1], 'tribe-common' ) ) + $countries;
-					$countries = array( '' => __( $selectCountry, 'tribe-common' ) ) + $countries;
+					$countries = array( $defaultCountry[0] => $defaultCountry[1] ) + $countries;
+					$countries = array( '' => $selectCountry ) + $countries;
 					array_unique( $countries );
 				}
 
@@ -312,7 +317,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		 * @return array The states array.
 		 */
 		public static function loadStates() {
-			return array(
+			$states = array(
 				'AL' => esc_html__( 'Alabama', 'tribe-common' ),
 				'AK' => esc_html__( 'Alaska', 'tribe-common' ),
 				'AZ' => esc_html__( 'Arizona', 'tribe-common' ),
@@ -365,6 +370,15 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 				'WI' => esc_html__( 'Wisconsin', 'tribe-common' ),
 				'WY' => esc_html__( 'Wyoming', 'tribe-common' ),
 			);
+
+			/**
+			 * Enables filtering the list of states in the USA available to venues.
+			 *
+			 * @since 4.5.12
+			 *
+			 * @param array $states The list of states.
+			 */
+			return apply_filters( 'tribe_get_state_options', $states );
 		}
 
 		/**
