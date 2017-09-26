@@ -5,7 +5,7 @@
 = [4.6.1] TBD =
 
 * Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
-* Tweak - Remove explicit width styles from app shop "buy now" buttons to better accommodate longer language strings (thanks @abrain on GitHub for submitting this fix!) [88868]
+* Tweak - Removed explicit width styles from app shop "buy now" buttons to better accommodate longer language strings (thanks @abrain on GitHub for submitting this fix!) [88868]
 * Language - Improvement to composition of various strings, to aid translatability (props: @ramiy) [88982]
 
 = [4.6] 2017-09-25 =
