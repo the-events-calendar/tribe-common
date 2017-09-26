@@ -4,6 +4,7 @@
 
 = [4.5.14] TBD =
 
+* Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
 * Language - Improvement to composition of various strings, to aid translatability (props: @ramiy) [88982]
 
 = [4.5.13] 2017-09-20 =
