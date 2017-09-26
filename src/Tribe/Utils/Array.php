@@ -161,4 +161,26 @@ class Tribe__Utils__Array {
 			? $haystack[ reset( $common ) ]
 			: $default;
 	}
+
+	/**
+	 * Returns a list separated by the specified separator.
+	 *
+	 * @since 4.6
+	 *
+	 * @param mixed  $list
+	 * @param string $sep
+	 *
+	 * @return string The list separated by the specified separator or the original list if the list is empty.
+	 */
+	public static function to_list( $list, $sep = ',' ) {
+		if ( empty( $list ) ) {
+			return $list;
+		}
+
+		if ( is_array( $list ) ) {
+			return implode( $sep, $list );
+		}
+
+		return $list;
+	}
 }

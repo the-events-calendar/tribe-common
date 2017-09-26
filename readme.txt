@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.6] 2017-09-25 =
+
+* Feature - Add support for create, update, and delete REST endpoints
+* Language - 1 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.5.13] 2017-09-20 =
 
 * Feature - Remove 'France, Metropolitan' option from country list to prevent issues with Google Maps API (thanks @varesanodotfr for pointing this out) [78023]

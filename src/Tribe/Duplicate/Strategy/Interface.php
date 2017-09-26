@@ -5,7 +5,7 @@
  *
  * The API implemented by each duplicate finding strategy.
  *
- * @since TBD
+ * @since 4.6
  */
 interface Tribe__Duplicate__Strategy__Interface {
 	/**

@@ -5,7 +5,7 @@
  *
  * Provides the functionality to find an existing post starting from the post data.
  *
- * @since TBD
+ * @since 4.6
  */
 class Tribe__Duplicate__Post {
 	const AND_OPERATOR = 'AND';
@@ -75,7 +75,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @param Tribe__Duplicate__Strategy_Factory|null $factory
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function __construct( Tribe__Duplicate__Strategy_Factory $factory = null ) {
 		$this->factory = null !== $factory ? $factory : tribe( 'post-duplicate.strategy-factory' );
@@ -89,7 +89,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @param array $post_fields
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function use_post_fields( array $post_fields ) {
 		if ( empty( $post_fields ) ) {
@@ -109,7 +109,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @return array
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function cast_to_strategy( array $fields ) {
 		$cast = array();
@@ -140,7 +140,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @return bool|int `false` if a duplicate was not found, the post ID of the duplicate if found.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function find_for( array $postarr ) {
 		if ( empty( $this->post_fields ) && empty( $this->custom_fields ) ) {
@@ -193,7 +193,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @return bool|array `false` if a duplicate was not found, an array of the duplicate post IDs if any were found.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function find_all_for( array $postarr ) {
 		if ( empty( $this->post_fields ) && empty( $this->custom_fields ) ) {
@@ -246,7 +246,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @param array $custom_fields
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function use_custom_fields( array $custom_fields ) {
 		$cast = $this->cast_to_strategy( $custom_fields );
@@ -258,7 +258,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @return string
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function get_where_operator() {
 		return $this->where_operator;
@@ -269,7 +269,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @param string $where_operator
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function set_where_operator( $where_operator ) {
 		$this->where_operator = self::AND_OPERATOR === strtoupper( $where_operator )
@@ -285,7 +285,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @return bool|array An array of prepared queries or `false` on failure.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function prepare_queries( array $postarr ) {
 		/** @var wpdb $wpdb */
@@ -329,7 +329,7 @@ class Tribe__Duplicate__Post {
 		 * @param array  $where_frags The WHERE components for this duplicate search query
 		 * @param string $post_type   The post type that's being used for this duplicate search query.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$join_limit = apply_filters( 'tribe_duplicate_post_join_limit', $this->join_limit, $where_frags, $this->post_type );
 
@@ -365,7 +365,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @return string
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function get_post_type() {
 		return $this->post_type;
@@ -376,7 +376,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @param string $post_type
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function set_post_type( $post_type ) {
 		$this->post_type = $post_type;
@@ -389,7 +389,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @param int $join_limit
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function set_join_limit( $join_limit ) {
 		$this->join_limit = empty( $join_limit )
@@ -402,7 +402,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @return int
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function get_join_limit() {
 		return $this->join_limit;

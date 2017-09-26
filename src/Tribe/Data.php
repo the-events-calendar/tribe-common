@@ -227,7 +227,7 @@ class Tribe__Data implements ArrayAccess, Iterator {
 	 *
 	 * @return array
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function to_array() {
 		return $this->get_data();

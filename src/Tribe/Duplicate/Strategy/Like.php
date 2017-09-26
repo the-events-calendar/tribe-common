@@ -5,7 +5,7 @@
  *
  * Models a loose similarity strategy, punctuation is removed from string and words can be in any order.
  *
- * @since TBD
+ * @since 4.6
  */
 class Tribe__Duplicate__Strategy__Like
 	extends Tribe__Duplicate__Strategy__Base
@@ -19,7 +19,7 @@ class Tribe__Duplicate__Strategy__Like
 	 *
 	 * @return string
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function where( $key, $value ) {
 		/** @var wpdb $wpdb */
@@ -47,7 +47,7 @@ class Tribe__Duplicate__Strategy__Like
 	 *
 	 * @return array
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function get_where_frags( $value ) {
 		$snaked = preg_replace( '/[^a-z\d-]+/i', '_', $value );
@@ -65,7 +65,7 @@ class Tribe__Duplicate__Strategy__Like
 	 *
 	 * @return string
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function where_custom_field( $key, $value, $table_alias ) {
 		/** @var wpdb $wpdb */

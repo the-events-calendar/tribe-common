@@ -11,15 +11,19 @@ msgstr ""
 "Language: pl\n"
 "Project-Id-Version: Tribe Common\n"
 
-#: src/Tribe/Main.php:267
-msgid "Clear Selection."
+#: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:57
+msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
 #: src/Tribe/Main.php:266
-msgid "Select all pages"
+msgid "Clear Selection."
 msgstr ""
 
 #: src/Tribe/Main.php:265
+msgid "Select all pages"
+msgstr ""
+
+#: src/Tribe/Main.php:264
 msgid "All items on this page were selected. "
 msgstr ""
 
@@ -182,7 +186,7 @@ msgstr ""
 msgid "The date year"
 msgstr ""
 
-#: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:33
+#: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:34
 msgid "A sorted array of all the numeric values for the cost"
 msgstr ""
 
@@ -376,63 +380,63 @@ msgstr ""
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:276
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:275
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:270
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:269
+#: src/Tribe/Main.php:268
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:263
+#: src/Tribe/Main.php:262
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:261
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:260
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:259
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:258
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:258
+#: src/Tribe/Main.php:257
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:255
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:254
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:246
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:245
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:245 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:244 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -2207,7 +2211,7 @@ msgstr ""
 msgid "License Key"
 msgstr "Klucz licencyjny"
 
-#: src/Tribe/Main.php:264
+#: src/Tribe/Main.php:263
 msgid "Search:"
 msgstr ""
 
@@ -2219,19 +2223,19 @@ msgstr "Ustawienia"
 msgid "Network"
 msgstr "Sieć"
 
-#: src/Tribe/Main.php:289
+#: src/Tribe/Main.php:288
 msgid "Done"
 msgstr "Gotowe"
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:287
 msgid "Today"
 msgstr "Dzisiaj"
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:286
 msgid "Prev"
 msgstr "Poprzedni"
 
-#: src/Tribe/Main.php:270 src/Tribe/Main.php:286
+#: src/Tribe/Main.php:269 src/Tribe/Main.php:285
 msgid "Next"
 msgstr "Następny"
 
