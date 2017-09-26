@@ -23,19 +23,10 @@ class ComposerStaticInit80f0d9365d292d168ac3c1612dc82d26
         ),
     );
 
-    public static $classMap = array (
-        'tad_DI52_Container' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/Container.php',
-        'tad_DI52_ServiceProvider' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/ServiceProvider.php',
-        'tad_DI52_ServiceProviderInterface' => __DIR__ . '/..' . '/lucatume/di52/src/tad/DI52/ServiceProviderInterface.php',
-        'xrstf\\Composer52\\AutoloadGenerator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-        'xrstf\\Composer52\\Generator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixesPsr0 = ComposerStaticInit80f0d9365d292d168ac3c1612dc82d26::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit80f0d9365d292d168ac3c1612dc82d26::$classMap;
 
         }, null, ClassLoader::class);
     }
