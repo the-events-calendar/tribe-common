@@ -243,7 +243,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider reformat_inputs
 	 */
 	public function test_reformat( $input, $format ) {
-		$date = new DateTime( $input );
+		$date = new \DateTime( $input );
 
 		$this->assertEquals( $date->format( $format ), Date_Utils::reformat( $input, $format ) );
 		$this->assertEquals( $date->format( 'U' ), Date_Utils::reformat( $input, 'U' ) );

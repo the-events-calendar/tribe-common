@@ -43,7 +43,8 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'data'       => [ 'foo' => 'bar' ],
 			'status'     => Worker::$done,
 			'batch_size' => 10,
-			'priority' => 10,
+			'priority'   => 10,
+			'group'      => null,
 		] ) );
 		$this->assertEquals( $expected, $worker->read() );
 	}
@@ -61,10 +62,11 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'targets'    => [ 'a', 'b', 'c', 'd' ],
 			'remaining'  => [],
 			'callback'   => 'trailingslashit',
-			'data'       => '',
+			'data'       => null,
 			'status'     => Worker::$done,
 			'batch_size' => 10,
 			'priority'   => 10,
+			'group'      => null,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 	}
@@ -83,10 +85,11 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'targets'    => [ 'a', 'b', 'c', 'd' ],
 			'remaining'  => [ 'c', 'd' ],
 			'callback'   => 'trailingslashit',
-			'data'       => '',
+			'data'       => null,
 			'status'     => Worker::$working,
 			'batch_size' => 2,
 			'priority'   => 10,
+			'group'      => null,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 
@@ -96,10 +99,11 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'targets'    => [ 'a', 'b', 'c', 'd' ],
 			'remaining'  => [],
 			'callback'   => 'trailingslashit',
-			'data'       => '',
+			'data'       => null,
 			'status'     => Worker::$done,
 			'batch_size' => 2,
 			'priority'   => 10,
+			'group'      => null,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 	}
@@ -110,7 +114,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_move_failed_at_the_end_of_the_queue() {
 		$targets = [ 'a', 'b', 'c', 'd', 'e' ];
-		$worker = new Worker( $targets, $targets, array( __CLASS__, 'callback_one' ) );
+		$worker  = new Worker( $targets, $targets, array( __CLASS__, 'callback_one' ) );
 		$worker->set_batch_size( 3 );
 
 		$worker->work();
@@ -119,10 +123,11 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'targets'    => $targets,
 			'remaining'  => [ 'd', 'e', 'c' ],
 			'callback'   => array( __CLASS__, 'callback_one' ),
-			'data'       => '',
+			'data'       => null,
 			'status'     => Worker::$working,
 			'batch_size' => 3,
 			'priority'   => 10,
+			'group'      => null,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 
@@ -132,10 +137,11 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'targets'    => $targets,
 			'remaining'  => [ 'c' ],
 			'callback'   => array( __CLASS__, 'callback_one' ),
-			'data'       => '',
+			'data'       => null,
 			'status'     => Worker::$working,
 			'batch_size' => 3,
 			'priority'   => 10,
+			'group'      => null,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 	}
@@ -146,7 +152,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_move_exception_raising_at_the_end_of_the_queue() {
 		$targets = [ 'a', 'b', 'c', 'd', 'e' ];
-		$worker = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
+		$worker  = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
 		$worker->set_batch_size( 3 );
 
 		$worker->work();
@@ -155,10 +161,11 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'targets'    => $targets,
 			'remaining'  => [ 'd', 'e', 'c' ],
 			'callback'   => array( __CLASS__, 'callback_two' ),
-			'data'       => '',
+			'data'       => null,
 			'status'     => Worker::$working,
 			'batch_size' => 3,
 			'priority'   => 10,
+			'group'      => null,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 
@@ -168,10 +175,11 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 			'targets'    => $targets,
 			'remaining'  => [ 'c' ],
 			'callback'   => array( __CLASS__, 'callback_two' ),
-			'data'       => '',
+			'data'       => null,
 			'status'     => Worker::$working,
 			'batch_size' => 3,
 			'priority'   => 10,
+			'group'      => null,
 		];
 		$this->assertEquals( $expected, $worker->to_array() );
 	}
@@ -182,7 +190,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_set_the_default_priority_of_a_work_to_10() {
 		$targets = [ 'a', 'b', 'c', 'd', 'e' ];
-		$worker = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
+		$worker  = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
 
 		$this->assertEquals( 10, $worker->get_priority() );
 
@@ -196,7 +204,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 		$this->expectException( \InvalidArgumentException::class );
 
 		$targets = [ 'a', 'b', 'c', 'd', 'e' ];
-		$worker = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
+		$worker  = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
 		$worker->set_batch_size( 3 );
 		$worker->set_priority( 'foo' );
 	}
@@ -207,7 +215,7 @@ class WorkerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_allow_setting_the_priority_for_the_work() {
 		$targets = [ 'a', 'b', 'c', 'd', 'e' ];
-		$worker = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
+		$worker  = new Worker( $targets, $targets, array( __CLASS__, 'callback_two' ) );
 		$worker->set_priority( '23' );
 
 		$this->assertEquals( 23, $worker->get_priority() );
