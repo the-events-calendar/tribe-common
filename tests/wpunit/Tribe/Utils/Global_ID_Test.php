@@ -65,7 +65,7 @@ class Global_ID_Test extends \Codeception\TestCase\WPTestCase {
 		$global_id = new Global_ID;
 
 		$global_id->type( 'facebook' );
-		$this->assertEquals( $global_id->type(), 'facebook', 'Test "facebook" as a global ID type' );
+		$this->assertEquals( 'facebook', $global_id->type(), 'Test "facebook" as a global ID type' );
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Global_ID_Test extends \Codeception\TestCase\WPTestCase {
 		$global_id = new Global_ID;
 
 		$global_id->type( 'meetup' );
-		$this->assertEquals( $global_id->type(), 'meetup', 'Test "meetup" as a global ID type' );
+		$this->assertEquals( 'meetup', $global_id->type(), 'Test "meetup" as a global ID type' );
 	}
 
 	/**
@@ -101,10 +101,10 @@ class Global_ID_Test extends \Codeception\TestCase\WPTestCase {
 		$global_id = new Global_ID;
 
 		$global_id->type( 'meetup' );
-		$this->assertEquals( $global_id->origin(), 'meetup.com', 'Check if an Meetup Type ID will return origin as "meetup.com"' );
+		$this->assertEquals( 'meetup.com', $global_id->origin(), 'Check if an Meetup Type ID will return origin as "meetup.com"' );
 
 		$global_id->type( 'facebook' );
-		$this->assertEquals( $global_id->origin(), 'facebook.com', 'Check if an Facebook Type ID will return origin as "facebook.com"' );
+		$this->assertEquals( 'facebook.com', $global_id->origin(), 'Check if an Facebook Type ID will return origin as "facebook.com"' );
 	}
 
 	/**
@@ -117,13 +117,13 @@ class Global_ID_Test extends \Codeception\TestCase\WPTestCase {
 		$global_id->type( 'url' );
 
 		$global_id->origin( 'http://example.com' );
-		$this->assertEquals( $global_id->origin(), 'example.com', 'Check if the origin get setup correctly for host' );
+		$this->assertEquals( 'example.com', $global_id->origin(), 'Check if the origin get setup correctly for host' );
 
 		$global_id->origin( 'http://example.com/my/path' );
-		$this->assertEquals( $global_id->origin(), 'example.com/my/path', 'Check if the origin get setup correctly for host + path' );
+		$this->assertEquals( 'example.com/my/path', $global_id->origin(), 'Check if the origin get setup correctly for host + path' );
 
 		$global_id->origin( 'http://example.com/my/path?one=1&two=2' );
-		$this->assertEquals( $global_id->origin(), 'example.com/my/path?one=1&two=2', 'Check if the origin get setup correctly for host + path + query' );
+		$this->assertEquals( 'example.com/my/path?one=1&two=2', $global_id->origin(), 'Check if the origin get setup correctly for host + path + query' );
 	}
 
 	/**
@@ -134,7 +134,7 @@ class Global_ID_Test extends \Codeception\TestCase\WPTestCase {
 	public function verify_facebook_id_generation() {
 		$global_id = new Global_ID;
 		$global_id->type( 'facebook' );
-		$this->assertEquals( $global_id->generate( [ 'id' => '1234567890' ] ), 'facebook.com?id=1234567890', 'Check if facebook id gets set correctly' );
+		$this->assertEquals( 'facebook.com?id=1234567890', $global_id->generate( [ 'id' => '1234567890' ] ), 'Check if facebook id gets set correctly' );
 	}
 
 	/**
@@ -147,7 +147,7 @@ class Global_ID_Test extends \Codeception\TestCase\WPTestCase {
 		$global_id->type( 'url' );
 		$global_id->origin( 'http://example.com' );
 
-		$this->assertEquals( $global_id->generate( [ 'id' => '1234567890' ] ), 'example.com?id=1234567890', 'Check if url id gets set correctly' );
+		$this->assertEquals( 'example.com?id=1234567890', $global_id->generate( [ 'id' => '1234567890' ] ), 'Check if url id gets set correctly' );
 	}
 
 }

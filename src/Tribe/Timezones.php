@@ -172,7 +172,7 @@ class Tribe__Timezones {
 	}
 
 	/**
-	 * Accepts a unix timestamp and adjusts it so that when it is used to consitute
+	 * Accepts a unix timestamp and adjusts it so that when it is used to constitute
 	 * a new datetime string, that string reflects the designated timezone.
 	 *
 	 * @param string $unix_timestamp
@@ -278,7 +278,8 @@ class Tribe__Timezones {
 
 		$new_datetime = date_create( $datetime, $local );
 
-		if ( $new_datetime && $new_datetime->setTimezone( $utc ) ) {
+		if ( $new_datetime ) {
+			$new_datetime->setTimezone( $utc );
 			$format = ! empty( $format ) ? $format : Tribe__Date_Utils::DBDATETIMEFORMAT;
 
 			return $new_datetime->format( $format );
@@ -405,6 +406,84 @@ class Tribe__Timezones {
 		}
 
 		return $timezone;
+	}
+
+	/**
+	 * Localizes a date or timestamp using WordPress timezone and returns it in the specified format.
+	 *
+	 * @param string     $format   The format the date shouuld be formatted to.
+	 * @param string|int $date     The date UNIX timestamp or `strtotime` parseable string.
+	 * @param string     $timezone An optional timezone string identifying the timezone the date shoudl be localized
+	 *                             to; defaults to the WordPress installation timezone (if available) or to the system
+	 *                             timezone.
+	 *
+	 * @return string|bool The parsed date in the specified format and localized to the system or specified
+	 *                     timezone, or `false` if the specified date is not a valid date string or timestamp
+	 *                     or the specified timezone is not a valid timezone string.
+	 */
+	public static function localize_date( $format = null, $date = null, $timezone = null ) {
+		if ( empty( $timezone ) ) {
+			$timezone = self::generate_timezone_string_from_utc_offset( self::wp_timezone_string() );
+		}
+
+		try {
+			$timezone_object = new DateTimeZone( $timezone );
+
+			if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
+				$date = new DateTime( "@{$date}" );
+			} else {
+				$date = new DateTime( $date );
+			}
+		} catch ( Exception $e ) {
+			return false;
+		}
+
+		$date->setTimezone( $timezone_object );
+
+		return $date->format( $format );
+	}
+
+	/**
+	 * Converts a date string or timestamp to a destination timezone.
+	 *
+	 * @param string|int $date          Either a string parseable by the `strtotime` function or a UNIX timestamp.
+	 * @param string     $from_timezone The timezone of the source date.
+	 * @param string     $to_timezone   The timezone the destination date should use.
+	 * @param string     $format        The format that should be used for the destination date.
+	 *
+	 * @return string The formatted and converted date.
+	 */
+	public static function convert_date_from_timezone( $date, $from_timezone, $to_timezone, $format ) {
+		if ( ! Tribe__Date_Utils::is_timestamp( $date ) ) {
+			$from_date = new DateTime( $date, new DateTimeZone( $from_timezone ) );
+			$timestamp = $from_date->format( 'U' );
+		} else {
+			$timestamp = $date;
+		}
+
+		$to_date = new DateTime( "@{$timestamp}", new DateTimeZone( $to_timezone ) );
+
+		return $to_date->format( $format );
+	}
+
+	/**
+	 * Whether the candidate timezone is a valid PHP timezone or a supported UTC offset.
+	 *
+	 * @param string $candidate
+	 *
+	 * @return bool
+	 */
+	public static function is_valid_timezone( $candidate ) {
+		if ( self::is_utc_offset( $candidate ) ) {
+			return true;
+		}
+		try {
+			new DateTimeZone( $candidate );
+		} catch ( Exception $e ) {
+			return false;
+		}
+
+		return true;
 	}
 }
 

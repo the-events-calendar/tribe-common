@@ -2,10 +2,15 @@
 
 == Changelog ==
 
-= [4.5.14] TBD =
+= [4.6.1] TBD =
 
 * Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
 * Language - Improvement to composition of various strings, to aid translatability (props: @ramiy) [88982]
+
+= [4.6] 2017-09-25 =
+
+* Feature - Add support for create, update, and delete REST endpoints
+* Language - 1 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.5.13] 2017-09-20 =
 
