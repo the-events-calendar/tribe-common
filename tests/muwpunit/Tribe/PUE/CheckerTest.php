@@ -69,9 +69,9 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should mark plugin as network activated if network key and local key are not set
+	 * it should not mark plugin as network activated if network key and local key are not set
 	 */
-	public function it_should_mark_plugin_as_network_activated_if_network_key_and_local_key_are_not_set() {
+	public function it_should_not_mark_plugin_as_network_activated_if_network_key_and_local_key_are_not_set() {
 		$user = $this->factory()->user->create();
 		$blog = $this->factory()->blog->create( [ 'domain' => 'sub1', 'path' => '/', 'user' => $user ] );
 
@@ -88,7 +88,7 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 
 		$is_network_licensed_on_subsite = $sut->is_network_licensed();
 
-		$this->assertTrue( $is_network_licensed_on_subsite );
+		$this->assertFalse( $is_network_licensed_on_subsite );
 	}
 
 	/**

@@ -150,20 +150,21 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Class constructor.
 		 *
-		 * @param string $pue_update_url Deprecated. The URL of the plugin's metadata file.
-		 * @param string $slug           The plugin's 'slug'.
-		 * @param array  $options {
-		 *        Contains any options that need to be set in the class initialization for construct.
+		 * @param string $pue_update_url  Deprecated. The URL of the plugin's metadata file.
+		 * @param string $slug            The plugin's 'slug'.
+		 * @param array  $options         {
+		 *                                Contains any options that need to be set in the class initialization for construct.
 		 *
-		 *        @type integer $check_period     How often to check for updates (in hours). Defaults to checking every
+		 * @type integer $check_period    How often to check for updates (in hours). Defaults to checking every
 		 *                                        12 hours. Set to 0 to disable automatic update checks.
-		 *        @type string  $pue_option_name  Where to store book-keeping info about update checks. Defaults to
+		 * @type string  $pue_option_name Where to store book-keeping info about update checks. Defaults to
 		 *                                        'external_updates-$slug'.
-		 *        @type string  $apikey           Used to authorize download updates from developer server
-		 *        @type string  $context          Defaults to 'component' which is expected for plugins (or themes).
+		 * @type string  $apikey          Used to authorize download updates from developer server
+		 * @type string  $context         Defaults to 'component' which is expected for plugins (or themes).
 		 *                                        If set to 'service' it will not hook into WP update checks.
 		 * }
-		 * @param string $plugin_file    fully qualified path to the main plugin file.
+		 *
+		 * @param string $plugin_file     fully qualified path to the main plugin file.
 		 */
 		public function __construct( $pue_update_url, $slug = '', $options = array(), $plugin_file = '' ) {
 			$this->set_slug( $slug );
@@ -443,7 +444,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$domain = self::$domain;
 
 			if ( empty( $domain ) ) {
-				$domain = $_SERVER['SERVER_NAME'];
+				if ( isset( $_SERVER['SERVER_NAME'] ) ) {
+					$domain = $_SERVER['SERVER_NAME'];
+				}
 
 				if ( is_multisite() ) {
 					// For multisite, return the network-level siteurl
@@ -523,10 +526,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				);
 			} elseif ( $this->should_show_overrideable_license() ) {
 				$to_insert[ $this->pue_install_key . '-state' ] = array(
-					'type'  => 'html',
-					'label' => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
+					'type'             => 'html',
+					'label'            => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
 					'label_attributes' => array( 'style' => 'width:auto;' ),
-					'html'  => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
+					'html'             => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
 				);
 
 				$override_id = $this->pue_install_key . '-override';
@@ -557,14 +560,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				);
 			} else {
 				$to_insert[ $this->pue_install_key . '-state' ] = array(
-					'type'  => 'html',
-					'label' => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
+					'type'             => 'html',
+					'label'            => sprintf( esc_attr__( 'License Key Status:', 'tribe-common' ) ),
 					'label_attributes' => array( 'style' => 'width:auto;' ),
-					'html'  => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
+					'html'             => sprintf( '<p>%s</p>', $this->get_network_license_state_string() ),
 				);
 			}
 
-			$fields    = self::array_insert_after_key( 'tribe-form-content-start', $fields, $to_insert );
+			$fields = self::array_insert_after_key( 'tribe-form-content-start', $fields, $to_insert );
 
 			return $fields;
 		}
@@ -577,7 +580,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function do_license_key_javascript() {
 			?>
 			<script>
-				jQuery(document).ready(function ($) {
+				jQuery( document ).ready( function( $ ) {
 					$( '.tribe-field-license_key' ).each( function() {
 						var $el = $( this );
 						var $field = $el.find( 'input' );
@@ -587,44 +590,50 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						}
 					} );
 
-					$('#tribe-field-<?php echo esc_attr( $this->pue_install_key ); ?>').change(function () {
+					$( '#tribe-field-<?php echo esc_attr( $this->pue_install_key ); ?>' ).change( function() {
 						<?php echo sanitize_html_class( $this->pue_install_key ); ?>_validateKey();
-					});
+					} );
 					<?php echo sanitize_html_class( $this->pue_install_key ); ?>_validateKey();
-				});
+				} );
 
 				function <?php echo sanitize_html_class( $this->pue_install_key ); ?>_validateKey() {
-					var this_id       = '#tribe-field-<?php echo esc_attr( $this->pue_install_key ); ?>';
-					var $validity_msg = jQuery(this_id + ' .key-validity');
+					var this_id = '#tribe-field-<?php echo esc_attr( $this->pue_install_key ); ?>';
+					var $validity_msg = jQuery( this_id + ' .key-validity' );
 
-					if (jQuery(this_id + ' input').val() != '') {
+					if ( jQuery( this_id + ' input' ).val() != '' ) {
 						jQuery( this_id + ' .license-test-results' ).show();
-						jQuery(this_id + ' .tooltip').hide();
-						jQuery(this_id + ' .ajax-loading-license').show();
+						jQuery( this_id + ' .tooltip' ).hide();
+						jQuery( this_id + ' .ajax-loading-license' ).show();
 						$validity_msg.hide();
 
 						// Strip whitespace from key
-						var <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key = jQuery(this_id + ' input').val().replace(/^\s+|\s+$/g, "");
-						jQuery(this_id + ' input').val(<?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key);
+						var <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key = jQuery( this_id + ' input' ).val().replace( /^\s+|\s+$/g, "" );
+						jQuery( this_id + ' input' ).val( <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key );
 
 						var data = {
 							action: 'pue-validate-key_<?php echo esc_attr( $this->get_slug() ); ?>',
 							key: <?php echo sanitize_html_class( $this->pue_install_key ); ?>_license_key,
 							_wpnonce: '<?php echo esc_attr( wp_create_nonce( 'pue-validate-key_' . $this->get_slug() ) ); ?>'
 						};
-						jQuery.post(ajaxurl, data, function (response) {
-							var data          = jQuery.parseJSON(response);
+						jQuery.post( ajaxurl, data, function( response ) {
+							var data = jQuery.parseJSON( response );
 
-							jQuery(this_id + ' .ajax-loading-license').hide();
+							jQuery( this_id + ' .ajax-loading-license' ).hide();
 							$validity_msg.show();
-							$validity_msg.html(data.message);
+							$validity_msg.html( data.message );
 
 							switch ( data.status ) {
-								case 1: $validity_msg.addClass( 'valid-key' ); break;
-								case 2: $validity_msg.addClass( 'valid-key service-msg' ); break;
-								default: $validity_msg.addClass( 'invalid-key' ); break;
+								case 1:
+									$validity_msg.addClass( 'valid-key' );
+									break;
+								case 2:
+									$validity_msg.addClass( 'valid-key service-msg' );
+									break;
+								default:
+									$validity_msg.addClass( 'invalid-key' );
+									break;
 							}
-						});
+						} );
 					}
 				}
 			</script>
@@ -744,10 +753,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$stats['totals'] = array(
 				'all_post_types'   => (int) $wpdb->get_var( "SELECT COUNT(*) FROM `{$wpdb->posts}`" ),
-				'events'           => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_events' ) ),
-				'venues'           => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_venue' ) ),
-				'organizers'       => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_organizer' ) ),
-				'event_categories' => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->term_taxonomy}` WHERE taxonomy = %s", 'tribe_events_cat' ) ),
+				'events'           => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s",
+					'tribe_events' ) ),
+				'venues'           => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s",
+					'tribe_venue' ) ),
+				'organizers'       => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s",
+					'tribe_organizer' ) ),
+				'event_categories' => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->term_taxonomy}` WHERE taxonomy = %s",
+					'tribe_events_cat' ) ),
 			);
 
 			self::$stats_full = $stats;
@@ -883,7 +896,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$response['status'] = 0;
 
 			if ( ! $key ) {
-				$response['message'] = sprintf( esc_html__( 'Hmmm... something\'s wrong with this validator. Please contact %ssupport%s.', 'tribe-common' ), '<a href="https://m.tri.be/1u">', '</a>' );
+				$response['message'] = sprintf( esc_html__( 'Hmmm... something\'s wrong with this validator. Please contact %ssupport%s.',
+					'tribe-common' ), '<a href="https://m.tri.be/1u">', '</a>' );
+
 				return $response;
 			}
 
@@ -896,7 +911,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// rather than license_key_status() as at this stage invalid or missing keys should
 			// not result in admin notices being generated
 			$plugin_info = $this->request_info( $query_args );
-			$expiration = isset( $plugin_info->expiration ) ? $plugin_info->expiration : __( 'unknown date', 'tribe-common' );
+			$expiration  = isset( $plugin_info->expiration ) ? $plugin_info->expiration : __( 'unknown date', 'tribe-common' );
 
 			$pue_notices = Tribe__Main::instance()->pue_notices();
 			$plugin_name = $this->get_plugin_name();
@@ -904,16 +919,16 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( empty( $plugin_info ) ) {
 				$response['message'] = __( 'Sorry, key validation server is not available.', 'tribe-common' );
 			} elseif ( isset( $plugin_info->api_expired ) && 1 === (int) $plugin_info->api_expired ) {
-				$response['message'] = $this->get_license_expired_message();
+				$response['message']     = $this->get_license_expired_message();
 				$response['api_expired'] = true;
 			} elseif ( isset( $plugin_info->api_upgrade ) && 1 === (int) $plugin_info->api_upgrade ) {
-				$response['message'] = $this->get_api_message( $plugin_info );
+				$response['message']     = $this->get_api_message( $plugin_info );
 				$response['api_upgrade'] = true;
 			} elseif ( isset( $plugin_info->api_invalid ) && 1 === (int) $plugin_info->api_invalid ) {
-				$response['message'] = $this->get_api_message( $plugin_info );
+				$response['message']     = $this->get_api_message( $plugin_info );
 				$response['api_invalid'] = true;
 			} else {
-				$key_type = 'site';
+				$key_type = 'local';
 
 				if ( $network ) {
 					$key_type = 'network';
@@ -927,7 +942,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					// Set the key
 					$this->update_key( $query_args['key'], $key_type );
 
-					$default_success_msg = esc_html( sprintf( __( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ), $expiration ) );
+					$default_success_msg = esc_html( sprintf( __( 'Thanks for setting up a valid key. It will expire on %s', 'tribe-common' ),
+						$expiration ) );
 
 					//Set SysInfo Key on Tec.com After Successful Validation of License
 					$optin_key = get_option( 'tribe_systeminfo_optin' );
@@ -954,10 +970,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 		public function get_license_expired_message() {
 			return '<a href="https://m.tri.be/195y" target="_blank" class="button button-primary">' .
-				__( 'Renew Your License Now', 'tribe-common' ) .
-				'<span class="screen-reader-text">' .
-				__( ' (opens in a new window)', 'tribe-common' ) .
-				'</span></a>';
+			       __( 'Renew Your License Now', 'tribe-common' ) .
+			       '<span class="screen-reader-text">' .
+			       __( ' (opens in a new window)', 'tribe-common' ) .
+			       '</span></a>';
 		}
 
 		/**
@@ -992,7 +1008,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private function get_api_message( $info ) {
 			// this default message should never show, but is here as a fallback just in case.
 			$message = sprintf(
-				esc_html__( 'There is an update for %s. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
+				esc_html__( 'There is an update for %s. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.',
+					'tribe-common' ),
 				$this->get_plugin_name(),
 				'<a href="https://theeventscalendar.com/license-keys/">',
 				'</a>'
@@ -1006,7 +1023,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$message = str_replace( '%plugin_slug%', $this->get_slug(), $message );
 			$message = str_replace( '%update_url%', $this->get_pue_update_url() . '/', $message );
 			$message = str_replace( '%version%', $info->version, $message );
-			$message = str_replace( '%changelog%', '<a class="thickbox" title="' . $this->get_plugin_name() . '" href="plugin-install.php?tab=plugin-information&plugin=' . $this->get_slug() . '&TB_iframe=true&width=640&height=808">what\'s new</a>', $message );
+			$message = str_replace( '%changelog%',
+				'<a class="thickbox" title="' . $this->get_plugin_name() . '" href="plugin-install.php?tab=plugin-information&plugin=' . $this->get_slug() . '&TB_iframe=true&width=640&height=808">what\'s new</a>',
+				$message );
 
 			return $message;
 		}
@@ -1024,7 +1043,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$local_key   = $this->get_key( 'local' );
 
 				// Check whether the network is licensed and NOT overridden by local license
-				if ( ( $network_key && ( empty( $local_key ) ) || $local_key === $network_key ) ) {
+				if (
+					( ! ( empty( $network_key ) && empty( $local_key ) ) ) &&
+					(
+						( ! empty( $network_key ) && empty( $local_key ) )
+						|| $local_key === $network_key
+					)
+				) {
 					$is_network_licensed = true;
 				}
 			}
@@ -1038,7 +1063,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string
 		 */
 		public function get_license_option_key() {
-		    return $this->pue_install_key;
+			return $this->pue_install_key;
 		}
 
 		private function get_api_update_message() {
@@ -1049,7 +1074,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			$message = sprintf(
-				esc_html__( 'There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features.', 'tribe-common' ),
+				esc_html__( 'There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features.',
+					'tribe-common' ),
 				$this->get_plugin_name(),
 				'<a href="https://theeventscalendar.com/license-keys/">',
 				'</a>'
@@ -1068,9 +1094,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return;
 			}
 
-			$state = $this->get_state();
-			$messages = array();
-			$plugin_updates = get_plugin_updates();
+			$state            = $this->get_state();
+			$messages         = array();
+			$plugin_updates   = get_plugin_updates();
 			$update_available = isset( $plugin_updates[ $this->plugin_file ] );
 
 			// Check to see if there is an licensing error or update message we should show
@@ -1085,7 +1111,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 				$update_now_link = sprintf(
 					' <a href="%1$s" class="update-link">%2$s</a>',
-					wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $this->plugin_file, 'upgrade-plugin_' . $this->plugin_file ),
+					wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $this->plugin_file,
+						'upgrade-plugin_' . $this->plugin_file ),
 					$update_now
 				);
 
@@ -1215,7 +1242,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * admin environment.
 		 *
 		 * @uses wp_remote_get()
-		 * @see Tribe__PUE__Checker::license_key_status()
+		 * @see  Tribe__PUE__Checker::license_key_status()
 		 *
 		 * @param array $query_args Additional query arguments to append to the request. Optional.
 		 *
@@ -1311,8 +1338,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			// admin display for if the update check reveals that there is a new version but the API key isn't valid.
 			if ( isset( $plugin_info->api_invalid ) ) {
-				$plugin_info = Tribe__PUE__Utility::from_plugin_info( $plugin_info );
+				$plugin_info                = Tribe__PUE__Utility::from_plugin_info( $plugin_info );
 				$plugin_info->license_error = $this->get_api_message( $plugin_info );
+
 				return $plugin_info;
 			}
 
@@ -1348,7 +1376,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function get_installed_version() {
 			if ( function_exists( 'get_plugins' ) ) {
 				$all_plugins = get_plugins();
-				if ( array_key_exists( $this->get_plugin_file(), $all_plugins ) && array_key_exists( 'Version', $all_plugins[ $this->get_plugin_file() ] ) ) {
+				if ( array_key_exists( $this->get_plugin_file(), $all_plugins ) && array_key_exists( 'Version',
+						$all_plugins[ $this->get_plugin_file() ] ) ) {
 					return $all_plugins[ $this->get_plugin_file() ]['Version'];
 				}
 			}
@@ -1460,7 +1489,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$network_option = (boolean) $validated_field->field['network_option'];
 			}
 
-			$key_type = 'site';
+			$key_type = 'local';
 
 			if ( $network_option ) {
 				$key_type = 'network';
@@ -1574,7 +1603,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {
 				$position     = array_search( $key, array_keys( $source_array ), true ) + 1;
-				$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
+				$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null,
+						true );
 			} else {
 				// If no key is found, then add it to the end of the array.
 				$source_array += $insert_array;

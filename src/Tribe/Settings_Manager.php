@@ -86,7 +86,7 @@ class Tribe__Settings_Manager {
 		$options = self::get_options();
 
 		$option = $default;
-		if ( isset( $options[ $option_name ] ) ) {
+		if ( array_key_exists( $option_name, $options ) ) {
 			$option = $options[ $option_name ];
 		} elseif ( is_multisite() && isset( self::$tribe_events_mu_defaults ) && is_array( self::$tribe_events_mu_defaults ) && in_array( $option_name, array_keys( self::$tribe_events_mu_defaults ) ) ) {
 			$option = self::$tribe_events_mu_defaults[ $option_name ];

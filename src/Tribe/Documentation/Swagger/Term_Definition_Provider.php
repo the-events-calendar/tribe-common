@@ -20,7 +20,7 @@ class Tribe__Documentation__Swagger__Term_Definition_Provider
 			'type'       => 'object',
 			'properties' => array(
 				'id' => array(
-					'type' => 'int',
+					'type' => 'integer',
 					'description' => __( 'The WordPress term ID', 'tribe-common' ),
 				),
 				'name' => array(
@@ -40,16 +40,21 @@ class Tribe__Documentation__Swagger__Term_Definition_Provider
 					'description' => __( 'The term description', 'tribe-common' ),
 				),
 				'parent' => array(
-					'type' => 'int',
+					'type' => 'integer',
 					'description' => __( 'The term parent term if any', 'tribe-common' ),
 				),
 				'count' => array(
-					'type' => 'int',
+					'type' => 'integer',
 					'description' => __( 'The number of posts associated with the term', 'tribe-common' ),
 				),
-				'link' => array(
+				'url' => array(
 					'type' => 'string',
 					'description' => __( 'The URL to the term archive page', 'tribe-common' ),
+				),
+				'urls' => array(
+					'type' => 'array',
+					'items' => array( 'type' => 'string' ),
+					'description' => __( 'A list of links to the term own, archive and parent REST URL', 'tribe-common' ),
 				),
 			),
 		);

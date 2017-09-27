@@ -57,4 +57,33 @@ interface Tribe__Validator__Interface {
 	 * @return string
 	 */
 	public function trim( $value );
+
+	/**
+	 * Whether the value(s) all map to existing post tags.
+	 *
+	 * @param mixed $tag
+	 *
+	 * @return bool
+	 */
+	public function is_post_tag( $tag );
+
+	/**
+	 * Whether the term exists and is a term of the specified taxonomy.
+	 *
+	 * @param mixed  $term Either a single term `term_id` or `slug` or an array of
+	 *                     `term_id`s and `slug`s
+	 * @param string $taxonomy
+	 *
+	 * @return bool
+	 */
+	public function is_term_of_taxonomy( $term, $taxonomy );
+
+	/**
+	 * Whether the provided value points to an existing attachment ID or an existing image URL.
+	 *
+	 * @param int|string $image
+	 *
+	 * @return mixed
+	 */
+	public function is_image( $image );
 }
