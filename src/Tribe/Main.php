@@ -237,7 +237,8 @@ class Tribe__Main {
 			array( 'tribe-clipboard' ),
 			'admin_enqueue_scripts',
 			array(
-				'localize' => (object) array(
+				'conditionals' => array( $this, 'should_load_common_admin_css' ),
+				'localize'     => (object) array(
 					'name' => 'tribe_system_info',
 					'data' => array(
 						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
