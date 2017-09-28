@@ -216,8 +216,8 @@ class Tribe__Assets {
 	public static function maybe_get_min_file( $url ) {
 		$urls = array();
 		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
-		$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
-		$wp_content_url = set_url_scheme( WP_CONTENT_URL );
+		$wp_plugin_url = set_url_scheme( plugins_url() );
+		$wp_content_url = set_url_scheme( content_url() );
 
 		if ( 0 === strpos( $url, $wpmu_plugin_url ) ) {
 			// URL inside WPMU plugin dir.
