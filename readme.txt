@@ -6,6 +6,7 @@
 
 * Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
 * Fix - Added support within Tribe__Assets for when someone filters plugins_url() (Thank you @boonebgorges for the pull request!) [89228]
+* Fix - Improved performance of building the country list [68472]
 * Tweak - Removed explicit width styles from app shop "buy now" buttons to better accommodate longer language strings (thanks @abrain on GitHub for submitting this fix!) [88868]
 * Language - Improvement to composition of various strings, to aid translatability (props: @ramiy) [88982]
 
