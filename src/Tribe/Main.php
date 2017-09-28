@@ -535,6 +535,7 @@ class Tribe__Main {
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
 		tribe_singleton( 'cache', 'Tribe__Cache' );
+		tribe_singleton( 'languages.locations', 'Tribe__Languages__Locations' );
 		tribe_singleton( 'plugins.api', new Tribe__Plugins_API );
 		tribe_singleton( 'logger', array( $this, 'log' ) );
 		tribe_singleton( 'cost-utils', array( 'Tribe__Cost_Utils', 'instance' ) );

@@ -41,7 +41,6 @@ class Tribe__Cache implements ArrayAccess {
 			$group = 'tribe-events';
 		}
 
-
 		return wp_cache_set( $key, $value, $group, $expiration );
 	}
 
@@ -58,15 +57,27 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string $id
-	 * @param string $expiration_trigger
+	 * Get cached data. Optionally set data if not previously set.
+	 *
+	 * @param string       $id                 The key for the cached value.
+	 * @param string       $expiration_trigger Optional. Hook to trigger cache invalidation.
+	 * @param string|array $callback_if_empty  Optional. Sets the cache value to the return of this callback if no value was already set.
+	 * @param mixed        $callback_args      Optional. Args passed to callback.
+	 * @param int          $expiration         Optional. Value of expiration if we have to set the cache value.
 	 *
 	 * @return mixed
 	 */
-	public function get( $id, $expiration_trigger = '' ) {
+	public function get( $id, $expiration_trigger = '', $callback_if_empty = null, $callback_args = array(), $expiration = 0 ) {
 		$group = in_array( $id, $this->non_persistent_keys ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		$value = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
 
-		return wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
+		if ( false === $value && null !== $callback_if_empty ) {
+			// Data not in cache.
+			$value = call_user_func_array( $callback_if_empty, $callback_args );
+			$this->set( $id, $value, $expiration, $expiration_trigger );
+		}
+
+		return $value;
 	}
 
 	/**
