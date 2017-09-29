@@ -39,7 +39,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 			}
 
 			if ( ! isset( $countries ) || ! is_array( $countries ) || count( $countries ) == 1 ) {
-				$countries = tribe( 'languages.locations' )->countries();
+				$countries = tribe( 'languages.locations' )->get_countries();
 			}
 
 			// Perform a natural sort: this maintains the key -> index associations but ensures the countries
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		 * @return array The states array.
 		 */
 		public static function loadStates() {
-			$states = tribe( 'languages.locations' )->us_states();
+			$states = tribe( 'languages.locations' )->get_us_states();
 
 			/**
 			 * Enables filtering the list of states in the USA available to venues.

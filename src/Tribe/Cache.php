@@ -59,21 +59,35 @@ class Tribe__Cache implements ArrayAccess {
 	/**
 	 * Get cached data. Optionally set data if not previously set.
 	 *
-	 * @param string       $id                 The key for the cached value.
-	 * @param string       $expiration_trigger Optional. Hook to trigger cache invalidation.
-	 * @param string|array $callback_if_empty  Optional. Sets the cache value to the return of this callback if no value was already set.
-	 * @param mixed        $callback_args      Optional. Args passed to callback.
-	 * @param int          $expiration         Optional. Value of expiration if we have to set the cache value.
+	 * Note: When a default value or callback is specified, this value gets set in the cache.
+	 *
+	 * @param string $id                 The key for the cached value.
+	 * @param string $expiration_trigger Optional. Hook to trigger cache invalidation.
+	 * @param mixed  $default            Optional. A default value or callback that returns a default value.
+	 * @param int    $expiration         Optional. When the default value expires, if it gets set.
+	 * @param mixed  $args               Optional. Args passed to callback.
 	 *
 	 * @return mixed
 	 */
-	public function get( $id, $expiration_trigger = '', $callback_if_empty = null, $callback_args = array(), $expiration = 0 ) {
+	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = array() ) {
 		$group = in_array( $id, $this->non_persistent_keys ) ? 'tribe-events-non-persistent' : 'tribe-events';
 		$value = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
 
-		if ( false === $value && null !== $callback_if_empty ) {
-			// Data not in cache.
-			$value = call_user_func_array( $callback_if_empty, $callback_args );
+		// Value found.
+		if ( false !== $value ) {
+			return $value;
+		}
+
+		if ( is_callable( $default ) ) {
+			// A callback has been specified.
+			$value = call_user_func_array( $default, $args );
+		} else {
+			// Default is a value.
+			$value = $default;
+		}
+
+		// No need to set a cache value to false since non-existent values return false.
+		if ( false !== $value ) {
 			$this->set( $id, $value, $expiration, $expiration_trigger );
 		}
 

@@ -22,7 +22,7 @@ class Tribe__Languages__Locations {
 	 *      @type string $country_code Country name.
 	 * }
 	 */
-	public function countries() {
+	public function get_countries() {
 		return tribe( 'cache' )->get( 'tribe_country_list', '', array( $this, 'build_country_array' ) );
 	}
 
@@ -37,7 +37,7 @@ class Tribe__Languages__Locations {
 	 *      @type string $country_code Country name.
 	 * }
 	 */
-	public function us_states() {
+	public function get_us_states() {
 		return tribe( 'cache' )->get( 'tribe_us_states_list', '', array( $this, 'build_us_states_array' ) );
 	}
 
