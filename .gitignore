@@ -10,6 +10,7 @@ tests/_output/*
 vendor/*
 !vendor/jquery
 !vendor/select2
+!vendor/momentjs
 !vendor/clipboard
 !vendor/composer
 !vendor/jquery-tribe-timepicker
