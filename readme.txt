@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.6.1] TBD =
+= [4.6.1] 2017-10-04 =
 
 * Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
 * Fix - Added support within Tribe__Assets for when someone filters plugins_url() (Thank you @boonebgorges for the pull request!) [89228]
