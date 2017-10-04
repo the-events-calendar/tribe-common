@@ -11,6 +11,7 @@
 * Tweak - Removed explicit width styles from app shop "buy now" buttons to better accommodate longer language strings (thanks @abrain on GitHub for submitting this fix!) [88868]
 * Tweak - Implemented a re-initializing of Select2 inputs on use of a browser's "Back" button to prevent some UI bugs, e.g. with such inputs' placeholder attributes not being populated (props @uwefunk!) [74553]
 * Language - Improvement to composition of various strings, to aid translatability (props: @ramiy) [88982]
+* Language - 3 new strings added, 331 updated, 1 fuzzied, and 2 obsoleted
 
 = [4.6] 2017-09-25 =
 
