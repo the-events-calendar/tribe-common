@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.6.2] TBD =
+
+* 
+
 = [4.6.1] 2017-10-04 =
 
 * Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
