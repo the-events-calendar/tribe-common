@@ -65,7 +65,12 @@ class Tribe__Image__Uploader {
 			return false;
 		}
 
-		$contents = @file_get_contents( $file_url );
+		try {
+			$contents = @file_get_contents( $file_url );
+		} catch ( Exception $e ) {
+			return false;
+		}
+
 		if ( false === $contents ) {
 			return false;
 		}
@@ -95,6 +100,9 @@ class Tribe__Image__Uploader {
 		);
 
 		$id = wp_insert_attachment( $attachment, $upload['file'] );
+
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
 		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $upload['file'] ) );
 		update_post_meta( $id, '_tribe_importer_original_url', $file_url );
 

@@ -2,6 +2,22 @@
 
 == Changelog ==
 
+= [4.6.1] 2017-10-04 =
+
+* Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
+* Fix - Added support within Tribe__Assets for when someone filters plugins_url() (Thank you @boonebgorges for the pull request!) [89228]
+* Fix - Improved performance of retrieving the country and US States lists [68472]
+* Tweak - Limited the loading of several Tribe Common scripts and stylesheets to only load where needed within the wp-admin (props: @traildamage ) [75031]
+* Tweak - Removed explicit width styles from app shop "buy now" buttons to better accommodate longer language strings (thanks @abrain on GitHub for submitting this fix!) [88868]
+* Tweak - Implemented a re-initializing of Select2 inputs on use of a browser's "Back" button to prevent some UI bugs, e.g. with such inputs' placeholder attributes not being populated (props @uwefunk!) [74553]
+* Language - Improvement to composition of various strings, to aid translatability (props: @ramiy) [88982]
+* Language - 3 new strings added, 331 updated, 1 fuzzied, and 2 obsoleted
+
+= [4.6] 2017-09-25 =
+
+* Feature - Add support for create, update, and delete REST endpoints
+* Language - 1 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.5.13] 2017-09-20 =
 
 * Feature - Remove 'France, Metropolitan' option from country list to prevent issues with Google Maps API (thanks @varesanodotfr for pointing this out) [78023]

@@ -1,0 +1,103 @@
+#trap-wrap {
+    margin-right: 20px;
+}
+
+#trap-wrap .full-width {
+    width: 100%;
+}
+
+#trap-wrap .medium-height {
+    height: 30em;
+}
+
+#trap-wrap .hidden {
+    display: none;
+}
+
+#trap-wrap .margin{
+    margin-bottom: 1em;
+}
+
+#trap-response, #trap-documentation {
+    background-color: #303030;
+    font-size: 120%;
+    overflow: scroll;
+    resize: both;
+}
+
+#trap-response .response-header {
+    width: 100%;
+    text-align: center;
+    line-height: 2em;
+    font-size: 150%
+}
+
+#trap-response .response-header.red {
+    color: white;
+    background-color: indianred;
+}
+
+#trap-response .response-header.orange {
+    color: white;
+    background-color: orange;
+}
+
+#trap-response .response-header.green {
+    color: white;
+    background-color: darkseagreen;
+}
+
+#trap-response .response-header.white {
+    color: darkblue;
+    background-color: ivory;
+}
+
+/**
+Renderjson styles
+See: https://caldwell.github.io/renderjson/
+ */
+
+#trap-wrap .renderjson {
+    padding: 1em;
+}
+
+#trap-wrap .renderjson a {
+    text-decoration: none;
+}
+
+#trap-wrap .renderjson .disclosure {
+    color: crimson;
+    font-size: 150%;
+}
+
+#trap-wrap .renderjson .syntax {
+    color: grey;
+}
+
+#trap-wrap .renderjson .string {
+    color: red;
+}
+
+#trap-wrap .renderjson .number {
+    color: cyan;
+}
+
+#trap-wrap .renderjson .boolean {
+    color: plum;
+}
+
+#trap-wrap .renderjson .key {
+    color: lightblue;
+}
+
+#trap-wrap .renderjson .keyword {
+    color: lightgoldenrodyellow;
+}
+
+#trap-wrap .renderjson .object.syntax {
+    color: lightseagreen;
+}
+
+#trap-wrap .renderjson .array.syntax {
+    color: lightsalmon;
+}

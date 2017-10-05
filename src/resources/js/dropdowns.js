@@ -517,4 +517,10 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	$( function() {
 		$( obj.selector.dropdown ).tribe_dropdowns();
 	} );
+
+	// Addresses some problems with Select2 inputs not being initialized when using a browser's "Back" button.  
+	$( window ).on( 'unload', function() {
+		$( obj.selector.dropdown ).tribe_dropdowns();
+	});
+
 } )( jQuery, tribe_dropdowns );
