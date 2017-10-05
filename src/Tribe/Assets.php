@@ -101,7 +101,12 @@ class Tribe__Assets {
 		$enqueue = array();
 
 		foreach ( $assets as $asset ) {
-			$instersect = array_intersect( $groups, $asset->groups );
+			if ( empty( $asset->groups ) ) {
+				continue;
+			}
+
+			$instersect = array_intersect( (array) $groups, $asset->groups );
+
 			if ( empty( $instersect ) ) {
 				continue;
 			}
