@@ -231,7 +231,6 @@ class Tribe__Main {
 			array(
 				'conditionals' => array( $this, 'should_load_common_admin_css' ),
 				'priority' => 5,
-				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
 			)
 		);
 
@@ -242,9 +241,8 @@ class Tribe__Main {
 			array( 'tribe-clipboard' ),
 			'admin_enqueue_scripts',
 			array(
-				'priority'     => 0,
-				'conditionals' => array( $this, 'should_load_common_admin_css' ),
-				'localize'     => (object) array(
+				'priority' => 0,
+				'localize' => (object) array(
 					'name' => 'tribe_system_info',
 					'data' => array(
 						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
