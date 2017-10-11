@@ -4,7 +4,7 @@
 
 = [4.6.2] TBD =
 
-* 
+* Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918] 
 
 = [4.6.1] 2017-10-04 =
 
