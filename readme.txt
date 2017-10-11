@@ -4,7 +4,7 @@
 
 = [4.6.2] TBD =
 
-* 
+* Fix - Added safety checks to reduce the potential for errors stemming from our logging facilities (shout out to Brandon Stiner and Russell Todd for highlighting some remaining issues here) [90436, 90544]
 
 = [4.6.1] 2017-10-04 =
 
