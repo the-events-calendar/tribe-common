@@ -128,8 +128,8 @@ class Tribe__Cost_Utils {
 		// be sure to account for european formats in decimals, and thousands separators
 		if ( is_numeric( str_replace( $this->get_separators(), '', $cost ) ) ) {
 			$reverse_position = null;
-			// Sometimes currency_position gets passed as an empty string, hence the checking for empty() as well here.
-			if ( null !== $currency_position && ! empty( $currency_position ) ) {
+			// currency_position often gets passed as null or an empty string.
+			if ( ! empty( $currency_position ) ) {
 				$reverse_position = 'prefix' === $currency_position ? false : true;
 			}
 
