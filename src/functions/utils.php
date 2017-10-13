@@ -336,10 +336,6 @@ if ( ! function_exists( 'tribe_is_wpml_active' ) ) {
 	 * @return boolean
 	 */
 	function tribe_is_wpml_active() {
-		if ( class_exists( 'SitePress' ) && defined( 'ICL_PLUGIN_PATH' ) ) {
-			return true;
-		}
-
-		return false;
+		return ( class_exists( 'SitePress' ) && defined( 'ICL_PLUGIN_PATH' );
 	}
 }
