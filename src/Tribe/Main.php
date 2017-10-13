@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.5.13';
+	const VERSION             = '4.6.1';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -231,7 +231,6 @@ class Tribe__Main {
 			array(
 				'conditionals' => array( $this, 'should_load_common_admin_css' ),
 				'priority' => 5,
-				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
 			)
 		);
 
@@ -554,7 +553,11 @@ class Tribe__Main {
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
 		tribe_singleton( 'cache', 'Tribe__Cache' );
+		tribe_singleton( 'languages.locations', 'Tribe__Languages__Locations' );
 		tribe_singleton( 'plugins.api', new Tribe__Plugins_API );
 		tribe_singleton( 'logger', array( $this, 'log' ) );
+		tribe_singleton( 'cost-utils', array( 'Tribe__Cost_Utils', 'instance' ) );
+		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
+		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
 	}
 }

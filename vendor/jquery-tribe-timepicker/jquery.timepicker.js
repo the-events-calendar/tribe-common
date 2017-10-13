@@ -39,13 +39,13 @@
 
 				// pick up settings from data attributes
 				var attributeOptions = [];
-				for (var key in $.fn.timepicker.defaults) {
+				for (var key in $.fn.tribeTimepicker.defaults) {
 					if (self.data(key))  {
 						attributeOptions[key] = self.data(key);
 					}
 				}
 
-				var settings = $.extend({}, $.fn.timepicker.defaults, attributeOptions, options);
+				var settings = $.extend({}, $.fn.tribeTimepicker.defaults, attributeOptions, options);
 
 				if (settings.lang) {
 					_lang = $.extend(_lang, settings.lang);
@@ -1179,7 +1179,7 @@
 	}
 
 	// Plugin entry
-	$.fn.timepicker = function(method)
+	$.fn.tribeTimepicker = function(method)
 	{
 		if (!this.length) return this;
 		if (methods[method]) {
@@ -1193,7 +1193,7 @@
 		else { $.error("Method "+ method + " does not exist on jQuery.timepicker"); }
 	};
 	// Global defaults
-	$.fn.timepicker.defaults = {
+	$.fn.tribeTimepicker.defaults = {
 		appendTo: 'body',
 		className: null,
 		closeOnWindowScroll: false,

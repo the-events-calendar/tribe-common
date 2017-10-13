@@ -38,6 +38,9 @@ tribe_auto_sysinfo.ajax = {
 	 * Initialize system info opt in copy
 	 */
 	my.init_copy = function () {
+		if ( 'undefined' === typeof tribe_system_info ) {
+			return;
+		}
 
 		var clipboard = new Clipboard( '.system-info-copy-btn' );
 		var button_icon = '<span class="dashicons dashicons-clipboard license-btn"></span>';
@@ -69,6 +72,9 @@ tribe_auto_sysinfo.ajax = {
 	 * Initialize system info opt in
 	 */
 	my.init_ajax = function () {
+		if ( 'undefined' === typeof tribe_system_info ) {
+			return;
+		}
 
 		this.$system_info_opt_in     = $( "#tribe_auto_sysinfo_opt_in" );
 		this.$system_info_opt_in_msg = $( ".tribe-sysinfo-optin-msg" );

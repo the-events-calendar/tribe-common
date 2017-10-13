@@ -101,7 +101,12 @@ class Tribe__Assets {
 		$enqueue = array();
 
 		foreach ( $assets as $asset ) {
-			$instersect = array_intersect( $groups, $asset->groups );
+			if ( empty( $asset->groups ) ) {
+				continue;
+			}
+
+			$instersect = array_intersect( (array) $groups, $asset->groups );
+
 			if ( empty( $instersect ) ) {
 				continue;
 			}
@@ -239,6 +244,7 @@ class Tribe__Assets {
 		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
 		$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
 		$wp_content_url = set_url_scheme( WP_CONTENT_URL );
+		$plugins_url = plugins_url();
 
 		if ( 0 === strpos( $url, $wpmu_plugin_url ) ) {
 			// URL inside WPMU plugin dir.
@@ -252,6 +258,9 @@ class Tribe__Assets {
 			// URL inside WP content dir.
 			$base_dir = wp_normalize_path( WP_CONTENT_DIR );
 			$base_url = $wp_content_url;
+		} elseif ( 0 === strpos( $url, $plugins_url ) ) {
+			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_url = $plugins_url;
 		} else {
 			// Resource needs to be inside wp-content or a plugins dir.
 			return false;
