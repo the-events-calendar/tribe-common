@@ -141,12 +141,19 @@ tribe.validation = {};
 
 		// If it's not Numeric we treat it like a Selector
 		if ( ! $.isNumeric( constraint ) ) {
-			$constraint = $( constraint ).not( ':disabled' );
+			$constraint = $( constraint );
 
-			// Check if we got a valid selector
+			// Check if we got a valid selector before checking Disabled
 			if ( ! $constraint.length ) {
 				// Throws a warning so it's easy to spot on development and support
-				console.warning( 'Tribe Validation:', 'Invalid selector for', $field, selector );
+				console.warn( 'Tribe Validation:', 'Invalid selector for', $field, constraint );
+				return condition;
+			}
+
+			$constraint = $constraint.not( ':disabled' );
+
+			// Verify only for active fields
+			if ( ! $constraint.length ) {
 				return condition;
 			}
 
