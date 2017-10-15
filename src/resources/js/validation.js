@@ -109,8 +109,64 @@ tribe.validation = {};
 			value = moment( value, format ).format( 'X' );
 
 			return value;
+		},
+		default: function( value, $constraint, $field ) {
+			if ( $.isNumeric( value ) ) {
+				value = parseInt( value, 10 );
+			}
+
+			return value;
 		}
 	};
+
+	/**
+	 * Parses the Condition for all the types of conditional and returns a
+	 * better state of Value and Contraint based on the rules for each
+	 *
+	 * @since  TBD
+	 *
+	 * @type   {function}
+	 *
+	 * @return {object}
+	 */
+	obj.parseConditon = function( conditional, value, constraint, $field ) {
+		var type = $field.data( 'validationType' );
+		var $constraint = null;
+		var condition = { value: value, constraint: constraint };
+
+		// When we don't have type we assume default
+		if ( ! type && ! _.isFunction( obj.parseType[ type ] ) ) {
+			type = 'default';
+		}
+
+		// If it's not Numeric we treat it like a Selector
+		if ( ! $.isNumeric( constraint ) ) {
+			$constraint = $( constraint );
+
+			// Check if we got a valid selector before checking Disabled
+			if ( ! $constraint.length ) {
+				// Throws a warning so it's easy to spot on development and support
+				console.warn( 'Tribe Validation:', 'Invalid selector for', $field, constraint );
+				return condition;
+			}
+
+			$constraint = $constraint.not( ':disabled' );
+
+			// Verify only for active fields
+			if ( ! $constraint.length ) {
+				return condition;
+			}
+
+			constraint = $constraint.val();
+		}
+
+		// Applies the type of validation
+		condition.constraint = obj.parseType[ type ]( constraint, $constraint, $field );
+		condition.value = obj.parseType[ type ]( value, $constraint, $field );
+
+		return condition;
+	};
+
 
 	/**
 	 * Object containing all the constraints for the Fields
@@ -204,44 +260,6 @@ tribe.validation = {};
 			return value;
 		}
 	}
-
-	/**
-	 * Parses the Condition for all the types of conditional and returns a
-	 * better state of Value and Contraint based on the rules for each
-	 *
-	 * @since  TBD
-	 *
-	 * @type   {function}
-	 *
-	 * @return {object}
-	 */
-	obj.parseConditon = function( conditional, value, constraint, $field ) {
-		var type = $field.data( 'validationType' );
-		var $constraint = null;
-		var condition = { value: value, constraint: constraint };
-
-		// If it's not Numeric we treat it like a Selector
-		if ( ! _.isNumber( constraint ) ) {
-			$constraint = $( constraint );
-
-			// Check if we got a valid selector
-			if ( ! $constraint.length ) {
-				// Throws a warning so it's easy to spot on development and support
-				console.warning( 'Tribe Validation:', 'Invalid selector for', $field, selector );
-				return condition;
-			}
-
-			constraint = $constraint.val();
-		}
-
-		// Applies the type of validation
-		if ( type && _.isFunction( obj.parseType[ type ] ) ) {
-			condition.constraint = obj.parseType[ type ]( constraint, $constraint, $field );
-			condition.value = obj.parseType[ type ]( value, $constraint, $field );
-		}
-
-		return condition;
-	};
 
 	/**
 	 * FN (prototype) method from jQuery
@@ -471,6 +489,10 @@ tribe.validation = {};
 		var $item = $( this );
 		var $fields = $item.find( obj.selectors.fields );
 
+		// Before Validation remove all Errors
+		$fields.removeClass( obj.selectors.error.className() );
+
+		// Validate all Fields
 		$fields.each( obj.validate );
 
 		var $errors = $item.find( obj.selectors.error ).not( ':disabled' );
