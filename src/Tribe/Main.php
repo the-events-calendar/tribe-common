@@ -208,9 +208,9 @@ class Tribe__Main {
 				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
 				array( 'tribe-buttonset-style', 'buttonset.css' ),
 				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
-				array( 'tribe-jquery-timepicker', 'vendor/jquery-tribe-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
-				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-tribe-timepicker/jquery.timepicker.css' ),
-
+				array( 'tribe-jquery-timepicker', 'vendor/jquery-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
+				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-timepicker/jquery.timepicker.css' ),
+				array( 'tribe-timepicker', 'timepicker.js', array( 'jquery', 'tribe-jquery-timepicker' ) ),
 			)
 		);
 
@@ -221,8 +221,8 @@ class Tribe__Main {
 				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ) ),
 				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase' ) ),
 				array( 'tribe-validation-style', 'validation.css', array() ),
-				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
-				array( 'tribe-dependency-style', 'dependency.css' ),
+				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
+				array( 'tribe-dependency-style', 'dependency.css', array( 'tribe-select2-css' ) ),
 				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
 				array( 'tribe-datepicker', 'datepicker.css' ),
