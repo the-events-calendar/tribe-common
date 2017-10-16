@@ -427,6 +427,9 @@ final class Tribe__Customizer {
 		$search = array();
 		$replace = array();
 		foreach ( $sections as $section => $settings ) {
+			if ( ! is_array( $settings ) ) {
+				continue;
+			}
 			foreach ( $settings as $setting => $value ) {
 				$index = array( $section, $setting );
 
