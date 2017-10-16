@@ -44,30 +44,60 @@ tribe.validation = {};
 		isGreaterThan: function( value, constraint, $field ) {
 			var condition = obj.parseConditon( 'isGreaterThan', value, constraint, $field );
 
+			// If we failed to parse Condition we don't check
+			if ( false === condition ) {
+				return true;
+			}
+
 			return condition.constraint < condition.value;
 		},
 		isGreaterOrEqualTo: function( value, constraint, $field ) {
 			var condition = obj.parseConditon( 'isGreaterOrEqualTo', value, constraint, $field );
+
+			// If we failed to parse Condition we don't check
+			if ( false === condition ) {
+				return true;
+			}
 
 			return condition.constraint <= condition.value;
 		},
 		isLessThan: function( value, constraint, $field ) {
 			var condition = obj.parseConditon( 'isLessThan', value, constraint, $field );
 
+			// If we failed to parse Condition we don't check
+			if ( false === condition ) {
+				return true;
+			}
+
 			return condition.constraint > condition.value;
 		},
 		isLessOrEqualTo: function( value, constraint, $field ) {
 			var condition = obj.parseConditon( 'isLessOrEqualTo', value, constraint, $field );
+
+			// If we failed to parse Condition we don't check
+			if ( false === condition ) {
+				return true;
+			}
 
 			return condition.constraint >= condition.value;
 		},
 		isEqualTo: function( value, constraint, $field ) {
 			var condition = obj.parseConditon( 'isEqualTo', value, constraint, $field );
 
+			// If we failed to parse Condition we don't check
+			if ( false === condition ) {
+				return true;
+			}
+
 			return condition.constraint == condition.value;
 		},
 		isNotEqualTo: function( value, constraint, $field ) {
 			var condition = obj.parseConditon( 'isNotEqualTo', value, constraint, $field );
+
+			// If we failed to parse Condition we don't check
+			if ( false === condition ) {
+				return true;
+			}
 
 			return condition.constraint != condition.value;
 		}
@@ -147,14 +177,14 @@ tribe.validation = {};
 			if ( ! $constraint.length ) {
 				// Throws a warning so it's easy to spot on development and support
 				console.warn( 'Tribe Validation:', 'Invalid selector for', $field, constraint );
-				return condition;
+				return false;
 			}
 
 			$constraint = $constraint.not( ':disabled' );
 
 			// Verify only for active fields
 			if ( ! $constraint.length ) {
-				return condition;
+				return false;
 			}
 
 			constraint = $constraint.val();
