@@ -207,7 +207,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	 *       '2016-12-30',
 	 *       '2016-12-30', ... ]
 	 *
-	 * @since TBD added extra safety checks before attempting to access log directory
+	 * @since 4.6.2 added extra safety checks before attempting to access log directory
 	 *
 	 * @return array
 	 */

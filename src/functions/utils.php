@@ -331,7 +331,7 @@ if ( ! function_exists( 'tribe_is_wpml_active' ) ) {
 	/**
 	 * A unified way of checking if WPML is activated.
 	 *
-	 * @since TBD
+	 * @since 4.6.2
 	 *
 	 * @return boolean
 	 */

@@ -239,7 +239,7 @@ class Tribe__Log {
 	 * implementation (making it safe to call Tribe__Log__Logger methods on the
 	 * return value of this method at all times).
 	 *
-	 * @since TBD altered the return signature to only return instances of Tribe__Log__Logger
+	 * @since 4.6.2 altered the return signature to only return instances of Tribe__Log__Logger
 	 *
 	 * @return Tribe__Log__Logger
 	 */
