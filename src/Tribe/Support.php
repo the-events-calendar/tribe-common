@@ -38,16 +38,17 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		 */
 		protected $must_obfuscate_prefixes = array(
 			'pue_install_key_',
-			'google_maps_js_api_key'
+			'google_maps_js_api_key',
 		);
 
 		private function __construct() {
 			/**
 			 * Allows for customizing the list of fields by array key whose values must be HTML-escaped.
 			 *
-			 * @param array $must_escape An array of array keys corresponding to fields whose values must be HTML-escaped. 
+			 * @param array $must_escape An array of array keys corresponding to fields whose values must be HTML-escaped.
 			 */
 			$this->must_escape = (array) apply_filters( 'tribe_help_must_escape_fields', $this->must_escape );
+			
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
 			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
 
@@ -200,7 +201,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			 * Allow for customization of the array of information that's turned into the "System Information" screen in the "Help" admin page.
 			 *
 			 * @param array $systeminfo The array of information turned into the "System Information" screen.
-			 */	
+			 */
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
 
 			return $systeminfo;
