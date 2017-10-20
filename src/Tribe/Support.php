@@ -48,7 +48,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			 * @param array $must_escape An array of array keys corresponding to fields whose values must be HTML-escaped.
 			 */
 			$this->must_escape = (array) apply_filters( 'tribe_help_must_escape_fields', $this->must_escape );
-			
+
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
 			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
 
