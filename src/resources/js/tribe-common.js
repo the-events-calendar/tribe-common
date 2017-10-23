@@ -23,7 +23,7 @@ tribe_auto_sysinfo.ajax = {
 		var button_text = tribe_system_info.clipboard_btn_text;
 
 		//Prevent Button From Doing Anything Else
-		$( ".system-info-copy-btn" ).click( function ( e ) {
+		$( '.system-info-copy-btn' ).click( function ( e ) {
 			e.preventDefault();
 		} );
 
@@ -49,14 +49,14 @@ tribe_auto_sysinfo.ajax = {
 	 */
 	my.init_ajax = function () {
 
-		this.$system_info_opt_in     = $( "#tribe_auto_sysinfo_opt_in" );
-		this.$system_info_opt_in_msg = $( ".tribe-sysinfo-optin-msg" );
+		this.$system_info_opt_in     = $( document.getElementById( 'tribe_auto_sysinfo_opt_in' ) );
+		this.$system_info_opt_in_msg = $( '.tribe-sysinfo-optin-msg' );
 
 		this.$system_info_opt_in.change( function () {
 			if ( this.checked ) {
-				my.event.ajax( "generate" );
+				my.event.ajax( 'generate' );
 			} else {
-				my.event.ajax( "remove" );
+				my.event.ajax( 'remove' );
 			}
 
 		} );
@@ -66,9 +66,9 @@ tribe_auto_sysinfo.ajax = {
 	my.event.ajax = function ( generate ) {
 
 		var request = {
-			"action": "tribe_toggle_sysinfo_optin",
-			"confirm": tribe_system_info.sysinfo_optin_nonce,
-			"generate_key": generate
+			'action'       : 'tribe_toggle_sysinfo_optin',
+			'confirm'      : tribe_system_info.sysinfo_optin_nonce,
+			'generate_key' : generate
 		};
 
 		// Send our request

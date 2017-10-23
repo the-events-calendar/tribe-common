@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.6.3] TBD =
+
+* Tweak - Obfuscated the API key for the google_maps_js_api_key field in the "System Information" screen [89795] 
+
 = [4.6.2] 2017-10-18 =
 
 * Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918] 
