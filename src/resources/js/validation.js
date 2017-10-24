@@ -135,6 +135,10 @@ tribe.validation = {};
 				formatKey = $constraint.parents( '[data-datepicker_format]' ).eq( 0 ).data( 'datepicker_format' );
 			}
 
+			if ( 'undefined' === typeof formats[ formatKey ] || ! formats[ formatKey ] ) {
+				formatKey = 0;
+			}
+
 			var format = formats[ formatKey ].toUpperCase();
 			value = moment( value, format ).format( 'X' );
 
