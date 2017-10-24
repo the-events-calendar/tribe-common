@@ -11,19 +11,31 @@ msgstr ""
 "Language: el_GR\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/admin-views/tribe-options-help.php:20
+msgid "Check out our %s for developers."
+msgstr ""
+
+#: src/admin-views/tribe-options-help.php:18
+msgid "Want to dive deeper?"
+msgstr ""
+
+#: src/admin-views/tribe-options-display.php:28
+msgid "The following three fields accept the date format options available to the PHP %1$s function. <a href=\"%2$s\" target=\"_blank\">Learn how to make your own date format here</a>."
+msgstr ""
+
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:57
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Main.php:266
+#: src/Tribe/Main.php:268
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:265
+#: src/Tribe/Main.php:267
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:264
+#: src/Tribe/Main.php:266
 msgid "All items on this page were selected. "
 msgstr ""
 
@@ -267,11 +279,11 @@ msgctxt "separator used in a list of items"
 msgid ", "
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:48
+#: src/admin-views/tribe-options-help.php:55
 msgid "Event Log"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:35
+#: src/admin-views/tribe-options-help.php:42
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
 msgstr ""
 
@@ -341,7 +353,7 @@ msgstr ""
 msgid " (opens in new window)"
 msgstr ""
 
-#: src/Tribe/View_Helpers.php:96
+#: src/Tribe/Languages/Locations.php:108
 msgid "C&ocirc;te d'Ivoire"
 msgstr ""
 
@@ -377,63 +389,63 @@ msgstr ""
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:278
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:275
+#: src/Tribe/Main.php:277
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:270
+#: src/Tribe/Main.php:272
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:268
+#: src/Tribe/Main.php:270
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:264
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:263
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:262
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:261
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:258
+#: src/Tribe/Main.php:260
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:259
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:257
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:256
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:248
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:247
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:244 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:246 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -536,7 +548,7 @@ msgctxt "log selector"
 msgid "None currently available"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:45
+#: src/admin-views/tribe-options-help.php:52
 msgid "Recent Template Changes"
 msgstr ""
 
@@ -580,7 +592,7 @@ msgstr ""
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:31
+#: src/admin-views/tribe-options-help.php:38
 msgid "Read more about our support policy"
 msgstr ""
 
@@ -588,44 +600,40 @@ msgstr ""
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:26
+#: src/admin-views/tribe-options-help.php:33
 msgid "Search our support forum"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:26
+#: src/admin-views/tribe-options-help.php:33
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:25
+#: src/admin-views/tribe-options-help.php:32
 msgid "Test for a theme or plugin conflict"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:25
+#: src/admin-views/tribe-options-help.php:32
 msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:24
+#: src/admin-views/tribe-options-help.php:31
 msgid "Check our Knowledgebase"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:24
+#: src/admin-views/tribe-options-help.php:31
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:20
+#: src/admin-views/tribe-options-help.php:27
 msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:19
+#: src/admin-views/tribe-options-help.php:26
 msgid "Getting More Help"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:16
+#: src/admin-views/tribe-options-help.php:21
 msgid "list of available functions"
-msgstr ""
-
-#: src/admin-views/tribe-options-help.php:16
-msgid "<strong>Want to dive deeper?</strong> Check out our %s for developers."
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:15
@@ -792,7 +800,7 @@ msgstr "Εδώ μπορείτε να τροποποιήσετε όλες τις 
 msgid "Network Settings"
 msgstr "Ρυθμίσεις Δικτύου"
 
-#: src/admin-views/tribe-options-help.php:67
+#: src/admin-views/tribe-options-help.php:74
 msgid "News and Tutorials"
 msgstr "Νέα και Οδηγοί Εκμάθησης"
 
@@ -812,7 +820,7 @@ msgstr "Απαιτείται:"
 msgid "Latest Version:"
 msgstr "Τελευταία Έκδοση:"
 
-#: src/admin-views/tribe-options-help.php:73
+#: src/admin-views/tribe-options-help.php:80
 msgid "More..."
 msgstr "Περισσότερα…"
 
@@ -874,17 +882,13 @@ msgstr "Ελέγξτε τις διαθέσιμες επεκτάσεις"
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
 msgstr "Ψάχνετε για πρόσθετες λειτουργίες, συμπεριλαμβανομένων των τακτικών εκδηλώσεων, προσαρμοσμένα meta, εκδηλώσεις κοινότητας, πωλήσεις εισιτηρίων και άλλα;"
 
-#: src/admin-views/tribe-options-display.php:31
+#: src/admin-views/tribe-options-display.php:37
 msgid "Select the date format to use in datepickers"
 msgstr "Επιλογή μορφής ημερομηνίας που θα χρησιμοποιείται στους επιλογείς ημερομηνίας"
 
-#: src/admin-views/tribe-options-display.php:30
+#: src/admin-views/tribe-options-display.php:36
 msgid "Datepicker Date Format"
 msgstr "Μορφή ημερομηνίας στον επιλογέα ημερομηνίας"
-
-#: src/admin-views/tribe-options-display.php:26
-msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
-msgstr "<p>Τα παρακάτω τρία πεδία επιδέχονται τις ρυθμίσεις μορφής ημερομηνίας διαθέσιμες στο php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Μάθετε εδώ πως να φτιάχνετε την δική σας μορφή ημερομηνίας</a>.</p>"
 
 #: src/admin-views/tribe-options-display.php:22
 msgid "Date Format Settings"
@@ -898,1155 +902,1155 @@ msgstr "Προβολή"
 msgid "Community Events"
 msgstr "Εκδηλώσεις Κοινότητας"
 
-#: src/Tribe/View_Helpers.php:371
+#: src/Tribe/Languages/Locations.php:363
 msgid "Wyoming"
 msgstr "Ουαϊόμινγκ"
 
-#: src/Tribe/View_Helpers.php:370
+#: src/Tribe/Languages/Locations.php:362
 msgid "Wisconsin"
 msgstr "Ουισκόνσιν"
 
-#: src/Tribe/View_Helpers.php:369
+#: src/Tribe/Languages/Locations.php:361
 msgid "West Virginia"
 msgstr "Δυτική Βιρτζίνια"
 
-#: src/Tribe/View_Helpers.php:368
+#: src/Tribe/Languages/Locations.php:360
 msgid "Washington"
 msgstr "Ουάσιγκτον"
 
-#: src/Tribe/View_Helpers.php:367
+#: src/Tribe/Languages/Locations.php:359
 msgid "Virginia"
 msgstr "Βιρτζίνια"
 
-#: src/Tribe/View_Helpers.php:366
+#: src/Tribe/Languages/Locations.php:358
 msgid "Vermont"
 msgstr "Βερμόντ"
 
-#: src/Tribe/View_Helpers.php:365
+#: src/Tribe/Languages/Locations.php:357
 msgid "Utah"
 msgstr "Γιούτα"
 
-#: src/Tribe/View_Helpers.php:364
+#: src/Tribe/Languages/Locations.php:356
 msgid "Texas"
 msgstr "Τέξας"
 
-#: src/Tribe/View_Helpers.php:363
+#: src/Tribe/Languages/Locations.php:355
 msgid "Tennessee"
 msgstr "Τενεσί"
 
-#: src/Tribe/View_Helpers.php:362
+#: src/Tribe/Languages/Locations.php:354
 msgid "South Dakota"
 msgstr "Νότια Ντακότα"
 
-#: src/Tribe/View_Helpers.php:361
+#: src/Tribe/Languages/Locations.php:353
 msgid "South Carolina"
 msgstr "Νότια Καρολίνα"
 
-#: src/Tribe/View_Helpers.php:360
+#: src/Tribe/Languages/Locations.php:352
 msgid "Rhode Island"
 msgstr "Ρόουντ Άιλαντ"
 
-#: src/Tribe/View_Helpers.php:359
+#: src/Tribe/Languages/Locations.php:351
 msgid "Pennsylvania"
 msgstr "Πενσυλβάνια"
 
-#: src/Tribe/View_Helpers.php:358
+#: src/Tribe/Languages/Locations.php:350
 msgid "Oregon"
 msgstr "Όρεγκον"
 
-#: src/Tribe/View_Helpers.php:357
+#: src/Tribe/Languages/Locations.php:349
 msgid "Oklahoma"
 msgstr "Οκλαχόμα"
 
-#: src/Tribe/View_Helpers.php:356
+#: src/Tribe/Languages/Locations.php:348
 msgid "Ohio"
 msgstr "Οχάιο"
 
-#: src/Tribe/View_Helpers.php:355
+#: src/Tribe/Languages/Locations.php:347
 msgid "North Dakota"
 msgstr "Βόρεια Ντακότα"
 
-#: src/Tribe/View_Helpers.php:354
+#: src/Tribe/Languages/Locations.php:346
 msgid "North Carolina"
 msgstr "Βόρεια Καρολίνα"
 
-#: src/Tribe/View_Helpers.php:353
+#: src/Tribe/Languages/Locations.php:345
 msgid "New York"
 msgstr "Νέα Υόρκη"
 
-#: src/Tribe/View_Helpers.php:352
+#: src/Tribe/Languages/Locations.php:344
 msgid "New Mexico"
 msgstr "Νέο Μεξικό"
 
-#: src/Tribe/View_Helpers.php:351
+#: src/Tribe/Languages/Locations.php:343
 msgid "New Jersey"
 msgstr "Νιου Τζέρσεϊ"
 
-#: src/Tribe/View_Helpers.php:350
+#: src/Tribe/Languages/Locations.php:342
 msgid "New Hampshire"
 msgstr "Νιου Χάμσαϊρ"
 
-#: src/Tribe/View_Helpers.php:349
+#: src/Tribe/Languages/Locations.php:341
 msgid "Nevada"
 msgstr "Νεβάδα"
 
-#: src/Tribe/View_Helpers.php:348
+#: src/Tribe/Languages/Locations.php:340
 msgid "Nebraska"
 msgstr "Νεμπράσκα"
 
-#: src/Tribe/View_Helpers.php:347
+#: src/Tribe/Languages/Locations.php:339
 msgid "Montana"
 msgstr "Μοντάνα"
 
-#: src/Tribe/View_Helpers.php:346
+#: src/Tribe/Languages/Locations.php:338
 msgid "Missouri"
 msgstr "Μιζούρι"
 
-#: src/Tribe/View_Helpers.php:345
+#: src/Tribe/Languages/Locations.php:337
 msgid "Mississippi"
 msgstr "Μισισίπι"
 
-#: src/Tribe/View_Helpers.php:344
+#: src/Tribe/Languages/Locations.php:336
 msgid "Minnesota"
 msgstr "Μινεσότα"
 
-#: src/Tribe/View_Helpers.php:343
+#: src/Tribe/Languages/Locations.php:335
 msgid "Michigan"
 msgstr "Μίτσιγκαν"
 
-#: src/Tribe/View_Helpers.php:342
+#: src/Tribe/Languages/Locations.php:334
 msgid "Massachusetts"
 msgstr "Μασαχουσέτη"
 
-#: src/Tribe/View_Helpers.php:341
+#: src/Tribe/Languages/Locations.php:333
 msgid "Maryland"
 msgstr "Μέριλαντ"
 
-#: src/Tribe/View_Helpers.php:340
+#: src/Tribe/Languages/Locations.php:332
 msgid "Maine"
 msgstr "Μέιν"
 
-#: src/Tribe/View_Helpers.php:339
+#: src/Tribe/Languages/Locations.php:331
 msgid "Louisiana"
 msgstr "Λουιζιάνα"
 
-#: src/Tribe/View_Helpers.php:338
+#: src/Tribe/Languages/Locations.php:330
 msgid "Kentucky"
 msgstr "Κεντάκι"
 
-#: src/Tribe/View_Helpers.php:337
+#: src/Tribe/Languages/Locations.php:329
 msgid "Kansas"
 msgstr "Κάνσας"
 
-#: src/Tribe/View_Helpers.php:336
+#: src/Tribe/Languages/Locations.php:328
 msgid "Iowa"
 msgstr "Αϊόβα"
 
-#: src/Tribe/View_Helpers.php:335
+#: src/Tribe/Languages/Locations.php:327
 msgid "Indiana"
 msgstr "Ιντιάνα"
 
-#: src/Tribe/View_Helpers.php:334
+#: src/Tribe/Languages/Locations.php:326
 msgid "Illinois"
 msgstr "Ιλλινόις"
 
-#: src/Tribe/View_Helpers.php:333
+#: src/Tribe/Languages/Locations.php:325
 msgid "Idaho"
 msgstr "Αϊντάχο"
 
-#: src/Tribe/View_Helpers.php:332
+#: src/Tribe/Languages/Locations.php:324
 msgid "Hawaii"
 msgstr "Χαβάη"
 
-#: src/Tribe/View_Helpers.php:330
+#: src/Tribe/Languages/Locations.php:322
 msgid "Florida"
 msgstr "Φλόριντα"
 
-#: src/Tribe/View_Helpers.php:329
+#: src/Tribe/Languages/Locations.php:321
 msgid "District of Columbia"
 msgstr "Περιφέρεια της Κολούμπια"
 
-#: src/Tribe/View_Helpers.php:328
+#: src/Tribe/Languages/Locations.php:320
 msgid "Delaware"
 msgstr "Ντέλαγουερ"
 
-#: src/Tribe/View_Helpers.php:327
+#: src/Tribe/Languages/Locations.php:319
 msgid "Connecticut"
 msgstr "Κονέκτικατ"
 
-#: src/Tribe/View_Helpers.php:326
+#: src/Tribe/Languages/Locations.php:318
 msgid "Colorado"
 msgstr "Κολοράντο"
 
-#: src/Tribe/View_Helpers.php:325
+#: src/Tribe/Languages/Locations.php:317
 msgid "California"
 msgstr "Καλιφόρνια"
 
-#: src/Tribe/View_Helpers.php:324
+#: src/Tribe/Languages/Locations.php:316
 msgid "Arkansas"
 msgstr "Αρκάνσας"
 
-#: src/Tribe/View_Helpers.php:323
+#: src/Tribe/Languages/Locations.php:315
 msgid "Arizona"
 msgstr "Αριζόνα"
 
-#: src/Tribe/View_Helpers.php:322
+#: src/Tribe/Languages/Locations.php:314
 msgid "Alaska"
 msgstr "Αλάσκα"
 
-#: src/Tribe/View_Helpers.php:321
+#: src/Tribe/Languages/Locations.php:313
 msgid "Alabama"
 msgstr "Αλαμπάμα"
 
-#: src/Tribe/View_Helpers.php:281
+#: src/Tribe/Languages/Locations.php:293
 msgid "Zimbabwe"
 msgstr "Ζιμπάμπουε"
 
-#: src/Tribe/View_Helpers.php:280
+#: src/Tribe/Languages/Locations.php:292
 msgid "Zambia"
 msgstr "Ζάμπια"
 
-#: src/Tribe/View_Helpers.php:279
+#: src/Tribe/Languages/Locations.php:291
 msgid "Yemen"
 msgstr "Υεμένη"
 
-#: src/Tribe/View_Helpers.php:278
+#: src/Tribe/Languages/Locations.php:290
 msgid "Western Sahara"
 msgstr "Δυτική Σαχάρα"
 
-#: src/Tribe/View_Helpers.php:277
+#: src/Tribe/Languages/Locations.php:289
 msgid "Wallis And Futuna Islands"
 msgstr "Νήσοι Ουαλίς και Φουτουνά"
 
-#: src/Tribe/View_Helpers.php:276
+#: src/Tribe/Languages/Locations.php:288
 msgid "Virgin Islands (U.S.)"
 msgstr "Παρθένες Νήσοι (ΗΠΑ)"
 
-#: src/Tribe/View_Helpers.php:275
+#: src/Tribe/Languages/Locations.php:287
 msgid "Virgin Islands (British)"
 msgstr "Παρθένοι Νήσοι (Βρετανικοί)"
 
-#: src/Tribe/View_Helpers.php:274
+#: src/Tribe/Languages/Locations.php:286
 msgid "Viet Nam"
 msgstr "Βιετνάμ"
 
-#: src/Tribe/View_Helpers.php:273
+#: src/Tribe/Languages/Locations.php:285
 msgid "Venezuela"
 msgstr "Βενεζουέλα"
 
-#: src/Tribe/View_Helpers.php:272
+#: src/Tribe/Languages/Locations.php:284
 msgid "Vanuatu"
 msgstr "Βανουάτου"
 
-#: src/Tribe/View_Helpers.php:271
+#: src/Tribe/Languages/Locations.php:283
 msgid "Uzbekistan"
 msgstr "Ουζμπεκιστάν"
 
-#: src/Tribe/View_Helpers.php:270
+#: src/Tribe/Languages/Locations.php:282
 msgid "Uruguay"
 msgstr "Ουρουγουάη"
 
-#: src/Tribe/View_Helpers.php:269
+#: src/Tribe/Languages/Locations.php:281
 msgid "United States Minor Outlying Islands"
 msgstr "Ηνωμένες Πολιτείες Μικρά Απομονωμένα Νησιά"
 
-#: src/Tribe/View_Helpers.php:268
+#: src/Tribe/Languages/Locations.php:280
 msgid "United Kingdom"
 msgstr "Ηνωμένο Βασίλειο"
 
-#: src/Tribe/View_Helpers.php:267
+#: src/Tribe/Languages/Locations.php:279
 msgid "United Arab Emirates"
 msgstr "Ηνωμένα Αραβικά Εμιράτα"
 
-#: src/Tribe/View_Helpers.php:266
+#: src/Tribe/Languages/Locations.php:278
 msgid "Ukraine"
 msgstr "Ουκρανία"
 
-#: src/Tribe/View_Helpers.php:265
+#: src/Tribe/Languages/Locations.php:277
 msgid "Uganda"
 msgstr "Ουγκάντα"
 
-#: src/Tribe/View_Helpers.php:264
+#: src/Tribe/Languages/Locations.php:276
 msgid "Tuvalu"
 msgstr "Τουβαλού"
 
-#: src/Tribe/View_Helpers.php:263
+#: src/Tribe/Languages/Locations.php:275
 msgid "Turks And Caicos Islands"
 msgstr "Νήσοι Τερκς και Κάικος"
 
-#: src/Tribe/View_Helpers.php:262
+#: src/Tribe/Languages/Locations.php:274
 msgid "Turkmenistan"
 msgstr "Τουρκμενιστάν"
 
-#: src/Tribe/View_Helpers.php:261
+#: src/Tribe/Languages/Locations.php:273
 msgid "Turkey"
 msgstr "Τουρκία"
 
-#: src/Tribe/View_Helpers.php:260
+#: src/Tribe/Languages/Locations.php:272
 msgid "Tunisia"
 msgstr "Τυνησία"
 
-#: src/Tribe/View_Helpers.php:259
+#: src/Tribe/Languages/Locations.php:271
 msgid "Trinidad And Tobago"
 msgstr "Τρινιντάντ και Τομπάγκο"
 
-#: src/Tribe/View_Helpers.php:258
+#: src/Tribe/Languages/Locations.php:270
 msgid "Tonga"
 msgstr "Τοκελάου"
 
-#: src/Tribe/View_Helpers.php:257
+#: src/Tribe/Languages/Locations.php:269
 msgid "Tokelau"
 msgstr "Τοκελάου"
 
-#: src/Tribe/View_Helpers.php:256
+#: src/Tribe/Languages/Locations.php:268
 msgid "Togo"
 msgstr "Τόγκο"
 
-#: src/Tribe/View_Helpers.php:255
+#: src/Tribe/Languages/Locations.php:267
 msgid "Thailand"
 msgstr "Ταϊλάνδη"
 
-#: src/Tribe/View_Helpers.php:254
+#: src/Tribe/Languages/Locations.php:266
 msgid "Tanzania, United Republic Of"
 msgstr "Τανζανία, Ενωμένη Δημοκρατία της"
 
-#: src/Tribe/View_Helpers.php:253
+#: src/Tribe/Languages/Locations.php:265
 msgid "Tajikistan"
 msgstr "Τατζικιστάν"
 
-#: src/Tribe/View_Helpers.php:252
+#: src/Tribe/Languages/Locations.php:264
 msgid "Taiwan"
 msgstr "Ταϊβάν"
 
-#: src/Tribe/View_Helpers.php:251
+#: src/Tribe/Languages/Locations.php:263
 msgid "Syrian Arab Republic"
 msgstr "Αραβική Δημοκρατία της Συρίας"
 
-#: src/Tribe/View_Helpers.php:250
+#: src/Tribe/Languages/Locations.php:262
 msgid "Switzerland"
 msgstr "Ελβετία"
 
-#: src/Tribe/View_Helpers.php:249
+#: src/Tribe/Languages/Locations.php:261
 msgid "Sweden"
 msgstr "Σουηδία"
 
-#: src/Tribe/View_Helpers.php:248
+#: src/Tribe/Languages/Locations.php:260
 msgid "Swaziland"
 msgstr "Ζουαζιλάνδη"
 
-#: src/Tribe/View_Helpers.php:247
+#: src/Tribe/Languages/Locations.php:259
 msgid "Svalbard And Jan Mayen Islands"
 msgstr "Νήσοι Σβάλμπαρντ και Γιαν Μαγιέν"
 
-#: src/Tribe/View_Helpers.php:246
+#: src/Tribe/Languages/Locations.php:258
 msgid "Suriname"
 msgstr "Σουρινάμ"
 
-#: src/Tribe/View_Helpers.php:245
+#: src/Tribe/Languages/Locations.php:257
 msgid "Sudan"
 msgstr "Σουδάν"
 
-#: src/Tribe/View_Helpers.php:244
+#: src/Tribe/Languages/Locations.php:256
 msgid "St. Pierre And Miquelon"
 msgstr "Άγιος Πέτρος και Μικελόν"
 
-#: src/Tribe/View_Helpers.php:243
+#: src/Tribe/Languages/Locations.php:255
 msgid "St. Helena"
 msgstr "Αγία Ελένη"
 
-#: src/Tribe/View_Helpers.php:242
+#: src/Tribe/Languages/Locations.php:254
 msgid "Sri Lanka"
 msgstr "Σρι Λάνκα"
 
-#: src/Tribe/View_Helpers.php:241
+#: src/Tribe/Languages/Locations.php:253
 msgid "Spain"
 msgstr "Ισπανία"
 
-#: src/Tribe/View_Helpers.php:240
+#: src/Tribe/Languages/Locations.php:252
 msgid "South Georgia, South Sandwich Islands"
 msgstr "Νότια Γεωργία, Νότια Νησιά Σάντουιτς"
 
-#: src/Tribe/View_Helpers.php:239
+#: src/Tribe/Languages/Locations.php:251
 msgid "South Africa"
 msgstr "Νότια Αφρική"
 
-#: src/Tribe/View_Helpers.php:238
+#: src/Tribe/Languages/Locations.php:250
 msgid "Somalia"
 msgstr "Σομαλία"
 
-#: src/Tribe/View_Helpers.php:237
+#: src/Tribe/Languages/Locations.php:249
 msgid "Solomon Islands"
 msgstr "Νησιά Σολομώντα"
 
-#: src/Tribe/View_Helpers.php:236
+#: src/Tribe/Languages/Locations.php:248
 msgid "Slovenia"
 msgstr "Σλοβενία"
 
-#: src/Tribe/View_Helpers.php:235
+#: src/Tribe/Languages/Locations.php:247
 msgid "Slovakia (Slovak Republic)"
 msgstr "Σλοβακία (Δημοκρατία της Σλοβακίας)"
 
-#: src/Tribe/View_Helpers.php:234
+#: src/Tribe/Languages/Locations.php:246
 msgid "Singapore"
 msgstr "Σιγκαπούρη"
 
-#: src/Tribe/View_Helpers.php:233
+#: src/Tribe/Languages/Locations.php:245
 msgid "Sierra Leone"
 msgstr "Σιέρα Λεόνε"
 
-#: src/Tribe/View_Helpers.php:232
+#: src/Tribe/Languages/Locations.php:244
 msgid "Seychelles"
 msgstr "Σεϋχέλλες"
 
-#: src/Tribe/View_Helpers.php:231
+#: src/Tribe/Languages/Locations.php:243
 msgid "Serbia"
 msgstr "Σερβία"
 
-#: src/Tribe/View_Helpers.php:230
+#: src/Tribe/Languages/Locations.php:242
 msgid "Senegal"
 msgstr "Σενεγάλη"
 
-#: src/Tribe/View_Helpers.php:229
+#: src/Tribe/Languages/Locations.php:241
 msgid "Saudi Arabia"
 msgstr "Σαουδική Αραβία"
 
-#: src/Tribe/View_Helpers.php:228
+#: src/Tribe/Languages/Locations.php:240
 msgid "Sao Tome And Principe"
 msgstr "Σάο Τομέ και Πρίνσιπε"
 
-#: src/Tribe/View_Helpers.php:227
+#: src/Tribe/Languages/Locations.php:239
 msgid "San Marino"
 msgstr "Σαν Μαρίνο"
 
-#: src/Tribe/View_Helpers.php:226
+#: src/Tribe/Languages/Locations.php:238
 msgid "Samoa"
 msgstr "Σαμόα"
 
-#: src/Tribe/View_Helpers.php:225
+#: src/Tribe/Languages/Locations.php:237
 msgid "Saint Vincent And The Grenadines"
 msgstr "Άγιος Βικέντιος και Γρεναδίνες"
 
-#: src/Tribe/View_Helpers.php:224
+#: src/Tribe/Languages/Locations.php:236
 msgid "Saint Lucia"
 msgstr "Αγία Λουκία"
 
-#: src/Tribe/View_Helpers.php:223
+#: src/Tribe/Languages/Locations.php:235
 msgid "Saint Kitts And Nevis"
 msgstr "Άγιος Χριστόφορος και Νέβις"
 
-#: src/Tribe/View_Helpers.php:222
+#: src/Tribe/Languages/Locations.php:234
 msgid "Rwanda"
 msgstr "Ρουάντα"
 
-#: src/Tribe/View_Helpers.php:221
+#: src/Tribe/Languages/Locations.php:233
 msgid "Russian Federation"
 msgstr "Ρωσική Ομοσπονδία"
 
-#: src/Tribe/View_Helpers.php:220
+#: src/Tribe/Languages/Locations.php:232
 msgid "Romania"
 msgstr "Ρουμανία"
 
-#: src/Tribe/View_Helpers.php:219
+#: src/Tribe/Languages/Locations.php:231
 msgid "Reunion"
 msgstr "Ρεουνιόν"
 
-#: src/Tribe/View_Helpers.php:218
+#: src/Tribe/Languages/Locations.php:230
 msgid "Qatar"
 msgstr "Κατάρ"
 
-#: src/Tribe/View_Helpers.php:217
+#: src/Tribe/Languages/Locations.php:229
 msgid "Puerto Rico"
 msgstr "Πουέρτο Ρίκο"
 
-#: src/Tribe/View_Helpers.php:216
+#: src/Tribe/Languages/Locations.php:228
 msgid "Portugal"
 msgstr "Πορτογαλία"
 
-#: src/Tribe/View_Helpers.php:215
+#: src/Tribe/Languages/Locations.php:227
 msgid "Poland"
 msgstr "Πολωνία"
 
-#: src/Tribe/View_Helpers.php:214
+#: src/Tribe/Languages/Locations.php:226
 msgid "Pitcairn"
 msgstr "Πίτκερν"
 
-#: src/Tribe/View_Helpers.php:213
+#: src/Tribe/Languages/Locations.php:225
 msgid "Philippines"
 msgstr "Φιλιππίνες"
 
-#: src/Tribe/View_Helpers.php:212
+#: src/Tribe/Languages/Locations.php:224
 msgid "Peru"
 msgstr "Περού"
 
-#: src/Tribe/View_Helpers.php:211
+#: src/Tribe/Languages/Locations.php:223
 msgid "Paraguay"
 msgstr "Παραγουάη"
 
-#: src/Tribe/View_Helpers.php:210
+#: src/Tribe/Languages/Locations.php:222
 msgid "Papua New Guinea"
 msgstr "Παπούα Νέα Γουινέα"
 
-#: src/Tribe/View_Helpers.php:209
+#: src/Tribe/Languages/Locations.php:221
 msgid "Panama"
 msgstr "Παναμάς"
 
-#: src/Tribe/View_Helpers.php:208
+#: src/Tribe/Languages/Locations.php:220
 msgid "Palau"
 msgstr "Παλάου"
 
-#: src/Tribe/View_Helpers.php:207
+#: src/Tribe/Languages/Locations.php:219
 msgid "Pakistan"
 msgstr "Πακιστάν"
 
-#: src/Tribe/View_Helpers.php:206
+#: src/Tribe/Languages/Locations.php:218
 msgid "Oman"
 msgstr "Ομάν"
 
-#: src/Tribe/View_Helpers.php:205
+#: src/Tribe/Languages/Locations.php:217
 msgid "Norway"
 msgstr "Νορβηγία"
 
-#: src/Tribe/View_Helpers.php:204
+#: src/Tribe/Languages/Locations.php:216
 msgid "Northern Mariana Islands"
 msgstr "Βόρειες Μαριάνες Νήσοι"
 
-#: src/Tribe/View_Helpers.php:203
+#: src/Tribe/Languages/Locations.php:215
 msgid "Norfolk Island"
 msgstr "Νήσος Νόρφολκ"
 
-#: src/Tribe/View_Helpers.php:202
+#: src/Tribe/Languages/Locations.php:214
 msgid "Niue"
 msgstr "Νιούε"
 
-#: src/Tribe/View_Helpers.php:201
+#: src/Tribe/Languages/Locations.php:213
 msgid "Nigeria"
 msgstr "Νιγηρία"
 
-#: src/Tribe/View_Helpers.php:200
+#: src/Tribe/Languages/Locations.php:212
 msgid "Niger"
 msgstr "Νίγηρας"
 
-#: src/Tribe/View_Helpers.php:199
+#: src/Tribe/Languages/Locations.php:211
 msgid "Nicaragua"
 msgstr "Νικαράγουα"
 
-#: src/Tribe/View_Helpers.php:198
+#: src/Tribe/Languages/Locations.php:210
 msgid "New Zealand"
 msgstr "Νέα Ζηλανδία"
 
-#: src/Tribe/View_Helpers.php:197
+#: src/Tribe/Languages/Locations.php:209
 msgid "New Caledonia"
 msgstr "Νέα Καληδονία"
 
-#: src/Tribe/View_Helpers.php:196
+#: src/Tribe/Languages/Locations.php:208
 msgid "Netherlands Antilles"
 msgstr "Ολλανδικές Αντίλλες"
 
-#: src/Tribe/View_Helpers.php:195
+#: src/Tribe/Languages/Locations.php:207
 msgid "Netherlands"
 msgstr "Ολλανδία"
 
-#: src/Tribe/View_Helpers.php:194
+#: src/Tribe/Languages/Locations.php:206
 msgid "Nepal"
 msgstr "Νεπάλ"
 
-#: src/Tribe/View_Helpers.php:193
+#: src/Tribe/Languages/Locations.php:205
 msgid "Nauru"
 msgstr "Ναούρου"
 
-#: src/Tribe/View_Helpers.php:192
+#: src/Tribe/Languages/Locations.php:204
 msgid "Namibia"
 msgstr "Ναμίμπια"
 
-#: src/Tribe/View_Helpers.php:191
+#: src/Tribe/Languages/Locations.php:203
 msgid "Myanmar"
 msgstr "Μιανμάρ"
 
-#: src/Tribe/View_Helpers.php:190
+#: src/Tribe/Languages/Locations.php:202
 msgid "Mozambique"
 msgstr "Μοζαμβίκη"
 
-#: src/Tribe/View_Helpers.php:189
+#: src/Tribe/Languages/Locations.php:201
 msgid "Morocco"
 msgstr "Μαρόκο"
 
-#: src/Tribe/View_Helpers.php:188
+#: src/Tribe/Languages/Locations.php:200
 msgid "Montserrat"
 msgstr "Μοντσεράτ"
 
-#: src/Tribe/View_Helpers.php:187
+#: src/Tribe/Languages/Locations.php:199
 msgid "Montenegro"
 msgstr "Μαυροβούνιο"
 
-#: src/Tribe/View_Helpers.php:186
+#: src/Tribe/Languages/Locations.php:198
 msgid "Mongolia"
 msgstr "Μονγκολία"
 
-#: src/Tribe/View_Helpers.php:185
+#: src/Tribe/Languages/Locations.php:197
 msgid "Monaco"
 msgstr "Μονακό"
 
-#: src/Tribe/View_Helpers.php:184
+#: src/Tribe/Languages/Locations.php:196
 msgid "Moldova, Republic Of"
 msgstr "Μολδαβία, Δημοκρατία της"
 
-#: src/Tribe/View_Helpers.php:183
+#: src/Tribe/Languages/Locations.php:195
 msgid "Micronesia, Federated States Of"
 msgstr "Μικρονησία, Ομόσπονδα Κράτη της"
 
-#: src/Tribe/View_Helpers.php:182
+#: src/Tribe/Languages/Locations.php:194
 msgid "Mexico"
 msgstr "Μεξικό"
 
-#: src/Tribe/View_Helpers.php:181
+#: src/Tribe/Languages/Locations.php:193
 msgid "Mayotte"
 msgstr "Μαγιότ"
 
-#: src/Tribe/View_Helpers.php:180
+#: src/Tribe/Languages/Locations.php:192
 msgid "Mauritius"
 msgstr "Μαυρίκιος"
 
-#: src/Tribe/View_Helpers.php:179
+#: src/Tribe/Languages/Locations.php:191
 msgid "Mauritania"
 msgstr "Μαυριτανία"
 
-#: src/Tribe/View_Helpers.php:178
+#: src/Tribe/Languages/Locations.php:190
 msgid "Martinique"
 msgstr "Μαρτινίκα"
 
-#: src/Tribe/View_Helpers.php:177
+#: src/Tribe/Languages/Locations.php:189
 msgid "Marshall Islands"
 msgstr "Νήσοι Μάρσαλ"
 
-#: src/Tribe/View_Helpers.php:176
+#: src/Tribe/Languages/Locations.php:188
 msgid "Malta"
 msgstr "Μάλτα"
 
-#: src/Tribe/View_Helpers.php:175
+#: src/Tribe/Languages/Locations.php:187
 msgid "Mali"
 msgstr "Μάλι"
 
-#: src/Tribe/View_Helpers.php:174
+#: src/Tribe/Languages/Locations.php:186
 msgid "Maldives"
 msgstr "Μαλδίβες"
 
-#: src/Tribe/View_Helpers.php:173
+#: src/Tribe/Languages/Locations.php:185
 msgid "Malaysia"
 msgstr "Μαλαισία"
 
-#: src/Tribe/View_Helpers.php:172
+#: src/Tribe/Languages/Locations.php:184
 msgid "Malawi"
 msgstr "Μαλάουι"
 
-#: src/Tribe/View_Helpers.php:171
+#: src/Tribe/Languages/Locations.php:183
 msgid "Madagascar"
 msgstr "Μαδαγασκάρη"
 
-#: src/Tribe/View_Helpers.php:170
+#: src/Tribe/Languages/Locations.php:182
 msgid "Macedonia"
 msgstr "Π.Γ.Δ.Μ."
 
-#: src/Tribe/View_Helpers.php:169
+#: src/Tribe/Languages/Locations.php:181
 msgid "Macau"
 msgstr "Μακάου"
 
-#: src/Tribe/View_Helpers.php:168
+#: src/Tribe/Languages/Locations.php:180
 msgid "Luxembourg"
 msgstr "Λουξεμβούργο"
 
-#: src/Tribe/View_Helpers.php:167
+#: src/Tribe/Languages/Locations.php:179
 msgid "Lithuania"
 msgstr "Λιθουανία"
 
-#: src/Tribe/View_Helpers.php:166
+#: src/Tribe/Languages/Locations.php:178
 msgid "Liechtenstein"
 msgstr "Λιχτενστάιν"
 
-#: src/Tribe/View_Helpers.php:165
+#: src/Tribe/Languages/Locations.php:177
 msgid "Libya"
 msgstr "Λιβύη"
 
-#: src/Tribe/View_Helpers.php:164
+#: src/Tribe/Languages/Locations.php:176
 msgid "Liberia"
 msgstr "Λιβερία"
 
-#: src/Tribe/View_Helpers.php:163
+#: src/Tribe/Languages/Locations.php:175
 msgid "Lesotho"
 msgstr "Λεσόθο"
 
-#: src/Tribe/View_Helpers.php:162
+#: src/Tribe/Languages/Locations.php:174
 msgid "Lebanon"
 msgstr "Λίβανος"
 
-#: src/Tribe/View_Helpers.php:161
+#: src/Tribe/Languages/Locations.php:173
 msgid "Latvia"
 msgstr "Λετονία"
 
-#: src/Tribe/View_Helpers.php:160
+#: src/Tribe/Languages/Locations.php:172
 msgid "Lao People's Democratic Republic"
 msgstr "Δημοκρατική Δημοκρατία του Λάος"
 
-#: src/Tribe/View_Helpers.php:159
+#: src/Tribe/Languages/Locations.php:171
 msgid "Kyrgyzstan"
 msgstr "Κιργιστάν"
 
-#: src/Tribe/View_Helpers.php:158
+#: src/Tribe/Languages/Locations.php:170
 msgid "Kuwait"
 msgstr "Κουβέιτ"
 
-#: src/Tribe/View_Helpers.php:157
+#: src/Tribe/Languages/Locations.php:169
 msgid "Korea, Republic Of"
 msgstr "Κορέα, Δημοκρατία της"
 
-#: src/Tribe/View_Helpers.php:156
+#: src/Tribe/Languages/Locations.php:168
 msgid "Korea, Democratic People's Republic Of"
 msgstr "Κορέα, Λαϊκή Δημοκρατία της Κίνας"
 
-#: src/Tribe/View_Helpers.php:155
+#: src/Tribe/Languages/Locations.php:167
 msgid "Kiribati"
 msgstr "Κιριμπάτι"
 
-#: src/Tribe/View_Helpers.php:154
+#: src/Tribe/Languages/Locations.php:166
 msgid "Kenya"
 msgstr "Κένυα"
 
-#: src/Tribe/View_Helpers.php:153
+#: src/Tribe/Languages/Locations.php:165
 msgid "Kazakhstan"
 msgstr "Καζακστάν"
 
-#: src/Tribe/View_Helpers.php:152
+#: src/Tribe/Languages/Locations.php:164
 msgid "Jordan"
 msgstr "Ιορδανία"
 
-#: src/Tribe/View_Helpers.php:151
+#: src/Tribe/Languages/Locations.php:163
 msgid "Japan"
 msgstr "Ιαπωνία"
 
-#: src/Tribe/View_Helpers.php:150
+#: src/Tribe/Languages/Locations.php:162
 msgid "Jamaica"
 msgstr "Τζαμάικα"
 
-#: src/Tribe/View_Helpers.php:149
+#: src/Tribe/Languages/Locations.php:161
 msgid "Italy"
 msgstr "Ιταλία"
 
-#: src/Tribe/View_Helpers.php:148
+#: src/Tribe/Languages/Locations.php:160
 msgid "Israel"
 msgstr "Ισραήλ"
 
-#: src/Tribe/View_Helpers.php:147
+#: src/Tribe/Languages/Locations.php:159
 msgid "Ireland"
 msgstr "Ιρλανδία"
 
-#: src/Tribe/View_Helpers.php:146
+#: src/Tribe/Languages/Locations.php:158
 msgid "Iraq"
 msgstr "Ιράκ"
 
-#: src/Tribe/View_Helpers.php:145
+#: src/Tribe/Languages/Locations.php:157
 msgid "Iran (Islamic Republic Of)"
 msgstr "Ιράν (Ισλαμική Δημοκρατία του)"
 
-#: src/Tribe/View_Helpers.php:144
+#: src/Tribe/Languages/Locations.php:156
 msgid "Indonesia"
 msgstr "Ινδονησία"
 
-#: src/Tribe/View_Helpers.php:143
+#: src/Tribe/Languages/Locations.php:155
 msgid "India"
 msgstr "Ινδία"
 
-#: src/Tribe/View_Helpers.php:142
+#: src/Tribe/Languages/Locations.php:154
 msgid "Iceland"
 msgstr "Ισλανδία"
 
-#: src/Tribe/View_Helpers.php:141
+#: src/Tribe/Languages/Locations.php:153
 msgid "Hungary"
 msgstr "Ουγγαρία"
 
-#: src/Tribe/View_Helpers.php:140
+#: src/Tribe/Languages/Locations.php:152
 msgid "Hong Kong"
 msgstr "Χόνγκ Κόνγκ"
 
-#: src/Tribe/View_Helpers.php:139
+#: src/Tribe/Languages/Locations.php:151
 msgid "Honduras"
 msgstr "Ονδούρα"
 
-#: src/Tribe/View_Helpers.php:138
+#: src/Tribe/Languages/Locations.php:150
 msgid "Holy See (Vatican City State)"
 msgstr "Αγία Έδρα (Πόλη του Βατικανού)"
 
-#: src/Tribe/View_Helpers.php:137
+#: src/Tribe/Languages/Locations.php:149
 msgid "Heard And Mc Donald Islands"
 msgstr "Νήσοι Χερντ και Mc Donald"
 
-#: src/Tribe/View_Helpers.php:136
+#: src/Tribe/Languages/Locations.php:148
 msgid "Haiti"
 msgstr "Αϊτή"
 
-#: src/Tribe/View_Helpers.php:135
+#: src/Tribe/Languages/Locations.php:147
 msgid "Guyana"
 msgstr "Γουιάνα"
 
-#: src/Tribe/View_Helpers.php:134
+#: src/Tribe/Languages/Locations.php:146
 msgid "Guinea-Bissau"
 msgstr "Γουινέα-Μπισάου"
 
-#: src/Tribe/View_Helpers.php:133
+#: src/Tribe/Languages/Locations.php:145
 msgid "Guinea"
 msgstr "Γουινέα"
 
-#: src/Tribe/View_Helpers.php:132
+#: src/Tribe/Languages/Locations.php:144
 msgid "Guatemala"
 msgstr "Γουατεμάλα"
 
-#: src/Tribe/View_Helpers.php:131
+#: src/Tribe/Languages/Locations.php:143
 msgid "Guam"
 msgstr "Γκουάμ"
 
-#: src/Tribe/View_Helpers.php:130
+#: src/Tribe/Languages/Locations.php:142
 msgid "Guadeloupe"
 msgstr "Γουαδελούπη"
 
-#: src/Tribe/View_Helpers.php:129
+#: src/Tribe/Languages/Locations.php:141
 msgid "Grenada"
 msgstr "Γρενάδα"
 
-#: src/Tribe/View_Helpers.php:128
+#: src/Tribe/Languages/Locations.php:140
 msgid "Greenland"
 msgstr "Γροιλανδία"
 
-#: src/Tribe/View_Helpers.php:127
+#: src/Tribe/Languages/Locations.php:139
 msgid "Greece"
 msgstr "Ελλάδα"
 
-#: src/Tribe/View_Helpers.php:126
+#: src/Tribe/Languages/Locations.php:138
 msgid "Gibraltar"
 msgstr "Γιβλαρτάρ"
 
-#: src/Tribe/View_Helpers.php:125
+#: src/Tribe/Languages/Locations.php:137
 msgid "Ghana"
 msgstr "Γκάνα"
 
-#: src/Tribe/View_Helpers.php:124
+#: src/Tribe/Languages/Locations.php:136
 msgid "Germany"
 msgstr "Γερμανία"
 
-#: src/Tribe/View_Helpers.php:123 src/Tribe/View_Helpers.php:331
+#: src/Tribe/Languages/Locations.php:135 src/Tribe/Languages/Locations.php:323
 msgid "Georgia"
 msgstr "Γεωργία"
 
-#: src/Tribe/View_Helpers.php:122
+#: src/Tribe/Languages/Locations.php:134
 msgid "Gambia"
 msgstr "Γκάμπια"
 
-#: src/Tribe/View_Helpers.php:121
+#: src/Tribe/Languages/Locations.php:133
 msgid "Gabon"
 msgstr "Γκαμπόν"
 
-#: src/Tribe/View_Helpers.php:120
+#: src/Tribe/Languages/Locations.php:132
 msgid "French Southern Territories"
 msgstr "Γαλλικά Νότια Εδάφη"
 
-#: src/Tribe/View_Helpers.php:119
+#: src/Tribe/Languages/Locations.php:131
 msgid "French Polynesia"
 msgstr "Γαλλική Πολυνησία"
 
-#: src/Tribe/View_Helpers.php:118
+#: src/Tribe/Languages/Locations.php:130
 msgid "French Guiana"
 msgstr "Γαλλική Γουιάνα"
 
-#: src/Tribe/View_Helpers.php:117
+#: src/Tribe/Languages/Locations.php:129
 msgid "France"
 msgstr "Γαλλία"
 
-#: src/Tribe/View_Helpers.php:116
+#: src/Tribe/Languages/Locations.php:128
 msgid "Finland"
 msgstr "Φιλανδία"
 
-#: src/Tribe/View_Helpers.php:115
+#: src/Tribe/Languages/Locations.php:127
 msgid "Fiji"
 msgstr "Φίτζι"
 
-#: src/Tribe/View_Helpers.php:114
+#: src/Tribe/Languages/Locations.php:126
 msgid "Faroe Islands"
 msgstr "Νήσοι Φερόε"
 
-#: src/Tribe/View_Helpers.php:113
+#: src/Tribe/Languages/Locations.php:125
 msgid "Falkland Islands (Malvinas)"
 msgstr "Νησιά Φώκλαντ (Μαλβίνες)"
 
-#: src/Tribe/View_Helpers.php:112
+#: src/Tribe/Languages/Locations.php:124
 msgid "Ethiopia"
 msgstr "Αιθιοπία"
 
-#: src/Tribe/View_Helpers.php:111
+#: src/Tribe/Languages/Locations.php:123
 msgid "Estonia"
 msgstr "Εσθονία"
 
-#: src/Tribe/View_Helpers.php:110
+#: src/Tribe/Languages/Locations.php:122
 msgid "Eritrea"
 msgstr "Ερυθραία"
 
-#: src/Tribe/View_Helpers.php:109
+#: src/Tribe/Languages/Locations.php:121
 msgid "Equatorial Guinea"
 msgstr "Ισημερινή Γουινέα"
 
-#: src/Tribe/View_Helpers.php:108
+#: src/Tribe/Languages/Locations.php:120
 msgid "El Salvador"
 msgstr "Ελ Σαλβαδόρ"
 
-#: src/Tribe/View_Helpers.php:107
+#: src/Tribe/Languages/Locations.php:119
 msgid "Egypt"
 msgstr "Αίγυπτος"
 
-#: src/Tribe/View_Helpers.php:106
+#: src/Tribe/Languages/Locations.php:118
 msgid "Ecuador"
 msgstr "Εκουαδόρ"
 
-#: src/Tribe/View_Helpers.php:105
+#: src/Tribe/Languages/Locations.php:117
 msgid "East Timor"
 msgstr "Ανατολικό Τιμόρ"
 
-#: src/Tribe/View_Helpers.php:104
+#: src/Tribe/Languages/Locations.php:116
 msgid "Dominican Republic"
 msgstr "Δομινικανή Δημοκρατία"
 
-#: src/Tribe/View_Helpers.php:103
+#: src/Tribe/Languages/Locations.php:115
 msgid "Dominica"
 msgstr "Ντομίνικα"
 
-#: src/Tribe/View_Helpers.php:102
+#: src/Tribe/Languages/Locations.php:114
 msgid "Djibouti"
 msgstr "Τζιμπουτί"
 
-#: src/Tribe/View_Helpers.php:101
+#: src/Tribe/Languages/Locations.php:113
 msgid "Denmark"
 msgstr "Δανία"
 
-#: src/Tribe/View_Helpers.php:100
+#: src/Tribe/Languages/Locations.php:112
 msgid "Czech Republic"
 msgstr "Τσεχία"
 
-#: src/Tribe/View_Helpers.php:99
+#: src/Tribe/Languages/Locations.php:111
 msgid "Cyprus"
 msgstr "Κύπρος"
 
-#: src/Tribe/View_Helpers.php:98
+#: src/Tribe/Languages/Locations.php:110
 msgid "Cuba"
 msgstr "Κούβα"
 
-#: src/Tribe/View_Helpers.php:97
+#: src/Tribe/Languages/Locations.php:109
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "Κροατία (τοπική ονομασία: Hrvatska)"
 
-#: src/Tribe/View_Helpers.php:95
+#: src/Tribe/Languages/Locations.php:107
 msgid "Costa Rica"
 msgstr "Κόστα Ρίκα"
 
-#: src/Tribe/View_Helpers.php:94
+#: src/Tribe/Languages/Locations.php:106
 msgid "Cook Islands"
 msgstr "Νήσοι Κουκ"
 
-#: src/Tribe/View_Helpers.php:93
+#: src/Tribe/Languages/Locations.php:105
 msgid "Congo, The Democratic Republic Of The"
 msgstr "Λαϊκή Δημοκρατία του Κονγκό"
 
-#: src/Tribe/View_Helpers.php:92
+#: src/Tribe/Languages/Locations.php:104
 msgid "Congo"
 msgstr "Κονγκό"
 
-#: src/Tribe/View_Helpers.php:91
+#: src/Tribe/Languages/Locations.php:103
 msgid "Comoros"
 msgstr "Κομόρες"
 
-#: src/Tribe/View_Helpers.php:90
+#: src/Tribe/Languages/Locations.php:102
 msgid "Colombia"
 msgstr "Κολομβία"
 
-#: src/Tribe/View_Helpers.php:89
+#: src/Tribe/Languages/Locations.php:101
 msgid "Cocos (Keeling) Islands"
 msgstr "Νησιά Κόκος (Κίλινγκ)"
 
-#: src/Tribe/View_Helpers.php:88
+#: src/Tribe/Languages/Locations.php:100
 msgid "Christmas Island"
 msgstr "Νήσος των Χριστουγέννων"
 
-#: src/Tribe/View_Helpers.php:87
+#: src/Tribe/Languages/Locations.php:99
 msgid "China"
 msgstr "Κίνα"
 
-#: src/Tribe/View_Helpers.php:86
+#: src/Tribe/Languages/Locations.php:98
 msgid "Chile"
 msgstr "Χιλή"
 
-#: src/Tribe/View_Helpers.php:85
+#: src/Tribe/Languages/Locations.php:97
 msgid "Chad"
 msgstr "Τσαντ"
 
-#: src/Tribe/View_Helpers.php:84
+#: src/Tribe/Languages/Locations.php:96
 msgid "Central African Republic"
 msgstr "Κεντροαφρικανική Δημοκρατία"
 
-#: src/Tribe/View_Helpers.php:83
+#: src/Tribe/Languages/Locations.php:95
 msgid "Cayman Islands"
 msgstr "Νησιά Κέιμαν"
 
-#: src/Tribe/View_Helpers.php:82
+#: src/Tribe/Languages/Locations.php:94
 msgid "Cape Verde"
 msgstr "Πράσινο Ακρωτήριο"
 
-#: src/Tribe/View_Helpers.php:81
+#: src/Tribe/Languages/Locations.php:93
 msgid "Canada"
 msgstr "Καναδάς"
 
-#: src/Tribe/View_Helpers.php:80
+#: src/Tribe/Languages/Locations.php:92
 msgid "Cameroon"
 msgstr "Καμερούν"
 
-#: src/Tribe/View_Helpers.php:79
+#: src/Tribe/Languages/Locations.php:91
 msgid "Cambodia"
 msgstr "Καμπότζη"
 
-#: src/Tribe/View_Helpers.php:78
+#: src/Tribe/Languages/Locations.php:90
 msgid "Burundi"
 msgstr "Μπουρούντι"
 
-#: src/Tribe/View_Helpers.php:77
+#: src/Tribe/Languages/Locations.php:89
 msgid "Burkina Faso"
 msgstr "Μπουρκίνα Φάσο"
 
-#: src/Tribe/View_Helpers.php:76
+#: src/Tribe/Languages/Locations.php:88
 msgid "Bulgaria"
 msgstr "Βουλγαρία"
 
-#: src/Tribe/View_Helpers.php:75
+#: src/Tribe/Languages/Locations.php:87
 msgid "Brunei Darussalam"
 msgstr "Μπρουνέι Νταρουσαλάμ"
 
-#: src/Tribe/View_Helpers.php:74
+#: src/Tribe/Languages/Locations.php:86
 msgid "British Indian Ocean Territory"
 msgstr "Βρετανικά εδάφη του Ινδικού Ωκεανού"
 
-#: src/Tribe/View_Helpers.php:73
+#: src/Tribe/Languages/Locations.php:85
 msgid "Brazil"
 msgstr "Βραζιλία"
 
-#: src/Tribe/View_Helpers.php:72
+#: src/Tribe/Languages/Locations.php:84
 msgid "Bouvet Island"
 msgstr "Νήσος Μπουβέ"
 
-#: src/Tribe/View_Helpers.php:71
+#: src/Tribe/Languages/Locations.php:83
 msgid "Botswana"
 msgstr "Μποτσουάνα"
 
-#: src/Tribe/View_Helpers.php:70
+#: src/Tribe/Languages/Locations.php:82
 msgid "Bosnia And Herzegowina"
 msgstr "Βοσνία-Ερζεγοβίνη"
 
-#: src/Tribe/View_Helpers.php:69
+#: src/Tribe/Languages/Locations.php:81
 msgid "Bolivia"
 msgstr "Βολιβία"
 
-#: src/Tribe/View_Helpers.php:68
+#: src/Tribe/Languages/Locations.php:80
 msgid "Bhutan"
 msgstr "Μπουτάν"
 
-#: src/Tribe/View_Helpers.php:67
+#: src/Tribe/Languages/Locations.php:79
 msgid "Bermuda"
 msgstr "Βερμούδες"
 
-#: src/Tribe/View_Helpers.php:66
+#: src/Tribe/Languages/Locations.php:78
 msgid "Benin"
 msgstr "Μπενίν"
 
-#: src/Tribe/View_Helpers.php:65
+#: src/Tribe/Languages/Locations.php:77
 msgid "Belize"
 msgstr "Μπελίζ"
 
-#: src/Tribe/View_Helpers.php:64
+#: src/Tribe/Languages/Locations.php:76
 msgid "Belgium"
 msgstr "Βέλγιο"
 
-#: src/Tribe/View_Helpers.php:63
+#: src/Tribe/Languages/Locations.php:75
 msgid "Belarus"
 msgstr "Λευκορωσία"
 
-#: src/Tribe/View_Helpers.php:62
+#: src/Tribe/Languages/Locations.php:74
 msgid "Barbados"
 msgstr "Μπαρμπάντος"
 
-#: src/Tribe/View_Helpers.php:61
+#: src/Tribe/Languages/Locations.php:73
 msgid "Bangladesh"
 msgstr "Μπανγκλαντές"
 
-#: src/Tribe/View_Helpers.php:60
+#: src/Tribe/Languages/Locations.php:72
 msgid "Bahrain"
 msgstr "Μπαχρέιν"
 
-#: src/Tribe/View_Helpers.php:59
+#: src/Tribe/Languages/Locations.php:71
 msgid "Bahamas"
 msgstr "Μπαχάμες"
 
-#: src/Tribe/View_Helpers.php:58
+#: src/Tribe/Languages/Locations.php:70
 msgid "Azerbaijan"
 msgstr "Αζερμπαϊτζάν"
 
-#: src/Tribe/View_Helpers.php:57
+#: src/Tribe/Languages/Locations.php:69
 msgid "Austria"
 msgstr "Αυστρία"
 
-#: src/Tribe/View_Helpers.php:56
+#: src/Tribe/Languages/Locations.php:68
 msgid "Australia"
 msgstr "Αυστραλία"
 
-#: src/Tribe/View_Helpers.php:55
+#: src/Tribe/Languages/Locations.php:67
 msgid "Aruba"
 msgstr "Αρούμπα"
 
-#: src/Tribe/View_Helpers.php:54
+#: src/Tribe/Languages/Locations.php:66
 msgid "Armenia"
 msgstr "Αρμενία"
 
-#: src/Tribe/View_Helpers.php:53
+#: src/Tribe/Languages/Locations.php:65
 msgid "Argentina"
 msgstr "Αργεντινή"
 
-#: src/Tribe/View_Helpers.php:52
+#: src/Tribe/Languages/Locations.php:64
 msgid "Antigua And Barbuda"
 msgstr "Αντίγκουα και Μπαρμπούντα"
 
-#: src/Tribe/View_Helpers.php:51
+#: src/Tribe/Languages/Locations.php:63
 msgid "Antarctica"
 msgstr "Ανταρκτική"
 
-#: src/Tribe/View_Helpers.php:50
+#: src/Tribe/Languages/Locations.php:62
 msgid "Anguilla"
 msgstr "Ανγκουίλλα"
 
-#: src/Tribe/View_Helpers.php:49
+#: src/Tribe/Languages/Locations.php:61
 msgid "Angola"
 msgstr "Ανγκόλα"
 
-#: src/Tribe/View_Helpers.php:48
+#: src/Tribe/Languages/Locations.php:60
 msgid "Andorra"
 msgstr "Ανδόρα"
 
-#: src/Tribe/View_Helpers.php:47
+#: src/Tribe/Languages/Locations.php:59
 msgid "American Samoa"
 msgstr "Αμερικάνικη Σαμόα"
 
-#: src/Tribe/View_Helpers.php:46
+#: src/Tribe/Languages/Locations.php:58
 msgid "Algeria"
 msgstr "Αλγερία"
 
-#: src/Tribe/View_Helpers.php:45
+#: src/Tribe/Languages/Locations.php:57
 msgid "Albania"
 msgstr "Αλβανία"
 
-#: src/Tribe/View_Helpers.php:44
+#: src/Tribe/Languages/Locations.php:56
 msgid "Afghanistan"
 msgstr "Αφγανιστάν"
 
-#: src/Tribe/View_Helpers.php:290
+#: src/Tribe/View_Helpers.php:50
 msgid "Select a Country:"
 msgstr "Επιλογή Χώρας:"
 
@@ -2137,7 +2141,7 @@ msgstr "Άκυρο ή ελλιπές πεδίο"
 msgid "Unknown or not set"
 msgstr "Άγνωστο ή μη ρυθμισμένο"
 
-#: src/admin-views/tribe-options-help.php:34
+#: src/admin-views/tribe-options-help.php:41
 msgid "System Information"
 msgstr "Πληροφορίες Συστήματος"
 
@@ -2207,7 +2211,7 @@ msgstr "Ένα έγκυρο κλειδι άδειας απαιτείται γι�
 msgid "License Key"
 msgstr "Κλειδί Άδειας"
 
-#: src/Tribe/Main.php:263
+#: src/Tribe/Main.php:265
 msgid "Search:"
 msgstr ""
 
@@ -2219,19 +2223,19 @@ msgstr "Ρυθμίσεις"
 msgid "Network"
 msgstr "Δίκτυο"
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:290
 msgid "Done"
 msgstr "Τέλος"
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:289
 msgid "Today"
 msgstr "Σήμερα"
 
-#: src/Tribe/Main.php:286
+#: src/Tribe/Main.php:288
 msgid "Prev"
 msgstr "Προηγούμενο"
 
-#: src/Tribe/Main.php:269 src/Tribe/Main.php:285
+#: src/Tribe/Main.php:271 src/Tribe/Main.php:287
 msgid "Next"
 msgstr "Επόμενο"
 
@@ -2291,6 +2295,6 @@ msgstr "Αυτό το ημερολόγιο υποστηρίζεται από τ�
 msgid "Event Add-Ons"
 msgstr "Πρόσθετα Εκδηλώσεων"
 
-#: src/Tribe/View_Helpers.php:43
+#: src/Tribe/Languages/Locations.php:55
 msgid "United States"
 msgstr "Ηνωμένες Πολιτείες"

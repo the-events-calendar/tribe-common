@@ -326,3 +326,16 @@ if ( ! function_exists( 'tribe_retrieve_object_by_hook' ) ) {
 		return false;
 	}
 }
+
+if ( ! function_exists( 'tribe_is_wpml_active' ) ) {
+	/**
+	 * A unified way of checking if WPML is activated.
+	 *
+	 * @since 4.6.2
+	 *
+	 * @return boolean
+	 */
+	function tribe_is_wpml_active() {
+		return ( class_exists( 'SitePress' ) && defined( 'ICL_PLUGIN_PATH' ) );
+	}
+}

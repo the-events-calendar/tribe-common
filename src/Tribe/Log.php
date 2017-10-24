@@ -233,10 +233,15 @@ class Tribe__Log {
 	}
 
 	/**
-	 * Returns the currently active logger or null if none is set/none are
-	 * available.
+	 * Returns the currently active logger.
 	 *
-	 * @return Tribe__Log__Logger|null
+	 * If no loggers are available, this will be the null logger which is a no-op
+	 * implementation (making it safe to call Tribe__Log__Logger methods on the
+	 * return value of this method at all times).
+	 *
+	 * @since 4.6.2 altered the return signature to only return instances of Tribe__Log__Logger
+	 *
+	 * @return Tribe__Log__Logger
 	 */
 	public function get_current_logger() {
 		if ( ! $this->current_logger ) {
@@ -244,10 +249,10 @@ class Tribe__Log {
 			$available = $this->get_logging_engines();
 
 			if ( empty( $engine ) || ! isset( $available[ $engine ] ) ) {
-				return null;
+				return $this->current_logger = new Tribe__Log__Null_Logger();
+			} else {
+				$this->current_logger = $this->get_engine( $engine );
 			}
-
-			$this->current_logger = $this->get_engine( $engine );
 		}
 
 		return $this->current_logger;

@@ -207,6 +207,8 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	 *       '2016-12-30',
 	 *       '2016-12-30', ... ]
 	 *
+	 * @since 4.6.2 added extra safety checks before attempting to access log directory
+	 *
 	 * @return array
 	 */
 	public function list_available_logs() {
@@ -219,8 +221,21 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 
 		$basename = $this->get_log_file_basename();
 
+		/**
+		 * Though the is_available() method tests to see if the log directory is
+		 * readable and writeable there are situations where that isn't a
+		 * sufficient check by itself, hence the try/catch block.
+		 *
+		 * @see https://central.tri.be/issues/90436
+		 */
+		try {
+			$log_files_dir = new DirectoryIterator( $this->log_dir );
+		} catch ( Exception $e ) {
+			return $logs;
+		}
+
 		// Look through the log storage directory
-		foreach ( new DirectoryIterator( $this->log_dir ) as $node ) {
+		foreach ( $log_files_dir as $node ) {
 			if ( ! $node->isReadable() ) {
 				continue;
 			}
