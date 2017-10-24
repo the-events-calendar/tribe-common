@@ -333,7 +333,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public function generatePage() {
 			do_action( 'tribe_settings_top' );
 			echo '<div class="tribe_settings wrap">';
-			screen_icon();
 			echo '<h1>';
 			printf( esc_html__( '%s Settings', 'tribe-common' ), $this->menuName );
 			echo '</h1>';

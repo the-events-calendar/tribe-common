@@ -11,19 +11,31 @@ msgstr ""
 "Language: id\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/admin-views/tribe-options-help.php:20
+msgid "Check out our %s for developers."
+msgstr ""
+
+#: src/admin-views/tribe-options-help.php:18
+msgid "Want to dive deeper?"
+msgstr ""
+
+#: src/admin-views/tribe-options-display.php:28
+msgid "The following three fields accept the date format options available to the PHP %1$s function. <a href=\"%2$s\" target=\"_blank\">Learn how to make your own date format here</a>."
+msgstr ""
+
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:57
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Main.php:266
+#: src/Tribe/Main.php:268
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:265
+#: src/Tribe/Main.php:267
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:264
+#: src/Tribe/Main.php:266
 msgid "All items on this page were selected. "
 msgstr ""
 
@@ -267,11 +279,11 @@ msgctxt "separator used in a list of items"
 msgid ", "
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:48
+#: src/admin-views/tribe-options-help.php:55
 msgid "Event Log"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:35
+#: src/admin-views/tribe-options-help.php:42
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
 msgstr ""
 
@@ -341,7 +353,7 @@ msgstr ""
 msgid " (opens in new window)"
 msgstr ""
 
-#: src/Tribe/View_Helpers.php:96
+#: src/Tribe/Languages/Locations.php:108
 msgid "C&ocirc;te d'Ivoire"
 msgstr ""
 
@@ -377,63 +389,63 @@ msgstr ""
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:278
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:275
+#: src/Tribe/Main.php:277
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:270
+#: src/Tribe/Main.php:272
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:268
+#: src/Tribe/Main.php:270
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:264
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:263
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:262
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:261
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:258
+#: src/Tribe/Main.php:260
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:259
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:257
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:256
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:248
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:247
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:244 src/admin-views/tribe-options-help.php:43
+#: src/Tribe/Main.php:246 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -536,7 +548,7 @@ msgctxt "log selector"
 msgid "None currently available"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:45
+#: src/admin-views/tribe-options-help.php:52
 msgid "Recent Template Changes"
 msgstr ""
 
@@ -580,7 +592,7 @@ msgstr ""
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:31
+#: src/admin-views/tribe-options-help.php:38
 msgid "Read more about our support policy"
 msgstr ""
 
@@ -588,44 +600,40 @@ msgstr ""
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:26
+#: src/admin-views/tribe-options-help.php:33
 msgid "Search our support forum"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:26
+#: src/admin-views/tribe-options-help.php:33
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:25
+#: src/admin-views/tribe-options-help.php:32
 msgid "Test for a theme or plugin conflict"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:25
+#: src/admin-views/tribe-options-help.php:32
 msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:24
+#: src/admin-views/tribe-options-help.php:31
 msgid "Check our Knowledgebase"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:24
+#: src/admin-views/tribe-options-help.php:31
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:20
+#: src/admin-views/tribe-options-help.php:27
 msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:19
+#: src/admin-views/tribe-options-help.php:26
 msgid "Getting More Help"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:16
+#: src/admin-views/tribe-options-help.php:21
 msgid "list of available functions"
-msgstr ""
-
-#: src/admin-views/tribe-options-help.php:16
-msgid "<strong>Want to dive deeper?</strong> Check out our %s for developers."
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:15
@@ -792,7 +800,7 @@ msgstr "Ini adalah di mana semua pengaturan jaringan global untuk  Modern Tribe'
 msgid "Network Settings"
 msgstr "Pengaturan Jaringan"
 
-#: src/admin-views/tribe-options-help.php:67
+#: src/admin-views/tribe-options-help.php:74
 msgid "News and Tutorials"
 msgstr "Berita dan Tutorial"
 
@@ -812,7 +820,7 @@ msgstr "Membutuhkan:"
 msgid "Latest Version:"
 msgstr "Versi Terbaru:"
 
-#: src/admin-views/tribe-options-help.php:73
+#: src/admin-views/tribe-options-help.php:80
 msgid "More..."
 msgstr "Lanjut..."
 
@@ -874,17 +882,13 @@ msgstr "Check out add-ons yang tersedia"
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
 msgstr "Mencari fungsi tambahan termasuk event berulang, custom meta, event komunitas, penjualan tiket dan lainnya?"
 
-#: src/admin-views/tribe-options-display.php:31
+#: src/admin-views/tribe-options-display.php:37
 msgid "Select the date format to use in datepickers"
 msgstr "Pilih format tanggal untuk digunakan dalam datepickers"
 
-#: src/admin-views/tribe-options-display.php:30
+#: src/admin-views/tribe-options-display.php:36
 msgid "Datepicker Date Format"
 msgstr "Format Datepicker Tanggal"
-
-#: src/admin-views/tribe-options-display.php:26
-msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
-msgstr "<p> Tiga field berikut menerima opsi format tanggal yang tersedia dalam function php date() . <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\"> Pelajari cara membuat format tanggal Anda sendiri di sini </a>. </p>"
 
 #: src/admin-views/tribe-options-display.php:22
 msgid "Date Format Settings"
@@ -898,1155 +902,1155 @@ msgstr "Lihat"
 msgid "Community Events"
 msgstr ""
 
-#: src/Tribe/View_Helpers.php:371
+#: src/Tribe/Languages/Locations.php:363
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: src/Tribe/View_Helpers.php:370
+#: src/Tribe/Languages/Locations.php:362
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: src/Tribe/View_Helpers.php:369
+#: src/Tribe/Languages/Locations.php:361
 msgid "West Virginia"
 msgstr "Virginia Barat"
 
-#: src/Tribe/View_Helpers.php:368
+#: src/Tribe/Languages/Locations.php:360
 msgid "Washington"
 msgstr "Washington"
 
-#: src/Tribe/View_Helpers.php:367
+#: src/Tribe/Languages/Locations.php:359
 msgid "Virginia"
 msgstr "Virginia"
 
-#: src/Tribe/View_Helpers.php:366
+#: src/Tribe/Languages/Locations.php:358
 msgid "Vermont"
 msgstr "Vermont"
 
-#: src/Tribe/View_Helpers.php:365
+#: src/Tribe/Languages/Locations.php:357
 msgid "Utah"
 msgstr "Utah"
 
-#: src/Tribe/View_Helpers.php:364
+#: src/Tribe/Languages/Locations.php:356
 msgid "Texas"
 msgstr "Texas"
 
-#: src/Tribe/View_Helpers.php:363
+#: src/Tribe/Languages/Locations.php:355
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: src/Tribe/View_Helpers.php:362
+#: src/Tribe/Languages/Locations.php:354
 msgid "South Dakota"
 msgstr "South Dakota"
 
-#: src/Tribe/View_Helpers.php:361
+#: src/Tribe/Languages/Locations.php:353
 msgid "South Carolina"
 msgstr "Carolina Selatan"
 
-#: src/Tribe/View_Helpers.php:360
+#: src/Tribe/Languages/Locations.php:352
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: src/Tribe/View_Helpers.php:359
+#: src/Tribe/Languages/Locations.php:351
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: src/Tribe/View_Helpers.php:358
+#: src/Tribe/Languages/Locations.php:350
 msgid "Oregon"
 msgstr "Oregon"
 
-#: src/Tribe/View_Helpers.php:357
+#: src/Tribe/Languages/Locations.php:349
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: src/Tribe/View_Helpers.php:356
+#: src/Tribe/Languages/Locations.php:348
 msgid "Ohio"
 msgstr "Ohio"
 
-#: src/Tribe/View_Helpers.php:355
+#: src/Tribe/Languages/Locations.php:347
 msgid "North Dakota"
 msgstr "North Dakota"
 
-#: src/Tribe/View_Helpers.php:354
+#: src/Tribe/Languages/Locations.php:346
 msgid "North Carolina"
 msgstr "North Carolina"
 
-#: src/Tribe/View_Helpers.php:353
+#: src/Tribe/Languages/Locations.php:345
 msgid "New York"
 msgstr "New York."
 
-#: src/Tribe/View_Helpers.php:352
+#: src/Tribe/Languages/Locations.php:344
 msgid "New Mexico"
 msgstr "New Mexico"
 
-#: src/Tribe/View_Helpers.php:351
+#: src/Tribe/Languages/Locations.php:343
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: src/Tribe/View_Helpers.php:350
+#: src/Tribe/Languages/Locations.php:342
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: src/Tribe/View_Helpers.php:349
+#: src/Tribe/Languages/Locations.php:341
 msgid "Nevada"
 msgstr "Nevada"
 
-#: src/Tribe/View_Helpers.php:348
+#: src/Tribe/Languages/Locations.php:340
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: src/Tribe/View_Helpers.php:347
+#: src/Tribe/Languages/Locations.php:339
 msgid "Montana"
 msgstr "Montana"
 
-#: src/Tribe/View_Helpers.php:346
+#: src/Tribe/Languages/Locations.php:338
 msgid "Missouri"
 msgstr "Missouri"
 
-#: src/Tribe/View_Helpers.php:345
+#: src/Tribe/Languages/Locations.php:337
 msgid "Mississippi"
 msgstr "Mississippi."
 
-#: src/Tribe/View_Helpers.php:344
+#: src/Tribe/Languages/Locations.php:336
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: src/Tribe/View_Helpers.php:343
+#: src/Tribe/Languages/Locations.php:335
 msgid "Michigan"
 msgstr "Michigan"
 
-#: src/Tribe/View_Helpers.php:342
+#: src/Tribe/Languages/Locations.php:334
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: src/Tribe/View_Helpers.php:341
+#: src/Tribe/Languages/Locations.php:333
 msgid "Maryland"
 msgstr "Maryland"
 
-#: src/Tribe/View_Helpers.php:340
+#: src/Tribe/Languages/Locations.php:332
 msgid "Maine"
 msgstr "Maine"
 
-#: src/Tribe/View_Helpers.php:339
+#: src/Tribe/Languages/Locations.php:331
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: src/Tribe/View_Helpers.php:338
+#: src/Tribe/Languages/Locations.php:330
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: src/Tribe/View_Helpers.php:337
+#: src/Tribe/Languages/Locations.php:329
 msgid "Kansas"
 msgstr "Kansas"
 
-#: src/Tribe/View_Helpers.php:336
+#: src/Tribe/Languages/Locations.php:328
 msgid "Iowa"
 msgstr "Iowa"
 
-#: src/Tribe/View_Helpers.php:335
+#: src/Tribe/Languages/Locations.php:327
 msgid "Indiana"
 msgstr "Indiana"
 
-#: src/Tribe/View_Helpers.php:334
+#: src/Tribe/Languages/Locations.php:326
 msgid "Illinois"
 msgstr "Illinois"
 
-#: src/Tribe/View_Helpers.php:333
+#: src/Tribe/Languages/Locations.php:325
 msgid "Idaho"
 msgstr "Idaho"
 
-#: src/Tribe/View_Helpers.php:332
+#: src/Tribe/Languages/Locations.php:324
 msgid "Hawaii"
 msgstr "Hawai"
 
-#: src/Tribe/View_Helpers.php:330
+#: src/Tribe/Languages/Locations.php:322
 msgid "Florida"
 msgstr "Florida"
 
-#: src/Tribe/View_Helpers.php:329
+#: src/Tribe/Languages/Locations.php:321
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: src/Tribe/View_Helpers.php:328
+#: src/Tribe/Languages/Locations.php:320
 msgid "Delaware"
 msgstr "Delaware"
 
-#: src/Tribe/View_Helpers.php:327
+#: src/Tribe/Languages/Locations.php:319
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: src/Tribe/View_Helpers.php:326
+#: src/Tribe/Languages/Locations.php:318
 msgid "Colorado"
 msgstr "Colorado"
 
-#: src/Tribe/View_Helpers.php:325
+#: src/Tribe/Languages/Locations.php:317
 msgid "California"
 msgstr "California"
 
-#: src/Tribe/View_Helpers.php:324
+#: src/Tribe/Languages/Locations.php:316
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: src/Tribe/View_Helpers.php:323
+#: src/Tribe/Languages/Locations.php:315
 msgid "Arizona"
 msgstr "Arizona"
 
-#: src/Tribe/View_Helpers.php:322
+#: src/Tribe/Languages/Locations.php:314
 msgid "Alaska"
 msgstr "Alaska"
 
-#: src/Tribe/View_Helpers.php:321
+#: src/Tribe/Languages/Locations.php:313
 msgid "Alabama"
 msgstr "Alabama"
 
-#: src/Tribe/View_Helpers.php:281
+#: src/Tribe/Languages/Locations.php:293
 msgid "Zimbabwe"
 msgstr "Zimbabwe"
 
-#: src/Tribe/View_Helpers.php:280
+#: src/Tribe/Languages/Locations.php:292
 msgid "Zambia"
 msgstr "Zambia"
 
-#: src/Tribe/View_Helpers.php:279
+#: src/Tribe/Languages/Locations.php:291
 msgid "Yemen"
 msgstr "Yaman"
 
-#: src/Tribe/View_Helpers.php:278
+#: src/Tribe/Languages/Locations.php:290
 msgid "Western Sahara"
 msgstr "Sahara Barat"
 
-#: src/Tribe/View_Helpers.php:277
+#: src/Tribe/Languages/Locations.php:289
 msgid "Wallis And Futuna Islands"
 msgstr "Wallis And Futuna Islands"
 
-#: src/Tribe/View_Helpers.php:276
+#: src/Tribe/Languages/Locations.php:288
 msgid "Virgin Islands (U.S.)"
 msgstr "Kepulauan Virgin (AS)"
 
-#: src/Tribe/View_Helpers.php:275
+#: src/Tribe/Languages/Locations.php:287
 msgid "Virgin Islands (British)"
 msgstr "Kepulauan Virgin (Inggris)"
 
-#: src/Tribe/View_Helpers.php:274
+#: src/Tribe/Languages/Locations.php:286
 msgid "Viet Nam"
 msgstr "Vietnam"
 
-#: src/Tribe/View_Helpers.php:273
+#: src/Tribe/Languages/Locations.php:285
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: src/Tribe/View_Helpers.php:272
+#: src/Tribe/Languages/Locations.php:284
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
-#: src/Tribe/View_Helpers.php:271
+#: src/Tribe/Languages/Locations.php:283
 msgid "Uzbekistan"
 msgstr "Uzbekistan"
 
-#: src/Tribe/View_Helpers.php:270
+#: src/Tribe/Languages/Locations.php:282
 msgid "Uruguay"
 msgstr "Uruguay"
 
-#: src/Tribe/View_Helpers.php:269
+#: src/Tribe/Languages/Locations.php:281
 msgid "United States Minor Outlying Islands"
 msgstr "Amerika Serikat Minor Outlying Islands"
 
-#: src/Tribe/View_Helpers.php:268
+#: src/Tribe/Languages/Locations.php:280
 msgid "United Kingdom"
 msgstr "Inggris"
 
-#: src/Tribe/View_Helpers.php:267
+#: src/Tribe/Languages/Locations.php:279
 msgid "United Arab Emirates"
 msgstr "Uni Emirat Arab"
 
-#: src/Tribe/View_Helpers.php:266
+#: src/Tribe/Languages/Locations.php:278
 msgid "Ukraine"
 msgstr "Ukraina"
 
-#: src/Tribe/View_Helpers.php:265
+#: src/Tribe/Languages/Locations.php:277
 msgid "Uganda"
 msgstr "Uganda"
 
-#: src/Tribe/View_Helpers.php:264
+#: src/Tribe/Languages/Locations.php:276
 msgid "Tuvalu"
 msgstr "Tuvalu"
 
-#: src/Tribe/View_Helpers.php:263
+#: src/Tribe/Languages/Locations.php:275
 msgid "Turks And Caicos Islands"
 msgstr "Kepulauan Turks dan Caicos"
 
-#: src/Tribe/View_Helpers.php:262
+#: src/Tribe/Languages/Locations.php:274
 msgid "Turkmenistan"
 msgstr "Turkmenistan"
 
-#: src/Tribe/View_Helpers.php:261
+#: src/Tribe/Languages/Locations.php:273
 msgid "Turkey"
 msgstr "Turki"
 
-#: src/Tribe/View_Helpers.php:260
+#: src/Tribe/Languages/Locations.php:272
 msgid "Tunisia"
 msgstr "Tunisia"
 
-#: src/Tribe/View_Helpers.php:259
+#: src/Tribe/Languages/Locations.php:271
 msgid "Trinidad And Tobago"
 msgstr "Trinidad dan Tobago"
 
-#: src/Tribe/View_Helpers.php:258
+#: src/Tribe/Languages/Locations.php:270
 msgid "Tonga"
 msgstr "Tonga"
 
-#: src/Tribe/View_Helpers.php:257
+#: src/Tribe/Languages/Locations.php:269
 msgid "Tokelau"
 msgstr "Tokelau"
 
-#: src/Tribe/View_Helpers.php:256
+#: src/Tribe/Languages/Locations.php:268
 msgid "Togo"
 msgstr "Togo"
 
-#: src/Tribe/View_Helpers.php:255
+#: src/Tribe/Languages/Locations.php:267
 msgid "Thailand"
 msgstr "Thailand"
 
-#: src/Tribe/View_Helpers.php:254
+#: src/Tribe/Languages/Locations.php:266
 msgid "Tanzania, United Republic Of"
 msgstr "Tanzania, United Republic Of"
 
-#: src/Tribe/View_Helpers.php:253
+#: src/Tribe/Languages/Locations.php:265
 msgid "Tajikistan"
 msgstr "Tajikistan"
 
-#: src/Tribe/View_Helpers.php:252
+#: src/Tribe/Languages/Locations.php:264
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: src/Tribe/View_Helpers.php:251
+#: src/Tribe/Languages/Locations.php:263
 msgid "Syrian Arab Republic"
 msgstr "Suriah"
 
-#: src/Tribe/View_Helpers.php:250
+#: src/Tribe/Languages/Locations.php:262
 msgid "Switzerland"
 msgstr "Swiss"
 
-#: src/Tribe/View_Helpers.php:249
+#: src/Tribe/Languages/Locations.php:261
 msgid "Sweden"
 msgstr "Swedia"
 
-#: src/Tribe/View_Helpers.php:248
+#: src/Tribe/Languages/Locations.php:260
 msgid "Swaziland"
 msgstr "Swaziland"
 
-#: src/Tribe/View_Helpers.php:247
+#: src/Tribe/Languages/Locations.php:259
 msgid "Svalbard And Jan Mayen Islands"
 msgstr "Svalbard And Jan Mayen Islands"
 
-#: src/Tribe/View_Helpers.php:246
+#: src/Tribe/Languages/Locations.php:258
 msgid "Suriname"
 msgstr "Suriname"
 
-#: src/Tribe/View_Helpers.php:245
+#: src/Tribe/Languages/Locations.php:257
 msgid "Sudan"
 msgstr "Sudan"
 
-#: src/Tribe/View_Helpers.php:244
+#: src/Tribe/Languages/Locations.php:256
 msgid "St. Pierre And Miquelon"
 msgstr "St Pierre Dan Miquelon"
 
-#: src/Tribe/View_Helpers.php:243
+#: src/Tribe/Languages/Locations.php:255
 msgid "St. Helena"
 msgstr "St. Helena"
 
-#: src/Tribe/View_Helpers.php:242
+#: src/Tribe/Languages/Locations.php:254
 msgid "Sri Lanka"
 msgstr "Sri Lanka"
 
-#: src/Tribe/View_Helpers.php:241
+#: src/Tribe/Languages/Locations.php:253
 msgid "Spain"
 msgstr "Spanyol"
 
-#: src/Tribe/View_Helpers.php:240
+#: src/Tribe/Languages/Locations.php:252
 msgid "South Georgia, South Sandwich Islands"
 msgstr "South Georgia, South Sandwich Islands"
 
-#: src/Tribe/View_Helpers.php:239
+#: src/Tribe/Languages/Locations.php:251
 msgid "South Africa"
 msgstr "Afrika Selatan"
 
-#: src/Tribe/View_Helpers.php:238
+#: src/Tribe/Languages/Locations.php:250
 msgid "Somalia"
 msgstr "Somalia"
 
-#: src/Tribe/View_Helpers.php:237
+#: src/Tribe/Languages/Locations.php:249
 msgid "Solomon Islands"
 msgstr "Kepulauan Solomon"
 
-#: src/Tribe/View_Helpers.php:236
+#: src/Tribe/Languages/Locations.php:248
 msgid "Slovenia"
 msgstr "Slovenia"
 
-#: src/Tribe/View_Helpers.php:235
+#: src/Tribe/Languages/Locations.php:247
 msgid "Slovakia (Slovak Republic)"
 msgstr "Slovakia (Republik Slovak)"
 
-#: src/Tribe/View_Helpers.php:234
+#: src/Tribe/Languages/Locations.php:246
 msgid "Singapore"
 msgstr "Singapura"
 
-#: src/Tribe/View_Helpers.php:233
+#: src/Tribe/Languages/Locations.php:245
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/Tribe/View_Helpers.php:232
+#: src/Tribe/Languages/Locations.php:244
 msgid "Seychelles"
 msgstr "Seychelles"
 
-#: src/Tribe/View_Helpers.php:231
+#: src/Tribe/Languages/Locations.php:243
 msgid "Serbia"
 msgstr "Serbia"
 
-#: src/Tribe/View_Helpers.php:230
+#: src/Tribe/Languages/Locations.php:242
 msgid "Senegal"
 msgstr "Senegal"
 
-#: src/Tribe/View_Helpers.php:229
+#: src/Tribe/Languages/Locations.php:241
 msgid "Saudi Arabia"
 msgstr "Arab Saudi"
 
-#: src/Tribe/View_Helpers.php:228
+#: src/Tribe/Languages/Locations.php:240
 msgid "Sao Tome And Principe"
 msgstr "Sao Tome Dan Principe"
 
-#: src/Tribe/View_Helpers.php:227
+#: src/Tribe/Languages/Locations.php:239
 msgid "San Marino"
 msgstr "San Marino"
 
-#: src/Tribe/View_Helpers.php:226
+#: src/Tribe/Languages/Locations.php:238
 msgid "Samoa"
 msgstr "Samoa"
 
-#: src/Tribe/View_Helpers.php:225
+#: src/Tribe/Languages/Locations.php:237
 msgid "Saint Vincent And The Grenadines"
 msgstr "Saint Vincent dan Grenadines"
 
-#: src/Tribe/View_Helpers.php:224
+#: src/Tribe/Languages/Locations.php:236
 msgid "Saint Lucia"
 msgstr "Saint Lusia"
 
-#: src/Tribe/View_Helpers.php:223
+#: src/Tribe/Languages/Locations.php:235
 msgid "Saint Kitts And Nevis"
 msgstr "Saint Kitts dan Nevis"
 
-#: src/Tribe/View_Helpers.php:222
+#: src/Tribe/Languages/Locations.php:234
 msgid "Rwanda"
 msgstr "Rwanda"
 
-#: src/Tribe/View_Helpers.php:221
+#: src/Tribe/Languages/Locations.php:233
 msgid "Russian Federation"
 msgstr "Federasi Rusia"
 
-#: src/Tribe/View_Helpers.php:220
+#: src/Tribe/Languages/Locations.php:232
 msgid "Romania"
 msgstr "Rumania"
 
-#: src/Tribe/View_Helpers.php:219
+#: src/Tribe/Languages/Locations.php:231
 msgid "Reunion"
 msgstr "Reunion"
 
-#: src/Tribe/View_Helpers.php:218
+#: src/Tribe/Languages/Locations.php:230
 msgid "Qatar"
 msgstr "Qatar"
 
-#: src/Tribe/View_Helpers.php:217
+#: src/Tribe/Languages/Locations.php:229
 msgid "Puerto Rico"
 msgstr "Puerto Riko"
 
-#: src/Tribe/View_Helpers.php:216
+#: src/Tribe/Languages/Locations.php:228
 msgid "Portugal"
 msgstr "Portugal"
 
-#: src/Tribe/View_Helpers.php:215
+#: src/Tribe/Languages/Locations.php:227
 msgid "Poland"
 msgstr "Polandia"
 
-#: src/Tribe/View_Helpers.php:214
+#: src/Tribe/Languages/Locations.php:226
 msgid "Pitcairn"
 msgstr "Pitcairn"
 
-#: src/Tribe/View_Helpers.php:213
+#: src/Tribe/Languages/Locations.php:225
 msgid "Philippines"
 msgstr "Filipina"
 
-#: src/Tribe/View_Helpers.php:212
+#: src/Tribe/Languages/Locations.php:224
 msgid "Peru"
 msgstr "Peru"
 
-#: src/Tribe/View_Helpers.php:211
+#: src/Tribe/Languages/Locations.php:223
 msgid "Paraguay"
 msgstr "Paraguay"
 
-#: src/Tribe/View_Helpers.php:210
+#: src/Tribe/Languages/Locations.php:222
 msgid "Papua New Guinea"
 msgstr "Papua Nugini"
 
-#: src/Tribe/View_Helpers.php:209
+#: src/Tribe/Languages/Locations.php:221
 msgid "Panama"
 msgstr "Panama"
 
-#: src/Tribe/View_Helpers.php:208
+#: src/Tribe/Languages/Locations.php:220
 msgid "Palau"
 msgstr "Palau"
 
-#: src/Tribe/View_Helpers.php:207
+#: src/Tribe/Languages/Locations.php:219
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: src/Tribe/View_Helpers.php:206
+#: src/Tribe/Languages/Locations.php:218
 msgid "Oman"
 msgstr "Oman"
 
-#: src/Tribe/View_Helpers.php:205
+#: src/Tribe/Languages/Locations.php:217
 msgid "Norway"
 msgstr "Norwegia"
 
-#: src/Tribe/View_Helpers.php:204
+#: src/Tribe/Languages/Locations.php:216
 msgid "Northern Mariana Islands"
 msgstr "Kepulauan Mariana Utara"
 
-#: src/Tribe/View_Helpers.php:203
+#: src/Tribe/Languages/Locations.php:215
 msgid "Norfolk Island"
 msgstr "Pulau Norfolk"
 
-#: src/Tribe/View_Helpers.php:202
+#: src/Tribe/Languages/Locations.php:214
 msgid "Niue"
 msgstr "Niue"
 
-#: src/Tribe/View_Helpers.php:201
+#: src/Tribe/Languages/Locations.php:213
 msgid "Nigeria"
 msgstr "Nigeria"
 
-#: src/Tribe/View_Helpers.php:200
+#: src/Tribe/Languages/Locations.php:212
 msgid "Niger"
 msgstr "Niger"
 
-#: src/Tribe/View_Helpers.php:199
+#: src/Tribe/Languages/Locations.php:211
 msgid "Nicaragua"
 msgstr "Nikaragua"
 
-#: src/Tribe/View_Helpers.php:198
+#: src/Tribe/Languages/Locations.php:210
 msgid "New Zealand"
 msgstr "Selandia Baru"
 
-#: src/Tribe/View_Helpers.php:197
+#: src/Tribe/Languages/Locations.php:209
 msgid "New Caledonia"
 msgstr "Kaledonia Baru"
 
-#: src/Tribe/View_Helpers.php:196
+#: src/Tribe/Languages/Locations.php:208
 msgid "Netherlands Antilles"
 msgstr "Belanda Antilla"
 
-#: src/Tribe/View_Helpers.php:195
+#: src/Tribe/Languages/Locations.php:207
 msgid "Netherlands"
 msgstr "Belanda"
 
-#: src/Tribe/View_Helpers.php:194
+#: src/Tribe/Languages/Locations.php:206
 msgid "Nepal"
 msgstr "Nepal"
 
-#: src/Tribe/View_Helpers.php:193
+#: src/Tribe/Languages/Locations.php:205
 msgid "Nauru"
 msgstr "Nauru"
 
-#: src/Tribe/View_Helpers.php:192
+#: src/Tribe/Languages/Locations.php:204
 msgid "Namibia"
 msgstr "Namibia"
 
-#: src/Tribe/View_Helpers.php:191
+#: src/Tribe/Languages/Locations.php:203
 msgid "Myanmar"
 msgstr "Myanmar"
 
-#: src/Tribe/View_Helpers.php:190
+#: src/Tribe/Languages/Locations.php:202
 msgid "Mozambique"
 msgstr "Mozambik"
 
-#: src/Tribe/View_Helpers.php:189
+#: src/Tribe/Languages/Locations.php:201
 msgid "Morocco"
 msgstr "Maroko"
 
-#: src/Tribe/View_Helpers.php:188
+#: src/Tribe/Languages/Locations.php:200
 msgid "Montserrat"
 msgstr "Montserrat"
 
-#: src/Tribe/View_Helpers.php:187
+#: src/Tribe/Languages/Locations.php:199
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: src/Tribe/View_Helpers.php:186
+#: src/Tribe/Languages/Locations.php:198
 msgid "Mongolia"
 msgstr "Mongolia"
 
-#: src/Tribe/View_Helpers.php:185
+#: src/Tribe/Languages/Locations.php:197
 msgid "Monaco"
 msgstr "Monako"
 
-#: src/Tribe/View_Helpers.php:184
+#: src/Tribe/Languages/Locations.php:196
 msgid "Moldova, Republic Of"
 msgstr "Moldova, Republik"
 
-#: src/Tribe/View_Helpers.php:183
+#: src/Tribe/Languages/Locations.php:195
 msgid "Micronesia, Federated States Of"
 msgstr "Mikronesia, Federasi Serikat Dari"
 
-#: src/Tribe/View_Helpers.php:182
+#: src/Tribe/Languages/Locations.php:194
 msgid "Mexico"
 msgstr "Meksiko"
 
-#: src/Tribe/View_Helpers.php:181
+#: src/Tribe/Languages/Locations.php:193
 msgid "Mayotte"
 msgstr "Mayotte"
 
-#: src/Tribe/View_Helpers.php:180
+#: src/Tribe/Languages/Locations.php:192
 msgid "Mauritius"
 msgstr "Maurisius"
 
-#: src/Tribe/View_Helpers.php:179
+#: src/Tribe/Languages/Locations.php:191
 msgid "Mauritania"
 msgstr "Mauritania"
 
-#: src/Tribe/View_Helpers.php:178
+#: src/Tribe/Languages/Locations.php:190
 msgid "Martinique"
 msgstr "Martinique"
 
-#: src/Tribe/View_Helpers.php:177
+#: src/Tribe/Languages/Locations.php:189
 msgid "Marshall Islands"
 msgstr "Kepulauan Marshall"
 
-#: src/Tribe/View_Helpers.php:176
+#: src/Tribe/Languages/Locations.php:188
 msgid "Malta"
 msgstr "Malta"
 
-#: src/Tribe/View_Helpers.php:175
+#: src/Tribe/Languages/Locations.php:187
 msgid "Mali"
 msgstr "Mali"
 
-#: src/Tribe/View_Helpers.php:174
+#: src/Tribe/Languages/Locations.php:186
 msgid "Maldives"
 msgstr "Maladewa"
 
-#: src/Tribe/View_Helpers.php:173
+#: src/Tribe/Languages/Locations.php:185
 msgid "Malaysia"
 msgstr "Malaysia"
 
-#: src/Tribe/View_Helpers.php:172
+#: src/Tribe/Languages/Locations.php:184
 msgid "Malawi"
 msgstr "Malawi"
 
-#: src/Tribe/View_Helpers.php:171
+#: src/Tribe/Languages/Locations.php:183
 msgid "Madagascar"
 msgstr "Madagaskar"
 
-#: src/Tribe/View_Helpers.php:170
+#: src/Tribe/Languages/Locations.php:182
 msgid "Macedonia"
 msgstr "Makadonia"
 
-#: src/Tribe/View_Helpers.php:169
+#: src/Tribe/Languages/Locations.php:181
 msgid "Macau"
 msgstr "Makau"
 
-#: src/Tribe/View_Helpers.php:168
+#: src/Tribe/Languages/Locations.php:180
 msgid "Luxembourg"
 msgstr "Luksemburg"
 
-#: src/Tribe/View_Helpers.php:167
+#: src/Tribe/Languages/Locations.php:179
 msgid "Lithuania"
 msgstr "Lituania"
 
-#: src/Tribe/View_Helpers.php:166
+#: src/Tribe/Languages/Locations.php:178
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
-#: src/Tribe/View_Helpers.php:165
+#: src/Tribe/Languages/Locations.php:177
 msgid "Libya"
 msgstr "Libya"
 
-#: src/Tribe/View_Helpers.php:164
+#: src/Tribe/Languages/Locations.php:176
 msgid "Liberia"
 msgstr "Liberia"
 
-#: src/Tribe/View_Helpers.php:163
+#: src/Tribe/Languages/Locations.php:175
 msgid "Lesotho"
 msgstr "Lesotho"
 
-#: src/Tribe/View_Helpers.php:162
+#: src/Tribe/Languages/Locations.php:174
 msgid "Lebanon"
 msgstr "Libanon"
 
-#: src/Tribe/View_Helpers.php:161
+#: src/Tribe/Languages/Locations.php:173
 msgid "Latvia"
 msgstr "Latvia"
 
-#: src/Tribe/View_Helpers.php:160
+#: src/Tribe/Languages/Locations.php:172
 msgid "Lao People's Democratic Republic"
 msgstr "Lao People's Democratic Republic"
 
-#: src/Tribe/View_Helpers.php:159
+#: src/Tribe/Languages/Locations.php:171
 msgid "Kyrgyzstan"
 msgstr "Kirgistan"
 
-#: src/Tribe/View_Helpers.php:158
+#: src/Tribe/Languages/Locations.php:170
 msgid "Kuwait"
 msgstr "Kuwait"
 
-#: src/Tribe/View_Helpers.php:157
+#: src/Tribe/Languages/Locations.php:169
 msgid "Korea, Republic Of"
 msgstr "Korea, Republik"
 
-#: src/Tribe/View_Helpers.php:156
+#: src/Tribe/Languages/Locations.php:168
 msgid "Korea, Democratic People's Republic Of"
 msgstr "Korea, Republik Demokratik Rakyat"
 
-#: src/Tribe/View_Helpers.php:155
+#: src/Tribe/Languages/Locations.php:167
 msgid "Kiribati"
 msgstr "Kiribati"
 
-#: src/Tribe/View_Helpers.php:154
+#: src/Tribe/Languages/Locations.php:166
 msgid "Kenya"
 msgstr "Kenya"
 
-#: src/Tribe/View_Helpers.php:153
+#: src/Tribe/Languages/Locations.php:165
 msgid "Kazakhstan"
 msgstr "Kazakstan"
 
-#: src/Tribe/View_Helpers.php:152
+#: src/Tribe/Languages/Locations.php:164
 msgid "Jordan"
 msgstr "Yordan"
 
-#: src/Tribe/View_Helpers.php:151
+#: src/Tribe/Languages/Locations.php:163
 msgid "Japan"
 msgstr "Jepang"
 
-#: src/Tribe/View_Helpers.php:150
+#: src/Tribe/Languages/Locations.php:162
 msgid "Jamaica"
 msgstr "Jamaika"
 
-#: src/Tribe/View_Helpers.php:149
+#: src/Tribe/Languages/Locations.php:161
 msgid "Italy"
 msgstr "Italia"
 
-#: src/Tribe/View_Helpers.php:148
+#: src/Tribe/Languages/Locations.php:160
 msgid "Israel"
 msgstr "Israel"
 
-#: src/Tribe/View_Helpers.php:147
+#: src/Tribe/Languages/Locations.php:159
 msgid "Ireland"
 msgstr "Irlandia"
 
-#: src/Tribe/View_Helpers.php:146
+#: src/Tribe/Languages/Locations.php:158
 msgid "Iraq"
 msgstr "Irak"
 
-#: src/Tribe/View_Helpers.php:145
+#: src/Tribe/Languages/Locations.php:157
 msgid "Iran (Islamic Republic Of)"
 msgstr "Iran (Islamic Republic Of)"
 
-#: src/Tribe/View_Helpers.php:144
+#: src/Tribe/Languages/Locations.php:156
 msgid "Indonesia"
 msgstr "Indonesia"
 
-#: src/Tribe/View_Helpers.php:143
+#: src/Tribe/Languages/Locations.php:155
 msgid "India"
 msgstr "India"
 
-#: src/Tribe/View_Helpers.php:142
+#: src/Tribe/Languages/Locations.php:154
 msgid "Iceland"
 msgstr "Islandia"
 
-#: src/Tribe/View_Helpers.php:141
+#: src/Tribe/Languages/Locations.php:153
 msgid "Hungary"
 msgstr "Hungaria"
 
-#: src/Tribe/View_Helpers.php:140
+#: src/Tribe/Languages/Locations.php:152
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: src/Tribe/View_Helpers.php:139
+#: src/Tribe/Languages/Locations.php:151
 msgid "Honduras"
 msgstr "Honduras"
 
-#: src/Tribe/View_Helpers.php:138
+#: src/Tribe/Languages/Locations.php:150
 msgid "Holy See (Vatican City State)"
 msgstr "Holy See (Vatican City State)"
 
-#: src/Tribe/View_Helpers.php:137
+#: src/Tribe/Languages/Locations.php:149
 msgid "Heard And Mc Donald Islands"
 msgstr "Heard And Mc Donald, Kepulauan"
 
-#: src/Tribe/View_Helpers.php:136
+#: src/Tribe/Languages/Locations.php:148
 msgid "Haiti"
 msgstr "Haiti"
 
-#: src/Tribe/View_Helpers.php:135
+#: src/Tribe/Languages/Locations.php:147
 msgid "Guyana"
 msgstr "Guyana"
 
-#: src/Tribe/View_Helpers.php:134
+#: src/Tribe/Languages/Locations.php:146
 msgid "Guinea-Bissau"
 msgstr "Guinea-Bissau"
 
-#: src/Tribe/View_Helpers.php:133
+#: src/Tribe/Languages/Locations.php:145
 msgid "Guinea"
 msgstr "Guinea"
 
-#: src/Tribe/View_Helpers.php:132
+#: src/Tribe/Languages/Locations.php:144
 msgid "Guatemala"
 msgstr "Guatemala"
 
-#: src/Tribe/View_Helpers.php:131
+#: src/Tribe/Languages/Locations.php:143
 msgid "Guam"
 msgstr "Guam"
 
-#: src/Tribe/View_Helpers.php:130
+#: src/Tribe/Languages/Locations.php:142
 msgid "Guadeloupe"
 msgstr "Guadeloupe"
 
-#: src/Tribe/View_Helpers.php:129
+#: src/Tribe/Languages/Locations.php:141
 msgid "Grenada"
 msgstr "Grenada"
 
-#: src/Tribe/View_Helpers.php:128
+#: src/Tribe/Languages/Locations.php:140
 msgid "Greenland"
 msgstr "Greenland"
 
-#: src/Tribe/View_Helpers.php:127
+#: src/Tribe/Languages/Locations.php:139
 msgid "Greece"
 msgstr "Yunani"
 
-#: src/Tribe/View_Helpers.php:126
+#: src/Tribe/Languages/Locations.php:138
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#: src/Tribe/View_Helpers.php:125
+#: src/Tribe/Languages/Locations.php:137
 msgid "Ghana"
 msgstr "Ghana"
 
-#: src/Tribe/View_Helpers.php:124
+#: src/Tribe/Languages/Locations.php:136
 msgid "Germany"
 msgstr "Jerman"
 
-#: src/Tribe/View_Helpers.php:123 src/Tribe/View_Helpers.php:331
+#: src/Tribe/Languages/Locations.php:135 src/Tribe/Languages/Locations.php:323
 msgid "Georgia"
 msgstr "Georgia"
 
-#: src/Tribe/View_Helpers.php:122
+#: src/Tribe/Languages/Locations.php:134
 msgid "Gambia"
 msgstr "Gambia"
 
-#: src/Tribe/View_Helpers.php:121
+#: src/Tribe/Languages/Locations.php:133
 msgid "Gabon"
 msgstr "Gabon"
 
-#: src/Tribe/View_Helpers.php:120
+#: src/Tribe/Languages/Locations.php:132
 msgid "French Southern Territories"
 msgstr "Teritorial Prancis di Selatan"
 
-#: src/Tribe/View_Helpers.php:119
+#: src/Tribe/Languages/Locations.php:131
 msgid "French Polynesia"
 msgstr "Perancis Polinesia"
 
-#: src/Tribe/View_Helpers.php:118
+#: src/Tribe/Languages/Locations.php:130
 msgid "French Guiana"
 msgstr "Guyana Prancis"
 
-#: src/Tribe/View_Helpers.php:117
+#: src/Tribe/Languages/Locations.php:129
 msgid "France"
 msgstr "Perancis"
 
-#: src/Tribe/View_Helpers.php:116
+#: src/Tribe/Languages/Locations.php:128
 msgid "Finland"
 msgstr "Finlandia"
 
-#: src/Tribe/View_Helpers.php:115
+#: src/Tribe/Languages/Locations.php:127
 msgid "Fiji"
 msgstr "Fiji"
 
-#: src/Tribe/View_Helpers.php:114
+#: src/Tribe/Languages/Locations.php:126
 msgid "Faroe Islands"
 msgstr "Kepulauan Faroe"
 
-#: src/Tribe/View_Helpers.php:113
+#: src/Tribe/Languages/Locations.php:125
 msgid "Falkland Islands (Malvinas)"
 msgstr "Kepulauan Falkland (Malvinas)"
 
-#: src/Tribe/View_Helpers.php:112
+#: src/Tribe/Languages/Locations.php:124
 msgid "Ethiopia"
 msgstr "Etiopia"
 
-#: src/Tribe/View_Helpers.php:111
+#: src/Tribe/Languages/Locations.php:123
 msgid "Estonia"
 msgstr "Estonia"
 
-#: src/Tribe/View_Helpers.php:110
+#: src/Tribe/Languages/Locations.php:122
 msgid "Eritrea"
 msgstr "Eritrea"
 
-#: src/Tribe/View_Helpers.php:109
+#: src/Tribe/Languages/Locations.php:121
 msgid "Equatorial Guinea"
 msgstr "Guinea Ekuatorial"
 
-#: src/Tribe/View_Helpers.php:108
+#: src/Tribe/Languages/Locations.php:120
 msgid "El Salvador"
 msgstr "El Salvador"
 
-#: src/Tribe/View_Helpers.php:107
+#: src/Tribe/Languages/Locations.php:119
 msgid "Egypt"
 msgstr "Mesir"
 
-#: src/Tribe/View_Helpers.php:106
+#: src/Tribe/Languages/Locations.php:118
 msgid "Ecuador"
 msgstr "Ekuador"
 
-#: src/Tribe/View_Helpers.php:105
+#: src/Tribe/Languages/Locations.php:117
 msgid "East Timor"
 msgstr "Timor Timur"
 
-#: src/Tribe/View_Helpers.php:104
+#: src/Tribe/Languages/Locations.php:116
 msgid "Dominican Republic"
 msgstr "Dominika, Republik"
 
-#: src/Tribe/View_Helpers.php:103
+#: src/Tribe/Languages/Locations.php:115
 msgid "Dominica"
 msgstr "Dominika"
 
-#: src/Tribe/View_Helpers.php:102
+#: src/Tribe/Languages/Locations.php:114
 msgid "Djibouti"
 msgstr "Djibouti"
 
-#: src/Tribe/View_Helpers.php:101
+#: src/Tribe/Languages/Locations.php:113
 msgid "Denmark"
 msgstr "Denmark"
 
-#: src/Tribe/View_Helpers.php:100
+#: src/Tribe/Languages/Locations.php:112
 msgid "Czech Republic"
 msgstr "Cekoslovakia, Republik"
 
-#: src/Tribe/View_Helpers.php:99
+#: src/Tribe/Languages/Locations.php:111
 msgid "Cyprus"
 msgstr "Syprus"
 
-#: src/Tribe/View_Helpers.php:98
+#: src/Tribe/Languages/Locations.php:110
 msgid "Cuba"
 msgstr "Kuba"
 
-#: src/Tribe/View_Helpers.php:97
+#: src/Tribe/Languages/Locations.php:109
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "Kroasia (Nama Lokal: Hrvatska)"
 
-#: src/Tribe/View_Helpers.php:95
+#: src/Tribe/Languages/Locations.php:107
 msgid "Costa Rica"
 msgstr "Kosta Rika"
 
-#: src/Tribe/View_Helpers.php:94
+#: src/Tribe/Languages/Locations.php:106
 msgid "Cook Islands"
 msgstr "Kepulauan Cook"
 
-#: src/Tribe/View_Helpers.php:93
+#: src/Tribe/Languages/Locations.php:105
 msgid "Congo, The Democratic Republic Of The"
 msgstr "Kongo, Republik Demokratik"
 
-#: src/Tribe/View_Helpers.php:92
+#: src/Tribe/Languages/Locations.php:104
 msgid "Congo"
 msgstr "Kongo"
 
-#: src/Tribe/View_Helpers.php:91
+#: src/Tribe/Languages/Locations.php:103
 msgid "Comoros"
 msgstr "Komoro"
 
-#: src/Tribe/View_Helpers.php:90
+#: src/Tribe/Languages/Locations.php:102
 msgid "Colombia"
 msgstr "Kolumbia"
 
-#: src/Tribe/View_Helpers.php:89
+#: src/Tribe/Languages/Locations.php:101
 msgid "Cocos (Keeling) Islands"
 msgstr "Kepulauan Cocos (Keeling)"
 
-#: src/Tribe/View_Helpers.php:88
+#: src/Tribe/Languages/Locations.php:100
 msgid "Christmas Island"
 msgstr "Pulau Christmas"
 
-#: src/Tribe/View_Helpers.php:87
+#: src/Tribe/Languages/Locations.php:99
 msgid "China"
 msgstr "Cina"
 
-#: src/Tribe/View_Helpers.php:86
+#: src/Tribe/Languages/Locations.php:98
 msgid "Chile"
 msgstr "Chili"
 
-#: src/Tribe/View_Helpers.php:85
+#: src/Tribe/Languages/Locations.php:97
 msgid "Chad"
 msgstr "Cad"
 
-#: src/Tribe/View_Helpers.php:84
+#: src/Tribe/Languages/Locations.php:96
 msgid "Central African Republic"
 msgstr "Republik Afrika Tengah"
 
-#: src/Tribe/View_Helpers.php:83
+#: src/Tribe/Languages/Locations.php:95
 msgid "Cayman Islands"
 msgstr "Kepulauan Cayman"
 
-#: src/Tribe/View_Helpers.php:82
+#: src/Tribe/Languages/Locations.php:94
 msgid "Cape Verde"
 msgstr "Cape Verde"
 
-#: src/Tribe/View_Helpers.php:81
+#: src/Tribe/Languages/Locations.php:93
 msgid "Canada"
 msgstr "Kanada"
 
-#: src/Tribe/View_Helpers.php:80
+#: src/Tribe/Languages/Locations.php:92
 msgid "Cameroon"
 msgstr "Kamerun"
 
-#: src/Tribe/View_Helpers.php:79
+#: src/Tribe/Languages/Locations.php:91
 msgid "Cambodia"
 msgstr "Kamboja"
 
-#: src/Tribe/View_Helpers.php:78
+#: src/Tribe/Languages/Locations.php:90
 msgid "Burundi"
 msgstr "Burundi"
 
-#: src/Tribe/View_Helpers.php:77
+#: src/Tribe/Languages/Locations.php:89
 msgid "Burkina Faso"
 msgstr "Burkina Faso"
 
-#: src/Tribe/View_Helpers.php:76
+#: src/Tribe/Languages/Locations.php:88
 msgid "Bulgaria"
 msgstr "Bulgaria"
 
-#: src/Tribe/View_Helpers.php:75
+#: src/Tribe/Languages/Locations.php:87
 msgid "Brunei Darussalam"
 msgstr "Brunei Darussalam"
 
-#: src/Tribe/View_Helpers.php:74
+#: src/Tribe/Languages/Locations.php:86
 msgid "British Indian Ocean Territory"
 msgstr "Teritorial Inggris di Samudra Hindia"
 
-#: src/Tribe/View_Helpers.php:73
+#: src/Tribe/Languages/Locations.php:85
 msgid "Brazil"
 msgstr "Brazil"
 
-#: src/Tribe/View_Helpers.php:72
+#: src/Tribe/Languages/Locations.php:84
 msgid "Bouvet Island"
 msgstr "Pulau Bouvet"
 
-#: src/Tribe/View_Helpers.php:71
+#: src/Tribe/Languages/Locations.php:83
 msgid "Botswana"
 msgstr "Botswana"
 
-#: src/Tribe/View_Helpers.php:70
+#: src/Tribe/Languages/Locations.php:82
 msgid "Bosnia And Herzegowina"
 msgstr "Bosnia Herzegovina"
 
-#: src/Tribe/View_Helpers.php:69
+#: src/Tribe/Languages/Locations.php:81
 msgid "Bolivia"
 msgstr "Bolivia"
 
-#: src/Tribe/View_Helpers.php:68
+#: src/Tribe/Languages/Locations.php:80
 msgid "Bhutan"
 msgstr "Bhutan"
 
-#: src/Tribe/View_Helpers.php:67
+#: src/Tribe/Languages/Locations.php:79
 msgid "Bermuda"
 msgstr "Bermuda"
 
-#: src/Tribe/View_Helpers.php:66
+#: src/Tribe/Languages/Locations.php:78
 msgid "Benin"
 msgstr "Benin"
 
-#: src/Tribe/View_Helpers.php:65
+#: src/Tribe/Languages/Locations.php:77
 msgid "Belize"
 msgstr "Belize"
 
-#: src/Tribe/View_Helpers.php:64
+#: src/Tribe/Languages/Locations.php:76
 msgid "Belgium"
 msgstr "Belgia"
 
-#: src/Tribe/View_Helpers.php:63
+#: src/Tribe/Languages/Locations.php:75
 msgid "Belarus"
 msgstr "Belarusia"
 
-#: src/Tribe/View_Helpers.php:62
+#: src/Tribe/Languages/Locations.php:74
 msgid "Barbados"
 msgstr "Barbados"
 
-#: src/Tribe/View_Helpers.php:61
+#: src/Tribe/Languages/Locations.php:73
 msgid "Bangladesh"
 msgstr "Bangladesh"
 
-#: src/Tribe/View_Helpers.php:60
+#: src/Tribe/Languages/Locations.php:72
 msgid "Bahrain"
 msgstr "Bahrain"
 
-#: src/Tribe/View_Helpers.php:59
+#: src/Tribe/Languages/Locations.php:71
 msgid "Bahamas"
 msgstr "Bahama"
 
-#: src/Tribe/View_Helpers.php:58
+#: src/Tribe/Languages/Locations.php:70
 msgid "Azerbaijan"
 msgstr "Azerbaijan"
 
-#: src/Tribe/View_Helpers.php:57
+#: src/Tribe/Languages/Locations.php:69
 msgid "Austria"
 msgstr "Austria"
 
-#: src/Tribe/View_Helpers.php:56
+#: src/Tribe/Languages/Locations.php:68
 msgid "Australia"
 msgstr "Australia"
 
-#: src/Tribe/View_Helpers.php:55
+#: src/Tribe/Languages/Locations.php:67
 msgid "Aruba"
 msgstr "Aruba"
 
-#: src/Tribe/View_Helpers.php:54
+#: src/Tribe/Languages/Locations.php:66
 msgid "Armenia"
 msgstr "Armenia"
 
-#: src/Tribe/View_Helpers.php:53
+#: src/Tribe/Languages/Locations.php:65
 msgid "Argentina"
 msgstr "Argentina"
 
-#: src/Tribe/View_Helpers.php:52
+#: src/Tribe/Languages/Locations.php:64
 msgid "Antigua And Barbuda"
 msgstr "Antigua dan Barbuda"
 
-#: src/Tribe/View_Helpers.php:51
+#: src/Tribe/Languages/Locations.php:63
 msgid "Antarctica"
 msgstr "Antartika"
 
-#: src/Tribe/View_Helpers.php:50
+#: src/Tribe/Languages/Locations.php:62
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: src/Tribe/View_Helpers.php:49
+#: src/Tribe/Languages/Locations.php:61
 msgid "Angola"
 msgstr "Angola"
 
-#: src/Tribe/View_Helpers.php:48
+#: src/Tribe/Languages/Locations.php:60
 msgid "Andorra"
 msgstr "Andora"
 
-#: src/Tribe/View_Helpers.php:47
+#: src/Tribe/Languages/Locations.php:59
 msgid "American Samoa"
 msgstr "Samoa Amerika"
 
-#: src/Tribe/View_Helpers.php:46
+#: src/Tribe/Languages/Locations.php:58
 msgid "Algeria"
 msgstr "Aljazair"
 
-#: src/Tribe/View_Helpers.php:45
+#: src/Tribe/Languages/Locations.php:57
 msgid "Albania"
 msgstr "Albania"
 
-#: src/Tribe/View_Helpers.php:44
+#: src/Tribe/Languages/Locations.php:56
 msgid "Afghanistan"
 msgstr "Afganistan"
 
-#: src/Tribe/View_Helpers.php:290
+#: src/Tribe/View_Helpers.php:50
 msgid "Select a Country:"
 msgstr "Pilih Negara:"
 
@@ -2137,7 +2141,7 @@ msgstr "Field yang tidak valid atau tidak lengkap lewat"
 msgid "Unknown or not set"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:34
+#: src/admin-views/tribe-options-help.php:41
 msgid "System Information"
 msgstr "Informasi Sistem"
 
@@ -2207,7 +2211,7 @@ msgstr "Kunci lisensi yang valid diperlukan untuk dukungan dan update"
 msgid "License Key"
 msgstr "License Key"
 
-#: src/Tribe/Main.php:263
+#: src/Tribe/Main.php:265
 msgid "Search:"
 msgstr ""
 
@@ -2219,19 +2223,19 @@ msgstr "Pengaturan"
 msgid "Network"
 msgstr "Jaringan"
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:290
 msgid "Done"
 msgstr "Selesai"
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:289
 msgid "Today"
 msgstr "Hari ini"
 
-#: src/Tribe/Main.php:286
+#: src/Tribe/Main.php:288
 msgid "Prev"
 msgstr "Sebelumnya"
 
-#: src/Tribe/Main.php:269 src/Tribe/Main.php:285
+#: src/Tribe/Main.php:271 src/Tribe/Main.php:287
 msgid "Next"
 msgstr "Berikutnya"
 
@@ -2291,6 +2295,6 @@ msgstr ""
 msgid "Event Add-Ons"
 msgstr "Add-On Event"
 
-#: src/Tribe/View_Helpers.php:43
+#: src/Tribe/Languages/Locations.php:55
 msgid "United States"
 msgstr "Amerika Serikat"
