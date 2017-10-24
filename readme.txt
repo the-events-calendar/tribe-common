@@ -4,7 +4,8 @@
 
 = [4.6.3] TBD =
 
-* Tweak - Obfuscated the API key for the google_maps_js_api_key field in the "System Information" screen [89795] 
+* Tweak - Obfuscated the API key for the google_maps_js_api_key field in the "System Information" screen [89795]
+* Tweak - Updated the list of countries used in the country dropdown [75769]
 
 = [4.6.2] 2017-10-18 =
 
