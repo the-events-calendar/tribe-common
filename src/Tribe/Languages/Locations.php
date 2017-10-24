@@ -58,7 +58,7 @@ class Tribe__Languages__Locations {
 			'AL' => esc_html__( 'Albania', 'tribe-common' ),
 			'DZ' => esc_html__( 'Algeria', 'tribe-common' ),
 			'AS' => esc_html__( 'American Samoa', 'tribe-common' ),
-			'AD' => esc_html__( 'andorra', 'tribe-common' ),
+			'AD' => esc_html__( 'Andorra', 'tribe-common' ),
 			'AO' => esc_html__( 'Angola', 'tribe-common' ),
 			'AI' => esc_html__( 'Anguilla', 'tribe-common' ),
 			'AQ' => esc_html__( 'Antarctica', 'tribe-common' ),
