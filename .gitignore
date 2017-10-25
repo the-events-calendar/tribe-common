@@ -13,6 +13,7 @@ vendor/*
 !vendor/momentjs
 !vendor/clipboard
 !vendor/composer
+!vendor/attrchange
 !vendor/jquery-tribe-timepicker
 vendor/composer/composer/tests
 vendor/composer/composer/doc
