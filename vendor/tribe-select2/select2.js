@@ -3574,7 +3574,17 @@ the specific language governing permissions and limitations under the Apache Lic
 				if ( initial === true && selected >= 0 ) {
 					this.highlight( selected );
 				} else {
-					this.highlight( 0 );
+					// The following vendorlib modification corrects for some IE errors specific to version 3.5.x.
+					// This issue is fixed in newer versions of the library, including selectWoo.
+					// Credit: https://stackoverflow.com/a/29796883/1837376
+					if ( document.documentMode === 10 || document.documentMode === 11 ) {
+						// This is IE 10 or 11.
+						if ( initial.target.value == data.results[ 0 ].id || data.results.length == 1 ) {
+							this.highlight( 0 );
+						}
+					} else {
+						this.highlight( 0 );
+					}
 				}
 			}
 
