@@ -208,7 +208,7 @@ class Tribe__Main {
 				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
 				array( 'tribe-jquery-timepicker', 'vendor/jquery-tribe-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
 				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-tribe-timepicker/jquery.timepicker.css' ),
-				array( 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' )
+				array( 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' ),
 			)
 		);
 
