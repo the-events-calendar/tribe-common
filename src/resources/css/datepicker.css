@@ -8,26 +8,26 @@
  * @see: http://moderntribe.github.io/products-engineering/css/
  */
 
-.TRIBETEST.ui-datepicker body,
-	.TRIBETEST.ui-datepicker button,
-	.TRIBETEST.ui-datepicker input,
-	.TRIBETEST.ui-datepicker select,
-	.TRIBETEST.ui-datepicker textarea {
+.tribe-ui-datepicker.ui-datepicker body,
+	.tribe-ui-datepicker.ui-datepicker button,
+	.tribe-ui-datepicker.ui-datepicker input,
+	.tribe-ui-datepicker.ui-datepicker select,
+	.tribe-ui-datepicker.ui-datepicker textarea {
 	font-family: "Verdana", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
-.TRIBETEST.ui-datepicker table {
+.tribe-ui-datepicker.ui-datepicker table {
 	border: none;
 }
 
-.TRIBETEST .ui-datepicker-month {
+.tribe-ui-datepicker .ui-datepicker-month {
 	font-weight: bold;
 }
 
 /* Interaction Cues
 ----------------------------------*/
 
-.TRIBETEST .ui-state-disabled {
+.tribe-ui-datepicker .ui-state-disabled {
 	cursor: default !important;
 	pointer-events: none;
 }
@@ -35,7 +35,7 @@
 /* Icons
 ----------------------------------*/
 
-.TRIBETEST .ui-icon {
+.tribe-ui-datepicker .ui-icon {
 	display: inline-block;
 	vertical-align: middle;
 	margin-top: -4px;
@@ -46,7 +46,7 @@
 	background-repeat: no-repeat;
 }
 
-.TRIBETEST .ui-widget-icon-block {
+.tribe-ui-datepicker .ui-widget-icon-block {
 	left: 50%;
 	margin-left: -8px;
 	display: block;
@@ -65,7 +65,7 @@
 	height: 100%;
 }
 
-.TRIBETEST.ui-datepicker {
+.tribe-ui-datepicker.ui-datepicker {
 	background: #fff;
 	box-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
 	width: 17em;
@@ -73,70 +73,70 @@
 	display: none;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-header {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-header {
 	margin-bottom: 16px;
 	margin-bottom: 1rem;
 	position: relative;
 	padding: 0;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-prev,
-.TRIBETEST.ui-datepicker .ui-datepicker-next {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-prev,
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-next {
 	position: absolute;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	        transform: translateY(-50%);
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-prev:before {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-prev:before {
 	color: #b1b1b1;
 	content: '\2190';
 	cursor: pointer;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-prev:hover:before {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-prev:hover:before {
 	color: #000;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-next:before {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-next:before {
 	color: #b1b1b1;
 	content: '\2192';
 	cursor: pointer;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-next:hover:before {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-next:hover:before {
 	color: #000;
 }
 
-.TRIBETEST .ui-datepicker-prev-hover,
-.TRIBETEST .ui-datepicker-next-hover {
+.tribe-ui-datepicker .ui-datepicker-prev-hover,
+.tribe-ui-datepicker .ui-datepicker-next-hover {
 	color: darken(#b1b1b1, 10%);
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-prev {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-prev {
 	left: 1px;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-next {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-next {
 	right: 1px;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-prev-hover {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-prev-hover {
 	left: 1px;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-next-hover {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-next-hover {
 	right: 1px;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-title {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-title {
 	margin: 0 2.3em;
 	line-height: 1.8;
 	text-align: center;
 }
 
-.TRIBETEST select.ui-datepicker-month,
-.TRIBETEST select.ui-datepicker-year {
+.tribe-ui-datepicker select.ui-datepicker-month,
+.tribe-ui-datepicker select.ui-datepicker-year {
 	border: none;
 	box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
 	margin-right: 1px;
@@ -144,7 +144,7 @@
 	width: 4.5rem;
 }
 
-.TRIBETEST.ui-datepicker table {
+.tribe-ui-datepicker.ui-datepicker table {
 	width: 100%;
 	font-size: 14.4px;
 	font-size: .9rem;
@@ -153,7 +153,7 @@
 	margin: 0 0 .4rem;
 }
 
-.TRIBETEST.ui-datepicker th {
+.tribe-ui-datepicker.ui-datepicker th {
 	color: #b1b1b1;
 	padding: 11.2px 4.8px;
 	padding: .7rem .3rem;
@@ -161,22 +161,22 @@
 	border: 0;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-calendar td {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-calendar td {
 	border: 1px solid #ddd;
 	padding: 1px;
 }
 
-.TRIBETEST.ui-datepicker td.ui-datepicker-unselectable {
+.tribe-ui-datepicker.ui-datepicker td.ui-datepicker-unselectable {
 	border: none;
 }
 
-.TRIBETEST.ui-datepicker a.ui-state-active {
+.tribe-ui-datepicker.ui-datepicker a.ui-state-active {
 	background: #0085ba;
 	color: #fff;
 }
 
-.TRIBETEST.ui-datepicker td span,
-	.TRIBETEST.ui-datepicker td a {
+.tribe-ui-datepicker.ui-datepicker td span,
+	.tribe-ui-datepicker.ui-datepicker td a {
 	display: block;
 	padding: 8px 3.2px;
 	padding: .5rem .2rem;
@@ -184,7 +184,7 @@
 	text-decoration: none;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-buttonpane {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-buttonpane {
 	background-image: none;
 	margin: 11.2px 0 0 0;
 	margin: .7rem 0 0 0;
@@ -195,7 +195,7 @@
 	border-bottom: 0;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-buttonpane button {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-buttonpane button {
 	float: right;
 	margin: 8px 3.2px 6.4px;
 	margin: .5rem .2rem .4rem;
@@ -206,13 +206,13 @@
 	overflow: visible;
 }
 
-.TRIBETEST.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
 	float: left;
 	background: #fff;
 	border: 1px solid #b1b1b1;
 }
 
-.TRIBETEST.ui-datepicker button.ui-datepicker-close {
+.tribe-ui-datepicker.ui-datepicker button.ui-datepicker-close {
 	background: linear-gradient(354deg, rgba(10, 85, 160, 1.00) 0%, rgba(18, 136, 235, 1.00) 100%);
 	border: 1px solid #0085ba;
 	color: #fff !important;
@@ -221,42 +221,42 @@
 
 /* with multiple calendars */
 
-.TRIBETEST.ui-datepicker.ui-datepicker-multi {
+.tribe-ui-datepicker.ui-datepicker.ui-datepicker-multi {
 	width: auto;
 }
 
-.TRIBETEST.ui-datepicker-multi .ui-datepicker-group {
+.tribe-ui-datepicker.ui-datepicker-multi .ui-datepicker-group {
 	float: left;
 }
 
-.TRIBETEST.ui-datepicker-multi .ui-datepicker-group table {
+.tribe-ui-datepicker.ui-datepicker-multi .ui-datepicker-group table {
 	width: 95%;
 	margin: 0 auto 6.4px;
 	margin: 0 auto .4rem;
 }
 
-.TRIBETEST.ui-datepicker-multi-2 .ui-datepicker-group {
+.tribe-ui-datepicker.ui-datepicker-multi-2 .ui-datepicker-group {
 	width: 50%;
 }
 
-.TRIBETEST.ui-datepicker-multi-3 .ui-datepicker-group {
+.tribe-ui-datepicker.ui-datepicker-multi-3 .ui-datepicker-group {
 	width: 33.3%;
 }
 
-.TRIBETEST.ui-datepicker-multi-4 .ui-datepicker-group {
+.tribe-ui-datepicker.ui-datepicker-multi-4 .ui-datepicker-group {
 	width: 25%;
 }
 
-.TRIBETEST.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,
-.TRIBETEST.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+.tribe-ui-datepicker.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,
+.tribe-ui-datepicker.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
 	border-left-width: 0;
 }
 
-.TRIBETEST.ui-datepicker-multi .ui-datepicker-buttonpane {
+.tribe-ui-datepicker.ui-datepicker-multi .ui-datepicker-buttonpane {
 	clear: left;
 }
 
-.TRIBETEST .ui-datepicker-row-break {
+.tribe-ui-datepicker .ui-datepicker-row-break {
 	clear: both;
 	width: 100%;
 	font-size: 0;
@@ -265,103 +265,103 @@
 /* Component containers
 ----------------------------------*/
 
-.TRIBETEST.ui-widget {
+.tribe-ui-datepicker.ui-widget {
 	font-size: 19.2px;
 	font-size: 1.2rem;
 }
 
-.TRIBETEST.ui-widget .ui-widget {
+.tribe-ui-datepicker.ui-widget .ui-widget {
 	font-size: 16px;
 	font-size: 1rem;
 }
 
-.TRIBETEST.ui-widget input,
-.TRIBETEST.ui-widget select,
-.TRIBETEST.ui-widget textarea,
-.TRIBETEST.ui-widget button {
+.tribe-ui-datepicker.ui-widget input,
+.tribe-ui-datepicker.ui-widget select,
+.tribe-ui-datepicker.ui-widget textarea,
+.tribe-ui-datepicker.ui-widget button {
 	font-size: 16px;
 	font-size: 1rem;
 }
 
-.TRIBETEST.ui-widget-content a,
-.TRIBETEST .ui-widget-header a {
+.tribe-ui-datepicker.ui-widget-content a,
+.tribe-ui-datepicker .ui-widget-header a {
 	color: #23282d;
 }
 
 /* Interaction states
 ----------------------------------*/
 
-.TRIBETEST .ui-state-default,
-.TRIBETEST.ui-widget-content .ui-state-default,
-.TRIBETEST .ui-widget-header .ui-state-default,
-.TRIBETEST .ui-button,
+.tribe-ui-datepicker .ui-state-default,
+.tribe-ui-datepicker.ui-widget-content .ui-state-default,
+.tribe-ui-datepicker .ui-widget-header .ui-state-default,
+.tribe-ui-datepicker .ui-button,
 
 /* We use html here because we need a greater specificity to make sure disabled
 works properly when clicked or hovered */
-html .TRIBETEST .ui-button.ui-state-disabled:hover,
-html .TRIBETEST .ui-button.ui-state-disabled:active {
+html .tribe-ui-datepicker .ui-button.ui-state-disabled:hover,
+html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 	color: #23282d;
 }
 
-.TRIBETEST .ui-state-default a,
-	.TRIBETEST .ui-state-default a:link,
-	.TRIBETEST .ui-state-default a:visited,
-	.TRIBETEST a.ui-button,
-	.TRIBETEST a:link.ui-button,
-	.TRIBETEST a:visited.ui-button,
-	.TRIBETEST .ui-button {
+.tribe-ui-datepicker .ui-state-default a,
+	.tribe-ui-datepicker .ui-state-default a:link,
+	.tribe-ui-datepicker .ui-state-default a:visited,
+	.tribe-ui-datepicker a.ui-button,
+	.tribe-ui-datepicker a:link.ui-button,
+	.tribe-ui-datepicker a:visited.ui-button,
+	.tribe-ui-datepicker .ui-button {
 	color: #23282d;
 	text-decoration: none;
 }
 
-.TRIBETEST .ui-state-hover,
-	.TRIBETEST .ui-widget-content .ui-state-hover,
-	.TRIBETEST .ui-widget-header .ui-state-hover,
-	.TRIBETEST .ui-state-focus,
-	.TRIBETEST .ui-widget-content .ui-state-focus,
-	.TRIBETEST .ui-widget-header .ui-state-focus,
-	.TRIBETEST .ui-button:hover,
-	.TRIBETEST .ui-button:focus {
+.tribe-ui-datepicker .ui-state-hover,
+	.tribe-ui-datepicker .ui-widget-content .ui-state-hover,
+	.tribe-ui-datepicker .ui-widget-header .ui-state-hover,
+	.tribe-ui-datepicker .ui-state-focus,
+	.tribe-ui-datepicker .ui-widget-content .ui-state-focus,
+	.tribe-ui-datepicker .ui-widget-header .ui-state-focus,
+	.tribe-ui-datepicker .ui-button:hover,
+	.tribe-ui-datepicker .ui-button:focus {
 	color: #000;
 }
 
-.TRIBETEST .ui-state-hover a,
-	.TRIBETEST .ui-state-hover a:hover,
-	.TRIBETEST .ui-state-hover a:link,
-	.TRIBETEST .ui-state-hover a:visited,
-	.TRIBETEST .ui-state-focus a,
-	.TRIBETEST .ui-state-focus a:hover,
-	.TRIBETEST .ui-state-focus a:link,
-	.TRIBETEST .ui-state-focus a:visited,
-	.TRIBETEST a.ui-button:hover,
-	.TRIBETEST a.ui-button:focus {
+.tribe-ui-datepicker .ui-state-hover a,
+	.tribe-ui-datepicker .ui-state-hover a:hover,
+	.tribe-ui-datepicker .ui-state-hover a:link,
+	.tribe-ui-datepicker .ui-state-hover a:visited,
+	.tribe-ui-datepicker .ui-state-focus a,
+	.tribe-ui-datepicker .ui-state-focus a:hover,
+	.tribe-ui-datepicker .ui-state-focus a:link,
+	.tribe-ui-datepicker .ui-state-focus a:visited,
+	.tribe-ui-datepicker a.ui-button:hover,
+	.tribe-ui-datepicker a.ui-button:focus {
 	color: #b1b1b1;
 	text-decoration: none;
 }
 
-.TRIBETEST .ui-visual-focus {
+.tribe-ui-datepicker .ui-visual-focus {
 	box-shadow: 0 0 3px 1px rgb(94, 158, 214);
 }
 
-.TRIBETEST .ui-state-active,
-	.TRIBETEST .ui-widget-content .ui-state-active,
-	.TRIBETEST .ui-widget-header .ui-state-active,
-	.TRIBETEST a.ui-button:active,
-	.TRIBETEST .ui-button:active,
-	.TRIBETEST .ui-button.ui-state-active:hover {
+.tribe-ui-datepicker .ui-state-active,
+	.tribe-ui-datepicker .ui-widget-content .ui-state-active,
+	.tribe-ui-datepicker .ui-widget-header .ui-state-active,
+	.tribe-ui-datepicker a.ui-button:active,
+	.tribe-ui-datepicker .ui-button:active,
+	.tribe-ui-datepicker .ui-button.ui-state-active:hover {
 	background: linear-gradient(354deg, rgba(10, 85, 160, 1.00) 0%, rgba(18, 136, 235, 1.00) 100%);
 	color: #fff;
 }
 
-.TRIBETEST .ui-icon-background,
-	.TRIBETEST .ui-state-active .ui-icon-background {
+.tribe-ui-datepicker .ui-icon-background,
+	.tribe-ui-datepicker .ui-state-active .ui-icon-background {
 	border: #dddddd;
 	background-color: #1c94c4;
 }
 
-.TRIBETEST .ui-state-active a,
-	.TRIBETEST .ui-state-active a:link,
-	.TRIBETEST .ui-state-active a:visited {
+.tribe-ui-datepicker .ui-state-active a,
+	.tribe-ui-datepicker .ui-state-active a:link,
+	.tribe-ui-datepicker .ui-state-active a:visited {
 	color: #23282d;
 	text-decoration: none;
 }
@@ -369,95 +369,95 @@ html .TRIBETEST .ui-button.ui-state-disabled:active {
 /* Interaction Cues
 ----------------------------------*/
 
-.TRIBETEST .ui-state-highlight,
-.TRIBETEST.ui-widget-content .ui-state-highlight,
-.TRIBETEST .ui-widget-header .ui-state-highlight {
+.tribe-ui-datepicker .ui-state-highlight,
+.tribe-ui-datepicker.ui-widget-content .ui-state-highlight,
+.tribe-ui-datepicker .ui-widget-header .ui-state-highlight {
 	background: #ffffff;
 	color: #363636;
 }
 
-.TRIBETEST .ui-state-checked {
+.tribe-ui-datepicker .ui-state-checked {
 	background: #ffffff;
 }
 
-.TRIBETEST .ui-state-highlight a,
-.TRIBETEST.ui-widget-content .ui-state-highlight a,
-.TRIBETEST .ui-widget-header .ui-state-highlight a {
+.tribe-ui-datepicker .ui-state-highlight a,
+.tribe-ui-datepicker.ui-widget-content .ui-state-highlight a,
+.tribe-ui-datepicker .ui-widget-header .ui-state-highlight a {
 	color: #363636;
 }
 
-.TRIBETEST .ui-state-error,
-.TRIBETEST.ui-widget-content .ui-state-error,
-.TRIBETEST .ui-widget-header .ui-state-error {
+.tribe-ui-datepicker .ui-state-error,
+.tribe-ui-datepicker.ui-widget-content .ui-state-error,
+.tribe-ui-datepicker .ui-widget-header .ui-state-error {
 	background: #b81900;
 	color: #ffffff;
 }
 
-.TRIBETEST .ui-state-error a,
-.TRIBETEST.ui-widget-content .ui-state-error a,
-.TRIBETEST .ui-widget-header .ui-state-error a {
+.tribe-ui-datepicker .ui-state-error a,
+.tribe-ui-datepicker.ui-widget-content .ui-state-error a,
+.tribe-ui-datepicker .ui-widget-header .ui-state-error a {
 	color: #ffffff;
 }
 
-.TRIBETEST .ui-state-error-text,
-.TRIBETEST.ui-widget-content .ui-state-error-text,
-.TRIBETEST .ui-widget-header .ui-state-error-text {
+.tribe-ui-datepicker .ui-state-error-text,
+.tribe-ui-datepicker.ui-widget-content .ui-state-error-text,
+.tribe-ui-datepicker .ui-widget-header .ui-state-error-text {
 	color: #ffffff;
 }
 
-.TRIBETEST .ui-priority-secondary,
-.TRIBETEST.ui-widget-content .ui-priority-secondary,
-.TRIBETEST .ui-widget-header .ui-priority-secondary {
+.tribe-ui-datepicker .ui-priority-secondary,
+.tribe-ui-datepicker.ui-widget-content .ui-priority-secondary,
+.tribe-ui-datepicker .ui-widget-header .ui-priority-secondary {
 	opacity: .7;
 	filter:Alpha(Opacity=70); /* support: IE8 */
 	font-weight: normal;
 }
 
-.TRIBETEST .ui-state-disabled,
-.TRIBETEST.ui-widget-content .ui-state-disabled,
-.TRIBETEST .ui-widget-header .ui-state-disabled {
+.tribe-ui-datepicker .ui-state-disabled,
+.tribe-ui-datepicker.ui-widget-content .ui-state-disabled,
+.tribe-ui-datepicker .ui-widget-header .ui-state-disabled {
 	opacity: .35;
 	filter:Alpha(Opacity=35); /* support: IE8 */
 	background-image: none;
 }
 
-.TRIBETEST .ui-state-disabled .ui-icon {
+.tribe-ui-datepicker .ui-state-disabled .ui-icon {
 	filter:Alpha(Opacity=35); /* support: IE8 - See #6059 */
 }
 
 /* Corner radius */
 
-.TRIBETEST .ui-corner-all,
-	.TRIBETEST .ui-corner-top,
-	.TRIBETEST .ui-corner-left,
-	.TRIBETEST .ui-corner-tl {
+.tribe-ui-datepicker .ui-corner-all,
+	.tribe-ui-datepicker .ui-corner-top,
+	.tribe-ui-datepicker .ui-corner-left,
+	.tribe-ui-datepicker .ui-corner-tl {
 	border-top-left-radius: 4px;
 }
 
-.TRIBETEST .ui-corner-all,
-	.TRIBETEST .ui-corner-top,
-	.TRIBETEST .ui-corner-right,
-	.TRIBETEST .ui-corner-tr {
+.tribe-ui-datepicker .ui-corner-all,
+	.tribe-ui-datepicker .ui-corner-top,
+	.tribe-ui-datepicker .ui-corner-right,
+	.tribe-ui-datepicker .ui-corner-tr {
 	border-top-right-radius: 4px;
 }
 
-.TRIBETEST .ui-corner-all,
-	.TRIBETEST .ui-corner-bottom,
-	.TRIBETEST .ui-corner-left,
-	.TRIBETEST .ui-corner-bl {
+.tribe-ui-datepicker .ui-corner-all,
+	.tribe-ui-datepicker .ui-corner-bottom,
+	.tribe-ui-datepicker .ui-corner-left,
+	.tribe-ui-datepicker .ui-corner-bl {
 	border-bottom-left-radius: 4px;
 }
 
-.TRIBETEST .ui-corner-all,
-	.TRIBETEST .ui-corner-bottom,
-	.TRIBETEST .ui-corner-right,
-	.TRIBETEST .ui-corner-br {
+.tribe-ui-datepicker .ui-corner-all,
+	.tribe-ui-datepicker .ui-corner-bottom,
+	.tribe-ui-datepicker .ui-corner-right,
+	.tribe-ui-datepicker .ui-corner-br {
 	border-bottom-right-radius: 4px;
 }
 
 /* Overlays */
 
-.TRIBETEST .ui-widget-overlay {
+.tribe-ui-datepicker .ui-widget-overlay {
 	background: #666666 url("images/ui-bg_diagonals-thick_20_666666_40x40.png") 50% 50% repeat;
 	opacity: .5;
 	filter: Alpha(Opacity=50);
@@ -465,15 +465,15 @@ html .TRIBETEST .ui-button.ui-state-disabled:active {
 	/* support: IE8 */
 }
 
-.TRIBETEST .ui-widget-shadow {
+.tribe-ui-datepicker .ui-widget-shadow {
 	box-shadow: -5px -5px 5px #000000;
 }
 
-.TRIBETEST .ui-helper-hidden {
+.tribe-ui-datepicker .ui-helper-hidden {
 	display: none;
 }
 
-.TRIBETEST .ui-helper-hidden-accessible {
+.tribe-ui-datepicker .ui-helper-hidden-accessible {
 	border: 0;
 	clip: rect(0 0 0 0);
 	height: 1px;
@@ -484,7 +484,7 @@ html .TRIBETEST .ui-button.ui-state-disabled:active {
 	width: 1px;
 }
 
-.TRIBETEST .ui-helper-reset {
+.tribe-ui-datepicker .ui-helper-reset {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -495,18 +495,18 @@ html .TRIBETEST .ui-button.ui-state-disabled:active {
 	list-style: none;
 }
 
-.TRIBETEST .ui-helper-clearfix:before,
-	.TRIBETEST .ui-helper-clearfix:after {
+.tribe-ui-datepicker .ui-helper-clearfix:before,
+	.tribe-ui-datepicker .ui-helper-clearfix:after {
 	content: "";
 	display: table;
 	border-collapse: collapse;
 }
 
-.TRIBETEST .ui-helper-clearfix:after {
+.tribe-ui-datepicker .ui-helper-clearfix:after {
 	clear: both;
 }
 
-.TRIBETEST .ui-helper-zfix {
+.tribe-ui-datepicker .ui-helper-zfix {
 	width: 100%;
 	height: 100%;
 	top: 0;
@@ -518,51 +518,51 @@ html .TRIBETEST .ui-button.ui-state-disabled:active {
 	/* support: IE8 */
 }
 
-.TRIBETEST .ui-front {
+.tribe-ui-datepicker .ui-front {
 	z-index: 100;
 }
 
 /* RTL support */
 
-.TRIBETEST.ui-datepicker-rtl {
+.tribe-ui-datepicker.ui-datepicker-rtl {
 	direction: rtl;
 }
 
-.TRIBETEST.ui-datepicker-rtl .ui-datepicker-prev {
+.tribe-ui-datepicker.ui-datepicker-rtl .ui-datepicker-prev {
 	right: 2px;
 	left: auto;
 }
 
-.TRIBETEST.ui-datepicker-rtl .ui-datepicker-next {
+.tribe-ui-datepicker.ui-datepicker-rtl .ui-datepicker-next {
 	left: 2px;
 	right: auto;
 }
 
-.TRIBETEST.ui-datepicker-rtl .ui-datepicker-prev:hover {
+.tribe-ui-datepicker.ui-datepicker-rtl .ui-datepicker-prev:hover {
 	right: 1px;
 	left: auto;
 }
 
-.TRIBETEST.ui-datepicker-rtl .ui-datepicker-next:hover {
+.tribe-ui-datepicker.ui-datepicker-rtl .ui-datepicker-next:hover {
 	left: 1px;
 	right: auto;
 }
 
-.TRIBETEST.ui-datepicker-rtl .ui-datepicker-buttonpane {
+.tribe-ui-datepicker.ui-datepicker-rtl .ui-datepicker-buttonpane {
 	clear: right;
 }
 
-.TRIBETEST.ui-datepicker-rtl .ui-datepicker-buttonpane button {
+.tribe-ui-datepicker.ui-datepicker-rtl .ui-datepicker-buttonpane button {
 	float: left;
 }
 
-.TRIBETEST.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current,
-	.TRIBETEST.ui-datepicker-rtl .ui-datepicker-group {
+.tribe-ui-datepicker.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current,
+	.tribe-ui-datepicker.ui-datepicker-rtl .ui-datepicker-group {
 	float: right;
 }
 
-.TRIBETEST.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,
-	.TRIBETEST.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+.tribe-ui-datepicker.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,
+	.tribe-ui-datepicker.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
 	border-right-width: 0;
 	border-left-width: 1px;
 }
