@@ -12,6 +12,7 @@
 * Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918] 
 * Fix - Added safety checks to reduce the potential for errors stemming from our logging facilities (shout out to Brandon Stiner and Russell Todd for highlighting some remaining issues here) [90436, 90544]
 * Fix - Added checks to avoid the generation of warnings when rendering the customizer CSS template (props: @aristath) [91070]
+* Tweak - Improved strategy for filtering of JSON LD data (our thanks to Mathew in the forums for flagging this issue) [89801]
 * Tweak - Added new tribe_is_wpml_active() function for unified method of checking (as its name implies) if WPML is active [82286]
 * Tweak - Removed call to deprecated screen_icon() function [90985]
 
