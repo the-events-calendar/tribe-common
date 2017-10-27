@@ -5,6 +5,7 @@
 = [4.6.3] TBD =
 
 * Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
+* Fix - Fixed compatibility issue with Internet Explorer 10 & 11 when selecting a venue from the dropdown (thanks (@acumenconsulting for reporting this) [72924]
 * Tweak - Obfuscated the API key for the google_maps_js_api_key field in the "System Information" screen [89795]
 * Tweak - Updated the list of countries used in the country dropdown [75769]
 
