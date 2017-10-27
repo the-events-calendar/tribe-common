@@ -8,17 +8,17 @@ tests/_output/*
 
 # by default ignore all, need a vendor dep in the repo? use !vendor/acme
 vendor/*
-!vendor/jquery
-!vendor/select2
-!vendor/momentjs
 !vendor/clipboard
 !vendor/composer
-!vendor/jquery-tribe-timepicker
 vendor/composer/composer/tests
 vendor/composer/composer/doc
 vendor/composer/composer/.github
 vendor/composer/ca-bundle
 vendor/composer/semver
 vendor/composer/spdx-licenses
+!vendor/jquery
+!vendor/jquery-tribe-timepicker
 !vendor/lucatume/di52
+!vendor/momentjs
+!vendor/tribe-select2
 !vendor/xrstf/composer-php52

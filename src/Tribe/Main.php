@@ -189,8 +189,8 @@ class Tribe__Main {
 			array(
 				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
-				array( 'tribe-select2', 'vendor/select2/select2.js', array( 'jquery' ) ),
-				array( 'tribe-select2-css', 'vendor/select2/select2.css' ),
+				array( 'tribe-select2', 'vendor/tribe-select2/select2.js', array( 'jquery' ) ),
+				array( 'tribe-select2-css', 'vendor/tribe-select2/select2.css' ),
 				array( 'tribe-moment', 'vendor/momentjs/moment.js' ),
 				array( 'datatables-css', 'datatables.css' ),
 				array( 'datatables-responsive', 'vendor/datatables/extensions/Responsive/js/dataTables.responsive.js', array( 'jquery', 'datatables' ) ),
