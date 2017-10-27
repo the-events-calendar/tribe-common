@@ -99,7 +99,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		$data->url = esc_url_raw( $this->get_link( $post ) );
 
 		$type = strtolower( esc_attr( $this->type ) );
-		$data = $this->apply_object_data_filter( $type, $data, $args, $post );
+		$data = $this->apply_object_data_filter( $data, $args, $post );
 
 		// Index by ID: this will allow filter code to identify the actual event being referred to
 		// without injecting an additional property
@@ -119,7 +119,9 @@ abstract class Tribe__JSON_LD__Abstract {
 	 *
 	 * @return mixed
 	 */
-	protected function apply_object_data_filter( $type, $data, $args, $post ) {
+	protected function apply_object_data_filter( $data, $args, $post ) {
+		$type = strtolower( esc_attr( $this->type ) );
+
 		/**
 		 * Allows the event data to be modifed by themes and other plugins.
 		 *
