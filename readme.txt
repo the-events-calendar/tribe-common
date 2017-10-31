@@ -6,6 +6,7 @@
 
 * Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
 * Fix - Fixed compatibility issue with Internet Explorer 10 & 11 when selecting a venue from the dropdown (thanks (@acumenconsulting for reporting this) [72924]
+* Fix - Improved process for sharing JSON data in the admin environment so that it also works within the theme customizer screen [72127]
 * Tweak - Obfuscated the API key for the google_maps_js_api_key field in the "System Information" screen [89795]
 * Tweak - Updated the list of countries used in the country dropdown [75769]
 * Tweak - Added additional timezone handling facilities [78233]
