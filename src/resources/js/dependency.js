@@ -165,4 +165,4 @@
 		$( selectors.dependent ).dependency();
 		$( selectors.dependency ).trigger( 'verify.dependency' );
 	} );
-}( jQuery, _ ) );
+}( jQuery, _.noConflict() ) );
