@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.6.3] TBD =
+= [4.6.3] 2017-11-01 =
 
 * Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
 * Fix - Fixed compatibility issue with Internet Explorer 10 & 11 when selecting a venue from the dropdown (thanks (@acumenconsulting for reporting this) [72924]
@@ -10,6 +10,7 @@
 * Tweak - Obfuscated the API key for the google_maps_js_api_key field in the "System Information" screen [89795]
 * Tweak - Updated the list of countries used in the country dropdown [75769]
 * Tweak - Added additional timezone handling facilities [78233]
+* Language - 7 new strings added, 292 updated, 18 fuzzied, and 3 obsoleted
 
 = [4.6.2] 2017-10-18 =
 

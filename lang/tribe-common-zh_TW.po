@@ -11,6 +11,34 @@ msgstr ""
 "Language: zh_TW\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Languages/Locations.php:252
+msgid "Sint Maarten"
+msgstr ""
+
+#: src/Tribe/Languages/Locations.php:245
+msgid "S&atilde;o Tom&eacute; and Pr&iacute;ncipe"
+msgstr ""
+
+#: src/Tribe/Languages/Locations.php:238
+msgid "Saint Helena"
+msgstr ""
+
+#: src/Tribe/Languages/Locations.php:237
+msgid "Saint Barth&eacute;lemy"
+msgstr ""
+
+#: src/Tribe/Languages/Locations.php:113
+msgid "Cura&ccedil;ao"
+msgstr ""
+
+#: src/Tribe/Languages/Locations.php:103
+msgid "Collectivity of Saint Martin"
+msgstr ""
+
+#: src/Tribe/Languages/Locations.php:57
+msgid "&Aring;land Islands"
+msgstr ""
+
 #: src/admin-views/tribe-options-help.php:20
 msgid "Check out our %s for developers."
 msgstr ""
@@ -248,7 +276,7 @@ msgstr ""
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/Customizer.php:566
+#: src/Tribe/Customizer.php:569
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr ""
 
@@ -350,31 +378,31 @@ msgstr ""
 msgid " (opens in new window)"
 msgstr ""
 
-#: src/Tribe/Languages/Locations.php:108
+#: src/Tribe/Languages/Locations.php:110
 msgid "C&ocirc;te d'Ivoire"
 msgstr ""
 
-#: src/Tribe/Support.php:356
+#: src/Tribe/Support.php:370
 msgid "Unique System Info Key Generated"
 msgstr ""
 
-#: src/Tribe/Support.php:342 src/Tribe/Support.php:368
+#: src/Tribe/Support.php:356 src/Tribe/Support.php:382
 msgid "Permission Error"
 msgstr ""
 
-#: src/Tribe/Support.php:309 src/Tribe/Support.php:314
+#: src/Tribe/Support.php:323 src/Tribe/Support.php:328
 msgid "Invalid Key"
 msgstr ""
 
-#: src/Tribe/Support.php:290
+#: src/Tribe/Support.php:304
 msgid "Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties."
 msgstr ""
 
-#: src/Tribe/Support.php:289
+#: src/Tribe/Support.php:303
 msgid "Yes, automatically share my system information with the Modern Tribe support team"
 msgstr ""
 
-#: src/Tribe/Support.php:163
+#: src/Tribe/Support.php:170
 msgid "English"
 msgstr ""
 
@@ -511,23 +539,23 @@ msgstr ""
 msgid "%s must contain numbers, letters, dashes and undescores only"
 msgstr ""
 
-#: src/Tribe/Log.php:371
+#: src/Tribe/Log.php:376
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Log.php:370
+#: src/Tribe/Log.php:375
 msgid "Warnings and errors"
 msgstr ""
 
-#: src/Tribe/Log.php:369
+#: src/Tribe/Log.php:374
 msgid "Only errors"
 msgstr ""
 
-#: src/Tribe/Log.php:368
+#: src/Tribe/Log.php:373
 msgid "Disabled"
 msgstr ""
 
-#: src/Tribe/Log.php:269
+#: src/Tribe/Log.php:274
 msgid "Cannot set %s as the current logging engine"
 msgstr ""
 
@@ -749,7 +777,7 @@ msgstr "http://m.tri.be/1x"
 msgid "Modern Tribe, Inc."
 msgstr "Modern Tribe, Inc."
 
-#: src/Tribe/Settings.php:360
+#: src/Tribe/Settings.php:359
 msgid "Save Changes"
 msgstr "保存更改"
 
@@ -757,7 +785,7 @@ msgstr "保存更改"
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 
-#: src/Tribe/Support.php:190
+#: src/Tribe/Support.php:197
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr ""
 
@@ -899,1147 +927,1135 @@ msgstr "檢視"
 msgid "Community Events"
 msgstr ""
 
-#: src/Tribe/Languages/Locations.php:363
+#: src/Tribe/Languages/Locations.php:367
 msgid "Wyoming"
 msgstr "懷俄明州"
 
-#: src/Tribe/Languages/Locations.php:362
+#: src/Tribe/Languages/Locations.php:366
 msgid "Wisconsin"
 msgstr "威斯康辛州"
 
-#: src/Tribe/Languages/Locations.php:361
+#: src/Tribe/Languages/Locations.php:365
 msgid "West Virginia"
 msgstr "西佛吉尼亞州"
 
-#: src/Tribe/Languages/Locations.php:360
+#: src/Tribe/Languages/Locations.php:364
 msgid "Washington"
 msgstr "華盛頓州"
 
-#: src/Tribe/Languages/Locations.php:359
+#: src/Tribe/Languages/Locations.php:363
 msgid "Virginia"
 msgstr "維吉尼亞州"
 
-#: src/Tribe/Languages/Locations.php:358
+#: src/Tribe/Languages/Locations.php:362
 msgid "Vermont"
 msgstr "佛蒙特州"
 
-#: src/Tribe/Languages/Locations.php:357
+#: src/Tribe/Languages/Locations.php:361
 msgid "Utah"
 msgstr "猶他州"
 
-#: src/Tribe/Languages/Locations.php:356
+#: src/Tribe/Languages/Locations.php:360
 msgid "Texas"
 msgstr "德州"
 
-#: src/Tribe/Languages/Locations.php:355
+#: src/Tribe/Languages/Locations.php:359
 msgid "Tennessee"
 msgstr "田納西州"
 
-#: src/Tribe/Languages/Locations.php:354
+#: src/Tribe/Languages/Locations.php:358
 msgid "South Dakota"
 msgstr "南達科他州"
 
-#: src/Tribe/Languages/Locations.php:353
+#: src/Tribe/Languages/Locations.php:357
 msgid "South Carolina"
 msgstr "南卡羅來納州"
 
-#: src/Tribe/Languages/Locations.php:352
+#: src/Tribe/Languages/Locations.php:356
 msgid "Rhode Island"
 msgstr "羅德島州"
 
-#: src/Tribe/Languages/Locations.php:351
+#: src/Tribe/Languages/Locations.php:355
 msgid "Pennsylvania"
 msgstr "賓夕法尼亞州"
 
-#: src/Tribe/Languages/Locations.php:350
+#: src/Tribe/Languages/Locations.php:354
 msgid "Oregon"
 msgstr "奧勒崗州"
 
-#: src/Tribe/Languages/Locations.php:349
+#: src/Tribe/Languages/Locations.php:353
 msgid "Oklahoma"
 msgstr "俄克拉荷馬州"
 
-#: src/Tribe/Languages/Locations.php:348
+#: src/Tribe/Languages/Locations.php:352
 msgid "Ohio"
 msgstr "俄亥俄州"
 
-#: src/Tribe/Languages/Locations.php:347
+#: src/Tribe/Languages/Locations.php:351
 msgid "North Dakota"
 msgstr "北達科他州"
 
-#: src/Tribe/Languages/Locations.php:346
+#: src/Tribe/Languages/Locations.php:350
 msgid "North Carolina"
 msgstr "北卡羅來納州"
 
-#: src/Tribe/Languages/Locations.php:345
+#: src/Tribe/Languages/Locations.php:349
 msgid "New York"
 msgstr "紐約"
 
-#: src/Tribe/Languages/Locations.php:344
+#: src/Tribe/Languages/Locations.php:348
 msgid "New Mexico"
 msgstr "新墨西哥州"
 
-#: src/Tribe/Languages/Locations.php:343
+#: src/Tribe/Languages/Locations.php:347
 msgid "New Jersey"
 msgstr "新澤西州"
 
-#: src/Tribe/Languages/Locations.php:342
+#: src/Tribe/Languages/Locations.php:346
 msgid "New Hampshire"
 msgstr "新罕布夏州"
 
-#: src/Tribe/Languages/Locations.php:341
+#: src/Tribe/Languages/Locations.php:345
 msgid "Nevada"
 msgstr "內華達州"
 
-#: src/Tribe/Languages/Locations.php:340
+#: src/Tribe/Languages/Locations.php:344
 msgid "Nebraska"
 msgstr "內布拉斯加州"
 
-#: src/Tribe/Languages/Locations.php:339
+#: src/Tribe/Languages/Locations.php:343
 msgid "Montana"
 msgstr "蒙大拿州"
 
-#: src/Tribe/Languages/Locations.php:338
+#: src/Tribe/Languages/Locations.php:342
 msgid "Missouri"
 msgstr "密蘇里州"
 
-#: src/Tribe/Languages/Locations.php:337
+#: src/Tribe/Languages/Locations.php:341
 msgid "Mississippi"
 msgstr "密西西比州"
 
-#: src/Tribe/Languages/Locations.php:336
+#: src/Tribe/Languages/Locations.php:340
 msgid "Minnesota"
 msgstr "明尼蘇達州"
 
-#: src/Tribe/Languages/Locations.php:335
+#: src/Tribe/Languages/Locations.php:339
 msgid "Michigan"
 msgstr "密西根州"
 
-#: src/Tribe/Languages/Locations.php:334
+#: src/Tribe/Languages/Locations.php:338
 msgid "Massachusetts"
 msgstr "麻薩諸塞州"
 
-#: src/Tribe/Languages/Locations.php:333
+#: src/Tribe/Languages/Locations.php:337
 msgid "Maryland"
 msgstr "馬里蘭州"
 
-#: src/Tribe/Languages/Locations.php:332
+#: src/Tribe/Languages/Locations.php:336
 msgid "Maine"
 msgstr "緬因州"
 
-#: src/Tribe/Languages/Locations.php:331
+#: src/Tribe/Languages/Locations.php:335
 msgid "Louisiana"
 msgstr "路易斯安那州"
 
-#: src/Tribe/Languages/Locations.php:330
+#: src/Tribe/Languages/Locations.php:334
 msgid "Kentucky"
 msgstr "肯塔基州"
 
-#: src/Tribe/Languages/Locations.php:329
+#: src/Tribe/Languages/Locations.php:333
 msgid "Kansas"
 msgstr "堪薩斯州"
 
-#: src/Tribe/Languages/Locations.php:328
+#: src/Tribe/Languages/Locations.php:332
 msgid "Iowa"
 msgstr "愛荷華州"
 
-#: src/Tribe/Languages/Locations.php:327
+#: src/Tribe/Languages/Locations.php:331
 msgid "Indiana"
 msgstr "印第安納州"
 
-#: src/Tribe/Languages/Locations.php:326
+#: src/Tribe/Languages/Locations.php:330
 msgid "Illinois"
 msgstr "伊利諾州"
 
-#: src/Tribe/Languages/Locations.php:325
+#: src/Tribe/Languages/Locations.php:329
 msgid "Idaho"
 msgstr "愛達荷州"
 
-#: src/Tribe/Languages/Locations.php:324
+#: src/Tribe/Languages/Locations.php:328
 msgid "Hawaii"
 msgstr "夏威夷州"
 
-#: src/Tribe/Languages/Locations.php:322
+#: src/Tribe/Languages/Locations.php:326
 msgid "Florida"
 msgstr "佛羅里達州"
 
-#: src/Tribe/Languages/Locations.php:321
+#: src/Tribe/Languages/Locations.php:325
 msgid "District of Columbia"
 msgstr "哥倫比亞特區"
 
-#: src/Tribe/Languages/Locations.php:320
+#: src/Tribe/Languages/Locations.php:324
 msgid "Delaware"
 msgstr "德拉威州"
 
-#: src/Tribe/Languages/Locations.php:319
+#: src/Tribe/Languages/Locations.php:323
 msgid "Connecticut"
 msgstr "康乃迪克州"
 
-#: src/Tribe/Languages/Locations.php:318
+#: src/Tribe/Languages/Locations.php:322
 msgid "Colorado"
 msgstr "科羅拉多州"
 
-#: src/Tribe/Languages/Locations.php:317
+#: src/Tribe/Languages/Locations.php:321
 msgid "California"
 msgstr "加州"
 
-#: src/Tribe/Languages/Locations.php:316
+#: src/Tribe/Languages/Locations.php:320
 msgid "Arkansas"
 msgstr "阿肯色州"
 
-#: src/Tribe/Languages/Locations.php:315
+#: src/Tribe/Languages/Locations.php:319
 msgid "Arizona"
 msgstr "亞利桑那州"
 
-#: src/Tribe/Languages/Locations.php:314
+#: src/Tribe/Languages/Locations.php:318
 msgid "Alaska"
 msgstr "阿拉斯加州"
 
-#: src/Tribe/Languages/Locations.php:313
+#: src/Tribe/Languages/Locations.php:317
 msgid "Alabama"
 msgstr "阿拉巴馬州"
 
-#: src/Tribe/Languages/Locations.php:293
+#: src/Tribe/Languages/Locations.php:297
 msgid "Zimbabwe"
 msgstr "辛巴威"
 
-#: src/Tribe/Languages/Locations.php:292
+#: src/Tribe/Languages/Locations.php:296
 msgid "Zambia"
 msgstr "尚比亞"
 
-#: src/Tribe/Languages/Locations.php:291
+#: src/Tribe/Languages/Locations.php:295
 msgid "Yemen"
 msgstr "葉門"
 
-#: src/Tribe/Languages/Locations.php:290
+#: src/Tribe/Languages/Locations.php:294
 msgid "Western Sahara"
 msgstr "西撒哈拉"
 
-#: src/Tribe/Languages/Locations.php:289
-msgid "Wallis And Futuna Islands"
-msgstr "瓦利斯和富圖納群島"
+#: src/Tribe/Languages/Locations.php:293
+msgid "Wallis and Futuna Islands"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:288
+#: src/Tribe/Languages/Locations.php:292
 msgid "Virgin Islands (U.S.)"
 msgstr "美屬維京群島"
 
-#: src/Tribe/Languages/Locations.php:287
+#: src/Tribe/Languages/Locations.php:291
 msgid "Virgin Islands (British)"
 msgstr "英屬維京群島"
 
-#: src/Tribe/Languages/Locations.php:286
+#: src/Tribe/Languages/Locations.php:290
 msgid "Viet Nam"
 msgstr "越南"
 
-#: src/Tribe/Languages/Locations.php:285
+#: src/Tribe/Languages/Locations.php:289
 msgid "Venezuela"
 msgstr "委內瑞拉"
 
-#: src/Tribe/Languages/Locations.php:284
+#: src/Tribe/Languages/Locations.php:288
 msgid "Vanuatu"
 msgstr "萬那杜"
 
-#: src/Tribe/Languages/Locations.php:283
+#: src/Tribe/Languages/Locations.php:287
 msgid "Uzbekistan"
 msgstr "烏茲別克斯坦"
 
-#: src/Tribe/Languages/Locations.php:282
+#: src/Tribe/Languages/Locations.php:286
 msgid "Uruguay"
 msgstr "烏拉圭"
 
-#: src/Tribe/Languages/Locations.php:281
+#: src/Tribe/Languages/Locations.php:285
 msgid "United States Minor Outlying Islands"
 msgstr "美國本土外小島嶼"
 
-#: src/Tribe/Languages/Locations.php:280
+#: src/Tribe/Languages/Locations.php:284
 msgid "United Kingdom"
 msgstr "英國"
 
-#: src/Tribe/Languages/Locations.php:279
+#: src/Tribe/Languages/Locations.php:283
 msgid "United Arab Emirates"
 msgstr "阿拉伯聯合大公國"
 
-#: src/Tribe/Languages/Locations.php:278
+#: src/Tribe/Languages/Locations.php:282
 msgid "Ukraine"
 msgstr "烏克蘭"
 
-#: src/Tribe/Languages/Locations.php:277
+#: src/Tribe/Languages/Locations.php:281
 msgid "Uganda"
 msgstr "烏干達"
 
-#: src/Tribe/Languages/Locations.php:276
+#: src/Tribe/Languages/Locations.php:280
 msgid "Tuvalu"
 msgstr "吐瓦魯"
 
-#: src/Tribe/Languages/Locations.php:275
-msgid "Turks And Caicos Islands"
-msgstr "特克斯和凱科斯群島"
+#: src/Tribe/Languages/Locations.php:279
+msgid "Turks and Caicos Islands"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:274
+#: src/Tribe/Languages/Locations.php:278
 msgid "Turkmenistan"
 msgstr "土庫曼"
 
-#: src/Tribe/Languages/Locations.php:273
+#: src/Tribe/Languages/Locations.php:277
 msgid "Turkey"
 msgstr "土耳其"
 
-#: src/Tribe/Languages/Locations.php:272
+#: src/Tribe/Languages/Locations.php:276
 msgid "Tunisia"
 msgstr "突尼西亞"
 
-#: src/Tribe/Languages/Locations.php:271
-msgid "Trinidad And Tobago"
-msgstr "千里達及多巴哥"
+#: src/Tribe/Languages/Locations.php:275
+msgid "Trinidad and Tobago"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:270
+#: src/Tribe/Languages/Locations.php:274
 msgid "Tonga"
 msgstr "東加"
 
-#: src/Tribe/Languages/Locations.php:269
+#: src/Tribe/Languages/Locations.php:273
 msgid "Tokelau"
 msgstr "托克勞群島"
 
-#: src/Tribe/Languages/Locations.php:268
+#: src/Tribe/Languages/Locations.php:272
 msgid "Togo"
 msgstr "多哥"
 
-#: src/Tribe/Languages/Locations.php:267
+#: src/Tribe/Languages/Locations.php:271
 msgid "Thailand"
 msgstr "泰國"
 
-#: src/Tribe/Languages/Locations.php:266
-msgid "Tanzania, United Republic Of"
-msgstr "坦尚尼亞"
+#: src/Tribe/Languages/Locations.php:270
+msgid "Tanzania, United Republic of"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:265
+#: src/Tribe/Languages/Locations.php:269
 msgid "Tajikistan"
 msgstr "塔吉克斯坦"
 
-#: src/Tribe/Languages/Locations.php:264
+#: src/Tribe/Languages/Locations.php:268
 msgid "Taiwan"
 msgstr "台灣"
 
-#: src/Tribe/Languages/Locations.php:263
+#: src/Tribe/Languages/Locations.php:267
 msgid "Syrian Arab Republic"
 msgstr "敘利亞"
 
-#: src/Tribe/Languages/Locations.php:262
+#: src/Tribe/Languages/Locations.php:266
 msgid "Switzerland"
 msgstr "瑞士"
 
-#: src/Tribe/Languages/Locations.php:261
+#: src/Tribe/Languages/Locations.php:265
 msgid "Sweden"
 msgstr "瑞典"
 
-#: src/Tribe/Languages/Locations.php:260
+#: src/Tribe/Languages/Locations.php:264
 msgid "Swaziland"
 msgstr "史瓦濟蘭"
 
-#: src/Tribe/Languages/Locations.php:259
-msgid "Svalbard And Jan Mayen Islands"
-msgstr "斯瓦爾巴和揚馬延"
+#: src/Tribe/Languages/Locations.php:263
+msgid "Svalbard and Jan Mayen Islands"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:258
+#: src/Tribe/Languages/Locations.php:262
 msgid "Suriname"
 msgstr "蘇利南莫河"
 
-#: src/Tribe/Languages/Locations.php:257
+#: src/Tribe/Languages/Locations.php:261
 msgid "Sudan"
 msgstr "蘇丹"
 
-#: src/Tribe/Languages/Locations.php:256
-msgid "St. Pierre And Miquelon"
-msgstr "聖皮耶與密克隆群島"
+#: src/Tribe/Languages/Locations.php:241
+msgid "Saint Pierre and Miquelon"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:255
-msgid "St. Helena"
-msgstr "聖赫勒拿島"
-
-#: src/Tribe/Languages/Locations.php:254
+#: src/Tribe/Languages/Locations.php:260
 msgid "Sri Lanka"
 msgstr "斯里蘭卡"
 
-#: src/Tribe/Languages/Locations.php:253
+#: src/Tribe/Languages/Locations.php:259
 msgid "Spain"
 msgstr "西班牙"
 
-#: src/Tribe/Languages/Locations.php:252
+#: src/Tribe/Languages/Locations.php:258
 msgid "South Georgia, South Sandwich Islands"
 msgstr "南喬治亞與南三明治群島"
 
-#: src/Tribe/Languages/Locations.php:251
+#: src/Tribe/Languages/Locations.php:257
 msgid "South Africa"
 msgstr "南非"
 
-#: src/Tribe/Languages/Locations.php:250
+#: src/Tribe/Languages/Locations.php:256
 msgid "Somalia"
 msgstr "索馬利亞"
 
-#: src/Tribe/Languages/Locations.php:249
+#: src/Tribe/Languages/Locations.php:255
 msgid "Solomon Islands"
 msgstr "所羅門群島"
 
-#: src/Tribe/Languages/Locations.php:248
+#: src/Tribe/Languages/Locations.php:254
 msgid "Slovenia"
 msgstr "斯洛維尼亞"
 
-#: src/Tribe/Languages/Locations.php:247
+#: src/Tribe/Languages/Locations.php:253
 msgid "Slovakia (Slovak Republic)"
 msgstr "斯洛伐克"
 
-#: src/Tribe/Languages/Locations.php:246
+#: src/Tribe/Languages/Locations.php:251
 msgid "Singapore"
 msgstr "新加坡"
 
-#: src/Tribe/Languages/Locations.php:245
+#: src/Tribe/Languages/Locations.php:250
 msgid "Sierra Leone"
 msgstr "獅子山共和國"
 
-#: src/Tribe/Languages/Locations.php:244
+#: src/Tribe/Languages/Locations.php:249
 msgid "Seychelles"
 msgstr "塞席爾群島"
 
-#: src/Tribe/Languages/Locations.php:243
+#: src/Tribe/Languages/Locations.php:248
 msgid "Serbia"
 msgstr "塞爾維亞"
 
-#: src/Tribe/Languages/Locations.php:242
+#: src/Tribe/Languages/Locations.php:247
 msgid "Senegal"
 msgstr "塞內加爾"
 
-#: src/Tribe/Languages/Locations.php:241
+#: src/Tribe/Languages/Locations.php:246
 msgid "Saudi Arabia"
 msgstr "沙烏地阿拉伯"
 
-#: src/Tribe/Languages/Locations.php:240
-msgid "Sao Tome And Principe"
-msgstr "聖多美與普林希比"
-
-#: src/Tribe/Languages/Locations.php:239
+#: src/Tribe/Languages/Locations.php:244
 msgid "San Marino"
 msgstr "聖馬利諾"
 
-#: src/Tribe/Languages/Locations.php:238
+#: src/Tribe/Languages/Locations.php:243
 msgid "Samoa"
 msgstr "薩摩亞"
 
-#: src/Tribe/Languages/Locations.php:237
-msgid "Saint Vincent And The Grenadines"
-msgstr "聖文森及格瑞那丁"
+#: src/Tribe/Languages/Locations.php:242
+msgid "Saint Vincent and The Grenadines"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:236
+#: src/Tribe/Languages/Locations.php:240
 msgid "Saint Lucia"
 msgstr "聖盧西亞"
 
-#: src/Tribe/Languages/Locations.php:235
-msgid "Saint Kitts And Nevis"
-msgstr "聖克里斯多福與尼維斯"
+#: src/Tribe/Languages/Locations.php:239
+msgid "Saint Kitts and Nevis"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:234
+#: src/Tribe/Languages/Locations.php:236
 msgid "Rwanda"
 msgstr "盧安達"
 
-#: src/Tribe/Languages/Locations.php:233
+#: src/Tribe/Languages/Locations.php:235
 msgid "Russian Federation"
 msgstr "俄羅斯聯邦"
 
-#: src/Tribe/Languages/Locations.php:232
+#: src/Tribe/Languages/Locations.php:234
 msgid "Romania"
 msgstr "羅馬尼亞"
 
-#: src/Tribe/Languages/Locations.php:231
+#: src/Tribe/Languages/Locations.php:233
 msgid "Reunion"
 msgstr "留尼旺"
 
-#: src/Tribe/Languages/Locations.php:230
+#: src/Tribe/Languages/Locations.php:232
 msgid "Qatar"
 msgstr "卡達"
 
-#: src/Tribe/Languages/Locations.php:229
+#: src/Tribe/Languages/Locations.php:231
 msgid "Puerto Rico"
 msgstr "波多黎各"
 
-#: src/Tribe/Languages/Locations.php:228
+#: src/Tribe/Languages/Locations.php:230
 msgid "Portugal"
 msgstr "葡萄牙"
 
-#: src/Tribe/Languages/Locations.php:227
+#: src/Tribe/Languages/Locations.php:229
 msgid "Poland"
 msgstr "波蘭"
 
-#: src/Tribe/Languages/Locations.php:226
+#: src/Tribe/Languages/Locations.php:228
 msgid "Pitcairn"
 msgstr "皮特肯群島"
 
-#: src/Tribe/Languages/Locations.php:225
+#: src/Tribe/Languages/Locations.php:227
 msgid "Philippines"
 msgstr "菲律賓"
 
-#: src/Tribe/Languages/Locations.php:224
+#: src/Tribe/Languages/Locations.php:226
 msgid "Peru"
 msgstr "祕魯"
 
-#: src/Tribe/Languages/Locations.php:223
+#: src/Tribe/Languages/Locations.php:225
 msgid "Paraguay"
 msgstr "巴拉圭"
 
-#: src/Tribe/Languages/Locations.php:222
+#: src/Tribe/Languages/Locations.php:224
 msgid "Papua New Guinea"
 msgstr "巴布新幾內亞"
 
-#: src/Tribe/Languages/Locations.php:221
+#: src/Tribe/Languages/Locations.php:223
 msgid "Panama"
 msgstr "巴拿馬"
 
-#: src/Tribe/Languages/Locations.php:220
+#: src/Tribe/Languages/Locations.php:222
 msgid "Palau"
 msgstr "帛琉"
 
-#: src/Tribe/Languages/Locations.php:219
+#: src/Tribe/Languages/Locations.php:221
 msgid "Pakistan"
 msgstr "巴基斯坦"
 
-#: src/Tribe/Languages/Locations.php:218
+#: src/Tribe/Languages/Locations.php:220
 msgid "Oman"
 msgstr "阿曼"
 
-#: src/Tribe/Languages/Locations.php:217
+#: src/Tribe/Languages/Locations.php:219
 msgid "Norway"
 msgstr "挪威"
 
-#: src/Tribe/Languages/Locations.php:216
+#: src/Tribe/Languages/Locations.php:218
 msgid "Northern Mariana Islands"
 msgstr "北馬里亞納群島"
 
-#: src/Tribe/Languages/Locations.php:215
+#: src/Tribe/Languages/Locations.php:217
 msgid "Norfolk Island"
 msgstr "諾福克島"
 
-#: src/Tribe/Languages/Locations.php:214
+#: src/Tribe/Languages/Locations.php:216
 msgid "Niue"
 msgstr "紐埃"
 
-#: src/Tribe/Languages/Locations.php:213
+#: src/Tribe/Languages/Locations.php:215
 msgid "Nigeria"
 msgstr "奈及利亞"
 
-#: src/Tribe/Languages/Locations.php:212
+#: src/Tribe/Languages/Locations.php:214
 msgid "Niger"
 msgstr "尼日"
 
-#: src/Tribe/Languages/Locations.php:211
+#: src/Tribe/Languages/Locations.php:213
 msgid "Nicaragua"
 msgstr "尼加拉瓜"
 
-#: src/Tribe/Languages/Locations.php:210
+#: src/Tribe/Languages/Locations.php:212
 msgid "New Zealand"
 msgstr "紐西蘭"
 
-#: src/Tribe/Languages/Locations.php:209
+#: src/Tribe/Languages/Locations.php:211
 msgid "New Caledonia"
 msgstr "新喀里多尼亞"
 
-#: src/Tribe/Languages/Locations.php:208
-msgid "Netherlands Antilles"
-msgstr "荷屬安的列斯"
-
-#: src/Tribe/Languages/Locations.php:207
+#: src/Tribe/Languages/Locations.php:210
 msgid "Netherlands"
 msgstr "荷蘭"
 
-#: src/Tribe/Languages/Locations.php:206
+#: src/Tribe/Languages/Locations.php:209
 msgid "Nepal"
 msgstr "尼泊爾"
 
-#: src/Tribe/Languages/Locations.php:205
+#: src/Tribe/Languages/Locations.php:208
 msgid "Nauru"
 msgstr "諾魯"
 
-#: src/Tribe/Languages/Locations.php:204
+#: src/Tribe/Languages/Locations.php:207
 msgid "Namibia"
 msgstr "那米比亞"
 
-#: src/Tribe/Languages/Locations.php:203
+#: src/Tribe/Languages/Locations.php:206
 msgid "Myanmar"
 msgstr "緬甸"
 
-#: src/Tribe/Languages/Locations.php:202
+#: src/Tribe/Languages/Locations.php:205
 msgid "Mozambique"
 msgstr "莫三比克"
 
-#: src/Tribe/Languages/Locations.php:201
+#: src/Tribe/Languages/Locations.php:204
 msgid "Morocco"
 msgstr "摩洛哥"
 
-#: src/Tribe/Languages/Locations.php:200
+#: src/Tribe/Languages/Locations.php:203
 msgid "Montserrat"
 msgstr "蒙塞拉特島"
 
-#: src/Tribe/Languages/Locations.php:199
+#: src/Tribe/Languages/Locations.php:202
 msgid "Montenegro"
 msgstr "蒙特內哥羅"
 
-#: src/Tribe/Languages/Locations.php:198
+#: src/Tribe/Languages/Locations.php:201
 msgid "Mongolia"
 msgstr "蒙古"
 
-#: src/Tribe/Languages/Locations.php:197
+#: src/Tribe/Languages/Locations.php:200
 msgid "Monaco"
 msgstr "摩納哥"
 
-#: src/Tribe/Languages/Locations.php:196
-msgid "Moldova, Republic Of"
-msgstr "摩爾多瓦"
+#: src/Tribe/Languages/Locations.php:199
+msgid "Moldova, Republic of"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:195
-msgid "Micronesia, Federated States Of"
-msgstr "密克羅尼西亞聯邦"
+#: src/Tribe/Languages/Locations.php:198
+msgid "Micronesia, Federated States of"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:194
+#: src/Tribe/Languages/Locations.php:197
 msgid "Mexico"
 msgstr "墨西哥"
 
-#: src/Tribe/Languages/Locations.php:193
+#: src/Tribe/Languages/Locations.php:196
 msgid "Mayotte"
 msgstr "馬約特"
 
-#: src/Tribe/Languages/Locations.php:192
+#: src/Tribe/Languages/Locations.php:195
 msgid "Mauritius"
 msgstr "模里西斯"
 
-#: src/Tribe/Languages/Locations.php:191
+#: src/Tribe/Languages/Locations.php:194
 msgid "Mauritania"
 msgstr "茅利塔尼亞"
 
-#: src/Tribe/Languages/Locations.php:190
+#: src/Tribe/Languages/Locations.php:193
 msgid "Martinique"
 msgstr "馬丁尼克"
 
-#: src/Tribe/Languages/Locations.php:189
+#: src/Tribe/Languages/Locations.php:192
 msgid "Marshall Islands"
 msgstr "馬紹爾群島"
 
-#: src/Tribe/Languages/Locations.php:188
+#: src/Tribe/Languages/Locations.php:191
 msgid "Malta"
 msgstr "馬爾他"
 
-#: src/Tribe/Languages/Locations.php:187
+#: src/Tribe/Languages/Locations.php:190
 msgid "Mali"
 msgstr "馬利"
 
-#: src/Tribe/Languages/Locations.php:186
+#: src/Tribe/Languages/Locations.php:189
 msgid "Maldives"
 msgstr "馬爾地夫"
 
-#: src/Tribe/Languages/Locations.php:185
+#: src/Tribe/Languages/Locations.php:188
 msgid "Malaysia"
 msgstr "馬來西亞"
 
-#: src/Tribe/Languages/Locations.php:184
+#: src/Tribe/Languages/Locations.php:187
 msgid "Malawi"
 msgstr "馬拉威"
 
-#: src/Tribe/Languages/Locations.php:183
+#: src/Tribe/Languages/Locations.php:186
 msgid "Madagascar"
 msgstr "馬達加斯加"
 
-#: src/Tribe/Languages/Locations.php:182
+#: src/Tribe/Languages/Locations.php:185
 msgid "Macedonia"
 msgstr "馬其頓"
 
-#: src/Tribe/Languages/Locations.php:181
+#: src/Tribe/Languages/Locations.php:184
 msgid "Macau"
 msgstr "澳門"
 
-#: src/Tribe/Languages/Locations.php:180
+#: src/Tribe/Languages/Locations.php:183
 msgid "Luxembourg"
 msgstr "盧森堡"
 
-#: src/Tribe/Languages/Locations.php:179
+#: src/Tribe/Languages/Locations.php:182
 msgid "Lithuania"
 msgstr "立陶宛"
 
-#: src/Tribe/Languages/Locations.php:178
+#: src/Tribe/Languages/Locations.php:181
 msgid "Liechtenstein"
 msgstr "列支敦斯登"
 
-#: src/Tribe/Languages/Locations.php:177
+#: src/Tribe/Languages/Locations.php:180
 msgid "Libya"
 msgstr "利比亞"
 
-#: src/Tribe/Languages/Locations.php:176
+#: src/Tribe/Languages/Locations.php:179
 msgid "Liberia"
 msgstr "賴比瑞亞"
 
-#: src/Tribe/Languages/Locations.php:175
+#: src/Tribe/Languages/Locations.php:178
 msgid "Lesotho"
 msgstr "賴索托"
 
-#: src/Tribe/Languages/Locations.php:174
+#: src/Tribe/Languages/Locations.php:177
 msgid "Lebanon"
 msgstr "黎巴嫩"
 
-#: src/Tribe/Languages/Locations.php:173
+#: src/Tribe/Languages/Locations.php:176
 msgid "Latvia"
 msgstr "拉脫維亞"
 
-#: src/Tribe/Languages/Locations.php:172
+#: src/Tribe/Languages/Locations.php:175
 msgid "Lao People's Democratic Republic"
 msgstr "寮國"
 
-#: src/Tribe/Languages/Locations.php:171
+#: src/Tribe/Languages/Locations.php:174
 msgid "Kyrgyzstan"
 msgstr "吉爾吉斯斯坦"
 
-#: src/Tribe/Languages/Locations.php:170
+#: src/Tribe/Languages/Locations.php:173
 msgid "Kuwait"
 msgstr "科威特"
 
-#: src/Tribe/Languages/Locations.php:169
-msgid "Korea, Republic Of"
-msgstr "南韓"
+#: src/Tribe/Languages/Locations.php:172
+msgid "Korea, Republic of"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:168
-msgid "Korea, Democratic People's Republic Of"
-msgstr "北韓"
+#: src/Tribe/Languages/Locations.php:171
+msgid "Korea, Democratic People's Republic of"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:167
+#: src/Tribe/Languages/Locations.php:170
 msgid "Kiribati"
 msgstr "吉里巴斯共和國"
 
-#: src/Tribe/Languages/Locations.php:166
+#: src/Tribe/Languages/Locations.php:169
 msgid "Kenya"
 msgstr "肯亞"
 
-#: src/Tribe/Languages/Locations.php:165
+#: src/Tribe/Languages/Locations.php:168
 msgid "Kazakhstan"
 msgstr "哈薩克"
 
-#: src/Tribe/Languages/Locations.php:164
+#: src/Tribe/Languages/Locations.php:167
 msgid "Jordan"
 msgstr "約旦"
 
-#: src/Tribe/Languages/Locations.php:163
+#: src/Tribe/Languages/Locations.php:166
 msgid "Japan"
 msgstr "日本"
 
-#: src/Tribe/Languages/Locations.php:162
+#: src/Tribe/Languages/Locations.php:165
 msgid "Jamaica"
 msgstr "牙買加"
 
-#: src/Tribe/Languages/Locations.php:161
+#: src/Tribe/Languages/Locations.php:164
 msgid "Italy"
 msgstr "義大利"
 
-#: src/Tribe/Languages/Locations.php:160
+#: src/Tribe/Languages/Locations.php:163
 msgid "Israel"
 msgstr "以色列"
 
-#: src/Tribe/Languages/Locations.php:159
+#: src/Tribe/Languages/Locations.php:162
 msgid "Ireland"
 msgstr "愛爾蘭"
 
-#: src/Tribe/Languages/Locations.php:158
+#: src/Tribe/Languages/Locations.php:161
 msgid "Iraq"
 msgstr "伊拉克"
 
-#: src/Tribe/Languages/Locations.php:157
-msgid "Iran (Islamic Republic Of)"
-msgstr "伊朗"
+#: src/Tribe/Languages/Locations.php:160
+msgid "Iran, Islamic Republic of"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:156
+#: src/Tribe/Languages/Locations.php:159
 msgid "Indonesia"
 msgstr "印尼"
 
-#: src/Tribe/Languages/Locations.php:155
+#: src/Tribe/Languages/Locations.php:158
 msgid "India"
 msgstr "印度"
 
-#: src/Tribe/Languages/Locations.php:154
+#: src/Tribe/Languages/Locations.php:157
 msgid "Iceland"
 msgstr "冰島"
 
-#: src/Tribe/Languages/Locations.php:153
+#: src/Tribe/Languages/Locations.php:156
 msgid "Hungary"
 msgstr "匈牙利"
 
-#: src/Tribe/Languages/Locations.php:152
+#: src/Tribe/Languages/Locations.php:155
 msgid "Hong Kong"
 msgstr "香港"
 
-#: src/Tribe/Languages/Locations.php:151
+#: src/Tribe/Languages/Locations.php:154
 msgid "Honduras"
 msgstr "洪都拉斯"
 
-#: src/Tribe/Languages/Locations.php:150
+#: src/Tribe/Languages/Locations.php:153
 msgid "Holy See (Vatican City State)"
 msgstr "梵蒂岡"
 
-#: src/Tribe/Languages/Locations.php:149
-msgid "Heard And Mc Donald Islands"
-msgstr "赫德島和麥克唐納群島"
+#: src/Tribe/Languages/Locations.php:152
+msgid "Heard and McDonald Islands"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:148
+#: src/Tribe/Languages/Locations.php:151
 msgid "Haiti"
 msgstr "海地"
 
-#: src/Tribe/Languages/Locations.php:147
+#: src/Tribe/Languages/Locations.php:150
 msgid "Guyana"
 msgstr "蓋亞那"
 
-#: src/Tribe/Languages/Locations.php:146
+#: src/Tribe/Languages/Locations.php:149
 msgid "Guinea-Bissau"
 msgstr "幾內亞比索"
 
-#: src/Tribe/Languages/Locations.php:145
+#: src/Tribe/Languages/Locations.php:148
 msgid "Guinea"
 msgstr "幾內亞"
 
-#: src/Tribe/Languages/Locations.php:144
+#: src/Tribe/Languages/Locations.php:147
 msgid "Guatemala"
 msgstr "瓜地馬拉"
 
-#: src/Tribe/Languages/Locations.php:143
+#: src/Tribe/Languages/Locations.php:146
 msgid "Guam"
 msgstr "關島"
 
-#: src/Tribe/Languages/Locations.php:142
+#: src/Tribe/Languages/Locations.php:145
 msgid "Guadeloupe"
 msgstr "瓜德羅普"
 
-#: src/Tribe/Languages/Locations.php:141
+#: src/Tribe/Languages/Locations.php:144
 msgid "Grenada"
 msgstr "格瑞納達"
 
-#: src/Tribe/Languages/Locations.php:140
+#: src/Tribe/Languages/Locations.php:143
 msgid "Greenland"
 msgstr "格林蘭島"
 
-#: src/Tribe/Languages/Locations.php:139
+#: src/Tribe/Languages/Locations.php:142
 msgid "Greece"
 msgstr "希臘"
 
-#: src/Tribe/Languages/Locations.php:138
+#: src/Tribe/Languages/Locations.php:141
 msgid "Gibraltar"
 msgstr "直布羅陀"
 
-#: src/Tribe/Languages/Locations.php:137
+#: src/Tribe/Languages/Locations.php:140
 msgid "Ghana"
 msgstr "迦納"
 
-#: src/Tribe/Languages/Locations.php:136
+#: src/Tribe/Languages/Locations.php:139
 msgid "Germany"
 msgstr "德國"
 
-#: src/Tribe/Languages/Locations.php:135 src/Tribe/Languages/Locations.php:323
+#: src/Tribe/Languages/Locations.php:138 src/Tribe/Languages/Locations.php:327
 msgid "Georgia"
 msgstr "喬治亞"
 
-#: src/Tribe/Languages/Locations.php:134
+#: src/Tribe/Languages/Locations.php:137
 msgid "Gambia"
 msgstr "甘比亞"
 
-#: src/Tribe/Languages/Locations.php:133
+#: src/Tribe/Languages/Locations.php:136
 msgid "Gabon"
 msgstr "加彭"
 
-#: src/Tribe/Languages/Locations.php:132
+#: src/Tribe/Languages/Locations.php:135
 msgid "French Southern Territories"
 msgstr "法國南方領地"
 
-#: src/Tribe/Languages/Locations.php:131
+#: src/Tribe/Languages/Locations.php:134
 msgid "French Polynesia"
 msgstr "法屬玻里尼西亞"
 
-#: src/Tribe/Languages/Locations.php:130
+#: src/Tribe/Languages/Locations.php:133
 msgid "French Guiana"
 msgstr "法屬圭亞那"
 
-#: src/Tribe/Languages/Locations.php:129
+#: src/Tribe/Languages/Locations.php:132
 msgid "France"
 msgstr "法國"
 
-#: src/Tribe/Languages/Locations.php:128
+#: src/Tribe/Languages/Locations.php:131
 msgid "Finland"
 msgstr "芬蘭"
 
-#: src/Tribe/Languages/Locations.php:127
+#: src/Tribe/Languages/Locations.php:130
 msgid "Fiji"
 msgstr "斐濟"
 
-#: src/Tribe/Languages/Locations.php:126
+#: src/Tribe/Languages/Locations.php:129
 msgid "Faroe Islands"
 msgstr "法羅群島"
 
-#: src/Tribe/Languages/Locations.php:125
+#: src/Tribe/Languages/Locations.php:128
 msgid "Falkland Islands (Malvinas)"
 msgstr "福克蘭群島"
 
-#: src/Tribe/Languages/Locations.php:124
+#: src/Tribe/Languages/Locations.php:127
 msgid "Ethiopia"
 msgstr "埃塞俄比亞"
 
-#: src/Tribe/Languages/Locations.php:123
+#: src/Tribe/Languages/Locations.php:126
 msgid "Estonia"
 msgstr "愛沙尼亞"
 
-#: src/Tribe/Languages/Locations.php:122
+#: src/Tribe/Languages/Locations.php:125
 msgid "Eritrea"
 msgstr "厄立特里亞"
 
-#: src/Tribe/Languages/Locations.php:121
+#: src/Tribe/Languages/Locations.php:124
 msgid "Equatorial Guinea"
 msgstr "赤道幾內亞"
 
-#: src/Tribe/Languages/Locations.php:120
+#: src/Tribe/Languages/Locations.php:123
 msgid "El Salvador"
 msgstr "薩爾瓦多"
 
-#: src/Tribe/Languages/Locations.php:119
+#: src/Tribe/Languages/Locations.php:122
 msgid "Egypt"
 msgstr "埃及"
 
-#: src/Tribe/Languages/Locations.php:118
+#: src/Tribe/Languages/Locations.php:121
 msgid "Ecuador"
 msgstr "厄瓜多"
 
-#: src/Tribe/Languages/Locations.php:117
+#: src/Tribe/Languages/Locations.php:120
 msgid "East Timor"
 msgstr "東帝汶"
 
-#: src/Tribe/Languages/Locations.php:116
+#: src/Tribe/Languages/Locations.php:119
 msgid "Dominican Republic"
 msgstr "多明尼加"
 
-#: src/Tribe/Languages/Locations.php:115
+#: src/Tribe/Languages/Locations.php:118
 msgid "Dominica"
 msgstr "多米尼克"
 
-#: src/Tribe/Languages/Locations.php:114
+#: src/Tribe/Languages/Locations.php:117
 msgid "Djibouti"
 msgstr "吉布提"
 
-#: src/Tribe/Languages/Locations.php:113
+#: src/Tribe/Languages/Locations.php:116
 msgid "Denmark"
 msgstr "丹麥"
 
-#: src/Tribe/Languages/Locations.php:112
+#: src/Tribe/Languages/Locations.php:115
 msgid "Czech Republic"
 msgstr "捷克"
 
-#: src/Tribe/Languages/Locations.php:111
+#: src/Tribe/Languages/Locations.php:114
 msgid "Cyprus"
 msgstr "賽普勒斯"
 
-#: src/Tribe/Languages/Locations.php:110
+#: src/Tribe/Languages/Locations.php:112
 msgid "Cuba"
 msgstr "古巴"
 
-#: src/Tribe/Languages/Locations.php:109
+#: src/Tribe/Languages/Locations.php:111
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "克羅埃西亞"
 
-#: src/Tribe/Languages/Locations.php:107
+#: src/Tribe/Languages/Locations.php:109
 msgid "Costa Rica"
 msgstr "哥斯大黎加"
 
-#: src/Tribe/Languages/Locations.php:106
+#: src/Tribe/Languages/Locations.php:108
 msgid "Cook Islands"
 msgstr "庫克群島"
 
-#: src/Tribe/Languages/Locations.php:105
-msgid "Congo, The Democratic Republic Of The"
-msgstr "剛果民主共和國"
+#: src/Tribe/Languages/Locations.php:107
+msgid "Congo, Democratic Republic of the"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:104
+#: src/Tribe/Languages/Locations.php:106
 msgid "Congo"
 msgstr "剛果"
 
-#: src/Tribe/Languages/Locations.php:103
+#: src/Tribe/Languages/Locations.php:105
 msgid "Comoros"
 msgstr "科摩洛"
 
-#: src/Tribe/Languages/Locations.php:102
+#: src/Tribe/Languages/Locations.php:104
 msgid "Colombia"
 msgstr "哥倫比亞"
 
-#: src/Tribe/Languages/Locations.php:101
+#: src/Tribe/Languages/Locations.php:102
 msgid "Cocos (Keeling) Islands"
 msgstr "科科斯（基林）群島"
 
-#: src/Tribe/Languages/Locations.php:100
+#: src/Tribe/Languages/Locations.php:101
 msgid "Christmas Island"
 msgstr "聖誕島"
 
-#: src/Tribe/Languages/Locations.php:99
+#: src/Tribe/Languages/Locations.php:100
 msgid "China"
 msgstr "中國"
 
-#: src/Tribe/Languages/Locations.php:98
+#: src/Tribe/Languages/Locations.php:99
 msgid "Chile"
 msgstr "智利"
 
-#: src/Tribe/Languages/Locations.php:97
+#: src/Tribe/Languages/Locations.php:98
 msgid "Chad"
 msgstr "查德"
 
-#: src/Tribe/Languages/Locations.php:96
+#: src/Tribe/Languages/Locations.php:97
 msgid "Central African Republic"
 msgstr "中非共和國"
 
-#: src/Tribe/Languages/Locations.php:95
+#: src/Tribe/Languages/Locations.php:96
 msgid "Cayman Islands"
 msgstr "開曼群島"
 
-#: src/Tribe/Languages/Locations.php:94
+#: src/Tribe/Languages/Locations.php:95
 msgid "Cape Verde"
 msgstr "維德角"
 
-#: src/Tribe/Languages/Locations.php:93
+#: src/Tribe/Languages/Locations.php:94
 msgid "Canada"
 msgstr "加拿大"
 
-#: src/Tribe/Languages/Locations.php:92
+#: src/Tribe/Languages/Locations.php:93
 msgid "Cameroon"
 msgstr "喀麥隆"
 
-#: src/Tribe/Languages/Locations.php:91
+#: src/Tribe/Languages/Locations.php:92
 msgid "Cambodia"
 msgstr "柬埔寨"
 
-#: src/Tribe/Languages/Locations.php:90
+#: src/Tribe/Languages/Locations.php:91
 msgid "Burundi"
 msgstr "蒲隆地"
 
-#: src/Tribe/Languages/Locations.php:89
+#: src/Tribe/Languages/Locations.php:90
 msgid "Burkina Faso"
 msgstr "布基那法索"
 
-#: src/Tribe/Languages/Locations.php:88
+#: src/Tribe/Languages/Locations.php:89
 msgid "Bulgaria"
 msgstr "保加利亞"
 
-#: src/Tribe/Languages/Locations.php:87
+#: src/Tribe/Languages/Locations.php:88
 msgid "Brunei Darussalam"
 msgstr "汶萊"
 
-#: src/Tribe/Languages/Locations.php:86
+#: src/Tribe/Languages/Locations.php:87
 msgid "British Indian Ocean Territory"
 msgstr "英屬印度洋領地"
 
-#: src/Tribe/Languages/Locations.php:85
+#: src/Tribe/Languages/Locations.php:86
 msgid "Brazil"
 msgstr "巴西"
 
-#: src/Tribe/Languages/Locations.php:84
+#: src/Tribe/Languages/Locations.php:85
 msgid "Bouvet Island"
 msgstr "布韋群島"
 
-#: src/Tribe/Languages/Locations.php:83
+#: src/Tribe/Languages/Locations.php:84
 msgid "Botswana"
 msgstr "波札那"
 
-#: src/Tribe/Languages/Locations.php:82
-msgid "Bosnia And Herzegowina"
-msgstr "波士尼亞與赫塞哥維納"
+#: src/Tribe/Languages/Locations.php:83
+msgid "Bosnia and Herzegowina"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:81
+#: src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
 msgstr "玻利維亞"
 
-#: src/Tribe/Languages/Locations.php:80
+#: src/Tribe/Languages/Locations.php:81
 msgid "Bhutan"
 msgstr "不丹"
 
-#: src/Tribe/Languages/Locations.php:79
+#: src/Tribe/Languages/Locations.php:80
 msgid "Bermuda"
 msgstr "百慕達"
 
-#: src/Tribe/Languages/Locations.php:78
+#: src/Tribe/Languages/Locations.php:79
 msgid "Benin"
 msgstr "貝南"
 
-#: src/Tribe/Languages/Locations.php:77
+#: src/Tribe/Languages/Locations.php:78
 msgid "Belize"
 msgstr "貝里斯"
 
-#: src/Tribe/Languages/Locations.php:76
+#: src/Tribe/Languages/Locations.php:77
 msgid "Belgium"
 msgstr "比利時"
 
-#: src/Tribe/Languages/Locations.php:75
+#: src/Tribe/Languages/Locations.php:76
 msgid "Belarus"
 msgstr "白俄羅斯"
 
-#: src/Tribe/Languages/Locations.php:74
+#: src/Tribe/Languages/Locations.php:75
 msgid "Barbados"
 msgstr "巴貝多"
 
-#: src/Tribe/Languages/Locations.php:73
+#: src/Tribe/Languages/Locations.php:74
 msgid "Bangladesh"
 msgstr "孟加拉"
 
-#: src/Tribe/Languages/Locations.php:72
+#: src/Tribe/Languages/Locations.php:73
 msgid "Bahrain"
 msgstr "巴林"
 
-#: src/Tribe/Languages/Locations.php:71
+#: src/Tribe/Languages/Locations.php:72
 msgid "Bahamas"
 msgstr "巴哈馬"
 
-#: src/Tribe/Languages/Locations.php:70
+#: src/Tribe/Languages/Locations.php:71
 msgid "Azerbaijan"
 msgstr "亞塞拜然"
 
-#: src/Tribe/Languages/Locations.php:69
+#: src/Tribe/Languages/Locations.php:70
 msgid "Austria"
 msgstr "奧地利"
 
-#: src/Tribe/Languages/Locations.php:68
+#: src/Tribe/Languages/Locations.php:69
 msgid "Australia"
 msgstr "澳大利亞"
 
-#: src/Tribe/Languages/Locations.php:67
+#: src/Tribe/Languages/Locations.php:68
 msgid "Aruba"
 msgstr "阿魯巴"
 
-#: src/Tribe/Languages/Locations.php:66
+#: src/Tribe/Languages/Locations.php:67
 msgid "Armenia"
 msgstr "亞美尼亞"
 
-#: src/Tribe/Languages/Locations.php:65
+#: src/Tribe/Languages/Locations.php:66
 msgid "Argentina"
 msgstr "阿根廷"
 
-#: src/Tribe/Languages/Locations.php:64
-msgid "Antigua And Barbuda"
-msgstr "安地卡及巴布達"
+#: src/Tribe/Languages/Locations.php:65
+msgid "Antigua and Barbuda"
+msgstr ""
 
-#: src/Tribe/Languages/Locations.php:63
+#: src/Tribe/Languages/Locations.php:64
 msgid "Antarctica"
 msgstr "南極洲"
 
-#: src/Tribe/Languages/Locations.php:62
+#: src/Tribe/Languages/Locations.php:63
 msgid "Anguilla"
 msgstr "安圭拉"
 
-#: src/Tribe/Languages/Locations.php:61
+#: src/Tribe/Languages/Locations.php:62
 msgid "Angola"
 msgstr "安哥拉共和國"
 
-#: src/Tribe/Languages/Locations.php:60
+#: src/Tribe/Languages/Locations.php:61
 msgid "Andorra"
 msgstr "安道爾公國"
 
-#: src/Tribe/Languages/Locations.php:59
+#: src/Tribe/Languages/Locations.php:60
 msgid "American Samoa"
 msgstr "美屬薩摩亞"
 
-#: src/Tribe/Languages/Locations.php:58
+#: src/Tribe/Languages/Locations.php:59
 msgid "Algeria"
 msgstr "阿爾及利亞"
 
-#: src/Tribe/Languages/Locations.php:57
+#: src/Tribe/Languages/Locations.php:58
 msgid "Albania"
 msgstr "阿爾巴尼亞"
 
@@ -2134,7 +2150,7 @@ msgstr "欄位 ID："
 msgid "Invalid or incomplete field passed"
 msgstr "無效或不完全欄位已過期"
 
-#: src/Tribe/Support.php:179 src/Tribe/Support.php:180
+#: src/Tribe/Support.php:186 src/Tribe/Support.php:187
 msgid "Unknown or not set"
 msgstr ""
 
@@ -2146,36 +2162,36 @@ msgstr "系統資訊"
 msgid "There are no fields setup for this tab yet."
 msgstr "此工具列標籤尚未設置欄位。"
 
-#: src/Tribe/Settings.php:598
+#: src/Tribe/Settings.php:597
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "以上設定未儲存，其餘設定已成功儲存。"
 
-#: src/Tribe/Settings.php:597
+#: src/Tribe/Settings.php:596
 msgid "None of your settings were saved. Please try again."
 msgstr "你的設定未儲存，請稍後重試。"
 
-#: src/Tribe/Settings.php:587
+#: src/Tribe/Settings.php:586
 msgid "Your form had the following errors:"
 msgstr "你的表格含有下列錯誤："
 
-#: src/Tribe/Settings.php:420
+#: src/Tribe/Settings.php:419
 msgid "The request wasn't sent from this tab."
 msgstr "請求未從此工具列標籤傳送。"
 
-#: src/Tribe/Settings.php:414
+#: src/Tribe/Settings.php:413
 msgid "The request was sent insecurely."
 msgstr "以不安全的方式傳送要求。"
 
-#: src/Tribe/Settings.php:408
+#: src/Tribe/Settings.php:407
 msgid "You don't have permission to do that."
 msgstr "你的操作不被允許。"
 
-#: src/Tribe/Settings.php:352
+#: src/Tribe/Settings.php:351
 msgid "You've requested a non-existent tab."
 msgstr "你要求的工具列標籤不存在。"
 
-#: src/Tribe/Settings.php:338
+#: src/Tribe/Settings.php:337
 msgid "%s Settings"
 msgstr "%s 設定"
 
@@ -2248,7 +2264,7 @@ msgstr "顯示"
 msgid "Licenses"
 msgstr "授權憑證"
 
-#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:565
+#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:568
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
@@ -2258,7 +2274,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "活動"
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:619
 msgid "Settings saved."
 msgstr "設定已儲存。"
 

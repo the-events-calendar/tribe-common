@@ -492,7 +492,7 @@ class Tribe__Timezones {
 	 * If this is not possible or if $utc_offset_string does not match the expected pattern,
 	 * boolean false is returned.
 	 *
-	 * @since TBD
+	 * @since 4.6.3
 	 *
 	 * @param string $utc_offset_string
 	 *
