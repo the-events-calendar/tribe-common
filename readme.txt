@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.6.3] 2017-11-01 =
+= [4.6.3] 2017-11-02 =
 
 * Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
 * Fix - Fixed compatibility issue with Internet Explorer 10 & 11 when selecting a venue from the dropdown (thanks (@acumenconsulting for reporting this) [72924]
