@@ -125,7 +125,7 @@ class Tribe__Post_Transient {
 				$value = get_post_meta( $post_id, $meta, false );
 
 				// if there aren't any values, communicate that it did not fetch data from post transient
-				if ( 0 === count( $value ) ) {
+				if ( ! is_array( $value ) || 0 === count( $value ) ) {
 					return false;
 				}
 

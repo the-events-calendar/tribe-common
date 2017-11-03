@@ -99,6 +99,28 @@ abstract class Tribe__JSON_LD__Abstract {
 		$data->url = esc_url_raw( $this->get_link( $post ) );
 
 		$type = strtolower( esc_attr( $this->type ) );
+		$data = $this->apply_object_data_filter( $data, $args, $post );
+
+		// Index by ID: this will allow filter code to identify the actual event being referred to
+		// without injecting an additional property
+		return array( $post->ID => $data );
+	}
+
+	/**
+	 * Filters the JSON LD object data.
+	 *
+	 * The expectation is that any sub-classes overriding the get_data() method will ensure they
+	 * call this method for consistency.
+	 *
+	 * @param string  $type
+	 * @param object  $data
+	 * @param array   $args
+	 * @param WP_Post $post
+	 *
+	 * @return mixed
+	 */
+	protected function apply_object_data_filter( $data, $args, $post ) {
+		$type = strtolower( esc_attr( $this->type ) );
 
 		/**
 		 * Allows the event data to be modifed by themes and other plugins.
@@ -110,11 +132,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		 * @param array   $args The arguments used to get data
 		 * @param WP_Post $post The post object
 		 */
-		$data = apply_filters( "tribe_json_ld_{$type}_object", $data, $args, $post );
-
-		// Index by ID: this will allow filter code to identify the actual event being referred to
-		// without injecting an additional property
-		return array( $post->ID => $data );
+		return apply_filters( "tribe_json_ld_{$type}_object", $data, $args, $post );
 	}
 
 	/**

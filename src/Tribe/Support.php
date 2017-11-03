@@ -38,10 +38,17 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		 */
 		protected $must_obfuscate_prefixes = array(
 			'pue_install_key_',
+			'google_maps_js_api_key',
 		);
 
 		private function __construct() {
+			/**
+			 * Allows for customizing the list of fields by array key whose values must be HTML-escaped.
+			 *
+			 * @param array $must_escape An array of array keys corresponding to fields whose values must be HTML-escaped.
+			 */
 			$this->must_escape = (array) apply_filters( 'tribe_help_must_escape_fields', $this->must_escape );
+
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
 			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
 
@@ -190,6 +197,11 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				$systeminfo['rewrite rules purged'] = esc_html__( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'tribe-common' );
 			}
 
+			/**
+			 * Allow for customization of the array of information that's turned into the "System Information" screen in the "Help" admin page.
+			 *
+			 * @param array $systeminfo The array of information turned into the "System Information" screen.
+			 */
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
 
 			return $systeminfo;
@@ -204,6 +216,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$systeminfo = $this->getSupportStats();
 			$output     = '';
 			$output .= '<dl class="support-stats">';
+
 			foreach ( $systeminfo as $k => $v ) {
 
 				switch ( $k ) {
@@ -252,6 +265,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 					$output .= sprintf( '<dd class="support-stats-object"><ul>%s</ul></dd>', print_r( $v, true ) );
 				}
 			}
+
 			$output .= '</dl>';
 
 			return $output;
@@ -366,7 +380,6 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			}
 
 			wp_send_json_error( __( 'Permission Error', 'tribe-common' ) );
-
 		}
 
 		/**

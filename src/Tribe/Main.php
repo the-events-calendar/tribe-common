@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.6.2';
+	const VERSION             = '4.7';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -190,10 +190,16 @@ class Tribe__Main {
 			array(
 				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
+<<<<<<< HEAD
 				array( 'tribe-select2', 'vendor/select2/select2.js', array( 'jquery' ) ),
 				array( 'tribe-select2-css', 'vendor/select2/select2.css' ),
 				array( 'tribe-moment', 'vendor/momentjs/moment.min.js' ),
 				array( 'tribe-utils-camelcase', 'utils-camelcase.js', array( 'underscore' ) ),
+=======
+				array( 'tribe-select2', 'vendor/tribe-select2/select2.js', array( 'jquery' ) ),
+				array( 'tribe-select2-css', 'vendor/tribe-select2/select2.css' ),
+				array( 'tribe-moment', 'vendor/momentjs/moment.js' ),
+>>>>>>> 0a10e835d040bbcb367a4d55c231700c38a0df43
 				array( 'datatables-css', 'datatables.css' ),
 				array( 'datatables-responsive', 'vendor/datatables/extensions/Responsive/js/dataTables.responsive.js', array( 'jquery', 'datatables' ) ),
 				array( 'datatables-responsive-css', 'vendor/datatables/extensions/Responsive/css/responsive.dataTables.css' ),
@@ -210,7 +216,11 @@ class Tribe__Main {
 				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
 				array( 'tribe-jquery-timepicker', 'vendor/jquery-tribe-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
 				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-tribe-timepicker/jquery.timepicker.css' ),
+<<<<<<< HEAD
 				array( 'tribe-timepicker', 'timepicker.js', array( 'jquery', 'tribe-jquery-timepicker' ) ),
+=======
+				array( 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' ),
+>>>>>>> 0a10e835d040bbcb367a4d55c231700c38a0df43
 			)
 		);
 

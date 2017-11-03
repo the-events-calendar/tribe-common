@@ -485,5 +485,41 @@ class Tribe__Timezones {
 
 		return true;
 	}
+
+	/**
+	 * Given a string in the form "UTC+2.5" returns the corresponding DateTimeZone object.
+	 *
+	 * If this is not possible or if $utc_offset_string does not match the expected pattern,
+	 * boolean false is returned.
+	 *
+	 * @since 4.6.3
+	 *
+	 * @param string $utc_offset_string
+	 *
+	 * @return DateTimeZone | bool
+	 */
+	public static function timezone_from_utc_offset( $utc_offset_string ) {
+		// Test for strings looking like "UTC-2" or "UTC+5.25" etc
+		if ( ! preg_match( '/^UTC[\-\+]{1}[0-9\.]{1,4}$/', $utc_offset_string ) ) {
+			return false;
+		}
+
+		// Breakdown into polarity, hours and minutes
+		$parts    = explode( '.', substr( $utc_offset_string, 4 ) );
+		$hours    = (int) $parts[ 0 ];
+		$fraction = isset( $parts[ 1 ] ) ? '0.' . (int) $parts[ 1 ] : 0;
+		$minutes  = $fraction * 60;
+		$polarity = substr( $utc_offset_string, 3, 1 );
+
+		// Reassemble in the form +/-hhmm (ie "-0200" or "+0930")
+		$utc_offset = sprintf( $polarity . "%'.02d%'.02d", $hours, $minutes );
+
+		// Use this to build a new DateTimeZone
+		try {
+			return new DateTimeZone( $utc_offset );
+		} catch ( Exception $e ) {
+			return false;
+		}
+	}
 }
 

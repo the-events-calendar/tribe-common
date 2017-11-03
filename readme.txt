@@ -2,11 +2,31 @@
 
 == Changelog ==
 
+= [4.7] TBD =
+
+* Feature - Included a new Validation.js for Forms and Fields
+* Feature - Included a Camelcase Utils for JavaScript
+* Tweak - Added Groups functionality for Tribe Assets class
+* Tweak - Improve Dependency.js with better Documentation
+* Tweak - Timepicker.js is now part of Common instead of The Events Calendar
+
+= [4.6.3] 2017-11-02 =
+
+* Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
+* Fix - Fixed compatibility issue with Internet Explorer 10 & 11 when selecting a venue from the dropdown (thanks (@acumenconsulting for reporting this) [72924]
+* Fix - Improved process for sharing JSON data in the admin environment so that it also works within the theme customizer screen [72127]
+* Tweak - Obfuscated the API key for the google_maps_js_api_key field in the "System Information" screen [89795]
+* Tweak - Updated the list of countries used in the country dropdown [75769]
+* Tweak - Added additional timezone handling facilities [78233]
+* Language - 7 new strings added, 292 updated, 18 fuzzied, and 3 obsoleted
+
 = [4.6.2] 2017-10-18 =
 
-* Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918] 
+* Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918]
 * Fix - Added safety checks to reduce the potential for errors stemming from our logging facilities (shout out to Brandon Stiner and Russell Todd for highlighting some remaining issues here) [90436, 90544]
 * Fix - Added checks to avoid the generation of warnings when rendering the customizer CSS template (props: @aristath) [91070]
+* Fix - Added safety checks to the Tribe__Post_Transient class to avoid errors when an array is expected but not available [91258]
+* Tweak - Improved strategy for filtering of JSON LD data (our thanks to Mathew in the forums for flagging this issue) [89801]
 * Tweak - Added new tribe_is_wpml_active() function for unified method of checking (as its name implies) if WPML is active [82286]
 * Tweak - Removed call to deprecated screen_icon() function [90985]
 
