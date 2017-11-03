@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.6.4] TBD =
+
+* New - Added new `tribe_is_site_using_24_hour_time()` function to easily check if the site is using a 24-hour time format [78621]
+
 = [4.6.3] 2017-11-02 =
 
 * Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
