@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.6.4] TBD =
+
+* Tweak - Removed restrictions imposed on taxonomy queries by Tribe__Ajax__Dropdown (our thanks to Ian in the forums for flagging this issue) [91762]
+
 = [4.6.3] 2017-11-02 =
 
 * Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
