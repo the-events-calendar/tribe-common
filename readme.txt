@@ -2,13 +2,14 @@
 
 == Changelog ==
 
-= [4.7] TBD =
+= [4.7] 2017-11-09 =
 
 * Feature - Included a new Validation.js for Forms and Fields
 * Feature - Included a Camelcase Utils for JavaScript
 * Tweak - Added Groups functionality for Tribe Assets class
 * Tweak - Improve Dependency.js with better Documentation
 * Tweak - Timepicker.js is now part of Common instead of The Events Calendar
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.6.3] 2017-11-02 =
 
