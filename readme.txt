@@ -5,6 +5,7 @@
 = [4.6.4] TBD =
 
 * New - Added new `tribe_is_site_using_24_hour_time()` function to easily check if the site is using a 24-hour time format [78621]
+* Tweak - Removed restrictions imposed on taxonomy queries by Tribe__Ajax__Dropdown (our thanks to Ian in the forums for flagging this issue) [91762]
 
 = [4.6.3] 2017-11-02 =
 
