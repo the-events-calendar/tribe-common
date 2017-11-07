@@ -216,6 +216,11 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			args.allowClear = false;
 		}
 
+		// Pass the "Searching..." placeholder if specified
+		if ( $select.is( '[data-searching-placeholder]' ) ) {
+			args.formatSearching = $select.data( 'searching-placeholder' );
+		}
+
 		// If we are dealing with a Input Hidden we need to set the Data for it to work
 		if ( $select.is( '[data-options]' ) ) {
 			args.data = $select.data( 'options' );
