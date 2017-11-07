@@ -88,7 +88,7 @@ class Tribe__Assets {
 	/**
 	 * Enqueues registered assets based on their groups.
 	 *
-	 * @since   TBD
+	 * @since   4.7
 	 *
 	 * @uses    self::enqueue
 	 *
@@ -540,7 +540,7 @@ class Tribe__Assets {
 	/**
 	 * Add the Priority ordering, which was causing an issue of not respecting which order stuff was registered
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  object  $a  First Subject to compare
 	 * @param  object  $b  Second subject to compare

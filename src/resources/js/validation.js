@@ -1,7 +1,7 @@
 /**
  * Configures this Object in the Global Tribe variable
  *
- * @since  TBD
+ * @since  4.7
  *
  * @type   {Object}
  */
@@ -14,7 +14,7 @@ tribe.validation = {};
 	/**
 	 * Object containing all the selectors for Validation
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @type   {object}
 	 */
@@ -33,7 +33,7 @@ tribe.validation = {};
 	/**
 	 * Object containing all the conditions for the Fields
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @type   {object}
 	 */
@@ -106,7 +106,7 @@ tribe.validation = {};
 	/**
 	 * Object containing types of fields supported
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @type   {object}
 	 */
@@ -157,7 +157,7 @@ tribe.validation = {};
 	 * Parses the Condition for all the types of conditional and returns a
 	 * better state of Value and Contraint based on the rules for each
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @type   {function}
 	 *
@@ -205,7 +205,7 @@ tribe.validation = {};
 	/**
 	 * Object containing all the constraints for the Fields
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @type   {object}
 	 */
@@ -298,7 +298,7 @@ tribe.validation = {};
 	/**
 	 * FN (prototype) method from jQuery
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @type   {function}
 	 */
@@ -309,7 +309,7 @@ tribe.validation = {};
 	/**
 	 * Configures a Single Form for validation
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {int}  index  Field Index
 	 * @param  {DOM}  item   DOM element for the item
@@ -344,7 +344,7 @@ tribe.validation = {};
 	/**
 	 * Validates a single Field
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {int}  index  Field Index
 	 * @param  {DOM}  item   DOM element for the field
@@ -367,7 +367,7 @@ tribe.validation = {};
 	/**
 	 * Validates a single Field
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {object}  $field  jQuery Object for the field
 	 *
@@ -389,7 +389,7 @@ tribe.validation = {};
 	/**
 	 * Validates if a given Section has Errors
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {object}  $field  jQuery Object for the Section been validated
 	 *
@@ -404,7 +404,7 @@ tribe.validation = {};
 	/**
 	 * Gets which constrains have Passed
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {object}  $field  jQuery Object for the field
 	 *
@@ -438,7 +438,7 @@ tribe.validation = {};
 	/**
 	 * Gets which constrainst have valid values
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {object}  $constraints  Object with all the values for the contraints of a field
 	 *
@@ -472,7 +472,7 @@ tribe.validation = {};
 	/**
 	 * Gets which jQuery objects are related to a fields constraints
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {object}  $fields  jQuery Object for the fields
 	 *
@@ -513,7 +513,7 @@ tribe.validation = {};
 	/**
 	 * Actually does the validation for the Form
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {object} event JQuery Event
 	 *
@@ -544,7 +544,7 @@ tribe.validation = {};
 	/**
 	 * Fired on `displayErrors` for a validation form
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {object} event JQuery Event
 	 *
@@ -602,7 +602,7 @@ tribe.validation = {};
 	/**
 	 * Validates a single Field
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {string}  message  Message to be Attached
 	 * @param  {object}  $field   jQuery Object for the field
@@ -625,7 +625,7 @@ tribe.validation = {};
 	/**
 	 * Hooks to the submit and if invalid prevents submit from completing
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {object} event JQuery Event
 	 *
@@ -653,7 +653,7 @@ tribe.validation = {};
 	 * only happens on the Field, which prevents us to use it on
 	 * the ones that are created by JavaScript Templates
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @uses   obj.onInvalidField
 	 *
@@ -686,7 +686,7 @@ tribe.validation = {};
 	 * Add a class to mark fields that are invalid and add an one time
 	 * event for these same fields to remove the class on `change`
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @uses obj.onChangeFieldRemoveError
 	 *
@@ -714,7 +714,7 @@ tribe.validation = {};
 	/**
 	 * Removes error class on fields after they change
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @return {void}
 	 */
@@ -730,7 +730,7 @@ tribe.validation = {};
 	/**
 	 * Removes the Notice
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @return {void}
 	 */
@@ -745,7 +745,7 @@ tribe.validation = {};
 	/**
 	 * Initializes the Validation for the base items
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  {object} event jQuery Event
 	 *
@@ -758,7 +758,7 @@ tribe.validation = {};
 	/**
 	 * Configures the jQuery Setup of the Validation
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @return {void}
 	 */
@@ -767,7 +767,7 @@ tribe.validation = {};
 	/**
 	 * Attaches ready method to the On Ready of Document
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 */
 	$document.ready( obj.onReady );
 }( tribe.validation, jQuery, _ ) );

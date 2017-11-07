@@ -538,7 +538,7 @@ function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $a
 /**
  * Shortcut for Tribe__Assets::enqueue(), include assets
  *
- * @since  TBD
+ * @since  4.7
  *
  * @param  string|array  $slug  Slug to enqueue
  *
@@ -551,7 +551,7 @@ function tribe_asset_enqueue( $slug ) {
 /**
  * Shortcut for Tribe__Assets::enqueue_group() include assets by groups
  *
- * @since  TBD
+ * @since  4.7
  *
  * @param  string|array  $group  Which group(s) should be enqueued
  *
