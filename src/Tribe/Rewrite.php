@@ -168,7 +168,7 @@ class Tribe__Rewrite {
 	 *
 	 * @return object         Return Base Slugs with l10n variations
 	 */
-	public function get_bases( $string ) {
+	public function get_bases( $method = 'regex' ) {
 		return new stdClass();
 	}
 

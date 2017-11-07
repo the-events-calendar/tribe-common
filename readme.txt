@@ -7,6 +7,7 @@
 * New - Added new `tribe_is_site_using_24_hour_time()` function to easily check if the site is using a 24-hour time format [78621]
 * Fix - Added support for translatable placeholder text when dropdown selectors are waiting on results being returned via ajax [84926]
 * Tweak - Removed restrictions imposed on taxonomy queries by Tribe__Ajax__Dropdown (our thanks to Ian in the forums for flagging this issue) [91762]
+* Tweak - Fixed the definition of Tribe__Rewrite::get_bases() to address some PHP strict notices its previous definition triggered [91828]
 
 = [4.6.3] 2017-11-02 =
 
