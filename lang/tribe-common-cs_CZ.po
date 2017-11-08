@@ -55,15 +55,15 @@ msgstr ""
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Main.php:268
+#: src/Tribe/Main.php:283
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:267
+#: src/Tribe/Main.php:282
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:266
+#: src/Tribe/Main.php:281
 msgid "All items on this page were selected. "
 msgstr ""
 
@@ -420,63 +420,63 @@ msgstr "(otevře se v novém okně)"
 msgid "Renew Your License Now"
 msgstr "Obnovte si svou licenci"
 
-#: src/Tribe/Main.php:278
+#: src/Tribe/Main.php:293
 msgid ": Selected 1 row"
 msgstr ": Vybrán 1 řádek"
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:292
 msgid ": Selected %d rows"
 msgstr ": Vybráno %d řádků"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:287
 msgid "Previous"
 msgstr "Předchozí"
 
-#: src/Tribe/Main.php:270
+#: src/Tribe/Main.php:285
 msgid "All"
 msgstr "Vše"
 
-#: src/Tribe/Main.php:264
+#: src/Tribe/Main.php:279
 msgid "No matching records found"
 msgstr "Nebyly nalezeny žádné odpovídající záznamy"
 
-#: src/Tribe/Main.php:263
+#: src/Tribe/Main.php:278
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(filtrováno z _MAX_ celkového počtu položek)"
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:277
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Zobrazeno 0 - 0 z 0 záznamů"
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:276
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Zobrazeno _START_ - _END_ z celkem _TOTAL_ záznamů"
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:275
 msgid "No data available in table"
 msgstr "V tabulce nejsou dostupná žádná data"
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:274
 msgid "Show _MENU_ entries"
 msgstr "Zobrazit záznamy _MENU_"
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:272
 msgid ": activate to sort column descending"
 msgstr "aktivujte pro sestupné řazení sloupců"
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:271
 msgid ": activate to sort column ascending"
 msgstr "aktivujte pro vzestupné řazení sloupců"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:252
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Pro kopírování stiskněte „Cmd + C“"
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:251
 msgid "System info copied"
 msgstr "Informace o systému byly zkopírovány"
 
-#: src/Tribe/Main.php:246 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:250 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "Kopírovat do schránky"
 
@@ -2231,7 +2231,7 @@ msgstr "Platný licenční klíč je vyžadován pro podporu a aktualizace"
 msgid "License Key"
 msgstr "Licenční klíč"
 
-#: src/Tribe/Main.php:265
+#: src/Tribe/Main.php:280
 msgid "Search:"
 msgstr "Hledat:"
 
@@ -2243,19 +2243,19 @@ msgstr "Nastavení"
 msgid "Network"
 msgstr "Síť webů"
 
-#: src/Tribe/Main.php:290
+#: src/Tribe/Main.php:305
 msgid "Done"
 msgstr "Hotovo"
 
-#: src/Tribe/Main.php:289
+#: src/Tribe/Main.php:304
 msgid "Today"
 msgstr "Dnes"
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:303
 msgid "Prev"
 msgstr "Předchozí"
 
-#: src/Tribe/Main.php:271 src/Tribe/Main.php:287
+#: src/Tribe/Main.php:286 src/Tribe/Main.php:302
 msgid "Next"
 msgstr "Další"
 
