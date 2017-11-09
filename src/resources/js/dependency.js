@@ -11,17 +11,19 @@
  * linked     = data attribute for linked dependents mainly for radio buttons to
  *                  ensure they all get triggered togther
  */
-(function( $, _ ) {
+( function( $, _, obj ) {
 	'use strict';
 	var $document = $( document );
+	var $window = $( window );
 	var selectors = {
-			dependent: '.tribe-dependent',
-			active: '.tribe-active',
-			dependency: '.tribe-dependency',
-			fields: 'input, select, textarea',
-			advanced_fields: '.select2-container',
-			linked: '.tribe-dependent-linked'
-		};
+		dependent: '.tribe-dependent',
+		active: '.tribe-active',
+		dependency: '.tribe-dependency',
+		dependencyVerified: '.tribe-dependency-verified',
+		fields: 'input, select, textarea',
+		advanced_fields: '.select2-container',
+		linked: '.tribe-dependent-linked'
+	};
 
 	// Setup a Dependent
 	$.fn.dependency = function () {
@@ -40,6 +42,7 @@
 				var selector = '#' + $field.attr( 'id' );
 				var value = $field.val();
 				var constraint_conditions;
+
 				// We need an ID to make something depend on this
 				if ( ! selector ) {
 					return;
@@ -182,15 +185,35 @@
 					// Checks if any child elements have dependencies
 					$dependent.find( selectors.dependency ).trigger( 'change' );
 				} );
+
+				$field.addClass( selectors.dependencyVerified.className() );
 			},
 			'change.dependency': function( e ) {
 				$( this ).trigger( 'verify.dependency' );
 			}
 		}, selectors.dependency );
 
+	obj.run = function ( event ) {
+		// Fetch all dependents
+		var $dependents = $( selectors.dependent );
+
+		if ( $dependents.length ) {
+			// Trigger Dependency Configuration on all of these
+			$dependents.dependency();
+		}
+
+		// Fetch all Dependencies
+		var $dependencies = $( selectors.dependency );
+
+		if ( $dependencies.not( selectors.dependencyVerified ).length ) {
+			// Now verify all the Dependencies
+			$dependencies.trigger( 'verify.dependency' );
+		}
+	};
+
 	// Configure on Document ready for the default trigger
-	$document.ready( function() {
-		$( selectors.dependent ).dependency();
-		$( selectors.dependency ).trigger( 'verify.dependency' );
-	} );
-}( jQuery, _ ) );
+	$document.ready( obj.run );
+
+	// Configure on Window Load again
+	$window.on( 'load', obj.run );
+}( jQuery, _, {} ) );
