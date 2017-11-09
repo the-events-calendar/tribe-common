@@ -30,17 +30,19 @@ var tribe_timepickers = tribe_timepickers || {};
 
 	obj.container = function( k, container ) {
 		var $container  = $( container );
-		var $all_day    = $container.find( obj.selector.all_day );
+		var $allDay    = $container.find( obj.selector.all_day );
 		var $timepicker = $container.find( obj.selector.timepicker );
 		var $timezone   = $container.find( obj.selector.timezone ).not( obj.selector.input );
 		var $input      = $container.find( obj.selector.timezone ).filter( obj.selector.input );
 
 		// Create the Link
-		var $timezone_link = $( obj.timezone.link( { label: $input.data( 'timezoneLabel' ), timezone: $input.data( 'timezoneValue' ) } ) );
+		var $timezoneLink = $( obj.timezone.link( { label: $input.data( 'timezoneLabel' ), timezone: $input.data( 'timezoneValue' ) } ) );
+
+		console.log( $timezoneLink, $timezone );
 
 		// Toggle Timepickers on All Day change
-		$all_day.on( 'change', function() {
-			if ( true === $all_day.prop( 'checked' ) ) {
+		$allDay.on( 'change', function() {
+			if ( true === $allDay.prop( 'checked' ) ) {
 				$timepicker.hide();
 			} else {
 				$timepicker.show();
@@ -50,16 +52,16 @@ var tribe_timepickers = tribe_timepickers || {};
 		obj.setup_timepickers( $timepicker );
 
 		// Attach a Click action the Timezone Link
-		$timezone_link.on( 'click', function( e ) {
+		$timezoneLink.on( 'click', function( e ) {
 			$timezone = $container.find( obj.selector.timezone ).filter( '.select2-container' );
 			e.preventDefault();
 
-			$timezone_link.hide();
+			$timezoneLink.hide();
 			$timezone.show();
 		} );
 
 		// Append the Link to the Timezone
-		$timezone.after( $timezone_link );
+		$input.before( $timezoneLink );
 	};
 
 	obj.init = function() {
