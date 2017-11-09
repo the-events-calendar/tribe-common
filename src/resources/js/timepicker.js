@@ -38,8 +38,6 @@ var tribe_timepickers = tribe_timepickers || {};
 		// Create the Link
 		var $timezoneLink = $( obj.timezone.link( { label: $input.data( 'timezoneLabel' ), timezone: $input.data( 'timezoneValue' ) } ) );
 
-		console.log( $timezoneLink, $timezone );
-
 		// Toggle Timepickers on All Day change
 		$allDay.on( 'change', function() {
 			if ( true === $allDay.prop( 'checked' ) ) {
