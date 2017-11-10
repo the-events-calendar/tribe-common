@@ -164,7 +164,7 @@
 
 						$dependent.find( selectors.fields ).prop( 'disabled', false );
 
-						if ( 'undefined' !== typeof $.select2 ) {
+						if ( 'undefined' !== typeof $().select2 ) {
 							$dependent.find( '.select2-container' ).select2( 'enable', true );
 						}
 					} else {
@@ -177,7 +177,7 @@
 
 						$dependent.find( selectors.fields ).prop( 'disabled', true );
 
-						if ( 'undefined' !== typeof $.select2 ) {
+						if ( 'undefined' !== typeof $().select2 ) {
 							$dependent.find( '.select2-container' ).select2( 'enable', false );
 						}
 
