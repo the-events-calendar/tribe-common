@@ -323,6 +323,10 @@ class Tribe__Meta__Chunker {
 	 * @return bool
 	 */
 	protected function is_chunker_logic_meta_key( $meta_key ) {
+		if ( ! is_string( $meta_key ) ) {
+			return false;
+		}
+
 		return 0 === strpos( $meta_key, $this->meta_key_prefix );
 	}
 
