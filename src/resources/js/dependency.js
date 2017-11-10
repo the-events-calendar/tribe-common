@@ -162,9 +162,11 @@
 							}
 						}
 
-						$dependent
-							.find( selectors.fields ).prop( 'disabled', false )
-							.end().find( '.select2-container' ).select2( 'enable', true );
+						$dependent.find( selectors.fields ).prop( 'disabled', false );
+
+						if ( 'undefined' !== typeof $().select2 ) {
+							$dependent.find( '.select2-container' ).select2( 'enable', true );
+						}
 					} else {
 						$dependent.removeClass( active_class );
 
@@ -173,9 +175,11 @@
 							$dependent.hide();
 						}
 
-						$dependent
-							.find( selectors.fields ).prop( 'disabled', true )
-							.end().find( '.select2-container' ).select2( 'enable', false );
+						$dependent.find( selectors.fields ).prop( 'disabled', true );
+
+						if ( 'undefined' !== typeof $().select2 ) {
+							$dependent.find( '.select2-container' ).select2( 'enable', false );
+						}
 
 						if ( $dependent.data( 'select2' ) ) {
 							$dependent.data( 'select2' ).container.removeClass( active_class );
