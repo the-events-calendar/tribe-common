@@ -252,7 +252,14 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * @return stdClass validation result object
 		 */
 		public function slug() {
-			if ( preg_match( '/^[a-zA-Z0-9-_]+$/', $this->value ) ) {
+			$maybe_valid_value = esc_url_raw( $this->value );
+
+			// While esc_url_raw is handy and does the work of validating for us, it returns the
+			// checked string with a prepended URL protocol; let's remove that.
+			$maybe_valid_value = wp_kses_bad_protocol_once( $maybe_valid_value, array() );
+			$maybe_valid_value = str_replace( '//', '', $maybe_valid_value );
+
+			if ( $maybe_valid_value == $this->value ) {
 				$this->result->valid = true;
 				$this->value         = sanitize_title( $this->value );
 			} else {
