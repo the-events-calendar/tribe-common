@@ -55,15 +55,15 @@ msgstr ""
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Main.php:268
+#: src/Tribe/Main.php:283
 msgid "Clear Selection."
 msgstr "Limpar selecção"
 
-#: src/Tribe/Main.php:267
+#: src/Tribe/Main.php:282
 msgid "Select all pages"
 msgstr "Seleccionar todas as páginas"
 
-#: src/Tribe/Main.php:266
+#: src/Tribe/Main.php:281
 msgid "All items on this page were selected. "
 msgstr "Todos os itens nesta página foram seleccionados"
 
@@ -417,63 +417,63 @@ msgstr " (abrir numa nova janela)"
 msgid "Renew Your License Now"
 msgstr "Renove a sua licença agora"
 
-#: src/Tribe/Main.php:278
+#: src/Tribe/Main.php:293
 msgid ": Selected 1 row"
 msgstr ": 1 linha seleccionada"
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:292
 msgid ": Selected %d rows"
 msgstr ": %d linhas seleccionadas"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:287
 msgid "Previous"
 msgstr "Anterior"
 
-#: src/Tribe/Main.php:270
+#: src/Tribe/Main.php:285
 msgid "All"
 msgstr "Todos"
 
-#: src/Tribe/Main.php:264
+#: src/Tribe/Main.php:279
 msgid "No matching records found"
 msgstr "Não foram encontrados registos correspondentes"
 
-#: src/Tribe/Main.php:263
+#: src/Tribe/Main.php:278
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(filtrado do total _MAX_ entradas)"
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:277
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "A mostrar 0 a 0 do total de 0 entradas"
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:276
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "A mostrar _START_ a _END_ do total de _TOTAL_ entradas"
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:275
 msgid "No data available in table"
 msgstr "Nenhum dado disponível na tabela"
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:274
 msgid "Show _MENU_ entries"
 msgstr "Mostrar entradas de _MENU_"
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:272
 msgid ": activate to sort column descending"
 msgstr ": activar para ordenação descendente da coluna"
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:271
 msgid ": activate to sort column ascending"
 msgstr ": activar para ordenação ascendente da coluna"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:252
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Prima \"Cmd + C\" para copiar"
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:251
 msgid "System info copied"
 msgstr "Informações do sistema copiadas"
 
-#: src/Tribe/Main.php:246 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:250 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "Copiar para a área de transferência"
 
@@ -2227,7 +2227,7 @@ msgstr "É necessária uma licença válida para receber suporte e actualizaçõ
 msgid "License Key"
 msgstr "Chave de licença"
 
-#: src/Tribe/Main.php:265
+#: src/Tribe/Main.php:280
 msgid "Search:"
 msgstr "Pesquisar:"
 
@@ -2239,19 +2239,19 @@ msgstr "Definições"
 msgid "Network"
 msgstr "Rede"
 
-#: src/Tribe/Main.php:290
+#: src/Tribe/Main.php:305
 msgid "Done"
 msgstr "Concluído"
 
-#: src/Tribe/Main.php:289
+#: src/Tribe/Main.php:304
 msgid "Today"
 msgstr "Hoje"
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:303
 msgid "Prev"
 msgstr "Anterior"
 
-#: src/Tribe/Main.php:271 src/Tribe/Main.php:287
+#: src/Tribe/Main.php:286 src/Tribe/Main.php:302
 msgid "Next"
 msgstr "Seguinte"
 

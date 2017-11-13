@@ -8,6 +8,10 @@ tests/_output/*
 
 # by default ignore all, need a vendor dep in the repo? use !vendor/acme
 vendor/*
+!vendor/jquery
+!vendor/select2
+!vendor/momentjs
+!vendor/handlebars
 !vendor/clipboard
 !vendor/composer
 !vendor/attrchange

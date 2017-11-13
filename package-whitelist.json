@@ -1,5 +1,8 @@
 [
   "lang/**/*",
+  "README.md",
+  "vendor/handlebars/*.js",
+  "vendor/momentjs/*.js",
   "src/**/*",
   "vendor/clipboard/*.js",
   "vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables*.css",
@@ -13,7 +16,7 @@
   "vendor/datatables/media/css/jquery.dataTables*.css",
   "vendor/datatables/media/images/*.png",
   "vendor/datatables/media/js/jquery.dataTables*.js",
-  "vendor/jquery/**/*"
+  "vendor/jquery/**/*",
   "vendor/momentjs/*.js",
   "vendor/tribe-select2/*.css",
   "vendor/tribe-select2/*.js",
@@ -21,5 +24,5 @@
   "vendor/tribe-select2/*.png",
   "README.md",
   "tribe-common.php",
-  "tribe-autoload.php",
+  "tribe-autoload.php"
 ]

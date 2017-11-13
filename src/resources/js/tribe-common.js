@@ -1,3 +1,24 @@
+// Run some magic to allow a better handling of class names for jQuery.hasClass type of methods
+String.prototype.className = function () {
+	return this.replace( '.', '' );
+};
+
+// Add a method to convert ID/Classes into JS easy/safe variable
+String.prototype.varName = function () {
+	return this.replace( '-', '_' );
+};
+
+/**
+ * Creates a global Tribe Variable where we should start to store all the things
+ * @type {object}
+ */
+var tribe = tribe || {};
+
+/**
+ * @todo  All these lines below should be copied into another file.
+ *        we don't need all of this JS on all pages
+ */
+
 var tribe_auto_sysinfo = tribe_auto_sysinfo || {};
 
 tribe_auto_sysinfo.ajax = {
@@ -17,6 +38,9 @@ tribe_auto_sysinfo.ajax = {
 	 * Initialize system info opt in copy
 	 */
 	my.init_copy = function () {
+		if ( 'undefined' === typeof tribe_system_info ) {
+			return;
+		}
 
 		var clipboard = new Clipboard( '.system-info-copy-btn' );
 		var button_icon = '<span class="dashicons dashicons-clipboard license-btn"></span>';
@@ -48,6 +72,9 @@ tribe_auto_sysinfo.ajax = {
 	 * Initialize system info opt in
 	 */
 	my.init_ajax = function () {
+		if ( 'undefined' === typeof tribe_system_info ) {
+			return;
+		}
 
 		this.$system_info_opt_in     = $( document.getElementById( 'tribe_auto_sysinfo_opt_in' ) );
 		this.$system_info_opt_in_msg = $( '.tribe-sysinfo-optin-msg' );

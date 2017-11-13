@@ -6,25 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'tad_DI52_Arg' => $vendorDir . '/lucatume/di52/src/tad/DI52/Arg.php',
-    'tad_DI52_Bindings_AbstractImplementation' => $vendorDir . '/lucatume/di52/src/tad/DI52/Bindings/AbstractImplementation.php',
-    'tad_DI52_Bindings_CallbackImplementation' => $vendorDir . '/lucatume/di52/src/tad/DI52/Bindings/CallbackImplementation.php',
-    'tad_DI52_Bindings_ConstructorImplementation' => $vendorDir . '/lucatume/di52/src/tad/DI52/Bindings/ConstructorImplementation.php',
-    'tad_DI52_Bindings_ImplementationInterface' => $vendorDir . '/lucatume/di52/src/tad/DI52/Bindings/ImplementationInterface.php',
-    'tad_DI52_Bindings_InstanceImplementation' => $vendorDir . '/lucatume/di52/src/tad/DI52/Bindings/InstanceImplementation.php',
-    'tad_DI52_Bindings_Resolver' => $vendorDir . '/lucatume/di52/src/tad/DI52/Bindings/Resolver.php',
-    'tad_DI52_Bindings_ResolverInterface' => $vendorDir . '/lucatume/di52/src/tad/DI52/Bindings/ResolverInterface.php',
-    'tad_DI52_Container' => $vendorDir . '/lucatume/di52/src/tad/DI52/Container.php',
-    'tad_DI52_Ctor' => $vendorDir . '/lucatume/di52/src/tad/DI52/Ctor.php',
-    'tad_DI52_NewInstanceArgValue' => $vendorDir . '/lucatume/di52/src/tad/DI52/NewInstanceArgValue.php',
-    'tad_DI52_RealArgValue' => $vendorDir . '/lucatume/di52/src/tad/DI52/RealArgValue.php',
-    'tad_DI52_ReferredArgValue' => $vendorDir . '/lucatume/di52/src/tad/DI52/ReferredArgValue.php',
-    'tad_DI52_ReferredInstanceArgValue' => $vendorDir . '/lucatume/di52/src/tad/DI52/ReferredInstanceArgValue.php',
-    'tad_DI52_ReferredVarArgValue' => $vendorDir . '/lucatume/di52/src/tad/DI52/ReferredVarArgValue.php',
-    'tad_DI52_ServiceProvider' => $vendorDir . '/lucatume/di52/src/tad/DI52/ServiceProvider.php',
-    'tad_DI52_ServiceProviderInterface' => $vendorDir . '/lucatume/di52/src/tad/DI52/ServiceProviderInterface.php',
-    'tad_DI52_Singleton' => $vendorDir . '/lucatume/di52/src/tad/DI52/Singleton.php',
-    'tad_DI52_Var' => $vendorDir . '/lucatume/di52/src/tad/DI52/Var.php',
-    'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-    'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );
