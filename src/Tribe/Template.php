@@ -45,7 +45,6 @@ class Tribe__Template {
 	 */
 	protected $template_context_extract = false;
 
-
 	/**
 	 * Base template for where to look for template
 	 *
@@ -305,6 +304,7 @@ class Tribe__Template {
 		 */
 		$file = apply_filters( 'tribe_template_file', $file, $name, $this );
 
+		// Before we load the file we check if it exists
 		if ( ! file_exists( $file ) ) {
 			return false;
 		}
