@@ -255,8 +255,10 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		 */
 		function tribe_callback( $slug, $method ) {
 			$container = Tribe__Container::init();
+			$callback = $container->callback( 'callback', 'get' );
+			$arguments = func_get_args();
 
-			return $container->callback( $slug, $method );
+			return call_user_func_array( $callback, $arguments );;
 		}
 	}
 }
