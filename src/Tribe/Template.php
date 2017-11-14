@@ -249,6 +249,11 @@ class Tribe__Template {
 	 * @return array
 	 */
 	public function merge_context( $context = array(), $file = null, $name = null ) {
+		// Allow for simple null usage as well as array() for nothing
+		if ( is_null( $context ) ) {
+			$context = array();
+		}
+
 		// Applies local context on top of Global one
 		$context = wp_parse_args( (array) $context, $this->global );
 
