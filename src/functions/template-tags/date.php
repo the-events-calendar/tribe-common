@@ -412,7 +412,7 @@ if ( ! function_exists( 'tribe_is_site_using_24_hour_time' ) ) {
 	/**
 	 * Handy function for easily detecting if this site's using the 24-hour time format.
 	 *
-	 * @since TBD
+	 * @since 4.7.1
 	 *
 	 * @return boolean
 	 */
