@@ -66,6 +66,19 @@ class Tribe__Utils__Callback {
 	}
 
 	/**
+	 * Returns the Value passed as a simple Routing method for tribe_callback_return
+	 *
+	 * @since  TBD
+	 *
+	 * @param  mixed  $value  Value to be Routed
+	 *
+	 * @return mixed
+	 */
+	public function return_value( $value ) {
+		return $value;
+	}
+
+	/**
 	 * Calls the Lambda function provided by Di52 to allow passing of Params without having to create more
 	 * methods into classes for simple callbacks that will only have a pre-determined value.
 	 *
