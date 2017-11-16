@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.1] 2017-11-15 =
+= [4.7.1] 2017-11-16 =
 
 * Fix - Added support for translatable placeholder text when dropdown selectors are waiting on results being returned via ajax [84926]
 * Fix - Implemented an additional file permissions check within default error logger (our thanks to Oscar for highlighting this) [73551]
