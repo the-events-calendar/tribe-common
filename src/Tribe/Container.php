@@ -247,16 +247,48 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 		 * Returns a lambda function suitable to use as a callback; when called the function will build the implementation
 		 * bound to `$classOrInterface` and return the value of a call to `$method` method with the call arguments.
 		 *
-		 * @param string $slug                   A class or interface fully qualified name or a string slug.
-		 * @param string $method                 The method that should be called on the resolved implementation with the
-		 *                                       specified array arguments.
+		 * @since  4.7
+		 * @since  TBD  Included the $argsN params
 		 *
-		 * @return mixed The called method return value.
+		 * @param  string $slug       A class or interface fully qualified name or a string slug.
+		 * @param  string $method     The method that should be called on the resolved implementation with the
+		 *                            specified array arguments.
+		 * @param  mixed  [$argsN]      (optional) Any number of arguments that will be passed down to the Callback
+		 *
+		 * @return callable A PHP Callable based on the Slug and Methods passed
 		 */
 		function tribe_callback( $slug, $method ) {
 			$container = Tribe__Container::init();
+			$arguments = func_get_args();
+			$is_empty = 2 === count( $arguments );
 
-			return $container->callback( $slug, $method );
+			if ( $is_empty ) {
+				$callable = $container->callback( $slug, $method );
+			} else {
+				$callback = $container->callback( 'callback', 'get' );
+				$callable = call_user_func_array( $callback, $arguments );
+			}
+
+			return $callable;
+		}
+	}
+
+	if ( ! function_exists( 'tribe_callback_return' ) ) {
+		/**
+		 * Returns a tribe_callback for a very simple Return value method
+		 *
+		 * Example of Usage:
+		 *
+		 *      add_filter( 'admin_title', tribe_callback_return( __( 'Ready to work.' ) ) );
+		 *
+		 * @since  TBD
+		 *
+		 * @param  mixed    $value  The value to be returned
+		 *
+		 * @return callable A PHP Callable based on the Slug and Methods passed
+		 */
+		function tribe_callback_return( $value ) {
+			return tribe_callback( 'callback', 'return_value', $value );
 		}
 	}
 }
