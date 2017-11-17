@@ -75,15 +75,15 @@ msgstr "Erweitern Sie den Events Calendar um Veranstaltungen, die durch Nutzer �
 msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
 msgstr "Veranstlaltungen aus dem Internet importieren! Event Aggregator macht es einfach, geplante oder manuelle Importe von Facebook, Meetup, Google Kalender und iCalendar, zusammen mit Uploads aus CSV und ICS Dateien laufen zu lassen. Sie können dank unserer REST API auch direkt von anderen Seiten importieren, die den Events Calendar nutzen."
 
-#: src/Tribe/Ajax/Dropdown.php:238
+#: src/Tribe/Ajax/Dropdown.php:243
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
 msgstr "\"%s\" ist ungültig und kann auf der \"%s\" Instanz nicht erreicht werden."
 
-#: src/Tribe/Ajax/Dropdown.php:188
+#: src/Tribe/Ajax/Dropdown.php:193
 msgid "Empty data set for this dropdown"
 msgstr "Keine Daten für dieses Dropdownmenü festgelegt"
 
-#: src/Tribe/Ajax/Dropdown.php:175
+#: src/Tribe/Ajax/Dropdown.php:180
 msgid "Missing data source for this dropdown"
 msgstr "Keine Datenquelle für diese Dropdownmenü verfügbar"
 
@@ -2070,56 +2070,56 @@ msgstr "Afghanistan"
 msgid "Select a Country:"
 msgstr "Land wählen ..."
 
-#: src/Tribe/Validate.php:499
+#: src/Tribe/Validate.php:503
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "Die Länder-Liste muss als ein Land pro Zeile in der folgenden Weise formatiert sein: <br>US, United States <br> UK, United Kingdom."
 
-#: src/Tribe/Validate.php:483
+#: src/Tribe/Validate.php:487
 msgid "%s must be a phone number."
 msgstr "%s muss eine Telefonnummer sein."
 
-#: src/Tribe/Validate.php:469
+#: src/Tribe/Validate.php:473
 msgid "%s must consist of 5 numbers."
 msgstr "%s muss aus fünf Ziffern bestehen."
 
-#: src/Tribe/Validate.php:455
+#: src/Tribe/Validate.php:459
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s muss aus Buchstaben, Leerzeichen, Apostrophe und Gedankenstrichen bestehen."
 
-#: src/Tribe/Validate.php:439
+#: src/Tribe/Validate.php:443
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s darf nur aus Buchstaben, Zahlen, Gedankenstrichen, Apostrophe und Leerzeichen bestehen. "
 
-#: src/Tribe/Validate.php:423
+#: src/Tribe/Validate.php:427
 msgid "%s must be a number between 0 and 21."
 msgstr "%s muss eine Zahl zwischen 0 und 21 sein."
 
-#: src/Tribe/Validate.php:369
+#: src/Tribe/Validate.php:373
 msgid "%s must be a number or percentage."
 msgstr "%s muss eine Zahl oder Prozentsatz sein."
 
-#: src/Tribe/Validate.php:353
+#: src/Tribe/Validate.php:357
 msgid "%s cannot be a duplicate"
 msgstr "%s kann nicht vervielfältigt werden"
 
-#: src/Tribe/Validate.php:351
+#: src/Tribe/Validate.php:355
 msgid "%s cannot be the same as %s."
 msgstr "%s kann nicht dasselbe sein wie %s."
 
-#: src/Tribe/Validate.php:344
+#: src/Tribe/Validate.php:348
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "Der Vergleich ist fehlgeschlagen, weil keine Eingabe im Feld %s gefunden wurde"
 
-#: src/Tribe/Validate.php:291 src/Tribe/Validate.php:308
-#: src/Tribe/Validate.php:330
+#: src/Tribe/Validate.php:295 src/Tribe/Validate.php:312
+#: src/Tribe/Validate.php:334
 msgid "%s must have a value that's part of its options."
 msgstr "%s muss eine Wert haben, der Teil der Optionen ist."
 
-#: src/Tribe/Validate.php:275
+#: src/Tribe/Validate.php:279
 msgid "%s must be a valid absolute URL."
 msgstr "%s muss eine gültige URL sein."
 
-#: src/Tribe/Validate.php:260
+#: src/Tribe/Validate.php:264
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr "%s muss eine gültige Ausgangsform haben (Nummern, Buchstaben, Gedankenstriche und Unterstreichungen)."
 

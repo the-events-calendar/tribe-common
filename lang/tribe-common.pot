@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.7rc1\n"
+"Project-Id-Version: Tribe Common 4.7.1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2017-11-06 23:57:25+00:00\n"
+"POT-Creation-Date: 2017-11-14 22:13:59+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-11-06 23:57\n"
+"PO-Revision-Date: 2017-11-14 22:13\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -179,15 +179,15 @@ msgstr ""
 msgid "Cannot look for Terms without a taxonomy"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:175
+#: src/Tribe/Ajax/Dropdown.php:180
 msgid "Missing data source for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:188
+#: src/Tribe/Ajax/Dropdown.php:193
 msgid "Empty data set for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:238
+#: src/Tribe/Ajax/Dropdown.php:243
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
 msgstr ""
 
@@ -2098,59 +2098,59 @@ msgstr ""
 msgid "%s must be a whole number."
 msgstr ""
 
-#: src/Tribe/Validate.php:260
+#: src/Tribe/Validate.php:264
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr ""
 
-#: src/Tribe/Validate.php:275
+#: src/Tribe/Validate.php:279
 msgid "%s must be a valid absolute URL."
 msgstr ""
 
-#: src/Tribe/Validate.php:291 src/Tribe/Validate.php:308
-#: src/Tribe/Validate.php:330
+#: src/Tribe/Validate.php:295 src/Tribe/Validate.php:312
+#: src/Tribe/Validate.php:334
 msgid "%s must have a value that's part of its options."
 msgstr ""
 
-#: src/Tribe/Validate.php:344
+#: src/Tribe/Validate.php:348
 msgid ""
 "Comparison validation failed because no comparison value was provided, for "
 "field %s"
 msgstr ""
 
-#: src/Tribe/Validate.php:351
+#: src/Tribe/Validate.php:355
 msgid "%s cannot be the same as %s."
 msgstr ""
 
-#: src/Tribe/Validate.php:353
+#: src/Tribe/Validate.php:357
 msgid "%s cannot be a duplicate"
 msgstr ""
 
-#: src/Tribe/Validate.php:369
+#: src/Tribe/Validate.php:373
 msgid "%s must be a number or percentage."
 msgstr ""
 
-#: src/Tribe/Validate.php:423
+#: src/Tribe/Validate.php:427
 msgid "%s must be a number between 0 and 21."
 msgstr ""
 
-#: src/Tribe/Validate.php:439
+#: src/Tribe/Validate.php:443
 msgid ""
 "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 
-#: src/Tribe/Validate.php:455
+#: src/Tribe/Validate.php:459
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr ""
 
-#: src/Tribe/Validate.php:469
+#: src/Tribe/Validate.php:473
 msgid "%s must consist of 5 numbers."
 msgstr ""
 
-#: src/Tribe/Validate.php:483
+#: src/Tribe/Validate.php:487
 msgid "%s must be a phone number."
 msgstr ""
 
-#: src/Tribe/Validate.php:499
+#: src/Tribe/Validate.php:503
 msgid ""
 "Country List must be formatted as one country per line in the following "
 "format: <br>US, United States <br> UK, United Kingdom."

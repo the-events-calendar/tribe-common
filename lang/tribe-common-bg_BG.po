@@ -75,15 +75,15 @@ msgstr ""
 msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:238
+#: src/Tribe/Ajax/Dropdown.php:243
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:188
+#: src/Tribe/Ajax/Dropdown.php:193
 msgid "Empty data set for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:175
+#: src/Tribe/Ajax/Dropdown.php:180
 msgid "Missing data source for this dropdown"
 msgstr ""
 
@@ -2070,56 +2070,56 @@ msgstr "Афганистан"
 msgid "Select a Country:"
 msgstr "Избор на страна:"
 
-#: src/Tribe/Validate.php:499
+#: src/Tribe/Validate.php:503
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "Списъка със страните трябва да съдържа по една страна на ред и да бъде в следния формат: <br>САЩ, Съединени Американски щати <br> БГ, България."
 
-#: src/Tribe/Validate.php:483
+#: src/Tribe/Validate.php:487
 msgid "%s must be a phone number."
 msgstr "%s трябва да е валиден телефонен номер."
 
-#: src/Tribe/Validate.php:469
+#: src/Tribe/Validate.php:473
 msgid "%s must consist of 5 numbers."
 msgstr "%s трябва да съдържа 5 цифри."
 
-#: src/Tribe/Validate.php:455
+#: src/Tribe/Validate.php:459
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s трябва да съдържа само букви, интервали, апострофи и тирета."
 
-#: src/Tribe/Validate.php:439
+#: src/Tribe/Validate.php:443
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s трябва да съдържа само букви, цифри, тирета, апострофи и интервали."
 
-#: src/Tribe/Validate.php:423
+#: src/Tribe/Validate.php:427
 msgid "%s must be a number between 0 and 21."
 msgstr "%s трябва да е число между 0 и 21."
 
-#: src/Tribe/Validate.php:369
+#: src/Tribe/Validate.php:373
 msgid "%s must be a number or percentage."
 msgstr "%s трябва да е номер или процент."
 
-#: src/Tribe/Validate.php:353
+#: src/Tribe/Validate.php:357
 msgid "%s cannot be a duplicate"
 msgstr "%s не може да се дублира"
 
-#: src/Tribe/Validate.php:351
+#: src/Tribe/Validate.php:355
 msgid "%s cannot be the same as %s."
 msgstr "%s не може да съвпада с %s."
 
-#: src/Tribe/Validate.php:344
+#: src/Tribe/Validate.php:348
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "Валидирането на сравнението се провали, тъй като не е зададена стойност за сравнение в полето %s"
 
-#: src/Tribe/Validate.php:291 src/Tribe/Validate.php:308
-#: src/Tribe/Validate.php:330
+#: src/Tribe/Validate.php:295 src/Tribe/Validate.php:312
+#: src/Tribe/Validate.php:334
 msgid "%s must have a value that's part of its options."
 msgstr "%s трябва да има стойност, която отговаря на една от възможноте опции."
 
-#: src/Tribe/Validate.php:275
+#: src/Tribe/Validate.php:279
 msgid "%s must be a valid absolute URL."
 msgstr "%s  трябва да е валиден абсолюрен URL."
 
-#: src/Tribe/Validate.php:260
+#: src/Tribe/Validate.php:264
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr "%s трябва да е валиден низ (числа, букви, тире и долно тире)."
 

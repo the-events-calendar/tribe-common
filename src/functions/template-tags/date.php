@@ -407,3 +407,17 @@ if ( ! function_exists( 'tribe_wp_locale_month' ) ) {
 		return Tribe__Date_Utils::wp_locale_month( $month, $format );
 	}
 }
+
+if ( ! function_exists( 'tribe_is_site_using_24_hour_time' ) ) {
+	/**
+	 * Handy function for easily detecting if this site's using the 24-hour time format.
+	 *
+	 * @since 4.7.1
+	 *
+	 * @return boolean
+	 */
+	function tribe_is_site_using_24_hour_time() {
+		$time_format = get_option( 'time_format' );
+		return strpos( $time_format, 'H' ) !== false;
+	}
+}
