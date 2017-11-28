@@ -514,7 +514,7 @@ class Tribe__Timezones {
 		// Reassemble in the form +/-hhmm (ie "-0200" or "+0930")
 		$utc_offset = sprintf( $polarity . "%'.02d%'.02d", $hours, $minutes );
 
-		if ( $utc_offset === '+0000' || $utc_offset === '-0000' ) {
+		if ( '+0000' === $utc_offset || '-0000' === $utc_offset ) {
 			$utc_offset = 'UTC';
 		}
 
