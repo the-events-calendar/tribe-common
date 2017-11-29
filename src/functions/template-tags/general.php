@@ -620,6 +620,13 @@ if ( ! function_exists( 'tribe_doing_frontend' ) ) {
 }
 
 if ( ! function_exists( 'tribe_is_frontend' ) ) {
+	/**
+	 * Whether we are currently performing a frontend operation or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
 	function tribe_is_frontend() {
 		/**
 		 * Whether we are currently performing a frontend operation or not.
@@ -628,6 +635,6 @@ if ( ! function_exists( 'tribe_is_frontend' ) ) {
 		 *
 		 * @param bool $is_frontend
 		 */
-		return apply_filters( 'tribe_doing_frontend', false );
+		return (bool) apply_filters( 'tribe_doing_frontend', false );
 	}
 }
