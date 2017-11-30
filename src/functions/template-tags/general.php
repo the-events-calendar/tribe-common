@@ -601,3 +601,40 @@ function tribe_assets( $origin, $assets, $action = null, $arguments = array() ) 
 
 	return $registered;
 }
+
+if ( ! function_exists( 'tribe_doing_frontend' ) ) {
+	/**
+	 * Registers truthy or falsy callbacks on the filters used to detect if
+	 * any frontend operation is being done for logged in users or not.
+	 *
+	 * @since TBd
+	 *
+	 * @param bool $doing_frontend Whether what is being done happens in the
+	 *                             context of the frontend or not.
+	 */
+	function tribe_doing_frontend( $doing_frontend ) {
+		$callback = $doing_frontend ? '__return_true' : '__return_false';
+
+		add_filter( 'tribe_doing_frontend', $callback );
+	}
+}
+
+if ( ! function_exists( 'tribe_is_frontend' ) ) {
+	/**
+	 * Whether we are currently performing a frontend operation or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	function tribe_is_frontend() {
+		/**
+		 * Whether we are currently performing a frontend operation or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $is_frontend
+		 */
+		return (bool) apply_filters( 'tribe_doing_frontend', false );
+	}
+}
