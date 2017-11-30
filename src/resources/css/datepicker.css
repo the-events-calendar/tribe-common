@@ -35,7 +35,7 @@
 /* Icons
 ----------------------------------*/
 
-.tribe-ui-datepicker .ui-icon {
+.tribe-ui-datepicker.ui-datepicker .ui-datepicker-group span.ui-icon {
 	display: inline-block;
 	vertical-align: middle;
 	margin-top: -4px;
@@ -44,6 +44,7 @@
 	text-indent: -99999px;
 	overflow: hidden;
 	background-repeat: no-repeat;
+	background-image: none;
 }
 
 .tribe-ui-datepicker .ui-widget-icon-block {
@@ -78,6 +79,9 @@
 	margin-bottom: 1rem;
 	position: relative;
 	padding: 0;
+	border: 0;
+	background-color: transparent;
+	background-image: none;
 }
 
 .tribe-ui-datepicker.ui-datepicker .ui-datepicker-prev,
@@ -86,6 +90,8 @@
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	        transform: translateY(-50%);
+	line-height: 1.8em;
+	text-align: center;
 }
 
 .tribe-ui-datepicker.ui-datepicker .ui-datepicker-prev:before {
@@ -111,6 +117,8 @@
 .tribe-ui-datepicker .ui-datepicker-prev-hover,
 .tribe-ui-datepicker .ui-datepicker-next-hover {
 	color: darken(#b1b1b1, 10%);
+	border: 0;
+	background: none;
 }
 
 .tribe-ui-datepicker.ui-datepicker .ui-datepicker-prev {
@@ -268,6 +276,7 @@
 .tribe-ui-datepicker.ui-widget {
 	font-size: 19.2px;
 	font-size: 1.2rem;
+	font-family: inherit;
 }
 
 .tribe-ui-datepicker.ui-widget .ui-widget {
@@ -301,6 +310,9 @@ works properly when clicked or hovered */
 html .tribe-ui-datepicker .ui-button.ui-state-disabled:hover,
 html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 	color: #23282d;
+	border: 0;
+	background-color: transparent;
+	background-image: none;
 }
 
 .tribe-ui-datepicker .ui-state-default a,
@@ -323,6 +335,8 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 	.tribe-ui-datepicker .ui-button:hover,
 	.tribe-ui-datepicker .ui-button:focus {
 	color: #000;
+	border: 0;
+	background: none;
 }
 
 .tribe-ui-datepicker .ui-state-hover a,
@@ -337,6 +351,8 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 	.tribe-ui-datepicker a.ui-button:focus {
 	color: #b1b1b1;
 	text-decoration: none;
+	background-color: none;
+	background-image: none;
 }
 
 .tribe-ui-datepicker .ui-visual-focus {
@@ -374,6 +390,8 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 .tribe-ui-datepicker .ui-widget-header .ui-state-highlight {
 	background: #ffffff;
 	color: #363636;
+	border: 0;
+	background-image: none;
 }
 
 .tribe-ui-datepicker .ui-state-checked {
