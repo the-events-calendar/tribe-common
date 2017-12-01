@@ -104,7 +104,7 @@ class Tribe__Cost_Utils {
 	 * return int|float|string
 	 */
 	public function maybe_replace_cost_with_free( $cost ) {
-		if ( '0' === (string) $cost ) {
+		if ( '0' === (string) $cost || '0.00' === (string) $cost ) {
 			return esc_html__( 'Free', 'the-events-calendar' );
 		}
 
