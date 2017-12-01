@@ -105,13 +105,10 @@ class Tribe__Cost_Utils {
 	 */
 	public function maybe_replace_cost_with_free( $cost ) {
 
-		switch ( (string) $cost ) {
-			case '0' :
-			case '0.00' :
-			case '0,00' :
-				return esc_html__( 'Free', 'the-events-calendar' );
-				break;
+		$dec_point = false !== strpos( '.',  $cost ) ? '.' : ',';
 
+		if ( '0.00' === number_format( $cost, 2, $dec_point ) ) {
+			return esc_html__( 'Free', 'the-events-calendar' );
 		}
 
 		return $cost;
