@@ -105,9 +105,7 @@ class Tribe__Cost_Utils {
 	 */
 	public function maybe_replace_cost_with_free( $cost ) {
 
-		$dec_point = false !== strpos( '.',  $cost ) ? '.' : ',';
-
-		if ( '0.00' === number_format( $cost, 2, $dec_point ) ) {
+		if ( '0.00' === $this->convert_decimal_separator( $cost ) ) {
 			return esc_html__( 'Free', 'the-events-calendar' );
 		}
 
