@@ -1167,6 +1167,34 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			// Why so simple? Let's handle other cases as those come up. We have tests in place!
 			return str_replace( '\\\\', '\\', $date_format );
 		}
+
+		/**
+		 * Gets the timezone string associated with an event.
+		 *
+		 * Will fall back to WP timezone string and to system timezone string in this order.
+		 *
+		 * @since TBD
+		 *
+		 * @param $event_id
+		 *
+		 * @return mixed|string|void
+		 */
+		public static function get_event_timezone_string( $event_id ) {
+			$event_timezone_string = get_post_meta( $event_id, '_EventTimezone', true );
+
+			if ( empty( $event_timezone_string ) ) {
+				$event_timezone_string = get_option( 'timezone_string', false );
+				if ( empty( $event_timezone_string ) ) {
+					$event_timezone_string = date_default_timezone_get();
+
+					return $event_timezone_string;
+				}
+
+				return $event_timezone_string;
+			}
+
+			return $event_timezone_string;
+		}
 	}
 
 }
