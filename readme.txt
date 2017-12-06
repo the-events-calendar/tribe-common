@@ -4,7 +4,7 @@
 
 = [4.7.3] TBD =
 
-* Tweak - Prevent Tribe Datepicker to conflict with third-party styles [94161]
+* Tweak - Tweaked Tribe Datepicker to greatly reduce conflicts with third-party styles [94161]
 
 = [4.7.2] 2017-11-21 =
 
