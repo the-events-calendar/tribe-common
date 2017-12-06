@@ -623,7 +623,7 @@ if ( ! function_exists( 'tribe_is_frontend' ) ) {
 	/**
 	 * Whether we are currently performing a frontend operation or not.
 	 *
-	 * @since TBD
+	 * @since 4.6.2
 	 *
 	 * @return bool
 	 */
@@ -631,7 +631,7 @@ if ( ! function_exists( 'tribe_is_frontend' ) ) {
 		/**
 		 * Whether we are currently performing a frontend operation or not.
 		 *
-		 * @since TBD
+		 * @since 4.6.2
 		 *
 		 * @param bool $is_frontend
 		 */
