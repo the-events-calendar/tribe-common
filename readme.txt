@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.3] TBD =
+= [4.7.3] 2017-12-07 =
 
 * Tweak - Tweaked Tribe Datepicker to prevent conflicts with third-party styles [94161]
 
