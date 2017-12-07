@@ -1178,6 +1178,12 @@ a.tribe-rating-link {
 	content: '';
 }
 
+.tribe-ea-dropdown,
+.tribe-dropdown {
+	max-width: 100%;
+	width: auto;
+}
+
 .tribe-ea-dropdown.select2-container-active .select2-choice, .tribe-dropdown.select2-container-active .select2-choice {
 	border-color: #5897fb;
 	box-shadow: 0 0 5px rgba(0, 0, 0, .1);
@@ -1191,26 +1197,30 @@ a.tribe-rating-link {
 
 .tribe-ea-dropdown .select2-choice, .tribe-dropdown .select2-choice {
 	background-image: none;
-	border: 1px solid #ccc;
 	border-radius: 3px;
+	border: 1px solid #ccc;
+}
+
+.tribe-ea-dropdown .select2-choice > .select2-chosen, .tribe-dropdown .select2-choice > .select2-chosen {
+	white-space: normal;
 }
 
 .tribe-ea-dropdown .select2-choice .select2-arrow, .tribe-dropdown .select2-choice .select2-arrow {
-	background: transparent;
 	background-image: none;
+	background: transparent;
 	border-left: 0;
 }
 
 .tribe-ea-dropdown .select2-choice div, .tribe-dropdown .select2-choice div {
-	border-left: 0;
-	background: none;
 	background-image: none;
+	background: none;
+	border-left: 0;
 }
 
 .tribe-ea-dropdown.select2-container-multi .select2-choices, .tribe-dropdown.select2-container-multi .select2-choices {
 	background-image: none;
-	border: 1px solid #ccc;
 	border-radius: 3px;
+	border: 1px solid #ccc;
 	min-height: 25px;
 }
 
@@ -1245,6 +1255,34 @@ a.tribe-rating-link {
 	border-bottom: 1px solid #5897fb;
 }
 
+.select2-drop .select2-results .select2-selected {
+	display: block;
+}
+
+.select2-drop .select2-results .select2-selected > .select2-result-label {
+	background-color: #efefef;
+	color: #a1a1a1;
+	cursor: default;
+}
+
+.select2-drop .select2-results li.select2-result-with-children > .select2-result-label {
+	font-weight: normal;
+}
+
+.select2-drop .select2-results li.select2-result-with-children.select2-selected {
+	display: block;
+}
+
+.select2-drop .select2-results li.select2-result-with-children.select2-selected .select2-result {
+	display: block;
+}
+
+.select2-drop .select2-results li.select2-result-with-children.select2-selected > .select2-result-label {
+	background-color: #efefef;
+	color: #a1a1a1;
+	cursor: default;
+}
+
 .select2-drop .select2-results li.select2-result-with-children.select2-result-unselectable > .select2-result-label {
 	color: #939393;
 	font-weight: normal;
@@ -1257,9 +1295,10 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 =============================================*/
 
 .wp-core-ui .button-red {
+	-webkit-box-shadow: inset 0 1px 0 rgba(120, 200, 230, .5);
 	background-color: #a00;
-	border-color: #9B2124;
 	border-bottom-color: #8D1F21;
+	border-color: #9B2124;
 	box-shadow: inset 0 1px 0 rgba(120, 200, 230, .5);
 	color: #fff;
 	text-decoration: none;
@@ -1270,6 +1309,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .wp-core-ui .button-red:hover,
 .wp-core-ui .button-red.focus,
 .wp-core-ui .button-red:focus {
+	-webkit-box-shadow: inset 0 1px 0 rgba(120, 200, 230, .6);
 	background-color: #a00;
 	border-color: #7F1C1F;
 	box-shadow: inset 0 1px 0 rgba(120, 200, 230, .6);
@@ -1279,6 +1319,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 
 .wp-core-ui .button-red.focus,
 .wp-core-ui .button-red:focus {
+	-webkit-box-shadow: inset 0 1px 0 rgba(120, 200, 230, .6), 1px 1px 2px rgba(0, 0, 0, .4);
 	border-color: #500F0E;
 	box-shadow: inset 0 1px 0 rgba(120, 200, 230, .6), 1px 1px 2px rgba(0, 0, 0, .4);
 }
@@ -1287,10 +1328,11 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .wp-core-ui .button-red.active:hover,
 .wp-core-ui .button-red.active:focus,
 .wp-core-ui .button-red:active {
+	-webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1);
 	background: #7F1C1F;
 	border-color: #601312 #AE2426 #AE2426 #AE2426;
-	color: rgba(255, 255, 255, .95);
 	box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1);
+	color: rgba(255, 255, 255, .95);
 	text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
 }
 

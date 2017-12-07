@@ -1,10 +1,32 @@
 // Run some magic to allow a better handling of class names for jQuery.hasClass type of methods
 String.prototype.className = function () {
+	// Prevent Non Strings to be included
+	if (
+		(
+			'string' !== typeof this
+			&& ! this instanceof String
+		)
+		|| 'function' !== typeof this.replace
+	) {
+		return this;
+	}
+
 	return this.replace( '.', '' );
 };
 
 // Add a method to convert ID/Classes into JS easy/safe variable
 String.prototype.varName = function () {
+	// Prevent Non Strings to be included
+	if (
+		(
+			'string' !== typeof this
+			&& ! this instanceof String
+		)
+		|| 'function' !== typeof this.replace
+	) {
+		return this;
+	}
+
 	return this.replace( '-', '_' );
 };
 
@@ -38,13 +60,16 @@ tribe_auto_sysinfo.ajax = {
 	 * Initialize system info opt in copy
 	 */
 	my.init_copy = function () {
+		if ( 'undefined' === typeof tribe_system_info ) {
+			return;
+		}
 
 		var clipboard = new Clipboard( '.system-info-copy-btn' );
 		var button_icon = '<span class="dashicons dashicons-clipboard license-btn"></span>';
 		var button_text = tribe_system_info.clipboard_btn_text;
 
 		//Prevent Button From Doing Anything Else
-		$( ".system-info-copy-btn" ).click( function ( e ) {
+		$( '.system-info-copy-btn' ).click( function ( e ) {
 			e.preventDefault();
 		} );
 
@@ -69,15 +94,18 @@ tribe_auto_sysinfo.ajax = {
 	 * Initialize system info opt in
 	 */
 	my.init_ajax = function () {
+		if ( 'undefined' === typeof tribe_system_info ) {
+			return;
+		}
 
-		this.$system_info_opt_in     = $( "#tribe_auto_sysinfo_opt_in" );
-		this.$system_info_opt_in_msg = $( ".tribe-sysinfo-optin-msg" );
+		this.$system_info_opt_in     = $( document.getElementById( 'tribe_auto_sysinfo_opt_in' ) );
+		this.$system_info_opt_in_msg = $( '.tribe-sysinfo-optin-msg' );
 
 		this.$system_info_opt_in.change( function () {
 			if ( this.checked ) {
-				my.event.ajax( "generate" );
+				my.event.ajax( 'generate' );
 			} else {
-				my.event.ajax( "remove" );
+				my.event.ajax( 'remove' );
 			}
 
 		} );
@@ -87,9 +115,9 @@ tribe_auto_sysinfo.ajax = {
 	my.event.ajax = function ( generate ) {
 
 		var request = {
-			"action": "tribe_toggle_sysinfo_optin",
-			"confirm": tribe_system_info.sysinfo_optin_nonce,
-			"generate_key": generate
+			'action'       : 'tribe_toggle_sysinfo_optin',
+			'confirm'      : tribe_system_info.sysinfo_optin_nonce,
+			'generate_key' : generate
 		};
 
 		// Send our request

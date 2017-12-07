@@ -252,7 +252,11 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * @return stdClass validation result object
 		 */
 		public function slug() {
-			if ( preg_match( '/^[a-zA-Z0-9-_]+$/', $this->value ) ) {
+			$maybe_valid_value = esc_url_raw( $this->value );
+
+			// esc_url_raw does the work of validating chars, but returns the checked string with a
+			// prepended URL protocol; so let's use strpos to match the values.
+			if ( false !== strpos( $maybe_valid_value, $this->value ) ) {
 				$this->result->valid = true;
 				$this->value         = sanitize_title( $this->value );
 			} else {

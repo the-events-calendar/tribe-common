@@ -73,9 +73,14 @@ class Tribe__Assets {
 				continue;
 			}
 
-			// Enqueue the registered assetsat the appropriate time
+			// Now add an action to enqueue the registered assets
 			foreach ( (array) $asset->action as $action ) {
-				add_action( $action, array( $this, 'enqueue' ), $asset->priority );
+				// Enqueue the registered assets at the appropriate time
+				if ( did_action( $action ) > 0 ) {
+					$this->enqueue();
+				} else {
+					add_action( $action, array( $this, 'enqueue' ), $asset->priority );
+				}
 			}
 		}
 	}
@@ -83,7 +88,7 @@ class Tribe__Assets {
 	/**
 	 * Enqueues registered assets based on their groups.
 	 *
-	 * @since   TBD
+	 * @since   4.7
 	 *
 	 * @uses    self::enqueue
 	 *
@@ -96,7 +101,12 @@ class Tribe__Assets {
 		$enqueue = array();
 
 		foreach ( $assets as $asset ) {
-			$instersect = array_intersect( $groups, $asset->groups );
+			if ( empty( $asset->groups ) ) {
+				continue;
+			}
+
+			$instersect = array_intersect( (array) $groups, $asset->groups );
+
 			if ( empty( $instersect ) ) {
 				continue;
 			}
@@ -128,6 +138,7 @@ class Tribe__Assets {
 			if ( $asset->already_enqueued ) {
 				continue;
 			}
+
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
 			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
 			$in_filter    = in_array( current_filter(), (array) $asset->action );
@@ -188,8 +199,15 @@ class Tribe__Assets {
 
 				// Only localize on JS and if we have data
 				if ( ! empty( $asset->localize ) ) {
+					// Makes sure we have an Array of Localize data
+					if ( is_object( $asset->localize ) ) {
+						$localization = array( $asset->localize );
+					} else {
+						$localization = (array) $asset->localize;
+					}
+
 					/**
-					 * check to ensure we haven't already localized it before
+					 * Check to ensure we haven't already localized it before
 					 * @since 4.5.8
 					 */
 					if ( is_array( $asset->localize ) ) {
@@ -216,6 +234,9 @@ class Tribe__Assets {
 							wp_localize_script( $asset->slug, $asset->localize->name, $data );
 							$this->localized[] = $asset->localize->name;
 						}
+
+						wp_localize_script( $asset->slug, $localize->name, $localize->data );
+						$this->localized[] = $localize->name;
 					}
 				}
 			} else {
@@ -242,6 +263,7 @@ class Tribe__Assets {
 		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
 		$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
 		$wp_content_url = set_url_scheme( WP_CONTENT_URL );
+		$plugins_url = plugins_url();
 
 		if ( 0 === strpos( $url, $wpmu_plugin_url ) ) {
 			// URL inside WPMU plugin dir.
@@ -255,6 +277,9 @@ class Tribe__Assets {
 			// URL inside WP content dir.
 			$base_dir = wp_normalize_path( WP_CONTENT_DIR );
 			$base_url = $wp_content_url;
+		} elseif ( 0 === strpos( $url, $plugins_url ) ) {
+			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_url = $plugins_url;
 		} else {
 			// Resource needs to be inside wp-content or a plugins dir.
 			return false;
@@ -387,6 +412,13 @@ class Tribe__Assets {
 
 		// Origin URL might throw notices so we double check
 		$asset->origin_url  = ! empty( $origin->plugin_url ) ? $origin->plugin_url : null;
+		$asset->origin_url  = ! empty( $origin->pluginUrl ) ? $origin->pluginUrl : null;
+		if ( ! empty( $asset->origin_url ) ) {
+			$asset->origin_url = trailingslashit( $asset->origin_url );
+		}
+
+		// Origin URL might throw notices so we double check
+		$asset->origin_url  = ! empty( $origin->plugin_url ) ? $origin->plugin_url : null;
 		if ( ! empty( $asset->origin_url ) ) {
 			$asset->origin_url = trailingslashit( $asset->origin_url );
 		}
@@ -444,7 +476,6 @@ class Tribe__Assets {
 
 		// If you are passing localize, you need `name` and `data`
 		if ( ! empty( $asset->localize ) && ( is_array( $asset->localize ) || is_object( $asset->localize ) ) ) {
-			$asset->localize = (object) $asset->localize;
 			if ( is_array( $asset->localize ) && empty( $asset->localize['name'] )  ) {
 				foreach ( $asset->localize as $index => $local ) {
 					$asset->localize[ $index ] = (object) $local;
@@ -535,7 +566,7 @@ class Tribe__Assets {
 	/**
 	 * Add the Priority ordering, which was causing an issue of not respecting which order stuff was registered
 	 *
-	 * @since  TBD
+	 * @since  4.7
 	 *
 	 * @param  object  $a  First Subject to compare
 	 * @param  object  $b  Second subject to compare

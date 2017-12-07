@@ -37,9 +37,10 @@ class Tribe__Ajax__Dropdown {
 		if ( empty( $args['taxonomy'] ) ) {
 			$this->error( esc_attr__( 'Cannot look for Terms without a taxonomy', 'tribe-common' ) );
 		}
+
 		// We always want all the fields so we overwrite it
-		$args['fields'] = 'all';
-		$args['get']    = 'all';
+		$args['fields'] = isset( $args['fields'] ) ? $args['fields'] : 'all';
+		$args['hide_empty'] = isset( $args['hide_empty'] ) ? $args['hide_empty'] : false;
 
 		if ( ! empty( $search ) ) {
 			$args['search'] = $search;
@@ -54,8 +55,12 @@ class Tribe__Ajax__Dropdown {
 
 		$results = array();
 
+		// Respect the parent/child_of argument if set
+		$parent = ! empty( $args['child_of'] ) ? (int) $args['child_of'] : 0;
+		$parent = ! empty( $args['parent'] ) ? (int) $args['parent'] : $parent;
+
 		if ( empty( $args['search'] ) ) {
-			$this->sort_terms_hierarchically( $terms, $results );
+			$this->sort_terms_hierarchically( $terms, $results, $parent );
 			$results = $this->convert_children_to_array( $results );
 		} else {
 			foreach ( $terms as $term ) {

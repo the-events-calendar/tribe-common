@@ -520,6 +520,8 @@ function tribe_register_error( $indexes, $message ) {
 /**
  * Shortcut for Tribe__Assets::register(), include a single asset
  *
+ * @since 4.3
+ *
  * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
  * @param  string   $slug       Slug to save the asset
  * @param  string   $file       Which file will be loaded, either CSS or JS
@@ -536,7 +538,7 @@ function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $a
 /**
  * Shortcut for Tribe__Assets::enqueue(), include assets
  *
- * @since  TBD
+ * @since  4.7
  *
  * @param  string|array  $slug  Slug to enqueue
  *
@@ -549,7 +551,7 @@ function tribe_asset_enqueue( $slug ) {
 /**
  * Shortcut for Tribe__Assets::enqueue_group() include assets by groups
  *
- * @since  TBD
+ * @since  4.7
  *
  * @param  string|array  $group  Which group(s) should be enqueued
  *
@@ -598,4 +600,41 @@ function tribe_assets( $origin, $assets, $action = null, $arguments = array() ) 
 	}
 
 	return $registered;
+}
+
+if ( ! function_exists( 'tribe_doing_frontend' ) ) {
+	/**
+	 * Registers truthy or falsy callbacks on the filters used to detect if
+	 * any frontend operation is being done for logged in users or not.
+	 *
+	 * @since TBd
+	 *
+	 * @param bool $doing_frontend Whether what is being done happens in the
+	 *                             context of the frontend or not.
+	 */
+	function tribe_doing_frontend( $doing_frontend ) {
+		$callback = $doing_frontend ? '__return_true' : '__return_false';
+
+		add_filter( 'tribe_doing_frontend', $callback );
+	}
+}
+
+if ( ! function_exists( 'tribe_is_frontend' ) ) {
+	/**
+	 * Whether we are currently performing a frontend operation or not.
+	 *
+	 * @since 4.6.2
+	 *
+	 * @return bool
+	 */
+	function tribe_is_frontend() {
+		/**
+		 * Whether we are currently performing a frontend operation or not.
+		 *
+		 * @since 4.6.2
+		 *
+		 * @param bool $is_frontend
+		 */
+		return (bool) apply_filters( 'tribe_doing_frontend', false );
+	}
 }

@@ -1,14 +1,29 @@
-(function( $, _ ) {
+/**
+ * Tribe Dependency. Allows us to conditionally hide/show and disable elements
+ * based on a data relationship.
+ *
+ * Glossary (in case you get lost like I did!)
+ * dependent  = the element that is the "target" of the relationship the one that
+ *                  is affected, thus dependent.
+ * dependency = the element the relationship is based on the one we check in our conditions
+ * active     = the class we use to denote an "active" (not hidden & enabled) element
+ * selector   = the css selector for the dependency, must be an ID, includes the hash "#"
+ * linked     = data attribute for linked dependents mainly for radio buttons to
+ *                  ensure they all get triggered togther
+ */
+( function( $, _, obj ) {
 	'use strict';
 	var $document = $( document );
+	var $window = $( window );
 	var selectors = {
-			dependent: '.tribe-dependent',
-			active: '.tribe-active',
-			dependency: '.tribe-dependency',
-			fields: 'input, select, textarea',
-			advanced_fields: '.select2-container',
-			linked: '.tribe-dependent-linked'
-		};
+		dependent: '.tribe-dependent',
+		active: '.tribe-active',
+		dependency: '.tribe-dependency',
+		dependencyVerified: '.tribe-dependency-verified',
+		fields: 'input, select, textarea',
+		advanced_fields: '.select2-container',
+		linked: '.tribe-dependent-linked'
+	};
 
 	// Setup a Dependent
 	$.fn.dependency = function () {
@@ -36,7 +51,7 @@
 				/**
 				 * If we're hooking to a radio, we need to make sure changing
 				 * any similarly _named_ ones trigger verify on all of them.
-				 * The base code only triggers on direct interations.
+				 * The base code only triggers on direct interactions.
 				 *
 				 * @since 4.5.8
 				 */
@@ -51,8 +66,8 @@
 				// Fetch dependent elements
 				var $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '.select2-container' );
 
-				// setup each constraint truth condition
-				// each function will be passed the value, the constraint and the depending field
+				// Set up each constraint truth condition
+				// Each function will be passed the value, the constraint and the dependent field
 				constraint_conditions = {
 					'condition': function ( val, constraint ) {
 						return _.isArray( constraint ) ? -1 !== constraint.indexOf( val ) : val == constraint;
@@ -107,8 +122,11 @@
 						is_not_checked: $dependent.data( 'conditionIsNotChecked' ) || $dependent.is( '[data-condition-is-not-checked]' ) || $dependent.data( 'conditionNotChecked' ) || $dependent.is( '[data-condition-not-checked]' ),
 					};
 
-					var active_class = selectors.active.replace( '.', '' );
-					var is_disabled = $field.is( ':disabled' );
+					var active_class       = selectors.active.replace( '.', '' );
+					// Allows us to check a disabled dependency
+					var allowDisabled     = $dependent.data( 'dependencyCheckDisabled' ) || $dependent.is( '[data-dependency-check-disabled]' );
+					// If allowDisabled, then false - we don't care!
+					var is_disabled        = allowDisabled ? false : $field.is( ':disabled' );
 					var condition_relation = $dependent.data( 'condition-relation' ) || 'or';
 					var passes;
 
@@ -121,6 +139,7 @@
 							return passes || constraint_conditions[ key ]( value, constraint, $field );
 						}, false );
 					} else {
+						// There is no "and"!
 						passes = _.reduce( constraints, function ( passes, constraint, key ) {
 							return passes && constraint_conditions[ key ]( value, constraint, $field );
 						}, true );
@@ -143,9 +162,11 @@
 							}
 						}
 
-						$dependent
-							.find( selectors.fields ).prop( 'disabled', false )
-							.end().find( '.select2-container' ).select2( 'enable', true );
+						$dependent.find( selectors.fields ).prop( 'disabled', false );
+
+						if ( 'undefined' !== typeof $().select2 ) {
+							$dependent.find( '.select2-container' ).select2( 'enable', true );
+						}
 					} else {
 						$dependent.removeClass( active_class );
 
@@ -154,9 +175,11 @@
 							$dependent.hide();
 						}
 
-						$dependent
-							.find( selectors.fields ).prop( 'disabled', true )
-							.end().find( '.select2-container' ).select2( 'enable', false );
+						$dependent.find( selectors.fields ).prop( 'disabled', true );
+
+						if ( 'undefined' !== typeof $().select2 ) {
+							$dependent.find( '.select2-container' ).select2( 'enable', false );
+						}
 
 						if ( $dependent.data( 'select2' ) ) {
 							$dependent.data( 'select2' ).container.removeClass( active_class );
@@ -166,15 +189,35 @@
 					// Checks if any child elements have dependencies
 					$dependent.find( selectors.dependency ).trigger( 'change' );
 				} );
+
+				$field.addClass( selectors.dependencyVerified.className() );
 			},
 			'change.dependency': function( e ) {
 				$( this ).trigger( 'verify.dependency' );
 			}
 		}, selectors.dependency );
 
+	obj.run = function ( event ) {
+		// Fetch all dependents
+		var $dependents = $( selectors.dependent );
+
+		if ( $dependents.length ) {
+			// Trigger Dependency Configuration on all of these
+			$dependents.dependency();
+		}
+
+		// Fetch all Dependencies
+		var $dependencies = $( selectors.dependency );
+
+		if ( $dependencies.not( selectors.dependencyVerified ).length ) {
+			// Now verify all the Dependencies
+			$dependencies.trigger( 'verify.dependency' );
+		}
+	};
+
 	// Configure on Document ready for the default trigger
-	$document.ready( function() {
-		$( selectors.dependent ).dependency();
-		$( selectors.dependency ).trigger( 'verify.dependency' );
-	} );
-}( jQuery, _ ) );
+	$document.ready( obj.run );
+
+	// Configure on Window Load again
+	$window.on( 'load', obj.run );
+}( jQuery, _, {} ) );

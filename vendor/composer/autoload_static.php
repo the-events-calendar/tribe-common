@@ -26,7 +26,11 @@ class ComposerStaticInit80f0d9365d292d168ac3c1612dc82d26
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+<<<<<<< HEAD
             $loader->prefixesPsr0 = ComposerStaticInit80f0d9365d292d168ac3c1612dc82d26::$prefixesPsr0;
+=======
+            $loader->prefixesPsr0 = ComposerStaticInit453516e196e1be4c43fa495b9bb9d572::$prefixesPsr0;
+>>>>>>> release/M17.24
 
         }, null, ClassLoader::class);
     }
