@@ -321,7 +321,10 @@ class Tribe__Cost_Utils {
 
 		foreach ( $costs as &$cost ) {
 			// Get the required parts
-			if ( preg_match_all( '/' . $price_regex . '/', $cost, $matches ) ) {
+			if (
+				is_numeric( $cost )
+				&& preg_match_all( '/' . $price_regex . '/', $cost, $matches )
+			) {
 				$cost = reset( $matches );
 			} else {
 				$cost = array( $cost );

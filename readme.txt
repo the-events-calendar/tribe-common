@@ -5,6 +5,7 @@
 = [TBD] TBD =
 
 * Fix - Fixed Event Cost field causing an error if it did not contain any numeric characters [95400]
+* Fix - Fixed Event Cost field forcing non-numeric strings into a number and therefore a currency amount [95403]
 
 = [4.7.3] 2017-12-07 =
 
