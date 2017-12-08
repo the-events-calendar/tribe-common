@@ -231,14 +231,17 @@ table.plugins .tribe-plugin-update-message a {
 	width: 450px;
 }
 .tribe-field-text.tribe-size-small input,
+.tribe-field-email.tribe-size-small input,
 .tribe-field-license_key.tribe-size-small input {
 	width: 50px;
 }
 .tribe-field-text.tribe-size-medium input,
+.tribe-field-email.tribe-size-medium input,
 .tribe-field-license_key.tribe-size-medium input {
 	width: 225px;
 }
 .tribe-field-text.tribe-size-large input,
+.tribe-field-email.tribe-size-large input,
 .tribe-field-license_key.tribe-size-large input {
 	width: 450px;
 }
