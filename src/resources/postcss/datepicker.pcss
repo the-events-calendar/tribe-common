@@ -26,14 +26,17 @@
 
 /* Icons
 ----------------------------------*/
-.tribe-ui-datepicker .ui-icon {
-	display: inline-block;
-	vertical-align: middle;
-	margin-top: -.25rem;
-	position: relative;
-	text-indent: -99999px;
-	overflow: hidden;
-	background-repeat: no-repeat;
+.tribe-ui-datepicker.ui-datepicker {
+	.ui-datepicker-group span.ui-icon {
+		display: inline-block;
+		vertical-align: middle;
+		margin-top: -.25rem;
+		position: relative;
+		text-indent: -99999px;
+		overflow: hidden;
+		background-repeat: no-repeat;
+		background-image: none;
+	}
 }
 
 .tribe-ui-datepicker .ui-widget-icon-block {
@@ -66,6 +69,9 @@
 	margin-bottom: 1rem;
 	position: relative;
 	padding: 0;
+	border: 0;
+	background-color: transparent;
+	background-image: none;
 }
 
 .tribe-ui-datepicker.ui-datepicker .ui-datepicker-prev,
@@ -73,6 +79,8 @@
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
+	line-height: 1.8em;
+	text-align: center;
 }
 
 .tribe-ui-datepicker.ui-datepicker .ui-datepicker-prev {
@@ -106,6 +114,8 @@
 .tribe-ui-datepicker .ui-datepicker-prev-hover,
 .tribe-ui-datepicker .ui-datepicker-next-hover {
 	color: darken(#b1b1b1, 10%);
+	border: 0;
+	background: none;
 }
 
 .tribe-ui-datepicker.ui-datepicker {
@@ -165,7 +175,7 @@
 	td.ui-datepicker-unselectable {
 		border: none;
 	}
-	
+
 	a.ui-state-active {
 		background: #0085ba;
 		color: #fff;
@@ -187,7 +197,7 @@
 		border-right: 0;
 		border-bottom: 0;
 	}
-	
+
 	.ui-datepicker-buttonpane button {
 		float: right;
 		margin: .5rem .2rem .4rem;
@@ -196,13 +206,13 @@
 		width: auto;
 		overflow: visible;
 	}
-	
+
 	.ui-datepicker-buttonpane button.ui-datepicker-current {
 		float: left;
 		background: #fff;
 		border: 1px solid #b1b1b1;
 	}
-	
+
 	button.ui-datepicker-close {
 		background: linear-gradient(354deg, rgba(10,85,160,1.00) 0%, rgba(18,136,235,1.00) 100%);
 		border: 1px solid #0085ba;
@@ -256,6 +266,7 @@
 ----------------------------------*/
 .tribe-ui-datepicker.ui-widget {
 	font-size: 1.2rem;
+	font-family: inherit;
 }
 
 .tribe-ui-datepicker.ui-widget .ui-widget {
@@ -286,6 +297,9 @@ works properly when clicked or hovered */
 html .tribe-ui-datepicker .ui-button.ui-state-disabled:hover,
 html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 	color: #23282d;
+	border: 0;
+	background-color: transparent;
+	background-image: none;
 }
 
 .tribe-ui-datepicker {
@@ -308,6 +322,8 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 	.ui-button:hover,
 	.ui-button:focus {
 		color: #000;
+		border: 0;
+		background: none;
 	}
 	.ui-state-hover a,
 	.ui-state-hover a:hover,
@@ -321,6 +337,8 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 	a.ui-button:focus {
 		color: #b1b1b1;
 		text-decoration: none;
+		background-color: none;
+		background-image: none;
 	}
 
 	.ui-visual-focus {
@@ -335,7 +353,7 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 		background: linear-gradient(354deg, rgba(10,85,160,1.00) 0%, rgba(18,136,235,1.00) 100%);
 		color: #fff;
 	}
-	
+
 	.ui-icon-background,
 	.ui-state-active .ui-icon-background {
 		border: #dddddd;
@@ -356,6 +374,8 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 .tribe-ui-datepicker .ui-widget-header .ui-state-highlight {
 	background: #ffffff;
 	color: #363636;
+	border: 0;
+	background-image: none;
 }
 
 .tribe-ui-datepicker .ui-state-checked {
@@ -448,7 +468,7 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 		-webkit-box-shadow: -5px -5px 5px #000000;
 		box-shadow: -5px -5px 5px #000000;
 	}
-	
+
 	.ui-helper-hidden {
 		display: none;
 	}
@@ -490,7 +510,7 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 		opacity: 0;
 		filter:Alpha(Opacity=0); /* support: IE8 */
 	}
-	
+
 	.ui-front {
 		z-index: 100;
 	}
@@ -509,30 +529,30 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 		left: 2px;
 		right: auto;
 	}
-	
+
 	.ui-datepicker-prev:hover {
 		right: 1px;
 		left: auto;
 	}
-	
+
 	.ui-datepicker-next:hover {
 		left: 1px;
 		right: auto;
 	}
-	
+
 	.ui-datepicker-buttonpane {
 		clear: right;
 	}
-	
+
 	.ui-datepicker-buttonpane button {
 		float: left;
 	}
-	
+
 	.ui-datepicker-buttonpane button.ui-datepicker-current,
 	.ui-datepicker-group {
 		float: right;
 	}
-	
+
 	.ui-datepicker-group-last .ui-datepicker-header,
 	.ui-datepicker-group-middle .ui-datepicker-header {
 		border-right-width: 0;

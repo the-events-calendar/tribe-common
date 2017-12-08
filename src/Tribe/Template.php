@@ -3,7 +3,7 @@ class Tribe__Template {
 	/**
 	 * The folders into we will look for the template
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @var array
 	 */
@@ -12,7 +12,7 @@ class Tribe__Template {
 	/**
 	 * The origin class for the plugin where the template lives
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @var object
 	 */
@@ -21,7 +21,7 @@ class Tribe__Template {
 	/**
 	 * The local context for templates, muteable on every self::template() call
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @var array
 	 */
@@ -30,7 +30,7 @@ class Tribe__Template {
 	/**
 	 * The global context for this instance of templates
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @var array
 	 */
@@ -39,7 +39,7 @@ class Tribe__Template {
 	/**
 	 * Allow chaing if class will extract data from the local context
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @var boolean
 	 */
@@ -48,7 +48,7 @@ class Tribe__Template {
 	/**
 	 * Base template for where to look for template
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @var array
 	 */
@@ -57,7 +57,7 @@ class Tribe__Template {
 	/**
 	 * Configures the class origin plugin path
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @param  object|string  $origin   The base origin for the templates
 	 *
@@ -92,7 +92,7 @@ class Tribe__Template {
 	/**
 	 * Configures the class with the base folder in relation to the Origin
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @param  array|string   $folder  Which folder we are going to look for templates
 	 *
@@ -118,7 +118,7 @@ class Tribe__Template {
 	/**
 	 * Configures the class global context
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @param  array  $context  Default global Context
 	 *
@@ -134,7 +134,7 @@ class Tribe__Template {
 	/**
 	 * Configures if the class will extract context for template
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @param  bool  $value  Should we extract context for templates
 	 *
@@ -150,7 +150,7 @@ class Tribe__Template {
 	/**
 	 * Gets the base path for this Instance of Templates
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @return string
 	 */
@@ -174,7 +174,7 @@ class Tribe__Template {
 	 * Sets a Index inside of the global or local context
 	 * Final to prevent extending the class when the `get` already exists on the child class
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @see    Tribe__Utils__Array::set
 	 *
@@ -196,7 +196,7 @@ class Tribe__Template {
 		 * Allows filtering the the getting of Context variables, also short circuiting
 		 * Following the same strucuture as WP Core
 		 *
-		 * @since  TBD
+		 * @since  4.6.2
 		 *
 		 * @param  mixed    $value     The value that will be filtered
 		 * @param  array    $index     Specify each nested index in order.
@@ -217,7 +217,7 @@ class Tribe__Template {
 	 * Sets a Index inside of the global or local context
 	 * Final to prevent extending the class when the `set` already exists on the child class
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @see    Tribe__Utils__Array::set
 	 *
@@ -240,7 +240,7 @@ class Tribe__Template {
 	/**
 	 * Merges local and global context, and saves it locally
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @param  array  $context  Local Context array of data
 	 * @param  string $file     Complete path to include the PHP File
@@ -260,7 +260,7 @@ class Tribe__Template {
 		/**
 		 * Allows filtering the Local context
 		 *
-		 * @since  TBD
+		 * @since  4.6.2
 		 *
 		 * @param array  $context   Local Context array of data
 		 * @param string $file      Complete path to include the PHP File
@@ -275,7 +275,7 @@ class Tribe__Template {
 	/**
 	 * A very simple method to include a Aggregator Template, allowing filtering and additions using hooks.
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @param  string  $name     Which file we are talking about including
 	 * @param  array   $context  Any context data you need to expose to this file
@@ -301,7 +301,7 @@ class Tribe__Template {
 		/**
 		 * A more Specific Filter that will include the template name
 		 *
-		 * @since  TBD
+		 * @since  4.6.2
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
@@ -322,7 +322,7 @@ class Tribe__Template {
 		/**
 		 * Fires an Action before including the template file
 		 *
-		 * @since  TBD
+		 * @since  4.6.2
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
@@ -351,7 +351,7 @@ class Tribe__Template {
 		/**
 		 * Fires an Action After including the template file
 		 *
-		 * @since  TBD
+		 * @since  4.6.2
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
@@ -365,7 +365,7 @@ class Tribe__Template {
 		/**
 		 * Allow users to filter the final HTML
 		 *
-		 * @since  TBD
+		 * @since  4.6.2
 		 *
 		 * @param string $html      The final HTML
 		 * @param string $file      Complete path to include the PHP File

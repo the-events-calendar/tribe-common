@@ -104,7 +104,10 @@ class Tribe__Cost_Utils {
 	 * return int|float|string
 	 */
 	public function maybe_replace_cost_with_free( $cost ) {
-		if ( '0' === (string) $cost ) {
+
+		$cost_with_period = $this->convert_decimal_separator( $cost );
+
+		if ( '0.00' === number_format( $cost_with_period, 2, '.', ',' ) ) {
 			return esc_html__( 'Free', 'the-events-calendar' );
 		}
 

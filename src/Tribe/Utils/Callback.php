@@ -5,7 +5,7 @@ class Tribe__Utils__Callback {
 	/**
 	 * Where we store all the Callbacks to allow removing of hooks
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @var array
 	 */
@@ -14,7 +14,7 @@ class Tribe__Utils__Callback {
 	/**
 	 * The Prefix we use for the Overloading replacement
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @var string
 	 */
@@ -27,7 +27,7 @@ class Tribe__Utils__Callback {
 	 * The lambda function suitable to use as a callback; when called the function will build the implementation
 	 * bound to `$classOrInterface` and return the value of a call to `$method` method with the call arguments.
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @param string $slug                   A class or interface fully qualified name or a string slug.
 	 * @param string $method                 The method that should be called on the resolved implementation with the
@@ -68,7 +68,7 @@ class Tribe__Utils__Callback {
 	/**
 	 * Returns the Value passed as a simple Routing method for tribe_callback_return
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @param  mixed  $value  Value to be Routed
 	 *
@@ -82,7 +82,7 @@ class Tribe__Utils__Callback {
 	 * Calls the Lambda function provided by Di52 to allow passing of Params without having to create more
 	 * methods into classes for simple callbacks that will only have a pre-determined value.
 	 *
-	 * @since  TBD
+	 * @since  4.6.2
 	 *
 	 * @param string $slug                   A class or interface fully qualified name or a string slug.
 	 * @param string $method                 The method that should be called on the resolved implementation with the

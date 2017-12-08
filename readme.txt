@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.7.3] 2017-12-07 =
+
+* Tweak - Tweaked Tribe Datepicker to prevent conflicts with third-party styles [94161]
+
 = [4.7.2] 2017-11-21 =
 
 * Feature - Added Template class which adds a few layers of filtering to any template file included
