@@ -234,9 +234,6 @@ class Tribe__Assets {
 							wp_localize_script( $asset->slug, $asset->localize->name, $data );
 							$this->localized[] = $asset->localize->name;
 						}
-
-						wp_localize_script( $asset->slug, $localize->name, $localize->data );
-						$this->localized[] = $localize->name;
 					}
 				}
 			} else {
