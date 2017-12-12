@@ -622,9 +622,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 							$validity_msg.html(data.message);
 
 							switch ( data.status ) {
-								case 1: $validity_msg.addClass( 'valid-key' ); break;
+								case 1: $validity_msg.addClass( 'valid-key' ).removeClass( 'invalid-key' ); break;
 								case 2: $validity_msg.addClass( 'valid-key service-msg' ); break;
-								default: $validity_msg.addClass( 'invalid-key' ); break;
+								default: $validity_msg.addClass( 'invalid-key' ).removeClass( 'valid-key' ); break;
 							}
 						});
 					}
