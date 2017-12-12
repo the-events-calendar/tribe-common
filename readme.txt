@@ -5,6 +5,7 @@
 = [TBD] TBD =
 
 * Fix - Fixed Event Cost field causing an error if it did not contain any numeric characters [95400]
+* Fix - Fixed the color of the license key validation messages [91890]
 
 = [4.7.3] 2017-12-07 =
 
