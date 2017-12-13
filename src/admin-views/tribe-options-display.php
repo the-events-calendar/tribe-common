@@ -23,7 +23,13 @@ $displayTab = array(
 			),
 			'tribeEventsDateFormatExplanation'   => array(
 				'type' => 'html',
-				'html' => __( '<p>The following three fields accept the date format options available to the php date() function. <a href="http://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">Learn how to make your own date format here</a>.</p>', 'tribe-common' ),
+				'html' => '<p>'
+					. sprintf(
+						__( 'The following three fields accept the date format options available to the PHP %1$s function. <a href="%2$s" target="_blank">Learn how to make your own date format here</a>.', 'tribe-common' ),
+						'<code>date()</code>',
+						'https://codex.wordpress.org/Formatting_Date_and_Time'
+					)
+					. '</p>',
 			),
 			'datepickerFormat'                   => array(
 				'type'            => 'dropdown',
@@ -40,6 +46,9 @@ $displayTab = array(
 					'6' => date( 'm-d-Y', $sample_date ),
 					'7' => date( 'j-n-Y', $sample_date ),
 					'8' => date( 'd-m-Y', $sample_date ),
+					'9' => date( 'Y.m.d', $sample_date ),
+					'10' => date( 'm.d.Y', $sample_date ),
+					'11' => date( 'd.m.Y', $sample_date ),
 				),
 				'validation_type' => 'options',
 			),

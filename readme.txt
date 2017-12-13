@@ -1,1 +1,133 @@
 === Tribe Common ===
+
+== Changelog ==
+
+= [4.7.3] 2017-12-07 =
+
+* Tweak - Tweaked Tribe Datepicker to prevent conflicts with third-party styles [94161]
+
+= [4.7.2] 2017-11-21 =
+
+* Feature - Added Template class which adds a few layers of filtering to any template file included
+* Tweak - Included `tribe_callback_return` for static returns for Hooks
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.7.1] 2017-11-16 =
+
+* Fix - Added support for translatable placeholder text when dropdown selectors are waiting on results being returned via ajax [84926]
+* Fix - Implemented an additional file permissions check within default error logger (our thanks to Oscar for highlighting this) [73551]
+* Tweak - Added new `tribe_is_site_using_24_hour_time()` function to easily check if the site is using a 24-hour time format [78621]
+* Tweak - Ensure the "Debug Mode" helper text in the Events Settings screen displays all of the time (it previously would vanish with certain permalinks settings) [92315]
+* Tweak - Allow for non-Latin characters to be used as the Events URL slug and the Single Event URL slug (thanks @daviddweb for originally reporting this) [61880]
+* Tweak - Removed restrictions imposed on taxonomy queries by Tribe__Ajax__Dropdown (our thanks to Ian in the forums for flagging this issue) [91762]
+* Tweak - Fixed the definition of Tribe__Rewrite::get_bases() to address some PHP strict notices its previous definition triggered [91828]
+* Language - 0 new strings added, 16 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.7] 2017-11-09 =
+
+* Feature - Included a new Validation.js for Forms and Fields
+* Feature - Included a Camelcase Utils for JavaScript
+* Tweak - Added Groups functionality for Tribe Assets class
+* Tweak - Improve Dependency.js with better Documentation
+* Tweak - Timepicker.js is now part of Common instead of The Events Calendar
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.6.3] 2017-11-02 =
+
+* Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
+* Fix - Fixed compatibility issue with Internet Explorer 10 & 11 when selecting a venue from the dropdown (thanks (@acumenconsulting for reporting this) [72924]
+* Fix - Improved process for sharing JSON data in the admin environment so that it also works within the theme customizer screen [72127]
+* Tweak - Obfuscated the API key for the google_maps_js_api_key field in the "System Information" screen [89795]
+* Tweak - Updated the list of countries used in the country dropdown [75769]
+* Tweak - Added additional timezone handling facilities [78233]
+* Language - 7 new strings added, 292 updated, 18 fuzzied, and 3 obsoleted
+
+= [4.6.2] 2017-10-18 =
+
+* Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918]
+* Fix - Added safety checks to reduce the potential for errors stemming from our logging facilities (shout out to Brandon Stiner and Russell Todd for highlighting some remaining issues here) [90436, 90544]
+* Fix - Added checks to avoid the generation of warnings when rendering the customizer CSS template (props: @aristath) [91070]
+* Fix - Added safety checks to the Tribe__Post_Transient class to avoid errors when an array is expected but not available [91258]
+* Tweak - Improved strategy for filtering of JSON LD data (our thanks to Mathew in the forums for flagging this issue) [89801]
+* Tweak - Added new tribe_is_wpml_active() function for unified method of checking (as its name implies) if WPML is active [82286]
+* Tweak - Removed call to deprecated screen_icon() function [90985]
+
+= [4.6.1] 2017-10-04 =
+
+* Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
+* Fix - Added support within Tribe__Assets for when someone filters plugins_url() (Thank you @boonebgorges for the pull request!) [89228]
+* Fix - Improved performance of retrieving the country and US States lists [68472]
+* Tweak - Limited the loading of several Tribe Common scripts and stylesheets to only load where needed within the wp-admin (props: @traildamage ) [75031]
+* Tweak - Removed explicit width styles from app shop "buy now" buttons to better accommodate longer language strings (thanks @abrain on GitHub for submitting this fix!) [88868]
+* Tweak - Implemented a re-initializing of Select2 inputs on use of a browser's "Back" button to prevent some UI bugs, e.g. with such inputs' placeholder attributes not being populated (props @uwefunk!) [74553]
+* Language - Improvement to composition of various strings, to aid translatability (props: @ramiy) [88982]
+* Language - 3 new strings added, 331 updated, 1 fuzzied, and 2 obsoleted
+
+= [4.6] 2017-09-25 =
+
+* Feature - Add support for create, update, and delete REST endpoints
+* Language - 1 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.5.13] 2017-09-20 =
+
+* Feature - Remove 'France, Metropolitan' option from country list to prevent issues with Google Maps API (thanks @varesanodotfr for pointing this out) [78023]
+* Fix - Prevents breakages resulting from deprecated filter hooks
+* Tweak - Added an id attribute to dropdowns generated by the Fields API [spotfix]
+* Fix - Prevents resetting selected Datatables rows when changing pages (thanks @templesinai for reporting) [88437]
+
+= [4.5.12] 2017-09-06 =
+
+* Fix - Added check to see if log directory is readable before listing logs within it (thank you @rodrigochallengeday-org and @richmondmom for reporting this) [86091]
+* Tweak - Datatables Head and Foot checkboxes will not select all items, only the current page [77395]
+* Tweak - Added method into Date Utils class to allow us to easily convert all datepicker formats into the default one [77819]
+* Tweak - Added a filter to customize the list of states in the USA that are available to drop-downs when creating or editing venues.
+* Language - 3 new strings added, 46 updated, 1 fuzzied, and 4 obsoleted
+
+= [4.5.11] 2017-08-24 =
+
+* Fix - Ensure valid license keys save as expected [84966]
+* Tweak - Removing WP Plugin API result adjustments
+
+= [4.5.10.1] 2017-08-16 =
+
+* Fix - Fixed issue with JS/CSS files not loading when WordPress URL is HTTPS but Site URL is not (our thanks to @carcal1 for first reporting this) [85017]
+
+= [4.5.10] 2017-08-09 =
+
+* Fix - Added support to tribe_asset() for non-default plugin directions/usage from within the mu-plugin directory (our thanks to @squirrelandnnuts for reporting this) [82809]
+* Fix - Made JSON LD permalinks overridable by all post types, so they can be filtered [76411]
+* Tweak - Improve integration with the plugins API/add new plugins screen (our thanks to David Sharpe for highlighting this) [82223]
+* Tweak - Improve the Select2 search experience (props to @fabianmarz) [84496]
+* Language - 0 new strings added, 312 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.5.9] 2017-07-26 =
+
+* Fix - Avoid accidental overwrite of options when settings are saved in a multisite context [79728]
+* Fix - Provide a well sorted list of countries even when this list is translated (our thanks to Johannes in the forums for highlighting this) [69550]
+* Tweak - Cleanup logic responsible for handling the default country option and remove confusing translation calls (our thanks to Oliver for flagging this!) [72113]
+* Tweak - Added period "." separator to datepicker formats [65282]
+* Tweak - Avoid noise relating to PUE checks during WP CLI requests
+
+= [4.5.8] 2017-07-13 =
+
+* Fix - Fixes to the plugin upgrade notice parser including support for environments where the data stream wrapper is unavailable [69486]
+* Fix - Ensure the multichoice settings configured to allow no selection work as expected [73183]
+* Fix - Enqueue expired notice and CSS on every admin page [81714]
+* Tweak - Add helper to retrieve anonymous objects using the class name, hook and callback priority [74938]
+* Tweak - Allow dependency.js to handle radio buttons. ensure that they are linked correctly. [82510]
+* Fix - Allow passing multiple localize-scripts to tribe-assets. Don't output a localized scrip more than once. [81644]
+
+= [4.5.7] 2017-06-28 =
+
+* Fix - Made the App Shop and help pages work on Windows. [77975]
+* Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
+* Fix - Avoid notices during plugin update and installation checks [80492]
+* Fix - Ensure an empty dateTimeSeparator option value doesn't break tribe_get_start_date output anymore. [65286]
+* Tweak - Improve navigation to elements inside admin pages (don't let the admin toolbar obscure things) [41829]
+* Tweak - Textual corrections (with thanks to @garrett-eclipse) [77196]
+
+= [4.5.6] 2017-06-22 =
+
+* Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
+

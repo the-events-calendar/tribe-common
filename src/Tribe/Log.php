@@ -12,6 +12,8 @@ class Tribe__Log {
 	const WARNING = 'warning';
 	const ERROR   = 'error';
 	const CLEANUP = 'tribe_common_log_cleanup';
+	const SUCCESS = 'success';
+	const COLORIZE = 'colorize';
 
 	/**
 	 * @var Tribe__Log__Admin
@@ -131,13 +133,70 @@ class Tribe__Log {
 	}
 
 	/**
-	 * Adds an entry to the log (if it is at the appropriate level, etc).
+	 * Logs a successful operation.
+	 *
+	 * @param string $entry
+	 * @param string $src
+	 */
+	public function log_success( $entry, $src ) {
+		$this->log( $entry, self::SUCCESS, $src );
+	}
+
+	/**
+	 * Logs an entry colorizing it.
+	 *
+	 * This will only apply to WP-CLI based logging.
+	 *
+	 * @param string $entry
+	 * @param string $src
+	 */
+	public function log_colorized( $entry, $src ) {
+		$this->log( $entry, self::COLORIZE, $src );
+	}
+
+	/**
+	 * Adds an entry to the log (if it is at the appropriate level, etc) and outputs information using WP-CLI if available.
 	 *
 	 * This is simply a shorthand for calling log() on the current logger.
 	 */
 	public function log( $entry, $type = self::DEBUG, $src = '' ) {
+		$original_type = $type;
+
+		// some levels are really just debug information
+		$debug_types = array( self::SUCCESS, self::COLORIZE );
+
+		if ( in_array( $type, $debug_types ) ) {
+			$type = self::DEBUG;
+		}
+
 		if ( $this->should_log( $type ) ) {
 			$this->get_current_logger()->log( $entry, $type, $src );
+		}
+
+		// Only go further if we have WP_CLI
+		if ( ! class_exists( 'WP_CLI' ) ) {
+			return false;
+		}
+
+		// We are always logging to WP-CLI if available
+		switch ( $original_type ) {
+			case self::ERROR:
+				WP_CLI::error( $entry );
+				break;
+			case self::WARNING:
+				WP_CLI::warning( $entry );
+				break;
+			case self::SUCCESS:
+				WP_CLI::success( $entry );
+				break;
+			case self::DEBUG:
+				WP_CLI::debug( $entry, $src );
+				break;
+
+			case self::COLORIZE:
+			default:
+				WP_CLI::log( WP_CLI::colorize( $entry ) );
+				break;
 		}
 	}
 
@@ -174,10 +233,15 @@ class Tribe__Log {
 	}
 
 	/**
-	 * Returns the currently active logger or null if none is set/none are
-	 * available.
+	 * Returns the currently active logger.
 	 *
-	 * @return Tribe__Log__Logger|null
+	 * If no loggers are available, this will be the null logger which is a no-op
+	 * implementation (making it safe to call Tribe__Log__Logger methods on the
+	 * return value of this method at all times).
+	 *
+	 * @since 4.6.2 altered the return signature to only return instances of Tribe__Log__Logger
+	 *
+	 * @return Tribe__Log__Logger
 	 */
 	public function get_current_logger() {
 		if ( ! $this->current_logger ) {
@@ -185,10 +249,10 @@ class Tribe__Log {
 			$available = $this->get_logging_engines();
 
 			if ( empty( $engine ) || ! isset( $available[ $engine ] ) ) {
-				return null;
+				return $this->current_logger = new Tribe__Log__Null_Logger();
+			} else {
+				$this->current_logger = $this->get_engine( $engine );
 			}
-
-			$this->current_logger = $this->get_engine( $engine );
 		}
 
 		return $this->current_logger;

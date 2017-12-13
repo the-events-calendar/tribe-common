@@ -168,7 +168,7 @@ class Tribe__Rewrite {
 	 *
 	 * @return object         Return Base Slugs with l10n variations
 	 */
-	public function get_bases( $string ) {
+	public function get_bases( $method = 'regex' ) {
 		return new stdClass();
 	}
 
@@ -258,19 +258,6 @@ class Tribe__Rewrite {
 		}
 
 		$prepared_slug = $is_regular_exp ? preg_quote( $sanitized_slug ) : $sanitized_slug;
-
-		/**
-		 * Provides an opportunity to modify the sanitized slug which will be used
-		 * in rewrite rules relating to $permastruct_name.
-		 *
-		 * @var string $prepared_slug
-		 * @var string $permastruct_name
-		 * @var string $original_slug
-		 *
-		 * @deprecated 4.3 use `tribe_rewrite_prepared_slug`
-		 */
-		$prepared_slug = apply_filters( 'tribe_events_rewrite_prepared_slug', $prepared_slug, $permastruct_name,
-		                                $slug );
 
 		/**
 		 * Provides an opportunity to modify the sanitized slug which will be used

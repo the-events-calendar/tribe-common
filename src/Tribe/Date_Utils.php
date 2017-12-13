@@ -27,12 +27,42 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		private static $localized_months       = array();
 
 		/**
+		 * Try to format a Date to the Default Datepicker format
+		 *
+		 * @since  4.5.12
+		 *
+		 * @param  string      $date       Original Date that came from a datepicker
+		 * @param  string|int  $datepicker Datepicker format
+		 * @return string
+		 */
+		public static function maybe_format_from_datepicker( $date, $datepicker = null ) {
+			if ( ! is_numeric( $datepicker ) ) {
+				$datepicker = tribe_get_option( 'datepickerFormat' );
+			}
+
+			if ( is_numeric( $datepicker ) ) {
+				$datepicker = self::datepicker_formats( $datepicker );
+			}
+
+			$default_datepicker = self::datepicker_formats( 0 );
+
+			// If the current datepicker is the default we don't care
+			if ( $datepicker === $default_datepicker ) {
+				return $date;
+			}
+
+			return self::datetime_from_format( $datepicker, $date );
+		}
+
+		/**
 		 * Get the datepicker format, that is used to translate the option from the DB to a string
 		 *
 		 * @param  int $translate The db Option from datepickerFormat
 		 * @return string|array            If $translate is not set returns the full array, if not returns the `Y-m-d`
 		 */
 		public static function datepicker_formats( $translate = null ) {
+
+			// The datepicker has issues when a period separator and no leading zero is used. Those formats are purposefully omitted.
 			$formats = array(
 				'Y-m-d',
 				'n/j/Y',
@@ -43,6 +73,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				'm-d-Y',
 				'j-n-Y',
 				'd-m-Y',
+				'Y.m.d',
+				'm.d.Y',
+				'd.m.Y',
 			);
 
 			if ( is_null( $translate ) ) {
@@ -375,7 +408,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string
 		 */
 		public static function reformat( $dt_string, $new_format ) {
-			$timestamp = strtotime( $dt_string );
+			$timestamp = self::is_timestamp( $dt_string ) ? $dt_string : strtotime( $dt_string );
 			$revised   = date( $new_format, $timestamp );
 
 			return $revised ? $revised : '';
@@ -1057,6 +1090,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			return self::is_timestamp( $timestamp );
 		}
 
+		// @codingStandardsIgnoreEnd
+
 		/**
 		 * Gets the timestamp of a day in week, month and year context.
 		 *
@@ -1135,6 +1170,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			return str_replace( '\\\\', '\\', $date_format );
 		}
 
+
 		/**
 		 * Converts an ordinal into an integer value.
 		 *
@@ -1162,11 +1198,10 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			$key = strtolower( $ordinal );
 
-			$number =  isset($map[$key]) ? $map[$key] : false;
+			$number = isset( $map[ $key ] ) ? $map[ $key ] : false;
 
 			return apply_filters( 'tribe_events_ordinal_to_number', $number, $ordinal );
 		}
-		// @codingStandardsIgnoreEnd
 
 		/**
 		 * Formats a date in an input-aware format.

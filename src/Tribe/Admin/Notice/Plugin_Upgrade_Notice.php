@@ -171,9 +171,9 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 	protected function parse_for_upgrade_notice( $readme ) {
 		$in_upgrade_notice = false;
 		$in_version_notice = false;
-		$readme_text       = fopen( "data:://text/plain,$readme", 'r' );
+		$readme_lines      = explode( "\n", $readme );
 
-		while ( $line = fgets( $readme_text ) ) {
+		foreach ( $readme_lines as $line ) {
 			// Once we leave the Upgrade Notice section (ie, we encounter a new section header), bail
 			if ( $in_upgrade_notice && 0 === strpos( $line, '==' ) ) {
 				break;
@@ -190,7 +190,7 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 			}
 
 			// Look out for the first applicable version-specific note within the Upgrade Notice section
-			if ( $in_upgrade_notice && ! $in_version_notice && preg_match( '/^=\s*([0-9\.]{3,})\s*=/', $line, $matches ) ) {
+			if ( $in_upgrade_notice && ! $in_version_notice && preg_match( '/^=\s*\[?([0-9\.]{3,})\]?\s*=/', $line, $matches ) ) {
 				// Is this a higher version than currently installed?
 				if ( version_compare( $matches[1], $this->current_version, '>' ) ) {
 					$in_version_notice = true;
@@ -199,7 +199,7 @@ class Tribe__Admin__Notice__Plugin_Upgrade_Notice {
 
 			// Copy the details of the upgrade notice for the first higher version we find
 			if ( $in_upgrade_notice && $in_version_notice ) {
-				$this->upgrade_notice .= $line;
+				$this->upgrade_notice .= $line . "\n";
 			}
 		}
 	}

@@ -172,7 +172,7 @@ class Tribe__Timezones {
 	}
 
 	/**
-	 * Accepts a unix timestamp and adjusts it so that when it is used to consitute
+	 * Accepts a unix timestamp and adjusts it so that when it is used to constitute
 	 * a new datetime string, that string reflects the designated timezone.
 	 *
 	 * @param string $unix_timestamp
@@ -284,7 +284,8 @@ class Tribe__Timezones {
 
 		$new_datetime = date_create( $datetime, $local );
 
-		if ( $new_datetime && $new_datetime->setTimezone( $utc ) ) {
+		if ( $new_datetime ) {
+			$new_datetime->setTimezone( $utc );
 			$format = ! empty( $format ) ? $format : Tribe__Date_Utils::DBDATETIMEFORMAT;
 
 			return $new_datetime->format( $format );
@@ -411,6 +412,120 @@ class Tribe__Timezones {
 		}
 
 		return $timezone;
+	}
+
+	/**
+	 * Localizes a date or timestamp using WordPress timezone and returns it in the specified format.
+	 *
+	 * @param string     $format   The format the date shouuld be formatted to.
+	 * @param string|int $date     The date UNIX timestamp or `strtotime` parseable string.
+	 * @param string     $timezone An optional timezone string identifying the timezone the date shoudl be localized
+	 *                             to; defaults to the WordPress installation timezone (if available) or to the system
+	 *                             timezone.
+	 *
+	 * @return string|bool The parsed date in the specified format and localized to the system or specified
+	 *                     timezone, or `false` if the specified date is not a valid date string or timestamp
+	 *                     or the specified timezone is not a valid timezone string.
+	 */
+	public static function localize_date( $format = null, $date = null, $timezone = null ) {
+		if ( empty( $timezone ) ) {
+			$timezone = self::generate_timezone_string_from_utc_offset( self::wp_timezone_string() );
+		}
+
+		try {
+			$timezone_object = new DateTimeZone( $timezone );
+
+			if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
+				$date = new DateTime( "@{$date}" );
+			} else {
+				$date = new DateTime( $date );
+			}
+		} catch ( Exception $e ) {
+			return false;
+		}
+
+		$date->setTimezone( $timezone_object );
+
+		return $date->format( $format );
+	}
+
+	/**
+	 * Converts a date string or timestamp to a destination timezone.
+	 *
+	 * @param string|int $date          Either a string parseable by the `strtotime` function or a UNIX timestamp.
+	 * @param string     $from_timezone The timezone of the source date.
+	 * @param string     $to_timezone   The timezone the destination date should use.
+	 * @param string     $format        The format that should be used for the destination date.
+	 *
+	 * @return string The formatted and converted date.
+	 */
+	public static function convert_date_from_timezone( $date, $from_timezone, $to_timezone, $format ) {
+		if ( ! Tribe__Date_Utils::is_timestamp( $date ) ) {
+			$from_date = new DateTime( $date, new DateTimeZone( $from_timezone ) );
+			$timestamp = $from_date->format( 'U' );
+		} else {
+			$timestamp = $date;
+		}
+
+		$to_date = new DateTime( "@{$timestamp}", new DateTimeZone( $to_timezone ) );
+
+		return $to_date->format( $format );
+	}
+
+	/**
+	 * Whether the candidate timezone is a valid PHP timezone or a supported UTC offset.
+	 *
+	 * @param string $candidate
+	 *
+	 * @return bool
+	 */
+	public static function is_valid_timezone( $candidate ) {
+		if ( self::is_utc_offset( $candidate ) ) {
+			return true;
+		}
+		try {
+			new DateTimeZone( $candidate );
+		} catch ( Exception $e ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Given a string in the form "UTC+2.5" returns the corresponding DateTimeZone object.
+	 *
+	 * If this is not possible or if $utc_offset_string does not match the expected pattern,
+	 * boolean false is returned.
+	 *
+	 * @since 4.6.3
+	 *
+	 * @param string $utc_offset_string
+	 *
+	 * @return DateTimeZone | bool
+	 */
+	public static function timezone_from_utc_offset( $utc_offset_string ) {
+		// Test for strings looking like "UTC-2" or "UTC+5.25" etc
+		if ( ! preg_match( '/^UTC[\-\+]{1}[0-9\.]{1,4}$/', $utc_offset_string ) ) {
+			return false;
+		}
+
+		// Breakdown into polarity, hours and minutes
+		$parts    = explode( '.', substr( $utc_offset_string, 4 ) );
+		$hours    = (int) $parts[ 0 ];
+		$fraction = isset( $parts[ 1 ] ) ? '0.' . (int) $parts[ 1 ] : 0;
+		$minutes  = $fraction * 60;
+		$polarity = substr( $utc_offset_string, 3, 1 );
+
+		// Reassemble in the form +/-hhmm (ie "-0200" or "+0930")
+		$utc_offset = sprintf( $polarity . "%'.02d%'.02d", $hours, $minutes );
+
+		// Use this to build a new DateTimeZone
+		try {
+			return new DateTimeZone( $utc_offset );
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 }
 

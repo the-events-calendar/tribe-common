@@ -333,7 +333,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public function generatePage() {
 			do_action( 'tribe_settings_top' );
 			echo '<div class="tribe_settings wrap">';
-			screen_icon();
 			echo '<h1>';
 			printf( esc_html__( '%s Settings', 'tribe-common' ), $this->menuName );
 			echo '</h1>';
@@ -535,10 +534,10 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			 */
 			foreach ( $parent_options as $option_id => $new_options ) {
 				// get the old options
-				if ( $option_id == Tribe__Main::OPTIONNAME ) {
-					$old_options = (array) get_option( $option_id );
-				} else {
+				if ( is_network_admin() ) {
 					$old_options = (array) get_site_option( $option_id );
+				} else {
+					$old_options = (array) get_option( $option_id );
 				}
 
 				// set the options by parsing old + new and filter that

@@ -418,6 +418,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$meta_value = str_repeat( 'foo', 20 );
 
 		$sut = $this->make_instance();
+		$sut->set_post_types( [ 'post' ] );
 		$sut->set_max_chunk_size( $sut->get_byte_size( $meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
@@ -512,6 +513,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		};
 
 		$sut = $this->make_instance();
+		$sut->set_post_types( [ 'post' ] );
 		$sut->set_max_chunk_size( $sut->get_byte_size( $first_meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
@@ -551,6 +553,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		};
 
 		$sut = $this->make_instance();
+		$sut->set_post_types( [ 'post' ] );
 		$sut->set_max_chunk_size( $sut->get_byte_size( $second_meta_value ) / 2 );
 		$sut->register_chunking_for( $id, $meta_key );
 
@@ -597,6 +600,7 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $meta_value, get_post_meta( $id, $meta_key, true ) );
 
 		$sut->__destruct();
+		wp_cache_delete( $id, $sut->get_cache_group() );
 
 		// now compromise the chunks in the db
 		/** @var wpdb $wpdb */
@@ -892,4 +896,101 @@ class ChunkerTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertNotEmpty( $sut->get_checksum_for( $id, 'foo' ) );
 	}
+
+    /**
+     * It should not hit the filtering function when handling meta for non supported types
+     * @test
+     */
+     public function it_should_not_hit_the_filtering_function_when_handling_meta_for_non_supported_types() {
+	     $id = $this->factory()->post->create( [ 'post_type' => 'post' ] );
+
+	     $sut = $this->make_instance();
+	     $sut->set_post_types( [ 'page' ] );
+
+	     add_filter( 'tribe_meta_chunker_get_meta', function () {
+		     $this->fail( 'Should not hit this filter when trying to get meta of non supported post type' );
+	     } );
+	     add_filter( 'tribe_meta_chunker_get_all_meta', function () {
+		     $this->fail( 'Should not hit this filter when trying to get all meta of non supported post type' );
+	     } );
+	     add_filter( 'tribe_meta_chunker_update_meta', function () {
+		     $this->fail( 'Should not hit this filter when trying to update meta of non supported post type' );
+	     } );
+	     add_filter( 'tribe_meta_chunker_delete_meta', function () {
+		     $this->fail( 'Should not hit this filter when trying to delete meta of non supported post type' );
+	     } );
+
+	     $sut->register_chunking_for( $id, 'foo' );
+
+	     $all_meta = get_post_meta( $id );
+	     add_post_meta( $id, 'foo', 23 );
+	     $this->assertEquals( 23, get_post_meta( $id, 'foo', true ) );
+	     update_post_meta( $id, 'foo', 'bar' );
+	     $this->assertEquals( 'bar', get_post_meta( $id, 'foo', true ) );
+	     delete_post_meta( $id, 'foo' );
+     }
+     
+     /**
+      * It should not hit the filtering functions when handling meta for non registered posts and meta ids
+      * @test
+      */
+      public function it_should_not_hit_the_filtering_functions_when_handling_meta_for_non_registered_posts_and_meta_ids() {
+	      $id = $this->factory()->post->create( [ 'post_type' => 'post' ] );
+
+	      $sut = $this->make_instance();
+	      $sut->set_post_types( [ 'post' ] );
+
+	      add_filter( 'tribe_meta_chunker_get_meta', function () {
+		      $this->fail( 'Should not hit this filter when trying to get meta of post that has not registered chunked meta' );
+	      } );
+	      add_filter( 'tribe_meta_chunker_get_all_meta', function () {
+		      /* we cannot know, without making a query to get all the current post meta, if a post that has at least
+		      one meta key registered for chunking, should be filtered when getting all meta or not. */
+
+		      return null;
+	      } );
+	      add_filter( 'tribe_meta_chunker_update_meta', function () {
+		      $this->fail( 'Should not hit this filter when trying to update meta of post that has not registered chunked meta' );
+	      } );
+	      add_filter( 'tribe_meta_chunker_delete_meta', function () {
+		      $this->fail( 'Should not hit this filter when trying to delete meta of post that has not registered chunked meta' );
+	      } );
+
+	      $sut->register_chunking_for( $id, 'not_foo' );
+
+	      $all_meta = get_post_meta( $id );
+	      add_post_meta( $id, 'foo', 23 );
+	      $this->assertEquals( 23, get_post_meta( $id, 'foo', true ) );
+	      update_post_meta( $id, 'foo', 'bar' );
+	      $this->assertEquals( 'bar', get_post_meta( $id, 'foo', true ) );
+	      delete_post_meta( $id, 'foo' );
+      }
+      
+      /**
+       * It should hit the cache when getting same post meta
+       * @test
+       */
+       public function it_should_hit_the_cache_when_getting_same_post_meta() {
+	       $id = $this->factory()->post->create( [ 'post_type' => 'post' ] );
+
+
+	       $sut = $this->make_instance();
+	       $sut->set_post_types( [ 'post' ] );
+	       $sut->register_chunking_for( $id, 'foo' );
+
+	       get_post_meta( $id );
+
+	       global $wpdb;
+	       $num_queries_before = $wpdb->num_queries;
+
+	       get_post_meta( $id );
+	       get_post_meta( $id );
+	       get_post_meta( $id );
+	       get_post_meta($id, 'foo');
+	       get_post_meta($id, 'foo');
+	       get_post_meta($id, 'foo');
+
+
+	       $this->assertEquals($num_queries_before, $wpdb->num_queries);
+       }
 }

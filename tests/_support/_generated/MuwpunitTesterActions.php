@@ -15,7 +15,23 @@ trait MuwpunitTesterActions
      */
     abstract protected function getScenario();
 
-    
+
+    /**
+     * [!] Method is generated. Documentation taken from corresponding module.
+     *
+     * Checks that array contains subset.
+     *
+     * @param array  $subset
+     * @param array  $array
+     * @param bool   $strict
+     * @param string $message
+     * @see \Codeception\Module::assertArraySubset()
+     */
+    public function assertArraySubset($subset, $array, $strict = null, $message = null) {
+        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertArraySubset', func_get_args()));
+    }
+
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -26,7 +42,7 @@ trait MuwpunitTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('bootstrapActions', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -37,7 +53,7 @@ trait MuwpunitTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('activatePlugins', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -48,7 +64,7 @@ trait MuwpunitTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('loadPlugins', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *

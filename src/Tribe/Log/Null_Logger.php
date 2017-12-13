@@ -6,7 +6,7 @@
  * 
  * Logs nothing, reads nothing.
  */
-class Tribe__Log__Null_Logger implements Tribe__Log__Logger{
+class Tribe__Log__Null_Logger implements Tribe__Log__Logger {
 
 	/**
 	 * Indicates if the logger will work in the current environment.

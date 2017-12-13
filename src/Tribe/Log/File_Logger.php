@@ -60,7 +60,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	protected function obtain_handle() {
 		$this->close_handle();
 
-		if ( ! file_exists( $this->log_file ) ) {
+		if ( ! file_exists( $this->log_file ) && $this->is_available() ) {
 			touch( $this->log_file );
 		}
 
@@ -207,14 +207,39 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	 *       '2016-12-30',
 	 *       '2016-12-30', ... ]
 	 *
+	 * @since 4.6.2 added extra safety checks before attempting to access log directory
+	 *
 	 * @return array
 	 */
 	public function list_available_logs() {
 		$logs = array();
+
+		// This could be called when the log dir is not accessible.
+		if ( ! $this->is_available() ) {
+			return $logs;
+		}
+
 		$basename = $this->get_log_file_basename();
 
+		/**
+		 * Though the is_available() method tests to see if the log directory is
+		 * readable and writeable there are situations where that isn't a
+		 * sufficient check by itself, hence the try/catch block.
+		 *
+		 * @see https://central.tri.be/issues/90436
+		 */
+		try {
+			$log_files_dir = new DirectoryIterator( $this->log_dir );
+		} catch ( Exception $e ) {
+			return $logs;
+		}
+
 		// Look through the log storage directory
-		foreach ( new DirectoryIterator( $this->log_dir ) as $node ) {
+		foreach ( $log_files_dir as $node ) {
+			if ( ! $node->isReadable() ) {
+				continue;
+			}
+
 			$name = $node->getFilename();
 
 			// DirectoryIterator::getExtension() is only available on 5.3.6

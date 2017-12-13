@@ -5,8 +5,8 @@ namespace _generated;
 // You should not change it manually as it will be overwritten on next build
 // @codingStandardsIgnoreFile
 
-use Helper\Wpunit;
 use Codeception\Module\WPLoader;
+use Helper\Wpunit;
 
 trait WpunitTesterActions
 {
@@ -15,7 +15,7 @@ trait WpunitTesterActions
      */
     abstract protected function getScenario();
 
-    
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -31,7 +31,7 @@ trait WpunitTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertArraySubset', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -42,7 +42,7 @@ trait WpunitTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('bootstrapActions', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -53,7 +53,7 @@ trait WpunitTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('activatePlugins', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -64,7 +64,7 @@ trait WpunitTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('loadPlugins', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *

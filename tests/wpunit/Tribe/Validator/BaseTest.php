@@ -217,4 +217,161 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	public function test_trim( $value, $expected ) {
 		$this->assertEquals( $expected, $this->make_instance()->trim( $value ) );
 	}
+
+	public function bad_post_tags() {
+		return [
+			[ 0 ],
+			[ '0' ],
+			[ 'foo' ],
+			[ 23 ], // not present
+			[ '23' ], // not present
+		];
+	}
+
+	/**
+	 * Test is_post_tag with bad tags
+	 *
+	 * @test
+	 * @dataProvider bad_post_tags
+	 */
+	public function test_is_post_tag_with_bad_tags( $tag ) {
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_post_tag( $tag ) );
+	}
+
+	/**
+	 * Test is_post_tag with good tags
+	 *
+	 * @test
+	 */
+	public function test_is_post_tag_with_good_tags() {
+		$tag_1 = $this->factory()->tag->create( [ 'slug' => 'foo' ] );
+		$tag_2 = $this->factory()->tag->create();
+
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->is_post_tag( $tag_1 ) );
+		$this->assertTrue( $sut->is_post_tag( $tag_2 ) );
+		$this->assertTrue( $sut->is_post_tag( [ $tag_1, $tag_2 ] ) );
+		$this->assertTrue( $sut->is_post_tag( "{$tag_1},{$tag_2}" ) );
+	}
+
+	/**
+	 * Test is_post_tag with multiple tags
+	 *
+	 * @test
+	 */
+	public function test_is_post_tag_with_multiple_tags() {
+		$tag_1 = $this->factory()->tag->create( [ 'slug' => 'foo' ] );
+		$tag_2 = $this->factory()->tag->create();
+		$category = $this->factory()->category->create();
+
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->is_post_tag( [ $tag_1, $tag_2 ] ) );
+		$this->assertFalse( $sut->is_post_tag( [ $tag_1, $tag_2, $category ] ) );
+	}
+
+	public function post_id_bad_inputs() {
+		return [
+			[ '' ],
+			[ null ],
+			[ false ],
+			[ 'foo' ],
+			[ '23' ],
+			[ 23 ],
+			[ 0 ],
+			[ '0' ],
+		];
+	}
+
+	/**
+	 * Test is_image with bad_inputs
+	 *
+	 * @test
+	 * @dataProvider post_id_bad_inputs
+	 */
+	public function test_is_image_with_bad_inputs( $bad_input ) {
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_image( $bad_input ) );
+	}
+
+	/**
+	 * Test is_image with good inputs
+	 *
+	 * @test
+	 */
+	public function test_is_image_with_good_inputs() {
+		$image_url = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
+		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
+		$image_uploader = new \Tribe__Image__Uploader( $image_url );
+		$image_id = $image_uploader->upload_and_get_attachment_id();
+
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->is_image( $image_url ) );
+		$this->assertTrue( $sut->is_image( $image_id ) );
+		$this->assertFalse( $sut->is_image( $bad_image_url ) );
+	}
+
+	public function is_url_inputs() {
+		return [
+			[ 'foo', false ],
+			[ 23, false ],
+			[ '23', false ],
+			[ array( 'foo' => 'http://example.com' ), false ],
+			[ 'http://foo.bar', true ],
+			[ 'http://foo.com', true ],
+			[ 'http://foo.com/foo/bar/baz', true ],
+			[ 'https://foo.bar', true ],
+			[ 'https://foo.com', true ],
+			[ 'https://foo.com/foo/bar/baz', true ],
+			[ 'http://foo.bar:8080', true ],
+			[ 'http://foo.com:8080', true ],
+			[ 'http://foo.com:8080/foo/bar/baz', true ],
+			[ 'https://foo.bar:8080', true ],
+			[ 'https://foo.com:8080', true ],
+			[ 'https://foo.com:8080/foo/bar/baz', true ],
+			[ 'foo/bar/baz', false ],
+			[ '/foo/bar/baz', false ],
+		];
+	}
+
+	/**
+	 * Test is_url
+	 *
+	 * @test
+	 * @dataProvider is_url_inputs
+	 */
+	public function test_is_url( $input, $expected ) {
+		$sut = $this->make_instance();
+
+		$this->assertEquals( $expected, $sut->is_url( $input ) );
+	}
+
+	public function is_post_status_inputs() {
+		return [
+			[ 'publish', true ],
+			[ 'foo', false ],
+			[ 'draft', true ],
+			[ 23, false ],
+			[ '23', false ],
+			[ 'foo publish', false ],
+			[ 'future', true ],
+		];
+	}
+
+	/**
+	 * Test is_post_status
+	 *
+	 * @test
+	 * @dataProvider is_post_status_inputs
+	 */
+	public function test_is_post_status( $input, $expected ) {
+		$sut = $this->make_instance();
+
+		$this->assertEquals( $expected, $sut->is_post_status( $input ) );
+	}
 }
