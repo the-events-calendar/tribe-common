@@ -856,10 +856,7 @@ table.plugins .tribe-plugin-update-message a {
 	display: block;
 	line-height: 1.4;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> f731894be1d918f6018a75aea57195759fd01859
 #ui-datepicker-div {
 	display: none;
 }
@@ -1180,15 +1177,13 @@ a.tribe-rating-link {
 .api-check .plugin-list span.plugin-invalid:last-of-type:after {
 	content: '';
 }
-<<<<<<< HEAD
 
-=======
 .tribe-ea-dropdown,
 .tribe-dropdown {
 	max-width: 100%;
 	width: auto;
 }
->>>>>>> f731894be1d918f6018a75aea57195759fd01859
+
 .tribe-ea-dropdown.select2-container-active .select2-choice, .tribe-dropdown.select2-container-active .select2-choice {
 	border-color: #5897fb;
 	box-shadow: 0 0 5px rgba(0, 0, 0, .1);
@@ -1205,6 +1200,7 @@ a.tribe-rating-link {
 	border-radius: 3px;
 	border: 1px solid #ccc;
 }
+
 .tribe-ea-dropdown .select2-choice > .select2-chosen, .tribe-dropdown .select2-choice > .select2-chosen {
 	white-space: normal;
 }
@@ -1254,38 +1250,36 @@ a.tribe-rating-link {
 	left: 4px;
 	transition-property: border,color;
 }
-<<<<<<< HEAD
 
-.select2-drop.select2-drop-above.select2-drop-active {
-	border-bottom: 1px solid #5897fb;
-}
-
-.select2-drop .select2-results li.select2-result-with-children.select2-result-unselectable > .select2-result-label {
-=======
 .select2-results .select2-selected {
 	display: block;
 }
+
 .select2-results .select2-selected > .select2-result-label {
 	background-color: #efefef;
 	color: #a1a1a1;
 	cursor: default;
 }
+
 .select2-results li.select2-result-with-children > .select2-result-label {
 	font-weight: normal;
 }
+
 .select2-results li.select2-result-with-children.select2-selected {
 	display: block;
 }
+
 .select2-results li.select2-result-with-children.select2-selected .select2-result {
 	display: block;
 }
+
 .select2-results li.select2-result-with-children.select2-selected > .select2-result-label {
 	background-color: #efefef;
 	color: #a1a1a1;
 	cursor: default;
 }
+
 .select2-results li.select2-result-with-children.select2-result-unselectable > .select2-result-label {
->>>>>>> f731894be1d918f6018a75aea57195759fd01859
 	color: #939393;
 	font-weight: normal;
 }
