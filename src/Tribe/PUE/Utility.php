@@ -75,6 +75,7 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 				'api_invalid',
 				'api_invalid_message',
 				'api_inline_invalid_message',
+				'custom_update',
 			);
 
 			foreach ( $copyFields as $field ) {
@@ -83,19 +84,6 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 				}
 
 				$update->$field = $info->$field;
-			}
-
-			// Support custom $update properties coming straight from PUE
-			if ( ! empty( $info->custom_update ) ) {
-				$custom_update = get_object_vars( (object) $info->custom_update );
-
-				foreach ( $custom_update as $field => $custom_value ) {
-					if ( is_object( $custom_value ) ) {
-						$custom_value = get_object_vars( $custom_value );
-					}
-
-					$update->$field = $custom_value;
-				}
 			}
 
 			return $update;
@@ -117,6 +105,19 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 			$update->package     = $this->download_url;
 			if ( ! empty( $this->upgrade_notice ) ) {
 				$update->upgrade_notice = $this->upgrade_notice;
+			}
+
+			// Support custom $update properties coming straight from PUE
+			if ( ! empty( $this->custom_update ) ) {
+				$custom_update = get_object_vars( (object) $this->custom_update );
+
+				foreach ( $custom_update as $field => $custom_value ) {
+					if ( is_object( $custom_value ) ) {
+						$custom_value = get_object_vars( $custom_value );
+					}
+
+					$update->$field = $custom_value;
+				}
 			}
 
 			return $update;
