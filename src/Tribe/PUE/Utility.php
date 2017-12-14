@@ -30,6 +30,7 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 		public $download_url;
 		public $sections = array();
 		public $upgrade_notice;
+		public $custom_update;
 
 		/**
 		 * Create a new instance of Tribe__PUE__Utility from its JSON-encoded representation.
@@ -80,7 +81,21 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 				if ( ! isset( $info->$field ) ) {
 					continue;
 				}
+
 				$update->$field = $info->$field;
+			}
+
+			// Support custom $update properties coming straight from PUE
+			if ( ! empty( $info->custom_update ) ) {
+				$custom_update = get_object_vars( (object) $info->custom_update );
+
+				foreach ( $custom_update as $field => $custom_value ) {
+					if ( is_object( $custom_value ) ) {
+						$custom_value = get_object_vars( $custom_value );
+					}
+
+					$update->$field = $custom_value;
+				}
 			}
 
 			return $update;
