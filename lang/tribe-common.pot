@@ -2,29 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-<<<<<<< HEAD
-<<<<<<< HEAD
-"Project-Id-Version: Tribe Common 4.7dev1\n"
+"Project-Id-Version: Tribe Common 4.8dev1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2017-06-29 14:59:35+00:00\n"
+"POT-Creation-Date: 2017-12-14 00:11:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-06-29 14:59\n"
-=======
-=======
->>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
-"Project-Id-Version: Tribe Common 4.7.1\n"
-"Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2017-11-14 22:13:59+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-11-14 22:13\n"
-<<<<<<< HEAD
->>>>>>> f731894be1d918f6018a75aea57195759fd01859
-=======
->>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
+"PO-Revision-Date: 2017-12-14 00:11\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -212,7 +196,11 @@ msgstr ""
 msgid "Event Add-Ons"
 msgstr ""
 
-#: src/Tribe/Cost_Utils.php:108
+#: src/Tribe/Collisions/Average_Proximity_Start_Detector.php:156
+msgid "Margin must be an integer"
+msgstr ""
+
+#: src/Tribe/Cost_Utils.php:111
 msgid "Free"
 msgstr ""
 
@@ -228,19 +216,11 @@ msgstr ""
 msgid "Rate %1$sEvent Tickets%2$s %3$s"
 msgstr ""
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 #: src/Tribe/Cron.php:15
 msgid "Every Thirty Seconds"
 msgstr ""
 
-#: src/Tribe/Customizer.php:566
-=======
 #: src/Tribe/Customizer.php:569
->>>>>>> f731894be1d918f6018a75aea57195759fd01859
-=======
-#: src/Tribe/Customizer.php:569
->>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 msgid ""
 "Use the following panel of your customizer to change the styling of your "
 "Calendar and Event pages."
@@ -390,35 +370,24 @@ msgstr ""
 msgid "No select options specified"
 msgstr ""
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-#: src/Tribe/Formatter/Base.php:345
+#: src/Tribe/Formatter/Base.php:346
 msgid "Argument \"%1$s\" is required"
 msgstr ""
 
-#: src/Tribe/Formatter/Base.php:383
+#: src/Tribe/Formatter/Base.php:384
 msgid "The value provided for \"%1$s\" is invalid."
 msgstr ""
 
-#: src/Tribe/Formatter/Base.php:385
+#: src/Tribe/Formatter/Base.php:386
 msgid "Error while validating \"%1$s\": %2$s."
 msgstr ""
 
-#: src/Tribe/Formatter/Base.php:402
+#: src/Tribe/Formatter/Base.php:403
 msgid "Error while converting \"%1$s\": %2$s"
 msgstr ""
 
-#: src/Tribe/Log/Admin.php:136
-msgctxt "log selector"
-msgid "None currently available"
-=======
 #: src/Tribe/Languages/Locations.php:55
 msgid "United States"
->>>>>>> f731894be1d918f6018a75aea57195759fd01859
-=======
-#: src/Tribe/Languages/Locations.php:55
-msgid "United States"
->>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 msgstr ""
 
 #: src/Tribe/Languages/Locations.php:56
@@ -453,89 +422,6 @@ msgstr ""
 msgid "Anguilla"
 msgstr ""
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-#: src/Tribe/Main.php:227 src/admin-views/tribe-options-help.php:43
-msgid "Copy to clipboard"
-msgstr ""
-
-#: src/Tribe/Main.php:228
-msgid "System info copied"
-msgstr ""
-
-#: src/Tribe/Main.php:229
-msgid "Press \"Cmd + C\" to copy"
-msgstr ""
-
-#: src/Tribe/Main.php:247
-msgid ": activate to sort column ascending"
-msgstr ""
-
-#: src/Tribe/Main.php:248
-msgid ": activate to sort column descending"
-msgstr ""
-
-#: src/Tribe/Main.php:250
-msgid "Show _MENU_ entries"
-msgstr ""
-
-#: src/Tribe/Main.php:251
-msgid "No data available in table"
-msgstr ""
-
-#: src/Tribe/Main.php:252
-msgid "Showing _START_ to _END_ of _TOTAL_ entries"
-msgstr ""
-
-#: src/Tribe/Main.php:253
-msgid "Showing 0 to 0 of 0 entries"
-msgstr ""
-
-#: src/Tribe/Main.php:254
-msgid "(filtered from _MAX_ total entries)"
-msgstr ""
-
-#: src/Tribe/Main.php:255
-msgid "No matching records found"
-msgstr ""
-
-#: src/Tribe/Main.php:256
-msgid "Search:"
-msgstr ""
-
-#: src/Tribe/Main.php:258
-msgid "All"
-msgstr ""
-
-#: src/Tribe/Main.php:259 src/Tribe/Main.php:275
-msgid "Next"
-msgstr ""
-
-#: src/Tribe/Main.php:260
-msgid "Previous"
-msgstr ""
-
-#: src/Tribe/Main.php:265
-msgid ": Selected %d rows"
-msgstr ""
-
-#: src/Tribe/Main.php:266
-msgid ": Selected 1 row"
-msgstr ""
-
-#: src/Tribe/Main.php:276
-msgid "Prev"
-msgstr ""
-
-#: src/Tribe/Main.php:277
-msgid "Today"
-msgstr ""
-
-#: src/Tribe/Main.php:278
-msgid "Done"
-=======
-=======
->>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 #: src/Tribe/Languages/Locations.php:64
 msgid "Antarctica"
 msgstr ""
@@ -614,10 +500,6 @@ msgstr ""
 
 #: src/Tribe/Languages/Locations.php:83
 msgid "Bosnia and Herzegowina"
-<<<<<<< HEAD
->>>>>>> f731894be1d918f6018a75aea57195759fd01859
-=======
->>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 msgstr ""
 
 #: src/Tribe/Languages/Locations.php:84
@@ -1714,195 +1596,195 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:250 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:256 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:257
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:258
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:277
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:278
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:274
+#: src/Tribe/Main.php:280
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:275
+#: src/Tribe/Main.php:281
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:282
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:283
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:278
+#: src/Tribe/Main.php:284
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:285
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:286
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:281
+#: src/Tribe/Main.php:287
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:282
+#: src/Tribe/Main.php:288
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:283
+#: src/Tribe/Main.php:289
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:285
+#: src/Tribe/Main.php:291
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:286 src/Tribe/Main.php:302
+#: src/Tribe/Main.php:292 src/Tribe/Main.php:308
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:293
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:292
+#: src/Tribe/Main.php:298
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:293
+#: src/Tribe/Main.php:299
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:303
+#: src/Tribe/Main.php:309
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:304
+#: src/Tribe/Main.php:310
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:305
+#: src/Tribe/Main.php:311
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:494
+#: src/Tribe/PUE/Checker.php:495
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:497
+#: src/Tribe/PUE/Checker.php:498
 msgid ""
 "%1$sBuy a license%2$s for the Event Aggregator service to access additional "
 "import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:509 src/Tribe/PUE/Checker.php:520
+#: src/Tribe/PUE/Checker.php:510 src/Tribe/PUE/Checker.php:521
 msgid "License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:529 src/Tribe/PUE/Checker.php:563
+#: src/Tribe/PUE/Checker.php:530 src/Tribe/PUE/Checker.php:564
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:538
+#: src/Tribe/PUE/Checker.php:539
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:539
+#: src/Tribe/PUE/Checker.php:540
 msgid ""
 "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:550
+#: src/Tribe/PUE/Checker.php:551
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:650
+#: src/Tribe/PUE/Checker.php:657
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:888
+#: src/Tribe/PUE/Checker.php:899
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:901
+#: src/Tribe/PUE/Checker.php:914
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:907
+#: src/Tribe/PUE/Checker.php:920
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:927
+#: src/Tribe/PUE/Checker.php:940
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:932
+#: src/Tribe/PUE/Checker.php:945
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:283
+#: src/Tribe/PUE/Checker.php:973 src/Tribe/PUE/Notices.php:283
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:961 src/Tribe/PUE/Notices.php:285
+#: src/Tribe/PUE/Checker.php:975 src/Tribe/PUE/Notices.php:285
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:976
+#: src/Tribe/PUE/Checker.php:990
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:997
+#: src/Tribe/PUE/Checker.php:1011
 msgid ""
 "There is an update for %s. You'll need to %scheck your license%s to have "
 "access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1054
+#: src/Tribe/PUE/Checker.php:1077
 msgid ""
 "There is an update for %s. %sRenew your license%s to get access to bug "
 "fixes, security updates, and new features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1084
+#: src/Tribe/PUE/Checker.php:1108
 msgid "Update now to version %s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1095
+#: src/Tribe/PUE/Checker.php:1120
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1668
+#: src/Tribe/PUE/Checker.php:1696
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1669
+#: src/Tribe/PUE/Checker.php:1697
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1670
+#: src/Tribe/PUE/Checker.php:1698
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
