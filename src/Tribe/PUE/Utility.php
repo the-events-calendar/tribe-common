@@ -109,7 +109,7 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 
 			// Support custom $update properties coming straight from PUE
 			if ( ! empty( $this->custom_update ) ) {
-				$custom_update = get_object_vars( (object) $this->custom_update );
+				$custom_update = get_object_vars( $this->custom_update );
 
 				foreach ( $custom_update as $field => $custom_value ) {
 					if ( is_object( $custom_value ) ) {
