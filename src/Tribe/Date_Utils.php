@@ -1170,7 +1170,6 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			return str_replace( '\\\\', '\\', $date_format );
 		}
 
-
 		/**
 		 * Converts an ordinal into an integer value.
 		 *

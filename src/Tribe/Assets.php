@@ -135,6 +135,10 @@ class Tribe__Assets {
 		$assets = $this->get();
 
 		foreach ( $assets as $asset ) {
+			if ( $asset->already_enqueued ) {
+				continue;
+			}
+
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
 			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
 			$in_filter    = in_array( current_filter(), (array) $asset->action );
@@ -206,18 +210,30 @@ class Tribe__Assets {
 					 * Check to ensure we haven't already localized it before
 					 * @since 4.5.8
 					 */
-					foreach ( $localization as $localize ) {
-						if ( in_array( $localize->name, $this->localized ) ) {
-							continue;
-						}
+					if ( is_array( $asset->localize ) ) {
+						foreach ( $asset->localize as $local_asset ) {
+							if ( ! in_array( $local_asset->name, $this->localized ) ) {
+								if ( is_callable( $local_asset->data ) ) {
+									$data = call_user_func_array( $local_asset->data, array( $local_asset ) );
+								} else {
+									$data = $local_asset->data;
+								}
 
-						// If we have a Callable as the Localize data we execute it
-						if ( is_callable( $localize->data ) ) {
-							$localize->data = call_user_func_array( $localize->data, array( $asset ) );
+								wp_localize_script( $asset->slug, $local_asset->name, $data );
+								$this->localized[] = $local_asset->name;
+							}
 						}
+					} else {
+						if ( ! in_array( $asset->localize->name, $this->localized ) ) {
+							if ( is_callable( $asset->localize->data ) ) {
+								$data = call_user_func_array( $asset->localize->data, array( $asset ) );
+							} else {
+								$data = $asset->localize->data;
+							}
 
-						wp_localize_script( $asset->slug, $localize->name, $localize->data );
-						$this->localized[] = $localize->name;
+							wp_localize_script( $asset->slug, $asset->localize->name, $data );
+							$this->localized[] = $asset->localize->name;
+						}
 					}
 				}
 			} else {
@@ -306,7 +322,7 @@ class Tribe__Assets {
 	 * @param  string       $slug      Slug to save the asset
 	 * @param  string       $file      Which file will be loaded, either CSS or JS
 	 * @param  array        $deps      Dependencies
-	 * @param  string|null  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
+	 * @param  string|null|array  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
 	 * @param  string|array $arguments {
 	 *     Optional. Array or string of parameters for this asset
 	 *
@@ -383,16 +399,23 @@ class Tribe__Assets {
 		$asset = (object) wp_parse_args( $arguments, $defaults );
 
 		// Enforce these one
-		$asset->slug        = $slug;
-		$asset->file        = $file;
-		$asset->deps        = $deps;
-		$asset->action      = $action;
-		$asset->origin_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath );
-		$asset->origin_name = $origin_name;
+		$asset->slug             = $slug;
+		$asset->file             = $file;
+		$asset->deps             = $deps;
+		$asset->action           = $action;
+		$asset->origin_path      = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath );
+		$asset->origin_name      = $origin_name;
+		$asset->already_enqueued = false;
 
 		// Origin URL might throw notices so we double check
 		$asset->origin_url  = ! empty( $origin->plugin_url ) ? $origin->plugin_url : null;
 		$asset->origin_url  = ! empty( $origin->pluginUrl ) ? $origin->pluginUrl : null;
+		if ( ! empty( $asset->origin_url ) ) {
+			$asset->origin_url = trailingslashit( $asset->origin_url );
+		}
+
+		// Origin URL might throw notices so we double check
+		$asset->origin_url  = ! empty( $origin->plugin_url ) ? $origin->plugin_url : null;
 		if ( ! empty( $asset->origin_url ) ) {
 			$asset->origin_url = trailingslashit( $asset->origin_url );
 		}

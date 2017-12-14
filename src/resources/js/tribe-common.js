@@ -51,8 +51,8 @@ tribe_auto_sysinfo.ajax = {
 	'use strict';
 
 	my.init = function () {
-		this.init_ajax();
-		this.init_copy();
+		my.init_ajax();
+		my.init_copy();
 		my.navigate_to_id();
 	};
 

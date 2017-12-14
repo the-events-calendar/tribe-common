@@ -1251,16 +1251,29 @@ a.tribe-rating-link {
 	transition-property: border,color;
 }
 
+<<<<<<< HEAD
 .select2-results .select2-selected {
 	display: block;
 }
 
 .select2-results .select2-selected > .select2-result-label {
+=======
+.select2-drop.select2-drop-above.select2-drop-active {
+	border-bottom: 1px solid #5897fb;
+}
+
+.select2-drop .select2-results .select2-selected {
+	display: block;
+}
+
+.select2-drop .select2-results .select2-selected > .select2-result-label {
+>>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 	background-color: #efefef;
 	color: #a1a1a1;
 	cursor: default;
 }
 
+<<<<<<< HEAD
 .select2-results li.select2-result-with-children > .select2-result-label {
 	font-weight: normal;
 }
@@ -1274,12 +1287,31 @@ a.tribe-rating-link {
 }
 
 .select2-results li.select2-result-with-children.select2-selected > .select2-result-label {
+=======
+.select2-drop .select2-results li.select2-result-with-children > .select2-result-label {
+	font-weight: normal;
+}
+
+.select2-drop .select2-results li.select2-result-with-children.select2-selected {
+	display: block;
+}
+
+.select2-drop .select2-results li.select2-result-with-children.select2-selected .select2-result {
+	display: block;
+}
+
+.select2-drop .select2-results li.select2-result-with-children.select2-selected > .select2-result-label {
+>>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 	background-color: #efefef;
 	color: #a1a1a1;
 	cursor: default;
 }
 
+<<<<<<< HEAD
 .select2-results li.select2-result-with-children.select2-result-unselectable > .select2-result-label {
+=======
+.select2-drop .select2-results li.select2-result-with-children.select2-result-unselectable > .select2-result-label {
+>>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 	color: #939393;
 	font-weight: normal;
 }

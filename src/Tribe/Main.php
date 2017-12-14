@@ -248,6 +248,7 @@ class Tribe__Main {
 			'admin_enqueue_scripts',
 			array(
 				'priority' => 0,
+				'conditionals' => array( $this, 'should_load_common_admin_css' ),
 				'localize' => (object) array(
 					'name' => 'tribe_system_info',
 					'data' => array(

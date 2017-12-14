@@ -720,6 +720,10 @@ tribe.validation = {};
 	 */
 	obj.onChangeFieldRemoveError = function( event ) {
 		var $field = $( this );
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 		var $relatedFields = obj.getConstraintsFields( $field );
 
 		if ( 0 !== $relatedFields.filter( obj.selectors.error ).length ) {

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class Tribe__Queue__Worker
+ *
+ * @since TBD
+ */
 class Tribe__Queue__Worker {
 
 	public static $queued = 'queued';
@@ -47,12 +52,19 @@ class Tribe__Queue__Worker {
 	protected $priority = 10;
 
 	/**
+	 * @var string
+	 */
+	protected $group;
+
+	/**
 	 * @var mixed Additional data that will be passed to the callback function to comp
 	 */
-	private $data;
+	protected $data;
 
 	/**
 	 * Tribe__Queue__Worker constructor.
+	 *
+	 * @since TBD
 	 *
 	 * @param array                 $targets   An array of target objects the worker should commplete.
 	 * @param array                 $remaining An array of target objects the worker still has to work on.
@@ -62,9 +74,14 @@ class Tribe__Queue__Worker {
 	 *                                         target index in the complete list of targets and the data for this work.
 	 * @param mixed                 $data      Some additional data that will be passed to the work callback.
 	 * @param string                $status    A string representing  the status of this Worker.
+	 * @param int                   $priority  The priority assigned to this worker in the queue system.
+	 * @param null                  $group     The queue group the work belongs to.
 	 */
-	public function __construct( array $targets, array $remaining, $callback, $data = null, $status = null, $priority = 10 ) {
+	public function __construct( array $targets, array $remaining, $callback, $data = null, $status = null, $priority = 10, $group = null ) {
 		$this->id = md5( serialize( $targets ) . serialize( $callback ) . serialize( $data ) );
+		if ( null !== $group ) {
+			$this->id = "{$group}|{$this->id}";
+		}
 		$this->targets = $targets;
 		$this->remaining = $remaining;
 		$this->status = null !== $status ? $status : self::$queued;
@@ -77,22 +94,30 @@ class Tribe__Queue__Worker {
 		$this->data = $data;
 		$this->status = empty( $targets ) ? self::$done : $status;
 		$this->priority = $priority;
+		$this->group = $group;
 	}
 
 	/**
 	 * Saves the status of this worker in a transient on the database.
 	 *
+	 * @since TBD
+	 *
+	 * @param int $expire The expiration time, in seconds, of the transient storing the job data.
+	 *
 	 * @return string The worker id.
 	 */
-	public function save() {
+	public function save( $expire = null ) {
+		$expire    = null !== $expire ? $expire : DAY_IN_SECONDS;
 		$transient = $this->build_transient_name();
-		set_transient( $transient, json_encode( $this->to_array() ), 2 * DAY_IN_SECONDS );
+		set_transient( $transient, json_encode( $this->to_array() ), $expire );
 
 		return $this->id;
 	}
 
 	/**
 	 * Returns an array representation of the worker.
+	 *
+	 * @since TBD
 	 *
 	 * @return array An array representation of the worker.
 	 */
@@ -105,11 +130,14 @@ class Tribe__Queue__Worker {
 			'status'     => $this->status,
 			'batch_size' => $this->batch_size,
 			'priority'   => $this->priority,
+			'group'      => $this->group,
 		);
 	}
 
 	/**
 	 * Returns the worker current status.
+	 *
+	 * @since TBD
 	 *
 	 * @return string
 	 */
@@ -120,7 +148,7 @@ class Tribe__Queue__Worker {
 	/**
 	 * Builds the name of the transient storing a work information from its work id.
 	 *
-	 * @param string $work_id
+	 * @since TBD
 	 *
 	 * @return string The complete transient name.
 	 */
@@ -132,6 +160,8 @@ class Tribe__Queue__Worker {
 
 	/**
 	 * Sets the batch size this worker should use.
+	 *
+	 * @since TBD
 	 *
 	 * @param int $batch_size
 	 *
@@ -150,6 +180,8 @@ class Tribe__Queue__Worker {
 
 	/**
 	 * Tells the worker to work on a batch of its queue.
+	 *
+	 * @since TBD
 	 *
 	 * @return string The worker id.
 	 */
@@ -197,6 +229,8 @@ class Tribe__Queue__Worker {
 	/**
 	 * Returns an array of the remaining targets the worker should work on.
 	 *
+	 * @since TBD
+	 *
 	 * @return array
 	 */
 	public function get_remaining() {
@@ -205,6 +239,8 @@ class Tribe__Queue__Worker {
 
 	/**
 	 * Returns the worker id.
+	 *
+	 * @since TBD
 	 *
 	 * @return string
 	 */
@@ -215,6 +251,8 @@ class Tribe__Queue__Worker {
 	/**
 	 * Returns the name of the transient the worker saves and reads its status from.
 	 *
+	 * @since TBD
+	 *
 	 * @return string
 	 */
 	public function get_transient_name() {
@@ -223,6 +261,8 @@ class Tribe__Queue__Worker {
 
 	/**
 	 * Reads the worker status from the database.
+	 *
+	 * @since TBD
 	 *
 	 * This is not in sync with save to allow for undo!
 	 *
@@ -236,6 +276,10 @@ class Tribe__Queue__Worker {
 	}
 
 	/**
+	 * Whether the callback is a standard callable function or one managed by the container.
+	 *
+	 * @since TBD
+	 *
 	 * @param $callback
 	 *
 	 * @return bool
@@ -247,7 +291,11 @@ class Tribe__Queue__Worker {
 	/**
 	 * Sets the work priority in a way similar to the one used by WordPress hooks and filters: lower goes first.
 	 *
+	 * @since TBD
+	 *
 	 * @param int $priority
+	 *
+	 * @return $this
 	 */
 	public function set_priority( $priority ) {
 		if ( ! filter_var( $priority, FILTER_VALIDATE_INT ) ) {
@@ -261,6 +309,8 @@ class Tribe__Queue__Worker {
 
 	/**
 	 * Returns the work priority.
+	 *
+	 * @since TBD
 	 *
 	 * @return int
 	 */

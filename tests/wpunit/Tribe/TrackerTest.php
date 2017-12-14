@@ -146,7 +146,7 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function not_track_changes_if_the_object_is_not_a_post() {
-		$object = $this->factory()->user->create();
+		$object = $this->factory()->user->create_and_get();
 		$original_mod = time() - HOUR_IN_SECONDS;
 		update_post_meta( $object, Tracker::$field_key, [ 'post_tag' => $original_mod ] );
 		$foo = $this->factory()->tag->create_and_get( [ 'name' => 'foo' ] );

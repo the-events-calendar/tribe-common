@@ -3,6 +3,7 @@
 msgid ""
 msgstr ""
 <<<<<<< HEAD
+<<<<<<< HEAD
 "Project-Id-Version: Tribe Common 4.7dev1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
 "POT-Creation-Date: 2017-06-29 14:59:35+00:00\n"
@@ -11,6 +12,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2017-06-29 14:59\n"
 =======
+=======
+>>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 "Project-Id-Version: Tribe Common 4.7.1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
 "POT-Creation-Date: 2017-11-14 22:13:59+00:00\n"
@@ -18,7 +21,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2017-11-14 22:13\n"
+<<<<<<< HEAD
 >>>>>>> f731894be1d918f6018a75aea57195759fd01859
+=======
+>>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -206,10 +212,6 @@ msgstr ""
 msgid "Event Add-Ons"
 msgstr ""
 
-#: src/Tribe/Collisions/Average_Proximity_Start_Detector.php:156
-msgid "Margin must be an integer"
-msgstr ""
-
 #: src/Tribe/Cost_Utils.php:108
 msgid "Free"
 msgstr ""
@@ -227,6 +229,7 @@ msgid "Rate %1$sEvent Tickets%2$s %3$s"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Cron.php:15
 msgid "Every Thirty Seconds"
 msgstr ""
@@ -235,6 +238,9 @@ msgstr ""
 =======
 #: src/Tribe/Customizer.php:569
 >>>>>>> f731894be1d918f6018a75aea57195759fd01859
+=======
+#: src/Tribe/Customizer.php:569
+>>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 msgid ""
 "Use the following panel of your customizer to change the styling of your "
 "Calendar and Event pages."
@@ -385,6 +391,7 @@ msgid "No select options specified"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Formatter/Base.php:345
 msgid "Argument \"%1$s\" is required"
 msgstr ""
@@ -408,6 +415,10 @@ msgid "None currently available"
 #: src/Tribe/Languages/Locations.php:55
 msgid "United States"
 >>>>>>> f731894be1d918f6018a75aea57195759fd01859
+=======
+#: src/Tribe/Languages/Locations.php:55
+msgid "United States"
+>>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 msgstr ""
 
 #: src/Tribe/Languages/Locations.php:56
@@ -442,6 +453,7 @@ msgstr ""
 msgid "Anguilla"
 msgstr ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #: src/Tribe/Main.php:227 src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
@@ -522,6 +534,8 @@ msgstr ""
 #: src/Tribe/Main.php:278
 msgid "Done"
 =======
+=======
+>>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 #: src/Tribe/Languages/Locations.php:64
 msgid "Antarctica"
 msgstr ""
@@ -600,7 +614,10 @@ msgstr ""
 
 #: src/Tribe/Languages/Locations.php:83
 msgid "Bosnia and Herzegowina"
+<<<<<<< HEAD
 >>>>>>> f731894be1d918f6018a75aea57195759fd01859
+=======
+>>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
 msgstr ""
 
 #: src/Tribe/Languages/Locations.php:84

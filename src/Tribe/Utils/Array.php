@@ -163,6 +163,26 @@ class Tribe__Utils__Array {
 	}
 
 	/**
+	 * Returns the value of the element associated with the first matching index among the provided ones
+	 * or a default value no specified index was found.
+	 *
+	 * @since TBD
+	 *
+	 * @param array      $haystack The array to search
+	 * @param array      $indexes  An array of indexes to look for; the match will be attempted left to right.
+	 * @param mixed|null $default  A value to return if no index could be matched.
+	 *
+	 * @return mixed The value associated with the first matching index or the default value.
+	 */
+	public static function get_any( array $haystack, array $indexes, $default = null ) {
+		$common = array_intersect_key( array_combine( $indexes, $indexes ), $haystack );
+
+		return ! empty( $common )
+			? $haystack[ reset( $common ) ]
+			: $default;
+	}
+
+	/**
 	 * Returns a list separated by the specified separator.
 	 *
 	 * @since 4.6

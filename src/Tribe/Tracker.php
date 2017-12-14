@@ -355,7 +355,8 @@ class Tribe__Tracker {
 
 		$tracked_post_types = $this->get_post_types();
 
-		$post = get_post( $object_id );
+		$post = $this->get_post( $object_id );
+
 		if ( empty( $post ) || ! in_array( $post->post_type, $tracked_post_types ) ) {
 			return false;
 		}
@@ -425,5 +426,25 @@ class Tribe__Tracker {
 	 */
 	public function set_tracked_post_types( array $tracked_post_types ) {
 		$this->tracked_post_types = $tracked_post_types;
+	}
+
+	/**
+	 * Builds and returns a valid post object from the post object input.
+	 *
+	 * @since TBD
+	 *
+	 * @param int|WP_Post $object_id Either a post ID or a post object
+	 *
+	 * @return bool|WP_Post A post object if the post ID or passed post object is valid, `false` otherwise.
+	 */
+	protected function get_post( $object_id ) {
+		$post = false;
+		if ( is_numeric( $object_id ) ) {
+			$post = get_post( $object_id );
+		} elseif ( isset( $object_id->post_type ) ) {
+			$post = $object_id;
+		}
+
+		return $post;
 	}
 }

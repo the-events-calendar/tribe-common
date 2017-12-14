@@ -41,6 +41,16 @@ class ArrayTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Test list_to_array
+	 *
+	 * @test
+	 * @dataProvider list_to_array_inputs
+	 */
+	public function test_list_to_array( $input, $sep, $expected ) {
+		$this->assertEquals( $expected, \Tribe__Utils__Array::list_to_array( $input, $sep ) );
+	}
+
+	/**
 	 * Test get_any
 	 *
 	 * @test
@@ -57,15 +67,4 @@ class ArrayTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, Arr::get_any( $input, $indexes, $default ) );
 	}
-
-	/**
-	 * Test list_to_array
-	 *
-	 * @test
-	 * @dataProvider list_to_array_inputs
-	 */
-	public function test_list_to_array( $input, $sep, $expected ) {
-		$this->assertEquals( $expected, \Tribe__Utils__Array::list_to_array( $input, $sep ) );
-	}
-
 }
