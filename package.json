@@ -1,10 +1,6 @@
 {
   "name": "tribe-common",
-<<<<<<< HEAD
   "version": "4.8.0dev1",
-=======
-  "version": "4.7.0dev1",
->>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
   "repository": "git@github.com:moderntribe/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",

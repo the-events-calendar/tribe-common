@@ -1216,10 +1216,7 @@ return array(
     'PHPUnit\\Framework\\TestCase' => $vendorDir . '/phpunit/phpunit/src/Framework/TestCase.php',
     'PHPUnit\\Framework\\TestFailure' => $vendorDir . '/phpunit/phpunit/src/Framework/TestFailure.php',
     'PHPUnit\\Framework\\TestListener' => $vendorDir . '/phpunit/phpunit/src/Framework/TestListener.php',
-<<<<<<< HEAD
     'PHPUnit\\Framework\\TestListenerDefaultImplementation' => $vendorDir . '/phpunit/phpunit/src/Framework/TestListenerDefaultImplementation.php',
-=======
->>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
     'PHPUnit\\Framework\\TestResult' => $vendorDir . '/phpunit/phpunit/src/Framework/TestResult.php',
     'PHPUnit\\Framework\\TestSuite' => $vendorDir . '/phpunit/phpunit/src/Framework/TestSuite.php',
     'PHPUnit\\Framework\\TestSuiteIterator' => $vendorDir . '/phpunit/phpunit/src/Framework/TestSuiteIterator.php',
@@ -1263,15 +1260,10 @@ return array(
     'PHPUnit\\Util\\TestDox\\ResultPrinter' => $vendorDir . '/phpunit/phpunit/src/Util/TestDox/ResultPrinter.php',
     'PHPUnit\\Util\\TestDox\\TextResultPrinter' => $vendorDir . '/phpunit/phpunit/src/Util/TestDox/TextResultPrinter.php',
     'PHPUnit\\Util\\TestDox\\XmlResultPrinter' => $vendorDir . '/phpunit/phpunit/src/Util/TestDox/XmlResultPrinter.php',
-<<<<<<< HEAD
     'PHPUnit\\Util\\TextTestListRenderer' => $vendorDir . '/phpunit/phpunit/src/Util/TextTestListRenderer.php',
     'PHPUnit\\Util\\Type' => $vendorDir . '/phpunit/phpunit/src/Util/Type.php',
     'PHPUnit\\Util\\Xml' => $vendorDir . '/phpunit/phpunit/src/Util/Xml.php',
     'PHPUnit\\Util\\XmlTestListRenderer' => $vendorDir . '/phpunit/phpunit/src/Util/XmlTestListRenderer.php',
-=======
-    'PHPUnit\\Util\\Type' => $vendorDir . '/phpunit/phpunit/src/Util/Type.php',
-    'PHPUnit\\Util\\Xml' => $vendorDir . '/phpunit/phpunit/src/Util/Xml.php',
->>>>>>> 9f4518abc3932694ddc85e39e4a54384744ddc27
     'PHPUnit_Framework_MockObject_BadMethodCallException' => $vendorDir . '/phpunit/phpunit-mock-objects/src/Exception/BadMethodCallException.php',
     'PHPUnit_Framework_MockObject_Builder_Identity' => $vendorDir . '/phpunit/phpunit-mock-objects/src/Builder/Identity.php',
     'PHPUnit_Framework_MockObject_Builder_InvocationMocker' => $vendorDir . '/phpunit/phpunit-mock-objects/src/Builder/InvocationMocker.php',
