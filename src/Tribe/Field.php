@@ -786,7 +786,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		/**
 		 * Generate an email address field
 		 *
-		 * @since TBD
+		 * @since 4.7.4
 		 *
 		 * @return string The field
 		 */

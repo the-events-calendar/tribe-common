@@ -523,7 +523,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * Validates and sanitizes an email address.
 		 *
-		 * @since TBD
+		 * @since 4.7.4
 		 */
 		public function email(  ) {
 			$candidate = trim( $this->value );
