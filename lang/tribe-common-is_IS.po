@@ -11,6 +11,10 @@ msgstr ""
 "Language: is\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Validate.php:534
+msgid "%s must be an email address."
+msgstr ""
+
 #: src/Tribe/Languages/Locations.php:252
 msgid "Sint Maarten"
 msgstr ""
@@ -812,7 +816,7 @@ msgstr ""
 msgid "Go to plugins page"
 msgstr ""
 
-#: src/Tribe/Cost_Utils.php:108
+#: src/Tribe/Cost_Utils.php:114
 msgid "Free"
 msgstr "Frítt"
 
@@ -2286,19 +2290,19 @@ msgstr "Stillingar vistaðar."
 msgid "General"
 msgstr "Flokkur"
 
-#: src/Tribe/Field.php:616
+#: src/Tribe/Field.php:617
 msgid "No select options specified"
 msgstr "Enginn valinn valkostur ákveðinn"
 
-#: src/Tribe/Field.php:558
+#: src/Tribe/Field.php:559
 msgid "No checkbox options specified"
 msgstr "Enginn valglugga möguleiki ákveðinn"
 
-#: src/Tribe/Field.php:522
+#: src/Tribe/Field.php:523
 msgid "No radio options specified"
 msgstr "Enginn útvarps valmöguleiki ákveðinn"
 
-#: src/Tribe/Field.php:227
+#: src/Tribe/Field.php:228
 msgid "Invalid field type specified"
 msgstr "Ógild tegund svæðis ákveðin"
 
