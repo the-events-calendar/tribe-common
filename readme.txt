@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.4] 2017-12-19 =
+= [4.7.4] 2017-12-18 =
 
 * Fix - Fixed Event Cost field causing an error if it did not contain any numeric characters [95400]
 * Fix - Fixed the color of the license key validation messages [91890]
