@@ -607,7 +607,7 @@ if ( ! function_exists( 'tribe_doing_frontend' ) ) {
 	 * Registers truthy or falsy callbacks on the filters used to detect if
 	 * any frontend operation is being done for logged in users or not.
 	 *
-	 * @since TBd
+	 * @since 4.7.4
 	 *
 	 * @param bool $doing_frontend Whether what is being done happens in the
 	 *                             context of the frontend or not.

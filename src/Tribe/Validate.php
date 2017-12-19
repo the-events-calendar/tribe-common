@@ -55,11 +55,11 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * Class constructor
 		 *
-		 * @param string $field_id the field ID to validate
-		 * @param array  $field_id the field object to validate
-		 * @param mixed  $value    the value to validate
+		 * @param string $field_id The field ID to validate
+		 * @param array  $field    The field object to validate
+		 * @param mixed  $value    The value to validate
 		 *
-		 * @return array $result the result of the validation
+		 * @return array $result The result of the validation
 		 */
 		public function __construct( $field_id, $field, $value, $additional_args = array() ) {
 
@@ -518,6 +518,23 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 */
 		public function none() {
 			$this->result->valid = true;
+		}
+
+		/**
+		 * Validates and sanitizes an email address.
+		 *
+		 * @since 4.7.4
+		 */
+		public function email(  ) {
+			$candidate = trim( $this->value );
+
+			$this->result->valid = filter_var( $candidate, FILTER_VALIDATE_EMAIL );
+
+			if ( ! $this->result->valid ) {
+				$this->result->error = sprintf( esc_html__( '%s must be an email address.', 'tribe-common' ), $this->label );
+			} else {
+				$this->value = filter_var( trim( $candidate, FILTER_SANITIZE_EMAIL ) );
+			}
 		}
 
 	} // end class

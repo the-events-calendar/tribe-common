@@ -106,6 +106,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'dropdown_chosen', // Deprecated use `dropdown`
 				'license_key',
 				'wrapped_html',
+				'email',
 			);
 
 			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
@@ -780,6 +781,18 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			}
 
 			return implode( ' ', $concat );
+		}
+
+		/**
+		 * Generate an email address field
+		 *
+		 * @since 4.7.4
+		 *
+		 * @return string The field
+		 */
+		public function email() {
+			$this->value = trim( $this->value );
+			return $this->text();
 		}
 	} // end class
 } // endif class_exists

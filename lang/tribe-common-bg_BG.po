@@ -11,6 +11,10 @@ msgstr ""
 "Language: bg\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Validate.php:534
+msgid "%s must be an email address."
+msgstr ""
+
 #: src/Tribe/Languages/Locations.php:252
 msgid "Sint Maarten"
 msgstr ""
@@ -812,7 +816,7 @@ msgstr "Върни се на страницата с плъгини"
 msgid "Go to plugins page"
 msgstr "Отиди на страницата с плъгини"
 
-#: src/Tribe/Cost_Utils.php:108
+#: src/Tribe/Cost_Utils.php:114
 msgid "Free"
 msgstr "Безплатно"
 
@@ -2286,19 +2290,19 @@ msgstr "Настройките са записани."
 msgid "General"
 msgstr "Общи"
 
-#: src/Tribe/Field.php:616
+#: src/Tribe/Field.php:617
 msgid "No select options specified"
 msgstr "Не е избрана опция от падащия списък"
 
-#: src/Tribe/Field.php:558
+#: src/Tribe/Field.php:559
 msgid "No checkbox options specified"
 msgstr "Не е избрана отметка"
 
-#: src/Tribe/Field.php:522
+#: src/Tribe/Field.php:523
 msgid "No radio options specified"
 msgstr "Не е избран радио бутон"
 
-#: src/Tribe/Field.php:227
+#: src/Tribe/Field.php:228
 msgid "Invalid field type specified"
 msgstr "Посочен е невалиден тип на полето"
 

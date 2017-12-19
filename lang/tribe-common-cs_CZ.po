@@ -11,6 +11,10 @@ msgstr ""
 "Language: cs_CZ\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Validate.php:534
+msgid "%s must be an email address."
+msgstr ""
+
 #: src/Tribe/Languages/Locations.php:252
 msgid "Sint Maarten"
 msgstr ""
@@ -815,7 +819,7 @@ msgstr "Zpět na přehled pluginů"
 msgid "Go to plugins page"
 msgstr "Zobrazit stránku s přehledem pluginů"
 
-#: src/Tribe/Cost_Utils.php:108
+#: src/Tribe/Cost_Utils.php:114
 msgid "Free"
 msgstr "Zdarma"
 
@@ -2290,19 +2294,19 @@ msgstr "Nastavení bylo uloženo."
 msgid "General"
 msgstr "Obecné"
 
-#: src/Tribe/Field.php:616
+#: src/Tribe/Field.php:617
 msgid "No select options specified"
 msgstr "Nebyly specifikovány položky rozbalovacího seznamu"
 
-#: src/Tribe/Field.php:558
+#: src/Tribe/Field.php:559
 msgid "No checkbox options specified"
 msgstr "Nebyly specifikovány položky zaškrtávacího políčka"
 
-#: src/Tribe/Field.php:522
+#: src/Tribe/Field.php:523
 msgid "No radio options specified"
 msgstr "Nebyly specifikovány položky přepínače"
 
-#: src/Tribe/Field.php:227
+#: src/Tribe/Field.php:228
 msgid "Invalid field type specified"
 msgstr "Uvedený typ pole je neplatný"
 

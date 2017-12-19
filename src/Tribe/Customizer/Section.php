@@ -196,6 +196,11 @@ abstract class Tribe__Customizer__Section {
 	 * @return array
 	 */
 	public function filter_settings( $settings, $search ) {
+		// Exit early.
+		if ( null === $search ) {
+			return $settings;
+		}
+
 		// Only Apply if getting the full options or Section
 		if ( is_array( $search ) && count( $search ) > 1 ) {
 			return $settings;

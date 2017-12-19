@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.7.1\n"
+"Project-Id-Version: Tribe Common 4.7.4\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2017-11-14 22:13:59+00:00\n"
+"POT-Creation-Date: 2017-12-15 21:56:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-11-14 22:13\n"
+"PO-Revision-Date: 2017-12-15 21:56\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -196,7 +196,7 @@ msgstr ""
 msgid "Event Add-Ons"
 msgstr ""
 
-#: src/Tribe/Cost_Utils.php:108
+#: src/Tribe/Cost_Utils.php:114
 msgid "Free"
 msgstr ""
 
@@ -346,19 +346,19 @@ msgid ""
 "debug_backtrace() for Tribe Extensions to work."
 msgstr ""
 
-#: src/Tribe/Field.php:227
+#: src/Tribe/Field.php:228
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:522
+#: src/Tribe/Field.php:523
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:558
+#: src/Tribe/Field.php:559
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:616
+#: src/Tribe/Field.php:617
 msgid "No select options specified"
 msgstr ""
 
@@ -2154,6 +2154,10 @@ msgstr ""
 msgid ""
 "Country List must be formatted as one country per line in the following "
 "format: <br>US, United States <br> UK, United Kingdom."
+msgstr ""
+
+#: src/Tribe/Validate.php:534
+msgid "%s must be an email address."
 msgstr ""
 
 #: src/Tribe/View_Helpers.php:50
