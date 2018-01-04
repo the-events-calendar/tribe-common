@@ -4,6 +4,7 @@
 
 = [4.7.5] TBD =
 
+* Fix - Added safety check to avoid errors surrounding the use of count() (our thanks to daftdog for highlighting this issue) [95527]
 * Fix - Improved file logger to gracefully handle further file system restrictions (our thanks to Richard Palmer for highlighting further issues here) [96747]
 
 = [4.7.4] 2017-12-18 =
