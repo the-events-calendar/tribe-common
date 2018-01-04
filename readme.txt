@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.7.5] TBD =
+
+* Fix - Added safety check to avoid errors surrounding the use of count() (our thanks to daftdog for highlighting this issue) [95527]
+
 = [4.7.4] 2017-12-18 =
 
 * Fix - Fixed Event Cost field causing an error if it did not contain any numeric characters [95400]
