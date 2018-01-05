@@ -1,7 +1,5 @@
 (
-	function ( $, undefined ) {
-		var renderjson = require( 'renderjson' );
-
+	function ( $, renderjson, undefined ) {
 		var setRequestResponse = function ( data, status, response ) {
 			if ( 'success' === status && null === data ) {
 				status = 500;
@@ -93,45 +91,9 @@
 			$button.text( Trap.button_text );
 		};
 
-		var nonceError = function () {
-			alert( 'Could not get nonce for selected user... weird.' );
-		};
-
-		var setNonce = function ( data: object ) {
-			$( '#trap-nonce' ).val( data );
-		};
-
-		var getNonceForUser = function ( userId: int ) {
-			startLoading();
-			$.ajax( {
-				url: Trap.nonce_url + userId,
-				dataType: 'json',
-			} ).done( setNonce ).fail( nonceError ).always( stopLoading );
-		};
-
-		var generateUserNonce = function ( evt?: Event ) {
-			var userId = 0;
-
-			if ( evt instanceof Event ) {
-				userId = $( evt.target ).val();
-			} else {
-				userId = $( '#trap-user-id' ).val();
-			}
-
-			var $nonceField = $( '#trap-nonce' );
-
-			if ( 0 == userId ) {
-				$nonceField.val( '' );
-				return;
-			}
-
-			$nonceField.val( getNonceForUser( userId ) );
-		};
-
 		var submitRequest = function () {
 			var url = $( '#trap-url' ).val();
 			var method = $( '#trap-request-method' ).val();
-			var nonce = $( '#trap-nonce' ).val();
 			var user = $( '#trap-user-id' ).val();
 			var inputs = $( '#trap-wrap #' + method + '-method-parameters .method-parameter input' );
 			var queryArgs = {
@@ -174,11 +136,9 @@
 				data: queryArgs,
 			};
 
-			if ( nonce ) {
-				args.beforeSend = function ( xhr ) {
-					xhr.setRequestHeader( 'X-WP-Nonce', nonce );
-				};
-			}
+			args.beforeSend = function ( xhr ) {
+				xhr.setRequestHeader( 'X-TEC-REST-API-User', user );
+			};
 
 			startLoadingResponse();
 
@@ -190,9 +150,7 @@
 			formatDocumentationJson();
 			showMethodParameters();
 			$( '#trap-request-method' ).on( 'change', showMethodParameters );
-			generateUserNonce();
-			$( '#trap-user-id' ).on( 'change', generateUserNonce );
 			$( '#trap-request' ).on( 'click', submitRequest );
 		} );
 	}
-)( jQuery );
+)( jQuery, renderjson );
