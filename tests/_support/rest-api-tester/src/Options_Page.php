@@ -21,16 +21,20 @@ class Tribe__RAP__Options_Page {
 			'trap-style',
 			plugins_url( '/assets/css/trap-style.css', tribe()->getVar( 'trap.main-file' ) )
 		);
-		wp_enqueue_script(
-			'trap-bundle',
-			plugins_url( '/assets/js/trap-bundle.js', tribe()->getVar( 'trap.main-file' ) ),
-			array( 'jquery' )
+
+		wp_register_script(
+			'renderjson',
+			plugins_url( '/node_modules/renderjson/renderjson.js', tribe()->getVar( 'trap.main-file' ) )
 		);
 
-		wp_localize_script( 'trap-bundle', 'Trap', array(
-			'nonce_url'                    => tribe( 'trap.endpoint.nonce' )->get_url(),
+		wp_enqueue_script(
+			'trap-js',
+			plugins_url( '/assets/js/trap-script.js', tribe()->getVar( 'trap.main-file' ) ),
+			array( 'jquery', 'renderjson' )
+		);
+
+		wp_localize_script( 'trap-js', 'Trap', array(
 			'button_text'                  => 'Request',
-			'button_loading_text'          => 'Getting the nonce...',
 			'button_loading_response_text' => 'Making the request...',
 		) );
 	}
