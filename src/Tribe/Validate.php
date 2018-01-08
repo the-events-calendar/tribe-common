@@ -58,8 +58,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * @param string $field_id The field ID to validate
 		 * @param array  $field    The field object to validate
 		 * @param mixed  $value    The value to validate
-		 *
-		 * @return array $result The result of the validation
 		 */
 		public function __construct( $field_id, $field, $value, $additional_args = array() ) {
 
