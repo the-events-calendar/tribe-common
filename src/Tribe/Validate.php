@@ -75,8 +75,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = false;
 				$this->result->error = esc_html__( 'Invalid or incomplete field passed', 'tribe-common' );
 				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' )' : '';
-
-				return $this->result;
 			}
 
 			// call validation callback if a validation callback function is set
@@ -84,10 +82,12 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				if ( function_exists( $this->field['validation_callback'] ) ) {
 					if ( ( ! isset( $_POST[ $field_id ] ) || ! $_POST[ $field_id ] || $_POST[ $field_id ] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) {
 						$this->result->valid = true;
-
-						return $this->result;
 					} else {
-						return call_user_func( $validation_callback );
+						$this->result->valid = call_user_func( $this->field['validation_callback'], $value );
+						if ( ! $this->result->valid ) {
+							$this->result->error = esc_html__( 'Invalid or incomplete field passed', 'tribe-common' );
+							$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' )' : '';
+						}
 					}
 				}
 			}
@@ -100,8 +100,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 					$this->label = isset( $this->field['label'] ) ? $this->field['label'] : $this->field['id'];
 					if ( ( ! isset( $_POST[ $field_id ] ) || ! $_POST[ $field_id ] || $_POST[ $field_id ] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) {
 						$this->result->valid = true;
-
-						return $this->result;
 					} else {
 						call_user_func( array( $this, $this->type ) ); // run the validation
 					}
@@ -117,9 +115,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->error = esc_html__( 'Invalid or incomplete field passed', 'tribe-common' );
 				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' )' : '';
 			}
-
-			// return the result
-			return $this->result;
 		}
 
 		/**
