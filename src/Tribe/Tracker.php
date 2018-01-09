@@ -436,9 +436,10 @@ class Tribe__Tracker {
 	 *
 	 * @since TBD
 	 *
-	 * @param int Post ID
+	 * @param int  Post ID
+	 * @return bool
 	 */
 	public function cleanup_meta_fields( $post_id ) {
-		delete_post_meta( (int) $post_id, self::$field_key );
+		return delete_post_meta( (int) $post_id, self::$field_key );
 	}
 }
