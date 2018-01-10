@@ -79,7 +79,9 @@ if ( ! function_exists( 'tribe_beginning_of_day' ) ) {
 		if ( is_null( $date ) || empty( $date ) ) {
 			$date = date( $format, strtotime( date( 'Y-m-d' ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) );
 		} else {
-			$date = date( $format, strtotime( date( 'Y-m-d', strtotime( $date ) ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) );
+			$date      = Tribe__Date_Utils::is_timestamp( $date ) ? $date : strtotime( $date );
+			$timestamp = strtotime( date( 'Y-m-d', $date ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' );
+			$date      = date( $format, $timestamp );
 		}
 
 		/**
@@ -114,7 +116,9 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 		if ( is_null( $date ) || empty( $date ) ) {
 			$date = date( $format, strtotime( 'tomorrow  +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 );
 		} else {
-			$date = date( $format, strtotime( date( 'Y-m-d', strtotime( $date ) ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 );
+			$date      = Tribe__Date_Utils::is_timestamp( $date ) ? $date : strtotime( $date );
+			$timestamp = strtotime( date( 'Y-m-d', $date ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1;
+			$date      = date( $format, $timestamp );
 		}
 
 		/**

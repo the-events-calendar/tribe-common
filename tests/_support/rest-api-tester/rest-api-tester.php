@@ -31,11 +31,13 @@ function trap_init() {
 	tribe()->setVar( 'trap.main-file', __FILE__ );
 	tribe()->setVar( 'trap.templates', dirname( __FILE__ ) . '/src/templates' );
 
-	tribe_singleton( 'trap.options', 'Tribe__RAP__Options_Page' );
-	tribe_singleton( 'trap.endpoint.nonce', 'Tribe__RAP__Endpoints__Nonce' );
+	$options = new Tribe__RAP__Options_Page();
+	$nonce   = new Tribe__RAP__Nonce();
 
-	add_action( 'admin_menu', array( tribe( 'trap.options' ), 'register_menu' ) );
-	add_action( 'admin_enqueue_scripts', array( tribe( 'trap.options' ), 'enqueue_scripts' ) );
-	add_action( 'rest_api_init', array( tribe( 'trap.endpoint.nonce' ), 'register' ) );
-	add_filter( 'determine_current_user', array( tribe( 'trap.endpoint.nonce' ), 'set_current_user' ) );
+	tribe_singleton( 'trap.options', $options );
+	tribe_singleton( 'trap.nonce', $nonce );
+
+	add_action( 'admin_menu', array( $options, 'register_menu' ) );
+	add_action( 'admin_enqueue_scripts', array( $options, 'enqueue_scripts' ) );
+	add_action( 'rest_api_init', array( $nonce, 'maybe_spoof_user' ) );
 }
