@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [] TBD =
+* Fix - Make sure to apply `$settings` to each section with the initial values in the customizer [96821]
+
 = [4.7.5] 2018-01-10 =
 
 * Fix - Added safety check to avoid errors surrounding the use of count() (our thanks to daftdog for highlighting this issue) [95527]
