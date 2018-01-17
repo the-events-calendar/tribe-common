@@ -69,7 +69,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			$this->additional_args = $additional_args;
 
 			// if the field is invalid or incomplete, fail validation
-			if ( ! is_array( $this->field ) || ( ! isset( $this->field['validation_type'] ) && ! isset( $this->field['validation_callback'] ) ) ) {
+			if ( ! is_array( $this->field ) || ! ( isset( $this->field['validation_type'] ) || isset( $this->field['validation_callback'] ) ) ) {
 				$this->result->valid = false;
 				$this->result->error = esc_html__( 'Invalid or incomplete field passed', 'tribe-common' );
 				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' )' : '';
