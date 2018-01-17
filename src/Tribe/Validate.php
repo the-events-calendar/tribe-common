@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 			// call validation callback if a validation callback function is set
 			if ( isset( $this->field['validation_callback'] ) ) {
-				if ( function_exists( $this->field['validation_callback'] ) ) {
+				if ( is_callable( $this->field['validation_callback'] ) || function_exists( $this->field['validation_callback'] ) ) {
 					if ( ( ! isset( $_POST[ $field_id ] ) || ! $_POST[ $field_id ] || $_POST[ $field_id ] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) {
 						$this->result->valid = true;
 					} else {
