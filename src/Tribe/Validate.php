@@ -90,7 +90,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				}
 			}
 
-
 			if ( isset( $this->field['validation_type'] ) ) {
 				if ( method_exists( $this, $this->field['validation_type'] ) ) {
 					// make sure there's a field validation type set for this validation and that such method exists
@@ -107,11 +106,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 					$this->result->error = esc_html__( 'Non-existant field validation function passed', 'tribe-common' );
 					$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' ' . _x( 'with function name:', 'non-existant function name passed for field validation', 'tribe-common' ) . ' ' . $this->field['validation_type'] . ' )' : '';
 				}
-			} else {
-				// no validation type set, validation fails
-				$this->result->valid = false;
-				$this->result->error = esc_html__( 'Invalid or incomplete field passed', 'tribe-common' );
-				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' )' : '';
 			}
 		}
 
