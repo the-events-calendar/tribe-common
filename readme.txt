@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.7.6] TBD =
+
+* Tweak - Added `php_date_format_string()` validation method to the `Tribe__Validate` class for more options while validating date formats [94725]
+
 = [4.7.5] 2018-01-10 =
 
 * Fix - Added safety check to avoid errors surrounding the use of count() (our thanks to daftdog for highlighting this issue) [95527]

@@ -172,6 +172,26 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		}
 
 		/**
+		 * Validates a field as a string acceptable for use as the $format parameter in PHP's date()
+		 * function: a-z, A-Z, and a variety of punctuation (hyphen, em dash, en dash, colon, semicolon
+		 * comma, period, vertical bar, left and right brackets, @ symbol, ampersand, /, ', and ").
+		 *
+		 * @since TBD
+		 *
+		 * @return stdClass validation result object
+		 */
+		public function php_date_format_string() {
+			$this->value = trim( $this->value );
+
+			if ( preg_match( '/^[a-zA-Z ,.:;|\'"<>_—–@&\/\-]+$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( esc_html__( '%s must contain a valid PHP date format string and not be empty', 'tribe-common' ), $this->label );
+			}
+		}
+
+		/**
 		 * validates a field as being positive decimal
 		 *
 		 * @return stdClass validation result object
