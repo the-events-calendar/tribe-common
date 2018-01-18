@@ -187,7 +187,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				'Settings'               => Tribe__Settings_Manager::get_options(),
 				'WP Timezone'            => get_option( 'timezone_string' ) ? get_option( 'timezone_string' ) : esc_html__( 'Unknown or not set', 'tribe-common' ),
 				'WP GMT Offset'          => get_option( 'gmt_offset' ) ? ' ' . get_option( 'gmt_offset' ) : esc_html__( 'Unknown or not set', 'tribe-common' ),
-				'Server Timezone'        => date_default_timezone_get(),
+				'Default PHP Timezone'   => date_default_timezone_get(),
 				'WP Date Format'         => get_option( 'date_format' ),
 				'WP Time Format'         => get_option( 'time_format' ),
 				'Week Starts On'         => get_option( 'start_of_week' ),
