@@ -164,15 +164,17 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				$php_info[ $php_var ] = $val;
 			}
 
+			$site_url = get_site_url();
 			$systeminfo = array(
 				'Home URL'               => get_home_url(),
-				'Site URL'               => get_site_url(),
+				'Site URL'               => $site_url,
 				'Site Language'          => get_option( 'WPLANG' ) ? get_option( 'WPLANG' ) : esc_html__( 'English', 'tribe-common' ),
 				'Character Set'          => get_option( 'blog_charset' ),
 				'Name'                   => $user->display_name,
 				'Email'                  => $user->user_email,
 				'Install keys'           => $keys,
 				'WordPress version'      => get_bloginfo( 'version' ),
+				'Permalink Structure'    => $site_url . get_option( 'permalink_structure' ),
 				'PHP version'            => phpversion(),
 				'PHP'                    => $php_info,
 				'Server'                 => $server[0],

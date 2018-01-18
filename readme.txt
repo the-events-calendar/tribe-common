@@ -3,6 +3,7 @@
 == Changelog ==
 
 = [4.7.6] TBD =
+* New - Include permalink structure into the report for support [68687]
 * Fix - Make sure to apply `$settings` to each section with the initial values in the customizer [96821]
 
 = [4.7.5] 2018-01-10 =
