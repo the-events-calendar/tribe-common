@@ -267,6 +267,8 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 *
 	 * @category Events
 	 *
+	 * @since TBD Deprecated the $timezone parameter.
+	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
 	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
@@ -316,6 +318,8 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 	 * Returns the event end date
 	 *
 	 * @category Events
+	 *
+	 * @since TBD Deprecated the $timezone parameter.
 	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
