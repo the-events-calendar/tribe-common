@@ -32,7 +32,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 */
 		public $additional_args;
 
-
 		/**
 		 * the field's label, used in error messages
 		 * @var string
@@ -44,7 +43,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * @var string
 		 */
 		public $type;
-
 
 		/**
 		 * the result object of the validation
@@ -168,6 +166,24 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			} else {
 				$this->result->valid = false;
 				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters, dashes and undescores only', 'tribe-common' ), $this->label );
+			}
+		}
+
+		/**
+		 * Validates a field as just "not empty".
+		 *
+		 * @since TBD
+		 *
+		 * @return stdClass validation result object
+		 */
+		public function not_empty() {
+			$this->value = trim( $this->value );
+
+			if ( empty( $this->value ) ) {
+				$this->result->valid = false;
+				$this->result->error = sprintf( esc_html__( '%s must not be empty', 'tribe-common' ), $this->label );
+			} else {
+				$this->result->valid = true;
 			}
 		}
 
