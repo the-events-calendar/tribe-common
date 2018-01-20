@@ -32,7 +32,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 */
 		public $additional_args;
 
-
 		/**
 		 * the field's label, used in error messages
 		 * @var string
@@ -44,7 +43,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * @var string
 		 */
 		public $type;
-
 
 		/**
 		 * the result object of the validation
@@ -172,22 +170,20 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		}
 
 		/**
-		 * Validates a field as a string acceptable for use as the $format parameter in PHP's date()
-		 * function: a-z, A-Z, and a variety of punctuation (hyphen, em dash, en dash, colon, semicolon
-		 * comma, period, vertical bar, left and right brackets, @ symbol, ampersand, /, ', and ").
+		 * Validates a field as just "not empty".
 		 *
 		 * @since TBD
 		 *
 		 * @return stdClass validation result object
 		 */
-		public function php_date_format_string() {
+		public function not_empty() {
 			$this->value = trim( $this->value );
 
-			if ( preg_match( '/^[a-zA-Z ,.:;|\'"<>_—–@&\/\-]+$/', $this->value ) ) {
-				$this->result->valid = true;
-			} else {
+			if ( empty( $this->value) ) {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must contain a valid PHP date format string and not be empty', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must not be empty', 'tribe-common' ), $this->label );
+			} else 
+				$this->result->valid = true;
 			}
 		}
 
