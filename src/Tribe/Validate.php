@@ -182,7 +182,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			if ( empty( $this->value) ) {
 				$this->result->valid = false;
 				$this->result->error = sprintf( esc_html__( '%s must not be empty', 'tribe-common' ), $this->label );
-			} else 
+			} else {
 				$this->result->valid = true;
 			}
 		}
