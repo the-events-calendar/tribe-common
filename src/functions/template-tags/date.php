@@ -267,7 +267,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @since TBD Deprecated the $timezone parameter.
+	 * @since 4.7.6 Deprecated the $timezone parameter.
 	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
@@ -319,7 +319,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @since TBD Deprecated the $timezone parameter.
+	 * @since 4.7.6 Deprecated the $timezone parameter.
 	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
