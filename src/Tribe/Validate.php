@@ -172,7 +172,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * Validates a field as just "not empty".
 		 *
-		 * @since TBD
+		 * @since 4.7.6
 		 *
 		 * @return stdClass validation result object
 		 */

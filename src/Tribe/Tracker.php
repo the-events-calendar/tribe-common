@@ -434,7 +434,7 @@ class Tribe__Tracker {
 	 * Make sure to remove the changed field if the event is deleted to ensure there are no left meta fields when
 	 * the event is deleted.
 	 *
-	 * @since TBD
+	 * @since 4.7.6
 	 *
 	 * @param int  Post ID
 	 * @return bool
