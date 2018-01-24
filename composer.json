@@ -11,7 +11,8 @@
   "require-dev": {
     "lucatume/wp-browser": "~1.6",
     "vlucas/phpdotenv": "^2.4",
-    "lucatume/function-mocker-le": "^1.0"
+    "lucatume/function-mocker-le": "^1.0",
+    "wp-cli/checksum-command": "1.0.5"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -19,7 +20,7 @@
     "preferred-install": "dist"
   },
   "require": {
-    "lucatume/di52": "~2.0"
+    "lucatume/di52": "~2.0",
   },
   "scripts": {
     "post-install-cmd": [
