@@ -20,7 +20,7 @@
     "preferred-install": "dist"
   },
   "require": {
-    "lucatume/di52": "~2.0",
+    "lucatume/di52": "~2.0"
   },
   "scripts": {
     "post-install-cmd": [
