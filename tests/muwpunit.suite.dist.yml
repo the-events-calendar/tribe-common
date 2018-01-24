@@ -4,15 +4,13 @@ modules:
         - \Helper\Muwpunit
         - WPLoader:
             multisite: true
-            wpRootFolder: ~/www/wordpress
-            dbName: tec-tests
-            dbHost: localhost
-            dbUser: root
-            dbPassword: password
-            wpDebug: true
-            tablePrefix: wptests_
-            domain: tec.tri.be
-            adminEmail: admin@tec.tri.be
+            wpRootFolder: %WP_ROOT_FOLDER%
+            dbName: %TEST_DB_NAME%
+            dbHost: %TEST_DB_HOST%
+            dbUser: %TEST_DB_USER%
+            dbPassword: %TEST_DB_PASSWORD%
+            domain: %WP_DOMAIN%
+            adminEmail: admin@%WP_DOMAIN%
             title: 'Event Common Tests'
             plugins:
                 - the-events-calendar/the-events-calendar.php
