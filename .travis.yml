@@ -107,7 +107,7 @@ before_script:
 
   # activate the plugins in WordPress
   - cd $WP_ROOT_FOLDER
-  - wp plugin activate the-events-calendar event-tickets
+  - wp plugin activate the-events-calendar
 
   # flush rewrite rules
   - wp rewrite structure '/%postname%/' --hard
