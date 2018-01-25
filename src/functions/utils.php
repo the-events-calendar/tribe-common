@@ -350,7 +350,8 @@ if ( ! function_exists( 'tribe_post_exists' ) ) {
 	 * @since TBD
 	 *
 	 * @param string|int $post_id_or_name Either a post ID or a post name.
-	 * @param null       $post_type       An optional post type.
+	 * @param null       $post_type       An optional post type, or a list of post types, the
+	 *                                    post should have; a logic OR will be used.
 	 *
 	 * @return bool|int The matching post ID if found, `false` otherwise
 	 */
@@ -373,17 +374,29 @@ if ( ! function_exists( 'tribe_post_exists' ) ) {
 			$query_vars[] = $post_id_or_name;
 		}
 
-		if ( null !== $post_type ) {
-			$where        .= ' AND post_type = %s';
-			$query_vars[] = $post_type;
+		if (
+			is_string( $post_type )
+			|| (
+				is_array( $post_type )
+				&& count( $post_type ) === count( array_filter( $post_type, 'is_string' ) )
+			)
+		) {
+			$post_types_where_template = ' AND post_type IN (%s)';
+			$post_types                = (array) $post_type;
+
+			$post_types_interval = $wpdb->prepare(
+				implode(
+					',',
+					array_fill( 0, count( $post_types ), '%s' )
+				),
+				$post_types
+			);
+
+			$where .= sprintf( $post_types_where_template, $post_types_interval );
 		}
 
-		$found = $wpdb->get_var(
-			$wpdb->prepare(
-				sprintf( $query_template, $where ),
-				$query_vars
-			)
-		);
+		$prepared = $wpdb->prepare( sprintf( $query_template, $where ), $query_vars );
+		$found    = $wpdb->get_var( $prepared );
 
 		return ! empty( $found ) ? (int) $found : false;
 	}
