@@ -19,7 +19,7 @@ class Tribe__Context {
 	 */
 	public function is_new_post( $post_type = null ) {
 		global $pagenow;
-		$is_new = $pagenow === 'post-new.php';
+		$is_new = 'post-new.php' === $pagenow;
 
 		return $is_new && $this->is_editing_post( $post_type );
 	}
@@ -36,8 +36,8 @@ class Tribe__Context {
 	 */
 	public function is_editing_post( $post_or_type = null ) {
 		global $pagenow;
-		$is_new  = $pagenow === 'post-new.php';
-		$is_post = $pagenow === 'post.php';
+		$is_new  = 'post-new.php' === $pagenow;
+		$is_post = 'post.php' === $pagenow;
 
 		if ( ! $is_new && ! $is_post ) {
 			return false;
@@ -62,7 +62,7 @@ class Tribe__Context {
 			if ( $is_post ) {
 				$post_type = $post->post_type;
 			} else {
-				$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : 'post';
+				$post_type = Tribe__Utils__Array::get( $_GET, 'post_type', 'post' );
 			}
 
 			return (bool) count( array_intersect( $post_types, array( $post_type ) ) );
