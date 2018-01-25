@@ -358,13 +358,7 @@ class Tribe__Tracker {
 
 		$tracked_post_types = $this->get_post_types();
 
-		global $wpdb;
-		$post_id = $wpdb->get_var(
-			$wpdb->prepare(
-				"SELECT ID FROM {$wpdb->posts} where ID = %d",
-				$object_id
-			)
-		);
+		$post_id = tribe_post_exists($object_id);
 
 		if (
 			empty( $post_id )

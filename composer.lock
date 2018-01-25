@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c215ec5f4c8e34b2adb49c3a779a6f0",
+    "content-hash": "dc51f50b5609448b2e22646b9e9646ad",
     "packages": [
         {
             "name": "lucatume/di52",
@@ -4441,21 +4441,21 @@
         },
         {
             "name": "wp-cli/checksum-command",
-            "version": "v1.0.6",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/checksum-command.git",
-                "reference": "c96d43de04e32d84a20e75a34ac80ccf2e125a94"
+                "reference": "a2719a5ba84ffd7d47511967433da7211e0da55a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/checksum-command/zipball/c96d43de04e32d84a20e75a34ac80ccf2e125a94",
-                "reference": "c96d43de04e32d84a20e75a34ac80ccf2e125a94",
+                "url": "https://api.github.com/repos/wp-cli/checksum-command/zipball/a2719a5ba84ffd7d47511967433da7211e0da55a",
+                "reference": "a2719a5ba84ffd7d47511967433da7211e0da55a",
                 "shasum": ""
             },
             "require-dev": {
                 "behat/behat": "~2.5",
-                "wp-cli/wp-cli": "^1.5"
+                "wp-cli/wp-cli": "*"
             },
             "type": "wp-cli-package",
             "extra": {
@@ -4464,8 +4464,7 @@
                 },
                 "bundled": true,
                 "commands": [
-                    "checksum core",
-                    "checksum plugin"
+                    "checksum core"
                 ]
             },
             "autoload": {
@@ -4489,7 +4488,7 @@
             ],
             "description": "Verifies file integrity by comparing to published checksums.",
             "homepage": "https://github.com/wp-cli/checksum-command",
-            "time": "2018-01-22T21:23:15+00:00"
+            "time": "2017-12-08T15:12:46+00:00"
         },
         {
             "name": "wp-cli/config-command",

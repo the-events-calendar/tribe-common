@@ -339,3 +339,52 @@ if ( ! function_exists( 'tribe_is_wpml_active' ) ) {
 		return ( class_exists( 'SitePress' ) && defined( 'ICL_PLUGIN_PATH' ) );
 	}
 }
+
+if ( ! function_exists( 'tribe_post_exists' ) ) {
+	/**
+	 * Checks if a post, optionally of a specific type, exists in the database.
+	 *
+	 * This is a low-level database check that will ignore caches and will
+	 * check if there is an entry, in the posts table, for the post.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|int $post_id_or_name Either a post ID or a post name.
+	 * @param null       $post_type       An optional post type.
+	 *
+	 * @return bool|int The matching post ID if found, `false` otherwise
+	 */
+	function tribe_post_exists( $post_id_or_name, $post_type = null ) {
+		if ( $post_id_or_name instanceof WP_Post ) {
+			$post_id_or_name = $post_id_or_name->ID;
+		}
+
+		global $wpdb;
+
+		$query_template = "SELECT ID FROM {$wpdb->posts} WHERE %s";
+		$query_vars     = array();
+		$where          = '';
+
+		if ( is_numeric( $post_id_or_name ) ) {
+			$where        = 'ID = %d';
+			$query_vars[] = $post_id_or_name;
+		} elseif ( is_string( $post_id_or_name ) ) {
+			$where        = 'post_name = %s';
+			$query_vars[] = $post_id_or_name;
+		}
+
+		if ( null !== $post_type ) {
+			$where        .= ' AND post_type = %s';
+			$query_vars[] = $post_type;
+		}
+
+		$found = $wpdb->get_var(
+			$wpdb->prepare(
+				sprintf( $query_template, $where ),
+				$query_vars
+			)
+		);
+
+		return ! empty( $found ) ? (int) $found : false;
+	}
+}
