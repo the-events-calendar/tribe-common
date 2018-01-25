@@ -39,7 +39,7 @@ class Tribe__Context {
 		$is_new  = $pagenow === 'post-new.php';
 		$is_post = $pagenow === 'post.php';
 
-		if ( ! ( $is_new || $is_post ) ) {
+		if ( ! $is_new && ! $is_post ) {
 			return false;
 		}
 
