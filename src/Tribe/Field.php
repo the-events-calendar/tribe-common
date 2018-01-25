@@ -119,7 +119,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$type       = esc_attr( $args['type'] );
 			$name       = esc_attr( $args['name'] );
 			$placeholder = esc_attr( $args['placeholder'] );
-			$class      = sanitize_html_class( $args['class'] );
+			$class = $this->sanitize_class_attribute( $args['class'] );
 			$label      = wp_kses(
 				$args['label'], array(
 					'a'      => array( 'href' => array(), 'title' => array() ),
@@ -793,6 +793,23 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public function email() {
 			$this->value = trim( $this->value );
 			return $this->text();
+		}
+
+		/**
+		 * Sanitizes a space-separated or arrray of classes.
+		 *
+		 * @since TBD
+		 *
+		 * @param string|array $class A single class, a space-separated list of classes
+		 *                            or an array of classes.
+		 *
+		 * @return string A space-separated list of classes.
+		 */
+		protected function sanitize_class_attribute( $class ) {
+			$classes   = is_array( $class ) ? $class : explode( ' ', $class );
+			$sanitized = array_map( 'sanitize_html_class', $classes );
+
+			return implode( ' ', $sanitized );
 		}
 	} // end class
 } // endif class_exists
