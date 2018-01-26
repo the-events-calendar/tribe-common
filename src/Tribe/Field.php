@@ -186,7 +186,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$if_empty         = is_string( $args['if_empty'] ) ? trim( $args['if_empty'] ) : $args['if_empty'];
 			$can_be_empty     = (bool) $args['can_be_empty'];
 			$clear_after      = (bool) $args['clear_after'];
-			$tooltip_first    = (bool) $args ['tooltip_first'];
+			$tooltip_first    = (bool) $args['tooltip_first'];
 
 			// set the ID
 			$this->id = apply_filters( 'tribe_field_id', $id );
