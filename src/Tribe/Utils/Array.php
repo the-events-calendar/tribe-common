@@ -1,6 +1,4 @@
 <?php
-defined( 'WPINC' ) || die; // Do not load directly.
-
 /**
  * Array utilities
  */
