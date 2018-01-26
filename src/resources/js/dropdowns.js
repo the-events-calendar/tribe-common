@@ -370,7 +370,6 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		// Save data on Dropdown
 		$select.data( 'dropdown', args );
-		$select.data( 'status', 'created' );
 
 		$container = ( $select.select2( args ) ).select2( 'container' );
 
