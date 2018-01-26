@@ -88,6 +88,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'if_empty'            => null,
 				'can_be_empty'        => false,
 				'clear_after'         => true,
+				'tooltip_first'       => false,
 			);
 
 			// a list of valid field types, to prevent screwy behavior
@@ -185,6 +186,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$if_empty         = is_string( $args['if_empty'] ) ? trim( $args['if_empty'] ) : $args['if_empty'];
 			$can_be_empty     = (bool) $args['can_be_empty'];
 			$clear_after      = (bool) $args['clear_after'];
+			$tooltip_first    = (bool) $args ['tooltip_first'];
 
 			// set the ID
 			$this->id = apply_filters( 'tribe_field_id', $id );
@@ -288,6 +290,12 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public function do_field_div_start() {
 			$return = '<div class="tribe-field-wrap">';
+
+			if ( true === $this->tooltip_first ) {
+				$return .= $this->do_tool_tip();
+				// and empty it to avoid it from being printed again
+				$this->tooltip = '';
+			}
 
 			return apply_filters( 'tribe_field_div_start', $return, $this );
 		}
