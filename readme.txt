@@ -4,6 +4,8 @@
 
 = [4.7.7] TBD =
 
+* Tweak - Improve the performance of dropdown and recurrent events by using caching on objects (our thanks to Gilles in the forums for flagging this problem) [81993]
+
 = [4.7.6] 2018-01-23 =
 
 * Fix - Make sure to apply `$settings` to each section with the initial values in the customizer [96821]
