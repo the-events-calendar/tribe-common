@@ -134,6 +134,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 						'src'   => array(),
 						'alt'   => array(),
 					),
+					'span'      => array( 'class' => array() ),
 				)
 			);
 			$label_attributes = $args['label_attributes'];
