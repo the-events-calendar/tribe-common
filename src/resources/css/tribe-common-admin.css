@@ -264,6 +264,20 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-field-dropdown_chosen.tribe-size-large select {
 	width: 300px;
 }
+.tribe-field.indent {
+	margin-left: 252px;
+}
+.tribe-field.indent legend {
+	font-style: normal;
+	width: auto;
+}
+.tribe-field.indent .tribe-field-wrap {
+	padding-right: 12px;
+}
+.tribe-field.light-bordered {
+	background-color: white;
+	border: solid lightgrey 1px;
+}
 /* license keys */
 .ajax-loading-license,
 .valid-key,
