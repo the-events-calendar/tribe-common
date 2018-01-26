@@ -266,13 +266,18 @@ table.plugins .tribe-plugin-update-message a {
 }
 .tribe-field.indent {
 	margin-left: 252px;
+	width: 75%;
 }
 .tribe-field.indent legend {
-	font-style: normal;
+	font-weight: normal;
 	width: auto;
 }
 .tribe-field.indent .tribe-field-wrap {
 	padding-right: 12px;
+}
+.tribe-field.indent.tribe-field-radio .tribe-field-wrap {
+	clear: left;
+	margin-top: 12px;
 }
 .tribe-field.light-bordered {
 	background-color: white;
