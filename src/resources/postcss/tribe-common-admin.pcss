@@ -1391,13 +1391,24 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 		float: left;
 		margin-left: 2em;
 	}
+	&.no-checkmark:after {
+		display: none;
+	}
 }
 
-.complete, .ok, .yes {
+.complete, .ok, .yes, .on,
+[data-status="complete"],
+[data-status="ok"],
+[data-status="yes"],
+[data-status="on"] {
 	color: #0AB152;
 }
 
-.incomplete, .ko, .no {
+.incomplete, .ko, .no, .off,
+[data-status="incomplete"],
+[data-status="ko"],
+[data-status="no"],
+[data-status="off"] {
 	color: #FF2500;
 }
 
