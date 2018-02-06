@@ -192,7 +192,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$this->id = apply_filters( 'tribe_field_id', $id );
 
 			// set each instance variable and filter
-			foreach ( $this->defaults as $key => $value ) {
+			foreach ( array_keys( $this->defaults ) as $key ) {
 				$this->{$key} = apply_filters( 'tribe_field_' . $key, $$key, $this->id );
 			}
 
