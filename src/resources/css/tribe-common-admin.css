@@ -255,6 +255,12 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-field-dropdown.tribe-size-large select {
 	width: 450px;
 }
+.tribe-field-wrapped_html.tribe-size-large .tribe-field-wrap {
+	max-width: 600px;
+}
+.tribe-field-wrapped_html.tribe-size-large .tribe-field-wrap .description{
+	max-width: 100%;
+}
 .tribe-field-dropdown_chosen.tribe-size-small select {
 	width: 100px;
 }
