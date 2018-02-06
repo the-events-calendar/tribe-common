@@ -58,10 +58,10 @@ class Tribe__Utils__Array {
 	 *
 	 * Example: get( $a, [ 0, 1, 2 ] ) returns the value of $a[0][1][2] or the default.
 	 *
-	 * @param  array $variable  Array or object to search within.
-	 * @param  array $indexes   Specify each nested index in order.
-	 *                          Example: array( 'lvl1', 'lvl2' );
-	 * @param  mixed $default   Default value if the search finds nothing.
+	 * @param  array        $variable Array or object to search within.
+	 * @param  array|string $indexes  Specify each nested index in order.
+	 *                                Example: array( 'lvl1', 'lvl2' );
+	 * @param  mixed        $default  Default value if the search finds nothing.
 	 *
 	 * @return mixed The value of the specified index or the default if not found.
 	 */
