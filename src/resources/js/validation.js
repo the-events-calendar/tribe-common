@@ -100,6 +100,12 @@ tribe.validation = {};
 			}
 
 			return condition.constraint != condition.value;
+		},
+		matchRegExp: function( value, constraint, $field ) {
+			var exp = new RegExp( constraint, 'gi' );
+			var match = exp.exec( value );
+
+			return null !== match;
 		}
 	};
 
@@ -289,6 +295,17 @@ tribe.validation = {};
 			// If we have attribute, fetch the data value
 			if ( $field.is( '[data-validation-is-not-equal-to]' ) ) {
 				value = $field.data( 'validationIsNotEqualTo' );
+			}
+
+			return value;
+		},
+		matchRegExp: function( $field ) {
+			// Default to Null to prevent Conflicts
+			var value = null;
+
+			// If we have attribute, fetch the data value
+			if ( $field.is( '[data-validation-match-regexp]' ) ) {
+				value = $field.data( 'validationMatchRegexp' );
 			}
 
 			return value;
