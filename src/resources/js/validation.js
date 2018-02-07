@@ -600,8 +600,6 @@ tribe.validation = {};
 			var $field = $( field );
 			var message = $field.data( 'validationError' );
 
-			console.log( message );
-
 			if ( _.isObject( message ) ) {
 				var messages = {};
 				var failed = obj.getConstraints( $field, false );
@@ -626,8 +624,6 @@ tribe.validation = {};
 
 		// Appends the List of errors
 		$newNotice.append( $list );
-
-		console.log( $newNotice );
 
 		// Verify if we need to add to the page or replace the existing
 		if ( 0 === $notice.length ) {
