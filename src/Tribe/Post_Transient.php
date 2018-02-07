@@ -18,8 +18,6 @@ class Tribe__Post_Transient {
 	 *
 	 */
 	public static function instance() {
-		_deprecated_function( 'Tribe__Post_Transient::instance()', 'TBD', "tribe( 'post-transient' )" );
-
 		return tribe( 'post-transient' );
 	}
 
