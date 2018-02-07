@@ -231,4 +231,4 @@
 
     // Configure on Window Load again
     $window.on( 'load', obj.run );
-}( jQuery, _, {} ) );
+}( jQuery, window.underscore || window._, {} ) );

@@ -770,4 +770,4 @@ tribe.validation = {};
 	 * @since  4.7
 	 */
 	$document.ready( obj.onReady );
-}( tribe.validation, jQuery, _ ) );
+}( tribe.validation, jQuery, window.underscore || window._ ) );

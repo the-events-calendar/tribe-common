@@ -1,6 +1,6 @@
 var tribe_dropdowns = tribe_dropdowns || {};
 
-( function( $, obj ) {
+( function( $, obj, _ ) {
 	'use strict';
 
 	obj.selector = {
@@ -539,4 +539,4 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		$( obj.selector.dropdown ).tribe_dropdowns();
 	});
 
-} )( jQuery, tribe_dropdowns );
+} )( jQuery, tribe_dropdowns, window.underscore || window._ );
