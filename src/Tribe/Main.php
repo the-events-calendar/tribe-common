@@ -561,6 +561,7 @@ class Tribe__Main {
 		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
 		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
 		tribe_singleton( 'context', 'Tribe__Context' );
+		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 	}
