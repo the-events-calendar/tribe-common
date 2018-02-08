@@ -358,8 +358,13 @@ class Tribe__Tracker {
 
 		$tracked_post_types = $this->get_post_types();
 
-		$post = get_post( $object_id );
-		if ( empty( $post ) || ! in_array( $post->post_type, $tracked_post_types ) ) {
+		$post_id = tribe_post_exists( $object_id );
+
+		if (
+			empty( $post_id )
+			|| ! ( $post = get_post( $post_id ) )
+			|| ! in_array( $post->post_type, $tracked_post_types )
+		) {
 			return false;
 		}
 

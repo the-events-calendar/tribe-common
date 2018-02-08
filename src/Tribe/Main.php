@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.7.6';
+	const VERSION             = '4.7.7';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -560,6 +560,8 @@ class Tribe__Main {
 		tribe_singleton( 'cost-utils', array( 'Tribe__Cost_Utils', 'instance' ) );
 		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
 		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
+		tribe_singleton( 'context', 'Tribe__Context' );
+		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 	}

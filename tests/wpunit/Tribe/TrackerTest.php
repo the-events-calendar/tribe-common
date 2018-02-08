@@ -146,9 +146,7 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function not_track_changes_if_the_object_is_not_a_post() {
-		$object = $this->factory()->user->create();
 		$original_mod = time() - HOUR_IN_SECONDS;
-		update_post_meta( $object, Tracker::$field_key, [ 'post_tag' => $original_mod ] );
 		$foo = $this->factory()->tag->create_and_get( [ 'name' => 'foo' ] );
 		$bar = $this->factory()->tag->create_and_get( [ 'name' => 'bar' ] );
 		$sut = $this->make_instance();
@@ -157,7 +155,7 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 		$terms = [ $foo->name, $bar->name ];
 		$tt_ids = $old_dd_ids = [ $foo->term_taxonomy_id, $bar->term_taxonomy_id ];
 
-		$exit = $sut->track_taxonomy_term_changes( $object, $terms, $tt_ids, 'post_tag', true, $old_dd_ids );
+		$exit = $sut->track_taxonomy_term_changes( 2389, $terms, $tt_ids, 'post_tag', true, $old_dd_ids );
 
 		$this->assertFalse( $exit );
 	}
@@ -167,7 +165,7 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function not_track_changes_if_taxonomy_is_not_tracked() {
-		$object = $this->factory()->user->create();
+		$object = $this->factory()->post->create();
 		$original_mod = time() - HOUR_IN_SECONDS;
 		update_post_meta( $object, Tracker::$field_key, [ 'post_tag' => $original_mod ] );
 		$foo = $this->factory()->tag->create_and_get( [ 'name' => 'foo' ] );
@@ -178,7 +176,7 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 		$terms = [ $foo->name, $bar->name ];
 		$tt_ids = $old_dd_ids = [ $foo->term_taxonomy_id, $bar->term_taxonomy_id ];
 
-		$exit = $sut->track_taxonomy_term_changes( $object, $terms, $tt_ids, 'post_tag', true, $old_dd_ids );
+		$exit = $sut->track_taxonomy_term_changes( $object, $terms, $tt_ids, 'some-tax', true, $old_dd_ids );
 
 		$this->assertFalse( $exit );
 	}
