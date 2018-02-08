@@ -255,6 +255,12 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-field-dropdown.tribe-size-large select {
 	width: 450px;
 }
+.tribe-field-wrapped_html.tribe-size-large .tribe-field-wrap {
+	max-width: 600px;
+}
+.tribe-field-wrapped_html.tribe-size-large .tribe-field-wrap .description{
+	max-width: 100%;
+}
 .tribe-field-dropdown_chosen.tribe-size-small select {
 	width: 100px;
 }
@@ -263,6 +269,28 @@ table.plugins .tribe-plugin-update-message a {
 }
 .tribe-field-dropdown_chosen.tribe-size-large select {
 	width: 300px;
+}
+.tribe-field-wrap .tooltip:first-child {
+	font-style: normal;
+}
+.tribe-field.indent {
+	margin-left: 252px;
+	width: 75%;
+}
+.tribe-field.indent legend {
+	font-weight: normal;
+	width: auto;
+}
+.tribe-field.indent .tribe-field-wrap {
+	padding-right: 12px;
+}
+.tribe-field.indent.tribe-field-radio .tribe-field-wrap {
+	clear: left;
+	margin-top: 12px;
+}
+.tribe-field.light-bordered {
+	background-color: white;
+	border: solid lightgrey 1px;
 }
 /* license keys */
 .ajax-loading-license,
@@ -1102,6 +1130,42 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 }
 .clear:after {
 	clear: both;
+}
+/* from https://codepen.io/lajlev/pen/diKbz */
+.checkmark:after {/*Add another block-level blank space*/
+	content: '';
+	display: block;/*Make it a small rectangle so the border will create an L-shape*/
+	width: 8px;
+	height: 15px;/*Add a white border on the bottom and left, creating that 'L' */
+	border: solid #0AB152;
+	border-width: 0 3px 3px 0;/*Rotate the L 45 degrees to turn it into a checkmark*/
+	-webkit-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+.checkmark.checkmark-right:after {
+	float: right;
+	margin-right: 2em;
+}
+.checkmark.checkmark-left:after {
+	float: left;
+	margin-left: 2em;
+}
+.checkmark.no-checkmark:after {
+	display: none;
+}
+.complete, .ok, .yes, .on,
+[data-status="complete"],
+[data-status="ok"],
+[data-status="yes"],
+[data-status="on"] {
+	color: #0AB152;
+}
+.incomplete, .ko, .no, .off,
+[data-status="incomplete"],
+[data-status="ko"],
+[data-status="no"],
+[data-status="off"] {
+	color: #FF2500;
 }
 /*
  * Plugin install CSS
