@@ -57,7 +57,6 @@ before_install:
 install:
   # disable XDebug to speed up the tests
   - phpenv config-rm xdebug.ini
-  - composer update --prefer-dist
 
 before_script:
   # set up folders
@@ -100,10 +99,11 @@ before_script:
   # enable the site
   - sudo ln -s /etc/nginx/sites-available/$WP_DOMAIN /etc/nginx/sites-enabled/
 
-  # move common into WordPress folder
-  - rm -rf $WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common
-  - mv $TRAVIS_BUILD_DIR $WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common
+  # pull the correct common branch
   - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
+  - cd $PLUGIN_DIR
+  - git checkout origin/$CURRENT_BRANCH
+  - composer install --prefer-dist
 
   # activate the plugins in WordPress
   - cd $WP_ROOT_FOLDER
