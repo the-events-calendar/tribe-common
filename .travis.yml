@@ -99,13 +99,7 @@ before_script:
   # enable the site
   - sudo ln -s /etc/nginx/sites-available/$WP_DOMAIN /etc/nginx/sites-enabled/
 
-  # pull the correct common branch
-  - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
-  - cd $PLUGIN_DIR
-  - git checkout origin/$CURRENT_BRANCH
-  - composer update --prefer-dist
-
-  # activate the plugins in WordPress
+  # activate The Events Calendar in WordPress
   - cd $WP_ROOT_FOLDER
   - wp plugin activate the-events-calendar
 
@@ -115,7 +109,13 @@ before_script:
   # export a dump of the just installed database to the _data folder
   - wp db export $PLUGIN_DIR/tests/_data/dump.sql
 
-  # get back to the plugin dir
+  # pull the correct common branch we are testing
+  - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
+  - cd $PLUGIN_DIR
+  - git checkout origin/$CURRENT_BRANCH
+  - composer update --prefer-dist
+
+  # get to the common dir
   - cd $PLUGIN_DIR
 
   # restart Nnginx and PHP-FPM services
