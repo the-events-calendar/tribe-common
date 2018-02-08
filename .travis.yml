@@ -103,7 +103,7 @@ before_script:
   - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
   - cd $PLUGIN_DIR
   - git checkout origin/$CURRENT_BRANCH
-  - composer install --prefer-dist
+  - composer install
 
   # activate the plugins in WordPress
   - cd $WP_ROOT_FOLDER
