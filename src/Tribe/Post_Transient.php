@@ -87,8 +87,7 @@ class Tribe__Post_Transient {
 		 * @param int    $post_id   Post ID
 		 * @param string $transient The Post Meta Key
 		 */
-		return
-			has_filter( 'tribe_post_meta_transient_' . $transient )
+		return has_filter( 'tribe_post_meta_transient_' . $transient )
 				? apply_filters( 'tribe_post_meta_transient_' . $transient, $value, $post_id )
 				: $value;
 	}
