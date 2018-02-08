@@ -106,9 +106,6 @@ before_script:
   # flush rewrite rules
   - wp rewrite structure '/%postname%/' --hard
 
-  # export a dump of the just installed database to the _data folder
-  - wp db export $PLUGIN_DIR/tests/_data/dump.sql
-
   # pull the correct common branch we are testing
   - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
   - cd $PLUGIN_DIR
