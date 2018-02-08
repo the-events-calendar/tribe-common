@@ -493,6 +493,36 @@ function tribe_notice( $slug, $callback, $arguments = array(), $active_callback 
 }
 
 /**
+ * Shortcut for Tribe__Admin__Notices::register_transient(), create a transient Admin Notice easily.
+ *
+ * A transient admin notice is a "fire-and-forget" admin notice that will display once registered and
+ * until dismissed (if dismissible) without need, on the side of the source code, to register it on each request.
+ *
+ * @param  string $slug      Slug to save the notice
+ * @param  string $html      The notice output HTML code
+ * @param  array  $arguments Arguments to Setup a notice
+ * @param int     $expire    After how much time (in seconds) the notice will stop showing.
+ *
+ * @return stdClass Which notice was registered
+ */
+function tribe_transient_notice( $slug, $html, $arguments = array(), $expire = null ) {
+	$expire = null !== $expire ? (int) $expire : WEEK_IN_SECONDS;
+
+	return Tribe__Admin__Notices::instance()->register_transient( $slug, $html, $arguments, $expire );
+}
+
+/**
+ * Removes a transient notice based on its slug.
+ *
+ * @since TBD
+ *
+ * @param string $slug
+ */
+function tribe_transient_notice_remove( $slug ) {
+	Tribe__Admin__Notices::instance()->remove_transient( $slug );
+}
+
+/**
  * A quick internal way of sending errors using WP_Error
  *
  * @param  string|array $indexes Which Error we are looking for
