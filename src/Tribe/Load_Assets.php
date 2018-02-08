@@ -26,19 +26,15 @@ class Tribe__Load_Assets {
 	 * @return string The <script> tag.
 	 */
 	public function prevent_underscore_conflict( $tag, $handle ) {
-		if ( is_admin() || ! defined( 'TRIBE_EVENTS_FILE' ) ) {
+		if ( is_admin() || ! defined( 'TRIBE_COMMON_PARENT_PLUGIN_URL' ) ) {
 			return $tag;
 		}
 
 		if ( 'underscore' === $handle ) {
-			$path = plugin_dir_path( TRIBE_EVENTS_FILE ) . 'common/src/resources/js';
-			$dir = plugin_dir_url( TRIBE_EVENTS_FILE ) . 'common/src/resources/js';
-			if ( file_exists( $path . '/underscore-before.js' ) ) {
-				$tag = "<script type='text/javascript' src='{$dir}/underscore-before.js'></script>\n" . $tag;
-			}
-			if ( file_exists( $path . '/underscore-after.js' ) ) {
-				$tag = $tag . "<script type='text/Javascript' src='{$dir}/underscore-after.js'></script>\n";
-			}
+			$dir = plugin_dir_url( TRIBE_COMMON_PARENT_PLUGIN_URL ) . 'src/resources/js';
+			$tag = "<script type='text/javascript' src='{$dir}/underscore-before.js'></script>\n"
+				. $tag
+				. "<script type='text/Javascript' src='{$dir}/underscore-after.js'></script>\n";
 		}
 		return $tag;
 	}
