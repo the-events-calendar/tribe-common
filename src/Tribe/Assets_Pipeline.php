@@ -4,7 +4,7 @@
  *
  * @since TBD
  */
-class Tribe__Load_Assets {
+class Tribe__Assets_Pipeline {
 
 	/**
 	 * Filter to listen when a tag is attached to the HTML.

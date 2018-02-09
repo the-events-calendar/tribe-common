@@ -165,7 +165,7 @@ class Tribe__Main {
 	public function init_libraries() {
 		Tribe__Debug::instance();
 		tribe( 'assets' );
-		tribe( 'assets.listen_load' );
+		tribe( 'assets.pipeline' );
 		tribe( 'settings.manager' );
 		tribe( 'tracker' );
 		tribe( 'plugins.api' );
@@ -550,7 +550,7 @@ class Tribe__Main {
 		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
 		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', array( 'hook' ) );
 		tribe_singleton( 'assets', 'Tribe__Assets' );
-		tribe_singleton( 'assets.listen_load', 'Tribe__Load_Assets', array( 'hook' ) );
+		tribe_singleton( 'assets.pipeline', 'Tribe__Assets_Pipeline', array( 'hook' ) );
 		tribe_singleton( 'asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
 		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
