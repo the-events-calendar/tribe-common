@@ -22,6 +22,7 @@ class Tribe__Utils__Global_ID {
 		'url',
 		'meetup',
 		'facebook',
+		'eventbrite',
 	);
 
 	/**
@@ -31,6 +32,7 @@ class Tribe__Utils__Global_ID {
 	private $type_origins = array(
 		'meetup' => 'meetup.com',
 		'facebook' => 'facebook.com',
+		'eventbrite' => 'eventbrite.com',
 	);
 
 	/**
