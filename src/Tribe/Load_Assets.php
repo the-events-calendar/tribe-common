@@ -26,12 +26,12 @@ class Tribe__Load_Assets {
 	 * @return string The <script> tag.
 	 */
 	public function prevent_underscore_conflict( $tag, $handle ) {
-		if ( is_admin() || ! defined( 'TRIBE_COMMON_PARENT_PLUGIN_URL' ) ) {
+		if ( is_admin() ) {
 			return $tag;
 		}
 
 		if ( 'underscore' === $handle ) {
-			$dir = TRIBE_COMMON_PARENT_PLUGIN_URL . 'src/resources/js';
+			$dir = Tribe__Main::instance()->plugin_url . 'src/resources/js';
 			$tag = "<script type='text/javascript' src='{$dir}/underscore-before.js'></script>\n"
 				. $tag
 				. "<script type='text/Javascript' src='{$dir}/underscore-after.js'></script>\n";

@@ -103,8 +103,6 @@ class Tribe__Main {
 
 		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
 
-		define( 'TRIBE_COMMON_PARENT_PLUGIN_URL', $this->plugin_url );
-
 		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		$this->init_autoloading();
