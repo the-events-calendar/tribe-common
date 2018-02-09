@@ -5,6 +5,7 @@
 = [4.7.7] TBD =
 
 * Tweak - Improve the performance of dropdown and recurrent events by using caching on objects (our thanks to Gilles in the forums for flagging this problem) [81993]
+* Tweak - Prevents conflicts when lodash and underscore are used on the same site [92205]
 * Tweak - Add the `tribe_transient_notice` and `tribe_transient_notice_remove` functions to easily create and remove fire-and-forget admin notices.
 
 = [4.7.6] 2018-01-23 =
