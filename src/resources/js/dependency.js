@@ -124,7 +124,8 @@
 
 					var active_class       = selectors.active.replace( '.', '' );
 					// Allows us to check a disabled dependency
-					var allowDisabled     = $dependent.data( 'dependencyCheckDisabled' ) || $dependent.is( '[data-dependency-check-disabled]' );
+					var allowDisabled      = $dependent.data( 'dependencyCheckDisabled' ) || $dependent.is( '[data-dependency-check-disabled]' );
+					var alwaysVisible      = $dependent.data( 'dependencyAlwaysVisibile' ) || $dependent.is( '[data-dependency-always-visible]' );
 					// If allowDisabled, then false - we don't care!
 					var is_disabled        = allowDisabled ? false : $field.is( ':disabled' );
 					var condition_relation = $dependent.data( 'condition-relation' ) || 'or';
@@ -162,7 +163,8 @@
 							}
 						}
 
-						$dependent.find( selectors.fields ).prop( 'disabled', false );
+						$dependent.prop( 'disabled', false )
+							.find( selectors.fields ).prop( 'disabled', false );
 
 						if ( 'undefined' !== typeof $().select2 ) {
 							$dependent.find( '.select2-container' ).select2( 'enable', true );
@@ -175,7 +177,13 @@
 							$dependent.hide();
 						}
 
-						$dependent.find( selectors.fields ).prop( 'disabled', true );
+						// When we have a flag to always display the field we display when disabled
+						if ( alwaysVisible ) {
+							$dependent.show();
+						}
+
+						$dependent.prop( 'disabled', true )
+							.find( selectors.fields ).prop( 'disabled', true );
 
 						if ( 'undefined' !== typeof $().select2 ) {
 							$dependent.find( '.select2-container' ).select2( 'enable', false );
