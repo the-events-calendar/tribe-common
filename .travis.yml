@@ -57,7 +57,6 @@ before_install:
 install:
   # disable XDebug to speed up the tests
   - phpenv config-rm xdebug.ini
-  - composer update --prefer-dist
 
 before_script:
   # set up folders
@@ -100,22 +99,20 @@ before_script:
   # enable the site
   - sudo ln -s /etc/nginx/sites-available/$WP_DOMAIN /etc/nginx/sites-enabled/
 
-  # move common into WordPress folder
-  - rm -rf $WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common
-  - mv $TRAVIS_BUILD_DIR $WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common
-  - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
-
-  # activate the plugins in WordPress
+  # activate The Events Calendar in WordPress
   - cd $WP_ROOT_FOLDER
   - wp plugin activate the-events-calendar
 
   # flush rewrite rules
   - wp rewrite structure '/%postname%/' --hard
 
-  # export a dump of the just installed database to the _data folder
-  - wp db export $PLUGIN_DIR/tests/_data/dump.sql
+  # pull the correct common branch we are testing
+  - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
+  - cd $PLUGIN_DIR
+  - git checkout origin/$CURRENT_BRANCH
+  - composer update --prefer-dist
 
-  # get back to the plugin dir
+  # get to the common dir
   - cd $PLUGIN_DIR
 
   # restart Nnginx and PHP-FPM services
