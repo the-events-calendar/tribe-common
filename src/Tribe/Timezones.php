@@ -289,15 +289,20 @@ class Tribe__Timezones {
 				 * in most cases the event that was supposed to be started at 12:00pm should remain at the same time
 				 * regardless if is DST or not.
 				 */
-				$date = date_create( $new_datetime->format( Tribe__Date_Utils::DBDATEFORMAT ), $local );
-				$time = date_create( $new_datetime->format( Tribe__Date_Utils::DBTIMEFORMAT ), $local );
-				$date->setTimezone( $utc );
-				$time->setTimezone( $utc );
-				return sprintf(
-					'%s %s',
-					$date->format( Tribe__Date_Utils::DBDATEFORMAT ),
-					$time->format( Tribe__Date_Utils::DBTIMEFORMAT )
-				);
+				try {
+					$date = date_create( $new_datetime->format( Tribe__Date_Utils::DBDATEFORMAT ), $local );
+					$time = date_create( $new_datetime->format( Tribe__Date_Utils::DBTIMEFORMAT ), $local );
+					$date->setTimezone( $utc );
+					$time->setTimezone( $utc );
+					return sprintf(
+						'%s %s',
+						$date->format( Tribe__Date_Utils::DBDATEFORMAT ),
+						$time->format( Tribe__Date_Utils::DBTIMEFORMAT )
+					);
+				} catch( Exception $e ) {
+					error_log( 'There was an error while date_create() was called.' );
+					return $datetime;
+				}
 			} else {
 				$new_datetime->setTimezone( $utc );
 				return $new_datetime->format( $format );
