@@ -2,6 +2,14 @@
 
 == Changelog ==
 
+= [4.7.6] 2018-01-23 =
+
+* Fix - Make sure to apply `$settings` to each section with the initial values in the customizer [96821]
+* Tweak - Include permalink structure into the report for support [68687]
+* Tweak - Added `not_empty()` validation method to the `Tribe__Validate` class for more options while validating date formats [94725]
+* Tweak - Update label on report for support to avoid confusions [68687]
+* Tweak - Deprecated the unused $timezone parameter in the `tribe_get_start_date()` and `tribe_get_end_date()` template tags [73400]
+
 = [4.7.5] 2018-01-10 =
 
 * Fix - Added safety check to avoid errors surrounding the use of count() (our thanks to daftdog for highlighting this issue) [95527]
