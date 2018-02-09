@@ -31,7 +31,7 @@ class Tribe__Load_Assets {
 		}
 
 		if ( 'underscore' === $handle ) {
-			$dir = plugin_dir_url( TRIBE_COMMON_PARENT_PLUGIN_URL ) . 'src/resources/js';
+			$dir = TRIBE_COMMON_PARENT_PLUGIN_URL . 'src/resources/js';
 			$tag = "<script type='text/javascript' src='{$dir}/underscore-before.js'></script>\n"
 				. $tag
 				. "<script type='text/Javascript' src='{$dir}/underscore-after.js'></script>\n";
