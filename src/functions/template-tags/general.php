@@ -436,7 +436,7 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 	function tribe_format_currency( $cost, $post_id = null, $currency_symbol = null, $reverse_position = null ) {
 		$post_id = Tribe__Main::post_id_helper( $post_id );
 
-		if ( null === $currency_symbol ) {
+		if ( ! tribe_is_truthy( $currency_symbol ) ) {
 			$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
 
 			/**
