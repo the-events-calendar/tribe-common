@@ -436,14 +436,16 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 	function tribe_format_currency( $cost, $post_id = null, $currency_symbol = null, $reverse_position = null ) {
 		$post_id = Tribe__Main::post_id_helper( $post_id );
 
-		$currency_symbol = apply_filters( 'tribe_currency_symbol', $currency_symbol, $post_id );
-
-		// if no currency symbol was passed let's get the default currency symbol
-		if ( ! $currency_symbol ) {
+		if ( null === $currency_symbol ) {
+			// if no currency symbol was passed let's get the default currency symbol
 			$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
+			$currency_symbol = apply_filters( 'tribe_currency_symbol', $currency_symbol, $post_id );
 		}
 
-		$reverse_position = apply_filters( 'tribe_reverse_currency_position', $reverse_position, $post_id );
+		if ( null === $reverse_position ) {
+			// if no position indication was passed then use the default one
+			$reverse_position = apply_filters( 'tribe_reverse_currency_position', $reverse_position, $post_id );
+		}
 
 		// if no currency position was passed and we're not looking at a particular event,
 		// let's get the default currency position
@@ -454,7 +456,6 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 		$cost = $reverse_position ? $cost . $currency_symbol : $currency_symbol . $cost;
 
 		return $cost;
-
 	}
 }//end if
 
