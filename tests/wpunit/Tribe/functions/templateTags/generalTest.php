@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\functions\templateTags;
 
-class dateTest extends \Codeception\TestCase\WPTestCase {
+class generalTest extends \Codeception\TestCase\WPTestCase {
 
 	public function setUp() {
 		// before
