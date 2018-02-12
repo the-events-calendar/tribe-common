@@ -300,7 +300,6 @@ class Tribe__Timezones {
 						$time->format( Tribe__Date_Utils::DBTIMEFORMAT )
 					);
 				} catch( Exception $e ) {
-					error_log( 'There was an error while date_create() was called.' );
 					return $datetime;
 				}
 			} else {
