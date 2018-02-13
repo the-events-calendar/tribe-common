@@ -87,9 +87,9 @@ class Tribe__Main {
 
 		// the 5.2 compatible autoload file
 		if ( version_compare( PHP_VERSION, '5.2.17', '<=' ) ) {
-			require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload_52.php';
+			require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload_52.php' );
 		} else {
-			require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload.php';
+			require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload.php' );
 		}
 
 		// the DI container class

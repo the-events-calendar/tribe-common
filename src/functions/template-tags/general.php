@@ -436,14 +436,37 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 	function tribe_format_currency( $cost, $post_id = null, $currency_symbol = null, $reverse_position = null ) {
 		$post_id = Tribe__Main::post_id_helper( $post_id );
 
-		$currency_symbol = apply_filters( 'tribe_currency_symbol', $currency_symbol, $post_id );
-
-		// if no currency symbol was passed let's get the default currency symbol
-		if ( ! $currency_symbol ) {
+		if ( empty( $currency_symbol ) ) {
 			$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
+
+			/**
+			 * Filters the currency symbol that will be used to format the price, defaults
+			 * to the one set in the options.
+			 *
+			 * This will only apply if the currency symbol was not passed as a parameter.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $currency_symbol
+			 * @param int $post_id
+			 */
+			$currency_symbol = apply_filters( 'tribe_currency_symbol', $currency_symbol, $post_id );
 		}
 
-		$reverse_position = apply_filters( 'tribe_reverse_currency_position', $reverse_position, $post_id );
+		if ( null === $reverse_position ) {
+			/**
+			 * Filters whether the currency symbol that will be used to format the price should be
+			 * prefixed (`false`) or appended (`true`) to the price value.
+			 *
+			 * This will only apply if the currency symbol reverse position not passed as a parameter.
+			 *
+			 * @since TBD
+			 *
+			 * @param bool $reverse_position
+			 * @param int  $post_id
+			 */
+			$reverse_position = apply_filters( 'tribe_reverse_currency_position', (bool) $reverse_position, $post_id );
+		}
 
 		// if no currency position was passed and we're not looking at a particular event,
 		// let's get the default currency position
@@ -454,7 +477,6 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 		$cost = $reverse_position ? $cost . $currency_symbol : $currency_symbol . $cost;
 
 		return $cost;
-
 	}
 }//end if
 
