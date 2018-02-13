@@ -56,8 +56,13 @@
 	// Setup a Dependent
 	$.fn.dependency = function () {
 		return this.each( function(){
-			var selector = $( this ).data( 'depends' );
-			$( selector ).addClass( selectors.dependency.replace( '.', '' ) ).data( 'dependent', $( this ) );
+			var $el = $(this);
+			var selector = $el.data( 'depends' );
+			var $selector = $( selector );
+			if ( ! $selector.get( 0 ).created ) {
+				$selector.addClass( selectors.dependency.replace( '.', '' ) ).data( 'dependent', $el );
+				$selector.get( 0 ).created = true;
+			}
 		} );
 	};
 
@@ -93,6 +98,9 @@
 		}
 
 		$dependents.each( function( k, dependent ) {
+			if ( dependent.completed ) {
+				return;
+			}
 			var $dependent         = $( dependent );
 			var hasDependentParent = $dependent.is( '[data-dependent-parent]' );
 
@@ -183,6 +191,7 @@
 				}
 			}
 
+			dependent.completed = true;
 			var $dependent_childs = $dependent.find( selectors.dependency );
 			if ( $dependent_childs.length > 0 ) {
 				// Checks if any child elements have dependencies

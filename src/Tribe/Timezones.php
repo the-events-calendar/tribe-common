@@ -279,10 +279,33 @@ class Tribe__Timezones {
 		$new_datetime = date_create( $datetime, $local );
 
 		if ( $new_datetime ) {
-			$new_datetime->setTimezone( $utc );
-			$format = ! empty( $format ) ? $format : Tribe__Date_Utils::DBDATETIMEFORMAT;
-
-			return $new_datetime->format( $format );
+			if ( empty ( $format ) ) {
+				/**
+				 * In order to avoid problems with dates that fall into DST for local timeszones we need to split into: date & time
+				 * doing this we convert to UTC each in order to avoid a DST conversion based on date and time.
+				 *
+				 * This is important specially for recurring events as some of them might fall inside or outside of DST periods and as the conversion
+				 * might fall into timezones with DST PHP will automatically convert an hour from normal to DST or viceversa
+				 * in most cases the event that was supposed to be started at 12:00pm should remain at the same time
+				 * regardless if is DST or not.
+				 */
+				try {
+					$date = date_create( $new_datetime->format( Tribe__Date_Utils::DBDATEFORMAT ), $local );
+					$time = date_create( $new_datetime->format( Tribe__Date_Utils::DBTIMEFORMAT ), $local );
+					$date->setTimezone( $utc );
+					$time->setTimezone( $utc );
+					return sprintf(
+						'%s %s',
+						$date->format( Tribe__Date_Utils::DBDATEFORMAT ),
+						$time->format( Tribe__Date_Utils::DBTIMEFORMAT )
+					);
+				} catch( Exception $e ) {
+					return $datetime;
+				}
+			} else {
+				$new_datetime->setTimezone( $utc );
+				return $new_datetime->format( $format );
+			}
 		}
 
 		// Fallback to the unmodified datetime if there was a failure during conversion
