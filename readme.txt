@@ -2,6 +2,8 @@
 
 == Changelog ==
 
+= [4.7.8] TBD =
+
 = [4.7.7] TBD =
 
 * Tweak - Improve the performance of dropdown and recurrent events by using caching on objects (our thanks to Gilles in the forums for flagging this problem) [81993]
