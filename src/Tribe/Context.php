@@ -44,22 +44,24 @@ class Tribe__Context {
 		}
 
 		if ( null !== $post_or_type ) {
+			$current_post = get_post();
+
 			if ( is_numeric( $post_or_type ) ) {
 
 				$post = $is_post ? get_post( $post_or_type ) : null;
 
-				return ! empty( $post ) && $post == get_post();
+				return ! empty( $post ) && $post == $current_post;
 			}
 
 			$post_types = is_array( $post_or_type ) ? $post_or_type : array( $post_or_type );
 
-			$post = $is_post ? get_post() : null;
+			$post = $is_post ? $current_post : null;
 
 			if ( count( array_filter( $post_types, 'is_numeric' ) ) === count( $post_types ) ) {
 				return ! empty( $post ) && in_array( $post->ID, $post_types );
 			}
 
-			if ( $is_post ) {
+			if ( $is_post && $post instanceof WP_Post ) {
 				$post_type = $post->post_type;
 			} else {
 				$post_type = Tribe__Utils__Array::get( $_GET, 'post_type', 'post' );
