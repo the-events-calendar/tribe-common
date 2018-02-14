@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.7] TBD =
+= [4.7.7] 2018-02-14 =
 
 * Tweak - Improve the performance of dropdown and recurrent events by using caching on objects (our thanks to Gilles in the forums for flagging this problem) [81993]
 * Tweak - Prevents conflicts when lodash and underscore are used on the same site [92205]
