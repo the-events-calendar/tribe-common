@@ -59,9 +59,10 @@
 			var $el = $(this);
 			var selector = $el.data( 'depends' );
 			var $selector = $( selector );
-			if ( ! $selector.get( 0 ).created ) {
+			var el = $selector.get( 0 );
+			if ( el && ! el.created ) {
 				$selector.addClass( selectors.dependency.replace( '.', '' ) ).data( 'dependent', $el );
-				$selector.get( 0 ).created = true;
+				el.created = true;
 			}
 		} );
 	};
