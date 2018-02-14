@@ -44,7 +44,7 @@ class Tribe__Context {
 		}
 
 		if ( null !== $post_or_type ) {
-			$current_post = get_post();
+			$current_post = Tribe__Utils__Array::get( $_REQUEST, 'post', get_post() );
 
 			if ( is_numeric( $post_or_type ) ) {
 
