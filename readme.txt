@@ -8,7 +8,7 @@
 * Tweak - Prevents conflicts when lodash and underscore are used on the same site [92205]
 * Tweak - Add the `tribe_transient_notice` and `tribe_transient_notice_remove` functions to easily create and remove fire-and-forget admin notices.
 * Fix - Fix the behavior of the `tribe_format_currency` function not to overwrite explicit parameters [96777]
-* Fix - Prevent a change on the dates when DST happens on an event by avoding DST changes on UTC conversion [69784]
+* Fix - Prevent a change on the dates when DST happens on an event by avoiding DST changes on UTC conversion [69784]
 
 = [4.7.6] 2018-01-23 =
 
