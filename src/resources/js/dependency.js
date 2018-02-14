@@ -178,7 +178,7 @@
 					$dependent.hide();
 				}
 
-				if ( ! $dependent.data( 'do-not-disable' ) ) {
+				if ( ! $dependent.data( 'dependency-dont-disable' ) ) {
 					$dependent.find( selectors.fields ).prop( 'disabled', true );
 				}
 
