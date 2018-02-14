@@ -44,7 +44,9 @@ class Tribe__Context {
 		}
 
 		if ( null !== $post_or_type ) {
-			$current_post = Tribe__Utils__Array::get( $_REQUEST, 'post', get_post() );
+			$lookup = array( $_GET, $_POST, $_REQUEST );
+
+			$current_post = Tribe__Utils__Array::get_in_any( $lookup, 'post', get_post() );
 
 			if ( is_numeric( $post_or_type ) ) {
 
@@ -64,7 +66,7 @@ class Tribe__Context {
 			if ( $is_post && $post instanceof WP_Post ) {
 				$post_type = $post->post_type;
 			} else {
-				$post_type = Tribe__Utils__Array::get( $_GET, 'post_type', 'post' );
+				$post_type = Tribe__Utils__Array::get_in_any( $lookup, 'post_type', 'post' );
 			}
 
 			return (bool) count( array_intersect( $post_types, array( $post_type ) ) );
