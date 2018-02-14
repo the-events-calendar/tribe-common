@@ -233,7 +233,7 @@
     /**
      * Listen on async recurent elements.
      *
-     * @since TBD
+     * @since 4.7.7
      */
     $document.on( 'tribe.dependencies-run', obj.run );
 

@@ -2,14 +2,14 @@
 /**
  * Class used to hook into the assets being loaded
  *
- * @since TBD
+ * @since 4.7.7
  */
 class Tribe__Assets_Pipeline {
 
 	/**
 	 * Filter to listen when a tag is attached to the HTML.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 */
 	public function hook() {
 		add_filter( 'script_loader_tag', array( $this, 'prevent_underscore_conflict' ), 10, 2 );
@@ -19,7 +19,7 @@ class Tribe__Assets_Pipeline {
 	 * Before underscore is loaded to the FE we add two scripts on before and one after to prevent underscore from
 	 * taking place on the global namespace if lodash is present.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @param string $tag The <script> tag for the enqueued script.
 	 * @param string $handle The script's registered handle.

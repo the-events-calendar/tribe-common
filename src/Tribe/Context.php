@@ -3,14 +3,14 @@
 /**
  * Class Tribe__Context
  *
- * @since TBD
+ * @since 4.7.7
  */
 class Tribe__Context {
 
 	/**
 	 * Whether we are currently creating a new post, a post of post type(s) or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @param null|array|string|int $post_or_type A post type, an array of post types, `null`
 	 *                                            to just make sure we are currently creating a post.
@@ -27,7 +27,7 @@ class Tribe__Context {
 	/**
 	 * Whether we are currently editing a post(s), post type(s) or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @param null|array|string|int $post_or_type A post ID, post type, an array of post types or post IDs, `null`
 	 *                                            to just make sure we are currently editing a post.

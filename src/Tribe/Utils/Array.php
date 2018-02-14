@@ -89,7 +89,7 @@ class Tribe__Utils__Array {
 	/**
 	 * Find a value inside a list of array or objects, including one nested a few levels deep.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * Example: get( [$a, $b, $c], [ 0, 1, 2 ] ) returns the value of $a[0][1][2] found in $a, $b or $c
 	 * or the default.

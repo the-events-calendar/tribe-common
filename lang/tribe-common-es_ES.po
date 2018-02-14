@@ -11,7 +11,11 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: Tribe Common\n"
 
-#: src/Tribe/Validate.php:534
+#: src/Tribe/Validate.php:184
+msgid "%s must not be empty"
+msgstr ""
+
+#: src/Tribe/Validate.php:537
 msgid "%s must be an email address."
 msgstr ""
 
@@ -59,15 +63,15 @@ msgstr ""
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Main.php:283
+#: src/Tribe/Main.php:288
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:282
+#: src/Tribe/Main.php:287
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:281
+#: src/Tribe/Main.php:286
 msgid "All items on this page were selected. "
 msgstr ""
 
@@ -245,11 +249,11 @@ msgstr ""
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
-#: src/Tribe/Validate.php:245
+#: src/Tribe/Validate.php:248
 msgid "%s must be a whole number."
 msgstr ""
 
-#: src/Tribe/Settings.php:269 src/Tribe/Settings.php:270
+#: src/Tribe/Settings.php:281 src/Tribe/Settings.php:282
 msgid "Events Help"
 msgstr ""
 
@@ -281,7 +285,7 @@ msgstr ""
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/Customizer.php:569
+#: src/Tribe/Customizer.php:570
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr ""
 
@@ -389,27 +393,27 @@ msgstr ""
 msgid "C&ocirc;te d'Ivoire"
 msgstr ""
 
-#: src/Tribe/Support.php:370
+#: src/Tribe/Support.php:372
 msgid "Unique System Info Key Generated"
 msgstr ""
 
-#: src/Tribe/Support.php:356 src/Tribe/Support.php:382
+#: src/Tribe/Support.php:358 src/Tribe/Support.php:384
 msgid "Permission Error"
 msgstr ""
 
-#: src/Tribe/Support.php:323 src/Tribe/Support.php:328
+#: src/Tribe/Support.php:325 src/Tribe/Support.php:330
 msgid "Invalid Key"
 msgstr ""
 
-#: src/Tribe/Support.php:304
+#: src/Tribe/Support.php:306
 msgid "Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties."
 msgstr ""
 
-#: src/Tribe/Support.php:303
+#: src/Tribe/Support.php:305
 msgid "Yes, automatically share my system information with the Modern Tribe support team"
 msgstr ""
 
-#: src/Tribe/Support.php:170
+#: src/Tribe/Support.php:171
 msgid "English"
 msgstr ""
 
@@ -421,63 +425,63 @@ msgstr ""
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/Main.php:293
+#: src/Tribe/Main.php:298
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:292
+#: src/Tribe/Main.php:297
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:292
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:285
+#: src/Tribe/Main.php:290
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:284
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:278
+#: src/Tribe/Main.php:283
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:282
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:281
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:275
+#: src/Tribe/Main.php:280
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:274
+#: src/Tribe/Main.php:279
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:277
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:276
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:257
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:256
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:250 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:255 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -542,7 +546,7 @@ msgstr ""
 msgid "Logging level"
 msgstr ""
 
-#: src/Tribe/Validate.php:183
+#: src/Tribe/Validate.php:168
 msgid "%s must contain numbers, letters, dashes and undescores only"
 msgstr ""
 
@@ -692,7 +696,7 @@ msgstr ""
 msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
 msgstr ""
 
-#: src/Tribe/Validate.php:211
+#: src/Tribe/Validate.php:214
 msgid "%s must be a positive number or percent."
 msgstr ""
 
@@ -784,7 +788,7 @@ msgstr "http://m.tri.be/1x"
 msgid "Modern Tribe, Inc."
 msgstr "Modern Tribe, Inc."
 
-#: src/Tribe/Settings.php:359
+#: src/Tribe/Settings.php:371
 msgid "Save Changes"
 msgstr "Guardar Cambios"
 
@@ -792,7 +796,7 @@ msgstr "Guardar Cambios"
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 
-#: src/Tribe/Support.php:197
+#: src/Tribe/Support.php:199
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr "Las reglas de reescritura se han vaciado al cargar esta página de ayuda. ¡Lo más probable es que haya un vaciado de reglas de reescritura en algún plugin o tema!"
 
@@ -2074,90 +2078,90 @@ msgstr "Afganistán"
 msgid "Select a Country:"
 msgstr "Selecciona un país:"
 
-#: src/Tribe/Validate.php:503
+#: src/Tribe/Validate.php:506
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "La lista de países debe contener solo un país por línea de la siguiente forma: <br>US, Estados Unidos<br> UK, Reino Unido."
 
-#: src/Tribe/Validate.php:487
+#: src/Tribe/Validate.php:490
 msgid "%s must be a phone number."
 msgstr "%s debe ser un número de teléfono."
 
-#: src/Tribe/Validate.php:473
+#: src/Tribe/Validate.php:476
 msgid "%s must consist of 5 numbers."
 msgstr "%s debe solo contener 5 números."
 
-#: src/Tribe/Validate.php:459
+#: src/Tribe/Validate.php:462
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s debe consistir solo de letras, guiones, apostrofes y espacios."
 
-#: src/Tribe/Validate.php:443
+#: src/Tribe/Validate.php:446
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s debe consistir solo de letras, números, guiones, apostrofes y espacios."
 
-#: src/Tribe/Validate.php:427
+#: src/Tribe/Validate.php:430
 msgid "%s must be a number between 0 and 21."
 msgstr "%s debe ser un número entre 0 y 21."
 
-#: src/Tribe/Validate.php:373
+#: src/Tribe/Validate.php:376
 msgid "%s must be a number or percentage."
 msgstr "%s debe ser un número o un porcentaje."
 
-#: src/Tribe/Validate.php:357
+#: src/Tribe/Validate.php:360
 msgid "%s cannot be a duplicate"
 msgstr "%s no puede estar duplicada"
 
-#: src/Tribe/Validate.php:355
+#: src/Tribe/Validate.php:358
 msgid "%s cannot be the same as %s."
 msgstr "%s no puede ser igual a %s"
 
-#: src/Tribe/Validate.php:348
+#: src/Tribe/Validate.php:351
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "La validación por comparación falló debido a que no se indicó el valor a comparar para el campo %s"
 
-#: src/Tribe/Validate.php:295 src/Tribe/Validate.php:312
-#: src/Tribe/Validate.php:334
+#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:315
+#: src/Tribe/Validate.php:337
 msgid "%s must have a value that's part of its options."
 msgstr "%s debe contener una valor que sea parte de sus opciones disponibles."
 
-#: src/Tribe/Validate.php:279
+#: src/Tribe/Validate.php:282
 msgid "%s must be a valid absolute URL."
 msgstr "%s debe ser una URL absoluta válida"
 
-#: src/Tribe/Validate.php:264
+#: src/Tribe/Validate.php:267
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr "%s debe ser un slug válido (números, letras, guiones y guiones bajos)."
 
-#: src/Tribe/Validate.php:197 src/Tribe/Validate.php:225
+#: src/Tribe/Validate.php:200 src/Tribe/Validate.php:228
 msgid "%s must be a positive number."
 msgstr "%s debe ser un número positivo."
 
-#: src/Tribe/Validate.php:167
+#: src/Tribe/Validate.php:152
 msgid "%s must contain numbers, letters and dots only"
 msgstr "%s solo debe contener números, letras y puntos"
 
-#: src/Tribe/Validate.php:135 src/Tribe/Validate.php:151
+#: src/Tribe/Validate.php:120 src/Tribe/Validate.php:136
 msgid "%s must contain numbers and letters only"
 msgstr "%s solo debe contener números y letras"
 
-#: src/Tribe/Validate.php:112
+#: src/Tribe/Validate.php:105
 msgctxt "non-existant function name passed for field validation"
 msgid "with function name:"
 msgstr "con el nombre de la función:"
 
-#: src/Tribe/Validate.php:111
+#: src/Tribe/Validate.php:104
 msgid "Non-existant field validation function passed"
 msgstr "La función de validación especificada no existe"
 
-#: src/Tribe/Validate.php:77 src/Tribe/Validate.php:112
-#: src/Tribe/Validate.php:118
+#: src/Tribe/Validate.php:73 src/Tribe/Validate.php:85
+#: src/Tribe/Validate.php:105
 msgid "Field ID:"
 msgstr "ID del Campo:"
 
-#: src/Tribe/Validate.php:76 src/Tribe/Validate.php:117
+#: src/Tribe/Validate.php:72 src/Tribe/Validate.php:84
 msgid "Invalid or incomplete field passed"
 msgstr "El campo especificado no es válido o esta incompleto"
 
-#: src/Tribe/Support.php:186 src/Tribe/Support.php:187
+#: src/Tribe/Support.php:188 src/Tribe/Support.php:189
 msgid "Unknown or not set"
 msgstr "Desconocido o no establecido"
 
@@ -2169,41 +2173,41 @@ msgstr "Información del Sistema"
 msgid "There are no fields setup for this tab yet."
 msgstr "Todavía no hay campos definidos para esta pestaña."
 
-#: src/Tribe/Settings.php:597
+#: src/Tribe/Settings.php:621
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "El ajuste anterior no se ha guardado. Los otros ajustes se han guardado correctamente."
 msgstr[1] "Los ajustes anterioriores no se ha guardado. Los otros ajustes se han guardado correctamente."
 
-#: src/Tribe/Settings.php:596
+#: src/Tribe/Settings.php:620
 msgid "None of your settings were saved. Please try again."
 msgstr "Los ajustes no fueron guardados. Por favor intentelo nuevamente."
 
-#: src/Tribe/Settings.php:586
+#: src/Tribe/Settings.php:610
 msgid "Your form had the following errors:"
 msgstr "El formulario contiene los siguientes errores:"
 
-#: src/Tribe/Settings.php:419
+#: src/Tribe/Settings.php:431
 msgid "The request wasn't sent from this tab."
 msgstr "La solicitud no ha sido enviado desde esta pestaña."
 
-#: src/Tribe/Settings.php:413
+#: src/Tribe/Settings.php:425
 msgid "The request was sent insecurely."
 msgstr "La solicitud se ha enviado de forma no segura."
 
-#: src/Tribe/Settings.php:407
+#: src/Tribe/Settings.php:419
 msgid "You don't have permission to do that."
 msgstr "No tienes permiso para hacer eso."
 
-#: src/Tribe/Settings.php:351
+#: src/Tribe/Settings.php:363
 msgid "You've requested a non-existent tab."
 msgstr "Has solicitado una pestaña inexistente."
 
-#: src/Tribe/Settings.php:337
+#: src/Tribe/Settings.php:349
 msgid "%s Settings"
 msgstr "Ajustes %s "
 
-#: src/Tribe/Settings.php:241 src/Tribe/Settings.php:261
+#: src/Tribe/Settings.php:253 src/Tribe/Settings.php:273
 msgid "Events Settings"
 msgstr "Ajustes de Eventos"
 
@@ -2231,11 +2235,11 @@ msgstr "Se requiere una clave de licencia válida para soporte y actualizaciones
 msgid "License Key"
 msgstr "Clave de Licencia"
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:285
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Settings.php:242
+#: src/Tribe/Settings.php:254
 msgid "Settings"
 msgstr "Ajustes"
 
@@ -2243,19 +2247,19 @@ msgstr "Ajustes"
 msgid "Network"
 msgstr "Red"
 
-#: src/Tribe/Main.php:305
+#: src/Tribe/Main.php:310
 msgid "Done"
 msgstr "Hecho"
 
-#: src/Tribe/Main.php:304
+#: src/Tribe/Main.php:309
 msgid "Today"
 msgstr "Hoy"
 
-#: src/Tribe/Main.php:303
+#: src/Tribe/Main.php:308
 msgid "Prev"
 msgstr "Anterior"
 
-#: src/Tribe/Main.php:286 src/Tribe/Main.php:302
+#: src/Tribe/Main.php:291 src/Tribe/Main.php:307
 msgid "Next"
 msgstr "Siguiente"
 
@@ -2272,17 +2276,17 @@ msgstr "Visualización"
 msgid "Licenses"
 msgstr "Licencias"
 
-#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:568
+#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:569
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: src/Tribe/Settings.php:165 src/Tribe/Settings.php:229
-#: src/Tribe/Settings.php:230
+#: src/Tribe/Settings.php:177 src/Tribe/Settings.php:241
+#: src/Tribe/Settings.php:242
 msgid "Events"
 msgstr "Eventos"
 
-#: src/Tribe/Settings.php:619
+#: src/Tribe/Settings.php:643
 msgid "Settings saved."
 msgstr "Ajustes guardados."
 
@@ -2290,19 +2294,19 @@ msgstr "Ajustes guardados."
 msgid "General"
 msgstr "General"
 
-#: src/Tribe/Field.php:617
+#: src/Tribe/Field.php:626
 msgid "No select options specified"
 msgstr "No se seleccionó ninguna opción."
 
-#: src/Tribe/Field.php:559
+#: src/Tribe/Field.php:568
 msgid "No checkbox options specified"
 msgstr "No se especificó ninguna opción."
 
-#: src/Tribe/Field.php:523
+#: src/Tribe/Field.php:532
 msgid "No radio options specified"
 msgstr "No se especificó ninguna opción."
 
-#: src/Tribe/Field.php:228
+#: src/Tribe/Field.php:231
 msgid "Invalid field type specified"
 msgstr "Tipo de Campo especificado es incorrecto"
 
