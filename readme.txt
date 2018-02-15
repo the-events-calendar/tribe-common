@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.7.7.1] TBD =
+
+* Fix - Rollback changes introduced in version 4.7.7 to allow month view to render correctly.
+
 = [4.7.7] 2018-02-14 =
 
 * Fix - Fixed the behavior of the `tribe_format_currency` function not to overwrite explicit parameters [96777]
