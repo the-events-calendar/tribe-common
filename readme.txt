@@ -4,7 +4,7 @@
 
 = [4.7.7.1] TBD =
 
-* Fix - Rollback changes introduced in commit #8f5e431 toa allow month view to render correctly.
+* Fix - Rollback changes introduced in version 4.7.7 to allow month view to render correctly.
 
 = [4.7.7] 2018-02-14 =
 
