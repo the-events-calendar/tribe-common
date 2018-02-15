@@ -4,13 +4,14 @@
 
 = [4.7.8] TBD =
 
-= [4.7.7] TBD =
+= [4.7.7] 2018-02-14 =
 
-* Tweak - Improve the performance of dropdown and recurrent events by using caching on objects (our thanks to Gilles in the forums for flagging this problem) [81993]
-* Tweak - Prevents conflicts when lodash and underscore are used on the same site [92205]
-* Tweak - Add the `tribe_transient_notice` and `tribe_transient_notice_remove` functions to easily create and remove fire-and-forget admin notices.
-* Fix - Fix the behavior of the `tribe_format_currency` function not to overwrite explicit parameters [96777]
-* Fix - Prevent a change on the dates when DST happens on an event by avoding DST changes on UTC conversion [69784]
+* Fix - Fixed the behavior of the `tribe_format_currency` function not to overwrite explicit parameters [96777]
+* Fix - Modified timezone handling in relation to events, in order to avoid DST changes upon conversion to UTC [69784]
+* Tweak - Improved the performance of dropdown and recurrent events by using caching on objects (our thanks to Gilles in the forums for flagging this problem) [81993]
+* Tweak - Reduced the risk of conflicts when lodash and underscore are used on the same site [92205]
+* Tweak - Added the `tribe_transient_notice` and `tribe_transient_notice_remove` functions to easily create and remove fire-and-forget admin notices
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.7.6] 2018-01-23 =
 

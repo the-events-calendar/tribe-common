@@ -748,7 +748,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * Whether the specified field dependency condition is valid or not depending on
 		 * its parent field value.
 		 *
-		 * @since TBD
+		 * @since 4.7.7
 		 *
 		 * @param string $field_id The id of the field that might be removed.
 		 *

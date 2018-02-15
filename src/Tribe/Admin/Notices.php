@@ -385,7 +385,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Removes a transient notice based on its slug.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @param string $slug
 	 */
@@ -433,7 +433,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Returns an array of registered transient notices.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @return array An associative array in the shape [ <slug> => [ <html>, <args>, <expire timestamp> ] ]
 	 */
@@ -459,7 +459,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Updates/sets the transient notices transient.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @param array $notices An associative array in the shape [ <slug> => [ <html>, <args>, <expire timestamp> ] ]
 	 */
