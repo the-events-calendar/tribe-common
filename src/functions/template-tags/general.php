@@ -445,7 +445,7 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			 *
 			 * This will only apply if the currency symbol was not passed as a parameter.
 			 *
-			 * @since TBD
+			 * @since 4.7.7
 			 *
 			 * @param string $currency_symbol
 			 * @param int $post_id
@@ -460,7 +460,7 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			 *
 			 * This will only apply if the currency symbol reverse position not passed as a parameter.
 			 *
-			 * @since TBD
+			 * @since 4.7.7
 			 *
 			 * @param bool $reverse_position
 			 * @param int  $post_id
@@ -536,7 +536,7 @@ function tribe_transient_notice( $slug, $html, $arguments = array(), $expire = n
 /**
  * Removes a transient notice based on its slug.
  *
- * @since TBD
+ * @since 4.7.7
  *
  * @param string $slug
  */

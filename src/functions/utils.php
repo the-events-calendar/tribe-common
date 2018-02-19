@@ -347,7 +347,7 @@ if ( ! function_exists( 'tribe_post_exists' ) ) {
 	 * This is a low-level database check that will ignore caches and will
 	 * check if there is an entry, in the posts table, for the post.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @param string|int $post_id_or_name Either a post ID or a post name.
 	 * @param null       $post_type       An optional post type, or a list of post types, the

@@ -59,9 +59,10 @@
 			var $el = $(this);
 			var selector = $el.data( 'depends' );
 			var $selector = $( selector );
-			if ( ! $selector.get( 0 ).created ) {
+			var el = $selector.get( 0 );
+			if ( el && ! el.created ) {
 				$selector.addClass( selectors.dependency.replace( '.', '' ) ).data( 'dependent', $el );
-				$selector.get( 0 ).created = true;
+				el.created = true;
 			}
 		} );
 	};
@@ -98,9 +99,6 @@
 		}
 
 		$dependents.each( function( k, dependent ) {
-			if ( dependent.completed ) {
-				return;
-			}
 			var $dependent         = $( dependent );
 			var hasDependentParent = $dependent.is( '[data-dependent-parent]' );
 
@@ -180,7 +178,9 @@
 					$dependent.hide();
 				}
 
-				$dependent.find( selectors.fields ).prop( 'disabled', true );
+				if ( ! $dependent.data( 'dependency-dont-disable' ) ) {
+					$dependent.find( selectors.fields ).prop( 'disabled', true );
+				}
 
 				if ( 'undefined' !== typeof $().select2 ) {
 					$dependent.find( '.select2-container' ).select2( 'enable', false );
@@ -191,7 +191,6 @@
 				}
 			}
 
-			dependent.completed = true;
 			var $dependent_childs = $dependent.find( selectors.dependency );
 			if ( $dependent_childs.length > 0 ) {
 				// Checks if any child elements have dependencies
@@ -234,7 +233,7 @@
     /**
      * Listen on async recurent elements.
      *
-     * @since TBD
+     * @since 4.7.7
      */
     $document.on( 'tribe.dependencies-run', obj.run );
 
