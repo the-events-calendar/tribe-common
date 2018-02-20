@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.7.1] TBD =
+= [4.7.7.1] 2018-02-16 =
 
 * Fix - Rollback changes introduced in version 4.7.7 to allow month view to render correctly.
 
