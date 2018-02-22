@@ -333,9 +333,9 @@ class Tribe__Main {
 
 		// Queue hooks
 		add_action( 'admin_head', array( 'Tribe__Queue', 'work' ) );
-		add_action( 'wp_ajax_tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
-		add_action( 'wp_ajax_nopriv_tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
-		add_action( 'tribe_queue_work', array( 'Tribe_Queue', 'work' ) );
+		add_action( 'wp_ajax_tribe_queue_work', array( 'Tribe__Queue', 'work' ) );
+		add_action( 'wp_ajax_nopriv_tribe_queue_work', array( 'Tribe__Queue', 'work' ) );
+		add_action( 'tribe_queue_work', array( 'Tribe__Queue', 'work' ) );
 	}
 
 	public function add_js_class( $classes = array() ) {
