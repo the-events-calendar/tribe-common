@@ -330,7 +330,7 @@ class Tribe__Main {
 		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
 
 		// Schedule cron if needed
-		add_action( 'admin_init', array( tribe( 'cron' ), 'schedule' ) );
+		add_action( 'admin_init', tribe_callback( 'cron', 'schedule' ) );
 
 		// Queue hooks
 		add_action( 'admin_head', array( 'Tribe__Queue', 'work' ) );
