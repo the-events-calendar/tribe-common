@@ -329,7 +329,8 @@ class Tribe__Main {
 		add_filter( 'body_class', array( $this, 'add_js_class' ) );
 		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
 
-		add_filter( 'cron_schedules', array( tribe( 'cron' ), 'filter_cron_schedules' ) );
+		// Schedule cron if needed
+		add_filter( 'admin_init', array( tribe( 'cron' ), 'schedule' ) );
 
 		// Queue hooks
 		add_action( 'admin_head', array( 'Tribe__Queue', 'work' ) );
@@ -565,7 +566,7 @@ class Tribe__Main {
 		tribe_singleton( 'assets', 'Tribe__Assets' );
 		tribe_singleton( 'asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
 		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
-		tribe_singleton( 'cron', 'Tribe__Cron', array( 'schedule' ) );
+		tribe_singleton( 'cron', 'Tribe__Cron', array( 'hook' ) );
 		tribe_singleton( 'queue', 'Tribe__Queue' );
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 		tribe_singleton( 'admin-notices', 'Tribe__Admin__Notices' );
