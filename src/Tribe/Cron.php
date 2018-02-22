@@ -3,6 +3,13 @@
 class Tribe__Cron {
 
 	/**
+	 * Hook the functionality of this class into the world
+	 */
+	public function hook() {
+		add_filter( 'cron_schedules', array( $this, 'filter_cron_schedules' ) );
+	}
+
+	/**
 	 * Filters the cron schedules to add intervals we need.
 	 *
 	 * @param array $schedules
