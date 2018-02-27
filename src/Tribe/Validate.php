@@ -300,12 +300,21 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		}
 
 		/**
-		 * validates fields that have multiple options (checkbox list, etc.)
-		 * by making sure the value is part of the options array
+		 * Validates fields that have multiple options (checkbox list, etc.)
+		 * by making sure the value is part of the options array.
 		 *
-		 * @return stdClass validation result object
+		 * For the purpose of validation no option selected at all is a valid and
+		 * supported choice.
 		 */
 		public function options_multi() {
+			// handle the case where there are no options selected at all
+			if ( empty( $this->value ) || ! is_array( $this->value ) ) {
+				$this->value         = false;
+				$this->result->valid = true;
+
+				return;
+			}
+
 			foreach ( $this->value as $val ) {
 				if ( array_key_exists( $val, $this->field['options'] ) ) {
 					$this->value         = ( $this->value === 0 ) ? false : $this->value;
