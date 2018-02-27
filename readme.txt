@@ -4,6 +4,8 @@
 
 = [4.7.8] TBD =
 
+* Fix - Remove unnecessary timezone-abbreviation caching approach to improve accuracy of timezone abbreviations and better reflect DST changes [97344]
+
 = [4.7.7.1] 2018-02-16 =
 
 * Fix - Rollback changes introduced in version 4.7.7 to allow month view to render correctly.
