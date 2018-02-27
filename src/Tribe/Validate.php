@@ -302,18 +302,17 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * Validates fields that have multiple options (checkbox list, etc.)
 		 * by making sure the value is part of the options array.
-		 *
-		 * For the purpose of validation no option selected at all is a valid and
-		 * supported choice.
 		 */
 		public function options_multi() {
-			// handle the case where there are no options selected at all
-			if ( empty( $this->value ) || ! is_array( $this->value ) ) {
-				$this->value         = false;
-				$this->result->valid = true;
+			// if we are here it cannot be empty
+			if ( empty( $this->value ) ) {
+				$this->result->valid = false;
+				$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'tribe-common' ), $this->label );
 
 				return;
 			}
+
+			$this->value = is_array( $this->value ) ? $this->value : array( $this->value );
 
 			foreach ( $this->value as $val ) {
 				if ( array_key_exists( $val, $this->field['options'] ) ) {
