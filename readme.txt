@@ -4,6 +4,8 @@
 
 = [4.7.8] TBD =
 
+* Feature - Added new `tribe_get_global_query_object()` template tag for accessing the $wp_query global without triggering errors if other software has directly manipulated the global [100199]
+
 = [4.7.7.1] 2018-02-16 =
 
 * Fix - Rollback changes introduced in version 4.7.7 to allow month view to render correctly.
