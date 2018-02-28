@@ -175,7 +175,7 @@ if ( ! function_exists( 'tribe_get_global_query_object' ) ) {
 			return $wp_query;
 		}
 
-		if ( ! empty( $wp_the_query; ) ) {
+		if ( ! empty( $wp_the_query ) ) {
 			return $wp_the_query;
 		}
 
