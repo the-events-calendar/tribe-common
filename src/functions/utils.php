@@ -165,20 +165,21 @@ if ( ! function_exists( 'tribe_get_global_query_object' ) ) {
 	 *
 	 * @since TBD
 	 *
-	 * @return object|boolean The $wp_query, the $wp_the_query if $wp_query empty, false otherwise.
+	 * @return object The $wp_query, the $wp_the_query if $wp_query empty, null otherwise.
 	 */
 	function tribe_get_global_query_object() {
 		global $wp_query;
+		global $wp_the_query;
 
 		if ( ! empty( $wp_query ) ) {
 			return $wp_query;
 		}
 
-		if ( ! empty( $_GLOBALS['wp_the_query'] ) ) {
-			return $_GLOBALS['wp_the_query'];
+		if ( ! empty( $wp_the_query; ) ) {
+			return $wp_the_query;
 		}
 
-		return false;
+		return null;
 	}
 }
 
