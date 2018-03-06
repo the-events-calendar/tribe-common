@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.8] TBD =
+= [4.7.8] 2018-03-06 =
 
 * Feature - Added new `tribe_get_global_query_object()` template tag for accessing the $wp_query global without triggering errors if other software has directly manipulated the global [100199]
 * Fix - Remove unnecessary timezone-abbreviation caching approach to improve accuracy of timezone abbreviations and better reflect DST changes [97344]
