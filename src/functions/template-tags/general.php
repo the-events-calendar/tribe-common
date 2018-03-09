@@ -266,9 +266,11 @@ if ( ! function_exists( 'tribe_prepare_for_json' ) ) {
 	 * @return string
 	 */
 	function tribe_prepare_for_json( $string ) {
-
 		$value = trim( htmlspecialchars( $string, ENT_QUOTES, 'UTF-8' ) );
 		$value = str_replace( '&quot;', '"', $value );
+		// &amp;#013; is same as \r and JSON strings should be a single line not multiple lines.
+		$removable_values = array( '\r', '\n', '\t', '&amp;#013;' );
+		$value = str_replace( $removable_values, '', $value );
 
 		return $value;
 	}
