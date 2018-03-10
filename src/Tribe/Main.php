@@ -193,6 +193,7 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
+				array( 'tribe-accessibility-css', 'accessibility.css' ),
 				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
 				array( 'tribe-select2', 'vendor/tribe-select2/select2.js', array( 'jquery' ) ),
