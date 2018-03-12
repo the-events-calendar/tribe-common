@@ -15,7 +15,7 @@ msgstr ""
 msgid "%s must not be empty"
 msgstr ""
 
-#: src/Tribe/Validate.php:537
+#: src/Tribe/Validate.php:545
 msgid "%s must be an email address."
 msgstr ""
 
@@ -2078,48 +2078,48 @@ msgstr "Afeganistão"
 msgid "Select a Country:"
 msgstr "Selecione um País:"
 
-#: src/Tribe/Validate.php:506
+#: src/Tribe/Validate.php:514
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "A listagem de países deve ser formatada com um país por linha, no seguinte formato: <br/>US, Estados Unidos <br/> UK, Reino Unido."
 
-#: src/Tribe/Validate.php:490
+#: src/Tribe/Validate.php:498
 msgid "%s must be a phone number."
 msgstr "%s deve ser um número de telefone."
 
-#: src/Tribe/Validate.php:476
+#: src/Tribe/Validate.php:484
 msgid "%s must consist of 5 numbers."
 msgstr "%s deve conter 5 números."
 
-#: src/Tribe/Validate.php:462
+#: src/Tribe/Validate.php:470
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s deve possuir letras, espaços, apóstrofos e traços."
 
-#: src/Tribe/Validate.php:446
+#: src/Tribe/Validate.php:454
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s deve possuir apenas letras, números, traços, apóstrofos e espaços."
 
-#: src/Tribe/Validate.php:430
+#: src/Tribe/Validate.php:438
 msgid "%s must be a number between 0 and 21."
 msgstr "%s deve ser um número entre 0 e 21."
 
-#: src/Tribe/Validate.php:376
+#: src/Tribe/Validate.php:384
 msgid "%s must be a number or percentage."
 msgstr "%s deve ser um número ou porcentagem."
 
-#: src/Tribe/Validate.php:360
+#: src/Tribe/Validate.php:368
 msgid "%s cannot be a duplicate"
 msgstr "%s não pode ser uma duplicata"
 
-#: src/Tribe/Validate.php:358
+#: src/Tribe/Validate.php:366
 msgid "%s cannot be the same as %s."
 msgstr "%s não pode ser o mesmo que %s."
 
-#: src/Tribe/Validate.php:351
+#: src/Tribe/Validate.php:359
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "A comparação de validação falhou porque não foi fornecido um valor de comparação para o campo %s"
 
-#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:315
-#: src/Tribe/Validate.php:337
+#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:310
+#: src/Tribe/Validate.php:323 src/Tribe/Validate.php:345
 msgid "%s must have a value that's part of its options."
 msgstr "%s precisa ter um valor que seja parte destas opções."
 
