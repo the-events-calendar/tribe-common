@@ -2,6 +2,12 @@
 
 == Changelog ==
 
+= [4.7.8] 2018-03-06 =
+
+* Feature - Added new `tribe_get_global_query_object()` template tag for accessing the $wp_query global without triggering errors if other software has directly manipulated the global [100199]
+* Fix - Remove unnecessary timezone-abbreviation caching approach to improve accuracy of timezone abbreviations and better reflect DST changes [97344]
+* Fix - Make sure JSON strings are always a single line of text [99089]
+
 = [4.7.7.1] 2018-02-16 =
 
 * Fix - Rollback changes introduced in version 4.7.7 to allow month view to render correctly.

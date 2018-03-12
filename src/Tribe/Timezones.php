@@ -54,17 +54,10 @@ class Tribe__Timezones {
 	 * @return string
 	 */
 	public static function wp_timezone_abbr( $date ) {
-		$abbr = get_transient( 'tribe_events_wp_timezone_abbr' );
+		$timezone_string = self::wp_timezone_string();
+		$abbr            = self::abbr( $date, $timezone_string );
 
-		if ( empty( $abbr ) ) {
-			$timezone_string = self::wp_timezone_string();
-			$abbr = self::abbr( $date, $timezone_string );
-			set_transient( 'tribe_events_wp_timezone_abbr', $abbr );
-		}
-
-		return empty( $abbr )
-			? $timezone_string
-			: $abbr;
+		return empty( $abbr ) ? $timezone_string : $abbr;
 	}
 
 	/**
