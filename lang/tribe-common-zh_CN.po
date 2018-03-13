@@ -15,7 +15,7 @@ msgstr ""
 msgid "%s must not be empty"
 msgstr ""
 
-#: src/Tribe/Validate.php:537
+#: src/Tribe/Validate.php:545
 msgid "%s must be an email address."
 msgstr ""
 
@@ -2075,48 +2075,48 @@ msgstr "阿富汗"
 msgid "Select a Country:"
 msgstr "请选择国家"
 
-#: src/Tribe/Validate.php:506
+#: src/Tribe/Validate.php:514
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "国家列表必须以每行一个国家的格式表列于以下的格式中：<br>US, United States <br> UK, United Kingdom."
 
-#: src/Tribe/Validate.php:490
+#: src/Tribe/Validate.php:498
 msgid "%s must be a phone number."
 msgstr "%s 必须是电话号码数字。"
 
-#: src/Tribe/Validate.php:476
+#: src/Tribe/Validate.php:484
 msgid "%s must consist of 5 numbers."
 msgstr "%s 必须由 5 个数字所组成。"
 
-#: src/Tribe/Validate.php:462
+#: src/Tribe/Validate.php:470
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s 必须由字元、数字、空格、撇号及点所组成。"
 
-#: src/Tribe/Validate.php:446
+#: src/Tribe/Validate.php:454
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s 必须只由字元、数字、点、撇号及空格所组成。"
 
-#: src/Tribe/Validate.php:430
+#: src/Tribe/Validate.php:438
 msgid "%s must be a number between 0 and 21."
 msgstr "%s 必须是介于 0 到 21之间的数字。"
 
-#: src/Tribe/Validate.php:376
+#: src/Tribe/Validate.php:384
 msgid "%s must be a number or percentage."
 msgstr "%s 必须是数字或百分比符号。"
 
-#: src/Tribe/Validate.php:360
+#: src/Tribe/Validate.php:368
 msgid "%s cannot be a duplicate"
 msgstr "%s 不能是複製的"
 
-#: src/Tribe/Validate.php:358
+#: src/Tribe/Validate.php:366
 msgid "%s cannot be the same as %s."
 msgstr "%s 不能和 %s 完全一样。"
 
-#: src/Tribe/Validate.php:351
+#: src/Tribe/Validate.php:359
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "比较确认失败的原因是由于没有提供比较数值给栏位 %s。"
 
-#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:315
-#: src/Tribe/Validate.php:337
+#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:310
+#: src/Tribe/Validate.php:323 src/Tribe/Validate.php:345
 msgid "%s must have a value that's part of its options."
 msgstr "%s 必须有一个数值是选项中的一部份。"
 

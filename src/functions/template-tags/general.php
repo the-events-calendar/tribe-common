@@ -476,7 +476,19 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			$reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
 		}
 
-		$cost = $reverse_position ? $cost . $currency_symbol : $currency_symbol . $cost;
+		/**
+		 * Add option to filter the cost value before is returned, allowing other providers to hook into it.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $cost
+		 * @param int $post_id
+		 */
+		$cost = apply_filters( 'tribe_currency_cost', $cost, $post_id );
+
+		$cost = $reverse_position
+			? $cost . $currency_symbol
+			: $currency_symbol . $cost;
 
 		return $cost;
 	}
