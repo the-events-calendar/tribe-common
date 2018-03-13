@@ -15,7 +15,7 @@ msgstr ""
 msgid "%s must not be empty"
 msgstr ""
 
-#: src/Tribe/Validate.php:537
+#: src/Tribe/Validate.php:545
 msgid "%s must be an email address."
 msgstr ""
 
@@ -2081,48 +2081,48 @@ msgstr "Afganistan"
 msgid "Select a Country:"
 msgstr "Vybrať krajinu:"
 
-#: src/Tribe/Validate.php:506
+#: src/Tribe/Validate.php:514
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "Zoznam krajín musí byť formátovaný ako jedna krajina na riadok vo formáte: <br>US, Spojené štáty americke <br> UK, Spojené kráľovstvo."
 
-#: src/Tribe/Validate.php:490
+#: src/Tribe/Validate.php:498
 msgid "%s must be a phone number."
 msgstr "%s musí byť telefónne číslo."
 
-#: src/Tribe/Validate.php:476
+#: src/Tribe/Validate.php:484
 msgid "%s must consist of 5 numbers."
 msgstr "%s musí obsahovať 5 číslic."
 
-#: src/Tribe/Validate.php:462
+#: src/Tribe/Validate.php:470
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s musí obsahovať len písmená, medzery, apostrofy a pomĺčky."
 
-#: src/Tribe/Validate.php:446
+#: src/Tribe/Validate.php:454
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s musí obsahovať len písmená, číslice, pomĺčky, apostrofy a medzery."
 
-#: src/Tribe/Validate.php:430
+#: src/Tribe/Validate.php:438
 msgid "%s must be a number between 0 and 21."
 msgstr "%s musí byť číslo medzi 0 a 21."
 
-#: src/Tribe/Validate.php:376
+#: src/Tribe/Validate.php:384
 msgid "%s must be a number or percentage."
 msgstr "%s musí byť číslo alebo percento."
 
-#: src/Tribe/Validate.php:360
+#: src/Tribe/Validate.php:368
 msgid "%s cannot be a duplicate"
 msgstr "%s nemôže byť duplicitné"
 
-#: src/Tribe/Validate.php:358
+#: src/Tribe/Validate.php:366
 msgid "%s cannot be the same as %s."
 msgstr "%s nemôže byť také isté ako %s"
 
-#: src/Tribe/Validate.php:351
+#: src/Tribe/Validate.php:359
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "Validácia zlyhala, pretože nebola vložená žiadna porovnávaná hodnota do poľa %s"
 
-#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:315
-#: src/Tribe/Validate.php:337
+#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:310
+#: src/Tribe/Validate.php:323 src/Tribe/Validate.php:345
 msgid "%s must have a value that's part of its options."
 msgstr "%s musí mať hodnotu, ktorá je súčasťou výberu."
 

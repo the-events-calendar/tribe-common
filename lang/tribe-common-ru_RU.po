@@ -15,7 +15,7 @@ msgstr ""
 msgid "%s must not be empty"
 msgstr ""
 
-#: src/Tribe/Validate.php:537
+#: src/Tribe/Validate.php:545
 msgid "%s must be an email address."
 msgstr ""
 
@@ -2081,48 +2081,48 @@ msgstr "Афганистан"
 msgid "Select a Country:"
 msgstr "Выберите страну:"
 
-#: src/Tribe/Validate.php:506
+#: src/Tribe/Validate.php:514
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "Список стран должен быть форматирован следующим образом: одна страна в строке в формате <br>США, Соединенные штаты Америки <br>ВБ, Великобритания."
 
-#: src/Tribe/Validate.php:490
+#: src/Tribe/Validate.php:498
 msgid "%s must be a phone number."
 msgstr "%s должен быть номером телефона."
 
-#: src/Tribe/Validate.php:476
+#: src/Tribe/Validate.php:484
 msgid "%s must consist of 5 numbers."
 msgstr "%s должен содержать 5 цифр."
 
-#: src/Tribe/Validate.php:462
+#: src/Tribe/Validate.php:470
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s должен содержать буквы, пробелы, апострофы и тире."
 
-#: src/Tribe/Validate.php:446
+#: src/Tribe/Validate.php:454
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s должен содержать только буквы, цифры, тире, апострофы и пробелы."
 
-#: src/Tribe/Validate.php:430
+#: src/Tribe/Validate.php:438
 msgid "%s must be a number between 0 and 21."
 msgstr "%s должен быть числом от 0 до 21."
 
-#: src/Tribe/Validate.php:376
+#: src/Tribe/Validate.php:384
 msgid "%s must be a number or percentage."
 msgstr "%s должен быть числом или процентом."
 
-#: src/Tribe/Validate.php:360
+#: src/Tribe/Validate.php:368
 msgid "%s cannot be a duplicate"
 msgstr "%s не может быть копией"
 
-#: src/Tribe/Validate.php:358
+#: src/Tribe/Validate.php:366
 msgid "%s cannot be the same as %s."
 msgstr "%s не может совпадать с %s."
 
-#: src/Tribe/Validate.php:351
+#: src/Tribe/Validate.php:359
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "Cравнение не произошло, поскольку для поля %s не было предоставлено никакое значение"
 
-#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:315
-#: src/Tribe/Validate.php:337
+#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:310
+#: src/Tribe/Validate.php:323 src/Tribe/Validate.php:345
 msgid "%s must have a value that's part of its options."
 msgstr "%s должен иметь значение, которое является частью его параметров."
 
