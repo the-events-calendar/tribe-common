@@ -3,7 +3,7 @@
 	/**
 	 * Function that search if an object has all the specified methods and all those methods are functions.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @param {Object} obj The object where all the methods might be stored
 	 * @param {Array} methods An array with the name of all the methods to be tested
@@ -26,7 +26,7 @@
 	/**
 	 * Function to compare if the variable _ is from lodash by testing some of us unique methods.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @return {boolean} True if the global _ is from lodash.
 	 */

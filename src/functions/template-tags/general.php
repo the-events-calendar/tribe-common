@@ -266,9 +266,11 @@ if ( ! function_exists( 'tribe_prepare_for_json' ) ) {
 	 * @return string
 	 */
 	function tribe_prepare_for_json( $string ) {
-
 		$value = trim( htmlspecialchars( $string, ENT_QUOTES, 'UTF-8' ) );
 		$value = str_replace( '&quot;', '"', $value );
+		// &amp;#013; is same as \r and JSON strings should be a single line not multiple lines.
+		$removable_values = array( '\r', '\n', '\t', '&amp;#013;' );
+		$value = str_replace( $removable_values, '', $value );
 
 		return $value;
 	}
@@ -445,7 +447,7 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			 *
 			 * This will only apply if the currency symbol was not passed as a parameter.
 			 *
-			 * @since TBD
+			 * @since 4.7.7
 			 *
 			 * @param string $currency_symbol
 			 * @param int $post_id
@@ -460,7 +462,7 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			 *
 			 * This will only apply if the currency symbol reverse position not passed as a parameter.
 			 *
-			 * @since TBD
+			 * @since 4.7.7
 			 *
 			 * @param bool $reverse_position
 			 * @param int  $post_id
@@ -474,7 +476,19 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			$reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
 		}
 
-		$cost = $reverse_position ? $cost . $currency_symbol : $currency_symbol . $cost;
+		/**
+		 * Add option to filter the cost value before is returned, allowing other providers to hook into it.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $cost
+		 * @param int $post_id
+		 */
+		$cost = apply_filters( 'tribe_currency_cost', $cost, $post_id );
+
+		$cost = $reverse_position
+			? $cost . $currency_symbol
+			: $currency_symbol . $cost;
 
 		return $cost;
 	}
@@ -536,7 +550,7 @@ function tribe_transient_notice( $slug, $html, $arguments = array(), $expire = n
 /**
  * Removes a transient notice based on its slug.
  *
- * @since TBD
+ * @since 4.7.7
  *
  * @param string $slug
  */

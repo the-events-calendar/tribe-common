@@ -24,7 +24,7 @@
  * the parent (`foo` in the example) is not "truthy".
  * If you need to hide/show the field conditionally use the `conditional` attribute of the field.
  *
- * @since TBD
+ * @since 4.7.7
  */
 class Tribe__Field_Conditional {
 
@@ -40,7 +40,7 @@ class Tribe__Field_Conditional {
 	/**
 	 * Tribe__Field_Conditional constructor.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @param      string    $depends_on_field The slug or identifier of the parent field.
 	 * @param mixed|callable $condition        Either a valid callable function or method or a
@@ -69,7 +69,7 @@ class Tribe__Field_Conditional {
 	/**
 	 * Return the id/slug of the field this condition depends on.
 	 *
-	 * @since TBD
+	 * @since 4.7.7
 	 *
 	 * @return string
 	 */

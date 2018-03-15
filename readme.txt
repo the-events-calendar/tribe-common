@@ -2,13 +2,26 @@
 
 == Changelog ==
 
-= [4.7.7] TBD =
+= [4.7.9] 2018-03-12 =
 
-* Tweak - Improve the performance of dropdown and recurrent events by using caching on objects (our thanks to Gilles in the forums for flagging this problem) [81993]
-* Tweak - Prevents conflicts when lodash and underscore are used on the same site [92205]
-* Tweak - Add the `tribe_transient_notice` and `tribe_transient_notice_remove` functions to easily create and remove fire-and-forget admin notices.
-* Fix - Fix the behavior of the `tribe_format_currency` function not to overwrite explicit parameters [96777]
-* Fix - Prevent a change on the dates when DST happens on an event by avoding DST changes on UTC conversion [69784]
+= [4.7.8] 2018-03-06 =
+
+* Feature - Added new `tribe_get_global_query_object()` template tag for accessing the $wp_query global without triggering errors if other software has directly manipulated the global [100199]
+* Fix - Remove unnecessary timezone-abbreviation caching approach to improve accuracy of timezone abbreviations and better reflect DST changes [97344]
+* Fix - Make sure JSON strings are always a single line of text [99089]
+
+= [4.7.7.1] 2018-02-16 =
+
+* Fix - Rollback changes introduced in version 4.7.7 to allow month view to render correctly.
+
+= [4.7.7] 2018-02-14 =
+
+* Fix - Fixed the behavior of the `tribe_format_currency` function not to overwrite explicit parameters [96777]
+* Fix - Modified timezone handling in relation to events, in order to avoid DST changes upon conversion to UTC [69784]
+* Tweak - Improved the performance of dropdown and recurrent events by using caching on objects (our thanks to Gilles in the forums for flagging this problem) [81993]
+* Tweak - Reduced the risk of conflicts when lodash and underscore are used on the same site [92205]
+* Tweak - Added the `tribe_transient_notice` and `tribe_transient_notice_remove` functions to easily create and remove fire-and-forget admin notices
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.7.6] 2018-01-23 =
 

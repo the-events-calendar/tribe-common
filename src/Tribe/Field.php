@@ -807,7 +807,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		/**
 		 * Sanitizes a space-separated or arrray of classes.
 		 *
-		 * @since TBD
+		 * @since 4.7.7
 		 *
 		 * @param string|array $class A single class, a space-separated list of classes
 		 *                            or an array of classes.

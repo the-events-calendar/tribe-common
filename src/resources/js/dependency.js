@@ -107,7 +107,7 @@
 		}
 
 		$dependents.each( function( k, dependent ) {
-			var $dependent = $( dependent );
+			var $dependent         = $( dependent );
 			var hasDependentParent = $dependent.is( '[data-dependent-parent]' );
 
 			if ( hasDependentParent ) {
@@ -193,7 +193,9 @@
 					$dependent.hide();
 				}
 
-				$dependent.find( obj.selectors.fields ).prop( 'disabled', true );
+				if ( ! $dependent.data( 'dependency-dont-disable' ) ) {
+					$dependent.find( obj.selectors.fields ).prop( 'disabled', true );
+				}
 
 				if ( 'undefined' !== typeof $().select2 ) {
 					$dependent.find( '.select2-container' ).select2( 'enable', false );
