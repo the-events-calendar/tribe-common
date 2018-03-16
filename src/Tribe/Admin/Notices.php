@@ -217,8 +217,8 @@ class Tribe__Admin__Notices {
 
 		// Bail if we already rendered
 		if ( $this->is_rendered( $slug ) ) {
-			if ( $this->is_rendered_html( $slug, $html ) && ! $return ) {
-				echo $html;
+			if ( $this->is_rendered_html( $slug, $content ) && ! $return ) {
+				echo $content;
 			}
 
 			return false;
