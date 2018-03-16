@@ -4,6 +4,8 @@
 
 = [4.7.10] TBD =
 
+* Tweak - Adjusted app shop text in relation to Modern Tribe's ticketing solutions [101655]
+
 = [4.7.9] 2018-03-12 =
 
 = [4.7.8] 2018-03-06 =
