@@ -2,7 +2,9 @@
 
 == Changelog ==
 
-= [4.7.9] TBD =
+= [4.7.10] TBD =
+
+= [4.7.9] 2018-03-12 =
 
 * Tweak - Adjusted app shop text in relation to Modern Tribe's ticketing solutions [101655]
 
