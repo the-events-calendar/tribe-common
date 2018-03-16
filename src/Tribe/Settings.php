@@ -717,6 +717,10 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return boolean
 		 */
 		public function should_setup_network_pages() {
+			if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			}
+
 			$root_plugin_is_mu_activated = array_sum( array_map( 'is_plugin_active_for_network', $this->root_plugins ) ) >= 1;
 
 			if ( ! $root_plugin_is_mu_activated ) {
