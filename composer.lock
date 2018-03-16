@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1118861f5664d0c3ea29a1371bca5731",
+    "content-hash": "7124320047b039a2ede9cda299ff159c",
     "packages": [
         {
             "name": "lucatume/di52",
@@ -1443,16 +1443,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "e837b7d10ef90325fd642116e5a8c2ba07eab514"
+                "reference": "6cd5cb8ea516de8561df5ec109dfa42e83ca1f72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/e837b7d10ef90325fd642116e5a8c2ba07eab514",
-                "reference": "e837b7d10ef90325fd642116e5a8c2ba07eab514",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/6cd5cb8ea516de8561df5ec109dfa42e83ca1f72",
+                "reference": "6cd5cb8ea516de8561df5ec109dfa42e83ca1f72",
                 "shasum": ""
             },
             "require": {
@@ -1504,7 +1504,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2018-03-14T08:58:14+00:00"
+            "time": "2018-03-16T14:43:00+00:00"
         },
         {
             "name": "lucatume/wp-browser-commons",
