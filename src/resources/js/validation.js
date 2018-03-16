@@ -146,7 +146,7 @@ tribe.validation = {};
 		},
 		default: function( value, $constraint, $field ) {
 			if ( $.isNumeric( value ) ) {
-				value = parseInt( value, 10 );
+				value = parseFloat( value, 10 );
 			}
 
 			return value;
@@ -770,4 +770,4 @@ tribe.validation = {};
 	 * @since  4.7
 	 */
 	$document.ready( obj.onReady );
-}( tribe.validation, jQuery, _ ) );
+}( tribe.validation, jQuery, window.underscore || window._ ) );

@@ -88,6 +88,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'if_empty'            => null,
 				'can_be_empty'        => false,
 				'clear_after'         => true,
+				'tooltip_first'       => false,
 			);
 
 			// a list of valid field types, to prevent screwy behavior
@@ -106,6 +107,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'dropdown_chosen', // Deprecated use `dropdown`
 				'license_key',
 				'wrapped_html',
+				'email',
 			);
 
 			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
@@ -118,7 +120,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$type       = esc_attr( $args['type'] );
 			$name       = esc_attr( $args['name'] );
 			$placeholder = esc_attr( $args['placeholder'] );
-			$class      = sanitize_html_class( $args['class'] );
+			$class = $this->sanitize_class_attribute( $args['class'] );
 			$label      = wp_kses(
 				$args['label'], array(
 					'a'      => array( 'href' => array(), 'title' => array() ),
@@ -133,6 +135,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 						'src'   => array(),
 						'alt'   => array(),
 					),
+					'span'      => array( 'class' => array() ),
 				)
 			);
 			$label_attributes = $args['label_attributes'];
@@ -183,12 +186,13 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$if_empty         = is_string( $args['if_empty'] ) ? trim( $args['if_empty'] ) : $args['if_empty'];
 			$can_be_empty     = (bool) $args['can_be_empty'];
 			$clear_after      = (bool) $args['clear_after'];
+			$tooltip_first    = (bool) $args['tooltip_first'];
 
 			// set the ID
 			$this->id = apply_filters( 'tribe_field_id', $id );
 
 			// set each instance variable and filter
-			foreach ( $this->defaults as $key => $value ) {
+			foreach ( array_keys( $this->defaults ) as $key ) {
 				$this->{$key} = apply_filters( 'tribe_field_' . $key, $$key, $this->id );
 			}
 
@@ -286,6 +290,12 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public function do_field_div_start() {
 			$return = '<div class="tribe-field-wrap">';
+
+			if ( true === $this->tooltip_first ) {
+				$return .= $this->do_tool_tip();
+				// and empty it to avoid it from being printed again
+				$this->tooltip = '';
+			}
 
 			return apply_filters( 'tribe_field_div_start', $return, $this );
 		}
@@ -780,6 +790,35 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			}
 
 			return implode( ' ', $concat );
+		}
+
+		/**
+		 * Generate an email address field
+		 *
+		 * @since 4.7.4
+		 *
+		 * @return string The field
+		 */
+		public function email() {
+			$this->value = trim( $this->value );
+			return $this->text();
+		}
+
+		/**
+		 * Sanitizes a space-separated or arrray of classes.
+		 *
+		 * @since 4.7.7
+		 *
+		 * @param string|array $class A single class, a space-separated list of classes
+		 *                            or an array of classes.
+		 *
+		 * @return string A space-separated list of classes.
+		 */
+		protected function sanitize_class_attribute( $class ) {
+			$classes   = is_array( $class ) ? $class : explode( ' ', $class );
+			$sanitized = array_map( 'sanitize_html_class', $classes );
+
+			return implode( ' ', $sanitized );
 		}
 	} // end class
 } // endif class_exists

@@ -44,7 +44,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public $allTabs;
 
 		/**
-		 * multidimentional array of the fields that will be generated
+		 * multidimensional array of the fields that will be generated
 		 * for the entire settings panel, tabs are represented in the array keys
 		 * @var array
 		 */
@@ -144,6 +144,18 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			'the-events-calendar/the-events-calendar.php',
 			'event-tickets/event-ticket.php',
 		);
+
+		/**
+		 * An associative array in the form [ <tab-slug> => array(...<fields>) ]
+		 * @var array
+		 */
+		protected $fields_for_save = array();
+
+		/**
+		 * An array that contains the fields that are currently being validated.
+		 * @var array
+		 */
+		protected $current_fields = array();
 
 		/**
 		 * Static Singleton Factory Method
@@ -435,7 +447,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 				// set the current tab and current fields
 				$tab    = $this->currentTab;
-				$fields = $this->fields_for_save[ $tab ];
+				$fields = $this->current_fields = $this->fields_for_save[ $tab ];
 
 				if ( is_array( $fields ) ) {
 					// loop through the fields and validate them
@@ -445,12 +457,15 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 						$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
 
 						// make sure it has validation set up for it, else do nothing
-						if ( ( ! isset( $field['conditional'] ) || $field['conditional'] ) && ( ! empty( $field['validation_type'] ) || ! empty( $field['validation_callback'] ) ) ) {
+						if (
+							( ! isset( $field['conditional'] ) || $field['conditional'] )
+							&& ( ! empty( $field['validation_type'] ) || ! empty( $field['validation_callback'] ) )
+						) {
 							// some hooks
 							do_action( 'tribe_settings_validate_field', $field_id, $value, $field );
 							do_action( 'tribe_settings_validate_field_' . $field_id, $value, $field );
 
-							// validate this sucka
+							// validate this field
 							$validate = new Tribe__Validate( $field_id, $field, $value );
 
 							if ( isset( $validate->result->error ) ) {
@@ -463,6 +478,15 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 								$this->validated[ $field_id ]->value = $validate->value;
 							}
 						}
+					}
+
+					// do not generate errors for dependent fields that should not show
+					if ( ! empty( $this->errors ) ) {
+						$keep         = array_filter( array_keys( $this->errors ), array( $this, 'dependency_checks' ) );
+						$this->errors = array_intersect_key(
+							$this->errors,
+							array_combine( $keep, $keep )
+						);
 					}
 
 					// run the saving method
@@ -718,6 +742,43 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 */
 		public function set_root_plugins( array $root_plugins ) {
 			$this->root_plugins = $root_plugins;
+		}
+
+		/**
+		 * Whether the specified field dependency condition is valid or not depending on
+		 * its parent field value.
+		 *
+		 * @since 4.7.7
+		 *
+		 * @param string $field_id The id of the field that might be removed.
+		 *
+		 * @return bool `true` if the field dependency condition is valid, `false` if the field
+		 *              dependency condition is not valid.
+		 */
+		protected function dependency_checks( $field_id ) {
+			$does_not_exist = ! array_key_exists( $field_id, $this->current_fields );
+
+			if ( $does_not_exist ) {
+				return false;
+			}
+
+			$has_no_dependency = ! isset( $this->current_fields[ $field_id ]['validate_if'] );
+
+			if ( $has_no_dependency ) {
+				return true;
+			}
+
+			$condition = $this->current_fields[ $field_id ]['validate_if'];
+
+			if ( $condition instanceof Tribe__Field_Conditional ) {
+				$parent_field = Tribe__Utils__Array::get( $this->validated, $condition->depends_on(), null );
+
+				return $condition->check( $parent_field->value, $this->current_fields );
+			}
+
+			return is_callable( $condition )
+				? call_user_func( $condition, $this->current_fields )
+				: true == $condition;
 		}
 	} // end class
 } // endif class_exists

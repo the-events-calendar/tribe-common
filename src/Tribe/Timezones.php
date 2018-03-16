@@ -54,17 +54,10 @@ class Tribe__Timezones {
 	 * @return string
 	 */
 	public static function wp_timezone_abbr( $date ) {
-		$abbr = get_transient( 'tribe_events_wp_timezone_abbr' );
+		$timezone_string = self::wp_timezone_string();
+		$abbr            = self::abbr( $date, $timezone_string );
 
-		if ( empty( $abbr ) ) {
-			$timezone_string = self::wp_timezone_string();
-			$abbr = self::abbr( $date, $timezone_string );
-			set_transient( 'tribe_events_wp_timezone_abbr', $abbr );
-		}
-
-		return empty( $abbr )
-			? $timezone_string
-			: $abbr;
+		return empty( $abbr ) ? $timezone_string : $abbr;
 	}
 
 	/**
@@ -519,6 +512,10 @@ class Tribe__Timezones {
 
 		// Reassemble in the form +/-hhmm (ie "-0200" or "+0930")
 		$utc_offset = sprintf( $polarity . "%'.02d%'.02d", $hours, $minutes );
+
+		if ( '+0000' === $utc_offset || '-0000' === $utc_offset ) {
+			$utc_offset = 'UTC';
+		}
 
 		// Use this to build a new DateTimeZone
 		try {

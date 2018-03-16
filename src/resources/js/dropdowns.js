@@ -1,6 +1,6 @@
 var tribe_dropdowns = tribe_dropdowns || {};
 
-( function( $, obj ) {
+( function( $, obj, _ ) {
 	'use strict';
 
 	obj.selector = {
@@ -9,6 +9,9 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 	// Setup a Dependent
 	$.fn.tribe_dropdowns = function () {
+		if ( obj.dropdown_created )  {
+			return this;
+		}
 		obj.dropdown( this );
 
 		return this;
@@ -155,6 +158,10 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	}
 
 	obj.element = function ( event ) {
+		if ( this.dropdown_created ) {
+			return;
+		}
+		this.classList.add( 'dropdown-created' );
 		var $select = $( this ),
 			args = {},
 			carryOverData = [
@@ -378,6 +385,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 				this.attr( attr, val );
 			}, $container );
 		}
+		this.dropdown_created = true;
 	};
 
 	obj.action_change =  function( event ) {
@@ -506,7 +514,10 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	 * @return {jQuery}         Affected fields
 	 */
 	obj.dropdown = function( $fields ) {
-		var $elements = $fields.not( '.select2-offscreen, .select2-container' );
+		var $elements = $fields.not( '.select2-offscreen, .select2-container, .dropdown-created' );
+		if ( $elements.length === 0 ) {
+			return $elements;
+		}
 
 		$elements.each( obj.element )
 		.on( 'select2-open', obj.action_select2_open )
@@ -523,9 +534,9 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		$( obj.selector.dropdown ).tribe_dropdowns();
 	} );
 
-	// Addresses some problems with Select2 inputs not being initialized when using a browser's "Back" button.  
+	// Addresses some problems with Select2 inputs not being initialized when using a browser's "Back" button.
 	$( window ).on( 'unload', function() {
 		$( obj.selector.dropdown ).tribe_dropdowns();
 	});
 
-} )( jQuery, tribe_dropdowns );
+} )( jQuery, tribe_dropdowns, window.underscore || window._ );
