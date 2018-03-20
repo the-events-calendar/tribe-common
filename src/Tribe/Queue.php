@@ -69,19 +69,25 @@ class Tribe__Queue {
 	 *                                             set this to `0` to remove the transient immediately;
 	 *                                             defaults to 10 seconds.
 	 */
-	 public function remove_work_from_list( $work, $expire = 10 ) {
+	public function remove_work_from_list( $work, $expire = 10 ) {
 		$list = $this->get_work_list();
 
 		if ( ! $work instanceof Tribe__Queue__Worker ) {
 			$work = $this->get_work( $work );
 		}
 
-		 unset( $list[ $work->get_id() ] );
-		 if ( ! empty( $expire ) ) {
-			 $work->save( $expire );
-		 } else {
-			 delete_transient( $work->get_transient_name() );
-		 }
+		// Prevent conflicts when work has already been worked.
+		if ( ! $work instanceof Tribe__Queue__Worker ) {
+			return;
+		}
+
+		unset( $list[ $work->get_id() ] );
+
+		if ( ! empty( $expire ) ) {
+			$work->save( $expire );
+		} else {
+			delete_transient( $work->get_transient_name() );
+		}
 
 		update_option( self::$works_option, $list );
 	}
