@@ -6,6 +6,21 @@ defined( 'WPINC' ) or die;
  * @since 4.3
  */
 class Tribe__Admin__Notices {
+
+	/**
+	 * The name of the transient that will store transient notices.
+	 *
+	 * @var string
+	 */
+	public static $transient_notices_name = '_tribe_admin_notices';
+
+	/**
+	 * Whether, in this request, transient notices have been pruned already or not.
+	 *
+	 * @var bool
+	 */
+	protected $did_prune_transients = false;
+
 	/**
 	 * Static singleton variable
 	 *
@@ -72,6 +87,16 @@ class Tribe__Admin__Notices {
 	 * @return void
 	 */
 	public function hook() {
+		$transients = $this->get_transients();
+
+		foreach ( $transients as $slug => $transient ) {
+			list( $html, $args, $expire ) = $transient;
+			if ( $expire < time() ) {
+				continue;
+			}
+			$this->register( $slug, $html, $args );
+		}
+
 		foreach ( $this->notices as $notice ) {
 			if ( $notice->dismiss && $this->has_user_dimissed( $notice->slug ) ) {
 				continue;
@@ -334,6 +359,45 @@ class Tribe__Admin__Notices {
 		return $notice;
 	}
 
+	/**
+	 * Create a transient Admin Notice easily.
+	 *
+	 * A transient admin notice is a "fire-and-forget" admin notice that will display once registered and
+	 * until dismissed (if dismissible) without need, on the side of the source code, to register it on each request.
+	 *
+	 * @param  string $slug      Slug to save the notice
+	 * @param  string $html      The notice output HTML code
+	 * @param  array  $arguments Arguments to Setup a notice
+	 * @param int     $expire    After how much time (in seconds) the notice will stop showing.
+	 *
+	 * @return stdClass Which notice was registered
+	 */
+	public function register_transient( $slug, $html, $arguments = array(), $expire = null ) {
+		$notices          = $this->get_transients();
+		$notices[ $slug ] = array( $html, $arguments, time() + $expire );
+		$this->set_transients( $notices );
+	}
+
+	/**
+	 * Removes a transient notice based on its slug.
+	 *
+	 * @since 4.7.7
+	 *
+	 * @param string $slug
+	 */
+	public function remove_transient( $slug ) {
+		$notices = $this->get_transients();
+		unset( $notices[ $slug ] );
+		$this->set_transients( $notices );
+	}
+
+	/**
+	 * Removes a notice based on its slug.
+	 *
+	 * @param string $slug
+	 *
+	 * @return bool
+	 */
 	public function remove( $slug ) {
 		if ( ! $this->exists( $slug ) ) {
 			return false;
@@ -360,5 +424,43 @@ class Tribe__Admin__Notices {
 
 	public function exists( $slug ) {
 		return is_object( $this->get( $slug ) ) ? true : false;
+	}
+
+	/**
+	 * Returns an array of registered transient notices.
+	 *
+	 * @since 4.7.7
+	 *
+	 * @return array An associative array in the shape [ <slug> => [ <html>, <args>, <expire timestamp> ] ]
+	 */
+	protected function get_transients() {
+		$transient = self::$transient_notices_name;
+		$notices   = get_transient( $transient );
+		$notices   = is_array( $notices ) ? $notices : array();
+
+		if ( $this->did_prune_transients ) {
+			$this->did_prune_transients = true;
+			foreach ( $notices as $key => $notice ) {
+				list( $html, $args, $expire_at ) = $notice;
+
+				if ( $expire_at < time() ) {
+					unset( $notices[ $key ] );
+				}
+			}
+		}
+
+		return $notices;
+	}
+
+	/**
+	 * Updates/sets the transient notices transient.
+	 *
+	 * @since 4.7.7
+	 *
+	 * @param array $notices An associative array in the shape [ <slug> => [ <html>, <args>, <expire timestamp> ] ]
+	 */
+	protected function set_transients( $notices ) {
+		$transient = self::$transient_notices_name;
+		set_transient( $transient, $notices, MONTH_IN_SECONDS );
 	}
 }

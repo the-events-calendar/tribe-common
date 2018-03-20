@@ -230,36 +230,37 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 		 */
 		try {
 			$log_files_dir = new DirectoryIterator( $this->log_dir );
+
+			// Look through the log storage directory
+			foreach ( $log_files_dir as $node ) {
+				if ( ! $node->isReadable() ) {
+					continue;
+				}
+
+				$name = $node->getFilename();
+
+				// DirectoryIterator::getExtension() is only available on 5.3.6
+				if ( version_compare( phpversion(), '5.3.6', '>=' ) ) {
+					$ext = $node->getExtension();
+				} else {
+					$ext = pathinfo( $name, PATHINFO_EXTENSION );
+				}
+
+				// Skip unless it is a .log file with the expected prefix
+				if ( 'log' !== $ext || 0 !== strpos( $name, $basename ) ) {
+					continue;
+				}
+
+				if ( preg_match( '/([0-9]{4}\-[0-9]{2}\-[0-9]{2})/', $name, $matches ) ) {
+					$logs[] = $matches[1];
+				}
+			}
+
+			rsort( $logs );
 		} catch ( Exception $e ) {
 			return $logs;
 		}
 
-		// Look through the log storage directory
-		foreach ( $log_files_dir as $node ) {
-			if ( ! $node->isReadable() ) {
-				continue;
-			}
-
-			$name = $node->getFilename();
-
-			// DirectoryIterator::getExtension() is only available on 5.3.6
-			if ( version_compare( phpversion(), '5.3.6', '>=' ) ) {
-				$ext = $node->getExtension();
-			} else {
-				$ext = pathinfo( $name, PATHINFO_EXTENSION );
-			}
-
-			// Skip unless it is a .log file with the expected prefix
-			if ( 'log' !== $ext || 0 !== strpos( $name, $basename ) ) {
-				continue;
-			}
-
-			if ( preg_match( '/([0-9]{4}\-[0-9]{2}\-[0-9]{2})/', $name, $matches ) ) {
-				$logs[] = $matches[1];
-			}
-		}
-
-		rsort( $logs );
 		return $logs;
 	}
 

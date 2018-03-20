@@ -44,6 +44,9 @@ class Tribe__Tracker {
 
 		// Track the Post term updates
 		add_action( 'set_object_terms', array( $this, 'track_taxonomy_term_changes' ), 10, 6 );
+
+		// Clean up modified fields if the post is removed.
+		add_action( 'delete_post', array( $this, 'cleanup_meta_fields' ) );
 	}
 
 	/**
@@ -355,9 +358,13 @@ class Tribe__Tracker {
 
 		$tracked_post_types = $this->get_post_types();
 
-		$post = $this->get_post( $object_id );
+		$post_id = tribe_post_exists( $object_id );
 
-		if ( empty( $post ) || ! in_array( $post->post_type, $tracked_post_types ) ) {
+		if (
+			empty( $post_id )
+			|| ! ( $post = get_post( $post_id ) )
+			|| ! in_array( $post->post_type, $tracked_post_types )
+		) {
 			return false;
 		}
 
@@ -429,22 +436,15 @@ class Tribe__Tracker {
 	}
 
 	/**
-	 * Builds and returns a valid post object from the post object input.
+	 * Make sure to remove the changed field if the event is deleted to ensure there are no left meta fields when
+	 * the event is deleted.
 	 *
-	 * @since TBD
+	 * @since 4.7.6
 	 *
-	 * @param int|WP_Post $object_id Either a post ID or a post object
-	 *
-	 * @return bool|WP_Post A post object if the post ID or passed post object is valid, `false` otherwise.
+	 * @param int  Post ID
+	 * @return bool
 	 */
-	protected function get_post( $object_id ) {
-		$post = false;
-		if ( is_numeric( $object_id ) ) {
-			$post = get_post( $object_id );
-		} elseif ( isset( $object_id->post_type ) ) {
-			$post = $object_id;
-		}
-
-		return $post;
+	public function cleanup_meta_fields( $post_id ) {
+		return delete_post_meta( (int) $post_id, self::$field_key );
 	}
 }

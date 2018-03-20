@@ -273,4 +273,4 @@
 			}
 		});
 	};
-}( jQuery, _ ) );
+}( jQuery, window.underscore || window._ ) );

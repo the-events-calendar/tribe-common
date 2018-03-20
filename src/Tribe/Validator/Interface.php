@@ -86,4 +86,16 @@ interface Tribe__Validator__Interface {
 	 * @return mixed
 	 */
 	public function is_image( $image );
+
+	/**
+	 * Returns the ID of a post for the specified name and type if any.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $slug
+	 * @param string $post_type
+	 *
+	 * @return int|false The post ID if found, `false` otherwise.
+	 */
+	public function get_id_for_slug( $slug, $post_type );
 }

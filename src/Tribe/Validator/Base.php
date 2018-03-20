@@ -198,4 +198,28 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 
 		return in_array( $post_status, $post_stati );
 	}
+
+	/**
+	 * Returns the ID of a post for the specified name and type if any.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $slug
+	 * @param string $post_type
+	 *
+	 * @return int|false The post ID if found, `false` otherwise.
+	 */
+	public function get_id_for_slug( $slug, $post_type ) {
+		global $wpdb;
+
+		$query = $wpdb->prepare(
+			"SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_name = %s",
+			$post_type,
+			$slug
+		);
+
+		$id = $wpdb->get_var( $query );
+
+		return empty( $id ) ? false : (int) $id;
+	}
 }
