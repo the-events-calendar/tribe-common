@@ -9,13 +9,11 @@ modules:
     enabled:
         - \Helper\Integration
         - WPLoader:
-            wpRootFolder: '%WP_ROOT_FOLDER%'
+            wpRootFolder: %WP_ROOT_FOLDER%
             dbName: %TEST_DB_NAME%
-            dbHost: %DB_HOST%
-            dbUser: %DB_USER%
-            dbPassword: %DB_PASSWORD%
-            wpDebug: true
-            tablePrefix: wp_
+            dbHost: %TEST_DB_HOST%
+            dbUser: %TEST_DB_USER%
+            dbPassword: %TEST_DB_PASSWORD%
             domain: %WP_DOMAIN%
             adminEmail: admin@%WP_DOMAIN%
             title: 'Event Common Tests'

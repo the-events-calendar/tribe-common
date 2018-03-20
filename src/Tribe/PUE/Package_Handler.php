@@ -117,6 +117,10 @@ class Tribe__PUE__Package_Handler {
 
 		$this->upgrader->skin->feedback( 'downloading_package', $package );
 
+		if ( ! function_exists( 'download_url' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		}
+
 		$download_file = download_url( $package );
 
 		if ( is_wp_error( $download_file ) ) {

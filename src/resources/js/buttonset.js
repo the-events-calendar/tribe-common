@@ -1,6 +1,6 @@
 var tribe_buttonset = tribe_buttonset || {};
 
-( function( $, obj ) {
+( function( $, obj, _ ) {
 	'use strict';
 
 	obj.$body;
@@ -88,4 +88,4 @@ var tribe_buttonset = tribe_buttonset || {};
 	};
 
 	$( document ).ready( obj.ready );
-} )( jQuery, tribe_buttonset );
+} )( jQuery, tribe_buttonset, window.underscore || window._ );
