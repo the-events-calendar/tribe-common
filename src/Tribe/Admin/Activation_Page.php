@@ -47,7 +47,7 @@ class Tribe__Admin__Activation_Page {
 	 * Listen for opportunities to show update and welcome splash pages.
 	 */
 	public function hooks() {
-		if ( true === ( (bool) get_option( 'tribe_skip_welcome' ) ) ) {
+		if ( tribe_is_truthy( get_option( 'tribe_skip_welcome' ) ) ) {
 			return;
 		}
 
