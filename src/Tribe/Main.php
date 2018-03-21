@@ -196,6 +196,7 @@ class Tribe__Main {
 			$this,
 			array(
 				array( 'tribe-accessibility-css', 'accessibility.css' ),
+				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
 				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 				array( 'tribe-select2', 'vendor/tribe-select2/select2.js', array( 'jquery' ) ),
 				array( 'tribe-select2-css', 'vendor/tribe-select2/select2.css' ),
