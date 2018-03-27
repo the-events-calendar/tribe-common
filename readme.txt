@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.10] TBD =
+= [4.7.10] 2018-03-28 =
 
 * Tweak - Adjusted app shop text in relation to Modern Tribe's ticketing solutions [101655]
 * Tweak - Add wrapper function around `tribe_events_get_the_excerpt` to prevent use it before available [95034]

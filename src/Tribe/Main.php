@@ -551,7 +551,7 @@ class Tribe__Main {
 	 *
 	 * @see https://central.tri.be/issues/65755
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.10
 	 *
 	 * @return Tribe__PUE__Notices
 	 */
@@ -561,7 +561,7 @@ class Tribe__Main {
 
 	/**
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.10
 	 *
 	 * @return Tribe__Log
 	 */
