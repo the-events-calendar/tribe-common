@@ -427,7 +427,7 @@ if ( ! function_exists( 'tribe_post_exists' ) ) {
 	}
 }
 
-if ( ! function_exists('tribe_post_excerpt' ) ) {
+if ( ! function_exists( 'tribe_post_excerpt' ) ) {
 	/**
 	 * Wrapper function for `tribe_events_get_the_excerpt` to prevent access the function when is not present on the
 	 * current site installation.
