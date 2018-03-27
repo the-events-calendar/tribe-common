@@ -90,7 +90,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		$data->{'@type'} = $this->type;
 
 		$data->name        = esc_js( get_the_title( $post ) );
-		$data->description = esc_js( tribe_events_get_the_excerpt( $post ) );
+		$data->description = esc_js( tribe_post_excerpt( $post ) );
 
 		if ( has_post_thumbnail( $post ) ) {
 			$data->image = wp_get_attachment_url( get_post_thumbnail_id( $post ) );
