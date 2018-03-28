@@ -420,7 +420,11 @@ class Tribe__Timezones {
 		}
 
 		try {
-			$timezone_object = new DateTimeZone( $timezone );
+			if ( $timezone instanceof DateTimeZone ) {
+				$timezone_object = $timezone;
+			} else {
+				$timezone_object = new DateTimeZone( $timezone );
+			}
 
 			if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
 				$date = new DateTime( "@{$date}" );
