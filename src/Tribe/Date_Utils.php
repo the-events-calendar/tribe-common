@@ -20,6 +20,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		const DBDATETIMEFORMAT      = 'Y-m-d H:i:s';
 		const DBTIMEFORMAT          = 'H:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
+		const UNIX_TIMESTAMP        = 'U';
 
 		private static $localized_months_full  = array();
 		private static $localized_months_short = array();
