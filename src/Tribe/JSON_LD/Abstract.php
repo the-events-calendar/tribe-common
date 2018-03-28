@@ -29,6 +29,15 @@ abstract class Tribe__JSON_LD__Abstract {
 	protected static $posts = array();
 
 	/**
+	 * Holder for a post when it has multiple types
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected static $types = array();
+
+	/**
 	 * The class singleton constructor.
 	 *
 	 * @return Tribe__JSON_LD__Abstract
@@ -70,7 +79,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		}
 
 		// This prevents a JSON_LD from existing twice one the same page
-		if ( $this->exists( $post_id ) ) {
+		if ( $this->exists( $post_id ) && $this->type_exists( $post_id, $this->type ) ) {
 			return array();
 		}
 
@@ -142,8 +151,8 @@ abstract class Tribe__JSON_LD__Abstract {
 	 */
 	public function get_markup( $post = null, $args = array() ) {
 		$data = $this->get_data( $post, $args );
-
 		$type = strtolower( esc_attr( $this->type ) );
+		$this->register_type( $post );
 
 		foreach ( $data as $post_id => $_data ) {
 			// Register this post as done already
@@ -185,14 +194,12 @@ abstract class Tribe__JSON_LD__Abstract {
 		 * @param string The HTML for the JSON LD markup
 		 */
 		$html = apply_filters( 'tribe_google_data_markup_json', $html );
-
 		/**
 		 * Allows users to filter the end markup of JSON-LD
 		 *
 		 * @param string The HTML for the JSON LD markup
 		 */
 		$html = apply_filters( 'tribe_json_ld_markup', $html );
-
 		echo $html;
 	}
 
@@ -255,10 +262,25 @@ abstract class Tribe__JSON_LD__Abstract {
 		if ( $this->exists( $id ) ) {
 			return self::$posts[ $id ];
 		}
-
 		self::$posts[ $id ] = get_post( $id );
-
 		return self::$posts[ $id ];
+	}
+
+
+	/**
+	 * Register the current $type to prevent duplicates entries with different $types and IDs
+	 *
+	 * @param $post
+	 */
+	public function register_type( $post ) {
+		$id = Tribe__Main::post_id_helper( $post );
+		if ( isset( self::$types[ $id ] ) && is_array( self::$types ) ) {
+			if ( ! $this->type_exists( $id, $this->type ) ) {
+				self::$types[ $id ][] = $this->type;
+			}
+		} else {
+			self::$types[ $id ] = array( $this->type );
+		}
 	}
 
 	/**
@@ -281,12 +303,27 @@ abstract class Tribe__JSON_LD__Abstract {
 	}
 
 	/**
+	 * Return `true` if the $type has been already registered for the specified $id.
+	 *
+	 * @since TBD
+	 *
+	 * @param $id
+	 * @param $type
+	 *
+	 * @return bool
+	 */
+	public function type_exists( $id, $type ) {
+		return isset( self::$types[ $id ] ) && false !== array_search( $type, self::$types[ $id ] );
+	}
+
+	/**
 	 * Empties the registered posts cache variable.
 	 *
 	 * Added for testing purposes.
 	 */
 	public static function unregister_all() {
 		self::$posts = array();
+		self::$types = array();
 	}
 
 	/**

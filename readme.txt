@@ -4,6 +4,8 @@
 
 = [4.7.11] TBD =
 
+* Tweak - Allow to register the same ID of a post if has multiple types for JSON-LD `<script>` tag [94989]
+
 = [4.7.9] 2018-03-12 =
 
 = [4.7.8] 2018-03-06 =
