@@ -4,6 +4,8 @@
 
 = [4.7.11] TBD =
 
+* Fix - Make sure `Timezone` is provided during the creation of the date to avoid usage of UTC as initial timezone [98654]
+
 = [4.7.9] 2018-03-12 =
 
 = [4.7.8] 2018-03-06 =

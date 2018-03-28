@@ -420,20 +420,22 @@ class Tribe__Timezones {
 		}
 
 		try {
-			$timezone_object = new DateTimeZone( $timezone );
+			if ( $timezone instanceof DateTimeZone ) {
+				$timezone_object = $timezone;
+			} else {
+				$timezone_object = new DateTimeZone( $timezone );
+			}
 
 			if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
 				$date = new DateTime( "@{$date}" );
+				$date->setTimezone( $timezone_object );
 			} else {
-				$date = new DateTime( $date );
+				$date = new DateTime( $date, $timezone_object );
 			}
+			return $date->format( $format );
 		} catch ( Exception $e ) {
 			return false;
 		}
-
-		$date->setTimezone( $timezone_object );
-
-		return $date->format( $format );
 	}
 
 	/**
