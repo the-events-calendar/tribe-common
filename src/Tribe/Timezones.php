@@ -424,16 +424,14 @@ class Tribe__Timezones {
 
 			if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
 				$date = new DateTime( "@{$date}" );
+				$date->setTimezone( $timezone_object );
 			} else {
-				$date = new DateTime( $date );
+				$date = new DateTime( $date, $timezone_object );
 			}
+			return $date->format( $format );
 		} catch ( Exception $e ) {
 			return false;
 		}
-
-		$date->setTimezone( $timezone_object );
-
-		return $date->format( $format );
 	}
 
 	/**
