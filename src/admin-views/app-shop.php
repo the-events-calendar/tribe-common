@@ -25,8 +25,8 @@
 
 		$button_label = esc_html__( 'Buy This Add-On', 'tribe-common' );
 		$button_class = 'button-primary';
-		if ( 'installed' == $type ) {
-			?><h1><?php esc_html_e( 'Installed Add-Ons', 'tribe-common' ); ?></h1><?php
+		if ( 'installed' === $type ) {
+			?><h1 class="tribe-installed-headline"><?php esc_html_e( 'Installed Add-Ons', 'tribe-common' ); ?></h1><?php
 			$button_class = 'button-disabled';
 			$button_label = '<span class="dashicons dashicons-yes"></span>' . esc_html__( 'Installed', 'tribe-common' );
 		}
