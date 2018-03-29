@@ -152,7 +152,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	public function get_markup( $post = null, $args = array() ) {
 		$data = $this->get_data( $post, $args );
 		$type = strtolower( esc_attr( $this->type ) );
-		$this->register_type( $post );
+		$this->set_type( $post, $type );
 
 		foreach ( $data as $post_id => $_data ) {
 			// Register this post as done already
@@ -268,19 +268,40 @@ abstract class Tribe__JSON_LD__Abstract {
 
 
 	/**
+	 * Public method to have access to the types
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_types() {
+		return self::$types;
+	}
+
+	/**
 	 * Register the current $type to prevent duplicates entries with different $types and IDs
 	 *
+	 * @since TBD
+	 *
 	 * @param $post
+	 * @param $type
+	 *
+	 * @return mixed
 	 */
-	public function register_type( $post ) {
+	public function set_type( $post, $type ) {
 		$id = Tribe__Main::post_id_helper( $post );
-		if ( isset( self::$types[ $id ] ) && is_array( self::$types ) ) {
-			if ( ! $this->type_exists( $id, $this->type ) ) {
-				self::$types[ $id ][] = $this->type;
-			}
-		} else {
-			self::$types[ $id ] = array( $this->type );
+
+		if ( $this->type_exists( $id, $type ) ) {
+			return self::$types[ $id ];
 		}
+
+		if ( empty( self::$types[ $id ] ) ) {
+			self::$types[ $id ] = array( $this->type );
+		} else {
+			self::$types[ $id ][] = $this->type;
+		}
+
+		return self::$types[ $id ];
 	}
 
 	/**
