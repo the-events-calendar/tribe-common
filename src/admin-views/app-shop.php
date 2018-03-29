@@ -60,8 +60,7 @@
 						$wide_indexes = array( 0 );
 				}
 
-				$i = 0;
-				foreach ( $products as $product ) {
+				foreach ( $products as $i => $product ) {
 					?>
 					<div class="tribe-addon<?php echo in_array( $i, $wide_indexes ) ? ' first' : ''; ?>">
 						<div class="thumb">
@@ -86,7 +85,6 @@
 					</div>
 
 					<?php
-					$i++;
 				}
 				?>
 			</div>
