@@ -5,6 +5,8 @@
 = [4.7.11] TBD =
 
 * Tweak - Allow to register the same ID of a post if has multiple types for JSON-LD `<script>` tag [94989]
+* Tweak - Adjusted app shop text in relation to Modern Tribe's ticketing solutions [101655]
+* Tweak - Added wrapper function around use of `tribe_events_get_the_excerpt` for safety [95034]
 
 = [4.7.9] 2018-03-12 =
 
