@@ -243,16 +243,31 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 			foreach ( array_keys( $format_map ) as $key ) {
 				$alias = ! empty( $format_map[ $key ]['alias'] ) ? $this->find_alias( $format_map[ $key ]['alias'], $value ) : $key;
 
-				if ( empty( $value[ $alias ] ) && empty( $value[ $key ] ) && ! isset( $format_map[ $key ]['default'] ) ) {
+				$key_or_alias_is_empty = empty( $value[ $alias ] ) && empty( $value[ $key ] );
+				$has_default_value = isset( $format_map[ $key ]['default'] );
+				$empty_is_allowed = ! empty( $format_map[ $key ]['allow_empty'] );
+
+				if ( $has_default_value && $empty_is_allowed ) {
+					$context[] = $alias === $key ? $key : sprintf( '%s (%s)', $key, implode( '|', (array) $alias ) );
+					throw new InvalidArgumentException( $this->get_inconsistent_default_and_empty_error_for( $context ) );
+				}
+
+				if ( $key_or_alias_is_empty && !$empty_is_allowed && ! $has_default_value  ) {
 					$is_required_key = ! empty( $format_map[ $key ]['required'] ) || $this->contains_required_keys( $format_map[ $key ] );
+
 					if ( $is_required_key ) {
 						$context[] = $alias === $key ? $key : sprintf( '%s (%s)', $key, implode( '|', (array) $alias ) );
 						throw new InvalidArgumentException( $this->get_required_error_for( $context ) );
 					}
+
 					continue;
 				}
 
-				if ( empty( $value[ $alias ] ) && empty( $value[ $key ] ) ) {
+				if ( $empty_is_allowed && isset( $format_map[ $key ]['validate_callback'] ) ) {
+					unset( $format_map[ $key ]['validate_callback'] );
+				}
+
+				if ( $key_or_alias_is_empty && $has_default_value ) {
 					$value[ $key ] = $format_map[ $key ]['default'];
 				}
 
@@ -260,6 +275,7 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 				$target = ! empty( $value[ $key ] ) ? $value[ $key ] : $value[ $alias ];
 				$data[ $key ] = $this->format( $target, $format_map[ $key ], $context );
 			}
+
 			$value = $data;
 		} else {
 			if ( ! empty( $format_map['validate_callback'] ) ) {
@@ -419,5 +435,20 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	 */
 	public function set_name( $name ) {
 		$this->name = $name;
+	}
+
+	/**
+	 * Returns the error produced for an inconsistent default value and allow empty map.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $context
+	 *
+	 * @return string The error message.
+	 */
+	protected function get_inconsistent_default_and_empty_error_for( $context ) {
+		$context = implode( ' > ', $context );
+
+		return sprintf( __( 'Argument "%1$s" cannot allow empty valued and provide a default value, expected behavior is inconsistent.', 'tribe-common' ), $context );
 	}
 }
