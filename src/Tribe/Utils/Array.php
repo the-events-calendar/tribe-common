@@ -252,6 +252,6 @@ class Tribe__Utils__Array {
 	public static function extract_values( array $array ) {
 		$all = array_map( array( __CLASS__, 'arrayize' ), array_values( $array ) );
 
-		return ! empty( $all ) ? array_values( call_user_func_array( 'array_merge', $all ) ) : [];
+		return ! empty( $all ) ? array_values( call_user_func_array( 'array_merge', $all ) ) : array();
 	}
 }
