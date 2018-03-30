@@ -250,10 +250,7 @@ class Tribe__Utils__Array {
 	 * @return array
 	 */
 	public static function extract_values( array $array ) {
-		$all = array_map( array(
-			'Tribe__Utils__Array',
-			'arrayize'
-		), array_values( $array ) );
+		$all = array_map( array( __CLASS__, 'arrayize' ), array_values( $array ) );
 
 		return ! empty( $all ) ? array_values( call_user_func_array( 'array_merge', $all ) ) : [];
 	}
