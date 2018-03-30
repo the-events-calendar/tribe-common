@@ -252,7 +252,7 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 					throw new InvalidArgumentException( $this->get_inconsistent_default_and_empty_error_for( $context ) );
 				}
 
-				if ( $key_or_alias_is_empty && !$empty_is_allowed && ! $has_default_value  ) {
+				if ( $key_or_alias_is_empty && ! $empty_is_allowed && ! $has_default_value ) {
 					$is_required_key = ! empty( $format_map[ $key ]['required'] ) || $this->contains_required_keys( $format_map[ $key ] );
 
 					if ( $is_required_key ) {
