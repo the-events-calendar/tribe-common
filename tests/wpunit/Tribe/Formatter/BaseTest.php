@@ -107,6 +107,34 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should allow empty value to be saved if required value does not validate
+	 *
+	 * @test
+	 */
+	public function it_should_allow_empty_value_to_if_value_does_not_validate() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'foo' => [ 'required' => true, 'validate_callback' => 'is_string' ],
+			'baz' => [ 'required' => true, 'validate_callback' => 'is_numeric' ],
+			'bar' => [ 'required' => false, 'allow_empty' => true, 'validate_callback' => 'is_numeric' ],
+		] );
+
+		$raw = [
+			'foo' => 'some string',
+			'bar' => 89,
+			'baz' => '',
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertArrayHasKey( 'foo', $formatted );
+		$this->assertArrayHasKey( 'bar', $formatted );
+		$this->assertArrayHasKey( 'baz', $formatted );
+		$this->assertEquals( '', $formatted['baz'] );
+	}
+
+	/**
 	 * It should throw if optional value does not validate
 	 *
 	 * @test

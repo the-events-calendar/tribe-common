@@ -269,7 +269,7 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 					throw new InvalidArgumentException( $this->get_invalid_error_for( $context, $e ) );
 				}
 
-				if ( false === $valid ) {
+				if ( false === $valid && empty( $format_map['allow_empty'] ) ) {
 					throw new InvalidArgumentException( $this->get_invalid_error_for( $context ) );
 				}
 			}
