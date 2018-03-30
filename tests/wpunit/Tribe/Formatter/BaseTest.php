@@ -122,8 +122,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 		$raw = [
 			'foo' => 'some string',
-			'bar' => 89,
-			'baz' => '',
+			'bar' => '',
+			'baz' => 23,
 		];
 
 		$formatted = $sut->process( $raw );
@@ -131,7 +131,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertArrayHasKey( 'foo', $formatted );
 		$this->assertArrayHasKey( 'bar', $formatted );
 		$this->assertArrayHasKey( 'baz', $formatted );
-		$this->assertEquals( '', $formatted['baz'] );
+		$this->assertEquals( '', $formatted['bar'] );
 	}
 
 	/**
