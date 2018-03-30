@@ -243,32 +243,38 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 			foreach ( array_keys( $format_map ) as $key ) {
 				$alias = ! empty( $format_map[ $key ]['alias'] ) ? $this->find_alias( $format_map[ $key ]['alias'], $value ) : $key;
 
+				$key_or_alias_not_set = ! isset( $value[ $alias ] ) && ! isset( $value[ $key ] );
 				$key_or_alias_is_empty = empty( $value[ $alias ] ) && empty( $value[ $key ] );
 				$has_default_value = isset( $format_map[ $key ]['default'] );
 				$empty_is_allowed = ! empty( $format_map[ $key ]['allow_empty'] );
+				$is_required_key = ! empty( $format_map[ $key ]['required'] ) || $this->contains_required_keys( $format_map[ $key ] );
 
 				if ( $has_default_value && $empty_is_allowed ) {
 					$context[] = $alias === $key ? $key : sprintf( '%s (%s)', $key, implode( '|', (array) $alias ) );
 					throw new InvalidArgumentException( $this->get_inconsistent_default_and_empty_error_for( $context ) );
 				}
 
-				if ( $key_or_alias_is_empty && ! $empty_is_allowed && ! $has_default_value ) {
-					$is_required_key = ! empty( $format_map[ $key ]['required'] ) || $this->contains_required_keys( $format_map[ $key ] );
-
-					if ( $is_required_key ) {
-						$context[] = $alias === $key ? $key : sprintf( '%s (%s)', $key, implode( '|', (array) $alias ) );
-						throw new InvalidArgumentException( $this->get_required_error_for( $context ) );
+				if ( $key_or_alias_is_empty ) {
+					if ( ! $is_required_key && ! $has_default_value && $key_or_alias_not_set ) {
+						continue;
 					}
 
-					continue;
-				}
+					if ( ! $empty_is_allowed && ! $has_default_value ) {
+						if ( $is_required_key ) {
+							$context[] = $alias === $key ? $key : sprintf( '%s (%s)', $key, implode( '|', (array) $alias ) );
+							throw new InvalidArgumentException( $this->get_required_error_for( $context ) );
+						}
 
-				if ( $empty_is_allowed && isset( $format_map[ $key ]['validate_callback'] ) ) {
-					unset( $format_map[ $key ]['validate_callback'] );
-				}
+						continue;
+					}
 
-				if ( $key_or_alias_is_empty && $has_default_value ) {
-					$value[ $key ] = $format_map[ $key ]['default'];
+					if ( $empty_is_allowed && isset( $format_map[ $key ]['validate_callback'] ) ) {
+						unset( $format_map[ $key ]['validate_callback'] );
+					}
+
+					if ( $has_default_value ) {
+						$value[ $key ] = $format_map[ $key ]['default'];
+					}
 				}
 
 				$context[] = $alias === $key ? $key : sprintf( '%s (%s)', $key, implode( '|', (array) $alias ) );
