@@ -222,4 +222,23 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 
 		return empty( $id ) ? false : (int) $id;
 	}
+
+	/**
+	 * Enforce yes or false value.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|bool $value
+	 *
+	 * @return false|string
+	 */
+	public function yes_or_false( $value ) {
+		$value = tribe_is_truthy( $value );
+
+		if ( $value ) {
+			$value = 'yes';
+		}
+
+		return $value;
+	}
 }
