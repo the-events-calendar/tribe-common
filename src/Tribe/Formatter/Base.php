@@ -278,7 +278,7 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 				}
 
 				$context[] = $alias === $key ? $key : sprintf( '%s (%s)', $key, implode( '|', (array) $alias ) );
-				$target = ! empty( $value[ $key ] ) ? $value[ $key ] : $value[ $alias ];
+				$target = isset( $value[ $key ] ) ? $value[ $key ] : $value[ $alias ];
 				$data[ $key ] = $this->format( $target, $format_map[ $key ], $context );
 			}
 
