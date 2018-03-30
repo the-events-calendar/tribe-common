@@ -449,6 +449,6 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	protected function get_inconsistent_default_and_empty_error_for( $context ) {
 		$context = implode( ' > ', $context );
 
-		return sprintf( __( 'Argument "%1$s" cannot allow empty valued and provide a default value, expected behavior is inconsistent.', 'tribe-common' ), $context );
+		return sprintf( __( 'Argument "%1$s" cannot allow empty values AND provide a default value, expected behavior is inconsistent.', 'tribe-common' ), $context );
 	}
 }
