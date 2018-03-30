@@ -241,7 +241,9 @@ class Tribe__Utils__Array {
 	/**
 	 * Extracts and merges the values from an array, associative array or array of arrays.
 	 *
-	 * This method will only go one level deep.
+	 * This method will only go one level deep to extract values.
+	 *
+	 * @since TBD
 	 *
 	 * @param array $array
 	 *
