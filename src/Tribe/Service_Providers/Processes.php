@@ -27,6 +27,17 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 			'Tribe__Process__Post_Thumbnail_Setter',
 		);
 
+		/**
+		 * Filters the process handlers the Service Provider should handle.
+		 *
+		 * All handlers should extend the `Tribe__Process__Handler` base class.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $handlers
+		 */
+		$handlers = apply_filters( 'tribe_process_handlers', $handlers );
+
 		$all_handlers_actions = array_combine(
 			$handlers,
 			array_map( array( $this, 'get_handler_action' ), $handlers )
