@@ -40,7 +40,7 @@ class Post_Thumbnail_SetterTest extends \Codeception\TestCase\WPTestCase {
 
 		$thumbnails = get_post_meta( $post_id, '_thumbnail_id' );
 		$this->assertCount( 1, $thumbnails );
-		$this->assertEquals( $attachment_id, $thumbnails[0] );
+		$this->assertEquals( 'attachment', get_post( $thumbnails[0] )->post_type );
 	}
 
 	/**
