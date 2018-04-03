@@ -116,10 +116,11 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 		}
 
 		$set = set_post_thumbnail( $id, $thumbnail_id );
+
 		if ( false === $set ) {
 			$logger->log_debug( "(ID: {$this->identifier}) - fetched {$post_thumbnail}, created attachment with ID {$thumbnail_id}, unable to set thumbnail for post {$id}, done.", $log_src );
 
-			return;
+			return 0;
 		}
 
 		$logger->log_debug( "(ID: {$this->identifier}) - fetched {$post_thumbnail}, created attachment with ID {$thumbnail_id}, set thumbnail for post {$id}, done.", $log_src );

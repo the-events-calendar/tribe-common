@@ -46,8 +46,29 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	 * @param array|null $data_source If not provided the method will read the handler data from the
 	 *                                `$_POST` array.
 	 *
+	 * @return mixed
+	 *
 	 * @see   tribe_upload_image()
 	 * @see   Tribe__Process__Post_Thumbnail_Setter::sync_handle()
 	 */
 	abstract public function sync_handle( array $data_source = null );
+
+	/**
+	 * Overrides the base `dispatch` method to allow for constants and/or environment vars to run
+	 * async requests in sync mode.
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	public function dispatch() {
+		if (
+			( defined( 'TRIBE_NO_ASYNC' ) && true === TRIBE_NO_ASYNC )
+			|| true == getenv( 'TRIBE_NO_ASYNC' )
+		) {
+			return $this->sync_handle( $this->data );
+		}
+
+		return parent::dispatch();
+	}
 }
