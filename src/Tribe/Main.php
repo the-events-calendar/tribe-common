@@ -533,6 +533,8 @@ class Tribe__Main {
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
+
+		tribe()->register( 'Tribe__Service_Providers__Processes' );
 	}
 
 	/************************

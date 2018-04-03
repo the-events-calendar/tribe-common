@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * Class Tribe__Service_Providers__Processes
+ *
+ * @since TBD
+ *
+ * Handles the registration and creation of our async process handlers.
+ */
+class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
+
+	/**
+	 * Binds and sets up implementations.
+	 */
+	public function register() {
+		if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_REQUEST['action'] ) ) ) {
+			return;
+		}
+
+		$action = $_REQUEST['action'];
+
+		if ( 0 !== strpos( $action, 'tribe_process_' ) ) {
+			return;
+		}
+
+		$handlers = array(
+			'Tribe__Process__Post_Thumbnail_Setter',
+		);
+
+		$all_handlers_actions = array_combine(
+			$handlers,
+			array_map( array( $this, 'get_handler_action' ), $handlers )
+		);
+
+		$array_search = array_search( $action, $all_handlers_actions );
+
+		if ( false === $handler_class = $array_search ) {
+			return;
+		}
+
+		// the handlers will handle the hooking
+		$this->container->make( $handler_class );
+	}
+
+	/**
+	 * Returns the action for the handler.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $handler_class
+	 *
+	 * @return string
+	 */
+	protected function get_handler_action( $handler_class ) {
+		/** @var Tribe__Process__Handler handler_class */
+		return 'tribe_process_' . $handler_class::action();
+	}
+}
