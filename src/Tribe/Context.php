@@ -88,6 +88,7 @@ class Tribe__Context {
 	 * @since TBD
 	 *
 	 * @param bool $doing_ajax An injectable status to override the `DOING_AJAX` check.
+	 *
 	 * @return boolean
 	 */
 	public function doing_ajax( $doing_ajax = null ) {
