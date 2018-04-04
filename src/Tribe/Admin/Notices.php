@@ -83,7 +83,7 @@ class Tribe__Admin__Notices {
 		add_action( 'wp_ajax_tribe_notice_dismiss', array( $this, 'maybe_dismiss' ) );
 
 		// Doing AJAX? bail.
-		if ( Tribe__Main::instance()->doing_ajax() ) {
+		if ( tribe( 'context' )->doing_ajax() ) {
 			return;
 		}
 
