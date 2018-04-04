@@ -44,7 +44,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Doing AJAX? bail.
-		if ( Tribe__Main::instance()->doing_ajax() ) {
+		if ( tribe( 'context' )->doing_ajax() ) {
 			return false;
 		}
 
@@ -89,7 +89,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Doing AJAX? bail.
-		if ( Tribe__Main::instance()->doing_ajax() ) {
+		if ( tribe( 'context' )->doing_ajax() ) {
 			return false;
 		}
 
@@ -138,7 +138,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Doing AJAX? bail.
-		if ( Tribe__Main::instance()->doing_ajax() ) {
+		if ( tribe( 'context' )->doing_ajax() ) {
 			return false;
 		}
 

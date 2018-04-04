@@ -7,6 +7,9 @@
 * Tweak - Allow to register the same ID of a post if has multiple types for JSON-LD `<script>` tag [94989]
 * Tweak - Adjusted app shop text in relation to Modern Tribe's ticketing solutions [101655]
 * Tweak - Added wrapper function around use of `tribe_events_get_the_excerpt` for safety [95034]
+* Tweak - Added the `a5hleyrich/wp-background-processing` package and the asynchronous process handling base [102323]
+* Tweak - Added the `Tribe__Process__Post_Thumbnail_Setter` class to handle post thumbnail download and creation in an asynchronous manner [102323]
+* Tweak - Deprecated the `Tribe__Main::doing_ajax()` method and moved it to the `Tribe__Context::doing_ajax()` method [102323]
 
 = [4.7.9] 2018-03-12 =
 
