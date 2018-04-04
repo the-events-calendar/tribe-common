@@ -22,6 +22,11 @@
   "vendor/tribe-select2/*.js",
   "vendor/tribe-select2/*.gif",
   "vendor/tribe-select2/*.png",
+  "vendor/autoload.php",
+  "vendor/autoload_52.php",
+  "vendor/composer/*",
+  "vendor/lucatume/di52/src/**",
+  "vendor/a5hleyrich/wp-background-processing/**",
   "README.md",
   "tribe-common.php",
   "tribe-autoload.php"
