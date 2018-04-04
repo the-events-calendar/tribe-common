@@ -23,7 +23,6 @@ class Tribe__Main {
 
 	protected $plugin_context;
 	protected $plugin_context_class;
-	protected $doing_ajax = false;
 
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url = 'https://theeventscalendar.com/';
@@ -97,8 +96,6 @@ class Tribe__Main {
 
 		$this->init_libraries();
 		$this->add_hooks();
-
-		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
 		Tribe__Extension_Loader::instance();
 
@@ -477,11 +474,9 @@ class Tribe__Main {
 	 * @return boolean
 	 */
 	public function doing_ajax( $doing_ajax = null ) {
-		if ( ! is_null( $doing_ajax ) ) {
-			$this->doing_ajax = $doing_ajax;
-		}
+		_deprecated_function( 'Tribe__Main::doing_ajax', 'TBD', "tribe( 'context' )->doing_ajax()" );
 
-		return $this->doing_ajax;
+		return tribe( 'context' )->doing_ajax( $doing_ajax );
 	}
 
 	/**

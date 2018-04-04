@@ -13,7 +13,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	 * Binds and sets up implementations.
 	 */
 	public function register() {
-		if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['action'] ) ) ) {
+		if ( ! ( tribe( 'context' )->doing_ajax() && ! empty( $_POST['action'] ) ) ) {
 			return;
 		}
 
