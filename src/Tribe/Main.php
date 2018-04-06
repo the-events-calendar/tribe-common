@@ -17,13 +17,12 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.7.10';
+	const VERSION             = '4.7.11';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
-	protected $doing_ajax = false;
 
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url = 'https://theeventscalendar.com/';
@@ -97,8 +96,6 @@ class Tribe__Main {
 
 		$this->init_libraries();
 		$this->add_hooks();
-
-		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
 		Tribe__Extension_Loader::instance();
 
@@ -474,14 +471,15 @@ class Tribe__Main {
 	 * context.
 	 *
 	 * @since 4.0
+	 *
+	 * @param bool $doing_ajax An injectable status to override the `DOING_AJAX` check.
+	 *
 	 * @return boolean
 	 */
 	public function doing_ajax( $doing_ajax = null ) {
-		if ( ! is_null( $doing_ajax ) ) {
-			$this->doing_ajax = $doing_ajax;
-		}
+		_deprecated_function( 'Tribe__Main::doing_ajax', 'TBD', "tribe( 'context' )->doing_ajax()" );
 
-		return $this->doing_ajax;
+		return tribe( 'context' )->doing_ajax( $doing_ajax );
 	}
 
 	/**
@@ -533,6 +531,8 @@ class Tribe__Main {
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
+
+		tribe()->register( 'Tribe__Service_Providers__Processes' );
 	}
 
 	/************************

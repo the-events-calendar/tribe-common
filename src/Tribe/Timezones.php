@@ -303,9 +303,17 @@ class Tribe__Timezones {
 		}
 
 		// It's possible no adjustment will be needed
-		if ( 0 === $offset ) {
+		if ( 0 === (int) $offset ) {
 			return $datetime;
 		}
+
+		// if the offset contains fractions like :15, :30 or :45 convert them
+		$supported_offsets = array(
+			'/:15$/' => '.25',
+			'/:30$/' => '.5',
+			'/:45$/' => '.75',
+		);
+		$offset = preg_replace( array_keys( $supported_offsets ), array_values( $supported_offsets ), $offset );
 
 		// Convert the offset to minutes for easier handling of fractional offsets
 		$offset = (int) ( $offset * 60 );
