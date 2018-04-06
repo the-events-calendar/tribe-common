@@ -261,6 +261,11 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		if ( $select.is( '[multiple]' ) ) {
 			args.multiple = true;
 
+			// Set the max select items, if defined
+			if ( $select.is( '[data-maximum-selection-size]' ) ) {
+				args.maximumSelectionSize = $select.data( 'maximum-selection-size' );
+			}
+
 			// If you don't have separator, add one (comma)
 			if ( ! $select.is( 'data-separator' ) ) {
 				$select.data( 'separator', ',' );

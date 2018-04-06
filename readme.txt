@@ -11,6 +11,7 @@
 * Tweak - Added the `a5hleyrich/wp-background-processing` package and the asynchronous process handling base [102323]
 * Tweak - Added the `Tribe__Process__Post_Thumbnail_Setter` class to handle post thumbnail download and creation in an asynchronous manner [102323]
 * Tweak - Deprecated the `Tribe__Main::doing_ajax()` method and moved it to the `Tribe__Context::doing_ajax()` method [102323]
+* Tweak - Modified the `select2` implementation to work with the `maximumSelectionSize` argument via data attribute. [103577]
 
 = [4.7.9] 2018-03-12 =
 
