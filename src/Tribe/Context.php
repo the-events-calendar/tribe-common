@@ -98,6 +98,6 @@ class Tribe__Context {
 			$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 		}
 
-		return $doing_ajax;
+		return $this->doing_ajax;
 	}
 }
