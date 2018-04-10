@@ -64,6 +64,6 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	 */
 	protected function get_handler_action( $handler_class ) {
 		/** @var Tribe__Process__Handler handler_class */
-		return 'tribe_process_' . $handler_class::action();
+		return 'tribe_process_' . call_user_func( array( $handler_class, 'action' ) );
 	}
 }
