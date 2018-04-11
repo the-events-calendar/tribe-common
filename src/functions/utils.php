@@ -426,3 +426,37 @@ if ( ! function_exists( 'tribe_post_exists' ) ) {
 		return ! empty( $found ) ? (int) $found : false;
 	}
 }
+
+if ( ! function_exists( 'tribe_post_excerpt' ) ) {
+	/**
+	 * Wrapper function for `tribe_events_get_the_excerpt` to prevent access the function when is not present on the
+	 * current site installation.
+	 *
+	 * @param $post
+	 *
+	 * @return null|string
+	 */
+	function tribe_post_excerpt( $post ) {
+		if ( function_exists( 'tribe_events_get_the_excerpt' ) ) {
+			return tribe_events_get_the_excerpt( $post );
+		}
+
+		if ( ! is_numeric( $post ) && ! $post instanceof WP_Post ) {
+			$post = get_the_ID();
+		}
+
+		if ( is_numeric( $post ) ) {
+			$post = WP_Post::get_instance( $post );
+		}
+
+		if ( ! $post instanceof WP_Post ) {
+			return null;
+		}
+
+		$excerpt = has_excerpt( $post->ID )
+			? $post->post_excerpt
+			: wp_trim_words( $post->post_content );
+
+		return wpautop( $excerpt );
+	}
+}
