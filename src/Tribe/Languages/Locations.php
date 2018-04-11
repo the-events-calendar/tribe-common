@@ -307,7 +307,7 @@ class Tribe__Languages__Locations {
 		 *
 		 * @param array associative array with: Country Code => Country Name
 		 */
-		return (array) apply_filters( 'tribe_common_countries', $countries );
+		return (array) apply_filters( 'tribe_countries', $countries );
 	}
 
 	/**
@@ -384,6 +384,6 @@ class Tribe__Languages__Locations {
 		 *
 		 * @param array Associative array with the format: State Code => State Name
 		 */
-		return (array) apply_filters( 'tribe_common_us_states', $states );
+		return (array) apply_filters( 'tribe_us_states', $states );
 	}
 }
