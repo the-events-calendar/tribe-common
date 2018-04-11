@@ -17,31 +17,12 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.7.9';
+	const VERSION             = '4.7.11';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
-	protected $doing_ajax = false;
-
-	/**
-	 * @var Tribe__Log
-	 */
-	protected $log;
-
-	/**
-	 * Manages PUE license key notifications.
-	 *
-	 * It's important for the sanity of our users that only one instance of this object
-	 * be created. However, multiple Tribe__Main objects can and will be instantiated, hence
-	 * why for the time being we need to make this field static.
-	 *
-	 * @see https://central.tri.be/issues/65755
-	 *
-	 * @var Tribe__PUE__Notices
-	 */
-	protected static $pue_notices;
 
 	public static $tribe_url = 'http://tri.be/';
 	public static $tec_url = 'https://theeventscalendar.com/';
@@ -116,8 +97,6 @@ class Tribe__Main {
 		$this->init_libraries();
 		$this->add_hooks();
 
-		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
-
 		Tribe__Extension_Loader::instance();
 
 		/**
@@ -167,22 +146,19 @@ class Tribe__Main {
 	 * initializes all required libraries
 	 */
 	public function init_libraries() {
+		require_once $this->plugin_path . 'src/functions/utils.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
+
 		Tribe__Debug::instance();
 		tribe( 'assets' );
 		tribe( 'assets.pipeline' );
 		tribe( 'settings.manager' );
 		tribe( 'tracker' );
 		tribe( 'plugins.api' );
-		$this->pue_notices();
-
-		require_once $this->plugin_path . 'src/functions/utils.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
-
+		tribe( 'pue.notices' );
 		tribe( 'ajax.dropdown' );
-
-		// Starting the log manager needs to wait until after the tribe_*_option() functions have loaded
-		$this->log = new Tribe__Log();
+		tribe( 'logger' );
 	}
 
 	/**
@@ -193,6 +169,7 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
+				array( 'tribe-accessibility-css', 'accessibility.css' ),
 				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
 				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
 				array( 'tribe-select2', 'vendor/tribe-select2/select2.js', array( 'jquery' ) ),
@@ -416,24 +393,6 @@ class Tribe__Main {
 	}
 
 	/**
-	 * @return Tribe__Log
-	 */
-	public function log() {
-		return $this->log;
-	}
-
-	/**
-	 * @return Tribe__PUE__Notices
-	 */
-	public function pue_notices() {
-		if ( empty( self::$pue_notices ) ) {
-			self::$pue_notices = new Tribe__PUE__Notices;
-		}
-
-		return self::$pue_notices;
-	}
-
-	/**
 	 * Returns the post types registered by Tribe plugins
 	 */
 	public static function get_post_types() {
@@ -512,14 +471,15 @@ class Tribe__Main {
 	 * context.
 	 *
 	 * @since 4.0
+	 *
+	 * @param bool $doing_ajax An injectable status to override the `DOING_AJAX` check.
+	 *
 	 * @return boolean
 	 */
 	public function doing_ajax( $doing_ajax = null ) {
-		if ( ! is_null( $doing_ajax ) ) {
-			$this->doing_ajax = $doing_ajax;
-		}
+		_deprecated_function( 'Tribe__Main::doing_ajax', 'TBD', "tribe( 'context' )->doing_ajax()" );
 
-		return $this->doing_ajax;
+		return tribe( 'context' )->doing_ajax( $doing_ajax );
 	}
 
 	/**
@@ -562,7 +522,7 @@ class Tribe__Main {
 		tribe_singleton( 'cache', 'Tribe__Cache' );
 		tribe_singleton( 'languages.locations', 'Tribe__Languages__Locations' );
 		tribe_singleton( 'plugins.api', new Tribe__Plugins_API );
-		tribe_singleton( 'logger', array( $this, 'log' ) );
+		tribe_singleton( 'logger', 'Tribe__Log' );
 		tribe_singleton( 'cost-utils', array( 'Tribe__Cost_Utils', 'instance' ) );
 		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
 		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
@@ -570,5 +530,43 @@ class Tribe__Main {
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
+		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
+
+		tribe()->register( 'Tribe__Service_Providers__Processes' );
 	}
+
+	/************************
+	 *                      *
+	 *  Deprecated Methods  *
+	 *                      *
+	 ************************/
+	// @codingStandardsIgnoreStart
+
+	/**
+	 * Manages PUE license key notifications.
+	 *
+	 * It's important for the sanity of our users that only one instance of this object
+	 * be created. However, multiple Tribe__Main objects can and will be instantiated, hence
+	 * why for the time being we need to make this field static.
+	 *
+	 * @see https://central.tri.be/issues/65755
+	 *
+	 * @deprecated 4.7.10
+	 *
+	 * @return Tribe__PUE__Notices
+	 */
+	public function pue_notices() {
+		return tribe( 'pue.notices' );
+	}
+
+	/**
+	 *
+	 * @deprecated 4.7.10
+	 *
+	 * @return Tribe__Log
+	 */
+	public function log() {
+		return tribe( 'logger' );
+	}
+	// @codingStandardsIgnoreEnd
 }
