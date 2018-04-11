@@ -99,6 +99,7 @@ class Tribe__Timezones {
 		try {
 			$abbr = date_create( $date, new DateTimeZone( $timezone_string ) )->format( 'T' );
 
+			// If PHP date "T" format is a -03 or +03, it's a bugged abbreviation, we can find it manually.
 			if ( 0 === strpos( $abbr, '-' ) || 0 === strpos( $abbr, '+' ) ) {
 				$abbreviations = timezone_abbreviations_list();
 
