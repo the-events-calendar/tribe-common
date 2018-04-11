@@ -96,12 +96,27 @@ class Tribe__Timezones {
 	 * @return string
 	 */
 	public static function abbr( $date, $timezone_string ) {
+		$abbr = '';
+
 		try {
-			return date_create( $date, new DateTimeZone( $timezone_string ) )->format( 'T' );
+			$abbr = date_create( $date, new DateTimeZone( $timezone_string ) )->format( 'T' );
+
+			if ( 0 === strpos( $abbr, '-' ) || 0 === strpos( $abbr, '+' ) ) {
+				$abbreviations = timezone_abbreviations_list();
+
+				foreach ( $abbreviations as $abbreviation => $timezones ) {
+					foreach ( $timezones as $timezone ) {
+						if ( $timezone['timezone_id'] === $timezone_string ) {
+							return strtoupper( $abbreviation );
+						}
+					}
+				}
+			}
+		} catch ( Exception $e ) {
+			// Do nothing
 		}
-		catch ( Exception $e ) {
-			return '';
-		}
+
+		return $abbr;
 	}
 
 	/**
