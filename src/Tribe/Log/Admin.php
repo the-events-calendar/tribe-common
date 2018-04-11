@@ -141,7 +141,7 @@ class Tribe__Log__Admin {
 	 *
 	 * @return array
 	 */
-	protected function get_log_engines(){
+	protected function get_log_engines() {
 		$available_engines = $this->log_manager()->get_logging_engines();
 
 		if ( empty( $available_engines ) ) {
@@ -203,7 +203,7 @@ class Tribe__Log__Admin {
 	protected function get_log_url( $log = null ) {
 		$query = array(
 			'tribe-common-log' => 'download',
-			'check' => wp_create_nonce( 'download_log' )
+			'check' => wp_create_nonce( 'download_log' ),
 		);
 
 		$log_download_url = add_query_arg( $query, get_admin_url( null, 'edit.php' ) );
@@ -255,7 +255,7 @@ class Tribe__Log__Admin {
 	 * @return Tribe__Log
 	 */
 	protected function log_manager() {
-		return Tribe__Main::instance()->log();
+		return tribe( 'logger' );
 	}
 
 	/**
@@ -265,6 +265,6 @@ class Tribe__Log__Admin {
 	 * @return Tribe__Log__Logger|null
 	 */
 	protected function current_logger() {
-		return Tribe__Main::instance()->log()->get_current_logger();
+		return tribe( 'logger' )->get_current_logger();
 	}
 }

@@ -421,12 +421,12 @@ final class Tribe__Customizer {
 	 * @return string           A Valid css after replacing the variables
 	 */
 	private function parse_css_template( $template ) {
-		$css = $template;
+		$css      = $template;
 		$sections = $this->get_option();
 
-
-		$search = array();
+		$search  = array();
 		$replace = array();
+
 		foreach ( $sections as $section => $settings ) {
 			if ( ! is_array( $settings ) ) {
 				continue;
