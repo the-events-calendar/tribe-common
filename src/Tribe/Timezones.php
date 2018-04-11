@@ -96,8 +96,6 @@ class Tribe__Timezones {
 	 * @return string
 	 */
 	public static function abbr( $date, $timezone_string ) {
-		$abbr = '';
-
 		try {
 			$abbr = date_create( $date, new DateTimeZone( $timezone_string ) )->format( 'T' );
 
@@ -113,7 +111,7 @@ class Tribe__Timezones {
 				}
 			}
 		} catch ( Exception $e ) {
-			// Do nothing
+			$abbr = '';
 		}
 
 		return $abbr;
