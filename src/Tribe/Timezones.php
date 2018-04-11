@@ -97,11 +97,25 @@ class Tribe__Timezones {
 	 */
 	public static function abbr( $date, $timezone_string ) {
 		try {
-			return date_create( $date, new DateTimeZone( $timezone_string ) )->format( 'T' );
+			$abbr = date_create( $date, new DateTimeZone( $timezone_string ) )->format( 'T' );
+
+			// If PHP date "T" format is a -03 or +03, it's a bugged abbreviation, we can find it manually.
+			if ( 0 === strpos( $abbr, '-' ) || 0 === strpos( $abbr, '+' ) ) {
+				$abbreviations = timezone_abbreviations_list();
+
+				foreach ( $abbreviations as $abbreviation => $timezones ) {
+					foreach ( $timezones as $timezone ) {
+						if ( $timezone['timezone_id'] === $timezone_string ) {
+							return strtoupper( $abbreviation );
+						}
+					}
+				}
+			}
+		} catch ( Exception $e ) {
+			$abbr = '';
 		}
-		catch ( Exception $e ) {
-			return '';
-		}
+
+		return $abbr;
 	}
 
 	/**

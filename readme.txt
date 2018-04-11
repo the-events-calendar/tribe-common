@@ -11,6 +11,7 @@
 * Tweak - Deprecated the `Tribe__Main::doing_ajax()` method and moved it to the `Tribe__Context::doing_ajax()` method [102323]
 * Tweak - Modified the `select2` implementation to work with the `maximumSelectionSize` argument via data attribute. [103577]
 * Tweak - Add new filters: `tribe_countries` and `tribe_us_states` to allow easier extensibility on the names used for each country [79880]
+* Fix - Updated Timezones::abbr() with additional support for timezone strings not covered by PHP date format "T" [102705]
 
 = [4.7.10] 2018-03-28 =
 
