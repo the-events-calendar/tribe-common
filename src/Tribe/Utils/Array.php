@@ -176,14 +176,14 @@ class Tribe__Utils__Array {
 		}
 
 		$filtered = array();
-		foreach ( $value as $v ) {
+		foreach ( $value as $k => $v ) {
 			if ( '' === $v ) {
 				continue;
 			}
-			$filtered[] = is_numeric( $v ) ? $v + 0 : $v;
+			$filtered[ $k ] = is_numeric( $v ) ? $v + 0 : $v;
 		}
 
-		return $filtered;
+		return self::is_associative( $filtered ) ? $filtered : array_values( $filtered );
 	}
 
 	/**
@@ -206,5 +206,52 @@ class Tribe__Utils__Array {
 		}
 
 		return $list;
+	}
+
+	/**
+	 * Whether the provided array is associative or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $arr
+	 *
+	 * @return bool
+	 */
+	public static function is_associative( $array ) {
+		if ( ! is_array( $array ) ) {
+			return false;
+		}
+
+		return count( array_filter( array_keys( $array ), 'is_numeric' ) ) < count( $array );
+	}
+
+	/**
+	 * Encapsulates a non array object in an array.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $element
+	 *
+	 * @return array
+	 */
+	public static function arrayize( $element ) {
+		return is_array( $element ) ? $element : array( $element );
+	}
+
+	/**
+	 * Extracts and merges the values from an array, associative array or array of arrays.
+	 *
+	 * This method will only go one level deep to extract values.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $array
+	 *
+	 * @return array
+	 */
+	public static function extract_values( array $array ) {
+		$all = array_map( array( __CLASS__, 'arrayize' ), array_values( $array ) );
+
+		return ! empty( $all ) ? array_values( call_user_func_array( 'array_merge', $all ) ) : array();
 	}
 }

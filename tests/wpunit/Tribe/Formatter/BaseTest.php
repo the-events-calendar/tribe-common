@@ -107,6 +107,44 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should allow empty value to be saved if required value does not validate
+	 *
+	 * @test
+	 */
+	public function it_should_allow_empty_value_to_be_saved_if_value_does_not_validate() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'foo' => [ 'required' => true, 'validate_callback' => 'is_string' ],
+			'baz' => [ 'required' => true, 'validate_callback' => 'is_numeric' ],
+			'not-validating-not-required' => [ 'required' => false, 'allow_empty' => true ],
+			'validating-not-required' => [ 'required' => false, 'allow_empty' => true, 'validate_callback' => 'is_numeric' ],
+			'validating-required' => [ 'required' => true, 'allow_empty' => true, 'validate_callback' => 'is_numeric' ],
+		] );
+
+		$raw = [
+			'foo' => 'some string',
+			'baz' => 23,
+			'not-validating-not-required' => '',
+			'validating-not-required' => '',
+			'validating-required' => '',
+		];
+
+		$formatted = $sut->process( $raw );
+
+		$this->assertArrayHasKey( 'foo', $formatted );
+		$this->assertArrayHasKey( 'baz', $formatted );
+		$this->assertArrayHasKey( 'not-validating-not-required', $formatted );
+		$this->assertArrayHasKey( 'validating-not-required', $formatted );
+		$this->assertArrayHasKey( 'validating-required', $formatted );
+		$this->assertEquals( 'some string', $formatted['foo'] );
+		$this->assertEquals( 23, $formatted['baz'] );
+		$this->assertEquals( '', $formatted['not-validating-not-required'] );
+		$this->assertEquals( '', $formatted['validating-not-required'] );
+		$this->assertEquals( '', $formatted['validating-required'] );
+	}
+
+	/**
 	 * It should throw if optional value does not validate
 	 *
 	 * @test
@@ -1302,6 +1340,29 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->expectException( \InvalidArgumentException::class );
 		$this->expectExceptionMessageRegExp( '/"Some context > main > sub > sub-sub > one"/' );
+
+		$sut->process( $raw );
+	}
+
+	/**
+	 * It should not support values to allow empty AND provide a default
+	 *
+	 * @test
+	 */
+	public function should_not_support_values_to_allow_empty_and_provide_a_default() {
+		$sut = $this->make_instance();
+
+		$sut->set_format_map( [
+			'foo' => [ 'required' => true, 'validate_callback' => 'is_string' ],
+			'invalid' => [ 'required' => false, 'default' => 23, 'allow_empty' => true ],
+		] );
+
+		$raw = [
+			'foo' => 'some string',
+			'invalid' => 23,
+		];
+
+		$this->expectException( \InvalidArgumentException::class );
 
 		$sut->process( $raw );
 	}

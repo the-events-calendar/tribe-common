@@ -67,4 +67,59 @@ class ArrayTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, Arr::get_any( $input, $indexes, $default ) );
 	}
+
+	public function associative_arrays() {
+		return [
+			[ [], false ],
+			[ '', false ],
+			[ 'foo', false ],
+			[ 'foo,bar', false ],
+			[ new \stdClass(), false ],
+			[ [ 23, 89 ], false ],
+			[ [ 'foo' => 23, 'baz' => 89 ], true ],
+			[ [ 'foo' => 23 ], true ],
+			[ [ 'foo' => '' ], true ],
+			[ [ '0' => '', '1' => 'bar' ], false ],
+			[ [ 0 => '', 1 => 'bar', 5 => 'baz' ], false ],
+		];
+	}
+
+	/**
+	 * It should correctly mark associative arrays
+	 *
+	 * @test
+	 *
+	 * @dataProvider associative_arrays
+	 */
+	public function should_correctly_mark_associative_arrays( $arr, $is_assoc ) {
+		$this->assertEquals( $is_assoc, Arr::is_associative( $arr ) );
+	}
+
+	public function extract_values_input() {
+		return [
+			[ [], [] ],
+			[ [ '' ], [ '' ] ],
+			[ [ '', 'foo' ], [ '', 'foo' ] ],
+			[ [ '', 'foo' => 'bar' ], [ '', 'bar' ] ],
+			[ [ 'foo' => 'bar', 'baz' => 23 ], [ 'bar', 23 ] ],
+			[ [ 'foo' => [ 'bar' ], 'baz' => 23 ], [ 'bar', 23 ] ],
+			[ [ 'foo' => [ 'bar' ], 'baz' => [ 23 ] ], [ 'bar', 23 ] ],
+			[ [ 'foo' => [ 'bar', 89 ], 'baz' => [ 23 ] ], [ 'bar', 89, 23 ] ],
+			[ [ 'foo' => [ 'bar', 89 ], 'baz' => [ 23, 54 ] ], [ 'bar', 89, 23, 54 ] ],
+			[ [ 'foo' => 'bar', 'baz' => [ 23, 54 ] ], [ 'bar', 23, 54 ] ],
+			// one level deep
+			[ [ 'foo' => 'bar', 'baz' => [ 'sub1' => 23, 'sub2' => 19 ] ], [ 'bar', 23, 19 ] ],
+			// two levels deep
+			[ [ 'foo' => 'bar', 'baz' => [ 'sub1' => [ 23, 89 ], 'sub2' => 19 ] ], [ 'bar', [ 23, 89 ], 19 ] ],
+		];
+	}
+
+	/**
+	 * Test extract_values
+	 *
+	 * @dataProvider extract_values_input
+	 */
+	public function test_extract_values( $input, $expected ) {
+		$this->assertEquals( $expected, \Tribe__Utils__Array::extract_values( $input ) );
+	}
 }
