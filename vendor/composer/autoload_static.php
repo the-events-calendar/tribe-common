@@ -38,12 +38,8 @@ class ComposerStaticInit80f0d9365d292d168ac3c1612dc82d26
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-<<<<<<< HEAD
             $loader->prefixesPsr0 = ComposerStaticInit80f0d9365d292d168ac3c1612dc82d26::$prefixesPsr0;
-=======
-            $loader->prefixesPsr0 = ComposerStaticInit453516e196e1be4c43fa495b9bb9d572::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit453516e196e1be4c43fa495b9bb9d572::$classMap;
->>>>>>> origin/release/M18.06
+            $loader->classMap = ComposerStaticInit80f0d9365d292d168ac3c1612dc82d26::$classMap;
 
         }, null, ClassLoader::class);
     }
