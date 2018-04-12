@@ -96,7 +96,7 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 
 		$logger->log_debug( "(ID: {$this->identifier}) - handling request.", $log_src );
 
-		$data_source = isset( $data_source ) ? $data_source : $_POST;
+		$data_source = isset( $data_source ) ? $data_source : $_REQUEST;
 
 		if ( ! isset( $data_source['post_id'], $data_source['post_thumbnail'] ) ) {
 			return;
