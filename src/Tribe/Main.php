@@ -472,13 +472,15 @@ class Tribe__Main {
 	 *
 	 * @since 4.0
 	 *
+	 * @todo Add warning with '_deprecated_function'
+	 *
 	 * @param bool $doing_ajax An injectable status to override the `DOING_AJAX` check.
+	 *
+	 * @deprecated TBD
 	 *
 	 * @return boolean
 	 */
 	public function doing_ajax( $doing_ajax = null ) {
-		_deprecated_function( 'Tribe__Main::doing_ajax', 'TBD', "tribe( 'context' )->doing_ajax()" );
-
 		return tribe( 'context' )->doing_ajax( $doing_ajax );
 	}
 
