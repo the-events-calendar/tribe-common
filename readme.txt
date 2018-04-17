@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.11] TBD =
+= [4.7.11] 2018-04-17 =
 
 * Fix - Restore "type" attribute to some inline `<script>` tags to ensure proper character encoding in Customizer-generated CSS [103167]
 * Tweak - Allow to register the same ID of a post if has multiple types for JSON-LD `<script>` tag [94989]
