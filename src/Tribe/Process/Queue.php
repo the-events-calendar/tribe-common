@@ -35,6 +35,11 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	protected $max_frag_size;
 
 	/**
+	 * @var bool Whether the current handling is sync or not.
+	 */
+	protected $doing_sync = false;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function __construct() {
@@ -256,6 +261,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		if (
 			( defined( 'TRIBE_NO_ASYNC' ) && true === TRIBE_NO_ASYNC )
 			|| true == getenv( 'TRIBE_NO_ASYNC' )
+			|| (bool) tribe_get_request_var( 'tribe_queue_sync', false )
 		) {
 			return $this->sync_process( $this->data );
 		}
@@ -272,6 +278,8 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 */
 	public function sync_process() {
 		$result = [];
+		$this->doing_sync = true;
+
 		foreach ( $this->data as $item ) {
 			$result[] = $this->task( $item );
 		}
