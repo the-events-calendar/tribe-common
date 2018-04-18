@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.11] TBD =
+= [4.7.11] 2018-04-18 =
 
 * Fix - Restore "type" attribute to some inline `<script>` tags to ensure proper character encoding in Customizer-generated CSS [103167]
 * Tweak - Allow to register the same ID of a post if has multiple types for JSON-LD `<script>` tag [94989]
@@ -19,6 +19,8 @@
 * Tweak - Added wrapper function around use of `tribe_events_get_the_excerpt` for safety [95034]
 
 = [4.7.9] 2018-03-12 =
+
+* Tweak - Added the a `tribe_currency_cost` filtering for Currency control for Prices and Costs
 
 = [4.7.8] 2018-03-06 =
 
