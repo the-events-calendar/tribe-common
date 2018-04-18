@@ -106,4 +106,33 @@ class Tribe__Utils__Global_ID {
 
 		return add_query_arg( $args, $this->origin() );
 	}
+
+	/**
+	 * Parse the Global ID string.
+	 *
+	 * @param string $global_id The previously generated global ID string.
+	 *
+	 * @return array The parsed $args information built by self::generate()
+	 *
+	 * @since TBD
+	 */
+	public function parse( string $global_id ) {
+		$parsed_global_id = null;
+
+		if ( $global_id ) {
+			$parsed = wp_parse_url( 'http://' . $global_id );
+
+			if ( ! empty( $parsed['query'] ) ) {
+				$parsed_query = [];
+
+				wp_parse_str( $parsed['query'], $parsed_query );
+
+				if ( ! empty( $parsed_query ) ) {
+					$parsed_global_id = $parsed_query;
+				}
+			}
+		}
+
+		return $parsed_global_id;
+	}
 }
