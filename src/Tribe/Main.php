@@ -507,7 +507,7 @@ class Tribe__Main {
 	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
 	 */
 	public function tribe_plugins_loaded() {
-		tribe()->register( 'Tribe__Service_Providers__Processes' );
+		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 
 		/**
 		 * Runs after all plugins including Tribe ones have loaded

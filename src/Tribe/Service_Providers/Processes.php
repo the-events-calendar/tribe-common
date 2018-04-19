@@ -13,11 +13,12 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	 * Binds and sets up implementations.
 	 */
 	public function register() {
-		if ( ! ( tribe( 'context' )->doing_ajax() && ! empty( $_REQUEST['action'] ) ) ) {
+		if ( ! (
+			tribe( 'context' )->doing_ajax()
+			&& false !== $action = tribe_get_request_var( 'action', false )
+		) ) {
 			return;
 		}
-
-		$action = $_REQUEST['action'];
 
 		if (
 			0 !== strpos( $action, 'tribe_process_' )

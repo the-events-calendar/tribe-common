@@ -125,7 +125,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 			WHERE {$column} LIKE %s
 		", $key ) );
 
-		delete_transient( $key . '_meta' );
+		delete_transient( $this->get_meta_key( $key ) );
 
 		return $this;
 	}
@@ -134,10 +134,10 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * {@inheritdoc}
 	 */
 	public function update( $key, $data ) {
-		$meta = (array) get_transient( $key . '_meta' );
+		$meta = (array) get_transient( $this->get_meta_key( $key ) );
 		$done = $this->original_batch_count - count( $data );
 
-		set_transient( $key . '_meta', array_merge( $meta, array(
+		set_transient( $this->get_meta_key( $key ), array_merge( $meta, array(
 			'done' => $meta['done'] + $done,
 		) ) );
 
@@ -152,7 +152,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 
 		$fragments_count = $this->save_split_data( $key, $this->data );
 
-		set_transient( $key . '_meta', array(
+		set_transient( $this->get_meta_key( $key ), array(
 			'identifier' => $this->identifier,
 			'done'       => 0,
 			'total'      => count( $this->data ),
@@ -194,7 +194,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		}
 
 		foreach ( $split_data as $i => $iValue ) {
-			$postfix = $i === 0 ? '' : "_{$i}";
+			$postfix = 0 === $i ? '' : "_{$i}";
 			update_site_option( $key . $postfix, $split_data[ $i ] );
 		}
 
@@ -277,7 +277,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * @return array An array containing the result of each item handling.
 	 */
 	public function sync_process() {
-		$result = [];
+		$result = array();
 		$this->doing_sync = true;
 
 		foreach ( $this->data as $item ) {
@@ -312,5 +312,19 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		$post_args['body'] = array();
 
 		return $post_args;
+	}
+
+	/**
+	 * Returns the name of the transient that will store the queue meta information
+	 * for the specific key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	public function get_meta_key( $key ) {
+		return $key . '_meta';
 	}
 }
