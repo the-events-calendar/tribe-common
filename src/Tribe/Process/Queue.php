@@ -262,6 +262,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 			( defined( 'TRIBE_NO_ASYNC' ) && true === TRIBE_NO_ASYNC )
 			|| true == getenv( 'TRIBE_NO_ASYNC' )
 			|| (bool) tribe_get_request_var( 'tribe_queue_sync', false )
+			|| tribe_is_truthy( tribe_get_option( 'tribe_queue_sync', false ) )
 		) {
 			return $this->sync_process( $this->data );
 		}
