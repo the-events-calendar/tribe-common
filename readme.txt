@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.7.12] TBD =
+
+* Tweak - Added the `Tribe__Process__Queue` class to handle background processing operations
+
 = [4.7.11] 2018-04-18 =
 
 * Fix - Restore "type" attribute to some inline `<script>` tags to ensure proper character encoding in Customizer-generated CSS [103167]
