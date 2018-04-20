@@ -126,4 +126,25 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	public function test_is_valid_timezone( $input, $expected ) {
 		$this->assertEquals( $expected, \Tribe__Timezones::is_valid_timezone( $input ) );
 	}
+	
+	public function is_utc_offset_input() {
+		return [
+			[ 'UTC', 'UTC' ],
+			[ 'UTC-123', 'UTC' ],
+			[ 'UTC+123', 'UTC' ],
+			[ 'UTC+9:30', 'Australia/Adelaide' ],
+			[ 'UTC+9.5', 'Australia/Adelaide' ],
+		];
+	}
+
+	/**
+	 * Test generate_timezone_string_from_utc_offset
+	 *
+	 * @dataProvider  is_utc_offset_input
+	 * @since TBD
+	 *
+	 */
+	public function test_generate_timezone_string_from_utc_offset( $input, $expected ) {
+		$this->assertEquals($expected, \Tribe__Timezones::generate_timezone_string_from_utc_offset( $input ) );
+	}
 }
