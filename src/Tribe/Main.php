@@ -530,11 +530,12 @@ class Tribe__Main {
 		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
 		tribe_singleton( 'context', 'Tribe__Context' );
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
+		tribe_singleton( 'db', 'Tribe__Db' );
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
 
-		tribe()->register( 'Tribe__Service_Providers__Processes' );
+		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 	}
 
 	/************************

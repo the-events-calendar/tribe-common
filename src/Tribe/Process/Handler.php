@@ -36,20 +36,14 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	abstract public static function action();
 
 	/**
-	 * Handles the post thumbnail setting process immediately, not in an async manner.
-	 *
-	 * The post thumbnail will be uploaded, if not uploaded already, using the `tribe_upload_image` function.
-	 * This method is an alias of the publicly accessible `handle_request` one.
+	 * Handles the process immediately, not in an async manner.
 	 *
 	 * @since TBD
 	 *
 	 * @param array|null $data_source If not provided the method will read the handler data from the
-	 *                                `$_POST` array.
+	 *                                request array.
 	 *
 	 * @return mixed
-	 *
-	 * @see   tribe_upload_image()
-	 * @see   Tribe__Process__Post_Thumbnail_Setter::sync_handle()
 	 */
 	abstract public function sync_handle( array $data_source = null );
 
