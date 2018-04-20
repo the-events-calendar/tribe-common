@@ -313,12 +313,6 @@ class Tribe__Main {
 
 		// Schedule cron if needed
 		add_action( 'admin_init', tribe_callback( 'cron', 'schedule' ) );
-
-		// Queue hooks
-		add_action( 'admin_head', array( 'Tribe__Queue', 'work' ) );
-		add_action( 'wp_ajax_tribe_queue_work', array( 'Tribe__Queue', 'work' ) );
-		add_action( 'wp_ajax_nopriv_tribe_queue_work', array( 'Tribe__Queue', 'work' ) );
-		add_action( 'tribe_queue_work', array( 'Tribe__Queue', 'work' ) );
 	}
 
 	public function add_js_class( $classes = array() ) {
@@ -513,6 +507,8 @@ class Tribe__Main {
 	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
 	 */
 	public function tribe_plugins_loaded() {
+		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
+
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
 		 *
@@ -533,7 +529,6 @@ class Tribe__Main {
 		tribe_singleton( 'asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
 		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
 		tribe_singleton( 'cron', 'Tribe__Cron', array( 'hook' ) );
-		tribe_singleton( 'queue', 'Tribe__Queue' );
 		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
 		tribe_singleton( 'admin-notices', 'Tribe__Admin__Notices' );
 		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
@@ -546,11 +541,10 @@ class Tribe__Main {
 		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
 		tribe_singleton( 'context', 'Tribe__Context' );
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
+		tribe_singleton( 'db', 'Tribe__Db' );
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
-
-		tribe()->register( 'Tribe__Service_Providers__Processes' );
 	}
 
 	/************************
