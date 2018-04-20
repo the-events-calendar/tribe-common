@@ -6,6 +6,10 @@
  * @since 4.7.7
  */
 class Tribe__Context {
+	/**
+	 * @var bool Internal property to know if the current request is an AJAX one or not.
+	 */
+	protected $doing_ajax;
 
 	/**
 	 * Whether we are currently creating a new post, a post of post type(s) or not.
@@ -73,5 +77,27 @@ class Tribe__Context {
 		}
 
 		return $is_new || $is_post;
+	}
+
+	/**
+	 * Helper function to indicate whether the current execution context is AJAX.
+	 *
+	 * This method exists to allow us test code that behaves differently depending on the execution
+	 * context; passing a value to this argument will set it to that value in future checks, a test-related usage.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $doing_ajax An injectable status to override the `DOING_AJAX` check.
+	 *
+	 * @return boolean
+	 */
+	public function doing_ajax( $doing_ajax = null ) {
+		if ( null !== $doing_ajax ) {
+			$this->doing_ajax = (bool) $doing_ajax;
+		} else {
+			$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+		}
+
+		return $this->doing_ajax;
 	}
 }

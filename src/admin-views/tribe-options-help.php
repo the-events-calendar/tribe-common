@@ -53,7 +53,7 @@ $help->add_section( 'template-changes', __( 'Recent Template Changes', 'tribe-co
 $help->add_section_content( 'template-changes', Tribe__Support__Template_Checker_Report::generate() );
 
 $help->add_section( 'event-log', __( 'Event Log', 'tribe-common' ), 50 );
-$help->add_section_content( 'event-log', Tribe__Main::instance()->log()->admin()->display_log() );
+$help->add_section_content( 'event-log', tribe( 'logger' )->admin()->display_log() );
 ?>
 
 <div id="tribe-help-general">

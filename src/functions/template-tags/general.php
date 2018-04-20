@@ -479,7 +479,7 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 		/**
 		 * Add option to filter the cost value before is returned, allowing other providers to hook into it.
 		 *
-		 * @since TBD
+		 * @since 4.7.10
 		 *
 		 * @param string $cost
 		 * @param int $post_id
