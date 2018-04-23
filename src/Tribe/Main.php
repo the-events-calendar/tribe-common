@@ -500,6 +500,7 @@ class Tribe__Main {
 	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
 	 */
 	public function tribe_plugins_loaded() {
+		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
 		 *
@@ -534,8 +535,6 @@ class Tribe__Main {
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
-
-		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 	}
 
 	/************************
