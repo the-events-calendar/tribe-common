@@ -145,6 +145,6 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 */
 	public function test_generate_timezone_string_from_utc_offset( $input, $expected ) {
-		$this->assertEquals($expected, \Tribe__Timezones::generate_timezone_string_from_utc_offset( $input ) );
+		$this->assertEquals( $expected, \Tribe__Timezones::generate_timezone_string_from_utc_offset( $input ) );
 	}
 }
