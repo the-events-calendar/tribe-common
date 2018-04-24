@@ -246,8 +246,6 @@ class Tribe__Timezones {
 	 * In those cases where the conversion fails to take place, the $datetime string will be
 	 * returned untouched.
 	 *
-	 * @TODO:
-	 *
 	 * @param string $datetime
 	 * @param string $tzstring
 	 * @param string $format The optional format of the resulting date, defaults to
