@@ -120,6 +120,8 @@ class Tribe__Utils__Global_ID {
 		$parsed_global_id = null;
 
 		if ( $global_id ) {
+			$global_id = html_entity_decode( $global_id ); // &amp; characters replaced as expected
+
 			$parsed = wp_parse_url( 'http://' . $global_id );
 
 			if ( ! empty( $parsed['query'] ) ) {
