@@ -47,6 +47,13 @@ class Tribe__Admin__Activation_Page {
 	 * Listen for opportunities to show update and welcome splash pages.
 	 */
 	public function hooks() {
+		if (
+			tribe_is_truthy( get_option( 'tribe_skip_welcome', false ) )
+			|| tribe_is_truthy( tribe_get_option( 'skip_welcome', false ) )
+		) {
+			return;
+		}
+
 		add_action( 'admin_init', array( $this, 'maybe_redirect' ), 10, 0 );
 		add_action( 'admin_menu', array( $this, 'register_page' ), 100, 0 ); // come in after the default page is registered
 

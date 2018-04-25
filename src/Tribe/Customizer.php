@@ -404,12 +404,12 @@ final class Tribe__Customizer {
 		}
 
 		// All sections should use this action to print their template
-		echo '<script  id="' . esc_attr( 'tmpl-' . $this->ID . '_css' ) . '">';
+		echo '<script type="text/css" id="' . esc_attr( 'tmpl-' . $this->ID . '_css' ) . '">';
 		echo $css_template;
 		echo '</script>';
 
 		// Place where the template will be rendered to
-		echo '<style id="' . esc_attr( $this->ID . '_css' ) . '">';
+		echo '<style type="text/css" id="' . esc_attr( $this->ID . '_css' ) . '">';
 		echo $this->parse_css_template( $css_template );
 		echo '</style>';
 	}
@@ -421,12 +421,12 @@ final class Tribe__Customizer {
 	 * @return string           A Valid css after replacing the variables
 	 */
 	private function parse_css_template( $template ) {
-		$css = $template;
+		$css      = $template;
 		$sections = $this->get_option();
 
-
-		$search = array();
+		$search  = array();
 		$replace = array();
+
 		foreach ( $sections as $section => $settings ) {
 			if ( ! is_array( $settings ) ) {
 				continue;

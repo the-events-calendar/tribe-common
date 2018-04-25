@@ -300,7 +300,14 @@ class Tribe__Languages__Locations {
 		// Perform a natural sort, ensures the countries are in the expected order even once translated.
 		natsort( $countries );
 
-		return $countries;
+		/**
+		 * Filter that allows to change the list and the output of the countries names.
+		 *
+		 * @since TBD
+		 *
+		 * @param array associative array with: Country Code => Country Name
+		 */
+		return (array) apply_filters( 'tribe_countries', $countries );
 	}
 
 	/**
@@ -370,6 +377,13 @@ class Tribe__Languages__Locations {
 		// Perform a natural sort, ensures the states are in the expected order even once translated.
 		natsort( $states );
 
-		return $states;
+		/**
+		 * Filter that allows to change the names of US states before output.
+		 *
+		 * @since TBD
+		 *
+		 * @param array Associative array with the format: State Code => State Name
+		 */
+		return (array) apply_filters( 'tribe_us_states', $states );
 	}
 }

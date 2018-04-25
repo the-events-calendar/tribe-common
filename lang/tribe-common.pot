@@ -2,29 +2,29 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.8\n"
+"Project-Id-Version: Tribe Common 4.7.10\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2018-03-12 13:05:12+00:00\n"
+"POT-Creation-Date: 2018-03-27 21:58:16+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-03-12 13:05\n"
+"PO-Revision-Date: 2018-03-27 21:58\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
-#: src/Tribe/Admin/Activation_Page.php:77
+#: src/Tribe/Admin/Activation_Page.php:84
 msgid "Go to plugins page"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:77
+#: src/Tribe/Admin/Activation_Page.php:84
 msgid "Return to Plugins page"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:85
+#: src/Tribe/Admin/Activation_Page.php:92
 msgid "Go to WordPress Updates page"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:85
+#: src/Tribe/Admin/Activation_Page.php:92
 msgid "Return to WordPress Updates"
 msgstr ""
 
@@ -1588,95 +1588,95 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:255 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:235 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:236
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:237
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:256
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:257
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:259
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:260
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:281
+#: src/Tribe/Main.php:261
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:282
+#: src/Tribe/Main.php:262
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:283
+#: src/Tribe/Main.php:263
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:284
+#: src/Tribe/Main.php:264
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:285
+#: src/Tribe/Main.php:265
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:286
+#: src/Tribe/Main.php:266
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:267
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:268
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:290
+#: src/Tribe/Main.php:270
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:291 src/Tribe/Main.php:307
+#: src/Tribe/Main.php:271 src/Tribe/Main.php:287
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:292
+#: src/Tribe/Main.php:272
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:297
+#: src/Tribe/Main.php:277
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:298
+#: src/Tribe/Main.php:278
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:308
+#: src/Tribe/Main.php:288
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:309
+#: src/Tribe/Main.php:289
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:310
+#: src/Tribe/Main.php:290
 msgid "Done"
 msgstr ""
 
@@ -1858,9 +1858,11 @@ msgstr ""
 #: src/Tribe/Plugins_API.php:71
 msgid ""
 "Event Tickets Plus allows you to sell tickets to your events using "
-"WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your "
-"posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from "
-"your events listings."
+"WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. "
+"Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and "
+"sell tickets from your event listings. Create custom registration forms, "
+"manage attendees, use custom capacity options, and more. Tickets have QR "
+"codes for easy check in at the door."
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:84
@@ -2281,27 +2283,18 @@ msgid ""
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:30
-#: src/admin-views/tribe-options-general.php:35
 msgid "See an example of the link"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:35
-msgid ""
-"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
-"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
-"is recognition. Add a small text only link at the bottom of your calendar "
-"pointing to The Events Calendar project."
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:40
 msgid "Show The Events Calendar link"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:58
+#: src/admin-views/tribe-options-general.php:53
 msgid "Debug mode"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/tribe-options-general.php:59
 msgid ""
 "Enable this option to log debug information. By default this will log to "
 "your server PHP error log. If you'd like to see the log messages in your "
@@ -2309,7 +2302,7 @@ msgid ""
 "\" tab in the debug output."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/tribe-options-general.php:59
 msgid "Debug Bar Plugin"
 msgstr ""
 

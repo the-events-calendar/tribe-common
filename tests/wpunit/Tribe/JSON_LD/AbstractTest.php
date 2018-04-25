@@ -79,6 +79,7 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 		$sut->register( $post );
+		$sut->set_type( $post, strtolower( $sut->type ) );
 		$second_fetch_data = $sut->get_data( $post );
 
 		$this->assertInternalType( 'array', $second_fetch_data );
