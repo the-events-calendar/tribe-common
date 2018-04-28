@@ -472,13 +472,15 @@ class Tribe__Main {
 	 *
 	 * @since 4.0
 	 *
+	 * @todo Add warning with '_deprecated_function'
+	 *
 	 * @param bool $doing_ajax An injectable status to override the `DOING_AJAX` check.
+	 *
+	 * @deprecated TBD
 	 *
 	 * @return boolean
 	 */
 	public function doing_ajax( $doing_ajax = null ) {
-		_deprecated_function( 'Tribe__Main::doing_ajax', 'TBD', "tribe( 'context' )->doing_ajax()" );
-
 		return tribe( 'context' )->doing_ajax( $doing_ajax );
 	}
 
@@ -498,6 +500,7 @@ class Tribe__Main {
 	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
 	 */
 	public function tribe_plugins_loaded() {
+		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
 		 *
@@ -528,11 +531,10 @@ class Tribe__Main {
 		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
 		tribe_singleton( 'context', 'Tribe__Context' );
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
+		tribe_singleton( 'db', 'Tribe__Db' );
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
-
-		tribe()->register( 'Tribe__Service_Providers__Processes' );
 	}
 
 	/************************
