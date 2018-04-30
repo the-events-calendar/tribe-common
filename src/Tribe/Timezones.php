@@ -497,7 +497,7 @@ class Tribe__Timezones {
 	 * @return string           The Guessed Timezone String
 	 */
 	public static function maybe_get_tz_name( $timezone ) {
-		if ( ! Tribe__Timezones::is_utc_offset( $timezone ) && ! is_numeric( $timezone ) ) {
+		if ( ! self::is_utc_offset( $timezone ) && ! is_numeric( $timezone ) ) {
 			return $timezone;
 		}
 
@@ -546,12 +546,7 @@ class Tribe__Timezones {
 	public static function adjust_timestamp( $unix_timestamp, $tzstring ) {
 		try {
 			$local = self::get_timezone( $tzstring );
-			error_log(
-				print_r(
-					$local,
-					true
-				)
-			);
+
 			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 			// We prefer format('U') to getTimestamp() here due to our requirement for compatibility with PHP 5.2
