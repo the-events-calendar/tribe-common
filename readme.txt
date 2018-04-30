@@ -5,6 +5,7 @@
 = [4.7.12] TBD =
 
 * Tweak - Added the `Tribe__Process__Queue` class to handle background processing operations
+* Tweak - Changed 'forums' for 'help desk' in the Help content [104561]
 
 = [4.7.11] 2018-04-18 =
 
