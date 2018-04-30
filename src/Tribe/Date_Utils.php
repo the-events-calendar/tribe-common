@@ -18,6 +18,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		const MERIDIANFORMAT        = 'A';
 		const DBDATEFORMAT          = 'Y-m-d';
 		const DBDATETIMEFORMAT      = 'Y-m-d H:i:s';
+		const DBTZDATETIMEFORMAT    = 'Y-m-d H:i:s O';
 		const DBTIMEFORMAT          = 'H:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
 
