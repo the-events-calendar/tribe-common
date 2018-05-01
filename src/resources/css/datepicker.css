@@ -88,7 +88,8 @@
 .tribe-ui-datepicker.ui-datepicker .ui-datepicker-next {
 	position: absolute;
 	top: 50%;
-	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+	        transform: translateY(-50%);
 	line-height: 1.8em;
 	text-align: center;
 }
