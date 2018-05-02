@@ -49,6 +49,12 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	protected $propagate_taxonomies = array();
 
 	/**
+	 * An array that will be used to store the data to batch update the post fields.
+	 * @var array
+	 */
+	protected $batched_post_fields = array();
+
+	/**
 	 * Whether a field should be propagated from the source to the destination.
 	 *
 	 * @param mixed  $from  The source object or data.
@@ -130,7 +136,13 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	public function propagate( $from, $to ) {
 		list( $from, $to ) = $this->cast_to_objects( $from, $to );
 
-		return parent::propagate( $from, $to );
+		$result = parent::propagate( $from, $to );
+
+		if ( ! empty( $this->batched_post_fields ) ) {
+			$result = $this->batch_update_post_fields( $result );
+		}
+
+		return $result;
 	}
 
 	/**
@@ -175,11 +187,27 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	 * @param WP_Post|stdClass $from
 	 * @param WP_Post          $to
 	 * @param string           $field
+	 * @param bool             $batch Whether the field should be immediately propagated, with a dedicated
+	 *                                `wp_update_post` call, or not.
 	 *
 	 * @return bool Whether the field was propagated or not.
 	 */
-	protected function propagate_post_field( $from, WP_Post $to, $field ) {
-		return (bool) wp_update_post( array( 'ID' => $to->ID, $field => $from->$field ) );
+	protected function propagate_post_field( $from, WP_Post $to, $field, $batch = true ) {
+		$postarr = array( 'ID' => $to->ID, $field => $from->$field );
+
+		if ( in_array( $field, array( 'post_date', 'post_date_gmt' ) ) ) {
+			// to be able to set the post date(s) we need to explicitly
+			// declare we want to edit the date
+			$postarr['edit_date'] = true;
+		}
+
+		if ( $batch ) {
+			$this->batched_post_fields = array_merge( $this->batched_post_fields, $postarr );
+
+			return true;
+		}
+
+		return (bool) wp_update_post( $postarr );
 	}
 
 	/**
@@ -217,5 +245,44 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 		$set = wp_set_object_terms( $to->ID, $from_terms, $field, false );
 
 		return is_wp_error( $set ) ? false : $set;
+	}
+
+	/**
+	 * To avoid calling `wp_update_post` for each post field we batch update
+	 * the post fields.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An associative array in the format [ <field> => <propagated> ]
+	 *
+	 * @return array The updated associative array in the format [ <field> => <propagated> ]
+	 */
+	protected function batch_update_post_fields( $result ) {
+		if ( ! isset( $this->batched_post_fields['ID'] ) ) {
+			return $result;
+		}
+
+		if ( 1 === count( $this->batched_post_fields ) ) {
+			return $result;
+		}
+
+		$post_updated = (bool) wp_update_post( $this->batched_post_fields );
+
+		// remove some "utility" variables
+		unset( $this->batched_post_fields['ID'], $this->batched_post_fields['edit_date'] );
+
+		if ( $post_updated ) {
+			$result = array_merge(
+				$result,
+				array_combine(
+					array_keys( $this->batched_post_fields ),
+					array_fill( 0, count( $this->batched_post_fields ), true )
+				)
+			);
+		}
+
+		$this->batched_post_fields = array();
+
+		return $result;
 	}
 }
