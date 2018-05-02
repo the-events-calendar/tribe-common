@@ -257,7 +257,7 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	 *
 	 * @return array The updated associative array in the format [ <field> => <propagated> ]
 	 */
-	protected function batch_update_post_fields( $result ): array {
+	protected function batch_update_post_fields( $result ) {
 		if ( ! isset( $this->batched_post_fields['ID'] ) ) {
 			return $result;
 		}
