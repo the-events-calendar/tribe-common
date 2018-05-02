@@ -402,12 +402,13 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * Accepts a string representing a date/time and attempts to convert it to
 		 * the specified format, returning an empty string if this is not possible.
 		 *
-		 * @param $dt_string
-		 * @param $new_format
+		 * @param string|int $dt_string The start date string or timestamp
+		 * @param string $new_format The new format, defaults to `Y-m-d H:i:s`, the format
+		 *                           used for dates in the database.
 		 *
 		 * @return string
 		 */
-		public static function reformat( $dt_string, $new_format ) {
+		public static function reformat( $dt_string, $new_format = 'Y-m-d H:i:s' ) {
 			$timestamp = self::is_timestamp( $dt_string ) ? $dt_string : strtotime( $dt_string );
 			$revised   = date( $new_format, $timestamp );
 
