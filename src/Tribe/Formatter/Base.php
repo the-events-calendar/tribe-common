@@ -144,6 +144,7 @@ class Tribe__Formatter__Base implements Tribe__Formatter__Interface {
 	 * @var array The components of the context for this formatter.
 	 */
 	protected $context = array();
+
 	/**
 	 * @var array An array of data generated during the formatting.
 	 */
