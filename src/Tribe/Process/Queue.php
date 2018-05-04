@@ -40,6 +40,11 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	protected $doing_sync = false;
 
 	/**
+	 * @var bool Whether the queue `save` method was already called or not.
+	 */
+	protected $did_save = false;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function __construct() {
@@ -148,16 +153,20 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * {@inheritdoc}
 	 */
 	public function save() {
-		$key = $this->id = $this->generate_key();
+		if ( empty( $this->id ) ) {
+			$this->id = $this->generate_key();
+		}
 
-		$fragments_count = $this->save_split_data( $key, $this->data );
+		$fragments_count = $this->save_split_data( $this->id, $this->data );
 
-		set_transient( $this->get_meta_key( $key ), array(
+		set_transient( $this->get_meta_key( $this->id ), array(
 			'identifier' => $this->identifier,
 			'done'       => 0,
 			'total'      => count( $this->data ),
 			'fragments'  => $fragments_count,
 		) );
+
+		$this->did_save = true;
 
 		return $this;
 	}
@@ -327,5 +336,23 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 */
 	public function get_meta_key( $key ) {
 		return $key . '_meta';
+	}
+
+	/**
+	 * Sets the queue unique id.
+	 *
+	 * When using this method the client code takes charge of the queue id uniqueness;
+	 * the class will not check it.
+	 *
+	 * @param string $queue_id
+	 *
+	 * @throws RuntimeException If trying to set the queue id after saving it.
+	 */
+	public function set_id( $queue_id ) {
+		if ( $this->did_save ) {
+			throw new RuntimeException( 'The queue id can be set only before saving it.' );
+		}
+
+		$this->id = $queue_id;
 	}
 }

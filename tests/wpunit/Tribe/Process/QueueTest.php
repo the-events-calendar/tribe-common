@@ -156,4 +156,45 @@ class QueueTest extends WPTestCase {
 		$query = $wpdb->prepare( "SELECT option_id FROM {$wpdb->options} WHERE option_name LIKE %s", $wpdb->esc_like( $queue_id ) . '%' );
 		$this->assertCount( 4, $wpdb->get_col( $query ) );
 	}
+
+	/**
+	 * It should allow setting a defined queue id on the queue
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_defined_queue_id_on_the_queue() {
+		$sut = $this->make_instance();
+		$sut->set_id( 'unique-q-id' );
+		foreach ( range( 1, 5 ) as $i ) {
+			$sut->push_to_queue( $i );
+		}
+		$sut->save();
+
+		$this->assertEquals( 'unique-q-id', $sut->get_id() );
+		$q_status = \Tribe__Process__Queue::get_status_of( 'unique-q-id' )->to_array();
+		$expected = [
+			'identifier' => 'unique-q-id',
+			'done'       => 0,
+			'total'      => 5,
+			'fragments'  => 1,
+		];
+		$this->assertEqualSets( $expected, $q_status );
+	}
+
+	/**
+	 * It should throw if trying to set ID on queue after saving it
+	 *
+	 * @test
+	 */
+	public function should_throw_if_trying_to_set_id_on_queue_after_saving_it() {
+		$sut = $this->make_instance();
+		foreach ( range( 1, 5 ) as $i ) {
+			$sut->push_to_queue( $i );
+		}
+		$sut->save();
+
+		$this->expectException(\RuntimeException::class);
+
+		$sut->set_id( 'unique-q-id' );
+	}
 }
