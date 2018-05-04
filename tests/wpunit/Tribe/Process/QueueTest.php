@@ -90,11 +90,11 @@ class QueueTest extends WPTestCase {
 
 		$queue_id = $queue->get_id();
 
-		$this->assertNotEmpty( get_option( $queue_id ) );
+		$this->assertNotEmpty( get_option( $queue->get_batch_key() ) );
 
 		$this->assertTrue( \Tribe__Process__Queue::stop_queue( $queue_id ) );
 
-		$this->assertEmpty( get_option( $queue_id ) );
+		$this->assertEmpty( get_option( $queue->get_batch_key() ) );
 
 		$this->assertFalse( \Tribe__Process__Queue::stop_queue( $queue_id ) );
 	}
@@ -170,10 +170,11 @@ class QueueTest extends WPTestCase {
 		}
 		$sut->save();
 
-		$this->assertEquals( 'unique-q-id', $sut->get_id() );
-		$q_status = \Tribe__Process__Queue::get_status_of( 'unique-q-id' )->to_array();
+		$id = $sut->get_id();
+		$this->assertEquals( 'tribe_queue_dummy_queue_batch_unique-q-id', $id );
+		$q_status = \Tribe__Process__Queue::get_status_of( $id )->to_array();
 		$expected = [
-			'identifier' => 'unique-q-id',
+			'identifier' => $idt s,
 			'done'       => 0,
 			'total'      => 5,
 			'fragments'  => 1,
