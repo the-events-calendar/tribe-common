@@ -15,6 +15,11 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	protected $prefix = 'tribe_queue';
 
 	/**
+	 * @var string The base that should be used to build the queue id.
+	 */
+	protected $id_base;
+
+	/**
 	 * @var string The queue unique identifier
 	 */
 	protected $id;
@@ -43,6 +48,11 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * @var bool Whether the queue `save` method was already called or not.
 	 */
 	protected $did_save = false;
+
+	/**
+	 * @var string The batch key used by the queue.
+	 */
+	protected $batch_key;
 
 	/**
 	 * {@inheritdoc}
@@ -153,13 +163,11 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * {@inheritdoc}
 	 */
 	public function save() {
-		if ( empty( $this->id ) ) {
-			$this->id = $this->generate_key();
-		}
+		$key             = $this->generate_key();
 
-		$fragments_count = $this->save_split_data( $this->id, $this->data );
+		$fragments_count = $this->save_split_data( $key, $this->data );
 
-		set_transient( $this->get_meta_key( $this->id ), array(
+		set_transient( $this->get_meta_key( $key ), array(
 			'identifier' => $this->identifier,
 			'done'       => 0,
 			'total'      => count( $this->data ),
@@ -167,8 +175,29 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		) );
 
 		$this->did_save = true;
+		$this->id = $key;
 
 		return $this;
+	}
+
+	/**
+	 * Generates the unique key for the queue optionally using the client provided
+	 * id.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	protected function generate_key( $length = 64 ) {
+		if ( empty( $this->id_base ) ) {
+			$this->id_base = md5( microtime() . mt_rand() );
+		}
+
+		$prepend = $this->identifier . '_batch_';
+
+		$this->batch_key = substr( $prepend . $this->id_base, 0, $length );
+
+		return $this->batch_key;
 	}
 
 	/**
@@ -355,6 +384,30 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 			throw new RuntimeException( 'The queue id can be set only before saving it.' );
 		}
 
-		$this->id = $queue_id;
+		$this->id_base = $queue_id;
+	}
+
+	/**
+	 * Returns the name of the option used by the queue to store its batch(es).
+	 *
+	 * Mind that this value will be set only when first saving the queue and it will not be set
+	 * in following queue processing.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $n The number of a specific batch option name to get; defaults to `0` to get the
+	 *               option name of the first one.
+	 *
+	 * @return string
+	 *
+	 * @throws RuntimeException If trying to get the value before saving the queue or during following
+	 *                          processing.
+	 */
+	public function get_batch_key( $n = 0 ) {
+		if ( null === $this->batch_key || ! $this->did_save ) {
+			throw new RuntimeException( 'The batch key will only be set after the queue is first saved' );
+		}
+
+		return empty( $n ) ? $this->batch_key : $this->batch_key . '_' . (int) $n;
 	}
 }
