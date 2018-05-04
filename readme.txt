@@ -7,6 +7,7 @@
 * Tweak - Added the `Tribe__Process__Queue` class to handle background processing operations
 * Tweak - Changed 'forums' for 'help desk' in the Help content [104561]
 * Tweak - Updated datatables.js to most recent version, to prevent conflicts [102465]
+* Tweak - Add `tribe_set_time_limit()` wrapper function to prevent errors from `set_time_limit()` [64183]
 
 = [4.7.11] 2018-04-18 =
 
