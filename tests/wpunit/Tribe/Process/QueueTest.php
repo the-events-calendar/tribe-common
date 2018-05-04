@@ -174,7 +174,7 @@ class QueueTest extends WPTestCase {
 		$this->assertEquals( 'tribe_queue_dummy_queue_batch_unique-q-id', $id );
 		$q_status = \Tribe__Process__Queue::get_status_of( $id )->to_array();
 		$expected = [
-			'identifier' => $idt s,
+			'identifier' => $id,
 			'done'       => 0,
 			'total'      => 5,
 			'fragments'  => 1,
