@@ -344,6 +344,8 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * When using this method the client code takes charge of the queue id uniqueness;
 	 * the class will not check it.
 	 *
+	 * @since TBD
+	 *
 	 * @param string $queue_id
 	 *
 	 * @throws RuntimeException If trying to set the queue id after saving it.
