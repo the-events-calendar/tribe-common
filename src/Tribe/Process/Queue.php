@@ -124,6 +124,8 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	public function delete( $key ) {
 		global $wpdb;
 
+		$meta_key = $this->get_meta_key( $key );
+
 		$table  = $wpdb->options;
 		$column = 'option_name';
 
@@ -140,7 +142,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 			WHERE {$column} LIKE %s
 		", $key ) );
 
-		delete_transient( $this->get_meta_key( $key ) );
+		delete_transient( $meta_key );
 
 		return $this;
 	}
@@ -149,12 +151,25 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * {@inheritdoc}
 	 */
 	public function update( $key, $data ) {
-		$meta = (array) get_transient( $this->get_meta_key( $key ) );
-		$done = $this->original_batch_count - count( $data );
+		$meta_key = $this->get_meta_key( $key );
+		$meta     = (array) get_transient( $meta_key );
+		$done     = $this->original_batch_count - count( $data );
 
-		set_transient( $this->get_meta_key( $key ), array_merge( $meta, array(
+		$update_data = array_merge( $meta, array(
 			'done' => $meta['done'] + $done,
-		) ) );
+		) );
+
+		/**
+		 * Filters the information that will be updated in the database for this queue type.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $update_data
+		 * @param self $this
+		 */
+		$update_data = apply_filters( "tribe_process_queue_{$this->identifier}_update_data", $update_data, $this );
+
+		set_transient( $meta_key, $update_data );
 
 		return parent::update( $key, $data );
 	}
@@ -167,12 +182,24 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 
 		$fragments_count = $this->save_split_data( $key, $this->data );
 
-		set_transient( $this->get_meta_key( $key ), array(
+		$save_data = array(
 			'identifier' => $this->identifier,
 			'done'       => 0,
 			'total'      => count( $this->data ),
 			'fragments'  => $fragments_count,
-		) );
+		);
+
+		/**
+		 * Filters the information that will be saved to the database for this queue type.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $save_data
+		 * @param self $this
+		 */
+		$save_data = apply_filters( "tribe_process_queue_{$this->identifier}_save_data", $save_data, $this );
+
+		set_transient( $this->get_meta_key( $key ), $save_data );
 
 		$this->did_save = true;
 		$this->id = $key;
@@ -364,6 +391,8 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * @return string
 	 */
 	public function get_meta_key( $key ) {
+		$key = preg_replace( '/^(.*)_\\d+$/', '$1', $key );
+
 		return $key . '_meta';
 	}
 
@@ -383,6 +412,8 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		if ( $this->did_save ) {
 			throw new RuntimeException( 'The queue id can be set only before saving it.' );
 		}
+
+		$queue_id = preg_replace( '/^' . preg_quote( $this->identifier, '/' ) . '_batch_/', '', $queue_id );
 
 		$this->id_base = $queue_id;
 	}
