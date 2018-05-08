@@ -313,8 +313,7 @@ table.dataTable,
 	color: #a0a5aa;
 	cursor: default;
 	text-shadow: 0 1px 0 #fff;
-	-webkit-transform: none;
-	        transform: none;
+	transform: none;
 }
 .dataTables_wrapper .dataTables_paginate .ellipsis {
 	padding: 0 1em;
