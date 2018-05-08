@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Process__Queue
  *
- * @since TBD
+ * @since 4.7.12
  *
  * The base class to process queues asynchronously.
  */
@@ -69,7 +69,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * The queue process results are not rolled back (e.g. 200 posts to create, stopped
 	 * after 50, those 50 posts will persist).
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $queue_id The unique identifier of the queue that should be stopped.
 	 *
@@ -89,7 +89,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	/**
 	 * Returns a queue status and information.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $queue_id
 	 *
@@ -112,7 +112,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	/**
 	 * Returns the async process action name.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return string
 	 */
@@ -162,7 +162,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		/**
 		 * Filters the information that will be updated in the database for this queue type.
 		 *
-		 * @since TBD
+		 * @since 4.7.12
 		 *
 		 * @param array $update_data
 		 * @param self $this
@@ -192,7 +192,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		/**
 		 * Filters the information that will be saved to the database for this queue type.
 		 *
-		 * @since TBD
+		 * @since 4.7.12
 		 *
 		 * @param array $save_data
 		 * @param self $this
@@ -211,7 +211,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * Generates the unique key for the queue optionally using the client provided
 	 * id.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return string
 	 */
@@ -287,7 +287,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 *
 	 * This will prevent the class from trying to read the value from the database.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param int $max_frag_size
 	 */
@@ -300,7 +300,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 *
 	 * Mind that an id will only be available after saving a queue.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return string
 	 * @throws RuntimeException if trying to get the queue id before saving it.
@@ -318,7 +318,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * Overrides the base `dispatch` method to allow for constants and/or environment vars to run
 	 * async requests in sync mode.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return mixed
 	 */
@@ -338,7 +338,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	/**
 	 * Handles the process immediately, not in an async manner.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return array An array containing the result of each item handling.
 	 */
@@ -384,7 +384,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * Returns the name of the transient that will store the queue meta information
 	 * for the specific key.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $key
 	 *
@@ -402,7 +402,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * When using this method the client code takes charge of the queue id uniqueness;
 	 * the class will not check it.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $queue_id
 	 *
@@ -424,7 +424,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * Mind that this value will be set only when first saving the queue and it will not be set
 	 * in following queue processing.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param int $n The number of a specific batch option name to get; defaults to `0` to get the
 	 *               option name of the first one.

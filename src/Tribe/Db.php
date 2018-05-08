@@ -10,7 +10,7 @@ class Tribe__Db {
 	/**
 	 * Gets the value of the `max_allowed_packet` setting.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return int
 	 *
@@ -27,7 +27,7 @@ class Tribe__Db {
 		/**
 		 * Filters the size of the `max_allowed_packet` setting in bytes.
 		 *
-		 * @since TBD
+		 * @since 4.7.12
 		 *
 		 * @param int $max_size By default the `max_allowed_packet` from the database.
 		 */

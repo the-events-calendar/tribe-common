@@ -5,7 +5,7 @@
  *
  * The base class for all Modern Tribe async process handlers.
  *
- * @since TBD
+ * @since 4.7.12
  *
  * @see   Tribe__Service_Providers__Processes for more insight about this class utility.
  */
@@ -18,7 +18,7 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	/**
 	 * Tribe__Process__Handler constructor.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 */
 	public function __construct() {
 		$class        = get_class( $this );
@@ -29,7 +29,7 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	/**
 	 * Returns the async process action name.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return string
 	 */
@@ -38,7 +38,7 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	/**
 	 * Handles the process immediately, not in an async manner.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param array|null $data_source If not provided the method will read the handler data from the
 	 *                                request array.
@@ -51,7 +51,7 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	 * Overrides the base `dispatch` method to allow for constants and/or environment vars to run
 	 * async requests in sync mode.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return mixed
 	 */
