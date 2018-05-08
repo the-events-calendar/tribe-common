@@ -5,7 +5,7 @@
   "vendor/momentjs/*.js",
   "src/**/*",
   "vendor/clipboard/*.js",
-  "vendor/datatables//datatables*.js",
+  "vendor/datatables/datatables*.js",
   "vendor/datatables/datatables*.css",
   "vendor/datatables/DataTables/images/*.png",
   "vendor/jquery/**/*",
