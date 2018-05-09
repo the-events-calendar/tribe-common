@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.12] 2018-05-08 =
+= [4.7.12] 2018-05-09 =
 
 * Fix - Updated datatables.js to its most recent version to prevent conflicts [102465]
 * Tweak - Added the `Tribe__Process__Queue` class to handle background processing operations
