@@ -112,11 +112,18 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	/**
 	 * Returns the async process action name.
 	 *
+	 * Extending classes must override this method to return their unique action slug.
+	 *
 	 * @since 4.7.12
 	 *
 	 * @return string
+	 *
+	 * @throws RuntimeException If the extending class does not override this method.
 	 */
-	abstract public static function action();
+	public static function action() {
+		$class = get_called_class();
+		throw new RuntimeException( "Class {$class} should override the `action` method to define its own unique identifier." );
+	}
 
 	/**
 	 * {@inheritdoc}
