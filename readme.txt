@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.7.13] TBD =
+
+* Fix - Adjust the `Tribe__PUE__Checker` $stats creation regarding WordPress multisite installs [84231]
+
 = [4.7.12] 2018-05-09 =
 
 * Fix - Updated datatables.js to its most recent version to prevent conflicts [102465]
