@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Service_Providers__Processes
  *
- * @since TBD
+ * @since 4.7.12
  *
  * Handles the registration and creation of our async process handlers.
  */
@@ -37,7 +37,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	/**
 	 * Hooks the correct handler for the action.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $action
 	 */
@@ -51,7 +51,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 		 *
 		 * All handlers should extend the `Tribe__Process__Handler` base class.
 		 *
-		 * @since TBD
+		 * @since 4.7.12
 		 *
 		 * @param array $handlers
 		 */
@@ -75,7 +75,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	/**
 	 * Hooks the correct queue for the action.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $action
 	 */
@@ -87,7 +87,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 		 *
 		 * All queues should extend the `Tribe__Process__Queue` base class.
 		 *
-		 * @since TBD
+		 * @since 4.7.12
 		 *
 		 * @param array $queues
 		 */
@@ -111,7 +111,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	/**
 	 * Returns the action for the handler.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $handler_class
 	 *
@@ -125,7 +125,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	/**
 	 * Returns the action for the queue.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $queue_class
 	 *

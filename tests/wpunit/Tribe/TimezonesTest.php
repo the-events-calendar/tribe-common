@@ -126,7 +126,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	public function test_is_valid_timezone( $input, $expected ) {
 		$this->assertEquals( $expected, \Tribe__Timezones::is_valid_timezone( $input ) );
 	}
-	
+
 	public function is_utc_offset_input() {
 		return [
 			[ 'UTC', 'UTC' ],
@@ -141,7 +141,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	 * Test generate_timezone_string_from_utc_offset
 	 *
 	 * @dataProvider  is_utc_offset_input
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 */
 	public function test_generate_timezone_string_from_utc_offset( $input, $expected ) {

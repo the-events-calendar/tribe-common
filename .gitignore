@@ -18,6 +18,7 @@ vendor/*
 !vendor/composer
 !vendor/attrchange
 !vendor/tooltipster
+!vendor/datatables
 !vendor/jquery-tribe-timepicker
 vendor/composer/composer/tests
 vendor/composer/composer/doc

@@ -13,7 +13,7 @@ class Dummy_Queue extends \Tribe__Process__Queue {
 	/**
 	 * Returns the async process action name.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return string
 	 */

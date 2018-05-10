@@ -179,28 +179,6 @@ class Tribe__Timezones {
 	}
 
 	/**
-	 * Accepts a unix timestamp and adjusts it so that when it is used to constitute
-	 * a new datetime string, that string reflects the designated timezone.
-	 *
-	 * @param string $unix_timestamp
-	 * @param string $tzstring
-	 *
-	 * @return string
-	 */
-	public static function adjust_timestamp( $unix_timestamp, $tzstring ) {
-		try {
-			$local = self::get_timezone( $tzstring );
-			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
-
-			// We prefer format('U') to getTimestamp() here due to our requirement for compatibility with PHP 5.2
-			return date_create_from_format( 'Y-m-d H:i:s', $datetime, $local )->format( 'U' );
-		}
-		catch( Exception $e ) {
-			return $unix_timestamp;
-		}
-	}
-
-	/**
 	 * Returns a DateTimeZone object matching the representation in $tzstring where
 	 * possible, or else representing UTC (or, in the worst case, false).
 	 *
@@ -297,62 +275,6 @@ class Tribe__Timezones {
 	}
 
 	/**
-	 * Applies an time offset to the specified date time.
-	 *
-	 * @param string $datetime The date and time string in a valid date format.
-	 * @param int|string  $offset (string or numeric offset)
-	 * @param bool   $invert = false Whether the offset should be added (`true`) or
-	 *                       subtracted (`false`); signum operations carry over so
-	 *                       `-(-23) = +23`.
-	 *
-	 * @return string
-	 */
-	public static function apply_offset( $datetime, $offset, $invert = false ) {
-		// Normalize
-		$offset = strtolower( trim( $offset ) );
-
-		// Strip any leading "utc" text if set
-		if ( 0 === strpos( $offset, 'utc' ) ) {
-			$offset = substr( $offset, 3 );
-		}
-
-		// It's possible no adjustment will be needed
-		if ( 0 === (int) $offset ) {
-			return $datetime;
-		}
-
-		// if the offset contains fractions like :15, :30 or :45 convert them
-		$supported_offsets = array(
-			'/:15$/' => '.25',
-			'/:30$/' => '.5',
-			'/:45$/' => '.75',
-		);
-		$offset = preg_replace( array_keys( $supported_offsets ), array_values( $supported_offsets ), $offset );
-
-		// Convert the offset to minutes for easier handling of fractional offsets
-		$offset = (int) ( $offset * 60 );
-
-		// Invert the offset? Useful for stripping an offset that has already been applied
-		if ( $invert ) {
-			$offset *= - 1;
-		}
-
-		if ( $offset > 0 ) {
-			$offset = '+' . $offset;
-		}
-
-		$offset = $offset . ' minutes';
-
-		$offset_datetime = date_create( $datetime );
-
-		if ( $offset_datetime && $offset_datetime->modify( $offset ) ) {
-			return $offset_datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
-		}
-
-		return $datetime;
-	}
-
-	/**
 	 * Tries to convert the provided $datetime to the timezone represented by $tzstring.
 	 *
 	 * This is the sister function of self::to_utc() - please review the docs for that method
@@ -364,7 +286,9 @@ class Tribe__Timezones {
 	 * @return string
 	 */
 	public static function to_tz( $datetime, $tzstring ) {
+
 		if ( self::is_utc_offset( $tzstring ) ) {
+
 			return self::apply_offset( $datetime, $tzstring );
 		}
 
@@ -382,48 +306,6 @@ class Tribe__Timezones {
 	}
 
 	/**
-	 * Try to figure out the Timezone name base on offset
-	 *
-	 * @since  4.0.7
-	 *
-	 * @param  string|int|float $timezone The timezone
-	 *
-	 * @return string           The Guessed Timezone String
-	 */
-	public static function maybe_get_tz_name( $timezone ) {
-		if ( ! Tribe__Timezones::is_utc_offset( $timezone ) && ! is_numeric( $timezone ) ) {
-			return $timezone;
-		}
-
-		if ( ! is_numeric( $timezone ) ) {
-			$offset = str_replace( 'utc', '', trim( strtolower( $timezone ) ) );
-		} else {
-			$offset = $timezone;
-		}
-
-
-		// try to get timezone from gmt_offset, respecting daylight savings
-		$timezone = timezone_name_from_abbr( null, $offset * 3600, true );
-
-		// if that didn't work, maybe they don't have daylight savings
-		if ( false === $timezone ) {
-			$timezone = timezone_name_from_abbr( null, $offset * 3600, false );
-		}
-
-		// and if THAT didn't work, round the gmt_offset down and then try to get the timezone respecting daylight savings
-		if ( false === $timezone ) {
-			$timezone = timezone_name_from_abbr( null, (int) $offset * 3600, true );
-		}
-
-		// lastly if that didn't work, round the gmt_offset down and maybe that TZ doesn't do daylight savings
-		if ( false === $timezone ) {
-			$timezone = timezone_name_from_abbr( null, (int) $offset * 3600, false );
-		}
-
-		return $timezone;
-	}
-
-	/**
 	 * Localizes a date or timestamp using WordPress timezone and returns it in the specified format.
 	 *
 	 * @param string     $format   The format the date shouuld be formatted to.
@@ -438,8 +320,10 @@ class Tribe__Timezones {
 	 */
 	public static function localize_date( $format = null, $date = null, $timezone = null ) {
 		if ( empty( $timezone ) ) {
-			$timezone = self::generate_timezone_string_from_utc_offset( self::wp_timezone_string() );
+			$timezone = self::wp_timezone_string();
 		}
+
+		$timezone = self::generate_timezone_string_from_utc_offset( $timezone );
 
 		try {
 			$timezone_object = new DateTimeZone( $timezone );
@@ -507,6 +391,8 @@ class Tribe__Timezones {
 	 * If this is not possible or if $utc_offset_string does not match the expected pattern,
 	 * boolean false is returned.
 	 *
+	 * @todo revise to eliminate all of these: maybe_get_tz_name, apply_offset, timezone_from_utc_offset, and adjust_timestamp
+	 *
 	 * @since 4.6.3
 	 *
 	 * @param string $utc_offset_string
@@ -538,6 +424,135 @@ class Tribe__Timezones {
 			return new DateTimeZone( $utc_offset );
 		} catch ( Exception $e ) {
 			return false;
+		}
+	}
+
+	/**
+	 * Applies an time offset to the specified date time.
+	 *
+	 * @todo revise to eliminate all of these: maybe_get_tz_name, apply_offset, timezone_from_utc_offset, and adjust_timestamp
+	 *
+	 * @param string $datetime The date and time string in a valid date format.
+	 * @param int|string  $offset (string or numeric offset)
+	 * @param bool   $invert = false Whether the offset should be added (`true`) or
+	 *                       subtracted (`false`); signum operations carry over so
+	 *                       `-(-23) = +23`.
+	 *
+	 * @return string
+	 */
+	public static function apply_offset( $datetime, $offset, $invert = false ) {
+		// Normalize
+		$offset = strtolower( trim( $offset ) );
+
+		// Strip any leading "utc" text if set
+		if ( 0 === strpos( $offset, 'utc' ) ) {
+			$offset = substr( $offset, 3 );
+		}
+
+		// It's possible no adjustment will be needed
+		if ( 0 === (int) $offset ) {
+			return $datetime;
+		}
+
+		// if the offset contains fractions like :15, :30 or :45 convert them
+		$supported_offsets = array(
+			'/:15$/' => '.25',
+			'/:30$/' => '.5',
+			'/:45$/' => '.75',
+		);
+		$offset = preg_replace( array_keys( $supported_offsets ), array_values( $supported_offsets ), $offset );
+
+		// Convert the offset to minutes for easier handling of fractional offsets
+		$offset = (int) ( $offset * 60 );
+
+		// Invert the offset? Useful for stripping an offset that has already been applied
+		if ( $invert ) {
+			$offset *= - 1;
+		}
+
+		if ( $offset > 0 ) {
+			$offset = '+' . $offset;
+		}
+
+		$offset = $offset . ' minutes';
+
+		$offset_datetime = date_create( $datetime );
+
+		if ( $offset_datetime && $offset_datetime->modify( $offset ) ) {
+			return $offset_datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+		}
+
+		return $datetime;
+	}
+
+	/**
+	 * Try to figure out the Timezone name base on offset
+	 *
+	 * @since  4.0.7
+	 *
+	 * @todo revise to eliminate all of these: maybe_get_tz_name, apply_offset, timezone_from_utc_offset, and adjust_timestamp
+	 *
+	 * @param  string|int|float $timezone The timezone
+	 *
+	 * @return string           The Guessed Timezone String
+	 */
+	public static function maybe_get_tz_name( $timezone ) {
+		if ( ! self::is_utc_offset( $timezone ) && ! is_numeric( $timezone ) ) {
+			return $timezone;
+		}
+
+		if ( ! is_numeric( $timezone ) ) {
+			$offset = str_replace( 'utc', '', trim( strtolower( $timezone ) ) );
+		} else {
+			$offset = $timezone;
+		}
+
+
+		// try to get timezone from gmt_offset, respecting daylight savings
+		$timezone = timezone_name_from_abbr( null, $offset * 3600, true );
+
+		// if that didn't work, maybe they don't have daylight savings
+		if ( false === $timezone ) {
+			$timezone = timezone_name_from_abbr( null, $offset * 3600, false );
+		}
+
+		// and if THAT didn't work, round the gmt_offset down and then try to get the timezone respecting daylight savings
+		if ( false === $timezone ) {
+			$timezone = timezone_name_from_abbr( null, (int) $offset * 3600, true );
+		}
+
+		// lastly if that didn't work, round the gmt_offset down and maybe that TZ doesn't do daylight savings
+		if ( false === $timezone ) {
+			$timezone = timezone_name_from_abbr( null, (int) $offset * 3600, false );
+		}
+
+		return $timezone;
+	}
+
+	/**
+	 * Accepts a unix timestamp and adjusts it so that when it is used to constitute
+	 * a new datetime string, that string reflects the designated timezone.
+	 *
+	 * @todo revise to eliminate all of these: maybe_get_tz_name, apply_offset, timezone_from_utc_offset, and adjust_timestamp
+	 *
+	 * @deprecated 4.7.12
+	 *
+	 * @param string $unix_timestamp
+	 * @param string $tzstring
+	 *
+	 * @return string
+	 */
+	public static function adjust_timestamp( $unix_timestamp, $tzstring ) {
+		try {
+			$local = self::get_timezone( $tzstring );
+
+			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+
+			// We prefer format('U') to getTimestamp() here due to our requirement for compatibility with PHP 5.2
+			return date_create_from_format( 'Y-m-d H:i:s', $datetime, $local )->format( 'U' );
+		}
+		catch( Exception $e ) {
+			return $unix_timestamp;
 		}
 	}
 }
