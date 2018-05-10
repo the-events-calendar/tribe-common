@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Process__Queue
  *
- * @since TBD
+ * @since 4.7.12
  *
  * The base class to process queues asynchronously.
  */
@@ -69,7 +69,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * The queue process results are not rolled back (e.g. 200 posts to create, stopped
 	 * after 50, those 50 posts will persist).
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $queue_id The unique identifier of the queue that should be stopped.
 	 *
@@ -89,7 +89,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	/**
 	 * Returns a queue status and information.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $queue_id
 	 *
@@ -112,17 +112,26 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	/**
 	 * Returns the async process action name.
 	 *
-	 * @since TBD
+	 * Extending classes must override this method to return their unique action slug.
+	 *
+	 * @since 4.7.12
 	 *
 	 * @return string
+	 *
+	 * @throws RuntimeException If the extending class does not override this method.
 	 */
-	abstract public static function action();
+	public static function action() {
+		$class = get_called_class();
+		throw new RuntimeException( "Class {$class} should override the `action` method to define its own unique identifier." );
+	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function delete( $key ) {
 		global $wpdb;
+
+		$meta_key = $this->get_meta_key( $key );
 
 		$table  = $wpdb->options;
 		$column = 'option_name';
@@ -140,7 +149,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 			WHERE {$column} LIKE %s
 		", $key ) );
 
-		delete_transient( $this->get_meta_key( $key ) );
+		delete_transient( $meta_key );
 
 		return $this;
 	}
@@ -149,12 +158,25 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * {@inheritdoc}
 	 */
 	public function update( $key, $data ) {
-		$meta = (array) get_transient( $this->get_meta_key( $key ) );
-		$done = $this->original_batch_count - count( $data );
+		$meta_key = $this->get_meta_key( $key );
+		$meta     = (array) get_transient( $meta_key );
+		$done     = $this->original_batch_count - count( $data );
 
-		set_transient( $this->get_meta_key( $key ), array_merge( $meta, array(
+		$update_data = array_merge( $meta, array(
 			'done' => $meta['done'] + $done,
-		) ) );
+		) );
+
+		/**
+		 * Filters the information that will be updated in the database for this queue type.
+		 *
+		 * @since 4.7.12
+		 *
+		 * @param array $update_data
+		 * @param self $this
+		 */
+		$update_data = apply_filters( "tribe_process_queue_{$this->identifier}_update_data", $update_data, $this );
+
+		set_transient( $meta_key, $update_data );
 
 		return parent::update( $key, $data );
 	}
@@ -167,12 +189,24 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 
 		$fragments_count = $this->save_split_data( $key, $this->data );
 
-		set_transient( $this->get_meta_key( $key ), array(
+		$save_data = array(
 			'identifier' => $this->identifier,
 			'done'       => 0,
 			'total'      => count( $this->data ),
 			'fragments'  => $fragments_count,
-		) );
+		);
+
+		/**
+		 * Filters the information that will be saved to the database for this queue type.
+		 *
+		 * @since 4.7.12
+		 *
+		 * @param array $save_data
+		 * @param self $this
+		 */
+		$save_data = apply_filters( "tribe_process_queue_{$this->identifier}_save_data", $save_data, $this );
+
+		set_transient( $this->get_meta_key( $key ), $save_data );
 
 		$this->did_save = true;
 		$this->id = $key;
@@ -184,7 +218,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * Generates the unique key for the queue optionally using the client provided
 	 * id.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return string
 	 */
@@ -260,7 +294,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 *
 	 * This will prevent the class from trying to read the value from the database.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param int $max_frag_size
 	 */
@@ -273,7 +307,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 *
 	 * Mind that an id will only be available after saving a queue.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return string
 	 * @throws RuntimeException if trying to get the queue id before saving it.
@@ -291,7 +325,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * Overrides the base `dispatch` method to allow for constants and/or environment vars to run
 	 * async requests in sync mode.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return mixed
 	 */
@@ -311,7 +345,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	/**
 	 * Handles the process immediately, not in an async manner.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return array An array containing the result of each item handling.
 	 */
@@ -357,13 +391,15 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * Returns the name of the transient that will store the queue meta information
 	 * for the specific key.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $key
 	 *
 	 * @return string
 	 */
 	public function get_meta_key( $key ) {
+		$key = preg_replace( '/^(.*)_\\d+$/', '$1', $key );
+
 		return $key . '_meta';
 	}
 
@@ -373,7 +409,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * When using this method the client code takes charge of the queue id uniqueness;
 	 * the class will not check it.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param string $queue_id
 	 *
@@ -384,6 +420,8 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 			throw new RuntimeException( 'The queue id can be set only before saving it.' );
 		}
 
+		$queue_id = preg_replace( '/^' . preg_quote( $this->identifier, '/' ) . '_batch_/', '', $queue_id );
+
 		$this->id_base = $queue_id;
 	}
 
@@ -393,7 +431,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * Mind that this value will be set only when first saving the queue and it will not be set
 	 * in following queue processing.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param int $n The number of a specific batch option name to get; defaults to `0` to get the
 	 *               option name of the first one.

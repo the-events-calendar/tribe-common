@@ -303,7 +303,7 @@ class Tribe__Languages__Locations {
 		/**
 		 * Filter that allows to change the list and the output of the countries names.
 		 *
-		 * @since TBD
+		 * @since 4.7.12
 		 *
 		 * @param array associative array with: Country Code => Country Name
 		 */
@@ -380,7 +380,7 @@ class Tribe__Languages__Locations {
 		/**
 		 * Filter that allows to change the names of US states before output.
 		 *
-		 * @since TBD
+		 * @since 4.7.12
 		 *
 		 * @param array Associative array with the format: State Code => State Name
 		 */

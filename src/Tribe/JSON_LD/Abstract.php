@@ -31,7 +31,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Holder for a post when it has multiple types
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @var array
 	 */
@@ -270,7 +270,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Public method to have access to the types
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return array
 	 */
@@ -281,7 +281,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Register the current $type to prevent duplicates entries with different $types and IDs
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param $post
 	 * @param $type
@@ -326,7 +326,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * Return `true` if the $type has been already registered for the specified $id.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param $id
 	 * @param $type

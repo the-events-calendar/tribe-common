@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.7.11';
+	const VERSION             = '4.7.12';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -468,7 +468,7 @@ class Tribe__Main {
 	 *
 	 * @param bool $doing_ajax An injectable status to override the `DOING_AJAX` check.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.12
 	 *
 	 * @return boolean
 	 */

@@ -85,7 +85,7 @@ class Tribe__Context {
 	 * This method exists to allow us test code that behaves differently depending on the execution
 	 * context; passing a value to this argument will set it to that value in future checks, a test-related usage.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param bool $doing_ajax An injectable status to override the `DOING_AJAX` check.
 	 *

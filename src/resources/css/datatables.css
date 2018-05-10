@@ -37,19 +37,19 @@ table.dataTable thead .sorting,
 	background-repeat: no-repeat;
 }
 table.dataTable thead .sorting {
-	background-image: url("../../../vendor/datatables/media/images/sort_both.png");
+	background-image: url("../../../vendor/datatables/DataTables/images/sort_both.png");
 }
 table.dataTable thead .sorting_asc {
-	background-image: url("../../../vendor/datatables/media/images/sort_asc.png");
+	background-image: url("../../../vendor/datatables/DataTables/images/sort_asc.png");
 }
 table.dataTable thead .sorting_desc {
-	background-image: url("../../../vendor/datatables/media/images/sort_desc.png");
+	background-image: url("../../../vendor/datatables/DataTables/images/sort_desc.png");
 }
 table.dataTable thead .sorting_asc_disabled {
-	background-image: url("../../../vendor/datatables/media/images/sort_asc_disabled.png");
+	background-image: url("../../../vendor/datatables/DataTables/images/sort_asc_disabled.png");
 }
 table.dataTable thead .sorting_desc_disabled {
-	background-image: url("../../../vendor/datatables/media/images/sort_desc_disabled.png");
+	background-image: url("../../../vendor/datatables/DataTables/images/sort_desc_disabled.png");
 }
 table.dataTable.widefat thead th input, table.dataTable.widefat thead td input, table.dataTable.widefat tfoot th input, table.dataTable.widefat tfoot td input {
 	margin: 0 0 0 8px;
@@ -313,8 +313,7 @@ table.dataTable,
 	color: #a0a5aa;
 	cursor: default;
 	text-shadow: 0 1px 0 #fff;
-	-webkit-transform: none;
-	        transform: none;
+	transform: none;
 }
 .dataTables_wrapper .dataTables_paginate .ellipsis {
 	padding: 0 1em;

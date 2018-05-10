@@ -11,7 +11,7 @@
  *      $post_thumbnail_setter->set_post_thumbnail( 'http://foo.com/random-image.jpg' );
  *      $post_thumbnail_setter->dispatch();
  *
- * @since TBD
+ * @since 4.7.12
  */
 class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 	/**
@@ -50,7 +50,7 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 	 * Sets the ID of the post the post thumbnail (aka "featured image") should be attached
 	 * and set for.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param int $post_id The target post ID.
 	 */
@@ -61,7 +61,7 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 	/**
 	 * Sets the post thumbnail ID or source the process should set.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param int|string $post_thumbnail Either an attachment ID or the full URL, or path, to
 	 *                                   the post thumbnail image.
@@ -76,7 +76,7 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 	 * The post thumbnail will be uploaded, if not uploaded already, using the `tribe_upload_image` function.
 	 * This method is an alias of the publicly accessible `sync_handle` one.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @see   tribe_upload_image()
 	 * @see   Tribe__Process__Post_Thumbnail_Setter::sync_handle()

@@ -535,8 +535,7 @@ class Tribe__Timezones {
 	 *
 	 * @todo revise to eliminate all of these: maybe_get_tz_name, apply_offset, timezone_from_utc_offset, and adjust_timestamp
 	 *
-	 * @deprecate TBDpwd
-	 *
+	 * @deprecated 4.7.12
 	 *
 	 * @param string $unix_timestamp
 	 * @param string $tzstring
