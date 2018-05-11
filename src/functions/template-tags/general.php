@@ -704,3 +704,24 @@ if ( ! function_exists( 'tribe_is_frontend' ) ) {
 		return (bool) apply_filters( 'tribe_doing_frontend', false );
 	}
 }
+
+if ( ! function_exists( 'tribe_set_time_limit' ) ) {
+	/**
+	 * Wrapper for set_time_limit to suppress errors
+	 *
+	 * @since 4.7.12
+	 *
+	 * @param int $limit Time limit.
+	 */
+	function tribe_set_time_limit( $limit = 0 ) {
+		if (
+			! function_exists( 'set_time_limit' )
+			&& false !== strpos( ini_get( 'disable_functions' ), 'set_time_limit' )
+			&& ini_get( 'safe_mode' )
+		) {
+			return false;
+		}
+
+		return @set_time_limit( $limit );
+	}
+}
