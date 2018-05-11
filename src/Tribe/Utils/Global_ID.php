@@ -125,7 +125,7 @@ class Tribe__Utils__Global_ID {
 			$parsed = wp_parse_url( 'http://' . $global_id );
 
 			if ( ! empty( $parsed['query'] ) ) {
-				$parsed_query = [];
+				$parsed_query = array();
 
 				wp_parse_str( $parsed['query'], $parsed_query );
 
