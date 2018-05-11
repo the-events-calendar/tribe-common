@@ -59,7 +59,8 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 */
 	public function __construct() {
 		$class        = get_class( $this );
-		$this->action = $class::action();
+		$this->action = call_user_func( array( $class, 'action' ) );
+
 		parent::__construct();
 	}
 
