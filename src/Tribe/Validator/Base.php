@@ -241,4 +241,19 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 
 		return $value;
 	}
+
+	/**
+	 * Reformats, implicitly validating, a date to teh `Y-m-d H:i:s` format.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|int $date A date string or timestamp
+	 *
+	 * @return string|false The date in the new format or `false` string if invalid.
+	 */
+	public function reformat_date( $date ) {
+		$reformatted = Tribe__Date_Utils::reformat( $date, 'Y-m-d H:i:s' );
+
+		return empty( $reformatted ) ? false : $reformatted;
+	}
 }
