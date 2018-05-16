@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.7.13] 2018-05-16 =
+
+* Fix - Prevent PHP 5.2 error on new Queuing Proccess `T_PAAMAYIM_NEKUDOTAYIM` [106696]
+* Fix - Modify some language and typos
+
 = [4.7.12] 2018-05-09 =
 
 * Fix - Updated datatables.js to its most recent version to prevent conflicts [102465]
