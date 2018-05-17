@@ -8,7 +8,7 @@ $plugins = $help->get_plugins( null, false );
 // Creates the Feature Box section
 $help->add_section( 'feature-box', null, 0, 'box' );
 $help->add_section_content( 'feature-box', '<img src="' . esc_url( plugins_url( 'resources/images/modern-tribe@2x.png', dirname( __FILE__ ) ) ) . '" alt="Modern Tribe Inc." title="Modern Tribe Inc.">' );
-$help->add_section_content( 'feature-box', sprintf( esc_html__( 'Thanks you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins.', 'tribe-common' ), $help->get_plugins_text() ) );
+$help->add_section_content( 'feature-box', sprintf( esc_html__( 'Thank you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins.', 'tribe-common' ), $help->get_plugins_text() ) );
 
 // Creates the Support section
 $help->add_section( 'support', __( 'Getting Support', 'tribe-common' ), 10 );
