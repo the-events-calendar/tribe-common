@@ -23,7 +23,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 	public function is_string_data() {
 		return [
-			[ '', false ],
+			[ '', true ],
 			[ null, false ],
 			[ array( 'foo' => 'bar' ), false ],
 			[ array( 'foo', 'bar' ), false ],
@@ -43,6 +43,28 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $this->make_instance()->is_string( $value ) );
 	}
 
+	public function is_string_not_empty_data() {
+		return [
+			[ '', false ],
+			[ null, false ],
+			[ array( 'foo' => 'bar' ), false ],
+			[ array( 'foo', 'bar' ), false ],
+			[ new \StdClass(), false ],
+			[ 'f', true ],
+			[ 'foo bar', true ],
+		];
+	}
+
+	/**
+	 * Test is_string
+	 *
+	 * @test
+	 * @dataProvider is_string_not_empty_data
+	 */
+	public function test_is_string_not_empty( $value, $expected ) {
+		$this->assertEquals( $expected, $this->make_instance()->is_string_not_empty( $value ) );
+	}
+
 	public function is_numeric_data() {
 		return [
 			[ '', false ],
@@ -53,6 +75,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 			[ '23', true ],
 			[ 23, true ],
 			[ '23 89', false ],
+			[ 0, true ],
 		];
 	}
 

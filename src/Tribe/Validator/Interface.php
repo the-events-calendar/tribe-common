@@ -21,6 +21,13 @@ interface Tribe__Validator__Interface {
 	public function is_string( $value );
 
 	/**
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
+	public function is_string_not_empty( $value );
+
+	/**
 	 * Whether the value is a timestamp or a string parseable by the strtotime function or not.
 	 *
 	 * @param mixed $value
