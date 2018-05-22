@@ -342,7 +342,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		public static function create_sysinfo_endpoint() {
 			$optin_key = get_option( 'tribe_systeminfo_optin' );
 			if ( $optin_key ) {
-				register_rest_route( 'tribe_events/v2', '/(?P<key>[a-z0-9\-]+)/sysinfo/', array(
+				tribe_register_rest_route( 'tribe_events/v2', '/(?P<key>[a-z0-9\-]+)/sysinfo/', array(
 					'methods'  => 'GET',
 					'callback' => array( 'Tribe__Support', 'sysinfo_query' ),
 				) );
