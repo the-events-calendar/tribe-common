@@ -75,6 +75,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 			[ '23', true ],
 			[ 23, true ],
 			[ '23 89', false ],
+			[ '0', true ],
 			[ 0, true ],
 		];
 	}
