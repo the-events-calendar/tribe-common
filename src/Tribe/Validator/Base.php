@@ -22,7 +22,16 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 * @return bool
 	 */
 	public function is_string( $value ) {
-		return ! empty( $value ) && is_string( $value );
+		return is_string( $value );
+	}
+
+	/**
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
+	public function is_string_not_empty( $value ) {
+		return ! empty( $value ) && $this->is_string( $value );
 	}
 
 	/**
