@@ -254,4 +254,23 @@ class Tribe__Utils__Array {
 
 		return ! empty( $all ) ? array_values( call_user_func_array( 'array_merge', $all ) ) : array();
 	}
+
+	/**
+	 * Filters null values from arrays.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $array
+	 *
+	 * @return array
+	 */
+	public static function filter_null( array $array ) {
+		foreach ( $array as $key => $value ) {
+			if ( null === $value ) {
+				unset( $array[ $key ] );
+			}
+		}
+
+		return $array;
+	}
 }

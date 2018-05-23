@@ -122,4 +122,25 @@ class ArrayTest extends \Codeception\TestCase\WPTestCase {
 	public function test_extract_values( $input, $expected ) {
 		$this->assertEquals( $expected, \Tribe__Utils__Array::extract_values( $input ) );
 	}
+
+	public function filter_null_input() {
+		return [
+			[ [ '' ], [ '' ] ],
+			[ [ '', null ], [ '' ] ],
+			[ [ '', 'foo' ], [ '', 'foo' ] ],
+			[ [ '', 'foo' => 'bar' ], [ '', 'foo' => 'bar' ] ],
+			[ [ '', 0, false ], [ '', 0, false ] ],
+			[ [ '', 0, null, false, 'null' ], [ 0 => '', 1 => 0, 3 => false, 4 => 'null' ] ],
+			[ [ 'foo' => 'bar', 'baz' => 23, 'empty' => [ 'test' => null ] ], [ 'foo' => 'bar', 'baz' => 23, 'empty' => [ 'test' => null ] ] ],
+		];
+	}
+
+	/**
+	 * Test extract_values
+	 *
+	 * @dataProvider filter_null_input
+	 */
+	public function test_filter_null( $input, $expected ) {
+		$this->assertEquals( $expected, \Tribe__Utils__Array::filter_null( $input ) );
+	}
 }
