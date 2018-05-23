@@ -130,7 +130,7 @@ class ArrayTest extends \Codeception\TestCase\WPTestCase {
 			[ [ '', 'foo' ], [ '', 'foo' ] ],
 			[ [ '', 'foo' => 'bar' ], [ '', 'foo' => 'bar' ] ],
 			[ [ '', 0, false ], [ '', 0, false ] ],
-			[ [ '', 0, null, false, 'null' ], [ '', 0, false, 'null' ] ],
+			[ [ '', 0, null, false, 'null' ], [ 0 => '', 1 => 0, 3 => false, 4 => 'null' ] ],
 			[ [ 'foo' => 'bar', 'baz' => 23, 'empty' => [ 'test' => null ] ], [ 'foo' => 'bar', 'baz' => 23, 'empty' => [ 'test' => null ] ] ],
 		];
 	}
