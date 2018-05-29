@@ -19,7 +19,7 @@
 	/**
 	 * Store all selectors used to setup and properly use Dependency
 	 *
-	 * @since TBD
+	 * @since 4.7.15
 	 *
 	 * @type  {Object}
 	 */
@@ -37,7 +37,7 @@
 	 * Set up each constraint truth condition
 	 * Each function will be passed the value, the constraint and the dependent field
 	 *
-	 * @since TBD
+	 * @since 4.7.15
 	 *
 	 * @type  {Object}
 	 */
@@ -71,7 +71,7 @@
 	/**
 	 * Actualy verify the dependencies of a field
 	 *
-	 * @since TBD
+	 * @since 4.7.15
 	 *
 	 * @type  {Function}
 	 */
@@ -230,7 +230,7 @@
 	 * Setup dependency, it might be run on a bunch of diferent places to allow
 	 * AJAX fields to be used.
 	 *
-	 * @since TBD
+	 * @since 4.7.15
 	 *
 	 * @type  {Function}
 	 */
@@ -255,7 +255,7 @@
 	/**
 	 * Setup a Dependent, it's a jQuery prototype method
 	 *
-	 * @since TBD
+	 * @since 4.7.15
 	 *
 	 * @type  {Function}
 	 */
@@ -281,7 +281,7 @@
 	/**
 	 * Listen on async recurent elements.
 	 *
-	 * @since TBD
+	 * @since 4.7.15
 	 */
 	$document.on( 'setup.dependency', obj.setup );
 
