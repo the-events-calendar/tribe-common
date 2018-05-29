@@ -114,7 +114,7 @@ class Tribe__Utils__Global_ID {
 	 *
 	 * @return array The parsed $args information built by self::generate()
 	 *
-	 * @since TBD
+	 * @since 4.7.15
 	 */
 	public function parse( string $global_id ) {
 		$parsed_global_id = null;

@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [4.7.15] 2018-05-30 =
+* Add - Method to parse the Global ID string [104379]
+
 = [4.7.14] 2018-05-29 =
 
 * Fix - Adjust the `Tribe__PUE__Checker` $stats creation regarding WordPress multisite installs [84231]
