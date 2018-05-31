@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.15] 2018-05-30 =
+= [4.7.15] 2018-05-31 =
 * Add - Method to parse the Global ID string [104379]
 
 = [4.7.14] 2018-05-29 =

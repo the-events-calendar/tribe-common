@@ -75,15 +75,15 @@ msgstr "Os três campos a seguir aceitam as opções de formato de data disponí
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr "Uma lista de links para o termo URL REST próprio, arquivo e ascendente"
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:250
 msgid "Clear Selection."
 msgstr "Limpar seleção."
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:249
 msgid "Select all pages"
 msgstr "Selecionar todas as páginas"
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:248
 msgid "All items on this page were selected. "
 msgstr "Todos os itens dessa página foram selecionados. "
 
@@ -437,63 +437,63 @@ msgstr " (abre numa nova janela)"
 msgid "Renew Your License Now"
 msgstr "Renove sua licença agora"
 
-#: src/Tribe/Main.php:267
+#: src/Tribe/Main.php:260
 msgid ": Selected 1 row"
 msgstr ": 1 linha selecionada"
 
-#: src/Tribe/Main.php:266
+#: src/Tribe/Main.php:259
 msgid ": Selected %d rows"
 msgstr ": %d linhas selecionadas"
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:254
 msgid "Previous"
 msgstr "Anterior"
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:252
 msgid "All"
 msgstr "Todos"
 
-#: src/Tribe/Main.php:253
+#: src/Tribe/Main.php:246
 msgid "No matching records found"
 msgstr "Nenhum registro foi encontrado"
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:245
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(filtrado de _MAX_ entradas totais)"
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:244
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Mostrando 0 a 0 de 0 entradas"
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:243
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Mostrando _START_ a _END_ de _TOTAL_ entradas"
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:242
 msgid "No data available in table"
 msgstr "Sem dados disponíveis na tabela"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:241
 msgid "Show _MENU_ entries"
 msgstr "Mostre entradas do _MENU_"
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:239
 msgid ": activate to sort column descending"
 msgstr ": ative para ordenar a coluna descendente"
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:238
 msgid ": activate to sort column ascending"
 msgstr ": ative para ordenar a coluna ascendente"
 
-#: src/Tribe/Main.php:226
+#: src/Tribe/Main.php:280
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Pressione \"Cmd + C\" para copiar"
 
-#: src/Tribe/Main.php:225
+#: src/Tribe/Main.php:279
 msgid "System info copied"
 msgstr "A informação do sistema foi copiada"
 
-#: src/Tribe/Main.php:224 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:278 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "Copiar para a área de transferência"
 
@@ -642,7 +642,7 @@ msgstr "Leia mais sobre nossa política de suporte"
 
 #: src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
-msgstr "Note que todo o apoio prático é fornecido através dos fóruns. Você pode enviar um e-mail ou twittar para nós... mas provavelmente o direcionaremos aos fóruns "
+msgstr ""
 
 #: src/admin-views/tribe-options-help.php:33
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."
@@ -2234,7 +2234,7 @@ msgstr "É necessária uma chave de licença para suporte e atualizações"
 msgid "License Key"
 msgstr "Chave de licença"
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:247
 msgid "Search:"
 msgstr "Pesquisar:"
 
@@ -2246,19 +2246,19 @@ msgstr "Configurações"
 msgid "Network"
 msgstr "Rede"
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:272
 msgid "Done"
 msgstr "Feito"
 
-#: src/Tribe/Main.php:278
+#: src/Tribe/Main.php:271
 msgid "Today"
 msgstr "Hoje"
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:270
 msgid "Prev"
 msgstr "Anterior"
 
-#: src/Tribe/Main.php:260 src/Tribe/Main.php:276
+#: src/Tribe/Main.php:253 src/Tribe/Main.php:269
 msgid "Next"
 msgstr "Próximo"
 
