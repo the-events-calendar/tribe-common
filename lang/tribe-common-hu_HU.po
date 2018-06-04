@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-02 19:08:14+0000\n"
+"PO-Revision-Date: 2018-05-11 22:00:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,18 @@ msgstr ""
 "X-Generator: GlotPress/2.3.1\n"
 "Language: hu\n"
 "Project-Id-Version: Tribe Common\n"
+
+#: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
+msgid "Every %d Minutes"
+msgstr ""
+
+#: src/admin-views/tribe-options-help.php:33
+msgid "Search our support help desk"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:71
+msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Tickets have QR codes for easy check in at the door."
+msgstr ""
 
 #: src/Tribe/Validate.php:184
 msgid "%s must not be empty"
@@ -45,35 +57,35 @@ msgstr ""
 
 #: src/Tribe/Languages/Locations.php:57
 msgid "&Aring;land Islands"
-msgstr ""
+msgstr "&Aring;land Szigetek"
 
 #: src/admin-views/tribe-options-help.php:20
 msgid "Check out our %s for developers."
-msgstr ""
+msgstr "Ebben segít a fejlesztőknek szánt %s. Nézd meg."
 
 #: src/admin-views/tribe-options-help.php:18
 msgid "Want to dive deeper?"
-msgstr ""
+msgstr "Mélyebbre szeretnél ásni?"
 
 #: src/admin-views/tribe-options-display.php:28
 msgid "The following three fields accept the date format options available to the PHP %1$s function. <a href=\"%2$s\" target=\"_blank\">Learn how to make your own date format here</a>."
-msgstr ""
+msgstr "A következő három mezőben a dátum formátumot lehet beállítani a PHP %1$s függvényének megfelelően. <a href=\"%2$s\" target=\"_blank\">Tanuld meg, hogyan készíthetsz saját dátumformátumot itt</a>."
 
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:57
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:250
 msgid "Clear Selection."
-msgstr ""
+msgstr "Kiválasztás törlése."
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:249
 msgid "Select all pages"
-msgstr ""
+msgstr "Minden oldal kiválasztása"
 
-#: src/Tribe/Main.php:286
+#: src/Tribe/Main.php:248
 msgid "All items on this page were selected. "
-msgstr ""
+msgstr "Az összes elem ki lett választva ezen az oldalon."
 
 #: src/Tribe/Plugins_API.php:94
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
@@ -113,7 +125,7 @@ msgstr ""
 
 #: src/Tribe/PUE/Checker.php:1084
 msgid "Update now to version %s."
-msgstr ""
+msgstr "Frissítés a %s verzióra."
 
 #: src/Tribe/PUE/Notices.php:340
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
@@ -127,7 +139,7 @@ msgstr[1] ""
 
 #: src/Tribe/PUE/Checker.php:976
 msgid "Please refresh the page and try your request again."
-msgstr ""
+msgstr "Kérjük frissítse az oldalt és próbálja újra."
 
 #: src/Tribe/Plugins_API.php:129
 msgid "Take your image widgets to the next level with Image Widget Plus! We've taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support."
@@ -175,15 +187,15 @@ msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:32
 msgid "The image mime-type"
-msgstr ""
+msgstr "A kép mime-típusa"
 
 #: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:28
 msgid "The image height in pixels in the specified size"
-msgstr ""
+msgstr "A kép magassága pixelben az adott méretben"
 
 #: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:24
 msgid "The image width in pixels in the specified size"
-msgstr ""
+msgstr "A kép szélessége pixelben az adott méretben"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
 msgid "The details about each size available for the image"
@@ -191,15 +203,15 @@ msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
 msgid "The image natural height in pixels"
-msgstr ""
+msgstr "A kép eredeti magassában pixelben"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:36
 msgid "The image natural width in pixels"
-msgstr ""
+msgstr "A kép eredeti szélessége pixelben"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:32
 msgid "The image file extension"
-msgstr ""
+msgstr "A kép kiterjesztése"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:28
 msgid "The image WordPress post ID"
@@ -211,27 +223,27 @@ msgstr ""
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:44
 msgid "The date seconds"
-msgstr ""
+msgstr "A dátum másodpercei"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:40
 msgid "The date minutes"
-msgstr ""
+msgstr "A dátum percei"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:36
 msgid "The date hour"
-msgstr ""
+msgstr "A dátum órája"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:32
 msgid "The date day"
-msgstr ""
+msgstr "A dátum napja"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:28
 msgid "The date month"
-msgstr ""
+msgstr "A dátum hónapja"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:24
 msgid "The date year"
-msgstr ""
+msgstr "A dátum éve"
 
 #: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:34
 msgid "A sorted array of all the numeric values for the cost"
@@ -247,11 +259,11 @@ msgstr ""
 
 #: src/Tribe/PUE/Checker.php:497
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
-msgstr ""
+msgstr "%1$sVásárolj egy licenszet%2$s az Event Aggregator szolgáltatáshoz további importálási funkciók eléréséhez."
 
 #: src/Tribe/Validate.php:248
 msgid "%s must be a whole number."
-msgstr ""
+msgstr "%s -nek egész számnak kell lennie."
 
 #: src/Tribe/Settings.php:281 src/Tribe/Settings.php:282
 msgid "Events Help"
@@ -283,7 +295,7 @@ msgstr ""
 
 #: src/Tribe/PUE/Checker.php:529 src/Tribe/PUE/Checker.php:563
 msgid "License Key Status:"
-msgstr ""
+msgstr "Licensz kulcs állapota:"
 
 #: src/Tribe/Customizer.php:570
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
@@ -317,15 +329,15 @@ msgstr ""
 
 #: src/admin-views/tribe-options-help.php:55
 msgid "Event Log"
-msgstr ""
+msgstr "Eseménynapló"
 
 #: src/admin-views/tribe-options-help.php:42
-msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
+msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk."
 msgstr ""
 
 #: src/admin-views/app-shop.php:26
 msgid "Buy This Add-On"
-msgstr ""
+msgstr "Bővítmény megvásárlása"
 
 #: src/admin-views/app-shop.php:5
 msgid "Browse All Add-Ons"
@@ -362,7 +374,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:219 src/Tribe/Plugins_API.php:34
 msgid "Event Aggregator"
-msgstr ""
+msgstr "Event Aggregator"
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:75
 msgid "To begin using %1$s, please install and activate the latest version of %2$s."
@@ -382,7 +394,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-licenses.php:15
 msgid "The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s."
-msgstr ""
+msgstr "A licensz kulcs, amit a %1$s oldalon végzett vásárlás után kaptál, lejáratig hozzáférést biztosít támogatáshoz és frissítésekhez. A kulcsot nem kell lent megadnod ahhoz, hogy a bővítmény működjön, de szükséges megadni az automatikus frissítésekhez. %3$sA licenszkulcsaidat megtalálod a %2$s oldalon%4$s."
 
 #: src/admin-views/tribe-options-licenses.php:11
 #: src/admin-views/tribe-options-licenses.php:16
@@ -391,11 +403,11 @@ msgstr ""
 
 #: src/Tribe/Languages/Locations.php:110
 msgid "C&ocirc;te d'Ivoire"
-msgstr ""
+msgstr "Elefántcsontpart"
 
 #: src/Tribe/Support.php:372
 msgid "Unique System Info Key Generated"
-msgstr ""
+msgstr "Egyedi Rendszerinformáció kulcs létrehozva"
 
 #: src/Tribe/Support.php:358 src/Tribe/Support.php:384
 msgid "Permission Error"
@@ -403,7 +415,7 @@ msgstr ""
 
 #: src/Tribe/Support.php:325 src/Tribe/Support.php:330
 msgid "Invalid Key"
-msgstr ""
+msgstr "Érvénytelen kulcs"
 
 #: src/Tribe/Support.php:306
 msgid "Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties."
@@ -411,96 +423,92 @@ msgstr ""
 
 #: src/Tribe/Support.php:305
 msgid "Yes, automatically share my system information with the Modern Tribe support team"
-msgstr ""
+msgstr "Igen, automatikusan megosztom a rendszerinformációmat a Modern Tribe támogatási csapatával"
 
 #: src/Tribe/Support.php:171
 msgid "English"
-msgstr ""
+msgstr "Angol"
 
 #: src/Tribe/PUE/Checker.php:961 src/Tribe/PUE/Notices.php:285
 msgid " (opens in a new window)"
-msgstr ""
+msgstr "(új ablakban nyílik meg)"
 
 #: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:283
 msgid "Renew Your License Now"
-msgstr ""
+msgstr "Licensz megújítása most"
 
-#: src/Tribe/Main.php:298
+#: src/Tribe/Main.php:260
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:297
+#: src/Tribe/Main.php:259
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:292
+#: src/Tribe/Main.php:254
 msgid "Previous"
-msgstr ""
+msgstr "Előző"
 
-#: src/Tribe/Main.php:290
+#: src/Tribe/Main.php:252
 msgid "All"
-msgstr ""
+msgstr "Összes"
 
-#: src/Tribe/Main.php:284
+#: src/Tribe/Main.php:246
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:283
+#: src/Tribe/Main.php:245
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:282
+#: src/Tribe/Main.php:244
 msgid "Showing 0 to 0 of 0 entries"
-msgstr ""
+msgstr "Bejegyzések 0-0-ig az összesen 0 bejegyzésből"
 
-#: src/Tribe/Main.php:281
+#: src/Tribe/Main.php:243
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
-msgstr ""
+msgstr "Bejegyzések _START_-_END_-ig az összesen _TOTAL_ bejegyzésből"
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:242
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:241
 msgid "Show _MENU_ entries"
-msgstr ""
+msgstr "Mutass _MENU_ bejegyzést"
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:239
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:238
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:280
 msgid "Press \"Cmd + C\" to copy"
-msgstr ""
+msgstr "\"Cmd + C\" a másoláshoz"
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:279
 msgid "System info copied"
-msgstr ""
+msgstr "Rendszerinformációk másolva"
 
-#: src/Tribe/Main.php:255 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:278 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "Másolás a vágólapra"
 
 #: src/Tribe/Error.php:38
 msgid "An Unknown error occurred"
-msgstr ""
+msgstr "Ismeretlen hiba történt"
 
 #: src/Tribe/Plugins_API.php:116
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:71
-msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
-msgstr ""
-
 #: src/Tribe/Plugins_API.php:105
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
-msgstr ""
+msgstr "Event Tickets Plus és Community Events"
 
 #: src/Tribe/Plugins_API.php:104
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
@@ -516,15 +524,15 @@ msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:80
 msgid "Filter Bar"
-msgstr ""
+msgstr "Filter Bar"
 
 #: src/Tribe/Credits.php:64
 msgid "Rate %1$sEvent Tickets%2$s %3$s"
-msgstr ""
+msgstr "Értékeld az %1$sEvent Tickets%2$s %3$s-et"
 
 #: src/Tribe/Credits.php:55
 msgid "Rate %1$sThe Events Calendar%2$s %3$s"
-msgstr ""
+msgstr "Értékeld a %1$sThe Events Calendar%2$s-t %3$s"
 
 #: src/Tribe/Log/Null_Logger.php:26
 msgid "Null logger (will log nothing)"
@@ -532,19 +540,19 @@ msgstr ""
 
 #: src/admin-views/event-log.php:117
 msgid "Download log"
-msgstr ""
+msgstr "Naplófájl letöltése"
 
 #: src/admin-views/event-log.php:100
 msgid "The selected log file is empty or has not been generated yet."
-msgstr ""
+msgstr "A választott napló fájl üres vagy még nem lett létrehozva."
 
 #: src/admin-views/event-log.php:43
 msgid "Method"
-msgstr ""
+msgstr "Metódus"
 
 #: src/admin-views/event-log.php:21
 msgid "Logging level"
-msgstr ""
+msgstr "Naplózási szint"
 
 #: src/Tribe/Validate.php:168
 msgid "%s must contain numbers, letters, dashes and undescores only"
@@ -552,19 +560,19 @@ msgstr ""
 
 #: src/Tribe/Log.php:376
 msgid "Full debug (all events)"
-msgstr ""
+msgstr "Teljes hibakeresés (összes esemény)"
 
 #: src/Tribe/Log.php:375
 msgid "Warnings and errors"
-msgstr ""
+msgstr "Figyelmeztetések és hibák"
 
 #: src/Tribe/Log.php:374
 msgid "Only errors"
-msgstr ""
+msgstr "Csak hibák"
 
 #: src/Tribe/Log.php:373
 msgid "Disabled"
-msgstr ""
+msgstr "Letiltva"
 
 #: src/Tribe/Log.php:274
 msgid "Cannot set %s as the current logging engine"
@@ -572,21 +580,21 @@ msgstr ""
 
 #: src/Tribe/Log/File_Logger.php:128
 msgid "Default (uses temporary files)"
-msgstr ""
+msgstr "Alapértelmezett (átmeneti fájlokat használ)"
 
 #: src/Tribe/Log/Admin.php:148
 msgctxt "log engines"
 msgid "None currently available"
-msgstr ""
+msgstr "Jelenleg nincs elérhető"
 
 #: src/Tribe/Log/Admin.php:133
 msgctxt "log selector"
 msgid "None currently available"
-msgstr ""
+msgstr "Jelenleg nincs elérhető"
 
 #: src/admin-views/tribe-options-help.php:52
 msgid "Recent Template Changes"
-msgstr ""
+msgstr "Legújabb sablon változások"
 
 #: src/Tribe/Support/Template_Checker_Report.php:115
 msgid "Information about recent template changes and potentially impacted template overrides is provided below."
@@ -594,7 +602,7 @@ msgstr ""
 
 #: src/Tribe/Support/Template_Checker_Report.php:113
 msgid "No notable template changes detected."
-msgstr ""
+msgstr "Nem észlelhetők jelentős sablonváltozások."
 
 #: src/Tribe/Support/Template_Checker_Report.php:97
 msgid "based on %s version"
@@ -610,11 +618,11 @@ msgstr ""
 
 #: src/Tribe/Support/Template_Checker_Report.php:82
 msgid "Templates introduced or updated with this release (%s):"
-msgstr ""
+msgstr "Az ebben a verzióban (%s) bevezetett vagy frissített sablonok:"
 
 #: src/Tribe/Support/Template_Checker_Report.php:78
 msgid "No notable changes detected"
-msgstr ""
+msgstr "Nem észlelhetők jelentős változások"
 
 #. Description of the plugin/theme
 msgid "An event settings framework for managing shared options"
@@ -637,11 +645,7 @@ msgid "Please note that all hands-on support is provided via the forums. You can
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:33
-msgid "Search our support forum"
-msgstr ""
-
-#: src/admin-views/tribe-options-help.php:33
-msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
+msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:32
@@ -654,7 +658,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-help.php:31
 msgid "Check our Knowledgebase"
-msgstr ""
+msgstr "Tekintse meg a tudásbázisunkat"
 
 #: src/admin-views/tribe-options-help.php:31
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
@@ -670,22 +674,22 @@ msgstr ""
 
 #: src/admin-views/tribe-options-help.php:21
 msgid "list of available functions"
-msgstr ""
+msgstr "elérhető funkciók listája"
 
 #: src/admin-views/tribe-options-help.php:15
 msgid "Knowledgebase"
-msgstr ""
+msgstr "Tudásbázis"
 
 #: src/admin-views/tribe-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
-msgstr ""
+msgstr "A honlapunkon lévő %s egy remek hely, ahol a bővítményeink használatához és testreszabásához találsz tippeket és trükköket."
 
 #: src/admin-views/tribe-options-help.php:14
 msgid "Getting Support"
-msgstr ""
+msgstr "Hol találsz segítséget"
 
 #: src/admin-views/tribe-options-help.php:11
-msgid "Thanks you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
+msgid "Thank you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:15
@@ -694,71 +698,71 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:10
 msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
-msgstr ""
+msgstr "Köszönjük, hogy az Event Tickets bővítményt használod! Mi a Modern Tribe-nál mindannyian őszintén értékeljük a támogatásodat és örömmel látjuk, hogy a bővítményeinket használod. Kezdetnek olvasd el a praktikus %1$sKezdő lépések új felhasználóknak%2$s cikket."
 
 #: src/Tribe/Validate.php:214
 msgid "%s must be a positive number or percent."
-msgstr ""
+msgstr "%s-nek pozitív számnak vagy százaléknak kell lennie."
 
 #: src/Tribe/PUE/Checker.php:932
 msgid "Thanks for setting up a valid key. It will expire on %s"
-msgstr ""
+msgstr "Köszönjük, hogy érvényes kulcsot adott meg. A megadott kulcs lejárata: %s"
 
 #: src/Tribe/Admin/Help_Page.php:860
 msgid "Visit the Add-on Page"
-msgstr ""
+msgstr "Látogasson el a bővítmények oldalra"
 
 #: src/Tribe/Admin/Help_Page.php:855
 msgid "Plugin Inactive"
-msgstr ""
+msgstr "Bővítmény kikapcsolva"
 
 #: src/Tribe/Admin/Help_Page.php:853
 msgid "Plugin Active"
-msgstr ""
+msgstr "Bővítmény bekapcsolva"
 
 #: src/Tribe/Admin/Help_Page.php:828
 msgid "Rating:"
-msgstr ""
+msgstr "Értékelés:"
 
 #: src/Tribe/Admin/Help_Page.php:825
 msgid "Active Users:"
-msgstr ""
+msgstr "Aktív felhasználók:"
 
 #: src/Tribe/Admin/Help_Page.php:802
 msgid "Install Plugin"
-msgstr ""
+msgstr "Bővítmény telepítése"
 
 #: src/Tribe/Admin/Help_Page.php:802
 msgid "Install %s"
-msgstr ""
+msgstr "%s telepítése"
 
 #: src/Tribe/Admin/Help_Page.php:786
 msgid "Upgrade Plugin"
-msgstr ""
+msgstr "Bővítmény frissítése"
 
 #: src/Tribe/Admin/Help_Page.php:778
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Bővítmény bekapcsolása"
 
 #: src/Tribe/Admin/Help_Page.php:778
 msgid "Activate %s"
-msgstr ""
+msgstr "%s aktiválása"
 
 #: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:100
 msgid "Community Tickets"
-msgstr ""
+msgstr "Community Tickets"
 
 #: src/Tribe/Admin/Help_Page.php:235 src/Tribe/Plugins_API.php:66
 msgid "Event Tickets Plus"
-msgstr ""
+msgstr "Event Tickets Plus"
 
 #: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:111
 msgid "Eventbrite Tickets"
-msgstr ""
+msgstr "Eventbrite Tickets"
 
 #: src/Tribe/Admin/Help_Page.php:170
 msgid " and "
-msgstr "és"
+msgstr " és"
 
 #: src/Tribe/Admin/Help_Page.php:95
 msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
@@ -766,7 +770,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:91
 msgid "Advanced Post Manager"
-msgstr ""
+msgstr "Advanced Post Manager"
 
 #: src/Tribe/Admin/Help_Page.php:79
 msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
@@ -774,7 +778,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:57
 msgid "Event Tickets"
-msgstr ""
+msgstr "Event Tickets"
 
 #: src/Tribe/Admin/Help_Page.php:63
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
@@ -782,15 +786,15 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
-msgstr ""
+msgstr "http://m.tri.be/1x"
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #: src/Tribe/Settings.php:371
 msgid "Save Changes"
-msgstr ""
+msgstr "Módosítások mentése"
 
 #: src/admin-views/tribe-options-licenses.php:38
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
@@ -804,21 +808,21 @@ msgstr ""
 msgid "unknown date"
 msgstr "ismeretlen dátum"
 
-#: src/Tribe/Admin/Activation_Page.php:85
+#: src/Tribe/Admin/Activation_Page.php:92
 msgid "Return to WordPress Updates"
 msgstr "Vissza a Wordpress frissítésekhez"
 
-#: src/Tribe/Admin/Activation_Page.php:85
+#: src/Tribe/Admin/Activation_Page.php:92
 msgid "Go to WordPress Updates page"
-msgstr ""
+msgstr "Ugrás a WordPress frissítések oldalra"
 
-#: src/Tribe/Admin/Activation_Page.php:77
+#: src/Tribe/Admin/Activation_Page.php:84
 msgid "Return to Plugins page"
-msgstr ""
+msgstr "Vissza a bővítmények oldalra"
 
-#: src/Tribe/Admin/Activation_Page.php:77
+#: src/Tribe/Admin/Activation_Page.php:84
 msgid "Go to plugins page"
-msgstr ""
+msgstr "Tovább a bővítményekhez"
 
 #: src/Tribe/Cost_Utils.php:114
 msgid "Free"
@@ -846,9 +850,9 @@ msgstr "Prémium kiegészítők"
 
 #: src/Tribe/Admin/Help_Page.php:823
 msgid "WordPress "
-msgstr "WordPress"
+msgstr "WordPress "
 
-#: src/Tribe/Admin/Help_Page.php:822 src/admin-views/app-shop.php:78
+#: src/Tribe/Admin/Help_Page.php:822 src/admin-views/app-shop.php:77
 msgid "Requires:"
 msgstr "Szükséges:"
 
@@ -862,7 +866,7 @@ msgstr "Tovább..."
 
 #: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:43
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "Events Calendar PRO"
 
 #: src/Tribe/Admin/Help_Page.php:413 src/Tribe/Admin/Help_Page.php:788
 msgid "You are up to date!"
@@ -877,34 +881,29 @@ msgctxt "not available"
 msgid "n/a"
 msgstr "n/a"
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/tribe-options-general.php:59
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar bővítmény"
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/tribe-options-general.php:59
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "Engedélyezd ezt a beállítást, hogy a hibakeresési információk naplózásra kerüljenek. Alapértelmezés szerint ez a szerver PHP hibanaplójába kerül. Ha a naplóüzeneteket a böngészőben szeretnéd megtekinteni, javasoljuk, hogy telepítsd a %s-t, és tekintsd meg a \"Tribe\" fület a hibakeresési kimeneten."
 
-#: src/admin-views/tribe-options-general.php:58
+#: src/admin-views/tribe-options-general.php:53
 msgid "Debug mode"
-msgstr "Debug mód"
+msgstr "Hibakereső mód"
 
-#: src/admin-views/tribe-options-general.php:40
+#: src/admin-views/tribe-options-general.php:35
 msgid "Show The Events Calendar link"
 msgstr "A The Events Calendar link megjelenítése"
 
-#: src/admin-views/tribe-options-general.php:35
-msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
-msgstr "Arra, gondolsz, hogy \"Hú, ez a bővítmény csodálatos! Köszönetet kéne mondanom Modern Tribe-nak a kemény munkáért.\" A legnagyobb köszönet, amit kérhetünk, az az elismerés és feltüntetés. Adj hozzá egy kis szöveges linket a naptárad aljához, mely a The Events Calendar projekt honlapjára mutat."
-
 #: src/admin-views/tribe-options-general.php:30
-#: src/admin-views/tribe-options-general.php:35
 msgid "See an example of the link"
 msgstr "Nézz meg egy példát a linkre"
 
 #: src/admin-views/tribe-options-general.php:30
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
-msgstr "Arra, gondolsz, hogy \"Hú, ez a bővítmény csodálatos! Köszönetet kéne mondanom Modern Tribe-nak a kemény munkáért.\" A legnagyobb köszönet, amit kérhetünk, az az elismerés és feltüntetés. Adj hozzá egy kis szöveges linket a naptárad aljához, mely a The Events Calendar projekt honlapjára mutat."
+msgstr "Arra gondolsz, hogy \"Hú, ez a bővítmény csodálatos! Köszönetet kéne mondanom Modern Tribe-nak a kemény munkáért.\" A legnagyobb köszönet, amit kérhetünk, az az elismerés. Adj hozzá egy kis szöveges linket a naptárad aljához, mely a The Events Calendar projekt honlapjára mutat."
 
 #: src/admin-views/tribe-options-general.php:25
 msgid "We hope our plugin is helping you out."
@@ -938,203 +937,203 @@ msgstr "Megtekintés"
 msgid "Community Events"
 msgstr "Közösségi események"
 
-#: src/Tribe/Languages/Locations.php:367
+#: src/Tribe/Languages/Locations.php:374
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: src/Tribe/Languages/Locations.php:366
+#: src/Tribe/Languages/Locations.php:373
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: src/Tribe/Languages/Locations.php:365
+#: src/Tribe/Languages/Locations.php:372
 msgid "West Virginia"
 msgstr "Nyugat-Virginia"
 
-#: src/Tribe/Languages/Locations.php:364
+#: src/Tribe/Languages/Locations.php:371
 msgid "Washington"
 msgstr "Washington"
 
-#: src/Tribe/Languages/Locations.php:363
+#: src/Tribe/Languages/Locations.php:370
 msgid "Virginia"
 msgstr "Virginia"
 
-#: src/Tribe/Languages/Locations.php:362
+#: src/Tribe/Languages/Locations.php:369
 msgid "Vermont"
 msgstr "Vermont"
 
-#: src/Tribe/Languages/Locations.php:361
+#: src/Tribe/Languages/Locations.php:368
 msgid "Utah"
 msgstr "Utah"
 
-#: src/Tribe/Languages/Locations.php:360
+#: src/Tribe/Languages/Locations.php:367
 msgid "Texas"
 msgstr "Texas"
 
-#: src/Tribe/Languages/Locations.php:359
+#: src/Tribe/Languages/Locations.php:366
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: src/Tribe/Languages/Locations.php:358
+#: src/Tribe/Languages/Locations.php:365
 msgid "South Dakota"
 msgstr "Dél-Dakota"
 
-#: src/Tribe/Languages/Locations.php:357
+#: src/Tribe/Languages/Locations.php:364
 msgid "South Carolina"
 msgstr "Dél-Karolina"
 
-#: src/Tribe/Languages/Locations.php:356
+#: src/Tribe/Languages/Locations.php:363
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: src/Tribe/Languages/Locations.php:355
+#: src/Tribe/Languages/Locations.php:362
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: src/Tribe/Languages/Locations.php:354
+#: src/Tribe/Languages/Locations.php:361
 msgid "Oregon"
 msgstr "Oregon"
 
-#: src/Tribe/Languages/Locations.php:353
+#: src/Tribe/Languages/Locations.php:360
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: src/Tribe/Languages/Locations.php:352
+#: src/Tribe/Languages/Locations.php:359
 msgid "Ohio"
 msgstr "Ohio"
 
-#: src/Tribe/Languages/Locations.php:351
+#: src/Tribe/Languages/Locations.php:358
 msgid "North Dakota"
 msgstr "Észak-Dakota"
 
-#: src/Tribe/Languages/Locations.php:350
+#: src/Tribe/Languages/Locations.php:357
 msgid "North Carolina"
 msgstr "Észak-Karolina"
 
-#: src/Tribe/Languages/Locations.php:349
+#: src/Tribe/Languages/Locations.php:356
 msgid "New York"
 msgstr "New York"
 
-#: src/Tribe/Languages/Locations.php:348
+#: src/Tribe/Languages/Locations.php:355
 msgid "New Mexico"
 msgstr "Új-Mexikó"
 
-#: src/Tribe/Languages/Locations.php:347
+#: src/Tribe/Languages/Locations.php:354
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: src/Tribe/Languages/Locations.php:346
+#: src/Tribe/Languages/Locations.php:353
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: src/Tribe/Languages/Locations.php:345
+#: src/Tribe/Languages/Locations.php:352
 msgid "Nevada"
 msgstr "Nevada"
 
-#: src/Tribe/Languages/Locations.php:344
+#: src/Tribe/Languages/Locations.php:351
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: src/Tribe/Languages/Locations.php:343
+#: src/Tribe/Languages/Locations.php:350
 msgid "Montana"
 msgstr "Montana"
 
-#: src/Tribe/Languages/Locations.php:342
+#: src/Tribe/Languages/Locations.php:349
 msgid "Missouri"
 msgstr "Missouri"
 
-#: src/Tribe/Languages/Locations.php:341
+#: src/Tribe/Languages/Locations.php:348
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: src/Tribe/Languages/Locations.php:340
+#: src/Tribe/Languages/Locations.php:347
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: src/Tribe/Languages/Locations.php:339
+#: src/Tribe/Languages/Locations.php:346
 msgid "Michigan"
 msgstr "Michigan"
 
-#: src/Tribe/Languages/Locations.php:338
+#: src/Tribe/Languages/Locations.php:345
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: src/Tribe/Languages/Locations.php:337
+#: src/Tribe/Languages/Locations.php:344
 msgid "Maryland"
 msgstr "Maryland"
 
-#: src/Tribe/Languages/Locations.php:336
+#: src/Tribe/Languages/Locations.php:343
 msgid "Maine"
 msgstr "Maine"
 
-#: src/Tribe/Languages/Locations.php:335
+#: src/Tribe/Languages/Locations.php:342
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: src/Tribe/Languages/Locations.php:334
+#: src/Tribe/Languages/Locations.php:341
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: src/Tribe/Languages/Locations.php:333
+#: src/Tribe/Languages/Locations.php:340
 msgid "Kansas"
 msgstr "Kansas"
 
-#: src/Tribe/Languages/Locations.php:332
+#: src/Tribe/Languages/Locations.php:339
 msgid "Iowa"
 msgstr "Iowa"
 
-#: src/Tribe/Languages/Locations.php:331
+#: src/Tribe/Languages/Locations.php:338
 msgid "Indiana"
 msgstr "Indiana"
 
-#: src/Tribe/Languages/Locations.php:330
+#: src/Tribe/Languages/Locations.php:337
 msgid "Illinois"
 msgstr "Illinois"
 
-#: src/Tribe/Languages/Locations.php:329
+#: src/Tribe/Languages/Locations.php:336
 msgid "Idaho"
 msgstr "Idaho"
 
-#: src/Tribe/Languages/Locations.php:328
+#: src/Tribe/Languages/Locations.php:335
 msgid "Hawaii"
 msgstr "Havaii"
 
-#: src/Tribe/Languages/Locations.php:326
+#: src/Tribe/Languages/Locations.php:333
 msgid "Florida"
 msgstr "Florida"
 
-#: src/Tribe/Languages/Locations.php:325
+#: src/Tribe/Languages/Locations.php:332
 msgid "District of Columbia"
 msgstr "Columbia kerület"
 
-#: src/Tribe/Languages/Locations.php:324
+#: src/Tribe/Languages/Locations.php:331
 msgid "Delaware"
 msgstr "Delaware"
 
-#: src/Tribe/Languages/Locations.php:323
+#: src/Tribe/Languages/Locations.php:330
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: src/Tribe/Languages/Locations.php:322
+#: src/Tribe/Languages/Locations.php:329
 msgid "Colorado"
 msgstr "Colorado"
 
-#: src/Tribe/Languages/Locations.php:321
+#: src/Tribe/Languages/Locations.php:328
 msgid "California"
 msgstr "Kalifornia"
 
-#: src/Tribe/Languages/Locations.php:320
+#: src/Tribe/Languages/Locations.php:327
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: src/Tribe/Languages/Locations.php:319
+#: src/Tribe/Languages/Locations.php:326
 msgid "Arizona"
 msgstr "Arizona"
 
-#: src/Tribe/Languages/Locations.php:318
+#: src/Tribe/Languages/Locations.php:325
 msgid "Alaska"
 msgstr "Alaszka"
 
-#: src/Tribe/Languages/Locations.php:317
+#: src/Tribe/Languages/Locations.php:324
 msgid "Alabama"
 msgstr "Alabama"
 
@@ -1156,7 +1155,7 @@ msgstr "Nyugat-Szahara"
 
 #: src/Tribe/Languages/Locations.php:293
 msgid "Wallis and Futuna Islands"
-msgstr ""
+msgstr "Wallis- és Futuna-szigetek"
 
 #: src/Tribe/Languages/Locations.php:292
 msgid "Virgin Islands (U.S.)"
@@ -1212,7 +1211,7 @@ msgstr "Tuvalu"
 
 #: src/Tribe/Languages/Locations.php:279
 msgid "Turks and Caicos Islands"
-msgstr ""
+msgstr "Turks- és Caicos-szigetek"
 
 #: src/Tribe/Languages/Locations.php:278
 msgid "Turkmenistan"
@@ -1228,7 +1227,7 @@ msgstr "Tunézia"
 
 #: src/Tribe/Languages/Locations.php:275
 msgid "Trinidad and Tobago"
-msgstr ""
+msgstr "Trinidad és Tobago"
 
 #: src/Tribe/Languages/Locations.php:274
 msgid "Tonga"
@@ -1248,7 +1247,7 @@ msgstr "Thaiföld"
 
 #: src/Tribe/Languages/Locations.php:270
 msgid "Tanzania, United Republic of"
-msgstr ""
+msgstr "Tanzániai Egyesült Köztársaság"
 
 #: src/Tribe/Languages/Locations.php:269
 msgid "Tajikistan"
@@ -1276,7 +1275,7 @@ msgstr "Szváziföld"
 
 #: src/Tribe/Languages/Locations.php:263
 msgid "Svalbard and Jan Mayen Islands"
-msgstr ""
+msgstr "Svalbard- és Jan Mayen-szigetek"
 
 #: src/Tribe/Languages/Locations.php:262
 msgid "Suriname"
@@ -1288,7 +1287,7 @@ msgstr "Szudán"
 
 #: src/Tribe/Languages/Locations.php:241
 msgid "Saint Pierre and Miquelon"
-msgstr ""
+msgstr "Saint-Pierre és Miquelon"
 
 #: src/Tribe/Languages/Locations.php:260
 msgid "Sri Lanka"
@@ -1356,7 +1355,7 @@ msgstr "Szamoa"
 
 #: src/Tribe/Languages/Locations.php:242
 msgid "Saint Vincent and The Grenadines"
-msgstr ""
+msgstr "Saint Vincent és a Grenadine-szigetek"
 
 #: src/Tribe/Languages/Locations.php:240
 msgid "Saint Lucia"
@@ -1364,7 +1363,7 @@ msgstr "Saint Lucia"
 
 #: src/Tribe/Languages/Locations.php:239
 msgid "Saint Kitts and Nevis"
-msgstr ""
+msgstr "Saint Kitts és Nevis"
 
 #: src/Tribe/Languages/Locations.php:236
 msgid "Rwanda"
@@ -1516,11 +1515,11 @@ msgstr "Monakó"
 
 #: src/Tribe/Languages/Locations.php:199
 msgid "Moldova, Republic of"
-msgstr ""
+msgstr "Moldáviai Köztársaság"
 
 #: src/Tribe/Languages/Locations.php:198
 msgid "Micronesia, Federated States of"
-msgstr ""
+msgstr "Mikronéziai Szövetségi Államok"
 
 #: src/Tribe/Languages/Locations.php:197
 msgid "Mexico"
@@ -1624,11 +1623,11 @@ msgstr "Kuvait"
 
 #: src/Tribe/Languages/Locations.php:172
 msgid "Korea, Republic of"
-msgstr ""
+msgstr "Koreai Köztársaság"
 
 #: src/Tribe/Languages/Locations.php:171
 msgid "Korea, Democratic People's Republic of"
-msgstr ""
+msgstr "Koreai Demokratikus Népköztársaság"
 
 #: src/Tribe/Languages/Locations.php:170
 msgid "Kiribati"
@@ -1672,7 +1671,7 @@ msgstr "Irak"
 
 #: src/Tribe/Languages/Locations.php:160
 msgid "Iran, Islamic Republic of"
-msgstr ""
+msgstr "Iráni Iszlám Köztársaság"
 
 #: src/Tribe/Languages/Locations.php:159
 msgid "Indonesia"
@@ -1704,7 +1703,7 @@ msgstr "Apostoli Szentszék (Vatikáni Városállam)"
 
 #: src/Tribe/Languages/Locations.php:152
 msgid "Heard and McDonald Islands"
-msgstr ""
+msgstr "Heard és McDonald-szigetek"
 
 #: src/Tribe/Languages/Locations.php:151
 msgid "Haiti"
@@ -1758,7 +1757,7 @@ msgstr "Ghána"
 msgid "Germany"
 msgstr "Németország"
 
-#: src/Tribe/Languages/Locations.php:138 src/Tribe/Languages/Locations.php:327
+#: src/Tribe/Languages/Locations.php:138 src/Tribe/Languages/Locations.php:334
 msgid "Georgia"
 msgstr "Grúzia"
 
@@ -1876,7 +1875,7 @@ msgstr "Cook-szigetek"
 
 #: src/Tribe/Languages/Locations.php:107
 msgid "Congo, Democratic Republic of the"
-msgstr ""
+msgstr "Kongói Demokratikus Köztársaság"
 
 #: src/Tribe/Languages/Locations.php:106
 msgid "Congo"
@@ -1968,7 +1967,7 @@ msgstr "Botswana"
 
 #: src/Tribe/Languages/Locations.php:83
 msgid "Bosnia and Herzegowina"
-msgstr ""
+msgstr "Bosznia-Hercegovina"
 
 #: src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
@@ -2040,7 +2039,7 @@ msgstr "Argentína"
 
 #: src/Tribe/Languages/Locations.php:65
 msgid "Antigua and Barbuda"
-msgstr ""
+msgstr "Antigua és Barbuda"
 
 #: src/Tribe/Languages/Locations.php:64
 msgid "Antarctica"
@@ -2213,7 +2212,7 @@ msgstr "Események beállításai"
 
 #: src/Tribe/PUE/Checker.php:888
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr ""
+msgstr "Hmmm... Valami nincs rendben az érvényesítővel. Kérjük, fordulj a %stámogatói csapathoz%s."
 
 #: src/Tribe/PUE/Checker.php:927
 msgid "Valid Key! Expires on %s"
@@ -2225,19 +2224,19 @@ msgstr "Sajnáljuk, de a kulcs érvényességét ellenőrző kiszolgáló nem el
 
 #: src/Tribe/PUE/Checker.php:650
 msgid "License key(s) updated."
-msgstr "Licenc kulcs(ok) frissítve."
+msgstr "Licensz kulcs(ok) frissítve."
 
 #: src/Tribe/PUE/Checker.php:494
 msgid "A valid license key is required for support and updates"
-msgstr "Egy érvényes licenc szükséges a támogatáshoz és frissítésekhez"
+msgstr "Egy érvényes licensz szükséges a támogatáshoz és frissítésekhez"
 
 #: src/Tribe/PUE/Checker.php:509 src/Tribe/PUE/Checker.php:520
 msgid "License Key"
 msgstr "Licensz kulcs"
 
-#: src/Tribe/Main.php:285
+#: src/Tribe/Main.php:247
 msgid "Search:"
-msgstr ""
+msgstr "Keresés:"
 
 #: src/Tribe/Settings.php:254
 msgid "Settings"
@@ -2247,19 +2246,19 @@ msgstr "Beállítások"
 msgid "Network"
 msgstr "Hálózat"
 
-#: src/Tribe/Main.php:310
+#: src/Tribe/Main.php:272
 msgid "Done"
 msgstr "Kész"
 
-#: src/Tribe/Main.php:309
+#: src/Tribe/Main.php:271
 msgid "Today"
 msgstr "Ma"
 
-#: src/Tribe/Main.php:308
+#: src/Tribe/Main.php:270
 msgid "Prev"
 msgstr "Előző"
 
-#: src/Tribe/Main.php:291 src/Tribe/Main.php:307
+#: src/Tribe/Main.php:253 src/Tribe/Main.php:269
 msgid "Next"
 msgstr "Következő"
 
@@ -2269,7 +2268,7 @@ msgstr "Súgó"
 
 #: src/Tribe/Settings_Manager.php:55
 msgid "Display"
-msgstr "Megjelenít"
+msgstr "Megjelenítés"
 
 #: src/Tribe/Settings_Manager.php:253
 #: src/admin-views/tribe-options-licenses.php:66

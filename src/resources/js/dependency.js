@@ -15,7 +15,15 @@
 	'use strict';
 	var $document = $( document );
 	var $window = $( window );
-	var selectors = {
+
+	/**
+	 * Store all selectors used to setup and properly use Dependency
+	 *
+	 * @since 4.7.15
+	 *
+	 * @type  {Object}
+	 */
+	obj.selectors = {
 		dependent: '.tribe-dependent',
 		active: '.tribe-active',
 		dependency: '.tribe-dependency',
@@ -24,9 +32,16 @@
 		advanced_fields: '.select2-container',
 		linked: '.tribe-dependent-linked'
 	};
-	// Set up each constraint truth condition
-	// Each function will be passed the value, the constraint and the dependent field
-	var constraint_conditions = {
+
+	/**
+	 * Set up each constraint truth condition
+	 * Each function will be passed the value, the constraint and the dependent field
+	 *
+	 * @since 4.7.15
+	 *
+	 * @type  {Object}
+	 */
+	obj.constraintConditions = {
 		'condition': function ( val, constraint ) {
 			return _.isArray( constraint ) ? -1 !== constraint.indexOf( val ) : val == constraint;
 		},
@@ -53,21 +68,14 @@
 		}
 	};
 
-	// Setup a Dependent
-	$.fn.dependency = function () {
-		return this.each( function(){
-			var $el = $(this);
-			var selector = $el.data( 'depends' );
-			var $selector = $( selector );
-			var el = $selector.get( 0 );
-			if ( el && ! el.created ) {
-				$selector.addClass( selectors.dependency.replace( '.', '' ) ).data( 'dependent', $el );
-				el.created = true;
-			}
-		} );
-	};
-
-	function verify_dependency( e ) {
+	/**
+	 * Actualy verify the dependencies of a field
+	 *
+	 * @since 4.7.15
+	 *
+	 * @type  {Function}
+	 */
+	obj.verify = function( e ) {
 		var $field = $( this );
 		var selector = '#' + $field.attr( 'id' );
 		var value = $field.val();
@@ -87,14 +95,14 @@
 		if ( $field.is( ':radio' ) ) {
 			var $radios = $( "[name='" + $field.attr( 'name' ) + "']" );
 
-			$radios.not( selectors.linked ).on( 'change', function() {
+			$radios.not( obj.selectors.linked ).on( 'change', function() {
 				$radios.trigger( 'verify.dependency' );
-			} ).addClass( selectors.linked.replace( '.', '' ) );
+			} ).addClass( obj.selectors.linked.replace( '.', '' ) );
 		}
 
 		// Fetch dependent elements
 		var $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '.select2-container' );
-		if ( $dependents.length === 0 ) {
+		if ( 0 === $dependents.length ) {
 			return;
 		}
 
@@ -125,39 +133,42 @@
 				is_not_checked: $dependent.data( 'conditionIsNotChecked' ) || $dependent.is( '[data-condition-is-not-checked]' ) || $dependent.data( 'conditionNotChecked' ) || $dependent.is( '[data-condition-not-checked]' ),
 			};
 
-			var active_class       = selectors.active.replace( '.', '' );
+			var activeClass       = obj.selectors.active.replace( '.', '' );
+
 			// Allows us to check a disabled dependency
-			var allowDisabled     = $dependent.data( 'dependencyCheckDisabled' ) || $dependent.is( '[data-dependency-check-disabled]' );
+			var allowDisabled     = $dependent.is( '[data-dependency-check-disabled]' );
+			var alwaysVisible     = $dependent.is( '[data-dependency-always-visible]' );
+
 			// If allowDisabled, then false - we don't care!
-			var is_disabled        = allowDisabled ? false : $field.is( ':disabled' );
-			var condition_relation = $dependent.data( 'condition-relation' ) || 'or';
+			var isDisabled        = allowDisabled ? false : $field.is( ':disabled' );
+			var conditionRelation = $dependent.data( 'condition-relation' ) || 'or';
 			var passes;
 
-			constraints = _.pick( constraints, function ( is_applicable ) {
-				return false !== is_applicable;
+			constraints = _.pick( constraints, function ( isApplicable ) {
+				return false !== isApplicable;
 			} );
 
-			if ( 'or' === condition_relation ) {
+			if ( 'or' === conditionRelation ) {
 				passes = _.reduce( constraints, function ( passes, constraint, key ) {
-					return passes || constraint_conditions[ key ]( value, constraint, $field );
+					return passes || obj.constraintConditions[ key ]( value, constraint, $field );
 				}, false );
 			} else {
 				// There is no "and"!
 				passes = _.reduce( constraints, function ( passes, constraint, key ) {
-					return passes && constraint_conditions[ key ]( value, constraint, $field );
+					return passes && obj.constraintConditions[ key ]( value, constraint, $field );
 				}, true );
 			}
 
-			if ( passes && ! is_disabled ) {
+			if ( passes && ! isDisabled ) {
 				if ( $dependent.data( 'select2' ) ) {
-					$dependent.data( 'select2' ).container.addClass( active_class );
+					$dependent.data( 'select2' ).container.addClass( activeClass );
 
 					// ideally the class should be enough, but just in case...
 					if ( $dependent.data( 'select2' ).container.is( ':hidden' ) ) {
 						$dependent.data( 'select2' ).container.show();
 					}
 				} else {
-					$dependent.addClass( active_class );
+					$dependent.addClass( activeClass );
 
 					// ideally the class should be enough, but just in case...
 					if ( $dependent.is( ':hidden' ) ) {
@@ -165,13 +176,17 @@
 					}
 				}
 
-				$dependent.find( selectors.fields ).prop( 'disabled', false );
+				if ( alwaysVisible ) {
+					$dependent.filter( obj.selectors.fields ).prop( 'disabled', false );
+				}
+
+				$dependent.find( obj.selectors.fields ).prop( 'disabled', false );
 
 				if ( 'undefined' !== typeof $().select2 ) {
 					$dependent.find( '.select2-container' ).select2( 'enable', true );
 				}
 			} else {
-				$dependent.removeClass( active_class );
+				$dependent.removeClass( activeClass );
 
 				// ideally the class should be enough, but just in case...
 				if ( $dependent.is( ':visible' ) ) {
@@ -179,7 +194,7 @@
 				}
 
 				if ( ! $dependent.data( 'dependency-dont-disable' ) ) {
-					$dependent.find( selectors.fields ).prop( 'disabled', true );
+					$dependent.find( obj.selectors.fields ).prop( 'disabled', true );
 				}
 
 				if ( 'undefined' !== typeof $().select2 ) {
@@ -187,56 +202,105 @@
 				}
 
 				if ( $dependent.data( 'select2' ) ) {
-					$dependent.data( 'select2' ).container.removeClass( active_class );
+					$dependent.data( 'select2' ).container.removeClass( activeClass );
+				}
+
+				// When we have a flag to always display the field we display when disabled
+				if ( alwaysVisible ) {
+					$dependent.addClass( activeClass ).show();
+					$dependent.filter( obj.selectors.fields ).prop( 'disabled', true );
+
+					if ( $dependent.data( 'select2' ) ) {
+						$dependent.data( 'select2' ).container.addClass( activeClass ).show();
+					}
 				}
 			}
 
-			var $dependent_childs = $dependent.find( selectors.dependency );
-			if ( $dependent_childs.length > 0 ) {
+			var $dependentChilds = $dependent.find( obj.selectors.dependency );
+			if ( $dependentChilds.length > 0 ) {
 				// Checks if any child elements have dependencies
-				$dependent_childs.trigger( 'change' );
+				$dependentChilds.trigger( 'change' );
 			}
 		} );
 
-		$field.addClass( selectors.dependencyVerified.className() );
-	}
+		$field.addClass( obj.selectors.dependencyVerified.className() );
+	};
 
-    $document
-    // Prevents double global actions
-        .off( 'change.dependency verify.dependency', selectors.dependency )
-        .on( {
-            'verify.dependency': verify_dependency,
-            'change.dependency': verify_dependency,
-        }, selectors.dependency );
+	/**
+	 * Setup dependency, it might be run on a bunch of diferent places to allow
+	 * AJAX fields to be used.
+	 *
+	 * @since 4.7.15
+	 *
+	 * @type  {Function}
+	 */
+	obj.setup = function ( event ) {
+		// Fetch all dependents
+		var $dependents = $( obj.selectors.dependent );
 
-    obj.run = function ( event ) {
-        // Fetch all dependents
-        var $dependents = $( selectors.dependent );
+		if ( $dependents.length ) {
+			// Trigger Dependency Configuration on all of these
+			$dependents.dependency();
+		}
 
-        if ( $dependents.length ) {
-            // Trigger Dependency Configuration on all of these
-            $dependents.dependency();
-        }
+		// Fetch all Dependencies
+		var $dependencies = $( obj.selectors.dependency );
 
-        // Fetch all Dependencies
-        var $dependencies = $( selectors.dependency );
+		if ( $dependencies.not( obj.selectors.dependencyVerified ).length ) {
+			// Now verify all the Dependencies
+			$dependencies.trigger( 'verify.dependency' );
+		}
+	};
 
-        if ( $dependencies.not( selectors.dependencyVerified ).length ) {
-            // Now verify all the Dependencies
-            $dependencies.trigger( 'verify.dependency' );
-        }
-    };
+	/**
+	 * Setup a Dependent, it's a jQuery prototype method
+	 *
+	 * @since 4.7.15
+	 *
+	 * @type  {Function}
+	 */
+	$.fn.dependency = function () {
+		return this.each( function(){
+			var $el = $(this);
+			var selector = $el.data( 'depends' );
+			var $selector = $( selector );
 
-    // Configure on Document ready for the default trigger
-    $document.ready( obj.run );
+			// Block any fails from valid selectors
+			if ( ! $selector.length ) {
+				return;
+			}
 
-    /**
-     * Listen on async recurent elements.
-     *
-     * @since 4.7.7
-     */
-    $document.on( 'tribe.dependencies-run', obj.run );
+			if ( ! $selector.get( 0 ).created ) {
+				$selector.addClass( obj.selectors.dependency.replace( '.', '' ) ).data( 'dependent', $el );
+				$selector.get( 0 ).created = true;
+			}
+		} );
+	};
 
-    // Configure on Window Load again
-    $window.on( 'load', obj.run );
+
+	/**
+	 * Listen on async recurent elements.
+	 *
+	 * @since 4.7.15
+	 */
+	$document.on( 'setup.dependency', obj.setup );
+
+	/**
+	 * Remove any dependency actions previously created
+	 */
+	$document.off( 'change.dependency verify.dependency', obj.selectors.dependency );
+
+	/**
+	 * Add the Dependency check on the correct elements
+	 */
+	$document.on( {
+		'verify.dependency': obj.verify,
+		'change.dependency': obj.verify,
+	}, obj.selectors.dependency );
+
+	// Configure on Document ready for the default trigger
+	$document.ready( obj.setup );
+
+	// Configure on Window Load again
+	$window.on( 'load', obj.setup );
 }( jQuery, window.underscore || window._, {} ) );

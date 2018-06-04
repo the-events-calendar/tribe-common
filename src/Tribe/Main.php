@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.7.13';
+	const VERSION             = '4.7.15';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -176,12 +176,14 @@ class Tribe__Main {
 				array( 'tribe-select2-css', 'vendor/tribe-select2/select2.css' ),
 				array( 'tribe-utils-camelcase', 'utils-camelcase.js', array( 'underscore' ) ),
 				array( 'tribe-moment', 'vendor/momentjs/moment.js' ),
+				array( 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', array( 'jquery' ) ),
+				array( 'tribe-tooltipster-css', 'vendor/tooltipster/tooltipster.bundle.css' ),
 				array( 'datatables-css', 'datatables.css' ),
 				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables' ) ),
 				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
 				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
 				array( 'tribe-buttonset-style', 'buttonset.css' ),
-				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
+				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2', 'tribe-common' ) ),
 				array( 'tribe-jquery-timepicker', 'vendor/jquery-tribe-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
 				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-tribe-timepicker/jquery.timepicker.css' ),
 				array( 'tribe-timepicker', 'timepicker.js', array( 'jquery', 'tribe-jquery-timepicker' ) ),
@@ -195,8 +197,8 @@ class Tribe__Main {
 			array(
 				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ) ),
-				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase' ) ),
-				array( 'tribe-validation-style', 'validation.css', array() ),
+				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ) ),
+				array( 'tribe-validation-style', 'validation.css', array( 'tribe-tooltipster-css' ) ),
 				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore', 'tribe-common' ) ),
 				array( 'tribe-dependency-style', 'dependency.css', array( 'tribe-select2-css' ) ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
@@ -217,15 +219,6 @@ class Tribe__Main {
 			'admin_enqueue_scripts',
 			array(
 				'priority' => 0,
-				'localize' => (object) array(
-					'name' => 'tribe_system_info',
-					'data' => array(
-						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
-						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
-						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
-						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
-					),
-				),
 			)
 		);
 	 }
@@ -278,6 +271,13 @@ class Tribe__Main {
 				'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
 				'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
 			),
+		) );
+
+		tribe( 'asset.data' )->add( 'tribe_system_info', array(
+			'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
+			'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
+			'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
+			'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
 		) );
 	}
 
