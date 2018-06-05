@@ -75,15 +75,15 @@ msgstr ""
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:250
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:249
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:248
 msgid "All items on this page were selected. "
 msgstr ""
 
@@ -440,63 +440,63 @@ msgstr ""
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/Main.php:267
+#: src/Tribe/Main.php:260
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:266
+#: src/Tribe/Main.php:259
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:254
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:252
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:253
+#: src/Tribe/Main.php:246
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:245
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:244
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:243
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:242
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:241
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:239
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:238
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:226
+#: src/Tribe/Main.php:280
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:225
+#: src/Tribe/Main.php:279
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:224 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:278 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -2238,7 +2238,7 @@ msgstr "Atjauninajumiem un atbalstam ir nepieciešama derīga licences atslēga"
 msgid "License Key"
 msgstr "Licences atslēga"
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:247
 msgid "Search:"
 msgstr ""
 
@@ -2250,19 +2250,19 @@ msgstr "Iestatījumi"
 msgid "Network"
 msgstr "Tīkls"
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:272
 msgid "Done"
 msgstr "Pabeigts"
 
-#: src/Tribe/Main.php:278
+#: src/Tribe/Main.php:271
 msgid "Today"
 msgstr "Šodien"
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:270
 msgid "Prev"
 msgstr "Iepriekšējais"
 
-#: src/Tribe/Main.php:260 src/Tribe/Main.php:276
+#: src/Tribe/Main.php:253 src/Tribe/Main.php:269
 msgid "Next"
 msgstr "Nākamais"
 

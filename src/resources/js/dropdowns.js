@@ -4,14 +4,12 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	'use strict';
 
 	obj.selector = {
-		dropdown: '.tribe-dropdown'
+		dropdown: '.tribe-dropdown',
+		created: '.tribe-dropdown-created',
 	};
 
 	// Setup a Dependent
 	$.fn.tribe_dropdowns = function () {
-		if ( obj.dropdown_created )  {
-			return this;
-		}
 		obj.dropdown( this );
 
 		return this;
@@ -94,15 +92,15 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	 * @param {function} make_selection
 	 */
 	obj.init_selection = function( $select, make_selection ) {
-		var is_multiple    = $select.is( '[multiple]' ),
-		    options        = $select.data( 'dropdown' ),
-		    current_values = $select.val().split( options.regexSplit ),
-		    selected_items = [];
+		var is_multiple    = $select.is( '[multiple]' );
+		var options        = $select.data( 'dropdown' );
+		var current_values = $select.val().split( options.regexSplit );
+		var selected_items = [];
 
-		$( current_values ).each( function() {
-			var search_for   = { id: this, text: this },
-				data = options.ajax ? $select.data( 'options' ) : options.data,
-				located_item = find_item( search_for, data );
+		$( current_values ).each( function( index, value ) {
+			var search_for   = { id: this, text: this };
+			var data = options.ajax ? $select.data( 'options' ) : options.data;
+			var located_item = find_item( search_for, data );
 
 			if ( located_item ) {
 				selected_items.push( located_item );
@@ -157,30 +155,29 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		return false;
 	}
 
-	obj.element = function ( event ) {
-		if ( this.dropdown_created ) {
-			return;
-		}
-		this.classList.add( 'dropdown-created' );
-		var $select = $( this ),
-			args = {},
-			carryOverData = [
-				'depends',
-				'condition',
-				'conditionNot',
-				'condition-not',
-				'conditionNotEmpty',
-				'condition-not-empty',
-				'conditionEmpty',
-				'condition-empty',
-				'conditionIsNumeric',
-				'condition-is-numeric',
-				'conditionIsNotNumeric',
-				'condition-is-not-numeric',
-				'conditionChecked',
-				'condition-is-checked'
-			],
-			$container;
+	obj.element = function ( field, args ) {
+		var $select = $( field );
+		var args = $.extend( {}, args );
+		var carryOverData = [
+			'depends',
+			'condition',
+			'conditionNot',
+			'condition-not',
+			'conditionNotEmpty',
+			'condition-not-empty',
+			'conditionEmpty',
+			'condition-empty',
+			'conditionIsNumeric',
+			'condition-is-numeric',
+			'conditionIsNotNumeric',
+			'condition-is-not-numeric',
+			'conditionChecked',
+			'condition-is-checked'
+		];
+		var $container;
+
+		// Add a class for dropdown created
+		$select.addClass( obj.selector.created.className() );
 
 		// For Reference we save the jQuery element as an Arg
 		args.$select = $select;
@@ -250,12 +247,6 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		// Allows freeform entry
 		if ( $select.is( '[data-freeform]' ) ) {
 			args.createSearchChoice = obj.freefrom_create_search_choice;
-		}
-
-		if ( 'tribe-ea-field-origin' === $select.attr( 'id' ) ) {
-			args.formatResult = args.upsellFormatter;
-			args.formatSelection = args.upsellFormatter;
-			args.escapeMarkup = obj.allow_html_markup;
 		}
 
 		if ( $select.is( '[multiple]' ) ) {
@@ -390,7 +381,6 @@ var tribe_dropdowns = tribe_dropdowns || {};
 				this.attr( attr, val );
 			}, $container );
 		}
-		this.dropdown_created = true;
 	};
 
 	obj.action_change =  function( event ) {
@@ -515,16 +505,26 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	 * Configure the Drop Down Fields
 	 *
 	 * @param  {jQuery} $fields All the fields from the page
+	 * @param  {array}  args    Allow extending the arguments
 	 *
 	 * @return {jQuery}         Affected fields
 	 */
-	obj.dropdown = function( $fields ) {
-		var $elements = $fields.not( '.select2-offscreen, .select2-container, .dropdown-created' );
-		if ( $elements.length === 0 ) {
+	obj.dropdown = function( $fields, args ) {
+		var $elements = $fields.not( '.select2-offscreen, .select2-container, ' + obj.selector.created.className() );
+
+		if ( 0 === $elements.length ) {
 			return $elements;
 		}
 
-		$elements.each( obj.element )
+		// Default args to avoid Undefined
+		if ( ! args ) {
+			args = {};
+		}
+
+		$elements.each( function( index, element ) {
+			// Apply element to all given items and pass args
+			obj.element( element, args );
+		} )
 		.on( 'select2-open', obj.action_select2_open )
 		.on( 'select2-close', obj.action_select2_close )
 		.on( 'select2-removed', obj.action_select2_removed )
