@@ -2,8 +2,12 @@
 
 == Changelog ==
 
-= [4.7.15] TBD =
+= [4.7.16] TBD =
 
+
+= [4.7.15] 2018-06-04 =
+* Add - Method to parse the Global ID string [104379]
+* Add - Load tribe-common script to prevent undefined function errors with tribe-dropdowns [107610]
 
 = [4.7.14] 2018-05-29 =
 
