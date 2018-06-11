@@ -3,7 +3,7 @@
 == Changelog ==
 
 = [4.7.16] TBD =
-
+* Fix - Fixed a PHP warning related to the RSS feed in the Help page [108398]
 
 = [4.7.15] 2018-06-04 =
 * Add - Method to parse the Global ID string [104379]

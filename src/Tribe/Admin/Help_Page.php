@@ -346,7 +346,7 @@ class Tribe__Admin__Help_Page {
 			 */
 			$maxitems  = $news_rss->get_item_quantity( apply_filters( 'tribe_help_rss_max_items', 5 ) );
 			$rss_items = $news_rss->get_items( 0, $maxitems );
-			if ( count( $maxitems ) > 0 ) {
+			if ( $maxitems > 0 ) {
 				foreach ( $rss_items as $item ) {
 					$item        = array(
 						'title' => esc_html( $item->get_title() ),
