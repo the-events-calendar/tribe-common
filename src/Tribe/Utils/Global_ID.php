@@ -18,7 +18,7 @@ class Tribe__Utils__Global_ID {
 	 * Dont allow creation of Global IDs for other types of source
 	 * @var array
 	 */
-	private $valid_types = array(
+	protected $valid_types = array(
 		'url',
 		'meetup',
 		'facebook',
@@ -29,7 +29,7 @@ class Tribe__Utils__Global_ID {
 	 * For some types of ID we have a predefined Origin
 	 * @var array
 	 */
-	private $type_origins = array(
+	protected $type_origins = array(
 		'meetup' => 'meetup.com',
 		'facebook' => 'facebook.com',
 		'eventbrite' => 'eventbrite.com',
