@@ -58,4 +58,34 @@ class Tribe__REST__Post_Repository {
 			'seconds' => date( 's', $time ),
 		);
 	}
+
+	/**
+	 * Returns a localized and formatted list of cost values in ASC order.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $cost_couples An array of cost couples in the [ <pretty name> => <number value> ] format.
+	 *
+	 * @return array
+	 */
+	protected function format_and_sort_cost_couples( array $cost_couples = array() ) {
+		global $wp_locale;
+
+		$cost_values = array();
+		foreach ( $cost_couples as $key => $value ) {
+			$value = str_replace( array(
+				$wp_locale->number_format['decimal_point'],
+				$wp_locale->number_format['thousands_sep']
+			), array( '.', '' ), '' . $value );
+			if ( is_numeric( $value ) ) {
+				$cost_values[] = $value;
+			} else {
+				$cost_values[] = $key;
+			}
+		}
+
+		sort( $cost_values, SORT_NUMERIC );
+
+		return $cost_values;
+	}
 }
