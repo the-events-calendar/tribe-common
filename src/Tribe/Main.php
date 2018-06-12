@@ -529,7 +529,7 @@ class Tribe__Main {
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
 
-		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', array('hook') );
+		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', array( 'hook' ) );
 	}
 
 	/************************
