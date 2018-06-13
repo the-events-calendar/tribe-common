@@ -47,15 +47,15 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 	public function is_not_null_data() {
 		return [
-			[ '', false ],
-			[ null, true ],
-			[ array( 'foo' => 'bar' ), false ],
-			[ array( 'foo', 'bar' ), false ],
-			[ new \StdClass(), false ],
-			[ 'f', false ],
-			[ 'foo bar', false ],
-			[ '0', false ],
-			[ 0, false ],
+			[ '', true ],
+			[ null, false ],
+			[ array( 'foo' => 'bar' ), true ],
+			[ array( 'foo', 'bar' ), true ],
+			[ new \StdClass(), true ],
+			[ 'f', true ],
+			[ 'foo bar', true ],
+			[ '0', true ],
+			[ 0, true ],
 		];
 	}
 
@@ -71,15 +71,15 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 	public function is_null_data() {
 		return [
-			[ '', true ],
-			[ null, false ],
-			[ array( 'foo' => 'bar' ), true ],
-			[ array( 'foo', 'bar' ), true ],
-			[ new \StdClass(), true ],
-			[ 'f', true ],
-			[ 'foo bar', true ],
-			[ '0', true ],
-			[ 0, true ],
+			[ '', false ],
+			[ null, true ],
+			[ array( 'foo' => 'bar' ), false ],
+			[ array( 'foo', 'bar' ), false ],
+			[ new \StdClass(), false ],
+			[ 'f', false ],
+			[ 'foo bar', false ],
+			[ '0', false ],
+			[ 0, false ],
 		];
 	}
 
