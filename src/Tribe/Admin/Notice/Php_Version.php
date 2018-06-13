@@ -8,7 +8,7 @@ class Tribe__Admin__Notice__Php_Version {
 
 		// display the PHP version notice
 		tribe_notice(
-			'tribe-events-php-notice',
+			'php-deprecated',
 			array( $this, 'display_notice' ),
 			array(
 				'type'    => 'warning',
@@ -72,6 +72,11 @@ class Tribe__Admin__Notice__Php_Version {
 	 * @return boolean
 	 */
 	public function should_display() {
+		// Bail if the user is not admin or can manage plugins
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return false;
+		}
+
 		return ! version_compare( phpversion(), '5.6.0' ) > 0;
 	}
 
@@ -83,10 +88,6 @@ class Tribe__Admin__Notice__Php_Version {
 	 * @return string
 	 */
 	public function display_notice() {
-		// Bail if the user is not admin or can manage plugins
-		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return false;
-		}
 
 		// for PHP version above 5.4 and up to 5.6
 		if ( version_compare( phpversion(), '5.4.0' ) >= 0 ) {
