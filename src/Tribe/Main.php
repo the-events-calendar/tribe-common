@@ -493,6 +493,7 @@ class Tribe__Main {
 	 */
 	public function tribe_plugins_loaded() {
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
+		tribe( 'admin.notice.php.version' );
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
 		 *
@@ -527,6 +528,8 @@ class Tribe__Main {
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
+
+		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', array( 'hook' ) );
 	}
 
 	/************************
