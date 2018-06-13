@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= RER TBD =
+
+* Tweak - Add empty methods for Base Validator so that REST API arguments that use them for validating can be allowed to set them as empty values [106026]
+
 = [4.7.11] TBD =
 
 * Fix - Restore "type" attribute to some inline `<script>` tags to ensure proper character encoding in Customizer-generated CSS [103167]

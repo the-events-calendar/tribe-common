@@ -45,6 +45,54 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $this->make_instance()->is_string( $value ) );
 	}
 
+	public function is_not_null_data() {
+		return [
+			[ '', true ],
+			[ null, false ],
+			[ array( 'foo' => 'bar' ), true ],
+			[ array( 'foo', 'bar' ), true ],
+			[ new \StdClass(), true ],
+			[ 'f', true ],
+			[ 'foo bar', true ],
+			[ '0', true ],
+			[ 0, true ],
+		];
+	}
+
+	/**
+	 * Test is_not_null
+	 *
+	 * @test
+	 * @dataProvider is_not_null_data
+	 */
+	public function test_is_not_null( $value, $expected ) {
+		$this->assertEquals( $expected, $this->make_instance()->is_not_null( $value ) );
+	}
+
+	public function is_null_data() {
+		return [
+			[ '', false ],
+			[ null, true ],
+			[ array( 'foo' => 'bar' ), false ],
+			[ array( 'foo', 'bar' ), false ],
+			[ new \StdClass(), false ],
+			[ 'f', false ],
+			[ 'foo bar', false ],
+			[ '0', false ],
+			[ 0, false ],
+		];
+	}
+
+	/**
+	 * Test is_null
+	 *
+	 * @test
+	 * @dataProvider is_null_data
+	 */
+	public function test_is_null( $value, $expected ) {
+		$this->assertEquals( $expected, $this->make_instance()->is_null( $value ) );
+	}
+
 	public function is_string_not_empty_data() {
 		return [
 			[ '', false ],
@@ -346,6 +394,8 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 	public function is_url_inputs() {
 		return [
+			[ '', true ],
+			[ 0, true ],
 			[ 'foo', false ],
 			[ 23, false ],
 			[ '23', false ],
@@ -377,6 +427,43 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertEquals( $expected, $sut->is_url( $input ) );
+	}
+
+	public function is_url_not_empty_inputs() {
+		return [
+			[ '', false ],
+			[ 0, false ],
+			[ 'foo', false ],
+			[ 23, false ],
+			[ '23', false ],
+			[ array( 'foo' => 'http://example.com' ), false ],
+			[ 'http://foo.bar', true ],
+			[ 'http://foo.com', true ],
+			[ 'http://foo.com/foo/bar/baz', true ],
+			[ 'https://foo.bar', true ],
+			[ 'https://foo.com', true ],
+			[ 'https://foo.com/foo/bar/baz', true ],
+			[ 'http://foo.bar:8080', true ],
+			[ 'http://foo.com:8080', true ],
+			[ 'http://foo.com:8080/foo/bar/baz', true ],
+			[ 'https://foo.bar:8080', true ],
+			[ 'https://foo.com:8080', true ],
+			[ 'https://foo.com:8080/foo/bar/baz', true ],
+			[ 'foo/bar/baz', false ],
+			[ '/foo/bar/baz', false ],
+		];
+	}
+
+	/**
+	 * Test is_url_not_empty
+	 *
+	 * @test
+	 * @dataProvider is_url_not_empty_inputs
+	 */
+	public function test_is_url_not_empty( $input, $expected ) {
+		$sut = $this->make_instance();
+
+		$this->assertEquals( $expected, $sut->is_url_not_empty( $input ) );
 	}
 
 	public function is_post_status_inputs() {
