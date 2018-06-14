@@ -77,7 +77,7 @@ class Tribe__Admin__Notice__Php_Version {
 			return false;
 		}
 
-		return ! version_compare( phpversion(), '5.6.0' ) > 0;
+		return ! ( version_compare( phpversion(), '5.6.0' ) > 0 );
 	}
 
 	/**
