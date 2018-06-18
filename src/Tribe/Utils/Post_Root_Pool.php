@@ -88,7 +88,7 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @return string
 	 */
 	protected function uc_first_letter( $string ) {
-		return is_numeric( $string ) ? $string : strtoupper( $string[0] );
+		return is_numeric( $string ) ? $string : mb_strtoupper( $string[0], mb_detect_encoding( $string[0] ) );
 	}
 
 	/**
