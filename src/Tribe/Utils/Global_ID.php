@@ -5,13 +5,13 @@ class Tribe__Utils__Global_ID {
 	 * Type of the ID
 	 * @var string|bool
 	 */
-	private $type = false;
+	protected $type = false;
 
 	/**
 	 * Origin of this Instance of ID
 	 * @var string|bool
 	 */
-	private $origin = false;
+	protected $origin = false;
 
 
 	/**
