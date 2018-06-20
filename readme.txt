@@ -2,6 +2,8 @@
 
 == Changelog ==
 
+= [4.7.17] TBD =
+
 = [4.7.16] 2018-06-20 =
 * Fix - Fixed a PHP warning related to the RSS feed in the Help page [108398]
 * Tweak - Add notices related to PHP minimum versions [107852]
