@@ -266,6 +266,17 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 			return $result;
 		}
 
+		/**
+		 * If `post_date` and `post_date_gmt` both are set we assume the farthest away of the two is correct.
+		 */
+		if ( isset( $this->batched_post_fields['post_date'], $this->batched_post_fields['post_date_gmt'] ) ) {
+			if ( get_gmt_from_date( $this->batched_post_fields['post_date'] ) < $this->batched_post_fields['post_date_gmt'] ) {
+				unset( $this->batched_post_fields['post_date'] );
+			} else {
+				unset( $this->batched_post_fields['post_date_gmt'] );
+			}
+		}
+
 		$post_updated = (bool) wp_update_post( $this->batched_post_fields );
 
 		// remove some "utility" variables
