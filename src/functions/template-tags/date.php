@@ -296,7 +296,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 
 		// @todo move timezones to Common
 		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
-			$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID );
+			$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
 		} else {
 			return null;
 		}

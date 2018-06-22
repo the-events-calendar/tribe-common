@@ -11,6 +11,18 @@ msgstr ""
 "Language: sv_SE\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
+msgid "Every %d Minutes"
+msgstr ""
+
+#: src/admin-views/tribe-options-help.php:33
+msgid "Search our support help desk"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:71
+msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Tickets have QR codes for easy check in at the door."
+msgstr ""
+
 #: src/Tribe/Validate.php:184
 msgid "%s must not be empty"
 msgstr ""
@@ -63,15 +75,15 @@ msgstr ""
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:250
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:249
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:286
+#: src/Tribe/Main.php:248
 msgid "All items on this page were selected. "
 msgstr ""
 
@@ -320,7 +332,7 @@ msgid "Event Log"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:42
-msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
+msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk."
 msgstr ""
 
 #: src/admin-views/app-shop.php:26
@@ -425,63 +437,63 @@ msgstr ""
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/Main.php:298
+#: src/Tribe/Main.php:260
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:297
+#: src/Tribe/Main.php:259
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:292
+#: src/Tribe/Main.php:254
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:290
+#: src/Tribe/Main.php:252
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:284
+#: src/Tribe/Main.php:246
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:283
+#: src/Tribe/Main.php:245
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:282
+#: src/Tribe/Main.php:244
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:281
+#: src/Tribe/Main.php:243
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:242
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:241
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:239
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:238
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:280
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:279
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:255 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:278 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -491,10 +503,6 @@ msgstr ""
 
 #: src/Tribe/Plugins_API.php:116
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
-msgstr ""
-
-#: src/Tribe/Plugins_API.php:71
-msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:105
@@ -637,11 +645,7 @@ msgid "Please note that all hands-on support is provided via the forums. You can
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:33
-msgid "Search our support forum"
-msgstr ""
-
-#: src/admin-views/tribe-options-help.php:33
-msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
+msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:32
@@ -685,7 +689,7 @@ msgid "Getting Support"
 msgstr ""
 
 #: src/admin-views/tribe-options-help.php:11
-msgid "Thanks you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
+msgid "Thank you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:15
@@ -804,19 +808,19 @@ msgstr ""
 msgid "unknown date"
 msgstr "okänt datum"
 
-#: src/Tribe/Admin/Activation_Page.php:85
+#: src/Tribe/Admin/Activation_Page.php:92
 msgid "Return to WordPress Updates"
 msgstr "Återgå till WordPress-sidan för uppdateringar"
 
-#: src/Tribe/Admin/Activation_Page.php:85
+#: src/Tribe/Admin/Activation_Page.php:92
 msgid "Go to WordPress Updates page"
 msgstr "Gå till WordPress-sidan för uppdateringar"
 
-#: src/Tribe/Admin/Activation_Page.php:77
+#: src/Tribe/Admin/Activation_Page.php:84
 msgid "Return to Plugins page"
 msgstr "Återgå till plugin-sidan"
 
-#: src/Tribe/Admin/Activation_Page.php:77
+#: src/Tribe/Admin/Activation_Page.php:84
 msgid "Go to plugins page"
 msgstr "Gå till plugin-sidan"
 
@@ -848,7 +852,7 @@ msgstr "Premium tillägg"
 msgid "WordPress "
 msgstr "Wordpress"
 
-#: src/Tribe/Admin/Help_Page.php:822 src/admin-views/app-shop.php:78
+#: src/Tribe/Admin/Help_Page.php:822 src/admin-views/app-shop.php:77
 msgid "Requires:"
 msgstr "Kräver:"
 
@@ -877,28 +881,23 @@ msgctxt "not available"
 msgid "n/a"
 msgstr "Inte tillgänglig"
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/tribe-options-general.php:59
 msgid "Debug Bar Plugin"
 msgstr "Debugbar tillägget"
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/tribe-options-general.php:59
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "Aktivera detta alternativ för att logga debuginformation. Som standard kommer detta att logga till din servers PHP-fellogg. Om du vill se loggen i din webbläsare, rekommenderar vi att du installerar %s och tittar under \"Tribe\" fliken i debut utmatningen."
 
-#: src/admin-views/tribe-options-general.php:58
+#: src/admin-views/tribe-options-general.php:53
 msgid "Debug mode"
 msgstr "Debugläge"
 
-#: src/admin-views/tribe-options-general.php:40
+#: src/admin-views/tribe-options-general.php:35
 msgid "Show The Events Calendar link"
 msgstr "Visa The Events Calendar länk"
 
-#: src/admin-views/tribe-options-general.php:35
-msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
-msgstr "Tänker du \"Wow, det här tillägget är fantastiskt, jag borde säga tack till  Modern Tribe för allt deras hårda arbete.\" Det största tacket vi kan begära är ett erkännande. Lägga till en liten textlänk under kalendern som pekar på The Events Calendar projektet."
-
 #: src/admin-views/tribe-options-general.php:30
-#: src/admin-views/tribe-options-general.php:35
 msgid "See an example of the link"
 msgstr "Se ett exempel på länken"
 
@@ -938,203 +937,203 @@ msgstr "Visa"
 msgid "Community Events"
 msgstr "Gemenskapens Händelser"
 
-#: src/Tribe/Languages/Locations.php:367
+#: src/Tribe/Languages/Locations.php:374
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: src/Tribe/Languages/Locations.php:366
+#: src/Tribe/Languages/Locations.php:373
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: src/Tribe/Languages/Locations.php:365
+#: src/Tribe/Languages/Locations.php:372
 msgid "West Virginia"
 msgstr "West Virginia"
 
-#: src/Tribe/Languages/Locations.php:364
+#: src/Tribe/Languages/Locations.php:371
 msgid "Washington"
 msgstr "Washington"
 
-#: src/Tribe/Languages/Locations.php:363
+#: src/Tribe/Languages/Locations.php:370
 msgid "Virginia"
 msgstr "Virginia"
 
-#: src/Tribe/Languages/Locations.php:362
+#: src/Tribe/Languages/Locations.php:369
 msgid "Vermont"
 msgstr "Vermont"
 
-#: src/Tribe/Languages/Locations.php:361
+#: src/Tribe/Languages/Locations.php:368
 msgid "Utah"
 msgstr "Utah"
 
-#: src/Tribe/Languages/Locations.php:360
+#: src/Tribe/Languages/Locations.php:367
 msgid "Texas"
 msgstr "Texas"
 
-#: src/Tribe/Languages/Locations.php:359
+#: src/Tribe/Languages/Locations.php:366
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: src/Tribe/Languages/Locations.php:358
+#: src/Tribe/Languages/Locations.php:365
 msgid "South Dakota"
 msgstr "South Dakota"
 
-#: src/Tribe/Languages/Locations.php:357
+#: src/Tribe/Languages/Locations.php:364
 msgid "South Carolina"
 msgstr "South Carolina"
 
-#: src/Tribe/Languages/Locations.php:356
+#: src/Tribe/Languages/Locations.php:363
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: src/Tribe/Languages/Locations.php:355
+#: src/Tribe/Languages/Locations.php:362
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: src/Tribe/Languages/Locations.php:354
+#: src/Tribe/Languages/Locations.php:361
 msgid "Oregon"
 msgstr "Oregon"
 
-#: src/Tribe/Languages/Locations.php:353
+#: src/Tribe/Languages/Locations.php:360
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: src/Tribe/Languages/Locations.php:352
+#: src/Tribe/Languages/Locations.php:359
 msgid "Ohio"
 msgstr "Ohio"
 
-#: src/Tribe/Languages/Locations.php:351
+#: src/Tribe/Languages/Locations.php:358
 msgid "North Dakota"
 msgstr "North Dakota"
 
-#: src/Tribe/Languages/Locations.php:350
+#: src/Tribe/Languages/Locations.php:357
 msgid "North Carolina"
 msgstr "North Carolina"
 
-#: src/Tribe/Languages/Locations.php:349
+#: src/Tribe/Languages/Locations.php:356
 msgid "New York"
 msgstr "New York"
 
-#: src/Tribe/Languages/Locations.php:348
+#: src/Tribe/Languages/Locations.php:355
 msgid "New Mexico"
 msgstr "New Mexico"
 
-#: src/Tribe/Languages/Locations.php:347
+#: src/Tribe/Languages/Locations.php:354
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: src/Tribe/Languages/Locations.php:346
+#: src/Tribe/Languages/Locations.php:353
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: src/Tribe/Languages/Locations.php:345
+#: src/Tribe/Languages/Locations.php:352
 msgid "Nevada"
 msgstr "Nevada"
 
-#: src/Tribe/Languages/Locations.php:344
+#: src/Tribe/Languages/Locations.php:351
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: src/Tribe/Languages/Locations.php:343
+#: src/Tribe/Languages/Locations.php:350
 msgid "Montana"
 msgstr "Montana"
 
-#: src/Tribe/Languages/Locations.php:342
+#: src/Tribe/Languages/Locations.php:349
 msgid "Missouri"
 msgstr "Missouri"
 
-#: src/Tribe/Languages/Locations.php:341
+#: src/Tribe/Languages/Locations.php:348
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: src/Tribe/Languages/Locations.php:340
+#: src/Tribe/Languages/Locations.php:347
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: src/Tribe/Languages/Locations.php:339
+#: src/Tribe/Languages/Locations.php:346
 msgid "Michigan"
 msgstr "Michigan"
 
-#: src/Tribe/Languages/Locations.php:338
+#: src/Tribe/Languages/Locations.php:345
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: src/Tribe/Languages/Locations.php:337
+#: src/Tribe/Languages/Locations.php:344
 msgid "Maryland"
 msgstr "Maryland"
 
-#: src/Tribe/Languages/Locations.php:336
+#: src/Tribe/Languages/Locations.php:343
 msgid "Maine"
 msgstr "Maine"
 
-#: src/Tribe/Languages/Locations.php:335
+#: src/Tribe/Languages/Locations.php:342
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: src/Tribe/Languages/Locations.php:334
+#: src/Tribe/Languages/Locations.php:341
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: src/Tribe/Languages/Locations.php:333
+#: src/Tribe/Languages/Locations.php:340
 msgid "Kansas"
 msgstr "Kansas"
 
-#: src/Tribe/Languages/Locations.php:332
+#: src/Tribe/Languages/Locations.php:339
 msgid "Iowa"
 msgstr "Iowa"
 
-#: src/Tribe/Languages/Locations.php:331
+#: src/Tribe/Languages/Locations.php:338
 msgid "Indiana"
 msgstr "Indiana"
 
-#: src/Tribe/Languages/Locations.php:330
+#: src/Tribe/Languages/Locations.php:337
 msgid "Illinois"
 msgstr "Illinois"
 
-#: src/Tribe/Languages/Locations.php:329
+#: src/Tribe/Languages/Locations.php:336
 msgid "Idaho"
 msgstr "Idaho"
 
-#: src/Tribe/Languages/Locations.php:328
+#: src/Tribe/Languages/Locations.php:335
 msgid "Hawaii"
 msgstr "Hawaii"
 
-#: src/Tribe/Languages/Locations.php:326
+#: src/Tribe/Languages/Locations.php:333
 msgid "Florida"
 msgstr "Florida"
 
-#: src/Tribe/Languages/Locations.php:325
+#: src/Tribe/Languages/Locations.php:332
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: src/Tribe/Languages/Locations.php:324
+#: src/Tribe/Languages/Locations.php:331
 msgid "Delaware"
 msgstr "Delaware"
 
-#: src/Tribe/Languages/Locations.php:323
+#: src/Tribe/Languages/Locations.php:330
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: src/Tribe/Languages/Locations.php:322
+#: src/Tribe/Languages/Locations.php:329
 msgid "Colorado"
 msgstr "Colorado"
 
-#: src/Tribe/Languages/Locations.php:321
+#: src/Tribe/Languages/Locations.php:328
 msgid "California"
 msgstr "California"
 
-#: src/Tribe/Languages/Locations.php:320
+#: src/Tribe/Languages/Locations.php:327
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: src/Tribe/Languages/Locations.php:319
+#: src/Tribe/Languages/Locations.php:326
 msgid "Arizona"
 msgstr "Arizona"
 
-#: src/Tribe/Languages/Locations.php:318
+#: src/Tribe/Languages/Locations.php:325
 msgid "Alaska"
 msgstr "Alaska"
 
-#: src/Tribe/Languages/Locations.php:317
+#: src/Tribe/Languages/Locations.php:324
 msgid "Alabama"
 msgstr "Alabama"
 
@@ -1758,7 +1757,7 @@ msgstr "Ghana"
 msgid "Germany"
 msgstr "Tyskland"
 
-#: src/Tribe/Languages/Locations.php:138 src/Tribe/Languages/Locations.php:327
+#: src/Tribe/Languages/Locations.php:138 src/Tribe/Languages/Locations.php:334
 msgid "Georgia"
 msgstr "Georgia"
 
@@ -2235,7 +2234,7 @@ msgstr "En giltig licensnyckel krävs för support och uppdateringar"
 msgid "License Key"
 msgstr "Licensnyckel"
 
-#: src/Tribe/Main.php:285
+#: src/Tribe/Main.php:247
 msgid "Search:"
 msgstr ""
 
@@ -2247,19 +2246,19 @@ msgstr "Inställningar"
 msgid "Network"
 msgstr "Nätverk"
 
-#: src/Tribe/Main.php:310
+#: src/Tribe/Main.php:272
 msgid "Done"
 msgstr "Färdig"
 
-#: src/Tribe/Main.php:309
+#: src/Tribe/Main.php:271
 msgid "Today"
 msgstr "Idag"
 
-#: src/Tribe/Main.php:308
+#: src/Tribe/Main.php:270
 msgid "Prev"
 msgstr "Föregående"
 
-#: src/Tribe/Main.php:291 src/Tribe/Main.php:307
+#: src/Tribe/Main.php:253 src/Tribe/Main.php:269
 msgid "Next"
 msgstr "Nästa"
 

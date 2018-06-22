@@ -27,6 +27,7 @@ tribe.validation = {};
 		valid: '.tribe-validation-valid',
 		notice: '.tribe-notice-validation',
 		noticeAfter: '.wp-header-end',
+		noticeFallback: '.wrap > h1',
 		noticeDismiss: '.notice-dismiss'
 	};
 
@@ -100,6 +101,18 @@ tribe.validation = {};
 			}
 
 			return condition.constraint != condition.value;
+		},
+		matchRegExp: function( value, constraint, $field ) {
+			var exp = new RegExp( constraint, 'g' );
+			var match = exp.exec( value );
+
+			return null !== match;
+		},
+		notMatchRegExp: function( value, constraint, $field ) {
+			var exp = new RegExp( constraint, 'g' );
+			var match = exp.exec( value );
+
+			return null === match;
 		}
 	};
 
@@ -289,6 +302,28 @@ tribe.validation = {};
 			// If we have attribute, fetch the data value
 			if ( $field.is( '[data-validation-is-not-equal-to]' ) ) {
 				value = $field.data( 'validationIsNotEqualTo' );
+			}
+
+			return value;
+		},
+		matchRegExp: function( $field ) {
+			// Default to Null to prevent Conflicts
+			var value = null;
+
+			// If we have attribute, fetch the data value
+			if ( $field.is( '[data-validation-match-regexp]' ) ) {
+				value = $field.data( 'validationMatchRegexp' );
+			}
+
+			return value;
+		},
+		notMatchRegExp: function( $field ) {
+			// Default to Null to prevent Conflicts
+			var value = null;
+
+			// If we have attribute, fetch the data value
+			if ( $field.is( '[data-validation-not-match-regexp]' ) ) {
+				value = $field.data( 'validationNotMatchRegexp' );
 			}
 
 			return value;
@@ -593,6 +628,10 @@ tribe.validation = {};
 		// Verify if we need to add to the page or replace the existing
 		if ( 0 === $notice.length ) {
 			var $wpHeaderEnd = $document.find( obj.selectors.noticeAfter );
+
+			if ( 0 === $wpHeaderEnd.length ) {
+				$wpHeaderEnd = $document.find( obj.selectors.noticeFallback );
+			}
 			$wpHeaderEnd.after( $newNotice );
 		} else{
 			$notice.replaceWith( $newNotice );

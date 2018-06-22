@@ -150,4 +150,56 @@ class Global_ID_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'example.com?id=1234567890', $global_id->generate( [ 'id' => '1234567890' ] ), 'Check if url id gets set correctly' );
 	}
 
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function verify_url_facebook_parse() {
+		$global_id = new Global_ID;
+		$global_id->type( 'facebook' );
+		
+		$args = [ 'id' => '1234567890' ];
+
+		$global_id_string = $global_id->generate( $args );
+
+		$this->assertEquals( $args, $global_id->parse( $global_id_string ), 'Check if facebook id gets parsed correctly' );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function verify_url_id_parse() {
+		$global_id = new Global_ID;
+		$global_id->type( 'url' );
+		$global_id->origin( 'http://example.com' );
+		
+		$args = [ 'id' => '1234567890' ];
+
+		$global_id_string = $global_id->generate( $args );
+
+		$this->assertEquals( $args, $global_id->parse( $global_id_string ), 'Check if url id gets parsed correctly' );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function verify_url_parse_more_args() {
+		$global_id = new Global_ID;
+		$global_id->type( 'facebook' );
+		
+		$args = [
+			'id' => '1234567890',
+			'type' => 'organizer',
+		];
+
+		$global_id_string = $global_id->generate( $args );
+
+		$this->assertEquals( $args, $global_id->parse( $global_id_string ), 'Check if all args get parsed correctly' );
+	}
+
 }

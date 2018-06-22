@@ -5,7 +5,7 @@
  *
  * The base class for all Modern Tribe async process handlers.
  *
- * @since TBD
+ * @since 4.7.12
  *
  * @see   Tribe__Service_Providers__Processes for more insight about this class utility.
  */
@@ -18,7 +18,7 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	/**
 	 * Tribe__Process__Handler constructor.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 */
 	public function __construct() {
 		$class        = get_class( $this );
@@ -29,27 +29,28 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	/**
 	 * Returns the async process action name.
 	 *
-	 * @since TBD
+	 * Extending classes must override this method to return their unique action slug.
+	 *
+	 * @since 4.7.12
 	 *
 	 * @return string
+	 *
+	 * @throws RuntimeException If the extending class does not override this method.
 	 */
-	abstract public static function action();
+	public static function action() {
+		$class = get_called_class();
+		throw new RuntimeException( "Class {$class} should override the `action` method to define its own unique identifier." );
+	}
 
 	/**
-	 * Handles the post thumbnail setting process immediately, not in an async manner.
+	 * Handles the process immediately, not in an async manner.
 	 *
-	 * The post thumbnail will be uploaded, if not uploaded already, using the `tribe_upload_image` function.
-	 * This method is an alias of the publicly accessible `handle_request` one.
-	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @param array|null $data_source If not provided the method will read the handler data from the
-	 *                                `$_POST` array.
+	 *                                request array.
 	 *
 	 * @return mixed
-	 *
-	 * @see   tribe_upload_image()
-	 * @see   Tribe__Process__Post_Thumbnail_Setter::sync_handle()
 	 */
 	abstract public function sync_handle( array $data_source = null );
 
@@ -57,7 +58,7 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	 * Overrides the base `dispatch` method to allow for constants and/or environment vars to run
 	 * async requests in sync mode.
 	 *
-	 * @since TBD
+	 * @since 4.7.12
 	 *
 	 * @return mixed
 	 */
