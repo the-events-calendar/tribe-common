@@ -75,7 +75,7 @@ class Tribe__REST__Post_Repository {
 		foreach ( $cost_couples as $key => $value ) {
 			$value = str_replace( array(
 				$wp_locale->number_format['decimal_point'],
-				$wp_locale->number_format['thousands_sep']
+				$wp_locale->number_format['thousands_sep'],
 			), array( '.', '' ), '' . $value );
 			if ( is_numeric( $value ) ) {
 				$cost_values[] = $value;
