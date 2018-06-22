@@ -3,6 +3,7 @@
 == Changelog ==
 
 = [4.7.16] TBD =
+* Add - Method to sanitize a multidimensional array [106000]
 * Fix - Fixed a PHP warning related to the RSS feed in the Help page [108398]
 * Tweak - Add notices related to PHP minimum versions [107852]
 
