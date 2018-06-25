@@ -6,6 +6,7 @@
 * Add - Method to sanitize a multidimensional array [106000]
 * Fix - Fixed a PHP warning related to the RSS feed in the Help page [108398]
 * Tweak - Add notices related to PHP minimum versions [107852]
+* Tweak - Added new filter `tribe_plugins_get_list` to give an opportunity to modify the list of tribe plugins [69581]
 
 = [4.7.15] 2018-06-04 =
 * Add - Method to parse the Global ID string [104379]
