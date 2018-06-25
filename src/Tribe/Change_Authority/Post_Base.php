@@ -273,7 +273,7 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 			if ( get_gmt_from_date( $this->batched_post_fields['post_date'] ) < $this->batched_post_fields['post_date_gmt'] ) {
 				unset( $this->batched_post_fields['post_date'] );
 			} else {
-				unset( $this->batched_post_fields['post_date_gmt'] );
+				$this->batched_post_fields['post_date_gmt'] = get_gmt_from_date( $this->batched_post_fields['post_date'] );
 			}
 		}
 
