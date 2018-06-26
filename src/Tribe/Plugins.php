@@ -126,7 +126,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			 *
 			 * @since TBD
 			 *
-			 * @param array Contains a list of all tribe plugins 
+			 * @param array Contains a list of all tribe plugins
 			 */
 			return apply_filters( 'tribe_plugins_get_list', $this->tribe_plugins );
 		}
