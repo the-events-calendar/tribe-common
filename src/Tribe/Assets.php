@@ -203,7 +203,7 @@ class Tribe__Assets {
 			 */
 			$enqueue = apply_filters( 'tribe_asset_enqueue_' . $asset->slug, $enqueue, $asset );
 
-			if ( ! $enqueue && ! $must_enqueue ) {
+			if ( ! $enqueue ) {
 				continue;
 			}
 
