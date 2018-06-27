@@ -187,4 +187,32 @@ class Tribe__Utils__Array {
 
 		return $list;
 	}
+
+	/**
+	 * Sanitize a multidimensional array
+	 * https://gist.github.com/esthezia/5804445
+	 *
+	 * @since   TBD
+	 *
+	 * @param   (array)
+	 *
+	 * @return  (array) the sanitized array
+	 */
+	public static function escape_multidimensional_array( $data = array() ) {
+
+		if ( ! is_array( $data ) || ! count( $data ) ) {
+			return array();
+		}
+
+		foreach ( $data as $key => $value ) {
+			if ( ! is_array( $value ) && ! is_object( $value ) ) {
+				$data[ $key ] = esc_attr( trim( $value ) );
+			}
+			if ( is_array( $value ) ) {
+				$data[ $key ] = self::escape_multidimensional_array( $value );
+			}
+		}
+
+		return $data;
+	}
 }
