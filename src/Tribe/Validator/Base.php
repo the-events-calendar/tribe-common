@@ -166,4 +166,17 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 
 		return in_array( $post_status, $post_stati );
 	}
+
+	/**
+	 * Converts a string, a CSV list to an array.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $list
+	 *
+	 * @return array
+	 */
+	public function list_to_array( $list ) {
+		return Tribe__Utils__Array::list_to_array( $list );
+	}
 }
