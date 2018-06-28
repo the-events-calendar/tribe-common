@@ -12,6 +12,24 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 *
 	 * @return bool
 	 */
+	public function is_not_null( $value ) {
+		return null !== $value;
+	}
+
+	/**
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
+	public function is_null( $value ) {
+		return null === $value;
+	}
+
+	/**
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
 	public function is_string( $value ) {
 		return ! empty( $value ) && is_string( $value );
 	}
