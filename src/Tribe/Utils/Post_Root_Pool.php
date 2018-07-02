@@ -36,7 +36,7 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @return string
 	 */
 	public function generate_unique_root( WP_Post $post ) {
-		$post_name = $post->post_name;
+		$post_name = $post->post_title;
 
 		$this->current_post = $post;
 		$flipped_pool       = array_flip( $this->fetch_pool() );
@@ -88,7 +88,24 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @return string
 	 */
 	protected function uc_first_letter( $string ) {
-		return is_numeric( $string ) ? $string : mb_strtoupper( $string[0], mb_detect_encoding( $string[0] ) );
+		$first_char = mb_substr($string, 0, 1);
+		$letter = is_numeric( $string ) ? $string : mb_strtoupper( $first_char, mb_detect_encoding( $string ) );
+		if ( '?' === $letter ) {
+			$letter = $first_char;
+		}
+
+		return $letter;
+	}
+
+	/**
+	 * @param $string
+	 *
+	 * @return string
+	 */
+	protected function safe_strtoupper( $string ) {
+		$word = is_numeric( $string ) ? $string : mb_strtoupper( $string, mb_detect_encoding( $string ) );
+
+		return $word;
 	}
 
 	/**
@@ -96,7 +113,6 @@ class Tribe__Utils__Post_Root_Pool {
 	 */
 	protected function is_in_pool( $candidate ) {
 		$pool = $this->fetch_pool();
-
 		return isset( $pool[ $candidate ] );
 	}
 
@@ -142,13 +158,11 @@ class Tribe__Utils__Post_Root_Pool {
 	protected function build_root_candidate( $post_name, $postfix ) {
 		$frags = explode( '-', $post_name );
 
-		$candidate = implode( '', array_map( 'strtoupper', $frags ) );
-
-		if ( strlen( $candidate ) > 9 ) {
+		$candidate = implode( '', array_map( array( $this, 'safe_strtoupper' ), $frags ) );
+		if ( mb_strlen( $candidate, mb_detect_encoding( $candidate ) ) > 9 ) {
 			$frags     = array_filter( $frags );
 			$candidate = implode( '', array_map( array( $this, 'uc_first_letter' ), $frags ) );
 		}
-
 		$candidate = $candidate . $postfix;
 
 		return $candidate;
