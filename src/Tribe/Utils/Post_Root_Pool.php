@@ -88,7 +88,7 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @return string
 	 */
 	protected function uc_first_letter( $string ) {
-		$first_char = mb_substr($string, 0, 1);
+		$first_char = mb_substr( $string, 0, 1 );
 		$letter = is_numeric( $string ) ? $string : mb_strtoupper( $first_char, mb_detect_encoding( $string ) );
 		if ( '?' === $letter ) {
 			$letter = $first_char;
