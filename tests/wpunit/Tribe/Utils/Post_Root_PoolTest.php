@@ -46,6 +46,20 @@ class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 * it should handle multibyte characters in the post_name
+	 */
+	public function it_should_handle_multibyte_characters_in_the_post_name() {
+		$post = $this->factory()->post->create_and_get( [ 'post_title' => 'foo', 'post_name' => 'билет' ] );
+
+		$sut = $this->make_instance();
+
+		$root = $sut->generate_unique_root( $post );
+
+		$this->assertEquals( 'БИЛЕТ-', $root );
+	}
+
+	/**
+	 * @test
 	 * it should generate different post roots for posts with same post_title
 	 */
 	public function it_should_generate_different_post_roots_for_posts_with_same_post_title() {

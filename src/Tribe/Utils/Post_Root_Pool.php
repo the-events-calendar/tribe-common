@@ -36,7 +36,10 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @return string
 	 */
 	public function generate_unique_root( WP_Post $post ) {
-		$post_name = $post->post_title;
+		$post_name = $post->post_name;
+		if ( 'ASCII' === mb_detect_encoding( $post_name ) ) {
+			$post_name = urldecode( $post_name );
+		}
 
 		$this->current_post = $post;
 		$flipped_pool       = array_flip( $this->fetch_pool() );
