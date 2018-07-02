@@ -30,6 +30,7 @@ class Tribe__Deprecation {
 	protected $deprecated_filters = array(
 		'tribe_cost_regex'            => array( '4.3', 'tribe_events_cost_regex' ),
 		'tribe_rewrite_prepared_slug' => array( '4.3', 'tribe_events_rewrite_prepared_slug' ),
+		''                            => array( 'TBD', 'tribe_events_linked_post_type_meta_key' ),
 	);
 
 	/**
