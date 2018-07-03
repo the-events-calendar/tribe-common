@@ -252,9 +252,11 @@ interface Tribe__Repository__Read_Interface {
 	public function search( $search );
 
 	/**
-	 * Returns the number of posts found matching the query.
+	 * Returns the number of posts found matching the query in the current page.
 	 *
-	 * An alias of the `found` method.
+	 * While the `found` method will return the number of posts found
+	 * across all pages this method will only return the number of
+	 * posts found in the current page.
 	 *
 	 * @since TBD
 	 *

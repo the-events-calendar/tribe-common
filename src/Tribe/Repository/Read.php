@@ -336,7 +336,25 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	 * {@inheritdoc}
 	 */
 	public function count() {
-		return $this->found();
+		if ( $this->void_query ) {
+			return 0;
+		}
+
+		$query = $this->build_query();
+		$query->set( 'fields', 'ids' );
+
+		/**
+		 * Filters the query object by reference before counting found posts in the current page.
+		 *
+		 * @since TBD
+		 *
+		 * @param WP_Query $query
+		 */
+		do_action_ref_array( "{$this->filter_name}_pre_count_posts", array( &$query ) );
+
+		$ids = $query->get_posts();
+
+		return is_array( $ids ) ? count( $ids ) : 0;
 	}
 
 	/**
