@@ -104,7 +104,7 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @param $string
 	 *
 	 * @return string
-	 * @deprecated
+	 * @deprecated TBD
 	 */
 	protected function safe_strtoupper( $string ) {
 		_deprecated_function( __METHOD__, 'TBD', 'tribe_strtoupper' );
