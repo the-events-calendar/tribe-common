@@ -42,7 +42,7 @@ class Tribe__Repository__Schema implements Tribe__Repository__Schema_Interface {
 		 * Allow for callbacks to fire immediately and return more complex values.
 		 * This also means that callbacks meant to run on the next step, the one
 		 * where args are applied, will need to be "wrapped" in callbacks themselves.
-		 * The key is removed from the args to get the value first and avoid
+		 * The `$key` is removed from the args to get the value first and avoid
 		 * unused args.
 		 */
 		return call_user_func_array( $application, array_splice( $call_args, 1 ) );
