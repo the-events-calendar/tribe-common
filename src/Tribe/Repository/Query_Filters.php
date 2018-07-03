@@ -25,21 +25,6 @@ class Tribe__Repository__Query_Filters {
 	protected $current_query;
 
 	/**
-	 * Sets up `posts_where` filtering to get posts with a title like the value.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $value
-	 */
-	public function to_get_posts_with_title_like( $value ) {
-		$this->query_vars['like']['post_title'][] = $value;
-
-		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_like' ) ) ) {
-			add_filter( 'posts_where', array( $this, 'filter_by_like' ), 10, 2 );
-		}
-	}
-
-	/**
 	 * Filters the WHERE clause of the query to match posts with a field like.
 	 *
 	 * @since TBD
