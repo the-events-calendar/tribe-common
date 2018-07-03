@@ -29,6 +29,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 		'comment_count',
 		'comment_status',
 		'menu_order',
+		'title',
 		'name',
 		'post_name__in',
 		'ping_status',
@@ -194,8 +195,9 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 		$call_args = func_get_args();
 
 		try {
-			if ( $this->has_default_filter( $key ) &l ! $this->schema->has_application_for( $key ) ) {
-				// let's use the default filters
+			if ( $this->has_default_filter( $key ) && ! $this->schema->has_application_for( $key ) ) {
+				// let's use the default filters normalizing the key first
+				$call_args[0]   = $this->normalize_key( $key );
 				$query_modifier = call_user_func_array( array( $this, 'apply_default_filter' ), $call_args );
 			} else {
 				// let the Schema return something corresponding to this filter
@@ -206,7 +208,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 			 * Primitives are just merged in.
 			 * Since we are using `array_merge_recursive` we expect them to be arrays.
 			 */
-			if ( ! ( is_callable( $query_modifier ) || is_object( $query_modifier ) ) ) {
+			if ( ! ( is_object( $query_modifier ) || is_callable( $query_modifier ) ) ) {
 
 				if ( ! is_array( $query_modifier ) ) {
 					throw new InvalidArgumentException( 'Query modifier should be an array!' );
@@ -285,7 +287,6 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 			'parent__in',
 			'parent__not_in',
 			'mime_type',
-			'title',
 			'content',
 			'excerpt',
 			'status',
@@ -389,10 +390,10 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 		foreach ( $this->query_modifiers as $arg ) {
 			if ( is_object( $arg ) ) {
 				// __invoke, assume changes are made by reference
-				$arg( &$query );
+				$arg( $query );
 			} elseif ( is_callable( $arg ) ) {
 				// assume changes are made by reference
-				$arg( &$query );
+				$arg( $query );
 			}
 		}
 
@@ -471,7 +472,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	 * {@inheritdoc}
 	 */
 	public function permission( $permission ) {
-		if ( ! in_array( $permission, array( self::PERMISSION_READABLE, self::PERMISSION_EDITABLE ) ) ) {
+		if ( ! in_array( $permission, array( self::PERMISSION_READABLE, self::PERMISSION_EDITABLE ), true ) ) {
 			return $this;
 		}
 
@@ -571,39 +572,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 		$args = array();
 
 		switch ( $key ) {
-			case 'p':
-			case 'author':
-			case 'author_name':
-			case 'author__in':
-			case 'author__not_in':
-			case 'has_password':
-			case 'post_password':
-			case 'cat':
-			case 'category__and':
-			case 'category__in':
-			case 'category__not_in':
-			case 'category_name':
-			case 'comment_count':
-			case 'comment_status':
-			case 'menu_order':
-			case 'name':
-			case 'post_name__in':
-			case 'ping_status':
-			case 'post__in': // method `in`
-			case 'post__not_in':  // method `not_in`
-			case 'post_parent': // method `parent`
-			case 'post_parent__in': // method `parent_in`
-			case 'post_parent__not_in': // method `parent_not_in`
-			case 'post_mime_type':
-			case 's':
-			case 'tag':
-			case 'tag__and':
-			case 'tag__in':
-			case 'tag__not_in':
-			case 'tag_id':
-			case 'tag_slug__and':
-			case 'tag_slug__in':
-			case 'perm' :
+			default:
 				// leverage built-in WP_Query filters
 				$args = array( $key => $value );
 				break;
@@ -625,9 +594,6 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 			case 'before_date_gmt':
 				$args = $this->get_posts_before( $value, 'post_date_gmt' );
 				break;
-			case 'post_title':
-				$this->filter_query->to_get_posts_with_title_like( $value );
-				break;
 			case 'post_content':
 				$this->filter_query->to_get_posts_with_content_like( $value );
 				break;
@@ -635,7 +601,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 				$this->filter_query->to_get_posts_with_excerpt_like( $value );
 				break;
 			case 'post_status':
-				$args = array( 'post_status' => is_array( $value ) ? $value : array( $value ) );
+				$args = array( 'post_status' => (array) $value );
 				break;
 			case 'post_status__not_in':
 				$this->filter_query->to_get_posts_with_status_not_in( $value );
