@@ -335,6 +335,13 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	/**
 	 * {@inheritdoc}
 	 */
+	public function count() {
+		return $this->found();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function found() {
 		if ( $this->void_query ) {
 			return 0;

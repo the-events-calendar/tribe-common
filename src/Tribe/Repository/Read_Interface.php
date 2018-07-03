@@ -79,6 +79,7 @@ interface Tribe__Repository__Read_Interface {
 	public function per_page( $per_page );
 
 	/**
+
 	 * Returns the number of posts found matching the query.
 	 *
 	 * @return int
@@ -249,4 +250,15 @@ interface Tribe__Repository__Read_Interface {
 	 * @return $this
 	 */
 	public function search( $search );
+
+	/**
+	 * Returns the number of posts found matching the query.
+	 *
+	 * An alias of the `found` method.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function count();
 }
