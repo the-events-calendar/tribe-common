@@ -9,15 +9,12 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	/**
 	 * @var array
 	 */
-	protected $default_args = array(
-		'post_type' => array( 'post' ),
-	);
+	protected $default_args = array( 'post_type' => 'post' );
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function fetch() {
-		return new Tribe__Repository__Read(
-			$this->read_schema,
-			tribe()->make( 'Tribe__Repository__Query_Filters' ),
-			$this->default_args
-		);
+		return new Tribe__Repository__Read( $this->read_schema, tribe()->make( 'Tribe__Repository__Query_Filters' ), $this->default_args );
 	}
 }

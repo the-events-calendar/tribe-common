@@ -125,11 +125,16 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	/**
 	 * @var array An array of default arguments that will be applied to all queries.
 	 */
-	protected $default_args = array(
+	protected static $common_args = array(
 		'post_type'        => 'post',
 		'suppress_filters' => false,
 		'posts_per_page'   => - 1,
 	);
+
+	/**
+	 * @var array
+	 */
+	protected  $default_args = array();
 
 	/**
 	 * @var array An array of query arguments that will be populated while applying
@@ -166,7 +171,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 		Tribe__Repository__Query_Filters $query_filters,
 		array $default_args = array()
 	) {
-		$this->default_args = $default_args;
+		$this->default_args = array_merge( self::$common_args, $default_args );
 		$this->schema       = $schema;
 		$this->filter_query = $query_filters;
 	}
@@ -406,7 +411,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 			$results = array();
 		} else {
 			// skip counting the found rows to speed up the query
-			$this->default_args['no_found_rows'] = true;
+			$this->query_args['no_found_rows'] = true;
 			$query                               = $this->build_query();
 
 			/**
@@ -428,7 +433,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	 * {@inheritdoc}
 	 */
 	public function offset( $offset ) {
-		$this->default_args['offset'] = absint( $offset );
+		$this->query_args['offset'] = absint( $offset );
 
 		return $this;
 	}
@@ -443,7 +448,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 			return $this;
 		}
 
-		$this->default_args['order'] = $order;
+		$this->query_args['order'] = $order;
 
 		return $this;
 	}
@@ -452,7 +457,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	 * {@inheritdoc}
 	 */
 	public function order_by( $order_by ) {
-		$this->default_args['order_by'] = $order_by;
+		$this->query_args['order_by'] = $order_by;
 
 		return $this;
 	}
@@ -461,7 +466,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	 * {@inheritdoc}
 	 */
 	public function fields( $fields ) {
-		$this->default_args['fields'] = $fields;
+		$this->query_args['fields'] = $fields;
 
 		return $this;
 	}
@@ -474,7 +479,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 			return $this;
 		}
 
-		$this->default_args['perm'] = $permission;
+		$this->query_args['perm'] = $permission;
 
 		return $this;
 	}

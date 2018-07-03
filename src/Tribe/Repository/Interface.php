@@ -10,6 +10,8 @@ interface Tribe__Repository__Interface {
 	/**
 	 * Returns the Read repository.
 	 *
+	 * @since TBD
+	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function fetch();
