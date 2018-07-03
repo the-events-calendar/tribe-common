@@ -65,7 +65,7 @@ class Tribe__Repository__Query_Filters {
 	protected function and_field_like( $field, $entry ) {
 		/** @var wpdb $wpdb */
 		global $wpdb;
-		$like = '%' . $wpdb->esc_like( $entry ) . '%';
+		$like = $wpdb->esc_like( $entry );
 
 		// If there isn't an unescaped %, let's auto-add some %
 		if ( ! preg_match( '/(?<!\\)%/', $like ) ) {
