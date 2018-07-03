@@ -79,7 +79,6 @@ interface Tribe__Repository__Read_Interface {
 	public function per_page( $per_page );
 
 	/**
-
 	 * Returns the number of posts found matching the query.
 	 *
 	 * @return int
@@ -162,16 +161,6 @@ interface Tribe__Repository__Read_Interface {
 	 * @return $this
 	 */
 	public function permission( $permission );
-
-	/**
-	 * Sets the dynamic part of the filter tag that will be used to filter
-	 * the query arguments and object.
-	 *
-	 * @param string $filter_name
-	 *
-	 * @return $this
-	 */
-	public function filter_name( $filter_name );
 
 	/**
 	 * Sugar method to set the `post__in` argument.
@@ -263,4 +252,14 @@ interface Tribe__Repository__Read_Interface {
 	 * @return int
 	 */
 	public function count();
+
+	/**
+	 * Sets the dynamic part of the filter tag that will be used to filter
+	 * the query arguments and object.
+	 *
+	 * @param string $filter_name
+	 *
+	 * @return $this
+	 */
+	public function filter_name( $filter_name );
 }

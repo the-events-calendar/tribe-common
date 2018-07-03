@@ -8,7 +8,9 @@
  * The basic Read repository; this is the kind of object you get back from a
  * method like `tribe_events()->fetch()`.
  */
-class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
+class Tribe__Repository__Read
+	extends Tribe__Repository__Specialized_Base
+	implements Tribe__Repository__Read_Interface {
 
 	/**
 	 * @var array A list of the default filters supported and implemented by the repository.
@@ -105,23 +107,6 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 		'term_slug_exists',
 		'term_slug_not_exists',
 	);
-
-	/**
-	 * @var Tribe__Repository__Schema
-	 */
-	protected $schema;
-
-	/**
-	 * @var array An array of query modifying callbacks populated while applying
-	 *            the filters.
-	 */
-	protected $query_modifiers = array();
-
-	/**
-	 * @var bool Whether the current query is void or not.
-	 */
-	protected $void_query = false;
-
 	/**
 	 * @var array An array of default arguments that will be applied to all queries.
 	 */
@@ -131,6 +116,16 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 		'posts_per_page'   => - 1,
 	);
 
+
+	/**
+	 * @var array An array of query modifying callbacks populated while applying
+	 *            the filters.
+	 */
+	protected $query_modifiers = array();
+	/**
+	 * @var bool Whether the current query is void or not.
+	 */
+	protected $void_query = false;
 	/**
 	 * @var array
 	 */
@@ -153,28 +148,24 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	protected $filter_query;
 
 	/**
-	 * @var string
-	 */
-	protected $filter_name = 'default';
-
-	/**
 	 * Tribe__Repository__Read constructor.
 	 *
 	 * @since TBD
 	 *
-	 * @param Tribe__Repository__Schema        $schema
+	 * @param array                            $schema
 	 * @param Tribe__Repository__Query_Filters $query_filters
 	 * @param array                            $default_args
 	 */
 	public function __construct(
-		Tribe__Repository__Schema $schema,
+		array $schema,
 		Tribe__Repository__Query_Filters $query_filters,
 		array $default_args = array()
 	) {
-		$this->default_args = array_merge( self::$common_args, $default_args );
-		$this->schema       = $schema;
+		parent::__construct($schema);
+		$this->default_args = array_merge( Tribe__Repository__Read::$common_args, $default_args );
 		$this->filter_query = $query_filters;
 	}
+
 
 	/**
 	 * {@inheritdoc}
@@ -200,12 +191,12 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 		$call_args = func_get_args();
 
 		try {
-			if ( $this->has_default_filter( $key ) && ! $this->schema->has_application_for( $key ) ) {
+			if ( $this->has_default_filter( $key ) && ! $this->schema_has_application_for( $key ) ) {
 				// let's use the default filters normalizing the key first
 				$call_args[0]   = $this->normalize_key( $key );
 				$query_modifier = call_user_func_array( array( $this, 'apply_default_filter' ), $call_args );
 			} else {
-				$query_modifier   = call_user_func_array( array( $this->schema, 'apply' ), $call_args );
+				$query_modifier = call_user_func_array( array( $this, 'apply_schema_for' ), $call_args );
 			}
 
 			/**
@@ -358,31 +349,6 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	}
 
 	/**
-	 * {@inheritdoc}
-	 */
-	public function found() {
-		if ( $this->void_query ) {
-			return 0;
-		}
-
-		$query = $this->build_query();
-		$query->set( 'fields', 'ids' );
-
-		/**
-		 * Filters the query object by reference before counting found posts.
-		 *
-		 * @since TBD
-		 *
-		 * @param WP_Query $query
-		 */
-		do_action_ref_array( "{$this->filter_name}_pre_found_posts", array( &$query ) );
-
-		$query->get_posts();
-
-		return (int) $query->found_posts;
-	}
-
-	/**
 	 * Build, without initializing it, the query.
 	 *
 	 * @since TBD
@@ -435,13 +401,38 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	/**
 	 * {@inheritdoc}
 	 */
+	public function found() {
+		if ( $this->void_query ) {
+			return 0;
+		}
+
+		$query = $this->build_query();
+		$query->set( 'fields', 'ids' );
+
+		/**
+		 * Filters the query object by reference before counting found posts.
+		 *
+		 * @since TBD
+		 *
+		 * @param WP_Query $query
+		 */
+		do_action_ref_array( "{$this->filter_name}_pre_found_posts", array( &$query ) );
+
+		$query->get_posts();
+
+		return (int) $query->found_posts;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function all() {
 		if ( $this->void_query ) {
 			$results = array();
 		} else {
 			// skip counting the found rows to speed up the query
 			$this->query_args['no_found_rows'] = true;
-			$query                               = $this->build_query();
+			$query                             = $this->build_query();
 
 			/**
 			 * Filters the query object by reference before getting the posts.
@@ -513,14 +504,6 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 		return $this;
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function filter_name( $filter_name ) {
-		$this->filter_name = trim( $filter_name );
-
-		return $this;
-	}
 
 	/**
 	 * {@inheritdoc}
