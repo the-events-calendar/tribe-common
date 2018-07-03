@@ -200,8 +200,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 				$call_args[0]   = $this->normalize_key( $key );
 				$query_modifier = call_user_func_array( array( $this, 'apply_default_filter' ), $call_args );
 			} else {
-				// let the Schema return something corresponding to this filter
-				$query_modifier = call_user_func_array( array( $this->schema, 'apply' ), $call_args );
+				$query_modifier   = call_user_func_array( array( $this->schema, 'apply' ), $call_args );
 			}
 
 			/**
