@@ -3,6 +3,7 @@ namespace Tribe\Utils;
 
 use \Tribe__Utils__Post_Root_Pool as Post_Root_Pool;
 
+
 class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 
 	public function setUp() {
@@ -49,13 +50,19 @@ class Post_Root_PoolTest extends \Codeception\TestCase\WPTestCase {
 	 * it should handle multibyte characters in the post_name
 	 */
 	public function it_should_handle_multibyte_characters_in_the_post_name() {
-		$post = $this->factory()->post->create_and_get( [ 'post_title' => 'foo', 'post_name' => 'билет' ] );
+		$post1 = $this->factory()->post->create_and_get( [ 'post_title' => 'foo', 'post_name' => 'билет' ] ); // Cyrillic
+		$post2 = $this->factory()->post->create_and_get( [ 'post_title' => 'foo', 'post_name' => 'チケット' ] ); // Japanese
+		$post3 = $this->factory()->post->create_and_get( [ 'post_title' => 'foo', 'post_name' => 'כַּרְטִיס' ] ); // Hebrew
 
 		$sut = $this->make_instance();
 
-		$root = $sut->generate_unique_root( $post );
+		$root1 = $sut->generate_unique_root( $post1 );
+		$root2 = $sut->generate_unique_root( $post2 );
+		$root3 = $sut->generate_unique_root( $post3 );
 
-		$this->assertEquals( 'БИЛЕТ-', $root );
+		$this->assertEquals( 'БИЛЕТ-', $root1 );
+		$this->assertEquals( 'チケット-', $root2 );
+		$this->assertEquals( 'כַּרְטִיס-', $root3 );
 	}
 
 	/**

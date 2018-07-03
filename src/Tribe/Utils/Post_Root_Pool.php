@@ -37,7 +37,7 @@ class Tribe__Utils__Post_Root_Pool {
 	 */
 	public function generate_unique_root( WP_Post $post ) {
 		$post_name = $post->post_name;
-		if ( 'ASCII' === mb_detect_encoding( $post_name ) ) {
+		if ( 'ASCII' === tribe_detect_encoding( $post_name ) ) {
 			$post_name = urldecode( $post_name );
 		}
 
@@ -91,8 +91,8 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @return string
 	 */
 	protected function uc_first_letter( $string ) {
-		$first_char = mb_substr( $string, 0, 1 );
-		$letter = is_numeric( $string ) ? $string : mb_strtoupper( $first_char, mb_detect_encoding( $string ) );
+		$first_char = tribe_substr( $string, 0, 1 );
+		$letter = is_numeric( $string ) ? $string : tribe_strtoupper( $first_char );
 		if ( '?' === $letter ) {
 			$letter = $first_char;
 		}
@@ -104,11 +104,12 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @param $string
 	 *
 	 * @return string
+	 * @deprecated
 	 */
 	protected function safe_strtoupper( $string ) {
-		$word = is_numeric( $string ) ? $string : mb_strtoupper( $string, mb_detect_encoding( $string ) );
+		_deprecated_function( __METHOD__, 'TBD', 'tribe_strtoupper' );
 
-		return $word;
+		return is_numeric( $string ) ? $string : tribe_strtoupper( $string );
 	}
 
 	/**
@@ -161,8 +162,8 @@ class Tribe__Utils__Post_Root_Pool {
 	protected function build_root_candidate( $post_name, $postfix ) {
 		$frags = explode( '-', $post_name );
 
-		$candidate = implode( '', array_map( array( $this, 'safe_strtoupper' ), $frags ) );
-		if ( mb_strlen( $candidate, mb_detect_encoding( $candidate ) ) > 9 ) {
+		$candidate = implode( '', array_map( 'tribe_strtoupper', $frags ) );
+		if ( tribe_strlen( $candidate ) > 9 ) {
 			$frags     = array_filter( $frags );
 			$candidate = implode( '', array_map( array( $this, 'uc_first_letter' ), $frags ) );
 		}
