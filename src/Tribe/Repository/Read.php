@@ -134,7 +134,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	/**
 	 * @var array
 	 */
-	protected  $default_args = array();
+	protected $default_args = array();
 
 	/**
 	 * @var array An array of query arguments that will be populated while applying
