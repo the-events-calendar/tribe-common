@@ -15,10 +15,10 @@ if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 		$merged = $array1;
 
 		foreach ( $array2 as $key => &$value ) {
-			if ( is_array( $value ) && isset( $merged [ $key ] ) && is_array( $merged [ $key ] ) ) {
-				$merged [ $key ] = tribe_array_merge_recursive( $merged [ $key ], $value );
+			if ( is_array( $value ) && isset( $merged[ $key ] ) && is_array( $merged[ $key ] ) ) {
+				$merged[ $key ] = tribe_array_merge_recursive( $merged[ $key ], $value );
 			} else {
-				$merged [ $key ] = $value;
+				$merged[ $key ] = $value;
 			}
 		}
 
