@@ -226,7 +226,6 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 				 */
 				$this->query_modifiers[] = $query_modifier;
 			}
-
 		} catch ( Tribe__Repository__No_Result_Exception $e ) {
 			/**
 			 * We allow for the `apply` method to orderly fail to micro-optimize.
@@ -836,7 +835,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 					'taxonomy' => $taxonomy,
 					'field'    => $field,
 					'terms'    => $terms,
-					'operator' => $operator
+					'operator' => $operator,
 				),
 			),
 		);

@@ -10,7 +10,7 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 * @var array
 	 */
 	protected $default_args = array(
-		'post_type' => array( 'post' )
+		'post_type' => array( 'post' ),
 	);
 
 	public function fetch() {
