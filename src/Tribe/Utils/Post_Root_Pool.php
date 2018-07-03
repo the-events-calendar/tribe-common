@@ -89,15 +89,12 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @param $string
 	 *
 	 * @return string
+	 * @deprecated TBD
 	 */
 	protected function uc_first_letter( $string ) {
-		$first_char = tribe_substr( $string, 0, 1 );
-		$letter = is_numeric( $string ) ? $string : tribe_strtoupper( $first_char );
-		if ( '?' === $letter ) {
-			$letter = $first_char;
-		}
+		_deprecated_function( __METHOD__, 'TBD', 'tribe_uc_first_letter' );
 
-		return $letter;
+		return tribe_uc_first_letter( $string );
 	}
 
 	/**
