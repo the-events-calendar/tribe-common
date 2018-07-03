@@ -317,7 +317,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	 * {@inheritdoc}
 	 */
 	public function page( $page ) {
-		$this->query_modifiers['paged'] = absint( $page );
+		$this->query_args['paged'] = absint( $page );
 
 		return $this;
 	}
@@ -327,7 +327,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	 */
 	public function per_page( $per_page ) {
 		// we allow for `-1` here
-		$this->query_modifiers['posts_per_page'] = $per_page;
+		$this->query_args['posts_per_page'] = $per_page;
 
 		return $this;
 	}
@@ -369,7 +369,11 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 
 		$this->filter_query->set_query( $query );
 
-		$query_args = array_merge_recursive( $this->default_args, $this->query_args );
+		/**
+		 * Here we merge, not recursively, to allow user-set query arguments
+		 * to override the default ones.
+		 */
+		$query_args = array_merge( $this->default_args, $this->query_args );
 
 		/**
 		 * Filters the query arguments that will be used to fetch the posts.
