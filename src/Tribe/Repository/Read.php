@@ -161,7 +161,7 @@ class Tribe__Repository__Read
 		Tribe__Repository__Query_Filters $query_filters,
 		array $default_args = array()
 	) {
-		parent::__construct($schema);
+		parent::__construct( $schema );
 		$this->default_args = array_merge( Tribe__Repository__Read::$common_args, $default_args );
 		$this->filter_query = $query_filters;
 	}
