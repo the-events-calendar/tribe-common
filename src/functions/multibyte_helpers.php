@@ -82,10 +82,10 @@ if ( ! function_exists( 'tribe_strtoupper' ) ) {
 			$encoding = tribe_detect_encoding( $string );
 			// we test for encoding and pass it if we get it
 			if ( $encoding ) {
-				return mb_strtoupper(  $string, $encoding );
+				return mb_strtoupper( $string, $encoding );
 			}
 
-			return mb_strtoupper(  $string );
+			return mb_strtoupper( $string );
 		}
 
 		return strtoupper( $string );
@@ -110,10 +110,10 @@ if ( ! function_exists( 'tribe_strtolower' ) ) {
 			$encoding = tribe_detect_encoding( $string );
 			// we test for encoding and pass it if we get it
 			if ( $encoding ) {
-				return mb_strtolower(  $string, $encoding );
+				return mb_strtolower( $string, $encoding );
 			}
 
-			return mb_strtolower(  $string );
+			return mb_strtolower( $string );
 		}
 
 		return strtolower( $string );
