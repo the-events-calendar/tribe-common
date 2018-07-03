@@ -160,7 +160,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @return $this
 	 */
-	public function with_permission( $permission );
+	public function permission( $permission );
 
 	/**
 	 * Sets the dynamic part of the filter tag that will be used to filter

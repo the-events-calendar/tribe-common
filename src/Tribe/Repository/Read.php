@@ -470,7 +470,7 @@ class Tribe__Repository__Read implements Tribe__Repository__Read_Interface {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function with_permission( $permission ) {
+	public function permission( $permission ) {
 		if ( ! in_array( $permission, array( self::PERMISSION_READABLE, self::PERMISSION_EDITABLE ) ) ) {
 			return $this;
 		}
