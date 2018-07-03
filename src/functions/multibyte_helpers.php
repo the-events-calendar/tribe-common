@@ -127,7 +127,7 @@ if ( ! function_exists( 'tribe_uc_first_letter' ) ) {
 		}
 
 		$first_char = tribe_substr( $string, 0, 1 );
-		$letter tribe_strtoupper( $first_char );
+		$letter = tribe_strtoupper( $first_char );
 		// fallback in case it gets garbled
 		if ( '?' === $letter ) {
 			$letter = $first_char;
