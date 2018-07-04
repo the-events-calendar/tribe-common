@@ -161,7 +161,7 @@ class Tribe__Utils__Post_Root_Pool {
 
 		if ( strlen( $candidate ) > 9 ) {
 			$frags     = array_filter( $frags );
-			$candidate = implode( '', array_map( array( $this, 'uc_first_letter' ), $frags ) );
+			$candidate = implode( '', array_map( 'tribe_uc_first_letter', $frags ) );
 		}
 
 		$candidate = $candidate . $postfix;
