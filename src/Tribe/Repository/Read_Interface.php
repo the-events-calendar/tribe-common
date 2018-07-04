@@ -81,6 +81,11 @@ interface Tribe__Repository__Read_Interface {
 	/**
 	 * Returns the number of posts found matching the query.
 	 *
+	 * Mind that this value ignores the offset returning the
+	 * number of results if limits where not applied.
+	 *
+	 * @since TBD
+	 *
 	 * @return int
 	 */
 	public function found();
@@ -102,11 +107,13 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $offset
+	 * @param int  $offset
+	 * @param bool $increment Whether to increment the offset by the value
+	 *                        or replace it.
 	 *
 	 * @return $this
 	 */
-	public function offset( $offset );
+	public function offset( $offset, $increment = false );
 
 	/**
 	 * Sets the order on the query.
@@ -246,6 +253,8 @@ interface Tribe__Repository__Read_Interface {
 	 * While the `found` method will return the number of posts found
 	 * across all pages this method will only return the number of
 	 * posts found in the current page.
+	 * Differently from the `found` method this method will apply the
+	 * offset if set.
 	 *
 	 * @since TBD
 	 *
@@ -262,4 +271,52 @@ interface Tribe__Repository__Read_Interface {
 	 * @return $this
 	 */
 	public function filter_name( $filter_name );
+
+	/**
+	 * Returns the first post of the page matching the current query.
+	 *
+	 * If, by default or because set with the `per_page` method, all
+	 * posts matching the query should be returned then this will be
+	 * the first post of all those matching the query.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Post|null
+	 *
+	 * @see Tribe__Repository__Read_Interface::per_page()
+	 */
+	public function first();
+
+	/**
+	 * Returns the last post of the page matching the current query.
+	 *
+	 * If, by default or because set with the `per_page` method, all
+	 * posts matching the query should be returned then this will be
+	 * the last post of all those matching the query.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Post|null
+	 *
+	 * @see Tribe__Repository__Read_Interface::per_page()
+	 */
+	public function last();
+
+	/**
+	 * Returns the nth post (1-based) of the page matching the current query.
+	 *
+	 * Being 1-based the second post can be fetched using `nth( 2 )`.
+	 * If, by default or because set with the `per_page` method, all
+	 * posts matching the query should be returned then this will be
+	 * the nth post of all those matching the query.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $n
+	 *
+	 * @return WP_Post|null
+	 *
+	 * @see   Tribe__Repository__Read_Interface::per_page()
+	 */
+	public function nth( $n );
 }

@@ -25,6 +25,16 @@ class Tribe__Repository__Query_Filters {
 	protected $current_query;
 
 	/**
+	 * @var int A reasonably large number for the LIMIT clause.
+	 */
+	protected $really_large_number = 99999999;
+
+	/**
+	 * @var array A list of the filters this class has added.
+	 */
+	protected $active_filters = array();
+
+	/**
 	 * Filters the WHERE clause of the query to match posts with a field like.
 	 *
 	 * @since TBD
@@ -97,7 +107,7 @@ class Tribe__Repository__Query_Filters {
 		$this->query_vars['like']['post_content'][] = $value;
 
 		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_like' ) ) ) {
-			add_filter( 'posts_where', array( $this, 'filter_by_like' ), 10, 2 );
+			$this->add_filter( 'posts_where', array( $this, 'filter_by_like' ), 10, 2 );
 		}
 	}
 
@@ -354,5 +364,42 @@ class Tribe__Repository__Query_Filters {
 		global $wpdb;
 
 		return " AND {$wpdb->posts}.{$field} IN ('{$interval}') ";
+	}
+
+	/**
+	 * Proxy method to add a  filter calling the WordPress `add_filter` function
+	 * and keep track of it.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $tag
+	 * @param callable $function_to_add
+	 * @param int      $priority
+	 * @param int      $accepted_args
+	 */
+	protected function add_filter( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) {
+		$this->active_filters[] = array( $tag, $function_to_add, $priority );
+		add_filter( $tag, $function_to_add, $priority, $accepted_args );
+	}
+
+	/**
+	 * Removes all the filters this class applied.
+	 *
+	 * @since TBD
+	 */
+	public function remove_filters() {
+		foreach ( $this->active_filters as list( $tag, $function_to_add, $priority ) ) {
+			remove_filter( $tag, $function_to_add, $priority );
+		}
+	}
+
+	/**
+	 * Clean up before the object destruction.
+	 *
+	 * @since TBD
+	 */
+	public function __destruct() {
+		// let's make sure we clean up when the object is dereferenced
+		$this->remove_filters();
 	}
 }

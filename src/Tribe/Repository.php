@@ -4,7 +4,7 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	/**
 	 * @var array
 	 */
-	protected $read_schema;
+	protected $read_schema = array();
 
 	/**
 	 * @var array
@@ -20,5 +20,20 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 			tribe()->make( 'Tribe__Repository__Query_Filters' ),
 			$this->default_args
 		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_default_args() {
+		return $this->default_args;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_default_args( array $default_args ) {
+		$this->default_args = $default_args;
+
 	}
 }

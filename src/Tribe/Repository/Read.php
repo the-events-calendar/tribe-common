@@ -376,6 +376,16 @@ class Tribe__Repository__Read
 		 */
 		$query_args = apply_filters( "{$this->filter_name}_query_args", $query_args, $query, $this );
 
+		if ( isset( $query_args['offset'] ) ) {
+			$offset   = absint( $query_args['offset'] );
+			$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
+			$page     = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
+
+			$real_offset                  = $per_page === - 1 ? $offset : ( $per_page * $page - 1 ) + $offset;
+			$query_args['offset']         = $real_offset;
+			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
+		}
+
 		foreach ( $query_args as $key => $value ) {
 			$query->set( $key, $value );
 		}
@@ -452,8 +462,18 @@ class Tribe__Repository__Read
 	/**
 	 * {@inheritdoc}
 	 */
-	public function offset( $offset ) {
-		$this->query_args['offset'] = absint( $offset );
+	public function offset( $offset, $increment = false) {
+		/**
+		 * The `offset` argument will only be used when `posts_per_page` is not -1
+		 * and will ignore pagination.
+		 * So we filter to apply a real SQL OFFSET; we also leave in place the `offset`
+		 * query var to have a fallback should the LIMIT cause proving difficult to filter.
+		 */
+		$this->query_args['offset'] = $increment
+			? absint( $offset ) + (int) Tribe__Utils__Array::get( $this->query_args, 'offset', 0 )
+			: absint( $offset );
+
+//		$this->filter_query->to_offset_results_by( absint( $offset ) );
 
 		return $this;
 	}
@@ -856,5 +876,65 @@ class Tribe__Repository__Read
 				),
 			),
 		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function first() {
+		$query     = $this->build_query();
+		$return_id = 'ids' === $query->get( 'fields', '' );
+		$query->set( 'fields', 'ids' );
+		$ids = $query->get_posts();
+
+		if ( empty( $ids ) ) {
+			return null;
+		}
+
+		return $return_id ? reset( $ids ) : get_post( reset( $ids ) );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function last() {
+		$query     = $this->build_query();
+		$return_id = 'ids' === $query->get( 'fields', '' );
+		$query->set( 'fields', 'ids' );
+		$ids = $query->get_posts();
+
+		if ( empty( $ids ) ) {
+			return null;
+		}
+
+		return $return_id ? end( $ids ) : get_post( end( $ids ) );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function nth( $n ) {
+		$per_page = (int) Tribe__Utils__Array::get_in_any( array(
+			$this->query_args,
+			$this->default_args
+		), 'posts_per_page', get_option( 'posts_per_page' ) );
+
+		if ( - 1 != $per_page && $n > $per_page ) {
+			return null;
+		}
+
+		$query = $this->build_query();
+
+		$return_id = 'ids' === $query->get( 'fields', '' );
+
+		$i = absint( $n ) - 1;
+		$query->set( 'fields', 'ids' );
+		$ids = $query->get_posts();
+
+		if ( empty( $ids[ $i ] ) ) {
+			return null;
+		}
+
+		return $return_id ? $ids[ $i ] : get_post( $ids[ $i ] );
 	}
 }
