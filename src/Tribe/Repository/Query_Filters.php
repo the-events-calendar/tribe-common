@@ -75,14 +75,15 @@ class Tribe__Repository__Query_Filters {
 	protected function and_field_like( $field, $entry ) {
 		/** @var wpdb $wpdb */
 		global $wpdb;
-		$like = $wpdb->esc_like( $entry );
 
-		// If there isn't an unescaped %, let's auto-add some %
-		if ( ! preg_match( '/(?<!\\)%/', $like ) ) {
-			$like = "%{$like}%";
-		}
+		$like       = $wpdb->esc_like( $entry );
+		$variations = array(
+			$wpdb->prepare( "{$wpdb->posts}.{$field} LIKE %s ", "{$like}%" ),
+			$wpdb->prepare( "{$wpdb->posts}.{$field} LIKE %s ", "%{$like}%" ),
+			$wpdb->prepare( "{$wpdb->posts}.{$field} LIKE %s ", "%{$like}" ),
+		);
 
-		return $wpdb->prepare( " AND {$wpdb->posts}.{$field} LIKE %s ", $like );
+		return ' AND (' . implode( ' OR ', $variations ) . ')';
 	}
 
 	/**
@@ -94,6 +95,21 @@ class Tribe__Repository__Query_Filters {
 	 */
 	public function set_query( WP_Query $query ) {
 		$this->current_query = $query;
+	}
+
+	/**
+	 * Sets up `posts_where` filtering to get posts with a title like the value.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value
+	 */
+	public function to_get_posts_with_title_like( $value ) {
+		$this->query_vars['like']['post_title'][] = $value;
+
+		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_like' ) ) ) {
+			$this->add_filter( 'posts_where', array( $this, 'filter_by_like' ), 10, 2 );
+		}
 	}
 
 	/**
@@ -124,38 +140,6 @@ class Tribe__Repository__Query_Filters {
 		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_like' ) ) ) {
 			add_filter( 'posts_where', array( $this, 'filter_by_like' ), 10, 2 );
 		}
-	}
-
-	/**
-	 * Sets up `posts_where` filtering to get posts with a status not in an interval.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $value
-	 */
-	public function to_get_posts_with_status_not_in( $value ) {
-		$this->query_vars['status'][] = $value;
-
-		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_status_not_in' ) ) ) {
-			add_filter( 'posts_where', array( $this, 'filter_by_status_not_in' ), 10, 2 );
-		}
-
-		$args = array( 'suppress_filters' => false );
-	}
-
-	/**
-	 * Filters the WHERE clause of the query to match posts with a status
-	 * not in an interval.
-	 *
-	 * @since TBD
-	 *
-	 * @param string   $where
-	 * @param WP_Query $query
-	 *
-	 * @return string
-	 */
-	public function filter_by_status_not_in( $where, WP_Query $query ) {
-		return $this->where_field_not_in( $where, $query, 'post_status' );
 	}
 
 	/**

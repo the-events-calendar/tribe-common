@@ -50,7 +50,7 @@ abstract class Tribe__Repository__Specialized_Base {
 	 *
 	 * @return mixed A scalar value or a callable.
 	 */
-	protected function apply_schema_for( $key, $value ) {
+	protected function apply_modifier( $key, $value ) {
 		$call_args = func_get_args();
 
 		$application = Tribe__Utils__Array::get( $this->schema, $key, null );
@@ -83,7 +83,7 @@ abstract class Tribe__Repository__Specialized_Base {
 	 *
 	 * @return bool
 	 */
-	protected function schema_has_application_for( $key ) {
+	protected function schema_has_modifier_for( $key ) {
 		return isset( $this->schema[ $key ] );
 	}
 }

@@ -24,11 +24,9 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	 * @return Read_Repository
 	 */
 	private function repository() {
-		if ( null === $this->query_filters ) {
-			$this->query_filters = new Query_Filters();
-		}
+		$query_filters = $this->query_filters ?? new Query_Filters();
 
-		return new Read_Repository( $this->schema, $this->query_filters, $this->default_args );
+		return new Read_Repository( $this->schema, $query_filters, $this->default_args );
 	}
 
 	/**
@@ -78,9 +76,9 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$ids = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
 		update_option( 'posts_per_page', 2 );
 
-		$page_1 = $this->repository()t 
-		                   ->per_page(3)
-		                   ->page(1);
+		$page_1 = $this->repository()
+		               ->per_page( 3 )
+		               ->page( 1 );
 
 		$this->assertEquals( 5, $page_1->found() );
 		$this->assertEquals( 3, $page_1->count() );
@@ -104,6 +102,270 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $ids[3], $page_2->nth( 1 )->ID );
 		$this->assertEquals( $ids[4], $page_2->nth( 2 )->ID );
 		$this->assertNull( $page_2->nth( 3 ) );
+	}
+
+	/**
+	 * It should respect the fields setting
+	 *
+	 * @test
+	 */
+	public function should_respect_the_fields_setting() {
+		$ids = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
+		update_option( 'posts_per_page', 2 );
+
+		$page_1 = $this->repository()
+		               ->per_page( 3 )
+		               ->page( 1 )
+		               ->fields( 'ids' );
+
+		$this->assertEquals( 5, $page_1->found() );
+		$this->assertEquals( 3, $page_1->count() );
+		$this->assertCount( 3, $page_1->all() );
+		$this->assertEquals( $ids[0], $page_1->first() );
+		$this->assertEquals( $ids[2], $page_1->last() );
+		$this->assertEquals( $ids[0], $page_1->nth( 1 ) );
+		$this->assertEquals( $ids[1], $page_1->nth( 2 ) );
+		$this->assertEquals( $ids[2], $page_1->nth( 3 ) );
+		$this->assertNull( $page_1->nth( 4 ) );
+
+		$page_2 = $this->repository()
+		               ->per_page( 3 )
+		               ->page( 2 )
+		               ->fields( 'ids' );
+
+		$this->assertEquals( 5, $page_2->found() );
+		$this->assertEquals( 2, $page_2->count() );
+		$this->assertCount( 2, $page_2->all() );
+		$this->assertEquals( $ids[3], $page_2->first() );
+		$this->assertEquals( $ids[4], $page_2->last() );
+		$this->assertEquals( $ids[3], $page_2->nth( 1 ) );
+		$this->assertEquals( $ids[4], $page_2->nth( 2 ) );
+		$this->assertNull( $page_2->nth( 3 ) );
+	}
+
+	/**
+	 * It should allow getting posts by title
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_posts_by_title() {
+		$titles = [ 'one', 'one two', 'one two three' ];
+		$posts  = array_map( function ( $title ) {
+			return $this->factory()->post->create( [ 'post_type' => 'book', 'post_title' => $title ] );
+		}, $titles );
+
+		$this->assertEquals(
+			$posts[1],
+			$this->repository()->fields( 'ids' )->by( 'title', 'one two' )->first()
+		);
+		$this->assertEquals(
+			[ $posts[1], $posts[2] ],
+			$this->repository()->fields( 'ids' )->by( 'title_like', 'two' )->all()
+		);
+		$this->assertEquals(
+			$posts,
+			$this->repository()->by( 'title_like', 'one' )->fields( 'ids' )->all()
+		);
+	}
+
+	/**
+	 * It should allow getting posts by content
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_posts_by_content() {
+		$contents = [ 'one', 'one two', 'one two three', 'foo bar' ];
+		$posts    = array_map( function ( $content ) {
+			return $this->factory()->post->create( [ 'post_type' => 'book', 'post_content' => $content ] );
+		}, $contents );
+
+		$this->assertEquals(
+			[ $posts[1], $posts[2] ],
+			$this->repository()->fields( 'ids' )->by( 'content', 'two' )->all()
+		);
+		$this->assertEquals(
+			$posts[3],
+			$this->repository()->fields( 'ids' )->by( 'content', 'bar' )->first()
+		);
+	}
+
+	/**
+	 * It should allow searching posts
+	 *
+	 * @test
+	 */
+	public function should_allow_searching_posts() {
+		$ids [] = $this->factory()->post->create( [
+			'post_type'    => 'book',
+			'post_title'   => 'One',
+			'post_content' => 'lorem'
+		] );
+		$ids [] = $this->factory()->post->create( [
+			'post_type'    => 'book',
+			'post_title'   => 'two',
+			'post_content' => 'lorem one'
+		] );
+		$ids [] = $this->factory()->post->create( [
+			'post_type'    => 'book',
+			'post_title'   => 'three',
+			'post_content' => 'lorem two'
+		] );
+
+		$this->assertEquals(
+			[ $ids[0], $ids[1] ],
+			$this->repository()->fields( 'ids' )->search( 'one' )->all()
+		);
+	}
+
+	/**
+	 * It should allow getting posts by meta
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_posts_by_meta() {
+		$post_1 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'meta_input' => [
+				'common'        => 'common_1',
+				'number_meta'   => '1',
+				'string_meta'   => 'foo',
+				'interval_meta' => 'foo',
+				'woot'          => 'zap',
+			]
+		] );
+		$post_2 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'meta_input' => [
+				'common'        => 'common_2',
+				'number_meta'   => '23',
+				'string_meta'   => 'bar',
+				'interval_meta' => 'bar',
+			]
+		] );
+
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta', 'common', 'common_1' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_equals', 'common', 'common_1' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_equals', 'common', 'common_2' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_gt', 'number_meta', 12 )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_greater_than', 'number_meta', 12 )->all() );
+		$this->assertEquals( [
+			$post_1,
+			$post_2
+		], $this->repository()->fields( 'ids' )->by( 'meta_gte', 'number_meta', '1' )->all() );
+		$this->assertEquals( [
+			$post_1,
+			$post_2
+		], $this->repository()->fields( 'ids' )->by( 'meta_greater_than_or_equal', 'number_meta', '1' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_like', 'string_meta', 'foo' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_like', 'string_meta', 'foo' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_lt', 'number_meta', 12 )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_less_than', 'number_meta', '12' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_lte', 'number_meta', 1 )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_less_than_or_equal', 'number_meta', 1 )->all() );
+		$this->assertEquals( [
+			$post_1,
+			$post_2
+		], $this->repository()->fields( 'ids' )->by( 'meta_in', 'interval_meta', [ 'foo', 'bar' ] )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_in', 'interval_meta', [
+			'foo',
+			'baz'
+		] )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_between', 'number_meta', [
+			18,
+			25
+		] )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_between', 'number_meta', [
+			18,
+			25
+		] )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_exists', 'woot' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_exists', 'woot' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_equals_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_equals_regexp', 'string_meta', '^b.*' )->all() );
+	}
+
+	/**
+	 * It should allow getting posts by taxonomy terms
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_posts_by_taxonomy_terms() {
+
+	}
+
+	/**
+	 * It should allow selecting posts by date
+	 *
+	 * @test
+	 */
+	public function should_allow_selecting_posts_by_date() {
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$a_week_ago  = date( 'Y-m-d H:i:s', strtotime('-1 week') );
+		$an_hour_ago = date( 'Y-m-d H:i:s', strtotime('-1 hour') );
+		$in_a_week   = date( 'Y-m-d H:i:s', strtotime('+1 week') );
+		$past_post   = $this->factory()->post->create( [ 'post_type' => 'book', 'post_date' => $a_week_ago ] );
+		$recent_post = $this->factory()->post->create( [ 'post_type' => 'book', 'post_date' => $an_hour_ago ] );
+		$future_post = $this->factory()->post->create( [
+			'post_type'   => 'book',
+			'post_date'   => $in_a_week,
+			'post_status' => 'future'
+		] );
+
+		$string_date = get_post( $recent_post )->post_date;
+		$string_date_gmt = get_post( $recent_post )->post_date_gmt;
+		$date        = date( 'Y-m-d H:i:s', strtotime( $string_date ) );
+
+		$this->assertEquals( [
+			$recent_post,
+			$future_post,
+		], $this->repository()->fields( 'ids' )->by( 'date', $date )->all() );
+		$this->assertEquals( [
+			$recent_post,
+			$future_post,
+		], $this->repository()->fields( 'ids' )->by( 'after_date', $string_date )->all() );
+		$this->assertEquals( [
+			$past_post,
+			$recent_post,
+		], $this->repository()->fields( 'ids' )->by( 'before_date', $date )->all() );
+		$this->assertEquals( [
+			$future_post,
+		], $this->repository()->fields( 'ids' )->by( 'date_gmt', $string_date )->all() );
+		$this->assertEquals( [
+			$future_post,
+		], $this->repository()->fields( 'ids' )->by( 'after_date_gmt', $date )->all() );
+		$this->assertEquals( [
+			$future_post,
+		], $this->repository()->fields( 'ids' )->by( 'before_date_gmt', $string_date )->all() );
+	}
+
+	/**
+	 * It should allow fetching posts by status
+	 *
+	 * @test
+	 */
+	public function should_allow_fetching_posts_by_status() {
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$in_a_week = date( 'Y-m-d H:i:s', strtotime('+1 week') );
+		$draft     = $this->factory()->post->create( [ 'post_type' => 'book', 'post_status' => 'draft' ] );
+		$published = $this->factory()->post->create( [ 'post_type' => 'book' ] );
+		$future    = $this->factory()->post->create( [
+			'post_type'   => 'book',
+			'post_date'   => $in_a_week,
+			'post_status' => 'future'
+		] );
+
+		$repository = $this->repository()->fields( 'ids' );
+
+		$this->assertEquals( [ $published ], $repository->by( 'status', 'publish' )->all() );
+		$this->assertEquals( [ $published, $future ], $repository->by( 'status', [
+			'publish',
+			'future'
+		] )->all() );
+		$this->assertEquals( [ $draft, $published, $future ], $repository->by( 'status', 'any' )->all() );
 	}
 
 	protected function _before() {

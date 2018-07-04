@@ -15,7 +15,7 @@ class Tribe__Repository__Read
 	/**
 	 * @var array A list of the default filters supported and implemented by the repository.
 	 */
-	protected static $default_filters = array(
+	protected static $default_modifiers = array(
 		'p',
 		'author',
 		'author_name',
@@ -32,6 +32,7 @@ class Tribe__Repository__Read
 		'comment_status',
 		'menu_order',
 		'title',
+		'title_like',
 		'name',
 		'post_name__in',
 		'ping_status',
@@ -61,7 +62,6 @@ class Tribe__Repository__Read
 		'post_content',
 		'post_excerpt',
 		'post_status',
-		'post_status__not_in',
 		'to_ping',
 		'post_modified',
 		'post_modified_gmt',
@@ -129,7 +129,8 @@ class Tribe__Repository__Read
 	/**
 	 * @var array
 	 */
-	protected $default_args = array();
+	protected
+		$default_args = array();
 
 	/**
 	 * @var array An array of query arguments that will be populated while applying
@@ -187,17 +188,10 @@ class Tribe__Repository__Read
 			return $this;
 		}
 
-		// allow
 		$call_args = func_get_args();
 
 		try {
-			if ( $this->has_default_filter( $key ) && ! $this->schema_has_application_for( $key ) ) {
-				// let's use the default filters normalizing the key first
-				$call_args[0]   = $this->normalize_key( $key );
-				$query_modifier = call_user_func_array( array( $this, 'apply_default_filter' ), $call_args );
-			} else {
-				$query_modifier = call_user_func_array( array( $this, 'apply_schema_for' ), $call_args );
-			}
+			$query_modifier = $this->modify_query( $key, $call_args );
 
 			/**
 			 * Primitives are just merged in.
@@ -213,7 +207,7 @@ class Tribe__Repository__Read
 				 * We do an `array_merge` recursive here to allow "stacking" of same kind of queries;
 				 * e.g. two or more `tax_query`.
 				 */
-				$this->query_args = array_merge_recursive( $this->query_args, $query_modifier );
+				$this->query_args = wp_parse_args( $this->query_args, $query_modifier );
 			} else {
 				/**
 				 * If we get back something that is not an array then we add it to
@@ -250,10 +244,10 @@ class Tribe__Repository__Read
 	 *
 	 * @return bool
 	 */
-	protected function has_default_filter( $key ) {
+	protected function has_default_modifier( $key ) {
 		$normalized_key = $this->normalize_key( $key );
 
-		return in_array( $normalized_key, self::$default_filters, true );
+		return in_array( $normalized_key, self::$default_modifiers, true );
 	}
 
 	/**
@@ -284,7 +278,6 @@ class Tribe__Repository__Read
 			'content',
 			'excerpt',
 			'status',
-			'status__not_in',
 			'modified',
 			'modified_gmt',
 			'content_filtered',
@@ -365,6 +358,9 @@ class Tribe__Repository__Read
 		 * to override the default ones.
 		 */
 		$query_args = array_merge( $this->default_args, $this->query_args );
+
+		$default_post_status       = current_user_can( 'read_private_posts' ) ? 'any' : '';
+		$query_args['post_status'] = Tribe__Utils__Array::get( $query_args, 'post_status', $default_post_status );
 
 		/**
 		 * Filters the query arguments that will be used to fetch the posts.
@@ -462,7 +458,7 @@ class Tribe__Repository__Read
 	/**
 	 * {@inheritdoc}
 	 */
-	public function offset( $offset, $increment = false) {
+	public function offset( $offset, $increment = false ) {
 		/**
 		 * The `offset` argument will only be used when `posts_per_page` is not -1
 		 * and will ignore pagination.
@@ -472,8 +468,6 @@ class Tribe__Repository__Read
 		$this->query_args['offset'] = $increment
 			? absint( $offset ) + (int) Tribe__Utils__Array::get( $this->query_args, 'offset', 0 )
 			: absint( $offset );
-
-//		$this->filter_query->to_offset_results_by( absint( $offset ) );
 
 		return $this;
 	}
@@ -529,7 +523,7 @@ class Tribe__Repository__Read
 	 * {@inheritdoc}
 	 */
 	public function in( $post_ids ) {
-		$this->merge_args( 'post__in', $post_ids );
+		$this->add_args( 'post__in', $post_ids );
 
 		return $this;
 	}
@@ -542,17 +536,15 @@ class Tribe__Repository__Read
 	 * @param string    $key
 	 * @param array|int $value
 	 */
-	protected function merge_args( $key, $value ) {
-		$this->query_args[ $key ] = ! empty( $this->query_args[ $key ] )
-			? array_merge( $this->query_args[ $key ], (array) $value )
-			: $this->query_args[ $key ] = (array) $value;
+	protected function add_args( $key, $value ) {
+		$this->query_args[ $key ] = (array) $value;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function not_in( $post_ids ) {
-		$this->merge_args( 'post__not_in', $post_ids );
+		$this->add_args( 'post__not_in', $post_ids );
 
 		return $this;
 	}
@@ -561,7 +553,7 @@ class Tribe__Repository__Read
 	 * {@inheritdoc}
 	 */
 	public function parent( $post_id ) {
-		$this->merge_args( 'post_parent__in', $post_id );
+		$this->add_args( 'post_parent__in', $post_id );
 
 		return $this;
 	}
@@ -570,7 +562,7 @@ class Tribe__Repository__Read
 	 * {@inheritdoc}
 	 */
 	public function parent_in( $post_ids ) {
-		$this->merge_args( 'post_parent__in', $post_ids );
+		$this->add_args( 'post_parent__in', $post_ids );
 
 		return $this;
 	}
@@ -579,7 +571,7 @@ class Tribe__Repository__Read
 	 * {@inheritdoc}
 	 */
 	public function parent_not_in( $post_ids ) {
-		$this->merge_args( 'post_parent__not_in', $post_ids );
+		$this->add_args( 'post_parent__not_in', $post_ids );
 
 		return $this;
 	}
@@ -594,6 +586,66 @@ class Tribe__Repository__Read
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function first() {
+		$query     = $this->build_query();
+		$return_id = 'ids' === $query->get( 'fields', '' );
+		$query->set( 'fields', 'ids' );
+		$ids = $query->get_posts();
+
+		if ( empty( $ids ) ) {
+			return null;
+		}
+
+		return $return_id ? reset( $ids ) : get_post( reset( $ids ) );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function last() {
+		$query     = $this->build_query();
+		$return_id = 'ids' === $query->get( 'fields', '' );
+		$query->set( 'fields', 'ids' );
+		$ids = $query->get_posts();
+
+		if ( empty( $ids ) ) {
+			return null;
+		}
+
+		return $return_id ? end( $ids ) : get_post( end( $ids ) );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function nth( $n ) {
+		$per_page = (int) Tribe__Utils__Array::get_in_any( array(
+			$this->query_args,
+			$this->default_args
+		), 'posts_per_page', get_option( 'posts_per_page' ) );
+
+		if ( - 1 != $per_page && $n > $per_page ) {
+			return null;
+		}
+
+		$query = $this->build_query();
+
+		$return_id = 'ids' === $query->get( 'fields', '' );
+
+		$i = absint( $n ) - 1;
+		$query->set( 'fields', 'ids' );
+		$ids = $query->get_posts();
+
+		if ( empty( $ids[ $i ] ) ) {
+			return null;
+		}
+
+		return $return_id ? $ids[ $i ] : get_post( $ids[ $i ] );
+	}
+
+	/**
 	 * Returns modified query arguments after applying a default filter.
 	 *
 	 * @since TBD
@@ -603,7 +655,7 @@ class Tribe__Repository__Read
 	 *
 	 * @return array
 	 */
-	protected function apply_default_filter( $key, $value ) {
+	protected function apply_default_modifier( $key, $value, $arg_1 = null ) {
 		$args = array();
 
 		switch ( $key ) {
@@ -614,6 +666,9 @@ class Tribe__Repository__Read
 			case 'ID':
 			case 'id':
 				$args = array( 'p' => $value );
+				break;
+			case 'post_status':
+				$this->query_args['post_status'] = (array) $value;
 				break;
 			case 'date':
 			case 'after_date':
@@ -629,17 +684,14 @@ class Tribe__Repository__Read
 			case 'before_date_gmt':
 				$args = $this->get_posts_before( $value, 'post_date_gmt' );
 				break;
+			case 'title_like':
+				$this->filter_query->to_get_posts_with_title_like( $value );
+				break;
 			case 'post_content':
 				$this->filter_query->to_get_posts_with_content_like( $value );
 				break;
 			case 'post_excerpt':
 				$this->filter_query->to_get_posts_with_excerpt_like( $value );
-				break;
-			case 'post_status':
-				$args = array( 'post_status' => (array) $value );
-				break;
-			case 'post_status__not_in':
-				$this->filter_query->to_get_posts_with_status_not_in( $value );
 				break;
 			case 'to_ping':
 				$this->filter_query->to_get_posts_to_ping( $value );
@@ -659,58 +711,58 @@ class Tribe__Repository__Read
 				break;
 			case 'meta':
 			case 'meta_equals':
-				$args = $this->build_meta_query( $key, $value, '=' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '=' );
 				break;
 			case 'meta_not_equals':
-				$args = $this->build_meta_query( $key, $value, '!=' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '!=' );
 				break;
 			case 'meta_gt':
 			case 'meta_greater_than':
-				$args = $this->build_meta_query( $key, $value, '>' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '>' );
 				break;
 			case 'meta_gte':
 			case 'meta_greater_than_or_equal':
-				$args = $this->build_meta_query( $key, $value, '>=' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '>=' );
 				break;
 			case 'meta_like':
-				$args = $this->build_meta_query( $key, $value, 'LIKE' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'LIKE' );
 				break;
 			case 'meta_not_like':
-				$args = $this->build_meta_query( $key, $value, 'NOT LIKE' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT LIKE' );
 				break;
 			case 'meta_lt':
 			case 'meta_less_than':
-				$args = $this->build_meta_query( $key, $value, '<' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '<' );
 				break;
 			case 'meta_lte':
 			case 'meta_less_than_or_equal':
-				$args = $this->build_meta_query( $key, $value, '<=' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '<=' );
 				break;
 			case 'meta_in':
-				$args = $this->build_meta_query( $key, $value, 'IN' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'IN' );
 				break;
 			case 'meta_not_in':
-				$args = $this->build_meta_query( $key, $value, 'NOT IN' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT IN' );
 				break;
 			case 'meta_between':
-				$args = $this->build_meta_query( $key, $value, 'BETWEEN' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'BETWEEN' );
 				break;
 			case 'meta_not_between':
-				$args = $this->build_meta_query( $key, $value, 'NOT BETWEEN' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT BETWEEN' );
 				break;
 			case 'meta_exists':
-				$args = $this->build_meta_query( $key, $value, 'EXISTS' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'EXISTS' );
 				break;
 			case 'meta_not_exists':
-				$args = $this->build_meta_query( $key, $value, 'NOT EXISTS' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT EXISTS' );
 				break;
 			case 'meta_regexp':
 			case 'meta_equals_regexp':
-				$args = $this->build_meta_query( $key, $value, 'REGEXP' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'REGEXP' );
 				break;
 			case 'meta_not_regexp':
 			case 'meta_not_equals_regexp':
-				$args = $this->build_meta_query( $key, $value, 'NOT REGEXP' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT REGEXP' );
 				break;
 			case 'term_id_in':
 				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'term_id', 'IN' );
@@ -775,16 +827,20 @@ class Tribe__Repository__Read
 	 */
 	protected function get_posts_after( $value, $column = 'post_date' ) {
 		$timezone = in_array( $column, array( 'post_date_gmt', 'post_modified_gmt' ) )
-			? DateTimeZone::UTC
+			? 'UTC'
 			: Tribe__Timezones::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
-		$date     = new DateTime( $value, new DateTimeZone( $timezone ) );
+
+		if ( is_numeric( $value ) ) {
+			$value = "@{$value}";
+		}
+
+		$date = new DateTime( $value, new DateTimeZone( $timezone ) );
 
 		$array_key = sprintf( 'by-%s-after', $column );
 
 		return array(
 			'date_query' => array(
 				$array_key => array(
-
 					'inclusive' => true,
 					'column'    => $column,
 					'relation'  => 'AND',
@@ -830,24 +886,30 @@ class Tribe__Repository__Read
 	 * @since TBD
 	 *
 	 * @param string $meta_key
-	 * @param string $meta_value
+	 * @param string|array $meta_value
 	 * @param string $compare
 	 *
 	 * @return array
 	 */
 	protected function build_meta_query( $meta_key, $meta_value = 'value', $compare = '=' ) {
-		$array_key = sprintf( 'by-%s-%s', $meta_key, $compare );
+		$array_key = sanitize_title( sprintf( 'by-%s-%s', $meta_key, $compare ) );
 
-		return array(
+		$meta_query = array(
 			'meta_query' => array(
 				'relation' => 'AND',
 				$array_key => array(
 					'key'     => $meta_key,
 					'value'   => $meta_value,
-					'compare' => $compare,
+					'compare' => strtoupper( $compare ),
 				),
 			),
 		);
+
+		if ( in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
+			unset( $meta_query['meta_query'][ $array_key ]['value'] );
+		}
+
+		return $meta_query;
 	}
 
 	/**
@@ -863,7 +925,7 @@ class Tribe__Repository__Read
 	 * @return array
 	 */
 	protected function build_tax_query( $taxonomy, $terms, $field, $operator ) {
-		$array_key = sprintf( 'by-%s-%s-%s', $taxonomy, $field, $operator );
+		$array_key = sanitize_title( sprintf( 'by-%s-%s-%s', $taxonomy, $field, $operator ) );
 
 		return array(
 			'tax_query' => array(
@@ -879,62 +941,30 @@ class Tribe__Repository__Read
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Returns the query modifier for a key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key
+	 * @param array  $call_args
+	 *
+	 * @return mixed
+	 *
+	 * @throws InvalidArgumentException If the key is not associated to any modifier.
 	 */
-	public function first() {
-		$query     = $this->build_query();
-		$return_id = 'ids' === $query->get( 'fields', '' );
-		$query->set( 'fields', 'ids' );
-		$ids = $query->get_posts();
-
-		if ( empty( $ids ) ) {
-			return null;
+	protected function modify_query( $key, $call_args ) {
+		if ( ! $this->schema_has_modifier_for( $key ) ) {
+			if ( $this->has_default_modifier( $key ) ) {
+				// let's use the default filters normalizing the key first
+				$call_args[0]   = $this->normalize_key( $key );
+				$query_modifier = call_user_func_array( array( $this, 'apply_default_modifier' ), $call_args );
+			} else {
+				throw new InvalidArgumentException( "No modifier found for key {$key}" );
+			}
+		} else {
+			$query_modifier = call_user_func_array( array( $this, 'apply_modifier' ), $call_args );
 		}
 
-		return $return_id ? reset( $ids ) : get_post( reset( $ids ) );
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function last() {
-		$query     = $this->build_query();
-		$return_id = 'ids' === $query->get( 'fields', '' );
-		$query->set( 'fields', 'ids' );
-		$ids = $query->get_posts();
-
-		if ( empty( $ids ) ) {
-			return null;
-		}
-
-		return $return_id ? end( $ids ) : get_post( end( $ids ) );
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function nth( $n ) {
-		$per_page = (int) Tribe__Utils__Array::get_in_any( array(
-			$this->query_args,
-			$this->default_args
-		), 'posts_per_page', get_option( 'posts_per_page' ) );
-
-		if ( - 1 != $per_page && $n > $per_page ) {
-			return null;
-		}
-
-		$query = $this->build_query();
-
-		$return_id = 'ids' === $query->get( 'fields', '' );
-
-		$i = absint( $n ) - 1;
-		$query->set( 'fields', 'ids' );
-		$ids = $query->get_posts();
-
-		if ( empty( $ids[ $i ] ) ) {
-			return null;
-		}
-
-		return $return_id ? $ids[ $i ] : get_post( $ids[ $i ] );
+		return $query_modifier;
 	}
 }
