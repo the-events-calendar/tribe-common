@@ -402,7 +402,7 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 
 		$string_date = '-1 hour';
 		$date        = $two_hours_ago->format( 'Y-m-d H:i:s' );
-		$date_gmt    = $an_hour_ago
+		$date_gmt    = $two_hours_ago
 			->setTimezone( new \DateTimeZone( 'UTC' ) )
 			->format( 'Y-m-d H:i:s' );
 
