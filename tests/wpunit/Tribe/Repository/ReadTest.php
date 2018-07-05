@@ -405,6 +405,29 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 			->setTimezone( new \DateTimeZone( 'UTC' ) )
 			->format( 'Y-m-d H:i:s' );
 
+		codecept_debug( 'Setup: ' . json_encode( [
+				'system_timezone' => date_default_timezone_get(),
+				'wp_timezone'     => get_option( 'timezone_string' ),
+				'past_post'       => [
+					'date'     => get_post( $past_post )->post_date,
+					'date_gmt' => get_post( $past_post )->post_date_gmt,
+				],
+				'recent_post'     => [
+					'date'     => get_post( $recent_post )->post_date,
+					'date_gmt' => get_post( $recent_post )->post_date_gmt,
+				],
+				'future_post'     => [
+					'date'     => get_post( $future_post )->post_date,
+					'date_gmt' => get_post( $future_post )->post_date_gmt,
+				],
+				'a_week_ago'      => $a_week_ago->format( 'Y-m-d H:i:s' ),
+				'an_hour_ago'     => $an_hour_ago->format( 'Y-m-d H:i:s' ),
+				'in_a_week'       => $in_a_week->format( 'Y-m-d H:i:s' ),
+				'string_date'     => $string_date,
+				'date'            => $date,
+				'date_gmt'        => $date_gmt,
+			], JSON_PRETTY_PRINT ) );
+
 		$this->assertEquals( [
 			$recent_post,
 			$future_post,
