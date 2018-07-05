@@ -2,12 +2,14 @@
 
 == Changelog ==
 
-= [4.7.16] TBD =
+= [4.7.17] 2018-07-10 =
 * Add - Method to sanitize a multidimensional array [106000]
 * Add - New is_not_null and is_null methods for Tribe__Validator__Base [109482]
+* Tweak - Added new filter `tribe_plugins_get_list` to give an opportunity to modify the list of tribe plugins [69581]
+
+= [4.7.16] 2018-06-20 =
 * Fix - Fixed a PHP warning related to the RSS feed in the Help page [108398]
 * Tweak - Add notices related to PHP minimum versions [107852]
-* Tweak - Added new filter `tribe_plugins_get_list` to give an opportunity to modify the list of tribe plugins [69581]
 
 = [4.7.15] 2018-06-04 =
 * Add - Method to parse the Global ID string [104379]
