@@ -23,7 +23,7 @@ class Tribe__Admin__Notice__Php_Version {
 	/**
 	 * Return the list of the Tribe active plugins
 	 *
-	 * @since TBD
+	 * @since 4.7.16
 	 *
 	 * @return string String of items
 	 */
@@ -32,6 +32,10 @@ class Tribe__Admin__Notice__Php_Version {
 		$active_plugins = Tribe__Dependency::instance()->get_active_plugins();
 
 		foreach ( $active_plugins as $active_plugin ) {
+
+			if ( ! $active_plugin['path'] ) {
+				continue;
+			}
 
 			$plugin_data = get_plugin_data( $active_plugin['path'] );
 			$plugins[]   = $plugin_data['Name'];
@@ -46,7 +50,7 @@ class Tribe__Admin__Notice__Php_Version {
 	 * Implodes a list items using 'and' as the final separator and a comma everywhere else
 	 *
 	 * @param array $items List of items to implode
-	 * @since TBD
+	 * @since 4.7.16
 	 *
 	 * @return string String of items
 	 */
@@ -67,7 +71,7 @@ class Tribe__Admin__Notice__Php_Version {
 	 * We only want to display notices for users
 	 * who are in PHP < 5.6
 	 *
-	 * @since  TBD
+	 * @since  4.7.16
 	 *
 	 * @return boolean
 	 */
@@ -83,7 +87,7 @@ class Tribe__Admin__Notice__Php_Version {
 	/**
 	 * HTML for the PHP notice
 	 *
-	 * @since  TBD
+	 * @since  4.7.16
 	 *
 	 * @return string
 	 */
