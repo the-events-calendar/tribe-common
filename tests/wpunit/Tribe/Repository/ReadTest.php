@@ -381,6 +381,7 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 
 		$tz          = new \DateTimeZone( $tz_string );
 		$a_week_ago  = new \DateTime( '-1 week', $tz );
+		$two_hours_ago = new \DateTime( '-2 hours', $tz );
 		$an_hour_ago = new \DateTime( '-1 hour', $tz );
 		$in_a_week   = new \DateTime( '+1 week', $tz );
 
@@ -400,7 +401,7 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		] );
 
 		$string_date = '-1 hour';
-		$date        = $an_hour_ago->format( 'Y-m-d H:i:s' );
+		$date        = $two_hours_ago->format( 'Y-m-d H:i:s' );
 		$date_gmt    = $an_hour_ago
 			->setTimezone( new \DateTimeZone( 'UTC' ) )
 			->format( 'Y-m-d H:i:s' );
