@@ -400,7 +400,7 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 			'post_status' => 'future'
 		] );
 
-		$string_date = '-1 hour';
+		$string_date = '-2 days';
 		$date        = $two_days_ago->format( 'Y-m-d H:i:s' );
 		$date_gmt    = $two_days_ago
 			->setTimezone( new \DateTimeZone( 'UTC' ) )
@@ -439,9 +439,7 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		], $this->repository()->fields( 'ids' )->by( 'after_date', $string_date )->all() );
 		$this->assertEquals( [
 			$past_post,
-			$recent_post,
 		], $this->repository()->fields( 'ids' )->by( 'before_date', $date )->all() );
-
 		$this->assertEquals( [
 			$recent_post,
 			$future_post,
@@ -452,7 +450,6 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		], $this->repository()->fields( 'ids' )->by( 'after_date_gmt', $date_gmt )->all() );
 		$this->assertEquals( [
 			$past_post,
-			$recent_post,
 		], $this->repository()->fields( 'ids' )->by( 'before_date_gmt', $string_date )->all() );
 	}
 
