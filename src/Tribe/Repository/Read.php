@@ -125,8 +125,7 @@ class Tribe__Repository__Read
 	/**
 	 * @var array
 	 */
-	protected
-		$default_args = array();
+	protected $default_args = array();
 
 	/**
 	 * @var array An array of query arguments that will be populated while applying
@@ -619,7 +618,7 @@ class Tribe__Repository__Read
 	public function nth( $n ) {
 		$per_page = (int) Tribe__Utils__Array::get_in_any( array(
 			$this->query_args,
-			$this->default_args
+			$this->default_args,
 		), 'posts_per_page', get_option( 'posts_per_page' ) );
 
 		if ( - 1 != $per_page && $n > $per_page ) {
