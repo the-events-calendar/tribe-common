@@ -862,7 +862,7 @@ class Tribe__Repository__Read
 	 */
 	protected function get_posts_before( $value, $column = 'post_date' ) {
 		$timezone = in_array( $column, array( 'post_date_gmt', 'post_modified_gmt' ) )
-			? DateTimeZone::UTC
+			? 'UTC'
 			: Tribe__Timezones::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
 		$date     = new DateTime( $value, new DateTimeZone( $timezone ) );
 

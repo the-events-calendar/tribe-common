@@ -301,22 +301,29 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_selecting_posts_by_date() {
+		$tz_string = 'Asia/Tokyo';
+		update_option( 'timezone_string', $tz_string );
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
-		$a_week_ago  = date( 'Y-m-d H:i:s', strtotime('-1 week') );
-		$an_hour_ago = date( 'Y-m-d H:i:s', strtotime('-1 hour') );
-		$in_a_week   = date( 'Y-m-d H:i:s', strtotime('+1 week') );
-		$past_post   = $this->factory()->post->create( [ 'post_type' => 'book', 'post_date' => $a_week_ago ] );
-		$recent_post = $this->factory()->post->create( [ 'post_type' => 'book', 'post_date' => $an_hour_ago ] );
+		$tz         = new \DateTimeZone( $tz_string );
+		$a_week_ago = new \DateTime( '-1 week', $tz );
+		$an_hour_ago = new \DateTime( '-1 hour', $tz );
+		$in_a_week = new \DateTime( '+1 week', $tz );
+
+		// create posts using the timezone-localized `post_date`
+		$past_post   = $this->factory()->post->create( [ 'post_type' => 'book', 'post_date' => $a_week_ago->format('Y-m-d H:i:s') ] );
+		$recent_post = $this->factory()->post->create( [ 'post_type' => 'book', 'post_date' => $an_hour_ago->format('Y-m-d H:i:s') ] );
 		$future_post = $this->factory()->post->create( [
 			'post_type'   => 'book',
-			'post_date'   => $in_a_week,
+			'post_date'   => $in_a_week->format('Y-m-d H:i:s'),
 			'post_status' => 'future'
 		] );
 
-		$string_date = get_post( $recent_post )->post_date;
-		$string_date_gmt = get_post( $recent_post )->post_date_gmt;
-		$date        = date( 'Y-m-d H:i:s', strtotime( $string_date ) );
+		$string_date = '-1 hour';
+		$date        = $an_hour_ago->format( 'Y-m-d H:i:s' );
+		$date_gmt    = $an_hour_ago
+			->setTimezone( new \DateTimeZone( 'UTC' ) )
+			->format( 'Y-m-d H:i:s' );
 
 		$this->assertEquals( [
 			$recent_post,
@@ -330,14 +337,18 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 			$past_post,
 			$recent_post,
 		], $this->repository()->fields( 'ids' )->by( 'before_date', $date )->all() );
+
 		$this->assertEquals( [
+			$recent_post,
 			$future_post,
 		], $this->repository()->fields( 'ids' )->by( 'date_gmt', $string_date )->all() );
 		$this->assertEquals( [
+			$recent_post,
 			$future_post,
-		], $this->repository()->fields( 'ids' )->by( 'after_date_gmt', $date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'after_date_gmt', $date_gmt )->all() );
 		$this->assertEquals( [
-			$future_post,
+			$past_post,
+			$recent_post,
 		], $this->repository()->fields( 'ids' )->by( 'before_date_gmt', $string_date )->all() );
 	}
 
