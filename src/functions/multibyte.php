@@ -21,6 +21,27 @@ if ( ! function_exists( 'tribe_detect_encoding' ) ) {
 	}
 }
 
+if ( ! function_exists( 'tribe_maybe_urldecode' ) ) {
+	/**
+	 * Detects urlencoded strings if the function is available, and converts them.
+	 * Returns false if not able to detect
+	 * @since TBD
+	 *
+	 * @param  string       $string the string to detect encoding of
+	 * @return string|bool         the urldecoded string
+	 *          the original string if the function is not available or the encoding cannot be determined
+	 */
+	function tribe_maybe_urldecode( $string ) {
+		$encoding = function_exists( 'mb_detect_encoding' ) ? mb_detect_encoding( $string ) : $string;
+
+		if ( 'ASCII' === $encoding ) {
+			return urldecode( $string );
+		}
+
+		return $string;
+	}
+}
+
 if ( ! function_exists( 'tribe_strlen' ) ) {
 	/**
 	 * Get the length of a string, uses mb_strlen when available
@@ -32,6 +53,7 @@ if ( ! function_exists( 'tribe_strlen' ) ) {
 	function tribe_strlen( $string ) {
 		if ( function_exists( 'mb_strlen' ) ) {
 			$encoding = tribe_detect_encoding( $string );
+			$string = tribe_maybe_urldecode( $string );
 			// we test for encoding and pass it if we get it
 			if ( $encoding ) {
 				return mb_strlen( $string, $encoding );
@@ -80,6 +102,7 @@ if ( ! function_exists( 'tribe_strtoupper' ) ) {
 
 		if ( function_exists( 'mb_strtoupper' ) ) {
 			$encoding = tribe_detect_encoding( $string );
+			$string = tribe_maybe_urldecode( $string );
 			// we test for encoding and pass it if we get it
 			if ( $encoding ) {
 				return mb_strtoupper( $string, $encoding );
@@ -108,6 +131,7 @@ if ( ! function_exists( 'tribe_strtolower' ) ) {
 
 		if ( function_exists( 'mb_strtolower' ) ) {
 			$encoding = tribe_detect_encoding( $string );
+			$string = tribe_maybe_urldecode( $string );
 			// we test for encoding and pass it if we get it
 			if ( $encoding ) {
 				return mb_strtolower( $string, $encoding );
