@@ -379,11 +379,11 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		update_option( 'timezone_string', $tz_string );
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
-		$tz          = new \DateTimeZone( $tz_string );
-		$a_week_ago  = new \DateTime( '-1 week', $tz );
-		$two_hours_ago = new \DateTime( '-2 hours', $tz );
-		$an_hour_ago = new \DateTime( '-1 hour', $tz );
-		$in_a_week   = new \DateTime( '+1 week', $tz );
+		$tz           = new \DateTimeZone( $tz_string );
+		$a_week_ago   = new \DateTime( '-1 week', $tz );
+		$two_days_ago = new \DateTime( '-2 days', $tz );
+		$an_hour_ago  = new \DateTime( '-1 hour', $tz );
+		$in_a_week    = new \DateTime( '+1 week', $tz );
 
 		// create posts using the timezone-localized `post_date`
 		$past_post   = $this->factory()->post->create( [
@@ -401,8 +401,8 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		] );
 
 		$string_date = '-1 hour';
-		$date        = $two_hours_ago->format( 'Y-m-d H:i:s' );
-		$date_gmt    = $two_hours_ago
+		$date        = $two_days_ago->format( 'Y-m-d H:i:s' );
+		$date_gmt    = $two_days_ago
 			->setTimezone( new \DateTimeZone( 'UTC' ) )
 			->format( 'Y-m-d H:i:s' );
 
