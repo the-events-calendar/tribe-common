@@ -292,7 +292,81 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_posts_by_taxonomy_terms() {
+		// needed to assign terms
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
+		$fiction     = $this->factory()->term->create( [
+			'taxonomy' => 'genre',
+			'name'     => 'fiction',
+			'slug'     => 'fict'
+		] );
+		$history     = $this->factory()->term->create( [
+			'taxonomy' => 'genre',
+			'name'     => 'history',
+			'slug'     => 'hist'
+		] );
+		$non_fiction = $this->factory()->term->create( [
+			'taxonomy' => 'genre',
+			'name'     => 'non-fiction',
+			'slug'     => 'non-fict'
+		] );
+		$post_1      = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'tax_input' => [ 'genre' => [ 'fiction' ] ]
+		] );
+		$post_2      = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'tax_input' => [ 'genre' => [ 'non-fiction', 'history' ] ]
+		] );
+		$post_3      = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'tax_input' => [ 'genre' => [ 'non-fiction' ] ]
+		] );
+		$post_4      = $this->factory()->post->create( [ 'post_type' => 'book' ] );
+
+		$tax = 'genre';
+
+		$this->assertEquals( [
+			$post_1,
+			$post_2,
+			$post_3
+		], $this->repository()->fields( 'ids' )->by( 'taxonomy_exists', $tax )->all() );
+		$this->assertEquals( [
+			$post_4
+		], $this->repository()->fields( 'ids' )->by( 'taxonomy_not_exists', $tax )->all() );
+		$this->assertEquals( [
+			$post_1,
+			$post_2,
+		], $this->repository()->fields( 'ids' )->by( 'term_id_in', $tax, [ $fiction, $history ] )->all() );
+		$this->assertEquals( [
+			$post_3,
+			$post_4,
+		], $this->repository()->fields( 'ids' )->by( 'term_id_not_in', $tax, [ $fiction, $history ] )->all() );
+		$this->assertEquals( [
+			$post_2,
+		], $this->repository()->fields( 'ids' )->by( 'term_id_and', $tax, [ $non_fiction, $history ] )->all() );
+		$this->assertEquals( [
+			$post_1,
+			$post_2,
+		], $this->repository()->fields( 'ids' )->by( 'term_name_in', $tax, [ 'fiction', 'history' ] )->all() );
+		$this->assertEquals( [
+			$post_3,
+			$post_4,
+		], $this->repository()->fields( 'ids' )->by( 'term_name_not_in', $tax, [ 'fiction', 'history' ] )->all() );
+		$this->assertEquals( [
+			$post_2,
+		], $this->repository()->fields( 'ids' )->by( 'term_name_and', $tax, [ 'non-fiction', 'history' ] )->all() );
+		$this->assertEquals( [
+			$post_1,
+			$post_2
+		], $this->repository()->fields( 'ids' )->by( 'term_slug_in', $tax, [ 'fict', 'hist' ] )->all() );
+		$this->assertEquals( [
+			$post_3,
+			$post_4,
+		], $this->repository()->fields( 'ids' )->by( 'term_slug_not_in', $tax, [ 'fict', 'hist' ] )->all() );
+		$this->assertEquals( [
+			$post_2,
+		], $this->repository()->fields( 'ids' )->by( 'term_slug_and', $tax, [ 'non-fict', 'hist' ] )->all() );
 	}
 
 	/**
@@ -305,17 +379,23 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		update_option( 'timezone_string', $tz_string );
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
-		$tz         = new \DateTimeZone( $tz_string );
-		$a_week_ago = new \DateTime( '-1 week', $tz );
+		$tz          = new \DateTimeZone( $tz_string );
+		$a_week_ago  = new \DateTime( '-1 week', $tz );
 		$an_hour_ago = new \DateTime( '-1 hour', $tz );
-		$in_a_week = new \DateTime( '+1 week', $tz );
+		$in_a_week   = new \DateTime( '+1 week', $tz );
 
 		// create posts using the timezone-localized `post_date`
-		$past_post   = $this->factory()->post->create( [ 'post_type' => 'book', 'post_date' => $a_week_ago->format('Y-m-d H:i:s') ] );
-		$recent_post = $this->factory()->post->create( [ 'post_type' => 'book', 'post_date' => $an_hour_ago->format('Y-m-d H:i:s') ] );
+		$past_post   = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'post_date' => $a_week_ago->format( 'Y-m-d H:i:s' )
+		] );
+		$recent_post = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'post_date' => $an_hour_ago->format( 'Y-m-d H:i:s' )
+		] );
 		$future_post = $this->factory()->post->create( [
 			'post_type'   => 'book',
-			'post_date'   => $in_a_week->format('Y-m-d H:i:s'),
+			'post_date'   => $in_a_week->format( 'Y-m-d H:i:s' ),
 			'post_status' => 'future'
 		] );
 
@@ -360,7 +440,7 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_fetching_posts_by_status() {
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
-		$in_a_week = date( 'Y-m-d H:i:s', strtotime('+1 week') );
+		$in_a_week = date( 'Y-m-d H:i:s', strtotime( '+1 week' ) );
 		$draft     = $this->factory()->post->create( [ 'post_type' => 'book', 'post_status' => 'draft' ] );
 		$published = $this->factory()->post->create( [ 'post_type' => 'book' ] );
 		$future    = $this->factory()->post->create( [
@@ -379,8 +459,9 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( [ $draft, $published, $future ], $repository->by( 'status', 'any' )->all() );
 	}
 
-	protected function _before() {
-		parent::_before();
+	public function setUp() {
+		parent::setUp();
 		register_post_type( 'book' );
+		register_taxonomy( 'genre', 'book' );
 	}
 }

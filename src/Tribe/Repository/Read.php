@@ -91,21 +91,17 @@ class Tribe__Repository__Read
 		'meta_equals_regexp',
 		'meta_not_regexp',
 		'meta_not_equals_regexp',
+		'taxonomy_exists',
+		'taxonomy_not_exists',
 		'term_id_in',
 		'term_id_not_in',
 		'term_id_and',
-		'term_id_exists',
-		'term_id_not_exists',
 		'term_name_in',
 		'term_name_not_in',
 		'term_name_and',
-		'term_name_exists',
-		'term_name_not_exists',
 		'term_slug_in',
 		'term_slug_not_in',
 		'term_slug_and',
-		'term_slug_exists',
-		'term_slug_not_exists',
 	);
 	/**
 	 * @var array An array of default arguments that will be applied to all queries.
@@ -655,8 +651,11 @@ class Tribe__Repository__Read
 	 *
 	 * @return array
 	 */
-	protected function apply_default_modifier( $key, $value, $arg_1 = null ) {
+	protected function apply_default_modifier( $key, $value ) {
 		$args = array();
+
+		$call_args = func_get_args();
+		$arg_1     = isset( $call_args[2] ) ? $call_args[2] : null;
 
 		switch ( $key ) {
 			default:
@@ -764,50 +763,38 @@ class Tribe__Repository__Read
 			case 'meta_not_equals_regexp':
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT REGEXP' );
 				break;
+			case 'taxonomy_exists':
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'EXISTS' );
+				break;
+			case 'taxonomy_not_exists':
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'NOT EXISTS' );
+				break;
 			case 'term_id_in':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'term_id', 'IN' );
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'IN' );
 				break;
 			case 'term_id_not_in':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'term_id', 'NOT IN' );
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'NOT IN' );
 				break;
 			case 'term_id_and':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'term_id', 'AND' );
-				break;
-			case 'term_id_exists':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'term_id', 'EXISTS' );
-				break;
-			case 'term_id_not_exists':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'term_id', 'NOT_EXISTS' );
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'AND' );
 				break;
 			case 'term_name_in':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'name', 'IN' );
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'name', 'IN' );
 				break;
 			case 'term_name_not_in':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'name', 'NOT IN' );
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'name', 'NOT IN' );
 				break;
 			case 'term_name_and':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'name', 'AND' );
-				break;
-			case 'term_name_exists':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'name', 'EXISTS' );
-				break;
-			case 'term_name_not_exists':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'name', 'NOT_EXISTS' );
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'name', 'AND' );
 				break;
 			case 'term_slug_in':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'slug', 'IN' );
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'slug', 'IN' );
 				break;
 			case 'term_slug_not_in':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'slug', 'NOT IN' );
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'slug', 'NOT IN' );
 				break;
 			case 'term_slug_and':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'slug', 'AND' );
-				break;
-			case 'term_slug_exists':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'slug', 'EXISTS' );
-				break;
-			case 'term_slug_not_exists':
-				$args = $this->build_tax_query( $taxonomy = $key, $terms = $value, 'slug', 'NOT_EXISTS' );
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'slug', 'AND' );
 				break;
 		}
 
@@ -836,7 +823,7 @@ class Tribe__Repository__Read
 
 		$date = new DateTime( $value, new DateTimeZone( $timezone ) );
 
-		$array_key = sprintf( 'by-%s-after', $column );
+		$array_key = sprintf( '%s-after', $column );
 
 		return array(
 			'date_query' => array(
@@ -866,7 +853,7 @@ class Tribe__Repository__Read
 			: Tribe__Timezones::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
 		$date     = new DateTime( $value, new DateTimeZone( $timezone ) );
 
-		$array_key = sprintf( 'by-%s-before', $column );
+		$array_key = sprintf( '%s-before', $column );
 
 		return array(
 			'date_query' => array(
@@ -892,7 +879,7 @@ class Tribe__Repository__Read
 	 * @return array
 	 */
 	protected function build_meta_query( $meta_key, $meta_value = 'value', $compare = '=' ) {
-		$array_key = sanitize_title( sprintf( 'by-%s-%s', $meta_key, $compare ) );
+		$array_key = sanitize_title( sprintf( '%s-%s', $meta_key, $compare ) );
 
 		$meta_query = array(
 			'meta_query' => array(
@@ -925,7 +912,11 @@ class Tribe__Repository__Read
 	 * @return array
 	 */
 	protected function build_tax_query( $taxonomy, $terms, $field, $operator ) {
-		$array_key = sanitize_title( sprintf( 'by-%s-%s-%s', $taxonomy, $field, $operator ) );
+		if ( in_array( $operator, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
+			$array_key = sanitize_title( sprintf( '%s-%s', $taxonomy, $operator ) );
+		} else {
+			$array_key = sanitize_title( sprintf( '%s-%s-%s', $taxonomy, $field, $operator ) );
+		}
 
 		return array(
 			'tax_query' => array(
@@ -934,7 +925,7 @@ class Tribe__Repository__Read
 					'taxonomy' => $taxonomy,
 					'field'    => $field,
 					'terms'    => $terms,
-					'operator' => $operator,
+					'operator' => strtoupper( $operator ),
 				),
 			),
 		);
