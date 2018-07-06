@@ -202,7 +202,7 @@ class Tribe__Repository__Read
 				 * We do an `array_merge` recursive here to allow "stacking" of same kind of queries;
 				 * e.g. two or more `tax_query`.
 				 */
-				$this->query_args = wp_parse_args( $this->query_args, $query_modifier );
+				$this->query_args = array_merge_recursive( $this->query_args, $query_modifier );
 			} else {
 				/**
 				 * If we get back something that is not an array then we add it to
@@ -215,7 +215,8 @@ class Tribe__Repository__Read
 			/**
 			 * We allow for the `apply` method to orderly fail to micro-optimize.
 			 * If applying one parameter would yield no results then let's immediately bail.
-			 * Schema should throw this Exception if a light-weight on the filters would already
+			 * Schema should throw t
+			 * his Exception if a light-weight on the filters would already
 			 * deem a query as yielding nothing.
 			 */
 			$this->void_query = true;
@@ -289,7 +290,7 @@ class Tribe__Repository__Read
 	 * {@inheritdoc}
 	 */
 	public function where( $key, $value ) {
-		return $this->by( $key, $value );
+		return call_user_func_array( array( $this, 'by' ), func_get_args() );
 	}
 
 	/**
@@ -429,25 +430,36 @@ class Tribe__Repository__Read
 	 */
 	public function all() {
 		if ( $this->void_query ) {
-			$results = array();
-		} else {
-			// skip counting the found rows to speed up the query
-			$this->query_args['no_found_rows'] = true;
-			$query                             = $this->build_query();
-
-			/**
-			 * Filters the query object by reference before getting the posts.
-			 *
-			 * @since TBD
-			 *
-			 * @param WP_Query $query
-			 */
-			do_action_ref_array( "{$this->filter_name}_pre_get_posts", array( &$query ) );
-
-			$results = $query->get_posts();
+			return array();
 		}
 
-		return $results;
+		$query = $this->build_query();
+
+		$return_ids = 'ids' === $query->get( 'fields', '' );
+
+		// skip counting the found rows to speed up the query
+		$query->set( 'no_found_rows', true );
+		// we'll let the class build the items later
+		$query->set( 'fields', 'ids' );
+
+		/**
+		 * Filters the query object by reference before getting the posts.
+		 *
+		 * @since TBD
+		 *
+		 * @param WP_Query $query
+		 */
+		do_action_ref_array( "{$this->filter_name}_pre_get_posts", array( &$query ) );
+
+		$results = $query->get_posts();
+		/**
+		 * Allow extending classes to customize the return value.
+		 * Since we are filtering the array returning empty values while formatting
+		 * the item will exclude it from the return values.
+		 */
+		return $return_ids
+			? $results
+			: array_filter( array_map( array( $this, 'format_item' ), $results ) );
 	}
 
 	/**
@@ -593,7 +605,7 @@ class Tribe__Repository__Read
 			return null;
 		}
 
-		return $return_id ? reset( $ids ) : get_post( reset( $ids ) );
+		return $return_id ? reset( $ids ) : $this->format_item( reset( $ids ) );
 	}
 
 	/**
@@ -609,7 +621,7 @@ class Tribe__Repository__Read
 			return null;
 		}
 
-		return $return_id ? end( $ids ) : get_post( end( $ids ) );
+		return $return_id ? end( $ids ) : $this->format_item( end( $ids ) );
 	}
 
 	/**
@@ -637,7 +649,7 @@ class Tribe__Repository__Read
 			return null;
 		}
 
-		return $return_id ? $ids[ $i ] : get_post( $ids[ $i ] );
+		return $return_id ? $ids[ $i ] : $this->format_item( $ids[ $i ] );
 	}
 
 	/**
@@ -956,5 +968,21 @@ class Tribe__Repository__Read
 		}
 
 		return $query_modifier;
+	}
+
+	/**
+	 * Formats a post handled by the repository to the expected
+	 * format.
+	 *
+	 * Extending classes should use this method to format return values to the expected format.
+	 *
+	 * @since TBD
+	 *
+	 * @param int|WP_Post $id
+	 *
+	 * @return WP_Post
+	 */
+	protected function format_item( $id ) {
+		return get_post( $id );
 	}
 }

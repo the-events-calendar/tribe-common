@@ -50,7 +50,7 @@ abstract class Tribe__Repository__Specialized_Base {
 	 *
 	 * @return mixed A scalar value or a callable.
 	 */
-	protected function apply_modifier( $key, $value ) {
+	public function apply_modifier( $key, $value ) {
 		$call_args = func_get_args();
 
 		$application = Tribe__Utils__Array::get( $this->schema, $key, null );
