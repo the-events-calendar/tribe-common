@@ -49,11 +49,11 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 * @param string $name
 	 *
 	 * @return mixed|null
-	 * @throws Tribe__Repository__Implementation_Error If trying to access a non defined property.
+	 * @throws Tribe__Repository__Usage_Error If trying to access a non defined property.
 	 */
 	public function __get( $name ) {
 		if ( ! property_exists( $this, $name ) ) {
-			throw Tribe__Repository__Implementation_Error::because_property_is_not_defined( $name, $this );
+			throw Tribe__Repository__Usage_Error::because_property_is_not_defined( $name, $this );
 		}
 
 		return $this->{$name};
@@ -67,11 +67,11 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 * @param string $name
 	 * @param mixed $value
 	 *
-	 * @throws Tribe__Repository__Usage_Exception As properties have to be set extending
+	 * @throws Tribe__Repository__Usage_Error As properties have to be set extending
 	 * the class, using setter methods or via constructor injection
 	 */
 	public function __set( $name, $value ) {
-		throw Tribe__Repository__Usage_Exception::because_properties_should_be_set_correctly($name,$this);
+		throw Tribe__Repository__Usage_Error::because_properties_should_be_set_correctly($name,$this);
 	}
 
 	/**

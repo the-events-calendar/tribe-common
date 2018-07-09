@@ -952,7 +952,7 @@ class Tribe__Repository__Read
 	 *
 	 * @return mixed
 	 *
-	 * @throws Tribe__Repository__Usage_Exception If the required filter is not defined by the class.
+	 * @throws Tribe__Repository__Usage_Error If the required filter is not defined by the class.
 	 */
 	protected function modify_query( $key, $call_args ) {
 		if ( ! $this->schema_has_modifier_for( $key ) ) {
@@ -961,7 +961,7 @@ class Tribe__Repository__Read
 				$call_args[0]   = $this->normalize_key( $key );
 				$query_modifier = call_user_func_array( array( $this, 'apply_default_modifier' ), $call_args );
 			} else {
-				throw Tribe__Repository__Usage_Exception::because_the_read_filter_is_not_defined( $key, $this );
+				throw Tribe__Repository__Usage_Error::because_the_read_filter_is_not_defined( $key, $this );
 			}
 		} else {
 			$query_modifier = call_user_func_array( array( $this, 'apply_modifier' ), $call_args );
