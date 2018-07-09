@@ -9,6 +9,11 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	/**
 	 * @var array
 	 */
+	protected $create_schema = array();
+
+	/**
+	 * @var array
+	 */
 	protected $default_args = array( 'post_type' => 'post' );
 
 	/**
@@ -44,9 +49,14 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 * @param string $name
 	 *
 	 * @return mixed|null
+	 * @throws Tribe__Repository__Implementation_Error If trying to access a non defined property.
 	 */
 	public function __get( $name ) {
-		return isset( $this->{$name} ) ? $this->{$name} : null;
+		if ( ! property_exists( $this, $name ) ) {
+			throw Tribe__Repository__Implementation_Error::because_property_is_not_defined( $name, $this );
+		}
+
+		return $this->{$name};
 	}
 
 	/**
@@ -57,11 +67,11 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 * @param string $name
 	 * @param mixed $value
 	 *
-	 * @throws InvalidArgumentException As properties have to be set extending
+	 * @throws Tribe__Repository__Usage_Exception As properties have to be set extending
 	 * the class, using setter methods or via constructor injection
 	 */
 	public function __set( $name, $value ) {
-		throw new InvalidArgumentException( "Either use setter methods, constructor injection or class extension to set the {$name} property." );
+		throw Tribe__Repository__Usage_Exception::because_properties_should_be_set_correctly($name,$this);
 	}
 
 	/**
@@ -74,6 +84,7 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 * @return bool
 	 */
 	public function __isset( $name ) {
-		return property_exists( $this, $name );
+		return property_exists( $this, $name ) && isset( $this->{$name} );
+	}
 	}
 }

@@ -485,4 +485,63 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		register_post_type( 'book' );
 		register_taxonomy( 'genre', 'book' );
 	}
+
+	/**
+	 * It should allow taking subset of query
+	 *
+	 * @test
+	 */
+	public function should_allow_taking_subset_of_query() {
+		$repository = $this->repository();
+		$all_ids    = $this->factory()->post->create_many( 10, [ 'post_type' => 'book' ] );
+
+		$results = $repository->fields( 'ids' )->take( 2 );
+
+		$this->assertCount( 2, $results );
+		$this->assertEquals( [ $all_ids[0], $all_ids[1] ], $results );
+		$this->assertEquals( 10, $repository->found() );
+		$this->assertEquals( 10, $repository->count() );
+	}
+
+	/**
+	 * It should allow taking a subset of the query when paginating
+	 *
+	 * @test
+	 */
+	public function should_allow_taking_a_subset_of_the_query_when_paginating() {
+		$repository = $this->repository();
+		$all_ids    = $this->factory()->post->create_many( 10, [ 'post_type' => 'book' ] );
+
+		$results = $repository
+			->fields( 'ids' )
+			->per_page(3)
+			->page(2)
+			->take( 2 );
+
+		$this->assertCount( 2, $results );
+		$this->assertEquals( [ $all_ids[3], $all_ids[4] ], $results );
+		$this->assertEquals( 10, $repository->found() );
+		$this->assertEquals( 3, $repository->count() );
+	}
+
+	/**
+	 * It should return available when taking more then available
+	 *
+	 * @test
+	 */
+	public function should_return_available_when_taking_more_then_available() {
+		$repository = $this->repository();
+		$all_ids    = $this->factory()->post->create_many( 10, [ 'post_type' => 'book' ] );
+
+		$results = $repository
+			->fields( 'ids' )
+			->per_page( 3 )
+			->page( 2 )
+			->take( 4 );
+
+		$this->assertCount( 3, $results );
+		$this->assertEquals( [ $all_ids[3], $all_ids[4], $all_ids[5] ], $results );
+		$this->assertEquals( 10, $repository->found() );
+		$this->assertEquals( 3, $repository->count() );
+	}
 }

@@ -211,7 +211,7 @@ class Tribe__Repository__Read
 				 */
 				$this->query_modifiers[] = $query_modifier;
 			}
-		} catch ( Tribe__Repository__No_Result_Exception $e ) {
+		} catch ( Tribe__Repository__Void_Query_Exception $e ) {
 			/**
 			 * We allow for the `apply` method to orderly fail to micro-optimize.
 			 * If applying one parameter would yield no results then let's immediately bail.
@@ -868,10 +868,10 @@ class Tribe__Repository__Read
 
 		return array(
 			'date_query' => array(
+				'relation' => 'AND',
 				$array_key => array(
 					'inclusive' => true,
 					'column'    => $column,
-					'relation'  => 'AND',
 					'before'    => $date->format( 'Y-m-d H:i:s' ),
 				),
 			),
@@ -952,7 +952,7 @@ class Tribe__Repository__Read
 	 *
 	 * @return mixed
 	 *
-	 * @throws InvalidArgumentException If the key is not associated to any modifier.
+	 * @throws Tribe__Repository__Usage_Exception If the required filter is not defined by the class.
 	 */
 	protected function modify_query( $key, $call_args ) {
 		if ( ! $this->schema_has_modifier_for( $key ) ) {
@@ -961,7 +961,7 @@ class Tribe__Repository__Read
 				$call_args[0]   = $this->normalize_key( $key );
 				$query_modifier = call_user_func_array( array( $this, 'apply_default_modifier' ), $call_args );
 			} else {
-				throw new InvalidArgumentException( "No modifier found for key {$key}" );
+				throw Tribe__Repository__Usage_Exception::because_the_read_filter_is_not_defined( $key, $this );
 			}
 		} else {
 			$query_modifier = call_user_func_array( array( $this, 'apply_modifier' ), $call_args );
@@ -984,5 +984,23 @@ class Tribe__Repository__Read
 	 */
 	protected function format_item( $id ) {
 		return get_post( $id );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function take( $n  ) {
+		$query     = $this->build_query();
+		$return_id = 'ids' === $query->get( 'fields', '' );
+		$query->set( 'fields', 'ids' );
+		$matching_ids = $query->get_posts();
+
+		if ( empty( $matching_ids ) ) {
+			return array();
+		}
+
+		$spliced = array_splice( $matching_ids, 0, $n );
+
+		return $return_id ? $spliced : array_map( array( $this, 'format_item' ), $spliced );
 	}
 }

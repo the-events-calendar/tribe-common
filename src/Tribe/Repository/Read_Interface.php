@@ -319,4 +319,19 @@ interface Tribe__Repository__Read_Interface {
 	 * @see   Tribe__Repository__Read_Interface::per_page()
 	 */
 	public function nth( $n );
+
+	/**
+	 * Returns the first n posts of the page matching the current query.
+	 *
+	 * If, by default or because set with the `per_page` method, all
+	 * posts matching the query should be returned then this method will
+	 * return the first n posts of all those matching the query.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of posts matching the query.
+	 *
+	 * @see Tribe__Repository__Read_Interface::per_page()
+	 */
+	public function take( $n );
 }
