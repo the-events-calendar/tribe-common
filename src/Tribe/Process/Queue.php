@@ -339,6 +339,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		) {
 			$result = $this->sync_process( $this->data );
 			$this->complete();
+			
 			return $result;
 		}
 
