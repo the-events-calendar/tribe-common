@@ -337,7 +337,10 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 			|| (bool) tribe_get_request_var( 'tribe_queue_sync', false )
 			|| tribe_is_truthy( tribe_get_option( 'tribe_queue_sync', false ) )
 		) {
-			return $this->sync_process( $this->data );
+			$result = $this->sync_process( $this->data );
+			$this->complete();
+			
+			return $result;
 		}
 
 		return parent::dispatch();
