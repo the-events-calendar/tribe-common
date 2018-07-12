@@ -71,7 +71,7 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 * the class, using setter methods or via constructor injection
 	 */
 	public function __set( $name, $value ) {
-		throw Tribe__Repository__Usage_Error::because_properties_should_be_set_correctly($name,$this);
+		throw Tribe__Repository__Usage_Error::because_properties_should_be_set_correctly( $name, $this );
 	}
 
 	/**
