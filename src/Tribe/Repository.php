@@ -86,5 +86,4 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	public function __isset( $name ) {
 		return property_exists( $this, $name ) && isset( $this->{$name} );
 	}
-	}
 }
