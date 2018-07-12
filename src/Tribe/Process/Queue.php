@@ -212,7 +212,8 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		$done     = $this->original_batch_count - count( $data );
 
 		$update_data = array_merge( $meta, array(
-			'done' => $meta['done'] + $done,
+			'done'        => $meta['done'] + $done,
+			'last_update' => time(),
 		) );
 
 		/**
@@ -239,10 +240,11 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		$fragments_count = $this->save_split_data( $key, $this->data );
 
 		$save_data = array(
-			'identifier' => $this->identifier,
-			'done'       => 0,
-			'total'      => count( $this->data ),
-			'fragments'  => $fragments_count,
+			'identifier'  => $this->identifier,
+			'done'        => 0,
+			'total'       => count( $this->data ),
+			'fragments'   => $fragments_count,
+			'last_update' => time(),
 		);
 
 		/**
