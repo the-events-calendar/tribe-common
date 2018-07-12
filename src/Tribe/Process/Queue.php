@@ -101,10 +101,11 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	public static function get_status_of( $queue_id ) {
 		$meta = (array) get_transient( $queue_id . '_meta' );
 		$data = array(
-			'identifier' => $queue_id,
-			'done'       => (int) Tribe__Utils__Array::get( $meta, 'done', 0 ),
-			'total'      => (int) Tribe__Utils__Array::get( $meta, 'total', 0 ),
-			'fragments'  => (int) Tribe__Utils__Array::get( $meta, 'fragments', 0 ),
+			'identifier'  => $queue_id,
+			'done'        => (int) Tribe__Utils__Array::get( $meta, 'done', 0 ),
+			'total'       => (int) Tribe__Utils__Array::get( $meta, 'total', 0 ),
+			'fragments'   => (int) Tribe__Utils__Array::get( $meta, 'fragments', 0 ),
+			'last_update' => (int) Tribe__Utils__Array::get( $meta, 'last_update', false ),
 		);
 
 		return new Tribe__Data( $data, 0 );
@@ -127,12 +128,52 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Whether a queue process is stuck or not.
+	 *
+	 * A queue process that has not been doing anything for an amount
+	 * of time is considered "stuck".
+	 *
+	 * @since TBD
+	 *
+	 * @param string $queue_id The queue process unique identifier.
+	 *
+	 * @return bool
 	 */
-	public function delete( $key ) {
+	public static function is_stuck( $queue_id ) {
+		$queue_status = self::get_status_of( $queue_id );
+		$is_stuck     = false;
+
+		/**
+		 * Filters the maximum allowed time a queue process can go without updates
+		 * before being considered stuck.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $time_limit A value in seconds, defaults to 15'.
+		 */
+		$limit = (int) apply_filters( 'tribe_process_queue_time_limit', 30 );
+
+		if ( ! empty( $queue_status['last_update'] ) && is_numeric( $queue_status['last_update'] ) ) {
+			$is_stuck = time() - (int) $queue_status['last_update'] > $limit;
+		} else {
+			$queue_status['last_update'] = time();
+			set_transient( $queue_id . '_meta', $queue_status->to_array(), DAY_IN_SECONDS );
+		}
+
+		return $is_stuck;
+	}
+
+	/**
+	 * Deletes a queue batch(es) and meta information.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key
+	 */
+	public static function delete_queue( $key ) {
 		global $wpdb;
 
-		$meta_key = $this->get_meta_key( $key );
+		$meta_key = $key . '_meta';
 
 		$table  = $wpdb->options;
 		$column = 'option_name';
@@ -151,6 +192,13 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		", $key ) );
 
 		delete_transient( $meta_key );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function delete( $key ) {
+		self::delete_queue( $key );
 
 		return $this;
 	}
@@ -177,7 +225,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		 */
 		$update_data = apply_filters( "tribe_process_queue_{$this->identifier}_update_data", $update_data, $this );
 
-		set_transient( $meta_key, $update_data );
+		set_transient( $meta_key, $update_data, DAY_IN_SECONDS );
 
 		return parent::update( $key, $data );
 	}
