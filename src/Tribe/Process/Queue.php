@@ -127,7 +127,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		 *
 		 * @param int $time_limit A value in seconds, defaults to 5'.
 		 */
-		$limit = (int) apply_filters( 'tribe_process_queue_time_limit', 300 );
+		$limit = (float) apply_filters( 'tribe_process_queue_time_limit', 300 );
 
 		if ( ! empty( $queue_status['last_update'] ) && is_numeric( $queue_status['last_update'] ) ) {
 			$is_stuck = time() - (int) $queue_status['last_update'] > $limit;
