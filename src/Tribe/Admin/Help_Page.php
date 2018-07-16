@@ -806,7 +806,7 @@ class Tribe__Admin__Help_Page {
 		}
 		?>
 		<div class="tribe-help-plugin-info">
-			<h3><a href="<?php echo esc_url( $plugin->repo ); ?>"><?php echo esc_html( $plugin->title ); ?></a></h3>
+			<h3><a href="<?php echo esc_url( $plugin->repo ); ?>" target="_blank"><?php echo esc_html( $plugin->title ); ?></a></h3>
 
 			<?php
 			if ( ! empty( $plugin->description ) && ! $plugin->is_active ) {
