@@ -281,7 +281,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return WP_Post|null
+	 * @return WP_Post|mixed|null
 	 *
 	 * @see Tribe__Repository__Read_Interface::per_page()
 	 */
@@ -296,7 +296,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return WP_Post|null
+	 * @return WP_Post|mixed|null
 	 *
 	 * @see Tribe__Repository__Read_Interface::per_page()
 	 */
@@ -314,7 +314,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param int $n
 	 *
-	 * @return WP_Post|null
+	 * @return WP_Post|mixed|null
 	 *
 	 * @see   Tribe__Repository__Read_Interface::per_page()
 	 */
@@ -334,4 +334,16 @@ interface Tribe__Repository__Read_Interface {
 	 * @see Tribe__Repository__Read_Interface::per_page()
 	 */
 	public function take( $n );
+
+	/**
+	 * Fetches a single instance of the post type handled by the repository by
+	 * the primary key.
+	 *
+	 * By default the primary key is the post ID.
+	 *
+	 * @param mixed $primary_key
+	 *
+	 * @return WP_Post|null|mixed
+	 */
+	public function by_primary_key( $primary_key );
 }

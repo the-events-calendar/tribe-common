@@ -544,4 +544,52 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 10, $repository->found() );
 		$this->assertEquals( 3, $repository->count() );
 	}
+
+	/**
+	 * It should allow getting a post by its primary key
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_a_post_by_its_primary_key() {
+		$post_id    = $this->factory()->post->create( [ 'post_type' => 'book' ] );
+		$repository = $this->repository();
+
+		$book = $repository->by_primary_key( $post_id );
+
+		$this->assertEquals( get_post( $post_id ), $book );
+	}
+
+	/**
+	 * It should return null when getting a post by primary key and it does not exist
+	 *
+	 * @test
+	 */
+	public function should_return_null_when_getting_a_post_by_primary_key_and_it_does_not_exist() {
+		$repository = $this->repository();
+
+		$book = $repository->by_primary_key( 24234234 );
+
+		$this->assertNull( $book );
+	}
+
+	/**
+	 * It should not take permissions into account when reading posts by primary key
+	 *
+	 * @test
+	 */
+	public function should_not_take_permissions_into_account_when_reding_posts_by_primary_key() {
+		$public     = $this->factory()->post->create_and_get( [ 'post_type' => 'book', 'post_status' => 'public' ] );
+		$private    = $this->factory()->post->create_and_get( [ 'post_type' => 'book', 'post_status' => 'private' ] );
+		$subscriber = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
+		$editor     = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		$repository = $this->repository();
+
+		wp_set_current_user( $subscriber );
+		$this->assertEquals( $public, $repository->by_primary_key( $public->ID ) );
+		$this->assertEquals($private, $repository->by_primary_key( $private->ID ) );
+
+		wp_set_current_user( $editor );
+		$this->assertEquals( $public , $repository->by_primary_key( $public->ID ) );
+		$this->assertEquals( $private , $repository->by_primary_key( $private->ID ) );
+	}
 }

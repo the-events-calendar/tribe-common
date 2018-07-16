@@ -144,6 +144,52 @@ class Tribe__Repository__Read
 	protected $filter_query;
 
 	/**
+	 * @var string The filter that should be used to get a post by its primary key.
+	 */
+	protected $primary_key ='p';
+
+	/**
+	 * @var array A list of query modifiers that will trigger a recursive merge, thus
+	 *            not replacing previous values, when set multiple times.
+	 */
+	protected static $stackable_modifiers = array(
+		'meta',
+		'meta_equals',
+		'meta_not_equals',
+		'meta_gt',
+		'meta_greater_than',
+		'meta_gte',
+		'meta_greater_than_or_equal',
+		'meta_like',
+		'meta_not_like',
+		'meta_lt',
+		'meta_less_than',
+		'meta_lte',
+		'meta_less_than_or_equal',
+		'meta_in',
+		'meta_not_in',
+		'meta_between',
+		'meta_not_between',
+		'meta_exists',
+		'meta_not_exists',
+		'meta_regexp',
+		'meta_equals_regexp',
+		'meta_not_regexp',
+		'meta_not_equals_regexp',
+		'taxonomy_exists',
+		'taxonomy_not_exists',
+		'term_id_in',
+		'term_id_not_in',
+		'term_id_and',
+		'term_name_in',
+		'term_name_not_in',
+		'term_name_and',
+		'term_slug_in',
+		'term_slug_not_in',
+		'term_slug_and',
+	);
+
+	/**
 	 * Tribe__Repository__Read constructor.
 	 *
 	 * @since TBD
@@ -198,11 +244,20 @@ class Tribe__Repository__Read
 					throw new InvalidArgumentException( 'Query modifier should be an array!' );
 				}
 
-				/**
-				 * We do an `array_merge` recursive here to allow "stacking" of same kind of queries;
-				 * e.g. two or more `tax_query`.
-				 */
-				$this->query_args = array_merge_recursive( $this->query_args, $query_modifier );
+				$should_stack_modifiers = in_array( $key, self::$stackable_modifiers, true );
+				if ( $should_stack_modifiers ) {
+					/**
+					 * We do a recursive merge to allow "stacking" of same kind of queries;
+					 * e.g. two or more `tax_query`.
+					 */
+					$this->query_args = array_merge_recursive( $this->query_args, $query_modifier );
+				} else {
+					/**
+					 * We do a merge to make sure new values will override and replace the old
+					 * ones.
+					 */
+					$this->query_args = array_merge( $this->query_args, $query_modifier );
+				}
 			} else {
 				/**
 				 * If we get back something that is not an array then we add it to
@@ -1002,5 +1057,19 @@ class Tribe__Repository__Read
 		$spliced = array_splice( $matching_ids, 0, $n );
 
 		return $return_id ? $spliced : array_map( array( $this, 'format_item' ), $spliced );
+	}
+
+	/**
+	 * Fetches a single instance of the post type handled by the repository.
+	 *
+	 * Similarly to the `get_post` function permissions are not taken into account when returning
+	 * an instance by its primary key; extending classes can refine this behaviour to suit.
+	 *
+	 * @param mixed $primary_key
+	 *
+	 * @return WP_Post|null|mixed
+	 */
+	public function by_primary_key( $primary_key ) {
+		return $this->by( $this->primary_key, $primary_key )->first();
 	}
 }
