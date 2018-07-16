@@ -149,44 +149,62 @@ class Tribe__Repository__Read
 	protected $primary_key ='p';
 
 	/**
-	 * @var array A list of query modifiers that will trigger a recursive merge, thus
-	 *            not replacing previous values, when set multiple times.
+	 * @var array A list of query modifiers that will trigger a overriding merge, thus
+	 *            replacing previous values, when set multiple times.
 	 */
-	protected static $stackable_modifiers = array(
-		'meta',
-		'meta_equals',
-		'meta_not_equals',
-		'meta_gt',
-		'meta_greater_than',
-		'meta_gte',
-		'meta_greater_than_or_equal',
-		'meta_like',
-		'meta_not_like',
-		'meta_lt',
-		'meta_less_than',
-		'meta_lte',
-		'meta_less_than_or_equal',
-		'meta_in',
-		'meta_not_in',
-		'meta_between',
-		'meta_not_between',
-		'meta_exists',
-		'meta_not_exists',
-		'meta_regexp',
-		'meta_equals_regexp',
-		'meta_not_regexp',
-		'meta_not_equals_regexp',
-		'taxonomy_exists',
-		'taxonomy_not_exists',
-		'term_id_in',
-		'term_id_not_in',
-		'term_id_and',
-		'term_name_in',
-		'term_name_not_in',
-		'term_name_and',
-		'term_slug_in',
-		'term_slug_not_in',
-		'term_slug_and',
+	protected static $replacing_modifiers = array(
+		'p',
+		'author',
+		'author_name',
+		'author__in',
+		'author__not_in',
+		'has_password',
+		'post_password',
+		'cat',
+		'category__and',
+		'category__in',
+		'category__not_in',
+		'category_name',
+		'comment_count',
+		'comment_status',
+		'menu_order',
+		'title',
+		'title_like',
+		'name',
+		'post_name__in',
+		'ping_status',
+		'post__in',
+		'post__not_in',
+		'post_parent',
+		'post_parent__in',
+		'post_parent__not_in',
+		'post_mime_type',
+		's',
+		'tag',
+		'tag__and',
+		'tag__in',
+		'tag__not_in',
+		'tag_id',
+		'tag_slug__and',
+		'tag_slug__in',
+		'ID',
+		'id',
+		'date',
+		'after_date',
+		'before_date',
+		'date_gmt',
+		'after_date_gmt',
+		'before_date_gmt',
+		'post_title',
+		'post_content',
+		'post_excerpt',
+		'post_status',
+		'to_ping',
+		'post_modified',
+		'post_modified_gmt',
+		'post_content_filtered',
+		'guid',
+		'perm',
 	);
 
 	/**
@@ -244,19 +262,19 @@ class Tribe__Repository__Read
 					throw new InvalidArgumentException( 'Query modifier should be an array!' );
 				}
 
-				$should_stack_modifiers = in_array( $key, self::$stackable_modifiers, true );
-				if ( $should_stack_modifiers ) {
-					/**
-					 * We do a recursive merge to allow "stacking" of same kind of queries;
-					 * e.g. two or more `tax_query`.
-					 */
-					$this->query_args = array_merge_recursive( $this->query_args, $query_modifier );
-				} else {
+				$replace_modifiers = in_array( $key, $this->replacing_modifiers(), true );
+				if ( $replace_modifiers ) {
 					/**
 					 * We do a merge to make sure new values will override and replace the old
 					 * ones.
 					 */
 					$this->query_args = array_merge( $this->query_args, $query_modifier );
+				} else {
+					/**
+					 * We do a recursive merge to allow "stacking" of same kind of queries;
+					 * e.g. two or more `tax_query`.
+					 */
+					$this->query_args = array_merge_recursive( $this->query_args, $query_modifier );
 				}
 			} else {
 				/**
@@ -1071,5 +1089,20 @@ class Tribe__Repository__Read
 	 */
 	public function by_primary_key( $primary_key ) {
 		return $this->by( $this->primary_key, $primary_key )->first();
+	}
+
+	/**
+	 * Returns a list of modifiers that, when applied multiple times,
+	 * will replace the previous value.
+	 *
+	 * This behaviour is in opposition to "stackable" modifiers that will,
+	 * instead, be composed and stacked.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function replacing_modifiers() {
+		return self::$replacing_modifiers;
 	}
 }
