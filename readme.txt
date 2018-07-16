@@ -3,7 +3,7 @@
 == Changelog ==
 
 = [4.7.18] TBD =
-* Fix - Add `target="blank"` to repository links in the Help Page [107974]
+* Fix - Add `target="_blank"` to repository links in the Help Page [107974]
 
 = [4.7.17] 2018-07-10 =
 * Add - Method to sanitize a multidimensional array [106000]
