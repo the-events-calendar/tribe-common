@@ -572,7 +572,7 @@ class Tribe__Repository__Read
 	 * {@inheritdoc}
 	 */
 	public function order_by( $order_by ) {
-		$this->query_args['order_by'] = $order_by;
+		$this->query_args['orderby'] = $order_by;
 
 		return $this;
 	}
