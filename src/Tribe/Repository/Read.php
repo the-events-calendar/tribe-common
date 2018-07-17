@@ -43,6 +43,7 @@ class Tribe__Repository__Read
 		'post_parent__not_in',
 		'post_mime_type',
 		's',
+		'search',
 		'tag',
 		'tag__and',
 		'tag__in',
@@ -180,6 +181,7 @@ class Tribe__Repository__Read
 		'post_parent__not_in',
 		'post_mime_type',
 		's',
+		'search',
 		'tag',
 		'tag__and',
 		'tag__in',
@@ -750,6 +752,9 @@ class Tribe__Repository__Read
 			case 'ID':
 			case 'id':
 				$args = array( 'p' => $value );
+				break;
+			case 'search':
+				$args = array( 's' => $value );
 				break;
 			case 'post_status':
 				$this->query_args['post_status'] = (array) $value;
