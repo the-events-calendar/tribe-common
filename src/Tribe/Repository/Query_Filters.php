@@ -386,4 +386,133 @@ class Tribe__Repository__Query_Filters {
 		// let's make sure we clean up when the object is dereferenced
 		$this->remove_filters();
 	}
+
+	/**
+	 * Builds an "not exists or is not in" media query.
+	 *
+	 * @since TBD
+	 *
+	 * @param int|string|array $values    A single value, an array of values or a CSV list of values.
+	 * @param string           $query_slug
+	 * @param array            $meta_keys On what meta_keys the check should be made.
+	 *
+	 * @return array
+	 */
+	public static function not_in_media_query( $values, $query_slug, $meta_keys ) {
+		$values = Tribe__Utils__Array::list_to_array( $values );
+
+		if ( empty( $values ) ) {
+			return array();
+		}
+
+		$return = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'AND',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $key ) {
+			$return['meta_query'][ $query_slug ][ $key ] = array(
+				'not-exists' => array(
+					'key'     => $key,
+					'compare' => 'NOT EXISTS',
+				),
+				'relation'   => 'OR',
+			);
+
+			if ( count( $values ) > 1 ) {
+				$return['meta_query'][ $query_slug ][ $key ]['not-in'] = array(
+					'key'     => $key,
+					'compare' => 'NOT IN',
+					'value'   => $values,
+				);
+			} else {
+				$return['meta_query'][ $query_slug ][ $key ]['not-equals'] = array(
+					'key'     => $key,
+					'value'   => $values[0],
+					'compare' => '!=',
+				);
+			}
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Builds an "exists and is in" media query.
+	 *
+	 * @since TBD
+	 *
+	 * @param int|string|array $values    A single value, an array of values or a CSV list of values.
+	 * @param string           $query_slug
+	 * @param array            $meta_keys On what meta_keys the check should be made.
+	 *
+	 * @return array
+	 */
+	public static function in_media_query( $values, $query_slug, $meta_keys ) {
+		$values = Tribe__Utils__Array::list_to_array( $values );
+
+		if ( empty( $values ) ) {
+			return array();
+		}
+
+		$return = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'OR',
+				),
+			),
+		);
+
+		if ( count( $values ) === 1 ) {
+			foreach ( $meta_keys as $key ) {
+				$return['meta_query'][ $query_slug ][] = array( 'key' => $key, 'value' => $values );
+			}
+		} else {
+			foreach ( $meta_keys as $key ) {
+				$return['meta_query'][ $query_slug ][] = array(
+					'key'     => $key,
+					'compare' => 'IN',
+					'value'   => $values,
+				);
+			}
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Builds a meta query to check that at least of the meta key exists.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $meta_keys
+	 * @param string $query_slug
+	 *
+	 * @return array
+	 */
+	public static function exists_media_query( $meta_keys, $query_slug ) {
+		if ( empty( $meta_keys ) ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'OR',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $meta_key ) {
+			$args['meta_query'][ $query_slug ][ $meta_key ] = array(
+				'key'     => $meta_key,
+				'compare' => 'EXISTS',
+			);
+		}
+
+		return $args;
+	}
 }
