@@ -35,4 +35,13 @@ interface Tribe__Repository__Interface {
 	 * @return mixed
 	 */
 	public function set_default_args( array $default_args );
+
+	/**
+	 * Returns the Update repository.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tribe__Repository__Update_Interface
+	 */
+	public function update();
 }

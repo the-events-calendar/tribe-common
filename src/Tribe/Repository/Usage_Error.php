@@ -61,4 +61,35 @@ class Tribe__Repository__Usage_Error extends Exception {
 
 		return new self( "The {$class} class does not define a {$name} property; add it by decorating or extending this class." );
 	}
+
+	/**
+	 * Indicates that a field cannot be updated by the repository class.
+	 *
+	 * @since TBD
+	 *
+	 * @param string                              $key
+	 * @param Tribe__Repository__Update_Interface $object
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_this_field_cannot_be_updated( $key, $object ) {
+		$class = get_class( $object );
+
+		return new self( "The {$class} class does not allow udpating the {$key} field; allow it by decorating or extending this class." );
+	}
+
+	/**
+	 * Indicates that the `set` method of the Update repository is being used incorrectly.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Repository__Update_Interface $object
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_udpate_key_should_be_a_string( $object ) {
+		$class = get_class( $object );
+
+		return new self( 'The key used in the `set` method should be a string; if you want to set multiple fields at once use the `set_args` method.' );
+	}
 }

@@ -19,7 +19,7 @@ interface Tribe__Repository__Read_Interface {
 	 * @param array $args An associative array of arguments to filter
 	 *                    the posts by in the shape [ <key>, <value> ].
 	 *
-	 * @return $this|Tribe__Repository__Read_Interface
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function by_args( array $args );
 
@@ -36,7 +36,7 @@ interface Tribe__Repository__Read_Interface {
 	 * @param mixed  ...$args Additional, optional, call arguments that will be passed to
 	 *                        the schema.
 	 *
-	 * @return $this|Tribe__Repository__Read_Interface
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function by( $key, $value );
 
@@ -48,7 +48,7 @@ interface Tribe__Repository__Read_Interface {
 	 * @param string $key
 	 * @param mixed  $value
 	 *
-	 * @return Tribe__Repository__Read|Tribe__Repository__Read_Interface
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function where( $key, $value );
 
@@ -62,7 +62,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param int $page
 	 *
-	 * @return $this|Tribe__Repository__Read_Interface
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function page( $page );
 
@@ -74,7 +74,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param int $per_page
 	 *
-	 * @return $this|Tribe__Repository__Read_Interface
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function per_page( $per_page );
 
@@ -111,7 +111,7 @@ interface Tribe__Repository__Read_Interface {
 	 * @param bool $increment Whether to increment the offset by the value
 	 *                        or replace it.
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function offset( $offset, $increment = false );
 
@@ -125,7 +125,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param string $order
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function order( $order = 'ASC' );
 
@@ -139,7 +139,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param string $order_by
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function order_by( $order_by );
 
@@ -153,7 +153,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param string $fields
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function fields( $fields );
 
@@ -165,7 +165,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param string $permission One of the two `self::PERMISSION` constants.
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function permission( $permission );
 
@@ -178,7 +178,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param array|int $post_ids
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function in( $post_ids );
 
@@ -191,7 +191,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param array|int $post_ids
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function not_in( $post_ids );
 
@@ -204,7 +204,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param array|int $post_id
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function parent( $post_id );
 
@@ -217,7 +217,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param array $post_ids
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function parent_in( $post_ids );
 
@@ -230,7 +230,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param array $post_ids
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function parent_not_in( $post_ids );
 
@@ -243,7 +243,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param $search
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function search( $search );
 
@@ -268,7 +268,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @param string $filter_name
 	 *
-	 * @return $this
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function filter_name( $filter_name );
 

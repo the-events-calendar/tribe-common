@@ -30,6 +30,17 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	/**
 	 * {@inheritdoc}
 	 */
+	public function update() {
+		return new Tribe__Repository__Update(
+			$this->read_schema,
+			tribe()->make( 'Tribe__Repository__Query_Filters' ),
+			$this->default_args
+		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function get_default_args() {
 		return $this->default_args;
 	}
