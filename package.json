@@ -1,11 +1,11 @@
 {
   "name": "tribe-common",
-  "version": "4.7.15",
+  "version": "4.7.18",
   "repository": "git@github.com:moderntribe/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
   "_textDomain": "tribe-common",
-  "_glotPressUrl": "http://translations.theeventscalendar.com",
+  "_glotPressUrl": "https://translations.theeventscalendar.com",
   "_glotPressSlug": "tribe-common",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
   "_glotPressFormats": [
