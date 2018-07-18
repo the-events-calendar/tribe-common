@@ -43,6 +43,7 @@ class Tribe__Repository__Read
 		'post_parent__not_in',
 		'post_mime_type',
 		's',
+		'search',
 		'tag',
 		'tag__and',
 		'tag__in',
@@ -146,7 +147,7 @@ class Tribe__Repository__Read
 	/**
 	 * @var string The filter that should be used to get a post by its primary key.
 	 */
-	protected $primary_key ='p';
+	protected $primary_key = 'p';
 
 	/**
 	 * @var array A list of query modifiers that will trigger a overriding merge, thus
@@ -180,6 +181,7 @@ class Tribe__Repository__Read
 		'post_parent__not_in',
 		'post_mime_type',
 		's',
+		'search',
 		'tag',
 		'tag__and',
 		'tag__in',
@@ -525,6 +527,7 @@ class Tribe__Repository__Read
 		do_action_ref_array( "{$this->filter_name}_pre_get_posts", array( &$query ) );
 
 		$results = $query->get_posts();
+
 		/**
 		 * Allow extending classes to customize the return value.
 		 * Since we are filtering the array returning empty values while formatting
@@ -571,7 +574,7 @@ class Tribe__Repository__Read
 	 * {@inheritdoc}
 	 */
 	public function order_by( $order_by ) {
-		$this->query_args['order_by'] = $order_by;
+		$this->query_args['orderby'] = $order_by;
 
 		return $this;
 	}
@@ -749,6 +752,9 @@ class Tribe__Repository__Read
 			case 'ID':
 			case 'id':
 				$args = array( 'p' => $value );
+				break;
+			case 'search':
+				$args = array( 's' => $value );
 				break;
 			case 'post_status':
 				$this->query_args['post_status'] = (array) $value;
@@ -956,9 +962,9 @@ class Tribe__Repository__Read
 	 *
 	 * @since TBD
 	 *
-	 * @param string $meta_key
+	 * @param string       $meta_key
 	 * @param string|array $meta_value
-	 * @param string $compare
+	 * @param string       $compare
 	 *
 	 * @return array
 	 */
@@ -1062,7 +1068,7 @@ class Tribe__Repository__Read
 	/**
 	 * {@inheritdoc}
 	 */
-	public function take( $n  ) {
+	public function take( $n ) {
 		$query     = $this->build_query();
 		$return_id = 'ids' === $query->get( 'fields', '' );
 		$query->set( 'fields', 'ids' );

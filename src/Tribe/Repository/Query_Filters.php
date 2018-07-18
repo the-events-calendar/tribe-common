@@ -386,4 +386,244 @@ class Tribe__Repository__Query_Filters {
 		// let's make sure we clean up when the object is dereferenced
 		$this->remove_filters();
 	}
+
+	/**
+	 * Builds an "not exists or is not in" media query.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string            $meta_keys On what meta_keys the check should be made.
+	 * @param int|string|array $values    A single value, an array of values or a CSV list of values.
+	 * @param string           $query_slug
+	 *
+	 * @return array
+	 */
+	public static function meta_not_in( $meta_keys, $values, $query_slug ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+		$values    = Tribe__Utils__Array::list_to_array( $values );
+
+		if ( empty( $meta_keys ) || empty( $values ) ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'AND',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $key ) {
+			$args['meta_query'][ $query_slug ][ $key ] = array(
+				'not-exists' => array(
+					'key'     => $key,
+					'compare' => 'NOT EXISTS',
+				),
+				'relation'   => 'OR',
+			);
+
+			if ( count( $values ) > 1 ) {
+				$args['meta_query'][ $query_slug ][ $key ]['not-in'] = array(
+					'key'     => $key,
+					'compare' => 'NOT IN',
+					'value'   => $values,
+				);
+			} else {
+				$args['meta_query'][ $query_slug ][ $key ]['not-equals'] = array(
+					'key'     => $key,
+					'value'   => $values[0],
+					'compare' => '!=',
+				);
+			}
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Builds an "exists and is in" media query.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string     $meta_keys On what meta_keys the check should be made.
+	 * @param int|string|array $values    A single value, an array of values or a CSV list of values.
+	 * @param string           $query_slug
+	 *
+	 * @return array
+	 */
+	public static function meta_in( $meta_keys, $values, $query_slug ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+		$values    = Tribe__Utils__Array::list_to_array( $values );
+
+		if ( empty( $meta_keys ) || empty( $values ) ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'OR',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $meta_key ) {
+			if ( count( $values ) > 1 ) {
+				$args['meta_query'][ $query_slug ][ $meta_key ] = array(
+					'key'     => $meta_key,
+					'compare' => 'IN',
+					'value'   => $values,
+				);
+			} else {
+				$args['meta_query'][ $query_slug ][ $meta_key ] = array(
+					'key'     => $meta_key,
+					'compare' => '=',
+					'value'   => $values[0],
+				);
+			}
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Builds a meta query to check that at least of the meta key exists.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string $meta_keys
+	 * @param string       $query_slug
+	 *
+	 * @return array
+	 */
+	public static function meta_exists( $meta_keys, $query_slug ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+
+		if ( empty( $meta_keys ) ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'OR',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $meta_key ) {
+			$args['meta_query'][ $query_slug ][ $meta_key ] = array(
+				'key'     => $meta_key,
+				'compare' => 'EXISTS',
+			);
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Builds a meta query to check that a meta is either equal to a value or
+	 * not exists.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string $meta_keys
+	 * @param array|string $values
+	 * @param string       $query_slug
+	 *
+	 * @return array
+	 */
+	public static function meta_in_or_not_exists( $meta_keys, $values, $query_slug ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+		$values    = Tribe__Utils__Array::list_to_array( $values );
+
+		if ( empty( $meta_keys ) || empty( $values ) ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'AND',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $meta_key ) {
+			$args['meta_query'][ $query_slug ][ $meta_key ]['does-not-exist'] = array(
+				'key'     => $meta_key,
+				'compare' => 'NOT EXISTS',
+			);
+			$args['meta_query'][ $query_slug ][ $meta_key ]['relation']       = 'OR';
+			if ( count( $values ) > 1 ) {
+				$args['meta_query'][ $query_slug ][ $meta_key ]['in'] = array(
+					'key'     => $meta_key,
+					'compare' => 'IN',
+					'value'   => $values,
+				);
+			} else {
+				$args['meta_query'][ $query_slug ][ $meta_key ]['equals'] = array(
+					'key'     => $meta_key,
+					'compare' => '=',
+					'value'   => $values[0],
+				);
+			}
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Builds a meta query to check that a meta is either not equal to a value or
+	 * not exists.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string $meta_keys
+	 * @param array|string $values
+	 * @param string       $query_slug
+	 *
+	 * @return array
+	 */
+	public static function meta_not_in_or_not_exists( $meta_keys, $values, $query_slug ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+		$values    = Tribe__Utils__Array::list_to_array( $values );
+
+		if ( empty( $meta_keys ) || empty( $values ) ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'AND',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $meta_key ) {
+			$args['meta_query'][ $query_slug ][ $meta_key ]['does-not-exist'] = array(
+				'key'     => $meta_key,
+				'compare' => 'NOT EXISTS',
+			);
+			$args['meta_query'][ $query_slug ][ $meta_key ]['relation']       = 'OR';
+
+			if ( count( $values ) > 1 ) {
+				$args['meta_query'][ $query_slug ][ $meta_key ]['not-in'] = array(
+					'key'     => $meta_key,
+					'compare' => 'NOT IN',
+					'value'   => $values,
+				);
+			} else {
+				$args['meta_query'][ $query_slug ][ $meta_key ]['not-equals'] = array(
+					'key'     => $meta_key,
+					'compare' => '!=',
+					'value'   => $values[0],
+				);
+			}
+		}
+
+		return $args;
+	}
 }
