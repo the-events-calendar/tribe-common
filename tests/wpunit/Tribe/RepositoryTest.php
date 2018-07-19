@@ -26,17 +26,6 @@ class RepositoryTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should return a Read Repository on fetch
-	 *
-	 * @test
-	 */
-	public function should_return_a_read_repository_on_fetch() {
-		$repository = $this->make_instance();
-
-		$this->assertInstanceOf( Read_Interface::class, $repository->fetch() );
-	}
-
-	/**
 	 * It should allow getting and setting default arguments
 	 *
 	 * @test

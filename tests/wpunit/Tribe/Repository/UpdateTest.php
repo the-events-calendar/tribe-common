@@ -3,17 +3,17 @@
 namespace Tribe\Repository;
 
 use Tribe__Repository__Query_Filters as Query_Filters;
-use Tribe__Repository__Read as Read_Repository;
+use Tribe__Repository as Update_Repository;
 
 class UpdateTest extends \Codeception\TestCase\WPTestCase {
-	protected $main;
+	protected $class;
 
 	public function setUp() {
 		parent::setUp();
 		register_post_type( 'book' );
 		register_taxonomy( 'genre', 'book' );
-		$this->main = new class extends \Tribe__Repository {
-			protected $default_args = ['post_type' => 'book'];
+		$this->class = new class extends \Tribe__Repository {
+			protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
 		};
 	}
 
@@ -61,13 +61,10 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @return Read_Repository
+	 * @return Update_Repository
 	 */
 	protected function repository() {
-		$query_filters = $this->query_filters ?? new Query_Filters();
-		$main          = new $this->main;
-
-		return new Read_Repository( [], $query_filters, [ 'post_type' => 'book' ], $main );
+		return new $this->class();
 	}
 
 	/**

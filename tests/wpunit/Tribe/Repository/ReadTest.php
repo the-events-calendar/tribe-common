@@ -2,37 +2,13 @@
 
 namespace Tribe\Repository;
 
-use Tribe__Repository__Query_Filters as Query_Filters;
-use Tribe__Repository__Read as Read_Repository;
+use Tribe__Repository as Read_Repository;
 
 class ReadTest extends \Codeception\TestCase\WPTestCase {
-	protected $schema = [];
-	protected $query_filters;
-	protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
 	/**
 	 * @var \Tribe__Repository
 	 */
-	protected $main;
-
-	/**
-	 * @test
-	 * it should be instantiatable
-	 */
-	public function it_should_be_instantiatable() {
-		$sut = $this->repository();
-
-		$this->assertInstanceOf( Read_Repository::class, $sut );
-	}
-
-	/**
-	 * @return Read_Repository
-	 */
-	protected function repository() {
-		$query_filters = $this->query_filters ?? new Query_Filters();
-		$main = new $this->main;
-
-		return new Read_Repository( $this->schema, $query_filters, $this->default_args, $main );
-	}
+	protected $class;
 
 	/**
 	 * It should return all posts (non paginated) by default
@@ -51,6 +27,13 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $ids[1], $this->repository()->nth( 2 )->ID );
 		$this->assertEquals( $ids[2], $this->repository()->nth( 3 )->ID );
 		$this->assertNull( $this->repository()->nth( 23 ) );
+	}
+
+	/**
+	 * @return Read_Repository
+	 */
+	protected function repository() {
+		return new $this->class();
 	}
 
 	/**
@@ -489,7 +472,9 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 		register_post_type( 'book' );
 		register_taxonomy( 'genre', 'book' );
-		$this->main = new class extends \Tribe__Repository{};
+		$this->class = new class extends \Tribe__Repository {
+			protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
+		};
 	}
 
 	/**
@@ -520,8 +505,8 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 
 		$results = $repository
 			->fields( 'ids' )
-			->per_page(3)
-			->page(2)
+			->per_page( 3 )
+			->page( 2 )
 			->take( 2 );
 
 		$this->assertCount( 2, $results );
@@ -584,9 +569,9 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_not_take_permissions_into_account_when_reding_posts_by_primary_key() {
-		$ids = $this->factory()->post->create_many(3,['post_type'=>'book']);
+		$ids        = $this->factory()->post->create_many( 3, [ 'post_type' => 'book' ] );
 		$repository = $this->repository();
 
-		$this->assertInstanceOf(\Tribe__Repository__Update_Interface::class, $repository->where('post__in', $ids)->set('post_title', 'foo'));
+		$this->assertInstanceOf( \Tribe__Repository__Update_Interface::class, $repository->where( 'post__in', $ids )->set( 'post_title', 'foo' ) );
 	}
 }

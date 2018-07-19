@@ -5,9 +5,7 @@
  *
  * @since TBD
  */
-interface Tribe__Repository__Update_Interface
-	extends Tribe__Repository__Specialized_Repository_Interface {
-
+interface Tribe__Repository__Update_Interface {
 	/**
 	 * Sets a key on the posts to update using a value or a callback.
 	 *
@@ -41,7 +39,7 @@ interface Tribe__Repository__Update_Interface
 	 * @return Tribe__Repository__Update_Interface
 	 * @throws Tribe__Repository__Usage_Error If not all keys are strings.
 	 *
-	 * @see the `set` method
+	 * @see   the `set` method
 	 */
 	public function set_args( array $update_map );
 
