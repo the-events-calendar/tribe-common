@@ -6,7 +6,9 @@
  * @since TBD
  *
  */
-interface Tribe__Repository__Interface {
+interface Tribe__Repository__Interface
+	extends Tribe__Repository__Read_Interface,
+	Tribe__Repository__Update_Interface {
 
 	const PERMISSION_EDITABLE = 'editable';
 	const PERMISSION_READABLE = 'readable';

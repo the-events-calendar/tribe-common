@@ -1,9 +1,7 @@
 <?php
 
 abstract class Tribe__Repository
-	implements Tribe__Repository__Interface,
-	Tribe__Repository__Read_Interface,
-	Tribe__Repository__Update_Interface {
+	implements Tribe__Repository__Interface {
 
 	/**
 	 * @var  array An array of keys that cannot be updated on this repository.
@@ -212,14 +210,6 @@ abstract class Tribe__Repository
 	/**
 	 * @var array
 	 */
-	protected $read_schema = array();
-	/**
-	 * @var array
-	 */
-	protected $create_schema = array();
-	/**
-	 * @var array
-	 */
 	protected $default_args = array( 'post_type' => 'post' );
 	/**
 	 * @var array An array of query modifying callbacks populated while applying
@@ -253,7 +243,7 @@ abstract class Tribe__Repository
 	/**
 	 * @var array A map of callbacks in the shape [ <slug> => <callback|primitive> ]
 	 */
-	protected $schema;
+	protected $schema = array();
 	/**
 	 * @var Tribe__Repository__Interface
 	 */
@@ -793,6 +783,15 @@ abstract class Tribe__Repository
 
 		try {
 			$query_modifier = $this->modify_query( $key, $call_args );
+
+			/**
+			 * Here we allow the repository to call one of its own methods and return `null`.
+			 * A repository might have a `where` or `by` that is just building
+			 * a more complex query using a base `where` or `by`.
+			 */
+			if ( null === $query_modifier ) {
+				return $this;
+			}
 
 			/**
 			 * Primitives are just merged in.
