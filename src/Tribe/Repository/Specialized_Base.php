@@ -20,6 +20,11 @@ abstract class Tribe__Repository__Specialized_Base {
 	protected $filter_name = 'default';
 
 	/**
+	 * @var Tribe__Repository__Interface
+	 */
+	protected $main_repository;
+
+	/**
 	 * Tribe__Repository__Specialized_Base constructor.
 	 *
 	 * @since TBD
@@ -85,5 +90,23 @@ abstract class Tribe__Repository__Specialized_Base {
 	 */
 	protected function schema_has_modifier_for( $key ) {
 		return isset( $this->schema[ $key ] );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_main_repository( Tribe__Repository__Interface $main_repository ) {
+		$this->main_repository = $main_repository;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set( $key, $value ) {
+		$update_repository = $this->main_repository->update();
+		$update_repository->set_main_repository( $this->main_repository );
+		$call_args = func_get_args();
+
+		return call_user_func_array( array( $update_repository, 'set' ), $call_args );
 	}
 }

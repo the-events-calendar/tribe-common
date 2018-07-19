@@ -269,4 +269,8 @@ class Tribe__Repository__Update
 
 		return $query->get_posts();
 	}
+
+	public function set_main_repository( Tribe__Repository__Interface $main_repository ) {
+		// TODO: Implement set_main_repository() method.
+	}
 }

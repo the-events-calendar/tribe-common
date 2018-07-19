@@ -17,15 +17,14 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	protected $default_args = array( 'post_type' => 'post' );
 
 	/**
-	 * {@inheritdoc}
+	 * @var array A map that will be used to redirect calls from the
+	 *            magic `__call` method to the right sub-repository.
+	 *            The map has the shape [ <method> => <sub_repo_method> ];
+	 *            e.g. `[ 'by_foo' => 'fetch' ]`
+	 *
+	 * @see Tribe__Repository::__call
 	 */
-	public function fetch() {
-		return new Tribe__Repository__Read(
-			$this->read_schema,
-			tribe()->make( 'Tribe__Repository__Query_Filters' ),
-			$this->default_args
-		);
-	}
+	protected $__call_map = array();
 
 	/**
 	 * {@inheritdoc}
@@ -76,7 +75,7 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 * @since TBD
 	 *
 	 * @param string $name
-	 * @param mixed $value
+	 * @param mixed  $value
 	 *
 	 * @throws Tribe__Repository__Usage_Error As properties have to be set extending
 	 * the class, using setter methods or via constructor injection
@@ -86,7 +85,7 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	}
 
 	/**
-	 * Whether the class as a property with the specific name or not.
+	 * Whether the class has a property with the specific name or not.
 	 *
 	 * @since TBD
 	 *
@@ -96,5 +95,71 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 */
 	public function __isset( $name ) {
 		return property_exists( $this, $name ) && isset( $this->{$name} );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function where( $key, $value ) {
+		$read_repository = $this->fetch();
+		$read_repository->set_main_repository( $this );
+		$call_args = func_get_args();
+
+		return call_user_func_array( array( $read_repository, 'where' ), $call_args );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function fetch() {
+		return new Tribe__Repository__Read(
+			$this->read_schema,
+			tribe()->make( 'Tribe__Repository__Query_Filters' ),
+			$this->default_args
+		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function by( $key, $value ) {
+		$read_repository = $this->fetch();
+		$read_repository->set_main_repository( $this );
+		$call_args = func_get_args();
+
+		return call_user_func_array( array( $read_repository, 'by' ), $call_args );
+	}
+
+	/**
+	 * Redirects calls to sub-repositories.
+	 *
+	 * @since TBD
+	 *
+	 * @param       string $name
+	 * @param array        $args
+	 *
+	 * @return mixed A sub-repository instance
+	 * @throws Tribe__Repository__Usage_Error If no interface defines the method
+	 *                                        and the method is not defined in the
+	 *                                        `call_map`
+	 */
+	public function __call( $name, array $args ) {
+		if ( method_exists( 'Tribe__Repository__Read_Interface', $name ) ) {
+			$read_repository = $this->fetch();
+
+			return call_user_func_array( array( $read_repository, $name ), $args );
+		}
+
+		// @todo add Create repositories methods here
+
+		$sub_repo_builder = Tribe__Utils__Array::get( $this->__call_map, $name, false );
+
+		if ( false !== $sub_repo_builder ) {
+			$sub_repository = $this->{$sub_repo_builder};
+
+			return call_user_func_array( array( $sub_repository, $name ), $args );
+		}
+
+		throw Tribe__Repository__Usage_Error::because_the_called_method_was_not_found( $name, $this );
 	}
 }

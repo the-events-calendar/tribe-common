@@ -5,7 +5,8 @@
  *
  * @since TBD
  */
-interface Tribe__Repository__Read_Interface {
+interface Tribe__Repository__Read_Interface
+	extends Tribe__Repository__Specialized_Repository_Interface {
 	const PERMISSION_EDITABLE = 'editable';
 	const PERMISSION_READABLE = 'readable';
 
@@ -22,6 +23,20 @@ interface Tribe__Repository__Read_Interface {
 	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	public function by_args( array $args );
+
+	/**
+	 * Batch filter application method.
+	 *
+	 * This is the same as calling `where` multiple times with different arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args An associative array of arguments to filter
+	 *                    the posts by in the shape [ <key>, <value> ].
+	 *
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
+	 */
+	public function where_args( array $args );
 
 	/**
 	 * Applies a filter to the query.
@@ -346,4 +361,17 @@ interface Tribe__Repository__Read_Interface {
 	 * @return WP_Post|null|mixed
 	 */
 	public function by_primary_key( $primary_key );
+
+	/**
+	 * Closes the query phase and builds an Update repository on the
+	 * results of the applied filters.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key
+	 * @param mixed  $value
+	 *
+	 * @return Tribe__Repository__Update_Interface
+	 */
+	public function set( $key, $value );
 }

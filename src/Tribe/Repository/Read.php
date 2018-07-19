@@ -1111,4 +1111,20 @@ class Tribe__Repository__Read
 	protected function replacing_modifiers() {
 		return self::$replacing_modifiers;
 	}
+
+	/**
+	 * Batch filter application method.
+	 *
+	 * This is the same as calling `where` multiple times with different arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args An associative array of arguments to filter
+	 *                    the posts by in the shape [ <key>, <value> ].
+	 *
+	 * @return Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
+	 */
+	public function where_args( array $args ) {
+		return $this->by_args( $args );
+	}
 }

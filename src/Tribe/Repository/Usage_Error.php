@@ -92,4 +92,21 @@ class Tribe__Repository__Usage_Error extends Exception {
 
 		return new self( 'The key used in the `set` method should be a string; if you want to set multiple fields at once use the `set_args` method.' );
 	}
+
+	/**
+	 * Indicates that a magic `__call` method redirection could not find the method
+	 * in any sub-repository.
+	 *
+	 * @since TBD
+	 *
+	 * @param string                       $method
+	 * @param Tribe__Repository__Interface $object
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_the_called_method_was_not_found( $method, $object ) {
+		$class = get_class( $object );
+
+		return new self( "The {$method} method is not defined by any of the sub-repositories; if one of the sub-repositories this repository is handling does provided the method add it in the `__call_map` property." );
+	}
 }
