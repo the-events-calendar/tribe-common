@@ -29,12 +29,11 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function update() {
-		return new Tribe__Repository__Update(
-			$this->read_schema,
-			tribe()->make( 'Tribe__Repository__Query_Filters' ),
-			$this->default_args
-		);
+	public function update( Tribe__Repository__Read_Interface $read = null ) {
+		$read       = null !== $read ? $read : $this->fetch();
+		$post_types = (array) Tribe__Utils__Array::get( $this->default_args, 'post_type', array() );
+
+		return new Tribe__Repository__Update( $read, $post_types );
 	}
 
 	/**
@@ -102,7 +101,6 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 */
 	public function where( $key, $value ) {
 		$read_repository = $this->fetch();
-		$read_repository->set_main_repository( $this );
 		$call_args = func_get_args();
 
 		return call_user_func_array( array( $read_repository, 'where' ), $call_args );
@@ -115,7 +113,8 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 		return new Tribe__Repository__Read(
 			$this->read_schema,
 			tribe()->make( 'Tribe__Repository__Query_Filters' ),
-			$this->default_args
+			$this->default_args,
+			$this
 		);
 	}
 
@@ -124,7 +123,6 @@ abstract class Tribe__Repository implements Tribe__Repository__Interface {
 	 */
 	public function by( $key, $value ) {
 		$read_repository = $this->fetch();
-		$read_repository->set_main_repository( $this );
 		$call_args = func_get_args();
 
 		return call_user_func_array( array( $read_repository, 'by' ), $call_args );

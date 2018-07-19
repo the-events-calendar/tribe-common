@@ -8,9 +8,11 @@
 interface Tribe__Repository__Specialized_Repository_Interface {
 
 	/**
-	 * Sets the main repository for this specialized repository.
+	 * Sets the previous repository for this specialized repository.
 	 *
-	 * @param Tribe__Repository__Interface $main_repository
+	 * @since TBD
+	 *
+	 * @param Tribe__Repository__Specialized_Repository_Interface $main_repository
 	 */
-	public function set_main_repository( Tribe__Repository__Interface $main_repository );
+	public function set_previous_repository( Tribe__Repository__Specialized_Repository_Interface $main_repository );
 }

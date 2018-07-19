@@ -11,7 +11,7 @@
  * @method per_page( $per_page )
  * @method found()
  * @method all()
- * @method offset( $offset, $increment )
+ * @method offset( $offset, $increment = false )
  * @method order( $order = 'ASC' )
  * @method order_by( $order_by )
  * @method fields( $fields )
@@ -23,15 +23,13 @@
  * @method parent_not_in( $post_ids )
  * @method search( $search )
  * @method count()
- * @method filter_name( $filter_name )
  * @method first()
  * @method last()
  * @method nth( $n )
  * @method take( $n )
  * @method by_primary_key( $primary_key )
  */
-interface
-Tribe__Repository__Interface {
+interface Tribe__Repository__Interface {
 
 	/**
 	 * Returns the Read repository.
@@ -67,9 +65,11 @@ Tribe__Repository__Interface {
 	 *
 	 * @since TBD
 	 *
+	 * @param Tribe__Repository__Read_Interface $read A read repository instance.
+	 *
 	 * @return Tribe__Repository__Update_Interface
 	 */
-	public function update();
+	public function update( Tribe__Repository__Read_Interface $read = null );
 
 	/**
 	 * Shortcut method to build a Read repository and call `where`

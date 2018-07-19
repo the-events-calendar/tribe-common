@@ -9,6 +9,10 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	protected $schema = [];
 	protected $query_filters;
 	protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
+	/**
+	 * @var \Tribe__Repository
+	 */
+	protected $main;
 
 	/**
 	 * @test
@@ -23,10 +27,11 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @return Read_Repository
 	 */
-	private function repository() {
+	protected function repository() {
 		$query_filters = $this->query_filters ?? new Query_Filters();
+		$main = new $this->main;
 
-		return new Read_Repository( $this->schema, $query_filters, $this->default_args );
+		return new Read_Repository( $this->schema, $query_filters, $this->default_args, $main );
 	}
 
 	/**
@@ -484,6 +489,7 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 		register_post_type( 'book' );
 		register_taxonomy( 'genre', 'book' );
+		$this->main = new class extends \Tribe__Repository{};
 	}
 
 	/**
@@ -578,18 +584,9 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_not_take_permissions_into_account_when_reding_posts_by_primary_key() {
-		$public     = $this->factory()->post->create_and_get( [ 'post_type' => 'book', 'post_status' => 'public' ] );
-		$private    = $this->factory()->post->create_and_get( [ 'post_type' => 'book', 'post_status' => 'private' ] );
-		$subscriber = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
-		$editor     = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		$ids = $this->factory()->post->create_many(3,['post_type'=>'book']);
 		$repository = $this->repository();
 
-		wp_set_current_user( $subscriber );
-		$this->assertEquals( $public, $repository->by_primary_key( $public->ID ) );
-		$this->assertEquals($private, $repository->by_primary_key( $private->ID ) );
-
-		wp_set_current_user( $editor );
-		$this->assertEquals( $public , $repository->by_primary_key( $public->ID ) );
-		$this->assertEquals( $private , $repository->by_primary_key( $private->ID ) );
+		$this->assertInstanceOf(\Tribe__Repository__Update_Interface::class, $repository->where('post__in', $ids)->set('post_title', 'foo'));
 	}
 }

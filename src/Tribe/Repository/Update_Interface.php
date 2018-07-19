@@ -5,7 +5,8 @@
  *
  * @since TBD
  */
-interface Tribe__Repository__Update_Interface extends Tribe__Repository__Read_Interface {
+interface Tribe__Repository__Update_Interface
+	extends Tribe__Repository__Specialized_Repository_Interface {
 
 	/**
 	 * Sets a key on the posts to update using a value or a callback.

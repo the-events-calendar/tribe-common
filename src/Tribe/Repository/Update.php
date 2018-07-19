@@ -7,14 +7,25 @@
  *
  * The basic Update repository; this is the kind of object you get back from a
  * method like `tribe_events()->update()`.
+ *
+ * @property Tribe__Repository__Read_Interface $previous_repository
  */
 class Tribe__Repository__Update
-	extends Tribe__Repository__Read
+	extends Tribe__Repository__Specialized_Base
 	implements Tribe__Repository__Update_Interface {
+
+	/**
+	 * @var  array An array of keys that cannot be updated on this repository.
+	 */
 	protected static $blocked_keys = array(
 		'ID',
 		'post_type',
+		'post_modified',
+		'post_modified_gmt',
+		'guid',
+		'comment_count',
 	);
+
 	/**
 	 * @var array The post IDs that will be updated.
 	 */
@@ -40,7 +51,6 @@ class Tribe__Repository__Update
 	 */
 	protected $to_local_time_map = array(
 		'post_date_gmt'     => 'post_date',
-		'post_modified_gmt' => 'post_modified',
 	);
 
 	/**
@@ -49,26 +59,17 @@ class Tribe__Repository__Update
 	 */
 	protected $to_gmt_map = array(
 		'post_date'     => 'post_date_gmt',
-		'post_modified' => 'post_modified_gmt',
 	);
 
 	/**
-	 * Tribe__Repository__Update constructor.
-	 *
-	 * @since TBD
-	 *
-	 * @param array                            $schema Similarly to a Read repository the Update
-	 *                                                 repository will first need to fetch the post
-	 *                                                 to update them; the schema defines the available
-	 *                                                 repository filters.
-	 * @param Tribe__Repository__Query_Filters $query_filters
-	 * @param array                            $default_args
+	 * @var array The post types supported by this repository.
 	 */
+	protected $post_types =array('post');
 
-	public function __construct( array $schema, Tribe__Repository__Query_Filters $query_filters, array $default_args = array() ) {
-		parent::__construct( $schema, $query_filters, $default_args );
-		$post_types       = Tribe__Utils__Array::get( $this->default_args, 'post_type', array() );
-		$this->taxonomies = get_taxonomies( $post_types );
+	public function __construct( Tribe__Repository__Read_Interface $read_repository, array $post_types ) {
+		$this->previous_repository = $read_repository;
+		$this->post_types = (array) $post_types;
+		$this->taxonomies = get_taxonomies( array( 'object_type' => $post_types ),'names' );
 	}
 
 	/**
@@ -264,13 +265,10 @@ class Tribe__Repository__Update
 	 * @return array An array containing the post IDs to update.
 	 */
 	protected function get_ids() {
-		$query = $this->build_query();
+		/** @var WP_Query $query */
+		$query = $this->previous_repository->get_query();
 		$query->set( 'fields', 'ids' );
 
 		return $query->get_posts();
-	}
-
-	public function set_main_repository( Tribe__Repository__Interface $main_repository ) {
-		// TODO: Implement set_main_repository() method.
 	}
 }

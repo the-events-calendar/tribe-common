@@ -374,4 +374,13 @@ interface Tribe__Repository__Read_Interface
 	 * @return Tribe__Repository__Update_Interface
 	 */
 	public function set( $key, $value );
+
+	/**
+	 * Returns the Read repository built WP_Query object.
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	public function get_query(  );
 }

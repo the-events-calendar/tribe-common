@@ -208,6 +208,15 @@ class Tribe__Repository__Read
 		'guid',
 		'perm',
 	);
+	/**
+	 * @var array A map of callbacks in the shape [ <slug> => <callback|primitive> ]
+	 */
+	protected $schema;
+
+	/**
+	 * @var Tribe__Repository__Interface
+	 */
+	protected $main_repository;
 
 	/**
 	 * Tribe__Repository__Read constructor.
@@ -217,15 +226,18 @@ class Tribe__Repository__Read
 	 * @param array                            $schema
 	 * @param Tribe__Repository__Query_Filters $query_filters
 	 * @param array                            $default_args
+	 * @param Tribe__Repository__Interface     $main_repository
 	 */
 	public function __construct(
 		array $schema,
 		Tribe__Repository__Query_Filters $query_filters,
-		array $default_args = array()
+		array $default_args = array(),
+		Tribe__Repository__Interface $main_repository
 	) {
-		parent::__construct( $schema );
+		$this->schema = $schema;
 		$this->default_args = array_merge( self::$common_args, $default_args );
 		$this->filter_query = $query_filters;
+		$this->main_repository = $main_repository;
 	}
 
 
@@ -729,6 +741,41 @@ class Tribe__Repository__Read
 	}
 
 	/**
+	 * Applies and returns a schema entry.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key
+	 * @param mixed  $value
+	 * @param mixed  ...$args Additional arguments for the application.
+	 *
+	 * @return mixed A scalar value or a callable.
+	 */
+	public function apply_modifier( $key, $value ) {
+		$call_args = func_get_args();
+
+		$application = Tribe__Utils__Array::get( $this->schema, $key, null );
+
+		/**
+		 * Return primitives, including `null`, as they are.
+		 */
+		if ( ! is_callable( $application ) ) {
+			return $application;
+		}
+
+		/**
+		 * Allow for callbacks to fire immediately and return more complex values.
+		 * This also means that callbacks meant to run on the next step, the one
+		 * where args are applied, will need to be "wrapped" in callbacks themselves.
+		 * The `$key` is removed from the args to get the value first and avoid
+		 * unused args.
+		 */
+		$args_without_key = array_splice( $call_args, 1 );
+
+		return call_user_func_array( $application, $args_without_key );
+	}
+
+	/**
 	 * Returns modified query arguments after applying a default filter.
 	 *
 	 * @since TBD
@@ -1126,5 +1173,35 @@ class Tribe__Repository__Read
 	 */
 	public function where_args( array $args ) {
 		return $this->by_args( $args );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set( $key, $value ) {
+		$update_repository = $this->main_repository->update( $this );
+		$call_args         = func_get_args();
+
+		return call_user_func_array( array( $update_repository, 'set' ), $call_args );
+	}
+
+	/**
+	 * Whether the current schema defines an application for the key or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param $key
+	 *
+	 * @return bool
+	 */
+	protected function schema_has_modifier_for( $key ) {
+		return isset( $this->schema[ $key ] );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_query() {
+		return $this->build_query();
 	}
 }
