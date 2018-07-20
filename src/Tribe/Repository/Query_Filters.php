@@ -11,13 +11,14 @@ class Tribe__Repository__Query_Filters {
 	 * @var array
 	 */
 	protected static $initial_query_vars = array(
-		'like'                => array(
+		'like'   => array(
 			'post_title'   => array(),
 			'post_content' => array(),
 			'post_excerpt' => array(),
 		),
-		'status'              => array(),
-		'join' => array(),
+		'status' => array(),
+		'join'   => array(),
+		'where'  => array(),
 	);
 
 	/**
@@ -492,43 +493,6 @@ class Tribe__Repository__Query_Filters {
 	}
 
 	/**
-	 * Sets up query filtering to limit posts to those that are related, via meta, to
-	 * another post with a field in the values.
-	 *
-	 * @since TBD
-	 *
-	 * @param string|array $meta_key    The meta key, or a list of meta keys, relating the source
-	 *                                  post to the destination post, defined on the source post.
-	 * @param string       $post_field  The post field to check on the relation destination
-	 * @param string|array $field_value One or more values the destination post field should match.
-	 * @param string       $compare     The comparison operator to use.
-	 */
-	public function to_get_posts_where_meta_related_post_field_compares( $meta_key, $post_field, $field_value, $compare ) {
-		$meta_keys    = Tribe__Utils__Array::list_to_array( $meta_key );
-		$field_values = Tribe__Utils__Array::list_to_array( $field_value );
-
-		/** @var wpdb $wpdb */
-		global $wpdb;
-
-		$meta_keys    = "('" . implode( "','", array_map( 'esc_sql', $meta_keys ) ) . "')";
-		$field        = esc_sql( $post_field );
-		$field_values = "('" . implode( "','", array_map( 'esc_sql', $field_values ) ) . "')";
-
-		$this->query_vars['where'][] = "{$wpdb->posts}.ID IN (
-				SELECT DISTINCT( pm.post_id )
-				FROM {$wpdb->posts} p
-				JOIN {$wpdb->postmeta} pm
-				ON pm.meta_value = p.ID
-				WHERE pm.meta_key IN {$meta_keys}
-				AND p.{$field} {$compare} {$field_values}
-		)";
-
-		if ( ! has_filter( 'posts_where', array( $this, 'filter_posts_where' ) ) ) {
-			add_filter( 'posts_where', array( $this, 'filter_posts_where' ), 10, 2 );
-		}
-	}
-
-	/**
 	 * Sets up `posts_where` filtering to get posts with a filtered content like the value.
 	 *
 	 * @since TBD
@@ -635,6 +599,36 @@ class Tribe__Repository__Query_Filters {
 	public function remove_filters() {
 		foreach ( $this->active_filters as list( $tag, $function_to_add, $priority ) ) {
 			remove_filter( $tag, $function_to_add, $priority );
+		}
+	}
+
+	/**
+	 * Add a custom WHERE clause to the query.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $where_clause
+	 */
+	public function where( $where_clause ) {
+		$this->query_vars['where'][] = '(' . $where_clause . ')';
+
+		if ( ! has_filter( 'posts_where', array( $this, 'filter_posts_where' ) ) ) {
+			add_filter( 'posts_where', array( $this, 'filter_posts_where' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * Add a custom JOIN clause to the query.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $join_clause
+	 */
+	public function join( $join_clause ) {
+		$this->query_vars['join'][] = $join_clause;
+
+		if ( ! has_filter( 'posts_join', array( $this, 'filter_posts_join' ) ) ) {
+			add_filter( 'posts_join', array( $this, 'filter_posts_join' ), 10, 2 );
 		}
 	}
 
@@ -779,5 +773,29 @@ class Tribe__Repository__Query_Filters {
 		$where .= ' AND ' . implode( "\nAND ", $this->query_vars['where'] ) . ' ';
 
 		return $where;
+	}
+
+	/**
+	 * Filter the `posts_join` filter to add custom JOIN clauses.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $join
+	 * @param WP_Query $query
+	 *
+	 * @return string
+	 */
+	public function filter_posts_join( $join, WP_Query $query ) {
+		if ( $query !== $this->current_query ) {
+			return $join;
+		}
+
+		if ( empty( $this->query_vars['join'] ) ) {
+			return $join;
+		}
+
+		$join .= "\n" . implode( "\n ", $this->query_vars['join'] ) . ' ';
+
+		return $join;
 	}
 }

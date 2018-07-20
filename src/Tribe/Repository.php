@@ -95,7 +95,6 @@ abstract class Tribe__Repository
 		'meta_equals_regexp',
 		'meta_not_regexp',
 		'meta_not_equals_regexp',
-		'meta_related_in',
 		'taxonomy_exists',
 		'taxonomy_not_exists',
 		'term_id_in',
@@ -1370,14 +1369,6 @@ abstract class Tribe__Repository
 			case 'meta_not_equals_regexp':
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT REGEXP' );
 				break;
-			case 'meta_related_in':
-				$this->filter_query->to_get_posts_where_meta_related_post_field_compares(
-					$meta_key = $value,
-					$post_field = $arg_1,
-					$values = $arg_2,
-					'IN'
-				);
-				break;
 			case 'taxonomy_exists':
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'EXISTS' );
 				break;
@@ -1499,6 +1490,8 @@ abstract class Tribe__Repository
 	 * @return array
 	 */
 	protected function build_meta_query( $meta_key, $meta_value = 'value', $compare = '=' ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array($meta_key);
+
 		$postfix_map = array(
 			'='           => 'equals',
 			'!='          => 'not-equals',
@@ -1517,24 +1510,31 @@ abstract class Tribe__Repository
 			'REGEXP'      => 'regexp',
 			'NOT REGEXP'  => 'not-regexp',
 		);
-		$postfix     = Tribe__Utils__Array::get( $postfix_map, $compare, '' );
-		$array_key   = sanitize_title( sprintf( '%s-%s', $meta_key, $postfix ) );
+		$postfix = Tribe__Utils__Array::get( $postfix_map, $compare, '' );
 
-		$meta_query = array(
-			'meta_query' => array(
-				$array_key => array(
-					'key'     => $meta_key,
-					'value'   => $meta_value,
-					'compare' => strtoupper( $compare ),
-				),
-			),
-		);
+		$all = array();
 
-		if ( in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
-			unset( $meta_query['meta_query'][ $array_key ]['value'] );
+		foreach ( $meta_keys as $key ) {
+			$array_key = sanitize_title( sprintf( '%s-%s', $key, $postfix ) );
+
+			$this_args = array(
+				'key'     => $key,
+				'value'   => $meta_value,
+				'compare' => strtoupper( $compare ),
+			);
+
+			if ( in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
+				unset( $this_args['value'] );
+			}
+
+			$all[ $array_key ] = $this_args;
 		}
 
-		return $meta_query;
+		return array(
+			'meta_query' => array(
+				array_merge( array( 'relation' => 'OR', ), $all ),
+			),
+		);
 	}
 
 	/**
