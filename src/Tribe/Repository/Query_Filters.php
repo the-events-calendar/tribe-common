@@ -36,6 +36,246 @@ class Tribe__Repository__Query_Filters {
 	protected $active_filters = array();
 
 	/**
+	 * Builds an "not exists or is not in" media query.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string     $meta_keys On what meta_keys the check should be made.
+	 * @param int|string|array $values    A single value, an array of values or a CSV list of values.
+	 * @param string           $query_slug
+	 *
+	 * @return array
+	 */
+	public static function meta_not_in( $meta_keys, $values, $query_slug ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+		$values    = Tribe__Utils__Array::list_to_array( $values );
+
+		if ( empty( $meta_keys ) || count( $values ) === 0 ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'AND',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $key ) {
+			$args['meta_query'][ $query_slug ][ $key ] = array(
+				'not-exists' => array(
+					'key'     => $key,
+					'compare' => 'NOT EXISTS',
+				),
+				'relation'   => 'OR',
+			);
+
+			if ( count( $values ) > 1 ) {
+				$args['meta_query'][ $query_slug ][ $key ]['not-in'] = array(
+					'key'     => $key,
+					'compare' => 'NOT IN',
+					'value'   => $values,
+				);
+			} else {
+				$args['meta_query'][ $query_slug ][ $key ]['not-equals'] = array(
+					'key'     => $key,
+					'value'   => $values[0],
+					'compare' => '!=',
+				);
+			}
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Builds an "exists and is in" media query.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string     $meta_keys On what meta_keys the check should be made.
+	 * @param int|string|array $values    A single value, an array of values or a CSV list of values.
+	 * @param string           $query_slug
+	 *
+	 * @return array
+	 */
+	public static function meta_in( $meta_keys, $values, $query_slug ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+		$values    = Tribe__Utils__Array::list_to_array( $values );
+
+		if ( empty( $meta_keys ) || count( $values ) === 0 ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'OR',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $meta_key ) {
+			if ( count( $values ) > 1 ) {
+				$args['meta_query'][ $query_slug ][ $meta_key ] = array(
+					'key'     => $meta_key,
+					'compare' => 'IN',
+					'value'   => $values,
+				);
+			} else {
+				$args['meta_query'][ $query_slug ][ $meta_key ] = array(
+					'key'     => $meta_key,
+					'compare' => '=',
+					'value'   => $values[0],
+				);
+			}
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Builds a meta query to check that at least of the meta key exists.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string $meta_keys
+	 * @param string       $query_slug
+	 *
+	 * @return array
+	 */
+	public static function meta_exists( $meta_keys, $query_slug ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+
+		if ( empty( $meta_keys ) ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'OR',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $meta_key ) {
+			$args['meta_query'][ $query_slug ][ $meta_key ] = array(
+				'key'     => $meta_key,
+				'compare' => 'EXISTS',
+			);
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Builds a meta query to check that a meta is either equal to a value or
+	 * not exists.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string $meta_keys
+	 * @param array|string $values
+	 * @param string       $query_slug
+	 *
+	 * @return array
+	 */
+	public static function meta_in_or_not_exists( $meta_keys, $values, $query_slug ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+		$values    = Tribe__Utils__Array::list_to_array( $values );
+
+		if ( empty( $meta_keys ) || count( $values ) === 0 ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'AND',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $meta_key ) {
+			$args['meta_query'][ $query_slug ][ $meta_key ]['does-not-exist'] = array(
+				'key'     => $meta_key,
+				'compare' => 'NOT EXISTS',
+			);
+			$args['meta_query'][ $query_slug ][ $meta_key ]['relation']       = 'OR';
+			if ( count( $values ) > 1 ) {
+				$args['meta_query'][ $query_slug ][ $meta_key ]['in'] = array(
+					'key'     => $meta_key,
+					'compare' => 'IN',
+					'value'   => $values,
+				);
+			} else {
+				$args['meta_query'][ $query_slug ][ $meta_key ]['equals'] = array(
+					'key'     => $meta_key,
+					'compare' => '=',
+					'value'   => $values[0],
+				);
+			}
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Builds a meta query to check that a meta is either not equal to a value or
+	 * not exists.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string $meta_keys
+	 * @param array|string $values
+	 * @param string       $query_slug
+	 *
+	 * @return array
+	 */
+	public static function meta_not_in_or_not_exists( $meta_keys, $values, $query_slug ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+		$values    = Tribe__Utils__Array::list_to_array( $values );
+
+		if ( empty( $meta_keys ) || count( $values ) === 0 ) {
+			return array();
+		}
+
+		$args = array(
+			'meta_query' => array(
+				$query_slug => array(
+					'relation' => 'AND',
+				),
+			),
+		);
+
+		foreach ( $meta_keys as $meta_key ) {
+			$args['meta_query'][ $query_slug ][ $meta_key ]['does-not-exist'] = array(
+				'key'     => $meta_key,
+				'compare' => 'NOT EXISTS',
+			);
+			$args['meta_query'][ $query_slug ][ $meta_key ]['relation']       = 'OR';
+
+			if ( count( $values ) > 1 ) {
+				$args['meta_query'][ $query_slug ][ $meta_key ]['not-in'] = array(
+					'key'     => $meta_key,
+					'compare' => 'NOT IN',
+					'value'   => $values,
+				);
+			} else {
+				$args['meta_query'][ $query_slug ][ $meta_key ]['not-equals'] = array(
+					'key'     => $meta_key,
+					'compare' => '!=',
+					'value'   => $values[0],
+				);
+			}
+		}
+
+		return $args;
+	}
+
+	/**
 	 * Filters the WHERE clause of the query to match posts with a field like.
 	 *
 	 * @since TBD
@@ -59,32 +299,6 @@ class Tribe__Repository__Query_Filters {
 				$where .= $this->and_field_like( $field, $entry );
 			}
 		}
-
-		return $where;
-	}
-
-	/**
-	 * Filters the WHERE clause of the query to add custom WHERE clauses.
-	 *
-	 * @since TBD
-	 *
-	 * @param string   $where
-	 * @param WP_Query $query
-	 *
-	 * @return string
-	 */
-	public function filter_custom( $where , WP_Query $query ) {
-		if ( $query !== $this->current_query ) {
-			return $where;
-		}
-
-		if ( empty( $this->query_vars['custom'] ) ) {
-			return $where;
-		}
-
-		$customs = implode( ' AND ', $this->query_vars['custom'] );
-
-		$where   .= $customs;
 
 		return $where;
 	}
@@ -114,6 +328,32 @@ class Tribe__Repository__Query_Filters {
 	}
 
 	/**
+	 * Filters the WHERE clause of the query to add custom WHERE clauses.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $where
+	 * @param WP_Query $query
+	 *
+	 * @return string
+	 */
+	public function filter_custom( $where, WP_Query $query ) {
+		if ( $query !== $this->current_query ) {
+			return $where;
+		}
+
+		if ( empty( $this->query_vars['custom'] ) ) {
+			return $where;
+		}
+
+		$customs = implode( ' AND ', $this->query_vars['custom'] );
+
+		$where .= $customs;
+
+		return $where;
+	}
+
+	/**
 	 * Sets the current query object.
 	 *
 	 * @since TBD
@@ -137,6 +377,22 @@ class Tribe__Repository__Query_Filters {
 		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_like' ) ) ) {
 			$this->add_filter( 'posts_where', array( $this, 'filter_by_like' ), 10, 2 );
 		}
+	}
+
+	/**
+	 * Proxy method to add a  filter calling the WordPress `add_filter` function
+	 * and keep track of it.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $tag
+	 * @param callable $function_to_add
+	 * @param int      $priority
+	 * @param int      $accepted_args
+	 */
+	protected function add_filter( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) {
+		$this->active_filters[] = array( $tag, $function_to_add, $priority );
+		add_filter( $tag, $function_to_add, $priority, $accepted_args );
 	}
 
 	/**
@@ -180,7 +436,7 @@ class Tribe__Repository__Query_Filters {
 		foreach ( $meta_keys as $key ) {
 			$keys[] = $wpdb->prepare( '%s', $key );
 		}
-		$keys = implode(',', $keys);
+		$keys = implode( ',', $keys );
 
 		$this->query_vars['custom'][] = "{$wpdb->posts}.ID IN (
 			SELECT post_id 
@@ -194,81 +450,6 @@ class Tribe__Repository__Query_Filters {
 		if ( ! has_filter( 'posts_where', array( $this, 'filter_custom' ) ) ) {
 			add_filter( 'posts_where', array( $this, 'filter_custom' ), 10, 2 );
 		}
-	}
-
-	/**
-	 * Builds the escaped WHERE entry to match a field not in the entry.
-	 *
-	 * @since TBD
-	 *
-	 * @param string   $where
-	 * @param WP_Query $query
-	 * @param string   $field
-	 *
-	 * @return string
-	 */
-	protected function where_field_not_in( $where, WP_Query $query, $field ) {
-		if ( $query !== $this->current_query ) {
-			return $where;
-		}
-
-		if ( empty( $this->query_vars[ $field ] ) ) {
-			return $where;
-		}
-
-		$input = $this->query_vars[ $field ];
-
-		$stati_interval = $this->create_interval_of_strings( $input );
-
-		$where .= $this->and_field_not_in_interval( $field, $stati_interval );
-
-		return $where;
-	}
-
-	/**
-	 * Creates a SQL interval of strings.
-	 *
-	 * @since TBD
-	 *
-	 * @param string|array $input
-	 *
-	 * @return string
-	 */
-	protected function create_interval_of_strings( $input ) {
-		$buffer = array();
-
-		/** @var wpdb $wpdb */
-		global $wpdb;
-
-		foreach ( $input as $string ) {
-			$buffer[] = is_array( $string ) ? $string : array( $string );
-		}
-
-		$buffer = array_unique( call_user_func_array( 'array_merge', $buffer ) );
-
-		$safe_strings = array();
-		foreach ( $buffer as $raw_status ) {
-			$safe_strings[] = $wpdb->prepare( '%s', $string );
-		}
-
-		return implode( "''", $safe_strings );
-	}
-
-	/**
-	 * Builds a WHERE clause where field is not in interval.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $field
-	 * @param string $interval
-	 *
-	 * @return string
-	 */
-	protected function and_field_not_in_interval( $field, $interval ) {
-		/** @var wpdb $wpdb */
-		global $wpdb;
-
-		return " AND {$wpdb->posts}.{$field} NOT IN ('{$interval}') ";
 	}
 
 	/**
@@ -361,6 +542,102 @@ class Tribe__Repository__Query_Filters {
 	}
 
 	/**
+	 * Clean up before the object destruction.
+	 *
+	 * @since TBD
+	 */
+	public function __destruct() {
+		// let's make sure we clean up when the object is dereferenced
+		$this->remove_filters();
+	}
+
+	/**
+	 * Removes all the filters this class applied.
+	 *
+	 * @since TBD
+	 */
+	public function remove_filters() {
+		foreach ( $this->active_filters as list( $tag, $function_to_add, $priority ) ) {
+			remove_filter( $tag, $function_to_add, $priority );
+		}
+	}
+
+	/**
+	 * Builds the escaped WHERE entry to match a field not in the entry.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $where
+	 * @param WP_Query $query
+	 * @param string   $field
+	 *
+	 * @return string
+	 */
+	protected function where_field_not_in( $where, WP_Query $query, $field ) {
+		if ( $query !== $this->current_query ) {
+			return $where;
+		}
+
+		if ( empty( $this->query_vars[ $field ] ) ) {
+			return $where;
+		}
+
+		$input = $this->query_vars[ $field ];
+
+		$stati_interval = $this->create_interval_of_strings( $input );
+
+		$where .= $this->and_field_not_in_interval( $field, $stati_interval );
+
+		return $where;
+	}
+
+	/**
+	 * Creates a SQL interval of strings.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $input
+	 *
+	 * @return string
+	 */
+	protected function create_interval_of_strings( $input ) {
+		$buffer = array();
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		foreach ( $input as $string ) {
+			$buffer[] = is_array( $string ) ? $string : array( $string );
+		}
+
+		$buffer = array_unique( call_user_func_array( 'array_merge', $buffer ) );
+
+		$safe_strings = array();
+		foreach ( $buffer as $raw_status ) {
+			$safe_strings[] = $wpdb->prepare( '%s', $string );
+		}
+
+		return implode( "''", $safe_strings );
+	}
+
+	/**
+	 * Builds a WHERE clause where field is not in interval.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $field
+	 * @param string $interval
+	 *
+	 * @return string
+	 */
+	protected function and_field_not_in_interval( $field, $interval ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		return " AND {$wpdb->posts}.{$field} NOT IN ('{$interval}') ";
+	}
+
+	/**
 	 * Builds the escaped WHERE entry to match a field in the entry.
 	 *
 	 * @since TBD
@@ -402,282 +679,5 @@ class Tribe__Repository__Query_Filters {
 		global $wpdb;
 
 		return " AND {$wpdb->posts}.{$field} IN ('{$interval}') ";
-	}
-
-	/**
-	 * Proxy method to add a  filter calling the WordPress `add_filter` function
-	 * and keep track of it.
-	 *
-	 * @since TBD
-	 *
-	 * @param string   $tag
-	 * @param callable $function_to_add
-	 * @param int      $priority
-	 * @param int      $accepted_args
-	 */
-	protected function add_filter( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) {
-		$this->active_filters[] = array( $tag, $function_to_add, $priority );
-		add_filter( $tag, $function_to_add, $priority, $accepted_args );
-	}
-
-	/**
-	 * Removes all the filters this class applied.
-	 *
-	 * @since TBD
-	 */
-	public function remove_filters() {
-		foreach ( $this->active_filters as list( $tag, $function_to_add, $priority ) ) {
-			remove_filter( $tag, $function_to_add, $priority );
-		}
-	}
-
-	/**
-	 * Clean up before the object destruction.
-	 *
-	 * @since TBD
-	 */
-	public function __destruct() {
-		// let's make sure we clean up when the object is dereferenced
-		$this->remove_filters();
-	}
-
-	/**
-	 * Builds an "not exists or is not in" media query.
-	 *
-	 * @since TBD
-	 *
-	 * @param array|string            $meta_keys On what meta_keys the check should be made.
-	 * @param int|string|array $values    A single value, an array of values or a CSV list of values.
-	 * @param string           $query_slug
-	 *
-	 * @return array
-	 */
-	public static function meta_not_in( $meta_keys, $values, $query_slug ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
-		$values    = Tribe__Utils__Array::list_to_array( $values );
-
-		if ( empty( $meta_keys ) || empty( $values ) ) {
-			return array();
-		}
-
-		$args = array(
-			'meta_query' => array(
-				$query_slug => array(
-					'relation' => 'AND',
-				),
-			),
-		);
-
-		foreach ( $meta_keys as $key ) {
-			$args['meta_query'][ $query_slug ][ $key ] = array(
-				'not-exists' => array(
-					'key'     => $key,
-					'compare' => 'NOT EXISTS',
-				),
-				'relation'   => 'OR',
-			);
-
-			if ( count( $values ) > 1 ) {
-				$args['meta_query'][ $query_slug ][ $key ]['not-in'] = array(
-					'key'     => $key,
-					'compare' => 'NOT IN',
-					'value'   => $values,
-				);
-			} else {
-				$args['meta_query'][ $query_slug ][ $key ]['not-equals'] = array(
-					'key'     => $key,
-					'value'   => $values[0],
-					'compare' => '!=',
-				);
-			}
-		}
-
-		return $args;
-	}
-
-	/**
-	 * Builds an "exists and is in" media query.
-	 *
-	 * @since TBD
-	 *
-	 * @param array|string     $meta_keys On what meta_keys the check should be made.
-	 * @param int|string|array $values    A single value, an array of values or a CSV list of values.
-	 * @param string           $query_slug
-	 *
-	 * @return array
-	 */
-	public static function meta_in( $meta_keys, $values, $query_slug ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
-		$values    = Tribe__Utils__Array::list_to_array( $values );
-
-		if ( empty( $meta_keys ) || empty( $values ) ) {
-			return array();
-		}
-
-		$args = array(
-			'meta_query' => array(
-				$query_slug => array(
-					'relation' => 'OR',
-				),
-			),
-		);
-
-		foreach ( $meta_keys as $meta_key ) {
-			if ( count( $values ) > 1 ) {
-				$args['meta_query'][ $query_slug ][ $meta_key ] = array(
-					'key'     => $meta_key,
-					'compare' => 'IN',
-					'value'   => $values,
-				);
-			} else {
-				$args['meta_query'][ $query_slug ][ $meta_key ] = array(
-					'key'     => $meta_key,
-					'compare' => '=',
-					'value'   => $values[0],
-				);
-			}
-		}
-
-		return $args;
-	}
-
-	/**
-	 * Builds a meta query to check that at least of the meta key exists.
-	 *
-	 * @since TBD
-	 *
-	 * @param array|string $meta_keys
-	 * @param string       $query_slug
-	 *
-	 * @return array
-	 */
-	public static function meta_exists( $meta_keys, $query_slug ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
-
-		if ( empty( $meta_keys ) ) {
-			return array();
-		}
-
-		$args = array(
-			'meta_query' => array(
-				$query_slug => array(
-					'relation' => 'OR',
-				),
-			),
-		);
-
-		foreach ( $meta_keys as $meta_key ) {
-			$args['meta_query'][ $query_slug ][ $meta_key ] = array(
-				'key'     => $meta_key,
-				'compare' => 'EXISTS',
-			);
-		}
-
-		return $args;
-	}
-
-	/**
-	 * Builds a meta query to check that a meta is either equal to a value or
-	 * not exists.
-	 *
-	 * @since TBD
-	 *
-	 * @param array|string $meta_keys
-	 * @param array|string $values
-	 * @param string       $query_slug
-	 *
-	 * @return array
-	 */
-	public static function meta_in_or_not_exists( $meta_keys, $values, $query_slug ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
-		$values    = Tribe__Utils__Array::list_to_array( $values );
-
-		if ( empty( $meta_keys ) || empty( $values ) ) {
-			return array();
-		}
-
-		$args = array(
-			'meta_query' => array(
-				$query_slug => array(
-					'relation' => 'AND',
-				),
-			),
-		);
-
-		foreach ( $meta_keys as $meta_key ) {
-			$args['meta_query'][ $query_slug ][ $meta_key ]['does-not-exist'] = array(
-				'key'     => $meta_key,
-				'compare' => 'NOT EXISTS',
-			);
-			$args['meta_query'][ $query_slug ][ $meta_key ]['relation']       = 'OR';
-			if ( count( $values ) > 1 ) {
-				$args['meta_query'][ $query_slug ][ $meta_key ]['in'] = array(
-					'key'     => $meta_key,
-					'compare' => 'IN',
-					'value'   => $values,
-				);
-			} else {
-				$args['meta_query'][ $query_slug ][ $meta_key ]['equals'] = array(
-					'key'     => $meta_key,
-					'compare' => '=',
-					'value'   => $values[0],
-				);
-			}
-		}
-
-		return $args;
-	}
-
-	/**
-	 * Builds a meta query to check that a meta is either not equal to a value or
-	 * not exists.
-	 *
-	 * @since TBD
-	 *
-	 * @param array|string $meta_keys
-	 * @param array|string $values
-	 * @param string       $query_slug
-	 *
-	 * @return array
-	 */
-	public static function meta_not_in_or_not_exists( $meta_keys, $values, $query_slug ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
-		$values    = Tribe__Utils__Array::list_to_array( $values );
-
-		if ( empty( $meta_keys ) || empty( $values ) ) {
-			return array();
-		}
-
-		$args = array(
-			'meta_query' => array(
-				$query_slug => array(
-					'relation' => 'AND',
-				),
-			),
-		);
-
-		foreach ( $meta_keys as $meta_key ) {
-			$args['meta_query'][ $query_slug ][ $meta_key ]['does-not-exist'] = array(
-				'key'     => $meta_key,
-				'compare' => 'NOT EXISTS',
-			);
-			$args['meta_query'][ $query_slug ][ $meta_key ]['relation']       = 'OR';
-
-			if ( count( $values ) > 1 ) {
-				$args['meta_query'][ $query_slug ][ $meta_key ]['not-in'] = array(
-					'key'     => $meta_key,
-					'compare' => 'NOT IN',
-					'value'   => $values,
-				);
-			} else {
-				$args['meta_query'][ $query_slug ][ $meta_key ]['not-equals'] = array(
-					'key'     => $meta_key,
-					'compare' => '!=',
-					'value'   => $values[0],
-				);
-			}
-		}
-
-		return $args;
 	}
 }

@@ -149,7 +149,7 @@ class Tribe__Utils__Array {
 	public static function list_to_array( $value, $sep = ',' ) {
 		$sep = is_string( $sep ) ? $sep : ',';
 
-		if ( empty( $value ) ) {
+		if ( $value === null || $value === '' ) {
 			return array();
 		}
 
