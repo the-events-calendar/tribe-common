@@ -1532,7 +1532,7 @@ abstract class Tribe__Repository
 
 		return array(
 			'meta_query' => array(
-				array_merge( array( 'relation' => 'OR', ), $all )
+				array_merge( array( 'relation' => 'OR' ), $all )
 			),
 		);
 	}
