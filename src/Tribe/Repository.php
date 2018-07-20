@@ -240,7 +240,7 @@ abstract class Tribe__Repository
 	 */
 	protected $query_args = array(
 		'meta_query' => array( 'relation' => 'AND' ),
-		'tax_query'  => array( 'relation' => 'AND' )
+		'tax_query'  => array( 'relation' => 'AND' ),
 	);
 
 	/**
@@ -276,7 +276,7 @@ abstract class Tribe__Repository
 	/**
 	 * @var bool
 	 */
-	protected $skip_found_rows =true;
+	protected $skip_found_rows = true;
 
 	/**
 	 * Tribe__Repository constructor.
@@ -1490,7 +1490,7 @@ abstract class Tribe__Repository
 	 * @return array
 	 */
 	protected function build_meta_query( $meta_key, $meta_value = 'value', $compare = '=' ) {
-		$meta_keys = Tribe__Utils__Array::list_to_array($meta_key);
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_key );
 
 		$postfix_map = array(
 			'='           => 'equals',
@@ -1532,7 +1532,7 @@ abstract class Tribe__Repository
 
 		return array(
 			'meta_query' => array(
-				array_merge( array( 'relation' => 'OR', ), $all ),
+				array_merge( array( 'relation' => 'OR', ), $all )
 			),
 		);
 	}
