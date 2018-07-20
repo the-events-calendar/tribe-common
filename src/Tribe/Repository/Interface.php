@@ -42,4 +42,13 @@ interface Tribe__Repository__Interface
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function filter_name( $filter_name );
+
+	/**
+	 * Sets the formatter in charge of formatting items to the correct format.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Repository__Formatter_Interface $formatter
+	 */
+	public function set_formatter( Tribe__Repository__Formatter_Interface $formatter );
 }

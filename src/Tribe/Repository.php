@@ -94,6 +94,7 @@ abstract class Tribe__Repository
 		'meta_equals_regexp',
 		'meta_not_regexp',
 		'meta_not_equals_regexp',
+		'meta_related',
 		'taxonomy_exists',
 		'taxonomy_not_exists',
 		'term_id_in',
@@ -248,6 +249,11 @@ abstract class Tribe__Repository
 	 * @var Tribe__Repository__Interface
 	 */
 	protected $main_repository;
+
+	/**
+	 * @var __Formatter_Interface
+	 */
+	protected $formatter;
 
 	/**
 	 * Tribe__Repository constructor.
@@ -656,7 +662,9 @@ abstract class Tribe__Repository
 	 * @return WP_Post
 	 */
 	protected function format_item( $id ) {
-		return get_post( $id );
+		return null === $this->formatter
+			? get_post( $id )
+			: $this->formatter->format_item( $id );
 	}
 
 	/**
@@ -1202,6 +1210,13 @@ abstract class Tribe__Repository
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function set_formatter( Tribe__Repository__Formatter_Interface $formatter ) {
+		$this->formatter = $formatter;
+	}
+
+	/**
 	 * Returns modified query arguments after applying a default filter.
 	 *
 	 * @since TBD
@@ -1216,6 +1231,7 @@ abstract class Tribe__Repository
 
 		$call_args = func_get_args();
 		$arg_1     = isset( $call_args[2] ) ? $call_args[2] : null;
+		$arg_2     = isset( $call_args[3] ) ? $call_args[3] : null;
 
 		switch ( $key ) {
 			default:
@@ -1325,6 +1341,10 @@ abstract class Tribe__Repository
 			case 'meta_not_regexp':
 			case 'meta_not_equals_regexp':
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT REGEXP' );
+				break;
+			case 'meta_related':
+				$args = array();
+//				$args = $this->filter_query->to_get_posts_where_meta_related_post($meta_key = $value,$post_field = $arg_1,$value = $arg_2,$compare='IN');
 				break;
 			case 'taxonomy_exists':
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'EXISTS' );

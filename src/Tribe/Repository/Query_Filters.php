@@ -17,6 +17,7 @@ class Tribe__Repository__Query_Filters {
 			'post_excerpt' => array(),
 		),
 		'status' => array(),
+		'custom' => array(),
 	);
 
 	/**
@@ -58,6 +59,32 @@ class Tribe__Repository__Query_Filters {
 				$where .= $this->and_field_like( $field, $entry );
 			}
 		}
+
+		return $where;
+	}
+
+	/**
+	 * Filters the WHERE clause of the query to add custom WHERE clauses.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $where
+	 * @param WP_Query $query
+	 *
+	 * @return string
+	 */
+	public function filter_custom( $where , WP_Query $query ) {
+		if ( $query !== $this->current_query ) {
+			return $where;
+		}
+
+		if ( empty( $this->query_vars['custom'] ) ) {
+			return $where;
+		}
+
+		$customs = implode( ' AND ', $this->query_vars['custom'] );
+
+		$where   .= $customs;
 
 		return $where;
 	}
@@ -139,6 +166,33 @@ class Tribe__Repository__Query_Filters {
 
 		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_like' ) ) ) {
 			add_filter( 'posts_where', array( $this, 'filter_by_like' ), 10, 2 );
+		}
+	}
+
+	public function to_get_posts_where_meta_related_post( $meta_key, $post_field, $field_value, $compare ) {
+		$meta_keys    = Tribe__Utils__Array::list_to_array( $meta_key );
+		$field_values = Tribe__Utils__Array::list_to_array( $field_value );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$keys = array();
+		foreach ( $meta_keys as $key ) {
+			$keys[] = $wpdb->prepare( '%s', $key );
+		}
+		$keys = implode(',', $keys);
+
+		$this->query_vars['custom'][] = "{$wpdb->posts}.ID IN (
+			SELECT post_id 
+			FROM {$wpdb->postmeta} m
+			JOIN {$wpdb->posts} p 
+			ON m.meta_value = p.ID
+			WHERE m.meta_key IN ({$keys})
+			AND 
+			)";
+
+		if ( ! has_filter( 'posts_where', array( $this, 'filter_custom' ) ) ) {
+			add_filter( 'posts_where', array( $this, 'filter_custom' ), 10, 2 );
 		}
 	}
 

@@ -356,7 +356,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return mixed
+	 * @return WP_Query
 	 */
 	public function get_query();
 }
