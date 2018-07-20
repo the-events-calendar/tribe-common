@@ -14,6 +14,7 @@ abstract class Tribe__Repository
 		'guid',
 		'comment_count',
 	);
+
 	/**
 	 * @var array A list of the default filters supported and implemented by the repository.
 	 */
@@ -94,7 +95,7 @@ abstract class Tribe__Repository
 		'meta_equals_regexp',
 		'meta_not_regexp',
 		'meta_not_equals_regexp',
-		'meta_related',
+		'meta_related_in',
 		'taxonomy_exists',
 		'taxonomy_not_exists',
 		'term_id_in',
@@ -107,6 +108,7 @@ abstract class Tribe__Repository
 		'term_slug_not_in',
 		'term_slug_and',
 	);
+
 	/**
 	 * @var array An array of default arguments that will be applied to all queries.
 	 */
@@ -115,6 +117,7 @@ abstract class Tribe__Repository
 		'suppress_filters' => false,
 		'posts_per_page'   => - 1,
 	);
+
 	/**
 	 * @var array A list of query modifiers that will trigger a overriding merge, thus
 	 *            replacing previous values, when set multiple times.
@@ -174,26 +177,32 @@ abstract class Tribe__Repository
 		'guid',
 		'perm',
 	);
+
 	/**
 	 * @var string
 	 */
 	protected $filter_name = 'default';
+
 	/**
 	 * @var array The post IDs that will be updated.
 	 */
 	protected $ids = array();
+
 	/**
 	 * @var bool Whether the post IDs to update have already been fetched or not.
 	 */
 	protected $has_ids = false;
+
 	/**
 	 * @var array The updates that will be saved to the database.
 	 */
 	protected $updates = array();
+
 	/**
 	 * @var array A list of taxonomies this repository will recognize.
 	 */
 	protected $taxonomies = array();
+
 	/**
 	 * @var array A map detailing which fields should be converted from a
 	 *            GMT time and date to a local one.
@@ -201,6 +210,7 @@ abstract class Tribe__Repository
 	protected $to_local_time_map = array(
 		'post_date_gmt' => 'post_date',
 	);
+
 	/**
 	 * @var array A map detailing which fields should be converted from a
 	 *            localized time and date to a GMT one.
@@ -208,19 +218,23 @@ abstract class Tribe__Repository
 	protected $to_gmt_map = array(
 		'post_date' => 'post_date_gmt',
 	);
+
 	/**
 	 * @var array
 	 */
 	protected $default_args = array( 'post_type' => 'post' );
+
 	/**
 	 * @var array An array of query modifying callbacks populated while applying
 	 *            the filters.
 	 */
 	protected $query_modifiers = array();
+
 	/**
 	 * @var bool Whether the current query is void or not.
 	 */
 	protected $void_query = false;
+
 	/**
 	 * @var array An array of query arguments that will be populated while applying
 	 *            filters.
@@ -229,31 +243,41 @@ abstract class Tribe__Repository
 		'meta_query' => array( 'relation' => 'AND' ),
 		'tax_query'  => array( 'relation' => 'AND' )
 	);
+
 	/**
 	 * @var WP_Query The current query object built and modified by the instance.
 	 */
 	protected $current_query;
+
 	/**
 	 * @var Tribe__Repository__Query_Filters
 	 */
 	protected $filter_query;
+
 	/**
 	 * @var string The filter that should be used to get a post by its primary key.
 	 */
 	protected $primary_key = 'p';
+
 	/**
 	 * @var array A map of callbacks in the shape [ <slug> => <callback|primitive> ]
 	 */
 	protected $schema = array();
+
 	/**
 	 * @var Tribe__Repository__Interface
 	 */
 	protected $main_repository;
 
 	/**
-	 * @var __Formatter_Interface
+	 * @var Tribe__Repository__Formatter_Interface
 	 */
 	protected $formatter;
+
+	/**
+	 * @var bool
+	 */
+	protected $skip_found_rows =true;
 
 	/**
 	 * Tribe__Repository constructor.
@@ -478,8 +502,11 @@ abstract class Tribe__Repository
 
 		$return_ids = 'ids' === $query->get( 'fields', '' );
 
-		// skip counting the found rows to speed up the query
-		$query->set( 'no_found_rows', true );
+		/**
+		 * Do not skip counting the rows if we have some filtering to do on
+		 * `found_posts`.
+		 */
+		$query->set( 'no_found_rows', $this->skip_found_rows );
 		// we'll let the class build the items later
 		$query->set( 'fields', 'ids' );
 
@@ -864,6 +891,7 @@ abstract class Tribe__Repository
 	 * @return mixed
 	 *
 	 * @throws Tribe__Repository__Usage_Error If the required filter is not defined by the class.
+	 * @throws Tribe__Repository__Void_Query_Exception To signal the query would yield no results.
 	 */
 	protected function modify_query( $key, $call_args ) {
 		if ( ! $this->schema_has_modifier_for( $key ) ) {
@@ -1342,9 +1370,13 @@ abstract class Tribe__Repository
 			case 'meta_not_equals_regexp':
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT REGEXP' );
 				break;
-			case 'meta_related':
-				$args = array();
-//				$args = $this->filter_query->to_get_posts_where_meta_related_post($meta_key = $value,$post_field = $arg_1,$value = $arg_2,$compare='IN');
+			case 'meta_related_in':
+				$this->filter_query->to_get_posts_where_meta_related_post_field_compares(
+					$meta_key = $value,
+					$post_field = $arg_1,
+					$values = $arg_2,
+					'IN'
+				);
 				break;
 			case 'taxonomy_exists':
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'EXISTS' );

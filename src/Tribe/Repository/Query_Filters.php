@@ -10,15 +10,20 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * @var array
 	 */
-	protected $query_vars = array(
-		'like'   => array(
+	protected static $initial_query_vars = array(
+		'like'                => array(
 			'post_title'   => array(),
 			'post_content' => array(),
 			'post_excerpt' => array(),
 		),
-		'status' => array(),
-		'custom' => array(),
+		'status'              => array(),
+		'join' => array(),
 	);
+
+	/**
+	 * @var array
+	 */
+	protected $query_vars;
 
 	/**
 	 * @var WP_Query
@@ -34,6 +39,15 @@ class Tribe__Repository__Query_Filters {
 	 * @var array A list of the filters this class has added.
 	 */
 	protected $active_filters = array();
+
+	/**
+	 * Tribe__Repository__Query_Filters constructor.
+	 *
+	 * @since TBD
+	 */
+	public function __construct() {
+		$this->query_vars = self::$initial_query_vars;
+	}
 
 	/**
 	 * Builds an "not exists or is not in" media query.
@@ -328,29 +342,81 @@ class Tribe__Repository__Query_Filters {
 	}
 
 	/**
-	 * Filters the WHERE clause of the query to add custom WHERE clauses.
+	 * Filters the found posts value to apply filtering and selections on the PHP
+	 * side of things.
+	 *
+	 * Here we perform, after the query did run, further filtering operations that would
+	 * result in more JOIN and/or sub-SELECT clauses being added to the query.
 	 *
 	 * @since TBD
 	 *
-	 * @param string   $where
-	 * @param WP_Query $query
+	 * @param int      $found_posts The number of found posts.
+	 * @param WP_Query $query       The current query object.
 	 *
 	 * @return string
 	 */
-	public function filter_custom( $where, WP_Query $query ) {
+	public function filter_found_posts( $found_posts, WP_Query $query ) {
 		if ( $query !== $this->current_query ) {
-			return $where;
+			return $found_posts;
 		}
 
-		if ( empty( $this->query_vars['custom'] ) ) {
-			return $where;
+		if ( empty( $this->query_vars['found_posts_filters'] ) ) {
+			return $found_posts;
 		}
 
-		$customs = implode( ' AND ', $this->query_vars['custom'] );
+		$filtered_found_posts = $found_posts;
+		$ids_only             = $query->get( 'fields' ) === 'ids';
 
-		$where .= $customs;
+		/** @var wpdb $wpdb */
+		global $wpdb;
 
-		return $where;
+		/**
+		 * Handles meta-based relations between posts.
+		 */
+		foreach ( $this->query_vars['found_posts_filters']['meta_related'] as list( $meta_keys, $field, $field_values, $compare ) ) {
+			$post_ids          = $ids_only ? $query->posts : wp_list_pluck( $query->posts, 'ID' );
+			$post_ids_interval = '(' . implode( ',', $post_ids ) . ')';
+			$meta_keys         = "('" . implode( "','", array_map( 'esc_sql', $meta_keys ) ) . "')";
+			$field             = esc_sql( $field );
+			$field_values      = is_array( $field_values )
+				? "('" . implode( "','", array_map( 'esc_sql', $field_values ) ) . "')"
+				: $wpdb->prepare( '%s', $field_values );
+
+			$relation_query = "
+				SELECT DISTINCT( pm.post_id )
+				FROM {$wpdb->posts} p
+				JOIN {$wpdb->postmeta} pm
+				ON pm.meta_value = p.ID
+				WHERE pm.post_id IN {$post_ids_interval}
+				AND pm.meta_key IN {$meta_keys}
+				AND p.{$field} {$compare} {$field_values}
+				";
+
+			$matching_ids = $wpdb->get_col( $relation_query );
+
+			if ( empty( $matching_ids ) ) {
+				$query->posts         = array();
+				$filtered_found_posts = 0;
+				break;
+			}
+
+			if ( $ids_only ) {
+				$query->posts = array_intersect( $query->posts, $matching_ids );
+			} else {
+				$updated_query_posts = array();
+				foreach ( $query->posts as $this_post ) {
+					if ( in_array( $this_post->ID, $matching_ids ) ) {
+						$updated_query_posts[] = $this_post;
+					}
+				}
+				$query->posts = $updated_query_posts;
+			}
+			$filtered_found_posts = count( $query->posts );
+		}
+
+		$query->post_count = $filtered_found_posts;
+
+		return $filtered_found_posts;
 	}
 
 	/**
@@ -425,30 +491,40 @@ class Tribe__Repository__Query_Filters {
 		}
 	}
 
-	public function to_get_posts_where_meta_related_post( $meta_key, $post_field, $field_value, $compare ) {
+	/**
+	 * Sets up query filtering to limit posts to those that are related, via meta, to
+	 * another post with a field in the values.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $meta_key    The meta key, or a list of meta keys, relating the source
+	 *                                  post to the destination post, defined on the source post.
+	 * @param string       $post_field  The post field to check on the relation destination
+	 * @param string|array $field_value One or more values the destination post field should match.
+	 * @param string       $compare     The comparison operator to use.
+	 */
+	public function to_get_posts_where_meta_related_post_field_compares( $meta_key, $post_field, $field_value, $compare ) {
 		$meta_keys    = Tribe__Utils__Array::list_to_array( $meta_key );
 		$field_values = Tribe__Utils__Array::list_to_array( $field_value );
 
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		$keys = array();
-		foreach ( $meta_keys as $key ) {
-			$keys[] = $wpdb->prepare( '%s', $key );
-		}
-		$keys = implode( ',', $keys );
+		$meta_keys    = "('" . implode( "','", array_map( 'esc_sql', $meta_keys ) ) . "')";
+		$field        = esc_sql( $post_field );
+		$field_values = "('" . implode( "','", array_map( 'esc_sql', $field_values ) ) . "')";
 
-		$this->query_vars['custom'][] = "{$wpdb->posts}.ID IN (
-			SELECT post_id 
-			FROM {$wpdb->postmeta} m
-			JOIN {$wpdb->posts} p 
-			ON m.meta_value = p.ID
-			WHERE m.meta_key IN ({$keys})
-			AND 
-			)";
+		$this->query_vars['where'][] = "{$wpdb->posts}.ID IN (
+				SELECT DISTINCT( pm.post_id )
+				FROM {$wpdb->posts} p
+				JOIN {$wpdb->postmeta} pm
+				ON pm.meta_value = p.ID
+				WHERE pm.meta_key IN {$meta_keys}
+				AND p.{$field} {$compare} {$field_values}
+		)";
 
-		if ( ! has_filter( 'posts_where', array( $this, 'filter_custom' ) ) ) {
-			add_filter( 'posts_where', array( $this, 'filter_custom' ), 10, 2 );
+		if ( ! has_filter( 'posts_where', array( $this, 'filter_posts_where' ) ) ) {
+			add_filter( 'posts_where', array( $this, 'filter_posts_where' ), 10, 2 );
 		}
 	}
 
@@ -679,5 +755,29 @@ class Tribe__Repository__Query_Filters {
 		global $wpdb;
 
 		return " AND {$wpdb->posts}.{$field} IN ('{$interval}') ";
+	}
+
+	/**
+	 * Filter the `posts_where` filter to add custom WHERE clauses.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $where
+	 * @param WP_Query $query
+	 *
+	 * @return string
+	 */
+	public function filter_posts_where( $where, WP_Query $query ) {
+		if ( $query !== $this->current_query ) {
+			return $where;
+		}
+
+		if ( empty( $this->query_vars['where'] ) ) {
+			return $where;
+		}
+
+		$where .= ' AND ' . implode( "\nAND ", $this->query_vars['where'] ) . ' ';
+
+		return $where;
 	}
 }
