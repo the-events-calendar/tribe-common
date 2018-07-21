@@ -94,19 +94,22 @@ class Tribe__Repository__Usage_Error extends Exception {
 	}
 
 	/**
-	 * Indicates that a magic `__call` method redirection could not find the method
-	 * in any sub-repository.
+	 * Indicates that the client code is trying to use a single comparison operator with multiple values.
 	 *
 	 * @since TBD
 	 *
-	 * @param string                       $method
-	 * @param Tribe__Repository__Interface $object
+	 * @param string|array $key
+	 * @param array  $value
+	 * @param string $compare
+	 * @param mixed  $object
 	 *
 	 * @return Tribe__Repository__Usage_Error
 	 */
-	public static function because_the_called_method_was_not_found( $method, $object ) {
-		$class = get_class( $object );
+	public static function because_single_value_comparisons_should_be_used_with_one_value( $key, array $value, $compare, $object ) {
+		$class  = get_class( $object );
+		$keys    = is_array( $key ) ? implode( ', ', $key ) : $key;
+		$values = implode( ', ', $value );
 
-		return new self( "The {$method} method is not defined by any of the sub-repositories; if one of the sub-repositories this repository is handling does provided the method add it in the `__call_map` property." );
+		return new self( "It looks like you are trying to use a single SQL compare operator ({$compare}) with multiple values; [ keys: {$keys}, values: {$values}]." );
 	}
 }

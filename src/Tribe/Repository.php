@@ -178,30 +178,54 @@ abstract class Tribe__Repository
 	);
 
 	/**
+	 * @var int
+	 */
+	protected static $meta_alias = 0;
+	/**
+	 * @var array A list of keys that denote the value to check should be cast to array.
+	 */
+	protected static $multi_value_keys = array( 'IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN' );
+	/**
+	 * @var array A map of SQL comparison operators to their human-readable counterpart.
+	 */
+	protected static $comparison_operators = array(
+		'='           => 'equals',
+		'!='          => 'not-equals',
+		'>'           => 'gt',
+		'>='          => 'gte',
+		'<'           => 'lt',
+		'<='          => 'lte',
+		'LIKE'        => 'like',
+		'NOT LIKE'    => 'not-like',
+		'IN'          => 'in',
+		'NOT IN'      => 'not-in',
+		'BETWEEN'     => 'between',
+		'NOT BETWEEN' => 'not-between',
+		'EXISTS'      => 'exists',
+		'NOT EXISTS'  => 'not-exists',
+		'REGEXP'      => 'regexp',
+		'NOT REGEXP'  => 'not-regexp',
+	);
+	/**
 	 * @var string
 	 */
 	protected $filter_name = 'default';
-
 	/**
 	 * @var array The post IDs that will be updated.
 	 */
 	protected $ids = array();
-
 	/**
 	 * @var bool Whether the post IDs to update have already been fetched or not.
 	 */
 	protected $has_ids = false;
-
 	/**
 	 * @var array The updates that will be saved to the database.
 	 */
 	protected $updates = array();
-
 	/**
 	 * @var array A list of taxonomies this repository will recognize.
 	 */
 	protected $taxonomies = array();
-
 	/**
 	 * @var array A map detailing which fields should be converted from a
 	 *            GMT time and date to a local one.
@@ -209,7 +233,6 @@ abstract class Tribe__Repository
 	protected $to_local_time_map = array(
 		'post_date_gmt' => 'post_date',
 	);
-
 	/**
 	 * @var array A map detailing which fields should be converted from a
 	 *            localized time and date to a GMT one.
@@ -217,23 +240,19 @@ abstract class Tribe__Repository
 	protected $to_gmt_map = array(
 		'post_date' => 'post_date_gmt',
 	);
-
 	/**
 	 * @var array
 	 */
 	protected $default_args = array( 'post_type' => 'post' );
-
 	/**
 	 * @var array An array of query modifying callbacks populated while applying
 	 *            the filters.
 	 */
 	protected $query_modifiers = array();
-
 	/**
 	 * @var bool Whether the current query is void or not.
 	 */
 	protected $void_query = false;
-
 	/**
 	 * @var array An array of query arguments that will be populated while applying
 	 *            filters.
@@ -242,37 +261,30 @@ abstract class Tribe__Repository
 		'meta_query' => array( 'relation' => 'AND' ),
 		'tax_query'  => array( 'relation' => 'AND' ),
 	);
-
 	/**
 	 * @var WP_Query The current query object built and modified by the instance.
 	 */
 	protected $current_query;
-
 	/**
 	 * @var Tribe__Repository__Query_Filters
 	 */
 	protected $filter_query;
-
 	/**
 	 * @var string The filter that should be used to get a post by its primary key.
 	 */
 	protected $primary_key = 'p';
-
 	/**
 	 * @var array A map of callbacks in the shape [ <slug> => <callback|primitive> ]
 	 */
 	protected $schema = array();
-
 	/**
 	 * @var Tribe__Repository__Interface
 	 */
 	protected $main_repository;
-
 	/**
 	 * @var Tribe__Repository__Formatter_Interface
 	 */
 	protected $formatter;
-
 	/**
 	 * @var bool
 	 */
@@ -1487,54 +1499,88 @@ abstract class Tribe__Repository
 	 * @param string|array $meta_value
 	 * @param string       $compare
 	 *
-	 * @return array
+	 * @return array|null
+	 * @throws Tribe__Repository__Usage_Error If trying to compare multiple values with a single
+	 *                                        comparison operator.
 	 */
 	protected function build_meta_query( $meta_key, $meta_value = 'value', $compare = '=' ) {
 		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_key );
 
-		$postfix_map = array(
-			'='           => 'equals',
-			'!='          => 'not-equals',
-			'>'           => 'gt',
-			'>='          => 'gte',
-			'<'           => 'lt',
-			'<='          => 'lte',
-			'LIKE'        => 'like',
-			'NOT LIKE'    => 'not-like',
-			'IN'          => 'in',
-			'NOT IN'      => 'not-in',
-			'BETWEEN'     => 'between',
-			'NOT BETWEEN' => 'not-between',
-			'EXISTS'      => 'exists',
-			'NOT EXISTS'  => 'not-exists',
-			'REGEXP'      => 'regexp',
-			'NOT REGEXP'  => 'not-regexp',
-		);
-		$postfix = Tribe__Utils__Array::get( $postfix_map, $compare, '' );
+		$postfix = Tribe__Utils__Array::get( self::$comparison_operators, $compare, '' );
 
-		$all = array();
+		if ( count( $meta_keys ) === 1 ) {
+			$array_key = $this->sql_slug( $meta_keys[0], $postfix );
 
-		foreach ( $meta_keys as $key ) {
-			$array_key = sanitize_title( sprintf( '%s-%s', $key, $postfix ) );
-
-			$this_args = array(
-				'key'     => $key,
-				'value'   => $meta_value,
-				'compare' => strtoupper( $compare ),
+			$args = array(
+				'meta_query' => array(
+					$array_key => array(
+						'key'     => $meta_keys[0],
+						'compare' => strtoupper( $compare ),
+					)
+				),
 			);
 
-			if ( in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
-				unset( $this_args['value'] );
+			if ( ! in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
+				$args['meta_query'][ $array_key ]['value'] = $meta_value;
 			}
 
-			$all[ $array_key ] = $this_args;
+			return $args;
 		}
 
-		return array(
-			'meta_query' => array(
-				array_merge( array( 'relation' => 'OR' ), $all )
-			),
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		// Build custom WHERE and JOINS to reduce the JOIN clauses
+		$pm_alias     = $this->sql_slug( 'meta', $postfix, ++ self::$meta_alias );
+		$meta_keys_in = sprintf( "('%s')", implode( "','", array_map( 'esc_sql', $meta_keys ) ) );
+
+		if ( in_array( $compare, self::$multi_value_keys, true ) ) {
+			$meta_values = array();
+			foreach ( Tribe__Utils__Array::list_to_array( $meta_value ) as $v ) {
+				$meta_values[] = $wpdb->prepare( '%s', $v );
+			}
+			$meta_values = sprintf( "(%s)", implode( ',', $meta_values ) );
+		} else {
+			if ( is_array( $meta_value ) ) {
+				throw Tribe__Repository__Usage_Error::because_single_value_comparisons_should_be_used_with_one_value(
+					$meta_key,
+					$meta_value,
+					$compare,
+					$this
+				);
+			}
+			$meta_values = $wpdb->prepare( '%s', $meta_value );
+		}
+
+		$this->filter_query->join( "JOIN {$wpdb->postmeta} {$pm_alias} "
+		                           . "ON {$wpdb->posts}.ID = {$pm_alias}.post_id"
 		);
+
+		if ( 'EXISTS' === $compare ) {
+			$this->filter_query->where( "{$pm_alias}.meta_key IN {$meta_keys_in} "
+			                            . "AND {$pm_alias}.meta_id IS NOT NULL" );
+		} else if ( 'NOT EXISTS' === $compare ) {
+			$this->filter_query->where( "{$pm_alias}.meta_key NOT IN {$meta_keys_in} "
+			                            . "AND {$pm_alias}.meta_id IS NOT NULL" );
+		} else {
+			$this->filter_query->where( "{$pm_alias}.meta_key IN {$meta_keys_in} "
+			                            . "AND {$pm_alias}.meta_value {$compare} {$meta_values}" );
+		}
+	}
+
+	/**
+	 * Generates a SQL friendly slug from the provided, variadic, fragments.
+	 *
+	 * @since TBD
+	 *
+	 * @param ...string $frag
+	 *
+	 * @return string
+	 */
+	protected function sql_slug( $frag ) {
+		$frags = func_get_args();
+
+		return strtolower( str_replace( '-', '_', sanitize_title( implode( '_', $frags ) ) ) );
 	}
 
 	/**
@@ -1551,9 +1597,9 @@ abstract class Tribe__Repository
 	 */
 	protected function build_tax_query( $taxonomy, $terms, $field, $operator ) {
 		if ( in_array( $operator, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
-			$array_key = sanitize_title( sprintf( '%s-%s', $taxonomy, $operator ) );
+			$array_key = $this->sql_slug( $taxonomy, $operator );
 		} else {
-			$array_key = sanitize_title( sprintf( '%s-%s-%s', $taxonomy, $field, $operator ) );
+			$array_key = $this->sql_slug( $taxonomy, $field, $operator );
 		}
 
 		return array(

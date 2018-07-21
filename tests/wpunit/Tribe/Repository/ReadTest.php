@@ -574,4 +574,42 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertInstanceOf( \Tribe__Repository__Update_Interface::class, $repository->where( 'post__in', $ids )->set( 'post_title', 'foo' ) );
 	}
+
+	/**
+	 * It should allow querying by multiple meta keys
+	 *
+	 * @test
+	 */
+	public function should_allow_querying_by_multiple_meta_keys() {
+		$ids = $this->factory()->post->create_many( 3, [ 'post_type' => 'book' ] );
+		update_post_meta( $ids[0], 'one', 'foo' );
+		update_post_meta( $ids[1], 'two', 'bar' );
+		update_post_meta( $ids[2], 'three', 'bar' );
+		$repository = $this->repository();
+
+		$this->assertEquals( \array_slice( $ids, 0, 2 ), $this->repository()->where( 'meta_exists', [
+			'one',
+			'two'
+		] )->fields( 'ids' )->all() );
+		$this->assertEquals( [ $ids[2] ], $this->repository()->where( 'meta_not_exists', [
+			'one',
+			'two'
+		] )->fields( 'ids' )->all() );
+		$this->assertEquals( \array_slice( $ids, 1, 1 ), $this->repository()->where( 'meta_in', [
+			'one',
+			'two'
+		], 'bar' )->fields( 'ids' )->all() );
+		$this->assertEquals( [ $ids[0], $ids[2] ], $this->repository()->where( 'meta_in', [
+			'one',
+			'three'
+		], [ 'foo', 'bar' ] )->fields( 'ids' )->all() );
+		$this->assertEquals( [], $this->repository()->where( 'meta_not_in', [
+			'one',
+			'three'
+		], [ 'foo', 'bar' ] )->fields( 'ids' )->all() );
+		$this->assertEquals( [ $ids[2] ], $this->repository()->where( 'meta_not_in', [
+			'one',
+			'three'
+		], [ 'foo' ] )->fields( 'ids' )->all() );
+	}
 }
