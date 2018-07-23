@@ -61,4 +61,33 @@ interface Tribe__Repository__Interface
 	 * @return WP_Query
 	 */
 	public function build_query();
+
+	/**
+	 * Adds a custom JOIN clause to the query.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $join
+	 */
+	public function join_clause( $join );
+
+	/**
+	 * Adds a custom WHERE clause to the query.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $where
+	 */
+	public function where_clause( $where );
+
+	/**
+	 * Sets the object in charge of building and returning the query.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $query_builder
+	 *
+	 * @return mixed
+	 */
+	public function set_query_builder( $query_builder );
 }

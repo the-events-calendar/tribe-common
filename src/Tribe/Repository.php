@@ -268,7 +268,7 @@ abstract class Tribe__Repository
 	/**
 	 * @var Tribe__Repository__Query_Filters
 	 */
-	protected $filter_query;
+	public $filter_query;
 	/**
 	 * @var string The filter that should be used to get a post by its primary key.
 	 */
@@ -289,6 +289,11 @@ abstract class Tribe__Repository
 	 * @var bool
 	 */
 	protected $skip_found_rows = true;
+
+	/**
+	 * @var Tribe__Repository__Interface
+	 */
+	protected $query_builder;
 
 	/**
 	 * Tribe__Repository constructor.
@@ -417,6 +422,18 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function build_query() {
+		/**
+		 * Allow classes extending or decorating the repository to act before
+		 * the query is built or replace its building completely.
+		 */
+		if ( null !== $this->query_builder ) {
+			$built = $this->query_builder->build_query();
+
+			if ( null !== $built ) {
+				return $built;
+			}
+		}
+
 		$query = new WP_Query();
 
 		$this->filter_query->set_query( $query );
@@ -445,7 +462,7 @@ abstract class Tribe__Repository
 			$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
 			$page     = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
 
-			$real_offset                  = $per_page === - 1 ? $offset : ( $per_page * $page - 1 ) + $offset;
+			$real_offset                  = $per_page === - 1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
 			$query_args['offset']         = $real_offset;
 			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
 
@@ -1274,6 +1291,9 @@ abstract class Tribe__Repository
 		$arg_1     = isset( $call_args[2] ) ? $call_args[2] : null;
 		$arg_2     = isset( $call_args[3] ) ? $call_args[3] : null;
 
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
 		switch ( $key ) {
 			default:
 				// leverage built-in WP_Query filters
@@ -1610,5 +1630,26 @@ abstract class Tribe__Repository
 				),
 			),
 		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function join_clause( $join ) {
+		$this->filter_query->join( $join );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function where_clause( $where ) {
+		$this->filter_query->where( $where );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_query_builder( $query_builder ) {
+		$this->query_builder = $query_builder;
 	}
 }

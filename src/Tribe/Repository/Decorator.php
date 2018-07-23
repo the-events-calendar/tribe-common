@@ -10,7 +10,7 @@
  */
 abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interface {
 	/**
-	 * @var Tribe__Repository__Interface
+	 * @var Tribe__Repository__Interface|Tribe__Repository__Read_Interface|Tribe__Repository__Update_Interface
 	 */
 	protected $decorated;
 
@@ -274,6 +274,27 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 */
 	public function set_formatter( Tribe__Repository__Formatter_Interface $formatter ) {
 		$this->decorated->set_formatter( $formatter );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function join_clause( $join ) {
+		$this->decorated->join_clause( $join );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function where_clause( $where ) {
+		$this->decorated->where_clause( $where );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_query_builder( $query_builder ) {
+		$this->decorated->set_query_builder( $query_builder );
 	}
 
 	/**
