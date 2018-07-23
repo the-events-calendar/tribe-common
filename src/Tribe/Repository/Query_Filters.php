@@ -670,9 +670,12 @@ class Tribe__Repository__Query_Filters {
 	 * @return array
 	 */
 	public function get_buffered_where_clauses( $get_clean = false ) {
-		$clauses                      = $this->buffered_where_clauses;
-		$this->buffered_where_clauses = array();
-		$this->buffer_where_clauses   = false;
+		$clauses = $this->buffered_where_clauses;
+
+		if ( $get_clean ) {
+			$this->buffer_where_clauses   = false;
+			$this->buffered_where_clauses = array();
+		}
 
 		return $clauses;
 	}

@@ -1346,9 +1346,8 @@ abstract class Tribe__Repository
 	 */
 	public function where_or( $callbacks ) {
 		$callbacks = func_get_args();
-		$this->filter_query->buffer_where_clauses( true );
-
 		$buffered       = $this->filter_query->get_buffered_where_clauses( true );
+		$this->filter_query->buffer_where_clauses( true );
 		$buffered_count = count( $buffered );
 
 		foreach ( $callbacks as $c ) {
@@ -1360,6 +1359,8 @@ abstract class Tribe__Repository
 
 			$buffered_count ++;
 		}
+
+		$buffered       = $this->filter_query->get_buffered_where_clauses( true );
 
 		$fenced = sprintf( '( %s )', implode( ' OR ', $buffered ) );
 

@@ -90,4 +90,24 @@ interface Tribe__Repository__Interface
 	 * @return mixed
 	 */
 	public function set_query_builder( $query_builder );
+
+	/**
+	 * Builds a fenced group of WHERE clauses that will be used with OR logic.
+	 *
+	 * Mind that this is a lower level implementation of WHERE logic that requires
+	 * each callback method to add, at least, one WHERE clause using the repository
+	 * own `where_clause` method.
+	 *
+	 * @param array $callbacks       One or more WHERE callbacks that will be called
+	 *                                this repository. The callbacks have the shape
+	 *                                [ <method>, <...args>]
+	 *
+	 * @return $this
+	 * @throws Tribe__Repository__Usage_Error If one of the callback methods does
+	 *                                        not add any WHERE clause.
+	 *
+	 * @see Tribe__Repository::where_clause()
+	 * @see Tribe__Repository__Query_Filters::where()
+	 */
+	public function where_or( $callbacks );
 }

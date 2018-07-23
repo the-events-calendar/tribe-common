@@ -314,4 +314,14 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function build_query() {
 		return $this->decorated->build_query();
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function where_or( $callbacks ) {
+		$call_args = func_get_args();
+		call_user_func_array( array( $this->decorated, 'where_or' ), $call_args );
+
+		return $this;
+	}
 }
