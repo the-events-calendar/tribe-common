@@ -1516,7 +1516,7 @@ abstract class Tribe__Repository
 					$array_key => array(
 						'key'     => $meta_keys[0],
 						'compare' => strtoupper( $compare ),
-					)
+					),
 				),
 			);
 
@@ -1539,7 +1539,7 @@ abstract class Tribe__Repository
 			foreach ( Tribe__Utils__Array::list_to_array( $meta_value ) as $v ) {
 				$meta_values[] = $wpdb->prepare( '%s', $v );
 			}
-			$meta_values = sprintf( "(%s)", implode( ',', $meta_values ) );
+			$meta_values = sprintf( '(%s)', implode( ',', $meta_values ) );
 		} else {
 			if ( is_array( $meta_value ) ) {
 				throw Tribe__Repository__Usage_Error::because_single_value_comparisons_should_be_used_with_one_value(
@@ -1552,19 +1552,15 @@ abstract class Tribe__Repository
 			$meta_values = $wpdb->prepare( '%s', $meta_value );
 		}
 
-		$this->filter_query->join( "JOIN {$wpdb->postmeta} {$pm_alias} "
-		                           . "ON {$wpdb->posts}.ID = {$pm_alias}.post_id"
+		$this->filter_query->join( "JOIN {$wpdb->postmeta} {$pm_alias} ON {$wpdb->posts}.ID = {$pm_alias}.post_id"
 		);
 
 		if ( 'EXISTS' === $compare ) {
-			$this->filter_query->where( "{$pm_alias}.meta_key IN {$meta_keys_in} "
-			                            . "AND {$pm_alias}.meta_id IS NOT NULL" );
+			$this->filter_query->where( "{$pm_alias}.meta_key IN {$meta_keys_in} AND {$pm_alias}.meta_id IS NOT NULL" );
 		} else if ( 'NOT EXISTS' === $compare ) {
-			$this->filter_query->where( "{$pm_alias}.meta_key NOT IN {$meta_keys_in} "
-			                            . "AND {$pm_alias}.meta_id IS NOT NULL" );
+			$this->filter_query->where( "{$pm_alias}.meta_key NOT IN {$meta_keys_in} AND {$pm_alias}.meta_id IS NOT NULL" );
 		} else {
-			$this->filter_query->where( "{$pm_alias}.meta_key IN {$meta_keys_in} "
-			                            . "AND {$pm_alias}.meta_value {$compare} {$meta_values}" );
+			$this->filter_query->where( "{$pm_alias}.meta_key IN {$meta_keys_in} AND {$pm_alias}.meta_value {$compare} {$meta_values}" );
 		}
 	}
 
