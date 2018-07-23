@@ -366,7 +366,7 @@ class Tribe__Main {
 		$plugin_rel_path = WP_LANG_DIR . '/plugins/';
 
 		/**
-		 * Allows users to filter which file will be loaded for a given text domain
+		 * Allows users to filter the file location for a given text domain
 		 * Be careful when using this filter, it will apply across the whole plugin suite.
 		 *
 		 * @param string      $plugin_rel_path The relative path for the language files
