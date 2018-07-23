@@ -448,6 +448,12 @@ abstract class Tribe__Repository
 			$real_offset                  = $per_page === - 1 ? $offset : ( $per_page * $page - 1 ) + $offset;
 			$query_args['offset']         = $real_offset;
 			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
+
+			/**
+			 * Unset the `offset` query argument to avoid applying it multiple times when this method
+			 * is used, on the same repository, more than once.
+			 */
+			unset( $this->query_args['offset'] );
 		}
 
 		foreach ( $query_args as $key => $value ) {
