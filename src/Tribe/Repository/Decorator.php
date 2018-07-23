@@ -286,4 +286,11 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	protected function set_decorated_repository( Tribe__Repository__Interface $decorated ) {
 		$this->decorated = $decorated;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function build_query() {
+		return $this->decorated->build_query();
+	}
 }

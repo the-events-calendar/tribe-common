@@ -414,13 +414,9 @@ abstract class Tribe__Repository
 	}
 
 	/**
-	 * Build, without initializing it, the query.
-	 *
-	 * @since TBD
-	 *
-	 * @return WP_Query
+	 * {@inheritdoc}
 	 */
-	protected function build_query() {
+	public function build_query() {
 		$query = new WP_Query();
 
 		$this->filter_query->set_query( $query );

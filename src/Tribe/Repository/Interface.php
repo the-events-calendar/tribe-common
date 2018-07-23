@@ -51,4 +51,14 @@ interface Tribe__Repository__Interface
 	 * @param Tribe__Repository__Formatter_Interface $formatter
 	 */
 	public function set_formatter( Tribe__Repository__Formatter_Interface $formatter );
+
+
+	/**
+	 * Build, without initializing it, the query.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Query
+	 */
+	public function build_query();
 }
