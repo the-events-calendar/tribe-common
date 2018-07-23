@@ -110,7 +110,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 		$keys    = is_array( $key ) ? implode( ', ', $key ) : $key;
 		$values = implode( ', ', $value );
 
-		return new self( "It looks like you are trying to use a single SQL comparison operator ({$compare}) with multiple values; [ keys: {$keys}, values: {$values}]." );
+		return new self( "You are trying to use a single SQL comparison operator ({$compare}) with multiple values; [ keys: {$keys}, values: {$values}]." );
 	}
 
 	/**
@@ -129,6 +129,22 @@ class Tribe__Repository__Usage_Error extends Exception {
 		$class = get_class( $object );
 		$keys  = is_array( $key ) ? implode( ', ', $key ) : $key;
 
-		return new self( "It looks like you are trying to use a SQL comparison operator ({$compare}) that requires fields and values [ keys: {$keys}]." );
+		return new self( "You are trying to use a SQL comparison operator ({$compare}) that requires fields and values [ keys: {$keys}]." );
+	}
+
+	/**
+	 * Indicates that the client code is using an high-level filtering method while
+	 * trying to build a WHERE OR clause.
+	 *
+	 * @param array array $method
+	 * @param       $object
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_where_or_should_only_be_used_with_methods_that_add_where_clauses( array $method, $object ) {
+		$class  = get_class( $object );
+		$method = json_encode( $method );
+
+		return new self( "You are trying to build a WHERE OR clause using a method ({$class}::{$method}) that does not call the Tribe__Repository__Query_Filters::where method directly; call `where_clause` directly or call methods that call it." );
 	}
 }

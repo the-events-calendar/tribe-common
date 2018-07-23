@@ -1326,16 +1326,42 @@ abstract class Tribe__Repository
 		return $this;
 	}
 
-	public function where_or( $where_clauses ) {
-		$where_clauses = func_get_args();
+	/**
+	 * Builds a fenced group of WHERE clauses that will be used with OR logic.
+	 *
+	 * Mind that this is a lower level implementation of WHERE logic that requires
+	 * each callback method to add, at least, one WHERE clause using the repository
+	 * own `where_clause` method.
+	 *
+	 * @param array $callbacks       One or more WHERE callbacks that will be called
+	 *                                this repository. The callbacks have the shape
+	 *                                [ <method>, <...args>]
+	 *
+	 * @return $this
+	 * @throws Tribe__Repository__Usage_Error If one of the callback methods does
+	 *                                        not add any WHERE clause.
+	 *
+	 * @see Tribe__Repository::where_clause()
+	 * @see Tribe__Repository__Query_Filters::where()
+	 */
+	public function where_or( $callbacks ) {
+		$callbacks = func_get_args();
 		$this->filter_query->buffer_where_clauses( true );
 
-		foreach ( $where_clauses as $c ) {
+		$buffered       = $this->filter_query->get_buffered_where_clauses( true );
+		$buffered_count = count( $buffered );
+
+		foreach ( $callbacks as $c ) {
 			call_user_func_array( array( $this, $c[0] ), array_slice( $c, 1 ) );
+
+			if ( $buffered_count === count( $this->filter_query->get_buffered_where_clauses() ) ) {
+				throw Tribe__Repository__Usage_Error::because_where_or_should_only_be_used_with_methods_that_add_where_clauses( $c, $this );
+			}
+
+			$buffered_count ++;
 		}
 
-		$buffered_where_clauses = $this->filter_query->get_buffered_where_clauses();
-		$fenced                 = sprintf( '( %s )', implode( ' OR ', $buffered_where_clauses ) );
+		$fenced = sprintf( '( %s )', implode( ' OR ', $buffered ) );
 
 		$this->where_clause( $fenced );
 

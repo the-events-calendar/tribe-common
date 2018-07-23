@@ -657,7 +657,19 @@ class Tribe__Repository__Query_Filters {
 		$this->buffer_where_clauses = (bool)$buffer_clauses;
 	}
 
-	public function get_buffered_where_clauses() {
+	/**
+	 * Returns the buffered WHERE clause and, optionally, cleans
+	 * and deactivates buffering.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $get_clean Whether  to clean the buffered WHERE
+	 *                        clauses and deactivate buffering before
+	 *                        returning them or not.
+	 *
+	 * @return array
+	 */
+	public function get_buffered_where_clauses( $get_clean = false ) {
 		$clauses                      = $this->buffered_where_clauses;
 		$this->buffered_where_clauses = array();
 		$this->buffer_where_clauses   = false;
