@@ -1275,6 +1275,74 @@ abstract class Tribe__Repository
 	}
 
 	/**
+	 * Filters the query to only return posts that are related, via a meta key, to posts
+	 * that satisfy a condition.
+	 *
+	 * @param string|array $meta_keys One ore more `meta_keys` relating the queried post type(s)
+	 *                                to another post type.
+	 * @param string       $compare   The SQL compoarison operator.
+	 * @param string       $field     One (a column in the `posts` table) that should match
+	 *                                the comparison criteria; required if the comparison operator is not `EXISTS` or
+	 *                                `NOT EXISTS`.
+	 * @param string|array $values    One or more values the post field(s) should be compared to;
+	 *                                required if the comparison operator is not `EXISTS` or `NOT EXISTS`.
+	 *
+	 * @return $this
+	 * @throws Tribe__Repository__Usage_Error If the comparison operator requires
+	 */
+	public function where_meta_related_by( $meta_keys, $compare, $field = null, $values = null ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+
+		if ( ! in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
+			if ( empty( $field ) || empty( $values ) ) {
+				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this );
+			}
+			$field = esc_sql( $field );
+		}
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$p  = $this->sql_slug( 'meta_related_post', $compare, $meta_keys );
+		$pm = $this->sql_slug( 'meta_related_post_meta', $compare, $meta_keys );
+
+		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} {$pm} ON {$wpdb->posts}.ID = {$pm}.post_id" );
+		$this->filter_query->join( "LEFT JOIN {$wpdb->posts} {$p} ON {$pm}.meta_value = {$p}.ID" );
+
+		$keys_in = $this->prepare_interval( $meta_keys );
+
+		if ( 'EXISTS' === $compare ) {
+			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$pm}.meta_id IS NOT NULL" );
+		} elseif ( 'NOT EXISTS' === $compare ) {
+			$this->filter_query->where( "{$pm}.meta_id IS NULL" );
+		} else {
+			if ( in_array( $compare, self::$multi_value_keys, true ) ) {
+				$values = $this->prepare_interval( $values );
+			} else {
+				$values = $this->prepare_value( $values );
+			}
+			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$p}.{$field} {$compare} {$values}" );
+		}
+
+		return $this;
+	}
+
+	public function where_or( $where_clauses ) {
+		$where_clauses = func_get_args();
+		$this->filter_query->buffer_where_clauses( true );
+
+		foreach ( $where_clauses as $c ) {
+			call_user_func_array( array( $this, $c[0] ), array_slice( $c, 1 ) );
+		}
+
+		$buffered_where_clauses = $this->filter_query->get_buffered_where_clauses();
+		$fenced                 = sprintf( '( %s )', implode( ' OR ', $buffered_where_clauses ) );
+
+		$this->where_clause( $fenced );
+
+		return $this;
+	}
+
+	/**
 	 * Returns modified query arguments after applying a default filter.
 	 *
 	 * @since TBD
@@ -1283,6 +1351,7 @@ abstract class Tribe__Repository
 	 * @param      mixed  $value
 	 *
 	 * @return array
+	 * @throws Tribe__Repository__Usage_Error If a filter is called with wrong arguments.
 	 */
 	protected function apply_default_modifier( $key, $value ) {
 		$args = array();
@@ -1556,22 +1625,12 @@ abstract class Tribe__Repository
 		$pm_alias     = $this->sql_slug( 'meta', $postfix, ++ self::$meta_alias );
 		$meta_keys_in = sprintf( "('%s')", implode( "','", array_map( 'esc_sql', $meta_keys ) ) );
 
+		$this->validate_operator_and_values( $compare, $meta_keys, $meta_value );
+
 		if ( in_array( $compare, self::$multi_value_keys, true ) ) {
-			$meta_values = array();
-			foreach ( Tribe__Utils__Array::list_to_array( $meta_value ) as $v ) {
-				$meta_values[] = $wpdb->prepare( '%s', $v );
-			}
-			$meta_values = sprintf( '(%s)', implode( ',', $meta_values ) );
+			$meta_values = $this->prepare_interval( Tribe__Utils__Array::list_to_array( $meta_value ) );
 		} else {
-			if ( is_array( $meta_value ) ) {
-				throw Tribe__Repository__Usage_Error::because_single_value_comparisons_should_be_used_with_one_value(
-					$meta_key,
-					$meta_value,
-					$compare,
-					$this
-				);
-			}
-			$meta_values = $wpdb->prepare( '%s', $meta_value );
+			$meta_values = $this->prepare_value( $meta_value );
 		}
 
 		$this->filter_query->join( "JOIN {$wpdb->postmeta} {$pm_alias} ON {$wpdb->posts}.ID = {$pm_alias}.post_id"
@@ -1597,6 +1656,17 @@ abstract class Tribe__Repository
 	 */
 	protected function sql_slug( $frag ) {
 		$frags = func_get_args();
+
+		foreach ( $frags as &$frag ) {
+			if ( is_string( $frag ) ) {
+				Tribe__Utils__Array::get( self::$comparison_operators, $frag, $frag );
+			} elseif ( is_array( $frag ) ) {
+				$frag = implode( '_', $frag );
+			}
+		}
+
+
+		$frags = array_filter( $frags );
 
 		return strtolower( str_replace( '-', '_', sanitize_title( implode( '_', $frags ) ) ) );
 	}
@@ -1651,5 +1721,75 @@ abstract class Tribe__Repository
 	 */
 	public function set_query_builder( $query_builder ) {
 		$this->query_builder = $query_builder;
+	}
+
+	/**
+	 * Builds and escapes an interval of strings.
+	 *
+	 * The return string includes opening and closing braces.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $values One or more values to use to build
+	 *                             the interval.
+	 * @param string       $format The format that should be used to escape
+	 *                             the values; default to '%s'.
+	 *
+	 * @return string
+	 */
+	protected function prepare_interval( $values, $format = '%s' ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$values = Tribe__Utils__Array::list_to_array( $values );
+
+		$prepared = array();
+		foreach ( $values as $value ) {
+			$prepared[] = $this->prepare_value( $value, $format );
+		}
+
+		return sprintf( '(' . $format . ')', implode( ',', $prepared ) );
+	}
+
+	/**
+	 * Prepares a single value to be used in a SQL query.
+	 *
+	 * @since TBD
+	 *
+	 * @param        string $value
+	 * @param string        $format
+	 *
+	 * @return string
+	 */
+	protected function prepare_value( $value, $format = '%s' ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		return $wpdb->prepare( $format, $value );
+	}
+
+	/**
+	 * Validates that a comparison operator is used with the correct type of values.
+	 *
+	 * This is just a wrap to signal this kind of code error not in bad SQL error but
+	 * with a visible exception.
+	 *
+	 * @since TBD
+	 *
+	 * @param string       $compare A SQL comparison operator
+	 * @param string|array $meta_key
+	 * @param mixed        $meta_value
+	 *
+	 * @throws Tribe__Repository__Usage_Error
+	 */
+	protected function validate_operator_and_values( $compare, $meta_key, $meta_value ) {
+		if ( is_array( $meta_value ) && ! in_array( $compare, self::$multi_value_keys, true ) ) {
+			throw Tribe__Repository__Usage_Error::because_single_value_comparisons_should_be_used_with_one_value(
+				$meta_key,
+				$meta_value,
+				$compare,
+				$this
+			);
+		}
 	}
 }

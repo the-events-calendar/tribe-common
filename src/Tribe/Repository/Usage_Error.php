@@ -110,6 +110,25 @@ class Tribe__Repository__Usage_Error extends Exception {
 		$keys    = is_array( $key ) ? implode( ', ', $key ) : $key;
 		$values = implode( ', ', $value );
 
-		return new self( "It looks like you are trying to use a single SQL compare operator ({$compare}) with multiple values; [ keys: {$keys}, values: {$values}]." );
+		return new self( "It looks like you are trying to use a single SQL comparison operator ({$compare}) with multiple values; [ keys: {$keys}, values: {$values}]." );
+	}
+
+	/**
+	 * Indicates that the client code is calling the query building method without
+	 * providing all the arguments the comparison operator requires.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $key
+	 * @param string       $compare
+	 * @param mixed        $object
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_this_comparison_operator_requires_fields_and_values( $key, $compare, $object ) {
+		$class = get_class( $object );
+		$keys  = is_array( $key ) ? implode( ', ', $key ) : $key;
+
+		return new self( "It looks like you are trying to use a SQL comparison operator ({$compare}) that requires fields and values [ keys: {$keys}]." );
 	}
 }

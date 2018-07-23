@@ -42,6 +42,16 @@ class Tribe__Repository__Query_Filters {
 	protected $active_filters = array();
 
 	/**
+	 * @var bool
+	 */
+	protected $buffer_where_clauses = false;
+
+	/**
+	 * @var array
+	 */
+	protected $buffered_where_clauses = array();
+
+	/**
 	 * Tribe__Repository__Query_Filters constructor.
 	 *
 	 * @since TBD
@@ -610,10 +620,14 @@ class Tribe__Repository__Query_Filters {
 	 * @param string $where_clause
 	 */
 	public function where( $where_clause ) {
-		$this->query_vars['where'][] = '(' . $where_clause . ')';
+		if ( $this->buffer_where_clauses ) {
+			$this->buffered_where_clauses[] = '(' . $where_clause . ')';
+		} else {
+			$this->query_vars['where'][] = '(' . $where_clause . ')';
 
-		if ( ! has_filter( 'posts_where', array( $this, 'filter_posts_where' ) ) ) {
-			add_filter( 'posts_where', array( $this, 'filter_posts_where' ), 10, 2 );
+			if ( ! has_filter( 'posts_where', array( $this, 'filter_posts_where' ) ) ) {
+				add_filter( 'posts_where', array( $this, 'filter_posts_where' ), 10, 2 );
+			}
 		}
 	}
 
@@ -630,6 +644,25 @@ class Tribe__Repository__Query_Filters {
 		if ( ! has_filter( 'posts_join', array( $this, 'filter_posts_join' ) ) ) {
 			add_filter( 'posts_join', array( $this, 'filter_posts_join' ), 10, 2 );
 		}
+	}
+
+	/**
+	 * Whether WHERE clauses should be buffered or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $buffer_clauses
+	 */
+	public function buffer_where_clauses( $buffer_clauses ) {
+		$this->buffer_where_clauses = (bool)$buffer_clauses;
+	}
+
+	public function get_buffered_where_clauses() {
+		$clauses                      = $this->buffered_where_clauses;
+		$this->buffered_where_clauses = array();
+		$this->buffer_where_clauses   = false;
+
+		return $clauses;
 	}
 
 	/**
