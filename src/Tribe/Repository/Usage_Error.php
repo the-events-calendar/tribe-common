@@ -147,4 +147,34 @@ class Tribe__Repository__Usage_Error extends Exception {
 
 		return new self( "You are trying to build a WHERE OR clause using a method ({$class}::{$method}) that does not call the Tribe__Repository__Query_Filters::where method directly; call `where_clause` directly or call methods that call it." );
 	}
+
+	/**
+	 * Indicates that the client code is trying to use a wpdb::prepare format with
+	 * a regular `meta_query`.
+	 *
+	 * @param string|array $key
+	 * @param string       $type_or_format
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_the_type_is_a_wpdb_prepare_format( $key, $type_or_format ) {
+		$keys  = is_array( $key ) ? implode( ', ', $key ) : $key;
+
+		return new self( "You are trying to use a `wpdb::prepare` format ({$type_or_format}) with a regular meta_query [ keys: {$keys}]." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a wpdb::prepare format with
+	 * a regular `meta_query`.
+	 *
+	 * @param string|array $key
+	 * @param string       $type_or_format
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_the_format_is_not_a_wpdb_prepare_one( $key, $type_or_format ) {
+		$keys = is_array( $key ) ? implode( ', ', $key ) : $key;
+
+		return new self( "You are trying to use a format ({$type_or_format}) that is not a valid `wpdb::prepare` one with a query [ keys: {$keys}]." );
+	}
 }

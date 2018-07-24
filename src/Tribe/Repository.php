@@ -1446,18 +1446,18 @@ abstract class Tribe__Repository
 				break;
 			case 'meta':
 			case 'meta_equals':
-				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '=' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '=', $format = $arg_2 );
 				break;
 			case 'meta_not_equals':
-				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '!=' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '!=', $format = $arg_2 );
 				break;
 			case 'meta_gt':
 			case 'meta_greater_than':
-				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '>' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '>', $format = $arg_2 );
 				break;
 			case 'meta_gte':
 			case 'meta_greater_than_or_equal':
-				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '>=' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '>=', $format = $arg_2 );
 				break;
 			case 'meta_like':
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'LIKE' );
@@ -1467,23 +1467,23 @@ abstract class Tribe__Repository
 				break;
 			case 'meta_lt':
 			case 'meta_less_than':
-				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '<' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '<', $format = $arg_2 );
 				break;
 			case 'meta_lte':
 			case 'meta_less_than_or_equal':
-				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '<=' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '<=', $format = $arg_2 );
 				break;
 			case 'meta_in':
-				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'IN' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'IN', $format = $arg_2 );
 				break;
 			case 'meta_not_in':
-				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT IN' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT IN', $format = $arg_2 );
 				break;
 			case 'meta_between':
-				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'BETWEEN' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'BETWEEN', $format = $arg_2 );
 				break;
 			case 'meta_not_between':
-				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT BETWEEN' );
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT BETWEEN', $format = $arg_2 );
 				break;
 			case 'meta_exists':
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'EXISTS' );
@@ -1616,12 +1616,13 @@ abstract class Tribe__Repository
 	 * @param string       $meta_key
 	 * @param string|array $meta_value
 	 * @param string       $compare
+	 * @param string       $type_or_format The type of value to compare
 	 *
 	 * @return array|null
 	 * @throws Tribe__Repository__Usage_Error If trying to compare multiple values with a single
 	 *                                        comparison operator.
 	 */
-	protected function build_meta_query( $meta_key, $meta_value = 'value', $compare = '=' ) {
+	protected function build_meta_query( $meta_key, $meta_value = 'value', $compare = '=', $type_or_format = null ) {
 		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_key );
 
 		$postfix = Tribe__Utils__Array::get( self::$comparison_operators, $compare, '' );
@@ -1642,7 +1643,22 @@ abstract class Tribe__Repository
 				$args['meta_query'][ $array_key ]['value'] = $meta_value;
 			}
 
+			if ( 0 === strpos( $type_or_format, '%' ) ) {
+				throw Tribe__Repository__Usage_Error::because_the_type_is_a_wpdb_prepare_format( $meta_key, $type_or_format, $this );
+			}
+
+			if ( null !== $type_or_format ) {
+				$args['meta_query'][ $array_key ]['type'] = $type_or_format;
+			}
+
 			return $args;
+		}
+
+
+		if ( null === $type_or_format ) {
+			$type_or_format = '%s';
+		} elseif ( 0 !== strpos( $type_or_format, '%' ) ) {
+			throw Tribe__Repository__Usage_Error::because_the_format_is_not_a_wpdb_prepare_one( $meta_key, $type_or_format, $this );
 		}
 
 		/** @var wpdb $wpdb */
@@ -1655,13 +1671,12 @@ abstract class Tribe__Repository
 		$this->validate_operator_and_values( $compare, $meta_keys, $meta_value );
 
 		if ( in_array( $compare, self::$multi_value_keys, true ) ) {
-			$meta_values = $this->prepare_interval( Tribe__Utils__Array::list_to_array( $meta_value ) );
+			$meta_values = $this->prepare_interval( Tribe__Utils__Array::list_to_array( $meta_value ), $type_or_format );
 		} else {
-			$meta_values = $this->prepare_value( $meta_value );
+			$meta_values = $this->prepare_value( $meta_value, $type_or_format );
 		}
 
-		$this->filter_query->join( "JOIN {$wpdb->postmeta} {$pm_alias} ON {$wpdb->posts}.ID = {$pm_alias}.post_id"
-		);
+		$this->filter_query->join( "JOIN {$wpdb->postmeta} {$pm_alias} ON {$wpdb->posts}.ID = {$pm_alias}.post_id" );
 
 		if ( 'EXISTS' === $compare ) {
 			$this->filter_query->where( "{$pm_alias}.meta_key IN {$meta_keys_in} AND {$pm_alias}.meta_id IS NOT NULL" );
