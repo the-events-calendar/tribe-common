@@ -110,4 +110,68 @@ interface Tribe__Repository__Interface
 	 * @see Tribe__Repository__Query_Filters::where()
 	 */
 	public function where_or( $callbacks );
+
+	/**
+	 * Filters the query to return posts that have got a number or posts
+	 * related to them by meta at least equal to a value.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $by_meta_keys One or more `meta_keys` relating
+	 *                                   another post TO this post type.
+	 * @param int          $min          The minimum number of posts of another type that should
+	 *                                   be related to the queries post type(s).
+	 * @param string|array $keys         One or more meta_keys to check on the post type in relation
+	 *                                   with the query post type(s); if the `$values` parameter is
+	 *                                   not provided then this will trigger an EXISTS check.
+	 * @param string|array $values       One or more value the meta_key specified with `$keys` should
+	 *                                   match.
+	 *
+	 * @return $this
+	 */
+	public function by_related_to_min( $by_meta_keys, $min, $keys = null, $values = null );
+
+	/**
+	 * Filters the query to return posts that have got a number or posts
+	 * related to them by meta at most equal to a value.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $by_meta_keys One or more `meta_keys` relating
+	 *                                   another post TO this post type.
+	 *                                   be related to the queries post type(s).
+	 * @param int          $max          The maximum number of posts of another type that should
+	 *                                   be related to the queries post type(s).
+	 * @param string|array $keys         One or more meta_keys to check on the post type in relation
+	 *                                   with the query post type(s); if the `$values` parameter is
+	 *                                   not provided then this will trigger an EXISTS check.
+	 * @param string|array $values       One or more value the meta_key specified with `$keys` should
+	 *                                   match.
+	 *
+	 * @return $this
+	 */
+	public function by_related_to_max( $by_meta_keys, $max, $keys = null, $values = null );
+
+	/**
+	 * Filters the query to return posts that have got a number or posts
+	 * related to them by meta between two values.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $by_meta_keys One or more `meta_keys` relating
+	 *                                   another post TO this post type.
+	 * @param int          $min          The minimum number of posts of another type that should
+	 *                                   be related to the queries post type(s).
+	 * @param int          $max          The maximum number of posts of another type that should
+	 *                                   be related to the queries post type(s).
+	 *
+	 * @param string|array $keys         One or more meta_keys to check on the post type in relation
+	 *                                   with the query post type(s); if the `$values` parameter is
+	 *                                   not provided then this will trigger an EXISTS check.
+	 * @param string|array $values       One or more value the meta_key specified with `$keys` should
+	 *                                   match.
+	 *
+	 * @return $this
+	 */
+	public function by_related_to_between( $by_meta_keys, $min, $max, $keys = null, $values = null );
 }

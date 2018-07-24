@@ -324,4 +324,31 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 
 		return $this;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function by_related_to_min( $by_meta_keys, $min, $keys = null, $values = null ) {
+		$this->decorated->by_related_to_min( $by_meta_keys, $min, $keys, $values );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function by_related_to_max( $by_meta_keys, $max, $keys = null, $values = null ) {
+		$this->decorated->by_related_to_max( $by_meta_keys, $max, $keys, $values );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function by_related_to_between( $by_meta_keys, $min, $max, $keys = null, $values = null ) {
+		$this->decorated->by_related_to_between( $by_meta_keys, $min, $max, $keys, $values );
+
+		return $this;
+	}
 }

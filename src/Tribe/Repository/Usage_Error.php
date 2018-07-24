@@ -137,7 +137,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * trying to build a WHERE OR clause.
 	 *
 	 * @param array array $method
-	 * @param       $object
+	 * @param mixed $object
 	 *
 	 * @return Tribe__Repository__Usage_Error
 	 */

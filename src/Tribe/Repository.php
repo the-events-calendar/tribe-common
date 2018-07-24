@@ -1783,8 +1783,8 @@ abstract class Tribe__Repository
 	 *
 	 * @since TBD
 	 *
-	 * @param        string $value
-	 * @param string        $format
+	 * @param mixed  $value
+	 * @param string $format
 	 *
 	 * @return string
 	 */
@@ -1818,5 +1818,114 @@ abstract class Tribe__Repository
 				$this
 			);
 		}
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function by_related_to_min( $by_meta_keys, $min, $keys = null, $values = null ) {
+		$min = $this->prepare_value( $min, '%d' );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$by_meta_keys = $this->prepare_interval( $by_meta_keys );
+
+		$join      = '';
+		$and_where = '';
+		if ( ! empty( $keys ) || ! empty( $values ) ) {
+			$join = "\nJOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id\n";
+		}
+		if ( ! empty( $keys ) ) {
+			$keys      = $this->prepare_interval( $keys );
+			$and_where .= "\nAND pm2.meta_key IN {$keys}\n";
+		}
+		if ( ! empty( $values ) ) {
+			$values    = $this->prepare_interval( $values );
+			$and_where .= "\nAND pm2.meta_value IN {$values}\n";
+		}
+
+		$this->where_clause( "{$wpdb->posts}.ID IN (
+			SELECT pm1.meta_value
+			FROM {$wpdb->postmeta} pm1 {$join}
+			WHERE pm1.meta_key IN {$by_meta_keys} {$and_where}
+			GROUP BY( pm1.meta_value )
+			HAVING COUNT(DISTINCT pm1.post_id) >= {$min}
+		)" );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function by_related_to_max( $by_meta_keys, $max, $keys = null, $values = null ) {
+		$max = $this->prepare_value( $max, '%d' );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$join      = '';
+		$and_where = '';
+		if ( ! empty( $keys ) || ! empty( $values ) ) {
+			$join = "\nJOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id\n";
+		}
+		if ( ! empty( $keys ) ) {
+			$keys      = $this->prepare_interval( $keys );
+			$and_where .= "\nAND pm2.meta_key IN {$keys}\n";
+		}
+		if ( ! empty( $values ) ) {
+			$values    = $this->prepare_interval( $values );
+			$and_where .= "\nAND pm2.meta_value IN {$values}\n";
+		}
+
+		$by_meta_keys = $this->prepare_interval( $by_meta_keys );
+
+		$this->where_clause( "{$wpdb->posts}.ID IN (
+			SELECT pm1.meta_value
+			FROM {$wpdb->postmeta} pm1 {$join}
+			WHERE pm1.meta_key IN {$by_meta_keys} {$and_where}
+			GROUP BY( pm1.meta_value )
+			HAVING COUNT(DISTINCT pm1.post_id) <= {$max}
+		)" );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function by_related_to_between( $by_meta_keys, $min, $max, $keys = null, $values = null ) {
+		$min = $this->prepare_value( $min, '%d' );
+		$max = $this->prepare_value( $max, '%d' );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$by_meta_keys = $this->prepare_interval( $by_meta_keys );
+
+		$join      = '';
+		$and_where = '';
+		if ( ! empty( $keys ) || ! empty( $values ) ) {
+			$join = "\nJOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id\n";
+		}
+		if ( ! empty( $keys ) ) {
+			$keys      = $this->prepare_interval( $keys );
+			$and_where .= "\nAND pm2.meta_key IN {$keys}\n";
+		}
+		if ( ! empty( $values ) ) {
+			$values    = $this->prepare_interval( $values );
+			$and_where .= "\nAND pm2.meta_value IN {$values}\n";
+		}
+
+		$this->where_clause( "{$wpdb->posts}.ID IN (
+			SELECT pm1.meta_value
+			FROM {$wpdb->postmeta} pm1 {$join}
+			WHERE pm1.meta_key IN {$by_meta_keys} {$and_where}
+			GROUP BY( pm1.meta_value )
+			HAVING COUNT(DISTINCT pm1.post_id) BETWEEN {$min} AND {$max}
+		)" );
+
+		return $this;
 	}
 }
