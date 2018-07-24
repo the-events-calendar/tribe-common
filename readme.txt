@@ -4,6 +4,7 @@
 
 = [4.7.18] TBD =
 * Fix - Add `target="_blank"` to repository links in the Help Page [107974]
+* Tweak - Deprecate the usage of old asset loading methods [40267]
 * Fix - Change 3rd parameter to be relative path to plugin language files instead of the mofile for load_plugin_textdomain(), thanks to jmortell [63144]
 
 = [4.7.17] 2018-07-10 =
