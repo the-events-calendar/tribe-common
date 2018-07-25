@@ -46,7 +46,26 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 * @return bool
 	 */
 	public function is_positive_int( $value ) {
-		return is_numeric( $value ) && intval( $value ) == $value && intval( $value ) > 0;
+		return is_numeric( $value ) && (int) $value == $value && (int) $value > 0;
+	}
+
+	/**
+	 * Whether the value is a list of positive integers only or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param     array|string|int $list
+	 * @param string               $sep
+	 *
+	 * @return bool
+	 */
+	public function is_positive_int_list( $list, $sep = ',' ) {
+		$sep  = is_string( $sep ) ? $sep : ',';
+		$list = Tribe__Utils__Array::list_to_array( $list, $sep );
+
+		$valid = array_filter( $list, array( $this, 'is_positive_int' ) );
+
+		return ! empty( $valid ) && count( $valid ) === count( $list );
 	}
 
 	/**

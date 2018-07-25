@@ -61,4 +61,120 @@ class Tribe__Repository__Usage_Error extends Exception {
 
 		return new self( "The {$class} class does not define a {$name} property; add it by decorating or extending this class." );
 	}
+
+	/**
+	 * Indicates that a field cannot be updated by the repository class.
+	 *
+	 * @since TBD
+	 *
+	 * @param string                              $key
+	 * @param Tribe__Repository__Update_Interface $object
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_this_field_cannot_be_updated( $key, $object ) {
+		$class = get_class( $object );
+
+		return new self( "The {$class} class does not allow udpating the {$key} field; allow it by decorating or extending this class." );
+	}
+
+	/**
+	 * Indicates that the `set` method of the Update repository is being used incorrectly.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Repository__Update_Interface $object
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_udpate_key_should_be_a_string( $object ) {
+		$class = get_class( $object );
+
+		return new self( 'The key used in the `set` method should be a string; if you want to set multiple fields at once use the `set_args` method.' );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a single comparison operator with multiple values.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $key
+	 * @param array  $value
+	 * @param string $compare
+	 * @param mixed  $object
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_single_value_comparisons_should_be_used_with_one_value( $key, array $value, $compare, $object ) {
+		$class  = get_class( $object );
+		$keys    = is_array( $key ) ? implode( ', ', $key ) : $key;
+		$values = implode( ', ', $value );
+
+		return new self( "You are trying to use a single SQL comparison operator ({$compare}) with multiple values; [ keys: {$keys}, values: {$values}]." );
+	}
+
+	/**
+	 * Indicates that the client code is calling the query building method without
+	 * providing all the arguments the comparison operator requires.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $key
+	 * @param string       $compare
+	 * @param mixed        $object
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_this_comparison_operator_requires_fields_and_values( $key, $compare, $object ) {
+		$class = get_class( $object );
+		$keys  = is_array( $key ) ? implode( ', ', $key ) : $key;
+
+		return new self( "You are trying to use a SQL comparison operator ({$compare}) that requires fields and values [ keys: {$keys}]." );
+	}
+
+	/**
+	 * Indicates that the client code is using an high-level filtering method while
+	 * trying to build a WHERE OR clause.
+	 *
+	 * @param array array $method
+	 * @param mixed $object
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_where_or_should_only_be_used_with_methods_that_add_where_clauses( array $method, $object ) {
+		$class  = get_class( $object );
+		$method = json_encode( $method );
+
+		return new self( "You are trying to build a WHERE OR clause using a method ({$class}::{$method}) that does not call the Tribe__Repository__Query_Filters::where method directly; call `where_clause` directly or call methods that call it." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a wpdb::prepare format with
+	 * a regular `meta_query`.
+	 *
+	 * @param string|array $key
+	 * @param string       $type_or_format
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_the_type_is_a_wpdb_prepare_format( $key, $type_or_format ) {
+		$keys  = is_array( $key ) ? implode( ', ', $key ) : $key;
+
+		return new self( "You are trying to use a `wpdb::prepare` format ({$type_or_format}) with a regular meta_query [ keys: {$keys}]." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a wpdb::prepare format with
+	 * a regular `meta_query`.
+	 *
+	 * @param string|array $key
+	 * @param string       $type_or_format
+	 *
+	 * @return Tribe__Repository__Usage_Error
+	 */
+	public static function because_the_format_is_not_a_wpdb_prepare_one( $key, $type_or_format ) {
+		$keys = is_array( $key ) ? implode( ', ', $key ) : $key;
+
+		return new self( "You are trying to use a format ({$type_or_format}) that is not a valid `wpdb::prepare` one with a query [ keys: {$keys}]." );
+	}
 }

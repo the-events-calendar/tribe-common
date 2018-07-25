@@ -2,32 +2,13 @@
 
 namespace Tribe\Repository;
 
-use Tribe__Repository__Query_Filters as Query_Filters;
-use Tribe__Repository__Read as Read_Repository;
+use Tribe__Repository as Read_Repository;
 
 class ReadTest extends \Codeception\TestCase\WPTestCase {
-	protected $schema = [];
-	protected $query_filters;
-	protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
-
 	/**
-	 * @test
-	 * it should be instantiatable
+	 * @var \Tribe__Repository
 	 */
-	public function it_should_be_instantiatable() {
-		$sut = $this->repository();
-
-		$this->assertInstanceOf( Read_Repository::class, $sut );
-	}
-
-	/**
-	 * @return Read_Repository
-	 */
-	private function repository() {
-		$query_filters = $this->query_filters ?? new Query_Filters();
-
-		return new Read_Repository( $this->schema, $query_filters, $this->default_args );
-	}
+	protected $class;
 
 	/**
 	 * It should return all posts (non paginated) by default
@@ -46,6 +27,13 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $ids[1], $this->repository()->nth( 2 )->ID );
 		$this->assertEquals( $ids[2], $this->repository()->nth( 3 )->ID );
 		$this->assertNull( $this->repository()->nth( 23 ) );
+	}
+
+	/**
+	 * @return Read_Repository
+	 */
+	protected function repository() {
+		return new $this->class();
 	}
 
 	/**
@@ -483,7 +471,13 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		parent::setUp();
 		register_post_type( 'book' );
+		register_post_type( 'review' );
+		register_post_status( 'good' );
+		register_post_status( 'bad' );
 		register_taxonomy( 'genre', 'book' );
+		$this->class = new class extends \Tribe__Repository {
+			protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
+		};
 	}
 
 	/**
@@ -514,8 +508,8 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 
 		$results = $repository
 			->fields( 'ids' )
-			->per_page(3)
-			->page(2)
+			->per_page( 3 )
+			->page( 2 )
 			->take( 2 );
 
 		$this->assertCount( 2, $results );
@@ -578,18 +572,129 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_not_take_permissions_into_account_when_reding_posts_by_primary_key() {
-		$public     = $this->factory()->post->create_and_get( [ 'post_type' => 'book', 'post_status' => 'public' ] );
-		$private    = $this->factory()->post->create_and_get( [ 'post_type' => 'book', 'post_status' => 'private' ] );
-		$subscriber = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
-		$editor     = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		$ids        = $this->factory()->post->create_many( 3, [ 'post_type' => 'book' ] );
 		$repository = $this->repository();
 
-		wp_set_current_user( $subscriber );
-		$this->assertEquals( $public, $repository->by_primary_key( $public->ID ) );
-		$this->assertEquals($private, $repository->by_primary_key( $private->ID ) );
+		$this->assertInstanceOf( \Tribe__Repository__Update_Interface::class, $repository->where( 'post__in', $ids )->set( 'post_title', 'foo' ) );
+	}
 
-		wp_set_current_user( $editor );
-		$this->assertEquals( $public , $repository->by_primary_key( $public->ID ) );
-		$this->assertEquals( $private , $repository->by_primary_key( $private->ID ) );
+	/**
+	 * It should allow querying by multiple meta keys
+	 *
+	 * @test
+	 */
+	public function should_allow_querying_by_multiple_meta_keys() {
+		$ids = $this->factory()->post->create_many( 3, [ 'post_type' => 'book' ] );
+		update_post_meta( $ids[0], 'one', 'foo' );
+		update_post_meta( $ids[1], 'two', 'bar' );
+		update_post_meta( $ids[2], 'three', 'bar' );
+		$repository = $this->repository();
+
+		$this->assertEquals( \array_slice( $ids, 0, 2 ), $this->repository()->where( 'meta_exists', [
+			'one',
+			'two'
+		] )->fields( 'ids' )->all() );
+		$this->assertEquals( [ $ids[2] ], $this->repository()->where( 'meta_not_exists', [
+			'one',
+			'two'
+		] )->fields( 'ids' )->all() );
+		$this->assertEquals( \array_slice( $ids, 1, 1 ), $this->repository()->where( 'meta_in', [
+			'one',
+			'two'
+		], 'bar' )->fields( 'ids' )->all() );
+		$this->assertEquals( [ $ids[0], $ids[2] ], $this->repository()->where( 'meta_in', [
+			'one',
+			'three'
+		], [ 'foo', 'bar' ] )->fields( 'ids' )->all() );
+		$this->assertEquals( [], $this->repository()->where( 'meta_not_in', [
+			'one',
+			'three'
+		], [ 'foo', 'bar' ] )->fields( 'ids' )->all() );
+		$this->assertEquals( [ $ids[2] ], $this->repository()->where( 'meta_not_in', [
+			'one',
+			'three'
+		], [ 'foo' ] )->fields( 'ids' )->all() );
+	}
+
+	/**
+	 * It should allow filtering posts by related post fields
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_posts_by_related_post_fields() {
+		$books = $this->factory()->post->create_many( 4, [ 'post_type' => 'book' ] );
+		list( $first_book, $second_book, $third_book, $fourth_book ) = $books;
+
+		$reviewer           = function ( array $reviews, $review_status ) {
+			$reviews[] = $this->factory()->post->create( [
+				'post_type'   => 'review',
+				'post_status' => $review_status
+			] );
+
+			return $reviews;
+		};
+		$first_book_reviews = array_reduce( [ 'good', 'good', 'good' ], $reviewer, [] );
+		foreach ( $first_book_reviews as $review ) {
+			add_post_meta( $first_book, '_review', $review );
+		}
+		$second_book_reviews = array_reduce( [ 'good', 'good', 'bad' ], $reviewer, [] );
+		foreach ( $second_book_reviews as $review ) {
+			add_post_meta( $second_book, '_review', $review );
+		}
+		$third_book_reviews  = [];
+		$fourth_book_reviews = array_reduce( [ 'bad' ], $reviewer, [] );
+		foreach ( $fourth_book_reviews as $review ) {
+			add_post_meta( $fourth_book, '_review', $review );
+		}
+
+		$w_reviews = $this->repository()
+		                  ->where_meta_related_by( '_review', 'EXISTS' )
+		                  ->fields( 'ids' )
+		                  ->all();
+		$this->assertEquals( [
+			$first_book,
+			$second_book,
+			$fourth_book,
+		], $w_reviews );
+
+		$wo_reviews = $this->repository()
+		                   ->where_meta_related_by( '_review', 'NOT EXISTS' )
+		                   ->fields( 'ids' )
+		                   ->all();
+		$this->assertEquals( [
+			$third_book,
+		], $wo_reviews );
+
+		$w_good_reviews = $this->repository()
+		                       ->where_meta_related_by( '_review', '=', 'post_status', 'good' )
+		                       ->fields( 'ids' )
+		                       ->all();
+		$this->assertEquals( [
+			$first_book,
+			$second_book
+		], $w_good_reviews );
+
+		$wo_good_reviews = $this->repository()
+		                        ->where_meta_related_by( '_review', '!=', 'post_status', 'good' )
+		                        ->fields( 'ids' )
+		                        ->all();
+		$this->assertEquals( [
+			$second_book,
+			$fourth_book
+		], $wo_good_reviews );
+
+		$repository                   = $this->repository();
+		$w_good_reviews_or_no_reviews = $repository
+			->where_or(
+				[ 'where_meta_related_by', '_review', 'NOT EXISTS' ],
+				[ 'where_meta_related_by', '_review', '=', 'post_status', 'good' ]
+			)
+			->fields( 'ids' )
+			->all();
+		$this->assertEquals( [
+			$first_book,
+			$second_book,
+			$third_book,
+		], $w_good_reviews_or_no_reviews );
 	}
 }
