@@ -654,7 +654,7 @@ class Tribe__Repository__Query_Filters {
 	 * @param bool $buffer_clauses
 	 */
 	public function buffer_where_clauses( $buffer_clauses ) {
-		$this->buffer_where_clauses = (bool)$buffer_clauses;
+		$this->buffer_where_clauses = (bool) $buffer_clauses;
 	}
 
 	/**
