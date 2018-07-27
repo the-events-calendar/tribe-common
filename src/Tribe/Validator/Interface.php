@@ -86,17 +86,4 @@ interface Tribe__Validator__Interface {
 	 * @return mixed
 	 */
 	public function is_image( $image );
-
-	/**
-	 * Whether a list or array of only contains positive integers or not.
-	 *
-	 * @since TBD
-	 *
-	 * @param  string|array $list
-	 * @param string $sep The separator used in the list to separate the elements; ignored if
-	 *                                  the input value is an array.
-	 *
-	 * @return bool
-	 */
-	public function is_positive_int_list( $list, $sep = ',' );
 }
