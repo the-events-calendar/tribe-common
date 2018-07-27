@@ -147,8 +147,6 @@ class Tribe__Utils__Array {
 	 * @return array An array of list elements.
 	 */
 	public static function list_to_array( $value, $sep = ',' ) {
-		$sep = is_string( $sep ) ? $sep : ',';
-
 		if ( empty( $value ) ) {
 			return array();
 		}

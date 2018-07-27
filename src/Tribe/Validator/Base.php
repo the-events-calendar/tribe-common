@@ -184,24 +184,4 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 
 		return in_array( $post_status, $post_stati );
 	}
-
-	/**
-	 * Whether a list or array of only contains positive integers or not.
-	 *
-	 * @since TBD
-	 *
-	 * @param  string|array $list
-	 * @param string $sep The separator used in the list to separate the elements; ignored if
-	 *                                  the input value is an array.
-	 *
-	 * @return bool
-	 */
-	public function is_positive_int_list( $list, $sep = ',' ) {
-		$sep      = is_string( $sep ) ? $sep : ',';
-		$elements = Tribe__Utils__Array::list_to_array( $list, $sep );
-
-		$valid = array_filter( $elements, array( $this, 'is_positive_int' ) );
-
-		return ! empty( $elements ) && count( $valid ) === count( $elements );
-	}
 }
