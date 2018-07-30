@@ -329,7 +329,7 @@ class Tribe__PUE__Notices {
 				<div class="notice-content">' . $inner_html . '</div>
 			</div>';
 
-		Tribe__Admin__Notices::instance()->render( $slug, $html );
+		Tribe__Admin__Notices::instance()->render( $slug, $html, false );
 	}
 
 	/**
