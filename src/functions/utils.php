@@ -187,7 +187,7 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 	/**
 	 * Determines if the provided value should be regarded as 'true'.
 	 *
-	 * @param mixed $var defaults to false
+	 * @param mixed $var defaults to false to handle unpassed/undefined var
 	 *
 	 * @return bool
 	 */
