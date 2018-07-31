@@ -192,7 +192,7 @@ class Tribe__Utils__Array {
 	 * Sanitize a multidimensional array
 	 * https://gist.github.com/esthezia/5804445
 	 *
-	 * @since   TBD
+	 * @since   4.7.18
 	 *
 	 * @param   (array)
 	 *

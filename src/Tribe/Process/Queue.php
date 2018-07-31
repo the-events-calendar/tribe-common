@@ -109,7 +109,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * A queue process that has not been doing anything for an amount
 	 * of time is considered "stuck".
 	 *
-	 * @since TBD
+	 * @since 4.7.18
 	 *
 	 * @param string $queue_id The queue process unique identifier.
 	 *
@@ -123,7 +123,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		 * Filters the maximum allowed time a queue process can go without updates
 		 * before being considered stuck.
 		 *
-		 * @since TBD
+		 * @since 4.7.18
 		 *
 		 * @param int $time_limit A value in seconds, defaults to 5'.
 		 */
@@ -139,7 +139,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		/**
 		 * Filters whether a queue is considered "stuck" or not.
 		 *
-		 * @since TBD
+		 * @since 4.7.18
 		 *
 		 * @param bool $is_stuck
 		 * @param string $queue_id
@@ -184,7 +184,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	/**
 	 * Deletes a queue batch(es) and meta information.
 	 *
-	 * @since TBD
+	 * @since 4.7.18
 	 *
 	 * @param string $key
 	 */
