@@ -165,7 +165,8 @@ class Tribe__Assets {
 			// If we have a set of conditionals we loop on then and get if they are true
 			foreach ( $asset->conditionals as $conditional ) {
 				$enqueue = call_user_func( $conditional );
-				if ( $enqueue ) {
+				// this may return false or null or? Only enqueue if they all pass by returning a truthy value
+				if ( ! tribe_is_truthy( $enqueue ) ) {
 					break;
 				}
 			}
