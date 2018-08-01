@@ -1,22 +1,8 @@
 <?php
+
 namespace Tribe\functions\templateTags;
 
 class generalTest extends \Codeception\TestCase\WPTestCase {
-
-	public function setUp() {
-		// before
-		parent::setUp();
-
-		// your set up methods here
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
-	}
-
 	/**
 	 * Test tribe_format_currency
 	 */
@@ -33,5 +19,61 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'F12', tribe_format_currency( 12, $post_id, 'F' ) );
 		$this->assertEquals( '12F', tribe_format_currency( 12, $post_id, 'F', true ) );
 		$this->assertEquals( '12Q', tribe_format_currency( 12, $post_id, 'Q', true ) );
+	}
+
+	public function test_tribe_post_checksum_w_post() {
+		$post = $this->factory()->post->create_and_get();
+
+		$this->assertEquals( md5( $post->ID . '|' . $post->post_modified ), tribe_post_checksum( $post ) );
+		$this->assertEquals( md5( $post->ID . '|' . $post->title ), tribe_post_checksum( $post, [ 'id', 'post_title' ] ) );
+	}
+
+	public function tribe_post_checksum_bad_inputs() {
+		return [
+			'empty-string' => [ '' ],
+			'null'         => [ null ],
+			'not-a-post'   => [ 23 ],
+			'string'       => [ 'doo' ],
+			'array'        => [ [] ],
+		];
+	}
+
+	/**
+	 * @dataProvider tribe_post_checksum_bad_inputs
+	 */
+	public function test_tribe_post_checksum_w_bad_input( $input ) {
+		$this->assertNull( tribe_post_checksum( $input ) );
+	}
+
+	public function test_tribe_posts_checksum_w_posts() {
+		$posts = $this->factory()->post->create_many( 3 );
+
+		$expected = md5( implode( '|', array_map( function ( $post ) {
+			return $post . '|' . get_post( $post )->post_modified;
+		}, $posts ) ) );
+
+		$this->assertEquals( $expected, tribe_posts_checksum( $posts ) );
+
+		$expected = md5( implode( '|', array_map( function ( $post ) {
+			return $post . '|' . get_post( $post )->post_title;
+		}, $posts ) ) );
+
+		$this->assertEquals( $expected, tribe_posts_checksum( $posts, [ 'ID', 'post_title' ] ) );
+	}
+
+	public function tribe_posts_checksum_bad_inputs() {
+		return [
+			'empty-string'  => [ '' ],
+			'empty-array'   => [ [] ],
+			'none-a-post-1' => [ 'foo', 'bar', 'baz' ],
+			'none-a-post-2' => [ 23, 89, 2389 ],
+		];
+	}
+
+	/**
+	 * @dataProvider tribe_posts_checksum_bad_inputs
+	 */
+	public function test_tribe_posts_checksum_w_bad_input( $input ) {
+		$this->assertNull( tribe_posts_checksum( $input ) );
 	}
 }
