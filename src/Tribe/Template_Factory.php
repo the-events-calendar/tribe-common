@@ -19,7 +19,7 @@ class Tribe__Template_Factory {
 	/**
 	 * Array of asset packages needed for this template
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @var array
 	 **/
@@ -28,7 +28,7 @@ class Tribe__Template_Factory {
 	/**
 	 * Static variable that holds array of vendor script handles, for adding to later deps.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @static
 	 * @var array
@@ -38,7 +38,7 @@ class Tribe__Template_Factory {
 	/**
 	 * Constant that holds the ajax hook suffix for the view
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @static
 	 * @var string
@@ -48,7 +48,7 @@ class Tribe__Template_Factory {
 	/**
 	 * Run include packages, set up hooks
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @return void
 	 **/
@@ -59,7 +59,7 @@ class Tribe__Template_Factory {
 	/**
 	 * Manage the asset packages defined for this template
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @return void
 	 **/
@@ -72,7 +72,7 @@ class Tribe__Template_Factory {
 	/**
 	 * Handles an asset package request.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @param string              $name          The asset name in the `hyphen-separated-format`
 	 * @param array               $deps          An array of dependency handles
@@ -90,7 +90,7 @@ class Tribe__Template_Factory {
 	/**
 	 * initializes asset package request
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @param object              $asset         The Tribe__*Asset object
 	 * @param string              $name          The asset name in the `hyphen-separated-format`
@@ -118,7 +118,7 @@ class Tribe__Template_Factory {
 	/**
 	 * Retrieves the appropriate asset factory instance
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 */
 	protected static function get_asset_factory_instance( $name ) {
@@ -128,7 +128,7 @@ class Tribe__Template_Factory {
 
 	/**
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @param string $script_handle A registered script handle.
 	 */
@@ -149,7 +149,7 @@ class Tribe__Template_Factory {
 	/**
 	 * Asset calls for vendor packages
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @param string $name
 	 * @param array  $deps Dependents
@@ -169,7 +169,7 @@ class Tribe__Template_Factory {
 	 * Returns the path to a minified version of a js or css file, if it exists.
 	 * If the file does not exist, returns false.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @param string $url                 The path or URL to the un-minified file.
 	 * @param bool   $default_to_original Whether to just return original path if min version not found.
@@ -198,7 +198,7 @@ class Tribe__Template_Factory {
 	/**
 	 * Playing ping-pong with WooCommerce. They keep changing their script.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 *
 	 * @see https://github.com/woothemes/woocommerce/issues/3623
 	 */

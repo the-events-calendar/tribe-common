@@ -124,7 +124,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			/**
 			 * Gives an opportunity to filter the list of tribe plugins
 			 *
-			 * @since TBD
+			 * @since 4.7.18
 			 *
 			 * @param array Contains a list of all tribe plugins
 			 */
