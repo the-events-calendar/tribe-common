@@ -25,7 +25,7 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 		$post = $this->factory()->post->create_and_get();
 
 		$this->assertEquals( md5( $post->ID . '|' . $post->post_modified ), tribe_post_checksum( $post ) );
-		$this->assertEquals( md5( $post->ID . '|' . $post->title ), tribe_post_checksum( $post, [ 'id', 'post_title' ] ) );
+		$this->assertEquals( md5( $post->ID . '|' . $post->title ), tribe_post_checksum( $post, [ 'ID', 'post_title' ] ) );
 	}
 
 	public function tribe_post_checksum_bad_inputs() {
