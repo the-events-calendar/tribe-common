@@ -91,4 +91,22 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, tribe_posts_checksum( $posts ) );
 	}
+
+	/**
+	 * Test tribe_posts_checksum_w_mixed_post_objects
+	 */
+	public function test_tribe_posts_checksum_w_mixed_post_objects() {
+		$posts = $id_ordered = array_map( 'get_post', $this->factory()->post->create_many( 3 ) );
+		shuffle( $posts );
+
+		$expected = md5( implode( '|', array_map( function ( $post ) {
+			return $post->ID . '|' . $post->post_modified;
+		}, $id_ordered ) ) );
+
+		$this->assertEquals( $expected, tribe_posts_checksum( [
+			$posts[0],
+			$posts[1]->ID,
+			$posts[2]->ID,
+		] ) );
+	}
 }
