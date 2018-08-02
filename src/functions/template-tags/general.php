@@ -771,22 +771,42 @@ if ( ! function_exists( 'tribe_posts_checksum' ) ) {
 			return null;
 		}
 
-		/** @var wpdb $wpdb */
-		global $wpdb;
-
-		$prepared = array();
+		$wp_post_instances = 0;
 		foreach ( $post_ids as $post_id ) {
 			if ( $post_id instanceof WP_Post ) {
-				$post_id = $post_id->ID;
+				$wp_post_instances++;
 			}
-			$prepared[] = $wpdb->prepare( '%d', $post_id );
 		}
 
+		$results = array();
+		if ( $wp_post_instances === count( $post_ids ) ) {
+			$id_sorted = wp_list_sort( $post_ids, 'ID', 'ASC' );
+			/** @var WP_Post $post */
+			foreach ( $id_sorted as $post ) {
+				$this_post_frags = array();
+				foreach ( $use_frags as $field ) {
+					$this_post_frags[] = $post->{$field};
+				}
+				$results [] = $this_post_frags;
+			}
+		} else {
+			/** @var wpdb $wpdb */
+			global $wpdb;
 
-		$fields = implode( ', ', array_map( 'esc_sql', $use_frags ) );
-		$ids = sprintf( '(%s)', implode( ',', $prepared ) );
-		$query = "SELECT {$fields} FROM {$wpdb->posts} WHERE ID IN {$ids} ORDER BY ID ASC";
-		$results = $wpdb->get_results( $query, ARRAY_N );
+			$prepared = array();
+			foreach ( $post_ids as $post_id ) {
+				if ( $post_id instanceof WP_Post ) {
+					$post_id = $post_id->ID;
+				}
+				$prepared[] = $wpdb->prepare( '%d', $post_id );
+			}
+
+
+			$fields = implode( ', ', array_map( 'esc_sql', $use_frags ) );
+			$ids = sprintf( '(%s)', implode( ',', $prepared ) );
+			$query = "SELECT {$fields} FROM {$wpdb->posts} WHERE ID IN {$ids} ORDER BY ID ASC";
+			$results = $wpdb->get_results( $query, ARRAY_N );
+		}
 
 		if ( empty( $results ) ) {
 			return null;

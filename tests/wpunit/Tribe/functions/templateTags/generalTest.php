@@ -25,7 +25,8 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 		$post = $this->factory()->post->create_and_get();
 
 		$this->assertEquals( md5( $post->ID . '|' . $post->post_modified ), tribe_post_checksum( $post ) );
-		$this->assertEquals( md5( $post->ID . '|' . $post->title ), tribe_post_checksum( $post, [ 'ID', 'post_title' ] ) );
+		$this->assertEquals( md5( $post->ID . '|' . $post->post_title ), tribe_post_checksum( $post, [ 'ID', 'post_title' ] ) );
+		$this->assertEquals( md5( $post->post_title . '|' . $post->ID ), tribe_post_checksum( $post, [ 'post_title', 'ID' ] ) );
 	}
 
 	public function tribe_post_checksum_bad_inputs() {
@@ -75,5 +76,19 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_tribe_posts_checksum_w_bad_input( $input ) {
 		$this->assertNull( tribe_posts_checksum( $input ) );
+	}
+
+	/**
+	 * Test tribe_posts_checksum w post objects
+	 */
+	public function test_tribe_posts_checksum_w_post_objects() {
+		$posts = $id_ordered = array_map( 'get_post', $this->factory()->post->create_many( 3 ) );
+		shuffle( $posts );
+
+		$expected = md5( implode( '|', array_map( function ( $post ) {
+			return $post->ID . '|' . $post->post_modified;
+		}, $id_ordered ) ) );
+
+		$this->assertEquals( $expected, tribe_posts_checksum( $posts ) );
 	}
 }
