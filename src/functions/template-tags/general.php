@@ -787,7 +787,7 @@ if ( ! function_exists( 'tribe_posts_checksum' ) ) {
 				foreach ( $use_frags as $field ) {
 					$this_post_frags[] = $post->{$field};
 				}
-				$results [] = $this_post_frags;
+				$results[] = $this_post_frags;
 			}
 		} else {
 			/** @var wpdb $wpdb */
