@@ -351,4 +351,11 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 
 		return $this;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function has_filter( $key, $value = null ) {
+		return $this->decorated->has_filter( $key, $value );
+	}
 }

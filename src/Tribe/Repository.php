@@ -1951,18 +1951,7 @@ abstract class Tribe__Repository
 	}
 
 	/**
-	 * Whether the current READ query will apply a specific `by` (or `where`)
-	 * filter or not.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $key
-	 * @param null $value If provided an ulterior check will be made to see if
-	 *                    the value of the filter that is being applied matches
-	 *                    the specified one (w/ loose comparison).
-	 *
-	 * @return bool Whether the current query setup has the specified filter applied
-	 *              or not.
+	 * {@inheritdoc}
 	 */
 	public function has_filter( $key, $value = null ) {
 		return null === $value
