@@ -134,7 +134,10 @@ tribe.validation = {};
 				'm-d-yyyy',
 				'mm-dd-yyyy',
 				'd-m-yyyy',
-				'dd-mm-yyyy'
+				'dd-mm-yyyy',
+				'yyyy.mm.dd',
+				'mm.dd.yyyy',
+				'dd.mm.yyyy',
 			];
 
 			// Default Format Key
