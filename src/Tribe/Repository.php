@@ -266,6 +266,10 @@ abstract class Tribe__Repository
 	 */
 	protected $current_query;
 	/**
+	 * @var array An associative array of the filters that will be applied and the used values.
+	 */
+	protected $current_filters = array();
+	/**
 	 * @var Tribe__Repository__Query_Filters
 	 */
 	public $filter_query;
@@ -845,6 +849,8 @@ abstract class Tribe__Repository
 		}
 
 		$call_args = func_get_args();
+
+		$this->current_filters[ $key ] = $value;
 
 		try {
 			$query_modifier = $this->modify_query( $key, $call_args );
@@ -1779,7 +1785,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return string
 	 */
-	protected function prepare_interval( $values, $format = '%s' ) {
+	public function prepare_interval( $values, $format = '%s' ) {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
@@ -1803,7 +1809,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return string
 	 */
-	protected function prepare_value( $value, $format = '%s' ) {
+	public function prepare_value( $value, $format = '%s' ) {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
@@ -1942,5 +1948,25 @@ abstract class Tribe__Repository
 		)" );
 
 		return $this;
+	}
+
+	/**
+	 * Whether the current READ query will apply a specific `by` (or `where`)
+	 * filter or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key
+	 * @param null $value If provided an ulterior check will be made to see if
+	 *                    the value of the filter that is being applied matches
+	 *                    the specified one (w/ loose comparison).
+	 *
+	 * @return bool Whether the current query setup has the specified filter applied
+	 *              or not.
+	 */
+	public function has_filter( $key, $value = null ) {
+		return null === $value
+			? array_key_exists( $key, $this->current_filters )
+			: array_key_exists( $key, $this->current_filters ) && $this->current_filters[ $key ] == $value;
 	}
 }
