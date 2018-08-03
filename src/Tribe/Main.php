@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.7.15';
+	const VERSION             = '4.7.18';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -147,6 +147,7 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		require_once $this->plugin_path . 'src/functions/utils.php';
+		require_once $this->plugin_path . 'src/functions/multibyte.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 
@@ -362,20 +363,20 @@ class Tribe__Main {
 		}
 
 		$locale = get_locale();
-		$mofile = WP_LANG_DIR . '/plugins/' . $domain . '-' . $locale . '.mo';
+		$plugin_rel_path = WP_LANG_DIR . '/plugins/';
 
 		/**
-		 * Allows users to filter which file will be loaded for a given text domain
+		 * Allows users to filter the file location for a given text domain
 		 * Be careful when using this filter, it will apply across the whole plugin suite.
 		 *
-		 * @param string      $mofile The path for the .mo File
+		 * @param string      $plugin_rel_path The relative path for the language files
 		 * @param string      $domain Which plugin domain we are trying to load
 		 * @param string      $locale Which Language we will load
 		 * @param string|bool $dir    If there was a custom directory passed on the method call
 		 */
-		$mofile = apply_filters( 'tribe_load_text_domain', $mofile, $domain, $locale, $dir );
+		$plugin_rel_path = apply_filters( 'tribe_load_text_domain', $plugin_rel_path, $domain, $locale, $dir );
 
-		$loaded = load_plugin_textdomain( $domain, false, $mofile );
+		$loaded = load_plugin_textdomain( $domain, false, $plugin_rel_path );
 
 		if ( $dir !== false && ! $loaded ) {
 			return load_plugin_textdomain( $domain, false, $dir );
@@ -493,6 +494,7 @@ class Tribe__Main {
 	 */
 	public function tribe_plugins_loaded() {
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
+		tribe( 'admin.notice.php.version' );
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
 		 *
@@ -527,6 +529,8 @@ class Tribe__Main {
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
+
+		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', array( 'hook' ) );
 	}
 
 	/************************

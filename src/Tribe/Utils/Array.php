@@ -191,6 +191,35 @@ class Tribe__Utils__Array {
 	}
 
 	/**
+	 * Sanitize a multidimensional array.
+	 *
+	 * @since   4.7.18
+	 *
+	 * @param array $data The array to sanitize.
+	 *
+	 * @return array The sanitized array
+	 *
+	 * @link https://gist.github.com/esthezia/5804445
+	 */
+	public static function escape_multidimensional_array( $data = array() ) {
+
+		if ( ! is_array( $data ) || ! count( $data ) ) {
+			return array();
+		}
+
+		foreach ( $data as $key => $value ) {
+			if ( ! is_array( $value ) && ! is_object( $value ) ) {
+				$data[ $key ] = esc_attr( trim( $value ) );
+			}
+			if ( is_array( $value ) ) {
+				$data[ $key ] = self::escape_multidimensional_array( $value );
+			}
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Returns an array of values obtained by using the keys on the map; keys
 	 * that do not have a match in map are discarded.
 	 *

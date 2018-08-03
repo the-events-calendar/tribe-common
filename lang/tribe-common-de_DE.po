@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-05-31 11:34:52+0000\n"
+"PO-Revision-Date: 2018-06-06 21:24:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -642,7 +642,7 @@ msgstr "Lesen Sie mehr über unsere Supportbedingungen"
 
 #: src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
-msgstr ""
+msgstr "Bitte beachten Sie, dass jegliche Hands-On Unterstützung über die Foren erfolgt. Sie können uns eine E-Mail senden oder twittern, aber wir werden Sie wahrscheinlich auf die Foren verweisen"
 
 #: src/admin-views/tribe-options-help.php:33
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."

@@ -38,6 +38,9 @@ class Tribe__Utils__Post_Root_Pool {
 	public function generate_unique_root( WP_Post $post ) {
 		$post_name = $post->post_name;
 
+		// A lot fo these get urlencoded, so let's try to fix that first
+		$post_name = tribe_maybe_urldecode( $post_name );
+
 		$this->current_post = $post;
 		$flipped_pool       = array_flip( $this->fetch_pool() );
 
@@ -86,9 +89,24 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @param $string
 	 *
 	 * @return string
+	 * @deprecated 4.7.18
 	 */
 	protected function uc_first_letter( $string ) {
-		return is_numeric( $string ) ? $string : strtoupper( $string[0] );
+		_deprecated_function( __METHOD__, '4.7.18', 'tribe_uc_first_letter' );
+
+		return is_numeric( $string ) ? $string : tribe_uc_first_letter( $string );
+	}
+
+	/**
+	 * @param $string
+	 *
+	 * @return string
+	 * @deprecated 4.7.18
+	 */
+	protected function safe_strtoupper( $string ) {
+		_deprecated_function( __METHOD__, '4.7.18', 'tribe_strtoupper' );
+
+		return is_numeric( $string ) ? $string : tribe_strtoupper( $string );
 	}
 
 	/**
@@ -146,7 +164,7 @@ class Tribe__Utils__Post_Root_Pool {
 
 		if ( strlen( $candidate ) > 9 ) {
 			$frags     = array_filter( $frags );
-			$candidate = implode( '', array_map( array( $this, 'uc_first_letter' ), $frags ) );
+			$candidate = implode( '', array_map( 'tribe_uc_first_letter', $frags ) );
 		}
 
 		$candidate = $candidate . $postfix;

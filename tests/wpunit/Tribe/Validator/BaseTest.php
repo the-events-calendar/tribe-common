@@ -43,6 +43,55 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $this->make_instance()->is_string( $value ) );
 	}
 
+
+	public function is_not_null_data() {
+		return [
+			[ '', true ],
+			[ null, false ],
+			[ array( 'foo' => 'bar' ), true ],
+			[ array( 'foo', 'bar' ), true ],
+			[ new \StdClass(), true ],
+			[ 'f', true ],
+			[ 'foo bar', true ],
+			[ '0', true ],
+			[ 0, true ],
+		];
+	}
+
+	/**
+	 * Test is_not_null
+	 *
+	 * @test
+	 * @dataProvider is_not_null_data
+	 */
+	public function test_is_not_null( $value, $expected ) {
+		$this->assertEquals( $expected, $this->make_instance()->is_not_null( $value ) );
+	}
+
+	public function is_null_data() {
+		return [
+			[ '', false ],
+			[ null, true ],
+			[ array( 'foo' => 'bar' ), false ],
+			[ array( 'foo', 'bar' ), false ],
+			[ new \StdClass(), false ],
+			[ 'f', false ],
+			[ 'foo bar', false ],
+			[ '0', false ],
+			[ 0, false ],
+		];
+	}
+
+	/**
+	 * Test is_null
+	 *
+	 * @test
+	 * @dataProvider is_null_data
+	 */
+	public function test_is_null( $value, $expected ) {
+		$this->assertEquals( $expected, $this->make_instance()->is_null( $value ) );
+	}
+
 	public function is_numeric_data() {
 		return [
 			[ '', false ],
