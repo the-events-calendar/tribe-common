@@ -697,4 +697,24 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 			$third_book,
 		], $w_good_reviews_or_no_reviews );
 	}
+
+	/**
+	 * It should allow checking if a READ filter will be applied
+	 *
+	 * @test
+	 */
+	public function should_allow_checking_if_a_read_filter_will_be_applied() {
+		$repository = $this->repository();
+
+		$this->assertFalse($repository->has_filter('search'));
+		$this->assertFalse($repository->has_filter('meta_exists'));
+		$this->assertFalse($repository->has_filter('meta_exists','foo'));
+
+		$repository->by('meta_exists', 'foo');
+
+		$this->assertFalse($repository->has_filter('search'));
+		$this->assertTrue($repository->has_filter('meta_exists'));
+		$this->assertTrue($repository->has_filter('meta_exists','foo'));
+		$this->assertFalse($repository->has_filter('meta_exists','bar'));
+	}
 }

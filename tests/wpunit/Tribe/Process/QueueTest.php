@@ -173,6 +173,8 @@ class QueueTest extends WPTestCase {
 		$id = $sut->get_id();
 		$this->assertEquals( 'tribe_queue_dummy_queue_batch_unique-q-id', $id );
 		$q_status = \Tribe__Process__Queue::get_status_of( $id )->to_array();
+		$this->assertArrayHasKey( 'last_update', $q_status );
+		unset( $q_status['last_update'] );
 		$expected = [
 			'identifier' => $id,
 			'done'       => 0,
@@ -194,8 +196,82 @@ class QueueTest extends WPTestCase {
 		}
 		$sut->save();
 
-		$this->expectException(\RuntimeException::class);
+		$this->expectException( \RuntimeException::class );
 
 		$sut->set_id( 'unique-q-id' );
+	}
+
+	/**
+	 * It should set a last_update timestamp on the queue when updating
+	 *
+	 * @test
+	 */
+	public function should_set_a_last_update_timestamp_on_the_queue_when_updating() {
+		$sut = $this->make_instance();
+		foreach ( range( 1, 5 ) as $i ) {
+			$sut->push_to_queue( $i );
+		}
+		$sut->save();
+
+		$save_status = Queue::get_status_of( $sut->get_id() )->to_array();
+
+		$this->assertArrayHasKey( 'last_update', $save_status );
+		$this->assertInternalType( 'int', $save_status['last_update'] );
+		$after_save_last_update = $save_status['last_update'];
+		$this->assertEquals( time(), $after_save_last_update, 'Last update should be about now', 2 );
+
+		sleep( 1 );
+
+		$sut->update( $sut->get_id(), [] );
+
+		$update_status = Queue::get_status_of( $sut->get_id() )->to_array();
+
+		$this->assertArrayHasKey( 'last_update', $update_status );
+		$this->assertInternalType( 'int', $update_status['last_update'] );
+		$this->assertGreaterThan( $after_save_last_update, $update_status['last_update'] );
+		$this->assertEquals( time(), $update_status['last_update'], 'Last update should be about now', 2 );
+	}
+
+	/**
+	 * It should correctly detect stuck queues
+	 *
+	 * @test
+	 */
+	public function should_correctly_detect_stuck_queues() {
+		$sut = $this->make_instance();
+		foreach ( range( 1, 5 ) as $i ) {
+			$sut->push_to_queue( $i );
+		}
+		$sut->save();
+
+		$this->assertFalse( Queue::is_stuck( $sut->get_id() ) );
+
+		sleep( 1 );
+
+		add_filter( 'tribe_process_queue_time_limit', '__return_zero' );
+
+		$this->assertTrue( Queue::is_stuck( $sut->get_id() ) );
+	}
+
+	/**
+	 * It should allow deleting a queue
+	 *
+	 * @test
+	 */
+	public function should_allow_deleting_a_queue() {
+		$sut = $this->make_instance();
+		foreach ( range( 1, 5 ) as $i ) {
+			$sut->push_to_queue( $i );
+		}
+		$sut->save();
+
+		$this->assertNotEmpty( get_transient( $sut->get_meta_key( $sut->get_id() ) ) );
+		$this->assertNotEmpty( get_option( $sut->get_id() ) );
+
+		$sut->delete( $sut->get_id() );
+
+		$this->assertEmpty( get_transient( $sut->get_meta_key( $sut->get_id() ) ) );
+		wp_cache_flush();
+		$this->assertEmpty( get_option( $sut->get_id() ) );
 	}
 }

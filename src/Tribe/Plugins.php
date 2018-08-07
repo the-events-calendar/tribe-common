@@ -121,7 +121,14 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 * @return array
 		 */
 		public function get_list() {
-			return $this->tribe_plugins;
+			/**
+			 * Gives an opportunity to filter the list of tribe plugins
+			 *
+			 * @since 4.7.18
+			 *
+			 * @param array Contains a list of all tribe plugins
+			 */
+			return apply_filters( 'tribe_plugins_get_list', $this->tribe_plugins );
 		}
 
 	}

@@ -158,11 +158,28 @@ class Tribe__Assets {
 			// and default to not enqueuing it if there *are* conditionals
 			$enqueue = empty( $asset->conditionals );
 
-			// If we have a set of conditionals we loop on then and get if they are true
-			foreach ( $asset->conditionals as $conditional ) {
-				$enqueue = call_user_func( $conditional );
-				if ( $enqueue ) {
-					break;
+			if ( ! $enqueue ) {
+				// Reset Enqeue
+				$enqueue = array();
+
+				// Which is the operator?
+				$conditional_operator = Tribe__Utils__Array::get( $asset->conditionals, 'operator', 'OR' );
+
+				// If we have a set of conditionals we loop on then and get if they are true
+				foreach ( $asset->conditionals as $key => $conditional ) {
+					// Avoid doing anything to the operator
+					if ( 'operator' === $key ) {
+						continue;
+					}
+
+					$enqueue[] = call_user_func( $conditional );
+				}
+
+				// By default we use OR for backwards compatibility
+				if ( 'OR' === $conditional_operator ) {
+					$enqueue = in_array( true, $enqueue );
+				} else {
+					$enqueue = ! in_array( false, $enqueue );
 				}
 			}
 
