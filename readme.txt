@@ -1,6 +1,8 @@
 === Tribe Common ===
 
 == Changelog ==
+= [4.7.19] TBD =
+* Tweak - Event Aggregator Add-On text due to the removal of Facebook Imports [111729]
 
 = [4.7.18] 2018-08-01 =
 * Fix - Add `target="_blank"` to repository links in the Help Page [107974]
