@@ -1,6 +1,8 @@
 === Tribe Common ===
 
 == Changelog ==
+= [4.7.19] TBD =
+* Tweak - Event Aggregator Add-On text due to the removal of Facebook Imports [111729]
 
 = [4.7.19] TBD =
 * Fix - Add the following datepicker formats to the validation script: YYYY.MM.DD, MM.DD.YYYY, DD.MM.YYYY [102815]
