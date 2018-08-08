@@ -212,18 +212,43 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_track_term_removals() {
-		$object       = $this->factory()->user->create();
+		$post         = $this->factory()->post->create();
 		$original_mod = time() - HOUR_IN_SECONDS;
-		update_post_meta( $object, Tracker::$field_key, [ 'post_tag' => $original_mod ] );
-		$this->factory()->tag->create_and_get( [ 'name' => 'foo' ] );
-		$this->factory()->tag->create_and_get( [ 'name' => 'bar' ] );
+		update_post_meta( $post, Tracker::$field_key, [ 'post_tag' => $original_mod ] );
+		$foo = $this->factory()->tag->create_and_get( [ 'name' => 'foo' ] );
+		$bar = $this->factory()->tag->create_and_get( [ 'name' => 'bar' ] );
 
 		$sut = $this->make_instance();
 		$sut->set_tracked_post_types( [ 'post' ] );
 		$sut->set_tracked_taxonomies( [ 'post_tag' ] );
-		$exit = $sut->track_taxonomy_term_deletions( $object, $tt_ids, 'post_tag' );
+		$exit = $sut->track_taxonomy_term_deletions( $post, $foo, 'post_tag' );
 
 		$this->assertTrue( $exit );
+		$this->assertNotEquals( $original_mod, get_post_meta( $post, Tracker::$field_key, true )['post_tag'] );
+	}
+
+	/**
+	 * It should update linking post types when linked post type is updated
+	 *
+	 * @test
+	 */
+	public function should_update_linking_post_types_when_linked_post_type_is_updated() {
+		$linked  = $this->factory()->post->create();
+		$linking = $this->factory()->post->create( [
+			'post_type'  => 'page',
+			'meta_input' => [ '_post' => $linked ],
+		] );
+		$updated = [];
+		add_action( 'post_updated', function ( $post_id ) use ( &$updated ) {
+			$updated[] = $post_id;
+		} );
+
+		$sut = $this->make_instance();
+		$sut->set_tracked_post_types( [ 'post' ] );
+		$sut->set_linked_post_types( [ 'post' => [ 'from_type' => 'page', 'with_key' => '_post' ] ] );
+		$sut->update_linking_posts( $linked );
+
+		$this->assertEquals( [ $linking ], $updated );
 	}
 
 	/**

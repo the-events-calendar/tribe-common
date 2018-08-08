@@ -27,6 +27,15 @@ class Tribe__Tracker {
 	protected $tracked_taxonomies = array();
 
 	/**
+	 * An array detailing the linking post types tracked by the tracker.
+	 * The array has a shape like [ <post_type> => [ 'from_type' => <post_type>, 'with_key' => <meta_key> ] ]
+	 * where the `from_type` entry can be a string or an array of post types.
+	 *
+	 * @var array
+	 */
+	protected $linked_post_types = array();
+
+	/**
 	 * Hooks up the methods that will actually track the fields we are looking for.
 	 */
 	public function hook() {
@@ -446,10 +455,14 @@ class Tribe__Tracker {
 	 * @since 4.7.6
 	 *
 	 * @param int  Post ID
+	 *
 	 * @return bool
 	 */
 	public function cleanup_meta_fields( $post_id ) {
-		return delete_post_meta( (int) $post_id, self::$field_key );
+		$deleted = delete_post_meta( (int) $post_id, self::$field_key );
+		$this->update_linking_posts( $post_id );
+
+		return $deleted;
 	}
 
 	/**
@@ -515,5 +528,98 @@ class Tribe__Tracker {
 		$this->update_tracked_fields( $post, $modified );
 
 		return true;
+	}
+
+	/**
+	 * Returns the linked post types the tracker should handle.
+	 *
+	 * A "linked" post type is the "to" end of a post to post relation.
+	 * E.g. Venues are linked by Events.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array defining the linked post types, the linking post type(s)
+	 *               and the meta key used by the linking post types to link to this post
+	 *               type. The array has shape [ <post_type> => [ 'from_type' => <post_type>, 'with_key' => <meta_key> ] ]
+	 */
+	public function get_linked_post_types() {
+		// By default we are not tracking any linking post type
+		$linked_post_types = array();
+
+		/**
+		 * Adds a way for Developers to add and remove which post types should be considered
+		 * linked.
+		 *
+		 * @since TBD
+		 *
+		 * @var array An array defining the linked post types in the shape
+		 *            [ <post_type> => [ 'from_type' => <post_type>, 'with_key' => <meta_key> ] ];
+		 *            The `from_type`  entry can be a string or an array of linked post types.
+		 *            As an example [ 'venue' => [ 'from_type' => 'event', 'with_key' => 'venue_id' ] ].
+		 */
+		$linked_post_types = (array) apply_filters( 'tribe_tracker_linked_post_types', $this->linked_post_types );
+
+		return $linked_post_types;
+	}
+
+	/**
+	 * Updates the linking posts if the post type of `post_id` is a linked post type.
+	 *
+	 * E.g. update the event ("linking to") when the venue is updated ("linked from").
+	 *
+	 * @since TBD
+	 *
+	 * @param int|WP_Post $post_id
+	 *
+	 * @return bool
+	 */
+	 public function update_linking_posts( $post_id ) {
+		$post_id = $post_id instanceof WP_Post ? $post_id->ID : $post_id;
+		$linked_post_types = $this->get_linked_post_types();
+		$post_type = get_post_type( $post_id );
+
+		if ( ! array_key_exists( $post_type, $linked_post_types ) ) {
+			return true;
+		}
+
+		$post_types    = $linked_post_types[ $post_type ]['from_type'];
+		$meta_key      = $linked_post_types[ $post_type ]['with_key'];
+		$linking_posts = get_posts( array(
+			'fields'                    => 'ids',
+			'posts_per_page'            => - 1,
+			'tribe_remove_date_filters' => true,
+			'post_type'                 => $post_types,
+			'post_status'               => 'any',
+			'meta_query'                => array(
+				'key'   => $meta_key,
+				'value' => (int) $post_id,
+			),
+		) );
+
+		if ( empty( $linking_posts ) ) {
+			return true;
+		}
+
+		foreach ( $linking_posts as $linking_post_id ) {
+			/**
+			 * Here we leverage the fact that WordPress will override the `post_updated`
+			 * input to set it to "now". Mind that here we do not care about the linking
+			 * post coherence or information about a deleted linked post: that logic should be,
+			 * and is, handled elsewhere.
+			 */
+			wp_update_post( [ 'ID' => $linking_post_id, 'post_updated' => 'now' ] );
+		}
+	}
+
+	/**
+	 * Sets the linked post types the tracker should track.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $linked_post_types An array defining the linked post types, shape
+	 *                                 [ <post_type> => [ 'from_type' => <post_type>, 'with_key' => <meta_key> ] ].
+	 */
+	public function set_linked_post_types( array $linked_post_types ) {
+		$this->linked_post_types = $linked_post_types;
 	}
 }
