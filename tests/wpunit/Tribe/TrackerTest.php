@@ -207,6 +207,26 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should track term removals
+	 *
+	 * @test
+	 */
+	public function should_track_term_removals() {
+		$object       = $this->factory()->user->create();
+		$original_mod = time() - HOUR_IN_SECONDS;
+		update_post_meta( $object, Tracker::$field_key, [ 'post_tag' => $original_mod ] );
+		$this->factory()->tag->create_and_get( [ 'name' => 'foo' ] );
+		$this->factory()->tag->create_and_get( [ 'name' => 'bar' ] );
+
+		$sut = $this->make_instance();
+		$sut->set_tracked_post_types( [ 'post' ] );
+		$sut->set_tracked_taxonomies( [ 'post_tag' ] );
+		$exit = $sut->track_taxonomy_term_deletions( $object, $tt_ids, 'post_tag' );
+
+		$this->assertTrue( $exit );
+	}
+
+	/**
 	 * @return Tracker
 	 */
 	protected function make_instance() {

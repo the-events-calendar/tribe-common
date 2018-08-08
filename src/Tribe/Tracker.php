@@ -45,6 +45,9 @@ class Tribe__Tracker {
 		// Track the Post term updates
 		add_action( 'set_object_terms', array( $this, 'track_taxonomy_term_changes' ), 10, 6 );
 
+		// Track the Post term deletions
+		add_action( 'delete_term_relationships', array( $this, 'track_taxonomy_term_deletions' ), 10, 6 );
+
 		// Clean up modified fields if the post is removed.
 		add_action( 'delete_post', array( $this, 'cleanup_meta_fields' ) );
 	}
@@ -187,7 +190,7 @@ class Tribe__Tracker {
 		$modified[ $meta_key ] = $now;
 
 		// Actually do the Update
-		update_post_meta( $post->ID, self::$field_key, $modified );
+		$this->update_tracked_fields( $post, $modified );
 	}
 
 	/**
@@ -266,7 +269,7 @@ class Tribe__Tracker {
 		$modified[ $meta_key ] = $now;
 
 		// Actually do the Update
-		update_post_meta( $post->ID, self::$field_key, $modified );
+		$this->update_tracked_fields( $post, $modified );
 
 		// We need to return this, because we are still on a filter
 		return $check;
@@ -384,7 +387,8 @@ class Tribe__Tracker {
 		}
 
 		$modified[ $taxonomy ] = time();
-		update_post_meta( $post->ID, self::$field_key, $modified );
+
+		$this->update_tracked_fields( $post, $modified );
 
 		return true;
 	}
@@ -446,5 +450,70 @@ class Tribe__Tracker {
 	 */
 	public function cleanup_meta_fields( $post_id ) {
 		return delete_post_meta( (int) $post_id, self::$field_key );
+	}
+
+	/**
+	 * Updates the modified fields custom field.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post The post object that's being updated.
+	 * @param array $modified The list of modified fields w/ shape [ <field> => <date> ].
+	 */
+	protected function update_tracked_fields( WP_Post $post, array $modified ) {
+		wp_update_post( array( 'ID' => $post->ID, 'meta_input' => array( self::$field_key => $modified ) ) );
+	}
+
+	/**
+	 * Fires after a term relationship was removed to track removed object terms.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $object_id Object ID.
+	 * @param array $tt_ids An array of term taxonomy IDs.
+	 * @param string $taxonomy Taxonomy slug.
+	 *
+	 * @return bool Whether the taxonomy term deletion was tracked or not.
+	 */
+	public function track_taxonomy_term_deletions( $object_id, $tt_ids, $taxonomy ) {
+		/**
+		 * Allows toggling the post taxonomy terms tracking
+		 *
+		 * @var bool $track_terms Whether the class is currently tracking terms or not.
+		 */
+		$is_tracking_taxonomy_terms = (bool) apply_filters( 'tribe_tracker_enabled_for_terms', $this->track_terms );
+
+		if ( false === $is_tracking_taxonomy_terms ) {
+			return false;
+		}
+
+		$tracked_post_types = $this->get_post_types();
+
+		$post_id = tribe_post_exists( $object_id );
+
+		if (
+			empty( $post_id )
+			|| ! ( $post = get_post( $post_id ) )
+			|| ! in_array( $post->post_type, $tracked_post_types, true )
+		) {
+			return false;
+		}
+
+		$tracked_taxonomies = $this->get_taxonomies();
+
+		if ( ! in_array( $taxonomy, $tracked_taxonomies, true ) ) {
+			return false;
+		}
+
+		if ( ! $modified = get_post_meta( $post->ID, self::$field_key, true ) ) {
+			$modified = array();
+		}
+
+		// if we're here we know at least one taxonomy term has been removed
+		$modified[ $taxonomy ] = time();
+
+		$this->update_tracked_fields( $post, $modified );
+
+		return true;
 	}
 }
