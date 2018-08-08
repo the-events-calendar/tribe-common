@@ -480,8 +480,15 @@ class Tribe__Tracker {
 	 * @param array $modified The list of modified fields w/ shape [ <field> => <date> ].
 	 */
 	protected function update_tracked_fields( WP_Post $post, array $modified ) {
-		wp_update_post( array( 'ID' => $post->ID, 'meta_input' => array( self::$field_key => $modified ) ) );
+		$this->unhook();
+		wp_update_post( array(
+			'ID'         => $post->ID,
+			'meta_input' => array( self::$field_key => $modified ),
+			// we set this to avoid the `post_date` from being reset
+			'edit_date'  => true,
+		) );
 		$this->update_linking_posts( $post );
+		$this->hook();
 	}
 
 	/**
@@ -598,7 +605,7 @@ class Tribe__Tracker {
 		 * to remove date filters.
 		 */
 		$linking_posts = get_posts( array(
-			'fields'                    => 'ids',
+			'fields' => 'ids',
 			'posts_per_page'            => - 1,
 			'tribe_remove_date_filters' => true,
 			'post_type'                 => $post_types,
@@ -615,15 +622,22 @@ class Tribe__Tracker {
 
 		$updated = true;
 
-		foreach ( $linking_posts as $linking_post_id ) {
+		$this->unhook();
+		foreach ( $linking_posts as $linking_post ) {
 			/**
 			 * Here we leverage the fact that WordPress will override the `post_updated`
 			 * input to set it to "now". Mind that here we do not care about the linking
 			 * post coherence or information about a deleted linked post: that logic should be,
 			 * and is, handled elsewhere.
 			 */
-			$updated &= (bool) wp_update_post( [ 'ID' => $linking_post_id, 'post_updated' => 'now' ] );
+			$updated &= (bool) wp_update_post( array(
+				'ID'           => $linking_post,
+				'post_updated' => 'now',
+				// we set this to avoid the `post_date` from being reset
+				'edit_date' => true,
+			) );
 		}
+		$this->hook();
 
 		return $updated;
 	}
@@ -649,5 +663,21 @@ class Tribe__Tracker {
 	 */
 	public function on_post_updated( $post_id ) {
 		$this->update_linking_posts( $post_id );
+	}
+
+	/**
+	 * Un-hooks the Tracker actions and filters.
+	 *
+	 * @since TBD
+	 */
+	public function unhook() {
+		remove_filter( 'update_post_metadata', array( $this, 'filter_watch_updated_meta' ), PHP_INT_MAX - 1);
+		remove_action( 'removeed_post_meta', array( $this, 'register_removeed_deleted_meta' ), PHP_INT_MAX - 1 );
+		remove_action( 'delete_post_meta', array( $this, 'register_removeed_deleted_meta' ), PHP_INT_MAX - 1 );
+		remove_action( 'post_updated', array( $this, 'filter_watch_post_fields' ), 10);
+		remove_action( 'set_object_terms', array( $this, 'track_taxonomy_term_changes' ), 10);
+		remove_action( 'delete_term_relationships', array( $this, 'track_taxonomy_term_deletions' ), 10);
+		remove_action( 'post_updated', array( $this, 'on_post_updated' ) );
+		remove_action( 'delete_post', array( $this, 'on_delete_post' ) );
 	}
 }
