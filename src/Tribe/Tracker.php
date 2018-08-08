@@ -57,8 +57,11 @@ class Tribe__Tracker {
 		// Track the Post term deletions
 		add_action( 'delete_term_relationships', array( $this, 'track_taxonomy_term_deletions' ), 10, 6 );
 
+		// Track post field updates
+		add_action( 'post_updated', array( $this, 'on_post_updated' ) );
+
 		// Clean up modified fields if the post is removed.
-		add_action( 'delete_post', array( $this, 'cleanup_meta_fields' ) );
+		add_action( 'delete_post', array( $this, 'on_delete_post' ) );
 	}
 
 	/**
@@ -449,8 +452,8 @@ class Tribe__Tracker {
 	}
 
 	/**
-	 * Make sure to remove the changed field if the event is deleted to ensure there are no left meta fields when
-	 * the event is deleted.
+	 * Fires on the post deletion to remove the changed field if the post is deleted to remove the meta fields
+	 * and update the linking posts.
 	 *
 	 * @since 4.7.6
 	 *
@@ -458,7 +461,7 @@ class Tribe__Tracker {
 	 *
 	 * @return bool
 	 */
-	public function cleanup_meta_fields( $post_id ) {
+	public function on_delete_post( $post_id ) {
 		$deleted = delete_post_meta( (int) $post_id, self::$field_key );
 		$this->update_linking_posts( $post_id );
 
@@ -468,6 +471,9 @@ class Tribe__Tracker {
 	/**
 	 * Updates the modified fields custom field.
 	 *
+	 * Additionally, if the post that is being updated is a linked post, linking posts (the "from"
+	 * side of the post-to-post relation) are updated.
+	 *
 	 * @since TBD
 	 *
 	 * @param WP_Post $post The post object that's being updated.
@@ -475,6 +481,7 @@ class Tribe__Tracker {
 	 */
 	protected function update_tracked_fields( WP_Post $post, array $modified ) {
 		wp_update_post( array( 'ID' => $post->ID, 'meta_input' => array( self::$field_key => $modified ) ) );
+		$this->update_linking_posts( $post );
 	}
 
 	/**
@@ -571,19 +578,25 @@ class Tribe__Tracker {
 	 *
 	 * @param int|WP_Post $post_id
 	 *
-	 * @return bool
+	 * @return bool Whether the linked posts have been updated or not; `false` if there
+	 *              are no linking posts to update.
 	 */
-	 public function update_linking_posts( $post_id ) {
-		$post_id = $post_id instanceof WP_Post ? $post_id->ID : $post_id;
+	public function update_linking_posts( $post_id ) {
+		$post_id           = $post_id instanceof WP_Post ? $post_id->ID : $post_id;
 		$linked_post_types = $this->get_linked_post_types();
-		$post_type = get_post_type( $post_id );
+		$post_type         = get_post_type( $post_id );
 
 		if ( ! array_key_exists( $post_type, $linked_post_types ) ) {
-			return true;
+			return false;
 		}
 
-		$post_types    = $linked_post_types[ $post_type ]['from_type'];
-		$meta_key      = $linked_post_types[ $post_type ]['with_key'];
+		$post_types = $linked_post_types[ $post_type ]['from_type'];
+		$meta_key   = $linked_post_types[ $post_type ]['with_key'];
+
+		/**
+		 * Get all the linking posts, as they might be events let's make sure
+		 * to remove date filters.
+		 */
 		$linking_posts = get_posts( array(
 			'fields'                    => 'ids',
 			'posts_per_page'            => - 1,
@@ -597,8 +610,10 @@ class Tribe__Tracker {
 		) );
 
 		if ( empty( $linking_posts ) ) {
-			return true;
+			return false;
 		}
+
+		$updated = true;
 
 		foreach ( $linking_posts as $linking_post_id ) {
 			/**
@@ -607,8 +622,10 @@ class Tribe__Tracker {
 			 * post coherence or information about a deleted linked post: that logic should be,
 			 * and is, handled elsewhere.
 			 */
-			wp_update_post( [ 'ID' => $linking_post_id, 'post_updated' => 'now' ] );
+			$updated &= (bool) wp_update_post( [ 'ID' => $linking_post_id, 'post_updated' => 'now' ] );
 		}
+
+		return $updated;
 	}
 
 	/**
@@ -621,5 +638,16 @@ class Tribe__Tracker {
 	 */
 	public function set_linked_post_types( array $linked_post_types ) {
 		$this->linked_post_types = $linked_post_types;
+	}
+
+	/**
+	 * Fires after a post has been updated to update the posts that might be linking to this.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The updated post ID.
+	 */
+	public function on_post_updated( $post_id ) {
+		$this->update_linking_posts( $post_id );
 	}
 }
