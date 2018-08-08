@@ -27,6 +27,15 @@ class Tribe__Tracker {
 	protected $tracked_taxonomies = array();
 
 	/**
+	 * An array detailing the linking post types tracked by the tracker.
+	 * The array has a shape like [ <post_type> => [ 'from_type' => <post_type>, 'with_key' => <meta_key> ] ]
+	 * where the `from_type` entry can be a string or an array of post types.
+	 *
+	 * @var array
+	 */
+	protected $linked_post_types = array();
+
+	/**
 	 * Hooks up the methods that will actually track the fields we are looking for.
 	 */
 	public function hook() {
@@ -45,8 +54,14 @@ class Tribe__Tracker {
 		// Track the Post term updates
 		add_action( 'set_object_terms', array( $this, 'track_taxonomy_term_changes' ), 10, 6 );
 
+		// Track the Post term deletions
+		add_action( 'delete_term_relationships', array( $this, 'track_taxonomy_term_deletions' ), 10, 6 );
+
+		// Track post field updates
+		add_action( 'post_updated', array( $this, 'on_post_updated' ) );
+
 		// Clean up modified fields if the post is removed.
-		add_action( 'delete_post', array( $this, 'cleanup_meta_fields' ) );
+		add_action( 'delete_post', array( $this, 'on_delete_post' ) );
 	}
 
 	/**
@@ -187,7 +202,7 @@ class Tribe__Tracker {
 		$modified[ $meta_key ] = $now;
 
 		// Actually do the Update
-		update_post_meta( $post->ID, self::$field_key, $modified );
+		$this->update_tracked_fields( $post, $modified );
 	}
 
 	/**
@@ -266,7 +281,7 @@ class Tribe__Tracker {
 		$modified[ $meta_key ] = $now;
 
 		// Actually do the Update
-		update_post_meta( $post->ID, self::$field_key, $modified );
+		$this->update_tracked_fields( $post, $modified );
 
 		// We need to return this, because we are still on a filter
 		return $check;
@@ -384,7 +399,8 @@ class Tribe__Tracker {
 		}
 
 		$modified[ $taxonomy ] = time();
-		update_post_meta( $post->ID, self::$field_key, $modified );
+
+		$this->update_tracked_fields( $post, $modified );
 
 		return true;
 	}
@@ -436,15 +452,230 @@ class Tribe__Tracker {
 	}
 
 	/**
-	 * Make sure to remove the changed field if the event is deleted to ensure there are no left meta fields when
-	 * the event is deleted.
+	 * Fires on the post deletion to remove the changed field if the post is deleted to remove the meta fields
+	 * and update the linking posts.
 	 *
 	 * @since 4.7.6
 	 *
 	 * @param int  Post ID
+	 *
 	 * @return bool
 	 */
-	public function cleanup_meta_fields( $post_id ) {
-		return delete_post_meta( (int) $post_id, self::$field_key );
+	public function on_delete_post( $post_id ) {
+		$deleted = delete_post_meta( (int) $post_id, self::$field_key );
+		$this->update_linking_posts( $post_id );
+
+		return $deleted;
+	}
+
+	/**
+	 * Updates the modified fields custom field.
+	 *
+	 * Additionally, if the post that is being updated is a linked post, linking posts (the "from"
+	 * side of the post-to-post relation) are updated.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post The post object that's being updated.
+	 * @param array $modified The list of modified fields w/ shape [ <field> => <date> ].
+	 */
+	protected function update_tracked_fields( WP_Post $post, array $modified ) {
+		$this->unhook();
+		wp_update_post( array(
+			'ID'         => $post->ID,
+			'meta_input' => array( self::$field_key => $modified ),
+			// we set this to avoid the `post_date` from being reset
+			'edit_date'  => true,
+		) );
+		$this->update_linking_posts( $post );
+		$this->hook();
+	}
+
+	/**
+	 * Fires after a term relationship was removed to track removed object terms.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $object_id Object ID.
+	 * @param array $tt_ids An array of term taxonomy IDs.
+	 * @param string $taxonomy Taxonomy slug.
+	 *
+	 * @return bool Whether the taxonomy term deletion was tracked or not.
+	 */
+	public function track_taxonomy_term_deletions( $object_id, $tt_ids, $taxonomy ) {
+		/**
+		 * Allows toggling the post taxonomy terms tracking
+		 *
+		 * @var bool $track_terms Whether the class is currently tracking terms or not.
+		 */
+		$is_tracking_taxonomy_terms = (bool) apply_filters( 'tribe_tracker_enabled_for_terms', $this->track_terms );
+
+		if ( false === $is_tracking_taxonomy_terms ) {
+			return false;
+		}
+
+		$tracked_post_types = $this->get_post_types();
+
+		$post_id = tribe_post_exists( $object_id );
+
+		if (
+			empty( $post_id )
+			|| ! ( $post = get_post( $post_id ) )
+			|| ! in_array( $post->post_type, $tracked_post_types, true )
+		) {
+			return false;
+		}
+
+		$tracked_taxonomies = $this->get_taxonomies();
+
+		if ( ! in_array( $taxonomy, $tracked_taxonomies, true ) ) {
+			return false;
+		}
+
+		if ( ! $modified = get_post_meta( $post->ID, self::$field_key, true ) ) {
+			$modified = array();
+		}
+
+		// if we're here we know at least one taxonomy term has been removed
+		$modified[ $taxonomy ] = time();
+
+		$this->update_tracked_fields( $post, $modified );
+
+		return true;
+	}
+
+	/**
+	 * Returns the linked post types the tracker should handle.
+	 *
+	 * A "linked" post type is the "to" end of a post to post relation.
+	 * E.g. Venues are linked by Events.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array defining the linked post types, the linking post type(s)
+	 *               and the meta key used by the linking post types to link to this post
+	 *               type. The array has shape [ <post_type> => [ 'from_type' => <post_type>, 'with_key' => <meta_key> ] ]
+	 */
+	public function get_linked_post_types() {
+		// By default we are not tracking any linking post type
+		$linked_post_types = array();
+
+		/**
+		 * Adds a way for Developers to add and remove which post types should be considered
+		 * linked.
+		 *
+		 * @since TBD
+		 *
+		 * @var array An array defining the linked post types in the shape
+		 *            [ <post_type> => [ 'from_type' => <post_type>, 'with_key' => <meta_key> ] ];
+		 *            The `from_type`  entry can be a string or an array of linked post types.
+		 *            As an example [ 'venue' => [ 'from_type' => 'event', 'with_key' => 'venue_id' ] ].
+		 */
+		$linked_post_types = (array) apply_filters( 'tribe_tracker_linked_post_types', $this->linked_post_types );
+
+		return $linked_post_types;
+	}
+
+	/**
+	 * Updates the linking posts if the post type of `post_id` is a linked post type.
+	 *
+	 * E.g. update the event ("linking to") when the venue is updated ("linked from").
+	 *
+	 * @since TBD
+	 *
+	 * @param int|WP_Post $post_id
+	 *
+	 * @return bool Whether the linked posts have been updated or not; `false` if there
+	 *              are no linking posts to update.
+	 */
+	public function update_linking_posts( $post_id ) {
+		$post_id           = $post_id instanceof WP_Post ? $post_id->ID : $post_id;
+		$linked_post_types = $this->get_linked_post_types();
+		$post_type         = get_post_type( $post_id );
+
+		if ( ! array_key_exists( $post_type, $linked_post_types ) ) {
+			return false;
+		}
+
+		$post_types = $linked_post_types[ $post_type ]['from_type'];
+		$meta_key   = $linked_post_types[ $post_type ]['with_key'];
+
+		/**
+		 * Get all the linking posts, as they might be events let's make sure
+		 * to remove date filters.
+		 */
+		$linking_posts = get_posts( array(
+			'fields' => 'ids',
+			'posts_per_page'            => - 1,
+			'tribe_remove_date_filters' => true,
+			'post_type'                 => $post_types,
+			'post_status'               => 'any',
+			'meta_query'                => array(
+				'key'   => $meta_key,
+				'value' => (int) $post_id,
+			),
+		) );
+
+		if ( empty( $linking_posts ) ) {
+			return false;
+		}
+
+		$updated = true;
+
+		$this->unhook();
+		foreach ( $linking_posts as $linking_post ) {
+			/**
+			 * Here we leverage the fact that WordPress will override the `post_updated`
+			 * input to set it to "now". Mind that here we do not care about the linking
+			 * post coherence or information about a deleted linked post: that logic should be,
+			 * and is, handled elsewhere.
+			 */
+			$updated &= (bool) wp_update_post( array(
+				'ID'           => $linking_post,
+				'post_updated' => 'now',
+				// we set this to avoid the `post_date` from being reset
+				'edit_date' => true,
+			) );
+		}
+		$this->hook();
+
+		return $updated;
+	}
+
+	/**
+	 * Sets the linked post types the tracker should track.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $linked_post_types An array defining the linked post types, shape
+	 *                                 [ <post_type> => [ 'from_type' => <post_type>, 'with_key' => <meta_key> ] ].
+	 */
+	public function set_linked_post_types( array $linked_post_types ) {
+		$this->linked_post_types = $linked_post_types;
+	}
+
+	/**
+	 * Fires after a post has been updated to update the posts that might be linking to this.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The updated post ID.
+	 */
+	public function on_post_updated( $post_id ) {
+		$this->update_linking_posts( $post_id );
+	}
+
+	/**
+	 * Un-hooks the Tracker actions and filters.
+	 *
+	 * @since TBD
+	 */
+	public function unhook() {
+		remove_filter( 'update_post_metadata', array( $this, 'filter_watch_updated_meta' ), PHP_INT_MAX - 1 );
+		remove_action( 'added_post_meta', array( $this, 'register_added_deleted_meta' ), PHP_INT_MAX - 1 );
+		remove_action( 'delete_post_meta', array( $this, 'register_added_deleted_meta' ), PHP_INT_MAX - 1 );
+		remove_action( 'post_updated', array( $this, 'filter_watch_post_fields' ), 10 );
+		remove_action( 'set_object_terms', array( $this, 'track_taxonomy_term_changes' ), 10 );
+		remove_action( 'delete_term_relationships', array( $this, 'track_taxonomy_term_deletions' ), 10 );
 	}
 }

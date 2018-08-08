@@ -16,6 +16,8 @@
 * Tweak - Modified the `select2` implementation to work with the `maximumSelectionSize` argument via data attribute. [103577]
 * Tweak - Add new filters: `tribe_countries` and `tribe_us_states` to allow easier extensibility on the names used for each country [79880]
 * Fix - Updated Timezones::abbr() with additional support for timezone strings not covered by PHP date format "T" [102705]
+* Tweak - Make sure taxonomy term deletions are tracked by `Tribe__Tracker` [112035]
+* Tweak - Track and update linked posts in `Tribe__Tracker` [112035]
 
 = [4.7.10] 2018-03-28 =
 
