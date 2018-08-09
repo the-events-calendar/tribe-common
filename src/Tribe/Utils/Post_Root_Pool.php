@@ -89,10 +89,10 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @param $string
 	 *
 	 * @return string
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 */
 	protected function uc_first_letter( $string ) {
-		_deprecated_function( __METHOD__, 'TBD', 'tribe_uc_first_letter' );
+		_deprecated_function( __METHOD__, '4.7.18', 'tribe_uc_first_letter' );
 
 		return is_numeric( $string ) ? $string : tribe_uc_first_letter( $string );
 	}
@@ -101,10 +101,10 @@ class Tribe__Utils__Post_Root_Pool {
 	 * @param $string
 	 *
 	 * @return string
-	 * @deprecated TBD
+	 * @deprecated 4.7.18
 	 */
 	protected function safe_strtoupper( $string ) {
-		_deprecated_function( __METHOD__, 'TBD', 'tribe_strtoupper' );
+		_deprecated_function( __METHOD__, '4.7.18', 'tribe_strtoupper' );
 
 		return is_numeric( $string ) ? $string : tribe_strtoupper( $string );
 	}

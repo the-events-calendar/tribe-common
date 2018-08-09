@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.7.18] 2018-08-01 =
+* Fix - Add `target="_blank"` to repository links in the Help Page [107974]
+* Fix - Change 3rd parameter to be relative path to plugin language files instead of the mofile for load_plugin_textdomain(), thanks to jmortell [63144]
+* Tweak - Deprecate the usage of old asset loading methods [40267]
+
 = [4.7.17] 2018-07-10 =
 * Add - Method to sanitize a multidimensional array [106000]
 * Add - New is_not_null and is_null methods for Tribe__Validator__Base [109482]

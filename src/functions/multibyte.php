@@ -4,13 +4,13 @@
  * multibyte string functions where they are available
  * as using base functions on a multibyte string will porovide incorrect results
  *
- * @since TBD
+ * @since 4.7.18
  */
 
 if ( ! function_exists( 'tribe_detect_encoding' ) ) {
 	/**
 	 * Detects multibyte encoding if the function is available, returns false if not
-	 * @since TBD
+	 * @since 4.7.18
 	 *
 	 * @param  string       $string the string to detect encoding of
 	 * @return string|bool         the mb encoding of the string
@@ -25,7 +25,7 @@ if ( ! function_exists( 'tribe_maybe_urldecode' ) ) {
 	/**
 	 * Detects urlencoded strings if the function is available, and converts them.
 	 * Returns false if not able to detect
-	 * @since TBD
+	 * @since 4.7.18
 	 *
 	 * @param  string       $string the string to detect encoding of
 	 * @return string|bool         the urldecoded string
@@ -45,7 +45,7 @@ if ( ! function_exists( 'tribe_maybe_urldecode' ) ) {
 if ( ! function_exists( 'tribe_strlen' ) ) {
 	/**
 	 * Get the length of a string, uses mb_strlen when available
-	 * @since TBD
+	 * @since 4.7.18
 	 *
 	 * @param  string $string the string to get the length of
 	 * @return int         string length
@@ -69,7 +69,7 @@ if ( ! function_exists( 'tribe_strlen' ) ) {
 if ( ! function_exists( 'tribe_substr' ) ) {
 	/**
 	 * Get a substring, using multibyte functions if available
-	 * @since TBD
+	 * @since 4.7.18
 	 *
 	 * @param  string  $string string to crop
 	 * @param  int     $start  start position
@@ -89,7 +89,7 @@ if ( ! function_exists( 'tribe_substr' ) ) {
 if ( ! function_exists( 'tribe_strtoupper' ) ) {
 	/**
 	 * Convert string to uppercase, using multibyte functions if available
-	 * @since TBD
+	 * @since 4.7.18
 	 *
 	 * @param  string $string string to convert
 	 * @return string         converted string
@@ -118,7 +118,7 @@ if ( ! function_exists( 'tribe_strtoupper' ) ) {
 if ( ! function_exists( 'tribe_strtolower' ) ) {
 	/**
 	 * Convert string to lowercase, using multibyte functions if available
-	 * @since TBD
+	 * @since 4.7.18
 	 *
 	 * @param  string $string string to convert
 	 * @return string         converted string
