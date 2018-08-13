@@ -141,12 +141,16 @@ class Tribe__Utils__Array {
 	 * Converts a list to an array filtering out empty string elements.
 	 *
 	 * @param     mixed   $value A string representing a list of values separated by the specified separator
-	 *                           or an array.
+	 *                           or an array. If the list is a string (e.g. a CSV list) then it will urldecoded
+	 *                           before processing.
 	 * @param string $sep The char(s) separating the list elements; will be ignored if the list is an array.
 	 *
 	 * @return array An array of list elements.
 	 */
 	public static function list_to_array( $value, $sep = ',' ) {
+		// since we might receive URL encoded strings for CSV lists let's URL decode them first
+		$value = is_array( $value ) ? $value : urldecode( $value );
+
 		$sep = is_string( $sep ) ? $sep : ',';
 
 		if ( $value === null || $value === '' ) {
