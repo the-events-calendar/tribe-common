@@ -44,9 +44,21 @@ class Tribe__REST__Post_Repository {
 	/**
 	 * @param string $date A date string in a format `strtotime` can parse.
 	 *
-	 * @return array
+	 * @return array An array of date details for the end date; each entry will be
+	 *               empty if the date is empty.
 	 */
 	protected function get_date_details( $date ) {
+		if ( empty( $date ) ) {
+			return array(
+				'year'    => '',
+				'month'   => '',
+				'day'     => '',
+				'hour'    => '',
+				'minutes' => '',
+				'seconds' => '',
+			);
+		}
+
 		$time = strtotime( $date );
 
 		return array(
