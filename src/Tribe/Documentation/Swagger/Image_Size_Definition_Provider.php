@@ -33,6 +33,7 @@ class Tribe__Documentation__Swagger__Image_Size_Definition_Provider
 				),
 				'url' => array(
 					'type' => 'string',
+					'format' => 'uri',
 					'description' => __( 'The link to the image in the specified size on the site', 'tribe-common' ),
 				),
 			),
