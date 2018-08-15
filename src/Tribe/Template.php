@@ -55,7 +55,7 @@ class Tribe__Template {
 	protected $template_base_path;
 
 	/**
-	 * Should we
+	 * Should we use the stack of folders to try to find the file
 	 *
 	 * @since  TBD
 	 *
