@@ -7,14 +7,14 @@
  * need not only to modify the filtering criteria but the return format
  * of the items as well.
  *
- * @since TBD
+ * @since 4.7.19
  */
 interface Tribe__Repository__Formatter_Interface {
 	/**
 	 * Formats an item handled by a repository to the expected
 	 * format.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param int|WP_Post $id
 	 *

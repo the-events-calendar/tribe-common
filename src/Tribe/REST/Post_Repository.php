@@ -4,7 +4,7 @@ class Tribe__REST__Post_Repository {
 	/**
 	 * Returns the data representing an image object.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param int $image_id
 	 *
@@ -74,7 +74,7 @@ class Tribe__REST__Post_Repository {
 	/**
 	 * Returns a localized and formatted list of cost values in ASC order.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array $cost_couples An array of cost couples in the [ <pretty name> => <number value> ] format.
 	 *

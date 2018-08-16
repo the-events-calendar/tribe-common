@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Repository__Query_Filters
  *
- * @since TBD
+ * @since 4.7.19
  */
 class Tribe__Repository__Query_Filters {
 
@@ -54,7 +54,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Tribe__Repository__Query_Filters constructor.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 */
 	public function __construct() {
 		$this->query_vars = self::$initial_query_vars;
@@ -63,7 +63,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Builds an "not exists or is not in" media query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array|string     $meta_keys On what meta_keys the check should be made.
 	 * @param int|string|array $values    A single value, an array of values or a CSV list of values.
@@ -117,7 +117,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Builds an "exists and is in" media query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array|string     $meta_keys On what meta_keys the check should be made.
 	 * @param int|string|array $values    A single value, an array of values or a CSV list of values.
@@ -163,7 +163,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Builds a meta query to check that at least of the meta key exists.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array|string $meta_keys
 	 * @param string       $query_slug
@@ -199,7 +199,7 @@ class Tribe__Repository__Query_Filters {
 	 * Builds a meta query to check that a meta is either equal to a value or
 	 * not exists.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array|string $meta_keys
 	 * @param array|string $values
@@ -251,7 +251,7 @@ class Tribe__Repository__Query_Filters {
 	 * Builds a meta query to check that a meta is either not equal to a value or
 	 * not exists.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array|string $meta_keys
 	 * @param array|string $values
@@ -303,7 +303,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Filters the WHERE clause of the query to match posts with a field like.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string   $where
 	 * @param WP_Query $query
@@ -331,7 +331,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Builds the escaped WHERE entry to match a field like the entry.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $field
 	 * @param string $entry
@@ -359,7 +359,7 @@ class Tribe__Repository__Query_Filters {
 	 * Here we perform, after the query did run, further filtering operations that would
 	 * result in more JOIN and/or sub-SELECT clauses being added to the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param int      $found_posts The number of found posts.
 	 * @param WP_Query $query       The current query object.
@@ -433,7 +433,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Sets the current query object.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param WP_Query $query
 	 */
@@ -444,7 +444,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Sets up `posts_where` filtering to get posts with a title like the value.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $value
 	 */
@@ -460,7 +460,7 @@ class Tribe__Repository__Query_Filters {
 	 * Proxy method to add a  filter calling the WordPress `add_filter` function
 	 * and keep track of it.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string   $tag
 	 * @param callable $function_to_add
@@ -475,7 +475,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Sets up `posts_where` filtering to get posts with a content like the value.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $value
 	 */
@@ -490,7 +490,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Sets up `posts_where` filtering to get posts with an excerpt like the value.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $value
 	 */
@@ -505,7 +505,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Sets up `posts_where` filtering to get posts with a filtered content like the value.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $value
 	 */
@@ -520,7 +520,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Sets up `posts_where` filtering to get posts with a guid that equals the value.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $value
 	 */
@@ -535,7 +535,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Sets up `posts_where` filtering to get posts with a `to_ping` field equal to the value.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $value
 	 */
@@ -551,7 +551,7 @@ class Tribe__Repository__Query_Filters {
 	 * Filters the WHERE clause of the query to match posts with a specific `to_ping`
 	 * entry.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string   $where
 	 * @param WP_Query $query
@@ -565,7 +565,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Builds the escaped WHERE entry to match a field that equals the entry.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string   $where
 	 * @param WP_Query $query
@@ -594,7 +594,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Clean up before the object destruction.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 */
 	public function __destruct() {
 		// let's make sure we clean up when the object is dereferenced
@@ -604,7 +604,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Removes all the filters this class applied.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 */
 	public function remove_filters() {
 		foreach ( $this->active_filters as list( $tag, $function_to_add, $priority ) ) {
@@ -615,7 +615,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Add a custom WHERE clause to the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $where_clause
 	 */
@@ -634,7 +634,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Add a custom JOIN clause to the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $join_clause
 	 */
@@ -649,7 +649,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Whether WHERE clauses should be buffered or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param bool $buffer_clauses
 	 */
@@ -661,7 +661,7 @@ class Tribe__Repository__Query_Filters {
 	 * Returns the buffered WHERE clause and, optionally, cleans
 	 * and deactivates buffering.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param bool $get_clean Whether  to clean the buffered WHERE
 	 *                        clauses and deactivate buffering before
@@ -683,7 +683,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Builds the escaped WHERE entry to match a field not in the entry.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string   $where
 	 * @param WP_Query $query
@@ -712,7 +712,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Creates a SQL interval of strings.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string|array $input
 	 *
@@ -741,7 +741,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Builds a WHERE clause where field is not in interval.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $field
 	 * @param string $interval
@@ -758,7 +758,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Builds the escaped WHERE entry to match a field in the entry.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string   $where
 	 * @param WP_Query $query
@@ -785,7 +785,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Builds a AND WHERE clause.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $field
 	 * @param string $interval
@@ -802,7 +802,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Filter the `posts_where` filter to add custom WHERE clauses.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string   $where
 	 * @param WP_Query $query
@@ -826,7 +826,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Filter the `posts_join` filter to add custom JOIN clauses.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string   $join
 	 * @param WP_Query $query

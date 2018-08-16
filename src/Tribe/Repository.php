@@ -302,7 +302,7 @@ abstract class Tribe__Repository
 	/**
 	 * Tribe__Repository constructor.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 */
 	public function __construct() {
 		$this->filter_query = new Tribe__Repository__Query_Filters();
@@ -328,7 +328,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the value of a protected property.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $name
 	 *
@@ -346,7 +346,7 @@ abstract class Tribe__Repository
 	/**
 	 * Magic method to set protected properties.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $name
 	 * @param mixed  $value
@@ -361,7 +361,7 @@ abstract class Tribe__Repository
 	/**
 	 * Whether the class has a property with the specific name or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $name
 	 *
@@ -411,7 +411,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the query object by reference before counting found posts in the current page.
 		 *
-		 * @since TBD
+		 * @since 4.7.19
 		 *
 		 * @param WP_Query $query
 		 */
@@ -513,7 +513,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the query object by reference before counting found posts.
 		 *
-		 * @since TBD
+		 * @since 4.7.19
 		 *
 		 * @param WP_Query $query
 		 */
@@ -547,7 +547,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the query object by reference before getting the posts.
 		 *
-		 * @since TBD
+		 * @since 4.7.19
 		 *
 		 * @param WP_Query $query
 		 */
@@ -640,7 +640,7 @@ abstract class Tribe__Repository
 	/**
 	 * Merges arguments into a query arg.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string    $key
 	 * @param array|int $value
@@ -716,7 +716,7 @@ abstract class Tribe__Repository
 	 *
 	 * Extending classes should use this method to format return values to the expected format.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param int|WP_Post $id
 	 *
@@ -775,7 +775,7 @@ abstract class Tribe__Repository
 	/**
 	 * Applies and returns a schema entry.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $key
 	 * @param mixed  $value
@@ -919,7 +919,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the query modifier for a key.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $key
 	 * @param array  $call_args
@@ -948,7 +948,7 @@ abstract class Tribe__Repository
 	/**
 	 * Whether the current schema defines an application for the key or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param $key
 	 *
@@ -961,7 +961,7 @@ abstract class Tribe__Repository
 	/**
 	 * Whether a filter defined and handled by the repository exists or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $key
 	 *
@@ -976,7 +976,7 @@ abstract class Tribe__Repository
 	/**
 	 * Normalizes the filter key to allow broad matching of the `by` filters.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * E.g. `by( 'id', 23 )` is the same as `by( 'ID', 23 ).
 	 * E.g. `by( 'parent', 23 )` is the same as `by( `post_parent`, 23 )`
@@ -1020,7 +1020,7 @@ abstract class Tribe__Repository
 	 * This behaviour is in opposition to "stackable" modifiers that will,
 	 * instead, be composed and stacked.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @return array
 	 */
@@ -1033,7 +1033,7 @@ abstract class Tribe__Repository
 	 *
 	 * This is the same as calling `where` multiple times with different arguments.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array $args An associative array of arguments to filter
 	 *                    the posts by in the shape [ <key>, <value> ].
@@ -1058,7 +1058,7 @@ abstract class Tribe__Repository
 	/**
 	 * Commits the updates to the selected post IDs to the database.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param bool $sync Whether to apply the updates in a synchronous process
 	 *                   or in an asynchronous one.
@@ -1127,7 +1127,7 @@ abstract class Tribe__Repository
 	/**
 	 * Gets the post IDs that should be updated.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @return array An array containing the post IDs to update.
 	 */
@@ -1149,7 +1149,7 @@ abstract class Tribe__Repository
 	/**
 	 * Whether the current key can be updated by this repository or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $key
 	 *
@@ -1162,7 +1162,7 @@ abstract class Tribe__Repository
 	/**
 	 * Whether the key is a field of the posts table or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $key
 	 *
@@ -1211,7 +1211,7 @@ abstract class Tribe__Repository
 	 * Updates the update post payload to add dates that should be provided in GMT
 	 * and localized version.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param       string     $key
 	 * @param       string|int $value
@@ -1229,7 +1229,7 @@ abstract class Tribe__Repository
 	/**
 	 * Whether the current key identifies one of the supported taxonomies or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $key
 	 *
@@ -1378,7 +1378,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns modified query arguments after applying a default filter.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param      string $key
 	 * @param      mixed  $value
@@ -1547,7 +1547,7 @@ abstract class Tribe__Repository
 	/**
 	 * Builds a date query entry to get posts after a date.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $value
 	 * @param string $column
@@ -1582,7 +1582,7 @@ abstract class Tribe__Repository
 	/**
 	 * Builds a date query entry to get posts before a date.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $value
 	 * @param string $column
@@ -1617,7 +1617,7 @@ abstract class Tribe__Repository
 	/**
 	 * Builds a meta query entry.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string       $meta_key
 	 * @param string|array $meta_value
@@ -1696,7 +1696,7 @@ abstract class Tribe__Repository
 	/**
 	 * Generates a SQL friendly slug from the provided, variadic, fragments.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param ...string $frag
 	 *
@@ -1722,7 +1722,7 @@ abstract class Tribe__Repository
 	/**
 	 * Builds a taxonomy query entry.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string           $taxonomy
 	 * @param int|string|array $terms
@@ -1776,7 +1776,7 @@ abstract class Tribe__Repository
 	 *
 	 * The return string includes opening and closing braces.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string|array $values One or more values to use to build
 	 *                             the interval.
@@ -1802,7 +1802,7 @@ abstract class Tribe__Repository
 	/**
 	 * Prepares a single value to be used in a SQL query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param mixed  $value
 	 * @param string $format
@@ -1822,7 +1822,7 @@ abstract class Tribe__Repository
 	 * This is just a wrap to signal this kind of code error not in bad SQL error but
 	 * with a visible exception.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string       $compare A SQL comparison operator
 	 * @param string|array $meta_key

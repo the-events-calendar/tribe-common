@@ -6,7 +6,7 @@
  * This is the base repository decorator class to ease the decoration
  * of repositories.
  *
- * @since TBD
+ * @since 4.7.19
  */
 abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interface {
 	/**
@@ -300,7 +300,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * Sets the repository to be decorated.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param Tribe__Repository__Interface $decorated
 	 */

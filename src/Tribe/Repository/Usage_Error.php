@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Repository__Usage_Error
  *
- * @since TBD
+ * @since 4.7.19
  *
  * Thrown to indicate an error in the repository usage by a developer; this
  * is meant to be used to help developers to use the repository.
@@ -14,7 +14,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * Do not ally dynamic set of properties on the repository; protected
 	 * properties are read-only.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string                       $name   The name of the property the client code is trying to set.
 	 * @param Tribe__Repository__Interface $object The instance of the repository.
@@ -33,7 +33,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * This is to allow for more clear comprehension of errors related to
 	 * missing filters.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string                       $key    The filter the client code is trying to use.
 	 * @param Tribe__Repository__Interface $object The instance of the repository.
@@ -49,7 +49,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates that a property is not defined on the repository.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string                       $name The name of the property the client code is trying to read.
 	 * @param Tribe__Repository__Interface $object
@@ -65,7 +65,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates that a field cannot be updated by the repository class.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string                              $key
 	 * @param Tribe__Repository__Update_Interface $object
@@ -81,7 +81,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates that the `set` method of the Update repository is being used incorrectly.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param Tribe__Repository__Update_Interface $object
 	 *
@@ -96,7 +96,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates that the client code is trying to use a single comparison operator with multiple values.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string|array $key
 	 * @param array  $value
@@ -117,7 +117,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * Indicates that the client code is calling the query building method without
 	 * providing all the arguments the comparison operator requires.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string|array $key
 	 * @param string       $compare

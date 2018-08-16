@@ -3,7 +3,7 @@
 /**
  * Interface Tribe__Repository__Read_Interface
  *
- * @since TBD
+ * @since 4.7.19
  */
 interface Tribe__Repository__Read_Interface {
 	/**
@@ -11,7 +11,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * This is the same as calling `by` multiple times with different arguments.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array $args An associative array of arguments to filter
 	 *                    the posts by in the shape [ <key>, <value> ]. * * @return Tribe__Repository__Read_Interface */
@@ -30,7 +30,7 @@ interface Tribe__Repository__Read_Interface {
 	 * While the signature only shows 2 arguments additional arguments will be passed
 	 * to the schema filters.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $key
 	 * @param mixed  $value
@@ -44,7 +44,7 @@ interface Tribe__Repository__Read_Interface {
 	/**
 	 * Just an alias of the `by` method to allow for easier reading.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $key
 	 * @param mixed  $value
@@ -59,7 +59,7 @@ interface Tribe__Repository__Read_Interface {
 	 * Mind that this implementation does not support a `by( 'page', 2 )`
 	 * filter to force more readable code.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param int $page
 	 *
@@ -85,7 +85,7 @@ interface Tribe__Repository__Read_Interface {
 	 * Mind that this value ignores the offset returning the
 	 * number of results if limits where not applied.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @return int
 	 */
@@ -106,7 +106,7 @@ interface Tribe__Repository__Read_Interface {
 	 * Mind that this implementation does not support a `by( 'offset', 2 )`
 	 * filter to force more readable code.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param int  $offset
 	 * @param bool $increment Whether to increment the offset by the value
@@ -122,7 +122,7 @@ interface Tribe__Repository__Read_Interface {
 	 * Mind that this implementation does not support a `by( 'order', 2 )`
 	 * filter to force more readable code.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $order
 	 *
@@ -136,7 +136,7 @@ interface Tribe__Repository__Read_Interface {
 	 * Mind that this implementation does not support a `by( 'order_by', 'title' )`
 	 * filter to force more readable code.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $order_by
 	 *
@@ -150,7 +150,7 @@ interface Tribe__Repository__Read_Interface {
 	 * Mind that this implementation does not support a `by( 'fields', 'ids' )`
 	 * filter to force more readable code.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $fields
 	 *
@@ -175,7 +175,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * Successive calls will stack, not replace each one.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array|int $post_ids
 	 *
@@ -188,7 +188,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * Successive calls will stack, not replace each one.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array|int $post_ids
 	 *
@@ -201,7 +201,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * Successive calls will stack, not replace each one.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array|int $post_id
 	 *
@@ -214,7 +214,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * Successive calls will stack, not replace each one.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array $post_ids
 	 *
@@ -227,7 +227,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * Successive calls will stack, not replace each one.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array $post_ids
 	 *
@@ -257,7 +257,7 @@ interface Tribe__Repository__Read_Interface {
 	 * Differently from the `found` method this method will apply the
 	 * offset if set.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @return int
 	 */
@@ -270,7 +270,7 @@ interface Tribe__Repository__Read_Interface {
 	 * posts matching the query should be returned then this will be
 	 * the first post of all those matching the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @return WP_Post|mixed|null
 	 *
@@ -285,7 +285,7 @@ interface Tribe__Repository__Read_Interface {
 	 * posts matching the query should be returned then this will be
 	 * the last post of all those matching the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @return WP_Post|mixed|null
 	 *
@@ -301,7 +301,7 @@ interface Tribe__Repository__Read_Interface {
 	 * posts matching the query should be returned then this will be
 	 * the nth post of all those matching the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param int $n
 	 *
@@ -318,7 +318,7 @@ interface Tribe__Repository__Read_Interface {
 	 * posts matching the query should be returned then this method will
 	 * return the first n posts of all those matching the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @return array An array of posts matching the query.
 	 *
@@ -342,7 +342,7 @@ interface Tribe__Repository__Read_Interface {
 	 * Closes the query phase and builds an Update repository on the
 	 * results of the applied filters.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $key
 	 * @param mixed  $value
@@ -354,7 +354,7 @@ interface Tribe__Repository__Read_Interface {
 	/**
 	 * Returns the Read repository built WP_Query object.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @return WP_Query
 	 */
@@ -364,7 +364,7 @@ interface Tribe__Repository__Read_Interface {
 	 * Whether the current READ query will apply a specific `by` (or `where`)
 	 * filter or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $key
 	 * @param null $value If provided an ulterior check will be made to see if

@@ -70,7 +70,7 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	/**
 	 * Whether the value is a list of positive integers only or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param     array|string|int $list
 	 * @param string               $sep
@@ -207,7 +207,7 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	/**
 	 * Converts a string, a CSV list to an array.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string|array $list
 	 *

@@ -8,14 +8,14 @@
  * Repository implementations should handle this exception gracefully as
  * a signal, not an error.
  *
- * @since TBD
+ * @since 4.7.19
  */
 class Tribe__Repository__Void_Query_Exception extends Exception {
 
 	/**
 	 * Indicates that query would yield no results.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $reason
 	 *

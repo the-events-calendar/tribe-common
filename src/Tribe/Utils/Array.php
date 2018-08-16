@@ -230,7 +230,7 @@ class Tribe__Utils__Array {
 	 * To discriminate from not found results and legitimately `false`
 	 * values from the map the `$found` parameter will be set by reference.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param      string|array $keys  One or more keys that should be used to get
 	 *                                 the new values

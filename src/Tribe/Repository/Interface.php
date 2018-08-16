@@ -3,7 +3,7 @@
 /**
  * Interface Tribe__Repository__Interface
  *
- * @since TBD
+ * @since 4.7.19
  *
  */
 interface Tribe__Repository__Interface
@@ -16,7 +16,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Returns the current default query arguments of the repository.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @return array
 	 */
@@ -25,7 +25,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Sets the default arguments of the repository.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array $default_args
 	 *
@@ -46,7 +46,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Sets the formatter in charge of formatting items to the correct format.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param Tribe__Repository__Formatter_Interface $formatter
 	 */
@@ -56,7 +56,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Build, without initializing it, the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @return WP_Query
 	 */
@@ -65,7 +65,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Adds a custom JOIN clause to the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $join
 	 */
@@ -74,7 +74,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Adds a custom WHERE clause to the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $where
 	 */
@@ -83,7 +83,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Sets the object in charge of building and returning the query.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param mixed $query_builder
 	 *
@@ -115,7 +115,7 @@ interface Tribe__Repository__Interface
 	 * Filters the query to return posts that have got a number or posts
 	 * related to them by meta at least equal to a value.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string|array $by_meta_keys One or more `meta_keys` relating
 	 *                                   another post TO this post type.
@@ -135,7 +135,7 @@ interface Tribe__Repository__Interface
 	 * Filters the query to return posts that have got a number or posts
 	 * related to them by meta at most equal to a value.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string|array $by_meta_keys One or more `meta_keys` relating
 	 *                                   another post TO this post type.
@@ -156,7 +156,7 @@ interface Tribe__Repository__Interface
 	 * Filters the query to return posts that have got a number or posts
 	 * related to them by meta between two values.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string|array $by_meta_keys One or more `meta_keys` relating
 	 *                                   another post TO this post type.

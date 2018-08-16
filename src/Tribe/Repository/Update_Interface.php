@@ -3,7 +3,7 @@
 /**
  * Interface Tribe__Repository__Update_Interface
  *
- * @since TBD
+ * @since 4.7.19
  */
 interface Tribe__Repository__Update_Interface {
 	/**
@@ -15,9 +15,9 @@ interface Tribe__Repository__Update_Interface {
 	 * a taxonomy and will, finally, set on a custom field.
 	 * Updates to the same key will not stack.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string         $key
 	 * @param mixed|callable $value
@@ -32,7 +32,7 @@ interface Tribe__Repository__Update_Interface {
 	 *
 	 * Updates to the same key will not stack.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param array $update_map A map relating update keys to values.
 	 *
@@ -46,7 +46,7 @@ interface Tribe__Repository__Update_Interface {
 	/**
 	 * Commits the updates to the selected post IDs to the database.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param bool $sync Whether to apply the updates in a synchronous process
 	 *                   or in an asynchronous one.
