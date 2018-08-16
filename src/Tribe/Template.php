@@ -55,13 +55,13 @@ class Tribe__Template {
 	protected $template_base_path;
 
 	/**
-	 * Should we use the stack of folders to try to find the file
+	 * Should we use a lookup into the list of folders to try to find the file
 	 *
 	 * @since  TBD
 	 *
 	 * @var  bool
 	 */
-	protected $use_stack = false;
+	protected $template_folder_lookup = false;
 
 	/**
 	 * Configures the class origin plugin path
@@ -129,12 +129,12 @@ class Tribe__Template {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  mixed   $use  Should we look for template files in the stack
+	 * @param  mixed   $use  Should we look for template files in the list of folders
 	 *
 	 * @return self
 	 */
-	public function set_template_use_stack( $use = true ) {
-		$this->use_stack = tribe_is_truthy( $use );
+	public function set_template_folder_lookup( $value = true ) {
+		$this->template_folder_lookup = tribe_is_truthy( $value );
 
 		return $this;
 	}
@@ -166,7 +166,7 @@ class Tribe__Template {
 	 */
 	public function set_template_context_extract( $value = false ) {
 		// Cast as bool and save
-		$this->template_context_extract = (bool) $value;
+		$this->template_context_extract = tribe_is_truthy( $value );
 
 		return $this;
 	}
@@ -357,32 +357,48 @@ class Tribe__Template {
 	 *
 	 * @return array
 	 */
-	protected function get_template_path_stack() {
-		$stack = array();
+	protected function get_template_path_list() {
+		$folders = array();
 
-		// Only look into public folders if we tell to use stack
-		if ( $this->use_stack ) {
-			$stack['child-theme'] = $this->get_template_public_path( STYLESHEETPATH );
-			$stack['parent-theme'] = $this->get_template_public_path( TEMPLATEPATH );
+		// Only look into public folders if we tell to use folders
+		if ( $this->template_folder_lookup ) {
+			$folders[] = array(
+				'id' => 'child-theme',
+				'priority' => 10,
+				'path' => $this->get_template_public_path( STYLESHEETPATH ),
+			);
+			$folders[] = array(
+				'id' => 'parent-theme',
+				'priority' => 15,
+				'path' => $this->get_template_public_path( TEMPLATEPATH ),
+			);
 		}
 
-		$stack['plugin'] = $this->get_template_plugin_path();
+		$folders[] = array(
+			'id' => 'plugin',
+			'priority' => 20,
+			'path' => $this->get_template_plugin_path(),
+		);
 
 		/**
-		 * Allows filtering of the stack of folders in which we will look for the
+		 * Allows filtering of the list of folders in which we will look for the
 		 * template given.
 		 *
 		 * @since  TBD
 		 *
-		 * @param array  $stack     Complete path to include the base public folder
-		 * @param self   $template  Current instance of the Tribe__Template
+		 * @param  array  $folders   Complete path to include the base public folder
+		 * @param  self   $template  Current instance of the Tribe__Template
 		 */
-		return apply_filters( 'tribe_template_path_stack', $stack, $this );
+		$folders = apply_filters( 'tribe_template_path_list', $folders, $this );
+
+		uasort( $folders, 'tribe_sort_by_priority' );
+
+		return $folders;
 	}
 
 	/**
 	 * Tries to locate the correct file we want to load based on the Template class
-	 * configuration and it's stack of folders
+	 * configuration and it's list of folders
 	 *
 	 * @since  TBD
 	 *
@@ -396,16 +412,16 @@ class Tribe__Template {
 			$name = (array) explode( '/', $name );
 		}
 
-		$stack = $this->get_template_path_stack();
+		$folders = $this->get_template_path_list();
 
-		foreach ( (array) $stack as $path ) {
-			$path = trim( $path );
-			if ( ! $path ) {
+		foreach ( $folders as $folder ) {
+			$folder['path'] = trim( $folder['path'] );
+			if ( ! $folder['path'] ) {
 				continue;
 			}
 
 			// Build the File Path
-			$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $path, $name ) );
+			$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $folder['path'], $name ) );
 
 			// Append the Extension to the file path
 			$file .= '.php';
