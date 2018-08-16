@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [4.7.19] 2018-08-16 =
+* Tweak - updated some foundation code for the Tickets REST API [108021]
+
 = [4.7.18] 2018-08-01 =
 * Fix - Add `target="_blank"` to repository links in the Help Page [107974]
 * Fix - Change 3rd parameter to be relative path to plugin language files instead of the mofile for load_plugin_textdomain(), thanks to jmortell [63144]
