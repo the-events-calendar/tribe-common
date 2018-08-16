@@ -110,6 +110,11 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		// no local option on subsite
 		delete_option( $sut->get_license_option_key() );
 
+		// spoof the site-wide active plugins option
+		add_filter( 'pre_site_option_active_sitewide_plugins', function () {
+			return [ 'the-events-calendar/the-events-calendar.php' => true ];
+		} );
+
 		$is_network_licensed_on_subsite = $sut->is_network_licensed();
 
 		$this->assertTrue( $is_network_licensed_on_subsite );
@@ -133,6 +138,11 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		switch_to_blog( $blog );
 		// no local option on subsite
 		update_option( $sut->get_license_option_key(), 'same-key' );
+
+		// spoof the site-wide active plugins option
+		add_filter( 'pre_site_option_active_sitewide_plugins', function () {
+			return [ 'the-events-calendar/the-events-calendar.php' => true ];
+		} );
 
 		$is_network_licensed_on_subsite = $sut->is_network_licensed();
 

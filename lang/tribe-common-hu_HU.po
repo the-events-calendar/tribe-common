@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-05-11 22:00:20+0000\n"
+"PO-Revision-Date: 2018-08-01 21:32:52+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -690,7 +690,7 @@ msgstr "Hol találsz segítséget"
 
 #: src/admin-views/tribe-options-help.php:11
 msgid "Thank you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
-msgstr ""
+msgstr "Köszönjük, hogy a(z) %s bővítményt használod! Mi a Modern Tribe-nál mindannyian őszintén értékeljük a támogatásodat és örömmel látjuk, hogy a bővítményeinket használod."
 
 #: src/admin-views/tribe-options-general.php:15
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
