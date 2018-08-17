@@ -1,5 +1,43 @@
 [
     {
+        "name": "a5hleyrich/wp-background-processing",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/A5hleyRich/wp-background-processing.git",
+            "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/A5hleyRich/wp-background-processing/zipball/1f070aab5058dbaf45d5435a343033ddd8a641b1",
+            "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2"
+        },
+        "time": "2018-02-12T09:24:05+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "classes/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0-only"
+        ],
+        "authors": [
+            {
+                "name": "Ashley Rich",
+                "email": "hello@ashleyrich.com"
+            }
+        ],
+        "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks."
+    },
+    {
         "name": "lucatume/di52",
         "version": "2.0.9",
         "version_normalized": "2.0.9.0",
@@ -76,43 +114,5 @@
         "license": [
             "MIT"
         ]
-    },
-    {
-        "name": "a5hleyrich/wp-background-processing",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/A5hleyRich/wp-background-processing.git",
-            "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/A5hleyRich/wp-background-processing/zipball/1f070aab5058dbaf45d5435a343033ddd8a641b1",
-            "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2"
-        },
-        "time": "2018-02-12T09:24:05+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "classes/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-2.0-only"
-        ],
-        "authors": [
-            {
-                "name": "Ashley Rich",
-                "email": "hello@ashleyrich.com"
-            }
-        ],
-        "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks."
     }
 ]

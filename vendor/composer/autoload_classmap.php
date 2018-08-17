@@ -8,11 +8,4 @@ $baseDir = dirname($vendorDir);
 return array(
     'WP_Async_Request' => $vendorDir . '/a5hleyrich/wp-background-processing/classes/wp-async-request.php',
     'WP_Background_Process' => $vendorDir . '/a5hleyrich/wp-background-processing/classes/wp-background-process.php',
-    'tad_DI52_Container' => $vendorDir . '/lucatume/di52/src/tad/DI52/Container.php',
-    'tad_DI52_ContainerInterface' => $vendorDir . '/lucatume/di52/src/tad/DI52/ContainerInterface.php',
-    'tad_DI52_ProtectedValue' => $vendorDir . '/lucatume/di52/src/tad/DI52/ProtectedValue.php',
-    'tad_DI52_ServiceProvider' => $vendorDir . '/lucatume/di52/src/tad/DI52/ServiceProvider.php',
-    'tad_DI52_ServiceProviderInterface' => $vendorDir . '/lucatume/di52/src/tad/DI52/ServiceProviderInterface.php',
-    'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-    'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );
