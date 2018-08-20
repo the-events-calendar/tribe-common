@@ -90,7 +90,7 @@ interface Tribe__Validator__Interface {
 	/**
 	 * Whether a list or array of only contains positive integers or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param  string|array $list
 	 * @param string $sep The separator used in the list to separate the elements; ignored if

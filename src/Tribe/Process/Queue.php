@@ -175,7 +175,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	/**
 	 * Deletes all queues for a specific action.
 	 *
-	 * @since TBD
+	 * @since 4.7.19
 	 *
 	 * @param string $action The action (prefix) of the queues to delete.
 	 *
