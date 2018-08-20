@@ -1,15 +1,12 @@
 === Tribe Common ===
 
 == Changelog ==
-= [4.7.19] TBD =
-* Tweak - Event Aggregator Add-On text due to the removal of Facebook Imports [111729]
 
-= [4.7.19] TBD =
+= [4.7.19]  2018-08-21 =
 * Fix - Add the following datepicker formats to the validation script: YYYY.MM.DD, MM.DD.YYYY, DD.MM.YYYY [102815]
 * Add - Added the `Tribe__Process__Queue::delete_all_queues` method [111856]
-
-= [4.7.19] 2018-08-16 =
 * Tweak - updated some foundation code for the Tickets REST API [108021]
+* Tweak - Event Aggregator Add-On text due to the removal of Facebook Imports [111729]
 
 = [4.7.18] 2018-08-01 =
 * Fix - Add `target="_blank"` to repository links in the Help Page [107974]
