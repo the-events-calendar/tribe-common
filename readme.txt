@@ -2,6 +2,12 @@
 
 == Changelog ==
 
+= [4.7.20] TBD =
+
+* Feature - Introduce folder lookup for `Tribe__Template` to allow usage on Themes [112478]
+* Tweak - Added new filters: `tribe_template_before_include:$hook_name`, `tribe_template_after_include:$hook_name`, `tribe_template_html:$hook_name`, `tribe_template_path_list`, `tribe_template_public_path`, `tribe_template_public_namespace`, `tribe_template_plugin_path`
+* Tweak - Removed filters: `tribe_template_base_path`
+
 = [4.7.18] 2018-08-01 =
 * Fix - Add `target="_blank"` to repository links in the Help Page [107974]
 * Fix - Change 3rd parameter to be relative path to plugin language files instead of the mofile for load_plugin_textdomain(), thanks to jmortell [63144]
