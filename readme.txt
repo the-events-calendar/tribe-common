@@ -2,7 +2,9 @@
 
 == Changelog ==
 
-= [4.7.19]  2018-08-22 =
+= [4.7.20] TBD =
+
+= [4.7.19] 2018-08-22 =
 * Fix - Add the following datepicker formats to the validation script: YYYY.MM.DD, MM.DD.YYYY, DD.MM.YYYY [102815]
 * Add - Added the `Tribe__Process__Queue::delete_all_queues` method [111856]
 * Tweak - updated some foundation code for the Tickets REST API [108021]
