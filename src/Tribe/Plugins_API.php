@@ -34,7 +34,7 @@ class Tribe__Plugins_API {
 				'title' => __( 'Event Aggregator', 'tribe-common' ),
 				'slug' => 'event-aggregator',
 				'link' => 'https://theeventscalendar.com/product/event-aggregator/?utm_campaign=in-app&utm_source=addonspage&utm_medium=event-aggregator&utm_content=appstoreembedded-1',
-				'description' => __( 'Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Eventbrite, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support.', 'tribe-common' ),
+				'description' => __( 'Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze.', 'tribe-common' ),
 				'image' => 'images/app-shop-ical.jpg',
 				'is_installed' => class_exists( 'Tribe__Events__Aggregator' ) && Tribe__Events__Aggregator::is_service_active(),
 				'active_installs' => 20000,

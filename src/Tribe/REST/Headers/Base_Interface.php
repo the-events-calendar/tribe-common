@@ -37,4 +37,13 @@ interface Tribe__REST__Headers__Base_Interface {
 	 * @return string
 	 */
 	public function get_rest_url();
+
+	/**
+	 * Returns the header the REST API will print on the page head to report its origin
+	 * url. Normaly the home_url()
+
+	 *
+	 * @return string
+	 */
+	public function get_api_origin_header();
 }
