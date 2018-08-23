@@ -4,6 +4,11 @@
 
 = [4.7.20] TBD =
 
+* Feature - Introduce folder lookup for `Tribe__Template` to allow usage on Themes [112478]
+* Tweak - Added new filters: `tribe_template_before_include:$hook_name`, `tribe_template_after_include:$hook_name`, `tribe_template_html:$hook_name`, `tribe_template_path_list`, `tribe_template_public_path`, `tribe_template_public_namespace`, `tribe_template_plugin_path`
+* Tweak - Removed filters: `tribe_template_base_path`
+
+
 = [4.7.19] 2018-08-22 =
 * Fix - Add the following datepicker formats to the validation script: YYYY.MM.DD, MM.DD.YYYY, DD.MM.YYYY [102815]
 * Add - Added the `Tribe__Process__Queue::delete_all_queues` method [111856]
