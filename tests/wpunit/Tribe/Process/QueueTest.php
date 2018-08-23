@@ -274,4 +274,26 @@ class QueueTest extends WPTestCase {
 		wp_cache_flush();
 		$this->assertEmpty( get_option( $sut->get_id() ) );
 	}
+
+	/**
+	 * It should allow deleting queues of a specific action
+	 *
+	 * @test
+	 */
+	public function should_allow_deleting_queues_of_a_specific_action() {
+		$action = 'dummy_queue';
+
+		$this->assertEquals( 0, Queue::delete_all_queues( $action ) );
+
+		$this->make_instance()->push_to_queue( [ 'foo' => 'bar' ] )->save();
+
+		$this->assertEquals( 1, Queue::delete_all_queues( $action ) );
+
+		$this->make_instance()->push_to_queue( [ 'foo' => 'bar' ] )->save();
+		$this->make_instance()->push_to_queue( [ 'foo' => 'bar' ] )->save();
+		$this->make_instance()->push_to_queue( [ 'foo' => 'bar' ] )->save();
+
+		$this->assertEquals( 0, Queue::delete_all_queues( 'not-dummy' ) );
+		$this->assertEquals( 3, Queue::delete_all_queues( $action ) );
+	}
 }
