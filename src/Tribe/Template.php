@@ -309,8 +309,11 @@ class Tribe__Template {
 	protected function get_template_public_namespace() {
 		$namespace = array(
 			'tribe',
-			$this->origin->template_namespace,
 		);
+
+		if ( ! empty( $this->origin->template_namespace ) ) {
+			$namespace[] = $this->origin->template_namespace;
+		}
 
 		/**
 		 * Allows filtering of the base path for templates
@@ -466,8 +469,14 @@ class Tribe__Template {
 		// Clean this Variable
 		$name = array_map( 'sanitize_title_with_dashes', $name );
 
+		if ( ! empty( $this->origin->template_namespace ) ) {
+			$namespace = array_merge( (array) $this->origin->template_namespace, $name );
+		} else {
+			$namespace = $name;
+		}
+
 		// Setup the Hook name
-		$hook_name = implode( '/', array_merge( (array) $this->origin->template_namespace, $name ) );
+		$hook_name = implode( '/', $namespace );
 
 		// Check if the file exists
 		$file = $this->get_template_file( $name );
