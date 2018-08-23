@@ -141,13 +141,19 @@ class Tribe__Utils__Array {
 	 * Converts a list to an array filtering out empty string elements.
 	 *
 	 * @param     mixed   $value A string representing a list of values separated by the specified separator
-	 *                           or an array.
+	 *                           or an array. If the list is a string (e.g. a CSV list) then it will urldecoded
+	 *                           before processing.
 	 * @param string $sep The char(s) separating the list elements; will be ignored if the list is an array.
 	 *
 	 * @return array An array of list elements.
 	 */
 	public static function list_to_array( $value, $sep = ',' ) {
-		if ( empty( $value ) ) {
+		// since we might receive URL encoded strings for CSV lists let's URL decode them first
+		$value = is_array( $value ) ? $value : urldecode( $value );
+
+		$sep = is_string( $sep ) ? $sep : ',';
+
+		if ( $value === null || $value === '' ) {
 			return array();
 		}
 
@@ -189,14 +195,15 @@ class Tribe__Utils__Array {
 	}
 
 	/**
-	 * Sanitize a multidimensional array
-	 * https://gist.github.com/esthezia/5804445
+	 * Sanitize a multidimensional array.
 	 *
 	 * @since   4.7.18
 	 *
-	 * @param   (array)
+	 * @param array $data The array to sanitize.
 	 *
-	 * @return  (array) the sanitized array
+	 * @return array The sanitized array
+	 *
+	 * @link https://gist.github.com/esthezia/5804445
 	 */
 	public static function escape_multidimensional_array( $data = array() ) {
 
@@ -214,5 +221,47 @@ class Tribe__Utils__Array {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Returns an array of values obtained by using the keys on the map; keys
+	 * that do not have a match in map are discarded.
+	 *
+	 * To discriminate from not found results and legitimately `false`
+	 * values from the map the `$found` parameter will be set by reference.
+	 *
+	 * @since 4.7.19
+	 *
+	 * @param      string|array $keys  One or more keys that should be used to get
+	 *                                 the new values
+	 * @param array             $map   An associative array relating the keys to the new
+	 *                                 values.
+	 * @param bool              $found When using a single key this argument will be
+	 *                                 set to indicate whether the mapping was successful
+	 *                                 or not.
+	 *
+	 * @return array|mixed|false An array of mapped values, a single mapped value when passing
+	 *                           one key only or `false` if one key was passed but the key could
+	 *                           not be mapped.
+	 */
+	public static function map_or_discard( $keys, array $map, &$found = true ) {
+		$hash   = md5( time() );
+		$mapped = array();
+
+		foreach ( (array) $keys as $key ) {
+			$meta_key = Tribe__Utils__Array::get( $map, $key, $hash );
+			if ( $hash === $meta_key ) {
+				continue;
+			}
+			$mapped[] = $meta_key;
+		}
+
+		$found = (bool) count( $mapped );
+
+		if ( is_array( $keys ) ) {
+			return $mapped;
+		}
+
+		return $found ? $mapped[0] : false;
 	}
 }

@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.7.17\n"
+"Project-Id-Version: Tribe Common 4.7.19\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2018-07-06 20:53:28+00:00\n"
+"POT-Creation-Date: 2018-08-20 15:19:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-07-06 20:53\n"
+"PO-Revision-Date: 2018-08-20 15:19\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -270,27 +270,27 @@ msgstr ""
 msgid "The date seconds"
 msgstr ""
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:24
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:25
 msgid "The URL to the full size version of the image"
 msgstr ""
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:28
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:29
 msgid "The image WordPress post ID"
 msgstr ""
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:32
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:33
 msgid "The image file extension"
 msgstr ""
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:36
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:37
 msgid "The image natural width in pixels"
 msgstr ""
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:41
 msgid "The image natural height in pixels"
 msgstr ""
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:45
 msgid "The details about each size available for the image"
 msgstr ""
 
@@ -306,7 +306,7 @@ msgstr ""
 msgid "The image mime-type"
 msgstr ""
 
-#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:37
 msgid "The link to the image in the specified size on the site"
 msgstr ""
 
@@ -1832,11 +1832,12 @@ msgstr ""
 
 #: src/Tribe/Plugins_API.php:37
 msgid ""
-"Import events from across the web! Event Aggregator makes it easy to run "
-"scheduled or manual imports from Facebook, Meetup, Eventbrite, Google "
-"Calendar, and iCalendar, along with uploads from CSV and ICS files. You can "
-"also import directly from other sites running The Events Calendar thanks to "
-"our built-in REST API support."
+"Event Aggregator adds massive import functionality to your calendar. Before "
+"you know it, you’ll be importing events from Meetup, Eventbrite, Google "
+"Calendar, iCalendar, and other URLs with ease. Schedule imports to run "
+"automatically behind-the-scenes or run them manually when you’re ready. Go "
+"ahead and import to your heart’s content—Event Aggregator hooks you up with "
+"a central dashboard in the admin to make managing your imports a breeze."
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:48
@@ -1861,8 +1862,8 @@ msgid ""
 "WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. "
 "Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and "
 "sell tickets from your event listings. Create custom registration forms, "
-"manage attendees, use custom capacity options, and more. Tickets have QR "
-"codes for easy check in at the door."
+"manage attendees, use custom capacity options, and more. Guest check in is "
+"easy with QR codes and our custom scanning app."
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:84

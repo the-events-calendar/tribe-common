@@ -173,6 +173,48 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	}
 
 	/**
+	 * Deletes all queues for a specific action.
+	 *
+	 * @since 4.7.19
+	 *
+	 * @param string $action The action (prefix) of the queues to delete.
+	 *
+	 * @return int The number of delete queues.
+	 */
+	public static function delete_all_queues( $action ) {
+		global $wpdb;
+
+		$table  = $wpdb->options;
+		$column = 'option_name';
+
+		if ( is_multisite() ) {
+			$table  = $wpdb->sitemeta;
+			$column = 'meta_key';
+		}
+
+		$action = $wpdb->esc_like( 'tribe_queue_' . $action ) . '%';
+
+		$queues = $wpdb->get_col( $wpdb->prepare( "
+			SELECT DISTINCT({$column})
+			FROM {$table}
+			WHERE {$column} LIKE %s
+		", $action ) );
+
+		if ( empty( $queues ) ) {
+			return 0;
+		}
+
+		$deleted = 0;
+
+		foreach ( $queues as $queue ) {
+			$deleted ++;
+			self::delete_queue( $queue );
+		}
+
+		return $deleted;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function delete( $key ) {
