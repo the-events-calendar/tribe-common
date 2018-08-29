@@ -23,7 +23,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 
 	public function is_string_data() {
 		return [
-			[ '', true ],
+			[ '', false ],
 			[ null, false ],
 			[ array( 'foo' => 'bar' ), false ],
 			[ array( 'foo', 'bar' ), false ],
@@ -91,30 +91,6 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_is_null( $value, $expected ) {
 		$this->assertEquals( $expected, $this->make_instance()->is_null( $value ) );
-	}
-
-	public function is_string_not_empty_data() {
-		return [
-			[ '', false ],
-			[ null, false ],
-			[ array( 'foo' => 'bar' ), false ],
-			[ array( 'foo', 'bar' ), false ],
-			[ new \StdClass(), false ],
-			[ 'f', true ],
-			[ 'foo bar', true ],
-			[ '0', false ],
-			[ 0, false ],
-		];
-	}
-
-	/**
-	 * Test is_string
-	 *
-	 * @test
-	 * @dataProvider is_string_not_empty_data
-	 */
-	public function test_is_string_not_empty( $value, $expected ) {
-		$this->assertEquals( $expected, $this->make_instance()->is_string_not_empty( $value ) );
 	}
 
 	public function is_numeric_data() {
@@ -349,7 +325,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $sut->is_post_tag( [ $tag_1, $tag_2, $category ] ) );
 	}
 
-	public function post_id_bad_inputs() {
+	public function test_is_image_bad_inputs() {
 		return [
 			[ '' ],
 			[ null ],
@@ -363,10 +339,10 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * Test is_image with bad_inputs
+	 * Test is_image with bad inputs
 	 *
 	 * @test
-	 * @dataProvider post_id_bad_inputs
+	 * @dataProvider test_is_image_bad_inputs
 	 */
 	public function test_is_image_with_bad_inputs( $bad_input ) {
 		$sut = $this->make_instance();
@@ -392,10 +368,70 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $sut->is_image( $bad_image_url ) );
 	}
 
+	public function test_is_image_or_empty_bad_inputs() {
+		return [
+			[ 'foo' ],
+			[ '23' ],
+			[ 23 ],
+		];
+	}
+
+	/**
+	 * Test is_image_or_empty with bad inputs
+	 *
+	 * @test
+	 * @dataProvider test_is_image_or_empty_bad_inputs
+	 */
+	public function test_is_image_or_empty_with_bad_inputs( $bad_input ) {
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_image_or_empty( $bad_input ) );
+	}
+
+	public function test_is_image_or_empty_good_inputs() {
+		return [
+			[ '' ],
+			[ null ],
+			[ false ],
+			[ 0 ],
+			[ '0' ],
+		];
+	}
+
+	/**
+	 * Test is_image_or_empty with good inputs
+	 *
+	 * @test
+	 * @dataProvider test_is_image_or_empty_good_inputs
+	 */
+	public function test_is_image_or_empty_with_good_inputs( $bad_input ) {
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->is_image_or_empty( $bad_input ) );
+	}
+
+	/**
+	 * Test is_image_or_empty with images
+	 *
+	 * @test
+	 */
+	public function test_is_image_or_empty_with_images() {
+		$image_url = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
+		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
+		$image_uploader = new \Tribe__Image__Uploader( $image_url );
+		$image_id = $image_uploader->upload_and_get_attachment_id();
+
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->is_image_or_empty( $image_url ) );
+		$this->assertTrue( $sut->is_image_or_empty( $image_id ) );
+		$this->assertFalse( $sut->is_image_or_empty( $bad_image_url ) );
+	}
+
 	public function is_url_inputs() {
 		return [
-			[ '', true ],
-			[ 0, true ],
+			[ '', false ],
+			[ 0, false ],
 			[ 'foo', false ],
 			[ 23, false ],
 			[ '23', false ],
@@ -429,10 +465,10 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $sut->is_url( $input ) );
 	}
 
-	public function is_url_not_empty_inputs() {
+	public function is_url_or_empty_inputs() {
 		return [
-			[ '', false ],
-			[ 0, false ],
+			[ '', true ],
+			[ 0, true ],
 			[ 'foo', false ],
 			[ 23, false ],
 			[ '23', false ],
@@ -455,15 +491,15 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * Test is_url_not_empty
+	 * Test is_url_or_empty
 	 *
 	 * @test
-	 * @dataProvider is_url_not_empty_inputs
+	 * @dataProvider is_url_or_empty_inputs
 	 */
-	public function test_is_url_not_empty( $input, $expected ) {
+	public function test_is_url_or_empty( $input, $expected ) {
 		$sut = $this->make_instance();
 
-		$this->assertEquals( $expected, $sut->is_url_not_empty( $input ) );
+		$this->assertEquals( $expected, $sut->is_url_or_empty( $input ) );
 	}
 
 	public function is_post_status_inputs() {
