@@ -30,7 +30,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 			[ new \StdClass(), false ],
 			[ 'f', true ],
 			[ 'foo bar', true ],
-			[ '0', true ],
+			[ '0', false ],
 			[ 0, false ],
 		];
 	}
