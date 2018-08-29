@@ -35,6 +35,19 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	}
 
 	/**
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
+	public function is_string_or_empty( $value ) {
+		if ( empty( $value ) ) {
+			return true;
+		}
+
+		return $this->is_string( $value );
+	}
+
+	/**
 	 * Whether the value is a timestamp or a string parseable by the strtotime function or not.
 	 *
 	 * @param mixed $value
