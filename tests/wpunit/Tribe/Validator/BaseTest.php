@@ -43,6 +43,27 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $this->make_instance()->is_string( $value ) );
 	}
 
+	public function is_string_or_empty_data() {
+		return [
+			[ '', true ],
+			[ null, true ],
+			[ array( 'foo' => 'bar' ), false ],
+			[ array( 'foo', 'bar' ), false ],
+			[ new \StdClass(), false ],
+			[ 'f', true ],
+			[ 'foo bar', true ],
+		];
+	}
+
+	/**
+	 * Test is_string_or_empty
+	 *
+	 * @test
+	 * @dataProvider is_string_or_empty_data
+	 */
+	public function test_is_string_or_empty( $value, $expected ) {
+		$this->assertEquals( $expected, $this->make_instance()->is_string_or_empty( $value ) );
+	}
 
 	public function is_not_null_data() {
 		return [
