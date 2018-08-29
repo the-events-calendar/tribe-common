@@ -360,7 +360,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_is_image_or_empty_with_images() {
-		$image_url = plugins_url( 'common/tests/_data/images/featured-image.jpg', \Tribe__Events__Main::instance()->plugin_file );
+		$image_url = plugins_url( 'common/tests/_data/images/featured-image2.jpg', \Tribe__Events__Main::instance()->plugin_file );
 		$bad_image_url = plugins_url( 'common/tests/_data/images/featured-image.raw', \Tribe__Events__Main::instance()->plugin_file );
 		$image_uploader = new \Tribe__Image__Uploader( $image_url );
 		$image_id = $image_uploader->upload_and_get_attachment_id();
