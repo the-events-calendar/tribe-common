@@ -40,7 +40,7 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 * @return bool
 	 */
 	public function is_string( $value ) {
-		return is_string( $value );
+		return ! empty( $value ) && is_string( $value );
 	}
 
 	/**
@@ -48,8 +48,12 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 *
 	 * @return bool
 	 */
-	public function is_string_not_empty( $value ) {
-		return ! empty( $value ) && $this->is_string( $value );
+	public function is_string_or_empty( $value ) {
+		if ( empty( $value ) ) {
+			return true;
+		}
+
+		return $this->is_string( $value );
 	}
 
 	/**
@@ -111,7 +115,26 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 * @return bool
 	 */
 	public function is_positive_int( $value ) {
-		return is_numeric( $value ) && intval( $value ) == $value && intval( $value ) > 0;
+		return is_numeric( $value ) && (int) $value == $value && (int) $value > 0;
+	}
+
+	/**
+	 * Whether the value is a list of positive integers only or not.
+	 *
+	 * @since 4.7.19
+	 *
+	 * @param     array|string|int $list
+	 * @param string               $sep
+	 *
+	 * @return bool
+	 */
+	public function is_positive_int_list( $list, $sep = ',' ) {
+		$sep  = is_string( $sep ) ? $sep : ',';
+		$list = Tribe__Utils__Array::list_to_array( $list, $sep );
+
+		$valid = array_filter( $list, array( $this, 'is_positive_int' ) );
+
+		return ! empty( $valid ) && count( $valid ) === count( $list );
 	}
 
 	/**
@@ -198,16 +221,18 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	}
 
 	/**
-	 * Whether a string represents a valid URL or not, allowing for empty values.
+	 * Whether the provided value points to an existing attachment ID, an existing image URL, or is empty.
 	 *
-	 * Valid means that the string looks like a URL, not that the URL is online and reachable.
+	 * @param int|string $image
 	 *
-	 * @param string $input
-	 *
-	 * @return bool
+	 * @return mixed
 	 */
-	public function is_url( $input ) {
-		return empty( $input ) || (bool) filter_var( $input, FILTER_VALIDATE_URL );
+	public function is_image_or_empty( $image ) {
+		if ( empty( $image ) ) {
+			return true;
+		}
+
+		return $this->is_image( $image );
 	}
 
 	/**
@@ -219,8 +244,25 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 *
 	 * @return bool
 	 */
-	public function is_url_not_empty( $input ) {
+	public function is_url( $input ) {
 		return ! empty( $input ) && (bool) filter_var( $input, FILTER_VALIDATE_URL );
+	}
+
+	/**
+	 * Whether a string is empty or represents a valid URL.
+	 *
+	 * Valid means that the string looks like a URL, not that the URL is online and reachable.
+	 *
+	 * @param string $input
+	 *
+	 * @return bool
+	 */
+	public function is_url_or_empty( $input ) {
+		if ( empty( $input ) ) {
+			return true;
+		}
+
+		return $this->is_url( $input );
 	}
 
 	/**
@@ -237,6 +279,19 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 		}
 
 		return in_array( $post_status, $post_stati );
+	}
+
+	/**
+	 * Converts a string, a CSV list to an array.
+	 *
+	 * @since 4.7.19
+	 *
+	 * @param string|array $list
+	 *
+	 * @return array
+	 */
+	public function list_to_array( $list ) {
+		return Tribe__Utils__Array::list_to_array( $list );
 	}
 
 	/**
