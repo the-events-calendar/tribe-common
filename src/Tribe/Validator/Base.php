@@ -167,6 +167,21 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	}
 
 	/**
+	 * Whether the provided value points to an existing attachment ID, an existing image URL, or is empty.
+	 *
+	 * @param int|string $image
+	 *
+	 * @return mixed
+	 */
+	public function is_image_or_empty( $image ) {
+		if ( empty( $image ) ) {
+			return true;
+		}
+
+		return $this->is_image( $image );
+	}
+
+	/**
 	 * @param mixed $value
 	 *
 	 * @return bool
@@ -186,6 +201,23 @@ class Tribe__Validator__Base implements Tribe__Validator__Interface {
 	 */
 	public function is_url( $input ) {
 		return (bool) filter_var( $input, FILTER_VALIDATE_URL );
+	}
+
+	/**
+	 * Whether a string represents a valid array or not.
+	 *
+	 * Valid means that the string looks like a URL, not that the URL is online and reachable.
+	 *
+	 * @param string $input
+	 *
+	 * @return bool
+	 */
+	public function is_url_or_empty( $input ) {
+		if ( empty( $input ) ) {
+			return true;
+		}
+
+		return $this->is_url( $input );
 	}
 
 	/**
