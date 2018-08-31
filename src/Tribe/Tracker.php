@@ -674,8 +674,10 @@ class Tribe__Tracker {
 		remove_filter( 'update_post_metadata', array( $this, 'filter_watch_updated_meta' ), PHP_INT_MAX - 1 );
 		remove_action( 'added_post_meta', array( $this, 'register_added_deleted_meta' ), PHP_INT_MAX - 1 );
 		remove_action( 'delete_post_meta', array( $this, 'register_added_deleted_meta' ), PHP_INT_MAX - 1 );
-		remove_action( 'post_updated', array( $this, 'filter_watch_post_fields' ), 10 );
-		remove_action( 'set_object_terms', array( $this, 'track_taxonomy_term_changes' ), 10 );
-		remove_action( 'delete_term_relationships', array( $this, 'track_taxonomy_term_deletions' ), 10 );
+		remove_action( 'post_updated', array( $this, 'filter_watch_post_fields' ) );
+		remove_action( 'set_object_terms', array( $this, 'track_taxonomy_term_changes' ) );
+		remove_action( 'delete_term_relationships', array( $this, 'track_taxonomy_term_deletions' ) );
+		remove_action( 'post_updated', array( $this, 'on_post_updated' ) );
+		remove_action( 'delete_post', array( $this, 'on_delete_post' ) );
 	}
 }
