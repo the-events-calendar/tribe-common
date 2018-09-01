@@ -662,6 +662,21 @@ class Tribe__Tracker {
 	 * @param int $post_id The updated post ID.
 	 */
 	public function on_post_updated( $post_id ) {
+		/**
+		 * Allows toggling the updating of linked posts.
+		 *
+		 * @param bool           $will_update_links Whether to update the linked posts.
+		 * @param int            $post_id           The updated post ID.
+		 * @param Tribe__Tracker $tracker           The tracker object.
+		 *
+		 * @since TBD
+		 */
+		$will_update_links = (bool) apply_filters( 'tribe_tracker_post_update_links', true, $post_id, $this );
+
+		if ( false === $will_update_links ) {
+			return;
+		}
+
 		$this->update_linking_posts( $post_id );
 	}
 
