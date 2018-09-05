@@ -97,7 +97,7 @@ class Tribe__Timezones {
 	 */
 	public static function abbr( $date, $timezone_string ) {
 		try {
-			$abbr = date_create( $date, new DateTimeZone( $timezone_string ) )->format( 'T' );
+			$abbr = date_create( $date, self::get_timezone( $timezone_string ) )->format( 'T' );
 
 			// If PHP date "T" format is a -03 or +03, it's a bugged abbreviation, we can find it manually.
 			if ( 0 === strpos( $abbr, '-' ) || 0 === strpos( $abbr, '+' ) ) {
@@ -220,6 +220,16 @@ class Tribe__Timezones {
 	 * @return DateTimeZone|false
 	 */
 	public static function get_timezone( $tzstring, $with_fallback = true ) {
+		if ( empty( $tzstring ) ) {
+			return $with_fallback
+				? self::get_timezone( 'UTC', true )
+				: false;
+		}
+
+		if ( preg_match( '/^UTC(\\+|-)0/i', $tzstring ) ) {
+			$tzstring = 'UTC';
+		}
+
 		if ( isset( self::$timezones[ $tzstring ] ) ) {
 			return self::$timezones[ $tzstring ];
 		}
