@@ -240,7 +240,36 @@ abstract class Tribe__Change_Authority__Post_Base extends Tribe__Change_Authorit
 	 * @return array|bool
 	 */
 	protected function propagate_taxonomy_terms( $from, WP_Post $to, $field ) {
-		$from_terms = wp_get_object_terms( $from->ID, $field, array( 'fields' => 'ids' ) );
+		if ( isset( $from->{$field} ) ) {
+			/*
+			 * If the taxonomy terms have been provided already then let's use those.
+			 * An empty array here is fine as it might reflect the intention to remove
+			 * the object terms.
+			 */
+			$from_terms = $from->{$field};
+		} else {
+			// Else fetch them from the db.
+			$from_terms = wp_get_object_terms( $from->ID, $field, array( 'fields' => 'ids' ) );
+		}
+
+		/*
+		 * Terms can be provided by ID or slug.
+		 * Terms can have numeric slugs that reflect the term name; here we make sure that
+		 * any numeric string is cast to integer if it's not representing an existing slug.
+		 */
+		foreach ( $from_terms as &$term ) {
+			if ( ! ( is_string( $term ) && is_numeric( $term ) ) ) {
+				continue;
+			}
+
+			$exists = get_term_by( 'slug', $term, $field );
+
+			if ( $exists ) {
+				continue;
+			}
+
+			$term = (int) $term;
+		}
 
 		$set = wp_set_object_terms( $to->ID, $from_terms, $field, false );
 
