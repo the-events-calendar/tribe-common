@@ -81,7 +81,7 @@ final class Tribe__Customizer {
 	private $settings = array();
 
 	/**
-	 * Inline has been added
+	 * Inline Style has been added
 	 *
 	 * @since TBD
 	 * @access private
@@ -494,7 +494,6 @@ final class Tribe__Customizer {
 	 * @return string           A Valid css after replacing the variables
 	 */
 	private function parse_css_template( $template ) {
-
 		$css      = $template;
 		$sections = $this->get_option();
 
