@@ -333,7 +333,32 @@ class Tribe__Duplicate__Post {
 		 */
 		$join_limit = apply_filters( 'tribe_duplicate_post_join_limit', $this->join_limit, $where_frags, $this->post_type );
 
+		$excluded_status = array(
+			'trash',
+			'autodraft',
+		);
+
+		/**
+		 * Filters the excluded status.
+		 *
+		 * @param array  $excluded_status The list of post_status to exclude from the query.
+		 * @param string $post_type       The post type that's being used for this duplicate search query.
+		 *
+		 * @since 4.6
+		 */
+		$excluded_status = apply_filters( 'tribe_duplicate_post_excluded_status', $excluded_status, $where_frags, $this->post_type );
+
 		$post_type_conditional = $wpdb->prepare( "{$wpdb->posts}.post_type = %s", $this->post_type );
+
+		$post_status_conditional = '';
+
+		if ( $excluded_status ) {
+			$in_string = array_fill( 0, count( $excluded_status ), '%s' );
+			$in_string = implode( ', ', $in_string );
+
+			// @codingStandardsIgnoreLine
+			$post_status_conditional = $wpdb->prepare( "{$wpdb->posts}.post_status NOT IN ( {$in_string} )", $excluded_status );
+		}
 
 		$queries = array();
 
@@ -347,11 +372,19 @@ class Tribe__Duplicate__Post {
 				$this_where = "\n" . implode( " \n{$this->where_operator} ", array_merge( $where_frags, $current_wheres ) );
 				$this_where = sprintf( '%s AND (%s)', $post_type_conditional, $this_where );
 
+				if ( '' !== $post_status_conditional ) {
+					$this_where = sprintf( '%s AND %s', $post_status_conditional, $this_where );
+				}
+
 				$queries[] = "SELECT DISTINCT {$wpdb->posts}.ID from {$wpdb->posts} {$this_join} \nWHERE {$this_where}";
 			}
 		} else {
 			$where = implode( " \n{$this->where_operator} ", $where_frags );
 			$where = sprintf( '%s AND (%s)', $post_type_conditional, $where );
+
+			if ( '' !== $post_status_conditional ) {
+				$where = sprintf( '%s AND %s', $post_status_conditional, $where );
+			}
 
 			$queries[] = "SELECT DISTINCT {$wpdb->posts}.ID from {$wpdb->posts} \nWHERE {$where}";
 		}
