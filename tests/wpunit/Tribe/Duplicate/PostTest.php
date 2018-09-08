@@ -698,4 +698,84 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 5, $queries_after - $queries_before );
 		$this->assertEquals( [ $post ], $found );
 	}
+
+	/**
+	 * It should not find trash or autodraft duplicates.
+	 *
+	 * @test
+	 */
+	public function it_should_not_find_trash_or_autodraft_duplicates() {
+		$this->factory()->post->create( [ 'post_title' => 'Title', 'post_status' => 'trash' ] );
+		$this->factory()->post->create( [ 'post_title' => 'Title', 'post_status' => 'autodraft' ] );
+
+		$sut = $this->make_instance();
+		$sut->use_post_fields( [ 'post_title' ] );
+
+		$this->assertFalse( $sut->find_for( [ 'post_title' => 'Title' ] ) );
+	}
+
+	/**
+	 * It should not find filtered status duplicates.
+	 *
+	 * @test
+	 */
+	public function it_should_not_find_filtered_status_duplicates() {
+		add_filter( 'tribe_duplicate_post_excluded_status', [ $this, 'filter_excluded_status' ] );
+
+		$this->factory()->post->create( [
+			'post_title'  => 'Title',
+			'post_status' => 'trash',
+		] );
+		$this->factory()->post->create( [
+			'post_title'  => 'Title',
+			'post_status' => 'autodraft',
+		] );
+		$this->factory()->post->create( [
+			'post_title'  => 'Title',
+			'post_status' => 'publish',
+		] );
+
+		$sut = $this->make_instance();
+		$sut->use_post_fields( [ 'post_title' ] );
+
+		$this->assertFalse( $sut->find_for( [ 'post_title' => 'Title' ] ) );
+
+		remove_filter( 'tribe_duplicate_post_excluded_status', [ $this, 'filter_excluded_status' ] );
+	}
+
+	/**
+	 * It should find non filtered status duplicates.
+	 *
+	 * @test
+	 */
+	public function it_should_find_non_filtered_status_duplicates() {
+		add_filter( 'tribe_duplicate_post_excluded_status', '__return_empty_array' );
+
+		$id = $this->factory()->post->create( [
+			'post_title'  => 'Title',
+			'post_status' => 'trash',
+		] );
+
+		$sut = $this->make_instance();
+		$sut->use_post_fields( [ 'post_title' ] );
+
+		$this->assertEquals( $id, $sut->find_for( [ 'post_title' => 'Title' ] ) );
+
+		remove_filter( 'tribe_duplicate_post_excluded_status', '__return_empty_array' );
+	}
+
+	/**
+	 * Filter excluded status.
+	 *
+	 * @param array $status
+	 *
+	 * @return array
+	 */
+	public function filter_excluded_status( $status ) {
+
+		$status[] = 'publish';
+
+		return $status;
+
+	}
 }
