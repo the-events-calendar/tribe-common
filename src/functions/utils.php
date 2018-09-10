@@ -234,7 +234,7 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 /**
  * Sorting function based on Priority
  *
- * @since  TBD
+ * @since  4.7.20
  *
  * @param  object|array  $a  First Subject to compare
  * @param  object|array  $b  Second subject to compare
