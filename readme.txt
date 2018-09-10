@@ -3,7 +3,7 @@
 == Changelog ==
 
 = [4.7.21] TBD =
-* Fix - Only customizer css when loading main stylesheets or widget stylesheets of PRO [112127]
+* Fix - Only load customizer css when loading main stylesheets or widget stylesheets of PRO [112127]
 
 = [4.7.20] TBD =
 
