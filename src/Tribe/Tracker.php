@@ -671,7 +671,7 @@ class Tribe__Tracker {
 		 *
 		 * @since TBD
 		 */
-		$will_update_links = (bool) apply_filters( 'tribe_tracker_post_update_links', true, $post_id, $this );
+		$will_update_links = (bool) apply_filters( 'tribe_tracker_post_update_links', false, $post_id, $this );
 
 		if ( false === $will_update_links ) {
 			return;
