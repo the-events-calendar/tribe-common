@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.20] 2018-09-11 =
+= [4.7.20] 2018-09-12 =
 * Add - Added is_string_or_empty, is_image_or_empty, is_url_or_empty variations for REST API validation of values that are allowed to be set as empty [108834]
 * Add - Introduce folder lookup for `Tribe__Template` to allow usage on Themes [112478]
 * Fix - Allow settings to restrict to only one country [106974]
