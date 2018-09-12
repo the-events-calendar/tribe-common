@@ -5,18 +5,13 @@
 = [4.7.21] TBD =
 * Fix - Only load customizer css when loading main stylesheets or widget stylesheets of PRO [112127]
 
-= [4.7.20] TBD =
-
-* Feature - Introduce folder lookup for `Tribe__Template` to allow usage on Themes [112478]
 = [4.7.20] 2018-09-12 =
 * Add - Added is_string_or_empty, is_image_or_empty, is_url_or_empty variations for REST API validation of values that are allowed to be set as empty [108834]
 * Add - Introduce folder lookup for `Tribe__Template` to allow usage on Themes [112478]
+* Fix - When option to avoid creating duplicate Organizers/Venues is enabled, we now exclude trash and autodraft posts when looking up potential duplicates [113882]
 * Fix - Allow settings to restrict to only one country [106974]
 * Tweak - Removed filters: `tribe_template_base_path`
 * Tweak - Added new filters: `tribe_template_before_include`, `tribe_template_after_include`, `tribe_template_html`, `tribe_template_path_list`, `tribe_template_public_path`, `tribe_template_public_namespace`, `tribe_template_plugin_path`
-* Add - Added is_string_or_empty, is_image_or_empty, is_url_or_empty variations for REST API validation of values that are allowed to be set as empty [108834]
-* Fix - When option to avoid creating duplicate Organizers/Venues is enabled, we now exclude trash and autodraft posts when looking up potential duplicates [113882]
-
 
 = [4.7.19] 2018-08-22 =
 * Fix - Add the following datepicker formats to the validation script: YYYY.MM.DD, MM.DD.YYYY, DD.MM.YYYY [102815]
