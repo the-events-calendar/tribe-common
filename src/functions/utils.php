@@ -231,6 +231,32 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 	}
 }
 
+/**
+ * Sorting function based on Priority
+ *
+ * @since  4.7.20
+ *
+ * @param  object|array  $a  First Subject to compare
+ * @param  object|array  $b  Second subject to compare
+ *
+ * @return int
+ */
+function tribe_sort_by_priority( $a, $b ) {
+	if ( is_array( $a ) ) {
+		$a_priority = $a['priority'];
+	} else {
+		$a_priority = $a->priority;
+	}
+
+	if ( is_array( $b ) ) {
+		$b_priority = $b['priority'];
+	} else {
+		$b_priority = $b->priority;
+	}
+
+	return (int) $a_priority === (int) $b_priority ? 0 : (int) $a_priority > (int) $b_priority;
+}
+
 if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
 	/**
 	 * Normalizes a list of terms to a list of fields.

@@ -55,6 +55,15 @@ class Tribe__Template {
 	protected $template_base_path;
 
 	/**
+	 * Should we use a lookup into the list of folders to try to find the file
+	 *
+	 * @since  4.7.20
+	 *
+	 * @var  bool
+	 */
+	protected $template_folder_lookup = false;
+
+	/**
 	 * Configures the class origin plugin path
 	 *
 	 * @since  4.6.2
@@ -116,6 +125,21 @@ class Tribe__Template {
 	}
 
 	/**
+	 * Configures the class with the base folder in relation to the Origin
+	 *
+	 * @since  4.7.20
+	 *
+	 * @param  mixed   $use  Should we look for template files in the list of folders
+	 *
+	 * @return self
+	 */
+	public function set_template_folder_lookup( $value = true ) {
+		$this->template_folder_lookup = tribe_is_truthy( $value );
+
+		return $this;
+	}
+
+	/**
 	 * Configures the class global context
 	 *
 	 * @since  4.6.2
@@ -142,32 +166,9 @@ class Tribe__Template {
 	 */
 	public function set_template_context_extract( $value = false ) {
 		// Cast as bool and save
-		$this->template_context_extract = (bool) $value;
+		$this->template_context_extract = tribe_is_truthy( $value );
 
 		return $this;
-	}
-
-	/**
-	 * Gets the base path for this Instance of Templates
-	 *
-	 * @since  4.6.2
-	 *
-	 * @return string
-	 */
-	public function get_base_path() {
-		// Craft the Base Path
-		$path = array_merge( (array) $this->template_base_path, $this->folder );
-
-		// Implode to avoid Window Problems
-		$path = implode( DIRECTORY_SEPARATOR, $path );
-
-		/**
-		 * Allows filtering of the base path for templates
-		 *
-		 * @param string $path      Complete path to include the base folder
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		return apply_filters( 'tribe_template_base_path', $path, $this );
 	}
 
 	/**
@@ -273,7 +274,183 @@ class Tribe__Template {
 	}
 
 	/**
-	 * A very simple method to include a Aggregator Template, allowing filtering and additions using hooks.
+	 * Fetches the path for locating files in the Plugin Folder
+	 *
+	 * @since  4.7.20
+	 *
+	 * @return string
+	 */
+	protected function get_template_plugin_path() {
+		// Craft the plugin Path
+		$path = array_merge( (array) $this->template_base_path, $this->folder );
+
+		// Implode to avoid Window Problems
+		$path = implode( DIRECTORY_SEPARATOR, $path );
+
+		/**
+		 * Allows filtering of the base path for templates
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param string $path      Complete path to include the base plugin folder
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		return apply_filters( 'tribe_template_plugin_path', $path, $this );
+	}
+
+	/**
+	 * Fetches the Namespace for the public paths, normaly folders to look for
+	 * in the theme's directory.
+	 *
+	 * @since  4.7.20
+	 *
+	 * @return array
+	 */
+	protected function get_template_public_namespace() {
+		$namespace = array(
+			'tribe',
+		);
+
+		if ( ! empty( $this->origin->template_namespace ) ) {
+			$namespace[] = $this->origin->template_namespace;
+		}
+
+		/**
+		 * Allows filtering of the base path for templates
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param array  $namespace Which is the namespace we will look for files in the theme
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		return apply_filters( 'tribe_template_public_namespace', $namespace, $this );
+	}
+
+	/**
+	 * Fetches the path for locating files given a base folder normally theme related
+	 *
+	 * @since  4.7.20
+	 *
+	 * @param  mixed  $base  Base path to look into
+	 *
+	 * @return string
+	 */
+	protected function get_template_public_path( $base ) {
+		// Craft the plugin Path
+		$path = array_merge( (array) $base, (array) $this->get_template_public_namespace() );
+
+		// Implode to avoid Window Problems
+		$path = implode( DIRECTORY_SEPARATOR, $path );
+
+		/**
+		 * Allows filtering of the base path for templates
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param string $path      Complete path to include the base public folder
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		return apply_filters( 'tribe_template_public_path', $path, $this );
+	}
+
+	/**
+	 * Fetches the folders in which we will look for a given file
+	 *
+	 * @since  4.7.20
+	 *
+	 * @return array
+	 */
+	protected function get_template_path_list() {
+		$folders = array();
+
+		// Only look into public folders if we tell to use folders
+		if ( $this->template_folder_lookup ) {
+			$folders[] = array(
+				'id' => 'child-theme',
+				'priority' => 10,
+				'path' => $this->get_template_public_path( STYLESHEETPATH ),
+			);
+			$folders[] = array(
+				'id' => 'parent-theme',
+				'priority' => 15,
+				'path' => $this->get_template_public_path( TEMPLATEPATH ),
+			);
+		}
+
+		$folders[] = array(
+			'id' => 'plugin',
+			'priority' => 20,
+			'path' => $this->get_template_plugin_path(),
+		);
+
+		/**
+		 * Allows filtering of the list of folders in which we will look for the
+		 * template given.
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param  array  $folders   Complete path to include the base public folder
+		 * @param  self   $template  Current instance of the Tribe__Template
+		 */
+		$folders = apply_filters( 'tribe_template_path_list', $folders, $this );
+
+		uasort( $folders, 'tribe_sort_by_priority' );
+
+		return $folders;
+	}
+
+	/**
+	 * Tries to locate the correct file we want to load based on the Template class
+	 * configuration and it's list of folders
+	 *
+	 * @since  4.7.20
+	 *
+	 * @param  mixed  $name  File name we are looking for
+	 *
+	 * @return string
+	 */
+	public function get_template_file( $name ) {
+		// If name is String make it an Array
+		if ( is_string( $name ) ) {
+			$name = (array) explode( '/', $name );
+		}
+
+		$folders = $this->get_template_path_list();
+
+		foreach ( $folders as $folder ) {
+			$folder['path'] = trim( $folder['path'] );
+			if ( ! $folder['path'] ) {
+				continue;
+			}
+
+			// Build the File Path
+			$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $folder['path'], $name ) );
+
+			// Append the Extension to the file path
+			$file .= '.php';
+
+			// Skip non-existent files
+			if ( file_exists( $file ) ) {
+				/**
+				 * A more Specific Filter that will include the template name
+				 *
+				 * @since  4.6.2
+				 * @since  4.7.20   The $name param no longers contains the extension
+				 *
+				 * @param string $file      Complete path to include the PHP File
+				 * @param array  $name      Template name
+				 * @param self   $template  Current instance of the Tribe__Template
+				 */
+				return apply_filters( 'tribe_template_file', $file, $name, $this );
+			}
+		}
+
+		// Couldn't find a template on the Stack
+		return false;
+	}
+
+	/**
+	 * A very simple method to include a Template, allowing filtering and additions using hooks.
 	 *
 	 * @since  4.6.2
 	 *
@@ -292,22 +469,22 @@ class Tribe__Template {
 		// Clean this Variable
 		$name = array_map( 'sanitize_title_with_dashes', $name );
 
-		// Apply the .php to the last item on the name
-		$name[ count( $name ) - 1 ] .= '.php';
+		if ( ! empty( $this->origin->template_namespace ) ) {
+			$namespace = array_merge( (array) $this->origin->template_namespace, $name );
+		} else {
+			$namespace = $name;
+		}
 
-		// Build the File Path
-		$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $this->get_base_path(), $name ) );
+		// Setup the Hook name
+		$hook_name = implode( '/', $namespace );
 
-		/**
-		 * A more Specific Filter that will include the template name
-		 *
-		 * @since  4.6.2
-		 *
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		$file = apply_filters( 'tribe_template_file', $file, $name, $this );
+		// Check if the file exists
+		$file = $this->get_template_file( $name );
+
+		// Check if it's a valid variable
+		if ( ! $file ) {
+			return false;
+		}
 
 		// Before we load the file we check if it exists
 		if ( ! file_exists( $file ) ) {
@@ -323,12 +500,29 @@ class Tribe__Template {
 		 * Fires an Action before including the template file
 		 *
 		 * @since  4.6.2
+		 * @since  4.7.20   The $name param no longers contains the extension
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		do_action( 'tribe_template_before_include', $file, $name, $this );
+
+		/**
+		 * Fires an Action for a given template name before including the template file
+		 *
+		 * E.g.:
+		 *    `tribe_template_before_include:events/blocks/parts/details`
+		 *    `tribe_template_before_include:events/embed`
+		 *    `tribe_template_before_include:tickets/login-to-purchase`
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		do_action( "tribe_template_before_include:$hook_name", $file, $name, $this );
 
 		// Only do this if really needed (by default it wont)
 		if ( true === $this->template_context_extract && ! empty( $this->context ) ) {
@@ -349,15 +543,32 @@ class Tribe__Template {
 		include $file;
 
 		/**
-		 * Fires an Action After including the template file
+		 * Fires an Action after including the template file
 		 *
 		 * @since  4.6.2
+		 * @since  4.7.20   The $name param no longers contains the extension
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		do_action( 'tribe_template_after_include', $file, $name, $this );
+
+		/**
+		 * Fires an Action for a given template name after including the template file
+		 *
+		 * E.g.:
+		 *    `tribe_template_after_include:events/blocks/parts/details`
+		 *    `tribe_template_after_include:events/embed`
+		 *    `tribe_template_after_include:tickets/login-to-purchase`
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		do_action( "tribe_template_after_include:$hook_name", $file, $name, $this );
 
 		// Only fetch the contents after the action
 		$html = ob_get_clean();
@@ -366,6 +577,7 @@ class Tribe__Template {
 		 * Allow users to filter the final HTML
 		 *
 		 * @since  4.6.2
+		 * @since  4.7.20   The $name param no longers contains the extension
 		 *
 		 * @param string $html      The final HTML
 		 * @param string $file      Complete path to include the PHP File
@@ -373,6 +585,23 @@ class Tribe__Template {
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		$html = apply_filters( 'tribe_template_html', $html, $file, $name, $this );
+
+		/**
+		 * Allow users to filter the final HTML by the name
+		 *
+		 * E.g.:
+		 *    `tribe_template_html:events/blocks/parts/details`
+		 *    `tribe_template_html:events/embed`
+		 *    `tribe_template_html:tickets/login-to-purchase`
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param string $html      The final HTML
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		$html = apply_filters( "tribe_template_html:$hook_name", $html, $file, $name, $this );
 
 		if ( $echo ) {
 			echo $html;

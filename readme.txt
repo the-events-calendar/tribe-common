@@ -2,7 +2,14 @@
 
 == Changelog ==
 
-= [4.7.19]  2018-08-22 =
+= [4.7.20] 2018-09-12 =
+* Add - Added is_string_or_empty, is_image_or_empty, is_url_or_empty variations for REST API validation of values that are allowed to be set as empty [108834]
+* Add - Introduce folder lookup for `Tribe__Template` to allow usage on Themes [112478]
+* Fix - Allow settings to restrict to only one country [106974]
+* Tweak - Removed filters: `tribe_template_base_path`
+* Tweak - Added new filters: `tribe_template_before_include`, `tribe_template_after_include`, `tribe_template_html`, `tribe_template_path_list`, `tribe_template_public_path`, `tribe_template_public_namespace`, `tribe_template_plugin_path`
+
+= [4.7.19] 2018-08-22 =
 * Fix - Add the following datepicker formats to the validation script: YYYY.MM.DD, MM.DD.YYYY, DD.MM.YYYY [102815]
 * Add - Added the `Tribe__Process__Queue::delete_all_queues` method [111856]
 * Tweak - updated some foundation code for the Tickets REST API [108021]
