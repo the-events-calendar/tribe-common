@@ -57,7 +57,7 @@ class Tribe__Template {
 	/**
 	 * Should we use a lookup into the list of folders to try to find the file
 	 *
-	 * @since  TBD
+	 * @since  4.7.20
 	 *
 	 * @var  bool
 	 */
@@ -127,7 +127,7 @@ class Tribe__Template {
 	/**
 	 * Configures the class with the base folder in relation to the Origin
 	 *
-	 * @since  TBD
+	 * @since  4.7.20
 	 *
 	 * @param  mixed   $use  Should we look for template files in the list of folders
 	 *
@@ -276,7 +276,7 @@ class Tribe__Template {
 	/**
 	 * Fetches the path for locating files in the Plugin Folder
 	 *
-	 * @since  TBD
+	 * @since  4.7.20
 	 *
 	 * @return string
 	 */
@@ -290,7 +290,7 @@ class Tribe__Template {
 		/**
 		 * Allows filtering of the base path for templates
 		 *
-		 * @since  TBD
+		 * @since  4.7.20
 		 *
 		 * @param string $path      Complete path to include the base plugin folder
 		 * @param self   $template  Current instance of the Tribe__Template
@@ -302,7 +302,7 @@ class Tribe__Template {
 	 * Fetches the Namespace for the public paths, normaly folders to look for
 	 * in the theme's directory.
 	 *
-	 * @since  TBD
+	 * @since  4.7.20
 	 *
 	 * @return array
 	 */
@@ -318,7 +318,7 @@ class Tribe__Template {
 		/**
 		 * Allows filtering of the base path for templates
 		 *
-		 * @since  TBD
+		 * @since  4.7.20
 		 *
 		 * @param array  $namespace Which is the namespace we will look for files in the theme
 		 * @param self   $template  Current instance of the Tribe__Template
@@ -329,7 +329,7 @@ class Tribe__Template {
 	/**
 	 * Fetches the path for locating files given a base folder normally theme related
 	 *
-	 * @since  TBD
+	 * @since  4.7.20
 	 *
 	 * @param  mixed  $base  Base path to look into
 	 *
@@ -345,7 +345,7 @@ class Tribe__Template {
 		/**
 		 * Allows filtering of the base path for templates
 		 *
-		 * @since  TBD
+		 * @since  4.7.20
 		 *
 		 * @param string $path      Complete path to include the base public folder
 		 * @param self   $template  Current instance of the Tribe__Template
@@ -356,7 +356,7 @@ class Tribe__Template {
 	/**
 	 * Fetches the folders in which we will look for a given file
 	 *
-	 * @since  TBD
+	 * @since  4.7.20
 	 *
 	 * @return array
 	 */
@@ -387,7 +387,7 @@ class Tribe__Template {
 		 * Allows filtering of the list of folders in which we will look for the
 		 * template given.
 		 *
-		 * @since  TBD
+		 * @since  4.7.20
 		 *
 		 * @param  array  $folders   Complete path to include the base public folder
 		 * @param  self   $template  Current instance of the Tribe__Template
@@ -403,7 +403,7 @@ class Tribe__Template {
 	 * Tries to locate the correct file we want to load based on the Template class
 	 * configuration and it's list of folders
 	 *
-	 * @since  TBD
+	 * @since  4.7.20
 	 *
 	 * @param  mixed  $name  File name we are looking for
 	 *
@@ -435,7 +435,7 @@ class Tribe__Template {
 				 * A more Specific Filter that will include the template name
 				 *
 				 * @since  4.6.2
-				 * @since  TBD   The $name param no longers contains the extension
+				 * @since  4.7.20   The $name param no longers contains the extension
 				 *
 				 * @param string $file      Complete path to include the PHP File
 				 * @param array  $name      Template name
@@ -500,7 +500,7 @@ class Tribe__Template {
 		 * Fires an Action before including the template file
 		 *
 		 * @since  4.6.2
-		 * @since  TBD   The $name param no longers contains the extension
+		 * @since  4.7.20   The $name param no longers contains the extension
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
@@ -516,7 +516,7 @@ class Tribe__Template {
 		 *    `tribe_template_before_include:events/embed`
 		 *    `tribe_template_before_include:tickets/login-to-purchase`
 		 *
-		 * @since  TBD
+		 * @since  4.7.20
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
@@ -546,7 +546,7 @@ class Tribe__Template {
 		 * Fires an Action after including the template file
 		 *
 		 * @since  4.6.2
-		 * @since  TBD   The $name param no longers contains the extension
+		 * @since  4.7.20   The $name param no longers contains the extension
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
@@ -562,7 +562,7 @@ class Tribe__Template {
 		 *    `tribe_template_after_include:events/embed`
 		 *    `tribe_template_after_include:tickets/login-to-purchase`
 		 *
-		 * @since  TBD
+		 * @since  4.7.20
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
@@ -577,7 +577,7 @@ class Tribe__Template {
 		 * Allow users to filter the final HTML
 		 *
 		 * @since  4.6.2
-		 * @since  TBD   The $name param no longers contains the extension
+		 * @since  4.7.20   The $name param no longers contains the extension
 		 *
 		 * @param string $html      The final HTML
 		 * @param string $file      Complete path to include the PHP File
@@ -594,7 +594,7 @@ class Tribe__Template {
 		 *    `tribe_template_html:events/embed`
 		 *    `tribe_template_html:tickets/login-to-purchase`
 		 *
-		 * @since  TBD
+		 * @since  4.7.20
 		 *
 		 * @param string $html      The final HTML
 		 * @param string $file      Complete path to include the PHP File
