@@ -68,21 +68,36 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	 * @param  {string} text Search here
 	 * @return {boolean}
 	 */
-	obj.matcher = function ( term, text ) {
-		var $select = this.element,
-			args = $select.data( 'dropdown' ),
-			result = text.toUpperCase().indexOf( term.toUpperCase() ) !== -1;
+	// obj.matcher = function ( params, data ) {
 
-		if ( ! result && 'undefined' !== typeof args.tags ){
-			var possible = _.where( args.tags, { text: text } );
-			if ( args.tags.length > 0  && _.isObject( possible ) ){
-				var test_value = obj.search_id( possible[0] );
-				result = test_value.toUpperCase().indexOf( term.toUpperCase() ) !== -1;
-			}
-		}
+	// 	// If there are no search terms, return all of the data
+	// 	if ( $.trim( params.term ) === '') {
+	// 		return data;
+	// 	}
 
-		return result;
-	};
+	// 	// Do not display the item if there is no 'text' property
+	// 	if ( typeof data.text === 'undefined' ) {
+	// 		return null;
+	// 	}
+
+	// 	var term = $.trim( params.term );
+	// 	var text = data.text;
+
+
+	// 	var $select = $( data ).closest( 'select' ),
+	// 		args = $select.data( 'dropdown' ),
+	// 		result = text.toUpperCase().indexOf( term.toUpperCase() ) !== -1;
+
+	// 	if ( ! result && 'undefined' !== typeof args.tags ){
+	// 		var possible = _.where( args.tags, { text: text } );
+	// 		if ( args.tags.length > 0  && _.isObject( possible ) ){
+	// 			var test_value = obj.search_id( possible[0] );
+	// 			result = test_value.toUpperCase().indexOf( term.toUpperCase() ) !== -1;
+	// 		}
+	// 	}
+
+	// 	return result;
+	// };
 
 	/**
 	 * If the element used as the basis of a dropdown specifies one or more numeric/text
@@ -207,7 +222,9 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		}
 
 		// How do we match the Search
-		args.matcher = obj.matcher;
+
+		// TODO: Revisit
+		//args.matcher = obj.matcher;
 
 		if ( ! $select.is( 'select' ) ) {
 			// Better Method for finding the ID
@@ -328,7 +345,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 				dataType: 'json',
 				type: 'POST',
 				url: obj.ajaxurl(),
-				results: function ( response, page, query ) { // parse the results into the format expected by Select2.
+				processResults: function ( response, page, query ) { // parse the results into the format expected by Select2.
 					if ( ! $.isPlainObject( response ) || 'undefined' === typeof response.success ) {
 						console.error( 'We received a malformed Object, could not complete the Select2 Search.' );
 						return { results: [] };
@@ -367,20 +384,22 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		// Save data on Dropdown
 		$select.data( 'dropdown', args );
 
-		$container = ( $select.select2( args ) ).select2( 'container' );
+		$container = ( $select.select2( args ) );
 
-		if ( carryOverData.length > 0 ) {
-			carryOverData.map( function ( dataKey ) {
-				var attr = 'data-' + dataKey,
-					val = $select.attr( attr );
+		// TODO: Revisit
+		//
+		// if ( carryOverData.length > 0 ) {
+		// 	carryOverData.map( function ( dataKey ) {
+		// 		var attr = 'data-' + dataKey,
+		// 			val = $select.attr( attr );
 
-				if ( ! val ) {
-					return;
-				}
+		// 		if ( ! val ) {
+		// 			return;
+		// 		}
 
-				this.attr( attr, val );
-			}, $container );
-		}
+		// 		this.attr( attr, val );
+		// 	}, $container );
+		// }
 	};
 
 	obj.action_change =  function( event ) {
