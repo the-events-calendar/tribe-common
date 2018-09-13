@@ -4,6 +4,7 @@
 
 = [4.7.21] TBD =
 * Fix - Only load customizer css when loading main stylesheets or widget stylesheets of PRO [112127]
+* Fix - Replace select2 with selectWoo [44205]
 
 = [4.7.20] 2018-09-12 =
 * Add - Added is_string_or_empty, is_image_or_empty, is_url_or_empty variations for REST API validation of values that are allowed to be set as empty [108834]

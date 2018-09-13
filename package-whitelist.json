@@ -10,6 +10,8 @@
   "vendor/datatables/DataTables/images/*.png",
   "vendor/jquery/**/*",
   "vendor/momentjs/*.js",
+  "vendor/tribe-selectWoo/dist/css/*.css",
+  "vendor/tribe-selectWoo/dist/js/*.js",
   "vendor/tribe-select2/*.css",
   "vendor/tribe-select2/*.js",
   "vendor/tribe-select2/*.gif",
