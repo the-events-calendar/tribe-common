@@ -319,12 +319,12 @@ class Tribe__PUE__Notices {
 	 * @param string $inner_html
 	 */
 	protected function render_notice( $slug, $inner_html ) {
-		$spirit_animal = esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' );
+		$mascot = esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/mascot.png' );
 
 		$html =
 			'<div class="api-check">
-				<div class="tribe-spirit-animal">
-					<img src="' . $spirit_animal . '"/>
+				<div class="tribe-mascot">
+					<img src="' . $mascot . '"/>
 				</div>
 				<div class="notice-content">' . $inner_html . '</div>
 			</div>';
