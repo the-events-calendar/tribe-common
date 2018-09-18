@@ -7,6 +7,7 @@
 * Fix - Only load Customizer CSS when loading main stylesheets or widget stylesheets of PRO [112127]
 * Fix - Restore functionality of admin notices that display when a license key is invalid (thanks to @tyrann0us on GitHub for submitting the fix!) [113660]
 * Fix - Update our mascot terminology to the preferred verbiage [114426]
+* Fix - Handle the upload of images with more complex URLs [114201]
 
 = [4.7.20] 2018-09-12 =
 * Add - Added is_string_or_empty, is_image_or_empty, is_url_or_empty variations for REST API validation of values that are allowed to be set as empty [108834]
