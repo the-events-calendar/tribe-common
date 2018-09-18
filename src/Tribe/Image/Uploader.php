@@ -66,8 +66,8 @@ class Tribe__Image__Uploader {
 		}
 
 		/*
-		 * Some CDN services will append query variables to the image URL; removing
-		 * them now has the potential to block the image fetching completely so we
+		 * Some CDN services will append query arguments to the image URL; removing
+		 * them now has the potential of blocking the image fetching completely so we
 		 * let them be here.
 		 */
 		try {
