@@ -933,7 +933,7 @@ a.tribe-rating-link {
 .api-check:after {
 	clear: both;
 }
-.api-check .tribe-spirit-animal {
+.api-check .tribe-mascot {
 	bottom: 0;
 	display: none;
 	padding: 16px;
@@ -943,14 +943,14 @@ a.tribe-rating-link {
 	top: 0;
 	width: 125px;
 }
-.api-check .tribe-spirit-animal:before {
+.api-check .tribe-mascot:before {
 	content: '';
 	display: inline-block;
 	height: 100%;
 	width: 1%;
 	vertical-align: middle;
 }
-.api-check .tribe-spirit-animal img {
+.api-check .tribe-mascot img {
 	display: inline-block;
 	max-height: 100%;
 	max-width: 96%;
@@ -1232,7 +1232,7 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 	}
 }
 @media screen and (min-width: 500px) {
-	.api-check .tribe-spirit-animal {
+	.api-check .tribe-mascot {
 		display: block;
 	}
 	.api-check .notice-content {
