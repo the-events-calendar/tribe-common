@@ -489,7 +489,7 @@ class Tribe__Tracker {
 	 * @param array $modified The list of modified fields w/ shape [ <field> => <date> ].
 	 */
 	protected function update_tracked_fields( WP_Post $post, array $modified ) {
-		$this->updated[ $post->ID][] = $modified;
+		$this->updated[ $post->ID ][] = $modified;
 	}
 
 	/**
@@ -693,6 +693,23 @@ class Tribe__Tracker {
 	 */
 	public function maybe_update_posts(  ) {
 		if ( empty( $this->updated ) ) {
+			return;
+		}
+
+		/**
+		 * Filters whether updates to the fields should be made or not.
+		 *
+		 * True by default, returning `false` here will prevent updates from happening.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool            $do_updates Whether updates to the fields should be made or not.
+		 * @param array           $updated    A map of each post ID that will be updated in the shape
+		 *                                    [ <post_id> => [ <updates> ]].
+		 * @param \Tribe__Tracker $this       The current tracker object.
+		 */
+		$do_updates = apply_filters( 'tribe_tracker_do_updates', true, $this->updated, $this );
+		if ( false === $do_updates ) {
 			return;
 		}
 
