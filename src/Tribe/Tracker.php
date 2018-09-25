@@ -36,6 +36,13 @@ class Tribe__Tracker {
 	protected $linked_post_types = array();
 
 	/**
+	 * A map of post IDs to modified fields.
+	 *
+	 * @var
+	 */
+	protected $updated = array();
+
+	/**
 	 * Hooks up the methods that will actually track the fields we are looking for.
 	 */
 	public function hook() {
@@ -62,6 +69,8 @@ class Tribe__Tracker {
 
 		// Clean up modified fields if the post is removed.
 		add_action( 'delete_post', array( $this, 'on_delete_post' ) );
+
+		add_action( 'shutdown', array( $this, 'maybe_update_posts' ) );
 	}
 
 	/**
@@ -480,15 +489,7 @@ class Tribe__Tracker {
 	 * @param array $modified The list of modified fields w/ shape [ <field> => <date> ].
 	 */
 	protected function update_tracked_fields( WP_Post $post, array $modified ) {
-		$this->unhook();
-		wp_update_post( array(
-			'ID'         => $post->ID,
-			'meta_input' => array( self::$field_key => $modified ),
-			// we set this to avoid the `post_date` from being reset
-			'edit_date'  => true,
-		) );
-		$this->update_linking_posts( $post );
-		$this->hook();
+		$this->updated[ $post->ID][] = $modified;
 	}
 
 	/**
@@ -603,10 +604,12 @@ class Tribe__Tracker {
 		/**
 		 * Get all the linking posts, as they might be events let's make sure
 		 * to remove date filters.
+		 * Furthermore let's not include posts we have updated already in this request.
 		 */
 		$linking_posts = get_posts( array(
-			'fields' => 'ids',
+			'fields'                    => 'ids',
 			'posts_per_page'            => - 1,
+			'post__not_in'              => array_keys( $this->updated ),
 			'tribe_remove_date_filters' => true,
 			'post_type'                 => $post_types,
 			'post_status'               => 'any',
@@ -622,22 +625,9 @@ class Tribe__Tracker {
 
 		$updated = true;
 
-		$this->unhook();
 		foreach ( $linking_posts as $linking_post ) {
-			/**
-			 * Here we leverage the fact that WordPress will override the `post_updated`
-			 * input to set it to "now". Mind that here we do not care about the linking
-			 * post coherence or information about a deleted linked post: that logic should be,
-			 * and is, handled elsewhere.
-			 */
-			$updated &= (bool) wp_update_post( array(
-				'ID'           => $linking_post,
-				'post_updated' => 'now',
-				// we set this to avoid the `post_date` from being reset
-				'edit_date' => true,
-			) );
+			$this->updated[ $linking_post ] = 'now';
 		}
-		$this->hook();
 
 		return $updated;
 	}
@@ -694,5 +684,48 @@ class Tribe__Tracker {
 		remove_action( 'delete_term_relationships', array( $this, 'track_taxonomy_term_deletions' ) );
 		remove_action( 'post_updated', array( $this, 'on_post_updated' ) );
 		remove_action( 'delete_post', array( $this, 'on_delete_post' ) );
+	}
+
+	/**
+	 * Updates each post once at shutdown.
+	 *
+	 * @since TBD
+	 */
+	public function maybe_update_posts(  ) {
+		if ( empty( $this->updated ) ) {
+			return;
+		}
+
+		$this->unhook();
+
+		foreach ( $this->updated as $post_id => $modified ) {
+			if ( empty( $modified ) || 'now' === $modified ) {
+				/**
+				 * Here we leverage the fact that WordPress will override the `post_updated`
+				 * input to set it to "now". Mind that here we do not care about the linking
+				 * post coherence or information about a deleted linked post: that logic should be,
+				 * and is, handled elsewhere.
+				 */
+				wp_update_post( array(
+					'ID'           => $post_id,
+					'post_updated' => 'now',
+					// we set this to avoid the `post_date` from being reset
+					'edit_date'    => true,
+				) );
+				continue;
+			}
+
+			$all_modified = call_user_func_array( 'array_merge', $modified );
+			wp_update_post( array(
+				'ID'         => $post_id,
+				'meta_input' => array( self::$field_key => $all_modified ),
+				// we set this to avoid the `post_date` from being reset
+				'edit_date'  => true,
+			) );
+			$this->update_linking_posts( $post_id );
+			unset( $this->updated[ $post_id ] );
+		}
+
+		$this->hook();
 	}
 }

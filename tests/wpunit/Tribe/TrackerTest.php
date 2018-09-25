@@ -46,6 +46,8 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 		$tt_ids = [ $foo->term_taxonomy_id, $bar->term_taxonomy_id ];
 		$old_dd_ids = [ $baz->term_taxonomy_id ];
 		$sut->track_taxonomy_term_changes( $post, $terms, $tt_ids, 'post_tag', false, $old_dd_ids );
+		// Run the `shutdown` action to commit changes.
+		$sut->maybe_update_posts();
 
 		$modified = get_post_meta( $post, Tracker::$field_key, true );
 		$this->assertArrayHasKey( 'post_tag', $modified );
@@ -68,6 +70,8 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 		$tt_ids = [ $baz->term_taxonomy_id, $foo->term_taxonomy_id, $bar->term_taxonomy_id ];
 		$old_dd_ids = [ $baz->term_taxonomy_id ];
 		$exit = $sut->track_taxonomy_term_changes( $post, $terms, $tt_ids, 'post_tag', true, $old_dd_ids );
+		// Run the `shutdown` action to commit changes.
+		$sut->maybe_update_posts();
 
 		$this->assertTrue( $exit );
 		$modified = get_post_meta( $post, Tracker::$field_key, true );
@@ -222,6 +226,8 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 		$sut->set_tracked_post_types( [ 'post' ] );
 		$sut->set_tracked_taxonomies( [ 'post_tag' ] );
 		$exit = $sut->track_taxonomy_term_deletions( $post, $foo, 'post_tag' );
+		// Run the `shutdown` action to commit changes.
+		$sut->maybe_update_posts();
 
 		$this->assertTrue( $exit );
 		$this->assertNotEquals( $original_mod, get_post_meta( $post, Tracker::$field_key, true )['post_tag'] );
@@ -247,6 +253,8 @@ class TrackerTest extends \Codeception\TestCase\WPTestCase {
 		$sut->set_tracked_post_types( [ 'post' ] );
 		$sut->set_linked_post_types( [ 'post' => [ 'from_type' => 'page', 'with_key' => '_post' ] ] );
 		$sut->update_linking_posts( $linked );
+		// Run the `shutdown` action to commit changes.
+		$sut->maybe_update_posts();
 
 		$this->assertEquals( [ $linking ], $updated );
 	}
