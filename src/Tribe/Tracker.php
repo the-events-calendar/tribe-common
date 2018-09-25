@@ -594,7 +594,11 @@ class Tribe__Tracker {
 		$linked_post_types = $this->get_linked_post_types();
 		$post_type         = get_post_type( $post_id );
 
-		if ( ! array_key_exists( $post_type, $linked_post_types ) ) {
+		if ( empty( $post_type ) ) {
+			return false;
+		}
+
+		if ( ! ( is_array( $linked_post_types ) && array_key_exists( $post_type, $linked_post_types ) ) ) {
 			return false;
 		}
 
