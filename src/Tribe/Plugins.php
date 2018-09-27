@@ -54,11 +54,6 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 				'thickbox_url' => '//theeventscalendar.com/product/wordpress-events-filterbar/?TB_iframe=true',
 			),
 			array(
-				'short_name'   => 'Facebook Events',
-				'class'        => 'Tribe__Events__Facebook__Importer',
-				'thickbox_url' => '//theeventscalendar.com/product/facebook-events/?TB_iframe=true',
-			),
-			array(
 				'short_name'   => 'iCal Importer',
 				'class'        => 'Tribe__Events__Ical_Importer__Main',
 				'thickbox_url' => '//theeventscalendar.com/product/ical-importer/?TB_iframe=true',
