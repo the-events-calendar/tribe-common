@@ -43,7 +43,7 @@ class Tribe__Utils__Global_ID {
 		/**
 		 * Filters the registered origin types for Global IDs.
 		 *
-		 * @since TBD
+		 * @since 4.7.21
 		 *
 		 * @param array $type_origins List of origin types.
 		 */
@@ -52,7 +52,7 @@ class Tribe__Utils__Global_ID {
 		/**
 		 * Filters the registered origin URLs for Global IDs.
 		 *
-		 * @since TBD
+		 * @since 4.7.21
 		 *
 		 * @param array $type_origins List of origin URLs.
 		 */

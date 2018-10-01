@@ -83,7 +83,7 @@ final class Tribe__Customizer {
 	/**
 	 * Inline Style has been added
 	 *
-	 * @since TBD
+	 * @since 4.7.21
 	 * @access private
 	 * @var boolean
 	 */
