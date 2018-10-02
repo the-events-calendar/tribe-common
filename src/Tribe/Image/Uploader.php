@@ -209,7 +209,7 @@ class Tribe__Image__Uploader {
 	 * @throws RuntimeException To pass the error as an exception to
 	 *                          the handler.
 	 */
-	public function handle_error( $unused_error_code , $message ) {
+	public function handle_error( $unused_error_code, $message ) {
 		throw new RuntimeException( $message );
 	}
 }
