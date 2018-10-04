@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [4.7.22] TBD =
+
+
 = [4.7.21] 2018-10-03 =
 
 * Fix - Only load Customizer CSS when loading main stylesheets or widget stylesheets of PRO [112127]
