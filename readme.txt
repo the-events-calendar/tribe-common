@@ -2,9 +2,19 @@
 
 == Changelog ==
 
+= [4.7.21] 2018-10-03 =
+
+* Fix - Only load Customizer CSS when loading main stylesheets or widget stylesheets of PRO [112127]
+* Fix - Restore functionality of admin notices that display when a license key is invalid (thanks to @tyrann0us on GitHub for submitting the fix!) [113660]
+* Fix - Update our mascot terminology to the preferred verbiage [114426]
+* Fix - Handle the upload of images with more complex URLs [114201]
+* Tweak - Added the `tribe_global_id_valid_types` action to allow new EA origins [114652]
+* Tweak - Added the `tribe_global_id_type_origins` action to allow new EA origins [114652]
+
 = [4.7.20] 2018-09-12 =
 * Add - Added is_string_or_empty, is_image_or_empty, is_url_or_empty variations for REST API validation of values that are allowed to be set as empty [108834]
 * Add - Introduce folder lookup for `Tribe__Template` to allow usage on Themes [112478]
+* Fix - When option to avoid creating duplicate Organizers/Venues is enabled, we now exclude trash and autodraft posts when looking up potential duplicates [113882]
 * Fix - Allow settings to restrict to only one country [106974]
 * Tweak - Removed filters: `tribe_template_base_path`
 * Tweak - Added new filters: `tribe_template_before_include`, `tribe_template_after_include`, `tribe_template_html`, `tribe_template_path_list`, `tribe_template_public_path`, `tribe_template_public_namespace`, `tribe_template_plugin_path`

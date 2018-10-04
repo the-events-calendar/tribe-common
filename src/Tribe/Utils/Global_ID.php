@@ -36,6 +36,31 @@ class Tribe__Utils__Global_ID {
 	);
 
 	/**
+	 * Tribe__Utils__Global_ID constructor.
+	 */
+	public function __construct() {
+
+		/**
+		 * Filters the registered origin types for Global IDs.
+		 *
+		 * @since 4.7.21
+		 *
+		 * @param array $type_origins List of origin types.
+		 */
+		$this->valid_types = apply_filters( 'tribe_global_id_valid_types', $this->valid_types );
+
+		/**
+		 * Filters the registered origin URLs for Global IDs.
+		 *
+		 * @since 4.7.21
+		 *
+		 * @param array $type_origins List of origin URLs.
+		 */
+		$this->type_origins = apply_filters( 'tribe_global_id_type_origins', $this->type_origins );
+
+	}
+
+	/**
 	 * A setter and getter for the Type of ID
 	 *
 	 * @param  string|null  $name  When null is passed it will return the current Type

@@ -81,6 +81,15 @@ final class Tribe__Customizer {
 	private $settings = array();
 
 	/**
+	 * Inline Style has been added
+	 *
+	 * @since 4.7.21
+	 * @access private
+	 * @var boolean
+	 */
+	protected $inline_style = false;
+
+	/**
 	 * Loads the Basic Settings for the Class to work
 	 *
 	 * @since  4.0
@@ -120,6 +129,10 @@ final class Tribe__Customizer {
 		add_action( 'customize_register', array( $this, 'register' ), 15 );
 
 		add_action( 'wp_print_footer_scripts', array( $this, 'print_css_template' ), 15 );
+
+		// front end styles from customizer
+		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 15 );
+		add_action( 'tribe_events_pro_widget_render', array( $this, 'inline_style' ), 101 );
 
 		add_filter( "default_option_{$this->ID}", array( $this, 'maybe_fallback_get_option' ) );
 	}
@@ -374,6 +387,12 @@ final class Tribe__Customizer {
 	 * @return void
 	 */
 	public function print_css_template() {
+
+		//Only load in Customizer
+		if ( ! is_customize_preview() ) {
+			return false;
+		}
+
 		/**
 		 * Use this filter to add more CSS, using Underscore Template style
 		 *
@@ -412,6 +431,60 @@ final class Tribe__Customizer {
 		echo '<style type="text/css" id="' . esc_attr( $this->ID . '_css' ) . '">';
 		echo $this->parse_css_template( $css_template );
 		echo '</style>';
+	}
+
+	/**
+	 * Print the CSS for the customizer using wp_add_inline_style
+	 *
+	 * @return void
+	 */
+	public function inline_style() {
+
+		//Only load on front end
+		if ( is_customize_preview() || is_admin() || $this->inline_style ) {
+			return false;
+		}
+
+		/**
+		 * Use this filter to add more CSS, using Underscore Template style
+		 *
+		 * @since 4.4
+		 *
+		 * @link  http://underscorejs.org/#template
+		 *
+		 * @param string $template
+		 */
+		$css_template = trim( apply_filters( 'tribe_customizer_css_template', '' ) );
+
+		// If we don't have anything on the customizer don't print empty styles
+		if ( empty( $css_template ) ) {
+			return false;
+		}
+
+		// add customizer styles inline with either main stylesheet is enqueued or widgets
+		if ( wp_style_is( 'tribe-events-calendar-style' ) ) {
+
+			wp_add_inline_style( 'tribe-events-calendar-style', wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
+			$this->inline_style = true;
+
+			return;
+		}
+
+		if ( wp_style_is( 'tribe-events-calendar-pro-style' ) ) {
+
+			wp_add_inline_style( 'tribe-events-calendar-pro-style', wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
+			$this->inline_style = true;
+
+			return;
+		}
+
+		if ( wp_style_is( 'widget-calendar-pro-style' ) ) {
+
+			wp_add_inline_style( 'widget-calendar-pro-style', wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
+			$this->inline_style = true;
+
+			return;
+		}
 	}
 
 	/**
