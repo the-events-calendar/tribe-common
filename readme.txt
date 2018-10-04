@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.7.21] 2018-10-02 =
+= [4.7.21] 2018-10-03 =
 
 * Fix - Only load Customizer CSS when loading main stylesheets or widget stylesheets of PRO [112127]
 * Fix - Restore functionality of admin notices that display when a license key is invalid (thanks to @tyrann0us on GitHub for submitting the fix!) [113660]
