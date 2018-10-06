@@ -88,16 +88,23 @@ class Tribe__Main {
 
 		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
 
+
+		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 5 );
+
+		add_action( 'tribe_common_loaded', array( $this, 'tribe_common_asset' ), 1 );
+
+		add_action( 'tribe_common_loaded', array( $this, 'tribe_common_app_store' ), 10 );
+
+	}
+
+	/**
+	 *
+	 */
+	public function plugins_loaded() {
+
 		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		$this->init_autoloading();
-
-		$this->bind_implementations();
-
-		$this->init_libraries();
-		$this->add_hooks();
-
-		Tribe__Extension_Loader::instance();
 
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
@@ -105,6 +112,24 @@ class Tribe__Main {
 		 * @since 4.3
 		 */
 		do_action( 'tribe_common_loaded' );
+
+		/**
+		 * Runs to register loaded plugins
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tribe_plugins_loaded ' );
+
+	}
+
+	public function tribe_common_asset() {
+		$this->bind_implementations();
+		$this->init_libraries();
+		$this->add_hooks();
+	}
+
+	public function tribe_common_app_store() {
+		Tribe__Extension_Loader::instance();
 	}
 
 	/**
