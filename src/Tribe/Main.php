@@ -62,6 +62,7 @@ class Tribe__Main {
 	 * which causes fatals if you have an older version of Core/Tickets active along side a new one
 	 */
 	public function __construct( $context = null ) {
+
 		if ( self::$instance ) {
 			return;
 		}
@@ -83,16 +84,11 @@ class Tribe__Main {
 
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
-
 		$parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
-
 		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
 
-
-		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 5 );
-
+		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
 		add_action( 'tribe_common_loaded', array( $this, 'tribe_common_asset' ), 1 );
-
 		add_action( 'tribe_common_loaded', array( $this, 'tribe_common_app_store' ), 10 );
 
 	}
@@ -122,6 +118,34 @@ class Tribe__Main {
 
 	}
 
+	/**
+	 * Setup the autoloader for common files
+	 */
+	protected function init_autoloading() {
+		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
+			require_once dirname( __FILE__ ) . '/Autoloader.php';
+		}
+
+		$autoloader = Tribe__Autoloader::instance();
+
+		$prefixes = array( 'Tribe__' => dirname( __FILE__ ) );
+		$autoloader->register_prefixes( $prefixes );
+
+		foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
+			$class_name = str_replace( '.php', '', basename( $file ) );
+			$autoloader->register_class( $class_name, $file );
+		}
+
+		$autoloader->register_autoloader();
+	}
+
+
+	/**
+	 * Load Common Assets
+	 *
+	 * @since TBD
+	 *
+	 */
 	public function tribe_common_asset() {
 		$this->bind_implementations();
 		$this->init_libraries();
@@ -144,27 +168,6 @@ class Tribe__Main {
 	 */
 	public function context_class() {
 		return $this->plugin_context_class;
-	}
-
-	/**
-	 * Setup the autoloader for common files
-	 */
-	protected function init_autoloading() {
-		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
-			require_once dirname( __FILE__ ) . '/Autoloader.php';
-		}
-
-		$autoloader = Tribe__Autoloader::instance();
-
-		$prefixes = array( 'Tribe__' => dirname( __FILE__ ) );
-		$autoloader->register_prefixes( $prefixes );
-
-		foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
-			$class_name = str_replace( '.php', '', basename( $file ) );
-			$autoloader->register_class( $class_name, $file );
-		}
-
-		$autoloader->register_autoloader();
 	}
 
 	/**
