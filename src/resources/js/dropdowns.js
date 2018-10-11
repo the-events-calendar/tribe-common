@@ -190,6 +190,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			'condition-is-checked'
 		];
 		var $container;
+		var original_classes = $select.attr( 'class' );
 
 		// Add a class for dropdown created
 		$select.addClass( obj.selector.created.className() );
@@ -384,7 +385,10 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		// Save data on Dropdown
 		$select.data( 'dropdown', args );
 
-		$container = ( $select.select2( args ) );
+		$container = $select.select2( args );
+
+		// Propagating original input classes to the select2 container.
+		$container.data('select2').$container.addClass( original_classes );
 
 		// TODO: Revisit
 		//
