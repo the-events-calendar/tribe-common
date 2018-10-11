@@ -196,6 +196,7 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			array(
+				array( 'tribe-ui', 'tribe-ui.css' ),
 				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),
 				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ) ),
 				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ) ),
@@ -208,7 +209,7 @@ class Tribe__Main {
 			'admin_enqueue_scripts',
 			array(
 				'conditionals' => array( $this, 'should_load_common_admin_css' ),
-				'priority' => 5,
+				'priority'     => 5,
 			)
 		);
 

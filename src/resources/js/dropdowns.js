@@ -197,8 +197,6 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		var $container;
 		var original_classes = $select.attr( 'class' );
 
-
-
 		// Add a class for dropdown created
 		$select.addClass( obj.selector.created.className() );
 
@@ -207,6 +205,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		// Auto define the Width of the Select2
 		args.dropdownAutoWidth = true;
+		args.width             = 'auto';
 
 		// CSS for the container
 		args.containerCss = {};
@@ -399,6 +398,9 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		// Propagating original input classes to the select2 container.
 		$container.data('select2').$container.addClass( original_classes );
 
+		// Propagating original input classes to the select2 container.
+		$container.data('select2').$container.removeClass( 'hide-before-select2-init' );
+
 		// TODO: Revisit
 		//
 		// if ( carryOverData.length > 0 ) {
@@ -416,8 +418,8 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	};
 
 	obj.action_change =  function( event ) {
-		var $select = $( this ),
-			data = $( this ).data( 'value' );
+		var $select = $( this );
+		var data    = $select.data( 'value' );
 
 		if ( ! $select.is( '[multiple]' ) ) {
 			return;
@@ -442,6 +444,8 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		}
 
 		$select.data( 'value', data ).attr( 'data-value', JSON.stringify( data ) );
+
+		$select.chosen( 'width',  );
 	};
 
 	obj.ajaxurl = function () {
