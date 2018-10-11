@@ -259,6 +259,11 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			}
 		}
 
+		// If we are dealing with a Input Hidden we need to set the Data for it to work
+		if ( ! $select.is( '[data-placeholder]' ) && $select.is( '[placeholder]' ) ) {
+			args.placeholder = $select.attr( 'placeholder' );
+		}
+
 		// Don't Remove HTML elements or escape elements
 		if ( $select.is( '[data-allow-html]' ) ) {
 			args.escapeMarkup = obj.allow_html_markup;
