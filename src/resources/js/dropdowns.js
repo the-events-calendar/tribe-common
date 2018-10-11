@@ -15,9 +15,11 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		return this;
 	};
 
-	obj.freefrom_create_search_choice = function( term, data ) {
-		var args = this.opts,
-			$select = args.$select;
+	obj.freefrom_create_search_choice = function( params ) {
+
+		var args    = this.options.options;
+		var term    = params.term;
+		var $select = args.$select;
 
 		if (
 			term.match( args.regexToken )
@@ -264,7 +266,10 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		// Allows freeform entry
 		if ( $select.is( '[data-freeform]' ) ) {
-			args.createSearchChoice = obj.freefrom_create_search_choice;
+			//console.log( 'ff search choice', obj.freefrom_create_search_choice );
+			args.createTag = obj.freefrom_create_search_choice;
+			args.tags      = true;
+			console.log( args )
 		}
 
 		if ( $select.is( '[multiple]' ) ) {
