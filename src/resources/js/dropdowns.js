@@ -213,7 +213,8 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		// Only apply visibility when it's a Visible Select2
 		if ( $select.is( ':visible' ) ) {
-			args.containerCss.display = 'inline-block';
+			args.containerCss.display  = 'inline-block';
+			args.containerCss.position = 'relative';
 		}
 
 		// CSS for the dropdown
