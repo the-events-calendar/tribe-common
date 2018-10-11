@@ -32,9 +32,12 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			)
 		) {
 			var choice = { id: term, text: term, new: true };
+
 			if ( $select.is( '[data-create-choice-template]' ) ) {
 				choice.text = _.template( $select.data( 'createChoiceTemplate' ) )( { term: term } );
 			}
+
+			$select.trigger( 'change' );
 
 			return choice;
 		}
@@ -194,6 +197,8 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		var $container;
 		var original_classes = $select.attr( 'class' );
 
+
+
 		// Add a class for dropdown created
 		$select.addClass( obj.selector.created.className() );
 
@@ -266,10 +271,8 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		// Allows freeform entry
 		if ( $select.is( '[data-freeform]' ) ) {
-			//console.log( 'ff search choice', obj.freefrom_create_search_choice );
 			args.createTag = obj.freefrom_create_search_choice;
 			args.tags      = true;
-			console.log( args )
 		}
 
 		if ( $select.is( '[multiple]' ) ) {
