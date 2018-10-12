@@ -159,15 +159,13 @@
 				}, true );
 			}
 
-			var select2_data = $dependent.find( '.tribe-dropdown' ).select2().data( 'select2' );
-
 			if ( passes && ! isDisabled ) {
-				if ( select2_data ) {
-					select2_data.$container.addClass( activeClass );
+				if ( $dependent.is( '.tribe-dropdown' ) ) {
+					$dependent.select2().data( 'select2' ).$container.addClass( activeClass );
 
 					// ideally the class should be enough, but just in case...
-					if ( select2_data.$container.is( ':hidden' ) ) {
-						select2_data.$container.show();
+					if ( $dependent.select2().data( 'select2' ).$container.is( ':hidden' ) ) {
+						$dependent.select2().data( 'select2' ).$container.show();
 					}
 				} else {
 					$dependent.addClass( activeClass );
@@ -203,8 +201,8 @@
 					$dependent.find( '.tribe-dropdown' ).select2().prop( 'disabled', true );
 				}
 
-				if ( select2_data !== undefined && select2_data ) {
-					select2_data.$container.removeClass( activeClass );
+				if ( $dependent.is( '.tribe-dropdown' ) ) {
+					$dependent.select2().data( 'select2' ).$container.removeClass( activeClass );
 				}
 
 				// When we have a flag to always display the field we display when disabled
@@ -212,8 +210,8 @@
 					$dependent.addClass( activeClass ).show();
 					$dependent.filter( obj.selectors.fields ).prop( 'disabled', true );
 
-					if ( select2_data !== undefined && select2_data ) {
-						select2_data.$container.addClass( activeClass ).show();
+					if ( $dependent.is( '.tribe-dropdown' ) ) {
+						$dependent.select2().data( 'select2' ).$container.addClass( activeClass ).show();
 					}
 				}
 			}
