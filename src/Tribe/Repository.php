@@ -206,6 +206,7 @@ abstract class Tribe__Repository
 		'REGEXP'      => 'regexp',
 		'NOT REGEXP'  => 'not-regexp',
 	);
+
 	/**
 	 * @var string
 	 */
@@ -240,6 +241,7 @@ abstract class Tribe__Repository
 	protected $to_gmt_map = array(
 		'post_date' => 'post_date_gmt',
 	);
+
 	/**
 	 * @var array
 	 */
@@ -1125,13 +1127,13 @@ abstract class Tribe__Repository
 	}
 
 	/**
-	 * Gets the post IDs that should be updated.
+	 * Gets the ids of the posts matching the query.
 	 *
 	 * @since 4.7.19
 	 *
 	 * @return array An array containing the post IDs to update.
 	 */
-	protected function get_ids() {
+	public function get_ids() {
 		/** @var WP_Query $query */
 		$query = $this->get_query();
 		$query->set( 'fields', 'ids' );
