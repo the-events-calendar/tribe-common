@@ -4,6 +4,7 @@
  */
 
 // Don't load directly
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -1168,6 +1169,45 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			// Why so simple? Let's handle other cases as those come up. We have tests in place!
 			return str_replace( '\\\\', '\\', $date_format );
 		}
-	}
 
+		/**
+		 * Builds a date object from a given datetime and timezone.
+		 *
+		 * @since TBD
+		 *
+		 * @param string|DateTime|int      $datetime A `strtotime` parse-able string, a DateTime object or
+		 *                                           a timestamp; defaults to `now`.
+		 * @param string|DateTimeZone|null $timezone A timezone string, UTC offset or DateTimeZone object;
+		 *                                           defaults to the site timezone; this parameter is ignored
+		 *                                           if the `$datetime` parameter is a DatTime object.
+		 *
+		 * @return DateTime A DateTime object built using the specified date, time and timezone.
+		 */
+		public static function build_date_object( $datetime = 'now', $timezone = null ) {
+			if ( $datetime instanceof DateTime ) {
+				// Clone it to make sure we're not producing side effects.
+				return clone $datetime;
+			}
+
+			$utc = new DateTimeZone( 'UTC' );
+
+			if ( self::is_timestamp( $datetime ) ) {
+				// Timestamps timezone is always UTC.
+				return new DateTime( '@' . $datetime, $utc );
+			}
+
+			$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+
+			try {
+				// PHP 5.2 will not throw an exception but will generate an error.
+				set_error_handler( 'tribe_catch_and_throw' );
+				$date = new DateTime( $datetime, $timezone_object );
+				restore_error_handler();
+			} catch ( Exception $e ) {
+				return new DateTime( 'now', $timezone_object );
+			}
+
+			return $date;
+		}
+	}
 }

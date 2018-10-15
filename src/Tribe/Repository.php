@@ -1127,11 +1127,7 @@ abstract class Tribe__Repository
 	}
 
 	/**
-	 * Gets the ids of the posts matching the query.
-	 *
-	 * @since 4.7.19
-	 *
-	 * @return array An array containing the post IDs to update.
+	 * {@inheritdoc}
 	 */
 	public function get_ids() {
 		/** @var WP_Query $query */
@@ -1762,7 +1758,8 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function where_clause( $where ) {
+	public function
+	where_clause( $where ) {
 		$this->filter_query->where( $where );
 	}
 

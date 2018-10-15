@@ -555,5 +555,50 @@ class Tribe__Timezones {
 			return $unix_timestamp;
 		}
 	}
+
+	/**
+	 * Returns a valid timezone object built from the passed timezone or from the
+	 * site one if a timezone in not passed.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null|DateTimeZone $timezone A DateTimeZone object, a timezone string
+	 *                                           or `null` to build an object using the site one.
+	 *
+	 * @return DateTimeZone The built DateTimeZone object.
+	 */
+	public static function build_timezone_object( $timezone = null ) {
+		if ( $timezone instanceof DateTimeZone ) {
+			return $timezone;
+		}
+
+		$timezone = null === $timezone ? self::wp_timezone_string() : $timezone;
+
+		try {
+			$object = new DateTimeZone( self::get_valid_timezone( $timezone ) );
+		} catch ( Exception $e ) {
+			return new DateTimeZone( 'UTC' );
+		}
+
+		return $object;
+	}
+
+	/**
+	 * Parses the timezone string to validate or convert it into a valid one.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $timezone_candidate The timezone string candidate.
+	 *
+	 * @return string The validated timezone string or a valid timezone string alternative.
+	 */
+	public static function get_valid_timezone( $timezone_candidate ) {
+		$timezone_string = preg_replace( '/\\+0$/', '', $timezone_candidate );
+		$timezone_string = self::is_utc_offset( $timezone_string )
+			? self::generate_timezone_string_from_utc_offset( $timezone_string )
+			: $timezone_string;
+
+		return $timezone_string;
+	}
 }
 
