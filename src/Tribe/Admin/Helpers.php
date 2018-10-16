@@ -16,6 +16,11 @@ class Tribe__Admin__Helpers {
 	protected static $instance;
 
 	/**
+	 * @var bool Internal property to know if the current request is an test or not.
+	 */
+	protected $doing_test;
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Admin__Helpers
@@ -26,6 +31,41 @@ class Tribe__Admin__Helpers {
 		}
 
 		return self::$instance;
+	}
+
+	/**
+	 * Set context for tests
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	public function doing_test( $doing_test = null ) {
+		if ( null !== $doing_test ) {
+			$this->doing_test = (bool) $doing_test;
+		}
+
+		return $this->doing_test;
+	}
+
+	/**
+	 * Check if the current screen is an instance of WP_Screen
+	 * Hijack the return for tests
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	public function is_wp_screen() {
+		global $current_screen;
+
+		// Doing tests, use mask class.
+		if ( $this->doing_test() ) {
+			return true;
+		}
+
+		// return true if is wp screen
+		return (bool) $current_screen instanceof WP_Screen;
 	}
 
 	/**
@@ -49,7 +89,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Avoid Notices by checking the object type of WP_Screen
-		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+		if ( ! $this->is_wp_screen() ) {
 			return false;
 		}
 
@@ -94,7 +134,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Avoid Notices by checking the object type of WP_Screen
-		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+		if ( ! $this->is_wp_screen() ) {
 			return false;
 		}
 
@@ -115,11 +155,11 @@ class Tribe__Admin__Helpers {
 
 		// Match any post type page in the supported post types
 		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', Tribe__Main::get_post_types() );
-		if ( ! in_array( $current_screen->post_type, $defaults ) ) {
-			return false;
+		if ( in_array( $current_screen->post_type, $defaults ) ) {
+			return true;
 		}
-
 		return false;
+
 	}
 
 	/**
@@ -143,7 +183,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Avoid Notices by checking the object type of WP_Screen
-		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+		if ( ! $this->is_wp_screen() ) {
 			return false;
 		}
 
