@@ -48,7 +48,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function is_post_type_tribe_events() {
 		$helpers = $this->make_instance();
-		$helpers->doing_test( true );
+		add_filter( 'tribe_admin_is_wp_screen', '__return_true' );
 
 		$this->go_to( "/wp-admin/post-new.php?post_type=tribe_events" );
 
@@ -70,7 +70,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function is_post_type_tribe_venue() {
 		$helpers = $this->make_instance();
-		$helpers->doing_test( true );
+		add_filter( 'tribe_admin_is_wp_screen', '__return_true' );
 
 		$this->go_to( "/wp-admin/post-new.php?post_type=tribe_venue" );
 
@@ -92,7 +92,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function is_post_type_tribe_organizer() {
 		$helpers = $this->make_instance();
-		$helpers->doing_test( true );
+		add_filter( 'tribe_admin_is_wp_screen', '__return_true' );
 
 		$this->go_to( "/wp-admin/post-new.php?post_type=tribe_organizer" );
 
@@ -114,7 +114,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function is_screen_dashboard_should_return_false() {
 		$helpers = $this->make_instance();
-		$helpers->doing_test( true );
+		add_filter( 'tribe_admin_is_wp_screen', '__return_true' );
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [ 'in_admin' => true, 'id' => 'dashboard', 'base' => 'dashboard', 'post_type' => '' ] );
@@ -130,7 +130,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function is_screen_tribe_settings_general() {
 		$helpers = $this->make_instance();
-		$helpers->doing_test( true );
+		add_filter( 'tribe_admin_is_wp_screen', '__return_true' );
 
 		$this->go_to( "/wp-admin/edit.php?post_type=tribe_events&page=tribe-common" );
 		global $pagenow;
@@ -153,7 +153,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function is_screen_tribe_aggregator() {
 		$helpers = $this->make_instance();
-		$helpers->doing_test( true );
+		add_filter( 'tribe_admin_is_wp_screen', '__return_true' );
 
 		$this->go_to( "/wp-admin/edit.php?post_type=tribe_events&page=aggregator" );
 		global $pagenow;
@@ -176,7 +176,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function is_screen_tribe_help() {
 		$helpers = $this->make_instance();
-		$helpers->doing_test( true );
+		add_filter( 'tribe_admin_is_wp_screen', '__return_true' );
 
 		$this->go_to( "/wp-admin/edit.php?post_type=tribe_events&page=tribe-help" );
 		global $pagenow;
@@ -199,7 +199,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function is_screen_tribe_app_shop() {
 		$helpers = $this->make_instance();
-		$helpers->doing_test( true );
+		add_filter( 'tribe_admin_is_wp_screen', '__return_true' );
 
 		$this->go_to( "/wp-admin/edit.php?post_type=tribe_events&page=tribe-app-shop" );
 		global $pagenow;
@@ -222,7 +222,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function is_screen_tribe_events_post_tag() {
 		$helpers = $this->make_instance();
-		$helpers->doing_test( true );
+		add_filter( 'tribe_admin_is_wp_screen', '__return_true' );
 
 		$this->go_to( "wp-admin/edit-tags.php?taxonomy=post_tag&post_type=tribe_events" );
 		global $pagenow;
@@ -245,7 +245,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function is_screen_tribe_events_cat() {
 		$helpers = $this->make_instance();
-		$helpers->doing_test( true );
+		add_filter( 'tribe_admin_is_wp_screen', '__return_true' );
 
 		$this->go_to( "wp-admin/edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events" );
 		global $pagenow;

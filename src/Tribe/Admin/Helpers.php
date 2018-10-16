@@ -16,11 +16,6 @@ class Tribe__Admin__Helpers {
 	protected static $instance;
 
 	/**
-	 * @var bool Internal property to know if the current request is an test or not.
-	 */
-	protected $doing_test;
-
-	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Admin__Helpers
@@ -34,21 +29,6 @@ class Tribe__Admin__Helpers {
 	}
 
 	/**
-	 * Set context for tests
-	 *
-	 * @since TBD
-	 *
-	 * @return boolean
-	 */
-	public function doing_test( $doing_test = null ) {
-		if ( null !== $doing_test ) {
-			$this->doing_test = (bool) $doing_test;
-		}
-
-		return $this->doing_test;
-	}
-
-	/**
 	 * Check if the current screen is an instance of WP_Screen
 	 * Hijack the return for tests
 	 *
@@ -59,9 +39,16 @@ class Tribe__Admin__Helpers {
 	public function is_wp_screen() {
 		global $current_screen;
 
-		// Doing tests, use mask class.
-		if ( $this->doing_test() ) {
-			return true;
+		/**
+		 * Filter `tribe_admin_is_wp_screen`
+		 * Allows fo filter if we're on a WP_Screen
+		 *
+		 * @since TBD
+		 * @param bool    null bypass if we want to return a bool of is_wp_scren
+		 */
+		$is_wp_screen = apply_filters( 'tribe_admin_is_wp_screen', null );
+		if ( null !== $is_wp_screen ) {
+			return $is_wp_screen;
 		}
 
 		// return true if is wp screen
