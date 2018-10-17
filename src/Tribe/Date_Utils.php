@@ -1175,15 +1175,18 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * @since TBD
 		 *
-		 * @param string|DateTime|int      $datetime A `strtotime` parse-able string, a DateTime object or
-		 *                                           a timestamp; defaults to `now`.
-		 * @param string|DateTimeZone|null $timezone A timezone string, UTC offset or DateTimeZone object;
-		 *                                           defaults to the site timezone; this parameter is ignored
-		 *                                           if the `$datetime` parameter is a DatTime object.
+		 * @param string|DateTime|int      $datetime      A `strtotime` parse-able string, a DateTime object or
+		 *                                                a timestamp; defaults to `now`.
+		 * @param string|DateTimeZone|null $timezone      A timezone string, UTC offset or DateTimeZone object;
+		 *                                                defaults to the site timezone; this parameter is ignored
+		 *                                                if the `$datetime` parameter is a DatTime object.
+		 * @param bool                     $with_fallback Whether to return a DateTime object even when the date data is
+		 *                                                invalid or not; defaults to `true`.
 		 *
-		 * @return DateTime A DateTime object built using the specified date, time and timezone.
+		 * @return DateTime|false A DateTime object built using the specified date, time and timezone; if `$with_fallback`
+		 *                        is set to `false` then `false` will be returned if a DateTime object could not be built.
 		 */
-		public static function build_date_object( $datetime = 'now', $timezone = null ) {
+		public static function build_date_object( $datetime = 'now', $timezone = null, $with_fallback = true ) {
 			if ( $datetime instanceof DateTime ) {
 				// Clone it to make sure we're not producing side effects.
 				return clone $datetime;
@@ -1204,10 +1207,26 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$date = new DateTime( $datetime, $timezone_object );
 				restore_error_handler();
 			} catch ( Exception $e ) {
-				return new DateTime( 'now', $timezone_object );
+				return $with_fallback
+					? new DateTime( 'now', $timezone_object )
+					: false;
 			}
 
 			return $date;
+		}
+
+		/**
+		 * Validates a date string to make sure it can be used to build DateTime objects.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $date The date string that should validated.
+		 *
+		 * @return bool Whether the date string can be used to build DateTime objects, and is thus parse-able by functions
+		 *              like `strtotime`, or not.
+		 */
+		public static function is_valid_date( string $date ) {
+			return self::build_date_object( $date, null, false ) instanceof DateTime;
 		}
 	}
 }
