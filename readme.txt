@@ -2,10 +2,13 @@
 
 == Changelog ==
 
+= [4.7.23] TBD =
+
+* Add - date and timezone building and validation methods to the `Tribe__Date_Utils` and `Tribe__Timezones` classes [116356, 115579]
+
 = [4.7.22] TBD =
 
 * Fix - Update `Tribe__Admin__Help_Page::is_current_page()` to return true when viewing the help page from the network settings [109563]
-* Add - date and timezone building and validation methods to the `Tribe__Date_Utils` and `Tribe__Timezones` classes [115579]
 
 = [4.7.21] 2018-10-03 =
 
