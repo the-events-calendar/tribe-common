@@ -1758,8 +1758,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function
-	where_clause( $where ) {
+	public function where_clause( $where ) {
 		$this->filter_query->where( $where );
 	}
 
