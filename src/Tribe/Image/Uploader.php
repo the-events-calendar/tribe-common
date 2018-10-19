@@ -201,7 +201,7 @@ class Tribe__Image__Uploader {
 	 * Handles errors generated during the use of `file_get_contents` to
 	 * make them run-time exceptions.
 	 *
-	 * @since TBD
+	 * @since 4.7.22
 	 *
 	 * @param string $unused_error_code The error numeric code.
 	 * @param string $message The error message.
