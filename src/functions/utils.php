@@ -512,3 +512,20 @@ if ( ! function_exists( 'tribe_catch_and_throw' ) ) {
 		throw new RuntimeException( $errstr, $errno );
 	}
 }
+
+if ( ! function_exists( 'tribe_is_regex' ) ) {
+
+	/**
+	 * Checks whether a candidate string is a valid regular expression or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $candidate The candidate string to check, it must include the
+	 *                          regular expression opening and closing tags to validate.
+	 *
+	 * @return bool Whether a candidate string is a valid regular expression or not.
+	 */
+	function tribe_is_regex( $candidate ) {
+		return ! ( @preg_match( $candidate, null ) === false );
+	}
+}
