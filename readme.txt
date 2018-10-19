@@ -5,6 +5,7 @@
 = [4.7.23] TBD =
 
 * Add - date and timezone building and validation methods to the `Tribe__Date_Utils` and `Tribe__Timezones` classes [116356, 115579]
+* Add- the `tribe_is_regex` function [115582]
 
 = [4.7.22] TBD =
 
