@@ -486,3 +486,29 @@ if ( ! function_exists( 'tribe_post_excerpt' ) ) {
 		return wpautop( $excerpt );
 	}
 }
+
+if ( ! function_exists( 'tribe_catch_and_throw' ) ) {
+	/**
+	 * A convenience function used to cast errors to exceptions.
+	 *
+	 * Use in `set_error_handler` calls:
+	 *
+	 *      try{
+	 *          set_error_handler( 'tribe_catch_and_throw' );
+	 *          // ...do something that could generate an error...
+	 *          restore_error_handler();
+	 *      } catch ( RuntimeException $e ) {
+	 *          // Handle the exception.
+	 *      }
+	 *
+	 * @since TBD
+	 *
+	 * @throws RuntimeException The message will be the error message, the code will be the error code.
+	 *
+	 * @see   set_error_handler()
+	 * @see   restore_error_handler()
+	 */
+	function tribe_catch_and_throw( $errno, $errstr ) {
+		throw new RuntimeException( $errstr, $errno );
+	}
+}
