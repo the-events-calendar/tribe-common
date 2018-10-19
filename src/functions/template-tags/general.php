@@ -37,8 +37,9 @@ if ( ! function_exists( 'tribe_update_option' ) ) {
 	 * Set specific key from options array, optionally provide a default return value
 	 *
 	 * @category Events
+	 *
 	 * @param string $optionName Name of the option to retrieve.
-	 * @param string $value      Value to save
+	 * @param mixed  $value      Value to save
 	 *
 	 * @return bool
 	 */
