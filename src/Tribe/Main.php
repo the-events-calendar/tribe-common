@@ -62,8 +62,6 @@ class Tribe__Main {
 	 * which causes fatals if you have an older version of Core/Tickets active along side a new one
 	 */
 	public function __construct( $context = null ) {
-		log_me('construct common');
-		log_me( current_filter());
 		if ( self::$instance ) {
 			return;
 		}
@@ -111,8 +109,6 @@ class Tribe__Main {
 		 *
 		 * @since 4.3
 		 */
-		 log_me('here1');
-		log_me( current_filter());
 		do_action( 'tribe_common_loaded' );
 
 		/**
