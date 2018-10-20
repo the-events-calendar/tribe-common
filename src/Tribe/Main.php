@@ -62,7 +62,8 @@ class Tribe__Main {
 	 * which causes fatals if you have an older version of Core/Tickets active along side a new one
 	 */
 	public function __construct( $context = null ) {
-
+		log_me('construct common');
+		log_me( current_filter());
 		if ( self::$instance ) {
 			return;
 		}
@@ -88,7 +89,6 @@ class Tribe__Main {
 		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
 
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
-		add_action( 'tribe_common_loaded', array( $this, 'tribe_common_asset' ), 1 );
 		add_action( 'tribe_common_loaded', array( $this, 'tribe_common_app_store' ), 10 );
 
 	}
@@ -102,11 +102,17 @@ class Tribe__Main {
 
 		$this->init_autoloading();
 
+		$this->bind_implementations();
+		$this->init_libraries();
+		$this->add_hooks();
+
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
 		 *
 		 * @since 4.3
 		 */
+		 log_me('here1');
+		log_me( current_filter());
 		do_action( 'tribe_common_loaded' );
 
 		/**
@@ -137,19 +143,6 @@ class Tribe__Main {
 		}
 
 		$autoloader->register_autoloader();
-	}
-
-
-	/**
-	 * Load Common Assets
-	 *
-	 * @since TBD
-	 *
-	 */
-	public function tribe_common_asset() {
-		$this->bind_implementations();
-		$this->init_libraries();
-		$this->add_hooks();
 	}
 
 	public function tribe_common_app_store() {
