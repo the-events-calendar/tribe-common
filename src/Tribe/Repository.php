@@ -417,7 +417,7 @@ abstract class Tribe__Repository
 		 *
 		 * @param WP_Query $query
 		 */
-		do_action_ref_array( "{$this->filter_name}_pre_count_posts", array( &$query ) );
+		do_action( "tribe_repository_{$this->filter_name}_pre_count_posts", $query );
 
 		$ids = $query->get_posts();
 
@@ -461,7 +461,7 @@ abstract class Tribe__Repository
 		 * @param WP_Query $query      The query object, the query arguments have not been parsed yet.
 		 * @param          $this       $this This repository instance
 		 */
-		$query_args = apply_filters( "{$this->filter_name}_query_args", $query_args, $query, $this );
+		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
 
 		if ( isset( $query_args['offset'] ) ) {
 			$offset   = absint( $query_args['offset'] );
@@ -519,7 +519,7 @@ abstract class Tribe__Repository
 		 *
 		 * @param WP_Query $query
 		 */
-		do_action_ref_array( "{$this->filter_name}_pre_found_posts", array( &$query ) );
+		do_action( "tribe_repository_{$this->filter_name}_pre_found_posts", $query );
 
 		$query->get_posts();
 
@@ -553,7 +553,7 @@ abstract class Tribe__Repository
 		 *
 		 * @param WP_Query $query
 		 */
-		do_action_ref_array( "{$this->filter_name}_pre_get_posts", array( &$query ) );
+		do_action( "tribe_repository_{$this->filter_name}_pre_get_posts", $query );
 
 		$results = $query->get_posts();
 
