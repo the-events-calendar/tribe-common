@@ -11,6 +11,18 @@ msgstr ""
 "Language: ja_JP\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Plugins_API.php:37
+msgid "Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Php_Version.php:101
+msgid "Starting March 2019, %1$s will no longer work with versions prior to PHP 5.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 5.6 or above."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Php_Version.php:98
+msgid "Starting March 2019, %1$s will no longer support versions prior to PHP 5.6. Your site is currently using PHP version %2$s which will no longer be supported by %1$s. For best results, we recommend using PHP 5.6 or above."
+msgstr ""
+
 #: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
 msgid "Every %d Minutes"
 msgstr "%d 分ごと"
@@ -20,8 +32,8 @@ msgid "Search our support help desk"
 msgstr "当社のサポート ヘルプ デスクを検索"
 
 #: src/Tribe/Plugins_API.php:71
-msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Tickets have QR codes for easy check in at the door."
-msgstr "Event Tickets Plus を使用すると、WooCommerce、Easy Digital Downloads、または当社のビルトイン Tribe Commerce ツールを用いてご自分のイベントのチケットを販売できるようになります。投稿記事やページにチケットを追加したり、%1$sEvents Calendar%2$s に追加してイベント リストからチケットを販売します。カスタム登録フォームの作成、出席者の管理、カスタム収容オプションなど、さまざまな機能を提供します。チケットには、入り口で簡単にチェックインできるようにするための QR コードが付随しています。"
+msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
+msgstr ""
 
 #: src/Tribe/Validate.php:184
 msgid "%s must not be empty"
@@ -75,25 +87,21 @@ msgstr "下記の 3 つのフィールドは、PHP %1$s 関数に使用できる
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr "独自のターム、アーカイブ、および親 REST URL へのリンクのリスト"
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:251
 msgid "Clear Selection."
 msgstr "選択をクリアしてください。"
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:250
 msgid "Select all pages"
 msgstr "すべてのページを選択"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:249
 msgid "All items on this page were selected. "
 msgstr "このページのすべての項目が選択されました。 "
 
 #: src/Tribe/Plugins_API.php:94
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
 msgstr "ユーザーが送信したイベントをご自身のサイトに受け入れましょう! Community Events では、公開されている送信内容を受けたり、アカウント サインオンをリクエストできます。[設定] には、ドラフトとして保存するか自動公開する、カテゴリーとタグを有効化する、ユーザーが自身のイベントを編集/管理できるようにするか、あるいは単に送信するのみにするかを選択するといったオプションが用意されています。何よりも、セットアップが簡単です! アクティベーションし、オプションを構成するだけで、準備完了です。"
-
-#: src/Tribe/Plugins_API.php:37
-msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
-msgstr "ウェブからイベントをインポートしましょう! Event Aggregator は、スケジュール済みまたは Facebook、Meetup、Google カレンダー、および iCalendar から手動でインポートしたイベント、そして CSV および ICS ファイルからのアップロードを簡単に実行できます。また、ビルトイン型の REST API サポートにより、Events Calendar を実行している別のサイトからも直接インポートできます。"
 
 #: src/Tribe/Ajax/Dropdown.php:243
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
@@ -180,7 +188,7 @@ msgstr "ターム名"
 msgid "The WordPress term ID"
 msgstr "WordPress ターム ID"
 
-#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:37
 msgid "The link to the image in the specified size on the site"
 msgstr "サイト上の特殊サイズのイメージへのリンク"
 
@@ -196,27 +204,27 @@ msgstr "特殊サイズのイメージの高さ (ピクセル)"
 msgid "The image width in pixels in the specified size"
 msgstr "特殊サイズのイメージの幅 (ピクセル)"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:45
 msgid "The details about each size available for the image"
 msgstr "イメージに利用可能な各サイズに関する詳細"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:41
 msgid "The image natural height in pixels"
 msgstr "イメージの本来の高さ (ピクセル)"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:36
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:37
 msgid "The image natural width in pixels"
 msgstr "イメージの本来の幅 (ピクセル)"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:32
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:33
 msgid "The image file extension"
 msgstr "イメージ ファイル拡張子"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:28
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:29
 msgid "The image WordPress post ID"
 msgstr "イメージ WordPress 投稿 ID"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:24
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:25
 msgid "The URL to the full size version of the image"
 msgstr "イメージのフルサイズ バージョンへの URL"
 
@@ -296,7 +304,7 @@ msgstr "ネットワーク ライセンス キーを上書きする"
 msgid "License Key Status:"
 msgstr "ライセンス キー ステータス:"
 
-#: src/Tribe/Customizer.php:570
+#: src/Tribe/Customizer.php:643
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr "カスタマイザーの下記のパネルを使用して、カレンダーおよびイベント ページのスタイルを変更します。"
 
@@ -316,11 +324,13 @@ msgstr "インストール済み"
 msgid "Installed Add-Ons"
 msgstr "インストール済みのアドオン"
 
+#: src/Tribe/Admin/Notice/Php_Version.php:60
 #: src/Tribe/Admin/Notice/Plugin_Download.php:92
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr " および "
 
+#: src/Tribe/Admin/Notice/Php_Version.php:59
 #: src/Tribe/Admin/Notice/Plugin_Download.php:91
 msgctxt "separator used in a list of items"
 msgid ", "
@@ -434,63 +444,63 @@ msgstr " (新しいウィンドウで開く)"
 msgid "Renew Your License Now"
 msgstr "今すぐライセンスを更新する"
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:261
 msgid ": Selected 1 row"
 msgstr ": 1 行を選択しました"
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:260
 msgid ": Selected %d rows"
 msgstr ": %d 行を選択しました"
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:255
 msgid "Previous"
 msgstr "前"
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:253
 msgid "All"
 msgstr "すべて"
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:247
 msgid "No matching records found"
 msgstr "一致するレコードが見つかりませんでした"
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:246
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(_MAX_ total エントリーからフィルタリング)"
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:245
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "0 エントリーのうち 0 から 0 を表示しています"
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:244
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "_TOTAL_ エントリーのうち _START_ から _END_ を表示しています"
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:243
 msgid "No data available in table"
 msgstr "テーブルには利用できるデータがありません"
 
-#: src/Tribe/Main.php:241
+#: src/Tribe/Main.php:242
 msgid "Show _MENU_ entries"
 msgstr "_MENU_ エントリーを表示"
 
-#: src/Tribe/Main.php:239
+#: src/Tribe/Main.php:240
 msgid ": activate to sort column descending"
 msgstr ": アクティブ化して降順でカラムを並べ替え"
 
-#: src/Tribe/Main.php:238
+#: src/Tribe/Main.php:239
 msgid ": activate to sort column ascending"
 msgstr ": アクティブ化して昇順でカラムを並べ替え"
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:281
 msgid "Press \"Cmd + C\" to copy"
 msgstr "コピーするには、\"Cmd + C\" を押してください"
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:280
 msgid "System info copied"
 msgstr "システム情報がコピーされました"
 
-#: src/Tribe/Main.php:278 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:279 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "クリップボードにコピーされました"
 
@@ -639,7 +649,7 @@ msgstr "当社サポート ポリシーに関する詳細を読む"
 
 #: src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
-msgstr "すべてのハンドオン サポートは、フォーラム経由で提供されることにご注意ください。電子メールやツイートでのお問い合わせも可能ですが、多くの場合は、フォーラムで対応させていただきます。 "
+msgstr ""
 
 #: src/admin-views/tribe-options-help.php:33
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."
@@ -1963,8 +1973,8 @@ msgid "Botswana"
 msgstr "ボツワナ"
 
 #: src/Tribe/Languages/Locations.php:83
-msgid "Bosnia and Herzegowina"
-msgstr "ボスニア・ヘルツェゴビナ"
+msgid "Bosnia and Herzegovina"
+msgstr ""
 
 #: src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
@@ -2070,7 +2080,7 @@ msgstr "アルバニア"
 msgid "Afghanistan"
 msgstr "アフガニスタン"
 
-#: src/Tribe/View_Helpers.php:50
+#: src/Tribe/View_Helpers.php:51
 msgid "Select a Country:"
 msgstr "国を選択してください:"
 
@@ -2230,7 +2240,7 @@ msgstr "サポートおよびアップデートには、有効なライセンス
 msgid "License Key"
 msgstr "ライセンス キー"
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:248
 msgid "Search:"
 msgstr "検索:"
 
@@ -2242,19 +2252,19 @@ msgstr "設定"
 msgid "Network"
 msgstr "ネットワーク"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:273
 msgid "Done"
 msgstr "完了"
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:272
 msgid "Today"
 msgstr "今日"
 
-#: src/Tribe/Main.php:270
+#: src/Tribe/Main.php:271
 msgid "Prev"
 msgstr "前"
 
-#: src/Tribe/Main.php:253 src/Tribe/Main.php:269
+#: src/Tribe/Main.php:254 src/Tribe/Main.php:270
 msgid "Next"
 msgstr "次"
 
@@ -2271,7 +2281,7 @@ msgstr "ディスプレイ"
 msgid "Licenses"
 msgstr "ライセンス"
 
-#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:569
+#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:642
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
 msgstr "Events Calendar"

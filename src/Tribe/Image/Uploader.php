@@ -66,18 +66,28 @@ class Tribe__Image__Uploader {
 		}
 
 		/*
+		 * Since `file_get_contents` would fail silently we set an explicit
+		 * error handler to catch the content of error.s.
+		 */
+		set_error_handler( array( $this, 'handle_error' ) );
+
+		/*
 		 * Some CDN services will append query arguments to the image URL; removing
 		 * them now has the potential of blocking the image fetching completely so we
 		 * let them be here.
 		 */
 		try {
-			$contents = @file_get_contents( $file_url );
+			$contents = file_get_contents( $file_url );
 		} catch ( Exception $e ) {
 			$message = sprintf( 'Could not upload image file "%s": with message "%s"', $file_url, $e->getMessage() );
 			tribe( 'logger' )->log_error( $message, 'Image Uploader' );
 
+			restore_error_handler();
+
 			return false;
 		}
+
+		restore_error_handler();
 
 		if ( false === $contents ) {
 			$message = sprintf( 'Could not upload image file "%s": failed getting the contents.', $file_url );
@@ -185,5 +195,21 @@ class Tribe__Image__Uploader {
 				self::$original_urls_cache = array();
 			}
 		}
+	}
+
+	/**
+	 * Handles errors generated during the use of `file_get_contents` to
+	 * make them run-time exceptions.
+	 *
+	 * @since 4.7.22
+	 *
+	 * @param string $unused_error_code The error numeric code.
+	 * @param string $message The error message.
+	 *
+	 * @throws RuntimeException To pass the error as an exception to
+	 *                          the handler.
+	 */
+	public function handle_error( $unused_error_code, $message ) {
+		throw new RuntimeException( $message );
 	}
 }
