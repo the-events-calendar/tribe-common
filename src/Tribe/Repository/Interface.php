@@ -181,4 +181,15 @@ interface Tribe__Repository__Interface
 	 * @return array An array containing the post IDs to update.
 	 */
 	public function get_ids();
+
+	/**
+	 * Adds an entry to the repository filter schema.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
+	 *                           calls.
+	 * @param callable $callback The function that should be called to apply this filter.
+	 */
+	public function add_schema_entry( $key, $callback );
 }

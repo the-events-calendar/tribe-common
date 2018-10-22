@@ -365,4 +365,11 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function get_ids() {
 		return $this->decorated->get_ids();
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function add_schema_entry( $key, $callback ) {
+		$this->decorated->add_schema_entry( $key, $callback );
+	}
 }

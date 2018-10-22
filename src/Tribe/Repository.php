@@ -1374,6 +1374,19 @@ abstract class Tribe__Repository
 	}
 
 	/**
+	 * Adds an entry to the repository filter schema.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
+	 *                           calls.
+	 * @param callable $callback The function that should be called to apply this filter.
+	 */
+	public function add_schema_entry( $key, $callback ) {
+		$this->schema[ $key ] = $callback;
+	}
+
+	/**
 	 * Returns modified query arguments after applying a default filter.
 	 *
 	 * @since 4.7.19
