@@ -14,6 +14,15 @@ interface Tribe__Repository__Interface
 	const PERMISSION_READABLE = 'readable';
 
 	/**
+	 * Sets up the method schema for a repository.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function setup_schema();
+
+	/**
 	 * Returns the current default query arguments of the repository.
 	 *
 	 * @since 4.7.19
