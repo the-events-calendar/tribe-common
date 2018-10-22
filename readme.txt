@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [4.7.23] TBD =
+
+
 = [4.7.22] 2018-10-22 =
 
 * Fix - Update `Tribe__Admin__Help_Page::is_current_page()` to return true when viewing the help page from the network settings [109563]
