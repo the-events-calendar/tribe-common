@@ -6,13 +6,23 @@ abstract class Tribe__Abstract_Plugin_Register {
 	protected $base_dir;
 	protected $main_class;
 	protected $version;
-	protected $dependencies = [];
+	protected $dependencies = array(
+		'parent_dependencies' => array(),
+		'co_dependencies' => array(),
+		'addon_dependencies' => array(),
+	);
 
 	/**
 	 * Registers a plugin with dependencies
 	 */
 	public function register_plugin() {
-		return tribe_register_plugin( $this->base_dir, $this->main_class, $this->version, $this->dependencies );
+		return tribe_register_plugin(
+			$this->base_dir,
+			$this->main_class,
+			$this->version,
+			array(),
+			$this->dependencies
+		);
 	}
 
 	/**

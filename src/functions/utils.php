@@ -37,26 +37,38 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	 *
 	 * @return bool Indicates if plugin should continue initialization
 	 */
-	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array() ) {
+	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
+		$tribe_dependency = Tribe__Dependency::instance();
+
+		//adds registered plugins
+		$tribe_dependency->add_registered_plugin( $main_class, $version, $file_path, $dependencies );
+
+	}
+}
+
+if ( ! function_exists( 'tribe_check_plugin' ) ) {
+	function tribe_check_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
 		$tribe_dependency = Tribe__Dependency::instance();
 		$should_plugin_run = true;
 
-		// Checks to see if the plugins are active
-		if ( ! empty( $classes_req ) && ! $tribe_dependency->has_requisite_plugins( $classes_req ) ) {
+		// Checks to see if the plugins are active if only a class is provided
+		if ( empty( $dependencies ) && ! empty( $classes_req ) && ! $this->has_requisite_plugins( $classes_req ) ) {
 			$should_plugin_run = false;
 
 			$tribe_plugins = new Tribe__Plugins();
 			$admin_notice  = new Tribe__Admin__Notice__Plugin_Download( $file_path );
 
-			foreach ( $classes_req as $class => $version ) {
+			foreach ( $classes_req as $class => $required_version ) {
 				$plugin    = $tribe_plugins->get_plugin_by_class( $class );
-				$is_active = $tribe_dependency->is_plugin_version( $class, $version );
+				$is_active = $this->is_plugin_version( $class, $required_version );
 				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active );
 			}
+
+			return $should_plugin_run;
 		}
 
 		if ( $should_plugin_run ) {
-			$tribe_dependency->add_active_plugin( $main_class, $version, $file_path );
+			$tribe_dependency->add_active_plugin( $main_class, $version, $file_path, $classes_req );
 		}
 
 		return $should_plugin_run;

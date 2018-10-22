@@ -19,6 +19,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 */
 		protected $active_plugins = array();
 
+		protected $registered_plugins = array();
+
 		/**
 		 * Static Singleton Holder
 		 *
@@ -39,6 +41,24 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			return self::$instance;
 		}
 
+		/**
+		 * Adds a plugin to the active list
+		 *
+		 * @param string $main_class Main/base class for this plugin
+		 * @param string $version    Version number of plugin
+		 * @param string $path       Path to the main plugin/bootstrap file
+		 */
+		public function add_registered_plugin( $main_class, $version = null, $path = null, $dependencies = null ) {
+
+			$plugin = array(
+				'class'        => $main_class,
+				'version'      => $version,
+				'path'         => $path,
+				'dependencies' => $dependencies,
+			);
+
+			$this->registered_plugins[ $main_class ] = $plugin;
+		}
 
 		/**
 		 * Adds a plugin to the active list
@@ -50,9 +70,9 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		public function add_active_plugin( $main_class, $version = null, $path = null ) {
 
 			$plugin = array(
-				'class'   => $main_class,
-				'version' => $version,
-				'path'    => $path,
+				'class'        => $main_class,
+				'version'      => $version,
+				'path'         => $path,
 			);
 
 			$this->active_plugins[ $main_class ] = $plugin;
@@ -173,6 +193,31 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			}
 
 			return true;
+		}
+
+		/**
+		 * gets all dependencies or single class requirements
+		 * if parent, co, add does not exist use array as is
+		 * if they do exist check each one in turn
+		 *
+		 */
+		public function dependency_checker( $dependencies = array(), $file_path ) {
+
+			if ( empty( $dependencies ) ) {
+				return true;
+			}
+
+			$should_plugin_run = false;
+
+			$tribe_plugins = new Tribe__Plugins();
+			$admin_notice  = new Tribe__Admin__Notice__Plugin_Download( $file_path );
+
+			foreach ( $dependencies as $class => $version ) {
+				$plugin    = $tribe_plugins->get_plugin_by_class( $class );
+				$is_active = $this->is_plugin_version( $class, $version );
+				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active );
+			}
+
 		}
 
 
