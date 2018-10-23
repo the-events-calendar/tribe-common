@@ -815,7 +815,17 @@ abstract class Tribe__Repository
 		 */
 		$args_without_key = array_splice( $call_args, 1 );
 
-		return call_user_func_array( $application, $args_without_key );
+		$schema_entry = call_user_func_array( $application, $args_without_key );
+
+		/**
+		 * Filters the applied modifier schema entry response.
+		 *
+		 * @param mixed             $schema_entry A scalar value or a callable.
+		 * @param Tribe__Repository $this         This repository instance
+		 *
+		 * @since TBD
+		 */
+		return apply_filters( "tribe_repository_{$this->filter_name}_apply_modifier_schema_entry", $schema_entry, $this );
 	}
 
 	/**
