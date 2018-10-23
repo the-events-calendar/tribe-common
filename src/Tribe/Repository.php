@@ -311,6 +311,15 @@ abstract class Tribe__Repository
 		$this->default_args = array_merge( array( 'posts_per_page' => - 1 ), $this->default_args );
 		$post_types         = (array) Tribe__Utils__Array::get( $this->default_args, 'post_type', array() );
 		$this->taxonomies   = get_taxonomies( array( 'object_type' => $post_types ), 'names' );
+
+		/**
+		 * Allow plugins to init their classes and setup hooks at the initial setup of a repository.
+		 *
+		 * @param Tribe__Repository $this This repository instance
+		 *
+		 * @since TBD
+		 */
+		do_action( "tribe_repository_{$this->filter_name}_init", $this );
 	}
 
 	/**
@@ -417,7 +426,7 @@ abstract class Tribe__Repository
 		 *
 		 * @param WP_Query $query
 		 */
-		do_action_ref_array( "{$this->filter_name}_pre_count_posts", array( &$query ) );
+		do_action( "tribe_repository_{$this->filter_name}_pre_count_posts", $query );
 
 		$ids = $query->get_posts();
 
@@ -461,7 +470,7 @@ abstract class Tribe__Repository
 		 * @param WP_Query $query      The query object, the query arguments have not been parsed yet.
 		 * @param          $this       $this This repository instance
 		 */
-		$query_args = apply_filters( "{$this->filter_name}_query_args", $query_args, $query, $this );
+		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
 
 		if ( isset( $query_args['offset'] ) ) {
 			$offset   = absint( $query_args['offset'] );
@@ -519,7 +528,7 @@ abstract class Tribe__Repository
 		 *
 		 * @param WP_Query $query
 		 */
-		do_action_ref_array( "{$this->filter_name}_pre_found_posts", array( &$query ) );
+		do_action( "tribe_repository_{$this->filter_name}_pre_found_posts", $query );
 
 		$query->get_posts();
 
@@ -553,7 +562,7 @@ abstract class Tribe__Repository
 		 *
 		 * @param WP_Query $query
 		 */
-		do_action_ref_array( "{$this->filter_name}_pre_get_posts", array( &$query ) );
+		do_action( "tribe_repository_{$this->filter_name}_pre_get_posts", $query );
 
 		$results = $query->get_posts();
 
@@ -806,7 +815,17 @@ abstract class Tribe__Repository
 		 */
 		$args_without_key = array_splice( $call_args, 1 );
 
-		return call_user_func_array( $application, $args_without_key );
+		$schema_entry = call_user_func_array( $application, $args_without_key );
+
+		/**
+		 * Filters the applied modifier schema entry response.
+		 *
+		 * @param mixed             $schema_entry A scalar value or a callable.
+		 * @param Tribe__Repository $this         This repository instance
+		 *
+		 * @since TBD
+		 */
+		return apply_filters( "tribe_repository_{$this->filter_name}_apply_modifier_schema_entry", $schema_entry, $this );
 	}
 
 	/**
@@ -1371,6 +1390,19 @@ abstract class Tribe__Repository
 		$this->where_clause( $fenced );
 
 		return $this;
+	}
+
+	/**
+	 * Adds an entry to the repository filter schema.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
+	 *                           calls.
+	 * @param callable $callback The function that should be called to apply this filter.
+	 */
+	public function add_schema_entry( $key, $callback ) {
+		$this->schema[ $key ] = $callback;
 	}
 
 	/**
