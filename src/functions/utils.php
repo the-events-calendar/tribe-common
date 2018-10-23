@@ -26,52 +26,75 @@ if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 	}
 }
 
+
 if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	/**
 	 * Checks if this plugin has permission to run, if not it notifies the admin
 	 *
-	 * @param string $file_path   Full file path to the base plugin file
-	 * @param string $main_class  The Main/base class for this plugin
-	 * @param string $version     The version
-	 * @param array  $classes_req Any Main class files/tribe plugins required for this to run
+	 * @param string $file_path    Full file path to the base plugin file
+	 * @param string $main_class   The Main/base class for this plugin
+	 * @param string $version      The version
+	 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run
+	 * @param array  $dependencies an array of dependencies to check
 	 *
 	 * @return bool Indicates if plugin should continue initialization
 	 */
 	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
-		$tribe_dependency = Tribe__Dependency::instance();
+		$tribe_dependency  = Tribe__Dependency::instance();
 
-		//adds registered plugins
+		//add all plugins to registered_plugins
 		$tribe_dependency->add_registered_plugin( $main_class, $version, $file_path, $dependencies );
+
+		// Checks to see if the plugins are active for extensions
+		if ( ! empty( $classes_req ) && ! $tribe_dependency->has_requisite_plugins( $classes_req ) ) {
+			$tribe_plugins     = new Tribe__Plugins();
+			$admin_notice      = new Tribe__Admin__Notice__Plugin_Download( $file_path );
+			foreach ( $classes_req as $class => $plugin_version ) {
+				$plugin    = $tribe_plugins->get_plugin_by_class( $class );
+				$is_active = $tribe_dependency->is_plugin_version( $class, $plugin_version );
+				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active );
+			}
+		}
+
+		// only set The Events Calendar and Event Tickets to Active when registering
+		if ( 'Tribe__Events__Main' === $main_class || 'Tribe__Tickets__Main' === $main_class ) {
+			$tribe_dependency->add_active_plugin( $main_class, $version, $file_path );
+		}
 
 	}
 }
 
 if ( ! function_exists( 'tribe_check_plugin' ) ) {
-	function tribe_check_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
-		$tribe_dependency = Tribe__Dependency::instance();
-		$should_plugin_run = true;
+	function tribe_check_plugin( $main_class ) {
+		$tribe_dependency  = Tribe__Dependency::instance();
+		$should_plugin_run = false;
 
-		// Checks to see if the plugins are active if only a class is provided
-		if ( empty( $dependencies ) && ! empty( $classes_req ) && ! $this->has_requisite_plugins( $classes_req ) ) {
-			$should_plugin_run = false;
-
-			$tribe_plugins = new Tribe__Plugins();
-			$admin_notice  = new Tribe__Admin__Notice__Plugin_Download( $file_path );
-
-			foreach ( $classes_req as $class => $required_version ) {
-				$plugin    = $tribe_plugins->get_plugin_by_class( $class );
-				$is_active = $this->is_plugin_version( $class, $required_version );
-				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active );
-			}
-
+		//check if plugin is registered, if not return false
+		$plugin = $tribe_dependency->get_registered_plugin( $main_class );
+		if ( empty( $plugin ) ) {
 			return $should_plugin_run;
 		}
 
-		if ( $should_plugin_run ) {
-			$tribe_dependency->add_active_plugin( $main_class, $version, $file_path, $classes_req );
+		// check parent dependencies in add on
+		if ( ! empty( $plugin['dependencies']['parent_dependencies'] ) ) {
+			$should_plugin_run = $tribe_dependency->dependency_checker( $plugin['dependencies']['parent_dependencies'],  $plugin['path'] );
+		}
+		//check co dependencies in add on
+		if ( ! empty( $plugin['dependencies']['co_dependencies'] ) ) {
+			$should_plugin_run = $tribe_dependency->dependency_checker( $plugin['dependencies']['co_dependencies'],  $plugin['path'] );
 		}
 
-		return $should_plugin_run;
+		//check add-on dependencies from parent
+		if ( ! empty( $plugin['dependencies']['addon_dependencies'] ) ) {
+			$should_plugin_run = $tribe_dependency->dependency_checker( $plugin['dependencies']['addon_dependencies'],  $plugin['path'] );
+		}
+
+		//if good then we set as active plugin and continue to load
+		if ( $should_plugin_run ) {
+			$tribe_dependency->add_active_plugin( $main_class, $plugin['version'], $plugin['path'] );
+
+			return true;
+		}
 	}
 }
 

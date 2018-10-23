@@ -48,6 +48,10 @@ class Tribe__Admin__Notice__Plugin_Download {
 
 		$req_plugins = array();
 
+		if ( empty( $this->plugins_required ) ) {
+			return;
+		}
+
 		foreach ( $this->plugins_required as $req_plugin ) {
 
 			$item = esc_html( $req_plugin['name'] );

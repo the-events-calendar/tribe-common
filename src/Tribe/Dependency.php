@@ -85,7 +85,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return array
 		 */
 		public function get_active_plugins() {
-			$this->add_legacy_plugins();
+			//$this->add_legacy_plugins();
 
 			return $this->active_plugins;
 		}
@@ -196,6 +196,17 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		}
 
 		/**
+		 * Retrieves Registered Plugin by Class Name from Array
+		 *
+		 * @return array
+		 */
+		public function get_registered_plugin( $class ) {
+			$plugins = $this->registered_plugins;
+
+			return isset( $plugins[ $class ] ) ? $plugins[ $class ] : array();
+		}
+
+		/**
 		 * gets all dependencies or single class requirements
 		 * if parent, co, add does not exist use array as is
 		 * if they do exist check each one in turn
@@ -207,17 +218,36 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				return true;
 			}
 
-			$should_plugin_run = false;
+			$failed_dependency = 0;
 
-			$tribe_plugins = new Tribe__Plugins();
 			$admin_notice  = new Tribe__Admin__Notice__Plugin_Download( $file_path );
 
 			foreach ( $dependencies as $class => $version ) {
-				$plugin    = $tribe_plugins->get_plugin_by_class( $class );
+				$dependency_fail = false;
+
+				// if no class
+				$plugin    = $this->get_registered_plugin( $class );
+				if ( empty( $plugin ) ) {
+					// dependency fail
+					$dependency_fail = true;
+				}
+
 				$is_active = $this->is_plugin_version( $class, $version );
-				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active );
+				if ( empty( $is_active ) ) {
+					// dependency fail
+					$dependency_fail = true;
+				}
+
+				if ( $dependency_fail ) {
+					$tribe_plugins     = new Tribe__Plugins();
+					$plugin    = $tribe_plugins->get_plugin_by_class( $class );
+					$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active );
+					$failed_dependency++;
+					continue;
+				}
 			}
 
+			return 0 < $failed_dependency ? false : true;
 		}
 
 
