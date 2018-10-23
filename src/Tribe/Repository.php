@@ -311,6 +311,15 @@ abstract class Tribe__Repository
 		$this->default_args = array_merge( array( 'posts_per_page' => - 1 ), $this->default_args );
 		$post_types         = (array) Tribe__Utils__Array::get( $this->default_args, 'post_type', array() );
 		$this->taxonomies   = get_taxonomies( array( 'object_type' => $post_types ), 'names' );
+
+		/**
+		 * Allow plugins to init their classes and setup hooks at the initial setup of a repository.
+		 *
+		 * @param Tribe__Repository $this This repository instance
+		 *
+		 * @since TBD
+		 */
+		do_action( "tribe_repository_{$this->filter_name}_init", $this );
 	}
 
 	/**
