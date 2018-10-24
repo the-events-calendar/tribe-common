@@ -946,7 +946,7 @@ abstract class Tribe__Repository
 				 */
 				$this->query_modifiers[] = $query_modifier;
 			}
-		} catch ( Tribe__Repository__Void_Query_Exception $e ) {
+		} catch ( Exception $e ) {
 			/**
 			 * We allow for the `apply` method to orderly fail to micro-optimize.
 			 * If applying one parameter would yield no results then let's immediately bail.
