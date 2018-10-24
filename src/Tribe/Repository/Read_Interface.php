@@ -375,4 +375,13 @@ interface Tribe__Repository__Read_Interface {
 	 *              or not.
 	 */
 	public function has_filter( $key, $value = null );
+
+	/**
+	 * What filter the current READ query is currently applying in a specific `by` (or `where`).
+	 *
+	 * @since TBD
+	 *
+	 * @return string|null The current filter being applied.
+	 */
+	public function current_filter();
 }

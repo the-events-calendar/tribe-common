@@ -362,6 +362,13 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
+	public function current_filter() {
+		return $this->decorated->current_filter();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function get_ids() {
 		return $this->decorated->get_ids();
 	}
