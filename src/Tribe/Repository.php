@@ -95,6 +95,10 @@ abstract class Tribe__Repository
 		'meta_equals_regexp',
 		'meta_not_regexp',
 		'meta_not_equals_regexp',
+		'meta_regexp_or_like',
+		'meta_equals_regexp_or_like',
+		'meta_not_regexp_or_like',
+		'meta_not_equals_regexp_or_like',
 		'taxonomy_exists',
 		'taxonomy_not_exists',
 		'term_id_in',
@@ -271,6 +275,10 @@ abstract class Tribe__Repository
 	 * @var array An associative array of the filters that will be applied and the used values.
 	 */
 	protected $current_filters = array();
+	/**
+	 * @var string|null The current filter being applied.
+	 */
+	protected $current_filter;
 	/**
 	 * @var Tribe__Repository__Query_Filters
 	 */
@@ -874,7 +882,13 @@ abstract class Tribe__Repository
 		$this->current_filters[ $key ] = $value;
 
 		try {
+			// Set current filter as which one we are running.
+			$this->current_filter = $key;
+
 			$query_modifier = $this->modify_query( $key, $call_args );
+
+			// Set current filter as no longer active, we aren't running it anymore.
+			$this->current_filter = null;
 
 			/**
 			 * Here we allow the repository to call one of its own methods and return `null`.
@@ -1544,11 +1558,51 @@ abstract class Tribe__Repository
 				break;
 			case 'meta_regexp':
 			case 'meta_equals_regexp':
+				// Check if Regexp is fenced.
+				if ( tribe_is_regex( $arg_1 ) ) {
+					// Unfence the Regexp.
+					$arg_1 = tribe_unfenced_regex( $arg_1 );
+				}
+
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'REGEXP' );
 				break;
 			case 'meta_not_regexp':
 			case 'meta_not_equals_regexp':
+				// Check if Regexp is fenced.
+				if ( tribe_is_regex( $arg_1 ) ) {
+					// Unfence the Regexp.
+					$arg_1 = tribe_unfenced_regex( $arg_1 );
+				}
+
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT REGEXP' );
+				break;
+			case 'meta_regexp_or_like':
+			case 'meta_equals_regexp_or_like':
+				$compare = 'LIKE';
+
+				// Check if Regexp is fenced (the only way for Regexp to be supported in this context).
+				if ( tribe_is_regex( $arg_1 ) ) {
+					$compare = 'REGEXP';
+
+					// Unfence the Regexp.
+					$arg_1 = tribe_unfenced_regex( $arg_1 );
+				}
+
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, $compare );
+				break;
+			case 'meta_not_regexp_or_like':
+			case 'meta_not_equals_regexp_or_like':
+				$compare = 'NOT LIKE';
+
+				// Check if Regexp is fenced (the only way for Regexp to be supported in this context).
+				if ( tribe_is_regex( $arg_1 ) ) {
+					$compare = 'NOT REGEXP';
+
+					// Unfence the Regexp.
+					$arg_1 = tribe_unfenced_regex( $arg_1 );
+				}
+
+				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, $compare );
 				break;
 			case 'taxonomy_exists':
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'EXISTS' );
@@ -2002,5 +2056,12 @@ abstract class Tribe__Repository
 		return null === $value
 			? array_key_exists( $key, $this->current_filters )
 			: array_key_exists( $key, $this->current_filters ) && $this->current_filters[ $key ] == $value;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_current_filter() {
+		return $this->current_filter;
 	}
 }

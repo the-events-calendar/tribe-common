@@ -244,8 +244,8 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 			$post_1,
 			$post_2
 		], $this->repository()->fields( 'ids' )->by( 'meta_greater_than_or_equal', 'number_meta', '1' )->all() );
-		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_like', 'string_meta', 'foo' )->all() );
-		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_like', 'string_meta', 'foo' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_like', 'string_meta', 'fo' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_like', 'string_meta', 'fo' )->all() );
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_lt', 'number_meta', 12 )->all() );
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_less_than', 'number_meta', '12' )->all() );
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_lte', 'number_meta', 1 )->all() );
@@ -269,9 +269,25 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_exists', 'woot' )->all() );
 		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_exists', 'woot' )->all() );
 		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_regexp', 'string_meta', '/^b.*/' )->all() );
 		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_equals_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_equals_regexp', 'string_meta', '/^b.*/' )->all() );
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_regexp', 'string_meta', '/^b.*/' )->all() );
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_equals_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_equals_regexp', 'string_meta', '/^b.*/' )->all() );
+
+		// Test regexp with regexp_or_like
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_regexp_or_like', 'string_meta', '/^b.*/' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_equals_regexp_or_like', 'string_meta', '/^b.*/' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_regexp_or_like', 'string_meta', '/^b.*/' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_equals_regexp_or_like', 'string_meta', '/^b.*/' )->all() );
+
+		// Test regexp with not_regexp_or_like
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_regexp_or_like', 'string_meta', 'fo' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_equals_regexp_or_like', 'string_meta', 'fo' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_regexp_or_like', 'string_meta', 'fo' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_equals_regexp_or_like', 'string_meta', 'fo' )->all() );
 	}
 
 	/**
