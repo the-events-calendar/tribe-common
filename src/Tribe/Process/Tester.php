@@ -88,7 +88,6 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 * @since TBD
 	 */
 	protected function handle() {
-		error_log( 'Handling' );
 		set_transient( $this->transient_name, 1, HOUR_IN_SECONDS );
 	}
 

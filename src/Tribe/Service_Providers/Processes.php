@@ -109,7 +109,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 			 *
 			 * @param array $queues An array of class names, each extending the `Tribe__Process__Queue` base class.
 			 */
-			$queues =  array_unique( apply_filters( 'tribe_process_queues', $queues ) );
+			$queues = array_unique( apply_filters( 'tribe_process_queues', $queues ) );
 
 			$all_queues_actions = array_combine(
 				$queues,
@@ -250,7 +250,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 			if ( ! is_array( $time ) ) {
 				continue;
 			}
-			foreach ( $time as $hook => $entry) {
+			foreach ( $time as $hook => $entry ) {
 				foreach ( $needles as $needle ) {
 					if ( false !== strpos( $hook, $needle ) ) {
 						$matching[] = $hook;

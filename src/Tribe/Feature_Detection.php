@@ -71,6 +71,9 @@ class Tribe__Feature_Detection {
 				$supports_async_process = (bool) get_transient( $tester->get_canary_transient() );
 			}
 
+			// Remove it not to spoof future checks.
+			delete_transient( $tester->get_canary_transient() );
+
 			$cached['supports_async_process'] = $supports_async_process;
 
 			set_transient( self::$transient, $cached, WEEK_IN_SECONDS );
