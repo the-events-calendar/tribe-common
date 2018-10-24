@@ -2059,7 +2059,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function current_filter() {
+	public function get_current_filter() {
 		return $this->current_filter;
 	}
 }

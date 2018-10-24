@@ -362,8 +362,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function current_filter() {
-		return $this->decorated->current_filter();
+	public function get_current_filter() {
+		return $this->decorated->get_current_filter();
 	}
 
 	/**

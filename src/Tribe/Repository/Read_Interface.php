@@ -383,5 +383,5 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @return string|null The current filter being applied.
 	 */
-	public function current_filter();
+	public function get_current_filter();
 }
