@@ -1397,12 +1397,14 @@ abstract class Tribe__Repository
 	 * @see Tribe__Repository__Query_Filters::where()
 	 */
 	public function where_or( $callbacks ) {
-		$callbacks = func_get_args();
-		$buffered       = $this->filter_query->get_buffered_where_clauses( true );
+		$all_callbacks = func_get_args();
+		$buffered      = $this->filter_query->get_buffered_where_clauses( true );
+
 		$this->filter_query->buffer_where_clauses( true );
+
 		$buffered_count = count( $buffered );
 
-		foreach ( $callbacks as $c ) {
+		foreach ( $all_callbacks as $c ) {
 			call_user_func_array( array( $this, $c[0] ), array_slice( $c, 1 ) );
 
 			if ( $buffered_count === count( $this->filter_query->get_buffered_where_clauses() ) ) {
@@ -1412,7 +1414,7 @@ abstract class Tribe__Repository
 			$buffered_count ++;
 		}
 
-		$buffered       = $this->filter_query->get_buffered_where_clauses( true );
+		$buffered = $this->filter_query->get_buffered_where_clauses( true );
 
 		$fenced = sprintf( '( %s )', implode( ' OR ', $buffered ) );
 
