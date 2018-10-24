@@ -1557,9 +1557,9 @@ abstract class Tribe__Repository
 			case 'meta_regexp':
 			case 'meta_equals_regexp':
 				// Check if Regexp is fenced.
-				if ( tribe_is_regex( $value ) ) {
+				if ( tribe_is_regex( $arg_1 ) ) {
 					// Unfence the Regexp.
-					$value = tribe_unfenced_regex( $value );
+					$arg_1 = tribe_unfenced_regex( $arg_1 );
 				}
 
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'REGEXP' );
@@ -1567,9 +1567,9 @@ abstract class Tribe__Repository
 			case 'meta_not_regexp':
 			case 'meta_not_equals_regexp':
 				// Check if Regexp is fenced.
-				if ( tribe_is_regex( $value ) ) {
+				if ( tribe_is_regex( $arg_1 ) ) {
 					// Unfence the Regexp.
-					$value = tribe_unfenced_regex( $value );
+					$arg_1 = tribe_unfenced_regex( $arg_1 );
 				}
 
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, 'NOT REGEXP' );
@@ -1579,11 +1579,11 @@ abstract class Tribe__Repository
 				$compare = 'LIKE';
 
 				// Check if Regexp is fenced (the only way for Regexp to be supported in this context).
-				if ( tribe_is_regex( $value ) ) {
+				if ( tribe_is_regex( $arg_1 ) ) {
 					$compare = 'REGEXP';
 
 					// Unfence the Regexp.
-					$value = tribe_unfenced_regex( $value );
+					$arg_1 = tribe_unfenced_regex( $arg_1 );
 				}
 
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, $compare );
@@ -1593,11 +1593,11 @@ abstract class Tribe__Repository
 				$compare = 'NOT LIKE';
 
 				// Check if Regexp is fenced (the only way for Regexp to be supported in this context).
-				if ( tribe_is_regex( $value ) ) {
+				if ( tribe_is_regex( $arg_1 ) ) {
 					$compare = 'NOT REGEXP';
 
 					// Unfence the Regexp.
-					$value = tribe_unfenced_regex( $value );
+					$arg_1 = tribe_unfenced_regex( $arg_1 );
 				}
 
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, $compare );
