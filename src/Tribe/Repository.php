@@ -882,10 +882,12 @@ abstract class Tribe__Repository
 		$this->current_filters[ $key ] = $value;
 
 		try {
+			// Set current filter as which one we are running.
 			$this->current_filter = $key;
 
 			$query_modifier = $this->modify_query( $key, $call_args );
 
+			// Set current filter as no longer active, we aren't running it anymore.
 			$this->current_filter = null;
 
 			/**
