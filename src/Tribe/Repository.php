@@ -1566,7 +1566,7 @@ abstract class Tribe__Repository
 			case 'meta_equals_regexp_or_like':
 				$compare = 'LIKE';
 
-				if ( tribe_is_regex( $value ) ) {
+				if ( tribe_is_regex( '/' . str_replace( '/', '\/', $value ) . '/' ) ) {
 					$compare = 'REGEXP';
 				}
 
@@ -1576,7 +1576,7 @@ abstract class Tribe__Repository
 			case 'meta_not_equals_regexp_or_like':
 				$compare = 'NOT LIKE';
 
-				if ( tribe_is_regex( $value ) ) {
+				if ( tribe_is_regex( '/' . str_replace( '/', '\/', $value ) . '/' ) ) {
 					$compare = 'NOT REGEXP';
 				}
 
