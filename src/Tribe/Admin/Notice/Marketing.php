@@ -26,7 +26,7 @@ class Tribe__Admin__Notice__Marketing {
 			array(
 				'type'    => 'warning',
 				'dismiss' => 1,
-				'wrap'    => 'p',
+				'wrap'    => false,
 			),
 			array( $this, 'bf_2018_should_display' )
 		);
@@ -40,7 +40,13 @@ class Tribe__Admin__Notice__Marketing {
 	 * @return boolean
 	 */
 	public function bf_2018_should_display() {
-		return true;
+
+		// Unix times for Nov 20 2018 @ 6am UTC and Nov 26 2018 @ 6am UTC.
+		// 6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone.
+		$bf_sale_start_unix = 1542693600;
+		$bf_sale_end_unix   = 1543212000;
+
+		return $bf_sale_start_unix < time() && time() < $bf_sale_end_unix;
 	}
 
 	/**
@@ -52,6 +58,19 @@ class Tribe__Admin__Notice__Marketing {
 	 */
 	public function bf_2018_display_notice() {
 
-		return sprintf( 'Hey now this is the marketing notice!' );
+		$mascot = esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/mascot.png' );
+
+		ob_start(); ?>
+			<div class="tribe-marketing-notice">
+				<div class="tribe-notice-icon">
+					<img src="<?php echo esc_url( $mascot ); ?>" />
+				</div>
+				<div class="tribe-notice-content">
+					<p>Hey now this is the marketing notice!
+				</div>
+			</div>
+		<?php
+
+		return ob_get_clean();
 	}
 }

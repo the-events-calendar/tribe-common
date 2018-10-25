@@ -5,6 +5,7 @@
 = [4.7.23] TBD =
 
 * New - Added `Tribe__Admin__Notice__Marketing` class for bespoke Marketing admin notices [114903]
+* New - Added `TRIBE_HIDE_MARKETING_NOTICES` constant that, if defined to `true` in your site's `wp-config.php` file, will hide Marketing admin notices [114903]
 
 = [4.7.22] 2018-10-22 =
 
