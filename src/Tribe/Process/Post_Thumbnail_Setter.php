@@ -83,7 +83,6 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 	 */
 	protected function handle() {
 		$this->sync_handle();
-
 	}
 
 	/**
