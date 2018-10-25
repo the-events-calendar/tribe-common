@@ -1,6 +1,12 @@
 <?php
 /**
  * Various Marketing notices, e.g. Black Friday sales or special coupon initiatives.
+ *
+ * @todo Get image to use in notice
+ * @todo Get TEC-only message
+ * @todo Get TEC & ET message
+ * @todo Finalize message display and image styles
+ * @todo Figure out how to QA this
  */
 class Tribe__Admin__Notice__Marketing {
 
