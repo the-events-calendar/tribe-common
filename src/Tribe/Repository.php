@@ -292,6 +292,10 @@ abstract class Tribe__Repository
 	 */
 	protected $schema = array();
 	/**
+	 * @var array A map of schema slugs and their meta keys to be queried.
+	 */
+	protected $simple_meta_schema = array();
+	/**
 	 * @var Tribe__Repository__Interface
 	 */
 	protected $main_repository;
@@ -869,6 +873,27 @@ abstract class Tribe__Repository
 	}
 
 	/**
+	 * Filters posts by simple meta schema value.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value Meta value.
+	 */
+	public function filter_by_simple_meta_schema( $value ) {
+		$filter = $this->get_current_filter();
+
+		if ( ! array_key_exists( $filter, $this->simple_meta_schema ) ) {
+			return;
+		}
+
+		$simple_meta = $this->simple_meta_schema[ $filter ];
+
+		$by = Tribe__Utils__Array::get( $simple_meta, 'by', 'meta_regexp_or_like' );
+
+		$this->by( $by, $simple_meta['meta_key'], $value );
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function by( $key, $value ) {
@@ -946,7 +971,7 @@ abstract class Tribe__Repository
 				 */
 				$this->query_modifiers[] = $query_modifier;
 			}
-		} catch ( Tribe__Repository__Void_Query_Exception $e ) {
+		} catch ( Exception $e ) {
 			/**
 			 * We allow for the `apply` method to orderly fail to micro-optimize.
 			 * If applying one parameter would yield no results then let's immediately bail.
@@ -1397,12 +1422,14 @@ abstract class Tribe__Repository
 	 * @see Tribe__Repository__Query_Filters::where()
 	 */
 	public function where_or( $callbacks ) {
-		$callbacks = func_get_args();
-		$buffered       = $this->filter_query->get_buffered_where_clauses( true );
+		$all_callbacks = func_get_args();
+		$buffered      = $this->filter_query->get_buffered_where_clauses( true );
+
 		$this->filter_query->buffer_where_clauses( true );
+
 		$buffered_count = count( $buffered );
 
-		foreach ( $callbacks as $c ) {
+		foreach ( $all_callbacks as $c ) {
 			call_user_func_array( array( $this, $c[0] ), array_slice( $c, 1 ) );
 
 			if ( $buffered_count === count( $this->filter_query->get_buffered_where_clauses() ) ) {
@@ -1412,7 +1439,7 @@ abstract class Tribe__Repository
 			$buffered_count ++;
 		}
 
-		$buffered       = $this->filter_query->get_buffered_where_clauses( true );
+		$buffered = $this->filter_query->get_buffered_where_clauses( true );
 
 		$fenced = sprintf( '( %s )', implode( ' OR ', $buffered ) );
 
@@ -1432,6 +1459,24 @@ abstract class Tribe__Repository
 	 */
 	public function add_schema_entry( $key, $callback ) {
 		$this->schema[ $key ] = $callback;
+	}
+
+	/**
+	 * Adds an entry to the repository filter schema.
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
+	 * @param string      $meta_key The meta key to use for the meta lookup.
+	 * @param string|null $by       The ->by() lookup to use (defaults to meta_regexp_or_like).
+	 */
+	public function add_simple_meta_schema_entry( $key, $meta_key, $by = null ) {
+		$this->schema[ $key ] = array( $this, 'filter_by_simple_meta_schema' );
+
+		$this->simple_meta_schema[ $key ] = array(
+			'meta_key' => $meta_key,
+			'by'       => $by,
+		);
 	}
 
 	/**
