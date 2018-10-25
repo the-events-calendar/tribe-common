@@ -71,7 +71,8 @@ interface Tribe__Repository__Read_Interface {
 	 * Sets the number of posts to retrieve per page.
 	 *
 	 * Mind that this implementation does not support a `by( 'per_page', 5 )`
-	 * filter to force more readable code; by default posts per page is `-1`.
+	 * filter to force more readable code; by default posts per page is set to
+	 * the pagination defaults for the post type.
 	 *
 	 * @param int $per_page
 	 *
