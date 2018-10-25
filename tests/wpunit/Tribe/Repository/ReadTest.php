@@ -327,11 +327,11 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 
 		// Test simple meta schema equals (meta).
 		$repository = $this->repository();
-		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta', 'meta' );
 		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_meta_schema', 'foo' )->all() );
 
 		$repository = $this->repository();
-		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta', 'meta' );
 		$this->assertEquals( [], $repository->fields( 'ids' )->by( 'test_meta_schema', 'fo' )->all() );
 	}
 
