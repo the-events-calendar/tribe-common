@@ -28,11 +28,20 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	protected $queue_actions;
 
 	/**
+	 * An instance of the context abstraction layer.
+	 *
+	 * @var Tribe__Context
+	 */
+	protected $context;
+
+	/**
 	 * Hooks the filters and binds the implementations needed to handle processes.
 	 */
 	public function register() {
+		$this->context = tribe( 'context' );
+
 		// If the context of this request is neither AJAX or Cron bail.
-		if ( ! ( tribe( 'context' )->doing_ajax() || tribe( 'context' )->doing_cron() ) ) {
+		if ( ! $this->context->doing_ajax() || $this->context->doing_cron() ) {
 			return;
 		}
 
@@ -163,7 +172,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	 */
 	protected function dispatch_async() {
 		if ( ! (
-			tribe( 'context' )->doing_ajax()
+			$this->context->doing_ajax()
 			&& false !== $action = tribe_get_request_var( 'action', false )
 		) ) {
 			return;
@@ -179,7 +188,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	protected function dispatch_cron() {
-		if ( ! tribe( 'context' )->doing_cron() ) {
+		if ( ! $this->context->doing_cron() ) {
 			return;
 		}
 
