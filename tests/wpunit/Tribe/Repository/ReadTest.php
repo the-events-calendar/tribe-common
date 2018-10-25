@@ -317,12 +317,22 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		] );
 
 		// Test simple meta schema LIKE or REGEXP (meta_regexp_or_like).
-		$this->assertEquals( [ $post_2 ], $this->repository()->add_simple_meta_schema_entry( 'test_schema', 'string_meta' )->fields( 'ids' )->by( 'test_schema', '/^b.*/' )->all() );
-		$this->assertEquals( [ $post_1 ], $this->repository()->add_simple_meta_schema_entry( 'test_schema', 'string_meta' )->fields( 'ids' )->by( 'test_schema', 'fo' )->all() );
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_regexp_or_like_schema', 'string_meta' );
+		$this->assertEquals( [ $post_2 ], $repository->fields( 'ids' )->by( 'test_meta_regexp_or_like_schema', '/^b.*/' )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_regexp_or_like_schema', 'string_meta' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_meta_regexp_or_like_schema', 'fo' )->all() );
 
 		// Test simple meta schema equals (meta).
-		$this->assertEquals( [ $post_1 ], $this->repository()->add_simple_meta_schema_entry( 'test_schema', 'string_meta', 'meta' )->fields( 'ids' )->by( 'test_schema', 'foo' )->all() );
-		$this->assertEquals( [], $this->repository()->add_simple_meta_schema_entry( 'test_schema', 'string_meta', 'meta' )->fields( 'ids' )->by( 'test_schema', 'fo' )->all() );
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_schema', 'foo' )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$this->assertEquals( [], $repository->fields( 'ids' )->by( 'test_schema', 'fo' )->all() );
 	}
 
 	/**
