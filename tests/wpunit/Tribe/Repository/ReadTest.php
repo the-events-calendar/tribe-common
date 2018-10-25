@@ -291,6 +291,41 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should allow getting posts by simple meta schemas
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_posts_by_simple_meta_schemas() {
+		$post_1 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'meta_input' => [
+				'common'        => 'common_1',
+				'number_meta'   => '1',
+				'string_meta'   => 'foo',
+				'interval_meta' => 'foo',
+				'woot'          => 'zap',
+			]
+		] );
+		$post_2 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'meta_input' => [
+				'common'        => 'common_2',
+				'number_meta'   => '23',
+				'string_meta'   => 'bar',
+				'interval_meta' => 'bar',
+			]
+		] );
+
+		// Test simple meta schema LIKE or REGEXP (meta_regexp_or_like).
+		$this->assertEquals( [ $post_2 ], $this->repository()->add_simple_meta_schema_entry( 'test_schema', 'string_meta' )->fields( 'ids' )->by( 'test_schema', '/^b.*/' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->add_simple_meta_schema_entry( 'test_schema', 'string_meta' )->fields( 'ids' )->by( 'test_schema', 'fo' )->all() );
+
+		// Test simple meta schema equals (meta).
+		$this->assertEquals( [ $post_1 ], $this->repository()->add_simple_meta_schema_entry( 'test_schema', 'string_meta', 'meta' )->fields( 'ids' )->by( 'test_schema', 'foo' )->all() );
+		$this->assertEquals( [], $this->repository()->add_simple_meta_schema_entry( 'test_schema', 'string_meta', 'meta' )->fields( 'ids' )->by( 'test_schema', 'fo' )->all() );
+	}
+
+	/**
 	 * It should allow getting posts by taxonomy terms
 	 *
 	 * @test
