@@ -28,7 +28,7 @@ class Tribe__Admin__Notice__Marketing {
 				'dismiss' => 1,
 				'wrap'    => 'p',
 			),
-			array( $this, 'should_display' )
+			array( $this, 'bf_2018_should_display' )
 		);
 	}
 
@@ -40,8 +40,6 @@ class Tribe__Admin__Notice__Marketing {
 	 * @return boolean
 	 */
 	public function bf_2018_should_display() {
-
-
 		return true;
 	}
 

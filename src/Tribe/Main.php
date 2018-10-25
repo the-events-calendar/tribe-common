@@ -496,6 +496,8 @@ class Tribe__Main {
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 		tribe( 'admin.notice.php.version' );
+		tribe( 'admin.notice.marketing' );
+
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
 		 *
