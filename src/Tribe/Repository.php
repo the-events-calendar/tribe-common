@@ -113,6 +113,7 @@ abstract class Tribe__Repository
 		'term_slug_and',
 		'term_in',
 		'term_not_in',
+		'term_and',
 	);
 
 	/**
@@ -1602,9 +1603,11 @@ abstract class Tribe__Repository
 				break;
 			case 'menu_order':
 				$this->filter_query->to_get_posts_with_menu_order( $value );
+				$args = array( 'menu_order' => $value );
 				break;
 			case 'menu_order_not':
 				$this->filter_query->to_get_posts_not_with_menu_order( $value );
+				$args = array( 'menu_order' => $value );
 				break;
 			case 'meta':
 			case 'meta_equals':
