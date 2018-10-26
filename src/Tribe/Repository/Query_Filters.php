@@ -589,7 +589,7 @@ class Tribe__Repository__Query_Filters {
 	 * @return string
 	 */
 	public function filter_by_menu_order( $where, WP_Query $query ) {
-		return $this->where_field_is( $where, $query, 'menu_order' );
+		return $this->where_field_is( $where, $query, 'menu_order', '%d' );
 	}
 
 	/**
@@ -602,8 +602,8 @@ class Tribe__Repository__Query_Filters {
 	public function to_get_posts_not_with_menu_order( $value ) {
 		$this->query_vars['menu_order'] = $value;
 
-		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_not_menu_order' ) ) ) {
-			add_filter( 'posts_where', array( $this, 'filter_by_not_menu_order' ), 10, 2 );
+		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_menu_order_not' ) ) ) {
+			add_filter( 'posts_where', array( $this, 'filter_by_menu_order_not' ), 10, 2 );
 		}
 	}
 
@@ -618,8 +618,8 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @return string
 	 */
-	public function filter_by_not_menu_order( $where, WP_Query $query ) {
-		return $this->where_field_is( $where, $query, 'menu_order' );
+	public function filter_by_menu_order_not( $where, WP_Query $query ) {
+		return $this->where_field_is_not( $where, $query, 'menu_order', '%d' );
 	}
 
 	/**
@@ -630,10 +630,11 @@ class Tribe__Repository__Query_Filters {
 	 * @param string   $where
 	 * @param WP_Query $query
 	 * @param string   $field
+	 * @param string   $prepare
 	 *
 	 * @return string
 	 */
-	protected function where_field_is( $where, WP_Query $query, $field ) {
+	protected function where_field_is( $where, WP_Query $query, $field, $prepare = '%s' ) {
 		if ( $query !== $this->current_query ) {
 			return $where;
 		}
@@ -646,7 +647,7 @@ class Tribe__Repository__Query_Filters {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} = %s ", $this->query_vars[ $field ] );
+		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} = {$prepare} ", $this->query_vars[ $field ] );
 
 		return $where;
 	}
@@ -659,10 +660,11 @@ class Tribe__Repository__Query_Filters {
 	 * @param string   $where
 	 * @param WP_Query $query
 	 * @param string   $field
+	 * @param string   $prepare
 	 *
 	 * @return string
 	 */
-	protected function where_field_is_not( $where, WP_Query $query, $field ) {
+	protected function where_field_is_not( $where, WP_Query $query, $field, $prepare = '%s' ) {
 		if ( $query !== $this->current_query ) {
 			return $where;
 		}
@@ -675,7 +677,7 @@ class Tribe__Repository__Query_Filters {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} != %s ", $this->query_vars[ $field ] );
+		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} != {$prepare} ", $this->query_vars[ $field ] );
 
 		return $where;
 	}

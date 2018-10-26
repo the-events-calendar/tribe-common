@@ -33,7 +33,6 @@ abstract class Tribe__Repository
 		'category_name',
 		'comment_count',
 		'comment_status',
-		'menu_order',
 		'title',
 		'title_like',
 		'name',
