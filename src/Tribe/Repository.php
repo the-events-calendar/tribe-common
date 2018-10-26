@@ -294,14 +294,17 @@ abstract class Tribe__Repository
 	 * @var array A map of callbacks in the shape [ <slug> => <callback|primitive> ]
 	 */
 	protected $schema = array();
+
 	/**
 	 * @var array A map of schema slugs and their meta keys to be queried.
 	 */
 	protected $simple_meta_schema = array();
+
 	/**
 	 * @var array A map of schema slugs and their taxonomies to be queried.
 	 */
 	protected $simple_tax_schema = array();
+
 	/**
 	 * @var Tribe__Repository__Interface
 	 */
