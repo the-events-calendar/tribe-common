@@ -448,9 +448,6 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( [ $post_1, $post_4 ], $this->repository()->fields( 'ids' )->by( 'menu_order', 0 )->all() );
 		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'menu_order', 1 )->all() );
-
-		$this->assertEquals( [ $post_2, $post_3 ], $this->repository()->fields( 'ids' )->by( 'menu_order_not', 0 )->all() );
-		$this->assertEquals( [ $post_1, $post_3, $post_4 ], $this->repository()->fields( 'ids' )->by( 'menu_order_not', 1 )->all() );
 	}
 
 	/**
