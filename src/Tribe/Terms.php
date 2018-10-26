@@ -23,7 +23,7 @@ class Tribe__Terms {
 			}
 
 			if ( $term instanceof WP_Term ) {
-				$term_info = $term;
+				$term_info = $term->to_array();
 			} elseif ( is_numeric( $term ) ) {
 				$term = absint( $term );
 				$term_info = get_term( $term, $taxonomy, ARRAY_A );
