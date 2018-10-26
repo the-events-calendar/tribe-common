@@ -379,4 +379,11 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function add_schema_entry( $key, $callback ) {
 		$this->decorated->add_schema_entry( $key, $callback );
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function prepare_interval( $values, $format = '%s' ) {
+		return $this->decorated->prepare_interval( $values, $format );
+	}
 }
