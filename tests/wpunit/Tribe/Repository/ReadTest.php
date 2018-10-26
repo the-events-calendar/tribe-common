@@ -341,6 +341,9 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_posts_by_simple_tax_schemas() {
+		// needed to assign terms
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
 		$tax = 'genre';
 
 		$fiction     = $this->factory()->term->create( [
