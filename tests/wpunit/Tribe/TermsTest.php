@@ -156,4 +156,20 @@ class TermsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertContains( $foo, $created );
 		$this->assertContains( $bar, $created );
 	}
+
+	/**
+	 * Test translate_terms_to_ids handles WP_Term objects
+	 *
+	 * @test
+	 */
+	public function test_translate_terms_to_ids_handles_wp_term_objects() {
+		$foo = $this->factory()->term->create( [ 'slug' => 'foo', 'taxonomy' => 'post_tag' ] );
+		$bar = $this->factory()->term->create( [ 'slug' => 'bar', 'taxonomy' => 'post_tag' ] );
+
+		$term_ids = Terms::translate_terms_to_ids( [ get_term( $foo ), get_term( $bar ) ], 'post_tag', false );
+
+		$this->assertCount( 2, $term_ids );
+		$this->assertContains( $foo, $term_ids );
+		$this->assertContains( $bar, $term_ids );
+	}
 }
