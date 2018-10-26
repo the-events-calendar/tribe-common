@@ -378,8 +378,9 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		] );
 		$post_4      = $this->factory()->post->create( [ 'post_type' => 'book' ] );
 
-		$term_fiction = get_term( $fiction );
-		$term_history = get_term( $history );
+		$term_fiction     = get_term( $fiction );
+		$term_history     = get_term( $history );
+		$term_non_fiction = get_term( $non_fiction );
 
 		// Test simple tax schema (term_in).
 
@@ -424,6 +425,16 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$repository = $this->repository();
 		$repository->add_simple_tax_schema_entry( 'test_tax_term_not_in_schema', $tax, 'term_not_in' );
 		$this->assertEquals( [ $post_3, $post_4 ], $repository->fields( 'ids' )->by( 'test_tax_term_not_in_schema', [ $term_fiction->term_id, $term_history ] )->all() );
+
+		// Test simple tax schema using term_and.
+
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_and_schema', $tax, 'term_and' );
+		$this->assertEquals( [ $post_2 ], $repository->fields( 'ids' )->by( 'test_tax_term_and_schema', [ $term_non_fiction->term_id, $term_history ] )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_and_schema', $tax, 'term_and' );
+		$this->assertEquals( [], $repository->fields( 'ids' )->by( 'test_tax_term_and_schema', [ $term_fiction->term_id, $term_history ] )->all() );
 	}
 
 	/**
