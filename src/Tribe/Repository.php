@@ -72,6 +72,8 @@ abstract class Tribe__Repository
 		'post_content_filtered',
 		'guid',
 		'perm',
+		'menu_order',
+		'menu_order_not',
 		'meta',
 		'meta_equals',
 		'meta_not_equals',
@@ -110,6 +112,8 @@ abstract class Tribe__Repository
 		'term_slug_in',
 		'term_slug_not_in',
 		'term_slug_and',
+		'term_in',
+		'term_not_in',
 	);
 
 	/**
