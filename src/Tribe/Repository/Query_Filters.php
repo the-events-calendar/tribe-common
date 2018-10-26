@@ -570,10 +570,11 @@ class Tribe__Repository__Query_Filters {
 	 * @param string   $where
 	 * @param WP_Query $query
 	 * @param string   $field
+	 * @param string   $prepare
 	 *
 	 * @return string
 	 */
-	protected function where_field_is( $where, WP_Query $query, $field ) {
+	protected function where_field_is( $where, WP_Query $query, $field, $prepare = '%s' ) {
 		if ( $query !== $this->current_query ) {
 			return $where;
 		}
@@ -586,7 +587,7 @@ class Tribe__Repository__Query_Filters {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} = %s ", $this->query_vars[ $field ] );
+		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} = {$prepare} ", $this->query_vars[ $field ] );
 
 		return $where;
 	}

@@ -18,11 +18,13 @@ class Tribe__Terms {
 
 		$term_ids = array();
 		foreach ( $terms as $term ) {
-			if ( ! strlen( trim( $term ) ) ) {
+			if ( ! $term instanceof WP_Term && ! strlen( trim( $term ) ) ) {
 				continue;
 			}
 
-			if ( is_numeric( $term ) ) {
+			if ( $term instanceof WP_Term ) {
+				$term_info = $term->to_array();
+			} elseif ( is_numeric( $term ) ) {
 				$term = absint( $term );
 				$term_info = get_term( $term, $taxonomy, ARRAY_A );
 			} else {

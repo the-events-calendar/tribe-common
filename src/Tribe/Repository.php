@@ -33,7 +33,6 @@ abstract class Tribe__Repository
 		'category_name',
 		'comment_count',
 		'comment_status',
-		'menu_order',
 		'title',
 		'title_like',
 		'name',
@@ -72,6 +71,7 @@ abstract class Tribe__Repository
 		'post_content_filtered',
 		'guid',
 		'perm',
+		'menu_order',
 		'meta',
 		'meta_equals',
 		'meta_not_equals',
@@ -110,6 +110,9 @@ abstract class Tribe__Repository
 		'term_slug_in',
 		'term_slug_not_in',
 		'term_slug_and',
+		'term_in',
+		'term_not_in',
+		'term_and',
 	);
 
 	/**
@@ -291,10 +294,17 @@ abstract class Tribe__Repository
 	 * @var array A map of callbacks in the shape [ <slug> => <callback|primitive> ]
 	 */
 	protected $schema = array();
+
 	/**
 	 * @var array A map of schema slugs and their meta keys to be queried.
 	 */
 	protected $simple_meta_schema = array();
+
+	/**
+	 * @var array A map of schema slugs and their taxonomies to be queried.
+	 */
+	protected $simple_tax_schema = array();
+
 	/**
 	 * @var Tribe__Repository__Interface
 	 */
@@ -611,7 +621,7 @@ abstract class Tribe__Repository
 	public function order( $order = 'ASC' ) {
 		$order = strtoupper( $order );
 
-		if ( ! in_array( $order, array( 'ASC', 'DESC' ) ) ) {
+		if ( ! in_array( $order, array( 'ASC', 'DESC' ), true ) ) {
 			return $this;
 		}
 
@@ -776,7 +786,7 @@ abstract class Tribe__Repository
 			$this->default_args,
 		), 'posts_per_page', get_option( 'posts_per_page' ) );
 
-		if ( - 1 != $per_page && $n > $per_page ) {
+		if ( - 1 !== $per_page && $n > $per_page ) {
 			return null;
 		}
 
@@ -877,7 +887,7 @@ abstract class Tribe__Repository
 	 *
 	 * @since TBD
 	 *
-	 * @param string $value Meta value.
+	 * @param mixed $value Meta value.
 	 */
 	public function filter_by_simple_meta_schema( $value ) {
 		$filter = $this->get_current_filter();
@@ -891,6 +901,27 @@ abstract class Tribe__Repository
 		$by = Tribe__Utils__Array::get( $simple_meta, 'by', 'meta_regexp_or_like' );
 
 		$this->by( $by, $simple_meta['meta_key'], $value );
+	}
+
+	/**
+	 * Filters posts by simple tax schema value.
+	 *
+	 * @since TBD
+	 *
+	 * @param int|string|array $value Term value(s).
+	 */
+	public function filter_by_simple_tax_schema( $value ) {
+		$filter = $this->get_current_filter();
+
+		if ( ! array_key_exists( $filter, $this->simple_tax_schema ) ) {
+			return;
+		}
+
+		$simple_tax = $this->simple_tax_schema[ $filter ];
+
+		$by = Tribe__Utils__Array::get( $simple_tax, 'by', 'term_in' );
+
+		$this->by( $by, $simple_tax['taxonomy'], $value );
 	}
 
 	/**
@@ -1370,7 +1401,7 @@ abstract class Tribe__Repository
 	public function where_meta_related_by( $meta_keys, $compare, $field = null, $values = null ) {
 		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
 
-		if ( ! in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
+		if ( ! in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ), true ) ) {
 			if ( empty( $field ) || empty( $values ) ) {
 				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this );
 			}
@@ -1462,7 +1493,7 @@ abstract class Tribe__Repository
 	}
 
 	/**
-	 * Adds an entry to the repository filter schema.
+	 * Adds a simple meta entry to the repository filter schema.
 	 *
 	 * @since TBD
 	 *
@@ -1475,6 +1506,24 @@ abstract class Tribe__Repository
 
 		$this->simple_meta_schema[ $key ] = array(
 			'meta_key' => $meta_key,
+			'by'       => $by,
+		);
+	}
+
+	/**
+	 * Adds a simple taxonomy entry to the repository filter schema.
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
+	 * @param string      $taxonomy The taxonomy to use for the tax lookup.
+	 * @param string|null $by       The ->by() lookup to use (defaults to term_in).
+	 */
+	public function add_simple_tax_schema_entry( $key, $taxonomy, $by = null ) {
+		$this->schema[ $key ] = array( $this, 'filter_by_simple_tax_schema' );
+
+		$this->simple_tax_schema[ $key ] = array(
+			'taxonomy' => $taxonomy,
 			'by'       => $by,
 		);
 	}
@@ -1553,6 +1602,9 @@ abstract class Tribe__Repository
 				break;
 			case 'guid':
 				$this->filter_query->to_get_posts_with_guid_like( $value );
+				break;
+			case 'menu_order':
+				$args = array( 'menu_order' => $value );
 				break;
 			case 'meta':
 			case 'meta_equals':
@@ -1682,6 +1734,21 @@ abstract class Tribe__Repository
 			case 'term_slug_and':
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'slug', 'AND' );
 				break;
+			case 'term_in':
+				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value, false );
+
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'IN' );
+				break;
+			case 'term_not_in':
+				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value, false );
+
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'NOT IN' );
+				break;
+			case 'term_and':
+				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value, false );
+
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'AND' );
+				break;
 		}
 
 
@@ -1699,7 +1766,7 @@ abstract class Tribe__Repository
 	 * @return array
 	 */
 	protected function get_posts_after( $value, $column = 'post_date' ) {
-		$timezone = in_array( $column, array( 'post_date_gmt', 'post_modified_gmt' ) )
+		$timezone = in_array( $column, array( 'post_date_gmt', 'post_modified_gmt' ), true )
 			? 'UTC'
 			: Tribe__Timezones::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
 
@@ -1734,7 +1801,7 @@ abstract class Tribe__Repository
 	 * @return array
 	 */
 	protected function get_posts_before( $value, $column = 'post_date' ) {
-		$timezone = in_array( $column, array( 'post_date_gmt', 'post_modified_gmt' ) )
+		$timezone = in_array( $column, array( 'post_date_gmt', 'post_modified_gmt' ), true )
 			? 'UTC'
 			: Tribe__Timezones::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
 
@@ -1789,7 +1856,7 @@ abstract class Tribe__Repository
 				),
 			);
 
-			if ( ! in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
+			if ( ! in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ), true ) ) {
 				$args['meta_query'][ $array_key ]['value'] = $meta_value;
 			}
 
@@ -1830,7 +1897,7 @@ abstract class Tribe__Repository
 
 		if ( 'EXISTS' === $compare ) {
 			$this->filter_query->where( "{$pm_alias}.meta_key IN {$meta_keys_in} AND {$pm_alias}.meta_id IS NOT NULL" );
-		} else if ( 'NOT EXISTS' === $compare ) {
+		} elseif ( 'NOT EXISTS' === $compare ) {
 			$this->filter_query->where( "{$pm_alias}.meta_key NOT IN {$meta_keys_in} AND {$pm_alias}.meta_id IS NOT NULL" );
 		} else {
 			$this->filter_query->where( "{$pm_alias}.meta_key IN {$meta_keys_in} AND {$pm_alias}.meta_value {$compare} {$meta_values}" );
@@ -1876,7 +1943,7 @@ abstract class Tribe__Repository
 	 * @return array
 	 */
 	protected function build_tax_query( $taxonomy, $terms, $field, $operator ) {
-		if ( in_array( $operator, array( 'EXISTS', 'NOT EXISTS' ) ) ) {
+		if ( in_array( $operator, array( 'EXISTS', 'NOT EXISTS' ), true ) ) {
 			$array_key = $this->sql_slug( $taxonomy, $operator );
 		} else {
 			$array_key = $this->sql_slug( $taxonomy, $field, $operator );
@@ -2002,11 +2069,11 @@ abstract class Tribe__Repository
 			$join = "\nJOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id\n";
 		}
 		if ( ! empty( $keys ) ) {
-			$keys      = $this->prepare_interval( $keys );
+			$keys       = $this->prepare_interval( $keys );
 			$and_where .= "\nAND pm2.meta_key IN {$keys}\n";
 		}
 		if ( ! empty( $values ) ) {
-			$values    = $this->prepare_interval( $values );
+			$values     = $this->prepare_interval( $values );
 			$and_where .= "\nAND pm2.meta_value IN {$values}\n";
 		}
 
@@ -2036,11 +2103,11 @@ abstract class Tribe__Repository
 			$join = "\nJOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id\n";
 		}
 		if ( ! empty( $keys ) ) {
-			$keys      = $this->prepare_interval( $keys );
+			$keys       = $this->prepare_interval( $keys );
 			$and_where .= "\nAND pm2.meta_key IN {$keys}\n";
 		}
 		if ( ! empty( $values ) ) {
-			$values    = $this->prepare_interval( $values );
+			$values     = $this->prepare_interval( $values );
 			$and_where .= "\nAND pm2.meta_value IN {$values}\n";
 		}
 
@@ -2075,11 +2142,11 @@ abstract class Tribe__Repository
 			$join = "\nJOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id\n";
 		}
 		if ( ! empty( $keys ) ) {
-			$keys      = $this->prepare_interval( $keys );
+			$keys       = $this->prepare_interval( $keys );
 			$and_where .= "\nAND pm2.meta_key IN {$keys}\n";
 		}
 		if ( ! empty( $values ) ) {
-			$values    = $this->prepare_interval( $values );
+			$values     = $this->prepare_interval( $values );
 			$and_where .= "\nAND pm2.meta_value IN {$values}\n";
 		}
 
@@ -2100,7 +2167,7 @@ abstract class Tribe__Repository
 	public function has_filter( $key, $value = null ) {
 		return null === $value
 			? array_key_exists( $key, $this->current_filters )
-			: array_key_exists( $key, $this->current_filters ) && $this->current_filters[ $key ] == $value;
+			: array_key_exists( $key, $this->current_filters ) && $this->current_filters[ $key ] === $value;
 	}
 
 	/**
