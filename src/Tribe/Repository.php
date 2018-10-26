@@ -296,6 +296,10 @@ abstract class Tribe__Repository
 	 */
 	protected $simple_meta_schema = array();
 	/**
+	 * @var array A map of schema slugs and their taxonomies to be queried.
+	 */
+	protected $simple_tax_schema = array();
+	/**
 	 * @var Tribe__Repository__Interface
 	 */
 	protected $main_repository;
@@ -894,6 +898,27 @@ abstract class Tribe__Repository
 	}
 
 	/**
+	 * Filters posts by simple tax schema value.
+	 *
+	 * @since TBD
+	 *
+	 * @param int|string|array $value Term value(s).
+	 */
+	public function filter_by_simple_tax_schema( $value ) {
+		$filter = $this->get_current_filter();
+
+		if ( ! array_key_exists( $filter, $this->simple_tax_schema ) ) {
+			return;
+		}
+
+		$simple_tax = $this->simple_tax_schema[ $filter ];
+
+		$by = Tribe__Utils__Array::get( $simple_tax, 'by', 'term_in' );
+
+		$this->by( $by, $simple_tax['taxonomy'], $value );
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function by( $key, $value ) {
@@ -1480,6 +1505,24 @@ abstract class Tribe__Repository
 	}
 
 	/**
+	 * Adds a simple taxonomy entry to the repository filter schema.
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
+	 * @param string      $taxonomy The taxonomy to use for the tax lookup.
+	 * @param string|null $by       The ->by() lookup to use (defaults to term_in).
+	 */
+	public function add_simple_tax_schema_entry( $key, $taxonomy, $by = null ) {
+		$this->schema[ $key ] = array( $this, 'filter_by_simple_tax_schema' );
+
+		$this->simple_tax_schema[ $key ] = array(
+			'taxonomy' => $taxonomy,
+			'by'       => $by,
+		);
+	}
+
+	/**
 	 * Returns modified query arguments after applying a default filter.
 	 *
 	 * @since 4.7.19
@@ -1681,6 +1724,21 @@ abstract class Tribe__Repository
 				break;
 			case 'term_slug_and':
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'slug', 'AND' );
+				break;
+			case 'term_in':
+				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value );
+
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'IN' );
+				break;
+			case 'term_not_in':
+				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value );
+
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'NOT IN' );
+				break;
+			case 'term_and':
+				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value );
+
+				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'AND' );
 				break;
 		}
 

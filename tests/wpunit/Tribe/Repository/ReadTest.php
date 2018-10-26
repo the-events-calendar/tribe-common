@@ -336,6 +336,97 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should allow getting posts by simple tax schemas
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_posts_by_simple_tax_schemas() {
+		$tax = 'genre';
+
+		$fiction     = $this->factory()->term->create( [
+			'taxonomy' => $tax,
+			'name'     => 'fiction',
+			'slug'     => 'fict',
+		] );
+		$history     = $this->factory()->term->create( [
+			'taxonomy' => $tax,
+			'name'     => 'history',
+			'slug'     => 'hist',
+		] );
+		$non_fiction = $this->factory()->term->create( [
+			'taxonomy' => $tax,
+			'name'     => 'non-fiction',
+			'slug'     => 'non-fict',
+		] );
+		$post_1      = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'tax_input' => [
+				$tax => [ 'fiction' ],
+			],
+		] );
+		$post_2      = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'tax_input' => [
+				$tax => [ 'non-fiction', 'history' ],
+			],
+		] );
+		$post_3      = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'tax_input' => [
+				$tax => [ 'non-fiction' ],
+			],
+		] );
+		$post_4      = $this->factory()->post->create( [ 'post_type' => 'book' ] );
+
+		$term_fiction = get_term( $fiction );
+		$term_history = get_term( $history );
+
+		// Test simple tax schema (term_in).
+
+		// Term ID
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_in_schema', $tax );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_tax_term_in_schema', $term_fiction->term_id )->all() );
+
+		// Term slug
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_in_schema', $tax );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_tax_term_in_schema', $term_fiction->slug )->all() );
+
+		// Term object
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_in_schema', $tax );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_tax_term_in_schema', $term_fiction )->all() );
+
+		// Term array (mixed types)
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_in_schema', $tax );
+		$this->assertEquals( [ $post_1, $post_2 ], $repository->fields( 'ids' )->by( 'test_tax_term_in_schema', [ $term_fiction->term_id, $term_history ] )->all() );
+
+		// Test simple tax schema using term_not_in.
+
+		// Term ID
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_not_in_schema', $tax, 'term_not_in' );
+		$this->assertEquals( [ $post_2, $post_3, $post_4 ], $repository->fields( 'ids' )->by( 'test_tax_term_not_in_schema', $term_fiction->term_id )->all() );
+
+		// Term slug
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_not_in_schema', $tax, 'term_not_in' );
+		$this->assertEquals( [ $post_2, $post_3, $post_4 ], $repository->fields( 'ids' )->by( 'test_tax_term_not_in_schema', $term_fiction->slug )->all() );
+
+		// Term object
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_not_in_schema', $tax, 'term_not_in' );
+		$this->assertEquals( [ $post_2, $post_3, $post_4 ], $repository->fields( 'ids' )->by( 'test_tax_term_not_in_schema', $term_fiction )->all() );
+
+		// Term array (mixed types)
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_not_in_schema', $tax, 'term_not_in' );
+		$this->assertEquals( [ $post_3, $post_4 ], $repository->fields( 'ids' )->by( 'test_tax_term_not_in_schema', [ $term_fiction->term_id, $term_history ] )->all() );
+	}
+
+	/**
 	 * It should allow getting posts by taxonomy terms
 	 *
 	 * @test
