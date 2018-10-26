@@ -49,7 +49,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function by( $key, $value ) {
+	public function by( $key, $value = null ) {
 		call_user_func_array( array( $this->decorated, 'by' ), func_get_args() );
 
 		return $this;
@@ -58,7 +58,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function where( $key, $value ) {
+	public function where( $key, $value = null ) {
 		call_user_func_array( array( $this->decorated, 'where' ), func_get_args() );
 
 		return $this;

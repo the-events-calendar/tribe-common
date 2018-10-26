@@ -397,7 +397,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function where( $key, $value ) {
+	public function where( $key, $value = null ) {
 		return call_user_func_array( array( $this, 'by' ), func_get_args() );
 	}
 
@@ -806,7 +806,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return mixed A scalar value or a callable.
 	 */
-	public function apply_modifier( $key, $value ) {
+	public function apply_modifier( $key, $value = null ) {
 		$call_args = func_get_args();
 
 		$application = Tribe__Utils__Array::get( $this->schema, $key, null );
@@ -896,7 +896,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function by( $key, $value ) {
+	public function by( $key, $value = null ) {
 		if ( $this->void_query ) {
 			// No point in doing more computations if the query is void.
 			return $this;
