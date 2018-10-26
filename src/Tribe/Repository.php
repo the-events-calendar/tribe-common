@@ -72,7 +72,6 @@ abstract class Tribe__Repository
 		'guid',
 		'perm',
 		'menu_order',
-		'menu_order_not',
 		'meta',
 		'meta_equals',
 		'meta_not_equals',
@@ -1602,11 +1601,6 @@ abstract class Tribe__Repository
 				$this->filter_query->to_get_posts_with_guid_like( $value );
 				break;
 			case 'menu_order':
-				$this->filter_query->to_get_posts_with_menu_order( $value );
-				$args = array( 'menu_order' => $value );
-				break;
-			case 'menu_order_not':
-				$this->filter_query->to_get_posts_not_with_menu_order( $value );
 				$args = array( 'menu_order' => $value );
 				break;
 			case 'meta':
