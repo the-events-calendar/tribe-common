@@ -427,6 +427,33 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should allow getting posts by menu_order
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_posts_by_menu_order() {
+		$post_1 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'menu_order' => 0,
+		] );
+		$post_2 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'menu_order' => 1,
+		] );
+		$post_3 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'menu_order' => 2,
+		] );
+		$post_4 = $this->factory()->post->create( [ 'post_type' => 'book' ] );
+
+		$this->assertEquals( [ $post_1, $post_4 ], $this->repository()->fields( 'ids' )->by( 'menu_order', 0 )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'menu_order', 1 )->all() );
+
+		$this->assertEquals( [ $post_2, $post_3 ], $this->repository()->fields( 'ids' )->by( 'menu_order_not', 0 )->all() );
+		$this->assertEquals( [ $post_1, $post_3, $post_4 ], $this->repository()->fields( 'ids' )->by( 'menu_order_not', 1 )->all() );
+	}
+
+	/**
 	 * It should allow getting posts by taxonomy terms
 	 *
 	 * @test

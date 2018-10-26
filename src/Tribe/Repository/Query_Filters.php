@@ -563,6 +563,66 @@ class Tribe__Repository__Query_Filters {
 	}
 
 	/**
+	 * Sets up `posts_where` filtering to get posts with a `menu_order` field equal to the value.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value
+	 */
+	public function to_get_posts_with_menu_order( $value ) {
+		$this->query_vars['menu_order'] = $value;
+
+		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_menu_order' ) ) ) {
+			add_filter( 'posts_where', array( $this, 'filter_by_menu_order' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * Filters the WHERE clause of the query to match posts with a specific `menu_order`
+	 * entry.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $where
+	 * @param WP_Query $query
+	 *
+	 * @return string
+	 */
+	public function filter_by_menu_order( $where, WP_Query $query ) {
+		return $this->where_field_is( $where, $query, 'menu_order' );
+	}
+
+	/**
+	 * Sets up `posts_where` filtering to get posts with a `menu_order` field not equal to the value.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value
+	 */
+	public function to_get_posts_not_with_menu_order( $value ) {
+		$this->query_vars['menu_order'] = $value;
+
+		if ( ! has_filter( 'posts_where', array( $this, 'filter_by_not_menu_order' ) ) ) {
+			add_filter( 'posts_where', array( $this, 'filter_by_not_menu_order' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * Filters the WHERE clause of the query to match posts with a specific `menu_order`
+	 * entry.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $where
+	 * @param WP_Query $query
+	 *
+	 * @return string
+	 */
+	public function filter_by_not_menu_order( $where, WP_Query $query ) {
+		return $this->where_field_is( $where, $query, 'menu_order' );
+	}
+
+	/**
 	 * Builds the escaped WHERE entry to match a field that equals the entry.
 	 *
 	 * @since 4.7.19
@@ -587,6 +647,35 @@ class Tribe__Repository__Query_Filters {
 		global $wpdb;
 
 		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} = %s ", $this->query_vars[ $field ] );
+
+		return $where;
+	}
+
+	/**
+	 * Builds the escaped WHERE entry to match a field that does not equal the entry.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $where
+	 * @param WP_Query $query
+	 * @param string   $field
+	 *
+	 * @return string
+	 */
+	protected function where_field_is_not( $where, WP_Query $query, $field ) {
+		if ( $query !== $this->current_query ) {
+			return $where;
+		}
+
+
+		if ( empty( $this->query_vars[ $field ] ) ) {
+			return $where;
+		}
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} != %s ", $this->query_vars[ $field ] );
 
 		return $where;
 	}

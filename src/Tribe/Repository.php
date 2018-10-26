@@ -1597,6 +1597,12 @@ abstract class Tribe__Repository
 			case 'guid':
 				$this->filter_query->to_get_posts_with_guid_like( $value );
 				break;
+			case 'menu_order':
+				$this->filter_query->to_get_posts_with_menu_order( $value );
+				break;
+			case 'menu_order_not':
+				$this->filter_query->to_get_posts_not_with_menu_order( $value );
+				break;
 			case 'meta':
 			case 'meta_equals':
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '=', $format = $arg_2 );
