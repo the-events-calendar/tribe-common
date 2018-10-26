@@ -1732,17 +1732,17 @@ abstract class Tribe__Repository
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'slug', 'AND' );
 				break;
 			case 'term_in':
-				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value );
+				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value, false );
 
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'IN' );
 				break;
 			case 'term_not_in':
-				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value );
+				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value, false );
 
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'NOT IN' );
 				break;
 			case 'term_and':
-				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value );
+				$arg_1 = Tribe__Terms::translate_terms_to_ids( $arg_1, $value, false );
 
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'AND' );
 				break;
