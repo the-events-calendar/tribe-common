@@ -39,7 +39,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
-	public function by( $key, $value );
+	public function by( $key, $value = null );
 
 	/**
 	 * Just an alias of the `by` method to allow for easier reading.
@@ -51,7 +51,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
-	public function where( $key, $value );
+	public function where( $key, $value = null );
 
 	/**
 	 * Sets the page of posts to fetch.

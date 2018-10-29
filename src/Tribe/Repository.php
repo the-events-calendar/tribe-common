@@ -407,7 +407,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function where( $key, $value ) {
+	public function where( $key, $value = null ) {
 		return call_user_func_array( array( $this, 'by' ), func_get_args() );
 	}
 
@@ -520,7 +520,7 @@ abstract class Tribe__Repository
 		 * The query modifiers should modify the query by reference.
 		 */
 		foreach ( $this->query_modifiers as $arg ) {
-			if ( is_object( $arg ) ) {
+			if ( is_object( $arg ) && method_exists( $arg, '__invoke' ) ) {
 				// __invoke, assume changes are made by reference
 				$arg( $query );
 			} elseif ( is_callable( $arg ) ) {
@@ -816,7 +816,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return mixed A scalar value or a callable.
 	 */
-	public function apply_modifier( $key, $value ) {
+	public function apply_modifier( $key, $value = null ) {
 		$call_args = func_get_args();
 
 		$application = Tribe__Utils__Array::get( $this->schema, $key, null );
@@ -927,7 +927,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function by( $key, $value ) {
+	public function by( $key, $value = null ) {
 		if ( $this->void_query ) {
 			// No point in doing more computations if the query is void.
 			return $this;
@@ -1234,6 +1234,10 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function get_ids() {
+		if ( $this->void_query ) {
+			return array();
+		}
+
 		/** @var WP_Query $query */
 		$query = $this->get_query();
 		$query->set( 'fields', 'ids' );
@@ -1990,16 +1994,16 @@ abstract class Tribe__Repository
 	 * @since 4.7.19
 	 *
 	 * @param string|array $values One or more values to use to build
-	 *                             the interval.
+	 *                             the interval
+	 *                             .
 	 * @param string       $format The format that should be used to escape
 	 *                             the values; default to '%s'.
+	 * @param string       $operator The operator the interval is being prepared for;
+	 *                               defaults to `IN`.
 	 *
 	 * @return string
 	 */
-	public function prepare_interval( $values, $format = '%s' ) {
-		/** @var wpdb $wpdb */
-		global $wpdb;
-
+	public function prepare_interval( $values, $format = '%s', $operator = 'IN' ) {
 		$values = Tribe__Utils__Array::list_to_array( $values );
 
 		$prepared = array();
@@ -2007,7 +2011,9 @@ abstract class Tribe__Repository
 			$prepared[] = $this->prepare_value( $value, $format );
 		}
 
-		return sprintf( '(' . $format . ')', implode( ',', $prepared ) );
+		return in_array( $operator, array( 'BETWEEN', 'NOT BETWEEN' ) )
+			? sprintf( '%s AND %s', $prepared[0], $prepared[1] )
+			: sprintf( '(%s)', implode( ',', $prepared ) );
 	}
 
 	/**
@@ -2175,5 +2181,16 @@ abstract class Tribe__Repository
 	 */
 	public function get_current_filter() {
 		return $this->current_filter;
+	}
+
+	/**
+	 * Returns a map relating comparison operators to their "pretty" name.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public static function get_comparison_operators() {
+		return self::$comparison_operators;
 	}
 }
