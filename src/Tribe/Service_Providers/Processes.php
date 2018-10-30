@@ -41,7 +41,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 		$this->context = tribe( 'context' );
 
 		// If the context of this request is neither AJAX or Cron bail.
-		if ( ! $this->context->doing_ajax() || $this->context->doing_cron() ) {
+		if ( ! ( $this->context->doing_ajax() || $this->context->doing_cron() ) ) {
 			return;
 		}
 
