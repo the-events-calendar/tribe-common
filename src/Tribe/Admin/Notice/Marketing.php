@@ -2,11 +2,7 @@
 /**
  * Various Marketing notices, e.g. Black Friday sales or special coupon initiatives.
  *
- * @todo Get image to use in notice
- * @todo Get TEC-only message
- * @todo Get TEC & ET message
- * @todo Finalize message display and image styles
- * @todo Figure out how to QA this
+ * @since TBD
  */
 class Tribe__Admin__Notice__Marketing {
 
@@ -49,12 +45,10 @@ class Tribe__Admin__Notice__Marketing {
 	 * @return boolean
 	 */
 	public function bf_2018_should_display() {
-		return true;
+		$bf_sale_start = $this->get_bf_2018_start_time();
+		$bf_sale_end   = $this->get_bf_2018_end_time();
 
-		// $bf_sale_start = $this->get_bf_2018_start_time();
-		// $bf_sale_end   = $this->get_bf_2018_end_time();
-
-		//return $bf_sale_start <= time() && time() < $bf_sale_end;
+		return $bf_sale_start <= time() && time() < $bf_sale_end;
 	}
 
 	/**
