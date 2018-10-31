@@ -528,6 +528,17 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	}
 
 	/**
+	 * Returns the queue action identifier.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The queue action identifier.
+	 */
+	public function get_identifier() {
+		return $this->identifier;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	protected function get_batch() {
