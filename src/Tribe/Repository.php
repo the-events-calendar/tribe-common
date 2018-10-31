@@ -2193,4 +2193,46 @@ abstract class Tribe__Repository
 	public static function get_comparison_operators() {
 		return self::$comparison_operators;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function delete(  ) {
+		$to_delete = $this->get_ids();
+
+		if ( empty( $to_delete ) ) {
+			return array();
+		}
+
+		/**
+		 * Filters the post delete operation allowing third party code to bail out of
+		 * the process completely.
+		 *
+		 * @since TBD
+		 *
+		 * @param array|null $deleted An array containing the the IDs of the deleted posts.
+		 * @param self       $this    This repository instance.
+		 */
+		$deleted = apply_filters( "tribe_repository_{$this->filter_name}_delete", null, $to_delete );
+
+		if ( null !== $deleted ) {
+			return $deleted;
+		}
+
+		foreach ( $to_delete as $id ) {
+			$post = wp_delete_post( $id );
+
+			if ( ! $post instanceof WP_Post ) {
+				tribe( 'logger' )->log(
+					__( 'Could not delete post with ID ' . $id, 'tribe-common' ),
+					Tribe__Log::WARNING,
+					$this->filter_name
+				);
+				continue;
+			}
+			$deleted[] = $id;
+		}
+
+		return $deleted;
+	}
 }

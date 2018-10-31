@@ -385,4 +385,13 @@ interface Tribe__Repository__Read_Interface {
 	 * @return string|null The current filter being applied.
 	 */
 	public function get_current_filter();
+
+	/**
+	 * Deletes a set of events fetched by using filters.
+	 *
+	 * @since TBD
+	 *
+	 * @return int[] An array of deleted event IDs.
+	 */
+	public function delete();
 }
