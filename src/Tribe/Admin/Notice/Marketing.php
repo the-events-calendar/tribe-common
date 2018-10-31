@@ -41,18 +41,56 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Whether the Black Friday 2018 notice should display.
 	 *
+	 * Unix times for Nov 20 2018 @ 6am UTC and Nov 26 2018 @ 6am UTC.
+	 * 6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone.
+	 *
 	 * @since TBD
 	 *
 	 * @return boolean
 	 */
 	public function bf_2018_should_display() {
+		return true;
 
-		// Unix times for Nov 20 2018 @ 6am UTC and Nov 26 2018 @ 6am UTC.
-		// 6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone.
-		$bf_sale_start_unix = 1542693600;
-		$bf_sale_end_unix   = 1543212000;
+		// $bf_sale_start = $this->get_bf_2018_start_time();
+		// $bf_sale_end   = $this->get_bf_2018_end_time();
 
-		return $bf_sale_start_unix < time() && time() < $bf_sale_end_unix;
+		//return $bf_sale_start <= time() && time() < $bf_sale_end;
+	}
+
+	/**
+	 * Unix time for Nov 20 2018 @ 6am UTC. (6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone).
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_bf_2018_start_time() {
+		/**
+		 * Allow filtering of the Black Friday sale start date, mainly for testing purposes.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $bf_start_date Unix time for Nov 20 2018 @ 6am UTC.
+		 */
+		return apply_filters( 'tribe_bf_2018_start_time', 1542693600 );
+	}
+
+	/**
+	 * Unix time for Nov 26 2018 @ 6am UTC. (6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone).
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_bf_2018_end_time() {
+		/**
+		 * Allow filtering of the Black Friday sale end date, mainly for testing purposes.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $bf_end_date Unix time for Nov 20 2018 @ 6am UTC.
+		 */
+		return apply_filters( 'tribe_bf_2018_end_time', 1543212000 );
 	}
 
 	/**
@@ -64,18 +102,22 @@ class Tribe__Admin__Notice__Marketing {
 	 */
 	public function bf_2018_display_notice() {
 
-		$mascot = esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/mascot.png' );
+		$tribe_dependency = Tribe__Dependency::instance();
+		$tec_is_active    = $tribe_dependency->is_plugin_active( 'Tribe__Events__Main' );
+		$et_is_active     = $tribe_dependency->is_plugin_active( 'Tribe__Tickets__Main' );
 
-		ob_start(); ?>
-			<div class="tribe-marketing-notice">
-				<div class="tribe-notice-icon">
-					<img src="<?php echo esc_url( $mascot ); ?>" />
-				</div>
-				<div class="tribe-notice-content">
-					<p>Hey now this is the marketing notice!
-				</div>
-			</div>
-		<?php
+		$mascot_url = Tribe__Main::instance()->plugin_url . 'src/resources/images/mascot.png';
+		$end_time   = $this->get_bf_2018_end_time();
+
+		ob_start();
+
+		if ( $tec_is_active && ! $et_is_active ) {
+			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-tec.php';
+		} elseif ( $et_is_active && ! $tec_is_active ) {
+			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-et.php';
+		} else {
+			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-general.php';
+		}
 
 		return ob_get_clean();
 	}

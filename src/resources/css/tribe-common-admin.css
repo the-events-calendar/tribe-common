@@ -1015,15 +1015,23 @@ a.tribe-rating-link {
 	max-width: 96%;
 	vertical-align: middle;
 }
+.tribe-marketing-notice h3 {
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+}
 .tribe-marketing-notice p {
 	line-height: 1.7;
-	margin-bottom: 1em;
+	margin-bottom: 0.5em;
 }
 .tribe-marketing-notice a {
 	text-decoration: none;
 }
 .tribe-marketing-notice a:hover {
 	text-decoration: underline;
+}
+.tribe-marketing-notice .button.button-primary {
+	margin-left: 0;
+	margin-top: 10px;
 }
 .tribe-ea-dropdown,
 .tribe-dropdown {
@@ -1285,10 +1293,27 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 	.api-check .notice-content {
 		margin-right: 180px;
 	}
+}
+@media screen and (min-width: 600px) and (max-width: 782px ) {
+	.tribe-marketing-notice .tribe-notice-icon {
+		width: 135px;
+	}
+	.tribe-marketing-notice .tribe-notice-content {
+		margin-left: 145px;
+	}
+}
+@media screen and (min-width: 600px) {
 	.tribe-marketing-notice .tribe-notice-icon {
 		display: block;
 	}
+}
+@media screen and (min-width: 782px) {
 	.tribe-marketing-notice .tribe-notice-content {
-		margin-left: 180px;
+		margin-left: 130px;
+	}
+}
+@media screen and (min-width:746px) {
+	.tribe-marketing-notice .button.button-primary {
+		margin-left: 10px;
 	}
 }
