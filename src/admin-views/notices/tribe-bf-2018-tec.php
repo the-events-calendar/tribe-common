@@ -15,6 +15,6 @@
 	<div class="tribe-notice-content">
 		<h3>Up to 30% Off!</h3>
 		<p>Save big on Events Calendar PRO, Filter Bar, Community Events, and more during our huge Black Friday sale!</p>
-		<p><em>(But hurry, because this offer ends on <abbr title="<?php echo date_i18n( 'r', $end_time ); ?>">Monday, November 26th</abbr>.)</em> <a target="_blank" class="button button-primary" href="http://m.tri.be/1a8l">Shop Now</a></p>
+		<p><em>(But hurry, because this offer ends on <abbr title="<?php echo esc_attr( date_i18n( 'r', $end_time ) ); ?>">Monday, November 26th</abbr>.)</em> <a target="_blank" class="button button-primary" href="http://m.tri.be/1a8l">Shop Now</a></p>
 	</div>
 </div>
