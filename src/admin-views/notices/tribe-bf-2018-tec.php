@@ -8,7 +8,7 @@
  * @var int $end_time The Unix timestamp for the sale's end time.
  */
 ?>
-<div class="tribe-marketing-notice">
+<div class="tribe-marketing-notice tribe-bf-2018-tec">
 	<div class="tribe-notice-icon">
 		<img src="<?php echo esc_url( $mascot_url ); ?>" />
 	</div>

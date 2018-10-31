@@ -1029,7 +1029,7 @@ a.tribe-rating-link {
 .tribe-marketing-notice a:hover {
 	text-decoration: underline;
 }
-.tribe-marketing-notice .button.button-primary {
+.tribe-marketing-notice.tribe-bf-2018-tec .button.button-primary {
 	margin-left: 0;
 	margin-top: 10px;
 }
@@ -1313,7 +1313,7 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 	}
 }
 @media screen and (min-width:746px) {
-	.tribe-marketing-notice .button.button-primary {
+	.tribe-marketing-notice.tribe-bf-2018-tec .button.button-primary {
 		margin-left: 10px;
 	}
 }
