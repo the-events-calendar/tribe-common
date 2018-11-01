@@ -269,6 +269,15 @@ abstract class Tribe__Repository
 	protected $query_args = array(
 		'meta_query' => array( 'relation' => 'AND' ),
 		'tax_query'  => array( 'relation' => 'AND' ),
+		'date_query' => array( 'relation' => 'AND' ),
+	);
+	/**
+	 * @var array An array of query arguments that support 'relation'.
+	 */
+	protected $relation_query_args = array(
+		'meta_query',
+		'tax_query',
+		'date_query',
 	);
 	/**
 	 * @var WP_Query The current query object built and modified by the instance.
@@ -976,15 +985,9 @@ abstract class Tribe__Repository
 					$query_args = $this->query_args;
 
 					// Handle relation separately because we do not want that to merge recursively
-					$relation_queries = array(
-						'meta_query',
-						'tax_query',
-						'date_query',
-					);
-
-					foreach ( $relation_queries as $relation_query ) {
-						if ( isset( $query_args[ $relation_query ]['relation'], $query_modifier[ $relation_query ]['relation'] ) ) {
-							unset( $query_args[ $relation_query ]['relation'] );
+					foreach ( $this->relation_query_args as $query_arg ) {
+						if ( isset( $query_args[ $query_arg ]['relation'], $query_modifier[ $query_arg ]['relation'] ) ) {
+							unset( $query_args[ $query_arg ]['relation'] );
 						}
 					}
 
@@ -1041,7 +1044,13 @@ abstract class Tribe__Repository
 				// let's use the default filters normalizing the key first
 				$call_args[0]   = $this->normalize_key( $key );
 				$query_modifier = call_user_func_array( array( $this, 'apply_default_modifier' ), $call_args );
+			} elseif ( 2 === count( $call_args ) ) {
+				// Pass query argument $key with the single value argument.
+				$query_modifier = array(
+					$key => $call_args[1],
+				);
 			} else {
+				// More than two $call_args were sent (key, value), assume it was meant for a filter that was not defined yet.
 				throw Tribe__Repository__Usage_Error::because_the_read_filter_is_not_defined( $key, $this );
 			}
 		} else {

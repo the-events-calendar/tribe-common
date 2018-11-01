@@ -658,6 +658,47 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( [ $draft, $published, $future ], $repository->by( 'status', 'any' )->all() );
 	}
 
+	/**
+	 * It should not accept WP_Query arguments with multiple arguments that aren't filters.
+	 *
+	 * @test
+	 */
+	public function should_not_accept_wp_query_arguments_with_multiple_arguments_that_arent_filters() {
+		$repository = $this->repository();
+		$all_ids    = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
+
+		$results = $repository->by( 'this_filter_does_not_exist', 1, 2, 3 )->by( 'post__in', $all_ids )->get_ids();
+
+		$wp_query = $repository->get_query();
+
+		$this->assertArrayNotHasKey( 'this_filter_does_not_exist', $wp_query->query_vars );
+		$this->assertCount( 0, $results );
+		$this->assertEquals( [], $results );
+		$this->assertEquals( 0, $repository->found() );
+		$this->assertEquals( 0, $repository->count() );
+	}
+
+	/**
+	 * It should accept WP_Query arguments that aren't filters.
+	 *
+	 * @test
+	 */
+	public function should_should_accept_wp_query_arguments_that_arent_filters() {
+		$repository = $this->repository();
+		$all_ids    = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
+
+		$results = $repository->by( 'this_filter_does_not_exist', 1 )->by( 'post__in', $all_ids )->get_ids();
+
+		$wp_query = $repository->get_query();
+
+		$this->assertArrayHasKey( 'this_filter_does_not_exist', $wp_query->query_vars );
+		$this->assertEquals( 1, $wp_query->query_vars['this_filter_does_not_exist'] );
+		$this->assertCount( count( $all_ids ), $results );
+		$this->assertEquals( $all_ids, $results );
+		$this->assertEquals( count( $all_ids ), $repository->found() );
+		$this->assertEquals( count( $all_ids ), $repository->count() );
+	}
+
 	public function setUp() {
 		parent::setUp();
 		register_post_type( 'book' );
