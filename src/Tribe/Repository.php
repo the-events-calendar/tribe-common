@@ -1044,14 +1044,14 @@ abstract class Tribe__Repository
 				// let's use the default filters normalizing the key first
 				$call_args[0]   = $this->normalize_key( $key );
 				$query_modifier = call_user_func_array( array( $this, 'apply_default_modifier' ), $call_args );
-			} elseif ( 2 !== count( $call_args ) ) {
-				// More than two $call_args were sent (key, value), assume it was meant for a filter that was not defined yet.
-				throw Tribe__Repository__Usage_Error::because_the_read_filter_is_not_defined( $key, $this );
-			} else {
-				// Default to passing the query argument $key with the value.
+			} elseif ( 2 === count( $call_args ) ) {
+				// Pass query argument $key with the single value argument.
 				$query_modifier = array(
 					$key => $call_args[1],
 				);
+			} else {
+				// More than two $call_args were sent (key, value), assume it was meant for a filter that was not defined yet.
+				throw Tribe__Repository__Usage_Error::because_the_read_filter_is_not_defined( $key, $this );
 			}
 		} else {
 			$query_modifier = call_user_func_array( array( $this, 'apply_modifier' ), $call_args );

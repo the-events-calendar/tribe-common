@@ -681,8 +681,6 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$repository = $this->repository();
 		$all_ids    = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
 
-		$this->expectException( \Tribe__Repository__Usage_Error::class );
-
 		$results = $repository->by( 'this_filter_does_not_exist', 1 )->by( 'post__in', $all_ids )->get_ids();
 
 		$wp_query = $repository->get_query();
