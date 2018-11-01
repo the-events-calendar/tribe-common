@@ -157,9 +157,8 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->repository()->where( 'author', $john )->delete();
 
-		$this->assertTrue( (bool) did_action( 'test_resolved' ) );
 		foreach ( $from_john as $id ) {
-			$this->assertEmpty(  get_post( $id ) );
+			$this->assertEquals( 'deleted_book', get_post_type( $id ) );
 		}
 	}
 }
