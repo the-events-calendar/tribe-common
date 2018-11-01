@@ -170,7 +170,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 			'post_title'   => 'Updated title',
 			'post_content' => 'Updated content',
 		];
-		$this->repository()->where( 'post__in', $ids )->set_with_map( $map )->save();
+		$this->repository()->where( 'post__in', $ids )->set_args( $map )->save();
 
 		foreach ( $ids as $id ) {
 			$post = get_post( $id );
@@ -194,7 +194,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 			'title'   => 'Updated title',
 			'content' => 'Updated content',
 		];
-		$repository->where( 'post__in', $ids )->set_with_map( $map )->save();
+		$repository->where( 'post__in', $ids )->set_args( $map )->save();
 
 		foreach ( $ids as $id ) {
 			$post = get_post( $id );
@@ -233,7 +233,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		$ids        = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
 		$repository = $this->repository();
 		$repository->where( 'post__in', $ids )
-		           ->set_with_map( [ 'nope_key' => 'foo', 'legit_key' => 'bar' ] )
+		           ->set_args( [ 'nope_key' => 'foo', 'legit_key' => 'bar' ] )
 		           ->save();
 
 		foreach ( $ids as $id ) {
