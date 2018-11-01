@@ -32,7 +32,7 @@ class PromiseTest extends \Codeception\TestCase\WPTestCase {
 		];
 
 		$promise = new Promise( 'wp_insert_post', $post_payloads );
-		$promise->save()->dispatch();
+		$promise->resolve();
 
 		$this->assertInternalType( 'string', $promise->get_id() );
 		$posts = get_posts();

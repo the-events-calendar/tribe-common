@@ -294,4 +294,16 @@ class Tribe__Promise extends Tribe__Process__Queue {
 			$this->do_callback( $this->rejected, $callback_args );
 		}
 	}
+
+	/**
+	 * An alias of the dispatch method to stick with the expected naming
+	 * standard.
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed The dispatch operation return value.
+	 */
+	public function resolve() {
+		return $this->dispatch();
+	}
 }
