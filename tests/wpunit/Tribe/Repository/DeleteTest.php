@@ -2,6 +2,8 @@
 
 namespace Tribe\Repository;
 
+use Tribe__Promise as Promise;
+
 class DeleteTest extends \Codeception\TestCase\WPTestCase {
 	protected $class;
 
@@ -85,5 +87,79 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 			'post_type'      => 'book',
 			'posts_per_page' => - 1,
 		] ) );
+	}
+
+	/**
+	 * It should allow deleting in async mode
+	 *
+	 * @test
+	 */
+	public function should_allow_deleting_in_async_mode() {
+		add_filter( 'tribe_repository_delete_async_activated', '__return_true' );
+		add_filter( 'tribe_repository_delete_background_threshold', function () {
+			// Since we're deleting 3 posts let's make sure async mode is kicking in.
+			return 2;
+		} );
+		list( $john, $from_john ) = $this->create_books_by_authors();
+
+		$deleted = $this->repository()->where( 'author', $john )->delete();
+
+		$this->assertEqualSets( $from_john, $deleted );
+		foreach ( $from_john as $id ) {
+			$this->assertInstanceOf( \WP_Post::class, get_post( $id ) );
+		}
+	}
+
+	/**
+	 * It should allow always getting back a Promise and have it invoked immediately in sync mode
+	 *
+	 * @test
+	 */
+	public function should_allow_always_getting_back_a_promise_and_have_it_invoked_immediately_in_sync_mode() {
+		add_filter( 'tribe_repository_delete_async_activated', '__return_false' );
+		list( $john, $from_john ) = $this->create_books_by_authors();
+
+		$filtered = $this->repository()->where( 'author', $john );
+		$this->assertCount( 3, $filtered->get_ids() );
+		$promise = $filtered->delete( true );
+		$this->assertInstanceOf( Promise::class, $promise );
+		add_action( 'test_resolved', function ( $arg ) {
+			$this->assertEquals( 'one', $arg );
+		} );
+
+		$promise->then( function () {
+			do_action( 'test_resolved', 'one' );
+		} )->dispatch();
+
+		$this->assertTrue( (bool) did_action( 'test_resolved' ) );
+		foreach ( $from_john as $id ) {
+			$this->assertEmpty(  get_post( $id ) );
+		}
+	}
+
+	/**
+	 * It should allow filtering the delete callback
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_the_delete_callback() {
+		register_post_type('deleted_book');
+		add_filter( 'tribe_repository_delete_async_activated', '__return_false' );
+		add_filter('tribe_repository_delete_callback', function () {
+			return function ( $id ) {
+				wp_update_post( [
+					'ID'        => $id,
+					'post_type' => 'deleted_book',
+				] );
+			};
+		});
+		list( $john, $from_john ) = $this->create_books_by_authors();
+
+		$this->repository()->where( 'author', $john )->delete();
+
+		$this->assertTrue( (bool) did_action( 'test_resolved' ) );
+		foreach ( $from_john as $id ) {
+			$this->assertEmpty(  get_post( $id ) );
+		}
 	}
 }

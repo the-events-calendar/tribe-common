@@ -80,7 +80,9 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	 * @param string $action
 	 */
 	protected function hook_queue_for( $action ) {
-		$queues = array();
+		$queues = array(
+			'Tribe__Promise',
+		);
 
 		/**
 		 * Filters the queue processing classes the Service Provider should handle.
