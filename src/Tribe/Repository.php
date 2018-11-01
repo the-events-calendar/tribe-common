@@ -269,6 +269,15 @@ abstract class Tribe__Repository
 	protected $query_args = array(
 		'meta_query' => array( 'relation' => 'AND' ),
 		'tax_query'  => array( 'relation' => 'AND' ),
+		'date_query' => array( 'relation' => 'AND' ),
+	);
+	/**
+	 * @var array An array of query arguments that support 'relation'.
+	 */
+	protected $relation_query_args = array(
+		'meta_query',
+		'tax_query',
+		'date_query',
 	);
 	/**
 	 * @var WP_Query The current query object built and modified by the instance.
@@ -976,15 +985,9 @@ abstract class Tribe__Repository
 					$query_args = $this->query_args;
 
 					// Handle relation separately because we do not want that to merge recursively
-					$relation_queries = array(
-						'meta_query',
-						'tax_query',
-						'date_query',
-					);
-
-					foreach ( $relation_queries as $relation_query ) {
-						if ( isset( $query_args[ $relation_query ]['relation'], $query_modifier[ $relation_query ]['relation'] ) ) {
-							unset( $query_args[ $relation_query ]['relation'] );
+					foreach ( $this->relation_query_args as $query_arg ) {
+						if ( isset( $query_args[ $query_arg ]['relation'], $query_modifier[ $query_arg ]['relation'] ) ) {
+							unset( $query_args[ $query_arg ]['relation'] );
 						}
 					}
 
