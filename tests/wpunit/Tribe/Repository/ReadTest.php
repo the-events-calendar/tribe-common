@@ -672,10 +672,10 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$wp_query = $repository->get_query();
 
 		$this->assertArrayNotHasKey( 'this_filter_does_not_exist', $wp_query->query_vars );
-		$this->assertCount( count( $all_ids ), $results );
-		$this->assertEquals( $all_ids, $results );
-		$this->assertEquals( count( $all_ids ), $repository->found() );
-		$this->assertEquals( count( $all_ids ), $repository->count() );
+		$this->assertCount( 0, $results );
+		$this->assertEquals( [], $results );
+		$this->assertEquals( 0, $repository->found() );
+		$this->assertEquals( 0, $repository->count() );
 	}
 
 	/**
