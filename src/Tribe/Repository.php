@@ -2442,9 +2442,15 @@ abstract class Tribe__Repository
 	 */
 	public function async_delete( array $to_delete, $return_promise = true ) {
 		$promise = new Tribe__Promise( $this->get_delete_callback( $to_delete, true ), $to_delete );
-		$promise->save()->dispatch();
+		if ( ! $return_promise ) {
+			// Dispatch it immediately and return the IDs that will be deleted.
+			$promise->save()->dispatch();
 
-		return $return_promise ? $promise : $to_delete;
+			return $to_delete;
+		}
+
+		// Return the promise and let the client do the dispatching.
+		return $promise;
 	}
 
 	/**
@@ -2549,9 +2555,15 @@ abstract class Tribe__Repository
 	 */
 	public function async_update( array $to_update, $return_promise = true ) {
 		$promise = new Tribe__Promise( $this->get_update_callback( $to_update, true ), $to_update );
-		$promise->save()->dispatch();
+		if ( ! $return_promise ) {
+			// Dispatch it immediately and return the IDs that will be deleted.
+			$promise->save()->dispatch();
 
-		return $return_promise ? $promise : $to_update;
+			return $to_update;
+		}
+
+		// Return the promise and let the client do the dispatching.
+		return $promise;
 	}
 
 	/**
