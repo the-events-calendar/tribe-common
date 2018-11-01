@@ -256,8 +256,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function set_with_map( array $update_map ) {
-		$this->decorated->set_with_map( $update_map );
+	public function set_args( array $update_map ) {
+		$this->decorated->set_args( $update_map );
 
 		return $this;
 	}

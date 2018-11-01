@@ -267,7 +267,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		};
 
 		$decorator->where( 'post__in', $ids )
-		          ->set_with_map( [ 'nope_key' => 'foo', 'legit_key' => 'bar' ] )
+		          ->set_args( [ 'nope_key' => 'foo', 'legit_key' => 'bar' ] )
 		          ->save();
 
 		foreach ( $ids as $id ) {

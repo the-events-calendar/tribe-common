@@ -1356,7 +1356,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function set_with_map( array $update_map ) {
+	public function set_args( array $update_map ) {
 		foreach ( $update_map as $key => $value ) {
 			$this->set( $key, $value );
 		}
@@ -2582,5 +2582,19 @@ abstract class Tribe__Repository
 		 * @param int The post ID if set.
 		 */
 		return apply_filters( "tribe_repository_{$this->filter_name}_update_postarr", $postarr, $post_id );
+	}
+
+	/**
+	 * A utility method to cast any PHP error into an exception proper.
+	 *
+	 * Usage: `set_error_handler( array( $repository, 'cast_error_to_exception' ) );
+	 *
+	 * @since TBD
+	 *
+	 * @param int $code The error code.
+	 * @param string $message The error message.
+	 */
+	public function cast_error_to_exception( $code, $message ) {
+		throw new RuntimeException( $message, $code );
 	}
 }

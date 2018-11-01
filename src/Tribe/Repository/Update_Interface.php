@@ -41,7 +41,7 @@ interface Tribe__Repository__Update_Interface {
 	 *
 	 * @see   the `set` method
 	 */
-	public function set_with_map( array $update_map );
+	public function set_args( array $update_map );
 
 	/**
 	 * Commits the updates to the selected post IDs to the database.
