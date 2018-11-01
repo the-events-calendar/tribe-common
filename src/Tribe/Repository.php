@@ -1544,7 +1544,7 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function add_update_field_alias( $alias, $field_name ) {
-		$this->update_fields_aliases[ $alias] = $field_name;
+		$this->update_fields_aliases[ $alias ] = $field_name;
 	}
 
 	/**
@@ -2269,7 +2269,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return bool Whether background delete is activated for the repository or not.
 	 */
-	protected function is_background_delete_active( $to_delete ){
+	protected function is_background_delete_active( $to_delete ) {
 		/**
 		 * Whether background, asynchronous, deletion of posts is active or not for all repositories.
 		 *
@@ -2296,7 +2296,7 @@ abstract class Tribe__Repository
 		 * @param bool  $background_active Whether background deletion is active or not.
 		 * @param array $to_delete         The array of post IDs to delete.
 		 */
-		$background_active = (bool)apply_filters(
+		$background_active = (bool) apply_filters(
 			"tribe_repository_{$this->filter_name}_delete_background_activated",
 			$background_active,
 			$to_delete
@@ -2357,7 +2357,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return bool Whether background update is activated for the repository or not.
 	 */
-	protected function is_background_update_active( $to_update ){
+	protected function is_background_update_active( $to_update ) {
 		/**
 		 * Whether background, asynchronous, update of posts is active or not for all repositories.
 		 *
@@ -2384,7 +2384,7 @@ abstract class Tribe__Repository
 		 * @param bool  $background_active Whether background update is active or not.
 		 * @param array $to_update         The array of post IDs to update.
 		 */
-		$background_active = (bool)apply_filters(
+		$background_active = (bool) apply_filters(
 			"tribe_repository_{$this->filter_name}_update_background_activated",
 			$background_active,
 			$to_update

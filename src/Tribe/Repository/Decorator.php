@@ -391,7 +391,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function delete( $return_promise = false ) {
-		return $this->decorated->delete();
+		return $this->decorated->delete( $return_promise );
 	}
 
 	/**
