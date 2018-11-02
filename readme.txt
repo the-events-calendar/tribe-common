@@ -4,6 +4,7 @@
 
 = [4.7.23] TBD =
 
+* Fix - Fixed the setting-up of strings in the Tribe Bar datepicker to ensure they're translatable into languages other than English [115286]
 
 = [4.7.22] 2018-10-22 =
 
