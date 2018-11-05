@@ -2671,10 +2671,9 @@ abstract class Tribe__Repository
 			} elseif ( $this->is_a_taxonomy( $key ) ) {
 				$taxonomy = get_taxonomy( $key );
 				if ( $taxonomy instanceof WP_Taxonomy ) {
-					// array = hierarchical, string = non-hierarchical.
 					$postarr['tax_input'][ $key ] = $taxonomy->hierarchical
-						? Tribe__Utils__Array::list_to_array( tribe_normalize_terms_list( $value, $key, 'term_id' ) )
-						: Tribe__Utils__Array::to_list( tribe_normalize_terms_list( $value, $key, 'slug' ) );
+						? Tribe__Utils__Array::list_to_array( $value )
+						: Tribe__Utils__Array::to_list( $value );
 				}
 			} else {
 				// it's a custom field
