@@ -442,4 +442,40 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function filter_postarr_for_update( array $postarr, $post_id ) {
 		return $this->decorated->filter_postarr_for_update( $postarr, $post_id );
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function build_postarr( $id = null ) {
+		return $this->decorated->build_postarr();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function create() {
+		return $this->decorated->create();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_create( array $postarr ) {
+		return $this->decorated->filter_postarr_for_create( $postarr, $post_id );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_create_args( array $create_args ) {
+		$this->decorated->set_create_args( $create_args );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_create_args() {
+		return $this->decorated->get_create_args();
+	}
+
 }

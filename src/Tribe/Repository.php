@@ -230,10 +230,12 @@ abstract class Tribe__Repository
 	 * @var array The updates that will be saved to the database.
 	 */
 	protected $updates = array();
+
 	/**
 	 * @var array A list of taxonomies this repository will recognize.
 	 */
 	protected $taxonomies = array();
+
 	/**
 	 * @var array A map detailing which fields should be converted from a
 	 *            GMT time and date to a local one.
@@ -332,7 +334,21 @@ abstract class Tribe__Repository
 	 *
 	 * @var array
 	 */
-	protected $update_fields_aliases = array();
+	protected $update_fields_aliases = array(
+		'title'   => 'post_title',
+		'content' => 'post_content',
+		'status'  => 'post_status',
+		'parent'  => 'post_parent',
+		'tag'     => 'post_tag',
+	);
+
+	/**
+	 * The default create args that will be used by the repository
+	 * to create posts of the managed type.
+	 *
+	 * @var
+	 */
+	protected $create_args;
 
 	/**
 	 * Tribe__Repository constructor.
@@ -1186,40 +1202,11 @@ abstract class Tribe__Repository
 		$postarrs = array();
 
 		foreach ( $to_update as $id ) {
-			$postarr = array(
-				'ID'         => $id,
-				'tax_input'  => array(),
-				'meta_input' => array(),
-			);
-
-			foreach ( $this->updates as $key => $value ) {
-				if ( is_callable( $value ) ) {
-					$value = $value( $id, $key, $this );
-				}
-
-				// Allow fields to be aliased
-				$key = Tribe__Utils__Array::get( $this->update_fields_aliases, $key, $key );
-
-				if ( ! $this->can_be_udpated( $key ) ) {
-					throw Tribe__Repository__Usage_Error::because_this_field_cannot_be_updated( $key, $this );
-				}
-
-				if ( $this->is_a_post_field( $key ) ) {
-					if ( $this->requires_converted_date( $key ) ) {
-						$this->update_postarr_dates( $key, $value, $postarr );
-					} else {
-						$postarr[ $key ] = $value;
-					}
-				} elseif ( $this->is_a_taxonomy( $key ) ) {
-					$postarr['tax_input'][ $key ] = $value;
-				} else {
-					// it's a custom field
-					$postarr['meta_input'][ $key ] = $value;
-				}
-			}
-
-			$postarrs[ $id ] = $this->filter_postarr_for_update( $postarr, $id );
+			$postarrs[ $id ] = $this->filter_postarr_for_update( $this->build_postarr( $id ), $id );
 		}
+
+		// If any `filter_postarr_for_update` call returned a falsy value then drop it.
+		$postarrs = array_filter( $postarrs );
 
 		if (
 			$this->is_background_update_active( $to_update )
@@ -2607,5 +2594,179 @@ abstract class Tribe__Repository
 	 */
 	public function cast_error_to_exception( $code, $message ) {
 		throw new RuntimeException( $message, $code );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function create() {
+		$postarr = $this->filter_postarr_for_create( array_merge( $this->build_postarr(), $this->create_args ) );
+
+		// During the filtering allow extending classes or filters to prevent the create completely.
+		if ( false === ( bool ) $postarr ) {
+			return false;
+		}
+
+		$created = call_user_func( $this->get_create_callback( $postarr ), $postarr );
+
+		$post = get_post( $created );
+
+		return $post instanceof WP_Post && $post->ID === $created ? $post : false;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	 public function filter_postarr_for_create(array $postarr) {
+		 /**
+		  * Filters the post array that will be used for the creation of a post
+		  * of the type managed by the repository.
+		  *
+		  * @since TBD
+		  *
+		  * @param array $postarr The post array that will be sent to the create callback.
+		  */
+		 return apply_filters( "tribe_repository_{$this->filter_name}_update_postarr", $postarr );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function build_postarr( $id = null ){
+		$postarr = array(
+			'tax_input'  => array(),
+			'meta_input' => array(),
+		);
+
+		/*
+		 * The check is lax here by design: we leave space for the client code
+		 * to use this method to build post arrays; when this is used by the
+		 * repository the integrity of `$id` is granted.
+		 */
+		$is_update = null !== $id && is_numeric($id);
+
+		// But still let's provide values that make sense.
+		if ( $is_update ) {
+			$postarr['ID'] = (int) $id;
+		}
+
+		foreach ( $this->updates as $key => $value ) {
+			if ( is_callable( $value ) ) {
+				$value = $value( $id, $key, $this );
+			}
+
+			// Allow fields to be aliased
+			$key = Tribe__Utils__Array::get( $this->update_fields_aliases, $key, $key );
+
+			if ( ! $this->can_be_udpated( $key ) ) {
+				throw Tribe__Repository__Usage_Error::because_this_field_cannot_be_updated( $key, $this );
+			}
+
+			if ( $this->is_a_post_field( $key ) ) {
+				if ( $this->requires_converted_date( $key ) ) {
+					$this->update_postarr_dates( $key, $value, $postarr );
+				} else {
+					$postarr[ $key ] = $value;
+				}
+			} elseif ( $this->is_a_taxonomy( $key ) ) {
+				$taxonomy = get_taxonomy( $key );
+				if ( $taxonomy instanceof WP_Taxonomy ) {
+					// array = hierarchical, string = non-hierarchical.
+					$postarr['tax_input'][ $key ] = $taxonomy->hierarchical
+						? Tribe__Utils__Array::list_to_array( tribe_normalize_terms_list( $value, $key, 'term_id' ) )
+						: Tribe__Utils__Array::to_list( tribe_normalize_terms_list( $value, $key, 'slug' ) );
+				}
+			} else {
+				// it's a custom field
+				$postarr['meta_input'][ $key ] = $value;
+			}
+		}
+
+		return $postarr;
+	}
+
+	/**
+	 * Returns the create callback function or method to use to create posts.
+	 *
+	 * @since TBD
+	 *
+	 * @param array    $postarr     The post array that will be used for the creation.
+	 *
+	 * @return callable The callback to use.
+	 */
+	protected function get_create_callback( array $postarr ) {
+		/**
+		 * Filters the callback that all repositories should use to create posts.
+		 *
+		 * @since TBD
+		 *
+		 * @param callable $callback    The callback that should be used to create posts; defaults
+		 *                              to `wp_insert_post`; non numeric and existing post ID return
+		 *                              values will be interpreted as failures to create the post.
+		 * @param array    $postarr     The post array that will be used for the creation.
+		 */
+		$callback = apply_filters( 'tribe_repository_update_callback', 'wp_insert_post', $postarr );
+
+		/**
+		 * Filters the callback that all repositories should use to create posts.
+		 *
+		 * @since TBD
+		 *
+		 * @param callable $callback    The callback that should be used to create posts; defaults
+		 *                              to `wp_insert_post`; non numeric and existing post ID return
+		 *                              values will be interpreted as failures to create the post.
+		 * @param array    $postarr     The post array that will be used for the creation.
+		 */
+		$callback = apply_filters(
+			"tribe_repository_{$this->filter_name}_update_callback",
+			$callback,
+			$postarr
+		);
+
+		return $callback;
+	}
+
+	/**
+	 * Returns the create args the repository will use to create posts.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The create args the repository will use to create posts.
+	 */
+	public function get_create_args() {
+		return $this->create_args;
+	}
+
+	/**
+	 * Sets the create args the repository will use to create posts.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $create_args The create args the repository will use to create posts.
+	 */
+	public function set_create_args( array $create_args ) {
+		$this->create_args = $create_args;
+	}
+
+	/**
+	 * Returns a value trying to fetch it from an array first and then
+	 * reading it from the meta.
+	 *
+	 * @since TBD
+	 *
+	 * @param array    $postarr The array to look into.
+	 * @param string   $key     The key to retrieve.
+	 * @param int|null $post_id The post ID to fetch the value for.
+	 * @param mixed $default The default value to return if nothing was found.
+	 *
+	 * @return mixed The found value if any.
+	 */
+	protected function get_from_postarr_or_meta( array $postarr, $key, $post_id = null, $default = null ) {
+		$default_value = get_post_meta( $post_id, $key, true );
+		if ( '' === $default_value || null === $post_id ) {
+			$default_value = $default;
+		}
+
+		return Tribe__Utils__Array::get( $postarr['meta_input'], $key, $default_value );
 	}
 }
