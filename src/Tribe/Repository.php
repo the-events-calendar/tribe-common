@@ -2671,9 +2671,7 @@ abstract class Tribe__Repository
 			} elseif ( $this->is_a_taxonomy( $key ) ) {
 				$taxonomy = get_taxonomy( $key );
 				if ( $taxonomy instanceof WP_Taxonomy ) {
-					$postarr['tax_input'][ $key ] = $taxonomy->hierarchical
-						? Tribe__Utils__Array::list_to_array( $value )
-						: Tribe__Utils__Array::to_list( $value );
+					$postarr['tax_input'][ $key ] = Tribe__Utils__Array::list_to_array( $value );
 				}
 			} else {
 				// it's a custom field
