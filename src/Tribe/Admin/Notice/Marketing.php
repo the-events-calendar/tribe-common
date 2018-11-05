@@ -170,7 +170,7 @@ class Tribe__Admin__Notice__Marketing {
 	 * @return boolean
 	 */
 	public function gutenberg_release_should_display() {
-		return time() < $this->get_gutenberg_release_end_time();
+		return true;
 	}
 
 	/**
@@ -186,15 +186,15 @@ class Tribe__Admin__Notice__Marketing {
 
 		$end_time = $this->get_gutenberg_release_end_time();
 
+		if ( $this->tec_is_active && ! $this->tec_is_active ) {
+			$icon_url = Tribe__Main::instance()->plugin_url . 'src/resources/images/gutenberg-admin-notice-tickets.png';
+		} else {
+			$icon_url = Tribe__Main::instance()->plugin_url . 'src/resources/images/gutenberg-admin-notice-TEC.png';
+		}
+
 		ob_start();
 
-		if ( $this->tec_is_active && ! $this->et_is_active ) {
-			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-tec.php';
-		} elseif ( $this->et_is_active && ! $this->tec_is_active ) {
-			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-et.php';
-		} else {
-			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-general.php';
-		}
+		include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-gutenberg-release.php';
 
 		return ob_get_clean();
 	}
