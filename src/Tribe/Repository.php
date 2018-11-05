@@ -2643,7 +2643,7 @@ abstract class Tribe__Repository
 		 * to use this method to build post arrays; when this is used by the
 		 * repository the integrity of `$id` is granted.
 		 */
-		$is_update = null !== $id && is_numeric($id);
+		$is_update = null !== $id && is_numeric( $id );
 
 		// But still let's provide values that make sense.
 		if ( $is_update ) {
