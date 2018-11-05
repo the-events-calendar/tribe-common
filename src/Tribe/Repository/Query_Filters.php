@@ -897,7 +897,9 @@ class Tribe__Repository__Query_Filters {
 			return $orderby;
 		}
 
-		return implode( ', ', $this->query_vars['orderby'] ) . ', ' . $orderby;
+		$order = $query->get( 'order', 'ASC' );
+
+		return implode( $order . ', ', $this->query_vars['orderby'] ) . $order . ', ' . $orderby;
 	}
 
 	/**
