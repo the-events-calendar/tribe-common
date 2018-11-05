@@ -2617,7 +2617,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	 public function filter_postarr_for_create(array $postarr) {
+	public function filter_postarr_for_create( array $postarr ) {
 		 /**
 		  * Filters the post array that will be used for the creation of a post
 		  * of the type managed by the repository.
@@ -2632,7 +2632,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function build_postarr( $id = null ){
+	public function build_postarr( $id = null ) {
 		$postarr = array(
 			'tax_input'  => array(),
 			'meta_input' => array(),
