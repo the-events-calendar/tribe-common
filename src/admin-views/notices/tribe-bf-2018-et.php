@@ -15,6 +15,6 @@
 	<div class="tribe-notice-content">
 		<h3>Event Tickets Plus is on Sale Today!</h3>
 		<p>Premium functionality = premium results. Event Tickets Plus integrates directly with WooCommerce and includes a slew of prime features like global ticket stock, custom attendee fields, and QR codes for easy check-ins.</p>
-		<p><a target="_blank" href="http://m.tri.be/1a8m">Shop our holiday sale now!</a></p>
+		<p><a target="_blank" class="button button-primary alignleft" href="http://m.tri.be/1a8m">Shop our holiday sale now!</a></p>
 	</div>
 </div>

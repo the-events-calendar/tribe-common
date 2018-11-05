@@ -1030,8 +1030,7 @@ a.tribe-rating-link {
 	text-decoration: underline;
 }
 .tribe-marketing-notice.tribe-bf-2018-tec .button.button-primary {
-	margin-left: 0;
-	margin-top: 10px;
+	margin: 10px 10px 0 0;
 }
 .tribe-ea-dropdown,
 .tribe-dropdown {
@@ -1312,8 +1311,12 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 		margin-left: 130px;
 	}
 }
-@media screen and (min-width:746px) {
+@media screen and (max-width: 956px) {
 	.tribe-marketing-notice.tribe-bf-2018-tec .button.button-primary {
-		margin-left: 10px;
+		margin: 0 0 10px 0;
+	}
+	.tribe-marketing-notice.tribe-bf-2018-tec em {
+		clear: both;
+		display: block;
 	}
 }

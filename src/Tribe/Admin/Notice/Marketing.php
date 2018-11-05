@@ -96,6 +96,8 @@ class Tribe__Admin__Notice__Marketing {
 	 */
 	public function bf_2018_display_notice() {
 
+		Tribe__Assets::instance()->enqueue( array( 'tribe-common-admin' ) );
+
 		$tribe_dependency = Tribe__Dependency::instance();
 		$tec_is_active    = $tribe_dependency->is_plugin_active( 'Tribe__Events__Main' );
 		$et_is_active     = $tribe_dependency->is_plugin_active( 'Tribe__Tickets__Main' );
@@ -105,13 +107,13 @@ class Tribe__Admin__Notice__Marketing {
 
 		ob_start();
 
-		if ( $tec_is_active && ! $et_is_active ) {
-			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-tec.php';
-		} elseif ( $et_is_active && ! $tec_is_active ) {
-			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-et.php';
-		} else {
-			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-general.php';
-		}
+		//if ( $tec_is_active && ! $et_is_active ) {
+		include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-tec.php';
+		//} elseif ( $et_is_active && ! $tec_is_active ) {
+			// include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-et.php';
+		//} else {
+		//	include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-general.php';
+		//}
 
 		return ob_get_clean();
 	}
