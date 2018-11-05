@@ -107,13 +107,13 @@ class Tribe__Admin__Notice__Marketing {
 
 		ob_start();
 
-		//if ( $tec_is_active && ! $et_is_active ) {
-		include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-tec.php';
-		//} elseif ( $et_is_active && ! $tec_is_active ) {
-			// include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-et.php';
-		//} else {
-		//	include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-general.php';
-		//}
+		if ( $tec_is_active && ! $et_is_active ) {
+			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-tec.php';
+		} elseif ( $et_is_active && ! $tec_is_active ) {
+			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-et.php';
+		} else {
+			include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-2018-general.php';
+		}
 
 		return ob_get_clean();
 	}
