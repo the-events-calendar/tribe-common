@@ -648,6 +648,36 @@ class Tribe__Repository__Query_Filters {
 	}
 
 	/**
+	 * Add a custom ORDER BY to the query.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $orderby
+	 */
+	public function orderby( $orderby ) {
+		$this->query_vars['orderby'][] = $orderby;
+
+		if ( ! has_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ) ) ) {
+			add_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * Add custom select fields to the query.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $field
+	 */
+	public function fields( $field ) {
+		$this->query_vars['fields'][] = $field;
+
+		if ( ! has_filter( 'posts_fields', array( $this, 'filter_posts_fields' ) ) ) {
+			add_filter( 'posts_fields', array( $this, 'filter_posts_fields' ), 10, 2 );
+		}
+	}
+
+	/**
 	 * Whether WHERE clauses should be buffered or not.
 	 *
 	 * @since 4.7.19
@@ -846,5 +876,51 @@ class Tribe__Repository__Query_Filters {
 		$join .= "\n" . implode( "\n ", $this->query_vars['join'] ) . ' ';
 
 		return $join;
+	}
+
+	/**
+	 * Filter the `posts_orderby` filter to add custom JOIN clauses.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $orderby
+	 * @param WP_Query $query
+	 *
+	 * @return string
+	 */
+	public function filter_posts_orderby( $orderby, WP_Query $query ) {
+		if ( $query !== $this->current_query ) {
+			return $orderby;
+		}
+
+		if ( empty( $this->query_vars['orderby'] ) ) {
+			return $orderby;
+		}
+
+		return implode( ', ', $this->query_vars['orderby'] ) . ', ' . $orderby;
+	}
+
+	/**
+	 * Filter the `posts_fields` filter to amend fields to be selected.
+	 *
+	 * @since TBD
+	 *
+	 * @param array    $fields
+	 * @param WP_Query $query
+	 *
+	 * @return string
+	 */
+	public function filter_posts_fields( $fields, WP_Query $query ) {
+		if ( $query !== $this->current_query ) {
+			return $fields;
+		}
+
+		if ( empty( $this->query_vars['fields'] ) ) {
+			return $fields;
+		}
+
+		$fields .= ', ' . implode( ', ', $this->query_vars['fields'] );
+
+		return $fields;
 	}
 }

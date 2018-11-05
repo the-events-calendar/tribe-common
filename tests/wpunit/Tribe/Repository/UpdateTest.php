@@ -18,11 +18,11 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow udpating a post fields
+	 * It should allow updating a post fields
 	 *
 	 * @test
 	 */
-	public function should_allow_udpating_a_post_fields() {
+	public function should_allow_updating_a_post_fields() {
 		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
 
 		$date     = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'America/New_York' ) );
