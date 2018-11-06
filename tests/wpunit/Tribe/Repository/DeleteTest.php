@@ -161,4 +161,8 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 			$this->assertEquals( 'deleted_book', get_post_type( $id ) );
 		}
 	}
+
+	public function fetchDependencies() {
+		// TODO: Implement fetchDependencies() method.
+	}
 }
