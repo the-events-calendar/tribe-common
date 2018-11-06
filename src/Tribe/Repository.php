@@ -333,6 +333,17 @@ abstract class Tribe__Repository
 	protected $query_builder;
 
 	/**
+	 * A map relating aliases to their real update field name.
+	 *
+	 * E.g. the `title` alias might be an alias of `post_title` in update/save operations.
+	 * This is done to allow using set-like methods with human-readable names.
+	 * Extending classes should pre-fill this with default aliases.
+	 *
+	 * @var array
+	 */
+	protected $update_fields_aliases = array();
+
+	/**
 	 * Tribe__Repository constructor.
 	 *
 	 * @since 4.7.19
@@ -1171,32 +1182,19 @@ abstract class Tribe__Repository
 	}
 
 	/**
-	 * Commits the updates to the selected post IDs to the database.
-	 *
-	 * @since 4.7.19
-	 *
-	 * @param bool $sync Whether to apply the updates in a synchronous process
-	 *                   or in an asynchronous one.
-	 *
-	 * @return array A list of the post IDs that have been (synchronous) or will
-	 *               be (asynchronous) updated. When running in sync mode the return
-	 *               value will be a map in the shape [ <id> => <update_result> ] where
-	 *               `true` indicates a correct update.
-	 *
-	 * @throws Tribe__Repository__Usage_Error If trying to update a field that cannot be
-	 *                                        updated.
+	 * {@inheritdoc}
 	 */
-	public function save( $sync = true ) {
-		$ids = $this->get_ids();
+	public function save( $return_promise = false ) {
+		$to_update = $this->get_ids();
 
-		if ( empty( $ids ) ) {
-			return array();
+		if ( empty( $to_update ) ) {
+			return $return_promise ? new Tribe__Promise() : array();
 		}
 
 		$exit     = array();
 		$postarrs = array();
 
-		foreach ( $ids as $id ) {
+		foreach ( $to_update as $id ) {
 			$postarr = array(
 				'ID'         => $id,
 				'tax_input'  => array(),
@@ -1207,6 +1205,9 @@ abstract class Tribe__Repository
 				if ( is_callable( $value ) ) {
 					$value = $value( $id, $key, $this );
 				}
+
+				// Allow fields to be aliased
+				$key = Tribe__Utils__Array::get( $this->update_fields_aliases, $key, $key );
 
 				if ( ! $this->can_be_udpated( $key ) ) {
 					throw Tribe__Repository__Usage_Error::because_this_field_cannot_be_updated( $key, $this );
@@ -1226,13 +1227,20 @@ abstract class Tribe__Repository
 				}
 			}
 
-			$postarrs[ $id ] = $postarr;
+			$postarrs[ $id ] = $this->filter_postarr_for_update( $postarr, $id );
 		}
 
-		// @todo actually implement async
+		if (
+			$this->is_background_update_active( $to_update )
+			&& count( $to_update ) > $this->get_background_update_threshold( $to_update )
+		) {
+			return $this->async_update( $postarrs, true );
+		}
+
+		$update_callback = $this->get_update_callback( $to_update, false );
 
 		foreach ( $postarrs as $id => $postarr ) {
-			$this_exit   = wp_update_post( $postarr );
+			$this_exit   = $update_callback( $postarr );
 			$exit[ $id ] = $id === $this_exit ? true : $this_exit;
 		}
 
@@ -1539,6 +1547,13 @@ abstract class Tribe__Repository
 			'taxonomy' => $taxonomy,
 			'by'       => $by,
 		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function add_update_field_alias( $alias, $field_name ) {
+		$this->update_fields_aliases[ $alias ] = $field_name;
 	}
 
 	/**
@@ -2201,5 +2216,405 @@ abstract class Tribe__Repository
 	 */
 	public static function get_comparison_operators() {
 		return self::$comparison_operators;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function delete( $return_promise = false ) {
+		$to_delete = $this->get_ids();
+
+		if ( empty( $to_delete ) ) {
+			return $return_promise ? new Tribe__Promise() : array();
+		}
+
+
+		/**
+		 * Filters the post delete operation allowing third party code to bail out of
+		 * the process completely.
+		 *
+		 * @since TBD
+		 *
+		 * @param array|null $deleted An array containing the the IDs of the deleted posts.
+		 * @param self       $this    This repository instance.
+		 */
+		$deleted = apply_filters( "tribe_repository_{$this->filter_name}_delete", null, $to_delete );
+		if ( null !== $deleted ) {
+			return $deleted;
+		}
+
+		if (
+			$this->is_background_delete_active( $to_delete )
+			&& count( $to_delete ) > $this->get_background_delete_threshold( $to_delete )
+		) {
+			return $this->async_delete( $to_delete, $return_promise );
+		}
+
+		$delete_callback = $this->get_delete_callback( $to_delete );
+
+		foreach ( $to_delete as $id ) {
+			$done = $delete_callback( $id );
+
+			if ( empty( $done ) ) {
+				tribe( 'logger' )->log(
+					__( 'Could not delete post with ID ' . $id, 'tribe-common' ),
+					Tribe__Log::WARNING,
+					$this->filter_name
+				);
+				continue;
+			}
+			$deleted[] = $id;
+		}
+
+		return $return_promise ? new Tribe__Promise() : $deleted;
+	}
+
+	/**
+	 * Whether background delete is activated for the repository or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $to_delete An array of post IDs to delete.
+	 *
+	 * @return bool Whether background delete is activated for the repository or not.
+	 */
+	protected function is_background_delete_active( $to_delete ) {
+		/**
+		 * Whether background, asynchronous, deletion of posts is active or not for all repositories.
+		 *
+		 * If active then if the number of posts to delete is over the threshold, defined
+		 * by the `tribe_repository_delete_background_threshold` filter, then the deletion will happen
+		 * in background in other requests.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool  $background_active Whether background deletion is active or not.
+		 * @param array $to_delete         The array of post IDs to delete.
+		 */
+		$background_active = (bool) apply_filters( 'tribe_repository_delete_background_activated', true, $to_delete );
+
+		/**
+		 * Whether background, asynchronous, deletion of posts is active or not for this specific repository.
+		 *
+		 * If active then if the number of posts to delete is over the threshold, defined
+		 * by the `tribe_repository_delete_background_threshold` filter, then the deletion will happen
+		 * in background in other requests.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool  $background_active Whether background deletion is active or not.
+		 * @param array $to_delete         The array of post IDs to delete.
+		 */
+		$background_active = (bool) apply_filters(
+			"tribe_repository_{$this->filter_name}_delete_background_activated",
+			$background_active,
+			$to_delete
+		);
+
+		return $background_active;
+	}
+
+	/**
+	 * Returns the threshold above which posts will be deleted in background.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $to_delete An array of post IDs to delete.
+	 *
+	 * @return int The threshold above which posts will be deleted in background.
+	 */
+	protected function get_background_delete_threshold( $to_delete ) {
+		/**
+		 * The number of posts above which the deletion will happen in background.
+		 *
+		 * This filter will be ignored if background delete is deactivated with the `tribe_repository_delete_background_activated`
+		 * or `tribe_repository_{$this->filter_name}_delete_background_activated` filter.
+		 *
+		 * @since TBD
+		 *
+		 * @param int The threshold over which posts will be deleted in background.
+		 * @param array $to_delete The post IDs to delete.
+		 */
+		$background_threshold = (int) apply_filters( 'tribe_repository_delete_background_threshold', 20, $to_delete );
+
+		/**
+		 * The number of posts above which the deletion will happen in background.
+		 *
+		 * This filter will be ignored if background delete is deactivated with the `tribe_repository_delete_background_activated`
+		 * or `tribe_repository_{$this->filter_name}_delete_background_activated` filter.
+		 *
+		 * @since TBD
+		 *
+		 * @param int The threshold over which posts will be deleted in background.
+		 * @param array $to_delete The post IDs to delete.
+		 */
+		$background_threshold = (int) apply_filters(
+			"tribe_repository_{$this->filter_name}_delete_background_threshold",
+			$background_threshold,
+			$to_delete
+		);
+
+		return $background_threshold;
+	}
+
+	/**
+	 * Whether background update is activated for the repository or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $to_update An array of post IDs to update.
+	 *
+	 * @return bool Whether background update is activated for the repository or not.
+	 */
+	protected function is_background_update_active( $to_update ) {
+		/**
+		 * Whether background, asynchronous, update of posts is active or not for all repositories.
+		 *
+		 * If active then if the number of posts to update is over the threshold, defined
+		 * by the `tribe_repository_update_background_threshold` filter, then the update will happen
+		 * in background in other requests.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool  $background_active Whether background update is active or not.
+		 * @param array $to_update         The array of post IDs to update.
+		 */
+		$background_active = (bool) apply_filters( 'tribe_repository_update_background_activated', true, $to_update );
+
+		/**
+		 * Whether background, asynchronous, update of posts is active or not for this specific repository.
+		 *
+		 * If active then if the number of posts to update is over the threshold, defined
+		 * by the `tribe_repository_update_background_threshold` filter, then the update will happen
+		 * in background in other requests.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool  $background_active Whether background update is active or not.
+		 * @param array $to_update         The array of post IDs to update.
+		 */
+		$background_active = (bool) apply_filters(
+			"tribe_repository_{$this->filter_name}_update_background_activated",
+			$background_active,
+			$to_update
+		);
+
+		return $background_active;
+	}
+
+	/**
+	 * Returns the threshold above which posts will be updated in background.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $to_update An array of post IDs to update.
+	 *
+	 * @return int The threshold above which posts will be updated in background.
+	 */
+	protected function get_background_update_threshold( $to_update ) {
+		/**
+		 * The number of posts above which the update will happen in background.
+		 *
+		 * This filter will be ignored if background update is deactivated with the `tribe_repository_update_background_activated`
+		 * or `tribe_repository_{$this->filter_name}_update_background_activated` filter.
+		 *
+		 * @since TBD
+		 *
+		 * @param int The threshold over which posts will be updated in background.
+		 * @param array $to_update The post IDs to update.
+		 */
+		$background_threshold = (int) apply_filters( 'tribe_repository_update_background_threshold', 20, $to_update );
+
+		/**
+		 * The number of posts above which the update will happen in background.
+		 *
+		 * This filter will be ignored if background update is deactivated with the `tribe_repository_update_background_activated`
+		 * or `tribe_repository_{$this->filter_name}_update_background_activated` filter.
+		 *
+		 * @since TBD
+		 *
+		 * @param int The threshold over which posts will be updated in background.
+		 * @param array $to_update The post IDs to update.
+		 */
+		$background_threshold = (int) apply_filters(
+			"tribe_repository_{$this->filter_name}_update_background_threshold",
+			$background_threshold,
+			$to_update
+		);
+
+		return $background_threshold;
+	}
+
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function async_delete( array $to_delete, $return_promise = true ) {
+		$promise = new Tribe__Promise( $this->get_delete_callback( $to_delete, true ), $to_delete );
+		if ( ! $return_promise ) {
+			// Dispatch it immediately and return the IDs that will be deleted.
+			$promise->save()->dispatch();
+
+			return $to_delete;
+		}
+
+		// Return the promise and let the client do the dispatching.
+		return $promise;
+	}
+
+	/**
+	 * Returns the delete callback function or method to use to delete posts.
+	 *
+	 * @since TBD
+	 *
+	 * @param      int|array $to_delete  The post ID to delete or an array of post IDs to delete.
+	 * @param bool           $background Whether the callback will be used in background delete operations or not.
+	 *
+	 * @return callable The callback to use.
+	 */
+	protected function get_delete_callback( $to_delete, $background = false ) {
+		/**
+		 * Filters the callback that all repositories should use to delete posts.
+		 *
+		 * @since TBD
+		 *
+		 * @param callable  $callback   The callback that should be used to delete each post; defaults
+		 *                              to `wp_delete_post`; falsy return values will be interpreted as
+		 *                              failures to delete.
+		 * @param array|int $to_delete  An array of post IDs to delete.
+		 * @param bool      $background Whether the delete operation will happen in background or not.
+		 */
+		$callback = apply_filters( 'tribe_repository_delete_callback', 'wp_delete_post', (array) $to_delete, (bool) $background );
+
+		/**
+		 * Filters the callback that all repositories should use to delete posts.
+		 *
+		 * @since TBD
+		 *
+		 * @param callable  $callback   The callback that should be used to delete each post; defaults
+		 *                              to `wp_delete_post`; falsy return values will be interpreted as
+		 *                              failures to delete.
+		 * @param array|int $to_delete  An array of post IDs to delete.
+		 * @param bool      $background Whether the delete operation will happen in background or not.
+		 */
+		$callback = apply_filters(
+			"tribe_repository_{$this->filter_name}_delete_callback",
+			$callback,
+			(array) $to_delete,
+			(bool) $background
+		);
+
+		return $callback;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_filter_name() {
+		return $this->filter_name;
+	}
+
+	/**
+	 * Returns the update callback function or method to use to update posts.
+	 *
+	 * @since TBD
+	 *
+	 * @param      int|array $to_update  The post ID to update or an array of post IDs to update.
+	 * @param bool           $background Whether the callback will be used in background update operations or not.
+	 *
+	 * @return callable The callback to use.
+	 */
+	protected function get_update_callback( $to_update, $background = false ) {
+		/**
+		 * Filters the callback that all repositories should use to update posts.
+		 *
+		 * @since TBD
+		 *
+		 * @param callable  $callback   The callback that should be used to update each post; defaults
+		 *                              to `wp_update_post`; falsy return values will be interpreted as
+		 *                              failures to update.
+		 * @param array|int $to_update  An array of post IDs to update.
+		 * @param bool      $background Whether the update operation will happen in background or not.
+		 */
+		$callback = apply_filters( 'tribe_repository_update_callback', 'wp_update_post', (array) $to_update, (bool) $background );
+
+		/**
+		 * Filters the callback that all repositories should use to update posts.
+		 *
+		 * @since TBD
+		 *
+		 * @param callable  $callback   The callback that should be used to update each post; defaults
+		 *                              to `wp_update_post`; falsy return values will be interpreted as
+		 *                              failures to update.
+		 * @param array|int $to_update  An array of post IDs to update.
+		 * @param bool      $background Whether the update operation will happen in background or not.
+		 */
+		$callback = apply_filters(
+			"tribe_repository_{$this->filter_name}_update_callback",
+			$callback,
+			(array) $to_update,
+			(bool) $background
+		);
+
+		return $callback;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function async_update( array $to_update, $return_promise = true ) {
+		$promise = new Tribe__Promise( $this->get_update_callback( $to_update, true ), $to_update );
+		if ( ! $return_promise ) {
+			// Dispatch it immediately and return the IDs that will be deleted.
+			$promise->save()->dispatch();
+
+			return $to_update;
+		}
+
+		// Return the promise and let the client do the dispatching.
+		return $promise;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_update_fields_aliases() {
+		return $this->update_fields_aliases;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_update_fields_aliases( array $update_fields_aliases ) {
+		$this->update_fields_aliases = $update_fields_aliases;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_update( array $postarr, $post_id ) {
+		/**
+		 * Filters the post array that will be used for an update.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $postarr The post array that will be sent to the update callback.
+		 * @param int The post ID if set.
+		 */
+		return apply_filters( "tribe_repository_{$this->filter_name}_update_postarr", $postarr, $post_id );
+	}
+
+	/**
+	 * A utility method to cast any PHP error into an exception proper.
+	 *
+	 * Usage: `set_error_handler( array( $repository, 'cast_error_to_exception' ) );
+	 *
+	 * @since TBD
+	 *
+	 * @param int $code The error code.
+	 * @param string $message The error message.
+	 */
+	public function cast_error_to_exception( $code, $message ) {
+		throw new RuntimeException( $message, $code );
 	}
 }

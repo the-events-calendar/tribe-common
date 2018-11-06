@@ -385,4 +385,59 @@ interface Tribe__Repository__Read_Interface {
 	 * @return string|null The current filter being applied.
 	 */
 	public function get_current_filter();
+
+	/**
+	 * Deletes a set of events fetched by using filters.
+
+	 *
+	 * @since TBD
+	 *
+	 *
+	 * @param bool $return_promise Whether to return the promise or just the deleted post IDs
+	 *                             if the deletion happens in a background process; defaults
+	 *                             to `false`.
+	 *
+	 * @return int[]|Tribe__Promise An array of deleted post IDs, or that will be deleted in asynchronous
+	 *                              mode or a promise object if `$return_promise` is set to `true`. The
+	 *                              promise object will immediately execute its resolved or rejected callback
+	 *                              if in synchronous mode.
+	 */
+	public function delete(
+		$return_promise = false );
+
+	/**
+	 * Executes the delete operation in asynchronous mode.
+	 *
+	 * This method will override any filtering that might deactivate or disable asynchronous
+	 * deletion processes. The recommended way to delete events is by using the `delete` method
+	 * and letting the filtering conditions take over.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $to_delete      The post IDs to delete.
+	 * @param bool  $return_promise Whether to return the `Tribe__Promise` object created to
+	 *                              handle the background deletion or not.
+	 *
+	 * @return array|Tribe__Promise The promise object created to handle the background deletion
+	 *                              or the array of post IDs that will be, eventually, deleted.
+	 */
+	public function async_delete( array $to_delete, $return_promise = true );
+
+	/**
+	 * Executes the update operation in asynchronous mode.
+	 *
+	 * This method will override any filtering that might deactivate or disable asynchronous
+	 * update processes. The recommended way to update events is by using the `update` method
+	 * and letting the filtering conditions take over.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $to_update      The post IDs to update.
+	 * @param bool  $return_promise Whether to return the `Tribe__Promise` object created to
+	 *                              handle the background update or not.
+	 *
+	 * @return array|Tribe__Promise The promise object created to handle the background update
+	 *                              or the array of post IDs that will be, eventually, updated.
+	 */
+	public function async_update( array $to_update, $return_promise = true );
 }

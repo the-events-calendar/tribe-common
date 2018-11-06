@@ -44,6 +44,15 @@ interface Tribe__Repository__Interface
 	public function filter_name( $filter_name );
 
 	/**
+	 * Returns the repository filter name.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_filter_name(  );
+
+	/**
 	 * Sets the formatter in charge of formatting items to the correct format.
 	 *
 	 * @since 4.7.19
