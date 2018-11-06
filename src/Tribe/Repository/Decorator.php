@@ -265,8 +265,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function save( $sync = true ) {
-		$this->decorated->save( $sync );
+	public function save( $return_promise = true ) {
+		$this->decorated->save( $return_promise );
 	}
 
 	/**
@@ -386,4 +386,96 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function prepare_interval( $values, $format = '%s' ) {
 		return $this->decorated->prepare_interval( $values, $format );
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function delete( $return_promise = false ) {
+		return $this->decorated->delete( $return_promise );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function async_delete( array $to_delete, $return_promise = true ) {
+		return $this->decorated->async_delete( $to_delete, $return_promise );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function add_update_field_alias( $alias, $field_name ) {
+		$this->decorated->add_update_field_alias( $alias, $field_name );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function async_update( array $to_update, $return_promise = true ) {
+		return $this->decorated->async_update( $to_update, $return_promise );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_update_fields_aliases() {
+		return $this->decorated->get_update_fields_aliases();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_update_fields_aliases( array $update_fields_aliases ) {
+		$this->decorated->set_update_fields_aliases( $update_fields_aliases );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_filter_name() {
+		return $this->decorated->get_filter_name();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_update( array $postarr, $post_id ) {
+		return $this->decorated->filter_postarr_for_update( $postarr, $post_id );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function build_postarr( $id = null ) {
+		return $this->decorated->build_postarr();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function create() {
+		return $this->decorated->create();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_create( array $postarr ) {
+		return $this->decorated->filter_postarr_for_create( $postarr, $post_id );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_create_args( array $create_args ) {
+		$this->decorated->set_create_args( $create_args );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_create_args() {
+		return $this->decorated->get_create_args();
+	}
+
 }

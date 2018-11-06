@@ -264,4 +264,40 @@ class Tribe__Utils__Array {
 
 		return $found ? $mapped[0] : false;
 	}
+
+	/**
+	 * Duplicates any key prefixed with '_' creating an un-prefixed duplicate one.
+	 *
+	 * The un-prefixing and duplication is recursive.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $array     The array whose keys should be duplicated.
+	 * @param bool  $recursive Whether the un-prefixing and duplication should be
+	 *                         recursive or shallow.
+	 *
+	 * @return array The array with the duplicate, unprefixed, keys or the
+	 *               original input if not an array.
+	 */
+	public static function add_unprefixed_keys_to( $array, $recursive = false ) {
+		if ( ! is_array( $array ) ) {
+			return $array;
+		}
+
+		$unprefixed = array();
+		foreach ( $array as $key => $value ) {
+			if ( $recursive && is_array( $value ) ) {
+				$value = self::add_unprefixed_keys_to( $value, true );
+				// And also add it to the original array.
+				$array[ $key ] = array_merge( $array[ $key ], $value );
+			}
+
+			if ( 0 !== strpos( $key, '_' ) ) {
+				continue;
+			}
+			$unprefixed[ substr( $key, 1 ) ] = $value;
+		}
+
+		return array_merge( $array, $unprefixed );
+	}
 }

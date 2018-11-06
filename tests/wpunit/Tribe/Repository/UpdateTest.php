@@ -2,8 +2,9 @@
 
 namespace Tribe\Repository;
 
-use Tribe__Repository__Query_Filters as Query_Filters;
+use Tribe__Promise as Promise;
 use Tribe__Repository as Update_Repository;
+use Tribe__Repository__Decorator as Decorator;
 
 class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	protected $class;
@@ -14,6 +15,16 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		register_taxonomy( 'genre', 'book' );
 		$this->class = new class extends \Tribe__Repository {
 			protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
+			protected $filter_name = 'books';
+
+			public function filter_postarr_for_update( array $postarr, $post_id ) {
+				unset( $postarr['meta_input']['nope_key'] );
+				if ( isset( $postarr['meta_input']['legit_key'] ) ) {
+					$postarr['meta_input']['legit_key'] .= '-postfix';
+				}
+
+				return parent::filter_postarr_for_update( $postarr, $post_id );
+			}
 		};
 	}
 
@@ -147,4 +158,122 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		] );
 	}
 
+	/**
+	 * It should support bulk setting fields with a map
+	 *
+	 * @test
+	 */
+	public function should_support_bulk_setting_fields_with_a_map() {
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		$map = [
+			'post_title'   => 'Updated title',
+			'post_content' => 'Updated content',
+		];
+		$this->repository()->where( 'post__in', $ids )->set_args( $map )->save();
+
+		foreach ( $ids as $id ) {
+			$post = get_post( $id );
+			$this->assertEquals( 'Updated title', $post->post_title );
+			$this->assertEquals( 'Updated content', $post->post_content );
+		}
+	}
+
+	/**
+	 * It should allow updating fields using aliases for custom fields
+	 *
+	 * @test
+	 */
+	public function should_allow_updating_fields_using_aliases_for_custom_fields() {
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		$repository = $this->repository();
+		$repository->add_update_field_alias( 'title', 'post_title' );
+		$repository->add_update_field_alias( 'content', 'post_content' );
+		$map = [
+			'title'   => 'Updated title',
+			'content' => 'Updated content',
+		];
+		$repository->where( 'post__in', $ids )->set_args( $map )->save();
+
+		foreach ( $ids as $id ) {
+			$post = get_post( $id );
+			$this->assertEquals( 'Updated title', $post->post_title );
+			$this->assertEquals( 'Updated content', $post->post_content );
+		}
+	}
+
+	/**
+	 * It should update posts in background if over threshold
+	 *
+	 * @test
+	 */
+	public function should_update_posts_in_background_if_over_threshold() {
+		add_filter( 'tribe_repository_books_update_background_activated', '__return_true' );
+		add_filter( 'tribe_repository_books_update_background_threshold', function () {
+			return 1;
+		} );
+		$ids     = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+		$promise = $this->repository()->where( 'post__in', $ids )
+		                ->set( 'post_title', 'updated' )
+		                ->save( true );
+
+		$this->assertInstanceOf( Promise::class, $promise );
+		foreach ( $ids as $id ) {
+			$this->assertInstanceOf( \WP_Post::class, get_post( $id ) );
+		}
+	}
+
+	/**
+	 * It should allow filtering update payloads
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_update_payloads() {
+		$ids        = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+		$repository = $this->repository();
+		$repository->where( 'post__in', $ids )
+		           ->set_args( [ 'nope_key' => 'foo', 'legit_key' => 'bar' ] )
+		           ->save();
+
+		foreach ( $ids as $id ) {
+			$this->assertEmpty( get_post_meta( $id, 'nope_key' ), true );
+			$this->assertEquals( 'bar-postfix', get_post_meta( $id, 'legit_key', true ) );
+		}
+	}
+
+	/**
+	 * It should allow filtering update payloads from decorator
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_update_payloads_from_decorator() {
+		$ids       = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+		$decorator = new class( $this->repository() ) extends Decorator {
+			public function __construct( \Tribe__Repository__Interface $decorated ) {
+				$this->decorated = $decorated;
+				$filter_name     = $decorated->get_filter_name();
+				add_filter( "tribe_repository_{$filter_name}_update_postarr", [
+					$this,
+					'filter_postarr_for_update'
+				], 10, 2 );
+			}
+
+			public function filter_postarr_for_update( array $postarr, $post_id ) {
+				$postarr['meta_input']['decorator_key'] = 'set';
+
+				return $postarr;
+			}
+		};
+
+		$decorator->where( 'post__in', $ids )
+		          ->set_args( [ 'nope_key' => 'foo', 'legit_key' => 'bar' ] )
+		          ->save();
+
+		foreach ( $ids as $id ) {
+			$this->assertEmpty( get_post_meta( $id, 'nope_key' ), true );
+			$this->assertEquals( 'bar-postfix', get_post_meta( $id, 'legit_key', true ) );
+			$this->assertEquals( 'set', get_post_meta( $id, 'decorator_key', true ) );
+		}
+	}
 }
