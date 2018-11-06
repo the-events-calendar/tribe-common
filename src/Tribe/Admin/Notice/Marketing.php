@@ -159,7 +159,7 @@ class Tribe__Admin__Notice__Marketing {
 		 *
 		 * @param int $gutenberg_release_end_time Defaults to Nov 17 2018 @ midnight, California time.
 		 */
-		return time() < apply_filters( 'tribe_gutenberg_release_notice_end_time', 1542434400 );
+		return apply_filters( 'tribe_gutenberg_release_notice_end_time', 1542434400 );
 	}
 
 	/**
@@ -170,7 +170,7 @@ class Tribe__Admin__Notice__Marketing {
 	 * @return boolean
 	 */
 	public function gutenberg_release_should_display() {
-		return true;
+		return time() < $this->get_gutenberg_release_end_time();
 	}
 
 	/**
