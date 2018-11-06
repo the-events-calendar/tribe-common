@@ -6,8 +6,22 @@
  */
 class Tribe__Admin__Notice__Marketing {
 
+	/**
+	 * Whether or not The Events Calendar is active.
+	 *
+	 * @since TBD
+	 *
+	 * @var boolean
+	 */
 	public $tec_is_active;
 
+	/**
+	 * Whether or not Event Tickets is active.
+	 *
+	 * @since TBD
+	 *
+	 * @var boolean
+	 */
 	public $et_is_active;
 
 	public function __construct() {
