@@ -6,6 +6,7 @@
 
 * New - Added `Tribe__Admin__Notice__Marketing` class for bespoke marketing admin notices [114903]
 * New - Added `TRIBE_HIDE_MARKETING_NOTICES` constant that, if defined to `true` in your site's `wp-config.php` file, will hide all marketing admin notices [114903]
+* Fix - Fixed the setting-up of strings in the Tribe Bar datepicker to ensure they're translatable into languages other than English [115286]
 
 = [4.7.22] 2018-10-22 =
 
