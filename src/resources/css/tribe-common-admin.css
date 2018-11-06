@@ -978,6 +978,60 @@ a.tribe-rating-link {
 .api-check .plugin-list span.plugin-invalid:last-of-type:after {
 	content: '';
 }
+.tribe-marketing-notice {
+	padding: 1em;
+}
+.tribe-marketing-notice + .notice-dismiss:hover:before {
+	color: #fff;
+}
+.tribe-marketing-notice:before,
+	.tribe-marketing-notice:after {
+	content: '';
+	display: table;
+}
+.tribe-marketing-notice:after {
+	clear: both;
+}
+.tribe-marketing-notice .tribe-notice-icon {
+	bottom: 0;
+	display: none;
+	padding: 16px;
+	padding: 1rem;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 125px;
+}
+.tribe-marketing-notice .tribe-notice-icon:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	width: 1%;
+	vertical-align: middle;
+}
+.tribe-marketing-notice .tribe-notice-icon img {
+	display: inline-block;
+	max-height: 100%;
+	max-width: 96%;
+	vertical-align: middle;
+}
+.tribe-marketing-notice h3 {
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+}
+.tribe-marketing-notice p {
+	line-height: 1.7;
+	margin-bottom: 0.5em;
+}
+.tribe-marketing-notice a {
+	text-decoration: none;
+}
+.tribe-marketing-notice a:hover {
+	text-decoration: underline;
+}
+.tribe-marketing-notice.tribe-bf-2018-tec .button.button-primary {
+	margin: 10px 10px 0 0;
+}
 .tribe-ea-dropdown,
 .tribe-dropdown {
 	max-width: 100%;
@@ -1237,5 +1291,32 @@ only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device
 	}
 	.api-check .notice-content {
 		margin-right: 180px;
+	}
+}
+@media screen and (min-width: 600px) and (max-width: 782px ) {
+	.tribe-marketing-notice .tribe-notice-icon {
+		width: 135px;
+	}
+	.tribe-marketing-notice .tribe-notice-content {
+		margin-left: 145px;
+	}
+}
+@media screen and (min-width: 600px) {
+	.tribe-marketing-notice .tribe-notice-icon {
+		display: block;
+	}
+}
+@media screen and (min-width: 782px) {
+	.tribe-marketing-notice .tribe-notice-content {
+		margin-left: 130px;
+	}
+}
+@media screen and (max-width: 956px) {
+	.tribe-marketing-notice.tribe-bf-2018-tec .button.button-primary {
+		margin: 0 0 10px 0;
+	}
+	.tribe-marketing-notice.tribe-bf-2018-tec em {
+		clear: both;
+		display: block;
 	}
 }

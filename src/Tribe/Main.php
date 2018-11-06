@@ -499,6 +499,11 @@ class Tribe__Main {
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 		tribe( 'admin.notice.php.version' );
+
+		if ( ! defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {
+			tribe( 'admin.notice.marketing' );
+		}
+
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
 		 *
@@ -535,6 +540,7 @@ class Tribe__Main {
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
 
 		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', array( 'hook' ) );
+		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', array( 'hook' ) );
 	}
 
 	/************************
