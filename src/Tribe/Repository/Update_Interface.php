@@ -54,8 +54,8 @@ interface Tribe__Repository__Update_Interface {
 	 *                             or not.
 	 *
 	 * @return array|Tribe__Promise A list of the post IDs that have been (synchronous) or will
-	 *               be (asynchronous) updated if `$return_promise` is set to `false`;
-	 *               the Promise object if `$return_promise` is set to `true`.
+	 *                              be (asynchronous) updated if `$return_promise` is set to `false`;
+	 *                              the Promise object if `$return_promise` is set to `true`.
 	 */
 	public function save( $return_promise = false );
 
