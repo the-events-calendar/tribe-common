@@ -1,0 +1,17 @@
+/* increased specificity required to override gutenberg editor styles */
+input.tribe-editor__input {
+
+	/* @todo: type=number is in input styles because this list will grow (common input styles) */
+	&[type=number] {
+		color: #000000;
+		font-size: 16px;
+		line-height: 24px;
+		border: 1px solid #E1E3E6;
+		padding: 7px 15px;
+		height: 40px;
+
+		&:disabled {
+			color: #AEB4BB;
+		}
+	}
+}
