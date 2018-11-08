@@ -72,6 +72,43 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should allow updating empty post fields
+	 *
+	 * @test
+	 */
+	public function should_allow_updating_empty_post_fields() {
+		$ids = $this->factory()->post->create_many( 1, [ 'post_type' => 'book' ] );
+
+		$date     = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'America/New_York' ) );
+		$gmt_date = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'UTC' ) );
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$other_author = $this->factory()->user->create( [ 'role' => 'editor' ] );
+
+		$post_fields = [
+			'post_author'           => $other_author,
+			'post_date'             => $date->format( 'Y-m-d H:i:s' ),
+			'post_date_gmt'         => $gmt_date->format( 'Y-m-d H:i:s' ),
+			'post_content'          => '',
+			'post_title'            => 'Lorem Title',
+			'post_excerpt'          => '',
+			'post_content_filtered' => '',
+			'post_parent'           => 0,
+			'menu_order'            => 0,
+			'post_mime_type'        => '',
+			'post_password'         => '',
+		];
+
+		foreach ( $post_fields as $post_field => $value ) {
+			$this->repository()->where( 'post__in', $ids )->set( $post_field, $value )->save();
+
+			foreach ( $ids as $id ) {
+				clean_post_cache( $id );
+				$this->assertEquals( $value, get_post( $id )->{$post_field}, "{$post_field} does not match for post {$id}" );
+			}
+		}
+	}
+
+	/**
 	 * @return Update_Repository
 	 */
 	protected function repository() {
