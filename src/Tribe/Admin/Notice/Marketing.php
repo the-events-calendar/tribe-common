@@ -200,7 +200,7 @@ class Tribe__Admin__Notice__Marketing {
 
 		$end_time = $this->get_gutenberg_release_end_time();
 
-		if ( $this->tec_is_active && ! $this->tec_is_active ) {
+		if ( $this->et_is_active && ! $this->tec_is_active ) {
 			$icon_url = Tribe__Main::instance()->plugin_url . 'src/resources/images/gutenberg-admin-notice-tickets.png';
 		} else {
 			$icon_url = Tribe__Main::instance()->plugin_url . 'src/resources/images/gutenberg-admin-notice-TEC.png';
