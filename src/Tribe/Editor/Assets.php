@@ -128,5 +128,18 @@ class Tribe__Editor__Assets {
 				'priority'  => 16,
 			)
 		);
+		/**
+		 * @todo: figure out why element styles are loading for tickets but not events.
+		 */
+		tribe_asset(
+			$plugin,
+			'tribe-common-gutenberg-elements-styles',
+			'app/elements.css',
+			array(),
+			'enqueue_block_editor_assets',
+			array(
+				'in_footer'    => false,
+			)
+		);
 	}
 }

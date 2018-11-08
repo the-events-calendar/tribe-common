@@ -60,15 +60,6 @@ interface Tribe__Editor__Blocks__Interface {
 	public function assets();
 
 	/**
-	 * Fetches which ever is the plugin we are dealing with
-	 *
-	 * @since TBD
-	 *
-	 * @return mixed
-	 */
-	public function plugin();
-
-	/**
 	 * Attach any specific hook to the current block.
 	 *
 	 * @since TBD
