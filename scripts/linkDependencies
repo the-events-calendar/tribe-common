@@ -1,0 +1,8 @@
+#! /bin/bash
+
+ln -sf "$(pwd)"/src/modules/hoc "$(pwd)"
+ln -sf "$(pwd)"/src/modules/data "$(pwd)"
+ln -sf "$(pwd)"/src/modules/store "$(pwd)"
+ln -sf "$(pwd)"/src/modules/utils "$(pwd)"
+ln -sf "$(pwd)"/src/modules/elements "$(pwd)"
+ln -sf "$(pwd)"/src/modules/icons "$(pwd)"
