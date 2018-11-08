@@ -37,9 +37,4 @@ vendor/composer/spdx-licenses
 .idea
 
 # Modules for Apps
-hoc
-data
-store
-utils
-elements
-icons
+src/resources/**/app
