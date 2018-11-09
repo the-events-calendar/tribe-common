@@ -344,11 +344,19 @@ abstract class Tribe__Repository
 	 * @var array
 	 */
 	protected $update_fields_aliases = array(
-		'title'   => 'post_title',
-		'content' => 'post_content',
-		'status'  => 'post_status',
-		'parent'  => 'post_parent',
-		'tag'     => 'post_tag',
+		'title'       => 'post_title',
+		'content'     => 'post_content',
+		'description' => 'post_content',
+		'slug'        => 'post_name',
+		'excerpt'     => 'post_excerpt',
+		'status'      => 'post_status',
+		'parent'      => 'post_parent',
+		'author'      => 'post_author',
+		'date'        => 'post_date',
+		'date_gmt'    => 'post_date_gmt',
+		'date_utc'    => 'post_date_gmt',
+		'tag'         => 'post_tag',
+		'image'       => '_thumbnail_id',
 	);
 
 	/**
@@ -1265,7 +1273,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return bool
 	 */
-	protected function can_be_udpated( $key ) {
+	protected function can_be_updated( $key ) {
 		return ! in_array( $key, self::$blocked_keys, true );
 	}
 
@@ -1361,7 +1369,14 @@ abstract class Tribe__Repository
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Sets the args to be updated during save process.
+	 *
+	 * @param string $key   Argument key.
+	 * @param mixed  $value Argument value.
+	 *
+	 * @throws Tribe__Repository__Usage_Error
+	 *
+	 * @return $this
 	 */
 	public function set( $key, $value ) {
 		if ( ! is_string( $key ) ) {
@@ -1371,6 +1386,31 @@ abstract class Tribe__Repository
 		$this->updates[ $key ] = $value;
 
 		return $this;
+	}
+
+	/**
+	 * Sets the create args the repository will use to create posts.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|int $image The path to an image file, an image URL, or an attachment post ID.
+	 *
+	 * @return $this
+	 */
+	public function set_featured_image( $image ) {
+		if ( '' === $image || false === $image ) {
+			$thumbnail_id = false;
+		} elseif ( 0 === $image || null === $image ) {
+			$thumbnail_id = '';
+		} else {
+			$thumbnail_id = tribe_upload_image( $image );
+		}
+
+		if ( false === $thumbnail_id ) {
+			return $this;
+		}
+
+		return $this->set( '_thumbnail_id', $thumbnail_id );
 	}
 
 	/**
@@ -2667,7 +2707,7 @@ abstract class Tribe__Repository
 			// Allow fields to be aliased
 			$key = Tribe__Utils__Array::get( $this->update_fields_aliases, $key, $key );
 
-			if ( ! $this->can_be_udpated( $key ) ) {
+			if ( ! $this->can_be_updated( $key ) ) {
 				throw Tribe__Repository__Usage_Error::because_this_field_cannot_be_updated( $key, $this );
 			}
 
