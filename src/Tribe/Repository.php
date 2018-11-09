@@ -360,6 +360,24 @@ abstract class Tribe__Repository
 	protected $create_args;
 
 	/**
+	 * Indicates the current display context if any.
+	 * Extending classes can support and use this property to know the
+	 * display context.
+	 *
+	 * @var string
+	 */
+	protected $display_context = 'default';
+
+	/**
+	 * Indicates the current render context if any.
+	 * Extending classes can support and use this property to know the
+	 * render context.
+	 *
+	 * @var string
+	 */
+	protected $render_context = 'default';
+
+	/**
 	 * Tribe__Repository constructor.
 	 *
 	 * @since 4.7.19
@@ -1242,8 +1260,17 @@ abstract class Tribe__Repository
 			return array();
 		}
 
-		/** @var WP_Query $query */
-		$query = $this->get_query();
+		try {
+			/** @var WP_Query $query */
+			$query = $this->get_query();
+		} catch ( Tribe__Repository__Void_Query_Exception $e ) {
+			/*
+			 * Extending classes might use this method to run sub-queries
+			 * and signal a void query; let's return an empty array.
+			 */
+			return array();
+		}
+
 		$query->set( 'fields', 'ids' );
 
 		return $query->get_posts();
@@ -2774,5 +2801,23 @@ abstract class Tribe__Repository
 		}
 
 		return Tribe__Utils__Array::get( $postarr['meta_input'], $key, $default_value );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_display_context( $context = 'default' ) {
+		$this->display_context = $context;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_render_context( $context = 'default' ) {
+		$this->render_context = $context;
+
+		return $this;
 	}
 }
