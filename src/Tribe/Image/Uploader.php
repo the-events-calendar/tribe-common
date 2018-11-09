@@ -61,7 +61,17 @@ class Tribe__Image__Uploader {
 	 * @return int
 	 */
 	protected function upload_file( $file_url ) {
-		if ( ! filter_var( $file_url, FILTER_VALIDATE_URL ) ) {
+		/**
+		 * Allow plugins to enable of local URL uploads, mainly used for testing.
+		 *
+		 * @param bool   $allow_local_urls Whether to allow local URLs.
+		 * @param string $file_url         File URL.
+		 *
+		 * @since TBD
+		 */
+		$allow_local_urls = apply_filters( 'tribe_image_uploader_local_urls', false, $file_url );
+
+		if ( ! filter_var( $file_url, FILTER_VALIDATE_URL ) && ! $allow_local_urls ) {
 			return false;
 		}
 
