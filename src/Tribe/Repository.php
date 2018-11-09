@@ -1273,7 +1273,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return bool
 	 */
-	protected function can_be_udpated( $key ) {
+	protected function can_be_updated( $key ) {
 		return ! in_array( $key, self::$blocked_keys, true );
 	}
 
@@ -2707,7 +2707,7 @@ abstract class Tribe__Repository
 			// Allow fields to be aliased
 			$key = Tribe__Utils__Array::get( $this->update_fields_aliases, $key, $key );
 
-			if ( ! $this->can_be_udpated( $key ) ) {
+			if ( ! $this->can_be_updated( $key ) ) {
 				throw Tribe__Repository__Usage_Error::because_this_field_cannot_be_updated( $key, $this );
 			}
 
