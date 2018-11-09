@@ -12,7 +12,7 @@ class Tribe__Editor__Assets {
 	 * @return void
 	 */
 	public function hook() {
-
+		add_action( 'tribe_plugins_loaded', array( $this, 'register' ) );
 	}
 
 	/**
@@ -26,7 +26,7 @@ class Tribe__Editor__Assets {
 	 */
 	public function register() {
 
-		$plugin = tribe( 'common.main' );
+		$plugin = Tribe__Main::instance();
 
 		tribe_asset(
 			$plugin,

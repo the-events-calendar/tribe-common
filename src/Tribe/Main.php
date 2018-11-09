@@ -493,7 +493,6 @@ class Tribe__Main {
 	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
 	 */
 	public function tribe_plugins_loaded() {
-		tribe_register_provider( 'Tribe__Editor__Provider' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 		tribe( 'admin.notice.php.version' );
 		/**
@@ -532,6 +531,8 @@ class Tribe__Main {
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
 
 		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', array( 'hook' ) );
+
+		tribe_register_provider( 'Tribe__Editor__Provider' );
 	}
 
 	/************************
