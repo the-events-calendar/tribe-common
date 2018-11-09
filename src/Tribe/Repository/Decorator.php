@@ -482,7 +482,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function set_display_context( $context = 'default' ) {
-		$this->decorated->set_display_context($context);
+		$this->decorated->set_display_context( $context );
 
 		return $this;
 	}
@@ -491,7 +491,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function set_render_context( $context = 'default' ) {
-		$this->decorated->set_render_context($context);
+		$this->decorated->set_render_context( $context );
 
 		return $this;
 	}
