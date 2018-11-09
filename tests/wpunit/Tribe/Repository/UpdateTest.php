@@ -5,6 +5,7 @@ namespace Tribe\Repository;
 use Tribe__Promise as Promise;
 use Tribe__Repository as Update_Repository;
 use Tribe__Repository__Decorator as Decorator;
+use Tribe__Image__Uploader as Image;
 
 class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	protected $class;
@@ -109,6 +110,56 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should allow updating using aliased fields
+	 *
+	 * @test
+	 */
+	public function should_allow_updating_using_aliased_fields() {
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		$date     = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'America/New_York' ) );
+		$gmt_date = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'UTC' ) );
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$other_author = $this->factory()->user->create( [ 'role' => 'editor' ] );
+
+		$image_id = $this->factory()->attachment->create_upload_object( codecept_data_dir( 'images/featured-image.jpg' ) );
+
+		$post_fields = [
+			'author'   => $other_author,
+			'date'     => $date->format( 'Y-m-d H:i:s' ),
+			'date_gmt' => $gmt_date->format( 'Y-m-d H:i:s' ),
+			'content'  => 'Lorem Content',
+			'title'    => 'Lorem Title',
+			'excerpt'  => 'Lorem Excerpt',
+			'status'   => 'draft',
+			'parent'   => 23,
+			'slug'     => 'test',
+			'image'    => $image_id,
+		];
+
+		$other_fields = [
+			'slug'  => 'post_name',
+			'image' => '_thumbnail_id',
+		];
+
+		foreach ( $post_fields as $post_field => $value ) {
+			$this->repository()->where( 'post__in', $ids )->set( $post_field, $value )->save();
+
+			foreach ( $ids as $id ) {
+				clean_post_cache( $id );
+
+				$real_field = 'post_' . $post_field;
+
+				if ( isset( $other_fields[ $post_field ] ) ) {
+					$real_field = $other_fields[ $post_field ];
+				}
+
+				$this->assertEquals( $value, get_post( $id )->{$real_field}, "{$post_field} does not match for post {$id}" );
+			}
+		}
+	}
+
+	/**
 	 * @return Update_Repository
 	 */
 	protected function repository() {
@@ -164,6 +215,147 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $ids as $id ) {
 			clean_post_cache( $id );
 			$this->assertEquals( 'some-value', get_post_meta( $id, 'custom-field', true ) );
+		}
+	}
+
+	/**
+	 * It should allow setting featured image with URL using method
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_featured_image_with_url_using_method() {
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+
+		add_filter( 'tribe_image_uploader_local_urls', '__return_true' );
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+		remove_filter( 'tribe_image_uploader_local_urls', '__return_true' );
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
+	 * It should allow setting featured image with ID using method
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_featured_image_with_ID_using_method() {
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$image = $this->factory()->attachment->create_upload_object( $image );
+
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
+	 * It should allow removing featured image with null using method
+	 *
+	 * @test
+	 */
+	public function should_allow_removing_featured_image_with_null_using_method() {
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$image = $this->factory()->attachment->create_upload_object( $image );
+
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = null;
+
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
+	 * It should allow removing featured image with zero using method
+	 *
+	 * @test
+	 */
+	public function should_allow_removing_featured_image_with_zero_using_method() {
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$image = $this->factory()->attachment->create_upload_object( $image );
+
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = 0;
+
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
+	 * It should not allow removing featured image with false using method
+	 *
+	 * @test
+	 */
+	public function should_not_allow_removing_featured_image_with_false_using_method() {
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$image = $this->factory()->attachment->create_upload_object( $image );
+
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = false;
+
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
+	 * It should not allow removing featured image with empty string using method
+	 *
+	 * @test
+	 */
+	public function should_not_allow_removing_featured_image_with_empty_string_using_method() {
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$image = $this->factory()->attachment->create_upload_object( $image );
+
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = '';
+
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
 		}
 	}
 
