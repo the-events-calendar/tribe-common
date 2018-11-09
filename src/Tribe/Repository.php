@@ -356,6 +356,7 @@ abstract class Tribe__Repository
 		'date_gmt'    => 'post_date_gmt',
 		'date_utc'    => 'post_date_gmt',
 		'tag'         => 'post_tag',
+		'image'       => '_thumbnail_id',
 	);
 
 	/**
@@ -1400,7 +1401,7 @@ abstract class Tribe__Repository
 		if ( '' === $image || false === $image ) {
 			$thumbnail_id = false;
 		} elseif ( 0 === $image || null === $image ) {
-			$thumbnail_id = 0;
+			$thumbnail_id = '';
 		} else {
 			$thumbnail_id = tribe_upload_image( $image );
 		}
