@@ -62,7 +62,7 @@ class Tribe__Image__Uploader {
 	 */
 	protected function upload_file( $file_url ) {
 		/**
-		 * Allow plugins to enable of local URL uploads, mainly used for testing.
+		 * Allow plugins to enable local URL uploads, mainly used for testing.
 		 *
 		 * @param bool   $allow_local_urls Whether to allow local URLs.
 		 * @param string $file_url         File URL.
