@@ -1187,9 +1187,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *                        is set to `false` then `false` will be returned if a DateTime object could not be built.
 		 */
 		public static function build_date_object( $datetime = 'now', $timezone = null, $with_fallback = true ) {
-			if ( $datetime instanceof DateTime ) {
-				// Clone it to make sure we're not producing side effects.
-				return clone $datetime;
+			if ( $datetime instanceof DateTime || $datetime instanceof DateTimeImmutable ) {
+				// Clone it to make sure we're not producing side effects if it's not immutable.
+				return $datetime instanceof DateTime ? clone $datetime : $datetime;
 			}
 
 			$utc = new DateTimeZone( 'UTC' );
