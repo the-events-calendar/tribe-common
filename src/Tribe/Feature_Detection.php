@@ -3,13 +3,13 @@
  * An abstraction layer to handle feature detection queries the plugin components
  * might need.
  *
- * @since TBD
+ * @since 4.7.23
  */
 
 /**
  * Class Tribe__Feature_Detection
  *
- * @since TBD
+ * @since 4.7.23
  */
 class Tribe__Feature_Detection {
 	/**
@@ -25,7 +25,7 @@ class Tribe__Feature_Detection {
 	 * To avoid making this costly check on each load the result of this check is cached
 	 * in the `tribe_feature_detection` transient, under the `supports_async_process` key.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @param bool $force Whether to use the cache value, if available, or force the check
 	 *                    to be made again.
@@ -39,7 +39,7 @@ class Tribe__Feature_Detection {
 		 * Returning a non `null` value here will make this method bail and
 		 * return the filtered value immediately.
 		 *
-		 * @since TBD
+		 * @since 4.7.23
 		 *
 		 * @param bool $supports_async_process Whether async, AJAX-based, processing is supported or not.
 		 * @param bool $force                  Whether the check is forcing the cached value to be refreshed

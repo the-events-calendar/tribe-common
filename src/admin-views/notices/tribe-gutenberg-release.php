@@ -2,7 +2,7 @@
 /**
  * The Gutenberg Release admin notice for when TEC is active, or TEC *and* ET.
  *
- * @since TBD
+ * @since 4.7.23
  *
  * @var int $icon The local URL for the notice's icon image.
  * @var int $end_time The Unix timestamp for the release notice's end time.

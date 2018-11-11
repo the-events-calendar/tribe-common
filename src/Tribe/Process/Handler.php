@@ -20,7 +20,7 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	/**
 	 * Handles the process request if valid and if authorized.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 */
 	public function maybe_handle() {
 		if ( $this->feature_detection->supports_async_process() ) {
@@ -146,7 +146,7 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	 * method is called and the environment does not support async
 	 * processing.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @return string The complete cron hook name (identifier) for
 	 *                this handler.

@@ -2,14 +2,14 @@
 /**
  * Various Marketing notices, e.g. Black Friday sales or special coupon initiatives.
  *
- * @since TBD
+ * @since 4.7.23
  */
 class Tribe__Admin__Notice__Marketing {
 
 	/**
 	 * Whether or not The Events Calendar is active.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @var boolean
 	 */
@@ -18,7 +18,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Whether or not Event Tickets is active.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @var boolean
 	 */
@@ -33,7 +33,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Register the various Marketing notices.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 */
 	public function hook() {
 		$this->bf_2018_hook_notice();
@@ -43,7 +43,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Register the Black Friday 2018 notice.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 */
 	public function bf_2018_hook_notice() {
 
@@ -62,7 +62,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Unix time for Nov 20 2018 @ 6am UTC. (6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone).
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @return int
 	 */
@@ -70,7 +70,7 @@ class Tribe__Admin__Notice__Marketing {
 		/**
 		 * Allow filtering of the Black Friday sale start date, mainly for testing purposes.
 		 *
-		 * @since TBD
+		 * @since 4.7.23
 		 *
 		 * @param int $bf_start_date Unix time for Nov 20 2018 @ 6am UTC.
 		 */
@@ -80,7 +80,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Unix time for Nov 26 2018 @ 6am UTC. (6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone).
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @return int
 	 */
@@ -88,7 +88,7 @@ class Tribe__Admin__Notice__Marketing {
 		/**
 		 * Allow filtering of the Black Friday sale end date, mainly for testing purposes.
 		 *
-		 * @since TBD
+		 * @since 4.7.23
 		 *
 		 * @param int $bf_end_date Unix time for Nov 20 2018 @ 6am UTC.
 		 */
@@ -100,7 +100,7 @@ class Tribe__Admin__Notice__Marketing {
 	 * Unix times for Nov 20 2018 @ 6am UTC and Nov 26 2018 @ 6am UTC.
 	 * 6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @return boolean
 	 */
@@ -114,7 +114,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * HTML for the Black Friday 2018 notice.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @return string
 	 */
@@ -141,7 +141,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Register the Gutenberg Release notice (November 2018).
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 */
 	public function gutenberg_release_notice() {
 
@@ -160,7 +160,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Gets the end time for the Gutenberg release notice.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @return int
 	 */
@@ -169,7 +169,7 @@ class Tribe__Admin__Notice__Marketing {
 		/**
 		 * Allows filtering of the default Gutenberg Release Notice's end time, mainly for testing purposes.
 		 *
-		 * @since TBD
+		 * @since 4.7.23
 		 *
 		 * @param int $gutenberg_release_end_time Defaults to Nov 17 2018 @ midnight, California time.
 		 */
@@ -179,7 +179,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Whether the Gutenberg Release notice should display.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @return boolean
 	 */
@@ -190,7 +190,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * HTML for the Gutenberg Release notice (November 2018).
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @return string
 	 */
