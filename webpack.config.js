@@ -17,7 +17,7 @@ const config = merge.strategy( {
 } )(
 	common,
 	{
-		externals: { ...wpExternals, ...vendor }, // Only use WP externals
+		externals: [ wpExternals, vendor ], // Only use WP and vendor externals
 		entry: generateEntries( __dirname, directoryNames ),
 		output: {
 			path: __dirname,
