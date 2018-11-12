@@ -220,30 +220,6 @@ class PromiseTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should immediately resolve or reject if done
-	 *
-	 * @test
-	 */
-	public function should_immediately_resolve_or_reject_if_done() {
-		$promise = new Promise( 'tribe_throwing', [] );
-		$promise->then( 'tribe_resolved', null, [ 'foo', 'bar' ], null );
-		// Populate the request nonce to passe the `maybe_handle` check the next promise will do.
-		$_REQUEST['nonce'] = wp_create_nonce( $promise->get_identifier() );
-		// Also: do not die after handling the request.
-		add_filter( 'wp_die_handler', function () {
-			return '__return_false';
-		} );
-
-		$promise->resolve();
-
-		add_action( 'test_action_resolved', function ( $arg_1, $arg_2 ) {
-			$this->assertEquals( 'foo', $arg_1 );
-			$this->assertEquals( 'bar', $arg_2 );
-		}, 10, 2 );
-		$this->assertTrue( (bool) did_action( 'test_action_resolved' ) );
-	}
-
-	/**
 	 * It should immediately resolve if data is empty
 	 *
 	 * @test
@@ -256,7 +232,7 @@ class PromiseTest extends \Codeception\TestCase\WPTestCase {
 			$this->assertEquals( 'bar', $arg_2 );
 		}, 10, 2 );
 
-		$promise->save()->resolve();
+		$promise->resolve();
 
 		$this->assertTrue( (bool) did_action( 'test_action_resolved' ) );
 	}
