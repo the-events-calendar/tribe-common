@@ -7,9 +7,9 @@ abstract class Tribe__Abstract_Plugin_Register {
 	protected $main_class;
 	protected $version;
 	protected $dependencies = array(
-		'parent_dependencies' => array(),
-		'co_dependencies' => array(),
-		'addon_dependencies' => array(),
+		'parent-dependencies' => array(),
+		'co-dependencies' => array(),
+		'addon-dependencies' => array(),
 	);
 
 	/**
