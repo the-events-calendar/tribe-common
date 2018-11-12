@@ -440,4 +440,36 @@ interface Tribe__Repository__Read_Interface {
 	 *                              or the array of post IDs that will be, eventually, updated.
 	 */
 	public function async_update( array $to_update, $return_promise = true );
+
+	/**
+	 * Sets the display context the read posts will be shown into.
+	 *
+	 * The display context identifies the format that the post will
+	 * be in: e.g. in a month view or week view for events.
+	 * Extending classes can support more display contexts.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $context A display context supported by the repository; defaults to `default`.
+	 *
+	 * @return Tribe__Repository__Read_Interface For chaining purposes.
+	 */
+	public function set_display_context( $context = 'default' );
+
+	/**
+	 * Sets the render context the posts will be shown into.
+	 *
+	 * The render context indicates where the event’s display
+	 * context will be output. Default specifies that it is a
+	 * standard loop context. Widget indicates that it will be
+	 * rendered within a widget and so on.
+	 * Extending classes can support more render contexts.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $context A display context supported by the repository; defaults to `default`.
+	 *
+	 * @return Tribe__Repository__Read_Interface For chaining purposes.
+	 */
+	public function set_render_context( $context = 'default' );
 }

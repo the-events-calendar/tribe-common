@@ -478,4 +478,21 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 		return $this->decorated->get_create_args();
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_display_context( $context = 'default' ) {
+		$this->decorated->set_display_context( $context );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_render_context( $context = 'default' ) {
+		$this->decorated->set_render_context( $context );
+
+		return $this;
+	}
 }
