@@ -1,9 +1,4 @@
-/**
- * Internal Dependencies
- */
-import * as editor from './editor/post-types';
-import * as forms from './forms';
-import * as plugins from './plugins';
 export { default } from './reducers';
 
-export { editor, forms, plugins };
+import * as POST_TYPES from './editor/post-types';
+export { POST_TYPES };
