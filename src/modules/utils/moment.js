@@ -112,13 +112,14 @@ export const parseFormats = ( date, formats = [ dateUtil.FORMATS.DATABASE.dateti
  *
  * @param {(Date|moment|string)} date The date to be converted.
  * @param {string} format The format of the data to be used
+ * @param {bool} Force the parse of the format default to true
  * @returns {moment} A moment object
  */
-export const toMoment = ( date, format = dateUtil.FORMATS.DATABASE.datetime ) => {
+export const toMoment = ( date, format = dateUtil.FORMATS.DATABASE.datetime, parseFormat = true ) => {
 	if ( date instanceof moment || date instanceof Date ) {
 		return moment( date );
 	} else if ( isString( date ) ) {
-		return moment( date, toFormat( format ) );
+		return moment( date, parseFormat ? toFormat( format ) : format );
 	}
 
 	return moment();
