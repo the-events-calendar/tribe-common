@@ -2,7 +2,6 @@
  * External dependencies
  */
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { noop } from 'lodash';
 
 /**

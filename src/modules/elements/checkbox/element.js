@@ -52,7 +52,7 @@ Checkbox.propTypes = {
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	id: PropTypes.string,
-	label: PropTypes.string,
+	label: PropTypes.node,
 	name: PropTypes.string,
 	onChange: PropTypes.func,
 	value: PropTypes.string,
