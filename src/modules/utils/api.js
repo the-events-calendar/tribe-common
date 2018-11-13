@@ -41,10 +41,16 @@ export const wpREST = async ( params ) => {
 			headers,
 		} );
 
+		let data = {};
+
 		if ( response.ok ) {
-			return await response.json();
+			data = await response.json();
 		}
-		throw new Error( 'Response was not completed correctly' );
+
+		return {
+			response,
+			data,
+		};
 	} catch ( e ) {
 		throw e;
 	}
