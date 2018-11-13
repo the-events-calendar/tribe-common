@@ -60,7 +60,7 @@ describe( 'Checkbox Element', () => {
 		expect( component.toJSON() ).toMatchSnapshot();
 	} );
 
-	it( 'renders checkbox with onChange handler', () => {
+	it( 'executes checkbox with onChange handler', () => {
 		const onChange = jest.fn();
 		const component = mount( <Checkbox onChange={ onChange } /> );
 		component.find( 'input' ).simulate( 'change' );
