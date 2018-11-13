@@ -112,7 +112,7 @@ class Tribe__Context {
 	/**
 	 * Checks whether the context of the current HTTP request is a Cron one or not.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @param bool|null $doing_cron If set then this method will act as a setter; the current
 	 *                         method call, and the following ones, will return this value.

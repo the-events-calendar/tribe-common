@@ -11,6 +11,10 @@ msgstr ""
 "Language: et_EE\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Main.php:276
+msgid "Clear"
+msgstr ""
+
 #: src/Tribe/Plugins_API.php:37
 msgid "Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze."
 msgstr ""
@@ -127,11 +131,11 @@ msgstr ""
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1095
+#: src/Tribe/PUE/Checker.php:1103
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1084
+#: src/Tribe/PUE/Checker.php:1092
 msgid "Update now to version %s."
 msgstr ""
 
@@ -145,7 +149,7 @@ msgid_plural "It looks like you're using %1$s, but the license keys are invalid.
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Checker.php:976
+#: src/Tribe/PUE/Checker.php:984
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
@@ -277,15 +281,15 @@ msgstr ""
 msgid "Events Help"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1670
+#: src/Tribe/PUE/Checker.php:1678
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1669
+#: src/Tribe/PUE/Checker.php:1677
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1668
+#: src/Tribe/PUE/Checker.php:1676
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
@@ -374,11 +378,11 @@ msgid_plural "Updates are available for %1$s but your license keys have expired.
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Checker.php:1054
+#: src/Tribe/PUE/Checker.php:1062
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:997
+#: src/Tribe/PUE/Checker.php:1005
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
@@ -439,11 +443,11 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:961 src/Tribe/PUE/Notices.php:285
+#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:285
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:283
+#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:283
 msgid "Renew Your License Now"
 msgstr ""
 
@@ -495,15 +499,15 @@ msgstr ""
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:281
+#: src/Tribe/Main.php:284
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:283
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:279 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:282 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -714,7 +718,7 @@ msgstr ""
 msgid "%s must be a positive number or percent."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:932
+#: src/Tribe/PUE/Checker.php:940
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
@@ -814,7 +818,7 @@ msgstr ""
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:901
+#: src/Tribe/PUE/Checker.php:909
 msgid "unknown date"
 msgstr ""
 
@@ -2220,15 +2224,15 @@ msgstr "%s seaded"
 msgid "Events Settings"
 msgstr "Sündmuse seaded"
 
-#: src/Tribe/PUE/Checker.php:888
+#: src/Tribe/PUE/Checker.php:896
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:927
+#: src/Tribe/PUE/Checker.php:935
 msgid "Valid Key! Expires on %s"
 msgstr "Kehtiv kood! Aegub %s"
 
-#: src/Tribe/PUE/Checker.php:907
+#: src/Tribe/PUE/Checker.php:915
 msgid "Sorry, key validation server is not available."
 msgstr "Vabandame, koodi valideerimise server pole saadaval"
 
@@ -2256,19 +2260,19 @@ msgstr "Seaded"
 msgid "Network"
 msgstr "Võrgustik"
 
-#: src/Tribe/Main.php:273
+#: src/Tribe/Main.php:274
 msgid "Done"
 msgstr "Valmis"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:273 src/Tribe/Main.php:275
 msgid "Today"
 msgstr "Täna"
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:272
 msgid "Prev"
 msgstr "Eelmine"
 
-#: src/Tribe/Main.php:254 src/Tribe/Main.php:270
+#: src/Tribe/Main.php:254 src/Tribe/Main.php:271
 msgid "Next"
 msgstr "Järgmine"
 

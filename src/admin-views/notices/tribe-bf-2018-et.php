@@ -2,7 +2,7 @@
 /**
  * The Black Friday 2018 admin notice for when only ET is active.
  *
- * @since TBD
+ * @since 4.7.23
  *
  * @var string $mascot_url The local URL for the notice's mascot image.
  * @var int $end_time The Unix timestamp for the sale's end time.

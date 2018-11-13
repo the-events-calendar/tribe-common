@@ -29,7 +29,7 @@ trait Cron_Assertions {
 	/**
 	 * Asserts that an hook is not scheduled in the cron.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @param $hook
 	 */
