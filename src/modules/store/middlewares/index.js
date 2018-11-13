@@ -1,1 +1,4 @@
-export { default as wpRequest } from './request';
+export {
+	default as wpRequest,
+	actions as wpRequestActions
+} from './request';
