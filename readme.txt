@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Add - Added `tribe_cache_expiration` filter that allows plugins to use persistent caching based on cache key [117158]
+
 = [4.7.23] 2018-11-13 =
 
 * Add - Added `Tribe__Admin__Notice__Marketing` class for bespoke marketing admin notices [114903]
