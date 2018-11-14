@@ -10,6 +10,7 @@
 = [4.7.22] TBD =
 
 * Fix - Update `Tribe__Admin__Help_Page::is_current_page()` to return true when viewing the help page from the network settings [109563]
+* Language - 3 new strings added, 35 updated, 3 fuzzied, and 1 obsoleted
 
 = [4.7.21] 2018-10-03 =
 

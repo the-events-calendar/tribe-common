@@ -11,6 +11,18 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Plugins_API.php:37
+msgid "Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Php_Version.php:101
+msgid "Starting March 2019, %1$s will no longer work with versions prior to PHP 5.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 5.6 or above."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Php_Version.php:98
+msgid "Starting March 2019, %1$s will no longer support versions prior to PHP 5.6. Your site is currently using PHP version %2$s which will no longer be supported by %1$s. For best results, we recommend using PHP 5.6 or above."
+msgstr ""
+
 #: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
 msgid "Every %d Minutes"
 msgstr "Cada %d minutos"
@@ -20,8 +32,8 @@ msgid "Search our support help desk"
 msgstr "Busque en nuestra mesa de ayuda"
 
 #: src/Tribe/Plugins_API.php:71
-msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Tickets have QR codes for easy check in at the door."
-msgstr "Event Tickets Plus le permite vender entradas para sus eventos utilizando WooCommerce, Easy Digital Downloads, o nuestra herramienta integrada Tribe Commerce. Agregue entradas a sus publicaciones y páginas, o agregue %1$sThe Events Calendar%2$s y venda entradas desde su lista de eventos. Cree formularios de registro personalizados, administre los asistentes, use opciones de capacidad personalizadas, y más. Las entradas poseen códigos QR para facilitar el registro al ingreso."
+msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
+msgstr ""
 
 #: src/Tribe/Validate.php:184
 msgid "%s must not be empty"
@@ -75,25 +87,21 @@ msgstr "Los tres campos siguientes aceptan las opciones de formato de fecha para
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr "Una lista de enlaces a la REST URL del archivo y superior del término"
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:251
 msgid "Clear Selection."
 msgstr "Borrar selección."
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:250
 msgid "Select all pages"
 msgstr "Seleccionar todas las páginas"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:249
 msgid "All items on this page were selected. "
 msgstr "Se han seleccionado todos los elementos de esta página"
 
 #: src/Tribe/Plugins_API.php:94
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
 msgstr "¡Acepte en su sitio web eventos enviados por el usuario! Con Community Events, puede aceptar envíos públicos o solicitar el registro de una cuenta. La configuración le ofrece opciones para guardar como borrador o publicar automáticamente, permitir categorías y etiquetas, y definir si los usuarios pueden editar y administrar sus propios eventos o simplemente enviar. Lo mejor de todo: ¡la configuración es fácil! Solo active, configure las opciones, y listo para empezar."
-
-#: src/Tribe/Plugins_API.php:37
-msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
-msgstr "¡Importe eventos de toda la web! Event Aggregator facilita la ejecución de importaciones manuales o programadas desde Facebook, Meetup, Google Calendar, y iCalendar, además de cargas desde archivos CSV e ICS. También puede importar directamente desde otros sitios que usen The Events Calendar gracias a nuestro soporte API REST integrado."
 
 #: src/Tribe/Ajax/Dropdown.php:243
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
@@ -181,7 +189,7 @@ msgstr "El nombre del término"
 msgid "The WordPress term ID"
 msgstr "La ID de término de WordPress"
 
-#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:37
 msgid "The link to the image in the specified size on the site"
 msgstr "El enlace a la imagen en el tamaño especificado en el sitio"
 
@@ -197,27 +205,27 @@ msgstr "La altura de la imagen en píxeles en el tamaño especificado"
 msgid "The image width in pixels in the specified size"
 msgstr "El ancho de la imagen en píxeles en el tamaño especificado"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:45
 msgid "The details about each size available for the image"
 msgstr "Los detalles sobre cada tamaño disponible para la imagen"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:41
 msgid "The image natural height in pixels"
 msgstr "La altura natural de la imagen en píxeles"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:36
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:37
 msgid "The image natural width in pixels"
 msgstr "El ancho natural de la imagen en píxeles"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:32
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:33
 msgid "The image file extension"
 msgstr "La extensión de archivo de imagen"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:28
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:29
 msgid "The image WordPress post ID"
 msgstr "La ID de entrada de WordPress de la imagen"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:24
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:25
 msgid "The URL to the full size version of the image"
 msgstr "La URL a la versión de tamaño completo de la imagen"
 
@@ -297,7 +305,7 @@ msgstr "Sobrescribir clave de licencia de red"
 msgid "License Key Status:"
 msgstr "Estado de clave de licencia:"
 
-#: src/Tribe/Customizer.php:570
+#: src/Tribe/Customizer.php:643
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr "Use el siguiente panel personalizador para modificar el estilo de las páginas de Calendario y Evento."
 
@@ -317,11 +325,13 @@ msgstr "Instalado"
 msgid "Installed Add-Ons"
 msgstr "Complementos instalados"
 
+#: src/Tribe/Admin/Notice/Php_Version.php:60
 #: src/Tribe/Admin/Notice/Plugin_Download.php:92
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr " y "
 
+#: src/Tribe/Admin/Notice/Php_Version.php:59
 #: src/Tribe/Admin/Notice/Plugin_Download.php:91
 msgctxt "separator used in a list of items"
 msgid ", "
@@ -437,63 +447,63 @@ msgstr " (se abre en una ventana nueva)"
 msgid "Renew Your License Now"
 msgstr "Renueve la licencia ahora"
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:261
 msgid ": Selected 1 row"
 msgstr ": seleccionó 1 fila"
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:260
 msgid ": Selected %d rows"
 msgstr ": seleccionó %d filas"
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:255
 msgid "Previous"
 msgstr "Anterior"
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:253
 msgid "All"
 msgstr "Todo"
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:247
 msgid "No matching records found"
 msgstr "No se encontraron registros coincidentes"
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:246
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(filtrado de un total de _MAX_ entradas)"
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:245
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Mostrando 0 a 0 de 0 entradas"
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:244
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Mostrando _START_ a _END_ de _TOTAL_ entradas"
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:243
 msgid "No data available in table"
 msgstr "No hay datos disponibles en la tabla"
 
-#: src/Tribe/Main.php:241
+#: src/Tribe/Main.php:242
 msgid "Show _MENU_ entries"
 msgstr "Mostrar entradas de _MENU_"
 
-#: src/Tribe/Main.php:239
+#: src/Tribe/Main.php:240
 msgid ": activate to sort column descending"
 msgstr ": activar para ordenar columna de forma descendente"
 
-#: src/Tribe/Main.php:238
+#: src/Tribe/Main.php:239
 msgid ": activate to sort column ascending"
 msgstr ": activar para ordenar columna de forma ascendente"
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:281
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Pulse \"Cmd + C\" para copiar"
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:280
 msgid "System info copied"
 msgstr "Información de sistema copiada"
 
-#: src/Tribe/Main.php:278 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:279 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "Copiar al portapapeles"
 
@@ -642,7 +652,7 @@ msgstr "Más información sobre nuestra política de soporte"
 
 #: src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
-msgstr "Tenga en cuenta que toda la asistencia práctica se ofrece a través de los foros. Puede escribirnos por correo electrónico o enviarnos un tweet... pero probablemente le aconsejemos consultar los foros "
+msgstr ""
 
 #: src/admin-views/tribe-options-help.php:33
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."
@@ -1966,8 +1976,8 @@ msgid "Botswana"
 msgstr "Botswana"
 
 #: src/Tribe/Languages/Locations.php:83
-msgid "Bosnia and Herzegowina"
-msgstr "Bosnia y Herzegovina"
+msgid "Bosnia and Herzegovina"
+msgstr ""
 
 #: src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
@@ -2073,7 +2083,7 @@ msgstr "Albania"
 msgid "Afghanistan"
 msgstr "Afganistán"
 
-#: src/Tribe/View_Helpers.php:50
+#: src/Tribe/View_Helpers.php:51
 msgid "Select a Country:"
 msgstr "Selecciona un país:"
 
@@ -2234,7 +2244,7 @@ msgstr "Se requiere una clave de licencia válida para soporte y actualizaciones
 msgid "License Key"
 msgstr "Clave de Licencia"
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:248
 msgid "Search:"
 msgstr "Buscar:"
 
@@ -2246,19 +2256,19 @@ msgstr "Ajustes"
 msgid "Network"
 msgstr "Red"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:273
 msgid "Done"
 msgstr "Hecho"
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:272
 msgid "Today"
 msgstr "Hoy"
 
-#: src/Tribe/Main.php:270
+#: src/Tribe/Main.php:271
 msgid "Prev"
 msgstr "Anterior"
 
-#: src/Tribe/Main.php:253 src/Tribe/Main.php:269
+#: src/Tribe/Main.php:254 src/Tribe/Main.php:270
 msgid "Next"
 msgstr "Siguiente"
 
@@ -2275,7 +2285,7 @@ msgstr "Visualización"
 msgid "Licenses"
 msgstr "Licencias"
 
-#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:569
+#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:642
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
 msgstr "The Events Calendar"

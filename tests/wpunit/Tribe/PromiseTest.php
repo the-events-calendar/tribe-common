@@ -9,6 +9,12 @@ use Tribe__Utils__Callback as Callback;
 include_once codecept_data_dir( 'test-functions.php' );
 
 class PromiseTest extends \Codeception\TestCase\WPTestCase {
+
+	function setUp() {
+		parent::setUp();
+		add_filter( 'tribe_supports_async_process', '__return_true' );
+	}
+
 	/**
 	 * @test
 	 * it should be instantiatable without side effects.
@@ -214,30 +220,6 @@ class PromiseTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should immediately resolve or reject if done
-	 *
-	 * @test
-	 */
-	public function should_immediately_resolve_or_reject_if_done() {
-		$promise = new Promise( 'tribe_throwing', range( 1, 3 ) );
-		$promise->then( 'tribe_resolved', null, [ 'foo', 'bar' ], null );
-		// Populate the request nonce to passe the `maybe_handle` check the next promise will do.
-		$_REQUEST['nonce'] = wp_create_nonce( $promise->get_identifier() );
-		// Also: do not die after handling the request.
-		add_filter( 'wp_die_handler', function () {
-			return '__return_false';
-		} );
-
-		$promise->maybe_handle();
-
-		add_action( 'test_action_resolved', function ( $arg_1, $arg_2 ) {
-			$this->assertEquals( 'foo', $arg_1 );
-			$this->assertEquals( 'bar', $arg_2 );
-		}, 10, 2 );
-		$this->assertTrue( (bool) did_action( 'test_action_resolved' ) );
-	}
-
-	/**
 	 * It should immediately resolve if data is empty
 	 *
 	 * @test
@@ -250,7 +232,7 @@ class PromiseTest extends \Codeception\TestCase\WPTestCase {
 			$this->assertEquals( 'bar', $arg_2 );
 		}, 10, 2 );
 
-		$promise->save()->dispatch();
+		$promise->resolve();
 
 		$this->assertTrue( (bool) did_action( 'test_action_resolved' ) );
 	}

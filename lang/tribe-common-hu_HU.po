@@ -11,6 +11,18 @@ msgstr ""
 "Language: hu\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Plugins_API.php:37
+msgid "Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Php_Version.php:101
+msgid "Starting March 2019, %1$s will no longer work with versions prior to PHP 5.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 5.6 or above."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Php_Version.php:98
+msgid "Starting March 2019, %1$s will no longer support versions prior to PHP 5.6. Your site is currently using PHP version %2$s which will no longer be supported by %1$s. For best results, we recommend using PHP 5.6 or above."
+msgstr ""
+
 #: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
 msgid "Every %d Minutes"
 msgstr "%d percenként"
@@ -20,8 +32,8 @@ msgid "Search our support help desk"
 msgstr "Keressél a helpdesken"
 
 #: src/Tribe/Plugins_API.php:71
-msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Tickets have QR codes for easy check in at the door."
-msgstr "Az Event Tickets Plus segítségével jegyeket árulhatsz az eseményeidre a WooCommerce, az Easy Digital Downloads vagy a beépített Tribe Commerce eszköz segítségével. Készíthetsz jegyeket blogbejegyzésekhez, oldalakhoz, vagy telepítsd a %1$s The Events Calendar%2$st és árulj jegyeket az eseményeidre. Hozz létre egyedi regisztrációs űrlapokat, kezeld a résztvevőket, használj egyedi készlet kezelést, és még sok minden más. A jegyekhez QR-kód is készül az egyszerű beléptetéshez."
+msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
+msgstr ""
 
 #: src/Tribe/Validate.php:184
 msgid "%s must not be empty"
@@ -75,25 +87,21 @@ msgstr "A következő három mezőben a dátum formátumot lehet beállítani a 
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr "A kifejezés saját, archív és szülő REST URL-jeinek listája"
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:251
 msgid "Clear Selection."
 msgstr "Kiválasztás törlése."
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:250
 msgid "Select all pages"
 msgstr "Minden oldal kiválasztása"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:249
 msgid "All items on this page were selected. "
 msgstr "Az összes elem ki lett választva ezen az oldalon."
 
 #: src/Tribe/Plugins_API.php:94
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
 msgstr "Vegyél fel felhasználók által beküldött eseményeket a weboldaladon! A Community Events-el felvehetsz publikus beküldéseket vagy kérhetsz előtte bejelentkezést. Beállíthatod, hogy a beküldött események vázlatként legyenek elmentve, vagy azonnal közzé legyenek téve, engedélyezheted a kategóriákat és címkéket, és kiválaszthatod, hogy a beküldők kezelhetik-e / szerkeszthetik-e a saját eseményeiket, vagy csak beküldhetik. A legjobb, hogy a beállítás egyszerű! Csak aktiváld, ellenőrizd a beállításokat és kész."
-
-#: src/Tribe/Plugins_API.php:37
-msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
-msgstr "Importálj eseményeket a világhálóról! Az Event Aggregator egyszerűvé teszi események időzített vagy kézi importálását a Facebookról, Meetupról, Google Naptárból vagy iCalendarból, illetve feltöltött CSV vagy ICS fájlokból. Más The Events Calendar-t futtató oldalakról is importálhatsz közvetlenül, a beépített REST API támogatásnak köszönhetően."
 
 #: src/Tribe/Ajax/Dropdown.php:243
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
@@ -181,7 +189,7 @@ msgstr "A kifejezés neve"
 msgid "The WordPress term ID"
 msgstr "A WordPress kifejezés azonosító"
 
-#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:37
 msgid "The link to the image in the specified size on the site"
 msgstr "Hivatkozás a megadott méretű képhez a weboldalon"
 
@@ -197,27 +205,27 @@ msgstr "A kép magassága pixelben az adott méretben"
 msgid "The image width in pixels in the specified size"
 msgstr "A kép szélessége pixelben az adott méretben"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:45
 msgid "The details about each size available for the image"
 msgstr "Részletek a képhez elérhető összes mérethez"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:41
 msgid "The image natural height in pixels"
 msgstr "A kép eredeti magassában pixelben"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:36
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:37
 msgid "The image natural width in pixels"
 msgstr "A kép eredeti szélessége pixelben"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:32
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:33
 msgid "The image file extension"
 msgstr "A kép kiterjesztése"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:28
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:29
 msgid "The image WordPress post ID"
 msgstr "A képhez tartozó WordPress bejegyzés azonosító"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:24
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:25
 msgid "The URL to the full size version of the image"
 msgstr "Hivatkozás a kép teljes méretű változatához"
 
@@ -297,7 +305,7 @@ msgstr "Hálózati licensz kulcs felülírása"
 msgid "License Key Status:"
 msgstr "Licensz kulcs állapota:"
 
-#: src/Tribe/Customizer.php:570
+#: src/Tribe/Customizer.php:643
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr "A naptár és eseményoldalak stílusának a megváltoztatásához használd a következő panelt a testreszabóban."
 
@@ -317,11 +325,13 @@ msgstr "Telepítve"
 msgid "Installed Add-Ons"
 msgstr "Telepített kiegészítők"
 
+#: src/Tribe/Admin/Notice/Php_Version.php:60
 #: src/Tribe/Admin/Notice/Plugin_Download.php:92
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr " és "
 
+#: src/Tribe/Admin/Notice/Php_Version.php:59
 #: src/Tribe/Admin/Notice/Plugin_Download.php:91
 msgctxt "separator used in a list of items"
 msgid ", "
@@ -437,63 +447,63 @@ msgstr "(új ablakban nyílik meg)"
 msgid "Renew Your License Now"
 msgstr "Licensz megújítása most"
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:261
 msgid ": Selected 1 row"
 msgstr ": 1 sor kiválasztva"
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:260
 msgid ": Selected %d rows"
 msgstr ": %d sor kiválasztva"
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:255
 msgid "Previous"
 msgstr "Előző"
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:253
 msgid "All"
 msgstr "Összes"
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:247
 msgid "No matching records found"
 msgstr "Nem található egyező rekord"
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:246
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(összesen _MAX_ bejegyzésből szűrve)"
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:245
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Bejegyzések 0-0-ig az összesen 0 bejegyzésből"
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:244
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Bejegyzések _START_-_END_-ig az összesen _TOTAL_ bejegyzésből"
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:243
 msgid "No data available in table"
 msgstr "Nincs elérhető adat az adattáblában"
 
-#: src/Tribe/Main.php:241
+#: src/Tribe/Main.php:242
 msgid "Show _MENU_ entries"
 msgstr "Mutass _MENU_ bejegyzést"
 
-#: src/Tribe/Main.php:239
+#: src/Tribe/Main.php:240
 msgid ": activate to sort column descending"
 msgstr ": aktiváld az oszlop csökkenő sorrendben való rendezéséhez"
 
-#: src/Tribe/Main.php:238
+#: src/Tribe/Main.php:239
 msgid ": activate to sort column ascending"
 msgstr ": aktiváld az oszlop növekvő sorrendben való rendezéséhez"
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:281
 msgid "Press \"Cmd + C\" to copy"
 msgstr "\"Cmd + C\" a másoláshoz"
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:280
 msgid "System info copied"
 msgstr "Rendszerinformációk másolva"
 
-#: src/Tribe/Main.php:278 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:279 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "Másolás a vágólapra"
 
@@ -642,7 +652,7 @@ msgstr "Olvass többet a támogatási irányelveinkről"
 
 #: src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
-msgstr "Felhívjuk a figyelmedet, hogy minden gyakorlati támogatást a fórumokon keresztül biztosítunk. Küldhetsz e-mailt, vagy twittelhetsz nekünk ... de valószínűleg visszavezetünk a help deskre"
+msgstr ""
 
 #: src/admin-views/tribe-options-help.php:33
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."
@@ -1966,8 +1976,8 @@ msgid "Botswana"
 msgstr "Botswana"
 
 #: src/Tribe/Languages/Locations.php:83
-msgid "Bosnia and Herzegowina"
-msgstr "Bosznia-Hercegovina"
+msgid "Bosnia and Herzegovina"
+msgstr ""
 
 #: src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
@@ -2073,7 +2083,7 @@ msgstr "Albánia"
 msgid "Afghanistan"
 msgstr "Afganisztán"
 
-#: src/Tribe/View_Helpers.php:50
+#: src/Tribe/View_Helpers.php:51
 msgid "Select a Country:"
 msgstr "Válassz országot:"
 
@@ -2234,7 +2244,7 @@ msgstr "Egy érvényes licensz szükséges a támogatáshoz és frissítésekhez
 msgid "License Key"
 msgstr "Licensz kulcs"
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:248
 msgid "Search:"
 msgstr "Keresés:"
 
@@ -2246,19 +2256,19 @@ msgstr "Beállítások"
 msgid "Network"
 msgstr "Hálózat"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:273
 msgid "Done"
 msgstr "Kész"
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:272
 msgid "Today"
 msgstr "Ma"
 
-#: src/Tribe/Main.php:270
+#: src/Tribe/Main.php:271
 msgid "Prev"
 msgstr "Előző"
 
-#: src/Tribe/Main.php:253 src/Tribe/Main.php:269
+#: src/Tribe/Main.php:254 src/Tribe/Main.php:270
 msgid "Next"
 msgstr "Következő"
 
@@ -2275,7 +2285,7 @@ msgstr "Megjelenítés"
 msgid "Licenses"
 msgstr "Licenszek"
 
-#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:569
+#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:642
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
 msgstr "The Events Calendar"

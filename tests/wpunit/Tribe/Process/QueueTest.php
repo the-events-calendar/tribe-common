@@ -12,6 +12,7 @@ class QueueTest extends WPTestCase {
 	function setUp() {
 		parent::setUp();
 		$this->clear_queues();
+		add_filter( 'tribe_supports_async_process', '__return_true' );
 	}
 
 	protected function clear_queues() {

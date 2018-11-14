@@ -228,7 +228,7 @@ class tad_DI52_Container implements ArrayAccess {
 			if (isset($this->protected[$offset])) {
 				return $this->strings[$offset];
 			}
-			if (class_exists($this->strings[$offset])) {
+			if (is_string($this->strings[$offset]) && class_exists($this->strings[$offset])) {
 				$instance = $this->make($this->strings[$offset]);
 				$this->objects[$offset] = $instance;
 				return $instance;
@@ -240,7 +240,7 @@ class tad_DI52_Container implements ArrayAccess {
 			return call_user_func($this->callables[$offset], $this);
 		}
 
-		if (class_exists($offset)) {
+		if (is_string($offset) && class_exists($offset)) {
 			return $this->resolve($offset);
 		}
 
