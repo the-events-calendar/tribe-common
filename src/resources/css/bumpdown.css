@@ -14,15 +14,14 @@
 .tribe-bumpdown,
 .tribe-bumpdown-cell.tribe-bumpdown {
 	display: none;
-	margin: 16px 0;
 	margin: 1rem 0;
 }
 .wrap .tribe-bumpdown .tribe-bumpdown-content, .tribe-bumpdown .tribe-bumpdown-content, .tribe-bumpdown-cell.tribe-bumpdown .tribe-bumpdown-content {
-	background: #f1f1f1;
-	padding: 10px 35px 10px 10px;
-	font-size: 12px;
-	position: relative;
-}
+		background: #f1f1f1;
+		padding: 10px 35px 10px 10px;
+		font-size: 12px;
+		position: relative;
+	}
 .tribe-bumpdown-cell.tribe-bumpdown {
 	padding: 0;
 }
@@ -52,9 +51,7 @@
 	color: #686868;
 	cursor: pointer;
 	position: absolute;
-	right: 8px;
 	right: .5rem;
-	top: 8px;
 	top: .5rem;
 	z-index: 2;
 }
@@ -65,6 +62,7 @@
 	.wrap td.tribe-bumpdown {
 		padding-right: 35px;
 	}
+
 	.tribe-bumpdown-arrow {
 		margin-left: -15px;
 	}
