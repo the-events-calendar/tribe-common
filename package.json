@@ -24,7 +24,7 @@
   "scripts": {
     "analyze": "webpack-bundle-analyzer -m static stats.json",
     "bootstrap": "./scripts/linkDependencies",
-    "build:webpack": "cross-env NODE_ENV=production webpack -p --progress",
+    "build:webpack": "cross-env NODE_ENV=production webpack -p",
     "build:gulp": "cross-env NODE_ENV=production gulp",
     "prebuild": "npm install",
     "build": "npm run build:webpack && npm run build:gulp",
