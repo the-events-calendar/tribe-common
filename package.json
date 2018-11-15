@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "4.7.23.1",
+  "version": "4.8.0-beta1",
   "repository": "git@github.com:moderntribe/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -26,7 +26,6 @@
     "bootstrap": "./scripts/linkDependencies",
     "build:webpack": "cross-env NODE_ENV=production webpack -p --progress",
     "build:gulp": "cross-env NODE_ENV=production gulp",
-    "prebuild": "npm install",
     "build": "npm run build:webpack && npm run build:gulp",
     "dev": "cross-env NODE_ENV=development webpack -d --watch",
     "gettext-strings": "cross-env BABEL_ENV=gettext webpack",
