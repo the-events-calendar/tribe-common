@@ -11,6 +11,8 @@ export const priceSettings = () => get( 'tribe_blocks_editor_price_settings' );
 export const settings = () => get( 'tribe_blocks_editor_settings' );
 export const timezoneHtml = () => get( 'tribe_blocks_editor_timezone_html', '' );
 export const config = () => get( 'tribe_js_config', {} );
+export const adminUrl = () => config().admin_url || '';
+export const tickets = () => config().tickets || {};
 export const rest = () => config().rest || {};
 export const restNonce = () => rest().nonce || {};
 export const editorDefaults = () => config().editor_defaults || {};
