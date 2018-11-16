@@ -2865,6 +2865,7 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function get_query_for_posts( array $posts ) {
+		$posts = array_filter( array_map( 'get_post', $posts ) );
 		$query = new \WP_Query();
 		// Let's make it look like the posts are the result of a query using `post__in`.
 		$query->set( 'post__in', wp_list_pluck( $posts, 'ID' ) );

@@ -484,7 +484,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_Post[] $posts An array of posts the query should return as if fetched.
+	 * @param array $posts An array of post objects or post IDs the query should return as if fetched.
 	 *
 	 * @return WP_Query A query object ready to return, and operate, on the posts.
 	 */
