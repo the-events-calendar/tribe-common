@@ -172,4 +172,42 @@ class Tribe__Editor {
 
 		return tribe_is_truthy( get_post_meta( $post->ID, $this->key_flag_classic_editor, true ) );
 	}
+
+	/**
+	 * classic_editor_replace is function that is created by the plugin:
+	 *
+	 * - https://wordpress.org/plugins/classic-editor/
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_classic_plugin_active() {
+		return function_exists( 'classic_editor_replace' );
+	}
+
+	/**
+	 * Check if the setting `'classic-editor-replace'` is set to `replace` that option means to
+	 * replace the gutenberg editor with the classic editor
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_classic_option_active() {
+		return 'replace' === get_option( 'classic-editor-replace' );
+	}
+
+	/**
+	 * Detect if is the classic editor is forced activated via plugin or if it comes from a request
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_classic_editor() {
+		$disabled_by_plugin = $this->is_classic_plugin_active() && $this->is_classic_option_active();
+		$is_classic_editor_request = tribe_get_request_var( 'classic-editor', null );
+		return $is_classic_editor_request || $disabled_by_plugin;
+	}
 }
