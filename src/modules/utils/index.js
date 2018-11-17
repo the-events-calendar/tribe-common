@@ -9,6 +9,7 @@ import * as string from './string';
 import * as time from './time';
 import * as timezone from './timezone';
 import * as number from './number';
+import * as api from './api';
 
 export { date };
 export { dom };
@@ -22,4 +23,5 @@ export { string };
 export { time };
 export { timezone };
 export { number };
+export { api };
 export { default as TribePropTypes } from './proptypes';
