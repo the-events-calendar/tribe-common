@@ -1,7 +1,5 @@
 === Tribe Common ===
 
-== Changelog ==
-
 = [4.7.23] 2018-11-13 =
 
 * Add - Added `Tribe__Admin__Notice__Marketing` class for bespoke marketing admin notices [114903]
