@@ -472,4 +472,21 @@ interface Tribe__Repository__Read_Interface {
 	 * @return Tribe__Repository__Read_Interface For chaining purposes.
 	 */
 	public function set_render_context( $context = 'default' );
+
+	/**
+	 * A utility method to build and return a WP_Query object for the specified
+	 * posts.
+	 *
+	 * This method will be used mainly to hydrate and return query objects with cached
+	 * results in context where the expected return type is a `Wp_Query` object.
+	 * The advantage over doing `$repository->where( 'post__in' , $ids )->get_query()` is
+	 * to avoid all the overhead of a query that, probably did run already.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $posts An array of post objects or post IDs the query should return as if fetched.
+	 *
+	 * @return WP_Query A query object ready to return, and operate, on the posts.
+	 */
+	public function get_query_for_posts( array $posts );
 }

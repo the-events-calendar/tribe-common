@@ -495,4 +495,11 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 
 		return $this;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_query_for_posts( array $posts ) {
+		return $this->decorated->get_query_for_posts( $posts );
+	}
 }

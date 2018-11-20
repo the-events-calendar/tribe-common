@@ -2860,4 +2860,20 @@ abstract class Tribe__Repository
 
 		return $this;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_query_for_posts( array $posts ) {
+		$posts = array_filter( array_map( 'get_post', $posts ) );
+		$query = new \WP_Query();
+		// Let's make it look like the posts are the result of a query using `post__in`.
+		$query->set( 'post__in', wp_list_pluck( $posts, 'ID' ) );
+		$query->found_posts  = count( $posts );
+		$query->posts        = $posts;
+		$query->post_count   = count( $posts );
+		$query->current_post = - 1;
+
+		return $query;
+	}
 }

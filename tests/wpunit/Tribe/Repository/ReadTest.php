@@ -948,4 +948,38 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue($repository->has_filter('meta_exists','foo'));
 		$this->assertFalse($repository->has_filter('meta_exists','bar'));
 	}
+
+	/**
+	 * It should allow getting a query object built on an array of posts
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_a_query_object_built_on_an_array_of_posts() {
+		$posts = array_map( 'get_post', $this->factory()->post->create_many( 3, [ 'post_type' => 'post' ] ) );
+
+		$query = $this->repository()->get_query_for_posts( $posts );
+
+		global $wpdb;
+		$num_queries = $wpdb->num_queries;
+		$this->assertInstanceOf( \WP_Query::class, $query );
+		$this->assertEqualSets( $posts, $query->posts );
+		$this->assertEquals( 3, $query->found_posts );
+		$this->assertEquals( $num_queries, $wpdb->num_queries );
+	}
+
+	/**
+	 * It should correctly build a query object on an empty array
+	 *
+	 * @test
+	 */
+	public function should_correctly_build_a_query_object_on_an_empty_array() {
+		$query = $this->repository()->get_query_for_posts( [] );
+
+		global $wpdb;
+		$num_queries = $wpdb->num_queries;
+		$this->assertInstanceOf( \WP_Query::class, $query );
+		$this->assertEquals( [], $query->posts );
+		$this->assertEquals( 0, $query->found_posts );
+		$this->assertEquals( $num_queries, $wpdb->num_queries );
+	}
 }
