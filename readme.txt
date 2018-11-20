@@ -4,7 +4,7 @@
 
 = [4.8] TBD =
 
-
+* Fix - Remove blue box shadow for input in creatable select element
 
 = [4.7.22] 2018-10-22 =
 
