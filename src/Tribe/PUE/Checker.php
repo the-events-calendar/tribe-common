@@ -816,11 +816,19 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$license_key    = '';
 			$license_origin = 'm';
 
-			if ( ( 'network' === $type || 'any' === $type ) && is_multisite() ) {
+			/*
+			 * Even if we have a network key if the plugin is not active on the network then it should
+			 * not be used.
+			 */
+			if (
+				( 'network' === $type || 'any' === $type )
+				&& is_multisite()
+				&& $this->is_plugin_active_for_network()
+			) {
 				$license_key = get_network_option( null, $this->pue_install_key, '' );
 			}
 
-			if ( empty( $license_key ) && ( 'local' === $type || 'any' === $type ) ) {
+			if ( ( 'local' === $type || 'any' === $type ) && empty( $license_key ) ) {
 				$license_key = get_option( $this->pue_install_key, '' );
 			}
 
