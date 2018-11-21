@@ -51,12 +51,16 @@ export default class PluginBlockHooks extends PureComponent {
 		 *	```
 		 */
 		pluginTemplates: PropTypes.objectOf( PropTypes.arrayOf( PropTypes.array ) ),
-		templateInsertUpdatesSelection: PropTypes.bool,
+		templateInsertUpdatesSelection: PropTypes.bool.isRequired,
 		templateLock: PropTypes.oneOf( [
 			'all',
 			'insert',
 			false,
 		] ),
+	}
+
+	static defaultProps = {
+		templateInsertUpdatesSelection: false,
 	}
 
 	/**
