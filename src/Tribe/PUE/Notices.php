@@ -232,7 +232,9 @@ class Tribe__PUE__Notices {
 
 		$formatted_empty_keys = [];
 		foreach ( $empty_keys as $empty_key ) {
-			$formatted_empty_keys[] = $plugin_names[ $empty_key[0] ];
+			if ( isset( $plugin_names[ $empty_key[0] ] ) ) {
+				$formatted_empty_keys[] = $plugin_names[ $empty_key[0] ];
+			}
 		}
 
 		return $formatted_empty_keys;
