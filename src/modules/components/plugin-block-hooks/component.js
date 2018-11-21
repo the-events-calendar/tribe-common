@@ -51,11 +51,16 @@ export default class PluginBlockHooks extends PureComponent {
 		 *	```
 		 */
 		pluginTemplates: PropTypes.objectOf( PropTypes.arrayOf( PropTypes.array ) ),
+		templateInsertUpdatesSelection: PropTypes.bool.isRequired,
 		templateLock: PropTypes.oneOf( [
 			'all',
 			'insert',
 			false,
 		] ),
+	}
+
+	static defaultProps = {
+		templateInsertUpdatesSelection: false,
 	}
 
 	/**
@@ -124,6 +129,7 @@ export default class PluginBlockHooks extends PureComponent {
 					allowedBlocks={ this.props.allowedBlocks }
 					layouts={ this.props.layouts }
 					template={ this.template }
+					templateInsertUpdatesSelection={ this.props.templateInsertUpdatesSelection }
 					templateLock={ this.props.templateLock }
 				/>
 			</div>
