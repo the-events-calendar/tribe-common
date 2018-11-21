@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-[TBD] = TBD
+= [TBD] TBD =
 
 * Fixed - Use of the `wp_doing_cron` function that would break compatibility with sites not on WordPress version 4.8 or later [118627]
 
