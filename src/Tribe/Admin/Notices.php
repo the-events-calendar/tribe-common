@@ -318,6 +318,7 @@ class Tribe__Admin__Notices {
 	 * @return boolean
 	 */
 	public function has_user_dimissed( $slug, $user_id = null ) {
+
 		if ( is_null( $user_id ) ) {
 			$user_id = get_current_user_id();
 		}

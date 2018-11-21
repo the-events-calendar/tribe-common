@@ -11,6 +11,10 @@ msgstr ""
 "Language: ja_JP\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Main.php:276
+msgid "Clear"
+msgstr ""
+
 #: src/Tribe/Plugins_API.php:37
 msgid "Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze."
 msgstr ""
@@ -127,11 +131,11 @@ msgstr "Event Tickets は、ビジターにイベントへ RSVP していただ�
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
 msgstr "イベント カレンダーを簡単に作成して管理しましょう。Events Calendar プラグインは、お客さまよりご信頼をいただけるチームがバックアップするプロフェッショナル レベルの品質と機能を提供します。"
 
-#: src/Tribe/PUE/Checker.php:1095
+#: src/Tribe/PUE/Checker.php:1103
 msgid "There is a new version of %1$s available. %2$s"
 msgstr "新しいバージョンの %1$s をご利用いただくことができます。%2$s"
 
-#: src/Tribe/PUE/Checker.php:1084
+#: src/Tribe/PUE/Checker.php:1092
 msgid "Update now to version %s."
 msgstr "新しいバージョン %s に今すぐアップデートしてください。"
 
@@ -144,7 +148,7 @@ msgid "It looks like you're using %1$s, but the license key is invalid. Please d
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] "%1$s をご使用いただいているようですが、ライセンス キーが無効です。%2$sご使用のアカウント%3$sから最新バージョンをダウンロードしてください。"
 
-#: src/Tribe/PUE/Checker.php:976
+#: src/Tribe/PUE/Checker.php:984
 msgid "Please refresh the page and try your request again."
 msgstr "トップ ページを最新の情報に更新し、もう一度リクエストしてみてください。"
 
@@ -276,15 +280,15 @@ msgstr "%s は 正の整数 (0 を含む) である必要があります。"
 msgid "Events Help"
 msgstr "Events ヘルプ"
 
-#: src/Tribe/PUE/Checker.php:1670
+#: src/Tribe/PUE/Checker.php:1678
 msgid "Expired license. Consult your network administrator."
 msgstr "ライセンスの期限が切れています。ネットワーク管理者にご相談ください。"
 
-#: src/Tribe/PUE/Checker.php:1669
+#: src/Tribe/PUE/Checker.php:1677
 msgid "No license entered. Consult your network administrator."
 msgstr "ライセンスが入力されていません。ネットワーク管理者にご相談ください。"
 
-#: src/Tribe/PUE/Checker.php:1668
+#: src/Tribe/PUE/Checker.php:1676
 msgid "A valid license has been entered by your network administrator."
 msgstr "ネットワーク管理者により有効なライセンスが入力されています。"
 
@@ -371,11 +375,11 @@ msgid "There is an update available for %1$s but your license has expired. %2$sV
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] "%1$s のアップデートをご利用いただけますが、ライセンスの期限が切れています。%2$sEvents Calendar ウェブサイトにアクセスし、ライセンスを更新してください。%3$s"
 
-#: src/Tribe/PUE/Checker.php:1054
+#: src/Tribe/PUE/Checker.php:1062
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr "%s のアップデートがあります。%sライセンスを更新%sし、バク修正、セキュリティ アップデート、および新機能へのアクセスを取得してください。"
 
-#: src/Tribe/PUE/Checker.php:997
+#: src/Tribe/PUE/Checker.php:1005
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr "%s のアップデートがあります。アップデート、ダウンロード、およびサポートへのアクセスを取得するには、%sライセンスを確認%sする必要があります。"
 
@@ -436,11 +440,11 @@ msgstr "はい、私のシステム情報を Modern Tribe サポート チーム
 msgid "English"
 msgstr "英語"
 
-#: src/Tribe/PUE/Checker.php:961 src/Tribe/PUE/Notices.php:285
+#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:285
 msgid " (opens in a new window)"
 msgstr " (新しいウィンドウで開く)"
 
-#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:283
+#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:283
 msgid "Renew Your License Now"
 msgstr "今すぐライセンスを更新する"
 
@@ -492,15 +496,15 @@ msgstr ": アクティブ化して降順でカラムを並べ替え"
 msgid ": activate to sort column ascending"
 msgstr ": アクティブ化して昇順でカラムを並べ替え"
 
-#: src/Tribe/Main.php:281
+#: src/Tribe/Main.php:284
 msgid "Press \"Cmd + C\" to copy"
 msgstr "コピーするには、\"Cmd + C\" を押してください"
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:283
 msgid "System info copied"
 msgstr "システム情報がコピーされました"
 
-#: src/Tribe/Main.php:279 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:282 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "クリップボードにコピーされました"
 
@@ -711,7 +715,7 @@ msgstr "Event Tickets をご使用いただきありがとうございます! �
 msgid "%s must be a positive number or percent."
 msgstr "%s は、正の数またはパーセントである必要があります。"
 
-#: src/Tribe/PUE/Checker.php:932
+#: src/Tribe/PUE/Checker.php:940
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr "有効なキーをセットアップいただきありがとうございます。有効期限は %s です"
 
@@ -811,7 +815,7 @@ msgstr "%1$s 当社プラグインを複数サイト ネットワークでご使
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr "再書き込みルールは、このヘルプ ページのオンロードでパージされました。プラグインまたはテーマで発生をフラッシュする再書き込みルールが存在する可能性があります。"
 
-#: src/Tribe/PUE/Checker.php:901
+#: src/Tribe/PUE/Checker.php:909
 msgid "unknown date"
 msgstr "不明な日付です"
 
@@ -2216,15 +2220,15 @@ msgstr "%s 設定"
 msgid "Events Settings"
 msgstr "イベント設定"
 
-#: src/Tribe/PUE/Checker.php:888
+#: src/Tribe/PUE/Checker.php:896
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "このバリデーターに何らかの問題が発生しているようです。%sサポート%sにお問い合わせください。"
 
-#: src/Tribe/PUE/Checker.php:927
+#: src/Tribe/PUE/Checker.php:935
 msgid "Valid Key! Expires on %s"
 msgstr "有効なキーです! 有効期限は %s です"
 
-#: src/Tribe/PUE/Checker.php:907
+#: src/Tribe/PUE/Checker.php:915
 msgid "Sorry, key validation server is not available."
 msgstr "申し訳ございませんが、キー検証サーバーが利用できません。"
 
@@ -2252,19 +2256,19 @@ msgstr "設定"
 msgid "Network"
 msgstr "ネットワーク"
 
-#: src/Tribe/Main.php:273
+#: src/Tribe/Main.php:274
 msgid "Done"
 msgstr "完了"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:273 src/Tribe/Main.php:275
 msgid "Today"
 msgstr "今日"
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:272
 msgid "Prev"
 msgstr "前"
 
-#: src/Tribe/Main.php:254 src/Tribe/Main.php:270
+#: src/Tribe/Main.php:254 src/Tribe/Main.php:271
 msgid "Next"
 msgstr "次"
 
