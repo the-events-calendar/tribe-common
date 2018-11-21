@@ -2,11 +2,6 @@
 
 == Changelog ==
 
-= [TBD] TBD =
-
-* Feature - Added `tribe_cache_expiration` filter that allows plugins to use persistent caching based on cache key [117158]
-* Fix - Adjust cache invalidation behavior so that the value of `tribe_last_save_post` is only update on `save_post` of Event, Venue, and Organizer post types, and the updating of Tribe options [116124]
-
 = [4.7.23] 2018-11-13 =
 
 * Add - Added `Tribe__Admin__Notice__Marketing` class for bespoke marketing admin notices [114903]
