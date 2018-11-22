@@ -123,7 +123,7 @@ class Tribe__Context {
 		if ( null !== $doing_cron ) {
 			$this->doing_cron = (bool) $doing_cron;
 		} else {
-			$this->doing_cron = wp_doing_cron();
+			$this->doing_cron = defined( 'DOING_CRON' ) && DOING_CRON;
 		}
 
 		return $this->doing_cron;

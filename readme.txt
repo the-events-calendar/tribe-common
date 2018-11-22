@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.7.23.1] 2018-11-21 =
+
+* Fixed - Use of the `wp_doing_cron` function that would break compatibility with sites not on WordPress version 4.8 or later [118627]
+
 = [4.7.23] 2018-11-13 =
 
 * Add - Added `Tribe__Admin__Notice__Marketing` class for bespoke marketing admin notices [114903]
