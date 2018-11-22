@@ -21,6 +21,7 @@ exports[`PluginBlockHooks should match snapshot 1`] = `
         ],
       ]
     }
+    templateInsertUpdatesSelection={false}
   />
 </div>
 `;
@@ -46,6 +47,7 @@ exports[`PluginBlockHooks should not hook in unregistered blocks 1`] = `
         ],
       ]
     }
+    templateInsertUpdatesSelection={false}
   />
 </div>
 `;
@@ -63,6 +65,7 @@ exports[`PluginBlockHooks should only render events templates 1`] = `
         ],
       ]
     }
+    templateInsertUpdatesSelection={false}
   />
 </div>
 `;
@@ -84,6 +87,7 @@ exports[`PluginBlockHooks should only render events-pro templates 1`] = `
         ],
       ]
     }
+    templateInsertUpdatesSelection={false}
   />
 </div>
 `;
@@ -121,6 +125,7 @@ exports[`PluginBlockHooks should recursively hook blocks 1`] = `
         ],
       ]
     }
+    templateInsertUpdatesSelection={false}
   />
 </div>
 `;
