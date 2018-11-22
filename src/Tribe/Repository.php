@@ -4,6 +4,13 @@ abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
 
 	/**
+	 * A list of query controllers in the shape [ { query: <WP_Query>, controller: <Repository> }, ... ].
+	 *
+	 * @var array
+	 */
+	protected static $controllers;
+
+	/**
 	 * @var  array An array of keys that cannot be updated on this repository.
 	 */
 	protected static $blocked_keys = array(
@@ -528,12 +535,16 @@ abstract class Tribe__Repository
 		if ( null !== $this->query_builder ) {
 			$built = $this->query_builder->build_query();
 
+			self::set_query_controller( $this->query_builder, $built );
+
 			if ( null !== $built ) {
 				return $built;
 			}
 		}
 
 		$query = new WP_Query();
+
+		self::set_query_controller( $this, $query );
 
 		$this->filter_query->set_query( $query );
 
@@ -655,9 +666,11 @@ abstract class Tribe__Repository
 		 * Since we are filtering the array returning empty values while formatting
 		 * the item will exclude it from the return values.
 		 */
-		return $return_ids
+		$formatted = $return_ids
 			? $results
 			: array_filter( array_map( array( $this, 'format_item' ), $results ) );
+
+		return $formatted;
 	}
 
 	/**
@@ -2778,7 +2791,7 @@ abstract class Tribe__Repository
 		 *                              values will be interpreted as failures to create the post.
 		 * @param array    $postarr     The post array that will be used for the creation.
 		 */
-		$callback = apply_filters( 'tribe_repository_update_callback', 'wp_insert_post', $postarr );
+		$callback = apply_filters( 'tribe_repository_create_callback', 'wp_insert_post', $postarr );
 
 		/**
 		 * Filters the callback that all repositories should use to create posts.
@@ -2791,7 +2804,7 @@ abstract class Tribe__Repository
 		 * @param array    $postarr     The post array that will be used for the creation.
 		 */
 		$callback = apply_filters(
-			"tribe_repository_{$this->filter_name}_update_callback",
+			"tribe_repository_{$this->filter_name}_create_callback",
 			$callback,
 			$postarr
 		);
@@ -2875,5 +2888,37 @@ abstract class Tribe__Repository
 		$query->current_post = - 1;
 
 		return $query;
+	}
+
+	/**
+	 * Returns a query controller repository if any.
+	 *
+	 * This method is useful to track the repository instance that generated a query.
+	 *
+	 * @since  TBD
+	 *
+	 * @param \WP_Query $query The query to fetch the controller for.
+	 *
+	 * @return Tribe__Repository__Interface|null The query controller repository if any.
+	 */
+	public static function get_query_controller( WP_Query $query ) {
+		$exists = array_key_exists( spl_object_hash( $query ), self::$controllers );
+
+		return $exists ? self::$controllers[ $exists ]['controller'] : null;
+	}
+
+	/**
+	 * Sets a repository as the controller of a specific query.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Repository__Interface $repository The repository controlling the query.
+	 * @param WP_Query $wp_query The controlled query.
+	 */
+	public static function set_query_controller( Tribe__Repository__Interface $repository, WP_Query $wp_query ) {
+		self::$controllers[ spl_object_hash( $wp_query ) ] = [
+			'query'      => $wp_query,
+			'controller' => $repository,
+		];
 	}
 }

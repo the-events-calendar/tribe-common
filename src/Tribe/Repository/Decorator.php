@@ -502,4 +502,34 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function get_query_for_posts( array $posts ) {
 		return $this->decorated->get_query_for_posts( $posts );
 	}
+
+	/**
+	 * Whether the decorator is decorating an instance of a specific repository class or not.
+	 *
+	 * The check is made recursively for decorators to get to the first repository implementation.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $class The class to check for.
+	 *
+	 * @return bool Whether the decorator is decorating an instance of a specific repository class or not.
+	 */
+	public function decorates_an_instance_of( $class ) {
+		return $this->decorated instanceof Tribe__Repository__Decorator
+			? $this->decorated->decorates_an_instance_of( $class )
+			: $this->decorated instanceof $class;
+	}
+
+	/**
+	 * Returns the concrete repository implementation that's "hidden" under the decorator(s).
+	 *
+	 * @since TBD
+	 *
+	 * @return \Tribe__Repository__Interface The concrete repository instance.
+	 */
+	public function get_decorated_repository() {
+		return $this->decorated instanceof Tribe__Repository__Decorator
+			? $this->decorated->get_decorated_repository()
+			: $this->decorated;
+	}
 }
