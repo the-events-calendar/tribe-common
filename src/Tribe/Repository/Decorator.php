@@ -311,8 +311,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function build_query() {
-		return $this->decorated->build_query();
+	public function build_query( $use_query_builder = true ) {
+		return $this->decorated->build_query( $use_query_builder );
 	}
 
 	/**

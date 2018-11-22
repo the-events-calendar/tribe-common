@@ -67,9 +67,11 @@ interface Tribe__Repository__Interface
 	 *
 	 * @since 4.7.19
 	 *
+	 * @param bool $use_query_builder Whether to use the query builder, if set, or not.
+	 *
 	 * @return WP_Query
 	 */
-	public function build_query();
+	public function build_query( $use_query_builder = true );
 
 	/**
 	 * Adds a custom JOIN clause to the query.

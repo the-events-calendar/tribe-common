@@ -527,12 +527,12 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function build_query() {
+	public function build_query( $use_query_builder = true ) {
 		/**
 		 * Allow classes extending or decorating the repository to act before
 		 * the query is built or replace its building completely.
 		 */
-		if ( null !== $this->query_builder ) {
+		if ( $use_query_builder && null !== $this->query_builder ) {
 			$built = $this->query_builder->build_query();
 
 			self::set_query_controller( $this->query_builder, $built );
