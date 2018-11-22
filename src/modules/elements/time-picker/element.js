@@ -22,6 +22,7 @@ import { __ } from '@wordpress/i18n';
  */
 import { PreventBlockClose } from '@moderntribe/common/components';
 import {
+	date as dateUtil,
 	moment as momentUtil,
 	time as timeUtil,
 	TribePropTypes,
@@ -172,7 +173,7 @@ const TimePicker = ( {
 
 TimePicker.defaultProps = {
 	step: timeUtil.HALF_HOUR_IN_SECONDS,
-	timeFormat: 'H:i',
+	timeFormat: dateUtil.FORMATS.WP.time,
 	allDay: false,
 	onChange: noop,
 	onClick: noop,
