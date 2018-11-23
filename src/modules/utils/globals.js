@@ -7,7 +7,7 @@ export const google = () => get( 'google' );
 export const config = () => get( 'tribe_editor_config', {} );
 // Common
 export const common = () => config().common || {};
-export const adminUrl = () => common().admin_url || '';
+export const adminUrl = () => common().adminUrl || '';
 export const rest = () => common().rest || {};
 export const restNonce = () => rest().nonce || {};
 export const dateSettings = () => common().dateSettings || {};
@@ -21,11 +21,11 @@ export const list = () => ( {
 export const tec = () => config().tec || {};
 export const editor = () => tec().editor || {};
 export const settings = () => tec().settings || {};
-export const mapsAPI = () => tec().google_map || {};
-export const priceSettings = () => tec().price_settings || {};
-export const timezoneHtml = () => tec().timezone_html || '';
+export const mapsAPI = () => tec().googleMap || {};
+export const priceSettings = () => tec().priceSettings || {};
+export const timezoneHtml = () => tec().timezoneHTML || '';
 // PRO
-export const pro = () => config().events_pro || {};
+export const pro = () => config().eventsPRO || {};
 export const editorDefaults = () => pro().defaults || {};
 // Tickets
 export const tickets = () => config().tickets || {};
