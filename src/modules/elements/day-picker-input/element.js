@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import classNames from 'classnames';
+import 'react-day-picker/lib/style.css';
 import ReactDayPickerInput from 'react-day-picker/DayPickerInput';
 
 /**
