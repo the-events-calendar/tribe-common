@@ -4,17 +4,17 @@
 export const get = ( key, defaultValue ) => window[ key ] || defaultValue;
 export const google = () => get( 'google' );
 // Localized Config
-export const config = () => get( 'tribe_editor_js_config', {} );
+export const config = () => get( 'tribe_editor_config', {} );
 // Common
 export const common = () => config().common || {};
 export const adminUrl = () => common().admin_url || '';
 export const rest = () => common().rest || {};
 export const restNonce = () => rest().nonce || {};
-export const dateSettings = () => common().date_settings || {};
+export const dateSettings = () => common().dateSettings || {};
 export const editorConstants = () => common().constants || {};
 export const list = () => ( {
 	countries: common().countries || {},
-	us_states: common().us_states || {},
+	us_states: common().usStates || {},
 } );
 
 // TEC
