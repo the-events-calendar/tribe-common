@@ -51,7 +51,7 @@ class Tribe__Editor__Assets {
 					'hide_upsell' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ) ? 'true' : 'false',
 				),
 				'countries' => tribe( 'languages.locations' )->get_countries(),
-				'us_states' => Tribe__View_Helpers::loadStates()
+				'us_states' => Tribe__View_Helpers::loadStates(),
 			),
 		);
 
