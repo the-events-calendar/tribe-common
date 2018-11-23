@@ -12,7 +12,7 @@ class Tribe__Editor__Assets {
 	 * @return void
 	 */
 	public function hook() {
-		add_action( 'tribe_plugins_loaded', array( $this, 'register' ) );
+		add_action( 'wp_loaded', array( $this, 'register' ) );
 	}
 
 	/**
