@@ -8,17 +8,24 @@
  * @since TBD
  */
 class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Interface {
+	/**
+	 * Localize variables that are part of common
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
 	public function localize() {
 		return array(
 			'common' => array(
-				'adminUrl' => admin_url(),
-				'timeZone' => array(
+				'adminUrl'     => admin_url(),
+				'timeZone'     => array(
 					'showTimeZone' => false,
-					'label' => $this->get_timezone_label(),
+					'label'        => $this->get_timezone_label(),
 				),
-				'rest' => array(
-					'url' => get_rest_url(),
-					'nonce' => array(
+				'rest'         => array(
+					'url'        => get_rest_url(),
+					'nonce'      => array(
 						'wp_rest' => wp_create_nonce( 'wp_rest' ),
 					),
 					'namespaces' => array(
@@ -26,11 +33,11 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 					),
 				),
 				'dateSettings' => array( $this, 'get_date_settings' ),
-				'constants' => array(
+				'constants'    => array(
 					'hideUpsell' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
 				),
-				'countries' => tribe( 'languages.locations' )->get_countries(),
-				'usStates' => Tribe__View_Helpers::loadStates(),
+				'countries'    => tribe( 'languages.locations' )->get_countries(),
+				'usStates'     => Tribe__View_Helpers::loadStates(),
 			),
 		);
 	}
@@ -58,6 +65,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 	 */
 	public function get_date_settings() {
 		global $wp_locale;
+
 		return array(
 			'l10n'     => array(
 				'locale'        => get_user_locale(),
