@@ -149,31 +149,6 @@ class Tribe__Editor {
 	}
 
 	/**
-	 * Check if post is from classic editor
-	 *
-	 * @since TBD
-	 *
-	 * @param int|WP_Post $post
-	 *
-	 * @return bool
-	 */
-	public function post_is_from_classic_editor( $post ) {
-		if ( ! $post instanceof WP_Post ) {
-			$post = get_post( $post );
-		}
-
-		if ( empty( $post ) ) {
-			return false;
-		}
-
-		if ( ! $post instanceof WP_Post ) {
-			return false;
-		}
-
-		return tribe_is_truthy( get_post_meta( $post->ID, $this->key_flag_classic_editor, true ) );
-	}
-
-	/**
 	 * classic_editor_replace is function that is created by the plugin:
 	 *
 	 * - https://wordpress.org/plugins/classic-editor/
