@@ -1,18 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tests for globals.js Should match the default value for the globals values 1`] = `Object {}`;
+exports[`Tests for globals.js Should match the default value for the globals values 1`] = `
+Object {
+  "common": Object {
+    "countries": Object {},
+    "rest": Object {
+      "namespaces": Object {
+        "core": "wp/v2",
+      },
+      "nonce": Object {
+        "add_ticket_nonce": "0878f40fb2",
+        "wp_rest": "cedcd6967b",
+      },
+      "url": "http://gutenberg.local/wp-json/",
+    },
+    "settings": Object {},
+    "usStates": Object {},
+  },
+  "tec": Object {
+    "googleMap": Object {},
+  },
+  "tickets": Object {
+    "default_currency": "$",
+    "default_provider": "Tribe__Tickets_Plus__Commerce__WooCommerce__Main",
+    "providers": Array [
+      Object {
+        "class": "Tribe__Tickets_Plus__Commerce__WooCommerce__Main",
+        "currency": "$",
+        "currency_position": "prefix",
+        "name": "WooCommerce",
+      },
+    ],
+  },
+}
+`;
 
 exports[`Tests for globals.js Should match the default value for the globals values 2`] = `
 Object {
-  "rest": Object {
-    "namespaces": Object {
-      "core": "wp/v2",
+  "common": Object {
+    "countries": Object {},
+    "rest": Object {
+      "namespaces": Object {
+        "core": "wp/v2",
+      },
+      "nonce": Object {
+        "add_ticket_nonce": "0878f40fb2",
+        "wp_rest": "cedcd6967b",
+      },
+      "url": "http://gutenberg.local/wp-json/",
     },
-    "nonce": Object {
-      "add_ticket_nonce": "0878f40fb2",
-      "wp_rest": "cedcd6967b",
-    },
-    "url": "http://gutenberg.local/wp-json/",
+    "settings": Object {},
+    "usStates": Object {},
+  },
+  "tec": Object {
+    "googleMap": Object {},
   },
   "tickets": Object {
     "default_currency": "$",
@@ -29,32 +70,7 @@ Object {
 }
 `;
 
-exports[`Tests for globals.js get default value 1`] = `
-Object {
-  "rest": Object {
-    "namespaces": Object {
-      "core": "wp/v2",
-    },
-    "nonce": Object {
-      "add_ticket_nonce": "0878f40fb2",
-      "wp_rest": "cedcd6967b",
-    },
-    "url": "http://gutenberg.local/wp-json/",
-  },
-  "tickets": Object {
-    "default_currency": "$",
-    "default_provider": "Tribe__Tickets_Plus__Commerce__WooCommerce__Main",
-    "providers": Array [
-      Object {
-        "class": "Tribe__Tickets_Plus__Commerce__WooCommerce__Main",
-        "currency": "$",
-        "currency_position": "prefix",
-        "name": "WooCommerce",
-      },
-    ],
-  },
-}
-`;
+exports[`Tests for globals.js get default value 1`] = `Array []`;
 
 exports[`Tests for globals.js rest value 1`] = `
 Object {

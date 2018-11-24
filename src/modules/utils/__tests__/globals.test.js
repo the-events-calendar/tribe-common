@@ -15,20 +15,24 @@ import {
 describe( 'Tests for globals.js', () => {
 
 	beforeAll( () => {
-		window.tribe_blocks_editor_google_maps_api = {};
-		window.tribe_blocks_editor_settings = {};
-		window.tribe_data_countries = {};
-		window.tribe_data_us_states = {};
-		window.tribe_js_config = {
-			rest: {
-				namespaces: {
-					core: 'wp/v2',
+		window.tribe_editor_config = {
+			common: {
+				countries: {},
+				usStates: {},
+				settings: {},
+				rest: {
+					namespaces: {
+						core: 'wp/v2',
+					},
+					nonce: {
+						wp_rest: 'cedcd6967b',
+						add_ticket_nonce: '0878f40fb2',
+					},
+					url: 'http://gutenberg.local/wp-json/',
 				},
-				nonce: {
-					wp_rest: 'cedcd6967b',
-					add_ticket_nonce: '0878f40fb2',
-				},
-				url: 'http://gutenberg.local/wp-json/',
+			},
+			tec: {
+				googleMap: {},
 			},
 			tickets: {
 				providers: [ {
@@ -47,7 +51,7 @@ describe( 'Tests for globals.js', () => {
 		expect( get( 'random' ) ).toBe( undefined );
 		expect( get( 'google' ) ).toBe( undefined );
 		expect( google() ).toBe( undefined );
-		expect( get( 'tribe_blocks_editor_settings' ) ).toMatchSnapshot();
+		expect( get( 'tribe_editor_config' ) ).toMatchSnapshot();
 		expect( settings() ).toEqual( {} );
 		expect( mapsAPI() ).toEqual( {} );
 		expect( list() ).toEqual( {
@@ -68,11 +72,7 @@ describe( 'Tests for globals.js', () => {
 	} );
 
 	afterAll( () => {
-		delete window.tribe_blocks_editor_google_maps_api;
-		delete window.tribe_blocks_editor_settings;
-		delete window.tribe_data_countries;
-		delete window.tribe_data_us_states;
-		delete window.tribe_js_config;
+		delete window.tribe_editor_config;
 	} );
 } );
 
