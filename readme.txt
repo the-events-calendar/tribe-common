@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] =
+
+* Fix - The invalid license key notice won't be displayed for Products with empty license keys [115562]
+
 = [4.7.23.1] 2018-11-21 =
 
 * Fixed - Use of the `wp_doing_cron` function that would break compatibility with sites not on WordPress version 4.8 or later [118627]
