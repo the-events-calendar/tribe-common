@@ -204,6 +204,8 @@ class Tribe__PUE__Notices {
 	 * This information will be used to remove products
 	 * with no license keys from $this->notices['invalid_key']
 	 *
+	 * @since TBD
+	 *
 	 * @return array
 	 */
 	public function select_empty_keys() {
