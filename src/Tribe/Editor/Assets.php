@@ -51,7 +51,7 @@ class Tribe__Editor__Assets {
 						 *
 						 * @param array An array with the variables to be localized
 						 */
-						'data' => apply_filters( 'tribe_editor_config', $editor_configuration->localize() ),
+						'data' => $editor_configuration->localize(),
 					),
 				),
 				'priority'  => 11,

@@ -16,7 +16,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 	 * @return array
 	 */
 	public function localize() {
-		return array(
+		$editor_config = array(
 			'common' => array(
 				'adminUrl'     => admin_url(),
 				'timeZone'     => array(
@@ -40,6 +40,15 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 				'usStates'     => Tribe__View_Helpers::loadStates(),
 			),
 		);
+
+		/**
+		 * Filter the default configuration used to localize variables
+		 *
+		 * @since TBD
+		 *
+		 * array $editor_config An associative array with the configuration to be send into the client
+		 */
+		return apply_filters( 'tribe_editor_config', $editor_config );
 	}
 
 
