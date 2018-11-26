@@ -219,7 +219,7 @@ class Tribe__PUE__Notices {
 
 		$empty_keys = $wpdb->get_results( $sql, ARRAY_N );
 
-		$plugin_names = [
+		$plugin_names = array(
 			'pue_install_key_event_tickets_plus'       => 'Event Tickets Plus',
 			'pue_install_key_events_community'         => 'The Events Calendar: Community Events',
 			'pue_install_key_events_community_tickets' => 'The Events Calendar: Community Events Tickets',
@@ -228,13 +228,12 @@ class Tribe__PUE__Notices {
 			'pue_install_key_tribe_filterbar'          => 'The Events Calendar: Filter Bar',
 			'pue_install_key_event_aggregator'         => 'Event Aggregator',
 			'pue_install_key_events_calendar_pro'      => 'The Events Calendar PRO',
-		];
+		);
 
-		$formatted_empty_keys = [];
+		$formatted_empty_keys = array();
 		foreach ( $empty_keys as $empty_key ) {
-			if ( isset( $plugin_names[ $empty_key[0] ] ) ) {
-				$formatted_empty_keys[] = $plugin_names[ $empty_key[0] ];
-			}
+			$empty_key              = Tribe__Utils__Array::get( $empty_key, [ 0 ] );
+			$formatted_empty_keys[] = Tribe__Utils__Array::get( $plugin_names, $empty_key );
 		}
 
 		return $formatted_empty_keys;
@@ -253,12 +252,14 @@ class Tribe__PUE__Notices {
 
 		$empty_keys = $this->select_empty_keys();
 
+		if ( empty( $empty_keys ) ) {
+			return;
+		}
+
 		// Remove the invalid_key notice for products with an empty license key
-		if ( ! empty( $empty_keys ) ) {
-			foreach ( $empty_keys as $empty_key ) {
-				if ( array_key_exists( $empty_key, $this->notices['invalid_key'] ) ) {
-					unset( $this->notices['invalid_key'][ $empty_key ] );
-				}
+		foreach ( $empty_keys as $empty_key ) {
+			if ( array_key_exists( $empty_key, $this->notices['invalid_key'] ) ) {
+				unset( $this->notices['invalid_key'][ $empty_key ] );
 			}
 		}
 
