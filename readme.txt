@@ -3,8 +3,9 @@
 
 == Changelog ==
 
-= [TBD] =
+= [TBD] TBD =
 
+* Add - Added `tribe_cache_expiration` filter that allows plugins to use persistent caching based on cache key [117158]
 * Fix - The invalid license key notice won't be displayed for Products with empty license keys [115562]
 
 = [4.7.23.1] 2018-11-21 =
