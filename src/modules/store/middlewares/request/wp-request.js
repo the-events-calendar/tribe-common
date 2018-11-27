@@ -7,7 +7,7 @@ import 'whatwg-fetch';
 /**
  * Internal dependencies
  */
-import { config } from '@moderntribe/common/utils/globals';
+import { rest } from '@moderntribe/common/utils/globals';
 import { types } from '@moderntribe/common/store/middlewares/request';
 
 export default () => ( next ) => async ( action ) => {
@@ -24,8 +24,7 @@ export default () => ( next ) => async ( action ) => {
 
 	next( action );
 
-	const rest = get( config(), 'rest', {} );
-	const { url = '', nonce = {} } = rest;
+	const { url = '', nonce = {} } = rest();
 	const wpRESTNonce = nonce.wp_rest || '';
 	const namespaces = rest.namespaces || {};
 	const core = namespaces.core || 'wp/v2';

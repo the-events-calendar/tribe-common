@@ -3,20 +3,29 @@
  */
 export const get = ( key, defaultValue ) => window[ key ] || defaultValue;
 export const google = () => get( 'google' );
-export const dateSettings = () => get( 'tribe_date_settings' );
-export const editor = () => get( 'tribe_blocks_editor' );
-export const editorConstants = () => get( 'tribe_blocks_editor_constants' );
-export const mapsAPI = () => get( 'tribe_blocks_editor_google_maps_api' );
-export const priceSettings = () => get( 'tribe_blocks_editor_price_settings' );
-export const settings = () => get( 'tribe_blocks_editor_settings' );
-export const timezoneHtml = () => get( 'tribe_blocks_editor_timezone_html', '' );
-export const config = () => get( 'tribe_js_config', {} );
-export const adminUrl = () => config().admin_url || '';
-export const tickets = () => config().tickets || {};
-export const rest = () => config().rest || {};
+// Localized Config
+export const config = () => get( 'tribe_editor_config', {} );
+// Common
+export const common = () => config().common || {};
+export const adminUrl = () => common().adminUrl || '';
+export const rest = () => common().rest || {};
 export const restNonce = () => rest().nonce || {};
-export const editorDefaults = () => config().editor_defaults || {};
+export const dateSettings = () => common().dateSettings || {};
+export const editorConstants = () => common().constants || {};
 export const list = () => ( {
-	countries: get( 'tribe_data_countries' ),
-	us_states: get( 'tribe_data_us_states' ),
+	countries: common().countries || {},
+	us_states: common().usStates || {},
 } );
+
+// TEC
+export const tec = () => config().tec || {};
+export const editor = () => tec().editor || {};
+export const settings = () => tec().settings || {};
+export const mapsAPI = () => tec().googleMap || {};
+export const priceSettings = () => tec().priceSettings || {};
+export const timezoneHtml = () => tec().timezoneHTML || '';
+// PRO
+export const pro = () => config().eventsPRO || {};
+export const editorDefaults = () => pro().defaults || {};
+// Tickets
+export const tickets = () => config().tickets || {};
