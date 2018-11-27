@@ -4,13 +4,6 @@ abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
 
 	/**
-	 * A list of query controllers in the shape [ { query: <WP_Query>, controller: <Repository> }, ... ].
-	 *
-	 * @var array
-	 */
-	protected static $controllers;
-
-	/**
 	 * @var  array An array of keys that cannot be updated on this repository.
 	 */
 	protected static $blocked_keys = array(
@@ -535,7 +528,7 @@ abstract class Tribe__Repository
 		if ( $use_query_builder && null !== $this->query_builder ) {
 			$built = $this->query_builder->build_query();
 
-			self::set_query_controller( $this->query_builder, $built );
+			$built->builder = $this->query_builder;
 
 			if ( null !== $built ) {
 				return $built;
@@ -544,7 +537,7 @@ abstract class Tribe__Repository
 
 		$query = new WP_Query();
 
-		self::set_query_controller( $this, $query );
+		$query->builder = $this;
 
 		$this->filter_query->set_query( $query );
 
@@ -1010,7 +1003,7 @@ abstract class Tribe__Repository
 
 		$call_args = func_get_args();
 
-		$this->current_filters[ $key ] = $value;
+		$this->current_filters[ $key ] = array_slice( $call_args, 1 );
 
 		try {
 			// Set current filter as which one we are running.
@@ -2888,37 +2881,5 @@ abstract class Tribe__Repository
 		$query->current_post = - 1;
 
 		return $query;
-	}
-
-	/**
-	 * Returns a query controller repository if any.
-	 *
-	 * This method is useful to track the repository instance that generated a query.
-	 *
-	 * @since  TBD
-	 *
-	 * @param \WP_Query $query The query to fetch the controller for.
-	 *
-	 * @return Tribe__Repository__Interface|null The query controller repository if any.
-	 */
-	public static function get_query_controller( WP_Query $query ) {
-		$exists = array_key_exists( spl_object_hash( $query ), self::$controllers );
-
-		return $exists ? self::$controllers[ $exists ]['controller'] : null;
-	}
-
-	/**
-	 * Sets a repository as the controller of a specific query.
-	 *
-	 * @since TBD
-	 *
-	 * @param Tribe__Repository__Interface $repository The repository controlling the query.
-	 * @param WP_Query $wp_query The controlled query.
-	 */
-	public static function set_query_controller( Tribe__Repository__Interface $repository, WP_Query $wp_query ) {
-		self::$controllers[ spl_object_hash( $wp_query ) ] = [
-			'query'      => $wp_query,
-			'controller' => $repository,
-		];
 	}
 }
