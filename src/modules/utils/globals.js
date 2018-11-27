@@ -18,7 +18,7 @@ export const list = () => ( {
 } );
 
 // TEC
-export const tec = () => config().tec || {};
+export const tec = () => config().events || {};
 export const editor = () => tec().editor || {};
 export const settings = () => tec().settings || {};
 export const mapsAPI = () => tec().googleMap || {};
