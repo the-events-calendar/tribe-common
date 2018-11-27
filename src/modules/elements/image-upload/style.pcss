@@ -1,11 +1,15 @@
 .tribe-editor__image-upload {}
 
 .tribe-editor__image-upload__title {
-	margin: 0 0 12px;
-	color: #000000;
-	font-size: 15px;
-	font-weight: bold;
-	line-height: 18px;
+
+	/* extra classes to override gutenberg styles for h3 */
+	.edit-post-visual-editor .editor-block-list__block & {
+		margin: 0 0 12px;
+		color: #000000;
+		font-size: 15px;
+		font-weight: bold;
+		line-height: 18px;
+	}
 }
 
 .tribe-editor__image-upload__content {
