@@ -520,13 +520,15 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function build_query() {
+	public function build_query( $use_query_builder = true ) {
 		/**
 		 * Allow classes extending or decorating the repository to act before
 		 * the query is built or replace its building completely.
 		 */
-		if ( null !== $this->query_builder ) {
+		if ( $use_query_builder && null !== $this->query_builder ) {
 			$built = $this->query_builder->build_query();
+
+			$built->builder = $this->query_builder;
 
 			if ( null !== $built ) {
 				return $built;
@@ -534,6 +536,8 @@ abstract class Tribe__Repository
 		}
 
 		$query = new WP_Query();
+
+		$query->builder = $this;
 
 		$this->filter_query->set_query( $query );
 
@@ -655,9 +659,11 @@ abstract class Tribe__Repository
 		 * Since we are filtering the array returning empty values while formatting
 		 * the item will exclude it from the return values.
 		 */
-		return $return_ids
+		$formatted = $return_ids
 			? $results
 			: array_filter( array_map( array( $this, 'format_item' ), $results ) );
+
+		return $formatted;
 	}
 
 	/**
@@ -997,7 +1003,7 @@ abstract class Tribe__Repository
 
 		$call_args = func_get_args();
 
-		$this->current_filters[ $key ] = $value;
+		$this->current_filters[ $key ] = array_slice( $call_args, 1 );
 
 		try {
 			// Set current filter as which one we are running.
@@ -2249,9 +2255,20 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function has_filter( $key, $value = null ) {
-		return null === $value
-			? array_key_exists( $key, $this->current_filters )
-			: array_key_exists( $key, $this->current_filters ) && $this->current_filters[ $key ] === $value;
+		$args   = func_get_args();
+		$values = array_slice( $args, 1 );
+
+		if ( null === $value ) {
+			// We just want to check if a filter is applied.
+			return array_key_exists( $key, $this->current_filters );
+		}
+
+		// We check if the filter exists and the arguments match; inline to prevent "Undefined index" errors.
+		return array_key_exists( $key, $this->current_filters ) && array_slice(
+			$this->current_filters[ $key ],
+			0,
+			min( count( $this->current_filters[ $key ] ), count( $values ) )
+		) === $values;
 	}
 
 	/**
@@ -2778,7 +2795,7 @@ abstract class Tribe__Repository
 		 *                              values will be interpreted as failures to create the post.
 		 * @param array    $postarr     The post array that will be used for the creation.
 		 */
-		$callback = apply_filters( 'tribe_repository_update_callback', 'wp_insert_post', $postarr );
+		$callback = apply_filters( 'tribe_repository_create_callback', 'wp_insert_post', $postarr );
 
 		/**
 		 * Filters the callback that all repositories should use to create posts.
@@ -2791,7 +2808,7 @@ abstract class Tribe__Repository
 		 * @param array    $postarr     The post array that will be used for the creation.
 		 */
 		$callback = apply_filters(
-			"tribe_repository_{$this->filter_name}_update_callback",
+			"tribe_repository_{$this->filter_name}_create_callback",
 			$callback,
 			$postarr
 		);

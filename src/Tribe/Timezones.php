@@ -90,14 +90,21 @@ class Tribe__Timezones {
 	 * Attempts to provide the correct timezone abbreviation for the provided timezone string
 	 * on the date given (and so should account for daylight saving time, etc).
 	 *
-	 * @param string $date
-	 * @param string $timezone_string
+	 * @param string|DateTime|DateTimeImmutable $date The date string representation or object.
+	 * @param string|DateTimeZone $timezone_string The timezone string or object.
 	 *
 	 * @return string
 	 */
 	public static function abbr( $date, $timezone_string ) {
 		try {
-			$abbr = date_create( $date, new DateTimeZone( $timezone_string ) )->format( 'T' );
+			$timezone_object = $timezone_string instanceof DateTimeZone
+				? $timezone_string
+				: new DateTimeZone( $timezone_string );
+			$date_time       = $date instanceof DateTime || $date instanceof DateTimeImmutable
+				? $date
+				: Tribe__Date_Utils::build_date_object( $date, $timezone_object );
+
+			$abbr = $date_time->format( 'T' );
 
 			// If PHP date "T" format is a -03 or +03, it's a bugged abbreviation, we can find it manually.
 			if ( 0 === strpos( $abbr, '-' ) || 0 === strpos( $abbr, '+' ) ) {
@@ -588,11 +595,15 @@ class Tribe__Timezones {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $timezone_candidate The timezone string candidate.
+	 * @param string|\DateTimeZone $timezone_candidate The timezone string candidate.
 	 *
 	 * @return string The validated timezone string or a valid timezone string alternative.
 	 */
 	public static function get_valid_timezone( $timezone_candidate ) {
+		if ( $timezone_candidate instanceof DateTimeZone ) {
+			return $timezone_candidate->getName();
+		}
+
 		$timezone_string = preg_replace( '/\\+0$/', '', $timezone_candidate );
 		$timezone_string = self::is_utc_offset( $timezone_string )
 			? self::generate_timezone_string_from_utc_offset( $timezone_string )

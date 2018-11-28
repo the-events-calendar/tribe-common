@@ -1192,21 +1192,27 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return $datetime instanceof DateTime ? clone $datetime : $datetime;
 			}
 
-			$utc = new DateTimeZone( 'UTC' );
-
-			if ( self::is_timestamp( $datetime ) ) {
-				// Timestamps timezone is always UTC.
-				return new DateTime( '@' . $datetime, $utc );
-			}
-
-			$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+			$timezone_object = null;
 
 			try {
 				// PHP 5.2 will not throw an exception but will generate an error.
+				$utc = new DateTimeZone( 'UTC' );
+
+				if ( self::is_timestamp( $datetime ) ) {
+					// Timestamps timezone is always UTC.
+					return new DateTime( '@' . $datetime, $utc );
+				}
+
+				$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+
 				set_error_handler( 'tribe_catch_and_throw' );
 				$date = new DateTime( $datetime, $timezone_object );
 				restore_error_handler();
 			} catch ( Exception $e ) {
+				if ( $timezone_object === null ) {
+					$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+				}
+
 				return $with_fallback
 					? new DateTime( 'now', $timezone_object )
 					: false;
