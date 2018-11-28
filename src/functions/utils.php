@@ -490,7 +490,6 @@ if ( ! function_exists( 'tribe_post_excerpt' ) ) {
 /**
  * Create a function to mock the real function if the extension or Beta is not present.
  *
- * @todo remove this function after WP 5.0 is released
  *
  */
 if ( ! function_exists( 'has_blocks' ) ) {
