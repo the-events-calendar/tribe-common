@@ -2255,9 +2255,20 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function has_filter( $key, $value = null ) {
-		return null === $value
-			? array_key_exists( $key, $this->current_filters )
-			: array_key_exists( $key, $this->current_filters ) && $this->current_filters[ $key ] === $value;
+		$args   = func_get_args();
+		$values = array_slice( $args, 1 );
+
+		if ( null === $value ) {
+			// We just want to check if a filter is applied.
+			return array_key_exists( $key, $this->current_filters );
+		}
+
+		// We check if the filter exists and the arguments match; inline to prevent "Undefined index" errors.
+		return array_key_exists( $key, $this->current_filters ) && array_slice(
+			$this->current_filters[ $key ],
+			0,
+			min( count( $this->current_filters[ $key ] ), count( $values ) )
+		) === $values;
 	}
 
 	/**
