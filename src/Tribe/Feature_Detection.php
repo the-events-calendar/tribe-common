@@ -130,6 +130,8 @@ class Tribe__Feature_Detection {
 	 * @return bool Whether a feature detection lock is currently in place or not.
 	 */
 	protected function has_lock() {
-		return ! empty( get_option( $this->lock_option_name ) );
+		$lock_option = get_option( $this->lock_option_name );
+
+		return ! empty( $lock_option );
 	}
 }
