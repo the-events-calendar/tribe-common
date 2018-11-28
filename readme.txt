@@ -5,6 +5,7 @@
 = [TBD] =
 
 * Fix - The invalid license key notice won't be displayed for Products with empty license keys [115562]
+* Fix - speed up and improve robustness of the asynchronous process feature detection code [118934]
 
 = [4.7.23.1] 2018-11-21 =
 
