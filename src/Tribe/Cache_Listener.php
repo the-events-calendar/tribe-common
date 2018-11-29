@@ -52,13 +52,17 @@
 		 *
 		 * @see 'updated_option'
 		 *
-	     * @param string $option    Name of the updated option.
+	     * @param string $option_name    Name of the updated option.
 	     * @param mixed  $old_value The old option value.
 	     * @param mixed  $value     The new option value.
 		 */
-		public function update_last_save_post( $option, $old_value, $value ) {
-
-			if ( $option === 'tribe_events_calendar_options' ) {
+		public function update_last_save_post( $option_name, $old_value, $value ) {
+			$triggers = array(
+				'tribe_events_calendar_options',
+				'permalink_structure',
+				'rewrite_rules',
+			);
+			if ( in_array( $option_name, $triggers, true ) ) {
 				$this->cache->set_last_occurrence( 'save_post' );
 			}
 		}
