@@ -43,7 +43,7 @@ class Tribe__Cache implements ArrayAccess {
 		 * @param string $expiration_trigger Action that triggers automatic expiration.
 		 * @param string $key                Unique cache key based on Cache ID and expiration trigger last run time.
 		 *
-		 * @since TBD
+		 * @since 4.8
 		 */
 		$expiration = apply_filters( 'tribe_cache_expiration', $expiration, $id, $value, $expiration_trigger, $key );
 

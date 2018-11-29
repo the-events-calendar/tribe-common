@@ -6,7 +6,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/**
 	 * Namespace for Blocks from tribe
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @var string
 	 */
@@ -15,7 +15,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/**
 	 * Builds the name of the Block
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return string
 	 */
@@ -30,7 +30,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/**
 	 * Return the namespace to child or external sources
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return string
 	 */
@@ -41,7 +41,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/*
 	 * Return the block attributes
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param  array $attributes
 	 *
@@ -72,7 +72,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/*
 	 * Return the block default attributes
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param  array $attributes
 	 *
@@ -96,7 +96,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/**
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param  array $attributes
 	 *
@@ -119,7 +119,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/**
 	 * Sends a valid JSON response to the AJAX request for the block contents
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return void
 	 */
@@ -131,7 +131,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 * Does the registration for PHP rendering for the Block, important due to been
 	 * an dynamic Block
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return void
 	 */
@@ -155,7 +155,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 * the pattern of a block but not validating its structure. For strict accuracy
 	 * you should use the block parser on post content.
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @see gutenberg_parse_blocks()
 	 *
@@ -178,7 +178,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 * Fetches the name for the block we are working with and converts it to the
 	 * correct `wp_ajax_{$action}` string for us to Hook
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return string
 	 */
@@ -189,7 +189,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/**
 	 * Used to include any Assets for the Block we are registering
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return void
 	 */
@@ -199,7 +199,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/**
 	 * Attach any particular hook for the specif block.
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 */
 	public function hook() {
 	}

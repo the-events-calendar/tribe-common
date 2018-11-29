@@ -3,11 +3,11 @@
 /**
  * Interface Tribe__Editor__Meta_Interface
  *
- * @since TBD
+ * @since 4.8
  */
 interface Tribe__Editor__Meta_Interface {
 	/**
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return mixed
 	 */

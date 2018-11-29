@@ -5,13 +5,13 @@
  *
  * setup the configuration variables used on the editor
  *
- * @since TBD
+ * @since 4.8
  */
 class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Interface {
 	/**
 	 * Localize variables that are part of common
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return array
 	 */
@@ -44,7 +44,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 		/**
 		 * Filter the default configuration used to localize variables
 		 *
-		 * @since TBD
+		 * @since 4.8
 		 *
 		 * array $editor_config An associative array with the configuration to be send into the client
 		 */
@@ -55,7 +55,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 	/**
 	 * Returns the site timezone as a string
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return string
 	 */
@@ -68,7 +68,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 	/**
 	 * Get Localization data for Date settings
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return array
 	 */
