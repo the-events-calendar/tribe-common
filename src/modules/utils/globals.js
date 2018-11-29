@@ -23,6 +23,7 @@ export const editor = () => tec().editor || {};
 export const settings = () => tec().settings || {};
 export const mapsAPI = () => tec().googleMap || {};
 export const priceSettings = () => tec().priceSettings || {};
+export const tecDateSettings = () => tec().dateSettings || {};
 export const timezoneHtml = () => tec().timezoneHTML || '';
 // PRO
 export const pro = () => config().eventsPRO || {};
