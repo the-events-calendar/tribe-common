@@ -3,6 +3,10 @@
 
 == Changelog ==
 
+= [4.8.1] TBD =
+
+* Fix - speed up and improve robustness of the asynchronous process feature detection code [118934]
+
 = [4.8] 2018-11-29 =
 
 * Add - Added `tribe_cache_expiration` filter that allows plugins to use persistent caching based on cache key [117158]
