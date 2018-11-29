@@ -1,14 +1,14 @@
-# Translation of Tribe Common in Portuguese (Portugal)
+# Translation of Tribe Common in Japanese
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-10-01 00:12:25+0000\n"
+"PO-Revision-Date: 2018-09-24 17:59:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.3.1\n"
-"Language: pt\n"
+"Language: ja_JP\n"
 "Project-Id-Version: Tribe Common\n"
 
 #: src/Tribe/Main.php:276
@@ -29,11 +29,11 @@ msgstr ""
 
 #: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
 msgid "Every %d Minutes"
-msgstr ""
+msgstr "%d 分ごと"
 
 #: src/admin-views/tribe-options-help.php:33
 msgid "Search our support help desk"
-msgstr ""
+msgstr "当社のサポート ヘルプ デスクを検索"
 
 #: src/Tribe/Plugins_API.php:71
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
@@ -41,121 +41,120 @@ msgstr ""
 
 #: src/Tribe/Validate.php:184
 msgid "%s must not be empty"
-msgstr ""
+msgstr "%s は空にできません"
 
 #: src/Tribe/Validate.php:545
 msgid "%s must be an email address."
-msgstr ""
+msgstr "%s は電子メール アドレスである必要があります。"
 
 #: src/Tribe/Languages/Locations.php:252
 msgid "Sint Maarten"
-msgstr ""
+msgstr "セント・マーチン島"
 
 #: src/Tribe/Languages/Locations.php:245
 msgid "S&atilde;o Tom&eacute; and Pr&iacute;ncipe"
-msgstr ""
+msgstr "サントメ・プリンシペ"
 
 #: src/Tribe/Languages/Locations.php:238
 msgid "Saint Helena"
-msgstr ""
+msgstr "セントヘレナ"
 
 #: src/Tribe/Languages/Locations.php:237
 msgid "Saint Barth&eacute;lemy"
-msgstr ""
+msgstr "サン・バルテルミー島"
 
 #: src/Tribe/Languages/Locations.php:113
 msgid "Cura&ccedil;ao"
-msgstr ""
+msgstr "キュラソー"
 
 #: src/Tribe/Languages/Locations.php:103
 msgid "Collectivity of Saint Martin"
-msgstr ""
+msgstr "セント・マーチン島の総称です"
 
 #: src/Tribe/Languages/Locations.php:57
 msgid "&Aring;land Islands"
-msgstr ""
+msgstr "オーランド諸島"
 
 #: src/admin-views/tribe-options-help.php:20
 msgid "Check out our %s for developers."
-msgstr ""
+msgstr "開発者向け %s をご覧ください。"
 
 #: src/admin-views/tribe-options-help.php:18
 msgid "Want to dive deeper?"
-msgstr ""
+msgstr "もっと極めたいとお考えですか?"
 
 #: src/admin-views/tribe-options-display.php:28
 msgid "The following three fields accept the date format options available to the PHP %1$s function. <a href=\"%2$s\" target=\"_blank\">Learn how to make your own date format here</a>."
-msgstr ""
+msgstr "下記の 3 つのフィールドは、PHP %1$s 関数に使用できる日付形式オプションを受け入れます。<a href=\"%2$s\" target=\"_blank\">ここから独自の日付形式を作成する方法をご覧ください</a>。"
 
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:57
 msgid "A list of links to the term own, archive and parent REST URL"
-msgstr ""
+msgstr "独自のターム、アーカイブ、および親 REST URL へのリンクのリスト"
 
 #: src/Tribe/Main.php:251
 msgid "Clear Selection."
-msgstr "Limpar selecção"
+msgstr "選択をクリアしてください。"
 
 #: src/Tribe/Main.php:250
 msgid "Select all pages"
-msgstr "Seleccionar todas as páginas"
+msgstr "すべてのページを選択"
 
 #: src/Tribe/Main.php:249
 msgid "All items on this page were selected. "
-msgstr "Todos os itens nesta página foram seleccionados"
+msgstr "このページのすべての項目が選択されました。 "
 
 #: src/Tribe/Plugins_API.php:94
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
-msgstr "Aceite eventos submetidos por utilizadores no seu site! Com o plugin Community Events pode aceitar submissões públicas ou requerer registo. As definições permitem-lhe escolher entre guardar como rascunho ou publicar automaticamente, activar categorias e etiquetas, e escolher se os utilizadores poderão editar/gerir os seus eventos ou apenas submeter. O melhor de tudo - de fácil configuração! Basta activar, configurar as opções e está pronto."
+msgstr "ユーザーが送信したイベントをご自身のサイトに受け入れましょう! Community Events では、公開されている送信内容を受けたり、アカウント サインオンをリクエストできます。[設定] には、ドラフトとして保存するか自動公開する、カテゴリーとタグを有効化する、ユーザーが自身のイベントを編集/管理できるようにするか、あるいは単に送信するのみにするかを選択するといったオプションが用意されています。何よりも、セットアップが簡単です! アクティベーションし、オプションを構成するだけで、準備完了です。"
 
 #: src/Tribe/Ajax/Dropdown.php:243
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
-msgstr "A \"%s\" origem é inválida e não é possível obter na instância \"%s\"."
+msgstr "\"%s\" ソースが無効なため、\"%s\" インスタンスに到達できません。"
 
 #: src/Tribe/Ajax/Dropdown.php:193
 msgid "Empty data set for this dropdown"
-msgstr "Conjunto de dados vazio para este selector"
+msgstr "このドロップダウンのデータセットが空です"
 
 #: src/Tribe/Ajax/Dropdown.php:180
 msgid "Missing data source for this dropdown"
-msgstr "Origem de dados em falta para este selector"
+msgstr "このドロップダウンのデータ ソースが欠如しています"
 
 #: src/Tribe/Ajax/Dropdown.php:38
 msgid "Cannot look for Terms without a taxonomy"
-msgstr "Não é possível procurar termos sem taxonomia"
+msgstr "タクソノミーなしではタームを分類できません"
 
 #: src/Tribe/Plugins_API.php:60
 msgid "Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings."
-msgstr ""
+msgstr "Event Tickets は、ビジターにイベントへ RSVP していただく (反応を促す) シンプルな方法を提供します。スタンドアロンのプラグインとして、投稿記事やページに RSVP 機能を追加できるようになります。イベント カレンダーとペアリングすると、それと同じ RSVP 機能をご自身のイベント リストに直接追加できます。"
 
 #: src/Tribe/Plugins_API.php:28
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
-msgstr "Crie um calendário de eventos fácil de gerir. O plugin The Events Calendar tem qualidade profissional e é criado por uma equipa em que pode confiar."
+msgstr "イベント カレンダーを簡単に作成して管理しましょう。Events Calendar プラグインは、お客さまよりご信頼をいただけるチームがバックアップするプロフェッショナル レベルの品質と機能を提供します。"
 
 #: src/Tribe/PUE/Checker.php:1103
 msgid "There is a new version of %1$s available. %2$s"
-msgstr "Está disponível uma nova versão de %1$s. %2$s"
+msgstr "新しいバージョンの %1$s をご利用いただくことができます。%2$s"
 
 #: src/Tribe/PUE/Checker.php:1092
 msgid "Update now to version %s."
-msgstr "Actualizar agora para a versão %s."
+msgstr "新しいバージョン %s に今すぐアップデートしてください。"
 
 #: src/Tribe/PUE/Notices.php:340
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
-msgstr "Pode sempre consultar o estado das suas licenças na %1$ssua conta em theeventscalendar.com%2$s."
+msgstr "%1$stheeventscalendar.com のご自分のアカウント%2$sにログインすると、ライセンスのステータスをいつでもご確認いただくことができます。"
 
 #: src/Tribe/PUE/Notices.php:225
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
-msgstr[0] "Parece que está a usar o plugin %1$s, mas a chave de licença é inválida. Por favor descarregue a última versão a partir da %2$ssua conta%3$s."
-msgstr[1] "Parece que está a usar os plugins %1$s, mas as chaves de licença são inválidas. Por favor descarregue as última versões a partir da %2$ssua conta%3$s."
+msgstr[0] "%1$s をご使用いただいているようですが、ライセンス キーが無効です。%2$sご使用のアカウント%3$sから最新バージョンをダウンロードしてください。"
 
 #: src/Tribe/PUE/Checker.php:984
 msgid "Please refresh the page and try your request again."
-msgstr "Por favor, recarregue a página e tente fazer o pedido de novo."
+msgstr "トップ ページを最新の情報に更新し、もう一度リクエストしてみてください。"
 
 #: src/Tribe/Plugins_API.php:129
 msgid "Take your image widgets to the next level with Image Widget Plus! We've taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support."
-msgstr ""
+msgstr "Image Widget Plus でイメージ ウィジェットを次のレベルに引き上げてみませんか! 基本的な Image Widget のシンプルな機能を、複数イメージ サポート、スライドショー、ライトボックス、およびランダム イメージといった人気の高い機能リクエストで強化しました。年間プレミアム サポートではすべてがバックアップされています。"
 
 #: src/Tribe/Plugins_API.php:125
 msgid "Image Widget Plus"
@@ -163,228 +162,226 @@ msgstr "Image Widget Plus"
 
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:52
 msgid "The URL to the term archive page"
-msgstr "O URL da página de arquivo do termo"
+msgstr "ターム アーカイブ ページへの URL"
 
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:48
 msgid "The number of posts associated with the term"
-msgstr "O número de conteúdos associados ao termo"
+msgstr "タームに関連付けされた投稿数"
 
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:44
 msgid "The term parent term if any"
-msgstr "O termo superior do termo, caso exista"
+msgstr "該当する場合はタームの親ターム"
 
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:40
 msgid "The term description"
-msgstr "A descrição do termo"
+msgstr "タームの説明"
 
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:36
 msgid "The taxonomy the term belongs to"
-msgstr "A taxonomia a que o termo pertence"
+msgstr "タームが属するタクソノミー"
 
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:32
 msgid "The term slug"
-msgstr "A slug do termo"
+msgstr "ターム スラッグ"
 
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:28
 msgid "The term name"
-msgstr "O nome do termo"
+msgstr "ターム名"
 
 #: src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:24
 msgid "The WordPress term ID"
-msgstr "O ID do termo"
+msgstr "WordPress ターム ID"
 
 #: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:37
 msgid "The link to the image in the specified size on the site"
-msgstr "A ligação para a imagem no tamanho especificado no site"
+msgstr "サイト上の特殊サイズのイメージへのリンク"
 
 #: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:32
 msgid "The image mime-type"
-msgstr "O tipo de mime da imagem"
+msgstr "イメージの MIME タイプ"
 
 #: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:28
 msgid "The image height in pixels in the specified size"
-msgstr "A altura da imagem em píxeis para o tamanho especificado"
+msgstr "特殊サイズのイメージの高さ (ピクセル)"
 
 #: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:24
 msgid "The image width in pixels in the specified size"
-msgstr "A largura da imagem em píxeis para o tamanho especificado"
+msgstr "特殊サイズのイメージの幅 (ピクセル)"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:45
 msgid "The details about each size available for the image"
-msgstr "Os detalhes sobre cada tamanho disponível para a imagem"
+msgstr "イメージに利用可能な各サイズに関する詳細"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:41
 msgid "The image natural height in pixels"
-msgstr "A altura da imagem em píxeis"
+msgstr "イメージの本来の高さ (ピクセル)"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:37
 msgid "The image natural width in pixels"
-msgstr "A largura da imagem em píxeis"
+msgstr "イメージの本来の幅 (ピクセル)"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:33
 msgid "The image file extension"
-msgstr "A extensão do ficheiro de imagem"
+msgstr "イメージ ファイル拡張子"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:29
 msgid "The image WordPress post ID"
-msgstr "O ID da imagem"
+msgstr "イメージ WordPress 投稿 ID"
 
 #: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:25
 msgid "The URL to the full size version of the image"
-msgstr "O URL para a versão da imagem em tamanho original"
+msgstr "イメージのフルサイズ バージョンへの URL"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:44
 msgid "The date seconds"
-msgstr "Os segundos da data"
+msgstr "Date (秒)"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:40
 msgid "The date minutes"
-msgstr "Os minutos da data"
+msgstr "Date (分)"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:36
 msgid "The date hour"
-msgstr "A hora da data"
+msgstr "Date (時)"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:32
 msgid "The date day"
-msgstr "O dia da data"
+msgstr "Date (日)"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:28
 msgid "The date month"
-msgstr "O mês da data"
+msgstr "Date (月)"
 
 #: src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:24
 msgid "The date year"
-msgstr "O ano da data"
+msgstr "Date (年)"
 
 #: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:34
 msgid "A sorted array of all the numeric values for the cost"
-msgstr "Um array ordenado com todos os valores numéricos do custo"
+msgstr "コストのすべての並べ替え済みの数値の配列です"
 
 #: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:28
 msgid "The position of the currency symbol in the cost string"
-msgstr "A posição do símbolo de moeda do custo"
+msgstr "コスト文字列の通貨記号の位置"
 
 #: src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:24
 msgid "The cost currency symbol"
-msgstr "O símbolo de moeda do custo"
+msgstr "コスト通貨記号"
 
 #: src/Tribe/PUE/Checker.php:497
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
-msgstr "%1$sCompre uma licença%2$s do serviço Event Aggregator para aceder a funcionalidades de importação adicionais."
+msgstr "追加インポート機能にアクセスするには、Event Aggregator サービス用の%1$sライセンスを購入%2$sしてください。"
 
 #: src/Tribe/Validate.php:248
 msgid "%s must be a whole number."
-msgstr "%s deve ser um número completo."
+msgstr "%s は 正の整数 (0 を含む) である必要があります。"
 
 #: src/Tribe/Settings.php:281 src/Tribe/Settings.php:282
 msgid "Events Help"
-msgstr "Ajuda de eventos"
+msgstr "Events ヘルプ"
 
 #: src/Tribe/PUE/Checker.php:1678
 msgid "Expired license. Consult your network administrator."
-msgstr "Licença expirada. Contacte o administrador da sua rede."
+msgstr "ライセンスの期限が切れています。ネットワーク管理者にご相談ください。"
 
 #: src/Tribe/PUE/Checker.php:1677
 msgid "No license entered. Consult your network administrator."
-msgstr "Nenhuma licença inserida. Contacte o administrador da sua rede."
+msgstr "ライセンスが入力されていません。ネットワーク管理者にご相談ください。"
 
 #: src/Tribe/PUE/Checker.php:1676
 msgid "A valid license has been entered by your network administrator."
-msgstr "Foi inserida uma licença válida pelo administrador da sua rede."
+msgstr "ネットワーク管理者により有効なライセンスが入力されています。"
 
 #: src/Tribe/PUE/Checker.php:550
 msgid "Site License Key"
-msgstr "Chave de licença do site"
+msgstr "サイト ライセンス キー"
 
 #: src/Tribe/PUE/Checker.php:539
 msgid "Check this box if you wish to override the network license key with your own"
-msgstr "Seleccione esta opção se pretende usar a sua própria chave de licença em vez da chave de licença da rede"
+msgstr "ご自身のネットワーク ライセンス キーで上書きする場合は、このチェックボックスを選択します"
 
 #: src/Tribe/PUE/Checker.php:538
 msgid "Override network license key"
-msgstr "Sobrepor à chave de licença da rede"
+msgstr "ネットワーク ライセンス キーを上書きする"
 
 #: src/Tribe/PUE/Checker.php:529 src/Tribe/PUE/Checker.php:563
 msgid "License Key Status:"
-msgstr "Estado da chave de licença:"
+msgstr "ライセンス キー ステータス:"
 
 #: src/Tribe/Customizer.php:643
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
-msgstr "Utilize este painel do personalizador para alterar o estilo das suas páginas de calendário e de evento."
+msgstr "カスタマイザーの下記のパネルを使用して、カレンダーおよびイベント ページのスタイルを変更します。"
 
 #: src/Tribe/Extension.php:368
 msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
-msgstr "Não é possível executar as extensões da Modern Tribe. O alojamento do seu site está a usar o PHP 5.2 ou anterior, e provavelmente tem a função debug_backtrace() desactivada ou mal configurada. Tem de actualizar o PHP ou configurar correctamente a função debug_backtrace() para as extensões da Modern Tribe funcionarem."
+msgstr "Tribe Extensions を実行できません。ご使用のウェブサイト ホストは PHP 5.2 またはそれ以前のものを実行しており、debug_backtrace() が無効になっているか、謝って構成されている可能性があります。Tribe Extensions を動作させるには、ご自身で、またはウェブサイト ホストにより PHP をアップグレードしていただくか、debug_backtrace() を正しく構成してください。"
 
 #: src/Tribe/Extension.php:144
 msgid "Tutorial"
-msgstr "Tutorial"
+msgstr "チュートリアル"
 
 #: src/admin-views/app-shop.php:31
 msgid "Installed"
-msgstr "Instalado"
+msgstr "インストール済み"
 
 #: src/admin-views/app-shop.php:29
 msgid "Installed Add-Ons"
-msgstr "Extensões instaladas"
+msgstr "インストール済みのアドオン"
 
 #: src/Tribe/Admin/Notice/Php_Version.php:60
 #: src/Tribe/Admin/Notice/Plugin_Download.php:92
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
-msgstr " e "
+msgstr " および "
 
 #: src/Tribe/Admin/Notice/Php_Version.php:59
 #: src/Tribe/Admin/Notice/Plugin_Download.php:91
 msgctxt "separator used in a list of items"
 msgid ", "
-msgstr ", "
+msgstr "、 "
 
 #: src/admin-views/tribe-options-help.php:55
 msgid "Event Log"
-msgstr "Registo de eventos"
+msgstr "イベント ログ"
 
 #: src/admin-views/tribe-options-help.php:42
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk."
-msgstr ""
+msgstr "ご自身または当社のスタッフが問題のトラブルシューティングを行うには、多くの場合、カレンダー プラグインおよび設定に関する詳細情報が必要になります。下記にオプトインし、ご使用のシステム情報を当社サポート チームと自動共有してください。当社ヘルプ デスクにご連絡いただく場合、これにより、より迅速にお手伝いできるようになります。"
 
 #: src/admin-views/app-shop.php:26
 msgid "Buy This Add-On"
-msgstr "Comprar extensão"
+msgstr "個のアドオンを購入する"
 
 #: src/admin-views/app-shop.php:5
 msgid "Browse All Add-Ons"
-msgstr "Ver todas as extensões"
+msgstr "すべてのアドオンを参照する"
 
 #: src/admin-views/app-shop.php:4
 msgid "Events Add-Ons"
-msgstr "Extensões de eventos"
+msgstr "Events アドオン"
 
 #: src/Tribe/PUE/Notices.php:383
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
-msgstr "%1$s e %2$s"
+msgstr "%1$s および %2$s"
 
 #: src/Tribe/PUE/Notices.php:302
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
-msgstr[0] "Tem uma chave de licença para o %1$s mas a chave atingiu o limite máximo de instalações. %2$sVisite o site do The Events Calendar%3$s para gerir as suas instalações, actualizar a sua licença ou comprar uma nova."
-msgstr[1] "Tem chaves de licença para os %1$s mas as chaves atingiram o limite máximo de instalações. %2$sVisite o site do The Events Calendar%3$s para gerir as suas instalações, actualizar as suas licenças ou comprar novas."
+msgstr[0] "%1$s 用のライセンス キーをお持ちですが、キーがインストールされていません。%2$sEvents Calendar ウェブサイトにアクセス%3$sし、インストール状況の管理、ライセンスのアップグレード、または新規購入を行ってください。"
 
 #: src/Tribe/PUE/Notices.php:270
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
-msgstr[0] "Está disponível uma actualização para o %1$s mas sua chave de licença expirou. %2$sVisite o site do The Events Calendar%3$s para renovar a sua licença."
-msgstr[1] "Estão disponíveis actualizações para os %1$s mas suas chaves de licença expiraram. %2$sVisite o site do The Events Calendar%3$s para renovar as suas licenças."
+msgstr[0] "%1$s のアップデートをご利用いただけますが、ライセンスの期限が切れています。%2$sEvents Calendar ウェブサイトにアクセスし、ライセンスを更新してください。%3$s"
 
 #: src/Tribe/PUE/Checker.php:1062
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
-msgstr "Está disponível uma actualização para o %s. %sRenove a sua licença%s para ter acesso a resoluções de erros, actualizações de segurança e novas funcionalidades."
+msgstr "%s のアップデートがあります。%sライセンスを更新%sし、バク修正、セキュリティ アップデート、および新機能へのアクセスを取得してください。"
 
 #: src/Tribe/PUE/Checker.php:1005
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
-msgstr "Está disponível uma actualização para o %s. %sVerifique a sua licença%s para ter acesso a actualizações, descarregamentos e suporte."
+msgstr "%s のアップデートがあります。アップデート、ダウンロード、およびサポートへのアクセスを取得するには、%sライセンスを確認%sする必要があります。"
 
 #: src/Tribe/Admin/Help_Page.php:219 src/Tribe/Plugins_API.php:34
 msgid "Event Aggregator"
@@ -392,149 +389,149 @@ msgstr "Event Aggregator"
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:75
 msgid "To begin using %1$s, please install and activate the latest version of %2$s."
-msgstr "Para começar a usar o %1$s, por favor, instale e active a versão mais recente do %2$s."
+msgstr "%1$s の使用を開始するには、最新バージョンの %2$s をインストールしてアクティブ化してください。"
 
 #: src/admin-views/tribe-options-licenses.php:30
 msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
-msgstr "Não vê uma actualização que seria de esperar? No WordPress, vá a %1$sPainel > Actualizações%2$s e clique em \"Verificar de novo\"."
+msgstr "アップデート情報をお望みでしょうか? WordPress で%1$sダッシュボード > アップデート%2$sにアクセスし、\"もう一度確認する\" をクリックします。"
 
 #: src/admin-views/tribe-options-licenses.php:25
 msgid "If you're seeing a red message telling you that your key isn't valid or is out of installs, visit %1$s to manage your installs or renew / upgrade your license."
-msgstr "Se estiver a ver uma mensagem a vermelho com a indicação de que a sua chave não é válida ou atingiu o máximo de instalações, visite %1$s para gerir as suas instalações ou renovar / actualizar a sua licença."
+msgstr "キーが無効であるか、またはインストールされていないという警告メッセージが表示される安倍は、%1$s にアクセスしてインストール内容を管理するか、ライセンスを更新/アップグレードしてください。"
 
 #: src/admin-views/tribe-options-licenses.php:22
 msgid "Each paid add-on has its own unique license key. Simply paste the key into its appropriate field below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message."
-msgstr "Cada extensão paga tem a sua chave de licença única. Cole a chave no campo apropriado abaixo e aguarde um momento para validar. Saberá que está configurado quando aparecer uma data de expiração a verde ao lado da mensagem de validez."
+msgstr "有料アドオンは、それぞれ独自の固有ライセンス キーを持ちます。単にキーを下記の該当フィールドに貼り付けていただき、検証を行ってください。\"有効\" メッセージとともに緑色の期限が表示されたら準備完了です。"
 
 #: src/admin-views/tribe-options-licenses.php:15
 msgid "The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s."
-msgstr "A chave de licença que recebeu ao fazer a sua compra em %1$s garante-lhe o acesso a suporte e actualizações até à data de expiração. Não tem de inserir a chave abaixo para que os plugins funcionem, mas precisa de a inserir para obter actualizações automáticas. %3$sDescubra as suas chaves de licença em %2$s%4$s."
+msgstr "%1$s から購入を完了した時に受け取ったライセンス キーは、有効期限が切れるまでサポートおよびアップデートへのアクセス権を付与します。プラグインを動作させるために下記にキーを入力する必要はありませんが、自動アップデートする場合は必要になります。%3$s%2$sでライセンス キーを検索%4$sしてください。"
 
 #: src/admin-views/tribe-options-licenses.php:11
 #: src/admin-views/tribe-options-licenses.php:16
 msgid " (opens in new window)"
-msgstr " (abrir numa nova janela)"
+msgstr " (新しいウィンドウで開く)"
 
 #: src/Tribe/Languages/Locations.php:110
 msgid "C&ocirc;te d'Ivoire"
-msgstr "Costa do Marfim"
+msgstr "コートジボワール"
 
 #: src/Tribe/Support.php:372
 msgid "Unique System Info Key Generated"
-msgstr "Foi gerada uma chave única de informações do sistema"
+msgstr "固有のシステム情報キーが生成されました"
 
 #: src/Tribe/Support.php:358 src/Tribe/Support.php:384
 msgid "Permission Error"
-msgstr "Erro de permissão"
+msgstr "アクセス許可エラー"
 
 #: src/Tribe/Support.php:325 src/Tribe/Support.php:330
 msgid "Invalid Key"
-msgstr "Chave inválida"
+msgstr "無効なキー"
 
 #: src/Tribe/Support.php:306
 msgid "Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties."
-msgstr "As informações do seu sistema apenas serão usadas pela equipa de suporte da Modern Tribe. Todas as informações são alojadas em segurança. Não partilhamos esta informação com terceiros."
+msgstr "ご使用のシステムの情報は、Modern Tribe サポート チームのみが使用します。すべての情報は安全に保管されます。この情報をいかなる第三者とも共有することはありません。"
 
 #: src/Tribe/Support.php:305
 msgid "Yes, automatically share my system information with the Modern Tribe support team"
-msgstr "Sim, partilhar automaticamente as informações do meu sistema com a equipa de suporte da Modern Tribe"
+msgstr "はい、私のシステム情報を Modern Tribe サポート チームと自動的に共有します"
 
 #: src/Tribe/Support.php:171
 msgid "English"
-msgstr "Inglês"
+msgstr "英語"
 
 #: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:285
 msgid " (opens in a new window)"
-msgstr " (abrir numa nova janela)"
+msgstr " (新しいウィンドウで開く)"
 
 #: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:283
 msgid "Renew Your License Now"
-msgstr "Renove a sua licença agora"
+msgstr "今すぐライセンスを更新する"
 
 #: src/Tribe/Main.php:261
 msgid ": Selected 1 row"
-msgstr ": 1 linha seleccionada"
+msgstr ": 1 行を選択しました"
 
 #: src/Tribe/Main.php:260
 msgid ": Selected %d rows"
-msgstr ": %d linhas seleccionadas"
+msgstr ": %d 行を選択しました"
 
 #: src/Tribe/Main.php:255
 msgid "Previous"
-msgstr "Anterior"
+msgstr "前"
 
 #: src/Tribe/Main.php:253
 msgid "All"
-msgstr "Todos"
+msgstr "すべて"
 
 #: src/Tribe/Main.php:247
 msgid "No matching records found"
-msgstr "Não foram encontrados registos correspondentes"
+msgstr "一致するレコードが見つかりませんでした"
 
 #: src/Tribe/Main.php:246
 msgid "(filtered from _MAX_ total entries)"
-msgstr "(filtrado do total _MAX_ entradas)"
+msgstr "(_MAX_ total エントリーからフィルタリング)"
 
 #: src/Tribe/Main.php:245
 msgid "Showing 0 to 0 of 0 entries"
-msgstr "A mostrar 0 a 0 do total de 0 entradas"
+msgstr "0 エントリーのうち 0 から 0 を表示しています"
 
 #: src/Tribe/Main.php:244
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
-msgstr "A mostrar _START_ a _END_ do total de _TOTAL_ entradas"
+msgstr "_TOTAL_ エントリーのうち _START_ から _END_ を表示しています"
 
 #: src/Tribe/Main.php:243
 msgid "No data available in table"
-msgstr "Nenhum dado disponível na tabela"
+msgstr "テーブルには利用できるデータがありません"
 
 #: src/Tribe/Main.php:242
 msgid "Show _MENU_ entries"
-msgstr "Mostrar entradas de _MENU_"
+msgstr "_MENU_ エントリーを表示"
 
 #: src/Tribe/Main.php:240
 msgid ": activate to sort column descending"
-msgstr ": activar para ordenação descendente da coluna"
+msgstr ": アクティブ化して降順でカラムを並べ替え"
 
 #: src/Tribe/Main.php:239
 msgid ": activate to sort column ascending"
-msgstr ": activar para ordenação ascendente da coluna"
+msgstr ": アクティブ化して昇順でカラムを並べ替え"
 
 #: src/Tribe/Main.php:284
 msgid "Press \"Cmd + C\" to copy"
-msgstr "Prima \"Cmd + C\" para copiar"
+msgstr "コピーするには、\"Cmd + C\" を押してください"
 
 #: src/Tribe/Main.php:283
 msgid "System info copied"
-msgstr "Informações do sistema copiadas"
+msgstr "システム情報がコピーされました"
 
 #: src/Tribe/Main.php:282 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
-msgstr "Copiar para a área de transferência"
+msgstr "クリップボードにコピーされました"
 
 #: src/Tribe/Error.php:38
 msgid "An Unknown error occurred"
-msgstr "Ocorreu um erro desconhecido"
+msgstr "不明なエラーが発生しました"
 
 #: src/Tribe/Plugins_API.php:116
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
-msgstr "A extensão Eventbrite Tickets permite criar e vender bilhetes no The Events Calendar através do %1$sEventbrite%2$s. Caso esteja a criar o seu bilhete no painel do WordPress ou a importar detalhes de um evento já existente em %1$sEventbrite.com%2$s, esta extensão adiciona todas as capacidades da API do Eventbrite API ao seu calendário."
+msgstr "Eventbrite Tickets アドオンを使用すると、%1$sEventbrite%2$s のパワーを最大限に活用し、Events Calendar を介してチケットを作成 & 販売できるようになります。WordPress ダッシュボードでチケットを作成する場合も、あるいはすでに存在するイベントの詳細を %1$sEventbrite.com%2$s からインポートする場合も、このアドオンは、ご自身のカレンダーに Eventbrite API の威力をもたらします。"
 
 #: src/Tribe/Plugins_API.php:105
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
-msgstr "Event Tickets Plus e Community Events"
+msgstr "Event Tickets Plus および Community Events"
 
 #: src/Tribe/Plugins_API.php:104
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
-msgstr ""
+msgstr "Community Events オーガナイザーを有効にし、イベントへのチケットを提供します。柔軟な支払い及び手数料オプションを設定できます。出席者をイベントにチェックインさせることもできます! これらの機能は、すべて、管理者にアクセス権を付与しなくても、ご自身のサイトのフロントエンドから管理できます"
 
 #: src/Tribe/Plugins_API.php:48
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
-msgstr "O plugin Events Calendar PRO é uma extensão paga para o nosso plugin de código aberto para o WordPress %1$sThe Events Calendar%2$s. A versão PRO oferece muitas funcionalidades, tais como eventos recorrentes, atributos personalizados, organizadores e locais guardados, páginas de locais, administração avançada de eventos e muito mais."
+msgstr "Events Calendar PRO は、当社のオープン ソース WordPress プラグインである %1$sEvents Calendar%2$s の有料アドオンです。PRO は、繰り返しイベント、カスタム イベント属性、保存済み開催地および主催者、開催地ページ、拡張イベント管理など、カレンダー機能全体のホストを提供します。"
 
 #: src/Tribe/Plugins_API.php:84
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
-msgstr ""
+msgstr "ご自身のカレンダーが、時間を過ごす最良の選択肢として <em>THE PLACE</em> につながったことは素晴らしいことです。多くのイベントをお持ちですし、訪問された方が、秘書を雇ってすべての選択肢を確認しなかければならないようなことになったら申し訳なさすぎますからね。歩ける距離内、週末、あるいは無料のイベントなど、特定の一致項目のみを表示できるフィルターが合ったらよいと思われませんか?お任せください。可能なのです。ご紹介しましょう... Filter Bar です。"
 
 #: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:80
 msgid "Filter Bar"
@@ -542,105 +539,105 @@ msgstr "Filter Bar"
 
 #: src/Tribe/Credits.php:64
 msgid "Rate %1$sEvent Tickets%2$s %3$s"
-msgstr "Classifique o %1$sEvent Tickets%2$s com %3$s"
+msgstr "%1$sEvent Tickets%2$s を評価する %3$s"
 
 #: src/Tribe/Credits.php:55
 msgid "Rate %1$sThe Events Calendar%2$s %3$s"
-msgstr "Classifique o %1$sThe Events Calendar%2$s com %3$s"
+msgstr "%1$sEvents Calendar%2$s を評価する %3$s"
 
 #: src/Tribe/Log/Null_Logger.php:26
 msgid "Null logger (will log nothing)"
-msgstr "Registo nulo (não regista nada)"
+msgstr "Null ロガー (何もログ記録しない)"
 
 #: src/admin-views/event-log.php:117
 msgid "Download log"
-msgstr "Descarregar o registo"
+msgstr "ログをダウンロード"
 
 #: src/admin-views/event-log.php:100
 msgid "The selected log file is empty or has not been generated yet."
-msgstr "O ficheiro de registo seleccionado está vazio ou ainda não foi criado."
+msgstr "選択したログ ファイルが空であるか、まだ生成されていません。"
 
 #: src/admin-views/event-log.php:43
 msgid "Method"
-msgstr "Método"
+msgstr "メソッド"
 
 #: src/admin-views/event-log.php:21
 msgid "Logging level"
-msgstr "Nível de registo"
+msgstr "ロギング レベル"
 
 #: src/Tribe/Validate.php:168
 msgid "%s must contain numbers, letters, dashes and undescores only"
-msgstr "%s deve conter apenas números, letras, traços e underscores"
+msgstr "%s は、数字、文字、ダッシュ、およびアンダースコアのみを含む必要があります"
 
 #: src/Tribe/Log.php:376
 msgid "Full debug (all events)"
-msgstr "Depuração completa (todos os eventos)"
+msgstr "フル デバッグ (すべてのイベント)"
 
 #: src/Tribe/Log.php:375
 msgid "Warnings and errors"
-msgstr "Avisos e erros"
+msgstr "警告およびエラー"
 
 #: src/Tribe/Log.php:374
 msgid "Only errors"
-msgstr "Apenas erros"
+msgstr "エラーのみ"
 
 #: src/Tribe/Log.php:373
 msgid "Disabled"
-msgstr "Desactivado"
+msgstr "無効"
 
 #: src/Tribe/Log.php:274
 msgid "Cannot set %s as the current logging engine"
-msgstr "Não é possível definir %s como mecanismo de registo"
+msgstr "%s を現在のロギング エンジンとして設定できません"
 
 #: src/Tribe/Log/File_Logger.php:128
 msgid "Default (uses temporary files)"
-msgstr "Por omissão (usa ficheiros temporários)"
+msgstr "既定 (一時ファイルを使用)"
 
 #: src/Tribe/Log/Admin.php:148
 msgctxt "log engines"
 msgid "None currently available"
-msgstr "Nenhum disponível de momento"
+msgstr "現在利用できるものはありません"
 
 #: src/Tribe/Log/Admin.php:133
 msgctxt "log selector"
 msgid "None currently available"
-msgstr "Nenhum disponível de momento"
+msgstr "現在利用できるものはありません"
 
 #: src/admin-views/tribe-options-help.php:52
 msgid "Recent Template Changes"
-msgstr "Alterações recentes a modelos"
+msgstr "最近のテンプレートの変更"
 
 #: src/Tribe/Support/Template_Checker_Report.php:115
 msgid "Information about recent template changes and potentially impacted template overrides is provided below."
-msgstr "Abaixo são fornecidas algumas informações sobre alterações recentes de modelos e o potencial impacto em substituições de modelos."
+msgstr "最近のテンプレートの変更および影響を受ける可能性のあるテンプレート オーバーライドに関する情報は、下記をご覧ください。"
 
 #: src/Tribe/Support/Template_Checker_Report.php:113
 msgid "No notable template changes detected."
-msgstr "Não foram detectadas alterações significativas aos modelos."
+msgstr "顕著なテンプレート変更は検知されませんでした。"
 
 #: src/Tribe/Support/Template_Checker_Report.php:97
 msgid "based on %s version"
-msgstr "baseado na versão %s"
+msgstr "%s バージョンに基づく"
 
 #: src/Tribe/Support/Template_Checker_Report.php:96
 msgid "version data missing from override"
-msgstr "substituição sem dados da versão"
+msgstr "オーバーライドのバージョン データが欠如しています"
 
 #: src/Tribe/Support/Template_Checker_Report.php:92
 msgid "Existing theme overrides that may need revision:"
-msgstr "Substituições do tema actual que devem ser revistas:"
+msgstr "リビジョンが必要な可能性のある既存のテーマ オーバーライド:"
 
 #: src/Tribe/Support/Template_Checker_Report.php:82
 msgid "Templates introduced or updated with this release (%s):"
-msgstr "Modelos introduzidos ou actualizados nesta versão (%s):"
+msgstr "このリリース (%s) で導入またはアップデートされたテンプレート:"
 
 #: src/Tribe/Support/Template_Checker_Report.php:78
 msgid "No notable changes detected"
-msgstr "Sem alterações significativas"
+msgstr "顕著な変更は検知されませんでした"
 
 #. Description of the plugin/theme
 msgid "An event settings framework for managing shared options"
-msgstr ""
+msgstr "共有オプションを管理するためのイベント設定フレームワーク"
 
 #. Plugin Name of the plugin/theme
 msgid "Tribe Common"
@@ -648,11 +645,11 @@ msgstr "Tribe Common"
 
 #: src/admin-views/tribe-options-licenses.php:47
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
-msgstr "Neste ecrã apenas serão mostrados campos de licença para %1$splugins activados%2$s na rede."
+msgstr "この画面には、%1$sネットワークがアクティブ化%2$sされているプラグインのライセンス フィールドのみがリストされます。 "
 
 #: src/admin-views/tribe-options-help.php:38
 msgid "Read more about our support policy"
-msgstr "Leia mais sobre a nossa política de suporte"
+msgstr "当社サポート ポリシーに関する詳細を読む"
 
 #: src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
@@ -660,111 +657,111 @@ msgstr ""
 
 #: src/admin-views/tribe-options-help.php:33
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."
-msgstr ""
+msgstr "%s。当社で未対応の問題はほとんどなく、多くの場合、別のユーザーからすでに同じご質問をいただき、サポート スタッフが回答させていただいていることがあります。ヘルプ デスクへの投稿は有料プランのお客様のみに限定されていますが、検索やレビューはどなたでもご利用いただくことができます。"
 
 #: src/admin-views/tribe-options-help.php:32
 msgid "Test for a theme or plugin conflict"
-msgstr "Testar conflitos com temas ou plugins"
+msgstr "テーマまたはプラグインの矛盾をテストします"
 
 #: src/admin-views/tribe-options-help.php:32
 msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
-msgstr "%s. Testar conflitos existentes é a melhor forma de começar a resolução de problemas. Iremos com frequência pedir-lhe que siga estes passos ao criar um novo tópico, pelo que será útil fazê-lo antecipadamente."
+msgstr "%s。詳細なトラブルシューティングを開始するうえで、既存の矛盾をテストするのが最適です。新しいスレッドを開くときには、これらのステップに準拠するようお願いすることがあります。事前に行っていただくことがとても役立ちます。"
 
 #: src/admin-views/tribe-options-help.php:31
 msgid "Check our Knowledgebase"
-msgstr "Consulte a nossa base de conhecimento"
+msgstr "ナレッジベースをチェック"
 
 #: src/admin-views/tribe-options-help.php:31
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
-msgstr "%s. Aqui pode encontrar todas as respostas comuns (e incomuns) às perguntas que são colocadas. É frequentemente o caminho mais rápido para encontrar a sua resposta!"
+msgstr "%s。ご質問へのすべての一般的な (そしてあまり一般的でない) 回答がここに記載されています。多くの場合、答えを見つけるには最速の方法です!"
 
 #: src/admin-views/tribe-options-help.php:27
 msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
-msgstr ""
+msgstr "上記のリソースは、ほとんどの問題の解決に役立ちますが、正確なサポートが必要になることがあります。当社のプラグインの使用に関して当社のサポートがご必要な場合は、次のステップに従ってください:"
 
 #: src/admin-views/tribe-options-help.php:26
 msgid "Getting More Help"
-msgstr "Obter mais ajuda"
+msgstr "さらにヘルプを得る"
 
 #: src/admin-views/tribe-options-help.php:21
 msgid "list of available functions"
-msgstr "lista de funções disponíveis"
+msgstr "利用可能な関数のリスト"
 
 #: src/admin-views/tribe-options-help.php:15
 msgid "Knowledgebase"
-msgstr "Base de conhecimento"
+msgstr "ナレッジベース"
 
 #: src/admin-views/tribe-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
-msgstr "A %s do nosso site é um óptimo local para encontrar truques e dicas sobre a utilização e personalização dos nossos plugins."
+msgstr "当社ウェブサイトの %s は、プラグインの使用およびカスタマイズに関するヒントやコツを検索するには最高の場所です。"
 
 #: src/admin-views/tribe-options-help.php:14
 msgid "Getting Support"
-msgstr "Obter suporte"
+msgstr "サポートを得る"
 
 #: src/admin-views/tribe-options-help.php:11
 msgid "Thank you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
-msgstr ""
+msgstr "%s をご使用いただきありがとうございます! お客様のサポートに Modern Tribe の全社員から感謝を述べさせていただくとともに、当社のプラグインをご活用いただくことを楽しみにしております。"
 
 #: src/admin-views/tribe-options-general.php:15
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
-msgstr ""
+msgstr "当社の無料カレンダー プラグインである %1$sEvents Calendar%2$s を使用して、ご自身のサイトのイベント リスト掲載を最適化してみませんか。繰り返しイベントやユーザーによる送信、高度なチケット セールスなどの追加機能をお探しですか?ぜひ%3$sプレミアム アドオン%4$sをチェックしてみてください。"
 
 #: src/admin-views/tribe-options-general.php:10
 msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
-msgstr "Obrigado por utilizar o Event Tickets! Todos nós na Modern Tribe estamos muito gratos pelo seu apoio e por utilizar os nossos plugins. Consulte o nosso %1$sguia para novos utilizadores%2$s para começar."
+msgstr "Event Tickets をご使用いただきありがとうございます! お客様のサポートに Modern Tribe の全社員から感謝を述べさせていただくとともに、当社のプラグインをご活用いただくことを楽しみにしております。まずは、使いやすい 『%1$s新しいユーザーのための入門書%2$s』をチェックしてみてください。"
 
 #: src/Tribe/Validate.php:214
 msgid "%s must be a positive number or percent."
-msgstr "%s deve ser um número positivo ou percentagem."
+msgstr "%s は、正の数またはパーセントである必要があります。"
 
 #: src/Tribe/PUE/Checker.php:940
 msgid "Thanks for setting up a valid key. It will expire on %s"
-msgstr "Obrigado por configurar uma chave válida. Expira em %s"
+msgstr "有効なキーをセットアップいただきありがとうございます。有効期限は %s です"
 
 #: src/Tribe/Admin/Help_Page.php:860
 msgid "Visit the Add-on Page"
-msgstr "Visite a página de extensões"
+msgstr "アドオン ページにアクセス"
 
 #: src/Tribe/Admin/Help_Page.php:855
 msgid "Plugin Inactive"
-msgstr "Plugin inactivo"
+msgstr "プラグインが非アクティブです"
 
 #: src/Tribe/Admin/Help_Page.php:853
 msgid "Plugin Active"
-msgstr "Plugin activo"
+msgstr "プラグインがアクティブです"
 
 #: src/Tribe/Admin/Help_Page.php:828
 msgid "Rating:"
-msgstr "Classificação:"
+msgstr "評価:"
 
 #: src/Tribe/Admin/Help_Page.php:825
 msgid "Active Users:"
-msgstr "Utilizadores activos:"
+msgstr "アクティブ ユーザー:"
 
 #: src/Tribe/Admin/Help_Page.php:802
 msgid "Install Plugin"
-msgstr "Instalar plugin"
+msgstr "プラグインをインストール"
 
 #: src/Tribe/Admin/Help_Page.php:802
 msgid "Install %s"
-msgstr "Instalar %s"
+msgstr "%s をインストール"
 
 #: src/Tribe/Admin/Help_Page.php:786
 msgid "Upgrade Plugin"
-msgstr "Actualizar plugin"
+msgstr "プラグインをアップグレード"
 
 #: src/Tribe/Admin/Help_Page.php:778
 msgid "Activate Plugin"
-msgstr "Activar plugin"
+msgstr "プラグインをアクティブ化"
 
 #: src/Tribe/Admin/Help_Page.php:778
 msgid "Activate %s"
-msgstr "Activar %s"
+msgstr "%s をアクティブ化"
 
 #: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:100
 msgid "Community Tickets"
-msgstr "Community Tickets"
+msgstr "コミュニティ チケット"
 
 #: src/Tribe/Admin/Help_Page.php:235 src/Tribe/Plugins_API.php:66
 msgid "Event Tickets Plus"
@@ -772,31 +769,31 @@ msgstr "Event Tickets Plus"
 
 #: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:111
 msgid "Eventbrite Tickets"
-msgstr "Eventbrite Tickets"
+msgstr "Eventbrite チケット"
 
 #: src/Tribe/Admin/Help_Page.php:170
 msgid " and "
-msgstr " e "
+msgstr " および "
 
 #: src/Tribe/Admin/Help_Page.php:95
 msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
-msgstr "Aumente as capacidades de administração de conteúdos de qualquer tipo através de adicionar colunas, filtrar, ordenar e registar automaticamente metaboxes."
+msgstr "並べ替え可能なフィルターおよびカラムと、メタボックスの自動登録により、任意のカスタム投稿タイプの投稿管理を加速しましょう。"
 
 #: src/Tribe/Admin/Help_Page.php:91
 msgid "Advanced Post Manager"
-msgstr "Advanced Post Manager"
+msgstr "高度投稿マネージャー"
 
 #: src/Tribe/Admin/Help_Page.php:79
 msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
-msgstr "O Event Tickets é um plugin elaborado e extensível que lhe permite facilmente vender bilhetes para os seus eventos."
+msgstr "Events Calendar は、細部まで計画された拡張可能なプラグインで、イベントのチケット販売を容易化します。"
 
 #: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:57
 msgid "Event Tickets"
-msgstr "Event Tickets"
+msgstr "イベントチケット"
 
 #: src/Tribe/Admin/Help_Page.php:63
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
-msgstr "O The Events Calendar é um plugin elaborado e extensível que lhe permite facilmente partilhar os seus eventos."
+msgstr "Events Calendar は、細部まで計画された拡張可能なプラグインで、簡単にイベントを共有できるようになります。"
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
@@ -808,59 +805,59 @@ msgstr "Modern Tribe, Inc."
 
 #: src/Tribe/Settings.php:371
 msgid "Save Changes"
-msgstr "Guardar alterações"
+msgstr "変更を保存"
 
 #: src/admin-views/tribe-options-licenses.php:38
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
-msgstr "%1$s Utiliza os nossos plugins numa rede multisite? %2$s Saiba que a sua chave de licença será aplicada a toda a rede, não apenas a este site."
+msgstr "%1$s 当社プラグインを複数サイト ネットワークでご使用ですか? %2$s ご使用のライセンス キーは、このサイトだけでなく、ネットワーク全体に適用されることにご注目ください。"
 
 #: src/Tribe/Support.php:199
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
-msgstr ""
+msgstr "再書き込みルールは、このヘルプ ページのオンロードでパージされました。プラグインまたはテーマで発生をフラッシュする再書き込みルールが存在する可能性があります。"
 
 #: src/Tribe/PUE/Checker.php:909
 msgid "unknown date"
-msgstr "data desconhecida"
+msgstr "不明な日付です"
 
 #: src/Tribe/Admin/Activation_Page.php:92
 msgid "Return to WordPress Updates"
-msgstr "Voltar para a página de actualizações do WordPress"
+msgstr "WordPress アップデートに戻る"
 
 #: src/Tribe/Admin/Activation_Page.php:92
 msgid "Go to WordPress Updates page"
-msgstr "Ir para a página de actualizações do WordPress"
+msgstr "WordPress アップデート ページにアクセスする"
 
 #: src/Tribe/Admin/Activation_Page.php:84
 msgid "Return to Plugins page"
-msgstr "Voltar para a página de plugins"
+msgstr "プラグイン ページに戻る"
 
 #: src/Tribe/Admin/Activation_Page.php:84
 msgid "Go to plugins page"
-msgstr "Ir para a página de plugins"
+msgstr "プラグイン ページにアクセスする"
 
 #: src/Tribe/Cost_Utils.php:114
 msgid "Free"
-msgstr "Gratuito"
+msgstr "無料"
 
 #: src/admin-views/tribe-options-network.php:27
 msgid "Hide the following settings tabs on every site:"
-msgstr "Esconder estes separadores de definições em todos os sites:"
+msgstr "各サイトで下記の [設定] タブを非表示にする:"
 
 #: src/admin-views/tribe-options-network.php:19
 msgid "This is where all of the global network settings for Modern Tribe's The Events Calendar can be modified."
-msgstr "Aqui é onde pode modificar todas as definições globais da rede para o The Events Calendar da Modern Tribe."
+msgstr "ここから、Modern Tribe の Events Calendar のすべてのグローバル ネットワーク設定を変更できます。"
 
 #: src/admin-views/tribe-options-network.php:15
 msgid "Network Settings"
-msgstr "Definições de rede"
+msgstr "ネットワーク設定"
 
 #: src/admin-views/tribe-options-help.php:74
 msgid "News and Tutorials"
-msgstr "Notícias e tutoriais"
+msgstr "ニュースおよびチュートリアル"
 
 #: src/Tribe/Admin/Help_Page.php:847
 msgid "Premium Add-Ons"
-msgstr "Extensões premium"
+msgstr "プレミアム アドオン"
 
 #: src/Tribe/Admin/Help_Page.php:823
 msgid "WordPress "
@@ -868,15 +865,15 @@ msgstr "WordPress "
 
 #: src/Tribe/Admin/Help_Page.php:822 src/admin-views/app-shop.php:77
 msgid "Requires:"
-msgstr "Requer:"
+msgstr "必須:"
 
 #: src/Tribe/Admin/Help_Page.php:819
 msgid "Latest Version:"
-msgstr "Última versão:"
+msgstr "最新バージョン:"
 
 #: src/admin-views/tribe-options-help.php:80
 msgid "More..."
-msgstr "Mais..."
+msgstr "さらに..."
 
 #: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:43
 msgid "Events Calendar PRO"
@@ -884,1100 +881,1100 @@ msgstr "Events Calendar PRO"
 
 #: src/Tribe/Admin/Help_Page.php:413 src/Tribe/Admin/Help_Page.php:788
 msgid "You are up to date!"
-msgstr "Está actualizado!"
+msgstr "現在最新の状態です!"
 
 #: src/Tribe/Admin/Help_Page.php:413
 msgid "You need to upgrade!"
-msgstr "Precisa de actualizar!"
+msgstr "アップグレードが必要です!"
 
 #: src/Tribe/Admin/Help_Page.php:405
 msgctxt "not available"
 msgid "n/a"
-msgstr "n/d"
+msgstr "N/A"
 
 #: src/admin-views/tribe-options-general.php:59
 msgid "Debug Bar Plugin"
-msgstr "Plugin Debug Bar"
+msgstr "Debug Bar プラグイン"
 
 #: src/admin-views/tribe-options-general.php:59
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
-msgstr "Active esta opção para registar a informações de depuração. Por omissão esta informação será guardada no registo de erros de PHP do seu servidor. Se pretende ver as mensagens de erro no seu navegador, recomendamos que instale o %s e consulte o separador \"Tribe\"."
+msgstr "このオプションを有効にし、デバッグ情報をログ記録します。既定では、サーバー PHP エラー ログにログ記録されます。ブラウザーでログ メッセージを確認する場合は、%s をインストールし、デバッグ出力で \"Tribe\" タブを検索することをお薦めします。"
 
 #: src/admin-views/tribe-options-general.php:53
 msgid "Debug mode"
-msgstr "Modo de depuração"
+msgstr "デバッグ モード"
 
 #: src/admin-views/tribe-options-general.php:35
 msgid "Show The Events Calendar link"
-msgstr "Mostrar ligação para o The Events Calendar"
+msgstr "Events Calendar リンクを表示"
 
 #: src/admin-views/tribe-options-general.php:30
 msgid "See an example of the link"
-msgstr "Ver um exemplo de ligação"
+msgstr "リンクの例を確認してください"
 
 #: src/admin-views/tribe-options-general.php:30
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
-msgstr "Está a pensar \"Uau, este plugin é fantástico! Eu deveria agradecer à Modern Tribe por todo o seu trabalho árduo.\" O maior agradecimento que podemos pedir é reconhecimento. Adicione uma pequena ligação de texto no rodapé do seu calendário a apontar para o projecto The Events Calendar."
+msgstr "\"ワオ、このプラグインは素晴らしい! Modern Tribe の取り組みに感謝しなくちゃ。\"とお考えですか。私たちの一番の望みは、認知されることなのです。ご使用のカレンダーの下部に、Events Calendar を指し示す小さなテキストのみのリンクを追加してください。"
 
 #: src/admin-views/tribe-options-general.php:25
 msgid "We hope our plugin is helping you out."
-msgstr "Esperemos que o nosso plugin esteja a ser uma ajuda."
+msgstr "当社プラグインがお役に立てることを願っております。"
 
 #: src/admin-views/tribe-options-general.php:20
 msgid "Check out the available add-ons"
-msgstr "Conheça as extensões disponíveis"
+msgstr "利用可能なアドオンをご確認ください"
 
 #: src/admin-views/tribe-options-general.php:20
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
-msgstr "Precisa de mais funcionalidades, como eventos recorrentes, informações personalizadas, eventos da comunidade, venda de bilhetes, etc.?"
+msgstr "繰り返しイベントやカスタム メタ、コミュニティ イベントやチケット セールスなどの追加機能をお探しですか?"
 
 #: src/admin-views/tribe-options-display.php:37
 msgid "Select the date format to use in datepickers"
-msgstr "Seleccione o formato de data a ser utilizado nos selectores de data"
+msgstr "Datepicker で使用する日付形式を選択してください"
 
 #: src/admin-views/tribe-options-display.php:36
 msgid "Datepicker Date Format"
-msgstr "Formato da selecção de data"
+msgstr "Datepicker 日付形式"
 
 #: src/admin-views/tribe-options-display.php:22
 msgid "Date Format Settings"
-msgstr "Definições do formato da data"
+msgstr "日付形式設定"
 
 #: src/admin-views/event-log.php:65
 msgid "View"
-msgstr "Ver"
+msgstr "表示"
 
 #: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:90
 msgid "Community Events"
-msgstr "Community Events"
+msgstr "コミュニティ イベント"
 
 #: src/Tribe/Languages/Locations.php:374
 msgid "Wyoming"
-msgstr "Wyoming"
+msgstr "ワイオミング"
 
 #: src/Tribe/Languages/Locations.php:373
 msgid "Wisconsin"
-msgstr "Wisconsin"
+msgstr "ウィスコンシン"
 
 #: src/Tribe/Languages/Locations.php:372
 msgid "West Virginia"
-msgstr "West Virginia"
+msgstr "ウェストバージニア"
 
 #: src/Tribe/Languages/Locations.php:371
 msgid "Washington"
-msgstr "Washington"
+msgstr "ワシントン"
 
 #: src/Tribe/Languages/Locations.php:370
 msgid "Virginia"
-msgstr "Virginia"
+msgstr "バージニア"
 
 #: src/Tribe/Languages/Locations.php:369
 msgid "Vermont"
-msgstr "Vermont"
+msgstr "バーモント"
 
 #: src/Tribe/Languages/Locations.php:368
 msgid "Utah"
-msgstr "Utah"
+msgstr "ユタ"
 
 #: src/Tribe/Languages/Locations.php:367
 msgid "Texas"
-msgstr "Texas"
+msgstr "テキサス"
 
 #: src/Tribe/Languages/Locations.php:366
 msgid "Tennessee"
-msgstr "Tennessee"
+msgstr "テネシー"
 
 #: src/Tribe/Languages/Locations.php:365
 msgid "South Dakota"
-msgstr "Dakota do Sul"
+msgstr "サウスダコタ"
 
 #: src/Tribe/Languages/Locations.php:364
 msgid "South Carolina"
-msgstr "Carolina do Sul"
+msgstr "サウスキャロライナ"
 
 #: src/Tribe/Languages/Locations.php:363
 msgid "Rhode Island"
-msgstr "Rhode Island"
+msgstr "ロードアイランド"
 
 #: src/Tribe/Languages/Locations.php:362
 msgid "Pennsylvania"
-msgstr "Pennsylvania"
+msgstr "ペンシルバニア"
 
 #: src/Tribe/Languages/Locations.php:361
 msgid "Oregon"
-msgstr "Oregon"
+msgstr "オレゴン"
 
 #: src/Tribe/Languages/Locations.php:360
 msgid "Oklahoma"
-msgstr "Oklahoma"
+msgstr "オクラホマ"
 
 #: src/Tribe/Languages/Locations.php:359
 msgid "Ohio"
-msgstr "Ohio"
+msgstr "オハイオ"
 
 #: src/Tribe/Languages/Locations.php:358
 msgid "North Dakota"
-msgstr "North Dakota"
+msgstr "ノースダコタ"
 
 #: src/Tribe/Languages/Locations.php:357
 msgid "North Carolina"
-msgstr "Carolina do Norte"
+msgstr "ノースキャロライナ"
 
 #: src/Tribe/Languages/Locations.php:356
 msgid "New York"
-msgstr "Nova Iorque"
+msgstr "ニューヨーク"
 
 #: src/Tribe/Languages/Locations.php:355
 msgid "New Mexico"
-msgstr "Novo México"
+msgstr "ニューメキシコ"
 
 #: src/Tribe/Languages/Locations.php:354
 msgid "New Jersey"
-msgstr "New Jersey"
+msgstr "ニュージャージー"
 
 #: src/Tribe/Languages/Locations.php:353
 msgid "New Hampshire"
-msgstr "New Hampshire"
+msgstr "ニューハンプシャー"
 
 #: src/Tribe/Languages/Locations.php:352
 msgid "Nevada"
-msgstr "Nevada"
+msgstr "ネバダ"
 
 #: src/Tribe/Languages/Locations.php:351
 msgid "Nebraska"
-msgstr "Nebraska"
+msgstr "ネブラスカ"
 
 #: src/Tribe/Languages/Locations.php:350
 msgid "Montana"
-msgstr "Montana"
+msgstr "モンタナ"
 
 #: src/Tribe/Languages/Locations.php:349
 msgid "Missouri"
-msgstr "Missouri"
+msgstr "ミズーリ"
 
 #: src/Tribe/Languages/Locations.php:348
 msgid "Mississippi"
-msgstr "Mississippi"
+msgstr "ミシシッピ"
 
 #: src/Tribe/Languages/Locations.php:347
 msgid "Minnesota"
-msgstr "Minnesota"
+msgstr "ミネソタ"
 
 #: src/Tribe/Languages/Locations.php:346
 msgid "Michigan"
-msgstr "Michigan"
+msgstr "ミシガン"
 
 #: src/Tribe/Languages/Locations.php:345
 msgid "Massachusetts"
-msgstr "Massachusetts"
+msgstr "マサチューセッツ"
 
 #: src/Tribe/Languages/Locations.php:344
 msgid "Maryland"
-msgstr "Maryland"
+msgstr "メリーランド"
 
 #: src/Tribe/Languages/Locations.php:343
 msgid "Maine"
-msgstr "Maine"
+msgstr "メイン"
 
 #: src/Tribe/Languages/Locations.php:342
 msgid "Louisiana"
-msgstr "Louisiana"
+msgstr "ルイジアナ"
 
 #: src/Tribe/Languages/Locations.php:341
 msgid "Kentucky"
-msgstr "Kentucky"
+msgstr "ケンタッキー"
 
 #: src/Tribe/Languages/Locations.php:340
 msgid "Kansas"
-msgstr "Kansas"
+msgstr "カンザス"
 
 #: src/Tribe/Languages/Locations.php:339
 msgid "Iowa"
-msgstr "Iowa"
+msgstr "アイオワ"
 
 #: src/Tribe/Languages/Locations.php:338
 msgid "Indiana"
-msgstr "Indiana"
+msgstr "インディアナ"
 
 #: src/Tribe/Languages/Locations.php:337
 msgid "Illinois"
-msgstr "Illinois"
+msgstr "イリノイ"
 
 #: src/Tribe/Languages/Locations.php:336
 msgid "Idaho"
-msgstr "Idaho"
+msgstr "アイダホ"
 
 #: src/Tribe/Languages/Locations.php:335
 msgid "Hawaii"
-msgstr "Hawaii"
+msgstr "ハワイ"
 
 #: src/Tribe/Languages/Locations.php:333
 msgid "Florida"
-msgstr "Florida"
+msgstr "フロリダ"
 
 #: src/Tribe/Languages/Locations.php:332
 msgid "District of Columbia"
-msgstr "District of Columbia"
+msgstr "コロンビア特別区 (DC)"
 
 #: src/Tribe/Languages/Locations.php:331
 msgid "Delaware"
-msgstr "Delaware"
+msgstr "デラウェア"
 
 #: src/Tribe/Languages/Locations.php:330
 msgid "Connecticut"
-msgstr "Connecticut"
+msgstr "コネチカット"
 
 #: src/Tribe/Languages/Locations.php:329
 msgid "Colorado"
-msgstr "Colorado"
+msgstr "コロラド"
 
 #: src/Tribe/Languages/Locations.php:328
 msgid "California"
-msgstr "Califórnia"
+msgstr "カリフォルニア"
 
 #: src/Tribe/Languages/Locations.php:327
 msgid "Arkansas"
-msgstr "Arkansas"
+msgstr "アーカンソー"
 
 #: src/Tribe/Languages/Locations.php:326
 msgid "Arizona"
-msgstr "Arizona"
+msgstr "アリゾナ"
 
 #: src/Tribe/Languages/Locations.php:325
 msgid "Alaska"
-msgstr "Alasca"
+msgstr "アラスカ"
 
 #: src/Tribe/Languages/Locations.php:324
 msgid "Alabama"
-msgstr "Alabama"
+msgstr "アラバマ"
 
 #: src/Tribe/Languages/Locations.php:297
 msgid "Zimbabwe"
-msgstr "Zimbabué"
+msgstr "ジンバブエ"
 
 #: src/Tribe/Languages/Locations.php:296
 msgid "Zambia"
-msgstr "Zâmbia"
+msgstr "ザンビア"
 
 #: src/Tribe/Languages/Locations.php:295
 msgid "Yemen"
-msgstr "Iémen"
+msgstr "イエメン"
 
 #: src/Tribe/Languages/Locations.php:294
 msgid "Western Sahara"
-msgstr "Saara Ocidental"
+msgstr "西サハラ"
 
 #: src/Tribe/Languages/Locations.php:293
 msgid "Wallis and Futuna Islands"
-msgstr ""
+msgstr "ウォリス・フツナ諸島"
 
 #: src/Tribe/Languages/Locations.php:292
 msgid "Virgin Islands (U.S.)"
-msgstr "Ilhas Virgens (EUA)"
+msgstr "バージン諸島 (U.S.)"
 
 #: src/Tribe/Languages/Locations.php:291
 msgid "Virgin Islands (British)"
-msgstr "Ilhas Virgens (Britânicas)"
+msgstr "バージン諸島 (英国)"
 
 #: src/Tribe/Languages/Locations.php:290
 msgid "Viet Nam"
-msgstr "Vietname"
+msgstr "ベトナム"
 
 #: src/Tribe/Languages/Locations.php:289
 msgid "Venezuela"
-msgstr "Venezuela"
+msgstr "ベネズエラ"
 
 #: src/Tribe/Languages/Locations.php:288
 msgid "Vanuatu"
-msgstr "Vanuatu"
+msgstr "バヌアツ"
 
 #: src/Tribe/Languages/Locations.php:287
 msgid "Uzbekistan"
-msgstr "Uzbequistão"
+msgstr "ウズベキスタン"
 
 #: src/Tribe/Languages/Locations.php:286
 msgid "Uruguay"
-msgstr "Uruguai"
+msgstr "ウルグアイ"
 
 #: src/Tribe/Languages/Locations.php:285
 msgid "United States Minor Outlying Islands"
-msgstr "Ilhas Menores Distantes dos Estados Unidos"
+msgstr "米国領太平洋諸島"
 
 #: src/Tribe/Languages/Locations.php:284
 msgid "United Kingdom"
-msgstr "Reino Unido"
+msgstr "英国"
 
 #: src/Tribe/Languages/Locations.php:283
 msgid "United Arab Emirates"
-msgstr "Emirados Árabes Unidos"
+msgstr "アラブ首長国連邦"
 
 #: src/Tribe/Languages/Locations.php:282
 msgid "Ukraine"
-msgstr "Ucrânia"
+msgstr "ウクライナ"
 
 #: src/Tribe/Languages/Locations.php:281
 msgid "Uganda"
-msgstr "Uganda"
+msgstr "ウガンダ"
 
 #: src/Tribe/Languages/Locations.php:280
 msgid "Tuvalu"
-msgstr "Tuvalu"
+msgstr "ツバル"
 
 #: src/Tribe/Languages/Locations.php:279
 msgid "Turks and Caicos Islands"
-msgstr ""
+msgstr "タークス諸島・カイコス諸島"
 
 #: src/Tribe/Languages/Locations.php:278
 msgid "Turkmenistan"
-msgstr "Turquemenistão"
+msgstr "トルクメニスタン"
 
 #: src/Tribe/Languages/Locations.php:277
 msgid "Turkey"
-msgstr "Turquia"
+msgstr "トルコ"
 
 #: src/Tribe/Languages/Locations.php:276
 msgid "Tunisia"
-msgstr "Tunísia"
+msgstr "チュニジア"
 
 #: src/Tribe/Languages/Locations.php:275
 msgid "Trinidad and Tobago"
-msgstr ""
+msgstr "トリニダード・トバゴ"
 
 #: src/Tribe/Languages/Locations.php:274
 msgid "Tonga"
-msgstr "Tonga"
+msgstr "トンガ"
 
 #: src/Tribe/Languages/Locations.php:273
 msgid "Tokelau"
-msgstr "Tokelau"
+msgstr "トケラウ"
 
 #: src/Tribe/Languages/Locations.php:272
 msgid "Togo"
-msgstr "Togo"
+msgstr "トーゴ"
 
 #: src/Tribe/Languages/Locations.php:271
 msgid "Thailand"
-msgstr "Tailândia"
+msgstr "タイ"
 
 #: src/Tribe/Languages/Locations.php:270
 msgid "Tanzania, United Republic of"
-msgstr ""
+msgstr "タンザニア連合共和国"
 
 #: src/Tribe/Languages/Locations.php:269
 msgid "Tajikistan"
-msgstr "Tajiquistão"
+msgstr "タジキスタン"
 
 #: src/Tribe/Languages/Locations.php:268
 msgid "Taiwan"
-msgstr "Taiwan"
+msgstr "台湾"
 
 #: src/Tribe/Languages/Locations.php:267
 msgid "Syrian Arab Republic"
-msgstr "Síria, República Árabe da"
+msgstr "シリア・アラブ共和国"
 
 #: src/Tribe/Languages/Locations.php:266
 msgid "Switzerland"
-msgstr "Suíça"
+msgstr "スイス"
 
 #: src/Tribe/Languages/Locations.php:265
 msgid "Sweden"
-msgstr "Suécia"
+msgstr "スウェーデン"
 
 #: src/Tribe/Languages/Locations.php:264
 msgid "Swaziland"
-msgstr "Suazilândia"
+msgstr "スワジランド"
 
 #: src/Tribe/Languages/Locations.php:263
 msgid "Svalbard and Jan Mayen Islands"
-msgstr ""
+msgstr "スヴァールバル諸島およびヤンマイエン島"
 
 #: src/Tribe/Languages/Locations.php:262
 msgid "Suriname"
-msgstr "Suriname"
+msgstr "スリナム"
 
 #: src/Tribe/Languages/Locations.php:261
 msgid "Sudan"
-msgstr "Sudão"
+msgstr "スーダン"
 
 #: src/Tribe/Languages/Locations.php:241
 msgid "Saint Pierre and Miquelon"
-msgstr ""
+msgstr "サンピエール島・ミクロン島"
 
 #: src/Tribe/Languages/Locations.php:260
 msgid "Sri Lanka"
-msgstr "Sri Lanka"
+msgstr "スリランカ"
 
 #: src/Tribe/Languages/Locations.php:259
 msgid "Spain"
-msgstr "Espanha"
+msgstr "スペイン"
 
 #: src/Tribe/Languages/Locations.php:258
 msgid "South Georgia, South Sandwich Islands"
-msgstr "South Georgia, South Sandwich Islands"
+msgstr "サウスジョージア・サウスサンドウィッチ諸島"
 
 #: src/Tribe/Languages/Locations.php:257
 msgid "South Africa"
-msgstr "África do Sul"
+msgstr "南アフリカ"
 
 #: src/Tribe/Languages/Locations.php:256
 msgid "Somalia"
-msgstr "Somália"
+msgstr "ソマリア"
 
 #: src/Tribe/Languages/Locations.php:255
 msgid "Solomon Islands"
-msgstr "Ilhas Salomão"
+msgstr "ソロモン諸島"
 
 #: src/Tribe/Languages/Locations.php:254
 msgid "Slovenia"
-msgstr "Eslovénia"
+msgstr "スロベニア"
 
 #: src/Tribe/Languages/Locations.php:253
 msgid "Slovakia (Slovak Republic)"
-msgstr "Eslováquia (República Eslovaca)"
+msgstr "スロバキア (スロバキア共和国)"
 
 #: src/Tribe/Languages/Locations.php:251
 msgid "Singapore"
-msgstr "Singapura"
+msgstr "シンガポール"
 
 #: src/Tribe/Languages/Locations.php:250
 msgid "Sierra Leone"
-msgstr "Serra Leoa"
+msgstr "シエラレオネ"
 
 #: src/Tribe/Languages/Locations.php:249
 msgid "Seychelles"
-msgstr "Seicheles"
+msgstr "セイシェル"
 
 #: src/Tribe/Languages/Locations.php:248
 msgid "Serbia"
-msgstr "Sérvia"
+msgstr "セルビア"
 
 #: src/Tribe/Languages/Locations.php:247
 msgid "Senegal"
-msgstr "Senegal"
+msgstr "セネガル"
 
 #: src/Tribe/Languages/Locations.php:246
 msgid "Saudi Arabia"
-msgstr "Arábia Saudita"
+msgstr "サウジアラビア"
 
 #: src/Tribe/Languages/Locations.php:244
 msgid "San Marino"
-msgstr "San Marino"
+msgstr "サンマリノ"
 
 #: src/Tribe/Languages/Locations.php:243
 msgid "Samoa"
-msgstr "Samoa"
+msgstr "サモア"
 
 #: src/Tribe/Languages/Locations.php:242
 msgid "Saint Vincent and The Grenadines"
-msgstr ""
+msgstr "セントビンセントおよびグレナディーン諸島"
 
 #: src/Tribe/Languages/Locations.php:240
 msgid "Saint Lucia"
-msgstr "Santa Lúcia"
+msgstr "セントルシア"
 
 #: src/Tribe/Languages/Locations.php:239
 msgid "Saint Kitts and Nevis"
-msgstr ""
+msgstr "セントクリストファー・ネーヴィス"
 
 #: src/Tribe/Languages/Locations.php:236
 msgid "Rwanda"
-msgstr "Ruanda"
+msgstr "ルワンダ"
 
 #: src/Tribe/Languages/Locations.php:235
 msgid "Russian Federation"
-msgstr "Rússia"
+msgstr "ロシア連邦"
 
 #: src/Tribe/Languages/Locations.php:234
 msgid "Romania"
-msgstr "Roménia"
+msgstr "ルーマニア"
 
 #: src/Tribe/Languages/Locations.php:233
 msgid "Reunion"
-msgstr "Reunião"
+msgstr "レユニオン"
 
 #: src/Tribe/Languages/Locations.php:232
 msgid "Qatar"
-msgstr "Qatar"
+msgstr "カタール"
 
 #: src/Tribe/Languages/Locations.php:231
 msgid "Puerto Rico"
-msgstr "Porto Rico"
+msgstr "プエルトリコ"
 
 #: src/Tribe/Languages/Locations.php:230
 msgid "Portugal"
-msgstr "Portugal"
+msgstr "ポルトガル"
 
 #: src/Tribe/Languages/Locations.php:229
 msgid "Poland"
-msgstr "Poland"
+msgstr "ポーランド"
 
 #: src/Tribe/Languages/Locations.php:228
 msgid "Pitcairn"
-msgstr "Pitcairn"
+msgstr "ピトケアン"
 
 #: src/Tribe/Languages/Locations.php:227
 msgid "Philippines"
-msgstr "Filipinas"
+msgstr "フィリピン"
 
 #: src/Tribe/Languages/Locations.php:226
 msgid "Peru"
-msgstr "Perú"
+msgstr "ペルー"
 
 #: src/Tribe/Languages/Locations.php:225
 msgid "Paraguay"
-msgstr "Paraguai"
+msgstr "パラグアイ"
 
 #: src/Tribe/Languages/Locations.php:224
 msgid "Papua New Guinea"
-msgstr "Papua Nova Guiné"
+msgstr "パプアニューギニア"
 
 #: src/Tribe/Languages/Locations.php:223
 msgid "Panama"
-msgstr "Panamá"
+msgstr "パナマ"
 
 #: src/Tribe/Languages/Locations.php:222
 msgid "Palau"
-msgstr "Palau"
+msgstr "パラオ"
 
 #: src/Tribe/Languages/Locations.php:221
 msgid "Pakistan"
-msgstr "Paquistão"
+msgstr "パキスタン"
 
 #: src/Tribe/Languages/Locations.php:220
 msgid "Oman"
-msgstr "Oman"
+msgstr "オマーン"
 
 #: src/Tribe/Languages/Locations.php:219
 msgid "Norway"
-msgstr "Noruega"
+msgstr "ノルウェー"
 
 #: src/Tribe/Languages/Locations.php:218
 msgid "Northern Mariana Islands"
-msgstr "Ilhas Marianas do Norte"
+msgstr "北マリアナ諸島"
 
 #: src/Tribe/Languages/Locations.php:217
 msgid "Norfolk Island"
-msgstr "Ilha Norfolk"
+msgstr "ノーフォーク島"
 
 #: src/Tribe/Languages/Locations.php:216
 msgid "Niue"
-msgstr "Niue"
+msgstr "ニウエ"
 
 #: src/Tribe/Languages/Locations.php:215
 msgid "Nigeria"
-msgstr "Nigéria"
+msgstr "ナイジェリア"
 
 #: src/Tribe/Languages/Locations.php:214
 msgid "Niger"
-msgstr "Niger"
+msgstr "ニジェール"
 
 #: src/Tribe/Languages/Locations.php:213
 msgid "Nicaragua"
-msgstr "Nicarágua"
+msgstr "ニカラグア"
 
 #: src/Tribe/Languages/Locations.php:212
 msgid "New Zealand"
-msgstr "Nova Zelândia"
+msgstr "ニュージーランド"
 
 #: src/Tribe/Languages/Locations.php:211
 msgid "New Caledonia"
-msgstr "Nova Caledónia"
+msgstr "ニューカレドニア"
 
 #: src/Tribe/Languages/Locations.php:210
 msgid "Netherlands"
-msgstr "Holanda"
+msgstr "オランダ"
 
 #: src/Tribe/Languages/Locations.php:209
 msgid "Nepal"
-msgstr "Nepal"
+msgstr "ネパール"
 
 #: src/Tribe/Languages/Locations.php:208
 msgid "Nauru"
-msgstr "Nauru"
+msgstr "ナウル"
 
 #: src/Tribe/Languages/Locations.php:207
 msgid "Namibia"
-msgstr "Namíbia"
+msgstr "ナンビア"
 
 #: src/Tribe/Languages/Locations.php:206
 msgid "Myanmar"
-msgstr "Myanmar"
+msgstr "ミャンマー"
 
 #: src/Tribe/Languages/Locations.php:205
 msgid "Mozambique"
-msgstr "Moçambique"
+msgstr "モザンビーク"
 
 #: src/Tribe/Languages/Locations.php:204
 msgid "Morocco"
-msgstr "Marrocos"
+msgstr "モロッコ"
 
 #: src/Tribe/Languages/Locations.php:203
 msgid "Montserrat"
-msgstr "Montserrat"
+msgstr "モントセラト"
 
 #: src/Tribe/Languages/Locations.php:202
 msgid "Montenegro"
-msgstr "Montenegro"
+msgstr "モンテネグロ"
 
 #: src/Tribe/Languages/Locations.php:201
 msgid "Mongolia"
-msgstr "Mongólia"
+msgstr "モンゴル"
 
 #: src/Tribe/Languages/Locations.php:200
 msgid "Monaco"
-msgstr "Mónaco"
+msgstr "モナコ"
 
 #: src/Tribe/Languages/Locations.php:199
 msgid "Moldova, Republic of"
-msgstr ""
+msgstr "モルドバ共和国"
 
 #: src/Tribe/Languages/Locations.php:198
 msgid "Micronesia, Federated States of"
-msgstr ""
+msgstr "ミクロネシア連邦"
 
 #: src/Tribe/Languages/Locations.php:197
 msgid "Mexico"
-msgstr "México"
+msgstr "メキシコ"
 
 #: src/Tribe/Languages/Locations.php:196
 msgid "Mayotte"
-msgstr "Mayotte"
+msgstr "マイヨット"
 
 #: src/Tribe/Languages/Locations.php:195
 msgid "Mauritius"
-msgstr "Maurícias"
+msgstr "モーリシャス"
 
 #: src/Tribe/Languages/Locations.php:194
 msgid "Mauritania"
-msgstr "Mauritânia"
+msgstr "モーリタニア"
 
 #: src/Tribe/Languages/Locations.php:193
 msgid "Martinique"
-msgstr "Martinica"
+msgstr "マルチニク"
 
 #: src/Tribe/Languages/Locations.php:192
 msgid "Marshall Islands"
-msgstr "Ilhas Marshall"
+msgstr "マーシャル諸島"
 
 #: src/Tribe/Languages/Locations.php:191
 msgid "Malta"
-msgstr "Malta"
+msgstr "マルタ"
 
 #: src/Tribe/Languages/Locations.php:190
 msgid "Mali"
-msgstr "Mali"
+msgstr "マリ"
 
 #: src/Tribe/Languages/Locations.php:189
 msgid "Maldives"
-msgstr "Maldivas"
+msgstr "モルジブ"
 
 #: src/Tribe/Languages/Locations.php:188
 msgid "Malaysia"
-msgstr "Malásia"
+msgstr "マレーシア"
 
 #: src/Tribe/Languages/Locations.php:187
 msgid "Malawi"
-msgstr "Malawi"
+msgstr "マラウィ"
 
 #: src/Tribe/Languages/Locations.php:186
 msgid "Madagascar"
-msgstr "Madagáscar"
+msgstr "マダガスカル"
 
 #: src/Tribe/Languages/Locations.php:185
 msgid "Macedonia"
-msgstr "Macedónia"
+msgstr "マケドニア"
 
 #: src/Tribe/Languages/Locations.php:184
 msgid "Macau"
-msgstr "Macau"
+msgstr "マカオ"
 
 #: src/Tribe/Languages/Locations.php:183
 msgid "Luxembourg"
-msgstr "Luxemburgo"
+msgstr "ルクセンブルグ"
 
 #: src/Tribe/Languages/Locations.php:182
 msgid "Lithuania"
-msgstr "Lituânia"
+msgstr "リトアニア"
 
 #: src/Tribe/Languages/Locations.php:181
 msgid "Liechtenstein"
-msgstr "Liechtenstein"
+msgstr "リヒテンシュタイン"
 
 #: src/Tribe/Languages/Locations.php:180
 msgid "Libya"
-msgstr "Líbia"
+msgstr "リビア"
 
 #: src/Tribe/Languages/Locations.php:179
 msgid "Liberia"
-msgstr "Libéria"
+msgstr "リベリア"
 
 #: src/Tribe/Languages/Locations.php:178
 msgid "Lesotho"
-msgstr "Lesoto"
+msgstr "レソト"
 
 #: src/Tribe/Languages/Locations.php:177
 msgid "Lebanon"
-msgstr "Líbano"
+msgstr "レバノン"
 
 #: src/Tribe/Languages/Locations.php:176
 msgid "Latvia"
-msgstr "Letónia"
+msgstr "ラトビア"
 
 #: src/Tribe/Languages/Locations.php:175
 msgid "Lao People's Democratic Republic"
-msgstr "Lao, República Democrática Popular do"
+msgstr "ラオス人民民主主義共和国"
 
 #: src/Tribe/Languages/Locations.php:174
 msgid "Kyrgyzstan"
-msgstr "Quirguistão"
+msgstr "キルギスタン"
 
 #: src/Tribe/Languages/Locations.php:173
 msgid "Kuwait"
-msgstr "Kuwait"
+msgstr "クウェート"
 
 #: src/Tribe/Languages/Locations.php:172
 msgid "Korea, Republic of"
-msgstr ""
+msgstr "大韓民国"
 
 #: src/Tribe/Languages/Locations.php:171
 msgid "Korea, Democratic People's Republic of"
-msgstr ""
+msgstr "朝鮮民主主義人民共和国"
 
 #: src/Tribe/Languages/Locations.php:170
 msgid "Kiribati"
-msgstr "Kiribati"
+msgstr "キリバス"
 
 #: src/Tribe/Languages/Locations.php:169
 msgid "Kenya"
-msgstr "Quénia"
+msgstr "ケニア"
 
 #: src/Tribe/Languages/Locations.php:168
 msgid "Kazakhstan"
-msgstr "Cazaquistão"
+msgstr "カザフスタン"
 
 #: src/Tribe/Languages/Locations.php:167
 msgid "Jordan"
-msgstr "Jordânia"
+msgstr "ヨルダン"
 
 #: src/Tribe/Languages/Locations.php:166
 msgid "Japan"
-msgstr "Japão"
+msgstr "日本"
 
 #: src/Tribe/Languages/Locations.php:165
 msgid "Jamaica"
-msgstr "Jamaica"
+msgstr "ジャマイカ"
 
 #: src/Tribe/Languages/Locations.php:164
 msgid "Italy"
-msgstr "Itália"
+msgstr "イタリア"
 
 #: src/Tribe/Languages/Locations.php:163
 msgid "Israel"
-msgstr "Israel"
+msgstr "イスラエル"
 
 #: src/Tribe/Languages/Locations.php:162
 msgid "Ireland"
-msgstr "Irlanda"
+msgstr "アイルランド"
 
 #: src/Tribe/Languages/Locations.php:161
 msgid "Iraq"
-msgstr "Iraque"
+msgstr "イラク"
 
 #: src/Tribe/Languages/Locations.php:160
 msgid "Iran, Islamic Republic of"
-msgstr ""
+msgstr "イラン・イスラム共和国"
 
 #: src/Tribe/Languages/Locations.php:159
 msgid "Indonesia"
-msgstr "Indonésia"
+msgstr "インドネシア"
 
 #: src/Tribe/Languages/Locations.php:158
 msgid "India"
-msgstr "Índia"
+msgstr "インド"
 
 #: src/Tribe/Languages/Locations.php:157
 msgid "Iceland"
-msgstr "Islândia"
+msgstr "アイスランド"
 
 #: src/Tribe/Languages/Locations.php:156
 msgid "Hungary"
-msgstr "Hungria"
+msgstr "ハンガリー"
 
 #: src/Tribe/Languages/Locations.php:155
 msgid "Hong Kong"
-msgstr "Hong Kong"
+msgstr "香港"
 
 #: src/Tribe/Languages/Locations.php:154
 msgid "Honduras"
-msgstr "Honduras"
+msgstr "ホンジュラス"
 
 #: src/Tribe/Languages/Locations.php:153
 msgid "Holy See (Vatican City State)"
-msgstr "Santa Sé (Estado da Cidade do Vaticano)"
+msgstr "法王聖座 (バチカン市国)"
 
 #: src/Tribe/Languages/Locations.php:152
 msgid "Heard and McDonald Islands"
-msgstr ""
+msgstr "ハード島・マクドナルド諸島"
 
 #: src/Tribe/Languages/Locations.php:151
 msgid "Haiti"
-msgstr "Haiti"
+msgstr "ハイチ"
 
 #: src/Tribe/Languages/Locations.php:150
 msgid "Guyana"
-msgstr "Guiana"
+msgstr "ガイアナ"
 
 #: src/Tribe/Languages/Locations.php:149
 msgid "Guinea-Bissau"
-msgstr "Guiné-Bissau"
+msgstr "ギニアビサウ"
 
 #: src/Tribe/Languages/Locations.php:148
 msgid "Guinea"
-msgstr "Guiné"
+msgstr "ギニア"
 
 #: src/Tribe/Languages/Locations.php:147
 msgid "Guatemala"
-msgstr "Guatemala"
+msgstr "グアテマラ"
 
 #: src/Tribe/Languages/Locations.php:146
 msgid "Guam"
-msgstr "Guam"
+msgstr "グアム"
 
 #: src/Tribe/Languages/Locations.php:145
 msgid "Guadeloupe"
-msgstr "Guadalupe"
+msgstr "グアドループ"
 
 #: src/Tribe/Languages/Locations.php:144
 msgid "Grenada"
-msgstr "Granada"
+msgstr "グレナダ"
 
 #: src/Tribe/Languages/Locations.php:143
 msgid "Greenland"
-msgstr "Gronelândia"
+msgstr "グリーンランド"
 
 #: src/Tribe/Languages/Locations.php:142
 msgid "Greece"
-msgstr "Grécia"
+msgstr "ギリシャ"
 
 #: src/Tribe/Languages/Locations.php:141
 msgid "Gibraltar"
-msgstr "Gibraltar"
+msgstr "ジブラルタル"
 
 #: src/Tribe/Languages/Locations.php:140
 msgid "Ghana"
-msgstr "Gana"
+msgstr "ガーナ"
 
 #: src/Tribe/Languages/Locations.php:139
 msgid "Germany"
-msgstr "Alemanha"
+msgstr "ドイツ"
 
 #: src/Tribe/Languages/Locations.php:138 src/Tribe/Languages/Locations.php:334
 msgid "Georgia"
-msgstr "Geórgia"
+msgstr "グルジア"
 
 #: src/Tribe/Languages/Locations.php:137
 msgid "Gambia"
-msgstr "Gâmbia"
+msgstr "ガンビア"
 
 #: src/Tribe/Languages/Locations.php:136
 msgid "Gabon"
-msgstr "Gabão"
+msgstr "ガボン"
 
 #: src/Tribe/Languages/Locations.php:135
 msgid "French Southern Territories"
-msgstr "Territórios Austrais Franceses"
+msgstr "フランス領極南諸島"
 
 #: src/Tribe/Languages/Locations.php:134
 msgid "French Polynesia"
-msgstr "Polinésia Francesa"
+msgstr "フランス領ポリネシア"
 
 #: src/Tribe/Languages/Locations.php:133
 msgid "French Guiana"
-msgstr "Guiana Francesa"
+msgstr "フランス領ギアナ"
 
 #: src/Tribe/Languages/Locations.php:132
 msgid "France"
-msgstr "França"
+msgstr "フランス"
 
 #: src/Tribe/Languages/Locations.php:131
 msgid "Finland"
-msgstr "Finlândia"
+msgstr "フィンランド"
 
 #: src/Tribe/Languages/Locations.php:130
 msgid "Fiji"
-msgstr "Fiji"
+msgstr "フィジー"
 
 #: src/Tribe/Languages/Locations.php:129
 msgid "Faroe Islands"
-msgstr "Ilhas Faroé"
+msgstr "Faroe Islands"
 
 #: src/Tribe/Languages/Locations.php:128
 msgid "Falkland Islands (Malvinas)"
-msgstr "Ilhas Falkland (Malvinas)"
+msgstr "フォークランド諸島 (マルビナス)"
 
 #: src/Tribe/Languages/Locations.php:127
 msgid "Ethiopia"
-msgstr "Etiópia"
+msgstr "エチオピア"
 
 #: src/Tribe/Languages/Locations.php:126
 msgid "Estonia"
-msgstr "Estónia"
+msgstr "エストニア"
 
 #: src/Tribe/Languages/Locations.php:125
 msgid "Eritrea"
-msgstr "Eritreia"
+msgstr "エリトリア"
 
 #: src/Tribe/Languages/Locations.php:124
 msgid "Equatorial Guinea"
-msgstr "Guiné Equatorial"
+msgstr "赤道ギニア"
 
 #: src/Tribe/Languages/Locations.php:123
 msgid "El Salvador"
-msgstr "El Salvador"
+msgstr "エルサルバドル"
 
 #: src/Tribe/Languages/Locations.php:122
 msgid "Egypt"
-msgstr "Egipto"
+msgstr "エジプト"
 
 #: src/Tribe/Languages/Locations.php:121
 msgid "Ecuador"
-msgstr "Equador"
+msgstr "エクアドル"
 
 #: src/Tribe/Languages/Locations.php:120
 msgid "East Timor"
-msgstr "Timor Leste"
+msgstr "東チモール"
 
 #: src/Tribe/Languages/Locations.php:119
 msgid "Dominican Republic"
-msgstr "República Dominicana"
+msgstr "ドミニカ共和国"
 
 #: src/Tribe/Languages/Locations.php:118
 msgid "Dominica"
-msgstr "Dominica"
+msgstr "ドミニカ"
 
 #: src/Tribe/Languages/Locations.php:117
 msgid "Djibouti"
-msgstr "Djibuti"
+msgstr "ジブチ"
 
 #: src/Tribe/Languages/Locations.php:116
 msgid "Denmark"
-msgstr "Dinamarca"
+msgstr "デンマーク"
 
 #: src/Tribe/Languages/Locations.php:115
 msgid "Czech Republic"
-msgstr "República Checa"
+msgstr "チェコ共和国"
 
 #: src/Tribe/Languages/Locations.php:114
 msgid "Cyprus"
-msgstr "Chipre"
+msgstr "キプロス"
 
 #: src/Tribe/Languages/Locations.php:112
 msgid "Cuba"
-msgstr "Cuba"
+msgstr "キューバ"
 
 #: src/Tribe/Languages/Locations.php:111
 msgid "Croatia (Local Name: Hrvatska)"
-msgstr "Croácia (Nome local: Hrvatska)"
+msgstr "クロアチア (現地名: フルバツカ)"
 
 #: src/Tribe/Languages/Locations.php:109
 msgid "Costa Rica"
-msgstr "Costa Rica"
+msgstr "コスタリカ"
 
 #: src/Tribe/Languages/Locations.php:108
 msgid "Cook Islands"
-msgstr "Ilhas Cook"
+msgstr "クック諸島"
 
 #: src/Tribe/Languages/Locations.php:107
 msgid "Congo, Democratic Republic of the"
-msgstr ""
+msgstr "コンゴ民主共和国"
 
 #: src/Tribe/Languages/Locations.php:106
 msgid "Congo"
-msgstr "Congo"
+msgstr "コンゴ"
 
 #: src/Tribe/Languages/Locations.php:105
 msgid "Comoros"
-msgstr "Comoros"
+msgstr "コモロ"
 
 #: src/Tribe/Languages/Locations.php:104
 msgid "Colombia"
-msgstr "Colômbia"
+msgstr "コロンビア"
 
 #: src/Tribe/Languages/Locations.php:102
 msgid "Cocos (Keeling) Islands"
-msgstr "Ilhas Cocos (Keeling)"
+msgstr "ココス (キーリング) 諸島"
 
 #: src/Tribe/Languages/Locations.php:101
 msgid "Christmas Island"
-msgstr "Ilha do Natal"
+msgstr "クリスマス島"
 
 #: src/Tribe/Languages/Locations.php:100
 msgid "China"
-msgstr "China"
+msgstr "中国"
 
 #: src/Tribe/Languages/Locations.php:99
 msgid "Chile"
-msgstr "Chile"
+msgstr "チリ"
 
 #: src/Tribe/Languages/Locations.php:98
 msgid "Chad"
-msgstr "Chade"
+msgstr "チャド"
 
 #: src/Tribe/Languages/Locations.php:97
 msgid "Central African Republic"
-msgstr "República da África Central"
+msgstr "中央アフリカ共和国"
 
 #: src/Tribe/Languages/Locations.php:96
 msgid "Cayman Islands"
-msgstr "Ilhas Caimão"
+msgstr "ケイマン諸島"
 
 #: src/Tribe/Languages/Locations.php:95
 msgid "Cape Verde"
-msgstr "Cabo Verde"
+msgstr "カーボベルデ"
 
 #: src/Tribe/Languages/Locations.php:94
 msgid "Canada"
-msgstr "Canadá"
+msgstr "カナダ"
 
 #: src/Tribe/Languages/Locations.php:93
 msgid "Cameroon"
-msgstr "Camarões"
+msgstr "カメルーン"
 
 #: src/Tribe/Languages/Locations.php:92
 msgid "Cambodia"
-msgstr "Cambodja"
+msgstr "カンボジア"
 
 #: src/Tribe/Languages/Locations.php:91
 msgid "Burundi"
-msgstr "Burundi"
+msgstr "ブルンジ"
 
 #: src/Tribe/Languages/Locations.php:90
 msgid "Burkina Faso"
-msgstr "Burkina Faso"
+msgstr "ブルキナファソ"
 
 #: src/Tribe/Languages/Locations.php:89
 msgid "Bulgaria"
-msgstr "Bulgária"
+msgstr "ブルガリア"
 
 #: src/Tribe/Languages/Locations.php:88
 msgid "Brunei Darussalam"
-msgstr "Brunei Darussalam"
+msgstr "ブルネイ・ダルサラーム"
 
 #: src/Tribe/Languages/Locations.php:87
 msgid "British Indian Ocean Territory"
-msgstr "Território Britânico do Oceano Índico"
+msgstr "英国領インド洋地域"
 
 #: src/Tribe/Languages/Locations.php:86
 msgid "Brazil"
-msgstr "Brasil"
+msgstr "ブラジル"
 
 #: src/Tribe/Languages/Locations.php:85
 msgid "Bouvet Island"
-msgstr "Ilha Bouvet"
+msgstr "ブーベ島"
 
 #: src/Tribe/Languages/Locations.php:84
 msgid "Botswana"
-msgstr "Botsuana"
+msgstr "ボツワナ"
 
 #: src/Tribe/Languages/Locations.php:83
 msgid "Bosnia and Herzegovina"
@@ -1985,353 +1982,352 @@ msgstr ""
 
 #: src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
-msgstr "Bolívia"
+msgstr "ボリビア"
 
 #: src/Tribe/Languages/Locations.php:81
 msgid "Bhutan"
-msgstr "Butão"
+msgstr "ブータン"
 
 #: src/Tribe/Languages/Locations.php:80
 msgid "Bermuda"
-msgstr "Bermudas"
+msgstr "バミューダ"
 
 #: src/Tribe/Languages/Locations.php:79
 msgid "Benin"
-msgstr "Benin"
+msgstr "ベナン"
 
 #: src/Tribe/Languages/Locations.php:78
 msgid "Belize"
-msgstr "Belize"
+msgstr "ベリーズ"
 
 #: src/Tribe/Languages/Locations.php:77
 msgid "Belgium"
-msgstr "Bélgica"
+msgstr "ベルギー"
 
 #: src/Tribe/Languages/Locations.php:76
 msgid "Belarus"
-msgstr "Bielorrússia"
+msgstr "ベラルーシ"
 
 #: src/Tribe/Languages/Locations.php:75
 msgid "Barbados"
-msgstr "Barbados"
+msgstr "バルバドス"
 
 #: src/Tribe/Languages/Locations.php:74
 msgid "Bangladesh"
-msgstr "Bangladesh"
+msgstr "バングラディシュ"
 
 #: src/Tribe/Languages/Locations.php:73
 msgid "Bahrain"
-msgstr "Bahrain"
+msgstr "バーレーン"
 
 #: src/Tribe/Languages/Locations.php:72
 msgid "Bahamas"
-msgstr "Bahamas"
+msgstr "バハマ"
 
 #: src/Tribe/Languages/Locations.php:71
 msgid "Azerbaijan"
-msgstr "Azerbaijão"
+msgstr "アゼルバイジャン"
 
 #: src/Tribe/Languages/Locations.php:70
 msgid "Austria"
-msgstr "Áustria"
+msgstr "オーストリア"
 
 #: src/Tribe/Languages/Locations.php:69
 msgid "Australia"
-msgstr "Austrália"
+msgstr "オーストラリア"
 
 #: src/Tribe/Languages/Locations.php:68
 msgid "Aruba"
-msgstr "Aruba"
+msgstr "アルーバ"
 
 #: src/Tribe/Languages/Locations.php:67
 msgid "Armenia"
-msgstr "Arménia"
+msgstr "アルメニア"
 
 #: src/Tribe/Languages/Locations.php:66
 msgid "Argentina"
-msgstr "Argentina"
+msgstr "アルゼンチン"
 
 #: src/Tribe/Languages/Locations.php:65
 msgid "Antigua and Barbuda"
-msgstr ""
+msgstr "アンティグア・バーブーダ"
 
 #: src/Tribe/Languages/Locations.php:64
 msgid "Antarctica"
-msgstr "Antártica"
+msgstr "南極地域"
 
 #: src/Tribe/Languages/Locations.php:63
 msgid "Anguilla"
-msgstr "Anguilla"
+msgstr "アンギラ"
 
 #: src/Tribe/Languages/Locations.php:62
 msgid "Angola"
-msgstr "Angola"
+msgstr "アンゴラ"
 
 #: src/Tribe/Languages/Locations.php:61
 msgid "Andorra"
-msgstr "Andorra"
+msgstr "アンドラ"
 
 #: src/Tribe/Languages/Locations.php:60
 msgid "American Samoa"
-msgstr "Samoa Americana"
+msgstr "米国領サモア"
 
 #: src/Tribe/Languages/Locations.php:59
 msgid "Algeria"
-msgstr "Argélia"
+msgstr "アルジェリア"
 
 #: src/Tribe/Languages/Locations.php:58
 msgid "Albania"
-msgstr "Albânia"
+msgstr "アルバニア"
 
 #: src/Tribe/Languages/Locations.php:56
 msgid "Afghanistan"
-msgstr "Afeganistão"
+msgstr "アフガニスタン"
 
 #: src/Tribe/View_Helpers.php:51
 msgid "Select a Country:"
-msgstr "Seleccione um país:"
+msgstr "国を選択してください:"
 
 #: src/Tribe/Validate.php:514
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
-msgstr "A lista de países tem de ser formatada como um país por linha no seguinte formato: <br>US, Estados Unidos <br> UK, Reino Unido."
+msgstr "国リストは、次の形式に準拠し、1 行ごとに 1 国 として形式化する必要があります: <br>US、米国<br> UK、英国。"
 
 #: src/Tribe/Validate.php:498
 msgid "%s must be a phone number."
-msgstr "%s deve ser um número de telefone."
+msgstr "%s は、電話番号である必要があります。"
 
 #: src/Tribe/Validate.php:484
 msgid "%s must consist of 5 numbers."
-msgstr "%s deve ser constituído por 5 números."
+msgstr "%s は、5 つの数字で構成する必要があります。"
 
 #: src/Tribe/Validate.php:470
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
-msgstr "%s deve ser constituído por letras, espaços, apóstrofos e traços."
+msgstr "%s は、文字、スペース、アポストロフィー、およびダッシュで構成する必要があります。"
 
 #: src/Tribe/Validate.php:454
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
-msgstr "%s deve ser constituído apenas por letras, número, traços, apóstrofos e espaços."
+msgstr "%s は、文字、数字、ダッシュ、アポストロフィー、およびスペースのみで構成する必要があります。"
 
 #: src/Tribe/Validate.php:438
 msgid "%s must be a number between 0 and 21."
-msgstr "%s deve ser um número entre 0 e 21."
+msgstr "%s は、0 から 21 までの数字である必要があります。"
 
 #: src/Tribe/Validate.php:384
 msgid "%s must be a number or percentage."
-msgstr "%s deve ser um número ou percentagem."
+msgstr "%s は、数字またはパーセンテージである必要があります。"
 
 #: src/Tribe/Validate.php:368
 msgid "%s cannot be a duplicate"
-msgstr "%s não pode ser um duplicado"
+msgstr "%s は、重複できません。"
 
 #: src/Tribe/Validate.php:366
 msgid "%s cannot be the same as %s."
-msgstr "%s não pode ser o mesmo que %s."
+msgstr "%s は、%s と同じにできません。"
 
 #: src/Tribe/Validate.php:359
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
-msgstr "A validação da comparação falhou porque não foi fornecido nenhum valor de comparação para o campo %s"
+msgstr "フィールド %s の比較値が提供されていないため、比較検証が正常に完了しませんでした。"
 
 #: src/Tribe/Validate.php:298 src/Tribe/Validate.php:310
 #: src/Tribe/Validate.php:323 src/Tribe/Validate.php:345
 msgid "%s must have a value that's part of its options."
-msgstr "%s deve ser um valor presente nas suas opções."
+msgstr "%s は、このオプションの一部である値を持つ必要があります。"
 
 #: src/Tribe/Validate.php:282
 msgid "%s must be a valid absolute URL."
-msgstr "%s deve ser um URL válido e absoluto."
+msgstr "%s は、有効な絶対 URL である必要があります。"
 
 #: src/Tribe/Validate.php:267
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
-msgstr "%s deve ser uma slug válida (números, letras, traços e underscores)."
+msgstr "%s は、有効なスラッグ (数字、文字、ダッシュ、およびアンダースコア) である必要があります。"
 
 #: src/Tribe/Validate.php:200 src/Tribe/Validate.php:228
 msgid "%s must be a positive number."
-msgstr "%s deve ser um número positivo."
+msgstr "%s は、正の数である必要があります。"
 
 #: src/Tribe/Validate.php:152
 msgid "%s must contain numbers, letters and dots only"
-msgstr "%s deve conter apenas números, letras e pontos"
+msgstr "%s は、数字、文字、およびドットのみを含める必要があります"
 
 #: src/Tribe/Validate.php:120 src/Tribe/Validate.php:136
 msgid "%s must contain numbers and letters only"
-msgstr "%s deve conter apenas números e letras"
+msgstr "%s は、数字および文字のみを含める必要があります"
 
 #: src/Tribe/Validate.php:105
 msgctxt "non-existant function name passed for field validation"
 msgid "with function name:"
-msgstr "com nome de função:"
+msgstr "次の関数名を伴う:"
 
 #: src/Tribe/Validate.php:104
 msgid "Non-existant field validation function passed"
-msgstr ""
+msgstr "存在しないフィールドの検証関数が渡されました"
 
 #: src/Tribe/Validate.php:73 src/Tribe/Validate.php:85
 #: src/Tribe/Validate.php:105
 msgid "Field ID:"
-msgstr "ID do campo:"
+msgstr "フィールド ID:"
 
 #: src/Tribe/Validate.php:72 src/Tribe/Validate.php:84
 msgid "Invalid or incomplete field passed"
-msgstr "Campo inválido ou incompleto"
+msgstr "無効または不完全なフィールドが渡されました"
 
 #: src/Tribe/Support.php:188 src/Tribe/Support.php:189
 msgid "Unknown or not set"
-msgstr "Desconhecido ou não definido"
+msgstr "不明であるか設定されていません"
 
 #: src/admin-views/tribe-options-help.php:41
 msgid "System Information"
-msgstr "Informações do sistema"
+msgstr "システム情報"
 
 #: src/Tribe/Settings_Tab.php:222
 msgid "There are no fields setup for this tab yet."
-msgstr "Ainda não há campos configurados para este separador."
+msgstr "このタブのフィールド セットアップがありません。"
 
 #: src/Tribe/Settings.php:621
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
-msgstr[0] "A definição acima não foi guardada. Outras definições foram guardadas com successo."
-msgstr[1] "As definições acima não foram guardadas. Outras definições foram guardadas com successo."
+msgstr[0] "上記の設定は保存されませんでした。その他の設定は正常に保存されました。"
 
 #: src/Tribe/Settings.php:620
 msgid "None of your settings were saved. Please try again."
-msgstr "As definições não foram guardadas. Por favor tente de novo."
+msgstr "いずれの設定も保存されませんでした。もう一度お試しください。"
 
 #: src/Tribe/Settings.php:610
 msgid "Your form had the following errors:"
-msgstr "O seu formulário tem os seguintes erros:"
+msgstr "ご使用の形式には下記のエラーがありました:"
 
 #: src/Tribe/Settings.php:431
 msgid "The request wasn't sent from this tab."
-msgstr "O pedido não foi feito a partir deste separador."
+msgstr "このタブにリクエストが送信されませんでした。"
 
 #: src/Tribe/Settings.php:425
 msgid "The request was sent insecurely."
-msgstr "O pedido foi enviado sem segurança."
+msgstr "リクエストは安全ではない方法で送信されました。"
 
 #: src/Tribe/Settings.php:419
 msgid "You don't have permission to do that."
-msgstr "Não tem permissão para fazer isto."
+msgstr "この操作を実行する権限がありません。"
 
 #: src/Tribe/Settings.php:363
 msgid "You've requested a non-existent tab."
-msgstr "Solicitou um separador não existente."
+msgstr "存在しないタブをリクエストしました。"
 
 #: src/Tribe/Settings.php:349
 msgid "%s Settings"
-msgstr "Definições de %s"
+msgstr "%s 設定"
 
 #: src/Tribe/Settings.php:253 src/Tribe/Settings.php:273
 msgid "Events Settings"
-msgstr "Definições de eventos"
+msgstr "イベント設定"
 
 #: src/Tribe/PUE/Checker.php:896
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr "Ups... algo coisa correu mal ao validar. Por favor, contacte o nosso %ssuporte%s."
+msgstr "このバリデーターに何らかの問題が発生しているようです。%sサポート%sにお問い合わせください。"
 
 #: src/Tribe/PUE/Checker.php:935
 msgid "Valid Key! Expires on %s"
-msgstr "Chave válida! Expira em %s"
+msgstr "有効なキーです! 有効期限は %s です"
 
 #: src/Tribe/PUE/Checker.php:915
 msgid "Sorry, key validation server is not available."
-msgstr "Desculpe, o servidor de validação das chaves não está disponível."
+msgstr "申し訳ございませんが、キー検証サーバーが利用できません。"
 
 #: src/Tribe/PUE/Checker.php:650
 msgid "License key(s) updated."
-msgstr "Chave(s) de licença actualizadas."
+msgstr "ライセンス キーが更新されました。"
 
 #: src/Tribe/PUE/Checker.php:494
 msgid "A valid license key is required for support and updates"
-msgstr "É necessária uma licença válida para receber suporte e actualizações"
+msgstr "サポートおよびアップデートには、有効なライセンス キーが必要です"
 
 #: src/Tribe/PUE/Checker.php:509 src/Tribe/PUE/Checker.php:520
 msgid "License Key"
-msgstr "Chave de licença"
+msgstr "ライセンス キー"
 
 #: src/Tribe/Main.php:248
 msgid "Search:"
-msgstr "Pesquisar:"
+msgstr "検索:"
 
 #: src/Tribe/Settings.php:254
 msgid "Settings"
-msgstr "Definições"
+msgstr "設定"
 
 #: src/Tribe/Settings_Manager.php:219
 msgid "Network"
-msgstr "Rede"
+msgstr "ネットワーク"
 
 #: src/Tribe/Main.php:274
 msgid "Done"
-msgstr "Concluído"
+msgstr "完了"
 
 #: src/Tribe/Main.php:273 src/Tribe/Main.php:275
 msgid "Today"
-msgstr "Hoje"
+msgstr "今日"
 
 #: src/Tribe/Main.php:272
 msgid "Prev"
-msgstr "Anterior"
+msgstr "前"
 
 #: src/Tribe/Main.php:254 src/Tribe/Main.php:271
 msgid "Next"
-msgstr "Seguinte"
+msgstr "次"
 
 #: src/Tribe/Settings_Manager.php:279
 msgid "Help"
-msgstr "Ajuda"
+msgstr "ヘルプ"
 
 #: src/Tribe/Settings_Manager.php:55
 msgid "Display"
-msgstr "Visualização"
+msgstr "ディスプレイ"
 
 #: src/Tribe/Settings_Manager.php:253
 #: src/admin-views/tribe-options-licenses.php:66
 msgid "Licenses"
-msgstr "Licenças"
+msgstr "ライセンス"
 
 #: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:642
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
-msgstr "The Events Calendar"
+msgstr "Events Calendar"
 
 #: src/Tribe/Settings.php:177 src/Tribe/Settings.php:241
 #: src/Tribe/Settings.php:242
 msgid "Events"
-msgstr "Eventos"
+msgstr "イベント"
 
 #: src/Tribe/Settings.php:643
 msgid "Settings saved."
-msgstr "Definições guardadas."
+msgstr "設定が保存されました。"
 
 #: src/Tribe/Settings_Manager.php:54
 msgid "General"
-msgstr "Geral"
+msgstr "一般"
 
 #: src/Tribe/Field.php:626
 msgid "No select options specified"
-msgstr "Não foram especificadas opções para o selector"
+msgstr "選択オプションが指定されていません"
 
 #: src/Tribe/Field.php:568
 msgid "No checkbox options specified"
-msgstr "Não foram especificadas opções para as caixas de selecção"
+msgstr "チェックボックス オプションが指定されていません"
 
 #: src/Tribe/Field.php:532
 msgid "No radio options specified"
-msgstr "Não foram especificadas opções para os botões"
+msgstr "ラジオ オプションが指定されていません"
 
 #: src/Tribe/Field.php:231
 msgid "Invalid field type specified"
-msgstr "O tipo de campo especificado é inválido"
+msgstr "無効なフィールド タイプが指定されました"
 
 #: src/Tribe/Credits.php:31
 msgid "This calendar is powered by The Events Calendar."
-msgstr "Este calendário é criado com The Events Calendar."
+msgstr "このカレンダーは、Events Calendar がバックアップしています。"
 
 #: src/Tribe/App_Shop.php:50 src/Tribe/App_Shop.php:51
 #: src/Tribe/App_Shop.php:72
 msgid "Event Add-Ons"
-msgstr "Extensões de eventos"
+msgstr "イベント アドオン"
 
 #: src/Tribe/Languages/Locations.php:55
 msgid "United States"
-msgstr "Estados Unidos"
+msgstr "米国"

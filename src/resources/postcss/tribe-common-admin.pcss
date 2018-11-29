@@ -1103,7 +1103,7 @@ a.tribe-rating-link {
 		clear: both;
 	}
 
-	.tribe-spirit-animal {
+	.tribe-mascot {
 		bottom: 0;
 		display: none;
 		padding: 1rem;
@@ -1168,6 +1168,109 @@ a.tribe-rating-link {
 				&:after {
 					content: '';
 				}
+			}
+		}
+	}
+}
+
+.tribe-marketing-notice {
+	padding: 1em;
+
+	& + .notice-dismiss {
+		&:hover {
+			&:before {
+				color: #fff;
+			}
+		}
+	}
+
+	&:before,
+	&:after {
+		content: '';
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
+
+	.tribe-notice-icon {
+		bottom: 0;
+		display: none;
+		padding: 1rem;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 125px;
+
+		&:before {
+			content: '';
+			display: inline-block;
+			height: 100%;
+			width: 1%;
+			vertical-align: middle;
+		}
+
+		img {
+			display: inline-block;
+			max-height: 100%;
+			max-width: 96%;
+			vertical-align: middle;
+		}
+
+		@media screen and (min-width: 600px) and (max-width: 782px ) {
+			width: 135px;
+		}
+
+		@media screen and (min-width: 600px) {
+			display: block;
+		}
+	}
+
+	.tribe-notice-content {
+
+		@media screen and (min-width: 600px) and (max-width: 782px ) {
+			margin-left: 145px;
+		}
+
+		@media screen and (min-width: 782px) {
+			margin-left: 130px;
+		}
+	}
+
+	h3 {
+		margin-bottom: 0.5em;
+		margin-top: 0.5em;
+	}
+
+	p {
+		line-height: 1.7;
+		margin-bottom: 0.5em;
+	}
+
+	a {
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	&.tribe-bf-2018-tec {
+
+		.button.button-primary {
+			margin: 10px 10px 0 0;
+		}
+
+		@media screen and (max-width: 956px) {
+
+			.button.button-primary {
+				margin: 0 0 10px 0;
+			}
+
+			em {
+				clear: both;
+				display: block;
 			}
 		}
 	}

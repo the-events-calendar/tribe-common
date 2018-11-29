@@ -39,7 +39,7 @@ class Tribe__Admin__Help_Page {
 	 * @return bool
 	 */
 	public function is_current_page() {
-		return Tribe__Admin__Helpers::instance()->is_screen( 'tribe_events_page_tribe-help' );
+		return Tribe__Admin__Helpers::instance()->is_screen( 'tribe_events_page_tribe-help' ) || Tribe__Admin__Helpers::instance()->is_screen( 'settings_page_tribe-common-help-network' );
 	}
 
 	/**
