@@ -141,7 +141,7 @@ tribe_auto_sysinfo.ajax = {
 		$( document ).on( 'click', '.tribe-tooltip', function () {
 
 			var $tooltip = $( this ).closest( '.tribe-tooltip' );
-			var add = $tooltip.hasClass( 'active' )
+			var add = ! $tooltip.hasClass( 'active' );
 
 			$( '.tribe-tooltip' ).each( function () {
 				$( this ).removeClass( 'active' ).attr('aria-expanded', false);
