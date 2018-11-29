@@ -94,7 +94,7 @@ export const normalize = ( text = '' ) => {
 /**
  * Remove invalid characters from a string that aren't consider as valid for a block name.
  *
- * @since TBD
+ * @since 4.8
  *
  * @param {string} text The text to be formatted as block name
  * @returns {string} The formatted text

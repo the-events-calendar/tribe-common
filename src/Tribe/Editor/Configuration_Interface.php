@@ -3,13 +3,13 @@
 /**
  * Interface Tribe__Editor__Configuration_Interface
  *
- * @since TBD
+ * @since 4.8
  */
 interface Tribe__Editor__Configuration_Interface {
 	/**
 	 * Return an array to be localize
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return array
 	 */

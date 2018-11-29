@@ -3,15 +3,15 @@
 /**
  * Class Tribe__Editor__Meta
  *
- * @since TBD
+ * @since 4.8
  */
 abstract class Tribe__Editor__Meta
 	implements Tribe__Editor__Meta_Interface {
-	
+
 	/**
 	 * Default definition for an attribute of type text
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return array
 	 */
@@ -24,11 +24,11 @@ abstract class Tribe__Editor__Meta
 			'show_in_rest'      => true,
 		);
 	}
-	
+
 	/**
 	 * Add arguments to escape a text area field
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return array
 	 */
@@ -41,11 +41,11 @@ abstract class Tribe__Editor__Meta
 			'show_in_rest'      => true,
 		);
 	}
-	
+
 	/**
 	 * Add arguments to escape a field of URL type
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return array
 	 */
@@ -58,11 +58,11 @@ abstract class Tribe__Editor__Meta
 			'show_in_rest'      => true,
 		);
 	}
-	
+
 	/**
 	 * Default definition for an attribute of type text
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return array
 	 */
@@ -75,11 +75,11 @@ abstract class Tribe__Editor__Meta
 			'show_in_rest'      => true,
 		);
 	}
-	
+
 	/***
 	 * Default definition for an attribute of type boolean
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return array
 	 */
@@ -92,11 +92,11 @@ abstract class Tribe__Editor__Meta
 			'show_in_rest'      => true,
 		);
 	}
-	
+
 	/**
 	 * Register a numeric type of array
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return array
 	 */
@@ -110,11 +110,11 @@ abstract class Tribe__Editor__Meta
 			'show_in_rest'      => true,
 		);
 	}
-	
+
 	/**
 	 * Register a text type of array
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return array
 	 */
@@ -128,11 +128,11 @@ abstract class Tribe__Editor__Meta
 			'show_in_rest'      => true,
 		);
 	}
-	
+
 	/**
 	 * Sanitize an array of text
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param $value
 	 *
@@ -145,11 +145,11 @@ abstract class Tribe__Editor__Meta
 			return sanitize_text_field( $value );
 		}
 	}
-	
+
 	/**
 	 * Checks and sanitize a given value to a numeric array or a numeric string
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param  mixed $value Check agains this value
 	 *
@@ -164,12 +164,12 @@ abstract class Tribe__Editor__Meta
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Make sure sanitization on boolean does not triggered warnings when multiple values are passed
 	 * to the function
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param $value
 	 *
@@ -178,12 +178,12 @@ abstract class Tribe__Editor__Meta
 	public function sanitize_boolean( $value ) {
 		return boolval( $value );
 	}
-	
+
 	/**
 	 * Sanitize strings allowing the usage of white spaces before or after the separators, as
 	 * - sanitize_text_field removes any whitespace
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param $value
 	 *
@@ -192,11 +192,11 @@ abstract class Tribe__Editor__Meta
 	public function sanitize_separator( $value ) {
 		return filter_var( $value, FILTER_SANITIZE_STRING );
 	}
-	
+
 	/**
 	 * Verify if the current user can edit or not this Post
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param bool   $allowed Whether the user can add the post meta. Default false.
 	 * @param string $meta_key The meta key.
@@ -211,7 +211,7 @@ abstract class Tribe__Editor__Meta
 		$post             = get_post( $post_id );
 		$post_type_obj    = get_post_type_object( $post->post_type );
 		$current_user_can = current_user_can( $post_type_obj->cap->edit_post, $post_id );
-		
+
 		return $current_user_can;
 	}
 }
