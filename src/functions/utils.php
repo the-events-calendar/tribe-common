@@ -500,7 +500,7 @@ if ( ! function_exists( 'has_blocks' ) ) {
 	 * the pattern of a block but not validating its structure. For strict accuracy
 	 * you should use the block parser on post content.
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 * @see https://github.com/WordPress/gutenberg/blob/73d9759116dde896931f4d152f186147a57889fe/lib/register.php#L313-L337s
 	 *
 	 * @param int|string|WP_Post|null $post Optional. Post content, post ID, or post object. Defaults to global $post.

@@ -2,12 +2,12 @@
 /**
  * Events Gutenberg Assets
  *
- * @since TBD
+ * @since 4.8
  */
 class Tribe__Editor__Assets {
 	/**
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return void
 	 */
@@ -18,7 +18,7 @@ class Tribe__Editor__Assets {
 	/**
 	 * Registers and Enqueues the assets
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param string $key Which key we are checking against
 	 *
@@ -47,7 +47,7 @@ class Tribe__Editor__Assets {
 						/**
 						 * Array used to setup the FE with custom variables from the BE
 						 *
-						 * @since TBD
+						 * @since 4.8
 						 *
 						 * @param array An array with the variables to be localized
 						 */
