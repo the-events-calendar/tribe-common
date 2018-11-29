@@ -12,7 +12,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 *
 	 * @var
 	 */
-	protected $transient_name = 'tribe_supports_async_process';
+	const TRANSIENT_NAME = 'tribe_supports_async_process';
 
 	/**
 	 * Handles the process immediately, not in an async manner.
@@ -30,17 +30,6 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 		 * so it will do nothing if running in synchronous mode.
 		 */
 		return null;
-	}
-
-	/**
-	 * Returns the name of the transient this class will set as part of its test.
-	 *
-	 * @since 4.7.23
-	 *
-	 * @return string The set transient name.
-	 */
-	public function get_canary_transient() {
-		return $this->transient_name;
 	}
 
 	/**
@@ -88,7 +77,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 * @since 4.7.23
 	 */
 	protected function handle() {
-		set_transient( $this->transient_name, 1, HOUR_IN_SECONDS );
+		set_transient( self::TRANSIENT_NAME, 1, HOUR_IN_SECONDS );
 	}
 
 	/**
