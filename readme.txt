@@ -3,6 +3,12 @@
 
 == Changelog ==
 
+= [4.8.0.1] 2018-11-30 =
+
+* Fix - Added safety measure to reduce risk of a fatal error when examining list of network-activated plugins [115826]
+* Fix - Corrected a usage of array syntax within the PUE client, in order to ensure compatibility with PHP 5.2.4 (our thanks to @megabit81 for promptly flagging this issue!) [119073]
+* Language - 0 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.8] 2018-11-29 =
 
 * Add - Added `tribe_cache_expiration` filter that allows plugins to use persistent caching based on cache key [117158]
