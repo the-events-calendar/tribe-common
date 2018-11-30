@@ -3,6 +3,10 @@
 
 == Changelog ==
 
+= [4.8.1] TBD =
+
+* Fix - speed up and improve robustness of the asynchronous process feature detection code [118934]
+
 = [4.8.0.1] 2018-11-30 =
 
 * Fix - Added safety measure to reduce risk of a fatal error when examining list of network-activated plugins [115826]
