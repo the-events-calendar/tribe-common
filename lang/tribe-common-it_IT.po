@@ -319,15 +319,15 @@ msgstr "%s deve essere un numero intero."
 msgid "Events Help"
 msgstr "Guida degli eventi"
 
-#: src/Tribe/PUE/Checker.php:1678
+#: src/Tribe/PUE/Checker.php:1685
 msgid "Expired license. Consult your network administrator."
 msgstr "Licenza scaduta. Consulta l'amministratore di rete."
 
-#: src/Tribe/PUE/Checker.php:1677
+#: src/Tribe/PUE/Checker.php:1684
 msgid "No license entered. Consult your network administrator."
 msgstr "Nessuna licenza inserita. Consulta l'amministratore di rete."
 
-#: src/Tribe/PUE/Checker.php:1676
+#: src/Tribe/PUE/Checker.php:1683
 msgid "A valid license has been entered by your network administrator."
 msgstr "È stata inserita una licenza valida dall'amministratore di rete."
 
