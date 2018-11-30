@@ -3,6 +3,8 @@
 
 == Changelog ==
 
+= [4.8.1] TBD =
+
 = [4.8] 2018-11-29 =
 
 * Add - Added `tribe_cache_expiration` filter that allows plugins to use persistent caching based on cache key [117158]
