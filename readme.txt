@@ -5,6 +5,8 @@
 
 = [4.8.1] TBD =
 
+* Fix - Corrected a usage of array syntax within the PUE client, in order to ensure compatibility with PHP 5.2.4 (our thanks to @megabit81 for promptly flagging this issue!) [119073]
+
 = [4.8] 2018-11-29 =
 
 * Add - Added `tribe_cache_expiration` filter that allows plugins to use persistent caching based on cache key [117158]
