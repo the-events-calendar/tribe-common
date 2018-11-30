@@ -5,6 +5,7 @@
 
 = [4.8.1] TBD =
 
+* Fix - Added safety measure to reduce risk of a fatal error when examining list of network-activated plugins [115826]
 * Fix - Corrected a usage of array syntax within the PUE client, in order to ensure compatibility with PHP 5.2.4 (our thanks to @megabit81 for promptly flagging this issue!) [119073]
 
 = [4.8] 2018-11-29 =
