@@ -322,15 +322,15 @@ msgstr "%s muss eine Ganzzahl sein."
 msgid "Events Help"
 msgstr "Veranstaltungshilfe"
 
-#: src/Tribe/PUE/Checker.php:1678
+#: src/Tribe/PUE/Checker.php:1685
 msgid "Expired license. Consult your network administrator."
 msgstr "Lizenz abgelaufen. Bitte kontaktiere Sie Ihren Netzwerk Administrator."
 
-#: src/Tribe/PUE/Checker.php:1677
+#: src/Tribe/PUE/Checker.php:1684
 msgid "No license entered. Consult your network administrator."
 msgstr "Keine Lizenz hinterlegt. Bitte kontaktieren Sie Ihren Netzwerk Administrator. "
 
-#: src/Tribe/PUE/Checker.php:1676
+#: src/Tribe/PUE/Checker.php:1683
 msgid "A valid license has been entered by your network administrator."
 msgstr "Eine gültige Lizenz wurde durch Ihren Netzwerk Administrator hinterlegt."
 
