@@ -3,7 +3,7 @@
 
 == Changelog ==
 
-= [4.8.1] TBD =
+= [4.8.0.1] 2018-11-30 =
 
 * Fix - Added safety measure to reduce risk of a fatal error when examining list of network-activated plugins [115826]
 
