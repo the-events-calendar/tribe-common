@@ -6,6 +6,7 @@
 = [4.8.1] 2018-12-05 =
 
 * Fix - speed up and improve robustness of the asynchronous process feature detection code [118934]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.8.0.1] 2018-11-30 =
 
