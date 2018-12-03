@@ -107,7 +107,7 @@ class Tribe__Feature_Detection {
 	/**
 	 * Sets the lock option to `1` to indicate a feature detection is running.
 	 *
-	 * @since TBD
+	 * @since 4.8.1
 	 */
 	protected function lock() {
 		update_option( $this->lock_option_name, '1' );
@@ -116,7 +116,7 @@ class Tribe__Feature_Detection {
 	/**
 	 * Deletes the lock option to indicate the current feature detection process is done.
 	 *
-	 * @since TBD
+	 * @since 4.8.1
 	 */
 	protected function unlock() {
 		delete_option( $this->lock_option_name );
@@ -125,7 +125,7 @@ class Tribe__Feature_Detection {
 	/**
 	 * Checks whether a feature detection lock is currently in place or not.
 	 *
-	 * @since TBD
+	 * @since 4.8.1
 	 *
 	 * @return bool Whether a feature detection lock is currently in place or not.
 	 */
