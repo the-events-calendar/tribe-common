@@ -223,21 +223,20 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function has_valid_dependencies( $plugin, $dependencies = array() ) {
+		public function has_valid_dependencies( $dependencies = array() ) {
 
 			if ( empty( $dependencies ) ) {
 				return true;
 			}
 
 			$failed_dependency = 0;
-
-			$admin_notice  = new Tribe__Admin__Notice__Plugin_Download( $plugin['path'] );
+			$tribe_plugins    = new Tribe__Plugins();
 
 			foreach ( $dependencies as $class => $version ) {
 
 				// if no class
 				$checked_plugin    = $this->get_registered_plugin( $class );
-				if ( ! empty( $checked_plugin ) ) {
+				if ( empty( $checked_plugin ) ) {
 					continue;
 				}
 
@@ -246,6 +245,9 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 					continue;
 				}
 
+				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
+				$admin_notice     = new Tribe__Admin__Notice__Plugin_Download( $plugin['path'] );
+				$admin_notice->add_required_plugin( $dependent_plugin['short_name'], $dependent_plugin['thickbox_url'], false );
 				$failed_dependency++;
 			}
 
@@ -309,17 +311,17 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				return false;
 			}
 
-			// check parent dependencies in add on
+			// check parent dependencies in add-on
 			if ( ! empty( $plugin['dependencies']['parent-dependencies'] ) ) {
-				$parent_dependencies = $this->has_valid_dependencies( $plugin, $plugin['dependencies']['parent-dependencies'] );
+				$parent_dependencies = $this->has_valid_dependencies( $plugin['dependencies']['parent-dependencies'] );
 			}
-			//check co dependencies in add on
+			//check co-dependencies in add-on
 			if ( ! empty( $plugin['dependencies']['co-dependencies'] ) ) {
-				$co_dependencies = $this->has_valid_dependencies( $plugin, $plugin['dependencies']['co-dependencies'] );
+				$co_dependencies = $this->has_valid_dependencies( $plugin['dependencies']['co-dependencies'] );
 			}
 			//check add-on dependencies from parent
 			if ( ! empty( $plugin['dependencies']['addon-dependencies'] ) ) {
-				$addon_dependencies = $this->has_valid_dependencies( $plugin, $plugin['dependencies']['addon-dependencies'] );
+				$addon_dependencies = $this->has_valid_dependencies( $plugin['dependencies']['addon-dependencies'] );
 			}
 
 			//if good then we set as active plugin and continue to load
