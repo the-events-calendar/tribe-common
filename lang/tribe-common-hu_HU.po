@@ -319,15 +319,15 @@ msgstr "%s -nek egész számnak kell lennie."
 msgid "Events Help"
 msgstr "Események segítség"
 
-#: src/Tribe/PUE/Checker.php:1678
+#: src/Tribe/PUE/Checker.php:1685
 msgid "Expired license. Consult your network administrator."
 msgstr "Lejárt licensz. Lépj kapcsolatba a hálózati adminisztrátorral."
 
-#: src/Tribe/PUE/Checker.php:1677
+#: src/Tribe/PUE/Checker.php:1684
 msgid "No license entered. Consult your network administrator."
 msgstr "Nincs megadva licensz kulcs. Lépj kapcsolatba a hálózati adminisztrátorral. "
 
-#: src/Tribe/PUE/Checker.php:1676
+#: src/Tribe/PUE/Checker.php:1683
 msgid "A valid license has been entered by your network administrator."
 msgstr "A hálózati adminisztrátor megadott egy érvényes licensz kulcsot."
 
