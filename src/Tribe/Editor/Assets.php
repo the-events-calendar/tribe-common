@@ -27,8 +27,6 @@ class Tribe__Editor__Assets {
 	public function register() {
 
 		$plugin = Tribe__Main::instance();
-		/** @var Tribe__Editor__Configuration $editor_configuration */
-		$editor_configuration = tribe( 'common.editor.configuration' );
 
 		tribe_asset(
 			$plugin,
