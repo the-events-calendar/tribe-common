@@ -2,23 +2,23 @@
 /**
  * Events Gutenberg Assets
  *
- * @since TBD
+ * @since 4.8
  */
 class Tribe__Editor__Assets {
 	/**
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return void
 	 */
 	public function hook() {
-		add_action( 'tribe_plugins_loaded', array( $this, 'register' ) );
+		add_action( 'wp_loaded', array( $this, 'register' ) );
 	}
 
 	/**
 	 * Registers and Enqueues the assets
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param string $key Which key we are checking against
 	 *
@@ -27,6 +27,8 @@ class Tribe__Editor__Assets {
 	public function register() {
 
 		$plugin = Tribe__Main::instance();
+		/** @var Tribe__Editor__Configuration $editor_configuration */
+		$editor_configuration = tribe( 'common.editor.configuration' );
 
 		tribe_asset(
 			$plugin,
@@ -39,10 +41,23 @@ class Tribe__Editor__Assets {
 			'enqueue_block_editor_assets',
 			array(
 				'in_footer' => false,
-				'localize'  => array(),
+				'localize' => array(
+					array(
+						'name' => 'tribe_editor_config',
+						/**
+						 * Array used to setup the FE with custom variables from the BE
+						 *
+						 * @since 4.8
+						 *
+						 * @param array An array with the variables to be localized
+						 */
+						'data' => $editor_configuration->localize(),
+					),
+				),
 				'priority'  => 11,
 			)
 		);
+
 		tribe_asset(
 			$plugin,
 			'tribe-common-gutenberg-utils',

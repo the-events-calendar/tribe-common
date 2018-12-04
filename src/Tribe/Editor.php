@@ -2,14 +2,14 @@
 /**
  * Initialize Gutenberg editor blocks
  *
- * @since TBD
+ * @since 4.8
  */
 class Tribe__Editor {
 
 	/**
 	 * Meta key for flaging if a post is from classic editor
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @var string
 	 */
@@ -21,7 +21,7 @@ class Tribe__Editor {
 	 * a) Is gutenberg active?
 	 * b) Is the blocks editor active?
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return bool
 	 */
@@ -37,7 +37,7 @@ class Tribe__Editor {
 	 * Checks if we are on version 5.0-alpha or higher where we no longer have
 	 * Gutenberg Project, but the Blocks Editor
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return boolean
 	 */
@@ -51,7 +51,7 @@ class Tribe__Editor {
 	 * Checks if we have Gutenberg Project online, only useful while
 	 * its a external plugin
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return boolean
 	 */
@@ -62,7 +62,7 @@ class Tribe__Editor {
 	/**
 	 * Checks if we have Editor Block active
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return boolean
 	 */
@@ -73,7 +73,7 @@ class Tribe__Editor {
 	/**
 	 * Adds the required fields into the Events Post Type so that we can use Block Editor
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param  array $args Arguments used to setup the Post Type
 	 *
@@ -96,7 +96,7 @@ class Tribe__Editor {
 	/**
 	 * Adds the required fields into the Post Type so that we can the Rest API to update it
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @param  array $args Arguments used to setup the Post Type
 	 *
@@ -149,36 +149,11 @@ class Tribe__Editor {
 	}
 
 	/**
-	 * Check if post is from classic editor
-	 *
-	 * @since TBD
-	 *
-	 * @param int|WP_Post $post
-	 *
-	 * @return bool
-	 */
-	public function post_is_from_classic_editor( $post ) {
-		if ( ! $post instanceof WP_Post ) {
-			$post = get_post( $post );
-		}
-
-		if ( empty( $post ) ) {
-			return false;
-		}
-
-		if ( ! $post instanceof WP_Post ) {
-			return false;
-		}
-
-		return tribe_is_truthy( get_post_meta( $post->ID, $this->key_flag_classic_editor, true ) );
-	}
-
-	/**
 	 * classic_editor_replace is function that is created by the plugin:
 	 *
 	 * - https://wordpress.org/plugins/classic-editor/
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return bool
 	 */
@@ -190,7 +165,7 @@ class Tribe__Editor {
 	 * Check if the setting `'classic-editor-replace'` is set to `replace` that option means to
 	 * replace the gutenberg editor with the classic editor
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return bool
 	 */
@@ -201,7 +176,7 @@ class Tribe__Editor {
 	/**
 	 * Detect if is the classic editor is forced activated via plugin or if it comes from a request
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 * @return bool
 	 */

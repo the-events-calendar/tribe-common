@@ -5,13 +5,14 @@ class Tribe__Editor__Provider extends tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 */
 	public function register() {
 		// Setup to check if gutenberg is active
 		$this->container->singleton( 'editor', 'Tribe__Editor' );
 		$this->container->singleton( 'editor.utils', 'Tribe__Editor__Utils' );
+		$this->container->singleton( 'common.editor.configuration', 'Tribe__Editor__Configuration' );
 
 		if ( ! tribe( 'editor' )->should_load_blocks() ) {
 			return;
@@ -30,7 +31,7 @@ class Tribe__Editor__Provider extends tad_DI52_ServiceProvider {
 	 *
 	 * In place of delegating the hooking responsibility to the single classes they are all hooked here.
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 *
 	 */
 	protected function hook() {
@@ -40,7 +41,7 @@ class Tribe__Editor__Provider extends tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations at boot time.
 	 *
-	 * @since TBD
+	 * @since 4.8
 	 */
 	public function boot() {
 		// no ops
