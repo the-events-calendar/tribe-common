@@ -32,16 +32,18 @@ import {
 import './style.pcss';
 
 const TimePicker = ( {
-	current,
-	start,
-	end,
-	step,
-	timeFormat,
 	allDay,
+	current,
+	disabled,
+	end,
+	onBlur,
 	onChange,
 	onClick,
+	onFocus,
 	showAllDay,
-	disabled,
+	start,
+	step,
+	timeFormat,
 } ) => {
 
 	const renderLabel = ( onAllDayClick ) => {
@@ -60,10 +62,12 @@ const TimePicker = ( {
 		return (
 			<Input
 				className="tribe-editor__timepicker__input"
+				disabled={ disabled }
+				onBlur={ onBlur }
+				onChange={ onChange }
+				onFocus={ onFocus }
 				type="text"
 				value={ current }
-				onChange={ onChange }
-				disabled={ disabled }
 			/>
 		);
 	};
@@ -162,11 +166,13 @@ const TimePicker = ( {
 };
 
 TimePicker.defaultProps = {
-	step: timeUtil.HALF_HOUR_IN_SECONDS,
-	timeFormat: dateUtil.FORMATS.WP.time,
 	allDay: false,
+	onBlur: noop,
 	onChange: noop,
 	onClick: noop,
+	onFocus: noop,
+	step: timeUtil.HALF_HOUR_IN_SECONDS,
+	timeFormat: dateUtil.FORMATS.WP.time,
 };
 
 TimePicker.propTypes = {
@@ -175,16 +181,18 @@ TimePicker.propTypes = {
 	 * using 24h clock in hh:mm format
 	 * e.g. 00:24, 03:57, 21:12
 	 */
+	allDay: PropTypes.bool,
 	current: TribePropTypes.timeFormat.isRequired,
-	start: TribePropTypes.timeFormat.isRequired,
+	disabled: PropTypes.bool,
 	end: TribePropTypes.timeFormat.isRequired,
+	onBlur: PropTypes.func,
+	onChange: PropTypes.func,
+	onClick: PropTypes.func,
+	onFocus: PropTypes.func,
+	showAllDay: PropTypes.bool,
+	start: TribePropTypes.timeFormat.isRequired,
 	step: PropTypes.number,
 	timeFormat: PropTypes.string,
-	allDay: PropTypes.bool,
-	onChange: PropTypes.func.isRequired,
-	onClick: PropTypes.func.isRequired,
-	showAllDay: PropTypes.bool,
-	disabled: PropTypes.bool,
 };
 
 export default TimePicker;
