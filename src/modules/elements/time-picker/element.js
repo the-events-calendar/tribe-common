@@ -77,7 +77,10 @@ const TimePicker = ( {
 				disabled={ disabled }
 				onClick={ onToggle }
 			>
-				<Dashicon className="btn--icon" icon={ isOpen ? 'arrow-up' : 'arrow-down' } />
+				<Dashicon
+					className="tribe-editor__timepicker__toggle-btn-icon"
+					icon={ isOpen ? 'arrow-up' : 'arrow-down' }
+				/>
 			</Button>
 		</Fragment>
 	);
