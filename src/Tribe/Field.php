@@ -245,7 +245,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$return .= ( $this->error ) ? ' tribe-error' : '';
 			$return .= ( $this->size ) ? ' tribe-size-' . $this->size : '';
 			$return .= ( $this->class ) ? ' ' . $this->class . '"' : '"';
-			$return .= ( $this->fieldset_attributes ) ? ' ' . $this->do_fieldset_attributes() . '"' : '"';
+			$return .= ( $this->fieldset_attributes ) ? ' ' . $this->do_fieldset_attributes() : '';
 			$return .= '>';
 
 			return apply_filters( 'tribe_field_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
