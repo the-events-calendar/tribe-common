@@ -31,8 +31,6 @@ import './style.pcss';
 
 const TimePicker = ( {
 	current,
-	min,
-	max,
 	start,
 	end,
 	step,
@@ -57,15 +55,6 @@ const TimePicker = ( {
 			);
 		}
 
-		const additionalProps = {};
-		if ( min ) {
-			additionalProps.min = min;
-		}
-
-		if ( max ) {
-			additionalProps.max = max;
-		}
-
 		return (
 			<input
 				className="tribe-editor__btn-input"
@@ -73,7 +62,6 @@ const TimePicker = ( {
 				value={ current }
 				onChange={ onChange }
 				disabled={ disabled }
-				{ ...additionalProps }
 			/>
 		);
 	};
@@ -186,8 +174,6 @@ TimePicker.propTypes = {
 	 * e.g. 00:24, 03:57, 21:12
 	 */
 	current: TribePropTypes.timeFormat.isRequired,
-	min: TribePropTypes.timeFormat,
-	max: TribePropTypes.timeFormat,
 	start: TribePropTypes.timeFormat.isRequired,
 	end: TribePropTypes.timeFormat.isRequired,
 	step: PropTypes.number,
