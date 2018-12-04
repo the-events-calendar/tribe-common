@@ -12,12 +12,20 @@
  * @since 4.7.23
  */
 class Tribe__Feature_Detection {
+
 	/**
 	 * The name of the transient storing the support check results.
 	 *
 	 * @var string
 	 */
 	public static $transient = 'tribe_feature_detection';
+
+	/**
+	 * The name of the option that will be used to indicate a feature detection is running.
+	 *
+	 * @var string
+	 */
+	protected $lock_option_name;
 
 	/**
 	 * Checks whether async, AJAX-based, background processing is supported or not.
@@ -52,33 +60,78 @@ class Tribe__Feature_Detection {
 
 		$cached = get_transient( self::$transient );
 
+		$this->lock_option_name = 'tribe_feature_support_check_lock';
 		if (
 			$force
 			|| false === $cached
 			|| ( is_array( $cached ) && ! isset( $cached['supports_async_process'] ) )
 		) {
-			/*
-			 * Build and dispatch the tester: if it works a transient should be set.
-			 */
-			$tester = new Tribe__Process__Tester();
-			$tester->dispatch();
+			if ( ! $this->has_lock() ) {
+				// Let's avoid race conditions by running two or more checks at the same time.
+				$this->lock();
+				/*
+				 * Build and dispatch the tester: if it works a transient should be set.
+				 */
+				$tester = new Tribe__Process__Tester();
+				$tester->dispatch();
+			}
 
 			$wait_up_to             = 10;
 			$start                  = time();
 			$supports_async_process = false;
+			$transient_name         = Tribe__Process__Tester::TRANSIENT_NAME;
 
-			while ( ! $supports_async_process && time() <= $start + $wait_up_to ) {
-				$supports_async_process = (bool) get_transient( $tester->get_canary_transient() );
+			while ( time() <= $start + $wait_up_to ) {
+				// We want to force a refetch from the database on each check.
+				wp_cache_delete( $transient_name, 'transient' );
+				$supports_async_process = ( (bool) $transient_name );
+				if ( $supports_async_process ) {
+					break;
+				}
+				sleep( $wait_up_to / 5 );
 			}
 
 			// Remove it not to spoof future checks.
-			delete_transient( $tester->get_canary_transient() );
+			delete_transient( $transient_name );
+
+			$this->unlock();
 
 			$cached['supports_async_process'] = $supports_async_process;
 
 			set_transient( self::$transient, $cached, WEEK_IN_SECONDS );
 		}
 
-		return (bool) $cached['supports_async_process'];
+		return $cached['supports_async_process'];
+	}
+
+	/**
+	 * Sets the lock option to `1` to indicate a feature detection is running.
+	 *
+	 * @since 4.8.1
+	 */
+	protected function lock() {
+		update_option( $this->lock_option_name, '1' );
+	}
+
+	/**
+	 * Deletes the lock option to indicate the current feature detection process is done.
+	 *
+	 * @since 4.8.1
+	 */
+	protected function unlock() {
+		delete_option( $this->lock_option_name );
+	}
+
+	/**
+	 * Checks whether a feature detection lock is currently in place or not.
+	 *
+	 * @since 4.8.1
+	 *
+	 * @return bool Whether a feature detection lock is currently in place or not.
+	 */
+	protected function has_lock() {
+		$lock_option = get_option( $this->lock_option_name );
+
+		return ! empty( $lock_option );
 	}
 }
