@@ -21,6 +21,8 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { PreventBlockClose } from '@moderntribe/common/components';
+import Button from '@moderntribe/common/elements/button/element';
+import Input from '@moderntribe/common/elements/input/element';
 import {
 	date as dateUtil,
 	moment as momentUtil,
@@ -42,23 +44,23 @@ const TimePicker = ( {
 	disabled,
 } ) => {
 
-	const renderLabel = ( onToggle ) => {
+	const renderLabel = ( onAllDayClick ) => {
 		if ( allDay ) {
 			return (
-				<button
+				<Button
 					className="tribe-editor__timepicker__all-day-btn"
-					onClick={ onToggle }
 					disabled={ disabled }
+					onClick={ onAllDayClick }
 				>
 					{ __( 'All Day', 'events-gutenberg' ) }
-				</button>
+				</Button>
 			);
 		}
 
 		return (
-			<input
-				className="tribe-editor__btn-input"
-				type="time"
+			<Input
+				className="tribe-editor__timepicker__input"
+				type="text"
 				value={ current }
 				onChange={ onChange }
 				disabled={ disabled }
@@ -66,17 +68,16 @@ const TimePicker = ( {
 		);
 	};
 
-	const toggleDropdown = ( { onToggle, isOpen } ) => (
+	const renderToggle = ( { onToggle, isOpen } ) => (
 		<div className="tribe-editor__timepicker-label-container">
 			{ renderLabel( onToggle ) }
-			<button
-				type="button"
+			<Button
 				aria-expanded={ isOpen }
 				onClick={ onToggle }
 				disabled={ disabled }
 			>
 				<Dashicon className="btn--icon" icon={ isOpen ? 'arrow-up' : 'arrow-down' } />
-			</button>
+			</Button>
 		</div>
 	);
 
@@ -122,7 +123,7 @@ const TimePicker = ( {
 		);
 	};
 
-	const renderDropdownContent = ( { onClose } ) => (
+	const renderContent = ( { onClose } ) => (
 		<ScrollTo>
 			{ () => (
 				<PreventBlockClose>
@@ -149,11 +150,11 @@ const TimePicker = ( {
 			className="tribe-editor__timepicker"
 		>
 			<Dropdown
-				className="tribe-element-timepicker-label"
+				className="tribe-editor__timepicker__toggle"
+				contentClassName="tribe-editor__timepicker__content"
 				position="bottom center"
-				contentClassName="tribe-editor__timepicker__dialog"
-				renderToggle={ toggleDropdown }
-				renderContent={ renderDropdownContent }
+				renderToggle={ renderToggle }
+				renderContent={ renderContent }
 			/>
 		</div>
 	);
