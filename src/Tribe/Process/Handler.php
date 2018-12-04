@@ -55,7 +55,7 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	 */
 	public function __construct(  ) {
 		$class        = get_class( $this );
-		$this->action = $class::action();
+		$this->action = call_user_func( array( $class, 'action' ) );
 		parent::__construct();
 
 		$this->cron_hook_identifier = $this->identifier;
