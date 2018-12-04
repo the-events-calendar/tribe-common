@@ -3,6 +3,11 @@
 
 == Changelog ==
 
+
+= [4.8.2] TBD =
+
+* Fix - Make sure assets are injected before is too late
+
 = [4.8.1] 2018-12-05 =
 
 * Fix - speed up and improve robustness of the asynchronous process feature detection code [118934]
