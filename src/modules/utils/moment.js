@@ -13,6 +13,8 @@ import {
 	string,
 } from '@moderntribe/common/utils';
 
+export const TIME_FORMAT = 'h:mm a';
+
 /**
  * Make sure the format provided matches the spec used by moment.js
  *
