@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { noop } from 'lodash';
@@ -69,16 +69,17 @@ const TimePicker = ( {
 	};
 
 	const renderToggle = ( { onToggle, isOpen } ) => (
-		<div className="tribe-editor__timepicker-label-container">
+		<Fragment>
 			{ renderLabel( onToggle ) }
 			<Button
 				aria-expanded={ isOpen }
-				onClick={ onToggle }
+				className="tribe-editor__timepicker__toggle-btn"
 				disabled={ disabled }
+				onClick={ onToggle }
 			>
 				<Dashicon className="btn--icon" icon={ isOpen ? 'arrow-up' : 'arrow-down' } />
 			</Button>
-		</div>
+		</Fragment>
 	);
 
 	const getItems = () => {
@@ -111,15 +112,14 @@ const TimePicker = ( {
 		};
 
 		return (
-			<button
+			<Button
 				key={ `time-${ item.value }` }
-				role="menuitem"
 				className={ classNames( itemClasses ) }
 				value={ item.value }
 				onClick={ () => onClick( item.value, onClose ) }
 			>
 				{ item.text }
-			</button>
+			</Button>
 		);
 	};
 
@@ -128,10 +128,8 @@ const TimePicker = ( {
 			{ () => (
 				<PreventBlockClose>
 					<ScrollArea
-						id="tribe-element-timepicker-items"
 						key="tribe-element-timepicker-items"
-						role="menu"
-						className={ classNames( 'tribe-editor__timepicker__items' ) }
+						className="tribe-editor__timepicker__items"
 					>
 						{ showAllDay && renderItem(
 							{ text: __( 'All Day', 'events-gutenberg' ), value: 'all-day' },
