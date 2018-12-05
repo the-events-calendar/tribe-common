@@ -486,3 +486,33 @@ if ( ! function_exists( 'tribe_post_excerpt' ) ) {
 		return wpautop( $excerpt );
 	}
 }
+
+/**
+ * Create a function to mock the real function if the extension or Beta is not present.
+ *
+ *
+ */
+if ( ! function_exists( 'has_blocks' ) ) {
+	/**
+	 * Determine whether a post or content string has blocks.
+	 *
+	 * This test optimizes for performance rather than strict accuracy, detecting
+	 * the pattern of a block but not validating its structure. For strict accuracy
+	 * you should use the block parser on post content.
+	 *
+	 * @since 4.8
+	 * @see https://github.com/WordPress/gutenberg/blob/73d9759116dde896931f4d152f186147a57889fe/lib/register.php#L313-L337s
+	 *
+	 * @param int|string|WP_Post|null $post Optional. Post content, post ID, or post object. Defaults to global $post.
+	 * @return bool Whether the post has blocks.
+	 */
+	function has_blocks( $post = null ) {
+		if ( ! is_string( $post ) ) {
+			$wp_post = get_post( $post );
+			if ( $wp_post instanceof WP_Post ) {
+				$post = $wp_post->post_content;
+			}
+		}
+		return false !== strpos( (string) $post, '<!-- wp:' );
+	}
+}
