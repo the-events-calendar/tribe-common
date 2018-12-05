@@ -28,11 +28,12 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * @param null   $thickbox_url Download or purchase URL for plugin from within /wp-admin/ thickbox
 	 * @param bool   $is_active    Indicates if the plugin is installed and active or not
 	 */
-	public function add_required_plugin( $name, $thickbox_url = null, $is_active = null ) {
+	public function add_required_plugin( $name, $thickbox_url = null, $is_active = null, $version = null ) {
 		$this->plugins_required[ $name ] = array(
 			'name'         => $name,
 			'thickbox_url' => $thickbox_url,
 			'is_active'    => $is_active,
+			'version'      => $version,
 		);
 	}
 
@@ -55,13 +56,15 @@ class Tribe__Admin__Notice__Plugin_Download {
 		foreach ( $this->plugins_required as $req_plugin ) {
 
 			$item = esc_html( $req_plugin['name'] );
+			$version = empty( $req_plugin['version'] ) ? '' : ' (' . esc_html( $req_plugin['version'] . ')' );
 
 			if ( ! empty( $req_plugin['thickbox_url'] ) ) {
 				$item = sprintf(
-					'<a href="%1$s" class="thickbox" title="%2$s">%3$s</a>',
+					'<a href="%1$s" class="thickbox" title="%2$s">%3$s%4$s</a>',
 					esc_attr( $req_plugin['thickbox_url'] ),
 					esc_attr( $req_plugin['name'] ),
-					$item
+					$item,
+					$version
 				);
 			}
 
@@ -76,7 +79,9 @@ class Tribe__Admin__Notice__Plugin_Download {
 		}
 
 		printf(
-			'<div class="error"><p>' . esc_html__( 'To begin using %1$s, please install and activate the latest version of %2$s.', 'tribe-common' ) . '</p></div>',
+			'<div class="error"><p>'
+			. esc_html__( 'To begin using %1$s, please install and activate the latest version of %2$s.', 'tribe-common' )
+			. '</p></div>',
 			$plugin_data['Name'],
 			$this->implode_with_grammar( $req_plugins )
 		);
