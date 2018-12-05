@@ -95,12 +95,13 @@ const TimePicker = ( {
 		const startSeconds = timeUtil.toSeconds( start, timeUtil.TIME_FORMAT_HH_MM );
 		const endSeconds = timeUtil.toSeconds( end, timeUtil.TIME_FORMAT_HH_MM );
 
+		const currentMoment = moment( current, momentUtil.TIME_FORMAT );
+
 		for ( let time = startSeconds; time <= endSeconds; time += step ) {
 			let isCurrent = false;
-			const currentMoment = moment( current, momentUtil.TIME_FORMAT );
-			if ( ! currentMoment.isValid() ) {
-				const currentTime = momentUtil.toTime( currentMoment );
-				isCurrent = timeUtil.toSeconds( currentTime, timeUtil.TIME_FORMAT_HH_MM_SS );
+			if ( currentMoment.isValid() ) {
+				const currentTime = momentUtil.toTime24Hr( currentMoment );
+				isCurrent = time === timeUtil.toSeconds( currentTime, timeUtil.TIME_FORMAT_HH_MM );
 			}
 
 			items.push( {
