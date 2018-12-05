@@ -25,6 +25,7 @@ export const mapsAPI = () => tec().googleMap || {};
 export const priceSettings = () => tec().priceSettings || {};
 export const tecDateSettings = () => tec().dateSettings || {};
 export const timezoneHtml = () => tec().timezoneHTML || '';
+export const defaultTimes = () => tec().defaultTimes || {};
 // PRO
 export const pro = () => config().eventsPRO || {};
 export const editorDefaults = () => pro().defaults || {};
