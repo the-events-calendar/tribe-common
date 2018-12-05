@@ -182,7 +182,7 @@ TimePicker.propTypes = {
 	 * e.g. 00:24, 03:57, 21:12
 	 */
 	allDay: PropTypes.bool,
-	current: TribePropTypes.timeFormat.isRequired,
+	current: TribePropTypes.string,
 	disabled: PropTypes.bool,
 	end: TribePropTypes.timeFormat.isRequired,
 	onBlur: PropTypes.func,
