@@ -32,7 +32,7 @@
 		 */
 		private function add_hooks() {
 			add_action( 'save_post', array( $this, 'save_post' ), 0, 2 );
-			add_action( 'updated_option', array( $this, 'update_last_save_post' ) );
+			add_action( 'updated_option', array( $this, 'update_last_save_post' ), 10, 3 );
 		}
 
 		/**
@@ -50,11 +50,15 @@
 		/**
 		 * Run the caching functionality that is executed on saving tribe calendar options.
 		 *
-		 * @param string    $option
 		 * @see 'updated_option'
+		 *
+	     * @param string $option    Name of the updated option.
+	     * @param mixed  $old_value The old option value.
+	     * @param mixed  $value     The new option value.
 		 */
-		public function update_last_save_post( $option ) {
-			if ( $option != 'tribe_last_save_post' ) {
+		public function update_last_save_post( $option, $old_value, $value ) {
+
+			if ( $option === 'tribe_events_calendar_options' ) {
 				$this->cache->set_last_occurrence( 'save_post' );
 			}
 		}

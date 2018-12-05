@@ -7,19 +7,27 @@
  */
 class Tribe__Context {
 	/**
-	 * @var bool Internal property to know if the current request is an AJAX one or not.
+	 * Whether the context of the current HTTP request is an AJAX one or not.
+	 *
+	 * @var bool
 	 */
 	protected $doing_ajax;
+
+	/**
+	 * Whether the context of the current HTTP request is a Cron one or not.
+	 *
+	 * @var bool
+	 */
+	protected $doing_cron;
 
 	/**
 	 * Whether we are currently creating a new post, a post of post type(s) or not.
 	 *
 	 * @since 4.7.7
 	 *
-	 * @param null|array|string|int $post_or_type A post type, an array of post types, `null`
-	 *                                            to just make sure we are currently creating a post.
+	 * @param null $post_type The optional post type to check.
 	 *
-	 * @return bool
+	 * @return bool Whether we are currently creating a new post, a post of post type(s) or not.
 	 */
 	public function is_new_post( $post_type = null ) {
 		global $pagenow;
@@ -99,5 +107,25 @@ class Tribe__Context {
 		}
 
 		return $this->doing_ajax;
+	}
+
+	/**
+	 * Checks whether the context of the current HTTP request is a Cron one or not.
+	 *
+	 * @since 4.7.23
+	 *
+	 * @param bool|null $doing_cron If set then this method will act as a setter; the current
+	 *                         method call, and the following ones, will return this value.
+	 *
+	 * @return bool whether the context of the current HTTP request is a Cron one or not.
+	 */
+	public function doing_cron( $doing_cron = null ) {
+		if ( null !== $doing_cron ) {
+			$this->doing_cron = (bool) $doing_cron;
+		} else {
+			$this->doing_cron = defined( 'DOING_CRON' ) && DOING_CRON;
+		}
+
+		return $this->doing_cron;
 	}
 }
