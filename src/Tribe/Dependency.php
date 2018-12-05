@@ -63,6 +63,15 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		}
 
 		/**
+		 * Retrieves registered plugin array
+		 *
+		 * @return array
+		 */
+		public function get_registered_plugins() {
+			return $this->registered_plugins;
+		}
+
+		/**
 		 * Adds a plugin to the active list
 		 *
 		 * @param string $main_class Main/base class for this plugin
@@ -80,19 +89,14 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			$this->active_plugins[ $main_class ] = $plugin;
 		}
 
-
 		/**
 		 * Retrieves active plugin array
 		 *
 		 * @return array
 		 */
 		public function get_active_plugins() {
-			//todo determine if this needed
-			//$this->add_legacy_plugins();
-
 			return $this->active_plugins;
 		}
-
 
 		/**
 		 * Searches the plugin list for key/value pair and return the full details for that plugin
@@ -112,7 +116,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			return null;
 		}
 
-
 		/**
 		 * Retrieves the plugins details by class name
 		 *
@@ -123,7 +126,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		public function get_plugin_by_class( $main_class ) {
 			return $this->get_plugin_by_key( 'class', $main_class );
 		}
-
 
 		/**
 		 * Retrieves the version of the plugin
@@ -138,7 +140,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			return ( isset( $plugin['version'] ) ? $plugin['version'] : null );
 		}
 
-
 		/**
 		 * Checks if the plugin is active
 		 *
@@ -148,6 +149,59 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 */
 		public function is_plugin_active( $main_class ) {
 			return ( $this->get_plugin_by_class( $main_class ) !== null );
+		}
+
+		/**
+		 * Searches the registered plugin list for key/value pair and return the full details for that plugin
+		 *
+		 * @param string $search_key The array key this value will appear in
+		 * @param string $search_val The value itself
+		 *
+		 * @return array|null
+		 */
+		public function get_registered_plugin_by_key( $search_key, $search_val ) {
+			foreach ( $this->get_registered_plugins() as $plugin ) {
+				if ( isset( $plugin[ $search_key ] ) && $plugin[ $search_key ] === $search_val ) {
+					return $plugin;
+				}
+			}
+
+			return null;
+		}
+
+		/**
+		 * Retrieves the registered plugins details by class name
+		 *
+		 * @param string $main_class Main/base class for this plugin
+		 *
+		 * @return array|null
+		 */
+		public function get_registered_plugin_by_class( $main_class ) {
+			return $this->get_registered_plugin_by_key( 'class', $main_class );
+		}
+
+		/**
+		 * Retrieves the version of the registered plugin
+		 *
+		 * @param string $main_class Main/base class for this plugin
+		 *
+		 * @return string|null Version
+		 */
+		public function get_registered_plugin_version( $main_class ) {
+			$plugin = $this->get_registered_plugin_by_class( $main_class );
+
+			return ( isset( $plugin['version'] ) ? $plugin['version'] : null );
+		}
+
+		/**
+		 * Checks if the plugin is active
+		 *
+		 * @param string $main_class Main/base class for this plugin
+		 *
+		 * @return bool
+		 */
+		public function is_plugin_registered( $main_class ) {
+			return ( $this->get_registered_plugin_by_class( $main_class ) !== null );
 		}
 
 
@@ -162,18 +216,36 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 */
 		public function is_plugin_version( $main_class, $version, $compare = '>=' ) {
 
+			//active plugin check to see if the correct version is active
 			if ( ! $this->is_plugin_active( $main_class ) ) {
 				return false;
 			} elseif ( version_compare( $this->get_plugin_version( $main_class ), $version, $compare ) ) {
-				return true;
-			} elseif ( $this->get_plugin_version( $main_class ) === null ) {
-				// If the plugin version is not set default to assuming it's a compatible version
 				return true;
 			}
 
 			return false;
 		}
 
+		/**
+		 * Is the plugin registered with at least the minimum version
+		 *
+		 * @param string $main_class Main/base class for this plugin
+		 * @param string $version Version to do a compare against
+		 * @param string $compare Version compare string, defaults to >=
+		 *
+		 * @return bool
+		 */
+		public function is_plugin_version_registered( $main_class, $version, $compare = '>=' ) {
+
+			//registered plugin check if addon as it tests if it might load
+			if ( ! $this->is_plugin_registered( $main_class ) ) {
+				return false;
+			} elseif ( version_compare( $this->get_registered_plugin_version( $main_class ), $version, $compare ) ) {
+				return true;
+			}
+
+			return false;
+		}
 
 		/**
 		 * Checks if each plugin is active and exceeds the specified version number
@@ -240,15 +312,14 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 					continue;
 				}
 
-				$is_active = $this->is_plugin_version( $class, $version );
-				//todo the check for add-ons does will not be active, needs to check if registered only?
-				if ( ! empty( $is_active ) ) {
+				$is_registered = $this->is_plugin_version_registered( $class, $version );
+				if ( ! empty( $is_registered ) ) {
 					continue;
 				}
 
 				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
 				$admin_notice     = new Tribe__Admin__Notice__Plugin_Download( $plugin['path'] );
-				$admin_notice->add_required_plugin( $dependent_plugin['short_name'], $dependent_plugin['thickbox_url'], $is_active, $version, $addon );
+				$admin_notice->add_required_plugin( $dependent_plugin['short_name'], $dependent_plugin['thickbox_url'], $is_registered, $version, $addon );
 				$failed_dependency++;
 			}
 
@@ -324,11 +395,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			//check add-on dependencies from parent
 			$addon_dependencies = $this->check_addon_dependencies( $main_class );
 
-
-log_me($main_class);
-log_me($parent_dependencies);
-			log_me($co_dependencies);
-			log_me($addon_dependencies);
 			//if good then we set as active plugin and continue to load
 			if ( ! $parent_dependencies && ! $co_dependencies && ! $addon_dependencies ) {
 				$this->add_active_plugin( $main_class, $plugin['version'], $plugin['path'] );

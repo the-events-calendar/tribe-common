@@ -47,8 +47,6 @@ class Tribe__Admin__Notice__Plugin_Download {
 		}
 
 		$plugin_data = get_plugin_data( $this->plugin_path );
-		$plugin_name[] = $plugin_data['Name'];
-
 		$req_plugins = array();
 
 		if ( empty( $this->plugins_required ) ) {
@@ -81,6 +79,11 @@ class Tribe__Admin__Notice__Plugin_Download {
 			}
 
 			$req_plugins[] = $item;
+		}
+
+		//if empty then add in the default name
+		if ( empty( $plugin_name[0] ) ) {
+			$plugin_name[] = $plugin_data['Name'];
 		}
 
 		printf(
