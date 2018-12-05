@@ -234,7 +234,7 @@ class Tribe__PUE__Notices {
 
 		$formatted_empty_keys = array();
 		foreach ( $empty_keys as $empty_key ) {
-			$empty_key              = Tribe__Utils__Array::get( $empty_key, [ 0 ] );
+			$empty_key              = Tribe__Utils__Array::get( $empty_key, array( 0 ) );
 			$formatted_empty_keys[] = Tribe__Utils__Array::get( $plugin_names, $empty_key );
 		}
 

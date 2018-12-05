@@ -318,15 +318,15 @@ msgstr "%s は 正の整数 (0 を含む) である必要があります。"
 msgid "Events Help"
 msgstr "Events ヘルプ"
 
-#: src/Tribe/PUE/Checker.php:1678
+#: src/Tribe/PUE/Checker.php:1685
 msgid "Expired license. Consult your network administrator."
 msgstr "ライセンスの期限が切れています。ネットワーク管理者にご相談ください。"
 
-#: src/Tribe/PUE/Checker.php:1677
+#: src/Tribe/PUE/Checker.php:1684
 msgid "No license entered. Consult your network administrator."
 msgstr "ライセンスが入力されていません。ネットワーク管理者にご相談ください。"
 
-#: src/Tribe/PUE/Checker.php:1676
+#: src/Tribe/PUE/Checker.php:1683
 msgid "A valid license has been entered by your network administrator."
 msgstr "ネットワーク管理者により有効なライセンスが入力されています。"
 
