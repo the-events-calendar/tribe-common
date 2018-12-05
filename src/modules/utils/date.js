@@ -65,7 +65,7 @@ export const toNaturalLanguage = ( params = {} ) => {
 			month: 'MMMM',
 			day: 'D',
 			year: 'YYYY',
-			time: 'h:mm a',
+			time: momentUtil.toFormat( FORMATS.WP.time ),
 		},
 		separator: '',
 		...params,
