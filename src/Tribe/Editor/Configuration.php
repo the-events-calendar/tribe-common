@@ -32,7 +32,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 						'core' => 'wp/v2',
 					),
 				),
-				'dateSettings' => array( $this, 'get_date_settings' ),
+				'dateSettings' => $this->get_date_settings(),
 				'constants'    => array(
 					'hideUpsell' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
 				),
