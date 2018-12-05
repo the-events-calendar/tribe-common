@@ -96,12 +96,17 @@ const TimePicker = ( {
 		const endSeconds = timeUtil.toSeconds( end, timeUtil.TIME_FORMAT_HH_MM );
 
 		for ( let time = startSeconds; time <= endSeconds; time += step ) {
+			let isCurrent = false;
+			const currentMoment = moment( current, momentUtil.TIME_FORMAT );
+			if ( ! currentMoment.isValid() ) {
+				const currentTime = momentUtil.toTime( currentMoment );
+				isCurrent = timeUtil.toSeconds( currentTime, timeUtil.TIME_FORMAT_HH_MM_SS );
+			}
+
 			items.push( {
 				value: time,
 				text: formatLabel( time ),
-				isCurrent: current
-					? time === timeUtil.toSeconds( current, timeUtil.TIME_FORMAT_HH_MM )
-					: false,
+				isCurrent,
 			} );
 		}
 
