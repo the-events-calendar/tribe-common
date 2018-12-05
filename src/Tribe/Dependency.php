@@ -223,7 +223,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function has_valid_dependencies( $plugin, $dependencies = array() ) {
+		public function has_valid_dependencies( $plugin, $dependencies = array(), $addon = false ) {
 
 			if ( empty( $dependencies ) ) {
 				return true;
@@ -241,17 +241,18 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				}
 
 				$is_active = $this->is_plugin_version( $class, $version );
+				//todo the check for add-ons does will not be active, needs to check if registered only?
 				if ( ! empty( $is_active ) ) {
 					continue;
 				}
 
 				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
 				$admin_notice     = new Tribe__Admin__Notice__Plugin_Download( $plugin['path'] );
-				$admin_notice->add_required_plugin( $dependent_plugin['short_name'], $dependent_plugin['thickbox_url'], $is_active, $version );
+				$admin_notice->add_required_plugin( $dependent_plugin['short_name'], $dependent_plugin['thickbox_url'], $is_active, $version, $addon );
 				$failed_dependency++;
 			}
 
-			return 0 < $failed_dependency ? false : true;
+			return $failed_dependency;
 		}
 
 		/**
@@ -303,7 +304,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 */
 		public function check_plugin( $main_class ) {
 
-			$parent_dependencies = $co_dependencies = $addon_dependencies = false;
+			$parent_dependencies = $co_dependencies = $addon_dependencies = 0;
 
 			//check if plugin is registered, if not return false
 			$plugin = $this->get_registered_plugin( $main_class );
@@ -319,13 +320,17 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			if ( ! empty( $plugin['dependencies']['co-dependencies'] ) ) {
 				$co_dependencies = $this->has_valid_dependencies( $plugin, $plugin['dependencies']['co-dependencies'] );
 			}
-			//check add-on dependencies from parent
-			if ( ! empty( $plugin['dependencies']['addon-dependencies'] ) ) {
-				$addon_dependencies = $this->has_valid_dependencies( $plugin, $plugin['dependencies']['addon-dependencies'] );
-			}
 
+			//check add-on dependencies from parent
+			$addon_dependencies = $this->check_addon_dependencies( $main_class );
+
+
+log_me($main_class);
+log_me($parent_dependencies);
+			log_me($co_dependencies);
+			log_me($addon_dependencies);
 			//if good then we set as active plugin and continue to load
-			if ( $parent_dependencies && $co_dependencies && $addon_dependencies ) {
+			if ( ! $parent_dependencies && ! $co_dependencies && ! $addon_dependencies ) {
 				$this->add_active_plugin( $main_class, $plugin['version'], $plugin['path'] );
 
 				return true;
@@ -333,6 +338,21 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 			return false;
 
+		}
+
+		protected function check_addon_dependencies( $main_class ) {
+
+			$addon_dependencies = 0;
+
+			foreach ( $this->registered_plugins as $registered ) {
+				if ( empty( $registered['dependencies']['addon-dependencies'][$main_class] ) ) {
+					continue;
+				}
+
+				$addon_dependencies = $this->has_valid_dependencies( $registered, $registered['dependencies']['addon-dependencies'], true );
+			}
+
+			return $addon_dependencies;
 		}
 
 		/**
