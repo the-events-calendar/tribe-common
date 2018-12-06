@@ -84,7 +84,8 @@ class Tribe__Feature_Detection {
 			while ( time() <= $start + $wait_up_to ) {
 				// We want to force a refetch from the database on each check.
 				wp_cache_delete( $transient_name, 'transient' );
-				$supports_async_process = ( (bool) $transient_name );
+				$supports_async_process = (bool) get_transient( $transient_name );
+
 				if ( $supports_async_process ) {
 					break;
 				}
