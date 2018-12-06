@@ -1662,8 +1662,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$plugin_file = $map[ $this->plugin_file ];
 			}
 
-			return is_plugin_active_for_network( $plugin_file );
-
+			if ( function_exists( 'is_plugin_active_for_network' ) ) {
+				// If is_plugin_active_for_network() is available, let's use it!
+				return is_plugin_active_for_network( $plugin_file );
+			} else {
+				// When this method is called sufficiently early in the request,
+				// is_plugin_active_for_network() may not be available (#115826)
+				$plugins = get_site_option( 'active_sitewide_plugins' );
+				return isset( $plugins[ $plugin_file ] );
+			}
 		}
 
 		/**

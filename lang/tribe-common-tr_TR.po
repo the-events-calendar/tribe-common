@@ -319,15 +319,15 @@ msgstr ""
 msgid "Events Help"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1678
+#: src/Tribe/PUE/Checker.php:1685
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1677
+#: src/Tribe/PUE/Checker.php:1684
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1676
+#: src/Tribe/PUE/Checker.php:1683
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
