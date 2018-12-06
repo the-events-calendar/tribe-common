@@ -47,8 +47,12 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 
 		/** @var Tribe__Feature_Detection $feature_detection */
 		$feature_detection = tribe( 'feature-detection' );
+		$action = tribe_get_request_var( 'action', false );
 
-		if ( $feature_detection->supports_async_process() ) {
+		if (
+			$action === $this->get_handler_action( 'Tribe__Process__Tester' )
+			|| $feature_detection->supports_async_process()
+		) {
 			$this->dispatch_async();
 
 			return;
