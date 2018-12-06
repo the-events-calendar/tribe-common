@@ -7,6 +7,7 @@
 = [4.8.2] TBD =
 
 * Fix - Make sure assets are injected before is too late
+* Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
 
 = [4.8.1] 2018-12-05 =
 
