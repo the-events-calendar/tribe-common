@@ -19,13 +19,15 @@ interface Tribe__Repository__Update_Interface {
 	 *
 	 * @since 4.7.19
 	 *
+	 * @todo  THIS IS COMMENTED OUT DUE TO PHP 5.2 INCOMPATIBILITY!
+	 *
 	 * @param string         $key
 	 * @param mixed|callable $value
 	 *
 	 * @return Tribe__Repository__Update_Interface
 	 * @throws Tribe__Repository__Usage_Error If $key is not a string
 	 */
-	public function set( $key, $value );
+	// public function set( $key, $value );
 
 	/**
 	 * Sets updates in bulk using a map.
