@@ -102,6 +102,12 @@ class Tribe__Feature_Detection {
 
 			$cached['supports_async_process'] = $supports_async_process;
 
+			if ( $supports_async_process ) {
+				tribe( 'logger' )->log( 'AJAX-based async processing is supported.', Tribe__Log::DEBUG );
+			} else {
+				tribe( 'logger' )->log( 'AJAX-based async processing is not supported; background processing will rely on WP Cron.', Tribe__Log::DEBUG );
+			}
+
 			set_transient( self::$transient, $cached, WEEK_IN_SECONDS );
 		}
 
