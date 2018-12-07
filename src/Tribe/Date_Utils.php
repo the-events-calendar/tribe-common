@@ -1231,7 +1231,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return bool Whether the date string can be used to build DateTime objects, and is thus parse-able by functions
 		 *              like `strtotime`, or not.
 		 */
-		public static function is_valid_date( string $date ) {
+		public static function is_valid_date( $date ) {
 			return self::build_date_object( $date, null, false ) instanceof DateTime;
 		}
 	}
