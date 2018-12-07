@@ -66,6 +66,9 @@ class Tribe__Feature_Detection {
 			|| false === $cached
 			|| ( is_array( $cached ) && ! isset( $cached['supports_async_process'] ) )
 		) {
+			// Log that we're checking for AJAX-based async process support using the tester.
+			tribe( 'logger' )->log( 'Checking for AJAX-based async processing support triggering a test request.', Tribe__Log::DEBUG );
+
 			if ( ! $this->has_lock() ) {
 				// Let's avoid race conditions by running two or more checks at the same time.
 				$this->lock();

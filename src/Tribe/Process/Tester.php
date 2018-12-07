@@ -77,6 +77,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 * @since 4.7.23
 	 */
 	protected function handle() {
+		tribe( 'logger' )->log( 'AJAX-based async processing is supported.', Tribe__Log::DEBUG );
 		set_transient( self::TRANSIENT_NAME, 1, HOUR_IN_SECONDS );
 	}
 
