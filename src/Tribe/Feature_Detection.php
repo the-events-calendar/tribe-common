@@ -66,19 +66,23 @@ class Tribe__Feature_Detection {
 			|| false === $cached
 			|| ( is_array( $cached ) && ! isset( $cached['supports_async_process'] ) )
 		) {
+			if ( $this->is_locked() ) {
+				// We're already running this check, bail and return the safe option for the time being.
+				return false;
+			}
+
+			// Let's avoid race conditions by running two or more checks at the same time.
+			$this->lock();
+
 			// Log that we're checking for AJAX-based async process support using the tester.
 			tribe( 'logger' )->log( 'Checking for AJAX-based async processing support triggering a test request.', Tribe__Log::DEBUG );
 
-			if ( ! $this->has_lock() ) {
-				// Let's avoid race conditions by running two or more checks at the same time.
-				$this->lock();
-				/*
-				 * Build and dispatch the tester: if it works a transient should be set.
-				 */
-				$tester = new Tribe__Process__Tester();
-				tribe( 'logger' )->log( 'Dispatching AJAX-based async processing support test request.', Tribe__Log::DEBUG );
-				$tester->dispatch();
-			}
+			/*
+			 * Build and dispatch the tester: if it works a transient should be set.
+			 */
+			$tester = new Tribe__Process__Tester();
+			tribe( 'logger' )->log( 'Dispatching AJAX-based async processing support test request.', Tribe__Log::DEBUG );
+			$tester->dispatch();
 
 			$wait_up_to             = 10;
 			$start                  = time();
@@ -140,7 +144,7 @@ class Tribe__Feature_Detection {
 	 *
 	 * @return bool Whether a feature detection lock is currently in place or not.
 	 */
-	protected function has_lock() {
+	protected function is_locked() {
 		$lock_option = get_option( $this->lock_option_name );
 
 		return ! empty( $lock_option );
