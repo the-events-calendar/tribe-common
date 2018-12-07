@@ -6,6 +6,7 @@
 
 = [4.8.2] TBD =
 
+* Feature - Add new action `tribe_editor_register_blocks` used to register Event blocks via `common`
 * Fix - Make sure assets are injected before is too late
 * Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
 
