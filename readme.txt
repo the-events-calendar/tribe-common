@@ -7,6 +7,7 @@
 = [4.8.2] TBD =
 
 * Fix - Make sure assets are injected before is too late
+* Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
 
 = [4.8.1] 2018-12-05 =
 
