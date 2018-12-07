@@ -76,6 +76,7 @@ class Tribe__Feature_Detection {
 				 * Build and dispatch the tester: if it works a transient should be set.
 				 */
 				$tester = new Tribe__Process__Tester();
+				tribe( 'logger' )->log( 'Dispatching AJAX-based async processing support test request.', Tribe__Log::DEBUG );
 				$tester->dispatch();
 			}
 
