@@ -483,10 +483,8 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 					// do not generate errors for dependent fields that should not show
 					if ( ! empty( $this->errors ) ) {
 						$keep         = array_filter( array_keys( $this->errors ), array( $this, 'dependency_checks' ) );
-						$this->errors = array_intersect_key(
-							$this->errors,
-							array_combine( $keep, $keep )
-						);
+						$compare = empty( $keep ) ? array() : array_combine( $keep, $keep );
+						$this->errors = array_intersect_key( $this->errors, $compare );
 					}
 
 					// run the saving method
