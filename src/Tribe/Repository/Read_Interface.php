@@ -5,7 +5,7 @@
  *
  * @since 4.7.19
  */
-interface Tribe__Repository__Read_Interface {
+interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_Interface {
 	/**
 	 * Batch filter application method.
 	 *
@@ -337,19 +337,6 @@ interface Tribe__Repository__Read_Interface {
 	 * @return WP_Post|null|mixed
 	 */
 	public function by_primary_key( $primary_key );
-
-	/**
-	 * Closes the query phase and builds an Update repository on the
-	 * results of the applied filters.
-	 *
-	 * @since 4.7.19
-	 *
-	 * @param string $key
-	 * @param mixed  $value
-	 *
-	 * @return Tribe__Repository__Update_Interface
-	 */
-	public function set( $key, $value );
 
 	/**
 	 * Returns the Read repository built WP_Query object.
