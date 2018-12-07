@@ -61,11 +61,8 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	public function maybe_handle() {
 		// Don't lock up other requests while processing
 		session_write_close();
-		$nonce = tribe_get_request_var( 'nonce' );
 
-		if ( ! wp_verify_nonce( $nonce, $this->identifier ) ) {
-			return false;
-		}
+		check_ajax_referer( $this->identifier, 'nonce' );
 
 		$this->handle();
 
