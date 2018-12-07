@@ -53,23 +53,13 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 	 *
 	 * @since 4.7.12
 	 */
-	public function __construct() {
+	public function __construct(  ) {
 		$class        = get_class( $this );
 		$this->action = call_user_func( array( $class, 'action' ) );
 		parent::__construct();
 
 		$this->cron_hook_identifier = $this->identifier;
 		$this->feature_detection = tribe( 'feature-detection' );
-		$action = tribe_get_request_var( 'action', false );
-		$context = tribe( 'context' );
-
-		// When testing we handle it on construct when on cron or ajax
-		if (
-			( $context->doing_ajax() || $context->doing_cron() )
-			&& $this->action === Tribe__Process__Tester::action()
-		) {
-			$this->maybe_handle();
-		}
 
 		/*
 		 * This object might have been built while processing crons so
@@ -123,9 +113,7 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 			return $this->sync_handle( $this->data );
 		}
 
-		if (
-			$this->feature_detection->supports_async_process()
-		) {
+		if ( $this->feature_detection->supports_async_process() ) {
 			return parent::dispatch();
 		}
 
