@@ -7,10 +7,12 @@
 	text-align: left;
 }
 
-/* extra editor-styles-wrapper class to override gutenberg styles */
-.editor-styles-wrapper {
+.tribe-editor__button {
 
-	.tribe-editor__button {
+	&,
+	/* extra editor-styles-wrapper class to override gutenberg styles */
+	.editor-styles-wrapper & {
+
 		background-color: transparent;
 		border: none;
 		padding: 0;
@@ -22,8 +24,14 @@
 			cursor: default;
 		}
 	}
+}
 
-	.tribe-editor__button--sm {
+.tribe-editor__button--sm {
+
+	&,
+	/* extra editor-styles-wrapper class to override gutenberg styles */
+	.editor-styles-wrapper & {
+
 		background-color: #009fd4;
 		color: #ffffff;
 		padding: 11px 16px 9px;

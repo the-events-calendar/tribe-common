@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { noop } from 'lodash';
@@ -21,7 +21,10 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { PreventBlockClose } from '@moderntribe/common/components';
+import Button from '@moderntribe/common/elements/button/element';
+import Input from '@moderntribe/common/elements/input/element';
 import {
+	date as dateUtil,
 	moment as momentUtil,
 	time as timeUtil,
 	TribePropTypes,
@@ -29,66 +32,61 @@ import {
 import './style.pcss';
 
 const TimePicker = ( {
-	current,
-	min,
-	max,
-	start,
-	end,
-	step,
-	timeFormat,
 	allDay,
+	current,
+	disabled,
+	end,
+	onBlur,
 	onChange,
 	onClick,
+	onFocus,
 	showAllDay,
-	disabled,
+	start,
+	step,
+	timeFormat,
 } ) => {
 
-	const renderLabel = ( onToggle ) => {
+	const renderLabel = ( onAllDayClick ) => {
 		if ( allDay ) {
 			return (
-				<button
+				<Button
 					className="tribe-editor__timepicker__all-day-btn"
-					onClick={ onToggle }
 					disabled={ disabled }
+					onClick={ onAllDayClick }
 				>
 					{ __( 'All Day', 'events-gutenberg' ) }
-				</button>
+				</Button>
 			);
 		}
 
-		const additionalProps = {};
-		if ( min ) {
-			additionalProps.min = min;
-		}
-
-		if ( max ) {
-			additionalProps.max = max;
-		}
-
 		return (
-			<input
-				className="tribe-editor__btn-input"
-				type="time"
-				value={ current }
-				onChange={ onChange }
+			<Input
+				className="tribe-editor__timepicker__input"
 				disabled={ disabled }
-				{ ...additionalProps }
+				onBlur={ onBlur }
+				onChange={ onChange }
+				onFocus={ onFocus }
+				type="text"
+				value={ current }
 			/>
 		);
 	};
 
-	const toggleDropdown = ( { onToggle, isOpen } ) => (
-		<div className="tribe-editor__timepicker-label-container">
+	const renderToggle = ( { onToggle, isOpen } ) => (
+		<Fragment>
 			{ renderLabel( onToggle ) }
-			<button
-				type="button"
+			<Button
 				aria-expanded={ isOpen }
-				onClick={ onToggle }
+				className="tribe-editor__timepicker__toggle-btn"
 				disabled={ disabled }
+				onClick={ onToggle }
 			>
-				<Dashicon className="btn--icon" icon={ isOpen ? 'arrow-up' : 'arrow-down' } />
-			</button>
-		</div>
+				<Dashicon
+					className="tribe-editor__timepicker__toggle-btn-icon"
+					icon={ isOpen ? 'arrow-up' : 'arrow-down' }
+				/>
+			</Button>
+		</Fragment>
 	);
 
 	const getItems = () => {
@@ -97,13 +95,19 @@ const TimePicker = ( {
 		const startSeconds = timeUtil.toSeconds( start, timeUtil.TIME_FORMAT_HH_MM );
 		const endSeconds = timeUtil.toSeconds( end, timeUtil.TIME_FORMAT_HH_MM );
 
+		const currentMoment = moment( current, momentUtil.TIME_FORMAT );
+
 		for ( let time = startSeconds; time <= endSeconds; time += step ) {
+			let isCurrent = false;
+			if ( currentMoment.isValid() ) {
+				const currentTime = momentUtil.toTime24Hr( currentMoment );
+				isCurrent = time === timeUtil.toSeconds( currentTime, timeUtil.TIME_FORMAT_HH_MM );
+			}
+
 			items.push( {
 				value: time,
 				text: formatLabel( time ),
-				isCurrent: current
-					? time === timeUtil.toSeconds( current, timeUtil.TIME_FORMAT_HH_MM )
-					: false,
+				isCurrent,
 			} );
 		}
 
@@ -121,27 +125,24 @@ const TimePicker = ( {
 		};
 
 		return (
-			<button
+			<Button
 				key={ `time-${ item.value }` }
-				role="menuitem"
 				className={ classNames( itemClasses ) }
 				value={ item.value }
 				onClick={ () => onClick( item.value, onClose ) }
 			>
 				{ item.text }
-			</button>
+			</Button>
 		);
 	};
 
-	const renderDropdownContent = ( { onClose } ) => (
+	const renderContent = ( { onClose } ) => (
 		<ScrollTo>
 			{ () => (
 				<PreventBlockClose>
 					<ScrollArea
-						id="tribe-element-timepicker-items"
 						key="tribe-element-timepicker-items"
-						role="menu"
-						className={ classNames( 'tribe-editor__timepicker__items' ) }
+						className="tribe-editor__timepicker__items"
 					>
 						{ showAllDay && renderItem(
 							{ text: __( 'All Day', 'events-gutenberg' ), value: 'all-day' },
@@ -160,22 +161,24 @@ const TimePicker = ( {
 			className="tribe-editor__timepicker"
 		>
 			<Dropdown
-				className="tribe-element-timepicker-label"
+				className="tribe-editor__timepicker__toggle"
+				contentClassName="tribe-editor__timepicker__content"
 				position="bottom center"
-				contentClassName="tribe-editor__timepicker__dialog"
-				renderToggle={ toggleDropdown }
-				renderContent={ renderDropdownContent }
+				renderToggle={ renderToggle }
+				renderContent={ renderContent }
 			/>
 		</div>
 	);
 };
 
 TimePicker.defaultProps = {
-	step: timeUtil.HALF_HOUR_IN_SECONDS,
-	timeFormat: 'H:i',
 	allDay: false,
+	onBlur: noop,
 	onChange: noop,
 	onClick: noop,
+	onFocus: noop,
+	step: timeUtil.HALF_HOUR_IN_SECONDS,
+	timeFormat: dateUtil.FORMATS.WP.time,
 };
 
 TimePicker.propTypes = {
@@ -184,18 +187,18 @@ TimePicker.propTypes = {
 	 * using 24h clock in hh:mm format
 	 * e.g. 00:24, 03:57, 21:12
 	 */
-	current: TribePropTypes.timeFormat.isRequired,
-	min: TribePropTypes.timeFormat,
-	max: TribePropTypes.timeFormat,
-	start: TribePropTypes.timeFormat.isRequired,
+	allDay: PropTypes.bool,
+	current: PropTypes.string,
+	disabled: PropTypes.bool,
 	end: TribePropTypes.timeFormat.isRequired,
+	onBlur: PropTypes.func,
+	onChange: PropTypes.func,
+	onClick: PropTypes.func,
+	onFocus: PropTypes.func,
+	showAllDay: PropTypes.bool,
+	start: TribePropTypes.timeFormat.isRequired,
 	step: PropTypes.number,
 	timeFormat: PropTypes.string,
-	allDay: PropTypes.bool,
-	onChange: PropTypes.func.isRequired,
-	onClick: PropTypes.func.isRequired,
-	showAllDay: PropTypes.bool,
-	disabled: PropTypes.bool,
 };
 
 export default TimePicker;
