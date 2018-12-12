@@ -46,7 +46,7 @@ class Tribe__Editor__Utils {
 	 * @return bool
 	 */
 	public function remove_block( $post_id, $block_name = '', $replacement = '' ) {
-		$patttern = '/^\s*<!-- ' . $block_name . '.*\/-->\s*$/gm';
+		$patttern = '/^\s*<!-- ' . $block_name . '.*\/-->\s*$/im';
 		return $this->update_post_content( $post_id, $patttern, $replacement );
 	}
 
@@ -62,7 +62,7 @@ class Tribe__Editor__Utils {
 	 * @return bool
 	 */
 	public function remove_inner_blocks( $post_id, $block_name, $replacement = '' ) {
-		$pattern = '/^\s*<!-- ' . $block_name . '.*-->\s.*<!-- \/' . $block_name . ' -->/ms';
+		$pattern = '/^\s*<!-- ' . $block_name . '.*-->\s.*<!-- \/' . $block_name . ' -->/ims';
 		return $this->update_post_content( $post_id, $pattern, $replacement );
 	}
 
