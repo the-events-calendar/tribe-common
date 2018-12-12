@@ -2224,17 +2224,17 @@ msgstr "Informazioni di sistema"
 msgid "There are no fields setup for this tab yet."
 msgstr "Non ci sono ancora campi configurati per questa scheda."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "L'impostazione precedente non è stata salvata. Altre impostazioni sono state salvate correttamente."
 msgstr[1] "Le impostazioni precedenti non sono state salvate. Altre impostazioni sono state salvate correttamente."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Nessuna delle tue impostazioni è stata salvata. Riprova."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Il modulo ha i seguenti errori:"
 
@@ -2337,7 +2337,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Eventi"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Impostazioni salvate."
 
