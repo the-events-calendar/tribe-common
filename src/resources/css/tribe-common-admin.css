@@ -786,7 +786,8 @@ table.plugins .tribe-plugin-update-message a {
 	margin-right: 0;
 	width: 50%;
 }
-.tribe_welcome_page h2 {
+.tribe_welcome_page h2,
+.tribe_welcome_page .tribe-half-column h4 {
 	font-size: 24px;
 	line-height: 1.2;
 	margin-bottom: 20px;
@@ -823,7 +824,7 @@ p.tribe-welcome-message {
 	font-weight: 400;
 }
 /* "Calendar" dashicon */
-.tribe_welcome_page h2:before {
+.tribe_welcome_page .tribe-half-column h4:before {
 		color: #555d66;
 		content: '\f145';
 		font-family: 'dashicons';
@@ -834,19 +835,19 @@ p.tribe-welcome-message {
 		top: 2px;
 	}
 /* "Life preserver" dashicon */
-.tribe_welcome_page h2[data-tribe-icon="dashicons-sos"]:before {
+.tribe_welcome_page .tribe-half-column h4[data-tribe-icon="dashicons-sos"]:before {
 			content: '\f468';
 		}
 /* "Graduation cap" dashicon */
-.tribe_welcome_page h2[data-tribe-icon="dashicons-welcome-learn-more"]:before {
+.tribe_welcome_page .tribe-half-column h4[data-tribe-icon="dashicons-welcome-learn-more"]:before {
 			content: '\f118';
 		}
 /* "Megaphone" dashicon */
-.tribe_welcome_page h2[data-tribe-icon="dashicons-megaphone"]:before {
+.tribe_welcome_page .tribe-half-column h4[data-tribe-icon="dashicons-megaphone"]:before {
 			content: '\f488';
 		}
 /* "Heart" dashicon */
-.tribe_welcome_page h2[data-tribe-icon="dashicons-heart"]:before {
+.tribe_welcome_page .tribe-half-column h4[data-tribe-icon="dashicons-heart"]:before {
 			content: '\f487';
 		}
 .tribe_update_page h2:before {
