@@ -27,7 +27,10 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function should_load_blocks() {
-		return ( $this->is_gutenberg_active() || $this->is_wp_version() ) && $this->is_blocks_editor_active();
+		return (
+			       $this->is_gutenberg_active() || $this->is_wp_version()
+		       )
+		       && $this->is_blocks_editor_active();
 	}
 
 	/**
