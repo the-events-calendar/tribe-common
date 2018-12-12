@@ -11,7 +11,8 @@
 * Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
 * Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
 * Fix - Prevent to trigger error when using `array_combine` with empty arrays
-* Fix - Ensure admin CSS is enqueued any time a notice is displayed atop an admin page [119452]
+* Fix - Compatiblity with classic editor plugin [119426]
+* Tweak - Add functions to remove inner blocks [119426]
 
 = [4.8.1] 2018-12-05 =
 
