@@ -755,6 +755,16 @@ table.plugins .tribe-plugin-update-message a {
 		line-height: 1.2;
 		margin-top: 1em;
 	}
+.tribe_welcome_page.wrap h1:before {
+			color: #555d66;
+			content: '\f145';
+			font-family: 'dashicons';
+			font-size: 0.9em;
+			line-height: 1;
+			margin-right: 5px;
+			position: relative;
+			top: 4px;
+		}
 .tribe-half-column {
 	float: left;
 	margin-bottom: 30px;
@@ -814,6 +824,7 @@ p.tribe-welcome-message {
 }
 /* "Calendar" dashicon */
 .tribe_welcome_page h2:before {
+		color: #555d66;
 		content: '\f145';
 		font-family: 'dashicons';
 		font-size: 21px;
