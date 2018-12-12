@@ -85,9 +85,19 @@ class Tribe__Editor__Utils {
 			return false;
 		}
 
+		$next_content = preg_replace( $pattern, $replacement, $content );
+
+		/**
+		 * Don't update post content if preg_replace fails or content is the update_content
+		 * is same as current content on the post to avoid a DB operation.
+		 */
+		if ( $next_content === null || $next_content === $content ) {
+			return false;
+		}
+
 		return wp_update_post( array(
 			'ID'           => $post_id,
-			'post_content' => preg_replace( $pattern, $replacement, $content ),
+			'post_content' => $next_content,
 		) );
 	}
 }
