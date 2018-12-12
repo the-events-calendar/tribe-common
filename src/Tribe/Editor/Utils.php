@@ -46,7 +46,7 @@ class Tribe__Editor__Utils {
 	 * @return bool
 	 */
 	public function remove_block( $post_id, $block_name = '', $replacement = '' ) {
-		$patttern = '/^\s*<!-- ' . $block_name . '.*\/-->\s*$/im';
+		$patttern = '/^\s*<!-- ' . $block_name . '.*\/-->\s*$/gm';
 		return $this->update_post_content( $post_id, $patttern, $replacement );
 	}
 
@@ -62,7 +62,7 @@ class Tribe__Editor__Utils {
 	 * @return bool
 	 */
 	public function remove_inner_blocks( $post_id, $block_name, $replacement = '' ) {
-		$pattern = '/^\s*<!-- ' . $block_name . '.*-->\s.*<!-- \/' . $block_name . ' -->/ims';
+		$pattern = '/^\s*<!-- ' . $block_name . '.*-->\s.*<!-- \/' . $block_name . ' -->/ms';
 		return $this->update_post_content( $post_id, $pattern, $replacement );
 	}
 
@@ -85,19 +85,9 @@ class Tribe__Editor__Utils {
 			return false;
 		}
 
-		$next_content = preg_replace( $pattern, $replacement, $content );
-
-		/**
-		 * Don't update post content if preg_replace fails or content is the update_content
-		 * is same as current content on the post to avoid a DB operation.
-		 */
-		if ( $next_content === null || $next_content === $content ) {
-			return false;
-		}
-
 		return wp_update_post( array(
 			'ID'           => $post_id,
-			'post_content' => $next_content,
+			'post_content' => preg_replace( $pattern, $replacement, $content ),
 		) );
 	}
 }
