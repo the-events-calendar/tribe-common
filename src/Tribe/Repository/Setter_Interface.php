@@ -3,7 +3,7 @@
 /**
  * Interface Tribe__Repository__Setter_Interface
  *
- * @since TBD
+ * @since 4.8.2
  */
 interface Tribe__Repository__Setter_Interface {
 
