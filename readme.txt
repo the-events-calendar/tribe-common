@@ -6,9 +6,11 @@
 
 = [4.8.2] TBD =
 
+* Feature - Add new action `tribe_editor_register_blocks` used to register Event blocks via `common`
 * Fix - Make sure assets are injected before is too late
 * Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
 * Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
+* Fix - Prevent to trigger error when using `array_combine` with empty arrays
 * Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating Event Tickets or The Events Calendar [117795]
 
 = [4.8.1] 2018-12-05 =
