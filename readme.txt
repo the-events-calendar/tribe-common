@@ -1,13 +1,46 @@
 === Tribe Common ===
 
+
 == Changelog ==
 
-= [4.7.23] TBD =
-
+= [4.8.2] TBD =
 * Add - date and timezone building and validation methods to the `Tribe__Date_Utils` and `Tribe__Timezones` classes [116356, 115579]
-* Add- the `tribe_is_regex` and `tribe_unfenced_regex` functions [115582]
+* Add- the `tribe_is_regex` and `tribe_unfenced_regex` functions [115582] 
+* Feature - Add new action `tribe_editor_register_blocks` used to register Event blocks via `common`
+* Fix - Make sure assets are injected before is too late
+* Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
+* Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
+* Fix - Prevent to trigger error when using `array_combine` with empty arrays
 
-= [4.7.22] TBD =
+= [4.8.1] 2018-12-05 =
+
+* Fix - speed up and improve robustness of the asynchronous process feature detection code [118934]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.8.0.1] 2018-11-30 =
+
+* Fix - Added safety measure to reduce risk of a fatal error when examining list of network-activated plugins [115826]
+* Fix - Corrected a usage of array syntax within the PUE client, in order to ensure compatibility with PHP 5.2.4 (our thanks to @megabit81 for promptly flagging this issue!) [119073]
+* Language - 0 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.8] 2018-11-29 =
+
+* Add - Added `tribe_cache_expiration` filter that allows plugins to use persistent caching based on cache key [117158]
+* Fix - The invalid license key notice won't be displayed for Products with empty license keys [115562]
+* Language - 9 new strings added, 7 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.7.23.1] 2018-11-21 =
+
+* Fixed - Use of the `wp_doing_cron` function that would break compatibility with sites not on WordPress version 4.8 or later [118627]
+
+= [4.7.23] 2018-11-13 =
+
+* Add - Added `Tribe__Admin__Notice__Marketing` class for bespoke marketing admin notices [114903]
+* Add - Added `TRIBE_HIDE_MARKETING_NOTICES` constant that, if defined to `true` in your site's `wp-config.php` file, will hide all marketing admin notices [114903]
+* Fix - Fixed the setting-up of strings in the Tribe Bar datepicker to ensure they're translatable into languages other than English [115286]
+* Language - 1 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.7.22] 2018-10-22 =
 
 * Fix - Update `Tribe__Admin__Help_Page::is_current_page()` to return true when viewing the help page from the network settings [109563]
 * Language - 3 new strings added, 35 updated, 3 fuzzied, and 1 obsoleted

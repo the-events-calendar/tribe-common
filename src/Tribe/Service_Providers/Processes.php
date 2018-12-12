@@ -41,14 +41,17 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 		$this->context = tribe( 'context' );
 
 		// If the context of this request is neither AJAX or Cron bail.
-		if ( ! $this->context->doing_ajax() || $this->context->doing_cron() ) {
+		if ( ! ( $this->context->doing_ajax() || $this->context->doing_cron() ) ) {
 			return;
 		}
 
 		/** @var Tribe__Feature_Detection $feature_detection */
-		$feature_detection = tribe( 'feature-detection' );
+		$feature_detection         = tribe( 'feature-detection' );
+		$action                    = tribe_get_request_var( 'action', false );
+		$testing_for_async_support = $action === $this->get_handler_action( 'Tribe__Process__Tester' );
 
-		if ( $feature_detection->supports_async_process() ) {
+		 // Dispatch in async mode if testing for it (w/o re-checking) or if async processes are supported.
+		if ( $testing_for_async_support || $feature_detection->supports_async_process() ) {
 			$this->dispatch_async();
 
 			return;
@@ -170,7 +173,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	 * Dispatches the request, if in AJAX context of a valid queue processing request,
 	 *  to the correct handler.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 */
 	protected function dispatch_async() {
 		if ( ! (
@@ -187,7 +190,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	 * Start the process handlers if in the context of a cron process and
 	 * if any is registered.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 */
 	protected function dispatch_cron() {
 		if ( ! $this->context->doing_cron() ) {
@@ -217,7 +220,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	/**
 	 * Hooks the correct queue or process handler for an action if any.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @param string $action The action to hook the handler, or queue, for.
 	 */
@@ -239,7 +242,7 @@ class Tribe__Service_Providers__Processes extends tad_DI52_ServiceProvider {
 	/**
 	 * Parses the `cron` array to return the hook names starting with a pattern.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @param string|array $needles A pattern to look for or an array of patterns; if
 	 *                              this is an array then a match will be an hook that

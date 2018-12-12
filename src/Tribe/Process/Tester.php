@@ -2,7 +2,7 @@
 /**
  * An async process implementation meant to test if the environment is compatible with it.
  *
- * @since TBD
+ * @since 4.7.23
  */
 
 class Tribe__Process__Tester extends Tribe__Process__Handler {
@@ -12,7 +12,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 *
 	 * @var
 	 */
-	protected $transient_name = 'tribe_supports_async_process';
+	const TRANSIENT_NAME = 'tribe_supports_async_process';
 
 	/**
 	 * Handles the process immediately, not in an async manner.
@@ -33,24 +33,13 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	}
 
 	/**
-	 * Returns the name of the transient this class will set as part of its test.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The set transient name.
-	 */
-	public function get_canary_transient() {
-		return $this->transient_name;
-	}
-
-	/**
 	 * Call the dispatch method, in its vanilla form, as the base class would.
 	 *
 	 * Since the purpose of this class is to test for async process support
 	 * we do not want any option or env var to make this work in any other
 	 * way but the async one.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @return mixed
 	 */
@@ -67,7 +56,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 *
 	 * This is the same code as the base WP_Background_Process class.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 */
 	public function maybe_handle() {
 		// Don't lock up other requests while processing
@@ -85,16 +74,16 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 * The transient existence will be used as a canary to detect if
 	 * background processing is supported.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 */
 	protected function handle() {
-		set_transient( $this->transient_name, 1, HOUR_IN_SECONDS );
+		set_transient( self::TRANSIENT_NAME, 1, HOUR_IN_SECONDS );
 	}
 
 	/**
 	 * Returns this handler action identifier.
 	 *
-	 * @since TBD
+	 * @since 4.7.23
 	 *
 	 * @return string This handler action identifier.
 	 */
