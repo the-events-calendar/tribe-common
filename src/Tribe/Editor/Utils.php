@@ -41,25 +41,53 @@ class Tribe__Editor__Utils {
 	 *
 	 * @param        $post_id
 	 * @param string $block_name
+	 * @param string $replacement
 	 *
 	 * @return bool
 	 */
-	public function remove_block( $post_id, $block_name = '' ) {
+	public function remove_block( $post_id, $block_name = '', $replacement = '' ) {
+		$patttern = '/^\s*<!-- ' . $block_name . '.*\/-->\s*$/gm';
+		return $this->update_post_content( $post_id, $patttern, $replacement );
+	}
+
+	/**
+	 * Function used to remove the inner blocks and the parent block as well inside of a post_content
+	 *
+	 * @since TBD
+	 *
+	 * @param        $post_id
+	 * @param        $block_name The name of the block
+	 * @param string $replacement The string used to replace the value of the searched block
+	 *
+	 * @return bool
+	 */
+	public function remove_inner_blocks( $post_id, $block_name, $replacement = '' ) {
+		$pattern = '/^\s*<!-- ' . $block_name . '.*-->\s.*<!-- \/' . $block_name . ' -->/ms';
+		return $this->update_post_content( $post_id, $pattern, $replacement );
+	}
+
+	/**
+	 * Update the content of a post using a pattern to search a specifc string, with a custom
+	 * replacement
+	 *
+	 * @since TBD
+	 *
+	 * @param        $post_id
+	 * @param        $pattern
+	 * @param string $replacement The string used to replace the value of the searched block
+	 *
+	 * @return bool
+	 */
+	public function update_post_content( $post_id, $pattern, $replacement = '' ) {
 		$content = get_post_field( 'post_content', $post_id );
 
 		if ( empty( $content ) ) {
 			return false;
 		}
 
-		$args = array(
+		return wp_update_post( array(
 			'ID'           => $post_id,
-			'post_content' => preg_replace(
-				'/^\s*<!-- ' . $block_name . ' .* \/-->\s*$/gm',
-				'',
-				$content
-			),
-		);
-
-		return wp_update_post( $args );
+			'post_content' => preg_replace( $pattern, $replacement, $content ),
+		) );
 	}
 }
