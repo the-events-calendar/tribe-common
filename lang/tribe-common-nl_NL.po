@@ -2226,17 +2226,17 @@ msgstr "Systeeminformatie"
 msgid "There are no fields setup for this tab yet."
 msgstr "Er zijn nog geen velden voor deze tab."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "De bovenstaande instelling is niet opgeslagen. De overige instellingen zijn met succes opgeslagen."
 msgstr[1] "De bovenstaande instellingen zijn niet opgeslagen. De overige instellingen zijn met succes opgeslagen."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Geen van je instellingen is opgeslagen. Probeer het nogmaals."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Je formulier heeft de volgende fouten:"
 
@@ -2339,7 +2339,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Evenementen"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Instellingen opgeslagen"
 

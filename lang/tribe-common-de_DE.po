@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-11-12 19:27:19+0000\n"
+"PO-Revision-Date: 2018-12-08 15:52:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,41 +13,41 @@ msgstr ""
 
 #: src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
-msgstr ""
+msgstr "Text Array"
 
 #: src/Tribe/Editor/Meta.php:105
 msgid "Numeric Array"
-msgstr ""
+msgstr "Numerisches Array"
 
 #: src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y g:i a"
-msgstr ""
+msgstr "j. F Y, G:i"
 
 #: src/Tribe/Editor/Configuration.php:96
 msgid "F j"
-msgstr ""
+msgstr "j. F"
 
 #: src/Tribe/Editor/Configuration.php:95
 msgid "F j, Y"
-msgstr ""
+msgstr "j. F Y"
 
 #: src/Tribe/Editor/Configuration.php:94
 msgid "g:i a"
-msgstr ""
+msgstr "G:i"
 
 #. translators: %s: duration
 #: src/Tribe/Editor/Configuration.php:90
 msgid "%s ago"
-msgstr ""
+msgstr "vor %s"
 
 #. translators: %s: duration
 #: src/Tribe/Editor/Configuration.php:88
 msgid "%s from now"
-msgstr ""
+msgstr "%s von jetzt"
 
 #: src/Tribe/Editor/Blocks/Abstract.php:127
 msgid "Problem loading the block, please remove this block to restart."
-msgstr ""
+msgstr "Problem beim Laden des Blocks, bitte entfernen Sie diesen Block, um neu zu starten."
 
 #: src/Tribe/Main.php:276
 msgid "Clear"
@@ -2227,17 +2227,17 @@ msgstr "Systeminformationen"
 msgid "There are no fields setup for this tab yet."
 msgstr "Es sind noch keine Felder für diesen Reiter definiert."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Die obige Einstellung wurde nicht gespeichert. Andere Einstellungen wurden erfolgreich gespeichert."
 msgstr[1] "Die obigen Einstellungen wurde nicht gespeichert. Andere Einstellungen wurden erfolgreich gespeichert."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Die Eintellungen konnten gespeichert werden. Versuchen Sie es erneut."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Ihr Formular hat folgende Fehler:"
 
@@ -2340,7 +2340,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert.."
 
