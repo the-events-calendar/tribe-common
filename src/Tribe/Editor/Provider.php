@@ -35,7 +35,25 @@ class Tribe__Editor__Provider extends tad_DI52_ServiceProvider {
 	 *
 	 */
 	protected function hook() {
+		// Setup the registration of Blocks
+		add_action( 'init', array( $this, 'register_blocks' ), 20 );
+	}
 
+	/**
+	 * Prevents us from using `init` to register our own blocks, allows us to move
+	 * it when the proper place shows up
+	 *
+	 * @since 4.8.2
+	 *
+	 * @return void
+	 */
+	public function register_blocks() {
+		/**
+		 * Internal Action used to register blocks for Events
+		 *
+		 * @since 4.8.2
+		 */
+		do_action( 'tribe_editor_register_blocks' );
 	}
 
 	/**

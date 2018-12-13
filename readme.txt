@@ -3,6 +3,17 @@
 
 == Changelog ==
 
+
+= [4.8.2] 2018-12-13 =
+
+* Feature - Add new action `tribe_editor_register_blocks` used to register Event blocks via `common`
+* Fix - Make sure assets are injected before is too late
+* Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
+* Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
+* Fix - Prevent to trigger error when using `array_combine` with empty arrays
+* Fix - Compatiblity with classic editor plugin [119426]
+* Tweak - Add functions to remove inner blocks [119426]
+
 = [4.8.1] 2018-12-05 =
 
 * Fix - speed up and improve robustness of the asynchronous process feature detection code [118934]
