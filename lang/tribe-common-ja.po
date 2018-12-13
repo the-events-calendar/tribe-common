@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-09-24 17:59:08+0000\n"
+"PO-Revision-Date: 2018-11-12 16:19:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,21 +11,59 @@ msgstr ""
 "Language: ja_JP\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Editor/Meta.php:123
+msgid "Text Array"
+msgstr ""
+
+#: src/Tribe/Editor/Meta.php:105
+msgid "Numeric Array"
+msgstr ""
+
+#: src/Tribe/Editor/Configuration.php:97
+msgid "F j, Y g:i a"
+msgstr ""
+
+#: src/Tribe/Editor/Configuration.php:96
+msgid "F j"
+msgstr ""
+
+#: src/Tribe/Editor/Configuration.php:95
+msgid "F j, Y"
+msgstr ""
+
+#: src/Tribe/Editor/Configuration.php:94
+msgid "g:i a"
+msgstr ""
+
+#. translators: %s: duration
+#: src/Tribe/Editor/Configuration.php:90
+msgid "%s ago"
+msgstr ""
+
+#. translators: %s: duration
+#: src/Tribe/Editor/Configuration.php:88
+msgid "%s from now"
+msgstr ""
+
+#: src/Tribe/Editor/Blocks/Abstract.php:127
+msgid "Problem loading the block, please remove this block to restart."
+msgstr ""
+
 #: src/Tribe/Main.php:276
 msgid "Clear"
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:37
 msgid "Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze."
-msgstr ""
+msgstr "Event Aggregator は、ご使用のカレンダーに大幅なインポート機能を追加します。自分で気づくよりも前に、Meetup、Eventbrite、Google カレンダー、iCalendar、およびその他の URL から簡単にイベントがインポートされます。舞台裏でインポートを自動実行するようにスケジュールしたり、準備ができたときに手動で実行できます。お好みに合わせて、インポートを開始しましょう。Event Aggregator は、管理部門のセントラル ダッシュボードにぴったりと組み合わされ、インポート作業をとても簡単に管理できるようになります。"
 
 #: src/Tribe/Admin/Notice/Php_Version.php:101
 msgid "Starting March 2019, %1$s will no longer work with versions prior to PHP 5.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 5.6 or above."
-msgstr ""
+msgstr "2019 年 3 月以降、%1$s は、PHP 5.4 よりも前のバージョンをサポートいたしません。現在、ご利用いただいているサイトは、PHP バージョン %2$s です。最適な結果を得るには、PHP 5.6 以上をお薦めしています。"
 
 #: src/Tribe/Admin/Notice/Php_Version.php:98
 msgid "Starting March 2019, %1$s will no longer support versions prior to PHP 5.6. Your site is currently using PHP version %2$s which will no longer be supported by %1$s. For best results, we recommend using PHP 5.6 or above."
-msgstr ""
+msgstr "2019 年 3 月以降、%1$s は、PHP 5.6 よりも前のバージョンをサポートいたしません。現在、ご利用いただいているサイトは、PHP バージョン %2$s であり、%1$s によるサポートがなくなります。最適な結果を得るには、PHP 5.6 以上をお薦めしています。"
 
 #: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
 msgid "Every %d Minutes"
@@ -37,7 +75,7 @@ msgstr "当社のサポート ヘルプ デスクを検索"
 
 #: src/Tribe/Plugins_API.php:71
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
-msgstr ""
+msgstr "Event Tickets Plus では、WooCommerce、Easy Digital Downloads、または当社のビルトイン Tribe Commerce ツールを使用して、イベントのチケットを販売できるようになります。投稿やページにチケットを追加したり、%1$sEvents Calendar%2$s を追加して、イベント リストからチケットを販売します。カスタム登録フォームの作成、出席者の管理、カスタム定員オプションなどなど、さまざまな機能が用意されています。ゲストは、QR コードと当社スキャニング アプリを使用して、簡単にチェックインできます。"
 
 #: src/Tribe/Validate.php:184
 msgid "%s must not be empty"
@@ -139,11 +177,11 @@ msgstr "新しいバージョンの %1$s をご利用いただくことができ
 msgid "Update now to version %s."
 msgstr "新しいバージョン %s に今すぐアップデートしてください。"
 
-#: src/Tribe/PUE/Notices.php:340
+#: src/Tribe/PUE/Notices.php:397
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr "%1$stheeventscalendar.com のご自分のアカウント%2$sにログインすると、ライセンスのステータスをいつでもご確認いただくことができます。"
 
-#: src/Tribe/PUE/Notices.php:225
+#: src/Tribe/PUE/Notices.php:282
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] "%1$s をご使用いただいているようですが、ライセンス キーが無効です。%2$sご使用のアカウント%3$sから最新バージョンをダウンロードしてください。"
@@ -280,15 +318,15 @@ msgstr "%s は 正の整数 (0 を含む) である必要があります。"
 msgid "Events Help"
 msgstr "Events ヘルプ"
 
-#: src/Tribe/PUE/Checker.php:1678
+#: src/Tribe/PUE/Checker.php:1685
 msgid "Expired license. Consult your network administrator."
 msgstr "ライセンスの期限が切れています。ネットワーク管理者にご相談ください。"
 
-#: src/Tribe/PUE/Checker.php:1677
+#: src/Tribe/PUE/Checker.php:1684
 msgid "No license entered. Consult your network administrator."
 msgstr "ライセンスが入力されていません。ネットワーク管理者にご相談ください。"
 
-#: src/Tribe/PUE/Checker.php:1676
+#: src/Tribe/PUE/Checker.php:1683
 msgid "A valid license has been entered by your network administrator."
 msgstr "ネットワーク管理者により有効なライセンスが入力されています。"
 
@@ -360,17 +398,17 @@ msgstr "すべてのアドオンを参照する"
 msgid "Events Add-Ons"
 msgstr "Events アドオン"
 
-#: src/Tribe/PUE/Notices.php:383
+#: src/Tribe/PUE/Notices.php:440
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr "%1$s および %2$s"
 
-#: src/Tribe/PUE/Notices.php:302
+#: src/Tribe/PUE/Notices.php:359
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] "%1$s 用のライセンス キーをお持ちですが、キーがインストールされていません。%2$sEvents Calendar ウェブサイトにアクセス%3$sし、インストール状況の管理、ライセンスのアップグレード、または新規購入を行ってください。"
 
-#: src/Tribe/PUE/Notices.php:270
+#: src/Tribe/PUE/Notices.php:327
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] "%1$s のアップデートをご利用いただけますが、ライセンスの期限が切れています。%2$sEvents Calendar ウェブサイトにアクセスし、ライセンスを更新してください。%3$s"
@@ -440,11 +478,11 @@ msgstr "はい、私のシステム情報を Modern Tribe サポート チーム
 msgid "English"
 msgstr "英語"
 
-#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:285
+#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:342
 msgid " (opens in a new window)"
 msgstr " (新しいウィンドウで開く)"
 
-#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:283
+#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:340
 msgid "Renew Your License Now"
 msgstr "今すぐライセンスを更新する"
 
@@ -1978,7 +2016,7 @@ msgstr "ボツワナ"
 
 #: src/Tribe/Languages/Locations.php:83
 msgid "Bosnia and Herzegovina"
-msgstr ""
+msgstr "ボスニア・ヘルツェゴビナ"
 
 #: src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
@@ -2118,7 +2156,7 @@ msgstr "%s は、数字またはパーセンテージである必要がありま
 
 #: src/Tribe/Validate.php:368
 msgid "%s cannot be a duplicate"
-msgstr "%s は、重複できません。"
+msgstr "%s は、重複できません"
 
 #: src/Tribe/Validate.php:366
 msgid "%s cannot be the same as %s."
@@ -2126,7 +2164,7 @@ msgstr "%s は、%s と同じにできません。"
 
 #: src/Tribe/Validate.php:359
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
-msgstr "フィールド %s の比較値が提供されていないため、比較検証が正常に完了しませんでした。"
+msgstr "フィールド %s の比較値が提供されていないため、比較検証が正常に完了しませんでした"
 
 #: src/Tribe/Validate.php:298 src/Tribe/Validate.php:310
 #: src/Tribe/Validate.php:323 src/Tribe/Validate.php:345
@@ -2183,16 +2221,16 @@ msgstr "システム情報"
 msgid "There are no fields setup for this tab yet."
 msgstr "このタブのフィールド セットアップがありません。"
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "上記の設定は保存されませんでした。その他の設定は正常に保存されました。"
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "いずれの設定も保存されませんでした。もう一度お試しください。"
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "ご使用の形式には下記のエラーがありました:"
 
@@ -2295,7 +2333,7 @@ msgstr "Events Calendar"
 msgid "Events"
 msgstr "イベント"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "設定が保存されました。"
 

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-09-28 14:34:04+0000\n"
+"PO-Revision-Date: 2018-11-12 19:24:52+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,21 +11,59 @@ msgstr ""
 "Language: hu\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Editor/Meta.php:123
+msgid "Text Array"
+msgstr ""
+
+#: src/Tribe/Editor/Meta.php:105
+msgid "Numeric Array"
+msgstr ""
+
+#: src/Tribe/Editor/Configuration.php:97
+msgid "F j, Y g:i a"
+msgstr ""
+
+#: src/Tribe/Editor/Configuration.php:96
+msgid "F j"
+msgstr ""
+
+#: src/Tribe/Editor/Configuration.php:95
+msgid "F j, Y"
+msgstr ""
+
+#: src/Tribe/Editor/Configuration.php:94
+msgid "g:i a"
+msgstr ""
+
+#. translators: %s: duration
+#: src/Tribe/Editor/Configuration.php:90
+msgid "%s ago"
+msgstr ""
+
+#. translators: %s: duration
+#: src/Tribe/Editor/Configuration.php:88
+msgid "%s from now"
+msgstr ""
+
+#: src/Tribe/Editor/Blocks/Abstract.php:127
+msgid "Problem loading the block, please remove this block to restart."
+msgstr ""
+
 #: src/Tribe/Main.php:276
 msgid "Clear"
-msgstr ""
+msgstr "Kiürít"
 
 #: src/Tribe/Plugins_API.php:37
 msgid "Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze."
-msgstr ""
+msgstr "Az Event Aggregator erőteljes importálási funkciókat ad a naptáradhoz. Segítségével könnyen importálhatsz eseményeket a Meetup-ról, a Facebook-ról, Google Naptárból, iCalendar-okból és már URL-ekből. Az importálás lehet időzített, ami a háttérben fut, vagy futtathatod manuálisan, amikor szeretnéd. Gyerünk, importáld a kedvenc eseményeidet - az Event Aggregator irányítópultja segítségével könnyen kezelheted az importjaidat."
 
 #: src/Tribe/Admin/Notice/Php_Version.php:101
 msgid "Starting March 2019, %1$s will no longer work with versions prior to PHP 5.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 5.6 or above."
-msgstr ""
+msgstr "2019. márciustól a(z) %1$s nem fog működni a PHP 5.4-nél régebbi verzióin. A weboldalon jelenleg PHP %2$s verzió fut. A legjobb eredmény érdekében javasolt a PHP 5.6 vagy újabb használata."
 
 #: src/Tribe/Admin/Notice/Php_Version.php:98
 msgid "Starting March 2019, %1$s will no longer support versions prior to PHP 5.6. Your site is currently using PHP version %2$s which will no longer be supported by %1$s. For best results, we recommend using PHP 5.6 or above."
-msgstr ""
+msgstr "2019 márciustól a(z) %1$s nem fog működni a PHP 5.6-nél régebbi verzióin. A weboldalon jelenleg PHP %2$s verzió fut, amin nem fog futni a(z) %1$s. A legjobb eredmény érdekében javasoljuk a PHP 5.6 vagy újabb használatát."
 
 #: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
 msgid "Every %d Minutes"
@@ -37,7 +75,7 @@ msgstr "Keressél a helpdesken"
 
 #: src/Tribe/Plugins_API.php:71
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
-msgstr ""
+msgstr "Az Event Tickets Plus segítségével jegyeket árulhatsz az eseményeidre a WooCommerce, az Easy Digital Downloads vagy a beépített Tribe Commerce eszköz segítségével. Készíthetsz jegyeket blogbejegyzésekhez, oldalakhoz, vagy telepítsd a %1$s The Events Calendar%2$st és árulj jegyeket az eseményeidre. Hozz létre egyedi regisztrációs űrlapokat, kezeld a résztvevőket, használj egyedi készlet kezelést, és még sok minden más. A jegyekhez QR-kód is készül a résztvevők beléptetéshez, ami az egyedi jegyszkennelő applikációnkkal még könnyebb."
 
 #: src/Tribe/Validate.php:184
 msgid "%s must not be empty"
@@ -139,11 +177,11 @@ msgstr "A %1$s bővítményhez elérhető egy új verzió. %2$s"
 msgid "Update now to version %s."
 msgstr "Frissítés a %s verzióra."
 
-#: src/Tribe/PUE/Notices.php:340
+#: src/Tribe/PUE/Notices.php:397
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr "Bármikor leellenőrizheted a licenszeid státuszát, ha %1$sbejelentkezel a fiókodba a theeventscalendar.com oldalon%2$s."
 
-#: src/Tribe/PUE/Notices.php:225
+#: src/Tribe/PUE/Notices.php:282
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] "Úgy tűnik, hogy a(z) %1$s bővítményt használod, de a licensz kulcs érvénytelen. Töltsd le az legfrissebb verziót %2$sa fiókodból%3$s."
@@ -281,15 +319,15 @@ msgstr "%s -nek egész számnak kell lennie."
 msgid "Events Help"
 msgstr "Események segítség"
 
-#: src/Tribe/PUE/Checker.php:1678
+#: src/Tribe/PUE/Checker.php:1685
 msgid "Expired license. Consult your network administrator."
 msgstr "Lejárt licensz. Lépj kapcsolatba a hálózati adminisztrátorral."
 
-#: src/Tribe/PUE/Checker.php:1677
+#: src/Tribe/PUE/Checker.php:1684
 msgid "No license entered. Consult your network administrator."
 msgstr "Nincs megadva licensz kulcs. Lépj kapcsolatba a hálózati adminisztrátorral. "
 
-#: src/Tribe/PUE/Checker.php:1676
+#: src/Tribe/PUE/Checker.php:1683
 msgid "A valid license has been entered by your network administrator."
 msgstr "A hálózati adminisztrátor megadott egy érvényes licensz kulcsot."
 
@@ -361,18 +399,18 @@ msgstr "Összes kiegészítő megtekintése"
 msgid "Events Add-Ons"
 msgstr "Esemény kiegészítők"
 
-#: src/Tribe/PUE/Notices.php:383
+#: src/Tribe/PUE/Notices.php:440
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr "%1$s és %2$s"
 
-#: src/Tribe/PUE/Notices.php:302
+#: src/Tribe/PUE/Notices.php:359
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] "A(z) %1$s bővítményhez rendelkezel licensz kulccsal, de már nem használható több helyen. %2$sLátogass el a The Events Calendar weboldalára%3$s a licenszeid kezeléséhez, frissítéséhez, vagy egy új licensz vásárlásához."
 msgstr[1] "A(z) %1$s bővítményekhez rendelkezel licensz kulccsal, de azok már nem használhatóak több helyen. %2$sLátogass el a The Events Calendar weboldalára%3$s a licenszeid kezeléséhez, frissítéséhez, vagy egy új licensz vásárlásához."
 
-#: src/Tribe/PUE/Notices.php:270
+#: src/Tribe/PUE/Notices.php:327
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] "A(z) %1$s bővítményhez elérhető egy frissítés, de a licenszed lejárt. %2$sLátogass el a The Events Calendar weboldalára a licenszed megújításához.%3$s"
@@ -443,11 +481,11 @@ msgstr "Igen, automatikusan megosztom a rendszerinformációmat a Modern Tribe t
 msgid "English"
 msgstr "Angol"
 
-#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:285
+#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:342
 msgid " (opens in a new window)"
 msgstr "(új ablakban nyílik meg)"
 
-#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:283
+#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:340
 msgid "Renew Your License Now"
 msgstr "Licensz megújítása most"
 
@@ -1981,7 +2019,7 @@ msgstr "Botswana"
 
 #: src/Tribe/Languages/Locations.php:83
 msgid "Bosnia and Herzegovina"
-msgstr ""
+msgstr "Bosznia-Hercegovina"
 
 #: src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
@@ -2186,17 +2224,17 @@ msgstr "Rendszerinformáció"
 msgid "There are no fields setup for this tab yet."
 msgstr "Erre a lapra még nincsenek mezők beállítva."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "A fenti beállítást nem sikerült menteni. A többi beállítás mentése sikeresen megtörtént."
 msgstr[1] "A fenti beállításokat nem sikerült menteni. A többi beállítás mentése sikeresen megtörtént."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "A beállítások mentése nem sikerült. Kérjük, próbáld újra."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Az űrlap a következő hibákat tartalmazza:"
 
@@ -2299,7 +2337,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Események"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Beállítások elmentve."
 

@@ -1,6 +1,35 @@
 === Tribe Common ===
 
+
 == Changelog ==
+
+
+= [4.8.2] 2018-12-13 =
+
+* Feature - Add new action `tribe_editor_register_blocks` used to register Event blocks via `common`
+* Fix - Make sure assets are injected before is too late
+* Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
+* Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
+* Fix - Prevent to trigger error when using `array_combine` with empty arrays
+* Fix - Compatiblity with classic editor plugin [119426]
+* Tweak - Add functions to remove inner blocks [119426]
+
+= [4.8.1] 2018-12-05 =
+
+* Fix - speed up and improve robustness of the asynchronous process feature detection code [118934]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.8.0.1] 2018-11-30 =
+
+* Fix - Added safety measure to reduce risk of a fatal error when examining list of network-activated plugins [115826]
+* Fix - Corrected a usage of array syntax within the PUE client, in order to ensure compatibility with PHP 5.2.4 (our thanks to @megabit81 for promptly flagging this issue!) [119073]
+* Language - 0 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.8] 2018-11-29 =
+
+* Add - Added `tribe_cache_expiration` filter that allows plugins to use persistent caching based on cache key [117158]
+* Fix - The invalid license key notice won't be displayed for Products with empty license keys [115562]
+* Language - 9 new strings added, 7 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.7.23.1] 2018-11-21 =
 

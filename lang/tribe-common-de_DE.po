@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-10-29 21:32:54+0000\n"
+"PO-Revision-Date: 2018-12-08 15:52:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,9 +11,47 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/Tribe/Editor/Meta.php:123
+msgid "Text Array"
+msgstr "Text Array"
+
+#: src/Tribe/Editor/Meta.php:105
+msgid "Numeric Array"
+msgstr "Numerisches Array"
+
+#: src/Tribe/Editor/Configuration.php:97
+msgid "F j, Y g:i a"
+msgstr "j. F Y, G:i"
+
+#: src/Tribe/Editor/Configuration.php:96
+msgid "F j"
+msgstr "j. F"
+
+#: src/Tribe/Editor/Configuration.php:95
+msgid "F j, Y"
+msgstr "j. F Y"
+
+#: src/Tribe/Editor/Configuration.php:94
+msgid "g:i a"
+msgstr "G:i"
+
+#. translators: %s: duration
+#: src/Tribe/Editor/Configuration.php:90
+msgid "%s ago"
+msgstr "vor %s"
+
+#. translators: %s: duration
+#: src/Tribe/Editor/Configuration.php:88
+msgid "%s from now"
+msgstr "%s von jetzt"
+
+#: src/Tribe/Editor/Blocks/Abstract.php:127
+msgid "Problem loading the block, please remove this block to restart."
+msgstr "Problem beim Laden des Blocks, bitte entfernen Sie diesen Block, um neu zu starten."
+
 #: src/Tribe/Main.php:276
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
 #: src/Tribe/Plugins_API.php:37
 msgid "Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze."
@@ -142,11 +180,11 @@ msgstr "Die neue Version von %1$s ist verfügbar. %2$s"
 msgid "Update now to version %s."
 msgstr "Jetzt auf die neuste %s Version aktualisieren."
 
-#: src/Tribe/PUE/Notices.php:340
+#: src/Tribe/PUE/Notices.php:397
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr "Sie können den Status Ihrer Lizenzen jederzeit überprüfen, indem Sie sich in %1$s Ihrem Konto auf theeventscalendar.com%2$s anmelden."
 
-#: src/Tribe/PUE/Notices.php:225
+#: src/Tribe/PUE/Notices.php:282
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] "Es sieht so aus, als würdest du %1$s verwenden, aber der Lizenzschlüssel ist ungültig. Bitte laden Sie die neueste Version %2$s von Ihrem Konto %3$s."
@@ -284,15 +322,15 @@ msgstr "%s muss eine Ganzzahl sein."
 msgid "Events Help"
 msgstr "Veranstaltungshilfe"
 
-#: src/Tribe/PUE/Checker.php:1678
+#: src/Tribe/PUE/Checker.php:1685
 msgid "Expired license. Consult your network administrator."
 msgstr "Lizenz abgelaufen. Bitte kontaktiere Sie Ihren Netzwerk Administrator."
 
-#: src/Tribe/PUE/Checker.php:1677
+#: src/Tribe/PUE/Checker.php:1684
 msgid "No license entered. Consult your network administrator."
 msgstr "Keine Lizenz hinterlegt. Bitte kontaktieren Sie Ihren Netzwerk Administrator. "
 
-#: src/Tribe/PUE/Checker.php:1676
+#: src/Tribe/PUE/Checker.php:1683
 msgid "A valid license has been entered by your network administrator."
 msgstr "Eine gültige Lizenz wurde durch Ihren Netzwerk Administrator hinterlegt."
 
@@ -364,18 +402,18 @@ msgstr "All Add-Ons anzeigen"
 msgid "Events Add-Ons"
 msgstr "Events Add-Ons"
 
-#: src/Tribe/PUE/Notices.php:383
+#: src/Tribe/PUE/Notices.php:440
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr "%1$s und %2$s"
 
-#: src/Tribe/PUE/Notices.php:302
+#: src/Tribe/PUE/Notices.php:359
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] "Sie haben einen Lizenzschlüssel für %1$s eingegeben, aber der Schlüssel wird schon verwendet. %2$sBesuchen Sie die  Events Calendar Website%3$s, um Ihre Installationen zu verwalten, Ihre Lizenz zu aktualisieren oder eine neue zu kaufen."
 msgstr[1] "Sie haben Lizenzschlüssel für %1$s eingegeben, aber die Schlüssel werden schon verwendet. %2$sBesuchen Sie die  Events Calendar Website%3$s, um Ihre Installationen zu verwalten, Ihre Lizenzen zu aktualisieren oder neue zu kaufen."
 
-#: src/Tribe/PUE/Notices.php:270
+#: src/Tribe/PUE/Notices.php:327
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] "Für %1$s steht ein Update zur Verfügung, aber Ihre Lizenz ist abgelaufen. %2$sBesuchen Sie die Events Calendar Website, um Ihre Lizenz zu verlängern.%3$s"
@@ -446,11 +484,11 @@ msgstr "Ja, teile meine System Informationen automatisch mit dem Modern Tribe Su
 msgid "English"
 msgstr "Englisch"
 
-#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:285
+#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:342
 msgid " (opens in a new window)"
 msgstr "(in neuem Fenster öffnen)"
 
-#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:283
+#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:340
 msgid "Renew Your License Now"
 msgstr "Lizenz jetzt erneuern"
 
@@ -2189,17 +2227,17 @@ msgstr "Systeminformationen"
 msgid "There are no fields setup for this tab yet."
 msgstr "Es sind noch keine Felder für diesen Reiter definiert."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Die obige Einstellung wurde nicht gespeichert. Andere Einstellungen wurden erfolgreich gespeichert."
 msgstr[1] "Die obigen Einstellungen wurde nicht gespeichert. Andere Einstellungen wurden erfolgreich gespeichert."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Die Eintellungen konnten gespeichert werden. Versuchen Sie es erneut."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Ihr Formular hat folgende Fehler:"
 
@@ -2302,7 +2340,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert.."
 
