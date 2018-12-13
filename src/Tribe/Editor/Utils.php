@@ -53,7 +53,7 @@ class Tribe__Editor__Utils {
 	/**
 	 * Function used to remove the inner blocks and the parent block as well inside of a post_content
 	 *
-	 * @since TBD
+	 * @since 4.8.2
 	 *
 	 * @param        $post_id
 	 * @param        $block_name The name of the block
@@ -70,7 +70,7 @@ class Tribe__Editor__Utils {
 	 * Update the content of a post using a pattern to search a specifc string, with a custom
 	 * replacement
 	 *
-	 * @since TBD
+	 * @since 4.8.2
 	 *
 	 * @param        $post_id
 	 * @param        $pattern

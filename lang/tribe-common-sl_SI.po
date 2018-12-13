@@ -2230,7 +2230,7 @@ msgstr "Sistemske informacije"
 msgid "There are no fields setup for this tab yet."
 msgstr "Nobenih polj ni nastavljenih za ta zavihek."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Zgornja nastavitev ni bila shranjena. Ostale nastavitve so bile shranjene uspešno."
@@ -2238,11 +2238,11 @@ msgstr[1] "Zgornje nastavitve niso bile shranjene. Ostale nastavitve so bile shr
 msgstr[2] ""
 msgstr[3] ""
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Nobena od vaših nastavitev ni bila shranjena. Prosim poizkusite znova."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Vaš obrazec ima naslednje napake"
 
@@ -2345,7 +2345,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Dogodki"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Nastavitve shranjene."
 

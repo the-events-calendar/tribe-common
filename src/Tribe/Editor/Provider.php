@@ -43,7 +43,7 @@ class Tribe__Editor__Provider extends tad_DI52_ServiceProvider {
 	 * Prevents us from using `init` to register our own blocks, allows us to move
 	 * it when the proper place shows up
 	 *
-	 * @since TBD
+	 * @since 4.8.2
 	 *
 	 * @return void
 	 */
@@ -51,7 +51,7 @@ class Tribe__Editor__Provider extends tad_DI52_ServiceProvider {
 		/**
 		 * Internal Action used to register blocks for Events
 		 *
-		 * @since TBD
+		 * @since 4.8.2
 		 */
 		do_action( 'tribe_editor_register_blocks' );
 	}

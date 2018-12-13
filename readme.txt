@@ -4,7 +4,7 @@
 == Changelog ==
 
 
-= [4.8.2] TBD =
+= [4.8.2] 2018-12-13 =
 
 * Feature - Add new action `tribe_editor_register_blocks` used to register Event blocks via `common`
 * Fix - Make sure assets are injected before is too late
