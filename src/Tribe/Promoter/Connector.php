@@ -88,8 +88,7 @@ class Tribe__Promoter__Connector {
 			return;
 		}
 
-		// @TODO figure out where to get License key here
-		$license_key = 'foobar';
+		$license_key = get_option( 'pue_install_key_events_calendar_pro' );
 		$secret_key  = get_option( 'promoter_auth_key' );
 
 		$payload = array(
