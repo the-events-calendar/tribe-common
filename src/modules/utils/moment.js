@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { isString } from 'lodash';
-import moment from 'moment/moment';
+import moment, { isMoment } from 'moment';
 
 /**
  * Internal dependencies
@@ -71,7 +71,7 @@ export const toFormat = ( format ) => {
  * @returns {moment} A moment object
  */
 export const roundTime = ( date ) => {
-	if ( ! ( date instanceof moment ) ) {
+	if ( ! isMoment( date ) ) {
 		return date;
 	}
 
@@ -116,7 +116,7 @@ export const parseFormats = ( date, formats = [ dateUtil.FORMATS.DATABASE.dateti
  * @returns {moment} A moment object
  */
 export const toMoment = ( date, format = dateUtil.FORMATS.DATABASE.datetime, parseFormat = true ) => {
-	if ( date instanceof moment || date instanceof Date ) {
+	if ( isMoment( date ) || date instanceof Date ) {
 		return moment( date );
 	} else if ( isString( date ) ) {
 		return moment( date, parseFormat ? toFormat( format ) : format );
@@ -161,7 +161,7 @@ export const toMomentFromDateTime = ( date, time ) => {
  * @returns {moment} A moment object where the date is replaced
  */
 export const replaceDate = ( original, replaced ) => {
-	if ( ! ( original instanceof moment ) || ! ( replaced instanceof moment ) ) {
+	if ( ! isMoment( original ) || ! isMoment( replaced ) ) {
 		throw new Error( 'Make sure your values are instances of moment' );
 	}
 
@@ -179,7 +179,7 @@ export const replaceDate = ( original, replaced ) => {
  * @returns {moment} A moment object with the new date
  */
 export const setTimeInSeconds = ( original, seconds = 0 ) => {
-	if ( ! ( original instanceof moment ) ) {
+	if ( ! isMoment( original ) ) {
 		throw new Error( 'Make sure your values are instances of moment' );
 	}
 
@@ -199,7 +199,7 @@ export const setTimeInSeconds = ( original, seconds = 0 ) => {
  * @returns {int} Total of seconds from start of the day to the current moment,
  */
 export const totalSeconds = ( date ) => {
-	if ( ! date || ! ( date instanceof moment ) ) {
+	if ( ! date || ! isMoment( date ) ) {
 		return 0;
 	}
 
