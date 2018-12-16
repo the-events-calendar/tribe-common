@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Initialize Gutenberg editor blocks
  *
@@ -27,10 +28,9 @@ class Tribe__Editor {
 	 */
 	public function should_load_blocks() {
 		return (
-			$this->is_gutenberg_active()
-			|| $this->is_wp_version()
-		)
-		&& $this->is_blocks_editor_active();
+			       $this->is_gutenberg_active() || $this->is_wp_version()
+		       )
+		       && $this->is_blocks_editor_active();
 	}
 
 	/**
@@ -151,26 +151,34 @@ class Tribe__Editor {
 	/**
 	 * classic_editor_replace is function that is created by the plugin:
 	 *
-	 * - https://wordpress.org/plugins/classic-editor/
+	 * @see https://wordpress.org/plugins/classic-editor/
+	 *
+	 * prior 1.3 version the classic editor plugin was bundle inside of a unique function:
+	 * `classic_editor_replace` now all is bundled inside of a class `Classic_Editor`
 	 *
 	 * @since 4.8
 	 *
 	 * @return bool
 	 */
 	public function is_classic_plugin_active() {
-		return function_exists( 'classic_editor_replace' );
+		return function_exists( 'classic_editor_replace' ) || class_exists( 'Classic_Editor' );
 	}
 
 	/**
 	 * Check if the setting `'classic-editor-replace'` is set to `replace` that option means to
-	 * replace the gutenberg editor with the classic editor
+	 * replace the gutenberg editor with the classic editor.
+	 *
+	 * Prior to 1.3 on classic editor plugin the value to identify if is on classic the value
+	 * was `replace`, now the value is `classic`
 	 *
 	 * @since 4.8
 	 *
 	 * @return bool
 	 */
 	public function is_classic_option_active() {
-		return 'replace' === get_option( 'classic-editor-replace' );
+		$valid_values = array( 'replace', 'classic' );
+
+		return in_array( (string) get_option( 'classic-editor-replace' ), $valid_values, true );
 	}
 
 	/**
@@ -181,8 +189,9 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function is_classic_editor() {
-		$disabled_by_plugin = $this->is_classic_plugin_active() && $this->is_classic_option_active();
+		$disabled_by_plugin        = $this->is_classic_plugin_active() && $this->is_classic_option_active();
 		$is_classic_editor_request = tribe_get_request_var( 'classic-editor', null );
+
 		return $is_classic_editor_request || $disabled_by_plugin;
 	}
 }

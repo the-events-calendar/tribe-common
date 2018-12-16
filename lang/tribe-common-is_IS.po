@@ -2224,17 +2224,17 @@ msgstr "Upplýsingar kerfis"
 msgid "There are no fields setup for this tab yet."
 msgstr "Það eru engin svæði uppsett fyrir þennan flipa."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Stilling að ofan var ekki vistuð. Aðrar stillingar voru vistaðar."
 msgstr[1] "Stillingar að ofan voru ekki vistaðar. Aðrar stillingar voru vistaðar."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Engar stillingar voru vistaðar. Reyndu aftur."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Eftirfarandi villur voru á beiðni:"
 
@@ -2337,7 +2337,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Viðburðir"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Stillingar vistaðar."
 
