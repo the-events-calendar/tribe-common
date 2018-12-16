@@ -2221,16 +2221,16 @@ msgstr "系统资讯"
 msgid "There are no fields setup for this tab yet."
 msgstr "此工具列标籤尚未设置栏位。"
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "以上设定未储存，其馀设定已成功储存。"
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "你的设定未储存，请稍后重试。"
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "你的表格含有下列错误："
 
@@ -2333,7 +2333,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "活动"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "设定已储存。"
 

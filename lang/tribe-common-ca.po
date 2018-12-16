@@ -2224,17 +2224,17 @@ msgstr "Informació del sistema"
 msgid "There are no fields setup for this tab yet."
 msgstr "Encara no hi ha cap configuració de camps per aquesta pestanya."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "L'ajust anterior no s'ha guardat. Els altres ajustos s'han guardat correctament."
 msgstr[1] "Els ajustos anteriors no s'han guardat. Els altres ajustos s'han guardat correctament."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Cap ajust s'ha guardat. Si us plau, torna-ho a intentar."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "El formulari té els errors següents:"
 
@@ -2337,7 +2337,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Esdeveniments"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Configuració guardada."
 

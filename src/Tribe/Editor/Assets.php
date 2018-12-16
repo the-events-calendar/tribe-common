@@ -12,7 +12,7 @@ class Tribe__Editor__Assets {
 	 * @return void
 	 */
 	public function hook() {
-		add_action( 'wp_loaded', array( $this, 'register' ) );
+		add_action( 'tribe_plugins_loaded', array( $this, 'register' ) );
 	}
 
 	/**
@@ -27,8 +27,6 @@ class Tribe__Editor__Assets {
 	public function register() {
 
 		$plugin = Tribe__Main::instance();
-		/** @var Tribe__Editor__Configuration $editor_configuration */
-		$editor_configuration = tribe( 'common.editor.configuration' );
 
 		tribe_asset(
 			$plugin,
@@ -51,7 +49,7 @@ class Tribe__Editor__Assets {
 						 *
 						 * @param array An array with the variables to be localized
 						 */
-						'data' => $editor_configuration->localize(),
+						'data' => tribe_callback( 'common.editor.configuration', 'localize' ),
 					),
 				),
 				'priority'  => 11,
