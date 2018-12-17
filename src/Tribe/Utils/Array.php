@@ -361,4 +361,41 @@ class Tribe__Utils__Array {
 
 		return $array;
 	}
+
+	/**
+	 * Duplicates any key not prefixed with '_' creating a prefixed duplicate one.
+	 *
+	 * The prefixing and duplication is recursive.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $array     The array whose keys should be duplicated.
+	 * @param bool  $recursive Whether the prefixing and duplication should be
+	 *                         recursive or shallow.
+	 *
+	 * @return array The array with the duplicate, prefixed, keys or the
+	 *               original input if not an array.
+	 */
+	public static function add_prefixed_keys_to( $array, $recursive = false ) {
+		if ( ! is_array( $array ) ) {
+			return $array;
+		}
+
+		$prefixed = array();
+		foreach ( $array as $key => $value ) {
+			if ( $recursive && is_array( $value ) ) {
+				$value = self::add_prefixed_keys_to( $value, true );
+				// And also add it to the original array.
+				$array[ $key ] = array_merge( $array[ $key ], $value );
+			}
+
+			if ( 0 === strpos( $key, '_' ) ) {
+				continue;
+			}
+
+			$prefixed[ '_' . $key ] = $value;
+		}
+
+		return array_merge( $array, $prefixed );
+	}
 }
