@@ -376,7 +376,7 @@ class Tribe__Utils__Array {
 	 * @return array The array with the duplicate, prefixed, keys or the
 	 *               original input if not an array.
 	 */
-	public static function add_prefixed_keys_to( $array, $recursive = false) {
+	public static function add_prefixed_keys_to( $array, $recursive = false ) {
 		if ( ! is_array( $array ) ) {
 			return $array;
 		}
