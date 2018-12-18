@@ -18,7 +18,6 @@
 * Fix - Ensure admin CSS is enqueued any time a notice is displayed atop an admin page [119452]
 * Fix - Prevent to trigger error when using `array_combine` with empty arrays
 * Fix - Compatiblity with classic editor plugin [119426]
-* Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating Event Tickets or The Events Calendar [117795]
 * Tweak - Add functions to remove inner blocks [119426]
 
 = [4.8.1] 2018-12-05 =
