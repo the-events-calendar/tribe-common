@@ -3,6 +3,8 @@
 
 == Changelog ==
 
+= [4.9] TBD =
+* Feature - add dependcy checker
 
 = [4.8.2] 2018-12-13 =
 
