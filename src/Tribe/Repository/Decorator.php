@@ -222,7 +222,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function nth( $n ) {
-		return $this->decorated->first();
+		return $this->decorated->nth( $n );
 	}
 
 	/**
