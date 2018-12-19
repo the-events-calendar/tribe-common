@@ -476,4 +476,61 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * @return WP_Query A query object ready to return, and operate, on the posts.
 	 */
 	public function get_query_for_posts( array $posts );
+
+	/**
+	 * Plucks a field from all results and returns it.
+	 *
+	 * This method will implicitly build and use a `WP_List_Util` instance on the return
+	 * value of a call to the `all` method.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $field The field to pluck from each result.
+	 *
+	 * @return array An array of the plucked results.
+	 *
+	 * @see \wp_list_pluck()
+	 */
+	public function pluck( $field );
+
+	/**
+	 * Filters the results according to the specified criteria.
+	 *
+	 * This method will implicitly build and use a `WP_List_Util` instance on the return
+	 * value of a call to the `all` method.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $args     Optional. An array of key => value arguments to match
+	 *                         against each object. Default empty array.
+	 * @param string $operator Optional. The logical operation to perform. 'AND' means
+	 *                         all elements from the array must match. 'OR' means only
+	 *                         one element needs to match. 'NOT' means no elements may
+	 *                         match. Default 'AND'.
+	 *
+	 * @return array An array of the filtered results.
+	 *
+	 * @see \wp_list_filter()
+	 */
+	public function filter( $args = array(), $operator = 'AND' );
+
+	/**
+	 * Sorts the results according to the specified criteria.
+	 *
+	 * This method will implicitly build and use a `WP_List_Util` instance on the return
+	 * value of a call to the `all` method.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array $orderby       Optional. Either the field name to order by or an array
+	 *                                    of multiple orderby fields as $orderby => $order.
+	 * @param string       $order         Optional. Either 'ASC' or 'DESC'. Only used if $orderby
+	 *                                    is a string.
+	 * @param bool         $preserve_keys Optional. Whether to preserve keys. Default false.
+	 *
+	 * @return array An array of the sorted results.
+	 *
+	 * @see \wp_list_sort()
+	 */
+	public function sort( $orderby = array(), $order = 'ASC', $preserve_keys = false  );
 }
