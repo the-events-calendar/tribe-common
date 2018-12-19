@@ -3,7 +3,7 @@
 
 == Changelog ==
 
-= [4.8.3] 2018-12-18 =
+= [4.8.3] 2018-12-19 =
 
 * Tweak - Refreshing the Welcome page for The Events Calendar and Event Tickets [117795]
 * Fix - Prevent admin tooltips to that full page width on Blocks Editor [118883]
