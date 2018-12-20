@@ -431,7 +431,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			$addon_dependencies = 0;
 
 			foreach ( $this->registered_plugins as $registered ) {
-				if ( empty( $registered['dependencies']['addon-dependencies'][$main_class] ) ) {
+				if ( empty( $registered['dependencies']['addon-dependencies'][ $main_class ] ) ) {
 					continue;
 				}
 
