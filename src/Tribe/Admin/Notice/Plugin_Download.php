@@ -29,14 +29,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * @param bool   $is_active    Indicates if the plugin is installed and active or not
 	 */
 	public function add_required_plugin( $name, $thickbox_url = null, $is_active = null, $version = null, $addon = false ) {
-		log_me('add_required_plugin');
-		log_me($name);
-		log_me($thickbox_url);
-		log_me($is_active);
-		log_me($version);
-		log_me($addon);
-
-		$this->plugins_required[] = array(
+		$this->plugins_required[ $name ] = array(
 			'name'         => $name,
 			'thickbox_url' => $thickbox_url,
 			'is_active'    => $is_active,
@@ -59,8 +52,6 @@ class Tribe__Admin__Notice__Plugin_Download {
 		if ( empty( $this->plugins_required ) ) {
 			return;
 		}
-
-		log_me($this->plugins_required);
 
 		foreach ( $this->plugins_required as $req_plugin ) {
 
