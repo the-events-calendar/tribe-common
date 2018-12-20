@@ -303,6 +303,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 			$failed_dependency = 0;
 			$tribe_plugins    = new Tribe__Plugins();
+			$admin_notice     = new Tribe__Admin__Notice__Plugin_Download( $plugin['path'] );
 
 			foreach ( $dependencies as $class => $version ) {
 
@@ -318,7 +319,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				}
 
 				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
-				$admin_notice     = new Tribe__Admin__Notice__Plugin_Download( $plugin['path'] );
 				$admin_notice->add_required_plugin( $dependent_plugin['short_name'], $dependent_plugin['thickbox_url'], $is_registered, $version, $addon );
 				$failed_dependency++;
 			}
