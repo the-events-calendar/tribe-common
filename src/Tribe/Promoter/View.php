@@ -30,7 +30,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 		$authorized   = false;
 
 		if ( $user && ! empty( $_POST['promoter_authenticate'] ) ) {
-			$authorized = tribe( 'common.promoter.auth' )->authorize_with_connector();
+			$authorized = tribe( 'promoter.auth' )->authorize_with_connector();
 		}
 
 		if ( empty( $promoter_key ) || empty( $wp_query->query_vars['promoter-auth-check'] ) ) {
