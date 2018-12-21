@@ -55,16 +55,16 @@ class Tribe__Admin__Notice__Plugin_Download {
 
 		foreach ( $this->plugins_required as $req_plugin ) {
 
-			$item = esc_html( $req_plugin['name'] );
-			$version = empty( $req_plugin['version'] ) ? '' : ' (' . esc_html( $req_plugin['version'] . ')' );
+			$item = $req_plugin['name'];
+			$version = empty( $req_plugin['version'] ) ? '' : ' (' . $req_plugin['version'] . ')';
 
 			if ( ! empty( $req_plugin['thickbox_url'] ) ) {
 				$item = sprintf(
 					'<a href="%1$s" class="thickbox" title="%2$s">%3$s%4$s</a>',
 					esc_attr( $req_plugin['thickbox_url'] ),
 					esc_attr( $req_plugin['name'] ),
-					$item,
-					$version
+					esc_html( $item ),
+					esc_html( $version )
 				);
 			}
 
