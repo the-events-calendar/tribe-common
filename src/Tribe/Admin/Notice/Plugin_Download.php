@@ -54,8 +54,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 		}
 
 		foreach ( $this->plugins_required as $req_plugin ) {
-
-			$item = $req_plugin['name'];
+			$item    = $req_plugin['name'];
 			$version = empty( $req_plugin['version'] ) ? '' : ' (' . $req_plugin['version'] . ')';
 
 			if ( ! empty( $req_plugin['thickbox_url'] ) ) {
@@ -93,7 +92,6 @@ class Tribe__Admin__Notice__Plugin_Download {
 			$this->implode_with_grammar( $plugin_name ),
 			$this->implode_with_grammar( $req_plugins )
 		);
-
 	}
 
 	/**
@@ -104,7 +102,6 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * @return string String of items
 	 */
 	public function implode_with_grammar( $items ) {
-
 		$separator   = _x( ', ', 'separator used in a list of items', 'tribe-common' );
 		$conjunction = _x( ' and ', 'the final separator in a list of two or more items', 'tribe-common' );
 		$output      = $last_item = array_pop( $items );
