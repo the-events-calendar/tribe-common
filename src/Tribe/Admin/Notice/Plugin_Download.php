@@ -73,6 +73,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 					$item
 				);
 			}
+
 			if ( ! empty( $req_plugin['addon'] ) ) {
 				$plugin_name[] = $req_plugin['name'];
 			}
@@ -80,7 +81,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 			$req_plugins[] = $item;
 		}
 
-		//if empty then add in the default name
+		// If empty then add in the default name.
 		if ( empty( $plugin_name[0] ) ) {
 			$plugin_name[] = $plugin_data['Name'];
 		}
