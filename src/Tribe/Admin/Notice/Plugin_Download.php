@@ -90,8 +90,8 @@ class Tribe__Admin__Notice__Plugin_Download {
 			'<div class="error"><p>'
 			. esc_html__( 'To begin using %1$s, please install and activate the latest version of %2$s.', 'tribe-common' )
 			. '</p></div>',
-			$this->implode_with_grammar( $plugin_name ),
-			$this->implode_with_grammar( $req_plugins )
+			$this->implode_with_grammar( $plugin_name ), // phpcs:ignore
+			$this->implode_with_grammar( $req_plugins ) // phpcs:ignore
 		);
 	}
 
