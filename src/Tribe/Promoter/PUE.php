@@ -26,7 +26,7 @@ class Tribe__Promoter__PUE {
 			$this->slug,
 			array(
 				'context'     => 'service',
-				'plugin_name' => __( 'Promoter', 'tribe' ),
+				'plugin_name' => __( 'Promoter', 'tribe-common' ),
 			)
 		);
 	}
