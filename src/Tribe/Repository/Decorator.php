@@ -222,7 +222,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function nth( $n ) {
-		return $this->decorated->first();
+		return $this->decorated->nth( $n );
 	}
 
 	/**
@@ -533,5 +533,26 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 		return $this->decorated instanceof Tribe__Repository__Decorator
 			? $this->decorated->get_decorated_repository()
 			: $this->decorated;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function pluck( $field ) {
+		return $this->decorated->pluck( $field );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter( $orderby = array(), $order = 'ASC', $preserve_keys = false ) {
+		return $this->decorated->filter( $orderby, $order, $preserve_keys );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function sort( $orderby = array(), $order = 'ASC', $preserve_keys = false ) {
+		return $this->decorated->sort( $orderby, $order, $preserve_keys );
 	}
 }

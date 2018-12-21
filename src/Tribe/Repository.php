@@ -2894,4 +2894,31 @@ abstract class Tribe__Repository
 
 		return $query;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function pluck( $field ) {
+		$list = new WP_List_Util( $this->all() );
+
+		return $list->pluck( $field );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter( $args = array(), $operator = 'AND' ) {
+		$list = new WP_List_Util( $this->all() );
+
+		return $list->filter( $args, $operator );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function sort( $orderby = array(), $order = 'ASC', $preserve_keys = false ) {
+		$list = new WP_List_Util( $this->all() );
+
+		return $list->sort( $orderby, $order, $preserve_keys );
+	}
 }
