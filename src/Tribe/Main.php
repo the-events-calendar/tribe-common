@@ -501,7 +501,7 @@ class Tribe__Main {
 	public function tribe_plugins_loaded() {
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
-        tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
+		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
 		tribe( 'admin.notice.php.version' );
 
 		if ( ! defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {

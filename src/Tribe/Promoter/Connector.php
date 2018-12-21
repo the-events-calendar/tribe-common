@@ -21,6 +21,7 @@ class Tribe__Promoter__Connector {
 			'userId'       => $user_id,
 		);
 
+		// @todo Use Tribe Logger for this.
 		error_log( $url );
 
 		$token = \Firebase\JWT\JWT::encode( $payload, $promoter_key );
@@ -30,17 +31,19 @@ class Tribe__Promoter__Connector {
 			'sslverify' => false,
 		);
 
+		// @todo Abstract this code, it's used three times in this class.
 		$response = wp_remote_post( $url, $args );
-
-		$code = wp_remote_retrieve_response_code( $response );
-		$body = wp_remote_retrieve_body( $response );
+		$code     = wp_remote_retrieve_response_code( $response );
+		$body     = wp_remote_retrieve_body( $response );
 
 		if ( is_wp_error( $response ) ) {
+			// @todo Use Tribe Logger for this.
 			error_log( $response->get_error_message() );
 			return false;
 		}
 
 		if ( $code > 299 ) {
+			// @todo Use Tribe Logger for this.
 			error_log( $body, 0 );
 			return false;
 		}
@@ -66,16 +69,19 @@ class Tribe__Promoter__Connector {
 			'sslverify' => false,
 		);
 
+		// @todo Abstract this code, it's used three times in this class.
 		$response = wp_remote_post( $url, $args );
 		$code     = wp_remote_retrieve_response_code( $response );
 		$body     = wp_remote_retrieve_body( $response );
 
 		if ( is_wp_error( $response ) ) {
+			// @todo Use Tribe Logger for this.
 			error_log( $response->get_error_message() );
 			return $user_id;
 		}
 
 		if ( $code > 299 ) {
+			// @todo Use Tribe Logger for this.
 			error_log( $body, 0 );
 			return $user_id;
 		}
@@ -104,16 +110,19 @@ class Tribe__Promoter__Connector {
 			'sslverify' => false,
 		);
 
+		// @todo Abstract this code, it's used three times in this class.
 		$response = wp_remote_post( $url, $args );
 		$code     = wp_remote_retrieve_response_code( $response );
 		$body     = wp_remote_retrieve_body( $response );
 
 		if ( is_wp_error( $response ) ) {
+			// @todo Use Tribe Logger for this.
 			error_log( $response->get_error_message() );
 			return;
 		}
 
 		if ( $code > 299 ) {
+			// @todo Use Tribe Logger for this.
 			error_log( $body, 0 );
 			return;
 		}
