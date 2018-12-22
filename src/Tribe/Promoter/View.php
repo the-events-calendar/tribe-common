@@ -37,7 +37,13 @@ class Tribe__Promoter__View extends Tribe__Template {
 			return;
 		}
 
-		$this->template( 'auth', array( 'authorized' => $authorized, 'logged_in' => is_user_logged_in(), 'promoter_key' => $promoter_key, 'license_key' => $license_key ), true );
+		$this->template( 'auth', array(
+			'authorized'   => $authorized,
+			'logged_in'    => is_user_logged_in(),
+			'promoter_key' => $promoter_key,
+			'license_key'  => $license_key
+		), true );
+		
 		tribe_exit();
 	}
 
