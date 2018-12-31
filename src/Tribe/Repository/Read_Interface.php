@@ -139,11 +139,13 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param string $order_by
+	 * @param string $order_by The post field, custom field or alias key to order posts by.
+	 * @param string $order The order direction; optional; shortcut for the `order` method; defaults
+	 *                      to `DESC`.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
-	public function order_by( $order_by );
+	public function order_by( $order_by, $order = 'DESC' );
 
 	/**
 	 * Sets the fields that should be returned by the query.

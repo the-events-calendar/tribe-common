@@ -702,8 +702,9 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritdoc}
 	 */
-	public function order_by( $order_by ) {
+	public function order_by( $order_by, $order = 'DESC' ) {
 		$this->query_args['orderby'] = $order_by;
+		$this->query_args['order']   = $order;
 
 		return $this;
 	}

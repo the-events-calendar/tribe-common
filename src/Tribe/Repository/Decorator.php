@@ -119,8 +119,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function order_by( $order_by ) {
-		$this->decorated->order_by( $order_by );
+	public function order_by( $order_by, $order = 'DESC' ) {
+		$this->decorated->order_by( $order_by, $order );
 
 		return $this;
 	}
