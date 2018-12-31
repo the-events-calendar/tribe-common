@@ -50,8 +50,9 @@ class Tribe__Context {
 		global $pagenow;
 		$is_new  = 'post-new.php' === $pagenow;
 		$is_post = 'post.php' === $pagenow;
+		$is_edit = 'edit.php' === $pagenow;
 
-		if ( ! $is_new && ! $is_post ) {
+		if ( ! ( $is_new || $is_post || $is_edit ) ) {
 			return false;
 		}
 
