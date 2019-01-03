@@ -43,7 +43,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 			'promoter_key' => $promoter_key,
 			'license_key'  => $license_key,
 		), true );
-		
+
 		tribe_exit();
 	}
 
