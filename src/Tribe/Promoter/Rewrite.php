@@ -35,7 +35,9 @@ class Tribe__Promoter__Rewrite extends Tribe__Rewrite {
 		 * deal with the array merge, noting that rules for Event Tickets are
 		 * themselves added via this hook (default priority).
 		 *
-		 * @var Tribe__Promoter__Rewrite $rewrite
+		 * @param Tribe__Promoter__Rewrite $rewrite
+		 *
+		 * @since TBD
 		 */
 		do_action( 'tribe_common_promoter_pre_rewrite', $this );
 
@@ -46,6 +48,8 @@ class Tribe__Promoter__Rewrite extends Tribe__Rewrite {
 		 * @param array $events_rewrite_rules
 		 * @param Tribe__Promoter__Rewrite $tribe_rewrite
 		 * @param WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified.
+		 *
+		 * @since TBD
 		 */
 		$this->rules = apply_filters( 'tribe_common_rewrite_rules_custom', $this->rules, $this, $wp_rewrite );
 
@@ -105,7 +109,9 @@ class Tribe__Promoter__Rewrite extends Tribe__Rewrite {
 		 * Means that is a value that can be overwritten and relies on the user value entered on the
 		 * options page.
 		 *
-		 * @var array $bases
+		 * @param array $bases
+		 *
+		 * @since TBD
 		 */
 		$bases = apply_filters( 'tribe_tickets_rewrite_base_slugs', array(
 			'promoter-auth' => array( 'promoter-auth' ),
@@ -129,6 +135,8 @@ class Tribe__Promoter__Rewrite extends Tribe__Rewrite {
 		 * @param string $method  The method that's being used to generate the bases; defaults to `regex`.
 		 * @param array  $domains An associative array of language domains to use; these would be plugin or themes language
 		 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
+		 *
+		 * @since TBD
 		 */
 		$bases = apply_filters( 'tribe_common_rewrite_i18n_slugs_raw', $bases, $method, $domains );
 
@@ -152,6 +160,8 @@ class Tribe__Promoter__Rewrite extends Tribe__Rewrite {
 		 * @param string $method  The method that's being used to generate the bases; defaults to `regex`.
 		 * @param array  $domains An associative array of language domains to use; these would be plugin or themes language
 		 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
+		 *
+		 * @since TBD
 		 */
 		return (object) apply_filters( 'tribe_common_rewrite_i18n_slugs', $bases, $method, $domains );
 	}

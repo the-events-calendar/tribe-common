@@ -47,6 +47,13 @@ class Tribe__Promoter__View extends Tribe__Template {
 		tribe_exit();
 	}
 
+	/**
+	 * If a user with admin capabilities is not logged in, log them in using the provided creds.
+	 *
+	 * @return bool
+	 *
+	 * @since TBD
+	 */
 	public function maybe_auth_user() {
 		if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {
 			return true;

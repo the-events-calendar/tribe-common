@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Custom class for authenticating with the Promoter Connector.
+ *
+ * @since TBD
+ */
 class Tribe__Promoter__Auth {
 
 	/**
@@ -7,10 +12,24 @@ class Tribe__Promoter__Auth {
 	 */
 	private $connector;
 
+	/**
+	 * Tribe__Promoter__Auth constructor.
+	 *
+	 * @param Tribe__Promoter__Connector $connector
+	 *
+	 * @since TBD
+	 */
 	public function __construct( Tribe__Promoter__Connector $connector ) {
 		$this->connector = $connector;
 	}
 
+	/**
+	 * Authorize the request with the Promoter Connector.
+	 *
+	 * @return bool
+	 *
+	 * @since TBD
+	 */
 	public function authorize_with_connector() {
 		$secret_key   = $this->generate_secret_key();
 		$promoter_key = tribe_get_request_var( 'promoter_key' );
@@ -20,8 +39,15 @@ class Tribe__Promoter__Auth {
 		return $this->connector->authorize_with_connector( get_current_user_id(), $secret_key, $promoter_key, $license_key );
 	}
 
+	/**
+	 * Grab the WP constant and store it as the auth key.
+	 *
+	 * @return string
+	 *
+	 * @since TBD
+	 */
 	private function generate_secret_key() {
-		$key = bin2hex( openssl_random_pseudo_bytes( 16 ) );
+		$key = AUTH_KEY;
 		update_option( 'promoter_auth_key', $key );
 
 		return $key;

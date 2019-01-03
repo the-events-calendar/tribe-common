@@ -1,9 +1,21 @@
 <?php
 
+/**
+ * Custom class for communicating with the Promoter Auth Connector
+ *
+ * @since TBD
+ */
 class Tribe__Promoter__Connector {
 
+	/**
+	 * Get the base URL for interacting with the connector.
+	 *
+	 * @return string
+	 *
+	 * @since TBD
+	 */
 	public static function base_url() {
-		$url = 'https://connector.tri.be/promoter-auth-connector/us-central1/promoterConnector/';
+		$url = 'https://promoter-connector.tribe/promoter-auth-connector/us-central1/promoterConnector/';
 
 		if ( defined( 'PROMOTER_AUTH_CONNECTOR_URL' ) ) {
 			$url = PROMOTER_AUTH_CONNECTOR_URL;
@@ -12,6 +24,18 @@ class Tribe__Promoter__Connector {
 		return $url;
 	}
 
+	/**
+	 * Authorize Promoter to communicate with this site.
+	 *
+	 * @param string $user_id
+	 * @param string $secret_key
+	 * @param string $promoter_key
+	 * @param string $license_key
+	 *
+	 * @return bool
+	 *
+	 * @since TBD
+	 */
 	public function authorize_with_connector( $user_id, $secret_key, $promoter_key, $license_key ) {
 		$url = self::base_url() . 'connect';
 
@@ -21,8 +45,7 @@ class Tribe__Promoter__Connector {
 			'userId'       => $user_id,
 		);
 
-		// @todo Use Tribe Logger for this.
-		error_log( $url );
+		tribe( 'logger' )->log( $url );
 
 		$token = \Firebase\JWT\JWT::encode( $payload, $promoter_key );
 
@@ -31,32 +54,22 @@ class Tribe__Promoter__Connector {
 			'sslverify' => false,
 		);
 
-		// @todo Abstract this code, it's used three times in this class.
-		$response = wp_remote_post( $url, $args );
-		$code     = wp_remote_retrieve_response_code( $response );
-		$body     = wp_remote_retrieve_body( $response );
+		$response = self::make_call( $url, $args );
 
-		if ( is_wp_error( $response ) ) {
-			// @todo Use Tribe Logger for this.
-			error_log( $response->get_error_message() );
-			return false;
-		}
-
-		if ( $code > 299 ) {
-			// @todo Use Tribe Logger for this.
-			error_log( $body, 0 );
-			return false;
-		}
-
-		return true;
+		return (bool) $response;
 	}
 
+	/**
+	 * Authenticate the current request user with the Auth Connector
+	 *
+	 * @param string $user_id
+	 *
+	 * @return bool|string
+	 *
+	 * @since TBD
+	 */
 	public static function authenticate_user_with_connector( $user_id ) {
-		if ( ! isset( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
-			return $user_id;
-		}
-
-		$token = $_SERVER['HTTP_AUTHORIZATION'];
+		$token = tribe_get_request_var( 'promoter_auth_token' );
 
 		if ( empty( $token ) ) {
 			return $user_id;
@@ -69,26 +82,22 @@ class Tribe__Promoter__Connector {
 			'sslverify' => false,
 		);
 
-		// @todo Abstract this code, it's used three times in this class.
-		$response = wp_remote_post( $url, $args );
-		$code     = wp_remote_retrieve_response_code( $response );
-		$body     = wp_remote_retrieve_body( $response );
+		$response = self::make_call( $url, $args );
 
-		if ( is_wp_error( $response ) ) {
-			// @todo Use Tribe Logger for this.
-			error_log( $response->get_error_message() );
+		if ( ! $response ) {
 			return $user_id;
 		}
 
-		if ( $code > 299 ) {
-			// @todo Use Tribe Logger for this.
-			error_log( $body, 0 );
-			return $user_id;
-		}
-
-		return $body;
+		return $response;
 	}
 
+	/**
+	 * Notify the Promoter app of changes within this system.
+	 *
+	 * @param int $post_id
+	 *
+	 * @since TBD
+	 */
 	public function notify_promoter_of_changes( $post_id ) {
 		if ( get_post_type( $post_id ) !== 'tribe_events' && get_post_type( $post_id ) !== 'tribe_tickets' ) {
 			return;
@@ -110,22 +119,35 @@ class Tribe__Promoter__Connector {
 			'sslverify' => false,
 		);
 
-		// @todo Abstract this code, it's used three times in this class.
+		self::make_call( $url, $args );
+	}
+
+	/**
+	 * Make the call to the remote endpoint.
+	 *
+	 * @param string $url
+	 * @param array $args
+	 *
+	 * @return bool|string
+	 *
+	 * @since TBD
+	 */
+	private static function make_call( $url, $args ) {
 		$response = wp_remote_post( $url, $args );
 		$code     = wp_remote_retrieve_response_code( $response );
 		$body     = wp_remote_retrieve_body( $response );
 
 		if ( is_wp_error( $response ) ) {
-			// @todo Use Tribe Logger for this.
-			error_log( $response->get_error_message() );
-			return;
+			tribe( 'logger' )->log( $response->get_error_message() );
+			return false;
 		}
 
 		if ( $code > 299 ) {
-			// @todo Use Tribe Logger for this.
-			error_log( $body, 0 );
-			return;
+			tribe( 'logger' )->log( $body, 0 );
+			return false;
 		}
+
+		return $body;
 	}
 
 }
