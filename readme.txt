@@ -3,7 +3,12 @@
 
 == Changelog ==
 
-= [4.8.3] 2018-12-19 =
+= [4.8.4] TBD =
+
+* Add - Added `strip_dynamic_blocks` method in `Tribe__Editor__Utils` [118679]
+* Add - Added `exclude_tribe_blocks` method in `Tribe__Editor__Utils` [118679]
+
+= [4.8.3] 2018-12-18 =
 
 * Tweak - Refreshing the Welcome page for The Events Calendar and Event Tickets [117795]
 * Fix - Prevent admin tooltips to that full page width on Blocks Editor [118883]
@@ -15,6 +20,7 @@
 * Fix - Make sure assets are injected before is too late
 * Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
 * Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
+* Fix - Ensure admin CSS is enqueued any time a notice is displayed atop an admin page [119452]
 * Fix - Prevent to trigger error when using `array_combine` with empty arrays
 * Fix - Compatiblity with classic editor plugin [119426]
 * Tweak - Add functions to remove inner blocks [119426]
