@@ -3,6 +3,11 @@
 
 == Changelog ==
 
+= [4.8.4] TBD =
+
+* Add - Added `strip_dynamic_blocks` method in `Tribe__Editor__Utils` [118679]
+* Add - Added `exclude_tribe_blocks` method in `Tribe__Editor__Utils` [118679]
+
 = [4.8.3] 2018-12-18 =
 
 * Tweak - Refreshing the Welcome page for The Events Calendar and Event Tickets [117795]
