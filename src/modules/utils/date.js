@@ -100,7 +100,7 @@ export const toNaturalLanguage = ( params = {} ) => {
 
 export const rangeToNaturalLanguage = ( start = '', end = '', separators = {} ) => {
 	const separatorOptions = {
-		time: __( 'at', 'events-gutenberg' ),
+		time: __( 'at', 'tribe-common' ),
 		date: ' - ',
 		...separators,
 	};
