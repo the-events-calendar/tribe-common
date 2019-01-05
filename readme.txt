@@ -3,6 +3,10 @@
 
 == Changelog ==
 
+= [4.8.4] TBD =
+
+* Tweak - Add registration prompt to localized data
+
 = [4.8.3] 2018-12-18 =
 
 * Tweak - Refreshing the Welcome page for The Events Calendar and Event Tickets [117795]
