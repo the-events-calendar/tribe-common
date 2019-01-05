@@ -5,7 +5,7 @@
 
 = [4.8.4] TBD =
 
-* Fix - Update translation strings from the Gutenberg extension merge [118656]
+* Tweak - Add registration prompt to localized data
 
 = [4.8.3] 2018-12-18 =
 
