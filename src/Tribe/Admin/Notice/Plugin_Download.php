@@ -56,17 +56,16 @@ class Tribe__Admin__Notice__Plugin_Download {
 		}
 
 		foreach ( $this->plugins_required as $req_plugin ) {
-
-			$item = esc_html( $req_plugin['name'] );
-			$version = empty( $req_plugin['version'] ) ? '' : ' (' . esc_html( $req_plugin['version'] . ')' );
+			$item    = $req_plugin['name'];
+			$version = empty( $req_plugin['version'] ) ? '' : ' (' . $req_plugin['version'] . ')';
 
 			if ( ! empty( $req_plugin['thickbox_url'] ) ) {
 				$item = sprintf(
 					'<a href="%1$s" class="thickbox" title="%2$s">%3$s%4$s</a>',
 					esc_attr( $req_plugin['thickbox_url'] ),
 					esc_attr( $req_plugin['name'] ),
-					$item,
-					$version
+					esc_html( $item ),
+					esc_html( $version )
 				);
 			}
 
@@ -76,6 +75,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 					$item
 				);
 			}
+
 			if ( ! empty( $req_plugin['addon'] ) ) {
 				$plugin_name[] = $req_plugin['name'];
 			}
@@ -83,7 +83,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 			$req_plugins[] = $item;
 		}
 
-		//if empty then add in the default name
+		// If empty then add in the default name.
 		if ( empty( $plugin_name[0] ) ) {
 			$plugin_name[] = $plugin_data['Name'];
 		}
@@ -95,7 +95,6 @@ class Tribe__Admin__Notice__Plugin_Download {
 			esc_html( $this->implode_with_grammar( $plugin_name ) ),
 			esc_html( $this->implode_with_grammar( $req_plugins ) )
 		);
-
 	}
 
 	/**
@@ -106,7 +105,6 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * @return string String of items
 	 */
 	public function implode_with_grammar( $items ) {
-
 		$separator   = _x( ', ', 'separator used in a list of items', 'tribe-common' );
 		$conjunction = _x( ' and ', 'the final separator in a list of two or more items', 'tribe-common' );
 		$output      = $last_item = array_pop( $items );

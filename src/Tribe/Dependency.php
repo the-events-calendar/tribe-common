@@ -9,7 +9,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 	class Tribe__Dependency {
 
 		/**
-		 * An multidimensional array of active tribe plugins in the following format
+		 * A multidimensional array of active tribe plugins in the following format
 		 *
 		 * array(
 		 *  'class'   => 'main class name',
@@ -19,7 +19,23 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 */
 		protected $active_plugins = array();
 
+		/**
+		 * A multidimensional array of active tribe plugins in the following format
+		 *
+		 * array(
+		 *  'class'             => 'main class name',
+		 *  'path'              => 'Path to the main plugin/bootstrap file'
+		 *  'version'           => 'version num', (optional)
+		 *  'dependencies'      => 'A multidimensional of dependencies' (optional)
+		 * )
+		 */
 		protected $registered_plugins = array();
+
+		/**
+		 * An array of class Tribe__Admin__Notice__Plugin_Download per plugin
+		 *
+		 */
+		protected $admin_messages = array();
 
 		/**
 		 * Static Singleton Holder
@@ -44,7 +60,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Adds a plugin to the active list
 		 *
-		 * @since tbd
+		 * @since TBD
 		 *
 		 * @param string $main_class    Main/base class for this plugin
 		 * @param string $version       Version number of plugin
@@ -61,6 +77,11 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			);
 
 			$this->registered_plugins[ $main_class ] = $plugin;
+
+			if ( $path ) {
+				$this->admin_messages[ $main_class ] = new Tribe__Admin__Notice__Plugin_Download( $path );
+			}
+
 		}
 
 		/**
@@ -320,8 +341,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				}
 
 				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
-				$admin_notice     = new Tribe__Admin__Notice__Plugin_Download( $plugin['path'] );
-				$admin_notice->add_required_plugin( $dependent_plugin['short_name'], $dependent_plugin['thickbox_url'], $is_registered, $version, $addon );
+				$this->admin_messages[ $plugin['class'] ]->add_required_plugin( $dependent_plugin['short_name'], $dependent_plugin['thickbox_url'], $is_registered, $version, $addon );
 				$failed_dependency++;
 			}
 
@@ -342,16 +362,15 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		public function register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
 
 			//add all plugins to registered_plugins
-			$this->add_registered_plugin( $main_class, $version, $file_path, $dependencies );
+			$this->add_registered_plugin( $main_class, $file_path, $version, $dependencies );
 
 			// Checks to see if the plugins are active for extensions
 			if ( ! empty( $classes_req ) && ! $this->has_requisite_plugins( $classes_req ) ) {
 				$tribe_plugins = new Tribe__Plugins();
-				$admin_notice  = new Tribe__Admin__Notice__Plugin_Download( $file_path );
 				foreach ( $classes_req as $class => $plugin_version ) {
 					$plugin    = $tribe_plugins->get_plugin_by_class( $class );
 					$is_active = $this->is_plugin_version( $class, $plugin_version );
-					$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active, $plugin_version );
+					$this->admin_messages[ $main_class ]->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active, $plugin_version );
 				}
 			}
 
@@ -422,7 +441,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			$addon_dependencies = 0;
 
 			foreach ( $this->registered_plugins as $registered ) {
-				if ( empty( $registered['dependencies']['addon-dependencies'][$main_class] ) ) {
+				if ( empty( $registered['dependencies']['addon-dependencies'][ $main_class ] ) ) {
 					continue;
 				}
 
