@@ -46,11 +46,12 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since tbd
 		 *
-		 * @param string $main_class Main/base class for this plugin
-		 * @param string $version    Version number of plugin
-		 * @param string $path       Path to the main plugin/bootstrap file
+		 * @param string $main_class    Main/base class for this plugin
+		 * @param string $version       Version number of plugin
+		 * @param string $path          Path to the main plugin/bootstrap file
+		 * @param array  $dependencies  An array of dependencies for a plugin
 		 */
-		public function add_registered_plugin( $main_class, $version = null, $path = null, $dependencies = null ) {
+		public function add_registered_plugin( $main_class, $version = null, $path = null, $dependencies = array() ) {
 
 			$plugin = array(
 				'class'        => $main_class,
@@ -290,10 +291,11 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since tbd
 		 *
-		 * @param       $plugin
-		 * @param array $dependencies
+		 * @param array  $plugin        An array of data for given registered plugin
+		 * @param array  $dependencies  An array of dependencies for a plugin
+		 * @param bool   $addon         Indicates if the plugin is an add-on for The Events Calendar or Event Tickets
 		 *
-		 * @return bool
+		 * @return bool  returns false if any dependency is invalid
 		 */
 		public function has_valid_dependencies( $plugin, $dependencies = array(), $addon = false ) {
 
@@ -406,6 +408,15 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 		}
 
+		/**
+		 * Check an add-on dependencies for its parent
+		 *
+		 * @since tbd
+		 *
+		 * @param string  $main_class   a string of the main class for the plugin being checked
+		 *
+		 * @return bool  returns false if any dependency is invalid
+		 */
 		protected function check_addon_dependencies( $main_class ) {
 
 			$addon_dependencies = 0;

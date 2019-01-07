@@ -27,6 +27,8 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * @param string $name         Name of the required plugin
 	 * @param null   $thickbox_url Download or purchase URL for plugin from within /wp-admin/ thickbox
 	 * @param bool   $is_active    Indicates if the plugin is installed and active or not
+	 * @param string $version      Optional version number of the required plugin
+	 * @param bool   $addon        Indicates if the plugin is an add-on for The Events Calendar or Event Tickets
 	 */
 	public function add_required_plugin( $name, $thickbox_url = null, $is_active = null, $version = null, $addon = false ) {
 		$this->plugins_required[ $name ] = array(
@@ -90,8 +92,8 @@ class Tribe__Admin__Notice__Plugin_Download {
 			'<div class="error"><p>'
 			. esc_html__( 'To begin using %1$s, please install and activate the latest version of %2$s.', 'tribe-common' )
 			. '</p></div>',
-			$this->implode_with_grammar( $plugin_name ),
-			$this->implode_with_grammar( $req_plugins )
+			esc_html( $this->implode_with_grammar( $plugin_name ) ),
+			esc_html( $this->implode_with_grammar( $req_plugins ) )
 		);
 
 	}
