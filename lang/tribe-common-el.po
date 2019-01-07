@@ -2224,17 +2224,17 @@ msgstr "Πληροφορίες Συστήματος"
 msgid "There are no fields setup for this tab yet."
 msgstr "Δεν έχουν ρυθμιστεί ακόμα πεδία γι' αυτήν την καρτέλα."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Η παραπάνω ρύθμιση δεν αποθηκεύθηκε. Οι άλλες ρυθμίσεις αποθηκεύθηκαν με επιτυχία."
 msgstr[1] "Η παραπάνω ρυθμίσεις δεν αποθηκεύθηκαν. Οι άλλες ρυθμίσεις αποθηκεύθηκαν με επιτυχία."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Καμία από τις ρυθμίσεις σας δεν αποθηκεύτηκε. Παρακαλούμε δοκιμάστε ξανά."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Η φόρμα σας είχε τα ακόλουθα σφάλματα:"
 
@@ -2337,7 +2337,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Εκδηλώσεις"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Οι ρυθμίσεις αποθηκεύθηκαν."
 

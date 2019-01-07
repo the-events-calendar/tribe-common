@@ -66,15 +66,23 @@ class Tribe__Feature_Detection {
 			|| false === $cached
 			|| ( is_array( $cached ) && ! isset( $cached['supports_async_process'] ) )
 		) {
-			if ( ! $this->has_lock() ) {
-				// Let's avoid race conditions by running two or more checks at the same time.
-				$this->lock();
-				/*
-				 * Build and dispatch the tester: if it works a transient should be set.
-				 */
-				$tester = new Tribe__Process__Tester();
-				$tester->dispatch();
+			if ( $this->is_locked() ) {
+				// We're already running this check, bail and return the safe option for the time being.
+				return false;
 			}
+
+			// Let's avoid race conditions by running two or more checks at the same time.
+			$this->lock();
+
+			// Log that we're checking for AJAX-based async process support using the tester.
+			tribe( 'logger' )->log( 'Checking for AJAX-based async processing support triggering a test request.', Tribe__Log::DEBUG );
+
+			/*
+			 * Build and dispatch the tester: if it works a transient should be set.
+			 */
+			$tester = new Tribe__Process__Tester();
+			tribe( 'logger' )->log( 'Dispatching AJAX-based async processing support test request.', Tribe__Log::DEBUG );
+			$tester->dispatch();
 
 			$wait_up_to             = 10;
 			$start                  = time();
@@ -84,7 +92,8 @@ class Tribe__Feature_Detection {
 			while ( time() <= $start + $wait_up_to ) {
 				// We want to force a refetch from the database on each check.
 				wp_cache_delete( $transient_name, 'transient' );
-				$supports_async_process = ( (bool) $transient_name );
+				$supports_async_process = (bool) get_transient( $transient_name );
+
 				if ( $supports_async_process ) {
 					break;
 				}
@@ -97,6 +106,12 @@ class Tribe__Feature_Detection {
 			$this->unlock();
 
 			$cached['supports_async_process'] = $supports_async_process;
+
+			if ( $supports_async_process ) {
+				tribe( 'logger' )->log( 'AJAX-based async processing is supported.', Tribe__Log::DEBUG );
+			} else {
+				tribe( 'logger' )->log( 'AJAX-based async processing is not supported; background processing will rely on WP Cron.', Tribe__Log::DEBUG );
+			}
 
 			set_transient( self::$transient, $cached, WEEK_IN_SECONDS );
 		}
@@ -129,7 +144,7 @@ class Tribe__Feature_Detection {
 	 *
 	 * @return bool Whether a feature detection lock is currently in place or not.
 	 */
-	protected function has_lock() {
+	protected function is_locked() {
 		$lock_option = get_option( $this->lock_option_name );
 
 		return ! empty( $lock_option );
