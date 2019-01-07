@@ -362,7 +362,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		public function register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
 
 			//add all plugins to registered_plugins
-			$this->add_registered_plugin( $main_class, $file_path, $version, $dependencies );
+			$this->add_registered_plugin( $main_class, $version, $file_path, $dependencies );
 
 			// Checks to see if the plugins are active for extensions
 			if ( ! empty( $classes_req ) && ! $this->has_requisite_plugins( $classes_req ) ) {
