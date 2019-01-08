@@ -275,7 +275,6 @@ class Tribe__Main {
 				'today'           => esc_html__( 'Today', 'the-events-calendar' ),
 				'clear'           => esc_html__( 'Clear', 'the-events-calendar' ),
 			),
-			'registration_prompt' => __( 'There is unsaved attendee information. Are you sure you want to continue?', 'event-tickets' ),
 		) );
 
 		tribe( 'asset.data' )->add( 'tribe_system_info', array(
