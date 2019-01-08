@@ -3,9 +3,9 @@
 
 == Changelog ==
 
-= [4.8.4] TBD =
+= [TBD] =
 
-* Tweak - Add registration prompt to localized data
+* Add - Added new filter `tribe_asset_data_add_object_{$object_name}` to allow integrations to customize the object data and add additional properties [119760]
 
 = [4.8.3] 2018-12-18 =
 
