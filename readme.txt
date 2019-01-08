@@ -7,7 +7,7 @@
 
 * Add - Added new filter `tribe_asset_data_add_object_{$object_name}` to allow integrations to customize the object data and add additional properties [119760]
 
-= [4.8.3] 2018-12-18 =
+= [4.8.3] 2018-12-19 =
 
 * Tweak - Refreshing the Welcome page for The Events Calendar and Event Tickets [117795]
 * Fix - Prevent admin tooltips to that full page width on Blocks Editor [118883]
