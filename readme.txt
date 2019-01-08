@@ -3,6 +3,10 @@
 
 == Changelog ==
 
+= [4.8.4] TBD =
+
+* Fix - Update translation strings from the Gutenberg extension merge [118656]
+
 = [4.8.3] 2018-12-18 =
 
 * Tweak - Refreshing the Welcome page for The Events Calendar and Event Tickets [117795]
