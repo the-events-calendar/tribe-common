@@ -2227,18 +2227,18 @@ msgstr ""
 msgid "There are no fields setup for this tab yet."
 msgstr "Još uvek nema polja podešenih za ovaj tab."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Podešavanje iznad nije sačuvano. Ostala podešavanja su sačuvana uspješno."
 msgstr[1] "Podešavanja iznad nisu sačuvana. Ostala podešavanja su sačuvana uspješno."
 msgstr[2] "Podešavanja iznad nisu sačuvana. Ostala podešavanja su sačuvana uspješno."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Ništa od vaših podešavanja nije sačuvano. Molimo probajte ponovo."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Vaša forma je imala sljedeće greške:"
 
@@ -2341,7 +2341,7 @@ msgstr "Kalendar događaja"
 msgid "Events"
 msgstr "Događaji"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Podešavanja sačuvana."
 

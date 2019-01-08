@@ -176,7 +176,7 @@ abstract class Tribe__Editor__Meta
 	 * @return bool
 	 */
 	public function sanitize_boolean( $value ) {
-		return boolval( $value );
+		return filter_var( $value, FILTER_VALIDATE_BOOLEAN );
 	}
 
 	/**

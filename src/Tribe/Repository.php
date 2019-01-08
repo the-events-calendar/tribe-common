@@ -375,7 +375,8 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function where( $key, $value ) {
-		return call_user_func_array( array( $this, 'by' ), func_get_args() );
+		$call_args = func_get_args();
+		return call_user_func_array( array( $this, 'by' ), $call_args );
 	}
 
 	/**
