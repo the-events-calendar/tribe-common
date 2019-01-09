@@ -54,7 +54,7 @@ const TimePicker = ( {
 					disabled={ disabled }
 					onClick={ onAllDayClick }
 				>
-					{ __( 'All Day', 'events-gutenberg' ) }
+					{ __( 'All Day', 'tribe-common' ) }
 				</Button>
 			);
 		}
@@ -145,7 +145,7 @@ const TimePicker = ( {
 						className="tribe-editor__timepicker__items"
 					>
 						{ showAllDay && renderItem(
-							{ text: __( 'All Day', 'events-gutenberg' ), value: 'all-day' },
+							{ text: __( 'All Day', 'tribe-common' ), value: 'all-day' },
 							onClose,
 						) }
 						{ getItems().map( ( item ) => renderItem( item, onClose ) ) }
