@@ -100,4 +100,43 @@ class Tribe__Editor__Utils {
 			'post_content' => $next_content,
 		) );
 	}
+
+	/**
+	 * Strip the dynamic blocks of the content
+	 *
+	 * @since TBD
+	 *
+	 * @param string $content The event content
+	 *
+	 * @return string
+	 */
+	public function strip_dynamic_blocks( $content = '' ) {
+
+		if ( ! function_exists( 'strip_dynamic_blocks' ) ) {
+			return $content;
+		}
+
+		return strip_dynamic_blocks( $content );
+
+	}
+
+	/**
+	 * Return the content without the tribe blocks
+	 *
+	 * @since TBD
+	 *
+	 * @param string $content The event content
+	 *
+	 * @return string
+	 */
+	public function exclude_tribe_blocks( $content = '' ) {
+
+		$match_blocks_exp = '/\<\!\-\- \/?wp\:tribe.*\/?-->/i';
+
+		if ( ! preg_match( $match_blocks_exp, $content ) ) {
+			return false;
+		}
+
+		return preg_replace( $match_blocks_exp, '', $content );
+	}
 }
