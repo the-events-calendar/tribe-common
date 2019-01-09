@@ -195,7 +195,7 @@ class Tribe__Editor {
 		 *
 		 * @since  TBD
 		 *
-		 * @param bool
+		 * @param bool $classic_is_active Whether the classic editor should be used.
 		 */
 		$disabled_by_filter        = apply_filters( 'tribe_editor_classic_is_active', false );
 		$is_classic_editor_request = tribe_get_request_var( 'classic-editor', null );
