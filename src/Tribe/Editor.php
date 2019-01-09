@@ -28,9 +28,9 @@ class Tribe__Editor {
 	 */
 	public function should_load_blocks() {
 		return (
-			       $this->is_gutenberg_active() || $this->is_wp_version()
-		       )
-		       && $this->is_blocks_editor_active();
+			$this->is_gutenberg_active() || $this->is_wp_version()
+		)
+		&& $this->is_blocks_editor_active();
 	}
 
 	/**
@@ -190,8 +190,16 @@ class Tribe__Editor {
 	 */
 	public function is_classic_editor() {
 		$disabled_by_plugin        = $this->is_classic_plugin_active() && $this->is_classic_option_active();
+		/**
+		 * Allow other addons to disabled classic editor based on options
+		 *
+		 * @since  TBD
+		 *
+		 * @param bool
+		 */
+		$disabled_by_filter        = apply_filters( 'tribe_editor_classic_is_active', false );
 		$is_classic_editor_request = tribe_get_request_var( 'classic-editor', null );
 
-		return $is_classic_editor_request || $disabled_by_plugin;
+		return $is_classic_editor_request || $disabled_by_plugin || $disabled_by_filter;
 	}
 }
