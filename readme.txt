@@ -3,9 +3,10 @@
 
 == Changelog ==
 
-= [TBD] =
+= [4.8.4] TBD =
 
-* Add - Added new filter `tribe_asset_data_add_object_{$object_name}` to allow integrations to customize the object data and add additional properties [119760]
+* Tweak - Allow better control of when we are in Classic editor with a new filter `tribe_editor_classic_is_active` [120137]
+* Fix - Update translation strings from the Gutenberg extension merge [118656]
 
 = [4.8.3] 2018-12-18 =
 
