@@ -1,7 +1,15 @@
 === Tribe Common ===
 
-
 == Changelog ==
+
+= [4.8.4] TBD =
+
+* Fix - Updated translation strings from the Gutenberg extension merge [118656]
+* Add - Added `strip_dynamic_blocks` method in `Tribe__Editor__Utils` [118679]
+* Add - Added `exclude_tribe_blocks` method in `Tribe__Editor__Utils` [118679]
+* Tweak - Allow better control of when we are in Classic editor with a new filter `tribe_editor_classic_is_active` [120137]
+* Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating Event Tickets or The Events Calendar [117795]
+* Tweak - Added support for Promoter licenses [120320]
 
 = [4.8.3] 2018-12-19 =
 
