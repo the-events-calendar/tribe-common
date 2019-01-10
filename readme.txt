@@ -5,6 +5,7 @@
 
 = [4.8.4] TBD =
 
+* Tweak - Allow better control of when we are in Classic editor with a new filter `tribe_editor_classic_is_active` [120137]
 * Add - Added `strip_dynamic_blocks` method in `Tribe__Editor__Utils` [118679]
 * Add - Added `exclude_tribe_blocks` method in `Tribe__Editor__Utils` [118679]
 * Fix - Update translation strings from the Gutenberg extension merge [118656]
