@@ -2922,4 +2922,11 @@ abstract class Tribe__Repository
 
 		return $list->sort( $orderby, $order, $preserve_keys );
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function collect() {
+		return new Tribe__Utils__Post_Collection( $this->all() );
+	}
 }
