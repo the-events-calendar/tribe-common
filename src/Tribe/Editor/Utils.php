@@ -134,7 +134,7 @@ class Tribe__Editor__Utils {
 		$match_blocks_exp = '/\<\!\-\- \/?wp\:tribe.*\/?-->/i';
 
 		if ( ! preg_match( $match_blocks_exp, $content ) ) {
-			return false;
+			return $content;
 		}
 
 		return preg_replace( $match_blocks_exp, '', $content );
