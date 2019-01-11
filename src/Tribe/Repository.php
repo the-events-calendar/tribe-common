@@ -182,6 +182,7 @@ abstract class Tribe__Repository
 		'post_content_filtered',
 		'guid',
 		'perm',
+		'order',
 	);
 
 	/**
@@ -1226,6 +1227,7 @@ abstract class Tribe__Repository
 	public function by_args( array $args ) {
 		foreach ( $args as $key => $value ) {
 			$this->by( $key, $value );
+			$foo = 'bar';
 		}
 
 		return $this;
