@@ -10,7 +10,7 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Get the base URL for interacting with the connector.
 	 *
-	 * @return string
+	 * @return string Base URL for interacting with the connector.
 	 *
 	 * @since TBD
 	 */
@@ -27,12 +27,12 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Authorize Promoter to communicate with this site.
 	 *
-	 * @param string $user_id
-	 * @param string $secret_key
-	 * @param string $promoter_key
-	 * @param string $license_key
+	 * @param string $user_id      Promoter user ID.
+	 * @param string $secret_key   Promoter secret key.
+	 * @param string $promoter_key Promoter key (not license related).
+	 * @param string $license_key  Promoter license key.
 	 *
-	 * @return bool
+	 * @return bool Whether connector was authorized.
 	 *
 	 * @since TBD
 	 */
@@ -62,9 +62,9 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Authenticate the current request user with the Auth Connector
 	 *
-	 * @param string $user_id
+	 * @param string $user_id User ID.
 	 *
-	 * @return bool|string
+	 * @return bool|string User ID or if promoter is authorized then it return true like a valid user.
 	 *
 	 * @since TBD
 	 */
@@ -94,7 +94,7 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Notify the Promoter app of changes within this system.
 	 *
-	 * @param int $post_id
+	 * @param int $post_id Post ID.
 	 *
 	 * @since TBD
 	 */
@@ -105,10 +105,18 @@ class Tribe__Promoter__Connector {
 			return;
 		}
 
-		$license_key = get_option( 'pue_install_key_promoter' );
+		/** @var Tribe__Promoter__PUE $promoter_pue */
+		$promoter_pue = tribe( 'promoter.pue' );
+		$license_info = $promoter_pue->get_license_info();
+
+		if ( ! $license_info ) {
+			return;
+		}
+
+		$license_key = $license_info['key'];
 		$secret_key  = get_option( 'promoter_auth_key' );
 
-		if ( empty( $license_key ) || empty( $secret_key ) ) {
+		if ( empty( $secret_key ) ) {
 			return;
 		}
 
@@ -131,10 +139,10 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Make the call to the remote endpoint.
 	 *
-	 * @param string $url
-	 * @param array $args
+	 * @param string $url  URL to send data to.
+	 * @param array  $args Data to send.
 	 *
-	 * @return bool|string
+	 * @return string|false The response body or false if not successful.
 	 *
 	 * @since TBD
 	 */

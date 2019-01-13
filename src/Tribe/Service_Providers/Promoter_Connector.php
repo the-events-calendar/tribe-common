@@ -27,10 +27,8 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 	 */
 	private function hook() {
 		add_action( 'template_redirect', tribe_callback( 'promoter.view', 'display_auth_check_view' ), 10, 0 );
-		add_action( 'tribe_common_promoter_pre_rewrite', tribe_callback( 'promoter.rewrite', 'generate_core_rules' ) );
 		add_action( 'init', tribe_callback( 'promoter.rewrite', 'add_rewrite_tags' ) );
 		add_filter( 'generate_rewrite_rules', tribe_callback( 'promoter.rewrite', 'filter_generate' ) );
-		add_filter( 'rewrite_rules_array', tribe_callback( 'promoter.rewrite', 'remove_percent_placeholders' ), 25 );
 		add_action( 'save_post', tribe_callback( 'promoter.connector', 'notify_promoter_of_changes' ), 10, 1 );
 
 		tribe( 'promoter.pue' );

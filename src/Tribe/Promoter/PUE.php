@@ -19,49 +19,24 @@ class Tribe__Promoter__PUE {
 
 	/**
 	 * Setup the PUE Checker.
+	 *
+	 * @since TBD
 	 */
 	public function load() {
-		$this->pue_checker = new Tribe__PUE__Checker(
-			'http://tri.be/',
-			$this->slug,
-			array(
-				'context'     => 'service',
-				'plugin_name' => __( 'Promoter', 'tribe-common' ),
-			)
-		);
+		$this->pue_checker = new Tribe__PUE__Checker( 'http://tri.be/', $this->slug, array(
+			'context'     => 'service',
+			'plugin_name' => __( 'Promoter', 'tribe-common' ),
+		) );
 	}
 
 	/**
-	 * Check whether Promoter has a license key set or not.
+	 * Get whether service has a license and if the license is activated on network.
 	 *
-	 * @return bool Whether Promoter has a license key set.
-	 */
-	public function has_license_key() {
-		$option_name = 'pue_install_key_' . $this->slug;
-
-		$key = get_option( $option_name );
-
-		if ( is_multisite() ) {
-			$network_key = get_network_option( null, $option_name );
-
-			if ( empty( $key ) ) {
-				$key = $network_key;
-			}
-		}
-
-		if ( empty( $key ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Check whether Promoter has a valid license key or not.
+	 * @return array|false License information or false if not set.
 	 *
-	 * @return bool Whether Promoter has a valid license key.
+	 * @since TBD
 	 */
-	public function has_valid_license() {
+	public function get_license_info() {
 		$option_name = 'pue_install_key_' . $this->slug;
 
 		$key = get_option( $option_name );
@@ -78,7 +53,44 @@ class Tribe__Promoter__PUE {
 			}
 		}
 
-		$response = $this->pue_checker->validate_key( $key, $is_network_key );
+		if ( empty( $key ) ) {
+			return false;
+		}
+
+		return array(
+			'key'            => $key,
+			'is_network_key' => $is_network_key,
+		);
+	}
+
+	/**
+	 * Check whether service has a license key set or not.
+	 *
+	 * @return bool Whether service has a license key set.
+	 *
+	 * @since TBD
+	 */
+	public function has_license_key() {
+		$license_info = $this->get_license_info();
+
+		return ! empty( $license_info );
+	}
+
+	/**
+	 * Check whether service has a valid license key or not.
+	 *
+	 * @return bool Whether service has a valid license key.
+	 *
+	 * @since TBD
+	 */
+	public function has_valid_license() {
+		$license_info = $this->get_license_info();
+
+		if ( ! $license_info ) {
+			return false;
+		}
+
+		$response = $this->pue_checker->validate_key( $license_info['key'], $license_info['is_network_key'] );
 
 		return isset( $response['status'] ) && 1 === (int) $response['status'];
 	}

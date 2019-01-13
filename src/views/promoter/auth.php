@@ -46,7 +46,16 @@
 			<div class="site-footer__logo">
 				<span class="a11y-visual-hide"><?php esc_html_e( 'Promoter', 'tribe-common' ); ?></span>
 			</div>
-			<p class="site-footer__meta">&copy;2018 <?php esc_html_e( 'Promoter All rights reserved.', 'tribe-common' ); ?> <a href="https://promoter.theeventscalendar.com/privacy"><?php esc_html_e( 'Privacy', 'tribe-common' ); ?></a> <?php esc_html_e( 'and', 'tribe-common' ); ?> <a href="https://promoter.theeventscalendar.com/terms"><?php esc_html_e( 'Terms', 'tribe-common' ); ?></a>.
+			<p class="site-footer__meta">
+				&copy;<?php echo esc_html( date_i18n( 'Y' ) ); ?>
+				<?php esc_html_e( 'Promoter All rights reserved.', 'tribe-common' ); ?>
+				<a href="https://promoter.theeventscalendar.com/privacy">
+					<?php esc_html_e( 'Privacy', 'tribe-common' ); ?>
+				</a>
+				<?php esc_html_e( 'and', 'tribe-common' ); ?>
+				<a href="https://promoter.theeventscalendar.com/terms">
+					<?php esc_html_e( 'Terms', 'tribe-common' ); ?>
+				</a>.
 			</p>
 		</div>
 	</footer>

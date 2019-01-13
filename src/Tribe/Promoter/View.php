@@ -4,6 +4,7 @@
  * Class Tribe__Tickets__Attendee_Info__View
  */
 class Tribe__Promoter__View extends Tribe__Template {
+
 	/**
 	 * Tribe__Tickets__Attendee_Info__View constructor.
 	 *
@@ -50,7 +51,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 	/**
 	 * If a user with admin capabilities is not logged in, log them in using the provided creds.
 	 *
-	 * @return bool
+	 * @return bool Whether the user should be authorized and has access.
 	 *
 	 * @since TBD
 	 */
@@ -65,4 +66,5 @@ class Tribe__Promoter__View extends Tribe__Template {
 
 		return ! is_wp_error( $user ) && user_can( $user, 'manage_options' );
 	}
+
 }

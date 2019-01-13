@@ -15,7 +15,7 @@ class Tribe__Promoter__Auth {
 	/**
 	 * Tribe__Promoter__Auth constructor.
 	 *
-	 * @param Tribe__Promoter__Connector $connector
+	 * @param Tribe__Promoter__Connector $connector Connector object.
 	 *
 	 * @since TBD
 	 */
@@ -26,7 +26,7 @@ class Tribe__Promoter__Auth {
 	/**
 	 * Authorize the request with the Promoter Connector.
 	 *
-	 * @return bool
+	 * @return bool Whether the request was authorized successfully.
 	 *
 	 * @since TBD
 	 */
@@ -42,12 +42,13 @@ class Tribe__Promoter__Auth {
 	/**
 	 * Grab the WP constant and store it as the auth key.
 	 *
-	 * @return string
+	 * @return string The secret key.
 	 *
 	 * @since TBD
 	 */
 	private function generate_secret_key() {
 		$key = AUTH_KEY;
+
 		update_option( 'promoter_auth_key', $key );
 
 		return $key;
