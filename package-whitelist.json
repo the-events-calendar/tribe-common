@@ -21,6 +21,7 @@
   "vendor/a5hleyrich/wp-background-processing/classes/**",
   "vendor/a5hleyrich/wp-background-processing/*.php",
   "vendor/a5hleyrich/wp-background-processing/license.*",
+  "vendor/firebase/php-jwt/src/*.php",
   "README.md",
   "tribe-common.php",
   "tribe-autoload.php"
