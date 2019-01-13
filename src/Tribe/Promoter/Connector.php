@@ -99,12 +99,18 @@ class Tribe__Promoter__Connector {
 	 * @since TBD
 	 */
 	public function notify_promoter_of_changes( $post_id ) {
-		if ( get_post_type( $post_id ) !== 'tribe_events' && get_post_type( $post_id ) !== 'tribe_tickets' ) {
+		$post_type = get_post_type( $post_id );
+
+		if ( ! in_array( $post_type, array( 'tribe_events', 'tribe_tickets' ), true ) ) {
 			return;
 		}
 
-		$license_key = get_option( 'pue_install_key_events_calendar_pro' );
+		$license_key = get_option( 'pue_install_key_promoter' );
 		$secret_key  = get_option( 'promoter_auth_key' );
+
+		if ( empty( $license_key ) || empty( $secret_key ) ) {
+			return;
+		}
 
 		$payload = array(
 			'licenseKey' => $license_key,
@@ -139,11 +145,13 @@ class Tribe__Promoter__Connector {
 
 		if ( is_wp_error( $response ) ) {
 			tribe( 'logger' )->log( $response->get_error_message() );
+
 			return false;
 		}
 
 		if ( $code > 299 ) {
 			tribe( 'logger' )->log( $body, 0 );
+
 			return false;
 		}
 
