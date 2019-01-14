@@ -15,7 +15,7 @@ class Tribe__Promoter__Connector {
 	 * @since TBD
 	 */
 	public static function base_url() {
-		$url = 'https://promoter-connector.tribe/promoter-auth-connector/us-central1/promoterConnector/';
+		$url = 'https://us-central1-promoter-auth-connector.cloudfunctions.net/promoterConnector/';
 
 		if ( defined( 'PROMOTER_AUTH_CONNECTOR_URL' ) ) {
 			$url = PROMOTER_AUTH_CONNECTOR_URL;
