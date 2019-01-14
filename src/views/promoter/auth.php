@@ -33,8 +33,8 @@
 						<input type="password" name="password" class="form-control form-control-custom-style--border-bottom" />
 					</div>
 				<?php endif; ?>
-				<input type="hidden" value="<?php esc_attr( $promoter_key ); ?>" name="promoter_key"/>
-				<input type="hidden" value="<?php esc_attr( $license_key ); ?>" name="license_key"/>
+				<input type="hidden" value="<?php echo esc_attr( $promoter_key ); ?>" name="promoter_key"/>
+				<input type="hidden" value="<?php echo esc_attr( $license_key ); ?>" name="license_key"/>
 				<input type="hidden" value="1" name="promoter_authenticate"/>
 				<button class="btn btn--blue" type="submit"><?php esc_html_e( 'Authorize Promoter', 'tribe-common' ); ?></button>
 			</form>
@@ -49,13 +49,9 @@
 			<p class="site-footer__meta">
 				&copy;<?php echo esc_html( date_i18n( 'Y' ) ); ?>
 				<?php esc_html_e( 'Promoter All rights reserved.', 'tribe-common' ); ?>
-				<a href="https://promoter.theeventscalendar.com/privacy">
-					<?php esc_html_e( 'Privacy', 'tribe-common' ); ?>
-				</a>
+				<a href="https://promoter.theeventscalendar.com/privacy"><?php esc_html_e( 'Privacy', 'tribe-common' ); ?></a>
 				<?php esc_html_e( 'and', 'tribe-common' ); ?>
-				<a href="https://promoter.theeventscalendar.com/terms">
-					<?php esc_html_e( 'Terms', 'tribe-common' ); ?>
-				</a>.
+				<a href="https://promoter.theeventscalendar.com/terms"><?php esc_html_e( 'Terms', 'tribe-common' ); ?></a>.
 			</p>
 		</div>
 	</footer>
