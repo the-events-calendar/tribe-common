@@ -34,6 +34,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * An array of class Tribe__Admin__Notice__Plugin_Download per plugin
 		 *
+		 * @since TBD
+		 *
 		 */
 		protected $admin_messages = array();
 
@@ -62,10 +64,10 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since TBD
 		 *
-		 * @param string $main_class    Main/base class for this plugin
-		 * @param string $version       Version number of plugin
-		 * @param string $path          Path to the main plugin/bootstrap file
-		 * @param array  $dependencies  An array of dependencies for a plugin
+		 * @param string        $main_class    Main/base class for this plugin
+		 * @param null|string   $version       Version number of plugin
+		 * @param null|string   $path          Path to the main plugin/bootstrap file
+		 * @param array         $dependencies  An array of dependencies for a plugin
 		 */
 		public function add_registered_plugin( $main_class, $version = null, $path = null, $dependencies = array() ) {
 
@@ -86,6 +88,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 		/**
 		 * Retrieves registered plugin array
+		 *
+		 * @since TBD
 		 *
 		 * @return array
 		 */
@@ -176,6 +180,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Searches the registered plugin list for key/value pair and return the full details for that plugin
 		 *
+		 * @since TBD
+		 *
 		 * @param string $search_key The array key this value will appear in
 		 * @param string $search_val The value itself
 		 *
@@ -194,6 +200,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Retrieves the registered plugins details by class name
 		 *
+		 * @since TBD
+		 *
 		 * @param string $main_class Main/base class for this plugin
 		 *
 		 * @return array|null
@@ -204,6 +212,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 		/**
 		 * Retrieves the version of the registered plugin
+		 *
+		 * @since TBD
 		 *
 		 * @param string $main_class Main/base class for this plugin
 		 *
@@ -218,6 +228,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Checks if the plugin is active
 		 *
+		 * @since TBD
+		 *
 		 * @param string $main_class Main/base class for this plugin
 		 *
 		 * @return bool
@@ -229,6 +241,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 		/**
 		 * Checks if a plugin is active and has the specified version
+		 *
+		 * @since TBD
 		 *
 		 * @param string $main_class Main/base class for this plugin
 		 * @param string $version Version to do a compare against
@@ -295,7 +309,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Retrieves Registered Plugin by Class Name from Array
 		 *
-		 * @since tbd
+		 * @since TBD
 		 *
 		 * @return array
 		 */
@@ -310,7 +324,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * if parent, co, add does not exist use array as is
 		 * if they do exist check each one in turn
 		 *
-		 * @since tbd
+		 * @since TBD
 		 *
 		 * @param array  $plugin        An array of data for given registered plugin
 		 * @param array  $dependencies  An array of dependencies for a plugin
@@ -349,9 +363,9 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		}
 
 		/**
+		 * Register a Plugin
 		 *
-		 *
-		 * @since tbd
+		 * @since TBD
 		 *
 		 * @param       $file_path
 		 * @param       $main_class
@@ -384,7 +398,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Checks if this plugin has permission to run, if not it notifies the admin
 		 *
-		 * @since tbd
+		 * @since TBD
 		 *
 		 * @param string $file_path    Full file path to the base plugin file
 		 * @param string $main_class   The Main/base class for this plugin
