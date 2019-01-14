@@ -152,7 +152,7 @@ class Tribe__Timezones {
 				foreach ( $abbr as $city ) {
 					if (
 						(bool) $city['dst'] === $is_dst
-						&& intval( $city['offset'] ) === $seconds
+						&& intval( $city['offset'] ) === intval( $seconds )
 						&& $city['timezone_id']
 					) {
 						return $city['timezone_id'];
