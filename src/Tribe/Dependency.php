@@ -374,6 +374,10 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @param array $dependencies
 		 */
 		public function register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
+			$dependencies = apply_filters( 'tribe_register_plugin_dependencies', $dependencies, $main_class, $version, $file_path, $classes_req );
+			$dependencies = apply_filters( "tribe_register_{$main_class}_plugin_dependencies", $dependencies, $main_class, $version, $file_path, $classes_req );
+			$version = apply_filters( 'tribe_register_plugin_version', $version, $main_class, $version, $file_path, $classes_req );
+			$version = apply_filters( "tribe_register_{$main_class}_plugin_version", $version, $main_class, $version, $file_path, $classes_req );
 
 			//add all plugins to registered_plugins
 			$this->add_registered_plugin( $main_class, $version, $file_path, $dependencies );
