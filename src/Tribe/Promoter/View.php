@@ -18,6 +18,16 @@ class Tribe__Promoter__View extends Tribe__Template {
 	}
 
 	/**
+	 * Add the rewrite rules and tags.
+	 *
+	 * @since TBD
+	 */
+	public function add_rewrites() {
+		add_rewrite_rule( 'promoter-auth/?$', 'index.php?promoter-auth-check=1', 'top' );
+		add_rewrite_tag( '%promoter-auth-check%', '([^&]+)' );
+	}
+
+	/**
 	 * Display the auth check page when the correct permalink is loaded.
 	 *
 	 * @since TBD
@@ -31,7 +41,9 @@ class Tribe__Promoter__View extends Tribe__Template {
 		$authorized   = false;
 
 		if ( $user && ! empty( $_POST['promoter_authenticate'] ) ) {
-			$authorized = tribe( 'promoter.auth' )->authorize_with_connector();
+			/** @var Tribe__Promoter__Auth $promoter_auth */
+			$promoter_auth = tribe( 'promoter.auth' );
+			$authorized    = $promoter_auth->authorize_with_connector();
 		}
 
 		if ( empty( $promoter_key ) || empty( $wp_query->query_vars['promoter-auth-check'] ) ) {
