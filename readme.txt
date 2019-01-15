@@ -3,7 +3,7 @@
 
 == Changelog ==
 
-= [TBD] =
+= [4.8.4] 2019-01-15 =
 
 * Add - Added new filter `tribe_asset_data_add_object_{$object_name}` to allow integrations to customize the object data and add additional properties [119760]
 
