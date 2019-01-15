@@ -37,7 +37,7 @@ class Tribe__Asset__Data {
 		/**
 		 * Allow plugins to filter data for a specific object.
 		 *
-		 * @since TBD
+		 * @since 4.8.4
 		 *
 		 * @param array  $data        Object data.
 		 * @param string $object_name Object name.
