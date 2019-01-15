@@ -8,7 +8,7 @@ abstract class Tribe__Abstract_Plugin_Register {
 	 *
 	 * @var string
 	 */
-	protected $base_file;
+	protected $base_dir;
 	protected $main_class;
 	protected $version;
 	protected $dependencies = array(
@@ -22,7 +22,7 @@ abstract class Tribe__Abstract_Plugin_Register {
 	 */
 	public function register_plugin() {
 		return tribe_register_plugin(
-			$this->base_file,
+			$this->base_dir,
 			$this->main_class,
 			$this->version,
 			array(),

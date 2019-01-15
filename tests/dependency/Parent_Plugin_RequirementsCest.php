@@ -15,15 +15,14 @@ class Parent_Plugin_RequirementsCest {
 	 * @test
 	 */
 	public function should_not_show_any_notice_if_addon_requirement_is_same_as_required_by_parent( Tester $I ) {
-//		$filtering_plugin = $I->have_plugin_with_template_and_data( 'main_and_addon_filter', [
-//			'parent_class'    => 'Tribe__Events__Main',
-//			'addon_class'     => $this->addon_class,
-//			'parent_requires' => '4.8',
-//			'addon_version'   => '4.8',
-//		] );
+		$filtering_plugin = $I->have_plugin_with_template_and_data( 'main_and_addon_filter', [
+			'parent_class'    => 'Tribe__Events__Main',
+			'addon_class'     => $this->addon_class,
+			'parent_requires' => '4.8',
+			'addon_version'   => '4.8',
+		] );
 
-//		$I->set_active_plugins( [ $filtering_plugin, $this->parent_plugin, $this->addon_plugin ] );
-		$I->set_active_plugins( [ $this->parent_plugin, $this->addon_plugin ] );
+		$I->set_active_plugins( [ $filtering_plugin, $this->parent_plugin, $this->addon_plugin ] );
 
 		$I->loginAsAdmin();
 		$I->amOnPluginsPage();
@@ -37,18 +36,18 @@ class Parent_Plugin_RequirementsCest {
 	 * @test
 	 */
 	public function should_show_a_notice_if_addon_version_is_lower_than_required_by_parent( Tester $I ) {
-//		$filtering_plugin = $I->have_plugin_with_template_and_data( 'main_and_addon_filter', [
-//			'parent_class'    => 'Tribe__Events__Main',
-//			'addon_class'     => $this->addon_class,
-//			'parent_requires' => '4.8',
-//			'addon_version'   => '4.7',
-//		] );
-//
-//		$I->set_active_plugins( [ $filtering_plugin, $this->parent_plugin, $this->addon_plugin ] );
-//
-//		$I->loginAsAdmin();
-//		$I->amOnPluginsPage();
-//
-//		$I->seeElement( '.tribe-notice.tribe-dependency-error[data-plugin="' . $this->parent_plugin_slug . '"]' );
+		$filtering_plugin = $I->have_plugin_with_template_and_data( 'main_and_addon_filter', [
+			'parent_class'    => 'Tribe__Events__Main',
+			'addon_class'     => $this->addon_class,
+			'parent_requires' => '4.8',
+			'addon_version'   => '4.7',
+		] );
+
+		$I->set_active_plugins( [ $filtering_plugin, $this->parent_plugin, $this->addon_plugin ] );
+
+		$I->loginAsAdmin();
+		$I->amOnPluginsPage();
+
+		$I->seeElement( '.tribe-notice.tribe-dependency-error[data-plugin="' . $this->parent_plugin_slug . '"]' );
 	}
 }
