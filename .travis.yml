@@ -110,9 +110,6 @@ before_script:
 
   # pull the correct common branch we are testing
   - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
-  -
-  # Generate a dependency-test dedicated dump
-  - wp db export ${PLUGIN_DIR}/tests/_data/dependency-dump.sql
 
   - cd $PLUGIN_DIR
   - git checkout origin/$CURRENT_BRANCH
@@ -120,6 +117,9 @@ before_script:
 
   # get to the common dir
   - cd $PLUGIN_DIR
+
+  # Generate a dependency-test dedicated dump
+  - wp db export ${PLUGIN_DIR}/tests/_data/dependency-dump.sql
 
   # restart Nnginx and PHP-FPM services
   - sudo service php5-fpm restart
