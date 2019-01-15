@@ -3,7 +3,12 @@
 
 abstract class Tribe__Abstract_Plugin_Register {
 
-	protected $base_dir;
+	/**
+	 * The absolute path to the plugin file, the one that contains the plugin header.
+	 *
+	 * @var string
+	 */
+	protected $base_file;
 	protected $main_class;
 	protected $version;
 	protected $dependencies = array(
@@ -17,7 +22,7 @@ abstract class Tribe__Abstract_Plugin_Register {
 	 */
 	public function register_plugin() {
 		return tribe_register_plugin(
-			$this->base_dir,
+			$this->base_file,
 			$this->main_class,
 			$this->version,
 			array(),
