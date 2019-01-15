@@ -100,7 +100,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 			'<div class="error tribe-notice tribe-dependency-error" data-plugin="%1$s"><p>'
 			. esc_html__( 'To begin using %2$s, please install and activate the latest version of %3$s.', 'tribe-common' )
 			. '</p></div>',
-			sanitize_title( $plugin_data['Name'] ),
+			esc_attr( sanitize_title( $plugin_data['Name'] ) ),
 			wp_kses( $this->implode_with_grammar( $plugin_name ), $allowed_html ),
 			wp_kses( $this->implode_with_grammar( $req_plugins ), $allowed_html )
 		);
