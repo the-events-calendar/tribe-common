@@ -88,6 +88,18 @@ before_script:
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
 
+  # clone The Events Calendar PRO in the plugins folder
+  - cd wp-content/plugins
+  - git clone --branch=master https://github.com/moderntribe/events-pro.git events-pro
+  - cd events-pro
+  - git fetch
+  # if the plugin has the current branch as a remote use that
+  - export HAS_BRANCH=$(git branch -r | grep $CURRENT_BRANCH) && echo "Found current branch - $HAS_BRANCH"
+  - export HAS_TRAVIS_BRANCH=$(git branch -r | grep $TRAVIS_BRANCH) && echo "Found Travis Branch - $TRAVIS_BRANCH"
+  - if [ ! -z $HAS_BRANCH ]; then $(git checkout $CURRENT_BRANCH >/dev/null); else if [ ! -z $HAS_TRAVIS_BRANCH ]; then $(git checkout $TRAVIS_BRANCH >/dev/null); fi; fi
+  - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
+
   # get back to the build folder
   - cd $TRAVIS_BUILD_DIR
 
