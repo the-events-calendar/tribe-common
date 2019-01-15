@@ -265,6 +265,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Is the plugin registered with at least the minimum version
 		 *
+		 * @since TBD
+		 *
 		 * @param string $main_class Main/base class for this plugin
 		 * @param string $version Version to do a compare against
 		 * @param string $compare Version compare string, defaults to >=
