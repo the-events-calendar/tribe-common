@@ -24,9 +24,9 @@ class Parent_Plugin_RequirementsCest {
 
 		$I->set_active_plugins( [ $filtering_plugin, $this->parent_plugin, $this->addon_plugin ] );
 
-		$I->see('something');
 
 		$I->loginAsAdmin();
+		$I->see('something');
 		$I->amOnPluginsPage();
 
 		$I->dontSeeElement( '.tribe-notice.tribe-dependency-error' );
