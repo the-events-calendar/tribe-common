@@ -90,6 +90,7 @@ before_script:
 
   # Copy the Dependency Test plugin in the plugins folder.
   - cp -r ${TRAVIS_BUILD_DIR}/tests/_data/dependency/dependency-test ${WP_ROOT_FOLDER}/wp-content/plugins
+  - ls -la ${WP_ROOT_FOLDER}/wp-content/plugins/dependency-test
 
   # get back to the build folder
   - cd $TRAVIS_BUILD_DIR
@@ -130,3 +131,6 @@ script:
 #  - codecept run wpunit
 #  - codecept run muwpunit
   - codecept run dependency -vvv
+
+after_failure:
+  - cat ${PLUGIN_DIR}/tests/_output/Parent_Plugin_RequirementsCest.should_show_a_notice_if_addon_version_is_lower_than_required_by_parent.fail.html

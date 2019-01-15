@@ -26,7 +26,6 @@ class Parent_Plugin_RequirementsCest {
 
 
 		$I->loginAsAdmin();
-		$I->see('something');
 		$I->amOnPluginsPage();
 
 		$I->dontSeeElement( '.tribe-notice.tribe-dependency-error' );
