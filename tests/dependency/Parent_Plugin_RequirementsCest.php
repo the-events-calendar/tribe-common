@@ -25,7 +25,7 @@ class Parent_Plugin_RequirementsCest {
 		$I->loginAsAdmin();
 		$I->amOnPluginsPage();
 
-		$I->dontSeeElement( '.error .tribe-inactive-plugin' );
+		$I->dontSeeElement( '.tribe-notice.tribe-dependency-error' );
 	}
 
 	/**
@@ -34,8 +34,9 @@ class Parent_Plugin_RequirementsCest {
 	 * @test
 	 */
 	public function should_show_a_notice_if_addon_version_is_lower_than_required_by_parent( Tester $I ) {
-		$parent_plugin = 'the-events-calendar/the-events-calendar.php';
-		$addon_plugin  = 'events-pro/events-calendar-pro.php';
+		$parent_plugin    = 'the-events-calendar/the-events-calendar.php';
+		$addon_plugin     = 'events-pro/events-calendar-pro.php';
+		$main_plugin_slug = 'the-events-calendar';
 
 		$test_plugin = $I->have_plugin_with_template_and_data( 'main_and_addon_filter', [
 			'parent_class'    => 'Tribe__Events__Main',
@@ -49,6 +50,6 @@ class Parent_Plugin_RequirementsCest {
 		$I->loginAsAdmin();
 		$I->amOnPluginsPage();
 
-		$I->seeElement( '.error .tribe-inactive-plugin' );
+		$I->seeElement( '.tribe-notice.tribe-dependency-error[data-plugin="' . $main_plugin_slug . '"]' );
 	}
 }
