@@ -27,8 +27,7 @@ class Parent_Plugin_RequirementsCest {
 
 		$I->amOnPage('/wp-login.php');
 		$response = $I->get_response();
-		Assert::contains('sldkjflskdjfj', $response);
-
+		$I->assertContains('sdfsfsfj', $response);
 //		$I->loginAsAdmin();
 //		$I->amOnPluginsPage();
 
