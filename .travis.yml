@@ -102,15 +102,18 @@ before_script:
   # enable the site
   - sudo ln -s /etc/nginx/sites-available/$WP_DOMAIN /etc/nginx/sites-enabled/
 
-  # activate The Events Calendar in WordPress
+  # Setup the dependency test dump
   - cd $WP_ROOT_FOLDER
-  - wp plugin activate the-events-calendar
-
-  # flush rewrite rules
   - wp rewrite structure '/%postname%/' --hard
+  - wp core update-db
+  - wp plugin deactivate --all
 
   # pull the correct common branch we are testing
   - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
+  -
+  # Generate a dependency-test dedicated dump
+  - wp db export ${PLUGIN_DIR}/tests/_data/dependency-dump.sql
+
   - cd $PLUGIN_DIR
   - git checkout origin/$CURRENT_BRANCH
   - composer update --prefer-dist
