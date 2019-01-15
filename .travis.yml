@@ -130,5 +130,5 @@ script:
 #  - codecept run integration
 #  - codecept run wpunit
 #  - codecept run muwpunit
-  - curl -v http://tribe.localhost
+  - curl -v http://tribe.localhost/wp-login.php
   - codecept run dependency -vvv
