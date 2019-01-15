@@ -1,6 +1,7 @@
 <?php
 
 use DependencyTester as Tester;
+use PHPUnit\Framework\Assert;
 
 class Parent_Plugin_RequirementsCest {
 
@@ -26,7 +27,7 @@ class Parent_Plugin_RequirementsCest {
 
 		$I->amOnPage('/wp-login.php');
 		$response = $I->get_response();
-		codecept_debug($response);
+		Assert::contains('sldkjflskdjfj', $response);
 
 //		$I->loginAsAdmin();
 //		$I->amOnPluginsPage();

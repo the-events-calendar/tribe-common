@@ -56,7 +56,7 @@ before_install:
 
 install:
   # disable XDebug to speed up the tests
-  # - phpenv config-rm xdebug.ini
+   - phpenv config-rm xdebug.ini
 
 before_script:
   # set up folders
