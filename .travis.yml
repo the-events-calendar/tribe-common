@@ -126,7 +126,7 @@ before_script:
   - sudo service nginx restart
 
 script:
-  - codecept run integration
-  - codecept run wpunit
-  - codecept run muwpunit
+#  - codecept run integration
+#  - codecept run wpunit
+#  - codecept run muwpunit
   - codecept run dependency
