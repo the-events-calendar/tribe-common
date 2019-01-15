@@ -131,6 +131,3 @@ script:
 #  - codecept run wpunit
 #  - codecept run muwpunit
   - codecept run dependency -vvv
-
-after_failure:
-  - cat ${PLUGIN_DIR}/tests/_output/Parent_Plugin_RequirementsCest.should_show_a_notice_if_addon_version_is_lower_than_required_by_parent.fail.html
