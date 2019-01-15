@@ -25,7 +25,7 @@ class Dependency extends \Codeception\Module {
 	 * @throws \Codeception\Exception\ModuleException If the WPFileSystem module cannot be connected.
 	 */
 	public function have_plugin_with_template_and_data( $template, array $data ) {
-		$plugin_slug          = 'test-' . md5( uniqid( 'test-', true ) ) . '.php';
+		$plugin_slug          = 'test-' . md5( uniqid( 'test-', true ) );
 		$test_plugin          = "{$plugin_slug}/{$plugin_slug}.php";
 		$plugin_code_template = file_get_contents( codecept_data_dir( 'dependency/' . $template . '.php' ) );
 		$plugin_code          = $this->render_template( $plugin_code_template, $data );
