@@ -65,7 +65,7 @@ export const toNaturalLanguage = ( params = {} ) => {
 			month: 'MMMM',
 			day: 'D',
 			year: 'YYYY',
-			time: 'h:mm a',
+			time: momentUtil.toFormat( FORMATS.WP.time ),
 		},
 		separator: '',
 		...params,
@@ -100,7 +100,7 @@ export const toNaturalLanguage = ( params = {} ) => {
 
 export const rangeToNaturalLanguage = ( start = '', end = '', separators = {} ) => {
 	const separatorOptions = {
-		time: __( 'at', 'events-gutenberg' ),
+		time: __( 'at', 'tribe-common' ),
 		date: ' - ',
 		...separators,
 	};

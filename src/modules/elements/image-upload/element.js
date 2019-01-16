@@ -43,7 +43,7 @@ export const renderImage = ( disabled, image, onRemove ) => (
 		>
 			<CloseIcon />
 			<span className="tribe-editor__image-upload__remove-button-text">
-				{ __( 'remove', 'events-gutenberg' ) }
+				{ __( 'remove', 'tribe-common' ) }
 			</span>
 		</Button>
 	</div>
