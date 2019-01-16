@@ -81,7 +81,7 @@ before_script:
   - export HAS_BRANCH=$(git branch -r | grep $CURRENT_BRANCH) && echo "Found current branch - $HAS_BRANCH"
   - export HAS_TRAVIS_BRANCH=$(git branch -r | grep $TRAVIS_BRANCH) && echo "Found Travis Branch - $TRAVIS_BRANCH"
   - if [ ! -z $HAS_BRANCH ]; then $(export TEC_BRANCH=${CURRENT_BRANCH}); else if [ ! -z $HAS_TRAVIS_BRANCH ]; then $( export TEC_BRANCH=${TRAVIS_BRANCH} ); fi; fi
-  # allow a TEC build branch to override the branch
+  # allow a TEC build branch to override the branch.
   - export TEC_BRANCH=${TEC_BUILD_BRANCH:-${TEC_BRANCH}}
   - git checkout ${TEC_BRANCH}
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
