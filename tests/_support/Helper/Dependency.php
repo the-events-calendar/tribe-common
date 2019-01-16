@@ -63,8 +63,4 @@ class Dependency extends \Codeception\Module {
 	public function set_active_plugins( array $active_plugins ) {
 		$this->getModule( 'WPDb' )->haveOptionInDatabase( 'active_plugins', $active_plugins );
 	}
-
-	public function get_response(  ) {
-		return $this->getModule('WPBrowser')->_getResponseContent();
-	}
 }
