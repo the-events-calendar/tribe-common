@@ -113,10 +113,6 @@ before_script:
   # Generate a dependency-test dedicated dump
   - wp db export ${PLUGIN_DIR}/tests/_data/dependency-dump.sql
 
-  # restart Nnginx and PHP-FPM services
-  - sudo service php7.0-fpm restart
-  - sudo service nginx restart
-
 script:
 #  - codecept run integration
 #  - codecept run wpunit
