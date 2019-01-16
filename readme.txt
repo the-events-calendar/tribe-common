@@ -3,6 +3,9 @@
 
 == Changelog ==
 
+= [4.9] TBD =
+
+* Feature - add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
 
 = [4.8.2] 2018-12-13 =
 
