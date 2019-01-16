@@ -25,5 +25,6 @@
   "vendor/a5hleyrich/wp-background-processing/license.*",
   "vendor/jquery-tribe-timepicker/**/*.js",
   "vendor/jquery-tribe-timepicker/**/*.css",
-  "vendor/jquery-tribe-timepicker/**/*.png"
+  "vendor/jquery-tribe-timepicker/**/*.png",
+  "vendor/attrchange/js/*.js"
 ]
