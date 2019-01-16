@@ -1,9 +1,8 @@
 === Tribe Common ===
 
-
 == Changelog ==
 
-= [4.8.4] TBD =
+= [4.8.5] TBD =
 
 * Fix - Updated translation strings from the Gutenberg extension merge [118656]
 * Add - Added `strip_dynamic_blocks` method in `Tribe__Editor__Utils` [118679]
@@ -11,7 +10,11 @@
 * Tweak - Allow better control of when we are in Classic editor with a new filter `tribe_editor_classic_is_active` [120137]
 * Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating Event Tickets or The Events Calendar [117795]
 
-= [4.8.3] 2018-12-18 =
+= [4.8.4] 2019-01-15 =
+
+* Add - Added new filter `tribe_asset_data_add_object_{$object_name}` to allow integrations to customize the object data and add additional properties [119760]
+
+= [4.8.3] 2018-12-19 =
 
 * Tweak - Refreshing the Welcome page for The Events Calendar and Event Tickets [117795]
 * Fix - Prevent admin tooltips to that full page width on Blocks Editor [118883]
