@@ -114,7 +114,7 @@ before_script:
 
   - cd $PLUGIN_DIR
   - git checkout origin/$CURRENT_BRANCH
-  - composer update --prefer-dist
+  - composer update
 
   # get to the common dir
   - cd $PLUGIN_DIR
