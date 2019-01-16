@@ -96,7 +96,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 			. esc_html__( 'To begin using %1$s, please install and activate the latest version of %2$s.', 'tribe-common' )
 			. '</p></div>',
 			esc_html( $this->implode_with_grammar( $plugin_name ) ),
-			esc_html( $this->implode_with_grammar( $req_plugins ) )
+			$this->implode_with_grammar( $req_plugins )
 		);
 	}
 
