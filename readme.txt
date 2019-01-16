@@ -4,7 +4,7 @@
 
 = [4.9] TBD =
 
-
+* Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
 
 = [4.8.5] TBD =
 
