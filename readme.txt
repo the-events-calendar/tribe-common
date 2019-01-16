@@ -3,6 +3,10 @@
 
 == Changelog ==
 
+= [4.8.5] TBD =
+
+* Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
+
 = [4.8.4] TBD =
 
 * Fix - Updated translation strings from the Gutenberg extension merge [118656]
