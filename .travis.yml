@@ -1,5 +1,7 @@
 sudo: required
 
+dist: xenial
+
 language: php
 
 notifications:
@@ -17,8 +19,8 @@ addons:
       # needed for Nginx
       - libjpeg-dev
       - libpng12-dev
-      - php5-fpm
-      - php5-mysql
+      - php-fpm
+      - php-mysql
       - nginx
   hosts:
     # resolve the following domains to localhost
@@ -123,7 +125,7 @@ before_script:
   - wp db export ${PLUGIN_DIR}/tests/_data/dependency-dump.sql
 
   # restart Nnginx and PHP-FPM services
-  - sudo service php5-fpm restart
+  - sudo service php-fpm restart
   - sudo service nginx restart
 
 script:
