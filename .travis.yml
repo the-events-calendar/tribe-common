@@ -125,7 +125,7 @@ before_script:
   - wp db export ${PLUGIN_DIR}/tests/_data/dependency-dump.sql
 
   # restart Nnginx and PHP-FPM services
-  - sudo service php-fpm restart
+  - sudo service php-7.0fpm restart
   - sudo service nginx restart
 
 script:
