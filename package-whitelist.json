@@ -16,6 +16,7 @@
   "vendor/tribe-select2/*.js",
   "vendor/tribe-select2/*.gif",
   "vendor/tribe-select2/*.png",
+  "vendor/attrchange/js/*.js",
   "vendor/autoload.php",
   "vendor/autoload_52.php",
   "vendor/composer/*",
