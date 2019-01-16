@@ -840,7 +840,27 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .tribe_welcome_page,
 .tribe_update_page {
-	max-width: 1000px;
+	max-width: 850px;
+}
+
+.tribe_welcome_page {
+
+	&.wrap h1 {
+		font-size: 3em;
+		line-height: 1.2;
+		margin-top: 1em;
+
+		&:before {
+			color: #555d66;
+			content: '\f145';
+			font-family: 'dashicons';
+			font-size: 0.9em;
+			line-height: 1;
+			margin-right: 5px;
+			position: relative;
+			top: 4px;
+		}
+	}
 }
 
 .tribe-half-column {
@@ -870,6 +890,12 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 .tribe_welcome_page h2,
+.tribe_welcome_page .tribe-half-column h4 {
+	font-size: 24px;
+	line-height: 1.2;
+	margin-bottom: 20px;
+}
+
 .tribe_update_page h2 {
 	font-size: 30px;
 	line-height: 1.2;
@@ -894,15 +920,63 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .tribe_welcome_page p,
 .tribe_update_page p {
+	font-size: 15px;
+}
+
+.tribe_welcome_page li {
 	font-size: 14px;
+	margin-bottom: 10px;
 }
 
 p.tribe-welcome-message {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: 400;
 }
 
-.tribe_welcome_page h2:before,
+.tribe_welcome_page .tribe-half-column h4 {
+
+	/* "Calendar" dashicon */
+	&:before {
+		color: #555d66;
+		content: '\f145';
+		font-family: 'dashicons';
+		font-size: 21px;
+		line-height: 1;
+		margin-right: 10px;
+		position: relative;
+		top: 2px;
+	}
+
+	/* "Life preserver" dashicon */
+	&[data-tribe-icon="dashicons-sos"] {
+		&:before {
+			content: '\f468';
+		}
+	}
+
+	/* "Graduation cap" dashicon */
+	&[data-tribe-icon="dashicons-welcome-learn-more"] {
+		&:before {
+			content: '\f118';
+		}
+	}
+
+	/* "Megaphone" dashicon */
+	&[data-tribe-icon="dashicons-megaphone"] {
+		&:before {
+			content: '\f488';
+		}
+	}
+
+	/* "Heart" dashicon */
+	&[data-tribe-icon="dashicons-heart"] {
+		&:before {
+			content: '\f487';
+		}
+	}
+}
+
+
 .tribe_update_page h2:before {
 	content: '\f145';
 	font-family: 'dashicons';

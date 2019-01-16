@@ -28,6 +28,10 @@ describe( 'Tests for moment.js', () => {
 		window.console = console;
 	} );
 
+	test( 'TIME_FORMAT', () => {
+		expect( momentUtil.TIME_FORMAT ).toEqual( 'h:mm a' );
+	} );
+
 	test( 'roundTime', () => {
 		const test1 = momentUtil.roundTime(
 			moment( '05-09-2018 12:26:02', FORMAT ),
