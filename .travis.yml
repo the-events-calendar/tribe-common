@@ -40,7 +40,6 @@ env:
     - TEST_DB_NAME="test"
     - WP_ADMIN_USERNAME="admin"
     - WP_ADMIN_PASSWORD="password"
-    - TEC_BUILD_BRANCH="bucket/G19.02-FR"
 
 before_install:
   # create the databases needed for the tests
