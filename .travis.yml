@@ -40,8 +40,6 @@ env:
     - TEST_DB_NAME="test"
     - WP_ADMIN_USERNAME="admin"
     - WP_ADMIN_PASSWORD="password"
-    # remove this or leave this empty if there is no need to specify the TEC branch!
-    - TEC_BUILD_BRANCH="116842-initial-checking-system"
 
 before_install:
   # create the databases needed for the tests
