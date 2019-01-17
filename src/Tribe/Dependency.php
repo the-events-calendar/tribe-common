@@ -313,12 +313,12 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since TBD
 		 *
-		 * @return array
+		 * @return array|boolean
 		 */
 		public function get_registered_plugin( $class ) {
 			$plugins = $this->registered_plugins;
 
-			return isset( $plugins[ $class ] ) ? $plugins[ $class ] : array();
+			return isset( $plugins[ $class ] ) ? $plugins[ $class ] : false;
 		}
 
 		/**
@@ -345,9 +345,9 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 			foreach ( $dependencies as $class => $version ) {
 
-				// if no class
+				// if no class for add-on
 				$checked_plugin    = $this->get_registered_plugin( $class );
-				if ( empty( $checked_plugin ) ) {
+				if ( $addon && empty( $checked_plugin ) ) {
 					continue;
 				}
 
@@ -487,28 +487,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			}
 
 			return $addon_dependencies;
-		}
-
-		/**
-		 * Registers older plugins that did not implement this class
-		 *
-		 * @TODO Consider removing this in 5.0
-		 */
-		public function add_legacy_plugins() {
-
-			$tribe_plugins = new Tribe__Plugins();
-
-			foreach ( $tribe_plugins->get_list() as $plugin ) {
-				// Only add plugin if it's present and not already added
-				if ( ! class_exists( $plugin['class'] ) || array_key_exists( $plugin['class'], $this->active_plugins ) ) {
-					continue;
-				}
-
-				$ver_const = $plugin['class'] . '::VERSION';
-				$version = defined( $ver_const ) ? constant( $ver_const ) : null;
-
-				$this->add_active_plugin( $plugin['class'], $version );
-			}
 		}
 
 	}
