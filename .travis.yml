@@ -40,6 +40,7 @@ env:
     - TEST_DB_NAME="test"
     - WP_ADMIN_USERNAME="admin"
     - WP_ADMIN_PASSWORD="password"
+    - TEC_BUILD_BRANCH="bucket/G19.02-FR"
 
 before_install:
   # create the databases needed for the tests
@@ -78,11 +79,11 @@ before_script:
   - cd the-events-calendar
   - git fetch
   # if the plugin has the current branch as a remote use that
-  - if [ ! -z $CURRENT_BRANCH ]; then export HAS_BRANCH=$(git branch -r | grep $CURRENT_BRANCH) && echo "Found current branch - $HAS_BRANCH"; else export HAS_BRANCH=0; fi
-  - if [ ! -z $TRAVIS_BRANCH ]; then export HAS_TRAVIS_BRANCH=$(git branch -r | grep $TRAVIS_BRANCH) && echo "Found Travis Branch - $TRAVIS_BRANCH"; else export HAS_TRAVIS_BRANCH=0; fi
-  - if [ $HAS_BRANCH ]; then export TEC_BRANCH=$CURRENT_BRANCH; else export TEC_BRANCH=$TRAVIS_BRANCH; fi
+  - if [ $CURRENT_BRANCH ]; then export HAS_BRANCH=$(git branch -r | grep $CURRENT_BRANCH) && echo "Found current branch - $HAS_BRANCH"; else export HAS_BRANCH=0; fi
+  - if [ $TRAVIS_BRANCH ]; then export HAS_TRAVIS_BRANCH=$(git branch -r | grep $TRAVIS_BRANCH) && echo "Found Travis Branch - $TRAVIS_BRANCH"; else export HAS_TRAVIS_BRANCH=0; fi
+  - if [ $HAS_BRANCH ]; then export TEC_BRANCH=$CURRENT_BRANCH; else export TEC_BRANCH=$TRAVIS_BRANCH; fi; echo "TEC Branch is $TEC_BRANCH"
   # allow a TEC build branch to override the branch
-  - if [ $TEC_BUILD_BRANCH ]; then export TEC_BRANCH=$TEC_BUILD_BRANCH; fi
+  - if [ $TEC_BUILD_BRANCH ]; then export TEC_BRANCH=$TEC_BUILD_BRANCH; fi; echo "TEC Branch is $TEC_BRANCH"
   - git checkout ${TEC_BRANCH}
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
