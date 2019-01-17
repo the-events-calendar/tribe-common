@@ -91,12 +91,18 @@ class Tribe__Admin__Notice__Plugin_Download {
 			$plugin_name[] = $plugin_data['Name'];
 		}
 
+		$allowed_html = array(
+			'strong' => array(),
+			'a'      => array( 'href' => array() ),
+		);
+
 		printf(
-			'<div class="error"><p>'
-			. esc_html__( 'To begin using %1$s, please install and activate the latest version of %2$s.', 'tribe-common' )
+			'<div class="error tribe-notice tribe-dependency-error" data-plugin="%1$s"><p>'
+			. esc_html__( 'To begin using %2$s, please install and activate the latest version of %3$s.', 'tribe-common' )
 			. '</p></div>',
-			esc_html( $this->implode_with_grammar( $plugin_name ) ),
-			$this->implode_with_grammar( $req_plugins )
+			esc_attr( sanitize_title( $plugin_data['Name'] ) ),
+			wp_kses( $this->implode_with_grammar( $plugin_name ), $allowed_html ),
+			wp_kses( $this->implode_with_grammar( $req_plugins ), $allowed_html )
 		);
 	}
 
