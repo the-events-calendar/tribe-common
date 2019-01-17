@@ -1,6 +1,5 @@
 === Tribe Common ===
 
-
 == Changelog ==
 
 = [4.9] TBD =
