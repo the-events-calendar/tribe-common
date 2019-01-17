@@ -1,0 +1,419 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "21d2d1cfe07d9e4e835907431fc9c87e",
+    "packages": [
+        {
+            "name": "xrstf/composer-php52",
+            "version": "v1.0.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer-php52/composer-php52.git",
+                "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer-php52/composer-php52/zipball/bd41459d5e27df8d33057842b32377c39e97a5a8",
+                "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-default": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "xrstf\\Composer52": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2016-04-16T21:52:24+00:00"
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "phpunit/php-code-coverage",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
+                "reference": "21d0f05b8127057159eec4be79f8f8a92bc90957"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/21d0f05b8127057159eec4be79f8f8a92bc90957",
+                "reference": "21d0f05b8127057159eec4be79f8f8a92bc90957",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "phpunit/php-file-iterator": ">=1.3.0@stable",
+                "phpunit/php-text-template": ">=1.1.1@stable",
+                "phpunit/php-token-stream": ">=1.1.3@stable"
+            },
+            "suggest": {
+                "ext-dom": "*",
+                "ext-reflection": "*",
+                "ext-spl": "*",
+                "ext-xdebug": ">=2.0.5"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "PHP/CodeCoverage/Autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
+            "homepage": "http://www.phpunit.de/",
+            "keywords": [
+                "coverage",
+                "testing",
+                "xunit"
+            ],
+            "time": "2012-09-19T00:00:00+00:00"
+        },
+        {
+            "name": "phpunit/php-file-iterator",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
+                "reference": "46b0610951db3a918ee7842bc0d471e72c1d0d46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/46b0610951db3a918ee7842bc0d471e72c1d0d46",
+                "reference": "46b0610951db3a918ee7842bc0d471e72c1d0d46",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.7"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "File/Iterator/Autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "FilterIterator implementation that filters files based on a list of suffixes.",
+            "homepage": "http://www.phpunit.de/",
+            "keywords": [
+                "filesystem",
+                "iterator"
+            ],
+            "time": "2012-09-22T00:00:00+00:00"
+        },
+        {
+            "name": "phpunit/php-text-template",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-text-template.git",
+                "reference": "1da672430d58dcbb21139a018febe038d8500fd8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/1da672430d58dcbb21139a018febe038d8500fd8",
+                "reference": "1da672430d58dcbb21139a018febe038d8500fd8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.7"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Text/Template/Autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Simple template engine.",
+            "homepage": "http://www.phpunit.de/",
+            "keywords": [
+                "template"
+            ],
+            "time": "2012-09-23T00:00:00+00:00"
+        },
+        {
+            "name": "phpunit/php-timer",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-timer.git",
+                "reference": "5175e9bb35fc9cc430973ed83a3d62531c3c8698"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/5175e9bb35fc9cc430973ed83a3d62531c3c8698",
+                "reference": "5175e9bb35fc9cc430973ed83a3d62531c3c8698",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.7"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "PHP/Timer/Autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Utility class for timing",
+            "homepage": "http://www.phpunit.de/",
+            "keywords": [
+                "timer"
+            ],
+            "time": "2012-09-23T00:00:00+00:00"
+        },
+        {
+            "name": "phpunit/php-token-stream",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-token-stream.git",
+                "reference": "dd11f1b0c071dc46fe711a7dd331db1b2179b9be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/dd11f1b0c071dc46fe711a7dd331db1b2179b9be",
+                "reference": "dd11f1b0c071dc46fe711a7dd331db1b2179b9be",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=5.2.7"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "PHP/Token/Stream/Autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Wrapper around PHP's tokenizer extension.",
+            "homepage": "http://www.phpunit.de/",
+            "keywords": [
+                "tokenizer"
+            ],
+            "time": "2012-09-23T00:00:00+00:00"
+        },
+        {
+            "name": "phpunit/phpunit-mock-objects-php52",
+            "version": "dev-1.1.0-php52",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/garex/phpunit-mock-objects",
+                "reference": "625622b0678d53aa47c6dc7e232e0171e2623d75"
+            },
+            "require": {
+                "ext-reflection": "*",
+                "ext-spl": "*",
+                "php": ">=5.2.6",
+                "phpunit/php-text-template": ">=1.1.1@stable"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "PHPUnit/"
+                ]
+            },
+            "include-path": [
+                ""
+            ],
+            "time": "2014-10-02T16:51:34+00:00"
+        },
+        {
+            "name": "phpunit/phpunit-php52",
+            "version": "dev-3.6.12-php52",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/garex/phpunit",
+                "reference": "d04728c2cf1208d7f94957efba350e9c5d492f9d"
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-pcre": "*",
+                "ext-reflection": "*",
+                "ext-spl": "*",
+                "php": ">=5.2.7",
+                "phpunit/php-code-coverage": "=1.2.0",
+                "phpunit/php-file-iterator": "=1.3.2",
+                "phpunit/php-text-template": "=1.1.2",
+                "phpunit/php-timer": "=1.0.3",
+                "phpunit/php-token-stream": "=1.1.4",
+                "symfony/yaml": ">=2.1.0@stable",
+                "xrstf/composer-php52": "1.*"
+            },
+            "bin": [
+                "composer/bin/phpunit-php52"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "PHPUnit/Autoload.php"
+                ]
+            },
+            "include-path": [
+                "",
+                "../../symfony/yaml/"
+            ],
+            "scripts": {
+                "post-install-cmd": [
+                    "xrstf\\Composer52\\Generator::onPostInstallCmd"
+                ],
+                "post-update-cmd": [
+                    "xrstf\\Composer52\\Generator::onPostInstallCmd"
+                ],
+                "post-autoload-dump": [
+                    "xrstf\\Composer52\\Generator::onPostInstallCmd"
+                ]
+            },
+            "time": "2015-10-20T11:09:30+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "3.4.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "eaa08afe947cb5affdf2b5fd39e7de92bd96c872"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/eaa08afe947cb5affdf2b5fd39e7de92bd96c872",
+                "reference": "eaa08afe947cb5affdf2b5fd39e7de92bd96c872",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8"
+            },
+            "conflict": {
+                "symfony/console": "<3.4"
+            },
+            "require-dev": {
+                "symfony/console": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/console": "For validating YAML files using the lint command"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-09-25T19:23:20+00:00"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "phpunit/phpunit-php52": 20,
+        "phpunit/phpunit-mock-objects-php52": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.2"
+    },
+    "platform-dev": []
+}
