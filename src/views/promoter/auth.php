@@ -8,7 +8,7 @@
 </style>
 
 <?php if ( $authorized ) : ?>
-	<p><?php esc_html_e( 'You may now close this window.', 'tribe-common' ); ?>/p>
+	<p><?php esc_html_e( 'You may now close this window.', 'tribe-common' ); ?></p>
 	<?php return; ?>
 <?php endif; ?>
 
