@@ -32,7 +32,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 						'core' => 'wp/v2',
 					),
 				),
-				'dateSettings' => array( $this, 'get_date_settings' ),
+				'dateSettings' => $this->get_date_settings(),
 				'constants'    => array(
 					'hideUpsell' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
 				),
@@ -94,7 +94,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 				'time'       => get_option( 'time_format', __( 'g:i a', 'default' ) ),
 				'date'       => get_option( 'date_format', __( 'F j, Y', 'default' ) ),
 				'dateNoYear' => __( 'F j', 'default' ),
-				'datetime'   => __( 'F j, Y g:i a', 'default' ),
+				'datetime'   => get_option( 'date_format', __( 'F j, Y', 'default' ) ) . ' ' . get_option( 'time_format', __( 'g:i a', 'default' ) ),
 			),
 			'timezone' => array(
 				'offset' => get_option( 'gmt_offset', 0 ),

@@ -2227,18 +2227,18 @@ msgstr ""
 msgid "There are no fields setup for this tab yet."
 msgstr "Nu există încă câmpuri configurate pentru această filă."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Nici-una din configurări nu a fost salvată. Vă rugăm să reîncercaţi."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Formularul dvs. a avut următoarele erori:"
 
@@ -2341,7 +2341,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Evenimente"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Configurările au fost salvate"
 

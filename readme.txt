@@ -3,6 +3,27 @@
 
 == Changelog ==
 
+= [4.8.4] 2019-01-15 =
+
+* Add - Added new filter `tribe_asset_data_add_object_{$object_name}` to allow integrations to customize the object data and add additional properties [119760]
+
+= [4.8.3] 2018-12-19 =
+
+* Tweak - Refreshing the Welcome page for The Events Calendar and Event Tickets [117795]
+* Fix - Prevent admin tooltips to that full page width on Blocks Editor [118883]
+* Fix - Datepicker code will now use the correct datetime format [117428]
+
+= [4.8.2] 2018-12-13 =
+
+* Feature - Add new action `tribe_editor_register_blocks` used to register Event blocks via `common`
+* Fix - Make sure assets are injected before is too late
+* Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
+* Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
+* Fix - Ensure admin CSS is enqueued any time a notice is displayed atop an admin page [119452]
+* Fix - Prevent to trigger error when using `array_combine` with empty arrays
+* Fix - Compatiblity with classic editor plugin [119426]
+* Tweak - Add functions to remove inner blocks [119426]
+
 = [4.8.1] 2018-12-05 =
 
 * Fix - speed up and improve robustness of the asynchronous process feature detection code [118934]
