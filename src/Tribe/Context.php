@@ -7,7 +7,6 @@
  * @since TBD Made the context immutable.
  */
 class Tribe__Context {
-
 	/**
 	 * An array defining the properties the context will be able to read and provide.
 	 *
@@ -30,7 +29,7 @@ class Tribe__Context {
 	 * prop - get the value from a tribe() container binding, format `array( $binding, $prop )`.
 	 * 'static_method' - get the value from a class static method.
 	 * 'method' - get the value calling a method on a tribe() container binding.
-	 * 'function' - get the value from a function.
+	 * 'func' - get the value from a function.
 	 *
 	 * @var array
 	 */
@@ -194,150 +193,22 @@ class Tribe__Context {
 	 *               value if not found.
 	 */
 	public function get( $key, $default = null ) {
-		$value = $default;
-		$locations = self::$locations[ $key ];
+		$value         = $default;
+		$the_locations = self::$locations[ $key ];
 
-		if ( ! isset( $locations ) ) {
+		if ( ! isset( $the_locations ) ) {
 			return $value;
 		}
 
 		if ( isset( $this->request_cache[ $key ] ) ) {
 			$value = $this->request_cache[ $key ];
 		} else {
-			foreach ( $locations as $location => $keys ) {
-				$keys = (array) $keys;
+			foreach ( $the_locations as $location => $keys ) {
+				$this_value = $this->$location( (array) $keys, $default );
 
-				switch ( $location ) {
-					case 'request_var':
-						// 'request_var' => 'tribe_event_display'.
-						foreach ( $keys as $request_var ) {
-							$value = tribe_get_request_var( $request_var, $default );
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
-					case 'query_var':
-						// 'query_var' => 'is_home'.
-						global $wp_query;
-						foreach ( $keys as $query_var ) {
-							$value = $wp_query->get( $query_var, $default );
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
-					case 'tribe_option':
-						// 'tribe_option' => 'posts_per_page'.
-						foreach ( $keys as $option_name ) {
-							$value = tribe_get_option( $option_name, $default );
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
-					case 'option':
-						// 'option' => 'posts_per_page'.
-						foreach ( $keys as $option_name ) {
-							$value = get_option( $option_name, $default );
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
-					case 'transient':
-						// 'transient' => 'foo'.
-						foreach ( $keys as $transient ) {
-							$value = get_transient( $transient );
-							if ( false !== $value ) {
-								break;
-							}
-						}
-						break;
-					case 'constant':
-						// 'constant' => 'BAR'.
-						foreach ( $keys as $constant ) {
-							$value = defined( $constant ) ? constant( $constant ) : $default;
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
-					case 'global_var':
-						// 'global_var' => 'bar'.
-						foreach ( $keys as $var ) {
-							$value = isset( $GLOBALS[ $var ] ) ? $GLOBALS[ $var ] : $default;
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
-					case 'static_prop':
-						// 'static_prop' =>array( 'Foo_Class', 'bar' ).
-						foreach ( $keys as $class => $prop ) {
-							$value = $default;
-
-							if ( class_exists( $class ) && property_exists( $class, $prop ) ) {
-								// PHP 5.2 compat, on PHP 5.3+ $class::$$prop
-								$vars = get_class_vars( $class );
-
-								return $vars[ $prop ];
-							}
-
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
-					case 'prop':
-						// 'prop' => array( 'events.some.foo', 'bar' ).
-						foreach ( $keys as $binding => $prop ) {
-							$value = tribe()->offsetExists( $binding ) && property_exists( tribe( $binding ), $prop )
-								? tribe( $binding )->{$prop}
-								: $default;
-
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
-					case 'static_method':
-						// 'prop' => array( 'Foo_Class', 'bar_method' ).
-						foreach ( $keys as $clas => $method ) {
-							$value = class_exists( $class ) && method_exists( $class, $method )
-								? call_user_func( array( $class, $method ) )
-								: $default;
-
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
-					case 'method':
-						foreach ( $keys as $binding => $method ) {
-							if ( tribe()->offsetExists( $binding ) ) {
-								$implementation = tribe( $binding );
-								if ( method_exists( $implementation, $method ) ) {
-									$value = $implementation->$method();
-								}
-							}
-
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
-					case 'function':
-						foreach ( $keys as $function ) {
-							if ( function_exists( $function ) ) {
-								$value = $function();
-							}
-
-							if ( $value !== $default ) {
-								break;
-							}
-						}
-						break;
+				if ( $default !== $this_value ) {
+					$value = $this_value;
+					break;
 				}
 			}
 		}
@@ -393,5 +264,318 @@ class Tribe__Context {
 		} else {
 			$this->request_cache = array();
 		}
+	}
+
+	/**
+	 * Reads the value from one or more $_REQUEST vars.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $request_vars The list of request vars to lookup, in order.
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	protected function request_var( array $request_vars, $default ) {
+		$value = $default;
+
+		foreach ( $request_vars as $request_var ) {
+			$this_value = tribe_get_request_var( $request_var, '__not_found__' );
+			if ( $this_value !== '__not_found__' ) {
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one or more global WP_Query object query variables.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $query_vars The list of query vars to look up, in order.
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	protected function query_var( array $query_vars, $default ) {
+		$value = $default;
+
+		global $wp_query;
+		foreach ( $query_vars as $query_var ) {
+			$this_value = $wp_query->get( $query_var, '__not_found__' );
+			if ( $this_value !== '__not_found__' ) {
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one more more `tribe_option`s.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $tribe_options The list of `tribe_option`s to lookup, in order.
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	protected function tribe_option( array $tribe_options, $default ) {
+		$value = $default;
+
+		foreach ( $tribe_options as $option_name ) {
+			$this_value = tribe_get_option( $option_name, '__not_found__' );
+			if ( $this_value !== '__not_found__' ) {
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one or more options.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $options The list of options to lookup, in order.
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	protected function option( array $options, $default ) {
+		$value = $default;
+
+		foreach ( $options as $option_name ) {
+			$this_value = get_option( $option_name, '__not_found__' );
+			if ( $this_value !== '__not_found__' ) {
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one or more transients.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $transients The list of transients to lookup, in order.
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	protected function transient( array $transients, $default ) {
+		$value = $default;
+
+		foreach ( $transients as $transient ) {
+			$this_value = get_transient( $transient );
+			if ( false !== $this_value ) {
+				$value = $this_value;
+				/*
+				 * This will fail when the value is actually `false`.
+				 */
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one or more constants.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $constants The list of constants to lookup, in order.
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	protected function constant( array $constants, $default ) {
+		$value = $default;
+
+		foreach ( $constants as $constant ) {
+			$this_value = defined( $constant ) ? constant( $constant ) : '__not_found__';
+			if ( $this_value !== '__not_found__' ) {
+				$value = $this_value;
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one or more global variable.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $global_vars The list of global variables to look up, in order.
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	protected function global_var( array $global_vars, $default ) {
+		$value = $default;
+
+		foreach ( $global_vars as $var ) {
+			$this_value = isset( $GLOBALS[ $var ] ) ? $GLOBALS[ $var ] : '__not_found__';
+			if ( $this_value !== '__not_found__' ) {
+				$value = $this_value;
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one or more class static properties.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $classes_and_props An associative array in the shape [ <class> => <prop> ].
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	protected function static_prop( array $classes_and_props, $default ) {
+		$value = $default;
+
+		foreach ( $classes_and_props as $class => $prop ) {
+			if ( class_exists( $class ) ) {
+				// PHP 5.2 compat, on PHP 5.3+ $class::$$prop
+				$vars  = get_class_vars( $class );
+				$this_value = isset( $vars[ $prop ] ) ? $vars[ $prop ] : '__not_found__';
+
+				if ( $this_value !== '__not_found__' ) {
+					$value = $this_value;
+					break;
+				}
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one or more properties of implementations bound in the `tribe()` container.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $bindings_and_props An associative array in the shape [ <binding> => <prop> ].
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	protected function prop( array $bindings_and_props, $default ) {
+		$value = $default;
+
+		foreach ( $bindings_and_props as $binding => $prop ) {
+			$this_value = tribe()->offsetExists( $binding ) && property_exists( tribe( $binding ), $prop )
+				? tribe( $binding )->{$prop}
+				: '__not_found__';
+
+			if ( $this_value !== '__not_found__' ) {
+				$value = $this_value;
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the values from one or more static class methods.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $classes_and_methods An associative array in the shape [ <class> => <method> ].
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first value that's not equal to the default one, the default value
+	 *               otherwise.
+	 */
+	protected function static_method( array $classes_and_methods, $default ) {
+		$value = $default;
+
+		foreach ( $classes_and_methods as $class => $method ) {
+			$this_value = class_exists( $class ) && method_exists( $class, $method )
+				? call_user_func( array( $class, $method ) )
+				: '__not_found__';
+
+			if ( $this_value !== '__not_found__' ) {
+				$value = $this_value;
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one or more methods called on implementations bound in the `tribe()` container.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $bindings_and_methods An associative array in the shape [ <binding> => <method> ].
+	 * @param mixed $default              The default value to return.
+	 *
+	 * @return mixed The first value that's not equal to the default one, the default value
+	 *               otherwise.
+	 */
+	protected function method( array $bindings_and_methods, $default ) {
+		$value = $default;
+		$this_value = '__not_found__';
+
+		foreach ( $bindings_and_methods as $binding => $method ) {
+			if ( tribe()->offsetExists( $binding ) ) {
+				$implementation = tribe( $binding );
+				if ( method_exists( $implementation, $method ) ) {
+					$this_value = $implementation->$method();
+				}
+			}
+
+			if ( $this_value !== '__not_found__' ) {
+				$value = $this_value;
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one or more functions until one returns a value that's not the default one.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $functions An array of functions to call, in order.
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first value that's not equal to the default one, the default value
+	 *               otherwise.
+	 */
+	protected function func( array $functions, $default ) {
+		$value = $default;
+		$this_value = '__not_found__';
+
+		foreach ( $functions as $function ) {
+			if ( function_exists( $function ) ) {
+				$this_value = $function();
+			}
+
+			if ( $this_value !== '__not_found__' ) {
+				$value = $this_value;
+				break;
+			}
+		}
+
+		return $value;
 	}
 }
