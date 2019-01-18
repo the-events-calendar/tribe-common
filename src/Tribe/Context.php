@@ -168,23 +168,6 @@ class Tribe__Context {
 	}
 
 	/**
-	 * Returns the current display mode.
-	 *
-	 * This is read from the the request variables first and from the main query object second.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The global event display or an empty string if not set in any of the sources above.
-	 */
-	public function get_event_display() {
-		$request_value = tribe_get_request_var( 'tribe_event_display' );
-		global $wp_query;
-		$query_value = $wp_query->get( 'eventDisplay', '' );
-
-		return $request_value ? $request_value : $query_value;
-	}
-
-	/**
 	 * Gets a value reading it from the location(s) defined in the `Tribe__Context::$props
 	 *
 	 * @since TBD
