@@ -189,21 +189,41 @@ class Tribe__Context {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $key The key of the variable to fetch.
+	 * @param string     $key     The key of the variable to fetch.
 	 * @param mixed|null $default The default value to return if not found.
+	 * @param bool $force Whether to force the re-fetch of the value from the context or
+	 *                    not; defaults to `false`.
 	 *
 	 * @return mixed The value from the first location that can provide it or the default
 	 *               value if not found.
 	 */
-	public function get( $key, $default = null ) {
+	public function get( $key, $default = null, $force = false ) {
+		/**
+		 * Filters the value of a context variable skipping all of its logic.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed  $value   The value for the key before it's fetched from the context.
+		 * @param string $key     The key of the value to fetch from the context.
+		 * @param mixed  $default The default value that should be returned if the value is
+		 *                        not set in the context.
+		 * @param bool $force Whether to force the re-fetch of the value from the context or
+		 *                    not; defaults to `false`.
+		 */
+		$value = apply_filters( "tribe_context_pre_{$key}", null, $key, $default, $force );
+		if ( null !== $value ) {
+			return $value;
+		}
+
 		$value         = $default;
 		$the_locations = self::$locations[ $key ];
+
 
 		if ( ! isset( $the_locations ) ) {
 			return $value;
 		}
 
-		if ( isset( $this->request_cache[ $key ] ) ) {
+		if ( ! $force && isset( $this->request_cache[ $key ] ) ) {
 			$value = $this->request_cache[ $key ];
 		} else {
 			foreach ( $the_locations as $location => $keys ) {
