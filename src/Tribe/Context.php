@@ -7,6 +7,9 @@
  * @since TBD Made the context immutable.
  */
 class Tribe__Context {
+
+	const NOT_FOUND = '__not_found__';
+
 	/**
 	 * An array defining the properties the context will be able to read and provide.
 	 *
@@ -280,8 +283,8 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $request_vars as $request_var ) {
-			$this_value = tribe_get_request_var( $request_var, '__not_found__' );
-			if ( $this_value !== '__not_found__' ) {
+			$this_value = tribe_get_request_var( $request_var, self::NOT_FOUND );
+			if ( $this_value !== self::NOT_FOUND ) {
 				break;
 			}
 		}
@@ -304,8 +307,8 @@ class Tribe__Context {
 
 		global $wp_query;
 		foreach ( $query_vars as $query_var ) {
-			$this_value = $wp_query->get( $query_var, '__not_found__' );
-			if ( $this_value !== '__not_found__' ) {
+			$this_value = $wp_query->get( $query_var, self::NOT_FOUND );
+			if ( $this_value !== self::NOT_FOUND ) {
 				break;
 			}
 		}
@@ -327,8 +330,8 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $tribe_options as $option_name ) {
-			$this_value = tribe_get_option( $option_name, '__not_found__' );
-			if ( $this_value !== '__not_found__' ) {
+			$this_value = tribe_get_option( $option_name, self::NOT_FOUND );
+			if ( $this_value !== self::NOT_FOUND ) {
 				break;
 			}
 		}
@@ -350,8 +353,8 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $options as $option_name ) {
-			$this_value = get_option( $option_name, '__not_found__' );
-			if ( $this_value !== '__not_found__' ) {
+			$this_value = get_option( $option_name, self::NOT_FOUND );
+			if ( $this_value !== self::NOT_FOUND ) {
 				break;
 			}
 		}
@@ -400,8 +403,8 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $constants as $constant ) {
-			$this_value = defined( $constant ) ? constant( $constant ) : '__not_found__';
-			if ( $this_value !== '__not_found__' ) {
+			$this_value = defined( $constant ) ? constant( $constant ) : self::NOT_FOUND;
+			if ( $this_value !== self::NOT_FOUND ) {
 				$value = $this_value;
 				break;
 			}
@@ -424,8 +427,8 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $global_vars as $var ) {
-			$this_value = isset( $GLOBALS[ $var ] ) ? $GLOBALS[ $var ] : '__not_found__';
-			if ( $this_value !== '__not_found__' ) {
+			$this_value = isset( $GLOBALS[ $var ] ) ? $GLOBALS[ $var ] : self::NOT_FOUND;
+			if ( $this_value !== self::NOT_FOUND ) {
 				$value = $this_value;
 				break;
 			}
@@ -451,9 +454,9 @@ class Tribe__Context {
 			if ( class_exists( $class ) ) {
 				// PHP 5.2 compat, on PHP 5.3+ $class::$$prop
 				$vars  = get_class_vars( $class );
-				$this_value = isset( $vars[ $prop ] ) ? $vars[ $prop ] : '__not_found__';
+				$this_value = isset( $vars[ $prop ] ) ? $vars[ $prop ] : self::NOT_FOUND;
 
-				if ( $this_value !== '__not_found__' ) {
+				if ( $this_value !== self::NOT_FOUND ) {
 					$value = $this_value;
 					break;
 				}
@@ -479,9 +482,9 @@ class Tribe__Context {
 		foreach ( $bindings_and_props as $binding => $prop ) {
 			$this_value = tribe()->offsetExists( $binding ) && property_exists( tribe( $binding ), $prop )
 				? tribe( $binding )->{$prop}
-				: '__not_found__';
+				: self::NOT_FOUND;
 
-			if ( $this_value !== '__not_found__' ) {
+			if ( $this_value !== self::NOT_FOUND ) {
 				$value = $this_value;
 				break;
 			}
@@ -507,9 +510,9 @@ class Tribe__Context {
 		foreach ( $classes_and_methods as $class => $method ) {
 			$this_value = class_exists( $class ) && method_exists( $class, $method )
 				? call_user_func( array( $class, $method ) )
-				: '__not_found__';
+				: self::NOT_FOUND;
 
-			if ( $this_value !== '__not_found__' ) {
+			if ( $this_value !== self::NOT_FOUND ) {
 				$value = $this_value;
 				break;
 			}
@@ -531,7 +534,7 @@ class Tribe__Context {
 	 */
 	protected function method( array $bindings_and_methods, $default ) {
 		$value = $default;
-		$this_value = '__not_found__';
+		$this_value = self::NOT_FOUND;
 
 		foreach ( $bindings_and_methods as $binding => $method ) {
 			if ( tribe()->offsetExists( $binding ) ) {
@@ -541,7 +544,7 @@ class Tribe__Context {
 				}
 			}
 
-			if ( $this_value !== '__not_found__' ) {
+			if ( $this_value !== self::NOT_FOUND ) {
 				$value = $this_value;
 				break;
 			}
@@ -563,14 +566,14 @@ class Tribe__Context {
 	 */
 	protected function func( array $functions, $default ) {
 		$value = $default;
-		$this_value = '__not_found__';
+		$this_value = self::NOT_FOUND;
 
 		foreach ( $functions as $function ) {
 			if ( function_exists( $function ) ) {
 				$this_value = $function();
 			}
 
-			if ( $this_value !== '__not_found__' ) {
+			if ( $this_value !== self::NOT_FOUND ) {
 				$value = $this_value;
 				break;
 			}
