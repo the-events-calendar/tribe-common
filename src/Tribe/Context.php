@@ -177,7 +177,7 @@ class Tribe__Context {
 	public function get_event_display() {
 		$request_value = tribe_get_request_var( 'tribe_event_display' );
 		global $wp_query;
-		$query_value = $wp_query->get( 'eventDisplay', '');
+		$query_value = $wp_query->get( 'eventDisplay', '' );
 
 		return $request_value ? $request_value : $query_value;
 	}
@@ -195,15 +195,16 @@ class Tribe__Context {
 	 */
 	public function get( $key, $default = null ) {
 		$value = $default;
+		$locations = self::$locations[ $key ];
 
-		if ( ! isset( self::$locations[ $key ] ) ) {
+		if ( ! isset( $locations ) ) {
 			return $value;
 		}
 
 		if ( isset( $this->request_cache[ $key ] ) ) {
 			$value = $this->request_cache[ $key ];
 		} else {
-			foreach ( self::$locations[ $key ] as $location => $keys ) {
+			foreach ( $locations as $location => $keys ) {
 				$keys = (array) $keys;
 
 				switch ( $location ) {
@@ -373,7 +374,7 @@ class Tribe__Context {
 	public function alter( array $values  ) {
 		$clone = clone $this;
 
-		$clone->request_cache = array_merge($clone->request_cache, $values);
+		$clone->request_cache = array_merge( $clone->request_cache, $values );
 
 		return $clone;
 	}

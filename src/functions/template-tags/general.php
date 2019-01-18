@@ -738,7 +738,7 @@ if ( ! function_exists( 'tribe_context' ) ) {
 	 * @return Tribe__Context The singleton, immutable, global object instance.
 	 */
 	function tribe_context() {
-		$context = tribe('context');
+		$context = tribe( 'context' );
 
 		/**
 		 * Filters the global context object.
@@ -747,7 +747,7 @@ if ( ! function_exists( 'tribe_context' ) ) {
 		 *
 		 * @param Tribe__Context $context The singleton, immutable, global object instance.
 		 */
-		$context = apply_filters('tribe_context', $context);
+		$context = apply_filters( 'tribe_context', $context );
 
 		return $context;
 	}
