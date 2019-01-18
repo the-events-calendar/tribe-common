@@ -747,7 +747,7 @@ if ( ! function_exists( 'tribe_context' ) ) {
 		 *
 		 * @param Tribe__Context $context The singleton, immutable, global object instance.
 		 */
-		$context = apply_filters( 'tribe_context', $context );
+		$context = apply_filters( 'tribe_global_context', $context );
 
 		return $context;
 	}
