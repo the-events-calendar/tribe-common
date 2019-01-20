@@ -10,14 +10,39 @@ class Tribe__Context {
 
 	const NOT_FOUND = '__not_found__';
 
-	/**
-	 * An array defining the properties the context will be able to read and provide.
+	const REQUEST_VAR = 'request_var';
+
+	const TRIBE_OPTION = 'tribe_option';
+
+	const OPTION = 'option';
+
+	const TRANSIENT = 'transient';
+
+	const QUERY_VAR = 'query_var';
+
+	const CONSTANT = 'constant';
+
+	const STATIC_PROP = 'static_prop';
+
+	const PROP = 'prop';
+
+	const STATIC_METHOD = 'static_method';
+
+	const METHOD = 'method';
+
+	const FUNC = 'func';
+
+	const GLOBAL_VAR = 'global_var';
+
+	/*
+	*
+	 * An array defining the properties the context will be able to read and (dangerously) write.
 	 *
 	 * This is the configuration that should be modified to add/remove/modify values and locations
-	 * provided by the context.
-	 * Each entry has the shape [ <key> => <locations> ].
-	 * The key is used to identify the property that will be accessible with the `get` method,
-	 * e.g. `$context->get( 'event_display', 'list' );`.
+	 * provided by the global context.
+	 * Each entry has the shape [ <key> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ].
+	 * The key is used to identify the property that will be accessible with the `get` and
+	 * 'dangerously_set_global_context' method, e.g. `$context->get( 'event_display', 'list' );`.
 	 * The locations is a list of locations the context will search, top to bottom, left to right, to find a value that's
 	 * not empty or the default one, here's a list of supported lookup locations:
 	 *
@@ -32,21 +57,35 @@ class Tribe__Context {
 	 * prop - get the value from a tribe() container binding, format `array( $binding, $prop )`.
 	 * 'static_method' - get the value from a class static method.
 	 * 'method' - get the value calling a method on a tribe() container binding.
-	 * 'func' - get the value from a function.
+	 * 'func' - get the value from a function or a closure.
 	 *
 	 * @var array
 	 */
 	protected static $locations = array(
 		'posts_per_page' => array(
-			'request_var'  => 'posts_per_page',
-			'tribe_option' => array( 'posts_per_page', 'postsPerPage' ),
-			'option'       => 'posts_per_page',
+			'read' => array(
+				self::REQUEST_VAR  => 'posts_per_page',
+				self::TRIBE_OPTION => array( 'posts_per_page', 'postsPerPage' ),
+				self::OPTION       => 'posts_per_page',
+			),
 		),
 		'event_display'  => array(
-			'request_var' => 'tribe_event_display',
-			'query_var'   => 'eventDisplay',
+			'read' => array(
+				self::REQUEST_VAR => 'tribe_event_display',
+				self::QUERY_VAR   => 'eventDisplay',
+			),
 		),
 	);
+
+	/**
+	 * A list of override locations to read and write from.
+	 *
+	 * This list has the same format and options as the static `$locations` property
+	 * but allows a context instance to override, or add, read and write locations.
+	 *
+	 * @var array
+	 */
+	protected $override_locations = array();
 
 	/**
 	 * Whether the context of the current HTTP request is an AJAX one or not.
@@ -199,8 +238,13 @@ class Tribe__Context {
 		}
 
 		$value         = $default;
-		$the_locations = self::$locations[ $key ];
+		$all_locations = array_merge( self::$locations, $this->override_locations );
 
+		if ( ! isset( $all_locations[ $key ] ) ) {
+			return $default;
+		}
+
+		$the_locations = $all_locations[ $key ]['read'];
 
 		if ( ! isset( $the_locations ) ) {
 			return $value;
@@ -210,10 +254,10 @@ class Tribe__Context {
 			$value = $this->request_cache[ $key ];
 		} else {
 			foreach ( $the_locations as $location => $keys ) {
-				$this_value = $this->$location( (array) $keys, $default );
+				$the_value = $this->$location( (array) $keys, $default );
 
-				if ( $default !== $this_value ) {
-					$value = $this_value;
+				if ( $default !== $the_value ) {
+					$value = $the_value;
 					break;
 				}
 			}
@@ -286,8 +330,9 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $request_vars as $request_var ) {
-			$this_value = tribe_get_request_var( $request_var, self::NOT_FOUND );
-			if ( $this_value !== self::NOT_FOUND ) {
+			$the_value = tribe_get_request_var( $request_var, self::NOT_FOUND );
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
 				break;
 			}
 		}
@@ -310,8 +355,9 @@ class Tribe__Context {
 
 		global $wp_query;
 		foreach ( $query_vars as $query_var ) {
-			$this_value = $wp_query->get( $query_var, self::NOT_FOUND );
-			if ( $this_value !== self::NOT_FOUND ) {
+			$the_value = $wp_query->get( $query_var, self::NOT_FOUND );
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
 				break;
 			}
 		}
@@ -333,8 +379,9 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $tribe_options as $option_name ) {
-			$this_value = tribe_get_option( $option_name, self::NOT_FOUND );
-			if ( $this_value !== self::NOT_FOUND ) {
+			$the_value = tribe_get_option( $option_name, self::NOT_FOUND );
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
 				break;
 			}
 		}
@@ -356,8 +403,9 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $options as $option_name ) {
-			$this_value = get_option( $option_name, self::NOT_FOUND );
-			if ( $this_value !== self::NOT_FOUND ) {
+			$the_value = get_option( $option_name, self::NOT_FOUND );
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
 				break;
 			}
 		}
@@ -379,9 +427,9 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $transients as $transient ) {
-			$this_value = get_transient( $transient );
-			if ( false !== $this_value ) {
-				$value = $this_value;
+			$the_value = get_transient( $transient );
+			if ( false !== $the_value ) {
+				$value = $the_value;
 				/*
 				 * This will fail when the value is actually `false`.
 				 */
@@ -406,9 +454,9 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $constants as $constant ) {
-			$this_value = defined( $constant ) ? constant( $constant ) : self::NOT_FOUND;
-			if ( $this_value !== self::NOT_FOUND ) {
-				$value = $this_value;
+			$the_value = defined( $constant ) ? constant( $constant ) : self::NOT_FOUND;
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
 				break;
 			}
 		}
@@ -430,9 +478,9 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $global_vars as $var ) {
-			$this_value = isset( $GLOBALS[ $var ] ) ? $GLOBALS[ $var ] : self::NOT_FOUND;
-			if ( $this_value !== self::NOT_FOUND ) {
-				$value = $this_value;
+			$the_value = isset( $GLOBALS[ $var ] ) ? $GLOBALS[ $var ] : self::NOT_FOUND;
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
 				break;
 			}
 		}
@@ -456,11 +504,11 @@ class Tribe__Context {
 		foreach ( $classes_and_props as $class => $prop ) {
 			if ( class_exists( $class ) ) {
 				// PHP 5.2 compat, on PHP 5.3+ $class::$$prop
-				$vars  = get_class_vars( $class );
-				$this_value = isset( $vars[ $prop ] ) ? $vars[ $prop ] : self::NOT_FOUND;
+				$vars      = get_class_vars( $class );
+				$the_value = isset( $vars[ $prop ] ) ? $vars[ $prop ] : self::NOT_FOUND;
 
-				if ( $this_value !== self::NOT_FOUND ) {
-					$value = $this_value;
+				if ( $the_value !== self::NOT_FOUND ) {
+					$value = $the_value;
 					break;
 				}
 			}
@@ -483,12 +531,12 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $bindings_and_props as $binding => $prop ) {
-			$this_value = tribe()->offsetExists( $binding ) && property_exists( tribe( $binding ), $prop )
+			$the_value = tribe()->offsetExists( $binding ) && property_exists( tribe( $binding ), $prop )
 				? tribe( $binding )->{$prop}
 				: self::NOT_FOUND;
 
-			if ( $this_value !== self::NOT_FOUND ) {
-				$value = $this_value;
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
 				break;
 			}
 		}
@@ -511,12 +559,12 @@ class Tribe__Context {
 		$value = $default;
 
 		foreach ( $classes_and_methods as $class => $method ) {
-			$this_value = class_exists( $class ) && method_exists( $class, $method )
+			$the_value = class_exists( $class ) && method_exists( $class, $method )
 				? call_user_func( array( $class, $method ) )
 				: self::NOT_FOUND;
 
-			if ( $this_value !== self::NOT_FOUND ) {
-				$value = $this_value;
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
 				break;
 			}
 		}
@@ -536,19 +584,19 @@ class Tribe__Context {
 	 *               otherwise.
 	 */
 	protected function method( array $bindings_and_methods, $default ) {
-		$value = $default;
-		$this_value = self::NOT_FOUND;
+		$value     = $default;
+		$the_value = self::NOT_FOUND;
 
 		foreach ( $bindings_and_methods as $binding => $method ) {
 			if ( tribe()->offsetExists( $binding ) ) {
 				$implementation = tribe( $binding );
 				if ( method_exists( $implementation, $method ) ) {
-					$this_value = $implementation->$method();
+					$the_value = $implementation->$method();
 				}
 			}
 
-			if ( $this_value !== self::NOT_FOUND ) {
-				$value = $this_value;
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
 				break;
 			}
 		}
@@ -568,20 +616,49 @@ class Tribe__Context {
 	 *               otherwise.
 	 */
 	protected function func( array $functions, $default ) {
-		$value = $default;
-		$this_value = self::NOT_FOUND;
+		$value     = $default;
+		$the_value = self::NOT_FOUND;
 
 		foreach ( $functions as $function ) {
-			if ( function_exists( $function ) ) {
-				$this_value = $function();
+			if ( is_callable( $function ) || function_exists( $function ) ) {
+				$the_value = $function();
 			}
 
-			if ( $this_value !== self::NOT_FOUND ) {
-				$value = $this_value;
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
 				break;
 			}
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Adds one or more read locations for a key.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $locations       A map of one or more locations, in top-down, left-right order
+	 *                                to read the value from. The read locations follow the
+	 *                                same format as the ones defined in the static `$locations`
+	 *                                array.
+	 *
+	 * @return \Tribe__Context A clone of the current instance, modified adding/replacing
+	 *                         the read location.
+	 */
+	public function add_read_locations( array $locations ) {
+		$clone = clone $this;
+
+		foreach ( $locations as $the_key => $the_locations ) {
+			if ( ! isset( $clone->override_locations[ $the_key ] ) ) {
+				$clone->override_locations[ $the_key ] = array( 'read' => array(), 'write' => array() );
+			}
+
+			$clone->override_locations[ $the_key ]['read'] = $the_locations;
+		}
+
+
+
+		return $clone;
 	}
 }
