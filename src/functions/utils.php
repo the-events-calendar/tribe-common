@@ -142,19 +142,7 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tribe_get_request_var( $var, $default = null ) {
-		$post_var = Tribe__Utils__Array::get( $_POST, $var );
-
-		if ( null !== $post_var ) {
-			return $post_var;
-		}
-
-		$query_var = Tribe__Utils__Array::get( $_GET, $var );
-
-		if ( null !== $query_var ) {
-			return $query_var;
-		}
-
-		return $default;
+		return Tribe__Utils__Array::get_in_any( array( $_GET, $_POST, $_REQUEST ), $var, $default);
 	}
 }
 
