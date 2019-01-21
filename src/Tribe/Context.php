@@ -139,7 +139,7 @@ Tribe__Context {
 	 *
 	 * @var bool
 	 */
-	protected $use_default_locations =true;
+	protected $use_default_locations = true;
 
 	/**
 	 * Whether we are currently creating a new post, a post of post type(s) or not.
