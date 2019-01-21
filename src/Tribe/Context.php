@@ -6,7 +6,8 @@
  * @since 4.7.7
  * @since TBD Made the context immutable.
  */
-class Tribe__Context {
+class
+Tribe__Context {
 
 	const NOT_FOUND = '__not_found__';
 
@@ -19,6 +20,8 @@ class Tribe__Context {
 	const TRANSIENT = 'transient';
 
 	const QUERY_VAR = 'query_var';
+
+	const QUERY_PROP = 'query_prop';
 
 	const CONSTANT = 'constant';
 
@@ -48,6 +51,7 @@ class Tribe__Context {
 	 *
 	 * request_var - look into $_GET, $_POST, $_PUT, $_DELETE, $_REQUEST.
 	 * query_var - get the value from the main WP_Query object query vars.
+	 * query_prop - get the value from a property of the main WP_Query object.
 	 * tribe_option - get the value from a Tribe option.
 	 * option - get the value from a database option.
 	 * transient - get the value from a transient.
@@ -55,9 +59,9 @@ class Tribe__Context {
 	 * global_var - get the value from a global variable
 	 * static_prop - get the value from a class static property, format: `array( $class, $prop )`.
 	 * prop - get the value from a tribe() container binding, format `array( $binding, $prop )`.
-	 * 'static_method' - get the value from a class static method.
-	 * 'method' - get the value calling a method on a tribe() container binding.
-	 * 'func' - get the value from a function or a closure.
+	 * static_method - get the value from a class static method.
+	 * method - get the value calling a method on a tribe() container binding.
+	 * func - get the value from a function or a closure.
 	 *
 	 * @var array
 	 */
@@ -68,13 +72,34 @@ class Tribe__Context {
 				self::TRIBE_OPTION => array( 'posts_per_page', 'postsPerPage' ),
 				self::OPTION       => 'posts_per_page',
 			),
+			'write' => array(
+				self::REQUEST_VAR  => 'posts_per_page',
+			),
 		),
 		'event_display'  => array(
 			'read' => array(
 				self::REQUEST_VAR => 'tribe_event_display',
 				self::QUERY_VAR   => 'eventDisplay',
 			),
+			'write' => array(
+				self::REQUEST_VAR => 'tribe_event_display',
+				self::QUERY_VAR   => 'eventDisplay',
+			),
 		),
+	);
+
+	/**
+	 * A utility static property keeping track of write locations that
+	 * will be defined as associative arrays.
+	 *
+	 * @var array
+	 */
+	protected static $associative_locations = array(
+		self::TRANSIENT,
+		self::METHOD,
+		self::STATIC_METHOD,
+		self::PROP,
+		self::STATIC_PROP,
 	);
 
 	/**
@@ -356,6 +381,31 @@ class Tribe__Context {
 		global $wp_query;
 		foreach ( $query_vars as $query_var ) {
 			$the_value = $wp_query->get( $query_var, self::NOT_FOUND );
+			if ( $the_value !== self::NOT_FOUND ) {
+				$value = $the_value;
+				break;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Reads the value from one or more global WP_Query object properties.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $query_props The list of properties to look up, in order.
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	protected function query_prop( array $query_props, $default ) {
+		$value = $default;
+
+		global $wp_query;
+		foreach ( $query_props as $query_prop ) {
+			$the_value = isset( $wp_query->{$query_prop} ) ? $wp_query->{$query_prop} : self::NOT_FOUND;
 			if ( $the_value !== self::NOT_FOUND ) {
 				$value = $the_value;
 				break;
@@ -657,8 +707,266 @@ class Tribe__Context {
 			$clone->override_locations[ $the_key ]['read'] = $the_locations;
 		}
 
+		return $clone;
+	}
 
+	public function add_write_locations( array $locations ) {
+		$clone = clone $this;
+
+		foreach ( $locations as $the_key => $the_locations ) {
+			if ( ! isset( $clone->override_locations[ $the_key ] ) ) {
+				$clone->override_locations[ $the_key ] = array( 'read' => array(), 'write' => array() );
+			}
+
+			$clone->override_locations[ $the_key ]['write'] = $the_locations;
+		}
 
 		return $clone;
+	}
+
+	/**
+	 * Modifies the global context using the defined write locations to persiste the altered values.
+	 *
+	 * Please keep in mind this will set the the global context for the whole request and, when the
+	 * write location is an option, to the database.
+	 * With great power comes great responsibility: think a lot before using this.
+	 *
+	 * @since TBD
+	 */
+	public function dangerously_set_global_context() {
+		$all_locations = array_merge( self::$locations, $this->override_locations );
+
+		foreach ( array_intersect_key( $this->request_cache, $all_locations ) as $key => $value ) {
+			if ( ! isset( $all_locations[ $key ]['write'] ) ) {
+				continue;
+			}
+
+			foreach ( (array) $all_locations[ $key ]['write'] as $location => $targets ) {
+				$targets    = (array) $targets;
+				$write_func = 'write_' . $location;
+
+				foreach ( $targets as $arg_1 => $arg_2 ) {
+					if ( self::FUNC === $location && is_array( $arg_2 ) && is_callable( $arg_2 ) ) {
+						// Handles write functions specified as an array.
+						$location_args = array( $arg_2 );
+					} else {
+						$location_args = in_array( $location, self::$associative_locations, true )
+							? array( $arg_1, $arg_2 )
+							: (array) $arg_2;
+					}
+
+					$args = array_merge( $location_args, array( $value ) );
+
+					call_user_func_array( array( $this, $write_func ), $args );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Writes an altered context value to a request var.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $request_var The request var to write.
+	 * @param mixed  $value       The value to set on the request var.
+	 */
+	protected function write_request_var( $request_var, $value ) {
+		if ( isset( $_REQUEST ) ) {
+			$_REQUEST[ $request_var ] = $value;
+		}
+		if ( isset( $_GET ) ) {
+			$_GET[ $request_var ] = $value;
+		}
+		if ( isset( $_POST ) ) {
+			$_POST[ $request_var ] = $value;
+		}
+	}
+
+	/**
+	 * Writes an altered context value to a global WP_Query object properties.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $query_prop The global WP_Query object property to write.
+	 * @param mixed  $value      The value to set on the query property.
+	 */
+	protected function write_query_prop( $query_prop, $value ) {
+		global $wp_query;
+
+		if ( ! $wp_query instanceof WP_Query ) {
+			return;
+		}
+
+		$wp_query->{$query_prop} = $value;
+	}
+
+	/**
+	 * Writes an altered context value to a global WP_Query object query var.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $query_var The global WP_Query query var to write.
+	 * @param mixed  $value     The value to set on the query var.
+	 */
+	protected function write_query_var( $query_var, $value ) {
+		global $wp_query;
+
+		if ( ! $wp_query instanceof WP_Query ) {
+			return;
+		}
+
+		$wp_query->set( $query_var, $value );
+	}
+
+	/**
+	 * Writes an altered context value to a `tribe_option`.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $tribe_option The `tribe_option` to write.
+	 * @param mixed  $value        The value to set on the `tribe_option`.
+	 */
+	protected function write_tribe_option( $tribe_option, $value ) {
+		tribe_update_option( $tribe_option, $value );
+	}
+
+	/**
+	 * Writes an altered context value to an option.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $option_name The option to write.
+	 * @param mixed  $value       The value to set on the option.
+	 */
+	protected function write_option( $option_name, $value ) {
+		update_option( $option_name, $value );
+	}
+
+	/**
+	 * Writes an altered context value to a transient.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $transient  The transient to write.
+	 * @param int    $expiration The transient expiration time, in seconds.
+	 * @param mixed  $value      The value to set on the transient.
+	 */
+	protected function write_transient( $transient, $expiration, $value ) {
+		set_transient( $transient, $value, $expiration );
+	}
+
+	/**
+	 * Writes an altered context value to a constant.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $constant The constant to define.
+	 * @param mixed  $value    The value to set on the constant.
+	 */
+	protected function write_constant( $constant, $value ) {
+		if ( defined( $constant ) ) {
+			return;
+		}
+		define( $constant, $value );
+	}
+
+	/**
+	 * Writes an altered context value to a global var.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $global_var The global var to set.
+	 * @param mixed  $value      The value to set on the global_var.
+	 */
+	protected function write_global_var( $global_var, $value ) {
+		$GLOBALS[ $global_var ] = $value;
+	}
+
+	/**
+	 * Writes an altered context value setting a public static property on a class.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $class The class to set the static public property on.
+	 * @param string $prop  The static public property to set.
+	 * @param mixed  $value The value to set on the property.
+	 */
+	protected function write_static_prop( $class, $prop, $value ) {
+		if ( ! ( class_exists( $class ) && property_exists( $class, $prop ) ) ) {
+			return;
+		}
+
+		$class::$$prop = $value;
+	}
+
+	/**
+	 * Writes an altered context value setting a public property on a `tribe()` binding.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $binding The container binding to set the public property on.
+	 * @param string $prop    The public property to set.
+	 * @param mixed  $value   The value to set on the property.
+	 */
+	protected function write_prop( $binding, $prop, $value ) {
+		if ( ! tribe()->offsetExists( $binding ) ) {
+			return;
+		}
+
+		$implementation = tribe( $binding );
+
+		if ( ! property_exists( $implementation, $prop ) ) {
+			return;
+		}
+
+		$implementation->{$prop} = $value;
+	}
+
+	/**
+	 * Writes an altered context value calling a public static method on a class.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $class  The class to call the public static method on.
+	 * @param string $method The static method to call.
+	 * @param mixed  $value  The value to pass to the public static method.
+	 */
+	protected function write_static_method( $class, $method, $value ) {
+		if ( ! class_exists( $class ) ) {
+			return;
+		}
+		call_user_func( array( $class, $method ), $value );
+	}
+
+	/**
+	 * Writes an altered context value calling a public method on a `tribe()` binding.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $binding The `tribe()` container binding to call the public method on.
+	 * @param string $method  The method to call.
+	 * @param mixed  $value   The value to pass to the public method.
+	 */
+	protected function write_method( $binding, $method, $value ) {
+		if ( ! tribe()->offsetExists( $binding ) ) {
+			return;
+		}
+		call_user_func( array( tribe( $binding ), $method ), $value );
+	}
+
+	/**
+	 * Writes an altered context value calling a function or closure.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable $func  function, closure or callable to call.
+	 * @param mixed    $value The value to pass to the callable.
+	 */
+	protected function write_func( $func, $value ) {
+		if ( ! is_callable( $func ) ) {
+			return;
+		}
+		call_user_func( $func, $value );
 	}
 }

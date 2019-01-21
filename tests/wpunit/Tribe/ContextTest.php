@@ -2,21 +2,47 @@
 
 namespace Tribe;
 
+use Tribe\Common\Tests\TestClass;
 use Tribe__Context as Context;
 
 function __context__test__function__() {
 	return '__value__';
 }
 
+function __set_function__( $value ) {
+	global $__test_function_set_value;
+	$__test_function_set_value = $value;
+}
+
+include_once codecept_data_dir( 'classes/TestClass.php' );
+
 class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 	public static $__key__;
+	public static $__static_prop_1__;
+	public static $__static_prop_2__;
 	protected static $__static_method_return_value__;
+	protected static $static_set_value_1;
+	protected static $static_set_value_2;
 	public $__public_key__;
+	public $__public_key_2__;
 	protected $__public_method_return_value__;
+	protected $set_value;
+	protected $public_set_instance_value_1;
+	protected $public_set_instance_value_2;
+	protected $function_set_value;
+	protected $callable_set_value;
 
 	public static function __test_static_method__() {
 		return static::$__static_method_return_value__;
+	}
+
+	public static function static_setter_1( $value ) {
+		static::$static_set_value_1 = $value;
+	}
+
+	public static function static_setter_2( $value ) {
+		static::$static_set_value_2 = $value;
 	}
 
 	public function __public_method__() {
@@ -196,7 +222,24 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( '__value__', $context->get( '__query_var__', '__default__' ) );
 	}
-	//* tribe_option - get the value from a Tribe option.
+
+	/**
+	 * It should allow reading a value from a global wp query prop
+	 *
+	 * @test
+	 */
+	public function should_allow_reading_a_value_from_a_global_wp_query_prop() {
+		global $wp_query;
+		$wp_query->__test_prop__ = '__value__';
+
+		$context = tribe_context()->add_read_locations( [
+			'__query_prop__' => [ Context::QUERY_PROP => '__test_prop__' ],
+		] );
+
+		$this->assertNotSame( $context, tribe_context() );
+
+		$this->assertEquals( '__value__', $context->get( '__query_prop__', '__default__' ) );
+	}
 
 	/**
 	 * It should allow reading a value from a tribe_option
@@ -411,5 +454,332 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertNotSame( $context, tribe_context() );
 
 		$this->assertEquals( '__value__', $context->get( '__seeking__', '__default__' ) );
+	}
+
+	/**
+	 * It should allow setting request vars
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_request_vars() {
+		$context = tribe_context()->add_write_locations( [
+			'request_var_1' => [ Context::REQUEST_VAR => 'test_request_var_1' ],
+			'request_var_2' => [ Context::REQUEST_VAR => [ 'test_request_var_2', 'test_request_var_3' ] ],
+		] );
+
+		$context->alter( [
+			'request_var_1' => 'value_1',
+			'request_var_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', tribe_get_request_var( 'test_request_var_1' ) );
+		$this->assertEquals( 'value_2', tribe_get_request_var( 'test_request_var_2' ) );
+		$this->assertEquals( 'value_2', tribe_get_request_var( 'test_request_var_3' ) );
+	}
+
+	/**
+	 * It should allow setting global vars
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_global_vars() {
+		$context = tribe_context()->add_write_locations( [
+			'global_var_1' => [ Context::GLOBAL_VAR => 'test_global_var_1' ],
+			'global_var_2' => [ Context::GLOBAL_VAR => [ 'test_global_var_2', 'test_global_var_3' ] ],
+		] );
+
+		$context->alter( [
+			'global_var_1' => 'value_1',
+			'global_var_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		global $test_global_var_1, $test_global_var_2, $test_global_var_3;
+		$this->assertEquals( 'value_1', $test_global_var_1 );
+		$this->assertEquals( 'value_2', $test_global_var_2 );
+		$this->assertEquals( 'value_2', $test_global_var_3 );
+	}
+
+	/**
+	 * It should allow setting a query var on the global WP_Query
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_query_var_on_the_global_wp_query() {
+		global $wp_query;
+		$wp_query = new \WP_Query();
+
+		$context = tribe_context()->add_write_locations( [
+			'query_var_1' => [ Context::QUERY_VAR => 'test_query_var_1' ],
+			'query_var_2' => [ Context::QUERY_VAR => [ 'test_query_var_2', 'test_query_var_3' ] ],
+		] );
+
+		$context->alter( [
+			'query_var_1' => 'value_1',
+			'query_var_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', $wp_query->get( 'test_query_var_1' ) );
+		$this->assertEquals( 'value_2', $wp_query->get( 'test_query_var_2' ) );
+		$this->assertEquals( 'value_2', $wp_query->get( 'test_query_var_3' ) );
+	}
+
+	/**
+	 * It should allow setting a prop on the global WP_Query
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_prop_on_the_global_wp_query() {
+		global $wp_query;
+		$wp_query = new \WP_Query();
+
+		$context = tribe_context()->add_write_locations( [
+			'query_prop_1' => [ Context::QUERY_PROP => 'test_query_prop_1' ],
+			'query_prop_2' => [ Context::QUERY_PROP => [ 'test_query_prop_2', 'test_query_prop_3' ] ],
+		] );
+
+		$context->alter( [
+			'query_prop_1' => 'value_1',
+			'query_prop_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', $wp_query->test_query_prop_1 );
+		$this->assertEquals( 'value_2', $wp_query->test_query_prop_2 );
+		$this->assertEquals( 'value_2', $wp_query->test_query_prop_3 );
+	}
+
+	/**
+	 * It should allow setting a value in a tribe option
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_value_in_a_tribe_option() {
+		$context = tribe_context()->add_write_locations( [
+			'tribe_option_1' => [ Context::TRIBE_OPTION => 'test_tribe_option_1' ],
+			'tribe_option_2' => [ Context::TRIBE_OPTION => [ 'test_tribe_option_2', 'test_tribe_option_3' ] ],
+		] );
+
+		$context->alter( [
+			'tribe_option_1' => 'value_1',
+			'tribe_option_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', tribe_get_option( 'test_tribe_option_1' ) );
+		$this->assertEquals( 'value_2', tribe_get_option( 'test_tribe_option_2' ) );
+		$this->assertEquals( 'value_2', tribe_get_option( 'test_tribe_option_3' ) );
+	}
+
+	/**
+	 * It should allow setting a value on an option
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_value_on_an_option() {
+		$context = tribe_context()->add_write_locations( [
+			'option_1' => [ Context::OPTION => 'test_option_1' ],
+			'option_2' => [ Context::OPTION => [ 'test_option_2', 'test_option_3' ] ],
+		] );
+
+		$context->alter( [
+			'option_1' => 'value_1',
+			'option_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', get_option( 'test_option_1' ) );
+		$this->assertEquals( 'value_2', get_option( 'test_option_2' ) );
+		$this->assertEquals( 'value_2', get_option( 'test_option_3' ) );
+	}
+	//'static_prop_key'   => [ Context::STATIC_PROP => [ static::class => '__key__' ] ],
+
+	/**
+	 * It should allow setting a value on a transient
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_value_on_a_transient() {
+		$context = tribe_context()->add_write_locations( [
+			'transient_1' => [ Context::TRANSIENT => [ 'test_transient_1' => 300 ] ],
+			'transient_2' => [ Context::TRANSIENT => [ 'test_transient_2' => 600, 'test_transient_3' => 900 ] ],
+		] );
+
+		$context->alter( [
+			'transient_1' => 'value_1',
+			'transient_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', get_transient( 'test_transient_1' ) );
+		$this->assertEquals( 'value_2', get_transient( 'test_transient_2' ) );
+		$this->assertEquals( 'value_2', get_transient( 'test_transient_3' ) );
+	}
+
+	/**
+	 * It should allow setting a value on a constant
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_value_on_a_constant() {
+		$context = tribe_context()->add_write_locations( [
+			'constant_1' => [ Context::CONSTANT => 'TEST_CONSTANT_1' ],
+			'constant_2' => [ Context::CONSTANT => [ 'TEST_CONSTANT_2', 'TEST_CONSTANT_3' ] ],
+		] );
+
+		$context->alter( [
+			'constant_1' => 'value_1',
+			'constant_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', TEST_CONSTANT_1 );
+		$this->assertEquals( 'value_2', TEST_CONSTANT_2 );
+		$this->assertEquals( 'value_2', TEST_CONSTANT_3 );
+	}
+
+	/**
+	 * It should allow setting a value on a static prop
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_value_on_a_static_prop() {
+		$context = tribe_context()->add_write_locations( [
+			'static_prop_1' => [ Context::STATIC_PROP => [ static::class => '__static_prop_1__' ] ],
+			'static_prop_2' => [
+				Context::STATIC_PROP => [
+					static::class    => '__static_prop_2__',
+					TestClass::class => '__static_prop__',
+				],
+			],
+		] );
+
+		$context->alter( [
+			'static_prop_1' => 'value_1',
+			'static_prop_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', static::$__static_prop_1__ );
+		$this->assertEquals( 'value_2', static::$__static_prop_2__ );
+		$this->assertEquals( 'value_2', TestClass::$__static_prop__ );
+	}
+
+	/**
+	 * It should allow setting a property on a bound implementation
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_property_on_a_bound_implementation() {
+		tribe_register( 'one', $this );
+		$test_class = new TestClass();
+		tribe_register( 'two', $test_class );
+		$context = tribe_context()->add_write_locations( [
+			'prop_1' => [ Context::PROP => [ 'one' => '__public_key__' ] ],
+			'prop_2' => [
+				Context::PROP => [
+					'one' => '__public_key_2__',
+					'two' => '__prop__',
+				],
+			],
+		] );
+
+		$context->alter( [
+			'prop_1' => 'value_1',
+			'prop_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', $this->__public_key__ );
+		$this->assertEquals( 'value_2', $this->__public_key_2__ );
+		$this->assertEquals( 'value_2', $test_class->__prop__ );
+	}
+
+	/**
+	 * It should allow setting a value calling a static method on a class
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_value_calling_a_static_method_on_a_class() {
+		$context = tribe_context()->add_write_locations( [
+			'static_method_1' => [ Context::STATIC_METHOD => [ static::class => 'static_setter_1' ] ],
+			'static_method_2' => [
+				Context::STATIC_METHOD => [
+					static::class    => 'static_setter_2',
+					TestClass::class => 'static_setter',
+				],
+			],
+		] );
+
+		$context->alter( [
+			'static_method_1' => 'value_1',
+			'static_method_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', static::$static_set_value_1 );
+		$this->assertEquals( 'value_2', static::$static_set_value_2 );
+		$this->assertEquals( 'value_2', TestClass::$public_set_value );
+	}
+
+	/**
+	 * It should allow setting a value calling a bound implementation method
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_value_calling_a_bound_implementation_method() {
+		tribe_register( 'one', $this );
+		$test_class = new TestClass();
+		tribe_register( 'two', $test_class );
+		$context = tribe_context()->add_write_locations( [
+			'method_1' => [ Context::METHOD => [ 'one' => 'setter_1' ] ],
+			'method_2' => [
+				Context::METHOD => [
+					'one' => 'setter_2',
+					'two' => 'setter',
+				],
+			],
+		] );
+
+		$context->alter( [
+			'method_1' => 'value_1',
+			'method_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		$this->assertEquals( 'value_1', $this->public_set_instance_value_1 );
+		$this->assertEquals( 'value_2', $this->public_set_instance_value_2 );
+		$this->assertEquals( 'value_2', $test_class->public_set_instance_value );
+	}
+
+	/**
+	 * It should allow setting a value calling a function
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_a_value_calling_a_function() {
+		$context = tribe_context()->add_write_locations( [
+			'func_1' => [ Context::FUNC => 'Tribe\\__set_function__' ],
+			'func_2' => [
+				Context::FUNC => [
+					function ( $value ) {
+						$this->function_set_value = $value;
+					},
+					[ $this, 'callable_setter' ],
+				],
+			],
+		] );
+
+		$context->alter( [
+			'func_1' => 'value_1',
+			'func_2' => 'value_2',
+		] )->dangerously_set_global_context();
+
+		global $__test_function_set_value;
+		$this->assertEquals( 'value_1', $__test_function_set_value );
+		$this->assertEquals( 'value_2', $this->function_set_value );
+		$this->assertEquals( 'value_2', $this->callable_set_value );
+	}
+
+	public function setter_1( $value ) {
+		$this->public_set_instance_value_1 = $value;
+	}
+
+	public function setter_2( $value ) {
+		$this->public_set_instance_value_2 = $value;
+	}
+
+	public function callable_setter( $value ) {
+		$this->callable_set_value = $value;
 	}
 }
