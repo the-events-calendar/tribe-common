@@ -132,6 +132,14 @@ Tribe__Context {
 	 * @var array
 	 */
 	protected $request_cache = array();
+	/**
+	 * Whether this context should use the default locations or not.
+	 * This flag property is set to `false` when a context is obtained using
+	 * the `set_locations` method; it will otherwise be set to `true`.
+	 *
+	 * @var bool
+	 */
+	protected $use_default_locations =true;
 
 	/**
 	 * Whether we are currently creating a new post, a post of post type(s) or not.
@@ -262,14 +270,14 @@ Tribe__Context {
 			return $value;
 		}
 
-		$value         = $default;
-		$all_locations = array_merge( self::$locations, $this->override_locations );
+		$value     = $default;
+		$locations = $this->get_locations();
 
-		if ( ! isset( $all_locations[ $key ] ) ) {
+		if ( ! isset( $locations[ $key ] ) ) {
 			return $default;
 		}
 
-		$the_locations = $all_locations[ $key ]['read'];
+		$the_locations = $locations[ $key ]['read'];
 
 		if ( ! isset( $the_locations ) ) {
 			return $value;
@@ -339,6 +347,20 @@ Tribe__Context {
 		} else {
 			$this->request_cache = array();
 		}
+	}
+
+	/**
+	 * Returns the read and write locations set on the context.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of read and write location in the shape of the `Tribe__Context::$locations` one,
+	 *               `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+	 */
+	public function get_locations() {
+		return $this->use_default_locations
+			? array_merge( self::$locations, $this->override_locations )
+			: $this->override_locations;
 	}
 
 	/**
@@ -693,14 +715,14 @@ Tribe__Context {
 	 * @since TBD
 	 */
 	public function dangerously_set_global_context() {
-		$all_locations = array_merge( self::$locations, $this->override_locations );
+		$locations = $this->get_locations();
 
-		foreach ( array_intersect_key( $this->request_cache, $all_locations ) as $key => $value ) {
-			if ( ! isset( $all_locations[ $key ]['write'] ) ) {
+		foreach ( array_intersect_key( $this->request_cache, $locations ) as $key => $value ) {
+			if ( ! isset( $locations[ $key ]['write'] ) ) {
 				continue;
 			}
 
-			foreach ( (array) $all_locations[ $key ]['write'] as $location => $targets ) {
+			foreach ( (array) $locations[ $key ]['write'] as $location => $targets ) {
 				$targets    = (array) $targets;
 				$write_func = 'write_' . $location;
 
@@ -953,14 +975,49 @@ Tribe__Context {
 	}
 
 	/**
-	 * Returns the read and write locations set on the context.
+	 * Sets, replacing them, the locations used by this context.
+	 *
+	 *
 	 *
 	 * @since TBD
 	 *
-	 * @return array An array of read and write location in the shape of the `Tribe__Context::$locations` one,
-	 *               `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+	 * @param array $locations An array of locations to replace the current ones.
+	 * @param bool  $use_default_locations Whether the context should use the default
+	 *                                     locations defined in the static `$locations`
+	 *                                     property or not.
+	 *
+	 * @return \Tribe__Context A clone of the current context with modified locations.
 	 */
-	public function get_locations(  ) {
-		return array_merge( self::$locations, $this->override_locations );
+	public function set_locations( array $locations, $use_default_locations = true ) {
+		$clone                        = clone $this;
+		$clone->override_locations    = $locations;
+		$clone->use_default_locations = (bool) $use_default_locations;
+
+		return $clone;
+	}
+
+	/**
+	 * Returns an array representation of the context.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An associative array of the context keys and values.
+	 */
+	public function to_array(  ) {
+		$locations = $this->get_locations();
+		$dump      = array();
+
+		foreach ( array_keys( $locations ) as $location ) {
+			$the_value = $this->get( $location, self::NOT_FOUND );
+
+			if ( self::NOT_FOUND === $the_value ) {
+				continue;
+			}
+
+			$dump[ $location ] = $the_value;
+		}
+
+
+		return $dump;
 	}
 }

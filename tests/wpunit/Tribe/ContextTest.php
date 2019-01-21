@@ -844,4 +844,41 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$context->alter( [ 'foo' => 'baz' ] )->dangerously_set_global_context();
 		$this->assertEquals( 'baz', $var );
 	}
+
+	/**
+	 * It should allow getting an array representation of the context
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_an_array_representation_of_the_context() {
+		$context = tribe_context()->set_locations( [
+			'foo' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 'bar';
+					},
+				],
+			],
+			'bar' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 'baz';
+					},
+				],
+			],
+			'baz' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 'woot';
+					},
+				],
+			],
+		], false );
+
+		$this->assertEquals( [
+			'foo' => 'bar',
+			'bar' => 'baz',
+			'baz' => 'woot',
+		], $context->to_array() );
+	}
 }
