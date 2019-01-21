@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.8.5] TBD =
+= [4.8.5] 2019-01-21 =
 
 * Fix - Updated translation strings from the Gutenberg extension merge [118656]
 * Add - Added `strip_dynamic_blocks` method in `Tribe__Editor__Utils` [118679]
