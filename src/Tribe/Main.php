@@ -317,6 +317,9 @@ class Tribe__Main {
 
 		add_filter( 'body_class', array( $this, 'add_js_class' ) );
 		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
+
+		// Add early-firing filter for user auth on REST.
+		add_filter( 'determine_current_user', array( 'Tribe__Promoter__Connector', 'authenticate_user_with_connector' ), 20, 1 );
 	}
 
 	public function add_js_class( $classes = array() ) {
@@ -515,6 +518,7 @@ class Tribe__Main {
 	public function tribe_plugins_loaded() {
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
+		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
 		tribe( 'admin.notice.php.version' );
 
 		if ( ! defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {
