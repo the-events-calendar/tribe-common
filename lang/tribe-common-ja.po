@@ -19,19 +19,15 @@ msgstr ""
 msgid "Numeric Array"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:97
-msgid "F j, Y g:i a"
-msgstr ""
-
 #: src/Tribe/Editor/Configuration.php:96
 msgid "F j"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:95
+#: src/Tribe/Editor/Configuration.php:95 src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:94
+#: src/Tribe/Editor/Configuration.php:94 src/Tribe/Editor/Configuration.php:97
 msgid "g:i a"
 msgstr ""
 
@@ -177,11 +173,11 @@ msgstr "新しいバージョンの %1$s をご利用いただくことができ
 msgid "Update now to version %s."
 msgstr "新しいバージョン %s に今すぐアップデートしてください。"
 
-#: src/Tribe/PUE/Notices.php:397
+#: src/Tribe/PUE/Notices.php:398
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr "%1$stheeventscalendar.com のご自分のアカウント%2$sにログインすると、ライセンスのステータスをいつでもご確認いただくことができます。"
 
-#: src/Tribe/PUE/Notices.php:282
+#: src/Tribe/PUE/Notices.php:279
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] "%1$s をご使用いただいているようですが、ライセンス キーが無効です。%2$sご使用のアカウント%3$sから最新バージョンをダウンロードしてください。"
@@ -398,17 +394,17 @@ msgstr "すべてのアドオンを参照する"
 msgid "Events Add-Ons"
 msgstr "Events アドオン"
 
-#: src/Tribe/PUE/Notices.php:440
+#: src/Tribe/PUE/Notices.php:441
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr "%1$s および %2$s"
 
-#: src/Tribe/PUE/Notices.php:359
+#: src/Tribe/PUE/Notices.php:356
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] "%1$s 用のライセンス キーをお持ちですが、キーがインストールされていません。%2$sEvents Calendar ウェブサイトにアクセス%3$sし、インストール状況の管理、ライセンスのアップグレード、または新規購入を行ってください。"
 
-#: src/Tribe/PUE/Notices.php:327
+#: src/Tribe/PUE/Notices.php:324
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] "%1$s のアップデートをご利用いただけますが、ライセンスの期限が切れています。%2$sEvents Calendar ウェブサイトにアクセスし、ライセンスを更新してください。%3$s"
@@ -478,11 +474,11 @@ msgstr "はい、私のシステム情報を Modern Tribe サポート チーム
 msgid "English"
 msgstr "英語"
 
-#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:342
+#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:339
 msgid " (opens in a new window)"
 msgstr " (新しいウィンドウで開く)"
 
-#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:340
+#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:337
 msgid "Renew Your License Now"
 msgstr "今すぐライセンスを更新する"
 
