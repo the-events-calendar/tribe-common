@@ -191,10 +191,10 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$_POST['__post_key__']       = '__post_value__';
 		$_GET['__get_key__']         = '__get_value__';
 
-		$context = tribe_context()->add_read_locations( [
-			'__request__' => [ Context::REQUEST_VAR => '__request_key__' ],
-			'__post__'    => [ Context::REQUEST_VAR => '__post_key__' ],
-			'__get__'     => [ Context::REQUEST_VAR => '__get_key__' ],
+		$context = tribe_context()->add_locations( [
+			'__request__' => [ 'read' => [ Context::REQUEST_VAR => '__request_key__' ] ],
+			'__post__'    => [ 'read' => [ Context::REQUEST_VAR => '__post_key__' ] ],
+			'__get__'     => [ 'read' => [ Context::REQUEST_VAR => '__get_key__' ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -214,8 +214,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		global $wp_query;
 		$wp_query->set( '__key__', '__value__' );
 
-		$context = tribe_context()->add_read_locations( [
-			'__query_var__' => [ Context::QUERY_VAR => '__key__' ],
+		$context = tribe_context()->add_locations( [
+			'__query_var__' => [ 'read' => [ Context::QUERY_VAR => '__key__' ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -232,8 +232,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		global $wp_query;
 		$wp_query->__test_prop__ = '__value__';
 
-		$context = tribe_context()->add_read_locations( [
-			'__query_prop__' => [ Context::QUERY_PROP => '__test_prop__' ],
+		$context = tribe_context()->add_locations( [
+			'__query_prop__' => [ 'read' => [ Context::QUERY_PROP => '__test_prop__' ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -249,8 +249,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_reading_a_value_from_a_tribe_option() {
 		tribe_update_option( '__key__', '__value__' );
 
-		$context = tribe_context()->add_read_locations( [
-			'__tribe_option__' => [ Context::TRIBE_OPTION => '__key__' ],
+		$context = tribe_context()->add_locations( [
+			'__tribe_option__' => [ 'read' => [ Context::TRIBE_OPTION => '__key__' ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -266,8 +266,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_reading_a_value_from_an_option() {
 		update_option( '__key__', '__value__' );
 
-		$context = tribe_context()->add_read_locations( [
-			'__option__' => [ Context::OPTION => '__key__' ],
+		$context = tribe_context()->add_locations( [
+			'__option__' => [ 'read' => [ Context::OPTION => '__key__' ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -283,8 +283,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_reading_a_value_from_a_transient() {
 		set_transient( '__key__', '__value__' );
 
-		$context = tribe_context()->add_read_locations( [
-			'__transient__' => [ Context::TRANSIENT => '__key__' ],
+		$context = tribe_context()->add_locations( [
+			'__transient__' => [ 'read' => [ Context::TRANSIENT => '__key__' ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -300,8 +300,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_reading_a_value_from_a_contstant() {
 		define( '__KEY__', '__value__' );
 
-		$context = tribe_context()->add_read_locations( [
-			'__constant__' => [ Context::CONSTANT => '__KEY__' ],
+		$context = tribe_context()->add_locations( [
+			'__constant__' => [ 'read' => [ Context::CONSTANT => '__KEY__' ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -318,8 +318,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		global $__key__;
 		$__key__ = '__value__';
 
-		$context = tribe_context()->add_read_locations( [
-			'__global__' => [ Context::GLOBAL_VAR => '__key__' ],
+		$context = tribe_context()->add_locations( [
+			'__global__' => [ 'read' => [ Context::GLOBAL_VAR => '__key__' ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -335,8 +335,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_reading_a_value_from_a_static_property() {
 		static::$__key__ = '__value__';
 
-		$context = tribe_context()->add_read_locations( [
-			'__static_prop__' => [ Context::STATIC_PROP => [ static::class => '__key__' ] ],
+		$context = tribe_context()->add_locations( [
+			'__static_prop__' => [ 'read' => [ Context::STATIC_PROP => [ static::class => '__key__' ] ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -353,8 +353,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->__public_key__ = '__value__';
 		tribe_register( '__test__', $this );
 
-		$context = tribe_context()->add_read_locations( [
-			'__prop__' => [ Context::PROP => [ '__test__' => '__public_key__' ] ],
+		$context = tribe_context()->add_locations( [
+			'__prop__' => [ 'read' => [ Context::PROP => [ '__test__' => '__public_key__' ] ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -370,8 +370,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_reading_a_value_from_a_public_static_method() {
 		static::$__static_method_return_value__ = '__value__';
 
-		$context = tribe_context()->add_read_locations( [
-			'__static_method__' => [ Context::STATIC_METHOD => [ static::class => '__test_static_method__' ] ],
+		$context = tribe_context()->add_locations( [
+			'__static_method__' => [ 'read' => [ Context::STATIC_METHOD => [ static::class => '__test_static_method__' ] ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -388,8 +388,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->__public_method_return_value__ = '__value__';
 		tribe_register( '__test__', $this );
 
-		$context = tribe_context()->add_read_locations( [
-			'__method__' => [ Context::METHOD => [ '__test__' => '__public_method__' ] ],
+		$context = tribe_context()->add_locations( [
+			'__method__' => [ 'read' => [ Context::METHOD => [ '__test__' => '__public_method__' ] ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -403,8 +403,8 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_reading_a_value_from_a_function() {
-		$context = tribe_context()->add_read_locations( [
-			'__func__' => [ Context::FUNC => [ 'Tribe\\__context__test__function__' ] ],
+		$context = tribe_context()->add_locations( [
+			'__func__' => [ 'read' => [ Context::FUNC => [ 'Tribe\\__context__test__function__' ] ] ],
 		] );
 
 		$this->assertNotSame( $context, tribe_context() );
@@ -418,12 +418,14 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_reading_a_value_from_a_closure() {
-		$context = tribe_context()->add_read_locations( [
+		$context = tribe_context()->add_locations( [
 			'__closure__' => [
-				Context::FUNC => [
-					function () {
-						return '__value__';
-					},
+				'read' => [
+					Context::FUNC => [
+						function () {
+							return '__value__';
+						},
+					],
 				],
 			],
 		] );
@@ -439,14 +441,16 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_reading_values_from_a_number_of_locations() {
-		$context = tribe_context()->add_read_locations( [
+		$context = tribe_context()->add_locations( [
 				'__seeking__' => [
-					Context::GLOBAL_VAR => '__nope__',
-					Context::QUERY_VAR  => [
-						'__niet__',
-						'try_here',
+					'read' => [
+						Context::GLOBAL_VAR => '__nope__',
+						Context::QUERY_VAR  => [
+							'__niet__',
+							'try_here',
+						],
+						Context::FUNC       => [ 'some_non_existing_function', 'Tribe\\__context__test__function__' ],
 					],
-					Context::FUNC       => [ 'some_non_existing_function', 'Tribe\\__context__test__function__' ],
 				],
 			]
 		);
@@ -462,9 +466,16 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_setting_request_vars() {
-		$context = tribe_context()->add_write_locations( [
-			'request_var_1' => [ Context::REQUEST_VAR => 'test_request_var_1' ],
-			'request_var_2' => [ Context::REQUEST_VAR => [ 'test_request_var_2', 'test_request_var_3' ] ],
+		$context = tribe_context()->add_locations( [
+			'request_var_1' => [ 'write' => [ Context::REQUEST_VAR => 'test_request_var_1' ] ],
+			'request_var_2' => [
+				'write' => [
+					Context::REQUEST_VAR => [
+						'test_request_var_2',
+						'test_request_var_3',
+					],
+				],
+			],
 		] );
 
 		$context->alter( [
@@ -483,9 +494,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_setting_global_vars() {
-		$context = tribe_context()->add_write_locations( [
-			'global_var_1' => [ Context::GLOBAL_VAR => 'test_global_var_1' ],
-			'global_var_2' => [ Context::GLOBAL_VAR => [ 'test_global_var_2', 'test_global_var_3' ] ],
+		$context = tribe_context()->add_locations( [
+			'global_var_1' => [ 'write' => [ Context::GLOBAL_VAR => 'test_global_var_1' ] ],
+			'global_var_2' => [ 'write' => [ Context::GLOBAL_VAR => [ 'test_global_var_2', 'test_global_var_3' ] ] ],
 		] );
 
 		$context->alter( [
@@ -508,9 +519,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		global $wp_query;
 		$wp_query = new \WP_Query();
 
-		$context = tribe_context()->add_write_locations( [
-			'query_var_1' => [ Context::QUERY_VAR => 'test_query_var_1' ],
-			'query_var_2' => [ Context::QUERY_VAR => [ 'test_query_var_2', 'test_query_var_3' ] ],
+		$context = tribe_context()->add_locations( [
+			'query_var_1' => [ 'write' => [ Context::QUERY_VAR => 'test_query_var_1' ] ],
+			'query_var_2' => [ 'write' => [ Context::QUERY_VAR => [ 'test_query_var_2', 'test_query_var_3' ] ] ],
 		] );
 
 		$context->alter( [
@@ -532,9 +543,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		global $wp_query;
 		$wp_query = new \WP_Query();
 
-		$context = tribe_context()->add_write_locations( [
-			'query_prop_1' => [ Context::QUERY_PROP => 'test_query_prop_1' ],
-			'query_prop_2' => [ Context::QUERY_PROP => [ 'test_query_prop_2', 'test_query_prop_3' ] ],
+		$context = tribe_context()->add_locations( [
+			'query_prop_1' => [ 'write' => [ Context::QUERY_PROP => 'test_query_prop_1' ] ],
+			'query_prop_2' => [ 'write' => [ Context::QUERY_PROP => [ 'test_query_prop_2', 'test_query_prop_3' ] ] ],
 		] );
 
 		$context->alter( [
@@ -553,9 +564,16 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_setting_a_value_in_a_tribe_option() {
-		$context = tribe_context()->add_write_locations( [
-			'tribe_option_1' => [ Context::TRIBE_OPTION => 'test_tribe_option_1' ],
-			'tribe_option_2' => [ Context::TRIBE_OPTION => [ 'test_tribe_option_2', 'test_tribe_option_3' ] ],
+		$context = tribe_context()->add_locations( [
+			'tribe_option_1' => [ 'write' => [ Context::TRIBE_OPTION => 'test_tribe_option_1' ] ],
+			'tribe_option_2' => [
+				'write' => [
+					Context::TRIBE_OPTION => [
+						'test_tribe_option_2',
+						'test_tribe_option_3',
+					],
+				],
+			],
 		] );
 
 		$context->alter( [
@@ -574,9 +592,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_setting_a_value_on_an_option() {
-		$context = tribe_context()->add_write_locations( [
-			'option_1' => [ Context::OPTION => 'test_option_1' ],
-			'option_2' => [ Context::OPTION => [ 'test_option_2', 'test_option_3' ] ],
+		$context = tribe_context()->add_locations( [
+			'option_1' => [ 'write' => [ Context::OPTION => 'test_option_1' ] ],
+			'option_2' => [ 'write' => [ Context::OPTION => [ 'test_option_2', 'test_option_3' ] ] ],
 		] );
 
 		$context->alter( [
@@ -596,9 +614,16 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_setting_a_value_on_a_transient() {
-		$context = tribe_context()->add_write_locations( [
-			'transient_1' => [ Context::TRANSIENT => [ 'test_transient_1' => 300 ] ],
-			'transient_2' => [ Context::TRANSIENT => [ 'test_transient_2' => 600, 'test_transient_3' => 900 ] ],
+		$context = tribe_context()->add_locations( [
+			'transient_1' => [ 'write' => [ Context::TRANSIENT => [ 'test_transient_1' => 300 ] ] ],
+			'transient_2' => [
+				'write' => [
+					Context::TRANSIENT => [
+						'test_transient_2' => 600,
+						'test_transient_3' => 900,
+					],
+				],
+			],
 		] );
 
 		$context->alter( [
@@ -617,9 +642,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_setting_a_value_on_a_constant() {
-		$context = tribe_context()->add_write_locations( [
-			'constant_1' => [ Context::CONSTANT => 'TEST_CONSTANT_1' ],
-			'constant_2' => [ Context::CONSTANT => [ 'TEST_CONSTANT_2', 'TEST_CONSTANT_3' ] ],
+		$context = tribe_context()->add_locations( [
+			'constant_1' => [ 'write' => [ Context::CONSTANT => 'TEST_CONSTANT_1' ] ],
+			'constant_2' => [ 'write' => [ Context::CONSTANT => [ 'TEST_CONSTANT_2', 'TEST_CONSTANT_3' ] ] ],
 		] );
 
 		$context->alter( [
@@ -638,12 +663,14 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_setting_a_value_on_a_static_prop() {
-		$context = tribe_context()->add_write_locations( [
-			'static_prop_1' => [ Context::STATIC_PROP => [ static::class => '__static_prop_1__' ] ],
+		$context = tribe_context()->add_locations( [
+			'static_prop_1' => [ 'write' => [ Context::STATIC_PROP => [ static::class => '__static_prop_1__' ] ] ],
 			'static_prop_2' => [
-				Context::STATIC_PROP => [
-					static::class    => '__static_prop_2__',
-					TestClass::class => '__static_prop__',
+				'write' => [
+					Context::STATIC_PROP => [
+						static::class    => '__static_prop_2__',
+						TestClass::class => '__static_prop__',
+					],
 				],
 			],
 		] );
@@ -667,12 +694,14 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		tribe_register( 'one', $this );
 		$test_class = new TestClass();
 		tribe_register( 'two', $test_class );
-		$context = tribe_context()->add_write_locations( [
-			'prop_1' => [ Context::PROP => [ 'one' => '__public_key__' ] ],
+		$context = tribe_context()->add_locations( [
+			'prop_1' => [ 'write' => [ Context::PROP => [ 'one' => '__public_key__' ] ] ],
 			'prop_2' => [
-				Context::PROP => [
-					'one' => '__public_key_2__',
-					'two' => '__prop__',
+				'write' => [
+					Context::PROP => [
+						'one' => '__public_key_2__',
+						'two' => '__prop__',
+					],
 				],
 			],
 		] );
@@ -693,12 +722,14 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_setting_a_value_calling_a_static_method_on_a_class() {
-		$context = tribe_context()->add_write_locations( [
-			'static_method_1' => [ Context::STATIC_METHOD => [ static::class => 'static_setter_1' ] ],
+		$context = tribe_context()->add_locations( [
+			'static_method_1' => [ 'write' => [ Context::STATIC_METHOD => [ static::class => 'static_setter_1' ] ] ],
 			'static_method_2' => [
-				Context::STATIC_METHOD => [
-					static::class    => 'static_setter_2',
-					TestClass::class => 'static_setter',
+				'write' => [
+					Context::STATIC_METHOD => [
+						static::class    => 'static_setter_2',
+						TestClass::class => 'static_setter',
+					],
 				],
 			],
 		] );
@@ -722,12 +753,14 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		tribe_register( 'one', $this );
 		$test_class = new TestClass();
 		tribe_register( 'two', $test_class );
-		$context = tribe_context()->add_write_locations( [
-			'method_1' => [ Context::METHOD => [ 'one' => 'setter_1' ] ],
+		$context = tribe_context()->add_locations( [
+			'method_1' => [ 'write' => [ Context::METHOD => [ 'one' => 'setter_1' ] ] ],
 			'method_2' => [
-				Context::METHOD => [
-					'one' => 'setter_2',
-					'two' => 'setter',
+				'write' => [
+					Context::METHOD => [
+						'one' => 'setter_2',
+						'two' => 'setter',
+					],
 				],
 			],
 		] );
@@ -748,14 +781,16 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_setting_a_value_calling_a_function() {
-		$context = tribe_context()->add_write_locations( [
-			'func_1' => [ Context::FUNC => 'Tribe\\__set_function__' ],
+		$context = tribe_context()->add_locations( [
+			'func_1' => [ 'write' => [ Context::FUNC => 'Tribe\\__set_function__' ] ],
 			'func_2' => [
-				Context::FUNC => [
-					function ( $value ) {
-						$this->function_set_value = $value;
-					},
-					[ $this, 'callable_setter' ],
+				'write' => [
+					Context::FUNC => [
+						function ( $value ) {
+							$this->function_set_value = $value;
+						},
+						[ $this, 'callable_setter' ],
+					],
 				],
 			],
 		] );
@@ -781,5 +816,32 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 	public function callable_setter( $value ) {
 		$this->callable_set_value = $value;
+	}
+
+	/**
+	 * It should allow modifying a context locations and get a clone
+	 *
+	 * @test
+	 */
+	public function should_allow_modifying_a_context_locations_and_get_a_clone() {
+		$var     = null;
+		$context = tribe_context()->add_locations( [
+			'foo' => [
+				'read'  => [
+					Context::FUNC => function () {
+						return 'bar';
+					},
+				],
+				'write' => [
+					Context::FUNC => function ( $value ) use ( &$var ) {
+						$var = $value;
+					},
+				],
+			],
+		] );
+
+		$this->assertEquals( 'bar', $context->get( 'foo' ) );
+		$context->alter( [ 'foo' => 'baz' ] )->dangerously_set_global_context();
+		$this->assertEquals( 'baz', $var );
 	}
 }

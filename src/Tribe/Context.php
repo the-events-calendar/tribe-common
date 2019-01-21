@@ -684,48 +684,7 @@ Tribe__Context {
 	}
 
 	/**
-	 * Adds one or more read locations for a key.
-	 *
-	 * @since TBD
-	 *
-	 * @param array  $locations       A map of one or more locations, in top-down, left-right order
-	 *                                to read the value from. The read locations follow the
-	 *                                same format as the ones defined in the static `$locations`
-	 *                                array.
-	 *
-	 * @return \Tribe__Context A clone of the current instance, modified adding/replacing
-	 *                         the read location.
-	 */
-	public function add_read_locations( array $locations ) {
-		$clone = clone $this;
-
-		foreach ( $locations as $the_key => $the_locations ) {
-			if ( ! isset( $clone->override_locations[ $the_key ] ) ) {
-				$clone->override_locations[ $the_key ] = array( 'read' => array(), 'write' => array() );
-			}
-
-			$clone->override_locations[ $the_key ]['read'] = $the_locations;
-		}
-
-		return $clone;
-	}
-
-	public function add_write_locations( array $locations ) {
-		$clone = clone $this;
-
-		foreach ( $locations as $the_key => $the_locations ) {
-			if ( ! isset( $clone->override_locations[ $the_key ] ) ) {
-				$clone->override_locations[ $the_key ] = array( 'read' => array(), 'write' => array() );
-			}
-
-			$clone->override_locations[ $the_key ]['write'] = $the_locations;
-		}
-
-		return $clone;
-	}
-
-	/**
-	 * Modifies the global context using the defined write locations to persiste the altered values.
+	 * Modifies the global context using the defined write locations to persist the altered values.
 	 *
 	 * Please keep in mind this will set the the global context for the whole request and, when the
 	 * write location is an option, to the database.
@@ -968,5 +927,40 @@ Tribe__Context {
 			return;
 		}
 		call_user_func( $func, $value );
+	}
+
+	/**
+	 * Adds/replaces read and write locations to a context.
+	 *
+	 * Locations are merged with an `array_merge` call. To refine the locations get them first with the
+	 * `get_locations` method.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $locations An array of read and write locations to add to the context.
+	 *                         The array should have the same shape as the static `$locations`
+	 *                         one: `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+	 *
+	 *
+	 * @return \Tribe__Context A clone of the current context with the additional read and
+	 *                         write locations added.
+	 */
+	public function add_locations( array $locations ) {
+		$clone                     = clone $this;
+		$clone->override_locations = array_merge( $clone->override_locations, $locations );
+
+		return $clone;
+	}
+
+	/**
+	 * Returns the read and write locations set on the context.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of read and write location in the shape of the `Tribe__Context::$locations` one,
+	 *               `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+	 */
+	public function get_locations(  ) {
+		return array_merge( self::$locations, $this->override_locations );
 	}
 }
