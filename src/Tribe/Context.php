@@ -1020,4 +1020,49 @@ Tribe__Context {
 
 		return $dump;
 	}
+
+	/**
+	 * Returns the current context state in a format suitable to hydrate a Redux-like
+	 * store on the front-end.
+	 *
+	 * This method is a filtered wrapper around the the `Tribe__Context::to_array` method to allow the
+	 * customization of the format when producing a store-compatible state.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_state() {
+		$state             = $this->to_array();
+		$is_global_context = tribe_context() === $this;
+
+		/**
+		 * Filters the Redux store compatible state produced from the current context.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $state             The Redux store compatible state produced from the current context.
+		 * @param bool  $is_global_context Whether the context producing the state is the global one
+		 *                                 or a modified clone of it.
+		 * @param Tribe__Context The context object producing the state.
+		 */
+		$state = apply_filters( 'tribe_context_state', $state, $is_global_context, $this );
+
+		if ( $is_global_context ) {
+			/**
+			 * Filters the Redux store compatible state produced from the global context.
+			 *
+			 * While the `tribe_context_state` filter will apply to all contexts producing a
+			 * state this filter will only apply to the global context.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $state The Redux store compatible state produced from the global context.
+			 * @param Tribe__Context The global context object producing the state.
+			 */
+			$state = apply_filters( 'tribe_global_context_state', $state, $this );
+		}
+
+		return $state;
+	}
 }
