@@ -19,19 +19,15 @@ msgstr ""
 msgid "Numeric Array"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:97
-msgid "F j, Y g:i a"
-msgstr ""
-
 #: src/Tribe/Editor/Configuration.php:96
 msgid "F j"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:95
+#: src/Tribe/Editor/Configuration.php:95 src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:94
+#: src/Tribe/Editor/Configuration.php:94 src/Tribe/Editor/Configuration.php:97
 msgid "g:i a"
 msgstr ""
 
@@ -177,11 +173,11 @@ msgstr ""
 msgid "Update now to version %s."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:397
+#: src/Tribe/PUE/Notices.php:398
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:282
+#: src/Tribe/PUE/Notices.php:279
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] ""
@@ -398,17 +394,17 @@ msgstr ""
 msgid "Events Add-Ons"
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:440
+#: src/Tribe/PUE/Notices.php:441
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:359
+#: src/Tribe/PUE/Notices.php:356
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] ""
 
-#: src/Tribe/PUE/Notices.php:327
+#: src/Tribe/PUE/Notices.php:324
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] ""
@@ -478,11 +474,11 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:342
+#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:339
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:340
+#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:337
 msgid "Renew Your License Now"
 msgstr ""
 
