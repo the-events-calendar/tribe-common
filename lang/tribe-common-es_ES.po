@@ -19,19 +19,15 @@ msgstr ""
 msgid "Numeric Array"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:97
-msgid "F j, Y g:i a"
-msgstr ""
-
 #: src/Tribe/Editor/Configuration.php:96
 msgid "F j"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:95
+#: src/Tribe/Editor/Configuration.php:95 src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:94
+#: src/Tribe/Editor/Configuration.php:94 src/Tribe/Editor/Configuration.php:97
 msgid "g:i a"
 msgstr ""
 
@@ -177,11 +173,11 @@ msgstr "Hay una versión nueva de %1$s disponible. %2$s"
 msgid "Update now to version %s."
 msgstr "Actualice ahora a la versión %s."
 
-#: src/Tribe/PUE/Notices.php:397
+#: src/Tribe/PUE/Notices.php:398
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr "Siempre puede verificar el estado de sus licencias iniciando sesión en %1$ssu cuenta de theeventscalendar.com%2$s."
 
-#: src/Tribe/PUE/Notices.php:282
+#: src/Tribe/PUE/Notices.php:279
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] "Al parecer, está usando %1$s, pero la clave de licencia no es válida. Descargue la última versión %2$sdesde su cuenta%3$s."
@@ -399,18 +395,18 @@ msgstr "Explorar todos los complementos"
 msgid "Events Add-Ons"
 msgstr "Complementos para eventos"
 
-#: src/Tribe/PUE/Notices.php:440
+#: src/Tribe/PUE/Notices.php:441
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr "%1$s y %2$s"
 
-#: src/Tribe/PUE/Notices.php:359
+#: src/Tribe/PUE/Notices.php:356
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] "Usted posee una clave de licencia para %1$s pero la clave agotó las instalaciones. %2$sVisite el sitio web de the Events Calendar%3$s para administrar sus instalaciones, actualizar la licencia o comprar una nueva."
 msgstr[1] "Usted tiene claves de licencia para %1$s pero las claves agotaron las instalaciones. %2$sVisite el sitio web de the Events Calendar%3$s para administrar sus instalaciones, actualizar las licencias o comprar nuevas."
 
-#: src/Tribe/PUE/Notices.php:327
+#: src/Tribe/PUE/Notices.php:324
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] "Hay una actualización disponible para %1$s pero su licencia ha expirado. %2$sVisite el sitio web de the Events Calendar para renovar su licencia.%3$s"
@@ -481,11 +477,11 @@ msgstr "Sí, compartir automáticamente mi información de sistema con el equipo
 msgid "English"
 msgstr "Inglés"
 
-#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:342
+#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:339
 msgid " (opens in a new window)"
 msgstr " (se abre en una ventana nueva)"
 
-#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:340
+#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:337
 msgid "Renew Your License Now"
 msgstr "Renueve la licencia ahora"
 

@@ -193,7 +193,7 @@ class Tribe__Editor {
 		/**
 		 * Allow other addons to disabled classic editor based on options
 		 *
-		 * @since  TBD
+		 * @since  4.8.5
 		 *
 		 * @param bool $classic_is_active Whether the classic editor should be used.
 		 */
