@@ -23,8 +23,8 @@ class Tribe__Promoter__View extends Tribe__Template {
 	 * @since TBD
 	 */
 	public function add_rewrites() {
-		add_rewrite_rule( 'promoter-auth/?$', 'index.php?promoter-auth-check=1', 'top' );
-		add_rewrite_tag( '%promoter-auth-check%', '([^&]+)' );
+		add_rewrite_rule( 'tribe-promoter-auth/?$', 'index.php?tribe-promoter-auth-check=1', 'top' );
+		add_rewrite_tag( '%tribe-promoter-auth-check%', '([^&]+)' );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 			$authorized    = $promoter_auth->authorize_with_connector();
 		}
 
-		if ( empty( $promoter_key ) || empty( $wp_query->query_vars['promoter-auth-check'] ) ) {
+		if ( empty( $promoter_key ) || empty( $wp_query->query_vars['tribe-promoter-auth-check'] ) ) {
 			return;
 		}
 
