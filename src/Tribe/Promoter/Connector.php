@@ -114,7 +114,7 @@ class Tribe__Promoter__Connector {
 		}
 
 		$license_key = $license_info['key'];
-		$secret_key  = get_option( 'promoter_auth_key' );
+		$secret_key  = get_option( 'tribe_promoter_auth_key' );
 
 		if ( empty( $secret_key ) ) {
 			return;
