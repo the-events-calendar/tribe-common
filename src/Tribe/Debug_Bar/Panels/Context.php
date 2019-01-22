@@ -69,8 +69,8 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 		$orm_args = tribe_context()->get_orm_args();
 
 		foreach ( $locations as $key => $rw_data ) {
-			$orm_arg_key = isset($locations[$key]['orm_arg'])
-				? $locations[$key]['orm_arg']
+			$orm_arg_key = isset( $locations[ $key ]['orm_arg'] )
+				? $locations[ $key ]['orm_arg']
 				: $key;
 
 			$html .= '<tr>';
