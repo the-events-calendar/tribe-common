@@ -69,7 +69,7 @@ class Tribe__Promoter__Connector {
 	 * @since TBD
 	 */
 	public function authenticate_user_with_connector( $user_id ) {
-		$token = tribe_get_request_var( 'promoter_auth_token' );
+		$token = tribe_get_request_var( 'tribe_promoter_auth_token' );
 
 		if ( empty( $token ) ) {
 			return $user_id;
