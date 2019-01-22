@@ -58,18 +58,25 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 		$html .= '<thead><tr>';
 		$html .= '<th class="col1 key">' . __( 'Key', 'tribe-common' ) . '</th>';
 		$html .= '<th class="col2 value">' . __( 'Value', 'tribe-common' ) . '</th>';
-		$html .= '<th class="col3 reads">' . __( 'Reads', 'tribe-common' ) . '</th>';
-		$html .= '<th class="col4 writes">' . __( 'Writes', 'tribe-common' ) . '</th>';
+		$html .= '<th class="col3 orm-arg">' . __( 'ORM arg', 'tribe-common' ) . '</th>';
+		$html .= '<th class="col4 reads">' . __( 'Reads', 'tribe-common' ) . '</th>';
+		$html .= '<th class="col5 writes">' . __( 'Writes', 'tribe-common' ) . '</th>';
 		$html .= '</tr></thead>';
 		$html .= '<tbody>';
 
 		$locations = tribe_context()->get_locations();
 		$context   = tribe_context()->to_array();
+		$orm_args = tribe_context()->get_orm_args();
 
 		foreach ( $locations as $key => $rw_data ) {
+			$orm_arg_key = isset($locations[$key]['orm_arg'])
+				? $locations[$key]['orm_arg']
+				: $key;
+
 			$html .= '<tr>';
 			$html .= '<td><code>' . $key . '</code></td>';
 			$html .= '<td><code>' . ( isset( $context[ $key ] ) ? $context[ $key ] : 'undefined' ) . '</code></td>';
+			$html .= '<td>' . ( false !== $orm_arg_key ? '<code>' . $orm_arg_key . ' => ' . $orm_args[ $orm_arg_key ] . '</code>' : '' ) . '</td>';
 			$html .= '<td><code>' . ( isset( $locations[ $key ]['read'] ) ? 'yes' : 'no' ) . '</code></td>';
 			$html .= '<td><code>' . ( isset( $locations[ $key ]['write'] ) ? 'yes' : 'no' ) . '</code></td>';
 			$html .= '</tr>';
