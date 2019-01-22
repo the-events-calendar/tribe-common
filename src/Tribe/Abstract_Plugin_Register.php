@@ -1,6 +1,14 @@
 <?php
 
-
+/**
+ * Base Plugin register
+ *
+ * Register all plugins to Dependency Class
+ *
+ * @package Tribe
+ * @since TBD
+ *
+ */
 abstract class Tribe__Abstract_Plugin_Register {
 
 	protected $base_dir;
