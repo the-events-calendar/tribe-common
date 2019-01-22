@@ -49,7 +49,7 @@ class Tribe__Promoter__Auth {
 	private function generate_secret_key() {
 		$key = AUTH_KEY;
 
-		update_option( 'promoter_auth_key', $key );
+		update_option( 'tribe_promoter_auth_key', $key );
 
 		return $key;
 	}

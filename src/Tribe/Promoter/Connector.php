@@ -14,11 +14,11 @@ class Tribe__Promoter__Connector {
 	 *
 	 * @since TBD
 	 */
-	public static function base_url() {
+	public function base_url() {
 		$url = 'https://us-central1-promoter-auth-connector.cloudfunctions.net/promoterConnector/';
 
-		if ( defined( 'PROMOTER_AUTH_CONNECTOR_URL' ) ) {
-			$url = PROMOTER_AUTH_CONNECTOR_URL;
+		if ( defined( 'TRIBE_PROMOTER_AUTH_CONNECTOR_URL' ) ) {
+			$url = TRIBE_PROMOTER_AUTH_CONNECTOR_URL;
 		}
 
 		return $url;
@@ -37,7 +37,7 @@ class Tribe__Promoter__Connector {
 	 * @since TBD
 	 */
 	public function authorize_with_connector( $user_id, $secret_key, $promoter_key, $license_key ) {
-		$url = self::base_url() . 'connect';
+		$url = $this->base_url() . 'connect';
 
 		$payload = array(
 			'clientSecret' => $secret_key,
@@ -54,7 +54,7 @@ class Tribe__Promoter__Connector {
 			'sslverify' => false,
 		);
 
-		$response = self::make_call( $url, $args );
+		$response = $this->make_call( $url, $args );
 
 		return (bool) $response;
 	}
@@ -68,21 +68,21 @@ class Tribe__Promoter__Connector {
 	 *
 	 * @since TBD
 	 */
-	public static function authenticate_user_with_connector( $user_id ) {
-		$token = tribe_get_request_var( 'promoter_auth_token' );
+	public function authenticate_user_with_connector( $user_id ) {
+		$token = tribe_get_request_var( 'tribe_promoter_auth_token' );
 
 		if ( empty( $token ) ) {
 			return $user_id;
 		}
 
-		$url = self::base_url() . 'connect/auth';
+		$url = $this->base_url() . 'connect/auth';
 
 		$args = array(
 			'body'      => array( 'token' => $token ),
 			'sslverify' => false,
 		);
 
-		$response = self::make_call( $url, $args );
+		$response = $this->make_call( $url, $args );
 
 		if ( ! $response ) {
 			return $user_id;
@@ -114,7 +114,7 @@ class Tribe__Promoter__Connector {
 		}
 
 		$license_key = $license_info['key'];
-		$secret_key  = get_option( 'promoter_auth_key' );
+		$secret_key  = get_option( 'tribe_promoter_auth_key' );
 
 		if ( empty( $secret_key ) ) {
 			return;
@@ -126,14 +126,14 @@ class Tribe__Promoter__Connector {
 
 		$token = \Firebase\JWT\JWT::encode( $payload, $secret_key );
 
-		$url = self::base_url() . 'connect/notify';
+		$url = $this->base_url() . 'connect/notify';
 
 		$args = array(
 			'body'      => array( 'token' => $token ),
 			'sslverify' => false,
 		);
 
-		self::make_call( $url, $args );
+		$this->make_call( $url, $args );
 	}
 
 	/**
@@ -146,7 +146,7 @@ class Tribe__Promoter__Connector {
 	 *
 	 * @since TBD
 	 */
-	private static function make_call( $url, $args ) {
+	private function make_call( $url, $args ) {
 		$response = wp_remote_post( $url, $args );
 		$code     = wp_remote_retrieve_response_code( $response );
 		$body     = wp_remote_retrieve_body( $response );
