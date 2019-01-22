@@ -881,4 +881,165 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 			'baz' => 'woot',
 		], $context->to_array() );
 	}
+
+	/**
+	 * It should allow producing ORM arguments
+	 *
+	 * @test
+	 */
+	public function should_allow_producing_orm_arguments() {
+		$context = tribe_context()->set_locations( [
+			'one' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 1;
+					},
+				],
+			],
+			'two' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 'two';
+					},
+				],
+				'orm_arg' => 'alias_of_two',
+			],
+			'three' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 'thr33';
+					},
+				],
+				'orm_arg' => false
+			],
+		], false );
+
+		$orm_args = $context->get_orm_args();
+
+		$this->assertEqualSets( [
+			'one'          => 1,
+			'alias_of_two' => 'two',
+		], $orm_args );
+	}
+
+	/**
+	 * It should allow getting a subset of ORM args
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_a_subset_of_orm_args() {
+		$context = tribe_context()->set_locations( [
+			'one' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 1;
+					},
+				],
+			],
+			'two' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 'two';
+					},
+				],
+				'orm_arg' => 'alias_of_two',
+			],
+			'three' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 'thr33';
+					},
+				],
+				'orm_arg' => false
+			],
+			'four' => [
+				'read' => [Context::FUNC => function(){return 23;}]
+			]
+		], false );
+
+		$orm_args = $context->get_orm_args( [ 'one', 'alias_of_two', 'three' ] );
+
+		$this->assertEqualSets( [
+			'one'          => 1,
+			'alias_of_two' => 'two',
+		], $orm_args );
+	}
+
+	/**
+	 * It should allow filtering out args from ORM args
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_out_args_from_orm_args() {
+		$context = tribe_context()->set_locations( [
+			'one' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 1;
+					},
+				],
+			],
+			'two' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 'two';
+					},
+				],
+				'orm_arg' => 'alias_of_two',
+			],
+			'three' => [
+				'read' => [
+					Context::FUNC => function () {
+						return 'thr33';
+					},
+				],
+				'orm_arg' => false
+			],
+			'four' => [
+				'read' => [Context::FUNC => function(){return 23;}]
+			]
+		], false );
+
+		$orm_args = $context->get_orm_args( [ 'one', 'alias_of_two', 'three' ], false );
+
+		$this->assertEqualSets( [
+			'four' => 23,
+		], $orm_args );
+	}
+
+	/**
+	 * It should allow transforming ORM arguments before returning them
+	 *
+	 * @test
+	 */
+	public function should_allow_transforming_orm_arguments_before_returning_them() {
+		$context = tribe_context()->set_locations( [
+			'one' => [
+				'read'          => [
+					Context::FUNC => function () {
+						return 1;
+					},
+				],
+				'orm_arg'       => 'alias_of_one',
+				'orm_transform' => function ( $input ) {
+					return $input + 23;
+				},
+			],
+			'two' => [
+				'read'          => [
+					Context::FUNC => function () {
+						return 'two';
+					},
+				],
+				'orm_transform' => '__return_false',
+			],
+		], false );
+
+		$orm_args = $context->get_orm_args();
+
+		$this->assertEqualSets( [
+			'alias_of_one' => 24,
+			'two'          => false,
+		], $orm_args );
+	}
 }

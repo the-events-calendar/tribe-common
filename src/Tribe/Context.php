@@ -63,6 +63,11 @@ Tribe__Context {
 	 * method - get the value calling a method on a tribe() container binding.
 	 * func - get the value from a function or a closure.
 	 *
+	 * For each location additional arguments can be specified:
+	 * orm_arg - if `false` then the location will never produce an ORM argument, if provided the ORM arg produced bye the
+	 * location will have this name.
+	 * orm_transform - if provided the value of the location will be obtained by passing it as an argument to a callable.
+	 *
 	 * @var array
 	 */
 	protected static $locations = array(
@@ -1064,5 +1069,82 @@ Tribe__Context {
 		}
 
 		return $state;
+	}
+
+	/**
+	 * Returns an array of ORM arguments generated from the current context values.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|null $fields    An optional whitelist or blacklist of fields to include
+	 *                              depending on the value of the `$whitelist` parameter;
+	 *                              defaults to returning all available fields.
+	 * @param bool       $whitelist Whether the list of fields provided in the `$fields`
+	 *                              parameter should be treated as a whitelist (`true`) or
+	 *                              blacklist (`false`).
+	 *
+	 * @return array A map of ORM fields produced from the context current values.
+	 */
+	public function get_orm_args( array $fields = null, $whitelist = true ) {
+		$locations         = $this->get_locations();
+		$dump              = $this->to_array();
+		$orm_args          = array();
+		$is_global_context = tribe_context() === $this;
+
+		foreach ( $dump as $key => $value ) {
+			$alias = isset( $locations[ $key ]['orm_arg'] )
+				? $locations[ $key ]['orm_arg']
+				: $key;
+
+			if ( false === $alias ) {
+				// Do not provide the variable as an ORM arg.
+				continue;
+			}
+
+			if ( isset( $locations[ $key ]['orm_transform'] ) ) {
+				$value = call_user_func( $locations[ $key ]['orm_transform'], $value );
+			}
+
+			$orm_args[ $alias ] = $value;
+		}
+
+		if ( null !== $fields ) {
+			/*
+			 * Only keep wanted fields, the filtering is done on the resolved aliases,
+			 * from the perspective of the client code that might ignore the source keys.
+			 */
+			$orm_args = $whitelist
+				? array_intersect_key( $orm_args, array_combine( $fields, $fields ) )
+				: array_diff_key( $orm_args, array_combine( $fields, $fields ) );
+		}
+
+		/**
+		 * Filters the ORM arguments produced from the current context.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $orm_args          The ORM args produced from the current context.
+		 * @param bool  $is_global_context Whether the context producing the ORM args is the global one
+		 *                                 or a modified clone of it.
+		 * @param Tribe__Context The context object producing the ORM args.
+		 */
+		$orm_args = apply_filters( 'tribe_context_orm_args', $orm_args, $is_global_context, $this );
+
+		if ( $is_global_context ) {
+			/**
+			 * Filters the ORM arguments produced from the global context.
+			 *
+			 * While the `tribe_context_orm_args` filter will apply to all contexts producing ORM
+			 * args this filter will only apply to the global context.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $orm_args The ORM args produced from the global context.
+			 * @param Tribe__Context The global context object producing the ORM args.
+			 */
+			$orm_args = apply_filters( 'tribe_global_context_orm_args', $orm_args, $this );
+		}
+
+		return $orm_args;
 	}
 }
