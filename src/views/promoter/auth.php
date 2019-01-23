@@ -20,7 +20,6 @@
 			</div>
 
 			<h1 class="headline__large"><?php esc_html_e( 'Promoter would like to sync with your site', 'tribe-common' ); ?></h1>
-			<p><?php esc_html_e( 'Please enter your website\'s credentials to continue onboarding', 'tribe-common' ); ?></p>
 
 			<?php if ( ! $logged_in ) : ?>
 				<p>
