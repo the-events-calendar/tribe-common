@@ -48,7 +48,7 @@ if ( ! function_exists( 'tribe_filter_meta_query' ) ) {
 					}
 				}
 			}
-			$filtered [ $key ] = $entry;
+			$filtered[ $key ] = $entry;
 		}
 
 		return $filtered;
