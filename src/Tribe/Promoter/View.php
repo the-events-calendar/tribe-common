@@ -37,17 +37,18 @@ class Tribe__Promoter__View extends Tribe__Template {
 
 		$promoter_key = tribe_get_request_var( 'promoter_key' );
 		$license_key  = tribe_get_request_var( 'license_key' );
-		$is_admin     = is_user_logged_in() && current_user_can( 'manage_options' );
-		$authorized   = false;
+
+		if ( empty( $promoter_key ) || empty( $wp_query->query_vars['tribe-promoter-auth-check'] ) ) {
+			return;
+		}
+		
+		$is_admin   = is_user_logged_in() && current_user_can( 'manage_options' );
+		$authorized = false;
 
 		if ( $is_admin && ! empty( $_POST['promoter_authenticate'] ) ) {
 			/** @var Tribe__Promoter__Auth $promoter_auth */
 			$promoter_auth = tribe( 'promoter.auth' );
 			$authorized    = $promoter_auth->authorize_with_connector();
-		}
-
-		if ( empty( $promoter_key ) || empty( $wp_query->query_vars['tribe-promoter-auth-check'] ) ) {
-			return;
 		}
 
 		$this->template( 'auth', array(
