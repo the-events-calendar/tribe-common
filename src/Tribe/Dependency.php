@@ -376,6 +376,28 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @param array $dependencies
 		 */
 		public function register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
+			/**
+			 * Filters the version string for a plugin.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $version The plugin version number, e.g. "4.0.4".
+			 * @param array $dependencies An array of dependencies for the plugins. These can include parent, add-on and other dependencies.
+			 * @param string $file_path The absolute path to the plugin main file.
+			 * @param array $classes_req Any Main class files/tribe plugins required for this to run.
+			 */
+			$version = apply_filters( "tribe_register_{$main_class}_plugin_version", $version, $dependencies, $file_path, $classes_req );
+			/**
+			 * Filters the dependencies array for a plugin.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $dependencies An array of dependencies for the plugins. These can include parent, add-on and other dependencies.
+			 * @param string $version The plugin version number, e.g. "4.0.4".
+			 * @param string $file_path The absolute path to the plugin main file.
+			 * @param array $classes_req Any Main class files/tribe plugins required for this to run.
+			 */
+			$dependencies = apply_filters( "tribe_register_{$main_class}_plugin_dependencies", $dependencies, $version, $file_path, $classes_req );
 
 			//add all plugins to registered_plugins
 			$this->add_registered_plugin( $main_class, $version, $file_path, $dependencies );
