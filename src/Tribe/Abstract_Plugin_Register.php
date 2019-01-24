@@ -11,6 +11,11 @@
  */
 abstract class Tribe__Abstract_Plugin_Register {
 
+	/**
+	 * The absolute path to the plugin file, the one that contains the plugin header.
+	 *
+	 * @var string
+	 */
 	protected $base_dir;
 	protected $main_class;
 	protected $version;

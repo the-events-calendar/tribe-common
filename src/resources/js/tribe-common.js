@@ -53,6 +53,7 @@ tribe_auto_sysinfo.ajax = {
 	my.init = function () {
 		this.init_ajax();
 		this.init_copy();
+		this.init_tooltip();
 		my.navigate_to_id();
 	};
 
@@ -135,6 +136,24 @@ tribe_auto_sysinfo.ajax = {
 
 	};
 
+	my.init_tooltip = function () {
+
+		$( document ).on( 'click', '.tribe-tooltip', function () {
+
+			var $tooltip = $( this ).closest( '.tribe-tooltip' );
+			var add = ! $tooltip.hasClass( 'active' );
+
+			$( '.tribe-tooltip' ).each( function () {
+				$( this ).removeClass( 'active' ).attr('aria-expanded', false);
+			} );
+
+			if ( add ) {
+				$( $tooltip ).addClass( "active" ).attr('aria-expanded', true);
+			}
+
+		} );
+
+	}
 	/**
 	 * Sets up listeners and callbacks to handle navigation to page #elements
 	 * gracefully and in a way that doesn't result in the admin toolbar obscuring
