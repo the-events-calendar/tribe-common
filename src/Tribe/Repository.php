@@ -182,6 +182,7 @@ abstract class Tribe__Repository
 		'post_content_filtered',
 		'guid',
 		'perm',
+		'order',
 	);
 
 	/**
@@ -2921,5 +2922,12 @@ abstract class Tribe__Repository
 		$list = new WP_List_Util( $this->all() );
 
 		return $list->sort( $orderby, $order, $preserve_keys );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function collect() {
+		return new Tribe__Utils__Post_Collection( $this->all() );
 	}
 }

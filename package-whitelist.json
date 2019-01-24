@@ -1,15 +1,17 @@
 [
+  "src/**/*",
   "lang/**/*",
   "README.md",
+  "readme.txt",
+  "tribe-common.php",
+  "tribe-autoload.php",
   "vendor/handlebars/*.js",
   "vendor/momentjs/*.js",
-  "src/**/*",
   "vendor/clipboard/*.js",
   "vendor/datatables/datatables*.js",
   "vendor/datatables/datatables*.css",
   "vendor/datatables/DataTables/images/*.png",
   "vendor/jquery/**/*",
-  "vendor/momentjs/*.js",
   "vendor/tribe-select2/*.css",
   "vendor/tribe-select2/*.js",
   "vendor/tribe-select2/*.gif",
@@ -21,7 +23,7 @@
   "vendor/a5hleyrich/wp-background-processing/classes/**",
   "vendor/a5hleyrich/wp-background-processing/*.php",
   "vendor/a5hleyrich/wp-background-processing/license.*",
-  "README.md",
-  "tribe-common.php",
-  "tribe-autoload.php"
+  "vendor/jquery-tribe-timepicker/**/*.js",
+  "vendor/jquery-tribe-timepicker/**/*.css",
+  "vendor/jquery-tribe-timepicker/**/*.png"
 ]

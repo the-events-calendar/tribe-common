@@ -100,7 +100,8 @@ class Tribe__Timezones {
 			$timezone_object = $timezone_string instanceof DateTimeZone
 				? $timezone_string
 				: new DateTimeZone( $timezone_string );
-			$date_time       = $date instanceof DateTime || $date instanceof DateTimeImmutable
+			$date_time = $date instanceof DateTime
+			             || ( class_exists( 'DateTimeImmutable' ) && $date instanceof DateTimeImmutable )
 				? $date
 				: Tribe__Date_Utils::build_date_object( $date, $timezone_object );
 
@@ -153,13 +154,14 @@ class Tribe__Timezones {
 		$timezone = timezone_name_from_abbr( '', $seconds, 0 );
 
 		if ( false === $timezone ) {
-			$is_dst = date( 'I' );
+			$is_dst = (bool) date( 'I' );
 
 			foreach ( timezone_abbreviations_list() as $abbr ) {
 				foreach ( $abbr as $city ) {
 					if (
-						$city['dst'] == $is_dst
-						&& $city['offset'] == $seconds
+						(bool) $city['dst'] === $is_dst
+						&& intval( $city['offset'] ) === intval( $seconds )
+						&& $city['timezone_id']
 					) {
 						return $city['timezone_id'];
 					}

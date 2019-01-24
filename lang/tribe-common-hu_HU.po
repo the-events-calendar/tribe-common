@@ -2224,17 +2224,17 @@ msgstr "Rendszerinformáció"
 msgid "There are no fields setup for this tab yet."
 msgstr "Erre a lapra még nincsenek mezők beállítva."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "A fenti beállítást nem sikerült menteni. A többi beállítás mentése sikeresen megtörtént."
 msgstr[1] "A fenti beállításokat nem sikerült menteni. A többi beállítás mentése sikeresen megtörtént."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "A beállítások mentése nem sikerült. Kérjük, próbáld újra."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Az űrlap a következő hibákat tartalmazza:"
 
@@ -2337,7 +2337,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Események"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Beállítások elmentve."
 

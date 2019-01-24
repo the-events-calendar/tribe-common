@@ -535,4 +535,13 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * @see \wp_list_sort()
 	 */
 	public function sort( $orderby = array(), $order = 'ASC', $preserve_keys = false  );
+
+	/**
+	 * Builds a collection on the result of the `all()` method call.
+	 *
+	 * @since TBD
+	 *
+	 * @return \Tribe__Utils__Post_Collection
+	 */
+	public function collect();
 }
