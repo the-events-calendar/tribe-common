@@ -1042,4 +1042,184 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 			'two'          => false,
 		], $orm_args );
 	}
+
+	/**
+	 * It should allow whitelisting the state values to produce
+	 *
+	 * @test
+	 */
+	public function should_allow_whitelisting_the_state_values_to_produce() {
+		$context = tribe_context()->set_locations( [
+			'one' => [
+				'read'          => [
+					Context::FUNC => function () {
+						return 1;
+					},
+				],
+			],
+			'two' => [
+				'read'          => [
+					Context::FUNC => function () {
+						return 'two';
+					},
+				],
+			],
+			'three' => [
+				'read'          => [
+					Context::FUNC => function () {
+						return '3';
+					},
+				],
+			],
+		], false );
+
+		$state = $context->get_state( [ 'one', 'three' ] );
+
+		$this->assertEqualSets( [
+			'one'   => 1,
+			'three' => '3',
+		], $state );
+	}
+
+	/**
+	 * It should allow blacklisting the state values to produce
+	 *
+	 * @test
+	 */
+	public function should_allow_blacklisting_the_state_values_to_produce() {
+		$context = tribe_context()->set_locations( [
+			'one' => [
+				'read'          => [
+					Context::FUNC => function () {
+						return 1;
+					},
+				],
+			],
+			'two' => [
+				'read'          => [
+					Context::FUNC => function () {
+						return 'two';
+					},
+				],
+			],
+			'three' => [
+				'read'          => [
+					Context::FUNC => function () {
+						return '3';
+					},
+				],
+			],
+		], false );
+
+		$state = $context->get_state( [ 'two' ], false );
+
+		$this->assertEqualSets( [
+			'one'   => 1,
+			'three' => '3',
+		], $state );
+	}
+
+	/**
+	 * It should allow whitelisting the global context keys to write
+	 *
+	 * @test
+	 */
+	public function should_allow_whitelisting_the_global_context_keys_to_write() {
+		$context = tribe_context()->set_locations( [
+			'one'   => [
+				'read'  => [
+					Context::FUNC => function () {
+						return 1;
+					},
+				],
+				'write' => [
+					Context::GLOBAL_VAR => 'global_one',
+				],
+			],
+			'two'   => [
+				'read'  => [
+					Context::FUNC => function () {
+						return 'two';
+					},
+				],
+				'write' => [
+					Context::GLOBAL_VAR => 'global_two',
+				],
+			],
+			'three' => [
+				'read'  => [
+					Context::FUNC => function () {
+						return '3';
+					},
+				],
+				'write' => [
+					Context::GLOBAL_VAR => 'global_three',
+				],
+			],
+		], false );
+
+		$context->alter( [
+			'one'   => 23,
+			'two'   => '89',
+			'three' => 2389,
+		] )->dangerously_set_global_context( [ 'one', 'three' ] );
+
+		global $global_one, $global_two, $global_three;
+
+		$this->assertEquals( 23, $global_one );
+		$this->assertEmpty( $global_two );
+		$this->assertEquals( 2389, $global_three );
+	}
+
+	/**
+	 * It should allow blacklisting the global context keys to write
+	 *
+	 * @test
+	 */
+	public function should_allow_blacklisting_the_global_context_keys_to_write() {
+		$context = tribe_context()->set_locations( [
+			'one'   => [
+				'read'  => [
+					Context::FUNC => function () {
+						return 1;
+					},
+				],
+				'write' => [
+					Context::GLOBAL_VAR => 'global_one',
+				],
+			],
+			'two'   => [
+				'read'  => [
+					Context::FUNC => function () {
+						return 'two';
+					},
+				],
+				'write' => [
+					Context::GLOBAL_VAR => 'global_two',
+				],
+			],
+			'three' => [
+				'read'  => [
+					Context::FUNC => function () {
+						return '3';
+					},
+				],
+				'write' => [
+					Context::GLOBAL_VAR => 'global_three',
+				],
+			],
+		], false );
+
+		$context->alter( [
+			'one'   => 23,
+			'two'   => '89',
+			'three' => 2389,
+		] )->dangerously_set_global_context( [ 'two' ], false );
+
+		global $global_one, $global_two, $global_three;
+
+		$this->assertEquals( 23, $global_one );
+		$this->assertEmpty( $global_two );
+		$this->assertEquals( 2389, $global_three );
+	}
 }
