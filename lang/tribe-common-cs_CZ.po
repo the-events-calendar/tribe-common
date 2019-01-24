@@ -2227,18 +2227,18 @@ msgstr "Informace o systému"
 msgid "There are no fields setup for this tab yet."
 msgstr "Pro tento panel nejsou zatím nastavena žádná pole."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Výše uvedené nastavení nebylo uloženo. Ostatní nastavení byla úspěšně uložena."
 msgstr[1] "Výše uvedená nastavení nebyla uložena. Ostatní nastavení byla úspěšně uložena."
 msgstr[2] "Výše uvedená nastavení nebyla uložena. Ostatní nastavení byla úspěšně uložena."
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Žádné z vašich nastavení nebylo uloženo. Zkuste to prosím znovu."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Ve formuláři se vyskytly následující chyby:"
 
@@ -2341,7 +2341,7 @@ msgstr "The Events Calendar"
 msgid "Events"
 msgstr "Akce"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Nastavení bylo uloženo."
 

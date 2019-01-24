@@ -2227,18 +2227,18 @@ msgstr "Systémové informácie"
 msgid "There are no fields setup for this tab yet."
 msgstr "Zatiaľ neexistujú polia pre túto záložku."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Vyššie uvedené nastavenie nebolo uložené. Ostatné nastavenia boli úspešne uložené."
 msgstr[1] "Vyššie uvedené nastavenia neboli uložené. Ostatné nastavenia boli úspešne uložené."
 msgstr[2] ""
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Nastavenia neboli uložené. Skúste to znovu."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Váš formulár obsahuje nasledovné chyby:"
 
@@ -2341,7 +2341,7 @@ msgstr "Kalendár udalostí"
 msgid "Events"
 msgstr "Udalosti"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Nastavenia boli uložené."
 

@@ -2227,18 +2227,18 @@ msgstr "Sistēmas informācija"
 msgid "There are no fields setup for this tab yet."
 msgstr "Šai cilnei vēl nav izveidoti lauki."
 
-#: src/Tribe/Settings.php:621
+#: src/Tribe/Settings.php:619
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/Tribe/Settings.php:620
+#: src/Tribe/Settings.php:618
 msgid "None of your settings were saved. Please try again."
 msgstr "Iestatījumi netika saglabāti. Lūdzu mēģini vēlreiz."
 
-#: src/Tribe/Settings.php:610
+#: src/Tribe/Settings.php:608
 msgid "Your form had the following errors:"
 msgstr "Tavai formai ir sekojošas kļūdas:"
 
@@ -2341,7 +2341,7 @@ msgstr "Pasākumu kalendārs"
 msgid "Events"
 msgstr "Notikumi"
 
-#: src/Tribe/Settings.php:643
+#: src/Tribe/Settings.php:641
 msgid "Settings saved."
 msgstr "Iestatījumi saglabāti"
 

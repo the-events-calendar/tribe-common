@@ -275,9 +275,6 @@ class Tribe__PUE__Notices {
 			return;
 		}
 
-		// Enqueue the notice CSS.
-		Tribe__Assets::instance()->enqueue( array( 'tribe-common-admin' ) );
-
 		$prompt = sprintf(
 			_n(
 				"It looks like you're using %1\$s, but the license key is invalid. Please download the latest version %2\$sfrom your account%3\$s.",
@@ -376,6 +373,10 @@ class Tribe__PUE__Notices {
 	 * @param string $inner_html
 	 */
 	protected function render_notice( $slug, $inner_html ) {
+
+		// Enqueue the notice CSS.
+		tribe( 'assets' )->enqueue( array( 'tribe-common-admin' ) );
+
 		$mascot = esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/mascot.png' );
 
 		$html =
