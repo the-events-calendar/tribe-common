@@ -100,7 +100,8 @@ class Tribe__Timezones {
 			$timezone_object = $timezone_string instanceof DateTimeZone
 				? $timezone_string
 				: new DateTimeZone( $timezone_string );
-			$date_time       = $date instanceof DateTime || $date instanceof DateTimeImmutable
+			$date_time = $date instanceof DateTime
+			             || ( class_exists( 'DateTimeImmutable' ) && $date instanceof DateTimeImmutable )
 				? $date
 				: Tribe__Date_Utils::build_date_object( $date, $timezone_object );
 

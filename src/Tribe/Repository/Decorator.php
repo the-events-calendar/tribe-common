@@ -555,4 +555,11 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function sort( $orderby = array(), $order = 'ASC', $preserve_keys = false ) {
 		return $this->decorated->sort( $orderby, $order, $preserve_keys );
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function collect() {
+		return $this->decorated->collect();
+	}
 }

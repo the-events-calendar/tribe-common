@@ -1191,7 +1191,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return clone $datetime;
 			}
 
-			if ( $datetime instanceof DateTimeImmutable ) {
+			if ( class_exists('DateTimeImmutable') && $datetime instanceof DateTimeImmutable ) {
 				// Return the mutable version of the date.
 				return new DateTime( $datetime->format( 'Y-m-d H:i:s' ), $datetime->getTimezone() );
 			}
