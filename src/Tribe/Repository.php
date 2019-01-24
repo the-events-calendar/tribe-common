@@ -1227,7 +1227,6 @@ abstract class Tribe__Repository
 	public function by_args( array $args ) {
 		foreach ( $args as $key => $value ) {
 			$this->by( $key, $value );
-			$foo = 'bar';
 		}
 
 		return $this;
