@@ -4,7 +4,8 @@
 
 = [4.9] TBD =
 
-
+* Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
+* Tweak - Added support for Promoter licenses [120320]
 
 = [4.8.5] 2019-01-21 =
 

@@ -162,6 +162,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *        @type string  $apikey           Used to authorize download updates from developer server
 		 *        @type string  $context          Defaults to 'component' which is expected for plugins (or themes).
 		 *                                        If set to 'service' it will not hook into WP update checks.
+		 *        @type string  $plugin_name      The plugin name, defaults to the name in the plugin file itself.
 		 * }
 		 * @param string $plugin_file    fully qualified path to the main plugin file.
 		 */
@@ -326,12 +327,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'apikey'          => '',
 					'check_period'    => 12,
 					'context'         => 'component',
+					'plugin_name'     => '',
 				)
 			);
 
 			$this->pue_option_name = $options['pue_option_name'];
 			$this->check_period    = (int) $options['check_period'];
 			$this->context         = $options['context'];
+			$this->plugin_name     = $options['plugin_name'];
 
 		}
 
