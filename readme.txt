@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9] TBD =
+= [4.9] 2019-02-01 =
 
 * Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
 * Tweak - Added support for Promoter licenses [120320]
