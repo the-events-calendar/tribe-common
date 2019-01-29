@@ -114,7 +114,7 @@ class Tribe__Main {
 		/**
 		 * Runs to register loaded plugins
 		 *
-		 * TBD
+		 * @since 4.9
 		 */
 		do_action( 'tribe_plugins_loaded ' );
 

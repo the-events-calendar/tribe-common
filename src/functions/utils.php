@@ -51,7 +51,7 @@ if ( ! function_exists( 'tribe_check_plugin' ) ) {
 	/**
 	 * Checks if this plugin has permission to run, if not it notifies the admin
 	 *
-	 * TBD
+	 * @since 4.9
 	 *
 	 * @param string $main_class   The Main/base class for this plugin
 	 *

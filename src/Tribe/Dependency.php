@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * An array of class Tribe__Admin__Notice__Plugin_Download per plugin
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 */
 		protected $admin_messages = array();
@@ -62,7 +62,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Adds a plugin to the active list
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param string        $main_class    Main/base class for this plugin
 		 * @param null|string   $version       Version number of plugin
@@ -89,7 +89,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Retrieves registered plugin array
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @return array
 		 */
@@ -180,7 +180,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Searches the registered plugin list for key/value pair and return the full details for that plugin
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param string $search_key The array key this value will appear in
 		 * @param string $search_val The value itself
@@ -200,7 +200,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Retrieves the registered plugins details by class name
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param string $main_class Main/base class for this plugin
 		 *
@@ -213,7 +213,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Retrieves the version of the registered plugin
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param string $main_class Main/base class for this plugin
 		 *
@@ -228,7 +228,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Checks if the plugin is active
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param string $main_class Main/base class for this plugin
 		 *
@@ -242,7 +242,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Checks if a plugin is active and has the specified version
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param string $main_class Main/base class for this plugin
 		 * @param string $version Version to do a compare against
@@ -265,7 +265,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Is the plugin registered with at least the minimum version
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param string $main_class Main/base class for this plugin
 		 * @param string $version Version to do a compare against
@@ -311,7 +311,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Retrieves Registered Plugin by Class Name from Array
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @return array|boolean
 		 */
@@ -326,7 +326,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * if parent, co, add does not exist use array as is
 		 * if they do exist check each one in turn
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param array  $plugin        An array of data for given registered plugin
 		 * @param array  $dependencies  An array of dependencies for a plugin
@@ -367,7 +367,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Register a Plugin
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param       $file_path
 		 * @param       $main_class
@@ -379,7 +379,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			/**
 			 * Filters the version string for a plugin.
 			 *
-			 * TBD
+			 * @since 4.9
 			 *
 			 * @param string $version The plugin version number, e.g. "4.0.4".
 			 * @param array $dependencies An array of dependencies for the plugins. These can include parent, add-on and other dependencies.
@@ -390,7 +390,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			/**
 			 * Filters the dependencies array for a plugin.
 			 *
-			 * TBD
+			 * @since 4.9
 			 *
 			 * @param array $dependencies An array of dependencies for the plugins. These can include parent, add-on and other dependencies.
 			 * @param string $version The plugin version number, e.g. "4.0.4".
@@ -422,7 +422,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Checks if this plugin has permission to run, if not it notifies the admin
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param string $file_path    Full file path to the base plugin file
 		 * @param string $main_class   The Main/base class for this plugin
@@ -468,7 +468,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Check an add-on dependencies for its parent
 		 *
-		 * TBD
+		 * @since 4.9
 		 *
 		 * @param string  $main_class   a string of the main class for the plugin being checked
 		 *
