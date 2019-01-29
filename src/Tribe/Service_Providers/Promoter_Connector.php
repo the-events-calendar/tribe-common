@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Service_Providers__Processes
  *
- * @since TBD
+ * TBD
  *
  * Handles the registration and creation of our async process handlers.
  */

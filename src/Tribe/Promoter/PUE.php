@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Promoter__PUE
  *
- * @since TBD
+ * TBD
  */
 class Tribe__Promoter__PUE {
 
@@ -20,7 +20,7 @@ class Tribe__Promoter__PUE {
 	/**
 	 * Setup the PUE Checker.
 	 *
-	 * @since TBD
+	 * TBD
 	 */
 	public function load() {
 		$this->pue_checker = new Tribe__PUE__Checker( 'http://tri.be/', $this->slug, array(
@@ -34,7 +34,7 @@ class Tribe__Promoter__PUE {
 	 *
 	 * @return array|false License information or false if not set.
 	 *
-	 * @since TBD
+	 * TBD
 	 */
 	public function get_license_info() {
 		$option_name = 'pue_install_key_' . $this->slug;
@@ -68,7 +68,7 @@ class Tribe__Promoter__PUE {
 	 *
 	 * @return bool Whether service has a license key set.
 	 *
-	 * @since TBD
+	 * TBD
 	 */
 	public function has_license_key() {
 		$license_info = $this->get_license_info();
@@ -81,7 +81,7 @@ class Tribe__Promoter__PUE {
 	 *
 	 * @return bool Whether service has a valid license key.
 	 *
-	 * @since TBD
+	 * TBD
 	 */
 	public function has_valid_license() {
 		$license_info = $this->get_license_info();

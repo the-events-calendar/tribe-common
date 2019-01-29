@@ -3,7 +3,7 @@
 /**
  * Custom class for authenticating with the Promoter Connector.
  *
- * @since TBD
+ * TBD
  */
 class Tribe__Promoter__Auth {
 
@@ -17,7 +17,7 @@ class Tribe__Promoter__Auth {
 	 *
 	 * @param Tribe__Promoter__Connector $connector Connector object.
 	 *
-	 * @since TBD
+	 * TBD
 	 */
 	public function __construct( Tribe__Promoter__Connector $connector ) {
 		$this->connector = $connector;
@@ -28,7 +28,7 @@ class Tribe__Promoter__Auth {
 	 *
 	 * @return bool Whether the request was authorized successfully.
 	 *
-	 * @since TBD
+	 * TBD
 	 */
 	public function authorize_with_connector() {
 		$secret_key   = $this->generate_secret_key();
@@ -44,7 +44,7 @@ class Tribe__Promoter__Auth {
 	 *
 	 * @return string The secret key.
 	 *
-	 * @since TBD
+	 * TBD
 	 */
 	private function generate_secret_key() {
 		$key = AUTH_KEY;

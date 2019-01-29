@@ -3,7 +3,7 @@
 /**
  * Class DT_Plugin
  *
- * @since TBD
+ * TBD
  */
 class DT_Plugin {
 

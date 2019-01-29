@@ -20,7 +20,7 @@ trait DependencyTesterActions
 	 *
 	 * Please note that the plugin is just created, and not activated.
 	 *
-	 * @since TBD
+	 * TBD
 	 *
 	 * @param string $template The file to use as template for the plugin code, just the name. E.g.
 	 *                         "foo" for "dependency/foo.php" in the `data/dependency` folder.
@@ -40,7 +40,7 @@ trait DependencyTesterActions
      *
      * Sets the `active_plugins` option in the database.
 	 *
-	 * @since TBD
+	 * TBD
 	 *
 	 * @param array $active_plugins The list of active plugins.
 	 *
