@@ -3,7 +3,7 @@
 /**
  * Class DT_Plugin
  *
- * @since TBD
+ * @since 4.9
  */
 class DT_Plugin {
 

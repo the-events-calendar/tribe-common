@@ -15,7 +15,7 @@ class Dependency extends \Codeception\Module {
 	 *
 	 * Please note that the plugin is just created, and not activated.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string $template The file to use as template for the plugin code, just the name. E.g.
 	 *                         "foo" for "dependency/foo.php" in the `data/dependency` folder.
@@ -38,7 +38,7 @@ class Dependency extends \Codeception\Module {
 	/**
 	 * Renders an Handlebar-ish template using the `str_replace` function.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param string $template The template to render.
 	 * @param array $data The data to use to render the template.
@@ -54,7 +54,7 @@ class Dependency extends \Codeception\Module {
 	/**
 	 * Sets the `active_plugins` option in the database.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 *
 	 * @param array $active_plugins The list of active plugins.
 	 *

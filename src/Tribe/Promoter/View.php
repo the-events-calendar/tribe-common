@@ -8,7 +8,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 	/**
 	 * Tribe__Tickets__Attendee_Info__View constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function __construct() {
 		$this->set_template_origin( Tribe__Main::instance() );
@@ -20,7 +20,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 	/**
 	 * Add the rewrite rules and tags.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function add_rewrites() {
 		add_rewrite_rule( 'tribe-promoter-auth/?$', 'index.php?tribe-promoter-auth-check=1', 'top' );
@@ -30,7 +30,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 	/**
 	 * Display the auth check page when the correct permalink is loaded.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function display_auth_check_view() {
 		global $wp_query;

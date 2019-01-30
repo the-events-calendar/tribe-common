@@ -25,7 +25,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * Add a required plugin to the notice
 	 *
 	 * @since 4.8.3 Method introduced.
-	 * @since TBD Added $version and $addon parameters.
+	 * @since 4.9 Added $version and $addon parameters.
 	 *
 	 * @param string $name         Name of the required plugin
 	 * @param null   $thickbox_url Download or purchase URL for plugin from within /wp-admin/ thickbox

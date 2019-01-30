@@ -6,7 +6,7 @@
  * Register all plugins to Dependency Class
  *
  * @package Tribe
- * @since TBD
+ * @since 4.9
  *
  */
 abstract class Tribe__Abstract_Plugin_Register {

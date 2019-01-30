@@ -3,7 +3,7 @@
 /**
  * Custom class for communicating with the Promoter Auth Connector
  *
- * @since TBD
+ * @since 4.9
  */
 class Tribe__Promoter__Connector {
 
@@ -12,7 +12,7 @@ class Tribe__Promoter__Connector {
 	 *
 	 * @return string Base URL for interacting with the connector.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function base_url() {
 		$url = 'https://us-central1-promoter-auth-connector.cloudfunctions.net/promoterConnector/';
@@ -34,7 +34,7 @@ class Tribe__Promoter__Connector {
 	 *
 	 * @return bool Whether connector was authorized.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function authorize_with_connector( $user_id, $secret_key, $promoter_key, $license_key ) {
 		$url = $this->base_url() . 'connect';
@@ -66,7 +66,7 @@ class Tribe__Promoter__Connector {
 	 *
 	 * @return bool|string User ID or if promoter is authorized then it return true like a valid user.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function authenticate_user_with_connector( $user_id ) {
 		$token = tribe_get_request_var( 'tribe_promoter_auth_token' );
@@ -96,7 +96,7 @@ class Tribe__Promoter__Connector {
 	 *
 	 * @param int $post_id Post ID.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	public function notify_promoter_of_changes( $post_id ) {
 		$post_type = get_post_type( $post_id );
@@ -144,7 +144,7 @@ class Tribe__Promoter__Connector {
 	 *
 	 * @return string|false The response body or false if not successful.
 	 *
-	 * @since TBD
+	 * @since 4.9
 	 */
 	private function make_call( $url, $args ) {
 		$response = wp_remote_post( $url, $args );
