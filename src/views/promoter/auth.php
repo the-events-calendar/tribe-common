@@ -1,3 +1,18 @@
+<?php
+/**
+ * Promoter Auth View Template
+ * The template for authorizing your site with Promoter.
+ *
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/promoter/auth.php
+ *
+ * @package Tribe
+ * @version 4.9
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+?>
 <link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
 <link rel="stylesheet" href="https://use.typekit.net/pha0nnp.css">
 <link id="app" href="https://promoter.theeventscalendar.com/css/app.css" rel="stylesheet">
@@ -6,7 +21,6 @@
 		margin: 16px 0 30px;
 	}
 </style>
-
 
 <div class="site-wrap">
 	<main id="page-content" class="page page--push page--auth">
@@ -25,7 +39,6 @@
 				<h1 class="headline__large">
 					<?php esc_html_e( 'You\'re ready to begin using Promoter! Please close this window.', 'tribe-common' ); ?>
 				</h1>
-				
 			<?php elseif ( ! $logged_in ) : ?>
 				<p>
 					<a href="<?php echo esc_url( wp_login_url( $_SERVER['REQUEST_URI'] ) ); ?>">
