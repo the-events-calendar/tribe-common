@@ -44,15 +44,18 @@ class Tribe__Promoter__View extends Tribe__Template {
 		
 		$is_admin   = is_user_logged_in() && current_user_can( 'manage_options' );
 		$authorized = false;
+		$auth_error = false;
 
 		if ( $is_admin && ! empty( $_POST['promoter_authenticate'] ) ) {
 			/** @var Tribe__Promoter__Auth $promoter_auth */
 			$promoter_auth = tribe( 'promoter.auth' );
 			$authorized    = $promoter_auth->authorize_with_connector();
+			$auth_error    = ! $authorized;
 		}
 
 		$this->template( 'auth', array(
 			'authorized'   => $authorized,
+			'auth_error'   => $auth_error,
 			'logged_in'    => is_user_logged_in(),
 			'admin'        => $is_admin,
 			'promoter_key' => $promoter_key,
