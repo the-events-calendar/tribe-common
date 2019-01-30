@@ -7,10 +7,6 @@
 	}
 </style>
 
-<?php if ( $authorized ) : ?>
-	<p><?php esc_html_e( 'You may now close this window.', 'tribe-common' ); ?></p>
-	<?php return; ?>
-<?php endif; ?>
 
 <div class="site-wrap">
 	<main id="page-content" class="page page--push page--auth">
@@ -19,9 +15,17 @@
 				<span class="a11y-visual-hide"><?php esc_html_e( 'Promoter', 'tribe-common' ); ?>/span>
 			</div>
 
-			<h1 class="headline__large"><?php esc_html_e( 'Promoter would like to sync with your site', 'tribe-common' ); ?></h1>
+			<?php if ( ! $authorized ) : ?>
+				<h1 class="headline__large">
+					<?php esc_html_e( 'Promoter would like to sync with your site', 'tribe-common' ); ?>
+				</h1>
+			<?php endif; ?>
 
-			<?php if ( ! $logged_in ) : ?>
+			<?php if ( $authorized ) : ?>
+				<p>
+					<?php esc_html_e( 'You\'re ready to begin using Promoter! Please close this window.', 'tribe-common' ); ?>
+				</p>
+			<?php elseif ( ! $logged_in ) : ?>
 				<p>
 					<a href="<?php echo esc_url( wp_login_url( $_SERVER['REQUEST_URI'] ) ); ?>">
 						<?php esc_html_e( 'Please log in to continue', 'tribe-common' ); ?>  &raquo;
