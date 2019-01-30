@@ -22,9 +22,10 @@
 			<?php endif; ?>
 
 			<?php if ( $authorized ) : ?>
-				<p>
+				<h1 class="headline__large">
 					<?php esc_html_e( 'You\'re ready to begin using Promoter! Please close this window.', 'tribe-common' ); ?>
-				</p>
+				</h1>
+				
 			<?php elseif ( ! $logged_in ) : ?>
 				<p>
 					<a href="<?php echo esc_url( wp_login_url( $_SERVER['REQUEST_URI'] ) ); ?>">
@@ -43,7 +44,7 @@
 					<?php if ( $auth_error ) : ?>
 						<?php esc_html_e( 'Sorry, unable to authenticate your site. Please contact Promoter support.', 'tribe-common' ); ?>
 					<?php else : ?>
-						<?php esc_html_e( 'Please authorize to continue onboarding', 'tribe-common' ); ?>
+						<?php esc_html_e( 'Please authorize to continue onboarding.', 'tribe-common' ); ?>
 					<?php endif; ?>
 				</p>
 
