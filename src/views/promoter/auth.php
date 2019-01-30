@@ -39,6 +39,14 @@
 					</a>
 				</p>
 			<?php else : ?>
+				<p>
+					<?php if ( $auth_error ) : ?>
+						<?php esc_html_e( 'Sorry, unable to authenticate your site. Please contact Promoter support.', 'tribe-common' ); ?>
+					<?php else : ?>
+						<?php esc_html_e( 'Please authorize to continue onboarding', 'tribe-common' ); ?>
+					<?php endif; ?>
+				</p>
+
 				<form method="post">
 					<input type="hidden" value="<?php echo esc_attr( $promoter_key ); ?>" name="promoter_key"/>
 					<input type="hidden" value="<?php echo esc_attr( $license_key ); ?>" name="license_key"/>
