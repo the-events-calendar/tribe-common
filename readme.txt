@@ -7,6 +7,8 @@
 * Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
 * Tweak - Added support for Promoter licenses [120320]
 * Tweak - Added filters: `tribe_register_{$main_class}_plugin_version`, `tribe_register_{$main_class}_plugin_dependencies`
+* Tweak - Added actions: `tribe_plugins_loaded `
+* Tweak - Changed views: `promoter/auth`
 * Language - 3 new strings added, 10 updated, 1 fuzzied, and 1 obsoleted
 
 = [4.8.5] 2019-01-21 =
