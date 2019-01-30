@@ -60,7 +60,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 
 		foreach ( $this->plugins_required as $req_plugin ) {
 			$item    = $req_plugin['name'];
-			$version = empty( $req_plugin['version'] ) ? '' : ' (' . $req_plugin['version'] . ')';
+			$version = empty( $req_plugin['version'] ) ? '' : ' (' . str_replace( '-dev', '', $req_plugin['version'] ) . ')';
 
 			if ( ! empty( $req_plugin['thickbox_url'] ) ) {
 				$item = sprintf(
