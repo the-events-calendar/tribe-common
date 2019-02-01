@@ -453,7 +453,7 @@ class Tribe__Main {
 		if (
 			! is_null( $post )
 			&& is_numeric( $post )
-			&& 0 < absint( $post )
+			&& 0 < intval( $post )
 		) {
 			return (int) $post;
 		} elseif (
