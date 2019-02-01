@@ -66,7 +66,6 @@ abstract class Tribe__Process__Handler extends WP_Async_Request {
 		 * we hook on the the object cron identifier to handle the task
 		 * if the cron-triggered action ever fires.
 		 */
-		//add_action( $this->cron_hook_identifier, array( $this, 'maybe_handle' ), 10, 1 );
 		add_action( $this->cron_hook_identifier, array( $this, 'maybe_handle' ) );
 	}
 
