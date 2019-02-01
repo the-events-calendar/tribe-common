@@ -6,6 +6,7 @@
 = [4.8.5] TBD =
 
 * Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
+* Fix - Make sure we pass and get the parameter when using cron jobs to import images on EA [119269]
 
 = [4.8.4] TBD =
 
