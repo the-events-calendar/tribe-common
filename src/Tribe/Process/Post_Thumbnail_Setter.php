@@ -81,8 +81,8 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 	 * @see   tribe_upload_image()
 	 * @see   Tribe__Process__Post_Thumbnail_Setter::sync_handle()
 	 */
-	protected function handle() {
-		$this->sync_handle();
+	protected function handle( array $data_source = null ) {
+		$this->sync_handle( $data_source );
 	}
 
 	/**

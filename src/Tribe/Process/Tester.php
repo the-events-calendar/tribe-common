@@ -58,7 +58,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 *
 	 * @since 4.7.23
 	 */
-	public function maybe_handle() {
+	public function maybe_handle( array $data_source = null ) {
 		// Don't lock up other requests while processing
 		session_write_close();
 
