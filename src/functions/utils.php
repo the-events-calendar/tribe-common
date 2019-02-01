@@ -530,7 +530,12 @@ if ( ! function_exists( 'tribe_is_regex' ) ) {
 			return false;
 		}
 
-		return ! ( @preg_match( $candidate, null ) === false );
+		// We need to have the Try/Catch for Warnings too
+		try {
+			return ! ( @preg_match( $candidate, null ) === false );
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 }
 
