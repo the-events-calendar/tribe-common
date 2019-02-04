@@ -1,11 +1,11 @@
 === Tribe Common ===
 
-
 == Changelog ==
 
-= [4.8.5] TBD =
-* Add - date and timezone building and validation methods to the `Tribe__Date_Utils` and `Tribe__Timezones` classes [116356, 115579]
-* Add- the `tribe_is_regex` and `tribe_unfenced_regex` functions [115582] 
+= [4.9.1] TBD =
+
+* Feature - date and timezone building and validation methods to the `Tribe__Date_Utils` and `Tribe__Timezones` classes [116356, 115579]
+* Feature - the `tribe_is_regex` and `tribe_unfenced_regex` functions [115582]
 * Feature - Add new action `tribe_editor_register_blocks` used to register Event blocks via `common`
 * Fix - Make sure assets are injected before is too late
 * Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
@@ -13,7 +13,7 @@
 * Fix - Prevent to trigger error when using `array_combine` with empty arrays
 * Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
 
-= [4.8.4] TBD =
+= [4.9] TBD =
 
 * Fix - Updated translation strings from the Gutenberg extension merge [118656]
 * Add - Added `strip_dynamic_blocks` method in `Tribe__Editor__Utils` [118679]
@@ -21,7 +21,11 @@
 * Tweak - Allow better control of when we are in Classic editor with a new filter `tribe_editor_classic_is_active` [120137]
 * Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating Event Tickets or The Events Calendar [117795]
 
-= [4.8.3] 2018-12-18 =
+= [4.8.4] 2019-01-15 =
+
+* Add - Added new filter `tribe_asset_data_add_object_{$object_name}` to allow integrations to customize the object data and add additional properties [119760]
+
+= [4.8.3] 2018-12-19 =
 
 * Tweak - Refreshing the Welcome page for The Events Calendar and Event Tickets [117795]
 * Fix - Prevent admin tooltips to that full page width on Blocks Editor [118883]
