@@ -83,21 +83,26 @@ class Tribe__Main {
 
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
-
 		$parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
-
 		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
+
+		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
+		add_action( 'tribe_common_loaded', array( $this, 'tribe_common_app_store' ), 10 );
+
+	}
+
+	/**
+	 *
+	 */
+	public function plugins_loaded() {
 
 		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		$this->init_autoloading();
 
 		$this->bind_implementations();
-
 		$this->init_libraries();
 		$this->add_hooks();
-
-		Tribe__Extension_Loader::instance();
 
 		/**
 		 * Runs once all common libs are loaded and initial hooks are in place.
@@ -105,20 +110,14 @@ class Tribe__Main {
 		 * @since 4.3
 		 */
 		do_action( 'tribe_common_loaded' );
-	}
 
-	/**
-	 * Get's the instantiated context of this class. I.e. the object that instantiated this one.
-	 */
-	public function context() {
-		return $this->plugin_context;
-	}
+		/**
+		 * Runs to register loaded plugins
+		 *
+		 * @since 4.9
+		 */
+		do_action( 'tribe_plugins_loaded ' );
 
-	/**
-	 * Get's the class name of the instantiated plugin context of this class. I.e. the class name of the object that instantiated this one.
-	 */
-	public function context_class() {
-		return $this->plugin_context_class;
 	}
 
 	/**
@@ -140,6 +139,24 @@ class Tribe__Main {
 		}
 
 		$autoloader->register_autoloader();
+	}
+
+	public function tribe_common_app_store() {
+		Tribe__Extension_Loader::instance();
+	}
+
+	/**
+	 * Get's the instantiated context of this class. I.e. the object that instantiated this one.
+	 */
+	public function context() {
+		return $this->plugin_context;
+	}
+
+	/**
+	 * Get's the class name of the instantiated plugin context of this class. I.e. the class name of the object that instantiated this one.
+	 */
+	public function context_class() {
+		return $this->plugin_context_class;
 	}
 
 	/**
@@ -499,6 +516,7 @@ class Tribe__Main {
 	public function tribe_plugins_loaded() {
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
+		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
 		tribe( 'admin.notice.php.version' );
 
 		if ( ! defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {

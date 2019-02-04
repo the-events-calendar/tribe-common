@@ -12,7 +12,7 @@ trait WpunitTesterActions
      */
     abstract protected function getScenario();
 
-    
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -23,7 +23,18 @@ trait WpunitTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('bootstrapActions', func_get_args()));
     }
 
- 
+
+    /**
+     * [!] Method is generated. Documentation taken from corresponding module.
+     *
+     *
+     * @see \Codeception\Module\WPLoader::switchTheme()
+     */
+    public function switchTheme() {
+        return $this->getScenario()->runStep(new \Codeception\Step\Action('switchTheme', func_get_args()));
+    }
+
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -34,7 +45,7 @@ trait WpunitTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('activatePlugins', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -45,17 +56,17 @@ trait WpunitTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('loadPlugins', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
      * Accessor method to get the object storing the factories for things.
-	 *
-	 * Example usage:
-	 *
-	 *        $postId = $I->factory()->post->create();
-	 *
-	 * @return \tad\WPBrowser\Module\WPLoader\FactoryStore
+     *
+     * Example usage:
+     *
+     *        $postId = $I->factory()->post->create();
+     *
+     * @return \tad\WPBrowser\Module\WPLoader\FactoryStore
      * @see \Codeception\Module\WPLoader::factory()
      */
     public function factory() {
