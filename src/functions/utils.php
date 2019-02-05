@@ -26,40 +26,42 @@ if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 	}
 }
 
+
 if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	/**
 	 * Checks if this plugin has permission to run, if not it notifies the admin
 	 *
-	 * @param string $file_path   Full file path to the base plugin file
-	 * @param string $main_class  The Main/base class for this plugin
-	 * @param string $version     The version
-	 * @param array  $classes_req Any Main class files/tribe plugins required for this to run
+	 * @param string $file_path    Full file path to the base plugin file
+	 * @param string $main_class   The Main/base class for this plugin
+	 * @param string $version      The version
+	 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run
+	 * @param array  $dependencies an array of dependencies to check
 	 *
 	 * @return bool Indicates if plugin should continue initialization
 	 */
-	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array() ) {
-		$tribe_dependency = Tribe__Dependency::instance();
-		$should_plugin_run = true;
+	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
 
-		// Checks to see if the plugins are active
-		if ( ! empty( $classes_req ) && ! $tribe_dependency->has_requisite_plugins( $classes_req ) ) {
-			$should_plugin_run = false;
+		$tribe_dependency  = Tribe__Dependency::instance();
+		$tribe_dependency->register_plugin( $file_path, $main_class, $version, $classes_req, $dependencies );
 
-			$tribe_plugins = new Tribe__Plugins();
-			$admin_notice  = new Tribe__Admin__Notice__Plugin_Download( $file_path );
+	}
+}
 
-			foreach ( $classes_req as $class => $version ) {
-				$plugin    = $tribe_plugins->get_plugin_by_class( $class );
-				$is_active = $tribe_dependency->is_plugin_version( $class, $version );
-				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active );
-			}
-		}
+if ( ! function_exists( 'tribe_check_plugin' ) ) {
+	/**
+	 * Checks if this plugin has permission to run, if not it notifies the admin
+	 *
+	 * @since 4.9
+	 *
+	 * @param string $main_class   The Main/base class for this plugin
+	 *
+	 * @return bool Indicates if plugin should continue initialization
+	 */
+	function tribe_check_plugin( $main_class ) {
 
-		if ( $should_plugin_run ) {
-			$tribe_dependency->add_active_plugin( $main_class, $version, $file_path );
-		}
+		$tribe_dependency    = Tribe__Dependency::instance();
+		return $tribe_dependency->check_plugin( $main_class );
 
-		return $should_plugin_run;
 	}
 }
 
