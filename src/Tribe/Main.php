@@ -511,8 +511,9 @@ class Tribe__Main {
 	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
 	 */
 	public function tribe_plugins_loaded() {
-		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe( 'admin.notice.php.version' );
+		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
+		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 
 		if ( ! defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {
 			tribe( 'admin.notice.marketing' );
@@ -557,7 +558,6 @@ class Tribe__Main {
 		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', array( 'hook' ) );
 
 		tribe_register_provider( 'Tribe__Editor__Provider' );
-		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
 	}
 
