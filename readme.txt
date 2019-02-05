@@ -4,6 +4,7 @@
 
 = [4.9.1] TBD =
 
+* Testing tests, this PR will be removed.
 * Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
 
 = [4.9] 2019-02-05 =
