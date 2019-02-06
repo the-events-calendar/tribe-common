@@ -166,7 +166,7 @@ abstract class Tribe__Extension {
 			$this->get_version(),
 			$this->get( 'requires', array() )
 		);
-		
+
 		$dependency = Tribe__Dependency::instance();
 
 		// check requisite plugins are active for this extension
