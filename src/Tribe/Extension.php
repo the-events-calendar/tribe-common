@@ -166,15 +166,17 @@ abstract class Tribe__Extension {
 			$this->get_version(),
 			$this->get( 'requires', array() )
 		);
+		
+		$dependency = Tribe__Dependency::instance();
 
 		// check requisite plugins are active for this extension
-		$is_plugin_authorized = Tribe__Dependency::instance()->has_requisite_plugins( $this->get( 'requires', array() ) );
+		$is_plugin_authorized = $dependency->has_requisite_plugins( $this->get( 'requires', array() ) );
 
 		if ( $is_plugin_authorized ) {
 			$this->init();
 
 			//add extension as active to dependency checker
-			tribe__Dependency::instance()->add_active_plugin( $this->get( 'class' ), $this->get_version(), $this->get_plugin_file() );
+			$dependency->add_active_plugin( $this->get( 'class' ), $this->get_version(), $this->get_plugin_file() );
 		}
 
 	}
