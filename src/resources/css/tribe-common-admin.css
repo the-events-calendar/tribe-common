@@ -821,6 +821,9 @@ p.tribe-welcome-message {
 	font-size: 18px;
 	font-weight: 400;
 }
+.tribe_welcome_page .tribe-half-column h4 {
+	margin-top: 1em;
+}
 /* "Calendar" dashicon */
 .tribe_welcome_page .tribe-half-column h4:before {
 		color: #555d66;
@@ -848,7 +851,7 @@ p.tribe-welcome-message {
 .tribe_welcome_page .tribe-half-column h4[data-tribe-icon="dashicons-heart"]:before {
 			content: '\f487';
 		}
-.tribe_update_page h2:before {
+.tribe_update_page h4:before {
 	content: '\f145';
 	font-family: 'dashicons';
 	font-size: 34px;
