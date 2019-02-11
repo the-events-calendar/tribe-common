@@ -11,6 +11,59 @@ msgstr ""
 "Language: cs_CZ\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/views/promoter/auth.php:47
+msgid "Please authorize to continue onboarding."
+msgstr ""
+
+#: src/views/promoter/auth.php:45
+msgid "Sorry, unable to authenticate your site. Please contact Promoter support."
+msgstr ""
+
+#: src/views/promoter/auth.php:26
+msgid "You're ready to begin using Promoter! Please close this window."
+msgstr ""
+
+#: src/views/promoter/auth.php:71
+msgid "Terms"
+msgstr ""
+
+#: src/views/promoter/auth.php:70
+msgid "and"
+msgstr ""
+
+#: src/views/promoter/auth.php:69
+msgid "Privacy"
+msgstr ""
+
+#: src/views/promoter/auth.php:68
+msgid "Promoter All rights reserved."
+msgstr ""
+
+#: src/views/promoter/auth.php:55
+msgid "Authorize Promoter"
+msgstr ""
+
+#: src/views/promoter/auth.php:39
+msgid "Please log out and log back in as an admin account"
+msgstr ""
+
+#: src/views/promoter/auth.php:37
+msgid "You do not have access to authenticate this site."
+msgstr ""
+
+#: src/views/promoter/auth.php:32
+msgid "Please log in to continue"
+msgstr ""
+
+#: src/views/promoter/auth.php:20
+msgid "Promoter would like to sync with your site"
+msgstr ""
+
+#: src/Tribe/Promoter/PUE.php:28 src/views/promoter/auth.php:15
+#: src/views/promoter/auth.php:64
+msgid "Promoter"
+msgstr ""
+
 #: src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
 msgstr ""
@@ -19,19 +72,15 @@ msgstr ""
 msgid "Numeric Array"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:97
-msgid "F j, Y g:i a"
-msgstr ""
-
 #: src/Tribe/Editor/Configuration.php:96
 msgid "F j"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:95
+#: src/Tribe/Editor/Configuration.php:95 src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:94
+#: src/Tribe/Editor/Configuration.php:94 src/Tribe/Editor/Configuration.php:97
 msgid "g:i a"
 msgstr ""
 
@@ -49,7 +98,7 @@ msgstr ""
 msgid "Problem loading the block, please remove this block to restart."
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:293
 msgid "Clear"
 msgstr ""
 
@@ -129,15 +178,15 @@ msgstr ""
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:268
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:267
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:266
 msgid "All items on this page were selected. "
 msgstr ""
 
@@ -169,26 +218,26 @@ msgstr ""
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1103
+#: src/Tribe/PUE/Checker.php:1106
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1092
+#: src/Tribe/PUE/Checker.php:1095
 msgid "Update now to version %s."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:397
+#: src/Tribe/PUE/Notices.php:398
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:282
+#: src/Tribe/PUE/Notices.php:279
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/Tribe/PUE/Checker.php:984
+#: src/Tribe/PUE/Checker.php:987
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
@@ -308,7 +357,7 @@ msgstr ""
 msgid "The cost currency symbol"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:497
+#: src/Tribe/PUE/Checker.php:500
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
@@ -320,31 +369,31 @@ msgstr ""
 msgid "Events Help"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1685
+#: src/Tribe/PUE/Checker.php:1688
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1684
+#: src/Tribe/PUE/Checker.php:1687
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1683
+#: src/Tribe/PUE/Checker.php:1686
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:550
+#: src/Tribe/PUE/Checker.php:553
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:539
+#: src/Tribe/PUE/Checker.php:542
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:538
+#: src/Tribe/PUE/Checker.php:541
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:529 src/Tribe/PUE/Checker.php:563
+#: src/Tribe/PUE/Checker.php:532 src/Tribe/PUE/Checker.php:566
 msgid "License Key Status:"
 msgstr ""
 
@@ -369,13 +418,13 @@ msgid "Installed Add-Ons"
 msgstr "Nainstalovaná rozšíření"
 
 #: src/Tribe/Admin/Notice/Php_Version.php:60
-#: src/Tribe/Admin/Notice/Plugin_Download.php:92
+#: src/Tribe/Admin/Notice/Plugin_Download.php:118
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr ", a"
 
 #: src/Tribe/Admin/Notice/Php_Version.php:59
-#: src/Tribe/Admin/Notice/Plugin_Download.php:91
+#: src/Tribe/Admin/Notice/Plugin_Download.php:117
 msgctxt "separator used in a list of items"
 msgid ", "
 msgstr ", "
@@ -400,30 +449,30 @@ msgstr "Procházet veškerá rozšíření"
 msgid "Events Add-Ons"
 msgstr "Events Add-Ons"
 
-#: src/Tribe/PUE/Notices.php:440
+#: src/Tribe/PUE/Notices.php:441
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr "%1$s a %2$s"
 
-#: src/Tribe/PUE/Notices.php:359
+#: src/Tribe/PUE/Notices.php:356
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/Tribe/PUE/Notices.php:327
+#: src/Tribe/PUE/Notices.php:324
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/Tribe/PUE/Checker.php:1062
+#: src/Tribe/PUE/Checker.php:1065
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1005
+#: src/Tribe/PUE/Checker.php:1008
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
@@ -431,8 +480,8 @@ msgstr ""
 msgid "Event Aggregator"
 msgstr "Event Aggregator"
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:75
-msgid "To begin using %1$s, please install and activate the latest version of %2$s."
+#: src/Tribe/Admin/Notice/Plugin_Download.php:101
+msgid "To begin using %2$s, please install and activate the latest version of %3$s."
 msgstr ""
 
 #: src/admin-views/tribe-options-licenses.php:30
@@ -484,71 +533,71 @@ msgstr "Ano, automaticky sdílet mé informace o systému s technickou podporou 
 msgid "English"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:342
+#: src/Tribe/PUE/Checker.php:972 src/Tribe/PUE/Notices.php:339
 msgid " (opens in a new window)"
 msgstr "(otevře se v novém okně)"
 
-#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:340
+#: src/Tribe/PUE/Checker.php:970 src/Tribe/PUE/Notices.php:337
 msgid "Renew Your License Now"
 msgstr "Obnovte si svou licenci"
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:278
 msgid ": Selected 1 row"
 msgstr ": Vybrán 1 řádek"
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:277
 msgid ": Selected %d rows"
 msgstr ": Vybráno %d řádků"
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:272
 msgid "Previous"
 msgstr "Předchozí"
 
-#: src/Tribe/Main.php:253
+#: src/Tribe/Main.php:270
 msgid "All"
 msgstr "Vše"
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:264
 msgid "No matching records found"
 msgstr "Nebyly nalezeny žádné odpovídající záznamy"
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:263
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(filtrováno z _MAX_ celkového počtu položek)"
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:262
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Zobrazeno 0 - 0 z 0 záznamů"
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:261
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Zobrazeno _START_ - _END_ z celkem _TOTAL_ záznamů"
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:260
 msgid "No data available in table"
 msgstr "V tabulce nejsou dostupná žádná data"
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:259
 msgid "Show _MENU_ entries"
 msgstr "Zobrazit záznamy _MENU_"
 
-#: src/Tribe/Main.php:240
+#: src/Tribe/Main.php:257
 msgid ": activate to sort column descending"
 msgstr "aktivujte pro sestupné řazení sloupců"
 
-#: src/Tribe/Main.php:239
+#: src/Tribe/Main.php:256
 msgid ": activate to sort column ascending"
 msgstr "aktivujte pro vzestupné řazení sloupců"
 
-#: src/Tribe/Main.php:284
+#: src/Tribe/Main.php:301
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Pro kopírování stiskněte „Cmd + C“"
 
-#: src/Tribe/Main.php:283
+#: src/Tribe/Main.php:300
 msgid "System info copied"
 msgstr "Informace o systému byly zkopírovány"
 
-#: src/Tribe/Main.php:282 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:299 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "Kopírovat do schránky"
 
@@ -759,7 +808,7 @@ msgstr "Děkujeme, že používáte Event Tickets! Všichni v Modern Tribe si up
 msgid "%s must be a positive number or percent."
 msgstr "%s musí být kladné číslo nebo procento."
 
-#: src/Tribe/PUE/Checker.php:940
+#: src/Tribe/PUE/Checker.php:943
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr "Děkujeme za vložení platného klíče. Jeho platnost skončí %s"
 
@@ -859,7 +908,7 @@ msgstr "%1$s Používáte naše pluginy v síti webů? %2$s Berte prosím na vě
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr "Během načítání této stránky nápovědy došlo k vyprázdnění pravidel pro přesměrování trvalých odkazů. Pravděpodobně je v některém pluginu nebo šabloně nastaveno toto vyprazdňování pravidel (rewrite rule flush)!"
 
-#: src/Tribe/PUE/Checker.php:909
+#: src/Tribe/PUE/Checker.php:912
 msgid "unknown date"
 msgstr "neznámé datum"
 
@@ -2266,31 +2315,31 @@ msgstr "Nastavení %s"
 msgid "Events Settings"
 msgstr "Nastavení akcí"
 
-#: src/Tribe/PUE/Checker.php:896
+#: src/Tribe/PUE/Checker.php:899
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmmm... něco je špatně s tímto validátorem. Kontaktujte prosím %spodporu%s."
 
-#: src/Tribe/PUE/Checker.php:935
+#: src/Tribe/PUE/Checker.php:938
 msgid "Valid Key! Expires on %s"
 msgstr "Platný klíč! Platnost tohoto klíče skončí %s"
 
-#: src/Tribe/PUE/Checker.php:915
+#: src/Tribe/PUE/Checker.php:918
 msgid "Sorry, key validation server is not available."
 msgstr "Omlouváme se, ale server k ověření klíče není dostupný."
 
-#: src/Tribe/PUE/Checker.php:650
+#: src/Tribe/PUE/Checker.php:653
 msgid "License key(s) updated."
 msgstr "Licenční klíč(e) byl aktualizován."
 
-#: src/Tribe/PUE/Checker.php:494
+#: src/Tribe/PUE/Checker.php:497
 msgid "A valid license key is required for support and updates"
 msgstr "Platný licenční klíč je vyžadován pro podporu a aktualizace"
 
-#: src/Tribe/PUE/Checker.php:509 src/Tribe/PUE/Checker.php:520
+#: src/Tribe/PUE/Checker.php:512 src/Tribe/PUE/Checker.php:523
 msgid "License Key"
 msgstr "Licenční klíč"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:265
 msgid "Search:"
 msgstr "Hledat:"
 
@@ -2302,19 +2351,19 @@ msgstr "Nastavení"
 msgid "Network"
 msgstr "Síť webů"
 
-#: src/Tribe/Main.php:274
+#: src/Tribe/Main.php:291
 msgid "Done"
 msgstr "Hotovo"
 
-#: src/Tribe/Main.php:273 src/Tribe/Main.php:275
+#: src/Tribe/Main.php:290 src/Tribe/Main.php:292
 msgid "Today"
 msgstr "Dnes"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:289
 msgid "Prev"
 msgstr "Předchozí"
 
-#: src/Tribe/Main.php:254 src/Tribe/Main.php:271
+#: src/Tribe/Main.php:271 src/Tribe/Main.php:288
 msgid "Next"
 msgstr "Další"
 

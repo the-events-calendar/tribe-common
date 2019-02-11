@@ -11,6 +11,59 @@ msgstr ""
 "Language: ja_JP\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/views/promoter/auth.php:47
+msgid "Please authorize to continue onboarding."
+msgstr ""
+
+#: src/views/promoter/auth.php:45
+msgid "Sorry, unable to authenticate your site. Please contact Promoter support."
+msgstr ""
+
+#: src/views/promoter/auth.php:26
+msgid "You're ready to begin using Promoter! Please close this window."
+msgstr ""
+
+#: src/views/promoter/auth.php:71
+msgid "Terms"
+msgstr ""
+
+#: src/views/promoter/auth.php:70
+msgid "and"
+msgstr ""
+
+#: src/views/promoter/auth.php:69
+msgid "Privacy"
+msgstr ""
+
+#: src/views/promoter/auth.php:68
+msgid "Promoter All rights reserved."
+msgstr ""
+
+#: src/views/promoter/auth.php:55
+msgid "Authorize Promoter"
+msgstr ""
+
+#: src/views/promoter/auth.php:39
+msgid "Please log out and log back in as an admin account"
+msgstr ""
+
+#: src/views/promoter/auth.php:37
+msgid "You do not have access to authenticate this site."
+msgstr ""
+
+#: src/views/promoter/auth.php:32
+msgid "Please log in to continue"
+msgstr ""
+
+#: src/views/promoter/auth.php:20
+msgid "Promoter would like to sync with your site"
+msgstr ""
+
+#: src/Tribe/Promoter/PUE.php:28 src/views/promoter/auth.php:15
+#: src/views/promoter/auth.php:64
+msgid "Promoter"
+msgstr ""
+
 #: src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
 msgstr ""
@@ -19,19 +72,15 @@ msgstr ""
 msgid "Numeric Array"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:97
-msgid "F j, Y g:i a"
-msgstr ""
-
 #: src/Tribe/Editor/Configuration.php:96
 msgid "F j"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:95
+#: src/Tribe/Editor/Configuration.php:95 src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:94
+#: src/Tribe/Editor/Configuration.php:94 src/Tribe/Editor/Configuration.php:97
 msgid "g:i a"
 msgstr ""
 
@@ -49,7 +98,7 @@ msgstr ""
 msgid "Problem loading the block, please remove this block to restart."
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:293
 msgid "Clear"
 msgstr ""
 
@@ -129,15 +178,15 @@ msgstr "下記の 3 つのフィールドは、PHP %1$s 関数に使用できる
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr "独自のターム、アーカイブ、および親 REST URL へのリンクのリスト"
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:268
 msgid "Clear Selection."
 msgstr "選択をクリアしてください。"
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:267
 msgid "Select all pages"
 msgstr "すべてのページを選択"
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:266
 msgid "All items on this page were selected. "
 msgstr "このページのすべての項目が選択されました。 "
 
@@ -169,24 +218,24 @@ msgstr "Event Tickets は、ビジターにイベントへ RSVP していただ�
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
 msgstr "イベント カレンダーを簡単に作成して管理しましょう。Events Calendar プラグインは、お客さまよりご信頼をいただけるチームがバックアップするプロフェッショナル レベルの品質と機能を提供します。"
 
-#: src/Tribe/PUE/Checker.php:1103
+#: src/Tribe/PUE/Checker.php:1106
 msgid "There is a new version of %1$s available. %2$s"
 msgstr "新しいバージョンの %1$s をご利用いただくことができます。%2$s"
 
-#: src/Tribe/PUE/Checker.php:1092
+#: src/Tribe/PUE/Checker.php:1095
 msgid "Update now to version %s."
 msgstr "新しいバージョン %s に今すぐアップデートしてください。"
 
-#: src/Tribe/PUE/Notices.php:397
+#: src/Tribe/PUE/Notices.php:398
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr "%1$stheeventscalendar.com のご自分のアカウント%2$sにログインすると、ライセンスのステータスをいつでもご確認いただくことができます。"
 
-#: src/Tribe/PUE/Notices.php:282
+#: src/Tribe/PUE/Notices.php:279
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] "%1$s をご使用いただいているようですが、ライセンス キーが無効です。%2$sご使用のアカウント%3$sから最新バージョンをダウンロードしてください。"
 
-#: src/Tribe/PUE/Checker.php:984
+#: src/Tribe/PUE/Checker.php:987
 msgid "Please refresh the page and try your request again."
 msgstr "トップ ページを最新の情報に更新し、もう一度リクエストしてみてください。"
 
@@ -306,7 +355,7 @@ msgstr "コスト文字列の通貨記号の位置"
 msgid "The cost currency symbol"
 msgstr "コスト通貨記号"
 
-#: src/Tribe/PUE/Checker.php:497
+#: src/Tribe/PUE/Checker.php:500
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr "追加インポート機能にアクセスするには、Event Aggregator サービス用の%1$sライセンスを購入%2$sしてください。"
 
@@ -318,31 +367,31 @@ msgstr "%s は 正の整数 (0 を含む) である必要があります。"
 msgid "Events Help"
 msgstr "Events ヘルプ"
 
-#: src/Tribe/PUE/Checker.php:1685
+#: src/Tribe/PUE/Checker.php:1688
 msgid "Expired license. Consult your network administrator."
 msgstr "ライセンスの期限が切れています。ネットワーク管理者にご相談ください。"
 
-#: src/Tribe/PUE/Checker.php:1684
+#: src/Tribe/PUE/Checker.php:1687
 msgid "No license entered. Consult your network administrator."
 msgstr "ライセンスが入力されていません。ネットワーク管理者にご相談ください。"
 
-#: src/Tribe/PUE/Checker.php:1683
+#: src/Tribe/PUE/Checker.php:1686
 msgid "A valid license has been entered by your network administrator."
 msgstr "ネットワーク管理者により有効なライセンスが入力されています。"
 
-#: src/Tribe/PUE/Checker.php:550
+#: src/Tribe/PUE/Checker.php:553
 msgid "Site License Key"
 msgstr "サイト ライセンス キー"
 
-#: src/Tribe/PUE/Checker.php:539
+#: src/Tribe/PUE/Checker.php:542
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr "ご自身のネットワーク ライセンス キーで上書きする場合は、このチェックボックスを選択します"
 
-#: src/Tribe/PUE/Checker.php:538
+#: src/Tribe/PUE/Checker.php:541
 msgid "Override network license key"
 msgstr "ネットワーク ライセンス キーを上書きする"
 
-#: src/Tribe/PUE/Checker.php:529 src/Tribe/PUE/Checker.php:563
+#: src/Tribe/PUE/Checker.php:532 src/Tribe/PUE/Checker.php:566
 msgid "License Key Status:"
 msgstr "ライセンス キー ステータス:"
 
@@ -367,13 +416,13 @@ msgid "Installed Add-Ons"
 msgstr "インストール済みのアドオン"
 
 #: src/Tribe/Admin/Notice/Php_Version.php:60
-#: src/Tribe/Admin/Notice/Plugin_Download.php:92
+#: src/Tribe/Admin/Notice/Plugin_Download.php:118
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr " および "
 
 #: src/Tribe/Admin/Notice/Php_Version.php:59
-#: src/Tribe/Admin/Notice/Plugin_Download.php:91
+#: src/Tribe/Admin/Notice/Plugin_Download.php:117
 msgctxt "separator used in a list of items"
 msgid ", "
 msgstr "、 "
@@ -398,26 +447,26 @@ msgstr "すべてのアドオンを参照する"
 msgid "Events Add-Ons"
 msgstr "Events アドオン"
 
-#: src/Tribe/PUE/Notices.php:440
+#: src/Tribe/PUE/Notices.php:441
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr "%1$s および %2$s"
 
-#: src/Tribe/PUE/Notices.php:359
+#: src/Tribe/PUE/Notices.php:356
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] "%1$s 用のライセンス キーをお持ちですが、キーがインストールされていません。%2$sEvents Calendar ウェブサイトにアクセス%3$sし、インストール状況の管理、ライセンスのアップグレード、または新規購入を行ってください。"
 
-#: src/Tribe/PUE/Notices.php:327
+#: src/Tribe/PUE/Notices.php:324
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] "%1$s のアップデートをご利用いただけますが、ライセンスの期限が切れています。%2$sEvents Calendar ウェブサイトにアクセスし、ライセンスを更新してください。%3$s"
 
-#: src/Tribe/PUE/Checker.php:1062
+#: src/Tribe/PUE/Checker.php:1065
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr "%s のアップデートがあります。%sライセンスを更新%sし、バク修正、セキュリティ アップデート、および新機能へのアクセスを取得してください。"
 
-#: src/Tribe/PUE/Checker.php:1005
+#: src/Tribe/PUE/Checker.php:1008
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr "%s のアップデートがあります。アップデート、ダウンロード、およびサポートへのアクセスを取得するには、%sライセンスを確認%sする必要があります。"
 
@@ -425,9 +474,9 @@ msgstr "%s のアップデートがあります。アップデート、ダウン
 msgid "Event Aggregator"
 msgstr "Event Aggregator"
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:75
-msgid "To begin using %1$s, please install and activate the latest version of %2$s."
-msgstr "%1$s の使用を開始するには、最新バージョンの %2$s をインストールしてアクティブ化してください。"
+#: src/Tribe/Admin/Notice/Plugin_Download.php:101
+msgid "To begin using %2$s, please install and activate the latest version of %3$s."
+msgstr ""
 
 #: src/admin-views/tribe-options-licenses.php:30
 msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
@@ -478,71 +527,71 @@ msgstr "はい、私のシステム情報を Modern Tribe サポート チーム
 msgid "English"
 msgstr "英語"
 
-#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:342
+#: src/Tribe/PUE/Checker.php:972 src/Tribe/PUE/Notices.php:339
 msgid " (opens in a new window)"
 msgstr " (新しいウィンドウで開く)"
 
-#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:340
+#: src/Tribe/PUE/Checker.php:970 src/Tribe/PUE/Notices.php:337
 msgid "Renew Your License Now"
 msgstr "今すぐライセンスを更新する"
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:278
 msgid ": Selected 1 row"
 msgstr ": 1 行を選択しました"
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:277
 msgid ": Selected %d rows"
 msgstr ": %d 行を選択しました"
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:272
 msgid "Previous"
 msgstr "前"
 
-#: src/Tribe/Main.php:253
+#: src/Tribe/Main.php:270
 msgid "All"
 msgstr "すべて"
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:264
 msgid "No matching records found"
 msgstr "一致するレコードが見つかりませんでした"
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:263
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(_MAX_ total エントリーからフィルタリング)"
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:262
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "0 エントリーのうち 0 から 0 を表示しています"
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:261
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "_TOTAL_ エントリーのうち _START_ から _END_ を表示しています"
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:260
 msgid "No data available in table"
 msgstr "テーブルには利用できるデータがありません"
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:259
 msgid "Show _MENU_ entries"
 msgstr "_MENU_ エントリーを表示"
 
-#: src/Tribe/Main.php:240
+#: src/Tribe/Main.php:257
 msgid ": activate to sort column descending"
 msgstr ": アクティブ化して降順でカラムを並べ替え"
 
-#: src/Tribe/Main.php:239
+#: src/Tribe/Main.php:256
 msgid ": activate to sort column ascending"
 msgstr ": アクティブ化して昇順でカラムを並べ替え"
 
-#: src/Tribe/Main.php:284
+#: src/Tribe/Main.php:301
 msgid "Press \"Cmd + C\" to copy"
 msgstr "コピーするには、\"Cmd + C\" を押してください"
 
-#: src/Tribe/Main.php:283
+#: src/Tribe/Main.php:300
 msgid "System info copied"
 msgstr "システム情報がコピーされました"
 
-#: src/Tribe/Main.php:282 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:299 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "クリップボードにコピーされました"
 
@@ -753,7 +802,7 @@ msgstr "Event Tickets をご使用いただきありがとうございます! �
 msgid "%s must be a positive number or percent."
 msgstr "%s は、正の数またはパーセントである必要があります。"
 
-#: src/Tribe/PUE/Checker.php:940
+#: src/Tribe/PUE/Checker.php:943
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr "有効なキーをセットアップいただきありがとうございます。有効期限は %s です"
 
@@ -853,7 +902,7 @@ msgstr "%1$s 当社プラグインを複数サイト ネットワークでご使
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr "再書き込みルールは、このヘルプ ページのオンロードでパージされました。プラグインまたはテーマで発生をフラッシュする再書き込みルールが存在する可能性があります。"
 
-#: src/Tribe/PUE/Checker.php:909
+#: src/Tribe/PUE/Checker.php:912
 msgid "unknown date"
 msgstr "不明な日付です"
 
@@ -2258,31 +2307,31 @@ msgstr "%s 設定"
 msgid "Events Settings"
 msgstr "イベント設定"
 
-#: src/Tribe/PUE/Checker.php:896
+#: src/Tribe/PUE/Checker.php:899
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "このバリデーターに何らかの問題が発生しているようです。%sサポート%sにお問い合わせください。"
 
-#: src/Tribe/PUE/Checker.php:935
+#: src/Tribe/PUE/Checker.php:938
 msgid "Valid Key! Expires on %s"
 msgstr "有効なキーです! 有効期限は %s です"
 
-#: src/Tribe/PUE/Checker.php:915
+#: src/Tribe/PUE/Checker.php:918
 msgid "Sorry, key validation server is not available."
 msgstr "申し訳ございませんが、キー検証サーバーが利用できません。"
 
-#: src/Tribe/PUE/Checker.php:650
+#: src/Tribe/PUE/Checker.php:653
 msgid "License key(s) updated."
 msgstr "ライセンス キーが更新されました。"
 
-#: src/Tribe/PUE/Checker.php:494
+#: src/Tribe/PUE/Checker.php:497
 msgid "A valid license key is required for support and updates"
 msgstr "サポートおよびアップデートには、有効なライセンス キーが必要です"
 
-#: src/Tribe/PUE/Checker.php:509 src/Tribe/PUE/Checker.php:520
+#: src/Tribe/PUE/Checker.php:512 src/Tribe/PUE/Checker.php:523
 msgid "License Key"
 msgstr "ライセンス キー"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:265
 msgid "Search:"
 msgstr "検索:"
 
@@ -2294,19 +2343,19 @@ msgstr "設定"
 msgid "Network"
 msgstr "ネットワーク"
 
-#: src/Tribe/Main.php:274
+#: src/Tribe/Main.php:291
 msgid "Done"
 msgstr "完了"
 
-#: src/Tribe/Main.php:273 src/Tribe/Main.php:275
+#: src/Tribe/Main.php:290 src/Tribe/Main.php:292
 msgid "Today"
 msgstr "今日"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:289
 msgid "Prev"
 msgstr "前"
 
-#: src/Tribe/Main.php:254 src/Tribe/Main.php:271
+#: src/Tribe/Main.php:271 src/Tribe/Main.php:288
 msgid "Next"
 msgstr "次"
 

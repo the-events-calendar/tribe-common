@@ -104,7 +104,7 @@ class Tribe__Editor__Utils {
 	/**
 	 * Strip the dynamic blocks of the content
 	 *
-	 * @since TBD
+	 * @since 4.8.5
 	 *
 	 * @param string $content The event content
 	 *
@@ -123,7 +123,7 @@ class Tribe__Editor__Utils {
 	/**
 	 * Return the content without the tribe blocks
 	 *
-	 * @since TBD
+	 * @since 4.8.5
 	 *
 	 * @param string $content The event content
 	 *
