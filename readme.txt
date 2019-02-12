@@ -1,22 +1,35 @@
 === Tribe Common ===
 
-
 == Changelog ==
 
-= [4.8.5] TBD =
+= [4.9.1] TBD =
 
 * Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
 * Fix - Make sure we pass and get the parameter when using cron jobs to import images on EA [119269]
 
-= [4.8.4] TBD =
+= [4.9] 2019-02-05 =
+
+* Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
+* Tweak - Added support for Promoter licenses [120320]
+* Tweak - Added filters: `tribe_register_{$main_class}_plugin_version`, `tribe_register_{$main_class}_plugin_dependencies`
+* Tweak - Added actions: `tribe_plugins_loaded `
+* Tweak - Changed views: `promoter/auth`
+* Language - 3 new strings added, 10 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.8.5] 2019-01-21 =
 
 * Fix - Updated translation strings from the Gutenberg extension merge [118656]
 * Add - Added `strip_dynamic_blocks` method in `Tribe__Editor__Utils` [118679]
 * Add - Added `exclude_tribe_blocks` method in `Tribe__Editor__Utils` [118679]
 * Tweak - Allow better control of when we are in Classic editor with a new filter `tribe_editor_classic_is_active` [120137]
 * Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating Event Tickets or The Events Calendar [117795]
+* Language - 0 new strings added, 9 updated, 1 fuzzied, and 1 obsoleted
 
-= [4.8.3] 2018-12-18 =
+= [4.8.4] 2019-01-15 =
+
+* Add - Added new filter `tribe_asset_data_add_object_{$object_name}` to allow integrations to customize the object data and add additional properties [119760]
+
+= [4.8.3] 2018-12-19 =
 
 * Tweak - Refreshing the Welcome page for The Events Calendar and Event Tickets [117795]
 * Fix - Prevent admin tooltips to that full page width on Blocks Editor [118883]

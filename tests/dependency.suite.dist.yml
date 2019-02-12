@@ -1,0 +1,27 @@
+actor: DependencyTester
+modules:
+    enabled:
+        - \Helper\Dependency
+        - WPBrowser
+        - WPDb
+        - WPFilesystem
+        - Asserts
+    config:
+        WPDb:
+          dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%'
+          user: %DB_USER%
+          password: %DB_PASSWORD%
+          dump: tests/_data/dependency-dump.sql
+          populate: true
+          cleanup: true
+          url: '%WP_URL%'
+          tablePrefix: wp_
+          waitlock: 10
+        WPBrowser:
+          url: '%WP_URL%'
+          adminUsername: %WP_ADMIN_USERNAME%
+          adminPassword: '%WP_ADMIN_PASSWORD%'
+          adminUrl: /wp-admin
+        WPFilesystem:
+          # We assume a default WordPress folder structure.
+          wpRootFolder: "%WP_ROOT_FOLDER%"

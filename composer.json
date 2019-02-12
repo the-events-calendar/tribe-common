@@ -20,7 +20,8 @@
   },
   "require": {
     "lucatume/di52": "~2.0",
-    "a5hleyrich/wp-background-processing": "^1.0.1"
+    "a5hleyrich/wp-background-processing": "^1.0.1",
+    "firebase/php-jwt": "^5.0"
   },
   "scripts": {
     "post-install-cmd": [

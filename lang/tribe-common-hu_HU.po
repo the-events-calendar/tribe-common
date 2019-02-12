@@ -11,6 +11,59 @@ msgstr ""
 "Language: hu\n"
 "Project-Id-Version: Tribe Common\n"
 
+#: src/views/promoter/auth.php:47
+msgid "Please authorize to continue onboarding."
+msgstr ""
+
+#: src/views/promoter/auth.php:45
+msgid "Sorry, unable to authenticate your site. Please contact Promoter support."
+msgstr ""
+
+#: src/views/promoter/auth.php:26
+msgid "You're ready to begin using Promoter! Please close this window."
+msgstr ""
+
+#: src/views/promoter/auth.php:71
+msgid "Terms"
+msgstr ""
+
+#: src/views/promoter/auth.php:70
+msgid "and"
+msgstr ""
+
+#: src/views/promoter/auth.php:69
+msgid "Privacy"
+msgstr ""
+
+#: src/views/promoter/auth.php:68
+msgid "Promoter All rights reserved."
+msgstr ""
+
+#: src/views/promoter/auth.php:55
+msgid "Authorize Promoter"
+msgstr ""
+
+#: src/views/promoter/auth.php:39
+msgid "Please log out and log back in as an admin account"
+msgstr ""
+
+#: src/views/promoter/auth.php:37
+msgid "You do not have access to authenticate this site."
+msgstr ""
+
+#: src/views/promoter/auth.php:32
+msgid "Please log in to continue"
+msgstr ""
+
+#: src/views/promoter/auth.php:20
+msgid "Promoter would like to sync with your site"
+msgstr ""
+
+#: src/Tribe/Promoter/PUE.php:28 src/views/promoter/auth.php:15
+#: src/views/promoter/auth.php:64
+msgid "Promoter"
+msgstr ""
+
 #: src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
 msgstr ""
@@ -19,19 +72,15 @@ msgstr ""
 msgid "Numeric Array"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:97
-msgid "F j, Y g:i a"
-msgstr ""
-
 #: src/Tribe/Editor/Configuration.php:96
 msgid "F j"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:95
+#: src/Tribe/Editor/Configuration.php:95 src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:94
+#: src/Tribe/Editor/Configuration.php:94 src/Tribe/Editor/Configuration.php:97
 msgid "g:i a"
 msgstr ""
 
@@ -49,7 +98,7 @@ msgstr ""
 msgid "Problem loading the block, please remove this block to restart."
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:293
 msgid "Clear"
 msgstr "Kiürít"
 
@@ -129,15 +178,15 @@ msgstr "A következő három mezőben a dátum formátumot lehet beállítani a 
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr "A kifejezés saját, archív és szülő REST URL-jeinek listája"
 
-#: src/Tribe/Main.php:251
+#: src/Tribe/Main.php:268
 msgid "Clear Selection."
 msgstr "Kiválasztás törlése."
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:267
 msgid "Select all pages"
 msgstr "Minden oldal kiválasztása"
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:266
 msgid "All items on this page were selected. "
 msgstr "Az összes elem ki lett választva ezen az oldalon."
 
@@ -169,25 +218,25 @@ msgstr "Az Event Tickets lehetőséget ad a látogatóidnak, hogy regisztráljan
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
 msgstr "Készíts egy eseménynaptárt és kezeld egyszerűen. A The Events Calendar bővítmény profi minőséget és funkciókat kínál, és egy megbízható csapat áll mögötte."
 
-#: src/Tribe/PUE/Checker.php:1103
+#: src/Tribe/PUE/Checker.php:1106
 msgid "There is a new version of %1$s available. %2$s"
 msgstr "A %1$s bővítményhez elérhető egy új verzió. %2$s"
 
-#: src/Tribe/PUE/Checker.php:1092
+#: src/Tribe/PUE/Checker.php:1095
 msgid "Update now to version %s."
 msgstr "Frissítés a %s verzióra."
 
-#: src/Tribe/PUE/Notices.php:397
+#: src/Tribe/PUE/Notices.php:398
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr "Bármikor leellenőrizheted a licenszeid státuszát, ha %1$sbejelentkezel a fiókodba a theeventscalendar.com oldalon%2$s."
 
-#: src/Tribe/PUE/Notices.php:282
+#: src/Tribe/PUE/Notices.php:279
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] "Úgy tűnik, hogy a(z) %1$s bővítményt használod, de a licensz kulcs érvénytelen. Töltsd le az legfrissebb verziót %2$sa fiókodból%3$s."
 msgstr[1] "Úgy tűnik, hogy a(z) %1$s bővítményeket használod, de a licensz kulcsok érvénytelenek. Töltsd le az legfrissebb verziókat %2$sa fiókodból%3$s."
 
-#: src/Tribe/PUE/Checker.php:984
+#: src/Tribe/PUE/Checker.php:987
 msgid "Please refresh the page and try your request again."
 msgstr "Kérjük frissítse az oldalt és próbálja újra."
 
@@ -307,7 +356,7 @@ msgstr "A valuta szimbólum helyzete a költség karakterláncban"
 msgid "The cost currency symbol"
 msgstr "A költséghez tartozó valuta szimbólum"
 
-#: src/Tribe/PUE/Checker.php:497
+#: src/Tribe/PUE/Checker.php:500
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr "%1$sVásárolj egy licenszet%2$s az Event Aggregator szolgáltatáshoz további importálási funkciók eléréséhez."
 
@@ -319,31 +368,31 @@ msgstr "%s -nek egész számnak kell lennie."
 msgid "Events Help"
 msgstr "Események segítség"
 
-#: src/Tribe/PUE/Checker.php:1685
+#: src/Tribe/PUE/Checker.php:1688
 msgid "Expired license. Consult your network administrator."
 msgstr "Lejárt licensz. Lépj kapcsolatba a hálózati adminisztrátorral."
 
-#: src/Tribe/PUE/Checker.php:1684
+#: src/Tribe/PUE/Checker.php:1687
 msgid "No license entered. Consult your network administrator."
 msgstr "Nincs megadva licensz kulcs. Lépj kapcsolatba a hálózati adminisztrátorral. "
 
-#: src/Tribe/PUE/Checker.php:1683
+#: src/Tribe/PUE/Checker.php:1686
 msgid "A valid license has been entered by your network administrator."
 msgstr "A hálózati adminisztrátor megadott egy érvényes licensz kulcsot."
 
-#: src/Tribe/PUE/Checker.php:550
+#: src/Tribe/PUE/Checker.php:553
 msgid "Site License Key"
 msgstr "Az oldal licensz kulcsa"
 
-#: src/Tribe/PUE/Checker.php:539
+#: src/Tribe/PUE/Checker.php:542
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr "Jelöld be ezt a négyzetet, ha a hálózati licensz kulcsot felül akarod írni a sajátoddal."
 
-#: src/Tribe/PUE/Checker.php:538
+#: src/Tribe/PUE/Checker.php:541
 msgid "Override network license key"
 msgstr "Hálózati licensz kulcs felülírása"
 
-#: src/Tribe/PUE/Checker.php:529 src/Tribe/PUE/Checker.php:563
+#: src/Tribe/PUE/Checker.php:532 src/Tribe/PUE/Checker.php:566
 msgid "License Key Status:"
 msgstr "Licensz kulcs állapota:"
 
@@ -368,13 +417,13 @@ msgid "Installed Add-Ons"
 msgstr "Telepített kiegészítők"
 
 #: src/Tribe/Admin/Notice/Php_Version.php:60
-#: src/Tribe/Admin/Notice/Plugin_Download.php:92
+#: src/Tribe/Admin/Notice/Plugin_Download.php:118
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr " és "
 
 #: src/Tribe/Admin/Notice/Php_Version.php:59
-#: src/Tribe/Admin/Notice/Plugin_Download.php:91
+#: src/Tribe/Admin/Notice/Plugin_Download.php:117
 msgctxt "separator used in a list of items"
 msgid ", "
 msgstr ", "
@@ -399,28 +448,28 @@ msgstr "Összes kiegészítő megtekintése"
 msgid "Events Add-Ons"
 msgstr "Esemény kiegészítők"
 
-#: src/Tribe/PUE/Notices.php:440
+#: src/Tribe/PUE/Notices.php:441
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr "%1$s és %2$s"
 
-#: src/Tribe/PUE/Notices.php:359
+#: src/Tribe/PUE/Notices.php:356
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] "A(z) %1$s bővítményhez rendelkezel licensz kulccsal, de már nem használható több helyen. %2$sLátogass el a The Events Calendar weboldalára%3$s a licenszeid kezeléséhez, frissítéséhez, vagy egy új licensz vásárlásához."
 msgstr[1] "A(z) %1$s bővítményekhez rendelkezel licensz kulccsal, de azok már nem használhatóak több helyen. %2$sLátogass el a The Events Calendar weboldalára%3$s a licenszeid kezeléséhez, frissítéséhez, vagy egy új licensz vásárlásához."
 
-#: src/Tribe/PUE/Notices.php:327
+#: src/Tribe/PUE/Notices.php:324
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] "A(z) %1$s bővítményhez elérhető egy frissítés, de a licenszed lejárt. %2$sLátogass el a The Events Calendar weboldalára a licenszed megújításához.%3$s"
 msgstr[1] "A(z) %1$s bővítményekhez elérhető frissítés, de a licenszeid lejártak. %2$sLátogass el a The Events Calendar weboldalára a licenszeid megújításához.%3$s"
 
-#: src/Tribe/PUE/Checker.php:1062
+#: src/Tribe/PUE/Checker.php:1065
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr "A(z) %s bővítményhez elérhető egy frissítés. %sÚjítsd meg a licenszedet%s, hogy hozzáférj a hibajavításokhoz, biztonsági frissítésekhez és új funkciókhoz."
 
-#: src/Tribe/PUE/Checker.php:1005
+#: src/Tribe/PUE/Checker.php:1008
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr "A(z) %s bővítményhez elérhető egy frissítés. %sEllenőrizd a licenszedet%s, hogy hozzáférj a frissítésekhez, letöltésekhez, és támogatáshoz."
 
@@ -428,9 +477,9 @@ msgstr "A(z) %s bővítményhez elérhető egy frissítés. %sEllenőrizd a lice
 msgid "Event Aggregator"
 msgstr "Event Aggregator"
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:75
-msgid "To begin using %1$s, please install and activate the latest version of %2$s."
-msgstr "A(z) %1$s használatának megkezdéséhez telepítsd és aktívád a(z) %2$s legújabb verzióját."
+#: src/Tribe/Admin/Notice/Plugin_Download.php:101
+msgid "To begin using %2$s, please install and activate the latest version of %3$s."
+msgstr ""
 
 #: src/admin-views/tribe-options-licenses.php:30
 msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
@@ -481,71 +530,71 @@ msgstr "Igen, automatikusan megosztom a rendszerinformációmat a Modern Tribe t
 msgid "English"
 msgstr "Angol"
 
-#: src/Tribe/PUE/Checker.php:969 src/Tribe/PUE/Notices.php:342
+#: src/Tribe/PUE/Checker.php:972 src/Tribe/PUE/Notices.php:339
 msgid " (opens in a new window)"
 msgstr "(új ablakban nyílik meg)"
 
-#: src/Tribe/PUE/Checker.php:967 src/Tribe/PUE/Notices.php:340
+#: src/Tribe/PUE/Checker.php:970 src/Tribe/PUE/Notices.php:337
 msgid "Renew Your License Now"
 msgstr "Licensz megújítása most"
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:278
 msgid ": Selected 1 row"
 msgstr ": 1 sor kiválasztva"
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:277
 msgid ": Selected %d rows"
 msgstr ": %d sor kiválasztva"
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:272
 msgid "Previous"
 msgstr "Előző"
 
-#: src/Tribe/Main.php:253
+#: src/Tribe/Main.php:270
 msgid "All"
 msgstr "Összes"
 
-#: src/Tribe/Main.php:247
+#: src/Tribe/Main.php:264
 msgid "No matching records found"
 msgstr "Nem található egyező rekord"
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:263
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(összesen _MAX_ bejegyzésből szűrve)"
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:262
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Bejegyzések 0-0-ig az összesen 0 bejegyzésből"
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:261
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Bejegyzések _START_-_END_-ig az összesen _TOTAL_ bejegyzésből"
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:260
 msgid "No data available in table"
 msgstr "Nincs elérhető adat az adattáblában"
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:259
 msgid "Show _MENU_ entries"
 msgstr "Mutass _MENU_ bejegyzést"
 
-#: src/Tribe/Main.php:240
+#: src/Tribe/Main.php:257
 msgid ": activate to sort column descending"
 msgstr ": aktiváld az oszlop csökkenő sorrendben való rendezéséhez"
 
-#: src/Tribe/Main.php:239
+#: src/Tribe/Main.php:256
 msgid ": activate to sort column ascending"
 msgstr ": aktiváld az oszlop növekvő sorrendben való rendezéséhez"
 
-#: src/Tribe/Main.php:284
+#: src/Tribe/Main.php:301
 msgid "Press \"Cmd + C\" to copy"
 msgstr "\"Cmd + C\" a másoláshoz"
 
-#: src/Tribe/Main.php:283
+#: src/Tribe/Main.php:300
 msgid "System info copied"
 msgstr "Rendszerinformációk másolva"
 
-#: src/Tribe/Main.php:282 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:299 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "Másolás a vágólapra"
 
@@ -756,7 +805,7 @@ msgstr "Köszönjük, hogy az Event Tickets bővítményt használod! Mi a Moder
 msgid "%s must be a positive number or percent."
 msgstr "%s-nek pozitív számnak vagy százaléknak kell lennie."
 
-#: src/Tribe/PUE/Checker.php:940
+#: src/Tribe/PUE/Checker.php:943
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr "Köszönjük, hogy érvényes kulcsot adott meg. A megadott kulcs lejárata: %s"
 
@@ -856,7 +905,7 @@ msgstr "%1$sHálózati környezetben használod a bővítményeinket?%2$s A lice
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr "A felülírási szabályokat ki lettek tisztítva az oldal betöltésekor. Valószínűleg egy bővítményben vagy sablonban felülírási szabály törlés történik."
 
-#: src/Tribe/PUE/Checker.php:909
+#: src/Tribe/PUE/Checker.php:912
 msgid "unknown date"
 msgstr "ismeretlen dátum"
 
@@ -2262,31 +2311,31 @@ msgstr "%s beállítások"
 msgid "Events Settings"
 msgstr "Események beállításai"
 
-#: src/Tribe/PUE/Checker.php:896
+#: src/Tribe/PUE/Checker.php:899
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmmm... Valami nincs rendben az érvényesítővel. Kérjük, fordulj a %stámogatói csapathoz%s."
 
-#: src/Tribe/PUE/Checker.php:935
+#: src/Tribe/PUE/Checker.php:938
 msgid "Valid Key! Expires on %s"
 msgstr "Érvényes kulcs! Lejár ekkor: %s"
 
-#: src/Tribe/PUE/Checker.php:915
+#: src/Tribe/PUE/Checker.php:918
 msgid "Sorry, key validation server is not available."
 msgstr "Sajnáljuk, de a kulcs érvényességét ellenőrző kiszolgáló nem elérhető."
 
-#: src/Tribe/PUE/Checker.php:650
+#: src/Tribe/PUE/Checker.php:653
 msgid "License key(s) updated."
 msgstr "Licensz kulcs(ok) frissítve."
 
-#: src/Tribe/PUE/Checker.php:494
+#: src/Tribe/PUE/Checker.php:497
 msgid "A valid license key is required for support and updates"
 msgstr "Egy érvényes licensz szükséges a támogatáshoz és frissítésekhez"
 
-#: src/Tribe/PUE/Checker.php:509 src/Tribe/PUE/Checker.php:520
+#: src/Tribe/PUE/Checker.php:512 src/Tribe/PUE/Checker.php:523
 msgid "License Key"
 msgstr "Licensz kulcs"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:265
 msgid "Search:"
 msgstr "Keresés:"
 
@@ -2298,19 +2347,19 @@ msgstr "Beállítások"
 msgid "Network"
 msgstr "Hálózat"
 
-#: src/Tribe/Main.php:274
+#: src/Tribe/Main.php:291
 msgid "Done"
 msgstr "Kész"
 
-#: src/Tribe/Main.php:273 src/Tribe/Main.php:275
+#: src/Tribe/Main.php:290 src/Tribe/Main.php:292
 msgid "Today"
 msgstr "Ma"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:289
 msgid "Prev"
 msgstr "Előző"
 
-#: src/Tribe/Main.php:254 src/Tribe/Main.php:271
+#: src/Tribe/Main.php:271 src/Tribe/Main.php:288
 msgid "Next"
 msgstr "Következő"
 
