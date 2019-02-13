@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.9.0.1] 2019-02-07 =
+
+* Fix - Modify extension dependency checking with new system to determine if it can load [122368]
+
 = [4.9] 2019-02-05 =
 
 * Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
