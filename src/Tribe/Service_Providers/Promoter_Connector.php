@@ -85,7 +85,7 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 			array( 'wp_enqueue_scripts', 'admin_enqueue_scripts' ),
 			array(
 				'conditionals' => array( $this, 'should_load_promoter_styles' ),
-			),
+			)
 		);
 	}
 
