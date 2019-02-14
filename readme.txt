@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.1] TBD =
+= [4.9.1] 2019-02-14 =
 
 * Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
 
