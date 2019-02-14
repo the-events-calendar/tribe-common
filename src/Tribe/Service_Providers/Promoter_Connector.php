@@ -65,8 +65,8 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 			'href'  => 'https://promoter.theeventscalendar.com/',
 			'meta'  => array(
 				'target' => '_blank',
-				'class' => 'promoter-admin-bar-link'
-			)
+				'class'  => 'promoter-admin-bar-link',
+			),
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -82,10 +82,10 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 			'promoter',
 			'promoter.css',
 			array(),
-			array('wp_enqueue_scripts', 'admin_enqueue_scripts' ),
+			array( 'wp_enqueue_scripts', 'admin_enqueue_scripts' ),
 			array(
 				'conditionals' => array( $this, 'should_load_promoter_styles' ),
-			)
+			),
 		);
 	}
 
