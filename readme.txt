@@ -4,8 +4,8 @@
 
 = [4.9.2] TBD =
 
-* Fix - Update the order of loading of providers to ensure correct execution for Promoter
 * Feature - Add promoter access from the WP Admin Bar
+* Fix - Update the order of loading of providers to ensure correct execution for Promoter
 
 = [4.9.0.1] 2019-02-07 =
 
