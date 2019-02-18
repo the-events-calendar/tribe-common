@@ -42,6 +42,7 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 	/**
 	 * Add Admin Bar link to the promoter website
 	 *
+	 * @since TBD
 	 * @param $wp_admin_bar
 	 */
 	public function add_promoter_logo_on_admin_bar( $wp_admin_bar ) {
