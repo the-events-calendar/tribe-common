@@ -146,13 +146,14 @@ class Tribe__Timezones {
 		$timezone = timezone_name_from_abbr( '', $seconds, 0 );
 
 		if ( false === $timezone ) {
-			$is_dst = date( 'I' );
+			$is_dst = (bool) date( 'I' );
 
 			foreach ( timezone_abbreviations_list() as $abbr ) {
 				foreach ( $abbr as $city ) {
 					if (
-						$city['dst'] == $is_dst
-						&& $city['offset'] == $seconds
+						(bool) $city['dst'] === $is_dst
+						&& intval( $city['offset'] ) === intval( $seconds )
+						&& $city['timezone_id']
 					) {
 						return $city['timezone_id'];
 					}
