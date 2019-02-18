@@ -2,10 +2,18 @@
 
 == Changelog ==
 
-= [4.9.1] TBD =
+= [4.9.2] TBD =
+
+* Fix - Make sure we pass and get the parameter when using cron jobs to import images on EA [119269]
+
+= [4.9.1] 2019-02-14 =
 
 * Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
-* Fix - Make sure we pass and get the parameter when using cron jobs to import images on EA [119269]
+* Language - 0 new strings added, 13 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.0.1] 2019-02-07 =
+
+* Fix - Modify extension dependency checking with new system to determine if it can load [122368]
 
 = [4.9] 2019-02-05 =
 
