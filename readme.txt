@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.9.2] TBD =
+
+* Fix - Update the order of loading of providers to ensure correct execution for Promoter
+* Feature - Add promoter access from the WP Admin Bar
+
 = [4.9.0.1] 2019-02-07 =
 
 * Fix - Modify extension dependency checking with new system to determine if it can load [122368]
