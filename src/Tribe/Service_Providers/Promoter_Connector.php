@@ -47,7 +47,7 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 	public function add_promoter_logo_on_admin_bar( $wp_admin_bar ) {
 		/** @var Tribe__Promoter__PUE $pue */
 		$pue = tribe( 'promoter.pue' );
-		if ( ! $pue->has_valid_license() ) {
+		if ( ! $pue->has_license_key() ) {
 			return;
 		}
 
@@ -98,6 +98,6 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 	 * @return bool
 	 */
 	public function should_load_promoter_styles() {
-		return is_user_logged_in() && tribe( 'promoter.pue' )->has_valid_license();
+		return is_user_logged_in() && tribe( 'promoter.pue' )->has_license_key();
 	}
 }
