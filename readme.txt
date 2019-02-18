@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.9.2] TBD =
+
+* Feature - Add promoter access from the WP Admin Bar
+* Fix - Update the order of loading of providers to ensure correct execution for Promoter
+
 = [4.9.1] 2019-02-14 =
 
 * Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
