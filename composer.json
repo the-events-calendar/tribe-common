@@ -10,7 +10,7 @@
   "license": "GPL-2.0",
   "require-dev": {
     "codeception/codeception": "2.5.2",
-    "lucatume/wp-browser": "^2.0.5",
+    "lucatume/wp-browser": "^2.2.1",
     "lucatume/function-mocker-le": "^1.0",
     "wp-cli/checksum-command": "1.0.5"
   },
