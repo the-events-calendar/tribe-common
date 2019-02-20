@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.9\n"
+"Project-Id-Version: Tribe Common 4.9.1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2019-01-30 15:20:52+00:00\n"
+"POT-Creation-Date: 2019-02-14 15:40:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-01-30 15:20\n"
+"PO-Revision-Date: 2019-02-14 15:40\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -1958,8 +1958,8 @@ msgid ""
 "lightbox, and random image - all backed by a full year of premium support."
 msgstr ""
 
-#: src/Tribe/Promoter/PUE.php:28 src/views/promoter/auth.php:15
-#: src/views/promoter/auth.php:64
+#: src/Tribe/Promoter/PUE.php:28 src/views/promoter/auth.php:29
+#: src/views/promoter/auth.php:77
 msgid "Promoter"
 msgstr ""
 
@@ -2525,52 +2525,52 @@ msgstr ""
 msgid "Hide the following settings tabs on every site:"
 msgstr ""
 
-#: src/views/promoter/auth.php:20
+#: src/views/promoter/auth.php:34
 msgid "Promoter would like to sync with your site"
 msgstr ""
 
-#: src/views/promoter/auth.php:26
+#: src/views/promoter/auth.php:40
 msgid "You're ready to begin using Promoter! Please close this window."
 msgstr ""
 
-#: src/views/promoter/auth.php:32
+#: src/views/promoter/auth.php:45
 msgid "Please log in to continue"
 msgstr ""
 
-#: src/views/promoter/auth.php:37
+#: src/views/promoter/auth.php:50
 msgid "You do not have access to authenticate this site."
 msgstr ""
 
-#: src/views/promoter/auth.php:39
+#: src/views/promoter/auth.php:52
 msgid "Please log out and log back in as an admin account"
 msgstr ""
 
-#: src/views/promoter/auth.php:45
+#: src/views/promoter/auth.php:58
 msgid ""
 "Sorry, unable to authenticate your site. Please contact Promoter support."
 msgstr ""
 
-#: src/views/promoter/auth.php:47
+#: src/views/promoter/auth.php:60
 msgid "Please authorize to continue onboarding."
 msgstr ""
 
-#: src/views/promoter/auth.php:55
+#: src/views/promoter/auth.php:68
 msgid "Authorize Promoter"
 msgstr ""
 
-#: src/views/promoter/auth.php:68
+#: src/views/promoter/auth.php:81
 msgid "Promoter All rights reserved."
 msgstr ""
 
-#: src/views/promoter/auth.php:69
+#: src/views/promoter/auth.php:82
 msgid "Privacy"
 msgstr ""
 
-#: src/views/promoter/auth.php:70
+#: src/views/promoter/auth.php:83
 msgid "and"
 msgstr ""
 
-#: src/views/promoter/auth.php:71
+#: src/views/promoter/auth.php:84
 msgid "Terms"
 msgstr ""
 

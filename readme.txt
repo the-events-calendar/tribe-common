@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.1] TBD =
+= [4.9.1] 2019-02-14 =
 
 * Feature - date and timezone building and validation methods to the `Tribe__Date_Utils` and `Tribe__Timezones` classes [116356, 115579]
 * Feature - the `tribe_is_regex` and `tribe_unfenced_regex` functions [115582]
@@ -12,9 +12,13 @@
 * Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
 * Fix - Prevent to trigger error when using `array_combine` with empty arrays
 * Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
+* Language - 0 new strings added, 13 updated, 1 fuzzied, and 0 obsoleted
 
+= [4.9.0.1] 2019-02-07 =
 
-= [4.9] 2019-02-04 =
+* Fix - Modify extension dependency checking with new system to determine if it can load [122368]
+
+= [4.9] 2019-02-05 =
 
 * Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]
 * Tweak - Added support for Promoter licenses [120320]
