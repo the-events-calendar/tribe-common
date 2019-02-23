@@ -2,10 +2,11 @@
 
 == Changelog ==
 
-= [4.9.2] TBD =
+= [4.9.2] 2019-02-26 =
 
 * Feature - Add promoter access from the WP Admin Bar
 * Fix - Update the order of loading of providers to ensure correct execution for Promoter
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.1] 2019-02-14 =
 

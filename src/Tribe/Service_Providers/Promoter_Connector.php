@@ -42,7 +42,7 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 	/**
 	 * Add Admin Bar link to the promoter website
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 * @param $wp_admin_bar
 	 */
 	public function add_promoter_logo_on_admin_bar( $wp_admin_bar ) {
@@ -75,7 +75,7 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 	/**
 	 * Register assets associated with promoter
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 */
 	public function add_promoter_assets() {
 		tribe_asset(
@@ -94,7 +94,7 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 	 * Only load the styles related to promoter if user is logged in and there's a valid license
 	 * for promoter
 	 *
-	 * @since TBD
+	 * @since 4.9.2
 	 *
 	 * @return bool
 	 */
