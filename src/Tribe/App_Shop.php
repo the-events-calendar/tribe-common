@@ -138,6 +138,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				(object) $all_products['event-aggregator'],
 				(object) $all_products['events-calendar-pro'],
 				(object) $all_products['event-tickets-plus'],
+				(object) $all_products['promoter'],
 				(object) $all_products['tribe-filterbar'],
 				(object) $all_products['events-community'],
 				(object) $all_products['events-community-tickets'],

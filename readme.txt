@@ -2,6 +2,12 @@
 
 == Changelog ==
 
+= [4.9.2] 2019-02-26 =
+
+* Feature - Add promoter access from the WP Admin Bar
+* Fix - Update the order of loading of providers to ensure correct execution for Promoter
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.9.1] 2019-02-14 =
 
 * Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
@@ -25,6 +31,7 @@
 * Fix - Updated translation strings from the Gutenberg extension merge [118656]
 * Add - Added `strip_dynamic_blocks` method in `Tribe__Editor__Utils` [118679]
 * Add - Added `exclude_tribe_blocks` method in `Tribe__Editor__Utils` [118679]
+* Tweak - Added Promoter to the App Shop [122550]
 * Tweak - Allow better control of when we are in Classic editor with a new filter `tribe_editor_classic_is_active` [120137]
 * Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating Event Tickets or The Events Calendar [117795]
 * Language - 0 new strings added, 9 updated, 1 fuzzied, and 1 obsoleted
