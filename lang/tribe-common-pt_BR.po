@@ -11,56 +11,92 @@ msgstr ""
 "Language: pt_BR\n"
 "Project-Id-Version: Tribe Common\n"
 
-#: src/views/promoter/auth.php:47
+#: src/admin-views/tribe-options-licenses.php:43
+msgid "Licenses for Multisites"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:37
+msgid "Expired license keys and subscriptions"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:34
+msgid "Moving your license keys"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:31
+msgid "View and manage your license keys"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:28
+msgid "Why am I being told my license key is out of installs?"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:23
+msgid "Helpful Links:"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:10
+msgid "In order to register a plugin license, you'll first need to %1$sdownload and install%2$s the plugin you purchased. You can download the latest version of your plugin(s) from %3$syour account's downloads page%4$s. Once the plugin is installed and activated on this site, the license key field will appear below."
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:5
+msgid "If you've purchased a premium add-on, you'll need to enter your license key here in order to have access to automatic updates when new versions are available."
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:84
+msgid "With Promoter, you’ll connect with your community via email through every stage of your event, bolster event attendance, and manage notifications more efficiently than ever. Increase event attendance and engagement by automatically sending reminders for on-sale dates, event times and more."
+msgstr ""
+
+#: src/views/promoter/auth.php:60
 msgid "Please authorize to continue onboarding."
 msgstr ""
 
-#: src/views/promoter/auth.php:45
+#: src/views/promoter/auth.php:58
 msgid "Sorry, unable to authenticate your site. Please contact Promoter support."
 msgstr ""
 
-#: src/views/promoter/auth.php:26
+#: src/views/promoter/auth.php:40
 msgid "You're ready to begin using Promoter! Please close this window."
 msgstr ""
 
-#: src/views/promoter/auth.php:71
+#: src/views/promoter/auth.php:84
 msgid "Terms"
 msgstr ""
 
-#: src/views/promoter/auth.php:70
+#: src/views/promoter/auth.php:83
 msgid "and"
 msgstr ""
 
-#: src/views/promoter/auth.php:69
+#: src/views/promoter/auth.php:82
 msgid "Privacy"
 msgstr ""
 
-#: src/views/promoter/auth.php:68
+#: src/views/promoter/auth.php:81
 msgid "Promoter All rights reserved."
 msgstr ""
 
-#: src/views/promoter/auth.php:55
+#: src/views/promoter/auth.php:68
 msgid "Authorize Promoter"
 msgstr ""
 
-#: src/views/promoter/auth.php:39
+#: src/views/promoter/auth.php:52
 msgid "Please log out and log back in as an admin account"
 msgstr ""
 
-#: src/views/promoter/auth.php:37
+#: src/views/promoter/auth.php:50
 msgid "You do not have access to authenticate this site."
 msgstr ""
 
-#: src/views/promoter/auth.php:32
+#: src/views/promoter/auth.php:45
 msgid "Please log in to continue"
 msgstr ""
 
-#: src/views/promoter/auth.php:20
+#: src/views/promoter/auth.php:34
 msgid "Promoter would like to sync with your site"
 msgstr ""
 
-#: src/Tribe/Promoter/PUE.php:28 src/views/promoter/auth.php:15
-#: src/views/promoter/auth.php:64
+#: src/Tribe/Plugins_API.php:80 src/Tribe/Promoter/PUE.php:28
+#: src/views/promoter/auth.php:29 src/views/promoter/auth.php:77
 msgid "Promoter"
 msgstr ""
 
@@ -98,7 +134,7 @@ msgstr ""
 msgid "Problem loading the block, please remove this block to restart."
 msgstr ""
 
-#: src/Tribe/Main.php:293
+#: src/Tribe/Main.php:291
 msgid "Clear"
 msgstr "Limpar"
 
@@ -178,19 +214,19 @@ msgstr "Os três campos a seguir aceitam as opções de formato de data disponí
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr "Uma lista de links para o termo URL REST próprio, arquivo e ascendente"
 
-#: src/Tribe/Main.php:268
+#: src/Tribe/Main.php:266
 msgid "Clear Selection."
 msgstr "Limpar seleção."
 
-#: src/Tribe/Main.php:267
+#: src/Tribe/Main.php:265
 msgid "Select all pages"
 msgstr "Selecionar todas as páginas"
 
-#: src/Tribe/Main.php:266
+#: src/Tribe/Main.php:264
 msgid "All items on this page were selected. "
 msgstr "Todos os itens dessa página foram selecionados. "
 
-#: src/Tribe/Plugins_API.php:94
+#: src/Tribe/Plugins_API.php:104
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
 msgstr "Aceite eventos enviados pelo usuário em seu site! Com eventos da comunidade, você pode aceitar envios públicos ou requerer login da conta.As configurações oferecem as opções para salvar como rascunho ou publicar automaticamente, ativar categorias e tags e escolher se os usuários podem editar / gerenciar seus próprios eventos ou simplesmente enviar. O melhor de tudo - a configuração é fácil! Basta ativar, configurar as opções e sair de você."
 
@@ -240,11 +276,11 @@ msgstr[1] "Parece que você está usando %1$s, mas as chaves de licença são in
 msgid "Please refresh the page and try your request again."
 msgstr "Atualize a página e tente sua solicitação novamente."
 
-#: src/Tribe/Plugins_API.php:129
+#: src/Tribe/Plugins_API.php:139
 msgid "Take your image widgets to the next level with Image Widget Plus! We've taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support."
 msgstr "Leve seus widgets de imagem para o próximo nível com Image Widget Plus! Pegamos os recursos simples do nosso widget de imagem básico e o amplificamos com vários pedidos de recursos populares - suporte a várias imagens, slideshow, lightbox e imagem aleatória - tudo isso com um ano inteiro de suporte premium."
 
-#: src/Tribe/Plugins_API.php:125
+#: src/Tribe/Plugins_API.php:135
 msgid "Image Widget Plus"
 msgstr "Image Widget Plus"
 
@@ -400,7 +436,7 @@ msgstr "Status da chave de licença:"
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr "Use o seguinte painel do seu gerenciador para alterar o estilo das páginas do Calendário e do Evento."
 
-#: src/Tribe/Extension.php:368
+#: src/Tribe/Extension.php:377
 msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
 msgstr "Não é possível executar as extensões Tribe. O servidor do seu site está rodando o PHP 5.2 ou anterior, e provavelmente desabilitou ou configurou errado o debug_backtrace(). Você, ou seu provedor de hospedagem, precisa atualizar o PHP ou configurar adequadamente o debug_backtrace () para que as extensões Tribe funcionem."
 
@@ -481,26 +517,9 @@ msgstr "Event Aggregator"
 msgid "To begin using %2$s, please install and activate the latest version of %3$s."
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:30
-msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
-msgstr "Não está vendo uma atualização mas deveria? No WordPress, vá para %1$sPainel > Atualizações%2$s e clique em \"Verificar novamente\"."
-
-#: src/admin-views/tribe-options-licenses.php:25
-msgid "If you're seeing a red message telling you that your key isn't valid or is out of installs, visit %1$s to manage your installs or renew / upgrade your license."
-msgstr "Se você estiver vendo uma mensagem vermelha dizendo que sua chave não é válida ou está sem instalações restantes, visite %1$s para gerenciar suas instalações ou renovar / atualizar sua licença."
-
-#: src/admin-views/tribe-options-licenses.php:22
-msgid "Each paid add-on has its own unique license key. Simply paste the key into its appropriate field below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message."
-msgstr "Cada complemento pago tem sua própria chave de licença exclusiva. Basta colar a chave em seu campo apropriado abaixo e dar-lhe um momento para validar. Você sabe que está configurado quando uma data de validade verde aparece ao lado de uma mensagem \"válida\"."
-
-#: src/admin-views/tribe-options-licenses.php:15
-msgid "The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s."
-msgstr "A chave de licença que você recebeu ao concluir sua compra de %1$s lhe dará acesso a suporte e atualizações até que expire. Você não precisa inserir a chave abaixo para que os plugins funcionem, mas você precisará inseri-lo para obter atualizações automáticas. %3$sEncontre suas chaves de licença em %2$s%4$s."
-
-#: src/admin-views/tribe-options-licenses.php:11
-#: src/admin-views/tribe-options-licenses.php:16
-msgid " (opens in new window)"
-msgstr " (abre numa nova janela)"
+#: src/admin-views/tribe-options-licenses.php:19
+msgid "Each paid add-on has its own unique license key. Paste the key into its appropriate field below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message. Then click Save Changes."
+msgstr ""
 
 #: src/Tribe/Languages/Locations.php:110
 msgid "C&ocirc;te d'Ivoire"
@@ -538,63 +557,63 @@ msgstr " (abre numa nova janela)"
 msgid "Renew Your License Now"
 msgstr "Renove sua licença agora"
 
-#: src/Tribe/Main.php:278
+#: src/Tribe/Main.php:276
 msgid ": Selected 1 row"
 msgstr ": 1 linha selecionada"
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:275
 msgid ": Selected %d rows"
 msgstr ": %d linhas selecionadas"
 
-#: src/Tribe/Main.php:272
+#: src/Tribe/Main.php:270
 msgid "Previous"
 msgstr "Anterior"
 
-#: src/Tribe/Main.php:270
+#: src/Tribe/Main.php:268
 msgid "All"
 msgstr "Todos"
 
-#: src/Tribe/Main.php:264
+#: src/Tribe/Main.php:262
 msgid "No matching records found"
 msgstr "Nenhum registro foi encontrado"
 
-#: src/Tribe/Main.php:263
+#: src/Tribe/Main.php:261
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(filtrado de _MAX_ entradas totais)"
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:260
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Mostrando 0 a 0 de 0 entradas"
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:259
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Mostrando _START_ a _END_ de _TOTAL_ entradas"
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:258
 msgid "No data available in table"
 msgstr "Sem dados disponíveis na tabela"
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:257
 msgid "Show _MENU_ entries"
 msgstr "Mostre entradas do _MENU_"
 
-#: src/Tribe/Main.php:257
+#: src/Tribe/Main.php:255
 msgid ": activate to sort column descending"
 msgstr ": ative para ordenar a coluna descendente"
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:254
 msgid ": activate to sort column ascending"
 msgstr ": ative para ordenar a coluna ascendente"
 
-#: src/Tribe/Main.php:301
+#: src/Tribe/Main.php:299
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Pressione \"Cmd + C\" para copiar"
 
-#: src/Tribe/Main.php:300
+#: src/Tribe/Main.php:298
 msgid "System info copied"
 msgstr "A informação do sistema foi copiada"
 
-#: src/Tribe/Main.php:299 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:297 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "Copiar para a área de transferência"
 
@@ -602,16 +621,16 @@ msgstr "Copiar para a área de transferência"
 msgid "An Unknown error occurred"
 msgstr "Ocorreu um erro desconhecido"
 
-#: src/Tribe/Plugins_API.php:116
+#: src/Tribe/Plugins_API.php:126
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
 msgstr "O complemento Eventbrite Tickets permite que você crie e venda ingressos no The Events Calendar usando o poder do %1$sEventbrite%2$s. Se você está criando seu ingresso no painel do WordPress ou importando os detalhes de um evento já existente do %1$sEventbrite.com%2$s, esse complemento traz o poder da API do Eventbrite para o seu calendário."
 
-#: src/Tribe/Plugins_API.php:105
+#: src/Tribe/Plugins_API.php:115
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
 msgstr "Event Tickets Plus e Community Events"
 
-#: src/Tribe/Plugins_API.php:104
+#: src/Tribe/Plugins_API.php:114
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
 msgstr "Permitem que os organizadores de Eventos da Comunidade ofereçam ingressos para seus eventos. Você pode definir opções de pagamento e taxas flexíveis. Eles podem até mesmo fazer o registro na entrada de seus eventos! Tudo isso gerenciado a partir do frontend do seu site sem nunca precisar de acesso ao seu painel administrativo."
 
@@ -619,11 +638,11 @@ msgstr "Permitem que os organizadores de Eventos da Comunidade ofereçam ingress
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
 msgstr "O Events Calendar PRO é um complemento pago no nosso plugin WordPress de código aberto %1$s O Calendário de eventos %2$s. O PRO oferece uma série completa de recursos do calendário, incluindo eventos recorrentes, atributos de eventos personalizados, locais salvos e organizadores, páginas do local, administrador de eventos avançado e muito mais."
 
-#: src/Tribe/Plugins_API.php:84
+#: src/Tribe/Plugins_API.php:94
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr "É incrível como o seu calendário é <em>O LUGAR</em> para as pessoas escolherem como passar o tempo. Você tem mais eventos que as dobras do Jabba the Hutt. É bem ruim que os visitantes tenham que contratar um assistente pessoal para passar por todas as opções. Você deseja poder simplesmente filtrar o calendário para mostrar apenas eventos mais próximos, ou no fim de semana, ou os que são gratuitos? Isso mesmo. Agora você pode. Apresentando... o Filter Bar."
 
-#: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:80
+#: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:90
 msgid "Filter Bar"
 msgstr "Filter Bar"
 
@@ -732,10 +751,6 @@ msgstr "Um quadro de configurações de evento para o gerenciamento de opções 
 #. Plugin Name of the plugin/theme
 msgid "Tribe Common"
 msgstr "Tribe Common"
-
-#: src/admin-views/tribe-options-licenses.php:47
-msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
-msgstr "Apenas os campos de licença para os plugins %1$sativados na rede%2$s serão listados nessa tela. "
 
 #: src/admin-views/tribe-options-help.php:38
 msgid "Read more about our support policy"
@@ -849,7 +864,7 @@ msgstr "Ativar plugin"
 msgid "Activate %s"
 msgstr "Ativar %s"
 
-#: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:100
+#: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:110
 msgid "Community Tickets"
 msgstr "Community Tickets"
 
@@ -857,7 +872,7 @@ msgstr "Community Tickets"
 msgid "Event Tickets Plus"
 msgstr "Event Tickets Plus"
 
-#: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:111
+#: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:121
 msgid "Eventbrite Tickets"
 msgstr "Eventbrite Tickets"
 
@@ -896,10 +911,6 @@ msgstr "Modern Tribe, Inc."
 #: src/Tribe/Settings.php:371
 msgid "Save Changes"
 msgstr "Salvar alterações"
-
-#: src/admin-views/tribe-options-licenses.php:38
-msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
-msgstr "%1$s Usando nossos plugins em uma rede multisite? %2$s Observe que sua chave de licença será aplicada a toda a rede, não apenas a este site."
 
 #: src/Tribe/Support.php:199
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
@@ -1034,7 +1045,7 @@ msgstr "Configurações de formato de data"
 msgid "View"
 msgstr "Visualizar"
 
-#: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:90
+#: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:100
 msgid "Community Events"
 msgstr "Eventos da comunidade"
 
@@ -2335,7 +2346,7 @@ msgstr "É necessária uma chave de licença para suporte e atualizações"
 msgid "License Key"
 msgstr "Chave de licença"
 
-#: src/Tribe/Main.php:265
+#: src/Tribe/Main.php:263
 msgid "Search:"
 msgstr "Pesquisar:"
 
@@ -2347,19 +2358,19 @@ msgstr "Configurações"
 msgid "Network"
 msgstr "Rede"
 
-#: src/Tribe/Main.php:291
+#: src/Tribe/Main.php:289
 msgid "Done"
 msgstr "Feito"
 
-#: src/Tribe/Main.php:290 src/Tribe/Main.php:292
+#: src/Tribe/Main.php:288 src/Tribe/Main.php:290
 msgid "Today"
 msgstr "Hoje"
 
-#: src/Tribe/Main.php:289
+#: src/Tribe/Main.php:287
 msgid "Prev"
 msgstr "Anterior"
 
-#: src/Tribe/Main.php:271 src/Tribe/Main.php:288
+#: src/Tribe/Main.php:269 src/Tribe/Main.php:286
 msgid "Next"
 msgstr "Próximo"
 
@@ -2372,7 +2383,7 @@ msgid "Display"
 msgstr "Exibir"
 
 #: src/Tribe/Settings_Manager.php:253
-#: src/admin-views/tribe-options-licenses.php:66
+#: src/admin-views/tribe-options-licenses.php:57
 msgid "Licenses"
 msgstr "Licenças"
 
