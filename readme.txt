@@ -2,9 +2,16 @@
 
 == Changelog ==
 
-= [4.9.2] TBD =
+= [4.9.3] TBD =
 
 * Fix - Make sure we pass and get the parameter when using cron jobs to import images on EA [119269]
+
+= [4.9.2] 2019-02-26 =
+
+* Feature - Add Promoter access from the WP Admin Bar
+* Fix - Update the order of loading of providers to ensure correct execution for Promoter
+* Tweak - Added Promoter to the App Shop [122550]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.1] 2019-02-14 =
 
