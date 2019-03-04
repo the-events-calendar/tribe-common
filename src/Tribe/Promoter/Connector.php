@@ -122,6 +122,7 @@ class Tribe__Promoter__Connector {
 
 		$payload = array(
 			'licenseKey' => $license_key,
+			'sourceId'   => $post_id
 		);
 
 		$token = \Firebase\JWT\JWT::encode( $payload, $secret_key );
