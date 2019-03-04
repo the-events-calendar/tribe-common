@@ -2,9 +2,10 @@
 
 == Changelog ==
 
-= [4.9.3] TBD =
+= [4.9.3] 2019-03-04 =
 
-* Fix - Make sure we pass and get the parameter when using cron jobs to import images on EA [119269]
+* Fix - Make sure we pass and get the parameter when using cron jobs to import images on Event Aggregator [119269]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.2] 2019-02-26 =
 
