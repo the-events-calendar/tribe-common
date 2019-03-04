@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.9.2.1] TBD =
+
+* Feature - Attach the post ID to promoter calls.
+* Feature - Removal of hook to all posts.
+
 = [4.9.2] 2019-02-26 =
 
 * Feature - Add promoter access from the WP Admin Bar
