@@ -4,7 +4,7 @@
 
 = [4.9.3.1] 2019-03-06 =
 
-
+* Feature - Attach the post ID to Promoter calls and remove hook from all post saves [123732]
 
 = [4.9.3] 2019-03-04 =
 
