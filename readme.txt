@@ -5,7 +5,6 @@
 = [4.9.3.1] 2019-03-06 =
 
 * Feature - Attach the post ID to Promoter calls and remove hook from all post saves [123732]
-* Feature - Removal of hook to all posts.
 
 = [4.9.3] 2019-03-04 =
 
