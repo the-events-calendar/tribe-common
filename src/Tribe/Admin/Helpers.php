@@ -52,7 +52,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// return true if is wp screen
-		return (bool) $current_screen instanceof WP_Screen;
+		return (bool) ( $current_screen instanceof WP_Screen );
 	}
 
 	/**
