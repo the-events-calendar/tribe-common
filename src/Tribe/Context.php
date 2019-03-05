@@ -176,8 +176,9 @@ Tribe__Context {
 		global $pagenow;
 		$is_new  = 'post-new.php' === $pagenow;
 		$is_post = 'post.php' === $pagenow;
+		$is_editing = 'edit.php' === $pagenow;
 
-		if ( ! $is_new && ! $is_post ) {
+		if ( ! ( $is_new || $is_post || $is_editing ) ) {
 			return false;
 		}
 
