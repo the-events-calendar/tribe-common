@@ -12,7 +12,8 @@ class Tribe__Updater {
 	protected $version_option  = 'schema-version';
 	protected $reset_version   = '3.9'; // when a reset() is called, go to this version
 	protected $current_version = 0;
-	public    $capabilities;
+
+	public $capabilities;
 
 	/**
 	 * Tribe__Updater constructor.
