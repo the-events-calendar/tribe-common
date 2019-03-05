@@ -1,5 +1,7 @@
 sudo: required
 
+dist: xenial
+
 language: php
 
 notifications:
@@ -14,15 +16,9 @@ services:
 addons:
   apt:
     packages:
-      # needed for Nginx
       - libjpeg-dev
       - libpng12-dev
-      - php5-fpm
-      - php5-mysql
-      - nginx
-  hosts:
-    # resolve the following domains to localhost
-    - tribe.localhost
+      - php-mysql
 
 # disable the default submodule logic
 git:
@@ -37,8 +33,8 @@ env:
   global:
     - WP_VERSION="latest"
     - WP_ROOT_FOLDER="/tmp/wordpress"
-    - WP_URL="http://tribe.localhost"
-    - WP_DOMAIN="tribe.localhost"
+    - WP_URL="http://localhost:9000"
+    - WP_DOMAIN="localhost:9000"
     - WP_TABLE_PREFIX="wp_"
     - DB_NAME="wp"
     - TEST_DB_NAME="test"
@@ -56,7 +52,7 @@ before_install:
 
 install:
   # disable XDebug to speed up the tests
-  - phpenv config-rm xdebug.ini
+   - phpenv config-rm xdebug.ini
 
 before_script:
   # set up folders
@@ -74,52 +70,54 @@ before_script:
   - cd $WP_ROOT_FOLDER
   - wp core download --version=$WP_VERSION
   - wp config create --dbname="$DB_NAME" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="$WP_TABLE_PREFIX"
-  - wp core install --url="$WP_URL" --title="TEC Tests" --admin_user="$WP_ADMIN_USERNAME" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="admin@$WP_DOMAIN" --skip-email
+  - wp core install --url="$WP_URL" --title="TEC Tests" --admin_user="$WP_ADMIN_USERNAME" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="admin@tribe.localhost" --skip-email
 
   # clone The Events Calendar in the plugins folder
-  - cd wp-content/plugins
+  - cd ${WP_ROOT_FOLDER}/wp-content/plugins
   - git clone --branch=master https://github.com/moderntribe/the-events-calendar.git the-events-calendar
   - cd the-events-calendar
   - git fetch
   # if the plugin has the current branch as a remote use that
-  - export HAS_BRANCH=$(git branch -r | grep $CURRENT_BRANCH) && echo "Found current branch - $HAS_BRANCH"
-  - export HAS_TRAVIS_BRANCH=$(git branch -r | grep $TRAVIS_BRANCH) && echo "Found Travis Branch - $TRAVIS_BRANCH"
-  - if [ ! -z $HAS_BRANCH ]; then $(git checkout $CURRENT_BRANCH >/dev/null); else if [ ! -z $HAS_TRAVIS_BRANCH ]; then $(git checkout $TRAVIS_BRANCH >/dev/null); fi; fi
+  - if [ $CURRENT_BRANCH ]; then export HAS_BRANCH=$(git branch -r | grep $CURRENT_BRANCH) && echo "Found current branch - $HAS_BRANCH"; else export HAS_BRANCH=0; fi
+  - if [ $TRAVIS_BRANCH ]; then export HAS_TRAVIS_BRANCH=$(git branch -r | grep $TRAVIS_BRANCH) && echo "Found Travis Branch - $TRAVIS_BRANCH"; else export HAS_TRAVIS_BRANCH=0; fi
+  - if [ $HAS_BRANCH ]; then export TEC_BRANCH=$CURRENT_BRANCH; else export TEC_BRANCH=$TRAVIS_BRANCH; fi; echo "TEC Branch is $TEC_BRANCH"
+  # allow a TEC build branch to override the branch
+  - if [ $TEC_BUILD_BRANCH ]; then export TEC_BRANCH=$TEC_BUILD_BRANCH; fi; echo "TEC Branch is $TEC_BRANCH"
+  - git checkout ${TEC_BRANCH}
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
+
+  # Copy the Dependency Test plugin in the plugins folder.
+  - cp -r ${TRAVIS_BUILD_DIR}/tests/_data/dependency/dependency-test ${WP_ROOT_FOLDER}/wp-content/plugins
+  - ls -la ${WP_ROOT_FOLDER}/wp-content/plugins/dependency-test
 
   # get back to the build folder
   - cd $TRAVIS_BUILD_DIR
 
-  # copy the Nginx configuration file to the available sites
-  - sudo cp tests/_support/travis/nginx.conf /etc/nginx/sites-available/$WP_DOMAIN
-  - sudo sed -e "s?%WP_ROOT_FOLDER%?$WP_ROOT_FOLDER?g" --in-place /etc/nginx/sites-available/$WP_DOMAIN
-  - sudo sed -e "s?%WP_DOMAIN%?$WP_DOMAIN?g" --in-place /etc/nginx/sites-available/$WP_DOMAIN
+  # spin up the PHP server in background
+  - nohup php -S ${WP_DOMAIN} -t ${WP_ROOT_FOLDER} > phpd.log 2>&1 &
 
-  # enable the site
-  - sudo ln -s /etc/nginx/sites-available/$WP_DOMAIN /etc/nginx/sites-enabled/
-
-  # activate The Events Calendar in WordPress
+  # Setup the dependency test dump
   - cd $WP_ROOT_FOLDER
-  - wp plugin activate the-events-calendar
-
-  # flush rewrite rules
   - wp rewrite structure '/%postname%/' --hard
+  - wp core update-db
+  - wp plugin deactivate --all
 
   # pull the correct common branch we are testing
   - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
+
   - cd $PLUGIN_DIR
   - git checkout origin/$CURRENT_BRANCH
-  - composer update --prefer-dist
+  - composer update
 
   # get to the common dir
   - cd $PLUGIN_DIR
 
-  # restart Nnginx and PHP-FPM services
-  - sudo service php5-fpm restart
-  - sudo service nginx restart
+  # Generate a dependency-test dedicated dump
+  - wp db export ${PLUGIN_DIR}/tests/_data/dependency-dump.sql
 
 script:
   - codecept run integration
   - codecept run wpunit
   - codecept run muwpunit
+  - codecept run dependency

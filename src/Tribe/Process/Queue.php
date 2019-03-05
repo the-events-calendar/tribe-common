@@ -55,13 +55,28 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	protected $batch_key;
 
 	/**
+	 * An instance of the feature detection abstraction object.
+	 *
+	 * @var Tribe__Feature_Detection
+	 */
+	protected $feature_detection;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function __construct() {
 		$class        = get_class( $this );
 		$this->action = call_user_func( array( $class, 'action' ) );
+		$this->feature_detection = tribe( 'feature-detection' );
 
 		parent::__construct();
+
+		/*
+		 * This object might have been built while processing crons so
+		 * we hook on the the object cron identifier to handle the task
+		 * if the cron-triggered action ever fires.
+		 */
+		add_action( $this->identifier, array( $this, 'maybe_handle' ) );
 	}
 
 	/**
@@ -482,7 +497,29 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 			return $result;
 		}
 
-		return parent::dispatch();
+		if ( $this->feature_detection->supports_async_process() ) {
+			return parent::dispatch();
+		}
+
+		/*
+		 * If async AJAX-based processing is not available then we "dispatch"
+		 * by scheduling a single cron event immediately (as soon as possible)
+		 * for this handler cron identifier.
+		 */
+		if ( ! wp_next_scheduled( $this->identifier ) ) {
+			// Schedule the event to happen as soon as possible.
+			$scheduled = wp_schedule_single_event( time() - 1, $this->identifier );
+
+			if ( false === $scheduled ) {
+				/** @var Tribe__Log__Logger $logger */
+				$logger = tribe( 'logger' );
+				$class  = get_class( $this );
+				$src    = call_user_func( array( $class, 'action' ) );
+				$logger->log( 'Could not schedule event for cron-based processing', Tribe__Log::ERROR, $src );
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -552,5 +589,28 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		$post_args['body'] = array();
 
 		return $post_args;
+	}
+
+	public function maybe_handle() {
+		if ( $this->feature_detection->supports_async_process() ) {
+			parent::maybe_handle();
+		}
+
+		// Don't lock up other requests while processing
+		session_write_close();
+
+		if ( $this->is_process_running() ) {
+			// Background process already running.
+			return;
+		}
+
+		if ( $this->is_queue_empty() ) {
+			// No data to process.
+			return;
+		}
+
+		$this->handle();
+
+		return null;
 	}
 }

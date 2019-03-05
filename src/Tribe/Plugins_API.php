@@ -76,6 +76,16 @@ class Tribe__Plugins_API {
 				'is_installed' => class_exists( 'Tribe__Tickets_Plus__Main' ),
 				'active_installs' => 10000,
 			),
+			'promoter' => array(
+				'title' => __( 'Promoter', 'tribe-common' ),
+				'slug' => 'promoter',
+				'link' => 'https://theeventscalendar.com/product/promoter/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-promoter&utm_content=appstoreembedded-1',
+				'buy-now' => 'http://m.tri.be/1acy',
+				'description' => __( 'With Promoter, you’ll connect with your community via email through every stage of your event, bolster event attendance, and manage notifications more efficiently than ever. Increase event attendance and engagement by automatically sending reminders for on-sale dates, event times and more.', 'tribe-common' ),
+				'image' => 'images/app-shop-promoter.jpg',
+				'is_installed' => false,
+				'active_installs' => 1000,
+			),
 			'tribe-filterbar' => array(
 				'title' => __( 'Filter Bar', 'tribe-common' ),
 				'slug' => 'tribe-filterbar',
