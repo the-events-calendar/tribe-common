@@ -1,13 +1,21 @@
 <?php
 
+
 /**
- * @group updates
+ * Updater Class Tests
+ *
+ * @since TBD
+ *
  */
 class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
+	/**
+	 * @test
+	 * @since TBD
+	 */
 	public function test_update_required() {
 		$current_version = Tribe__Main::VERSION;
-		$updater = new Tribe__Updater( $current_version );
+		$updater         = new Tribe__Updater( $current_version );
 
 		// set the existing version to be "old"
 		$updater->update_version_option( '3.12' );
@@ -22,19 +30,27 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $update_required, 'Checking that no upgrade is required when the versions match' );
 	}
 
+	/**
+	 * @test
+	 * @since TBD
+	 */
 	public function test_get_version_from_db() {
 		$version_from_settings_manager = Tribe__Settings_Manager::get_option( 'schema-version' );
 
-		$current_version = Tribe__Main::VERSION;
-		$updater = new Tribe__Updater( $current_version );
+		$current_version      = Tribe__Main::VERSION;
+		$updater              = new Tribe__Updater( $current_version );
 		$version_from_updater = $updater->get_version_from_db();
 
 		$this->assertEquals( $version_from_updater, $version_from_settings_manager, 'checking that the version from Settings Manager matches the version from Updater' );
 	}
 
+	/**
+	 * @test
+	 * @since TBD
+	 */
 	public function test_update_version_option() {
 		$current_version = Tribe__Main::VERSION;
-		$updater = new Tribe__Updater( $current_version );
+		$updater         = new Tribe__Updater( $current_version );
 		$updater->update_version_option( $current_version );
 
 		$version_in_db = $updater->get_version_from_db();
@@ -47,9 +63,13 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $version_in_db, 3.9, 'checking that the version in the database was set to 3.9' );
 	}
 
+	/**
+	 * @test
+	 * @since TBD
+	 */
 	public function test_get_update_callbacks() {
 		$current_version = Tribe__Main::VERSION;
-		$updater = new Tribe__Updater( $current_version );
+		$updater         = new Tribe__Updater( $current_version );
 
 		$updates = $updater->get_update_callbacks();
 		foreach ( $updates as $version => $update_callable ) {
@@ -57,9 +77,13 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		}
 	}
 
+	/**
+	 * @test
+	 * @since TBD
+	 */
 	public function test_get_constant_update_callbacks() {
 		$current_version = Tribe__Main::VERSION;
-		$updater = new Tribe__Updater( $current_version );
+		$updater         = new Tribe__Updater( $current_version );
 
 		$contant_updates = $updater->get_constant_update_callbacks();
 		foreach ( $contant_updates as $contant_update_callable ) {
@@ -67,6 +91,10 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		}
 	}
 
+	/**
+	 * @test
+	 * @since TBD
+	 */
 	public function test_constant_updates_applied() {
 		$settings = Tribe__Settings_Manager::instance();
 		$settings::set_option( 'schema-version', 0 );
@@ -79,6 +107,10 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		remove_action( 'wp_loaded', 'flush_rewrite_rules' );
 	}
 
+	/**
+	 * @test
+	 * @since TBD
+	 */
 	public function test_update_only_runs_once() {
 		$settings = Tribe__Settings_Manager::instance();
 		$settings::set_option( 'schema-version', 0 );
