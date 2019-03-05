@@ -162,6 +162,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 *        @type string  $apikey           Used to authorize download updates from developer server
 		 *        @type string  $context          Defaults to 'component' which is expected for plugins (or themes).
 		 *                                        If set to 'service' it will not hook into WP update checks.
+		 *        @type string  $plugin_name      The plugin name, defaults to the name in the plugin file itself.
 		 * }
 		 * @param string $plugin_file    fully qualified path to the main plugin file.
 		 */
@@ -326,12 +327,14 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					'apikey'          => '',
 					'check_period'    => 12,
 					'context'         => 'component',
+					'plugin_name'     => '',
 				)
 			);
 
 			$this->pue_option_name = $options['pue_option_name'];
 			$this->check_period    = (int) $options['check_period'];
 			$this->context         = $options['context'];
+			$this->plugin_name     = $options['plugin_name'];
 
 		}
 
@@ -816,11 +819,19 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$license_key    = '';
 			$license_origin = 'm';
 
-			if ( ( 'network' === $type || 'any' === $type ) && is_multisite() ) {
+			/*
+			 * Even if we have a network key if the plugin is not active on the network then it should
+			 * not be used.
+			 */
+			if (
+				( 'network' === $type || 'any' === $type )
+				&& is_multisite()
+				&& $this->is_plugin_active_for_network()
+			) {
 				$license_key = get_network_option( null, $this->pue_install_key, '' );
 			}
 
-			if ( empty( $license_key ) && ( 'local' === $type || 'any' === $type ) ) {
+			if ( ( 'local' === $type || 'any' === $type ) && empty( $license_key ) ) {
 				$license_key = get_option( $this->pue_install_key, '' );
 			}
 
@@ -1654,8 +1665,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$plugin_file = $map[ $this->plugin_file ];
 			}
 
-			return is_plugin_active_for_network( $plugin_file );
-
+			if ( function_exists( 'is_plugin_active_for_network' ) ) {
+				// If is_plugin_active_for_network() is available, let's use it!
+				return is_plugin_active_for_network( $plugin_file );
+			} else {
+				// When this method is called sufficiently early in the request,
+				// is_plugin_active_for_network() may not be available (#115826)
+				$plugins = get_site_option( 'active_sitewide_plugins' );
+				return isset( $plugins[ $plugin_file ] );
+			}
 		}
 
 		/**

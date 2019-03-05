@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-06-06 21:24:30+0000\n"
+"PO-Revision-Date: 2018-12-08 15:52:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,148 @@ msgstr ""
 "X-Generator: GlotPress/2.3.1\n"
 "Language: de\n"
 "Project-Id-Version: Tribe Common\n"
+
+#: src/admin-views/tribe-options-licenses.php:43
+msgid "Licenses for Multisites"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:37
+msgid "Expired license keys and subscriptions"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:34
+msgid "Moving your license keys"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:31
+msgid "View and manage your license keys"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:28
+msgid "Why am I being told my license key is out of installs?"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:23
+msgid "Helpful Links:"
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:10
+msgid "In order to register a plugin license, you'll first need to %1$sdownload and install%2$s the plugin you purchased. You can download the latest version of your plugin(s) from %3$syour account's downloads page%4$s. Once the plugin is installed and activated on this site, the license key field will appear below."
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:5
+msgid "If you've purchased a premium add-on, you'll need to enter your license key here in order to have access to automatic updates when new versions are available."
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:84
+msgid "With Promoter, you’ll connect with your community via email through every stage of your event, bolster event attendance, and manage notifications more efficiently than ever. Increase event attendance and engagement by automatically sending reminders for on-sale dates, event times and more."
+msgstr ""
+
+#: src/views/promoter/auth.php:60
+msgid "Please authorize to continue onboarding."
+msgstr ""
+
+#: src/views/promoter/auth.php:58
+msgid "Sorry, unable to authenticate your site. Please contact Promoter support."
+msgstr ""
+
+#: src/views/promoter/auth.php:40
+msgid "You're ready to begin using Promoter! Please close this window."
+msgstr ""
+
+#: src/views/promoter/auth.php:84
+msgid "Terms"
+msgstr ""
+
+#: src/views/promoter/auth.php:83
+msgid "and"
+msgstr ""
+
+#: src/views/promoter/auth.php:82
+msgid "Privacy"
+msgstr ""
+
+#: src/views/promoter/auth.php:81
+msgid "Promoter All rights reserved."
+msgstr ""
+
+#: src/views/promoter/auth.php:68
+msgid "Authorize Promoter"
+msgstr ""
+
+#: src/views/promoter/auth.php:52
+msgid "Please log out and log back in as an admin account"
+msgstr ""
+
+#: src/views/promoter/auth.php:50
+msgid "You do not have access to authenticate this site."
+msgstr ""
+
+#: src/views/promoter/auth.php:45
+msgid "Please log in to continue"
+msgstr ""
+
+#: src/views/promoter/auth.php:34
+msgid "Promoter would like to sync with your site"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:80 src/Tribe/Promoter/PUE.php:28
+#: src/views/promoter/auth.php:29 src/views/promoter/auth.php:77
+msgid "Promoter"
+msgstr ""
+
+#: src/Tribe/Editor/Meta.php:123
+msgid "Text Array"
+msgstr "Text Array"
+
+#: src/Tribe/Editor/Meta.php:105
+msgid "Numeric Array"
+msgstr "Numerisches Array"
+
+#: src/Tribe/Editor/Configuration.php:96
+msgid "F j"
+msgstr "j. F"
+
+#: src/Tribe/Editor/Configuration.php:95 src/Tribe/Editor/Configuration.php:97
+msgid "F j, Y"
+msgstr "j. F Y"
+
+#: src/Tribe/Editor/Configuration.php:94 src/Tribe/Editor/Configuration.php:97
+msgid "g:i a"
+msgstr "G:i"
+
+#. translators: %s: duration
+#: src/Tribe/Editor/Configuration.php:90
+msgid "%s ago"
+msgstr "vor %s"
+
+#. translators: %s: duration
+#: src/Tribe/Editor/Configuration.php:88
+msgid "%s from now"
+msgstr "%s von jetzt"
+
+#: src/Tribe/Editor/Blocks/Abstract.php:127
+msgid "Problem loading the block, please remove this block to restart."
+msgstr "Problem beim Laden des Blocks, bitte entfernen Sie diesen Block, um neu zu starten."
+
+#: src/Tribe/Main.php:291
+msgid "Clear"
+msgstr "Leeren"
+
+#: src/Tribe/Plugins_API.php:37
+msgid "Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze."
+msgstr ""
+"Event Aggregator fügt Ihrem Kalender umfangreiche Importfunktionen hinzu. Bevor Sie sich versehen, importieren Sie mühelos Termine aus Meetup, Eventbrite, Google Calendar, iCalendar und anderen URLs. Planen Sie Importe, um sie automatisch hinter den Kulissen auszuführen, oder führen Sie sie manuell aus, wenn Sie bereit sind. Importieren Sie einfach nach Herzenslust - Event Aggregator verbindet Sie mit einem zentralen Dashboard im Admin-Bereich, um die Verwaltung Ihrer Importe zum Kinderspiel zu machen.\n"
+"\n"
+"Übersetzt mit www.DeepL.com/Translator"
+
+#: src/Tribe/Admin/Notice/Php_Version.php:101
+msgid "Starting March 2019, %1$s will no longer work with versions prior to PHP 5.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 5.6 or above."
+msgstr "Ab März 2019 wird %1$s nicht mehr mit Versionen vor PHP 5.4 funktionieren. Derzeit verwendet Ihre Website die PHP-Version %2$s. Für beste Ergebnisse empfehlen wir die Verwendung von PHP 5.6 oder höher."
+
+#: src/Tribe/Admin/Notice/Php_Version.php:98
+msgid "Starting March 2019, %1$s will no longer support versions prior to PHP 5.6. Your site is currently using PHP version %2$s which will no longer be supported by %1$s. For best results, we recommend using PHP 5.6 or above."
+msgstr "Ab März 2019 wird %1$s keine Versionen vor PHP 5.6 mehr unterstützen. Deine Seite verwendet derzeit die PHP-Version %2$s, die nicht mehr von %1$s unterstützt wird. Für beste Ergebnisse empfehlen wir die Verwendung von PHP 5.6 oder höher."
 
 #: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
 msgid "Every %d Minutes"
@@ -20,7 +162,7 @@ msgid "Search our support help desk"
 msgstr "Durchsuche unser Help Desk"
 
 #: src/Tribe/Plugins_API.php:71
-msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Tickets have QR codes for easy check in at the door."
+msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
 msgstr "Mit Event Tickets Plus können Sie Tickets für Ihre Veranstaltungen mit WooCommerce, Easy Digital Downloads oder unserem integrierten Tool Tribe Commerce verkaufen. Fügen Sie Tickets zu Ihren Beiträgen und Seiten hinzu oder fügen Sie %1$sThe Events Calendar%2$s hinzu und verkaufen Sie Tickets aus Ihren Veranstaltungslisten. Erstellen Sie benutzerdefinierte Registrierungsformulare, verwalten Sie Teilnehmer, verwenden Sie benutzerdefinierte Kapazitätsoptionen und vieles mehr. Tickets haben QR-Codes für einen einfachen Check-in vor der Tür."
 
 #: src/Tribe/Validate.php:184
@@ -75,25 +217,21 @@ msgstr "Die folgenden drei Felder akzeptieren die Datumsformat Optionen, der PHP
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr "Eine Liste der Links zum Begriff, Archiv und übergeordnete REST URL"
 
-#: src/Tribe/Main.php:250
+#: src/Tribe/Main.php:266
 msgid "Clear Selection."
 msgstr "Selektierung aufheben"
 
-#: src/Tribe/Main.php:249
+#: src/Tribe/Main.php:265
 msgid "Select all pages"
 msgstr "Alle Seiten selektieren"
 
-#: src/Tribe/Main.php:248
+#: src/Tribe/Main.php:264
 msgid "All items on this page were selected. "
 msgstr "Alle Objekte auf dieser Seite wurden selektiert"
 
-#: src/Tribe/Plugins_API.php:94
+#: src/Tribe/Plugins_API.php:104
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
 msgstr "Erweitern Sie den Events Calendar um Veranstaltungen, die durch Nutzer übermittelt werden. Mit Community Events können Sie anonym oder durch registrierte Nutzer übermittelte Veranstaltungen in ihren Kalender aufnehmen. Sie können diese als Entwürfe speichern oder direkt automatisch veröffentlichen. Aktivieren Sie Kategorien und Schlagworte und wählen Sie aus, ob Benutzer ihre eigenen Veranstaltungen bearbeiten oder verwalten können. Das Beste daran - das Setup ist einfach! Einfach aktivieren, Optionen konfigurieren und los geht's."
-
-#: src/Tribe/Plugins_API.php:37
-msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
-msgstr "Veranstlaltungen aus dem Internet importieren! Event Aggregator macht es einfach, geplante oder manuelle Importe von Facebook, Meetup, Google Kalender und iCalendar, zusammen mit Uploads aus CSV und ICS Dateien laufen zu lassen. Sie können dank unserer REST API auch direkt von anderen Seiten importieren, die den Events Calendar nutzen."
 
 #: src/Tribe/Ajax/Dropdown.php:243
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
@@ -119,33 +257,33 @@ msgstr "Event Tickets ermöglicht einen einfachen Weg sich für eine Veranstaltu
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
 msgstr "Erstellen und managen Sie einen Veranstaltungskalender mit Leichtigkeit. Das Events Calendar Plugin stellt viele Features und hochprofessionelle Qualität zur Verfügung."
 
-#: src/Tribe/PUE/Checker.php:1095
+#: src/Tribe/PUE/Checker.php:1106
 msgid "There is a new version of %1$s available. %2$s"
 msgstr "Die neue Version von %1$s ist verfügbar. %2$s"
 
-#: src/Tribe/PUE/Checker.php:1084
+#: src/Tribe/PUE/Checker.php:1095
 msgid "Update now to version %s."
 msgstr "Jetzt auf die neuste %s Version aktualisieren."
 
-#: src/Tribe/PUE/Notices.php:340
+#: src/Tribe/PUE/Notices.php:398
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr "Sie können den Status Ihrer Lizenzen jederzeit überprüfen, indem Sie sich in %1$s Ihrem Konto auf theeventscalendar.com%2$s anmelden."
 
-#: src/Tribe/PUE/Notices.php:225
+#: src/Tribe/PUE/Notices.php:279
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] "Es sieht so aus, als würdest du %1$s verwenden, aber der Lizenzschlüssel ist ungültig. Bitte laden Sie die neueste Version %2$s von Ihrem Konto %3$s."
 msgstr[1] "Es sieht so aus, als würdest du %1$s verwenden, aber die Lizenzschlüssel sind ungültig. Bitte laden Sie die neueste Version %2$s von Ihrem Konto %3$s."
 
-#: src/Tribe/PUE/Checker.php:976
+#: src/Tribe/PUE/Checker.php:987
 msgid "Please refresh the page and try your request again."
 msgstr "Bitte aktualisieren Sie die Seite und versuchen Sie es erneut."
 
-#: src/Tribe/Plugins_API.php:129
+#: src/Tribe/Plugins_API.php:139
 msgid "Take your image widgets to the next level with Image Widget Plus! We've taken the simple functionality of our basic Image Widget and amped it up with several popular feature requests - multiple image support, slideshow, lightbox, and random image - all backed by a full year of premium support."
 msgstr "Bringen Ihre Image-Widgets auf die nächste Stufe mit Image Widget Plus! Wir haben die einfache Funktionalität unseres grundlegenden Image Widget übernommen und es mit einigen populären Feature-Anfragen vervollständigt - mehrfache Bildunterstützung, Slideshow, Lightbox und zufälliges Bilder - alles, was von einem vollen Jahr der Premium-Unterstützung unterstützt wird."
 
-#: src/Tribe/Plugins_API.php:125
+#: src/Tribe/Plugins_API.php:135
 msgid "Image Widget Plus"
 msgstr "Image Widget Plus"
 
@@ -181,7 +319,7 @@ msgstr "Der Begriffsname"
 msgid "The WordPress term ID"
 msgstr "Die Wordpress Begriffs-ID"
 
-#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
+#: src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:37
 msgid "The link to the image in the specified size on the site"
 msgstr "Der Link zum Bild in der spezifischen Größe auf der Seite"
 
@@ -197,27 +335,27 @@ msgstr "Die Bildhöhe in Pixel in der spezifischen Größe"
 msgid "The image width in pixels in the specified size"
 msgstr "Die Bildbreite in Pixel in der spezifischen Größe"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:45
 msgid "The details about each size available for the image"
 msgstr "Die Details über alle Größen, die für das Bild verfügbar sind"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:41
 msgid "The image natural height in pixels"
 msgstr "Die Bildhöhe in Pixel"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:36
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:37
 msgid "The image natural width in pixels"
 msgstr "Die Bildbreite in Pixel"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:32
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:33
 msgid "The image file extension"
 msgstr "Die Dateiendung des Bildes"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:28
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:29
 msgid "The image WordPress post ID"
 msgstr "Die Wordpress Post ID des Bildes"
 
-#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:24
+#: src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:25
 msgid "The URL to the full size version of the image"
 msgstr "Die URL zum Originalbild"
 
@@ -257,7 +395,7 @@ msgstr "Die Position der Währung beim Eintrittspreis"
 msgid "The cost currency symbol"
 msgstr "Die Währung"
 
-#: src/Tribe/PUE/Checker.php:497
+#: src/Tribe/PUE/Checker.php:500
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr "%1$sKaufen Sie eine Lizenz%2$s für den Event Aggregator Service um weitere Importfunktionen freizuschalten."
 
@@ -269,39 +407,39 @@ msgstr "%s muss eine Ganzzahl sein."
 msgid "Events Help"
 msgstr "Veranstaltungshilfe"
 
-#: src/Tribe/PUE/Checker.php:1670
+#: src/Tribe/PUE/Checker.php:1688
 msgid "Expired license. Consult your network administrator."
 msgstr "Lizenz abgelaufen. Bitte kontaktiere Sie Ihren Netzwerk Administrator."
 
-#: src/Tribe/PUE/Checker.php:1669
+#: src/Tribe/PUE/Checker.php:1687
 msgid "No license entered. Consult your network administrator."
 msgstr "Keine Lizenz hinterlegt. Bitte kontaktieren Sie Ihren Netzwerk Administrator. "
 
-#: src/Tribe/PUE/Checker.php:1668
+#: src/Tribe/PUE/Checker.php:1686
 msgid "A valid license has been entered by your network administrator."
 msgstr "Eine gültige Lizenz wurde durch Ihren Netzwerk Administrator hinterlegt."
 
-#: src/Tribe/PUE/Checker.php:550
+#: src/Tribe/PUE/Checker.php:553
 msgid "Site License Key"
 msgstr "Seiten Linzenzschlüssel"
 
-#: src/Tribe/PUE/Checker.php:539
+#: src/Tribe/PUE/Checker.php:542
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr "Option aktivieren, um Ihren Netzwerk-Schlüssel zu überschreiben"
 
-#: src/Tribe/PUE/Checker.php:538
+#: src/Tribe/PUE/Checker.php:541
 msgid "Override network license key"
 msgstr "Überschreibe Netzwerk Lizenzschlüssel"
 
-#: src/Tribe/PUE/Checker.php:529 src/Tribe/PUE/Checker.php:563
+#: src/Tribe/PUE/Checker.php:532 src/Tribe/PUE/Checker.php:566
 msgid "License Key Status:"
 msgstr "Status Lizenzschlüssel:"
 
-#: src/Tribe/Customizer.php:570
+#: src/Tribe/Customizer.php:643
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr "Verwenden Sie das folgende Bedienfeld des Customizer, um das Design Ihrer Kalender- und Eventseiten zu ändern."
 
-#: src/Tribe/Extension.php:368
+#: src/Tribe/Extension.php:377
 msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
 msgstr "Tribe Extensions kann nicht ausgeführt werden. Ihre Webseite läuft auf PHP 5.2 oder älter und hat debug_backtrace() deaktiviert oder falsch konfiguriert. Sie oder ihr Website Betreiber müssen PHP aktualisieren oder debug_backtrace() korrekt konfigurieren, damit die Tribe Extensions laufen können."
 
@@ -317,12 +455,14 @@ msgstr "Installiert"
 msgid "Installed Add-Ons"
 msgstr "Installierte Add-Ons"
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:92
+#: src/Tribe/Admin/Notice/Php_Version.php:60
+#: src/Tribe/Admin/Notice/Plugin_Download.php:118
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr "und"
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:91
+#: src/Tribe/Admin/Notice/Php_Version.php:59
+#: src/Tribe/Admin/Notice/Plugin_Download.php:117
 msgctxt "separator used in a list of items"
 msgid ", "
 msgstr ","
@@ -347,28 +487,28 @@ msgstr "All Add-Ons anzeigen"
 msgid "Events Add-Ons"
 msgstr "Events Add-Ons"
 
-#: src/Tribe/PUE/Notices.php:383
+#: src/Tribe/PUE/Notices.php:441
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
 msgstr "%1$s und %2$s"
 
-#: src/Tribe/PUE/Notices.php:302
+#: src/Tribe/PUE/Notices.php:356
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] "Sie haben einen Lizenzschlüssel für %1$s eingegeben, aber der Schlüssel wird schon verwendet. %2$sBesuchen Sie die  Events Calendar Website%3$s, um Ihre Installationen zu verwalten, Ihre Lizenz zu aktualisieren oder eine neue zu kaufen."
 msgstr[1] "Sie haben Lizenzschlüssel für %1$s eingegeben, aber die Schlüssel werden schon verwendet. %2$sBesuchen Sie die  Events Calendar Website%3$s, um Ihre Installationen zu verwalten, Ihre Lizenzen zu aktualisieren oder neue zu kaufen."
 
-#: src/Tribe/PUE/Notices.php:270
+#: src/Tribe/PUE/Notices.php:324
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] "Für %1$s steht ein Update zur Verfügung, aber Ihre Lizenz ist abgelaufen. %2$sBesuchen Sie die Events Calendar Website, um Ihre Lizenz zu verlängern.%3$s"
 msgstr[1] "Für %1$s steht ein Update zur Verfügung, aber Ihre Lizenzen sind abgelaufen. %2$sBesuchen Sie die Events Calendar Website, um Ihre Lizenz zu verlängern.%3$s"
 
-#: src/Tribe/PUE/Checker.php:1054
+#: src/Tribe/PUE/Checker.php:1065
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr "Es gibt ein Update für %s.  %sErneuern Sie Ihre Lizenz%s, um Zugriff auf Fehlerkorrekturen, Sicherheitsupdates und neue Funktionen zu erhalten."
 
-#: src/Tribe/PUE/Checker.php:997
+#: src/Tribe/PUE/Checker.php:1008
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr "Es gibt ein Update für %s. Sie müssen %sSie Ihre Lizenz überprüfen%s, um Zugriff auf Updates, Downloads und Support zu erhalten."
 
@@ -376,30 +516,13 @@ msgstr "Es gibt ein Update für %s. Sie müssen %sSie Ihre Lizenz überprüfen%s
 msgid "Event Aggregator"
 msgstr "Event Aggregator"
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:75
-msgid "To begin using %1$s, please install and activate the latest version of %2$s."
-msgstr "Um %1$s nutzen zu können installieren und aktivieren Sie bitte die neueste Version von %2$s."
+#: src/Tribe/Admin/Notice/Plugin_Download.php:101
+msgid "To begin using %2$s, please install and activate the latest version of %3$s."
+msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:30
-msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
-msgstr "Sie erwarten ein Update, aber es wird nicht angezeigt? Gehen Sie in Wordpress zu %1$sDashboard > Aktualisierungen%2$s und klicken Sie \"Erneut prüfen\"."
-
-#: src/admin-views/tribe-options-licenses.php:25
-msgid "If you're seeing a red message telling you that your key isn't valid or is out of installs, visit %1$s to manage your installs or renew / upgrade your license."
-msgstr "Wenn Sie eine rote Nachricht sehen, dass Ihr Schlüssel ungültig ist oder bereits verwendet wird, besuchen Sie %1$s, um Ihre Installationen zu verwalten oder Ihre Lizenz zu erneuern oder upzugraden."
-
-#: src/admin-views/tribe-options-licenses.php:22
-msgid "Each paid add-on has its own unique license key. Simply paste the key into its appropriate field below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message."
-msgstr "Jedes kostenpflichtige Add-On hat seinen eigenen Lizenzschlüssel. Fügen Sie einfach den Schlüssel in das entsprechende Feld unten ein, und geben Sie ihm einen Moment zur Überprüfung. Wenn ein grünes Ablaufdatum neben einer \"gültig\" Meldung angezeigt wird, handelt es sich um eine gültige Lizenz."
-
-#: src/admin-views/tribe-options-licenses.php:15
-msgid "The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. %3$sFind your license keys at %2$s%4$s."
-msgstr "Der Lizenzschlüssel, den Sie nach Abschluss des Kaufs von %1$s erhalten haben, gewährt Ihnen Zugriff auf Support und Updates, bis er abläuft. Sie müssen nicht den Schlüssel unten eingeben, damit die Plugins funktionieren, aber Sie müssen ihn eingeben, um automatische Updates zu erhalten. %3$sSie finden Ihre Lizenzschlüssel unter %2$s%4$s."
-
-#: src/admin-views/tribe-options-licenses.php:11
-#: src/admin-views/tribe-options-licenses.php:16
-msgid " (opens in new window)"
-msgstr "(in neuem Fenster öffnen)"
+#: src/admin-views/tribe-options-licenses.php:19
+msgid "Each paid add-on has its own unique license key. Paste the key into its appropriate field below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message. Then click Save Changes."
+msgstr ""
 
 #: src/Tribe/Languages/Locations.php:110
 msgid "C&ocirc;te d'Ivoire"
@@ -429,71 +552,71 @@ msgstr "Ja, teile meine System Informationen automatisch mit dem Modern Tribe Su
 msgid "English"
 msgstr "Englisch"
 
-#: src/Tribe/PUE/Checker.php:961 src/Tribe/PUE/Notices.php:285
+#: src/Tribe/PUE/Checker.php:972 src/Tribe/PUE/Notices.php:339
 msgid " (opens in a new window)"
 msgstr "(in neuem Fenster öffnen)"
 
-#: src/Tribe/PUE/Checker.php:959 src/Tribe/PUE/Notices.php:283
+#: src/Tribe/PUE/Checker.php:970 src/Tribe/PUE/Notices.php:337
 msgid "Renew Your License Now"
 msgstr "Lizenz jetzt erneuern"
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:276
 msgid ": Selected 1 row"
 msgstr ": Ausgewählte 1 Zeile"
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:275
 msgid ": Selected %d rows"
 msgstr ": Ausgewählte %d Zeilen"
 
-#: src/Tribe/Main.php:254
+#: src/Tribe/Main.php:270
 msgid "Previous"
 msgstr "Vorherige"
 
-#: src/Tribe/Main.php:252
+#: src/Tribe/Main.php:268
 msgid "All"
 msgstr "Alle"
 
-#: src/Tribe/Main.php:246
+#: src/Tribe/Main.php:262
 msgid "No matching records found"
 msgstr "Keine Zeilen gefunden"
 
-#: src/Tribe/Main.php:245
+#: src/Tribe/Main.php:261
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(gefiltert von _MAX_ Gesamt Einträgen)"
 
-#: src/Tribe/Main.php:244
+#: src/Tribe/Main.php:260
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Zeige 0 bis 0 von 0 Einträgen"
 
-#: src/Tribe/Main.php:243
+#: src/Tribe/Main.php:259
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Zeige von _START_ bis _END_ von ingesamt _TOTAL_ Einträgen"
 
-#: src/Tribe/Main.php:242
+#: src/Tribe/Main.php:258
 msgid "No data available in table"
 msgstr "Keine Daten verfügbar in der Tabelle"
 
-#: src/Tribe/Main.php:241
+#: src/Tribe/Main.php:257
 msgid "Show _MENU_ entries"
 msgstr "_MENU_ Einträge anzeigen"
 
-#: src/Tribe/Main.php:239
+#: src/Tribe/Main.php:255
 msgid ": activate to sort column descending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
-#: src/Tribe/Main.php:238
+#: src/Tribe/Main.php:254
 msgid ": activate to sort column ascending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: src/Tribe/Main.php:280
+#: src/Tribe/Main.php:299
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Drücke \"CTRL + C\" um zu kopieren"
 
-#: src/Tribe/Main.php:279
+#: src/Tribe/Main.php:298
 msgid "System info copied"
 msgstr "System Info kopiert"
 
-#: src/Tribe/Main.php:278 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:297 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr "In Zwischenablage kopieren"
 
@@ -501,16 +624,16 @@ msgstr "In Zwischenablage kopieren"
 msgid "An Unknown error occurred"
 msgstr "Es ist ein unbekannter Fehler aufgetreten"
 
-#: src/Tribe/Plugins_API.php:116
+#: src/Tribe/Plugins_API.php:126
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
 msgstr "Das %1$sEventbrite Ticket Add-On%2$s ermöglicht das Erstellen und Verkaufen von Karten mit The Events Calendar. Egal ob Sie eine Karte im Wordpress Dashboard erstellen oder die Details einer bereits bestehenden Veranstaltung von %1$sEventbrite.com%2$s importieren, die Eventbrite Schnittstelle hilft dabei. "
 
-#: src/Tribe/Plugins_API.php:105
+#: src/Tribe/Plugins_API.php:115
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
 msgstr "Event Tickets Plus and Community Events"
 
-#: src/Tribe/Plugins_API.php:104
+#: src/Tribe/Plugins_API.php:114
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
 msgstr "Aktivieren Sie Community Events Tickets, um Karten für ihre Veranstaltungen zu verkaufen. Sie können flexible Zahlungs und Gebührenoptionen verwenden. Sie können sogar die Teilnehmer zu ihren Veranstaltungen einchecken! Dies ist alles vom Front-End Ihrer Website möglich, ohne jemandem Admin Zugang zu Ihrer Website zu gewähren. "
 
@@ -518,11 +641,11 @@ msgstr "Aktivieren Sie Community Events Tickets, um Karten für ihre Veranstaltu
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
 msgstr "Der Events Calendar PRO ist ein kostenpflichtiges Add-On für unser Open Source WordPress plugin %1$sThe Events Calendar%2$s. PRO bietet vielfältige Funktionen inklusive Serienterminen, individuelle Felder, abspeichern und Wiederverwenden von Veranstaltern und Veranstaltungsorten, extra Seiten für Veranstaltungsorte, erweiterte Administrationsmöglichkeiten der Events und vieles mehr. "
 
-#: src/Tribe/Plugins_API.php:84
+#: src/Tribe/Plugins_API.php:94
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr "Es ist großartig, dass Ihr Kalender <em>DER PLATZ</em> für Premium Verkäufe ist. Sie haben mehr Events als Rihanna? Schade nur, dass Besucher einen persönlichen Assistenten benötigen, um sich durch die ganzen Angebote zu wühlen. Wollen Sie Ihre Veranstaltungen filtern, z.B. nach Entfernung, nur am Wochenende oder kostenlose Events? Dann nutzen Sie The Filter Bar! "
 
-#: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:80
+#: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:90
 msgid "Filter Bar"
 msgstr "Filterleiste"
 
@@ -632,17 +755,13 @@ msgstr "Ein Veranstaltungseinstellungen Framework, um geteilte Optionen zu verwa
 msgid "Tribe Common"
 msgstr "Tribe Common"
 
-#: src/admin-views/tribe-options-licenses.php:47
-msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
-msgstr "Nur Lizenz Felder für %1$s Netzwerk aktivierte %2$s Plugins werden auf diesem Bildschirm angezeigt."
-
 #: src/admin-views/tribe-options-help.php:38
 msgid "Read more about our support policy"
 msgstr "Lesen Sie mehr über unsere Supportbedingungen"
 
 #: src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
-msgstr "Bitte beachten Sie, dass jegliche Hands-On Unterstützung über die Foren erfolgt. Sie können uns eine E-Mail senden oder twittern, aber wir werden Sie wahrscheinlich auf die Foren verweisen"
+msgstr ""
 
 #: src/admin-views/tribe-options-help.php:33
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the help desk is open only to paid customers, they are open for anyone to search and review."
@@ -704,7 +823,7 @@ msgstr "Herzlichen Dank, dass Sie Event Tickets nutzen! Wir bei Modern Tribe sch
 msgid "%s must be a positive number or percent."
 msgstr "%s muss eine positive Zahl oder ein Prozentwert sein."
 
-#: src/Tribe/PUE/Checker.php:932
+#: src/Tribe/PUE/Checker.php:943
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr "Danke für das Verwenden einen gültigen Lizenzschlüssels. Er wird am %s auslaufen."
 
@@ -748,7 +867,7 @@ msgstr "Aktiviere Plugin"
 msgid "Activate %s"
 msgstr "Aktiviere %s"
 
-#: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:100
+#: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:110
 msgid "Community Tickets"
 msgstr "Community Tickets"
 
@@ -756,7 +875,7 @@ msgstr "Community Tickets"
 msgid "Event Tickets Plus"
 msgstr "Event Tickets Plus"
 
-#: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:111
+#: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:121
 msgid "Eventbrite Tickets"
 msgstr "Eventbrite Tickets"
 
@@ -796,15 +915,11 @@ msgstr "Modern Tribe, Inc."
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: src/admin-views/tribe-options-licenses.php:38
-msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
-msgstr "%1$s Nutzen Sie unser Plugin in einem Multisite Netzwerk?%2$s Bitte beachten Sie, dass der Lizenzschlüssel für das gesamte Netzwerk angewendet wird, nicht nur für diese Seite."
-
 #: src/Tribe/Support.php:199
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr "Die Überschreiben Regeln wurden beim Laden dieser Hilfe Seite bereinigt. Es besteht die Chance, dass eine Überschreiben Regeln auf ein Plugin oder Theme angewendet wurde."
 
-#: src/Tribe/PUE/Checker.php:901
+#: src/Tribe/PUE/Checker.php:912
 msgid "unknown date"
 msgstr "Unbekanntes Datum"
 
@@ -933,7 +1048,7 @@ msgstr "Einstellungen Datumsformat"
 msgid "View"
 msgstr "Ansehen"
 
-#: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:90
+#: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:100
 msgid "Community Events"
 msgstr "Veranstaltungen bearbeiten"
 
@@ -955,1369 +1070,3 @@ msgstr "Washington"
 
 #: src/Tribe/Languages/Locations.php:370
 msgid "Virginia"
-msgstr "Virginia"
-
-#: src/Tribe/Languages/Locations.php:369
-msgid "Vermont"
-msgstr "Vermont"
-
-#: src/Tribe/Languages/Locations.php:368
-msgid "Utah"
-msgstr "Utah"
-
-#: src/Tribe/Languages/Locations.php:367
-msgid "Texas"
-msgstr "Texas"
-
-#: src/Tribe/Languages/Locations.php:366
-msgid "Tennessee"
-msgstr "Tennessee"
-
-#: src/Tribe/Languages/Locations.php:365
-msgid "South Dakota"
-msgstr "South Dakota"
-
-#: src/Tribe/Languages/Locations.php:364
-msgid "South Carolina"
-msgstr "South Carolina"
-
-#: src/Tribe/Languages/Locations.php:363
-msgid "Rhode Island"
-msgstr "Rhode Island"
-
-#: src/Tribe/Languages/Locations.php:362
-msgid "Pennsylvania"
-msgstr "Pennsylvania"
-
-#: src/Tribe/Languages/Locations.php:361
-msgid "Oregon"
-msgstr "Oregon"
-
-#: src/Tribe/Languages/Locations.php:360
-msgid "Oklahoma"
-msgstr "Oklahoma"
-
-#: src/Tribe/Languages/Locations.php:359
-msgid "Ohio"
-msgstr "Ohio"
-
-#: src/Tribe/Languages/Locations.php:358
-msgid "North Dakota"
-msgstr "North Dakota"
-
-#: src/Tribe/Languages/Locations.php:357
-msgid "North Carolina"
-msgstr "North Carolina"
-
-#: src/Tribe/Languages/Locations.php:356
-msgid "New York"
-msgstr "New York"
-
-#: src/Tribe/Languages/Locations.php:355
-msgid "New Mexico"
-msgstr "New Mexico"
-
-#: src/Tribe/Languages/Locations.php:354
-msgid "New Jersey"
-msgstr "New Jersey"
-
-#: src/Tribe/Languages/Locations.php:353
-msgid "New Hampshire"
-msgstr "New Hampshire"
-
-#: src/Tribe/Languages/Locations.php:352
-msgid "Nevada"
-msgstr "Nevada"
-
-#: src/Tribe/Languages/Locations.php:351
-msgid "Nebraska"
-msgstr "Nebraska"
-
-#: src/Tribe/Languages/Locations.php:350
-msgid "Montana"
-msgstr "Montana"
-
-#: src/Tribe/Languages/Locations.php:349
-msgid "Missouri"
-msgstr "Missouri"
-
-#: src/Tribe/Languages/Locations.php:348
-msgid "Mississippi"
-msgstr "Mississippi"
-
-#: src/Tribe/Languages/Locations.php:347
-msgid "Minnesota"
-msgstr "Minnesota"
-
-#: src/Tribe/Languages/Locations.php:346
-msgid "Michigan"
-msgstr "Michigan"
-
-#: src/Tribe/Languages/Locations.php:345
-msgid "Massachusetts"
-msgstr "Massachusetts"
-
-#: src/Tribe/Languages/Locations.php:344
-msgid "Maryland"
-msgstr "Maryland"
-
-#: src/Tribe/Languages/Locations.php:343
-msgid "Maine"
-msgstr "Maine"
-
-#: src/Tribe/Languages/Locations.php:342
-msgid "Louisiana"
-msgstr "Louisiana"
-
-#: src/Tribe/Languages/Locations.php:341
-msgid "Kentucky"
-msgstr "Kentucky"
-
-#: src/Tribe/Languages/Locations.php:340
-msgid "Kansas"
-msgstr "Kansas"
-
-#: src/Tribe/Languages/Locations.php:339
-msgid "Iowa"
-msgstr "Iowa"
-
-#: src/Tribe/Languages/Locations.php:338
-msgid "Indiana"
-msgstr "Indiana"
-
-#: src/Tribe/Languages/Locations.php:337
-msgid "Illinois"
-msgstr "Illinois"
-
-#: src/Tribe/Languages/Locations.php:336
-msgid "Idaho"
-msgstr "Idaho"
-
-#: src/Tribe/Languages/Locations.php:335
-msgid "Hawaii"
-msgstr "Hawaii"
-
-#: src/Tribe/Languages/Locations.php:333
-msgid "Florida"
-msgstr "Florida"
-
-#: src/Tribe/Languages/Locations.php:332
-msgid "District of Columbia"
-msgstr "District of Columbia"
-
-#: src/Tribe/Languages/Locations.php:331
-msgid "Delaware"
-msgstr "Delaware"
-
-#: src/Tribe/Languages/Locations.php:330
-msgid "Connecticut"
-msgstr "Connecticut"
-
-#: src/Tribe/Languages/Locations.php:329
-msgid "Colorado"
-msgstr "Colorado"
-
-#: src/Tribe/Languages/Locations.php:328
-msgid "California"
-msgstr "Kalifornien"
-
-#: src/Tribe/Languages/Locations.php:327
-msgid "Arkansas"
-msgstr "Arkansas"
-
-#: src/Tribe/Languages/Locations.php:326
-msgid "Arizona"
-msgstr "Arizona"
-
-#: src/Tribe/Languages/Locations.php:325
-msgid "Alaska"
-msgstr "Alaska"
-
-#: src/Tribe/Languages/Locations.php:324
-msgid "Alabama"
-msgstr "Alabama"
-
-#: src/Tribe/Languages/Locations.php:297
-msgid "Zimbabwe"
-msgstr "Simbabwe"
-
-#: src/Tribe/Languages/Locations.php:296
-msgid "Zambia"
-msgstr "Sambia"
-
-#: src/Tribe/Languages/Locations.php:295
-msgid "Yemen"
-msgstr "Jemen"
-
-#: src/Tribe/Languages/Locations.php:294
-msgid "Western Sahara"
-msgstr "Westsahara"
-
-#: src/Tribe/Languages/Locations.php:293
-msgid "Wallis and Futuna Islands"
-msgstr "Wallis und Futuna"
-
-#: src/Tribe/Languages/Locations.php:292
-msgid "Virgin Islands (U.S.)"
-msgstr "Amerikanische Jungferninseln"
-
-#: src/Tribe/Languages/Locations.php:291
-msgid "Virgin Islands (British)"
-msgstr "Britische Jungferninseln"
-
-#: src/Tribe/Languages/Locations.php:290
-msgid "Viet Nam"
-msgstr "Vietnam"
-
-#: src/Tribe/Languages/Locations.php:289
-msgid "Venezuela"
-msgstr "Venezuela"
-
-#: src/Tribe/Languages/Locations.php:288
-msgid "Vanuatu"
-msgstr "Vanuatu"
-
-#: src/Tribe/Languages/Locations.php:287
-msgid "Uzbekistan"
-msgstr "Usbekistan"
-
-#: src/Tribe/Languages/Locations.php:286
-msgid "Uruguay"
-msgstr "Uruguay"
-
-#: src/Tribe/Languages/Locations.php:285
-msgid "United States Minor Outlying Islands"
-msgstr "United States Minor Outlying Islands"
-
-#: src/Tribe/Languages/Locations.php:284
-msgid "United Kingdom"
-msgstr "Großbritannien (Vereinigtes Königreich)"
-
-#: src/Tribe/Languages/Locations.php:283
-msgid "United Arab Emirates"
-msgstr "Vereinigte Arabische Emirate"
-
-#: src/Tribe/Languages/Locations.php:282
-msgid "Ukraine"
-msgstr "Ukraine"
-
-#: src/Tribe/Languages/Locations.php:281
-msgid "Uganda"
-msgstr "Uganda"
-
-#: src/Tribe/Languages/Locations.php:280
-msgid "Tuvalu"
-msgstr "Tuvalu"
-
-#: src/Tribe/Languages/Locations.php:279
-msgid "Turks and Caicos Islands"
-msgstr "Turks- und Caicosinseln"
-
-#: src/Tribe/Languages/Locations.php:278
-msgid "Turkmenistan"
-msgstr "Turkmenistan"
-
-#: src/Tribe/Languages/Locations.php:277
-msgid "Turkey"
-msgstr "Türkei"
-
-#: src/Tribe/Languages/Locations.php:276
-msgid "Tunisia"
-msgstr "Tunesien"
-
-#: src/Tribe/Languages/Locations.php:275
-msgid "Trinidad and Tobago"
-msgstr "Trinidad und Tobago"
-
-#: src/Tribe/Languages/Locations.php:274
-msgid "Tonga"
-msgstr "Tonga"
-
-#: src/Tribe/Languages/Locations.php:273
-msgid "Tokelau"
-msgstr "Tokelau"
-
-#: src/Tribe/Languages/Locations.php:272
-msgid "Togo"
-msgstr "Togo"
-
-#: src/Tribe/Languages/Locations.php:271
-msgid "Thailand"
-msgstr "Thailand"
-
-#: src/Tribe/Languages/Locations.php:270
-msgid "Tanzania, United Republic of"
-msgstr "Tanzania"
-
-#: src/Tribe/Languages/Locations.php:269
-msgid "Tajikistan"
-msgstr "Tadschikistan"
-
-#: src/Tribe/Languages/Locations.php:268
-msgid "Taiwan"
-msgstr "Taiwan"
-
-#: src/Tribe/Languages/Locations.php:267
-msgid "Syrian Arab Republic"
-msgstr "Syrien"
-
-#: src/Tribe/Languages/Locations.php:266
-msgid "Switzerland"
-msgstr "Schweiz"
-
-#: src/Tribe/Languages/Locations.php:265
-msgid "Sweden"
-msgstr "Schweden"
-
-#: src/Tribe/Languages/Locations.php:264
-msgid "Swaziland"
-msgstr "Swasiland"
-
-#: src/Tribe/Languages/Locations.php:263
-msgid "Svalbard and Jan Mayen Islands"
-msgstr "Svalbard und Jan Mayen Islands"
-
-#: src/Tribe/Languages/Locations.php:262
-msgid "Suriname"
-msgstr "Surinam"
-
-#: src/Tribe/Languages/Locations.php:261
-msgid "Sudan"
-msgstr "Sudan"
-
-#: src/Tribe/Languages/Locations.php:241
-msgid "Saint Pierre and Miquelon"
-msgstr "Saint-Pierre und Miquelon"
-
-#: src/Tribe/Languages/Locations.php:260
-msgid "Sri Lanka"
-msgstr "Sri Lanka"
-
-#: src/Tribe/Languages/Locations.php:259
-msgid "Spain"
-msgstr "Spanien"
-
-#: src/Tribe/Languages/Locations.php:258
-msgid "South Georgia, South Sandwich Islands"
-msgstr "Südgeorgien und die Südlichen Sandwichinseln"
-
-#: src/Tribe/Languages/Locations.php:257
-msgid "South Africa"
-msgstr "Südafrika"
-
-#: src/Tribe/Languages/Locations.php:256
-msgid "Somalia"
-msgstr "Somalia"
-
-#: src/Tribe/Languages/Locations.php:255
-msgid "Solomon Islands"
-msgstr "Salomonen"
-
-#: src/Tribe/Languages/Locations.php:254
-msgid "Slovenia"
-msgstr "Slovenien"
-
-#: src/Tribe/Languages/Locations.php:253
-msgid "Slovakia (Slovak Republic)"
-msgstr "Slowakei"
-
-#: src/Tribe/Languages/Locations.php:251
-msgid "Singapore"
-msgstr "Singapur"
-
-#: src/Tribe/Languages/Locations.php:250
-msgid "Sierra Leone"
-msgstr "Sierra Leone"
-
-#: src/Tribe/Languages/Locations.php:249
-msgid "Seychelles"
-msgstr "Seychellen"
-
-#: src/Tribe/Languages/Locations.php:248
-msgid "Serbia"
-msgstr "Serbien"
-
-#: src/Tribe/Languages/Locations.php:247
-msgid "Senegal"
-msgstr "Senegal"
-
-#: src/Tribe/Languages/Locations.php:246
-msgid "Saudi Arabia"
-msgstr "Saudi-Arabien"
-
-#: src/Tribe/Languages/Locations.php:244
-msgid "San Marino"
-msgstr "San Marino"
-
-#: src/Tribe/Languages/Locations.php:243
-msgid "Samoa"
-msgstr "Samoa"
-
-#: src/Tribe/Languages/Locations.php:242
-msgid "Saint Vincent and The Grenadines"
-msgstr "St. Vincent und die Grenadinen"
-
-#: src/Tribe/Languages/Locations.php:240
-msgid "Saint Lucia"
-msgstr "Saint Lucia"
-
-#: src/Tribe/Languages/Locations.php:239
-msgid "Saint Kitts and Nevis"
-msgstr "St. Kitts und Nevis"
-
-#: src/Tribe/Languages/Locations.php:236
-msgid "Rwanda"
-msgstr "Ruanda"
-
-#: src/Tribe/Languages/Locations.php:235
-msgid "Russian Federation"
-msgstr "Russland / Russische Föderation"
-
-#: src/Tribe/Languages/Locations.php:234
-msgid "Romania"
-msgstr "Rumänien"
-
-#: src/Tribe/Languages/Locations.php:233
-msgid "Reunion"
-msgstr "Reunion"
-
-#: src/Tribe/Languages/Locations.php:232
-msgid "Qatar"
-msgstr "Katar"
-
-#: src/Tribe/Languages/Locations.php:231
-msgid "Puerto Rico"
-msgstr "Puerto Rico"
-
-#: src/Tribe/Languages/Locations.php:230
-msgid "Portugal"
-msgstr "Portugal"
-
-#: src/Tribe/Languages/Locations.php:229
-msgid "Poland"
-msgstr "Polen"
-
-#: src/Tribe/Languages/Locations.php:228
-msgid "Pitcairn"
-msgstr "Pitcairn"
-
-#: src/Tribe/Languages/Locations.php:227
-msgid "Philippines"
-msgstr "Philippinen"
-
-#: src/Tribe/Languages/Locations.php:226
-msgid "Peru"
-msgstr "Peru"
-
-#: src/Tribe/Languages/Locations.php:225
-msgid "Paraguay"
-msgstr "Paraguay"
-
-#: src/Tribe/Languages/Locations.php:224
-msgid "Papua New Guinea"
-msgstr "Papua-Neuguinea"
-
-#: src/Tribe/Languages/Locations.php:223
-msgid "Panama"
-msgstr "Panama"
-
-#: src/Tribe/Languages/Locations.php:222
-msgid "Palau"
-msgstr "Palau"
-
-#: src/Tribe/Languages/Locations.php:221
-msgid "Pakistan"
-msgstr "Pakistan"
-
-#: src/Tribe/Languages/Locations.php:220
-msgid "Oman"
-msgstr "Oman"
-
-#: src/Tribe/Languages/Locations.php:219
-msgid "Norway"
-msgstr "Norwegen"
-
-#: src/Tribe/Languages/Locations.php:218
-msgid "Northern Mariana Islands"
-msgstr "Nördliche Marianen"
-
-#: src/Tribe/Languages/Locations.php:217
-msgid "Norfolk Island"
-msgstr "Norfolkinsel"
-
-#: src/Tribe/Languages/Locations.php:216
-msgid "Niue"
-msgstr "Niue"
-
-#: src/Tribe/Languages/Locations.php:215
-msgid "Nigeria"
-msgstr "Nigeria"
-
-#: src/Tribe/Languages/Locations.php:214
-msgid "Niger"
-msgstr "Niger"
-
-#: src/Tribe/Languages/Locations.php:213
-msgid "Nicaragua"
-msgstr "Nicaragua"
-
-#: src/Tribe/Languages/Locations.php:212
-msgid "New Zealand"
-msgstr "Neuseeland"
-
-#: src/Tribe/Languages/Locations.php:211
-msgid "New Caledonia"
-msgstr "Neukaledonien"
-
-#: src/Tribe/Languages/Locations.php:210
-msgid "Netherlands"
-msgstr "Niederlande"
-
-#: src/Tribe/Languages/Locations.php:209
-msgid "Nepal"
-msgstr "Nepal"
-
-#: src/Tribe/Languages/Locations.php:208
-msgid "Nauru"
-msgstr "Nauru"
-
-#: src/Tribe/Languages/Locations.php:207
-msgid "Namibia"
-msgstr "Namibia"
-
-#: src/Tribe/Languages/Locations.php:206
-msgid "Myanmar"
-msgstr "Myanmar"
-
-#: src/Tribe/Languages/Locations.php:205
-msgid "Mozambique"
-msgstr "Mosambik"
-
-#: src/Tribe/Languages/Locations.php:204
-msgid "Morocco"
-msgstr "Marokko"
-
-#: src/Tribe/Languages/Locations.php:203
-msgid "Montserrat"
-msgstr "Montserrat"
-
-#: src/Tribe/Languages/Locations.php:202
-msgid "Montenegro"
-msgstr "Montenegro"
-
-#: src/Tribe/Languages/Locations.php:201
-msgid "Mongolia"
-msgstr "Mongolei"
-
-#: src/Tribe/Languages/Locations.php:200
-msgid "Monaco"
-msgstr "Monaco"
-
-#: src/Tribe/Languages/Locations.php:199
-msgid "Moldova, Republic of"
-msgstr "Moldawien"
-
-#: src/Tribe/Languages/Locations.php:198
-msgid "Micronesia, Federated States of"
-msgstr "Mikronesien"
-
-#: src/Tribe/Languages/Locations.php:197
-msgid "Mexico"
-msgstr "Mexiko"
-
-#: src/Tribe/Languages/Locations.php:196
-msgid "Mayotte"
-msgstr "Mayotte"
-
-#: src/Tribe/Languages/Locations.php:195
-msgid "Mauritius"
-msgstr "Mauritius"
-
-#: src/Tribe/Languages/Locations.php:194
-msgid "Mauritania"
-msgstr "Mauretanien"
-
-#: src/Tribe/Languages/Locations.php:193
-msgid "Martinique"
-msgstr "Martinique"
-
-#: src/Tribe/Languages/Locations.php:192
-msgid "Marshall Islands"
-msgstr "Marshallinseln"
-
-#: src/Tribe/Languages/Locations.php:191
-msgid "Malta"
-msgstr "Malta"
-
-#: src/Tribe/Languages/Locations.php:190
-msgid "Mali"
-msgstr "Mali"
-
-#: src/Tribe/Languages/Locations.php:189
-msgid "Maldives"
-msgstr "Maldiven"
-
-#: src/Tribe/Languages/Locations.php:188
-msgid "Malaysia"
-msgstr "Malaysia"
-
-#: src/Tribe/Languages/Locations.php:187
-msgid "Malawi"
-msgstr "Malawi"
-
-#: src/Tribe/Languages/Locations.php:186
-msgid "Madagascar"
-msgstr "Madagascar"
-
-#: src/Tribe/Languages/Locations.php:185
-msgid "Macedonia"
-msgstr "Mazedonien"
-
-#: src/Tribe/Languages/Locations.php:184
-msgid "Macau"
-msgstr "Macau"
-
-#: src/Tribe/Languages/Locations.php:183
-msgid "Luxembourg"
-msgstr "Luxemburg"
-
-#: src/Tribe/Languages/Locations.php:182
-msgid "Lithuania"
-msgstr "Lithauen"
-
-#: src/Tribe/Languages/Locations.php:181
-msgid "Liechtenstein"
-msgstr "Liechtenstein"
-
-#: src/Tribe/Languages/Locations.php:180
-msgid "Libya"
-msgstr "Libyen"
-
-#: src/Tribe/Languages/Locations.php:179
-msgid "Liberia"
-msgstr "Liberia"
-
-#: src/Tribe/Languages/Locations.php:178
-msgid "Lesotho"
-msgstr "Lesotho"
-
-#: src/Tribe/Languages/Locations.php:177
-msgid "Lebanon"
-msgstr "Libanon"
-
-#: src/Tribe/Languages/Locations.php:176
-msgid "Latvia"
-msgstr "Lettland"
-
-#: src/Tribe/Languages/Locations.php:175
-msgid "Lao People's Democratic Republic"
-msgstr "Laos"
-
-#: src/Tribe/Languages/Locations.php:174
-msgid "Kyrgyzstan"
-msgstr "Kirgistan"
-
-#: src/Tribe/Languages/Locations.php:173
-msgid "Kuwait"
-msgstr "Kuwait"
-
-#: src/Tribe/Languages/Locations.php:172
-msgid "Korea, Republic of"
-msgstr "Südkorea"
-
-#: src/Tribe/Languages/Locations.php:171
-msgid "Korea, Democratic People's Republic of"
-msgstr "Nordkorea (Volksrepublik)"
-
-#: src/Tribe/Languages/Locations.php:170
-msgid "Kiribati"
-msgstr "Kiribati"
-
-#: src/Tribe/Languages/Locations.php:169
-msgid "Kenya"
-msgstr "Kenia"
-
-#: src/Tribe/Languages/Locations.php:168
-msgid "Kazakhstan"
-msgstr "Kasachstan"
-
-#: src/Tribe/Languages/Locations.php:167
-msgid "Jordan"
-msgstr "Jordanien"
-
-#: src/Tribe/Languages/Locations.php:166
-msgid "Japan"
-msgstr "Japan"
-
-#: src/Tribe/Languages/Locations.php:165
-msgid "Jamaica"
-msgstr "Jamaika"
-
-#: src/Tribe/Languages/Locations.php:164
-msgid "Italy"
-msgstr "Italien"
-
-#: src/Tribe/Languages/Locations.php:163
-msgid "Israel"
-msgstr "Israel"
-
-#: src/Tribe/Languages/Locations.php:162
-msgid "Ireland"
-msgstr "Irland"
-
-#: src/Tribe/Languages/Locations.php:161
-msgid "Iraq"
-msgstr "Irak"
-
-#: src/Tribe/Languages/Locations.php:160
-msgid "Iran, Islamic Republic of"
-msgstr "Iran (Islamische Republik)"
-
-#: src/Tribe/Languages/Locations.php:159
-msgid "Indonesia"
-msgstr "Indonesien"
-
-#: src/Tribe/Languages/Locations.php:158
-msgid "India"
-msgstr "Indien"
-
-#: src/Tribe/Languages/Locations.php:157
-msgid "Iceland"
-msgstr "Island"
-
-#: src/Tribe/Languages/Locations.php:156
-msgid "Hungary"
-msgstr "Ungarn"
-
-#: src/Tribe/Languages/Locations.php:155
-msgid "Hong Kong"
-msgstr "Hongkong"
-
-#: src/Tribe/Languages/Locations.php:154
-msgid "Honduras"
-msgstr "Honduras"
-
-#: src/Tribe/Languages/Locations.php:153
-msgid "Holy See (Vatican City State)"
-msgstr "Vatikanstadt (Heiliger Stuhl)"
-
-#: src/Tribe/Languages/Locations.php:152
-msgid "Heard and McDonald Islands"
-msgstr "Heard und McDonaldinseln"
-
-#: src/Tribe/Languages/Locations.php:151
-msgid "Haiti"
-msgstr "Haiti"
-
-#: src/Tribe/Languages/Locations.php:150
-msgid "Guyana"
-msgstr "Guyana"
-
-#: src/Tribe/Languages/Locations.php:149
-msgid "Guinea-Bissau"
-msgstr "Guinea-Bissau"
-
-#: src/Tribe/Languages/Locations.php:148
-msgid "Guinea"
-msgstr "Guinea"
-
-#: src/Tribe/Languages/Locations.php:147
-msgid "Guatemala"
-msgstr "Guatemala"
-
-#: src/Tribe/Languages/Locations.php:146
-msgid "Guam"
-msgstr "Guam"
-
-#: src/Tribe/Languages/Locations.php:145
-msgid "Guadeloupe"
-msgstr "Guadeloupe"
-
-#: src/Tribe/Languages/Locations.php:144
-msgid "Grenada"
-msgstr "Grenada"
-
-#: src/Tribe/Languages/Locations.php:143
-msgid "Greenland"
-msgstr "Grönland"
-
-#: src/Tribe/Languages/Locations.php:142
-msgid "Greece"
-msgstr "Griechenland"
-
-#: src/Tribe/Languages/Locations.php:141
-msgid "Gibraltar"
-msgstr "Gibraltar"
-
-#: src/Tribe/Languages/Locations.php:140
-msgid "Ghana"
-msgstr "Ghana"
-
-#: src/Tribe/Languages/Locations.php:139
-msgid "Germany"
-msgstr "Deutschland"
-
-#: src/Tribe/Languages/Locations.php:138 src/Tribe/Languages/Locations.php:334
-msgid "Georgia"
-msgstr "Georgien"
-
-#: src/Tribe/Languages/Locations.php:137
-msgid "Gambia"
-msgstr "Gambia"
-
-#: src/Tribe/Languages/Locations.php:136
-msgid "Gabon"
-msgstr "Gabon"
-
-#: src/Tribe/Languages/Locations.php:135
-msgid "French Southern Territories"
-msgstr "Französische Süd- und Antarktisgebiete"
-
-#: src/Tribe/Languages/Locations.php:134
-msgid "French Polynesia"
-msgstr "Französisch-Polynesien"
-
-#: src/Tribe/Languages/Locations.php:133
-msgid "French Guiana"
-msgstr "Französisch-Guayana"
-
-#: src/Tribe/Languages/Locations.php:132
-msgid "France"
-msgstr "Frankreich"
-
-#: src/Tribe/Languages/Locations.php:131
-msgid "Finland"
-msgstr "Finnland"
-
-#: src/Tribe/Languages/Locations.php:130
-msgid "Fiji"
-msgstr "Fiji"
-
-#: src/Tribe/Languages/Locations.php:129
-msgid "Faroe Islands"
-msgstr "Färöer Inseln"
-
-#: src/Tribe/Languages/Locations.php:128
-msgid "Falkland Islands (Malvinas)"
-msgstr "Falkland-Inseln (Malvinas)"
-
-#: src/Tribe/Languages/Locations.php:127
-msgid "Ethiopia"
-msgstr "Äthophien"
-
-#: src/Tribe/Languages/Locations.php:126
-msgid "Estonia"
-msgstr "Estland"
-
-#: src/Tribe/Languages/Locations.php:125
-msgid "Eritrea"
-msgstr "Eritrea"
-
-#: src/Tribe/Languages/Locations.php:124
-msgid "Equatorial Guinea"
-msgstr "Äquatorialguinea"
-
-#: src/Tribe/Languages/Locations.php:123
-msgid "El Salvador"
-msgstr "El Salvador"
-
-#: src/Tribe/Languages/Locations.php:122
-msgid "Egypt"
-msgstr "Ägypten"
-
-#: src/Tribe/Languages/Locations.php:121
-msgid "Ecuador"
-msgstr "Ecuador"
-
-#: src/Tribe/Languages/Locations.php:120
-msgid "East Timor"
-msgstr "Osttimor"
-
-#: src/Tribe/Languages/Locations.php:119
-msgid "Dominican Republic"
-msgstr "Dominikanische Republik"
-
-#: src/Tribe/Languages/Locations.php:118
-msgid "Dominica"
-msgstr "Dominica"
-
-#: src/Tribe/Languages/Locations.php:117
-msgid "Djibouti"
-msgstr "Djibouti"
-
-#: src/Tribe/Languages/Locations.php:116
-msgid "Denmark"
-msgstr "Dänemark"
-
-#: src/Tribe/Languages/Locations.php:115
-msgid "Czech Republic"
-msgstr "Tschechische Republik"
-
-#: src/Tribe/Languages/Locations.php:114
-msgid "Cyprus"
-msgstr "Zypern"
-
-#: src/Tribe/Languages/Locations.php:112
-msgid "Cuba"
-msgstr "Kuba"
-
-#: src/Tribe/Languages/Locations.php:111
-msgid "Croatia (Local Name: Hrvatska)"
-msgstr "Kroatien"
-
-#: src/Tribe/Languages/Locations.php:109
-msgid "Costa Rica"
-msgstr "Costa Rica"
-
-#: src/Tribe/Languages/Locations.php:108
-msgid "Cook Islands"
-msgstr "Cook-Inseln"
-
-#: src/Tribe/Languages/Locations.php:107
-msgid "Congo, Democratic Republic of the"
-msgstr "Demokratische Republik Kongo"
-
-#: src/Tribe/Languages/Locations.php:106
-msgid "Congo"
-msgstr "Kongo"
-
-#: src/Tribe/Languages/Locations.php:105
-msgid "Comoros"
-msgstr "Komoren"
-
-#: src/Tribe/Languages/Locations.php:104
-msgid "Colombia"
-msgstr "Kolumbien"
-
-#: src/Tribe/Languages/Locations.php:102
-msgid "Cocos (Keeling) Islands"
-msgstr "Kokosinseln"
-
-#: src/Tribe/Languages/Locations.php:101
-msgid "Christmas Island"
-msgstr "Weihnachtsinseln"
-
-#: src/Tribe/Languages/Locations.php:100
-msgid "China"
-msgstr "China"
-
-#: src/Tribe/Languages/Locations.php:99
-msgid "Chile"
-msgstr "Chile"
-
-#: src/Tribe/Languages/Locations.php:98
-msgid "Chad"
-msgstr "Tschad"
-
-#: src/Tribe/Languages/Locations.php:97
-msgid "Central African Republic"
-msgstr "Zentralafrikanische Republik"
-
-#: src/Tribe/Languages/Locations.php:96
-msgid "Cayman Islands"
-msgstr "Cayman Inseln"
-
-#: src/Tribe/Languages/Locations.php:95
-msgid "Cape Verde"
-msgstr "Kapverdische Inseln"
-
-#: src/Tribe/Languages/Locations.php:94
-msgid "Canada"
-msgstr "Kanada"
-
-#: src/Tribe/Languages/Locations.php:93
-msgid "Cameroon"
-msgstr "Kamerun"
-
-#: src/Tribe/Languages/Locations.php:92
-msgid "Cambodia"
-msgstr "Kambodscha"
-
-#: src/Tribe/Languages/Locations.php:91
-msgid "Burundi"
-msgstr "Burundi"
-
-#: src/Tribe/Languages/Locations.php:90
-msgid "Burkina Faso"
-msgstr "Burkina Faso"
-
-#: src/Tribe/Languages/Locations.php:89
-msgid "Bulgaria"
-msgstr "Bulgarien"
-
-#: src/Tribe/Languages/Locations.php:88
-msgid "Brunei Darussalam"
-msgstr "Brunei"
-
-#: src/Tribe/Languages/Locations.php:87
-msgid "British Indian Ocean Territory"
-msgstr "Britisches Territorium im Indischen Ozean"
-
-#: src/Tribe/Languages/Locations.php:86
-msgid "Brazil"
-msgstr "Brasilien"
-
-#: src/Tribe/Languages/Locations.php:85
-msgid "Bouvet Island"
-msgstr "Bouvetinsel"
-
-#: src/Tribe/Languages/Locations.php:84
-msgid "Botswana"
-msgstr "Botswana"
-
-#: src/Tribe/Languages/Locations.php:83
-msgid "Bosnia and Herzegowina"
-msgstr "Bosnien und Herzegowina"
-
-#: src/Tribe/Languages/Locations.php:82
-msgid "Bolivia"
-msgstr "Bolivien"
-
-#: src/Tribe/Languages/Locations.php:81
-msgid "Bhutan"
-msgstr "Bhutan"
-
-#: src/Tribe/Languages/Locations.php:80
-msgid "Bermuda"
-msgstr "Bermuda"
-
-#: src/Tribe/Languages/Locations.php:79
-msgid "Benin"
-msgstr "Benin"
-
-#: src/Tribe/Languages/Locations.php:78
-msgid "Belize"
-msgstr "Belize"
-
-#: src/Tribe/Languages/Locations.php:77
-msgid "Belgium"
-msgstr "Belgien"
-
-#: src/Tribe/Languages/Locations.php:76
-msgid "Belarus"
-msgstr "Weißrussland"
-
-#: src/Tribe/Languages/Locations.php:75
-msgid "Barbados"
-msgstr "Barbados"
-
-#: src/Tribe/Languages/Locations.php:74
-msgid "Bangladesh"
-msgstr "Bangladesh"
-
-#: src/Tribe/Languages/Locations.php:73
-msgid "Bahrain"
-msgstr "Bahrain"
-
-#: src/Tribe/Languages/Locations.php:72
-msgid "Bahamas"
-msgstr "Bahamas"
-
-#: src/Tribe/Languages/Locations.php:71
-msgid "Azerbaijan"
-msgstr "Aserbaidschan"
-
-#: src/Tribe/Languages/Locations.php:70
-msgid "Austria"
-msgstr "Österreich"
-
-#: src/Tribe/Languages/Locations.php:69
-msgid "Australia"
-msgstr "Australien"
-
-#: src/Tribe/Languages/Locations.php:68
-msgid "Aruba"
-msgstr "Aruba"
-
-#: src/Tribe/Languages/Locations.php:67
-msgid "Armenia"
-msgstr "Armenien"
-
-#: src/Tribe/Languages/Locations.php:66
-msgid "Argentina"
-msgstr "Argentinien"
-
-#: src/Tribe/Languages/Locations.php:65
-msgid "Antigua and Barbuda"
-msgstr "Antigua und Barbuda"
-
-#: src/Tribe/Languages/Locations.php:64
-msgid "Antarctica"
-msgstr "Antarktika"
-
-#: src/Tribe/Languages/Locations.php:63
-msgid "Anguilla"
-msgstr "Anguilla"
-
-#: src/Tribe/Languages/Locations.php:62
-msgid "Angola"
-msgstr "Angola"
-
-#: src/Tribe/Languages/Locations.php:61
-msgid "Andorra"
-msgstr "Andorra"
-
-#: src/Tribe/Languages/Locations.php:60
-msgid "American Samoa"
-msgstr "Amerikanisch Samoa"
-
-#: src/Tribe/Languages/Locations.php:59
-msgid "Algeria"
-msgstr "Algerien"
-
-#: src/Tribe/Languages/Locations.php:58
-msgid "Albania"
-msgstr "Albanien"
-
-#: src/Tribe/Languages/Locations.php:56
-msgid "Afghanistan"
-msgstr "Afghanistan"
-
-#: src/Tribe/View_Helpers.php:50
-msgid "Select a Country:"
-msgstr "Land wählen ..."
-
-#: src/Tribe/Validate.php:514
-msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
-msgstr "Die Länder-Liste muss als ein Land pro Zeile in der folgenden Weise formatiert sein: <br>US, United States <br> UK, United Kingdom."
-
-#: src/Tribe/Validate.php:498
-msgid "%s must be a phone number."
-msgstr "%s muss eine Telefonnummer sein."
-
-#: src/Tribe/Validate.php:484
-msgid "%s must consist of 5 numbers."
-msgstr "%s muss aus fünf Ziffern bestehen."
-
-#: src/Tribe/Validate.php:470
-msgid "%s must consist of letters, spaces, apostrophes, and dashes."
-msgstr "%s muss aus Buchstaben, Leerzeichen, Apostrophe und Gedankenstrichen bestehen."
-
-#: src/Tribe/Validate.php:454
-msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
-msgstr "%s darf nur aus Buchstaben, Zahlen, Gedankenstrichen, Apostrophe und Leerzeichen bestehen. "
-
-#: src/Tribe/Validate.php:438
-msgid "%s must be a number between 0 and 21."
-msgstr "%s muss eine Zahl zwischen 0 und 21 sein."
-
-#: src/Tribe/Validate.php:384
-msgid "%s must be a number or percentage."
-msgstr "%s muss eine Zahl oder Prozentsatz sein."
-
-#: src/Tribe/Validate.php:368
-msgid "%s cannot be a duplicate"
-msgstr "%s kann nicht vervielfältigt werden"
-
-#: src/Tribe/Validate.php:366
-msgid "%s cannot be the same as %s."
-msgstr "%s kann nicht dasselbe sein wie %s."
-
-#: src/Tribe/Validate.php:359
-msgid "Comparison validation failed because no comparison value was provided, for field %s"
-msgstr "Der Vergleich ist fehlgeschlagen, weil keine Eingabe im Feld %s gefunden wurde"
-
-#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:310
-#: src/Tribe/Validate.php:323 src/Tribe/Validate.php:345
-msgid "%s must have a value that's part of its options."
-msgstr "%s muss eine Wert haben, der Teil der Optionen ist."
-
-#: src/Tribe/Validate.php:282
-msgid "%s must be a valid absolute URL."
-msgstr "%s muss eine gültige URL sein."
-
-#: src/Tribe/Validate.php:267
-msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
-msgstr "%s muss eine gültige Ausgangsform haben (Nummern, Buchstaben, Gedankenstriche und Unterstreichungen)."
-
-#: src/Tribe/Validate.php:200 src/Tribe/Validate.php:228
-msgid "%s must be a positive number."
-msgstr "%s muss eine positive Zahl sein."
-
-#: src/Tribe/Validate.php:152
-msgid "%s must contain numbers, letters and dots only"
-msgstr "%s darf nur Zahlen, Buchstaben oder Punkte enthalten"
-
-#: src/Tribe/Validate.php:120 src/Tribe/Validate.php:136
-msgid "%s must contain numbers and letters only"
-msgstr "%s darf nur Zahlen und Buchstaben enthalten"
-
-#: src/Tribe/Validate.php:105
-msgctxt "non-existant function name passed for field validation"
-msgid "with function name:"
-msgstr "mit dem Funktionsnamen:"
-
-#: src/Tribe/Validate.php:104
-msgid "Non-existant field validation function passed"
-msgstr "Prüfung für nicht vorhandenes Feld durchgeführt"
-
-#: src/Tribe/Validate.php:73 src/Tribe/Validate.php:85
-#: src/Tribe/Validate.php:105
-msgid "Field ID:"
-msgstr "Feld ID:"
-
-#: src/Tribe/Validate.php:72 src/Tribe/Validate.php:84
-msgid "Invalid or incomplete field passed"
-msgstr "Unvollständig oder fehlerhaft."
-
-#: src/Tribe/Support.php:188 src/Tribe/Support.php:189
-msgid "Unknown or not set"
-msgstr "Unbekannt oder nicht gesetzt"
-
-#: src/admin-views/tribe-options-help.php:41
-msgid "System Information"
-msgstr "Systeminformationen"
-
-#: src/Tribe/Settings_Tab.php:222
-msgid "There are no fields setup for this tab yet."
-msgstr "Es sind noch keine Felder für diesen Reiter definiert."
-
-#: src/Tribe/Settings.php:621
-msgid "The above setting was not saved. Other settings were successfully saved."
-msgid_plural "The above settings were not saved. Other settings were successfully saved."
-msgstr[0] "Die obige Einstellung wurde nicht gespeichert. Andere Einstellungen wurden erfolgreich gespeichert."
-msgstr[1] "Die obigen Einstellungen wurde nicht gespeichert. Andere Einstellungen wurden erfolgreich gespeichert."
-
-#: src/Tribe/Settings.php:620
-msgid "None of your settings were saved. Please try again."
-msgstr "Die Eintellungen konnten gespeichert werden. Versuchen Sie es erneut."
-
-#: src/Tribe/Settings.php:610
-msgid "Your form had the following errors:"
-msgstr "Ihr Formular hat folgende Fehler:"
-
-#: src/Tribe/Settings.php:431
-msgid "The request wasn't sent from this tab."
-msgstr "Die Anfrage wurde nicht von diesem Reiter gesendet."
-
-#: src/Tribe/Settings.php:425
-msgid "The request was sent insecurely."
-msgstr "Die Anfrage wurde unverschlüsselt gesendet."
-
-#: src/Tribe/Settings.php:419
-msgid "You don't have permission to do that."
-msgstr "Sie besitzen nicht die nötigen Rechte dafür."
-
-#: src/Tribe/Settings.php:363
-msgid "You've requested a non-existent tab."
-msgstr "Sie wollen einen nicht vorhandenen Reiter anzeigen."
-
-#: src/Tribe/Settings.php:349
-msgid "%s Settings"
-msgstr "%s Einstellungen"
-
-#: src/Tribe/Settings.php:253 src/Tribe/Settings.php:273
-msgid "Events Settings"
-msgstr "Veranstaltungseinstellungen"
-
-#: src/Tribe/PUE/Checker.php:888
-msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr "Hmm... irgendwas ist schiefgelaufen. Bitte kontaktieren Sie den %sSupport%s."
-
-#: src/Tribe/PUE/Checker.php:927
-msgid "Valid Key! Expires on %s"
-msgstr "Gültiger Schlüssel! Erlischt am %s"
-
-#: src/Tribe/PUE/Checker.php:907
-msgid "Sorry, key validation server is not available."
-msgstr "Sorry, der Lizensierungsserver ist nicht erreichbar."
-
-#: src/Tribe/PUE/Checker.php:650
-msgid "License key(s) updated."
-msgstr "Lizenzschlüssel aktualisiert."
-
-#: src/Tribe/PUE/Checker.php:494
-msgid "A valid license key is required for support and updates"
-msgstr "Für Support und Updates ist ein gültiger Lizenzschlüssel erforderlich"
-
-#: src/Tribe/PUE/Checker.php:509 src/Tribe/PUE/Checker.php:520
-msgid "License Key"
-msgstr "Lizenzschlüssel"
-
-#: src/Tribe/Main.php:247
-msgid "Search:"
-msgstr "Suche:"
-
-#: src/Tribe/Settings.php:254
-msgid "Settings"
-msgstr "Einstellungen"
-
-#: src/Tribe/Settings_Manager.php:219
-msgid "Network"
-msgstr "Netzwerk"
-
-#: src/Tribe/Main.php:272
-msgid "Done"
-msgstr "Erledigt"
-
-#: src/Tribe/Main.php:271
-msgid "Today"
-msgstr "Heute"
-
-#: src/Tribe/Main.php:270
-msgid "Prev"
-msgstr "Vorherige"
-
-#: src/Tribe/Main.php:253 src/Tribe/Main.php:269
-msgid "Next"
-msgstr "Nächste"
-
-#: src/Tribe/Settings_Manager.php:279
-msgid "Help"
-msgstr "Hilfe"
-
-#: src/Tribe/Settings_Manager.php:55
-msgid "Display"
-msgstr "Darstellung"
-
-#: src/Tribe/Settings_Manager.php:253
-#: src/admin-views/tribe-options-licenses.php:66
-msgid "Licenses"
-msgstr "Lizenzen"
-
-#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:569
-#: src/Tribe/Plugins_API.php:25
-msgid "The Events Calendar"
-msgstr "The Events Calendar"
-
-#: src/Tribe/Settings.php:177 src/Tribe/Settings.php:241
-#: src/Tribe/Settings.php:242
-msgid "Events"
-msgstr "Veranstaltungen"
-
-#: src/Tribe/Settings.php:643
-msgid "Settings saved."
-msgstr "Einstellungen gespeichert.."
-
-#: src/Tribe/Settings_Manager.php:54
-msgid "General"
-msgstr "Allgemein"
-
-#: src/Tribe/Field.php:626
-msgid "No select options specified"
-msgstr "Keine Auswahloptionen definiert"
-
-#: src/Tribe/Field.php:568
-msgid "No checkbox options specified"
-msgstr "Keine Checkboxoptionen definiert"
-
-#: src/Tribe/Field.php:532
-msgid "No radio options specified"
-msgstr "Keine Bewertungsoptionen definiert"
-
-#: src/Tribe/Field.php:231
-msgid "Invalid field type specified"
-msgstr "Falsche Feldart definiert"
-
-#: src/Tribe/Credits.php:31
-msgid "This calendar is powered by The Events Calendar."
-msgstr "Dieser Kalender wird durch The Events Calendar generiert."
-
-#: src/Tribe/App_Shop.php:50 src/Tribe/App_Shop.php:51
-#: src/Tribe/App_Shop.php:72
-msgid "Event Add-Ons"
-msgstr "Add-Ons"
-
-#: src/Tribe/Languages/Locations.php:55
-msgid "United States"
-msgstr "Vereinigte Staaten"
