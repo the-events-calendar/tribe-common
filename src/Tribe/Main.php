@@ -162,6 +162,7 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		require_once $this->plugin_path . 'src/functions/utils.php';
+		require_once $this->plugin_path . 'src/functions/query.php';
 		require_once $this->plugin_path . 'src/functions/multibyte.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
@@ -558,6 +559,7 @@ class Tribe__Main {
 		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', array( 'hook' ) );
 
 		tribe_register_provider( 'Tribe__Editor__Provider' );
+		tribe_register_provider( 'Tribe__Service_Providers__Debug_Bar' );
 		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
 	}
 

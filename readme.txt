@@ -16,6 +16,13 @@
 
 = [4.9.1] 2019-02-14 =
 
+* Feature - date and timezone building and validation methods to the `Tribe__Date_Utils` and `Tribe__Timezones` classes [116356, 115579]
+* Feature - the `tribe_is_regex` and `tribe_unfenced_regex` functions [115582]
+* Feature - Add new action `tribe_editor_register_blocks` used to register Event blocks via `common`
+* Fix - Make sure assets are injected before is too late
+* Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
+* Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
+* Fix - Prevent to trigger error when using `array_combine` with empty arrays
 * Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
 * Language - 0 new strings added, 13 updated, 1 fuzzied, and 0 obsoleted
 
