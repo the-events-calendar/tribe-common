@@ -4,10 +4,39 @@
  * Class Tribe__Process__Queue
  *
  * @since 4.7.12
+ * @since TBD Removed dependency on `WP_Background_Process` class.
  *
  * The base class to process queues asynchronously.
  */
-abstract class Tribe__Process__Queue extends WP_Background_Process {
+abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
+
+	/**
+	 * The default action name.
+	 *
+	 * @var string
+	 */
+	protected $action = 'background_process';
+
+	/**
+	 * Start time of current process.
+	 *
+	 * @var int
+	 */
+	protected $start_time = 0;
+
+	/**
+	 * The process Cron_hook_identifier.
+	 *
+	 * @var mixed
+	 */
+	protected $cron_hook_identifier;
+
+	/**
+	 * The process cron interval identifier.
+	 *
+	 * @var mixed
+	 */
+	protected $cron_interval_identifier;
 
 	/**
 	 * @var string The common identified prefix to all our async process handlers.
@@ -62,7 +91,17 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	protected $feature_detection;
 
 	/**
-	 * {@inheritdoc}
+	 * The default lock time for a queued process.
+	 *
+	 * @var int
+	 */
+	protected $queue_lock_time = 60;
+
+	/**
+	 * Tribe__Process__Queue constructor.
+	 *
+	 * @since 4.7.12
+	 * @since TBD Pulled method code from the `WP_Background_Process` class.
 	 */
 	public function __construct() {
 		$class        = get_class( $this );
@@ -70,6 +109,12 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		$this->feature_detection = tribe( 'feature-detection' );
 
 		parent::__construct();
+
+		$this->cron_hook_identifier     = $this->identifier . '_cron';
+		$this->cron_interval_identifier = $this->identifier . '_cron_interval';
+
+		add_action( $this->cron_hook_identifier, array( $this, 'handle_cron_healthcheck' ) );
+		add_filter( 'cron_schedules', array( $this, 'schedule_cron_healthcheck' ) );
 
 		/*
 		 * This object might have been built while processing crons so
@@ -270,7 +315,15 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Upates the queue and meta data for the process.
+	 *
+	 * @since 4.7.12
+	 * @since TBD Pulled method from the `WP_Background_Process` class.
+	 *
+	 * @param string $key The key of the data to save.
+	 * @param array  $data The data to save.
+	 *
+	 * @return $this This process instance.
 	 */
 	public function update( $key, $data ) {
 		$meta_key = $this->get_meta_key( $key );
@@ -294,7 +347,11 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 
 		set_transient( $meta_key, $update_data, DAY_IN_SECONDS );
 
-		return parent::update( $key, $data );
+		if ( ! empty( $data ) ) {
+			update_site_option( $key, $data );
+		}
+
+		return $this;
 	}
 
 	/**
@@ -481,6 +538,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	 * async requests in sync mode.
 	 *
 	 * @since 4.7.12
+	 * @since TBD Pulled method code from the `WP_Background_Process` class.
 	 *
 	 * @return mixed
 	 */
@@ -498,6 +556,10 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		}
 
 		if ( $this->feature_detection->supports_async_process() ) {
+			// Schedule the cron healthcheck.
+			$this->schedule_event();
+
+			// Perform remote post.
 			return parent::dispatch();
 		}
 
@@ -567,7 +629,7 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	/**
 	 * Returns the queue action identifier.
 	 *
-	 * @since TBD
+	 * @since TBD Pulled from the `WP_Background_Process` class.
 	 *
 	 * @return string The queue action identifier.
 	 */
@@ -576,10 +638,41 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Returns a batch of items to process from the queue.
+	 *
+	 * @since 4.7.12
+	 * @since TBD Pulled method code from the `WP_Background_Process` class.
+	 *
+	 * @return stdClass The first batch of items from the queue.
 	 */
 	protected function get_batch() {
-		$batch = parent::get_batch();
+		global $wpdb;
+
+		$table        = $wpdb->options;
+		$column       = 'option_name';
+		$key_column   = 'option_id';
+		$value_column = 'option_value';
+
+		if ( is_multisite() ) {
+			$table        = $wpdb->sitemeta;
+			$column       = 'meta_key';
+			$key_column   = 'meta_id';
+			$value_column = 'meta_value';
+		}
+
+		$key = $wpdb->esc_like( $this->identifier . '_batch_' ) . '%';
+
+		$query = $wpdb->get_row( $wpdb->prepare( "
+			SELECT *
+			FROM {$table}
+			WHERE {$column} LIKE %s
+			ORDER BY {$key_column} ASC
+			LIMIT 1
+		", $key ) );
+
+		$batch       = new stdClass();
+		$batch->key  = $query->$column;
+		$batch->data = maybe_unserialize( $query->$value_column );
 
 		$this->original_batch_count = ! empty( $batch->data ) ? count( $batch->data ) : 0;
 
@@ -602,14 +695,67 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		return $post_args;
 	}
 
+	/**
+	 * Maybe handle the process request in async or sync mode depending on the
+	 * supported mode.
+	 *
+	 * @since TBD
+	 */
 	public function maybe_handle() {
-		if ( $this->feature_detection->supports_async_process() ) {
-			parent::maybe_handle();
-		}
-
 		// Don't lock up other requests while processing
 		session_write_close();
 
+		if ( $this->feature_detection->supports_async_process() ) {
+			return $this->maybe_handle_async();
+		}
+
+		return $this->maybe_handle_sync();
+	}
+
+	/**
+	 * Push an item to the process queue.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 *
+	 * @param mixed $data An item to process.
+	 *
+	 * @return $this This process instance.
+	 */
+	public function push_to_queue( $data ) {
+		$this->data[] = $data;
+
+		return $this;
+	}
+
+	/**
+	 * Maybe handle this process request in async mode.
+	 *
+	 * @since TBD
+	 */
+	protected function maybe_handle_async() {
+		if ( $this->is_process_running() ) {
+			// Background process already running.
+			wp_die();
+		}
+
+		if ( $this->is_queue_empty() ) {
+			// No data to process.
+			wp_die();
+		}
+
+		check_ajax_referer( $this->identifier, 'nonce' );
+
+		$this->handle();
+
+		wp_die();
+	}
+
+	/**
+	 * Handle the process request in sync mode.
+	 *
+	 * @since TBD
+	 */
+	protected  function maybe_handle_sync() {
 		if ( $this->is_process_running() ) {
 			// Background process already running.
 			return;
@@ -621,7 +767,317 @@ abstract class Tribe__Process__Queue extends WP_Background_Process {
 		}
 
 		$this->handle();
-
-		return null;
 	}
+
+	/**
+	 * Checks whether the queue is empty or not.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 *
+	 * @return bool Whether the queue is empty or not.
+	 */
+	protected function is_queue_empty() {
+		global $wpdb;
+
+		$table  = $wpdb->options;
+		$column = 'option_name';
+
+		if ( is_multisite() ) {
+			$table  = $wpdb->sitemeta;
+			$column = 'meta_key';
+		}
+
+		$key = $wpdb->esc_like( $this->identifier . '_batch_' ) . '%';
+
+		$count = $wpdb->get_var( $wpdb->prepare( "
+			SELECT COUNT(*)
+			FROM {$table}
+			WHERE {$column} LIKE %s
+		", $key ) );
+
+		return $count <= 0;
+	}
+
+	/**
+	 * Checks whether the process is currently running or not.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 */
+	protected function is_process_running() {
+		if ( get_site_transient( $this->identifier . '_process_lock' ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Locks the process so that other instances cannot spawn and run.
+	 *
+	 * Lock the process so that multiple instances can't run simultaneously.
+	 * Override if applicable, but the duration should be greater than that
+	 * defined in the `time_exceeded()` method.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 */
+	protected function lock_process() {
+		// Set start time of current process.
+		$this->start_time = time();
+
+		$lock_duration = $this->queue_lock_time;
+		$lock_duration = apply_filters( $this->identifier . '_queue_lock_time', $lock_duration );
+
+		set_site_transient( $this->identifier . '_process_lock', microtime(), $lock_duration );
+	}
+
+	/**
+	 * Releases the process lock so that other instances can spawn and run.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 *
+	 * @return $this This process instance.
+	 */
+	protected function unlock_process() {
+		delete_site_transient( $this->identifier . '_process_lock' );
+
+		return $this;
+	}
+
+	/**
+	 * Handles the process request.
+	 *
+	 * Pass each queue item to the task handler, while remaining
+	 * within server memory and time limit constraints.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 */
+	protected function handle() {
+		$this->lock_process();
+
+		do {
+			$batch = $this->get_batch();
+
+			foreach ( $batch->data as $key => $value ) {
+				$task = $this->task( $value );
+
+				if ( false !== $task ) {
+					$batch->data[ $key ] = $task;
+				} else {
+					unset( $batch->data[ $key ] );
+				}
+
+				if ( $this->time_exceeded() || $this->memory_exceeded() ) {
+					// Batch limits reached.
+					break;
+				}
+			}
+
+			// Update or delete current batch.
+			if ( ! empty( $batch->data ) ) {
+				$this->update( $batch->key, $batch->data );
+			} else {
+				$this->delete( $batch->key );
+			}
+		} while ( ! $this->time_exceeded() && ! $this->memory_exceeded() && ! $this->is_queue_empty() );
+
+		$this->unlock_process();
+
+		// Start next batch or complete process.
+		if ( ! $this->is_queue_empty() ) {
+			$this->dispatch();
+		} else {
+			$this->complete();
+		}
+
+		wp_die();
+	}
+
+	/**
+	 * Checks whether the memory limit was exceeded.
+	 *
+	 * Ensures the batch process never exceeds 90%
+	 * of the maximum WordPress memory.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 *
+	 * @return bool
+	 */
+	protected function memory_exceeded() {
+		$memory_limit   = $this->get_memory_limit() * 0.9; // 90% of max memory
+		$current_memory = memory_get_usage( true );
+		$return         = false;
+
+		if ( $current_memory >= $memory_limit ) {
+			$return = true;
+		}
+
+		return apply_filters( $this->identifier . '_memory_exceeded', $return );
+	}
+
+	/**
+	 * Returns the memory limit for this process.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 *
+	 * @return int The memory limit in bytes.
+	 */
+	protected function get_memory_limit() {
+		if ( function_exists( 'ini_get' ) ) {
+			$memory_limit = ini_get( 'memory_limit' );
+		} else {
+			// Sensible default.
+			$memory_limit = '128M';
+		}
+
+		if ( ! $memory_limit || -1 === intval( $memory_limit ) ) {
+			// Unlimited, set to 32GB.
+			$memory_limit = '32000M';
+		}
+
+		return intval( $memory_limit ) * 1024 * 1024;
+	}
+
+	/**
+	 * Checks whether the execution time was exceeded or not.
+	 *
+	 * Ensures the batch never exceeds a sensible time limit.
+	 * A timeout limit of 30s is common on shared hosting.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 *
+	 * @return bool Whether the execution time was exceeded or not.
+	 */
+	protected function time_exceeded() {
+		$finish = $this->start_time + apply_filters( $this->identifier . '_default_time_limit', 20 ); // 20 seconds
+		$return = false;
+
+		if ( time() >= $finish ) {
+			$return = true;
+		}
+
+		return apply_filters( $this->identifier . '_time_exceeded', $return );
+	}
+
+	/**
+	 * Completes the processing, cleaning up after it.
+	 *
+	 * Override if applicable, but ensure that the below actions are
+	 * performed, or, call parent::complete().
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 */
+	protected function complete() {
+		// Unschedule the cron healthcheck.
+		$this->clear_scheduled_event();
+	}
+
+	/**
+	 * Schedules a cron-based health-check to restart the queue if stuck.
+	 *
+	 * Filters the `cron_schedules` filter to add a check every 5 minutes.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 *
+	 * @param mixed $schedules The cron schedules to check.
+	 *
+	 * @return mixed The updated cron schedules.
+	 */
+	public function schedule_cron_healthcheck( $schedules ) {
+		$interval = apply_filters( $this->identifier . '_cron_interval', 5 );
+
+		if ( property_exists( $this, 'cron_interval' ) ) {
+			$interval = apply_filters( $this->identifier . '_cron_interval', $this->cron_interval );
+		}
+
+		// Adds every 5 minutes to the existing schedules.
+		$schedules[ $this->identifier . '_cron_interval' ] = array(
+			'interval' => MINUTE_IN_SECONDS * $interval,
+			'display'  => sprintf( __( 'Every %d Minutes' ), $interval ),
+		);
+
+		return $schedules;
+	}
+
+	/**
+	 * Handles the cron health-check.
+	 *
+	 * Restart the background process if not already running
+	 * and data exists in the queue.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 */
+	public function handle_cron_healthcheck() {
+		if ( $this->is_process_running() ) {
+			// Background process already running.
+			exit;
+		}
+
+		if ( $this->is_queue_empty() ) {
+			// No data to process.
+			$this->clear_scheduled_event();
+			exit;
+		}
+
+		$this->handle();
+
+		exit;
+	}
+
+	/**
+	 * Schedules the cron health-check event.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 */
+	protected function schedule_event() {
+		if ( ! wp_next_scheduled( $this->cron_hook_identifier ) ) {
+			wp_schedule_event( time(), $this->cron_interval_identifier, $this->cron_hook_identifier );
+		}
+	}
+
+	/**
+	 * Clears the scheduled hedlth-check cron event.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 */
+	protected function clear_scheduled_event() {
+		$timestamp = wp_next_scheduled( $this->cron_hook_identifier );
+
+		if ( $timestamp ) {
+			wp_unschedule_event( $timestamp, $this->cron_hook_identifier );
+		}
+	}
+
+	/**
+	 * Cancels the current process.
+	 *
+	 * Stops processing queue items and clean up.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 */
+	public function cancel_process() {
+		if ( ! $this->is_queue_empty() ) {
+			$batch = $this->get_batch();
+
+			$this->delete( $batch->key );
+
+			wp_clear_scheduled_hook( $this->cron_hook_identifier );
+		}
+
+	}
+
+	/**
+	 * Executes the process task on a single item.
+	 *
+	 * Override this method to perform any actions required on each
+	 * queue item. Return the modified item for further processing
+	 * in the next pass through. Or, return false to remove the
+	 * item from the queue.
+	 *
+	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 *
+	 * @param mixed $item Queue item to iterate over.
+	 *
+	 * @return mixed
+	 */
+	abstract protected function task( $item );
 }

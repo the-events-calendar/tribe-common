@@ -2,6 +2,7 @@
 
 /**
  * Class Tribe__Process__Post_Thumbnail_Setter
+
  *
  * Handles upload and setting of a post thumbnail in an async process.
  * Example usage:
