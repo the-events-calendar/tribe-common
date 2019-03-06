@@ -51,7 +51,6 @@ class Tribe__Admin__Helpers {
 			return $is_wp_screen;
 		}
 
-		// return true if is wp screen
 		return (bool) ( $current_screen instanceof WP_Screen );
 	}
 
