@@ -37,8 +37,9 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$second_post_id = $this->factory->post->create();
 
 		$this->go_to( "/wp-admin/post.php?post={$post_id}&action=edit" );
-		global $pagenow;
+		global $pagenow, $post;
 		$pagenow = 'post.php';
+		$post    = get_post( $post_id );
 
 		$this->assertFalse( $sut->is_editing_post( 'page' ) );
 		$this->assertTrue( $sut->is_editing_post( 'post' ) );
