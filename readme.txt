@@ -4,7 +4,7 @@
 
 = [4.9.4] TBD =
 
-* Fix - Adjust `Tribe__Admin__Helpers::is_screen()` to avoid false positives and take the events tag page as a tribe screen [107413]
+* Fix - Adjust `Tribe__Admin__Helpers::is_screen()` to avoid false positives and flag the events tag page as a Tribe screen [107413]
 
 = [4.9.3] 2019-03-04 =
 
