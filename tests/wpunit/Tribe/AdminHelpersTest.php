@@ -58,11 +58,11 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [
-									'in_admin'  => true,
-									'id'        => 'tribe_events',
-									'post_type' => 'tribe_events'
-								]
-							);
+						'in_admin'  => true,
+						'id'        => 'tribe_events',
+						'post_type' => 'tribe_events'
+					]
+				);
 
 		$this->assertTrue( $helpers->is_post_type_screen() );
 	}
@@ -85,11 +85,11 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [
-									'in_admin'  => true,
-									'id'        => 'tribe_venue',
-									'post_type' => 'tribe_venue'
-								]
-							);
+						'in_admin'  => true,
+						'id'        => 'tribe_venue',
+						'post_type' => 'tribe_venue'
+					]
+				);
 
 		$this->assertTrue( $helpers->is_post_type_screen() );
 	}
@@ -112,11 +112,11 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [
-									'in_admin'  => true,
-									'id'        => 'tribe_organizer',
-									'post_type' => 'tribe_organizer'
-								]
-							);
+						'in_admin'  => true,
+						'id'        => 'tribe_organizer',
+						'post_type' => 'tribe_organizer'
+					]
+				);
 
 		$this->assertTrue( $helpers->is_post_type_screen() );
 	}
@@ -133,12 +133,12 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [
-									'in_admin'  => true,
-									'id'        => 'dashboard',
-									'base'      => 'dashboard',
-									'post_type' => ''
-								]
-							 );
+						'in_admin'  => true,
+						'id'        => 'dashboard',
+						'base'      => 'dashboard',
+						'post_type' => ''
+					]
+				 );
 
 		$this->assertFalse( $helpers->is_screen() );
 	}
@@ -161,12 +161,12 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [
-									'in_admin'  => true,
-									'id'        => 'tribe_events_page_tribe-common',
-									'base'      => 'tribe_events_page_tribe-common',
-									'post_type' => 'tribe_events'
-								]
-							);
+						'in_admin'  => true,
+						'id'        => 'tribe_events_page_tribe-common',
+						'base'      => 'tribe_events_page_tribe-common',
+						'post_type' => 'tribe_events'
+					]
+				);
 
 		$this->assertTrue( $helpers->is_screen() );
 
@@ -190,12 +190,12 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [
-									'in_admin'  => true,
-									'id'        => 'tribe_events_page_aggregator',
-									'base'      => 'tribe_events_page_aggregator',
-									'post_type' => 'tribe_events'
-								]
-							);
+						'in_admin'  => true,
+						'id'        => 'tribe_events_page_aggregator',
+						'base'      => 'tribe_events_page_aggregator',
+						'post_type' => 'tribe_events'
+					]
+				);
 
 		$this->assertTrue( $helpers->is_screen() );
 
@@ -219,12 +219,12 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [
-									'in_admin'  => true,
-									'id'        => 'tribe_events_page_tribe-help',
-									'base'      => 'tribe_events_page_tribe-help',
-									'post_type' => 'tribe_events'
-								]
-							);
+						'in_admin'  => true,
+						'id'        => 'tribe_events_page_tribe-help',
+						'base'      => 'tribe_events_page_tribe-help',
+						'post_type' => 'tribe_events'
+					]
+				);
 
 		$this->assertTrue( $helpers->is_screen() );
 
@@ -248,12 +248,12 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [
-									'in_admin'  => true,
-									'id'        => 'tribe_events_page_tribe-app-shop',
-									'base'      => 'tribe_events_page_tribe-app-shop',
-									'post_type' => 'tribe_events'
-								]
-							);
+						'in_admin'  => true,
+						'id'        => 'tribe_events_page_tribe-app-shop',
+						'base'      => 'tribe_events_page_tribe-app-shop',
+						'post_type' => 'tribe_events'
+					]
+				);
 
 		$this->assertTrue( $helpers->is_screen() );
 
@@ -277,13 +277,13 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [
-									'in_admin'  => true,
-									'post_type' => 'tribe_events',
-									'taxonomy'  => 'post_tag',
-									'id'        => 'edit-post_tag',
-									'base'      => 'edit-tags'
-								]
-							);
+						'in_admin'  => true,
+						'post_type' => 'tribe_events',
+						'taxonomy'  => 'post_tag',
+						'id'        => 'edit-post_tag',
+						'base'      => 'edit-tags'
+					]
+				);
 
 		$this->assertTrue( $helpers->is_screen() );
 
@@ -307,13 +307,13 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 
 		global $current_screen;
 		$current_screen = new WP_Screen( [
-									'in_admin'  => true,
-									'post_type' => 'tribe_events',
-									'taxonomy'  => 'tribe_events_cat',
-									'id'        => 'edit-tribe_events_cat',
-									'base'      => 'edit-tags'
-								]
-							);
+							'in_admin'  => true,
+							'post_type' => 'tribe_events',
+							'taxonomy'  => 'tribe_events_cat',
+							'id'        => 'edit-tribe_events_cat',
+							'base'      => 'edit-tags'
+						]
+					);
 
 		$this->assertTrue( $helpers->is_screen() );
 
