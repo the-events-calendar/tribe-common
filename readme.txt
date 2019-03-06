@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.9.3.1] 2019-03-06 =
+
+* Feature - Attach the post ID to Promoter calls and remove hook from all post saves [123732]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.9.3] 2019-03-04 =
 
 * Fix - Make sure we pass and get the parameter when using cron jobs to import images on Event Aggregator [119269]

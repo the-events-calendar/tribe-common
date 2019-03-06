@@ -2274,4 +2274,158 @@ msgid "Unknown or not set"
 msgstr "不明であるか設定されていません"
 
 #: src/admin-views/tribe-options-help.php:41
-msgid "
+msgid "System Information"
+msgstr "システム情報"
+
+#: src/Tribe/Settings_Tab.php:222
+msgid "There are no fields setup for this tab yet."
+msgstr "このタブのフィールド セットアップがありません。"
+
+#: src/Tribe/Settings.php:619
+msgid "The above setting was not saved. Other settings were successfully saved."
+msgid_plural "The above settings were not saved. Other settings were successfully saved."
+msgstr[0] "上記の設定は保存されませんでした。その他の設定は正常に保存されました。"
+
+#: src/Tribe/Settings.php:618
+msgid "None of your settings were saved. Please try again."
+msgstr "いずれの設定も保存されませんでした。もう一度お試しください。"
+
+#: src/Tribe/Settings.php:608
+msgid "Your form had the following errors:"
+msgstr "ご使用の形式には下記のエラーがありました:"
+
+#: src/Tribe/Settings.php:431
+msgid "The request wasn't sent from this tab."
+msgstr "このタブにリクエストが送信されませんでした。"
+
+#: src/Tribe/Settings.php:425
+msgid "The request was sent insecurely."
+msgstr "リクエストは安全ではない方法で送信されました。"
+
+#: src/Tribe/Settings.php:419
+msgid "You don't have permission to do that."
+msgstr "この操作を実行する権限がありません。"
+
+#: src/Tribe/Settings.php:363
+msgid "You've requested a non-existent tab."
+msgstr "存在しないタブをリクエストしました。"
+
+#: src/Tribe/Settings.php:349
+msgid "%s Settings"
+msgstr "%s 設定"
+
+#: src/Tribe/Settings.php:253 src/Tribe/Settings.php:273
+msgid "Events Settings"
+msgstr "イベント設定"
+
+#: src/Tribe/PUE/Checker.php:899
+msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
+msgstr "このバリデーターに何らかの問題が発生しているようです。%sサポート%sにお問い合わせください。"
+
+#: src/Tribe/PUE/Checker.php:938
+msgid "Valid Key! Expires on %s"
+msgstr "有効なキーです! 有効期限は %s です"
+
+#: src/Tribe/PUE/Checker.php:918
+msgid "Sorry, key validation server is not available."
+msgstr "申し訳ございませんが、キー検証サーバーが利用できません。"
+
+#: src/Tribe/PUE/Checker.php:653
+msgid "License key(s) updated."
+msgstr "ライセンス キーが更新されました。"
+
+#: src/Tribe/PUE/Checker.php:497
+msgid "A valid license key is required for support and updates"
+msgstr "サポートおよびアップデートには、有効なライセンス キーが必要です"
+
+#: src/Tribe/PUE/Checker.php:512 src/Tribe/PUE/Checker.php:523
+msgid "License Key"
+msgstr "ライセンス キー"
+
+#: src/Tribe/Main.php:263
+msgid "Search:"
+msgstr "検索:"
+
+#: src/Tribe/Settings.php:254
+msgid "Settings"
+msgstr "設定"
+
+#: src/Tribe/Settings_Manager.php:219
+msgid "Network"
+msgstr "ネットワーク"
+
+#: src/Tribe/Main.php:289
+msgid "Done"
+msgstr "完了"
+
+#: src/Tribe/Main.php:288 src/Tribe/Main.php:290
+msgid "Today"
+msgstr "今日"
+
+#: src/Tribe/Main.php:287
+msgid "Prev"
+msgstr "前"
+
+#: src/Tribe/Main.php:269 src/Tribe/Main.php:286
+msgid "Next"
+msgstr "次"
+
+#: src/Tribe/Settings_Manager.php:279
+msgid "Help"
+msgstr "ヘルプ"
+
+#: src/Tribe/Settings_Manager.php:55
+msgid "Display"
+msgstr "ディスプレイ"
+
+#: src/Tribe/Settings_Manager.php:253
+#: src/admin-views/tribe-options-licenses.php:57
+msgid "Licenses"
+msgstr "ライセンス"
+
+#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:642
+#: src/Tribe/Plugins_API.php:25
+msgid "The Events Calendar"
+msgstr "Events Calendar"
+
+#: src/Tribe/Settings.php:177 src/Tribe/Settings.php:241
+#: src/Tribe/Settings.php:242
+msgid "Events"
+msgstr "イベント"
+
+#: src/Tribe/Settings.php:641
+msgid "Settings saved."
+msgstr "設定が保存されました。"
+
+#: src/Tribe/Settings_Manager.php:54
+msgid "General"
+msgstr "一般"
+
+#: src/Tribe/Field.php:626
+msgid "No select options specified"
+msgstr "選択オプションが指定されていません"
+
+#: src/Tribe/Field.php:568
+msgid "No checkbox options specified"
+msgstr "チェックボックス オプションが指定されていません"
+
+#: src/Tribe/Field.php:532
+msgid "No radio options specified"
+msgstr "ラジオ オプションが指定されていません"
+
+#: src/Tribe/Field.php:231
+msgid "Invalid field type specified"
+msgstr "無効なフィールド タイプが指定されました"
+
+#: src/Tribe/Credits.php:31
+msgid "This calendar is powered by The Events Calendar."
+msgstr "このカレンダーは、Events Calendar がバックアップしています。"
+
+#: src/Tribe/App_Shop.php:50 src/Tribe/App_Shop.php:51
+#: src/Tribe/App_Shop.php:72
+msgid "Event Add-Ons"
+msgstr "イベント アドオン"
+
+#: src/Tribe/Languages/Locations.php:55
+msgid "United States"
+msgstr "米国"
