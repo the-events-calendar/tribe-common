@@ -342,4 +342,45 @@ class QueueTest extends WPTestCase {
 
 		$this->assertEquals( 'completed', $__test_flag__ );
 	}
+
+	/**
+	 * It should call the complete method on cron processing even with empty queue
+	 *
+	 * @test
+	 */
+	public function should_call_the_complete_method_on_cron_processing_even_with_empty_queue() {
+		// Let's make sure to say that async processes are not supported.
+		add_filter( 'tribe_supports_async_process', '__return_false' );
+		global $__test_flag__;
+		$__test_flag__ = 'start';
+
+		// Create a queue with a custom completion method.
+		$test_queue = new class extends Process {
+
+			public static function action() {
+				return 'test';
+			}
+
+			protected function task( $item ) {
+				global $__test_flag__;
+				$__test_flag__ = 'Processing: ' . (int) $item;
+
+				return Process::ITEM_DONE;
+			}
+
+			protected function complete() {
+				global $__test_flag__;
+				$__test_flag__ = 'completed';
+			}
+
+		};
+
+		$test_queue->save()->dispatch();
+
+		$queue = $test_queue->get_identifier();
+		do_action( $queue );
+
+		$this->assertEquals( 'completed', $__test_flag__ );
+	}
+
 }

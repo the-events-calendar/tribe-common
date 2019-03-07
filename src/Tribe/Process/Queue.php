@@ -717,7 +717,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		}
 
 		if ( $this->is_queue_empty() ) {
-			// No data to process.
+			// No data to process: we're done.
+			$this->complete();
 			wp_die();
 		}
 
@@ -740,7 +741,9 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		}
 
 		if ( $this->is_queue_empty() ) {
-			// No data to process.
+			// No data to process: we're done.
+			$this->complete();
+
 			return;
 		}
 
