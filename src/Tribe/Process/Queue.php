@@ -849,8 +849,11 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * within server memory and time limit constraints.
 	 *
 	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 *
+	 * @param array|null $data_source Unused and kept for compatibility with parent; the queue
+	 *                                data is stored and read from the database.
 	 */
-	protected function handle() {
+	protected function handle( array $data_source = null ) {
 		$this->lock_process();
 
 		do {

@@ -298,8 +298,8 @@ abstract class Tribe__Process__Handler {
 	 * @param array|null $data_source A source of data if not provided in the request; used for
 	 *                                cron-based fallback.
 	 *
-	 * @return null|mixed Depending on the context of the call, cron or async, either the result
+	 * @return null|array Depending on the context of the call, cron or async, either the result
 	 *                    of the handling (cron) or nothing (async).
 	 */
-	abstract protected  function handle( $data_source = null );
+	abstract protected  function handle( array $data_source = null );
 }
