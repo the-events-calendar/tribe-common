@@ -84,7 +84,23 @@ abstract class Tribe__Process__Handler {
 		$this->identifier = $this->prefix . '_' . $this->action;
 
 		add_action( 'wp_ajax_' . $this->identifier, [ $this, 'maybe_handle' ] );
-		add_action( 'wp_ajax_nopriv_' . $this->identifier, [ $this, 'maybe_handle' ] );
+
+		/**
+		 * Filters whether background processing should be triggered and handled on
+		 * non-private AJAX requests as the ones triggered by a non logged in user.
+		 * Defaults to `true` to exploit any possible chance to process.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $allow_nopriv Whether background processing should be triggered and handled on
+		 *                             non-private AJAX requests or not.
+		 * @param static $this         This handler instance.
+		 */
+		$allow_nopriv = apply_filters( 'tribe_process_allow_nopriv_handling', true, $this );
+
+		if ( $allow_nopriv ) {
+			add_action( 'wp_ajax_nopriv_' . $this->identifier, [ $this, 'maybe_handle' ] );
+		}
 
 		$this->healthcheck_cron_hook_id = $this->identifier;
 		$this->feature_detection        = tribe( 'feature-detection' );
