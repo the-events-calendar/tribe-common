@@ -11,14 +11,6 @@
  * @see   Tribe__Service_Providers__Processes for more insight about this class utility.
  */
 abstract class Tribe__Process__Handler {
-
-	/**
-	 * The default prefix for all handler actions.
-	 *
-	 * @var string
-	 */
-	protected $prefix = 'tribe';
-
 	/**
 	 * The default handler action name.
 	 *
@@ -58,6 +50,30 @@ abstract class Tribe__Process__Handler {
 	protected $feature_detection;
 
 	/**
+	 * An array of query arguments that should be used in place of the default ones.
+	 * Extending classes can override/set this to replace the default entirely.
+	 *
+	 * @var array
+	 */
+	protected $query_args;
+
+	/**
+	 * The absolute URL that should be used to POST requests.
+	 * Extending classes can override/set this to replace the default entirely.
+	 *
+	 * @var string
+	 */
+	protected $query_url;
+
+	/**
+	 * An array of arguments that should be used as body of the POST request.
+	 * Extending classes can override/set this to replace the default entirely.
+	 *
+	 * @var array
+	 */
+	protected $post_args;
+
+	/**
 	 * Tribe__Process__Handler constructor.
 	 *
 	 * @since 4.7.12
@@ -93,7 +109,7 @@ abstract class Tribe__Process__Handler {
 	 * @throws RuntimeException If the extending class does not override this method.
 	 */
 	public static function action() {
-		$class = get_called_class();
+		$class = static::class;
 		throw new RuntimeException( "Class {$class} should override the `action` method to define its own unique identifier." );
 	}
 
@@ -103,7 +119,8 @@ abstract class Tribe__Process__Handler {
 	 * @since 4.7.23
 	 * @since TBD Pulled the `maybe_handle` implementation of the `WP_Async_Request` class.
 	 *
-	 * @param array|null $data_source An optional data source.
+	 * @param array|null $data_source A source of data if not provided in the request; used for
+	 *                                cron-based fallback.
 	 */
 	public function maybe_handle( $data_source = null ) {
 		$data_source = (array) $data_source;
@@ -114,7 +131,7 @@ abstract class Tribe__Process__Handler {
 
 			check_ajax_referer( $this->identifier, 'nonce' );
 
-			$this->handle();
+			$this->handle( $data_source );
 
 			wp_die();
 		}
@@ -125,6 +142,7 @@ abstract class Tribe__Process__Handler {
 		 * removing it first from the action to avoid multiple calls.
 		 */
 		remove_action( $this->cron_hook_identifier, [ $this, 'maybe_handle' ] );
+
 		$this->handle( $data_source );
 	}
 
@@ -133,14 +151,14 @@ abstract class Tribe__Process__Handler {
 	 * async requests in sync mode.
 	 *
 	 * @since 4.7.12
-	 * @since TBD Pulled dispatch method logic from the `WP_Async_Request` class.
+	 * @since TBD Pulled `dispatch` method logic from the `WP_Async_Request` class.
 	 *
 	 * @return mixed
 	 */
 	public function dispatch() {
 		if (
 			( defined( 'TRIBE_NO_ASYNC' ) && true === TRIBE_NO_ASYNC )
-			|| true == getenv( 'TRIBE_NO_ASYNC' )
+			|| true === (bool)getenv( 'TRIBE_NO_ASYNC' )
 		) {
 			return $this->sync_handle( $this->data );
 		}
@@ -181,7 +199,7 @@ abstract class Tribe__Process__Handler {
 	 * @param array|null $data_source If not provided the method will read the handler data from the
 	 *                                request array.
 	 *
-	 * @return mixed
+	 * @return mixed|null The result of the synchronous handling.
 	 */
 	abstract public function sync_handle( array $data_source = null );
 
@@ -193,7 +211,7 @@ abstract class Tribe__Process__Handler {
 	 * @return array An array of arguments for the POST request.
 	 */
 	protected function get_query_args() {
-		if ( property_exists( $this, 'query_args' ) ) {
+		if ( null !== $this->query_args ) {
 			return $this->query_args;
 		}
 
@@ -212,7 +230,7 @@ abstract class Tribe__Process__Handler {
 	 *                to the `admin-ajax.php` one.
 	 */
 	protected function get_query_url() {
-		if ( property_exists( $this, 'query_url' ) ) {
+		if ( null !== $this->query_url ) {
 			return $this->query_url;
 		}
 
@@ -227,7 +245,7 @@ abstract class Tribe__Process__Handler {
 	 * @return array An array of arguments that will be used to send the POST request.
 	 */
 	protected function get_post_args() {
-		if ( property_exists( $this, 'post_args' ) ) {
+		if ( null !== $this->post_args ) {
 			return $this->post_args;
 		}
 
@@ -271,4 +289,17 @@ abstract class Tribe__Process__Handler {
 
 		return $this;
 	}
+
+	/**
+	 * Handles the request and performs an action.
+	 *
+	 * @since TBD Pulled from the `WP_Async_Request` class.
+	 *
+	 * @param array|null $data_source A source of data if not provided in the request; used for
+	 *                                cron-based fallback.
+	 *
+	 * @return null|mixed Depending on the context of the call, cron or async, either the result
+	 *                    of the handling (cron) or nothing (async).
+	 */
+	abstract protected  function handle( $data_source = null );
 }

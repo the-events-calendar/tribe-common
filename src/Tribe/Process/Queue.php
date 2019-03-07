@@ -98,6 +98,13 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	protected $queue_lock_time = 60;
 
 	/**
+	 * The amount, in seconds, to check on the queue health.
+	 *
+	 * @var int
+	 */
+	protected $cron_interval = 5;
+
+	/**
 	 * Tribe__Process__Queue constructor.
 	 *
 	 * @since 4.7.12
@@ -135,6 +142,9 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @param string $queue_id The unique identifier of the queue that should be stopped.
 	 *
 	 * @see   Tribe__Process__Queue::save() to get the queue unique id.
+	 *
+	 * @return bool Whether the queue was correctly stopped, and its information
+	 *              deleted, or not.
 	 */
 	public static function stop_queue( $queue_id ) {
 		$meta = (array) get_transient( $queue_id . '_meta' );
@@ -145,22 +155,6 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		}
 
 		return delete_site_option( $queue_id );
-	}
-
-	/**
-	 * Returns the async process action name.
-	 *
-	 * Extending classes must override this method to return their unique action slug.
-	 *
-	 * @since 4.7.12
-	 *
-	 * @return string
-	 *
-	 * @throws RuntimeException If the extending class does not override this method.
-	 */
-	public static function action() {
-		$class = get_called_class();
-		throw new RuntimeException( "Class {$class} should override the `action` method to define its own unique identifier." );
 	}
 
 	/**
@@ -410,7 +404,10 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @since 4.7.12
 	 *
-	 * @return string
+	 * @param int $length The lengthy of the key to generate, longer keys will
+	 *                    add more entropy; default to 64.
+	 *
+	 * @return string The generated batch key.
 	 */
 	protected function generate_key( $length = 64 ) {
 		if ( empty( $this->id_base ) ) {
@@ -445,7 +442,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		$max_frag_size = $this->get_max_frag_size();
 		// we add a 15% to the size to take the serialization and query overhead into account when fragmenting
-		$serialized_size = ( strlen( utf8_decode( maybe_serialize( $data ) ) ) ) * 1.15;
+		$serialized_size = strlen( utf8_decode( maybe_serialize( $data ) ) ) * 1.15;
 		$frags_count     = (int) ceil( $serialized_size / $max_frag_size );
 		$per_frag        = max( (int) floor( count( $data ) / $frags_count ), 1 );
 
@@ -545,18 +542,18 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	public function dispatch() {
 		if (
 			( defined( 'TRIBE_NO_ASYNC' ) && true === TRIBE_NO_ASYNC )
-			|| true == getenv( 'TRIBE_NO_ASYNC' )
+			|| true === (bool)getenv( 'TRIBE_NO_ASYNC' )
 			|| (bool) tribe_get_request_var( 'tribe_queue_sync', false )
 			|| tribe_is_truthy( tribe_get_option( 'tribe_queue_sync', false ) )
 		) {
-			$result = $this->sync_process( $this->data );
+			$result = $this->sync_process();
 			$this->complete();
 
 			return $result;
 		}
 
 		if ( $this->feature_detection->supports_async_process() ) {
-			// Schedule the cron healthcheck.
+			// Schedule the cron health-check.
 			$this->schedule_event();
 
 			// Perform remote post.
@@ -699,9 +696,11 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Maybe handle the process request in async or sync mode depending on the
 	 * supported mode.
 	 *
+	 * @param array|null $data_source An optional data source.
+	 *
 	 * @since TBD
 	 */
-	public function maybe_handle() {
+	public function maybe_handle( $data_source = null ) {
 		// Don't lock up other requests while processing
 		session_write_close();
 
@@ -929,12 +928,12 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 			$memory_limit = '128M';
 		}
 
-		if ( ! $memory_limit || -1 === intval( $memory_limit ) ) {
+		if ( ! $memory_limit || -1 === (int) $memory_limit ) {
 			// Unlimited, set to 32GB.
 			$memory_limit = '32000M';
 		}
 
-		return intval( $memory_limit ) * 1024 * 1024;
+		return (int) $memory_limit * 1024 * 1024;
 	}
 
 	/**
@@ -967,7 +966,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @since TBD Pulled from the `WP_Background_Process` class.
 	 */
 	protected function complete() {
-		// Unschedule the cron healthcheck.
+		// Unschedule the cron health-check.
 		$this->clear_scheduled_event();
 	}
 
@@ -983,11 +982,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @return mixed The updated cron schedules.
 	 */
 	public function schedule_cron_healthcheck( $schedules ) {
-		$interval = apply_filters( $this->identifier . '_cron_interval', 5 );
-
-		if ( property_exists( $this, 'cron_interval' ) ) {
-			$interval = apply_filters( $this->identifier . '_cron_interval', $this->cron_interval );
-		}
+		$interval = apply_filters( $this->identifier . '_cron_interval', $this->cron_interval );
 
 		// Adds every 5 minutes to the existing schedules.
 		$schedules[ $this->identifier . '_cron_interval' ] = array(
@@ -1035,7 +1030,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	}
 
 	/**
-	 * Clears the scheduled hedlth-check cron event.
+	 * Clears the scheduled health-check cron event.
 	 *
 	 * @since TBD Pulled from the `WP_Background_Process` class.
 	 */
