@@ -151,10 +151,10 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		delete_transient( $queue_id . '_meta' );
 
 		if ( ! empty( $meta['identifier'] ) ) {
-			delete_site_transient( $meta['identifier'] . '_process_lock' );
+			delete_transient( $meta['identifier'] . '_process_lock' );
 		}
 
-		return delete_site_option( $queue_id );
+		return delete_option( $queue_id );
 	}
 
 	/**
@@ -238,20 +238,12 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	public static function delete_all_queues( $action ) {
 		global $wpdb;
 
-		$table  = $wpdb->options;
-		$column = 'option_name';
-
-		if ( is_multisite() ) {
-			$table  = $wpdb->sitemeta;
-			$column = 'meta_key';
-		}
-
 		$action = $wpdb->esc_like( 'tribe_queue_' . $action ) . '%';
 
 		$queues = $wpdb->get_col( $wpdb->prepare( "
-			SELECT DISTINCT({$column})
-			FROM {$table}
-			WHERE {$column} LIKE %s
+			SELECT DISTINCT(option_name)
+			FROM {$wpdb->options}
+			WHERE option_name LIKE %s
 		", $action ) );
 
 		if ( empty( $queues ) ) {
@@ -289,20 +281,12 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		$meta_key = $key . '_meta';
 
-		$table  = $wpdb->options;
-		$column = 'option_name';
-
-		if ( is_multisite() ) {
-			$table  = $wpdb->sitemeta;
-			$column = 'meta_key';
-		}
-
 		$key = $wpdb->esc_like( $key ) . '%';
 
 		$wpdb->query( $wpdb->prepare( "
 			DELETE
-			FROM {$table}
-			WHERE {$column} LIKE %s
+			FROM {$wpdb->options}
+			WHERE option_name LIKE %s
 		", $key ) );
 
 		delete_transient( $meta_key );
@@ -342,7 +326,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		set_transient( $meta_key, $update_data, DAY_IN_SECONDS );
 
 		if ( ! empty( $data ) ) {
-			update_site_option( $key, $data );
+			update_option( $key, $data );
 		}
 
 		return $this;
@@ -454,7 +438,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		foreach ( $split_data as $i => $iValue ) {
 			$postfix = 0 === $i ? '' : "_{$i}";
-			update_site_option( $key . $postfix, $split_data[ $i ] );
+			update_option( $key . $postfix, $split_data[ $i ] );
 		}
 
 		return count( $split_data );
@@ -645,31 +629,19 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	protected function get_batch() {
 		global $wpdb;
 
-		$table        = $wpdb->options;
-		$column       = 'option_name';
-		$key_column   = 'option_id';
-		$value_column = 'option_value';
-
-		if ( is_multisite() ) {
-			$table        = $wpdb->sitemeta;
-			$column       = 'meta_key';
-			$key_column   = 'meta_id';
-			$value_column = 'meta_value';
-		}
-
 		$key = $wpdb->esc_like( $this->identifier . '_batch_' ) . '%';
 
 		$query = $wpdb->get_row( $wpdb->prepare( "
 			SELECT *
-			FROM {$table}
-			WHERE {$column} LIKE %s
-			ORDER BY {$key_column} ASC
+			FROM {$wpdb->options}
+			WHERE option_name LIKE %s
+			ORDER BY option_id ASC
 			LIMIT 1
 		", $key ) );
 
 		$batch       = new stdClass();
-		$batch->key  = $query->$column;
-		$batch->data = maybe_unserialize( $query->$value_column );
+		$batch->key  = $query->option_name;
+		$batch->data = maybe_unserialize( $query->option_value );
 
 		$this->original_batch_count = ! empty( $batch->data ) ? count( $batch->data ) : 0;
 
@@ -778,20 +750,12 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	protected function is_queue_empty() {
 		global $wpdb;
 
-		$table  = $wpdb->options;
-		$column = 'option_name';
-
-		if ( is_multisite() ) {
-			$table  = $wpdb->sitemeta;
-			$column = 'meta_key';
-		}
-
 		$key = $wpdb->esc_like( $this->identifier . '_batch_' ) . '%';
 
 		$count = $wpdb->get_var( $wpdb->prepare( "
 			SELECT COUNT(*)
-			FROM {$table}
-			WHERE {$column} LIKE %s
+			FROM {$wpdb->options}
+			WHERE option_name LIKE %s
 		", $key ) );
 
 		return $count <= 0;
@@ -803,7 +767,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @since TBD Pulled from the `WP_Background_Process` class.
 	 */
 	protected function is_process_running() {
-		if ( get_site_transient( $this->identifier . '_process_lock' ) ) {
+		if ( get_transient( $this->identifier . '_process_lock' ) ) {
 			return true;
 		}
 
@@ -826,7 +790,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		$lock_duration = $this->queue_lock_time;
 		$lock_duration = apply_filters( $this->identifier . '_queue_lock_time', $lock_duration );
 
-		set_site_transient( $this->identifier . '_process_lock', microtime(), $lock_duration );
+		set_transient( $this->identifier . '_process_lock', microtime(), $lock_duration );
 	}
 
 	/**
@@ -837,7 +801,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @return $this This process instance.
 	 */
 	protected function unlock_process() {
-		delete_site_transient( $this->identifier . '_process_lock' );
+		delete_transient( $this->identifier . '_process_lock' );
 
 		return $this;
 	}
