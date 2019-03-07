@@ -37,7 +37,7 @@ abstract class Tribe__Process__Handler {
 	 *
 	 * @var string
 	 */
-	protected $cron_hook_identifier;
+	protected $healthcheck_cron_hook_id;
 	/**
 	 * @var string The common identified prefix to all our async process handlers.
 	 */
@@ -86,15 +86,15 @@ abstract class Tribe__Process__Handler {
 		add_action( 'wp_ajax_' . $this->identifier, [ $this, 'maybe_handle' ] );
 		add_action( 'wp_ajax_nopriv_' . $this->identifier, [ $this, 'maybe_handle' ] );
 
-		$this->cron_hook_identifier = $this->identifier;
-		$this->feature_detection    = tribe( 'feature-detection' );
+		$this->healthcheck_cron_hook_id = $this->identifier;
+		$this->feature_detection        = tribe( 'feature-detection' );
 
 		/*
 		 * This object might have been built while processing crons so
 		 * we hook on the the object cron identifier to handle the task
 		 * if the cron-triggered action ever fires.
 		 */
-		add_action( $this->cron_hook_identifier, [ $this, 'maybe_handle' ] );
+		add_action( $this->healthcheck_cron_hook_id, [ $this, 'maybe_handle' ] );
 	}
 
 	/**
@@ -141,7 +141,7 @@ abstract class Tribe__Process__Handler {
 		 * fallback to use the cron-based approach and just call the handle method
 		 * removing it first from the action to avoid multiple calls.
 		 */
-		remove_action( $this->cron_hook_identifier, [ $this, 'maybe_handle' ] );
+		remove_action( $this->healthcheck_cron_hook_id, [ $this, 'maybe_handle' ] );
 
 		$this->handle( $data_source );
 	}
@@ -175,9 +175,9 @@ abstract class Tribe__Process__Handler {
 		 * by scheduling a single cron event immediately (as soon as possible)
 		 * for this handler cron identifier.
 		 */
-		if ( ! wp_next_scheduled( $this->cron_hook_identifier, [ $this->data ] ) ) {
+		if ( ! wp_next_scheduled( $this->healthcheck_cron_hook_id, [ $this->data ] ) ) {
 			// Schedule the event to happen as soon as possible.
-			$scheduled = wp_schedule_single_event( time() - 1, $this->cron_hook_identifier, [ $this->data ] );
+			$scheduled = wp_schedule_single_event( time() - 1, $this->healthcheck_cron_hook_id, [ $this->data ] );
 
 			if ( false === $scheduled ) {
 				/** @var Tribe__Log__Logger $logger */
@@ -271,8 +271,8 @@ abstract class Tribe__Process__Handler {
 	 * @return string The complete cron hook name (identifier) for
 	 *                this handler.
 	 */
-	public function get_cron_hook_identifier() {
-		return $this->cron_hook_identifier;
+	public function get_healthcheck_cron_hook_id() {
+		return $this->healthcheck_cron_hook_id;
 	}
 
 	/**

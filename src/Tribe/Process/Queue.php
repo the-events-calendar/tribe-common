@@ -11,6 +11,13 @@
 abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 	/**
+	 * A constant to allow some "sugar" while using the processing system.
+	 * Returning `false` to indicate the successful processing of an item might
+	 * not be intuitive.
+	 */
+	const ITEM_DONE = false;
+
+	/**
 	 * The default action name.
 	 *
 	 * @var string
@@ -29,14 +36,14 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @var mixed
 	 */
-	protected $cron_hook_identifier;
+	protected $healthcheck_cron_hook_id;
 
 	/**
 	 * The process cron interval identifier.
 	 *
 	 * @var mixed
 	 */
-	protected $cron_interval_identifier;
+	protected $healthcheck_cron_interval_id;
 
 	/**
 	 * @var string The common identified prefix to all our async process handlers.
@@ -102,7 +109,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @var int
 	 */
-	protected $cron_interval = 5;
+	protected $healthcheck_cron_interval = 5;
 
 	/**
 	 * Tribe__Process__Queue constructor.
@@ -117,10 +124,10 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		parent::__construct();
 
-		$this->cron_hook_identifier     = $this->identifier . '_cron';
-		$this->cron_interval_identifier = $this->identifier . '_cron_interval';
+		$this->healthcheck_cron_hook_id     = $this->identifier . '_cron';
+		$this->healthcheck_cron_interval_id = $this->identifier . '_cron_interval';
 
-		add_action( $this->cron_hook_identifier, array( $this, 'handle_cron_healthcheck' ) );
+		add_action( $this->healthcheck_cron_hook_id, array( $this, 'handle_cron_healthcheck' ) );
 		add_filter( 'cron_schedules', array( $this, 'schedule_cron_healthcheck' ) );
 
 		/*
@@ -855,6 +862,15 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 			$this->complete();
 		}
 
+		if ( doing_action( $this->identifier ) ) {
+			/*
+			 * We're probably acting in the context of a cron request or
+			 * in the context of an explicitly triggered action: let's not
+			 * die.
+			 */
+			return;
+		}
+
 		wp_die();
 	}
 
@@ -949,7 +965,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @return mixed The updated cron schedules.
 	 */
 	public function schedule_cron_healthcheck( $schedules ) {
-		$interval = apply_filters( $this->identifier . '_cron_interval', $this->cron_interval );
+		$interval = apply_filters( $this->identifier . '_cron_interval', $this->healthcheck_cron_interval );
 
 		// Adds every 5 minutes to the existing schedules.
 		$schedules[ $this->identifier . '_cron_interval' ] = array(
@@ -991,8 +1007,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @since TBD Pulled from the `WP_Background_Process` class.
 	 */
 	protected function schedule_event() {
-		if ( ! wp_next_scheduled( $this->cron_hook_identifier ) ) {
-			wp_schedule_event( time(), $this->cron_interval_identifier, $this->cron_hook_identifier );
+		if ( ! wp_next_scheduled( $this->healthcheck_cron_hook_id ) ) {
+			wp_schedule_event( time(), $this->healthcheck_cron_interval_id, $this->healthcheck_cron_hook_id );
 		}
 	}
 
@@ -1002,10 +1018,10 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @since TBD Pulled from the `WP_Background_Process` class.
 	 */
 	protected function clear_scheduled_event() {
-		$timestamp = wp_next_scheduled( $this->cron_hook_identifier );
+		$timestamp = wp_next_scheduled( $this->healthcheck_cron_hook_id );
 
 		if ( $timestamp ) {
-			wp_unschedule_event( $timestamp, $this->cron_hook_identifier );
+			wp_unschedule_event( $timestamp, $this->healthcheck_cron_hook_id );
 		}
 	}
 
@@ -1022,7 +1038,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 			$this->delete( $batch->key );
 
-			wp_clear_scheduled_hook( $this->cron_hook_identifier );
+			wp_clear_scheduled_hook( $this->healthcheck_cron_hook_id );
 		}
 
 	}
