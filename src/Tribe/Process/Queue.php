@@ -1078,4 +1078,21 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @return mixed
 	 */
 	abstract protected function task( $item );
+
+	/**
+	 * Concrete implementation of the base handler method.
+	 *
+	 * Just a proxy to the `sync_process` method.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|null $data_source If not provided the method will read the handler data from the
+	 *                                request array.
+	 *
+	 * @return array|mixed|null The synchronous process result.
+	 */
+	public function sync_handle( array $data_source = null ) {
+		// In the base implementation the data source is unused and read from the database.
+		return $this->sync_process();
+	}
 }
