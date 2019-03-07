@@ -119,7 +119,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 */
 	public function __construct() {
 		$class        = get_class( $this );
-		$this->action = call_user_func( array( $class, 'action' ) );
+		$this->action = call_user_func( [ $class, 'action' ] );
 		$this->feature_detection = tribe( 'feature-detection' );
 
 		parent::__construct();
@@ -127,15 +127,15 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		$this->healthcheck_cron_hook_id     = $this->identifier . '_cron';
 		$this->healthcheck_cron_interval_id = $this->identifier . '_cron_interval';
 
-		add_action( $this->healthcheck_cron_hook_id, array( $this, 'handle_cron_healthcheck' ) );
-		add_filter( 'cron_schedules', array( $this, 'schedule_cron_healthcheck' ) );
+		add_action( $this->healthcheck_cron_hook_id, [ $this, 'handle_cron_healthcheck' ] );
+		add_filter( 'cron_schedules', [ $this, 'schedule_cron_healthcheck' ] );
 
 		/*
 		 * This object might have been built while processing crons so
 		 * we hook on the the object cron identifier to handle the task
 		 * if the cron-triggered action ever fires.
 		 */
-		add_action( $this->identifier, array( $this, 'maybe_handle' ) );
+		add_action( $this->identifier, [ $this, 'maybe_handle' ] );
 	}
 
 	/**
@@ -222,13 +222,13 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 */
 	public static function get_status_of( $queue_id ) {
 		$meta = (array) get_transient( $queue_id . '_meta' );
-		$data = array(
+		$data = [
 			'identifier'  => $queue_id,
 			'done'        => (int) Tribe__Utils__Array::get( $meta, 'done', 0 ),
 			'total'       => (int) Tribe__Utils__Array::get( $meta, 'total', 0 ),
 			'fragments'   => (int) Tribe__Utils__Array::get( $meta, 'fragments', 0 ),
 			'last_update' => (int) Tribe__Utils__Array::get( $meta, 'last_update', false ),
-		);
+		];
 
 		return new Tribe__Data( $data, 0 );
 	}
@@ -315,10 +315,10 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		$meta     = (array) get_transient( $meta_key );
 		$done     = $this->original_batch_count - count( $data );
 
-		$update_data = array_merge( $meta, array(
+		$update_data = array_merge( $meta, [
 			'done'        => $meta['done'] + $done,
 			'last_update' => time(),
-		) );
+		] );
 
 		/**
 		 * Filters the information that will be updated in the database for this queue type.
@@ -363,13 +363,13 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		$fragments_count = $this->save_split_data( $key, $this->data );
 
-		$save_data = array(
+		$save_data = [
 			'identifier'  => $this->identifier,
 			'done'        => 0,
 			'total'       => count( $this->data ),
 			'fragments'   => $fragments_count,
 			'last_update' => time(),
-		);
+		];
 
 		/**
 		 * Filters the information that will be saved to the database for this queue type.
@@ -564,7 +564,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 				/** @var Tribe__Log__Logger $logger */
 				$logger = tribe( 'logger' );
 				$class  = get_class( $this );
-				$src    = call_user_func( array( $class, 'action' ) );
+				$src    = call_user_func( [ $class, 'action' ] );
 				$logger->log( 'Could not schedule event for cron-based processing', Tribe__Log::ERROR, $src );
 			}
 		}
@@ -580,7 +580,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @return array An array containing the result of each item handling.
 	 */
 	public function sync_process() {
-		$result           = array();
+		$result           = [];
 		$this->doing_sync = true;
 
 		foreach ( $this->data as $item ) {
@@ -666,7 +666,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 * not make sense when processing a queue since the data will be stored and read
 		 * from the database; furthermore this could raise issues with the max POST size.
 		 */
-		$post_args['body'] = array();
+		$post_args['body'] = [];
 
 		return $post_args;
 	}
@@ -971,10 +971,10 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		$interval = apply_filters( $this->identifier . '_cron_interval', $this->healthcheck_cron_interval );
 
 		// Adds every 5 minutes to the existing schedules.
-		$schedules[ $this->identifier . '_cron_interval' ] = array(
+		$schedules[ $this->identifier . '_cron_interval' ] = [
 			'interval' => MINUTE_IN_SECONDS * $interval,
 			'display'  => sprintf( __( 'Every %d Minutes' ), $interval ),
-		);
+		];
 
 		return $schedules;
 	}
