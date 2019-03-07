@@ -158,7 +158,7 @@ abstract class Tribe__Process__Handler {
 	public function dispatch() {
 		if (
 			( defined( 'TRIBE_NO_ASYNC' ) && true === TRIBE_NO_ASYNC )
-			|| true === (bool)getenv( 'TRIBE_NO_ASYNC' )
+			|| true === (bool) getenv( 'TRIBE_NO_ASYNC' )
 		) {
 			return $this->sync_handle( $this->data );
 		}
@@ -301,5 +301,5 @@ abstract class Tribe__Process__Handler {
 	 * @return null|array Depending on the context of the call, cron or async, either the result
 	 *                    of the handling (cron) or nothing (async).
 	 */
-	abstract protected  function handle( array $data_source = null );
+	abstract protected function handle( array $data_source = null );
 }

@@ -754,7 +754,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @since TBD
 	 */
-	protected  function maybe_handle_sync() {
+	protected function maybe_handle_sync() {
 		if ( $this->is_process_running() ) {
 			// Background process already running.
 			return;
