@@ -908,7 +908,20 @@ abstract class Tribe__Repository
 		 */
 		$args_without_key = array_splice( $call_args, 1 );
 
-		$schema_entry = call_user_func_array( $application, $args_without_key );
+		if (
+			count( $args_without_key ) === 1
+			&& is_array( $args_without_key[0] )
+			&& ! is_callable( $args_without_key[0] )
+		) {
+			/*
+			 * If we only have one argument and that is an array then unpack it.
+			 * This is useful to allow higher-level functions to set a filter using an
+			 * array argument; e.g. `'date_overlaps' => [ $start, $end ]`.
+			 */
+			$schema_entry = $application( ...$args_without_key[0] );
+		} else {
+			$schema_entry = $application( ...$args_without_key );
+		}
 
 		/**
 		 * Filters the applied modifier schema entry response.
