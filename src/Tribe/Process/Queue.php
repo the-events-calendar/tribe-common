@@ -542,7 +542,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	public function dispatch() {
 		if (
 			( defined( 'TRIBE_NO_ASYNC' ) && true === TRIBE_NO_ASYNC )
-			|| true === (bool)getenv( 'TRIBE_NO_ASYNC' )
+			|| true === (bool) getenv( 'TRIBE_NO_ASYNC' )
 			|| (bool) tribe_get_request_var( 'tribe_queue_sync', false )
 			|| tribe_is_truthy( tribe_get_option( 'tribe_queue_sync', false ) )
 		) {
