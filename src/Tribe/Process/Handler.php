@@ -231,10 +231,10 @@ abstract class Tribe__Process__Handler {
 			return $this->query_args;
 		}
 
-		return array(
+		return [
 			'action' => $this->identifier,
 			'nonce'  => wp_create_nonce( $this->identifier ),
-		);
+		];
 	}
 
 	/**
@@ -265,13 +265,13 @@ abstract class Tribe__Process__Handler {
 			return $this->post_args;
 		}
 
-		return array(
+		return [
 			'timeout'   => 0.01,
 			'blocking'  => false,
 			'body'      => $this->data,
 			'cookies'   => $_COOKIE,
 			'sslverify' => apply_filters( 'https_local_ssl_verify', false ),
-		);
+		];
 	}
 
 	/**
