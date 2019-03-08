@@ -4,18 +4,6 @@ namespace Tribe\Utils;
 
 use \Tribe__Main as Main;
 
-/**
- * TEST CASES
- *
- * - [x] Positive ints
- * - [X] Negative ints
- * - [X] Zero
- * - [X] Post object
- * - [X] Null
- * - [] Strings
- * - [X] Nothing (i.e., the function default param is passed)
- */
-
 class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
 
     /**
@@ -23,7 +11,7 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
      *
      * @since TBD
      */
-    public function get_sample_events() {
+    public function get_sample_event() {
         return [
             'WP_Post' => [ $this->factory()->post->create_and_get( [ 'post_title' => 'Sample Event' ] ) ]
         ];
@@ -36,7 +24,7 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
      *
      * @param WP_Post $event_obj
      *
-     * @dataProvider get_sample_events
+     * @dataProvider get_sample_event
      */
     public function it_should_return_post_ids_when_passed_post_objects( \WP_Post $event_obj ) {
 
@@ -91,7 +79,7 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
     }
 
     /**
-     * @test When passing positive integers, return the ints as-is.
+     * @test When passing positive integers, return the int as-is.
      *
      * @since TBD
      *
@@ -126,4 +114,23 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
         $this->assertEquals( $expected, Main::post_id_helper( $post_id ) );
     }
 
+    /**
+     * @test When passing a string of any kind, return false.
+     *
+     * @since TBD
+     *
+     * @param string $string
+     *
+     * @testWith [ "1" ]
+     *           [ "-666" ]
+     *           [ "schmootzy" ]
+     *           [ ":-]" ]
+     *           [ "π" ]
+     */
+    public function it_should_return_false_when_passed_string( string $string ) {
+
+        $expected = false;
+
+        $this->assertEquals( $expected, Main::post_id_helper( $string ) );
+    }
 }
