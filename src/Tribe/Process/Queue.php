@@ -933,13 +933,34 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @return bool Whether the execution time was exceeded or not.
 	 */
 	protected function time_exceeded() {
-		$finish = $this->start_time + apply_filters( $this->identifier . '_default_time_limit', 20 ); // 20 seconds
+		/**
+		 * Filters the maximum time the process can operate before continuing in another
+		 * request.
+		 * We pick a safe default of 20 seconds but this value can be adjusted to suit the system
+		 * timeout settings.
+		 *
+		 * @since TBD
+		 *
+		 * @param int    $default_time_limit The time limit for the process.
+		 * @param static $this               This process instance.
+		 */
+		$time_limit = apply_filters( $this->identifier . '_default_time_limit', 20, $this );
+
+		$finish = $this->start_time + $time_limit;
 		$return = false;
 
 		if ( time() >= $finish ) {
 			$return = true;
 		}
 
+		/**
+		 * Filters whether a process instance should be marked as having exceeded the time limit or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $return Whether the process did exceed the time limit or not.
+		 * @param static $this   This process instance.
+		 */
 		return apply_filters( $this->identifier . '_time_exceeded', $return );
 	}
 
@@ -968,12 +989,20 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @return mixed The updated cron schedules.
 	 */
 	public function schedule_cron_healthcheck( $schedules ) {
-		$interval = apply_filters( $this->identifier . '_cron_interval', $this->healthcheck_cron_interval );
+		/**
+		 * Filters the number of minutes to schedule the cron health-check.
+		 *
+		 * @since TBD
+		 *
+		 * @param int    $interval The number of minutes to schedule the cron health-check; defaults to 5.
+		 * @param static $this     This process instance.
+		 */
+		$interval = apply_filters( $this->identifier . '_cron_interval', $this->healthcheck_cron_interval, $this );
 
 		// Adds every 5 minutes to the existing schedules.
 		$schedules[ $this->identifier . '_cron_interval' ] = [
 			'interval' => MINUTE_IN_SECONDS * $interval,
-			'display'  => sprintf( __( 'Every %d Minutes' ), $interval ),
+			'display'  => sprintf( __( 'Every %d Minutes', 'tribe-common' ), $interval ),
 		];
 
 		return $schedules;
