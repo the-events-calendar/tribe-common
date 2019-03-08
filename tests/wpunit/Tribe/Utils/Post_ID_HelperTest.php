@@ -4,6 +4,8 @@ namespace Tribe\Utils;
 
 use \Tribe__Main as Main;
 
+use \WP_Post as WP_Post;
+
 class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
 
     /**
@@ -26,7 +28,7 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
      *
      * @dataProvider get_sample_event
      */
-    public function it_should_return_post_ids_when_passed_post_objects( \WP_Post $event_obj ) {
+    public function it_should_return_post_ids_when_passed_post_objects( WP_Post $event_obj ) {
 
         $expected = $event_obj->ID;
 
