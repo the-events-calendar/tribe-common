@@ -10,6 +10,7 @@ use \Tribe__Main as Main;
  * - [x] Positive ints
  * - [] Negative ints
  * - [X] Zero
+ * - [X] Post object
  * - [] Null
  * - [] Strings
  * - [] Nothing (i.e., the function default param is passed)
@@ -18,34 +19,30 @@ use \Tribe__Main as Main;
 class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
 
     /**
-     * Create test event.
+     * dataProvider callback for getting a test event.
      *
      * @since TBD
      */
-    public function setUp() {
-        parent::setUp();
-
-        $this->premade_event_obj = $this->factory()->post->create_and_get( [ 'post_title' => 'Premade Event' ] );
-    }
-
-    public function tearDown() {
-        parent::tearDown();
+    public function get_sample_events() {
+        return [
+            'WP_Post' => [ $this->factory()->post->create_and_get( [ 'post_title' => 'Sample Event' ] ) ]
+        ];
     }
 
     /**
-     * @test When passing zero, get the current post ID.
+     * @test When passing a WP_Post object, get the ID from it.
      *
      * @since TBD
      *
      * @param WP_Post $event_obj
      *
-     * @testWith [ $this->premade_event_obj ]
+     * @dataProvider get_sample_events
      */
-    public function it_should_return_post_id_when_passed_post_object( WP_Post $event_obj ) {
+    public function it_should_return_post_ids_when_passed_post_objects( \WP_Post $event_obj ) {
 
-        $returned_post_ID = Main::post_id_helper( $event_obj );
+        $expected = $event_obj->ID;
 
-        $this->assertEquals( $this->premade_event_obj->ID, $returned_post_ID );
+        $this->assertEquals( $expected,  Main::post_id_helper( $event_obj ) );
     }
 
     /**
@@ -57,11 +54,10 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
 
         global $post;
 
-        $post = $this->factory()->post->create_and_get( [ 'post_title' => 'Example Event' ] );
+        $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Sample Event' ] );
+        $expected = $post->ID;
 
-        $returned_post_ID = Main::post_id_helper( 0 );
-
-        $this->assertEquals( $post->ID, $returned_post_ID );
+        $this->assertEquals( $expected, Main::post_id_helper( 0 ) );
     }
 
     /**
@@ -77,9 +73,9 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
      */
     public function it_should_return_positive_ints_as_is( int $post_id ) {
 
-        $returned_post_ID = Main::post_id_helper( $post_id );
+        $expected = $post_id;
 
-        $this->assertEquals( $post_id, $returned_post_ID );
+        $this->assertEquals( $expected, Main::post_id_helper( $post_id ) );
     }
 
 }
