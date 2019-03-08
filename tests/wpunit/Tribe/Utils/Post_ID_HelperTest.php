@@ -42,7 +42,7 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
 
         $expected = $event_obj->ID;
 
-        $this->assertEquals( $expected,  Main::post_id_helper( $event_obj ) );
+        $this->assertEquals( $expected, Main::post_id_helper( $event_obj ) );
     }
 
     /**
@@ -61,7 +61,22 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
     }
 
     /**
-     * @test When passing a positive integers explicitly, that int should be returned as-is.
+     * @test When passing null, get the current post ID.
+     *
+     * @since TBD
+     */
+    public function it_should_return_global_post_id_when_passed_null() {
+
+        global $post;
+
+        $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Sample Event' ] );
+        $expected = $post->ID;
+
+        $this->assertEquals( $expected, Main::post_id_helper( null ) );
+    }
+
+    /**
+     * @test When passing positive integers, return the ints as-is.
      *
      * @since TBD
      *
@@ -71,9 +86,27 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
      *           [ 33 ]
      *           [ 24356 ]
      */
-    public function it_should_return_positive_ints_as_is( int $post_id ) {
+    public function it_should_return_int_when_passed_positive_int( int $post_id ) {
 
         $expected = $post_id;
+
+        $this->assertEquals( $expected, Main::post_id_helper( $post_id ) );
+    }
+
+    /**
+     * @test When passing negative integers, return false.
+     *
+     * @since TBD
+     *
+     * @param int $post_id
+     *
+     * @testWith [ -1 ]
+     *           [ -33 ]
+     *           [ -44356 ]
+     */
+    public function it_should_return_false_when_passed_negative_int( int $post_id ) {
+
+        $expected = false;
 
         $this->assertEquals( $expected, Main::post_id_helper( $post_id ) );
     }
