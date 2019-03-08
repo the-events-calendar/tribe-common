@@ -456,38 +456,22 @@ class Tribe__Main {
 	}
 
 	/**
-	 * A simple helper method to use instead of Core's own get_the_ID() function. This version of it checks if the current
-	 * post exists by reading $GLOBALS directly, and bails if it's not found; this saves us the get_post() call from within
-	 * get_the_ID().
-	 *
-	 * @since TBD
-	 *
-	 * @param int $post (optional)
-	 * @return int post ID or False
-	 */
-	public static function get_the_ID() {
-
-		if ( empty( $GLOBALS['post'] ) ) {
-			return false;
-		}
-
-		if ( ! $GLOBALS['post'] instanceof WP_Post ) {
-			return false;
-		}
-
-		return get_the_ID();
-	}
-
-	/**
 	 * Helper function for getting a post ID. Only accepts null, ints, or WP_Post objects. Returns false if no post ID is found.
 	 *
 	 * @param mixed $post Optional. Acceptable values are null, int, or a WP_Post object.
+	 *
 	 * @return int|boolean Post ID of current post if null is passed, or ID of the passed int or WP_Post, or false in any other case.
 	 */
 	public static function post_id_helper( $post = null ) {
 
 		if ( null === $post || 0 === $post ) {
-			return self::get_the_ID();
+
+			// get_the_ID() calls get_post(). This method runs so much that checking the global directly here can save us a lot of those get_post() calls.
+			if ( empty( $GLOBALS['post'] ) || ! $GLOBALS['post'] instanceof WP_Post ) {
+				return false;
+			}
+
+			return get_the_ID();
 		}
 
 		if ( is_object( $post ) && ! empty( $post->ID ) ) {
