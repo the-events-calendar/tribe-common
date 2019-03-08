@@ -19,6 +19,31 @@ class JSONTest extends \Codeception\TestCase\WPTestCase {
 		];
 	}
 
+	public function strings_arrays_and_escapes() {
+		return [
+			[ [ 'foo', 'some "quotes"', 'bar' ], [ 'foo', 'some \"quotes\"', 'bar' ] ],
+			[ [ 'foo', 'some "quotes"', 'really more "quotes"' ], [ 'foo', 'some \"quotes\"', 'really more \"quotes\"' ] ],
+			[ [ 'http://some.url', 'some "quotes"', 'really more "quotes"' ], [ 'http:\/\/some.url', 'some \"quotes\"', 'really more \"quotes\"' ] ],
+		];
+	}
+
+	public function naughty_strings() {
+		return [
+			[ [ "\"><script>alert(123)</script>" ], [ '\"\\\"><script>alert(123)<\/script>\"' ] ],
+			[ [ "\"><script>alert(123);</script x=\"" ], [] ],
+			[ [ "'><script>alert(123);</script x='" ], [] ],
+			[ [ "\" autofocus onkeyup=\"javascript:alert(123)" ], [] ],
+			[ [ "' autofocus onkeyup='javascript:alert(123)" ], [] ],
+			[ [ "<script\\x20type=\"text/javascript\">javascript:alert(1);</script>" ], [] ],
+			[ [ "'`\"><\\x3Cscript>javascript:alert(1)</script>" ], [] ],
+			[ [ "'`\"><\\x00script>javascript:alert(1)</script>" ], [] ],
+			[ [ "ABC<div style=\"x:\\xE2\\x80\\x8Bexpression(javascript:alert(1)\">DEF" ], [] ],
+			[ [ "<a href=\"\\x13javascript:javascript:alert(1)\" id=\"fuzzelement1\">test</a>" ], [] ],
+			[ [ "`\"'><img src=xxx:x \\x0Aonerror=javascript:alert(1)>" ], [] ],
+			[ [ "\\\";alert('XSS');//" ], [] ],
+		];
+	}
+
 	/**
 	 * @test
 	 * it should escape quotes in strings
@@ -28,14 +53,6 @@ class JSONTest extends \Codeception\TestCase\WPTestCase {
 		$out = JSON::escape_string( $in );
 
 		$this->assertEquals( $expected, $out );
-	}
-
-	public function strings_arrays_and_escapes() {
-		return [
-			[ [ 'foo', 'some "quotes"', 'bar' ], [ 'foo', 'some \"quotes\"', 'bar' ] ],
-			[ [ 'foo', 'some "quotes"', 'really more "quotes"' ], [ 'foo', 'some \"quotes\"', 'really more \"quotes\"' ] ],
-			[ [ 'http://some.url', 'some "quotes"', 'really more "quotes"' ], [ 'http:\/\/some.url', 'some \"quotes\"', 'really more \"quotes\"' ] ],
-		];
 	}
 
 	/**
@@ -151,4 +168,34 @@ class JSONTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, $out );
 	}
+
+	/**
+	 * @test It should not modify a passed int.
+	 *
+	 * @since TBD
+	 *
+	 * @testWith [ 666 ]
+	 *           [ 1 ]
+	 */
+	public function it_should_not_modify_int( $in ) {
+
+		$expected = $in;
+		$out      = JSON::escape_string( $in );
+
+		$this->assertEquals( $expected, $out );
+	}
+
+	/**
+	 * @test It should should escape naughty strings.
+	 *
+	 * @since TBD
+	 *
+	 * @dataProvider naughty_strings
+	 */
+	// public function it_should_escape_naughty_strings( $in, $expected ) {
+	// 	$out = json_encode( $in );
+
+	// 	$this->assertEquals( $expected, $out );
+	// }
+
 }
