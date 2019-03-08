@@ -798,7 +798,18 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		$this->start_time = time();
 
 		$lock_duration = $this->queue_lock_time;
-		$lock_duration = apply_filters( $this->identifier . '_queue_lock_time', $lock_duration );
+
+		/**
+		 * Filters the duration of the lock acquired by a process instance.
+		 *
+		 * The lock duration should be larger than the maximum time a process is allowed to run.
+		 *
+		 * @since TBD
+		 *
+		 * @param int    $lock_duration The lock duration in seconds; defaults to one minute.
+		 * @param static $this          This process instance.
+		 */
+		$lock_duration = apply_filters( $this->identifier . '_queue_lock_time', $lock_duration, $this );
 
 		set_transient( $this->identifier . '_process_lock', microtime(), $lock_duration );
 	}
@@ -896,7 +907,15 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 			$return = true;
 		}
 
-		return apply_filters( $this->identifier . '_memory_exceeded', $return );
+		/**
+		 * Filters whether the process did exceed the allowed memory limit or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $return Whether the process did exceed the allowed memory limit or not.
+		 * @param static $this   This process instance.
+		 */
+		return apply_filters( $this->identifier . '_memory_exceeded', $return, $this );
 	}
 
 	/**
