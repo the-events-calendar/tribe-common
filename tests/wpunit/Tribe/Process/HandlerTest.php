@@ -29,7 +29,7 @@ class HandlerTest extends \Codeception\TestCase\WPTestCase {
 		$handler = $this->make_instance();
 		$handler->dispatch();
 
-		$this->assert_cron_event_exists( $handler->get_cron_hook_identifier() );
+		$this->assert_cron_event_exists( $handler->get_healthcheck_cron_hook_id() );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class HandlerTest extends \Codeception\TestCase\WPTestCase {
 		$handler = $this->make_instance();
 		$handler->dispatch();
 
-		$this->assert_cron_event_not_exists( $handler->get_cron_hook_identifier() );
+		$this->assert_cron_event_not_exists( $handler->get_healthcheck_cron_hook_id() );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class HandlerTest extends \Codeception\TestCase\WPTestCase {
 		$this->feature_detection->supports_async_process()->willReturn( false );
 		$handler = $this->make_instance();
 
-		$this->assertNotEmpty( has_action( $handler->get_cron_hook_identifier(), [ $handler, 'maybe_handle' ] ) );
+		$this->assertNotEmpty( has_action( $handler->get_healthcheck_cron_hook_id(), [ $handler, 'maybe_handle' ] ) );
 	}
 
 	/**
@@ -80,7 +80,7 @@ class HandlerTest extends \Codeception\TestCase\WPTestCase {
 		$this->feature_detection->supports_async_process()->willReturn( true );
 		$handler = $this->make_instance();
 
-		$this->assertNotEmpty( has_action( $handler->get_cron_hook_identifier(), [ $handler, 'maybe_handle' ] ) );
+		$this->assertNotEmpty( has_action( $handler->get_healthcheck_cron_hook_id(), [ $handler, 'maybe_handle' ] ) );
 	}
 
 	/**
@@ -100,15 +100,15 @@ class HandlerTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEmpty( get_option( 'dummy_counter', false ) );
 
-		do_action( $handler->get_cron_hook_identifier() );
+		do_action( $handler->get_healthcheck_cron_hook_id() );
 
 		$this->assertEquals( '1', get_option( 'dummy_counter', false ) );
 
-		do_action( $handler->get_cron_hook_identifier() );
+		do_action( $handler->get_healthcheck_cron_hook_id() );
 
 		$this->assertEquals( '1', get_option( 'dummy_counter', false ) );
 
-		do_action( $handler->get_cron_hook_identifier() );
+		do_action( $handler->get_healthcheck_cron_hook_id() );
 
 		$this->assertEquals( '1', get_option( 'dummy_counter', false ) );
 	}
