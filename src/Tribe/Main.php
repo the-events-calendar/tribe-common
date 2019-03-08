@@ -460,8 +460,9 @@ class Tribe__Main {
 	 * post exists by reading $GLOBALS directly, and bails if it's not found; this saves us the get_post() call from within
 	 * get_the_ID().
 	 *
-	 * @param int $post (optional)
+	 * @since TBD
 	 *
+	 * @param int $post (optional)
 	 * @return int post ID or False
 	 */
 	public static function get_the_ID() {
@@ -481,7 +482,6 @@ class Tribe__Main {
 	 * Helper function for getting a post ID. Only accepts null, ints, or WP_Post objects. Returns false if no post ID is found.
 	 *
 	 * @param mixed $post Optional. Acceptable values are null, int, or a WP_Post object.
-	 *
 	 * @return int|boolean Post ID of current post if null is passed, or ID of the passed int or WP_Post, or false in any other case.
 	 */
 	public static function post_id_helper( $post = null ) {
