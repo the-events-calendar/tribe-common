@@ -8,12 +8,12 @@ use \Tribe__Main as Main;
  * TEST CASES
  *
  * - [x] Positive ints
- * - [] Negative ints
+ * - [X] Negative ints
  * - [X] Zero
  * - [X] Post object
- * - [] Null
+ * - [X] Null
  * - [] Strings
- * - [] Nothing (i.e., the function default param is passed)
+ * - [X] Nothing (i.e., the function default param is passed)
  */
 
 class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
@@ -54,7 +54,7 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
 
         global $post;
 
-        $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Sample Event' ] );
+        $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Event: Passing Zero' ] );
         $expected = $post->ID;
 
         $this->assertEquals( $expected, Main::post_id_helper( 0 ) );
@@ -69,10 +69,25 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
 
         global $post;
 
-        $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Sample Event' ] );
+        $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Event: Passing Null' ] );
         $expected = $post->ID;
 
         $this->assertEquals( $expected, Main::post_id_helper( null ) );
+    }
+
+    /**
+     * @test When no arguments are passed, get the current post ID.
+     *
+     * @since TBD
+     */
+    public function it_should_return_global_post_id_when_passed_nothing() {
+
+        global $post;
+
+        $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Event: Passing Nothing' ] );
+        $expected = $post->ID;
+
+        $this->assertEquals( $expected, Main::post_id_helper() );
     }
 
     /**
@@ -83,8 +98,8 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
      * @param int $post_id
      *
      * @testWith [ 1 ]
-     *           [ 33 ]
-     *           [ 24356 ]
+     *           [ 666 ]
+     *           [ 500000 ]
      */
     public function it_should_return_int_when_passed_positive_int( int $post_id ) {
 
@@ -101,8 +116,8 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
      * @param int $post_id
      *
      * @testWith [ -1 ]
-     *           [ -33 ]
-     *           [ -44356 ]
+     *           [ -666 ]
+     *           [ -500000 ]
      */
     public function it_should_return_false_when_passed_negative_int( int $post_id ) {
 
