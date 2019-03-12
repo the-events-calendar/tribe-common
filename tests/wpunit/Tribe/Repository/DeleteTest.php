@@ -162,10 +162,6 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 		}
 	}
 
-	public function fetchDependencies() {
-		// TODO: Implement fetchDependencies() method.
-	}
-
 	/**
 	 * It should return a promise when requesting it on empty matches
 	 *
