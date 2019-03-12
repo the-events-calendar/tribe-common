@@ -1266,7 +1266,7 @@ abstract class Tribe__Repository
 			$exit[ $id ] = $id === $this_exit ? true : $this_exit;
 		}
 
-		return $exit;
+		return $return_promise ? new Tribe__Promise : $exit;
 	}
 
 	/**
