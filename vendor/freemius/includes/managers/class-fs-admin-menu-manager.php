@@ -621,7 +621,7 @@
 		 * @since  1.0.9
 		 *
          * @param bool $remove_top_level_menu
-         * 
+         *
 		 * @return false|array[string]mixed
 		 */
         function remove_menu_item( $remove_top_level_menu = false ) {

@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.9.3';
+	const VERSION             = '4.9.4';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -550,6 +550,7 @@ class Tribe__Main {
 		tribe_singleton( 'context', 'Tribe__Context' );
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
 		tribe_singleton( 'db', 'Tribe__Db' );
+		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
