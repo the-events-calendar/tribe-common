@@ -144,19 +144,7 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tribe_get_request_var( $var, $default = null ) {
-		$post_var = Tribe__Utils__Array::get( $_POST, $var );
-
-		if ( null !== $post_var ) {
-			return $post_var;
-		}
-
-		$query_var = Tribe__Utils__Array::get( $_GET, $var );
-
-		if ( null !== $query_var ) {
-			return $query_var;
-		}
-
-		return $default;
+		return Tribe__Utils__Array::get_in_any( array( $_GET, $_POST ), $var, $default );
 	}
 }
 
@@ -486,6 +474,90 @@ if ( ! function_exists( 'tribe_post_excerpt' ) ) {
 			: wp_trim_words( $post->post_content );
 
 		return wpautop( $excerpt );
+	}
+}
+
+if ( ! function_exists( 'tribe_catch_and_throw' ) ) {
+	/**
+	 * A convenience function used to cast errors to exceptions.
+	 *
+	 * Use in `set_error_handler` calls:
+	 *
+	 *      try{
+	 *          set_error_handler( 'tribe_catch_and_throw' );
+	 *          // ...do something that could generate an error...
+	 *          restore_error_handler();
+	 *      } catch ( RuntimeException $e ) {
+	 *          // Handle the exception.
+	 *      }
+	 *
+	 * @since TBD
+	 *
+	 * @throws RuntimeException The message will be the error message, the code will be the error code.
+	 *
+	 * @see   set_error_handler()
+	 * @see   restore_error_handler()
+	 */
+	function tribe_catch_and_throw( $errno, $errstr ) {
+		throw new RuntimeException( $errstr, $errno );
+	}
+}
+
+if ( ! function_exists( 'tribe_is_regex' ) ) {
+
+	/**
+	 * Checks whether a candidate string is a valid regular expression or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $candidate The candidate string to check, it must include the
+	 *                          regular expression opening and closing tags to validate.
+	 *
+	 * @return bool Whether a candidate string is a valid regular expression or not.
+	 */
+	function tribe_is_regex( $candidate ) {
+		if ( ! is_string( $candidate ) ) {
+			return false;
+		}
+
+		// We need to have the Try/Catch for Warnings too
+		try {
+			return ! ( @preg_match( $candidate, null ) === false );
+		} catch ( Exception $e ) {
+			return false;
+		}
+	}
+}
+
+if ( ! function_exists( 'tribe_unfenced_regex' ) ) {
+
+	/**
+	 * Removes fence characters and modifiers from a regular expression string.
+	 *
+	 * Use this to go from a PCRE-format regex (PHP) to one SQL can understand.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $regex The input regular expression string.
+	 *
+	 * @return string The un-fenced regular expression string.
+	 */
+	function tribe_unfenced_regex( $regex ) {
+		if ( ! is_string( $regex ) ) {
+			return $regex;
+		}
+
+		$str_fence   = $regex[0];
+		// Let's pick a fence char the string itself is not using.
+		$fence_char = '~' === $str_fence ? '#' : '~';
+		$pattern = $fence_char
+		           . preg_quote( $str_fence, $fence_char ) // the opening fence
+		           . '(.*)' // keep anything after the opening fence, group 1
+		           . preg_quote( $str_fence, $fence_char ) // the closing fence
+		           . '.*' // any modifier after the closing fence
+		           . $fence_char;
+
+		return preg_replace( $pattern, '$1', $regex );
 	}
 }
 

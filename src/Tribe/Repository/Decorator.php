@@ -49,7 +49,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function by( $key, $value ) {
+	public function by( $key, $value = null ) {
 		$call_args = func_get_args();
 		call_user_func_array( array( $this->decorated, 'by' ), $call_args );
 
@@ -59,7 +59,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function where( $key, $value ) {
+	public function where( $key, $value = null ) {
 		$call_args = func_get_args();
 		call_user_func_array( array( $this->decorated, 'where' ), $call_args );
 
@@ -119,8 +119,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function order_by( $order_by ) {
-		$this->decorated->order_by( $order_by );
+	public function order_by( $order_by, $order = 'DESC' ) {
+		$this->decorated->order_by( $order_by, $order );
 
 		return $this;
 	}
@@ -222,7 +222,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 * {@inheritdoc}
 	 */
 	public function nth( $n ) {
-		return $this->decorated->first();
+		return $this->decorated->nth( $n );
 	}
 
 	/**
@@ -267,8 +267,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function save( $sync = true ) {
-		$this->decorated->save( $sync );
+	public function save( $return_promise = true ) {
+		$this->decorated->save( $return_promise );
 	}
 
 	/**
@@ -313,8 +313,8 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function build_query() {
-		return $this->decorated->build_query();
+	public function build_query( $use_query_builder = true ) {
+		return $this->decorated->build_query( $use_query_builder );
 	}
 
 	/**
@@ -359,5 +359,207 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 */
 	public function has_filter( $key, $value = null ) {
 		return $this->decorated->has_filter( $key, $value );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_current_filter() {
+		return $this->decorated->get_current_filter();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_ids() {
+		return $this->decorated->get_ids();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function add_schema_entry( $key, $callback ) {
+		$this->decorated->add_schema_entry( $key, $callback );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function prepare_interval( $values, $format = '%s' ) {
+		return $this->decorated->prepare_interval( $values, $format );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function delete( $return_promise = false ) {
+		return $this->decorated->delete( $return_promise );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function async_delete( array $to_delete, $return_promise = true ) {
+		return $this->decorated->async_delete( $to_delete, $return_promise );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function add_update_field_alias( $alias, $field_name ) {
+		$this->decorated->add_update_field_alias( $alias, $field_name );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function async_update( array $to_update, $return_promise = true ) {
+		return $this->decorated->async_update( $to_update, $return_promise );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_update_fields_aliases() {
+		return $this->decorated->get_update_fields_aliases();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_update_fields_aliases( array $update_fields_aliases ) {
+		$this->decorated->set_update_fields_aliases( $update_fields_aliases );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_filter_name() {
+		return $this->decorated->get_filter_name();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_update( array $postarr, $post_id ) {
+		return $this->decorated->filter_postarr_for_update( $postarr, $post_id );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function build_postarr( $id = null ) {
+		return $this->decorated->build_postarr();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function create() {
+		return $this->decorated->create();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter_postarr_for_create( array $postarr ) {
+		return $this->decorated->filter_postarr_for_create( $postarr, $post_id );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_create_args( array $create_args ) {
+		$this->decorated->set_create_args( $create_args );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_create_args() {
+		return $this->decorated->get_create_args();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_display_context( $context = 'default' ) {
+		$this->decorated->set_display_context( $context );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_render_context( $context = 'default' ) {
+		$this->decorated->set_render_context( $context );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_query_for_posts( array $posts ) {
+		return $this->decorated->get_query_for_posts( $posts );
+	}
+
+	/**
+	 * Whether the decorator is decorating an instance of a specific repository class or not.
+	 *
+	 * The check is made recursively for decorators to get to the first repository implementation.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $class The class to check for.
+	 *
+	 * @return bool Whether the decorator is decorating an instance of a specific repository class or not.
+	 */
+	public function decorates_an_instance_of( $class ) {
+		return $this->decorated instanceof Tribe__Repository__Decorator
+			? $this->decorated->decorates_an_instance_of( $class )
+			: $this->decorated instanceof $class;
+	}
+
+	/**
+	 * Returns the concrete repository implementation that's "hidden" under the decorator(s).
+	 *
+	 * @since TBD
+	 *
+	 * @return \Tribe__Repository__Interface The concrete repository instance.
+	 */
+	public function get_decorated_repository() {
+		return $this->decorated instanceof Tribe__Repository__Decorator
+			? $this->decorated->get_decorated_repository()
+			: $this->decorated;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function pluck( $field ) {
+		return $this->decorated->pluck( $field );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function filter( $orderby = array(), $order = 'ASC', $preserve_keys = false ) {
+		return $this->decorated->filter( $orderby, $order, $preserve_keys );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function sort( $orderby = array(), $order = 'ASC', $preserve_keys = false ) {
+		return $this->decorated->sort( $orderby, $order, $preserve_keys );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function collect() {
+		return $this->decorated->collect();
 	}
 }
