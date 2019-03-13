@@ -2,9 +2,9 @@
 
 == Changelog ==
 
-= [4.9.4] TBD =
+= [4.9.3.2] 2019-03-13 =
 
-
+* Fix - Resolve issues where some CSS files were not properly packaged with previous release
 
 = [4.9.3.1] 2019-03-06 =
 
