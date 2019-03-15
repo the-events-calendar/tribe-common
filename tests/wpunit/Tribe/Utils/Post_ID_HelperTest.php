@@ -59,9 +59,11 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
         global $post;
 
         $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Event: Passing Null' ] );
-        $expected = $post->ID;
 
-        $this->assertEquals( $expected, Main::post_id_helper( null ) );
+        $expected = $post->ID;
+        $actual   = Main::post_id_helper( null );
+
+        $this->assertEquals( $expected, $actual );
     }
 
     /**
@@ -74,9 +76,11 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
         global $post;
 
         $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Event: Passing Nothing' ] );
-        $expected = $post->ID;
 
-        $this->assertEquals( $expected, Main::post_id_helper() );
+        $expected = $post->ID;
+        $actual   = Main::post_id_helper();
+
+        $this->assertEquals( $expected, $actual );
     }
 
     /**
@@ -93,8 +97,9 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
     public function it_should_return_int_when_passed_positive_int( int $post_id ) {
 
         $expected = $post_id;
+        $actual   = Main::post_id_helper( $post_id );
 
-        $this->assertEquals( $expected, Main::post_id_helper( $post_id ) );
+        $this->assertEquals( $expected, $actual );
     }
 
     /**
@@ -125,14 +130,31 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
      *
      * @testWith [ "1" ]
      *           [ "-666" ]
-     *           [ "schmootzy" ]
+     */
+    public function it_should_return_int_when_passed_numeric_string( string $string ) {
+
+        $expected = intval( $string );
+        $actual   = Main::post_id_helper( $string );
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @test When passing a string of any kind, return false.
+     *
+     * @since TBD
+     *
+     * @param string $string
+     *
+     * @testWith [ "schmootzy" ]
      *           [ ":-]" ]
      *           [ "π" ]
      */
-    public function it_should_return_false_when_passed_string( string $string ) {
+    public function it_should_return_false_when_passed_non_numeric_string( string $string ) {
 
         $expected = false;
+        $actual   = Main::post_id_helper( $string );
 
-        $this->assertEquals( $expected, Main::post_id_helper( $string ) );
+        $this->assertEquals( $expected, $actual );
     }
 }
