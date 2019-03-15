@@ -31,23 +31,22 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
     public function it_should_return_post_ids_when_passed_post_objects( WP_Post $event_obj ) {
 
         $expected = $event_obj->ID;
+        $actual   = Main::post_id_helper( $event_obj );
 
-        $this->assertEquals( $expected, Main::post_id_helper( $event_obj ) );
+        $this->assertEquals( $expected, $actual );
     }
 
     /**
-     * @test When passing zero, get the current post ID.
+     * @test When passing zero, it should return bool false.
      *
      * @since TBD
      */
-    public function it_should_return_global_post_id_when_passed_zero() {
+    public function it_should_return_false_when_passed_zero() {
 
-        global $post;
+        $expected = false;
+        $actual   = Main::post_id_helper( 0 );
 
-        $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Event: Passing Zero' ] );
-        $expected = $post->ID;
-
-        $this->assertEquals( $expected, Main::post_id_helper( 0 ) );
+        $this->assertEquals( $expected, $actual );
     }
 
     /**
@@ -99,7 +98,7 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
     }
 
     /**
-     * @test When passing negative integers, return false.
+     * @test When passing negative integers, return the int as-is.
      *
      * @since TBD
      *
@@ -109,11 +108,12 @@ class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
      *           [ -666 ]
      *           [ -500000 ]
      */
-    public function it_should_return_false_when_passed_negative_int( int $post_id ) {
+    public function it_should_return_int_when_passed_negative_int( int $post_id ) {
 
-        $expected = false;
+        $expected = $post_id;
+        $actual   = Main::post_id_helper( $post_id );
 
-        $this->assertEquals( $expected, Main::post_id_helper( $post_id ) );
+        $this->assertEquals( $expected, $actual );
     }
 
     /**
