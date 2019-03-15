@@ -29,18 +29,9 @@ class JSONTest extends \Codeception\TestCase\WPTestCase {
 
 	public function naughty_strings() {
 		return [
-			[ [ "\"><script>alert(123)</script>" ], [ '\"\\\"><script>alert(123)<\/script>\"' ] ],
-			[ [ "\"><script>alert(123);</script x=\"" ], [] ],
-			[ [ "'><script>alert(123);</script x='" ], [] ],
-			[ [ "\" autofocus onkeyup=\"javascript:alert(123)" ], [] ],
-			[ [ "' autofocus onkeyup='javascript:alert(123)" ], [] ],
-			[ [ "<script\\x20type=\"text/javascript\">javascript:alert(1);</script>" ], [] ],
-			[ [ "'`\"><\\x3Cscript>javascript:alert(1)</script>" ], [] ],
-			[ [ "'`\"><\\x00script>javascript:alert(1)</script>" ], [] ],
-			[ [ "ABC<div style=\"x:\\xE2\\x80\\x8Bexpression(javascript:alert(1)\">DEF" ], [] ],
-			[ [ "<a href=\"\\x13javascript:javascript:alert(1)\" id=\"fuzzelement1\">test</a>" ], [] ],
-			[ [ "`\"'><img src=xxx:x \\x0Aonerror=javascript:alert(1)>" ], [] ],
-			[ [ "\\\";alert('XSS');//" ], [] ],
+			[ "\"><script>alert(123)</script>", '"\"><script>alert(123)<\/script>"' ],
+			[ "\"><script>alert(123);</script x=\"", '"\"><script>alert(123);<\/script x=\""' ],
+			[ "' autofocus onkeyup='javascript:alert(123)", '"\' autofocus onkeyup=\'javascript:alert(123)"' ],
 		];
 	}
 
@@ -192,10 +183,10 @@ class JSONTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @dataProvider naughty_strings
 	 */
-	// public function it_should_escape_naughty_strings( $in, $expected ) {
-	// 	$out = json_encode( $in );
+	public function it_should_escape_naughty_strings_accurately( $in, $expected ) {
+		$out = json_encode( $in );
 
-	// 	$this->assertEquals( $expected, $out );
-	// }
+		$this->assertEquals( $expected, $out );
+	}
 
 }
