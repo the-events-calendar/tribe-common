@@ -456,33 +456,24 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Helper function for getting a post ID. Only accepts null, ints, or WP_Post objects. Returns false if no post ID is found.
+	 * Helper function for getting Post Id. Accepts null or a post id. If no $post object exists, returns false to avoid a PHP NOTICE
 	 *
-	 * @param mixed $post Optional. Acceptable values are null, int, or a WP_Post object.
+	 * @param int $post (optional)
 	 *
-	 * @return int|boolean Post ID of current post if null is passed, or ID of the passed int or WP_Post, or false in any other case.
+	 * @return int post ID or False
 	 */
 	public static function post_id_helper( $post = null ) {
-
-		if ( null === $post || 0 === $post ) {
-
-			// get_the_ID() calls get_post(). This method runs so much that checking the global directly here can save us a lot of those get_post() calls.
-			if ( empty( $GLOBALS['post'] ) || ! $GLOBALS['post'] instanceof WP_Post ) {
+		if ( ! is_null( $post ) && is_numeric( $post ) > 0 ) {
+			return (int) $post;
+		} elseif ( is_object( $post ) && ! empty( $post->ID ) ) {
+			return (int) $post->ID;
+		} else {
+			if ( ! empty( $GLOBALS['post'] ) && $GLOBALS['post'] instanceof WP_Post ) {
+				return get_the_ID();
+			} else {
 				return false;
 			}
-
-			return get_the_ID();
 		}
-
-		if ( is_object( $post ) && ! empty( $post->ID ) ) {
-			return $post->ID;
-		}
-
-		if ( ! is_string( $post ) && intval( $post ) > 0 ) {
-			return $post;
-		}
-
-		return false;
 	}
 
 	/**
