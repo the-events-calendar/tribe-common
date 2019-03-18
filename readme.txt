@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.3.2] 2019-03-13 =
+= [4.9.3.2] 2019-03-14 =
 
 * Fix - Resolve issues where some CSS files were not properly packaged with previous release
 
