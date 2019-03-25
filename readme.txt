@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.9.4] TBD =
+
+* Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
+
 = [4.9.3.2] 2019-03-14 =
 
 * Fix - Resolve issues where some CSS files were not properly packaged with previous release
