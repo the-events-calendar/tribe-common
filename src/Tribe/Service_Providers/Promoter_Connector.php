@@ -28,7 +28,7 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 		add_action( 'template_redirect', tribe_callback( 'promoter.view', 'display_auth_check_view' ), 10, 0 );
 		add_action( 'init', tribe_callback( 'promoter.view', 'add_rewrites' ) );
 		// Add early-firing filter for user auth on REST.
-		add_filter( 'determine_current_user', tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' ), 20, 1 );
+		add_filter( 'determine_current_user', tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' ), 10, 1 );
 
 		tribe( 'promoter.pue' );
 
