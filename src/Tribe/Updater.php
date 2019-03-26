@@ -4,7 +4,7 @@
 /**
  * Run schema updates on plugin activation or updates
  *
- * @since TBD
+ * @since 4.9.4
  *
  */
 class Tribe__Updater {
@@ -18,7 +18,7 @@ class Tribe__Updater {
 	/**
 	 * Tribe__Updater constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param int $current_version the current version number of a plugin
 	 */
@@ -31,7 +31,7 @@ class Tribe__Updater {
 	 * alloptions caches getting out of sync with the DB,
 	 * forcing an eternal update cycle
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 */
 	protected function clear_option_caches() {
@@ -42,7 +42,7 @@ class Tribe__Updater {
 	/**
 	 * Run Updates for a Plugin
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 */
 	public function do_updates() {
@@ -71,7 +71,7 @@ class Tribe__Updater {
 	/**
 	 * Update Version Number for a Plugin
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @param int $new_version the current version number of a plugin
 	 */
@@ -85,7 +85,7 @@ class Tribe__Updater {
 	 * and lower than $this->current_version will have its
 	 * callback called.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return array
 	 */
@@ -97,7 +97,7 @@ class Tribe__Updater {
 	 * Returns an array of callbacks that should be called
 	 * every time the version is updated
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return array
 	 */
@@ -110,7 +110,7 @@ class Tribe__Updater {
 	/**
 	 * Get version from Tribe Settings for the Plugin
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return mixed the version number of the plugin saved in the options
 	 */
@@ -121,7 +121,7 @@ class Tribe__Updater {
 	/**
 	 * Returns true if the version in the DB is less than the provided version
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return boolean
 	 */
@@ -134,7 +134,7 @@ class Tribe__Updater {
 	/**
 	 * Returns true if this is a new install
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return boolean
 	 */
@@ -147,7 +147,7 @@ class Tribe__Updater {
 	/**
 	 * Returns true if an update is required
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return boolean
 	 */
@@ -158,7 +158,7 @@ class Tribe__Updater {
 	/**
 	 * Flush Rewrite rules
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 */
 	public function flush_rewrites() {
@@ -170,7 +170,7 @@ class Tribe__Updater {
 	 * Reset update flags. All updates past $this->reset_version will
 	 * run again on the next page load
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 */
 	public function reset() {

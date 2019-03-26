@@ -10,7 +10,7 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Whether the user request is currently authorized by Promoter.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var bool
 	 */
@@ -183,7 +183,7 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Check whether the user request is currently authorized by Promoter.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return bool Whether the user request is currently authorized by Promoter.
 	 */

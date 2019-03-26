@@ -4,14 +4,14 @@
 /**
  * Updater Class Tests
  *
- * @since TBD
+ * @since 4.9.4
  *
  */
 class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @since TBD
+	 * @since 4.9.4
 	 */
 	public function test_update_required() {
 		$current_version = Tribe__Main::VERSION;
@@ -32,7 +32,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @since TBD
+	 * @since 4.9.4
 	 */
 	public function test_get_version_from_db() {
 		$version_from_settings_manager = Tribe__Settings_Manager::get_option( 'schema-version' );
@@ -46,7 +46,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @since TBD
+	 * @since 4.9.4
 	 */
 	public function test_update_version_option() {
 		$current_version = Tribe__Main::VERSION;
@@ -65,7 +65,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @since TBD
+	 * @since 4.9.4
 	 */
 	public function test_get_update_callbacks() {
 		$current_version = Tribe__Main::VERSION;
@@ -79,7 +79,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @since TBD
+	 * @since 4.9.4
 	 */
 	public function test_get_constant_update_callbacks() {
 		$current_version = Tribe__Main::VERSION;
@@ -93,7 +93,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @since TBD
+	 * @since 4.9.4
 	 */
 	public function test_constant_updates_applied() {
 		$settings = Tribe__Settings_Manager::instance();
@@ -109,7 +109,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * @since TBD
+	 * @since 4.9.4
 	 */
 	public function test_update_only_runs_once() {
 		$settings = Tribe__Settings_Manager::instance();
