@@ -19,6 +19,7 @@ vendor/*
 !vendor/attrchange
 !vendor/tooltipster
 !vendor/datatables
+!vendor/freemius
 !vendor/jquery-tribe-timepicker
 !vendor/firebase
 vendor/composer/composer/tests
