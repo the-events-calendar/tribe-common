@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.4] TBD =
+= [4.9.4] 2019-04-01 =
 
 * Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
 * Tweak - Adjust `determine_current_user` priority used to identify Promoter user on calls to the REST API [124302]
