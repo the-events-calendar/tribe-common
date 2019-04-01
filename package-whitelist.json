@@ -12,7 +12,7 @@
   "vendor/autoload_52.php",
   "vendor/clipboard/*.js",
   "vendor/composer/*",
-  "vendor/freemius/*",
+  "vendor/freemius/**/*",
   "vendor/datatables/datatables*.css",
   "vendor/datatables/datatables*.js",
   "vendor/datatables/DataTables/images/*.png",
