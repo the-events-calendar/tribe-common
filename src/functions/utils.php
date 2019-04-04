@@ -590,3 +590,50 @@ if ( ! function_exists( 'has_blocks' ) ) {
 		return false !== strpos( (string) $post, '<!-- wp:' );
 	}
 }
+
+if ( ! function_exists( 'tribe_register_rest_route' ) ) {
+	/**
+	 * Wrapper function for `register_rest_route` to allow for filtering any Tribe REST API endpoint.
+	 *
+	 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
+	 * @param string $route     The base URL for route you are adding.
+	 * @param array  $args      Optional. Either an array of options for the endpoint, or an array of arrays for
+	 *                          multiple methods. Default empty array.
+	 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
+	 *                          false merges (with newer overriding if duplicate keys exist). Default false.
+	 *
+	 * @return bool True on success, false on error.
+	 *
+	 * @since TBD
+	 */
+	function tribe_register_rest_route( $namespace, $route, $args = array(), $override = false ) {
+		/**
+		 * Allow plugins to customize REST API arguments and callbacks.
+		 *
+		 * @param array  $args      Either an array of options for the endpoint, or an array of arrays for
+		 *                          multiple methods. Default empty array.
+		 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
+		 * @param string $route     The base URL for route you are adding.
+		 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
+		 *                          false merges (with newer overriding if duplicate keys exist). Default false.
+		 *
+		 * @since TBD
+		 */
+		$args = apply_filters( 'tribe_register_rest_route_args_' . $namespace . $route, $args, $namespace, $route, $override );
+
+		/**
+		 * Allow plugins to customize REST API arguments and callbacks.
+		 *
+		 * @param array  $args      Either an array of options for the endpoint, or an array of arrays for
+		 *                          multiple methods. Default empty array.
+		 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
+		 * @param string $route     The base URL for route you are adding.
+		 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
+		 *                          false merges (with newer overriding if duplicate keys exist). Default false.
+		 *
+		 * @since TBD
+		 */
+		$args = apply_filters( 'tribe_register_rest_route_args', $args, $namespace, $route, $override );
+		return register_rest_route( $namespace, $route, $args, $override );
+	}
+}
