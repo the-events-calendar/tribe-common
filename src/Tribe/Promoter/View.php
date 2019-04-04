@@ -37,8 +37,8 @@ class Tribe__Promoter__View extends Tribe__Template {
 	public function authorized_redirect_url() {
 		$url = 'https://promoter.theeventscalendar.com/welcome/review';
 
-		if ( defined( 'TRIBE_PROMOTER_AUTHORIZED_authorized_REDIRECT_URL' ) ) {
-			$url = TRIBE_PROMOTER_AUTHORIZED_authorized_REDIRECT_URL;
+		if ( defined( 'TRIBE_PROMOTER_AUTHORIZED_REDIRECT_URL' ) ) {
+			$url = TRIBE_PROMOTER_AUTHORIZED_REDIRECT_URL;
 		}
 
 		return $url;
