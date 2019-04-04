@@ -32,7 +32,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 	 *
 	 * @return string Redirect URL for completing onboarding.
 	 *
-	 * @since 4.9.4
+	 * @since TBD
 	 */
 	public function authorized_redirect_url() {
 		$url = 'https://promoter.theeventscalendar.com/welcome/review';
@@ -41,7 +41,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 			$url = TRIBE_PROMOTER_AUTHORIZED_REDIRECT_URL;
 		}
 
-		return $url;
+		return apply_filters( 'tribe_promoter_authorized_redirect_url', $url );
 	}
 
 	/**
@@ -73,14 +73,14 @@ class Tribe__Promoter__View extends Tribe__Template {
 		if ( $authorized ) {
 			wp_redirect( esc_url_raw( $this->authorized_redirect_url() ) );
 		} else {
-			$this->template( 'auth', array(
+			$this->template( 'auth', [
 				'authorized'   => $authorized,
 				'auth_error'   => $auth_error,
 				'logged_in'    => is_user_logged_in(),
 				'admin'        => $is_admin,
 				'promoter_key' => $promoter_key,
 				'license_key'  => $license_key,
-			), true );
+			], true );
 		}
 
 		tribe_exit();
