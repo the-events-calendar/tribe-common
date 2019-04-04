@@ -91,6 +91,12 @@ var tribe_logger_data  = tribe_logger_data || {};
 	 */
 	function update_download_link() {
 		var url = $download_link.attr( 'href' );
+
+		// bail if not in DOM
+		if ( typeof url === 'undefined' ) {
+			return;
+		}
+
 		var log = encodeURI( get_current_view() );
 		var matches = url.match(/&log=([a-z0-9\-]+)/i);
 
