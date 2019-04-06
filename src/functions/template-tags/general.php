@@ -752,3 +752,105 @@ if ( ! function_exists( 'tribe_context' ) ) {
 		return $context;
 	}
 }
+
+if ( ! function_exists( 'tribe_post_checksum' ) ) {
+	/**
+	 * Builds a post checksum based on a list of fields that are
+	 * set to change when relevant post details change.
+	 *
+	 * This function will only calculate the checksum: it will not perform any
+	 * kind of check or monitoring on the post itself.
+	 *
+	 * @since TBD
+	 *
+	 * @param int|WP_Post $post_id   The post ID or object
+	 * @param array       $use_frags An array detailing the post fields, columns of
+	 *                               the `posts` table, that should be used to build
+	 *                               the checksum; defaults to the post `ID` and `post_modified`
+	 *                               columns.
+	 *
+	 * @return null|string The checksum string or `null` if the post is not valid or no
+	 *                     fragments are passed.
+	 */
+	function tribe_post_checksum( $post_id, $use_frags = array( 'ID', 'post_modified' ) ) {
+		if ( empty( $post_id ) || empty( $use_frags ) ) {
+			return null;
+		}
+		$post = get_post( $post_id );
+		if ( ! $post instanceof WP_Post ) {
+			return null;
+		}
+		$frags = array();
+		foreach ( $use_frags as $field ) {
+			$frags[] = $post->{$field};
+		}
+		return md5( implode( '|', $frags ) );
+	}
+}
+if ( ! function_exists( 'tribe_posts_checksum' ) ) {
+	/**
+	 * Builds the checksum for a group of posts based on a list of fields that are
+	 * set to change when relevant post details change.
+	 *
+	 * This function will only calculate the checksum: it will not perform any
+	 * kind of check or monitoring on the posts themselves.
+	 *
+	 * @since TBD
+	 *
+	 * @param       array $post_ids  An array of post IDs or objects to calculate
+	 *                               the checksum for.
+	 * @param array       $use_frags An array detailing the post fields, columns of
+	 *                               the `posts` table, that should be used to build
+	 *                               the checksum; defaults to the post `ID` and `post_modified`
+	 *                               columns.
+	 *
+	 * @return null|string The checksum string or `null` if the posts are not valid or no
+	 *                     fragments are passed.
+	 */
+	function tribe_posts_checksum( $post_ids, $use_frags = array( 'ID', 'post_modified' ) ) {
+		$post_ids = array_filter( (array) $post_ids );
+		if ( empty( $post_ids ) ) {
+			return null;
+		}
+		$wp_post_instances = 0;
+		foreach ( $post_ids as $post_id ) {
+			if ( $post_id instanceof WP_Post ) {
+				$wp_post_instances++;
+			}
+		}
+		$results = array();
+		if ( $wp_post_instances === count( $post_ids ) ) {
+			$id_sorted = wp_list_sort( $post_ids, 'ID', 'ASC' );
+			/** @var WP_Post $post */
+			foreach ( $id_sorted as $post ) {
+				$this_post_frags = array();
+				foreach ( $use_frags as $field ) {
+					$this_post_frags[] = $post->{$field};
+				}
+				$results[] = $this_post_frags;
+			}
+		} else {
+			/** @var wpdb $wpdb */
+			global $wpdb;
+			$prepared = array();
+			foreach ( $post_ids as $post_id ) {
+				if ( $post_id instanceof WP_Post ) {
+					$post_id = $post_id->ID;
+				}
+				$prepared[] = $wpdb->prepare( '%d', $post_id );
+			}
+			$fields = implode( ', ', array_map( 'esc_sql', $use_frags ) );
+			$ids = sprintf( '(%s)', implode( ',', $prepared ) );
+			$query = "SELECT {$fields} FROM {$wpdb->posts} WHERE ID IN {$ids} ORDER BY ID ASC";
+			$results = $wpdb->get_results( $query, ARRAY_N );
+		}
+		if ( empty( $results ) ) {
+			return null;
+		}
+		$joined = array();
+		foreach ( $results as $result ) {
+			$joined[] = implode( '|', $result );
+		}
+		return md5( implode( '|', $joined ) );
+	}
+}
