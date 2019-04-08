@@ -42,6 +42,8 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
         '129d58fa8151374aceb8571bcaa97504' => __DIR__ . '/..' . '/wp-cli/shell-command/shell-command.php',
         '8519779bbb65eeb842af2f629ce7b6f8' => __DIR__ . '/..' . '/wp-cli/super-admin-command/super-admin-command.php',
         '1f05372afcc7d0c51a305cef1d56dd01' => __DIR__ . '/..' . '/wp-cli/widget-command/widget-command.php',
+        'c9c849c9bb3823996cf7bfc9113fa087' => __DIR__ . '/..' . '/lucatume/function-mocker/src/shims.php',
+        'c9175f6b4293b67ed66f5797215938f2' => __DIR__ . '/..' . '/lucatume/function-mocker/src/functions.php',
         'ecbc340aca40533eaeb3cb7be1d8da05' => __DIR__ . '/..' . '/lucatume/function-mocker-le/src/function-mocker-le.php',
         'e2b8090921f5e293ca4eb0c107749811' => __DIR__ . '/..' . '/lucatume/wp-browser/src/tad/WPBrowser/functions.php',
     );
@@ -49,6 +51,7 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
     public static $prefixLengthsPsr4 = array (
         't' => 
         array (
+            'tad\\WP\\Snapshots\\' => 17,
             'tad\\' => 4,
         ),
         'p' => 
@@ -79,6 +82,7 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\BrowserKit\\' => 29,
+            'Spatie\\Snapshots\\' => 17,
             'Seld\\PharUtils\\' => 15,
             'Seld\\JsonLint\\' => 14,
         ),
@@ -113,6 +117,7 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
         'F' => 
         array (
             'Firebase\\JWT\\' => 13,
+            'Faker\\' => 6,
             'Facebook\\WebDriver\\' => 19,
         ),
         'D' => 
@@ -137,6 +142,10 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
     );
 
     public static $prefixDirsPsr4 = array (
+        'tad\\WP\\Snapshots\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lucatume/wp-snaphot-assertions/src',
+        ),
         'tad\\' => 
         array (
             0 => __DIR__ . '/..' . '/lucatume/wp-browser/src/tad',
@@ -225,6 +234,10 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
         array (
             0 => __DIR__ . '/..' . '/symfony/browser-kit',
         ),
+        'Spatie\\Snapshots\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/phpunit-snapshot-assertions/src',
+        ),
         'Seld\\PharUtils\\' => 
         array (
             0 => __DIR__ . '/..' . '/seld/phar-utils/src',
@@ -288,6 +301,10 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+        'Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
         ),
         'Facebook\\WebDriver\\' => 
         array (
@@ -389,6 +406,14 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
             array (
                 0 => __DIR__ . '/..' . '/lucatume/di52/src',
             ),
+            'tad_' => 
+            array (
+                0 => __DIR__ . '/..' . '/lucatume/args/src',
+            ),
+            'tad\\FunctionMocker' => 
+            array (
+                0 => __DIR__ . '/..' . '/lucatume/function-mocker/src',
+            ),
         ),
         'c' => 
         array (
@@ -458,9 +483,25 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
                 0 => __DIR__ . '/..' . '/bacon/bacon-string-utils/src',
             ),
         ),
+        'A' => 
+        array (
+            'Arg' => 
+            array (
+                0 => __DIR__ . '/..' . '/lucatume/args/src',
+            ),
+        ),
     );
 
     public static $classMap = array (
+        'Callback' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/Callback.php',
+        'CallbackBody' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/Callback.php',
+        'CallbackParam' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/Callback.php',
+        'CallbackParameterToReference' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/Callback.php',
+        'CallbackReturnReference' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/Callback.php',
+        'CallbackReturnValue' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/Callback.php',
+        'DOMDocumentWrapper' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/DOMDocumentWrapper.php',
+        'DOMEvent' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/DOMEvent.php',
+        'ICallbackNamed' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/Callback.php',
         'MySQLDump' => __DIR__ . '/..' . '/dg/mysql-dump/src/MySQLDump.php',
         'MySQLImport' => __DIR__ . '/..' . '/dg/mysql-dump/src/MySQLImport.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
@@ -1006,6 +1047,16 @@ class ComposerStaticInit453516e196e1be4c43fa495b9bb9d572
         'TheSeer\\Tokenizer\\TokenCollectionException' => __DIR__ . '/..' . '/theseer/tokenizer/src/TokenCollectionException.php',
         'TheSeer\\Tokenizer\\Tokenizer' => __DIR__ . '/..' . '/theseer/tokenizer/src/Tokenizer.php',
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
+        'phpQuery' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery.php',
+        'phpQueryEvents' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/phpQueryEvents.php',
+        'phpQueryObject' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/phpQueryObject.php',
+        'phpQueryObjectPlugin_Scripts' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/plugins/Scripts.php',
+        'phpQueryObjectPlugin_WebBrowser' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/plugins/WebBrowser.php',
+        'phpQueryObjectPlugin_example' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/plugins/example.php',
+        'phpQueryPlugin_Scripts' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/plugins/Scripts.php',
+        'phpQueryPlugin_WebBrowser' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/plugins/WebBrowser.php',
+        'phpQueryPlugin_example' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery/plugins/example.php',
+        'phpQueryPlugins' => __DIR__ . '/..' . '/electrolinux/phpquery/phpQuery/phpQuery.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
