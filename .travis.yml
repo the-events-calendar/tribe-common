@@ -120,4 +120,4 @@ script:
   - codecept run integration
   - codecept run wpunit
   - codecept run muwpunit
-  - codecept run dependency -vvv
+  - codecept run dependency

@@ -2,6 +2,52 @@
 
 == Changelog ==
 
+= [4.9.5] TBD =
+
+* Fix - Adjust `Tribe__Admin__Helpers::is_screen()` to avoid false positives and flag the events tag page as a Tribe screen [107413]
+
+= [4.9.4] 2019-04-01 =
+
+* Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
+* Tweak - Adjust `determine_current_user` priority used to identify Promoter user on calls to the REST API [124302]
+
+= [4.9.3.2] 2019-03-14 =
+
+* Fix - Resolve issues where some CSS files were not properly packaged with previous release
+
+= [4.9.3.1] 2019-03-06 =
+
+* Feature - Attach the post ID to Promoter calls and remove hook from all post saves [123732]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.3] 2019-03-04 =
+
+* Fix - Make sure we pass and get the parameter when using cron jobs to import images on Event Aggregator [119269]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.2] 2019-02-26 =
+
+* Feature - Add Promoter access from the WP Admin Bar
+* Fix - Update the order of loading of providers to ensure correct execution for Promoter
+* Tweak - Added Promoter to the App Shop [122550]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.1] 2019-02-14 =
+
+* Feature - date and timezone building and validation methods to the `Tribe__Date_Utils` and `Tribe__Timezones` classes [116356, 115579]
+* Feature - the `tribe_is_regex` and `tribe_unfenced_regex` functions [115582]
+* Feature - Add new action `tribe_editor_register_blocks` used to register Event blocks via `common`
+* Fix - Make sure assets are injected before is too late
+* Fix - Fix an issue where feature detection of async-process support would fire too many requests [118876]
+* Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
+* Fix - Prevent to trigger error when using `array_combine` with empty arrays
+* Fix - Improve conditionals on `Tribe__Timezones::generate_timezone_string_from_utc_offset` to return only string timezones [120647]
+* Language - 0 new strings added, 13 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.0.1] 2019-02-07 =
+
+* Fix - Modify extension dependency checking with new system to determine if it can load [122368]
+
 = [4.9] 2019-02-05 =
 
 * Feature - Add system to check plugin versions to inform you to update and prevent site breaking errors [116841]

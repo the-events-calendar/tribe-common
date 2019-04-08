@@ -44,6 +44,15 @@ interface Tribe__Repository__Interface
 	public function filter_name( $filter_name );
 
 	/**
+	 * Returns the repository filter name.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_filter_name(  );
+
+	/**
 	 * Sets the formatter in charge of formatting items to the correct format.
 	 *
 	 * @since 4.7.19
@@ -58,9 +67,11 @@ interface Tribe__Repository__Interface
 	 *
 	 * @since 4.7.19
 	 *
+	 * @param bool $use_query_builder Whether to use the query builder, if set, or not.
+	 *
 	 * @return WP_Query
 	 */
-	public function build_query();
+	public function build_query( $use_query_builder = true );
 
 	/**
 	 * Adds a custom JOIN clause to the query.
@@ -174,4 +185,22 @@ interface Tribe__Repository__Interface
 	 * @return $this
 	 */
 	public function by_related_to_between( $by_meta_keys, $min, $max, $keys = null, $values = null );
+
+	/**
+	 * Gets the ids of the posts matching the query.
+	 *
+	 * @return array An array containing the post IDs to update.
+	 */
+	public function get_ids();
+
+	/**
+	 * Adds an entry to the repository filter schema.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
+	 *                           calls.
+	 * @param callable $callback The function that should be called to apply this filter.
+	 */
+	public function add_schema_entry( $key, $callback );
 }

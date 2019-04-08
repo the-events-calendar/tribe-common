@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.9';
+	const VERSION             = '4.9.5';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -88,7 +88,6 @@ class Tribe__Main {
 
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
 		add_action( 'tribe_common_loaded', array( $this, 'tribe_common_app_store' ), 10 );
-
 	}
 
 	/**
@@ -117,7 +116,6 @@ class Tribe__Main {
 		 * @since 4.9
 		 */
 		do_action( 'tribe_plugins_loaded ' );
-
 	}
 
 	/**
@@ -164,6 +162,7 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		require_once $this->plugin_path . 'src/functions/utils.php';
+		require_once $this->plugin_path . 'src/functions/query.php';
 		require_once $this->plugin_path . 'src/functions/multibyte.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
@@ -526,10 +525,9 @@ class Tribe__Main {
 	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
 	 */
 	public function tribe_plugins_loaded() {
+		tribe( 'admin.notice.php.version' );
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
-		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
-		tribe( 'admin.notice.php.version' );
 
 		if ( ! defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {
 			tribe( 'admin.notice.marketing' );
@@ -566,6 +564,7 @@ class Tribe__Main {
 		tribe_singleton( 'context', 'Tribe__Context' );
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
 		tribe_singleton( 'db', 'Tribe__Db' );
+		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
@@ -574,6 +573,8 @@ class Tribe__Main {
 		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', array( 'hook' ) );
 
 		tribe_register_provider( 'Tribe__Editor__Provider' );
+		tribe_register_provider( 'Tribe__Service_Providers__Debug_Bar' );
+		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
 	}
 
 	/************************
