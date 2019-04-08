@@ -4,6 +4,7 @@
 
 = [4.9.5] TBD =
 
+* Tweak - Allow for external modal control for modal button component [123818]
 * Fix - Adjust `Tribe__Admin__Helpers::is_screen()` to avoid false positives and flag the events tag page as a Tribe screen [107413]
 
 = [4.9.4] 2019-04-01 =
