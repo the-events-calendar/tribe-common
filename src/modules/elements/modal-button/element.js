@@ -19,6 +19,7 @@ class ModalButton extends PureComponent {
 	static propTypes = {
 		className: PropTypes.string,
 		disabled: PropTypes.bool,
+		isOpen: PropTypes.bool,
 		label: PropTypes.string,
 		modalClassName: PropTypes.string,
 		modalContent: PropTypes.node,
@@ -59,7 +60,9 @@ class ModalButton extends PureComponent {
 			modalTitle,
 		} = this.props;
 
-		return ( this.state.isOpen && (
+		const isOpen = this.props.isOpen !== undefined ? this.props.isOpen : this.state.isOpen;
+
+		return ( isOpen && (
 			<Modal
 				className={ classNames(
 					'tribe-editor__modal-button__modal-content',
