@@ -44,7 +44,9 @@ class Tribe__Promoter__View extends Tribe__Template {
 		/**
 		 * The url for redirecting in order to complete onboarding
 		 *
-		 * @var string $url
+		 * @since TBD
+		 *
+		 * @param string $url Redirect URL.
 		 */
 		return apply_filters( 'tribe_promoter_authorized_redirect_url', $url );
 	}
