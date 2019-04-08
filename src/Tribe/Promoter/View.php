@@ -30,9 +30,9 @@ class Tribe__Promoter__View extends Tribe__Template {
 	/**
 	 * Get the redirect URL for finishing onboarding
 	 *
-	 * @return string Redirect URL for completing onboarding.
-	 *
 	 * @since TBD
+	 *
+	 * @return string Redirect URL for completing onboarding.
 	 */
 	public function authorized_redirect_url() {
 		$url = 'https://promoter.theeventscalendar.com/welcome/review';
@@ -41,6 +41,11 @@ class Tribe__Promoter__View extends Tribe__Template {
 			$url = TRIBE_PROMOTER_AUTHORIZED_REDIRECT_URL;
 		}
 
+		/**
+		 * The url for redirecting in order to complete onboarding
+		 *
+		 * @var string $url
+		 */
 		return apply_filters( 'tribe_promoter_authorized_redirect_url', $url );
 	}
 
