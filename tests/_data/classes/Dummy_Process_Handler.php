@@ -57,8 +57,10 @@ class Dummy_Process_Handler extends \Tribe__Process__Handler {
 	 *
 	 * Override this method to perform any actions required
 	 * during the async request.
+	 *
+	 * @param array|null $data_source Unused.
 	 */
-	protected function handle() {
+	protected function handle( array $data_source = null ) {
 		\call_user_func($this->handle_callback);
 	}
 }

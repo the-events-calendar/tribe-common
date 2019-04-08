@@ -77,8 +77,10 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 * background processing is supported.
 	 *
 	 * @since 4.7.23
+	 *
+	 * @param array|null $data_source Unused.
 	 */
-	protected function handle() {
+	protected function handle( array $data_source = null ) {
 		set_transient( self::TRANSIENT_NAME, 1, HOUR_IN_SECONDS );
 	}
 

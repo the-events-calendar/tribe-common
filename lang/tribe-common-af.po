@@ -1805,4 +1805,631 @@ msgstr "Hungary"
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: src/Tribe/Langu
+#: src/Tribe/Languages/Locations.php:154
+msgid "Honduras"
+msgstr "Honduras"
+
+#: src/Tribe/Languages/Locations.php:153
+msgid "Holy See (Vatican City State)"
+msgstr "Holy See (Vatican City State)"
+
+#: src/Tribe/Languages/Locations.php:152
+msgid "Heard and McDonald Islands"
+msgstr ""
+
+#: src/Tribe/Languages/Locations.php:151
+msgid "Haiti"
+msgstr "Haiti"
+
+#: src/Tribe/Languages/Locations.php:150
+msgid "Guyana"
+msgstr "Guyana"
+
+#: src/Tribe/Languages/Locations.php:149
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+#: src/Tribe/Languages/Locations.php:148
+msgid "Guinea"
+msgstr "Guinea"
+
+#: src/Tribe/Languages/Locations.php:147
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: src/Tribe/Languages/Locations.php:146
+msgid "Guam"
+msgstr "Guam"
+
+#: src/Tribe/Languages/Locations.php:145
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: src/Tribe/Languages/Locations.php:144
+msgid "Grenada"
+msgstr "Grenada"
+
+#: src/Tribe/Languages/Locations.php:143
+msgid "Greenland"
+msgstr "Greenland"
+
+#: src/Tribe/Languages/Locations.php:142
+msgid "Greece"
+msgstr "Greece"
+
+#: src/Tribe/Languages/Locations.php:141
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: src/Tribe/Languages/Locations.php:140
+msgid "Ghana"
+msgstr "Ghana"
+
+#: src/Tribe/Languages/Locations.php:139
+msgid "Germany"
+msgstr "Germany"
+
+#: src/Tribe/Languages/Locations.php:138 src/Tribe/Languages/Locations.php:334
+msgid "Georgia"
+msgstr "Georgia"
+
+#: src/Tribe/Languages/Locations.php:137
+msgid "Gambia"
+msgstr "Gambia"
+
+#: src/Tribe/Languages/Locations.php:136
+msgid "Gabon"
+msgstr "Gabon"
+
+#: src/Tribe/Languages/Locations.php:135
+msgid "French Southern Territories"
+msgstr "French Southern Territories"
+
+#: src/Tribe/Languages/Locations.php:134
+msgid "French Polynesia"
+msgstr "French Polynesia"
+
+#: src/Tribe/Languages/Locations.php:133
+msgid "French Guiana"
+msgstr "French Guiana"
+
+#: src/Tribe/Languages/Locations.php:132
+msgid "France"
+msgstr "France"
+
+#: src/Tribe/Languages/Locations.php:131
+msgid "Finland"
+msgstr "Finland"
+
+#: src/Tribe/Languages/Locations.php:130
+msgid "Fiji"
+msgstr "Fiji"
+
+#: src/Tribe/Languages/Locations.php:129
+msgid "Faroe Islands"
+msgstr "Faroe Islands"
+
+#: src/Tribe/Languages/Locations.php:128
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falkland Islands (Malvinas)"
+
+#: src/Tribe/Languages/Locations.php:127
+msgid "Ethiopia"
+msgstr "Ethiopia"
+
+#: src/Tribe/Languages/Locations.php:126
+msgid "Estonia"
+msgstr "Estonia"
+
+#: src/Tribe/Languages/Locations.php:125
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: src/Tribe/Languages/Locations.php:124
+msgid "Equatorial Guinea"
+msgstr "Equatorial Guinea"
+
+#: src/Tribe/Languages/Locations.php:123
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: src/Tribe/Languages/Locations.php:122
+msgid "Egypt"
+msgstr "East Timor"
+
+#: src/Tribe/Languages/Locations.php:121
+msgid "Ecuador"
+msgstr "East Timor"
+
+#: src/Tribe/Languages/Locations.php:120
+msgid "East Timor"
+msgstr "East Timor"
+
+#: src/Tribe/Languages/Locations.php:119
+msgid "Dominican Republic"
+msgstr "Dominican Republic"
+
+#: src/Tribe/Languages/Locations.php:118
+msgid "Dominica"
+msgstr "Dominica"
+
+#: src/Tribe/Languages/Locations.php:117
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: src/Tribe/Languages/Locations.php:116
+msgid "Denmark"
+msgstr "Denmark"
+
+#: src/Tribe/Languages/Locations.php:115
+msgid "Czech Republic"
+msgstr "Czech Republic"
+
+#: src/Tribe/Languages/Locations.php:114
+msgid "Cyprus"
+msgstr "Cyprus"
+
+#: src/Tribe/Languages/Locations.php:112
+msgid "Cuba"
+msgstr "Cuba"
+
+#: src/Tribe/Languages/Locations.php:111
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr "Croatia (Local Name: Hrvatska)"
+
+#: src/Tribe/Languages/Locations.php:109
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: src/Tribe/Languages/Locations.php:108
+msgid "Cook Islands"
+msgstr "Cook Islands"
+
+#: src/Tribe/Languages/Locations.php:107
+msgid "Congo, Democratic Republic of the"
+msgstr ""
+
+#: src/Tribe/Languages/Locations.php:106
+msgid "Congo"
+msgstr "Congo"
+
+#: src/Tribe/Languages/Locations.php:105
+msgid "Comoros"
+msgstr "Comoros"
+
+#: src/Tribe/Languages/Locations.php:104
+msgid "Colombia"
+msgstr "Colombia"
+
+#: src/Tribe/Languages/Locations.php:102
+msgid "Cocos (Keeling) Islands"
+msgstr "Cocos (Keeling) Islands"
+
+#: src/Tribe/Languages/Locations.php:101
+msgid "Christmas Island"
+msgstr "Christmas Island"
+
+#: src/Tribe/Languages/Locations.php:100
+msgid "China"
+msgstr "China"
+
+#: src/Tribe/Languages/Locations.php:99
+msgid "Chile"
+msgstr "Chile"
+
+#: src/Tribe/Languages/Locations.php:98
+msgid "Chad"
+msgstr "Chad"
+
+#: src/Tribe/Languages/Locations.php:97
+msgid "Central African Republic"
+msgstr "Sentaal Afrika Republiek"
+
+#: src/Tribe/Languages/Locations.php:96
+msgid "Cayman Islands"
+msgstr "Cayman Islands"
+
+#: src/Tribe/Languages/Locations.php:95
+msgid "Cape Verde"
+msgstr "Cape Verde"
+
+#: src/Tribe/Languages/Locations.php:94
+msgid "Canada"
+msgstr "Kanada"
+
+#: src/Tribe/Languages/Locations.php:93
+msgid "Cameroon"
+msgstr "Cameroon"
+
+#: src/Tribe/Languages/Locations.php:92
+msgid "Cambodia"
+msgstr "Cambodia"
+
+#: src/Tribe/Languages/Locations.php:91
+msgid "Burundi"
+msgstr "Burundi"
+
+#: src/Tribe/Languages/Locations.php:90
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: src/Tribe/Languages/Locations.php:89
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: src/Tribe/Languages/Locations.php:88
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+#: src/Tribe/Languages/Locations.php:87
+msgid "British Indian Ocean Territory"
+msgstr "Britise Indianse Oseaan Gebied"
+
+#: src/Tribe/Languages/Locations.php:86
+msgid "Brazil"
+msgstr "Brazilië"
+
+#: src/Tribe/Languages/Locations.php:85
+msgid "Bouvet Island"
+msgstr "Bouvet Island"
+
+#: src/Tribe/Languages/Locations.php:84
+msgid "Botswana"
+msgstr "Botswana"
+
+#: src/Tribe/Languages/Locations.php:83
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: src/Tribe/Languages/Locations.php:82
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: src/Tribe/Languages/Locations.php:81
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: src/Tribe/Languages/Locations.php:80
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: src/Tribe/Languages/Locations.php:79
+msgid "Benin"
+msgstr "Benin"
+
+#: src/Tribe/Languages/Locations.php:78
+msgid "Belize"
+msgstr "Belize"
+
+#: src/Tribe/Languages/Locations.php:77
+msgid "Belgium"
+msgstr "België"
+
+#: src/Tribe/Languages/Locations.php:76
+msgid "Belarus"
+msgstr "Belarus"
+
+#: src/Tribe/Languages/Locations.php:75
+msgid "Barbados"
+msgstr "Barbados"
+
+#: src/Tribe/Languages/Locations.php:74
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: src/Tribe/Languages/Locations.php:73
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: src/Tribe/Languages/Locations.php:72
+msgid "Bahamas"
+msgstr "v"
+
+#: src/Tribe/Languages/Locations.php:71
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+#: src/Tribe/Languages/Locations.php:70
+msgid "Austria"
+msgstr "Austria"
+
+#: src/Tribe/Languages/Locations.php:69
+msgid "Australia"
+msgstr "Australië"
+
+#: src/Tribe/Languages/Locations.php:68
+msgid "Aruba"
+msgstr "Aruba"
+
+#: src/Tribe/Languages/Locations.php:67
+msgid "Armenia"
+msgstr "Armenië"
+
+#: src/Tribe/Languages/Locations.php:66
+msgid "Argentina"
+msgstr "Argentinië"
+
+#: src/Tribe/Languages/Locations.php:65
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: src/Tribe/Languages/Locations.php:64
+msgid "Antarctica"
+msgstr "Antarctika"
+
+#: src/Tribe/Languages/Locations.php:63
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: src/Tribe/Languages/Locations.php:62
+msgid "Angola"
+msgstr "Angola"
+
+#: src/Tribe/Languages/Locations.php:61
+msgid "Andorra"
+msgstr "Andorra"
+
+#: src/Tribe/Languages/Locations.php:60
+msgid "American Samoa"
+msgstr "Amerikaanse Samoa"
+
+#: src/Tribe/Languages/Locations.php:59
+msgid "Algeria"
+msgstr "Algerië"
+
+#: src/Tribe/Languages/Locations.php:58
+msgid "Albania"
+msgstr "Albania"
+
+#: src/Tribe/Languages/Locations.php:56
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+#: src/Tribe/View_Helpers.php:51
+msgid "Select a Country:"
+msgstr "Kies 'n Land:"
+
+#: src/Tribe/Validate.php:514
+msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
+msgstr "Land lys moet geformateer word met een land per reël in die volgende formaat: <br> VSA, die Verenigde State van Amerika <br> die Verenigde Koninkryk, die Verenigde Koninkryk."
+
+#: src/Tribe/Validate.php:498
+msgid "%s must be a phone number."
+msgstr "%s moet 'n telefoon nommer wees."
+
+#: src/Tribe/Validate.php:484
+msgid "%s must consist of 5 numbers."
+msgstr "%s moet uit 5 syfers bestaan."
+
+#: src/Tribe/Validate.php:470
+msgid "%s must consist of letters, spaces, apostrophes, and dashes."
+msgstr "% s moet bestaan ​​uit letters, spasies, afkapings, en strepies."
+
+#: src/Tribe/Validate.php:454
+msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
+msgstr "% s moet bestaan uit letters, getalle, koppeltekens, afkapings, en ruimtes."
+
+#: src/Tribe/Validate.php:438
+msgid "%s must be a number between 0 and 21."
+msgstr "%s  moet 'n getal 0 en 21 wees."
+
+#: src/Tribe/Validate.php:384
+msgid "%s must be a number or percentage."
+msgstr "%s moet 'n syfer of 'n persentasie wees."
+
+#: src/Tribe/Validate.php:368
+msgid "%s cannot be a duplicate"
+msgstr "%s mag nie 'n duplikaat wees nie"
+
+#: src/Tribe/Validate.php:366
+msgid "%s cannot be the same as %s."
+msgstr "%s mag nie die selfde wees nie %s."
+
+#: src/Tribe/Validate.php:359
+msgid "Comparison validation failed because no comparison value was provided, for field %s"
+msgstr "Vergelyking bekragtiging misluk omdat geen vergelyking waarde is verskaf vir veld %s"
+
+#: src/Tribe/Validate.php:298 src/Tribe/Validate.php:310
+#: src/Tribe/Validate.php:323 src/Tribe/Validate.php:345
+msgid "%s must have a value that's part of its options."
+msgstr "% s moet 'n waarde hë wat deel is van sy opsies."
+
+#: src/Tribe/Validate.php:282
+msgid "%s must be a valid absolute URL."
+msgstr "% s moet 'n geldige absolute URL wees."
+
+#: src/Tribe/Validate.php:267
+msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
+msgstr "% s moet 'n geldige afkorting (getalle, letters, koppeltekens en onderstreep) wees."
+
+#: src/Tribe/Validate.php:200 src/Tribe/Validate.php:228
+msgid "%s must be a positive number."
+msgstr "% s moet 'n positiewe getal wees."
+
+#: src/Tribe/Validate.php:152
+msgid "%s must contain numbers, letters and dots only"
+msgstr "% s moet slegs syfers, letters en punte bevat"
+
+#: src/Tribe/Validate.php:120 src/Tribe/Validate.php:136
+msgid "%s must contain numbers and letters only"
+msgstr "% s moet slegs syfers en letters bevat"
+
+#: src/Tribe/Validate.php:105
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr ""
+
+#: src/Tribe/Validate.php:104
+msgid "Non-existant field validation function passed"
+msgstr "Nie-bestaande veld validering funksie geslaag"
+
+#: src/Tribe/Validate.php:73 src/Tribe/Validate.php:85
+#: src/Tribe/Validate.php:105
+msgid "Field ID:"
+msgstr "Veld ID:"
+
+#: src/Tribe/Validate.php:72 src/Tribe/Validate.php:84
+msgid "Invalid or incomplete field passed"
+msgstr "Ongeldige of onvolledige veld geslaag"
+
+#: src/Tribe/Support.php:188 src/Tribe/Support.php:189
+msgid "Unknown or not set"
+msgstr ""
+
+#: src/admin-views/tribe-options-help.php:41
+msgid "System Information"
+msgstr "Sisteem Inligting"
+
+#: src/Tribe/Settings_Tab.php:222
+msgid "There are no fields setup for this tab yet."
+msgstr "Daar is geen velde opgestel vir hierdie afdeling nie."
+
+#: src/Tribe/Settings.php:619
+msgid "The above setting was not saved. Other settings were successfully saved."
+msgid_plural "The above settings were not saved. Other settings were successfully saved."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Tribe/Settings.php:618
+msgid "None of your settings were saved. Please try again."
+msgstr "Nie een van jou stellings is gestoor nie. Probeer asseblief weer."
+
+#: src/Tribe/Settings.php:608
+msgid "Your form had the following errors:"
+msgstr "Jou vorm het die volgende probleme gehad:"
+
+#: src/Tribe/Settings.php:431
+msgid "The request wasn't sent from this tab."
+msgstr "Die versoek is nie van hierdie afdeling af gestuur nie."
+
+#: src/Tribe/Settings.php:425
+msgid "The request was sent insecurely."
+msgstr "Die versoek is onveilig gestuur."
+
+#: src/Tribe/Settings.php:419
+msgid "You don't have permission to do that."
+msgstr "Jy het nie toestemming om dit te doen nie."
+
+#: src/Tribe/Settings.php:363
+msgid "You've requested a non-existent tab."
+msgstr "Jy het 'n nie-bestaande afdeling gekies."
+
+#: src/Tribe/Settings.php:349
+msgid "%s Settings"
+msgstr "%s Verstellings"
+
+#: src/Tribe/Settings.php:253 src/Tribe/Settings.php:273
+msgid "Events Settings"
+msgstr "Gebeurtenis Verstellings"
+
+#: src/Tribe/PUE/Checker.php:899
+msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:938
+msgid "Valid Key! Expires on %s"
+msgstr "Geldig sleutel! Verval op %s"
+
+#: src/Tribe/PUE/Checker.php:918
+msgid "Sorry, key validation server is not available."
+msgstr "Jammer, sleutel validering bediener is nie beskikbaar nie."
+
+#: src/Tribe/PUE/Checker.php:653
+msgid "License key(s) updated."
+msgstr "Lisensiesleutel(s) opgedateer"
+
+#: src/Tribe/PUE/Checker.php:497
+msgid "A valid license key is required for support and updates"
+msgstr "'n Geldige lisensie sleutel word benodig vir die ondersteuning en opgraderings"
+
+#: src/Tribe/PUE/Checker.php:512 src/Tribe/PUE/Checker.php:523
+msgid "License Key"
+msgstr "Lisensiesleutel"
+
+#: src/Tribe/Main.php:263
+msgid "Search:"
+msgstr ""
+
+#: src/Tribe/Settings.php:254
+msgid "Settings"
+msgstr "Verstellings"
+
+#: src/Tribe/Settings_Manager.php:219
+msgid "Network"
+msgstr "Netwerk"
+
+#: src/Tribe/Main.php:289
+msgid "Done"
+msgstr "Afgehandel"
+
+#: src/Tribe/Main.php:288 src/Tribe/Main.php:290
+msgid "Today"
+msgstr "Vandag"
+
+#: src/Tribe/Main.php:287
+msgid "Prev"
+msgstr "Vorige"
+
+#: src/Tribe/Main.php:269 src/Tribe/Main.php:286
+msgid "Next"
+msgstr "Volgende"
+
+#: src/Tribe/Settings_Manager.php:279
+msgid "Help"
+msgstr "Help"
+
+#: src/Tribe/Settings_Manager.php:55
+msgid "Display"
+msgstr "Aansig"
+
+#: src/Tribe/Settings_Manager.php:253
+#: src/admin-views/tribe-options-licenses.php:57
+msgid "Licenses"
+msgstr "Lisensies"
+
+#: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:642
+#: src/Tribe/Plugins_API.php:25
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: src/Tribe/Settings.php:177 src/Tribe/Settings.php:241
+#: src/Tribe/Settings.php:242
+msgid "Events"
+msgstr "Gebeure"
+
+#: src/Tribe/Settings.php:641
+msgid "Settings saved."
+msgstr "Verstellings Gestoor"
+
+#: src/Tribe/Settings_Manager.php:54
+msgid "General"
+msgstr "Algemene"
+
+#: src/Tribe/Field.php:626
+msgid "No select options specified"
+msgstr "Geen kies opsies gespesifiseer"
+
+#: src/Tribe/Field.php:568
+msgid "No checkbox options specified"
+msgstr "Geen boks opsies gespesifiseer"
+
+#: src/Tribe/Field.php:532
+msgid "No radio options specified"
+msgstr "Geen radio opsies gespesifiseer"
+
+#: src/Tribe/Field.php:231
+msgid "Invalid field type specified"
+msgstr "Ongeldig veld tipe gespesifiseer"
+
+#: src/Tribe/Credits.php:31
+msgid "This calendar is powered by The Events Calendar."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:50 src/Tribe/App_Shop.php:51
+#: src/Tribe/App_Shop.php:72
+msgid "Event Add-Ons"
+msgstr "Gebeurtenis Toevoegings"
+
+#: src/Tribe/Languages/Locations.php:55
+msgid "United States"
+msgstr "United States"

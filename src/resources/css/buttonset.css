@@ -9,8 +9,8 @@
  */
 
 .tribe-buttonset .tribe-button-field {
-	background-color: #f7f7f7;
-}
+		background-color: #f7f7f7;
+	}
 
 .tribe-button-field {
 	color: #444;
@@ -33,7 +33,7 @@
 }
 
 .tribe-button-field.tribe-active {
-	color: #fff;
-	background-color: #585858;
-	border-color: #585858;
-}
+		color: #fff;
+		background-color: #585858;
+		border-color: #585858;
+	}

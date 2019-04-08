@@ -5,7 +5,6 @@ namespace Tribe\Repository;
 use Tribe__Promise as Promise;
 use Tribe__Repository as Update_Repository;
 use Tribe__Repository__Decorator as Decorator;
-use Tribe__Image__Uploader as Image;
 
 class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	protected $class;
@@ -504,5 +503,16 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 			$this->assertEquals( 'bar-postfix', get_post_meta( $id, 'legit_key', true ) );
 			$this->assertEquals( 'set', get_post_meta( $id, 'decorator_key', true ) );
 		}
+	}
+
+	/**
+	 * It should return a promise when requesting it on empty matches
+	 *
+	 * @test
+	 */
+	public function should_return_a_promise_when_requesting_it_on_empty_matches() {
+		$promise = $this->repository()->where( 'author', 23 )->set( 'foo', 'bar' )->save( true );
+
+		$this->assertInstanceOf( \Tribe__Promise::class, $promise );
 	}
 }

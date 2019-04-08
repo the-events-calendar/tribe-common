@@ -6,6 +6,7 @@ include_once codecept_data_dir( 'classes/Dummy_Queue.php' );
 
 use Codeception\TestCase\WPTestCase;
 use Tribe\Common\Tests\Dummy_Queue as Queue;
+use Tribe__Process__Queue as Process;
 
 class QueueTest extends WPTestCase {
 
@@ -297,4 +298,89 @@ class QueueTest extends WPTestCase {
 		$this->assertEquals( 0, Queue::delete_all_queues( 'not-dummy' ) );
 		$this->assertEquals( 3, Queue::delete_all_queues( $action ) );
 	}
+
+	/**
+	 * It should call the complete method on the queue when running on cron fallback
+	 *
+	 * @test
+	 */
+	public function should_call_the_complete_method_on_the_queue_when_running_on_cron_fallback() {
+		// Let's make sure to say that async processes are not supported.
+		add_filter( 'tribe_supports_async_process', '__return_false' );
+		global $__test_flag__;
+		$__test_flag__ = 'start';
+
+		// Create a queue with a custom completion method.
+		$test_queue = new class extends Process {
+
+			public static function action() {
+				return 'test';
+			}
+
+			protected function task( $item ) {
+				global $__test_flag__;
+				$__test_flag__ = 'Processing: ' . (int) $item;
+
+				return Process::ITEM_DONE;
+			}
+
+			protected function complete() {
+				global $__test_flag__;
+				$__test_flag__ = 'completed';
+			}
+
+		};
+
+		// Fill and save the queue.
+		foreach ( range( 1, 5 ) as $i ) {
+			$test_queue->push_to_queue( $i );
+		}
+		$test_queue->save()->dispatch();
+
+		$queue = $test_queue->get_identifier();
+		do_action( $queue );
+
+		$this->assertEquals( 'completed', $__test_flag__ );
+	}
+
+	/**
+	 * It should call the complete method on cron processing even with empty queue
+	 *
+	 * @test
+	 */
+	public function should_call_the_complete_method_on_cron_processing_even_with_empty_queue() {
+		// Let's make sure to say that async processes are not supported.
+		add_filter( 'tribe_supports_async_process', '__return_false' );
+		global $__test_flag__;
+		$__test_flag__ = 'start';
+
+		// Create a queue with a custom completion method.
+		$test_queue = new class extends Process {
+
+			public static function action() {
+				return 'test';
+			}
+
+			protected function task( $item ) {
+				global $__test_flag__;
+				$__test_flag__ = 'Processing: ' . (int) $item;
+
+				return Process::ITEM_DONE;
+			}
+
+			protected function complete() {
+				global $__test_flag__;
+				$__test_flag__ = 'completed';
+			}
+
+		};
+
+		$test_queue->save()->dispatch();
+
+		$queue = $test_queue->get_identifier();
+		do_action( $queue );
+
+		$this->assertEquals( 'completed', $__test_flag__ );
+	}
+
 }

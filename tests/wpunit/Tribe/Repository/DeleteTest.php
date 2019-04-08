@@ -162,7 +162,13 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 		}
 	}
 
-	public function fetchDependencies() {
-		// TODO: Implement fetchDependencies() method.
+	/**
+	 * It should return a promise when requesting it on empty matches
+	 *
+	 * @test
+	 */
+	public function should_return_a_promise_when_requesting_it_on_empty_matches() {
+		$promise = $this->repository()->where( 'author', 23 )->delete( true );
+		$this->assertInstanceOf( \Tribe__Promise::class, $promise );
 	}
 }
