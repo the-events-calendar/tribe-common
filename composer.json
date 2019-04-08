@@ -19,7 +19,7 @@
     "lucatume/wp-snaphot-assertions": "^1.0",
     "wp-cli/checksum-command": "1.0.5"
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "prefer-stable": true,
   "config": {
     "preferred-install": "dist"
