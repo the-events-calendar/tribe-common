@@ -1320,7 +1320,8 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .tribe-tooltip .dashicons-info {
 		color: #a9a9a9;
 		font-size: 16px;
-		line-height: 28px;
+		line-height: 1em;
+		vertical-align: middle;
 	}
 .tribe-tooltip .down {
 	background-color: #fff;
