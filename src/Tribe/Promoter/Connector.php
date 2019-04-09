@@ -10,7 +10,7 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Whether the user request is currently authorized by Promoter.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @var bool
 	 */
@@ -135,6 +135,7 @@ class Tribe__Promoter__Connector {
 
 		$payload = array(
 			'licenseKey' => $license_key,
+			'sourceId'   => $post_id,
 		);
 
 		$token = \Firebase\JWT\JWT::encode( $payload, $secret_key );
@@ -182,7 +183,7 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Check whether the user request is currently authorized by Promoter.
 	 *
-	 * @since TBD
+	 * @since 4.9.4
 	 *
 	 * @return bool Whether the user request is currently authorized by Promoter.
 	 */

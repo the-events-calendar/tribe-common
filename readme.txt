@@ -2,9 +2,23 @@
 
 == Changelog ==
 
-= [4.9.4] TBD =
+= [4.9.5] TBD =
 
 * Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
+
+= [4.9.3.2] 2019-03-14 =
+
+* Fix - Resolve issues where some CSS files were not properly packaged with previous release
+
+= [4.9.3.1] 2019-03-06 =
+
+* Feature - Attach the post ID to Promoter calls and remove hook from all post saves [123732]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.4] 2019-04-01 =
+
+* Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
+* Tweak - Adjust `determine_current_user` priority used to identify Promoter user on calls to the REST API [124302]
 
 = [4.9.3.2] 2019-03-14 =
 
