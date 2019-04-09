@@ -62,8 +62,6 @@ class RunScriptCommand extends BaseCommand
 The <info>run-script</info> command runs scripts defined in composer.json:
 
 <info>php composer.phar run-script post-update-cmd</info>
-
-Read more at https://getcomposer.org/doc/03-cli.md#run-script
 EOT
             )
         ;

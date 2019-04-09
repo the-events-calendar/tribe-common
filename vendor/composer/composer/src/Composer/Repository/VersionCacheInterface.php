@@ -17,7 +17,7 @@ interface VersionCacheInterface
     /**
      * @param string $version
      * @param string $identifier
-     * @return array|null|false Package version data if found, false to indicate the identifier is known but has no package, null for an unknown identifier
+     * @return array Package version data
      */
     public function getVersionPackage($version, $identifier);
 }

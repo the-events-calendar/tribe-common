@@ -43,7 +43,6 @@ class VcsRepository extends ArrayRepository implements ConfigurableRepositoryInt
     private $driver;
     /** @var VersionCacheInterface */
     private $versionCache;
-    private $emptyReferences = array();
 
     public function __construct(array $repoConfig, IOInterface $io, Config $config, EventDispatcher $dispatcher = null, array $drivers = null, VersionCacheInterface $versionCache = null)
     {
@@ -118,11 +117,6 @@ class VcsRepository extends ArrayRepository implements ConfigurableRepositoryInt
         return $this->branchErrorOccurred;
     }
 
-    public function getEmptyReferences()
-    {
-        return $this->emptyReferences;
-    }
-
     protected function initialize()
     {
         parent::initialize();
@@ -166,10 +160,6 @@ class VcsRepository extends ArrayRepository implements ConfigurableRepositoryInt
                 $this->addPackage($cachedPackage);
 
                 continue;
-            } elseif ($cachedPackage === false) {
-                $this->emptyReferences[] = $identifier;
-
-                continue;
             }
 
             if (!$parsedTag = $this->validateTag($tag)) {
@@ -184,7 +174,6 @@ class VcsRepository extends ArrayRepository implements ConfigurableRepositoryInt
                     if ($verbose) {
                         $this->io->writeError('<warning>Skipped tag '.$tag.', no composer file</warning>');
                     }
-                    $this->emptyReferences[] = $identifier;
                     continue;
                 }
 
@@ -223,9 +212,6 @@ class VcsRepository extends ArrayRepository implements ConfigurableRepositoryInt
 
                 $this->addPackage($this->loader->load($this->preProcess($driver, $data, $identifier)));
             } catch (\Exception $e) {
-                if ($e instanceof TransportException && $e->getCode() === 404) {
-                    $this->emptyReferences[] = $identifier;
-                }
                 if ($verbose) {
                     $this->io->writeError('<warning>Skipped tag '.$tag.', '.($e instanceof TransportException ? 'no composer file was found' : $e->getMessage()).'</warning>');
                 }
@@ -273,10 +259,6 @@ class VcsRepository extends ArrayRepository implements ConfigurableRepositoryInt
                 $this->addPackage($cachedPackage);
 
                 continue;
-            } elseif ($cachedPackage === false) {
-                $this->emptyReferences[] = $identifier;
-
-                continue;
             }
 
             try {
@@ -284,7 +266,6 @@ class VcsRepository extends ArrayRepository implements ConfigurableRepositoryInt
                     if ($verbose) {
                         $this->io->writeError('<warning>Skipped branch '.$branch.', no composer file</warning>');
                     }
-                    $this->emptyReferences[] = $identifier;
                     continue;
                 }
 
@@ -303,9 +284,6 @@ class VcsRepository extends ArrayRepository implements ConfigurableRepositoryInt
                 }
                 $this->addPackage($package);
             } catch (TransportException $e) {
-                if ($e->getCode() === 404) {
-                    $this->emptyReferences[] = $identifier;
-                }
                 if ($verbose) {
                     $this->io->writeError('<warning>Skipped branch '.$branch.', no composer file was found</warning>');
                 }
@@ -374,14 +352,6 @@ class VcsRepository extends ArrayRepository implements ConfigurableRepositoryInt
         }
 
         $cachedPackage = $this->versionCache->getVersionPackage($version, $identifier);
-        if ($cachedPackage === false) {
-            if ($verbose) {
-                $this->io->writeError('<warning>Skipped '.$version.', no composer file (cached from ref '.$identifier.')</warning>');
-            }
-
-            return false;
-        }
-
         if ($cachedPackage) {
             $msg = 'Found cached composer.json of <info>' . ($this->packageName ?: $this->url) . '</info> (<comment>' . $version . '</comment>)';
             if ($verbose) {

@@ -81,7 +81,6 @@ from a specific vendor:
 
 To select packages names interactively with auto-completion use <info>-i</info>.
 
-Read more at https://getcomposer.org/doc/03-cli.md#update-u
 EOT
             )
         ;

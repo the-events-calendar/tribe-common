@@ -56,7 +56,6 @@ list of installed packages
 
 <info>php composer.phar remove</info>
 
-Read more at https://getcomposer.org/doc/03-cli.md#remove
 EOT
             )
         ;
