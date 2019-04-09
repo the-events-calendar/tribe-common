@@ -41,8 +41,6 @@ return array(
     '129d58fa8151374aceb8571bcaa97504' => $vendorDir . '/wp-cli/shell-command/shell-command.php',
     '8519779bbb65eeb842af2f629ce7b6f8' => $vendorDir . '/wp-cli/super-admin-command/super-admin-command.php',
     '1f05372afcc7d0c51a305cef1d56dd01' => $vendorDir . '/wp-cli/widget-command/widget-command.php',
-    'c9c849c9bb3823996cf7bfc9113fa087' => $vendorDir . '/lucatume/function-mocker/src/shims.php',
-    'c9175f6b4293b67ed66f5797215938f2' => $vendorDir . '/lucatume/function-mocker/src/functions.php',
     'ecbc340aca40533eaeb3cb7be1d8da05' => $vendorDir . '/lucatume/function-mocker-le/src/function-mocker-le.php',
     'e2b8090921f5e293ca4eb0c107749811' => $vendorDir . '/lucatume/wp-browser/src/tad/WPBrowser/functions.php',
 );
