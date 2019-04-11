@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Service_Providers__Tooltip
  *
- * @since 4.9
+ * @since TBD
  *
  * Handles the registration and creation of our async process handlers.
  */
