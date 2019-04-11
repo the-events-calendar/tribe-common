@@ -3,7 +3,7 @@
 == Changelog ==
 
 = [4.9.4.1] TBD =
-* Tweak - adjsut styles for tooltip icon to be a bit more responseive to surrounding text [120856]
+* Tweak - Add new tribe-tooltip object form universal utility [120856]
 
 = [4.9.4] 2019-04-01 =
 
