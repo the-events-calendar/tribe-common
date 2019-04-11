@@ -203,4 +203,19 @@ interface Tribe__Repository__Interface
 	 * @param callable $callback The function that should be called to apply this filter.
 	 */
 	public function add_schema_entry( $key, $callback );
+
+	/**
+	 * Returns an hash string for this repository instance filters.
+	 *
+	 * By default all applied filters will be included but specific filters can
+	 * be excluded, or included, from the hash generation.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $settings An array of settings to define how the hash should be produced in the shape
+	 *                        `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`.
+	 *
+	 * @return string The generated hash string.
+	 */
+	public function hash( array $settings = [] );
 }

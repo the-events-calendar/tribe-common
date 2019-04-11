@@ -2977,4 +2977,37 @@ abstract class Tribe__Repository
 
 		return $query;
 	}
+
+	/**
+	 * Returns an hash string for this repository instance filters.
+	 *
+	 * By default all applied filters will be included but specific filters can
+	 * be excluded, or included, from the hash generation.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $settings An array of settings to define how the hash should be produced in the shape
+	 *                        `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`.
+	 *
+	 * @return string The generated hash string.
+	 */
+	public function hash( array $settings = [] ) {
+		$filters = $this->current_filters;
+
+		if ( isset( $settings['exclude'] ) ) {
+			$filters = array_diff_key(
+				$filters,
+				array_combine( $settings['exclude'], $settings['exclude'] )
+			);
+		}
+
+		if ( isset( $settings['include'] ) ) {
+			$filters = array_intersect_key(
+				$filters,
+				array_combine( $settings['include'], $settings['include'] )
+			);
+		}
+
+		return md5( json_encode( $filters ) );
+	}
 }
