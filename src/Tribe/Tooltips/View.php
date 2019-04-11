@@ -60,6 +60,7 @@ class Tribe__Tooltip__View extends Tribe__Template {
 		$args = wp_parse_args( $original_args, $default_args );
 
 		ob_start();
+
 		/**
 		 * Allow us to filter the tooltip template
 		 *
