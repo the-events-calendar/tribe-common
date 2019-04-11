@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [4.9.4.1] TBD =
+* Tweak - adjsut styles for tooltip icon to be a bit more responseive to surrounding text [120856]
+
 = [4.9.4] 2019-04-01 =
 
 * Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
