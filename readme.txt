@@ -5,6 +5,9 @@
 = [4.9.4.1] TBD =
 * Tweak - Add new tribe-tooltip object for universal utility [120856]
 
+= [4.9.5] TBD =
+
+
 = [4.9.4] 2019-04-01 =
 
 * Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
