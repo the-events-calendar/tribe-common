@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class Tribe__Tickets__Attendee_Info__View
+ * Class Tribe__Promoter__View
  */
 class Tribe__Promoter__View extends Tribe__Template {
 
 	/**
-	 * Tribe__Tickets__Attendee_Info__View constructor.
+	 * Tribe__Promoter__View constructor.
 	 *
 	 * @since 4.9
 	 */
@@ -41,7 +41,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 		if ( empty( $promoter_key ) || empty( $wp_query->query_vars['tribe-promoter-auth-check'] ) ) {
 			return;
 		}
-		
+
 		$is_admin   = is_user_logged_in() && current_user_can( 'manage_options' );
 		$authorized = false;
 		$auth_error = false;

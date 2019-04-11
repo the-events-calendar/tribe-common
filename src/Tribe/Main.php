@@ -559,6 +559,7 @@ class Tribe__Main {
 
 		tribe_register_provider( 'Tribe__Editor__Provider' );
 		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
+		tribe_register_provider( 'Tribe__Service_Providers__Tooltip' );
 	}
 
 	/************************
