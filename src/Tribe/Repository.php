@@ -2977,4 +2977,36 @@ abstract class Tribe__Repository
 
 		return $query;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function hash( array $settings = [], WP_Query $query = null ) {
+		$filters = $this->current_filters;
+		$query_vars = null !== $query ? $query->query : [];
+
+		if ( isset( $settings['exclude'] ) ) {
+			$filters = array_diff_key(
+				$filters,
+				array_combine( $settings['exclude'], $settings['exclude'] )
+			);
+			$query_vars = array_diff_key(
+				$query_vars,
+				array_combine( $settings['exclude'], $settings['exclude'] )
+			);
+		}
+
+		if ( isset( $settings['include'] ) ) {
+			$filters = array_intersect_key(
+				$filters,
+				array_combine( $settings['include'], $settings['include'] )
+			);
+			$query_vars = array_intersect_key(
+				$query_vars,
+				array_combine( $settings['include'], $settings['include'] )
+			);
+		}
+
+		return md5( json_encode( [ $filters, $query_vars ] ) );
+	}
 }

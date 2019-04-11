@@ -562,4 +562,11 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function collect() {
 		return $this->decorated->collect();
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function hash( array $settings = [], WP_Query $query = null ) {
+		return $this->decorated->hash( $settings );
+	}
 }
