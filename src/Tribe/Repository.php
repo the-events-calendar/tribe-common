@@ -2983,7 +2983,7 @@ abstract class Tribe__Repository
 	 */
 	public function hash( array $settings = [], WP_Query $query = null ) {
 		$filters = $this->current_filters;
-		$query_vars = null !== $query ? $query->query_vars : [];
+		$query_vars = null !== $query ? $query->query : [];
 
 		if ( isset( $settings['exclude'] ) ) {
 			$filters = array_diff_key(
