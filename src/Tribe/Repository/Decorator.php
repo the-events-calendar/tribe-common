@@ -566,7 +566,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function hash( array $settings = [] ) {
+	public function hash( array $settings = [], WP_Query $query = null ) {
 		return $this->decorated->hash( $settings );
 	}
 }

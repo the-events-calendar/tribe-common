@@ -2979,24 +2979,19 @@ abstract class Tribe__Repository
 	}
 
 	/**
-	 * Returns an hash string for this repository instance filters.
-	 *
-	 * By default all applied filters will be included but specific filters can
-	 * be excluded, or included, from the hash generation.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $settings An array of settings to define how the hash should be produced in the shape
-	 *                        `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`.
-	 *
-	 * @return string The generated hash string.
+	 * {@inheritDoc}
 	 */
-	public function hash( array $settings = [] ) {
+	public function hash( array $settings = [], WP_Query $query = null ) {
 		$filters = $this->current_filters;
+		$query_vars = null !== $query ? $query->query_vars : [];
 
 		if ( isset( $settings['exclude'] ) ) {
 			$filters = array_diff_key(
 				$filters,
+				array_combine( $settings['exclude'], $settings['exclude'] )
+			);
+			$query_vars = array_diff_key(
+				$query_vars,
 				array_combine( $settings['exclude'], $settings['exclude'] )
 			);
 		}
@@ -3006,8 +3001,12 @@ abstract class Tribe__Repository
 				$filters,
 				array_combine( $settings['include'], $settings['include'] )
 			);
+			$query_vars = array_intersect_key(
+				$query_vars,
+				array_combine( $settings['include'], $settings['include'] )
+			);
 		}
 
-		return md5( json_encode( $filters ) );
+		return md5( json_encode( [ $filters, $query_vars ] ) );
 	}
 }
