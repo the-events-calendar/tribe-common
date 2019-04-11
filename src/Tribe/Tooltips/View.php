@@ -2,6 +2,8 @@
 
 /**
  * Class Tribe__Tooltip__View
+ *
+ * @since TBD
  */
 class Tribe__Tooltip__View extends Tribe__Template {
 
