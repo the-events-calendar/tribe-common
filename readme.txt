@@ -2,8 +2,12 @@
 
 == Changelog ==
 
-= [4.9.4.1] TBD =
+= [4.9.6] TBD =
+
 * Tweak - Add new tribe-tooltip object for universal utility [120856]
+
+= [4.9.5] TBD =
+
 
 = [4.9.4] 2019-04-01 =
 
