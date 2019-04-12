@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div class="tribe-tooltip" aria-expanded="false">
-	<span class="dashicons dashicons-<?php echo sanitize_html_class( $merged_args[ 'icon' ] ); ?> <?php echo sanitize_html_class( $merged_args[ 'additional_classes' ] ); ?>"></span>
-	<div class="<?php echo sanitize_html_class( $merged_args[ 'direction' ] ); ?>">
+	<span class="dashicons dashicons-<?php echo sanitize_html_class( $args[ 'icon' ] ); ?> <?php echo sanitize_html_class( $args[ 'classes' ] ); ?>"></span>
+	<div class="<?php echo sanitize_html_class( $args[ 'direction' ] ); ?>">
 		<?php if ( is_array( $message ) ) :
 			foreach( $message as $mess ) : ?>
 				<p>

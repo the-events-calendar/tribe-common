@@ -24,7 +24,7 @@ class Tribe__Tooltip__View extends Tribe__Template {
 	}
 
 	/**
-	 * Undocumented function
+	 * Public wrapper for build method
 	 *
 	 * @since TBD
 	 *
@@ -34,10 +34,13 @@ class Tribe__Tooltip__View extends Tribe__Template {
 	 */
 	public function render_tooltip( $message, $args = [] ) {
 		if ( empty( $message ) ) {
+			bdump('no message');
 			return;
 		}
 
-		$html = $this->render_tooltip( $message, $args );
+		$html = $this->build_tooltip( $message, $args );
+
+		return $html;
 	}
 
 	/**
@@ -61,6 +64,8 @@ class Tribe__Tooltip__View extends Tribe__Template {
 
 		ob_start();
 
+		$template = $this->get_template_file( 'tooltip' );
+
 		/**
 		 * Allow us to filter the tooltip template
 		 *
@@ -71,7 +76,13 @@ class Tribe__Tooltip__View extends Tribe__Template {
 		 */
 		$template = apply_filters( 'tribe_tooltip_template', $template, $args );
 
+		if ( ! empty( $template ) ) {
+			include( $template );
+		}
+
 		$html = ob_get_clean();
+
+		bdump($html);
 
 		/**
 		 * Allow us to filter the tooltip output
