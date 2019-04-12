@@ -244,8 +244,8 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 			$post_1,
 			$post_2
 		], $this->repository()->fields( 'ids' )->by( 'meta_greater_than_or_equal', 'number_meta', '1' )->all() );
-		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_like', 'string_meta', 'foo' )->all() );
-		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_like', 'string_meta', 'foo' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_like', 'string_meta', 'fo' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_like', 'string_meta', 'fo' )->all() );
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_lt', 'number_meta', 12 )->all() );
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_less_than', 'number_meta', '12' )->all() );
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_lte', 'number_meta', 1 )->all() );
@@ -269,9 +269,199 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_exists', 'woot' )->all() );
 		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_exists', 'woot' )->all() );
 		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_regexp', 'string_meta', '/^b.*/' )->all() );
 		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_equals_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_equals_regexp', 'string_meta', '/^b.*/' )->all() );
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_regexp', 'string_meta', '/^b.*/' )->all() );
 		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_equals_regexp', 'string_meta', '^b.*' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_equals_regexp', 'string_meta', '/^b.*/' )->all() );
+
+		// Test regexp with regexp_or_like
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_regexp_or_like', 'string_meta', '/^b.*/' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_equals_regexp_or_like', 'string_meta', '/^b.*/' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_regexp_or_like', 'string_meta', '/^b.*/' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_not_equals_regexp_or_like', 'string_meta', '/^b.*/' )->all() );
+
+		// Test regexp with not_regexp_or_like
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_regexp_or_like', 'string_meta', 'fo' )->all() );
+		$this->assertEquals( [ $post_1 ], $this->repository()->fields( 'ids' )->by( 'meta_equals_regexp_or_like', 'string_meta', 'fo' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_regexp_or_like', 'string_meta', 'fo' )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'meta_not_equals_regexp_or_like', 'string_meta', 'fo' )->all() );
+	}
+
+	/**
+	 * It should allow getting posts by simple meta schemas
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_posts_by_simple_meta_schemas() {
+		$post_1 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'meta_input' => [
+				'common'        => 'common_1',
+				'number_meta'   => '1',
+				'string_meta'   => 'foo',
+				'interval_meta' => 'foo',
+				'woot'          => 'zap',
+			]
+		] );
+		$post_2 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'meta_input' => [
+				'common'        => 'common_2',
+				'number_meta'   => '23',
+				'string_meta'   => 'bar',
+				'interval_meta' => 'bar',
+			]
+		] );
+
+		// Test simple meta schema LIKE or REGEXP (meta_regexp_or_like).
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_regexp_or_like_schema', 'string_meta' );
+		$this->assertEquals( [ $post_2 ], $repository->fields( 'ids' )->by( 'test_meta_regexp_or_like_schema', '/^b.*/' )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_regexp_or_like_schema', 'string_meta' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_meta_regexp_or_like_schema', 'fo' )->all() );
+
+		// Test simple meta schema equals (meta).
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta', 'meta' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_meta_schema', 'foo' )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta', 'meta' );
+		$this->assertEquals( [], $repository->fields( 'ids' )->by( 'test_meta_schema', 'fo' )->all() );
+	}
+
+	/**
+	 * It should allow getting posts by simple tax schemas
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_posts_by_simple_tax_schemas() {
+		// needed to assign terms
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$tax = 'genre';
+
+		$fiction     = $this->factory()->term->create( [
+			'taxonomy' => $tax,
+			'name'     => 'fiction',
+			'slug'     => 'fict',
+		] );
+		$history     = $this->factory()->term->create( [
+			'taxonomy' => $tax,
+			'name'     => 'history',
+			'slug'     => 'hist',
+		] );
+		$non_fiction = $this->factory()->term->create( [
+			'taxonomy' => $tax,
+			'name'     => 'non-fiction',
+			'slug'     => 'non-fict',
+		] );
+		$post_1      = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'tax_input' => [
+				$tax => [ 'fiction' ],
+			],
+		] );
+		$post_2      = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'tax_input' => [
+				$tax => [ 'non-fiction', 'history' ],
+			],
+		] );
+		$post_3      = $this->factory()->post->create( [
+			'post_type' => 'book',
+			'tax_input' => [
+				$tax => [ 'non-fiction' ],
+			],
+		] );
+		$post_4      = $this->factory()->post->create( [ 'post_type' => 'book' ] );
+
+		$term_fiction     = get_term( $fiction );
+		$term_history     = get_term( $history );
+		$term_non_fiction = get_term( $non_fiction );
+
+		// Test simple tax schema (term_in).
+
+		// Term ID
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_in_schema', $tax );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_tax_term_in_schema', $term_fiction->term_id )->all() );
+
+		// Term slug
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_in_schema', $tax );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_tax_term_in_schema', $term_fiction->slug )->all() );
+
+		// Term object
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_in_schema', $tax );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->by( 'test_tax_term_in_schema', $term_fiction )->all() );
+
+		// Term array (mixed types)
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_in_schema', $tax );
+		$this->assertEquals( [ $post_1, $post_2 ], $repository->fields( 'ids' )->by( 'test_tax_term_in_schema', [ $term_fiction->term_id, $term_history ] )->all() );
+
+		// Test simple tax schema using term_not_in.
+
+		// Term ID
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_not_in_schema', $tax, 'term_not_in' );
+		$this->assertEquals( [ $post_2, $post_3, $post_4 ], $repository->fields( 'ids' )->by( 'test_tax_term_not_in_schema', $term_fiction->term_id )->all() );
+
+		// Term slug
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_not_in_schema', $tax, 'term_not_in' );
+		$this->assertEquals( [ $post_2, $post_3, $post_4 ], $repository->fields( 'ids' )->by( 'test_tax_term_not_in_schema', $term_fiction->slug )->all() );
+
+		// Term object
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_not_in_schema', $tax, 'term_not_in' );
+		$this->assertEquals( [ $post_2, $post_3, $post_4 ], $repository->fields( 'ids' )->by( 'test_tax_term_not_in_schema', $term_fiction )->all() );
+
+		// Term array (mixed types)
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_not_in_schema', $tax, 'term_not_in' );
+		$this->assertEquals( [ $post_3, $post_4 ], $repository->fields( 'ids' )->by( 'test_tax_term_not_in_schema', [ $term_fiction->term_id, $term_history ] )->all() );
+
+		// Test simple tax schema using term_and.
+
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_and_schema', $tax, 'term_and' );
+		$this->assertEquals( [ $post_2 ], $repository->fields( 'ids' )->by( 'test_tax_term_and_schema', [ $term_non_fiction->term_id, $term_history ] )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_term_and_schema', $tax, 'term_and' );
+		$this->assertEquals( [], $repository->fields( 'ids' )->by( 'test_tax_term_and_schema', [ $term_fiction->term_id, $term_history ] )->all() );
+	}
+
+	/**
+	 * It should allow getting posts by menu_order
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_posts_by_menu_order() {
+		$post_1 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'menu_order' => 0,
+		] );
+		$post_2 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'menu_order' => 1,
+		] );
+		$post_3 = $this->factory()->post->create( [
+			'post_type'  => 'book',
+			'menu_order' => 2,
+		] );
+		$post_4 = $this->factory()->post->create( [ 'post_type' => 'book' ] );
+
+		$this->assertEquals( [ $post_1, $post_4 ], $this->repository()->fields( 'ids' )->by( 'menu_order', 0 )->all() );
+		$this->assertEquals( [ $post_2 ], $this->repository()->fields( 'ids' )->by( 'menu_order', 1 )->all() );
 	}
 
 	/**
@@ -466,6 +656,47 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 			'future'
 		] )->all() );
 		$this->assertEquals( [ $draft, $published, $future ], $repository->by( 'status', 'any' )->all() );
+	}
+
+	/**
+	 * It should not accept WP_Query arguments with multiple arguments that aren't filters.
+	 *
+	 * @test
+	 */
+	public function should_not_accept_wp_query_arguments_with_multiple_arguments_that_arent_filters() {
+		$repository = $this->repository();
+		$all_ids    = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
+
+		$results = $repository->by( 'this_filter_does_not_exist', 1, 2, 3 )->by( 'post__in', $all_ids )->get_ids();
+
+		$wp_query = $repository->get_query();
+
+		$this->assertArrayNotHasKey( 'this_filter_does_not_exist', $wp_query->query_vars );
+		$this->assertCount( 0, $results );
+		$this->assertEquals( [], $results );
+		$this->assertEquals( 0, $repository->found() );
+		$this->assertEquals( 0, $repository->count() );
+	}
+
+	/**
+	 * It should accept WP_Query arguments that aren't filters.
+	 *
+	 * @test
+	 */
+	public function should_should_accept_wp_query_arguments_that_arent_filters() {
+		$repository = $this->repository();
+		$all_ids    = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
+
+		$results = $repository->by( 'this_filter_does_not_exist', 1 )->by( 'post__in', $all_ids )->get_ids();
+
+		$wp_query = $repository->get_query();
+
+		$this->assertArrayHasKey( 'this_filter_does_not_exist', $wp_query->query_vars );
+		$this->assertEquals( 1, $wp_query->query_vars['this_filter_does_not_exist'] );
+		$this->assertCount( count( $all_ids ), $results );
+		$this->assertEquals( $all_ids, $results );
+		$this->assertEquals( count( $all_ids ), $repository->found() );
+		$this->assertEquals( count( $all_ids ), $repository->count() );
 	}
 
 	public function setUp() {
@@ -716,5 +947,39 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue($repository->has_filter('meta_exists'));
 		$this->assertTrue($repository->has_filter('meta_exists','foo'));
 		$this->assertFalse($repository->has_filter('meta_exists','bar'));
+	}
+
+	/**
+	 * It should allow getting a query object built on an array of posts
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_a_query_object_built_on_an_array_of_posts() {
+		$posts = array_map( 'get_post', $this->factory()->post->create_many( 3, [ 'post_type' => 'post' ] ) );
+
+		$query = $this->repository()->get_query_for_posts( $posts );
+
+		global $wpdb;
+		$num_queries = $wpdb->num_queries;
+		$this->assertInstanceOf( \WP_Query::class, $query );
+		$this->assertEqualSets( $posts, $query->posts );
+		$this->assertEquals( 3, $query->found_posts );
+		$this->assertEquals( $num_queries, $wpdb->num_queries );
+	}
+
+	/**
+	 * It should correctly build a query object on an empty array
+	 *
+	 * @test
+	 */
+	public function should_correctly_build_a_query_object_on_an_empty_array() {
+		$query = $this->repository()->get_query_for_posts( [] );
+
+		global $wpdb;
+		$num_queries = $wpdb->num_queries;
+		$this->assertInstanceOf( \WP_Query::class, $query );
+		$this->assertEquals( [], $query->posts );
+		$this->assertEquals( 0, $query->found_posts );
+		$this->assertEquals( $num_queries, $wpdb->num_queries );
 	}
 }

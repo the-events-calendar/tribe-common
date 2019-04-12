@@ -825,6 +825,7 @@ return array(
     'Firebase\\JWT\\ExpiredException' => $vendorDir . '/firebase/php-jwt/src/ExpiredException.php', 
     'Firebase\\JWT\\JWT' => $vendorDir . '/firebase/php-jwt/src/JWT.php', 
     'Firebase\\JWT\\SignatureInvalidException' => $vendorDir . '/firebase/php-jwt/src/SignatureInvalidException.php', 
+<<<<<<< HEAD
     'Gumlet\\ImageResize' => $vendorDir . '/gumlet/php-image-resize/lib/ImageResize.php', 
     'Gumlet\\ImageResizeException' => $vendorDir . '/gumlet/php-image-resize/lib/ImageResizeException.php', 
     'GuzzleHttp\\Client' => $vendorDir . '/guzzlehttp/guzzle/src/Client.php', 
@@ -2625,6 +2626,8 @@ return array(
     'tad\\WPBrowser\\Snapshot\\WPHtmlOutputDriver' => $vendorDir . '/lucatume/wp-browser/src/tad/WPBrowser/Snapshot/WPHtmlOutputDriver.php', 
     'tad\\WPBrowser\\Template\\Data' => $vendorDir . '/lucatume/wp-browser/src/tad/WPBrowser/Template/Data.php', 
     'tad\\WP\\Snapshots\\WPHtmlOutputDriver' => $vendorDir . '/lucatume/wp-snaphot-assertions/src/WPHtmlOutputDriver.php', 
+=======
+>>>>>>> bucket/tsm
     'tad_DI52_Container' => $vendorDir . '/lucatume/di52/src/tad/DI52/Container.php', 
     'tad_DI52_ContainerInterface' => $vendorDir . '/lucatume/di52/src/tad/DI52/ContainerInterface.php', 
     'tad_DI52_ProtectedValue' => $vendorDir . '/lucatume/di52/src/tad/DI52/ProtectedValue.php', 

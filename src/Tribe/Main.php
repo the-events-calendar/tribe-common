@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.9.3.2';
+	const VERSION             = '4.9.5';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -162,6 +162,7 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		require_once $this->plugin_path . 'src/functions/utils.php';
+		require_once $this->plugin_path . 'src/functions/query.php';
 		require_once $this->plugin_path . 'src/functions/multibyte.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
@@ -550,6 +551,7 @@ class Tribe__Main {
 		tribe_singleton( 'context', 'Tribe__Context' );
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
 		tribe_singleton( 'db', 'Tribe__Db' );
+		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
@@ -558,6 +560,7 @@ class Tribe__Main {
 		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', array( 'hook' ) );
 
 		tribe_register_provider( 'Tribe__Editor__Provider' );
+		tribe_register_provider( 'Tribe__Service_Providers__Debug_Bar' );
 		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
 		tribe_register_provider( 'Tribe__Service_Providers__Tooltip' );
 	}

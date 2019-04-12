@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.10] - 2018-10-29
+### Fixed
+- an issue with array variable handling
+- made error message more clear for non-string offsets
+
 ## [2.0.9] - 2017-09-26
 ### Fixed
 - issue with `setVar` method where, in some instances, variable values could not be overridden

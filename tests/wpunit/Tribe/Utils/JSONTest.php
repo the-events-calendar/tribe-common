@@ -19,6 +19,22 @@ class JSONTest extends \Codeception\TestCase\WPTestCase {
 		];
 	}
 
+	public function strings_arrays_and_escapes() {
+		return [
+			[ [ 'foo', 'some "quotes"', 'bar' ], [ 'foo', 'some \"quotes\"', 'bar' ] ],
+			[ [ 'foo', 'some "quotes"', 'really more "quotes"' ], [ 'foo', 'some \"quotes\"', 'really more \"quotes\"' ] ],
+			[ [ 'http://some.url', 'some "quotes"', 'really more "quotes"' ], [ 'http:\/\/some.url', 'some \"quotes\"', 'really more \"quotes\"' ] ],
+		];
+	}
+
+	public function naughty_strings() {
+		return [
+			[ "\"><script>alert(123)</script>", '"\"><script>alert(123)<\/script>"' ],
+			[ "\"><script>alert(123);</script x=\"", '"\"><script>alert(123);<\/script x=\""' ],
+			[ "' autofocus onkeyup='javascript:alert(123)", '"\' autofocus onkeyup=\'javascript:alert(123)"' ],
+		];
+	}
+
 	/**
 	 * @test
 	 * it should escape quotes in strings
@@ -28,14 +44,6 @@ class JSONTest extends \Codeception\TestCase\WPTestCase {
 		$out = JSON::escape_string( $in );
 
 		$this->assertEquals( $expected, $out );
-	}
-
-	public function strings_arrays_and_escapes() {
-		return [
-			[ [ 'foo', 'some "quotes"', 'bar' ], [ 'foo', 'some \"quotes\"', 'bar' ] ],
-			[ [ 'foo', 'some "quotes"', 'really more "quotes"' ], [ 'foo', 'some \"quotes\"', 'really more \"quotes\"' ] ],
-			[ [ 'http://some.url', 'some "quotes"', 'really more "quotes"' ], [ 'http:\/\/some.url', 'some \"quotes\"', 'really more \"quotes\"' ] ],
-		];
 	}
 
 	/**
@@ -151,4 +159,34 @@ class JSONTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, $out );
 	}
+
+	/**
+	 * @test It should not modify a passed int.
+	 *
+	 * @since TBD
+	 *
+	 * @testWith [ 666 ]
+	 *           [ 1 ]
+	 */
+	public function it_should_not_modify_int( $in ) {
+
+		$expected = $in;
+		$out      = JSON::escape_string( $in );
+
+		$this->assertEquals( $expected, $out );
+	}
+
+	/**
+	 * @test It should should escape naughty strings.
+	 *
+	 * @since TBD
+	 *
+	 * @dataProvider naughty_strings
+	 */
+	public function it_should_escape_naughty_strings_accurately( $in, $expected ) {
+		$out = json_encode( $in );
+
+		$this->assertEquals( $expected, $out );
+	}
+
 }

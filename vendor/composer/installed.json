@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "name": "a5hleyrich/wp-background-processing",
         "version": "1.0.1",
         "version_normalized": "1.0.1.0",
@@ -905,6 +906,8 @@
         ]
     },
     {
+=======
+>>>>>>> bucket/tsm
         "name": "firebase/php-jwt",
         "version": "v5.0.0",
         "version_normalized": "5.0.0.0",
@@ -6446,6 +6449,7 @@
         "homepage": "https://github.com/wp-cli/super-admin-command"
     },
     {
+<<<<<<< HEAD
         "name": "wp-cli/widget-command",
         "version": "v1.0.5",
         "version_normalized": "1.0.5.0",
@@ -6520,6 +6524,20 @@
             "type": "zip",
             "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/3aac73bc4d629372531f3e15bbb67945d19b5d5a",
             "reference": "3aac73bc4d629372531f3e15bbb67945d19b5d5a",
+=======
+        "name": "lucatume/di52",
+        "version": "2.0.10",
+        "version_normalized": "2.0.10.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lucatume/di52.git",
+            "reference": "1db42c08914ecc6c7d9ba86eeeb465f4eee7858c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lucatume/di52/zipball/1db42c08914ecc6c7d9ba86eeeb465f4eee7858c",
+            "reference": "1db42c08914ecc6c7d9ba86eeeb465f4eee7858c",
+>>>>>>> bucket/tsm
             "shasum": ""
         },
         "require": {
@@ -6575,6 +6593,7 @@
             "wimg/php-compatibility": "^8.0",
             "wp-coding-standards/wpcs": "^0.13.1"
         },
+<<<<<<< HEAD
         "suggest": {
             "psy/psysh": "Enhanced `wp shell` functionality"
         },
@@ -6678,6 +6697,9 @@
             "squizlabs/php_codesniffer": "~1.5"
         },
         "time": "2016-12-12T13:51:02+00:00",
+=======
+        "time": "2018-10-29T06:23:41+00:00",
+>>>>>>> bucket/tsm
         "type": "library",
         "installation-source": "dist",
         "autoload": {
