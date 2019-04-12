@@ -34,7 +34,6 @@ class Tribe__Tooltip__View extends Tribe__Template {
 	 */
 	public function render_tooltip( $message, $args = [] ) {
 		if ( empty( $message ) ) {
-			bdump('no message');
 			return;
 		}
 
@@ -81,8 +80,6 @@ class Tribe__Tooltip__View extends Tribe__Template {
 		}
 
 		$html = ob_get_clean();
-
-		bdump($html);
 
 		/**
 		 * Allow us to filter the tooltip output
