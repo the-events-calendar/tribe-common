@@ -26,7 +26,7 @@
 		vertical-align: middle;
 	}
 
-/* defauls */
+/* defaults */
 
 .tribe-tooltip .down,
 	.tribe-tooltip .left,
@@ -38,6 +38,7 @@
 		color: #333333;
 		font-size: 16px;
 		font-weight: 400;
+		max-weight: 100vw;
 		opacity: 0;
 		padding: 15px;
 		position: absolute;
@@ -83,7 +84,7 @@
 			        transform: translate(-50%, 50%) rotate(45deg);
 		}
 
-/* "active" (open) styles */
+/* active (open) styles */
 
 .tribe-tooltip.active .down,
 .tribe-tooltip.active .left,
