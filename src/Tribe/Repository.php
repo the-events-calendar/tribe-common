@@ -523,79 +523,33 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function build_query( $use_query_builder = true ) {
-		/**
-		 * Allow classes extending or decorating the repository to act before
-		 * the query is built or replace its building completely.
-		 */
+		$query = null;
+
 		if ( $use_query_builder && null !== $this->query_builder ) {
-			$built = $this->query_builder->build_query();
-
-			$built->builder = $this->query_builder;
-
-			if ( null !== $built ) {
-				return $built;
-			}
+			$query = $this->build_query_with_builder();
 		}
 
-		$query = new WP_Query();
-
-		$query->builder = $this;
-
-		$this->filter_query->set_query( $query );
+		if ( null === $query ) {
+			$query = $this->build_query_internally();
+		}
 
 		/**
-		 * Here we merge, not recursively, to allow user-set query arguments
-		 * to override the default ones.
-		 */
-		$query_args = array_merge( $this->default_args, $this->query_args );
-
-		$default_post_status       = current_user_can( 'read_private_posts' ) ? 'any' : '';
-		$query_args['post_status'] = Tribe__Utils__Array::get( $query_args, 'post_status', $default_post_status );
-
-		/**
-		 * Filters the query arguments that will be used to fetch the posts.
+		 * Fires after the query has been built and before it's returned.
 		 *
-		 * @param array    $query_args An array of the query arguments the query will be
-		 *                             initialized with.
-		 * @param WP_Query $query      The query object, the query arguments have not been parsed yet.
-		 * @param          $this       $this This repository instance
+		 * @since TBD
+		 *
+		 * @param WP_Query $query The built query.
+		 * @param array $query_args An array of query arguments used to build the query.
+		 * @param Tribe__Repository $this This repository instance.
+		 * @param bool $use_query_builder Whether a query builder was used to build this query or not.
+		 * @param Tribe__Repository__Interface $query_builder The query builder in use, if any.
 		 */
-		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
-
-		if ( isset( $query_args['offset'] ) ) {
-			$offset   = absint( $query_args['offset'] );
-			$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
-			$page     = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
-
-			$real_offset                  = $per_page === - 1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
-			$query_args['offset']         = $real_offset;
-			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
-
-			/**
-			 * Unset the `offset` query argument to avoid applying it multiple times when this method
-			 * is used, on the same repository, more than once.
-			 */
-			unset( $this->query_args['offset'] );
-		}
-
-		foreach ( $query_args as $key => $value ) {
-			$query->set( $key, $value );
-		}
-
-		/**
-		 * Here process the previously set query modifiers passing them the
-		 * query object before it executes.
-		 * The query modifiers should modify the query by reference.
-		 */
-		foreach ( $this->query_modifiers as $arg ) {
-			if ( is_object( $arg ) && method_exists( $arg, '__invoke' ) ) {
-				// __invoke, assume changes are made by reference
-				$arg( $query );
-			} elseif ( is_callable( $arg ) ) {
-				// assume changes are made by reference
-				$arg( $query );
-			}
-		}
+		do_action( "tribe_repository_{$this->filter_name}_query",
+			$query,
+			$this,
+			$use_query_builder,
+			$this->query_builder
+		);
 
 		return $query;
 	}
@@ -2929,5 +2883,130 @@ abstract class Tribe__Repository
 	 */
 	public function collect() {
 		return new Tribe__Utils__Post_Collection( $this->all() );
+	}
+
+	/**
+	 * Builds the ORM query with the query builder.
+	 *
+	 * Allow classes extending or decorating the repository to act before
+	 * the query is built or replace its building completely.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Query|null A built query object or `null` if the builder failed or bailed.
+	 */
+	protected function build_query_with_builder() {
+		$built = $this->query_builder->build_query();
+
+		$built->builder = $this->query_builder;
+
+		if ( null !== $built ) {
+			$query = $built;
+		}
+
+		return $query;
+	}
+
+	/**
+	 * Builds the ORM query internally, without a query builder.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Query The built query object.
+	 */
+	protected function build_query_internally() {
+		$query = new WP_Query();
+
+		$query->builder = $this;
+
+		$this->filter_query->set_query( $query );
+
+		/**
+		 * Here we merge, not recursively, to allow user-set query arguments
+		 * to override the default ones.
+		 */
+		$query_args = array_merge( $this->default_args, $this->query_args );
+
+		$default_post_status = current_user_can( 'read_private_posts' ) ? 'any' : '';
+		$query_args['post_status'] = Tribe__Utils__Array::get( $query_args, 'post_status', $default_post_status );
+
+		/**
+		 * Filters the query arguments that will be used to fetch the posts.
+		 *
+		 * @param array    $query_args An array of the query arguments the query will be
+		 *                             initialized with.
+		 * @param WP_Query $query      The query object, the query arguments have not been parsed yet.
+		 * @param          $this       $this This repository instance
+		 */
+		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
+
+		if ( isset( $query_args['offset'] ) ) {
+			$offset = absint( $query_args['offset'] );
+			$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
+			$page = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
+
+			$real_offset = $per_page === - 1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
+			$query_args['offset'] = $real_offset;
+			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
+
+			/**
+			 * Unset the `offset` query argument to avoid applying it multiple times when this method
+			 * is used, on the same repository, more than once.
+			 */
+			unset( $this->query_args['offset'] );
+		}
+
+		foreach ( $query_args as $key => $value ) {
+			$query->set( $key, $value );
+		}
+
+		/**
+		 * Here process the previously set query modifiers passing them the
+		 * query object before it executes.
+		 * The query modifiers should modify the query by reference.
+		 */
+		foreach ( $this->query_modifiers as $arg ) {
+			if ( is_object( $arg ) && method_exists( $arg, '__invoke' ) ) {
+				// __invoke, assume changes are made by reference
+				$arg( $query );
+			} elseif ( is_callable( $arg ) ) {
+				// assume changes are made by reference
+				$arg( $query );
+			}
+		}
+
+		return $query;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function hash( array $settings = [], WP_Query $query = null ) {
+		$filters = $this->current_filters;
+		$query_vars = null !== $query ? $query->query : [];
+
+		if ( isset( $settings['exclude'] ) ) {
+			$filters = array_diff_key(
+				$filters,
+				array_combine( $settings['exclude'], $settings['exclude'] )
+			);
+			$query_vars = array_diff_key(
+				$query_vars,
+				array_combine( $settings['exclude'], $settings['exclude'] )
+			);
+		}
+
+		if ( isset( $settings['include'] ) ) {
+			$filters = array_intersect_key(
+				$filters,
+				array_combine( $settings['include'], $settings['include'] )
+			);
+			$query_vars = array_intersect_key(
+				$query_vars,
+				array_combine( $settings['include'], $settings['include'] )
+			);
+		}
+
+		return md5( json_encode( [ $filters, $query_vars ] ) );
 	}
 }
