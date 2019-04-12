@@ -398,4 +398,23 @@ class Tribe__Utils__Array {
 
 		return array_merge( $array, $prefixed );
 	}
+
+	/**
+	 * Recursively key-sort an array.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $array The array to sort, modified by reference.
+	 *
+	 * @return bool The sorting result.
+	 */
+	public static function recursive_ksort( array &$array ) {
+		foreach ( $array as &$value ) {
+			if ( is_array( $value ) ) {
+				static::recursive_ksort( $value );
+			}
+		}
+
+		return ksort( $array );
+	}
 }
