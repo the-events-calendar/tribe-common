@@ -1,5 +1,7 @@
 <?php
 
+use Tribe__Utils__Array as Arr;
+
 abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
 
@@ -2982,6 +2984,13 @@ abstract class Tribe__Repository
 	 * {@inheritDoc}
 	 */
 	public function hash( array $settings = [], WP_Query $query = null ) {
+		return md5( json_encode( $this->get_hash_data( $settings, $query ) ) );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_hash_data( array $settings, WP_Query $query = null ) {
 		$filters = $this->current_filters;
 		$query_vars = null !== $query ? $query->query : [];
 
@@ -3007,6 +3016,9 @@ abstract class Tribe__Repository
 			);
 		}
 
-		return md5( json_encode( [ $filters, $query_vars ] ) );
+		Arr::recursive_ksort( $filters );
+		Arr::recursive_ksort( $query_vars );
+
+		return [ 'filters' => $filters, 'query_vars' => $query_vars ];
 	}
 }

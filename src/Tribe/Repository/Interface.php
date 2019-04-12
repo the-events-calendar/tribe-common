@@ -223,4 +223,18 @@ interface Tribe__Repository__Interface
 	 *
 	 */
 	public function hash( array $settings = [], WP_Query $query = null );
+
+	/**
+	 * Returns the data the repository would use to build the hash.
+	 *
+	 * @since TBD
+	 *
+	 * @param array          $settings An array of settings to define how the hash should be produced in the shape
+	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array
+	 *                                 will apply both to the Repository filters and the query vars.
+	 * @param WP_Query|null $query An optional query object to include in the hashing.
+	 *
+	 * @return array An array of hash data components.
+	 */
+	public function get_hash_data( array $settings, WP_Query $query = null );
 }
