@@ -4,8 +4,4 @@
 
 require_once dirname(__FILE__) . '/composer'.'/autoload_real_52.php';
 
-<<<<<<< HEAD
-return ComposerAutoloaderInit6852c3eebc798752aeb8f87796fd4c14::getLoader();
-=======
-return ComposerAutoloaderInit3cb71cb64b941da21c8fbc3f9f31b405::getLoader();
->>>>>>> bucket/tsm
+return ComposerAutoloaderInite7caada032beff367ee7432a91cd2bf2::getLoader();

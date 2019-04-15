@@ -9,9 +9,6 @@
  * @version TBD
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
 ?>
 <div class="tribe-tooltip" aria-expanded="false">
 	<span class="dashicons dashicons-<?php echo sanitize_html_class( $args[ 'icon' ] ); ?> <?php echo sanitize_html_class( $args[ 'classes' ] ); ?>"></span>
