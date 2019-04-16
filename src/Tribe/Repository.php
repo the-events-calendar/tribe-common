@@ -1,5 +1,7 @@
 <?php
 
+use Tribe__Utils__Array as Arr;
+
 abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
 
@@ -402,7 +404,7 @@ abstract class Tribe__Repository
 		 *
 		 * @param Tribe__Repository $this This repository instance
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 */
 		do_action( "tribe_repository_{$this->filter_name}_init", $this );
 	}
@@ -523,79 +525,33 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function build_query( $use_query_builder = true ) {
-		/**
-		 * Allow classes extending or decorating the repository to act before
-		 * the query is built or replace its building completely.
-		 */
+		$query = null;
+
 		if ( $use_query_builder && null !== $this->query_builder ) {
-			$built = $this->query_builder->build_query();
-
-			$built->builder = $this->query_builder;
-
-			if ( null !== $built ) {
-				return $built;
-			}
+			$query = $this->build_query_with_builder();
 		}
 
-		$query = new WP_Query();
-
-		$query->builder = $this;
-
-		$this->filter_query->set_query( $query );
+		if ( null === $query ) {
+			$query = $this->build_query_internally();
+		}
 
 		/**
-		 * Here we merge, not recursively, to allow user-set query arguments
-		 * to override the default ones.
-		 */
-		$query_args = array_merge( $this->default_args, $this->query_args );
-
-		$default_post_status       = current_user_can( 'read_private_posts' ) ? 'any' : '';
-		$query_args['post_status'] = Tribe__Utils__Array::get( $query_args, 'post_status', $default_post_status );
-
-		/**
-		 * Filters the query arguments that will be used to fetch the posts.
+		 * Fires after the query has been built and before it's returned.
 		 *
-		 * @param array    $query_args An array of the query arguments the query will be
-		 *                             initialized with.
-		 * @param WP_Query $query      The query object, the query arguments have not been parsed yet.
-		 * @param          $this       $this This repository instance
+		 * @since 4.9.5
+		 *
+		 * @param WP_Query $query The built query.
+		 * @param array $query_args An array of query arguments used to build the query.
+		 * @param Tribe__Repository $this This repository instance.
+		 * @param bool $use_query_builder Whether a query builder was used to build this query or not.
+		 * @param Tribe__Repository__Interface $query_builder The query builder in use, if any.
 		 */
-		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
-
-		if ( isset( $query_args['offset'] ) ) {
-			$offset   = absint( $query_args['offset'] );
-			$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
-			$page     = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
-
-			$real_offset                  = $per_page === - 1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
-			$query_args['offset']         = $real_offset;
-			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
-
-			/**
-			 * Unset the `offset` query argument to avoid applying it multiple times when this method
-			 * is used, on the same repository, more than once.
-			 */
-			unset( $this->query_args['offset'] );
-		}
-
-		foreach ( $query_args as $key => $value ) {
-			$query->set( $key, $value );
-		}
-
-		/**
-		 * Here process the previously set query modifiers passing them the
-		 * query object before it executes.
-		 * The query modifiers should modify the query by reference.
-		 */
-		foreach ( $this->query_modifiers as $arg ) {
-			if ( is_object( $arg ) && method_exists( $arg, '__invoke' ) ) {
-				// __invoke, assume changes are made by reference
-				$arg( $query );
-			} elseif ( is_callable( $arg ) ) {
-				// assume changes are made by reference
-				$arg( $query );
-			}
-		}
+		do_action( "tribe_repository_{$this->filter_name}_query",
+			$query,
+			$this,
+			$use_query_builder,
+			$this->query_builder
+		);
 
 		return $query;
 	}
@@ -916,7 +872,7 @@ abstract class Tribe__Repository
 		 * @param mixed             $schema_entry A scalar value or a callable.
 		 * @param Tribe__Repository $this         This repository instance
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 */
 		return apply_filters( "tribe_repository_{$this->filter_name}_apply_modifier_schema_entry", $schema_entry, $this );
 	}
@@ -956,7 +912,7 @@ abstract class Tribe__Repository
 	/**
 	 * Filters posts by simple meta schema value.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param mixed $value Meta value.
 	 */
@@ -977,7 +933,7 @@ abstract class Tribe__Repository
 	/**
 	 * Filters posts by simple tax schema value.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param int|string|array $value Term value(s).
 	 */
@@ -1427,7 +1383,7 @@ abstract class Tribe__Repository
 	/**
 	 * Sets the create args the repository will use to create posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string|int $image The path to an image file, an image URL, or an attachment post ID.
 	 *
@@ -1566,7 +1522,7 @@ abstract class Tribe__Repository
 	/**
 	 * Adds an entry to the repository filter schema.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
 	 *                           calls.
@@ -1579,7 +1535,7 @@ abstract class Tribe__Repository
 	/**
 	 * Adds a simple meta entry to the repository filter schema.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
 	 * @param string      $meta_key The meta key to use for the meta lookup.
@@ -1597,7 +1553,7 @@ abstract class Tribe__Repository
 	/**
 	 * Adds a simple taxonomy entry to the repository filter schema.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
 	 * @param string      $taxonomy The taxonomy to use for the tax lookup.
@@ -2284,7 +2240,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns a map relating comparison operators to their "pretty" name.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return array
 	 */
@@ -2307,7 +2263,7 @@ abstract class Tribe__Repository
 		 * Filters the post delete operation allowing third party code to bail out of
 		 * the process completely.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param array|null $deleted An array containing the the IDs of the deleted posts.
 		 * @param self       $this    This repository instance.
@@ -2346,7 +2302,7 @@ abstract class Tribe__Repository
 	/**
 	 * Whether background delete is activated for the repository or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $to_delete An array of post IDs to delete.
 	 *
@@ -2360,7 +2316,7 @@ abstract class Tribe__Repository
 		 * by the `tribe_repository_delete_background_threshold` filter, then the deletion will happen
 		 * in background in other requests.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool  $background_active Whether background deletion is active or not.
 		 * @param array $to_delete         The array of post IDs to delete.
@@ -2374,7 +2330,7 @@ abstract class Tribe__Repository
 		 * by the `tribe_repository_delete_background_threshold` filter, then the deletion will happen
 		 * in background in other requests.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool  $background_active Whether background deletion is active or not.
 		 * @param array $to_delete         The array of post IDs to delete.
@@ -2391,7 +2347,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the threshold above which posts will be deleted in background.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $to_delete An array of post IDs to delete.
 	 *
@@ -2404,7 +2360,7 @@ abstract class Tribe__Repository
 		 * This filter will be ignored if background delete is deactivated with the `tribe_repository_delete_background_activated`
 		 * or `tribe_repository_{$this->filter_name}_delete_background_activated` filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int The threshold over which posts will be deleted in background.
 		 * @param array $to_delete The post IDs to delete.
@@ -2417,7 +2373,7 @@ abstract class Tribe__Repository
 		 * This filter will be ignored if background delete is deactivated with the `tribe_repository_delete_background_activated`
 		 * or `tribe_repository_{$this->filter_name}_delete_background_activated` filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int The threshold over which posts will be deleted in background.
 		 * @param array $to_delete The post IDs to delete.
@@ -2434,7 +2390,7 @@ abstract class Tribe__Repository
 	/**
 	 * Whether background update is activated for the repository or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $to_update An array of post IDs to update.
 	 *
@@ -2448,7 +2404,7 @@ abstract class Tribe__Repository
 		 * by the `tribe_repository_update_background_threshold` filter, then the update will happen
 		 * in background in other requests.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool  $background_active Whether background update is active or not.
 		 * @param array $to_update         The array of post IDs to update.
@@ -2462,7 +2418,7 @@ abstract class Tribe__Repository
 		 * by the `tribe_repository_update_background_threshold` filter, then the update will happen
 		 * in background in other requests.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool  $background_active Whether background update is active or not.
 		 * @param array $to_update         The array of post IDs to update.
@@ -2479,7 +2435,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the threshold above which posts will be updated in background.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $to_update An array of post IDs to update.
 	 *
@@ -2492,7 +2448,7 @@ abstract class Tribe__Repository
 		 * This filter will be ignored if background update is deactivated with the `tribe_repository_update_background_activated`
 		 * or `tribe_repository_{$this->filter_name}_update_background_activated` filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int The threshold over which posts will be updated in background.
 		 * @param array $to_update The post IDs to update.
@@ -2505,7 +2461,7 @@ abstract class Tribe__Repository
 		 * This filter will be ignored if background update is deactivated with the `tribe_repository_update_background_activated`
 		 * or `tribe_repository_{$this->filter_name}_update_background_activated` filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int The threshold over which posts will be updated in background.
 		 * @param array $to_update The post IDs to update.
@@ -2539,7 +2495,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the delete callback function or method to use to delete posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param      int|array $to_delete  The post ID to delete or an array of post IDs to delete.
 	 * @param bool           $background Whether the callback will be used in background delete operations or not.
@@ -2550,7 +2506,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to delete posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable  $callback   The callback that should be used to delete each post; defaults
 		 *                              to `wp_delete_post`; falsy return values will be interpreted as
@@ -2563,7 +2519,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to delete posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable  $callback   The callback that should be used to delete each post; defaults
 		 *                              to `wp_delete_post`; falsy return values will be interpreted as
@@ -2591,7 +2547,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the update callback function or method to use to update posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param      int|array $to_update  The post ID to update or an array of post IDs to update.
 	 * @param bool           $background Whether the callback will be used in background update operations or not.
@@ -2602,7 +2558,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to update posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable  $callback   The callback that should be used to update each post; defaults
 		 *                              to `wp_update_post`; falsy return values will be interpreted as
@@ -2615,7 +2571,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to update posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable  $callback   The callback that should be used to update each post; defaults
 		 *                              to `wp_update_post`; falsy return values will be interpreted as
@@ -2670,7 +2626,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the post array that will be used for an update.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param array $postarr The post array that will be sent to the update callback.
 		 * @param int The post ID if set.
@@ -2683,7 +2639,7 @@ abstract class Tribe__Repository
 	 *
 	 * Usage: `set_error_handler( array( $repository, 'cast_error_to_exception' ) );
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param int $code The error code.
 	 * @param string $message The error message.
@@ -2718,7 +2674,7 @@ abstract class Tribe__Repository
 		  * Filters the post array that will be used for the creation of a post
 		  * of the type managed by the repository.
 		  *
-		  * @since TBD
+		  * @since 4.9.5
 		  *
 		  * @param array $postarr The post array that will be sent to the create callback.
 		  */
@@ -2781,7 +2737,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the create callback function or method to use to create posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array    $postarr     The post array that will be used for the creation.
 	 *
@@ -2791,7 +2747,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to create posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable $callback    The callback that should be used to create posts; defaults
 		 *                              to `wp_insert_post`; non numeric and existing post ID return
@@ -2803,7 +2759,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to create posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable $callback    The callback that should be used to create posts; defaults
 		 *                              to `wp_insert_post`; non numeric and existing post ID return
@@ -2822,7 +2778,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the create args the repository will use to create posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return array The create args the repository will use to create posts.
 	 */
@@ -2833,7 +2789,7 @@ abstract class Tribe__Repository
 	/**
 	 * Sets the create args the repository will use to create posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $create_args The create args the repository will use to create posts.
 	 */
@@ -2845,7 +2801,7 @@ abstract class Tribe__Repository
 	 * Returns a value trying to fetch it from an array first and then
 	 * reading it from the meta.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array    $postarr The array to look into.
 	 * @param string   $key     The key to retrieve.
@@ -2929,5 +2885,140 @@ abstract class Tribe__Repository
 	 */
 	public function collect() {
 		return new Tribe__Utils__Post_Collection( $this->all() );
+	}
+
+	/**
+	 * Builds the ORM query with the query builder.
+	 *
+	 * Allow classes extending or decorating the repository to act before
+	 * the query is built or replace its building completely.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return WP_Query|null A built query object or `null` if the builder failed or bailed.
+	 */
+	protected function build_query_with_builder() {
+		$built = $this->query_builder->build_query();
+
+		$built->builder = $this->query_builder;
+
+		if ( null !== $built ) {
+			$query = $built;
+		}
+
+		return $query;
+	}
+
+	/**
+	 * Builds the ORM query internally, without a query builder.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return WP_Query The built query object.
+	 */
+	protected function build_query_internally() {
+		$query = new WP_Query();
+
+		$query->builder = $this;
+
+		$this->filter_query->set_query( $query );
+
+		/**
+		 * Here we merge, not recursively, to allow user-set query arguments
+		 * to override the default ones.
+		 */
+		$query_args = array_merge( $this->default_args, $this->query_args );
+
+		$default_post_status = current_user_can( 'read_private_posts' ) ? 'any' : '';
+		$query_args['post_status'] = Tribe__Utils__Array::get( $query_args, 'post_status', $default_post_status );
+
+		/**
+		 * Filters the query arguments that will be used to fetch the posts.
+		 *
+		 * @param array    $query_args An array of the query arguments the query will be
+		 *                             initialized with.
+		 * @param WP_Query $query      The query object, the query arguments have not been parsed yet.
+		 * @param          $this       $this This repository instance
+		 */
+		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
+
+		if ( isset( $query_args['offset'] ) ) {
+			$offset = absint( $query_args['offset'] );
+			$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
+			$page = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
+
+			$real_offset = $per_page === - 1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
+			$query_args['offset'] = $real_offset;
+			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
+
+			/**
+			 * Unset the `offset` query argument to avoid applying it multiple times when this method
+			 * is used, on the same repository, more than once.
+			 */
+			unset( $this->query_args['offset'] );
+		}
+
+		foreach ( $query_args as $key => $value ) {
+			$query->set( $key, $value );
+		}
+
+		/**
+		 * Here process the previously set query modifiers passing them the
+		 * query object before it executes.
+		 * The query modifiers should modify the query by reference.
+		 */
+		foreach ( $this->query_modifiers as $arg ) {
+			if ( is_object( $arg ) && method_exists( $arg, '__invoke' ) ) {
+				// __invoke, assume changes are made by reference
+				$arg( $query );
+			} elseif ( is_callable( $arg ) ) {
+				// assume changes are made by reference
+				$arg( $query );
+			}
+		}
+
+		return $query;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function hash( array $settings = [], WP_Query $query = null ) {
+		return md5( json_encode( $this->get_hash_data( $settings, $query ) ) );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_hash_data( array $settings, WP_Query $query = null ) {
+		$filters = $this->current_filters;
+		$query_vars = null !== $query ? $query->query : [];
+
+		if ( isset( $settings['exclude'] ) ) {
+			$filters = array_diff_key(
+				$filters,
+				array_combine( $settings['exclude'], $settings['exclude'] )
+			);
+			$query_vars = array_diff_key(
+				$query_vars,
+				array_combine( $settings['exclude'], $settings['exclude'] )
+			);
+		}
+
+		if ( isset( $settings['include'] ) ) {
+			$filters = array_intersect_key(
+				$filters,
+				array_combine( $settings['include'], $settings['include'] )
+			);
+			$query_vars = array_intersect_key(
+				$query_vars,
+				array_combine( $settings['include'], $settings['include'] )
+			);
+		}
+
+		Arr::recursive_ksort( $filters );
+		Arr::recursive_ksort( $query_vars );
+
+		return [ 'filters' => $filters, 'query_vars' => $query_vars ];
 	}
 }

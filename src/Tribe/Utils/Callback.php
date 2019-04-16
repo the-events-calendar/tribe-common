@@ -126,7 +126,7 @@ class Tribe__Utils__Callback {
 	 *
 	 * This is used to wrap a Tribe callable couple, a bound slug and method, to be used as a serializable callback.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $slug   The slug or class to call.
 	 * @param string $method The method to call on the slug or class.
@@ -140,7 +140,7 @@ class Tribe__Utils__Callback {
 	 * Returns the list of properties that should be serialized for the object.
 
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return array An array of properties that should be serialized.
 	 */
@@ -153,7 +153,7 @@ class Tribe__Utils__Callback {
 	 *
 	 * This only makes sense if this class is being used to wrap a Tribe callback couple (slug and method).
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return string|null This Tribe callback wrapper slug or class.
 	 */
@@ -166,7 +166,7 @@ class Tribe__Utils__Callback {
 	 *
 	 * This only makes sense if this class is being used to wrap a Tribe callback couple (slug and method).
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return string|null This Tribe callback method.
 	 */
