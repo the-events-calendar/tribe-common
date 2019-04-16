@@ -11,7 +11,7 @@
  * The promise is really a background process in disguise and will work, for all
  * intents and purposes, like one.
  *
- * @since TBD
+ * @since 4.9.5
  */
 
 class Tribe__Promise extends Tribe__Process__Queue {
@@ -86,7 +86,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * The callback and arguments must be serializable and make sense in the context of,
 	 * potentially, a different call from the one where this method is called.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param callable|Tribe__Utils__Callback $resolved            The callback to call on success.
 	 * @param callable|Tribe__Utils__Callback $rejected            The callback to call on failure.
@@ -122,7 +122,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	/**
 	 * Overrides the  base method to save before dispatching.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return mixed The dispatch return value.
 	 */
@@ -144,7 +144,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * A custom error handler to log any error tha might happen while invoking a promise
 	 * callback.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param int    $code          The error code.
 	 * @param string $error_message The error message.
@@ -162,7 +162,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 *
 	 * The promise is really just a flexible background process that
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array                           $item      The promise payload, keys:
 	 *                                                   {
@@ -205,7 +205,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 *
 	 * A fake queue id is set for compatibility reasons.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return Tribe__Process__Queue This object.
 	 */
@@ -225,7 +225,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * If the callback invocation results in an exception or error  then the callback will return `true`
 	 * and log.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param            callable|Tribe__Utils__Callback $callback      The callback to call.
 	 * @param array|null                                 $callback_args An optional array of arguments to call the
@@ -264,7 +264,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * Unpacks a callback returning a callable array for callbacks wrapped using the
 	 * Tribe__Utils__Callback class.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string|array|Tribe__Utils__Callback $callback The callback to unpack.
 	 *
@@ -281,7 +281,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	/**
 	 * Overrides the base method to call the success callback on completion.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 */
 	protected function complete() {
 		parent::complete();
@@ -299,7 +299,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * An alias of the dispatch method to stick with the expected naming
 	 * standard.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return mixed The dispatch operation return value.
 	 */
