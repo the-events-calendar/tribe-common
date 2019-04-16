@@ -8,7 +8,7 @@
 * Tweak - Improve Object Relation Mapping base repository and filter classes to support usage of events
 * Tweak - Modify `Date_Utils.php` and include one more way of building DateTime object with Timezone `build_date_object`
 * Tweak - Include Modern Tribe Context panel into the Debug Bar plugin
-* Tweak - Include `tribe_image_uploader_local_urls` filter to Image Uploader class
+* Tweak - Added the `tribe_image_uploader_local_urls` filter to Image Uploader class
 * Tweak - Include `tribe_process_allow_nopriv_handling` for non-logged users, improving control for when async requests are fired
 * Tweak - Fork `WP_Background_Process` to `Tribe__Process__Handler` to allow for better maintenance internally by our team
 * Tweak - Included more Array handling methods: `recursive_ksort`, `add_prefixed_keys_to`, `flatten`, `filter_prefixed`, `add_unprefixed_keys_to`
