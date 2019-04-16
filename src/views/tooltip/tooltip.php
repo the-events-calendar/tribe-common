@@ -11,8 +11,8 @@
 
 ?>
 <div class="tribe-tooltip" aria-expanded="false">
-	<span class="dashicons dashicons-<?php echo sanitize_html_class( $args[ 'icon' ] ); ?> <?php echo sanitize_html_class( $args[ 'classes' ] ); ?>"></span>
-	<div class="<?php echo sanitize_html_class( $args[ 'direction' ] ); ?>">
+	<span class="dashicons dashicons-<?php echo sanitize_html_class( $icon ); ?> <?php echo sanitize_html_class( $classes ); ?>"></span>
+	<div class="<?php echo sanitize_html_class( $direction ); ?>">
 		<?php if ( is_array( $message ) ) :
 			foreach( $message as $mess ) : ?>
 				<p>

@@ -61,9 +61,9 @@ class Tribe__Tooltip__View extends Tribe__Template {
 
 		$args = wp_parse_args( $original_args, $default_args );
 
-		ob_start();
+		$args[ 'message' ] = $message;
 
-		$template = $this->get_template_file( 'tooltip' );
+		ob_start();
 
 		/**
 		 * Allow us to filter the tooltip template
@@ -73,10 +73,12 @@ class Tribe__Tooltip__View extends Tribe__Template {
 		 * @param string $template The tooltip template name.
 		 * @param array $args Extra arguments, defaults include icon, classes, direction, and context.
 		 */
-		$template = apply_filters( 'tribe_tooltip_template', $template, $args );
+		$template_name = apply_filters( 'tribe_tooltip_template', 'tooltip', $args );
+
+		$template = $this->template( $template_name, $args, false );
 
 		if ( ! empty( $template ) ) {
-			include( $template );
+			 echo $template;
 		}
 
 		$html = ob_get_clean();
