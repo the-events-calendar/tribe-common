@@ -2,13 +2,13 @@
 /**
  * Models a generic collection of elements as a linked list.
  *
- * @since TBD
+ * @since 4.9.5
  */
 
 /**
  * Class Tribe__Utils__Collection
  *
- * @since TBD
+ * @since 4.9.5
  */
 class Tribe__Utils__Collection extends SplDoublyLinkedList {
 
@@ -43,7 +43,7 @@ class Tribe__Utils__Collection extends SplDoublyLinkedList {
 	 *
 	 * This is just a wrapper around the `array_map` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param callable $callback The callback to run on each collection item.
 	 *

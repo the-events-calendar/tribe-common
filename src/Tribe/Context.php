@@ -4,7 +4,7 @@
  * Class Tribe__Context
  *
  * @since 4.7.7
- * @since TBD Made the context immutable.
+ * @since 4.9.5 Made the context immutable.
  */
 class
 Tribe__Context {
@@ -221,7 +221,7 @@ Tribe__Context {
 	 * context.
 	 *
 	 * @since 4.7.12
-	 * @since TBD Removed the $doing_ajax parameter.
+	 * @since 4.9.5 Removed the $doing_ajax parameter.
 	 *
 	 * @return boolean
 	 */
@@ -235,7 +235,7 @@ Tribe__Context {
 	 * Checks whether the context of the current HTTP request is a Cron one or not.
 	 *
 	 * @since 4.7.23
-	 * @since TBD Removed the $doing_cron parameter.
+	 * @since 4.9.5 Removed the $doing_cron parameter.
 	 *
 	 * @return bool Whether the context of the current HTTP request is a Cron one or not.
 	 */
@@ -248,7 +248,7 @@ Tribe__Context {
 	/**
 	 * Gets a value reading it from the location(s) defined in the `Tribe__Context::$props
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string     $key     The key of the variable to fetch.
 	 * @param mixed|null $default The default value to return if not found.
@@ -262,7 +262,7 @@ Tribe__Context {
 		/**
 		 * Filters the value of a context variable skipping all of its logic.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param mixed  $value   The value for the key before it's fetched from the context.
 		 * @param string $key     The key of the value to fetch from the context.
@@ -307,7 +307,7 @@ Tribe__Context {
 		 *
 		 * Useful for testing and local override.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param mixed $value The value as fetched from the context.
 		 */
@@ -325,7 +325,7 @@ Tribe__Context {
 	 * and call the `refresh` method.
 	 * Example: `$widget_context = tribe_context()->alter( $widget_args );`.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $values An associative array of key-value pairs to modify the context.
 	 *
@@ -342,7 +342,7 @@ Tribe__Context {
 	/**
 	 * Clears the context cache forcing a re-fetch of the variables from the context.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $key An optional specific key to refresh, if passed only this key
 	 *                    will be refreshed.
@@ -358,7 +358,7 @@ Tribe__Context {
 	/**
 	 * Returns the read and write locations set on the context.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return array An array of read and write location in the shape of the `Tribe__Context::$locations` one,
 	 *               `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
@@ -372,7 +372,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more $_REQUEST vars.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $request_vars The list of request vars to lookup, in order.
 	 * @param mixed $default The default value to return.
@@ -396,7 +396,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more global WP_Query object query variables.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $query_vars The list of query vars to look up, in order.
 	 * @param mixed $default The default value to return.
@@ -421,7 +421,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more global WP_Query object properties.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $query_props The list of properties to look up, in order.
 	 * @param mixed $default The default value to return.
@@ -446,7 +446,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one more more `tribe_option`s.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $tribe_options The list of `tribe_option`s to lookup, in order.
 	 * @param mixed $default The default value to return.
@@ -470,7 +470,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more options.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $options The list of options to lookup, in order.
 	 * @param mixed $default The default value to return.
@@ -494,7 +494,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more transients.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $transients The list of transients to lookup, in order.
 	 * @param mixed $default The default value to return.
@@ -521,7 +521,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more constants.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $constants The list of constants to lookup, in order.
 	 * @param mixed $default The default value to return.
@@ -545,7 +545,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more global variable.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $global_vars The list of global variables to look up, in order.
 	 * @param mixed $default The default value to return.
@@ -569,7 +569,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more class static properties.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $classes_and_props An associative array in the shape [ <class> => <prop> ].
 	 * @param mixed $default The default value to return.
@@ -598,7 +598,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more properties of implementations bound in the `tribe()` container.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $bindings_and_props An associative array in the shape [ <binding> => <prop> ].
 	 * @param mixed $default The default value to return.
@@ -625,7 +625,7 @@ Tribe__Context {
 	/**
 	 * Reads the values from one or more static class methods.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $classes_and_methods An associative array in the shape [ <class> => <method> ].
 	 * @param mixed $default The default value to return.
@@ -653,7 +653,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more methods called on implementations bound in the `tribe()` container.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $bindings_and_methods An associative array in the shape [ <binding> => <method> ].
 	 * @param mixed $default              The default value to return.
@@ -685,7 +685,7 @@ Tribe__Context {
 	/**
 	 * Reads the value from one or more functions until one returns a value that's not the default one.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $functions An array of functions to call, in order.
 	 * @param mixed $default The default value to return.
@@ -725,7 +725,7 @@ Tribe__Context {
 	 *                              parameter should be treated as a whitelist (`true`) or
 	 *                              blacklist (`false`).
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 */
 	public function dangerously_set_global_context( array $fields = null, $whitelist = true ) {
 		$locations = $this->get_locations();
@@ -770,7 +770,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value to a request var.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $request_var The request var to write.
 	 * @param mixed  $value       The value to set on the request var.
@@ -790,7 +790,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value to a global WP_Query object properties.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $query_prop The global WP_Query object property to write.
 	 * @param mixed  $value      The value to set on the query property.
@@ -808,7 +808,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value to a global WP_Query object query var.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $query_var The global WP_Query query var to write.
 	 * @param mixed  $value     The value to set on the query var.
@@ -826,7 +826,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value to a `tribe_option`.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $tribe_option The `tribe_option` to write.
 	 * @param mixed  $value        The value to set on the `tribe_option`.
@@ -838,7 +838,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value to an option.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $option_name The option to write.
 	 * @param mixed  $value       The value to set on the option.
@@ -850,7 +850,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value to a transient.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $transient  The transient to write.
 	 * @param int    $expiration The transient expiration time, in seconds.
@@ -863,7 +863,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value to a constant.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $constant The constant to define.
 	 * @param mixed  $value    The value to set on the constant.
@@ -878,7 +878,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value to a global var.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $global_var The global var to set.
 	 * @param mixed  $value      The value to set on the global_var.
@@ -890,7 +890,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value setting a public static property on a class.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $class The class to set the static public property on.
 	 * @param string $prop  The static public property to set.
@@ -907,7 +907,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value setting a public property on a `tribe()` binding.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $binding The container binding to set the public property on.
 	 * @param string $prop    The public property to set.
@@ -930,7 +930,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value calling a public static method on a class.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $class  The class to call the public static method on.
 	 * @param string $method The static method to call.
@@ -946,7 +946,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value calling a public method on a `tribe()` binding.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $binding The `tribe()` container binding to call the public method on.
 	 * @param string $method  The method to call.
@@ -962,7 +962,7 @@ Tribe__Context {
 	/**
 	 * Writes an altered context value calling a function or closure.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param callable $func  function, closure or callable to call.
 	 * @param mixed    $value The value to pass to the callable.
@@ -980,7 +980,7 @@ Tribe__Context {
 	 * Locations are merged with an `array_merge` call. To refine the locations get them first with the
 	 * `get_locations` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $locations An array of read and write locations to add to the context.
 	 *                         The array should have the same shape as the static `$locations`
@@ -1002,7 +1002,7 @@ Tribe__Context {
 	 *
 	 *
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $locations An array of locations to replace the current ones.
 	 * @param bool  $use_default_locations Whether the context should use the default
@@ -1022,7 +1022,7 @@ Tribe__Context {
 	/**
 	 * Returns an array representation of the context.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return array An associative array of the context keys and values.
 	 */
@@ -1058,7 +1058,7 @@ Tribe__Context {
 	 *                              parameter should be treated as a whitelist (`true`) or
 	 *                              blacklist (`false`).
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return array
 	 */
@@ -1075,7 +1075,7 @@ Tribe__Context {
 		/**
 		 * Filters the Redux store compatible state produced from the current context.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param array $state             The Redux store compatible state produced from the current context.
 		 * @param bool  $is_global_context Whether the context producing the state is the global one
@@ -1091,7 +1091,7 @@ Tribe__Context {
 			 * While the `tribe_context_state` filter will apply to all contexts producing a
 			 * state this filter will only apply to the global context.
 			 *
-			 * @since TBD
+			 * @since 4.9.5
 			 *
 			 * @param array $state The Redux store compatible state produced from the global context.
 			 * @param Tribe__Context The global context object producing the state.
@@ -1105,7 +1105,7 @@ Tribe__Context {
 	/**
 	 * Returns an array of ORM arguments generated from the current context values.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array|null $fields    An optional whitelist or blacklist of fields to include
 	 *                              depending on the value of the `$whitelist` parameter;
@@ -1152,7 +1152,7 @@ Tribe__Context {
 		/**
 		 * Filters the ORM arguments produced from the current context.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param array $orm_args          The ORM args produced from the current context.
 		 * @param bool  $is_global_context Whether the context producing the ORM args is the global one
@@ -1168,7 +1168,7 @@ Tribe__Context {
 			 * While the `tribe_context_orm_args` filter will apply to all contexts producing ORM
 			 * args this filter will only apply to the global context.
 			 *
-			 * @since TBD
+			 * @since 4.9.5
 			 *
 			 * @param array $orm_args The ORM args produced from the global context.
 			 * @param Tribe__Context The global context object producing the ORM args.
