@@ -402,7 +402,7 @@ class Tribe__Utils__Array {
 	/**
 	 * Recursively key-sort an array.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $array The array to sort, modified by reference.
 	 *

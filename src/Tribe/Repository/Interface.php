@@ -212,7 +212,7 @@ interface Tribe__Repository__Interface
 	 * The possibility to include the query in the hash generation is required as the query vars could
 	 * be further modified after the repository filters are applied and the query is built.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array          $settings An array of settings to define how the hash should be produced in the shape
 	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array
@@ -227,7 +227,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Returns the data the repository would use to build the hash.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array          $settings An array of settings to define how the hash should be produced in the shape
 	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array

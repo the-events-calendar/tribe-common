@@ -538,7 +538,7 @@ abstract class Tribe__Repository
 		/**
 		 * Fires after the query has been built and before it's returned.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param WP_Query $query The built query.
 		 * @param array $query_args An array of query arguments used to build the query.
@@ -2893,7 +2893,7 @@ abstract class Tribe__Repository
 	 * Allow classes extending or decorating the repository to act before
 	 * the query is built or replace its building completely.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return WP_Query|null A built query object or `null` if the builder failed or bailed.
 	 */
@@ -2912,7 +2912,7 @@ abstract class Tribe__Repository
 	/**
 	 * Builds the ORM query internally, without a query builder.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return WP_Query The built query object.
 	 */
