@@ -61,7 +61,15 @@ class Tribe__Tooltip__View extends Tribe__Template {
 
 		$args = wp_parse_args( $original_args, $default_args );
 
-		$args[ 'message' ] = $message;
+		// Check for message to be passed.
+		if ( empty( $message ) ) {
+			return '';
+		}
+
+		// Setup message as an array of messages
+		$messages = (array) $message;
+
+		$args['messages'] = $messages;
 
 		ob_start();
 
@@ -89,10 +97,10 @@ class Tribe__Tooltip__View extends Tribe__Template {
 		 * @since  TBD
 		 *
 		 * @param string $html The tooltip HTML.
-		 * @param array|string $message Array of messages or single message as string.
+		 * @param array $messages An array of message strings.
 		 * @param array $args Extra arguments, defaults include icon, classes, direction, and context.
 		 */
-		return apply_filters( 'tribe_tooltip_html', $html, $message, $args );
+		return apply_filters( 'tribe_tooltip_html', $html, $messages, $args );
 	}
 
 }
