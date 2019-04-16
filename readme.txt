@@ -5,6 +5,7 @@
 = [4.9.6] TBD =
 
 * Tweak - Allow for external modal control for modal button component [123818]
+* Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
 
 = [4.9.5] 2019-04-16 =
 
