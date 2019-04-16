@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.5] 2019-04-16 =
+= [4.9.5] 2019-04-17 =
 
 * Feature - Include Freemius integration on our Common Libraries
 * Tweak - Improve Object Relation Mapping base repository and filter classes to support usage of events
