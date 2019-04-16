@@ -6,7 +6,7 @@
  * The base class for all Modern Tribe async process handlers.
  *
  * @since 4.7.12
- * @since TBD Removed dependency on `WP_Async_Request` class.
+ * @since 4.9.5 Removed dependency on `WP_Async_Request` class.
  *
  * @see   Tribe__Service_Providers__Processes for more insight about this class utility.
  */
@@ -90,7 +90,7 @@ abstract class Tribe__Process__Handler {
 		 * non-private AJAX requests as the ones triggered by a non logged in user.
 		 * Defaults to `true` to exploit any possible chance to process.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool   $allow_nopriv Whether background processing should be triggered and handled on
 		 *                             non-private AJAX requests or not.
@@ -133,7 +133,7 @@ abstract class Tribe__Process__Handler {
 	 * Handles the process request if valid and if authorized.
 	 *
 	 * @since 4.7.23
-	 * @since TBD Pulled the `maybe_handle` implementation of the `WP_Async_Request` class.
+	 * @since 4.9.5 Pulled the `maybe_handle` implementation of the `WP_Async_Request` class.
 	 *
 	 * @param array|null $data_source A source of data if not provided in the request; used for
 	 *                                cron-based fallback.
@@ -167,7 +167,7 @@ abstract class Tribe__Process__Handler {
 	 * async requests in sync mode.
 	 *
 	 * @since 4.7.12
-	 * @since TBD Pulled `dispatch` method logic from the `WP_Async_Request` class.
+	 * @since 4.9.5 Pulled `dispatch` method logic from the `WP_Async_Request` class.
 	 *
 	 * @return mixed
 	 */
@@ -222,7 +222,7 @@ abstract class Tribe__Process__Handler {
 	/**
 	 * Returns an array of arguments that will be used to send the POST request.
 	 *
-	 * @since TBD Pulled from the `WP_Async_Request` class.
+	 * @since 4.9.5 Pulled from the `WP_Async_Request` class.
 	 *
 	 * @return array An array of arguments for the POST request.
 	 */
@@ -240,7 +240,7 @@ abstract class Tribe__Process__Handler {
 	/**
 	 * Returns the URL that wil be used to post the request.
 	 *
-	 * @since TBD Pulled from the `WP_Async_Request` class.
+	 * @since 4.9.5 Pulled from the `WP_Async_Request` class.
 	 *
 	 * @return string The URL that will be used to POST the dispatch request; defaults
 	 *                to the `admin-ajax.php` one.
@@ -256,7 +256,7 @@ abstract class Tribe__Process__Handler {
 	/**
 	 * Returns the arguments that will be used to send the POST request.
 	 *
-	 * @since TBD Pulled from the `WP_Async_Request` class.
+	 * @since 4.9.5 Pulled from the `WP_Async_Request` class.
 	 *
 	 * @return array An array of arguments that will be used to send the POST request.
 	 */
@@ -294,7 +294,7 @@ abstract class Tribe__Process__Handler {
 	/**
 	 * Sets the that will be used during the request.
 	 *
-	 * @since TBD Pulled from the `WP_Async_Request` class.
+	 * @since 4.9.5 Pulled from the `WP_Async_Request` class.
 	 *
 	 * @param array $data Data.
 	 *
@@ -309,7 +309,7 @@ abstract class Tribe__Process__Handler {
 	/**
 	 * Handles the request and performs an action.
 	 *
-	 * @since TBD Pulled from the `WP_Async_Request` class.
+	 * @since 4.9.5 Pulled from the `WP_Async_Request` class.
 	 *
 	 * @param array|null $data_source A source of data if not provided in the request; used for
 	 *                                cron-based fallback.

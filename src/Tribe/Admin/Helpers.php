@@ -32,7 +32,7 @@ class Tribe__Admin__Helpers {
 	 * Check if the current screen is an instance of WP_Screen
 	 * Hijack the return for tests
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return boolean
 	 */
@@ -43,7 +43,7 @@ class Tribe__Admin__Helpers {
 		 * Filter `tribe_admin_is_wp_screen`
 		 * Allows fo filter if we're on a WP_Screen
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 * @param bool    null bypass if we want to return a bool of is_wp_scren
 		 */
 		$is_wp_screen = apply_filters( 'tribe_admin_is_wp_screen', null );
