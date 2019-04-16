@@ -2,7 +2,7 @@
 /**
  * A set of functions to manipulate queries or query properties.
  *
- * @since TBD
+ * @since 4.9.5
  */
 
 if ( ! function_exists( 'tribe_filter_meta_query' ) ) {
@@ -16,7 +16,7 @@ if ( ! function_exists( 'tribe_filter_meta_query' ) ) {
 	 *      array( 'key' => '/_Event(Start|End)Date(UTC)/' )
 	 * );
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $meta_query The meta query array to filter, usually the content of the `$query->meta_query`
 	 *                          property.

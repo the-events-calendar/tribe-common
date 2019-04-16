@@ -569,7 +569,7 @@ class Tribe__Timezones {
 	 * Returns a valid timezone object built from the passed timezone or from the
 	 * site one if a timezone in not passed.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string|null|DateTimeZone $timezone A DateTimeZone object, a timezone string
 	 *                                           or `null` to build an object using the site one.
@@ -595,7 +595,7 @@ class Tribe__Timezones {
 	/**
 	 * Parses the timezone string to validate or convert it into a valid one.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string|\DateTimeZone $timezone_candidate The timezone string candidate.
 	 *
