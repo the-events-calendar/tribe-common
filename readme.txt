@@ -4,7 +4,7 @@
 
 = [4.9.6] TBD =
 
-* Tweak - Add new tribe-tooltip object for universal utility [120856]
+* Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
 
 = [4.9.5] TBD =
 
