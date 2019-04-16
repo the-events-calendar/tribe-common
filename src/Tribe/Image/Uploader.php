@@ -67,7 +67,7 @@ class Tribe__Image__Uploader {
 		 * @param bool   $allow_local_urls Whether to allow local URLs.
 		 * @param string $file_url         File URL.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 */
 		$allow_local_urls = apply_filters( 'tribe_image_uploader_local_urls', false, $file_url );
 

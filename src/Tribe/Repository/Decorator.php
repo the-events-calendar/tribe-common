@@ -510,7 +510,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 *
 	 * The check is made recursively for decorators to get to the first repository implementation.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $class The class to check for.
 	 *
@@ -525,7 +525,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * Returns the concrete repository implementation that's "hidden" under the decorator(s).
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return \Tribe__Repository__Interface The concrete repository instance.
 	 */
@@ -561,5 +561,19 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	 */
 	public function collect() {
 		return $this->decorated->collect();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function hash( array $settings = [], WP_Query $query = null ) {
+		return $this->decorated->hash( $settings );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_hash_data( array $settings, WP_Query $query = null ) {
+		return $this->decorated->get_hash_data( $settings, $query );
 	}
 }
