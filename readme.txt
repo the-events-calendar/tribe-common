@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.9.7] TBD =
+
+* Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
+
 = [4.9.6] TBD =
 
 * Tweak - Allow for external modal control for modal button component [123818]
