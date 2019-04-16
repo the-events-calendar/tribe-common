@@ -2,13 +2,13 @@
 /**
  * An extension of the base collection implementation to handle posts.
  *
- * @since TBD
+ * @since 4.9.5
  */
 
 /**
  * Class Tribe__Utils__Post_Collection
  *
- * @since TBD
+ * @since 4.9.5
  */
 class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 
@@ -30,7 +30,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * Elements that are not posts or do not have the meta set will have an
 	 * empty string value.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $meta_key The meta key to pluck.
 	 * @param bool   $single   Whether to fetch the meta key as single or not.

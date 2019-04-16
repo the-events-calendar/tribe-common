@@ -46,7 +46,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Returns the repository filter name.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return string
 	 */
@@ -196,7 +196,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Adds an entry to the repository filter schema.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
 	 *                           calls.

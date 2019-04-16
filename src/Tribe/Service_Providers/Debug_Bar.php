@@ -2,7 +2,7 @@
 /**
  * Hooks and manages the plugins Debug Bar integrations.
  *
- * @since TBD
+ * @since 4.9.5
  */
 
 class Tribe__Service_Providers__Debug_Bar extends tad_DI52_ServiceProvider {
@@ -17,7 +17,7 @@ class Tribe__Service_Providers__Debug_Bar extends tad_DI52_ServiceProvider {
 	/**
 	 * Adds Modern Tribe panels to the Debug Bar panels.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param Debug_Bar_Panel[] $panels The current list of Debug Bar panels.
 	 *
@@ -28,7 +28,7 @@ class Tribe__Service_Providers__Debug_Bar extends tad_DI52_ServiceProvider {
 		 * Filters the list of Modern Tribe debug bar panels that will be added to the
 		 * Debug Bar.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param Debug_Bar_Panel[] The default list of Modern Tribe panels added to the Debug Bar.
 		 */

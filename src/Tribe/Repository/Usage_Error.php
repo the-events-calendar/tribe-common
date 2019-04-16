@@ -181,7 +181,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates that the client code is trying to use a comparison operator not supported by a specific filter.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $operator The not supported comparison operator.
 	 * @param string $filter   The filter in which the client code is trying to use the current operator.
@@ -196,7 +196,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * Indicates that the client code is trying to use a comparison operator that requires a value of a specific type
 	 * wrong.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $operator The operator the client code is using.
 	 * @param string $filter   The filter the client code is using.
