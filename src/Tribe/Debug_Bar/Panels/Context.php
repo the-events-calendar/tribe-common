@@ -1,4 +1,6 @@
 <?php
+use Tribe__Utils__Array as Arr;
+
 /**
  * The Debug Bar panel that will display tribe context informations.
  *
@@ -69,14 +71,13 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 		$orm_args = tribe_context()->get_orm_args();
 
 		foreach ( $locations as $key => $rw_data ) {
-			$orm_arg_key = isset( $locations[ $key ]['orm_arg'] )
-				? $locations[ $key ]['orm_arg']
-				: $key;
+			$orm_arg_key = Arr::get( $locations, [ $key, 'orm_arg' ], $key );
+			$orm_arg_value = Arr::get( $orm_args, $orm_arg_key, null );
 
 			$html .= '<tr>';
 			$html .= '<td><code>' . $key . '</code></td>';
 			$html .= '<td><code>' . ( isset( $context[ $key ] ) ? $context[ $key ] : 'undefined' ) . '</code></td>';
-			$html .= '<td>' . ( false !== $orm_arg_key ? '<code>' . $orm_arg_key . ' => ' . $orm_args[ $orm_arg_key ] . '</code>' : '' ) . '</td>';
+			$html .= '<td>' . ( false !== $orm_arg_key ? '<code>' . $orm_arg_key . ' => ' . $orm_arg_value . '</code>' : '' ) . '</td>';
 			$html .= '<td><code>' . ( isset( $locations[ $key ]['read'] ) ? 'yes' : 'no' ) . '</code></td>';
 			$html .= '<td><code>' . ( isset( $locations[ $key ]['write'] ) ? 'yes' : 'no' ) . '</code></td>';
 			$html .= '</tr>';
