@@ -13,16 +13,10 @@
 <div class="tribe-tooltip" aria-expanded="false">
 	<span class="dashicons dashicons-<?php echo sanitize_html_class( $icon ); ?> <?php echo sanitize_html_class( $classes ); ?>"></span>
 	<div class="<?php echo sanitize_html_class( $direction ); ?>">
-		<?php if ( is_array( $message ) ) :
-			foreach( $message as $mess ) : ?>
-				<p>
-					<span><?php echo wp_kses_post( $mess ); ?><i></i></span>
-				</p>
-			<?php endforeach;
-		else : ?>
+		<?php foreach( $messages as $message ) : ?>
 			<p>
 				<span><?php echo wp_kses_post( $message ); ?><i></i></span>
 			</p>
-		<?php endif; ?>
+		<?php endforeach; ?>
 	</div>
 </div>
