@@ -16,6 +16,7 @@
 * Fix - Improved the handling asyncronous requests for our Proccess Handler
 * Fix - Problems around Image asyncronous processing of thumbnail images not been set correctly
 * Fix - Multisite background processing saves options and progress to the correct table in the database
+* Language - 8 new strings added, 25 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.4] 2019-04-01 =
 
