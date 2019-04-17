@@ -51,6 +51,19 @@
 			}
 		}
 	}
+
+	&.large {
+		.down,
+		.left,
+		.right,
+		.up {
+			width: 400px;
+
+			@media screen and (max-width: 480px) {
+				width: 250px;
+			}
+		}
+	}
 }
 
 .tribe-tooltip .down {

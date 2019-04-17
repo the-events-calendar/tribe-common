@@ -10,7 +10,7 @@
  */
 
 ?>
-<div class="tribe-tooltip" aria-expanded="false">
+<div class="tribe-tooltip <?php echo sanitize_html_class( $wrap_classes ); ?>" aria-expanded="false">
 	<span class="dashicons dashicons-<?php echo sanitize_html_class( $icon ); ?> <?php echo sanitize_html_class( $classes ); ?>"></span>
 	<div class="<?php echo sanitize_html_class( $direction ); ?>">
 		<?php foreach( $messages as $message ) : ?>

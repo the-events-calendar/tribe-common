@@ -53,10 +53,11 @@ class Tribe__Tooltip__View extends Tribe__Template {
 	 */
 	private function build_tooltip( $message, $original_args ) {
 		$default_args = [
-			'classes'   => '',
-			'icon'      => 'info',
-			'direction' => 'down',
-			'context'   => '',
+			'classes'      => '',
+			'icon'         => 'info',
+			'direction'    => 'down',
+			'context'      => '',
+			'wrap_classes' => '',
 		];
 
 		$args = wp_parse_args( $original_args, $default_args );
