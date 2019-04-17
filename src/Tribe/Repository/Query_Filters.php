@@ -759,7 +759,7 @@ class Tribe__Repository__Query_Filters {
 	 * @return string
 	 */
 	public function create_interval_of_strings( $input ) {
-		$buffer = array();
+		$buffer = [];
 
 		/** @var wpdb $wpdb */
 		global $wpdb;
@@ -770,7 +770,7 @@ class Tribe__Repository__Query_Filters {
 
 		$buffer = array_unique( call_user_func_array( 'array_merge', $buffer ) );
 
-		$safe_strings = array();
+		$safe_strings = [];
 		foreach ( $buffer as $raw_status ) {
 			$safe_strings[] = $wpdb->prepare( '%s', $raw_status );
 		}

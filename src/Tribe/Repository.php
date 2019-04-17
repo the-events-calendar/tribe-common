@@ -3057,7 +3057,7 @@ abstract class Tribe__Repository
 	 * @throws \Tribe__Repository__Usage_Error If the relation is not a valid one.
 	 */
 	protected function validate_relation( $relation ) {
-		if ( ! in_array( $relation, [ 'OR', 'AND' ] ) ) {
+		if ( ! in_array( $relation, [ 'OR', 'AND' ], true ) ) {
 			throw Tribe__Repository__Usage_Error::because_this_relation_is_not_valid( $relation );
 		}
 	}
@@ -3075,7 +3075,7 @@ abstract class Tribe__Repository
 	 */
 	protected function prepare_like_string( $value ){
 		$original_value = $value;
-		$values = (array)$value;
+		$values = (array) $value;
 		$prepared = [];
 		$pattern = '/^(?<pre>%{0,1})(?<string>.*?)(?<post>%{0,1})$/u';
 
@@ -3085,7 +3085,7 @@ abstract class Tribe__Repository
 			preg_match( $pattern, $v, $matches );
 			$pre = $matches['pre'] ?: '';
 			$post = $matches['post'] ?: '';
-			$string = $wpdb->esc_like($matches['string']);
+			$string = $wpdb->esc_like( $matches['string'] );
 
 			if ( '' === $pre && '' === $post ) {
 				// If the string does not contain any starting and ending placeholder we'll add all combinations.
@@ -3098,7 +3098,7 @@ abstract class Tribe__Repository
 			$prepared[] = $pre . $string . $post;
 		}
 
-		return is_array($original_value) ? $prepared : reset($prepared);
+		return is_array( $original_value ) ? $prepared : reset( $prepared );
 	}
 
 	/**
@@ -3210,7 +3210,7 @@ abstract class Tribe__Repository
 
 		global $wpdb;
 
-		if ( in_array( $compare, array( 'LIKE', 'NOT LIKE' ) ) ) {
+		if ( in_array( $compare, [ 'LIKE', 'NOT LIKE' ], true ) ) {
 			$values = $this->prepare_like_string( $values );
 		}
 
@@ -3222,11 +3222,11 @@ abstract class Tribe__Repository
 		$post_fields = [];
 		$taxonomies = [];
 
-		foreach ($fields as $field) {
+		foreach ( $fields as $field ) {
 			if ( $this->is_a_post_field( $field ) ) {
-				$post_fields [] = $field;
+				$post_fields[] = $field;
 			} elseif ( $this->is_a_taxonomy( $field ) ) {
-				$taxonomies [] = $field;
+				$taxonomies[] = $field;
 			} else {
 				$custom_fields[] = $field;
 			}
@@ -3248,7 +3248,7 @@ abstract class Tribe__Repository
 		if ( count( array_unique( $value_formats ) ) > 1 ) {
 			$value_format = '%s';
 		} else {
-			$value_format = reset($value_formats);
+			$value_format = reset( $value_formats );
 		}
 
 		$where= [];
@@ -3274,12 +3274,12 @@ abstract class Tribe__Repository
 			$all_matching_term_ids = [];
 			$taxonomy_values = $values;
 
-			if ( in_array( $compare, [ 'IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN' ] ) ) {
+			if ( in_array( $compare, [ 'IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN' ], true ) ) {
 				// We can use multiple values in the same query.
 				$taxonomy_values = [ $values ];
 			}
 
-			foreach ($taxonomy_values as $taxonomy_value){
+			foreach ( $taxonomy_values as $taxonomy_value ){
 				$matching_term_ids = $this->fetch_taxonomy_terms_matches(
 					$taxonomies,
 					$compare,
@@ -3306,7 +3306,7 @@ abstract class Tribe__Repository
 				? array_intersect( ...$all_matching_term_ids )
 				: reset( $all_matching_term_ids );
 
-			if ( 'AND' === $where_relation && 0 === count($intersection) ) {
+			if ( 'AND' === $where_relation && 0 === count( $intersection ) ) {
 				// Let's not waste any more time.
 				$this->void_query;
 

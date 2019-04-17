@@ -217,7 +217,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 *
 	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
-	public static function because_this_comparison_operator_is_not_valid( $operator) {
+	public static function because_this_comparison_operator_is_not_valid( $operator ) {
 		return new self( "You are trying to use a comparison operator ({$operator}) that is not valid." );
 	}
 
