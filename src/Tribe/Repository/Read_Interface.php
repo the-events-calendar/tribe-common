@@ -369,7 +369,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	/**
 	 * What filter the current READ query is currently applying in a specific `by` (or `where`).
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return string|null The current filter being applied.
 	 */
@@ -379,7 +379,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * Deletes a set of events fetched by using filters.
 
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 *
 	 * @param bool $return_promise Whether to return the promise or just the deleted post IDs
@@ -401,7 +401,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * deletion processes. The recommended way to delete events is by using the `delete` method
 	 * and letting the filtering conditions take over.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $to_delete      The post IDs to delete.
 	 * @param bool  $return_promise Whether to return the `Tribe__Promise` object created to
@@ -419,7 +419,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * update processes. The recommended way to update events is by using the `update` method
 	 * and letting the filtering conditions take over.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $to_update      The post IDs to update.
 	 * @param bool  $return_promise Whether to return the `Tribe__Promise` object created to
@@ -437,7 +437,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * be in: e.g. in a month view or week view for events.
 	 * Extending classes can support more display contexts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $context A display context supported by the repository; defaults to `default`.
 	 *
@@ -454,7 +454,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * rendered within a widget and so on.
 	 * Extending classes can support more render contexts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $context A display context supported by the repository; defaults to `default`.
 	 *
@@ -471,7 +471,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * The advantage over doing `$repository->where( 'post__in' , $ids )->get_query()` is
 	 * to avoid all the overhead of a query that, probably did run already.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $posts An array of post objects or post IDs the query should return as if fetched.
 	 *
@@ -485,7 +485,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * This method will implicitly build and use a `WP_List_Util` instance on the return
 	 * value of a call to the `all` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $field The field to pluck from each result.
 	 *
@@ -501,7 +501,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * This method will implicitly build and use a `WP_List_Util` instance on the return
 	 * value of a call to the `all` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array  $args     Optional. An array of key => value arguments to match
 	 *                         against each object. Default empty array.
@@ -522,7 +522,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	 * This method will implicitly build and use a `WP_List_Util` instance on the return
 	 * value of a call to the `all` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string|array $orderby       Optional. Either the field name to order by or an array
 	 *                                    of multiple orderby fields as $orderby => $order.
@@ -539,7 +539,7 @@ interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_In
 	/**
 	 * Builds a collection on the result of the `all()` method call.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return \Tribe__Utils__Post_Collection
 	 */

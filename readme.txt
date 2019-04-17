@@ -2,9 +2,25 @@
 
 == Changelog ==
 
-= [4.9.5] TBD =
+= [4.9.6] TBD =
 
+* Tweak - Allow for external modal control for modal button component [123818]
+* Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
+
+= [4.9.5] 2019-04-16 =
+
+* Feature - Include Freemius integration on our Common Libraries
+* Tweak - Improve Object Relation Mapping base repository and filter classes to support usage of events
+* Tweak - Modify `Date_Utils.php` and include one more way of building DateTime object with Timezone `build_date_object`
+* Tweak - Include Modern Tribe Context panel into the Debug Bar plugin
+* Tweak - Include `tribe_image_uploader_local_urls` filter to Image Uploader class
+* Tweak - Include `tribe_process_allow_nopriv_handling` for non-logged users, improving control for when async requests are fired
+* Tweak - Fork `WP_Background_Process` to `Tribe__Process__Handler` to allow for better maintenance internally by our team
+* Tweak - Included more Array handling methods: `recursive_ksort`, `add_prefixed_keys_to`, `flatten`, `filter_prefixed`, `add_unprefixed_keys_to`
 * Fix - Adjust `Tribe__Admin__Helpers::is_screen()` to avoid false positives and flag the events tag page as a Tribe screen [107413]
+* Fix - Improved the handling asyncronous requests for our Proccess Handler
+* Fix - Problems around Image asyncronous processing of thumbnail images not been set correctly
+* Fix - Multisite background processing saves options and progress to the correct table in the database
 
 = [4.9.4] 2019-04-01 =
 

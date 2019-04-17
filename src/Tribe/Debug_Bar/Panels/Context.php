@@ -4,7 +4,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * The Debug Bar panel that will display tribe context informations.
  *
- * @since TBD
+ * @since 4.9.5
  */
 
 class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
@@ -12,7 +12,7 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 	/**
 	 * Returns the Panel name.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param null $title The panel input title.
 	 *
@@ -25,7 +25,7 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 	/**
 	 * Renders the panel contents.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 */
 	public function render() {
 		$html = '<style>

@@ -35,11 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</h1>
 			<?php endif; ?>
 
-			<?php if ( $authorized ) : ?>
-				<h1 class="headline__large">
-					<?php esc_html_e( 'You\'re ready to begin using Promoter! Please close this window.', 'tribe-common' ); ?>
-				</h1>
-			<?php elseif ( ! $logged_in ) : ?>
+			<?php if ( ! $logged_in ) : ?>
 				<p>
 					<a href="<?php echo esc_url( wp_login_url( $_SERVER['REQUEST_URI'] ) ); ?>">
 						<?php esc_html_e( 'Please log in to continue', 'tribe-common' ); ?>  &raquo;
