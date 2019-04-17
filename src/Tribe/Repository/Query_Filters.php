@@ -758,7 +758,7 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @return string
 	 */
-	protected function create_interval_of_strings( $input ) {
+	public function create_interval_of_strings( $input ) {
 		$buffer = array();
 
 		/** @var wpdb $wpdb */
@@ -772,10 +772,10 @@ class Tribe__Repository__Query_Filters {
 
 		$safe_strings = array();
 		foreach ( $buffer as $raw_status ) {
-			$safe_strings[] = $wpdb->prepare( '%s', $string );
+			$safe_strings[] = $wpdb->prepare( '%s', $raw_status );
 		}
 
-		return implode( "''", $safe_strings );
+		return implode( ',', $safe_strings );
 	}
 
 	/**

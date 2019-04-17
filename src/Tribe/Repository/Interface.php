@@ -237,4 +237,33 @@ interface Tribe__Repository__Interface
 	 * @return array An array of hash data components.
 	 */
 	public function get_hash_data( array $settings, WP_Query $query = null );
+
+	/**
+	 * Returns the last built query from the repository instance.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Query|null The last built query instance if any.
+	 */
+	public function get_last_built_query();
+
+	/**
+	 * Builds, and adds to the query, a WHERE clause to the query on multiple fields.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $fields         The fields to add WHERE clauses for. The fields can be post fields, custom fields or
+	 *                               taxonomy terms.
+	 * @param string $compare        The comparison operator to use, e.g. 'LIKE' or '>'.
+	 * @param mixed  $value          The value, or values, to compare with; the format will be set depending on the type of
+	 *                               each value.
+	 * @param string $where_relation The relation to join the WHERE clauses with, either 'OR' or 'AND'; default to 'OR'.
+	 * @param string $value_relation The relation to join the value clauses in case the value is an array, either 'OR'
+	 *                               or 'AND'; defaults to 'OR'.
+	 *
+	 * @return $this This repository instance to allow chain calls.
+	 *
+	 * @throws \Tribe__Repository__Usage_Error If the comparison operator or the relation are not valid.
+	 */
+	public function where_multi( array $fields, $compare, $value, $where_relation = 'OR', $value_relation = 'OR' );
 }
