@@ -270,7 +270,7 @@ class Tribe__Utils__Array {
 	 *
 	 * The un-prefixing and duplication is recursive.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param mixed $array     The array whose keys should be duplicated.
 	 * @param bool  $recursive Whether the un-prefixing and duplication should be
@@ -305,7 +305,7 @@ class Tribe__Utils__Array {
 	 * Filters an associative array non-recursively, keeping only the values attached
 	 * to keys starting with the specified prefix.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $array The array to filter.
 	 * @param string $prefix The prefix, or prefixes, of the keys to keep.
@@ -333,7 +333,7 @@ class Tribe__Utils__Array {
 	 * Typical use case is to flatten arrays like those returned by `get_post_meta( $id )`.
 	 * Empty arrays are replaced with an empty string.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $array The array to flatten.
 	 *
@@ -367,7 +367,7 @@ class Tribe__Utils__Array {
 	 *
 	 * The prefixing and duplication is recursive.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param mixed $array     The array whose keys should be duplicated.
 	 * @param bool  $recursive Whether the prefixing and duplication should be
@@ -397,5 +397,24 @@ class Tribe__Utils__Array {
 		}
 
 		return array_merge( $array, $prefixed );
+	}
+
+	/**
+	 * Recursively key-sort an array.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array $array The array to sort, modified by reference.
+	 *
+	 * @return bool The sorting result.
+	 */
+	public static function recursive_ksort( array &$array ) {
+		foreach ( $array as &$value ) {
+			if ( is_array( $value ) ) {
+				static::recursive_ksort( $value );
+			}
+		}
+
+		return ksort( $array );
 	}
 }
