@@ -2,13 +2,13 @@
 /**
  * Class Tribe__Freemius
  *
- * @since TBD
+ * @since 4.9.5
  */
 class Tribe__Freemius {
 	/**
 	 * Store all instances of Freemius that we would use
 	 *
-	 * @since  TBD
+	 * @since  4.9.5
 	 *
 	 * @var  array
 	 */
@@ -18,7 +18,7 @@ class Tribe__Freemius {
 	 * Loading of the vendor files for Freemius vendor
 	 * Freemius class should only be loaded once since it will be registred as a Singleton
 	 *
-	 * @since  TBD
+	 * @since  4.9.5
 	 */
 	public function __construct() {
 		require_once Tribe__Main::instance()->plugin_path . 'vendor/freemius/start.php';
@@ -27,7 +27,7 @@ class Tribe__Freemius {
 	/**
 	 * Initialize the Fremius instance using their methods
 	 *
-	 * @since  TBD
+	 * @since  4.9.5
 	 *
 	 * @param  string $slug  Slug of the plugin
 	 * @param  string $id    ID in Freemius

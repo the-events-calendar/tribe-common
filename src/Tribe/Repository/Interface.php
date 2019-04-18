@@ -46,7 +46,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Returns the repository filter name.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return string
 	 */
@@ -196,7 +196,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Adds an entry to the repository filter schema.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
 	 *                           calls.
@@ -212,7 +212,7 @@ interface Tribe__Repository__Interface
 	 * The possibility to include the query in the hash generation is required as the query vars could
 	 * be further modified after the repository filters are applied and the query is built.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array          $settings An array of settings to define how the hash should be produced in the shape
 	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array
@@ -223,4 +223,18 @@ interface Tribe__Repository__Interface
 	 *
 	 */
 	public function hash( array $settings = [], WP_Query $query = null );
+
+	/**
+	 * Returns the data the repository would use to build the hash.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array          $settings An array of settings to define how the hash should be produced in the shape
+	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array
+	 *                                 will apply both to the Repository filters and the query vars.
+	 * @param WP_Query|null $query An optional query object to include in the hashing.
+	 *
+	 * @return array An array of hash data components.
+	 */
+	public function get_hash_data( array $settings, WP_Query $query = null );
 }
