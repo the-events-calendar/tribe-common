@@ -576,4 +576,20 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function get_hash_data( array $settings, WP_Query $query = null ) {
 		return $this->decorated->get_hash_data( $settings, $query );
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_last_built_query() {
+		return $this->decorated->last_built_query;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function where_multi( array $fields, $compare, $value, $where_relation = 'OR', $value_relation = 'OR' ) {
+		$this->decorated->where_multi( $fields, $compare, $value, $where_relation, $value_relation );
+
+		return $this;
+	}
 }
