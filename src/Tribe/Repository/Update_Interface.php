@@ -26,7 +26,7 @@ interface Tribe__Repository__Update_Interface extends Tribe__Repository__Setter_
 	/**
 	 * Adds an alias for an update/save field.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $alias The alias to add.
 	 * @param string $field_name The field name this alias should resolve to, this
@@ -38,7 +38,7 @@ interface Tribe__Repository__Update_Interface extends Tribe__Repository__Setter_
 	/**
 	 * Returns the update fields aliases for the repository.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return array This repository update fields aliases map.
 	 */
@@ -47,7 +47,7 @@ interface Tribe__Repository__Update_Interface extends Tribe__Repository__Setter_
 	/**
 	 * Replaces the update fields aliases for this repository.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $update_fields_aliases The new update fields aliases
 	 *                                     map for this repository.
@@ -60,7 +60,7 @@ interface Tribe__Repository__Update_Interface extends Tribe__Repository__Setter_
 	 * Extending classes that need to perform some logic checks during updates
 	 * should extend this method.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array    $postarr The post array that will be sent to the update callback.
 	 * @param int|null $post_id The ID  of the post that will be updated.
@@ -74,7 +74,7 @@ interface Tribe__Repository__Update_Interface extends Tribe__Repository__Setter_
 	 * Creates a post of the type managed by the repository with the fields
 	 * provided using the `set` or `set_args` methods.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return WP_Post|false The created post object or `false` if the creation
 	 *                       fails for logic or runtime issues.
@@ -85,7 +85,7 @@ interface Tribe__Repository__Update_Interface extends Tribe__Repository__Setter_
 	 * Builds the post array that should be used to update or create a post of
 	 * the type managed by the repository.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param int|null $id The post ID that's being updated or `null` to get the
 	 *                     post array for a new post.
@@ -104,7 +104,7 @@ interface Tribe__Repository__Update_Interface extends Tribe__Repository__Setter_
 	 * Extending classes that need to perform some logic checks during creations
 	 * should extend this method.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $postarr The post array that will be sent to the creation callback.
 	 *
@@ -116,7 +116,7 @@ interface Tribe__Repository__Update_Interface extends Tribe__Repository__Setter_
 	/**
 	 * Sets the create args the repository will use to create posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $create_args The create args the repository will use to create posts.
 	 */
@@ -125,7 +125,7 @@ interface Tribe__Repository__Update_Interface extends Tribe__Repository__Setter_
 	/**
 	 * Returns the create args the repository will use to create posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return array The create args the repository will use to create posts.
 	 */

@@ -4,7 +4,7 @@
  * Class Tribe__Process__Queue
  *
  * @since 4.7.12
- * @since TBD Removed dependency on `WP_Background_Process` class.
+ * @since 4.9.5 Removed dependency on `WP_Background_Process` class.
  *
  * The base class to process queues asynchronously.
  */
@@ -115,7 +115,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Tribe__Process__Queue constructor.
 	 *
 	 * @since 4.7.12
-	 * @since TBD Pulled method code from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled method code from the `WP_Background_Process` class.
 	 */
 	public function __construct() {
 		$class        = get_class( $this );
@@ -303,7 +303,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Upates the queue and meta data for the process.
 	 *
 	 * @since 4.7.12
-	 * @since TBD Pulled method from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled method from the `WP_Background_Process` class.
 	 *
 	 * @param string $key The key of the data to save.
 	 * @param array  $data The data to save.
@@ -526,7 +526,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * async requests in sync mode.
 	 *
 	 * @since 4.7.12
-	 * @since TBD Pulled method code from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled method code from the `WP_Background_Process` class.
 	 *
 	 * @return mixed
 	 */
@@ -617,7 +617,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	/**
 	 * Returns the queue action identifier.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
 	 * @return string The queue action identifier.
 	 */
@@ -629,7 +629,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Returns a batch of items to process from the queue.
 	 *
 	 * @since 4.7.12
-	 * @since TBD Pulled method code from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled method code from the `WP_Background_Process` class.
 	 *
 	 * @return stdClass The first batch of items from the queue.
 	 */
@@ -677,7 +677,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @param array|null $data_source An optional data source.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 */
 	public function maybe_handle( $data_source = null ) {
 		// Don't lock up other requests while processing
@@ -693,7 +693,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	/**
 	 * Push an item to the process queue.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
 	 * @param mixed $data An item to process.
 	 *
@@ -708,7 +708,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	/**
 	 * Maybe handle this process request in async mode.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 */
 	protected function maybe_handle_async() {
 		if ( $this->is_process_running() ) {
@@ -732,7 +732,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	/**
 	 * Handle the process request in sync mode.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 */
 	protected function maybe_handle_sync() {
 		if ( $this->is_process_running() ) {
@@ -753,7 +753,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	/**
 	 * Checks whether the queue is empty or not.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
 	 * @return bool Whether the queue is empty or not.
 	 */
@@ -774,7 +774,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	/**
 	 * Checks whether the process is currently running or not.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 */
 	protected function is_process_running() {
 		if ( get_transient( $this->identifier . '_process_lock' ) ) {
@@ -791,7 +791,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Override if applicable, but the duration should be greater than that
 	 * defined in the `time_exceeded()` method.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 */
 	protected function lock_process() {
 		// Set start time of current process.
@@ -804,7 +804,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 *
 		 * The lock duration should be larger than the maximum time a process is allowed to run.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int    $lock_duration The lock duration in seconds; defaults to one minute.
 		 * @param static $this          This process instance.
@@ -817,7 +817,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	/**
 	 * Releases the process lock so that other instances can spawn and run.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
 	 * @return $this This process instance.
 	 */
@@ -833,7 +833,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Pass each queue item to the task handler, while remaining
 	 * within server memory and time limit constraints.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
 	 * @param array|null $data_source Unused and kept for compatibility with parent; the queue
 	 *                                data is stored and read from the database.
@@ -894,7 +894,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Ensures the batch process never exceeds 90%
 	 * of the maximum WordPress memory.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
 	 * @return bool
 	 */
@@ -910,7 +910,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		/**
 		 * Filters whether the process did exceed the allowed memory limit or not.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool   $return Whether the process did exceed the allowed memory limit or not.
 		 * @param static $this   This process instance.
@@ -921,7 +921,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	/**
 	 * Returns the memory limit for this process.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
 	 * @return int The memory limit in bytes.
 	 */
@@ -947,7 +947,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Ensures the batch never exceeds a sensible time limit.
 	 * A timeout limit of 30s is common on shared hosting.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
 	 * @return bool Whether the execution time was exceeded or not.
 	 */
@@ -958,7 +958,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		 * We pick a safe default of 20 seconds but this value can be adjusted to suit the system
 		 * timeout settings.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int    $default_time_limit The time limit for the process.
 		 * @param static $this               This process instance.
@@ -975,7 +975,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		/**
 		 * Filters whether a process instance should be marked as having exceeded the time limit or not.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool   $return Whether the process did exceed the time limit or not.
 		 * @param static $this   This process instance.
@@ -989,7 +989,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Override if applicable, but ensure that the below actions are
 	 * performed, or, call parent::complete().
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 */
 	protected function complete() {
 		// Unschedule the cron health-check.
@@ -1001,7 +1001,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * Filters the `cron_schedules` filter to add a check every 5 minutes.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
 	 * @param mixed $schedules The cron schedules to check.
 	 *
@@ -1011,7 +1011,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		/**
 		 * Filters the number of minutes to schedule the cron health-check.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int    $interval The number of minutes to schedule the cron health-check; defaults to 5.
 		 * @param static $this     This process instance.
@@ -1033,7 +1033,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Restart the background process if not already running
 	 * and data exists in the queue.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 */
 	public function handle_cron_healthcheck() {
 		if ( $this->is_process_running() ) {
@@ -1055,7 +1055,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	/**
 	 * Schedules the cron health-check event.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 */
 	protected function schedule_event() {
 		if ( ! wp_next_scheduled( $this->healthcheck_cron_hook_id ) ) {
@@ -1066,7 +1066,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	/**
 	 * Clears the scheduled health-check cron event.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 */
 	protected function clear_scheduled_event() {
 		$timestamp = wp_next_scheduled( $this->healthcheck_cron_hook_id );
@@ -1081,7 +1081,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * Stops processing queue items and clean up.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 */
 	public function cancel_process() {
 		if ( ! $this->is_queue_empty() ) {
@@ -1102,7 +1102,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * in the next pass through. Or, return false to remove the
 	 * item from the queue.
 	 *
-	 * @since TBD Pulled from the `WP_Background_Process` class.
+	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 *
 	 * @param mixed $item Queue item to iterate over.
 	 *
@@ -1115,7 +1115,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * Just a proxy to the `sync_process` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array|null $data_source If not provided the method will read the handler data from the
 	 *                                request array.
