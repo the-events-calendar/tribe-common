@@ -8,20 +8,21 @@
 * Tweak - Allow for external modal control for modal button component [123818]
 * Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
 
-= [4.9.5] 2019-04-16 =
+= [4.9.5] 2019-04-17 =
 
-* Feature - Include Freemius integration on our Common Libraries
+* Feature - Include Freemius integration on our Common Libraries to enable information collection opt-in for some new users
 * Tweak - Improve Object Relation Mapping base repository and filter classes to support usage of events
-* Tweak - Modify `Date_Utils.php` and include one more way of building DateTime object with Timezone `build_date_object`
-* Tweak - Include Modern Tribe Context panel into the Debug Bar plugin
-* Tweak - Include `tribe_image_uploader_local_urls` filter to Image Uploader class
-* Tweak - Include `tribe_process_allow_nopriv_handling` for non-logged users, improving control for when async requests are fired
-* Tweak - Fork `WP_Background_Process` to `Tribe__Process__Handler` to allow for better maintenance internally by our team
-* Tweak - Included more Array handling methods: `recursive_ksort`, `add_prefixed_keys_to`, `flatten`, `filter_prefixed`, `add_unprefixed_keys_to`
-* Fix - Adjust `Tribe__Admin__Helpers::is_screen()` to avoid false positives and flag the events tag page as a Tribe screen [107413]
-* Fix - Improved the handling asyncronous requests for our Proccess Handler
-* Fix - Problems around Image asyncronous processing of thumbnail images not been set correctly
-* Fix - Multisite background processing saves options and progress to the correct table in the database
+* Tweak - Modify `Date_Utils.php` and include another way of building DateTime object with Timezone `build_date_object`
+* Tweak - Include Modern Tribe Context panel in the Debug Bar plugin
+* Tweak - Include the `tribe_image_uploader_local_urls` filter in Image Uploader class
+* Tweak - Include `tribe_process_allow_nopriv_handling` for non-logged users to improve control when async requests fire
+* Tweak - Fork `WP_Background_Process` to `Tribe__Process__Handler` to allow for better internal maintenance by our team
+* Tweak - Include more Array handling methods: `recursive_ksort`, `add_prefixed_keys_to`, `flatten`, `filter_prefixed`, `add_unprefixed_keys_to`
+* Fix - Adjust `Tribe__Admin__Helpers::is_screen()` to avoid false positives and flag the events menu Tags page as a Tribe screen [107413]
+* Fix - Improve the handling asyncronous requests for our Process Handler
+* Fix - Correct problems with image asyncronous processing of thumbnail images
+* Fix - Confirm that multisite background processing saves options and progress to the correct table in the database
+* Language - 8 new strings added, 25 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.4] 2019-04-01 =
 
