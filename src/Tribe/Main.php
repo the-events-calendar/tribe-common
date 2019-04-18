@@ -461,7 +461,7 @@ class Tribe__Main {
 	 * Helper function for getting Post ID. Accepts null or a Post ID. If attempting
 	 * to detect $post object and it is not found, returns false to avoid a PHP Notice.
 	 *
-	 * @param null|int|WP_Post $post
+	 * @param null|int|WP_Post $post Post ID or object.
 	 *
 	 * @return int|false
 	 */
