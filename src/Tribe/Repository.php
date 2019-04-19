@@ -1640,9 +1640,9 @@ abstract class Tribe__Repository
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
-	 * @param string      $meta_key The meta key to use for the meta lookup.
-	 * @param string|null $by       The ->by() lookup to use (defaults to meta_regexp_or_like).
+	 * @param string       $key      The filter key, the one that will be used in `by` and `where` calls.
+	 * @param string|array $meta_key The meta key(s) to use for the meta lookup.
+	 * @param string|null  $by       The ->by() lookup to use (defaults to meta_regexp_or_like).
 	 */
 	public function add_simple_meta_schema_entry( $key, $meta_key, $by = null ) {
 		$this->schema[ $key ] = array( $this, 'filter_by_simple_meta_schema' );
@@ -1658,9 +1658,9 @@ abstract class Tribe__Repository
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
-	 * @param string      $taxonomy The taxonomy to use for the tax lookup.
-	 * @param string|null $by       The ->by() lookup to use (defaults to term_in).
+	 * @param string       $key      The filter key, the one that will be used in `by` and `where` calls.
+	 * @param string|array $taxonomy The taxonomy/taxonomies to use for the tax lookup.
+	 * @param string|null  $by       The ->by() lookup to use (defaults to term_in).
 	 */
 	public function add_simple_tax_schema_entry( $key, $taxonomy, $by = null ) {
 		$this->schema[ $key ] = array( $this, 'filter_by_simple_tax_schema' );
@@ -3312,8 +3312,6 @@ abstract class Tribe__Repository
 		foreach ( $fields as $field ) {
 			if ( $this->is_a_post_field( $field ) ) {
 				$post_fields[] = $field;
-			} elseif ( $this->is_a_taxonomy( $field ) ) {
-				$taxonomies[] = $field;
 			} elseif ( array_key_exists( $field, $this->simple_tax_schema ) ) {
 				// Handle simple tax schema aliases.
 				$schema = $this->simple_tax_schema[ $field ]['taxonomy'];
@@ -3354,6 +3352,8 @@ abstract class Tribe__Repository
 				foreach ( $schema as $meta_key ) {
 					$custom_fields[] = $meta_key;
 				}
+			} elseif ( $this->is_a_taxonomy( $field ) ) {
+				$taxonomies[] = $field;
 			} else {
 				$custom_fields[] = $field;
 			}
