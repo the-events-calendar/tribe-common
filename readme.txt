@@ -4,7 +4,6 @@
 
 = [4.9.7] TBD =
 
-* Tweak - Make use of the Attendee ORM in Ticket object classes for RSVPs and Tribe Commerce and clean up duplicated logic [123468]
 * Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
 * Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
 
