@@ -65,6 +65,34 @@ class ReadQueryCacheTest extends ReadTestBase {
 	}
 
 	/**
+	 * It should requery when asking for posts a second time after flush
+	 *
+	 * @test
+	 */
+	public function should_requery_when_asking_for_posts_a_second_time_after_flush() {
+		$books = self::factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+		global $wpdb;
+		$start_count = $this->queries()->countQueries();
+		$repository = $this->repository();
+
+		$this->assertNull( $repository->get_last_built_query() );
+
+		$repository->all();
+
+		$this->queries()->assertCountQueries( $start_count + 1 );
+		$first_query = $repository->get_last_built_query();
+		$this->assertInstanceOf( \WP_Query::class, $first_query );
+
+		$repository->flush();
+
+		$repository->all();
+
+		$second_query = $repository->get_last_built_query();
+		$this->assertNotSame( $first_query, $second_query );
+		$this->queries()->assertCountQueries( $start_count + 2 );
+	}
+
+	/**
 	 * It should not rerun the query when getting all after ids
 	 *
 	 * @test
