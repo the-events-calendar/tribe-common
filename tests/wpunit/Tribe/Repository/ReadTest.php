@@ -349,6 +349,17 @@ class ReadTest extends ReadTestBase {
 		$repository = $this->repository();
 		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta', 'meta' );
 		$this->assertEquals( [], $repository->fields( 'ids' )->by( 'test_meta_schema', 'fo' )->all() );
+
+		// Test simple meta schema support with where_multi.
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta', 'meta' );
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema2', 'interval_meta', 'meta' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_meta_schema2' ], 'foo' )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta', 'meta' );
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema2', 'interval_meta', 'meta' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_meta_schema2' ], 'fo' )->all() );
 	}
 
 	/**
@@ -454,6 +465,26 @@ class ReadTest extends ReadTestBase {
 		$repository = $this->repository();
 		$repository->add_simple_tax_schema_entry( 'test_tax_term_and_schema', $tax, 'term_and' );
 		$this->assertEquals( [], $repository->fields( 'ids' )->by( 'test_tax_term_and_schema', [ $term_fiction->term_id, $term_history ] )->all() );
+
+		// Test simple tax schema with where_multi.
+
+		// Term ID
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_schema', $tax );
+		$repository->add_simple_tax_schema_entry( 'test_tax_category_schema', 'category' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_tax_schema', 'test_tax_category_schema' ], '=', $term_fiction->term_id )->all() );
+
+		// Term slug
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_schema', $tax );
+		$repository->add_simple_tax_schema_entry( 'test_tax_category_schema', 'category' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_tax_schema', 'test_tax_category_schema' ], '=', $term_fiction->slug )->all() );
+
+		// Term object
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_schema', $tax );
+		$repository->add_simple_tax_schema_entry( 'test_tax_category_schema', 'category' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_tax_schema', 'test_tax_category_schema' ], '=', $term_fiction )->all() );
 	}
 
 	/**
