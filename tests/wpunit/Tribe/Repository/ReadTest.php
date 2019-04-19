@@ -355,12 +355,20 @@ class ReadTest extends ReadTestBase {
 		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
 		$repository->add_simple_meta_schema_entry( 'test_other_meta_schema', 'interval_meta' );
 		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], 'LIKE', 'foo' )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$repository->add_simple_meta_schema_entry( 'test_other_meta_schema', 'interval_meta' );
 		$this->assertEquals( [], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], '=', 'food' )->all() );
 
 		$repository = $this->repository();
 		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
 		$repository->add_simple_meta_schema_entry( 'test_other_meta_schema', 'interval_meta' );
 		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], 'LIKE', 'fo' )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$repository->add_simple_meta_schema_entry( 'test_other_meta_schema', 'interval_meta' );
 		$this->assertEquals( [], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], '=', 'fun' )->all() );
 	}
 
