@@ -83,6 +83,32 @@ class ReadTest extends ReadTestBase {
 	}
 
 	/**
+	 * It should allow paginating results with found after query
+	 *
+	 * @test
+	 */
+	public function should_allow_paginating_results_with_found_after_query() {
+		$ids = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
+		update_option( 'posts_per_page', 2 );
+
+		$page_1 = $this->repository()
+		               ->per_page( 3 )
+		               ->page( 1 );
+
+		$this->assertCount( 3, $page_1->all() );
+		$this->assertEquals( 5, $page_1->found() );
+		$this->assertEquals( 3, $page_1->count() );
+
+		$page_2 = $this->repository()
+		               ->per_page( 3 )
+		               ->page( 2 );
+
+		$this->assertCount( 2, $page_2->all() );
+		$this->assertEquals( 5, $page_2->found() );
+		$this->assertEquals( 2, $page_2->count() );
+	}
+
+	/**
 	 * It should respect the fields setting
 	 *
 	 * @test
