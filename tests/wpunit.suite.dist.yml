@@ -2,6 +2,7 @@ class_name: WpunitTester
 modules:
     enabled:
         - \Helper\Wpunit
+        - WPQueries
         - WPLoader:
             wpRootFolder: %WP_ROOT_FOLDER%
             dbName: %TEST_DB_NAME%
