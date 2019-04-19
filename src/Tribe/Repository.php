@@ -610,8 +610,8 @@ abstract class Tribe__Repository
 			return (int) $query->found_posts;
 		}
 
-		$original_fields_value  = $query->get( 'fields', '' );
-		$original_no_found_rows = $query->get( 'no_found_rows', '' );
+		$original_fields_value  = $query->get( 'fields' );
+		$original_no_found_rows = $query->get( 'no_found_rows' );
 
 		$query->set( 'fields', 'ids' );
 		$query->set( 'no_found_rows', false );
