@@ -3491,6 +3491,8 @@ abstract class Tribe__Repository
 	 * Flush current filters and query information.
 	 *
 	 * @since TBD
+	 *
+	 * @return self
 	 */
 	public function flush() {
 		$this->current_query    = null;
@@ -3498,5 +3500,7 @@ abstract class Tribe__Repository
 		$this->current_filter   = null;
 		$this->last_built_query = null;
 		$this->last_built_hash  = '';
+
+		return $this;
 	}
 }
