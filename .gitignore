@@ -22,12 +22,12 @@ vendor/*
 !vendor/freemius
 !vendor/jquery-tribe-timepicker
 !vendor/firebase
-vendor/composer/composer/tests
-vendor/composer/composer/doc
-vendor/composer/composer/.github
+vendor/composer/autoload_files.php
 vendor/composer/ca-bundle
+vendor/composer/composer
 vendor/composer/semver
 vendor/composer/spdx-licenses
+vendor/composer/xdebug-handler
 !vendor/jquery
 !vendor/jquery-tribe-timepicker
 !vendor/lucatume/di52
