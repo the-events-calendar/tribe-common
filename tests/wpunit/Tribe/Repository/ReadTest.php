@@ -483,12 +483,6 @@ class ReadTest extends ReadTestBase {
 		$repository->add_simple_tax_schema_entry( 'test_tax_schema', $tax );
 		$repository->add_simple_tax_schema_entry( 'test_category_schema', 'category' );
 		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_tax_schema', 'test_category_schema' ], '=', $term_fiction->slug )->all() );
-
-		// Term ID
-		$repository = $this->repository();
-		$repository->add_simple_tax_schema_entry( 'test_tax_schema', $tax );
-		$repository->add_simple_tax_schema_entry( 'test_category_schema', 'category' );
-		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_tax_schema', 'test_category_schema' ], '=', $term_fiction->term_id )->all() );
 	}
 
 	/**
