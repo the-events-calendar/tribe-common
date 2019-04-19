@@ -352,14 +352,16 @@ class ReadTest extends ReadTestBase {
 
 		// Test simple meta schema support with where_multi.
 		$repository = $this->repository();
-		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta', 'meta' );
-		$repository->add_simple_meta_schema_entry( 'test_meta_schema2', 'interval_meta', 'meta' );
-		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_meta_schema2' ], 'foo' )->all() );
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$repository->add_simple_meta_schema_entry( 'test_other_meta_schema', 'interval_meta' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], 'foo' )->all() );
+		$this->assertEquals( [], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], 'food' )->all() );
 
 		$repository = $this->repository();
-		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta', 'meta' );
-		$repository->add_simple_meta_schema_entry( 'test_meta_schema2', 'interval_meta', 'meta' );
-		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_meta_schema2' ], 'fo' )->all() );
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$repository->add_simple_meta_schema_entry( 'test_other_meta_schema', 'interval_meta' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], 'fo' )->all() );
+		$this->assertEquals( [], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], 'fun' )->all() );
 	}
 
 	/**
