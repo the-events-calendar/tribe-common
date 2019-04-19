@@ -606,7 +606,7 @@ abstract class Tribe__Repository
 		$query = $this->build_query();
 
 		// The request property will be set during the `get_posts` method and empty before it.
-		if ( ! empty( $query->request ) && ( 0 < $query->found_posts || ! $this->skip_found_rows ) ) {
+		if ( ! empty( $query->request ) && ( $query->found_posts || ! $this->skip_found_rows ) ) {
 			return (int) $query->found_posts;
 		}
 
