@@ -3435,7 +3435,7 @@ abstract class Tribe__Repository
 
 			if ( 'AND' === $where_relation && 0 === count( $intersection ) ) {
 				// Let's not waste any more time.
-				$this->void_query;
+				$this->void_query = true;
 
 				return $this;
 			}
@@ -3483,6 +3483,23 @@ abstract class Tribe__Repository
 		}
 
 		$this->filter_query->where( implode( " {$where_relation} ", $wheres ) );
+
+		return $this;
+	}
+
+	/**
+	 * Flush current filters and query information.
+	 *
+	 * @since TBD
+	 *
+	 * @return self
+	 */
+	public function flush() {
+		$this->current_query    = null;
+		$this->current_filters  = [];
+		$this->current_filter   = null;
+		$this->last_built_query = null;
+		$this->last_built_hash  = '';
 
 		return $this;
 	}
