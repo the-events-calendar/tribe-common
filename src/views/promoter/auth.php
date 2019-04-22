@@ -6,7 +6,8 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/promoter/auth.php
  *
  * @package Tribe
- * @version 4.9
+ * @since   4.9
+ * @version 4.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

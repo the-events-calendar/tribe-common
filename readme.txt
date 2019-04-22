@@ -7,6 +7,8 @@
 * Tweak - Ability to use ->where_multi() in Tribe_Repository objects to search for text matches on multiple fields (supports post fields, terms, and meta values) [125878]
 * Tweak - Allow for external modal control for modal button component [123818]
 * Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
+* Tweak - Added filters: `tribe_common_log_to_wpcli`, `tribe_promoter_authorized_redirect_url`
+* Tweak - Changed views: `promoter/auth`
 
 = [4.9.5] 2019-04-17 =
 
