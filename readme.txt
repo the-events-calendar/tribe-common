@@ -9,6 +9,7 @@
 * Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
 * Tweak - Added filters: `tribe_common_log_to_wpcli`, `tribe_promoter_authorized_redirect_url`
 * Tweak - Changed views: `promoter/auth`
+* Language - 0 new strings added, 17 updated, 1 fuzzied, and 1 obsoleted
 
 = [4.9.5] 2019-04-17 =
 
