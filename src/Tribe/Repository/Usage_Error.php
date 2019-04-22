@@ -211,7 +211,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates that the client code is trying to use a comparison operator that is not valid..
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param string $operator The not supported comparison operator.
 	 *
@@ -224,7 +224,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates that the client code is trying to use a relation that is not valid..
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param string $relation The not supported relation.
 	 *

@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.6] TBD =
+= [4.9.6] 2019-04-22 =
 
 * Tweak - Ability to use ->where_multi() in Tribe_Repository objects to search for text matches on multiple fields (supports post fields, terms, and meta values) [125878]
 * Tweak - Allow for external modal control for modal button component [123818]

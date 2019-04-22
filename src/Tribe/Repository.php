@@ -3050,7 +3050,7 @@ abstract class Tribe__Repository
 	 *
 	 * Allowed values are 'OR' and 'AND'.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param string $relation The relation to check.
 	 *
@@ -3067,7 +3067,7 @@ abstract class Tribe__Repository
 	 *
 	 * If no leading and trailing `%` was found it will be added at the start and end of the string.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param string|array $value The string to prepare or an array of strings to prepare.
 	 *
@@ -3106,7 +3106,7 @@ abstract class Tribe__Repository
 	 *
 	 * This method is table-agnostic. While flexible it will also require some care to be used.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param string|array $fields  One or more fields to build the clause for.
 	 * @param string       $compare The comparison operator to use to build the
@@ -3167,7 +3167,7 @@ abstract class Tribe__Repository
 	 *
 	 * This should be used to break-down a query and fetch term IDs, to then use in a "lighter" join, later.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param string|array $taxonomy The taxonomy, or taxonomies, to fetch the terms for.
 	 * @param string $compare The comparison operator to use, e.g. 'LIKE' or '=>'.
