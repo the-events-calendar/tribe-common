@@ -22,7 +22,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 * it should be instantiatable
-	 * @since TBD
+	 * @since 4.9.6
 	 */
 	public function it_should_be_instantiatable() {
 		$helpers = $this->make_instance();
@@ -34,7 +34,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	 * Return instance
 	 *
 	 * @return Admin_Helpers
-	 * @since TBD
+	 * @since 4.9.6
 	 */
 	private function make_instance() {
 		return new Admin_Helpers();
@@ -43,7 +43,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check results for `is_post_type_screen` on the new event page
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 * @test
 	 */
 	public function is_post_type_tribe_events() {
@@ -70,7 +70,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check results for `is_post_type_screen` on the new venue page
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 * @test
 	 */
 	public function is_post_type_tribe_venue() {
@@ -97,7 +97,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check results for `is_post_type_screen` on the new organizers page
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 * @test
 	 */
 	public function is_post_type_tribe_organizer() {
@@ -124,7 +124,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check results for `is_screen` on the WP dashboard
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 * @test
 	 */
 	public function is_screen_dashboard_should_return_false() {
@@ -146,7 +146,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check results for `is_screen` on the settings page
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 * @test
 	 */
 	public function is_screen_tribe_settings_general() {
@@ -175,7 +175,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check results for `is_screen` on the aggregator page
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 * @test
 	 */
 	public function is_screen_tribe_aggregator() {
@@ -204,7 +204,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check results for `is_screen` on the help page
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 * @test
 	 */
 	public function is_screen_tribe_help() {
@@ -233,7 +233,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check results for `is_screen` on the app shop page
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 * @test
 	 */
 	public function is_screen_tribe_app_shop() {
@@ -262,7 +262,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check results for `is_screen` on the tags page
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 * @test
 	 */
 	public function is_screen_tribe_events_post_tag() {
@@ -292,7 +292,7 @@ class AdminHelpersTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check results for `is_screen` on the categories page
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 * @test
 	 */
 	public function is_screen_tribe_events_cat() {

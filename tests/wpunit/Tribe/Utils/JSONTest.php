@@ -163,7 +163,7 @@ class JSONTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test It should not modify a passed int.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @testWith [ 666 ]
 	 *           [ 1 ]
@@ -179,7 +179,7 @@ class JSONTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test It should should escape naughty strings.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @dataProvider naughty_strings
 	 */

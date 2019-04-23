@@ -9,12 +9,6 @@ import React from 'react';
  */
 import { withStore } from '@moderntribe/common/hoc';
 
-jest.mock( '@moderntribe/events/data', () => ( {
-	getStore() {
-		return {};
-	},
-} ) );
-
 describe( 'HOC - With Store', () => {
 	it( 'Should add the store property', () => {
 		const Block = ( props ) => <div { ...props } />;
