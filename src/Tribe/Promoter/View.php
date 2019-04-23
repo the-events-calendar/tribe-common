@@ -30,7 +30,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 	/**
 	 * Get the redirect URL for finishing onboarding
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @return string Redirect URL for completing onboarding.
 	 */
@@ -44,7 +44,7 @@ class Tribe__Promoter__View extends Tribe__Template {
 		/**
 		 * The url for redirecting in order to complete onboarding
 		 *
-		 * @since TBD
+		 * @since 4.9.6
 		 *
 		 * @param string $url Redirect URL.
 		 */

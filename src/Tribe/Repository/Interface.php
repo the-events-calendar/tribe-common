@@ -241,7 +241,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Returns the last built query from the repository instance.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @return WP_Query|null The last built query instance if any.
 	 */
@@ -250,7 +250,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Builds, and adds to the query, a WHERE clause to the query on multiple fields.
 	 *
-	 * @since TBD
+	 * @since 4.9.6
 	 *
 	 * @param array  $fields         The fields to add WHERE clauses for. The fields can be post fields, custom fields or
 	 *                               taxonomy terms.
