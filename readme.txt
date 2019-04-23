@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.6] 2019-04-22 =
+= [4.9.6] 2019-04-23 =
 
 * Tweak - Ability to use ->where_multi() in Tribe_Repository objects to search for text matches on multiple fields (supports post fields, terms, and meta values) [125878]
 * Tweak - Allow for external modal control for modal button component [123818]
@@ -22,8 +22,8 @@
 * Tweak - Fork `WP_Background_Process` to `Tribe__Process__Handler` to allow for better internal maintenance by our team
 * Tweak - Include more Array handling methods: `recursive_ksort`, `add_prefixed_keys_to`, `flatten`, `filter_prefixed`, `add_unprefixed_keys_to`
 * Fix - Adjust `Tribe__Admin__Helpers::is_screen()` to avoid false positives and flag the events menu Tags page as a Tribe screen [107413]
-* Fix - Improve the handling asyncronous requests for our Process Handler
-* Fix - Correct problems with image asyncronous processing of thumbnail images
+* Fix - Improve the handling asynchronous requests for our Process Handler
+* Fix - Correct problems with image asynchronous processing of thumbnail images
 * Fix - Confirm that multisite background processing saves options and progress to the correct table in the database
 * Language - 8 new strings added, 25 updated, 1 fuzzied, and 0 obsoleted
 
