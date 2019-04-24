@@ -62,7 +62,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		];
 
 		foreach ( $post_fields as $post_field => $value ) {
-			$this->repository()->where( 'post__in', $ids )->set( $post_field, $value )->save();
+			$this->repository()->where( 'post__in', $ids )->where( 'status', 'any' )->set( $post_field, $value )->save();
 
 			foreach ( $ids as $id ) {
 				clean_post_cache( $id );
@@ -142,7 +142,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		];
 
 		foreach ( $post_fields as $post_field => $value ) {
-			$this->repository()->where( 'post__in', $ids )->set( $post_field, $value )->save();
+			$this->repository()->where( 'post__in', $ids )->where( 'status' , 'any' )->set( $post_field, $value )->save();
 
 			foreach ( $ids as $id ) {
 				clean_post_cache( $id );

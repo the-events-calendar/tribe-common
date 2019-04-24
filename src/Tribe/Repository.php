@@ -2929,7 +2929,11 @@ abstract class Tribe__Repository
 		 */
 		$query_args = array_merge( $this->default_args, $this->query_args );
 
-		$default_post_status = current_user_can( 'read_private_posts' ) ? 'any' : '';
+		$default_post_status = [ 'publish' ];
+		if ( current_user_can( 'read_private_posts' ) ) {
+			$default_post_status[] = 'private';
+		}
+
 		$query_args['post_status'] = Tribe__Utils__Array::get( $query_args, 'post_status', $default_post_status );
 
 		/**
