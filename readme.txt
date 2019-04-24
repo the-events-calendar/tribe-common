@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.9.5.1] 2019-04-24 =
+
+* Fix - Switch from using `any` to `[ 'publish', 'private' ]` for `post_status` on any Object Relational Mapping queries [126377]
+* Tweak - Include `tribe_common_log_to_wpcli` filter for allowing Debug logging into WP-CLI
+
 = [4.9.5] 2019-04-17 =
 
 * Feature - Include Freemius integration on our Common Libraries to enable information collection opt-in for some new users

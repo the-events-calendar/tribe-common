@@ -176,7 +176,7 @@ class Tribe__Log {
 		/**
 		 * Whether to log the message to wp-cli, if available, or not.
 		 *
-		 * @since TBD
+		 * @since 4.9.5.1
 		 *
 		 * @param bool $log_to_wpcli Whether to log to wp-cli, if available, or not.
 		 * @param string $entry The message entry.
