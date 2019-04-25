@@ -1,0 +1,34 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Button: Icon
+ *
+ * Example:
+ * <button class="tribe-common-c-btn-icon svgicon svgicon--filter">...</button>
+ * <a href="#" class="tribe-common-c-btn-icon svgicon svgicon--filter">...</a>
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-common-c-btn-icon {
+	@mixin button-global;
+}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Button: Icon Border
+ *
+ * Example:
+ * <button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border svgicon svgicon--filter">...</button>
+ * <a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border svgicon svgicon--filter">...</a>
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-common-c-btn-icon--border {
+	@mixin button-border;
+
+	align-items: center;
+	display: inline-flex;
+	height: 56px;
+	justify-content: center;
+	transition: none;
+	width: 56px;
+}
