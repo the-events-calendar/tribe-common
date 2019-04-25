@@ -5,6 +5,7 @@
  = [4.9.6.1] 2019-04-25 =
 
 * Fix - Switch from using `any` to `[ 'publish', 'private' ]` for `post_status` on any Object Relational Mapping queries [126377]
+* Fix - Resolve ORM Decorator issues that could cause fatal errors when calling methods not defined in the extending class
 
 = [4.9.6] 2019-04-23 =
 
