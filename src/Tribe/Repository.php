@@ -1,7 +1,5 @@
 <?php
 
-use Tribe__Utils__Array as Arr;
-
 abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
 
@@ -218,6 +216,14 @@ abstract class Tribe__Repository
 	);
 
 	/**
+	 * A counter to keep track, on the class level, of the aliases generated for the terms table
+	 * while building multi queries.
+	 *
+	 * @var int
+	 */
+	protected static $alias_counter = 1;
+
+	/**
 	 * @var string
 	 */
 	protected $filter_name = 'default';
@@ -387,6 +393,13 @@ abstract class Tribe__Repository
 	 * @var string
 	 */
 	protected $render_context = 'default';
+
+	/**
+	 * The query last built from the repository instance.
+	 *
+	 * @var WP_Query|null
+	 */
+	protected $last_built_query;
 
 	/**
 	 * Tribe__Repository constructor.
@@ -1253,7 +1266,10 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function get_query() {
-		return $this->build_query();
+		$built = $this->build_query();
+		$this->last_built_query = $built;
+
+		return $built;
 	}
 
 	/**
@@ -3024,5 +3040,327 @@ abstract class Tribe__Repository
 		Arr::recursive_ksort( $query_vars );
 
 		return [ 'filters' => $filters, 'query_vars' => $query_vars ];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_last_built_query() {
+		return $this->last_built_query;
+	}
+
+	/**
+	 * Checks a SQL relation is valid.
+	 *
+	 * Allowed values are 'OR' and 'AND'.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string $relation The relation to check.
+	 *
+	 * @throws \Tribe__Repository__Usage_Error If the relation is not a valid one.
+	 */
+	protected function validate_relation( $relation ) {
+		if ( ! in_array( $relation, [ 'OR', 'AND' ], true ) ) {
+			throw Tribe__Repository__Usage_Error::because_this_relation_is_not_valid( $relation );
+		}
+	}
+
+	/**
+	 * Sanitizes and prepares string to be used in a LIKE comparison.
+	 *
+	 * If no leading and trailing `%` was found it will be added at the start and end of the string.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string|array $value The string to prepare or an array of strings to prepare.
+	 *
+	 * @return string|array The sanitized string, or strings.
+	 */
+	protected function prepare_like_string( $value ){
+		$original_value = $value;
+		$values = (array) $value;
+		$prepared = [];
+		$pattern = '/^(?<pre>%{0,1})(?<string>.*?)(?<post>%{0,1})$/u';
+
+		global $wpdb;
+
+		foreach ( $values as $v ) {
+			preg_match( $pattern, $v, $matches );
+			$pre = $matches['pre'] ?: '';
+			$post = $matches['post'] ?: '';
+			$string = $wpdb->esc_like( $matches['string'] );
+
+			if ( '' === $pre && '' === $post ) {
+				// If the string does not contain any starting and ending placeholder we'll add all combinations.
+				$prepared[] = '%' . $string;
+				$prepared[] = $string . '%';
+				$prepared[] = $string;
+				$pre = $post = '%';
+			}
+
+			$prepared[] = $pre . $string . $post;
+		}
+
+		return is_array( $original_value ) ? $prepared : reset( $prepared );
+	}
+
+	/**
+	 * Builds the WHERE clause for a set of fields.
+	 *
+	 * This method is table-agnostic. While flexible it will also require some care to be used.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string|array $fields  One or more fields to build the clause for.
+	 * @param string       $compare The comparison operator to use to build the
+	 * @param string|array $values One or more values to build the WHERE clause for.
+	 * @param string       $value_format The format, a `$wpdb::prepare()` compatible one, to use to format the values.
+	 * @param string       $where_relation The relation to apply between each WHERE fragment.
+	 * @param string       $value_relation The relation to apply between each value fragment.
+	 *
+	 * @return string The built WHERE clause.
+	 *
+	 * @throws \Tribe__Repository__Usage_Error If the relations are not valid or another WHERE building issue happens.
+	 */
+	protected function build_fields_where_clause(
+		$fields,
+		$compare,
+		$values,
+		$value_format = '%s',
+		$where_relation = 'OR',
+		$value_relation = 'OR'
+	) {
+		$this->validate_relation( $where_relation );
+		$this->validate_relation( $value_relation );
+		global $wpdb;
+		$fields_where_clauses = [];
+		$fields = (array) $fields;
+		$values = (array) $values;
+		foreach ( $fields as $field ) {
+			$value_clauses = [];
+			foreach ( $values as $compare_value ) {
+				if ( ! is_array( $compare_value ) || count( $compare_value ) === 1 ) {
+					$value_clauses[] = $wpdb->prepare(
+						"({$field} {$compare} {$value_format})",
+						$compare_value
+					);
+				} else {
+					$value_format = implode(
+						',',
+						array_fill( 0, count( $compare_value ), $value_format )
+					);
+					$value_clauses[] = $wpdb->prepare(
+						"({$field} {$compare} ({$value_format}))",
+						$compare_value
+					);
+				}
+			}
+			$fields_where_clauses[] = '(' . implode( " {$value_relation} ", $value_clauses ) . ')';
+		}
+
+		$fields_where = $wpdb->remove_placeholder_escape(
+			implode( " {$where_relation} ", $fields_where_clauses )
+		);
+
+		return $fields_where;
+	}
+
+	/**
+	 * Returns the term IDs of terms matching a criteria, the match is made on the terms slug and name.
+	 *
+	 * This should be used to break-down a query and fetch term IDs, to then use in a "lighter" join, later.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string|array $taxonomy The taxonomy, or taxonomies, to fetch the terms for.
+	 * @param string $compare The comparison operator to use, e.g. 'LIKE' or '=>'.
+	 * @param string|array $value An array of values to compare the terms slug or names with.
+	 * @param string $relation The relation, either 'OR' or 'AND', to apply to the matching.
+	 * @param string $format The format, a `$wpdb::prepare()` supported one, to use to format the values for the query.
+	 *
+	 * @return array An array of term IDs matching the query, if any.
+	 */
+	protected function fetch_taxonomy_terms_matches( $taxonomy, $compare, $value, $relation = 'OR', $format= '%s' ) {
+		global $wpdb;
+		$taxonomies = (array) $taxonomy;
+		$values = (array) $value;
+
+		$compare_target = count( $values ) > 1
+			? '(' . $this->filter_query->create_interval_of_strings( $values ) . ')'
+			: $wpdb->prepare( $format, reset( $values ) );
+
+		$taxonomies_interval = $this->filter_query->create_interval_of_strings( $taxonomies );
+
+		$query = "SELECT  tt.term_taxonomy_id FROM {$wpdb->terms} AS t
+			INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
+			WHERE tt.taxonomy IN ({$taxonomies_interval}) AND 
+			( t.slug {$compare} {$compare_target} {$relation} t.name {$compare} {$compare_target} )";
+
+		return $wpdb->get_col( $wpdb->remove_placeholder_escape( $query ) );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function where_multi( array $fields, $compare, $value, $where_relation = 'OR', $value_relation = 'OR' ) {
+		$compare = strtoupper( trim( $compare ) );
+
+		// Check each value is compatible with the comparison operator.
+		$values = (array) $value;
+		foreach ( $values as $v ) {
+			$this->validate_operator_and_values( $compare, 'where_multi', $v );
+		}
+
+		global $wpdb;
+
+		if ( in_array( $compare, [ 'LIKE', 'NOT LIKE' ], true ) ) {
+			$values = $this->prepare_like_string( $values );
+		}
+
+		$where_relation = strtoupper( trim( $where_relation ) );
+		$this->validate_relation( $where_relation );
+		$value_relation = strtoupper( trim( $value_relation ) );
+		$this->validate_relation( $value_relation );
+
+		$post_fields = [];
+		$taxonomies = [];
+
+		foreach ( $fields as $field ) {
+			if ( $this->is_a_post_field( $field ) ) {
+				$post_fields[] = $field;
+			} elseif ( $this->is_a_taxonomy( $field ) ) {
+				$taxonomies[] = $field;
+			} else {
+				$custom_fields[] = $field;
+			}
+		}
+
+		$value_formats = [];
+
+		foreach ( $values as $v ) {
+			$value_format = '%d';
+			if ( is_string( $v ) ) {
+				$value_format = '%s';
+			} elseif ( (int) $v !== (float) $v ) {
+				$value_format = '%f';
+			}
+			$value_formats[] = $value_format;
+		}
+
+		// If the value formats differ then treat all of them as strings.
+		if ( count( array_unique( $value_formats ) ) > 1 ) {
+			$value_format = '%s';
+		} else {
+			$value_format = reset( $value_formats );
+		}
+
+		$where= [];
+
+		if ( ! empty( $post_fields ) ) {
+			$post_fields = array_map( static function ( $post_field ) use ( $wpdb ) {
+				return "{$wpdb->posts}.$post_field";
+			}, $post_fields );
+
+			$post_fields_where = $this->build_fields_where_clause(
+				$post_fields,
+				$compare,
+				$values,
+				$value_format,
+				$where_relation,
+				$value_relation
+			);
+
+			$wheres[] = $post_fields_where;
+		}
+
+		if ( ! empty( $taxonomies ) ) {
+			$all_matching_term_ids = [];
+			$taxonomy_values = $values;
+
+			if ( in_array( $compare, [ 'IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN' ], true ) ) {
+				// We can use multiple values in the same query.
+				$taxonomy_values = [ $values ];
+			}
+
+			foreach ( $taxonomy_values as $taxonomy_value ){
+				$matching_term_ids = $this->fetch_taxonomy_terms_matches(
+					$taxonomies,
+					$compare,
+					$taxonomy_value,
+					$where_relation,
+					$value_format
+				);
+
+				if ( empty( $matching_term_ids ) ) {
+					if ( 'AND' === $value_relation ) {
+						// No reason to waste any more time.
+						$this->void_query = true;
+
+						return $this;
+					}
+
+					continue;
+				}
+
+				$all_matching_term_ids[] = $matching_term_ids;
+			}
+
+			$intersection = count( $all_matching_term_ids ) > 1
+				? array_intersect( ...$all_matching_term_ids )
+				: reset( $all_matching_term_ids );
+
+			if ( 'AND' === $where_relation && 0 === count( $intersection ) ) {
+				// Let's not waste any more time.
+				$this->void_query;
+
+				return $this;
+			}
+
+			$merge = count( $all_matching_term_ids ) > 1
+				? array_unique( array_merge( ...$all_matching_term_ids ) )
+				: (array) reset( $all_matching_term_ids );
+			$matching_term_ids = $where_relation === 'OR' ? array_filter( $merge ) : array_filter( $intersection );
+
+			if ( 'AND' === $where_relation || ! empty( $matching_term_ids ) ) {
+				// Let's not add WHERE and JOIN clauses if there is nothing to add.
+				$tt_alias = 'tribe_tt_' . self::$alias_counter ++;
+				$this->filter_query->join(
+					"JOIN {$wpdb->term_relationships} {$tt_alias} ON {$wpdb->posts}.ID = {$tt_alias}.object_id"
+				);
+				$matching_term_ids_interval = implode( ',', $matching_term_ids );
+				$wheres[] = "{$tt_alias}.term_taxonomy_id IN ({$matching_term_ids_interval})";
+			}
+		}
+
+		if ( ! empty( $custom_fields ) ) {
+			$meta_alias = 'tribe_meta_' . self::$alias_counter ++;
+
+			$custom_fields = array_map( static function ( $custom_field ) use ( $wpdb, $meta_alias ) {
+				return $wpdb->prepare(
+					"{$meta_alias}.meta_key = %s AND {$meta_alias}.meta_value",
+					$custom_field
+				);
+			}, $custom_fields );
+
+			$meta_where = $this->build_fields_where_clause(
+				$custom_fields,
+				$compare,
+				$values,
+				$value_format,
+				$where_relation,
+				$value_relation
+			);
+
+			$this->filter_query->join(
+				"JOIN {$wpdb->postmeta} {$meta_alias} ON {$wpdb->posts}.ID = {$meta_alias}.post_id"
+			);
+
+			$wheres[] = $meta_where;
+		}
+
+		$this->filter_query->where( implode( " {$where_relation} ", $wheres ) );
+
+		return $this;
 	}
 }
