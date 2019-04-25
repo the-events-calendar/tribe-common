@@ -21,60 +21,8 @@
 	@mixin button-global;
 
 	color: var(--color-background);
-	padding: 16px 22px 17px;
 	text-align: center;
 	transition: var(--transition-background-color);
-}
-
-/* -----------------------------------------------------------------------------
- * Button - Primary
- * ----------------------------------------------------------------------------- */
-
-@define-mixin button-primary {
-	@mixin button-solid;
-
-	background-color: var(--color-accent-primary);
-
-	&:focus,
-	&:hover {
-		background-color: var(--color-accent-primary-hover);
-	}
-
-	&:active {
-		background-color: var(--color-accent-primary-active);
-	}
-
-	&:disabled {
-		background-color: var(--color-accent-primary-background);
-	}
-}
-
-/* -----------------------------------------------------------------------------
- * Button - Secondary
- * ----------------------------------------------------------------------------- */
-
-@define-mixin button-secondary {
-	@mixin button-solid;
-
-	background-color: var(--color-accent-secondary);
-	width: 100%;
-
-	@media (--viewport-medium) {
-		width: auto;
-	}
-
-	&:focus,
-	&:hover {
-		background-color: var(--color-accent-secondary-hover);
-	}
-
-	&:active {
-		background-color: var(--color-accent-secondary-active);
-	}
-
-	&:disabled {
-		background-color: var(--color-accent-secondary-background);
-	}
 }
 
 /* -----------------------------------------------------------------------------
