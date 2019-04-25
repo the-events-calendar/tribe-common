@@ -600,25 +600,25 @@ class ReadTest extends ReadTestBase {
 		$this->assertEquals( [
 			$recent_post,
 			$future_post,
-		], $this->repository()->fields( 'ids' )->by( 'date', $date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'date', $date )->by( 'post_status', 'any' )->all() );
 		$this->assertEquals( [
 			$recent_post,
 			$future_post,
-		], $this->repository()->fields( 'ids' )->by( 'after_date', $string_date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'after_date', $string_date )->by( 'post_status', 'any' )->all() );
 		$this->assertEquals( [
 			$past_post,
-		], $this->repository()->fields( 'ids' )->by( 'before_date', $date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'before_date', $date )->by( 'post_status', 'any' )->all() );
 		$this->assertEquals( [
 			$recent_post,
 			$future_post,
-		], $this->repository()->fields( 'ids' )->by( 'date_gmt', $string_date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'date_gmt', $string_date )->by( 'post_status', 'any' )->all() );
 		$this->assertEquals( [
 			$recent_post,
 			$future_post,
-		], $this->repository()->fields( 'ids' )->by( 'after_date_gmt', $date_gmt )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'after_date_gmt', $date_gmt )->by( 'post_status', 'any' )->all() );
 		$this->assertEquals( [
 			$past_post,
-		], $this->repository()->fields( 'ids' )->by( 'before_date_gmt', $string_date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'before_date_gmt', $string_date )->by( 'post_status', 'any' )->all() );
 	}
 
 	/**

@@ -2945,7 +2945,11 @@ abstract class Tribe__Repository
 		 */
 		$query_args = array_merge( $this->default_args, $this->query_args );
 
-		$default_post_status = current_user_can( 'read_private_posts' ) ? 'any' : '';
+		$default_post_status = [ 'publish' ];
+		if ( current_user_can( 'read_private_posts' ) ) {
+			$default_post_status[] = 'private';
+		}
+
 		$query_args['post_status'] = Tribe__Utils__Array::get( $query_args, 'post_status', $default_post_status );
 
 		/**
@@ -3032,8 +3036,8 @@ abstract class Tribe__Repository
 			);
 		}
 
-		Arr::recursive_ksort( $filters );
-		Arr::recursive_ksort( $query_vars );
+		Tribe__Utils__Array::recursive_ksort( $filters );
+		Tribe__Utils__Array::recursive_ksort( $query_vars );
 
 		return [ 'filters' => $filters, 'query_vars' => $query_vars ];
 	}
@@ -3073,7 +3077,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return string|array The sanitized string, or strings.
 	 */
-	protected function prepare_like_string( $value ){
+	protected function prepare_like_string( $value ) {
 		$original_value = $value;
 		$values = (array) $value;
 		$prepared = [];
@@ -3177,7 +3181,7 @@ abstract class Tribe__Repository
 	 *
 	 * @return array An array of term IDs matching the query, if any.
 	 */
-	protected function fetch_taxonomy_terms_matches( $taxonomy, $compare, $value, $relation = 'OR', $format= '%s' ) {
+	protected function fetch_taxonomy_terms_matches( $taxonomy, $compare, $value, $relation = 'OR', $format = '%s' ) {
 		global $wpdb;
 		$taxonomies = (array) $taxonomy;
 		$values = (array) $value;
@@ -3190,7 +3194,7 @@ abstract class Tribe__Repository
 
 		$query = "SELECT  tt.term_taxonomy_id FROM {$wpdb->terms} AS t
 			INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
-			WHERE tt.taxonomy IN ({$taxonomies_interval}) AND 
+			WHERE tt.taxonomy IN ({$taxonomies_interval}) AND
 			( t.slug {$compare} {$compare_target} {$relation} t.name {$compare} {$compare_target} )";
 
 		return $wpdb->get_col( $wpdb->remove_placeholder_escape( $query ) );
@@ -3251,7 +3255,7 @@ abstract class Tribe__Repository
 			$value_format = reset( $value_formats );
 		}
 
-		$where= [];
+		$where = [];
 
 		if ( ! empty( $post_fields ) ) {
 			$post_fields = array_map( static function ( $post_field ) use ( $wpdb ) {
