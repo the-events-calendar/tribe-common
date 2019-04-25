@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.5.1] 2019-04-24 =
+= [4.9.5.1] 2019-04-25 =
 
 * Fix - Switch from using `any` to `[ 'publish', 'private' ]` for `post_status` on any Object Relational Mapping queries [126377]
 * Tweak - Include `tribe_common_log_to_wpcli` filter for allowing Debug logging into WP-CLI
