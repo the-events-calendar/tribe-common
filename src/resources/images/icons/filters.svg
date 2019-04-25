@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="20px" viewBox="0 0 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Icon/Filters:Press</title>
+    <desc>Created with Sketch.</desc>
+    <g id="00.Design-System" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Design-System---Base-Design-System" transform="translate(-331.000000, -4484.000000)">
+            <g id="Icons" transform="translate(133.000000, 4408.000000)">
+                <g id="Icon/Filters:Press" transform="translate(199.000000, 76.000000)">
+                    <path d="M0,16.75 L22,16.9821429" id="Line-2" stroke="#141827" stroke-width="1.5" stroke-linecap="square"></path>
+                    <path d="M0,9.75 L22,9.98214286" id="Line-2" stroke="#141827" stroke-width="1.5" stroke-linecap="square"></path>
+                    <path d="M0,2.75 L22,2.98214286" id="Line-2" stroke="#141827" stroke-width="1.5" stroke-linecap="square"></path>
+                    <path d="M6,6 C7.65685425,6 9,4.65685425 9,3 C9,1.34314575 7.65685425,0 6,0 C4.34314575,0 3,1.34314575 3,3 C3,4.65685425 4.34314575,6 6,6 Z" id="Oval" fill="#141827" fill-rule="evenodd"></path>
+                    <path d="M6,20 C7.65685425,20 9,18.6568542 9,17 C9,15.3431458 7.65685425,14 6,14 C4.34314575,14 3,15.3431458 3,17 C3,18.6568542 4.34314575,20 6,20 Z" id="Oval-Copy-2" fill="#141827" fill-rule="evenodd"></path>
+                    <path d="M16,13 C17.6568542,13 19,11.6568542 19,10 C19,8.34314575 17.6568542,7 16,7 C14.3431458,7 13,8.34314575 13,10 C13,11.6568542 14.3431458,13 16,13 Z" id="Oval-Copy" fill="#141827" fill-rule="evenodd"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
