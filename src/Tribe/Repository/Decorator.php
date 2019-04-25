@@ -592,4 +592,56 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 
 		return $this;
 	}
+
+	/**
+	 * Handle getting additional property from decorated object.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name Property name.
+	 *
+	 * @return mixed
+	 */
+	public function __get( $name ) {
+		return $this->decorated->{$name};
+	}
+
+	/**
+	 * Handle setting additional property on decorated object.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name  Property name.
+	 * @param mixed  $value Property value.
+	 */
+	public function __set( $name, $value ) {
+		$this->decorated->{$name} = $value;
+	}
+
+	/**
+	 * Check if additional property on decorated object exists.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name Property name.
+	 *
+	 * @return bool
+	 */
+	public function __isset( $name ) {
+		return isset( $this->decorated->{$name} );
+	}
+
+	/**
+	 * Call methods on decorated object.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name      Method name.
+	 * @param array  $arguments Method arguments.
+	 *
+	 * @return mixed
+	 */
+	public function __call( $name, $arguments ) {
+		return call_user_func_array( [ $this->decorated, $name ], $arguments );
+	}
 }
