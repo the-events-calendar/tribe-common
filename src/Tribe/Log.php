@@ -173,8 +173,20 @@ class Tribe__Log {
 			$this->get_current_logger()->log( $entry, $type, $src );
 		}
 
-		// Only go further if we have WP_CLI
-		if ( ! class_exists( 'WP_CLI' ) ) {
+		/**
+		 * Whether to log the message to wp-cli, if available, or not.
+		 *
+		 * @since 4.9.6
+		 *
+		 * @param bool $log_to_wpcli Whether to log to wp-cli, if available, or not.
+		 * @param string $entry The message entry.
+		 * @param string $type  The message type.
+		 * @param string $src   The message source.
+		 */
+		$log_to_wpcli = apply_filters( 'tribe_common_log_to_wpcli', true, $entry, $type, $src );
+
+		// Only go further if we have WP_CLI or if we want to log to WP-CLI.
+		if ( ! class_exists( 'WP_CLI' ) || false === $log_to_wpcli ) {
 			return false;
 		}
 

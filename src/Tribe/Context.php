@@ -94,11 +94,15 @@ class Tribe__Context {
 			'read' => [
 				self::REQUEST_VAR => 'tribe_view',
 				self::QUERY_VAR   => 'tribe_view',
+				self::REQUEST_VAR => 'tribe_event_display',
+				self::QUERY_VAR   => 'eventDisplay',
 				self::TRIBE_OPTION => 'viewOption',
 			],
 			'write' => [
 				self::REQUEST_VAR => 'tribe_view',
 				self::QUERY_VAR   => 'tribe_view',
+				self::REQUEST_VAR => 'tribe_event_display',
+				self::QUERY_VAR   => 'eventDisplay',
 			],
 		],
 		'view_data' => [
