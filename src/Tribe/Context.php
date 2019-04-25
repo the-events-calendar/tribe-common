@@ -6,8 +6,7 @@
  * @since 4.7.7
  * @since 4.9.5 Made the context immutable.
  */
-class
-Tribe__Context {
+class Tribe__Context {
 
 	const NOT_FOUND = '__not_found__';
 
@@ -70,28 +69,49 @@ Tribe__Context {
 	 *
 	 * @var array
 	 */
-	protected static $locations = array(
-		'posts_per_page' => array(
-			'read' => array(
+	protected static $locations = [
+		'posts_per_page' => [
+			'read' => [
 				self::REQUEST_VAR  => 'posts_per_page',
-				self::TRIBE_OPTION => array( 'posts_per_page', 'postsPerPage' ),
+				self::TRIBE_OPTION => [ 'posts_per_page', 'postsPerPage' ],
 				self::OPTION       => 'posts_per_page',
-			),
-			'write' => array(
+			],
+			'write' => [
 				self::REQUEST_VAR  => 'posts_per_page',
-			),
-		),
-		'event_display'  => array(
-			'read' => array(
+			],
+		],
+		'event_display'  => [
+			'read' => [
 				self::REQUEST_VAR => 'tribe_event_display',
 				self::QUERY_VAR   => 'eventDisplay',
-			),
-			'write' => array(
+			],
+			'write' => [
 				self::REQUEST_VAR => 'tribe_event_display',
 				self::QUERY_VAR   => 'eventDisplay',
-			),
-		),
-	);
+			],
+		],
+		'view'  => [
+			'read' => [
+				self::REQUEST_VAR => 'tribe_view',
+				self::QUERY_VAR   => 'tribe_view',
+				self::TRIBE_OPTION => 'viewOption',
+			],
+			'write' => [
+				self::REQUEST_VAR => 'tribe_view',
+				self::QUERY_VAR   => 'tribe_view',
+			],
+		],
+		'view_data' => [
+			'read' => [
+				self::REQUEST_VAR => 'tribe_view_data',
+				self::QUERY_VAR   => 'tribe_view_data',
+			],
+			'write' => [
+				self::REQUEST_VAR => 'tribe_view_data',
+				self::QUERY_VAR   => 'tribe_view_data',
+			],
+		],
+	];
 
 	/**
 	 * A utility static property keeping track of write locations that
@@ -106,6 +126,13 @@ Tribe__Context {
 		self::PROP,
 		self::STATIC_PROP,
 	);
+
+	/**
+	 * Whether the static dynamic locations were set or not.
+	 *
+	 * @var bool
+	 */
+	protected static $did_set_dynamic_locations = false;
 
 	/**
 	 * A list of override locations to read and write from.
@@ -145,6 +172,15 @@ Tribe__Context {
 	 * @var bool
 	 */
 	protected $use_default_locations = true;
+
+	/**
+	 * Tribe__Context constructor.
+	 *
+	 * @since TBD
+	 */
+	public function __construct(  ) {
+		$this->add_dynamic_locations();
+	}
 
 	/**
 	 * Whether we are currently creating a new post, a post of post type(s) or not.
@@ -1001,7 +1037,6 @@ Tribe__Context {
 	 * Sets, replacing them, the locations used by this context.
 	 *
 	 *
-	 *
 	 * @since 4.9.5
 	 *
 	 * @param array $locations An array of locations to replace the current ones.
@@ -1177,5 +1212,38 @@ Tribe__Context {
 		}
 
 		return $orm_args;
+	}
+
+	/**
+	 * Sets some locations that can only be set at runtime.
+	 *
+	 * Using a flag locations are added only once per request.
+	 *
+	 * @since TBD
+	 */
+	protected function add_dynamic_locations() {
+		if ( static::$did_set_dynamic_locations ) {
+			return;
+		}
+
+		static::$locations = array_merge( static::$locations, [
+			'is_main_query' => [
+				'read'  => [
+					self::FUNC => static function () {
+						global $wp_query;
+
+						return $wp_query->is_main_query();
+					},
+				],
+				'write' => [
+					self::FUNC => static function () {
+						global $wp_query, $wp_the_query;
+						$wp_the_query = $wp_query;
+					},
+				],
+			],
+		] );
+
+		static::$did_set_dynamic_locations = true;
 	}
 }
