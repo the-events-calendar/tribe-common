@@ -41,28 +41,6 @@
 }
 
 /* -----------------------------------------------------------------------------
- * Button - Small
- * ----------------------------------------------------------------------------- */
-
-@define-mixin button-small {
-	@mixin desktop-body-3;
-	@mixin button-border;
-
-	color: var(--color-text-secondary);
-	padding: 6px 16px 7px;
-
-	&:focus,
-	&:hover,
-	&:active {
-		color: var(--color-text-primary);
-	}
-
-	&:disabled {
-		color: var(--color-border-default)
-	}
-}
-
-/* -----------------------------------------------------------------------------
  * Button - Icon Border
  * ----------------------------------------------------------------------------- */
 
