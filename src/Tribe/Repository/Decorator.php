@@ -621,9 +621,9 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * Check if additional property on decorated object exists.
 	 *
-	 * @param string $name Property name.
-	 *
 	 * @since TBD
+	 *
+	 * @param string $name Property name.
 	 *
 	 * @return bool
 	 */
@@ -634,10 +634,10 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * Call methods on decorated object.
 	 *
+	 * @since TBD
+	 *
 	 * @param string $name      Method name.
 	 * @param array  $arguments Method arguments.
-	 *
-	 * @since TBD
 	 *
 	 * @return mixed
 	 */
