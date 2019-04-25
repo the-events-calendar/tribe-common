@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.6.1] 2019-04-25 =
+ = [4.9.6.1] 2019-04-25 =
 
 * Fix - Switch from using `any` to `[ 'publish', 'private' ]` for `post_status` on any Object Relational Mapping queries [126377]
 
