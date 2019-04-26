@@ -1249,6 +1249,8 @@ abstract class Tribe__Repository
 		try {
 			/** @var WP_Query $query */
 			$query = $this->get_query();
+			$query->set( 'fields', 'ids' );
+			return $query->get_posts();
 		} catch ( Tribe__Repository__Void_Query_Exception $e ) {
 			/*
 			 * Extending classes might use this method to run sub-queries
@@ -1256,10 +1258,6 @@ abstract class Tribe__Repository
 			 */
 			return array();
 		}
-
-		$query->set( 'fields', 'ids' );
-
-		return $query->get_posts();
 	}
 
 	/**
