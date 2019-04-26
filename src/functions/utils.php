@@ -491,7 +491,7 @@ if ( ! function_exists( 'tribe_catch_and_throw' ) ) {
 	 *          // Handle the exception.
 	 *      }
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @throws RuntimeException The message will be the error message, the code will be the error code.
 	 *
@@ -508,7 +508,7 @@ if ( ! function_exists( 'tribe_is_regex' ) ) {
 	/**
 	 * Checks whether a candidate string is a valid regular expression or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $candidate The candidate string to check, it must include the
 	 *                          regular expression opening and closing tags to validate.
@@ -536,7 +536,7 @@ if ( ! function_exists( 'tribe_unfenced_regex' ) ) {
 	 *
 	 * Use this to go from a PCRE-format regex (PHP) to one SQL can understand.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $regex The input regular expression string.
 	 *

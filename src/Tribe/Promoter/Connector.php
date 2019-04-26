@@ -8,6 +8,15 @@
 class Tribe__Promoter__Connector {
 
 	/**
+	 * Whether the user request is currently authorized by Promoter.
+	 *
+	 * @since 4.9.4
+	 *
+	 * @var bool
+	 */
+	public $authorized = false;
+
+	/**
 	 * Get the base URL for interacting with the connector.
 	 *
 	 * @return string Base URL for interacting with the connector.
@@ -69,6 +78,8 @@ class Tribe__Promoter__Connector {
 	 * @since 4.9
 	 */
 	public function authenticate_user_with_connector( $user_id ) {
+		$this->authorized = false;
+
 		$token = tribe_get_request_var( 'tribe_promoter_auth_token' );
 
 		if ( empty( $token ) ) {
@@ -87,6 +98,8 @@ class Tribe__Promoter__Connector {
 		if ( ! $response ) {
 			return $user_id;
 		}
+
+		$this->authorized = true;
 
 		return $response;
 	}
@@ -122,6 +135,7 @@ class Tribe__Promoter__Connector {
 
 		$payload = array(
 			'licenseKey' => $license_key,
+			'sourceId'   => $post_id,
 		);
 
 		$token = \Firebase\JWT\JWT::encode( $payload, $secret_key );
@@ -164,6 +178,17 @@ class Tribe__Promoter__Connector {
 		}
 
 		return $body;
+	}
+
+	/**
+	 * Check whether the user request is currently authorized by Promoter.
+	 *
+	 * @since 4.9.4
+	 *
+	 * @return bool Whether the user request is currently authorized by Promoter.
+	 */
+	public function is_user_authorized() {
+		return $this->authorized;
 	}
 
 }

@@ -216,6 +216,14 @@ abstract class Tribe__Repository
 	);
 
 	/**
+	 * A counter to keep track, on the class level, of the aliases generated for the terms table
+	 * while building multi queries.
+	 *
+	 * @var int
+	 */
+	protected static $alias_counter = 1;
+
+	/**
 	 * @var string
 	 */
 	protected $filter_name = 'default';
@@ -387,6 +395,13 @@ abstract class Tribe__Repository
 	protected $render_context = 'default';
 
 	/**
+	 * The query last built from the repository instance.
+	 *
+	 * @var WP_Query|null
+	 */
+	protected $last_built_query;
+
+	/**
 	 * Tribe__Repository constructor.
 	 *
 	 * @since 4.7.19
@@ -402,7 +417,7 @@ abstract class Tribe__Repository
 		 *
 		 * @param Tribe__Repository $this This repository instance
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 */
 		do_action( "tribe_repository_{$this->filter_name}_init", $this );
 	}
@@ -523,79 +538,33 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function build_query( $use_query_builder = true ) {
-		/**
-		 * Allow classes extending or decorating the repository to act before
-		 * the query is built or replace its building completely.
-		 */
+		$query = null;
+
 		if ( $use_query_builder && null !== $this->query_builder ) {
-			$built = $this->query_builder->build_query();
-
-			$built->builder = $this->query_builder;
-
-			if ( null !== $built ) {
-				return $built;
-			}
+			$query = $this->build_query_with_builder();
 		}
 
-		$query = new WP_Query();
-
-		$query->builder = $this;
-
-		$this->filter_query->set_query( $query );
+		if ( null === $query ) {
+			$query = $this->build_query_internally();
+		}
 
 		/**
-		 * Here we merge, not recursively, to allow user-set query arguments
-		 * to override the default ones.
-		 */
-		$query_args = array_merge( $this->default_args, $this->query_args );
-
-		$default_post_status       = current_user_can( 'read_private_posts' ) ? 'any' : '';
-		$query_args['post_status'] = Tribe__Utils__Array::get( $query_args, 'post_status', $default_post_status );
-
-		/**
-		 * Filters the query arguments that will be used to fetch the posts.
+		 * Fires after the query has been built and before it's returned.
 		 *
-		 * @param array    $query_args An array of the query arguments the query will be
-		 *                             initialized with.
-		 * @param WP_Query $query      The query object, the query arguments have not been parsed yet.
-		 * @param          $this       $this This repository instance
+		 * @since 4.9.5
+		 *
+		 * @param WP_Query $query The built query.
+		 * @param array $query_args An array of query arguments used to build the query.
+		 * @param Tribe__Repository $this This repository instance.
+		 * @param bool $use_query_builder Whether a query builder was used to build this query or not.
+		 * @param Tribe__Repository__Interface $query_builder The query builder in use, if any.
 		 */
-		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
-
-		if ( isset( $query_args['offset'] ) ) {
-			$offset   = absint( $query_args['offset'] );
-			$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
-			$page     = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
-
-			$real_offset                  = $per_page === - 1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
-			$query_args['offset']         = $real_offset;
-			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
-
-			/**
-			 * Unset the `offset` query argument to avoid applying it multiple times when this method
-			 * is used, on the same repository, more than once.
-			 */
-			unset( $this->query_args['offset'] );
-		}
-
-		foreach ( $query_args as $key => $value ) {
-			$query->set( $key, $value );
-		}
-
-		/**
-		 * Here process the previously set query modifiers passing them the
-		 * query object before it executes.
-		 * The query modifiers should modify the query by reference.
-		 */
-		foreach ( $this->query_modifiers as $arg ) {
-			if ( is_object( $arg ) && method_exists( $arg, '__invoke' ) ) {
-				// __invoke, assume changes are made by reference
-				$arg( $query );
-			} elseif ( is_callable( $arg ) ) {
-				// assume changes are made by reference
-				$arg( $query );
-			}
-		}
+		do_action( "tribe_repository_{$this->filter_name}_query",
+			$query,
+			$this,
+			$use_query_builder,
+			$this->query_builder
+		);
 
 		return $query;
 	}
@@ -916,7 +885,7 @@ abstract class Tribe__Repository
 		 * @param mixed             $schema_entry A scalar value or a callable.
 		 * @param Tribe__Repository $this         This repository instance
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 */
 		return apply_filters( "tribe_repository_{$this->filter_name}_apply_modifier_schema_entry", $schema_entry, $this );
 	}
@@ -956,7 +925,7 @@ abstract class Tribe__Repository
 	/**
 	 * Filters posts by simple meta schema value.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param mixed $value Meta value.
 	 */
@@ -977,7 +946,7 @@ abstract class Tribe__Repository
 	/**
 	 * Filters posts by simple tax schema value.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param int|string|array $value Term value(s).
 	 */
@@ -1297,7 +1266,10 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function get_query() {
-		return $this->build_query();
+		$built = $this->build_query();
+		$this->last_built_query = $built;
+
+		return $built;
 	}
 
 	/**
@@ -1427,7 +1399,7 @@ abstract class Tribe__Repository
 	/**
 	 * Sets the create args the repository will use to create posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string|int $image The path to an image file, an image URL, or an attachment post ID.
 	 *
@@ -1566,7 +1538,7 @@ abstract class Tribe__Repository
 	/**
 	 * Adds an entry to the repository filter schema.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
 	 *                           calls.
@@ -1579,7 +1551,7 @@ abstract class Tribe__Repository
 	/**
 	 * Adds a simple meta entry to the repository filter schema.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
 	 * @param string      $meta_key The meta key to use for the meta lookup.
@@ -1597,7 +1569,7 @@ abstract class Tribe__Repository
 	/**
 	 * Adds a simple taxonomy entry to the repository filter schema.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
 	 * @param string      $taxonomy The taxonomy to use for the tax lookup.
@@ -2284,7 +2256,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns a map relating comparison operators to their "pretty" name.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return array
 	 */
@@ -2307,7 +2279,7 @@ abstract class Tribe__Repository
 		 * Filters the post delete operation allowing third party code to bail out of
 		 * the process completely.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param array|null $deleted An array containing the the IDs of the deleted posts.
 		 * @param self       $this    This repository instance.
@@ -2346,7 +2318,7 @@ abstract class Tribe__Repository
 	/**
 	 * Whether background delete is activated for the repository or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $to_delete An array of post IDs to delete.
 	 *
@@ -2360,7 +2332,7 @@ abstract class Tribe__Repository
 		 * by the `tribe_repository_delete_background_threshold` filter, then the deletion will happen
 		 * in background in other requests.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool  $background_active Whether background deletion is active or not.
 		 * @param array $to_delete         The array of post IDs to delete.
@@ -2374,7 +2346,7 @@ abstract class Tribe__Repository
 		 * by the `tribe_repository_delete_background_threshold` filter, then the deletion will happen
 		 * in background in other requests.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool  $background_active Whether background deletion is active or not.
 		 * @param array $to_delete         The array of post IDs to delete.
@@ -2391,7 +2363,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the threshold above which posts will be deleted in background.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $to_delete An array of post IDs to delete.
 	 *
@@ -2404,7 +2376,7 @@ abstract class Tribe__Repository
 		 * This filter will be ignored if background delete is deactivated with the `tribe_repository_delete_background_activated`
 		 * or `tribe_repository_{$this->filter_name}_delete_background_activated` filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int The threshold over which posts will be deleted in background.
 		 * @param array $to_delete The post IDs to delete.
@@ -2417,7 +2389,7 @@ abstract class Tribe__Repository
 		 * This filter will be ignored if background delete is deactivated with the `tribe_repository_delete_background_activated`
 		 * or `tribe_repository_{$this->filter_name}_delete_background_activated` filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int The threshold over which posts will be deleted in background.
 		 * @param array $to_delete The post IDs to delete.
@@ -2434,7 +2406,7 @@ abstract class Tribe__Repository
 	/**
 	 * Whether background update is activated for the repository or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $to_update An array of post IDs to update.
 	 *
@@ -2448,7 +2420,7 @@ abstract class Tribe__Repository
 		 * by the `tribe_repository_update_background_threshold` filter, then the update will happen
 		 * in background in other requests.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool  $background_active Whether background update is active or not.
 		 * @param array $to_update         The array of post IDs to update.
@@ -2462,7 +2434,7 @@ abstract class Tribe__Repository
 		 * by the `tribe_repository_update_background_threshold` filter, then the update will happen
 		 * in background in other requests.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param bool  $background_active Whether background update is active or not.
 		 * @param array $to_update         The array of post IDs to update.
@@ -2479,7 +2451,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the threshold above which posts will be updated in background.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $to_update An array of post IDs to update.
 	 *
@@ -2492,7 +2464,7 @@ abstract class Tribe__Repository
 		 * This filter will be ignored if background update is deactivated with the `tribe_repository_update_background_activated`
 		 * or `tribe_repository_{$this->filter_name}_update_background_activated` filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int The threshold over which posts will be updated in background.
 		 * @param array $to_update The post IDs to update.
@@ -2505,7 +2477,7 @@ abstract class Tribe__Repository
 		 * This filter will be ignored if background update is deactivated with the `tribe_repository_update_background_activated`
 		 * or `tribe_repository_{$this->filter_name}_update_background_activated` filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param int The threshold over which posts will be updated in background.
 		 * @param array $to_update The post IDs to update.
@@ -2539,7 +2511,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the delete callback function or method to use to delete posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param      int|array $to_delete  The post ID to delete or an array of post IDs to delete.
 	 * @param bool           $background Whether the callback will be used in background delete operations or not.
@@ -2550,7 +2522,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to delete posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable  $callback   The callback that should be used to delete each post; defaults
 		 *                              to `wp_delete_post`; falsy return values will be interpreted as
@@ -2563,7 +2535,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to delete posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable  $callback   The callback that should be used to delete each post; defaults
 		 *                              to `wp_delete_post`; falsy return values will be interpreted as
@@ -2591,7 +2563,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the update callback function or method to use to update posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param      int|array $to_update  The post ID to update or an array of post IDs to update.
 	 * @param bool           $background Whether the callback will be used in background update operations or not.
@@ -2602,7 +2574,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to update posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable  $callback   The callback that should be used to update each post; defaults
 		 *                              to `wp_update_post`; falsy return values will be interpreted as
@@ -2615,7 +2587,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to update posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable  $callback   The callback that should be used to update each post; defaults
 		 *                              to `wp_update_post`; falsy return values will be interpreted as
@@ -2670,7 +2642,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the post array that will be used for an update.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param array $postarr The post array that will be sent to the update callback.
 		 * @param int The post ID if set.
@@ -2683,7 +2655,7 @@ abstract class Tribe__Repository
 	 *
 	 * Usage: `set_error_handler( array( $repository, 'cast_error_to_exception' ) );
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param int $code The error code.
 	 * @param string $message The error message.
@@ -2718,7 +2690,7 @@ abstract class Tribe__Repository
 		  * Filters the post array that will be used for the creation of a post
 		  * of the type managed by the repository.
 		  *
-		  * @since TBD
+		  * @since 4.9.5
 		  *
 		  * @param array $postarr The post array that will be sent to the create callback.
 		  */
@@ -2781,7 +2753,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the create callback function or method to use to create posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array    $postarr     The post array that will be used for the creation.
 	 *
@@ -2791,7 +2763,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to create posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable $callback    The callback that should be used to create posts; defaults
 		 *                              to `wp_insert_post`; non numeric and existing post ID return
@@ -2803,7 +2775,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the callback that all repositories should use to create posts.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param callable $callback    The callback that should be used to create posts; defaults
 		 *                              to `wp_insert_post`; non numeric and existing post ID return
@@ -2822,7 +2794,7 @@ abstract class Tribe__Repository
 	/**
 	 * Returns the create args the repository will use to create posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return array The create args the repository will use to create posts.
 	 */
@@ -2833,7 +2805,7 @@ abstract class Tribe__Repository
 	/**
 	 * Sets the create args the repository will use to create posts.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array $create_args The create args the repository will use to create posts.
 	 */
@@ -2845,7 +2817,7 @@ abstract class Tribe__Repository
 	 * Returns a value trying to fetch it from an array first and then
 	 * reading it from the meta.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array    $postarr The array to look into.
 	 * @param string   $key     The key to retrieve.
@@ -2929,5 +2901,466 @@ abstract class Tribe__Repository
 	 */
 	public function collect() {
 		return new Tribe__Utils__Post_Collection( $this->all() );
+	}
+
+	/**
+	 * Builds the ORM query with the query builder.
+	 *
+	 * Allow classes extending or decorating the repository to act before
+	 * the query is built or replace its building completely.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return WP_Query|null A built query object or `null` if the builder failed or bailed.
+	 */
+	protected function build_query_with_builder() {
+		$built = $this->query_builder->build_query();
+
+		$built->builder = $this->query_builder;
+
+		if ( null !== $built ) {
+			$query = $built;
+		}
+
+		return $query;
+	}
+
+	/**
+	 * Builds the ORM query internally, without a query builder.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return WP_Query The built query object.
+	 */
+	protected function build_query_internally() {
+		$query = new WP_Query();
+
+		$query->builder = $this;
+
+		$this->filter_query->set_query( $query );
+
+		/**
+		 * Here we merge, not recursively, to allow user-set query arguments
+		 * to override the default ones.
+		 */
+		$query_args = array_merge( $this->default_args, $this->query_args );
+
+		$default_post_status = [ 'publish' ];
+		if ( current_user_can( 'read_private_posts' ) ) {
+			$default_post_status[] = 'private';
+		}
+
+		$query_args['post_status'] = Tribe__Utils__Array::get( $query_args, 'post_status', $default_post_status );
+
+		/**
+		 * Filters the query arguments that will be used to fetch the posts.
+		 *
+		 * @param array    $query_args An array of the query arguments the query will be
+		 *                             initialized with.
+		 * @param WP_Query $query      The query object, the query arguments have not been parsed yet.
+		 * @param          $this       $this This repository instance
+		 */
+		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
+
+		if ( isset( $query_args['offset'] ) ) {
+			$offset = absint( $query_args['offset'] );
+			$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
+			$page = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
+
+			$real_offset = $per_page === - 1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
+			$query_args['offset'] = $real_offset;
+			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
+
+			/**
+			 * Unset the `offset` query argument to avoid applying it multiple times when this method
+			 * is used, on the same repository, more than once.
+			 */
+			unset( $this->query_args['offset'] );
+		}
+
+		foreach ( $query_args as $key => $value ) {
+			$query->set( $key, $value );
+		}
+
+		/**
+		 * Here process the previously set query modifiers passing them the
+		 * query object before it executes.
+		 * The query modifiers should modify the query by reference.
+		 */
+		foreach ( $this->query_modifiers as $arg ) {
+			if ( is_object( $arg ) && method_exists( $arg, '__invoke' ) ) {
+				// __invoke, assume changes are made by reference
+				$arg( $query );
+			} elseif ( is_callable( $arg ) ) {
+				// assume changes are made by reference
+				$arg( $query );
+			}
+		}
+
+		return $query;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function hash( array $settings = [], WP_Query $query = null ) {
+		return md5( json_encode( $this->get_hash_data( $settings, $query ) ) );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_hash_data( array $settings, WP_Query $query = null ) {
+		$filters = $this->current_filters;
+		$query_vars = null !== $query ? $query->query : [];
+
+		if ( isset( $settings['exclude'] ) ) {
+			$filters = array_diff_key(
+				$filters,
+				array_combine( $settings['exclude'], $settings['exclude'] )
+			);
+			$query_vars = array_diff_key(
+				$query_vars,
+				array_combine( $settings['exclude'], $settings['exclude'] )
+			);
+		}
+
+		if ( isset( $settings['include'] ) ) {
+			$filters = array_intersect_key(
+				$filters,
+				array_combine( $settings['include'], $settings['include'] )
+			);
+			$query_vars = array_intersect_key(
+				$query_vars,
+				array_combine( $settings['include'], $settings['include'] )
+			);
+		}
+
+		Tribe__Utils__Array::recursive_ksort( $filters );
+		Tribe__Utils__Array::recursive_ksort( $query_vars );
+
+		return [ 'filters' => $filters, 'query_vars' => $query_vars ];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_last_built_query() {
+		return $this->last_built_query;
+	}
+
+	/**
+	 * Checks a SQL relation is valid.
+	 *
+	 * Allowed values are 'OR' and 'AND'.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string $relation The relation to check.
+	 *
+	 * @throws \Tribe__Repository__Usage_Error If the relation is not a valid one.
+	 */
+	protected function validate_relation( $relation ) {
+		if ( ! in_array( $relation, [ 'OR', 'AND' ], true ) ) {
+			throw Tribe__Repository__Usage_Error::because_this_relation_is_not_valid( $relation );
+		}
+	}
+
+	/**
+	 * Sanitizes and prepares string to be used in a LIKE comparison.
+	 *
+	 * If no leading and trailing `%` was found it will be added at the start and end of the string.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string|array $value The string to prepare or an array of strings to prepare.
+	 *
+	 * @return string|array The sanitized string, or strings.
+	 */
+	protected function prepare_like_string( $value ) {
+		$original_value = $value;
+		$values = (array) $value;
+		$prepared = [];
+		$pattern = '/^(?<pre>%{0,1})(?<string>.*?)(?<post>%{0,1})$/u';
+
+		global $wpdb;
+
+		foreach ( $values as $v ) {
+			preg_match( $pattern, $v, $matches );
+			$pre = $matches['pre'] ?: '';
+			$post = $matches['post'] ?: '';
+			$string = $wpdb->esc_like( $matches['string'] );
+
+			if ( '' === $pre && '' === $post ) {
+				// If the string does not contain any starting and ending placeholder we'll add all combinations.
+				$prepared[] = '%' . $string;
+				$prepared[] = $string . '%';
+				$prepared[] = $string;
+				$pre = $post = '%';
+			}
+
+			$prepared[] = $pre . $string . $post;
+		}
+
+		return is_array( $original_value ) ? $prepared : reset( $prepared );
+	}
+
+	/**
+	 * Builds the WHERE clause for a set of fields.
+	 *
+	 * This method is table-agnostic. While flexible it will also require some care to be used.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string|array $fields  One or more fields to build the clause for.
+	 * @param string       $compare The comparison operator to use to build the
+	 * @param string|array $values One or more values to build the WHERE clause for.
+	 * @param string       $value_format The format, a `$wpdb::prepare()` compatible one, to use to format the values.
+	 * @param string       $where_relation The relation to apply between each WHERE fragment.
+	 * @param string       $value_relation The relation to apply between each value fragment.
+	 *
+	 * @return string The built WHERE clause.
+	 *
+	 * @throws \Tribe__Repository__Usage_Error If the relations are not valid or another WHERE building issue happens.
+	 */
+	protected function build_fields_where_clause(
+		$fields,
+		$compare,
+		$values,
+		$value_format = '%s',
+		$where_relation = 'OR',
+		$value_relation = 'OR'
+	) {
+		$this->validate_relation( $where_relation );
+		$this->validate_relation( $value_relation );
+		global $wpdb;
+		$fields_where_clauses = [];
+		$fields = (array) $fields;
+		$values = (array) $values;
+		foreach ( $fields as $field ) {
+			$value_clauses = [];
+			foreach ( $values as $compare_value ) {
+				if ( ! is_array( $compare_value ) || count( $compare_value ) === 1 ) {
+					$value_clauses[] = $wpdb->prepare(
+						"({$field} {$compare} {$value_format})",
+						$compare_value
+					);
+				} else {
+					$value_format = implode(
+						',',
+						array_fill( 0, count( $compare_value ), $value_format )
+					);
+					$value_clauses[] = $wpdb->prepare(
+						"({$field} {$compare} ({$value_format}))",
+						$compare_value
+					);
+				}
+			}
+			$fields_where_clauses[] = '(' . implode( " {$value_relation} ", $value_clauses ) . ')';
+		}
+
+		$fields_where = $wpdb->remove_placeholder_escape(
+			implode( " {$where_relation} ", $fields_where_clauses )
+		);
+
+		return $fields_where;
+	}
+
+	/**
+	 * Returns the term IDs of terms matching a criteria, the match is made on the terms slug and name.
+	 *
+	 * This should be used to break-down a query and fetch term IDs, to then use in a "lighter" join, later.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string|array $taxonomy The taxonomy, or taxonomies, to fetch the terms for.
+	 * @param string $compare The comparison operator to use, e.g. 'LIKE' or '=>'.
+	 * @param string|array $value An array of values to compare the terms slug or names with.
+	 * @param string $relation The relation, either 'OR' or 'AND', to apply to the matching.
+	 * @param string $format The format, a `$wpdb::prepare()` supported one, to use to format the values for the query.
+	 *
+	 * @return array An array of term IDs matching the query, if any.
+	 */
+	protected function fetch_taxonomy_terms_matches( $taxonomy, $compare, $value, $relation = 'OR', $format = '%s' ) {
+		global $wpdb;
+		$taxonomies = (array) $taxonomy;
+		$values = (array) $value;
+
+		$compare_target = count( $values ) > 1
+			? '(' . $this->filter_query->create_interval_of_strings( $values ) . ')'
+			: $wpdb->prepare( $format, reset( $values ) );
+
+		$taxonomies_interval = $this->filter_query->create_interval_of_strings( $taxonomies );
+
+		$query = "SELECT  tt.term_taxonomy_id FROM {$wpdb->terms} AS t
+			INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
+			WHERE tt.taxonomy IN ({$taxonomies_interval}) AND
+			( t.slug {$compare} {$compare_target} {$relation} t.name {$compare} {$compare_target} )";
+
+		return $wpdb->get_col( $wpdb->remove_placeholder_escape( $query ) );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function where_multi( array $fields, $compare, $value, $where_relation = 'OR', $value_relation = 'OR' ) {
+		$compare = strtoupper( trim( $compare ) );
+
+		// Check each value is compatible with the comparison operator.
+		$values = (array) $value;
+		foreach ( $values as $v ) {
+			$this->validate_operator_and_values( $compare, 'where_multi', $v );
+		}
+
+		global $wpdb;
+
+		if ( in_array( $compare, [ 'LIKE', 'NOT LIKE' ], true ) ) {
+			$values = $this->prepare_like_string( $values );
+		}
+
+		$where_relation = strtoupper( trim( $where_relation ) );
+		$this->validate_relation( $where_relation );
+		$value_relation = strtoupper( trim( $value_relation ) );
+		$this->validate_relation( $value_relation );
+
+		$post_fields = [];
+		$taxonomies = [];
+
+		foreach ( $fields as $field ) {
+			if ( $this->is_a_post_field( $field ) ) {
+				$post_fields[] = $field;
+			} elseif ( $this->is_a_taxonomy( $field ) ) {
+				$taxonomies[] = $field;
+			} else {
+				$custom_fields[] = $field;
+			}
+		}
+
+		$value_formats = [];
+
+		foreach ( $values as $v ) {
+			$value_format = '%d';
+			if ( is_string( $v ) ) {
+				$value_format = '%s';
+			} elseif ( (int) $v !== (float) $v ) {
+				$value_format = '%f';
+			}
+			$value_formats[] = $value_format;
+		}
+
+		// If the value formats differ then treat all of them as strings.
+		if ( count( array_unique( $value_formats ) ) > 1 ) {
+			$value_format = '%s';
+		} else {
+			$value_format = reset( $value_formats );
+		}
+
+		$where = [];
+
+		if ( ! empty( $post_fields ) ) {
+			$post_fields = array_map( static function ( $post_field ) use ( $wpdb ) {
+				return "{$wpdb->posts}.$post_field";
+			}, $post_fields );
+
+			$post_fields_where = $this->build_fields_where_clause(
+				$post_fields,
+				$compare,
+				$values,
+				$value_format,
+				$where_relation,
+				$value_relation
+			);
+
+			$wheres[] = $post_fields_where;
+		}
+
+		if ( ! empty( $taxonomies ) ) {
+			$all_matching_term_ids = [];
+			$taxonomy_values = $values;
+
+			if ( in_array( $compare, [ 'IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN' ], true ) ) {
+				// We can use multiple values in the same query.
+				$taxonomy_values = [ $values ];
+			}
+
+			foreach ( $taxonomy_values as $taxonomy_value ){
+				$matching_term_ids = $this->fetch_taxonomy_terms_matches(
+					$taxonomies,
+					$compare,
+					$taxonomy_value,
+					$where_relation,
+					$value_format
+				);
+
+				if ( empty( $matching_term_ids ) ) {
+					if ( 'AND' === $value_relation ) {
+						// No reason to waste any more time.
+						$this->void_query = true;
+
+						return $this;
+					}
+
+					continue;
+				}
+
+				$all_matching_term_ids[] = $matching_term_ids;
+			}
+
+			$intersection = count( $all_matching_term_ids ) > 1
+				? array_intersect( ...$all_matching_term_ids )
+				: reset( $all_matching_term_ids );
+
+			if ( 'AND' === $where_relation && 0 === count( $intersection ) ) {
+				// Let's not waste any more time.
+				$this->void_query;
+
+				return $this;
+			}
+
+			$merge = count( $all_matching_term_ids ) > 1
+				? array_unique( array_merge( ...$all_matching_term_ids ) )
+				: (array) reset( $all_matching_term_ids );
+			$matching_term_ids = $where_relation === 'OR' ? array_filter( $merge ) : array_filter( $intersection );
+
+			if ( 'AND' === $where_relation || ! empty( $matching_term_ids ) ) {
+				// Let's not add WHERE and JOIN clauses if there is nothing to add.
+				$tt_alias = 'tribe_tt_' . self::$alias_counter ++;
+				$this->filter_query->join(
+					"JOIN {$wpdb->term_relationships} {$tt_alias} ON {$wpdb->posts}.ID = {$tt_alias}.object_id"
+				);
+				$matching_term_ids_interval = implode( ',', $matching_term_ids );
+				$wheres[] = "{$tt_alias}.term_taxonomy_id IN ({$matching_term_ids_interval})";
+			}
+		}
+
+		if ( ! empty( $custom_fields ) ) {
+			$meta_alias = 'tribe_meta_' . self::$alias_counter ++;
+
+			$custom_fields = array_map( static function ( $custom_field ) use ( $wpdb, $meta_alias ) {
+				return $wpdb->prepare(
+					"{$meta_alias}.meta_key = %s AND {$meta_alias}.meta_value",
+					$custom_field
+				);
+			}, $custom_fields );
+
+			$meta_where = $this->build_fields_where_clause(
+				$custom_fields,
+				$compare,
+				$values,
+				$value_format,
+				$where_relation,
+				$value_relation
+			);
+
+			$this->filter_query->join(
+				"JOIN {$wpdb->postmeta} {$meta_alias} ON {$wpdb->posts}.ID = {$meta_alias}.post_id"
+			);
+
+			$wheres[] = $meta_where;
+		}
+
+		$this->filter_query->where( implode( " {$where_relation} ", $wheres ) );
+
+		return $this;
 	}
 }

@@ -733,7 +733,7 @@ if ( ! function_exists( 'tribe_context' ) ) {
 	 * Due to its immutable nature any method that would modify the context will return
 	 * a clone of the context, not the original one.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return Tribe__Context The singleton, immutable, global object instance.
 	 */
@@ -743,7 +743,7 @@ if ( ! function_exists( 'tribe_context' ) ) {
 		/**
 		 * Filters the global context object.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param Tribe__Context $context The singleton, immutable, global object instance.
 		 */

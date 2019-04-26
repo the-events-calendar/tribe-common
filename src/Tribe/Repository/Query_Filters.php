@@ -659,7 +659,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Add a custom ORDER BY to the query.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $orderby
 	 */
@@ -674,7 +674,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Add custom select fields to the query.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $field
 	 */
@@ -758,8 +758,8 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @return string
 	 */
-	protected function create_interval_of_strings( $input ) {
-		$buffer = array();
+	public function create_interval_of_strings( $input ) {
+		$buffer = [];
 
 		/** @var wpdb $wpdb */
 		global $wpdb;
@@ -770,12 +770,12 @@ class Tribe__Repository__Query_Filters {
 
 		$buffer = array_unique( call_user_func_array( 'array_merge', $buffer ) );
 
-		$safe_strings = array();
+		$safe_strings = [];
 		foreach ( $buffer as $raw_status ) {
-			$safe_strings[] = $wpdb->prepare( '%s', $string );
+			$safe_strings[] = $wpdb->prepare( '%s', $raw_status );
 		}
 
-		return implode( "''", $safe_strings );
+		return implode( ',', $safe_strings );
 	}
 
 	/**
@@ -890,7 +890,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Filter the `posts_orderby` filter to add custom JOIN clauses.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string   $orderby
 	 * @param WP_Query $query
@@ -914,7 +914,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Filter the `posts_fields` filter to amend fields to be selected.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param array    $fields
 	 * @param WP_Query $query
@@ -940,7 +940,7 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * This happens on the `posts_pre_query` filter and
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param null|array $posts A pre-filled array of post results.
 	 * @param \WP_Query  $query The current query object; this is used by the
@@ -977,7 +977,7 @@ class Tribe__Repository__Query_Filters {
 	 * runs and returning an empty post array.
 	 * To really run the query it's sufficien to run `get_posts` again on it.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return string The request SQL, as built from the `WP_Query` class including all the
 	 *                possible filtering applied by this class and other classes.

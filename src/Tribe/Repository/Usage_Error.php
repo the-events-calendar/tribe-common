@@ -181,7 +181,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates that the client code is trying to use a comparison operator not supported by a specific filter.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $operator The not supported comparison operator.
 	 * @param string $filter   The filter in which the client code is trying to use the current operator.
@@ -196,7 +196,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * Indicates that the client code is trying to use a comparison operator that requires a value of a specific type
 	 * wrong.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string $operator The operator the client code is using.
 	 * @param string $filter   The filter the client code is using.
@@ -206,5 +206,31 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 */
 	public static function because_this_comparison_operator_requires_an_value_of_type( $operator, $filter, $type ) {
 		return new self( "You are trying to use a comparison opearator ({$operator}) in the filter {$filter} that requires a value of type {$type}." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a comparison operator that is not valid..
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string $operator The not supported comparison operator.
+	 *
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
+	 */
+	public static function because_this_comparison_operator_is_not_valid( $operator ) {
+		return new self( "You are trying to use a comparison operator ({$operator}) that is not valid." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a relation that is not valid..
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string $relation The not supported relation.
+	 *
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
+	 */
+	public static function because_this_relation_is_not_valid( $relation ) {
+		return new self( "You are trying to use a relation ({$relation}) that is not valid." );
 	}
 }

@@ -1173,7 +1173,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Builds a date object from a given datetime and timezone.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param string|DateTime|int      $datetime      A `strtotime` parse-able string, a DateTime object or
 		 *                                                a timestamp; defaults to `now`.
@@ -1228,7 +1228,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Validates a date string to make sure it can be used to build DateTime objects.
 		 *
-		 * @since TBD
+		 * @since 4.9.5
 		 *
 		 * @param string $date The date string that should validated.
 		 *

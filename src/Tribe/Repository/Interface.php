@@ -46,7 +46,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Returns the repository filter name.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @return string
 	 */
@@ -196,11 +196,74 @@ interface Tribe__Repository__Interface
 	/**
 	 * Adds an entry to the repository filter schema.
 	 *
-	 * @since TBD
+	 * @since 4.9.5
 	 *
 	 * @param string   $key      The filter key, the one that will be used in `by` and `where`
 	 *                           calls.
 	 * @param callable $callback The function that should be called to apply this filter.
 	 */
 	public function add_schema_entry( $key, $callback );
+
+	/**
+	 * Returns an hash string for this repository instance filters and, optionally, a generated query.
+	 *
+	 * By default all applied filters, and query vars, will be included but specific filters can
+	 * be excluded, or included, from the hash generation.
+	 * The possibility to include the query in the hash generation is required as the query vars could
+	 * be further modified after the repository filters are applied and the query is built.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array          $settings An array of settings to define how the hash should be produced in the shape
+	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array
+	 *                                 will apply both to the Repository filters and the query vars.
+	 * @param WP_Query|null $query An optional query object to include in the hashing.
+	 *
+	 * @return string The generated hash string.
+	 *
+	 */
+	public function hash( array $settings = [], WP_Query $query = null );
+
+	/**
+	 * Returns the data the repository would use to build the hash.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array          $settings An array of settings to define how the hash should be produced in the shape
+	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array
+	 *                                 will apply both to the Repository filters and the query vars.
+	 * @param WP_Query|null $query An optional query object to include in the hashing.
+	 *
+	 * @return array An array of hash data components.
+	 */
+	public function get_hash_data( array $settings, WP_Query $query = null );
+
+	/**
+	 * Returns the last built query from the repository instance.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @return WP_Query|null The last built query instance if any.
+	 */
+	public function get_last_built_query();
+
+	/**
+	 * Builds, and adds to the query, a WHERE clause to the query on multiple fields.
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param array  $fields         The fields to add WHERE clauses for. The fields can be post fields, custom fields or
+	 *                               taxonomy terms.
+	 * @param string $compare        The comparison operator to use, e.g. 'LIKE' or '>'.
+	 * @param mixed  $value          The value, or values, to compare with; the format will be set depending on the type of
+	 *                               each value.
+	 * @param string $where_relation The relation to join the WHERE clauses with, either 'OR' or 'AND'; default to 'OR'.
+	 * @param string $value_relation The relation to join the value clauses in case the value is an array, either 'OR'
+	 *                               or 'AND'; defaults to 'OR'.
+	 *
+	 * @return $this This repository instance to allow chain calls.
+	 *
+	 * @throws \Tribe__Repository__Usage_Error If the comparison operator or the relation are not valid.
+	 */
+	public function where_multi( array $fields, $compare, $value, $where_relation = 'OR', $value_relation = 'OR' );
 }
