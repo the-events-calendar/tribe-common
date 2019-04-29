@@ -4,4 +4,12 @@
 
 require_once dirname(__FILE__) . '/composer'.'/autoload_real_52.php';
 
+<<<<<<< HEAD
 return ComposerAutoloaderInitac037e7e7e04474e0d2b9ba819445313::getLoader();
+=======
+<<<<<<< HEAD
+return ComposerAutoloaderInitf9ea8b79d9865e2ae089824bb52e137f::getLoader();
+=======
+return ComposerAutoloaderInit8418c8624fb2214654dd7beadbf36e67::getLoader();
+>>>>>>> master
+>>>>>>> release/G19.06
