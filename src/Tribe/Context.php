@@ -36,6 +36,8 @@ class Tribe__Context {
 
 	const GLOBAL_VAR = 'global_var';
 
+	const FILTER = 'filter';
+
 	/*
 	*
 	 * An array defining the properties the context will be able to read and (dangerously) write.
@@ -61,6 +63,7 @@ class Tribe__Context {
 	 * static_method - get the value from a class static method.
 	 * method - get the value calling a method on a tribe() container binding.
 	 * func - get the value from a function or a closure.
+	 * filter - get the value by applying a filter.
 	 *
 	 * For each location additional arguments can be specified:
 	 * orm_arg - if `false` then the location will never produce an ORM argument, if provided the ORM arg produced bye the
@@ -94,17 +97,22 @@ class Tribe__Context {
 			'read' => [
 				self::REQUEST_VAR => 'tribe_view',
 				self::QUERY_VAR   => 'tribe_view',
+				self::REQUEST_VAR => 'tribe_event_display',
+				self::QUERY_VAR   => 'eventDisplay',
 				self::TRIBE_OPTION => 'viewOption',
 			],
 			'write' => [
 				self::REQUEST_VAR => 'tribe_view',
 				self::QUERY_VAR   => 'tribe_view',
+				self::REQUEST_VAR => 'tribe_event_display',
+				self::QUERY_VAR   => 'eventDisplay',
 			],
 		],
 		'view_data' => [
 			'read' => [
 				self::REQUEST_VAR => 'tribe_view_data',
 				self::QUERY_VAR   => 'tribe_view_data',
+				self::FILTER      => 'tribe_view_data'
 			],
 			'write' => [
 				self::REQUEST_VAR => 'tribe_view_data',
@@ -1244,6 +1252,43 @@ class Tribe__Context {
 			],
 		] );
 
+		/**
+		 * Filters the locations registered in the Context.
+		 *
+		 * @since TBD
+		 *
+		 * @param  array  $locations  An array of locations registered on the Context object.
+		 */
+		static::$locations = apply_filters( 'tribe_context_locations', static::$locations, $this );
+
 		static::$did_set_dynamic_locations = true;
+	}
+
+	/**
+	 * Reads the value as the result of the application of one or more filters to a default value.
+	 *
+	 * The filters will be applied with the same logic as the other locations: top to bottom and only until
+	 * one returns a value that is not the default value. This means that if more than one filter is specified
+	 * and the first filter returns a value that is not the same as the default value then that first filter
+	 * resulting value will be returned.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array  $filters A list of filters that will be applied to the the default value top to bottom.
+	 * @param mixed $default The default value that will be filtered.
+	 *
+	 * @return mixed The filtered value.
+	 */
+	protected function filter( array $filters, $default ) {
+		$value = $default;
+
+		foreach ( $filters as $tag ) {
+			$value = apply_filters( $tag, $default );
+			if ( $default !== $value ) {
+				return $value;
+			}
+		}
+
+		return $value;
 	}
 }
