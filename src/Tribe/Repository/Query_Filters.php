@@ -758,8 +758,8 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @return string
 	 */
-	protected function create_interval_of_strings( $input ) {
-		$buffer = array();
+	public function create_interval_of_strings( $input ) {
+		$buffer = [];
 
 		/** @var wpdb $wpdb */
 		global $wpdb;
@@ -770,12 +770,12 @@ class Tribe__Repository__Query_Filters {
 
 		$buffer = array_unique( call_user_func_array( 'array_merge', $buffer ) );
 
-		$safe_strings = array();
+		$safe_strings = [];
 		foreach ( $buffer as $raw_status ) {
-			$safe_strings[] = $wpdb->prepare( '%s', $string );
+			$safe_strings[] = $wpdb->prepare( '%s', $raw_status );
 		}
 
-		return implode( "''", $safe_strings );
+		return implode( ',', $safe_strings );
 	}
 
 	/**
