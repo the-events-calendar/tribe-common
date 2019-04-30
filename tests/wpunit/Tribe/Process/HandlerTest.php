@@ -104,7 +104,7 @@ class HandlerTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( '1', get_option( 'dummy_counter', false ) );
 
-		$scheduled = wp_next_scheduled( $handler->get_healthcheck_cron_hook_id(), [ [] ] );
+		$scheduled = wp_next_scheduled( $handler->get_healthcheck_cron_hook_id() );
 
 		$this->assertEquals( false, $scheduled );
 
