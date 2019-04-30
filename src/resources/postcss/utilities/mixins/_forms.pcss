@@ -1,0 +1,79 @@
+/* -----------------------------------------------------------------------------
+ * Form Control - Checkbox & Radio
+ * ----------------------------------------------------------------------------- */
+
+@define-mixin form-control-radio-checkbox {
+	display: block;
+
+	input[type="checkbox"],
+	input[type="radio"] {
+		appearance: none;
+		background-color: var(--form-color-background);
+		border: 1px solid var(--form-color-border-default);
+		display: inline-block;
+		height: 20px;
+		position: relative;
+		width: 20px;
+
+		&:active,
+		&:focus,
+		&:hover {
+			border: 1px solid var(--form-color-border-active);
+		}
+
+		&:selected {
+			background-color: var(--form-color-border-active);
+		}
+	}
+
+	input[type="checkbox"] + input[type="checkbox"],
+	input[type="radio"] + input[type="radio"] {
+		margin-top: 15px;
+	}
+
+	label {
+		@mixin desktop-body-2;
+
+		cursor: pointer;
+		margin-left: 11px;
+	}
+}
+
+@define-mixin form-control-checkbox {
+
+	input[type="checkbox"] {
+
+		&:selected:before {
+			background-image: svg-inline(check-white);
+			background-repeat: no-repeat;
+			background-size: contain;
+			content: '';
+			display: block;
+			height: 9px;
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 12px;
+		}
+	}
+}
+
+@define-mixin form-control-radio {
+
+	input[type="radio"] {
+		border-radius: 50%;
+
+		&:selected:before {
+			background-color: var(--form-color-background);
+			content: '';
+			display: block;
+			height: 8px;
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 8px;
+		}
+	}
+}
