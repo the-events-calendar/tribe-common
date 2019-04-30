@@ -1,14 +1,11 @@
 <?php
-
 namespace Tribe\Repository;
+
+require_once  __DIR__ . '/ReadTestBase.php';
 
 use Tribe__Repository as Read_Repository;
 
-class ReadTest extends \Codeception\TestCase\WPTestCase {
-	/**
-	 * @var \Tribe__Repository
-	 */
-	protected $class;
+class ReadTest extends ReadTestBase {
 
 	/**
 	 * It should return all posts (non paginated) by default
@@ -27,13 +24,6 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $ids[1], $this->repository()->nth( 2 )->ID );
 		$this->assertEquals( $ids[2], $this->repository()->nth( 3 )->ID );
 		$this->assertNull( $this->repository()->nth( 23 ) );
-	}
-
-	/**
-	 * @return Read_Repository
-	 */
-	protected function repository() {
-		return new $this->class();
 	}
 
 	/**
@@ -610,25 +600,25 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( [
 			$recent_post,
 			$future_post,
-		], $this->repository()->fields( 'ids' )->by( 'date', $date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'date', $date )->by( 'post_status', 'any' )->all() );
 		$this->assertEquals( [
 			$recent_post,
 			$future_post,
-		], $this->repository()->fields( 'ids' )->by( 'after_date', $string_date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'after_date', $string_date )->by( 'post_status', 'any' )->all() );
 		$this->assertEquals( [
 			$past_post,
-		], $this->repository()->fields( 'ids' )->by( 'before_date', $date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'before_date', $date )->by( 'post_status', 'any' )->all() );
 		$this->assertEquals( [
 			$recent_post,
 			$future_post,
-		], $this->repository()->fields( 'ids' )->by( 'date_gmt', $string_date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'date_gmt', $string_date )->by( 'post_status', 'any' )->all() );
 		$this->assertEquals( [
 			$recent_post,
 			$future_post,
-		], $this->repository()->fields( 'ids' )->by( 'after_date_gmt', $date_gmt )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'after_date_gmt', $date_gmt )->by( 'post_status', 'any' )->all() );
 		$this->assertEquals( [
 			$past_post,
-		], $this->repository()->fields( 'ids' )->by( 'before_date_gmt', $string_date )->all() );
+		], $this->repository()->fields( 'ids' )->by( 'before_date_gmt', $string_date )->by( 'post_status', 'any' )->all() );
 	}
 
 	/**
@@ -697,18 +687,6 @@ class ReadTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $all_ids, $results );
 		$this->assertEquals( count( $all_ids ), $repository->found() );
 		$this->assertEquals( count( $all_ids ), $repository->count() );
-	}
-
-	public function setUp() {
-		parent::setUp();
-		register_post_type( 'book' );
-		register_post_type( 'review' );
-		register_post_status( 'good' );
-		register_post_status( 'bad' );
-		register_taxonomy( 'genre', 'book' );
-		$this->class = new class extends \Tribe__Repository {
-			protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
-		};
 	}
 
 	/**
