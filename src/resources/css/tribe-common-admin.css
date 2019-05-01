@@ -463,10 +463,14 @@ table.plugins .tribe-plugin-update-message a {
 	}
 #tribe-log-controls .working {
 		opacity: 1;
+		-webkit-transition: opacity 0.2s;
+		-o-transition: opacity 0.2s;
 		transition: opacity 0.2s;
 	}
 #tribe-log-controls .working.hidden {
 		opacity: 0;
+		-webkit-transition: opacity 0.2s;
+		-o-transition: opacity 0.2s;
 		transition: opacity 0.2s;
 	}
 #tribe-system-info dl.support-stats,
@@ -725,7 +729,9 @@ table.plugins .tribe-plugin-update-message a {
 	left: 0;
 	position: absolute;
 	top: 0;
-	transition: all 1s linear;
+	-o-transition: all 1s linear;
+	   -webkit-transition: all 1s linear;
+	   transition: all 1s linear;
 	webkit-transition: all 1s linear;
 	width: 100%;
 	z-index: 4;
@@ -938,6 +944,8 @@ a.tribe-rating-link {
 #tribe-dialog-wrapper .select-single-container label {
 			opacity: 1;
 			padding: 3px 5px;
+			-webkit-transition: opacity 0.2s;
+			-o-transition: opacity 0.2s;
 			transition: opacity 0.2s;
 		}
 #tribe-dialog-wrapper .select-single-container label:nth-child(odd) {
@@ -953,6 +961,8 @@ a.tribe-rating-link {
 			}
 #tribe-dialog-wrapper .select-single-container.updating label {
 			opacity: 0.35;
+			-webkit-transition: opacity 0.2s;
+			-o-transition: opacity 0.2s;
 			transition: opacity 0.2s;
 		}
 /* Useful to ensure modals rise above the grey 'miasma' */
@@ -1084,7 +1094,8 @@ a.tribe-rating-link {
 }
 .tribe-ea-dropdown.select2-container-active .select2-choice, .tribe-dropdown.select2-container-active .select2-choice {
 			border-color: #5897fb;
-			box-shadow: 0 0 5px rgba( 0, 0, 0, .1 );
+			-webkit-box-shadow: 0 0 5px rgba( 0, 0, 0, .1 );
+			        box-shadow: 0 0 5px rgba( 0, 0, 0, .1 );
 		}
 .tribe-ea-dropdown.select2-dropdown-open .select2-choice, .tribe-dropdown.select2-dropdown-open .select2-choice {
 			border-bottom-left-radius: 0;
@@ -1134,6 +1145,8 @@ a.tribe-rating-link {
 .tribe-ea-dropdown.select2-container-multi .select2-choices .select2-search-choice-close, .tribe-dropdown.select2-container-multi .select2-choices .select2-search-choice-close {
 				top: 3px;
 				left: 4px;
+				-webkit-transition-property: border,color;
+				-o-transition-property: border,color;
 				transition-property: border,color;
 			}
 .select2-results .select2-selected {
@@ -1211,6 +1224,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	color: #E79496 !important;
 	background: #BA292B !important;
 	border-color: #7F1C1F !important;
+	-webkit-box-shadow: none !important;
 	box-shadow:         none !important;
 	text-shadow: 0 -1px 0 rgba(0,0,0,0.1) !important;
 	cursor: default;
@@ -1246,6 +1260,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 
 		/*Rotate the L 45 degrees to turn it into a checkmark*/
 		-webkit-transform: rotate(45deg);
+		    -ms-transform: rotate(45deg);
 		        transform: rotate(45deg);
 	}
 .checkmark.checkmark-right:after {
@@ -1324,8 +1339,10 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	}
 .tribe-tooltip .down {
 	background-color: #fff;
-	box-shadow: 0 0 3px 3px rgba(4, 5, 5, 0.05);
-	box-sizing: border-box;
+	-webkit-box-shadow: 0 0 3px 3px rgba(4, 5, 5, 0.05);
+	        box-shadow: 0 0 3px 3px rgba(4, 5, 5, 0.05);
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	color: #333333;
 	font-size: 16px;
 	font-weight: 400;
@@ -1335,7 +1352,10 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	position: absolute;
 	top: 28px;
 	-webkit-transform: translate(-50%, 0);
+	    -ms-transform: translate(-50%, 0);
 	        transform: translate(-50%, 0);
+	-webkit-transition: opacity 0.8s;
+	-o-transition: opacity 0.8s;
 	transition: opacity 0.8s;
 	visibility: hidden;
 	width: 250px;
@@ -1356,13 +1376,15 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 }
 .tribe-tooltip .down i::after {
 	background-color: #fff;
-	box-shadow: 0 0 3px 3px rgba(4, 5, 5, 0.05);
+	-webkit-box-shadow: 0 0 3px 3px rgba(4, 5, 5, 0.05);
+	        box-shadow: 0 0 3px 3px rgba(4, 5, 5, 0.05);
 	content: '';
 	height: 12px;
 	left: 50%;
 	position: absolute;
 	top: 50%;
 	-webkit-transform: translate(-50%, 50%) rotate(45deg);
+	    -ms-transform: translate(-50%, 50%) rotate(45deg);
 	        transform: translate(-50%, 50%) rotate(45deg);
 	width: 24px;
 }

@@ -29,6 +29,7 @@
 	-webkit-appearance: none;
 	border-radius: 3px;
 	white-space: nowrap;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
