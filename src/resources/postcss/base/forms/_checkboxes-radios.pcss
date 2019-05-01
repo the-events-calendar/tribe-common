@@ -1,0 +1,51 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Checkboxes & Radios
+	 *
+	 * Example (Checkboxes):
+	 * <fieldset>
+	 *   <legend>Legend for Checkboxes</legend>
+	 *   <div>
+	 *     <div class="form-control-checkbox">
+	 *       <input id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" checked="checked" />
+	 *       <label for="checkboxOne">Checkbox One</label>
+	 *     </div>
+	 *     <div class="form-control-checkbox">
+	 *       <input id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
+	 *       <label for="checkboxTwo">Checkbox two</label>
+	 *     </div>
+	 *   </div>
+	 * </fieldset>
+	 *
+	 * Example (Radios):
+	 * <div>
+	 *   <div class="form-control-radio">
+	 *     <input id="radioExample" name="radioExample" type="radio" value="RadioExample" checked="checked" />
+	 *     <label for="radioExample">Radio Example</label>
+	 *   </div>
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-common-form-control-checkbox,
+	.tribe-common-form-control-radio {
+		@mixin form-control-checkbox-radio;
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Form Control: Checkboxes
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-common-form-control-checkbox {
+		@mixin form-control-checkbox;
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Form Control: Radios
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-common-form-control-radio {
+		@mixin form-control-radio;
+	}
+}

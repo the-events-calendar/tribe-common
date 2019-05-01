@@ -2,17 +2,25 @@
  * Form Control - Checkbox & Radio
  * ----------------------------------------------------------------------------- */
 
-@define-mixin form-control-radio-checkbox {
+@define-mixin form-control-checkbox-radio {
 	display: block;
+	margin-bottom: 15px;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
 
 	input[type="checkbox"],
 	input[type="radio"] {
 		appearance: none;
 		background-color: var(--form-color-background);
 		border: 1px solid var(--form-color-border-default);
+		cursor: pointer;
 		display: inline-block;
 		height: 20px;
+		margin: 0;
 		position: relative;
+		vertical-align: middle;
 		width: 20px;
 
 		&:active,
@@ -21,21 +29,18 @@
 			border: 1px solid var(--form-color-border-active);
 		}
 
-		&:selected {
+		&:checked {
 			background-color: var(--form-color-border-active);
 		}
-	}
-
-	input[type="checkbox"] + input[type="checkbox"],
-	input[type="radio"] + input[type="radio"] {
-		margin-top: 15px;
 	}
 
 	label {
 		@mixin desktop-body-2;
 
 		cursor: pointer;
+		display: inline-block;
 		margin-left: 11px;
+		vertical-align: middle;
 	}
 }
 
@@ -43,7 +48,7 @@
 
 	input[type="checkbox"] {
 
-		&:selected:before {
+		&:checked:before {
 			background-image: svg-inline(check-white);
 			background-repeat: no-repeat;
 			background-size: contain;
@@ -64,8 +69,9 @@
 	input[type="radio"] {
 		border-radius: 50%;
 
-		&:selected:before {
+		&:checked:before {
 			background-color: var(--form-color-background);
+			border-radius: 50%;
 			content: '';
 			display: block;
 			height: 8px;
