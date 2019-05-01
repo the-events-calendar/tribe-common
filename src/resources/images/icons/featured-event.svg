@@ -1,15 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <svg width="16px" height="20px" viewBox="0 0 16 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
-    <title>Icon/FeatureEvent</title>
-    <desc>Created with Sketch.</desc>
-    <g id="00.Design-System" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Design-System---Base-Design-System" transform="translate(-440.000000, -4484.000000)" fill="#141827">
-            <g id="Icons" transform="translate(133.000000, 4408.000000)">
-                <g id="Icon/FeatureEvent" transform="translate(307.000000, 76.000000)">
-                    <polygon id="Path" points="0 0 16 0 16 20 8.0976 14.8777587 0 20"></polygon>
-                </g>
-            </g>
-        </g>
-    </g>
+    <polygon points="0 0 16 0 16 20 8.0976 14.8777587 0 20"></polygon>
 </svg>
