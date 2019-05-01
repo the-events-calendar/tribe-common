@@ -180,163 +180,163 @@
 /* Typography */
 
 /* -------------------------------------------------------------------------
- * Body 1
- * ------------------------------------------------------------------------- */
+	* Body 1
+	* ------------------------------------------------------------------------- */
 
-.tribe-common-b1 {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 1.62;
-}
+.tribe-events .tribe-common-b1 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 1.62;
+	}
 
-.tribe-common-b1--bold {
-	font-weight: 700;
-}
-
-/* -------------------------------------------------------------------------
- * Body 2
- * ------------------------------------------------------------------------- */
-
-.tribe-common-b2 {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 12px;
-	font-weight: 400;
-	line-height: 1.38;
-}
-
-.tribe-common-b2--bold {
-	font-weight: 700;
-}
-
-/* -------------------------------------------------------------------------
- * Body 3
- * ------------------------------------------------------------------------- */
-
-.tribe-common-b3 {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 11px;
-	font-weight: 400;
-	line-height: 1.5;
-}
-
-.tribe-common-b3--bold {
-	font-weight: 700;
-}
-
-/* -------------------------------------------------------------------------
- * Body 4
- * ------------------------------------------------------------------------- */
-
-.tribe-common-b4 {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 10px;
-	font-weight: 400;
-	line-height: 1.62;
-}
-
-.tribe-common-b4--bold {
-	font-weight: 700;
-}
-
-/* -------------------------------------------------------------------------
- * CTA
- * ------------------------------------------------------------------------- */
-
-.tribe-common-cta {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 12px;
-	line-height: 1.38;
-	font-weight: 400;
-	font-weight: 700;
-}
-
-.tribe-common-cta:active,
-	.tribe-common-cta:focus,
-	.tribe-common-cta:hover {
-		text-decoration: underline;
+.tribe-events .tribe-common-b1--bold {
+		font-weight: 700;
 	}
 
 /* -------------------------------------------------------------------------
- * Heading: h1
- * ------------------------------------------------------------------------- */
+	* Body 2
+	* ------------------------------------------------------------------------- */
 
-.tribe-common-h1 {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 28px;
-	font-weight: 700;
-	line-height: 1.42;
-}
+.tribe-events .tribe-common-b2 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 1.38;
+	}
 
-/* -------------------------------------------------------------------------
- * Heading: h2
- * ------------------------------------------------------------------------- */
-
-.tribe-common-h2 {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 24px;
-	font-weight: 700;
-	line-height: 1.42;
-}
+.tribe-events .tribe-common-b2--bold {
+		font-weight: 700;
+	}
 
 /* -------------------------------------------------------------------------
- * Heading: h3
- * ------------------------------------------------------------------------- */
+	* Body 3
+	* ------------------------------------------------------------------------- */
 
-.tribe-common-h3 {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 20px;
-	font-weight: 700;
-	line-height: 1.42;
-}
+.tribe-events .tribe-common-b3 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 11px;
+		font-weight: 400;
+		line-height: 1.5;
+	}
 
-.tribe-common-h3--alt {
-	font-weight: 400;
-}
-
-/* -------------------------------------------------------------------------
- * Heading: h4
- * ------------------------------------------------------------------------- */
-
-.tribe-common-h4 {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 18px;
-	font-weight: 700;
-	line-height: 1.5;
-}
+.tribe-events .tribe-common-b3--bold {
+		font-weight: 700;
+	}
 
 /* -------------------------------------------------------------------------
- * Heading: h5
- * ------------------------------------------------------------------------- */
+	* Body 4
+	* ------------------------------------------------------------------------- */
 
-.tribe-common-h5 {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 16px;
-	font-weight: 700;
-	line-height: 1.62;
-}
+.tribe-events .tribe-common-b4 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 10px;
+		font-weight: 400;
+		line-height: 1.62;
+	}
+
+.tribe-events .tribe-common-b4--bold {
+		font-weight: 700;
+	}
 
 /* -------------------------------------------------------------------------
- * Heading: h6
- * ------------------------------------------------------------------------- */
+	 * CTA
+	 * ------------------------------------------------------------------------- */
 
-.tribe-common-h6 {
-	color: #141827;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 11px;
-	font-weight: 700;
-	line-height: 1.5;
-}
+.tribe-events .tribe-common-cta {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 12px;
+		line-height: 1.38;
+		font-weight: 400;
+		font-weight: 700;
+	}
+
+.tribe-events .tribe-common-cta:active,
+		.tribe-events .tribe-common-cta:focus,
+		.tribe-events .tribe-common-cta:hover {
+			text-decoration: underline;
+		}
+
+/* -------------------------------------------------------------------------
+	* Heading: h1
+	* ------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-h1 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 28px;
+		font-weight: 700;
+		line-height: 1.42;
+	}
+
+/* -------------------------------------------------------------------------
+	* Heading: h2
+	* ------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-h2 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 24px;
+		font-weight: 700;
+		line-height: 1.42;
+	}
+
+/* -------------------------------------------------------------------------
+	* Heading: h3
+	* ------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-h3 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 20px;
+		font-weight: 700;
+		line-height: 1.42;
+	}
+
+.tribe-events .tribe-common-h3--alt {
+		font-weight: 400;
+	}
+
+/* -------------------------------------------------------------------------
+	* Heading: h4
+	* ------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-h4 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		line-height: 1.5;
+	}
+
+/* -------------------------------------------------------------------------
+	* Heading: h5
+	* ------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-h5 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 16px;
+		font-weight: 700;
+		line-height: 1.62;
+	}
+
+/* -------------------------------------------------------------------------
+	* Heading: h6
+	* ------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-h6 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 11px;
+		font-weight: 700;
+		line-height: 1.5;
+	}
 
 /* Components */
 
@@ -633,47 +633,47 @@
 
 @media (min-width: 768px) {
 
-.tribe-common-b1 {
-		font-size: 16px;
-		line-height: 1.62
-}
+.tribe-events .tribe-common-b1 {
+			font-size: 16px;
+			line-height: 1.62
+	}
 
-.tribe-common-b2 {
-		font-size: 14px;
-		line-height: 1.62
-}
+.tribe-events .tribe-common-b2 {
+			font-size: 14px;
+			line-height: 1.62
+	}
 
-.tribe-common-b3 {
-		font-size: 12px;
-		line-height: 1.38
-}
+.tribe-events .tribe-common-b3 {
+			font-size: 12px;
+			line-height: 1.38
+	}
 
-.tribe-common-b4 {
-		font-size: 11px;
-		line-height: 1.5
-}
+.tribe-events .tribe-common-b4 {
+			font-size: 11px;
+			line-height: 1.5
+	}
 
-.tribe-common-h1 {
-		font-size: 42px;
-		line-height: 1.38
-}
+.tribe-events .tribe-common-h1 {
+			font-size: 42px;
+			line-height: 1.38
+	}
 
-.tribe-common-h2 {
-		font-size: 32px;
-		line-height: 1.38
-}
+.tribe-events .tribe-common-h2 {
+			font-size: 32px;
+			line-height: 1.38
+	}
 
-.tribe-common-h3 {
-		font-size: 24px;
-		line-height: 1.42
-}
+.tribe-events .tribe-common-h3 {
+			font-size: 24px;
+			line-height: 1.42
+	}
 
-.tribe-common-h6 {
-		font-size: 12px;
-		line-height: 1.38
-}
+.tribe-events .tribe-common-h6 {
+			font-size: 12px;
+			line-height: 1.38
+	}
 
 .tribe-common-c-btn {
 		width: auto
 }
-	}
+		}
