@@ -5,38 +5,114 @@
 	 *
 	 * Example:
 	 * <div class="tribe-common-form-control-tabs">
-	 *   <ul>
-	 *     <li>
+	 *   <button aria-haspopup="listbox" aria-labelledby="tabButton" id="tabButton">Month</button>
+	 *   <ul tabindex="-1" role="listbox">
+	 *     <li role="presentation">
 	 *       <input id="tabOne" name="tabGroup" type="radio" value="tabOne" checked="checked" />
-	 *       <label for="tabOne">Tab One</label>
+	 *       <label id="tabOneLabel" for="tabOne" role="option">Tab One</label>
 	 *     </li>
-	 *     <li>
+	 *     <li role="presentation">
 	 *       <input id="tabTwo" name="tabGroup" type="radio" value="tabTwo" />
-	 *       <label for="tabTwo">Tab Two</label>
+	 *       <label id="tabTwoLabel" for="tabTwo" role="option">Tab Two</label>
 	 *     </li>
 	 *   </ul>
 	 * </div>
 	 *
 	 * ----------------------------------------------------------------------------- */
 
+	 /**
+	  * @todo: implement listbox JS
+		* https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html
+		*/
+
 	.tribe-common-form-control-tabs {
-		display: flex;
+		position: relative;
+
+		@media (--viewport-medium) {
+			display: flex;
+		}
+
+		button {
+			@mixin desktop-body-2-bold;
+
+			border: 1px solid var(--color-border-default);
+			padding: 12px 40px 12px 18px;
+			position: relative;
+			text-align: left;
+			width: 205px;
+
+			@media (--viewport-medium) {
+				@mixin hidden;
+			}
+
+			&:after {
+				background-image: svg-inline(dropdown);
+				content: '';
+				height: 6px;
+				position: absolute;
+				right: 16px;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 12px;
+			}
+		}
 
 		ul {
+			@mixin hidden;
+
+			background-color: var(--color-background);
 			border: 1px solid var(--color-border-default);
-			display: flex;
-			flex: none;
+			box-shadow: var(--box-shadow-default);
+			left: 0;
+			padding: 10px 0;
+			position: absolute;
+			top: 56px;
+			width: 205px;
+
+			@media (--viewport-medium) {
+				border: 1px solid var(--color-border-default);
+				box-shadow: none;
+				display: flex !important;
+				flex: none;
+				padding: 0;
+				position: static;
+				visibility: visible;
+				width: auto;
+			}
 		}
 
 		li {
-			border-right: 1px solid var(--color-border-default);
-			flex: none;
-			margin: 6px 0;
-			width: 88px;
 
-			&:last-child {
-				border: none;
-				width: 87px;
+			&:first-child label {
+				margin-top: -10px;
+				padding-top: 16px;
+
+				@media (--viewport-medium) {
+					margin-top: -6px;
+					padding-top: 17px;
+				}
+			}
+
+			&:last-child label {
+				margin-bottom: -10px;
+				padding-bottom: 16px;
+
+				@media (--viewport-medium) {
+					margin-bottom: -6px;
+					padding-bottom: 17px;
+				}
+			}
+
+			@media (--viewport-medium) {
+				border-right: 1px solid var(--color-border-default);
+				flex: none;
+				margin: 6px 0;
+				width: 88px;
+
+				&:last-child {
+					border: none;
+					width: 87px;
+				}
 			}
 		}
 
@@ -53,9 +129,15 @@
 			@mixin desktop-body-2;
 
 			color: var(--color-text-secondary);
-			margin: -6px 0;
-			padding: 17px 5px;
-			text-align: center;
+			cursor: pointer;
+			padding: 6px 18px;
+			text-align: left;
+
+			@media (--viewport-medium) {
+				margin: -6px 0;
+				padding: 17px 5px;
+				text-align: center;
+			}
 		}
 	}
 }
