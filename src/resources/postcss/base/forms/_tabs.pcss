@@ -1,15 +1,61 @@
-<ul>
-	<li>
-		<input type="radio" name="radio-name" />
-		<label>Label</label>
-	</li>
-	<li class="form-control-radio">
-		<input type="radio" name="radio-name" />
-		<label>Label</label>
-	</li>
-</ul>
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Tabs
+	 *
+	 * Example:
+	 * <div class="tribe-common-form-control-tabs">
+	 *   <ul>
+	 *     <li>
+	 *       <input id="tabOne" name="tabGroup" type="radio" value="tabOne" checked="checked" />
+	 *       <label for="tabOne">Tab One</label>
+	 *     </li>
+	 *     <li>
+	 *       <input id="tabTwo" name="tabGroup" type="radio" value="tabTwo" />
+	 *       <label for="tabTwo">Tab Two</label>
+	 *     </li>
+	 *   </ul>
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
 
-.form-control-checkbox,
-.form-control-radio {
+	.tribe-common-form-control-tabs {
+		display: flex;
 
+		ul {
+			border: 1px solid var(--color-border-default);
+			display: flex;
+			flex: none;
+		}
+
+		li {
+			border-right: 1px solid var(--color-border-default);
+			flex: none;
+			margin: 6px 0;
+			width: 88px;
+
+			&:last-child {
+				border: none;
+				width: 87px;
+			}
+		}
+
+		input[type="radio"] {
+			@mixin visually-hide;
+
+			&:checked + label {
+				color: var(--color-text-primary);
+				font-weight: var(--font-weight-bold);
+			}
+		}
+
+		label {
+			@mixin desktop-body-2;
+
+			color: var(--color-text-secondary);
+			margin: -6px 0;
+			padding: 17px 5px;
+			text-align: center;
+		}
+	}
 }
