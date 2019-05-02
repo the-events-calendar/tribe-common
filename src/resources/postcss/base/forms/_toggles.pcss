@@ -1,0 +1,27 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Toggles
+	 *
+	 * Example (Horizontal):
+	 * <div class="tribe-common-form-control-toggle">
+	 *   <input id="toggleOne" name="toggleGroup" type="checkbox" value="toggleOne" />
+	 *   <label for="toggleOne">Toggle One</label>
+	 * </div>
+	 *
+	 * Example (Vertical):
+	 * <div class="tribe-common-form-control-toggle tribe-common-form-control-toggle--vertical">
+	 *   <label for="toggleOne">Toggle One</label>
+	 *   <input id="toggleOne" name="toggleGroup" type="checkbox" value="toggleOne" />
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-common-form-control-toggle {
+		@mixin form-control-toggle;
+	}
+
+	.tribe-common-form-control-toggle--vertical {
+		@mixin form-control-toggle-vertical;
+	}
+}
