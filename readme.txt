@@ -2,6 +2,29 @@
 
 == Changelog ==
 
+= [4.9.7] TBD =
+
+* Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
+* Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
+
+= [4.9.6.2] 2019-04-26 =
+
+* Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]
+
+= [4.9.6.1] 2019-04-25 =
+
+* Fix - Switch from using `any` to `[ 'publish', 'private' ]` for `post_status` on any Object Relational Mapping queries [126377]
+* Fix - Resolve ORM Decorator issues that could cause fatal errors when calling methods not defined in the extending class
+
+= [4.9.6] 2019-04-23 =
+
+* Tweak - Ability to use ->where_multi() in Tribe_Repository objects to search for text matches on multiple fields (supports post fields, terms, and meta values) [125878]
+* Tweak - Allow for external modal control for modal button component [123818]
+* Tweak - Keep track of whether the current request was authorized by the Promoter connector [117668]
+* Tweak - Added filters: `tribe_common_log_to_wpcli`, `tribe_promoter_authorized_redirect_url`
+* Tweak - Changed views: `promoter/auth`
+* Language - 0 new strings added, 17 updated, 1 fuzzied, and 1 obsoleted
+
 = [4.9.5] 2019-04-17 =
 
 * Feature - Include Freemius integration on our Common Libraries to enable information collection opt-in for some new users
@@ -13,8 +36,8 @@
 * Tweak - Fork `WP_Background_Process` to `Tribe__Process__Handler` to allow for better internal maintenance by our team
 * Tweak - Include more Array handling methods: `recursive_ksort`, `add_prefixed_keys_to`, `flatten`, `filter_prefixed`, `add_unprefixed_keys_to`
 * Fix - Adjust `Tribe__Admin__Helpers::is_screen()` to avoid false positives and flag the events menu Tags page as a Tribe screen [107413]
-* Fix - Improve the handling asyncronous requests for our Process Handler
-* Fix - Correct problems with image asyncronous processing of thumbnail images
+* Fix - Improve the handling asynchronous requests for our Process Handler
+* Fix - Correct problems with image asynchronous processing of thumbnail images
 * Fix - Confirm that multisite background processing saves options and progress to the correct table in the database
 * Language - 8 new strings added, 25 updated, 1 fuzzied, and 0 obsoleted
 
