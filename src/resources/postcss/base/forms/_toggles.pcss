@@ -18,33 +18,25 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-common-form-control-toggle {
-		display: block;
 
 		input[type="checkbox"] {
+			@mixin form-control-slider-toggle-track;
+
 			appearance: none;
 			background-color: var(--form-color-border-secondary);
-			border-radius: 5px;
 			cursor: pointer;
 			display: inline-block;
-			height: 10px;
-			margin: 5px 0;
-			position: relative;
-			transition: var(--transition-background-color);
 			vertical-align: middle;
 			width: 40px;
 
 			&:after {
-				background-color: var(--form-color-background);
-				border: 1px solid var(--form-color-border-secondary);
-				border-radius: 50%;
-				box-shadow: 0 2px 5px 0 var(--form-color-shadow);
+				@mixin form-control-slider-toggle-thumb;
+
 				content: '';
-				height: 20px;
 				left: 0;
 				position: absolute;
 				top: -5px;
 				transition: var(--transition-transform);
-				width: 20px;
 			}
 
 			&:checked {

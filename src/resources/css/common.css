@@ -172,6 +172,14 @@
  * Button - Border
  * ----------------------------------------------------------------------------- */
 
+/* -----------------------------------------------------------------------------
+ * Sliders & Toggles
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Sliders
+ * ----------------------------------------------------------------------------- */
+
 /* Base */
 
 /* -----------------------------------------------------------------------------
@@ -216,7 +224,6 @@
 
 .tribe-events .tribe-common-form-control-checkbox,
 	.tribe-events .tribe-common-form-control-radio {
-		display: block;
 		margin-bottom: 15px;
 	}
 
@@ -320,6 +327,142 @@
 
 /* -----------------------------------------------------------------------------
 	 *
+	 * Form Control: Sliders
+	 *
+	 * Example (Horizontal):
+	 * <div class="tribe-common-form-control-slider">
+	 *   <input id="sliderOne" type="range" min="0" max="100" value="50" />
+	 *   <label for="sliderOne">Slider One</label>
+	 * </div>
+	 *
+	 * Example (Vertical):
+	 * <div class="tribe-common-form-control-slider tribe-common-form-control-slider--vertical">
+	 *   <label for="sliderOne">Slider One</label>
+	 *   <input id="sliderOne" type="range" min="0" max="100" value="50" />
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-form-control-slider input[type="range"] {
+			-webkit-appearance: none;
+			   -moz-appearance: none;
+			        appearance: none;
+			border: none;
+			cursor: pointer;
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			width: 120px;
+			vertical-align: middle;
+		}
+
+/* -----------------------------------------------------------------------------
+			 * Track styles
+			 * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-form-control-slider input[type="range"]::-webkit-slider-runnable-track {
+				border: none;
+				border-radius: 5px;
+				height: 10px;
+				margin: 5px 0;
+				padding: 0;
+				position: relative;
+				-webkit-transition: background-color 0.2s ease;
+				-o-transition: background-color 0.2s ease;
+				transition: background-color 0.2s ease;
+				background-color: #334AFF;
+			}
+
+.tribe-events .tribe-common-form-control-slider input[type="range"]::-moz-range-track {
+				border: none;
+				border-radius: 5px;
+				height: 10px;
+				margin: 5px 0;
+				padding: 0;
+				position: relative;
+				-webkit-transition: background-color 0.2s ease;
+				-o-transition: background-color 0.2s ease;
+				transition: background-color 0.2s ease;
+				background-color: #334AFF;
+			}
+
+.tribe-events .tribe-common-form-control-slider input[type="range"]::-ms-track {
+				background-color: transparent;
+				border-color: transparent;
+				border-width: 5px 0;
+				color: transparent;
+				height: 10px;
+			}
+
+.tribe-events .tribe-common-form-control-slider input[type="range"]::-ms-fill-lower,
+			.tribe-events .tribe-common-form-control-slider input[type="range"]::-ms-fill-upper {
+				background-color: #334AFF;
+				border-radius: 10px;
+			}
+
+/* -----------------------------------------------------------------------------
+			 * Thumb styles
+			 * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-form-control-slider input[type="range"]::-webkit-slider-thumb {
+				background-color: #FFFFFF;
+				border: 1px solid #D5D5D5;
+				border-radius: 50%;
+				-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
+				        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
+				height: 20px;
+				width: 20px;
+				margin-top: -5px;
+
+				-webkit-appearance: none;
+
+				        appearance: none;
+			}
+
+.tribe-events .tribe-common-form-control-slider input[type="range"]::-moz-range-thumb {
+				background-color: #FFFFFF;
+				border: 1px solid #D5D5D5;
+				border-radius: 50%;
+				box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
+				height: 20px;
+				width: 20px;
+				margin-top: -5px;
+			}
+
+.tribe-events .tribe-common-form-control-slider input[type="range"]::-ms-thumb {
+				background-color: #FFFFFF;
+				border: 1px solid #D5D5D5;
+				border-radius: 50%;
+				box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
+				height: 20px;
+				width: 20px;
+				margin-top: -5px;
+
+				box-shadow: none;
+				margin-top: -1px;
+			}
+
+.tribe-events .tribe-common-form-control-slider label {
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 12px;
+			line-height: 1.38;
+			font-weight: 400;
+
+			color: #727272;
+			cursor: pointer;
+			display: inline-block;
+			margin-left: 11px;
+			vertical-align: middle;
+		}
+
+.tribe-events .tribe-common-form-control-slider--vertical label {
+			display: block;
+			margin: 0 0 6px;
+		}
+
+/* -----------------------------------------------------------------------------
+	 *
 	 * Form Control: Toggles
 	 *
 	 * Example (Horizontal):
@@ -336,24 +479,25 @@
 	 *
 	 * ----------------------------------------------------------------------------- */
 
-.tribe-events .tribe-common-form-control-toggle {
-		display: block;
-	}
-
 .tribe-events .tribe-common-form-control-toggle input[type="checkbox"] {
-			-webkit-appearance: none;
-			   -moz-appearance: none;
-			        appearance: none;
-			background-color: #D5D5D5;
+			border: none;
 			border-radius: 5px;
-			cursor: pointer;
-			display: inline-block;
 			height: 10px;
 			margin: 5px 0;
+			padding: 0;
 			position: relative;
 			-webkit-transition: background-color 0.2s ease;
 			-o-transition: background-color 0.2s ease;
 			transition: background-color 0.2s ease;
+
+			-webkit-appearance: none;
+
+			   -moz-appearance: none;
+
+			        appearance: none;
+			background-color: #D5D5D5;
+			cursor: pointer;
+			display: inline-block;
 			vertical-align: middle;
 			width: 40px;
 		}
@@ -364,8 +508,10 @@
 				border-radius: 50%;
 				-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
 				        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
-				content: '';
 				height: 20px;
+				width: 20px;
+
+				content: '';
 				left: 0;
 				position: absolute;
 				top: -5px;
@@ -374,7 +520,6 @@
 				-o-transition: transform 0.2s ease;
 				transition: transform 0.2s ease;
 				transition: transform 0.2s ease, -webkit-transform 0.2s ease;
-				width: 20px;
 			}
 
 .tribe-events .tribe-common-form-control-toggle input[type="checkbox"]:checked {
