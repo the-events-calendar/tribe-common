@@ -187,6 +187,10 @@
  * ----------------------------------------------------------------------------- */
 
 /* -----------------------------------------------------------------------------
+ * Selects
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
  * Sliders & Toggles
  * ----------------------------------------------------------------------------- */
 
@@ -353,6 +357,107 @@
 				width: 8px;
 			}
 
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Selects
+	 *
+	 * Example:
+	 * <div class="tribe-common-form-control-select">
+	 *   <button aria-haspopup="listbox" aria-labelledby="selectButton" id="selectButton">Option One</button>
+	 *   <ul tabindex="-1" role="listbox">
+	 *     <li id="optionOne" role="option">Option One</li>
+	 *     <li id="optionTwo" role="option">Option Two</li>
+	 *   </ul>
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+}
+
+/**
+	  * @todo: implement listbox JS
+		* https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html
+		*/
+
+.tribe-events .tribe-common-form-control-select {
+		position: relative;
+	}
+
+.tribe-events .tribe-common-form-control-select button {
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 14px;
+			line-height: 1.62;
+			font-weight: 400;
+			font-weight: 700;
+			border: 1px solid #D5D5D5;
+			padding: 12px 40px 12px 18px;
+			position: relative;
+			text-align: left;
+			width: 205px;
+		}
+
+.tribe-events .tribe-common-form-control-select button:after {
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='6px' viewBox='0 0 12 6' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpolygon points='6,6 12,0 0,0 ' fill='%23727272'/%3E %3C/svg%3E");
+				content: '';
+				height: 6px;
+				position: absolute;
+				right: 16px;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				    -ms-transform: translateY(-50%);
+				        transform: translateY(-50%);
+				width: 12px;
+			}
+
+.tribe-events .tribe-common-form-control-select ul {
+			/**
+			 * @todo: remove once listbox JS is implemented
+			 */
+			/* @mixin hidden; */
+
+			background-color: #FFFFFF;
+
+			border: 1px solid #D5D5D5;
+
+			-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
+
+			        box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
+
+			left: 0;
+
+			position: absolute;
+
+			top: 55px;
+
+			width: 205px;
+		}
+
+.tribe-events .tribe-common-form-control-select li {
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 14px;
+			line-height: 1.62;
+			font-weight: 400;
+			color: #727272;
+			cursor: pointer;
+			padding: 6px 18px;
+			text-align: left;
+		}
+
+.tribe-events .tribe-common-form-control-select li:first-child {
+				padding-top: 16px;
+			}
+
+.tribe-events .tribe-common-form-control-select li:last-child {
+				padding-bottom: 16px;
+			}
+
+.tribe-events .tribe-common-form-control-select li[aria-selected="true"] {
+				color: #141827;
+				font-weight: 700;
+			}
+
 /* -----------------------------------------------------------------------------
 	 *
 	 * Form Control: Sliders
@@ -496,7 +601,7 @@
 	 *
 	 * Example:
 	 * <div class="tribe-common-form-control-tabs">
-	 *   <button aria-haspopup="listbox" aria-labelledby="tabButton" id="tabButton">Month</button>
+	 *   <button aria-haspopup="listbox" aria-labelledby="tabButton" id="tabButton">Tab One</button>
 	 *   <ul tabindex="-1" role="listbox">
 	 *     <li role="presentation">
 	 *       <input id="tabOne" name="tabGroup" type="radio" value="tabOne" checked="checked" />
@@ -528,7 +633,6 @@
 			line-height: 1.62;
 			font-weight: 400;
 			font-weight: 700;
-
 			border: 1px solid #D5D5D5;
 			padding: 12px 40px 12px 18px;
 			position: relative;
@@ -550,27 +654,33 @@
 			}
 
 .tribe-events .tribe-common-form-control-tabs ul {
-			display: none !important;
-			visibility: hidden;
+			/**
+			 * @todo: remove once listbox JS is implemented
+			 */
+			/* @mixin hidden; */
 
 			background-color: #FFFFFF;
+
 			border: 1px solid #D5D5D5;
+
 			-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
+
 			        box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
+
 			left: 0;
-			padding: 10px 0;
+
 			position: absolute;
-			top: 56px;
+
+			top: 55px;
+
 			width: 205px;
 		}
 
 .tribe-events .tribe-common-form-control-tabs li:first-child label {
-				margin-top: -10px;
 				padding-top: 16px;
 			}
 
 .tribe-events .tribe-common-form-control-tabs li:last-child label {
-				margin-bottom: -10px;
 				padding-bottom: 16px;
 			}
 
@@ -596,7 +706,6 @@
 			font-size: 14px;
 			line-height: 1.62;
 			font-weight: 400;
-
 			color: #727272;
 			cursor: pointer;
 			padding: 6px 18px;
@@ -1201,6 +1310,19 @@
 
 @media (min-width: 768px) {
 
+.tribe-events .tribe-common-form-control-select button {
+				padding: 16px 44px 16px 18px;
+				width: 220px
+		}
+
+.tribe-events .tribe-common-form-control-select button:after {
+					right: 18px
+			}
+
+.tribe-events .tribe-common-form-control-select ul {
+				width: 220px
+		}
+
 .tribe-events .tribe-common-form-control-tabs {
 			display: -webkit-box;
 			display: -ms-flexbox;
@@ -1222,7 +1344,6 @@
 				-webkit-box-flex: 0;
 				    -ms-flex: none;
 				        flex: none;
-				padding: 0;
 				position: static;
 				visibility: visible;
 				width: auto
@@ -1301,4 +1422,4 @@
 .tribe-events .tribe-common-c-btn {
 			width: auto
 	}
-		}
+			}

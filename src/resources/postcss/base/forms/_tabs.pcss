@@ -5,7 +5,7 @@
 	 *
 	 * Example:
 	 * <div class="tribe-common-form-control-tabs">
-	 *   <button aria-haspopup="listbox" aria-labelledby="tabButton" id="tabButton">Month</button>
+	 *   <button aria-haspopup="listbox" aria-labelledby="tabButton" id="tabButton">Tab One</button>
 	 *   <ul tabindex="-1" role="listbox">
 	 *     <li role="presentation">
 	 *       <input id="tabOne" name="tabGroup" type="radio" value="tabOne" checked="checked" />
@@ -33,48 +33,30 @@
 		}
 
 		button {
-			@mixin desktop-body-2-bold;
-
-			border: 1px solid var(--color-border-default);
-			padding: 12px 40px 12px 18px;
-			position: relative;
-			text-align: left;
-			width: 205px;
+			@mixin form-control-select-button-mobile;
 
 			@media (--viewport-medium) {
 				@mixin hidden;
 			}
 
 			&:after {
-				background-image: svg-inline(dropdown);
-				content: '';
-				height: 6px;
-				position: absolute;
-				right: 16px;
-				top: 50%;
-				transform: translateY(-50%);
-				width: 12px;
+				@mixin form-control-select-button-icon-mobile;
 			}
 		}
 
 		ul {
-			@mixin hidden;
+			/**
+			 * @todo: remove once listbox JS is implemented
+			 */
+			/* @mixin hidden; */
 
-			background-color: var(--color-background);
-			border: 1px solid var(--color-border-default);
-			box-shadow: var(--box-shadow-default);
-			left: 0;
-			padding: 10px 0;
-			position: absolute;
-			top: 56px;
-			width: 205px;
+			@mixin form-control-select-list-mobile;
 
 			@media (--viewport-medium) {
 				border: 1px solid var(--color-border-default);
 				box-shadow: none;
 				display: flex !important;
 				flex: none;
-				padding: 0;
 				position: static;
 				visibility: visible;
 				width: auto;
@@ -84,8 +66,7 @@
 		li {
 
 			&:first-child label {
-				margin-top: -10px;
-				padding-top: 16px;
+				@mixin form-control-select-list-item-first;
 
 				@media (--viewport-medium) {
 					margin-top: -6px;
@@ -94,8 +75,7 @@
 			}
 
 			&:last-child label {
-				margin-bottom: -10px;
-				padding-bottom: 16px;
+				@mixin form-control-select-list-item-last;
 
 				@media (--viewport-medium) {
 					margin-bottom: -6px;
@@ -120,18 +100,12 @@
 			@mixin visually-hide;
 
 			&:checked + label {
-				color: var(--color-text-primary);
-				font-weight: var(--font-weight-bold);
+				@mixin form-control-select-list-item-selected;
 			}
 		}
 
 		label {
-			@mixin desktop-body-2;
-
-			color: var(--color-text-secondary);
-			cursor: pointer;
-			padding: 6px 18px;
-			text-align: left;
+			@mixin form-control-select-list-item;
 
 			@media (--viewport-medium) {
 				margin: -6px 0;
