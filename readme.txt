@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.7] TBD =
+= [4.9.7] 2019-05-02 =
 
 * Fix - Fixed cron to handle EA featured image processing while importing [124019]
 
