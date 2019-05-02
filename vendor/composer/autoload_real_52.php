@@ -39,6 +39,44 @@ class ComposerAutoloaderInitdfa186765119b050ecb64f00cbe2b6bb {
 
 		$loader->register(true);
 
+//		require $vendorDir . '/symfony/polyfill-ctype/bootstrap.php'; // disabled because of PHP 5.3 syntax
+//		require $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php'; // disabled because of PHP 5.3 syntax
+		require $vendorDir . '/ramsey/array_column/src/array_column.php';
+		require $vendorDir . '/wp-cli/mustangostang-spyc/includes/functions.php';
+		require $vendorDir . '/wp-cli/package-command/package-command.php';
+//		require $vendorDir . '/wp-cli/php-cli-tools/lib/cli/cli.php'; // disabled because of PHP 5.3 syntax
+		require $vendorDir . '/ralouphie/getallheaders/src/getallheaders.php';
+//		require $vendorDir . '/guzzlehttp/psr7/src/functions_include.php'; // disabled because of PHP 5.3 syntax
+//		require $vendorDir . '/guzzlehttp/promises/src/functions_include.php'; // disabled because of PHP 5.3 syntax
+//		require $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php'; // disabled because of PHP 5.3 syntax
+//		require $vendorDir . '/illuminate/support/helpers.php'; // disabled because of PHP 5.3 syntax
+		require $vendorDir . '/wp-cli/wp-config-transformer/src/WPConfigTransformer.php';
+//		require $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php'; // disabled because of PHP 5.3 syntax
+		require $vendorDir . '/wp-cli/cache-command/cache-command.php';
+		require $vendorDir . '/wp-cli/checksum-command/checksum-command.php';
+		require $vendorDir . '/wp-cli/config-command/config-command.php';
+		require $vendorDir . '/wp-cli/core-command/core-command.php';
+		require $vendorDir . '/wp-cli/cron-command/cron-command.php';
+		require $vendorDir . '/wp-cli/db-command/db-command.php';
+//		require $vendorDir . '/wp-cli/embed-command/embed-command.php'; // disabled because of PHP 5.3 syntax
+//		require $vendorDir . '/wp-cli/entity-command/entity-command.php'; // disabled because of PHP 5.3 syntax
+		require $vendorDir . '/wp-cli/eval-command/eval-command.php';
+		require $vendorDir . '/wp-cli/export-command/export-command.php';
+		require $vendorDir . '/wp-cli/extension-command/extension-command.php';
+		require $vendorDir . '/wp-cli/import-command/import-command.php';
+//		require $vendorDir . '/wp-cli/language-command/language-command.php'; // disabled because of PHP 5.3 syntax
+		require $vendorDir . '/wp-cli/media-command/media-command.php';
+		require $vendorDir . '/wp-cli/rewrite-command/rewrite-command.php';
+		require $vendorDir . '/wp-cli/role-command/role-command.php';
+		require $vendorDir . '/wp-cli/scaffold-command/scaffold-command.php';
+		require $vendorDir . '/wp-cli/search-replace-command/search-replace-command.php';
+		require $vendorDir . '/wp-cli/server-command/server-command.php';
+		require $vendorDir . '/wp-cli/shell-command/shell-command.php';
+		require $vendorDir . '/wp-cli/super-admin-command/super-admin-command.php';
+		require $vendorDir . '/wp-cli/widget-command/widget-command.php';
+//		require $vendorDir . '/lucatume/function-mocker-le/src/function-mocker-le.php'; // disabled because of PHP 5.3 syntax
+//		require $vendorDir . '/lucatume/wp-browser/src/tad/WPBrowser/functions.php'; // disabled because of PHP 5.3 syntax
+
 		return $loader;
 	}
 }

@@ -565,10 +565,16 @@ abstract class Tribe__Repository
 
 		if ( $use_query_builder && null !== $this->query_builder ) {
 			$query = $this->build_query_with_builder();
-		}
-
-		if ( null === $query ) {
-			$query = $this->build_query_internally();
+		if ( null === $this->last_built_query ) {
+			$query = null;
+			if ( $use_query_builder && null !== $this->query_builder ) {
+				$query = $this->build_query_with_builder();
+			}
+			if ( null === $query ) {
+				$query = $this->build_query_internally();
+			}
+		} else {
+			$query = $this->last_built_query;
 		}
 
 		/**
@@ -1353,7 +1359,11 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function get_query() {
-		return $this->build_query();
+		if ( null === $this->last_built_query ) {
+			$this->last_built_query = $this->build_query();
+		}
+
+		return $this->last_built_query;
 	}
 
 	/**
@@ -3446,5 +3456,12 @@ abstract class Tribe__Repository
 		$this->filter_query->where( implode( " {$where_relation} ", $wheres ) );
 
 		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_query( WP_Query $query ) {
+		$this->last_built_query = $query;
 	}
 }
