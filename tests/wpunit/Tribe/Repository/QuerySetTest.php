@@ -4,6 +4,7 @@ namespace Tribe\Repository;
 
 use PHPUnit\Framework\AssertionFailedError;
 use Tribe__Repository as Repository;
+use Tribe__Repository__Usage_Error as Usage_Error;
 
 class QuerySetTest extends \Codeception\TestCase\WPTestCase {
 
@@ -14,7 +15,6 @@ class QuerySetTest extends \Codeception\TestCase\WPTestCase {
 		register_post_type( 'book' );
 		register_taxonomy( 'genre', 'book' );
 		$this->class = new class extends \Tribe__Repository {
-
 			protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
 			protected $filter_name = 'books';
 		};
@@ -104,8 +104,22 @@ class QuerySetTest extends \Codeception\TestCase\WPTestCase {
 		$repository->set_query( $query );
 
 		$repository->count();
-		$repository->count();
 		$repository->first();
+		$repository->found();
 		$this->assertEquals( 1, $calls, 'Query should run once.');
+	}
+
+	/**
+	 * It should throw a usage error if setting the query after a first fetch
+	 *
+	 * @test
+	 */
+	public function should_throw_a_usage_error_if_setting_the_query_after_a_first_fetch() {
+		$repository = $this->repository();
+
+		$repository->count();
+
+		$this->expectException( Usage_Error::class );
+		$repository->set_query( new \WP_Query() );
 	}
 }
