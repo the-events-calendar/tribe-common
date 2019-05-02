@@ -172,14 +172,6 @@
  * Button - Border
  * ----------------------------------------------------------------------------- */
 
-/* -----------------------------------------------------------------------------
- * Form Control - Checkbox & Radio
- * ----------------------------------------------------------------------------- */
-
-/* -----------------------------------------------------------------------------
- * Form Control - Toggle
- * ----------------------------------------------------------------------------- */
-
 /* Base */
 
 /* -----------------------------------------------------------------------------
@@ -229,102 +221,102 @@
 	}
 
 .tribe-events .tribe-common-form-control-checkbox:last-child, .tribe-events .tribe-common-form-control-radio:last-child {
-		margin-bottom: 0;
-	}
+			margin-bottom: 0;
+		}
 
 .tribe-events .tribe-common-form-control-checkbox input[type="checkbox"],
-	.tribe-events .tribe-common-form-control-checkbox input[type="radio"],
-	.tribe-events .tribe-common-form-control-radio input[type="checkbox"],
-	.tribe-events .tribe-common-form-control-radio input[type="radio"] {
-		-webkit-appearance: none;
-		   -moz-appearance: none;
-		        appearance: none;
-		background-color: #FFFFFF;
-		border: 1px solid #141827;
-		cursor: pointer;
-		display: inline-block;
-		height: 20px;
-		margin: 0;
-		position: relative;
-		vertical-align: middle;
-		width: 20px;
-	}
+		.tribe-events .tribe-common-form-control-checkbox input[type="radio"],
+		.tribe-events .tribe-common-form-control-radio input[type="checkbox"],
+		.tribe-events .tribe-common-form-control-radio input[type="radio"] {
+			-webkit-appearance: none;
+			   -moz-appearance: none;
+			        appearance: none;
+			background-color: #FFFFFF;
+			border: 1px solid #141827;
+			cursor: pointer;
+			display: inline-block;
+			height: 20px;
+			margin: 0;
+			position: relative;
+			vertical-align: middle;
+			width: 20px;
+		}
 
 .tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:active,
-		.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:focus,
-		.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:hover,
-		.tribe-events .tribe-common-form-control-checkbox input[type="radio"]:active,
-		.tribe-events .tribe-common-form-control-checkbox input[type="radio"]:focus,
-		.tribe-events .tribe-common-form-control-checkbox input[type="radio"]:hover,
-		.tribe-events .tribe-common-form-control-radio input[type="checkbox"]:active,
-		.tribe-events .tribe-common-form-control-radio input[type="checkbox"]:focus,
-		.tribe-events .tribe-common-form-control-radio input[type="checkbox"]:hover,
-		.tribe-events .tribe-common-form-control-radio input[type="radio"]:active,
-		.tribe-events .tribe-common-form-control-radio input[type="radio"]:focus,
-		.tribe-events .tribe-common-form-control-radio input[type="radio"]:hover {
-			border: 1px solid #141827;
-		}
+			.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:focus,
+			.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:hover,
+			.tribe-events .tribe-common-form-control-checkbox input[type="radio"]:active,
+			.tribe-events .tribe-common-form-control-checkbox input[type="radio"]:focus,
+			.tribe-events .tribe-common-form-control-checkbox input[type="radio"]:hover,
+			.tribe-events .tribe-common-form-control-radio input[type="checkbox"]:active,
+			.tribe-events .tribe-common-form-control-radio input[type="checkbox"]:focus,
+			.tribe-events .tribe-common-form-control-radio input[type="checkbox"]:hover,
+			.tribe-events .tribe-common-form-control-radio input[type="radio"]:active,
+			.tribe-events .tribe-common-form-control-radio input[type="radio"]:focus,
+			.tribe-events .tribe-common-form-control-radio input[type="radio"]:hover {
+				border: 1px solid #141827;
+			}
 
 .tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:checked, .tribe-events .tribe-common-form-control-checkbox input[type="radio"]:checked, .tribe-events .tribe-common-form-control-radio input[type="checkbox"]:checked, .tribe-events .tribe-common-form-control-radio input[type="radio"]:checked {
-			background-color: #141827;
-		}
+				background-color: #141827;
+			}
 
 .tribe-events .tribe-common-form-control-checkbox label, .tribe-events .tribe-common-form-control-radio label {
-		color: #141827;
-		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-size: 14px;
-		line-height: 1.62;
-		font-weight: 400;
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 14px;
+			line-height: 1.62;
+			font-weight: 400;
 
-		color: #727272;
-		cursor: pointer;
-		display: inline-block;
-		margin-left: 11px;
-		vertical-align: middle;
-	}
+			color: #727272;
+			cursor: pointer;
+			display: inline-block;
+			margin-left: 11px;
+			vertical-align: middle;
+		}
 
 /* -----------------------------------------------------------------------------
 	 * Form Control: Checkboxes
 	 * ----------------------------------------------------------------------------- */
 
 .tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:checked:before {
-			background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='9px' viewBox='0 0 12 9' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpath d='M10.6,0.1L3.9,6.8L1.4,4.3C1.3,4.2,1.1,4.2,1,4.3L0.2,5.1c-0.1,0.1-0.1,0.3,0,0.4l3.4,3.4C3.8,9,4,9,4.1,8.9l7.7-7.7c0.1-0.1,0.1-0.3,0-0.4L11,0.1C10.9,0,10.7,0,10.6,0.1z' fill='%23FFFFFF'/%3E %3C/svg%3E");
-			background-repeat: no-repeat;
-			background-size: contain;
-			content: '';
-			display: block;
-			height: 9px;
-			left: 50%;
-			position: absolute;
-			top: 50%;
-			-webkit-transform: translate(-50%, -50%);
-			    -ms-transform: translate(-50%, -50%);
-			        transform: translate(-50%, -50%);
-			width: 12px;
-		}
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='9px' viewBox='0 0 12 9' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpath d='M10.6,0.1L3.9,6.8L1.4,4.3C1.3,4.2,1.1,4.2,1,4.3L0.2,5.1c-0.1,0.1-0.1,0.3,0,0.4l3.4,3.4C3.8,9,4,9,4.1,8.9l7.7-7.7c0.1-0.1,0.1-0.3,0-0.4L11,0.1C10.9,0,10.7,0,10.6,0.1z' fill='%23FFFFFF'/%3E %3C/svg%3E");
+				background-repeat: no-repeat;
+				background-size: contain;
+				content: '';
+				display: block;
+				height: 9px;
+				left: 50%;
+				position: absolute;
+				top: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				    -ms-transform: translate(-50%, -50%);
+				        transform: translate(-50%, -50%);
+				width: 12px;
+			}
 
 /* -----------------------------------------------------------------------------
 	 * Form Control: Radios
 	 * ----------------------------------------------------------------------------- */
 
 .tribe-events .tribe-common-form-control-radio input[type="radio"] {
-		border-radius: 50%;
-	}
+			border-radius: 50%;
+		}
 
 .tribe-events .tribe-common-form-control-radio input[type="radio"]:checked:before {
-			background-color: #FFFFFF;
-			border-radius: 50%;
-			content: '';
-			display: block;
-			height: 8px;
-			left: 50%;
-			position: absolute;
-			top: 50%;
-			-webkit-transform: translate(-50%, -50%);
-			    -ms-transform: translate(-50%, -50%);
-			        transform: translate(-50%, -50%);
-			width: 8px;
-		}
+				background-color: #FFFFFF;
+				border-radius: 50%;
+				content: '';
+				display: block;
+				height: 8px;
+				left: 50%;
+				position: absolute;
+				top: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				    -ms-transform: translate(-50%, -50%);
+				        transform: translate(-50%, -50%);
+				width: 8px;
+			}
 
 /* -----------------------------------------------------------------------------
 	 *
@@ -349,70 +341,70 @@
 	}
 
 .tribe-events .tribe-common-form-control-toggle input[type="checkbox"] {
-		-webkit-appearance: none;
-		   -moz-appearance: none;
-		        appearance: none;
-		background-color: #D5D5D5;
-		border-radius: 5px;
-		cursor: pointer;
-		display: inline-block;
-		height: 10px;
-		margin: 5px 0;
-		position: relative;
-		-webkit-transition: background-color 0.2s ease;
-		-o-transition: background-color 0.2s ease;
-		transition: background-color 0.2s ease;
-		vertical-align: middle;
-		width: 40px;
-	}
+			-webkit-appearance: none;
+			   -moz-appearance: none;
+			        appearance: none;
+			background-color: #D5D5D5;
+			border-radius: 5px;
+			cursor: pointer;
+			display: inline-block;
+			height: 10px;
+			margin: 5px 0;
+			position: relative;
+			-webkit-transition: background-color 0.2s ease;
+			-o-transition: background-color 0.2s ease;
+			transition: background-color 0.2s ease;
+			vertical-align: middle;
+			width: 40px;
+		}
 
 .tribe-events .tribe-common-form-control-toggle input[type="checkbox"]:after {
-			background-color: #FFFFFF;
-			border: 1px solid #D5D5D5;
-			border-radius: 50%;
-			-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
-			        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
-			content: '';
-			height: 20px;
-			left: 0;
-			position: absolute;
-			top: -5px;
-			-webkit-transition: -webkit-transform 0.2s ease;
-			transition: -webkit-transform 0.2s ease;
-			-o-transition: transform 0.2s ease;
-			transition: transform 0.2s ease;
-			transition: transform 0.2s ease, -webkit-transform 0.2s ease;
-			width: 20px;
-		}
-
-.tribe-events .tribe-common-form-control-toggle input[type="checkbox"]:checked {
-			background-color: #334AFF;
-		}
-
-.tribe-events .tribe-common-form-control-toggle input[type="checkbox"]:checked:after {
-				-webkit-transform: translateX(20px);
-				    -ms-transform: translateX(20px);
-				        transform: translateX(20px);
+				background-color: #FFFFFF;
+				border: 1px solid #D5D5D5;
+				border-radius: 50%;
+				-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
+				        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
+				content: '';
+				height: 20px;
+				left: 0;
+				position: absolute;
+				top: -5px;
+				-webkit-transition: -webkit-transform 0.2s ease;
+				transition: -webkit-transform 0.2s ease;
+				-o-transition: transform 0.2s ease;
+				transition: transform 0.2s ease;
+				transition: transform 0.2s ease, -webkit-transform 0.2s ease;
+				width: 20px;
 			}
 
-.tribe-events .tribe-common-form-control-toggle label {
-		color: #141827;
-		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-size: 12px;
-		line-height: 1.38;
-		font-weight: 400;
+.tribe-events .tribe-common-form-control-toggle input[type="checkbox"]:checked {
+				background-color: #334AFF;
+			}
 
-		color: #727272;
-		cursor: pointer;
-		display: inline-block;
-		margin-left: 11px;
-		vertical-align: middle;
-	}
+.tribe-events .tribe-common-form-control-toggle input[type="checkbox"]:checked:after {
+					-webkit-transform: translateX(20px);
+					    -ms-transform: translateX(20px);
+					        transform: translateX(20px);
+				}
+
+.tribe-events .tribe-common-form-control-toggle label {
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 12px;
+			line-height: 1.38;
+			font-weight: 400;
+
+			color: #727272;
+			cursor: pointer;
+			display: inline-block;
+			margin-left: 11px;
+			vertical-align: middle;
+		}
 
 .tribe-events .tribe-common-form-control-toggle--vertical label {
-		display: block;
-		margin: 0 0 6px;
-	}
+			display: block;
+			margin: 0 0 6px;
+		}
 
 /* Typography */
 

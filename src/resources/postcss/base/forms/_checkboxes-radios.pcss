@@ -30,7 +30,46 @@
 
 	.tribe-common-form-control-checkbox,
 	.tribe-common-form-control-radio {
-		@mixin form-control-checkbox-radio;
+		display: block;
+		margin-bottom: 15px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		input[type="checkbox"],
+		input[type="radio"] {
+			appearance: none;
+			background-color: var(--form-color-background);
+			border: 1px solid var(--form-color-border-default);
+			cursor: pointer;
+			display: inline-block;
+			height: 20px;
+			margin: 0;
+			position: relative;
+			vertical-align: middle;
+			width: 20px;
+
+			&:active,
+			&:focus,
+			&:hover {
+				border: 1px solid var(--form-color-border-active);
+			}
+
+			&:checked {
+				background-color: var(--form-color-border-active);
+			}
+		}
+
+		label {
+			@mixin desktop-body-2;
+
+			color: var(--color-text-secondary);
+			cursor: pointer;
+			display: inline-block;
+			margin-left: 11px;
+			vertical-align: middle;
+		}
 	}
 
 	/* -----------------------------------------------------------------------------
@@ -38,7 +77,23 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-common-form-control-checkbox {
-		@mixin form-control-checkbox;
+
+		input[type="checkbox"] {
+
+			&:checked:before {
+				background-image: svg-inline(check-white);
+				background-repeat: no-repeat;
+				background-size: contain;
+				content: '';
+				display: block;
+				height: 9px;
+				left: 50%;
+				position: absolute;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				width: 12px;
+			}
+		}
 	}
 
 	/* -----------------------------------------------------------------------------
@@ -46,6 +101,22 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-common-form-control-radio {
-		@mixin form-control-radio;
+
+		input[type="radio"] {
+			border-radius: 50%;
+
+			&:checked:before {
+				background-color: var(--form-color-background);
+				border-radius: 50%;
+				content: '';
+				display: block;
+				height: 8px;
+				left: 50%;
+				position: absolute;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				width: 8px;
+			}
+		}
 	}
 }
