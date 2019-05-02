@@ -50,7 +50,17 @@
 
 :root {
 	/* -----------------------------------------------------------------------------
+	 * Box Shadows
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
 	 * Forms - Colors
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Forms - Box Shadows
 	 * ----------------------------------------------------------------------------- */
 }
 
@@ -408,8 +418,8 @@
 				background-color: #FFFFFF;
 				border: 1px solid #D5D5D5;
 				border-radius: 50%;
-				-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
-				        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
+				-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
+				        box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
 				height: 20px;
 				width: 20px;
 				margin-top: -5px;
@@ -423,7 +433,7 @@
 				background-color: #FFFFFF;
 				border: 1px solid #D5D5D5;
 				border-radius: 50%;
-				box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
+				box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
 				height: 20px;
 				width: 20px;
 				margin-top: -5px;
@@ -433,7 +443,7 @@
 				background-color: #FFFFFF;
 				border: 1px solid #D5D5D5;
 				border-radius: 50%;
-				box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
+				box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
 				height: 20px;
 				width: 20px;
 				margin-top: -5px;
@@ -506,8 +516,8 @@
 				background-color: #FFFFFF;
 				border: 1px solid #D5D5D5;
 				border-radius: 50%;
-				-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
-				        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14);
+				-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
+				        box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
 				height: 20px;
 				width: 20px;
 
