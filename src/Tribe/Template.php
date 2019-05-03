@@ -1,7 +1,7 @@
 <?php
 class Tribe__Template {
 	/**
-	 * The folders into we will look for the template
+	 * The folders into which we will look for the template.
 	 *
 	 * @since  4.6.2
 	 *
@@ -19,13 +19,13 @@ class Tribe__Template {
 	public $origin;
 
 	/**
-	 * The local context for templates, muteable on every self::template() call
+	 * The local context for templates, mutable on every self::template() call
 	 *
 	 * @since  4.6.2
 	 *
 	 * @var array
 	 */
-	protected $context;
+	protected $context = [];
 
 	/**
 	 * The global context for this instance of templates
@@ -232,10 +232,14 @@ class Tribe__Template {
 	 */
 	final public function set( $index, $value = null, $is_local = true ) {
 		if ( true === $is_local ) {
-			return Tribe__Utils__Array::set( $this->context, $index, $value );
-		} else {
-			return Tribe__Utils__Array::set( $this->global, $index, $value );
+			$this->context = Tribe__Utils__Array::set( $this->context, $index, $value );
+
+			return $this->context;
 		}
+
+		$this->global = Tribe__Utils__Array::set( $this->global, $index, $value );
+
+		return $this->global;
 	}
 
 	/**
@@ -299,7 +303,7 @@ class Tribe__Template {
 	}
 
 	/**
-	 * Fetches the Namespace for the public paths, normaly folders to look for
+	 * Fetches the Namespace for the public paths, normally folders to look for
 	 * in the theme's directory.
 	 *
 	 * @since  4.7.20

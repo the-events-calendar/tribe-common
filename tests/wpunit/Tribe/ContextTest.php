@@ -1223,4 +1223,78 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEmpty( $global_two );
 		$this->assertEquals( 2389, $global_three );
 	}
+
+	/**
+	 * It should allow reading a value by applying a filter
+	 *
+	 * @test
+	 */
+	public function should_allow_reading_a_value_by_applying_a_filter() {
+		$context = tribe_context()->set_locations( [
+			'one' => [
+				'read' => [
+					Context::FILTER => '__test_filter__',
+				],
+			],
+		],
+			false );
+		add_filter( '__test_filter__', static function () {
+			return 23;
+		} );
+
+		$this->assertEquals( 23, $context->get( 'one' ) );
+	}
+
+	/**
+	 * It should return the first non default value when reading from a filter.
+	 *
+	 * @test
+	 */
+	public function should_return_the_first_non_default_value_when_reading_from_a_filter_() {
+		$context = tribe_context()->set_locations( [
+			'one' => [
+				'read' => [
+					Context::FILTER => [
+						'__test_filter_one__',
+						'__test_filter_two__',
+						'__test_filter_three__',
+					],
+				],
+			],
+		],
+			false );
+		add_filter( '__test_filter_one__', static function () {
+			return '__default_value__';
+		} );
+		add_filter( '__test_filter_two__', static function () {
+			return 'twenty_three';
+		} );
+		add_filter( '__test_filter_three__', static function () {
+			return 'eighty_nine';
+		} );
+
+		$this->assertEquals( 'twenty_three', $context->get( 'one', '__default_value__' ) );
+	}
+
+	/**
+	 * It should return the default value if no function if filtering a filter location
+	 *
+	 * @test
+	 */
+	public function should_return_the_default_value_if_no_function_if_filtering_a_filter_location() {
+		$context = tribe_context()->set_locations( [
+			'one' => [
+				'read' => [
+					Context::FILTER => [
+						'__test_filter_one__',
+						'__test_filter_two__',
+						'__test_filter_three__',
+					],
+				],
+			],
+		],
+			false );
+
+		$this->assertEquals( '__default_value__', $context->get( 'one', '__default_value__' ) );
+	}
 }

@@ -6,8 +6,7 @@
  * @since 4.7.7
  * @since 4.9.5 Made the context immutable.
  */
-class
-Tribe__Context {
+class Tribe__Context {
 
 	const NOT_FOUND = '__not_found__';
 
@@ -37,6 +36,8 @@ Tribe__Context {
 
 	const GLOBAL_VAR = 'global_var';
 
+	const FILTER = 'filter';
+
 	/*
 	*
 	 * An array defining the properties the context will be able to read and (dangerously) write.
@@ -62,6 +63,7 @@ Tribe__Context {
 	 * static_method - get the value from a class static method.
 	 * method - get the value calling a method on a tribe() container binding.
 	 * func - get the value from a function or a closure.
+	 * filter - get the value by applying a filter.
 	 *
 	 * For each location additional arguments can be specified:
 	 * orm_arg - if `false` then the location will never produce an ORM argument, if provided the ORM arg produced bye the
@@ -70,28 +72,54 @@ Tribe__Context {
 	 *
 	 * @var array
 	 */
-	protected static $locations = array(
-		'posts_per_page' => array(
-			'read' => array(
+	protected static $locations = [
+		'posts_per_page' => [
+			'read' => [
 				self::REQUEST_VAR  => 'posts_per_page',
-				self::TRIBE_OPTION => array( 'posts_per_page', 'postsPerPage' ),
+				self::TRIBE_OPTION => [ 'posts_per_page', 'postsPerPage' ],
 				self::OPTION       => 'posts_per_page',
-			),
-			'write' => array(
+			],
+			'write' => [
 				self::REQUEST_VAR  => 'posts_per_page',
-			),
-		),
-		'event_display'  => array(
-			'read' => array(
+			],
+		],
+		'event_display'  => [
+			'read' => [
 				self::REQUEST_VAR => 'tribe_event_display',
 				self::QUERY_VAR   => 'eventDisplay',
-			),
-			'write' => array(
+			],
+			'write' => [
 				self::REQUEST_VAR => 'tribe_event_display',
 				self::QUERY_VAR   => 'eventDisplay',
-			),
-		),
-	);
+			],
+		],
+		'view'  => [
+			'read' => [
+				self::REQUEST_VAR => 'tribe_view',
+				self::QUERY_VAR   => 'tribe_view',
+				self::REQUEST_VAR => 'tribe_event_display',
+				self::QUERY_VAR   => 'eventDisplay',
+				self::TRIBE_OPTION => 'viewOption',
+			],
+			'write' => [
+				self::REQUEST_VAR => 'tribe_view',
+				self::QUERY_VAR   => 'tribe_view',
+				self::REQUEST_VAR => 'tribe_event_display',
+				self::QUERY_VAR   => 'eventDisplay',
+			],
+		],
+		'view_data' => [
+			'read' => [
+				self::REQUEST_VAR => 'tribe_view_data',
+				self::QUERY_VAR   => 'tribe_view_data',
+				self::FILTER      => 'tribe_view_data'
+			],
+			'write' => [
+				self::REQUEST_VAR => 'tribe_view_data',
+				self::QUERY_VAR   => 'tribe_view_data',
+			],
+		],
+	];
 
 	/**
 	 * A utility static property keeping track of write locations that
@@ -106,6 +134,13 @@ Tribe__Context {
 		self::PROP,
 		self::STATIC_PROP,
 	);
+
+	/**
+	 * Whether the static dynamic locations were set or not.
+	 *
+	 * @var bool
+	 */
+	protected static $did_set_dynamic_locations = false;
 
 	/**
 	 * A list of override locations to read and write from.
@@ -145,6 +180,15 @@ Tribe__Context {
 	 * @var bool
 	 */
 	protected $use_default_locations = true;
+
+	/**
+	 * Tribe__Context constructor.
+	 *
+	 * @since TBD
+	 */
+	public function __construct(  ) {
+		$this->add_dynamic_locations();
+	}
 
 	/**
 	 * Whether we are currently creating a new post, a post of post type(s) or not.
@@ -1001,7 +1045,6 @@ Tribe__Context {
 	 * Sets, replacing them, the locations used by this context.
 	 *
 	 *
-	 *
 	 * @since 4.9.5
 	 *
 	 * @param array $locations An array of locations to replace the current ones.
@@ -1177,5 +1220,75 @@ Tribe__Context {
 		}
 
 		return $orm_args;
+	}
+
+	/**
+	 * Sets some locations that can only be set at runtime.
+	 *
+	 * Using a flag locations are added only once per request.
+	 *
+	 * @since TBD
+	 */
+	protected function add_dynamic_locations() {
+		if ( static::$did_set_dynamic_locations ) {
+			return;
+		}
+
+		static::$locations = array_merge( static::$locations, [
+			'is_main_query' => [
+				'read'  => [
+					self::FUNC => static function () {
+						global $wp_query;
+
+						return $wp_query->is_main_query();
+					},
+				],
+				'write' => [
+					self::FUNC => static function () {
+						global $wp_query, $wp_the_query;
+						$wp_the_query = $wp_query;
+					},
+				],
+			],
+		] );
+
+		/**
+		 * Filters the locations registered in the Context.
+		 *
+		 * @since TBD
+		 *
+		 * @param  array  $locations  An array of locations registered on the Context object.
+		 */
+		static::$locations = apply_filters( 'tribe_context_locations', static::$locations, $this );
+
+		static::$did_set_dynamic_locations = true;
+	}
+
+	/**
+	 * Reads the value as the result of the application of one or more filters to a default value.
+	 *
+	 * The filters will be applied with the same logic as the other locations: top to bottom and only until
+	 * one returns a value that is not the default value. This means that if more than one filter is specified
+	 * and the first filter returns a value that is not the same as the default value then that first filter
+	 * resulting value will be returned.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array  $filters A list of filters that will be applied to the the default value top to bottom.
+	 * @param mixed $default The default value that will be filtered.
+	 *
+	 * @return mixed The filtered value.
+	 */
+	protected function filter( array $filters, $default ) {
+		$value = $default;
+
+		foreach ( $filters as $tag ) {
+			$value = apply_filters( $tag, $default );
+			if ( $default !== $value ) {
+				return $value;
+			}
+		}
+
+		return $value;
 	}
 }
