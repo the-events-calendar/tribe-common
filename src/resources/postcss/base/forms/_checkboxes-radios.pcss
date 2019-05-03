@@ -6,12 +6,12 @@
 	 * Example (Checkboxes):
 	 * <fieldset>
 	 *   <legend>Legend for Checkboxes</legend>
-	 *   <div>
-	 *     <div class="form-control-checkbox">
+	 *   <div class="tribe-common-form-control-checkbox-radio-group">
+	 *     <div class="tribe-common-form-control-checkbox">
 	 *       <input id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" checked="checked" />
 	 *       <label for="checkboxOne">Checkbox One</label>
 	 *     </div>
-	 *     <div class="form-control-checkbox">
+	 *     <div class="tribe-common-form-control-checkbox">
 	 *       <input id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
 	 *       <label for="checkboxTwo">Checkbox two</label>
 	 *     </div>
@@ -19,8 +19,8 @@
 	 * </fieldset>
 	 *
 	 * Example (Radios):
-	 * <div>
-	 *   <div class="form-control-radio">
+	 * <div class="tribe-common-form-control-checkbox-radio-group">
+	 *   <div class="tribe-common-form-control-radio">
 	 *     <input id="radioExample" name="radioExample" type="radio" value="RadioExample" checked="checked" />
 	 *     <label for="radioExample">Radio Example</label>
 	 *   </div>
@@ -30,35 +30,6 @@
 
 	.tribe-common-form-control-checkbox,
 	.tribe-common-form-control-radio {
-		margin-bottom: 15px;
-
-		&:last-child {
-			margin-bottom: 0;
-		}
-
-		input[type="checkbox"],
-		input[type="radio"] {
-			appearance: none;
-			background-color: var(--form-color-background);
-			border: 1px solid var(--form-color-border-default);
-			cursor: pointer;
-			display: inline-block;
-			height: 20px;
-			margin: 0;
-			position: relative;
-			vertical-align: middle;
-			width: 20px;
-
-			&:active,
-			&:focus,
-			&:hover {
-				border: 1px solid var(--form-color-border-active);
-			}
-
-			&:checked {
-				background-color: var(--form-color-border-active);
-			}
-		}
 
 		label {
 			@mixin desktop-body-2;
@@ -70,6 +41,31 @@
 			vertical-align: middle;
 		}
 	}
+
+	.tribe-common-form-control-checkbox input[type="checkbox"],
+	.tribe-common-form-control-radio input[type="radio"] {
+		appearance: none;
+		background-color: var(--form-color-background);
+		border: 1px solid var(--form-color-border-default);
+		cursor: pointer;
+		display: inline-block;
+		height: 20px;
+		margin: 0;
+		position: relative;
+		vertical-align: middle;
+		width: 20px;
+
+		&:active,
+		&:focus,
+		&:hover {
+			border: 1px solid var(--form-color-border-active);
+		}
+
+		&:checked {
+			background-color: var(--form-color-border-active);
+		}
+	}
+
 
 	/* -----------------------------------------------------------------------------
 	 * Form Control: Checkboxes
