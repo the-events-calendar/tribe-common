@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.9.7';
+	const VERSION             = '4.9.8';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -205,6 +205,22 @@ class Tribe__Main {
 				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-tribe-timepicker/jquery.timepicker.css' ),
 				array( 'tribe-timepicker', 'timepicker.js', array( 'jquery', 'tribe-jquery-timepicker' ) ),
 				array( 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' ),
+			)
+		);
+
+		/**
+		 * @todo: remove once proper style enqueue is in place
+		 * Temporary to enqueue tribe reset and common css
+		 */
+		tribe_assets(
+			$this,
+			array(
+				array( 'tribe-reset-style', 'reset.css' ),
+				array( 'tribe-common-style', 'common.css' ),
+			),
+			'wp_enqueue_scripts',
+			array(
+				'priority' => 10,
 			)
 		);
 
