@@ -1,0 +1,69 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Toggles
+	 *
+	 * Example (Horizontal):
+	 * <div class="tribe-common-form-control-toggle">
+	 *   <input id="toggleOne" name="toggleGroup" type="checkbox" value="toggleOne" />
+	 *   <label for="toggleOne">Toggle One</label>
+	 * </div>
+	 *
+	 * Example (Vertical):
+	 * <div class="tribe-common-form-control-toggle tribe-common-form-control-toggle--vertical">
+	 *   <label for="toggleOne">Toggle One</label>
+	 *   <input id="toggleOne" name="toggleGroup" type="checkbox" value="toggleOne" />
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-common-form-control-toggle {
+
+		input[type="checkbox"] {
+			@mixin form-control-slider-toggle-track;
+
+			appearance: none;
+			background-color: var(--form-color-border-secondary);
+			cursor: pointer;
+			display: inline-block;
+			vertical-align: middle;
+			width: 40px;
+
+			&:after {
+				@mixin form-control-slider-toggle-thumb;
+
+				content: '';
+				left: 0;
+				position: absolute;
+				top: -5px;
+				transition: var(--transition-transform);
+			}
+
+			&:checked {
+				background-color: var(--form-color-accent-primary);
+
+				&:after {
+					transform: translateX(20px);
+				}
+			}
+		}
+
+		label {
+			@mixin desktop-body-3;
+
+			color: var(--color-text-secondary);
+			cursor: pointer;
+			display: inline-block;
+			margin-left: 11px;
+			vertical-align: middle;
+		}
+	}
+
+	.tribe-common-form-control-toggle--vertical {
+
+		label {
+			display: block;
+			margin: 0 0 6px;
+		}
+	}
+}

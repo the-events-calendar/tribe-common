@@ -606,13 +606,15 @@ abstract class Tribe__Repository
 		$query = $this->build_query();
 
 		// The request property will be set during the `get_posts` method and empty before it.
-		if ( ! empty( $query->request ) ) {
+		if ( ! empty( $query->request ) && ( 0 < $query->found_posts || ! $this->skip_found_rows ) ) {
 			return (int) $query->found_posts;
 		}
 
-		$original_fields_value = $query->get( 'fields', '' );
+		$original_fields_value  = $query->get( 'fields', '' );
+		$original_no_found_rows = $query->get( 'no_found_rows', '' );
 
 		$query->set( 'fields', 'ids' );
+		$query->set( 'no_found_rows', false );
 
 		/**
 		 * Filters the query object by reference before counting found posts.
@@ -626,6 +628,7 @@ abstract class Tribe__Repository
 		$query->get_posts();
 
 		$query->set( 'fields', $original_fields_value );
+		$query->set( 'no_found_rows', $original_no_found_rows );
 
 		return (int) $query->found_posts;
 	}
@@ -3315,6 +3318,46 @@ abstract class Tribe__Repository
 				$post_fields[] = $field;
 			} elseif ( $this->is_a_taxonomy( $field ) ) {
 				$taxonomies[] = $field;
+			} elseif ( array_key_exists( $field, $this->simple_tax_schema ) ) {
+				// Handle simple tax schema aliases.
+				$schema = $this->simple_tax_schema[ $field ]['taxonomy'];
+
+				if ( ! is_array( $schema ) ) {
+					$taxonomies[] = $schema;
+
+					continue;
+				}
+
+				// If doing an AND where relation, pass all taxonomies in to be grouped with OR.
+				if ( 'AND' === $where_relation ) {
+					$this->where_multi( $schema, $compare, $value, 'OR', $value_relation );
+
+					continue;
+				}
+
+				foreach ( $schema as $taxonomy ) {
+					$taxonomies[] = $taxonomy;
+				}
+			} elseif ( array_key_exists( $field, $this->simple_meta_schema ) ) {
+				// Handle simple meta schema aliases.
+				$schema = $this->simple_meta_schema[ $field ]['meta_key'];
+
+				if ( ! is_array( $schema ) ) {
+					$custom_fields[] = $schema;
+
+					continue;
+				}
+
+				// If doing an AND where relation, pass all meta keys in to be grouped with OR.
+				if ( 'AND' === $where_relation ) {
+					$this->where_multi( $schema, $compare, $value, 'OR', $value_relation );
+
+					continue;
+				}
+
+				foreach ( $schema as $meta_key ) {
+					$custom_fields[] = $meta_key;
+				}
 			} else {
 				$custom_fields[] = $field;
 			}
@@ -3444,6 +3487,22 @@ abstract class Tribe__Repository
 		}
 
 		$this->filter_query->where( implode( " {$where_relation} ", $wheres ) );
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_query( WP_Query $query ) {
+		if (
+			$this->last_built_query instanceof WP_Query
+			&& !empty($this->last_built_query->request)
+		){
+			throw Tribe__Repository__Usage_Error::because_query_cannot_be_set_after_it_ran();
+		}
+		$this->last_built_query = $query;
+		$this->last_built_hash  = $this->hash();
 
 		return $this;
 	}
