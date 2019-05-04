@@ -1252,43 +1252,6 @@ class Tribe__Context {
 			],
 		] );
 
-		/**
-		 * Filters the locations registered in the Context.
-		 *
-		 * @since TBD
-		 *
-		 * @param  array  $locations  An array of locations registered on the Context object.
-		 */
-		static::$locations = apply_filters( 'tribe_context_locations', static::$locations, $this );
-
 		static::$did_set_dynamic_locations = true;
-	}
-
-	/**
-	 * Reads the value as the result of the application of one or more filters to a default value.
-	 *
-	 * The filters will be applied with the same logic as the other locations: top to bottom and only until
-	 * one returns a value that is not the default value. This means that if more than one filter is specified
-	 * and the first filter returns a value that is not the same as the default value then that first filter
-	 * resulting value will be returned.
-	 *
-	 * @since TBD
-	 *
-	 * @param  array  $filters A list of filters that will be applied to the the default value top to bottom.
-	 * @param mixed $default The default value that will be filtered.
-	 *
-	 * @return mixed The filtered value.
-	 */
-	protected function filter( array $filters, $default ) {
-		$value = $default;
-
-		foreach ( $filters as $tag ) {
-			$value = apply_filters( $tag, $default );
-			if ( $default !== $value ) {
-				return $value;
-			}
-		}
-
-		return $value;
 	}
 }
