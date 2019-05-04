@@ -2,7 +2,16 @@
 
 == Changelog ==
 
- = [4.9.6.1] 2019-04-25 =
+= [4.9.7] 2019-05-02 =
+
+* Fix - Fixed cron to handle EA featured image processing while importing [124019]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.6.2] 2019-04-26 =
+
+* Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]
+
+= [4.9.6.1] 2019-04-25 =
 
 * Fix - Switch from using `any` to `[ 'publish', 'private' ]` for `post_status` on any Object Relational Mapping queries [126377]
 * Fix - Resolve ORM Decorator issues that could cause fatal errors when calling methods not defined in the extending class
