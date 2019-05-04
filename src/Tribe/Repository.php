@@ -1,5 +1,7 @@
 <?php
 
+use Tribe__Utils__Array as Arr;
+
 abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
 
@@ -402,6 +404,13 @@ abstract class Tribe__Repository
 	protected $last_built_query;
 
 	/**
+	 * The hash of the last built query.
+	 *
+	 * @var string
+	 */
+	protected $last_built_hash = '';
+
+	/**
 	 * Tribe__Repository constructor.
 	 *
 	 * @since 4.7.19
@@ -518,6 +527,14 @@ abstract class Tribe__Repository
 		}
 
 		$query = $this->build_query();
+
+		// The request property will be set during the `get_posts` method and empty before it.
+		if ( ! empty( $query->request ) ) {
+			return (int) $query->post_count;
+		}
+
+		$original_fields_value = $query->get( 'fields', '' );
+
 		$query->set( 'fields', 'ids' );
 
 		/**
@@ -531,6 +548,8 @@ abstract class Tribe__Repository
 
 		$ids = $query->get_posts();
 
+		$query->set( 'fields', $original_fields_value );
+
 		return is_array( $ids ) ? count( $ids ) : 0;
 	}
 
@@ -538,6 +557,10 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function build_query( $use_query_builder = true ) {
+		if ( null !== $this->last_built_query && $this->last_built_hash === $this->hash()) {
+			return $this->last_built_query;
+		}
+
 		$query = null;
 
 		if ( $use_query_builder && null !== $this->query_builder ) {
@@ -566,6 +589,9 @@ abstract class Tribe__Repository
 			$this->query_builder
 		);
 
+		$this->last_built_query = $query;
+		$this->last_built_hash = $this->hash();
+
 		return $query;
 	}
 
@@ -578,6 +604,14 @@ abstract class Tribe__Repository
 		}
 
 		$query = $this->build_query();
+
+		// The request property will be set during the `get_posts` method and empty before it.
+		if ( ! empty( $query->request ) ) {
+			return (int) $query->found_posts;
+		}
+
+		$original_fields_value = $query->get( 'fields', '' );
+
 		$query->set( 'fields', 'ids' );
 
 		/**
@@ -590,6 +624,8 @@ abstract class Tribe__Repository
 		do_action( "tribe_repository_{$this->filter_name}_pre_found_posts", $query );
 
 		$query->get_posts();
+
+		$query->set( 'fields', $original_fields_value );
 
 		return (int) $query->found_posts;
 	}
@@ -604,14 +640,22 @@ abstract class Tribe__Repository
 
 		$query = $this->build_query();
 
-		$return_ids = 'ids' === $query->get( 'fields', '' );
+		// The request property will be set during the `get_posts` method and empty before it.
+		if ( ! empty( $query->request ) ) {
+			return array_map( [ $this, 'format_item' ], $query->posts );
+		}
+
+		$original_fields_value = $query->get( 'fields', '' );
+
+		$return_ids = 'ids' === $original_fields_value;
 
 		/**
 		 * Do not skip counting the rows if we have some filtering to do on
 		 * `found_posts`.
 		 */
 		$query->set( 'no_found_rows', $this->skip_found_rows );
-		// we'll let the class build the items later
+
+		// We'll let the class build the items later.
 		$query->set( 'fields', 'ids' );
 
 		/**
@@ -633,6 +677,9 @@ abstract class Tribe__Repository
 		$formatted = $return_ids
 			? $results
 			: array_filter( array_map( array( $this, 'format_item' ), $results ) );
+
+		// Reset the fields if required.
+		$query->set( 'fields', $original_fields_value );
 
 		return $formatted;
 	}
@@ -772,9 +819,22 @@ abstract class Tribe__Repository
 	 */
 	public function first() {
 		$query     = $this->build_query();
-		$return_id = 'ids' === $query->get( 'fields', '' );
+
+		$original_fields_value = $query->get( 'fields', '' );
+
+		$return_id = 'ids' === $original_fields_value;
+
+		// The request property will be set during the `get_posts` method and empty before it.
+		if ( ! empty( $query->request ) ) {
+			$ids = $this->get_ids();
+
+			return $return_id ? reset( $ids ) : $this->format_item( reset( $ids ) );
+		}
+
 		$query->set( 'fields', 'ids' );
 		$ids = $query->get_posts();
+
+		$query->set( 'fields', $original_fields_value );
 
 		if ( empty( $ids ) ) {
 			return null;
@@ -806,9 +866,22 @@ abstract class Tribe__Repository
 	 */
 	public function last() {
 		$query     = $this->build_query();
-		$return_id = 'ids' === $query->get( 'fields', '' );
+
+		$original_fields_value = $query->get('fields', '');
+
+		$return_id = 'ids' === $original_fields_value;
+
+		// The request property will be set during the `get_posts` method and empty before it.
+		if ( ! empty( $query->request ) ) {
+			$ids = $this->get_ids();
+
+			return $return_id ? end( $ids ) : $this->format_item( end( $ids ) );
+		}
+
 		$query->set( 'fields', 'ids' );
 		$ids = $query->get_posts();
+
+		$query->set( 'fields', $original_fields_value );
 
 		if ( empty( $ids ) ) {
 			return null;
@@ -832,17 +905,17 @@ abstract class Tribe__Repository
 
 		$query = $this->build_query();
 
-		$return_id = 'ids' === $query->get( 'fields', '' );
+		$return_ids = 'ids' === $query->get( 'fields', '' );
 
 		$i = absint( $n ) - 1;
-		$query->set( 'fields', 'ids' );
-		$ids = $query->get_posts();
+
+		$ids = $this->get_ids();
 
 		if ( empty( $ids[ $i ] ) ) {
 			return null;
 		}
 
-		return $return_id ? $ids[ $i ] : $this->format_item( $ids[ $i ] );
+		return $return_ids ? $ids[ $i ] : $this->format_item( $ids[ $i ] );
 	}
 
 	/**
@@ -895,9 +968,10 @@ abstract class Tribe__Repository
 	 */
 	public function take( $n ) {
 		$query     = $this->build_query();
-		$return_id = 'ids' === $query->get( 'fields', '' );
-		$query->set( 'fields', 'ids' );
-		$matching_ids = $query->get_posts();
+
+		$return_ids = 'ids' === $query->get( 'fields', '' );
+
+		$matching_ids = $this->get_ids();
 
 		if ( empty( $matching_ids ) ) {
 			return array();
@@ -905,7 +979,7 @@ abstract class Tribe__Repository
 
 		$spliced = array_splice( $matching_ids, 0, $n );
 
-		return $return_id ? $spliced : array_map( array( $this, 'format_item' ), $spliced );
+		return $return_ids ? $spliced : array_map( array( $this, 'format_item' ), $spliced );
 	}
 
 	/**
@@ -1246,9 +1320,22 @@ abstract class Tribe__Repository
 			return array();
 		}
 
+
 		try {
 			/** @var WP_Query $query */
 			$query = $this->get_query();
+
+			// The request property will be set during the `get_posts` method and empty before it.
+			if ( ! empty( $query->request ) ) {
+				return array_map( static function ( $post ) {
+					if ( is_int( $post ) ) {
+						return $post;
+					}
+					$post_arr = (array) $post;
+
+					return Arr::get( $post_arr, 'ID', Arr::get( $post_arr, 'id', 0 ) );
+				}, $query->posts );
+			}
 		} catch ( Tribe__Repository__Void_Query_Exception $e ) {
 			/*
 			 * Extending classes might use this method to run sub-queries
@@ -1266,10 +1353,7 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function get_query() {
-		$built = $this->build_query();
-		$this->last_built_query = $built;
-
-		return $built;
+		return $this->build_query();
 	}
 
 	/**

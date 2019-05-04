@@ -35,8 +35,7 @@
 		vertical-align: top;
 		width: 300px;
 		border-radius: 3px 3px 3px 3px;
-		-webkit-box-sizing: border-box;
-		        box-sizing: border-box;
+		box-sizing: border-box;
 	}
 
 	#tribe-app-shop .tribe-addon h4 {

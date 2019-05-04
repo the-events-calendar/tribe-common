@@ -66,8 +66,7 @@
 
 .tribe-ui-datepicker.ui-datepicker {
 	background: #fff;
-	-webkit-box-shadow: 1px 1px 5px rgba(0,0,0,.5);
-	        box-shadow: 1px 1px 5px rgba(0,0,0,.5);
+	box-shadow: 1px 1px 5px rgba(0,0,0,.5);
 	width: 17em;
 	padding: 1em;
 	display: none;
@@ -87,7 +86,6 @@
 	position: absolute;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
-	    -ms-transform: translateY(-50%);
 	        transform: translateY(-50%);
 	line-height: 1.8em;
 	text-align: center;
@@ -145,8 +143,7 @@
 .tribe-ui-datepicker select.ui-datepicker-month,
 .tribe-ui-datepicker select.ui-datepicker-year {
 	border: none;
-	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.1);
-	        box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+	box-shadow: 0 1px 0 rgba(0,0,0,0.1);
 	margin-right: 1px;
 	width: 4.5rem;
 }
@@ -212,7 +209,6 @@
 	}
 
 .tribe-ui-datepicker.ui-datepicker button.ui-datepicker-close {
-		background: -o-linear-gradient(96deg, rgba(10,85,160,1.00) 0%, rgba(18,136,235,1.00) 100%);
 		background: linear-gradient(354deg, rgba(10,85,160,1.00) 0%, rgba(18,136,235,1.00) 100%);
 		border: 1px solid #0085ba;
 		color: #fff !important;
@@ -344,8 +340,7 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 	}
 
 .tribe-ui-datepicker .ui-visual-focus {
-		-webkit-box-shadow: 0 0 3px 1px rgb(94, 158, 214);
-		        box-shadow: 0 0 3px 1px rgb(94, 158, 214);
+		box-shadow: 0 0 3px 1px rgb(94, 158, 214);
 	}
 
 .tribe-ui-datepicker .ui-state-active,
@@ -354,7 +349,6 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 	.tribe-ui-datepicker a.ui-button:active,
 	.tribe-ui-datepicker .ui-button:active,
 	.tribe-ui-datepicker .ui-button.ui-state-active:hover {
-		background: -o-linear-gradient(96deg, rgba(10,85,160,1.00) 0%, rgba(18,136,235,1.00) 100%);
 		background: linear-gradient(354deg, rgba(10,85,160,1.00) 0%, rgba(18,136,235,1.00) 100%);
 		color: #fff;
 	}
@@ -472,7 +466,6 @@ html .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
 	}
 
 .tribe-ui-datepicker .ui-widget-shadow {
-		-webkit-box-shadow: -5px -5px 5px #000000;
 		box-shadow: -5px -5px 5px #000000;
 	}
 

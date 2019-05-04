@@ -15,8 +15,7 @@
 	* ----------------------------------------------------------------------------- */
 
 	.tribe-events * {
-		-webkit-box-sizing: border-box;
-		        box-sizing: border-box;
+		box-sizing: border-box;
 	}
 
 	/* -----------------------------------------------------------------------------
@@ -196,8 +195,7 @@
 	.tribe-events select,
 	.tribe-events textarea {
 		outline: 0;
-		-webkit-box-sizing: border-box;
-		        box-sizing: border-box;
+		box-sizing: border-box;
 		margin: 0;
 		border-radius: 0;
 	}

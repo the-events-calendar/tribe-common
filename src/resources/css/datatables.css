@@ -219,7 +219,6 @@ table.dataTable tbody th.dt-body-nowrap,
 table.dataTable,
 	table.dataTable th,
 	table.dataTable td {
-		-webkit-box-sizing: content-box;
 		box-sizing: content-box;
 	}
 /*
@@ -255,10 +254,8 @@ table.dataTable,
 			border-radius: 3px;
 			border-style: solid;
 			border-width: 1px;
-			-webkit-box-shadow: none;
-			        box-shadow: none;
-			-webkit-box-sizing: border-box;
-			        box-sizing: border-box;
+			box-shadow: none;
+			box-sizing: border-box;
 			color: #555;
 			cursor: pointer;
 			display: inline-block;
@@ -281,21 +278,18 @@ table.dataTable,
 			.dataTables_wrapper .dataTables_paginate .paginate_button.previous {
 				background: transparent;
 				border-color: transparent;
-				-webkit-box-shadow: none;
-				        box-shadow: none;
+				box-shadow: none;
 				color: #23282d;
 			}
 .dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled {
 					background: transparent;
 					border-color: transparent;
-					-webkit-box-shadow: none;
-					        box-shadow: none;
+					box-shadow: none;
 				}
 .dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled:hover {
 						background: transparent;
 						border-color: transparent;
-						-webkit-box-shadow: none;
-						        box-shadow: none;
+						box-shadow: none;
 						text-decoration: none;
 					}
 .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {
@@ -306,8 +300,7 @@ table.dataTable,
 			.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
 				background: #fcfcfc;
 				border-color: #999;
-				-webkit-box-shadow: 0 1px 0 #cccccc;
-				        box-shadow: 0 1px 0 #cccccc;
+				box-shadow: 0 1px 0 #cccccc;
 				color: #23282d;
 				text-decoration: none;
 			}
@@ -316,13 +309,11 @@ table.dataTable,
 			.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
 				background: #f7f7f7;
 				border-color: #ddd;
-				-webkit-box-shadow: none;
-				        box-shadow: none;
+				box-shadow: none;
 				color: #a0a5aa;
 				cursor: default;
 				text-shadow: 0 1px 0 #fff;
 				-webkit-transform: none;
-				    -ms-transform: none;
 				        transform: none;
 			}
 .dataTables_wrapper .dataTables_paginate .ellipsis {
@@ -340,8 +331,6 @@ table.dataTable,
 		text-align: center;
 		font-size: 1.2em;
 		background-color: white;
-		background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
-		background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(25%, rgba(255, 255, 255, 0.9)), color-stop(75%, rgba(255, 255, 255, 0.9)), to(rgba(255, 255, 255, 0)));
 		background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
 	}
 .dataTables_wrapper .dataTables_length,
