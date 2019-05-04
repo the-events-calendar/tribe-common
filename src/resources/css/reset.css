@@ -48,23 +48,6 @@
 	*
 	* ----------------------------------------------------------------------------- */
 
-	.tribe-events html {
-		-webkit-text-size-adjust: 100%;
-		   -moz-text-size-adjust: 100%;
-		    -ms-text-size-adjust: 100%;
-		        text-size-adjust: 100%;
-		font-size: 100%;
-		-webkit-tap-highlight-color: transparent;
-	}
-
-	.tribe-events body {
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		font-smoothing: antialiased;
-		min-width: 320px;
-		overflow-x: hidden;
-	}
-
 	.tribe-events figure {
 		line-height: 0;
 	}
@@ -235,7 +218,7 @@
 	}
 
 	.tribe-events button[disabled],
-	.tribe-events html input[disabled] {
+	.tribe-events input[disabled] {
 		cursor: default;
 	}
 
@@ -251,8 +234,6 @@
 	*
 	* ----------------------------------------------------------------------------- */
 
-	.tribe-events html,
-	.tribe-events body,
 	.tribe-events div,
 	.tribe-events span,
 	.tribe-events applet,

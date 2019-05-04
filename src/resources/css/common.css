@@ -459,12 +459,12 @@
 	 * Example (Checkboxes):
 	 * <fieldset>
 	 *   <legend>Legend for Checkboxes</legend>
-	 *   <div>
-	 *     <div class="form-control-checkbox">
+	 *   <div class="tribe-common-form-control-checkbox-radio-group">
+	 *     <div class="tribe-common-form-control-checkbox">
 	 *       <input id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" checked="checked" />
 	 *       <label for="checkboxOne">Checkbox One</label>
 	 *     </div>
-	 *     <div class="form-control-checkbox">
+	 *     <div class="tribe-common-form-control-checkbox">
 	 *       <input id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
 	 *       <label for="checkboxTwo">Checkbox two</label>
 	 *     </div>
@@ -472,64 +472,14 @@
 	 * </fieldset>
 	 *
 	 * Example (Radios):
-	 * <div>
-	 *   <div class="form-control-radio">
+	 * <div class="tribe-common-form-control-checkbox-radio-group">
+	 *   <div class="tribe-common-form-control-radio">
 	 *     <input id="radioExample" name="radioExample" type="radio" value="RadioExample" checked="checked" />
 	 *     <label for="radioExample">Radio Example</label>
 	 *   </div>
 	 * </div>
 	 *
 	 * ----------------------------------------------------------------------------- */
-
-.tribe-events .tribe-common-form-control-checkbox,
-	.tribe-events .tribe-common-form-control-radio {
-		margin-bottom: 15px;
-	}
-
-.tribe-events .tribe-common-form-control-checkbox:last-child, .tribe-events .tribe-common-form-control-radio:last-child {
-			margin-bottom: 0;
-		}
-
-.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"],
-		.tribe-events .tribe-common-form-control-checkbox input[type="radio"],
-		.tribe-events .tribe-common-form-control-radio input[type="checkbox"],
-		.tribe-events .tribe-common-form-control-radio input[type="radio"] {
-			-webkit-appearance: none;
-			   -moz-appearance: none;
-			        appearance: none;
-			background-color: #FFFFFF;
-			background-color: var(--form-color-background);
-			border: 1px solid #141827;
-			border: 1px solid var(--form-color-border-default);
-			cursor: pointer;
-			display: inline-block;
-			height: 20px;
-			margin: 0;
-			position: relative;
-			vertical-align: middle;
-			width: 20px;
-		}
-
-.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:active,
-			.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:focus,
-			.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:hover,
-			.tribe-events .tribe-common-form-control-checkbox input[type="radio"]:active,
-			.tribe-events .tribe-common-form-control-checkbox input[type="radio"]:focus,
-			.tribe-events .tribe-common-form-control-checkbox input[type="radio"]:hover,
-			.tribe-events .tribe-common-form-control-radio input[type="checkbox"]:active,
-			.tribe-events .tribe-common-form-control-radio input[type="checkbox"]:focus,
-			.tribe-events .tribe-common-form-control-radio input[type="checkbox"]:hover,
-			.tribe-events .tribe-common-form-control-radio input[type="radio"]:active,
-			.tribe-events .tribe-common-form-control-radio input[type="radio"]:focus,
-			.tribe-events .tribe-common-form-control-radio input[type="radio"]:hover {
-				border: 1px solid #141827;
-				border: 1px solid var(--form-color-border-active);
-			}
-
-.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:checked, .tribe-events .tribe-common-form-control-checkbox input[type="radio"]:checked, .tribe-events .tribe-common-form-control-radio input[type="checkbox"]:checked, .tribe-events .tribe-common-form-control-radio input[type="radio"]:checked {
-				background-color: #141827;
-				background-color: var(--form-color-border-active);
-			}
 
 .tribe-events .tribe-common-form-control-checkbox label, .tribe-events .tribe-common-form-control-radio label {
 			color: #141827;
@@ -550,6 +500,39 @@
 			display: inline-block;
 			margin-left: 11px;
 			vertical-align: middle;
+		}
+
+.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"],
+	.tribe-events .tribe-common-form-control-radio input[type="radio"] {
+		-webkit-appearance: none;
+		   -moz-appearance: none;
+		        appearance: none;
+		background-color: #FFFFFF;
+		background-color: var(--form-color-background);
+		border: 1px solid #141827;
+		border: 1px solid var(--form-color-border-default);
+		cursor: pointer;
+		display: inline-block;
+		height: 20px;
+		margin: 0;
+		position: relative;
+		vertical-align: middle;
+		width: 20px;
+	}
+
+.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:active,
+		.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:focus,
+		.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:hover,
+		.tribe-events .tribe-common-form-control-radio input[type="radio"]:active,
+		.tribe-events .tribe-common-form-control-radio input[type="radio"]:focus,
+		.tribe-events .tribe-common-form-control-radio input[type="radio"]:hover {
+			border: 1px solid #141827;
+			border: 1px solid var(--form-color-border-active);
+		}
+
+.tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:checked, .tribe-events .tribe-common-form-control-radio input[type="radio"]:checked {
+			background-color: #141827;
+			background-color: var(--form-color-border-active);
 		}
 
 /* -----------------------------------------------------------------------------
@@ -592,6 +575,58 @@
 				-webkit-transform: translate(-50%, -50%);
 				        transform: translate(-50%, -50%);
 				width: 8px;
+			}
+
+/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Groups (Checkbox & Radio)
+	 *
+	 * Example:
+	 * <div class="tribe-common-form-control-checkbox-radio-group">
+	 *   <div class="tribe-common-form-control-checkbox">
+	 *     <input id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" checked="checked" />
+	 *     <label for="checkboxOne">Checkbox One</label>
+	 *   </div>
+	 *   <div class="tribe-common-form-control-checkbox">
+	 *     <input id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
+	 *     <label for="checkboxTwo">Checkbox two</label>
+	 *   </div>
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-form-control-checkbox-radio-group > * {
+			margin-bottom: 15px;
+		}
+
+.tribe-events .tribe-common-form-control-checkbox-radio-group > *:last-child {
+				margin-bottom: 0;
+			}
+
+/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Groups (Text)
+	 *
+	 * Example:
+	 * <div class="tribe-common-form-control-text-group">
+	 *   <div class="tribe-common-form-control-text">
+	 *     <label for="inputOne">Input One</label>
+	 *     <input id="inputOne" name="inputOne" type="text" placeholder="Input One" />
+	 *   </div>
+	 *   <div class="tribe-common-form-control-text">
+	 *     <label for="inputTwo">Input Two</label>
+	 *     <input id="inputTwo" name="inputTwo" type="text" placeholder="Input Two" />
+	 *   </div>
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-form-control-text-group > * {
+			margin-bottom: 8px;
+		}
+
+.tribe-events .tribe-common-form-control-text-group > *:last-child {
+				margin-bottom: 0px;
 			}
 
 .tribe-events {
@@ -1000,6 +1035,78 @@
 			padding: 6px 18px;
 			text-align: left;
 		}
+
+/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Text
+	 *
+	 * Example:
+	 * <div class="tribe-common-form-control-text">
+	 *   <label for="textInput">Text Input</label>
+	 *   <input id="textInput" name="textInput" type="text" placeholder="Text Input" />
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-form-control-text label {
+			border: 0;
+			clip: rect(0 0 0 0);
+			height: 1px;
+			margin: -1px;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			width: 1px;
+		}
+
+.tribe-events .tribe-common-form-control-text input[type="text"] {
+			color: #141827;
+			color: var(--color-text-primary);
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-family: var(--font-family-sans-serif);
+			font-size: 14px;
+			font-size: var(--font-size-3);
+			line-height: 1.62;
+			line-height: var(--line-height-3);
+			font-weight: 400;
+			font-weight: var(--font-weight-regular);
+			font-weight: 700;
+			font-weight: var(--font-weight-bold);
+
+			border: 1px solid #D5D5D5;
+
+			border: 1px solid var(--color-border-default);
+			padding: 12px 18px;
+			width: 100%;
+		}
+
+.tribe-events .tribe-common-form-control-text input[type="text"]::-webkit-input-placeholder {
+				color: #727272;
+				color: var(--color-text-secondary);
+				font-weight: 400;
+				font-weight: var(--font-weight-regular);
+			}
+
+.tribe-events .tribe-common-form-control-text input[type="text"]:-ms-input-placeholder {
+				color: #727272;
+				color: var(--color-text-secondary);
+				font-weight: 400;
+				font-weight: var(--font-weight-regular);
+			}
+
+.tribe-events .tribe-common-form-control-text input[type="text"]::-ms-input-placeholder {
+				color: #727272;
+				color: var(--color-text-secondary);
+				font-weight: 400;
+				font-weight: var(--font-weight-regular);
+			}
+
+.tribe-events .tribe-common-form-control-text input[type="text"]::placeholder {
+				color: #727272;
+				color: var(--color-text-secondary);
+				font-weight: 400;
+				font-weight: var(--font-weight-regular);
+			}
 
 /* -----------------------------------------------------------------------------
 	 *
@@ -1682,6 +1789,48 @@
 			content: none;
 		}
 
+/* -----------------------------------------------------------------------------
+	 *
+	 * Search
+	 *
+	 * Example:
+	 * <form action="" method="post" class="tribe-common-c-search">
+	 *   <div class="tribe-common-form-control-text-group">
+	 *     <div class="tribe-common-form-control-text">
+	 *       <label for="keyword">Keyword</label>
+	 *       <input type="text" id="keyword" name="keyword" placeholder="Keyword" />
+	 *     </div>
+	 *     <div class="tribe-common-form-control-text">
+	 *       <label for="location">Location</label>
+	 *       <input type="text" id="location" name="location" placeholder="Location" />
+	 *     </div>
+	 *     <div class="tribe-common-form-control-text">
+	 *       <label for="date">Date</label>
+	 *       <input type="text" id="date" name="date" placeholder="Enter Date" />
+	 *     </div>
+	 *   </div>
+	 *   <button type="submit" class="tribe-common-c-btn">Find Events</button>
+	 * </form>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-c-search .tribe-common-form-control-text-group > *:first-child {
+					flex: 1 1 34.5%;
+				}
+
+.tribe-events .tribe-common-c-search .tribe-common-form-control-text-group > *:nth-child(2) {
+					flex: 1 1 37.5%;
+				}
+
+.tribe-events .tribe-common-c-search .tribe-common-form-control-text-group > *:nth-child(3) {
+					flex: 1 1 28%;
+				}
+
+.tribe-events .tribe-common-c-search button {
+			flex: none;
+			margin-top: 8px;
+		}
+
 @media (--viewport-medium) {
 
 .tribe-events .tribe-common-form-control-select button {
@@ -1805,4 +1954,33 @@
 .tribe-events .tribe-common-c-btn {
 			width: auto
 	}
+
+.tribe-events .tribe-common-c-search {
+			display: flex
+	}
+
+.tribe-events .tribe-common-c-search .tribe-common-form-control-text-group {
+				border: 1px solid #D5D5D5;
+				border: 1px solid var(--color-border-default);
+				border-right: none;
+				display: flex;
+				flex: auto;
+				max-width: 645px;
+				padding: 8px 0
+		}
+
+.tribe-events .tribe-common-c-search .tribe-common-form-control-text-group > * {
+					margin-bottom: 0
+			}
+
+.tribe-events .tribe-common-c-search input[type="text"] {
+				border: none;
+				border-right: 1px solid #D5D5D5;
+				border-right: 1px solid var(--color-border-default);
+				padding: 7px 18px 8px
+		}
+
+.tribe-events .tribe-common-c-search button {
+				margin-top: 0
+		}
 			}
