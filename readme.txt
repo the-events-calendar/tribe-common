@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.9.8] TBD =
+
+* Tweak - Create a new key if `AUTH_KEY` is not defined or is empty and add a new filter `tribe_promoter_secret_key` to filter the result [127183]
+
 = [4.9.7] 2019-05-02 =
 
 * Fix - Fixed cron to handle EA featured image processing while importing [124019]
