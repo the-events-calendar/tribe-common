@@ -27,7 +27,7 @@ class Tribe__Promoter__Auth {
 	/**
 	 * Attach hooks to this class.
 	 *
-	 * @snce TBD
+	 * @since  TBD
 	 */
 	public function hook() {
 		add_filter( 'tribe_promoter_secret_key', [ $this, 'filter_promoter_secret_key' ] );
