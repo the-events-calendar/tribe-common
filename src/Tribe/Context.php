@@ -1254,4 +1254,25 @@ class Tribe__Context {
 
 		static::$did_set_dynamic_locations = true;
 	}
+
+	/**
+	 * Reads (gets) the value applying one or more filters.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $filters The list of filters to apply, in order.
+	 * @param mixed $default The default value to return.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	public function filter( array $filters, $default ) {
+		foreach ( $filters as $filter ) {
+			$the_value = apply_filters( $filter, $default );
+			if ( $the_value !== $default ) {
+				return $the_value;
+			}
+		}
+
+		return $default;
+	}
 }
