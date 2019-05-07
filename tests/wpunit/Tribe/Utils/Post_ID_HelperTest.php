@@ -2,159 +2,129 @@
 
 namespace Tribe\Utils;
 
-use \Tribe__Main as Main;
-
-use \WP_Post as WP_Post;
+use Tribe__Main as Main;
 
 class Post_ID_HelperTest extends \Codeception\TestCase\WPTestCase {
-
-    /**
-     * dataProvider callback for getting a test event.
-     *
-     * @since TBD
-     */
-    public function get_sample_event() {
-        return [
-            'WP_Post' => [ $this->factory()->post->create_and_get( [ 'post_title' => 'Sample Event' ] ) ]
-        ];
-    }
-
     /**
      * @test When passing a WP_Post object, get the ID from it.
-     *
-     * @since TBD
-     *
-     * @param WP_Post $event_obj
-     *
-     * @dataProvider get_sample_event
      */
-    public function it_should_return_post_ids_when_passed_post_objects( WP_Post $event_obj ) {
+    public function it_should_return_post_ids_when_passed_post_objects(  ) {
+		$post = self::factory()->post->create_and_get();
 
-        $expected = $event_obj->ID;
-        $actual   = Main::post_id_helper( $event_obj );
+	    $actual   = Main::post_id_helper( $post );
 
-        $this->assertEquals( $expected, $actual );
+        $this->assertEquals( $post->ID, $actual );
     }
 
     /**
      * @test When passing zero, it should return bool false.
-     *
-     * @since TBD
      */
     public function it_should_return_false_when_passed_zero() {
-
-        $expected = false;
         $actual   = Main::post_id_helper( 0 );
 
-        $this->assertEquals( $expected, $actual );
+        $this->assertFalse( $actual );
     }
 
     /**
      * @test When passing null, get the current post ID.
-     *
-     * @since TBD
      */
     public function it_should_return_global_post_id_when_passed_null() {
-
         global $post;
+        $post     = self::factory()->post->create_and_get( [ 'post_title' => 'Event: Passing Null' ] );
 
-        $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Event: Passing Null' ] );
+	    $actual   = Main::post_id_helper( null );
 
-        $expected = $post->ID;
-        $actual   = Main::post_id_helper( null );
-
-        $this->assertEquals( $expected, $actual );
+        $this->assertEquals( $post->ID, $actual );
     }
 
     /**
      * @test When no arguments are passed, get the current post ID.
-     *
-     * @since TBD
      */
     public function it_should_return_global_post_id_when_passed_nothing() {
-
         global $post;
+        $post     = self::factory()->post->create_and_get( [ 'post_title' => 'Event: Passing Nothing' ] );
 
-        $post     = $this->factory()->post->create_and_get( [ 'post_title' => 'Event: Passing Nothing' ] );
+	    $actual   = Main::post_id_helper();
 
-        $expected = $post->ID;
-        $actual   = Main::post_id_helper();
-
-        $this->assertEquals( $expected, $actual );
+        $this->assertEquals( $post->ID, $actual );
     }
 
     /**
      * @test When passing positive integers, return the int as-is.
      *
-     * @since TBD
-     *
      * @param int $post_id
-     *
-     * @testWith [ 1 ]
-     *           [ 666 ]
-     *           [ 500000 ]
+     * @dataProvider integers
      */
     public function it_should_return_int_when_passed_positive_int( int $post_id ) {
+	    $actual   = Main::post_id_helper( $post_id );
 
-        $expected = $post_id;
-        $actual   = Main::post_id_helper( $post_id );
+        $this->assertEquals( $post_id, $actual );
+    }
 
-        $this->assertEquals( $expected, $actual );
+	/**
+	 * It should return false when passed negative integers
+	 *
+	 * @test
+	 * @dataProvider negative_integers
+	 */
+	public function should_return_false_when_passed_negative_integers($negative_integer) {
+		$actual   = Main::post_id_helper( $negative_integer );
+
+		$this->assertFalse( $actual );
+	}
+
+    /**
+     * It should return int when passed a numeric string.
+     *
+     * @test
+     * @dataProvider numeric_string_inputs
+     */
+    public function it_should_return_int_when_passed_numeric_strings( string $numeric_string ) {
+	    $actual   = Main::post_id_helper( $numeric_string );
+
+        $this->assertEquals( (int) $numeric_string, $actual );
     }
 
     /**
-     * @test When passing negative integers, return the int as-is.
+     * When passing a string of any kind, return false.
      *
-     * @since TBD
-     *
-     * @param int $post_id
-     *
-     * @testWith [ -1 ]
-     *           [ -666 ]
-     *           [ -500000 ]
+     * @test
+     * @dataProvider non_numeric_strings
      */
-    public function it_should_return_int_when_passed_negative_int( int $post_id ) {
+    public function it_should_return_false_when_passed_non_numeric_string( string $non_numeric_string ) {
+	    $actual = Main::post_id_helper( $non_numeric_string );
 
-        $expected = $post_id;
-        $actual   = Main::post_id_helper( $post_id );
-
-        $this->assertEquals( $expected, $actual );
+	    $this->assertFalse( $actual );
     }
 
-    /**
-     * @test When passing a string of any kind, return false.
-     *
-     * @since TBD
-     *
-     * @param string $string
-     *
-     * @testWith [ "1" ]
-     *           [ "-666" ]
-     */
-    public function it_should_return_int_when_passed_numeric_string( string $string ) {
+	public function integers() {
+		return [
+			'1' => [1],
+			'666' => [666],
+			'50000' => [50000],
+		];
+	}
 
-        $expected = intval( $string );
-        $actual   = Main::post_id_helper( $string );
+	public function negative_integers() {
+		return [
+			'-1' => [-1],
+			'-666' => [-666],
+			'-50000' => [-50000],
+		];
+	}
 
-        $this->assertEquals( $expected, $actual );
-    }
+	public function numeric_string_inputs() {
+		return [
+			'1' => ['1'],
+			'666' => ['666'],
+		];
+	}
 
-    /**
-     * @test When passing a string of any kind, return false.
-     *
-     * @since TBD
-     *
-     * @param string $string
-     *
-     * @testWith [ "schmootzy" ]
-     *           [ ":-]" ]
-     *           [ "π" ]
-     */
-    public function it_should_return_false_when_passed_non_numeric_string( string $string ) {
-
-        $expected = false;
-        $actual   = Main::post_id_helper( $string );
-
-        $this->assertEquals( $expected, $actual );
-    }
+	public function non_numeric_strings() {
+		return [
+			'schmootzy' => [ 'schmootzy' ],
+			':-]'       => [ ':-]' ],
+			'π'         => [ 'π' ],
+		];
+	}
 }

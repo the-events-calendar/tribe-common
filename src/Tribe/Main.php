@@ -474,35 +474,37 @@ class Tribe__Main {
 	/**
 	 * Get the Post ID from a passed integer, a passed WP_Post object, or the current post.
 	 *
-	 * Helper function for getting Post ID. Accepts null or a Post ID. If attempting
-	 * to detect $post object and it is not found, returns false to avoid a PHP Notice.
+	 * Helper function for getting Post ID. Accepts `null` or a Post ID. If attempting
+	 * to detect $post object and it is not found, returns `false` to avoid a PHP Notice.
 	 *
-	 * @param null|int|WP_Post $post Post ID or object.
+	 * @param null|int|WP_Post $post Post ID or object, `null` to get the ID of the global post object.
 	 *
-	 * @return int|false
+	 * @return int|false The ID of the passed or global post.
 	 */
 	public static function post_id_helper( $post = null ) {
 		if (
-			! is_null( $post )
-			&& is_numeric( $post )
-			&& 0 < intval( $post )
+			is_numeric( $post )
+			&& 0 < (int) $post
+			&& $post !== null
 		) {
 			return (int) $post;
-		} elseif (
+		}
+
+		if (
 			is_object( $post )
 			&& ! empty( $post->ID )
 		) {
 			return (int) $post->ID;
-		} else {
-			if (
-				! empty( $GLOBALS['post'] )
-				&& $GLOBALS['post'] instanceof WP_Post
-			) {
-				return get_the_ID();
-			} else {
-				return false;
-			}
 		}
+
+		if (
+			! empty( $GLOBALS['post'] )
+			&& $GLOBALS['post'] instanceof WP_Post
+		) {
+			return get_the_ID();
+		}
+
+		return false;
 	}
 
 	/**
