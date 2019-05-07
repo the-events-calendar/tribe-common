@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [unreleased] =
+
+* Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translations.theeventscalendar.com
+
 = [4.9.7] 2019-05-02 =
 
 * Fix - Fixed cron to handle EA featured image processing while importing [124019]
