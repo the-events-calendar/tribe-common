@@ -485,7 +485,7 @@ class Tribe__Main {
 		if (
 			is_numeric( $post )
 			&& 0 < (int) $post
-			&& $post !== null
+			&& null !== $post
 		) {
 			return (int) $post;
 		}
