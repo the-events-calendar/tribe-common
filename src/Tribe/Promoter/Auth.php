@@ -113,10 +113,12 @@ class Tribe__Promoter__Auth {
 			} catch ( Exception $e ) {
 				return uniqid();
 			}
-		} elseif ( function_exists( 'openssl_random_pseudo_bytes' ) ) {
-			return openssl_random_pseudo_bytes( $length );
-		} else {
-			return uniqid();
 		}
+
+		if ( function_exists( 'openssl_random_pseudo_bytes' ) ) {
+			return openssl_random_pseudo_bytes( $length );
+		}
+
+		return uniqid();
 	}
 }
