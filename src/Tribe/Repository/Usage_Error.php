@@ -207,4 +207,41 @@ class Tribe__Repository__Usage_Error extends Exception {
 	public static function because_this_comparison_operator_requires_an_value_of_type( $operator, $filter, $type ) {
 		return new self( "You are trying to use a comparison opearator ({$operator}) in the filter {$filter} that requires a value of type {$type}." );
 	}
+
+	/**
+	 * Indicates that the client code is trying to use a comparison operator that is not valid..
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string $operator The not supported comparison operator.
+	 *
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
+	 */
+	public static function because_this_comparison_operator_is_not_valid( $operator ) {
+		return new self( "You are trying to use a comparison operator ({$operator}) that is not valid." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a relation that is not valid..
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string $relation The not supported relation.
+	 *
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
+	 */
+	public static function because_this_relation_is_not_valid( $relation ) {
+		return new self( "You are trying to use a relation ({$relation}) that is not valid." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to set a query on the repository after the query ran.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
+	 */
+	public static function because_query_cannot_be_set_after_it_ran() {
+		return new self( "You are trying to set the repository query after it ran!" );
+	}
 }

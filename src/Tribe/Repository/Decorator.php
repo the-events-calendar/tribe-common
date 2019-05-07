@@ -576,4 +576,81 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	public function get_hash_data( array $settings, WP_Query $query = null ) {
 		return $this->decorated->get_hash_data( $settings, $query );
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_last_built_query() {
+		return $this->decorated->last_built_query;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function where_multi( array $fields, $compare, $value, $where_relation = 'OR', $value_relation = 'OR' ) {
+		$this->decorated->where_multi( $fields, $compare, $value, $where_relation, $value_relation );
+
+		return $this;
+	}
+
+	/**
+	 * Handle getting additional property from decorated object.
+	 *
+	 * @since 4.9.6.1
+	 *
+	 * @param string $name Property name.
+	 *
+	 * @return mixed
+	 */
+	public function __get( $name ) {
+		return $this->decorated->{$name};
+	}
+
+	/**
+	 * Handle setting additional property on decorated object.
+	 *
+	 * @since 4.9.6.1
+	 *
+	 * @param string $name  Property name.
+	 * @param mixed  $value Property value.
+	 */
+	public function __set( $name, $value ) {
+		$this->decorated->{$name} = $value;
+	}
+
+	/**
+	 * Check if additional property on decorated object exists.
+	 *
+	 * @since 4.9.6.1
+	 *
+	 * @param string $name Property name.
+	 *
+	 * @return bool
+	 */
+	public function __isset( $name ) {
+		return isset( $this->decorated->{$name} );
+	}
+
+	/**
+	 * Call methods on decorated object.
+	 *
+	 * @since 4.9.6.1
+	 *
+	 * @param string $name      Method name.
+	 * @param array  $arguments Method arguments.
+	 *
+	 * @return mixed
+	 */
+	public function __call( $name, $arguments ) {
+		return call_user_func_array( [ $this->decorated, $name ], $arguments );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_query( WP_Query $query ) {
+		$this->decorated->set_query( $query );
+
+		return $this;
+	}
 }
