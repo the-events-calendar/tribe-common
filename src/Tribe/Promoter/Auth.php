@@ -75,7 +75,7 @@ class Tribe__Promoter__Auth {
 	public function generate_secret_key() {
 		$key = defined( 'AUTH_KEY' ) ? AUTH_KEY : '';
 
-		if ( empty ( $key ) ) {
+		if ( empty( $key ) ) {
 			$key = $this->generate_key();
 		}
 
