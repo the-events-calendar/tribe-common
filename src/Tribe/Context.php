@@ -184,7 +184,7 @@ class Tribe__Context {
 	/**
 	 * Tribe__Context constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 */
 	public function __construct(  ) {
 		$this->add_dynamic_locations();
@@ -1227,7 +1227,7 @@ class Tribe__Context {
 	 *
 	 * Using a flag locations are added only once per request.
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 */
 	protected function add_dynamic_locations() {
 		if ( static::$did_set_dynamic_locations ) {
@@ -1255,7 +1255,7 @@ class Tribe__Context {
 		/**
 		 * Filters the locations registered in the Context.
 		 *
-		 * @since TBD
+		 * @since 4.9.8
 		 *
 		 * @param  array  $locations  An array of locations registered on the Context object.
 		 */
@@ -1272,7 +1272,7 @@ class Tribe__Context {
 	 * and the first filter returns a value that is not the same as the default value then that first filter
 	 * resulting value will be returned.
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param  array  $filters A list of filters that will be applied to the the default value top to bottom.
 	 * @param mixed $default The default value that will be filtered.

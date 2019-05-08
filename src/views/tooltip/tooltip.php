@@ -6,7 +6,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/tooltips/tooltip.php
  *
  * @package Tribe
- * @version TBD
+ * @version 4.9.8
  */
 
 ?>
