@@ -356,6 +356,15 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 					continue;
 				}
 
+				if ( $class === $checked_plugin['class'] ) {
+					/*
+					 * If the required plugin class is the same we're checking we clear the version to keep the message
+					 * clear and redirect users to the latest version download link in place of providing a wrong
+					 * version number.
+					 */
+					$version = '';
+				}
+
 				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
 				$this->admin_messages[ $plugin['class'] ]->add_required_plugin( $dependent_plugin['short_name'], $dependent_plugin['thickbox_url'], $is_registered, $version, $addon );
 				$failed_dependency++;
