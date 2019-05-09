@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.9.7] 2019-05-02 =
+
+* Fix - Fixed cron to handle EA featured image processing while importing [124019]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.9.6.2] 2019-04-26 =
 
 * Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]

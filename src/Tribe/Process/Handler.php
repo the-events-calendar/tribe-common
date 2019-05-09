@@ -157,7 +157,7 @@ abstract class Tribe__Process__Handler {
 		 * fallback to use the cron-based approach and just call the handle method
 		 * removing it first from the action to avoid multiple calls.
 		 */
-		remove_action( $this->healthcheck_cron_hook_id, [ $this, 'maybe_handle' ] );
+		wp_clear_scheduled_hook( $this->healthcheck_cron_hook_id, [ $data_source ] );
 
 		$this->handle( $data_source );
 	}
