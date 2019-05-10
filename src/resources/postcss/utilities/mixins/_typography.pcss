@@ -12,7 +12,7 @@
  * ----------------------------------------------------------------------------- */
 
 @define-mixin desktop-body-1-sup {
-	font-size: var(--font-size-4);
+	font-size: var(--font-size-3);
 	line-height: var(--line-height-3);
 }
 
@@ -34,7 +34,7 @@
  * ----------------------------------------------------------------------------- */
 
 @define-mixin desktop-body-2-sup {
-	font-size: var(--font-size-3);
+	font-size: var(--font-size-2);
 	line-height: var(--line-height-3);
 }
 
@@ -56,7 +56,7 @@
  * ----------------------------------------------------------------------------- */
 
 @define-mixin desktop-body-3-sup {
-	font-size: var(--font-size-2);
+	font-size: var(--font-size-1);
 	line-height: var(--line-height-0);
 }
 
@@ -74,34 +74,13 @@
 }
 
 /* -----------------------------------------------------------------------------
- * Desktop Body 4
- * ----------------------------------------------------------------------------- */
-
-@define-mixin desktop-body-4-sup {
-	font-size: var(--font-size-1);
-	line-height: var(--line-height-2);
-}
-
-@define-mixin desktop-body-4 {
-	@mixin body;
-
-	font-weight: var(--font-weight-regular);
-}
-
-@define-mixin desktop-body-4-bold {
-	@mixin desktop-body-4;
-
-	font-weight: var(--font-weight-bold);
-}
-
-/* -----------------------------------------------------------------------------
  * Mobile Body 1
  * ----------------------------------------------------------------------------- */
 
 @define-mixin mobile-body-1 {
 	@mixin body;
 
-	font-size: var(--font-size-3);
+	font-size: var(--font-size-2);
 	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-3);
 }
@@ -119,7 +98,7 @@
 @define-mixin mobile-body-2 {
 	@mixin body;
 
-	font-size: var(--font-size-2);
+	font-size: var(--font-size-1);
 	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-0);
 }
@@ -137,31 +116,13 @@
 @define-mixin mobile-body-3 {
 	@mixin body;
 
-	font-size: var(--font-size-1);
+	font-size: var(--font-size-0);
 	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-2);
 }
 
 @define-mixin mobile-body-3-bold {
 	@mixin mobile-body-3;
-
-	font-weight: var(--font-weight-bold);
-}
-
-/* -----------------------------------------------------------------------------
- * Mobile Body 4
- * ----------------------------------------------------------------------------- */
-
-@define-mixin mobile-body-4 {
-	@mixin body;
-
-	font-size: var(--font-size-0);
-	font-weight: var(--font-weight-regular);
-	line-height: var(--line-height-3);
-}
-
-@define-mixin mobile-body-4-bold {
-	@mixin mobile-body-4;
 
 	font-weight: var(--font-weight-bold);
 }
