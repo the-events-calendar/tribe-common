@@ -5,6 +5,7 @@
 = [4.9.8] TBD =
 
 * Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
+* Tweak - Optimize the autoloader function to eliminate duplicate path checkings.
 * Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
 
 = [4.9.7] 2019-05-02 =
