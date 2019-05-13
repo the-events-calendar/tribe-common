@@ -2,9 +2,11 @@
 
 == Changelog ==
 
-= [4.9.8] TBD =
+= [4.9.8] 2019-05-09 =
 
 * Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
+* Tweak - Added filters: `tribe_context_locations`, `tribe_tooltip_template`, `tribe_tooltip_html`
+* Tweak - Changed views: `tooltip/tooltip`
 * Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
 
 = [4.9.7] 2019-05-02 =
