@@ -1,17 +1,21 @@
 /* = Navigation
 ============================ */
-.tribe-events {
+.tribe-common {
 
 	.tribe-common-c-nav {
-		display: flex;
-		justify-content: space-between;
 		border-top: 1px solid var(--color-border-default);
 		padding-top: var(--spacer-6);
+
+		ul {
+			display: block;
+			list-style: none;
+			width: 100%;
+		}
 	}
 
-	.tribe-common-c-nav--prev,
-	.tribe-common-c-nav--next {
-		display: flex;
+	.tribe-common-c-nav__prev,
+	.tribe-common-c-nav__next {
+		display: inline-flex;
 		align-items: center;
 		color: var(--color-text-secondary);
 		font-size: var(--font-size-1);
@@ -22,24 +26,29 @@
 		}
 
 		&:hover {
-			color: rgba(var(--color-text-primary), 0.8);
+			color: var(--color-navigation-hover);
 		}
 
 		&:disabled {
 			color: var(--color-text-disabled);
 		}
-	}
 
-	.tribe-common-c-nav--prev {
-
-		&:before {
-			background-image: svg-inline(caret-left);
+		&:before,
+		&:after {
 			background-repeat: no-repeat;
 			background-size: contain;
 			content: '';
 			height: 14px;
-			margin-right: 10px;
 			width: 12px;
+		}
+	}
+
+	.tribe-common-c-nav__prev {
+		float: left;
+
+		&:before {
+			background-image: svg-inline(caret-left);
+			margin-right: 10px;
 		}
 
 		&:active,
@@ -60,34 +69,28 @@
 
 	}
 
-	.tribe-common-c-nav--next {
+	.tribe-common-c-nav__next {
+		float: right;
 
 		&:after {
 			background-image: svg-inline(caret-right);
-			background-repeat: no-repeat;
-			background-size: contain;
-			content: '';
-			height: 14px;
 			margin-left: 10px;
-			width: 12px;
 		}
 
 		&:active,
 		&:hover,
 		&:focus {
 
-			&:before {
+			&:after {
 				background-image: svg-inline(caret-right-active);
 			}
 		}
 
 		&:disabled {
 
-			&:before {
+			&:after {
 				background-image: svg-inline(caret-right-disabled);
 			}
 		}
-
 	}
-
 }
