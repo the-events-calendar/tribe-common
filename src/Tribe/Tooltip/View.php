@@ -3,14 +3,14 @@
 /**
  * Class Tribe__Tooltip__View
  *
- * @since TBD
+ * @since 4.9.8
  */
 class Tribe__Tooltip__View extends Tribe__Template {
 
 	/**
 	 * Tribe__Tooltip__View constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 */
 	public function __construct() {
 		$this->set_template_origin( Tribe__Main::instance() );
@@ -26,7 +26,7 @@ class Tribe__Tooltip__View extends Tribe__Template {
 	/**
 	 * Public wrapper for build method
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param array|string $message Array of messages or single message as string.
 	 * @param array $args Extra arguments.
@@ -45,7 +45,7 @@ class Tribe__Tooltip__View extends Tribe__Template {
 	/**
 	 * Factory method for tooltip HTML
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 *
 	 * @param array|string $message array of messages or single message as string.
 	 * @param array $args Extra arguments, defaults include icon, classes, direction, and context (for the filters).
@@ -77,7 +77,7 @@ class Tribe__Tooltip__View extends Tribe__Template {
 		/**
 		 * Allow us to filter the tooltip template
 		 *
-		 * @since  TBD
+		 * @since  4.9.8
 		 *
 		 * @param string $template The tooltip template name.
 		 * @param array $args Extra arguments, defaults include icon, classes, direction, and context.
@@ -95,7 +95,7 @@ class Tribe__Tooltip__View extends Tribe__Template {
 		/**
 		 * Allow us to filter the tooltip output
 		 *
-		 * @since  TBD
+		 * @since  4.9.8
 		 *
 		 * @param string $html The tooltip HTML.
 		 * @param array $messages An array of message strings.
