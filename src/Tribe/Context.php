@@ -70,56 +70,13 @@ class Tribe__Context {
 	 * location will have this name.
 	 * orm_transform - if provided the value of the location will be obtained by passing it as an argument to a callable.
 	 *
+	 * As the Context locations increase in number it would be impractical to define them inline here.
+	 * The locations will be loaded by the `Tribe__Context::populate_locations` method from the `Context/locations.php`
+	 * file.
+	 *
 	 * @var array
 	 */
-	protected static $locations = [
-		'posts_per_page' => [
-			'read' => [
-				self::REQUEST_VAR  => 'posts_per_page',
-				self::TRIBE_OPTION => [ 'posts_per_page', 'postsPerPage' ],
-				self::OPTION       => 'posts_per_page',
-			],
-			'write' => [
-				self::REQUEST_VAR  => 'posts_per_page',
-			],
-		],
-		'event_display'  => [
-			'read' => [
-				self::REQUEST_VAR => 'tribe_event_display',
-				self::QUERY_VAR   => 'eventDisplay',
-			],
-			'write' => [
-				self::REQUEST_VAR => 'tribe_event_display',
-				self::QUERY_VAR   => 'eventDisplay',
-			],
-		],
-		'view'  => [
-			'read' => [
-				self::REQUEST_VAR => 'tribe_view',
-				self::QUERY_VAR   => 'tribe_view',
-				self::REQUEST_VAR => 'tribe_event_display',
-				self::QUERY_VAR   => 'eventDisplay',
-				self::TRIBE_OPTION => 'viewOption',
-			],
-			'write' => [
-				self::REQUEST_VAR => 'tribe_view',
-				self::QUERY_VAR   => 'tribe_view',
-				self::REQUEST_VAR => 'tribe_event_display',
-				self::QUERY_VAR   => 'eventDisplay',
-			],
-		],
-		'view_data' => [
-			'read' => [
-				self::REQUEST_VAR => 'tribe_view_data',
-				self::QUERY_VAR   => 'tribe_view_data',
-				self::FILTER      => 'tribe_view_data'
-			],
-			'write' => [
-				self::REQUEST_VAR => 'tribe_view_data',
-				self::QUERY_VAR   => 'tribe_view_data',
-			],
-		],
-	];
+	protected static $locations = [];
 
 	/**
 	 * A utility static property keeping track of write locations that
@@ -140,7 +97,7 @@ class Tribe__Context {
 	 *
 	 * @var bool
 	 */
-	protected static $did_set_dynamic_locations = false;
+	protected static $did_populate_locations = false;
 
 	/**
 	 * A list of override locations to read and write from.
@@ -187,7 +144,7 @@ class Tribe__Context {
 	 * @since TBD
 	 */
 	public function __construct(  ) {
-		$this->add_dynamic_locations();
+		$this->populate_locations();
 	}
 
 	/**
@@ -1229,30 +1186,15 @@ class Tribe__Context {
 	 *
 	 * @since TBD
 	 */
-	protected function add_dynamic_locations() {
-		if ( static::$did_set_dynamic_locations ) {
+	protected function populate_locations() {
+		if ( static::$did_populate_locations ) {
 			return;
 		}
 
-		static::$locations = array_merge( static::$locations, [
-			'is_main_query' => [
-				'read'  => [
-					self::FUNC => static function () {
-						global $wp_query;
+		// To improve the class readability, and as a small optimization, locations are loaded from a file.
+		static::$locations = include __DIR__ . '/Context/locations.php';
 
-						return $wp_query->is_main_query();
-					},
-				],
-				'write' => [
-					self::FUNC => static function () {
-						global $wp_query, $wp_the_query;
-						$wp_the_query = $wp_query;
-					},
-				],
-			],
-		] );
-
-		static::$did_set_dynamic_locations = true;
+		static::$did_populate_locations = true;
 	}
 
 	/**
