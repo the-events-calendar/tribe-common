@@ -185,27 +185,28 @@ class Tribe__Main {
 		// These ones are only registered
 		tribe_assets(
 			$this,
-			array(
-				array( 'tribe-accessibility-css', 'accessibility.css' ),
-				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
-				array( 'datatables', 'vendor/datatables/datatables.js', array( 'jquery' ) ),
-				array( 'tribe-select2', 'vendor/tribe-select2/select2.js', array( 'jquery' ) ),
-				array( 'tribe-select2-css', 'vendor/tribe-select2/select2.css' ),
-				array( 'tribe-utils-camelcase', 'utils-camelcase.js', array( 'underscore' ) ),
-				array( 'tribe-moment', 'vendor/momentjs/moment.js' ),
-				array( 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', array( 'jquery' ) ),
-				array( 'tribe-tooltipster-css', 'vendor/tooltipster/tooltipster.bundle.css' ),
-				array( 'datatables-css', 'datatables.css' ),
-				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables' ) ),
-				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
-				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
-				array( 'tribe-buttonset-style', 'buttonset.css' ),
-				array( 'tribe-dropdowns', 'dropdowns.js', array( 'jquery', 'underscore', 'tribe-select2', 'tribe-common' ) ),
-				array( 'tribe-jquery-timepicker', 'vendor/jquery-tribe-timepicker/jquery.timepicker.js', array( 'jquery' ) ),
-				array( 'tribe-jquery-timepicker-css', 'vendor/jquery-tribe-timepicker/jquery.timepicker.css' ),
-				array( 'tribe-timepicker', 'timepicker.js', array( 'jquery', 'tribe-jquery-timepicker' ) ),
-				array( 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' ),
-			)
+			[
+				[ 'tribe-accessibility-css', 'accessibility.css' ],
+				[ 'tribe-query-string', 'utils/query-string.js' ],
+				[ 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ],
+				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
+				[ 'tribe-select2', 'vendor/tribe-select2/select2.js', [ 'jquery' ] ],
+				[ 'tribe-select2-css', 'vendor/tribe-select2/select2.css' ],
+				[ 'tribe-utils-camelcase', 'utils-camelcase.js', [ 'underscore' ] ],
+				[ 'tribe-moment', 'vendor/momentjs/moment.js' ],
+				[ 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', [ 'jquery' ] ],
+				[ 'tribe-tooltipster-css', 'vendor/tooltipster/tooltipster.bundle.css' ],
+				[ 'datatables-css', 'datatables.css' ],
+				[ 'tribe-datatables', 'tribe-datatables.js', [ 'datatables' ] ],
+				[ 'tribe-bumpdown', 'bumpdown.js', [ 'jquery', 'underscore', 'hoverIntent' ] ],
+				[ 'tribe-bumpdown-css', 'bumpdown.css' ],
+				[ 'tribe-buttonset-style', 'buttonset.css' ],
+				[ 'tribe-dropdowns', 'dropdowns.js', [ 'jquery', 'underscore', 'tribe-select2', 'tribe-common' ] ],
+				[ 'tribe-jquery-timepicker', 'vendor/jquery-tribe-timepicker/jquery.timepicker.js', [ 'jquery' ] ],
+				[ 'tribe-jquery-timepicker-css', 'vendor/jquery-tribe-timepicker/jquery.timepicker.css' ],
+				[ 'tribe-timepicker', 'timepicker.js', [ 'jquery', 'tribe-jquery-timepicker' ] ],
+				[ 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' ],
+			]
 		);
 
 		/**
@@ -477,34 +478,15 @@ class Tribe__Main {
 	 * Helper function for getting Post ID. Accepts `null` or a Post ID. If attempting
 	 * to detect $post object and it is not found, returns `false` to avoid a PHP Notice.
 	 *
-	 * @param null|int|WP_Post $post Post ID or object, `null` to get the ID of the global post object.
+	 * @param  null|int|WP_Post  $candidate  Post ID or object, `null` to get the ID of the global post object.
 	 *
-	 * @return int|false The ID of the passed or global post.
+	 * @return int|false The ID of the passed or global post, `false` if the passes object is not a post or the global
+	 *                   post is not set.
 	 */
-	public static function post_id_helper( $post = null ) {
-		if (
-			is_numeric( $post )
-			&& 0 < (int) $post
-			&& null !== $post
-		) {
-			return (int) $post;
-		}
+	public static function post_id_helper( $candidate = null ) {
+		$candidate_post = get_post( $candidate );
 
-		if (
-			is_object( $post )
-			&& ! empty( $post->ID )
-		) {
-			return (int) $post->ID;
-		}
-
-		if (
-			! empty( $GLOBALS['post'] )
-			&& $GLOBALS['post'] instanceof WP_Post
-		) {
-			return get_the_ID();
-		}
-
-		return false;
+		return $candidate_post instanceof WP_Post ? $candidate_post->ID : false;
 	}
 
 	/**
