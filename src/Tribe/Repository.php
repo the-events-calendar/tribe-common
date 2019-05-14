@@ -557,10 +557,6 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function build_query( $use_query_builder = true ) {
-		if ( null !== $this->last_built_query && $this->last_built_hash === $this->hash()) {
-			return $this->last_built_query;
-		}
-
 		$query = null;
 
 		if ( $use_query_builder && null !== $this->query_builder ) {
@@ -569,6 +565,10 @@ abstract class Tribe__Repository
 
 		if ( null === $query ) {
 			$query = $this->build_query_internally();
+		}
+
+		if ( null !== $this->last_built_query && $this->last_built_hash === $this->hash( [], $query ) ) {
+			return $this->last_built_query;
 		}
 
 		/**
