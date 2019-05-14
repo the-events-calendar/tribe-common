@@ -544,7 +544,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			if ( ! $this->result->valid ) {
 				$this->result->error = sprintf( esc_html__( '%s must be an email address.', 'tribe-common' ), $this->label );
 			} else {
-				$this->value = filter_var( trim( $candidate, FILTER_SANITIZE_EMAIL ) );
+				$this->value = filter_var( trim( $candidate ), FILTER_SANITIZE_EMAIL );
 			}
 		}
 
