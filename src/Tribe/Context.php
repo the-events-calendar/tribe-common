@@ -265,12 +265,12 @@ class Tribe__Context {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param mixed  $value   The value for the key before it's fetched from the context.
-		 * @param string $key     The key of the value to fetch from the context.
-		 * @param mixed  $default The default value that should be returned if the value is
-		 *                        not set in the context.
-		 * @param bool $force Whether to force the re-fetch of the value from the context or
-		 *                    not; defaults to `false`.
+		 * @param  mixed   $value    The value for the key before it's fetched from the context.
+		 * @param  string  $key      The key of the value to fetch from the context.
+		 * @param  mixed   $default  The default value that should be returned if the value is
+		 *                           not set in the context.
+		 * @param  bool    $force    Whether to force the re-fetch of the value from the context or
+		 *                           not; defaults to `false`.
 		 */
 		$value = apply_filters( "tribe_context_pre_{$key}", null, $key, $default, $force );
 		if ( null !== $value ) {
@@ -280,20 +280,10 @@ class Tribe__Context {
 		$value     = $default;
 		$locations = $this->get_locations();
 
-		if ( ! isset( $locations[ $key ] ) ) {
-			return $default;
-		}
-
-		$the_locations = $locations[ $key ]['read'];
-
-		if ( ! isset( $the_locations ) ) {
-			return $value;
-		}
-
 		if ( ! $force && isset( $this->request_cache[ $key ] ) ) {
 			$value = $this->request_cache[ $key ];
-		} else {
-			foreach ( $the_locations as $location => $keys ) {
+		} elseif ( ! empty( $locations[ $key ]['read'] ) ) {
+			foreach ( $locations[ $key ]['read'] as $location => $keys ) {
 				$the_value = $this->$location( (array) $keys, $default );
 
 				if ( $default !== $the_value ) {
@@ -310,7 +300,7 @@ class Tribe__Context {
 		 *
 		 * @since 4.9.5
 		 *
-		 * @param mixed $value The value as fetched from the context.
+		 * @param  mixed  $value  The value as fetched from the context.
 		 */
 		$value = apply_filters( "tribe_context_{$key}", $value );
 
@@ -1027,10 +1017,10 @@ class Tribe__Context {
 	 * @return array An associative array of the context keys and values.
 	 */
 	public function to_array(  ) {
-		$locations = $this->get_locations();
+		$locations = array_keys( array_merge( $this->get_locations(), $this->request_cache ) );
 		$dump      = array();
 
-		foreach ( array_keys( $locations ) as $location ) {
+		foreach ( $locations as $location ) {
 			$the_value = $this->get( $location, self::NOT_FOUND );
 
 			if ( self::NOT_FOUND === $the_value ) {
@@ -1039,7 +1029,6 @@ class Tribe__Context {
 
 			$dump[ $location ] = $the_value;
 		}
-
 
 		return $dump;
 	}
