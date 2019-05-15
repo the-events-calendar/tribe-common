@@ -2,12 +2,21 @@
 
 == Changelog ==
 
+= [4.9.10] TBD =
+
+* Fix - Resolve issues with pagination in REST API by making the query cache more comprehensive [127710]
+
+= [4.9.9] 2019-05-16 =
+
+* Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translations.theeventscalendar.com
+* Tweak - Optimize the autoloader function to eliminate duplicate path checkings.
+* Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
+
 = [4.9.8] 2019-05-14 =
 
 * Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
 * Tweak - Added filters: `tribe_context_locations`, `tribe_tooltip_template`, `tribe_tooltip_html`
 * Tweak - Changed views: `tooltip/tooltip`
-* Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
 
 = [4.9.7] 2019-05-02 =
 
@@ -410,4 +419,3 @@
 
 * Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
-
