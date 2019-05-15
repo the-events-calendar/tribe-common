@@ -4,11 +4,10 @@
 
 = [4.9.9] 2019-05-16 =
 
-* Tweak - Reduce final Package size for customers by remove `.po` files from the plugin.
+* Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translations.theeventscalendar.com
 
 = [4.9.8] 2019-05-14 =
 
-* Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translations.theeventscalendar.com
 * Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
 * Tweak - Optimize the autoloader function to eliminate duplicate path checkings.
 * Tweak - Added filters: `tribe_context_locations`, `tribe_tooltip_template`, `tribe_tooltip_html`
