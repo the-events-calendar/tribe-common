@@ -2,6 +2,14 @@
 
 == Changelog ==
 
+= [4.9.10] TBD =
+
+* Fix - Resolve issues with pagination in REST API by making the query cache more comprehensive [127710]
+
+= [4.9.9] 2019-05-15 =
+
+
+
 = [4.9.8] 2019-05-14 =
 
 * Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
