@@ -8,15 +8,15 @@
 
 = [4.9.9] 2019-05-16 =
 
-* Tweak - Reduce final Package size for customers by remove `.po` files from the plugin and directing anyone creating or editing local translations to translations.theeventscalendar.com
-* Tweak - Optimize the autoloader function to eliminate duplicate path checkings
+* Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translations.theeventscalendar.com
+* Tweak - Optimize the autoloader function to eliminate duplicate path checkings.
+* Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
 
 = [4.9.8] 2019-05-14 =
 
 * Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
 * Tweak - Added filters: `tribe_context_locations`, `tribe_tooltip_template`, `tribe_tooltip_html`
 * Tweak - Changed views: `tooltip/tooltip`
-* Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
 
 = [4.9.7] 2019-05-02 =
 
