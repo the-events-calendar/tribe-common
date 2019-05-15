@@ -245,4 +245,56 @@ class ReadQueryCacheTest extends ReadTestBase {
 		];
 	}
 
+
+	/**
+	 * It should return the correct values when running all after found
+	 *
+	 * @test
+	 */
+	public function should_return_the_correct_values_when_running_all_after_found() {
+		$books = self::factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
+
+		$repository = $this->repository();
+
+		$found = $repository->found();
+
+		$this->assertEquals( 5, $found );
+
+		$page_1_books = $repository->per_page( 2 )->all();
+
+		$this->assertCount( 2, $page_1_books );
+		$this->assertEquals( array_slice( $books, 0, 2 ), wp_list_pluck( $page_1_books, 'ID' ) );
+
+		$page_2_books = $repository->per_page( 3 )->page( 2 )->all();
+
+		$this->assertCount( 2, $page_2_books );
+		$this->assertEquals( array_slice( $books, 3, 2 ), wp_list_pluck( $page_2_books, 'ID' ) );
+
+		$page_1_books = $repository->per_page( 3 )->page( 1 )->all();
+
+		$this->assertCount( 3, $page_1_books );
+		$this->assertEquals( array_slice( $books, 0, 3 ), wp_list_pluck( $page_1_books, 'ID' ) );
+
+		$this->assertEquals( 5, $repository->found() );
+
+		$page_1_books = $repository->per_page( 2 )->all();
+
+		$this->assertCount( 2, $page_1_books );
+		$this->assertEquals( array_slice( $books, 0, 2 ), wp_list_pluck( $page_1_books, 'ID' ) );
+
+		$page_2_books = $repository->per_page( 3 )->page( 2 )->all();
+
+		$this->assertCount( 2, $page_2_books );
+		$this->assertEquals( array_slice( $books, 3, 2 ), wp_list_pluck( $page_2_books, 'ID' ) );
+
+		$page_1_books = $repository->per_page( 3 )->page( 1 )->all();
+
+		$this->assertCount( 3, $page_1_books );
+		$this->assertEquals( array_slice( $books, 0, 3 ), wp_list_pluck( $page_1_books, 'ID' ) );
+
+		$middle_3_books = $repository->per_page( 3 )->page( 1 )->offset( 1 )->all();
+
+		$this->assertCount( 3, $middle_3_books );
+		$this->assertEquals( array_slice( $books, 1, 3 ), wp_list_pluck( $middle_3_books, 'ID' ) );
+	}
 }
