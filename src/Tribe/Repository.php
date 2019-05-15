@@ -557,14 +557,15 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function build_query( $use_query_builder = true ) {
-		if ( null !== $this->last_built_query && $this->last_built_hash === $this->hash()) {
-			return $this->last_built_query;
-		}
-
 		$query = null;
 
+		// We'll let the query builder decide if the query has to be rebuilt or not.
 		if ( $use_query_builder && null !== $this->query_builder ) {
 			$query = $this->build_query_with_builder();
+		}
+
+		if ( null !== $this->last_built_query && $this->last_built_hash === $this->hash()) {
+			return $this->last_built_query;
 		}
 
 		if ( null === $query ) {
@@ -605,14 +606,17 @@ abstract class Tribe__Repository
 
 		$query = $this->build_query();
 
+		$original_no_found_rows_value = (bool) $query->get( 'no_found_rows' );
+
 		// The request property will be set during the `get_posts` method and empty before it.
-		if ( ! empty( $query->request ) ) {
+		if ( ! empty( $query->request ) && false === $original_no_found_rows_value ) {
 			return (int) $query->found_posts;
 		}
 
 		$original_fields_value = $query->get( 'fields', '' );
 
 		$query->set( 'fields', 'ids' );
+		$query->set( 'no_found_rows', false );
 
 		/**
 		 * Filters the query object by reference before counting found posts.
@@ -626,6 +630,7 @@ abstract class Tribe__Repository
 		$query->get_posts();
 
 		$query->set( 'fields', $original_fields_value );
+		$query->set( 'no_found_rows', $original_no_found_rows_value );
 
 		return (int) $query->found_posts;
 	}
@@ -3095,8 +3100,10 @@ abstract class Tribe__Repository
 	 * {@inheritDoc}
 	 */
 	public function get_hash_data( array $settings, WP_Query $query = null ) {
-		$filters = $this->current_filters;
-		$query_vars = null !== $query ? $query->query : [];
+		$filters    = $this->current_filters;
+		$query_vars = null !== $query
+			? $query->query
+			: array_merge( $this->default_args, $this->query_args );
 
 		if ( isset( $settings['exclude'] ) ) {
 			$filters = array_diff_key(
