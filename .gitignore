@@ -20,11 +20,14 @@ vendor/*
 !vendor/tooltipster
 !vendor/datatables
 !vendor/freemius
+vendor/freemius/languages/*.po
 !vendor/jquery-tribe-timepicker
 !vendor/firebase
 vendor/composer/autoload_files.php
+vendor/composer/composer/tests
+vendor/composer/composer/doc
+vendor/composer/composer/.github
 vendor/composer/ca-bundle
-vendor/composer/composer
 vendor/composer/semver
 vendor/composer/spdx-licenses
 vendor/composer/xdebug-handler
@@ -40,3 +43,6 @@ vendor/composer/xdebug-handler
 
 # Modules for Apps
 src/resources/**/app
+
+# get from translate.wordpress.org as needed
+lang/*.po

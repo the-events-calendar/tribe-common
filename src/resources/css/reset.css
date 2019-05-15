@@ -1,0 +1,349 @@
+/**
+ * This CSS file was auto-generated via PostCSS
+ *
+ * Contributors should avoid editing this file, but instead edit the associated
+ * src/resources/postcss/ file. For more information, check out our engineering
+ * docs on how we handle CSS in our engineering docs.
+ *
+ * @see: http://moderntribe.github.io/products-engineering/css/
+ */
+
+/* -----------------------------------------------------------------------------
+	*
+	* Global "Resets"
+	*
+	* ----------------------------------------------------------------------------- */
+
+	.tribe-events * {
+		box-sizing: border-box;
+	}
+
+	/* -----------------------------------------------------------------------------
+	*
+	* HTML5 Elements
+	*
+	* ----------------------------------------------------------------------------- */
+
+	.tribe-events article,
+	.tribe-events aside,
+	.tribe-events details,
+	.tribe-events figcaption,
+	.tribe-events figure,
+	.tribe-events footer,
+	.tribe-events header,
+	.tribe-events main,
+	.tribe-events menu,
+	.tribe-events nav,
+	.tribe-events section,
+	.tribe-events summary {
+		display: block;
+	}
+
+	/* -----------------------------------------------------------------------------
+	*
+	* Normalize "Light"
+	*
+	* See normalize source code for clarity on rules
+	* https://github.com/necolas/normalize.css
+	*
+	* ----------------------------------------------------------------------------- */
+
+	.tribe-events figure {
+		line-height: 0;
+	}
+
+	.tribe-events figcaption {
+		line-height: normal;
+	}
+
+	.tribe-events svg:not(:root) {
+		overflow: hidden;
+	}
+
+	.tribe-events audio,
+	.tribe-events canvas,
+	.tribe-events progress,
+	.tribe-events video {
+		display: inline-block;
+	}
+
+	.tribe-events audio:not([controls]) {
+		display: none;
+		height: 0;
+	}
+
+	.tribe-events progress {
+		vertical-align: baseline;
+	}
+
+	.tribe-events template,
+	.tribe-events [hidden] {
+		display: none;
+	}
+
+	.tribe-events a {
+		background-color: transparent;
+		-webkit-text-decoration-skip: objects;
+	}
+
+	.tribe-events abbr[title] {
+		border-bottom: none;
+		text-decoration: underline;
+		-webkit-text-decoration: underline dotted;
+		        text-decoration: underline dotted;
+	}
+
+	.tribe-events pre {
+		overflow: auto;
+	}
+
+	.tribe-events code,
+	.tribe-events kbd,
+	.tribe-events pre,
+	.tribe-events samp {
+		font-family: monospace;
+		font-size: 1em;
+	}
+
+	.tribe-events b,
+	.tribe-events strong {
+		font-weight: inherit;
+		font-weight: bolder;
+	}
+
+	.tribe-events dfn {
+		font-style: italic;
+	}
+
+	.tribe-events mark {
+		background-color: #ff0;
+		color: #000;
+	}
+
+	.tribe-events small {
+		font-size: 80%;
+	}
+
+	.tribe-events sub,
+	.tribe-events sup {
+		font-size: 75%;
+		line-height: 0;
+		position: relative;
+		vertical-align: baseline;
+	}
+
+	.tribe-events sup {
+		top: -0.5em;
+	}
+
+	.tribe-events sub {
+		bottom: -0.25em;
+	}
+
+	.tribe-events hr {
+		border: 0;
+		height: 0;
+	}
+
+	/* Input: Kill browser input chrome */
+
+	.tribe-events input[type="text"],
+	.tribe-events input[type="email"],
+	.tribe-events input[type="url"],
+	.tribe-events input[type="search"],
+	.tribe-events input[type="submit"],
+	.tribe-events input[type="password"],
+	.tribe-events input[type="reset"],
+	.tribe-events input[type="button"],
+	.tribe-events button,
+	.tribe-events textarea {
+		-webkit-appearance: none;
+		   -moz-appearance: none;
+		        appearance: none;
+	}
+
+	.tribe-events input,
+	.tribe-events button,
+	.tribe-events select,
+	.tribe-events textarea,
+	.tribe-events optgroup {
+		color: inherit;
+		font: inherit;
+		line-height: normal;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	.tribe-events input,
+	.tribe-events button,
+	.tribe-events select,
+	.tribe-events textarea {
+		outline: 0;
+		box-sizing: border-box;
+		margin: 0;
+		border-radius: 0;
+	}
+
+	.tribe-events input[type="number"]::-webkit-inner-spin-button,
+	.tribe-events input[type="number"]::-webkit-outer-spin-button {
+		height: auto;
+	}
+
+	.tribe-events select:-moz-focusring {
+			color: transparent;
+			text-shadow: 0 0 0 #000;
+		}
+
+	.tribe-events legend {
+		color: inherit;
+		display: table;
+		max-width: 100%;
+		white-space: normal;
+	}
+
+	.tribe-events textarea {
+		resize: none;
+		overflow: auto;
+	}
+
+	.tribe-events optgroup {
+		font-weight: bold;
+	}
+
+	.tribe-events button,
+	.tribe-events input[type="button"],
+	.tribe-events input[type="reset"],
+	.tribe-events input[type="submit"] {
+		cursor: pointer;
+		overflow: visible;
+	}
+
+	.tribe-events button[disabled],
+	.tribe-events input[disabled] {
+		cursor: default;
+	}
+
+	.tribe-events button::-moz-focus-inner,
+	.tribe-events input::-moz-focus-inner {
+		border: 0;
+		padding: 0;
+	}
+
+	/* -----------------------------------------------------------------------------
+	*
+	* Reset "Light"
+	*
+	* ----------------------------------------------------------------------------- */
+
+	.tribe-events div,
+	.tribe-events span,
+	.tribe-events applet,
+	.tribe-events object,
+	.tribe-events iframe,
+	.tribe-events h1,
+	.tribe-events h2,
+	.tribe-events h3,
+	.tribe-events h4,
+	.tribe-events h5,
+	.tribe-events h6,
+	.tribe-events p,
+	.tribe-events blockquote,
+	.tribe-events pre,
+	.tribe-events a,
+	.tribe-events abbr,
+	.tribe-events acronym,
+	.tribe-events address,
+	.tribe-events big,
+	.tribe-events cite,
+	.tribe-events code,
+	.tribe-events del,
+	.tribe-events dfn,
+	.tribe-events em,
+	.tribe-events img,
+	.tribe-events ins,
+	.tribe-events kbd,
+	.tribe-events q,
+	.tribe-events s,
+	.tribe-events samp,
+	.tribe-events small,
+	.tribe-events strike,
+	.tribe-events strong,
+	.tribe-events sub,
+	.tribe-events sup,
+	.tribe-events tt,
+	.tribe-events var,
+	.tribe-events b,
+	.tribe-events u,
+	.tribe-events i,
+	.tribe-events center,
+	.tribe-events dl,
+	.tribe-events dt,
+	.tribe-events dd,
+	.tribe-events ol,
+	.tribe-events ul,
+	.tribe-events li,
+	.tribe-events fieldset,
+	.tribe-events form,
+	.tribe-events label,
+	.tribe-events legend,
+	.tribe-events table,
+	.tribe-events caption,
+	.tribe-events tbody,
+	.tribe-events tfoot,
+	.tribe-events thead,
+	.tribe-events tr,
+	.tribe-events th,
+	.tribe-events td,
+	.tribe-events article,
+	.tribe-events aside,
+	.tribe-events canvas,
+	.tribe-events details,
+	.tribe-events embed,
+	.tribe-events figure,
+	.tribe-events figcaption,
+	.tribe-events footer,
+	.tribe-events header,
+	.tribe-events main,
+	.tribe-events menu,
+	.tribe-events nav,
+	.tribe-events output,
+	.tribe-events ruby,
+	.tribe-events section,
+	.tribe-events summary,
+	.tribe-events time,
+	.tribe-events mark,
+	.tribe-events audio,
+	.tribe-events video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+	}
+
+	.tribe-events ol,
+	.tribe-events ul {
+		list-style: none;
+	}
+
+	.tribe-events h1,
+	.tribe-events h2,
+	.tribe-events h3,
+	.tribe-events h4,
+	.tribe-events h5,
+	.tribe-events h6,
+	.tribe-events p {
+		font-weight: normal;
+		text-rendering: optimizeLegibility;
+	}
+
+	.tribe-events img {
+		-ms-interpolation-mode: bicubic;
+		height: auto;
+		max-width: 100%;
+		border-style: none;
+	}
+
+	.tribe-events iframe,
+	.tribe-events video,
+	.tribe-events embed {
+		max-width: 100%;
+		max-height: 100%;
+	}

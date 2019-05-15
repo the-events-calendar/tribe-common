@@ -3496,6 +3496,22 @@ abstract class Tribe__Repository
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	public function set_query( WP_Query $query ) {
+		if (
+			$this->last_built_query instanceof WP_Query
+			&& !empty($this->last_built_query->request)
+		){
+			throw Tribe__Repository__Usage_Error::because_query_cannot_be_set_after_it_ran();
+		}
+		$this->last_built_query = $query;
+		$this->last_built_hash  = $this->hash();
+
+		return $this;
+	}
+
+	/**
 	 * Flush current filters and query information.
 	 *
 	 * @since TBD
