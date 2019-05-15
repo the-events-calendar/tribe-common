@@ -590,7 +590,7 @@ abstract class Tribe__Repository
 		);
 
 		$this->last_built_query = $query;
-		$this->last_built_hash = $this->hash( [], $query );
+		$this->last_built_hash = $this->hash();
 
 		return $query;
 	}
@@ -3096,7 +3096,7 @@ abstract class Tribe__Repository
 	 */
 	public function get_hash_data( array $settings, WP_Query $query = null ) {
 		$filters = $this->current_filters;
-		$query_vars = null !== $query ? $query->query_vars : [];
+		$query_vars = null !== $query ? $query->query : [];
 
 		if ( isset( $settings['exclude'] ) ) {
 			$filters = array_diff_key(
