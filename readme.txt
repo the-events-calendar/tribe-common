@@ -6,9 +6,10 @@
 
 * Fix - Resolve issues with pagination in REST API by making the query cache more comprehensive [127710]
 
-= [4.9.9] 2019-05-15 =
+= [4.9.9] 2019-05-16 =
 
-
+* Tweak - Reduce final Package size for customers by remove `.po` files from the plugin and directing anyone creating or editing local translations to translations.theeventscalendar.com
+* Tweak - Optimize the autoloader function to eliminate duplicate path checkings
 
 = [4.9.8] 2019-05-14 =
 
@@ -418,4 +419,3 @@
 
 * Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
-
