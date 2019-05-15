@@ -35,49 +35,23 @@
 	 * Colors - Typography
 	 * ----------------------------------------------------------------------------- */
 
-	--color-text-primary: #141827;
-	--color-text-secondary: #727272;
-	--color-text-disabled: #D5D5D5;
-
 	/* -----------------------------------------------------------------------------
 	 * Colors - Iconography
 	 * ----------------------------------------------------------------------------- */
-
-	--color-icon-primary: #727272;
-	--color-icon-secondary: #BABABA;
-	--color-icon-active: #141827;
-	--color-icon-disabled: #D5D5D5;
 
 	/* -----------------------------------------------------------------------------
 	 * Colors - UI
 	 * ----------------------------------------------------------------------------- */
 
-	--color-accent-primary: #334AFF;
-	--color-accent-primary-hover: rgba(var(--color-accent-primary), 0.8);
-	--color-accent-primary-active: rgba(var(--color-accent-primary), 0.9);
-	--color-accent-primary-background: rgba(var(--color-accent-primary), 0.07);
-	--color-accent-secondary: #141827;
-	--color-accent-secondary-hover: rgba(var(--color-accent-secondary), 0.8);
-	--color-accent-secondary-active: rgba(var(--color-accent-secondary), 0.9);
-	--color-accent-secondary-background: rgba(var(--color-accent-secondary), 0.07);
-
 	/* -----------------------------------------------------------------------------
 	 * Colors - Borders & Misc
 	 * ----------------------------------------------------------------------------- */
-
-	--color-border-default: #D5D5D5;
-	--color-border-active: #141827;
-	--color-background: #FFFFFF;
-	--color-background-secondary: #F7F6F6;
-	--color-box-shadow: rgba(0,0,0, 0.14);
 }
 
 :root {
 	/* -----------------------------------------------------------------------------
 	 * Box Shadows
 	 * ----------------------------------------------------------------------------- */
-
-	--box-shadow-default: 0 2px 5px 0 var(--color-box-shadow);
 }
 
 :root {
@@ -85,17 +59,9 @@
 	 * Forms - Colors
 	 * ----------------------------------------------------------------------------- */
 
-	--form-color-background: var(--color-background);
-	--form-color-border-default: var(--color-text-primary);
-	--form-color-border-active: var(--color-accent-secondary);
-	--form-color-border-secondary: var(--color-text-disabled);
-	--form-color-accent-primary: var(--color-accent-primary);
-
 	/* -----------------------------------------------------------------------------
 	 * Forms - Box Shadows
 	 * ----------------------------------------------------------------------------- */
-
-	--form-box-shadow-default: var(--box-shadow-default);
 }
 
 :root {
@@ -103,223 +69,53 @@
 	 * Gutter - Default
 	 * ----------------------------------------------------------------------------- */
 
-	--grid-gutter: 48px;
-	--grid-gutter-negative: calc(var(--grid-gutter) * -1);
-	--grid-gutter-half: calc(var(--grid-gutter) / 2);
-	--grid-gutter-half-negative: calc(var(--grid-gutter-half) * -1);
-
 	/* -----------------------------------------------------------------------------
 	 * Gutter - Page
 	 * ----------------------------------------------------------------------------- */
 
-	--grid-gutter-page: 42px;
-	--grid-gutter-page-small: 19.5px;
-
 	/* -----------------------------------------------------------------------------
 	 * Grid Width
 	 * ----------------------------------------------------------------------------- */
-	--grid-width-default: 1176px;
-	--grid-width-min: 320px;
-	--grid-width: calc(var(--grid-width-default) + 2 * var(--grid-gutter-page));
 }
-
-@custom-media --viewport-xxsmall (min-width: 320px);
-
-@custom-media --viewport-xsmall (min-width: 500px);
-
-@custom-media --viewport-small (min-width: 600px);
-
-@custom-media --viewport-medium (min-width: 768px);
-
-@custom-media --viewport-wpadmin (min-width: 783px);
-
-@custom-media --viewport-full (min-width: 960px);
-
-@custom-media --viewport-large (min-width: 1200px);
-
-@custom-media --viewport-xlarge (min-width: 1260px);
 
 :root {
 	/* -----------------------------------------------------------------------------
 	 * Spacers
 	 * ----------------------------------------------------------------------------- */
-
-	--spacer-1: 8px;
-	--spacer-2: 16px;
-	--spacer-3: 20px;
-	--spacer-4: 24px;
-	--spacer-5: 28px;
-	--spacer-6: 32px;
-	--spacer-7: 40px;
-	--spacer-8: 48px;
-	--spacer-9: 56px;
-	--spacer-10: 64px;
-	--spacer-11: 80px;
-	--spacer-12: 96px;
-	--spacer-13: 160px;
 }
 
 /* -----------------------------------------------------------------------------
  * SVG - Arrow Right
  * ----------------------------------------------------------------------------- */
 
-@svg-load arrow-right-white url('../../../images/icons/arrow-right.svg') {
-
-	polygon {
-		fill: #FFFFFF;
-		fill: var(--color-background);
-	}
-}
-
 /* -----------------------------------------------------------------------------
  * SVG - Caret Left
  * ----------------------------------------------------------------------------- */
-
-@svg-load caret-left url('../../../images/icons/caret-left.svg') {
-
-	polygon {
-		fill: #727272;
-		fill: var(--color-icon-primary);
-	}
-}
-
-@svg-load caret-left-active url('../../../images/icons/caret-left.svg') {
-
-	polygon {
-		fill: #141827;
-		fill: var(--color-icon-active);
-	}
-}
-
-@svg-load caret-left-disabled url('../../../images/icons/caret-left.svg') {
-
-	polygon {
-		fill: #D5D5D5;
-		fill: var(--color-icon-disabled);
-	}
-}
 
 /* -----------------------------------------------------------------------------
  * SVG - Caret Right
  * ----------------------------------------------------------------------------- */
 
-@svg-load caret-right url('../../../images/icons/caret-right.svg') {
-
-	polygon {
-		fill: #727272;
-		fill: var(--color-icon-primary);
-	}
-}
-
-@svg-load caret-right-active url('../../../images/icons/caret-right.svg') {
-
-	polygon {
-		fill: #141827;
-		fill: var(--color-icon-active);
-	}
-}
-
-@svg-load caret-right-disabled url('../../../images/icons/caret-right.svg') {
-
-	polygon {
-		fill: #D5D5D5;
-		fill: var(--color-icon-disabled);
-	}
-}
-
 /* -----------------------------------------------------------------------------
  * SVG - Check
  * ----------------------------------------------------------------------------- */
-
-@svg-load check-white url('../../../images/icons/check.svg') {
-
-	path {
-		fill: #FFFFFF;
-		fill: var(--color-background);
-	}
-}
 
 /* -----------------------------------------------------------------------------
  * SVG - Dropdown
  * ----------------------------------------------------------------------------- */
 
-@svg-load dropdown url('../../../images/icons/dropdown.svg') {
-
-	polygon {
-		fill: #727272;
-		fill: var(--color-icon-primary);
-	}
-}
-
 /* -----------------------------------------------------------------------------
  * SVG - Filters
  * ----------------------------------------------------------------------------- */
-
-@svg-load filters url('../../../images/icons/filters.svg') {
-
-	path {
-		stroke: #727272;
-		stroke: var(--color-icon-primary);
-		fill: #727272;
-		fill: var(--color-icon-primary);
-	}
-}
-
-@svg-load filters-active url('../../../images/icons/filters.svg') {
-
-	path {
-		stroke: #141827;
-		stroke: var(--color-icon-active);
-		fill: #141827;
-		fill: var(--color-icon-active);
-	}
-}
-
-@svg-load filters-disabled url('../../../images/icons/filters.svg') {
-
-	path {
-		stroke: #D5D5D5;
-		stroke: var(--color-icon-disabled);
-		fill: #D5D5D5;
-		fill: var(--color-icon-disabled);
-	}
-}
 
 /* -----------------------------------------------------------------------------
  * SVG - Search
  * ----------------------------------------------------------------------------- */
 
-@svg-load search url('../../../images/icons/search.svg') {
-
-	path {
-		fill: #727272;
-		fill: var(--color-icon-primary);
-	}
-}
-
-@svg-load search-active url('../../../images/icons/search.svg') {
-
-	path {
-		fill: #141827;
-		fill: var(--color-icon-active);
-	}
-}
-
-@svg-load search-disabled url('../../../images/icons/search.svg') {
-
-	path {
-		fill: #D5D5D5;
-		fill: var(--color-icon-disabled);
-	}
-}
-
 :root {
 	/* -----------------------------------------------------------------------------
 	 * Transitions
 	 * ----------------------------------------------------------------------------- */
-	 --transition-background-color: background-color 0.2s ease;
-	 --transition-color-border-color: color 0.2s ease, border-color 0.2s ease;
-	 --transition-transform: transform 0.2s ease;
 }
 
 :root {
@@ -327,40 +123,17 @@
 	 * Font Stacks
 	 * ----------------------------------------------------------------------------- */
 
-	--font-family-sans-serif: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	--font-family-base: var(--font-family-sans-serif);
-
 	/* -----------------------------------------------------------------------------
 	 * Font Weights
 	 * ----------------------------------------------------------------------------- */
-
-	--font-weight-regular: 400;
-	--font-weight-bold: 700;
 
 	/* -----------------------------------------------------------------------------
 	 * Font Sizing
 	 * ----------------------------------------------------------------------------- */
 
-	--font-size-0: 10px;
-	--font-size-1: 11px;
-	--font-size-2: 12px;
-	--font-size-3: 14px;
-	--font-size-4: 16px;
-	--font-size-5: 18px;
-	--font-size-6: 20px;
-	--font-size-7: 24px;
-	--font-size-8: 28px;
-	--font-size-9: 32px;
-	--font-size-10: 42px;
-
 	/* -----------------------------------------------------------------------------
 	 * Line Height
 	 * ----------------------------------------------------------------------------- */
-
-	--line-height-0: 1.38;
-	--line-height-1: 1.42;
-	--line-height-2: 1.5;
-	--line-height-3: 1.62;
 }
 
 /* Mixins */
@@ -382,10 +155,6 @@
  * ----------------------------------------------------------------------------- */
 
 /* -----------------------------------------------------------------------------
- * Desktop Body 4
- * ----------------------------------------------------------------------------- */
-
-/* -----------------------------------------------------------------------------
  * Mobile Body 1
  * ----------------------------------------------------------------------------- */
 
@@ -395,10 +164,6 @@
 
 /* -----------------------------------------------------------------------------
  * Mobile Body 3
- * ----------------------------------------------------------------------------- */
-
-/* -----------------------------------------------------------------------------
- * Mobile Body 4
  * ----------------------------------------------------------------------------- */
 
 /* -----------------------------------------------------------------------------
@@ -483,19 +248,12 @@
 
 .tribe-events .tribe-common-form-control-checkbox label, .tribe-events .tribe-common-form-control-radio label {
 			color: #141827;
-			color: var(--color-text-primary);
 			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-family: var(--font-family-sans-serif);
 			font-size: 14px;
-			font-size: var(--font-size-3);
 			line-height: 1.62;
-			line-height: var(--line-height-3);
 			font-weight: 400;
-			font-weight: var(--font-weight-regular);
 
 			color: #727272;
-
-			color: var(--color-text-secondary);
 			cursor: pointer;
 			display: inline-block;
 			margin-left: 11px;
@@ -508,9 +266,7 @@
 		   -moz-appearance: none;
 		        appearance: none;
 		background-color: #FFFFFF;
-		background-color: var(--form-color-background);
 		border: 1px solid #141827;
-		border: 1px solid var(--form-color-border-default);
 		cursor: pointer;
 		display: inline-block;
 		height: 20px;
@@ -527,12 +283,10 @@
 		.tribe-events .tribe-common-form-control-radio input[type="radio"]:focus,
 		.tribe-events .tribe-common-form-control-radio input[type="radio"]:hover {
 			border: 1px solid #141827;
-			border: 1px solid var(--form-color-border-active);
 		}
 
 .tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:checked, .tribe-events .tribe-common-form-control-radio input[type="radio"]:checked {
 			background-color: #141827;
-			background-color: var(--form-color-border-active);
 		}
 
 /* -----------------------------------------------------------------------------
@@ -540,7 +294,7 @@
 	 * ----------------------------------------------------------------------------- */
 
 .tribe-events .tribe-common-form-control-checkbox input[type="checkbox"]:checked:before {
-				background-image: svg-inline(check-white);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='9px' viewBox='0 0 12 9' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpath d='M10.6,0.1L3.9,6.8L1.4,4.3C1.3,4.2,1.1,4.2,1,4.3L0.2,5.1c-0.1,0.1-0.1,0.3,0,0.4l3.4,3.4C3.8,9,4,9,4.1,8.9l7.7-7.7c0.1-0.1,0.1-0.3,0-0.4L11,0.1C10.9,0,10.7,0,10.6,0.1z' fill='%23FFFFFF'/%3E %3C/svg%3E");
 				background-repeat: no-repeat;
 				background-size: contain;
 				content: '';
@@ -564,7 +318,6 @@
 
 .tribe-events .tribe-common-form-control-radio input[type="radio"]:checked:before {
 				background-color: #FFFFFF;
-				background-color: var(--form-color-background);
 				border-radius: 50%;
 				content: '';
 				display: block;
@@ -657,19 +410,12 @@
 
 .tribe-events .tribe-common-form-control-select button {
 			color: #141827;
-			color: var(--color-text-primary);
 			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-family: var(--font-family-sans-serif);
 			font-size: 14px;
-			font-size: var(--font-size-3);
 			line-height: 1.62;
-			line-height: var(--line-height-3);
 			font-weight: 400;
-			font-weight: var(--font-weight-regular);
 			font-weight: 700;
-			font-weight: var(--font-weight-bold);
 			border: 1px solid #D5D5D5;
-			border: 1px solid var(--color-border-default);
 			padding: 12px 40px 12px 18px;
 			position: relative;
 			text-align: left;
@@ -677,7 +423,7 @@
 		}
 
 .tribe-events .tribe-common-form-control-select button:after {
-				background-image: svg-inline(dropdown);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='6px' viewBox='0 0 12 6' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpolygon points='6,6 12,0 0,0 ' fill='%23727272'/%3E %3C/svg%3E");
 				content: '';
 				height: 6px;
 				position: absolute;
@@ -696,15 +442,9 @@
 
 			background-color: #FFFFFF;
 
-			background-color: var(--color-background);
-
 			border: 1px solid #D5D5D5;
 
-			border: 1px solid var(--color-border-default);
-
 			box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
-
-			box-shadow: var(--box-shadow-default);
 
 			left: 0;
 
@@ -717,17 +457,11 @@
 
 .tribe-events .tribe-common-form-control-select li {
 			color: #141827;
-			color: var(--color-text-primary);
 			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-family: var(--font-family-sans-serif);
 			font-size: 14px;
-			font-size: var(--font-size-3);
 			line-height: 1.62;
-			line-height: var(--line-height-3);
 			font-weight: 400;
-			font-weight: var(--font-weight-regular);
 			color: #727272;
-			color: var(--color-text-secondary);
 			cursor: pointer;
 			padding: 6px 18px;
 			text-align: left;
@@ -743,9 +477,7 @@
 
 .tribe-events .tribe-common-form-control-select li[aria-selected="true"] {
 				color: #141827;
-				color: var(--color-text-primary);
 				font-weight: 700;
-				font-weight: var(--font-weight-bold);
 			}
 
 /* -----------------------------------------------------------------------------
@@ -791,9 +523,7 @@
 				padding: 0;
 				position: relative;
 				transition: background-color 0.2s ease;
-				transition: var(--transition-background-color);
 				background-color: #334AFF;
-				background-color: var(--form-color-accent-primary);
 			}
 
 .tribe-events .tribe-common-form-control-slider input[type="range"]::-moz-range-track {
@@ -804,9 +534,7 @@
 				padding: 0;
 				position: relative;
 				transition: background-color 0.2s ease;
-				transition: var(--transition-background-color);
 				background-color: #334AFF;
-				background-color: var(--form-color-accent-primary);
 			}
 
 .tribe-events .tribe-common-form-control-slider input[type="range"]::-ms-track {
@@ -820,7 +548,6 @@
 .tribe-events .tribe-common-form-control-slider input[type="range"]::-ms-fill-lower,
 			.tribe-events .tribe-common-form-control-slider input[type="range"]::-ms-fill-upper {
 				background-color: #334AFF;
-				background-color: var(--form-color-accent-primary);
 				border-radius: 10px;
 			}
 
@@ -830,12 +557,9 @@
 
 .tribe-events .tribe-common-form-control-slider input[type="range"]::-webkit-slider-thumb {
 				background-color: #FFFFFF;
-				background-color: var(--form-color-background);
 				border: 1px solid #D5D5D5;
-				border: 1px solid var(--form-color-border-secondary);
 				border-radius: 50%;
 				box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
-				box-shadow: var(--form-box-shadow-default);
 				height: 20px;
 				width: 20px;
 				margin-top: -5px;
@@ -847,12 +571,9 @@
 
 .tribe-events .tribe-common-form-control-slider input[type="range"]::-moz-range-thumb {
 				background-color: #FFFFFF;
-				background-color: var(--form-color-background);
 				border: 1px solid #D5D5D5;
-				border: 1px solid var(--form-color-border-secondary);
 				border-radius: 50%;
 				box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
-				box-shadow: var(--form-box-shadow-default);
 				height: 20px;
 				width: 20px;
 				margin-top: -5px;
@@ -860,12 +581,9 @@
 
 .tribe-events .tribe-common-form-control-slider input[type="range"]::-ms-thumb {
 				background-color: #FFFFFF;
-				background-color: var(--form-color-background);
 				border: 1px solid #D5D5D5;
-				border: 1px solid var(--form-color-border-secondary);
 				border-radius: 50%;
 				box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
-				box-shadow: var(--form-box-shadow-default);
 				height: 20px;
 				width: 20px;
 				margin-top: -5px;
@@ -876,19 +594,12 @@
 
 .tribe-events .tribe-common-form-control-slider label {
 			color: #141827;
-			color: var(--color-text-primary);
 			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-family: var(--font-family-sans-serif);
 			font-size: 12px;
-			font-size: var(--font-size-2);
 			line-height: 1.38;
-			line-height: var(--line-height-0);
 			font-weight: 400;
-			font-weight: var(--font-weight-regular);
 
 			color: #727272;
-
-			color: var(--color-text-secondary);
 			cursor: pointer;
 			display: inline-block;
 			margin-left: 11px;
@@ -934,19 +645,12 @@
 
 .tribe-events .tribe-common-form-control-tabs button {
 			color: #141827;
-			color: var(--color-text-primary);
 			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-family: var(--font-family-sans-serif);
 			font-size: 14px;
-			font-size: var(--font-size-3);
 			line-height: 1.62;
-			line-height: var(--line-height-3);
 			font-weight: 400;
-			font-weight: var(--font-weight-regular);
 			font-weight: 700;
-			font-weight: var(--font-weight-bold);
 			border: 1px solid #D5D5D5;
-			border: 1px solid var(--color-border-default);
 			padding: 12px 40px 12px 18px;
 			position: relative;
 			text-align: left;
@@ -954,7 +658,7 @@
 		}
 
 .tribe-events .tribe-common-form-control-tabs button:after {
-				background-image: svg-inline(dropdown);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='6px' viewBox='0 0 12 6' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpolygon points='6,6 12,0 0,0 ' fill='%23727272'/%3E %3C/svg%3E");
 				content: '';
 				height: 6px;
 				position: absolute;
@@ -973,15 +677,9 @@
 
 			background-color: #FFFFFF;
 
-			background-color: var(--color-background);
-
 			border: 1px solid #D5D5D5;
 
-			border: 1px solid var(--color-border-default);
-
 			box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
-
-			box-shadow: var(--box-shadow-default);
 
 			left: 0;
 
@@ -1013,24 +711,16 @@
 
 .tribe-events .tribe-common-form-control-tabs input[type="radio"]:checked + label {
 				color: #141827;
-				color: var(--color-text-primary);
 				font-weight: 700;
-				font-weight: var(--font-weight-bold);
 			}
 
 .tribe-events .tribe-common-form-control-tabs label {
 			color: #141827;
-			color: var(--color-text-primary);
 			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-family: var(--font-family-sans-serif);
 			font-size: 14px;
-			font-size: var(--font-size-3);
 			line-height: 1.62;
-			line-height: var(--line-height-3);
 			font-weight: 400;
-			font-weight: var(--font-weight-regular);
 			color: #727272;
-			color: var(--color-text-secondary);
 			cursor: pointer;
 			padding: 6px 18px;
 			text-align: left;
@@ -1061,51 +751,35 @@
 
 .tribe-events .tribe-common-form-control-text input[type="text"] {
 			color: #141827;
-			color: var(--color-text-primary);
 			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-family: var(--font-family-sans-serif);
 			font-size: 14px;
-			font-size: var(--font-size-3);
 			line-height: 1.62;
-			line-height: var(--line-height-3);
 			font-weight: 400;
-			font-weight: var(--font-weight-regular);
 			font-weight: 700;
-			font-weight: var(--font-weight-bold);
 
 			border: 1px solid #D5D5D5;
-
-			border: 1px solid var(--color-border-default);
 			padding: 12px 18px;
 			width: 100%;
 		}
 
 .tribe-events .tribe-common-form-control-text input[type="text"]::-webkit-input-placeholder {
 				color: #727272;
-				color: var(--color-text-secondary);
 				font-weight: 400;
-				font-weight: var(--font-weight-regular);
 			}
 
 .tribe-events .tribe-common-form-control-text input[type="text"]:-ms-input-placeholder {
 				color: #727272;
-				color: var(--color-text-secondary);
 				font-weight: 400;
-				font-weight: var(--font-weight-regular);
 			}
 
 .tribe-events .tribe-common-form-control-text input[type="text"]::-ms-input-placeholder {
 				color: #727272;
-				color: var(--color-text-secondary);
 				font-weight: 400;
-				font-weight: var(--font-weight-regular);
 			}
 
 .tribe-events .tribe-common-form-control-text input[type="text"]::placeholder {
 				color: #727272;
-				color: var(--color-text-secondary);
 				font-weight: 400;
-				font-weight: var(--font-weight-regular);
 			}
 
 /* -----------------------------------------------------------------------------
@@ -1134,7 +808,6 @@
 			padding: 0;
 			position: relative;
 			transition: background-color 0.2s ease;
-			transition: var(--transition-background-color);
 
 			-webkit-appearance: none;
 
@@ -1142,7 +815,6 @@
 
 			        appearance: none;
 			background-color: #D5D5D5;
-			background-color: var(--form-color-border-secondary);
 			cursor: pointer;
 			display: inline-block;
 			vertical-align: middle;
@@ -1151,12 +823,9 @@
 
 .tribe-events .tribe-common-form-control-toggle input[type="checkbox"]:after {
 				background-color: #FFFFFF;
-				background-color: var(--form-color-background);
 				border: 1px solid #D5D5D5;
-				border: 1px solid var(--form-color-border-secondary);
 				border-radius: 50%;
 				box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
-				box-shadow: var(--form-box-shadow-default);
 				height: 20px;
 				width: 20px;
 
@@ -1167,12 +836,10 @@
 				transition: -webkit-transform 0.2s ease;
 				transition: transform 0.2s ease;
 				transition: transform 0.2s ease, -webkit-transform 0.2s ease;
-				transition: var(--transition-transform);
 			}
 
 .tribe-events .tribe-common-form-control-toggle input[type="checkbox"]:checked {
 				background-color: #334AFF;
-				background-color: var(--form-color-accent-primary);
 			}
 
 .tribe-events .tribe-common-form-control-toggle input[type="checkbox"]:checked:after {
@@ -1182,19 +849,12 @@
 
 .tribe-events .tribe-common-form-control-toggle label {
 			color: #141827;
-			color: var(--color-text-primary);
 			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-family: var(--font-family-sans-serif);
 			font-size: 12px;
-			font-size: var(--font-size-2);
 			line-height: 1.38;
-			line-height: var(--line-height-0);
 			font-weight: 400;
-			font-weight: var(--font-weight-regular);
 
 			color: #727272;
-
-			color: var(--color-text-secondary);
 			cursor: pointer;
 			display: inline-block;
 			margin-left: 11px;
@@ -1214,20 +874,14 @@
 
 .tribe-events .tribe-common-b1 {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
 		font-size: 14px;
-		font-size: var(--font-size-3);
 		font-weight: 400;
-		font-weight: var(--font-weight-regular);
 		line-height: 1.62;
-		line-height: var(--line-height-3);
 	}
 
 .tribe-events .tribe-common-b1--bold {
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
 	}
 
 /* -------------------------------------------------------------------------
@@ -1236,20 +890,14 @@
 
 .tribe-events .tribe-common-b2 {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
 		font-size: 12px;
-		font-size: var(--font-size-2);
 		font-weight: 400;
-		font-weight: var(--font-weight-regular);
 		line-height: 1.38;
-		line-height: var(--line-height-0);
 	}
 
 .tribe-events .tribe-common-b2--bold {
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
 	}
 
 /* -------------------------------------------------------------------------
@@ -1258,42 +906,14 @@
 
 .tribe-events .tribe-common-b3 {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
 		font-size: 11px;
-		font-size: var(--font-size-1);
 		font-weight: 400;
-		font-weight: var(--font-weight-regular);
 		line-height: 1.5;
-		line-height: var(--line-height-2);
 	}
 
 .tribe-events .tribe-common-b3--bold {
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
-	}
-
-/* -------------------------------------------------------------------------
-	 * Body 4
-	 * ------------------------------------------------------------------------- */
-
-.tribe-events .tribe-common-b4 {
-		color: #141827;
-		color: var(--color-text-primary);
-		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
-		font-size: 10px;
-		font-size: var(--font-size-0);
-		font-weight: 400;
-		font-weight: var(--font-weight-regular);
-		line-height: 1.62;
-		line-height: var(--line-height-3);
-	}
-
-.tribe-events .tribe-common-b4--bold {
-		font-weight: 700;
-		font-weight: var(--font-weight-bold);
 	}
 
 /* -------------------------------------------------------------------------
@@ -1302,17 +922,11 @@
 
 .tribe-events .tribe-common-cta {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
 		font-size: 12px;
-		font-size: var(--font-size-2);
 		line-height: 1.38;
-		line-height: var(--line-height-0);
 		font-weight: 400;
-		font-weight: var(--font-weight-regular);
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
 	}
 
 .tribe-events .tribe-common-cta:active,
@@ -1327,15 +941,10 @@
 
 .tribe-events .tribe-common-h1 {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
 		font-size: 28px;
-		font-size: var(--font-size-8);
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
 		line-height: 1.42;
-		line-height: var(--line-height-1);
 	}
 
 /* -------------------------------------------------------------------------
@@ -1344,15 +953,10 @@
 
 .tribe-events .tribe-common-h2 {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
 		font-size: 24px;
-		font-size: var(--font-size-7);
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
 		line-height: 1.42;
-		line-height: var(--line-height-1);
 	}
 
 /* -------------------------------------------------------------------------
@@ -1361,20 +965,14 @@
 
 .tribe-events .tribe-common-h3 {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
-		font-size: 20px;
-		font-size: var(--font-size-6);
+		font-size: 22px;
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
-		line-height: 1.42;
-		line-height: var(--line-height-1);
+		line-height: 1.5;
 	}
 
 .tribe-events .tribe-common-h3--alt {
 		font-weight: 400;
-		font-weight: var(--font-weight-regular);
 	}
 
 /* -------------------------------------------------------------------------
@@ -1383,15 +981,14 @@
 
 .tribe-events .tribe-common-h4 {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
-		font-size: 18px;
-		font-size: var(--font-size-5);
+		font-size: 20px;
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
-		line-height: 1.5;
-		line-height: var(--line-height-2);
+		line-height: 1.42;
+	}
+
+.tribe-events .tribe-common-h4--alt {
+		font-weight: 400;
 	}
 
 /* -------------------------------------------------------------------------
@@ -1400,15 +997,10 @@
 
 .tribe-events .tribe-common-h5 {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
 		font-size: 16px;
-		font-size: var(--font-size-4);
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
-		line-height: 1.62;
-		line-height: var(--line-height-3);
+		line-height: 1.5;
 	}
 
 /* -------------------------------------------------------------------------
@@ -1417,15 +1009,34 @@
 
 .tribe-events .tribe-common-h6 {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
-		font-size: 11px;
-		font-size: var(--font-size-1);
+		font-size: 16px;
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
-		line-height: 1.5;
-		line-height: var(--line-height-2);
+		line-height: 1.62;
+	}
+
+/* -------------------------------------------------------------------------
+	 * Heading: Heading 7 size
+	 * ------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-h7 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 1.62;
+	}
+
+/* -------------------------------------------------------------------------
+	 * Heading: Heading 8 size
+	 * ------------------------------------------------------------------------- */
+
+.tribe-events .tribe-common-h8 {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 12px;
+		font-weight: 700;
+		line-height: 1.38;
 	}
 
 /* A11y */
@@ -1503,15 +1114,10 @@
 
 .tribe-events .tribe-common-c-btn-border {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
 		font-size: 12px;
-		font-size: var(--font-size-2);
 		line-height: 1.38;
-		line-height: var(--line-height-0);
 		font-weight: 400;
-		font-weight: var(--font-weight-regular);
 		border: 0;
 		cursor: pointer;
 		display: inline-block;
@@ -1520,31 +1126,24 @@
 		text-decoration: none;
 		width: auto;
 		border: 1px solid #D5D5D5;
-		border: 1px solid var(--color-border-default);
 		transition: color 0.2s ease, border-color 0.2s ease;
-		transition: var(--transition-color-border-color);
 
 		color: #727272;
-
-		color: var(--color-text-secondary);
 		padding: 6px 16px 7px;
 	}
 
 .tribe-events .tribe-common-c-btn-border:active {
 		border-color: #141827;
-		border-color: var(--color-border-active);
 	}
 
 .tribe-events .tribe-common-c-btn-border:active,
 		.tribe-events .tribe-common-c-btn-border:focus,
 		.tribe-events .tribe-common-c-btn-border:hover {
 			color: #141827;
-			color: var(--color-text-primary);
 		}
 
 .tribe-events .tribe-common-c-btn-border:disabled {
-			color: #D5D5D5;
-			color: var(--color-text-disabled)
+			color: #D5D5D5
 		}
 
 /* -----------------------------------------------------------------------------
@@ -1593,9 +1192,7 @@
 		text-decoration: none;
 		width: auto;
 		border: 1px solid #D5D5D5;
-		border: 1px solid var(--color-border-default);
 		transition: color 0.2s ease, border-color 0.2s ease;
-		transition: var(--transition-color-border-color);
 
 		align-items: center;
 		display: inline-flex;
@@ -1607,7 +1204,6 @@
 
 .tribe-events .tribe-common-c-btn-icon--border:active {
 		border-color: #141827;
-		border-color: var(--color-border-active);
 	}
 
 /* -----------------------------------------------------------------------------
@@ -1615,17 +1211,17 @@
 	 * ----------------------------------------------------------------------------- */
 
 .tribe-events .tribe-common-c-btn-icon--caret-left:before {
-			background-image: svg-inline(caret-left);
+			background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='20px' viewBox='0 0 12 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpolygon transform='translate(10, 24) rotate(-135)' points='3 5.70967742 3 3 17 3 17 17 14.2903226 17 14.2903226 5.70967742' fill='%23727272'/%3E %3C/svg%3E");
 			height: 20px;
 			width: 12px;
 		}
 
 .tribe-events .tribe-common-c-btn-icon--caret-left:active:before, .tribe-events .tribe-common-c-btn-icon--caret-left:hover:before, .tribe-events .tribe-common-c-btn-icon--caret-left:focus:before {
-				background-image: svg-inline(caret-left-active);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='20px' viewBox='0 0 12 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpolygon transform='translate(10, 24) rotate(-135)' points='3 5.70967742 3 3 17 3 17 17 14.2903226 17 14.2903226 5.70967742' fill='%23141827'/%3E %3C/svg%3E");
 			}
 
 .tribe-events .tribe-common-c-btn-icon--caret-left:disabled:before {
-				background-image: svg-inline(caret-left-disabled);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='20px' viewBox='0 0 12 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpolygon transform='translate(10, 24) rotate(-135)' points='3 5.70967742 3 3 17 3 17 17 14.2903226 17 14.2903226 5.70967742' fill='%23D5D5D5'/%3E %3C/svg%3E");
 			}
 
 /* -----------------------------------------------------------------------------
@@ -1633,17 +1229,17 @@
 	 * ----------------------------------------------------------------------------- */
 
 .tribe-events .tribe-common-c-btn-icon--caret-right:before {
-			background-image: svg-inline(caret-right);
+			background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='20px' viewBox='0 0 12 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpolygon transform='translate(2, -4) rotate(-315)' points='3 5.70967742 3 3 17 3 17 17 14.2903226 17 14.2903226 5.70967742' fill='%23727272'/%3E %3C/svg%3E");
 			height: 20px;
 			width: 12px;
 		}
 
 .tribe-events .tribe-common-c-btn-icon--caret-right:active:before, .tribe-events .tribe-common-c-btn-icon--caret-right:hover:before, .tribe-events .tribe-common-c-btn-icon--caret-right:focus:before {
-				background-image: svg-inline(caret-right-active);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='20px' viewBox='0 0 12 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpolygon transform='translate(2, -4) rotate(-315)' points='3 5.70967742 3 3 17 3 17 17 14.2903226 17 14.2903226 5.70967742' fill='%23141827'/%3E %3C/svg%3E");
 			}
 
 .tribe-events .tribe-common-c-btn-icon--caret-right:disabled:before {
-				background-image: svg-inline(caret-right-disabled);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12px' height='20px' viewBox='0 0 12 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpolygon transform='translate(2, -4) rotate(-315)' points='3 5.70967742 3 3 17 3 17 17 14.2903226 17 14.2903226 5.70967742' fill='%23D5D5D5'/%3E %3C/svg%3E");
 			}
 
 /* -----------------------------------------------------------------------------
@@ -1651,17 +1247,17 @@
 	 * ----------------------------------------------------------------------------- */
 
 .tribe-events .tribe-common-c-btn-icon--filters:before {
-			background-image: svg-inline(filters);
+			background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='24px' height='20px' viewBox='0 0 24 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpath d='M0,16.75 L22,16.9821429' stroke-width='1.5' stroke-linecap='square' stroke='%23727272' fill='%23727272'/%3E %3Cpath d='M0,9.75 L22,9.98214286' stroke-width='1.5' stroke-linecap='square' stroke='%23727272' fill='%23727272'/%3E %3Cpath d='M0,2.75 L22,2.98214286' stroke-width='1.5' stroke-linecap='square' stroke='%23727272' fill='%23727272'/%3E %3Cpath d='M6,6 C7.65685425,6 9,4.65685425 9,3 C9,1.34314575 7.65685425,0 6,0 C4.34314575,0 3,1.34314575 3,3 C3,4.65685425 4.34314575,6 6,6 Z' stroke='%23727272' fill='%23727272'/%3E %3Cpath d='M6,20 C7.65685425,20 9,18.6568542 9,17 C9,15.3431458 7.65685425,14 6,14 C4.34314575,14 3,15.3431458 3,17 C3,18.6568542 4.34314575,20 6,20 Z' stroke='%23727272' fill='%23727272'/%3E %3Cpath d='M16,13 C17.6568542,13 19,11.6568542 19,10 C19,8.34314575 17.6568542,7 16,7 C14.3431458,7 13,8.34314575 13,10 C13,11.6568542 14.3431458,13 16,13 Z' stroke='%23727272' fill='%23727272'/%3E %3C/svg%3E");
 			height: 20px;
 			width: 24px;
 		}
 
 .tribe-events .tribe-common-c-btn-icon--filters:active:before, .tribe-events .tribe-common-c-btn-icon--filters:hover:before, .tribe-events .tribe-common-c-btn-icon--filters:focus:before {
-				background-image: svg-inline(filters-active);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='24px' height='20px' viewBox='0 0 24 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpath d='M0,16.75 L22,16.9821429' stroke-width='1.5' stroke-linecap='square' stroke='%23141827' fill='%23141827'/%3E %3Cpath d='M0,9.75 L22,9.98214286' stroke-width='1.5' stroke-linecap='square' stroke='%23141827' fill='%23141827'/%3E %3Cpath d='M0,2.75 L22,2.98214286' stroke-width='1.5' stroke-linecap='square' stroke='%23141827' fill='%23141827'/%3E %3Cpath d='M6,6 C7.65685425,6 9,4.65685425 9,3 C9,1.34314575 7.65685425,0 6,0 C4.34314575,0 3,1.34314575 3,3 C3,4.65685425 4.34314575,6 6,6 Z' stroke='%23141827' fill='%23141827'/%3E %3Cpath d='M6,20 C7.65685425,20 9,18.6568542 9,17 C9,15.3431458 7.65685425,14 6,14 C4.34314575,14 3,15.3431458 3,17 C3,18.6568542 4.34314575,20 6,20 Z' stroke='%23141827' fill='%23141827'/%3E %3Cpath d='M16,13 C17.6568542,13 19,11.6568542 19,10 C19,8.34314575 17.6568542,7 16,7 C14.3431458,7 13,8.34314575 13,10 C13,11.6568542 14.3431458,13 16,13 Z' stroke='%23141827' fill='%23141827'/%3E %3C/svg%3E");
 			}
 
 .tribe-events .tribe-common-c-btn-icon--filters:disabled:before {
-				background-image: svg-inline(filters-disabled);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='24px' height='20px' viewBox='0 0 24 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpath d='M0,16.75 L22,16.9821429' stroke-width='1.5' stroke-linecap='square' stroke='%23D5D5D5' fill='%23D5D5D5'/%3E %3Cpath d='M0,9.75 L22,9.98214286' stroke-width='1.5' stroke-linecap='square' stroke='%23D5D5D5' fill='%23D5D5D5'/%3E %3Cpath d='M0,2.75 L22,2.98214286' stroke-width='1.5' stroke-linecap='square' stroke='%23D5D5D5' fill='%23D5D5D5'/%3E %3Cpath d='M6,6 C7.65685425,6 9,4.65685425 9,3 C9,1.34314575 7.65685425,0 6,0 C4.34314575,0 3,1.34314575 3,3 C3,4.65685425 4.34314575,6 6,6 Z' stroke='%23D5D5D5' fill='%23D5D5D5'/%3E %3Cpath d='M6,20 C7.65685425,20 9,18.6568542 9,17 C9,15.3431458 7.65685425,14 6,14 C4.34314575,14 3,15.3431458 3,17 C3,18.6568542 4.34314575,20 6,20 Z' stroke='%23D5D5D5' fill='%23D5D5D5'/%3E %3Cpath d='M16,13 C17.6568542,13 19,11.6568542 19,10 C19,8.34314575 17.6568542,7 16,7 C14.3431458,7 13,8.34314575 13,10 C13,11.6568542 14.3431458,13 16,13 Z' stroke='%23D5D5D5' fill='%23D5D5D5'/%3E %3C/svg%3E");
 			}
 
 /* -----------------------------------------------------------------------------
@@ -1669,17 +1265,17 @@
 	 * ----------------------------------------------------------------------------- */
 
 .tribe-events .tribe-common-c-btn-icon--search:before {
-			background-image: svg-inline(search);
+			background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20px' height='20px' viewBox='0 0 20 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpath d='M20,18.7111111 L13.9555556,12.6666667 C15.0444444,11.2888889 15.6444444,9.6 15.6444444,7.82222222 C15.6444444,5.73333333 14.8222222,3.77777778 13.3555556,2.28888889 C11.8666667,0.822222222 9.91111111,0 7.82222222,0 C5.73333333,0 3.77777778,0.822222222 2.28888889,2.28888889 C0.822222222,3.75555556 0,5.73333333 0,7.82222222 C0,9.91111111 0.822222222,11.8666667 2.28888889,13.3555556 C3.75555556,14.8222222 5.73333333,15.6444444 7.82222222,15.6444444 C9.6,15.6444444 11.2888889,15.0444444 12.6666667,13.9555556 L18.7111111,20 L20,18.7111111 Z M3.57777778,12.0666667 C1.24444444,9.73333333 1.24444444,5.91111111 3.57777778,3.57777778 C4.71111111,2.44444444 6.22222222,1.82222222 7.82222222,1.82222222 C9.42222222,1.82222222 10.9333333,2.44444444 12.0666667,3.57777778 C14.4,5.91111111 14.4,9.73333333 12.0666667,12.0666667 C10.9333333,13.2 9.42222222,13.8222222 7.82222222,13.8222222 C6.22222222,13.8222222 4.71111111,13.2 3.57777778,12.0666667 Z' fill-rule='nonzero' fill='%23727272'/%3E %3C/svg%3E");
 			height: 20px;
 			width: 20px;
 		}
 
 .tribe-events .tribe-common-c-btn-icon--search:active:before, .tribe-events .tribe-common-c-btn-icon--search:hover:before, .tribe-events .tribe-common-c-btn-icon--search:focus:before {
-				background-image: svg-inline(search-active);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20px' height='20px' viewBox='0 0 20 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpath d='M20,18.7111111 L13.9555556,12.6666667 C15.0444444,11.2888889 15.6444444,9.6 15.6444444,7.82222222 C15.6444444,5.73333333 14.8222222,3.77777778 13.3555556,2.28888889 C11.8666667,0.822222222 9.91111111,0 7.82222222,0 C5.73333333,0 3.77777778,0.822222222 2.28888889,2.28888889 C0.822222222,3.75555556 0,5.73333333 0,7.82222222 C0,9.91111111 0.822222222,11.8666667 2.28888889,13.3555556 C3.75555556,14.8222222 5.73333333,15.6444444 7.82222222,15.6444444 C9.6,15.6444444 11.2888889,15.0444444 12.6666667,13.9555556 L18.7111111,20 L20,18.7111111 Z M3.57777778,12.0666667 C1.24444444,9.73333333 1.24444444,5.91111111 3.57777778,3.57777778 C4.71111111,2.44444444 6.22222222,1.82222222 7.82222222,1.82222222 C9.42222222,1.82222222 10.9333333,2.44444444 12.0666667,3.57777778 C14.4,5.91111111 14.4,9.73333333 12.0666667,12.0666667 C10.9333333,13.2 9.42222222,13.8222222 7.82222222,13.8222222 C6.22222222,13.8222222 4.71111111,13.2 3.57777778,12.0666667 Z' fill-rule='nonzero' fill='%23141827'/%3E %3C/svg%3E");
 			}
 
 .tribe-events .tribe-common-c-btn-icon--search:disabled:before {
-				background-image: svg-inline(search-disabled);
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20px' height='20px' viewBox='0 0 20 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpath d='M20,18.7111111 L13.9555556,12.6666667 C15.0444444,11.2888889 15.6444444,9.6 15.6444444,7.82222222 C15.6444444,5.73333333 14.8222222,3.77777778 13.3555556,2.28888889 C11.8666667,0.822222222 9.91111111,0 7.82222222,0 C5.73333333,0 3.77777778,0.822222222 2.28888889,2.28888889 C0.822222222,3.75555556 0,5.73333333 0,7.82222222 C0,9.91111111 0.822222222,11.8666667 2.28888889,13.3555556 C3.75555556,14.8222222 5.73333333,15.6444444 7.82222222,15.6444444 C9.6,15.6444444 11.2888889,15.0444444 12.6666667,13.9555556 L18.7111111,20 L20,18.7111111 Z M3.57777778,12.0666667 C1.24444444,9.73333333 1.24444444,5.91111111 3.57777778,3.57777778 C4.71111111,2.44444444 6.22222222,1.82222222 7.82222222,1.82222222 C9.42222222,1.82222222 10.9333333,2.44444444 12.0666667,3.57777778 C14.4,5.91111111 14.4,9.73333333 12.0666667,12.0666667 C10.9333333,13.2 9.42222222,13.8222222 7.82222222,13.8222222 C6.22222222,13.8222222 4.71111111,13.2 3.57777778,12.0666667 Z' fill-rule='nonzero' fill='%23D5D5D5'/%3E %3C/svg%3E");
 			}
 
 /* -----------------------------------------------------------------------------
@@ -1694,17 +1290,11 @@
 
 .tribe-events .tribe-common-c-btn {
 		color: #141827;
-		color: var(--color-text-primary);
 		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-family: var(--font-family-sans-serif);
 		font-size: 14px;
-		font-size: var(--font-size-3);
 		line-height: 1.62;
-		line-height: var(--line-height-3);
 		font-weight: 400;
-		font-weight: var(--font-weight-regular);
 		font-weight: 700;
-		font-weight: var(--font-weight-bold);
 		border: 0;
 		cursor: pointer;
 		display: inline-block;
@@ -1713,14 +1303,10 @@
 		text-decoration: none;
 		width: auto;
 		color: #FFFFFF;
-		color: var(--color-background);
 		text-align: center;
 		transition: background-color 0.2s ease;
-		transition: var(--transition-background-color);
 
 		background-color: #141827;
-
-		background-color: var(--color-accent-secondary);
 		padding: 16px 22px 17px;
 		width: 100%;
 	}
@@ -1728,21 +1314,18 @@
 .tribe-events .tribe-common-c-btn:focus,
 		.tribe-events .tribe-common-c-btn:hover {
 			background-color: rgba(20,24,39, 0.8);
-			background-color: var(--color-accent-secondary-hover);
 		}
 
 .tribe-events .tribe-common-c-btn:active {
 			background-color: rgba(20,24,39, 0.9);
-			background-color: var(--color-accent-secondary-active);
 		}
 
 .tribe-events .tribe-common-c-btn:disabled {
 			background-color: rgba(20,24,39, 0.07);
-			background-color: var(--color-accent-secondary-background);
 		}
 
 .tribe-events .tribe-common-c-btn:after {
-			background-image: svg-inline(arrow-right-white);
+			background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='22px' height='19px' viewBox='0 0 22 19' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cpolygon points='11.6480517 7.90478794e-14 9.61912761 1.95623609 15.8484392 7.96103617 -2.84217094e-14 7.96103617 -2.84217094e-14 10.7539353 15.8498298 10.7539353 9.61912761 16.7600762 11.6480517 18.7163122 21.3525391 9.35815612' fill='%23FFFFFF'/%3E %3C/svg%3E");
 			background-repeat: no-repeat;
 			background-size: contain;
 			content: '';
@@ -1764,7 +1347,6 @@
 
 .tribe-events .tribe-common-c-btn--secondary {
 		background-color: #334AFF;
-		background-color: var(--color-accent-primary);
 		padding: 12px 19px 13px;
 		width: auto;
 	}
@@ -1772,17 +1354,14 @@
 .tribe-events .tribe-common-c-btn--secondary:focus,
 		.tribe-events .tribe-common-c-btn--secondary:hover {
 			background-color: rgba(51,74,255, 0.8);
-			background-color: var(--color-accent-primary-hover);
 		}
 
 .tribe-events .tribe-common-c-btn--secondary:active {
 			background-color: rgba(51,74,255, 0.9);
-			background-color: var(--color-accent-primary-active);
 		}
 
 .tribe-events .tribe-common-c-btn--secondary:disabled {
 			background-color: rgba(51,74,255, 0.07);
-			background-color: var(--color-accent-primary-background);
 		}
 
 .tribe-events .tribe-common-c-btn--secondary:after {
@@ -1831,7 +1410,7 @@
 			margin-top: 8px;
 		}
 
-@media (--viewport-medium) {
+@media (min-width: 768px) {
 
 .tribe-events .tribe-common-form-control-select button {
 				padding: 16px 44px 16px 18px;
@@ -1857,7 +1436,6 @@
 
 .tribe-events .tribe-common-form-control-tabs ul {
 				border: 1px solid #D5D5D5;
-				border: 1px solid var(--color-border-default);
 				box-shadow: none;
 				display: flex !important;
 				flex: none;
@@ -1878,7 +1456,6 @@
 
 .tribe-events .tribe-common-form-control-tabs li {
 				border-right: 1px solid #D5D5D5;
-				border-right: 1px solid var(--color-border-default);
 				flex: none;
 				margin: 6px 0;
 				width: 88px
@@ -1897,58 +1474,36 @@
 
 .tribe-events .tribe-common-b1 {
 			font-size: 16px;
-			font-size: var(--font-size-4);
-			line-height: 1.62;
-			line-height: var(--line-height-3)
+			line-height: 1.62
 	}
 
 .tribe-events .tribe-common-b2 {
 			font-size: 14px;
-			font-size: var(--font-size-3);
-			line-height: 1.62;
-			line-height: var(--line-height-3)
+			line-height: 1.62
 	}
 
 .tribe-events .tribe-common-b3 {
 			font-size: 12px;
-			font-size: var(--font-size-2);
-			line-height: 1.38;
-			line-height: var(--line-height-0)
-	}
-
-.tribe-events .tribe-common-b4 {
-			font-size: 11px;
-			font-size: var(--font-size-1);
-			line-height: 1.5;
-			line-height: var(--line-height-2)
+			line-height: 1.38
 	}
 
 .tribe-events .tribe-common-h1 {
 			font-size: 42px;
-			font-size: var(--font-size-10);
-			line-height: 1.38;
-			line-height: var(--line-height-0)
+			line-height: 1.38
 	}
 
 .tribe-events .tribe-common-h2 {
 			font-size: 32px;
-			font-size: var(--font-size-9);
-			line-height: 1.38;
-			line-height: var(--line-height-0)
+			line-height: 1.38
 	}
 
 .tribe-events .tribe-common-h3 {
-			font-size: 24px;
-			font-size: var(--font-size-7);
-			line-height: 1.42;
-			line-height: var(--line-height-1)
+			font-size: 28px;
+			line-height: 1.42
 	}
 
-.tribe-events .tribe-common-h6 {
-			font-size: 12px;
-			font-size: var(--font-size-2);
-			line-height: 1.38;
-			line-height: var(--line-height-0)
+.tribe-events .tribe-common-h4 {
+			font-size: 24px
 	}
 
 .tribe-events .tribe-common-c-btn {
@@ -1961,7 +1516,6 @@
 
 .tribe-events .tribe-common-c-search .tribe-common-form-control-text-group {
 				border: 1px solid #D5D5D5;
-				border: 1px solid var(--color-border-default);
 				border-right: none;
 				display: flex;
 				flex: auto;
@@ -1976,7 +1530,6 @@
 .tribe-events .tribe-common-c-search input[type="text"] {
 				border: none;
 				border-right: 1px solid #D5D5D5;
-				border-right: 1px solid var(--color-border-default);
 				padding: 7px 18px 8px
 		}
 
