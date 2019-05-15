@@ -65,6 +65,21 @@
 				width: 24px;
 			}
 
+.tribe-tooltip.large .down,
+		.tribe-tooltip.large .left,
+		.tribe-tooltip.large .right,
+		.tribe-tooltip.large .up {
+			width: 400px;
+		}
+
+.tribe-tooltip .tooltip-list {
+		padding-left: 10px;
+	}
+
+.tribe-tooltip .tooltip-list li {
+			list-style-type: disc;
+		}
+
 .tribe-tooltip .down {
 	left: 50%;
 	top: 28px;
@@ -93,3 +108,13 @@
 	opacity: 1;
 	visibility: visible;
 }
+
+@media screen and (max-width: 480px) {
+
+.tribe-tooltip.large .down,
+		.tribe-tooltip.large .left,
+		.tribe-tooltip.large .right,
+		.tribe-tooltip.large .up {
+				width: 250px
+		}
+			}
