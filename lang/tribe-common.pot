@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.9.6\n"
+"Project-Id-Version: Tribe Common 4.9.9\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2019-04-22 19:45:24+00:00\n"
+"POT-Creation-Date: 2019-05-15 19:53:58+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-04-22 19:45\n"
+"PO-Revision-Date: 2019-05-15 19:53\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -1655,99 +1655,99 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:255
+#: src/Tribe/Main.php:265
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:256
+#: src/Tribe/Main.php:266
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:258
+#: src/Tribe/Main.php:268
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:259
+#: src/Tribe/Main.php:269
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:260
+#: src/Tribe/Main.php:270
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:261
+#: src/Tribe/Main.php:271
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:262
+#: src/Tribe/Main.php:272
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:263
+#: src/Tribe/Main.php:273
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:264
+#: src/Tribe/Main.php:274
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:265
+#: src/Tribe/Main.php:275
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:266
+#: src/Tribe/Main.php:276
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:267
+#: src/Tribe/Main.php:277
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:269
+#: src/Tribe/Main.php:279
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:270 src/Tribe/Main.php:287
+#: src/Tribe/Main.php:280 src/Tribe/Main.php:297
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:271
+#: src/Tribe/Main.php:281
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:276
+#: src/Tribe/Main.php:286
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:277
+#: src/Tribe/Main.php:287
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:298
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:289 src/Tribe/Main.php:291
+#: src/Tribe/Main.php:299 src/Tribe/Main.php:301
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:290
+#: src/Tribe/Main.php:300
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:292
+#: src/Tribe/Main.php:302
 msgid "Clear"
 msgstr ""
 
-#: src/Tribe/Main.php:298 src/admin-views/tribe-options-help.php:50
+#: src/Tribe/Main.php:308 src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Tribe/Main.php:299
+#: src/Tribe/Main.php:309
 msgid "System info copied"
 msgstr ""
 
-#: src/Tribe/Main.php:300
+#: src/Tribe/Main.php:310
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 

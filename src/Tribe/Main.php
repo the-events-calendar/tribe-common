@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.9.8';
+	const VERSION             = '4.9.9';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -209,20 +209,13 @@ class Tribe__Main {
 			]
 		);
 
-		/**
-		 * @todo: remove once proper style enqueue is in place
-		 * Temporary to enqueue tribe reset and common css
-		 */
 		tribe_assets(
 			$this,
-			array(
-				array( 'tribe-reset-style', 'reset.css' ),
-				array( 'tribe-common-style', 'common.css' ),
-			),
-			'wp_enqueue_scripts',
-			array(
-				'priority' => 10,
-			)
+			[
+				[ 'tribe-reset-style', 'reset.css' ],
+				[ 'tribe-common-style', 'common.css', [ 'tribe-reset-style' ] ],
+			],
+			null
 		);
 
 		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
