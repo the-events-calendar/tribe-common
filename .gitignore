@@ -10,37 +10,24 @@ tests/_output
 
 # by default ignore all, need a vendor dep in the repo? use !vendor/acme
 vendor/*
-!vendor/jquery
-!vendor/select2
-!vendor/momentjs
-!vendor/handlebars
-!vendor/clipboard
-!vendor/composer
 !vendor/attrchange
-!vendor/tooltipster
+!vendor/clipboard
 !vendor/datatables
 !vendor/freemius
 vendor/freemius/languages/*.po
-!vendor/jquery-tribe-timepicker
-!vendor/firebase
-vendor/composer/composer/tests
-vendor/composer/composer/doc
-vendor/composer/composer/.github
-vendor/composer/ca-bundle
-vendor/composer/semver
-vendor/composer/spdx-licenses
+!vendor/handlebars
 !vendor/jquery
 !vendor/jquery-tribe-timepicker
-!vendor/lucatume/di52
-!vendor/xrstf/composer-php52
 !vendor/momentjs
+!vendor/select2
+!vendor/tooltipster
 !vendor/tribe-select2
-!vendor/xrstf/composer-php52
-!vendor/a5hleyrich/wp-background-processing
-.idea
 
 # Modules for Apps
 src/resources/**/app
 
 # get from translate.wordpress.org as needed
 lang/*.po
+
+# IDE/editor config files
+.idea
