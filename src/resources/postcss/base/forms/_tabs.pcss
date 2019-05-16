@@ -1,4 +1,4 @@
-.tribe-events {
+.tribe-common {
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Form Control: Tabs
@@ -60,6 +60,7 @@
 				position: static;
 				visibility: visible;
 				width: auto;
+				outline: none;
 			}
 		}
 
@@ -68,18 +69,36 @@
 			&:first-child label {
 				@mixin form-control-select-list-item-first;
 
+				body#top & { /* Enfold compatibility */
+					@mixin form-control-select-list-item-first;
+				}
+
 				@media (--viewport-medium) {
 					margin-top: -6px;
 					padding-top: 17px;
+
+					body#top & { /* Enfold compatibility */
+						margin-top: -6px;
+						padding-top: 17px;
+					}
 				}
 			}
 
 			&:last-child label {
 				@mixin form-control-select-list-item-last;
 
+				body#top & { /* Enfold compatibility */
+					@mixin form-control-select-list-item-last;
+				}
+
 				@media (--viewport-medium) {
 					margin-bottom: -6px;
 					padding-bottom: 17px;
+
+					body#top & { /* Enfold compatibility */
+						margin-bottom: -6px;
+						padding-bottom: 17px;
+					}
 				}
 			}
 
@@ -101,6 +120,10 @@
 
 			&:checked + label {
 				@mixin form-control-select-list-item-selected;
+
+				body#top & { /* Enfold compatibility */
+					@mixin form-control-select-list-item-selected;
+				}
 			}
 		}
 
@@ -111,6 +134,18 @@
 				margin: -6px 0;
 				padding: 17px 5px;
 				text-align: center;
+				display: block;
+
+				body#top & { /* Enfold compatibility */
+					margin: -6px 0;
+					padding: 17px 5px;
+					text-align: center;
+					display: block;
+				}
+			}
+
+			body#top & { /* Enfold compatibility */
+				@mixin form-control-select-list-item;
 			}
 		}
 	}

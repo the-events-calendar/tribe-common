@@ -1,4 +1,4 @@
-.tribe-events {
+.tribe-common {
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Form Control: Text
@@ -24,9 +24,22 @@
 			padding: 12px 18px;
 			width: 100%;
 
+			body#top & { /* Enfold compatibility */
+				@mixin desktop-body-2-bold;
+
+				border: 1px solid var(--color-border-default);
+				padding: 12px 18px;
+				width: 100%;
+			}
+
 			&::placeholder {
 				color: var(--color-text-secondary);
 				font-weight: var(--font-weight-regular);
+
+				body#top & { /* Enfold compatibility */
+					color: var(--color-text-secondary);
+					font-weight: var(--font-weight-regular);
+				}
 			}
 		}
 	}
