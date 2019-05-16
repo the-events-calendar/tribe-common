@@ -237,7 +237,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates that the client code is trying to set a query on the repository after the query ran.
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */

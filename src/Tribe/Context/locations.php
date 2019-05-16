@@ -33,17 +33,13 @@ return [
 	],
 	'view'                        => [
 		'read'  => [
-			Tribe__Context::REQUEST_VAR  => 'tribe_view',
-			Tribe__Context::QUERY_VAR    => 'tribe_view',
-			Tribe__Context::REQUEST_VAR  => 'tribe_event_display',
-			Tribe__Context::QUERY_VAR    => 'eventDisplay',
+			Tribe__Context::REQUEST_VAR  => [ 'tribe_view', 'tribe_event_display' ],
+			Tribe__Context::QUERY_VAR    => [ 'tribe_view', 'eventDisplay' ],
 			Tribe__Context::TRIBE_OPTION => 'viewOption',
 		],
 		'write' => [
-			Tribe__Context::REQUEST_VAR => 'tribe_view',
-			Tribe__Context::QUERY_VAR   => 'tribe_view',
-			Tribe__Context::REQUEST_VAR => 'tribe_event_display',
-			Tribe__Context::QUERY_VAR   => 'eventDisplay',
+			Tribe__Context::REQUEST_VAR => [ 'tribe_view', 'tribe_event_display' ],
+			Tribe__Context::QUERY_VAR   => [ 'tribe_view', 'eventDisplay' ],
 		],
 	],
 	'view_data'                   => [

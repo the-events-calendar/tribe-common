@@ -1,5 +1,6 @@
 [
-  "lang/**/*",
+  "lang/*.pot",
+  "lang/*.mo",
   "README.md",
   "src/**/*",
   "tribe-autoload.php",
