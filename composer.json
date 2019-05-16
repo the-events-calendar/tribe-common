@@ -19,8 +19,8 @@
     "preferred-install": "dist"
   },
   "require": {
-    "lucatume/di52": "~2.0",
-    "firebase/php-jwt": "^5.0"
+    "lucatume/di52": "~2.0.10",
+    "firebase/php-jwt": "~5.0.0"
   },
   "scripts": {
     "post-install-cmd": [
