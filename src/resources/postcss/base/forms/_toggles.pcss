@@ -29,17 +29,6 @@
 			vertical-align: middle;
 			width: 40px;
 
-			body#top & { /* Enfold compatibility */
-				@mixin form-control-slider-toggle-track;
-
-				appearance: none;
-				background-color: var(--form-color-border-secondary);
-				cursor: pointer;
-				display: inline-block;
-				vertical-align: middle;
-				width: 40px;
-			}
-
 			&:after {
 				@mixin form-control-slider-toggle-thumb;
 
@@ -48,25 +37,10 @@
 				position: absolute;
 				top: -5px;
 				transition: var(--transition-transform);
-
-				body#top & { /* Enfold compatibility */
-					@mixin form-control-slider-toggle-thumb;
-
-					content: '';
-					left: 0;
-					position: absolute;
-					top: -5px;
-					transition: var(--transition-transform);
-				}
-
 			}
 
 			&:checked {
 				background-color: var(--form-color-accent-primary);
-
-				body#top & { /* Enfold compatibility */
-					background-color: var(--form-color-accent-primary);
-				}
 
 				&:after {
 					transform: translateX(20px);
@@ -82,12 +56,6 @@
 			display: inline-block;
 			margin-left: 11px;
 			vertical-align: middle;
-
-			body#top & { /* Enfold compatibility */
-				@mixin desktop-body-3;
-
-				color: var(--color-text-secondary);
-			}
 
 		}
 	}
