@@ -124,7 +124,7 @@
 			li {
 
 				&:first-child label {
-					@mixin form-control-select-list-item-first;
+					padding-top: 16px;
 
 					@media (--viewport-medium) {
 						margin-top: -6px;
@@ -133,7 +133,7 @@
 				}
 
 				&:last-child label {
-					@mixin form-control-select-list-item-last;
+					padding-bottom: 16px;
 
 					@media (--viewport-medium) {
 						margin-bottom: -6px;
@@ -145,12 +145,16 @@
 			input[type="radio"] {
 
 				&:checked + label {
-					@mixin form-control-select-list-item-selected;
+					color: var(--color-text-primary);
+					font-weight: var(--font-weight-bold);
 				}
 			}
 
 			label {
-				@mixin form-control-select-list-item;
+				color: var(--color-text-secondary);
+				font-size: var(--font-size-2);
+				line-height: var(--line-height-3);
+				font-weight: var(--font-weight-regular);
 
 				@media (--viewport-medium) {
 					margin: -6px 0;
