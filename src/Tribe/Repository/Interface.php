@@ -272,7 +272,7 @@ interface Tribe__Repository__Interface
 	 *
 	 * Setting a query explicitly
 	 *
-	 * @since TBD
+	 * @since 4.9.9
 	 *
 	 * @param  \WP_Query  $query An query instance.
 	 *
