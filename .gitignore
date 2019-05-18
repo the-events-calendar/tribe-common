@@ -1,15 +1,20 @@
+.DS_Store
+.idea
 node_modules
 
 # Tests - local config files
 codeception.yml
 tests/*.suite.yml
+phpunit.xml
 .env.local
+.env.testing
 
 # Tests - local output files
 tests/_output
+tests/_support/_generated
 
 # by default ignore all, need a vendor dep in the repo? use !vendor/acme
-vendor/*
+vendor
 !vendor/attrchange
 !vendor/clipboard
 !vendor/datatables
@@ -28,6 +33,3 @@ src/resources/**/app
 
 # get from translate.wordpress.org as needed
 lang/*.po
-
-# IDE/editor config files
-.idea
