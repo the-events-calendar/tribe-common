@@ -5,15 +5,49 @@
 	 *
 	 * Example:
 	 * <div class="tribe-common-form-control-tabs">
-	 *   <button aria-haspopup="listbox" aria-labelledby="tabButton" id="tabButton">Tab One</button>
-	 *   <ul tabindex="-1" role="listbox">
-	 *     <li role="presentation">
-	 *       <input id="tabOne" name="tabGroup" type="radio" value="tabOne" checked="checked" />
-	 *       <label id="tabOneLabel" for="tabOne" role="option">Tab One</label>
+	 *   <button
+	 *     class="tribe-common-form-control-tabs__button"
+	 *     aria-haspopup="listbox"
+	 *     aria-labelledby="tabButton"
+	 *     id="tabButton"
+	 *   >
+	 *     Tab One
+	 *   </button>
+	 *   <ul class="tribe-common-form-control-tabs__list" tabindex="-1" role="listbox">
+	 *     <li class="tribe-common-form-control-tabs__list-item" role="presentation">
+	 *       <input
+	 *         class="tribe-common-form-control-tabs__input"
+	 *         id="tabOne"
+	 *         name="tabGroup"
+	 *         type="radio"
+	 *         value="tabOne"
+	 *         checked="checked"
+	 *       />
+	 *       <label
+	 *         class="tribe-common-form-control-tabs__label"
+	 *         id="tabOneLabel"
+	 *         for="tabOne"
+	 *         role="option"
+	 *       >
+	 *         Tab One
+	 *       </label>
 	 *     </li>
-	 *     <li role="presentation">
-	 *       <input id="tabTwo" name="tabGroup" type="radio" value="tabTwo" />
-	 *       <label id="tabTwoLabel" for="tabTwo" role="option">Tab Two</label>
+	 *     <li class="tribe-common-form-control-tabs__list-item" role="presentation">
+	 *       <input
+	 *         class="tribe-common-form-control-tabs__input"
+	 *         id="tabTwo"
+	 *         name="tabGroup"
+	 *         type="radio"
+	 *         value="tabTwo"
+	 *       />
+	 *       <label
+	 *         class="tribe-common-form-control-tabs__label"
+	 *         id="tabTwoLabel"
+	 *         for="tabTwo"
+	 *         role="option"
+	 *       >
+	 *         Tab Two
+	 *       </label>
 	 *     </li>
 	 *   </ul>
 	 * </div>
@@ -31,87 +65,87 @@
 		@media (--viewport-medium) {
 			display: flex;
 		}
+	}
 
-		button {
-			@mixin form-control-select-button-mobile;
+	.tribe-common-form-control-tabs__button {
+		@mixin form-control-select-button-mobile;
+
+		@media (--viewport-medium) {
+			@mixin hidden;
+		}
+
+		&:after {
+			@mixin form-control-select-button-icon-mobile;
+		}
+	}
+
+	.tribe-common-form-control-tabs__list {
+		/**
+			* @todo: remove once listbox JS is implemented
+			*/
+		/* @mixin hidden; */
+
+		@mixin form-control-select-list-mobile;
+
+		@media (--viewport-medium) {
+			border: 1px solid var(--color-border-default);
+			box-shadow: none;
+			display: flex !important;
+			flex: none;
+			position: static;
+			visibility: visible;
+			width: auto;
+		}
+	}
+
+	.tribe-common-form-control-tabs__list-item {
+
+		&:first-child label {
+			@mixin form-control-select-list-item-first;
 
 			@media (--viewport-medium) {
-				@mixin hidden;
-			}
-
-			&:after {
-				@mixin form-control-select-button-icon-mobile;
+				margin-top: -6px;
+				padding-top: 17px;
 			}
 		}
 
-		ul {
-			/**
-			 * @todo: remove once listbox JS is implemented
-			 */
-			/* @mixin hidden; */
-
-			@mixin form-control-select-list-mobile;
+		&:last-child label {
+			@mixin form-control-select-list-item-last;
 
 			@media (--viewport-medium) {
-				border: 1px solid var(--color-border-default);
-				box-shadow: none;
-				display: flex !important;
-				flex: none;
-				position: static;
-				visibility: visible;
-				width: auto;
+				margin-bottom: -6px;
+				padding-bottom: 17px;
 			}
 		}
 
-		li {
+		@media (--viewport-medium) {
+			border-right: 1px solid var(--color-border-default);
+			flex: none;
+			margin: 6px 0;
+			width: 88px;
 
-			&:first-child label {
-				@mixin form-control-select-list-item-first;
-
-				@media (--viewport-medium) {
-					margin-top: -6px;
-					padding-top: 17px;
-				}
-			}
-
-			&:last-child label {
-				@mixin form-control-select-list-item-last;
-
-				@media (--viewport-medium) {
-					margin-bottom: -6px;
-					padding-bottom: 17px;
-				}
-			}
-
-			@media (--viewport-medium) {
-				border-right: 1px solid var(--color-border-default);
-				flex: none;
-				margin: 6px 0;
-				width: 88px;
-
-				&:last-child {
-					border: none;
-					width: 87px;
-				}
+			&:last-child {
+				border: none;
+				width: 87px;
 			}
 		}
+	}
 
-		input[type="radio"] {
-			@mixin visually-hide;
+	.tribe-common-form-control-tabs__input {
+		@mixin visually-hide;
 
-			&:checked + label {
-				@mixin form-control-select-list-item-selected;
-			}
+		&:checked + label {
+			@mixin form-control-select-list-item-selected;
 		}
+	}
 
-		label {
-			@mixin form-control-select-list-item;
+	.tribe-common-form-control-tabs__label {
+		@mixin form-control-select-list-item;
 
-			@media (--viewport-medium) {
-				margin: -6px 0;
-				padding: 17px 5px;
-				text-align: center;
-			}
+		@media (--viewport-medium) {
+			margin: -6px 0;
+			padding: 17px 5px;
+			text-align: center;
 		}
 	}
 }
