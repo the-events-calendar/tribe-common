@@ -5,19 +5,28 @@
 	.tribe-common-c-nav {
 		border-top: 1px solid var(--color-border-default);
 		padding-top: var(--spacer-6);
+	}
 
-		ul {
-			display: block;
-			list-style: none;
-			width: 100%;
-		}
+	.tribe-common-c-nav__list {
+		display: flex;
+		list-style: none;
+		width: 100%;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+	}
+
+	.tribe-common-c-nav__list-item {
 	}
 
 	.tribe-common-c-nav__prev,
 	.tribe-common-c-nav__next {
-		display: inline-flex;
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
 		align-items: center;
 		color: var(--color-text-secondary);
+		font-family: var(--font-family-base);
 		font-size: var(--font-size-1);
 		font-weight: var(--font-weight-bold);
 
@@ -36,7 +45,6 @@
 	}
 
 	.tribe-common-c-nav__prev {
-		float: left;
 
 		&:before {
 			background-image: svg-inline(caret-left);
@@ -67,7 +75,6 @@
 	}
 
 	.tribe-common-c-nav__next {
-		float: right;
 
 		&:after {
 			background-image: svg-inline(caret-right);
