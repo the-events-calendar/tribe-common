@@ -1,4 +1,4 @@
-.tribe-events {
+.tribe-common {
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Button: Solid
@@ -12,7 +12,7 @@
 	.tribe-common-c-btn {
 		@mixin button-solid;
 
-		background-color: var(--color-accent-secondary);
+		background-color: var(--color-accent-primary);
 		padding: 16px 22px 17px;
 		width: 100%;
 
@@ -22,15 +22,15 @@
 
 		&:focus,
 		&:hover {
-			background-color: var(--color-accent-secondary-hover);
+			background-color: var(--color-accent-primary-hover);
 		}
 
 		&:active {
-			background-color: var(--color-accent-secondary-active);
+			background-color: var(--color-accent-primary-active);
 		}
 
 		&:disabled {
-			background-color: var(--color-accent-secondary-background);
+			background-color: var(--color-accent-primary-background);
 		}
 
 		&:after {
@@ -56,22 +56,8 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-common-c-btn--secondary {
-		background-color: var(--color-accent-primary);
 		padding: 12px 19px 13px;
 		width: auto;
-
-		&:focus,
-		&:hover {
-			background-color: var(--color-accent-primary-hover);
-		}
-
-		&:active {
-			background-color: var(--color-accent-primary-active);
-		}
-
-		&:disabled {
-			background-color: var(--color-accent-primary-background);
-		}
 
 		&:after {
 			content: none;
