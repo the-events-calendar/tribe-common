@@ -74,26 +74,11 @@
 
 			input[type="checkbox"] {
 				display: inline-block;
-
-				&:after {
-					@mixin form-control-slider-toggle-thumb;
-
-					content: '';
-					left: 0;
-					position: absolute;
-					top: -5px;
-					transition: var(--transition-transform);
-				}
-
-				&:checked {
-					background-color: var(--form-color-accent-primary);
-				}
 			}
 
 			label {
-				@mixin desktop-body-3;
-
 				color: var(--color-text-secondary);
+				font-weight: var(--font-weight-regular);
 			}
 		}
 	}
