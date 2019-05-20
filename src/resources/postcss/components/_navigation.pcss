@@ -33,14 +33,6 @@
 			color: var(--color-text-disabled);
 		}
 
-		&:before,
-		&:after {
-			background-repeat: no-repeat;
-			background-size: contain;
-			content: '';
-			height: 14px;
-			width: 12px;
-		}
 	}
 
 	.tribe-common-c-nav__prev {
@@ -48,7 +40,12 @@
 
 		&:before {
 			background-image: svg-inline(caret-left);
+			background-repeat: no-repeat;
+			background-size: contain;
+			content: '';
+			height: 14px;
 			margin-right: 10px;
+			width: 12px;
 		}
 
 		&:active,
@@ -74,7 +71,12 @@
 
 		&:after {
 			background-image: svg-inline(caret-right);
+			background-repeat: no-repeat;
+			background-size: contain;
+			content: '';
+			height: 14px;
 			margin-left: 10px;
+			width: 12px;
 		}
 
 		&:active,
