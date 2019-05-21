@@ -3514,7 +3514,7 @@ abstract class Tribe__Repository
 	/**
 	 * Flush current filters and query information.
 	 *
-	 * @since TBD
+	 * @since 4.9.10
 	 *
 	 * @return self
 	 */
