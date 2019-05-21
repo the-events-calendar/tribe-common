@@ -101,7 +101,7 @@
 
 	.tribe-common-form-control-tabs__list-item {
 
-		&:first-child label {
+		&:first-child .tribe-common-form-control-tabs__label {
 			@mixin form-control-select-list-item-first;
 
 			@media (--viewport-medium) {
@@ -110,7 +110,7 @@
 			}
 		}
 
-		&:last-child label {
+		&:last-child .tribe-common-form-control-tabs__label {
 			@mixin form-control-select-list-item-last;
 
 			@media (--viewport-medium) {
@@ -135,7 +135,7 @@
 	.tribe-common-form-control-tabs__input {
 		@mixin visually-hide;
 
-		&:checked + label {
+		&:checked + .tribe-common-form-control-tabs__label {
 			@mixin form-control-select-list-item-selected;
 		}
 	}
@@ -155,7 +155,7 @@
 
 		.tribe-common-form-control-tabs__list-item {
 
-			&:first-child label {
+			&:first-child .tribe-common-form-control-tabs__label {
 				padding-top: 16px;
 
 				@media (--viewport-medium) {
@@ -164,7 +164,7 @@
 				}
 			}
 
-			&:last-child label {
+			&:last-child .tribe-common-form-control-tabs__label {
 				padding-bottom: 16px;
 
 				@media (--viewport-medium) {
@@ -176,7 +176,7 @@
 
 		.tribe-common-form-control-tabs__input {
 
-			&:checked + label {
+			&:checked + .tribe-common-form-control-tabs__label {
 				color: var(--color-text-primary);
 				font-weight: var(--font-weight-bold);
 			}

@@ -36,21 +36,18 @@
 		}
 	}
 
-	body#top & { /* Enfold compatibility */
+	body#top & { /* Enfold Compatibility */
 
-		.tribe-common-form-control-text {
+		.tribe-common-form-control-text__input {
+			@mixin desktop-body-2-bold;
 
-			input[type="text"] {
-				@mixin desktop-body-2-bold;
+			border: 1px solid var(--color-border-default);
+			padding: 12px 18px;
+			width: 100%;
 
-				border: 1px solid var(--color-border-default);
-				padding: 12px 18px;
-				width: 100%;
-
-				&::placeholder {
-					color: var(--color-text-secondary);
-					font-weight: var(--font-weight-regular);
-				}
+			&::placeholder {
+				color: var(--color-text-secondary);
+				font-weight: var(--font-weight-regular);
 			}
 		}
 	}
