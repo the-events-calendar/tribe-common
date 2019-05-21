@@ -40,3 +40,18 @@
 		border-color: var(--color-border-active);
 	}
 }
+
+/* -----------------------------------------------------------------------------
+ * Button - Icon Border
+ * ----------------------------------------------------------------------------- */
+
+@define-mixin button-icon-border {
+	@mixin button-border;
+
+	align-items: center;
+	display: inline-flex;
+	height: 56px;
+	justify-content: center;
+	transition: none;
+	width: 56px;
+}
