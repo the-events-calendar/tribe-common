@@ -39,8 +39,10 @@ vendor/composer/spdx-licenses
 !vendor/a5hleyrich/wp-background-processing
 .idea
 
-# Modules for Apps
+# Resources Ignoring
 src/resources/**/app
+src/resources/css/**
+src/resources/**/*.min.js
 
 # tribe-common-styles
 src/resources/postcss/utilities
