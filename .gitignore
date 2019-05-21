@@ -29,6 +29,7 @@ vendor/composer/composer/.github
 vendor/composer/ca-bundle
 vendor/composer/semver
 vendor/composer/spdx-licenses
+vendor/composer/installers/
 !vendor/jquery
 !vendor/jquery-tribe-timepicker
 !vendor/lucatume/di52
