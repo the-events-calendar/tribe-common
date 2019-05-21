@@ -2610,7 +2610,6 @@ return array(
     'phpDocumentor\\Reflection\\Types\\Void_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Void_.php', 
     'tad\\WPBrowser\\Adapters\\WP' => $vendorDir . '/lucatume/wp-browser-commons/src/tad/WPBrowser/Adapters/WP.php', 
     'tad\\WPBrowser\\Connector\\WordPress' => $vendorDir . '/lucatume/wp-browser/src/tad/WPBrowser/Connector/WordPress.php', 
-    'tad\\WPBrowser\\Documentation\\TableGenerator' => $vendorDir . '/lucatume/wp-browser/src/tad/WPBrowser/Documentation/TableGenerator.php', 
     'tad\\WPBrowser\\Environment\\Constants' => $vendorDir . '/lucatume/wp-browser-commons/src/tad/WPBrowser/Environment/Constants.php', 
     'tad\\WPBrowser\\Environment\\Executor' => $vendorDir . '/lucatume/wp-browser-commons/src/tad/WPBrowser/Environment/Executor.php', 
     'tad\\WPBrowser\\Environment\\System' => $vendorDir . '/lucatume/wp-browser-commons/src/tad/WPBrowser/Environment/System.php', 
