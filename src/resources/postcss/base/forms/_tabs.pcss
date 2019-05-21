@@ -60,6 +60,7 @@
 				position: static;
 				visibility: visible;
 				width: auto;
+				outline: none;
 			}
 		}
 
@@ -111,6 +112,57 @@
 				margin: -6px 0;
 				padding: 17px 5px;
 				text-align: center;
+				display: block;
+			}
+		}
+	}
+
+	body#top & { /* Enfold Compatibility */
+
+		.tribe-common-form-control-tabs {
+
+			li {
+
+				&:first-child label {
+					padding-top: 16px;
+
+					@media (--viewport-medium) {
+						margin-top: -6px;
+						padding-top: 17px;
+					}
+				}
+
+				&:last-child label {
+					padding-bottom: 16px;
+
+					@media (--viewport-medium) {
+						margin-bottom: -6px;
+						padding-bottom: 17px;
+					}
+				}
+			}
+
+			input[type="radio"] {
+
+				&:checked + label {
+					color: var(--color-text-primary);
+					font-weight: var(--font-weight-bold);
+				}
+			}
+
+			label {
+				color: var(--color-text-secondary);
+				font-size: var(--font-size-2);
+				line-height: var(--line-height-3);
+				font-weight: var(--font-weight-regular);
+
+				@media (--viewport-medium) {
+					margin: -6px 0;
+					padding: 17px 5px;
+					text-align: center;
+					display: block;
+
+				}
 			}
 		}
 	}
