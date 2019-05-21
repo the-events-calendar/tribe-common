@@ -56,6 +56,7 @@
 			display: inline-block;
 			margin-left: 11px;
 			vertical-align: middle;
+
 		}
 	}
 
@@ -64,6 +65,21 @@
 		label {
 			display: block;
 			margin: 0 0 6px;
+		}
+	}
+
+	body#top & { /* Enfold Compatibility */
+
+		.tribe-common-form-control-toggle {
+
+			input[type="checkbox"] {
+				display: inline-block;
+			}
+
+			label {
+				color: var(--color-text-secondary);
+				font-weight: var(--font-weight-regular);
+			}
 		}
 	}
 }
