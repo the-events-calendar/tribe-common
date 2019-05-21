@@ -646,10 +646,18 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param string $join_clause
+	 * @param string      $join_clause JOIN clause.
+	 * @param null|string $id          Optional JOIN ID to prevent duplicating joins.
+	 * @param boolean     $override    Whether to override the clause if a JOIN by the same ID exists.
 	 */
-	public function join( $join_clause ) {
-		$this->query_vars['join'][] = $join_clause;
+	public function join( $join_clause, $id = null, $override = false ) {
+		if ( $id ) {
+			if ( ! isset( $this->query_vars['join'][ $id ] ) ) {
+				$this->query_vars['join'][ $id ] = $join_clause;
+			}
+		} else {
+			$this->query_vars['join'][] = $join_clause;
+		}
 
 		if ( ! has_filter( 'posts_join', array( $this, 'filter_posts_join' ) ) ) {
 			add_filter( 'posts_join', array( $this, 'filter_posts_join' ), 10, 2 );
