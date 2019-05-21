@@ -42,5 +42,8 @@ vendor/composer/spdx-licenses
 # Modules for Apps
 src/resources/**/app
 
+# tribe-common-styles
+src/resources/postcss/utilities
+
 # get from translate.wordpress.org as needed
 lang/*.po
