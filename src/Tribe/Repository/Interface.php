@@ -279,5 +279,14 @@ interface Tribe__Repository__Interface
 	 * @return \Tribe__Repository__Interface The repository instance, for chaining.
 	 * @throws \Tribe__Repository__Usage_Error If trying to set the query after a fetching operation is done.
 	 */
-	public function set_query( WP_Query $query  );
+	public function set_query( WP_Query $query );
+
+	/**
+	 * Sets the found rows calculation to be enabled for queries.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param bool $found_rows Whether found rows calculation should be enabled.
+	 */
+	public function set_found_rows( $found_rows );
 }
