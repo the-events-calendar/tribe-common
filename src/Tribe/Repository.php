@@ -557,14 +557,15 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function build_query( $use_query_builder = true ) {
-		if ( null !== $this->last_built_query && $this->last_built_hash === $this->hash()) {
-			return $this->last_built_query;
-		}
-
 		$query = null;
 
+		// We'll let the query builder decide if the query has to be rebuilt or not.
 		if ( $use_query_builder && null !== $this->query_builder ) {
 			$query = $this->build_query_with_builder();
+		}
+
+		if ( null !== $this->last_built_query && $this->last_built_hash === $this->hash()) {
+			return $this->last_built_query;
 		}
 
 		if ( null === $query ) {
@@ -605,13 +606,14 @@ abstract class Tribe__Repository
 
 		$query = $this->build_query();
 
+		$original_no_found_rows_value = $query->get( 'no_found_rows' );
+
 		// The request property will be set during the `get_posts` method and empty before it.
-		if ( ! empty( $query->request ) && ( 0 < $query->found_posts || ! $this->skip_found_rows ) ) {
+		if ( ! empty( $query->request ) && ( false === (boolean) $original_no_found_rows_value || ! $this->skip_found_rows ) ) {
 			return (int) $query->found_posts;
 		}
 
-		$original_fields_value  = $query->get( 'fields', '' );
-		$original_no_found_rows = $query->get( 'no_found_rows', '' );
+		$original_fields_value = $query->get( 'fields' );
 
 		$query->set( 'fields', 'ids' );
 		$query->set( 'no_found_rows', false );
@@ -628,7 +630,7 @@ abstract class Tribe__Repository
 		$query->get_posts();
 
 		$query->set( 'fields', $original_fields_value );
-		$query->set( 'no_found_rows', $original_no_found_rows );
+		$query->set( 'no_found_rows', $original_no_found_rows_value );
 
 		return (int) $query->found_posts;
 	}
@@ -1640,9 +1642,9 @@ abstract class Tribe__Repository
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
-	 * @param string      $meta_key The meta key to use for the meta lookup.
-	 * @param string|null $by       The ->by() lookup to use (defaults to meta_regexp_or_like).
+	 * @param string       $key      The filter key, the one that will be used in `by` and `where` calls.
+	 * @param string|array $meta_key The meta key(s) to use for the meta lookup.
+	 * @param string|null  $by       The ->by() lookup to use (defaults to meta_regexp_or_like).
 	 */
 	public function add_simple_meta_schema_entry( $key, $meta_key, $by = null ) {
 		$this->schema[ $key ] = array( $this, 'filter_by_simple_meta_schema' );
@@ -1658,9 +1660,9 @@ abstract class Tribe__Repository
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param string      $key      The filter key, the one that will be used in `by` and `where` calls.
-	 * @param string      $taxonomy The taxonomy to use for the tax lookup.
-	 * @param string|null $by       The ->by() lookup to use (defaults to term_in).
+	 * @param string       $key      The filter key, the one that will be used in `by` and `where` calls.
+	 * @param string|array $taxonomy The taxonomy/taxonomies to use for the tax lookup.
+	 * @param string|null  $by       The ->by() lookup to use (defaults to term_in).
 	 */
 	public function add_simple_tax_schema_entry( $key, $taxonomy, $by = null ) {
 		$this->schema[ $key ] = array( $this, 'filter_by_simple_tax_schema' );
@@ -3098,8 +3100,10 @@ abstract class Tribe__Repository
 	 * {@inheritDoc}
 	 */
 	public function get_hash_data( array $settings, WP_Query $query = null ) {
-		$filters = $this->current_filters;
-		$query_vars = null !== $query ? $query->query : [];
+		$filters    = $this->current_filters;
+		$query_vars = null !== $query
+			? $query->query
+			: array_merge( $this->default_args, $this->query_args );
 
 		if ( isset( $settings['exclude'] ) ) {
 			$filters = array_diff_key(
@@ -3316,8 +3320,6 @@ abstract class Tribe__Repository
 		foreach ( $fields as $field ) {
 			if ( $this->is_a_post_field( $field ) ) {
 				$post_fields[] = $field;
-			} elseif ( $this->is_a_taxonomy( $field ) ) {
-				$taxonomies[] = $field;
 			} elseif ( array_key_exists( $field, $this->simple_tax_schema ) ) {
 				// Handle simple tax schema aliases.
 				$schema = $this->simple_tax_schema[ $field ]['taxonomy'];
@@ -3358,6 +3360,8 @@ abstract class Tribe__Repository
 				foreach ( $schema as $meta_key ) {
 					$custom_fields[] = $meta_key;
 				}
+			} elseif ( $this->is_a_taxonomy( $field ) ) {
+				$taxonomies[] = $field;
 			} else {
 				$custom_fields[] = $field;
 			}
@@ -3439,7 +3443,7 @@ abstract class Tribe__Repository
 
 			if ( 'AND' === $where_relation && 0 === count( $intersection ) ) {
 				// Let's not waste any more time.
-				$this->void_query;
+				$this->void_query = true;
 
 				return $this;
 			}
@@ -3503,6 +3507,23 @@ abstract class Tribe__Repository
 		}
 		$this->last_built_query = $query;
 		$this->last_built_hash  = $this->hash();
+
+		return $this;
+	}
+
+	/**
+	 * Flush current filters and query information.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @return self
+	 */
+	public function flush() {
+		$this->current_query    = null;
+		$this->current_filters  = [];
+		$this->current_filter   = null;
+		$this->last_built_query = null;
+		$this->last_built_hash  = '';
 
 		return $this;
 	}

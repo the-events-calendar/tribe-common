@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.9.10] TBD =
+
+* Tweak - Add ability to prevent duplicate JOINs by allowing an optionally supplied ID per join [128202]
+* Fix - Resolve issues with pagination in REST API by making the query cache more comprehensive [127710]
+
 = [4.9.9] 2019-05-16 =
 
 * Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translations.theeventscalendar.com
@@ -415,4 +420,3 @@
 
 * Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
-
