@@ -3516,6 +3516,8 @@ abstract class Tribe__Repository
 	 */
 	public function set_found_rows( $found_rows ) {
 		$this->skip_found_rows = ! $found_rows;
+
+		return $this;
 	}
 
 	/**

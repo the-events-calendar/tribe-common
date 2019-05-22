@@ -287,6 +287,8 @@ interface Tribe__Repository__Interface
 	 * @since 4.9.10
 	 *
 	 * @param bool $found_rows Whether found rows calculation should be enabled.
+	 *
+	 * @return \Tribe__Repository__Interface The repository instance, for chaining.
 	 */
 	public function set_found_rows( $found_rows );
 }
