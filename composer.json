@@ -9,7 +9,9 @@
   "homepage": "http://tri.be/shop/wordpress-events-calendar/",
   "license": "GPL-2.0",
   "require-dev": {
-    "lucatume/wp-browser": "^2.2.3",
+    "lucatume/wp-browser": "^2.2.4",
+    "codeception/codeception": "^2.5.5",
+    "phpunit/phpunit": "^6.5.14",
     "lucatume/function-mocker-le": "^1.0",
     "wp-cli/checksum-command": "1.0.5",
     "moderntribe/tribe-common-styles": "dev-master"
@@ -28,8 +30,8 @@
     }
   ],
   "require": {
-    "lucatume/di52": "~2.0",
-    "firebase/php-jwt": "^5.0"
+    "lucatume/di52": "~2.0.10",
+    "firebase/php-jwt": "~5.0.0"
   },
   "extra": {
     "installer-paths": {

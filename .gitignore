@@ -1,12 +1,17 @@
+.DS_Store
+.idea
 node_modules
 
 # Tests - local config files
 codeception.yml
 tests/*.suite.yml
+phpunit.xml
 .env.local
+.env.testing
 
 # Tests - local output files
 tests/_output
+tests/_support/_generated
 
 # by default ignore all, need a vendor dep in the repo? use !vendor/acme
 vendor/*
@@ -16,16 +21,12 @@ vendor/*
 !vendor/handlebars
 !vendor/clipboard
 !vendor/attrchange
-!vendor/tooltipster
 !vendor/datatables
+!vendor/jquery-tribe-timepicker
+!vendor/tooltipster
+!vendor/tribe-select2
 !vendor/freemius
 vendor/freemius/languages/*.po
-!vendor/jquery-tribe-timepicker
-!vendor/firebase
-!vendor/lucatume/di52
-!vendor/xrstf/composer-php52
-!vendor/tribe-select2
-.idea
 
 # Resources Ignoring
 src/resources/**/app
