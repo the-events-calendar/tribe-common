@@ -11,11 +11,11 @@
   "vendor/autoload_52.php",
   "vendor/clipboard/*.js",
   "vendor/composer/*",
-  "vendor/freemius/**/*",
   "vendor/datatables/datatables*.css",
   "vendor/datatables/datatables*.js",
   "vendor/datatables/DataTables/images/*.png",
   "vendor/firebase/php-jwt/src/*.php",
+  "vendor/freemius/**/*",
   "vendor/handlebars/*.js",
   "vendor/jquery-tribe-timepicker/**/*.css",
   "vendor/jquery-tribe-timepicker/**/*.js",
@@ -27,5 +27,6 @@
   "vendor/tribe-select2/*.css",
   "vendor/tribe-select2/*.gif",
   "vendor/tribe-select2/*.js",
-  "vendor/tribe-select2/*.png"
+  "vendor/tribe-select2/*.png",
+  "vendor/xrstf/composer-php52/*"
 ]
