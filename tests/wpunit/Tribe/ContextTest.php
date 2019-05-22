@@ -1297,4 +1297,84 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( '__default_value__', $context->get( 'one', '__default_value__' ) );
 	}
+
+	/**
+	 * It should allow mapping locations to read
+	 *
+	 * @test
+	 */
+	public function should_allow_mapping_locations_to_read() {
+		$context = tribe_context()->set_locations( [
+			'bar'   => [
+				'read'  => [
+					Context::CONSTANT => 'r_two',
+				],
+				'write' => [
+					Context::REQUEST_VAR => 'r_two',
+				],
+			],
+			'foo'   => [
+				'read'  => [
+					Context::REQUEST_VAR => 'r_one',
+					Context::QUERY_VAR => ['r_one','rOne'],
+				],
+				'write' => [
+					Context::REQUEST_VAR => 'r_one',
+				],
+			],
+			'baz' => [
+				'read'  => [
+					Context::REQUEST_VAR => ['r_three','rThree'],
+				],
+				'write' => [
+					Context::REQUEST_VAR => 'r_three',
+				],
+			],
+		], false );
+
+		$mapped = $context->map_to_read( [ 'foo' => 23, 'baz' => 89, 'someOther' => 2389 ], null, true );
+
+		$this->assertEquals( [
+			'r_one'     => 23,
+			'rOne'      => 23,
+			'r_three'   => 89,
+			'rThree'    => 89,
+			'someOther' => 2389,
+		], $mapped );
+
+		return $context;
+	}
+
+	/**
+	 * It should allow filtering out unknown locations
+	 *
+	 * @test
+	 * @depends should_allow_mapping_locations_to_read
+	 */
+	public function should_allow_filtering_out_unknown_locations(Context $context) {
+		$mapped = $context->map_to_read( [ 'foo' => 23, 'baz' => 89, 'someOther' => 2389 ] );
+
+		$this->assertEquals( [
+			'r_one'     => 23,
+			'rOne'      => 23,
+			'r_three'   => 89,
+			'rThree'    => 89,
+		], $mapped );
+	}
+
+	/**
+	 * It should allow whitelisting types
+	 *
+	 * @test
+	 * @depends should_allow_mapping_locations_to_read
+	 */
+	public function should_allow_whitelisting_types(Context $context) {
+		$mapped = $context->map_to_read( [ 'foo' => 23, 'baz' => 89, 'someOther' => 2389 ], Context::REQUEST_VAR );
+
+		$this->assertEquals( [
+			'r_one'     => 23,
+			'r_three'   => 89,
+			'rThree'    => 89,
+		], $mapped );
+	}
 }

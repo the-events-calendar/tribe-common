@@ -1215,4 +1215,68 @@ class Tribe__Context {
 
 			return $default;
 	}
+
+	/**
+	 * Maps an input array to the corresponding read locations.
+	 *
+	 * The resulting array can be used as input for the `alter_values` method.
+	 * The main use of this method is to leverage the Context knowledge of the read locations, and their types, to
+	 * "translate" an array of values to an array of valid read sources. As an example this is useful to "translate" the
+	 * locations to an array of query vars:
+	 *      $input = [ 'event_display' => 'some-view', 'event_date' => '2018-01-03' ];
+	 *      $query_args = tribe_context()->map_to_read( $input, Tribe__Context::REQUEST_VAR );
+	 *      $url = add_query_arg( $query_args, home_url() );
+	 *
+	 * @since TBD
+	 *
+	 * @param  array              $input     An associative array of values in the shape `[ <location> => <value> ]`; where `location`
+	 *                       is the name of the location registered in the Context locations.
+	 * @param  string|array|null  $types     A white-list of read location types to include in the mapped output; `null`
+	 *                                    means all types are allowed.
+	 * @param  bool               $passthru  Whether to pass unknown locations in the output or not; if `false` then
+	 *                                       any input key that's not a context location will not appear in the output;
+	 *                                       defaults to `false` to remove unknown locations from the output.
+	 *
+	 * @return array An associative array in the shape `[ <read_location> => <input_value> ]`. Since some read locations
+	 *               could have multiple sources the number of elements in this array will likely NOT be the same as the
+	 *               number of elements in the input array. When a read location as more than 1 source then the value
+	 *               will be duplicated, in the output array, to both sources.
+	 */
+	public function map_to_read( array $input, $types = null, $passthru = false ) {
+		$mapped    = [];
+		$processed = [];
+		$types = null !== $types ? (array) $types : null;
+
+		$locations = $this->get_locations();
+
+		// Take the current read locations
+		foreach ( $locations as $key => $location ) {
+			if ( ! isset( $location['read'], $input[ $key ] ) ) {
+				continue;
+			}
+
+			$processed[] = $key;
+
+			foreach ( $location['read'] as $type => $name ) {
+				if ( null !== $types && ! in_array( $type, $types, true ) ) {
+					continue;
+				}
+
+				foreach ( (array) $name as $destination ) {
+					$mapped[ $destination ] = $input[ $key ];
+				}
+			}
+		}
+
+		if ( $passthru ) {
+			$mapped = array_merge(
+				$mapped,
+				array_diff_key( $input, array_keys( $locations ), array_combine( $processed, $processed ) )
+			);
+		}
+
+		ksort( $mapped );
+
+		return $mapped;
+	}
 }
