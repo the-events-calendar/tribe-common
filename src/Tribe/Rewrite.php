@@ -486,7 +486,7 @@ class Tribe__Rewrite {
 	 * @return array A map of dynamic matchers in the shape `[ <regex> => <value> ]`.
 	 */
 	protected function get_dynamic_matchers( array $query_vars ) {
-		$bases            = $this->get_bases();
+		$bases            = (array) $this->get_bases();
 		$dynamic_matchers = [];
 		if ( isset( $query_vars['paged'] ) ) {
 			$page_regex = $bases['page'];
