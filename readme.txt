@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.10] TBD =
+= [4.9.10] 2019-05-23 =
 
 * Fix - Resolve issues with pagination in REST API by making the query cache more comprehensive [127710]
 
