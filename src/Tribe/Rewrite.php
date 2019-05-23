@@ -335,8 +335,15 @@ class Tribe__Rewrite {
 		$our_rules          = $this->get_handled_rewrite_rules();
 		$handled_query_vars = $this->get_rules_query_vars( $our_rules );
 
-		if ( empty( $our_rules ) ) {
-			$wp_canonical                      = redirect_canonical( $canonical_url, false );
+		if (
+			empty( $our_rules )
+			|| ! in_array( Arr::get( $query_vars, 'post_type', 'post' ), $this->get_post_types(), true )
+		) {
+			$wp_canonical = redirect_canonical( $canonical_url, false );
+			if ( empty( $wp_canonical ) ) {
+				$wp_canonical = $canonical_url;
+			}
+
 			$this->canonical_url_cache[ $url ] = $wp_canonical;
 
 			return $wp_canonical;
@@ -354,7 +361,7 @@ class Tribe__Rewrite {
 
 		if ( empty( $matched_vars ) ) {
 			// The URL does contain query vars, but none we handle.
-			$wp_canonical                      = redirect_canonical( $url, false );
+			$wp_canonical = trailingslashit( redirect_canonical( $url, false ) );
 			$this->canonical_url_cache[ $url ] = $wp_canonical;
 
 			return $wp_canonical;
@@ -386,18 +393,21 @@ class Tribe__Rewrite {
 			$replaced = str_replace( array_keys( $replace ), $replace, $link_template );
 			// Remove trailing chars.
 			$path          = rtrim( $replaced, '?$' );
-			$canonical_url = home_url( $path );
-
-			if ( count( $unmatched_vars ) ) {
-				$canonical_url = add_query_arg( $unmatched_vars, $canonical_url );
-			}
+			$canonical_url = trailingslashit( home_url( $path ) );
 
 			break;
 		}
 
 		$wp_canonical = redirect_canonical( $canonical_url, false );
+		$resolved     = empty( $wp_canonical ) ? $canonical_url : $wp_canonical;
+		if ( $canonical_url !== $resolved ) {
+			$resolved = trailingslashit( $resolved );
+		}
 
-		$resolved                          = empty( $wp_canonical ) ? $canonical_url : $wp_canonical;
+		if ( count( $unmatched_vars ) ) {
+			$resolved = add_query_arg( $unmatched_vars, $canonical_url );
+		}
+
 		$this->canonical_url_cache[ $url ] = $resolved;
 
 		return $resolved;
@@ -510,5 +520,14 @@ class Tribe__Rewrite {
 		}
 
 		return $dynamic_matchers;
+	}
+
+	/**
+	 * Returns a list of post types supported by the implementation.
+	 *
+	 * @since TBD
+	 */
+	protected function get_post_types() {
+		throw new BadMethodCallException( 'Method get_post_types should be implemented by extending classes.' );
 	}
 }
