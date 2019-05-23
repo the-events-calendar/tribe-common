@@ -653,4 +653,13 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 
 		return $this;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set_found_rows( $found_rows ) {
+		$this->decorated->set_found_rows( $found_rows );
+
+		return $this;
+	}
 }
