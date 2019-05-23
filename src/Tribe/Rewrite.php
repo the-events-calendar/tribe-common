@@ -322,7 +322,6 @@ class Tribe__Rewrite {
 		wp_parse_str( $query, $query_vars );
 		ksort( $query_vars );
 
-		// Reverse the rules to try and match the more complex first.
 		$our_rules          = $this->get_handled_rewrite_rules();
 		$handled_query_vars = $this->get_rules_query_vars( $our_rules );
 
@@ -330,48 +329,11 @@ class Tribe__Rewrite {
 			return redirect_canonical( $canonical_url, false );
 		}
 
-		$bases              = (array) $this->get_bases();
+		$bases = (array) $this->get_bases();
 		ksort( $bases );
 
 		$localized_matchers = $this->get_localized_matchers();
-
-		// Add variable placeholders.
-		$localized_matchers['(\d{4}-\d{2})']       = 'eventDate';
-		$localized_matchers['(\d{4}-\d{2}-\d{2})'] = 'eventDate';
-
-		// Setup the dynamic elements.
-
-		$dynamic_matchers =[];
-		if ( isset( $query_vars['paged'] ) ) {
-			$page_regex = $bases['page'];
-			preg_match( '/^\(\?:(?<slug>\w+)\)/', $page_regex, $matches );
-			if ( isset( $matches['slug'] ) ) {
-				$dynamic_matchers["{$page_regex}/(\d+)"] = "{$matches['slug']}/{$query_vars['paged']}";
-			}
-		}
-
-		if ( isset( $query_vars['tag'] ) ) {
-			$tag_regex = $bases['tag'];
-			preg_match( '/^\(\?:(?<slug>\w+)\)/', $tag_regex, $matches );
-			if ( isset( $matches['slug'] ) ) {
-				$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$matches['slug']}/{$query_vars['tag']}";
-			}
-		}
-
-		if ( isset( $query_vars['tribe_events_cat'] ) ) {
-			$cat_regex = $bases['tax'];
-			preg_match( '/^\(\?:(?<slug>\w+)\)/', $cat_regex, $matches );
-			if ( isset( $matches['slug'] ) ) {
-				$dynamic_matchers["{$cat_regex}/(?:[^/]+/)*([^/]+)"] = "{$matches['slug']}/{$query_vars['tribe_events_cat']}";
-			}
-		}
-
-		if ( isset( $query_vars['feed'] ) ) {
-			$feed_regex = 'feed/(feed|rdf|rss|rss2|atom)';
-			$dynamic_matchers[$feed_regex] = "feed/{$query_vars['feed']}";
-		}
-
-		 // Where is iCal? It's handled by WordPress.
+		$dynamic_matchers = $this->get_dynamic_matchers( $query_vars );
 
 		// Try to match only on the query vars we're actually handling.
 		$matched_vars   = array_intersect_key( $query_vars, array_combine( $handled_query_vars, $handled_query_vars ) );
@@ -433,6 +395,7 @@ class Tribe__Rewrite {
 		global $wp_rewrite;
 		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 		$pattern               = '/post_type=tribe_(events|venue|organizer)/';
+		// Reverse the rules to try and match the most complex first.
 		$handled_rewrite_rules = array_reverse( array_filter( $wp_rewrite->rules,
 			static function ( $rule_query_string ) use ( $pattern ) {
 				return preg_match( $pattern, $rule_query_string );
@@ -492,5 +455,41 @@ class Tribe__Rewrite {
 					return array_keys( $vars );
 				}, $rules ) ) ) )
 		);
+	}
+
+	/**
+	 * Sets up the dynamic matchers based on the link query vars.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $query_vars An map of query vars and their values.
+	 *
+	 * @return array A map of dynamic matchers in the shape `[ <regex> => <value> ]`.
+	 */
+	protected function get_dynamic_matchers( array $query_vars ) {
+		$bases            = $this->get_bases();
+		$dynamic_matchers = [];
+		if ( isset( $query_vars['paged'] ) ) {
+			$page_regex = $bases['page'];
+			preg_match( '/^\(\?:(?<slug>\w+)\)/', $page_regex, $matches );
+			if ( isset( $matches['slug'] ) ) {
+				$dynamic_matchers["{$page_regex}/(\d+)"] = "{$matches['slug']}/{$query_vars['paged']}";
+			}
+		}
+
+		if ( isset( $query_vars['tag'] ) ) {
+			$tag_regex = $bases['tag'];
+			preg_match( '/^\(\?:(?<slug>\w+)\)/', $tag_regex, $matches );
+			if ( isset( $matches['slug'] ) ) {
+				$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$matches['slug']}/{$query_vars['tag']}";
+			}
+		}
+
+		if ( isset( $query_vars['feed'] ) ) {
+			$feed_regex                      = 'feed/(feed|rdf|rss|rss2|atom)';
+			$dynamic_matchers[ $feed_regex ] = "feed/{$query_vars['feed']}";
+		}
+
+		return $dynamic_matchers;
 	}
 }
