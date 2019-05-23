@@ -1,5 +1,6 @@
 <?php
 
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class Tribe__Rewrite
@@ -295,4 +296,201 @@ class Tribe__Rewrite {
 		return false;
 	}
 
+	/**
+	 * Returns the canonical URLs associated with a ugly link.
+	 *
+	 * This method will handle "our" URLs to go from their ugly form, filled with query vars, to the "pretty" one, if
+	 * possible.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url The URL to try and translate into its canonical form.
+	 *
+	 * @return string|void The canonical URL, or the input URL if it could not resolved to a canonical one.
+	 *
+	 * @throws BadMethodCallException If the method is called on the base class.
+	 */
+	public function get_canonical_url( $url ) {
+		if ( get_class($this) === Tribe__Rewrite::class ) {
+			throw new BadMethodCallException(
+				'Method get_canonical_url should only be called on extending classes.'
+			);
+		}
+
+		$canonical_url = $url;
+		$query = (string) parse_url( $url, PHP_URL_QUERY );
+		wp_parse_str( $query, $query_vars );
+		ksort( $query_vars );
+
+		// Reverse the rules to try and match the more complex first.
+		$our_rules          = $this->get_handled_rewrite_rules();
+		$handled_query_vars = $this->get_rules_query_vars( $our_rules );
+
+		if ( empty( $our_rules ) ) {
+			return redirect_canonical( $canonical_url, false );
+		}
+
+		$bases              = (array) $this->get_bases();
+		ksort( $bases );
+
+		$localized_matchers = $this->get_localized_matchers();
+
+		// Add variable placeholders.
+		$localized_matchers['(\d{4}-\d{2})']       = 'eventDate';
+		$localized_matchers['(\d{4}-\d{2}-\d{2})'] = 'eventDate';
+
+		// Setup the dynamic elements.
+
+		$dynamic_matchers =[];
+		if ( isset( $query_vars['paged'] ) ) {
+			$page_regex = $bases['page'];
+			preg_match( '/^\(\?:(?<slug>\w+)\)/', $page_regex, $matches );
+			if ( isset( $matches['slug'] ) ) {
+				$dynamic_matchers["{$page_regex}/(\d+)"] = "{$matches['slug']}/{$query_vars['paged']}";
+			}
+		}
+
+		if ( isset( $query_vars['tag'] ) ) {
+			$tag_regex = $bases['tag'];
+			preg_match( '/^\(\?:(?<slug>\w+)\)/', $tag_regex, $matches );
+			if ( isset( $matches['slug'] ) ) {
+				$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$matches['slug']}/{$query_vars['tag']}";
+			}
+		}
+
+		if ( isset( $query_vars['tribe_events_cat'] ) ) {
+			$cat_regex = $bases['tax'];
+			preg_match( '/^\(\?:(?<slug>\w+)\)/', $cat_regex, $matches );
+			if ( isset( $matches['slug'] ) ) {
+				$dynamic_matchers["{$cat_regex}/(?:[^/]+/)*([^/]+)"] = "{$matches['slug']}/{$query_vars['tribe_events_cat']}";
+			}
+		}
+
+		if ( isset( $query_vars['feed'] ) ) {
+			$feed_regex = 'feed/(feed|rdf|rss|rss2|atom)';
+			$dynamic_matchers[$feed_regex] = "feed/{$query_vars['feed']}";
+		}
+
+		 // Where is iCal? It's handled by WordPress.
+
+		// Try to match only on the query vars we're actually handling.
+		$matched_vars   = array_intersect_key( $query_vars, array_combine( $handled_query_vars, $handled_query_vars ) );
+		$unmatched_vars = array_diff_key( $query_vars, array_combine( $handled_query_vars, $handled_query_vars ) );
+
+		if ( empty( $matched_vars ) ) {
+			// The URL does contain query vars, but none we handle.
+			return redirect_canonical( $url, false );
+		}
+
+		foreach ( $our_rules as $link_template => $index_path ) {
+			wp_parse_str( (string) parse_url( $index_path, PHP_URL_QUERY ), $link_vars );
+			ksort( $link_vars );
+
+			if ( array_keys( $link_vars ) !== array_keys( $matched_vars ) ) {
+				continue;
+			}
+
+			if ( ! (
+				Arr::get( $matched_vars, 'post_type', '' ) === Arr::get( $link_vars, 'post_type', '' )
+				&& Arr::get( $matched_vars, 'eventDisplay', '' ) === Arr::get( $link_vars, 'eventDisplay', '' )
+			) ) {
+				continue;
+			}
+
+			$replace = array_map( static function ( $index ) use ( $matched_vars ) {
+				return isset( $matched_vars[ $index ] )
+					? str_replace( 'tribe_', '', $matched_vars[ $index ] )
+					: '';
+			}, $localized_matchers );
+			// Include dynamic matchers now.
+			$replace = array_merge( $dynamic_matchers, $replace );
+
+			$replaced = str_replace( array_keys( $replace ), $replace, $link_template );
+			// Remove trailing chars.
+			$path = rtrim( $replaced, '?$' );
+			$canonical_url = home_url( $path );
+
+			if ( count( $unmatched_vars ) ) {
+				$canonical_url = add_query_arg( $unmatched_vars, $canonical_url );
+			}
+
+			break;
+		}
+
+		$wp_canonical = redirect_canonical( $canonical_url, false );
+
+		return empty( $wp_canonical ) ? $canonical_url : $wp_canonical;
+	}
+
+	/**
+	 * Returns an array of rewrite rules handled by the implementation.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
+	 */
+	protected function get_handled_rewrite_rules(  ) {
+		global $wp_rewrite;
+		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
+		$pattern               = '/post_type=tribe_(events|venue|organizer)/';
+		$handled_rewrite_rules = array_reverse( array_filter( $wp_rewrite->rules,
+			static function ( $rule_query_string ) use ( $pattern ) {
+				return preg_match( $pattern, $rule_query_string );
+			} ) );
+
+		return $handled_rewrite_rules;
+	}
+
+	/**
+	 * Returns a map relating localized regex matchers to query vars.
+	 *
+	 * @since TBD
+	 *
+	 * @return array A map of localized regex matchers in the shape `[ <localized_regex> => <query_var> ]`.
+	 */
+	protected function get_localized_matchers( ) {
+		$bases         = (array) $this->get_bases();
+		$translate_map = $this->get_matcher_to_query_var_map();
+
+		$localized_matchers = [];
+		foreach ( $bases as $base => $localized_matcher ) {
+			if ( isset( $translate_map[ $base ] ) ) {
+				$localized_matchers[ $localized_matcher ] = $translate_map[ $base ];
+			}
+		}
+
+		return $localized_matchers;
+	}
+
+	/**
+	 * Returns a map relating localize matcher slugs to the corresponding query var.
+	 *
+	 * @since TBD
+	 *
+	 * @return array A map relating localized matcher slugs to the corresponding query var.
+	 */
+	protected function get_matcher_to_query_var_map(){
+		throw new BadMethodCallException(
+			'This method should not be called on the base class (' . __CLASS__ . '); only on extending classes.'
+		);
+	}
+
+	/**
+	 * Return a list of the query vars handled in the input rewrite rules.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $rules A set of rewrite rules in the shape `[ <regex> => <path> ]`.
+	 *
+	 * @return array A list of all the query vars handled in the rules.
+	 */
+	protected function get_rules_query_vars( array $rules ) {
+		return array_unique( array_filter( array_merge( ...
+				array_values( array_map( static function ( $rule_string ) {
+					wp_parse_str( parse_url( $rule_string, PHP_URL_QUERY ), $vars );
+
+					return array_keys( $vars );
+				}, $rules ) ) ) )
+		);
+	}
 }
