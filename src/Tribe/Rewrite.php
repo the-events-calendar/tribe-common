@@ -51,6 +51,12 @@ class Tribe__Rewrite {
 	 */
 	protected $hook_lock = false;
 
+	/**
+	 * An array cache of resolved canonical URLs in the shape `[ <url> => <canonical_url> ]`.
+	 *
+	 * @var array
+	 */
+	protected $canonical_url_cache = [];
 
 	/**
 	 * Static Singleton Factory Method
@@ -305,20 +311,24 @@ class Tribe__Rewrite {
 	 * @since TBD
 	 *
 	 * @param string $url The URL to try and translate into its canonical form.
+	 * @param bool   $force Whether to try and use the cache or force a new canonical URL conversion.
 	 *
 	 * @return string|void The canonical URL, or the input URL if it could not resolved to a canonical one.
 	 *
-	 * @throws BadMethodCallException If the method is called on the base class.
 	 */
-	public function get_canonical_url( $url ) {
-		if ( get_class($this) === Tribe__Rewrite::class ) {
+	public function get_canonical_url( $url, $force = false ) {
+		if ( ! $force && isset( $this->canonical_url_cache[ $url ] ) ) {
+			return $this->canonical_url_cache[ $url ];
+		}
+
+		if ( get_class( $this ) === Tribe__Rewrite::class ) {
 			throw new BadMethodCallException(
 				'Method get_canonical_url should only be called on extending classes.'
 			);
 		}
 
 		$canonical_url = $url;
-		$query = (string) parse_url( $url, PHP_URL_QUERY );
+		$query         = (string) parse_url( $url, PHP_URL_QUERY );
 		wp_parse_str( $query, $query_vars );
 		ksort( $query_vars );
 
@@ -326,14 +336,17 @@ class Tribe__Rewrite {
 		$handled_query_vars = $this->get_rules_query_vars( $our_rules );
 
 		if ( empty( $our_rules ) ) {
-			return redirect_canonical( $canonical_url, false );
+			$wp_canonical                      = redirect_canonical( $canonical_url, false );
+			$this->canonical_url_cache[ $url ] = $wp_canonical;
+
+			return $wp_canonical;
 		}
 
 		$bases = (array) $this->get_bases();
 		ksort( $bases );
 
 		$localized_matchers = $this->get_localized_matchers();
-		$dynamic_matchers = $this->get_dynamic_matchers( $query_vars );
+		$dynamic_matchers   = $this->get_dynamic_matchers( $query_vars );
 
 		// Try to match only on the query vars we're actually handling.
 		$matched_vars   = array_intersect_key( $query_vars, array_combine( $handled_query_vars, $handled_query_vars ) );
@@ -341,7 +354,10 @@ class Tribe__Rewrite {
 
 		if ( empty( $matched_vars ) ) {
 			// The URL does contain query vars, but none we handle.
-			return redirect_canonical( $url, false );
+			$wp_canonical                      = redirect_canonical( $url, false );
+			$this->canonical_url_cache[ $url ] = $wp_canonical;
+
+			return $wp_canonical;
 		}
 
 		foreach ( $our_rules as $link_template => $index_path ) {
@@ -369,7 +385,7 @@ class Tribe__Rewrite {
 
 			$replaced = str_replace( array_keys( $replace ), $replace, $link_template );
 			// Remove trailing chars.
-			$path = rtrim( $replaced, '?$' );
+			$path          = rtrim( $replaced, '?$' );
 			$canonical_url = home_url( $path );
 
 			if ( count( $unmatched_vars ) ) {
@@ -381,7 +397,10 @@ class Tribe__Rewrite {
 
 		$wp_canonical = redirect_canonical( $canonical_url, false );
 
-		return empty( $wp_canonical ) ? $canonical_url : $wp_canonical;
+		$resolved                          = empty( $wp_canonical ) ? $canonical_url : $wp_canonical;
+		$this->canonical_url_cache[ $url ] = $resolved;
+
+		return $resolved;
 	}
 
 	/**
@@ -391,10 +410,10 @@ class Tribe__Rewrite {
 	 *
 	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
 	 */
-	protected function get_handled_rewrite_rules(  ) {
+	protected function get_handled_rewrite_rules() {
 		global $wp_rewrite;
 		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
-		$pattern               = '/post_type=tribe_(events|venue|organizer)/';
+		$pattern = '/post_type=tribe_(events|venue|organizer)/';
 		// Reverse the rules to try and match the most complex first.
 		$handled_rewrite_rules = array_reverse( array_filter( $wp_rewrite->rules,
 			static function ( $rule_query_string ) use ( $pattern ) {
@@ -411,7 +430,7 @@ class Tribe__Rewrite {
 	 *
 	 * @return array A map of localized regex matchers in the shape `[ <localized_regex> => <query_var> ]`.
 	 */
-	protected function get_localized_matchers( ) {
+	protected function get_localized_matchers() {
 		$bases         = (array) $this->get_bases();
 		$translate_map = $this->get_matcher_to_query_var_map();
 
@@ -432,7 +451,7 @@ class Tribe__Rewrite {
 	 *
 	 * @return array A map relating localized matcher slugs to the corresponding query var.
 	 */
-	protected function get_matcher_to_query_var_map(){
+	protected function get_matcher_to_query_var_map() {
 		throw new BadMethodCallException(
 			'This method should not be called on the base class (' . __CLASS__ . '); only on extending classes.'
 		);
