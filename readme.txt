@@ -4,9 +4,12 @@
 
 = [4.9.10] 2019-05-23 =
 
+* Tweak - Add ability to prevent duplicate JOINs by allowing an optionally supplied ID per join [128202]
+* Tweak - Add ability to turn on/off no_found_rows logic for queries [128202]
 * Fix - Resolve issues with pagination in REST API by making the query cache more comprehensive [127710]
 
 = [4.9.9] 2019-05-16 =
+
 * Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translations.theeventscalendar.com
 * Tweak - Optimize the autoloader function to eliminate duplicate path checkings.
 * Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
