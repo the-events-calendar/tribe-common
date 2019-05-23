@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.10] TBD =
+= [4.9.10] 2019-05-23 =
 
 * Tweak - Add ability to prevent duplicate JOINs by allowing an optionally supplied ID per join [128202]
 * Tweak - Add ability to turn on/off no_found_rows logic for queries [128202]
