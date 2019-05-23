@@ -317,14 +317,14 @@ class Tribe__Rewrite {
 	 *
 	 */
 	public function get_canonical_url( $url, $force = false ) {
-		if ( ! $force && isset( $this->canonical_url_cache[ $url ] ) ) {
-			return $this->canonical_url_cache[ $url ];
-		}
-
 		if ( get_class( $this ) === Tribe__Rewrite::class ) {
 			throw new BadMethodCallException(
 				'Method get_canonical_url should only be called on extending classes.'
 			);
+		}
+
+		if ( ! $force && isset( $this->canonical_url_cache[ $url ] ) ) {
+			return $this->canonical_url_cache[ $url ];
 		}
 
 		$canonical_url = $url;
