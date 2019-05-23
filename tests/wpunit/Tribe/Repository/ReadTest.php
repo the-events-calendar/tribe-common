@@ -83,6 +83,32 @@ class ReadTest extends ReadTestBase {
 	}
 
 	/**
+	 * It should allow paginating results with found after query
+	 *
+	 * @test
+	 */
+	public function should_allow_paginating_results_with_found_after_query() {
+		$ids = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
+		update_option( 'posts_per_page', 2 );
+
+		$page_1 = $this->repository()
+		               ->per_page( 3 )
+		               ->page( 1 );
+
+		$this->assertCount( 3, $page_1->all() );
+		$this->assertEquals( 5, $page_1->found() );
+		$this->assertEquals( 3, $page_1->count() );
+
+		$page_2 = $this->repository()
+		               ->per_page( 3 )
+		               ->page( 2 );
+
+		$this->assertCount( 2, $page_2->all() );
+		$this->assertEquals( 5, $page_2->found() );
+		$this->assertEquals( 2, $page_2->count() );
+	}
+
+	/**
 	 * It should respect the fields setting
 	 *
 	 * @test
@@ -323,6 +349,27 @@ class ReadTest extends ReadTestBase {
 		$repository = $this->repository();
 		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta', 'meta' );
 		$this->assertEquals( [], $repository->fields( 'ids' )->by( 'test_meta_schema', 'fo' )->all() );
+
+		// Test simple meta schema support with where_multi.
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$repository->add_simple_meta_schema_entry( 'test_other_meta_schema', 'interval_meta' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], 'LIKE', 'foo' )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$repository->add_simple_meta_schema_entry( 'test_other_meta_schema', 'interval_meta' );
+		$this->assertEquals( [], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], '=', 'food' )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$repository->add_simple_meta_schema_entry( 'test_other_meta_schema', 'interval_meta' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], 'LIKE', 'fo' )->all() );
+
+		$repository = $this->repository();
+		$repository->add_simple_meta_schema_entry( 'test_meta_schema', 'string_meta' );
+		$repository->add_simple_meta_schema_entry( 'test_other_meta_schema', 'interval_meta' );
+		$this->assertEquals( [], $repository->fields( 'ids' )->where_multi( [ 'test_meta_schema', 'test_other_meta_schema' ], '=', 'fun' )->all() );
 	}
 
 	/**
@@ -428,6 +475,14 @@ class ReadTest extends ReadTestBase {
 		$repository = $this->repository();
 		$repository->add_simple_tax_schema_entry( 'test_tax_term_and_schema', $tax, 'term_and' );
 		$this->assertEquals( [], $repository->fields( 'ids' )->by( 'test_tax_term_and_schema', [ $term_fiction->term_id, $term_history ] )->all() );
+
+		// Test simple tax schema with where_multi.
+
+		// Term slug
+		$repository = $this->repository();
+		$repository->add_simple_tax_schema_entry( 'test_tax_schema', $tax );
+		$repository->add_simple_tax_schema_entry( 'test_category_schema', 'category' );
+		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_tax_schema', 'test_category_schema' ], '=', $term_fiction->slug )->all() );
 	}
 
 	/**
