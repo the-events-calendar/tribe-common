@@ -172,7 +172,33 @@ class Tribe__Template {
 	}
 
 	/**
-	 * Sets a Index inside of the global or local context
+	 * Gets the local template context
+	 *
+	 * @since  TBD
+	 *
+	 * @todo  Apply filters here for local context
+	 *
+	 * @return mixed
+	 */
+	public function get_template_context() {
+		return $this->context;
+	}
+
+	/**
+	 * Gets the global template context
+	 *
+	 * @since  TBD
+	 *
+	 * @todo  Apply filters here for global context
+	 *
+	 * @return mixed
+	 */
+	public function get_template_global_context() {
+		return $this->global;
+	}
+
+	/**
+	 * Gets a Index inside of the global or local context
 	 * Final to prevent extending the class when the `get` already exists on the child class
 	 *
 	 * @since  4.6.2
