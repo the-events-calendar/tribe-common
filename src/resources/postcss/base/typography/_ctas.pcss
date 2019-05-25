@@ -6,10 +6,25 @@
 	.tribe-common-cta {
 		@mixin desktop-body-3-bold;
 
+		border-bottom: 2px solid transparent;
+		transition: var(--transition-border-color);
+
 		&:active,
 		&:focus,
 		&:hover {
-			text-decoration: underline;
+			border-bottom: 2px solid var(--color-text-primary);
+		}
+	}
+
+	.tribe-common-cta--alt {
+		border-bottom: 2px solid var(--color-accent-primary);
+		transition: var(--transition-color);
+
+		&:active,
+		&:focus,
+		&:hover {
+			border-bottom: 2px solid var(--color-accent-primary);
+			color: var(--color-accent-primary);
 		}
 	}
 }
