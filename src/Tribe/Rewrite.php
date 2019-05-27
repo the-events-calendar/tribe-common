@@ -357,6 +357,12 @@ class Tribe__Rewrite {
 
 		$query         = (string) parse_url( $url, PHP_URL_QUERY );
 		wp_parse_str( $query, $query_vars );
+
+		// Remove the `paged` query var if it's 1.
+		if ( isset( $query_vars['paged'] ) && 1 === (int) $query_vars['paged'] ) {
+			unset( $query_vars['paged'] );
+		}
+
 		ksort( $query_vars );
 
 		$our_rules          = $this->get_handled_rewrite_rules();
@@ -420,19 +426,22 @@ class Tribe__Rewrite {
 			$replaced = str_replace( array_keys( $replace ), $replace, $link_template );
 			// Remove trailing chars.
 			$path          = rtrim( $replaced, '?$' );
-			$canonical_url = trailingslashit( home_url( $path ) );
+			$resolved = trailingslashit( home_url( $path ) );
 
 			break;
 		}
 
-		$wp_canonical = redirect_canonical( $canonical_url, false );
-		$resolved     = empty( $wp_canonical ) ? $canonical_url : $wp_canonical;
+		if ( empty( $resolved ) ) {
+			$wp_canonical = redirect_canonical( $canonical_url, false );
+			$resolved     = empty( $wp_canonical ) ? $resolved : $wp_canonical;
+		}
+
 		if ( $canonical_url !== $resolved ) {
 			$resolved = trailingslashit( $resolved );
 		}
 
 		if ( count( $unmatched_vars ) ) {
-			$resolved = add_query_arg( $unmatched_vars, $canonical_url );
+			$resolved = add_query_arg( $unmatched_vars, $resolved );
 		}
 
 		$this->canonical_url_cache[ $url ] = $resolved;

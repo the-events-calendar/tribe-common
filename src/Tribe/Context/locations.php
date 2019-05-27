@@ -148,5 +148,15 @@ return [
 			},
 		],
 	],
+	'paged' => [
+		'read'  => [
+			Tribe__Context::REQUEST_VAR => 'paged',
+			Tribe__Context::QUERY_VAR   => 'paged',
+		],
+		'write' => [
+			Tribe__Context::REQUEST_VAR => 'paged',
+			Tribe__Context::QUERY_VAR   => 'paged',
+		],
+	]
 ];
 
