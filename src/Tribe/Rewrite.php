@@ -323,11 +323,27 @@ class Tribe__Rewrite {
 			);
 		}
 
+		$home_url = home_url();
+
+		// It's not a path we, or WP, could possibly handle.
+		$has_http_scheme = (bool) parse_url( $url, PHP_URL_SCHEME );
+		if (
+			$home_url === $url
+			|| ( $has_http_scheme && false === strpos( $url, $home_url ) )
+		) {
+			return $url;
+		}
+
+		$canonical_url = $url;
+
+		if ( empty( $canonical_url ) ) {
+			return $home_url;
+		}
+
 		if ( ! $force && isset( $this->canonical_url_cache[ $url ] ) ) {
 			return $this->canonical_url_cache[ $url ];
 		}
 
-		$canonical_url = $url;
 		$query         = (string) parse_url( $url, PHP_URL_QUERY );
 		wp_parse_str( $query, $query_vars );
 		ksort( $query_vars );
