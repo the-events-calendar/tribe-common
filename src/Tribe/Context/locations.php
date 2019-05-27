@@ -33,12 +33,12 @@ return [
 	],
 	'view'                        => [
 		'read'  => [
-			Tribe__Context::REQUEST_VAR  => [ 'tribe_view', 'tribe_event_display' ],
+			Tribe__Context::REQUEST_VAR  => [ 'view', 'tribe_view', 'tribe_event_display' ],
 			Tribe__Context::QUERY_VAR    => [ 'tribe_view', 'eventDisplay' ],
 			Tribe__Context::TRIBE_OPTION => 'viewOption',
 		],
 		'write' => [
-			Tribe__Context::REQUEST_VAR => [ 'tribe_view', 'tribe_event_display' ],
+			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display' ],
 			Tribe__Context::QUERY_VAR   => [ 'tribe_view', 'eventDisplay' ],
 		],
 	],
