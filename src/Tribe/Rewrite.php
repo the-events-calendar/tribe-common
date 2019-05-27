@@ -335,6 +335,17 @@ class Tribe__Rewrite {
 		}
 
 		$canonical_url = $url;
+		// To avoid issues with missing `path` component let's always add a trailing '/'.
+		if ( false !== strpos( $url, '?' ) ) {
+			$canonical_url = preg_replace( '~(\\/)*\\?~', '/?', $canonical_url );
+		} elseif ( false !== strpos( $url, '#' ) ) {
+			$canonical_url = preg_replace( '~(\\/)*#~', '/#', $canonical_url );
+		}
+
+		// Canonical URLs are supposed to contain the home URL.
+		if ( false === strpos( $canonical_url, $home_url ) ) {
+			$canonical_url = home_url( $canonical_url );
+		}
 
 		if ( empty( $canonical_url ) ) {
 			return $home_url;
