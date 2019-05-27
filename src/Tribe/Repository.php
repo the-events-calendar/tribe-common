@@ -3527,4 +3527,52 @@ abstract class Tribe__Repository
 
 		return $this;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function next() {
+		$next         = clone $this;
+		$current_page = isset( $this->query_args['paged'] )
+			? (int) $this->query_args['paged']
+			: 1;
+		$next->page( $current_page + 1 );
+
+		// Let's try to avoid running a query if we already know if a next page will yield any result or not.
+		$query_ran = ! empty( $this->last_built_query ) && ! empty( $this->last_built_query->request );
+		if ( $query_ran && ( false === (bool) $this->last_built_query->get( 'no_found_rows' ) ) ) {
+			$found             = $this->last_built_query->found_posts;
+			$posts_per_page    = $this->last_built_query->get( 'posts_per_page' );
+			$this_is_last_page = ( $current_page * $posts_per_page ) >= $found;
+			if ( $this_is_last_page ) {
+				$next->void_query = true;
+			}
+		}
+
+		$next->last_built_query = null;
+
+		return $next;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function prev() {
+		$prev         = clone $this;
+		$current_page = isset( $this->query_args['paged'] )
+			? (int) $this->query_args['paged']
+			: 1;
+
+		if ( $current_page === 1 ) {
+			$prev->void_query = true;
+
+			return $prev;
+		}
+
+		// If we're on page 1 we know there will be previous posts.
+		$prev->page( $current_page - 1 );
+		$prev->last_built_query = null;
+
+		return $prev;
+	}
 }

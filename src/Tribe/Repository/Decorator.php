@@ -653,4 +653,18 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 
 		return $this;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function next(  ){
+		return $this->decorated->next();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function prev(  ){
+		return $this->decorated->prev();
+	}
 }
