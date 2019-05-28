@@ -11,7 +11,7 @@
   "require-dev": {
     "lucatume/wp-browser": "^2.2.4",
     "codeception/codeception": "^2.5.5",
-    "phpunit/phpunit": "^6.5.14",
+    "phpunit/phpunit": "^7",
     "lucatume/function-mocker-le": "^1.0",
     "wp-cli/checksum-command": "1.0.5",
     "moderntribe/tribe-common-styles": "dev-master"
