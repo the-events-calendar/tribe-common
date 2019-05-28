@@ -323,6 +323,21 @@ class Tribe__Rewrite {
 			);
 		}
 
+		/**
+		 * Filters the canonical URL for an input URL before any kind of logic runs.
+		 *
+		 * @since TBD
+		 *
+		 * @param string|null    $canonical_url The canonical URL, defaults to `null`; returning a non `null` value will
+		 *                                      make the logic bail and return the value.
+		 * @param string         $url           The input URL to resolve to a canonical one.
+		 * @param Tribe__Rewrite $this          This rewrite object.
+		 */
+		$canonical_url = apply_filters( 'tribe_rewrite_pre_canonical_url', null, $url );
+		if ( null !== $canonical_url ) {
+			return $canonical_url;
+		}
+
 		$home_url = home_url();
 
 		// It's not a path we, or WP, could possibly handle.
@@ -443,6 +458,21 @@ class Tribe__Rewrite {
 		if ( count( $unmatched_vars ) ) {
 			$resolved = add_query_arg( $unmatched_vars, $resolved );
 		}
+
+		/**
+		 * Filters the resolved canonical URL to allow third party code to modify it.
+		 *
+		 * Mind that the value will be cached and hence this filter will fire once per URL per request and, second, this
+		 * filter will fire after all the logic to resolve the URL ran. If you want to filter the canonical URL before
+		 * the logic runs then use the `tribe_rewrite_pre_canonical_url` filter.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $resolved The resolved, canonical URL.
+		 * @param string         $url      The original URL to resolve.
+		 * @param Tribe__Rewrite $this     This object.
+		 */
+		$resolved = apply_filters( 'tribe_rewrite_canonical_url', $resolved, $url, $this );
 
 		$this->canonical_url_cache[ $url ] = $resolved;
 
