@@ -323,13 +323,61 @@ class Tribe__Rewrite {
 			);
 		}
 
+		/**
+		 * Filters the canonical URL for an input URL before any kind of logic runs.
+		 *
+		 * @since TBD
+		 *
+		 * @param string|null    $canonical_url The canonical URL, defaults to `null`; returning a non `null` value will
+		 *                                      make the logic bail and return the value.
+		 * @param string         $url           The input URL to resolve to a canonical one.
+		 * @param Tribe__Rewrite $this          This rewrite object.
+		 */
+		$canonical_url = apply_filters( 'tribe_rewrite_pre_canonical_url', null, $url );
+		if ( null !== $canonical_url ) {
+			return $canonical_url;
+		}
+
+		$home_url = home_url();
+
+		// It's not a path we, or WP, could possibly handle.
+		$has_http_scheme = (bool) parse_url( $url, PHP_URL_SCHEME );
+		if (
+			$home_url === $url
+			|| ( $has_http_scheme && false === strpos( $url, $home_url ) )
+		) {
+			return $url;
+		}
+
+		$canonical_url = $url;
+		// To avoid issues with missing `path` component let's always add a trailing '/'.
+		if ( false !== strpos( $url, '?' ) ) {
+			$canonical_url = preg_replace( '~(\\/)*\\?~', '/?', $canonical_url );
+		} elseif ( false !== strpos( $url, '#' ) ) {
+			$canonical_url = preg_replace( '~(\\/)*#~', '/#', $canonical_url );
+		}
+
+		// Canonical URLs are supposed to contain the home URL.
+		if ( false === strpos( $canonical_url, $home_url ) ) {
+			$canonical_url = home_url( $canonical_url );
+		}
+
+		if ( empty( $canonical_url ) ) {
+			return $home_url;
+		}
+
 		if ( ! $force && isset( $this->canonical_url_cache[ $url ] ) ) {
 			return $this->canonical_url_cache[ $url ];
 		}
 
-		$canonical_url = $url;
 		$query         = (string) parse_url( $url, PHP_URL_QUERY );
 		wp_parse_str( $query, $query_vars );
+
+		// Remove the `paged` query var if it's 1.
+		if ( isset( $query_vars['paged'] ) && 1 === (int) $query_vars['paged'] ) {
+			unset( $query_vars['paged'] );
+		}
+
 		ksort( $query_vars );
 
 		$our_rules          = $this->get_handled_rewrite_rules();
@@ -382,10 +430,25 @@ class Tribe__Rewrite {
 				continue;
 			}
 
-			$replace = array_map( static function ( $index ) use ( $matched_vars ) {
-				return isset( $matched_vars[ $index ] )
-					? str_replace( 'tribe_', '', $matched_vars[ $index ] )
-					: '';
+			$replace = array_map( static function ( $localized_matcher ) use ( $matched_vars ) {
+				if ( ! is_array( $localized_matcher ) ) {
+					// For the dates.
+					return isset( $matched_vars[ $localized_matcher ] )
+						? $matched_vars[ $localized_matcher ]
+						: '';
+				}
+
+				if ( ! isset( $matched_vars[ $localized_matcher ['query_var'] ] ) ) {
+					return '';
+				}
+
+				/*
+				 * We use `end` as, by default, the localized version of the slug in the current language will be at the
+				 * end of the array.
+				 * @todo here we should keep a map, that has to generated at permalink flush time, to map the locales
+				 * to the slugs.
+				 */
+				return end( $localized_matcher ['localized_slugs'] );
 			}, $localized_matchers );
 			// Include dynamic matchers now.
 			$replace = array_merge( $dynamic_matchers, $replace );
@@ -393,20 +456,38 @@ class Tribe__Rewrite {
 			$replaced = str_replace( array_keys( $replace ), $replace, $link_template );
 			// Remove trailing chars.
 			$path          = rtrim( $replaced, '?$' );
-			$canonical_url = trailingslashit( home_url( $path ) );
+			$resolved = trailingslashit( home_url( $path ) );
 
 			break;
 		}
 
-		$wp_canonical = redirect_canonical( $canonical_url, false );
-		$resolved     = empty( $wp_canonical ) ? $canonical_url : $wp_canonical;
+		if ( empty( $resolved ) ) {
+			$wp_canonical = redirect_canonical( $canonical_url, false );
+			$resolved     = empty( $wp_canonical ) ? $canonical_url : $wp_canonical;
+		}
+
 		if ( $canonical_url !== $resolved ) {
 			$resolved = trailingslashit( $resolved );
 		}
 
 		if ( count( $unmatched_vars ) ) {
-			$resolved = add_query_arg( $unmatched_vars, $canonical_url );
+			$resolved = add_query_arg( $unmatched_vars, $resolved );
 		}
+
+		/**
+		 * Filters the resolved canonical URL to allow third party code to modify it.
+		 *
+		 * Mind that the value will be cached and hence this filter will fire once per URL per request and, second, this
+		 * filter will fire after all the logic to resolve the URL ran. If you want to filter the canonical URL before
+		 * the logic runs then use the `tribe_rewrite_pre_canonical_url` filter.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $resolved The resolved, canonical URL.
+		 * @param string         $url      The original URL to resolve.
+		 * @param Tribe__Rewrite $this     This object.
+		 */
+		$resolved = apply_filters( 'tribe_rewrite_canonical_url', $resolved, $url, $this );
 
 		$this->canonical_url_cache[ $url ] = $resolved;
 
@@ -421,11 +502,11 @@ class Tribe__Rewrite {
 	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
 	 */
 	protected function get_handled_rewrite_rules() {
-		global $wp_rewrite;
 		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 		$pattern = '/post_type=tribe_(events|venue|organizer)/';
 		// Reverse the rules to try and match the most complex first.
-		$handled_rewrite_rules = array_reverse( array_filter( (array) $wp_rewrite->rules,
+		$rules = isset( $this->rewrite->rules ) ? $this->rewrite->rules : [];
+		$handled_rewrite_rules = array_reverse( array_filter( $rules,
 			static function ( $rule_query_string ) use ( $pattern ) {
 				return preg_match( $pattern, $rule_query_string );
 			} ) );
@@ -442,12 +523,26 @@ class Tribe__Rewrite {
 	 */
 	protected function get_localized_matchers() {
 		$bases         = (array) $this->get_bases();
-		$translate_map = $this->get_matcher_to_query_var_map();
+		$query_var_map = $this->get_matcher_to_query_var_map();
 
 		$localized_matchers = [];
 		foreach ( $bases as $base => $localized_matcher ) {
-			if ( isset( $translate_map[ $base ] ) ) {
-				$localized_matchers[ $localized_matcher ] = $translate_map[ $base ];
+			if ( isset( $query_var_map[ $base ] ) ) {
+				$localized_matchers[ $localized_matcher ] = [
+					'query_var'       => $query_var_map[ $base ],
+					'en_slug'         => $base,
+					'localized_slugs' => [ $base ],
+				];
+				// If we have the localized slug version then let's parse it.
+				preg_match( '/^\\(\\?:(?<slugs>[^\\)]+)\\)$/u', $localized_matcher, $buffer );
+				if ( ! empty( $buffer['slugs'] ) ) {
+					$localized_matchers[ $localized_matcher ]['localized_slugs'] = array_map(
+						static function ( $localized_slug ) {
+							return str_replace( '\-', '-', $localized_slug );
+						},
+						explode( '|', $buffer['slugs'] )
+					);
+				}
 			}
 		}
 
@@ -500,17 +595,23 @@ class Tribe__Rewrite {
 		$dynamic_matchers = [];
 		if ( isset( $query_vars['paged'] ) ) {
 			$page_regex = $bases['page'];
-			preg_match( '/^\(\?:(?<slug>\w+)\)/', $page_regex, $matches );
-			if ( isset( $matches['slug'] ) ) {
-				$dynamic_matchers["{$page_regex}/(\d+)"] = "{$matches['slug']}/{$query_vars['paged']}";
+			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $page_regex, $matches );
+			if ( isset( $matches['slugs'] ) ) {
+				$slugs = explode( '|', $matches['slugs'] );
+				// The localized version is the last.
+				$localized_slug = end( $slugs );
+				$dynamic_matchers["{$page_regex}/(\d+)"] = "{$localized_slug}/{$query_vars['paged']}";
 			}
 		}
 
 		if ( isset( $query_vars['tag'] ) ) {
 			$tag_regex = $bases['tag'];
-			preg_match( '/^\(\?:(?<slug>\w+)\)/', $tag_regex, $matches );
-			if ( isset( $matches['slug'] ) ) {
-				$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$matches['slug']}/{$query_vars['tag']}";
+			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $tag_regex, $matches );
+			if ( isset( $matches['slugs'] ) ) {
+				$slugs = explode( '|', $matches['slugs'] );
+				// The localized version is the last.
+				$localized_slug = end( $slugs );
+				$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$query_vars['tag']}";
 			}
 		}
 
