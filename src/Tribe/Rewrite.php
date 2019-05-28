@@ -505,7 +505,8 @@ class Tribe__Rewrite {
 		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 		$pattern = '/post_type=tribe_(events|venue|organizer)/';
 		// Reverse the rules to try and match the most complex first.
-		$handled_rewrite_rules = array_reverse( array_filter( (array) $this->rewrite->rules,
+		$rules = isset( $this->rewrite->rules ) ? $this->rewrite->rules : [];
+		$handled_rewrite_rules = array_reverse( array_filter( $rules,
 			static function ( $rule_query_string ) use ( $pattern ) {
 				return preg_match( $pattern, $rule_query_string );
 			} ) );
