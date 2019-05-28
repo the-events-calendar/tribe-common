@@ -619,10 +619,10 @@ class Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $values An associative key/value array of the values to set.
+	 * @param array $values   An associative key/value array of the values to set.
 	 * @param bool  $is_local Whether to set the values as global or local; defaults to local as the `set` method does.
 	 *
-	 * @see Tribe__Template::set()
+	 * @see   Tribe__Template::set()
 	 */
 	public function set_values( array $values = [], $is_local = true ) {
 		foreach ( $values as $key => $value ) {

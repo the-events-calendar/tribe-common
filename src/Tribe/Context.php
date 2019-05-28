@@ -1240,11 +1240,9 @@ class Tribe__Context {
 	 *                                       defaults to `false` to remove unknown locations from the output.
 	 *
 	 * @return array An associative array in the shape `[ <read_location> => <input_value> ]`. Since some read
-	 *               locations
-	 *               could have multiple sources the number of elements in this array will likely NOT be the same as
-	 *               the
-	 *               number of elements in the input array. When a read location as more than 1 source then the value
-	 *               will be duplicated, in the output array, to both sources.
+	 *              locations could have multiple sources the number of elements in this array will likely NOT be the
+	 *              same as the number of elements in the input array. When a read location as more than 1 source then
+	 *              the value will be duplicated, in the output array, to both sources.
 	 */
 	public function map_to_read( array $input, $types = null, $passthru = false ) {
 		$mapped    = [];
