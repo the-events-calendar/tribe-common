@@ -187,10 +187,10 @@ class Tribe__Template {
 	 * @return mixed The value of the specified index or the default if not found.
 	 */
 	final public function get( $index, $default = null, $is_local = true ) {
-		$context = $this->global;
+		$context = $this->get_global_values();
 
 		if ( true === $is_local ) {
-			$context = $this->context;
+			$context = $this->get_local_values();
 		}
 
 		/**
