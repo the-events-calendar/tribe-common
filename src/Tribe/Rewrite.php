@@ -430,10 +430,23 @@ class Tribe__Rewrite {
 				continue;
 			}
 
-			$replace = array_map( static function ( $index ) use ( $matched_vars ) {
-				return isset( $matched_vars[ $index ] )
-					? str_replace( 'tribe_', '', $matched_vars[ $index ] )
-					: '';
+			$replace = array_map( static function ( $localized_matcher ) use ( $matched_vars ) {
+				if ( ! is_array( $localized_matcher ) ) {
+					// For the dates.
+					return isset( $matched_vars[ $localized_matcher ] )
+						? $matched_vars[ $localized_matcher ]
+						: '';
+				}
+
+				if ( ! isset( $matched_vars[ $localized_matcher ['query_var'] ] ) ) {
+					return '';
+				}
+
+				/*
+				 * We use `end` as, by default, the localized version of the slug in the current language will be at the
+				 * end of the array.
+				 */
+				return end( $localized_matcher ['localized_slugs'] );
 			}, $localized_matchers );
 			// Include dynamic matchers now.
 			$replace = array_merge( $dynamic_matchers, $replace );
@@ -508,12 +521,26 @@ class Tribe__Rewrite {
 	 */
 	protected function get_localized_matchers() {
 		$bases         = (array) $this->get_bases();
-		$translate_map = $this->get_matcher_to_query_var_map();
+		$query_var_map = $this->get_matcher_to_query_var_map();
 
 		$localized_matchers = [];
 		foreach ( $bases as $base => $localized_matcher ) {
-			if ( isset( $translate_map[ $base ] ) ) {
-				$localized_matchers[ $localized_matcher ] = $translate_map[ $base ];
+			if ( isset( $query_var_map[ $base ] ) ) {
+				$localized_matchers[ $localized_matcher ] = [
+					'query_var'       => $query_var_map[ $base ],
+					'en_slug'         => $base,
+					'localized_slugs' => [ $base ],
+				];
+				// If we have the localized slug version then let's parse it.
+				preg_match( '/^\\(\\?:(?<slugs>[^\\)]+)\\)$/u', $localized_matcher, $buffer );
+				if ( ! empty( $buffer['slugs'] ) ) {
+					$localized_matchers[ $localized_matcher ]['localized_slugs'] = array_map(
+						static function ( $localized_slug ) {
+							return str_replace( '\-', '-', $localized_slug );
+						},
+						explode( '|', $buffer['slugs'] )
+					);
+				}
 			}
 		}
 
@@ -566,17 +593,23 @@ class Tribe__Rewrite {
 		$dynamic_matchers = [];
 		if ( isset( $query_vars['paged'] ) ) {
 			$page_regex = $bases['page'];
-			preg_match( '/^\(\?:(?<slug>\w+)\)/', $page_regex, $matches );
-			if ( isset( $matches['slug'] ) ) {
-				$dynamic_matchers["{$page_regex}/(\d+)"] = "{$matches['slug']}/{$query_vars['paged']}";
+			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $page_regex, $matches );
+			if ( isset( $matches['slugs'] ) ) {
+				$slugs = explode( '|', $matches['slugs'] );
+				// The localized version is the last.
+				$localized_slug = end( $slugs );
+				$dynamic_matchers["{$page_regex}/(\d+)"] = "{$localized_slug}/{$query_vars['paged']}";
 			}
 		}
 
 		if ( isset( $query_vars['tag'] ) ) {
 			$tag_regex = $bases['tag'];
-			preg_match( '/^\(\?:(?<slug>\w+)\)/', $tag_regex, $matches );
-			if ( isset( $matches['slug'] ) ) {
-				$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$matches['slug']}/{$query_vars['tag']}";
+			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $tag_regex, $matches );
+			if ( isset( $matches['slugs'] ) ) {
+				$slugs = explode( '|', $matches['slugs'] );
+				// The localized version is the last.
+				$localized_slug = end( $slugs );
+				$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$query_vars['tag']}";
 			}
 		}
 
