@@ -5,6 +5,7 @@
 = [4.9.10] TBD =
 
 * Tweak - Add ability to prevent duplicate JOINs by allowing an optionally supplied ID per join [128202]
+* Tweak - Added the `Tribe__Template::get_local_values` and `Tribe__Template::get_global_values` methods.
 * Fix - Resolve issues with pagination in REST API by making the query cache more comprehensive [127710]
 
 = [4.9.9] 2019-05-16 =
