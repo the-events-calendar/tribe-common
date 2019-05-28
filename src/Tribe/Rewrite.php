@@ -445,6 +445,8 @@ class Tribe__Rewrite {
 				/*
 				 * We use `end` as, by default, the localized version of the slug in the current language will be at the
 				 * end of the array.
+				 * @todo here we should keep a map, that has to generated at permalink flush time, to map the locales
+				 * to the slugs.
 				 */
 				return end( $localized_matcher ['localized_slugs'] );
 			}, $localized_matchers );
@@ -461,7 +463,7 @@ class Tribe__Rewrite {
 
 		if ( empty( $resolved ) ) {
 			$wp_canonical = redirect_canonical( $canonical_url, false );
-			$resolved     = empty( $wp_canonical ) ? $resolved : $wp_canonical;
+			$resolved     = empty( $wp_canonical ) ? $canonical_url : $wp_canonical;
 		}
 
 		if ( $canonical_url !== $resolved ) {
@@ -500,11 +502,10 @@ class Tribe__Rewrite {
 	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
 	 */
 	protected function get_handled_rewrite_rules() {
-		global $wp_rewrite;
 		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 		$pattern = '/post_type=tribe_(events|venue|organizer)/';
 		// Reverse the rules to try and match the most complex first.
-		$handled_rewrite_rules = array_reverse( array_filter( (array) $wp_rewrite->rules,
+		$handled_rewrite_rules = array_reverse( array_filter( (array) $this->rewrite->rules,
 			static function ( $rule_query_string ) use ( $pattern ) {
 				return preg_match( $pattern, $rule_query_string );
 			} ) );
