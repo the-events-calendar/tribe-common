@@ -1,0 +1,29 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Button: Border
+	 *
+	 * Example:
+	 * <button class="tribe-common-c-btn-border">...</button>
+	 * <a href="#" class="tribe-common-c-btn-border">...</a>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-common-c-btn-border {
+		@mixin desktop-body-3;
+		@mixin button-border;
+
+		color: var(--color-text-secondary);
+		padding: 6px 16px 7px;
+
+		&:active,
+		&:focus,
+		&:hover {
+			color: var(--color-text-primary);
+		}
+
+		&:disabled {
+			color: var(--color-text-disabled)
+		}
+	}
+}

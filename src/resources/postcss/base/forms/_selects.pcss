@@ -1,0 +1,70 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Selects
+	 *
+	 * Example:
+	 * <div class="tribe-common-form-control-select">
+	 *   <button aria-haspopup="listbox" aria-labelledby="selectButton" id="selectButton">Option One</button>
+	 *   <ul tabindex="-1" role="listbox">
+	 *     <li id="optionOne" role="option">Option One</li>
+	 *     <li id="optionTwo" role="option">Option Two</li>
+	 *   </ul>
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	 /**
+	  * @todo: implement listbox JS
+		* https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html
+		*/
+
+	.tribe-common-form-control-select {
+		position: relative;
+
+		button {
+			@mixin form-control-select-button-mobile;
+
+			@media (--viewport-medium) {
+				@mixin form-control-select-button-desktop;
+			}
+
+			&:after {
+				@mixin form-control-select-button-icon-mobile;
+
+				@media (--viewport-medium) {
+					@mixin form-control-select-button-icon-desktop;
+				}
+			}
+		}
+
+		ul {
+			/**
+			 * @todo: remove once listbox JS is implemented
+			 */
+			/* @mixin hidden; */
+
+			@mixin form-control-select-list-mobile;
+
+			@media (--viewport-medium) {
+				@mixin form-control-select-list-desktop;
+			}
+		}
+
+		li {
+			@mixin form-control-select-list-item;
+
+			&:first-child {
+				@mixin form-control-select-list-item-first;
+			}
+
+			&:last-child {
+				@mixin form-control-select-list-item-last;
+			}
+
+			&[aria-selected="true"] {
+				@mixin form-control-select-list-item-selected;
+			}
+		}
+	}
+}

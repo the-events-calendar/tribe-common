@@ -1,0 +1,49 @@
+.tribe-events {
+	/* -------------------------------------------------------------------------
+	 * Body 1
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-common-b1 {
+		@mixin mobile-body-1;
+
+		@media (--viewport-medium) {
+			@mixin desktop-body-1-sup;
+		}
+	}
+
+	.tribe-common-b1--bold {
+		font-weight: var(--font-weight-bold);
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Body 2
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-common-b2 {
+		@mixin mobile-body-2;
+
+		@media (--viewport-medium) {
+			@mixin desktop-body-2-sup;
+		}
+	}
+
+	.tribe-common-b2--bold {
+		font-weight: var(--font-weight-bold);
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Body 3
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-common-b3 {
+		@mixin mobile-body-3;
+
+		@media (--viewport-medium) {
+			@mixin desktop-body-3-sup;
+		}
+	}
+
+	.tribe-common-b3--bold {
+		font-weight: var(--font-weight-bold);
+	}
+}

@@ -1,0 +1,96 @@
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Sliders
+	 *
+	 * Example (Horizontal):
+	 * <div class="tribe-common-form-control-slider">
+	 *   <input id="sliderOne" type="range" min="0" max="100" value="50" />
+	 *   <label for="sliderOne">Slider One</label>
+	 * </div>
+	 *
+	 * Example (Vertical):
+	 * <div class="tribe-common-form-control-slider tribe-common-form-control-slider--vertical">
+	 *   <label for="sliderOne">Slider One</label>
+	 *   <input id="sliderOne" type="range" min="0" max="100" value="50" />
+	 * </div>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-common-form-control-slider {
+
+		input[type="range"] {
+			appearance: none;
+			border: none;
+			cursor: pointer;
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			width: 120px;
+			vertical-align: middle;
+
+			/* -----------------------------------------------------------------------------
+			 * Track styles
+			 * ----------------------------------------------------------------------------- */
+			&::-webkit-slider-runnable-track {
+				@mixin form-control-slider-track;
+			}
+
+			&::-moz-range-track {
+				@mixin form-control-slider-track;
+			}
+
+			&::-ms-track {
+				background-color: transparent;
+				border-color: transparent;
+				border-width: 5px 0;
+				color: transparent;
+				height: 10px;
+			}
+
+			&::-ms-fill-lower,
+			&::-ms-fill-upper {
+				background-color: var(--form-color-accent-primary);
+				border-radius: 10px;
+			}
+
+			/* -----------------------------------------------------------------------------
+			 * Thumb styles
+			 * ----------------------------------------------------------------------------- */
+			&::-webkit-slider-thumb {
+				@mixin form-control-slider-thumb;
+
+				appearance: none;
+			}
+
+			&::-moz-range-thumb {
+				@mixin form-control-slider-thumb;
+			}
+
+			&::-ms-thumb {
+				@mixin form-control-slider-thumb;
+
+				box-shadow: none;
+				margin-top: -1px;
+			}
+		}
+
+		label {
+			@mixin desktop-body-3;
+
+			color: var(--color-text-secondary);
+			cursor: pointer;
+			display: inline-block;
+			margin-left: 11px;
+			vertical-align: middle;
+		}
+	}
+
+	.tribe-common-form-control-slider--vertical {
+
+		label {
+			display: block;
+			margin: 0 0 6px;
+		}
+	}
+}
