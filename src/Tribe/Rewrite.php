@@ -438,7 +438,7 @@ class Tribe__Rewrite {
 						: '';
 				}
 
-				if ( ! isset( $matched_vars[ $localized_matcher ['query_var'] ] ) ) {
+				if ( ! isset( $matched_vars[ $localized_matcher['query_var'] ] ) ) {
 					return '';
 				}
 
@@ -448,14 +448,15 @@ class Tribe__Rewrite {
 				 * @todo here we should keep a map, that has to generated at permalink flush time, to map the locales
 				 * to the slugs.
 				 */
-				return end( $localized_matcher ['localized_slugs'] );
+				return end( $localized_matcher['localized_slugs'] );
 			}, $localized_matchers );
+
 			// Include dynamic matchers now.
 			$replace = array_merge( $dynamic_matchers, $replace );
-
 			$replaced = str_replace( array_keys( $replace ), $replace, $link_template );
+
 			// Remove trailing chars.
-			$path          = rtrim( $replaced, '?$' );
+			$path     = rtrim( $replaced, '?$' );
 			$resolved = trailingslashit( home_url( $path ) );
 
 			break;
@@ -502,6 +503,11 @@ class Tribe__Rewrite {
 	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
 	 */
 	protected function get_handled_rewrite_rules() {
+		// We need to make sure we are have WP_Rewrite setup
+		if ( ! $this->rewrite ) {
+			$this->setup();
+		}
+
 		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 		$pattern = '/post_type=tribe_(events|venue|organizer)/';
 		// Reverse the rules to try and match the most complex first.
