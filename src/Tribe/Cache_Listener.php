@@ -4,6 +4,9 @@
 	 */
 	class Tribe__Cache_Listener {
 
+		const TRIGGER_GENERATE_REWRITE_RULES = 'generate_rewrite_rules';
+		const TRIGGER_SAVE_POST = 'save_post';
+
 		private static $instance = null;
 		private $cache    = null;
 
@@ -33,6 +36,7 @@
 		private function add_hooks() {
 			add_action( 'save_post', array( $this, 'save_post' ), 0, 2 );
 			add_action( 'updated_option', array( $this, 'update_last_save_post' ), 10, 3 );
+			add_action( 'generate_rewrite_rules', array( $this, 'generate_rewrite_rules' ) );
 		}
 
 		/**
@@ -43,7 +47,7 @@
 		 */
 		public function save_post( $post_id, $post ) {
 			if ( in_array( $post->post_type, Tribe__Main::get_post_types() ) ) {
-				$this->cache->set_last_occurrence( 'save_post' );
+				$this->cache->set_last_occurrence( self::TRIGGER_SAVE_POST );
 			}
 		}
 
@@ -63,7 +67,7 @@
 				'rewrite_rules',
 			);
 			if ( in_array( $option_name, $triggers, true ) ) {
-				$this->cache->set_last_occurrence( 'save_post' );
+				$this->cache->set_last_occurrence( self::TRIGGER_SAVE_POST );
 			}
 		}
 
@@ -100,5 +104,14 @@
 			$listener->init();
 
 			return $listener;
+		}
+
+		/**
+		 * Run the caching functionality that is executed when rewrite rules are generated.
+		 *
+		 * @since TBD
+		 */
+		public function generate_rewrite_rules() {
+			$this->cache->set_last_occurrence( self::TRIGGER_GENERATE_REWRITE_RULES );
 		}
 	}
