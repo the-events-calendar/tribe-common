@@ -740,15 +740,13 @@ class Tribe__Rewrite {
 
 		$query_vars           = [];
 		$post_type_query_vars = [];
-		$perma_query_vars = [];
-		$url_path             = parse_url( $url, PHP_URL_PATH );
-		if ( empty( $url_path ) ) {
-			$url_path = '/';
-		}
+		$perma_query_vars     = [];
+		$url_components = parse_url($url);
+		$url_path = Arr::get( $url_components, 'path', '/' );
+		$url_query = Arr::get( $url_components, 'query', '' );
+		parse_str( $url_query, $url_query_vars );
 		// Look for matches, removing leading `/` char.
 		$request_match = ltrim( $url_path, '/' );
-		$url_query = parse_url( $url, PHP_URL_QUERY );
-		parse_str( $url_query, $url_query_vars );
 
 		// Fetch the rewrite rules.
 		$rewrite_rules = $this->rewrite->wp_rewrite_rules();
@@ -759,31 +757,33 @@ class Tribe__Rewrite {
 				$matches_regex = preg_match( "#^$match#", $request_match, $matches )
 				                 || preg_match( "#^$match#", urldecode( $request_match ), $matches );
 
-				if ( $matches_regex ) {
-					if (
-						$this->rewrite->use_verbose_page_rules
-						&& preg_match( '/pagename=\$matches\[([0-9]+)\]/', $query, $varmatch )
-					) {
-						// This is a verbose page match, let's check to be sure about it.
-						$page = get_page_by_path( $matches[ $varmatch[1] ] );
-						if ( ! $page ) {
-							continue;
-						}
-						$post_status_obj = get_post_status_object( $page->post_status );
-						if (
-							! $post_status_obj->public
-							&& ! $post_status_obj->protected
-							&& ! $post_status_obj->private
-							&& $post_status_obj->exclude_from_search
-						) {
-							continue;
-						}
-					}
-
-					// Got a match.
-					$matched_rule = $match;
-					break;
+				if ( ! $matches_regex ) {
+					continue;
 				}
+
+				if (
+					$this->rewrite->use_verbose_page_rules
+					&& preg_match( '/pagename=\$matches\[([0-9]+)\]/', $query, $varmatch )
+				) {
+					// This is a verbose page match, let's check to be sure about it.
+					$page = get_page_by_path( $matches[ $varmatch[1] ] );
+					if ( ! $page ) {
+						continue;
+					}
+					$post_status_obj = get_post_status_object( $page->post_status );
+					if (
+						! $post_status_obj->public
+						&& ! $post_status_obj->protected
+						&& ! $post_status_obj->private
+						&& $post_status_obj->exclude_from_search
+					) {
+						continue;
+					}
+				}
+
+				// Got a match.
+				$matched_rule = $match;
+				break;
 			}
 
 			if ( false !== $matched_rule ) {
