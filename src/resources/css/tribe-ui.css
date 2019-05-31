@@ -11,7 +11,9 @@
 .tribe-button {
 	border: 0;
 	border-radius: 3px;
-	background: #009FF1 linear-gradient( to bottom, #009FF1, #0080DB );
+	background: #009FF1 -webkit-gradient( linear, left top, left bottom, from(#009FF1), to(#0080DB));
+	background: #009FF1 -o-linear-gradient( top, #009FF1, #0080DB);
+	background: #009FF1 linear-gradient( to bottom, #009FF1, #0080DB);
 	cursor: pointer;
 	color: #fff;
 	display: inline-block;
@@ -23,6 +25,8 @@
 	height: auto;
 	padding: 10px;
 	text-align: center;
+	-webkit-transition: all .15s ease-in;
+	-o-transition: all .15s ease-in;
 	transition: all .15s ease-in;
 	-webkit-font-smoothing: subpixel-antialiased;
 }
@@ -30,8 +34,8 @@
 .tribe-button:hover,
 	.tribe-button:active,
 	.tribe-button:focus {
-	background: #0080DB;
-}
+		background: #0080DB;
+	}
 
 .hide-before-select2-init {
 	display: none;

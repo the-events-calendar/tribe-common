@@ -27,7 +27,10 @@ class WP_Screen {
 		}
 	}
 
-	public function in_admin( $value ) {
-		return $this->in_admin === $value;
+	public function in_admin( $value = null ) {
+		if ( empty( $value ) )
+			return (bool) $this->in_admin;
+
+		return ( $value == $this->in_admin );
 	}
 }

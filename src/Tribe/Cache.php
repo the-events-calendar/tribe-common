@@ -33,10 +33,26 @@ class Tribe__Cache implements ArrayAccess {
 	public function set( $id, $value, $expiration = 0, $expiration_trigger = '' ) {
 		$key = $this->get_id( $id, $expiration_trigger );
 
-		if ( $expiration == self::NON_PERSISTENT ) {
+		/**
+		 * Filters the expiration for cache objects to provide the ability
+		 * to make non-persistent objects be treated as persistent.
+		 *
+		 * @param int    $expiration         Cache expiration time.
+		 * @param string $id                 Cache ID.
+		 * @param mixed  $value              Cache value.
+		 * @param string $expiration_trigger Action that triggers automatic expiration.
+		 * @param string $key                Unique cache key based on Cache ID and expiration trigger last run time.
+		 *
+		 * @since 4.8
+		 */
+		$expiration = apply_filters( 'tribe_cache_expiration', $expiration, $id, $value, $expiration_trigger, $key );
+
+		if ( self::NON_PERSISTENT === $expiration ) {
 			$group      = 'tribe-events-non-persistent';
-			$this->non_persistent_keys[] = $key;
 			$expiration = 1;
+
+			// Add so we know what group to use in the future.
+			$this->non_persistent_keys[] = $key;
 		} else {
 			$group = 'tribe-events';
 		}

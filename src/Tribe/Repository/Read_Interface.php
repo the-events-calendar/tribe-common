@@ -5,7 +5,7 @@
  *
  * @since 4.7.19
  */
-interface Tribe__Repository__Read_Interface {
+interface Tribe__Repository__Read_Interface extends Tribe__Repository__Setter_Interface {
 	/**
 	 * Batch filter application method.
 	 *
@@ -39,7 +39,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
-	public function by( $key, $value );
+	public function by( $key, $value = null );
 
 	/**
 	 * Just an alias of the `by` method to allow for easier reading.
@@ -51,7 +51,7 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
-	public function where( $key, $value );
+	public function where( $key, $value = null );
 
 	/**
 	 * Sets the page of posts to fetch.
@@ -71,7 +71,8 @@ interface Tribe__Repository__Read_Interface {
 	 * Sets the number of posts to retrieve per page.
 	 *
 	 * Mind that this implementation does not support a `by( 'per_page', 5 )`
-	 * filter to force more readable code; by default posts per page is `-1`.
+	 * filter to force more readable code; by default posts per page is set to
+	 * the pagination defaults for the post type.
 	 *
 	 * @param int $per_page
 	 *
@@ -138,11 +139,13 @@ interface Tribe__Repository__Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param string $order_by
+	 * @param string $order_by The post field, custom field or alias key to order posts by.
+	 * @param string $order The order direction; optional; shortcut for the `order` method; defaults
+	 *                      to `DESC`.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
-	public function order_by( $order_by );
+	public function order_by( $order_by, $order = 'DESC' );
 
 	/**
 	 * Sets the fields that should be returned by the query.
@@ -339,19 +342,6 @@ interface Tribe__Repository__Read_Interface {
 	public function by_primary_key( $primary_key );
 
 	/**
-	 * Closes the query phase and builds an Update repository on the
-	 * results of the applied filters.
-	 *
-	 * @since 4.7.19
-	 *
-	 * @param string $key
-	 * @param mixed  $value
-	 *
-	 * @return Tribe__Repository__Update_Interface
-	 */
-	public function set( $key, $value );
-
-	/**
 	 * Returns the Read repository built WP_Query object.
 	 *
 	 * @since 4.7.19
@@ -375,4 +365,183 @@ interface Tribe__Repository__Read_Interface {
 	 *              or not.
 	 */
 	public function has_filter( $key, $value = null );
+
+	/**
+	 * What filter the current READ query is currently applying in a specific `by` (or `where`).
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return string|null The current filter being applied.
+	 */
+	public function get_current_filter();
+
+	/**
+	 * Deletes a set of events fetched by using filters.
+
+	 *
+	 * @since 4.9.5
+	 *
+	 *
+	 * @param bool $return_promise Whether to return the promise or just the deleted post IDs
+	 *                             if the deletion happens in a background process; defaults
+	 *                             to `false`.
+	 *
+	 * @return int[]|Tribe__Promise An array of deleted post IDs, or that will be deleted in asynchronous
+	 *                              mode or a promise object if `$return_promise` is set to `true`. The
+	 *                              promise object will immediately execute its resolved or rejected callback
+	 *                              if in synchronous mode.
+	 */
+	public function delete(
+		$return_promise = false );
+
+	/**
+	 * Executes the delete operation in asynchronous mode.
+	 *
+	 * This method will override any filtering that might deactivate or disable asynchronous
+	 * deletion processes. The recommended way to delete events is by using the `delete` method
+	 * and letting the filtering conditions take over.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array $to_delete      The post IDs to delete.
+	 * @param bool  $return_promise Whether to return the `Tribe__Promise` object created to
+	 *                              handle the background deletion or not.
+	 *
+	 * @return array|Tribe__Promise The promise object created to handle the background deletion
+	 *                              or the array of post IDs that will be, eventually, deleted.
+	 */
+	public function async_delete( array $to_delete, $return_promise = true );
+
+	/**
+	 * Executes the update operation in asynchronous mode.
+	 *
+	 * This method will override any filtering that might deactivate or disable asynchronous
+	 * update processes. The recommended way to update events is by using the `update` method
+	 * and letting the filtering conditions take over.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array $to_update      The post IDs to update.
+	 * @param bool  $return_promise Whether to return the `Tribe__Promise` object created to
+	 *                              handle the background update or not.
+	 *
+	 * @return array|Tribe__Promise The promise object created to handle the background update
+	 *                              or the array of post IDs that will be, eventually, updated.
+	 */
+	public function async_update( array $to_update, $return_promise = true );
+
+	/**
+	 * Sets the display context the read posts will be shown into.
+	 *
+	 * The display context identifies the format that the post will
+	 * be in: e.g. in a month view or week view for events.
+	 * Extending classes can support more display contexts.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string $context A display context supported by the repository; defaults to `default`.
+	 *
+	 * @return Tribe__Repository__Read_Interface For chaining purposes.
+	 */
+	public function set_display_context( $context = 'default' );
+
+	/**
+	 * Sets the render context the posts will be shown into.
+	 *
+	 * The render context indicates where the event’s display
+	 * context will be output. Default specifies that it is a
+	 * standard loop context. Widget indicates that it will be
+	 * rendered within a widget and so on.
+	 * Extending classes can support more render contexts.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string $context A display context supported by the repository; defaults to `default`.
+	 *
+	 * @return Tribe__Repository__Read_Interface For chaining purposes.
+	 */
+	public function set_render_context( $context = 'default' );
+
+	/**
+	 * A utility method to build and return a WP_Query object for the specified
+	 * posts.
+	 *
+	 * This method will be used mainly to hydrate and return query objects with cached
+	 * results in context where the expected return type is a `Wp_Query` object.
+	 * The advantage over doing `$repository->where( 'post__in' , $ids )->get_query()` is
+	 * to avoid all the overhead of a query that, probably did run already.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array $posts An array of post objects or post IDs the query should return as if fetched.
+	 *
+	 * @return WP_Query A query object ready to return, and operate, on the posts.
+	 */
+	public function get_query_for_posts( array $posts );
+
+	/**
+	 * Plucks a field from all results and returns it.
+	 *
+	 * This method will implicitly build and use a `WP_List_Util` instance on the return
+	 * value of a call to the `all` method.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string $field The field to pluck from each result.
+	 *
+	 * @return array An array of the plucked results.
+	 *
+	 * @see \wp_list_pluck()
+	 */
+	public function pluck( $field );
+
+	/**
+	 * Filters the results according to the specified criteria.
+	 *
+	 * This method will implicitly build and use a `WP_List_Util` instance on the return
+	 * value of a call to the `all` method.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array  $args     Optional. An array of key => value arguments to match
+	 *                         against each object. Default empty array.
+	 * @param string $operator Optional. The logical operation to perform. 'AND' means
+	 *                         all elements from the array must match. 'OR' means only
+	 *                         one element needs to match. 'NOT' means no elements may
+	 *                         match. Default 'AND'.
+	 *
+	 * @return array An array of the filtered results.
+	 *
+	 * @see \wp_list_filter()
+	 */
+	public function filter( $args = array(), $operator = 'AND' );
+
+	/**
+	 * Sorts the results according to the specified criteria.
+	 *
+	 * This method will implicitly build and use a `WP_List_Util` instance on the return
+	 * value of a call to the `all` method.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string|array $orderby       Optional. Either the field name to order by or an array
+	 *                                    of multiple orderby fields as $orderby => $order.
+	 * @param string       $order         Optional. Either 'ASC' or 'DESC'. Only used if $orderby
+	 *                                    is a string.
+	 * @param bool         $preserve_keys Optional. Whether to preserve keys. Default false.
+	 *
+	 * @return array An array of the sorted results.
+	 *
+	 * @see \wp_list_sort()
+	 */
+	public function sort( $orderby = array(), $order = 'ASC', $preserve_keys = false  );
+
+	/**
+	 * Builds a collection on the result of the `all()` method call.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return \Tribe__Utils__Post_Collection
+	 */
+	public function collect();
 }

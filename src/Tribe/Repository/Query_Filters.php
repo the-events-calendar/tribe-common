@@ -52,6 +52,13 @@ class Tribe__Repository__Query_Filters {
 	protected $buffered_where_clauses = array();
 
 	/**
+	 * Stores the last request run by the current query.
+	 *
+	 * @var string
+	 */
+	protected $last_request;
+
+	/**
 	 * Tribe__Repository__Query_Filters constructor.
 	 *
 	 * @since 4.7.19
@@ -384,7 +391,8 @@ class Tribe__Repository__Query_Filters {
 		/**
 		 * Handles meta-based relations between posts.
 		 */
-		foreach ( $this->query_vars['found_posts_filters']['meta_related'] as list( $meta_keys, $field, $field_values, $compare ) ) {
+		foreach ( $this->query_vars['found_posts_filters']['meta_related'] as $info ) {
+			list( $meta_keys, $field, $field_values, $compare ) = $info;
 			$post_ids          = $ids_only ? $query->posts : wp_list_pluck( $query->posts, 'ID' );
 			$post_ids_interval = '(' . implode( ',', $post_ids ) . ')';
 			$meta_keys         = "('" . implode( "','", array_map( 'esc_sql', $meta_keys ) ) . "')";
@@ -570,10 +578,11 @@ class Tribe__Repository__Query_Filters {
 	 * @param string   $where
 	 * @param WP_Query $query
 	 * @param string   $field
+	 * @param string   $prepare
 	 *
 	 * @return string
 	 */
-	protected function where_field_is( $where, WP_Query $query, $field ) {
+	protected function where_field_is( $where, WP_Query $query, $field, $prepare = '%s' ) {
 		if ( $query !== $this->current_query ) {
 			return $where;
 		}
@@ -586,7 +595,7 @@ class Tribe__Repository__Query_Filters {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} = %s ", $this->query_vars[ $field ] );
+		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} = {$prepare} ", $this->query_vars[ $field ] );
 
 		return $where;
 	}
@@ -607,7 +616,8 @@ class Tribe__Repository__Query_Filters {
 	 * @since 4.7.19
 	 */
 	public function remove_filters() {
-		foreach ( $this->active_filters as list( $tag, $function_to_add, $priority ) ) {
+		foreach ( $this->active_filters as $filters ) {
+			list( $tag, $function_to_add, $priority ) = $filters;
 			remove_filter( $tag, $function_to_add, $priority );
 		}
 	}
@@ -636,13 +646,51 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param string $join_clause
+	 * @param string      $join_clause JOIN clause.
+	 * @param null|string $id          Optional JOIN ID to prevent duplicating joins.
+	 * @param boolean     $override    Whether to override the clause if a JOIN by the same ID exists.
 	 */
-	public function join( $join_clause ) {
-		$this->query_vars['join'][] = $join_clause;
+	public function join( $join_clause, $id = null, $override = false ) {
+		if ( $id ) {
+			if ( ! isset( $this->query_vars['join'][ $id ] ) ) {
+				$this->query_vars['join'][ $id ] = $join_clause;
+			}
+		} else {
+			$this->query_vars['join'][] = $join_clause;
+		}
 
 		if ( ! has_filter( 'posts_join', array( $this, 'filter_posts_join' ) ) ) {
 			add_filter( 'posts_join', array( $this, 'filter_posts_join' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * Add a custom ORDER BY to the query.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string $orderby
+	 */
+	public function orderby( $orderby ) {
+		$this->query_vars['orderby'][] = $orderby;
+
+		if ( ! has_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ) ) ) {
+			add_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * Add custom select fields to the query.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string $field
+	 */
+	public function fields( $field ) {
+		$this->query_vars['fields'][] = $field;
+
+		if ( ! has_filter( 'posts_fields', array( $this, 'filter_posts_fields' ) ) ) {
+			add_filter( 'posts_fields', array( $this, 'filter_posts_fields' ), 10, 2 );
 		}
 	}
 
@@ -718,8 +766,8 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @return string
 	 */
-	protected function create_interval_of_strings( $input ) {
-		$buffer = array();
+	public function create_interval_of_strings( $input ) {
+		$buffer = [];
 
 		/** @var wpdb $wpdb */
 		global $wpdb;
@@ -730,12 +778,12 @@ class Tribe__Repository__Query_Filters {
 
 		$buffer = array_unique( call_user_func_array( 'array_merge', $buffer ) );
 
-		$safe_strings = array();
+		$safe_strings = [];
 		foreach ( $buffer as $raw_status ) {
-			$safe_strings[] = $wpdb->prepare( '%s', $string );
+			$safe_strings[] = $wpdb->prepare( '%s', $raw_status );
 		}
 
-		return implode( "''", $safe_strings );
+		return implode( ',', $safe_strings );
 	}
 
 	/**
@@ -845,5 +893,108 @@ class Tribe__Repository__Query_Filters {
 		$join .= "\n" . implode( "\n ", $this->query_vars['join'] ) . ' ';
 
 		return $join;
+	}
+
+	/**
+	 * Filter the `posts_orderby` filter to add custom JOIN clauses.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string   $orderby
+	 * @param WP_Query $query
+	 *
+	 * @return string
+	 */
+	public function filter_posts_orderby( $orderby, WP_Query $query ) {
+		if ( $query !== $this->current_query ) {
+			return $orderby;
+		}
+
+		if ( empty( $this->query_vars['orderby'] ) ) {
+			return $orderby;
+		}
+
+		$order = $query->get( 'order', 'ASC' );
+
+		return implode( ' ' . $order . ', ', $this->query_vars['orderby'] ) . ' ' . $order . ', ' . $orderby;
+	}
+
+	/**
+	 * Filter the `posts_fields` filter to amend fields to be selected.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array    $fields
+	 * @param WP_Query $query
+	 *
+	 * @return string
+	 */
+	public function filter_posts_fields( $fields, WP_Query $query ) {
+		if ( $query !== $this->current_query ) {
+			return $fields;
+		}
+
+		if ( empty( $this->query_vars['fields'] ) ) {
+			return $fields;
+		}
+
+		$fields .= ', ' . implode( ', ', $this->query_vars['fields'] );
+
+		return $fields;
+	}
+
+	/**
+	 * Captures the request SQL as built from the query class.
+	 *
+	 * This happens on the `posts_pre_query` filter and
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param null|array $posts A pre-filled array of post results.
+	 * @param \WP_Query  $query The current query object; this is used by the
+	 *                          method to intercept only the request generated by
+	 *                          its attached query.
+	 *
+	 * @return array|null An empty array to short-circuit the `get_posts` request; the input
+	 *                    value, if the query is not the one attached to this filter or the method
+	 *                    is called not in the context of the `posts_pre_query` filter;
+	 */
+	public function capture_request( $posts = null, WP_Query $query ) {
+		if ( ! doing_filter( 'posts_pre_query' ) ) {
+			// Let's make sure nothing bad happens if this runs outside of its natural context.
+			return null;
+		}
+
+		if ( $query !== $this->current_query ) {
+			return $posts;
+		}
+
+		$this->last_request = $query->request;
+
+		remove_filter( 'posts_pre_query', [ $this, 'capture_request' ] );
+
+		// This will short-circuit the query not running it.
+		return [];
+	}
+
+	/**
+	 * Returns the controlled query request SQL.
+	 *
+	 * It's not possible to build the SQL for a query outside of a request to `get_posts`
+	 * so what this class does is fire such a request intercepting it before it actually
+	 * runs and returning an empty post array.
+	 * To really run the query it's sufficien to run `get_posts` again on it.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return string The request SQL, as built from the `WP_Query` class including all the
+	 *                possible filtering applied by this class and other classes.
+	 */
+	public function get_request() {
+		add_filter( 'posts_pre_query', [ $this, 'capture_request' ], 10, 2 );
+
+		$this->current_query->get_posts();
+
+		return $this->last_request;
 	}
 }

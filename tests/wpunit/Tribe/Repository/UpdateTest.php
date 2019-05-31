@@ -2,8 +2,9 @@
 
 namespace Tribe\Repository;
 
-use Tribe__Repository__Query_Filters as Query_Filters;
+use Tribe__Promise as Promise;
 use Tribe__Repository as Update_Repository;
+use Tribe__Repository__Decorator as Decorator;
 
 class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	protected $class;
@@ -14,15 +15,25 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		register_taxonomy( 'genre', 'book' );
 		$this->class = new class extends \Tribe__Repository {
 			protected $default_args = [ 'post_type' => 'book', 'orderby' => 'ID', 'order' => 'ASC' ];
+			protected $filter_name = 'books';
+
+			public function filter_postarr_for_update( array $postarr, $post_id ) {
+				unset( $postarr['meta_input']['nope_key'] );
+				if ( isset( $postarr['meta_input']['legit_key'] ) ) {
+					$postarr['meta_input']['legit_key'] .= '-postfix';
+				}
+
+				return parent::filter_postarr_for_update( $postarr, $post_id );
+			}
 		};
 	}
 
 	/**
-	 * It should allow udpating a post fields
+	 * It should allow updating a post fields
 	 *
 	 * @test
 	 */
-	public function should_allow_udpating_a_post_fields() {
+	public function should_allow_updating_a_post_fields() {
 		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
 
 		$date     = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'America/New_York' ) );
@@ -51,11 +62,98 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		];
 
 		foreach ( $post_fields as $post_field => $value ) {
+			$this->repository()->where( 'post__in', $ids )->where( 'status', 'any' )->set( $post_field, $value )->save();
+
+			foreach ( $ids as $id ) {
+				clean_post_cache( $id );
+				$this->assertEquals( $value, get_post( $id )->{$post_field}, "{$post_field} does not match for post {$id}" );
+			}
+		}
+	}
+
+	/**
+	 * It should allow updating empty post fields
+	 *
+	 * @test
+	 */
+	public function should_allow_updating_empty_post_fields() {
+		$ids = $this->factory()->post->create_many( 1, [ 'post_type' => 'book' ] );
+
+		$date     = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'America/New_York' ) );
+		$gmt_date = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'UTC' ) );
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$other_author = $this->factory()->user->create( [ 'role' => 'editor' ] );
+
+		$post_fields = [
+			'post_author'           => $other_author,
+			'post_date'             => $date->format( 'Y-m-d H:i:s' ),
+			'post_date_gmt'         => $gmt_date->format( 'Y-m-d H:i:s' ),
+			'post_content'          => '',
+			'post_title'            => 'Lorem Title',
+			'post_excerpt'          => '',
+			'post_content_filtered' => '',
+			'post_parent'           => 0,
+			'menu_order'            => 0,
+			'post_mime_type'        => '',
+			'post_password'         => '',
+		];
+
+		foreach ( $post_fields as $post_field => $value ) {
 			$this->repository()->where( 'post__in', $ids )->set( $post_field, $value )->save();
 
 			foreach ( $ids as $id ) {
 				clean_post_cache( $id );
 				$this->assertEquals( $value, get_post( $id )->{$post_field}, "{$post_field} does not match for post {$id}" );
+			}
+		}
+	}
+
+	/**
+	 * It should allow updating using aliased fields
+	 *
+	 * @test
+	 */
+	public function should_allow_updating_using_aliased_fields() {
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		$date     = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'America/New_York' ) );
+		$gmt_date = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'UTC' ) );
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$other_author = $this->factory()->user->create( [ 'role' => 'editor' ] );
+
+		$image_id = $this->factory()->attachment->create_upload_object( codecept_data_dir( 'images/featured-image.jpg' ) );
+
+		$post_fields = [
+			'author'   => $other_author,
+			'date'     => $date->format( 'Y-m-d H:i:s' ),
+			'date_gmt' => $gmt_date->format( 'Y-m-d H:i:s' ),
+			'content'  => 'Lorem Content',
+			'title'    => 'Lorem Title',
+			'excerpt'  => 'Lorem Excerpt',
+			'status'   => 'draft',
+			'parent'   => 23,
+			'slug'     => 'test',
+			'image'    => $image_id,
+		];
+
+		$other_fields = [
+			'slug'  => 'post_name',
+			'image' => '_thumbnail_id',
+		];
+
+		foreach ( $post_fields as $post_field => $value ) {
+			$this->repository()->where( 'post__in', $ids )->where( 'status' , 'any' )->set( $post_field, $value )->save();
+
+			foreach ( $ids as $id ) {
+				clean_post_cache( $id );
+
+				$real_field = 'post_' . $post_field;
+
+				if ( isset( $other_fields[ $post_field ] ) ) {
+					$real_field = $other_fields[ $post_field ];
+				}
+
+				$this->assertEquals( $value, get_post( $id )->{$real_field}, "{$post_field} does not match for post {$id}" );
 			}
 		}
 	}
@@ -120,6 +218,147 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should allow setting featured image with URL using method
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_featured_image_with_url_using_method() {
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+
+		add_filter( 'tribe_image_uploader_local_urls', '__return_true' );
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+		remove_filter( 'tribe_image_uploader_local_urls', '__return_true' );
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
+	 * It should allow setting featured image with ID using method
+	 *
+	 * @test
+	 */
+	public function should_allow_setting_featured_image_with_ID_using_method() {
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$image = $this->factory()->attachment->create_upload_object( $image );
+
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
+	 * It should allow removing featured image with null using method
+	 *
+	 * @test
+	 */
+	public function should_allow_removing_featured_image_with_null_using_method() {
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$image = $this->factory()->attachment->create_upload_object( $image );
+
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = null;
+
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
+	 * It should allow removing featured image with zero using method
+	 *
+	 * @test
+	 */
+	public function should_allow_removing_featured_image_with_zero_using_method() {
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$image = $this->factory()->attachment->create_upload_object( $image );
+
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = 0;
+
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
+	 * It should not allow removing featured image with false using method
+	 *
+	 * @test
+	 */
+	public function should_not_allow_removing_featured_image_with_false_using_method() {
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$image = $this->factory()->attachment->create_upload_object( $image );
+
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = false;
+
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
+	 * It should not allow removing featured image with empty string using method
+	 *
+	 * @test
+	 */
+	public function should_not_allow_removing_featured_image_with_empty_string_using_method() {
+		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$image = $this->factory()->attachment->create_upload_object( $image );
+
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$image = '';
+
+		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
+
+		foreach ( $ids as $id ) {
+			clean_post_cache( $id );
+
+			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+		}
+	}
+
+	/**
 	 * It should throw if trying to set a blocked field
 	 *
 	 * @test
@@ -147,4 +386,133 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		] );
 	}
 
+	/**
+	 * It should support bulk setting fields with a map
+	 *
+	 * @test
+	 */
+	public function should_support_bulk_setting_fields_with_a_map() {
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		$map = [
+			'post_title'   => 'Updated title',
+			'post_content' => 'Updated content',
+		];
+		$this->repository()->where( 'post__in', $ids )->set_args( $map )->save();
+
+		foreach ( $ids as $id ) {
+			$post = get_post( $id );
+			$this->assertEquals( 'Updated title', $post->post_title );
+			$this->assertEquals( 'Updated content', $post->post_content );
+		}
+	}
+
+	/**
+	 * It should allow updating fields using aliases for custom fields
+	 *
+	 * @test
+	 */
+	public function should_allow_updating_fields_using_aliases_for_custom_fields() {
+		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		$repository = $this->repository();
+		$repository->add_update_field_alias( 'title', 'post_title' );
+		$repository->add_update_field_alias( 'content', 'post_content' );
+		$map = [
+			'title'   => 'Updated title',
+			'content' => 'Updated content',
+		];
+		$repository->where( 'post__in', $ids )->set_args( $map )->save();
+
+		foreach ( $ids as $id ) {
+			$post = get_post( $id );
+			$this->assertEquals( 'Updated title', $post->post_title );
+			$this->assertEquals( 'Updated content', $post->post_content );
+		}
+	}
+
+	/**
+	 * It should update posts in background if over threshold
+	 *
+	 * @test
+	 */
+	public function should_update_posts_in_background_if_over_threshold() {
+		add_filter( 'tribe_repository_books_update_background_activated', '__return_true' );
+		add_filter( 'tribe_repository_books_update_background_threshold', function () {
+			return 1;
+		} );
+		$ids     = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+		$promise = $this->repository()->where( 'post__in', $ids )
+		                ->set( 'post_title', 'updated' )
+		                ->save( true );
+
+		$this->assertInstanceOf( Promise::class, $promise );
+		foreach ( $ids as $id ) {
+			$this->assertInstanceOf( \WP_Post::class, get_post( $id ) );
+		}
+	}
+
+	/**
+	 * It should allow filtering update payloads
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_update_payloads() {
+		$ids        = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+		$repository = $this->repository();
+		$repository->where( 'post__in', $ids )
+		           ->set_args( [ 'nope_key' => 'foo', 'legit_key' => 'bar' ] )
+		           ->save();
+
+		foreach ( $ids as $id ) {
+			$this->assertEmpty( get_post_meta( $id, 'nope_key' ), true );
+			$this->assertEquals( 'bar-postfix', get_post_meta( $id, 'legit_key', true ) );
+		}
+	}
+
+	/**
+	 * It should allow filtering update payloads from decorator
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_update_payloads_from_decorator() {
+		$ids       = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+		$decorator = new class( $this->repository() ) extends Decorator {
+			public function __construct( \Tribe__Repository__Interface $decorated ) {
+				$this->decorated = $decorated;
+				$filter_name     = $decorated->get_filter_name();
+				add_filter( "tribe_repository_{$filter_name}_update_postarr", [
+					$this,
+					'filter_postarr_for_update'
+				], 10, 2 );
+			}
+
+			public function filter_postarr_for_update( array $postarr, $post_id ) {
+				$postarr['meta_input']['decorator_key'] = 'set';
+
+				return $postarr;
+			}
+		};
+
+		$decorator->where( 'post__in', $ids )
+		          ->set_args( [ 'nope_key' => 'foo', 'legit_key' => 'bar' ] )
+		          ->save();
+
+		foreach ( $ids as $id ) {
+			$this->assertEmpty( get_post_meta( $id, 'nope_key' ), true );
+			$this->assertEquals( 'bar-postfix', get_post_meta( $id, 'legit_key', true ) );
+			$this->assertEquals( 'set', get_post_meta( $id, 'decorator_key', true ) );
+		}
+	}
+
+	/**
+	 * It should return a promise when requesting it on empty matches
+	 *
+	 * @test
+	 */
+	public function should_return_a_promise_when_requesting_it_on_empty_matches() {
+		$promise = $this->repository()->where( 'author', 23 )->set( 'foo', 'bar' )->save( true );
+
+		$this->assertInstanceOf( \Tribe__Promise::class, $promise );
+	}
 }

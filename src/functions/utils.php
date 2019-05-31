@@ -26,40 +26,42 @@ if ( ! function_exists( 'tribe_array_merge_recursive' ) ) {
 	}
 }
 
+
 if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	/**
 	 * Checks if this plugin has permission to run, if not it notifies the admin
 	 *
-	 * @param string $file_path   Full file path to the base plugin file
-	 * @param string $main_class  The Main/base class for this plugin
-	 * @param string $version     The version
-	 * @param array  $classes_req Any Main class files/tribe plugins required for this to run
+	 * @param string $file_path    Full file path to the base plugin file
+	 * @param string $main_class   The Main/base class for this plugin
+	 * @param string $version      The version
+	 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run
+	 * @param array  $dependencies an array of dependencies to check
 	 *
 	 * @return bool Indicates if plugin should continue initialization
 	 */
-	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array() ) {
-		$tribe_dependency = Tribe__Dependency::instance();
-		$should_plugin_run = true;
+	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
 
-		// Checks to see if the plugins are active
-		if ( ! empty( $classes_req ) && ! $tribe_dependency->has_requisite_plugins( $classes_req ) ) {
-			$should_plugin_run = false;
+		$tribe_dependency  = Tribe__Dependency::instance();
+		$tribe_dependency->register_plugin( $file_path, $main_class, $version, $classes_req, $dependencies );
 
-			$tribe_plugins = new Tribe__Plugins();
-			$admin_notice  = new Tribe__Admin__Notice__Plugin_Download( $file_path );
+	}
+}
 
-			foreach ( $classes_req as $class => $version ) {
-				$plugin    = $tribe_plugins->get_plugin_by_class( $class );
-				$is_active = $tribe_dependency->is_plugin_version( $class, $version );
-				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active );
-			}
-		}
+if ( ! function_exists( 'tribe_check_plugin' ) ) {
+	/**
+	 * Checks if this plugin has permission to run, if not it notifies the admin
+	 *
+	 * @since 4.9
+	 *
+	 * @param string $main_class   The Main/base class for this plugin
+	 *
+	 * @return bool Indicates if plugin should continue initialization
+	 */
+	function tribe_check_plugin( $main_class ) {
 
-		if ( $should_plugin_run ) {
-			$tribe_dependency->add_active_plugin( $main_class, $version, $file_path );
-		}
+		$tribe_dependency    = Tribe__Dependency::instance();
+		return $tribe_dependency->check_plugin( $main_class );
 
-		return $should_plugin_run;
 	}
 }
 
@@ -142,19 +144,7 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tribe_get_request_var( $var, $default = null ) {
-		$post_var = Tribe__Utils__Array::get( $_POST, $var );
-
-		if ( null !== $post_var ) {
-			return $post_var;
-		}
-
-		$query_var = Tribe__Utils__Array::get( $_GET, $var );
-
-		if ( null !== $query_var ) {
-			return $query_var;
-		}
-
-		return $default;
+		return Tribe__Utils__Array::get_in_any( array( $_GET, $_POST ), $var, $default );
 	}
 }
 
@@ -484,5 +474,119 @@ if ( ! function_exists( 'tribe_post_excerpt' ) ) {
 			: wp_trim_words( $post->post_content );
 
 		return wpautop( $excerpt );
+	}
+}
+
+if ( ! function_exists( 'tribe_catch_and_throw' ) ) {
+	/**
+	 * A convenience function used to cast errors to exceptions.
+	 *
+	 * Use in `set_error_handler` calls:
+	 *
+	 *      try{
+	 *          set_error_handler( 'tribe_catch_and_throw' );
+	 *          // ...do something that could generate an error...
+	 *          restore_error_handler();
+	 *      } catch ( RuntimeException $e ) {
+	 *          // Handle the exception.
+	 *      }
+	 *
+	 * @since 4.9.5
+	 *
+	 * @throws RuntimeException The message will be the error message, the code will be the error code.
+	 *
+	 * @see   set_error_handler()
+	 * @see   restore_error_handler()
+	 */
+	function tribe_catch_and_throw( $errno, $errstr ) {
+		throw new RuntimeException( $errstr, $errno );
+	}
+}
+
+if ( ! function_exists( 'tribe_is_regex' ) ) {
+
+	/**
+	 * Checks whether a candidate string is a valid regular expression or not.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string $candidate The candidate string to check, it must include the
+	 *                          regular expression opening and closing tags to validate.
+	 *
+	 * @return bool Whether a candidate string is a valid regular expression or not.
+	 */
+	function tribe_is_regex( $candidate ) {
+		if ( ! is_string( $candidate ) ) {
+			return false;
+		}
+
+		// We need to have the Try/Catch for Warnings too
+		try {
+			return ! ( @preg_match( $candidate, null ) === false );
+		} catch ( Exception $e ) {
+			return false;
+		}
+	}
+}
+
+if ( ! function_exists( 'tribe_unfenced_regex' ) ) {
+
+	/**
+	 * Removes fence characters and modifiers from a regular expression string.
+	 *
+	 * Use this to go from a PCRE-format regex (PHP) to one SQL can understand.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string $regex The input regular expression string.
+	 *
+	 * @return string The un-fenced regular expression string.
+	 */
+	function tribe_unfenced_regex( $regex ) {
+		if ( ! is_string( $regex ) ) {
+			return $regex;
+		}
+
+		$str_fence   = $regex[0];
+		// Let's pick a fence char the string itself is not using.
+		$fence_char = '~' === $str_fence ? '#' : '~';
+		$pattern = $fence_char
+		           . preg_quote( $str_fence, $fence_char ) // the opening fence
+		           . '(.*)' // keep anything after the opening fence, group 1
+		           . preg_quote( $str_fence, $fence_char ) // the closing fence
+		           . '.*' // any modifier after the closing fence
+		           . $fence_char;
+
+		return preg_replace( $pattern, '$1', $regex );
+	}
+}
+
+/**
+ * Create a function to mock the real function if the extension or Beta is not present.
+ *
+ *
+ */
+if ( ! function_exists( 'has_blocks' ) ) {
+	/**
+	 * Determine whether a post or content string has blocks.
+	 *
+	 * This test optimizes for performance rather than strict accuracy, detecting
+	 * the pattern of a block but not validating its structure. For strict accuracy
+	 * you should use the block parser on post content.
+	 *
+	 * @since 4.8
+	 * @see https://github.com/WordPress/gutenberg/blob/73d9759116dde896931f4d152f186147a57889fe/lib/register.php#L313-L337s
+	 *
+	 * @param int|string|WP_Post|null $post Optional. Post content, post ID, or post object. Defaults to global $post.
+	 * @return bool Whether the post has blocks.
+	 */
+	function has_blocks( $post = null ) {
+		if ( ! is_string( $post ) ) {
+			$wp_post = get_post( $post );
+			if ( $wp_post instanceof WP_Post ) {
+				$post = $wp_post->post_content;
+			}
+		}
+		return false !== strpos( (string) $post, '<!-- wp:' );
 	}
 }

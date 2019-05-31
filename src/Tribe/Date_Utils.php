@@ -4,6 +4,7 @@
  */
 
 // Don't load directly
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -1168,6 +1169,74 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			// Why so simple? Let's handle other cases as those come up. We have tests in place!
 			return str_replace( '\\\\', '\\', $date_format );
 		}
-	}
 
+		/**
+		 * Builds a date object from a given datetime and timezone.
+		 *
+		 * @since 4.9.5
+		 *
+		 * @param string|DateTime|int      $datetime      A `strtotime` parse-able string, a DateTime object or
+		 *                                                a timestamp; defaults to `now`.
+		 * @param string|DateTimeZone|null $timezone      A timezone string, UTC offset or DateTimeZone object;
+		 *                                                defaults to the site timezone; this parameter is ignored
+		 *                                                if the `$datetime` parameter is a DatTime object.
+		 * @param bool                     $with_fallback Whether to return a DateTime object even when the date data is
+		 *                                                invalid or not; defaults to `true`.
+		 *
+		 * @return DateTime|false A DateTime object built using the specified date, time and timezone; if `$with_fallback`
+		 *                        is set to `false` then `false` will be returned if a DateTime object could not be built.
+		 */
+		public static function build_date_object( $datetime = 'now', $timezone = null, $with_fallback = true ) {
+			if ( $datetime instanceof DateTime ) {
+				return clone $datetime;
+			}
+
+			if ( class_exists('DateTimeImmutable') && $datetime instanceof DateTimeImmutable ) {
+				// Return the mutable version of the date.
+				return new DateTime( $datetime->format( 'Y-m-d H:i:s' ), $datetime->getTimezone() );
+			}
+
+			$timezone_object = null;
+
+			try {
+				// PHP 5.2 will not throw an exception but will generate an error.
+				$utc = new DateTimeZone( 'UTC' );
+
+				if ( self::is_timestamp( $datetime ) ) {
+					// Timestamps timezone is always UTC.
+					return new DateTime( '@' . $datetime, $utc );
+				}
+
+				$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+
+				set_error_handler( 'tribe_catch_and_throw' );
+				$date = new DateTime( $datetime, $timezone_object );
+				restore_error_handler();
+			} catch ( Exception $e ) {
+				if ( $timezone_object === null ) {
+					$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+				}
+
+				return $with_fallback
+					? new DateTime( 'now', $timezone_object )
+					: false;
+			}
+
+			return $date;
+		}
+
+		/**
+		 * Validates a date string to make sure it can be used to build DateTime objects.
+		 *
+		 * @since 4.9.5
+		 *
+		 * @param string $date The date string that should validated.
+		 *
+		 * @return bool Whether the date string can be used to build DateTime objects, and is thus parse-able by functions
+		 *              like `strtotime`, or not.
+		 */
+		public static function is_valid_date( $date ) {
+			return self::build_date_object( $date, null, false ) instanceof DateTime;
+		}
+	}
 }

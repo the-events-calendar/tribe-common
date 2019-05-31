@@ -29,6 +29,32 @@ class Tribe__Admin__Helpers {
 	}
 
 	/**
+	 * Check if the current screen is an instance of WP_Screen
+	 * Hijack the return for tests
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return boolean
+	 */
+	public function is_wp_screen() {
+		global $current_screen;
+
+		/**
+		 * Filter `tribe_admin_is_wp_screen`
+		 * Allows fo filter if we're on a WP_Screen
+		 *
+		 * @since 4.9.5
+		 * @param bool    null bypass if we want to return a bool of is_wp_scren
+		 */
+		$is_wp_screen = apply_filters( 'tribe_admin_is_wp_screen', null );
+		if ( null !== $is_wp_screen ) {
+			return $is_wp_screen;
+		}
+
+		return (bool) ( $current_screen instanceof WP_Screen );
+	}
+
+	/**
 	 * Matcher for Admin Pages related to Post Types
 	 *
 	 * @param string|array|null $id What will be checked to see if we return true or false
@@ -49,7 +75,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Avoid Notices by checking the object type of WP_Screen
-		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+		if ( ! $this->is_wp_screen() ) {
 			return false;
 		}
 
@@ -94,7 +120,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Avoid Notices by checking the object type of WP_Screen
-		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+		if ( ! $this->is_wp_screen() ) {
 			return false;
 		}
 
@@ -115,11 +141,11 @@ class Tribe__Admin__Helpers {
 
 		// Match any post type page in the supported post types
 		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', Tribe__Main::get_post_types() );
-		if ( ! in_array( $current_screen->post_type, $defaults ) ) {
-			return false;
+		if ( in_array( $current_screen->post_type, $defaults ) ) {
+			return true;
 		}
-
 		return false;
+
 	}
 
 	/**
@@ -143,7 +169,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Avoid Notices by checking the object type of WP_Screen
-		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+		if ( ! $this->is_wp_screen() ) {
 			return false;
 		}
 

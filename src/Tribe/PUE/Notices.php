@@ -198,6 +198,50 @@ class Tribe__PUE__Notices {
 	}
 
 	/**
+	 * Select all products with empty license keys
+	 * and format their names
+	 *
+	 * This information will be used to remove products
+	 * with no license keys from $this->notices['invalid_key']
+	 *
+	 * @since 4.8
+	 *
+	 * @return array
+	 */
+	public function select_empty_keys() {
+		/** @var $wpdb */
+		global $wpdb;
+
+		$sql = "
+			SELECT option_name
+				FROM {$wpdb->options}
+				WHERE option_name LIKE 'pue_install_key_%'
+					AND option_value=''
+			";
+
+		$empty_keys = $wpdb->get_results( $sql, ARRAY_N );
+
+		$plugin_names = array(
+			'pue_install_key_event_tickets_plus'       => 'Event Tickets Plus',
+			'pue_install_key_events_community'         => 'The Events Calendar: Community Events',
+			'pue_install_key_events_community_tickets' => 'The Events Calendar: Community Events Tickets',
+			'pue_install_key_image_widget_plus'        => 'Image Widget Plus',
+			'pue_install_key_tribe_eventbrite'         => 'The Events Calendar: Eventbrite Tickets',
+			'pue_install_key_tribe_filterbar'          => 'The Events Calendar: Filter Bar',
+			'pue_install_key_event_aggregator'         => 'Event Aggregator',
+			'pue_install_key_events_calendar_pro'      => 'The Events Calendar PRO',
+		);
+
+		$formatted_empty_keys = array();
+		foreach ( $empty_keys as $empty_key ) {
+			$empty_key              = Tribe__Utils__Array::get( $empty_key, array( 0 ) );
+			$formatted_empty_keys[] = Tribe__Utils__Array::get( $plugin_names, $empty_key );
+		}
+
+		return $formatted_empty_keys;
+	}
+
+	/**
 	 * Generate a notice listing any plugins for which license keys have been entered but
 	 * are invalid (in the sense of not matching PUE server records or having been revoked
 	 * rather than having expired which is handled separately).
@@ -208,6 +252,19 @@ class Tribe__PUE__Notices {
 	public function render_invalid_key() {
 		global $pagenow;
 
+		$empty_keys = $this->select_empty_keys();
+
+		if ( empty( $empty_keys ) ) {
+			return;
+		}
+
+		// Remove the invalid_key notice for products with an empty license key
+		foreach ( $empty_keys as $empty_key ) {
+			if ( array_key_exists( $empty_key, $this->notices['invalid_key'] ) ) {
+				unset( $this->notices['invalid_key'][ $empty_key ] );
+			}
+		}
+
 		if ( 'plugins.php' === $pagenow && ! empty( $this->notices[ self::EXPIRED_KEY ] ) ) {
 			return;
 		}
@@ -217,9 +274,6 @@ class Tribe__PUE__Notices {
 		if ( empty( $plugin_names ) ) {
 			return;
 		}
-
-		// Enqueue the notice CSS.
-		Tribe__Assets::instance()->enqueue( array( 'tribe-common-admin' ) );
 
 		$prompt = sprintf(
 			_n(
@@ -319,17 +373,21 @@ class Tribe__PUE__Notices {
 	 * @param string $inner_html
 	 */
 	protected function render_notice( $slug, $inner_html ) {
-		$spirit_animal = esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/spirit-animal.png' );
+
+		// Enqueue the notice CSS.
+		tribe( 'assets' )->enqueue( array( 'tribe-common-admin' ) );
+
+		$mascot = esc_url( Tribe__Main::instance()->plugin_url . 'src/resources/images/mascot.png' );
 
 		$html =
 			'<div class="api-check">
-				<div class="tribe-spirit-animal">
-					<img src="' . $spirit_animal . '"/>
+				<div class="tribe-mascot">
+					<img src="' . $mascot . '"/>
 				</div>
 				<div class="notice-content">' . $inner_html . '</div>
 			</div>';
 
-		Tribe__Admin__Notices::instance()->render( $slug, $html );
+		Tribe__Admin__Notices::instance()->render( $slug, $html, false );
 	}
 
 	/**

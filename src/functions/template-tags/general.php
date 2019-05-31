@@ -725,3 +725,30 @@ if ( ! function_exists( 'tribe_set_time_limit' ) ) {
 		return @set_time_limit( $limit );
 	}
 }
+
+if ( ! function_exists( 'tribe_context' ) ) {
+	/**
+	 * A wrapper function to get the singleton, immutable, global context object.
+	 *
+	 * Due to its immutable nature any method that would modify the context will return
+	 * a clone of the context, not the original one.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @return Tribe__Context The singleton, immutable, global object instance.
+	 */
+	function tribe_context() {
+		$context = tribe( 'context' );
+
+		/**
+		 * Filters the global context object.
+		 *
+		 * @since 4.9.5
+		 *
+		 * @param Tribe__Context $context The singleton, immutable, global object instance.
+		 */
+		$context = apply_filters( 'tribe_global_context', $context );
+
+		return $context;
+	}
+}

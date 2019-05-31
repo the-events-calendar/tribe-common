@@ -19,7 +19,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * @param string                       $name   The name of the property the client code is trying to set.
 	 * @param Tribe__Repository__Interface $object The instance of the repository.
 	 *
-	 * @return Tribe__Repository__Usage_Error
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
 	public static function because_properties_should_be_set_correctly( $name, $object ) {
 		$class = get_class( $object );
@@ -38,7 +38,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * @param string                       $key    The filter the client code is trying to use.
 	 * @param Tribe__Repository__Interface $object The instance of the repository.
 	 *
-	 * @return Tribe__Repository__Usage_Error
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
 	public static function because_the_read_filter_is_not_defined( $key, $object ) {
 		$class = get_class( $object );
@@ -54,7 +54,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * @param string                       $name The name of the property the client code is trying to read.
 	 * @param Tribe__Repository__Interface $object
 	 *
-	 * @return Tribe__Repository__Usage_Error
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
 	public static function because_property_is_not_defined( $name, $object ) {
 		$class = get_class( $object );
@@ -70,7 +70,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * @param string                              $key
 	 * @param Tribe__Repository__Update_Interface $object
 	 *
-	 * @return Tribe__Repository__Usage_Error
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
 	public static function because_this_field_cannot_be_updated( $key, $object ) {
 		$class = get_class( $object );
@@ -85,7 +85,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 *
 	 * @param Tribe__Repository__Update_Interface $object
 	 *
-	 * @return Tribe__Repository__Usage_Error
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
 	public static function because_udpate_key_should_be_a_string( $object ) {
 		$class = get_class( $object );
@@ -103,7 +103,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * @param string $compare
 	 * @param mixed  $object
 	 *
-	 * @return Tribe__Repository__Usage_Error
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
 	public static function because_single_value_comparisons_should_be_used_with_one_value( $key, array $value, $compare, $object ) {
 		$class  = get_class( $object );
@@ -123,7 +123,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * @param string       $compare
 	 * @param mixed        $object
 	 *
-	 * @return Tribe__Repository__Usage_Error
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
 	public static function because_this_comparison_operator_requires_fields_and_values( $key, $compare, $object ) {
 		$class = get_class( $object );
@@ -139,7 +139,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * @param array array $method
 	 * @param mixed $object
 	 *
-	 * @return Tribe__Repository__Usage_Error
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
 	public static function because_where_or_should_only_be_used_with_methods_that_add_where_clauses( array $method, $object ) {
 		$class  = get_class( $object );
@@ -155,7 +155,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * @param string|array $key
 	 * @param string       $type_or_format
 	 *
-	 * @return Tribe__Repository__Usage_Error
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
 	public static function because_the_type_is_a_wpdb_prepare_format( $key, $type_or_format ) {
 		$keys  = is_array( $key ) ? implode( ', ', $key ) : $key;
@@ -170,11 +170,78 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * @param string|array $key
 	 * @param string       $type_or_format
 	 *
-	 * @return Tribe__Repository__Usage_Error
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
 	 */
 	public static function because_the_format_is_not_a_wpdb_prepare_one( $key, $type_or_format ) {
 		$keys = is_array( $key ) ? implode( ', ', $key ) : $key;
 
 		return new self( "You are trying to use a format ({$type_or_format}) that is not a valid `wpdb::prepare` one with a query [ keys: {$keys}]." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a comparison operator not supported by a specific filter.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string $operator The not supported comparison operator.
+	 * @param string $filter   The filter in which the client code is trying to use the current operator.
+	 *
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
+	 */
+	public static function because_this_comparison_operator_is_not_supported( $operator, $filter ) {
+		return new self( "You are trying to use a comparison operator ({$operator}) that is not supported by this filter ({$filter})" );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a comparison operator that requires a value of a specific type
+	 * wrong.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param string $operator The operator the client code is using.
+	 * @param string $filter   The filter the client code is using.
+	 * @param string $type     The required value type for this operator and this filter.
+	 *
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
+	 */
+	public static function because_this_comparison_operator_requires_an_value_of_type( $operator, $filter, $type ) {
+		return new self( "You are trying to use a comparison opearator ({$operator}) in the filter {$filter} that requires a value of type {$type}." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a comparison operator that is not valid..
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string $operator The not supported comparison operator.
+	 *
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
+	 */
+	public static function because_this_comparison_operator_is_not_valid( $operator ) {
+		return new self( "You are trying to use a comparison operator ({$operator}) that is not valid." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to use a relation that is not valid..
+	 *
+	 * @since 4.9.6
+	 *
+	 * @param string $relation The not supported relation.
+	 *
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
+	 */
+	public static function because_this_relation_is_not_valid( $relation ) {
+		return new self( "You are trying to use a relation ({$relation}) that is not valid." );
+	}
+
+	/**
+	 * Indicates that the client code is trying to set a query on the repository after the query ran.
+	 *
+	 * @since 4.9.9
+	 *
+	 * @return Tribe__Repository__Usage_Error A ready to throw instance of the class.
+	 */
+	public static function because_query_cannot_be_set_after_it_ran() {
+		return new self( "You are trying to set the repository query after it ran!" );
 	}
 }
