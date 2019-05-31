@@ -712,6 +712,8 @@ class Tribe__Rewrite {
 		if ( empty( $url_path ) ) {
 			$url_path = '/';
 		}
+		// Look for matches, removing leading `/` char.
+		$request_match = ltrim( $url_path, '/' );
 		$url_query = parse_url( $url, PHP_URL_QUERY );
 		parse_str( $url_query, $url_query_vars );
 
@@ -721,14 +723,11 @@ class Tribe__Rewrite {
 		if ( ! empty( $rewrite_rules ) ) {
 			$matched_rule = false;
 
-			// Look for matches, removing leading `/` char.
-			$request_match = ltrim( $url_path, '/' );
-
 			foreach ( (array) $rewrite_rules as $match => $query ) {
-				if (
-					preg_match( "#^$match#", $request_match, $matches )
-					|| preg_match( "#^$match#", urldecode( $request_match ), $matches )
-				) {
+				$matches_regex = preg_match( "#^$match#", $request_match, $matches )
+				                 || preg_match( "#^$match#", urldecode( $request_match ), $matches );
+
+				if ( $matches_regex ) {
 					if (
 						$this->rewrite->use_verbose_page_rules
 						&& preg_match( '/pagename=\$matches\[([0-9]+)\]/', $query, $varmatch )
@@ -748,6 +747,7 @@ class Tribe__Rewrite {
 							continue;
 						}
 					}
+
 					// Got a match.
 					$matched_rule = $match;
 					break;
