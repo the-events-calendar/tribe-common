@@ -528,10 +528,10 @@ class Tribe__Rewrite {
 		$pattern = '/post_type=tribe_(events|venue|organizer)/';
 		// Reverse the rules to try and match the most complex first.
 		$rules = isset( $this->rewrite->rules ) ? $this->rewrite->rules : [];
-		$handled_rewrite_rules = array_reverse( array_filter( $rules,
+		$handled_rewrite_rules = array_filter( $rules,
 			static function ( $rule_query_string ) use ( $pattern ) {
 				return preg_match( $pattern, $rule_query_string );
-			} ) );
+			} );
 
 		return $handled_rewrite_rules;
 	}
