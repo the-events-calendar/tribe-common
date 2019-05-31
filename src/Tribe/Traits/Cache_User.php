@@ -27,7 +27,9 @@
  *
  *              $computated = 23;
  *
-*               return $this->computation_cache[$key] = $computated;
+ *              $this->computation_cache[$key] = $computated;
+ *
+ *              return $computated;
  *          }
  * }
  * ```
