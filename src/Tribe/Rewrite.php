@@ -432,6 +432,8 @@ class Tribe__Rewrite {
 			return $wp_canonical;
 		}
 
+		$found = false;
+
 		foreach ( $our_rules as $link_template => $index_path ) {
 			wp_parse_str( (string) parse_url( $index_path, PHP_URL_QUERY ), $link_vars );
 			ksort( $link_vars );
@@ -474,6 +476,7 @@ class Tribe__Rewrite {
 			// Remove trailing chars.
 			$path     = rtrim( $replaced, '?$' );
 			$resolved = trailingslashit( home_url( $path ) );
+			$found = true;
 
 			break;
 		}
@@ -506,7 +509,10 @@ class Tribe__Rewrite {
 		 */
 		$resolved = apply_filters( 'tribe_rewrite_canonical_url', $resolved, $url, $this );
 
-		$this->canonical_url_cache[ $url ] = $resolved;
+		if ( $found ) {
+			// Since we're caching let's not cache unmatched rules to allow for their later, valid resolution.
+			$this->canonical_url_cache[ $url ] = $resolved;
+		}
 
 		return $resolved;
 	}
@@ -725,10 +731,9 @@ class Tribe__Rewrite {
 
 		// Fetch the rewrite rules.
 		$rewrite_rules = $this->rewrite->wp_rewrite_rules();
+		$matched_rule = false;
 
 		if ( ! empty( $rewrite_rules ) ) {
-			$matched_rule = false;
-
 			foreach ( (array) $rewrite_rules as $match => $query ) {
 				$matches_regex = preg_match( "#^$match#", $request_match, $matches )
 				                 || preg_match( "#^$match#", urldecode( $request_match ), $matches );
@@ -871,8 +876,10 @@ class Tribe__Rewrite {
 		 */
 		$query_vars = apply_filters( 'tribe_rewrite_parse_query_vars', $query_vars, $extra_query_vars, $url );
 
-		// Cache the result for this HTTP request.
-		$this->parse_request_cache[ $url ] = $query_vars;
+		if ( $matched_rule ) {
+			// Since we're caching let's not cache unmatchec URLs to allow for their later, valid matching.
+			$this->parse_request_cache[ $url ] = $query_vars;
+		}
 
 		return $query_vars;
 	}
