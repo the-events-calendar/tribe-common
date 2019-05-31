@@ -632,13 +632,19 @@ class Tribe__Rewrite {
 		}
 
 		if ( isset( $query_vars['tag'] ) ) {
-			$tag_regex = $bases['tag'];
-			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $tag_regex, $matches );
-			if ( isset( $matches['slugs'] ) ) {
-				$slugs = explode( '|', $matches['slugs'] );
-				// The localized version is the last.
-				$localized_slug = end( $slugs );
-				$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$query_vars['tag']}";
+			$tag      = $query_vars['tag'];
+			$tag_term = get_term_by( 'slug', $tag, 'post_tag' );
+
+			if ( $tag_term instanceof WP_Term ) {
+				// Let's actually add the matcher only if the tag exists.
+				$tag_regex = $bases['tag'];
+				preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $tag_regex, $matches );
+				if ( isset( $matches['slugs'] ) ) {
+					$slugs = explode( '|', $matches['slugs'] );
+					// The localized version is the last.
+					$localized_slug                           = end( $slugs );
+					$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$tag}";
+				}
 			}
 		}
 
