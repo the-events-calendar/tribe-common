@@ -21,9 +21,9 @@ class Tribe__Rewrite {
 	const PERCENT_PLACEHOLDER = '~~TRIBE~PC~~';
 
 	/**
-	 * Static singleton variable
+	 * Static singleton variable.
 	 *
-	 * @var self
+	 * @var static
 	 */
 	public static $instance;
 
@@ -74,11 +74,21 @@ class Tribe__Rewrite {
 	 * @return self
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
+		if ( ! static::$instance ) {
+			static::$instance = new static;
+			static::$instance->setup();
 		}
 
-		return self::$instance;
+		return static::$instance;
+	}
+
+	/**
+	 * Tribe__Rewrite constructor.
+	 *
+	 * @param WP_Rewrite|null $wp_rewrite
+	 */
+	public function __construct( WP_Rewrite $wp_rewrite = null ) {
+		$this->rewrite = $wp_rewrite;
 	}
 
 	/**
@@ -92,6 +102,7 @@ class Tribe__Rewrite {
 		if ( ! $wp_rewrite instanceof WP_Rewrite ) {
 			global $wp_rewrite;
 		}
+
 		$this->rewrite = $wp_rewrite;
 		$this->bases   = $this->get_bases( 'regex' );
 
@@ -331,6 +342,11 @@ class Tribe__Rewrite {
 			throw new BadMethodCallException(
 				'Method get_canonical_url should only be called on extending classes.'
 			);
+		}
+
+		if ( null === $this->rewrite ) {
+			// We re-do this check here as the object might have been initialized before the global rewrite was set.
+			$this->setup();
 		}
 
 		/**
@@ -687,6 +703,11 @@ class Tribe__Rewrite {
 	 * @return array An array of query vars, as parsed from the input URL.
 	 */
 	public function parse_request( string $url, array $extra_query_vars = [], $force = false ) {
+		if ( null === $this->rewrite ) {
+			// We re-do this check here as the object might have been initialized before the global rewrite was set.
+			$this->setup();
+		}
+
 		/**
 		 * Allows short-circuiting the URL parsing.
 		 *
