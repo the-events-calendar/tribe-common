@@ -674,7 +674,7 @@ class Tribe__Rewrite {
 	 *
 	 * @return array An array of query vars, as parsed from the input URL.
 	 */
-	public function parse_request( string $url, array $extra_query_vars = [], $force = false) {
+	public function parse_request( string $url, array $extra_query_vars = [], $force = false ) {
 		/**
 		 * Allows short-circuiting the URL parsing.
 		 *
@@ -758,7 +758,7 @@ class Tribe__Rewrite {
 				// Trim the query of everything up to the '?'.
 				$query = preg_replace( '!^.+\?!', '', $query );
 				// Substitute the substring matches into the query.
-				$query               = addslashes( WP_MatchesMapRegex::apply( $query, $matches ) );
+				$query = addslashes( WP_MatchesMapRegex::apply( $query, $matches ) );
 				// Parse the query.
 				parse_str( $query, $perma_query_vars );
 			}
@@ -873,6 +873,8 @@ class Tribe__Rewrite {
 
 	/**
 	 * Dumps the cache before destruction.
+	 *
+	 * @since TBD
 	 */
 	public function __destruct() {
 		$this->dump_cache();
