@@ -50,5 +50,10 @@
     "post-autoload-dump": [
       "xrstf\\Composer52\\Generator::onPostInstallCmd"
     ]
+  },
+  "autoload": {
+    "psr-4": {
+      "Tribe\\": "src/Tribe/"
+    }
   }
 }
