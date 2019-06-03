@@ -503,7 +503,8 @@ class Tribe__Rewrite {
 		}
 
 		if ( $canonical_url !== $resolved ) {
-			$resolved = trailingslashit( $resolved );
+			// Be sure to add a trailing slash to the URL; before `?` or `#`.
+			$resolved = preg_replace( '/(?<!\\/)(#|\\?)/u', '/$1', $resolved );
 		}
 
 		if ( count( $unmatched_vars ) ) {
