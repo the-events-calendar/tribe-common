@@ -23,8 +23,11 @@ return [
 	],
 	'event_display'               => [
 		'read'  => [
-			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
-			Tribe__Context::QUERY_VAR   => 'eventDisplay',
+			Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
+			Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
+			Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+			Tribe__Context::QUERY_VAR        => 'eventDisplay',
+			Tribe__Context::TRIBE_OPTION     => 'viewOption',
 		],
 		'write' => [
 			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
@@ -33,9 +36,11 @@ return [
 	],
 	'view'                        => [
 		'read'  => [
-			Tribe__Context::REQUEST_VAR  => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
-			Tribe__Context::QUERY_VAR    => [ 'tribe_view', 'eventDisplay' ],
-			Tribe__Context::TRIBE_OPTION => 'viewOption',
+			Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
+			Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
+			Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+			Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
+			Tribe__Context::TRIBE_OPTION     => 'viewOption',
 		],
 		'write' => [
 			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
@@ -165,8 +170,9 @@ return [
 		 * var first and get, from its position, a clean variable we can consume in Views.
 		 */
 		'read' => [
-			Tribe__Context::QUERY_VAR   => 'eventDisplay',
 			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+			Tribe__Context::WP_PARSED   => [ 'eventDisplay' ],
+			Tribe__Context::QUERY_VAR   => 'eventDisplay',
 		],
 	],
 ];
