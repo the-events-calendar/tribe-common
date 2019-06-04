@@ -120,6 +120,7 @@ before_script:
   - wp db export ${PLUGIN_DIR}/tests/_data/dependency-dump.sql
 
 script:
+  - codecept run unit
   - codecept run integration
   - codecept run wpunit
   - codecept run muwpunit
