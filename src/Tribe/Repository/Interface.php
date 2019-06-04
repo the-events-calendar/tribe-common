@@ -266,4 +266,29 @@ interface Tribe__Repository__Interface
 	 * @throws \Tribe__Repository__Usage_Error If the comparison operator or the relation are not valid.
 	 */
 	public function where_multi( array $fields, $compare, $value, $where_relation = 'OR', $value_relation = 'OR' );
+
+	/**
+	 * Sets the query instance the repository will use.
+	 *
+	 * Setting a query explicitly
+	 *
+	 * @since 4.9.9
+	 *
+	 * @param  \WP_Query  $query An query instance.
+	 *
+	 * @return \Tribe__Repository__Interface The repository instance, for chaining.
+	 * @throws \Tribe__Repository__Usage_Error If trying to set the query after a fetching operation is done.
+	 */
+	public function set_query( WP_Query $query );
+
+	/**
+	 * Sets the found rows calculation to be enabled for queries.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param bool $found_rows Whether found rows calculation should be enabled.
+	 *
+	 * @return \Tribe__Repository__Interface The repository instance, for chaining.
+	 */
+	public function set_found_rows( $found_rows );
 }
