@@ -1322,11 +1322,11 @@ class Tribe__Context {
 		/** @var WP $wp */
 		global $wp;
 
-		if ( ! $wp instanceof WP ) {
+		if ( ! $wp instanceof WP || empty($wp->query_vars) ) {
 			return $default;
 		}
 
-		return Arr::get_first_set( $wp->query_vars, $vars, $default );
+		return Arr::get_first_set( (array) $wp->query_vars, $vars, $default );
 	}
 
 	/**
@@ -1349,7 +1349,7 @@ class Tribe__Context {
 
 		$query_vars = parse_query( $wp->matched_query );
 
-		return Arr::get_first_set( $query_vars, $vars, $default );
+		return Arr::get_first_set( (array) $query_vars, $vars, $default );
 	}
 
 	/**
