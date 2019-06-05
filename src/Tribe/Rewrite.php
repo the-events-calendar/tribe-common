@@ -48,7 +48,7 @@ class Tribe__Rewrite {
 	 */
 	public $bases = array();
 	/**
-	 * After creating the Hooks on WordPress we lock the usage of the function
+	 * After creating the Hooks on WordPress we lock the usage of the function.
 	 *
 	 * @var boolean
 	 */
@@ -57,6 +57,8 @@ class Tribe__Rewrite {
 	/**
 	 * An array cache of resolved canonical URLs in the shape `[ <url> => <canonical_url> ]`.
 	 *
+	 * @since TBD
+	 *
 	 * @var array
 	 */
 	protected $canonical_url_cache = null;
@@ -64,12 +66,16 @@ class Tribe__Rewrite {
 	/**
 	 * An array cache of parsed URLs in the shape `[ <url> => <parsed_vars> ]`.
 	 *
+	 * @since TBD
+	 *
 	 * @var array
 	 */
 	protected $parse_request_cache = null;
 
 	/**
 	 * And array cache of cleaned URLs.
+	 *
+	 * @since TBD
 	 *
 	 * @var array
 	 */

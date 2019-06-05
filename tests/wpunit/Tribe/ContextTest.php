@@ -1378,7 +1378,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		], $mapped );
 	}
 
-	public function wp_parsed_data_set(  ) {
+	public function wp_parsed_data_set() {
 		return [
 			// $locations, $default, $expected
 			'empty_locations'        => [ [], 'golf', 'golf' ],
@@ -1388,7 +1388,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 			'more_locations_set'     => [ [ 'river', 'animal', 'country' ], 'bear', 'seine' ],
 			'some_locations_not_set' => [ [ 'car', 'flag', 'river' ], 'golf', 'seine' ],
 		];
-}
+	}
 	/**
 	 * It should allow reading a value from a wp parsed location
 	 *
@@ -1415,7 +1415,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $context->get( 'test', $default) );
 	}
 
-	public function wp_matched_query_data_sets(  ) {
+	public function wp_matched_query_data_sets() {
 		return [
 			// $locations, $default, $expected
 			'empty_locations'        => [ [], 'golf', 'golf' ],
@@ -1425,7 +1425,7 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 			'more_locations_set'     => [ [ 'river', 'animal', 'country' ], 'bear', 'seine' ],
 			'some_locations_not_set' => [ [ 'car', 'flag', 'river' ], 'golf', 'seine' ],
 		];
-}
+	}
 
 	/**
 	 * It should allow reading a value from a wp matched query location
