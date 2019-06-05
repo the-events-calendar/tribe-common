@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.10] TBD =
+= [4.9.10] 2019-06-05 =
 
 * Tweak - Add ability to prevent duplicate JOINs by allowing an optionally supplied ID per join [128202]
 * Tweak - Added the `Tribe__Template::get_local_values` and `Tribe__Template::get_global_values` methods.
