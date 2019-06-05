@@ -1377,4 +1377,79 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 			'rThree'  => 89,
 		], $mapped );
 	}
+
+	public function wp_parsed_data_set() {
+		return [
+			// $locations, $default, $expected
+			'empty_locations'        => [ [], 'golf', 'golf' ],
+			'missing_location'       => [ [ 'car' ], 'golf', 'golf' ],
+			'location_set'           => [ [ 'animal' ], 'bear', 'platipus' ],
+			'two_locations_set'      => [ [ 'animal', 'river' ], 'bear', 'platipus' ],
+			'more_locations_set'     => [ [ 'river', 'animal', 'country' ], 'bear', 'seine' ],
+			'some_locations_not_set' => [ [ 'car', 'flag', 'river' ], 'golf', 'seine' ],
+		];
+	}
+	/**
+	 * It should allow reading a value from a wp parsed location
+	 *
+	 * @test
+	 * @dataProvider wp_parsed_data_set
+	 */
+	public function should_allow_reading_a_value_from_a_wp_parsed_location($locations, $default, $expected) {
+		$context = tribe_context()->set_locations( [
+			'test' => [
+				'read' => [
+					Context::WP_PARSED => $locations,
+				],
+			],
+		], false );
+		global $wp;
+		$wp->public_query_vars = array_merge([
+			'animal',
+			'country',
+			'river',
+		],$wp->public_query_vars);
+		$post_id = static::factory()->post->create();
+		$this->go_to( "/?p={$post_id}&animal=platipus&country=france&river=seine" );
+
+		$this->assertEquals( $expected, $context->get( 'test', $default) );
+	}
+
+	public function wp_matched_query_data_sets() {
+		return [
+			// $locations, $default, $expected
+			'empty_locations'        => [ [], 'golf', 'golf' ],
+			'missing_location'       => [ [ 'car' ], 'golf', 'golf' ],
+			'location_set'           => [ [ 'animal' ], 'bear', 'platipus' ],
+			'two_locations_set'      => [ [ 'animal', 'river' ], 'bear', 'platipus' ],
+			'more_locations_set'     => [ [ 'river', 'animal', 'country' ], 'bear', 'seine' ],
+			'some_locations_not_set' => [ [ 'car', 'flag', 'river' ], 'golf', 'seine' ],
+		];
+	}
+
+	/**
+	 * It should allow reading a value from a wp matched query location
+	 *
+	 * @test
+	 * @dataProvider wp_matched_query_data_sets
+	 */
+	public function should_allow_reading_a_value_from_a_wp_matched_query_location( $locations, $default, $expected ) {
+		$context = tribe_context()->set_locations( [
+			'test' => [
+				'read' => [
+					Context::WP_MATCHED_QUERY => $locations,
+				],
+			],
+		], false );
+		global $wp;
+		$wp->public_query_vars = array_merge( [
+			'animal',
+			'country',
+			'river',
+		], $wp->public_query_vars );
+		$post_id               = static::factory()->post->create();
+		$wp->matched_query     = "p={$post_id}&animal=platipus&country=france&river=seine";
+
+		$this->assertEquals( $expected, $context->get( 'test', $default ) );
+	}
 }

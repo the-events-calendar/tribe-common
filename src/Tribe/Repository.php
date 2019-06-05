@@ -861,9 +861,22 @@ abstract class Tribe__Repository
 	 * @return WP_Post
 	 */
 	protected function format_item( $id ) {
-		return null === $this->formatter
+		$formatted =  null === $this->formatter
 			? get_post( $id )
 			: $this->formatter->format_item( $id );
+
+		/**
+		 * Filters a single formatted result.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed|WP_Post                $formatted The formatted post result, usually a post object.
+		 * @param int                          $id        The formatted post ID.
+		 * @param Tribe__Repository__Interface $this      The current repository object.
+		 */
+		$formatted = apply_filters( "tribe_repository_{$this->filter_name}_format_item", $formatted, $id, $this );
+
+		return $formatted;
 	}
 
 	/**

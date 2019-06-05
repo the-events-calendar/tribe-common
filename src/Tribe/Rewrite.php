@@ -48,7 +48,7 @@ class Tribe__Rewrite {
 	 */
 	public $bases = array();
 	/**
-	 * After creating the Hooks on WordPress we lock the usage of the function
+	 * After creating the Hooks on WordPress we lock the usage of the function.
 	 *
 	 * @var boolean
 	 */
@@ -57,6 +57,8 @@ class Tribe__Rewrite {
 	/**
 	 * An array cache of resolved canonical URLs in the shape `[ <url> => <canonical_url> ]`.
 	 *
+	 * @since TBD
+	 *
 	 * @var array
 	 */
 	protected $canonical_url_cache = null;
@@ -64,9 +66,20 @@ class Tribe__Rewrite {
 	/**
 	 * An array cache of parsed URLs in the shape `[ <url> => <parsed_vars> ]`.
 	 *
+	 * @since TBD
+	 *
 	 * @var array
 	 */
 	protected $parse_request_cache = null;
+
+	/**
+	 * And array cache of cleaned URLs.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $clean_url_cache = null;
 
 	/**
 	 * Static Singleton Factory Method
@@ -334,8 +347,7 @@ class Tribe__Rewrite {
 	 * @param string $url The URL to try and translate into its canonical form.
 	 * @param bool   $force Whether to try and use the cache or force a new canonical URL conversion.
 	 *
-	 * @return string|void The canonical URL, or the input URL if it could not resolved to a canonical one.
-	 *
+	 * @return string The canonical URL, or the input URL if it could not be resolved to a canonical one.
 	 */
 	public function get_canonical_url( $url, $force = false ) {
 		if ( get_class( $this ) === Tribe__Rewrite::class ) {
@@ -503,7 +515,8 @@ class Tribe__Rewrite {
 		}
 
 		if ( $canonical_url !== $resolved ) {
-			$resolved = trailingslashit( $resolved );
+			// Be sure to add a trailing slash to the URL; before `?` or `#`.
+			$resolved = preg_replace( '/(?<!\\/)(#|\\?)/u', '/$1', $resolved );
 		}
 
 		if ( count( $unmatched_vars ) ) {
@@ -649,7 +662,9 @@ class Tribe__Rewrite {
 				$slugs = explode( '|', $matches['slugs'] );
 				// The localized version is the last.
 				$localized_slug = end( $slugs );
-				$dynamic_matchers["{$page_regex}/(\d+)"] = "{$localized_slug}/{$query_vars['paged']}";
+				// We use two different regular expressions to read pages, let's add both.
+				$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars['paged']}";
+				$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars['paged']}";
 			}
 		}
 
@@ -912,5 +927,44 @@ class Tribe__Rewrite {
 	 */
 	public function __destruct() {
 		$this->dump_cache();
+	}
+
+	/**
+	 * Returns the "clean" version of a URL.
+	 *
+	 * The URL is first parsed then resolved to a canonical URL.
+	 * As an example the URL `/events/list/?post_type=tribe_events` is "dirty" in that the `post_type` query variable
+	 * is redundant. The clean version of the URL is `/events/list/`, where the query variable is removed.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url The URL to clean.
+	 * @param bool   $force Whether to try and use the cache or force a new URL cleaning run.
+	 *
+	 * @return string The cleaned URL, or the input URL if it could not be resolved to a clean one.
+	 */
+	public function get_clean_url( $url, $force = false ) {
+		if ( ! $force ) {
+			$this->warmup_cache(
+				'clean_url',
+				WEEK_IN_SECONDS,
+				Listener::TRIGGER_GENERATE_REWRITE_RULES
+			);
+			if ( isset( $this->clean_url_cache[ $url ] ) ) {
+				return $this->clean_url_cache[ $url ];
+			}
+		}
+
+		$parsed_vars = $this->parse_request( $url );
+
+		if ( empty( $parsed_vars ) ) {
+			return home_url();
+		}
+
+		$clean = $this->get_canonical_url( add_query_arg( $parsed_vars, home_url() ) );
+
+		$this->clean_url_cache[ $url ] = $clean;
+
+		return $clean;
 	}
 }
