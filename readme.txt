@@ -8,6 +8,7 @@
 * Tweak - Added the `Tribe__Template::get_local_values` and `Tribe__Template::get_global_values` methods.
 * Tweak - Added the `Tribe__Rewrite::get_canonical_url` and `Tribe__Rewrite::parse_request` methods.
 * Fix - Resolve issues with pagination in REST API by making the query cache more comprehensive [127710]
+* Language - 0 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.9] 2019-05-16 =
 
