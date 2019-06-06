@@ -131,20 +131,6 @@ class Tribe__Rewrite {
 		$this->setup( $wp_rewrite );
 
 		/**
-		 * Use this to change the Tribe__Events__Rewrite instance before new rules
-		 * are committed.
-		 *
-		 * Should be used when you want to add more rewrite rules without having to
-		 * deal with the array merge, noting that rules for The Events Calendar are
-		 * themselves added via this hook (default priority).
-		 *
-		 * @var Tribe__Events__Rewrite $rewrite
-		 *
-		 * @deprecated 4.3 Use `tribe_pre_rewrite`
-		 */
-		do_action( 'tribe_events_pre_rewrite', $this );
-
-		/**
 		 * Use this to change the Tribe__Rewrite instance before new rules
 		 * are committed.
 		 *

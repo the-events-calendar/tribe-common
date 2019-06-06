@@ -3525,6 +3525,15 @@ abstract class Tribe__Repository
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	public function set_found_rows( $found_rows ) {
+		$this->skip_found_rows = ! $found_rows;
+
+		return $this;
+	}
+
+	/**
 	 * Flush current filters and query information.
 	 *
 	 * @since 4.9.10

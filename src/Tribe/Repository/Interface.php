@@ -291,7 +291,7 @@ interface Tribe__Repository__Interface
 	 *
 	 * @return \Tribe__Repository__Interface The repository instance that will yield the next page results.
 	 */
-	public function next(  );
+	public function next();
 
 	/**
 	 * Returns a cloned instance of the repository that will yield the previous page results.
@@ -304,5 +304,16 @@ interface Tribe__Repository__Interface
 	 *
 	 * @return \Tribe__Repository__Interface The repository instance that will yield the previous page results.
 	 */
-	public function prev(  );
+	public function prev();
+
+	/**
+	 * Sets the found rows calculation to be enabled for queries.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param bool $found_rows Whether found rows calculation should be enabled.
+	 *
+	 * @return \Tribe__Repository__Interface The repository instance, for chaining.
+	 */
+	public function set_found_rows( $found_rows );
 }
