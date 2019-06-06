@@ -898,6 +898,13 @@ class Tribe__Rewrite {
 			}
 		}
 
+		/*
+		 * If we have both the `name` query var and the post type one, then let's remove the `name` one.
+		 */
+		if ( array_intersect( array_keys( $query_vars ), $this->get_post_types() ) ) {
+			unset( $query_vars['name'] );
+		}
+
 		if ( ! empty( $url_query_vars ) ) {
 			// If the URL did have query vars keep them if not overridden by our resolution.
 			$query_vars = array_merge( $url_query_vars, $query_vars );
