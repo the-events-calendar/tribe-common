@@ -185,15 +185,15 @@ return [
 			Tribe__Context::QUERY_VAR   => 'eventDisplay',
 		],
 	],
-	'post_name' => [
+	'name' => [
 		'read'  => [
 			Tribe__Context::REQUEST_VAR => [ 'name', 'post_name' ],
 			Tribe__Context::WP_PARSED   => [ 'name', 'post_name' ],
-			Tribe__Context::QUERY_VAR   => 'name',
+			Tribe__Context::QUERY_VAR   => [ 'name', 'post_name' ],
 		],
 		'write' => [
-			Tribe__Context::REQUEST_VAR => [ 'post_name', 'name' ],
-			Tribe__Context::QUERY_VAR   => 'name',
+			Tribe__Context::REQUEST_VAR => [ 'name', 'post_name' ],
+			Tribe__Context::QUERY_VAR   => [ 'name', 'post_name' ],
 		],
 	],
 ];
