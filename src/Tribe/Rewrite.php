@@ -476,7 +476,7 @@ class Tribe__Rewrite {
 				continue;
 			}
 
-			$replace = array_map( static function ( $localized_matcher ) use ( $matched_vars ) {
+			$replace = array_map( function ( $localized_matcher ) use ( $matched_vars ) {
 				if ( ! is_array( $localized_matcher ) ) {
 					// For the dates.
 					return isset( $matched_vars[ $localized_matcher ] )
@@ -484,7 +484,14 @@ class Tribe__Rewrite {
 						: '';
 				}
 
-				if ( ! isset( $matched_vars[ $localized_matcher['query_var'] ] ) ) {
+				$query_var  = $localized_matcher['query_var'];
+				$query_vars = [ $query_var ];
+
+				if ( $query_var === 'name' ) {
+					$query_vars = array_merge( $query_vars, $this->get_post_types() );
+				}
+
+				if ( ! array_intersect( array_keys( $matched_vars ), $query_vars ) ) {
 					return '';
 				}
 
@@ -561,7 +568,7 @@ class Tribe__Rewrite {
 		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 		$pattern = '/post_type=tribe_(events|venue|organizer)/';
 		// Reverse the rules to try and match the most complex first.
-		$rules = isset( $this->rewrite->rules ) ? $this->rewrite->rules : [];
+		$rules = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
 		$handled_rewrite_rules = array_filter( $rules,
 			static function ( $rule_query_string ) use ( $pattern ) {
 				return preg_match( $pattern, $rule_query_string );
