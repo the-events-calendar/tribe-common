@@ -1,7 +1,6 @@
 <?php
 
 use Tribe__Utils__Array as Arr;
-use function GuzzleHttp\Psr7\parse_query;
 
 /**
  * Class Tribe__Context
@@ -1347,7 +1346,7 @@ class Tribe__Context {
 			return $default;
 		}
 
-		$query_vars = parse_query( $wp->matched_query );
+		parse_str( $wp->matched_query, $query_vars );
 
 		return Arr::get_first_set( (array) $query_vars, $vars, $default );
 	}
