@@ -661,16 +661,24 @@ class Tribe__Rewrite {
 	protected function get_dynamic_matchers( array $query_vars ) {
 		$bases            = (array) $this->get_bases();
 		$dynamic_matchers = [];
-		if ( isset( $query_vars['paged'] ) ) {
-			$page_regex = $bases['page'];
-			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $page_regex, $matches );
-			if ( isset( $matches['slugs'] ) ) {
-				$slugs = explode( '|', $matches['slugs'] );
-				// The localized version is the last.
-				$localized_slug = end( $slugs );
-				// We use two different regular expressions to read pages, let's add both.
-				$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars['paged']}";
-				$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars['paged']}";
+
+		/*
+		 * In some instance we use the `page` (w/o `d`) to paginate a dynamic archive.
+		 * Let's support that too.
+		 * It's important to add `page` after `paged` to try and match the longest (`paged`) first.
+		 */
+		foreach ( [ 'paged', 'page' ] as $page_var ) {
+			if ( isset( $query_vars[ $page_var ] ) ) {
+				$page_regex = $bases['page'];
+				preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $page_regex, $matches );
+				if ( isset( $matches['slugs'] ) ) {
+					$slugs = explode( '|', $matches['slugs'] );
+					// The localized version is the last.
+					$localized_slug = end( $slugs );
+					// We use two different regular expressions to read pages, let's add both.
+					$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars[$page_var]}";
+					$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars[$page_var]}";
+				}
 			}
 		}
 
