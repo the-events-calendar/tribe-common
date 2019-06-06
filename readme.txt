@@ -2,11 +2,17 @@
 
 == Changelog ==
 
-= [4.9.10] TBD =
+= [4.9.11] 2019-06-05 =
 
 * Tweak - Add ability to prevent duplicate JOINs by allowing an optionally supplied ID per join [128202]
 * Tweak - Added the `Tribe__Template::get_local_values` and `Tribe__Template::get_global_values` methods.
 * Tweak - Added the `Tribe__Rewrite::get_canonical_url` and `Tribe__Rewrite::parse_request` methods.
+* Language - 0 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.10] 2019-05-23 =
+
+* Tweak - Add ability to prevent duplicate JOINs by allowing an optionally supplied ID per join [128202]
+* Tweak - Add ability to turn on/off no_found_rows logic for queries [128202]
 * Fix - Resolve issues with pagination in REST API by making the query cache more comprehensive [127710]
 
 = [4.9.9] 2019-05-16 =
