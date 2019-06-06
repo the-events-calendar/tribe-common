@@ -703,7 +703,7 @@ class Tribe__Rewrite {
 	 *
 	 * @return array An array of query vars, as parsed from the input URL.
 	 */
-	public function parse_request( string $url, array $extra_query_vars = [], $force = false ) {
+	public function parse_request( $url, array $extra_query_vars = [], $force = false ) {
 		if ( null === $this->rewrite ) {
 			// We re-do this check here as the object might have been initialized before the global rewrite was set.
 			$this->setup();
