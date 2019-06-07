@@ -19,3 +19,7 @@ extensions:
         - 'Codeception\Command\GenerateWPXMLRPC'
 params:
   - .env
+coverage:
+  enabled: true
+  include:
+    - src/*
