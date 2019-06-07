@@ -89,7 +89,6 @@ class Tribe__Rewrite {
 	public static function instance() {
 		if ( ! static::$instance ) {
 			static::$instance = new static;
-			static::$instance->setup();
 		}
 
 		return static::$instance;
