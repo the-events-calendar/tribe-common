@@ -89,6 +89,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'can_be_empty'        => false,
 				'clear_after'         => true,
 				'tooltip_first'       => false,
+				'allow_clear'         => false,
 			);
 
 			// a list of valid field types, to prevent screwy behavior
@@ -608,6 +609,9 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				$field .= $this->do_field_name();
 				$field .= " id='{$this->id}-select'";
 				$field .= " class='tribe-dropdown'";
+				if ( empty( $this->allow_clear ) ) {
+					$field .= " data-prevent-clear='true'";
+				}
 				$field .= '>';
 				foreach ( $this->options as $option_id => $title ) {
 					$field .= '<option value="' . esc_attr( $option_id ) . '"';

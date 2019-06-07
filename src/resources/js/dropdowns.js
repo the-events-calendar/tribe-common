@@ -205,7 +205,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		// Auto define the Width of the Select2
 		args.dropdownAutoWidth = true;
-		args.width             = 'auto';
+		args.width             = 'resolve';
 
 		// CSS for the container
 		args.containerCss = {};
@@ -450,7 +450,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		$select.data( 'value', data ).attr( 'data-value', JSON.stringify( data ) );
 
-		$select.chosen( 'width',  );
+		$select.chosen( 'width', 'auto' );
 	};
 
 	obj.ajaxurl = function () {
