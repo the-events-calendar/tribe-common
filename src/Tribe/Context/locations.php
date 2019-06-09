@@ -155,12 +155,22 @@ return [
 	],
 	'paged' => [
 		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'paged',
-			Tribe__Context::QUERY_VAR   => 'paged',
+			Tribe__Context::REQUEST_VAR => [ 'paged', 'page' ],
+			Tribe__Context::QUERY_VAR   => [ 'paged', 'page' ],
 		],
 		'write' => [
 			Tribe__Context::REQUEST_VAR => 'paged',
 			Tribe__Context::QUERY_VAR   => 'paged',
+		],
+	],
+	'page' => [
+		'read'  => [
+			Tribe__Context::REQUEST_VAR => [ 'page', 'paged' ],
+			Tribe__Context::QUERY_VAR   => [ 'page', 'paged' ],
+		],
+		'write' => [
+			Tribe__Context::REQUEST_VAR => 'page',
+			Tribe__Context::QUERY_VAR   => 'page',
 		],
 	],
 	'event_display_mode' => [
@@ -173,6 +183,17 @@ return [
 			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
 			Tribe__Context::WP_PARSED   => [ 'eventDisplay' ],
 			Tribe__Context::QUERY_VAR   => 'eventDisplay',
+		],
+	],
+	'name' => [
+		'read'  => [
+			Tribe__Context::REQUEST_VAR => [ 'name', 'post_name' ],
+			Tribe__Context::WP_PARSED   => [ 'name', 'post_name' ],
+			Tribe__Context::QUERY_VAR   => [ 'name', 'post_name' ],
+		],
+		'write' => [
+			Tribe__Context::REQUEST_VAR => [ 'name', 'post_name' ],
+			Tribe__Context::QUERY_VAR   => [ 'name', 'post_name' ],
 		],
 	],
 ];

@@ -1,4 +1,7 @@
 <?php
+
+use Tribe\Events\Views\V2\Template;
+
 class Tribe__Template {
 	/**
 	 * The folders into which we will look for the template.
@@ -458,11 +461,11 @@ class Tribe__Template {
 	 *
 	 * @since  4.6.2
 	 *
-	 * @param  string  $name     Which file we are talking about including
-	 * @param  array   $context  Any context data you need to expose to this file
-	 * @param  boolean $echo     If we should also print the Template
+	 * @param string  $name    Which file we are talking about including
+	 * @param array   $context Any context data you need to expose to this file
+	 * @param boolean $echo    If we should also print the Template
 	 *
-	 * @return string            Final Content HTML
+	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
 	public function template( $name, $context = array(), $echo = true ) {
 		// If name is String make it an Array

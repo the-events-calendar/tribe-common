@@ -89,7 +89,6 @@ class Tribe__Rewrite {
 	public static function instance() {
 		if ( ! static::$instance ) {
 			static::$instance = new static;
-			static::$instance->setup();
 		}
 
 		return static::$instance;
@@ -463,7 +462,7 @@ class Tribe__Rewrite {
 				continue;
 			}
 
-			$replace = array_map( static function ( $localized_matcher ) use ( $matched_vars ) {
+			$replace = array_map( function ( $localized_matcher ) use ( $matched_vars ) {
 				if ( ! is_array( $localized_matcher ) ) {
 					// For the dates.
 					return isset( $matched_vars[ $localized_matcher ] )
@@ -471,7 +470,14 @@ class Tribe__Rewrite {
 						: '';
 				}
 
-				if ( ! isset( $matched_vars[ $localized_matcher['query_var'] ] ) ) {
+				$query_var  = $localized_matcher['query_var'];
+				$query_vars = [ $query_var ];
+
+				if ( $query_var === 'name' ) {
+					$query_vars = array_merge( $query_vars, $this->get_post_types() );
+				}
+
+				if ( ! array_intersect( array_keys( $matched_vars ), $query_vars ) ) {
 					return '';
 				}
 
@@ -548,7 +554,7 @@ class Tribe__Rewrite {
 		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 		$pattern = '/post_type=tribe_(events|venue|organizer)/';
 		// Reverse the rules to try and match the most complex first.
-		$rules = isset( $this->rewrite->rules ) ? $this->rewrite->rules : [];
+		$rules = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
 		$handled_rewrite_rules = array_filter( $rules,
 			static function ( $rule_query_string ) use ( $pattern ) {
 				return preg_match( $pattern, $rule_query_string );
@@ -641,16 +647,24 @@ class Tribe__Rewrite {
 	protected function get_dynamic_matchers( array $query_vars ) {
 		$bases            = (array) $this->get_bases();
 		$dynamic_matchers = [];
-		if ( isset( $query_vars['paged'] ) ) {
-			$page_regex = $bases['page'];
-			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $page_regex, $matches );
-			if ( isset( $matches['slugs'] ) ) {
-				$slugs = explode( '|', $matches['slugs'] );
-				// The localized version is the last.
-				$localized_slug = end( $slugs );
-				// We use two different regular expressions to read pages, let's add both.
-				$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars['paged']}";
-				$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars['paged']}";
+
+		/*
+		 * In some instance we use the `page` (w/o `d`) to paginate a dynamic archive.
+		 * Let's support that too.
+		 * It's important to add `page` after `paged` to try and match the longest (`paged`) first.
+		 */
+		foreach ( [ 'paged', 'page' ] as $page_var ) {
+			if ( isset( $query_vars[ $page_var ] ) ) {
+				$page_regex = $bases['page'];
+				preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $page_regex, $matches );
+				if ( isset( $matches['slugs'] ) ) {
+					$slugs = explode( '|', $matches['slugs'] );
+					// The localized version is the last.
+					$localized_slug = end( $slugs );
+					// We use two different regular expressions to read pages, let's add both.
+					$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars[$page_var]}";
+					$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars[$page_var]}";
+				}
 			}
 		}
 
@@ -876,6 +890,13 @@ class Tribe__Rewrite {
 			if ( isset( $extra_query_vars[ $var ] ) ) {
 				$query_vars[ $var ] = $extra_query_vars[ $var ];
 			}
+		}
+
+		/*
+		 * If we have both the `name` query var and the post type one, then let's remove the `name` one.
+		 */
+		if ( array_intersect( array_keys( $query_vars ), $this->get_post_types() ) ) {
+			unset( $query_vars['name'] );
 		}
 
 		if ( ! empty( $url_query_vars ) ) {
