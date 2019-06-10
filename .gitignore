@@ -14,22 +14,27 @@ tests/_output
 tests/_support/_generated
 
 # by default ignore all, need a vendor dep in the repo? use !vendor/acme
-vendor
-!vendor/attrchange
-!vendor/clipboard
-!vendor/datatables
-!vendor/freemius
-vendor/freemius/languages/*.po
-!vendor/handlebars
+vendor/*
 !vendor/jquery
-!vendor/jquery-tribe-timepicker
-!vendor/momentjs
 !vendor/select2
+!vendor/momentjs
+!vendor/handlebars
+!vendor/clipboard
+!vendor/attrchange
+!vendor/datatables
+!vendor/jquery-tribe-timepicker
 !vendor/tooltipster
 !vendor/tribe-select2
+!vendor/freemius
+vendor/freemius/languages/*.po
 
-# Modules for Apps
+# Resources Ignoring
 src/resources/**/app
+src/resources/css/**
+src/resources/**/*.min.js
+
+# tribe-common-styles
+src/resources/postcss/utilities
 
 # get from translate.wordpress.org as needed
 lang/*.po

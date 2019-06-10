@@ -1,78 +1,118 @@
-.tribe-events {
+.tribe-common {
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Search
 	 *
 	 * Example:
 	 * <form action="" method="post" class="tribe-common-c-search">
-	 *   <div class="tribe-common-form-control-text-group">
+	 *   <div class="tribe-common-form-control-input-group tribe-common-c-search__input-group">
 	 *     <div class="tribe-common-form-control-text">
-	 *       <label for="keyword">Keyword</label>
-	 *       <input type="text" id="keyword" name="keyword" placeholder="Keyword" />
+	 *       <label class="tribe-common-form-control-text__label" for="keyword">Keyword</label>
+	 *       <input
+	 *         class="tribe-common-form-control-text__input tribe-common-c-search__input"
+	 *         type="text"
+	 *         id="keyword"
+	 *         name="keyword"
+	 *         placeholder="Keyword"
+	 *       />
 	 *     </div>
 	 *     <div class="tribe-common-form-control-text">
-	 *       <label for="location">Location</label>
-	 *       <input type="text" id="location" name="location" placeholder="Location" />
+	 *       <label class="tribe-common-form-control-text__label" for="location">Location</label>
+	 *       <input
+	 *         class="tribe-common-form-control-text__input tribe-common-c-search__input"
+	 *         type="text"
+	 *         id="location"
+	 *         name="location"
+	 *         placeholder="Location"
+	 *       />
 	 *     </div>
 	 *     <div class="tribe-common-form-control-text">
-	 *       <label for="date">Date</label>
-	 *       <input type="text" id="date" name="date" placeholder="Enter Date" />
+	 *       <label class="tribe-common-form-control-text__label" for="date">Date</label>
+	 *       <input
+	 *         class="tribe-common-form-control-text__input tribe-common-c-search__input"
+	 *         type="text"
+	 *         id="date"
+	 *         name="date"
+	 *         placeholder="Enter Date"
+	 *       />
 	 *     </div>
 	 *   </div>
-	 *   <button type="submit" class="tribe-common-c-btn">Find Events</button>
+	 *   <button type="submit" class="tribe-common-c-btn tribe-common-c-search__button">Find Events</button>
 	 * </form>
 	 *
 	 * ----------------------------------------------------------------------------- */
 
+	/**
+	 * @todo: consider moving to TEC styles
+	 */
 	.tribe-common-c-search {
-
 		@media (--viewport-medium) {
 			display: flex;
 		}
+	}
+
+	.tribe-common-c-search__input-group {
+		@media (--viewport-medium) {
+			background-color: var(--color-background);
+			border: 1px solid var(--color-border-default);
+			border-right: none;
+			display: flex;
+			flex: auto;
+			max-width: 645px;
+			padding: 8px 0;
+		}
+
+		> * {
+			@media (--viewport-medium) {
+				margin-bottom: 0;
+			}
+
+			&:first-child {
+				flex: 1 1 34.5%;
+			}
+
+			&:nth-child(2) {
+				flex: 1 1 37.5%;
+			}
+
+			&:nth-child(3) {
+				flex: 1 1 28%;
+			}
+		}
+	}
+
+	.tribe-common-c-search__input {
+		@media (--viewport-medium) {
+			border: none;
+			border-right: 1px solid var(--color-border-default);
+			height: auto;
+			padding: 7px 18px 8px;
+		}
+	}
+
+	.tribe-common-c-search__button {
+		flex: none;
+		margin-top: 8px;
+
+		@media (--viewport-medium) {
+			margin-top: 0;
+		}
+	}
+
+
+	body#top & { /* Enfold Compatibility */
 
 		.tribe-common-form-control-text-group {
 			@media (--viewport-medium) {
-				border: 1px solid var(--color-border-default);
-				border-right: none;
-				display: flex;
-				flex: auto;
-				max-width: 645px;
 				padding: 8px 0;
-			}
-
-			> * {
-				@media (--viewport-medium) {
-					margin-bottom: 0;
-				}
-
-				&:first-child {
-					flex: 1 1 34.5%;
-				}
-
-				&:nth-child(2) {
-					flex: 1 1 37.5%;
-				}
-
-				&:nth-child(3) {
-					flex: 1 1 28%;
-				}
 			}
 		}
 
-		input[type="text"] {
+		.tribe-common-c-search__input {
 			@media (--viewport-medium) {
 				border: none;
 				border-right: 1px solid var(--color-border-default);
 				padding: 7px 18px 8px;
-			}
-		}
-
-		button {
-			flex: none;
-			margin-top: 8px;
-
-			@media (--viewport-medium) {
-				margin-top: 0;
 			}
 		}
 	}

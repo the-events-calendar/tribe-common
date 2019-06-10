@@ -1,4 +1,7 @@
 <?php
+
+use Tribe\Events\Views\V2\Template;
+
 class Tribe__Template {
 	/**
 	 * The folders into which we will look for the template.
@@ -187,10 +190,10 @@ class Tribe__Template {
 	 * @return mixed The value of the specified index or the default if not found.
 	 */
 	final public function get( $index, $default = null, $is_local = true ) {
-		$context = $this->global;
+		$context = $this->get_global_values();
 
 		if ( true === $is_local ) {
-			$context = $this->context;
+			$context = $this->get_local_values();
 		}
 
 		/**
@@ -458,11 +461,11 @@ class Tribe__Template {
 	 *
 	 * @since  4.6.2
 	 *
-	 * @param  string  $name     Which file we are talking about including
-	 * @param  array   $context  Any context data you need to expose to this file
-	 * @param  boolean $echo     If we should also print the Template
+	 * @param string  $name    Which file we are talking about including
+	 * @param array   $context Any context data you need to expose to this file
+	 * @param boolean $echo    If we should also print the Template
 	 *
-	 * @return string            Final Content HTML
+	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
 	public function template( $name, $context = array(), $echo = true ) {
 		// If name is String make it an Array
@@ -612,5 +615,56 @@ class Tribe__Template {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Sets a number of values at the same time.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $values   An associative key/value array of the values to set.
+	 * @param bool  $is_local Whether to set the values as global or local; defaults to local as the `set` method does.
+	 *
+	 * @see   Tribe__Template::set()
+	 */
+	public function set_values( array $values = [], $is_local = true ) {
+		foreach ( $values as $key => $value ) {
+			$this->set( $key, $value, $is_local );
+		}
+	}
+
+	/**
+	 * Returns the Template global context.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An associative key/value array of the Template global context.
+	 */
+	public function get_global_values() {
+		return $this->global;
+	}
+
+	/**
+	 * Returns the Template local context.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An associative key/value array of the Template local context.
+	 */
+	public function get_local_values() {
+		return $this->context;
+	}
+
+	/**
+	 * Returns the Template global and local context values.
+	 *
+	 * Local values will override the template global context values.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An associative key/value array of the Template global and local context.
+	 */
+	public function get_values() {
+		return array_merge( $this->get_global_values(), $this->get_local_values() );
 	}
 }

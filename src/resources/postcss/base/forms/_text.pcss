@@ -1,23 +1,44 @@
-.tribe-events {
+.tribe-common {
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Form Control: Text
 	 *
 	 * Example:
 	 * <div class="tribe-common-form-control-text">
-	 *   <label for="textInput">Text Input</label>
-	 *   <input id="textInput" name="textInput" type="text" placeholder="Text Input" />
+	 *   <label class="tribe-common-form-control-text__label" for="textInput">Text Input</label>
+	 *   <input
+	 *     class="tribe-common-form-control-text__input"
+	 *     id="textInput"
+	 *     name="textInput"
+	 *     type="text"
+	 *     placeholder="Text Input"
+	 *   />
 	 * </div>
 	 *
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-common-form-control-text {
+	/* .tribe-common-form-control-text {} */
 
-		label {
-			@mixin visually-hide;
+	.tribe-common-form-control-text__label {
+		@mixin visually-hide;
+	}
+
+	.tribe-common-form-control-text__input {
+		@mixin desktop-body-2-bold;
+
+		border: 1px solid var(--color-border-default);
+		padding: 12px 18px;
+		width: 100%;
+
+		&::placeholder {
+			color: var(--color-text-secondary);
+			font-weight: var(--font-weight-regular);
 		}
+	}
 
-		input[type="text"] {
+	body#top & { /* Enfold Compatibility */
+
+		.tribe-common-form-control-text__input {
 			@mixin desktop-body-2-bold;
 
 			border: 1px solid var(--color-border-default);

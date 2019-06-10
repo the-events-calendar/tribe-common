@@ -417,4 +417,27 @@ class Tribe__Utils__Array {
 
 		return ksort( $array );
 	}
+
+	/**
+	 * Returns the value associated with the first index, among the indexes, that is set in the array..
+	 *
+	 * @since TBD
+	 *
+	 * @param array $array The array to search.
+	 * @param array $indexes The indexes to search; in order the function will look from the first to the last.
+	 * @param null  $default The value that will be returned if the array does not have any of the indexes set.
+	 *
+	 * @return mixed|null The set value or the default value.
+	 */
+	public static function get_first_set( array $array, array $indexes, $default = null ) {
+		foreach ( $indexes as $index ) {
+			if ( ! isset( $array[ $index ] ) ) {
+				continue;
+			}
+
+			return $array[ $index ];
+		}
+
+		return $default;
+	}
 }
