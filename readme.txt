@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.9.11.1] 2019-06-11 =
+
+* Fix - Resolve fatal errors with references directly to The Events Calendar class constants []
+
 = [4.9.11] 2019-06-05 =
 
 * Tweak - Add ability to prevent duplicate JOINs by allowing an optionally supplied ID per join [128202]
