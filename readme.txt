@@ -4,7 +4,7 @@
 
 = [4.9.11.1] 2019-06-11 =
 
-* Fix - Resolve fatal errors with references directly to The Events Calendar class constants []
+* Fix - Resolve fatal errors with references directly to The Events Calendar class constants [129107]
 
 = [4.9.11] 2019-06-05 =
 
