@@ -1,9 +1,13 @@
 <?php
+
+if ( class_exists( 'Tribe__Utils__Array' ) ) {
+	return;
+}
+
 /**
  * Array utilities
  */
 class Tribe__Utils__Array {
-
 	/**
 	 * Set key/value within an array, can set a key nested inside of a multidimensional array.
 	 *
