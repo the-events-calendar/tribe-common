@@ -1416,4 +1416,22 @@ class Tribe__Context {
 
 		return $mapped;
 	}
+
+	public function duplicate( array $values, $type, $direction = 'read' ) {
+		$duplicated = [];
+		$locations = $this->get_locations();
+		$matching_locations = array_filter( $locations, static function ( $location ) use ( $type, $direction ) {
+			return isset( $location[ $direction ][ $type ] );
+		} );
+
+		foreach ( $matching_locations as $key => $location ) {
+			$entry = (array)$location[ $direction ][ $type ];
+			$found = array_intersect( array_keys( $values ), $entry );
+			if ( $found ) {
+				$duplicated[ $key ] = $values[ reset( $found ) ];
+			}
+		}
+
+		return array_merge( $values, $duplicated );
+	}
 }
