@@ -868,7 +868,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters a single formatted result.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param mixed|WP_Post                $formatted The formatted post result, usually a post object.
 		 * @param int                          $id        The formatted post ID.
