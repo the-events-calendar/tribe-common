@@ -1452,4 +1452,63 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, $context->get( 'test', $default ) );
 	}
+
+	/**
+	 * Test populate_aliases throws if direction is not read or write
+	 */
+	public function test_populate_aliases_throws_if_direction_is_not_read_or_write() {
+		/** @var Context $context */
+		$context = tribe_context()->set_locations( [
+			'car' => [
+				'read' => [
+					Context::QUERY_VAR => [ 'car', 'vehicle', 'transport_mean' ],
+				],
+			],
+		], false );
+
+		$this->expectException( \InvalidArgumentException::class );
+
+		$context->translate_sub_locations( [ 'vehicle' => 'hyunday' ], Context::QUERY_VAR, 'not-supported' );
+	}
+
+	public function translate_sub_locations_data_set() {
+		return [
+			'empty_values'         => [ [], [] ],
+			'unknown_sub_location' => [ [ 'animal' => 'bird' ], [] ],
+			'first_location'       => [
+				[ 'carriage' => 'golf' ],
+				[ 'car' => 'golf' ],
+			],
+			'second_location'      => [
+				[ 'vehicle' => 'golf' ],
+				[ 'car' => 'golf' ],
+			],
+			'third_location'       => [
+				[ 'transport_mean' => 'golf' ],
+				[ 'car' => 'golf' ],
+			],
+			'location_identity'    => [
+				[ 'car' => 'golf' ],
+				[ 'car' => 'golf' ],
+			]
+		];
+}
+	/**
+	 * Test populate_aliases
+	 * @dataProvider translate_sub_locations_data_set
+	 */
+	public function test_translate_sub_locations($values,$expected) {
+		/** @var Context $context */
+		$context = tribe_context()->set_locations( [
+			'car' => [
+				'read' => [
+					Context::QUERY_VAR => [ 'carriage', 'vehicle', 'transport_mean' ],
+				],
+			],
+		], false );
+
+		$populated = $context->translate_sub_locations( $values, Context::QUERY_VAR, 'read' );
+
+		$this->assertEquals( $expected, $populated );
+	}
 }
