@@ -2,6 +2,17 @@
 
 == Changelog ==
 
+= [4.9.11.1] 2019-06-13 =
+
+* Fix - Resolve fatal errors with references directly to The Events Calendar class constants [129107]
+
+= [4.9.11] 2019-06-05 =
+
+* Tweak - Add ability to prevent duplicate JOINs by allowing an optionally supplied ID per join [128202]
+* Tweak - Added the `Tribe__Template::get_local_values` and `Tribe__Template::get_global_values` methods.
+* Tweak - Added the `Tribe__Rewrite::get_canonical_url` and `Tribe__Rewrite::parse_request` methods.
+* Language - 0 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.9.10] 2019-05-23 =
 
 * Tweak - Add ability to prevent duplicate JOINs by allowing an optionally supplied ID per join [128202]

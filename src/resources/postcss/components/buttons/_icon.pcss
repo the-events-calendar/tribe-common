@@ -1,4 +1,4 @@
-.tribe-events {
+.tribe-common {
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Button: Icon
@@ -11,6 +11,8 @@
 
 	.tribe-common-c-btn-icon {
 		@mixin button-global;
+
+		background-color: transparent;
 
 		&:before {
 			background-repeat: no-repeat;
@@ -31,14 +33,7 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-common-c-btn-icon--border {
-		@mixin button-border;
-
-		align-items: center;
-		display: inline-flex;
-		height: 56px;
-		justify-content: center;
-		transition: none;
-		width: 56px;
+		@mixin button-icon-border;
 	}
 
 	/* -----------------------------------------------------------------------------

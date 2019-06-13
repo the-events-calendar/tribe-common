@@ -282,6 +282,31 @@ interface Tribe__Repository__Interface
 	public function set_query( WP_Query $query );
 
 	/**
+	 * Returns a cloned instance of the repository that will yield the next page results.
+	 *
+	 * Mind that this method will always return a Repository instance, no matter if a next page exists or not.
+	 * If a next page does not exist then the instance returned by this method will yield no posts and a count of `0`.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return \Tribe__Repository__Interface The repository instance that will yield the next page results.
+	 */
+	public function next();
+
+	/**
+	 * Returns a cloned instance of the repository that will yield the previous page results.
+	 *
+	 * Mind that this method will always return a Repository instance, no matter if a previous page exists or not.
+	 * If a previous page does not exist then the instance returned by this method will yield no posts and a count
+	 * of `0`.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @return \Tribe__Repository__Interface The repository instance that will yield the previous page results.
+	 */
+	public function prev();
+
+	/**
 	 * Sets the found rows calculation to be enabled for queries.
 	 *
 	 * @since 4.9.10

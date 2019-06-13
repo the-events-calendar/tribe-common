@@ -861,9 +861,22 @@ abstract class Tribe__Repository
 	 * @return WP_Post
 	 */
 	protected function format_item( $id ) {
-		return null === $this->formatter
+		$formatted =  null === $this->formatter
 			? get_post( $id )
 			: $this->formatter->format_item( $id );
+
+		/**
+		 * Filters a single formatted result.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param mixed|WP_Post                $formatted The formatted post result, usually a post object.
+		 * @param int                          $id        The formatted post ID.
+		 * @param Tribe__Repository__Interface $this      The current repository object.
+		 */
+		$formatted = apply_filters( "tribe_repository_{$this->filter_name}_format_item", $formatted, $id, $this );
+
+		return $formatted;
 	}
 
 	/**
@@ -3535,5 +3548,53 @@ abstract class Tribe__Repository
 		$this->last_built_hash  = '';
 
 		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function next() {
+		$next         = clone $this;
+		$current_page = isset( $this->query_args['paged'] )
+			? (int) $this->query_args['paged']
+			: 1;
+		$next->page( $current_page + 1 );
+
+		// Let's try to avoid running a query if we already know if a next page will yield any result or not.
+		$query_ran = ! empty( $this->last_built_query ) && ! empty( $this->last_built_query->request );
+		if ( $query_ran && ( false === (bool) $this->last_built_query->get( 'no_found_rows' ) ) ) {
+			$found             = $this->last_built_query->found_posts;
+			$posts_per_page    = $this->last_built_query->get( 'posts_per_page' );
+			$this_is_last_page = ( $current_page * $posts_per_page ) >= $found;
+			if ( $this_is_last_page ) {
+				$next->void_query = true;
+			}
+		}
+
+		$next->last_built_query = null;
+
+		return $next;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function prev() {
+		$prev         = clone $this;
+		$current_page = isset( $this->query_args['paged'] )
+			? (int) $this->query_args['paged']
+			: 1;
+
+		if ( $current_page === 1 ) {
+			$prev->void_query = true;
+
+			return $prev;
+		}
+
+		// If we're on page 1 we know there will be previous posts.
+		$prev->page( $current_page - 1 );
+		$prev->last_built_query = null;
+
+		return $prev;
 	}
 }

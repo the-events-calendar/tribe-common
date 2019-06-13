@@ -11,18 +11,34 @@
   "require-dev": {
     "lucatume/wp-browser": "^2.2.4",
     "codeception/codeception": "^2.5.5",
-    "phpunit/phpunit": "^6.5.14",
+    "phpunit/phpunit": "~6.0",
     "lucatume/function-mocker-le": "^1.0",
-    "wp-cli/checksum-command": "1.0.5"
+    "wp-cli/checksum-command": "1.0.5",
+    "moderntribe/tribe-common-styles": "dev-master"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
     "preferred-install": "dist"
   },
+  "repositories": [
+    {
+      "name": "moderntribe/tribe-common-styles",
+      "type": "github",
+      "url": "https://github.com/moderntribe/tribe-common-styles",
+      "no-api": true
+    }
+  ],
   "require": {
     "lucatume/di52": "~2.0.10",
     "firebase/php-jwt": "~5.0.0"
+  },
+  "extra": {
+    "installer-paths": {
+      "src/resources/postcss/utilities": [
+        "moderntribe/tribe-common-styles"
+      ]
+    }
   },
   "scripts": {
     "post-install-cmd": [
@@ -34,5 +50,10 @@
     "post-autoload-dump": [
       "xrstf\\Composer52\\Generator::onPostInstallCmd"
     ]
+  },
+  "autoload": {
+    "psr-4": {
+      "Tribe\\": "src/Tribe/"
+    }
   }
 }

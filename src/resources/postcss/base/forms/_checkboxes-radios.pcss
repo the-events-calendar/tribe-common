@@ -1,4 +1,4 @@
-.tribe-events {
+.tribe-common {
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Form Control: Checkboxes & Radios
@@ -8,12 +8,35 @@
 	 *   <legend>Legend for Checkboxes</legend>
 	 *   <div class="tribe-common-form-control-checkbox-radio-group">
 	 *     <div class="tribe-common-form-control-checkbox">
-	 *       <input id="checkboxOne" name="checkboxGroup" type="checkbox" value="checkboxOne" checked="checked" />
-	 *       <label for="checkboxOne">Checkbox One</label>
+	 *       <input
+	 *         class="tribe-common-form-control-checkbox__input"
+	 *         id="checkboxOne"
+	 *         name="checkboxGroup"
+	 *         type="checkbox"
+	 *         value="checkboxOne"
+	 *         checked="checked"
+	 *       />
+	 *       <label
+	 *         class="tribe-common-form-control-checkbox__label"
+	 *         for="checkboxOne"
+	 *       >
+	 *         Checkbox One
+	 *       </label>
 	 *     </div>
 	 *     <div class="tribe-common-form-control-checkbox">
-	 *       <input id="checkboxTwo" name="checkboxGroup" type="checkbox" value="checkboxTwo" />
-	 *       <label for="checkboxTwo">Checkbox two</label>
+	 *       <input
+	 *         class="tribe-common-form-control-checkbox__input"
+	 *         id="checkboxTwo"
+	 *         name="checkboxGroup"
+	 *         type="checkbox"
+	 *         value="checkboxTwo"
+	 *       />
+	 *       <label
+	 *         class="tribe-common-form-control-checkbox__label"
+	 *         for="checkboxTwo"
+	 *       >
+	 *         Checkbox Two
+	 *       </label>
 	 *     </div>
 	 *   </div>
 	 * </fieldset>
@@ -21,29 +44,43 @@
 	 * Example (Radios):
 	 * <div class="tribe-common-form-control-checkbox-radio-group">
 	 *   <div class="tribe-common-form-control-radio">
-	 *     <input id="radioExample" name="radioExample" type="radio" value="RadioExample" checked="checked" />
-	 *     <label for="radioExample">Radio Example</label>
+	 *     <input
+	 *       class="tribe-common-form-control-radio__input"
+	 *       id="radioExample"
+	 *       name="radioExample"
+	 *       type="radio"
+	 *       value="RadioExample"
+	 *       checked="checked"
+	 *     />
+	 *     <label
+	 *       class="tribe-common-form-control-radio__label"
+	 *       for="radioExample"
+	 *     >
+	 *       Radio Example
+	 *     </label>
 	 *   </div>
 	 * </div>
 	 *
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-common-form-control-checkbox,
+	/* .tribe-common-form-control-checkbox,
 	.tribe-common-form-control-radio {
 
-		label {
-			@mixin desktop-body-2;
+	} */
 
-			color: var(--color-text-secondary);
-			cursor: pointer;
-			display: inline-block;
-			margin-left: 11px;
-			vertical-align: middle;
-		}
+	.tribe-common-form-control-checkbox__label,
+	.tribe-common-form-control-radio__label {
+		@mixin desktop-body-2;
+
+		color: var(--color-text-secondary);
+		cursor: pointer;
+		display: inline-block;
+		margin-left: 11px;
+		vertical-align: middle;
 	}
 
-	.tribe-common-form-control-checkbox input[type="checkbox"],
-	.tribe-common-form-control-radio input[type="radio"] {
+	.tribe-common-form-control-checkbox__input,
+	.tribe-common-form-control-radio__input {
 		appearance: none;
 		background-color: var(--form-color-background);
 		border: 1px solid var(--form-color-border-default);
@@ -71,23 +108,20 @@
 	 * Form Control: Checkboxes
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-common-form-control-checkbox {
+	.tribe-common-form-control-checkbox__input {
 
-		input[type="checkbox"] {
-
-			&:checked:before {
-				background-image: svg-inline(check-white);
-				background-repeat: no-repeat;
-				background-size: contain;
-				content: '';
-				display: block;
-				height: 9px;
-				left: 50%;
-				position: absolute;
-				top: 50%;
-				transform: translate(-50%, -50%);
-				width: 12px;
-			}
+		&:checked:before {
+			background-image: svg-inline(check-white);
+			background-repeat: no-repeat;
+			background-size: contain;
+			content: '';
+			display: block;
+			height: 9px;
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 12px;
 		}
 	}
 
@@ -95,23 +129,21 @@
 	 * Form Control: Radios
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-common-form-control-radio {
+	.tribe-common-form-control-radio__input {
 
-		input[type="radio"] {
+		border-radius: 50%;
+
+		&:checked:before {
+			background-color: var(--form-color-background);
 			border-radius: 50%;
-
-			&:checked:before {
-				background-color: var(--form-color-background);
-				border-radius: 50%;
-				content: '';
-				display: block;
-				height: 8px;
-				left: 50%;
-				position: absolute;
-				top: 50%;
-				transform: translate(-50%, -50%);
-				width: 8px;
-			}
+			content: '';
+			display: block;
+			height: 8px;
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 8px;
 		}
 	}
 }
