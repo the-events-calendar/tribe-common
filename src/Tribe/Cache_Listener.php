@@ -127,7 +127,7 @@
 		/**
 		 * Run the caching functionality that is executed when rewrite rules are generated.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 */
 		public function generate_rewrite_rules() {
 			$this->cache->set_last_occurrence( self::TRIGGER_GENERATE_REWRITE_RULES );

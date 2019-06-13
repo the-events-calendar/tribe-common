@@ -2,7 +2,7 @@
 /**
  * Functions, or polyfills, related to URL manipulation
  *
- * @since TBD
+ * @since 4.9.11
  */
 
 /**
@@ -56,7 +56,7 @@ if ( ! function_exists( 'tribe_build_url' ) ) {
 	 * The parts of the second URL will be merged into the first according to
 	 * the flags argument.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param mixed $url     (part(s) of) an URL in form of a string or associative array like parse_url() returns.
 	 * @param mixed $parts   Same as the first argument.
