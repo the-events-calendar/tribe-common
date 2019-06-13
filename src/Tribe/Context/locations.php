@@ -7,7 +7,7 @@
  * only when the Context is built moving them here is a small optimization.
  * This file is meant to be included by the `Tribe__Context::populate_locations` method.
  *
- * @since TBD
+ * @since 4.9.11
  */
 
 return [
