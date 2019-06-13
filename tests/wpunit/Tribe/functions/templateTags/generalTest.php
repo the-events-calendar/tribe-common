@@ -57,6 +57,7 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_tribe_post_checksum_w_bad_input( $input ) {
 		$this->assertNull( tribe_post_checksum( $input ) );
+		$this->assertNull( tribe_posts_checksum( $input ) );
 	}
 
 	public function tribe_posts_checksum_bad_inputs() {
