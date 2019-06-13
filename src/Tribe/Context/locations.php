@@ -7,7 +7,7 @@
  * only when the Context is built moving them here is a small optimization.
  * This file is meant to be included by the `Tribe__Context::populate_locations` method.
  *
- * @since TBD
+ * @since 4.9.11
  */
 
 return [
@@ -118,14 +118,14 @@ return [
 			Tribe__Context::QUERY_VAR   => 'featured',
 		],
 	],
-	Tribe__Events__Main::TAXONOMY => [
+	'tribe_events_cat' => [
 		'read'  => [
-			Tribe__Context::REQUEST_VAR => Tribe__Events__Main::TAXONOMY,
-			Tribe__Context::QUERY_VAR   => Tribe__Events__Main::TAXONOMY,
+			Tribe__Context::REQUEST_VAR => 'tribe_events_cat',
+			Tribe__Context::QUERY_VAR   => 'tribe_events_cat',
 		],
 		'write' => [
-			Tribe__Context::REQUEST_VAR => Tribe__Events__Main::TAXONOMY,
-			Tribe__Context::QUERY_VAR   => Tribe__Events__Main::TAXONOMY,
+			Tribe__Context::REQUEST_VAR => 'tribe_events_cat',
+			Tribe__Context::QUERY_VAR   => 'tribe_events_cat',
 		],
 	],
 	'remove_date_filters'         => [

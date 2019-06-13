@@ -421,7 +421,7 @@ class Tribe__Utils__Array {
 	/**
 	 * Returns the value associated with the first index, among the indexes, that is set in the array..
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $array The array to search.
 	 * @param array $indexes The indexes to search; in order the function will look from the first to the last.
