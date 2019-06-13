@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.11.1] 2019-06-12 =
+= [4.9.11.1] 2019-06-13 =
 
 * Fix - Resolve fatal errors with references directly to The Events Calendar class constants [129107]
 
