@@ -13,119 +13,119 @@ class Tribe__Context {
 	/**
 	 * The value that will be used to indicate no value was found in any location while trying to read it.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const NOT_FOUND = '__not_found__';
 
 	/**
 	 * The key to locate a context value as the value of a request variable.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const REQUEST_VAR = 'request_var';
 
 	/**
 	 * The key to locate a context value as the value of a Tribe option.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const TRIBE_OPTION = 'tribe_option';
 
 	/**
 	 * The key to locate a context value as the value of an option.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const OPTION = 'option';
 
 	/**
 	 * The key to locate a context value as the value of a transient.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const TRANSIENT = 'transient';
 
 	/**
 	 * The key to locate a context value as the value of the main query (global `$wp_query`) query var.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const QUERY_VAR = 'query_var';
 
 	/**
 	 * The key to locate a context value as the value of the main query (global `$wp_query`) property.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const QUERY_PROP = 'query_prop';
 
 	/**
 	 * The key to locate a context value as the value of a constant.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const CONSTANT = 'constant';
 
 	/**
 	 * The key to locate a context value as a static class property.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const STATIC_PROP = 'static_prop';
 
 	/**
 	 * The key to locate a context value as property of an object.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const PROP = 'prop';
 
 	/**
 	 * The key to locate a context value as result running a static class method.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const STATIC_METHOD = 'static_method';
 
 	/**
 	 * The key to locate a context value as result running a method on an object.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const METHOD = 'method';
 
 	/**
 	 * The key to locate a context value as result running a callback function (e.g. a callable, a closure).
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const FUNC = 'func';
 
 	/**
 	 * The key to locate a context value as result of reading a global value.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const GLOBAL_VAR = 'global_var';
 
 	/**
 	 * The key to locate a context value as result of an `apply_filters` call.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const FILTER = 'filter';
 
 	/**
 	 * The key to locate a context value among the values parsed by `WP::parse_request`.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const WP_PARSED = 'wp_parsed';
 
 	/**
 	 * The key to locate a context value among the values in the query mached by `WP::parse_request`.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	const WP_MATCHED_QUERY = 'wp_matched_query';
 
@@ -1362,7 +1362,7 @@ class Tribe__Context {
 	 *      $query_args = tribe_context()->map_to_read( $input, Tribe__Context::REQUEST_VAR );
 	 *      $url = add_query_arg( $query_args, home_url() );
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array             $input       An associative array of values in the shape `[ <location> => <value> ]`;
 	 *                                       where `location` is the name of the location registered in the Context
