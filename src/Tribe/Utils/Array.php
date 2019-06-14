@@ -44,7 +44,7 @@ class Tribe__Utils__Array {
 				_doing_it_wrong( __FUNCTION__, esc_html( $error ), '4.3' );
 				break;
 			} elseif ( ! isset( $key_pointer[ $i ] ) ) {
-				$key_pointer[ $i ] = array();
+				$key_pointer[ $i ] = [];
 			}
 
 			// Dive one level deeper into the nested array.
@@ -158,14 +158,14 @@ class Tribe__Utils__Array {
 		$sep = is_string( $sep ) ? $sep : ',';
 
 		if ( $value === null || $value === '' ) {
-			return array();
+			return [];
 		}
 
 		if ( ! is_array( $value ) ) {
 			$value = preg_split( '/\\s*' . preg_quote( $sep ) . '\\s*/', $value );
 		}
 
-		$filtered = array();
+		$filtered = [];
 		foreach ( $value as $v ) {
 			if ( '' === $v ) {
 				continue;
@@ -209,10 +209,10 @@ class Tribe__Utils__Array {
 	 *
 	 * @link https://gist.github.com/esthezia/5804445
 	 */
-	public static function escape_multidimensional_array( $data = array() ) {
+	public static function escape_multidimensional_array( $data = [] ) {
 
 		if ( ! is_array( $data ) || ! count( $data ) ) {
-			return array();
+			return [];
 		}
 
 		foreach ( $data as $key => $value ) {
@@ -250,7 +250,7 @@ class Tribe__Utils__Array {
 	 */
 	public static function map_or_discard( $keys, array $map, &$found = true ) {
 		$hash   = md5( time() );
-		$mapped = array();
+		$mapped = [];
 
 		foreach ( (array) $keys as $key ) {
 			$meta_key = Tribe__Utils__Array::get( $map, $key, $hash );
@@ -288,7 +288,7 @@ class Tribe__Utils__Array {
 			return $array;
 		}
 
-		$unprefixed = array();
+		$unprefixed = [];
 		foreach ( $array as $key => $value ) {
 			if ( $recursive && is_array( $value ) ) {
 				$value = self::add_unprefixed_keys_to( $value, true );
@@ -319,7 +319,7 @@ class Tribe__Utils__Array {
 	public static function filter_prefixed( array $array, $prefix ) {
 		$prefixes = implode( '|', array_map( 'preg_quote', (array) $prefix ) );
 		$pattern  = '/^(' . $prefixes . ')/';
-		$filtered = array();
+		$filtered = [];
 		foreach ( $array as $key => $value ) {
 			if ( ! preg_match( $pattern, $key ) ) {
 				continue;
@@ -385,7 +385,7 @@ class Tribe__Utils__Array {
 			return $array;
 		}
 
-		$prefixed = array();
+		$prefixed = [];
 		foreach ( $array as $key => $value ) {
 			if ( $recursive && is_array( $value ) ) {
 				$value = self::add_prefixed_keys_to( $value, true );
