@@ -6,8 +6,8 @@
 
 * Tweak - Create a new key if `AUTH_KEY` is not defined or is empty and add a new filter `tribe_promoter_secret_key` to filter the result [127183]
 * Tweak - Make sure `UTC-0` is converted back to `UTC` instead of `UTC-01` [129240]
-* Tweak - Add new functions: `tribe_posts_checksum` and `tribe_post_checksum` to generate a checksum from a Query
-* Tweak - Add new function `tribe_register_rest_route` Wrapper around `register_rest_route` to filter the arguments when a new REST endpoint is created
+* Tweak - Add new functions: `tribe_posts_checksum` and `tribe_post_checksum` to generate a checksum from a Query [129517]
+* Tweak - Add new function `tribe_register_rest_route` Wrapper around `register_rest_route` to filter the arguments when a new REST endpoint is created [129517]
 
 = [4.9.11.1] 2019-06-13 =
 
