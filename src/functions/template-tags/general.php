@@ -808,7 +808,7 @@ if ( ! function_exists( 'tribe_posts_checksum' ) ) {
 	 * @return null|string The checksum string or `null` if the posts are not valid or no
 	 *                     fragments are passed.
 	 */
-	function tribe_posts_checksum( $post_ids, $use_frags = array( 'ID', 'post_modified' ) ) {
+	function tribe_posts_checksum( $post_ids, $use_frags = [ 'ID', 'post_modified' ] ) {
 		$post_ids = array_filter( (array) $post_ids );
 		if ( empty( $post_ids ) ) {
 			return null;
