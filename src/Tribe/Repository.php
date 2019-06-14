@@ -1347,7 +1347,6 @@ abstract class Tribe__Repository
 			if ( empty( $query->request ) ) {
 				$query->set( 'fields', 'ids' );
 
-				// Tests: 941, Assertions: 1592, Errors: 2, Failures: 44.
 				return $query->get_posts();
 			}
 
