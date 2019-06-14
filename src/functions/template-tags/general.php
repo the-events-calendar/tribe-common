@@ -752,19 +752,3 @@ if ( ! function_exists( 'tribe_context' ) ) {
 		return $context;
 	}
 }
-
-if ( ! function_exists( 'tribe_var' ) ) {
-	/**
-	 * Returns the value of a variable set in the current variable space.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $key     The name of the variable to fetch.
-	 * @param mixed  $default The default value that will be returned if the variable is not set.
-	 *
-	 * @return mixed The variable value, or the default value if the variable is not set.
-	 */
-	function tribe_var( $key, $default = '' ) {
-		return isset( $key ) ? $key : $default;
-	}
-}
