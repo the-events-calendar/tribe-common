@@ -1422,7 +1422,7 @@ class Tribe__Context {
 	 *
 	 * This method leverages the inherent knowledge of aliases stored in the Context locations to "translate" a
 	 * sub-location to its location key.
-	 * E.g. assume the `cr` location is `read` from the [ 'carriage', 'vehicle', 'transport_mean' ] query var; calling
+	 * E.g. assume the `car` location is `read` from the [ 'carriage', 'vehicle', 'transport_mean' ] query var; calling
 	 * `$context->populate_aliases( [ 'vehicle' => 'hyunday' ], 'read', Context::QUERY_VAR )` would yield
 	 * `[ 'car' => 'hyunday' ]`.
 	 *
