@@ -449,8 +449,6 @@ var tribe_dropdowns = tribe_dropdowns || {};
 		}
 
 		$select.data( 'value', data ).attr( 'data-value', JSON.stringify( data ) );
-
-		$select.chosen( 'width', 'auto' );
 	};
 
 	obj.ajaxurl = function () {
