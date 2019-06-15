@@ -1,5 +1,7 @@
 <?php
 
+use Tribe__Utils__Array as Arr;
+
 /**
  * Class Tribe__Context
  *
@@ -8,74 +10,163 @@
  */
 class Tribe__Context {
 
-		const NOT_FOUND = '__not_found__';
+	/**
+	 * The value that will be used to indicate no value was found in any location while trying to read it.
+	 *
+	 * @since 4.9.11
+	 */
+	const NOT_FOUND = '__not_found__';
 
-		const REQUEST_VAR = 'request_var';
+	/**
+	 * The key to locate a context value as the value of a request variable.
+	 *
+	 * @since 4.9.11
+	 */
+	const REQUEST_VAR = 'request_var';
 
-		const TRIBE_OPTION = 'tribe_option';
+	/**
+	 * The key to locate a context value as the value of a Tribe option.
+	 *
+	 * @since 4.9.11
+	 */
+	const TRIBE_OPTION = 'tribe_option';
 
-		const OPTION = 'option';
+	/**
+	 * The key to locate a context value as the value of an option.
+	 *
+	 * @since 4.9.11
+	 */
+	const OPTION = 'option';
 
-		const TRANSIENT = 'transient';
+	/**
+	 * The key to locate a context value as the value of a transient.
+	 *
+	 * @since 4.9.11
+	 */
+	const TRANSIENT = 'transient';
 
-		const QUERY_VAR = 'query_var';
+	/**
+	 * The key to locate a context value as the value of the main query (global `$wp_query`) query var.
+	 *
+	 * @since 4.9.11
+	 */
+	const QUERY_VAR = 'query_var';
 
-		const QUERY_PROP = 'query_prop';
+	/**
+	 * The key to locate a context value as the value of the main query (global `$wp_query`) property.
+	 *
+	 * @since 4.9.11
+	 */
+	const QUERY_PROP = 'query_prop';
 
-		const CONSTANT = 'constant';
+	/**
+	 * The key to locate a context value as the value of a constant.
+	 *
+	 * @since 4.9.11
+	 */
+	const CONSTANT = 'constant';
 
-		const STATIC_PROP = 'static_prop';
+	/**
+	 * The key to locate a context value as a static class property.
+	 *
+	 * @since 4.9.11
+	 */
+	const STATIC_PROP = 'static_prop';
 
-		const PROP = 'prop';
+	/**
+	 * The key to locate a context value as property of an object.
+	 *
+	 * @since 4.9.11
+	 */
+	const PROP = 'prop';
 
-		const STATIC_METHOD = 'static_method';
+	/**
+	 * The key to locate a context value as result running a static class method.
+	 *
+	 * @since 4.9.11
+	 */
+	const STATIC_METHOD = 'static_method';
 
-		const METHOD = 'method';
+	/**
+	 * The key to locate a context value as result running a method on an object.
+	 *
+	 * @since 4.9.11
+	 */
+	const METHOD = 'method';
 
-		const FUNC = 'func';
+	/**
+	 * The key to locate a context value as result running a callback function (e.g. a callable, a closure).
+	 *
+	 * @since 4.9.11
+	 */
+	const FUNC = 'func';
 
-		const GLOBAL_VAR = 'global_var';
+	/**
+	 * The key to locate a context value as result of reading a global value.
+	 *
+	 * @since 4.9.11
+	 */
+	const GLOBAL_VAR = 'global_var';
 
-		const FILTER = 'filter';
+	/**
+	 * The key to locate a context value as result of an `apply_filters` call.
+	 *
+	 * @since 4.9.11
+	 */
+	const FILTER = 'filter';
 
-		/*
-		 *
-		 * An array defining the properties the context will be able to read and (dangerously) write.
-		 *
-		 * This is the configuration that should be modified to add/remove/modify values and locations
-		 * provided by the global context.
-		 * Each entry has the shape [ <key> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ].
-		 * The key is used to identify the property that will be accessible with the `get` and
-		 * 'dangerously_set_global_context' method, e.g. `$context->get( 'event_display', 'list' );`.
-		 * The locations is a list of locations the context will search, top to bottom, left to right, to find a value that's
-		 * not empty or the default one, here's a list of supported lookup locations:
-		 *
-		 * request_var - look into $_GET, $_POST, $_PUT, $_DELETE, $_REQUEST.
-		 * query_var - get the value from the main WP_Query object query vars.
-		 * query_prop - get the value from a property of the main WP_Query object.
-		 * tribe_option - get the value from a Tribe option.
-		 * option - get the value from a database option.
-		 * transient - get the value from a transient.
-		 * constant - get the value from a constant, can also be a class constant with <class>::<const>.
-		 * global_var - get the value from a global variable
-		 * static_prop - get the value from a class static property, format: `array( $class, $prop )`.
-		 * prop - get the value from a tribe() container binding, format `array( $binding, $prop )`.
-		 * static_method - get the value from a class static method.
-		 * method - get the value calling a method on a tribe() container binding.
-		 * func - get the value from a function or a closure.
-		 * filter - get the value by applying a filter.
-		 *
-		 * For each location additional arguments can be specified:
-		 * orm_arg - if `false` then the location will never produce an ORM argument, if provided the ORM arg produced bye the
-		 * location will have this name.
-		 * orm_transform - if provided the value of the location will be obtained by passing it as an argument to a callable.
-		 *
-		 * As the Context locations increase in number it would be impractical to define them inline here.
-		 * The locations will be loaded by the `Tribe__Context::populate_locations` method from the `Context/locations.php`
-		 * file.
-		 *
-		 * @var array
-		 */
+	/**
+	 * The key to locate a context value among the values parsed by `WP::parse_request`.
+	 *
+	 * @since 4.9.11
+	 */
+	const WP_PARSED = 'wp_parsed';
+
+	/**
+	 * The key to locate a context value among the values in the query mached by `WP::parse_request`.
+	 *
+	 * @since 4.9.11
+	 */
+	const WP_MATCHED_QUERY = 'wp_matched_query';
+
+	/*
+	 *
+	 * An array defining the properties the context will be able to read and (dangerously) write.
+	 *
+	 * This is the configuration that should be modified to add/remove/modify values and locations
+	 * provided by the global context.
+	 * Each entry has the shape [ <key> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ].
+	 * The key is used to identify the property that will be accessible with the `get` and
+	 * 'dangerously_set_global_context' method, e.g. `$context->get( 'event_display', 'list' );`.
+	 * The locations is a list of locations the context will search, top to bottom, left to right, to find a value that's
+	 * not empty or the default one, here's a list of supported lookup locations:
+	 *
+	 * request_var - look into $_GET, $_POST, $_PUT, $_DELETE, $_REQUEST.
+	 * query_var - get the value from the main WP_Query object query vars.
+	 * query_prop - get the value from a property of the main WP_Query object.
+	 * tribe_option - get the value from a Tribe option.
+	 * option - get the value from a database option.
+	 * transient - get the value from a transient.
+	 * constant - get the value from a constant, can also be a class constant with <class>::<const>.
+	 * global_var - get the value from a global variable
+	 * static_prop - get the value from a class static property, format: `array( $class, $prop )`.
+	 * prop - get the value from a tribe() container binding, format `array( $binding, $prop )`.
+	 * static_method - get the value from a class static method.
+	 * method - get the value calling a method on a tribe() container binding.
+	 * func - get the value from a function or a closure.
+	 * filter - get the value by applying a filter.
+	 *
+	 * For each location additional arguments can be specified:
+	 * orm_arg - if `false` then the location will never produce an ORM argument, if provided the ORM arg produced bye the
+	 * location will have this name.
+	 * orm_transform - if provided the value of the location will be obtained by passing it as an argument to a callable.
+	 *
+	 * As the Context locations increase in number it would be impractical to define them inline here.
+	 * The locations will be loaded by the `Tribe__Context::populate_locations` method from the `Context/locations.php`
+	 * file.
+	 *
+	 * @var array
+	 */
 		protected static $locations = [];
 
 		/**
@@ -1217,6 +1308,50 @@ class Tribe__Context {
 		}
 
 	/**
+	 * Reads (gets) the value reading it from a query var parsed from the global `$wp` object.
+	 *
+	 * @since 4.9.8
+	 *
+	 * @param array $vars    The list of variables to read, in order.
+	 * @param mixed $default The default value to return if no variable was parsed.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	public function wp_parsed( array $vars, $default ) {
+		/** @var WP $wp */
+		global $wp;
+
+		if ( ! $wp instanceof WP || empty($wp->query_vars) ) {
+			return $default;
+		}
+
+		return Arr::get_first_set( (array) $wp->query_vars, $vars, $default );
+	}
+
+	/**
+	 * Reads (gets) the value reading it from a query var parsed from the query matched by the global `$wp` object.
+	 *
+	 * @since 4.9.8
+	 *
+	 * @param array $vars    The list of variables to read, in order.
+	 * @param mixed $default The default value to return if no variable was parsed.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	public function wp_matched_query( array $vars, $default ) {
+		/** @var WP $wp */
+		global $wp;
+
+		if ( ! $wp instanceof WP || empty( $wp->matched_query ) ) {
+			return $default;
+		}
+
+		parse_str( $wp->matched_query, $query_vars );
+
+		return Arr::get_first_set( (array) $query_vars, $vars, $default );
+	}
+
+	/**
 	 * Maps an input array to the corresponding read locations.
 	 *
 	 * The resulting array can be used as input for the `alter_values` method.
@@ -1227,7 +1362,7 @@ class Tribe__Context {
 	 *      $query_args = tribe_context()->map_to_read( $input, Tribe__Context::REQUEST_VAR );
 	 *      $url = add_query_arg( $query_args, home_url() );
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array             $input       An associative array of values in the shape `[ <location> => <value> ]`;
 	 *                                       where `location` is the name of the location registered in the Context

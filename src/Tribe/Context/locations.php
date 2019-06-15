@@ -7,7 +7,7 @@
  * only when the Context is built moving them here is a small optimization.
  * This file is meant to be included by the `Tribe__Context::populate_locations` method.
  *
- * @since TBD
+ * @since 4.9.11
  */
 
 return [
@@ -23,22 +23,27 @@ return [
 	],
 	'event_display'               => [
 		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'tribe_event_display',
-			Tribe__Context::QUERY_VAR   => 'eventDisplay',
+			Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
+			Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
+			Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+			Tribe__Context::QUERY_VAR        => 'eventDisplay',
+			Tribe__Context::TRIBE_OPTION     => 'viewOption',
 		],
 		'write' => [
-			Tribe__Context::REQUEST_VAR => 'tribe_event_display',
+			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
 			Tribe__Context::QUERY_VAR   => 'eventDisplay',
 		],
 	],
 	'view'                        => [
 		'read'  => [
-			Tribe__Context::REQUEST_VAR  => [ 'view', 'tribe_view', 'tribe_event_display' ],
-			Tribe__Context::QUERY_VAR    => [ 'tribe_view', 'eventDisplay' ],
-			Tribe__Context::TRIBE_OPTION => 'viewOption',
+			Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
+			Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
+			Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+			Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
+			Tribe__Context::TRIBE_OPTION     => 'viewOption',
 		],
 		'write' => [
-			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display' ],
+			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
 			Tribe__Context::QUERY_VAR   => [ 'tribe_view', 'eventDisplay' ],
 		],
 	],
@@ -113,14 +118,14 @@ return [
 			Tribe__Context::QUERY_VAR   => 'featured',
 		],
 	],
-	Tribe__Events__Main::TAXONOMY => [
+	'tribe_events_cat' => [
 		'read'  => [
-			Tribe__Context::REQUEST_VAR => Tribe__Events__Main::TAXONOMY,
-			Tribe__Context::QUERY_VAR   => Tribe__Events__Main::TAXONOMY,
+			Tribe__Context::REQUEST_VAR => 'tribe_events_cat',
+			Tribe__Context::QUERY_VAR   => 'tribe_events_cat',
 		],
 		'write' => [
-			Tribe__Context::REQUEST_VAR => Tribe__Events__Main::TAXONOMY,
-			Tribe__Context::QUERY_VAR   => Tribe__Events__Main::TAXONOMY,
+			Tribe__Context::REQUEST_VAR => 'tribe_events_cat',
+			Tribe__Context::QUERY_VAR   => 'tribe_events_cat',
 		],
 	],
 	'remove_date_filters'         => [
@@ -157,6 +162,17 @@ return [
 			Tribe__Context::REQUEST_VAR => 'paged',
 			Tribe__Context::QUERY_VAR   => 'paged',
 		],
-	]
+	],
+	'event_display_mode' => [
+		/**
+		 * We use the `eventDisplay` query var with duplicity: when parsed from the path it represents the View, when
+		 * appended as a query var it represents the "view mode". Here we invert the order to read the appended query
+		 * var first and get, from its position, a clean variable we can consume in Views.
+		 */
+		'read' => [
+			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
+			Tribe__Context::WP_PARSED   => [ 'eventDisplay' ],
+			Tribe__Context::QUERY_VAR   => 'eventDisplay',
+		],
+	],
 ];
-

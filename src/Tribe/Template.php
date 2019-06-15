@@ -617,7 +617,7 @@ class Tribe__Template {
 	/**
 	 * Sets a number of values at the same time.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $values   An associative key/value array of the values to set.
 	 * @param bool  $is_local Whether to set the values as global or local; defaults to local as the `set` method does.
@@ -633,7 +633,7 @@ class Tribe__Template {
 	/**
 	 * Returns the Template global context.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array An associative key/value array of the Template global context.
 	 */
@@ -644,7 +644,7 @@ class Tribe__Template {
 	/**
 	 * Returns the Template local context.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array An associative key/value array of the Template local context.
 	 */
@@ -657,7 +657,7 @@ class Tribe__Template {
 	 *
 	 * Local values will override the template global context values.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array An associative key/value array of the Template global and local context.
 	 */

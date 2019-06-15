@@ -1,5 +1,7 @@
 <?php
 
+use Tribe\Traits\Cache_User;
+use Tribe__Cache_Listener as Listener;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -10,6 +12,7 @@ use Tribe__Utils__Array as Arr;
  * @since 4.3
  */
 class Tribe__Rewrite {
+	use Cache_User;
 
 	/**
 	 * If we wish to setup a rewrite rule that uses percent symbols, we'll need
@@ -18,9 +21,9 @@ class Tribe__Rewrite {
 	const PERCENT_PLACEHOLDER = '~~TRIBE~PC~~';
 
 	/**
-	 * Static singleton variable
+	 * Static singleton variable.
 	 *
-	 * @var self
+	 * @var static
 	 */
 	public static $instance;
 
@@ -45,7 +48,7 @@ class Tribe__Rewrite {
 	 */
 	public $bases = array();
 	/**
-	 * After creating the Hooks on WordPress we lock the usage of the function
+	 * After creating the Hooks on WordPress we lock the usage of the function.
 	 *
 	 * @var boolean
 	 */
@@ -54,9 +57,29 @@ class Tribe__Rewrite {
 	/**
 	 * An array cache of resolved canonical URLs in the shape `[ <url> => <canonical_url> ]`.
 	 *
+	 * @since 4.9.11
+	 *
 	 * @var array
 	 */
-	protected $canonical_url_cache = [];
+	protected $canonical_url_cache = null;
+
+	/**
+	 * An array cache of parsed URLs in the shape `[ <url> => <parsed_vars> ]`.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @var array
+	 */
+	protected $parse_request_cache = null;
+
+	/**
+	 * And array cache of cleaned URLs.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @var array
+	 */
+	protected $clean_url_cache = null;
 
 	/**
 	 * Static Singleton Factory Method
@@ -64,11 +87,20 @@ class Tribe__Rewrite {
 	 * @return self
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
+		if ( ! static::$instance ) {
+			static::$instance = new static;
 		}
 
-		return self::$instance;
+		return static::$instance;
+	}
+
+	/**
+	 * Tribe__Rewrite constructor.
+	 *
+	 * @param WP_Rewrite|null $wp_rewrite
+	 */
+	public function __construct( WP_Rewrite $wp_rewrite = null ) {
+		$this->rewrite = $wp_rewrite;
 	}
 
 	/**
@@ -82,6 +114,7 @@ class Tribe__Rewrite {
 		if ( ! $wp_rewrite instanceof WP_Rewrite ) {
 			global $wp_rewrite;
 		}
+
 		$this->rewrite = $wp_rewrite;
 		$this->bases   = $this->get_bases( 'regex' );
 
@@ -96,20 +129,6 @@ class Tribe__Rewrite {
 	public function filter_generate( WP_Rewrite $wp_rewrite ) {
 		// Gets the rewrite bases and completes any other required setup work
 		$this->setup( $wp_rewrite );
-
-		/**
-		 * Use this to change the Tribe__Events__Rewrite instance before new rules
-		 * are committed.
-		 *
-		 * Should be used when you want to add more rewrite rules without having to
-		 * deal with the array merge, noting that rules for The Events Calendar are
-		 * themselves added via this hook (default priority).
-		 *
-		 * @var Tribe__Events__Rewrite $rewrite
-		 *
-		 * @deprecated 4.3 Use `tribe_pre_rewrite`
-		 */
-		do_action( 'tribe_events_pre_rewrite', $this );
 
 		/**
 		 * Use this to change the Tribe__Rewrite instance before new rules
@@ -308,13 +327,12 @@ class Tribe__Rewrite {
 	 * This method will handle "our" URLs to go from their ugly form, filled with query vars, to the "pretty" one, if
 	 * possible.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param string $url The URL to try and translate into its canonical form.
 	 * @param bool   $force Whether to try and use the cache or force a new canonical URL conversion.
 	 *
-	 * @return string|void The canonical URL, or the input URL if it could not resolved to a canonical one.
-	 *
+	 * @return string The canonical URL, or the input URL if it could not be resolved to a canonical one.
 	 */
 	public function get_canonical_url( $url, $force = false ) {
 		if ( get_class( $this ) === Tribe__Rewrite::class ) {
@@ -323,10 +341,15 @@ class Tribe__Rewrite {
 			);
 		}
 
+		if ( null === $this->rewrite ) {
+			// We re-do this check here as the object might have been initialized before the global rewrite was set.
+			$this->setup();
+		}
+
 		/**
 		 * Filters the canonical URL for an input URL before any kind of logic runs.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param string|null    $canonical_url The canonical URL, defaults to `null`; returning a non `null` value will
 		 *                                      make the logic bail and return the value.
@@ -366,8 +389,15 @@ class Tribe__Rewrite {
 			return $home_url;
 		}
 
-		if ( ! $force && isset( $this->canonical_url_cache[ $url ] ) ) {
-			return $this->canonical_url_cache[ $url ];
+		if ( ! $force ) {
+			$this->warmup_cache(
+				'canonical_url',
+				WEEK_IN_SECONDS,
+				Listener::TRIGGER_GENERATE_REWRITE_RULES
+			);
+			if ( isset( $this->canonical_url_cache[ $url ] ) ) {
+				return $this->canonical_url_cache[ $url ];
+			}
 		}
 
 		$query         = (string) parse_url( $url, PHP_URL_QUERY );
@@ -415,6 +445,8 @@ class Tribe__Rewrite {
 			return $wp_canonical;
 		}
 
+		$found = false;
+
 		foreach ( $our_rules as $link_template => $index_path ) {
 			wp_parse_str( (string) parse_url( $index_path, PHP_URL_QUERY ), $link_vars );
 			ksort( $link_vars );
@@ -445,8 +477,7 @@ class Tribe__Rewrite {
 				/*
 				 * We use `end` as, by default, the localized version of the slug in the current language will be at the
 				 * end of the array.
-				 * @todo here we should keep a map, that has to generated at permalink flush time, to map the locales
-				 * to the slugs.
+				 * @todo here we should keep a map, that has to generated at permalink flush time, to map locales/slugs.
 				 */
 				return end( $localized_matcher['localized_slugs'] );
 			}, $localized_matchers );
@@ -458,6 +489,7 @@ class Tribe__Rewrite {
 			// Remove trailing chars.
 			$path     = rtrim( $replaced, '?$' );
 			$resolved = trailingslashit( home_url( $path ) );
+			$found = true;
 
 			break;
 		}
@@ -468,7 +500,8 @@ class Tribe__Rewrite {
 		}
 
 		if ( $canonical_url !== $resolved ) {
-			$resolved = trailingslashit( $resolved );
+			// Be sure to add a trailing slash to the URL; before `?` or `#`.
+			$resolved = preg_replace( '/(?<!\\/)(#|\\?)/u', '/$1', $resolved );
 		}
 
 		if ( count( $unmatched_vars ) ) {
@@ -482,7 +515,7 @@ class Tribe__Rewrite {
 		 * filter will fire after all the logic to resolve the URL ran. If you want to filter the canonical URL before
 		 * the logic runs then use the `tribe_rewrite_pre_canonical_url` filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param string         $resolved The resolved, canonical URL.
 		 * @param string         $url      The original URL to resolve.
@@ -490,7 +523,10 @@ class Tribe__Rewrite {
 		 */
 		$resolved = apply_filters( 'tribe_rewrite_canonical_url', $resolved, $url, $this );
 
-		$this->canonical_url_cache[ $url ] = $resolved;
+		if ( $found ) {
+			// Since we're caching let's not cache unmatched rules to allow for their later, valid resolution.
+			$this->canonical_url_cache[ $url ] = $resolved;
+		}
 
 		return $resolved;
 	}
@@ -498,7 +534,7 @@ class Tribe__Rewrite {
 	/**
 	 * Returns an array of rewrite rules handled by the implementation.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
 	 */
@@ -512,10 +548,10 @@ class Tribe__Rewrite {
 		$pattern = '/post_type=tribe_(events|venue|organizer)/';
 		// Reverse the rules to try and match the most complex first.
 		$rules = isset( $this->rewrite->rules ) ? $this->rewrite->rules : [];
-		$handled_rewrite_rules = array_reverse( array_filter( $rules,
+		$handled_rewrite_rules = array_filter( $rules,
 			static function ( $rule_query_string ) use ( $pattern ) {
 				return preg_match( $pattern, $rule_query_string );
-			} ) );
+			} );
 
 		return $handled_rewrite_rules;
 	}
@@ -523,7 +559,7 @@ class Tribe__Rewrite {
 	/**
 	 * Returns a map relating localized regex matchers to query vars.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array A map of localized regex matchers in the shape `[ <localized_regex> => <query_var> ]`.
 	 */
@@ -542,12 +578,17 @@ class Tribe__Rewrite {
 				// If we have the localized slug version then let's parse it.
 				preg_match( '/^\\(\\?:(?<slugs>[^\\)]+)\\)$/u', $localized_matcher, $buffer );
 				if ( ! empty( $buffer['slugs'] ) ) {
+					$slugs = explode( '|', $buffer['slugs'] );
+
 					$localized_matchers[ $localized_matcher ]['localized_slugs'] = array_map(
 						static function ( $localized_slug ) {
 							return str_replace( '\-', '-', $localized_slug );
 						},
-						explode( '|', $buffer['slugs'] )
+						$slugs
 					);
+
+					// The English version is the first.
+					$localized_matchers[ $localized_matcher ]['en_slug'] = reset( $slugs );
 				}
 			}
 		}
@@ -558,7 +599,7 @@ class Tribe__Rewrite {
 	/**
 	 * Returns a map relating localize matcher slugs to the corresponding query var.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array A map relating localized matcher slugs to the corresponding query var.
 	 */
@@ -571,7 +612,7 @@ class Tribe__Rewrite {
 	/**
 	 * Return a list of the query vars handled in the input rewrite rules.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $rules A set of rewrite rules in the shape `[ <regex> => <path> ]`.
 	 *
@@ -590,7 +631,7 @@ class Tribe__Rewrite {
 	/**
 	 * Sets up the dynamic matchers based on the link query vars.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $query_vars An map of query vars and their values.
 	 *
@@ -606,18 +647,26 @@ class Tribe__Rewrite {
 				$slugs = explode( '|', $matches['slugs'] );
 				// The localized version is the last.
 				$localized_slug = end( $slugs );
-				$dynamic_matchers["{$page_regex}/(\d+)"] = "{$localized_slug}/{$query_vars['paged']}";
+				// We use two different regular expressions to read pages, let's add both.
+				$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars['paged']}";
+				$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars['paged']}";
 			}
 		}
 
 		if ( isset( $query_vars['tag'] ) ) {
-			$tag_regex = $bases['tag'];
-			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $tag_regex, $matches );
-			if ( isset( $matches['slugs'] ) ) {
-				$slugs = explode( '|', $matches['slugs'] );
-				// The localized version is the last.
-				$localized_slug = end( $slugs );
-				$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$query_vars['tag']}";
+			$tag      = $query_vars['tag'];
+			$tag_term = get_term_by( 'slug', $tag, 'post_tag' );
+
+			if ( $tag_term instanceof WP_Term ) {
+				// Let's actually add the matcher only if the tag exists.
+				$tag_regex = $bases['tag'];
+				preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $tag_regex, $matches );
+				if ( isset( $matches['slugs'] ) ) {
+					$slugs = explode( '|', $matches['slugs'] );
+					// The localized version is the last.
+					$localized_slug                           = end( $slugs );
+					$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$tag}";
+				}
 			}
 		}
 
@@ -632,9 +681,275 @@ class Tribe__Rewrite {
 	/**
 	 * Returns a list of post types supported by the implementation.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	protected function get_post_types() {
 		throw new BadMethodCallException( 'Method get_post_types should be implemented by extending classes.' );
+	}
+
+	/**
+	 * Parses a URL to produce an array of query variables.
+	 *
+	 * Most of this functionality was copied from `WP::parse_request()` method
+	 * with some changes to avoid conflicts and removing non-required behaviors.
+	 *
+	 * @since  4.9.11
+	 *
+	 * @param string $url              The URLto parse.
+	 * @param array  $extra_query_vars An associative array of extra query vars to use for the parsing. These vars will
+	 *                                 be read before the WordPress defined ones overriding them.
+	 * @param bool   $force Whether to try and use the cache or force a new canonical URL conversion.
+	 *
+	 * @return array An array of query vars, as parsed from the input URL.
+	 */
+	public function parse_request( $url, array $extra_query_vars = [], $force = false ) {
+		if ( null === $this->rewrite ) {
+			// We re-do this check here as the object might have been initialized before the global rewrite was set.
+			$this->setup();
+		}
+
+		/**
+		 * Allows short-circuiting the URL parsing.
+		 *
+		 * This filter will run before any logic runs, its result will not be cached and this filter will be called on
+		 * each call to this method.
+		 * Returning a non `null` value here will short-circuit this logic.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param array  $query_vars       The parsed query vars array.
+		 * @param array  $extra_query_vars An associative array of extra query vars that will be processed before the
+		 *                                 WordPress defined ones.
+		 * @param string $url              The URL to parse.
+		 */
+		$parsed = apply_filters( 'tribe_rewrite_pre_parse_query_vars', null, $extra_query_vars, $url );
+		if ( null !== $parsed ) {
+			return $parsed;
+		}
+
+		if ( ! $force ) {
+			$this->warmup_cache(
+				'parse_request',
+				WEEK_IN_SECONDS,
+				Listener::TRIGGER_GENERATE_REWRITE_RULES
+			);
+			if ( isset( $this->parse_request_cache[ $url ] ) ) {
+				return $this->parse_request_cache[ $url ];
+			}
+		}
+
+		$query_vars           = [];
+		$post_type_query_vars = [];
+		$perma_query_vars     = [];
+		$url_components = parse_url($url);
+		$url_path = Arr::get( $url_components, 'path', '/' );
+		$url_query = Arr::get( $url_components, 'query', '' );
+		parse_str( $url_query, $url_query_vars );
+		// Look for matches, removing leading `/` char.
+		$request_match = ltrim( $url_path, '/' );
+
+		// Fetch the rewrite rules.
+		$rewrite_rules = $this->rewrite->wp_rewrite_rules();
+		$matched_rule = false;
+
+		if ( ! empty( $rewrite_rules ) ) {
+			foreach ( (array) $rewrite_rules as $match => $query ) {
+				$matches_regex = preg_match( "#^$match#", $request_match, $matches )
+				                 || preg_match( "#^$match#", urldecode( $request_match ), $matches );
+
+				if ( ! $matches_regex ) {
+					continue;
+				}
+
+				if (
+					$this->rewrite->use_verbose_page_rules
+					&& preg_match( '/pagename=\$matches\[([0-9]+)\]/', $query, $varmatch )
+				) {
+					// This is a verbose page match, let's check to be sure about it.
+					$page = get_page_by_path( $matches[ $varmatch[1] ] );
+					if ( ! $page ) {
+						continue;
+					}
+					$post_status_obj = get_post_status_object( $page->post_status );
+					if (
+						! $post_status_obj->public
+						&& ! $post_status_obj->protected
+						&& ! $post_status_obj->private
+						&& $post_status_obj->exclude_from_search
+					) {
+						continue;
+					}
+				}
+
+				// Got a match.
+				$matched_rule = $match;
+				break;
+			}
+
+			if ( false !== $matched_rule ) {
+				// Trim the query of everything up to the '?'.
+				$query = preg_replace( '!^.+\?!', '', $query );
+				// Substitute the substring matches into the query.
+				$query = addslashes( WP_MatchesMapRegex::apply( $query, $matches ) );
+				// Parse the query.
+				parse_str( $query, $perma_query_vars );
+			}
+		}
+
+		foreach ( get_post_types( [], 'objects' ) as $post_type => $t ) {
+			if (
+				is_post_type_viewable( $t )
+				&& $t->query_var
+			) {
+				$post_type_query_vars[ $t->query_var ] = $post_type;
+			}
+		}
+
+		global $wp;
+
+		/*
+		 * WordPress would apply this filter in the `parse_request` method to allow the registration of additional query
+		 * vars. They might not have been registered at this point so we do this again making sure to avoid duplicates.
+		 */
+		$public_query_vars = array_unique( apply_filters( 'query_vars', $wp->public_query_vars ) );
+
+		foreach ( $public_query_vars as $wpvar ) {
+			if ( isset( $extra_query_vars[ $wpvar ] ) ) {
+				$query_vars[ $wpvar ] = $extra_query_vars[ $wpvar ];
+			} elseif ( isset( $perma_query_vars[ $wpvar ] ) ) {
+				$query_vars[ $wpvar ] = $perma_query_vars[ $wpvar ];
+			}
+			if ( ! empty( $query_vars[ $wpvar ] ) ) {
+				if ( ! is_array( $query_vars[ $wpvar ] ) ) {
+					$query_vars[ $wpvar ] = (string) $query_vars[ $wpvar ];
+				} else {
+					foreach ( $query_vars[ $wpvar ] as $vkey => $v ) {
+						if ( is_scalar( $v ) ) {
+							$query_vars[ $wpvar ][ $vkey ] = (string) $v;
+						}
+					}
+				}
+				if ( isset( $post_type_query_vars[ $wpvar ] ) ) {
+					$query_vars['post_type'] = $post_type_query_vars[ $wpvar ];
+					$query_vars['name']      = $query_vars[ $wpvar ];
+				}
+			}
+		}
+
+		// Convert urldecoded spaces back into `+`.
+		foreach ( get_taxonomies( [], 'objects' ) as $taxonomy => $t ) {
+			if ( $t->query_var && isset( $query_vars[ $t->query_var ] ) ) {
+				$query_vars[ $t->query_var ] = str_replace( ' ', '+', $query_vars[ $t->query_var ] );
+			}
+		}
+
+		// Don't allow non-publicly queryable taxonomies to be queried from the front end.
+		if ( ! is_admin() ) {
+			foreach ( get_taxonomies( [ 'publicly_queryable' => false ], 'objects' ) as $taxonomy => $t ) {
+				/*
+				 * Disallow when set to the 'taxonomy' query var.
+				 * Non-publicly queryable taxonomies cannot register custom query vars. See register_taxonomy().
+				 */
+				if ( isset( $query_vars['taxonomy'] ) && $taxonomy === $query_vars['taxonomy'] ) {
+					unset( $query_vars['taxonomy'], $query_vars['term'] );
+				}
+			}
+		}
+
+		// Limit publicly queried post_types to those that are publicly_queryable
+		if ( isset( $query_vars['post_type'] ) ) {
+			$queryable_post_types = get_post_types( [ 'publicly_queryable' => true ] );
+			if ( ! is_array( $query_vars['post_type'] ) ) {
+				if ( ! in_array( $query_vars['post_type'], $queryable_post_types ) ) {
+					unset( $query_vars['post_type'] );
+				}
+			} else {
+				$query_vars['post_type'] = array_intersect( $query_vars['post_type'], $queryable_post_types );
+			}
+		}
+
+		// Resolve conflicts between posts with numeric slugs and date archive queries.
+		$query_vars = wp_resolve_numeric_slug_conflicts( $query_vars );
+
+		foreach ( (array) $wp->private_query_vars as $var ) {
+			if ( isset( $extra_query_vars[ $var ] ) ) {
+				$query_vars[ $var ] = $extra_query_vars[ $var ];
+			}
+		}
+
+		if ( ! empty( $url_query_vars ) ) {
+			// If the URL did have query vars keep them if not overridden by our resolution.
+			$query_vars = array_merge( $url_query_vars, $query_vars );
+		}
+
+		/**
+		 * Filters the array of parsed query variables after the class logic has been applied to it.
+		 *
+		 * Due to the costly nature of this operation the results will be cached. The logic, and this filter, will
+		 * not run a second time for the same URL in the context of the same request.
+		 *
+		 * @since 4.9.11
+		 *
+		 * @param array  $query_vars       The parsed query vars array.
+		 * @param array  $extra_query_vars An associative array of extra query vars that will be processed before the
+		 *                                 WordPress defined ones.
+		 * @param string $url              The URL to parse.
+		 */
+		$query_vars = apply_filters( 'tribe_rewrite_parse_query_vars', $query_vars, $extra_query_vars, $url );
+
+		if ( $matched_rule ) {
+			// Since we're caching let's not cache unmatchec URLs to allow for their later, valid matching.
+			$this->parse_request_cache[ $url ] = $query_vars;
+		}
+
+		return $query_vars;
+	}
+
+	/**
+	 * Dumps the cache before destruction.
+	 *
+	 * @since 4.9.11
+	 */
+	public function __destruct() {
+		$this->dump_cache();
+	}
+
+	/**
+	 * Returns the "clean" version of a URL.
+	 *
+	 * The URL is first parsed then resolved to a canonical URL.
+	 * As an example the URL `/events/list/?post_type=tribe_events` is "dirty" in that the `post_type` query variable
+	 * is redundant. The clean version of the URL is `/events/list/`, where the query variable is removed.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param string $url The URL to clean.
+	 * @param bool   $force Whether to try and use the cache or force a new URL cleaning run.
+	 *
+	 * @return string The cleaned URL, or the input URL if it could not be resolved to a clean one.
+	 */
+	public function get_clean_url( $url, $force = false ) {
+		if ( ! $force ) {
+			$this->warmup_cache(
+				'clean_url',
+				WEEK_IN_SECONDS,
+				Listener::TRIGGER_GENERATE_REWRITE_RULES
+			);
+			if ( isset( $this->clean_url_cache[ $url ] ) ) {
+				return $this->clean_url_cache[ $url ];
+			}
+		}
+
+		$parsed_vars = $this->parse_request( $url );
+
+		if ( empty( $parsed_vars ) ) {
+			return home_url();
+		}
+
+		$clean = $this->get_canonical_url( add_query_arg( $parsed_vars, home_url() ) );
+
+		$this->clean_url_cache[ $url ] = $clean;
+
+		return $clean;
 	}
 }
