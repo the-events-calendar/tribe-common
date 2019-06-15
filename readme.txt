@@ -19,7 +19,6 @@
 * Tweak - Add ability to turn on/off no_found_rows logic for queries [128202]
 * Fix - Resolve issues with pagination in REST API by making the query cache more comprehensive [127710]
 * Fix - Only load customizer css when loading main stylesheets or widget stylesheets of PRO [112127]
-* Fix - Replace select2 with selectWoo [44205]
 
 = [4.9.9] 2019-05-16 =
 
