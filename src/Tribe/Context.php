@@ -1416,4 +1416,45 @@ class Tribe__Context {
 
 		return $mapped;
 	}
+
+	/**
+	 * Translates sub-locations to their respective location key.
+	 *
+	 * This method leverages the inherent knowledge of aliases stored in the Context locations to "translate" a
+	 * sub-location to its location key.
+	 * E.g. assume the `car` location is `read` from the [ 'carriage', 'vehicle', 'transport_mean' ] query var; calling
+	 * `$context->populate_aliases( [ 'vehicle' => 'hyunday' ], 'read', Context::QUERY_VAR )` would yield
+	 * `[ 'car' => 'hyunday' ]`.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $values    An associative array of value to use as "masters" to populate the aliases.
+	 * @param string $type      The type of Context location to use, e.g. `Tribe__Context::QUERY_VAR`.
+	 * @param string $direction The direction to use for the location, one of `read` or `write`.
+	 *
+	 * @return array The original array, merged with the populated values.
+	 */
+	public function translate_sub_locations( array $values, $type, $direction = 'read' ) {
+		if ( ! in_array( $direction, [ 'read', 'write' ], true ) ) {
+			throw new \InvalidArgumentException(
+				"Direction must be one of `read` or `write`; `{$direction}` is not valid."
+			);
+		}
+
+		$filled             = [];
+		$locations          = $this->get_locations();
+		$matching_locations = array_filter( $locations, static function ( $location ) use ( $type, $direction ) {
+			return isset( $location[ $direction ][ $type ] );
+		} );
+
+		foreach ( $matching_locations as $key => $location ) {
+			$entry = (array)$location[ $direction ][ $type ];
+			$found = array_intersect( array_keys( $values ), array_merge( $entry, [ $key ] ) );
+			if ( $found ) {
+				$filled[ $key ] = $values[ reset( $found ) ];
+			}
+		}
+
+		return $filled;
+	}
 }
