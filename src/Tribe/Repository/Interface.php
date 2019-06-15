@@ -287,7 +287,7 @@ interface Tribe__Repository__Interface
 	 * Mind that this method will always return a Repository instance, no matter if a next page exists or not.
 	 * If a next page does not exist then the instance returned by this method will yield no posts and a count of `0`.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return \Tribe__Repository__Interface The repository instance that will yield the next page results.
 	 */
@@ -300,7 +300,7 @@ interface Tribe__Repository__Interface
 	 * If a previous page does not exist then the instance returned by this method will yield no posts and a count
 	 * of `0`.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return \Tribe__Repository__Interface The repository instance that will yield the previous page results.
 	 */

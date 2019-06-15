@@ -57,7 +57,7 @@ class Tribe__Rewrite {
 	/**
 	 * An array cache of resolved canonical URLs in the shape `[ <url> => <canonical_url> ]`.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @var array
 	 */
@@ -66,7 +66,7 @@ class Tribe__Rewrite {
 	/**
 	 * An array cache of parsed URLs in the shape `[ <url> => <parsed_vars> ]`.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @var array
 	 */
@@ -75,7 +75,7 @@ class Tribe__Rewrite {
 	/**
 	 * And array cache of cleaned URLs.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @var array
 	 */
@@ -89,7 +89,6 @@ class Tribe__Rewrite {
 	public static function instance() {
 		if ( ! static::$instance ) {
 			static::$instance = new static;
-			static::$instance->setup();
 		}
 
 		return static::$instance;
@@ -328,7 +327,7 @@ class Tribe__Rewrite {
 	 * This method will handle "our" URLs to go from their ugly form, filled with query vars, to the "pretty" one, if
 	 * possible.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param string $url The URL to try and translate into its canonical form.
 	 * @param bool   $force Whether to try and use the cache or force a new canonical URL conversion.
@@ -350,7 +349,7 @@ class Tribe__Rewrite {
 		/**
 		 * Filters the canonical URL for an input URL before any kind of logic runs.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param string|null    $canonical_url The canonical URL, defaults to `null`; returning a non `null` value will
 		 *                                      make the logic bail and return the value.
@@ -463,7 +462,7 @@ class Tribe__Rewrite {
 				continue;
 			}
 
-			$replace = array_map( static function ( $localized_matcher ) use ( $matched_vars ) {
+			$replace = array_map( function ( $localized_matcher ) use ( $matched_vars ) {
 				if ( ! is_array( $localized_matcher ) ) {
 					// For the dates.
 					return isset( $matched_vars[ $localized_matcher ] )
@@ -471,7 +470,14 @@ class Tribe__Rewrite {
 						: '';
 				}
 
-				if ( ! isset( $matched_vars[ $localized_matcher['query_var'] ] ) ) {
+				$query_var  = $localized_matcher['query_var'];
+				$query_vars = [ $query_var ];
+
+				if ( $query_var === 'name' ) {
+					$query_vars = array_merge( $query_vars, $this->get_post_types() );
+				}
+
+				if ( ! array_intersect( array_keys( $matched_vars ), $query_vars ) ) {
 					return '';
 				}
 
@@ -516,7 +522,7 @@ class Tribe__Rewrite {
 		 * filter will fire after all the logic to resolve the URL ran. If you want to filter the canonical URL before
 		 * the logic runs then use the `tribe_rewrite_pre_canonical_url` filter.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param string         $resolved The resolved, canonical URL.
 		 * @param string         $url      The original URL to resolve.
@@ -535,7 +541,7 @@ class Tribe__Rewrite {
 	/**
 	 * Returns an array of rewrite rules handled by the implementation.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
 	 */
@@ -548,7 +554,7 @@ class Tribe__Rewrite {
 		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 		$pattern = '/post_type=tribe_(events|venue|organizer)/';
 		// Reverse the rules to try and match the most complex first.
-		$rules = isset( $this->rewrite->rules ) ? $this->rewrite->rules : [];
+		$rules = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
 		$handled_rewrite_rules = array_filter( $rules,
 			static function ( $rule_query_string ) use ( $pattern ) {
 				return preg_match( $pattern, $rule_query_string );
@@ -560,7 +566,7 @@ class Tribe__Rewrite {
 	/**
 	 * Returns a map relating localized regex matchers to query vars.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array A map of localized regex matchers in the shape `[ <localized_regex> => <query_var> ]`.
 	 */
@@ -600,7 +606,7 @@ class Tribe__Rewrite {
 	/**
 	 * Returns a map relating localize matcher slugs to the corresponding query var.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array A map relating localized matcher slugs to the corresponding query var.
 	 */
@@ -613,7 +619,7 @@ class Tribe__Rewrite {
 	/**
 	 * Return a list of the query vars handled in the input rewrite rules.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $rules A set of rewrite rules in the shape `[ <regex> => <path> ]`.
 	 *
@@ -632,7 +638,7 @@ class Tribe__Rewrite {
 	/**
 	 * Sets up the dynamic matchers based on the link query vars.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $query_vars An map of query vars and their values.
 	 *
@@ -641,16 +647,24 @@ class Tribe__Rewrite {
 	protected function get_dynamic_matchers( array $query_vars ) {
 		$bases            = (array) $this->get_bases();
 		$dynamic_matchers = [];
-		if ( isset( $query_vars['paged'] ) ) {
-			$page_regex = $bases['page'];
-			preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $page_regex, $matches );
-			if ( isset( $matches['slugs'] ) ) {
-				$slugs = explode( '|', $matches['slugs'] );
-				// The localized version is the last.
-				$localized_slug = end( $slugs );
-				// We use two different regular expressions to read pages, let's add both.
-				$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars['paged']}";
-				$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars['paged']}";
+
+		/*
+		 * In some instance we use the `page` (w/o `d`) to paginate a dynamic archive.
+		 * Let's support that too.
+		 * It's important to add `page` after `paged` to try and match the longest (`paged`) first.
+		 */
+		foreach ( [ 'paged', 'page' ] as $page_var ) {
+			if ( isset( $query_vars[ $page_var ] ) ) {
+				$page_regex = $bases['page'];
+				preg_match( '/^\(\?:(?<slugs>[^\\)]+)\)/', $page_regex, $matches );
+				if ( isset( $matches['slugs'] ) ) {
+					$slugs = explode( '|', $matches['slugs'] );
+					// The localized version is the last.
+					$localized_slug = end( $slugs );
+					// We use two different regular expressions to read pages, let's add both.
+					$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars[$page_var]}";
+					$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars[$page_var]}";
+				}
 			}
 		}
 
@@ -682,7 +696,7 @@ class Tribe__Rewrite {
 	/**
 	 * Returns a list of post types supported by the implementation.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	protected function get_post_types() {
 		throw new BadMethodCallException( 'Method get_post_types should be implemented by extending classes.' );
@@ -694,7 +708,7 @@ class Tribe__Rewrite {
 	 * Most of this functionality was copied from `WP::parse_request()` method
 	 * with some changes to avoid conflicts and removing non-required behaviors.
 	 *
-	 * @since  TBD
+	 * @since  4.9.11
 	 *
 	 * @param string $url              The URLto parse.
 	 * @param array  $extra_query_vars An associative array of extra query vars to use for the parsing. These vars will
@@ -716,7 +730,7 @@ class Tribe__Rewrite {
 		 * each call to this method.
 		 * Returning a non `null` value here will short-circuit this logic.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param array  $query_vars       The parsed query vars array.
 		 * @param array  $extra_query_vars An associative array of extra query vars that will be processed before the
@@ -878,6 +892,13 @@ class Tribe__Rewrite {
 			}
 		}
 
+		/*
+		 * If we have both the `name` query var and the post type one, then let's remove the `name` one.
+		 */
+		if ( array_intersect( array_keys( $query_vars ), $this->get_post_types() ) ) {
+			unset( $query_vars['name'] );
+		}
+
 		if ( ! empty( $url_query_vars ) ) {
 			// If the URL did have query vars keep them if not overridden by our resolution.
 			$query_vars = array_merge( $url_query_vars, $query_vars );
@@ -889,7 +910,7 @@ class Tribe__Rewrite {
 		 * Due to the costly nature of this operation the results will be cached. The logic, and this filter, will
 		 * not run a second time for the same URL in the context of the same request.
 		 *
-		 * @since TBD
+		 * @since 4.9.11
 		 *
 		 * @param array  $query_vars       The parsed query vars array.
 		 * @param array  $extra_query_vars An associative array of extra query vars that will be processed before the
@@ -909,7 +930,7 @@ class Tribe__Rewrite {
 	/**
 	 * Dumps the cache before destruction.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 */
 	public function __destruct() {
 		$this->dump_cache();
@@ -922,7 +943,7 @@ class Tribe__Rewrite {
 	 * As an example the URL `/events/list/?post_type=tribe_events` is "dirty" in that the `post_type` query variable
 	 * is redundant. The clean version of the URL is `/events/list/`, where the query variable is removed.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param string $url The URL to clean.
 	 * @param bool   $force Whether to try and use the cache or force a new URL cleaning run.

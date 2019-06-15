@@ -1,4 +1,7 @@
 <?php
+
+use Tribe\Events\Views\V2\Template;
+
 class Tribe__Template {
 	/**
 	 * The folders into which we will look for the template.
@@ -458,11 +461,11 @@ class Tribe__Template {
 	 *
 	 * @since  4.6.2
 	 *
-	 * @param  string  $name     Which file we are talking about including
-	 * @param  array   $context  Any context data you need to expose to this file
-	 * @param  boolean $echo     If we should also print the Template
+	 * @param string  $name    Which file we are talking about including
+	 * @param array   $context Any context data you need to expose to this file
+	 * @param boolean $echo    If we should also print the Template
 	 *
-	 * @return string            Final Content HTML
+	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
 	public function template( $name, $context = array(), $echo = true ) {
 		// If name is String make it an Array
@@ -617,7 +620,7 @@ class Tribe__Template {
 	/**
 	 * Sets a number of values at the same time.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @param array $values   An associative key/value array of the values to set.
 	 * @param bool  $is_local Whether to set the values as global or local; defaults to local as the `set` method does.
@@ -633,7 +636,7 @@ class Tribe__Template {
 	/**
 	 * Returns the Template global context.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array An associative key/value array of the Template global context.
 	 */
@@ -644,7 +647,7 @@ class Tribe__Template {
 	/**
 	 * Returns the Template local context.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array An associative key/value array of the Template local context.
 	 */
@@ -657,7 +660,7 @@ class Tribe__Template {
 	 *
 	 * Local values will override the template global context values.
 	 *
-	 * @since TBD
+	 * @since 4.9.11
 	 *
 	 * @return array An associative key/value array of the Template global and local context.
 	 */
