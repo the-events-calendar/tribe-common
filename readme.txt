@@ -5,9 +5,10 @@
 = [4.9.13] TBD =
 
 * Tweak - Create a new key if `AUTH_KEY` is not defined or is empty and add a new filter `tribe_promoter_secret_key` to filter the result [127183]
+* Tweak - Divide the `tribe-common.js` file to prevent that file from being bloated with external dependencies. [129526]
+* Fix - Prevent Clipboard Javascript from loading all over the place on `/wp-admin/` [129526]
 
 = [4.9.12] TBD =
-
 
 
 = [4.9.11.1] 2019-06-13 =
