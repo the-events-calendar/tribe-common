@@ -800,7 +800,7 @@ if ( ! function_exists( 'tribe_posts_checksum' ) ) {
 	 *
 	 * @param       array $post_ids  An array of post IDs or objects to calculate
 	 *                               the checksum for.
-	 * @param array       $use_frags An array detailing the post fields, columns of
+	 * @param array|null       $use_frags An array detailing the post fields, columns of
 	 *                               the `posts` table, that should be used to build
 	 *                               the checksum; defaults to the post `ID` and `post_modified`
 	 *                               columns.
@@ -808,7 +808,8 @@ if ( ! function_exists( 'tribe_posts_checksum' ) ) {
 	 * @return null|string The checksum string or `null` if the posts are not valid or no
 	 *                     fragments are passed.
 	 */
-	function tribe_posts_checksum( $post_ids, $use_frags = [ 'ID', 'post_modified' ] ) {
+	function tribe_posts_checksum( $post_ids, $use_frags = null ) {
+		$use_frags = is_array( $use_frags ) ? $use_frags : [ 'ID', 'post_modified' ];
 		$post_ids = array_filter( (array) $post_ids );
 		if ( empty( $post_ids ) ) {
 			return null;
