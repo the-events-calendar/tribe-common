@@ -78,7 +78,9 @@
 	}
 
 	.tribe-common-h5--min-medium {
-		@mixin heading-6;
+		@media (--viewport-medium) {
+			@mixin heading-5;
+		}
 	}
 
 	/* -------------------------------------------------------------------------
