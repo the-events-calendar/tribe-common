@@ -261,6 +261,10 @@ class Tribe__Settings_Manager {
 	 * Create the help tab
 	 */
 	public function do_help_tab() {
+		/**
+		 * Include Help tab Assets here
+		 */
+
 		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-help.php';
 	}
 
