@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.11.2] TBD =
+= [4.9.11.2] 2019-06-20 =
 
 * Fix - Add Promoter PCSS file so that the proper CSS will be generated on package build [129584]
 
