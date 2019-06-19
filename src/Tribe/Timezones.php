@@ -606,7 +606,7 @@ class Tribe__Timezones {
 			return $timezone_candidate->getName();
 		}
 
-		$timezone_string = preg_replace( '/\\+0$/', '', $timezone_candidate );
+		$timezone_string = preg_replace( '/(\\+||\\-)0$/', '', $timezone_candidate );
 		$timezone_string = self::is_utc_offset( $timezone_string )
 			? self::generate_timezone_string_from_utc_offset( $timezone_string )
 			: $timezone_string;

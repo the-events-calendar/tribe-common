@@ -1344,16 +1344,24 @@ abstract class Tribe__Repository
 			$query = $this->get_query();
 
 			// The request property will be set during the `get_posts` method and empty before it.
-			if ( ! empty( $query->request ) ) {
-				return array_map( static function ( $post ) {
+			if ( empty( $query->request ) ) {
+				$query->set( 'fields', 'ids' );
+
+				return $query->get_posts();
+			}
+
+			return array_map(
+				static function ( $post ) {
 					if ( is_int( $post ) ) {
 						return $post;
 					}
 					$post_arr = (array) $post;
 
 					return Arr::get( $post_arr, 'ID', Arr::get( $post_arr, 'id', 0 ) );
-				}, $query->posts );
-			}
+				},
+				$query->posts
+			);
+
 		} catch ( Tribe__Repository__Void_Query_Exception $e ) {
 			/*
 			 * Extending classes might use this method to run sub-queries
@@ -1361,10 +1369,6 @@ abstract class Tribe__Repository
 			 */
 			return array();
 		}
-
-		$query->set( 'fields', 'ids' );
-
-		return $query->get_posts();
 	}
 
 	/**
