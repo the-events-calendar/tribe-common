@@ -86,6 +86,10 @@
 		@mixin heading-6;
 	}
 
+	.tribe-common-h6--alt {
+		font-weight: var(--font-weight-regular);
+	}
+
 	/* -------------------------------------------------------------------------
 	 * Heading: h7
 	 * ------------------------------------------------------------------------- */
@@ -93,6 +97,10 @@
 	.tribe-common-h7 {
 		@mixin heading;
 		@mixin heading-7;
+	}
+
+	.tribe-common-h7--alt {
+		font-weight: var(--font-weight-regular);
 	}
 
 	/* -------------------------------------------------------------------------
@@ -103,4 +111,23 @@
 		@mixin heading;
 		@mixin heading-8;
 	}
+
+	/* -------------------------------------------------------------------------
+	 * Heading: h5 for large viewport
+	 * ------------------------------------------------------------------------- */
+	.tribe-common-h5--min-medium {
+		@media (--viewport-medium) {
+			@mixin heading-5;
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Heading: h6 for large viewport
+	 * ------------------------------------------------------------------------- */
+	.tribe-common-h6--min-medium {
+		@media (--viewport-medium) {
+			@mixin heading-6;
+		}
+	}
+
 }
