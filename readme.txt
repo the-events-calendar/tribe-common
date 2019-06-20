@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.9.11.2] 2019-06-20 =
+
+* Fix - Add Promoter PCSS file so that the proper CSS will be generated on package build [129584]
+
 = [4.9.11.1] 2019-06-13 =
 
 * Fix - Resolve fatal errors with references directly to The Events Calendar class constants [129107]
