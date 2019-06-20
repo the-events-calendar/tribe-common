@@ -27,14 +27,14 @@
 		@mixin desktop-body-1;
 		border: none;
 		border-bottom: 1px solid var(--color-border-default);
-		padding: 12px 20px 12px 0;
+		padding: var(--spacer-2) 20px var(--spacer-2) 0;
 		width: 100%;
 
 		@media (--viewport-medium) {
 			@mixin desktop-body-2;
 
 			border: none;
-			padding: 12px 18px;
+			padding: var(--spacer-2) 18px;
 		}
 
 		&::placeholder {
@@ -53,13 +53,13 @@
 			@mixin desktop-body-1;
 
 			border-bottom: 1px solid var(--color-border-default);
-			padding: 12px 20px 12px 0;
+			padding: var(--spacer-2) 20px var(--spacer-2) 0;
 			width: 100%;
 
 			@media (--viewport-medium) {
 				@mixin desktop-body-2;
 
-				padding: 12px 18px;
+				padding: var(--spacer-2) 18px;
 			}
 
 			&::placeholder {
