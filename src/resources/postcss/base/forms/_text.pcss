@@ -24,26 +24,43 @@
 	}
 
 	.tribe-common-form-control-text__input {
-		@mixin desktop-body-2-bold;
-
-		border: 1px solid var(--color-border-default);
-		padding: 12px 18px;
+		@mixin desktop-body-1;
+		border: none;
+		border-bottom: 1px solid var(--color-border-default);
+		padding: 12px 20px 12px 0;
 		width: 100%;
+
+		@media (--viewport-medium) {
+			@mixin desktop-body-2;
+
+			border: none;
+			padding: 12px 18px;
+		}
 
 		&::placeholder {
 			color: var(--color-text-secondary);
 			font-weight: var(--font-weight-regular);
+		}
+
+		&:focus {
+			border-bottom-color: var(--color-border-active);
 		}
 	}
 
 	body#top & { /* Enfold Compatibility */
 
 		.tribe-common-form-control-text__input {
-			@mixin desktop-body-2-bold;
+			@mixin desktop-body-1;
 
-			border: 1px solid var(--color-border-default);
-			padding: 12px 18px;
+			border-bottom: 1px solid var(--color-border-default);
+			padding: 12px 20px 12px 0;
 			width: 100%;
+
+			@media (--viewport-medium) {
+				@mixin desktop-body-2;
+
+				padding: 12px 18px;
+			}
 
 			&::placeholder {
 				color: var(--color-text-secondary);

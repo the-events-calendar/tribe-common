@@ -48,18 +48,19 @@
 	.tribe-common-c-search {
 		@media (--viewport-medium) {
 			display: flex;
+			flex: 1 1 100%;
 		}
 	}
 
 	.tribe-common-c-search__input-group {
 		@media (--viewport-medium) {
 			background-color: var(--color-background);
-			border: 1px solid var(--color-border-default);
 			border-right: none;
 			display: flex;
 			flex: auto;
-			max-width: 645px;
 			padding: 8px 0;
+			align-items: center;
+			justify-content: center;
 		}
 
 		> * {
@@ -68,26 +69,82 @@
 			}
 
 			&:first-child {
-				flex: 1 1 34.5%;
+				flex: 1 1 100%;
 			}
 
 			&:nth-child(2) {
-				flex: 1 1 37.5%;
+				flex: 1 1 100%;
 			}
 
-			&:nth-child(3) {
-				flex: 1 1 28%;
+			&:last-child {
+				.tribe-common-c-search__input {
+					@media (--viewport-medium) {
+						border-right: 0;
+					}
+				}
+
 			}
+
 		}
 	}
 
 	.tribe-common-c-search__input {
+
 		@media (--viewport-medium) {
-			border: none;
 			border-right: 1px solid var(--color-border-default);
 			height: auto;
 			padding: 7px 18px 8px;
 		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	.tribe-common-c-search__input--keyword {
+		background-image: svg-inline(search);
+		background-repeat: no-repeat;
+		background-size: 16px;
+		background-position: right center;
+
+		@media (--viewport-medium) {
+			border: none;
+			border-right: 1px solid var(--color-border-default);
+			height: auto;
+			padding: 7px 18px 7px 40px;
+			background-position: 16px center;
+		}
+
+		&:focus {
+			background-image: svg-inline(search-focus);
+		}
+	}
+
+	.tribe-common-c-search__input--keyword-focus {
+		background-image: svg-inline(search-focus);
+	}
+
+	.tribe-common-c-search__input--location {
+		background-image: svg-inline(location);
+		background-repeat: no-repeat;
+		background-size: 10px 15px;
+		background-position: right center;
+
+		@media (--viewport-medium) {
+			border: none;
+			border-right: 1px solid var(--color-border-default);
+			height: auto;
+			padding: 7px 18px 7px 40px;
+			background-position: 16px center;
+		}
+
+		&:focus {
+			background-image: svg-inline(location-focus);
+		}
+	}
+
+	.tribe-common-c-search__input--location-focus {
+		background-image: svg-inline(location-focus);
 	}
 
 	.tribe-common-c-search__button {
@@ -112,7 +169,14 @@
 			@media (--viewport-medium) {
 				border: none;
 				border-right: 1px solid var(--color-border-default);
-				padding: 7px 18px 8px;
+			}
+		}
+	}
+
+	body.tribe-theme-twentynineteen & {
+		.tribe-common-c-search__input {
+			&:focus {
+				border-right-color: var(--color-border-default);
 			}
 		}
 	}
