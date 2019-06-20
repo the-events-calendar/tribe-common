@@ -366,11 +366,52 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				}
 
 				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
-				$this->admin_messages[ $plugin['class'] ]->add_required_plugin( $dependent_plugin['short_name'], $dependent_plugin['thickbox_url'], $is_registered, $version, $addon );
+				$pue = $this->get_pue_from_class( $dependent_plugin['class'] );
+				$has_pue_notice = tribe( 'pue.notices' )->has_notice( $pue->pue_install_key );
+
+				$this->admin_messages[ $plugin['class'] ]->add_required_plugin(
+					$dependent_plugin['short_name'],
+					$dependent_plugin['thickbox_url'],
+					$is_registered,
+					$version,
+					$addon,
+					$has_pue_notice
+				);
 				$failed_dependency++;
 			}
 
 			return $failed_dependency;
+		}
+
+		/**
+		 * Gets the Tribe__PUE__Checker instance of a given plugin based on the class.
+		 *
+		 * @since  TBD
+		 *
+		 * @param  string $class Which plugin main class we are looking for.
+		 *
+		 * @return Tribe__PUE__Checker
+		 */
+		private function get_pue_from_class( string $class ) {
+			$callback_map = [
+				'Tribe__Events__Pro__Main' => function() {
+					$pue_reflection = new ReflectionClass( Tribe__Events__Pro__PUE::class );
+					$values = $pue_reflection->getStaticProperties();
+					$values['plugin_file'] = EVENTS_CALENDAR_PRO_FILE;
+					return $values;
+				},
+			];
+
+			// If class doesnt exist the plugin doesnt exist.
+			if ( ! class_exists( $class ) ) {
+				return false;
+			}
+
+			// Use the callback to get the returns without fatals
+			$values = $callback_map[ $class ]();
+			$pue_instance = new Tribe__PUE__Checker( $values['update_url'], $values['pue_slug'], [], plugin_basename( $values['plugin_file'] ) );
+
+			return $pue_instance;
 		}
 
 		/**
@@ -415,9 +456,19 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			if ( ! empty( $classes_req ) && ! $this->has_requisite_plugins( $classes_req ) ) {
 				$tribe_plugins = new Tribe__Plugins();
 				foreach ( $classes_req as $class => $plugin_version ) {
-					$plugin    = $tribe_plugins->get_plugin_by_class( $class );
-					$is_active = $this->is_plugin_version( $class, $plugin_version );
-					$this->admin_messages[ $main_class ]->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active, $plugin_version );
+					$plugin         = $tribe_plugins->get_plugin_by_class( $class );
+					$is_active      = $this->is_plugin_version( $class, $plugin_version );
+					$pue            = $this->get_pue_from_class( $plugin['class'] );
+					$has_pue_notice = tribe( 'pue.notices' )->has_notice( $pue->pue_install_key );
+
+					$this->admin_messages[ $main_class ]->add_required_plugin(
+						$plugin['short_name'],
+						$plugin['thickbox_url'],
+						$is_active,
+						$plugin_version,
+						false,
+						$has_pue_notice
+					);
 				}
 			}
 

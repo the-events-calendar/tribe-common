@@ -14,6 +14,17 @@ class Tribe__PUE__Notices {
 	protected $saved_notices = array();
 	protected $notices = array();
 
+	protected $plugin_names = [
+		'pue_install_key_event_tickets_plus'       => 'Event Tickets Plus',
+		'pue_install_key_events_community'         => 'The Events Calendar: Community Events',
+		'pue_install_key_events_community_tickets' => 'The Events Calendar: Community Events Tickets',
+		'pue_install_key_image_widget_plus'        => 'Image Widget Plus',
+		'pue_install_key_tribe_eventbrite'         => 'The Events Calendar: Eventbrite Tickets',
+		'pue_install_key_tribe_filterbar'          => 'The Events Calendar: Filter Bar',
+		'pue_install_key_event_aggregator'         => 'Event Aggregator',
+		'pue_install_key_events_calendar_pro'      => 'The Events Calendar PRO',
+	];
+
 	/**
 	 * Sets up license key related admin notices.
 	 */
@@ -133,6 +144,11 @@ class Tribe__PUE__Notices {
 	 * @return boolean
 	 */
 	public function has_notice( $plugin_name, $notice_type = null ) {
+		// If we match a pue key we use that value
+		if ( isset( $this->plugin_names[ $plugin_name ] ) ) {
+			$plugin_name = $this->plugin_names[ $plugin_name ];
+		}
+
 		if ( $notice_type ) {
 			return ! empty( $this->notices[ $notice_type ][ $plugin_name ] );
 		}
@@ -221,21 +237,10 @@ class Tribe__PUE__Notices {
 
 		$empty_keys = $wpdb->get_results( $sql, ARRAY_N );
 
-		$plugin_names = array(
-			'pue_install_key_event_tickets_plus'       => 'Event Tickets Plus',
-			'pue_install_key_events_community'         => 'The Events Calendar: Community Events',
-			'pue_install_key_events_community_tickets' => 'The Events Calendar: Community Events Tickets',
-			'pue_install_key_image_widget_plus'        => 'Image Widget Plus',
-			'pue_install_key_tribe_eventbrite'         => 'The Events Calendar: Eventbrite Tickets',
-			'pue_install_key_tribe_filterbar'          => 'The Events Calendar: Filter Bar',
-			'pue_install_key_event_aggregator'         => 'Event Aggregator',
-			'pue_install_key_events_calendar_pro'      => 'The Events Calendar PRO',
-		);
-
 		$formatted_empty_keys = array();
 		foreach ( $empty_keys as $empty_key ) {
 			$empty_key              = Tribe__Utils__Array::get( $empty_key, array( 0 ) );
-			$formatted_empty_keys[] = Tribe__Utils__Array::get( $plugin_names, $empty_key );
+			$formatted_empty_keys[] = Tribe__Utils__Array::get( $this->plugin_names, $empty_key );
 		}
 
 		return $formatted_empty_keys;

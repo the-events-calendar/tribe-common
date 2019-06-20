@@ -26,20 +26,23 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 *
 	 * @since 4.8.3 Method introduced.
 	 * @since 4.9 Added $version and $addon parameters.
+	 * @since TBD Add $has_pue_notice param
 	 *
-	 * @param string $name         Name of the required plugin
-	 * @param null   $thickbox_url Download or purchase URL for plugin from within /wp-admin/ thickbox
-	 * @param bool   $is_active    Indicates if the plugin is installed and active or not
-	 * @param string $version      Optional version number of the required plugin
-	 * @param bool   $addon        Indicates if the plugin is an add-on for The Events Calendar or Event Tickets
+	 * @param string $name           Name of the required plugin
+	 * @param null   $thickbox_url   Download or purchase URL for plugin from within /wp-admin/ thickbox
+	 * @param bool   $is_active      Indicates if the plugin is installed and active or not
+	 * @param string $version        Optional version number of the required plugin
+	 * @param bool   $addon          Indicates if the plugin is an add-on for The Events Calendar or Event Tickets
+	 * @param bool   $has_pue_notice Indicates that we need to change the messaging due to expired key.
 	 */
-	public function add_required_plugin( $name, $thickbox_url = null, $is_active = null, $version = null, $addon = false ) {
+	public function add_required_plugin( $name, $thickbox_url = null, $is_active = null, $version = null, $addon = false, $has_pue_notice = false ) {
 		$this->plugins_required[ $name ] = array(
-			'name'         => $name,
-			'thickbox_url' => $thickbox_url,
-			'is_active'    => $is_active,
-			'version'      => $version,
-			'addon'        => $addon,
+			'name'           => $name,
+			'thickbox_url'   => $thickbox_url,
+			'is_active'      => $is_active,
+			'version'        => $version,
+			'addon'          => $addon,
+			'has_pue_notice' => $has_pue_notice,
 		);
 	}
 
@@ -57,6 +60,8 @@ class Tribe__Admin__Notice__Plugin_Download {
 		if ( empty( $this->plugins_required ) ) {
 			return;
 		}
+
+		$has_pue_notices = false;
 
 		foreach ( $this->plugins_required as $req_plugin ) {
 			$item    = $req_plugin['name'];
@@ -84,6 +89,11 @@ class Tribe__Admin__Notice__Plugin_Download {
 			}
 
 			$req_plugins[] = $item;
+
+			// If any of the items has PUE notice we will warn the user.
+			if ( $req_plugin['has_pue_notice'] ) {
+				$has_pue_notices = true;
+			}
 		}
 
 		// If empty then add in the default name.
@@ -96,10 +106,14 @@ class Tribe__Admin__Notice__Plugin_Download {
 			'a'      => array( 'href' => array() ),
 		);
 
+		$pue_notice_html = '<p>' . esc_html__( '---MESSAGE_PLACEHOLDER---', 'tribe-common' ) . '</p>';
+		$notice_html_content = '<p>' . esc_html__( 'To begin using %2$s, please install and activate the latest version of %3$s.', 'tribe-common' ) . '</p>';
+
 		printf(
-			'<div class="error tribe-notice tribe-dependency-error" data-plugin="%1$s"><p>'
-			. esc_html__( 'To begin using %2$s, please install and activate the latest version of %3$s.', 'tribe-common' )
-			. '</p></div>',
+			'<div class="error tribe-notice tribe-dependency-error" data-plugin="%1$s">'
+			. $notice_html_content
+			. ( $has_pue_notices ? $pue_notice_html : '' )
+			. '</div>',
 			esc_attr( sanitize_title( $plugin_data['Name'] ) ),
 			wp_kses( $this->implode_with_grammar( $plugin_name ), $allowed_html ),
 			wp_kses( $this->implode_with_grammar( $req_plugins ), $allowed_html )
