@@ -620,16 +620,17 @@ function tribe_asset_enqueue( $slug ) {
 }
 
 /**
- * Shortcut for Tribe__Assets::enqueue_group() include assets by groups
+ * Shortcut for Tribe__Assets::enqueue_group() include assets by groups.
  *
- * @since  4.7
+ * @since 4.7
  *
- * @param  string|array  $group  Which group(s) should be enqueued
- *
- * @return string
+ * @param string|array  $group  Which group(s) should be enqueued.
  */
 function tribe_asset_enqueue_group( $group ) {
-	return tribe( 'assets' )->enqueue_group( $group );
+	/** @var Tribe__Assets $assets */
+	$assets = tribe( 'assets' );
+
+	$assets->enqueue_group( $group );
 }
 
 /**

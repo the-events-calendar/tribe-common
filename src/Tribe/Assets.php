@@ -88,13 +88,11 @@ class Tribe__Assets {
 	/**
 	 * Enqueues registered assets based on their groups.
 	 *
-	 * @since   4.7
+	 * @since 4.7
 	 *
-	 * @uses    self::enqueue
+	 * @uses  Tribe__Assets::enqueue()
 	 *
-	 * @param   string|array $groups Which groups will be enqueued
-	 *
-	 * @return  void
+	 * @param string|array $groups Which groups will be enqueued.
 	 */
 	public function enqueue_group( $groups ) {
 		$assets = $this->get();
