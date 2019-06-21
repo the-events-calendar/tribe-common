@@ -393,6 +393,15 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return Tribe__PUE__Checker
 		 */
 		public function get_pue_from_class( $class ) {
+			// If class doesnt exist the plugin doesnt exist.
+			if ( ! class_exists( $class ) ) {
+				return false;
+			}
+
+			/**
+			 * These callbacks are only required to prevent fatals.
+			 * Only happen for plugin that use PUE.
+			 */
 			$callback_map = [
 				'Tribe__Events__Pro__Main' => function() {
 					$pue_reflection = new ReflectionClass( Tribe__Events__Pro__PUE::class );
@@ -400,12 +409,19 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 					$values['plugin_file'] = EVENTS_CALENDAR_PRO_FILE;
 					return $values;
 				},
+				'Tribe__Events__Filterbar__View' => function() {
+					$pue_reflection = new ReflectionClass( Tribe__Events__Filterbar__PUE::class );
+					$values = $pue_reflection->getStaticProperties();
+					$values['plugin_file'] = TRIBE_EVENTS_FILTERBAR_FILE;
+					return $values;
+				},
+				'Tribe__Events__Tickets__Eventbrite__Main' => function() {
+					$pue_reflection = new ReflectionClass( Tribe__Events__Tickets__Eventbrite__PUE::class );
+					$values = $pue_reflection->getStaticProperties();
+					$values['plugin_file'] = EVENTBRITE_PLUGIN_FILE;
+					return $values;
+				},
 			];
-
-			// If class doesnt exist the plugin doesnt exist.
-			if ( ! class_exists( $class ) ) {
-				return false;
-			}
 
 			// Use the callback to get the returns without fatals
 			$values = $callback_map[ $class ]();
