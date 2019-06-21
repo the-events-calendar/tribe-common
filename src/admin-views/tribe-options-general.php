@@ -48,16 +48,19 @@ $generalTabFields = array(
 );
 
 if ( is_super_admin() ) {
-	$generalTabFields['debugEvents'] = array(
+	$generalTabFields['debugEvents'] = [
 		'type'            => 'checkbox_bool',
 		'label'           => esc_html__( 'Debug mode', 'tribe-common' ),
+		'tooltip' => sprintf(
+			esc_html__(
+				'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.',
+				'tribe-common'
+			),
+			'<a href="https://wordpress.org/extend/plugins/debug-bar/" target="_blank">' . esc_html__( 'Debug Bar Plugin', 'tribe-common' ) . '</a>'
+		),
 		'default'         => false,
 		'validation_type' => 'boolean',
-	);
-	$generalTabFields['debugEventsHelper'] = array(
-		'type'        => 'html',
-		'html'        => '<p class="tribe-field-indent tribe-field-description description" style="max-width:400px;">' . sprintf( esc_html__( 'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-common' ), '<a href="https://wordpress.org/extend/plugins/debug-bar/" target="_blank">' . esc_html__( 'Debug Bar Plugin', 'tribe-common' ) . '</a>' ) . '</p>',
-	);
+	];
 }
 
 // Closes form
