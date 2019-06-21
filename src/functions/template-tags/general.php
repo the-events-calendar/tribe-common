@@ -595,7 +595,7 @@ function tribe_register_error( $indexes, $message ) {
  * @param  string   $action     A WordPress Action, needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
  * @param  array    $arguments  Look at `Tribe__Assets::register()` for more info
  *
- * @return array             Which Assets was registered
+ * @return object|false     The asset that got registered or false on error.
  */
 	return tribe( 'assets' )->register( $origin, $slug, $file, $deps, $action, $arguments );
 function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
