@@ -598,8 +598,11 @@ function tribe_register_error( $indexes, $message ) {
  *
  * @return object|false     The asset that got registered or false on error.
  */
-	return tribe( 'assets' )->register( $origin, $slug, $file, $deps, $action, $arguments );
 function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
+	/** @var Tribe__Assets $assets */
+	$assets = tribe( 'assets' );
+
+	return $assets->register( $origin, $slug, $file, $deps, $action, $arguments );
 }
 
 /**
