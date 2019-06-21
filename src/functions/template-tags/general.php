@@ -597,8 +597,8 @@ function tribe_register_error( $indexes, $message ) {
  *
  * @return array             Which Assets was registered
  */
-function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $arguments = array() ) {
 	return tribe( 'assets' )->register( $origin, $slug, $file, $deps, $action, $arguments );
+function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
 }
 
 /**
