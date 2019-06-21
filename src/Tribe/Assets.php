@@ -10,14 +10,14 @@ class Tribe__Assets {
 	 *
 	 * @var array
 	 */
-	protected $assets = array();
+	protected $assets = [];
 
 	/**
 	 * Stores the localized scripts for reference
 	 *
 	 * @var array
 	 */
-	private $localized = array();
+	private $localized = [];
 
 	/**
 	 * Static Singleton Factory Method
@@ -96,16 +96,16 @@ class Tribe__Assets {
 	 */
 	public function enqueue_group( $groups ) {
 		$assets = $this->get();
-		$enqueue = array();
+		$enqueue = [];
 
 		foreach ( $assets as $asset ) {
 			if ( empty( $asset->groups ) ) {
 				continue;
 			}
 
-			$instersect = array_intersect( (array) $groups, $asset->groups );
+			$intersect = array_intersect( (array) $groups, $asset->groups );
 
-			if ( empty( $instersect ) ) {
+			if ( empty( $intersect ) ) {
 				continue;
 			}
 
@@ -255,7 +255,7 @@ class Tribe__Assets {
 	 * @return string|false The url to the minified version or false, if file not found.
 	 */
 	public static function maybe_get_min_file( $url ) {
-		$urls = array();
+		$urls = [];
 		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
 		$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
 		$wp_content_url = set_url_scheme( WP_CONTENT_URL );
