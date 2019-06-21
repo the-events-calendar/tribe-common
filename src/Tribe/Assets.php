@@ -159,8 +159,8 @@ class Tribe__Assets {
 			$enqueue = empty( $asset->conditionals );
 
 			if ( ! $enqueue ) {
-				// Reset Enqeue
-				$enqueue = array();
+				// Reset Enqueue
+				$enqueue = [];
 
 				// Which is the operator?
 				$conditional_operator = Tribe__Utils__Array::get( $asset->conditionals, 'operator', 'OR' );
@@ -214,7 +214,7 @@ class Tribe__Assets {
 				if ( ! empty( $asset->localize ) ) {
 					// Makes sure we have an Array of Localize data
 					if ( is_object( $asset->localize ) ) {
-						$localization = array( $asset->localize );
+						$localization = [ $asset->localize ];
 					} else {
 						$localization = (array) $asset->localize;
 					}
