@@ -392,7 +392,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @return Tribe__PUE__Checker
 		 */
-		private function get_pue_from_class( string $class ) {
+		public function get_pue_from_class( $class ) {
 			$callback_map = [
 				'Tribe__Events__Pro__Main' => function() {
 					$pue_reflection = new ReflectionClass( Tribe__Events__Pro__PUE::class );
