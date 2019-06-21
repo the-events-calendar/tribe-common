@@ -507,7 +507,7 @@ class Tribe__Assets {
 		// Sorts by priority
 		uasort( $this->assets, [ $this, 'order_by_priority' ] );
 
-		// Return the Slug because it might be modified
+		// Return the object because it might be modified
 		return $asset;
 	}
 
@@ -534,9 +534,10 @@ class Tribe__Assets {
 	 *
 	 * @since 4.3
 	 *
-	 * @param  string $slug Slug of the Asset
+	 * @param string $slug Slug of the Asset
 	 *
-	 * @return bool
+	 * @return array|object|null Array of asset objects, single asset object, or null if looking for a single asset but
+	 *                           it was not in the array of objects.
 	 */
 	public function get( $slug = null ) {
 		uasort( $this->assets, [ $this, 'order_by_priority' ] );
