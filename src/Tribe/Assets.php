@@ -342,7 +342,7 @@ class Tribe__Assets {
 	 *     @type callable[]   $conditionals   An callable method or an array of them, that will determine if the asset is loaded or not
 	 * }
 	 *
-	 * @return string
+	 * @return object|false The registered object or false on error.
 	 */
 	public function register( $origin, $slug, $file, $deps = array(), $action = null, $arguments = array() ) {
 		// Prevent weird stuff here
