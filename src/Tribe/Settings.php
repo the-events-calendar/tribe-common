@@ -309,6 +309,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			$this->tabs       = (array) apply_filters( 'tribe_settings_tabs', [] );
 			$this->allTabs    = (array) apply_filters( 'tribe_settings_all_tabs', [] );
 			$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', [] );
+
 			if ( is_network_admin() ) {
 				$this->defaultTab = apply_filters( 'tribe_settings_default_tab_network', 'network' );
 				$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
@@ -320,8 +321,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 						], network_admin_url( 'settings.php' )
 					)
 				);
-			}
-			if ( ! is_network_admin() ) {
+			} else {
 				$tabs_keys        = array_keys( $this->tabs );
 				$this->defaultTab = in_array( apply_filters( 'tribe_settings_default_tab', 'general' ), $tabs_keys ) ? apply_filters( 'tribe_settings_default_tab', 'general' ) : $tabs_keys[0];
 				$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
@@ -335,6 +335,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 					)
 				);
 			}
+
 			$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', [] );
 			do_action( 'tribe_settings_after_do_tabs' );
 			$this->fields = (array) apply_filters( 'tribe_settings_fields', [] );
