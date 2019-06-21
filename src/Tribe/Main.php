@@ -579,6 +579,8 @@ class Tribe__Main {
 		tribe_singleton( 'db', 'Tribe__Db' );
 		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 
+		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
+
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
 
