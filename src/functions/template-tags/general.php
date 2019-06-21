@@ -588,49 +588,43 @@ function tribe_register_error( $indexes, $message ) {
  *
  * @since 4.3
  *
- * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
- * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
- * @param string            $file      The asset file to load (CSS or JS), including non-minified file extension.
- * @param array             $deps      The list of dependencies.
- * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
- *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
- * @param array             $arguments See `Tribe__Assets::register()` for more info.
+ * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
+ * @param  string   $slug       Slug to save the asset
+ * @param  string   $file       Which file will be loaded, either CSS or JS
+ * @param  array    $deps       Dependencies
+ * @param  string   $action     A WordPress Action, needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
+ * @param  array    $arguments  Look at `Tribe__Assets::register()` for more info
  *
- * @return object|false     The asset that got registered or false on error.
+ * @return array             Which Assets was registered
  */
+	return tribe( 'assets' )->register( $origin, $slug, $file, $deps, $action, $arguments );
 function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
-	/** @var Tribe__Assets $assets */
-	$assets = tribe( 'assets' );
-
-	return $assets->register( $origin, $slug, $file, $deps, $action, $arguments );
 }
 
 /**
- * Shortcut for Tribe__Assets::enqueue() to include assets.
+ * Shortcut for Tribe__Assets::enqueue(), include assets
  *
- * @since 4.7
+ * @since  4.7
  *
- * @param string|array $slug Slug to enqueue
+ * @param  string|array  $slug  Slug to enqueue
+ *
+ * @return string
  */
 function tribe_asset_enqueue( $slug ) {
-	/** @var Tribe__Assets $assets */
-	$assets = tribe( 'assets' );
-
-	$assets->enqueue( $slug );
+	return tribe( 'assets' )->enqueue( $slug );
 }
 
 /**
- * Shortcut for Tribe__Assets::enqueue_group() include assets by groups.
+ * Shortcut for Tribe__Assets::enqueue_group() include assets by groups
  *
- * @since 4.7
+ * @since  4.7
  *
- * @param string|array  $group  Which group(s) should be enqueued.
+ * @param  string|array  $group  Which group(s) should be enqueued
+ *
+ * @return string
  */
 function tribe_asset_enqueue_group( $group ) {
-	/** @var Tribe__Assets $assets */
-	$assets = tribe( 'assets' );
-
-	$assets->enqueue_group( $group );
+	return tribe( 'assets' )->enqueue_group( $group );
 }
 
 /**
