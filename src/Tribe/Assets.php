@@ -374,15 +374,15 @@ class Tribe__Assets {
 		$version = constant( $origin_name . '::VERSION' );
 
 		// Default variables to prevent notices
-		$defaults = array(
+		$defaults = [
 			'slug'          => null,
 			'file'          => false,
 			'url'           => false,
 			'action'        => null,
 			'priority'      => 10,
 			'type'          => null,
-			'deps'          => array(),
-			'groups'        => array(),
+			'deps'          => [],
+			'groups'        => [],
 			'version'       => $version,
 			'media'         => 'all',
 			'in_footer'     => true,
@@ -392,9 +392,9 @@ class Tribe__Assets {
 			'origin_name'   => null,
 
 			// Bigger Variables at the end
-			'localize'      => array(),
-			'conditionals'  => array(),
-		);
+			'localize'      => [],
+			'conditionals'  => [],
+		];
 
 		// Merge Arguments
 		$asset = (object) wp_parse_args( $arguments, $defaults );
@@ -504,7 +504,7 @@ class Tribe__Assets {
 		$this->assets[ $slug ] = $asset;
 
 		// Sorts by priority
-		uasort( $this->assets, array( $this, 'order_by_priority' ) );
+		uasort( $this->assets, [ $this, 'order_by_priority' ] );
 
 		// Return the Slug because it might be modified
 		return $asset;
@@ -538,7 +538,7 @@ class Tribe__Assets {
 	 * @return bool
 	 */
 	public function get( $slug = null ) {
-		uasort( $this->assets, array( $this, 'order_by_priority' ) );
+		uasort( $this->assets, [ $this, 'order_by_priority' ] );
 
 		if ( is_null( $slug ) ) {
 			return $this->assets;
