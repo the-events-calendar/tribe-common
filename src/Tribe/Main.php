@@ -587,10 +587,12 @@ class Tribe__Main {
 		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', array( 'hook' ) );
 		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', array( 'hook' ) );
 
-		tribe_register_provider( 'Tribe__Editor__Provider' );
-		tribe_register_provider( 'Tribe__Service_Providers__Debug_Bar' );
-		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
-		tribe_register_provider( 'Tribe__Service_Providers__Tooltip' );
+		tribe_register_provider( Tribe__Editor__Provider::class );
+		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
+		tribe_register_provider( Tribe__Service_Providers__Promoter_Connector::class );
+		tribe_register_provider( Tribe__Service_Providers__Tooltip::class );
+
+		tribe_register_provider( Tribe\Service_Providers\PUE::class );
 	}
 
 	/************************
