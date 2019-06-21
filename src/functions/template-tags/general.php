@@ -606,16 +606,17 @@ function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $argume
 }
 
 /**
- * Shortcut for Tribe__Assets::enqueue(), include assets
+ * Shortcut for Tribe__Assets::enqueue() to include assets.
  *
- * @since  4.7
+ * @since 4.7
  *
- * @param  string|array  $slug  Slug to enqueue
- *
- * @return string
+ * @param string|array $slug Slug to enqueue
  */
 function tribe_asset_enqueue( $slug ) {
-	return tribe( 'assets' )->enqueue( $slug );
+	/** @var Tribe__Assets $assets */
+	$assets = tribe( 'assets' );
+
+	$assets->enqueue( $slug );
 }
 
 /**
