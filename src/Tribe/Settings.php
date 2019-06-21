@@ -296,7 +296,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 */
 		public function initTabs() {
 			if (
-				! isset( $_GET['page'] )
+				empty( $_GET['page'] )
 				|| $_GET['page'] != $this->adminSlug
 			) {
 				return;
