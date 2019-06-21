@@ -306,18 +306,18 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			Tribe__Admin__Live_Date_Preview::instance();
 
 			do_action( 'tribe_settings_do_tabs' ); // this is the hook to use to add new tabs
-			$this->tabs       = (array) apply_filters( 'tribe_settings_tabs', array() );
-			$this->allTabs    = (array) apply_filters( 'tribe_settings_all_tabs', array() );
-			$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
+			$this->tabs       = (array) apply_filters( 'tribe_settings_tabs', [] );
+			$this->allTabs    = (array) apply_filters( 'tribe_settings_all_tabs', [] );
+			$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', [] );
 			if ( is_network_admin() ) {
 				$this->defaultTab = apply_filters( 'tribe_settings_default_tab_network', 'network' );
 				$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
 				$this->url        = apply_filters(
 					'tribe_settings_url', add_query_arg(
-						array(
+						[
 							'page' => $this->adminSlug,
 							'tab'  => $this->currentTab,
-						), network_admin_url( 'settings.php' )
+						], network_admin_url( 'settings.php' )
 					)
 				);
 			}
@@ -327,17 +327,17 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
 				$this->url        = apply_filters(
 					'tribe_settings_url', add_query_arg(
-						array(
+						[
 							'page' => $this->adminSlug,
 							'tab'  => $this->currentTab,
-						),
+						],
 						admin_url( self::$parent_page )
 					)
 				);
 			}
-			$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', array() );
+			$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', [] );
 			do_action( 'tribe_settings_after_do_tabs' );
-			$this->fields = (array) apply_filters( 'tribe_settings_fields', array() );
+			$this->fields = (array) apply_filters( 'tribe_settings_fields', [] );
 			$this->validate();
 		}
 
