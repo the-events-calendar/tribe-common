@@ -345,7 +345,7 @@ class Tribe__Assets {
 	 *
 	 * @return object|false The registered object or false on error.
 	 */
-	public function register( $origin, $slug, $file, $deps = array(), $action = null, $arguments = array() ) {
+	public function register( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
 		// Prevent weird stuff here
 		$slug = sanitize_title_with_dashes( $slug );
 
@@ -356,7 +356,7 @@ class Tribe__Assets {
 		if ( is_string( $origin ) ) {
 			// Origin needs to be a class with a `instance` method and a Version constant
 			if ( class_exists( $origin ) && method_exists( $origin, 'instance' ) && defined( $origin . '::VERSION' ) ) {
-				$origin = call_user_func( array( $origin, 'instance' ) );
+				$origin = call_user_func( [ $origin, 'instance' ] );
 			}
 		}
 
@@ -425,7 +425,7 @@ class Tribe__Assets {
 		}
 
 		// If asset type is wrong don't register
-		if ( ! in_array( $asset->type, array( 'js', 'css' ) ) ) {
+		if ( ! in_array( $asset->type, [ 'js', 'css' ] ) ) {
 			return false;
 		}
 
@@ -477,14 +477,14 @@ class Tribe__Assets {
 
 				// if we don't have both reset localize
 				if ( ! isset( $asset->localize->data, $asset->localize->name ) ) {
-					$asset->localize = array();
+					$asset->localize = [];
 				}
 			}
 		}
 
 		// Looks for a single conditional callable and places it in an Array
 		if ( ! empty( $asset->conditionals ) && is_callable( $asset->conditionals ) ) {
-			$asset->conditionals = array( $asset->conditionals );
+			$asset->conditionals = [ $asset->conditionals ];
 		}
 
 		// Groups is always an array of unique strings
