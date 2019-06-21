@@ -96,18 +96,19 @@
 		}
 	}
 
-	.tribe-common-c-search__input--keyword {
-		background-image: svg-inline(search);
+	.tribe-common-c-search__input--icon {
 		background-repeat: no-repeat;
-		background-size: 16px;
 		background-position: right center;
 
 		@media (--viewport-medium) {
-			border-right: 1px solid var(--color-border-default);
-			height: auto;
 			padding: 7px 18px 7px 40px;
 			background-position: 16px center;
 		}
+	}
+
+	.tribe-common-c-search__input--keyword {
+		background-image: svg-inline(search);
+		background-size: 16px;
 
 		&:focus {
 			background-image: svg-inline(search-focus);
@@ -120,17 +121,7 @@
 
 	.tribe-common-c-search__input--location {
 		background-image: svg-inline(location);
-		background-repeat: no-repeat;
 		background-size: 10px 15px;
-		background-position: right center;
-
-		@media (--viewport-medium) {
-			border: none;
-			border-right: 1px solid var(--color-border-default);
-			height: auto;
-			padding: 7px 18px 7px 40px;
-			background-position: 16px center;
-		}
 
 		&:focus {
 			background-image: svg-inline(location-focus);
