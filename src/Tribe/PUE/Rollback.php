@@ -2,6 +2,7 @@
 namespace Tribe\PUE;
 
 use WP_Error;
+use Tribe__Dependency as Dependency;
 
 /**
  * Class Rollback engine for a plugin with invalid/empty keys with
@@ -138,9 +139,29 @@ class Rollback {
 			return $source;
 		}
 
+
+		$full_plugin_path = $remote_source . '/' . $plugin;
+		$plugin_data = get_plugin_data( $full_plugin_path );
+		bdump( $plugin_data );
+
+		$plugins_classes = array_keys( $incompatible_plugins );
+
+		bdump( $plugins_classes, $incompatible_plugins );
+		$plugins_list_html = tribe( 'pue.notices' )->get_formatted_plugin_names_from_classes( $plugins_classes );
+
+		$link_read_more = '<a href="http://m.tri.be/1aev" target="_blank">' . __( 'Read More.' ) . '</a>';
+
+		$message = sprintf(
+			'Your update failed due to an incompatible version of %s to the new version (%s) of %s you tried to download and update to. %s',
+			$plugins_list_html,
+			$plugin_data['Version'],
+			$plugin_data['Name'],
+			$link_read_more
+		);
+
 		$error = new WP_Error(
-			'tribe-prevent-failed',
-			'tribe-prevent-failed',
+			'tribe-updater-failed-prevention',
+			$message,
 			[]
 		);
 
