@@ -5,6 +5,7 @@
 = [4.9.12] TBD =
 
 * Tweak - Include proper documentation of why the plugin has been deactivated and a knowledgebase article about how to downgrade [129726]
+* Tweak - When trying to update The Events Calendar with an incompatible version of an Addon that is expired, it will stop the upgrade [129727]
 * Tweak - Create a new key if `AUTH_KEY` is not defined or is empty and add a new filter `tribe_promoter_secret_key` to filter the result [127183]
 * Tweak - Divide the `tribe-common.js` file to prevent that file from being bloated with external dependencies. [129526]
 * Tweak - Make sure `UTC-0` is converted back to `UTC` instead of `UTC-01` [129240]
