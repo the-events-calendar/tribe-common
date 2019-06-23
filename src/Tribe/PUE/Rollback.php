@@ -123,13 +123,13 @@ class Rollback {
 				continue;
 			}
 
-			$pue = tribe( Tribe__Dependency::class )->get_pue_from_class( $class_name );
-			$has_pue_notice = tribe( 'pue.notices' )->has_notice( $pue->pue_install_key );
+			// $pue = tribe( Dependency::class )->get_pue_from_class( $class_name );
+			// $has_pue_notice = tribe( 'pue.notices' )->has_notice( $pue->pue_install_key );
 
-			// Only throw warning for customers with notices of invalid/expired licenses.
-			if ( ! $has_pue_notice ) {
-				continue;
-			}
+			// // Only throw warning for customers with notices of invalid/expired licenses.
+			// if ( ! $has_pue_notice ) {
+			// 	continue;
+			// }
 
 			// Flag that we should prevent the Update
 			$incompatible_plugins[ $class_name ] = $required_version;
@@ -149,10 +149,10 @@ class Rollback {
 		$link_read_more = '<a href="http://m.tri.be/1aev" target="_blank">' . __( 'Read More.' ) . '</a>';
 
 		$message = sprintf(
-			'Your update failed due to an incompatible version of %s to the new version (%s) of %s you tried to download and update to. %s',
-			$plugins_list_html,
+			'Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s',
 			$plugin_data['Version'],
 			$plugin_data['Name'],
+			$plugins_list_html,
 			$link_read_more
 		);
 
