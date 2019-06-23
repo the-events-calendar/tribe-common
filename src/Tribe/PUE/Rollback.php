@@ -103,22 +103,30 @@ class Rollback {
 		$incompatible_plugins = [];
 
 		foreach ( $dependencies as $class_name => $required_version ) {
-			// Skip inactive plugin checks
+			// Skip inactive plugin checks.
 			if ( ! class_exists( $class_name ) ) {
 				continue;
 			}
 
 			$constant_name = $class_name . '::VERSION';
 
-			// Skip if we cant find the version constant
+			// Skip if we cant find the version constant.
 			if ( ! defined( $constant_name ) ) {
 				continue;
 			}
 
 			$current_version = constant( $constant_name );
 
-			// Skip when the version is equal or higher than the required
+			// Skip when the version is equal or higher than the required.
 			if ( version_compare( $current_version, $required_version, '>=' ) ) {
+				continue;
+			}
+
+			$pue = tribe( Tribe__Dependency::class )->get_pue_from_class( $class_name );
+			$has_pue_notice = tribe( 'pue.notices' )->has_notice( $pue->pue_install_key );
+
+			// Only throw warning for customers with notices of invalid/expired licenses.
+			if ( ! $has_pue_notice ) {
 				continue;
 			}
 
