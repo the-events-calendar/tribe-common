@@ -123,13 +123,13 @@ class Rollback {
 				continue;
 			}
 
-			// $pue = tribe( Dependency::class )->get_pue_from_class( $class_name );
-			// $has_pue_notice = tribe( 'pue.notices' )->has_notice( $pue->pue_install_key );
+			$pue = tribe( Dependency::class )->get_pue_from_class( $class_name );
+			$has_pue_notice = tribe( 'pue.notices' )->has_notice( $pue->pue_install_key );
 
-			// // Only throw warning for customers with notices of invalid/expired licenses.
-			// if ( ! $has_pue_notice ) {
-			// 	continue;
-			// }
+			// Only throw warning for customers with notices of invalid/expired licenses.
+			if ( ! $has_pue_notice ) {
+				continue;
+			}
 
 			// Flag that we should prevent the Update
 			$incompatible_plugins[ $class_name ] = $required_version;
