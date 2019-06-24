@@ -393,6 +393,10 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return Tribe__PUE__Checker
 		 */
 		public function get_pue_from_class( $class ) {
+			if ( ! is_string( $class ) ) {
+				return false;
+			}
+
 			// If class doesnt exist the plugin doesnt exist.
 			if ( ! class_exists( $class ) ) {
 				return false;
@@ -422,6 +426,11 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 					return $values;
 				},
 			];
+
+			// Bail when class is not mapped.
+			if ( ! isset( $callback_map[ $class ] ) ) {
+				return false;
+			}
 
 			// Use the callback to get the returns without fatals
 			$values = $callback_map[ $class ]();
