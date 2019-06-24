@@ -28,7 +28,7 @@ textarea::-webkit-input-placeholder {
 	border-color: #dfdfdf;
 	-webkit-border-radius: 3px;
 	   -moz-border-radius: 3px;
-	        border-radius: 3px;
+			border-radius: 3px;
 	border-spacing: 0;
 	border-style: solid;
 	border-style: solid;
@@ -61,7 +61,7 @@ td.tribe_message {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 5px;
 	   -moz-border-radius: 5px;
-	        border-radius: 5px;
+			border-radius: 5px;
 	margin: 20px 0 30px;
 	padding: 0 20px 20px;
 }
@@ -70,7 +70,7 @@ td.tribe_message {
 	border-color: #e6db55;
 	-webkit-border-radius: 3px;
 	   -moz-border-radius: 3px;
-	        border-radius: 3px;
+			border-radius: 3px;
 	border-style: solid;
 	border-width: 1px;
 	padding: 6px 12px;
@@ -111,6 +111,10 @@ table.plugins .tribe-plugin-update-message a {
 		clear: both;
 		display: inline-block;
 		padding: 10px 0;
+
+		&.tribe-field-license_key legend {
+			width: auto;
+		}
 	}
 
 	legend {
@@ -118,10 +122,6 @@ table.plugins .tribe-plugin-update-message a {
 		font-weight: bold;
 		margin-right: 20px;
 		width: 220px;
-	}
-
-	fieldset.tribe-field-license_key legend {
-		width: auto;
 	}
 
 	.tribe-field-wrap {
@@ -146,11 +146,10 @@ table.plugins .tribe-plugin-update-message a {
 		> p {
 			text-indent: 0;
 		}
-	}
 
-	.tribe-field-radio label input,
-	.tribe-field-checkbox_list label input {
-		margin-right: 5px;
+		input {
+			margin-right: 5px;
+		}
 	}
 
 	.tribe-settings-form-wrap fieldset,
@@ -159,66 +158,80 @@ table.plugins .tribe-plugin-update-message a {
 		padding-left: 12px;
 	}
 
-	.tribe-settings-form-wrap fieldset .description {
-		margin-left: 0;
-		max-width: 450px;
-		padding-left: 0;
+	.tribe-settings-form-wrap {
+		fieldset {
+			.description {
+				margin-left: 0;
+				max-width: 450px;
+				padding-left: 0;
+			}
+
+			.tribe-style-selection {
+				margin-bottom: 18px;
+			}
+		}
+
+		h3 {
+			 background-color: #f9f9f9;
+			 margin-bottom: 10px;
+			 padding: 6px 0 6px 12px;
+		}
+
+		.tribe-sysinfo-optin-msg,
+		.system-info,
+		h3 + p,
+		.contained {
+			margin: 0 0 10px;
+			padding-left: 12px;
+		}
 	}
 
-	.tribe-settings-form-wrap h3 {
-		background-color: #f9f9f9;
-		margin-bottom: 10px;
-		padding: 6px 0 6px 12px;
-	}
+	#tribe-field-stylesheetOption {
+		label {
+			margin-left: 20px;
+		}
 
-	.tribe-settings-form-wrap .tribe-sysinfo-optin-msg,
-	.tribe-settings-form-wrap .system-info,
-	.tribe-settings-form-wrap h3 + p,
-	.tribe-settings-form-wrap .contained {
-		margin: 0 0 10px;
-		padding-left: 12px;
-	}
+		input {
+			margin-left: -20px;
+			margin-right: 8px;
+		}
 
-	#tribe-field-stylesheetOption label {
-		margin-left: 20px;
-	}
-
-	#tribe-field-stylesheetOption input {
-		margin-left: -20px;
-		margin-right: 8px;
-	}
-
-	#tribe-field-stylesheetOption p.description {
-		color: #999;
-	}
-
-	.tribe-settings-form-wrap fieldset .tribe-style-selection {
-		 margin-bottom: 18px;
+		p.description {
+			color: #999;
+		}
 	}
 }
 
-.tribe_settings .tribe-field-indent {
-	margin-left: 245px;
-}
-.tribe_settings #pu_dashboard_message {
-	display: none;
-}
-.tribe_settings .tribe-errors-list {
-	margin-left: 15px;
-}
-.tribe_settings .expiring-license {
-	color: red;
-}
-.tribe_settings .tribe-error {
-	border: 1px solid #f00;
-}
-.tribe_settings .tribe-field-description {
-	margin-bottom: 0;
-	position: relative;
-	top: -12px;
-}
-.tribe_settings #ical-link {
-	top: -14px;
+.tribe_settings {
+	.tribe-field-indent {
+		margin-left: 245px;
+	}
+
+	#pu_dashboard_message {
+		display: none;
+	}
+
+	.tribe-errors-list {
+		margin-left: 15px;
+	}
+
+	.expiring-license {
+		color: red;
+	}
+
+	.tribe-error {
+		border: 1px solid #f00;
+	}
+
+	.tribe-field-description {
+		margin-bottom: 0;
+		position: relative;
+		top: -12px;
+	}
+
+	#ical-link {
+		top: -14px;
+	}
 }
 
 /* Modern Tribe box */
@@ -228,20 +241,23 @@ table.plugins .tribe-plugin-update-message a {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 4px;
 	   -moz-border-radius: 4px;
-	     -o-border-radius: 4px;
-	        border-radius: 4px;
+		 -o-border-radius: 4px;
+			border-radius: 4px;
 	margin: 20px 0;
 	padding: 8px 20px 12px;
 }
+
 #modern-tribe-info img {
 	height: 18px;
 	margin: 10px 0;
 	width: 250px;
 }
+
 #modern-tribe-info ul {
 	list-style: disc;
 	margin-left: 20px;
 }
+
 #modern-tribe-info ul ul {
 	list-style: circle;
 }
@@ -381,8 +397,8 @@ table.plugins .tribe-plugin-update-message a {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 4px;
 	   -moz-border-radius: 4px;
-	     -o-border-radius: 4px;
-	        border-radius: 4px;
+		 -o-border-radius: 4px;
+			border-radius: 4px;
 	float: left;
 	margin: 20px 0;
 	padding: 0 20px 15px;
@@ -394,8 +410,8 @@ table.plugins .tribe-plugin-update-message a {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 4px;
 	   -moz-border-radius: 4px;
-	     -o-border-radius: 4px;
-	        border-radius: 4px;
+		 -o-border-radius: 4px;
+			border-radius: 4px;
 	float: right;
 	margin: 20px 0;
 	padding: 0 20px 15px;
@@ -408,7 +424,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-arrangeable-item {
 	border: 1px solid lightGrey;
 	-moz-border-radius: 3px;
-	     border-radius: 3px;
+		 border-radius: 3px;
 }
 .tribe-arrangeable-item .ui-state-default {
 	border: none;
@@ -508,8 +524,8 @@ table.plugins .tribe-plugin-update-message a {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 4px;
 	   -moz-border-radius: 4px;
-	     -o-border-radius: 4px;
-	        border-radius: 4px;
+		 -o-border-radius: 4px;
+			border-radius: 4px;
 	padding: 8px 20px 12px;
 }
 
@@ -578,11 +594,11 @@ table.plugins .tribe-plugin-update-message a {
 
 .system-info-copy {
   .system-info-copy-btn {
-    padding: 6px;
+	padding: 6px;
 
-    .dashicons {
-      padding-right: 10px;
-    }
+	.dashicons {
+	  padding-right: 10px;
+	}
   }
 }
 
@@ -830,7 +846,7 @@ table.plugins .tribe-plugin-update-message a {
 	-moz-transition: all 1s linear;
 	 -ms-transition: all 1s linear;
 	  -o-transition: all 1s linear;
-	     transition: all 1s linear;
+		 transition: all 1s linear;
 	webkit-transition: all 1s linear;
 	width: 100%;
 	z-index: 4;
@@ -839,7 +855,7 @@ table.plugins .tribe-plugin-update-message a {
 #tribe-loading span {
 	background: url(../images/tribe-loading.gif) 0 0 no-repeat;
 	-webkit-background-size: 32px 32px;
-	        background-size: 32px 32px;
+			background-size: 32px 32px;
 	height: 32px;
 	left: 50%;
 	margin: -16px 0 0 -16px;
