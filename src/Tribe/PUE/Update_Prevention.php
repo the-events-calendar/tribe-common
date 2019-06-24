@@ -125,7 +125,7 @@ class Update_Prevention {
 			}
 
 			$pue = tribe( Dependency::class )->get_pue_from_class( $class_name );
-			$has_pue_notice = tribe( 'pue.notices' )->has_notice( $pue->pue_install_key );
+			$has_pue_notice = $pue ? tribe( 'pue.notices' )->has_notice( $pue->pue_install_key ) : false;
 
 			// Only throw warning for customers with notices of invalid/expired licenses.
 			if ( ! $has_pue_notice ) {
