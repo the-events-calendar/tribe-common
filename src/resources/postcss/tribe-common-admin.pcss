@@ -106,67 +106,97 @@ table.plugins .tribe-plugin-update-message a {
 =============================================*/
 .tribe-settings-form {
 	max-width: 1000px;
-}
-.tribe-settings-form fieldset {
-	clear: both;
-	display: inline-block;
-	padding: 10px 0;
-}
-.tribe-settings-form legend {
-	float: left;
-	font-weight: bold;
-	margin-right: 20px;
-	width: 220px;
-}
-.tribe-settings-form fieldset.tribe-field-license_key legend {
-	width: auto;
-}
-.tribe-settings-form .tribe-field-wrap {
-	float: left;
-	max-width: 500px;
 
-	*:first-child {
-		margin-top: 0;
+	fieldset {
+		clear: both;
+		display: inline-block;
+		padding: 10px 0;
+	}
+
+	legend {
+		float: left;
+		font-weight: bold;
+		margin-right: 20px;
+		width: 220px;
+	}
+
+	fieldset.tribe-field-license_key legend {
+		width: auto;
+	}
+
+	.tribe-field-wrap {
+		float: left;
+		max-width: 500px;
+
+		*:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.tribe-field-checkbox_bool p.tooltip {
+		display: initial;
+	}
+
+	.tribe-field-radio label,
+	.tribe-field-checkbox_list label {
+		display: block;
+		margin: 5px 0 5px 20px;
+		text-indent: -20px;
+
+		> p {
+			text-indent: 0;
+		}
+	}
+
+	.tribe-field-radio label input,
+	.tribe-field-checkbox_list label input {
+		margin-right: 5px;
+	}
+
+	.tribe-settings-form-wrap fieldset,
+	.tribe-settings-form-wrap .description,
+	fieldset[id^='tribe-field-geoloc_'] {
+		padding-left: 12px;
+	}
+
+	.tribe-settings-form-wrap fieldset .description {
+		margin-left: 0;
+		max-width: 450px;
+		padding-left: 0;
+	}
+
+	.tribe-settings-form-wrap h3 {
+		background-color: #f9f9f9;
+		margin-bottom: 10px;
+		padding: 6px 0 6px 12px;
+	}
+
+	.tribe-settings-form-wrap .tribe-sysinfo-optin-msg,
+	.tribe-settings-form-wrap .system-info,
+	.tribe-settings-form-wrap h3 + p,
+	.tribe-settings-form-wrap .contained {
+		margin: 0 0 10px;
+		padding-left: 12px;
+	}
+
+	#tribe-field-stylesheetOption label {
+		margin-left: 20px;
+	}
+
+	#tribe-field-stylesheetOption input {
+		margin-left: -20px;
+		margin-right: 8px;
+	}
+
+	#tribe-field-stylesheetOption p.description {
+		color: #999;
+	}
+
+	.tribe-settings-form-wrap fieldset .tribe-style-selection {
+		 margin-bottom: 18px;
 	}
 }
-.tribe-settings-form .tribe-field-checkbox_bool p.tooltip {
-	display: initial;
-}
-.tribe-settings-form .tribe-field-radio label,
-.tribe-settings-form .tribe-field-checkbox_list label {
-	display: block;
-	margin: 5px 0 5px 20px;
-	text-indent: -20px;
-	> p {
-		text-indent: 0;
-	}
-}
-.tribe-settings-form .tribe-field-radio label input,
-.tribe-settings-form .tribe-field-checkbox_list label input {
-	margin-right: 5px;
-}
-.tribe-settings-form .tribe-settings-form-wrap fieldset,
-.tribe-settings-form .tribe-settings-form-wrap .description,
-.tribe-settings-form fieldset[id^='tribe-field-geoloc_'] {
-	padding-left: 12px;
-}
-.tribe-settings-form .tribe-settings-form-wrap fieldset .description {
-	margin-left: 0;
-	max-width: 450px;
-	padding-left: 0;
-}
-.tribe-settings-form .tribe-settings-form-wrap h3 {
-	background-color: #f9f9f9;
-	margin-bottom: 10px;
-	padding: 6px 0 6px 12px;
-}
-.tribe-settings-form .tribe-settings-form-wrap .tribe-sysinfo-optin-msg,
-.tribe-settings-form .tribe-settings-form-wrap .system-info,
-.tribe-settings-form .tribe-settings-form-wrap h3 + p,
-.tribe-settings-form .tribe-settings-form-wrap .contained {
-	margin: 0 0 10px;
-	padding-left: 12px;
-}
+
 .tribe_settings .tribe-field-indent {
 	margin-left: 245px;
 }
@@ -190,16 +220,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe_settings #ical-link {
 	top: -14px;
 }
-.tribe-settings-form #tribe-field-stylesheetOption label {
-	margin-left: 20px;
-}
-.tribe-settings-form #tribe-field-stylesheetOption input {
-	margin-left: -20px;
-	margin-right: 8px;
-}
-.tribe-settings-form #tribe-field-stylesheetOption p.description {
-	color: #999;
-}
+
 /* Modern Tribe box */
 #modern-tribe-info {
 	-khtml-border-radius: 4px;
@@ -417,9 +438,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe_events_active_filter_type_options label {
 	margin: 7px 0;
 }
-.tribe-settings-form .tribe-settings-form-wrap fieldset .tribe-style-selection {
-	margin-bottom: 18px;
-}
+
 .OrganizerInfo td small,
 #event_organizer td small {
 	display: block;
