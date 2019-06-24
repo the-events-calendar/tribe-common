@@ -106,8 +106,14 @@ class Tribe__Admin__Notice__Plugin_Download {
 			'a'      => array( 'href' => array() ),
 		);
 
-		$pue_notice_html = '<p>' . esc_html__( '---MESSAGE_PLACEHOLDER---', 'tribe-common' ) . '</p>';
+		$plugin_names_clean_text = wp_kses( $this->implode_with_grammar( $plugin_name ), $allowed_html );
+		$req_plugin_names_clean_text = wp_kses( $this->implode_with_grammar( $req_plugins ), $allowed_html );
+
 		$notice_html_content = '<p>' . esc_html__( 'To begin using %2$s, please install and activate the latest version of %3$s.', 'tribe-common' ) . '</p>';
+
+		$read_more_link = '<a href="http://m.tri.be/1aev" target="_blank">' . __( 'Read more.', 'tribe-common' ) . '</a>';
+		$pue_notice_text = __( 'There’s a new version of %1$s available, but your license is expired. You’ll need to renew your license to get access to the latest version. If you plan to continue using your current version of the plugin(s), be sure to use a compatible version of The Events Calendar. %2$s', 'tribe-common' );
+		$pue_notice_html = '<p>' . sprintf( $pue_notice_text, $plugin_names_clean_text, $read_more_link ) . '</p>';
 
 		printf(
 			'<div class="error tribe-notice tribe-dependency-error" data-plugin="%1$s">'
@@ -115,8 +121,8 @@ class Tribe__Admin__Notice__Plugin_Download {
 			. ( $has_pue_notices ? $pue_notice_html : '' )
 			. '</div>',
 			esc_attr( sanitize_title( $plugin_data['Name'] ) ),
-			wp_kses( $this->implode_with_grammar( $plugin_name ), $allowed_html ),
-			wp_kses( $this->implode_with_grammar( $req_plugins ), $allowed_html )
+			$plugin_names_clean_text,
+			$req_plugin_names_clean_text
 		);
 	}
 
