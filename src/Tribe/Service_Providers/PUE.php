@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\Service_Providers;
 
-use Tribe\PUE\Rollback;
+use Tribe\PUE\Update_Prevention;
 
 /**
  * Hooks and manages the implementation and loading of PUE.
@@ -19,7 +19,7 @@ class PUE extends \tad_DI52_ServiceProvider {
 	 * @since  TBD
 	 */
 	public function register() {
-		$this->container->singleton( Rollback::class, Rollback::class );
+		$this->container->singleton( Update_Prevention::class, Update_Prevention::class );
 
 		// Setup all of WP hooks associated with PUE.
 		$this->register_hooks();
@@ -35,7 +35,7 @@ class PUE extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Filters the source file location for the upgrade package for the PUE Rollback engine.
+	 * Filters the source file location for the upgrade package for the PUE Update_Prevention engine.
 	 *
 	 * @since  TBD
 	 *
@@ -45,6 +45,6 @@ class PUE extends \tad_DI52_ServiceProvider {
 	 * @param array       $extra         Extra arguments passed to hooked filters.
 	 */
 	public function filter_upgrader_source_selection( $source, $remote_source, $upgrader, $extras ) {
-		return $this->container->make( Rollback::class )->filter_upgrader_source_selection( $source, $remote_source, $upgrader, $extras );
+		return $this->container->make( Update_Prevention::class )->filter_upgrader_source_selection( $source, $remote_source, $upgrader, $extras );
 	}
 }
