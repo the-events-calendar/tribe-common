@@ -178,8 +178,8 @@ class Update_Prevention {
 
 		$message = sprintf(
 			__( 'Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s', 'tribe-common' ),
-			$plugin_data['Version'],
-			$plugin_data['Name'],
+			esc_html( $plugin_data['Version'] ),
+			esc_html( $plugin_data['Name'] ),
 			$plugins_list_html,
 			$link_read_more
 		);
