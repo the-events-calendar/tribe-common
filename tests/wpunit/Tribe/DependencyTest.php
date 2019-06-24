@@ -30,17 +30,17 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 				'Tribe__Events__Pro__Main',
 				[
 					'pue_slug' => 'events-calendar-pro',
-					'plugin_file' => WP_PLUGIN_DIR . '/events-calendar-pro/events-calendar-pro.php',
+					'plugin_file' => '/events-calendar-pro/events-calendar-pro.php',
 				],
 				'Tribe__Events__Filterbar__View',
 				[
 					'pue_slug' => 'tribe-filterbar',
-					'plugin_file' => WP_PLUGIN_DIR . '/the-events-calendar-filter-view/the-events-calendar-filter-view.php',
+					'plugin_file' => '/the-events-calendar-filter-view/the-events-calendar-filter-view.php',
 				],
 				'Tribe__Events__Tickets__Eventbrite__Main',
 				[
 					'pue_slug' => 'tribe-eventbrite',
-					'plugin_file' => WP_PLUGIN_DIR . '/tribe-eventbrite/tribe-eventbrite.php',
+					'plugin_file' => '/tribe-eventbrite/tribe-eventbrite.php',
 				],
 			],
 		];
@@ -60,7 +60,7 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( Tribe__PUE__Checker::class, $pue );
 
 		$this->assertEquals( $pue->get_slug(), $expected['pue_slug'] );
-		$this->assertEquals( $pue->get_plugin_file(), $expected['plugin_file'] );
+		$this->assertContains( $pue->get_plugin_file(), $expected['plugin_file'] );
 	}
 
 	public function invalidClassToPueProvider() {
