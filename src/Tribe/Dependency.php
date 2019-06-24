@@ -393,6 +393,10 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return Tribe__PUE__Checker
 		 */
 		public function get_pue_from_class( $class ) {
+			if ( ! is_string( $class ) ) {
+				return false;
+			}
+
 			// If class doesnt exist the plugin doesnt exist.
 			if ( ! class_exists( $class ) ) {
 				return false;

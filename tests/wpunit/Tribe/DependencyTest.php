@@ -2,6 +2,7 @@
 namespace Tribe;
 
 use Tribe__Dependency as Dependency;
+use Tribe__PUE__Checker;
 
 include codecept_data_dir( 'classes/Dependency/Eventbrite.php' );
 include codecept_data_dir( 'classes/Dependency/Filterbar.php' );
