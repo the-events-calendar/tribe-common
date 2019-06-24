@@ -12,6 +12,10 @@
 * Tweak - Add new function `tribe_register_rest_route` Wrapper around `register_rest_route` to filter the arguments when a new REST endpoint is created [129517]
 * Fix - Prevent Clipboard Javascript from loading all over the place on `/wp-admin/` [129526]
 
+= [4.9.11.2] 2019-06-20 =
+
+* Fix - Add Promoter PCSS file so that the proper CSS will be generated on package build [129584]
+
 = [4.9.11.1] 2019-06-13 =
 
 * Fix - Resolve fatal errors with references directly to The Events Calendar class constants [129107]
