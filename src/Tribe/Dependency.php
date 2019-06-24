@@ -423,6 +423,11 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				},
 			];
 
+			// Bail when class is not mapped.
+			if ( ! isset( $callback_map[ $class ] ) ) {
+				return false;
+			}
+
 			// Use the callback to get the returns without fatals
 			$values = $callback_map[ $class ]();
 			$pue_instance = new Tribe__PUE__Checker( $values['update_url'], $values['pue_slug'], [], plugin_basename( $values['plugin_file'] ) );
