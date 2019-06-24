@@ -177,7 +177,7 @@ class Update_Prevention {
 		$link_read_more = '<a href="http://m.tri.be/1aev" target="_blank">' . esc_html__( 'Read More.', 'tribe-common' ) . '</a>';
 
 		$message = sprintf(
-			__( 'Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s', 'tribe-common' ),
+			esc_html__( 'Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s', 'tribe-common' ),
 			$plugin_data['Version'],
 			$plugin_data['Name'],
 			$plugins_list_html,
