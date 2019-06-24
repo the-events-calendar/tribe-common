@@ -525,7 +525,9 @@ class Tribe__Cost_Utils {
 				$frags = explode( end( $matched_separators ), $value );
 				if ( strlen( end( $frags ) ) !== 3 ) {
 					$decimal_sep   = end( $matched_separators );
-					$thousands_sep = $decimal_sep === $locale_decimal_point ? $locale_thousands_sep : $locale_decimal_point;
+					$thousands_sep = $decimal_sep === $locale_decimal_point ?
+						$locale_thousands_sep
+						: $locale_decimal_point;
 				}
 			}
 		}
