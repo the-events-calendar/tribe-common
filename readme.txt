@@ -4,6 +4,7 @@
 
 = [4.9.12] TBD =
 
+* Tweak - Add filter `tribe_is_classic_editor_plugin_active` to change the output if the classic editor is active or not [121267]
 * Tweak - Create a new key if `AUTH_KEY` is not defined or is empty and add a new filter `tribe_promoter_secret_key` to filter the result [127183]
 * Tweak - Divide the `tribe-common.js` file to prevent that file from being bloated with external dependencies. [129526]
 * Tweak - Make sure `UTC-0` is converted back to `UTC` instead of `UTC-01` [129240]
