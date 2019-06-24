@@ -12,6 +12,10 @@
 * Tweak - Add new method `Tribe__Cost_Utils::parse_separators` to infer decimal and thousands separators from a value that might have been formatted in a local different from the current one [98061]
 * Fix - Prevent Clipboard Javascript from loading all over the place on `/wp-admin/` [129526]
 
+= [4.9.11.2] 2019-06-20 =
+
+* Fix - Add Promoter PCSS file so that the proper CSS will be generated on package build [129584]
+
 = [4.9.11.1] 2019-06-13 =
 
 * Fix - Resolve fatal errors with references directly to The Events Calendar class constants [129107]
