@@ -104,30 +104,38 @@
 		}
 	}
 
-	.tribe-common-c-search__input--keyword {
-		background-image: svg-inline(search);
-		background-size: 16px;
+	.tribe-common-form-control-text__input-keyword {
+		.tribe-common-c-search__input {
+			background-image: svg-inline(search);
+			background-size: 16px;
 
-		&:focus {
+			&:focus {
+				background-image: svg-inline(search-focus);
+			}
+		}
+	}
+
+	.tribe-common-form-control-text__input-keyword--focus {
+		.tribe-common-c-search__input
 			background-image: svg-inline(search-focus);
 		}
 	}
 
-	.tribe-common-c-search__input--keyword-focus {
-		background-image: svg-inline(search-focus);
-	}
+	.tribe-common-form-control-text__input-location {
+		.tribe-common-c-search__input {
+			background-image: svg-inline(location);
+			background-size: 10px 15px;
 
-	.tribe-common-c-search__input--location {
-		background-image: svg-inline(location);
-		background-size: 10px 15px;
-
-		&:focus {
-			background-image: svg-inline(location-focus);
+			&:focus {
+				background-image: svg-inline(location-focus);
+			}
 		}
 	}
 
-	.tribe-common-c-search__input--location-focus {
-		background-image: svg-inline(location-focus);
+	.tribe-common-form-control-text__input-location--focus {
+		.tribe-common-c-search__input {
+			background-image: svg-inline(location-focus);
+		}
 	}
 
 	.tribe-common-c-search__button {
@@ -156,11 +164,4 @@
 		}
 	}
 
-	body.tribe-theme-twentynineteen & {
-		.tribe-common-c-search__input {
-			&:focus {
-				border-right-color: var(--color-border-default);
-			}
-		}
-	}
 }
