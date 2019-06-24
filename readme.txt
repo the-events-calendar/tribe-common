@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [129061]
+
 = [4.9.11.2] 2019-06-20 =
 
 * Fix - Add Promoter PCSS file so that the proper CSS will be generated on package build [129584]
