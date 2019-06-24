@@ -5,4 +5,8 @@ class Tribe__Events__Filterbar__PUE {
 	private static $plugin_file;
 }
 
+class Tribe__Events__Filterbar__View {
+
+}
+
 define( 'EVENTS_CALENDAR_PRO_FILE', WP_PLUGIN_DIR . '/the-events-calendar-filter-view/the-events-calendar-filter-view.php' );

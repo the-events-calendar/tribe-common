@@ -5,4 +5,8 @@ class Tribe__Events__Tickets__Eventbrite__PUE {
 	private static $plugin_file;
 }
 
+class Tribe__Events__Tickets__Eventbrite__Main {
+
+}
+
 define( 'EVENTBRITE_PLUGIN_FILE', WP_PLUGIN_DIR . '/tribe-eventbrite/tribe-eventbrite.php' );
