@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "08a9989f897a520d26e56ecebfbd0997",
@@ -1378,7 +1378,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v5.8.22",
+            "version": "v5.8.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -1422,16 +1422,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v5.8.22",
+            "version": "v5.8.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "0c3ef774fdfcb38dce7dc52967107423e86224c5"
+                "reference": "b05653f5ecce996734d3facd06a81aff504b6a2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/0c3ef774fdfcb38dce7dc52967107423e86224c5",
-                "reference": "0c3ef774fdfcb38dce7dc52967107423e86224c5",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/b05653f5ecce996734d3facd06a81aff504b6a2f",
+                "reference": "b05653f5ecce996734d3facd06a81aff504b6a2f",
                 "shasum": ""
             },
             "require": {
@@ -1479,7 +1479,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2019-06-12T08:34:45+00:00"
+            "time": "2019-06-19T14:12:17+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -1764,21 +1764,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-common-styles",
-<<<<<<< HEAD
-                "reference": "2489e92ff97c6ea4bb1c15c02c4d23eb65ecf517"
+                "reference": "5c610d928d015d917bcc7e3c86e819bc5b42494f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/2489e92ff97c6ea4bb1c15c02c4d23eb65ecf517",
-                "reference": "2489e92ff97c6ea4bb1c15c02c4d23eb65ecf517",
-=======
-                "reference": "01e288b3a3f7036159d5def9535fb57b3ab577dc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/01e288b3a3f7036159d5def9535fb57b3ab577dc",
-                "reference": "01e288b3a3f7036159d5def9535fb57b3ab577dc",
->>>>>>> 9284bc1b551ea51dc61015c461dc0db3a08bfdca
+                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/5c610d928d015d917bcc7e3c86e819bc5b42494f",
+                "reference": "5c610d928d015d917bcc7e3c86e819bc5b42494f",
                 "shasum": ""
             },
             "require": {
@@ -1789,11 +1780,7 @@
                 "Private"
             ],
             "description": "A library of Modern Tribe's common styles",
-<<<<<<< HEAD
-            "time": "2019-06-18T18:10:36+00:00"
-=======
-            "time": "2019-06-17T03:50:11+00:00"
->>>>>>> 9284bc1b551ea51dc61015c461dc0db3a08bfdca
+            "time": "2019-06-22T03:22:04+00:00"
         },
         {
             "name": "mustache/mustache",
