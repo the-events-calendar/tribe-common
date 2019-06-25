@@ -3,25 +3,31 @@
 .invalid input {
 	border: 2px solid red !important;
 }
+
 .valid input {
 	border: 1px solid green;
 }
+
 .clearfix {
 	zoom: 1; /* For IE */
 }
+
 .placeholder {
 	color: #999;
 	cursor: text;
 	padding: 4px 4px 4px 4px;
 }
+
 input::placeholder,
 textarea::placeholder {
 	color: #999;
 }
+
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
 	color: #999;
 }
+
 .bubble {
 	-khtml-border-radius: 3px;
 	background-color: #f9f9f9;
@@ -35,9 +41,11 @@ textarea::-webkit-input-placeholder {
 	border-width: 1px;
 	padding: 10px;
 }
+
 .tribe-sticky-tooltip {
 	color: #bbb;
 }
+
 td.tribe_message {
 	padding-bottom: 10px !important;
 }
@@ -47,6 +55,7 @@ td.tribe_message {
 	margin: 5px 0 0 0;
 	width: 200px;
 }
+
 .tribe_brand {
 	font-family: Georgia, serif !important;
 	font-size: 17px !important;
@@ -65,6 +74,7 @@ td.tribe_message {
 	margin: 20px 0 30px;
 	padding: 0 20px 20px;
 }
+
 #tribe-upgrade .message {
 	background-color: #ffffe0;
 	border-color: #e6db55;
@@ -78,6 +88,7 @@ td.tribe_message {
 
 /* = Plugin Screen
 =============================================*/
+<<<<<<< HEAD
 table.plugins {
 	.tribe-plugin-update-message {
 		background: #D54E21; /* taken from colour scheme in list-tables.css */
@@ -101,6 +112,29 @@ table.plugins {
 		color:           white;
 		text-decoration: underline;
 	}
+=======
+table.plugins .tribe-plugin-update-message {
+	background: #d54e21; /* taken from colour scheme in list-tables.css */
+	color: white;
+	display: inline-table;
+	margin: 6px 0;
+	padding: 10px 12px;
+}
+
+table.plugins .tribe-plugin-update-message h4 {
+	display: inline;
+	font-weight: bold;
+	margin-right: 8px;
+}
+
+table.plugins .tribe-plugin-update-message h4:after {
+	content: ' \00BB ';
+}
+
+table.plugins .tribe-plugin-update-message a {
+	color: white;
+	text-decoration: underline;
+>>>>>>> Consistent spacing
 }
 
 /* = Settings Screen
