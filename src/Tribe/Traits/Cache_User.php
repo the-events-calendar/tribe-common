@@ -120,7 +120,7 @@ trait Cache_User {
 
 		if (
 			null === $this->{$cache_key}
-			|| ! $cache
+			&& $cache
 		) {
 			/** @var \Tribe__Cache $cache */
 			$this->{$cache_key} = $cache->get(
