@@ -17,7 +17,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *  'path'    => 'Path to the main plugin/bootstrap file' (optional)
 		 * )
 		 */
-		protected $active_plugins = array();
+		protected $active_plugins = [];
 
 		/**
 		 * A multidimensional array of active tribe plugins in the following format
@@ -29,7 +29,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *  'dependencies'      => 'A multidimensional of dependencies' (optional)
 		 * )
 		 */
-		protected $registered_plugins = array();
+		protected $registered_plugins = [];
 
 		/**
 		 * An array of class Tribe__Admin__Notice__Plugin_Download per plugin
@@ -37,27 +37,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @since 4.9
 		 *
 		 */
-		protected $admin_messages = array();
-
-		/**
-		 * Static Singleton Holder
-		 *
-		 * @var self
-		 */
-		private static $instance;
-
-
-		/**
-		 * Static Singleton Factory Method
-		 *
-		 * @return self
-		 */
-		public static function instance() {
-			if ( ! self::$instance ) {
-				self::$instance = new self;
-			}
-			return self::$instance;
-		}
+		protected $admin_messages = [];
 
 		/**
 		 * Adds a plugin to the active list
@@ -366,6 +346,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				}
 
 				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
+
 				$pue = $this->get_pue_from_class( $dependent_plugin['class'] );
 				$has_pue_notice = $pue ? tribe( 'pue.notices' )->has_notice( $pue->pue_install_key ) : false;
 
@@ -482,6 +463,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				$tribe_plugins = new Tribe__Plugins();
 				foreach ( $classes_req as $class => $plugin_version ) {
 					$plugin         = $tribe_plugins->get_plugin_by_class( $class );
+
 					$is_active      = $this->is_plugin_version( $class, $plugin_version );
 					$pue            = $this->get_pue_from_class( $plugin['class'] );
 					$has_pue_notice = $pue ? tribe( 'pue.notices' )->has_notice( $pue->pue_install_key ) : false;
@@ -574,6 +556,16 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			return $addon_dependencies;
 		}
 
+		/**
+		 * Static Singleton Factory Method
+		 *
+		 * @deprecated  TBD  We shouldn't be handlign singletons internally.
+		 *
+		 * @return self
+		 */
+		public static function instance() {
+			return tribe( self::class );
+		}
 	}
 
 }
