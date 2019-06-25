@@ -178,11 +178,15 @@ class Tribe__Rewrite {
 
 		// Remove percent Placeholders on all items
 		add_filter( 'rewrite_rules_array', array( $this, 'remove_percent_placeholders' ), 25 );
+
+		add_action( 'shutdown', [ $this, 'dump_cache' ], PHP_INT_MAX );
 	}
 
 	protected function remove_hooks() {
 		remove_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
 		remove_filter( 'rewrite_rules_array', array( $this, 'remove_percent_placeholders' ), 25 );
+
+		remove_action( 'shutdown', [ $this, 'dump_cache' ], PHP_INT_MAX );
 	}
 
 	/**
@@ -925,15 +929,6 @@ class Tribe__Rewrite {
 		}
 
 		return $query_vars;
-	}
-
-	/**
-	 * Dumps the cache before destruction.
-	 *
-	 * @since 4.9.11
-	 */
-	public function __destruct() {
-		$this->dump_cache();
 	}
 
 	/**
