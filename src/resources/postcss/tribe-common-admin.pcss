@@ -78,28 +78,29 @@ td.tribe_message {
 
 /* = Plugin Screen
 =============================================*/
-table.plugins .tribe-plugin-update-message {
-	background: #d54e21; /* taken from colour scheme in list-tables.css */
-	color: white;
-	display: inline-table;
-	margin: 6px 0;
-	padding: 10px 12px;
-}
+table.plugins {
+	.tribe-plugin-update-message {
+		background: #D54E21; /* taken from colour scheme in list-tables.css */
+		color:      white;
+		display:    inline-table;
+		margin:     6px 0;
+		padding:    10px 12px;
+	}
 
-table.plugins .tribe-plugin-update-message h4 {
-	display: inline;
-	font-weight: bold;
-	margin-right: 8px;
-}
+	h4 {
+		display:      inline;
+		font-weight:  bold;
+		margin-right: 8px;
 
-table.plugins .tribe-plugin-update-message h4:after {
-	content: ' \00BB ';
-}
+		&:after {
+			content: ' \00BB ';
+		}
+	}
 
-
-table.plugins .tribe-plugin-update-message a {
-	color: white;
-	text-decoration: underline;
+	a {
+		color:           white;
+		text-decoration: underline;
+	}
 }
 
 /* = Settings Screen
@@ -137,18 +138,20 @@ table.plugins .tribe-plugin-update-message a {
 		display: initial;
 	}
 
-	.tribe-field-radio label,
-	.tribe-field-checkbox_list label {
-		display: block;
-		margin: 5px 0 5px 20px;
-		text-indent: -20px;
+	.tribe-field-radio,
+	.tribe-field-checkbox_list {
+		label {
+			display:     block;
+			margin:      5px 0 5px 20px;
+			text-indent: -20px;
 
-		> p {
-			text-indent: 0;
-		}
+			> p {
+				text-indent: 0;
+			}
 
-		input {
-			margin-right: 5px;
+			input {
+				margin-right: 5px;
+			}
 		}
 	}
 
