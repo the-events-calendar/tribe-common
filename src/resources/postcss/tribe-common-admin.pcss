@@ -81,6 +81,7 @@ td.tribe_message {
 /* = Plugin Screen
 =============================================*/
 <<<<<<< HEAD
+<<<<<<< HEAD
 table.plugins {
 	.tribe-plugin-update-message {
 		background: #D54E21; /* taken from colour scheme in list-tables.css */
@@ -112,21 +113,39 @@ table.plugins .tribe-plugin-update-message {
 	margin: 6px 0;
 	padding: 10px 12px;
 }
+=======
+table.plugins {
+>>>>>>> Override Scott's "more nesting" commit
 
-table.plugins .tribe-plugin-update-message h4 {
-	display: inline;
-	font-weight: bold;
-	margin-right: 8px;
-}
+	.tribe-plugin-update-message {
+		background: #d54e21; /* taken from color scheme in list-tables.css */
+		color: white;
+		display: inline-table;
+		margin: 6px 0;
+		padding: 10px 12px;
 
-table.plugins .tribe-plugin-update-message h4:after {
-	content: ' \00BB ';
-}
+		h4 {
+			display: inline;
+			font-weight: bold;
+			margin-right: 8px;
 
+			&:after {
+				content: ' \00BB ';
+			}
+		}
+
+<<<<<<< HEAD
 table.plugins .tribe-plugin-update-message a {
 	color: white;
 	text-decoration: underline;
 >>>>>>> Consistent spacing
+=======
+		a {
+			color: white;
+			text-decoration: underline;
+		}
+	}
+>>>>>>> Override Scott's "more nesting" commit
 }
 
 /* = Settings Screen
