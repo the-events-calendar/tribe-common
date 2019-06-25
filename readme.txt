@@ -10,6 +10,7 @@
 * Tweak - Divide the `tribe-common.js` file to prevent that file from being bloated with external dependencies. [129526]
 * Tweak - Make sure `UTC-0` is converted back to `UTC` instead of `UTC-01` [129240]
 * Tweak - Add new function `tribe_register_rest_route` Wrapper around `register_rest_route` to filter the arguments when a new REST endpoint is created [129517]
+* Tweak - Add new method `Tribe__Cost_Utils::parse_separators` to infer decimal and thousands separators from a value that might have been formatted in a local different from the current one [98061]
 * Fix - Prevent Clipboard Javascript from loading all over the place on `/wp-admin/` [129526]
 
 = [4.9.11.2] 2019-06-20 =
