@@ -179,14 +179,14 @@ class Tribe__Rewrite {
 		// Remove percent Placeholders on all items
 		add_filter( 'rewrite_rules_array', array( $this, 'remove_percent_placeholders' ), 25 );
 
-		add_action( 'shutdown', [ $this, 'dump_cache' ], PHP_INT_MAX );
+		add_action( 'shutdown', [ $this, 'dump_cache' ] );
 	}
 
 	protected function remove_hooks() {
 		remove_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
 		remove_filter( 'rewrite_rules_array', array( $this, 'remove_percent_placeholders' ), 25 );
 
-		remove_action( 'shutdown', [ $this, 'dump_cache' ], PHP_INT_MAX );
+		remove_action( 'shutdown', [ $this, 'dump_cache' ] );
 	}
 
 	/**

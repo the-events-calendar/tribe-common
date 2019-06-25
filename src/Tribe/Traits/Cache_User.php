@@ -16,7 +16,7 @@
  *          protected $computation_cache = [];
  *
  *          public function __construct(){
- *              add_action( 'shutdown', [ $this, 'dump_cache' ], PHP_INT_MAX );
+ *              add_action( 'shutdown', [ $this, 'dump_cache' ] );
  *          }
  *
  *          public function calculate_something( $key ){
