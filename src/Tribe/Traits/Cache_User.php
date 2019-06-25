@@ -88,22 +88,25 @@ trait Cache_User {
 	 * @see \Tribe__Cache_Listener::add_hooks()
 	 */
 	protected function warmup_cache( $key, $expiration = 0, $expiration_trigger = '' ) {
+		// Key for the cache
+		$cache_key = "{$key}_cache";
+
 		if ( ! isset( $this->caches[ $key ] ) ) {
 			$this_class = get_class( $this );
 
-			if ( ! property_exists( $this, $key . '_cache' ) ) {
+			if ( ! property_exists( $this, $cache_key ) ) {
 				throw new \BadMethodCallException(
 					sprintf(
 						'The %s class should explicitly define a "%s" property to use the %s trait.',
 						$this_class,
-						$key . '_cache',
+						$cache_key,
 						__TRAIT__
 					)
 				);
 			}
 
 			$this->caches[ $key ] = [
-				'cache_object'           => tribe( 'cache' ),
+				'cache_object'       => tribe( 'cache' ),
 				'prefix'             => $this_class,
 				'expiration'         => $expiration,
 				'expiration_trigger' => $expiration_trigger,
@@ -112,16 +115,23 @@ trait Cache_User {
 
 		list( $cache, $prefix, $expiration, $expiration_trigger ) = array_values( $this->caches[ $key ] );
 
-		if ( null === $this->{$key . '_cache'} ) {
+		if (
+			null === $this->{$cache_key}
+			|| ! $cache
+		) {
 			/** @var \Tribe__Cache $cache */
-			$this->{$key . '_cache'} = $cache->get(
+			$this->{$cache_key} = $cache->get(
 				$prefix . $key,
 				$expiration_trigger,
 				[],
 				$expiration
 			);
-			if ( false === $this->{$key . '_cache'} ) {
-				$this->{$key . '_cache'} = [];
+
+			if (
+				! isset( $this->{$cache_key} )
+				|| false === $this->{$cache_key}
+			) {
+				$this->{$cache_key} = [];
 			}
 		}
 	}
