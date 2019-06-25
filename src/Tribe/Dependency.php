@@ -367,7 +367,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
 				$pue = $this->get_pue_from_class( $dependent_plugin['class'] );
-				$has_pue_notice = tribe( 'pue.notices' )->has_notice( $pue->pue_install_key );
+				$has_pue_notice = $pue ? tribe( 'pue.notices' )->has_notice( $pue->pue_install_key ) : false;
 
 				$this->admin_messages[ $plugin['class'] ]->add_required_plugin(
 					$dependent_plugin['short_name'],
@@ -484,7 +484,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 					$plugin         = $tribe_plugins->get_plugin_by_class( $class );
 					$is_active      = $this->is_plugin_version( $class, $plugin_version );
 					$pue            = $this->get_pue_from_class( $plugin['class'] );
-					$has_pue_notice = tribe( 'pue.notices' )->has_notice( $pue->pue_install_key );
+					$has_pue_notice = $pue ? tribe( 'pue.notices' )->has_notice( $pue->pue_install_key ) : false;
 
 					$this->admin_messages[ $main_class ]->add_required_plugin(
 						$plugin['short_name'],

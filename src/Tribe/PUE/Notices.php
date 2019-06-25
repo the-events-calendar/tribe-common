@@ -407,6 +407,61 @@ class Tribe__PUE__Notices {
 	}
 
 	/**
+	 * Transforms a list of plugins into human readable string.
+	 *
+	 * Examples of output:
+	 *
+	 *     # One name
+	 *     "Ticket Pro"
+	 *
+	 *     # Two names
+	 *     "Ticket Pro and Calendar Legend"
+	 *
+	 *     # Three names
+	 *     "Ticket Pro, Calendar Legend and Date Stars"
+	 *
+	 *
+	 * @since  TBD
+	 *
+	 * @param  array|string  $plugins  Array of plugin classes.
+	 *
+	 * @return string|false
+	 */
+	public function get_formatted_plugin_names_from_classes( $plugins ) {
+		$plugin_list = [];
+
+		foreach ( (array) $plugins as $class_name ) {
+			$pue = tribe( Tribe__Dependency::class )->get_pue_from_class( $class_name );
+
+			if ( ! $pue ) {
+				continue;
+			}
+
+			if ( ! isset( $this->plugin_names[ $pue->pue_install_key ] ) ) {
+				continue;
+			}
+
+			$plugin_list[] = $this->plugin_names[ $pue->pue_install_key ];
+		}
+
+		$num_plugins = count( $plugin_list );
+
+		if ( 0 === $num_plugins ) {
+			return false;
+		}
+
+		if ( 1 === $num_plugins ) {
+			$html = current( $plugin_list );
+		} elseif ( 1 < $num_plugins ) {
+			$all_but_last = join( ', ', array_slice( $plugin_list, 0, count( $plugin_list ) - 1 ) );
+			$last = current( array_slice( $plugin_list, count( $plugin_list ) - 1, 1 ) );
+			$html = sprintf( _x( '%1$s and %2$s', 'formatted plugin list', 'tribe-common' ), $all_but_last, $last );
+		}
+
+		return '<span class="plugin-list">' . $html . '</span>';
+	}
+
+	/**
 	 * Transforms the array referenced by group into a human readable,
 	 * comma delimited list.
 	 *
@@ -424,7 +479,7 @@ class Tribe__PUE__Notices {
 	 *     # Fallback
 	 *     "Unknown Plugin(s)"
 	 *
-	 * @param string $group
+	 * @param  string  $group
 	 *
 	 * @return string
 	 */
