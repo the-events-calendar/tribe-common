@@ -60,10 +60,9 @@ trait Cache_User {
 	 * Dumps the temporary cache to the persistent one.
 	 */
 	public function dump_cache() {
-		// Key for the cache
-		$cache_key = "{$key}_cache";
-
 		foreach ( $this->caches as $key => $cache ) {
+			// Key for the cache
+			$cache_key = "{$key}_cache";
 
 			list( $cache, $prefix, $expiration, $expiration_trigger ) = array_values( $this->caches[ $key ] );
 
