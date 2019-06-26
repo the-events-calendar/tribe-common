@@ -76,14 +76,13 @@
 			}
 
 			&:last-child {
+
 				.tribe-common-c-search__input {
 					@media (--viewport-medium) {
 						border-right: 0;
 					}
 				}
-
 			}
-
 		}
 	}
 
@@ -106,6 +105,7 @@
 	}
 
 	.tribe-common-c-search__input-control--keyword {
+
 		.tribe-common-c-search__input {
 			background-image: svg-inline(search);
 			background-size: 16px;
@@ -117,12 +117,14 @@
 	}
 
 	.tribe-common-c-search__input-control--keyword-focus {
+
 		.tribe-common-c-search__input {
 			background-image: svg-inline(search-focus);
 		}
 	}
 
 	.tribe-common-c-search__input-control--location {
+
 		.tribe-common-c-search__input {
 			background-image: svg-inline(location);
 			background-size: 10px 15px;
@@ -134,6 +136,7 @@
 	}
 
 	.tribe-common-c-search__input-control--location-focus {
+
 		.tribe-common-c-search__input {
 			background-image: svg-inline(location-focus);
 		}
@@ -141,7 +144,7 @@
 
 	.tribe-common-c-search__button {
 		flex: none;
-		margin-top: 8px;
+		margin-top: var(--spacer-5);
 
 		@media (--viewport-medium) {
 			margin-top: 0;
@@ -164,5 +167,4 @@
 			}
 		}
 	}
-
 }
