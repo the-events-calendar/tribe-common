@@ -42,6 +42,7 @@ class Tribe__Admin__Help_Page {
 	public function register_assets() {
 		$plugin = Tribe__Main::instance();
 		tribe_asset(
+			$plugin,
 			'tribe-admin-help-page',
 			'admin/help-page.js',
 			[ 'tribe-clipboard', 'tribe-common' ],
@@ -49,14 +50,12 @@ class Tribe__Admin__Help_Page {
 			[
 				'conditionals' => [ $this, 'is_current_page' ],
 				'localize' => [
-					(object) [
-						'name' => 'tribe_system_info',
-						'data' => [
-							'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
-							'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
-							'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
-							'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
-						],
+					'name' => 'tribe_system_info',
+					'data' => [
+						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
+						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
+						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
+						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
 					],
 				],
 			]
