@@ -230,7 +230,7 @@ class Tribe__Assets {
 
 						// If we have a Callable as the Localize data we execute it
 						if ( is_callable( $localize->data ) ) {
-							$localize->data = call_user_func_array( $localize->data, [ $asset ] );
+							$localize->data = $localize->data( $asset );
 						}
 
 						wp_localize_script( $asset->slug, $localize->name, $localize->data );
@@ -515,17 +515,13 @@ class Tribe__Assets {
 			return $asset;
 		}
 
-		// Cast as array for safety
+		// Cast to array for safety
 		$asset->localize = (array) $asset->localize;
 
 		// Allow passing of a single instance.
 		if ( ! empty( $asset->localize['name'] ) ) {
 			// Reset to empty when name was not empty data was not set.
-			if ( ! isset( $asset->localize['data'] ) ) {
-				$asset->localize = [];
-			}
-
-			$asset->localize = [ (object) $asset->localize ];
+			$asset->localize = ! isset( $asset->localize['data'] ) ? [] : [ (object) $asset->localize ];
 		}
 
 		// Cast all instances as object
