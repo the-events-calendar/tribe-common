@@ -10,14 +10,14 @@ class Tribe__Assets {
 	 *
 	 * @var array
 	 */
-	protected $assets = array();
+	protected $assets = [];
 
 	/**
 	 * Stores the localized scripts for reference
 	 *
 	 * @var array
 	 */
-	private $localized = array();
+	private $localized = [];
 
 	/**
 	 * Static Singleton Factory Method
@@ -37,7 +37,7 @@ class Tribe__Assets {
 	 */
 	public function __construct() {
 		// Hook the actual registering of
-		add_action( 'init', array( $this, 'register_in_wp' ), 1, 0 );
+		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
 	}
 
 	/**
@@ -53,10 +53,10 @@ class Tribe__Assets {
 		}
 
 		if ( ! is_array( $assets ) ) {
-			$assets = array( $assets );
+			$assets = [ $assets ];
 		}
 
-		uasort( $assets, array( $this, 'order_by_priority' ) );
+		uasort( $assets, [ $this, 'order_by_priority' ] );
 
 		foreach ( $assets as $asset ) {
 			if ( 'js' === $asset->type ) {
@@ -79,7 +79,7 @@ class Tribe__Assets {
 				if ( did_action( $action ) > 0 ) {
 					$this->enqueue();
 				} else {
-					add_action( $action, array( $this, 'enqueue' ), $asset->priority );
+					add_action( $action, [ $this, 'enqueue' ], $asset->priority );
 				}
 			}
 		}
@@ -98,7 +98,7 @@ class Tribe__Assets {
 	 */
 	public function enqueue_group( $groups ) {
 		$assets = $this->get();
-		$enqueue = array();
+		$enqueue = [];
 
 		foreach ( $assets as $asset ) {
 			if ( empty( $asset->groups ) ) {
@@ -160,7 +160,7 @@ class Tribe__Assets {
 
 			if ( ! $enqueue ) {
 				// Reset Enqeue
-				$enqueue = array();
+				$enqueue = [];
 
 				// Which is the operator?
 				$conditional_operator = Tribe__Utils__Array::get( $asset->conditionals, 'operator', 'OR' );
@@ -214,7 +214,7 @@ class Tribe__Assets {
 				if ( ! empty( $asset->localize ) ) {
 					// Makes sure we have an Array of Localize data
 					if ( is_object( $asset->localize ) ) {
-						$localization = array( $asset->localize );
+						$localization = [ $asset->localize ];
 					} else {
 						$localization = (array) $asset->localize;
 					}
@@ -230,7 +230,7 @@ class Tribe__Assets {
 
 						// If we have a Callable as the Localize data we execute it
 						if ( is_callable( $localize->data ) ) {
-							$localize->data = call_user_func_array( $localize->data, array( $asset ) );
+							$localize->data = call_user_func_array( $localize->data, [ $asset ] );
 						}
 
 						wp_localize_script( $asset->slug, $localize->name, $localize->data );
@@ -257,11 +257,11 @@ class Tribe__Assets {
 	 * @return string|false The url to the minified version or false, if file not found.
 	 */
 	public static function maybe_get_min_file( $url ) {
-		$urls = array();
+		$urls            = [];
 		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
-		$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
-		$wp_content_url = set_url_scheme( WP_CONTENT_URL );
-		$plugins_url = plugins_url();
+		$wp_plugin_url   = set_url_scheme( WP_PLUGIN_URL );
+		$wp_content_url  = set_url_scheme( WP_CONTENT_URL );
+		$plugins_url     = plugins_url();
 
 		if ( 0 === strpos( $url, $wpmu_plugin_url ) ) {
 			// URL inside WPMU plugin dir.
@@ -344,7 +344,7 @@ class Tribe__Assets {
 	 *
 	 * @return string
 	 */
-	public function register( $origin, $slug, $file, $deps = array(), $action = null, $arguments = array() ) {
+	public function register( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
 		// Prevent weird stuff here
 		$slug = sanitize_title_with_dashes( $slug );
 
@@ -355,7 +355,7 @@ class Tribe__Assets {
 		if ( is_string( $origin ) ) {
 			// Origin needs to be a class with a `instance` method and a Version constant
 			if ( class_exists( $origin ) && method_exists( $origin, 'instance' ) && defined( $origin . '::VERSION' ) ) {
-				$origin = call_user_func( array( $origin, 'instance' ) );
+				$origin = call_user_func( [ $origin, 'instance' ] );
 			}
 		}
 
@@ -374,15 +374,15 @@ class Tribe__Assets {
 		$version = constant( $origin_name . '::VERSION' );
 
 		// Default variables to prevent notices
-		$defaults = array(
+		$defaults = [
 			'slug'          => null,
 			'file'          => false,
 			'url'           => false,
 			'action'        => null,
 			'priority'      => 10,
 			'type'          => null,
-			'deps'          => array(),
-			'groups'        => array(),
+			'deps'          => [],
+			'groups'        => [],
 			'version'       => $version,
 			'media'         => 'all',
 			'in_footer'     => true,
@@ -392,9 +392,9 @@ class Tribe__Assets {
 			'origin_name'   => null,
 
 			// Bigger Variables at the end
-			'localize'      => array(),
-			'conditionals'  => array(),
-		);
+			'localize'      => [],
+			'conditionals'  => [],
+		];
 
 		// Merge Arguments
 		$asset = (object) wp_parse_args( $arguments, $defaults );
@@ -424,7 +424,7 @@ class Tribe__Assets {
 		}
 
 		// If asset type is wrong don't register
-		if ( ! in_array( $asset->type, array( 'js', 'css' ) ) ) {
+		if ( ! in_array( $asset->type, [ 'js', 'css' ] ) ) {
 			return false;
 		}
 
@@ -465,25 +465,12 @@ class Tribe__Assets {
 			$asset->url = $this->maybe_get_min_file( tribe_resource_url( $asset->file, false, ( $is_vendor ? '' : null ), $origin ) );
 		}
 
-		// If you are passing localize, you need `name` and `data`
-		if ( ! empty( $asset->localize ) && ( is_array( $asset->localize ) || is_object( $asset->localize ) ) ) {
-			if ( is_array( $asset->localize ) && empty( $asset->localize['name'] )  ) {
-				foreach ( $asset->localize as $index => $local ) {
-					$asset->localize[ $index ] = (object) $local;
-				}
-			} else {
-				$asset->localize = (object) $asset->localize;
-
-				// if we don't have both reset localize
-				if ( ! isset( $asset->localize->data, $asset->localize->name ) ) {
-					$asset->localize = array();
-				}
-			}
-		}
+		// Parse the Localize asset arguments
+		$asset = $this->parse_argument_localize( $asset );
 
 		// Looks for a single conditional callable and places it in an Array
 		if ( ! empty( $asset->conditionals ) && is_callable( $asset->conditionals ) ) {
-			$asset->conditionals = array( $asset->conditionals );
+			$asset->conditionals = [ $asset->conditionals ];
 		}
 
 		// Groups is always an array of unique strings
@@ -504,9 +491,48 @@ class Tribe__Assets {
 		$this->assets[ $slug ] = $asset;
 
 		// Sorts by priority
-		uasort( $this->assets, array( $this, 'order_by_priority' ) );
+		uasort( $this->assets, [ $this, 'order_by_priority' ] );
 
 		// Return the Slug because it might be modified
+		return $asset;
+	}
+
+	/**
+	 * Parse the localize argument for a given asset object.
+	 *
+	 * @since TBD
+	 *
+	 * @param  object $asset Argument that set that asset
+	 *
+	 * @return object
+	 */
+	public function parse_argument_localize( object $asset ) {
+		if ( empty( $asset->localize ) ) {
+			return $asset;
+		}
+
+		if ( ! is_array( $asset->localize ) && ! is_object( $asset->localize ) ) {
+			return $asset;
+		}
+
+		// Cast as array for safety
+		$asset->localize = (array) $asset->localize;
+
+		// Allow passing of a single instance.
+		if ( ! empty( $asset->localize['name'] ) ) {
+			// Reset to empty when name was not empty data was not set.
+			if ( ! isset( $asset->localize['data'] ) ) {
+				$asset->localize = [];
+			}
+
+			$asset->localize = [ (object) $asset->localize ];
+		}
+
+		// Cast all instances as object
+		$asset->localize = array_map( $asset->localize, function( $values ) {
+			return (object) $values;
+		} );
+
 		return $asset;
 	}
 
@@ -538,7 +564,7 @@ class Tribe__Assets {
 	 * @return bool
 	 */
 	public function get( $slug = null ) {
-		uasort( $this->assets, array( $this, 'order_by_priority' ) );
+		uasort( $this->assets, [ $this, 'order_by_priority' ] );
 
 		if ( is_null( $slug ) ) {
 			return $this->assets;

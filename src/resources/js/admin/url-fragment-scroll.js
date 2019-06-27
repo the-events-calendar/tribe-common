@@ -55,8 +55,6 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	obj.navigateToFragment = function( link ) {
 		var fragment = obj.getUrlFragment( link );
 
-		console.log( fragment );
-
 		// No ID/fragment in the URL? Bail
 		if ( ! fragment ) {
 			return;
