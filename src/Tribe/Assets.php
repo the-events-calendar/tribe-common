@@ -502,11 +502,11 @@ class Tribe__Assets {
 	 *
 	 * @since TBD
 	 *
-	 * @param  object $asset Argument that set that asset
+	 * @param  stdClass $asset Argument that set that asset
 	 *
-	 * @return object
+	 * @return stdClass
 	 */
-	public function parse_argument_localize( object $asset ) {
+	public function parse_argument_localize( stdClass $asset ) {
 		if ( empty( $asset->localize ) ) {
 			return $asset;
 		}
@@ -529,9 +529,9 @@ class Tribe__Assets {
 		}
 
 		// Cast all instances as object
-		$asset->localize = array_map( $asset->localize, function( $values ) {
+		$asset->localize = array_map( function( $values ) {
 			return (object) $values;
-		} );
+		}, $asset->localize );
 
 		return $asset;
 	}
