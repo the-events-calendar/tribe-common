@@ -6,7 +6,7 @@
 	 * Example:
 	 * <form action="" method="post" class="tribe-common-c-search">
 	 *   <div class="tribe-common-form-control-input-group tribe-common-c-search__input-group">
-	 *     <div class="tribe-common-form-control-text">
+	 *     <div class="tribe-common-form-control-text tribe-common-c-search__input-control">
 	 *       <label class="tribe-common-form-control-text__label" for="keyword">Keyword</label>
 	 *       <input
 	 *         class="tribe-common-form-control-text__input tribe-common-c-search__input"
@@ -16,7 +16,7 @@
 	 *         placeholder="Keyword"
 	 *       />
 	 *     </div>
-	 *     <div class="tribe-common-form-control-text">
+	 *     <div class="tribe-common-form-control-text tribe-common-c-search__input-control">
 	 *       <label class="tribe-common-form-control-text__label" for="location">Location</label>
 	 *       <input
 	 *         class="tribe-common-form-control-text__input tribe-common-c-search__input"
@@ -48,50 +48,35 @@
 	.tribe-common-c-search {
 		@media (--viewport-medium) {
 			display: flex;
+			align-items: center;
 		}
 	}
 
 	.tribe-common-c-search__input-group {
 		@media (--viewport-medium) {
-			background-color: var(--color-background);
-			border-right: none;
+			align-items: center;
 			display: flex;
 			flex: auto;
-			padding: 8px 0;
-			align-items: center;
+		}
+	}
+
+	.tribe-common-c-search__input-control {
+		@media (--viewport-medium) {
+			border-right: 1px solid var(--color-border-default);
+			flex: auto;
+			margin: var(--spacer-2) 0;
 		}
 
-		> * {
+		&:last-child {
 			@media (--viewport-medium) {
-				margin-bottom: 0;
+				border-right: none;
 			}
-
-			&:first-child {
-				flex: 1 1 100%;
-			}
-
-			&:nth-child(2) {
-				flex: 1 1 100%;
-			}
-
-			&:last-child {
-				.tribe-common-c-search__input {
-					@media (--viewport-medium) {
-						border-right: 0;
-					}
-				}
-
-			}
-
 		}
 	}
 
 	.tribe-common-c-search__input {
-
 		@media (--viewport-medium) {
-			border-right: 1px solid var(--color-border-default);
-			height: auto;
-			padding: 7px 18px 7px 40px;
+			margin: calc(var(--spacer-2) * -1) 0;
 		}
 	}
 
@@ -105,6 +90,7 @@
 	}
 
 	.tribe-common-c-search__input-control--keyword {
+
 		.tribe-common-c-search__input {
 			background-image: svg-inline(search);
 			background-size: 16px;
@@ -116,12 +102,14 @@
 	}
 
 	.tribe-common-c-search__input-control--keyword-focus {
+
 		.tribe-common-c-search__input {
 			background-image: svg-inline(search-focus);
 		}
 	}
 
 	.tribe-common-c-search__input-control--location {
+
 		.tribe-common-c-search__input {
 			background-image: svg-inline(location);
 			background-size: 10px 15px;
@@ -133,16 +121,17 @@
 	}
 
 	.tribe-common-c-search__input-control--location-focus {
+
 		.tribe-common-c-search__input {
 			background-image: svg-inline(location-focus);
 		}
 	}
 
 	.tribe-common-c-search__button {
-		flex: none;
-		margin-top: 8px;
+		margin-top: var(--spacer-5);
 
 		@media (--viewport-medium) {
+			flex: none;
 			margin-top: 0;
 		}
 	}
@@ -163,5 +152,4 @@
 			}
 		}
 	}
-
 }
