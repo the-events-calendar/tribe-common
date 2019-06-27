@@ -231,7 +231,7 @@ class Tribe__Assets {
 
 						// If we have a Callable as the Localize data we execute it.
 						if ( is_callable( $localize->data ) ) {
-							$localize->data = $localize->data( $asset );
+							$localize->data = call_user_func( $localize->data, $asset );
 						}
 
 						wp_localize_script( $asset->slug, $localize->name, $localize->data );
