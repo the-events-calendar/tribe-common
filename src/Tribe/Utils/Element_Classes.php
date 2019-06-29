@@ -72,6 +72,12 @@ class Element_Classes {
 	 */
 	public function get_attribute() {
 		$classes = $this->get_classes_as_string();
+
+		// Bail with empty string when no classes are present
+		if ( ! $classes ) {
+			return '';
+		}
+
 		return " class=\"{$classes}\" ";
 	}
 
@@ -168,13 +174,18 @@ class Element_Classes {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  string  $arguments     Space separated string of classes to be parsed
+	 * @param  string  $arguments     Space separated string of classes to be parsed.
 	 * @param  boolean $default_value What is the default value for a given class.
 	 *
 	 * @return void
 	 */
 	protected function parse_string( $arguments, $default_value = true ) {
 		$values = preg_split( '/\s+/', $arguments, -1, PREG_SPLIT_NO_EMPTY );
+
+		// When it doesnt match, bail early.
+		if ( ! $values ) {
+			return;
+		}
 
 		foreach ( $values as $class_name ) {
 			$this->results[ $class_name ] = $default_value;
@@ -186,7 +197,7 @@ class Element_Classes {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  array  $values  Array of values to be parsed
+	 * @param  array  $values  Array of values to be parsed.
 	 *
 	 * @return void
 	 */

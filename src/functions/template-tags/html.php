@@ -29,5 +29,5 @@ function tribe_get_classes() {
  */
 function tribe_classes() {
 	$element_classes = new Element_Classes( func_get_args() );
-	echo $element_classes->get_attribute();
+	echo esc_html( $element_classes->get_attribute() );
 }
