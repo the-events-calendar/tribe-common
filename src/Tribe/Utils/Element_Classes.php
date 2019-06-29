@@ -114,7 +114,7 @@ class Element_Classes {
 		}
 
 		$classes = array_map( 'sanitize_html_class', $classes );
-		$classes = array_unique( $classes );
+		$classes = array_filter( array_unique( $classes ) );
 
 		return $classes;
 	}
