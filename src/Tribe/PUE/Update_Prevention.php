@@ -85,6 +85,10 @@ class Update_Prevention {
 	 * @param array       $extra         Extra arguments passed to hooked filters.
 	 */
 	public function filter_upgrader_source_selection( $source, $remote_source, $upgrader, $extras ) {
+		if ( ! isset( $extras['plugin'] ) ) {
+			return $source;
+		}
+
 		$plugin = $extras['plugin'];
 
 		// Bail if we are not dealing with a plugin we own.
