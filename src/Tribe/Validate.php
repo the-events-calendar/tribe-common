@@ -257,7 +257,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must be a valid absolute URL.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a valid URL.', 'tribe-common' ), $this->label );
 			}
 		}
 
