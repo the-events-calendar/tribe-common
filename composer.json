@@ -19,7 +19,10 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
-    "preferred-install": "dist"
+    "preferred-install": "dist",
+    "platform": {
+      "php": "7.0.33"
+    }
   },
   "repositories": [
     {
