@@ -421,7 +421,7 @@ class Tribe__PUE__Notices {
 	 *     "Ticket Pro, Calendar Legend and Date Stars"
 	 *
 	 *
-	 * @since  TBD
+	 * @since  4.9.12
 	 *
 	 * @param  array|string  $plugins  Array of plugin classes.
 	 *

@@ -367,7 +367,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Gets the Tribe__PUE__Checker instance of a given plugin based on the class.
 		 *
-		 * @since  TBD
+		 * @since  4.9.12
 		 *
 		 * @param  string $class Which plugin main class we are looking for.
 		 *
@@ -559,7 +559,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @deprecated  TBD  We shouldn't be handlign singletons internally.
+		 * @deprecated  4.9.12  We shouldn't be handlign singletons internally.
 		 *
 		 * @return self
 		 */

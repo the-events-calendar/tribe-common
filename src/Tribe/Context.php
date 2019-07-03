@@ -1426,7 +1426,7 @@ class Tribe__Context {
 	 * `$context->populate_aliases( [ 'vehicle' => 'hyunday' ], 'read', Context::QUERY_VAR )` would yield
 	 * `[ 'car' => 'hyunday' ]`.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @param array  $values    An associative array of value to use as "masters" to populate the aliases.
 	 * @param string $type      The type of Context location to use, e.g. `Tribe__Context::QUERY_VAR`.

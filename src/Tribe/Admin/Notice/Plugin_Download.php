@@ -26,7 +26,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 *
 	 * @since 4.8.3 Method introduced.
 	 * @since 4.9 Added $version and $addon parameters.
-	 * @since TBD Add $has_pue_notice param
+	 * @since 4.9.12 Add $has_pue_notice param
 	 *
 	 * @param string $name           Name of the required plugin
 	 * @param null   $thickbox_url   Download or purchase URL for plugin from within /wp-admin/ thickbox

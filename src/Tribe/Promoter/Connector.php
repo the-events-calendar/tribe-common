@@ -153,7 +153,7 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Get the value for the option `tribe_promoter_auth_key`
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @return mixed
 	 */
@@ -161,7 +161,7 @@ class Tribe__Promoter__Connector {
 		$secret_key  = get_option( 'tribe_promoter_auth_key' );
 
 		/**
-		 * @since TBD
+		 * @since 4.9.12
 		 *
 		 * @param string $secret_key
 		 */
