@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.12] TBD =
+= [4.9.12] 2019-07-03 =
 
 * Tweak - Include proper documentation of why the plugin has been deactivated and a knowledgebase article about how to downgrade [129726]
 * Tweak - When trying to update The Events Calendar with an incompatible version of an Addon that is expired, it will stop the upgrade [129727]
@@ -14,6 +14,7 @@
 * Tweak - Add new method `Tribe__Cost_Utils::parse_separators` to infer decimal and thousands separators from a value that might have been formatted in a local different from the current one [98061]
 * Fix - Prevent Clipboard Javascript from loading all over the place on `/wp-admin/` [129526]
 * Fix - PHP 5.6 compatibility for `trait Cache_User` by using WP action `shutdown` instead of `__destruct` on our `WP_Rewrite` [129860]
+* Language - 4 new strings added, 66 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.11.2] 2019-06-20 =
 

@@ -11,7 +11,7 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	 * the target.
 	 *
 	 * @since 4.5.6
-	 * @since TBD   Moved from tribe-common.js to a more specific file
+	 * @since 4.9.12   Moved from tribe-common.js to a more specific file
 	 *
 	 * @return {void}
 	 */
@@ -26,7 +26,7 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	 * then trigger our scroll position adjustment.
 	 *
 	 * @since 4.5.6
-	 * @since TBD   Moved from tribe-common.js to a more specific file and renamed to `onClick`
+	 * @since 4.9.12   Moved from tribe-common.js to a more specific file and renamed to `onClick`
 	 *
 	 * @param {Event} event Event in which this was triggered on.
 	 *
@@ -46,7 +46,7 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	/**
 	 * Will atempt to navigate to a given Fragment based on a URL.
 	 *
-	 * @since  TBD
+	 * @since  4.9.12
 	 *
 	 * @param  {String} link Which link target we are trying to navigate to.
 	 *
@@ -68,7 +68,7 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 	 * from obscuring the target element.
 	 *
 	 * @since 4.5.6
-	 * @since TBD   Moved from tribe-common.js to a more specific file
+	 * @since 4.9.12   Moved from tribe-common.js to a more specific file
 	 *
 	 * @param {String} id
 	 *

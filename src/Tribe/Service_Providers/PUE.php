@@ -10,13 +10,13 @@ use Tribe\PUE\Update_Prevention;
  * the `src/Tribe/PUE/` folder for other items that are not managed here
  * just yet.
  *
- * @since TBD
+ * @since 4.9.12
  */
 class PUE extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since  TBD
+	 * @since  4.9.12
 	 */
 	public function register() {
 		$this->container->singleton( Update_Prevention::class, Update_Prevention::class );
@@ -37,7 +37,7 @@ class PUE extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the source file location for the upgrade package for the PUE Update_Prevention engine.
 	 *
-	 * @since  TBD
+	 * @since  4.9.12
 	 *
 	 * @param string      $source        File source location.
 	 * @param string      $remote_source Remote file source location.

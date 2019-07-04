@@ -27,7 +27,7 @@ class Tribe__Promoter__Auth {
 	/**
 	 * Attach hooks to this class.
 	 *
-	 * @since  TBD
+	 * @since  4.9.12
 	 */
 	public function hook() {
 		add_filter( 'tribe_promoter_secret_key', [ $this, 'filter_promoter_secret_key' ] );
@@ -36,7 +36,7 @@ class Tribe__Promoter__Auth {
 	/**
 	 * Add an update the KEY used for promoter during the connection.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @param $secret_key
 	 *
@@ -66,7 +66,7 @@ class Tribe__Promoter__Auth {
 	 * Grab the WP constant and store it as the auth key, if none exists or is it empty
 	 * it creates a dynamic one.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @return string The secret key.
 	 *
@@ -87,7 +87,7 @@ class Tribe__Promoter__Auth {
 	/**
 	 * Create a custom key to be usead as tribe_promoter_auth_key
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @return string
 	 */
@@ -100,7 +100,7 @@ class Tribe__Promoter__Auth {
 	/**
 	 * Add function to get a random set of bytes to be used as Token
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @param int $length
 	 *

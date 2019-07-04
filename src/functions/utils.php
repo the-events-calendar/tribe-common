@@ -606,7 +606,7 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 	 *
 	 * @return bool True on success, false on error.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 */
 	function tribe_register_rest_route( $namespace, $route, $args = array(), $override = false ) {
 		/**
@@ -619,7 +619,7 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 		 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
 		 *                          false merges (with newer overriding if duplicate keys exist). Default false.
 		 *
-		 * @since TBD
+		 * @since 4.9.12
 		 */
 		$args = apply_filters( 'tribe_register_rest_route_args_' . $namespace . $route, $args, $namespace, $route, $override );
 
@@ -633,7 +633,7 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 		 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
 		 *                          false merges (with newer overriding if duplicate keys exist). Default false.
 		 *
-		 * @since TBD
+		 * @since 4.9.12
 		 */
 		$args = apply_filters( 'tribe_register_rest_route_args', $args, $namespace, $route, $override );
 		return register_rest_route( $namespace, $route, $args, $override );

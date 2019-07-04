@@ -8,7 +8,7 @@ tribe.tooltip = tribe.tooltip || {};
 	/**
 	 * Object containing the relevant selectors
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @return {Object}
 	 */
@@ -21,7 +21,7 @@ tribe.tooltip = tribe.tooltip || {};
 	 * Setup the live listener to anything that lives inside of the document
 	 * that matches the tooltip selector for a click action.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @return {void}
 	 */
@@ -32,7 +32,7 @@ tribe.tooltip = tribe.tooltip || {};
 	/**
 	 * When a tooltip is clicked we setup A11y for the element
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @return {void}
 	 */
