@@ -49,7 +49,20 @@
 		}
 	}
 
-	body#top & { /* Enfold Compatibility */
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+	.tribe-theme-twentyseventeen & {
+
+		.tribe-common-form-control-text__input {
+			color: var(--color-text-primary);
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ------------------------------------------------------------------------- */
+	body#top & {
 
 		.tribe-common-form-control-text__input {
 			@mixin desktop-body-1;
