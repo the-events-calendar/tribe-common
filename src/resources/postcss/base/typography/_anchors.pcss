@@ -65,4 +65,24 @@
 	.tribe-common-anchor-thin {
 		@mixin anchor-thin;
 	}
+
+	/* -------------------------------------------------------------------------
+	 *
+	 * Anchor: Theme Overrides
+	 *
+	 * ------------------------------------------------------------------------- */
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+	.tribe-theme-twentyseventeen & {
+
+		.tribe-common-anchor-alt {
+
+			&:hover,
+			&:focus {
+				color: var(--color-accent-primary);
+			}
+		}
+	}
 }
