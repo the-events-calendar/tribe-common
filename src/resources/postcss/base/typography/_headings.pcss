@@ -75,7 +75,11 @@
 
 	.tribe-common-h6 {
 		@mixin heading;
-		@mixin heading-6;
+		@mixin mobile-heading-6;
+
+		@media (--viewport-medium) {
+			@mixin desktop-heading-6;
+		}
 	}
 
 	/* -------------------------------------------------------------------------
@@ -132,7 +136,7 @@
 
 	.tribe-common-h6--min-medium {
 		@media (--viewport-medium) {
-			@mixin heading-6;
+			@mixin desktop-heading-6;
 		}
 	}
 
