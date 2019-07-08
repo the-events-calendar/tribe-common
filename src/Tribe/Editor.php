@@ -165,7 +165,7 @@ class Tribe__Editor {
 		/**
 		 * Filter to change the output of calling: `is_classic_plugin_active`
 		 *
-		 * @since TBD
+		 * @since 4.9.12
 		 *
 		 * @param $is_plugin_active bool Value that indicates if the plugin is active or not.
 		 */

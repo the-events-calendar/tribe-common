@@ -35,7 +35,7 @@ class Tribe__Admin__Help_Page {
 	/**
 	 * Register the Admin assets for the help page
 	 *
-	 * @since  TBD
+	 * @since  4.9.12
 	 *
 	 * @return void
 	 */

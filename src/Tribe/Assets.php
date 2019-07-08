@@ -505,7 +505,7 @@ class Tribe__Assets {
 	/**
 	 * Parse the localize argument for a given asset object.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @param  stdClass $asset Argument that set that asset.
 	 *

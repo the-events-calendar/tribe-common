@@ -495,7 +495,7 @@ class Tribe__Cost_Utils {
 	 * To work around this we parse the value assuming the decimal separator will be the last non-numeric symbol,
 	 * if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.12
 	 *
 	 * @param string|int|float $value The cost value to parse.
 	 *
