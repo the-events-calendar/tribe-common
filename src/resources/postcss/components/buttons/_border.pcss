@@ -9,12 +9,18 @@
 	 *
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-common-c-btn-border {
-		@mixin desktop-body-3;
+	.tribe-common-c-btn-border,
+	a.tribe-common-c-btn-border {
 		@mixin button-border;
 
 		color: var(--color-text-secondary);
-		padding: 6px 16px 7px;
+		padding: 14px 20px 14px;
+		width: 100%;
+
+		@media (--viewport-medium) {
+			padding: 6px 15px;
+			width: auto;
+		}
 
 		&:active,
 		&:focus,
