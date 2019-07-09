@@ -35,12 +35,9 @@ class Tribe__Service_Providers__Tooltip extends tad_DI52_ServiceProvider {
 	 * @since 4.9.8
 	 */
 	public function add_tooltip_assets() {
-		tribe_asset(
-			Tribe__Main::instance(),
+		wp_enqueue_style(
 			'tribe-tooltip',
-			'tooltip.css',
-			[],
-			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
+			plugins_url( 'resources/css/', dirname( dirname( __FILE__ ) ) ) .'tooltip.css'
 		);
 	}
 }
