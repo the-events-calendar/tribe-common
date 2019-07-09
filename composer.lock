@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08a9989f897a520d26e56ecebfbd0997",
+    "content-hash": "68d6a23a0086b9ffdd0d55821719ec3a",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -1768,12 +1768,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-common-styles",
-                "reference": "e2ecb180908d0d318fd0802d22c5a93f66d2f81c"
+                "reference": "1f3dfb2eeb023219adf2020eb7be0b3faa9ac83b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/e2ecb180908d0d318fd0802d22c5a93f66d2f81c",
-                "reference": "e2ecb180908d0d318fd0802d22c5a93f66d2f81c",
+                "url": "https://api.github.com/repos/moderntribe/tribe-common-styles/zipball/1f3dfb2eeb023219adf2020eb7be0b3faa9ac83b",
+                "reference": "1f3dfb2eeb023219adf2020eb7be0b3faa9ac83b",
                 "shasum": ""
             },
             "require": {
@@ -1784,7 +1784,7 @@
                 "Private"
             ],
             "description": "A library of Modern Tribe's common styles",
-            "time": "2019-07-05T13:02:09+00:00"
+            "time": "2019-06-27T14:51:30+00:00"
         },
         {
             "name": "mustache/mustache",
@@ -6578,5 +6578,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "7.0.33"
+    }
 }
