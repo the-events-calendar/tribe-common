@@ -531,19 +531,19 @@ class Tribe__Template {
 		 */
 		do_action( "tribe_template_before_include:$hook_name", $file, $name, $this );
 
-		// Only do this if really needed (by default it wont)
+		// Only do this if really needed (by default it wont).
 		if ( true === $this->template_context_extract && ! empty( $this->context ) ) {
 			// We don't allow Extrating of a variable called $name
 			if ( isset( $this->context['name'] ) ) {
 				unset( $this->context['name'] );
 			}
 
-			// We don't allow Extrating of a variable called $file
+			// We don't allow the extraction of a variable called `$file`.
 			if ( isset( $this->context['file'] ) ) {
 				unset( $this->context['file'] );
 			}
 
-			// Make any provided variables available in the template variable scope
+			// Make any provided variables available in the template variable scope.
 			extract( $this->context ); // @codingStandardsIgnoreLine
 		}
 
