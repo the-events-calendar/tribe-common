@@ -33,8 +33,5 @@ src/resources/**/app
 src/resources/css/**
 src/resources/**/*.min.js
 
-# tribe-common-styles
-src/resources/postcss/utilities
-
 # get from translate.wordpress.org as needed
 lang/*.po
