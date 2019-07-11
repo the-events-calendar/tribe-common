@@ -51,18 +51,22 @@ class Element_ClassesTest extends \Codeception\TestCase\WPTestCase {
 				// Value
 				134,
 				// Expected
-				[
-					'134'
-				],
+				[],
 			],
 
 			'float' => [
 				// Value
 				1.5,
 				// Expected
-				[
-					'15'
-				],
+				[],
+			],
+
+
+			'numeric' => [
+				// Value
+				'15',
+				// Expected
+				[],
 			],
 
 			'remove-invalid-chars' => [
@@ -102,11 +106,12 @@ class Element_ClassesTest extends \Codeception\TestCase\WPTestCase {
 				[
 					'test-string',
 					134,
+					'my-other-15-string',
 				],
 				// Expected
 				[
 					'test-string',
-					'134',
+					'my-other-15-string',
 				],
 			],
 
@@ -148,7 +153,6 @@ class Element_ClassesTest extends \Codeception\TestCase\WPTestCase {
 				// Expected
 				[
 					'test-string',
-					'134',
 				],
 			],
 

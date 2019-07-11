@@ -149,7 +149,9 @@ class Element_Classes {
 			return;
 		}
 
-		if ( is_string( $arguments ) ) {
+		if ( is_numeric( $arguments ) ) { // phpcs:ignore
+			// Bail on any numeric values
+		} elseif ( is_string( $arguments ) ) {
 			// 'foo bar'
 			$this->parse_string( $arguments );
 		} elseif ( $arguments instanceof \Closure || is_callable( $arguments ) ) {
@@ -161,11 +163,6 @@ class Element_Classes {
 		} elseif ( is_object( $arguments ) ) {
 			// stdClass
 			$this->parse_object( $arguments );
-		} elseif ( is_int( $arguments ) ) {
-			// '130'
-			$this->results[ $arguments ] = $default_value;
-		} elseif ( is_float( $arguments ) ) {
-			$this->results[ (string) $arguments ] = $default_value;
 		}
 	}
 
