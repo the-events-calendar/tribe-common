@@ -4,6 +4,7 @@
 
 = [TBD] TBD =
 
+* Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
 * Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [129061]
 
 = [4.9.11.2] 2019-06-20 =
