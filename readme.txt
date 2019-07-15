@@ -8,6 +8,7 @@
 
 = [4.9.12] 2019-07-03 =
 
+* Feature - Include `tribe_classes()` and `tribe_get_classes()` for HTML class attribute handling in a similar way as the JS `classNames()`
 * Tweak - Include proper documentation of why the plugin has been deactivated and a knowledgebase article about how to downgrade [129726]
 * Tweak - When trying to update The Events Calendar with an incompatible version of an Addon that is expired, it will stop the upgrade [129727]
 * Tweak - Add filter `tribe_is_classic_editor_plugin_active` to change the output if the classic editor is active or not [121267]
