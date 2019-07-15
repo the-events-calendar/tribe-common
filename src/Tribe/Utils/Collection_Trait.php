@@ -17,6 +17,13 @@ namespace Tribe\Utils;
  */
 trait Collection_Trait {
 	/**
+	 * The current items index.
+	 *
+	 * @var int
+	 */
+	protected $items_index = 0;
+
+	/**
 	 * Returns the first item in the collection.
 	 *
 	 * @since TBD
@@ -54,7 +61,7 @@ trait Collection_Trait {
 	public function nth( $n ) {
 		$items = array_values( $this->all() );
 
-		return isset( $items[ $n ] );
+		return isset( $items[ $n - 1 ] ) ? $items[ $n - 1 ] : null;
 	}
 
 	/**
@@ -99,55 +106,66 @@ trait Collection_Trait {
 	 * {@inheritDoc}
 	 */
 	public function next() {
-		$this->items = $this->all();
-
-		return next( $this->items );
+		$this->items_index ++;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function valid() {
-		$this->items = $this->all();
+		$items = $this->all();
 
-		return ( isset( $this->items[ $this->key() ] ) );
+		return ( isset( $items[ $this->items_index ] ) );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function key() {
-		$this->items = $this->all();
-
-		return isset( $this->items[ $this->current() ] )
-			? array_search( $this->current(), $this->items, true )
-			: null;
+		return $this->items_index;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function current() {
-		$this->items = $this->all();
+		$items = array_values( $this->all() );
 
-		return current( $this->items );
+		return isset( $items[ $this->items_index ] ) ? $items[ $this->items_index ] : null;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function rewind() {
-		$this->items = $this->all();
-
-		reset( $this->items );
+		$this->items_index = 0;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function count() {
-		$this->items = $this->all();
+		return count( $this->all() );
+	}
 
-		return count( $this->items );
+	/**
+	 * {@inheritDoc}
+	 */
+	public function serialize() {
+		return serialize( $this->all() );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function unserialize( $serialized ) {
+		$this->items = unserialize( $serialized );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function seek( $position ) {
+		$this->items_index = $position;
 	}
 }

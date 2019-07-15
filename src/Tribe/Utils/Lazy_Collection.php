@@ -13,7 +13,7 @@ namespace Tribe\Utils;
  * @since   TBD
  * @package Tribe\Utils
  */
-class Lazy_Collection {
+class Lazy_Collection implements Collection_Interface {
 	use Collection_Trait;
 
 	/**
