@@ -349,7 +349,7 @@ class Tribe__Rewrite {
 		$map_canonical_query_args = (array) apply_filters( 'tribe_rewrite_canonical_query_args', [], $url, $this );
 
 		foreach ( $map_canonical_query_args as $canonical_key => $merge_keys ) {
-			foreach( $merge_keys as $merge_key ) {
+			foreach ( $merge_keys as $merge_key ) {
 				if ( ! isset( $query_vars[ $merge_key ] ) ) {
 					continue;
 				}
@@ -491,26 +491,7 @@ class Tribe__Rewrite {
 			return $wp_canonical;
 		}
 
-		$found_template = false;
-
-		foreach ( $our_rules as $link_template => $index_path ) {
-			wp_parse_str( (string) parse_url( $index_path, PHP_URL_QUERY ), $link_vars );
-			ksort( $link_vars );
-
-			if ( array_keys( $link_vars ) !== array_keys( $matched_vars ) ) {
-				continue;
-			}
-
-			if ( ! (
-				Arr::get( $matched_vars, 'post_type', '' ) === Arr::get( $link_vars, 'post_type', '' )
-				&& Arr::get( $matched_vars, 'eventDisplay', '' ) === Arr::get( $link_vars, 'eventDisplay', '' )
-			) ) {
-				continue;
-			}
-
-			$found_template = $link_template;
-			break;
-		}
+		$found_template = $this->match_rule_vars( $matched_vars );
 
 		if ( $found_template ) {
 			$resolved = $this->resolve_link_template( $found_template, $matched_vars );
