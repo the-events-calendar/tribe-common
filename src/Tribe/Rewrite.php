@@ -326,6 +326,46 @@ class Tribe__Rewrite {
 	}
 
 	/**
+	 * Makes sure we dont have duplicate canonical variables on the same URL.
+	 *
+	 * @since  TBD
+	 *
+	 * @param  array  $query_vars  Array of the current canonical variables.
+	 * @param  string $url         Which url we are trying to merge canonical variables from.
+	 *
+	 * @return array  Final version correct variable unset and merged.
+	 */
+	protected function merge_canonical_query_vars( array $query_vars, $url = null ) {
+
+		/**
+		 * Creates a map for merging values into one canonical param.
+		 *
+		 * @since TBD
+		 *
+		 * @param array          $map_canonical_query_args Associative array following the format: `[ 'eventDate' => [ 'event-date', 'event_date', 'tribe-bar-date' ], ]`.
+		 * @param string         $url                      The input URL to resolve to a canonical one.
+		 * @param Tribe__Rewrite $this                     This rewrite object.
+		 */
+		$map_canonical_query_args = (array) apply_filters( 'tribe_rewrite_canonical_query_args', [], $url, $this );
+
+		foreach ( $map_canonical_query_args as $canonical_key => $merge_keys ) {
+			foreach( $merge_keys as $merge_key ) {
+				if ( ! isset( $query_vars[ $merge_key ] ) ) {
+					continue;
+				}
+
+				$query_vars[ $canonical_key ] = $query_vars[ $merge_key ];
+
+				unset( $query_vars[ $merge_key ] );
+			}
+		}
+
+		ksort( $query_vars );
+
+		return $query_vars;
+	}
+
+	/**
 	 * Returns the canonical URLs associated with a ugly link.
 	 *
 	 * This method will handle "our" URLs to go from their ugly form, filled with query vars, to the "pretty" one, if
@@ -412,6 +452,8 @@ class Tribe__Rewrite {
 			unset( $query_vars['paged'] );
 		}
 
+		// Makes sure params with same functionality end up on the correct key
+		$query_vars = $this->merge_canonical_query_vars( $query_vars, $url );
 		ksort( $query_vars );
 
 		$our_rules          = $this->get_handled_rewrite_rules();
@@ -449,7 +491,7 @@ class Tribe__Rewrite {
 			return $wp_canonical;
 		}
 
-		$found = false;
+		$found_template = false;
 
 		foreach ( $our_rules as $link_template => $index_path ) {
 			wp_parse_str( (string) parse_url( $index_path, PHP_URL_QUERY ), $link_vars );
@@ -466,46 +508,13 @@ class Tribe__Rewrite {
 				continue;
 			}
 
-			$replace = array_map( function ( $localized_matcher ) use ( $matched_vars ) {
-				if ( ! is_array( $localized_matcher ) ) {
-					// For the dates.
-					return isset( $matched_vars[ $localized_matcher ] )
-						? $matched_vars[ $localized_matcher ]
-						: '';
-				}
-
-				$query_var  = $localized_matcher['query_var'];
-				$query_vars = [ $query_var ];
-
-				if ( $query_var === 'name' ) {
-					$query_vars = array_merge( $query_vars, $this->get_post_types() );
-				}
-
-				if ( ! array_intersect( array_keys( $matched_vars ), $query_vars ) ) {
-					return '';
-				}
-
-				/*
-				 * We use `end` as, by default, the localized version of the slug in the current language will be at the
-				 * end of the array.
-				 * @todo here we should keep a map, that has to generated at permalink flush time, to map locales/slugs.
-				 */
-				return end( $localized_matcher['localized_slugs'] );
-			}, $localized_matchers );
-
-			// Include dynamic matchers now.
-			$replace = array_merge( $dynamic_matchers, $replace );
-			$replaced = str_replace( array_keys( $replace ), $replace, $link_template );
-
-			// Remove trailing chars.
-			$path     = rtrim( $replaced, '?$' );
-			$resolved = trailingslashit( home_url( $path ) );
-			$found = true;
-
+			$found_template = $link_template;
 			break;
 		}
 
-		if ( empty( $resolved ) ) {
+		if ( $found_template ) {
+			$resolved = $this->resolve_link_template( $found_template, $matched_vars );
+		} else {
 			$wp_canonical = redirect_canonical( $canonical_url, false );
 			$resolved     = empty( $wp_canonical ) ? $canonical_url : $wp_canonical;
 		}
@@ -534,12 +543,131 @@ class Tribe__Rewrite {
 		 */
 		$resolved = apply_filters( 'tribe_rewrite_canonical_url', $resolved, $url, $this );
 
-		if ( $found ) {
+		if ( $found_template ) {
 			// Since we're caching let's not cache unmatched rules to allow for their later, valid resolution.
 			$this->canonical_url_cache[ $url ] = $resolved;
 		}
 
 		return $resolved;
+	}
+
+	protected function resolve_link_template( $found_template, $matched_vars ) {
+		$localized_matchers = $this->get_localized_matchers();
+		$dynamic_matchers   = $this->get_dynamic_matchers( $matched_vars );
+
+		$replace = array_map( function ( $localized_matcher ) use ( $matched_vars ) {
+			if ( ! is_array( $localized_matcher ) ) {
+				// For the dates.
+				return isset( $matched_vars[ $localized_matcher ] )
+					? $matched_vars[ $localized_matcher ]
+					: '';
+			}
+
+			$query_var  = $localized_matcher['query_var'];
+			$query_vars = [ $query_var ];
+
+			if ( $query_var === 'name' ) {
+				$query_vars = array_merge( $query_vars, $this->get_post_types() );
+			}
+
+			if ( ! array_intersect( array_keys( $matched_vars ), $query_vars ) ) {
+				return '';
+			}
+
+			/*
+			 * We use `end` as, by default, the localized version of the slug in the current language will be at the
+			 * end of the array.
+			 * @todo here we should keep a map, that has to generated at permalink flush time, to map locales/slugs.
+			 */
+			return end( $localized_matcher['localized_slugs'] );
+		}, $localized_matchers );
+
+		// Include dynamic matchers now.
+		$replace = array_merge( $dynamic_matchers, $replace );
+		$replaced = str_replace( array_keys( $replace ), $replace, $found_template );
+
+		// Remove trailing chars.
+		$path     = rtrim( $replaced, '?$' );
+		$resolved = trailingslashit( home_url( $path ) );
+
+		return $resolved;
+	}
+
+	public function match_rule_vars( $matched_vars ) {
+		$rules = $this->get_handled_rewrite_rules();
+		$rules = array_map( function( $index_path ) {
+			wp_parse_str( (string) parse_url( $index_path, PHP_URL_QUERY ), $link_vars );
+			ksort( $link_vars );
+			return $link_vars;
+		}, $rules );
+		$matched_var_keys = array_keys( $matched_vars );
+
+		$found = false;
+
+		// Setup the exact matches
+		$exact_match_rules = [];
+		foreach ( $rules as $link_template => $link_vars ) {
+			if ( array_keys( $link_vars ) !== $matched_var_keys ) {
+				continue;
+			}
+
+			$exact_match_rules[ $link_template ] = $link_vars;
+		}
+
+		// First try exact match
+		while ( ! empty( $exact_match_rules ) && ! $found ) {
+			foreach ( $exact_match_rules as $link_template => $link_vars ) {
+				$request_match = $this->resolve_link_template( $link_template, $matched_vars );
+				$matches_regex = preg_match( "#^$link_template#", $request_match, $matches ) || preg_match( "#^$link_template#", urldecode( $request_match ), $matches );
+
+				if ( ! $matches_regex ) {
+					unset( $exact_match_rules[ $link_template ], $rules[ $link_template ] );
+					break;
+				}
+
+				$found = $link_template;
+				break;
+			}
+		}
+
+		if ( $found ) {
+			return $found;
+		}
+
+		$possible_matches = [];
+
+		// First try exact match
+		foreach ( $rules as $link_template => $link_vars ) {
+			$link_vars_keys = array_keys( $link_vars );
+			$intersection = array_intersect_assoc( $link_vars, $matched_vars );
+
+			// Unhandled case
+			if ( ! $intersection ) {
+				unset( $rules[ $link_template ] );
+				continue;
+			}
+
+			$request_match = str_replace( home_url( '/' ), '', $this->resolve_link_template( $link_template, $matched_vars ) );
+			$matches_regex = preg_match( "#^$link_template#", $request_match, $matches ) || preg_match( "#^$link_template#", urldecode( $request_match ), $matches );
+
+			if ( ! $matches_regex ) {
+				unset( $rules[ $link_template ] );
+				continue;
+			}
+
+			// Count the ones that had more intersections.
+			$possible_matches[ $link_template ] = count( $intersection );
+		}
+
+		// Which ones had more matches.
+		$matches = array_keys( $possible_matches, max( $possible_matches ) );
+
+		// Get the first result of the ones that had the maximum amount of matches.
+		if ( $matches ) {
+			return reset( $matches );
+		}
+
+		return false;
 	}
 
 	/**
@@ -760,7 +888,7 @@ class Tribe__Rewrite {
 		$query_vars           = [];
 		$post_type_query_vars = [];
 		$perma_query_vars     = [];
-		$url_components = parse_url($url);
+		$url_components = parse_url( $url );
 		$url_path = Arr::get( $url_components, 'path', '/' );
 		$url_query = Arr::get( $url_components, 'query', '' );
 		parse_str( $url_query, $url_query_vars );
@@ -922,6 +1050,8 @@ class Tribe__Rewrite {
 		 * @param string $url              The URL to parse.
 		 */
 		$query_vars = apply_filters( 'tribe_rewrite_parse_query_vars', $query_vars, $extra_query_vars, $url );
+
+		$query_vars = $this->merge_canonical_query_vars( $query_vars, $url );
 
 		if ( $matched_rule ) {
 			// Since we're caching let's not cache unmatchec URLs to allow for their later, valid matching.
