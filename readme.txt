@@ -4,6 +4,7 @@
 
 = [4.9.14] TBD =
 
+* Tweak - Update Freemius library to `2.3.0` [130281]
 
 
 = [4.9.12] 2019-07-03 =
