@@ -49,7 +49,7 @@ before_install:
   # tweak git to correctly work with submodules
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
   - git submodule update --init
-  - git submodule foreach --recursive "[[ -f .gitmodules ]] && sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules; git submodule update --init;"
+  - git submodule foreach --recursive "[ -f .gitmodules ] && sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules; git submodule update --init;"
 
 install:
   # disable XDebug to speed up the tests
@@ -89,7 +89,7 @@ before_script:
   - git branch -l
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
   - git submodule update --init
-  - git submodule foreach --recursive "[[ -f .gitmodules ]] && sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules; git submodule update --init;"
+  - git submodule foreach --recursive "[ -f .gitmodules ] && sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules; git submodule update --init;"
   - composer dump-autoload --no-dev -a
 
   # Copy the Dependency Test plugin in the plugins folder.
