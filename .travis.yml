@@ -48,7 +48,7 @@ before_install:
 
   # tweak git to correctly work with submodules
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
-  - git submodule update --init --recursive
+  - git submodule foreach --recursive "sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules && git submodule update --init"
 
 install:
   # disable XDebug to speed up the tests
