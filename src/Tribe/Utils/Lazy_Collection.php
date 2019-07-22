@@ -64,6 +64,7 @@ class Lazy_Collection implements Collection_Interface {
 			return;
 		}
 
-		$this->items = (array) ( $this->callback )();
+		$items       = call_user_func( $this->callback );
+		$this->items = (array) $items;
 	}
 }
