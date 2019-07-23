@@ -265,7 +265,7 @@ class Tribe__Main {
 
 		tribe_asset(
 			$this,
-			'tribe-tooltip',
+			'tribe-tooltip-js',
 			'tooltip.js',
 			[ 'tribe-common' ],
 			'admin_enqueue_scripts',

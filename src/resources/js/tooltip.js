@@ -14,7 +14,7 @@ tribe.tooltip = tribe.tooltip || {};
 	 */
 	obj.selectors = {
 		tooltip: '.tribe-tooltip',
-		active: '.active',
+		active: 'active',
 	};
 
 	/**
@@ -37,15 +37,17 @@ tribe.tooltip = tribe.tooltip || {};
 	 * @return {void}
 	 */
 	obj.onClick = function () {
+		console.log('click');
 		var $tooltip = $( this ).closest( obj.selectors.tooltip );
-		var add = ! $tooltip.hasClass( obj.selectors.active.className );
+		console.log(obj.selectors.active);
+		var add = ! $tooltip.hasClass( obj.selectors.active );
 
 		$( obj.selectors.tooltip ).each( function () {
-			$( this ).removeClass( obj.selectors.active.className ).attr( 'aria-expanded', false );
+			$( this ).removeClass( obj.selectors.active ).attr( 'aria-expanded', false );
 		} );
 
 		if ( add ) {
-			$( $tooltip ).addClass( obj.selectors.active.className ).attr( 'aria-expanded', true );
+			$( $tooltip ).addClass( obj.selectors.active ).attr( 'aria-expanded', true );
 		}
 	};
 
