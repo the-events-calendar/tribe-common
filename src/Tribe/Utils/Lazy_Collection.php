@@ -67,4 +67,24 @@ class Lazy_Collection implements Collection_Interface {
 		$items       = call_user_func( $this->callback );
 		$this->items = (array) $items;
 	}
+
+	/**
+	 * Allows accessing the collection methods using properties.
+	 *
+	 * E.g. `$collection->first` is equivalent to `$collection->first()`.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $property The name of the property to access.
+	 *
+	 * @return mixed|null The return value of the collection corresponding method or `null` if the collection does not
+	 *                    have that method.
+	 */
+	public function __get( $property ) {
+		if ( method_exists( $this, $property ) ) {
+			return call_user_func( [ $this, $property ] );
+		}
+
+		return null;
+	}
 }

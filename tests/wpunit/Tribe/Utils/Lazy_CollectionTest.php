@@ -111,4 +111,22 @@ class Lazy_CollectionTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( [ 'foo', 'bar', 'baz' ], unserialize( $serialized ) );
 	}
+
+	/**
+	 * It should allow accessing the collection methods as properties
+	 *
+	 * @test
+	 */
+	public function should_allow_accessing_the_collection_methods_as_properties() {
+		$callback = static function () {
+			return [ 'foo', 'bar', 'baz' ];
+		};
+
+		$collection = new Lazy_Collection( $callback );
+
+		$this->assertEquals( 'foo', $collection->first );
+		$this->assertEquals( 'baz', $collection->last );
+		$this->assertEquals( [ 'foo', 'bar', 'baz' ], $collection->all );
+		$this->assertEquals( 'bar', $collection->nth( 2 ) );
+	}
 }
