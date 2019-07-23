@@ -221,30 +221,32 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 	}
 }
 
-/**
- * Sorting function based on Priority
- *
- * @since  4.7.20
- *
- * @param  object|array  $a  First Subject to compare
- * @param  object|array  $b  Second subject to compare
- *
- * @return int
- */
-function tribe_sort_by_priority( $a, $b ) {
-	if ( is_array( $a ) ) {
-		$a_priority = $a['priority'];
-	} else {
-		$a_priority = $a->priority;
-	}
+if ( ! function_exists( 'tribe_sort_by_priority' ) ) {
+	/**
+	 * Sorting function based on Priority
+	 *
+	 * @param object|array $a First Subject to compare
+	 * @param object|array $b Second subject to compare
+	 *
+	 * @return int
+	 * @since  4.7.20
+	 *
+	 */
+	function tribe_sort_by_priority( $a, $b ) {
+		if ( is_array( $a ) ) {
+			$a_priority = $a['priority'];
+		} else {
+			$a_priority = $a->priority;
+		}
 
-	if ( is_array( $b ) ) {
-		$b_priority = $b['priority'];
-	} else {
-		$b_priority = $b->priority;
-	}
+		if ( is_array( $b ) ) {
+			$b_priority = $b['priority'];
+		} else {
+			$b_priority = $b->priority;
+		}
 
-	return (int) $a_priority === (int) $b_priority ? 0 : (int) $a_priority > (int) $b_priority;
+		return (int) $a_priority === (int) $b_priority ? 0 : (int) $a_priority > (int) $b_priority;
+	}
 }
 
 if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
@@ -588,5 +590,52 @@ if ( ! function_exists( 'has_blocks' ) ) {
 			}
 		}
 		return false !== strpos( (string) $post, '<!-- wp:' );
+	}
+}
+
+if ( ! function_exists( 'tribe_register_rest_route' ) ) {
+	/**
+	 * Wrapper function for `register_rest_route` to allow for filtering any Tribe REST API endpoint.
+	 *
+	 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
+	 * @param string $route     The base URL for route you are adding.
+	 * @param array  $args      Optional. Either an array of options for the endpoint, or an array of arrays for
+	 *                          multiple methods. Default empty array.
+	 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
+	 *                          false merges (with newer overriding if duplicate keys exist). Default false.
+	 *
+	 * @return bool True on success, false on error.
+	 *
+	 * @since 4.9.12
+	 */
+	function tribe_register_rest_route( $namespace, $route, $args = array(), $override = false ) {
+		/**
+		 * Allow plugins to customize REST API arguments and callbacks.
+		 *
+		 * @param array  $args      Either an array of options for the endpoint, or an array of arrays for
+		 *                          multiple methods. Default empty array.
+		 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
+		 * @param string $route     The base URL for route you are adding.
+		 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
+		 *                          false merges (with newer overriding if duplicate keys exist). Default false.
+		 *
+		 * @since 4.9.12
+		 */
+		$args = apply_filters( 'tribe_register_rest_route_args_' . $namespace . $route, $args, $namespace, $route, $override );
+
+		/**
+		 * Allow plugins to customize REST API arguments and callbacks.
+		 *
+		 * @param array  $args      Either an array of options for the endpoint, or an array of arrays for
+		 *                          multiple methods. Default empty array.
+		 * @param string $namespace The first URL segment after core prefix. Should be unique to your package/plugin.
+		 * @param string $route     The base URL for route you are adding.
+		 * @param bool   $override  Optional. If the route already exists, should we override it? True overrides,
+		 *                          false merges (with newer overriding if duplicate keys exist). Default false.
+		 *
+		 * @since 4.9.12
+		 */
+		$args = apply_filters( 'tribe_register_rest_route_args', $args, $namespace, $route, $override );
+		return register_rest_route( $namespace, $route, $args, $override );
 	}
 }

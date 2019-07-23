@@ -29,7 +29,9 @@
 	 *
 	 * ----------------------------------------------------------------------------- */
 
-	/* .tribe-common-form-control-toggle {} */
+	.tribe-common-form-control-toggle {
+		line-height: 0;
+	}
 
 	.tribe-common-form-control-toggle__input {
 		@mixin form-control-slider-toggle-track;
@@ -78,7 +80,10 @@
 		}
 	}
 
-	body#top & { /* Enfold Compatibility */
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ------------------------------------------------------------------------- */
+	body#top & {
 
 		.tribe-common-form-control-toggle__input {
 			display: inline-block;

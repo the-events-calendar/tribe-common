@@ -21,6 +21,29 @@ class Tribe__Promoter__Auth {
 	 */
 	public function __construct( Tribe__Promoter__Connector $connector ) {
 		$this->connector = $connector;
+		$this->hook();
+	}
+
+	/**
+	 * Attach hooks to this class.
+	 *
+	 * @since  4.9.12
+	 */
+	public function hook() {
+		add_filter( 'tribe_promoter_secret_key', [ $this, 'filter_promoter_secret_key' ] );
+	}
+
+	/**
+	 * Add an update the KEY used for promoter during the connection.
+	 *
+	 * @since 4.9.12
+	 *
+	 * @param $secret_key
+	 *
+	 * @return string
+	 */
+	public function filter_promoter_secret_key( $secret_key ) {
+		return empty( $secret_key ) ? $this->generate_secret_key() : $secret_key;
 	}
 
 	/**
@@ -40,18 +63,62 @@ class Tribe__Promoter__Auth {
 	}
 
 	/**
-	 * Grab the WP constant and store it as the auth key.
+	 * Grab the WP constant and store it as the auth key, if none exists or is it empty
+	 * it creates a dynamic one.
+	 *
+	 * @since 4.9.12
 	 *
 	 * @return string The secret key.
 	 *
 	 * @since 4.9
 	 */
-	private function generate_secret_key() {
-		$key = AUTH_KEY;
+	public function generate_secret_key() {
+		$key = defined( 'AUTH_KEY' ) ? AUTH_KEY : '';
+
+		if ( empty( $key ) ) {
+			$key = $this->generate_key();
+		}
 
 		update_option( 'tribe_promoter_auth_key', $key );
 
 		return $key;
 	}
 
+	/**
+	 * Create a custom key to be usead as tribe_promoter_auth_key
+	 *
+	 * @since 4.9.12
+	 *
+	 * @return string
+	 */
+	private function generate_key() {
+		$base = bin2hex( $this->get_random_byes() );
+		$to_hash = sprintf( '%s%s%s', get_bloginfo( 'name' ),  get_bloginfo( 'url' ), uniqid() );
+		return $base . hash( 'md5', $to_hash );
+	}
+
+	/**
+	 * Add function to get a random set of bytes to be used as Token
+	 *
+	 * @since 4.9.12
+	 *
+	 * @param int $length
+	 *
+	 * @return string
+	 */
+	private function get_random_byes( $length = 16 ) {
+		if ( function_exists( 'random_bytes' ) ) {
+			try {
+				return random_bytes( $length );
+			} catch ( Exception $e ) {
+				return uniqid();
+			}
+		}
+
+		if ( function_exists( 'openssl_random_pseudo_bytes' ) ) {
+			return openssl_random_pseudo_bytes( $length );
+		}
+
+		return uniqid();
+	}
 }

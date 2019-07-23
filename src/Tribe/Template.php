@@ -1,4 +1,7 @@
 <?php
+
+use Tribe\Events\Views\V2\Template;
+
 class Tribe__Template {
 	/**
 	 * The folders into which we will look for the template.
@@ -458,11 +461,11 @@ class Tribe__Template {
 	 *
 	 * @since  4.6.2
 	 *
-	 * @param  string  $name     Which file we are talking about including
-	 * @param  array   $context  Any context data you need to expose to this file
-	 * @param  boolean $echo     If we should also print the Template
+	 * @param string  $name    Which file we are talking about including
+	 * @param array   $context Any context data you need to expose to this file
+	 * @param boolean $echo    If we should also print the Template
 	 *
-	 * @return string            Final Content HTML
+	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
 	public function template( $name, $context = array(), $echo = true ) {
 		// If name is String make it an Array
@@ -528,19 +531,19 @@ class Tribe__Template {
 		 */
 		do_action( "tribe_template_before_include:$hook_name", $file, $name, $this );
 
-		// Only do this if really needed (by default it wont)
+		// Only do this if really needed (by default it wont).
 		if ( true === $this->template_context_extract && ! empty( $this->context ) ) {
 			// We don't allow Extrating of a variable called $name
 			if ( isset( $this->context['name'] ) ) {
 				unset( $this->context['name'] );
 			}
 
-			// We don't allow Extrating of a variable called $file
+			// We don't allow the extraction of a variable called `$file`.
 			if ( isset( $this->context['file'] ) ) {
 				unset( $this->context['file'] );
 			}
 
-			// Make any provided variables available in the template variable scope
+			// Make any provided variables available in the template variable scope.
 			extract( $this->context ); // @codingStandardsIgnoreLine
 		}
 

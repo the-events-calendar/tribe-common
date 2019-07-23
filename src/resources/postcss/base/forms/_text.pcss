@@ -24,30 +24,61 @@
 	}
 
 	.tribe-common-form-control-text__input {
-		@mixin desktop-body-2-bold;
+		@mixin desktop-body-1;
 
-		border: 1px solid var(--color-border-default);
-		padding: 12px 18px;
+		border: none;
+		border-bottom: 1px solid var(--color-border-default);
+		padding: var(--spacer-2) var(--spacer-6) var(--spacer-2) 0;
 		width: 100%;
+
+		@media (--viewport-medium) {
+			@mixin desktop-body-2;
+
+			border: none;
+			padding: var(--spacer-4) var(--spacer-4) var(--spacer-4) var(--spacer-8);
+		}
 
 		&::placeholder {
 			color: var(--color-text-secondary);
-			font-weight: var(--font-weight-regular);
+			font-style: normal;
+		}
+
+		&:focus {
+			border-bottom-color: var(--color-border-active);
+			outline: none;
 		}
 	}
 
-	body#top & { /* Enfold Compatibility */
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+	.tribe-theme-twentyseventeen & {
 
 		.tribe-common-form-control-text__input {
-			@mixin desktop-body-2-bold;
+			color: var(--color-text-primary);
+		}
+	}
 
-			border: 1px solid var(--color-border-default);
-			padding: 12px 18px;
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ------------------------------------------------------------------------- */
+	body#top & {
+
+		.tribe-common-form-control-text__input {
+			@mixin desktop-body-1;
+
+			border-bottom: 1px solid var(--color-border-default);
+			padding: var(--spacer-2) var(--spacer-4) var(--spacer-2) 0;
 			width: 100%;
+
+			@media (--viewport-medium) {
+				@mixin desktop-body-2;
+
+				padding: var(--spacer-2) 18px;
+			}
 
 			&::placeholder {
 				color: var(--color-text-secondary);
-				font-weight: var(--font-weight-regular);
 			}
 		}
 	}

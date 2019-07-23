@@ -115,4 +115,28 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $sut->maybe_format_with_currency( $cost, $post_id, $symbol, $position ) );
 	}
 
+	public function parse_separators_data_set() {
+		return [
+			'empty_string' => [ '', [ '.', ',' ] ],
+			'zero' => [ 0, [ '.', ',' ] ],
+			'string' => [ 'Free', [ '.', ',' ] ],
+			'int_wo_separators' => [ '23', [ '.', ',' ] ],
+			'w_decimal_separator' => [ '23.89', [ '.', ',' ] ],
+			'w_thousands_separator' => [ '23,892', [ '.', ',' ] ],
+			'w_both_separators' => [ '23,892.4', [ '.', ',' ] ],
+			'w_both_separators_inverted' => [ '23.892,4', [ ',', '.' ] ],
+			'w_comma_decimal_separator' => [ '23,89', [ ',', '.' ] ],
+		];
+}
+	/**
+	 * Test parse_separators
+	 * @dataProvider parse_separators_data_set
+	 */
+	public function test_parse_separators( $value, $expected ) {
+		$cost_utils = $this->make_instance();
+
+		$parsed = $cost_utils->parse_separators( $value );
+
+		$this->assertEquals( $expected, $parsed );
+	}
 }
