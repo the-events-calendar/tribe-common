@@ -230,15 +230,6 @@ class Tribe__Context {
 	protected $use_default_locations = true;
 
 	/**
-	 * Tribe__Context constructor.
-	 *
-	 * @since 4.9.8
-	 */
-	public function __construct(  ) {
-		$this->populate_locations();
-	}
-
-	/**
 	 * Whether we are currently creating a new post, a post of post type(s) or not.
 	 *
 	 * @since 4.7.7
@@ -446,6 +437,8 @@ class Tribe__Context {
 	 *               `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
 	 */
 	public function get_locations() {
+		$this->populate_locations();
+
 		return $this->use_default_locations
 			? array_merge( self::$locations, $this->override_locations )
 			: $this->override_locations;
