@@ -9,21 +9,43 @@
   "homepage": "http://tri.be/shop/wordpress-events-calendar/",
   "license": "GPL-2.0",
   "require-dev": {
-    "lucatume/wp-browser": "^2.2.4",
+    "automattic/vipwpcs": "^2.0",
     "codeception/codeception": "^2.5.5",
-    "phpunit/phpunit": "~6.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
     "lucatume/function-mocker-le": "^1.0",
-    "wp-cli/checksum-command": "1.0.5"
+    "lucatume/wp-browser": "^2.2.4",
+    "moderntribe/tribalscents": "dev-master",
+    "moderntribe/tribe-testing-facilities": "dev-master",
+    "phpunit/phpunit": "~6.0",
+    "wp-cli/checksum-command": "1.0.5",
+    "wp-coding-standards/wpcs": "^2.1"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
-    "preferred-install": "dist"
+    "preferred-install": "dist",
+    "platform": {
+      "php": "7.0.33"
+    }
   },
   "require": {
     "lucatume/di52": "~2.0.10",
     "firebase/php-jwt": "~5.0.0"
   },
+  "repositories": [
+    {
+      "name": "moderntribe/tribe-testing-facilities",
+      "type": "github",
+      "url": "https://github.com/moderntribe/tribe-testing-facilities",
+      "no-api": true
+    },
+    {
+      "name": "moderntribe/TribalScents",
+      "type": "github",
+      "url": "https://github.com/moderntribe/TribalScents",
+      "no-api": true
+    }
+  ],
   "scripts": {
     "post-install-cmd": [
       "xrstf\\Composer52\\Generator::onPostInstallCmd"

@@ -127,7 +127,7 @@ class Tribe__Promoter__Connector {
 		}
 
 		$license_key = $license_info['key'];
-		$secret_key  = get_option( 'tribe_promoter_auth_key' );
+		$secret_key  = $this->get_secret_key();
 
 		if ( empty( $secret_key ) ) {
 			return;
@@ -148,6 +148,24 @@ class Tribe__Promoter__Connector {
 		);
 
 		$this->make_call( $url, $args );
+	}
+
+	/**
+	 * Get the value for the option `tribe_promoter_auth_key`
+	 *
+	 * @since 4.9.12
+	 *
+	 * @return mixed
+	 */
+	protected function get_secret_key() {
+		$secret_key  = get_option( 'tribe_promoter_auth_key' );
+
+		/**
+		 * @since 4.9.12
+		 *
+		 * @param string $secret_key
+		 */
+		return apply_filters( 'tribe_promoter_secret_key', $secret_key );
 	}
 
 	/**

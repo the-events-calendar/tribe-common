@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.9.11.2';
+	const VERSION             = '4.9.13';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -167,6 +167,7 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/multibyte.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
 
 		Tribe__Debug::instance();
 		tribe( 'assets' );
@@ -243,13 +244,39 @@ class Tribe__Main {
 			$this,
 			'tribe-common',
 			'tribe-common.js',
-			array( 'tribe-clipboard' ),
+			[],
 			'admin_enqueue_scripts',
-			array(
+			[
 				'priority' => 0,
-			)
+			]
 		);
-	 }
+
+		tribe_asset(
+			$this,
+			'tribe-admin-url-fragment-scroll',
+			'admin/url-fragment-scroll.js',
+			[ 'tribe-common' ],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [ $this, 'should_load_common_admin_css' ],
+				'priority' => 5,
+			]
+		);
+
+		tribe_asset(
+			$this,
+			'tribe-tooltip',
+			'tooltip.js',
+			[ 'tribe-common' ],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [ $this, 'should_load_common_admin_css' ],
+				'priority' => 10,
+			]
+		);
+
+		tribe( Tribe__Admin__Help_Page::class )->register_assets();
+	}
 
 	/**
 	 * Load All localization data create by `asset.data`
@@ -302,13 +329,6 @@ class Tribe__Main {
 				'today'           => esc_html__( 'Today', 'the-events-calendar' ),
 				'clear'           => esc_html__( 'Clear', 'the-events-calendar' ),
 			),
-		) );
-
-		tribe( 'asset.data' )->add( 'tribe_system_info', array(
-			'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
-			'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
-			'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
-			'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
 		) );
 	}
 
@@ -560,16 +580,22 @@ class Tribe__Main {
 		tribe_singleton( 'db', 'Tribe__Db' );
 		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 
+		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
+
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
+
+		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class );
 
 		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', array( 'hook' ) );
 		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', array( 'hook' ) );
 
-		tribe_register_provider( 'Tribe__Editor__Provider' );
-		tribe_register_provider( 'Tribe__Service_Providers__Debug_Bar' );
-		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
-		tribe_register_provider( 'Tribe__Service_Providers__Tooltip' );
+		tribe_register_provider( Tribe__Editor__Provider::class );
+		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
+		tribe_register_provider( Tribe__Service_Providers__Promoter_Connector::class );
+		tribe_register_provider( Tribe__Service_Providers__Tooltip::class );
+
+		tribe_register_provider( Tribe\Service_Providers\PUE::class );
 	}
 
 	/************************

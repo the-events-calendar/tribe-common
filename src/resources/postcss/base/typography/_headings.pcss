@@ -47,10 +47,6 @@
 		}
 	}
 
-	.tribe-common-h3--alt {
-		font-weight: var(--font-weight-regular);
-	}
-
 	/* -------------------------------------------------------------------------
 	 * Heading: h4
 	 * ------------------------------------------------------------------------- */
@@ -62,10 +58,6 @@
 		@media (--viewport-medium) {
 			@mixin desktop-heading-4;
 		}
-	}
-
-	.tribe-common-h4--alt {
-		font-weight: var(--font-weight-regular);
 	}
 
 	/* -------------------------------------------------------------------------
@@ -83,7 +75,11 @@
 
 	.tribe-common-h6 {
 		@mixin heading;
-		@mixin heading-6;
+		@mixin mobile-heading-6;
+
+		@media (--viewport-medium) {
+			@mixin desktop-heading-6;
+		}
 	}
 
 	/* -------------------------------------------------------------------------
@@ -102,5 +98,53 @@
 	.tribe-common-h8 {
 		@mixin heading;
 		@mixin heading-8;
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Heading: h3 for --viewport-medium
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-common-h3--min-medium {
+		@media (--viewport-medium) {
+			@mixin desktop-heading-3;
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Heading: h4 for --viewport-medium
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-common-h4--min-medium {
+		@media (--viewport-medium) {
+			@mixin desktop-heading-4;
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Heading: h5 for --viewport-medium
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-common-h5--min-medium {
+		@media (--viewport-medium) {
+			@mixin heading-5;
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Heading: h6 for --viewport-medium
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-common-h6--min-medium {
+		@media (--viewport-medium) {
+			@mixin desktop-heading-6;
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Heading: alt style
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-common-h--alt {
+		font-weight: var(--font-weight-regular);
 	}
 }

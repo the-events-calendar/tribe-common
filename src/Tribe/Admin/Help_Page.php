@@ -13,22 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Tribe__Admin__Help_Page {
 	/**
-	 * Static Singleton Holder
-	 * @var Tribe__Admin__Help_Page|null
-	 */
-	protected static $instance;
-
-	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Admin__Help_Page
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( static::class );
 	}
 
 	/**
@@ -40,6 +30,36 @@ class Tribe__Admin__Help_Page {
 	 */
 	public function is_current_page() {
 		return Tribe__Admin__Helpers::instance()->is_screen( 'tribe_events_page_tribe-help' ) || Tribe__Admin__Helpers::instance()->is_screen( 'settings_page_tribe-common-help-network' );
+	}
+
+	/**
+	 * Register the Admin assets for the help page
+	 *
+	 * @since  4.9.12
+	 *
+	 * @return void
+	 */
+	public function register_assets() {
+		$plugin = Tribe__Main::instance();
+		tribe_asset(
+			$plugin,
+			'tribe-admin-help-page',
+			'admin/help-page.js',
+			[ 'tribe-clipboard', 'tribe-common' ],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [ $this, 'is_current_page' ],
+				'localize' => [
+					'name' => 'tribe_system_info',
+					'data' => [
+						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
+						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
+						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
+						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
+					],
+				],
+			]
+		);
 	}
 
 	/**
