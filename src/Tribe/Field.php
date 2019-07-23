@@ -523,6 +523,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				foreach ( $this->options as $option_id => $title ) {
 					$field .= '<label title="' . esc_attr( strip_tags( $title ) ) . '">';
 					$field .= '<input type="radio"';
+					$field .= 'id="tribe-field-' . esc_attr( trim( $this->id ) ) . '-'. esc_attr( trim( $this->value ) ) . '"';
 					$field .= $this->do_field_name();
 					$field .= ' value="' . esc_attr( $option_id ) . '" ' . checked( $this->value, $option_id, false ) . '/>';
 					$field .= $title;
