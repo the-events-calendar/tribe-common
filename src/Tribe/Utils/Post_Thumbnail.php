@@ -19,6 +19,8 @@
 
 namespace Tribe\Utils;
 
+use Tribe__Utils__Array as Arr;
+
 /**
  * Class Post_Thumbnail
  *
@@ -33,7 +35,7 @@ class Post_Thumbnail implements \ArrayAccess {
 	 *
 	 * @var array
 	 */
-	protected static $image_sizes;
+	protected $image_sizes;
 
 	/**
 	 * The post ID this images collection is for.
@@ -90,14 +92,23 @@ class Post_Thumbnail implements \ArrayAccess {
 	 *
 	 * @return array An array of the registered image sizes.
 	 */
-	protected function fetch_image_sizes() {
-		if ( null !== static::$image_sizes ) {
-			return static::$image_sizes;
+	public function get_image_sizes() {
+		if ( null !== $this->image_sizes ) {
+			return $this->image_sizes;
 		}
 
-		static::$image_sizes = array_merge( [ 'full' ], get_intermediate_image_sizes() );
+		$image_sizes = array_merge( [ 'full' ], get_intermediate_image_sizes() );
 
-		return static::$image_sizes;
+		/**
+		 * Filters the image sizes the `Tribe\Utils\Post_Thumbnail` class will manage and fetch data for.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $image_sizes All the available image sizes; this includes the default and the intermediate ones.
+		 */
+		$this->image_sizes = apply_filters( 'tribe_post_thumbnail_image_sizes', $image_sizes );
+
+		return $this->image_sizes;
 	}
 
 	/**
@@ -105,7 +116,7 @@ class Post_Thumbnail implements \ArrayAccess {
 	 *
 	 * @since TBD
 	 *
-	 * @return array An array containing the post thumbnail data.
+	 * @return array An array of objects containing the post thumbnail data.
 	 */
 	public function get_post_thumbnail_data() {
 		if ( null !== $this->post_thumbnail_data ) {
@@ -113,7 +124,7 @@ class Post_Thumbnail implements \ArrayAccess {
 		}
 
 		$post_id     = $this->post_id;
-		$image_sizes = $this->fetch_image_sizes();
+		$image_sizes = $this->get_image_sizes();
 
 		$thumbnail_id = get_post_thumbnail_id( $post_id );
 
@@ -124,14 +135,33 @@ class Post_Thumbnail implements \ArrayAccess {
 		$thumbnail_data = array_combine(
 			$image_sizes,
 			array_map( static function ( $size ) use ( $thumbnail_id ) {
-				return [
-					'url' => wp_get_attachment_image_src( $thumbnail_id, $size )
+				$size_data = wp_get_attachment_image_src( $thumbnail_id, $size );
+
+				if(false === $size_data){
+					return (object)[
+						'url' => '',
+						'width' => '',
+						'height' => '',
+						'is_intermediate' => false,
+					];
+				}
+
+				return (object) [
+					'url'             => Arr::get( $size_data, 0, '' ),
+					'width'           => Arr::get( $size_data, 1, '' ),
+					'heigth'          => Arr::get( $size_data, 2, '' ),
+					'is_intermediate' => (bool)Arr::get( $size_data, 3, false ),
 				];
 			}, $image_sizes )
 		);
 
+		$srcset                   = wp_get_attachment_image_srcset( $thumbnail_id );
+		$thumbnail_data['srcset'] = ! empty( $srcset ) ? $srcset : false;
+
 		/**
 		 * Filters the post thumbnail data and information that will be returned for a specific post.
+		 *
+		 * Note that the thumbnail data will be cast to an object after this filtering.
 		 *
 		 * @since TBD
 		 *
@@ -179,5 +209,11 @@ class Post_Thumbnail implements \ArrayAccess {
 		$this->post_thumbnail_data = $this->get_post_thumbnail_data();
 
 		unset( $this->post_thumbnail_data[ $offset ] );
+	}
+
+	public function to_array() {
+		$this->post_thumbnail_data = $this->get_post_thumbnail_data();
+
+		return json_decode( json_encode( $this->post_thumbnail_data ), true );
 	}
 }
