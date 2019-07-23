@@ -4,7 +4,7 @@
 
 = [4.9.14] TBD =
 
-
+* Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [131353]
 
 = [4.9.13] TBD =
 
