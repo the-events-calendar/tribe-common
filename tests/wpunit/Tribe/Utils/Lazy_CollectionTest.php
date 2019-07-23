@@ -127,6 +127,7 @@ class Lazy_CollectionTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'foo', $collection->first );
 		$this->assertEquals( 'baz', $collection->last );
 		$this->assertEquals( [ 'foo', 'bar', 'baz' ], $collection->all );
+		$this->assertEquals( 3, $collection->count );
 		$this->assertEquals( 'bar', $collection->nth( 2 ) );
 	}
 }

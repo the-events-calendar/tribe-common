@@ -2,6 +2,23 @@
 /**
  * An array whose elements will be lazily fetched.
  *
+ * Example usage:
+ * ```php
+ * $callback = static function(){
+ *      $posts = costly_get_posts_call();
+ *
+ *      return $posts;
+ * };
+ *
+ * // The costly query is not ran now!
+ * $collection = new Lazy_Collection( $callback );
+ *
+ * // If we need to get the elements, then the costly query is made.
+ * if( $really_needs_the_posts ){
+ *      $posts = $collection->all;
+ * }
+ * ````
+ *
  * @since   TBD
  * @package Tribe\Utils
  */
@@ -9,7 +26,8 @@
 namespace Tribe\Utils;
 
 /**
- * Class Array_Promise
+ * Class Lazy_Collection
+ *
  * @since   TBD
  * @package Tribe\Utils
  */
