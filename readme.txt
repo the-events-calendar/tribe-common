@@ -2,9 +2,9 @@
 
 == Changelog ==
 
-= [4.9.14] TBD =
+= [4.9.13] TBD =
 
-
+* Fix - Location filtering for Context class moved out of construct, resolving lots of navigation problems across The Events Calendar [130754]
 
 = [4.9.12] 2019-07-03 =
 
