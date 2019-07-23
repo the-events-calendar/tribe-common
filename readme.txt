@@ -4,12 +4,12 @@
 
 = [4.9.14] TBD =
 
+* Tweak - Add IDs to radio fields so we can target them with tribe-dependency [122304]
 
 
 = [4.9.13] TBD =
 
 * Tweak - Update Freemius library to `2.3.0` [130281]
-* Tweak - Add IDs to radio fields so we can target them with tribe-dependency [122304]
 * Fix - Location filtering for Context class moved out of construct, resolving lots of navigation problems across The Events Calendar [130754]
 
 = [4.9.12] 2019-07-03 =
