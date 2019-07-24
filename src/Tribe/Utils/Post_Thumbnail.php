@@ -134,25 +134,28 @@ class Post_Thumbnail implements \ArrayAccess {
 
 		$thumbnail_data = array_combine(
 			$image_sizes,
-			array_map( static function ( $size ) use ( $thumbnail_id ) {
-				$size_data = wp_get_attachment_image_src( $thumbnail_id, $size );
+			array_map(
+				static function ( $size ) use ( $thumbnail_id ) {
+					$size_data = wp_get_attachment_image_src( $thumbnail_id, $size );
 
-				if(false === $size_data){
-					return (object)[
-						'url' => '',
-						'width' => '',
-						'height' => '',
-						'is_intermediate' => false,
+					if ( false === $size_data ) {
+						return (object) [
+							'url'             => '',
+							'width'           => '',
+							'height'          => '',
+							'is_intermediate' => false,
+						];
+					}
+
+					return (object) [
+						'url'             => Arr::get( $size_data, 0, '' ),
+						'width'           => Arr::get( $size_data, 1, '' ),
+						'heigth'          => Arr::get( $size_data, 2, '' ),
+						'is_intermediate' => (bool) Arr::get( $size_data, 3, false ),
 					];
-				}
-
-				return (object) [
-					'url'             => Arr::get( $size_data, 0, '' ),
-					'width'           => Arr::get( $size_data, 1, '' ),
-					'heigth'          => Arr::get( $size_data, 2, '' ),
-					'is_intermediate' => (bool)Arr::get( $size_data, 3, false ),
-				];
-			}, $image_sizes )
+				},
+				$image_sizes
+			)
 		);
 
 		$srcset                   = wp_get_attachment_image_srcset( $thumbnail_id );
