@@ -59,18 +59,8 @@ class Tribe__Assets {
 		uasort( $assets, [ $this, 'order_by_priority' ] );
 
 		foreach ( $assets as $asset ) {
-
-			if (
-				$asset->is_registered
-				|| (
-					'js' === $asset->type
-					&& wp_script_is( $asset->slug, 'registered' )
-				)
-				|| (
-					'js' !== $asset->type
-					&& wp_style_is( $asset->slug, 'registered' )
-				)
-			) {
+			// Asset is already registered.
+			if ( $asset->is_registered ) {
 				continue;
 			}
 
