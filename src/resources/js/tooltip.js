@@ -37,9 +37,7 @@ tribe.tooltip = tribe.tooltip || {};
 	 * @return {void}
 	 */
 	obj.onClick = function () {
-		console.log('click');
 		var $tooltip = $( this ).closest( obj.selectors.tooltip );
-		console.log(obj.selectors.active);
 		var add = ! $tooltip.hasClass( obj.selectors.active );
 
 		$( obj.selectors.tooltip ).each( function () {
