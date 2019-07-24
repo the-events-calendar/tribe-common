@@ -75,11 +75,23 @@ class Tribe__Assets {
 			}
 
 			if ( 'js' === $asset->type ) {
+				// Script is already registered.
+				if ( wp_script_is( $asset->slug, 'registered' ) ) {
+					continue;
+				}
+
 				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
+
 				// Register that this asset is actually registered on the WP methods.
 				$asset->is_registered = wp_script_is( $asset->slug, 'registered' );
 			} else {
+				// Style is already registered.
+				if ( wp_style_is( $asset->slug, 'registered' ) ) {
+					continue;
+				}
+
 				wp_register_style( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->media );
+
 				// Register that this asset is actually registered on the WP methods.
 				$asset->is_registered = wp_style_is( $asset->slug, 'registered' );
 			}
