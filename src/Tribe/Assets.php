@@ -78,16 +78,10 @@ class Tribe__Assets {
 				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
 				// Register that this asset is actually registered on the WP methods.
 				$asset->is_registered = wp_script_is( $asset->slug, 'registered' );
-				bdump(
-					'script - ' . $asset->slug
-				);
 			} else {
 				wp_register_style( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->media );
 				// Register that this asset is actually registered on the WP methods.
 				$asset->is_registered = wp_style_is( $asset->slug, 'registered' );
-				bdump(
-					'style - ' . $asset->slug
-				);
 			}
 
 			// If we don't have an action we don't even register the action to enqueue.
