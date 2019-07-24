@@ -5,7 +5,7 @@
 = [4.9.14] TBD =
 
 * Tweak - Add IDs to radio fields so we can target them with tribe-dependency [122304]
-
+* Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [131353]
 
 = [4.9.13] TBD =
 
