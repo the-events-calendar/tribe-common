@@ -68,7 +68,7 @@ class Tribe__Assets {
 				)
 				|| (
 					'js' !== $asset->type
-					&&  wp_style_is( $asset->slug, 'registered' )
+					&& wp_style_is( $asset->slug, 'registered' )
 				)
 			) {
 				continue;
