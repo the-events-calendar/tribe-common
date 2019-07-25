@@ -27,7 +27,7 @@ use Tribe__Utils__Array as Arr;
  * @since   TBD
  * @package Tribe\Utils
  */
-class Post_Thumbnail implements \ArrayAccess {
+class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * An array of the site image sizes, including the `full` one.
 	 *
@@ -53,7 +53,7 @@ class Post_Thumbnail implements \ArrayAccess {
 	 *
 	 * @var array
 	 */
-	protected $post_thumbnail_data;
+	protected $data;
 
 	/**
 	 * Post_Images constructor.
@@ -118,9 +118,9 @@ class Post_Thumbnail implements \ArrayAccess {
 	 *
 	 * @return array An array of objects containing the post thumbnail data.
 	 */
-	public function get_post_thumbnail_data() {
-		if ( null !== $this->post_thumbnail_data ) {
-			return $this->post_thumbnail_data;
+	public function fetch_data() {
+		if ( null !== $this->data ) {
+			return $this->data;
 		}
 
 		$post_id     = $this->post_id;
@@ -180,19 +180,19 @@ class Post_Thumbnail implements \ArrayAccess {
 	 * {@inheritDoc}
 	 */
 	public function offsetExists( $offset ) {
-		$this->post_thumbnail_data = $this->get_post_thumbnail_data();
+		$this->data = $this->fetch_data();
 
-		return isset( $this->post_thumbnail_data[ $offset ] );
+		return isset( $this->data[ $offset ] );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function offsetGet( $offset ) {
-		$this->post_thumbnail_data = $this->get_post_thumbnail_data();
+		$this->data = $this->fetch_data();
 
-		return isset( $this->post_thumbnail_data[ $offset ] )
-			? $this->post_thumbnail_data[ $offset ]
+		return isset( $this->data[ $offset ] )
+			? $this->data[ $offset ]
 			: null;
 	}
 
@@ -200,23 +200,51 @@ class Post_Thumbnail implements \ArrayAccess {
 	 * {@inheritDoc}
 	 */
 	public function offsetSet( $offset, $value ) {
-		$this->post_thumbnail_data = $this->get_post_thumbnail_data();
+		$this->data = $this->fetch_data();
 
-		$this->post_thumbnail_data[ $offset ] = $value;
+		$this->data[ $offset ] = $value;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function offsetUnset( $offset ) {
-		$this->post_thumbnail_data = $this->get_post_thumbnail_data();
+		$this->data = $this->fetch_data();
 
-		unset( $this->post_thumbnail_data[ $offset ] );
+		unset( $this->data[ $offset ] );
 	}
 
+	/**
+	 * Returns an array representation of the post thumbnail data.
+	 *
+	 * @since TBD
+	 *
+	 *
+	 * @return array An array representation of the post thumbnail data.
+	 */
 	public function to_array() {
-		$this->post_thumbnail_data = $this->get_post_thumbnail_data();
+		$this->data = $this->fetch_data();
 
-		return json_decode( json_encode( $this->post_thumbnail_data ), true );
+		return json_decode( json_encode( $this->data ), true );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function serialize() {
+		$data            = $this->fetch_data();
+		$data['post_id'] = $this->post_id;
+
+		return serialize( $data );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function unserialize( $serialized ) {
+		$data          = unserialize( $serialized );
+		$this->post_id = $data['post_id'];
+		unset( $data['post_id'] );
+		$this->data = $data;
 	}
 }

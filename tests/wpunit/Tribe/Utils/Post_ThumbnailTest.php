@@ -128,8 +128,24 @@ class Post_ThumbnailTest extends \Codeception\TestCase\WPTestCase {
 			$size_data = wp_get_attachment_image_src( $thumbnail_id, $image_size );
 			$this->assertEqualSets( array_combine(
 				[ 'url', 'width', 'height', 'is_intermediate' ],
-				array_values( $size_data )
+				$size_data
 			), $array_dump[ $image_size ] );
 		}
+	}
+
+	/**
+	 * It should allow serializing and unserializing the information
+	 *
+	 * @test
+	 */
+	public function should_allow_serializing_and_unserializing_the_information() {
+		list( $post_id, $thumbnail_id ) = $this->given_a_post_with_thumbnail();
+		$post_thumbnail                = new Post_Thumbnail( $post_id );
+
+		$serialized = serialize( $post_thumbnail );
+		$unserialized = unserialize( $serialized );
+
+		$this->assertInstanceOf( Post_Thumbnail::class, $unserialized );
+		$this->assertEquals( $post_thumbnail->to_array(), $unserialized->to_array() );
 	}
 }
