@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.13] 2019-07-24 =
+= [4.9.13] 2019-07-25 =
 
 * Tweak - Update Freemius library to `2.3.0` [130281]
 * Fix - Location filtering for Context class moved out of construct, resolving lots of navigation problems across The Events Calendar [130754]
