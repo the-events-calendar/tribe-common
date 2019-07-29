@@ -263,18 +263,6 @@ class Tribe__Main {
 			]
 		);
 
-		tribe_asset(
-			$this,
-			'tribe-tooltip-js',
-			'tooltip.js',
-			[ 'tribe-common' ],
-			'admin_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'should_load_common_admin_css' ],
-				'priority' => 10,
-			]
-		);
-
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
 	}
 
