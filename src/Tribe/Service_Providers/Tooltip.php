@@ -43,8 +43,6 @@ class Tribe__Service_Providers__Tooltip extends tad_DI52_ServiceProvider {
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
 		);
 
-
-
 		tribe_asset(
 			Tribe__Main::instance(),
 			'tribe-tooltip-js',
