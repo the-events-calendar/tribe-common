@@ -14,8 +14,8 @@ return [
 	'posts_per_page' => [
 		'read'  => [
 			Tribe__Context::REQUEST_VAR  => 'posts_per_page',
-			Tribe__Context::TRIBE_OPTION => [ 'posts_per_page', 'postsPerPage' ],
 			Tribe__Context::OPTION       => 'posts_per_page',
+			Tribe__Context::TRIBE_OPTION => [ 'posts_per_page', 'postsPerPage' ],
 		],
 		'write' => [
 			Tribe__Context::REQUEST_VAR => 'posts_per_page',

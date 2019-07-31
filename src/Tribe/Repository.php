@@ -3601,4 +3601,13 @@ abstract class Tribe__Repository
 
 		return $prev;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function void_query( $void_query = true ) {
+		$this->void_query = (bool) $void_query;
+
+		return $this;
+	}
 }

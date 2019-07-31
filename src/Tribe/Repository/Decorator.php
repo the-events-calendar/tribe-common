@@ -676,4 +676,13 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 
 		return $this;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function void_query( $void_query = true ) {
+		$this->decorated->void_query( $void_query );
+
+		return $this;
+	}
 }

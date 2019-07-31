@@ -316,4 +316,15 @@ interface Tribe__Repository__Interface
 	 * @return \Tribe__Repository__Interface The repository instance, for chaining.
 	 */
 	public function set_found_rows( $found_rows );
+
+	/**
+	 * Voids the repositories queries preventing the repository from running any query.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $void Whether to void the repository queries or not.
+	 *
+	 * @return Tribe__Repository__Interface $this The repository instance.
+	 */
+	public function void_query( $void_query = true );
 }
