@@ -22,6 +22,15 @@ class Tribe__Repository__Query_Filters {
 	);
 
 	/**
+	 * An array of the filters that can be set and unset by id.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected static $identifiable_filters = [ 'fields', 'join', 'where', 'orderby' ];
+
+	/**
 	 * @var array
 	 */
 	protected $query_vars;
@@ -626,14 +635,29 @@ class Tribe__Repository__Query_Filters {
 	 * Add a custom WHERE clause to the query.
 	 *
 	 * @since 4.7.19
+	 * @since TBD Added the `$id` and `$override` parameters.
 	 *
 	 * @param string $where_clause
+	 * @param null|string $id          Optional WHERE ID to prevent duplicating clauses.
+	 * @param boolean     $override    Whether to override the clause if a WHERE by the same ID exists or not.
 	 */
-	public function where( $where_clause ) {
+	public function where( $where_clause, $id = null, $override =false  ) {
 		if ( $this->buffer_where_clauses ) {
-			$this->buffered_where_clauses[] = '(' . $where_clause . ')';
+			if ( $id ) {
+				if ( $override || ! isset( $this->buffered_where_clauses[ $id ] ) ) {
+					$this->buffered_where_clauses[ $id ] = $where_clause;
+				}
+			} else {
+				$this->buffered_where_clauses[] = '(' . $where_clause . ')';
+			}
 		} else {
-			$this->query_vars['where'][] = '(' . $where_clause . ')';
+			if ( $id ) {
+				if ( $override || ! isset( $this->query_vars['where'][ $id ] ) ) {
+					$this->query_vars['where'][ $id ] = '(' . $where_clause . ')';
+				}
+			} else {
+				$this->query_vars['where'][] = '(' . $where_clause . ')';
+			}
 
 			if ( ! has_filter( 'posts_where', array( $this, 'filter_posts_where' ) ) ) {
 				add_filter( 'posts_where', array( $this, 'filter_posts_where' ), 10, 2 );
@@ -652,7 +676,7 @@ class Tribe__Repository__Query_Filters {
 	 */
 	public function join( $join_clause, $id = null, $override = false ) {
 		if ( $id ) {
-			if ( ! isset( $this->query_vars['join'][ $id ] ) ) {
+			if ( $override || ! isset( $this->query_vars['join'][ $id ] ) ) {
 				$this->query_vars['join'][ $id ] = $join_clause;
 			}
 		} else {
@@ -668,11 +692,20 @@ class Tribe__Repository__Query_Filters {
 	 * Add a custom ORDER BY to the query.
 	 *
 	 * @since 4.9.5
+	 * @since TBD Added the `$id` and `$override` parameters.
 	 *
-	 * @param string $orderby
+	 * @param string      $orderby  The order by criteria.
+	 * @param null|string $id       Optional ORDER ID to prevent duplicating order-by clauses..
+	 * @param boolean     $override Whether to override the clause if another by the same ID exists.
 	 */
-	public function orderby( $orderby ) {
-		$this->query_vars['orderby'][] = $orderby;
+	public function orderby( $orderby, $id = null , $override = false) {
+		if ( $id ) {
+			if ( $override || ! isset( $this->query_vars['orderby'][ $id ] ) ) {
+				$this->query_vars['orderby'][ $id ] = $orderby;
+			}
+		} else {
+			$this->query_vars['orderby'][] = $orderby;
+		}
 
 		if ( ! has_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ) ) ) {
 			add_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ), 10, 2 );
@@ -683,11 +716,20 @@ class Tribe__Repository__Query_Filters {
 	 * Add custom select fields to the query.
 	 *
 	 * @since 4.9.5
+	 * @since TBD Added the `$id` and `$override` parameters.
 	 *
-	 * @param string $field
+	 * @param string $field The field to add to the result.
+	 * @param null|string $id       Optional ORDER ID to prevent duplicating order-by clauses..
+	 * @param boolean     $override Whether to override the clause if another by the same ID exists.
 	 */
-	public function fields( $field ) {
-		$this->query_vars['fields'][] = $field;
+	public function fields( $field, $id = null, $override = false ) {
+		if ( $id ) {
+			if ( $override || ! isset( $this->query_vars['fields'][ $id ] ) ) {
+				$this->query_vars['fields'][ $id ] = $field;
+			}
+		} else {
+			$this->query_vars['fields'][] = $field;
+		}
 
 		if ( ! has_filter( 'posts_fields', array( $this, 'filter_posts_fields' ) ) ) {
 			add_filter( 'posts_fields', array( $this, 'filter_posts_fields' ), 10, 2 );
@@ -996,5 +1038,48 @@ class Tribe__Repository__Query_Filters {
 		$this->current_query->get_posts();
 
 		return $this->last_request;
+	}
+
+	/**
+	 * Returns the fields, join, where and orderby clauses for an id.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id The identifier of the group to remove.
+	 *
+	 * @return array An associative array of identifiable filters and their values, if any.
+	 *
+	 * @see Tribe__Repository__Query_Filters::$identifiable_filters
+	 */
+	public function get_filters_by_id( $id ) {
+		$entries = [];
+
+		foreach ( static::$identifiable_filters as $key ) {
+			if ( empty( $this->query_vars[ $key ][ $id ] ) ) {
+				continue;
+			}
+			$entries[ $key ] = $this->query_vars[ $key ][ $id ];
+		}
+
+		return $entries;
+	}
+
+	/**
+	 * Removes fields, join, where and orderby clauses for an id.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id The identifier of the group to remove.
+	 */
+	public function remove_filters_by_id( $id ) {
+		array_walk(
+			$this->query_vars,
+			static function ( array &$filters, $key ) use ( $id ) {
+				if ( ! in_array( $key, static::$identifiable_filters, true ) ) {
+					return;
+				}
+				unset( $filters[ $id ] );
+			}
+		);
 	}
 }
