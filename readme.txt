@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.9.14] TBD =
+
+* Fix - Prevent mascot image to get blown up out of proportions to a larger size on buggy CSS loading. [131910]
+
 = [4.9.13] TBD =
 
 * Tweak - Update Freemius library to `2.3.0` [130281]
