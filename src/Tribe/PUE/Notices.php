@@ -387,7 +387,7 @@ class Tribe__PUE__Notices {
 		$html =
 			'<div class="api-check">
 				<div class="tribe-mascot">
-					<img src="' . $mascot . '"/>
+					<img src="' . $mascot . '" style="max-height: 150px; max-width: 150px; height: 100%; width: auto;"/>
 				</div>
 				<div class="notice-content">' . $inner_html . '</div>
 			</div>';

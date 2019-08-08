@@ -1159,6 +1159,7 @@ a.tribe-rating-link {
 
 .api-check {
 	padding: 1em;
+	min-height: 100px;
 
 	& + .notice-dismiss {
 		&:hover {
@@ -1181,24 +1182,17 @@ a.tribe-rating-link {
 	.tribe-mascot {
 		bottom: 0;
 		display: none;
-		padding: 1rem;
+		padding: 0 1rem 0 0;
 		position: absolute;
 		right: 0;
 		top: 0;
-		width: 125px;
-
-		&:before {
-			content: '';
-			display: inline-block;
-			height: 100%;
-			width: 1%;
-			vertical-align: middle;
-		}
 
 		img {
 			display: inline-block;
-			max-height: 100%;
-			max-width: 96%;
+			max-height: 150px;
+			max-width: 150px;
+			height: 100%;
+			width: auto;
 			vertical-align: middle;
 		}
 
