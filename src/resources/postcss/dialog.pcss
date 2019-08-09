@@ -1,0 +1,69 @@
+/* = Dialogs
+This can include modals, toasters, confirms. alerts.
+============================ */
+:root {
+	--dialog-background-color: #FFF;
+	--dialog-close-background: #000;
+	--dialog-close-bottom: auto;
+	--dialog-close-color: #BABABA;
+	--dialog-close-left: auto;
+	--dialog-close-right: 1em;
+	--dialog-close-top: 1em;
+	--dialog-overlay-color: #FFF;
+	--dialog-close-height: 2em;
+}
+
+/* The dialog/popup/modal itself */
+.tribe-dialog {
+	height: 110vh;
+	opacity: .9;
+	position: fixed;
+	width: 100vw;
+
+	&[aria-hidden='true'] {
+		display: none;
+	}
+}
+
+/* The trigger button" */
+.tribe-dialog__trigger {}
+
+/* The overlay */
+.tribe-dialog__overlay {
+	background-color: var(--dialog-overlay-color);
+	height: 110vh;
+	opacity: .9;
+	position: fixed;
+	width: 100vw;
+}
+
+/* The "close" button */
+.tribe-dialog__close-button {
+	background: var(--dialog-close-background);
+	bottom: var(--dialog-close-bottom);
+	border-radius: 100%;
+	color: var(--dialog-close-color);
+	height: var(--dialog-close-height);
+	width: var(--dialog-close-height);
+	left: var(--dialog-close-left);
+	padding: .25em;
+	position: absolute;
+	right: var(--dialog-close-right);
+	top: var(--dialog-close-top);
+
+	&:after {
+		content:'X';
+		line-height: var(--dialog-close-height);
+
+	}
+}
+
+/* Content container */
+.tribe-dialog__content {
+	background-color: var(--dialog-background-color);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+
+}

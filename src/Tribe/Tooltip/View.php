@@ -1,19 +1,21 @@
 <?php
 
+namespace Tribe\Tooltip;
+
 /**
- * Class Tribe__Tooltip__View
+ * Class View
  *
  * @since 4.9.8
  */
-class Tribe__Tooltip__View extends Tribe__Template {
+class View extends \Tribe__Template {
 
 	/**
-	 * Tribe__Tooltip__View constructor.
+	 * View constructor.
 	 *
 	 * @since 4.9.8
 	 */
 	public function __construct() {
-		$this->set_template_origin( Tribe__Main::instance() );
+		$this->set_template_origin( \Tribe__Main::instance() );
 		$this->set_template_folder( 'src/views/tooltip' );
 
 		// Configures this templating class to extract variables
