@@ -7,10 +7,11 @@
 * Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]
 * Fix - Prevent mascot image to get blown up out of proportions to a larger size on buggy CSS loading. [131910]
 
-= [4.9.13] TBD =
+= [4.9.13] 2019-07-25 =
 
 * Tweak - Update Freemius library to `2.3.0` [130281]
 * Fix - Location filtering for Context class moved out of construct, resolving lots of navigation problems across The Events Calendar [130754]
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.12] 2019-07-03 =
 

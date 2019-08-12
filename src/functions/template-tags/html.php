@@ -7,7 +7,7 @@ use Tribe\Utils\Element_Classes;
 /**
  * Parse input values into a valid array of classes to be used in the templates.
  *
- * @since  TBD
+ * @since  4.9.13
  *
  * @param  mixed $classes,... unlimited Any amount of params to be rendered as classes.
  *
@@ -21,7 +21,7 @@ function tribe_get_classes() {
 /**
  * Parses input values into a valid class html attribute to be used in the templates.
  *
- * @since  TBD
+ * @since  4.9.13
  *
  * @param  mixed $classes,... unlimited Any amount of params to be rendered as classes.
  *
