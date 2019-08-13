@@ -16,7 +16,7 @@ class Element_Classes {
 	 *
 	 * @var array
 	 */
-	protected $result = [];
+	protected $results = [];
 
 	/**
 	 * Stores the arguments passed.
