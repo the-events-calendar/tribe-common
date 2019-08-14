@@ -108,11 +108,11 @@ before_script:
   - wp core update-db
   - wp plugin deactivate --all
 
-  # pull the correct common branch we are testing
+  # Pull the correct common branch we are testing.
   - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
-
   - cd $PLUGIN_DIR
-  - git checkout origin/$CURRENT_BRANCH
+  # Reset HARD first to avoid changes we might have done while updating TEC stopping the checkout.
+  - git reset HEAD --hard && git checkout origin/$CURRENT_BRANCH
   - composer update
 
   # get to the common dir
