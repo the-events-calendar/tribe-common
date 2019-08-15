@@ -2,19 +2,22 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.9.15] TBD =
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
-* Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [129061]
+* Tweak - Add IDs to radio fields so we can target them with tribe-dependency [122304]
+* Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [131353] [129061]
 
 = [4.9.14] TBD =
 
+* Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]
+* Fix - Prevent mascot image to get blown up out of proportions to a larger size on buggy CSS loading. [131910]
 
-
-= [4.9.13] TBD =
+= [4.9.13] 2019-07-25 =
 
 * Tweak - Update Freemius library to `2.3.0` [130281]
 * Fix - Location filtering for Context class moved out of construct, resolving lots of navigation problems across The Events Calendar [130754]
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.12] 2019-07-03 =
 

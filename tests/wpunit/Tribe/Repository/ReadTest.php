@@ -3,8 +3,6 @@ namespace Tribe\Repository;
 
 require_once  __DIR__ . '/ReadTestBase.php';
 
-use Tribe__Repository as Read_Repository;
-
 class ReadTest extends ReadTestBase {
 
 	/**
@@ -1014,5 +1012,33 @@ class ReadTest extends ReadTestBase {
 		$this->assertEquals( [], $query->posts );
 		$this->assertEquals( 0, $query->found_posts );
 		$this->assertEquals( $num_queries, $wpdb->num_queries );
+	}
+
+	/**
+	 * It should allow voiding a repository queries
+	 *
+	 * @test
+	 */
+	public function should_allow_voiding_a_repository_queries() {
+		$books = static::factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
+
+		$queries_count = $this->queries()->countQueries();
+
+		$repository = $this->repository();
+
+		$repository->void_query( true );
+
+		$results = $repository->all();
+
+		$this->assertEquals( [], $results );
+		$this->assertEquals( $queries_count, $this->queries()->countQueries() );
+
+		$repository->void_query( false );
+
+		$results = $repository->all();
+
+		$this->assertCount( 2, $results );
+		$this->assertContainsOnlyInstancesOf( \WP_Post::class, $results );
+		$this->assertEquals( $queries_count + 1, $this->queries()->countQueries() );
 	}
 }
