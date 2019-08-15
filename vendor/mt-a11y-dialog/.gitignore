@@ -1,0 +1,6 @@
+/nbproject/
+.DS_Store
+node_modules
+*.log
+_book
+/.idea/

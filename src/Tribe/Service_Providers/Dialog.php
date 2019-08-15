@@ -37,7 +37,6 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	private function hooks() {
-		bdump('hooks');
 		add_action( 'tribe_common_loaded', [ $this, 'add_dialog_assets' ] );
 		/**
 		 * Allows plugins to hook into the hooks action to register their own hooks
@@ -55,7 +54,6 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function add_dialog_assets() {
-		bdump('add_dialog_assets');
 		$main = \Tribe__Main::instance();
 
 		tribe_asset(
@@ -69,7 +67,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		tribe_asset(
 			$main,
 			'mt-a11y-dialog',
-			'mt-a11y-dialog.js',
+			'vendor/mt-a11y-dialog/a11y-dialog.js',
 			[ 'underscore', 'tribe-common' ],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
 		);

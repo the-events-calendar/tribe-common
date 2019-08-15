@@ -10,6 +10,7 @@ tribe.dialog = tribe.dialog || {};
 			bodyLock: true, // lock the body while dialog open?
 			closeButtonAriaLabel: 'Close this dialog window', // aria label for close button
 			closeButtonClasses: 'tribe-dialog__close-button', // classes for close button
+			contentWrapperClasses: 'tribe-dialog__content__wrapper', // dialog content classes
 			contentClasses: 'tribe-dialog__content', // dialog content classes
 			effect: 'none',
 			effectEasing: 'ease-in-out', // a css easing string

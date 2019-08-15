@@ -409,7 +409,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function validate() {
-
 			do_action( 'tribe_settings_validate_before_checks' );
 
 			// check that the right POST && variables are set
@@ -452,10 +451,10 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				if ( is_array( $fields ) ) {
 					// loop through the fields and validate them
 					foreach ( $fields as $field_id => $field ) {
+
 						// get the value
 						$value = ( isset( $_POST[ $field_id ] ) ) ? $_POST[ $field_id ] : null;
 						$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
-
 						// make sure it has validation set up for it, else do nothing
 						if (
 							( ! isset( $field['conditional'] ) || $field['conditional'] )
@@ -464,7 +463,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 							// some hooks
 							do_action( 'tribe_settings_validate_field', $field_id, $value, $field );
 							do_action( 'tribe_settings_validate_field_' . $field_id, $value, $field );
+							if ( 'emailAlertsList' === $field_id ) {
 
+							}
 							// validate this field
 							$validate = new Tribe__Validate( $field_id, $field, $value );
 
@@ -500,7 +501,6 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function save() {
-
 			// some hooks
 			do_action( 'tribe_settings_save' );
 			do_action( 'tribe_settings_save_tab_' . $this->currentTab );
@@ -516,6 +516,9 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			 */
 			if ( ! empty( $this->validated ) ) {
 				foreach ( $this->validated as $field_id => $validated_field ) {
+					if ( 'emailAlertsList' === $field_id ) {
+
+					}
 					// get the value and filter it
 					$value = $validated_field->value;
 					$value = apply_filters( 'tribe_settings_save_field_value', $value, $field_id, $validated_field );

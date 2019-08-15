@@ -26,6 +26,7 @@ vendor/*
 !vendor/tooltipster
 !vendor/tribe-select2
 !vendor/freemius
+!vendor/mt-a11y-dialog
 vendor/freemius/languages/*.po
 
 # Resources Ignoring

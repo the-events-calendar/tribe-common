@@ -1,16 +1,18 @@
 /* = Dialogs
 This can include modals, toasters, confirms. alerts.
 ============================ */
-:root {
-	--dialog-background-color: #FFF;
-	--dialog-close-background: #000;
-	--dialog-close-bottom: auto;
-	--dialog-close-color: #BABABA;
-	--dialog-close-left: auto;
-	--dialog-close-right: 1em;
-	--dialog-close-top: 1em;
-	--dialog-overlay-color: #FFF;
-	--dialog-close-height: 2em;
+.tribe-dialog {
+	--tribe-dialog-background-color: #FFF;
+	--tribe-dialog-close-background: #FFF;
+	--tribe-dialog-close-border-color: #BABABA;
+	--tribe-dialog-close-bottom: auto;
+	--tribe-dialog-close-color: #BABABA;
+	--tribe-dialog-close-height: 1em;
+	--tribe-dialog-close-left: auto;
+	--tribe-dialog-close-right: 1em;
+	--tribe-dialog-close-top: 1em;
+	--tribe-dialog-overlay-color: aliceblue;
+	--tribe-dialog-content-border-radius: 4px;
 }
 
 /* The dialog/popup/modal itself */
@@ -30,40 +32,68 @@ This can include modals, toasters, confirms. alerts.
 
 /* The overlay */
 .tribe-dialog__overlay {
-	background-color: var(--dialog-overlay-color);
+	background-color: var(--tribe-dialog-overlay-color);
 	height: 110vh;
 	opacity: .9;
 	position: fixed;
 	width: 100vw;
 }
 
-/* The "close" button */
-.tribe-dialog__close-button {
-	background: var(--dialog-close-background);
-	bottom: var(--dialog-close-bottom);
-	border-radius: 100%;
-	color: var(--dialog-close-color);
-	height: var(--dialog-close-height);
-	width: var(--dialog-close-height);
-	left: var(--dialog-close-left);
-	padding: .25em;
+/* Content container */
+.tribe-dialog__content__wrapper {
+	background-color: var(--tribe-dialog-background-color);
+	border-radius: var(--tribe-dialog-content-border-radius);
+	box-shadow: 0 2px 54px 0 rgba(0,0,0,0.1);
+	left: 50%;
+	min-width: 50%;
+	padding: 16px 28px;
 	position: absolute;
-	right: var(--dialog-close-right);
-	top: var(--dialog-close-top);
+	top: 50%;
+	transform: translateY(-50%) translateX(-50%);
 
-	&:after {
-		content:'X';
-		line-height: var(--dialog-close-height);
-
+	div[role="document"] {
+		align-items: flex-end;
+		display: flex;
+		flex-flow: column;
+		justify-content: space-between;
 	}
 }
 
-/* Content container */
-.tribe-dialog__content {
-	background-color: var(--dialog-background-color);
+/* The "close" button */
+.tribe-dialog__close-button {
+	background: var(--tribe-dialog-close-background);
+	border-radius: 50%;
+	border: 1px solid var(--tribe-dialog-close-border-color);
+	cursor: pointer;
+	display: inline-block;
+	font-size: 16px;
+	height: var(--tribe-dialog-close-height);
+	line-height: var(--tribe-dialog-close-height);
+	padding: 0;
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateY(-50%) translateX(-50%);
+	width: var(--tribe-dialog-close-height);
 
+	&:after{
+		color: var(--tribe-dialog-close-color);
+		content: '|';
+		left: 50%;
+		position: absolute;
+		top: 50%;
+		transform: rotate(-45deg) translateY(-50%) translateX(-50%);
+		width: calc( var(--tribe-dialog-close-height) * .75 );
+	}
+
+	&:before{
+		color: var(--tribe-dialog-close-color);
+		content: '|';
+		left: 50%;
+		position: absolute;
+		top: 50%;
+		transform: rotate(45deg) translateY(-50%) translateX(-50%);
+		width: calc( var(--tribe-dialog-close-height) * .75 );
+	}
+}
+
+.tribe-dialog__content {
+	margin-right: calc(  var(--tribe-dialog-close-height) + var(--tribe-dialog-close-right, .5em) );
 }

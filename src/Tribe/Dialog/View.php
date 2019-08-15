@@ -38,7 +38,6 @@ class View extends \Tribe__Template {
 	 */
 	public function render_dialog( $message, $args = [] ) {
 		if ( empty( $message ) ) {
-			bdump('empty message');
 			return;
 		}
 
