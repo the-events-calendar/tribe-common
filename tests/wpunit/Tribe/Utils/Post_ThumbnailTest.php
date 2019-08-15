@@ -173,4 +173,19 @@ class Post_ThumbnailTest extends \Codeception\TestCase\WPTestCase {
 		$post_thumbnail = new Post_Thumbnail( $post_wo_thumbnail_id );
 		$this->assertFalse( $post_thumbnail->exists );
 	}
+
+	/**
+	 * It should throw if trying to set the exists property
+	 *
+	 * @test
+	 */
+	public function should_throw_if_trying_to_set_the_exists_property() {
+		$post = static::factory()->post->create();
+
+		$post_thumbnail = new Post_Thumbnail( $post );
+
+		$this->expectException( \InvalidArgumentException::class );
+
+		$post_thumbnail->exists = true;
+	}
 }

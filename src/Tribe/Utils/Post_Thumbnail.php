@@ -97,6 +97,10 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	 * {@inheritDoc}
 	 */
 	public function __set( $property, $value ) {
+		if ( 'exists' === $property ) {
+			throw new \InvalidArgumentException( 'The `Post_Thumbnail::exists` property cannot be set.' );
+		}
+
 		$this->offsetSet( $property, $value );
 	}
 
