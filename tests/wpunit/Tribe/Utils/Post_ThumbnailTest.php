@@ -157,7 +157,9 @@ class Post_ThumbnailTest extends \Codeception\TestCase\WPTestCase {
 	public function should_check_if_a_post_thumbnail_exists() {
 		list( $post_w_thumbnail_id, $thumbnail_id ) = $this->given_a_post_with_thumbnail();
 
-		$this->assertTrue( ( new Post_Thumbnail( $post_w_thumbnail_id ) )->exists() );
+		$post_thumbnail = new Post_Thumbnail( $post_w_thumbnail_id );
+		$this->assertTrue( $post_thumbnail->exists() );
+		$this->assertTrue( $post_thumbnail->exists );
 	}
 
 	/**
@@ -168,6 +170,7 @@ class Post_ThumbnailTest extends \Codeception\TestCase\WPTestCase {
 	public function should_check_if_a_post_thumbnail_does_not_exist() {
 		$post_wo_thumbnail_id = static::factory()->post->create();
 
-		$this->assertFalse( ( new Post_Thumbnail( $post_wo_thumbnail_id ) )->exists() );
+		$post_thumbnail = new Post_Thumbnail( $post_wo_thumbnail_id );
+		$this->assertFalse( $post_thumbnail->exists );
 	}
 }

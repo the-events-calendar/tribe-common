@@ -86,6 +86,10 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	 * {@inheritDoc}
 	 */
 	public function __get( $property ) {
+		if ( 'exists' === $property ) {
+			return $this->exists();
+		}
+
 		return $this->offsetGet( $property );
 	}
 
