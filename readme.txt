@@ -2,9 +2,12 @@
 
 == Changelog ==
 
-= [4.9.15] TBD =
+= [4.9.16] TBD =
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
+
+= [4.9.15] TBD =
+
 * Tweak - Add IDs to radio fields so we can target them with tribe-dependency [122304]
 * Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [131353] [129061]
 
