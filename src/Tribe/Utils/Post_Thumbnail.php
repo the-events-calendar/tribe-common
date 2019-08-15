@@ -12,7 +12,7 @@
  * $large_url = $post_thumbnail->large->url;
  * ```
  *
- * @since   TBD
+ * @since   4.9.14
  * @package Tribe\Utils
  */
 
@@ -24,14 +24,14 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Post_Thumbnail
  *
- * @since   TBD
+ * @since   4.9.14
  * @package Tribe\Utils
  */
 class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * An array of the site image sizes, including the `full` one.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @var array
 	 */
@@ -40,7 +40,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * The post ID this images collection is for.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @var int
 	 */
@@ -49,7 +49,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * The post thumbnail data.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @var array
 	 */
@@ -88,7 +88,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * Fetches and returns the image sizes registered on the site, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @return array An array of the registered image sizes.
 	 */
@@ -102,7 +102,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		/**
 		 * Filters the image sizes the `Tribe\Utils\Post_Thumbnail` class will manage and fetch data for.
 		 *
-		 * @since TBD
+		 * @since 4.9.14
 		 *
 		 * @param array $image_sizes All the available image sizes; this includes the default and the intermediate ones.
 		 */
@@ -114,7 +114,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * Returns the data about the post thumbnail, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @return array An array of objects containing the post thumbnail data.
 	 */
@@ -166,7 +166,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		 *
 		 * Note that the thumbnail data will be cast to an object after this filtering.
 		 *
-		 * @since TBD
+		 * @since 4.9.14
 		 *
 		 * @param array $thumbnail_data The thumbnail data for the post.
 		 * @param int   $post_id        The ID of the post the data is for.
@@ -217,7 +217,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * Returns an array representation of the post thumbnail data.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 *
 	 * @return array An array representation of the post thumbnail data.
