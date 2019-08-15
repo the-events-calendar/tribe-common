@@ -83,6 +83,7 @@
 				'tribe_events_calendar_options',
 				'permalink_structure',
 				'rewrite_rules',
+				'start_of_week',
 			);
 			if ( in_array( $option_name, $triggers, true ) ) {
 				$this->cache->set_last_occurrence( self::TRIGGER_SAVE_POST );

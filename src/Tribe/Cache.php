@@ -157,23 +157,31 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string $action
+	 * Returns the time of an action last occurrence.
 	 *
-	 * @return int
+	 * @param string $action The action to return the time for.
+	 *
+	 * @since TBD Changed the return value type from `int` to `float`.
+	 *
+	 * @return float The time (microtime) an action last occurred, or the current microtime if it never occurred.
 	 */
 	public function get_last_occurrence( $action ) {
-		return (int) get_option( 'tribe_last_' . $action, time() );
+		return (float) get_option( 'tribe_last_' . $action, microtime( true ) );
 	}
 
 	/**
-	 * @param string $action
-	 * @param int    $timestamp
+	 * Sets the time (microtime) for an action last occurrence.
+	 *
+	 * @since TBD Changed the type of the time stored from an `int` to a `float`.
+	 *
+	 * @param string $action The action to record the last occurrence of.
+	 * @param int    $timestamp The timestamp to assign to the action last occurrence or the current time (microtime).
 	 */
 	public function set_last_occurrence( $action, $timestamp = 0 ) {
 		if ( empty( $timestamp ) ) {
-			$timestamp = time();
+			$timestamp = microtime( true );
 		}
-		update_option( 'tribe_last_' . $action, (int) $timestamp );
+		update_option( 'tribe_last_' . $action, (float) $timestamp );
 	}
 
 	/**
