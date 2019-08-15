@@ -320,7 +320,7 @@ interface Tribe__Repository__Interface
 	/**
 	 * Voids the repositories queries preventing the repository from running any query.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @param bool $void Whether to void the repository queries or not.
 	 *

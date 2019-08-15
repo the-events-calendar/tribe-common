@@ -4,7 +4,7 @@
  *
  * The trait will also implement the `ArrayAccess`, `Iterator` and `Countable` interface methods.
  *
- * @since   TBD
+ * @since   4.9.14
  * @package Tribe\Utils
  */
 
@@ -12,7 +12,7 @@ namespace Tribe\Utils;
 
 /**
  * Trait Collection_Trait
- * @since   TBD
+ * @since   4.9.14
  * @package Tribe\Utils
  */
 trait Collection_Trait {
@@ -26,7 +26,7 @@ trait Collection_Trait {
 	/**
 	 * Returns the first item in the collection.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @return mixed The first item in the collection.
 	 */
@@ -39,7 +39,7 @@ trait Collection_Trait {
 	/**
 	 * Returns the last item in the collection.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @return mixed The last item in the collection.
 	 */
@@ -52,7 +52,7 @@ trait Collection_Trait {
 	/**
 	 * Returns the nth item in the collection.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @param int $n The 1-based index of the item to return. It's not 0-based, `1` will return the first item.
 	 *
