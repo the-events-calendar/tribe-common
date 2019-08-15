@@ -161,7 +161,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @param string $action The action to return the time for.
 	 *
-	 * @since TBD Changed the return value type from `int` to `float`.
+	 * @since 4.9.14 Changed the return value type from `int` to `float`.
 	 *
 	 * @return float The time (microtime) an action last occurred, or the current microtime if it never occurred.
 	 */
@@ -172,7 +172,7 @@ class Tribe__Cache implements ArrayAccess {
 	/**
 	 * Sets the time (microtime) for an action last occurrence.
 	 *
-	 * @since TBD Changed the type of the time stored from an `int` to a `float`.
+	 * @since 4.9.14 Changed the type of the time stored from an `int` to a `float`.
 	 *
 	 * @param string $action The action to record the last occurrence of.
 	 * @param int    $timestamp The timestamp to assign to the action last occurrence or the current time (microtime).

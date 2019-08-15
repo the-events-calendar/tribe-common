@@ -1869,12 +1869,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-testing-facilities",
-                "reference": "d66bdbe9908eec5cb2eee3983bb2703d019ff916"
+                "reference": "cafee8fd80728ecc85faefddfadc1e644a13c7a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/d66bdbe9908eec5cb2eee3983bb2703d019ff916",
-                "reference": "d66bdbe9908eec5cb2eee3983bb2703d019ff916",
+                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/cafee8fd80728ecc85faefddfadc1e644a13c7a0",
+                "reference": "cafee8fd80728ecc85faefddfadc1e644a13c7a0",
                 "shasum": ""
             },
             "require": {
@@ -1932,7 +1932,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2019-08-12T16:34:26+00:00"
+            "time": "2019-08-13T09:04:22+00:00"
         },
         {
             "name": "mustache/mustache",
@@ -6679,16 +6679,16 @@
         },
         {
             "name": "wp-cli/wp-config-transformer",
-            "version": "v1.2.5",
+            "version": "v1.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/wp-config-transformer.git",
-                "reference": "46c6c3622196c55ea9b94e735e8c408425de8944"
+                "reference": "1ca98343443a8e4585865db5f50e8e6121fee70b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-config-transformer/zipball/46c6c3622196c55ea9b94e735e8c408425de8944",
-                "reference": "46c6c3622196c55ea9b94e735e8c408425de8944",
+                "url": "https://api.github.com/repos/wp-cli/wp-config-transformer/zipball/1ca98343443a8e4585865db5f50e8e6121fee70b",
+                "reference": "1ca98343443a8e4585865db5f50e8e6121fee70b",
                 "shasum": ""
             },
             "require": {
@@ -6697,7 +6697,7 @@
             "require-dev": {
                 "composer/composer": "^1.5.6",
                 "phpunit/phpunit": "^6.5.5",
-                "wp-coding-standards/wpcs": "^0.14.0"
+                "wp-coding-standards/wpcs": "^0.14.0 || ^1.0.0 || ^2.0.0"
             },
             "type": "library",
             "autoload": {
@@ -6716,7 +6716,7 @@
                 }
             ],
             "description": "Programmatically edit a wp-config.php file.",
-            "time": "2019-04-01T15:03:00+00:00"
+            "time": "2019-07-23T17:24:43+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
