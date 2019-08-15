@@ -38,7 +38,7 @@
 	.tribe-common-form-control-slider__input {
 		appearance: none;
 		background-color: transparent;
-		border: none;
+		border: 0;
 		cursor: pointer;
 		display: inline-block;
 		margin: 0;
@@ -107,6 +107,24 @@
 		.tribe-common-form-control-slider__label {
 			display: block;
 			margin: 0 0 6px;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Sliders Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ----------------------------------------------------------------------------- */
+
+	#top.tribe-theme-enfold & {
+
+		.tribe-common-form-control-slider__label {
+			font-weight: var(--font-weight-regular);
+			font-size: var(--font-size-1);
 		}
 	}
 }

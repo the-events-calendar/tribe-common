@@ -137,23 +137,21 @@ table.plugins {
 		}
 	}
 
-	.tribe-field-checkbox_bool p.tooltip {
-		display: initial;
-	}
+	.tribe-field-radio,
+	.tribe-field-checkbox_list {
+		label {
+			display:     block;
+			margin:      5px 0 5px 20px;
+			text-indent: -20px;
 
-	.tribe-field-radio label,
-	.tribe-field-checkbox_list label {
-		display: block;
-		margin: 5px 0 5px 20px;
-		text-indent: -20px;
+			> p {
+				text-indent: 0;
+				margin-left: 1px;
+			}
 
-		> p {
-			text-indent: 0;
-			margin-left: 1px;
-		}
-
-		input {
-			margin-right: 5px;
+			input {
+				margin-right: 5px;
+			}
 		}
 	}
 
@@ -166,15 +164,6 @@ table.plugins {
 	.tribe-settings-form-wrap {
 
 		fieldset {
-
-			&#tribe-field-stylesheetOption {
-
-				.description {
-					color: #999;
-					margin-left: 1px;
-				}
-			}
-
 			.description {
 				margin-left: 0;
 				max-width: 450px;
@@ -185,6 +174,12 @@ table.plugins {
 				margin-bottom: 18px;
 			}
 		}
+		#tribe-field-stylesheetOption {
+				.description {
+					color: #999;
+					margin-left: 1px;
+				}
+			}
 
 		h3 {
 			background-color: #f9f9f9;
@@ -203,7 +198,6 @@ table.plugins {
 }
 
 .tribe_settings {
-
 	.tribe-field-indent {
 		margin-left: 245px;
 	}
@@ -610,7 +604,6 @@ table.plugins {
 }
 
 .system-info-copy {
-
 	.system-info-copy-btn {
 		padding: 6px;
 
@@ -1248,6 +1241,7 @@ a.tribe-rating-link {
 
 .api-check {
 	padding: 1em;
+	min-height: 100px;
 
 	& + .notice-dismiss {
 
@@ -1272,24 +1266,17 @@ a.tribe-rating-link {
 	.tribe-mascot {
 		bottom: 0;
 		display: none;
-		padding: 1rem;
+		padding: 0 1rem 0 0;
 		position: absolute;
 		right: 0;
 		top: 0;
-		width: 125px;
-
-		&:before {
-			content: '';
-			display: inline-block;
-			height: 100%;
-			width: 1%;
-			vertical-align: middle;
-		}
 
 		img {
 			display: inline-block;
-			max-height: 100%;
-			max-width: 96%;
+			max-height: 150px;
+			max-width: 150px;
+			height: 100%;
+			width: auto;
 			vertical-align: middle;
 		}
 

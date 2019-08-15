@@ -26,15 +26,16 @@
 	.tribe-common-form-control-text__input {
 		@mixin desktop-body-1;
 
-		border: none;
+		border: 0;
 		border-bottom: 1px solid var(--color-border-default);
+		height: auto;
 		padding: var(--spacer-2) var(--spacer-6) var(--spacer-2) 0;
 		width: 100%;
 
 		@media (--viewport-medium) {
 			@mixin desktop-body-2;
 
-			border: none;
+			border: 0;
 			padding: var(--spacer-4) var(--spacer-4) var(--spacer-4) var(--spacer-8);
 		}
 
@@ -45,13 +46,20 @@
 
 		&:focus {
 			border-bottom-color: var(--color-border-active);
-			outline: none;
+			outline: 0;
 		}
 	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Form Control: Text Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
 
 	/* -------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ------------------------------------------------------------------------- */
+
 	.tribe-theme-twentyseventeen & {
 
 		.tribe-common-form-control-text__input {
@@ -62,23 +70,27 @@
 	/* -------------------------------------------------------------------------
 	 * Theme Overrides - Enfold
 	 * ------------------------------------------------------------------------- */
-	body#top & {
+
+	#top.tribe-theme-enfold & {
 
 		.tribe-common-form-control-text__input {
 			@mixin desktop-body-1;
 
+			border: 0;
 			border-bottom: 1px solid var(--color-border-default);
-			padding: var(--spacer-2) var(--spacer-4) var(--spacer-2) 0;
+			padding: var(--spacer-2) var(--spacer-6) var(--spacer-2) 0;
 			width: 100%;
 
 			@media (--viewport-medium) {
 				@mixin desktop-body-2;
 
-				padding: var(--spacer-2) 18px;
+				border: 0;
+				padding: var(--spacer-4) var(--spacer-4) var(--spacer-4) var(--spacer-8);
 			}
 
-			&::placeholder {
-				color: var(--color-text-secondary);
+			&:focus {
+				border-bottom-color: var(--color-border-active);
+				box-shadow: none;
 			}
 		}
 	}
