@@ -5,7 +5,6 @@
 = [4.9.15] 2019-08-22 =
 
 * Tweak - Add IDs to radio fields so we can target them with tribe-dependency [131428]
-* Tweak - Added filters: `tribe_post_thumbnail_data`
 * Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [131353]
 
 = [4.9.14] TBD =
