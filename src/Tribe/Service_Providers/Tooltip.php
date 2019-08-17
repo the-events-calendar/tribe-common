@@ -38,7 +38,7 @@ class Tooltip extends \tad_DI52_ServiceProvider {
 		$main = \Tribe__Main::instance();
 		tribe_asset(
 			$main,
-			'tribe-tooltip-css',
+			'tribe-tooltip',
 			'tooltip.css',
 			[ 'tribe-common' ],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
@@ -46,7 +46,7 @@ class Tooltip extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$main,
-			'tribe-tooltip-js',
+			'tribe-tooltip',
 			'tooltip.js',
 			[ 'tribe-common' ],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]

@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add new tribe-dialog object. [129434]
+
 = [4.9.16] TBD =
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
@@ -66,7 +70,7 @@
 
 = [4.9.8] 2019-05-14 =
 
-* Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
+* Feature - Add new `tooltip.view` PHP class to render new tooltips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
 * Tweak - Added filters: `tribe_context_locations`, `tribe_tooltip_template`, `tribe_tooltip_html`
 * Tweak - Changed views: `tooltip/tooltip`
 

@@ -1,10 +1,10 @@
 <?php
 /**
- * Dialog View Template
- * The base template for Tribe Dialogs.
- *  All event handling is in `dialog-script.php`
+ * Dialog Modal View Template
+ * The base template for Tribe Dialog Modals.
+ *  All event handling is in `modal-script.php`
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/dialogs/dialog.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/dialogs/modal.php
  *
  * @since TBD
  *

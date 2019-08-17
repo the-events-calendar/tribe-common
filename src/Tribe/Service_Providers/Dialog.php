@@ -58,7 +58,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$main,
-			'tribe-dialog-css',
+			'tribe-dialog',
 			'dialog.css',
 			[],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
@@ -69,14 +69,6 @@ class Dialog extends \tad_DI52_ServiceProvider {
 			'mt-a11y-dialog',
 			'vendor/mt-a11y-dialog/a11y-dialog.js',
 			[ 'underscore', 'tribe-common' ],
-			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
-		);
-
-		tribe_asset(
-			$main,
-			'tribe-dialog-js',
-			'dialog.js',
-			[ 'mt-a11y-dialog' ],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
 		);
 

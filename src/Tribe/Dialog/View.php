@@ -2,8 +2,6 @@
 
 namespace Tribe\Dialog;
 
-use function \GuzzleHttp\json_decode;
-
 /**
  * Class View
  *
@@ -13,10 +11,8 @@ class View extends \Tribe__Template {
 
 	/**
 	 * View constructor
-	 *
-	 * @param string $type
 	 */
-	public function __construct( $type = 'dialog' ) {
+	public function __construct() {
 		$this->set_template_origin( \Tribe__Main::instance() );
 		$this->set_template_folder( 'src/views/dialog' );
 
@@ -28,22 +24,226 @@ class View extends \Tribe__Template {
 	}
 
 	/**
-	 * Public wrapper for build method
+	 * Public wrapper for build method.
+	 * Contains all the logic/validation checks.
 	 *
 	 * @since TBD
 	 *
-	 * @param array|string $message Array of messages or single message as string.
-	 * @param array $args Extra arguments.
-	 * @return string A string of html for the dialog.
+	 * @param string $content Content as an HTML string.
+	 * @param string  $id     The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
+	 * @param array $args     {
+	 *     List of arguments to override dialog template.
+	 *
+	 *     @var string  $button_text             The text for the dialog trigger button ("Open the dialog window").
+	 *     @var string  $content_classes         The dialog content classes ("tribe-dialog__content").
+	 *     @var array   $context                 Any additional context data you need to expose to this file (optional).
+	 *     @var string  $id                      The unique ID for this dialog (`uniqid()`)
+	 *     @var string  $template                The dialog template name (dialog).
+	 *     @var string  $title                   The dialog title (optional).
+	 *     @var string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
+	 *
+	 *     Dialog library option overrides.
+	 *
+	 *     @var string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
+	 *     @var string  $body_lock               Lock the body while dialog open (false)?
+	 *     @var string  $close_button_aria_label Aria label for the close button ("Close this dialog window").
+	 *     @var string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button").
+	 *     @var string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper").
+	 *     @var string  $effect                  CSS effect on open. none or fade (optional).
+	 *     @var string  $effect_easing           A css easing string to apply ("ease-in-out").
+	 *     @var int     $effect_speed            CSS effect speed in milliseconds (optional).
+	 *     @var string  $overlay_classes         The dialog overlay classes ("tribe-dialog__overlay").
+	 *     @var boolean $overlay_click_closes    If clicking the overlay closes the dialog (false).
+	 *     @var string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
+	 * }
+	 *
+	 * @return string An HTML string of the dialog.
 	 */
-	public function render_dialog( $message, $args = [] ) {
-		if ( empty( $message ) ) {
-			return;
+	public function render_dialog( $content, $args = [], $id = null, $echo = true ) {
+		// Check for content to be passed.
+		if ( empty( $content ) ) {
+			return '';
 		}
 
-		$html = $this->build_dialog( $message, $args );
+		// Generate an ID if we weren't passed one.
+		if ( is_null( $id ) ) {
+			$id = \uniqid();
+		}
 
-		return $html;
+		$html = $this->build_dialog( $content, $id, $args );
+
+		if ( ! $echo ) {
+			return $html;
+		}
+
+		echo $html;
+	}
+
+	/**
+	 * Syntactic sugar for `render_dialog()` to make creating modals easier.
+	 * Adds sensible defaults for modals.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $content Content as an HTML string.
+	 * @param string $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
+	 * @param array  $args    {
+	 *     List of arguments to override dialog template.
+	 *
+	 *     @var string  $button_text             The text for the dialog trigger button ("Open the modal window").
+	 *     @var string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-modal__content").
+	 *     @var array   $context                 Any additional context data you need to expose to this file (optional).
+	 *     @var string  $id                      The unique ID for this dialog (`uniqid()`)
+	 *     @var string  $template                The dialog template name (modal).
+	 *     @var string  $title                   The dialog title (optional).
+	 *     @var string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
+	 *
+	 *     Dialog library option overrides.
+	 *
+	 *     @var string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override ("body").
+	 *     @var string  $body_lock               Lock the body while dialog open (true)?
+	 *     @var string  $close_button_aria_label Aria label for the close button ("Close this modal window").
+	 *     @var string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button tribe-modal__close-button").
+	 *     @var string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper tribe-modal__wrapper").
+	 *     @var string  $effect                  CSS effect on open. none or fade ("fade").
+	 *     @var string  $effect_easing           A css easing string to apply ("ease-in-out").
+	 *     @var int     $effect_speed            CSS effect speed in milliseconds (300).
+	 *     @var string  $overlay_classes         The dialog overlay classes ("tribe-dialog__overlay tribe-modal__overlay").
+	 *     @var boolean $overlay_click_closes    If clicking the overlay closes the dialog (true).
+	 *     @var string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
+	 * }
+	 *
+	 * @return string An HTML string of the dialog.
+	 */
+	public function render_modal( $content, $args = [], $id = null, $echo = true ) {
+		$default_args = [
+			'append_target'           => 'body',
+			'body_lock'               => true,
+			'button_text'             => 'Open the modal window',
+			'close_button_aria_label' => 'Close this modal window',
+			'close_button_classes'    => 'tribe-dialog__close-button tribe-modal__close-button',
+			'content_classes'         => 'tribe-dialog__content tribe-modal__content',
+			'content_wrapper_classes' => 'tribe-dialog__wrapper tribe-modal__wrapper',
+			'effect'                  => 'fade',
+			'effect_speed'            => 300,
+			'overlay_classes'         => 'tribe-dialog__overlay tribe-modal__overlay',
+			'overlay_click_closes'    => true,
+			'template'                => 'modal',
+		];
+
+		$args = wp_parse_args( $args, $default_args );
+
+		$this->render_dialog( $content, $args, $id, $echo );
+	}
+
+	/**
+	 * Syntactic sugar for `render_dialog()` to make creating custom confirmation dialogs easier.
+	 * Adds sensible defaults for confirmation dialogs.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $content Content as an HTML string.
+	 * @param string $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
+	 * @param array  $args    {
+	 *     List of arguments to override dialog template.
+	 *
+	 *     @var string  $button_text             The text for the dialog trigger button ("Open the dialog window").
+	 *     @var string  $cancel_button_text      Text for the "Cancel" button ("Cancel").
+	 *     @var string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-confirm__content").
+	 *     @var string  $continue_button_text    Text for the "Continue" button ("Confirm").
+	 *     @var array   $context                 Any additional context data you need to expose to this file (optional).
+	 *     @var string  $id                      The unique ID for this dialog (`uniqid()`)
+	 *     @var string  $template                The dialog template name (confirm).
+	 *     @var string  $title                   The dialog title (optional).
+	 *     @var string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
+	 *
+	 *     Dialog library option overrides.
+	 *
+	 *     @var string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
+	 *     @var string  $body_lock               Lock the body while dialog open (true)?
+	 *     @var string  $close_button_aria_label Aria label for the close button (optional).
+	 *     @var string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button--hidden").
+	 *     @var string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper tribe-confirm__wrapper").
+	 *     @var string  $effect                  CSS effect on open. none or fade (optional).
+	 *     @var string  $effect_easing           A css easing string to apply ("ease-in-out").
+	 *     @var int     $effect_speed            CSS effect speed in milliseconds (optional).
+	 *     @var string  $overlay_classes         The dialog overlay classes ("tribe-dialog__overlay tribe-confirm__overlay").
+	 *     @var boolean $overlay_click_closes    If clicking the overlay closes the dialog (false).
+	 *     @var string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
+	 * }
+	 *
+	 * @return string An HTML string of the dialog.
+	 */
+	public function render_confirm( $content, $args = [], $id = null, $echo = true ) {
+		$default_args = [
+			'body_lock'               => true,
+			'cancel_button_text'      => 'Cancel',
+			'continue_button_text'    => 'Confirm',
+			'close_button_aria_label' => '',
+			'close_button_classes'    => 'tribe-dialog__close-button--hidden',
+			'content_classes'         => 'tribe-dialog__content tribe-confirm__content',
+			'content_wrapper_classes' => 'tribe-dialog__wrapper tribe-confirm__wrapper',
+			'overlay_classes'         => 'tribe-dialog__overlay tribe-confirm__overlay',
+			'template'                => 'confirm',
+		];
+
+		$args = wp_parse_args( $args, $default_args );
+
+		$this->render_dialog( $content, $args, $id, $echo );
+	}
+
+	/**
+	 * Syntactic sugar for `render_dialog()` to make creating custom alerts easier.
+	 * Adds sensible defaults for alerts.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $content Content as an HTML string.
+	 * @param string $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
+	 * @param array  $args    {
+	 *     List of arguments to override dialog template.
+	 *
+	 *     @var string  $alert_button_text       Text for the "OK" button ("OK").
+	 *     @var string  $button_text             The text for the dialog trigger button ("Open the dialog window").
+	 *     @var string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-alert__content").
+	 *     @var array   $context                 Any additional context data you need to expose to this file (optional).
+	 *     @var string  $id                      The unique ID for this dialog (`uniqid()`)
+	 *     @var string  $template                The dialog template name (alert).
+	 *     @var string  $title                   The dialog title (optional).
+	 *     @var string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
+	 *
+	 *     Dialog library option overrides.
+	 *
+	 *     @var string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
+	 *     @var string  $body_lock               Lock the body while dialog open (true)?
+	 *     @var string  $close_button_aria_label Aria label for the close button (optional).
+	 *     @var string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button--hidden").
+	 *     @var string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper tribe-alert__wrapper").
+	 *     @var string  $effect                  CSS effect on open. none or fade (optional).
+	 *     @var string  $effect_easing           A css easing string to apply ("ease-in-out").
+	 *     @var int     $effect_speed            CSS effect speed in milliseconds (optional).
+	 *     @var string  $overlay_classes         The dialog overlay classes ("tribe-dialog__overlay tribe-alert__overlay").
+	 *     @var boolean $overlay_click_closes    If clicking the overlay closes the dialog (false).
+	 *     @var string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
+	 * }
+	 *
+	 * @return string An HTML string of the dialog.
+	 */
+	public function render_alert( $content, $args = [], $id = null, $echo = true ) {
+		$default_args = [
+			'alert_button_text'       => 'OK',
+			'body_lock'               => true,
+			'close_button_aria_label' => '',
+			'close_button_classes'    => 'tribe-dialog__close-button--hidden',
+			'content_classes'         => 'tribe-dialog__content tribe-alert__content',
+			'content_wrapper_classes' => 'tribe-dialog__wrapper tribe-alert__wrapper',
+			'overlay_classes'         => 'tribe-dialog__overlay tribe-alert__overlay',
+			'template'                => 'alert',
+		];
+
+		$args = wp_parse_args( $args, $default_args );
+
+		$this->render_dialog( $content, $args, $id, $echo );
 	}
 
 	/**
@@ -51,73 +251,107 @@ class View extends \Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @param array|string $message array of messages or single message as string.
-	 * @param array $args Extra arguments, defaults include additional classes, template and context (for the filters).
-	 * @return string A string of html for the dialog.
+	 * @param string $content html dialog content.
+	 * @param string  $id     The unique ID for this dialog (`uniqid()`) Gets prepended to the data attributes.
+	 * @param array $args     {
+	 *     List of arguments to override dialog template.
+	 *
+	 *     @var string  $button_text             The text for the dialog trigger button ("Open the dialog window").
+	 *     @var string  $content_classes         The dialog content classes ("tribe-dialog__content").
+	 *     @var array   $context                 Any additional context data you need to expose to this file (optional).
+	 *     @var string  $id                      The unique ID for this dialog (`uniqid()`)
+	 *     @var string  $template                The dialog template name (dialog).
+	 *     @var string  $title                   The dialog title (optional).
+	 *     @var string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
+	 *
+	 *     Dialog library option overrides.
+	 *
+	 *     @var string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
+	 *     @var string  $body_lock               Lock the body while dialog open (false)?
+	 *     @var string  $close_button_aria_label Aria label for the close button ("Close this dialog window").
+	 *     @var string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button").
+	 *     @var string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper").
+	 *     @var string  $effect                  CSS effect on open. none or fade (optional).
+	 *     @var string  $effect_easing           A css easing string to apply ("ease-in-out").
+	 *     @var int     $effect_speed            CSS effect speed in milliseconds (optional).
+	 *     @var string  $overlay_classes         The dialog overlay classes ("tribe-dialog__overlay").
+	 *     @var boolean $overlay_click_closes    If clicking the overlay closes the dialog (false).
+	 *     @var string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
+	 * }
+	 * @return string An HTML string of the dialog.
 	 */
-	private function build_dialog( $content, $original_args ) {
+	private function build_dialog( $content, $id, $args ) {
 		$default_args = [
-			'classes'              => 'tribe-dialog',
-			'context'              => '',
-			'template'             => 'dialog',
-			'wrap_classes'         => '',
-			'trigger'              => '.tribe-dialog__trigger',
-			'dialog_options'       => [
-				'appendTarget'         => '', // the dialog will be inserted after the button, you could supply a selector string here to override
-				'bodyLock'             => true, // lock the body while dialog open?
-				'closeButtonAriaLabel' => 'Close this dialog window', // aria label for close button
-				'closeButtonClasses'   => 'tribe-dialog__close-button', // classes for close button
-				'contentClasses'       => 'tribe-dialog__content', // dialog content classes
-				'effect'               => 'none', // none or fade (for now)
-				'effectSpeed'          => 300, // effect speed in milliseconds
-				'effectEasing'         => 'ease-in-out', // a css easing string
-				'overlayClasses'       => 'tribe-dialog__overlay', // overlay classes
-				'overlayClickCloses'   => true, // clicking overlay closes dialog
-				'trigger'              => null, // the trigger for the dialog, can be selector string or element node
-				'wrapperClasses'       => 'tribe-dialog', // the wrapper class for the dialog
-			],
+			'button_text'             => 'Open the dialog window',
+			'content_classes'         => 'tribe-dialog__content', // dialog content classes
+			'context'                 => '',
+			'template'                => 'dialog',
+			'title'                   => '',
+			'trigger_classes'         => 'tribe_dialog_trigger',
+			// dialog options
+			'append_target'           => '', // the dialog will be inserted after the button, you could supply a selector string here to override
+			'body_lock'               => false, // lock the body while dialog open?
+			'close_button_aria_label' => 'Close this dialog window', // aria label for close button
+			'close_button_classes'    => 'tribe-dialog__close-button', // classes for close button
+			'content_wrapper_classes' => 'tribe-dialog__wrapper', // dialog content classes
+			'effect'                  => 'none', // none or fade (for now)
+			'effect_speed'            => 0, // effect speed in milliseconds
+			'effect_easing'           => 'ease-in-out', // a css easing string
+			'overlay_classes'         => 'tribe-dialog__overlay', // overlay classes
+			'overlay_click_closes'    => false, // clicking overlay closes dialog
+			'wrapper_classes'         => 'tribe-dialog', // the wrapper class for the dialog
 		];
 
-		$args = wp_parse_args( $original_args, $default_args );
-
-		// Check for message to be passed.
-		if ( empty( $content ) ) {
-			//return '';
-			$content = 'test?';
-		}
+		$args = wp_parse_args( $args, $default_args );
 
 		$args['content'] = $content;
+		$args['id'] = $id;
 
 		/**
-		 * Allow us to filter the dialog template
+		 * Allow us to filter the dialog arguments.
+		 *
+		 * @since  TBD
+		 *
+		 * @param array $args The dialog arguments.
+		 * @param string $content HTML content string.
+		 */
+		$args = apply_filters( 'tribe_dialog_args', $args, $content );
+
+		$template = $args['template'];
+		/**
+		 * Allow us to filter the dialog template name.
 		 *
 		 * @since  TBD
 		 *
 		 * @param string $template The dialog template name.
-		 * @param array $args Extra arguments, defaults include icon, classes, direction, and context.
+		 * @param array $args The dialog arguments.
 		 */
-		$template_name = apply_filters( 'tribe_dialog_template', $args['template'], $args );
-
-		ob_start();
-
-		$template = $this->template( $template_name, $args, false );
-
-		if ( ! empty( $template ) ) {
-			 echo $template;
-		}
-
-		$html = ob_get_clean();
+		$template_name = apply_filters( 'tribe_dialog_template', $template, $args );
 
 		/**
-		 * Allow us to filter the dialog output
+		 * Allow us to filter the dialog script name.
 		 *
 		 * @since  TBD
 		 *
-		 * @param string $html The dialog HTML.
-		 * @param string $content HTML string of content.
-		 * @param array $args Extra arguments, defaults include icon, classes, direction, and context.
+		 * @param string $script The dialog script name. Defaults to $template + 'script'
+		 * @param array $args The dialog arguments.
 		 */
-		return apply_filters( 'tribe_dialog_html', $html, $content, $args );
+		$script_name = apply_filters( 'tribe_dialog_script', $template . '-script', $args );
+		ob_start();
+
+		$this->template( $template_name, $args, true );
+		$this->template( $script_name, $args, true );
+
+		$html = ob_get_clean();
+		/**
+		 * Allow us to filter the dialog output (HTML string).
+		 *
+		 * @since  TBD
+		 *
+		 * @param string $html The dialog HTML string.
+		 * @param array $args The dialog arguments.
+		 */
+		return apply_filters( 'tribe_dialog_html', $html, $args );
 
 	}
 

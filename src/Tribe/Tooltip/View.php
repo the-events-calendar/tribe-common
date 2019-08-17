@@ -31,7 +31,15 @@ class View extends \Tribe__Template {
 	 * @since 4.9.8
 	 *
 	 * @param array|string $message Array of messages or single message as string.
-	 * @param array $args Extra arguments.
+	 * @param array $args {
+	 *     List of arguments to override tooltip template.
+	 *
+	 *     @var array  $context      Any additional context data you need to expose to this file (optional).
+	 *     @var string $classes      Additional classes for the icon span (optional).
+	 *     @var string $direction    Direction the tooltip should be from the trigger (down).
+	 *     @var string $icon         dashicon classname to use, without the `dashicon-` (info).
+	 *     @var string $wrap_classes Classes for the tooltip wrapper (optional).
+	 }
 	 * @return string A string of html for the tooltip.
 	 */
 	public function render_tooltip( $message, $args = [] ) {
@@ -50,15 +58,23 @@ class View extends \Tribe__Template {
 	 * @since 4.9.8
 	 *
 	 * @param array|string $message array of messages or single message as string.
-	 * @param array $args Extra arguments, defaults include icon, classes, direction, and context (for the filters).
+	 * @param array $args {
+	 *     List of arguments to override tooltip template.
+	 *
+	 *     @var array  $context      Any additional context data you need to expose to this file (optional).
+	 *     @var string $classes      Additional classes for the icon span (optional).
+	 *     @var string $direction    Direction the tooltip should be from the trigger (down).
+	 *     @var string $icon         dashicon classname to use, without the `dashicon-` (info).
+	 *     @var string $wrap_classes Classes for the tooltip wrapper (optional).
+	 }
 	 * @return string A string of html for the tooltip.
 	 */
 	private function build_tooltip( $message, $original_args ) {
 		$default_args = [
 			'classes'      => '',
-			'icon'         => 'info',
-			'direction'    => 'down',
 			'context'      => '',
+			'direction'    => 'down',
+			'icon'         => 'info',
 			'wrap_classes' => '',
 		];
 
