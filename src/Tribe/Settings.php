@@ -461,6 +461,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 						// get the value
 						$value = ( isset( $_POST[ $field_id ] ) ) ? $_POST[ $field_id ] : null;
 						$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
+
 						// make sure it has validation set up for it, else do nothing
 						if (
 							( ! isset( $field['conditional'] ) || $field['conditional'] )
@@ -505,6 +506,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function save() {
+
 			// some hooks
 			do_action( 'tribe_settings_save' );
 			do_action( 'tribe_settings_save_tab_' . $this->currentTab );
