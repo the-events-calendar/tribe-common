@@ -34,7 +34,10 @@ class View extends \Tribe__Template {
 	 * @param array $args     {
 	 *     List of arguments to override dialog template.
 	 *
+	 *     @var string  $button_id'              The ID for the trigger button (optional),
 	 *     @var string  $button_text             The text for the dialog trigger button ("Open the dialog window").
+	 *     @var string  $button_type'            The type for the trigger button (optinoal),
+	 *     @var string  $button_value'           The value for the trigger button (optional),
 	 *     @var string  $content_classes         The dialog content classes ("tribe-dialog__content").
 	 *     @var array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @var string  $id                      The unique ID for this dialog (`uniqid()`)
@@ -90,7 +93,10 @@ class View extends \Tribe__Template {
 	 * @param array  $args    {
 	 *     List of arguments to override dialog template.
 	 *
+	 *     @var string  $button_id'              The ID for the trigger button (optional),
 	 *     @var string  $button_text             The text for the dialog trigger button ("Open the modal window").
+	 *     @var string  $button_type'            The type for the trigger button (optinoal),
+	 *     @var string  $button_value'           The value for the trigger button (optional),
 	 *     @var string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-modal__content").
 	 *     @var array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @var string  $id                      The unique ID for this dialog (`uniqid()`)
@@ -147,7 +153,10 @@ class View extends \Tribe__Template {
 	 * @param array  $args    {
 	 *     List of arguments to override dialog template.
 	 *
+	 *     @var string  $button_id'              The ID for the trigger button (optional),
 	 *     @var string  $button_text             The text for the dialog trigger button ("Open the dialog window").
+	 *     @var string  $button_type'            The type for the trigger button (optinoal),
+	 *     @var string  $button_value'           The value for the trigger button (optional),
 	 *     @var string  $cancel_button_text      Text for the "Cancel" button ("Cancel").
 	 *     @var string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-confirm__content").
 	 *     @var string  $continue_button_text    Text for the "Continue" button ("Confirm").
@@ -204,7 +213,10 @@ class View extends \Tribe__Template {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @var string  $alert_button_text       Text for the "OK" button ("OK").
+	 *     @var string  $button_id'              The ID for the trigger button (optional),
 	 *     @var string  $button_text             The text for the dialog trigger button ("Open the dialog window").
+	 *     @var string  $button_type'            The type for the trigger button (optinoal),
+	 *     @var string  $button_value'           The value for the trigger button (optional),
 	 *     @var string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-alert__content").
 	 *     @var array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @var string  $id                      The unique ID for this dialog (`uniqid()`)
@@ -256,7 +268,10 @@ class View extends \Tribe__Template {
 	 * @param array $args     {
 	 *     List of arguments to override dialog template.
 	 *
+	 *     @var string  $button_id'              The ID for the trigger button (optional),
 	 *     @var string  $button_text             The text for the dialog trigger button ("Open the dialog window").
+	 *     @var string  $button_type'            The type for the trigger button (optinoal),
+	 *     @var string  $button_value'           The value for the trigger button (optional),
 	 *     @var string  $content_classes         The dialog content classes ("tribe-dialog__content").
 	 *     @var array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @var string  $id                      The unique ID for this dialog (`uniqid()`)
@@ -282,7 +297,11 @@ class View extends \Tribe__Template {
 	 */
 	private function build_dialog( $content, $id, $args ) {
 		$default_args = [
+			'button_id'               => '',
+			'button_name'             => '',
 			'button_text'             => 'Open the dialog window',
+			'button_type'             => '',
+			'button_value'            => '',
 			'content_classes'         => 'tribe-dialog__content', // dialog content classes
 			'context'                 => '',
 			'template'                => 'dialog',
