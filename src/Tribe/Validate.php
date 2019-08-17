@@ -58,6 +58,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * @param mixed  $value    The value to validate
 		 */
 		public function __construct( $field_id, $field, $value, $additional_args = array() ) {
+
 			// prepare object properties
 			$this->result          = new stdClass;
 			$this->field           = $field;

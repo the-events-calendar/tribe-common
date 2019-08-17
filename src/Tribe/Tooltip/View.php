@@ -39,7 +39,7 @@ class View extends \Tribe__Template {
 	 *     @var string $direction    Direction the tooltip should be from the trigger (down).
 	 *     @var string $icon         dashicon classname to use, without the `dashicon-` (info).
 	 *     @var string $wrap_classes Classes for the tooltip wrapper (optional).
-	 }
+	 * }
 	 * @return string A string of html for the tooltip.
 	 */
 	public function render_tooltip( $message, $args = [] ) {
@@ -66,7 +66,7 @@ class View extends \Tribe__Template {
 	 *     @var string $direction    Direction the tooltip should be from the trigger (down).
 	 *     @var string $icon         dashicon classname to use, without the `dashicon-` (info).
 	 *     @var string $wrap_classes Classes for the tooltip wrapper (optional).
-	 }
+	 * }
 	 * @return string A string of html for the tooltip.
 	 */
 	private function build_tooltip( $message, $original_args ) {
