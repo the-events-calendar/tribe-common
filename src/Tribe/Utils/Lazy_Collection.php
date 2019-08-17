@@ -19,7 +19,7 @@
  * }
  * ````
  *
- * @since   TBD
+ * @since   4.9.14
  * @package Tribe\Utils
  */
 
@@ -28,7 +28,7 @@ namespace Tribe\Utils;
 /**
  * Class Lazy_Collection
  *
- * @since   TBD
+ * @since   4.9.14
  * @package Tribe\Utils
  */
 class Lazy_Collection implements Collection_Interface {
@@ -51,7 +51,7 @@ class Lazy_Collection implements Collection_Interface {
 	/**
 	 * Array_Promise constructor.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @param callable $callback The callback that will be used to populate the elements.
 	 */
@@ -62,7 +62,7 @@ class Lazy_Collection implements Collection_Interface {
 	/**
 	 * Fetches the array items and returns them.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @return array The array items.
 	 */
@@ -75,7 +75,7 @@ class Lazy_Collection implements Collection_Interface {
 	/**
 	 * Fills the array elements from the callback if required.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 */
 	protected function resolve() {
 		if ( null !== $this->items ) {
@@ -91,7 +91,7 @@ class Lazy_Collection implements Collection_Interface {
 	 *
 	 * E.g. `$collection->first` is equivalent to `$collection->first()`.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @param string $property The name of the property to access.
 	 *

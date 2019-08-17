@@ -24,7 +24,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * An array of the filters that can be set and unset by id.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @var array
 	 */
@@ -635,7 +635,7 @@ class Tribe__Repository__Query_Filters {
 	 * Add a custom WHERE clause to the query.
 	 *
 	 * @since 4.7.19
-	 * @since TBD Added the `$id` and `$override` parameters.
+	 * @since 4.9.14 Added the `$id` and `$override` parameters.
 	 *
 	 * @param string $where_clause
 	 * @param null|string $id          Optional WHERE ID to prevent duplicating clauses.
@@ -692,7 +692,7 @@ class Tribe__Repository__Query_Filters {
 	 * Add a custom ORDER BY to the query.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Added the `$id` and `$override` parameters.
+	 * @since 4.9.14 Added the `$id` and `$override` parameters.
 	 *
 	 * @param string      $orderby  The order by criteria.
 	 * @param null|string $id       Optional ORDER ID to prevent duplicating order-by clauses..
@@ -716,7 +716,7 @@ class Tribe__Repository__Query_Filters {
 	 * Add custom select fields to the query.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Added the `$id` and `$override` parameters.
+	 * @since 4.9.14 Added the `$id` and `$override` parameters.
 	 *
 	 * @param string $field The field to add to the result.
 	 * @param null|string $id       Optional ORDER ID to prevent duplicating order-by clauses..
@@ -1043,7 +1043,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Returns the fields, join, where and orderby clauses for an id.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @param string $id The identifier of the group to remove.
 	 *
@@ -1067,7 +1067,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Removes fields, join, where and orderby clauses for an id.
 	 *
-	 * @since TBD
+	 * @since 4.9.14
 	 *
 	 * @param string $id The identifier of the group to remove.
 	 */
