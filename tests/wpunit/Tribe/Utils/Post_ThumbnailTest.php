@@ -148,4 +148,44 @@ class Post_ThumbnailTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( Post_Thumbnail::class, $unserialized );
 		$this->assertEquals( $post_thumbnail->to_array(), $unserialized->to_array() );
 	}
+
+	/**
+	 * It should check if a post thumbnail exists
+	 *
+	 * @test
+	 */
+	public function should_check_if_a_post_thumbnail_exists() {
+		list( $post_w_thumbnail_id, $thumbnail_id ) = $this->given_a_post_with_thumbnail();
+
+		$post_thumbnail = new Post_Thumbnail( $post_w_thumbnail_id );
+		$this->assertTrue( $post_thumbnail->exists() );
+		$this->assertTrue( $post_thumbnail->exists );
+	}
+
+	/**
+	 * It should check if a post thumbnail does not exist
+	 *
+	 * @test
+	 */
+	public function should_check_if_a_post_thumbnail_does_not_exist() {
+		$post_wo_thumbnail_id = static::factory()->post->create();
+
+		$post_thumbnail = new Post_Thumbnail( $post_wo_thumbnail_id );
+		$this->assertFalse( $post_thumbnail->exists );
+	}
+
+	/**
+	 * It should throw if trying to set the exists property
+	 *
+	 * @test
+	 */
+	public function should_throw_if_trying_to_set_the_exists_property() {
+		$post = static::factory()->post->create();
+
+		$post_thumbnail = new Post_Thumbnail( $post );
+
+		$this->expectException( \InvalidArgumentException::class );
+
+		$post_thumbnail->exists = true;
+	}
 }
