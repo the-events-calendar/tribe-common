@@ -1,6 +1,6 @@
 <?php
 /**
- * ${CARET}
+ * A string lazily built, suited to any string value that might be costly to be built.
  *
  * @since   TBD
  *
