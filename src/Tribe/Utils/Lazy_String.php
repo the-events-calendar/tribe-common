@@ -11,7 +11,7 @@
 namespace Tribe\Utils;
 
 
-class Lazy_String implements \Serializable {
+class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * The string value produced by the callback, cached.
 	 *
@@ -127,5 +127,12 @@ class Lazy_String implements \Serializable {
 		list( $string, $escaped ) = unserialize( $serialized );
 		$this->string  = $string;
 		$this->escaped = $escaped;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function jsonSerialize() {
+		return $this->value();
 	}
 }

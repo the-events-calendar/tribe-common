@@ -89,4 +89,22 @@ class Lazy_StringTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals('Dungeons & Dragons', $string->value() );
 		$this->assertEquals('Dungeons & Dragons', $string->escaped() );
 	}
+
+	/**
+	 * It should expand when json_encoded
+	 *
+	 * @test
+	 */
+	public function should_expand_when_json_encoded() {
+		$string = new Lazy_String(
+			static function () {
+				return 'Dungeons & Dragons';
+			},
+			false
+		);
+
+		$json = json_encode( [ 'string' => $string ] );
+
+		$this->assertEquals( json_encode( [ 'string' => 'Dungeons & Dragons' ] ), $json );
+	}
 }
