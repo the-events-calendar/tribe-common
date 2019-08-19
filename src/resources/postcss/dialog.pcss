@@ -80,18 +80,6 @@ This can include modals, toasters, confirms. alerts.
 	width: var(--tribe-dialog-close-height);
 	z-index: 1;
 
-	&--hidden {
-		display: none;
-	}
-
-	&--round {
-		border-radius: 50%;
-	}
-
-	&--border {
-		border: var(--tribe-dialog-close-border-width) solid var(--tribe-dialog-close-border-color);
-	}
-
 	&:after,
 	&:before {
 		background: var(--tribe-dialog-close-border-color);
@@ -108,6 +96,18 @@ This can include modals, toasters, confirms. alerts.
 	&:after{
 		transform: rotate(-45deg);
 	}
+}
+
+.tribe-dialog__close-button--hidden {
+	display: none;
+}
+
+.tribe-dialog__close-button--round {
+	border-radius: 50%;
+}
+
+.tribe-dialog__close-button--border {
+	border: var(--tribe-dialog-close-border-width) solid var(--tribe-dialog-close-border-color);
 }
 
 /* The content container*/

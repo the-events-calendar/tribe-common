@@ -8,6 +8,14 @@ namespace Tribe\Dialog;
  * @since TBD
  */
 class View extends \Tribe__Template {
+	/**
+	 * Where in the themes we will look for templates
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $template_namespace = 'dialogs';
 
 	/**
 	 * View constructor
@@ -346,20 +354,9 @@ class View extends \Tribe__Template {
 		 * @param array $args The dialog arguments.
 		 */
 		$template_name = apply_filters( 'tribe_dialog_template', $template, $args );
-
-		/**
-		 * Allow us to filter the dialog script name.
-		 *
-		 * @since  TBD
-		 *
-		 * @param string $script The dialog script name. Defaults to $template + 'script'
-		 * @param array $args The dialog arguments.
-		 */
-		$script_name = apply_filters( 'tribe_dialog_script', $template . '-script', $args );
 		ob_start();
 
 		$this->template( $template_name, $args, true );
-		$this->template( $script_name, $args, true );
 
 		$html = ob_get_clean();
 		/**

@@ -38,6 +38,8 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	 */
 	private function hooks() {
 		add_action( 'tribe_common_loaded', [ $this, 'add_dialog_assets' ] );
+		add_filter( 'tribe_template_public_namespace', [ $this, 'template_public_namespace'], 10, 2 );
+
 		/**
 		 * Allows plugins to hook into the hooks action to register their own hooks
 		 *
@@ -46,6 +48,14 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		 * @param Tribe\Service_Providers\Dialog $dialog
 		 */
 		do_action( 'tribe_dialog_hooks', $this );
+	}
+
+	public function template_public_namespace( $namespace, $obj ) {
+		if ( ! empty( $obj->template_namespace ) && 'dialog' === $obj->template_namespace ) {
+			array_push($namespace, 'dialog');
+		}
+
+		return $namespace;
 	}
 
 	/**
@@ -69,6 +79,14 @@ class Dialog extends \tad_DI52_ServiceProvider {
 			'mt-a11y-dialog',
 			'vendor/mt-a11y-dialog/a11y-dialog.js',
 			[ 'underscore', 'tribe-common' ],
+			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
+		);
+
+		tribe_asset(
+			$main,
+			'tribe-dialog-js',
+			'dialog.js',
+			[ 'tribe-common' ],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
 		);
 

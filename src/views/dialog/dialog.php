@@ -4,9 +4,7 @@
  * The base template for Tribe Dialogs.
  *  All event handling is in `dialog-script.php`
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/dialogs/dialog.php
- *
- * @since TBD
+ * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/dialog.php
  *
  * @package Tribe
  * @version TBD
@@ -23,3 +21,4 @@
 		<?php echo $content; ?>
 	</div>
 </script>
+<?php tribe( 'dialog.view' )->template( 'script', get_defined_vars(), true ); ?>

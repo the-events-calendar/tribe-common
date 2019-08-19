@@ -5,9 +5,7 @@
  *
  * Includes "cancel" and "continue" buttons. All event handling is in `confirm-script.php`
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/dialogs/confirm.php
- *
- * @since TBD
+ * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/confirm.php
  *
  * @package Tribe
  * @version TBD
@@ -28,3 +26,4 @@
 		</div>
 	</div>
 </script>
+<?php tribe( 'dialog.view' )->template( 'script', get_defined_vars(), true ); ?>

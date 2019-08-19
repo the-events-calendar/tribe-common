@@ -10,6 +10,15 @@ namespace Tribe\Tooltip;
 class View extends \Tribe__Template {
 
 	/**
+	 * Where in the themes we will look for templates
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $template_namespace = 'tooltips';
+
+	/**
 	 * View constructor.
 	 *
 	 * @since 4.9.8

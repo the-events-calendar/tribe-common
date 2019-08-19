@@ -5,18 +5,14 @@
  *
  * Includes a "OK" button. All event handling is in `alert-script.php`
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/dialogs/alert.php
- *
- * @since TBD
- *
- *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/dialogs/modal.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/alert.php
  *
  * @package Tribe
  * @version TBD
  */
 
 ?>
+<?php tribe( 'dialog.view' )->template( 'script', get_defined_vars(), true ); ?>
 <?php tribe( 'dialog.view' )->template( 'button', get_defined_vars(), true ); ?>
 <script data-js="<?php echo esc_attr( 'dialog-content-' . $id ); ?>" type="text/template" >
 	<div class="<?php echo esc_attr( $content_classes ); ?>">
