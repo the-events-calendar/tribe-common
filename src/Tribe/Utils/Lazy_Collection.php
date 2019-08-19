@@ -105,4 +105,11 @@ class Lazy_Collection implements Collection_Interface {
 
 		return null;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function jsonSerialize() {
+		return $this->all();
+	}
 }
