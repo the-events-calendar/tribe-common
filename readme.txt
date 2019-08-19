@@ -7,10 +7,12 @@
 * Tweak - Add IDs to radio fields so we can target them with tribe-dependency [131428]
 * Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [131353]
 
-= [4.9.14] TBD =
+= [4.9.14] 2019-08-19 =
 
 * Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]
 * Fix - Prevent mascot image to get blown up out of proportions to a larger size on buggy CSS loading. [131910]
+* Language - 0 new strings added, 66 updated, 1 fuzzied, and 4 obsoleted
+
 
 = [4.9.13] 2019-07-25 =
 
