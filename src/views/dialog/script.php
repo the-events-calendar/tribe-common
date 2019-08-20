@@ -13,7 +13,7 @@
 ?>
 <script>
 	var tribe = tribe || {};
-		tribe.dialogs = tribe.dialogs || [];
+	tribe.dialogs = tribe.dialogs || [];
 
 	tribe.dialogs.push({
 		'appendTarget'         : '<?php echo esc_html( $append_target ); ?>',

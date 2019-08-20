@@ -1,5 +1,5 @@
 var tribe = tribe || {};
-	tribe.dialogs = tribe.dialogs || {};
+tribe.dialogs = tribe.dialogs || {};
 
 	( function ( obj ) {
 		'use strict';

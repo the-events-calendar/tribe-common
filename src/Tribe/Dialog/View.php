@@ -81,6 +81,9 @@ class View extends \Tribe__Template {
 			$id = \uniqid();
 		}
 
+		$assets = tribe( 'assets' );
+		$assets->enqueue_group( 'tribe-dialog' );
+
 		$html = $this->build_dialog( $content, $id, $args );
 
 		if ( ! $echo ) {

@@ -17,7 +17,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function register() {
-		tribe_singleton( 'dialog.view', \Tribe\Dialog\View::class );
+		tribe_singleton( 'dialog.view', '\Tribe\Dialog\View' );
 
 		/**
 		 * Allows plugins to hook into the register action to register views, etc
@@ -37,7 +37,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	private function hooks() {
-		add_action( 'tribe_common_loaded', [ $this, 'add_dialog_assets' ] );
+		add_action( 'tribe_common_loaded', [ $this, 'register_dialog_assets' ] );
 		add_filter( 'tribe_template_public_namespace', [ $this, 'template_public_namespace'], 10, 2 );
 
 		/**
@@ -50,6 +50,11 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		do_action( 'tribe_dialog_hooks', $this );
 	}
 
+	/**
+	  * {@inheritdoc}
+	 *
+	 * @since  TBD
+	 */
 	public function template_public_namespace( $namespace, $obj ) {
 		if ( ! empty( $obj->template_namespace ) && 'dialog' === $obj->template_namespace ) {
 			array_push($namespace, 'dialog');
@@ -63,7 +68,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 */
-	public function add_dialog_assets() {
+	public function register_dialog_assets() {
 		$main = \Tribe__Main::instance();
 
 		tribe_asset(
@@ -71,7 +76,8 @@ class Dialog extends \tad_DI52_ServiceProvider {
 			'tribe-dialog',
 			'dialog.css',
 			[],
-			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
+			[],
+			[ 'groups' => 'tribe-dialog']
 		);
 
 		tribe_asset(
@@ -79,15 +85,17 @@ class Dialog extends \tad_DI52_ServiceProvider {
 			'mt-a11y-dialog',
 			'vendor/mt-a11y-dialog/a11y-dialog.js',
 			[ 'underscore', 'tribe-common' ],
-			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
+			[],
+			[ 'groups' => 'tribe-dialog']
 		);
 
 		tribe_asset(
 			$main,
 			'tribe-dialog-js',
 			'dialog.js',
-			[ 'tribe-common' ],
-			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ]
+			[ 'tribe-common', 'mt-a11y-dialog' ],
+			[],
+			[ 'groups' => 'tribe-dialog']
 		);
 
 		/**
@@ -97,6 +105,6 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		 *
 		 * @param Tribe\Service_Providers\Dialog $dialog
 		 */
-		do_action( 'tribe_dialog_assets', $this );
+		do_action( 'tribe_dialog_assets_registered', $this );
 	}
 }
