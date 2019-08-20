@@ -36,6 +36,7 @@ class Tooltip extends \tad_DI52_ServiceProvider {
 	 */
 	public function add_tooltip_assets() {
 		$main = \Tribe__Main::instance();
+
 		tribe_asset(
 			$main,
 			'tribe-tooltip',
