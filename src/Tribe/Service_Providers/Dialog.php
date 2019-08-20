@@ -38,7 +38,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	 */
 	private function hooks() {
 		add_action( 'tribe_common_loaded', [ $this, 'register_dialog_assets' ] );
-		add_filter( 'tribe_template_public_namespace', [ $this, 'template_public_namespace'], 10, 2 );
+		add_filter( 'tribe_template_public_namespace', [ $this, 'template_public_namespace' ], 10, 2 );
 
 		/**
 		 * Allows plugins to hook into the hooks action to register their own hooks
@@ -57,7 +57,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	 */
 	public function template_public_namespace( $namespace, $obj ) {
 		if ( ! empty( $obj->template_namespace ) && 'dialog' === $obj->template_namespace ) {
-			array_push($namespace, 'dialog');
+			array_push( $namespace, 'dialog' );
 		}
 
 		return $namespace;
@@ -77,7 +77,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 			'dialog.css',
 			[],
 			[],
-			[ 'groups' => 'tribe-dialog']
+			[ 'groups' => 'tribe-dialog' ]
 		);
 
 		tribe_asset(
@@ -86,7 +86,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 			'vendor/faction23/a11y-dialog/a11y-dialog.js',
 			[ 'underscore', 'tribe-common' ],
 			[],
-			[ 'groups' => 'tribe-dialog']
+			[ 'groups' => 'tribe-dialog' ]
 		);
 
 		tribe_asset(
@@ -95,7 +95,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 			'dialog.js',
 			[ 'tribe-common', 'mt-a11y-dialog' ],
 			[],
-			[ 'groups' => 'tribe-dialog']
+			[ 'groups' => 'tribe-dialog' ]
 		);
 
 		/**
