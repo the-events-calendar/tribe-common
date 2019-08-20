@@ -83,7 +83,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		tribe_asset(
 			$main,
 			'mt-a11y-dialog',
-			'vendor/mt-a11y-dialog/a11y-dialog.js',
+			'vendor/faction23/a11y-dialog/a11y-dialog.js',
 			[ 'underscore', 'tribe-common' ],
 			[],
 			[ 'groups' => 'tribe-dialog']
