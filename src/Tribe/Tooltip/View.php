@@ -56,6 +56,7 @@ class View extends \Tribe__Template {
 			return;
 		}
 
+		/** @var \Tribe__Assets $assets */
 		$assets = tribe( 'assets' );
 		$assets->enqueue_group( 'tribe-tooltip' );
 
