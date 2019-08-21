@@ -38,8 +38,8 @@ class View extends \Tribe__Template {
 	 * @since TBD
 	 *
 	 * @param string $content Content as an HTML string.
-	 * @param string  $id     The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
-	 * @param array $args     {
+	 * @param string $id     The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
+	 * @param array  $args     {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @var string  $button_id'              The ID for the trigger button (optional),
@@ -81,6 +81,7 @@ class View extends \Tribe__Template {
 			$id = \uniqid();
 		}
 
+		/** @var \Tribe__Assets $assets */
 		$assets = tribe( 'assets' );
 		$assets->enqueue_group( 'tribe-dialog' );
 
@@ -275,8 +276,8 @@ class View extends \Tribe__Template {
 	 * @since TBD
 	 *
 	 * @param string $content html dialog content.
-	 * @param string  $id     The unique ID for this dialog (`uniqid()`) Gets prepended to the data attributes.
-	 * @param array $args     {
+	 * @param string $id     The unique ID for this dialog (`uniqid()`) Gets prepended to the data attributes.
+	 * @param array  $args     {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @var string  $button_id'              The ID for the trigger button (optional),

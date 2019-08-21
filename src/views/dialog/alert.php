@@ -3,8 +3,6 @@
  * Dialog Alert View Template
  * The alert template for tribe-dialogs.
  *
- * Includes a "OK" button. All event handling is in `alert-script.php`
- *
  * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/alert.php
  *
  * @since TBD
@@ -13,9 +11,11 @@
  * @version TBD
  */
 
+/** @var \Tribe\Dialog\View $dialog_view */
+$dialog_view = tribe( 'dialog.view' );
 ?>
-<?php tribe( 'dialog.view' )->template( 'script', get_defined_vars(), true ); ?>
-<?php tribe( 'dialog.view' )->template( 'button', get_defined_vars(), true ); ?>
+<?php $dialog_view->template( 'script', get_defined_vars(), true ); ?>
+<?php $dialog_view->template( 'button', get_defined_vars(), true ); ?>
 <script data-js="<?php echo esc_attr( 'dialog-content-' . $id ); ?>" type="text/template" >
 	<div <?php tribe_classes( $content_classes ) ?>>
 		<?php if ( ! empty( $title ) ) : ?>

@@ -10,25 +10,29 @@
  * @package Tribe
  * @version TBD
  */
+
+ $args = [
+	'appendTarget'         => esc_html( $append_target ),
+	'bodyLock'             => esc_html( $body_lock ),
+	'closeButtonAriaLabel' => esc_html( $close_button_aria_label ),
+	'closeButtonClasses'   => esc_html( $close_button_classes ),
+	'contentClasses'       => esc_html( $content_wrapper_classes ),
+	'effect'               => esc_html( $effect ),
+	'effectEasing'         => esc_html( $effect_easing ),
+	'effectSpeed'          => esc_html( $effect_speed ),
+	'id'                   => esc_html( $id ),
+	'overlayClasses'       => esc_html( $overlay_classes ),
+	'overlayClickCloses'   => esc_html( $overlay_click_closes ),
+	'template'             => esc_html( $template ),
+	'trigger'              => "[data-js='" .  esc_attr( 'trigger-dialog-' . $id ) . "']",
+	'wrapperClasses'       => esc_attr( $wrapper_classes ),
+ ];
+
+ bdump($args);
 ?>
 <script>
 	var tribe = tribe || {};
 	tribe.dialogs = tribe.dialogs || [];
 
-	tribe.dialogs.push({
-		'appendTarget'         : '<?php echo esc_html( $append_target ); ?>',
-		'bodyLock'             : '<?php echo esc_html( $body_lock ); ?>',
-		'closeButtonAriaLabel' : '<?php echo esc_html( $close_button_aria_label ); ?>',
-		'closeButtonClasses'   : '<?php echo esc_html( $close_button_classes ); ?>',
-		'contentClasses'       : '<?php echo esc_html( $content_wrapper_classes ); ?>',
-		'effect'               : '<?php echo esc_html( $effect ); ?>',
-		'effectEasing'         : '<?php echo esc_html( $effect_easing ); ?>',
-		'effectSpeed'          : '<?php echo esc_html( $effect_speed ); ?>',
-		'id'                   : '<?php echo esc_html( $id ); ?>',
-		'overlayClasses'       : '<?php echo esc_html( $overlay_classes ); ?>',
-		'overlayClickCloses'   : '<?php echo esc_html( $overlay_click_closes ); ?>',
-		'template'             : '<?php echo esc_html( $template ); ?>',
-		'trigger'              : '[data-js="' + '<?php echo  esc_attr( 'trigger-dialog-' . $id ); ?>' + '"]',
-		'wrapperClasses'       : '<?php echo esc_attr($wrapper_classes ); ?>'
-	});
+	tribe.dialogs.push( <?php echo json_encode( $args ); ?> );
 </script>
