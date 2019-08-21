@@ -130,4 +130,22 @@ class Lazy_CollectionTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 3, $collection->count );
 		$this->assertEquals( 'bar', $collection->nth( 2 ) );
 	}
+
+	/**
+	 * It should correctly expand when json_encoded
+	 *
+	 * @test
+	 */
+	public function should_correctly_expand_when_json_encoded() {
+		$callback = static function () {
+			return [ 'foo', 'bar', 'baz' ];
+		};
+
+		$collection = new Lazy_Collection( $callback );
+
+		$this->assertEquals(
+			json_encode( [ 'foo', 'bar', 'baz' ] ),
+			json_encode( $collection )
+		);
+	}
 }
