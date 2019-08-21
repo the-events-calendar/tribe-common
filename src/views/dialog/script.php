@@ -11,7 +11,7 @@
  * @version TBD
  */
 
- $args = [
+$args = [
 	'appendTarget'         => esc_html( $append_target ),
 	'bodyLock'             => esc_html( $body_lock ),
 	'closeButtonAriaLabel' => esc_html( $close_button_aria_label ),
@@ -26,9 +26,16 @@
 	'template'             => esc_html( $template ),
 	'trigger'              => "[data-js='" .  esc_attr( 'trigger-dialog-' . $id ) . "']",
 	'wrapperClasses'       => esc_attr( $wrapper_classes ),
- ];
+];
 
- bdump($args);
+/**
+ * Allows for modifying the arguments before they are passed to the dialog script
+
+ * @since TBD
+ *
+ * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
+ */
+$args = apply_fiters( 'tribe_dialog_script_args', $args );
 ?>
 <script>
 	var tribe = tribe || {};

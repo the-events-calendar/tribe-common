@@ -53,7 +53,7 @@ class View extends \Tribe__Template {
 	 *     @var string  $title                   The dialog title (optional).
 	 *     @var string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
 	 *
-	 *     Dialog library option overrides.
+	 *     Dialog script option overrides.
 	 *
 	 *     @var string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
 	 *     @var string  $body_lock               Lock the body while dialog open (false)?
@@ -116,7 +116,7 @@ class View extends \Tribe__Template {
 	 *     @var string  $title                   The dialog title (optional).
 	 *     @var string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
 	 *
-	 *     Dialog library option overrides.
+	 *     Dialog script option overrides.
 	 *
 	 *     @var string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override ("body").
 	 *     @var string  $body_lock               Lock the body while dialog open (true)?
@@ -178,7 +178,7 @@ class View extends \Tribe__Template {
 	 *     @var string  $title                   The dialog title (optional).
 	 *     @var string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
 	 *
-	 *     Dialog library option overrides.
+	 *     Dialog script option overrides.
 	 *
 	 *     @var string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
 	 *     @var string  $body_lock               Lock the body while dialog open (true)?
@@ -236,7 +236,7 @@ class View extends \Tribe__Template {
 	 *     @var string  $title                   The dialog title (optional).
 	 *     @var string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
 	 *
-	 *     Dialog library option overrides.
+	 *     Dialog script option overrides.
 	 *
 	 *     @var string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
 	 *     @var string  $body_lock               Lock the body while dialog open (true)?
@@ -291,7 +291,7 @@ class View extends \Tribe__Template {
 	 *     @var string  $title                   The dialog title (optional).
 	 *     @var string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
 	 *
-	 *     Dialog library option overrides.
+	 *     Dialog script option overrides.
 	 *
 	 *     @var string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
 	 *     @var string  $body_lock               Lock the body while dialog open (false)?
@@ -319,7 +319,7 @@ class View extends \Tribe__Template {
 			'template'                => 'dialog',
 			'title'                   => '',
 			'trigger_classes'         => 'tribe_dialog_trigger',
-			// dialog options
+			// dialog script options
 			'append_target'           => '', // the dialog will be inserted after the button, you could supply a selector string here to override
 			'body_lock'               => false, // lock the body while dialog open?
 			'close_button_aria_label' => 'Close this dialog window', // aria label for close button
