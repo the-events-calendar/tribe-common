@@ -35,7 +35,7 @@ $args = [
  *
  * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
  */
-$args = apply_fiters( 'tribe_dialog_script_args', $args );
+$args = apply_filters( 'tribe_dialog_script_args', $args );
 ?>
 <script>
 	var tribe = tribe || {};
