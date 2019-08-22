@@ -639,3 +639,30 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 		return register_rest_route( $namespace, $route, $args, $override );
 	}
 }
+
+if ( ! function_exists( 'tribe_installed_before' ) ) {
+	function tribe_installed_before( $class, $version ) {
+		$pervious_versions = Tribe__Settings_Manager::get_option( $class::VERSION_HISTORY_SLUG );
+		$install_version = !  empty( $pervious_versions[1] ) ? $pervious_versions[1] : $class::VERSION;
+
+		return 0 > version_compare ( $install_version, $version );
+	}
+}
+
+if ( ! function_exists( 'tribe_installed_after' ) ) {
+	function tribe_installed_after( $class, $version ) {
+		$pervious_versions = Tribe__Settings_Manager::get_option( $class::VERSION_HISTORY_SLUG );
+		$install_version = !  empty( $pervious_versions[1] ) ? $pervious_versions[1] : $class::VERSION;
+
+		return 0 < version_compare ( $install_version, $version );
+	}
+}
+
+if ( ! function_exists( 'tribe_installed_on' ) ) {
+	function tribe_installed_on( $class, $version ) {
+		$pervious_versions = Tribe__Settings_Manager::get_option( $class::VERSION_HISTORY_SLUG );
+		$install_version = !  empty( $pervious_versions[1] ) ? $pervious_versions[1] : $class::VERSION;
+
+		return 0 === version_compare ( $install_version, $version );
+	}
+}
