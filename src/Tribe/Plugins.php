@@ -26,7 +26,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			[
 				'short_name'   => 'Event Tickets Plus',
 				'class'        => 'Tribe__Tickets_Plus__Main',
-				'thickbox_url' => '//theeventscalendar.com/product/wordpress-event-tickets-plus/?TB_iframe=true',
+				'thickbox_url' => 'https://theeventscalendar.com/product/wordpress-event-tickets-plus/?TB_iframe=true',
 			],
 			[
 				'short_name'   => 'The Events Calendar',
@@ -36,37 +36,37 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			[
 				'short_name'   => 'Events Calendar Pro',
 				'class'        => 'Tribe__Events__Pro__Main',
-				'thickbox_url' => '//theeventscalendar.com/product/wordpress-events-calendar-pro/?TB_iframe=true',
+				'thickbox_url' => 'https://theeventscalendar.com/product/wordpress-events-calendar-pro/?TB_iframe=true',
 			],
 			[
 				'short_name'   => 'Community Events',
 				'class'        => 'Tribe__Events__Community__Main',
-				'thickbox_url' => '//theeventscalendar.com/product/wordpress-community-events/?TB_iframe=true',
+				'thickbox_url' => 'https://theeventscalendar.com/product/wordpress-community-events/?TB_iframe=true',
 			],
 			[
 				'short_name'   => 'Community Tickets',
 				'class'        => 'Tribe__Events__Community__Tickets__Main',
-				'thickbox_url' => '//theeventscalendar.com/product/community-tickets/?TB_iframe=true',
+				'thickbox_url' => 'https://theeventscalendar.com/product/community-tickets/?TB_iframe=true',
 			],
 			[
 				'short_name'   => 'Filter Bar',
 				'class'        => 'Tribe__Events__Filterbar__View',
-				'thickbox_url' => '//theeventscalendar.com/product/wordpress-events-filterbar/?TB_iframe=true',
+				'thickbox_url' => 'https://theeventscalendar.com/product/wordpress-events-filterbar/?TB_iframe=true',
 			],
 			[
 				'short_name'   => 'Facebook Events',
 				'class'        => 'Tribe__Events__Facebook__Importer',
-				'thickbox_url' => '//theeventscalendar.com/product/facebook-events/?TB_iframe=true',
+				'thickbox_url' => 'https://theeventscalendar.com/product/facebook-events/?TB_iframe=true',
 			],
 			[
 				'short_name'   => 'iCal Importer',
 				'class'        => 'Tribe__Events__Ical_Importer__Main',
-				'thickbox_url' => '//theeventscalendar.com/product/ical-importer/?TB_iframe=true',
+				'thickbox_url' => 'https://theeventscalendar.com/product/ical-importer/?TB_iframe=true',
 			],
 			[
 				'short_name'   => 'Eventbrite Tickets',
 				'class'        => 'Tribe__Events__Tickets__Eventbrite__Main',
-				'thickbox_url' => '//theeventscalendar.com/product/wordpress-eventbrite-tickets/?TB_iframe=true',
+				'thickbox_url' => 'https://theeventscalendar.com/product/wordpress-eventbrite-tickets/?TB_iframe=true',
 			],
 			[
 				'short_name'   => 'Advanced Post Manager',
