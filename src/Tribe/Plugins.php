@@ -84,7 +84,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 * @return array|null
 		 */
 		public function get_plugin_by_key( $search_key, $search_val ) {
-			foreach ( $this->tribe_plugins as $plugin ) {
+			foreach ( $this->get_list() as $plugin ) {
 				if ( isset( $plugin[ $search_key ] ) && $plugin[ $search_key ] === $search_val ) {
 					return $plugin;
 				}
