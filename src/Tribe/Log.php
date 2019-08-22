@@ -282,6 +282,9 @@ class Tribe__Log {
 	public function set_current_logger( $engine ) {
 		$available_engines = $this->get_logging_engines();
 
+		// Make sure to de-duplicate the slashes on class names.
+		$engine = str_replace( '\\\\', '\\', $engine );
+
 		if ( ! isset( $available_engines[ $engine ] ) ) {
 			throw new Exception( sprintf( __( 'Cannot set %s as the current logging engine', 'tribe-common' ), $engine ) );
 		}
