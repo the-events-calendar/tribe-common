@@ -61,6 +61,9 @@ class Tribe__Admin__Notice__Plugin_Download {
 			return;
 		}
 
+		// Make sure Thickbox is available regardless of which admin page we're on
+		add_thickbox();
+
 		$has_pue_notices = false;
 
 		foreach ( $this->plugins_required as $req_plugin ) {

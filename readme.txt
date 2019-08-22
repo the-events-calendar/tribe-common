@@ -5,6 +5,7 @@
 = [4.9.16] TBD =
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
+* Fix - Enqueue Thickbox script on all admin pages when needed
 
 = [4.9.15] 2019-08-22 =
 
@@ -17,7 +18,6 @@
 * Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]
 * Fix - Prevent mascot image to get blown up out of proportions to a larger size on buggy CSS loading. [131910]
 * Language - 0 new strings added, 66 updated, 1 fuzzied, and 4 obsoleted
-
 
 = [4.9.13] 2019-07-25 =
 
