@@ -640,56 +640,62 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tribe_installed_before' ) ) {
-	/**
-	 * Checks if a plugin was installed prior to the passed version.
-	 *
-	 * @since TBD
-	 *
-	 * @param object $class the main plugin class.
-	 * @param string $version a SemVer version string.
-	 * @return boolean
-	 */
-	function tribe_installed_before( $class, $version ) {
-		$pervious_versions = Tribe__Settings_Manager::get_option( $class::VERSION_HISTORY_SLUG );
-		$install_version = !  empty( $pervious_versions[1] ) ? $pervious_versions[1] : $class::VERSION;
-
-		return 0 > version_compare ( $install_version, $version );
-	}
+/**
+ * Gets the earliest version we have recorded for the plugin.
+ * Defaults to the current version if there are no records.
+ *
+ * @since TBD
+ *
+ * @param object $class
+ * @return string a SemVer version string.
+ */
+function tribe_get_install_version( $class ) {
+	$pervious_versions = Tribe__Settings_Manager::get_option( $class::VERSION_HISTORY_SLUG );
+	return !  empty( $pervious_versions[1] ) ? $pervious_versions[1] : $class::VERSION;
 }
 
-if ( ! function_exists( 'tribe_installed_after' ) ) {
-	/**
-	 * Checks if a plugin was installed after the passed version.
-	 *
-	 * @since TBD
-	 *
-	 * @param object $class the main plugin class.
-	 * @param string $version a SemVer version string.
-	 * @return boolean
-	 */
-	function tribe_installed_after( $class, $version ) {
-		$pervious_versions = Tribe__Settings_Manager::get_option( $class::VERSION_HISTORY_SLUG );
-		$install_version = !  empty( $pervious_versions[1] ) ? $pervious_versions[1] : $class::VERSION;
 
-		return 0 < version_compare ( $install_version, $version );
-	}
+/**
+ * Checks if a plugin was installed prior to the passed version.
+ *
+ * @since TBD
+ *
+ * @param object $class the main plugin class.
+ * @param string $version a SemVer version string.
+ * @return boolean
+ */
+function tribe_installed_before( $class, $version ) {
+	$install_version = tribe_get_install_version( $class );
+
+	return 0 > version_compare( $install_version, $version );
 }
 
-if ( ! function_exists( 'tribe_installed_on' ) ) {
-	/**
-	 * Checks if a plugin was installed prior at/on the passed version.
-	 *
-	 * @since TBD
-	 *
-	 * @param object $class the main plugin class.
-	 * @param string $version a SemVer version string.
-	 * @return boolean
-	 */
-	function tribe_installed_on( $class, $version ) {
-		$pervious_versions = Tribe__Settings_Manager::get_option( $class::VERSION_HISTORY_SLUG );
-		$install_version = !  empty( $pervious_versions[1] ) ? $pervious_versions[1] : $class::VERSION;
+/**
+ * Checks if a plugin was installed after the passed version.
+ *
+ * @since TBD
+ *
+ * @param object $class the main plugin class.
+ * @param string $version a SemVer version string.
+ * @return boolean
+ */
+function tribe_installed_after( $class, $version ) {
+	$install_version = tribe_get_install_version( $class );
 
-		return 0 === version_compare ( $install_version, $version );
-	}
+	return 0 < version_compare( $install_version, $version );
+}
+
+/**
+ * Checks if a plugin was installed prior at/on the passed version.
+ *
+ * @since TBD
+ *
+ * @param object $class the main plugin class.
+ * @param string $version a SemVer version string.
+ * @return boolean
+ */
+function tribe_installed_on( $class, $version ) {
+	$install_version = tribe_get_install_version( $class );
+
+	return 0 === version_compare( $install_version, $version );
 }
