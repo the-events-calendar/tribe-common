@@ -2,6 +2,12 @@
 
 == Changelog ==
 
+= [4.9.15] 2019-08-22 =
+
+* Tweak - Add IDs to radio fields so we can target them with tribe-dependency [131428]
+* Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [131353]
+* Language - 0 new strings added, 73 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.9.14] 2019-08-19 =
 
 * Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]

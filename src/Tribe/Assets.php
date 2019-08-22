@@ -59,14 +59,32 @@ class Tribe__Assets {
 		uasort( $assets, [ $this, 'order_by_priority' ] );
 
 		foreach ( $assets as $asset ) {
-			if ( 'js' === $asset->type ) {
-				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
-			} else {
-				wp_register_style( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->media );
+			// Asset is already registered.
+			if ( $asset->is_registered ) {
+				continue;
 			}
 
-			// Register that this asset is actually registered on the WP methods.
-			$asset->is_registered = true;
+			if ( 'js' === $asset->type ) {
+				// Script is already registered.
+				if ( wp_script_is( $asset->slug, 'registered' ) ) {
+					continue;
+				}
+
+				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
+
+				// Register that this asset is actually registered on the WP methods.
+				$asset->is_registered = wp_script_is( $asset->slug, 'registered' );
+			} else {
+				// Style is already registered.
+				if ( wp_style_is( $asset->slug, 'registered' ) ) {
+					continue;
+				}
+
+				wp_register_style( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->media );
+
+				// Register that this asset is actually registered on the WP methods.
+				$asset->is_registered = wp_style_is( $asset->slug, 'registered' );
+			}
 
 			// If we don't have an action we don't even register the action to enqueue.
 			if ( empty( $asset->action ) ) {

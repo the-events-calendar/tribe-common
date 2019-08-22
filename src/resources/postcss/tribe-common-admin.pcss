@@ -14,8 +14,8 @@
 	cursor: text;
 	padding: 4px 4px 4px 4px;
 }
-input:placeholder,
-textarea:placeholder {
+input::placeholder,
+textarea::placeholder {
 	color: #999;
 }
 input::-webkit-input-placeholder,
@@ -28,7 +28,7 @@ textarea::-webkit-input-placeholder {
 	border-color: #dfdfdf;
 	-webkit-border-radius: 3px;
 	   -moz-border-radius: 3px;
-	        border-radius: 3px;
+			border-radius: 3px;
 	border-spacing: 0;
 	border-style: solid;
 	border-style: solid;
@@ -48,7 +48,7 @@ td.tribe_message {
 	width: 200px;
 }
 .tribe_brand {
-	font-family: Georgia !important;
+	font-family: Georgia, serif !important;
 	font-size: 17px !important;
 	font-weight: normal;
 	margin: 8px 0;
@@ -61,7 +61,7 @@ td.tribe_message {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 5px;
 	   -moz-border-radius: 5px;
-	        border-radius: 5px;
+			border-radius: 5px;
 	margin: 20px 0 30px;
 	padding: 0 20px 20px;
 }
@@ -70,7 +70,7 @@ td.tribe_message {
 	border-color: #e6db55;
 	-webkit-border-radius: 3px;
 	   -moz-border-radius: 3px;
-	        border-radius: 3px;
+			border-radius: 3px;
 	border-style: solid;
 	border-width: 1px;
 	padding: 6px 12px;
@@ -78,122 +78,153 @@ td.tribe_message {
 
 /* = Plugin Screen
 =============================================*/
-table.plugins .tribe-plugin-update-message {
-	background: #d54e21; /* taken from colour scheme in list-tables.css */
-	color: white;
-	display: inline-table;
-	margin: 6px 0;
-	padding: 10px 12px;
-}
+table.plugins {
+	.tribe-plugin-update-message {
+		background: #D54E21; /* taken from colour scheme in list-tables.css */
+		color:      white;
+		display:    inline-table;
+		margin:     6px 0;
+		padding:    10px 12px;
 
-table.plugins .tribe-plugin-update-message h4 {
-	display: inline;
-	font-weight: bold;
-	margin-right: 8px;
-}
+		h4 {
+			display:      inline;
+			font-weight:  bold;
+			margin-right: 8px;
 
-table.plugins .tribe-plugin-update-message h4:after {
-	content: ' \00BB ';
-}
+			&:after {
+				content: ' \00BB ';
+			}
+		}
 
-
-table.plugins .tribe-plugin-update-message a {
-	color: white;
-	text-decoration: underline;
+		a {
+			color:           white;
+			text-decoration: underline;
+		}
+	}
 }
 
 /* = Settings Screen
 =============================================*/
 .tribe-settings-form {
 	max-width: 1000px;
-}
-.tribe-settings-form fieldset {
-	clear: both;
-	display: inline-block;
-	padding: 10px 0;
-}
-.tribe-settings-form legend {
-	float: left;
-	font-weight: bold;
-	margin-right: 20px;
-	width: 220px;
-}
-.tribe-settings-form fieldset.tribe-field-license_key legend {
-	width: auto;
-}
-.tribe-settings-form .tribe-field-wrap {
-	float: left;
-	max-width: 500px;
 
-	*:first-child {
-		margin-top: 0;
+	fieldset {
+		clear: both;
+		display: inline-block;
+		padding: 10px 0;
+
+		&.tribe-field-license_key legend {
+			width: auto;
+		}
+	}
+
+	legend {
+		float: left;
+		font-weight: bold;
+		margin-right: 20px;
+		width: 220px;
+	}
+
+	.tribe-field-wrap {
+		float: left;
+		max-width: 500px;
+
+		*:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.tribe-field-radio,
+	.tribe-field-checkbox_list {
+		label {
+			display:     block;
+			margin:      5px 0 5px 20px;
+			text-indent: -20px;
+
+			> p {
+				text-indent: 0;
+				margin-left: 1px;
+			}
+
+			input {
+				margin-right: 5px;
+			}
+		}
+	}
+
+	.tribe-settings-form-wrap fieldset,
+	.tribe-settings-form-wrap .description,
+	fieldset[id^='tribe-field-geoloc_'] {
+		padding-left: 12px;
+	}
+
+	.tribe-settings-form-wrap {
+		fieldset {
+			.description {
+				margin-left: 0;
+				max-width: 450px;
+				padding-left: 0;
+			}
+
+			.tribe-style-selection {
+				margin-bottom: 18px;
+			}
+		}
+
+		h3 {
+			 background-color: #f9f9f9;
+			 margin-bottom: 10px;
+			 padding: 6px 0 6px 12px;
+		}
+
+		.tribe-sysinfo-optin-msg,
+		.system-info,
+		h3 + p,
+		.contained {
+			margin: 0 0 10px;
+			padding-left: 12px;
+		}
+	}
+
+	#tribe-field-stylesheetOption {
+		p.description {
+			color: #999;
+		}
 	}
 }
-.tribe-settings-form .tribe-field-radio label,
-.tribe-settings-form .tribe-field-checkbox_list label {
-	display: block;
-	margin: 5px 0 5px 20px;
-	text-indent: -20px;
+
+.tribe_settings {
+	.tribe-field-indent {
+		margin-left: 245px;
+	}
+
+	#pu_dashboard_message {
+		display: none;
+	}
+
+	.tribe-errors-list {
+		margin-left: 15px;
+	}
+
+	.expiring-license {
+		color: red;
+	}
+
+	.tribe-error {
+		border: 1px solid #f00;
+	}
+
+	.tribe-field-description {
+		margin-bottom: 0;
+		position: relative;
+		top: -12px;
+	}
+
+	#ical-link {
+		top: -14px;
+	}
 }
-.tribe-settings-form .tribe-field-radio label input,
-.tribe-settings-form .tribe-field-checkbox_list label input {
-	margin-right: 5px;
-}
-.tribe-settings-form .tribe-settings-form-wrap fieldset,
-.tribe-settings-form .tribe-settings-form-wrap .description,
-.tribe-settings-form fieldset[id^='tribe-field-geoloc_'] {
-	padding-left: 12px;
-}
-.tribe-settings-form .tribe-settings-form-wrap fieldset .description {
-	margin-left: 0;
-	max-width: 450px;
-	padding-left: 0;
-}
-.tribe-settings-form .tribe-settings-form-wrap h3 {
-	background-color: #f9f9f9;
-	margin-bottom: 10px;
-	padding: 6px 0 6px 12px;
-}
-.tribe-settings-form .tribe-settings-form-wrap .tribe-sysinfo-optin-msg,
-.tribe-settings-form .tribe-settings-form-wrap .system-info,
-.tribe-settings-form .tribe-settings-form-wrap h3 + p,
-.tribe-settings-form .tribe-settings-form-wrap .contained {
-	margin: 0 0 10px;
-	padding-left: 12px;
-}
-.tribe_settings .tribe-field-indent {
-	margin-left: 245px;
-}
-.tribe_settings #pu_dashboard_message {
-	display: none;
-}
-.tribe_settings .tribe-errors-list {
-	margin-left: 15px;
-}
-.tribe_settings .expiring-license {
-	color: red;
-}
-.tribe_settings .tribe-error {
-	border: 1px solid #f00;
-}
-.tribe_settings .tribe-field-description {
-	margin-bottom: 0;
-	position: relative;
-	top: -12px;
-}
-.tribe_settings #ical-link {
-	top: -14px;
-}
-.tribe-settings-form #tribe-field-stylesheetOption label {
-	margin-left: 20px;
-}
-.tribe-settings-form #tribe-field-stylesheetOption input {
-	margin-left: -20px;
-	margin-right: 8px;
-}
-.tribe-settings-form #tribe-field-stylesheetOption p.description {
-	color: #999;
-}
+
 /* Modern Tribe box */
 #modern-tribe-info {
 	-khtml-border-radius: 4px;
@@ -201,20 +232,23 @@ table.plugins .tribe-plugin-update-message a {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 4px;
 	   -moz-border-radius: 4px;
-	     -o-border-radius: 4px;
-	        border-radius: 4px;
+		 -o-border-radius: 4px;
+			border-radius: 4px;
 	margin: 20px 0;
 	padding: 8px 20px 12px;
 }
+
 #modern-tribe-info img {
 	height: 18px;
 	margin: 10px 0;
 	width: 250px;
 }
+
 #modern-tribe-info ul {
 	list-style: disc;
 	margin-left: 20px;
 }
+
 #modern-tribe-info ul ul {
 	list-style: circle;
 }
@@ -354,8 +388,8 @@ table.plugins .tribe-plugin-update-message a {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 4px;
 	   -moz-border-radius: 4px;
-	     -o-border-radius: 4px;
-	        border-radius: 4px;
+		 -o-border-radius: 4px;
+			border-radius: 4px;
 	float: left;
 	margin: 20px 0;
 	padding: 0 20px 15px;
@@ -367,8 +401,8 @@ table.plugins .tribe-plugin-update-message a {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 4px;
 	   -moz-border-radius: 4px;
-	     -o-border-radius: 4px;
-	        border-radius: 4px;
+		 -o-border-radius: 4px;
+			border-radius: 4px;
 	float: right;
 	margin: 20px 0;
 	padding: 0 20px 15px;
@@ -381,7 +415,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe-arrangeable-item {
 	border: 1px solid lightGrey;
 	-moz-border-radius: 3px;
-	     border-radius: 3px;
+		 border-radius: 3px;
 }
 .tribe-arrangeable-item .ui-state-default {
 	border: none;
@@ -411,9 +445,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe_events_active_filter_type_options label {
 	margin: 7px 0;
 }
-.tribe-settings-form .tribe-settings-form-wrap fieldset .tribe-style-selection {
-	margin-bottom: 18px;
-}
+
 .OrganizerInfo td small,
 #event_organizer td small {
 	display: block;
@@ -483,8 +515,8 @@ table.plugins .tribe-plugin-update-message a {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 4px;
 	   -moz-border-radius: 4px;
-	     -o-border-radius: 4px;
-	        border-radius: 4px;
+		 -o-border-radius: 4px;
+			border-radius: 4px;
 	padding: 8px 20px 12px;
 }
 
@@ -553,11 +585,11 @@ table.plugins .tribe-plugin-update-message a {
 
 .system-info-copy {
   .system-info-copy-btn {
-    padding: 6px;
+	padding: 6px;
 
-    .dashicons {
-      padding-right: 10px;
-    }
+	.dashicons {
+	  padding-right: 10px;
+	}
   }
 }
 
@@ -805,7 +837,7 @@ table.plugins .tribe-plugin-update-message a {
 	-moz-transition: all 1s linear;
 	 -ms-transition: all 1s linear;
 	  -o-transition: all 1s linear;
-	     transition: all 1s linear;
+		 transition: all 1s linear;
 	webkit-transition: all 1s linear;
 	width: 100%;
 	z-index: 4;
@@ -814,7 +846,7 @@ table.plugins .tribe-plugin-update-message a {
 #tribe-loading span {
 	background: url(../images/tribe-loading.gif) 0 0 no-repeat;
 	-webkit-background-size: 32px 32px;
-	        background-size: 32px 32px;
+			background-size: 32px 32px;
 	height: 32px;
 	left: 50%;
 	margin: -16px 0 0 -16px;
