@@ -93,5 +93,5 @@ class Canonical_Formatter extends LineFormatter {
 	 */
 	protected function escape_quotes( $string ) {
 		return  str_replace( '"', '\\"', $string ) ;
-}
+	}
 }
