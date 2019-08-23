@@ -37,14 +37,14 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * @param bool   $has_pue_notice Indicates that we need to change the messaging due to expired key.
 	 */
 	public function add_required_plugin( $name, $thickbox_url = null, $is_active = null, $version = null, $addon = false, $has_pue_notice = false ) {
-		$this->plugins_required[ $name ] = array(
+		$this->plugins_required[ $name ] = [
 			'name'           => $name,
 			'thickbox_url'   => $thickbox_url,
 			'is_active'      => $is_active,
 			'version'        => $version . '+',
 			'addon'          => $addon,
 			'has_pue_notice' => $has_pue_notice,
-		);
+		];
 	}
 
 	/**
