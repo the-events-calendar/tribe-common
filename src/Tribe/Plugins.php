@@ -15,7 +15,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *  'short_name'   => Common name for the plugin, used in places such as WP Admin messages
 		 *  'class'        => Main plugin class
 		 *  'thickbox_url' => Download or purchase URL for plugin from within /wp-admin/ thickbox
-		 *  ]
+		 * ]
 		 */
 		private $tribe_plugins = [
 			[
