@@ -29,6 +29,13 @@ abstract class Tribe__Abstract_Plugin_Register {
 	protected $version;
 
 	/**
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $classes_req = [];
+
+	/**
 	 * @var array
 	 */
 	protected $dependencies = [
@@ -41,11 +48,11 @@ abstract class Tribe__Abstract_Plugin_Register {
 	 * Registers a plugin with dependencies
 	 */
 	public function register_plugin() {
-		return tribe_register_plugin(
+		tribe_register_plugin(
 			$this->base_dir,
 			$this->main_class,
 			$this->version,
-			array(),
+			$this->classes_req,
 			$this->dependencies
 		);
 	}
