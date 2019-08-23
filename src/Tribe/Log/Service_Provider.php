@@ -18,6 +18,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.
+	 *
+	 * @since TBD
 	 */
 	public function register() {
 		$this->container->singleton( Logger::class, [ $this, 'build_logger' ] );
@@ -121,7 +123,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Makes the action-based  logging engine available in the backend.
+	 * Makes the action-based logging engine available in the backend.
 	 *
 	 * @since TBD
 	 *

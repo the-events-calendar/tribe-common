@@ -20,9 +20,9 @@ class Canonical_Formatter extends LineFormatter {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $record A record to format
+	 * @param array $record A record to format.
 	 *
-	 * @return mixed The formatted record
+	 * @return mixed The formatted record.
 	 */
 	public function format( array $record ) {
 		$has_context = ! empty( $record['context'] );
@@ -46,7 +46,7 @@ class Canonical_Formatter extends LineFormatter {
 	 *
 	 * @param array $record The record to process.
 	 *
-	 * @return string The formatted message, as built from the record context and message, in the format `<key>=<value`.
+	 * @return string The formatted message, as built from the record context and message, in the format `<key>=<value>`.
 	 */
 	protected function format_record_message( array $record ) {
 		$message = [];
@@ -65,7 +65,7 @@ class Canonical_Formatter extends LineFormatter {
 		foreach ( $context as $key => $value ) {
 			if ( is_bool( $value ) ) {
 				$value = $value ? 'true' : 'false';
-			} else if ( ! is_scalar( $value ) ) {
+			} elseif ( ! is_scalar( $value ) ) {
 				$value = json_encode( $value );
 				if ( false === $value ) {
 					$value = 'malformed';
@@ -83,7 +83,7 @@ class Canonical_Formatter extends LineFormatter {
 	}
 
 	/**
-	 * Escapes the double quotes in a a string.
+	 * Escapes the double quotes in a string.
 	 *
 	 * @since TBD
 	 *
