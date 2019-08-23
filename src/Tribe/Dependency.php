@@ -44,13 +44,12 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @param string        $main_class    Main/base class for this plugin
-		 * @param null|string   $version       Version number of plugin
-		 * @param null|string   $path          Path to the main plugin/bootstrap file
-		 * @param array         $dependencies  An array of dependencies for a plugin
+		 * @param string      $main_class   Main/base class for this plugin
+		 * @param null|string $version      Version number of plugin
+		 * @param null|string $path         Path to the main plugin/bootstrap file
+		 * @param array       $dependencies An array of dependencies for a plugin
 		 */
 		public function add_registered_plugin( $main_class, $version = null, $path = null, $dependencies = array() ) {
-
 			$plugin = array(
 				'class'        => $main_class,
 				'version'      => $version,
@@ -63,7 +62,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			if ( $path ) {
 				$this->admin_messages[ $main_class ] = new Tribe__Admin__Notice__Plugin_Download( $path );
 			}
-
 		}
 
 		/**
@@ -85,7 +83,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @param string $path       Path to the main plugin/bootstrap file
 		 */
 		public function add_active_plugin( $main_class, $version = null, $path = null ) {
-
 			$plugin = array(
 				'class'        => $main_class,
 				'version'      => $version,
@@ -529,7 +526,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			}
 
 			return false;
-
 		}
 
 		/**
@@ -559,7 +555,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @deprecated  4.9.12  We shouldn't be handlign singletons internally.
+		 * @deprecated  4.9.12  We shouldn't be handling singletons internally.
 		 *
 		 * @return self
 		 */
