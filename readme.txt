@@ -5,6 +5,7 @@
 = [4.9.16] TBD =
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
+* Tweak - Smarter plugin dependency checking with more accurate admin notices if not all requirements are satisfied [131080]
 * Fix - Enqueue Thickbox script on all admin pages when needed
 
 = [4.9.15] 2019-08-22 =
