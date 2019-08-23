@@ -18,6 +18,8 @@ class Canonical_Formatter extends LineFormatter {
 	/**
 	 * Formats a log record.
 	 *
+	 * @since TBD
+	 *
 	 * @param array $record A record to format
 	 *
 	 * @return mixed The formatted record
