@@ -36,7 +36,7 @@ class Action_Logger implements \Tribe__Log__Logger {
 	 * @since TBD
 	 */
 	public function get_name() {
-		return 'Action Logger';
+		return __( 'Action-based Logger', 'tribe-common' );
 	}
 
 	/**
@@ -45,10 +45,6 @@ class Action_Logger implements \Tribe__Log__Logger {
 	 * @since TBD
 	 */
 	public function log( $entry, $type = Tribe__Log::DEBUG, $src = '' ) {
-		if ( $type === Tribe__Log::DISABLE ) {
-			return;
-		}
-
 		$message = empty( $src ) ? $entry : $src . ': ' . $entry;
 
 		do_action( 'tribe_log', $this->translate_log_level( $type ), $message );
@@ -65,8 +61,6 @@ class Action_Logger implements \Tribe__Log__Logger {
 	 */
 	protected function translate_log_level( $type ) {
 		switch ( $type ) {
-			case Tribe__Log::DISABLE:
-				return PHP_INT_MAX;
 			case Tribe__Log::DEBUG:
 				return Logger::DEBUG;
 			case Tribe__Log::ERROR:
@@ -105,12 +99,19 @@ class Action_Logger implements \Tribe__Log__Logger {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Changes the Monolog logger channel to the specified one.
 	 *
 	 * @since TBD
+	 *
+	 * @param string $log_identifier The channel to switch to.
+	 * @param bool   $create         Unused by this class.
+	 *
+	 * @return bool The exit status of the channel change.
+	 *
+	 * @uses \Tribe\Log\Monolog_Logger::set_channel().
 	 */
 	public function use_log( $log_identifier, $create = false ) {
-		return false;
+		return tribe( 'monolog' )->set_global_channel( $log_identifier );
 	}
 
 	/**

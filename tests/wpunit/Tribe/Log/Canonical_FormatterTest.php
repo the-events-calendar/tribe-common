@@ -12,6 +12,7 @@ class Canonical_FormatterTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_correctly_format_a_record_that_comes_w_o_context() {
 		$record = [
+			'channel' => 'default',
 			'level'      => Logger::ERROR,
 			'level_name' => 'ERROR',
 			'message'    => 'test test test',
@@ -22,7 +23,7 @@ class Canonical_FormatterTest extends \Codeception\TestCase\WPTestCase {
 		$formatter = new Canonical_Formatter();
 		$formatted = $formatter->format( $record );
 
-		$expected = 'tribe.ERROR: test test test';
+		$expected = 'tribe.default.ERROR: test test test';
 		$this->assertEquals( $expected, $formatted );
 	}
 
@@ -40,6 +41,7 @@ class Canonical_FormatterTest extends \Codeception\TestCase\WPTestCase {
 			'not_encodable' => fopen( __FILE__, 'rb' )
 		];
 		$record  = [
+			'channel' => 'default',
 			'level'      => Logger::ERROR,
 			'level_name' => 'ERROR',
 			'message'    => 'test',
@@ -50,8 +52,8 @@ class Canonical_FormatterTest extends \Codeception\TestCase\WPTestCase {
 		$formatter = new Canonical_Formatter();
 		$formatted = $formatter->format( $record );
 
-		$expected = 'tribe-canonical-line level=error source=test one=23 two="{\"foo\":\"bar\",\"bar\":89}"' .
-		            ' three=four d_and_d=true not_encodable=malformed';
+		$expected = 'tribe-canonical-line channel=default level=error source=test one=23 ' .
+		            'two="{\"foo\":\"bar\",\"bar\":89}" three=four d_and_d=true not_encodable=malformed';
 		$this->assertEquals( $expected, $formatted );
 	}
 }

@@ -30,10 +30,10 @@ class Canonical_Formatter extends LineFormatter {
 		if ( $has_context ) {
 			$record['message'] = $this->format_record_message( $record );
 
-			$this->format = 'tribe-canonical-line %message%';
+			$this->format = 'tribe-canonical-line channel=%channel% %message%';
 		} else {
 			// Fall-back on a standard format if the message does not have a context.
-			$this->format = 'tribe.%level_name%: %message%';
+			$this->format = 'tribe.%channel%.%level_name%: %message%';
 		}
 
 		return parent::format( $record );

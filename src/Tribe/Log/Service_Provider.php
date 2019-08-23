@@ -23,6 +23,11 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function register() {
 		$this->container->singleton( Logger::class, [ $this, 'build_logger' ] );
+		$this->container->singleton( 'monolog',
+			function () {
+				return $this->container->make( Logger::class );
+			}
+		);
 
 		add_action( 'tribe_log', [ $this, 'dispatch_log' ], 10, 3 );
 
@@ -96,7 +101,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$handlers = apply_filters( 'tribe_log_handlers', $handlers );
 
 		// Monolog will log to stderr when no handlers are set.
-		$logger = new Logger( 'tribe' );
+		$logger = new Monolog_Logger( Monolog_Logger::DEFAULT_CHANNEL );
+
 		$logger->setHandlers( $handlers );
 
 		return $logger;
