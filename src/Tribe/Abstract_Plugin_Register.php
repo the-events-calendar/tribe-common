@@ -62,8 +62,11 @@ abstract class Tribe__Abstract_Plugin_Register {
 	 *
 	 * This is basically an aliased function - register_plugins, upon
 	 * second calling, returns whether or not a plugin should load.
+	 *
+	 * @deprecated since TBD It is unused by any Tribe plugins and returned void.
+	 * @todo       remove in 4.11
 	 */
 	public function has_valid_dependencies() {
-		return $this->register_plugin();
+		_deprecated_function( __METHOD__, 'TBD' );
 	}
 }
