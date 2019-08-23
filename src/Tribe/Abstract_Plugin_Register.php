@@ -17,13 +17,25 @@ abstract class Tribe__Abstract_Plugin_Register {
 	 * @var string
 	 */
 	protected $base_dir;
+
+	/**
+	 * @var string
+	 */
 	protected $main_class;
+
+	/**
+	 * @var string
+	 */
 	protected $version;
-	protected $dependencies = array(
-		'parent-dependencies' => array(),
-		'co-dependencies' => array(),
-		'addon-dependencies' => array(),
-	);
+
+	/**
+	 * @var array
+	 */
+	protected $dependencies = [
+		'parent-dependencies' => [],
+		'co-dependencies'     => [],
+		'addon-dependencies'  => [],
+	];
 
 	/**
 	 * Registers a plugin with dependencies

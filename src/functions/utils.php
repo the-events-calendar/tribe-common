@@ -36,14 +36,10 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	 * @param string $version      The version
 	 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run
 	 * @param array  $dependencies an array of dependencies to check
-	 *
-	 * @return bool Indicates if plugin should continue initialization
 	 */
-	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
-
-		$tribe_dependency  = Tribe__Dependency::instance();
+	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = [], $dependencies = [] ) {
+		$tribe_dependency = tribe( Tribe__Dependency::class );
 		$tribe_dependency->register_plugin( $file_path, $main_class, $version, $classes_req, $dependencies );
-
 	}
 }
 
