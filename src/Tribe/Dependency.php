@@ -333,15 +333,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 					continue;
 				}
 
-				if ( $class === $checked_plugin['class'] ) {
-					/*
-					 * If the required plugin class is the same we're checking we clear the version to keep the message
-					 * clear and redirect users to the latest version download link in place of providing a wrong
-					 * version number.
-					 */
-					$version = '';
-				}
-
 				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
 
 				$pue = $this->get_pue_from_class( $dependent_plugin['class'] );
