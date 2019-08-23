@@ -3,7 +3,13 @@
 We've introduced a [Monolog based](!g github monolog/monolog) logger in our common libraries.  
 You can find more information about all the possibilities this opens [on the library documentaion](https://seldaek.github.io/monolog/), but this document will serve as an introduction to the essentials of its day to day use.
 
+## When should I log?
 
+Whenever you feel you might have to debug this in the future and could use that information.  
+
+> Pro tip: if you, as a developer, find yourself using `var_dump` and `error_log` a lot, then you should log instead. Someone, someday, will have your same issue.
+
+Worried about "spamming" the logs? [Read here](#logging-levels--or-stuff-does-not-appear-in-the-log).
 
 ## This will deprecate the old logger, but not yet
 
