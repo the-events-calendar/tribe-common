@@ -27,6 +27,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * @since 4.8.3 Method introduced.
 	 * @since 4.9 Added $version and $addon parameters.
 	 * @since 4.9.12 Add $has_pue_notice param
+	 * @since TBD Appended "+" to all version numbers to indicate "or any later version".
 	 *
 	 * @param string $name           Name of the required plugin
 	 * @param null   $thickbox_url   Download or purchase URL for plugin from within /wp-admin/ thickbox
@@ -40,7 +41,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 			'name'           => $name,
 			'thickbox_url'   => $thickbox_url,
 			'is_active'      => $is_active,
-			'version'        => $version,
+			'version'        => $version . '+',
 			'addon'          => $addon,
 			'has_pue_notice' => $has_pue_notice,
 		);
@@ -48,6 +49,10 @@ class Tribe__Admin__Notice__Plugin_Download {
 
 	/**
 	 * Echoes the admin notice, attach to admin_notices
+	 *
+	 * @see \Tribe__Admin__Notice__Plugin_Download::add_required_plugin()
+	 *
+	 * @since TBD Altered the notice to remove "latest version" verbiage since "+" is now added to the version numbers.
 	 */
 	public function show_inactive_plugins_alert() {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
@@ -112,7 +117,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 		$plugin_names_clean_text = wp_kses( $this->implode_with_grammar( $plugin_name ), $allowed_html );
 		$req_plugin_names_clean_text = wp_kses( $this->implode_with_grammar( $req_plugins ), $allowed_html );
 
-		$notice_html_content = '<p>' . esc_html__( 'To begin using %2$s, please install and activate the latest version of %3$s.', 'tribe-common' ) . '</p>';
+		$notice_html_content = '<p>' . esc_html__( 'To begin using %2$s, please install and activate %3$s.', 'tribe-common' ) . '</p>';
 
 		$read_more_link = '<a href="http://m.tri.be/1aev" target="_blank">' . esc_html__( 'Read more.', 'tribe-common' ) . '</a>';
 		$pue_notice_text = esc_html__( 'There’s a new version of %1$s available, but your license is expired. You’ll need to renew your license to get access to the latest version. If you plan to continue using your current version of the plugin(s), be sure to use a compatible version of The Events Calendar. %2$s', 'tribe-common' );
