@@ -42,7 +42,10 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
+	 * Builds and returns the Monolog Logger instance that will listen to the `tribe_log` action.
 	 *
+	 * To avoid the over-head introduced by filtering the filters are applied here, only once, when the instance is
+	 * first built. Any later call will use the singleton instance stored in the container.
 	 *
 	 * @since TBD
 	 *
@@ -54,7 +57,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		 *
 		 * The threshold is inclusive of the level; it default to log any warning and above.
 		 *
-		 * @since TBD
+		 * @since TBDtribe_log_canonical
 		 *
 		 * @param int  The threshold level; if the level of a message is this level or above, then it will be logged.
 		 *
