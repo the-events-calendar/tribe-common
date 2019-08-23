@@ -63,16 +63,20 @@ class Canonical_Formatter extends LineFormatter {
 		$context = array_merge( $extra, $context );
 
 		foreach ( $context as $key => $value ) {
+			$escape = false;
+
 			if ( is_bool( $value ) ) {
 				$value = $value ? 'true' : 'false';
 			} elseif ( ! is_scalar( $value ) ) {
 				$value = json_encode( $value );
 				if ( false === $value ) {
 					$value = 'malformed';
+				} else {
+					$escape = true;
 				}
 			}
 
-			if ( is_string( $value ) && preg_match( '~[\\\\/\\s]+~', $value ) ) {
+			if ( $escape || ( is_string( $value ) && preg_match( '~[\\\\/\\s]+~', $value ) ) ) {
 				$value = '"' . $this->escape_quotes( $value ) . '"';
 			}
 
