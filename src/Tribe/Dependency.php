@@ -4,7 +4,7 @@ defined( 'WPINC' ) or die;
 
 if ( ! class_exists( 'Tribe__Dependency' ) ) {
 	/**
-	 * Tracks which tribe plugins are currently activated
+	 * Tracks which Tribe (or related) plugins are registered, activated, or requirements satisfied.
 	 */
 	class Tribe__Dependency {
 
@@ -228,7 +228,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool
 		 */
 		public function is_plugin_version( $main_class, $version, $compare = '>=' ) {
-
 			//active plugin check to see if the correct version is active
 			if ( ! $this->is_plugin_active( $main_class ) ) {
 				return false;
@@ -251,7 +250,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool
 		 */
 		public function is_plugin_version_registered( $main_class, $version, $compare = '>=' ) {
-
 			//registered plugin check if addon as it tests if it might load
 			if ( ! $this->is_plugin_registered( $main_class ) ) {
 				return false;
@@ -270,7 +268,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool
 		 */
 		public function has_requisite_plugins( $plugins_required = array() ) {
-
 			foreach ( $plugins_required as $class => $version ) {
 				// Return false if the plugin is not set or is a lesser version
 				if ( ! $this->is_plugin_active( $class ) ) {
@@ -312,7 +309,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool  returns false if any dependency is invalid
 		 */
 		public function has_valid_dependencies( $plugin, $dependencies = array(), $addon = false ) {
-
 			if ( empty( $dependencies ) ) {
 				return true;
 			}
