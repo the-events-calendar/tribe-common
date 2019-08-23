@@ -41,7 +41,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 			'name'           => $name,
 			'thickbox_url'   => $thickbox_url,
 			'is_active'      => $is_active,
-			'version'        => $version . '+',
+			'version'        => $version ? $version . '+' : null,
 			'addon'          => $addon,
 			'has_pue_notice' => $has_pue_notice,
 		];
