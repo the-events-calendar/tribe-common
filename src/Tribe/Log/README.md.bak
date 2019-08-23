@@ -1,6 +1,6 @@
 # Monolog-based logging
 
-We've introduced a [Monolog based](https://github.com/Seldaek/monolog) logger in our common libraries.  
+We've introduced a [Monolog based](!g github monolog/monolog) logger in our common libraries.  
 You can find more information about all the possibilities this opens [on the library documentaion](https://seldaek.github.io/monolog/), but this document will serve as an introduction to the essentials of its day to day use.
 
 ## When should I log?
@@ -114,14 +114,14 @@ do_action( 'tribe_log', 'debug', 'my_source', [ 'foo' => 'bar' ] );
 tribe( 'logger' )->log_debug( 'Some debug information', 'My source' );
 ```
 
-You can do the same using the legacy logger, [if enabled][0527-0003]:
+You can do the same using the legacy logger, [if enabled](#intercepting-legacy-logger-logs-with-the-new-monolog-logger):
 
 ```php
 <?php
 tribe( 'logger' )->use_log( 'my_channel' );
 ```
 
-Any log produced after the call will log to the `my_channel` channel; this will apply to the legacy logger too ([if redirected][0527-0003]):
+Any log produced after the call will log to the `my_channel` channel; this will apply to the legacy logger too ([if redirected](#intercepting-legacy-logger-logs-with-the-new-monolog-logger)):
 
 ```
 [22-Aug-2019 15:50:42 UTC] tribe-canonical-line channel=default level=debug source=ea_client action=updated post_id=23 origin=ical
