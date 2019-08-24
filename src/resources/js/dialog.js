@@ -26,6 +26,8 @@ tribe.dialogs = tribe.dialogs || {};
 					dialog_obj.on('show', function (dialogEl, event) {
 						event.preventDefault();
 						event.stopPropagation();
+
+						jQuery( tribe_ev.events ).trigger( 'tribe_tickets_get_tickets', [dialogEl, event] );
 					});
 				});
 			}
