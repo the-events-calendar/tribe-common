@@ -145,7 +145,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 */
 	public function implode_with_grammar( $items ) {
 		$separator   = _x( ', ', 'separator used in a list of items', 'tribe-common' );
-		$conjunction = _x( ' and ', 'the final separator in a list of two or more items', 'tribe-common' );
+		$conjunction = _x( ', and ', 'the final separator in a list of two or more items', 'tribe-common' );
 		$output      = $last_item = array_pop( $items );
 
 		if ( $items ) {
