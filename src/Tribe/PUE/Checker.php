@@ -977,11 +977,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Echo JSON results for key validation
 		 */
 		public function ajax_validate_key() {
-
 			$key   = isset( $_POST['key'] ) ? wp_unslash( $_POST['key'] ) : null;
 			$nonce = isset( $_POST['_wpnonce'] ) ? wp_unslash( $_POST['_wpnonce'] ) : null;
 
-			if ( empty( $nonce ) || false === wp_verify_nonce( $nonce, 'pue-validate-key_' . $this->get_slug() ) ) {
+			if (
+				empty( $nonce )
+				|| false === wp_verify_nonce( $nonce, 'pue-validate-key_' . $this->get_slug() )
+			) {
 				$response = array(
 					'status'  => 0,
 					'message' => __( 'Please refresh the page and try your request again.', 'tribe-common' ),
@@ -992,7 +994,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			echo json_encode( $response );
 			exit;
-
 		}
 
 		/**
@@ -1326,6 +1327,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			if ( isset( $plugin_info->api_invalid ) ) {
 				$plugin_info = Tribe__PUE__Utility::from_plugin_info( $plugin_info );
 				$plugin_info->license_error = $this->get_api_message( $plugin_info );
+
 				return $plugin_info;
 			}
 
@@ -1333,7 +1335,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$this->update_key( $plugin_info->new_install_key );
 			}
 
-			//need to correct the download url so it contains the custom user data (i.e. api and any other paramaters)
+			// Need to correct the download url so it contains the custom user data (e.g. api and any other parameters).
 			$download_query = $this->get_download_query();
 
 			if ( ! empty( $download_query ) ) {
@@ -1425,9 +1427,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 			$state->update = $this->request_update();
 
-			// If a null update was returned, skip the end of the function.
+			// If a null update was returned, skip to the end of the function.
 			if ( null !== $state->update ) {
-				//Is there an update to insert?
+				// Is there an update to insert?
 				if ( version_compare( $state->update->version, $this->get_installed_version(), '>' ) ) {
 					if ( empty( $updates ) ) {
 						$updates = (object) array( 'response' => array() );
