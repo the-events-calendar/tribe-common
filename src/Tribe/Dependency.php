@@ -296,9 +296,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		}
 
 		/**
-		 * Gets all dependencies or single class requirements
-		 * if parent, co, add does not exist use array as is
-		 * if they do exist check each one in turn
+		 * Gets all dependencies or single class requirements if parent, co, add does not exist use array as is if they
+		 * do exist check each one in turn.
 		 *
 		 * @since 4.9
 		 *
@@ -314,12 +313,13 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			}
 
 			$failed_dependency = 0;
-			$tribe_plugins    = new Tribe__Plugins();
+
+			$tribe_plugins = new Tribe__Plugins();
 
 			foreach ( $dependencies as $class => $version ) {
 
 				// if no class for add-on
-				$checked_plugin    = $this->get_registered_plugin( $class );
+				$checked_plugin = $this->get_registered_plugin( $class );
 				if ( $addon && empty( $checked_plugin ) ) {
 					continue;
 				}
