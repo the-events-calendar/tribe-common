@@ -1003,9 +1003,6 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string
 		 */
 		private function get_api_message( $info ) {
-			// Make sure Thickbox is available and consistent appearance regardless of which admin page we're on
-			add_thickbox();
-
 			// this default message should never show, but is here as a fallback just in case.
 			$message = sprintf(
 				esc_html__( 'There is an update for %s. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
