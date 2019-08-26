@@ -106,13 +106,11 @@ class Tribe__Assets {
 	/**
 	 * Enqueues registered assets based on their groups.
 	 *
-	 * @since   4.7
+	 * @since 4.7
 	 *
-	 * @uses    self::enqueue
+	 * @uses  Tribe__Assets::enqueue()
 	 *
-	 * @param   string|array $groups Which groups will be enqueued.
-	 *
-	 * @return  void
+	 * @param string|array $groups Which groups will be enqueued.
 	 */
 	public function enqueue_group( $groups ) {
 		$assets = $this->get();
@@ -123,9 +121,9 @@ class Tribe__Assets {
 				continue;
 			}
 
-			$instersect = array_intersect( (array) $groups, $asset->groups );
+			$intersect = array_intersect( (array) $groups, $asset->groups );
 
-			if ( empty( $instersect ) ) {
+			if ( empty( $intersect ) ) {
 				continue;
 			}
 
@@ -177,7 +175,7 @@ class Tribe__Assets {
 			$enqueue = empty( $asset->conditionals );
 
 			if ( ! $enqueue ) {
-				// Reset Enqeue
+				// Reset Enqueue.
 				$enqueue = [];
 
 				// Which is the operator?
@@ -338,30 +336,33 @@ class Tribe__Assets {
 	 *
 	 * @since 4.3
 	 *
-	 * @param  object       $origin    The main Object for the plugin you are enqueueing the script/style for.
-	 * @param  string       $slug      Slug to save the asset.
-	 * @param  string       $file      Which file will be loaded, either CSS or JS.
-	 * @param  array        $deps      Dependencies.
-	 * @param  string|null  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`.
-	 * @param  string|array $arguments {
+	 * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
+	 * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
+	 * @param string            $file      The asset file to load (CSS or JS), including non-minified file extension.
+	 * @param array             $deps      The list of dependencies.
+	 * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
+	 *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
+	 * @param string|array      $arguments {
 	 *     Optional. Array or string of parameters for this asset.
 	 *
-	 *     @type string|null  $action         Which WordPress action this asset will be loaded on.
-	 *     @type int          $priority       Priority in which this asset will be loaded on the WordPress action.
-	 *     @type string       $file           The relative path to the File that will be enqueued, uses the $origin to get the full path.
-	 *     @type string       $type           Asset Type, `js` or `css`.
-	 *     @type array        $deps           An array of other asset as dependencies.
-	 *     @type string       $version        Version number, used for cache expiring.
-	 *     @type string       $media          Used only for CSS, when to load the file.
-	 *     @type bool         $in_footer      A boolean determining if the javascript should be loaded on the footer.
-	 *     @type array|object $localize       Variables needed on the JavaScript side {
-	 *          @type string 		$name     Name of the JS variable.
-	 *          @type string|array  $data     Contents of the JS variable.
+	 *     @type array|string|null  $action         The WordPress action(s) this asset will be enqueued on.
+	 *     @type int                $priority       Priority in which this asset will be loaded on the WordPress action.
+	 *     @type string             $file           The relative path to the File that will be enqueued, uses the $origin to get the full path.
+	 *     @type string             $type           Asset Type, `js` or `css`.
+	 *     @type array              $deps           An array of other asset as dependencies.
+	 *     @type string             $version        Version number, used for cache expiring.
+	 *     @type string             $media          Used only for CSS, when to load the file.
+	 *     @type bool               $in_footer      A boolean determining if the javascript should be loaded on the footer.
+	 *     @type array|object       $localize       {
+	 *          Variables needed on the JavaScript side.
+	 *
+	 *          @type string       $name     Name of the JS variable.
+	 *          @type string|array $data     Contents of the JS variable.
 	 *     }
 	 *     @type callable[]   $conditionals   An callable method or an array of them, that will determine if the asset is loaded or not.
 	 * }
 	 *
-	 * @return string
+	 * @return object|false The registered object or false on error.
 	 */
 	public function register( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
 		// Prevent weird stuff here.
@@ -443,7 +444,7 @@ class Tribe__Assets {
 		}
 
 		// If asset type is wrong don't register.
-		if ( ! in_array( $asset->type, [ 'js', 'css' ] ) ) {
+		if ( ! in_array( $asset->type, [ 'js', 'css' ], true ) ) {
 			return false;
 		}
 
@@ -578,9 +579,10 @@ class Tribe__Assets {
 	 *
 	 * @since 4.3
 	 *
-	 * @param  string $slug Slug of the Asset.
+	 * @param string $slug Slug of the Asset.
 	 *
-	 * @return bool
+	 * @return array|object|null Array of asset objects, single asset object, or null if looking for a single asset but
+	 *                           it was not in the array of objects.
 	 */
 	public function get( $slug = null ) {
 		uasort( $this->assets, [ $this, 'order_by_priority' ] );
@@ -604,8 +606,8 @@ class Tribe__Assets {
 	 *
 	 * @since  4.7
 	 *
-	 * @param  object  $a  First Subject to compare.
-	 * @param  object  $b  Second subject to compare.
+	 * @param object $a First Subject to compare.
+	 * @param object $b Second subject to compare.
 	 *
 	 * @return boolean
 	 */
