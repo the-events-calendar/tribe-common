@@ -222,17 +222,19 @@ abstract class Tribe__Process__Handler {
 				$src    = call_user_func( [ $class, 'action' ] );
 				$logger->log( 'Could not schedule event for cron-based handling', Tribe__Log::ERROR, $src );
 
-				do_action( 'tribe_log',
-				           'error',
-				           $this->identifier,
-				           [ 'action' => 'schedule_cron', 'data' => $this->data ]
+				do_action(
+					'tribe_log',
+					'error',
+					$this->identifier,
+					[ 'action' => 'schedule_cron', 'data' => $this->data ]
 				);
 			}
 
-			do_action( 'tribe_log',
-			           'debug',
-			           $this->identifier,
-			           [ 'action' => 'schedule_cron', 'data' => $this->data ]
+			do_action(
+				'tribe_log',
+				'debug',
+				$this->identifier,
+				[ 'action' => 'schedule_cron', 'data' => $this->data ]
 			);
 		}
 

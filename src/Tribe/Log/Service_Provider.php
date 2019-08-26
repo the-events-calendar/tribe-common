@@ -62,7 +62,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		 *
 		 * The threshold is inclusive of the level; it default to log any warning and above.
 		 *
-		 * @since TBDtribe_log_canonical
+		 * @since TBD
 		 *
 		 * @param int  The threshold level; if the level of a message is this level or above, then it will be logged.
 		 *

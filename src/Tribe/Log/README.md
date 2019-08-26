@@ -91,7 +91,8 @@ You can control the logging level with the `tribe_log_level` filter:
 
 ```php
 <?php
-add_filter( 'tribe_log_level',
+add_filter( 
+    'tribe_log_level',
 	static function () {
         // Only log errors or above. 
 		return Monolog\Logger::ERROR;
@@ -140,7 +141,8 @@ If you're using a plugin remember to activate it.
  *  Plugin Name: Modern Tribe Logger Control
  * Plugin Description: Control the behavior of Modern Tribe Monolog-based logger.
  */
-add_filter( 'tribe_log_level',
+add_filter( 
+    'tribe_log_level',
 	static function () {
         // Control the min level of logging.
 		return Monolog\Logger::DEBUG;

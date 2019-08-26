@@ -117,14 +117,16 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 		$thumbnail_id = tribe_upload_image( $post_thumbnail );
 
 		if ( false === $thumbnail_id ) {
-			do_action( 'tribe_log',
-			           'error',
-			           $this->identifier,
-			           [
-				           'action'         => 'fetch',
-				           'post_thumbnail' => $post_thumbnail,
-				           'post_id'        => $id,
-			           ] );
+			do_action(
+				'tribe_log',
+				'error',
+				$this->identifier,
+				[
+					'action'         => 'fetch',
+					'post_thumbnail' => $post_thumbnail,
+					'post_id'        => $id,
+				]
+			);
 			$logger->log_debug( "(ID: {$this->identifier}) - could not fetch {$post_thumbnail} for post {$id}, done.", $log_src );
 
 			return 0;
@@ -136,30 +138,34 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 		}
 
 		if ( false === $set ) {
-			do_action( 'tribe_log',
-			           'error',
-			           $this->identifier,
-			           [
-				           'action'         => 'set',
-				           'post_thumbnail' => $post_thumbnail,
-				           'attachment_id'  => $thumbnail_id,
-				           'post_id'        => $id,
-			           ] );
+			do_action(
+				'tribe_log',
+				'error',
+				$this->identifier,
+				[
+					'action'         => 'set',
+					'post_thumbnail' => $post_thumbnail,
+					'attachment_id'  => $thumbnail_id,
+					'post_id'        => $id,
+				]
+			);
 
 			$logger->log_debug( "(ID: {$this->identifier}) - fetched {$post_thumbnail}, created attachment with ID {$thumbnail_id}, unable to set thumbnail for post {$id}, done.", $log_src );
 
 			return $thumbnail_id;
 		}
 
-		do_action( 'tribe_log',
-		           'debug',
-		           $this->identifier,
-		           [
-			           'action'         => 'set',
-			           'post_thumbnail' => $post_thumbnail,
-			           'attachment_id'  => $thumbnail_id,
-			           'post_id'        => $id,
-		           ] );
+		do_action(
+			'tribe_log',
+			'debug',
+			$this->identifier,
+			[
+				'action'         => 'set',
+				'post_thumbnail' => $post_thumbnail,
+				'attachment_id'  => $thumbnail_id,
+				'post_id'        => $id,
+			]
+		);
 
 		$logger->log_debug( "(ID: {$this->identifier}) - fetched {$post_thumbnail}, created attachment with ID {$thumbnail_id}, set thumbnail for post {$id}, done.", $log_src );
 

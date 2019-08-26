@@ -54,10 +54,15 @@ class Tribe__Image__Uploader {
 			$id = false;
 		}
 
-		do_action( 'tribe_log',
-		           'debug',
-		           __CLASS__,
-		           [ 'featured_image' => $this->featured_image, 'exists' => (bool) $existing, 'id' => $id, ]
+		do_action(
+			'tribe_log',
+			'debug',
+			__CLASS__,
+			[
+				'featured_image' => $this->featured_image,
+				'exists'         => (bool) $existing,
+				'id'             => $id,
+			]
 		);
 
 		return $id;
