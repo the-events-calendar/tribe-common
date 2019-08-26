@@ -42,7 +42,11 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 			throw new InvalidArgumentException( 'Post ID and featured image should be set before trying to dispatch.' );
 		}
 
-		$data = [ 'post_id' => $this->post_id, 'post_thumbnail' => trim( $this->post_thumbnail ) ];
+		$data = [
+			'post_id'        => $this->post_id,
+			'post_thumbnail' => trim( $this->post_thumbnail ),
+		];
+
 		$this->data( $data );
 
 		do_action( 'tribe_log', 'debug', __CLASS__, $data );
