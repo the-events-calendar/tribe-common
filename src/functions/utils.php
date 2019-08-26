@@ -643,20 +643,32 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 /**
  * Gets the earliest version we have recorded for the plugin.
  * Defaults to the current version if there are no records.
+ * If no version info found, it will return false.
  *
  * @since TBD
  *
  * @param object $class
- * @return string a SemVer version string.
+ * @return string|boolean a SemVer version string, or false if no info found.
  */
 function tribe_get_install_version( $class ) {
-	$pervious_versions = Tribe__Settings_Manager::get_option( $class::VERSION_HISTORY_SLUG );
-	return !  empty( $pervious_versions[1] ) ? $pervious_versions[1] : $class::VERSION;
+	// try for the version history first
+	if ( ! empty( $class::VERSION_HISTORY_SLUG ) ) {
+		return Tribe__Settings_Manager::get_option( $class::VERSION_HISTORY_SLUG );
+	}
+
+	// Fall back to the current plugin version
+	if ( ! empty( $class::VERSION ) ) {
+		return $class::VERSION;
+	}
+
+	// no versions for you!
+	return false;
 }
 
 
 /**
  * Checks if a plugin was installed prior to the passed version.
+ * If no info found, it will assume the plugin is old and return true.
  *
  * @since TBD
  *
@@ -667,11 +679,17 @@ function tribe_get_install_version( $class ) {
 function tribe_installed_before( $class, $version ) {
 	$install_version = tribe_get_install_version( $class );
 
+	// if no install version, let's assume it's been here a while.
+	if ( empty( $install_version ) ) {
+		return true;
+	}
+
 	return 0 > version_compare( $install_version, $version );
 }
 
 /**
  * Checks if a plugin was installed after the passed version.
+ * If no info found, it will assume the plugin is old and return false.
  *
  * @since TBD
  *
@@ -682,11 +700,17 @@ function tribe_installed_before( $class, $version ) {
 function tribe_installed_after( $class, $version ) {
 	$install_version = tribe_get_install_version( $class );
 
+	// if no install version, let's assume it's been here a while.
+	if ( empty( $install_version ) ) {
+		return false;
+	}
+
 	return 0 < version_compare( $install_version, $version );
 }
 
 /**
- * Checks if a plugin was installed prior at/on the passed version.
+ * Checks if a plugin was installed at/on the passed version.
+ * If no info found, it will assume the plugin is old and return false.
  *
  * @since TBD
  *
@@ -696,6 +720,11 @@ function tribe_installed_after( $class, $version ) {
  */
 function tribe_installed_on( $class, $version ) {
 	$install_version = tribe_get_install_version( $class );
+
+	// if no install version, let's assume it's been here a while.
+	if ( empty( $install_version ) ) {
+		return false;
+	}
 
 	return 0 === version_compare( $install_version, $version );
 }
