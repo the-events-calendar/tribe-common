@@ -152,10 +152,15 @@ abstract class Tribe__Process__Handler {
 				$data_source = $_POST;
 			}
 
-			do_action( 'tribe_log',
-			           'debug',
-			           $this->identifier,
-			           [ 'action' => 'async_handling', 'data_source' => $data_source, 'payload' => $_POST, ]
+			do_action(
+				'tribe_log',
+				'debug',
+				$this->identifier,
+				[
+					'action'      => 'async_handling',
+					'data_source' => $data_source,
+					'payload'     => $_POST,
+				]
 			);
 
 			$this->handle( $data_source );
