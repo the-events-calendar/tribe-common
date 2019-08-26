@@ -50,7 +50,7 @@ do_action(
     'tribe_log', 
     'debug', 
     'ea_client', 
-    [ 'action' => 'updated','post_id' => $id, 'origin' => $origin] 
+    [ 'action' => 'updated', 'post_id' => $id, 'origin' => $origin ]
 );
 ```
 
