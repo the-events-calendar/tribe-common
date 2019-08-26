@@ -136,7 +136,9 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 *
 	 * The variable being tested for can be an array if you wish to find a nested value.
 	 *
-	 * @see Tribe__Utils__Array::get()
+	 * @since TBD Included explicit check against $_REQUEST.
+	 *
+	 * @see   Tribe__Utils__Array::get()
 	 *
 	 * @param string|array $var
 	 * @param mixed        $default
@@ -144,7 +146,7 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tribe_get_request_var( $var, $default = null ) {
-		return Tribe__Utils__Array::get_in_any( array( $_GET, $_POST ), $var, $default );
+		return Tribe__Utils__Array::get_in_any( array( $_GET, $_POST, $_REQUEST ), $var, $default );
 	}
 }
 
