@@ -48,8 +48,8 @@ class Action_LoggerTest extends \Codeception\TestCase\WPTestCase {
 			function () {
 				$this->assertCount( 2, func_get_args() );
 			},
-			        10,
-			        10
+			10,
+			10
 		);
 
 		$action_logger = new Action_Logger();

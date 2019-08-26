@@ -53,7 +53,7 @@ class Canonical_FormatterTest extends \Codeception\TestCase\WPTestCase {
 		$formatted = $formatter->format( $record );
 
 		$expected = 'tribe-canonical-line channel=default level=error source=test one=23 ' .
-		            'two="{\"foo\":\"bar\",\"bar\":89}" three=four d_and_d=true not_encodable=malformed';
+			'two="{\"foo\":\"bar\",\"bar\":89}" three=four d_and_d=true not_encodable=malformed';
 		$this->assertEquals( $expected, $formatted );
 	}
 }
