@@ -175,10 +175,11 @@ abstract class Tribe__Process__Handler {
 		 */
 		wp_clear_scheduled_hook( $this->healthcheck_cron_hook_id, [ $data_source ] );
 
-		do_action( 'tribe_log',
-		           'debug',
-		           $this->identifier,
-		           array_merge( [ 'action' => 'cron_handling' ], $data_source ) );
+		do_action(
+			'tribe_log',
+			'debug',
+			$this->identifier,
+			array_merge( [ 'action' => 'cron_handling' ], $data_source ) );
 
 		$this->handle( $data_source );
 	}
