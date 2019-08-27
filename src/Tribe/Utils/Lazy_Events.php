@@ -127,10 +127,14 @@ trait Lazy_Events {
 	 * @param callable $callback The callback that will be hooked on the `$lazy_resolve_action` (defaults to `shutdown`)
 	 *                           if the `resolved` method is called.
 	 *
+	 * @return static The object instance.
+	 *
 	 * @see Lazy_Events::resolved()
 	 */
 	public function on_resolve( callable $callback ) {
 		$this->lazy_resolve_callback = $callback;
+
+		return $this;
 	}
 
 	/**

@@ -200,6 +200,8 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		 */
 		$thumbnail_data = apply_filters( 'tribe_post_thumbnail_data', $thumbnail_data, $post_id );
 
+		$this->resolved();
+
 		return $thumbnail_data;
 	}
 
