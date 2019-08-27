@@ -27,5 +27,8 @@
   "vendor/tribe-select2/*.gif",
   "vendor/tribe-select2/*.js",
   "vendor/tribe-select2/*.png",
-  "vendor/xrstf/composer-php52/*"
+  "vendor/xrstf/composer-php52/*",
+  "vendor/psr/log/Psr/Log/*.php",
+  "vendor/composer/monolog/monolog/src/*.php",
+  "vendor/composer/monolog/monolog/src/**/*.php"
 ]

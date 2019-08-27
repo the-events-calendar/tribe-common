@@ -147,6 +147,22 @@ abstract class Tribe__Process__Handler {
 
 			check_ajax_referer( $this->identifier, 'nonce' );
 
+			// Let's make sure to hydrate date from the request if not set.
+			if ( count( array_filter( $data_source ) ) < 1 ) {
+				$data_source = $_POST;
+			}
+
+			do_action(
+				'tribe_log',
+				'debug',
+				$this->identifier,
+				[
+					'action'      => 'async_handling',
+					'data_source' => $data_source,
+					'payload'     => $_POST,
+				]
+			);
+
 			$this->handle( $data_source );
 
 			wp_die();
@@ -158,6 +174,12 @@ abstract class Tribe__Process__Handler {
 		 * removing it first from the action to avoid multiple calls.
 		 */
 		wp_clear_scheduled_hook( $this->healthcheck_cron_hook_id, [ $data_source ] );
+
+		do_action(
+			'tribe_log',
+			'debug',
+			$this->identifier,
+			array_merge( [ 'action' => 'cron_handling' ], $data_source ) );
 
 		$this->handle( $data_source );
 	}
@@ -176,12 +198,16 @@ abstract class Tribe__Process__Handler {
 			( defined( 'TRIBE_NO_ASYNC' ) && true === TRIBE_NO_ASYNC )
 			|| true === (bool) getenv( 'TRIBE_NO_ASYNC' )
 		) {
+			do_action( 'tribe_log', 'debug', $this->identifier, [ 'action' => 'sync_handle', 'data' => $this->data ] );
+
 			return $this->sync_handle( $this->data );
 		}
 
 		if ( $this->feature_detection->supports_async_process() ) {
 			$url  = add_query_arg( $this->get_query_args(), $this->get_query_url() );
 			$args = $this->get_post_args();
+
+			do_action( 'tribe_log', 'debug', $this->identifier, [ 'action' => 'async_dispatch', 'data' => $this->data ] );
 
 			return wp_remote_post( esc_url_raw( $url ), $args );
 		}
@@ -201,7 +227,21 @@ abstract class Tribe__Process__Handler {
 				$class  = get_class( $this );
 				$src    = call_user_func( [ $class, 'action' ] );
 				$logger->log( 'Could not schedule event for cron-based handling', Tribe__Log::ERROR, $src );
+
+				do_action(
+					'tribe_log',
+					'error',
+					$this->identifier,
+					[ 'action' => 'schedule_cron', 'data' => $this->data ]
+				);
 			}
+
+			do_action(
+				'tribe_log',
+				'debug',
+				$this->identifier,
+				[ 'action' => 'schedule_cron', 'data' => $this->data ]
+			);
 		}
 
 		return true;
