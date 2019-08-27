@@ -6,6 +6,7 @@
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
 * Tweak - `tribe_get_request_var()` now includes explicit check against $_REQUEST [132248]
+* Fix - Correct issue with tooltip.js and missing `tribe` var [133207]
 
 = [4.9.15] 2019-08-22 =
 
