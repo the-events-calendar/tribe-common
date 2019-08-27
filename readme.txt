@@ -2,9 +2,9 @@
 
 == Changelog ==
 
-= [4.9.15.1] TBD =
+= [4.9.15.1] 2019-08-27 =
 
-* Fix - Correct issue with tooltip.js and missing `tribe` var [133207]
+* Fix - Resolve JS console warnings from tooltip.js by adding missing `tribe` var when the var is not setup on the current page already [133207]
 
 = [4.9.15] 2019-08-22 =
 
