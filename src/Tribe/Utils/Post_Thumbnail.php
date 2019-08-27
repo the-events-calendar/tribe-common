@@ -28,6 +28,8 @@ use Tribe__Utils__Array as Arr;
  * @package Tribe\Utils
  */
 class Post_Thumbnail implements \ArrayAccess, \Serializable {
+	use Lazy_Events;
+
 	/**
 	 * An array of the site image sizes, including the `full` one.
 	 *

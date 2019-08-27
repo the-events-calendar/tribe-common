@@ -12,6 +12,8 @@ namespace Tribe\Utils;
 
 
 class Lazy_String implements \Serializable, \JsonSerializable {
+	use Lazy_Events;
+
 	/**
 	 * The string value produced by the callback, cached.
 	 *

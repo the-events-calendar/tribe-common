@@ -33,6 +33,7 @@ namespace Tribe\Utils;
  */
 class Lazy_Collection implements Collection_Interface {
 	use Collection_Trait;
+	use Lazy_Events;
 
 	/**
 	 * The callback in charge of providing the elements.
