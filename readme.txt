@@ -3,6 +3,7 @@
 == Changelog ==
 
 = [4.9.15.1] TBD =
+
 * Fix - Correct issue with tooltip.js and missing `tribe` var [133207]
 
 = [4.9.15] 2019-08-22 =
