@@ -9,6 +9,10 @@
 * Tweak - `tribe_get_request_var()` now includes explicit check against $_REQUEST [132248]
 * Fix - Enqueue Thickbox script on all admin pages when needed [131080]
 
+= [4.9.15.1] 2019-08-27 =
+
+* Fix - Resolve JS console warnings from tooltip.js by adding missing `tribe` var when the var is not setup on the current page already [133207]
+
 = [4.9.15] 2019-08-22 =
 
 * Tweak - Add IDs to radio fields so we can target them with tribe-dependency [131428]
