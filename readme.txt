@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [4.9.15.1] TBD =
+* Fix - Correct issue with tooltip.js and missing `tribe` var [133207]
+
 = [4.9.15] 2019-08-22 =
 
 * Tweak - Add IDs to radio fields so we can target them with tribe-dependency [131428]
