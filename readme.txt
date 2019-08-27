@@ -5,7 +5,7 @@
 = [AR Modal] TBD =
 
 * Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. [133048]
-* Feature - Requires the plugin have the `VERSION` and `VERSION_HISTORY_SLUG` constants set. `VERSION_HISTORY_SLUG` is a new constant being added specifically for these functions.  [133048]
+* Feature - Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions.  [133048]
 
 = [4.9.16] TBD =
 

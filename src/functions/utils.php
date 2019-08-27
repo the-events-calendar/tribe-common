@@ -652,8 +652,8 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
  */
 function tribe_get_install_version( $class ) {
 	// try for the version history first
-	if ( ! empty( $class::VERSION_HISTORY_SLUG ) ) {
-		return Tribe__Settings_Manager::get_option( $class::VERSION_HISTORY_SLUG );
+	if ( ! empty( $class->version_history_slug ) ) {
+		return Tribe__Settings_Manager::get_option( $class->version_history_slug );
 	}
 
 	// Fall back to the current plugin version
