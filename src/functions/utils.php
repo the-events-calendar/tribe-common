@@ -649,7 +649,7 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
  *
  * @param object $class The plugin object.
  *
- * @return string|boolean a SemVer version string, or false if no info found.
+ * @return string|boolean The SemVer version string, or false if no info found.
  */
 function tribe_get_install_version( $class ) {
 	// Try for the version history first.
@@ -673,8 +673,8 @@ function tribe_get_install_version( $class ) {
  *
  * @since TBD
  *
- * @param object $class the main plugin class.
- * @param string $version a SemVer version string.
+ * @param object $class The plugin object.
+ * @param string $version The SemVer version string.
  *
  * @return boolean Whether the plugin was installed prior to the passed version.
  */
@@ -695,14 +695,15 @@ function tribe_installed_before( $class, $version ) {
  *
  * @since TBD
  *
- * @param object $class the main plugin class.
- * @param string $version a SemVer version string.
- * @return boolean
+ * @param object $class The plugin object.
+ * @param string $version The SemVer version string.
+ *
+ * @return boolean Whether the plugin was installed after the passed version.
  */
 function tribe_installed_after( $class, $version ) {
 	$install_version = tribe_get_install_version( $class );
 
-	// if no install version, let's assume it's been here a while.
+	// If no install version, let's assume it's been here a while.
 	if ( empty( $install_version ) ) {
 		return false;
 	}
@@ -716,14 +717,15 @@ function tribe_installed_after( $class, $version ) {
  *
  * @since TBD
  *
- * @param object $class the main plugin class.
- * @param string $version a SemVer version string.
- * @return boolean
+ * @param object $class The plugin object.
+ * @param string $version The SemVer version string.
+ *
+ * @return boolean Whether the plugin was installed at/on the passed version.
  */
 function tribe_installed_on( $class, $version ) {
 	$install_version = tribe_get_install_version( $class );
 
-	// if no install version, let's assume it's been here a while.
+	// If no install version, let's assume it's been here a while.
 	if ( empty( $install_version ) ) {
 		return false;
 	}
