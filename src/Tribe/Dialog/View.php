@@ -365,6 +365,8 @@ class View extends \Tribe__Template {
 
 		$this->template( $template_name, $args, true );
 
+		$this->get_dialog_script( $args );
+
 		$html = ob_get_clean();
 
 		/**
@@ -378,7 +380,7 @@ class View extends \Tribe__Template {
 		return apply_filters( 'tribe_dialog_html', $html, $args );
 	}
 
-	public function get_dialog_script( $args, $echo ) {
+	public function get_dialog_script( $args, $echo = true ) {
 		$args = [
 			'appendTarget'         => esc_html( $args[ 'append_target' ] ),
 			'bodyLock'             => esc_html( $args[ 'body_lock' ] ),
@@ -404,6 +406,7 @@ class View extends \Tribe__Template {
 		 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
 		 */
 		$args = apply_filters( 'tribe_dialog_script_args', $args );
+
 		ob_start();
 		?>
 		<script>
@@ -421,13 +424,32 @@ class View extends \Tribe__Template {
 			 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
 			 */
 			do_action( 'tribe_dialog_additional_scripts', $args );
+
+
+			/**
+			 * Allows for injecting additional scripts (button actions, etc) by template.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
+			 */
+			do_action( 'tribe_dialog_additional_scripts_'  . $args['template'], $args );
+
+			/**
+			 * Allows for injecting additional scripts (button actions, etc) by dialog ID.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
+			 */
+			do_action( 'tribe_dialog_additional_scripts_' . $args['id'], $args );
 			?>
 		</script>
 		<?php
-		$html = ob_end_clean();
+		$html = ob_get_clean();
 
 		/**
-		 * Allows for modifying the HTML before it is echoed or retruned.
+		 * Allows for modifying the HTML before it is echoed or returned.
 		 *
 		 * @since TBD
 		 *

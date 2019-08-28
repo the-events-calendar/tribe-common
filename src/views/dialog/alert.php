@@ -16,7 +16,6 @@ $dialog_view = tribe( 'dialog.view' );
 // grab allthevars!
 $vars        = get_defined_vars();
 ?>
-<?php $dialog_view->template( 'script', $vars, true ); ?>
 <?php $dialog_view->template( 'button', $vars, true ); ?>
 <script data-js="<?php echo esc_attr( 'dialog-content-' . $id ); ?>" type="text/template">
 	<div <?php tribe_classes( $content_classes ) ?>>

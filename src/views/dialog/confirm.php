@@ -30,4 +30,3 @@ $vars        = get_defined_vars();
 		</div>
 	</div>
 </script>
-<?php $dialog_view->template( 'script', $vars, true ); ?>

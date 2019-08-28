@@ -26,4 +26,4 @@ $vars        = get_defined_vars();
 		<?php echo $content; ?>
 	</div>
 </script>
-<?php $dialog_view->get_dialog_script( $vars, true ); ?>
+
