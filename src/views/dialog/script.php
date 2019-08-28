@@ -30,7 +30,7 @@ $args = [
 
 /**
  * Allows for modifying the arguments before they are passed to the dialog script
-
+ *
  * @since TBD
  *
  * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().

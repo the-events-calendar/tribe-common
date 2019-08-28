@@ -10,7 +10,6 @@
  * @package Tribe
  * @version TBD
  */
-
 ?>
 <button
 	class="tribe-button"

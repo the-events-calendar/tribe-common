@@ -19,6 +19,8 @@ class View extends \Tribe__Template {
 
 	/**
 	 * View constructor
+	 *
+	 * @since TBD
 	 */
 	public function __construct() {
 		$this->set_template_origin( \Tribe__Main::instance() );
@@ -137,8 +139,8 @@ class View extends \Tribe__Template {
 		$default_args = [
 			'append_target'           => 'body',
 			'body_lock'               => true,
-			'button_text'             => 'Open the modal window',
-			'close_button_aria_label' => 'Close this modal window',
+			'button_text'             => __( 'Open the modal window', 'tribe-common' ),
+			'close_button_aria_label' => __( 'Close this modal window', 'tribe-common' ),
 			'close_button_classes'    => 'tribe-dialog__close-button tribe-modal__close-button',
 			'content_classes'         => 'tribe-dialog__content tribe-modal__content',
 			'content_wrapper_classes' => 'tribe-dialog__wrapper tribe-modal__wrapper',
@@ -198,8 +200,8 @@ class View extends \Tribe__Template {
 	public function render_confirm( $content, $args = [], $id = null, $echo = true ) {
 		$default_args = [
 			'body_lock'               => true,
-			'cancel_button_text'      => 'Cancel',
-			'continue_button_text'    => 'Confirm',
+			'cancel_button_text'      => __( 'Cancel', 'tribe-common' ),
+			'continue_button_text'    => __( 'Confirm', 'tribe-common' ),
 			'close_button_aria_label' => '',
 			'close_button_classes'    => 'tribe-dialog__close-button--hidden',
 			'content_classes'         => 'tribe-dialog__content tribe-confirm__content',
@@ -255,7 +257,7 @@ class View extends \Tribe__Template {
 	 */
 	public function render_alert( $content, $args = [], $id = null, $echo = true ) {
 		$default_args = [
-			'alert_button_text'       => 'OK',
+			'alert_button_text'       => __( 'OK', 'tribe-common' ),
 			'body_lock'               => true,
 			'close_button_aria_label' => '',
 			'close_button_classes'    => 'tribe-dialog__close-button--hidden',
@@ -311,7 +313,7 @@ class View extends \Tribe__Template {
 		$default_args = [
 			'button_id'               => '',
 			'button_name'             => '',
-			'button_text'             => 'Open the dialog window',
+			'button_text'             => __( 'Open the dialog window', 'tribe-common' ),
 			'button_type'             => '',
 			'button_value'            => '',
 			'content_classes'         => 'tribe-dialog__content', // dialog content classes
@@ -322,7 +324,7 @@ class View extends \Tribe__Template {
 			// dialog script options
 			'append_target'           => '', // the dialog will be inserted after the button, you could supply a selector string here to override
 			'body_lock'               => false, // lock the body while dialog open?
-			'close_button_aria_label' => 'Close this dialog window', // aria label for close button
+			'close_button_aria_label' => __( 'Close this dialog window', 'tribe-common' ), // aria label for close button
 			'close_button_classes'    => 'tribe-dialog__close-button', // classes for close button
 			'content_wrapper_classes' => 'tribe-dialog__wrapper', // dialog content classes
 			'effect'                  => 'none', // none or fade (for now)
@@ -358,11 +360,13 @@ class View extends \Tribe__Template {
 		 * @param array $args The dialog arguments.
 		 */
 		$template_name = apply_filters( 'tribe_dialog_template', $template, $args );
+
 		ob_start();
 
 		$this->template( $template_name, $args, true );
 
 		$html = ob_get_clean();
+
 		/**
 		 * Allow us to filter the dialog output (HTML string).
 		 *
@@ -372,7 +376,6 @@ class View extends \Tribe__Template {
 		 * @param array $args The dialog arguments.
 		 */
 		return apply_filters( 'tribe_dialog_html', $html, $args );
-
 	}
 
 }

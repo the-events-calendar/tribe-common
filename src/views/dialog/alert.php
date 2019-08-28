@@ -18,7 +18,7 @@ $vars        = get_defined_vars();
 ?>
 <?php $dialog_view->template( 'script', $vars, true ); ?>
 <?php $dialog_view->template( 'button', $vars, true ); ?>
-<script data-js="<?php echo esc_attr( 'dialog-content-' . $id ); ?>" type="text/template" >
+<script data-js="<?php echo esc_attr( 'dialog-content-' . $id ); ?>" type="text/template">
 	<div <?php tribe_classes( $content_classes ) ?>>
 		<?php if ( ! empty( $title ) ) : ?>
 			<h2><?php echo esc_html( $title ); ?></h2>
