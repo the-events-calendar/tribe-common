@@ -8,7 +8,7 @@
 * Feature - New dialogs can be created with a simple call to `tribe( 'dialog.view' )->render_dialog( $args )` in php. [129434]
 * Feature - The tribe-dialog object sets up all necessary javascript and HTML via passed parameters. [129434]
 * Feature - Add a basic dialog, modal, confirmation dialog, and alert as templates.
-* Feature - Add methods `render_modal()`, `render_confirm()` and `render_alert()` to streamline common dialog types. [129434]
+* Feature - Add methods `render_modal()`, `render_confirm()` and `render_alert()` to streamline common dialog types in Dialog View class. [129434]
 
 = [4.9.16] TBD =
 
