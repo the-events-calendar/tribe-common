@@ -58,7 +58,7 @@ class View extends \Tribe__Template {
 	 *     Dialog script option overrides.
 	 *
 	 *     @type string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
-	 *     @type string  $body_lock               Lock the body while dialog open (false)?
+	 *     @type boolean $body_lock               Whether to lock the body while dialog open (false).
 	 *     @type string  $close_button_aria_label Aria label for the close button ("Close this dialog window").
 	 *     @type string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button").
 	 *     @type string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper").
@@ -121,7 +121,7 @@ class View extends \Tribe__Template {
 	 *     Dialog script option overrides.
 	 *
 	 *     @type string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override ("body").
-	 *     @type string  $body_lock               Lock the body while dialog open (true)?
+	 *     @type boolean $body_lock               Whether to lock the body while dialog open (true).
 	 *     @type string  $close_button_aria_label Aria label for the close button ("Close this modal window").
 	 *     @type string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button tribe-modal__close-button").
 	 *     @type string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper tribe-modal__wrapper").
@@ -175,7 +175,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-confirm__content").
 	 *     @type string  $continue_button_text    Text for the "Continue" button ("Confirm").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
-	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`)
+	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
 	 *     @type string  $template                The dialog template name (confirm).
 	 *     @type string  $title                   The dialog title (optional).
 	 *     @type string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
@@ -183,7 +183,7 @@ class View extends \Tribe__Template {
 	 *     Dialog script option overrides.
 	 *
 	 *     @type string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
-	 *     @type string  $body_lock               Lock the body while dialog open (true)?
+	 *     @type boolean $body_lock               Whether to lock the body while dialog open (true).
 	 *     @type string  $close_button_aria_label Aria label for the close button (optional).
 	 *     @type string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button--hidden").
 	 *     @type string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper tribe-confirm__wrapper").
@@ -233,7 +233,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $button_value            The value for the trigger button (optional).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-alert__content").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
-	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`)
+	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
 	 *     @type string  $template                The dialog template name (alert).
 	 *     @type string  $title                   The dialog title (optional).
 	 *     @type string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
@@ -241,7 +241,7 @@ class View extends \Tribe__Template {
 	 *     Dialog script option overrides.
 	 *
 	 *     @type string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
-	 *     @type string  $body_lock               Lock the body while dialog open (true)?
+	 *     @type boolean $body_lock               Whether to lock the body while dialog open (true).
 	 *     @type string  $close_button_aria_label Aria label for the close button (optional).
 	 *     @type string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button--hidden").
 	 *     @type string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper tribe-alert__wrapper").
@@ -288,7 +288,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $button_value            The value for the trigger button (optional).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
-	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`)
+	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
 	 *     @type string  $template                The dialog template name (dialog).
 	 *     @type string  $title                   The dialog title (optional).
 	 *     @type string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
@@ -296,7 +296,7 @@ class View extends \Tribe__Template {
 	 *     Dialog script option overrides.
 	 *
 	 *     @type string  $append_target           The dialog will be inserted after the button, you could supply a selector string here to override (optional).
-	 *     @type string  $body_lock               Lock the body while dialog open (false)?
+	 *     @type boolean $body_lock               Whether to lock the body while dialog open (false).
 	 *     @type string  $close_button_aria_label Aria label for the close button ("Close this dialog window").
 	 *     @type string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button").
 	 *     @type string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper").
