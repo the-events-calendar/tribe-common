@@ -1,3 +1,4 @@
+var tribe = tribe || {};
 tribe.tooltip = tribe.tooltip || {};
 
 ( function ( $, obj ) {
