@@ -639,3 +639,96 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 		return register_rest_route( $namespace, $route, $args, $override );
 	}
 }
+
+/**
+ * Gets the earliest version we have recorded for the plugin.
+ * Defaults to the current version if there are no records.
+ * If no version info found, it will return false.
+ *
+ * @since TBD
+ *
+ * @param object $class The plugin object.
+ *
+ * @return string|boolean The SemVer version string, or false if no info found.
+ */
+function tribe_get_install_version( $class ) {
+	// Try for the version history first.
+	if ( ! empty( $class->version_history_slug ) ) {
+		return Tribe__Settings_Manager::get_option( $class->version_history_slug );
+	}
+
+	// Fall back to the current plugin version.
+	if ( ! empty( $class::VERSION ) ) {
+		return $class::VERSION;
+	}
+
+	// No version set.
+	return false;
+}
+
+
+/**
+ * Checks if a plugin was installed prior to the passed version.
+ * If no info found, it will assume the plugin is old and return true.
+ *
+ * @since TBD
+ *
+ * @param object $class The plugin object.
+ * @param string $version The SemVer version string.
+ *
+ * @return boolean Whether the plugin was installed prior to the passed version.
+ */
+function tribe_installed_before( $class, $version ) {
+	$install_version = tribe_get_install_version( $class );
+
+	// If no install version, let's assume it's been here a while.
+	if ( empty( $install_version ) ) {
+		return true;
+	}
+
+	return 0 > version_compare( $install_version, $version );
+}
+
+/**
+ * Checks if a plugin was installed after the passed version.
+ * If no info found, it will assume the plugin is old and return false.
+ *
+ * @since TBD
+ *
+ * @param object $class The plugin object.
+ * @param string $version The SemVer version string.
+ *
+ * @return boolean Whether the plugin was installed after the passed version.
+ */
+function tribe_installed_after( $class, $version ) {
+	$install_version = tribe_get_install_version( $class );
+
+	// If no install version, let's assume it's been here a while.
+	if ( empty( $install_version ) ) {
+		return false;
+	}
+
+	return 0 < version_compare( $install_version, $version );
+}
+
+/**
+ * Checks if a plugin was installed at/on the passed version.
+ * If no info found, it will assume the plugin is old and return false.
+ *
+ * @since TBD
+ *
+ * @param object $class The plugin object.
+ * @param string $version The SemVer version string.
+ *
+ * @return boolean Whether the plugin was installed at/on the passed version.
+ */
+function tribe_installed_on( $class, $version ) {
+	$install_version = tribe_get_install_version( $class );
+
+	// If no install version, let's assume it's been here a while.
+	if ( empty( $install_version ) ) {
+		return false;
+	}
+
+	return 0 === version_compare( $install_version, $version );
+}

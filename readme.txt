@@ -9,6 +9,8 @@
 * Feature - The tribe-dialog object sets up all necessary javascript and HTML via passed parameters. [129434]
 * Feature - Add a basic dialog, modal, confirmation dialog, and alert as templates.
 * Feature - Add methods `render_modal()`, `render_confirm()` and `render_alert()` to streamline common dialog types in Dialog View class. [129434]
+* Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. [133048]
+* Feature - Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions.  [133048]
 
 = [4.9.16] TBD =
 
@@ -18,6 +20,7 @@
 
 * Tweak - Add IDs to radio fields so we can target them with tribe-dependency [131428]
 * Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [131353]
+* Language - 0 new strings added, 73 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.14] 2019-08-19 =
 

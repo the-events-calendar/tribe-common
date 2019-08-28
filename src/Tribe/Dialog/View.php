@@ -378,4 +378,71 @@ class View extends \Tribe__Template {
 		return apply_filters( 'tribe_dialog_html', $html, $args );
 	}
 
+	public function get_dialog_script( $args, $echo ) {
+		$args = [
+			'appendTarget'         => esc_html( $args[ 'append_target' ] ),
+			'bodyLock'             => esc_html( $args[ 'body_lock' ] ),
+			'closeButtonAriaLabel' => esc_html( $args[ 'close_button_aria_label' ] ),
+			'closeButtonClasses'   => esc_html( $args[ 'close_button_classes' ] ),
+			'contentClasses'       => esc_html( $args[ 'content_wrapper_classes' ] ),
+			'effect'               => esc_html( $args[ 'effect' ] ),
+			'effectEasing'         => esc_html( $args[ 'effect_easing' ] ),
+			'effectSpeed'          => esc_html( $args[ 'effect_speed' ] ),
+			'id'                   => esc_html( $args[ 'id' ] ),
+			'overlayClasses'       => esc_html( $args[ 'overlay_classes' ] ),
+			'overlayClickCloses'   => esc_html( $args[ 'overlay_click_closes' ] ),
+			'template'             => esc_html( $args[ 'template' ] ),
+			'trigger'              => "[data-js='" .  esc_attr( 'trigger-dialog-' . $args[ 'id' ] ) . "']",
+			'wrapperClasses'       => esc_attr( $args[ 'wrapper_classes' ] ),
+		];
+
+		/**
+		 * Allows for modifying the arguments before they are passed to the dialog script.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
+		 */
+		$args = apply_filters( 'tribe_dialog_script_args', $args );
+		ob_start();
+		?>
+		<script>
+			var tribe = tribe || {};
+			tribe.dialogs = tribe.dialogs || [];
+
+			tribe.dialogs.push( <?php echo json_encode( $args ); ?> );
+
+			<?php
+			/**
+			 * Allows for injecting additional scripts (button actions, etc).
+			 *
+			 * @since TBD
+			 *
+			 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
+			 */
+			do_action( 'tribe_dialog_additional_scripts', $args );
+			?>
+		</script>
+		<?php
+		$html = ob_end_clean();
+
+		/**
+		 * Allows for modifying the HTML before it is echoed or retruned.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
+		 */
+		$html = apply_filters( 'tribe_dialog_script_html', $html );
+
+		if ( $echo ) {
+			echo $html;
+			return;
+		}
+
+		return $html;
+	}
+
+
+
 }
