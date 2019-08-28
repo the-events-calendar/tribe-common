@@ -647,21 +647,22 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
  *
  * @since TBD
  *
- * @param object $class
+ * @param object $class The plugin object.
+ *
  * @return string|boolean a SemVer version string, or false if no info found.
  */
 function tribe_get_install_version( $class ) {
-	// try for the version history first
+	// Try for the version history first.
 	if ( ! empty( $class->version_history_slug ) ) {
 		return Tribe__Settings_Manager::get_option( $class->version_history_slug );
 	}
 
-	// Fall back to the current plugin version
+	// Fall back to the current plugin version.
 	if ( ! empty( $class::VERSION ) ) {
 		return $class::VERSION;
 	}
 
-	// no versions for you!
+	// No version set.
 	return false;
 }
 
