@@ -675,12 +675,13 @@ function tribe_get_install_version( $class ) {
  *
  * @param object $class the main plugin class.
  * @param string $version a SemVer version string.
- * @return boolean
+ *
+ * @return boolean Whether the plugin was installed prior to the passed version.
  */
 function tribe_installed_before( $class, $version ) {
 	$install_version = tribe_get_install_version( $class );
 
-	// if no install version, let's assume it's been here a while.
+	// If no install version, let's assume it's been here a while.
 	if ( empty( $install_version ) ) {
 		return true;
 	}
