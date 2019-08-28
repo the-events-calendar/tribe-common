@@ -347,6 +347,7 @@ class Tribe__Main {
 
 		add_filter( 'body_class', array( $this, 'add_js_class' ) );
 		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
+		add_action( 'init', [ $this, 'register_logger' ] );
 	}
 
 	public function add_js_class( $classes = array() ) {
@@ -596,6 +597,15 @@ class Tribe__Main {
 		tribe_register_provider( Tribe__Service_Providers__Tooltip::class );
 
 		tribe_register_provider( Tribe\Service_Providers\PUE::class );
+	}
+
+	/**
+	 * Loads and registers the logging service.
+	 *
+	 * @since TBD
+	 */
+	public function register_logger() {
+		tribe_register_provider( Tribe\Log\Service_Provider::class );
 	}
 
 	/************************
