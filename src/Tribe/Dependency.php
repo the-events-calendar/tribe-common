@@ -4,7 +4,7 @@ defined( 'WPINC' ) or die;
 
 if ( ! class_exists( 'Tribe__Dependency' ) ) {
 	/**
-	 * Tracks which tribe plugins are currently activated
+	 * Tracks which Tribe (or related) plugins are registered, activated, or requirements satisfied.
 	 */
 	class Tribe__Dependency {
 
@@ -44,13 +44,12 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @param string        $main_class    Main/base class for this plugin
-		 * @param null|string   $version       Version number of plugin
-		 * @param null|string   $path          Path to the main plugin/bootstrap file
-		 * @param array         $dependencies  An array of dependencies for a plugin
+		 * @param string      $main_class   Main/base class for this plugin
+		 * @param null|string $version      Version number of plugin
+		 * @param null|string $path         Path to the main plugin/bootstrap file
+		 * @param array       $dependencies An array of dependencies for a plugin
 		 */
 		public function add_registered_plugin( $main_class, $version = null, $path = null, $dependencies = array() ) {
-
 			$plugin = array(
 				'class'        => $main_class,
 				'version'      => $version,
@@ -63,7 +62,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			if ( $path ) {
 				$this->admin_messages[ $main_class ] = new Tribe__Admin__Notice__Plugin_Download( $path );
 			}
-
 		}
 
 		/**
@@ -85,7 +83,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @param string $path       Path to the main plugin/bootstrap file
 		 */
 		public function add_active_plugin( $main_class, $version = null, $path = null ) {
-
 			$plugin = array(
 				'class'        => $main_class,
 				'version'      => $version,
@@ -231,7 +228,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool
 		 */
 		public function is_plugin_version( $main_class, $version, $compare = '>=' ) {
-
 			//active plugin check to see if the correct version is active
 			if ( ! $this->is_plugin_active( $main_class ) ) {
 				return false;
@@ -254,7 +250,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool
 		 */
 		public function is_plugin_version_registered( $main_class, $version, $compare = '>=' ) {
-
 			//registered plugin check if addon as it tests if it might load
 			if ( ! $this->is_plugin_registered( $main_class ) ) {
 				return false;
@@ -273,7 +268,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool
 		 */
 		public function has_requisite_plugins( $plugins_required = array() ) {
-
 			foreach ( $plugins_required as $class => $version ) {
 				// Return false if the plugin is not set or is a lesser version
 				if ( ! $this->is_plugin_active( $class ) ) {
@@ -302,9 +296,8 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		}
 
 		/**
-		 * Gets all dependencies or single class requirements
-		 * if parent, co, add does not exist use array as is
-		 * if they do exist check each one in turn
+		 * Gets all dependencies or single class requirements if parent, co, add does not exist use array as is if they
+		 * do exist check each one in turn.
 		 *
 		 * @since 4.9
 		 *
@@ -315,18 +308,18 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool  returns false if any dependency is invalid
 		 */
 		public function has_valid_dependencies( $plugin, $dependencies = array(), $addon = false ) {
-
 			if ( empty( $dependencies ) ) {
 				return true;
 			}
 
 			$failed_dependency = 0;
-			$tribe_plugins    = new Tribe__Plugins();
+
+			$tribe_plugins = new Tribe__Plugins();
 
 			foreach ( $dependencies as $class => $version ) {
 
 				// if no class for add-on
-				$checked_plugin    = $this->get_registered_plugin( $class );
+				$checked_plugin = $this->get_registered_plugin( $class );
 				if ( $addon && empty( $checked_plugin ) ) {
 					continue;
 				}
@@ -334,15 +327,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				$is_registered = $this->is_plugin_version_registered( $class, $version );
 				if ( ! empty( $is_registered ) ) {
 					continue;
-				}
-
-				if ( $class === $checked_plugin['class'] ) {
-					/*
-					 * If the required plugin class is the same we're checking we clear the version to keep the message
-					 * clear and redirect users to the latest version download link in place of providing a wrong
-					 * version number.
-					 */
-					$version = '';
 				}
 
 				$dependent_plugin = $tribe_plugins->get_plugin_by_class( $class );
@@ -529,7 +513,6 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			}
 
 			return false;
-
 		}
 
 		/**
@@ -559,7 +542,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @deprecated  4.9.12  We shouldn't be handlign singletons internally.
+		 * @deprecated  4.9.12  We shouldn't be handling singletons internally.
 		 *
 		 * @return self
 		 */

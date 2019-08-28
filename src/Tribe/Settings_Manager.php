@@ -46,6 +46,9 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public function do_setting_tabs() {
+		// Make sure Thickbox is available regardless of which admin page we're on
+		add_thickbox();
+
 		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-general.php';
 		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-display.php';
 
