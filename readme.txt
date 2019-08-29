@@ -4,27 +4,31 @@
 
 = [AR Modal] TBD =
 
-* Feature - Add new tribe-dialog object. Implements mt-a11y-dialog as `tribe-dialog` (or `tribe('dialog.view')`) as an extension of `Tribe_Template`. [129434]
-* Feature - New dialogs can be created with a simple call to `tribe( 'dialog.view' )->render_dialog( $args )` in php. [129434]
-* Feature - The tribe-dialog object sets up all necessary javascript and HTML via passed parameters. [129434]
-* Feature - Add a basic dialog, modal, confirmation dialog, and alert as templates.
-* Feature - Add methods `render_modal()`, `render_confirm()` and `render_alert()` to streamline common dialog types. [129434]
+* Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. [133048]
+* Feature - Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions.  [133048]
 
 = [4.9.16] TBD =
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
+* Tweak - Smarter plugin dependency checking with more accurate admin notices if not all requirements are satisfied [131080]
+* Tweak - `tribe_get_request_var()` now includes explicit check against $_REQUEST [132248]
+* Fix - Enqueue Thickbox script on all admin pages when needed [131080]
+
+= [4.9.15.1] 2019-08-27 =
+
+* Fix - Resolve JS console warnings from tooltip.js by adding missing `tribe` var when the var is not setup on the current page already [133207]
 
 = [4.9.15] 2019-08-22 =
 
 * Tweak - Add IDs to radio fields so we can target them with tribe-dependency [131428]
 * Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [131353]
+* Language - 0 new strings added, 73 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.14] 2019-08-19 =
 
 * Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]
 * Fix - Prevent mascot image to get blown up out of proportions to a larger size on buggy CSS loading. [131910]
 * Language - 0 new strings added, 66 updated, 1 fuzzied, and 4 obsoleted
-
 
 = [4.9.13] 2019-07-25 =
 
@@ -76,7 +80,7 @@
 
 = [4.9.8] 2019-05-14 =
 
-* Feature - Add new `tooltip.view` PHP class to render new tooltips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
+* Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
 * Tweak - Added filters: `tribe_context_locations`, `tribe_tooltip_template`, `tribe_tooltip_html`
 * Tweak - Changed views: `tooltip/tooltip`
 
