@@ -39,9 +39,8 @@ class View extends \Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $content Content as an HTML string.
-	 * @param string $id     The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
-	 * @param array  $args     {
+	 * @param string  $content Content as an HTML string.
+	 * @param array   $args    {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
@@ -70,6 +69,8 @@ class View extends \Tribe__Template {
 	 *     @type boolean $overlay_click_closes    If clicking the overlay closes the dialog (false).
 	 *     @type string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
 	 * }
+	 * @param string  $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
+	 * @param boolean $echo    Whether to echo the script or to return it (default: true).
 	 *
 	 * @return string An HTML string of the dialog.
 	 */
@@ -103,9 +104,8 @@ class View extends \Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $content Content as an HTML string.
-	 * @param string $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
-	 * @param array  $args    {
+	 * @param string  $content Content as an HTML string.
+	 * @param array   $args    {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
@@ -134,6 +134,8 @@ class View extends \Tribe__Template {
 	 *     @type boolean $overlay_click_closes    If clicking the overlay closes the dialog (true).
 	 *     @type string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
 	 * }
+	 * @param string  $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
+	 * @param boolean $echo    Whether to echo the script or to return it (default: true).
 	 *
 	 * @return string An HTML string of the dialog.
 	 */
@@ -164,9 +166,8 @@ class View extends \Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $content Content as an HTML string.
-	 * @param string $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
-	 * @param array  $args    {
+	 * @param string  $content Content as an HTML string.
+	 * @param array   $args    {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
@@ -197,6 +198,8 @@ class View extends \Tribe__Template {
 	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_confirm`).
 	 *     @type string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
 	 * }
+	 * @param string  $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
+	 * @param boolean $echo    Whether to echo the script or to return it (default: true).
 	 *
 	 * @return string An HTML string of the dialog.
 	 */
@@ -225,9 +228,8 @@ class View extends \Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $content Content as an HTML string.
-	 * @param string $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
-	 * @param array  $args    {
+	 * @param string  $content Content as an HTML string.
+	 * @param array   $args    {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @type string  $alert_button_text       Text for the "OK" button ("OK").
@@ -257,6 +259,8 @@ class View extends \Tribe__Template {
 	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_alert`).
 	 *     @type string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
 	 * }
+	 * @param string  $id      The unique ID for this dialog. Gets prepended to the data attributes. Generated if not passed (`uniqid()`).
+	 * @param boolean $echo    Whether to echo the script or to return it (default: true).
 	 *
 	 * @return string An HTML string of the dialog.
 	 */
@@ -284,8 +288,8 @@ class View extends \Tribe__Template {
 	 * @since TBD
 	 *
 	 * @param string $content HTML dialog content.
-	 * @param string $id     The unique ID for this dialog (`uniqid()`) Gets prepended to the data attributes.
-	 * @param array  $args     {
+	 * @param string $id      The unique ID for this dialog (`uniqid()`) Gets prepended to the data attributes.
+	 * @param array  $args    {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
@@ -314,6 +318,7 @@ class View extends \Tribe__Template {
 	 *     @type boolean $overlay_click_closes    If clicking the overlay closes the dialog (false).
 	 *     @type string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
 	 * }
+	 *
 	 * @return string An HTML string of the dialog.
 	 */
 	private function build_dialog( $content, $id, $args ) {
@@ -388,6 +393,16 @@ class View extends \Tribe__Template {
 		return apply_filters( 'tribe_dialog_html', $html, $args );
 	}
 
+	/**
+	 * Get dialog <script> to be rendered.
+	 *
+	 * @since TBD
+	 *
+	 * @param array   $args List of arguments for the dialog script. See \Tribe\Dialog\View->build_dialog().
+	 * @param boolean $echo Whether to echo the script or to return it (default: true).
+	 *
+	 * @return string|void The dialog <script> HTML or nothing if $echo is true.
+	 */
 	public function get_dialog_script( $args, $echo = true ) {
 		$args = [
 			'appendTarget'         => $args['append_target'],
@@ -437,7 +452,6 @@ class View extends \Tribe__Template {
 			 */
 			do_action( 'tribe_dialog_additional_scripts', $args );
 
-
 			/**
 			 * Allows for injecting additional scripts (button actions, etc) by template.
 			 *
@@ -476,7 +490,4 @@ class View extends \Tribe__Template {
 
 		return $html;
 	}
-
-
-
 }
