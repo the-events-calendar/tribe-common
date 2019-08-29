@@ -12,6 +12,8 @@ namespace Tribe\Utils;
 
 
 class Lazy_String implements \Serializable, \JsonSerializable {
+	use Lazy_Events;
+
 	/**
 	 * The string value produced by the callback, cached.
 	 *
@@ -70,6 +72,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	public function __toString() {
 		if ( null === $this->string ) {
 			$this->string = call_user_func( $this->value_callback );
+			$this->resolved();
 		}
 
 		return $this->string;
