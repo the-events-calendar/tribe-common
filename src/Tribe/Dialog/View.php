@@ -51,6 +51,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
+	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_modal`).
 	 *     @type string  $template                The dialog template name (dialog).
 	 *     @type string  $title                   The dialog title (optional).
 	 *     @type string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
@@ -114,6 +115,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-modal__content").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
+	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_modal`).
 	 *     @type string  $template                The dialog template name (modal).
 	 *     @type string  $title                   The dialog title (optional).
 	 *     @type string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
@@ -192,6 +194,7 @@ class View extends \Tribe__Template {
 	 *     @type int     $effect_speed            CSS effect speed in milliseconds (optional).
 	 *     @type string  $overlay_classes         The dialog overlay classes ("tribe-dialog__overlay tribe-confirm__overlay").
 	 *     @type boolean $overlay_click_closes    If clicking the overlay closes the dialog (false).
+	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_confirm`).
 	 *     @type string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
 	 * }
 	 *
@@ -207,6 +210,7 @@ class View extends \Tribe__Template {
 			'content_classes'         => 'tribe-dialog__content tribe-confirm__content',
 			'content_wrapper_classes' => 'tribe-dialog__wrapper tribe-confirm__wrapper',
 			'overlay_classes'         => 'tribe-dialog__overlay tribe-confirm__overlay',
+			'show_event'              => 'tribe_dialog_show_confirm',
 			'template'                => 'confirm',
 		];
 
@@ -250,6 +254,7 @@ class View extends \Tribe__Template {
 	 *     @type int     $effect_speed            CSS effect speed in milliseconds (optional).
 	 *     @type string  $overlay_classes         The dialog overlay classes ("tribe-dialog__overlay tribe-alert__overlay").
 	 *     @type boolean $overlay_click_closes    If clicking the overlay closes the dialog (false).
+	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_alert`).
 	 *     @type string  $wrapper_classes         The wrapper class for the dialog ("tribe-dialog").
 	 * }
 	 *
@@ -264,6 +269,7 @@ class View extends \Tribe__Template {
 			'content_classes'         => 'tribe-dialog__content tribe-alert__content',
 			'content_wrapper_classes' => 'tribe-dialog__wrapper tribe-alert__wrapper',
 			'overlay_classes'         => 'tribe-dialog__overlay tribe-alert__overlay',
+			'show_event'              => 'tribe_dialog_show_alert',
 			'template'                => 'alert',
 		];
 
@@ -289,6 +295,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
+	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_modal`).
 	 *     @type string  $template                The dialog template name (dialog).
 	 *     @type string  $title                   The dialog title (optional).
 	 *     @type string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
@@ -318,6 +325,7 @@ class View extends \Tribe__Template {
 			'button_value'            => '',
 			'content_classes'         => 'tribe-dialog__content', // Dialog content classes.
 			'context'                 => '',
+			'show_event'              => 'tribe_dialog_show_modal',
 			'template'                => 'dialog',
 			'title'                   => '',
 			'trigger_classes'         => 'tribe_dialog_trigger',
@@ -393,6 +401,7 @@ class View extends \Tribe__Template {
 			'id'                   => esc_html( $args[ 'id' ] ),
 			'overlayClasses'       => esc_html( $args[ 'overlay_classes' ] ),
 			'overlayClickCloses'   => esc_html( $args[ 'overlay_click_closes' ] ),
+			'showEvent'            => esc_html( $args[ 'show_event' ] ),
 			'template'             => esc_html( $args[ 'template' ] ),
 			'trigger'              => "[data-js='" .  esc_attr( 'trigger-dialog-' . $args[ 'id' ] ) . "']",
 			'wrapperClasses'       => esc_attr( $args[ 'wrapper_classes' ] ),

@@ -26,6 +26,8 @@ tribe.dialogs = tribe.dialogs || {};
 					dialog_obj.on('show', function (dialogEl, event) {
 						event.preventDefault();
 						event.stopPropagation();
+
+						jQuery( tribe_ev.events ).trigger( dialog.showEvent, [dialogEl, event] );
 					});
 				});
 			}
