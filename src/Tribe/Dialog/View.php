@@ -390,21 +390,21 @@ class View extends \Tribe__Template {
 
 	public function get_dialog_script( $args, $echo = true ) {
 		$args = [
-			'appendTarget'         => esc_html( $args[ 'append_target' ] ),
-			'bodyLock'             => esc_html( $args[ 'body_lock' ] ),
-			'closeButtonAriaLabel' => esc_html( $args[ 'close_button_aria_label' ] ),
-			'closeButtonClasses'   => esc_html( $args[ 'close_button_classes' ] ),
-			'contentClasses'       => esc_html( $args[ 'content_wrapper_classes' ] ),
-			'effect'               => esc_html( $args[ 'effect' ] ),
-			'effectEasing'         => esc_html( $args[ 'effect_easing' ] ),
-			'effectSpeed'          => esc_html( $args[ 'effect_speed' ] ),
-			'id'                   => esc_html( $args[ 'id' ] ),
-			'overlayClasses'       => esc_html( $args[ 'overlay_classes' ] ),
-			'overlayClickCloses'   => esc_html( $args[ 'overlay_click_closes' ] ),
-			'showEvent'            => esc_html( $args[ 'show_event' ] ),
-			'template'             => esc_html( $args[ 'template' ] ),
-			'trigger'              => "[data-js='" .  esc_attr( 'trigger-dialog-' . $args[ 'id' ] ) . "']",
-			'wrapperClasses'       => esc_attr( $args[ 'wrapper_classes' ] ),
+			'appendTarget'         => $args['append_target'],
+			'bodyLock'             => $args['body_lock'],
+			'closeButtonAriaLabel' => $args['close_button_aria_label'],
+			'closeButtonClasses'   => $args['close_button_classes'],
+			'contentClasses'       => $args['content_wrapper_classes'],
+			'effect'               => $args['effect'],
+			'effectEasing'         => $args['effect_easing'],
+			'effectSpeed'          => $args['effect_speed'],
+			'id'                   => $args['id'],
+			'overlayClasses'       => $args['overlay_classes'],
+			'overlayClickCloses'   => $args['overlay_click_closes'],
+			'showEvent'            => $args['show_event'],
+			'template'             => $args['template'],
+			'trigger'              => "[data-js='" . esc_attr( 'trigger-dialog-' . $args['id'] ) . "']",
+			'wrapperClasses'       => esc_attr( $args['wrapper_classes'] ),
 		];
 
 		/**
@@ -415,6 +415,9 @@ class View extends \Tribe__Template {
 		 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
 		 */
 		$args = apply_filters( 'tribe_dialog_script_args', $args );
+
+		// Escape all argument values.
+		$args = array_map( 'esc_html', $args );
 
 		ob_start();
 		?>
