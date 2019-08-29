@@ -22,7 +22,7 @@
   "vendor/jquery/**/*",
   "vendor/lucatume/di52/src/**",
   "vendor/momentjs/*.js",
-  "vendor/momentjs/*.js",
+  "vendor/faction23/a11y-dialog",
   "vendor/tribe-select2/*.css",
   "vendor/tribe-select2/*.gif",
   "vendor/tribe-select2/*.js",

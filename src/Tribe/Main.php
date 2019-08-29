@@ -581,8 +581,8 @@ class Tribe__Main {
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
 		tribe_register_provider( Tribe__Service_Providers__Promoter_Connector::class );
-		tribe_register_provider( Tribe__Service_Providers__Tooltip::class );
-
+		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
+		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
 		tribe_register_provider( Tribe\Service_Providers\PUE::class );
 	}
 

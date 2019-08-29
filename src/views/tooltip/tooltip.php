@@ -3,7 +3,9 @@
  * Tooltip Basic View Template
  * The base template for Tribe Tooltips.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/tooltips/tooltip.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe/tooltips/tooltip.php
+ *
+ * @since 4.9.8
  *
  * @package Tribe
  * @version 4.9.8

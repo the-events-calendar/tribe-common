@@ -1,0 +1,138 @@
+/* = Dialogs
+This can include modals, toasters, confirms. alerts.
+============================ */
+
+/* vars */
+.tribe-dialog {
+	--tribe-dialog-background-color: #FFF;
+	--tribe-dialog-close-background: #FFF;
+	--tribe-dialog-close-border-color: #BABABA;
+	--tribe-dialog-close-border-width: 1px;
+	--tribe-dialog-close-bottom: auto;
+	--tribe-dialog-close-color: #BABABA;
+	--tribe-dialog-close-height: 1.5em;
+	--tribe-dialog-close-left: auto;
+	--tribe-dialog-overlay-color: transparent;
+	--tribe-modal-overlay-color: rgba(20,24,39,0.9);
+	--tribe-dialog-border-radius: 4px;
+}
+
+/* The dialog/popup/modal itself */
+.tribe-dialog {
+	height: 100vh;
+	position: fixed;
+	width: 100vw;
+	top: 0;
+	left: 0;
+
+	&[aria-hidden='true'] {
+		display: none;
+	}
+}
+
+/* The trigger button" */
+.tribe-dialog__trigger {}
+
+/* The overlay */
+.tribe-dialog__overlay {
+	background-color: var(--tribe-dialog-overlay-color);
+	height: 100vh;
+	left: 0;
+	opacity: .9;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+}
+
+/* Content wrapper - includes close button*/
+.tribe-dialog__wrapper {
+	background-color: var(--tribe-dialog-background-color);
+	border-radius: var(--tribe-dialog-border-radius);
+	box-shadow: 0 2px 54px 0 rgba(0,0,0,0.1);
+	left: 50%;
+	max-height: 100vh;
+	min-width: 50%;
+	overflow-y: scroll;
+	padding: 16px 28px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%) translateX(-50%);
+
+	div[role="document"] {
+		align-items: flex-end;
+		display: flex;
+		flex-flow: column;
+		justify-content: space-between;
+	}
+}
+
+/* The "close" button */
+.tribe-dialog__close-button {
+	background: var(--tribe-dialog-close-background);
+	cursor: pointer;
+	display: inline-block;
+	font-size: 14px;
+	height: var(--tribe-dialog-close-height);
+	line-height: var(--tribe-dialog-close-height);
+	padding: 0;
+	position: absolute;
+	top: calc( .25em + var(--tribe-dialog-close-height) );
+	width: var(--tribe-dialog-close-height);
+	z-index: 1;
+
+	&:after,
+	&:before {
+		background: var(--tribe-dialog-close-border-color);
+		content: '';
+		height: var(--tribe-dialog-close-border-width);
+		left: 5%;
+		margin-top: -1px;
+		position: absolute;
+		top: 50%;
+		transform: rotate(45deg);
+		width: 90%;
+	}
+
+	&:after{
+		transform: rotate(-45deg);
+	}
+}
+
+.tribe-dialog__close-button--hidden {
+	display: none;
+}
+
+.tribe-dialog__close-button--round {
+	border-radius: 50%;
+}
+
+.tribe-dialog__close-button--border {
+	border: var(--tribe-dialog-close-border-width) solid var(--tribe-dialog-close-border-color);
+}
+
+/* The content container*/
+.tribe-dialog__content {
+	color: #141827;
+	font-size: 14px;
+	line-height: 1.64em;
+	padding-right: calc(  var(--tribe-dialog-close-height) + .5em );
+	width: 100%;
+}
+
+/* Modal Styles */
+
+.tribe-modal__overlay {
+	background-color: var(--tribe-modal-overlay-color);
+}
+
+/* Confirmation Styles */
+
+.tribe-confirm__content {
+	padding-right: 0;
+}
+
+.tribe-dialog__button_wrap {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-end;
+}

@@ -28,6 +28,15 @@ tribe.tooltip = tribe.tooltip || {};
 	 */
 	obj.setup = function () {
 		$document.on( 'click', obj.selectors.tooltip, obj.onClick );
+
+		$document.on( 'click', function( event ) {
+			var tooltip = event.target.closest( obj.selectors.tooltip );
+			if ( ! tooltip ) {
+				$( obj.selectors.tooltip ).each( function () {
+					$( this ).removeClass( obj.selectors.active ).attr( 'aria-expanded', false );
+				} );
+			}
+		} );
 	};
 
 	/**
