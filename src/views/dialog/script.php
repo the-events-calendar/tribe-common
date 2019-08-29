@@ -23,6 +23,7 @@ $args = [
 	'id'                   => esc_html( $id ),
 	'overlayClasses'       => esc_html( $overlay_classes ),
 	'overlayClickCloses'   => esc_html( $overlay_click_closes ),
+	'showEvent'            => esc_html( $show_event ),
 	'template'             => esc_html( $template ),
 	'trigger'              => "[data-js='" .  esc_attr( 'trigger-dialog-' . $id ) . "']",
 	'wrapperClasses'       => esc_attr( $wrapper_classes ),
@@ -42,4 +43,5 @@ $args = apply_filters( 'tribe_dialog_script_args', $args );
 	tribe.dialogs = tribe.dialogs || [];
 
 	tribe.dialogs.push( <?php echo json_encode( $args ); ?> );
+
 </script>
