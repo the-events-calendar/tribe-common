@@ -418,7 +418,6 @@ class View extends \Tribe__Template {
 			'overlayClickCloses'   => $args['overlay_click_closes'],
 			'showEvent'            => $args['show_event'],
 			'template'             => $args['template'],
-			'trigger'              => "[data-js='" . esc_attr( 'trigger-dialog-' . $args['id'] ) . "']",
 			'wrapperClasses'       => esc_attr( $args['wrapper_classes'] ),
 		];
 
@@ -433,6 +432,8 @@ class View extends \Tribe__Template {
 
 		// Escape all argument values.
 		$args = array_map( 'esc_html', $args );
+
+		$args['trigger'] = "[data-js='" . esc_attr( 'trigger-dialog-' . $args['id'] ) . "']";
 
 		ob_start();
 		?>
