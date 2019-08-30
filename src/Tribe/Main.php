@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.9.14';
+	const VERSION             = '4.9.15.1';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -260,18 +260,6 @@ class Tribe__Main {
 			[
 				'conditionals' => [ $this, 'should_load_common_admin_css' ],
 				'priority' => 5,
-			]
-		);
-
-		tribe_asset(
-			$this,
-			'tribe-tooltip',
-			'tooltip.js',
-			[ 'tribe-common' ],
-			'admin_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'should_load_common_admin_css' ],
-				'priority' => 10,
 			]
 		);
 
