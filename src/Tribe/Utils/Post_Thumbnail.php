@@ -28,6 +28,8 @@ use Tribe__Utils__Array as Arr;
  * @package Tribe\Utils
  */
 class Post_Thumbnail implements \ArrayAccess, \Serializable {
+	use Lazy_Events;
+
 	/**
 	 * An array of the site image sizes, including the `full` one.
 	 *
@@ -197,6 +199,8 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		 * @param int   $post_id        The ID of the post the data is for.
 		 */
 		$thumbnail_data = apply_filters( 'tribe_post_thumbnail_data', $thumbnail_data, $post_id );
+
+		$this->resolved();
 
 		return $thumbnail_data;
 	}
