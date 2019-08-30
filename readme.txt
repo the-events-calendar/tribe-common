@@ -8,6 +8,7 @@
 * Tweak - Hook Monolog logger on `tribe_log` action [120785]
 * Tweak - Add redirection of `tribe( 'logger' )->log()` calls to the Monolog logger using the `tribe_log_use_action_logger` filter [120785]
 * Fix - Handling of featured image setting [127132]
+* Language - 5 new strings added, 23 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.9.15.1] 2019-08-27 =
 
