@@ -639,3 +639,35 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 		return register_rest_route( $namespace, $route, $args, $override );
 	}
 }
+
+if ( ! function_exists( 'tribe_get_request_vars' ) ) {
+	/**
+	 * Returns the sanitized version of the `$_REQUEST` super-global array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The sanitized version of the `$_REQUEST` superglobal.
+	 */
+	function tribe_get_request_vars() {
+		static $cache;
+
+		if ( ! isset( $_REQUEST ) ) {
+			return [];
+		}
+
+		if ( null !== $cache ) {
+			return $cache;
+		}
+
+		$cache = array_combine(
+			array_keys( $_REQUEST ),
+			array_map( static function ( $v )
+			{
+				return filter_var( $v, FILTER_SANITIZE_STRING );
+			},
+				$_REQUEST )
+		);
+
+		return $cache;
+	}
+}
