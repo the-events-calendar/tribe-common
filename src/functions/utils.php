@@ -645,19 +645,41 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
  *
  * @since TBD
  *
- * @param object $class The plugin object.
+ * @param string|object $class The plugin's main class name or its instance.
  *
- * @return string|boolean The SemVer version string, or false if no info found.
+ * @return string|boolean The SemVer version string or false if no info found.
  */
 function tribe_get_install_version( $class ) {
 	// Try for the version history first.
-	if ( ! empty( $class->version_history_slug ) ) {
-		return Tribe__Settings_Manager::get_option( $class->version_history_slug );
+	if ( is_string( $class ) ) {
+		if ( method_exists( $class, 'instance' ) ) {
+			$instance = $class::instance();
+		} elseif ( method_exists( $class, 'get_instance' ) ) {
+			$instance = $class::get_instance();
+		} else {
+			$instance = '';
+		}
+	} else {
+		$instance = $class;
+	}
+
+	if ( ! empty( $instance->version_history_slug ) ) {
+		$history = (array) Tribe__Settings_Manager::get_option( $instance->version_history_slug );
+
+		// '0' may be logged as a version number, which isn't useful, so we remove it
+		$history = array_filter( $history );
+
+		// Sort the array so smallest version number is first (likely how the array is stored anyway)
+		usort( $history, 'version_compare' );
+
+		if ( ! empty( $history[0] ) ) {
+			return $history[0];
+		}
 	}
 
 	// Fall back to the current plugin version.
-	if ( ! empty( $class::VERSION ) ) {
-		return $class::VERSION;
+	if ( ! empty( $instance::VERSION ) ) {
+		return $instance::VERSION;
 	}
 
 	// No version set.
