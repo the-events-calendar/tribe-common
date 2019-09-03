@@ -44,6 +44,7 @@ class View extends \Tribe__Template {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
+	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
 	 *     @type string  $button_type             The type for the trigger button (optinoal).
 	 *     @type string  $button_value            The value for the trigger button (optional).
@@ -109,6 +110,7 @@ class View extends \Tribe__Template {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
+	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the modal window").
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
@@ -171,6 +173,7 @@ class View extends \Tribe__Template {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
+	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
@@ -234,6 +237,7 @@ class View extends \Tribe__Template {
 	 *
 	 *     @type string  $alert_button_text       Text for the "OK" button ("OK").
 	 *     @type string  $button_id               The ID for the trigger button (optional).
+	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
@@ -293,6 +297,7 @@ class View extends \Tribe__Template {
 	 *     List of arguments to override dialog template.
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
+	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
@@ -324,6 +329,7 @@ class View extends \Tribe__Template {
 	private function build_dialog( $content, $id, $args ) {
 		$default_args = [
 			'button_id'               => '',
+			'button_classes'          => '',
 			'button_name'             => '',
 			'button_text'             => __( 'Open the dialog window', 'tribe-common' ),
 			'button_type'             => '',
