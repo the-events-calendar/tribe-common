@@ -61,7 +61,6 @@ abstract class Base {
 	 */
 	abstract protected function get_cache_slug();
 
-
 	/**
 	 * Returns the cached model properties for the specified filter, if any.
 	 *
