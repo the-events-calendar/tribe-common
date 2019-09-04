@@ -33,6 +33,7 @@ namespace Tribe\Utils;
  */
 class Lazy_Collection implements Collection_Interface {
 	use Collection_Trait;
+	use Lazy_Events;
 
 	/**
 	 * The callback in charge of providing the elements.
@@ -84,6 +85,7 @@ class Lazy_Collection implements Collection_Interface {
 
 		$items       = call_user_func( $this->callback );
 		$this->items = (array) $items;
+		$this->resolved();
 	}
 
 	/**
@@ -104,5 +106,12 @@ class Lazy_Collection implements Collection_Interface {
 		}
 
 		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function jsonSerialize() {
+		return $this->all();
 	}
 }

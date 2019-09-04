@@ -2,6 +2,14 @@
 
 == Changelog ==
 
+= [4.9.16] 2019-09-04 =
+
+* Tweak - Added the Monolog logging library as alternative logging backend [120785]
+* Tweak - Hook Monolog logger on `tribe_log` action [120785]
+* Tweak - Add redirection of `tribe( 'logger' )->log()` calls to the Monolog logger using the `tribe_log_use_action_logger` filter [120785]
+* Fix - Handling of featured image setting [127132]
+* Language - 1 new strings added, 5 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.9.15.1] 2019-08-27 =
 
 * Fix - Resolve JS console warnings from tooltip.js by adding missing `tribe` var when the var is not setup on the current page already [133207]
