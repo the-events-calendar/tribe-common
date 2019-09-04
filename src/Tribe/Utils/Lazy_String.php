@@ -2,7 +2,7 @@
 /**
  * A string lazily built, suited to any string value that might be costly to be built.
  *
- * @since   TBD
+ * @since   4.9.16
  *
  * @package Tribe\Utils
  */
@@ -17,7 +17,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * The string value produced by the callback, cached.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @var string
 	 */
@@ -26,7 +26,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * The callback that will be used to set the string value when called the first time.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @var callable
 	 */
@@ -35,7 +35,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * The callback that will be used to escape the string in the `escaped()` method..
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @var callable
 	 */
@@ -44,7 +44,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * The escaped string value.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @var string
 	 */
@@ -65,7 +65,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * Inits, and returns, the string value of the string.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @return string The unescaped string value.
 	 */
@@ -81,7 +81,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * Returns the HTML ready, escaped version of the string.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @return string The escaped version of the string.
 	 */
@@ -100,7 +100,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * Returns the string value, just a proxy of the `__toString` method.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @return string The string value.
 	 */
@@ -111,7 +111,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 */
 	public function serialize() {
 		$serialized = serialize( [ $this->__toString(), $this->escaped() ] );
@@ -124,7 +124,7 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 */
 	public function unserialize( $serialized ) {
 		list( $string, $escaped ) = unserialize( $serialized );

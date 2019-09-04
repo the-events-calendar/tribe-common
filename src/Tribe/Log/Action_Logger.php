@@ -2,7 +2,7 @@
 /**
  * Hooks the `tribe_log` action based logger under the existing one for back-compatibility.
  *
- * @since   TBD
+ * @since   4.9.16
  *
  * @package Tribe\Log
  */
@@ -15,7 +15,7 @@ use Tribe__Log;
 /**
  * Class Action_Logger
  *
- * @since   TBD
+ * @since   4.9.16
  *
  * @package Tribe\Log
  */
@@ -24,7 +24,7 @@ class Action_Logger implements \Tribe__Log__Logger {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 */
 	public function is_available() {
 		return true;
@@ -33,7 +33,7 @@ class Action_Logger implements \Tribe__Log__Logger {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 */
 	public function get_name() {
 		return __( 'Action-based Logger', 'tribe-common' );
@@ -42,7 +42,7 @@ class Action_Logger implements \Tribe__Log__Logger {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 */
 	public function log( $entry, $type = Tribe__Log::DEBUG, $src = '' ) {
 		$message = empty( $src ) ? $entry : $src . ': ' . $entry;
@@ -53,7 +53,7 @@ class Action_Logger implements \Tribe__Log__Logger {
 	/**
 	 * Translates the log types used by `Tribe__Log` to those used by Monolog.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @param string $type The `Tribe__Log` log type.
 	 *
@@ -76,7 +76,7 @@ class Action_Logger implements \Tribe__Log__Logger {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 */
 	public function retrieve( $limit = 0, array $args = array() ) {
 		return [
@@ -92,7 +92,7 @@ class Action_Logger implements \Tribe__Log__Logger {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 */
 	public function list_available_logs() {
 		return [];
@@ -101,7 +101,7 @@ class Action_Logger implements \Tribe__Log__Logger {
 	/**
 	 * Changes the Monolog logger channel to the specified one.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @param string $log_identifier The channel to switch to.
 	 * @param bool   $create         Unused by this class.
@@ -117,7 +117,7 @@ class Action_Logger implements \Tribe__Log__Logger {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 */
 	public function cleanup() {
 		return true;

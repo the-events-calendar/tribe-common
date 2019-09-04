@@ -2,7 +2,7 @@
 /**
  * ${CARET}
  *
- * @since   TBD
+ * @since   4.9.16
  *
  * @package Tribe\Log
  */
@@ -18,7 +18,7 @@ class Canonical_Formatter extends LineFormatter {
 	/**
 	 * Formats a log record.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @param array $record A record to format.
 	 *
@@ -42,7 +42,7 @@ class Canonical_Formatter extends LineFormatter {
 	/**
 	 * Formats the record to the canonical format.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @param array $record The record to process.
 	 *
@@ -89,7 +89,7 @@ class Canonical_Formatter extends LineFormatter {
 	/**
 	 * Escapes the double quotes in a string.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @param string $string The string to escape the quotes in.
 	 *
