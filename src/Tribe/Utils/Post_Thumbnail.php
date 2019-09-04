@@ -28,6 +28,8 @@ use Tribe__Utils__Array as Arr;
  * @package Tribe\Utils
  */
 class Post_Thumbnail implements \ArrayAccess, \Serializable {
+	use Lazy_Events;
+
 	/**
 	 * An array of the site image sizes, including the `full` one.
 	 *
@@ -56,6 +58,24 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	protected $data;
 
 	/**
+	 * A flag property indicating whether the post thumbnail for the post exists or not.
+	 *
+	 * @since 4.9.16
+	 *
+	 * @var bool
+	 */
+	protected $exists;
+
+	/**
+	 * The post ID, if any, of the post thumbnail.
+	 *
+	 * @since 4.9.16
+	 *
+	 * @var int
+	 */
+	protected $thumbnail_id;
+
+	/**
 	 * Post_Images constructor.
 	 *
 	 * @param int $post_id The post ID.
@@ -68,6 +88,10 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	 * {@inheritDoc}
 	 */
 	public function __get( $property ) {
+		if ( 'exists' === $property ) {
+			return $this->exists();
+		}
+
 		return $this->offsetGet( $property );
 	}
 
@@ -75,6 +99,10 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	 * {@inheritDoc}
 	 */
 	public function __set( $property, $value ) {
+		if ( 'exists' === $property ) {
+			throw new \InvalidArgumentException( 'The `Post_Thumbnail::exists` property cannot be set.' );
+		}
+
 		$this->offsetSet( $property, $value );
 	}
 
@@ -119,18 +147,17 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	 * @return array An array of objects containing the post thumbnail data.
 	 */
 	public function fetch_data() {
+		if ( ! $this->exists() ) {
+			return [];
+		}
+
 		if ( null !== $this->data ) {
 			return $this->data;
 		}
 
-		$post_id     = $this->post_id;
-		$image_sizes = $this->get_image_sizes();
-
-		$thumbnail_id = get_post_thumbnail_id( $post_id );
-
-		if ( empty( $thumbnail_id ) ) {
-			return [];
-		}
+		$post_id      = $this->post_id;
+		$image_sizes  = $this->get_image_sizes();
+		$thumbnail_id = $this->thumbnail_id;
 
 		$thumbnail_data = array_combine(
 			$image_sizes,
@@ -172,6 +199,8 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		 * @param int   $post_id        The ID of the post the data is for.
 		 */
 		$thumbnail_data = apply_filters( 'tribe_post_thumbnail_data', $thumbnail_data, $post_id );
+
+		$this->resolved();
 
 		return $thumbnail_data;
 	}
@@ -246,5 +275,29 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		$this->post_id = $data['post_id'];
 		unset( $data['post_id'] );
 		$this->data = $data;
+	}
+
+	/**
+	 * Returns whether a post thumbnail is set for the post or not.
+	 *
+	 * @since 4.9.16
+	 *
+	 * @return bool Whether a post thumbnail is set for the post or not.
+	 */
+	public function exists() {
+		if ( null !== $this->exists ) {
+			return $this->exists;
+		}
+
+		$thumbnail_id = get_post_thumbnail_id( $this->post_id );
+
+		if ( empty( $thumbnail_id ) ) {
+			$this->exists = false;
+		} else {
+			$this->thumbnail_id = $thumbnail_id;
+			$this->exists       = true;
+		}
+
+		return $this->exists;
 	}
 }

@@ -1,5 +1,6 @@
 <?php
 namespace Tribe\Service_Providers;
+
 /**
  * Class Tribe__Service_Providers__Tooltip
  *
@@ -41,18 +42,18 @@ class Tooltip extends \tad_DI52_ServiceProvider {
 			$main,
 			'tribe-tooltip',
 			'tooltip.css',
+			[ 'tribe-common-style' ],
 			[],
-			[],
-			[ 'groups' => 'tribe-tooltip']
+			[ 'groups' => 'tribe-tooltip' ]
 		);
 
 		tribe_asset(
 			$main,
 			'tribe-tooltip-js',
 			'tooltip.js',
-			[ 'tribe-common' ],
+			[ 'jquery', 'tribe-common' ],
 			[],
-			[ 'groups' => 'tribe-tooltip']
+			[ 'groups' => 'tribe-tooltip' ]
 		);
 	}
 }

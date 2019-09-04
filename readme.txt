@@ -12,12 +12,20 @@
 * Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. [133048]
 * Feature - Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions.  [133048]
 
-= [4.9.16] TBD =
+= [4.9.17] TBD =
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
 * Tweak - Smarter plugin dependency checking with more accurate admin notices if not all requirements are satisfied [131080]
 * Tweak - `tribe_get_request_var()` now includes explicit check against $_REQUEST [132248]
 * Fix - Enqueue Thickbox script on all admin pages when needed [131080]
+
+= [4.9.16] 2019-09-04 =
+
+* Tweak - Added the Monolog logging library as alternative logging backend [120785]
+* Tweak - Hook Monolog logger on `tribe_log` action [120785]
+* Tweak - Add redirection of `tribe( 'logger' )->log()` calls to the Monolog logger using the `tribe_log_use_action_logger` filter [120785]
+* Fix - Handling of featured image setting [127132]
+* Language - 1 new strings added, 5 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.15.1] 2019-08-27 =
 
