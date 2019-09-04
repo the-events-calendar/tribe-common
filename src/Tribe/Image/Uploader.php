@@ -43,6 +43,8 @@ class Tribe__Image__Uploader {
 			return false;
 		}
 
+		$existing = false;
+
 		if ( is_string( $this->featured_image ) && ! is_numeric( $this->featured_image ) ) {
 			$existing = $this->get_attachment_ID_from_url( $this->featured_image );
 			$id = $existing ? $existing : $this->upload_file( $this->featured_image );
@@ -51,6 +53,17 @@ class Tribe__Image__Uploader {
 		} else {
 			$id = false;
 		}
+
+		do_action(
+			'tribe_log',
+			'debug',
+			__CLASS__,
+			[
+				'featured_image' => $this->featured_image,
+				'exists'         => (bool) $existing,
+				'id'             => $id,
+			]
+		);
 
 		return $id;
 	}

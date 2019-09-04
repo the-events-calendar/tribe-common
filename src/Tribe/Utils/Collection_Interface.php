@@ -16,7 +16,7 @@ namespace Tribe\Utils;
  * @since   4.9.14
  * @package Tribe\Utils
  */
-interface Collection_Interface extends \ArrayAccess, \SeekableIterator, \Countable, \Serializable {
+interface Collection_Interface extends \ArrayAccess, \SeekableIterator, \Countable, \Serializable, \JsonSerializable {
 	/**
 	 * Returns all the items in the collection.
 	 *
