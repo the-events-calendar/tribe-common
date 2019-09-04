@@ -32,7 +32,7 @@ class Tribe__Service_Providers__Tooltip extends tad_DI52_ServiceProvider {
 	/**
 	 * Register assets associated with tooltip
 	 *
-	 * @since TBD
+	 * @since 4.9.8
 	 */
 	public function add_tooltip_assets() {
 		tribe_asset(
