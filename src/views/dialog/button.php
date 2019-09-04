@@ -10,9 +10,11 @@
  * @package Tribe
  * @version TBD
  */
+$classes = $button_classes ?: 'tribe-button';
+$classes = implode( ' ' , (array) $classes );
 ?>
 <button
-	class="tribe-button"
+	class="<?php echo esc_attr( $classes ); ?>"
 	data-content="<?php echo esc_attr( 'dialog-content-' . $id ); ?>"
 	data-js="<?php echo esc_attr( 'trigger-dialog-' . $id ); ?>"
 	<?php if ( ! empty( $button_id ) ) : ?>
