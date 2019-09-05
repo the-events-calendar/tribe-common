@@ -110,13 +110,25 @@ This can include modals, toasters, confirms. alerts.
 	border: var(--tribe-dialog-close-border-width) solid var(--tribe-dialog-close-border-color);
 }
 
+.tribe-dialog__title {
+	align-self: flex-start;
+	padding-right: calc(var(--tribe-dialog-close-height) + 0.5em);
+	padding-top: 0;
+
+}
+
 /* The content container*/
 .tribe-dialog__content {
 	color: #141827;
 	font-size: 14px;
 	line-height: 1.64em;
-	padding-right: calc(  var(--tribe-dialog-close-height) + .5em );
+	padding-right: calc(var(--tribe-dialog-close-height) + 0.5em);
+	padding-top: calc(var(--tribe-dialog-close-height) + 0.5em);
 	width: 100%;
+}
+
+.tribe-dialog__title + .tribe-dialog__content {
+	padding: 0;
 }
 
 /* Modal Styles */
