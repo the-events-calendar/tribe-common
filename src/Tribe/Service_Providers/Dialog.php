@@ -93,7 +93,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 			$main,
 			'tribe-dialog-js',
 			'dialog.js',
-			[ 'tribe-common', 'mt-a11y-dialog' ],
+			[ 'mt-a11y-dialog' ],
 			[],
 			[ 'groups' => 'tribe-dialog' ]
 		);
