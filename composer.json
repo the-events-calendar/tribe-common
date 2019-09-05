@@ -31,7 +31,8 @@
   "require": {
     "lucatume/di52": "~2.0.10",
     "firebase/php-jwt": "~5.0.0",
-    "faction23/a11y-dialog": "~5.0.0"
+    "faction23/a11y-dialog": "~5.0.0",
+    "monolog/monolog": "1.24.*"
   },
   "repositories": [
     {
