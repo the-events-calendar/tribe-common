@@ -2,19 +2,39 @@
 This can include modals, toasters, confirms. alerts.
 ============================ */
 
+/*
+Adding these here for now until common-styles are live
+@TODO: remove when that happens.
+*/
+@svg-load close url('utilities/icons/close.svg') {
+
+	path {
+		stroke: var(--color-icon-secondary);
+	}
+}
+
+@svg-load close-focus url('utilities/icons/close.svg') {
+
+	path {
+		stroke: var(--color-icon-primary);
+	}
+}
+
 /* vars */
 .tribe-dialog {
 	--tribe-dialog-background-color: #FFF;
 	--tribe-dialog-close-background: #FFF;
 	--tribe-dialog-close-border-color: #BABABA;
 	--tribe-dialog-close-border-width: 1px;
-	--tribe-dialog-close-bottom: auto;
 	--tribe-dialog-close-color: #BABABA;
-	--tribe-dialog-close-height: 1.5em;
-	--tribe-dialog-close-left: auto;
+	--tribe-dialog-close-height: .75rem;
+	--tribe-dialog-close-height-desktop: 1rem;
 	--tribe-dialog-overlay-color: transparent;
 	--tribe-modal-overlay-color: rgba(20,24,39,0.9);
-	--tribe-dialog-border-radius: 4px;
+	--tribe-dialog-border-radius: .25rem;
+	--tribe-dialog-padding: 1rem;
+	--tribe-dialog-padding-top: 1.5rem;
+	--tribe-dialog-padding-side: 1.75rem;
 }
 
 /* The dialog/popup/modal itself */
@@ -48,15 +68,17 @@ This can include modals, toasters, confirms. alerts.
 .tribe-dialog__wrapper {
 	background-color: var(--tribe-dialog-background-color);
 	border-radius: var(--tribe-dialog-border-radius);
-	box-shadow: 0 2px 54px 0 rgba(0,0,0,0.1);
+	box-shadow: 0 2px 54px 0 var(--tribe-modal-overlay-color);
 	left: 50%;
 	max-height: 100vh;
+	max-width: 800px;
 	min-width: 50%;
 	overflow-y: scroll;
-	padding: 16px 28px;
+	padding: var(--tribe-dialog-padding);
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%) translateX(-50%);
+	width: 100vw;
 
 	div[role="document"] {
 		align-items: flex-end;
@@ -64,11 +86,19 @@ This can include modals, toasters, confirms. alerts.
 		flex-flow: column;
 		justify-content: space-between;
 	}
+
+	@media screen and (min-width:768px) {
+		padding: var(--tribe-dialog-padding-top) var(--tribe-dialog-padding-side);
+		width: auto;
+	}
 }
 
 /* The "close" button */
 .tribe-dialog__close-button {
-	background: var(--tribe-dialog-close-background);
+	background-color: var(--tribe-dialog-close-background);
+	background-image: svg-inline( 'close' );
+	background-repeat: no-repeat;
+	background-size: contain;
 	cursor: pointer;
 	display: inline-block;
 	font-size: 14px;
@@ -76,25 +106,20 @@ This can include modals, toasters, confirms. alerts.
 	line-height: var(--tribe-dialog-close-height);
 	padding: 0;
 	position: absolute;
-	top: calc( .25em + var(--tribe-dialog-close-height) );
+	top: 1rem;
 	width: var(--tribe-dialog-close-height);
 	z-index: 1;
 
-	&:after,
-	&:before {
-		background: var(--tribe-dialog-close-border-color);
-		content: '';
-		height: var(--tribe-dialog-close-border-width);
-		left: 5%;
-		margin-top: -1px;
-		position: absolute;
-		top: 50%;
-		transform: rotate(45deg);
-		width: 90%;
+	@media screen and (min-width:768px) {
+		height: var(--tribe-dialog-close-height-desktop);
+		line-height: var(--tribe-dialog-close-height-desktop);
+		top: 1.5rem;
+		width: var(--tribe-dialog-close-height-desktop);
 	}
 
-	&:after{
-		transform: rotate(-45deg);
+	&:focus,
+	&:hover {
+		background-image: svg-inline( 'close-focus' );
 	}
 }
 
@@ -110,13 +135,25 @@ This can include modals, toasters, confirms. alerts.
 	border: var(--tribe-dialog-close-border-width) solid var(--tribe-dialog-close-border-color);
 }
 
+.tribe-dialog__title {
+	align-self: flex-start;
+	padding-right: calc(var(--tribe-dialog-close-height) + 0.5em);
+	padding-top: 0;
+
+}
+
 /* The content container*/
 .tribe-dialog__content {
 	color: #141827;
 	font-size: 14px;
 	line-height: 1.64em;
-	padding-right: calc(  var(--tribe-dialog-close-height) + .5em );
+	padding-right: calc(var(--tribe-dialog-close-height) + 0.5em);
+	padding-top: calc(var(--tribe-dialog-close-height) + 0.5em);
 	width: 100%;
+}
+
+.tribe-dialog__title + .tribe-dialog__content {
+	padding: 0;
 }
 
 /* Modal Styles */
