@@ -2,7 +2,7 @@
 /**
  * Provides methods for "lazy" objects to act upon life cycle events.
  *
- * @since   TBD
+ * @since   4.9.16
  *
  * @example
  * ```php
@@ -98,7 +98,7 @@ namespace Tribe\Utils;
 /**
  * Trait Lazy_Events
  *
- * @since   TBD
+ * @since   4.9.16
  *
  * @package Tribe\Utils
  *
@@ -113,7 +113,7 @@ trait Lazy_Events {
 	/**
 	 * The callback that will be called when, and if, the lazy object resolved at least once.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @var
 	 */
@@ -122,7 +122,7 @@ trait Lazy_Events {
 	/**
 	 * Sets the callback that will be hooked to the resolve action when, and if, the `resolved` method is called.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @param callable $callback The callback that will be hooked on the `$lazy_resolve_action` (defaults to `shutdown`)
 	 *                           if the `resolved` method is called.
@@ -140,7 +140,7 @@ trait Lazy_Events {
 	/**
 	 * Hooks the `$lazy_resolve_callback` to the `$lazy_resolve_action` with the `$lazy_resolve_priority` if set.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 */
 	protected function resolved() {
 		if ( empty( $this->lazy_resolve_callback ) ) {

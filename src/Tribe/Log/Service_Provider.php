@@ -2,7 +2,7 @@
 /**
  * ${CARET}
  *
- * @since   TBD
+ * @since   4.9.16
  *
  * @package Tribe\Log
  */
@@ -19,7 +19,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 */
 	public function register() {
 		$this->container->singleton( Logger::class, [ $this, 'build_logger' ] );
@@ -34,7 +34,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		/**
 		 * Filters whether to make the Action Logger available as logger or not.
 		 *
-		 * @since TBD
+		 * @since 4.9.16
 		 *
 		 * @param bool $use_action_logger Whether to allow logging messages from the \Tribe\Log\Logger class using the
 		 *                                `tribe_log` action or not.
@@ -52,7 +52,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * To avoid the over-head introduced by filtering the filters are applied here, only once, when the instance is
 	 * first built. Any later call will use the singleton instance stored in the container.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @return Logger
 	 */
@@ -62,7 +62,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		 *
 		 * The threshold is inclusive of the level; it default to log any warning and above.
 		 *
-		 * @since TBD
+		 * @since 4.9.16
 		 *
 		 * @param int  The threshold level; if the level of a message is this level or above, then it will be logged.
 		 *
@@ -75,7 +75,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		/**
 		 * Filters whether to use canonical format for the logs or not.
 		 *
-		 * @since TBD
+		 * @since 4.9.16
 		 *
 		 * @param bool $use_canonical_format Whether to use canonical format for the logs or not; defaults to `true`.
 		 */
@@ -94,7 +94,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		 *
 		 * All handlers should implement the `\Monolog\Handler\HandlerInterface`.
 		 *
-		 * @since TBD
+		 * @since 4.9.16
 		 *
 		 * @param array $handlers An array of default log handlers.
 		 */
@@ -113,7 +113,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * Available levels are: `debug`, `info`, `notice`, `warning`, `error`, `critical`, `alert`, `emergency`.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @param string|int $level   Either the log level or the log pretty name, see long description.
 	 * @param string     $message The message to log.
@@ -134,7 +134,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Makes the action-based logging engine available in the backend.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @param array $logging_engines An array of available logging engines.
 	 *

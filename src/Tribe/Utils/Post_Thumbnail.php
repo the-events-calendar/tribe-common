@@ -60,7 +60,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * A flag property indicating whether the post thumbnail for the post exists or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @var bool
 	 */
@@ -69,7 +69,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * The post ID, if any, of the post thumbnail.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @var int
 	 */
@@ -280,7 +280,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	/**
 	 * Returns whether a post thumbnail is set for the post or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.16
 	 *
 	 * @return bool Whether a post thumbnail is set for the post or not.
 	 */
