@@ -137,7 +137,9 @@ class Tribe__Admin__Notice__Plugin_Download {
 	}
 
 	/**
-	 * Implodes a list items using 'and' as the final separator and a comma everywhere else
+	 * Implodes a list of items with proper grammar.
+	 *
+	 * If only 1 item, no grammar. If 2 items, just conjunction. If 3+ items, commas with conjunction.
 	 *
 	 * @param array $items List of items to implode
 	 *
@@ -145,11 +147,17 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 */
 	public function implode_with_grammar( $items ) {
 		$separator   = _x( ', ', 'separator used in a list of items', 'tribe-common' );
-		$conjunction = _x( ', and ', 'the final separator in a list of two or more items', 'tribe-common' );
+		$conjunction = _x( ' and ', 'the final separator in a list of two or more items', 'tribe-common' );
 		$output      = $last_item = array_pop( $items );
 
 		if ( $items ) {
-			$output = implode( $separator, $items ) . $conjunction . $last_item;
+			$output = implode( $separator, $items );
+
+			if ( 1 < count( $items ) ) {
+				$output .= $separator;
+			}
+
+			$output .= $conjunction . $last_item;
 		}
 
 		return $output;
