@@ -639,47 +639,71 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 }
 
 /**
- * Gets the earliest version we have recorded for the plugin.
- * Defaults to the current version if there are no records.
+ * Gets the initial version number installed for the specified class of a plugin having a `version_history_slug`
+ * property or a `VERSION` constant.
+ *
+ * Defaults to the current version if there are no records, since some Main files may have not stored version history.
  * If no version info found, it will return false.
+ * Zero may have been logged as a past version, which gets ignored.
  *
  * @since TBD
  *
- * @param string|object $class The plugin's main class name or its instance.
+ * @see   \tad_DI52_Container::isBound()
+ * @see   tribe()
+ *
+ * @param string|object $class The plugin class' singleton name, class name, or instance.
  *
  * @return string|boolean The SemVer version string or false if no info found.
  */
 function tribe_get_install_version( $class ) {
-	// Try for the version history first.
-	if ( is_string( $class ) ) {
-		if ( method_exists( $class, 'instance' ) ) {
-			$instance = $class::instance();
-		} elseif ( method_exists( $class, 'get_instance' ) ) {
-			$instance = $class::get_instance();
-		} else {
-			$instance = '';
-		}
-	} else {
+	$instance = null;
+
+	if ( is_object( $class ) ) {
 		$instance = $class;
-	}
+	} elseif ( is_string( $class ) ) {
+		// Check if class exists and has instance getter method.
+		if ( class_exists( $class ) ) {
+			if ( method_exists( $class, 'instance' ) ) {
+				$instance = $class::instance();
+			} elseif ( method_exists( $class, 'get_instance' ) ) {
+				$instance = $class::get_instance();
+			}
+		}
 
-	if ( ! empty( $instance->version_history_slug ) ) {
-		$history = (array) Tribe__Settings_Manager::get_option( $instance->version_history_slug );
+		// Check if we can run tribe() on the singleton string.
+		if ( ! $instance ) {
+			foreach ( $GLOBALS as $global_item ) {
+				if ( $global_item instanceof Tribe__Container ) {
+					if ( $global_item->isBound( $class ) ) {
+						$instance = tribe( $class );
+					}
 
-		// '0' may be logged as a version number, which isn't useful, so we remove it
-		$history = array_filter( $history );
-
-		// Sort the array so smallest version number is first (likely how the array is stored anyway)
-		usort( $history, 'version_compare' );
-
-		if ( ! empty( $history[0] ) ) {
-			return $history[0];
+					break;
+				}
+			}
 		}
 	}
 
-	// Fall back to the current plugin version.
-	if ( ! empty( $instance::VERSION ) ) {
-		return $instance::VERSION;
+	if ( $instance ) {
+		// Try for the version history first.
+		if ( ! empty( $instance->version_history_slug ) ) {
+			$history = (array) Tribe__Settings_Manager::get_option( $instance->version_history_slug );
+
+			// '0' may be logged as a version number, which isn't useful, so we remove it
+			$history = array_filter( $history );
+
+			// Sort the array so smallest version number is first (likely how the array is stored anyway)
+			usort( $history, 'version_compare' );
+
+			if ( ! empty( $history[0] ) ) {
+				return $history[0];
+			}
+		} else {
+			// Fall back to the current plugin version.
+			if ( defined( get_class( $instance ) . '::VERSION' ) ) {
+				return $instance::VERSION;
+			}
+		}
 	}
 
 	// No version set.
