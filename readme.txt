@@ -8,6 +8,7 @@
 * Tweak - Smarter plugin dependency checking with more accurate admin notices if not all requirements are satisfied [131080]
 * Tweak - `tribe_get_request_var()` now includes explicit check against $_REQUEST [132248]
 * Fix - Enqueue Thickbox script on all admin pages when needed [131080]
+* Language - 2 new strings added, 48 updated, 1 fuzzied, and 2 obsoleted
 
 = [4.9.16] 2019-09-04 =
 
