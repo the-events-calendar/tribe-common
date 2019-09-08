@@ -640,12 +640,12 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 
 if ( ! function_exists( 'tribe_get_first_install_version' ) ) {
 	/**
-	 * Gets the initial version number installed for the specified class of a plugin having a `version_history_slug`
-	 * property or a `VERSION` constant.
+	 * Gets the initially-recorded version number installed for the specified class of a plugin having a
+	 * `version_history_slug` property or a `VERSION` constant (i.e. Main classes).
 	 *
-	 * Defaults to the current version if there are no records, since some Main files may have not stored version history.
+	 * If no historical version records, fallback is the class' current version.
 	 * If no version info found, it will return false.
-	 * Zero may have been logged as a past version, which gets ignored.
+	 * Zero may have been logged as a past version but gets ignored.
 	 *
 	 * @since TBD
 	 *
@@ -736,8 +736,8 @@ if ( ! function_exists( 'tribe_installed_before' ) ) {
 	 *
 	 * @since TBD
 	 *
-	 * @param object $class   The plugin object.
-	 * @param string $version The SemVer version string.
+	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 * @param string $version The SemVer version string to compare.
 	 *
 	 * @return boolean Whether the plugin was installed prior to the passed version.
 	 */
@@ -760,8 +760,8 @@ if ( ! function_exists( 'tribe_installed_after' ) ) {
 	 *
 	 * @since TBD
 	 *
-	 * @param object $class   The plugin object.
-	 * @param string $version The SemVer version string.
+	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 * @param string $version The SemVer version string to compare.
 	 *
 	 * @return boolean Whether the plugin was installed after the passed version.
 	 */
@@ -784,8 +784,8 @@ if ( ! function_exists( 'tribe_installed_on' ) ) {
 	 *
 	 * @since TBD
 	 *
-	 * @param object $class   The plugin object.
-	 * @param string $version The SemVer version string.
+	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 * @param string $version The SemVer version string to compare.
 	 *
 	 * @return boolean Whether the plugin was installed at/on the passed version.
 	 */
