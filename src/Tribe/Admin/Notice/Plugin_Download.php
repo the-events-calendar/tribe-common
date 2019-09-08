@@ -27,7 +27,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * @since 4.8.3 Method introduced.
 	 * @since 4.9 Added $version and $addon parameters.
 	 * @since 4.9.12 Add $has_pue_notice param
-	 * @since TBD Appended "+" to all version numbers to indicate "or any later version".
+	 * @since 4.9.17 Appended "+" to all version numbers to indicate "or any later version".
 	 *
 	 * @param string $name           Name of the required plugin
 	 * @param null   $thickbox_url   Download or purchase URL for plugin from within /wp-admin/ thickbox
@@ -52,7 +52,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 *
 	 * @see \Tribe__Admin__Notice__Plugin_Download::add_required_plugin()
 	 *
-	 * @since TBD Altered the notice to remove "latest version" verbiage since "+" is now added to the version numbers.
+	 * @since 4.9.17 Altered the notice to remove "latest version" verbiage since "+" is now added to the version numbers.
 	 */
 	public function show_inactive_plugins_alert() {
 		if ( ! current_user_can( 'activate_plugins' ) ) {

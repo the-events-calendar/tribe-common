@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.17] TBD =
+= [4.9.17] 2019-09-10 =
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
 * Tweak - Smarter plugin dependency checking with more accurate admin notices if not all requirements are satisfied [131080]
