@@ -551,11 +551,11 @@ if ( ! function_exists( 'tribe_unfenced_regex' ) ) {
 		// Let's pick a fence char the string itself is not using.
 		$fence_char = '~' === $str_fence ? '#' : '~';
 		$pattern = $fence_char
-		           . preg_quote( $str_fence, $fence_char ) // the opening fence
-		           . '(.*)' // keep anything after the opening fence, group 1
-		           . preg_quote( $str_fence, $fence_char ) // the closing fence
-		           . '.*' // any modifier after the closing fence
-		           . $fence_char;
+			. preg_quote( $str_fence, $fence_char ) // the opening fence
+			. '(.*)' // keep anything after the opening fence, group 1
+			. preg_quote( $str_fence, $fence_char ) // the closing fence
+			. '.*' // any modifier after the closing fence
+			. $fence_char;
 
 		return preg_replace( $pattern, '$1', $regex );
 	}
