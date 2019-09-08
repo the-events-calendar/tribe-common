@@ -638,51 +638,23 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 	}
 }
 
-/**
- * Gets the initial version number installed for the specified class of a plugin having a `version_history_slug`
- * property or a `VERSION` constant.
- *
- * Defaults to the current version if there are no records, since some Main files may have not stored version history.
- * If no version info found, it will return false.
- * Zero may have been logged as a past version, which gets ignored.
- *
- * @since TBD
- *
- * @see   \tad_DI52_Container::isBound()
- * @see   tribe()
- *
- * @param string|object $class The plugin class' singleton name, class name, or instance.
- *
- * @return string|boolean The SemVer version string or false if no info found.
- */
+if ( ! function_exists( 'tribe_get_install_version' ) ) {
+	/**
+	 * Gets the initial version number installed for the specified class of a plugin having a `version_history_slug`
+	 * property or a `VERSION` constant.
+	 *
+	 * Defaults to the current version if there are no records, since some Main files may have not stored version history.
+	 * If no version info found, it will return false.
+	 * Zero may have been logged as a past version, which gets ignored.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 *
+	 * @return string|boolean The SemVer version string or false if no info found.
+	 */
 function tribe_get_install_version( $class ) {
-	$instance = null;
-
-	if ( is_object( $class ) ) {
-		$instance = $class;
-	} elseif ( is_string( $class ) ) {
-		// Check if class exists and has instance getter method.
-		if ( class_exists( $class ) ) {
-			if ( method_exists( $class, 'instance' ) ) {
-				$instance = $class::instance();
-			} elseif ( method_exists( $class, 'get_instance' ) ) {
-				$instance = $class::get_instance();
-			}
-		}
-
-		// Check if we can run tribe() on the singleton string.
-		if ( ! $instance ) {
-			foreach ( $GLOBALS as $global_item ) {
-				if ( $global_item instanceof Tribe__Container ) {
-					if ( $global_item->isBound( $class ) ) {
-						$instance = tribe( $class );
-					}
-
-					break;
-				}
-			}
-		}
-	}
+	$instance = tribe_get_class_instance( $class );
 
 	if ( $instance ) {
 		// Try for the version history first.
@@ -709,70 +681,122 @@ function tribe_get_install_version( $class ) {
 	// No version set.
 	return false;
 }
-
-
-/**
- * Checks if a plugin was installed prior to the passed version.
- * If no info found, it will assume the plugin is old and return true.
- *
- * @since TBD
- *
- * @param object $class The plugin object.
- * @param string $version The SemVer version string.
- *
- * @return boolean Whether the plugin was installed prior to the passed version.
- */
-function tribe_installed_before( $class, $version ) {
-	$install_version = tribe_get_install_version( $class );
-
-	// If no install version, let's assume it's been here a while.
-	if ( empty( $install_version ) ) {
-		return true;
-	}
-
-	return 0 > version_compare( $install_version, $version );
 }
 
-/**
- * Checks if a plugin was installed after the passed version.
- * If no info found, it will assume the plugin is old and return false.
- *
- * @since TBD
- *
- * @param object $class The plugin object.
- * @param string $version The SemVer version string.
- *
- * @return boolean Whether the plugin was installed after the passed version.
- */
-function tribe_installed_after( $class, $version ) {
-	$install_version = tribe_get_install_version( $class );
+if ( ! function_exists( 'tribe_get_class_instance' ) ) {
+	/**
+	 * Gets the class instance / Tribe Container from the passed object or string.
+	 *
+	 * @since TBD
+	 *
+	 * @see   \tad_DI52_Container::isBound()
+	 * @see   \tribe()
+	 *
+	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 *
+	 * @return mixed|object|Tribe__Container|null
+	 */
+	function tribe_get_class_instance( $class ) {
+		$instance = null;
 
-	// If no install version, let's assume it's been here a while.
-	if ( empty( $install_version ) ) {
-		return false;
+		if ( is_object( $class ) ) {
+			$instance = $class;
+		} elseif ( is_string( $class ) ) {
+			// Check if class exists and has instance getter method.
+			if ( class_exists( $class ) ) {
+				if ( method_exists( $class, 'instance' ) ) {
+					$instance = $class::instance();
+				} elseif ( method_exists( $class, 'get_instance' ) ) {
+					$instance = $class::get_instance();
+				}
+			}
+
+			// Check if we can run tribe() on the singleton string.
+			if ( ! $instance ) {
+				foreach ( $GLOBALS as $global_item ) {
+					if ( $global_item instanceof Tribe__Container ) {
+						if ( $global_item->isBound( $class ) ) {
+							$instance = tribe( $class );
+						}
+
+						break;
+					}
+				}
+			}
+		}
+
+		return $instance;
 	}
-
-	return 0 < version_compare( $install_version, $version );
 }
 
-/**
- * Checks if a plugin was installed at/on the passed version.
- * If no info found, it will assume the plugin is old and return false.
- *
- * @since TBD
- *
- * @param object $class The plugin object.
- * @param string $version The SemVer version string.
- *
- * @return boolean Whether the plugin was installed at/on the passed version.
- */
-function tribe_installed_on( $class, $version ) {
-	$install_version = tribe_get_install_version( $class );
+if ( ! function_exists( 'tribe_installed_before' ) ) {
+	/**
+	 * Checks if a plugin was installed prior to the passed version.
+	 * If no info found, it will assume the plugin is old and return true.
+	 *
+	 * @since TBD
+	 *
+	 * @param object $class   The plugin object.
+	 * @param string $version The SemVer version string.
+	 *
+	 * @return boolean Whether the plugin was installed prior to the passed version.
+	 */
+	function tribe_installed_before( $class, $version ) {
+		$install_version = tribe_get_install_version( $class );
 
-	// If no install version, let's assume it's been here a while.
-	if ( empty( $install_version ) ) {
-		return false;
+		// If no install version, let's assume it's been here a while.
+		if ( empty( $install_version ) ) {
+			return true;
+		}
+
+		return 0 > version_compare( $install_version, $version );
 	}
+}
 
-	return 0 === version_compare( $install_version, $version );
+if ( ! function_exists( 'tribe_installed_after' ) ) {
+	/**
+	 * Checks if a plugin was installed after the passed version.
+	 * If no info found, it will assume the plugin is old and return false.
+	 *
+	 * @since TBD
+	 *
+	 * @param object $class   The plugin object.
+	 * @param string $version The SemVer version string.
+	 *
+	 * @return boolean Whether the plugin was installed after the passed version.
+	 */
+	function tribe_installed_after( $class, $version ) {
+		$install_version = tribe_get_install_version( $class );
+
+		// If no install version, let's assume it's been here a while.
+		if ( empty( $install_version ) ) {
+			return false;
+		}
+
+		return 0 < version_compare( $install_version, $version );
+	}
+}
+
+if ( ! function_exists( 'tribe_installed_on' ) ) {
+	/**
+	 * Checks if a plugin was installed at/on the passed version.
+	 * If no info found, it will assume the plugin is old and return false.
+	 *
+	 * @since TBD
+	 *
+	 * @param object $class   The plugin object.
+	 * @param string $version The SemVer version string.
+	 *
+	 * @return boolean Whether the plugin was installed at/on the passed version.
+	 */
+	function tribe_installed_on( $class, $version ) {
+		$install_version = tribe_get_install_version( $class );
+
+		// If no install version, let's assume it's been here a while.
+		if ( empty( $install_version ) ) {
+			return false;
+		}
+
+		return 0 === version_compare( $install_version, $version );
+	}
 }
