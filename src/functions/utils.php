@@ -754,6 +754,8 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
 	 *
 	 * @since TBD
 	 *
+	 * @see \tribe_get_currently_installed_version() To get the current version, even if it's not the greatest.
+	 *
 	 * @param string|object $class The plugin class' singleton name, class name, or instance.
 	 *
 	 * @return string|boolean The SemVer version string or false if no info found.
@@ -838,7 +840,6 @@ if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'tribe_get_currently_installed_version' ) ) {
 	/**
 	 * Gets the current version number installed for the specified class of a plugin having a
@@ -848,6 +849,8 @@ if ( ! function_exists( 'tribe_get_currently_installed_version' ) ) {
 	 * Only looks at the class' current version, else false.
 	 *
 	 * @since TBD
+	 *
+	 * @see \tribe_get_greatest_version_ever_installed() To get the greatest ever installed, even if not the current.
 	 *
 	 * @param string|object $class The plugin class' singleton name, class name, or instance.
 	 *
@@ -870,7 +873,7 @@ if ( ! function_exists( 'tribe_get_currently_installed_version' ) ) {
 
 if ( ! function_exists( 'tribe_installed_before' ) ) {
 	/**
-	 * Checks if a plugin was installed prior to the passed version.
+	 * Checks if a plugin's initially-installed version was prior to the passed version.
 	 * If no info found, it will assume the plugin is old and return true.
 	 *
 	 * @since TBD
@@ -894,7 +897,7 @@ if ( ! function_exists( 'tribe_installed_before' ) ) {
 
 if ( ! function_exists( 'tribe_installed_after' ) ) {
 	/**
-	 * Checks if a plugin was installed after the passed version.
+	 * Checks if a plugin's initially-installed version was after the passed version.
 	 * If no info found, it will assume the plugin is old and return false.
 	 *
 	 * @since TBD
