@@ -649,51 +649,6 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tribe_get_first_install_version' ) ) {
-	/**
-	 * Gets the initially-recorded version number installed for the specified class of a plugin having a
-	 * `version_history_slug` property or a `VERSION` constant (i.e. Main classes).
-	 *
-	 * If no historical version records, fallback is the class' current version.
-	 * If no version info found, it will return false.
-	 * Zero may have been logged as a past version but gets ignored.
-	 *
-	 * @since TBD
-	 *
-	 * @param string|object $class The plugin class' singleton name, class name, or instance.
-	 *
-	 * @return string|boolean The SemVer version string or false if no info found.
-	 */
-	function tribe_get_first_install_version( $class ) {
-		$instance = tribe_get_class_instance( $class );
-
-		if ( $instance ) {
-			// Try for the version history first.
-			if ( ! empty( $instance->version_history_slug ) ) {
-				$history = (array) Tribe__Settings_Manager::get_option( $instance->version_history_slug );
-
-				// '0' may be logged as a version number, which isn't useful, so we remove it
-				$history = array_filter( $history );
-
-				// Sort the array so smallest version number is first (likely how the array is stored anyway)
-				usort( $history, 'version_compare' );
-
-				if ( ! empty( $history[0] ) ) {
-					return $history[0];
-				}
-			} else {
-				// Fall back to the current plugin version.
-				if ( defined( get_class( $instance ) . '::VERSION' ) ) {
-					return $instance::VERSION;
-				}
-			}
-		}
-
-		// No version set.
-		return false;
-	}
-}
-
 if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	/**
 	 * Gets the class instance / Tribe Container from the passed object or string.
@@ -737,6 +692,98 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 		}
 
 		return $instance;
+	}
+}
+
+if ( ! function_exists( 'tribe_get_lowest_install_version' ) ) {
+	/**
+	 * Gets the lowest version number ever installed for the specified class of a plugin having a
+	 * `version_history_slug` property or a `VERSION` constant (i.e. Main classes).
+	 *
+	 * If user initially installed v2, downgraded to v1, then updated to v3, this will return v1.
+	 * If no historical version records, fallback is the class' current version.
+	 * If no version info found, it will return false.
+	 * Zero may have been logged as a past version but gets ignored.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 *
+	 * @return string|boolean The SemVer version string or false if no info found.
+	 */
+	function tribe_get_lowest_install_version( $class ) {
+		$instance = tribe_get_class_instance( $class );
+
+		if ( $instance ) {
+			// Try for the version history first.
+			if ( ! empty( $instance->version_history_slug ) ) {
+				$history = (array) Tribe__Settings_Manager::get_option( $instance->version_history_slug );
+
+				// '0' may be logged as a version number, which isn't useful, so we remove it
+				$history = array_filter( $history );
+
+				// Sort the array so smallest version number is first (likely how the array is stored anyway)
+				usort( $history, 'version_compare' );
+
+				if ( ! empty( $history[0] ) ) {
+					return $history[0];
+				}
+			} else {
+				// Fall back to the current plugin version.
+				if ( defined( get_class( $instance ) . '::VERSION' ) ) {
+					return $instance::VERSION;
+				}
+			}
+		}
+
+		// No version set.
+		return false;
+	}
+}
+
+if ( ! function_exists( 'tribe_get_first_install_version' ) ) {
+	/**
+	 * Gets the initially-recorded version number installed for the specified class of a plugin having a
+	 * `version_history_slug` property or a `VERSION` constant (i.e. Main classes).
+	 *
+	 * If user initially installed v2, downgraded to v1, then updated to v3, this will return v2.
+	 * If no historical version records, fallback is the class' current version.
+	 * If no version info found, it will return false.
+	 * Zero may have been logged as a past version but gets ignored.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 *
+	 * @return string|boolean The SemVer version string or false if no info found.
+	 */
+	function tribe_get_first_install_version( $class ) {
+		$instance = tribe_get_class_instance( $class );
+
+		if ( $instance ) {
+			// Try for the version history first.
+			if ( ! empty( $instance->version_history_slug ) ) {
+				$history = (array) Tribe__Settings_Manager::get_option( $instance->version_history_slug );
+
+				// '0' may be logged as a version number, which isn't useful, so we remove it
+				$history = array_filter( $history );
+
+				// Sort the array so smallest version number is first (likely how the array is stored anyway)
+				usort( $history, 'version_compare' );
+
+				if ( ! empty( $history[0] ) ) {
+					return $history[0];
+				}
+			} else {
+				// Fall back to the current plugin version.
+				if ( defined( get_class( $instance ) . '::VERSION' ) ) {
+					return $instance::VERSION;
+				}
+			}
+		}
+
+		// No version set.
+		return false;
 	}
 }
 
