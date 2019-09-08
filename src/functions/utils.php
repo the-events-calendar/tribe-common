@@ -766,11 +766,14 @@ if ( ! function_exists( 'tribe_get_first_install_version' ) ) {
 				$history = (array) Tribe__Settings_Manager::get_option( $instance->version_history_slug );
 
 				// '0' may be logged as a version number, which isn't useful, so we remove it
-				$history = array_filter( $history );
+				while (
+					! empty( $history )
+					&& empty( $history[0] )
+				) {
+					unset( $history[0] );
+				}
 
-				// Sort the array so smallest version number is first (likely how the array is stored anyway)
-				usort( $history, 'version_compare' );
-
+				// Found it so return it
 				if ( ! empty( $history[0] ) ) {
 					return $history[0];
 				}
