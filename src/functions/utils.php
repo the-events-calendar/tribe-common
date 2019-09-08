@@ -638,7 +638,7 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tribe_get_install_version' ) ) {
+if ( ! function_exists( 'tribe_get_first_install_version' ) ) {
 	/**
 	 * Gets the initial version number installed for the specified class of a plugin having a `version_history_slug`
 	 * property or a `VERSION` constant.
@@ -653,7 +653,7 @@ if ( ! function_exists( 'tribe_get_install_version' ) ) {
 	 *
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
-function tribe_get_install_version( $class ) {
+function tribe_get_first_install_version( $class ) {
 	$instance = tribe_get_class_instance( $class );
 
 	if ( $instance ) {
@@ -742,7 +742,7 @@ if ( ! function_exists( 'tribe_installed_before' ) ) {
 	 * @return boolean Whether the plugin was installed prior to the passed version.
 	 */
 	function tribe_installed_before( $class, $version ) {
-		$install_version = tribe_get_install_version( $class );
+		$install_version = tribe_get_first_install_version( $class );
 
 		// If no install version, let's assume it's been here a while.
 		if ( empty( $install_version ) ) {
@@ -766,7 +766,7 @@ if ( ! function_exists( 'tribe_installed_after' ) ) {
 	 * @return boolean Whether the plugin was installed after the passed version.
 	 */
 	function tribe_installed_after( $class, $version ) {
-		$install_version = tribe_get_install_version( $class );
+		$install_version = tribe_get_first_install_version( $class );
 
 		// If no install version, let's assume it's been here a while.
 		if ( empty( $install_version ) ) {
@@ -790,7 +790,7 @@ if ( ! function_exists( 'tribe_installed_on' ) ) {
 	 * @return boolean Whether the plugin was installed at/on the passed version.
 	 */
 	function tribe_installed_on( $class, $version ) {
-		$install_version = tribe_get_install_version( $class );
+		$install_version = tribe_get_first_install_version( $class );
 
 		// If no install version, let's assume it's been here a while.
 		if ( empty( $install_version ) ) {
