@@ -695,7 +695,7 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tribe_get_lowest_install_version' ) ) {
+if ( ! function_exists( 'tribe_get_lowest_version_ever_installed' ) ) {
 	/**
 	 * Gets the lowest version number ever installed for the specified class of a plugin having a
 	 * `version_history_slug` property or a `VERSION` constant (i.e. Main classes).
@@ -711,7 +711,7 @@ if ( ! function_exists( 'tribe_get_lowest_install_version' ) ) {
 	 *
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
-	function tribe_get_lowest_install_version( $class ) {
+	function tribe_get_lowest_version_ever_installed( $class ) {
 		$instance = tribe_get_class_instance( $class );
 
 		if ( $instance ) {
@@ -721,12 +721,13 @@ if ( ! function_exists( 'tribe_get_lowest_install_version' ) ) {
 
 				// '0' may be logged as a version number, which isn't useful, so we remove it
 				$history = array_filter( $history );
+				$history = array_unique( $history );
 
-				// Sort the array so smallest version number is first (likely how the array is stored anyway)
-				usort( $history, 'version_compare' );
+				if ( ! empty( $history ) ) {
+					// Sort the array so smallest version number is first (likely how the array is stored anyway)
+					usort( $history, 'version_compare' );
 
-				if ( ! empty( $history[0] ) ) {
-					return $history[0];
+					return array_shift( $history );
 				}
 			} else {
 				// Fall back to the current plugin version.
@@ -741,7 +742,54 @@ if ( ! function_exists( 'tribe_get_lowest_install_version' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tribe_get_first_install_version' ) ) {
+if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
+	/**
+	 * Gets the highest version number ever installed for the specified class of a plugin having a
+	 * `version_history_slug` property or a `VERSION` constant (i.e. Main classes).
+	 *
+	 * If user initially installed v2, updated to v3, then downgraded to v2, this will return v3.
+	 * If no historical version records, fallback is the class' current version.
+	 * If no version info found, it will return false.
+	 * Zero may have been logged as a past version but gets ignored.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 *
+	 * @return string|boolean The SemVer version string or false if no info found.
+	 */
+	function tribe_get_greatest_version_ever_installed( $class ) {
+		$instance = tribe_get_class_instance( $class );
+
+		if ( $instance ) {
+			// Try for the version history first.
+			if ( ! empty( $instance->version_history_slug ) ) {
+				$history = (array) Tribe__Settings_Manager::get_option( $instance->version_history_slug );
+
+				// '0' may be logged as a version number, which isn't useful, so we remove it
+				$history = array_filter( $history );
+				$history = array_unique( $history );
+
+				if ( ! empty( $history ) ) {
+					// Sort the array so smallest version number is first (likely how the array is stored anyway)
+					usort( $history, 'version_compare' );
+
+					return array_pop( $history );
+				}
+			} else {
+				// Fall back to the current plugin version.
+				if ( defined( get_class( $instance ) . '::VERSION' ) ) {
+					return $instance::VERSION;
+				}
+			}
+		}
+
+		// No version set.
+		return false;
+	}
+}
+
+if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
 	/**
 	 * Gets the initially-recorded version number installed for the specified class of a plugin having a
 	 * `version_history_slug` property or a `VERSION` constant (i.e. Main classes).
@@ -757,7 +805,7 @@ if ( ! function_exists( 'tribe_get_first_install_version' ) ) {
 	 *
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
-	function tribe_get_first_install_version( $class ) {
+	function tribe_get_first_ever_installed_version( $class ) {
 		$instance = tribe_get_class_instance( $class );
 
 		if ( $instance ) {
@@ -790,6 +838,36 @@ if ( ! function_exists( 'tribe_get_first_install_version' ) ) {
 	}
 }
 
+
+if ( ! function_exists( 'tribe_get_currently_installed_version' ) ) {
+	/**
+	 * Gets the current version number installed for the specified class of a plugin having a
+	 * `VERSION` constant (i.e. Main classes)--different logic than related functions.
+	 *
+	 * If user initially installed v2, downgraded to v1, then updated to v3, this will return v3.
+	 * Only looks at the class' current version, else false.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|object $class The plugin class' singleton name, class name, or instance.
+	 *
+	 * @return string|boolean The SemVer version string or false if no info found.
+	 */
+	function tribe_get_currently_installed_version( $class ) {
+		$instance = tribe_get_class_instance( $class );
+
+		if ( $instance ) {
+			// First try for class constant (different logic from the other similar functions).
+			if ( defined( get_class( $instance ) . '::VERSION' ) ) {
+				return $instance::VERSION;
+			}
+		}
+
+		// No version set.
+		return false;
+	}
+}
+
 if ( ! function_exists( 'tribe_installed_before' ) ) {
 	/**
 	 * Checks if a plugin was installed prior to the passed version.
@@ -803,7 +881,7 @@ if ( ! function_exists( 'tribe_installed_before' ) ) {
 	 * @return boolean Whether the plugin was installed prior to the passed version.
 	 */
 	function tribe_installed_before( $class, $version ) {
-		$install_version = tribe_get_first_install_version( $class );
+		$install_version = tribe_get_first_ever_installed_version( $class );
 
 		// If no install version, let's assume it's been here a while.
 		if ( empty( $install_version ) ) {
@@ -827,7 +905,7 @@ if ( ! function_exists( 'tribe_installed_after' ) ) {
 	 * @return boolean Whether the plugin was installed after the passed version.
 	 */
 	function tribe_installed_after( $class, $version ) {
-		$install_version = tribe_get_first_install_version( $class );
+		$install_version = tribe_get_first_ever_installed_version( $class );
 
 		// If no install version, let's assume it's been here a while.
 		if ( empty( $install_version ) ) {
@@ -851,7 +929,7 @@ if ( ! function_exists( 'tribe_installed_on' ) ) {
 	 * @return boolean Whether the plugin was installed at/on the passed version.
 	 */
 	function tribe_installed_on( $class, $version ) {
-		$install_version = tribe_get_first_install_version( $class );
+		$install_version = tribe_get_first_ever_installed_version( $class );
 
 		// If no install version, let's assume it's been here a while.
 		if ( empty( $install_version ) ) {
