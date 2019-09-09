@@ -43,7 +43,7 @@ abstract class Base {
 		$post = get_post( $post );
 
 		if ( ! $post instanceof WP_Post ) {
-			new Nothing();
+			return new Nothing();
 		}
 
 		$instance       = new static;
