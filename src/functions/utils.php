@@ -820,7 +820,7 @@ if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
 					! empty( $history )
 					&& empty( $history[0] )
 				) {
-					unset( $history[0] );
+					array_shift( $history );
 				}
 
 				// Found it so return it
