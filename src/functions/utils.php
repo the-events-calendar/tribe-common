@@ -729,11 +729,11 @@ if ( ! function_exists( 'tribe_get_lowest_version_ever_installed' ) ) {
 
 					return array_shift( $history );
 				}
-			} else {
-				// Fall back to the current plugin version.
-				if ( defined( get_class( $instance ) . '::VERSION' ) ) {
-					return $instance::VERSION;
-				}
+			}
+
+			// Fall back to the current plugin version.
+			if ( defined( get_class( $instance ) . '::VERSION' ) ) {
+				return $instance::VERSION;
 			}
 		}
 
@@ -778,11 +778,11 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
 
 					return array_pop( $history );
 				}
-			} else {
-				// Fall back to the current plugin version.
-				if ( defined( get_class( $instance ) . '::VERSION' ) ) {
-					return $instance::VERSION;
-				}
+			}
+
+			// Fall back to the current plugin version.
+			if ( defined( get_class( $instance ) . '::VERSION' ) ) {
+				return $instance::VERSION;
 			}
 		}
 
