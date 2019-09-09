@@ -39,6 +39,6 @@ class Nothing extends Base {
 	 * {@inheritDoc}
 	 */
 	public function to_post( $output = OBJECT, $filter = 'raw' ) {
-		return new \WP_Post( (object) [ 'ID' => 0 ] );
+		return null;
 	}
 }

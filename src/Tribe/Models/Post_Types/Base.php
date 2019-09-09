@@ -125,7 +125,7 @@ abstract class Base {
 	 * @param string $filter Type of filter to apply. Accepts 'raw', 'edit', 'db', or 'display' and other formats
 	 *                       supported by the specific type implementation.
 	 *
-	 * @return \WP_Post|array The post object version of this post type model.
+	 * @return \WP_Post|array|null The post object version of this post type model or `null` if the post is not valid.
 	 */
 	public function to_post( $output = OBJECT, $filter = 'raw' ) {
 		$properties = $this->get_properties( $filter );
