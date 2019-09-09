@@ -827,11 +827,11 @@ if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
 				if ( ! empty( $history[0] ) ) {
 					return $history[0];
 				}
-			} else {
-				// Fall back to the current plugin version.
-				if ( defined( get_class( $instance ) . '::VERSION' ) ) {
-					return $instance::VERSION;
-				}
+			}
+
+			// Fall back to the current plugin version.
+			if ( defined( get_class( $instance ) . '::VERSION' ) ) {
+				return $instance::VERSION;
 			}
 		}
 
