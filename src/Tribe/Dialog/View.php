@@ -143,7 +143,7 @@ class View extends \Tribe__Template {
 	 */
 	public function render_modal( $content, $args = [], $id = null, $echo = true ) {
 		$default_args = [
-			'append_target'           => 'body',
+			'append_target'           => '',
 			'body_lock'               => true,
 			'button_text'             => __( 'Open the modal window', 'tribe-common' ),
 			'close_button_aria_label' => __( 'Close this modal window', 'tribe-common' ),

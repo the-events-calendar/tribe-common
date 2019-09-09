@@ -8,7 +8,8 @@ tribe.dialogs = tribe.dialogs || {};
 			'DOMContentLoaded',
 			function () {
 				tribe.dialogs.forEach(function(dialog) {
-					var dialog_obj = new window.A11yDialog({
+					var objName     = 'dialog_obj_' + dialog.id;
+					window[objName] = new window.A11yDialog({
 						appendTarget: dialog.appendTarget,
 						bodyLock: dialog.bodyLock,
 						closeButtonAriaLabel: dialog.closeButtonAriaLabel,
@@ -23,7 +24,7 @@ tribe.dialogs = tribe.dialogs || {};
 						wrapperClasses: dialog.wrapperClasses
 					});
 
-					dialog_obj.on('show', function (dialogEl, event) {
+					window[objName].on('show', function (dialogEl, event) {
 						event.preventDefault();
 						event.stopPropagation();
 
