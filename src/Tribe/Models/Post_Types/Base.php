@@ -42,7 +42,7 @@ abstract class Base {
 	public static function from_post( $post ) {
 		$post = get_post( $post );
 
-		if ( ! $post instanceof WP_Post ) {
+		if ( ! $post instanceof \WP_Post ) {
 			return new Nothing();
 		}
 
