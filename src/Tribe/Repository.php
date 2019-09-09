@@ -2791,7 +2791,7 @@ abstract class Tribe__Repository
 
 		$created = call_user_func( $this->get_create_callback( $postarr ), $postarr );
 
-		$post = get_post( $created );
+		$post = $this->format_item( $created );
 
 		return $post instanceof WP_Post && $post->ID === $created ? $post : false;
 	}
