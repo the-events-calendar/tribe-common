@@ -833,6 +833,10 @@ abstract class Tribe__Repository
 		if ( ! empty( $query->request ) ) {
 			$ids = $this->get_ids();
 
+			if ( empty( $ids ) ) {
+				return null;
+			}
+
 			return $return_id ? reset( $ids ) : $this->format_item( reset( $ids ) );
 		}
 
@@ -892,6 +896,10 @@ abstract class Tribe__Repository
 		// The request property will be set during the `get_posts` method and empty before it.
 		if ( ! empty( $query->request ) ) {
 			$ids = $this->get_ids();
+
+			if ( empty( $ids ) ) {
+				return null;
+			}
 
 			return $return_id ? end( $ids ) : $this->format_item( end( $ids ) );
 		}
