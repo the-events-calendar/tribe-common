@@ -34,4 +34,11 @@ class Nothing extends Base {
 	protected function build_properties( $filter ) {
 		return [];
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function to_post( $output = OBJECT, $filter = 'raw' ) {
+		return null;
+	}
 }
