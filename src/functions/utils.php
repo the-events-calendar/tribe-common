@@ -258,7 +258,6 @@ if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
 	 *
 	 * @param string $taxonomy The terms taxonomy.
 	 * @param string $field    The fields the terms should be normalized to.
-	 *
 	 * @param        $terms    A term or array of terms to normalize.
 	 *
 	 * @return array An array of the valid normalized terms.
