@@ -21,7 +21,7 @@ class utilsTest extends Unit {
 	public function provider_get_successful_class_instance() {
 		yield 'class slug registered with tribe()' => [ 'assets' ];
 		yield 'class string not registered with tribe()' => [ 'Tribe__App_Shop' ];
-		yield 'class string that has instance()' => [ new Tribe__App_Shop() ];
+		yield 'instantiated class object' => [ new Tribe__App_Shop() ];
 		yield 'class string that has get_instance()' => [ 'WP_Post' ];
 	}
 
