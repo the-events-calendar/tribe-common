@@ -662,35 +662,29 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	 * @return mixed|object|Tribe__Container|null
 	 */
 	function tribe_get_class_instance( $class ) {
-		$instance = null;
-
 		if ( is_object( $class ) ) {
-			$instance = $class;
-		} elseif ( is_string( $class ) ) {
-			// Check if class exists and has instance getter method.
-			if ( class_exists( $class ) ) {
-				if ( method_exists( $class, 'instance' ) ) {
-					$instance = $class::instance();
-				} elseif ( method_exists( $class, 'get_instance' ) ) {
-					$instance = $class::get_instance();
-				}
+			return $class;
+		}
+		
+		if ( ! is_string( $class ) ) {
+			return null;
+			
+		// Check if class exists and has instance getter method.
+		if ( class_exists( $class ) ) {
+			if ( method_exists( $class, 'instance' ) ) {
+				return $class::instance();
 			}
 
-			// Check if we can run tribe() on the singleton string.
-			if ( ! $instance ) {
-				foreach ( $GLOBALS as $global_item ) {
-					if ( $global_item instanceof Tribe__Container ) {
-						if ( $global_item->isBound( $class ) ) {
-							$instance = tribe( $class );
-						}
-
-						break;
-					}
-				}
+			if ( method_exists( $class, 'get_instance' ) ) {
+				return $class::get_instance();
 			}
 		}
 
-		return $instance;
+		try {
+			return tribe( $class );
+		} catch ( \RuntimeException $exception ) {
+			return null;
+		}
 	}
 }
 
