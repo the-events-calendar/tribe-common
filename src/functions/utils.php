@@ -694,7 +694,7 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tribe_get_lowest_version_ever_installed' ) ) {
+if ( ! function_exists( 'tribe_get_least_version_ever_installed' ) ) {
 	/**
 	 * Gets the lowest version number ever installed for the specified class of a plugin having a
 	 * `version_history_slug` property or a `VERSION` constant (i.e. Main classes).
@@ -710,7 +710,7 @@ if ( ! function_exists( 'tribe_get_lowest_version_ever_installed' ) ) {
 	 *
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
-	function tribe_get_lowest_version_ever_installed( $class ) {
+	function tribe_get_least_version_ever_installed( $class ) {
 		$instance = tribe_get_class_instance( $class );
 
 		if ( $instance ) {
