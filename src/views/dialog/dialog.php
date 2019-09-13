@@ -20,7 +20,7 @@ $vars        = get_defined_vars();
 <script data-js="<?php echo esc_attr( 'dialog-content-' . $id ); ?>" type="text/template">
 	<div <?php tribe_classes( $content_classes ) ?>>
 		<?php if ( ! empty( $title ) ) : ?>
-			<h2><?php echo esc_html( $title ); ?></h2>
+			<h2 <?php tribe_classes( $title_classes ) ?>><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
 
 		<?php echo $content; ?>

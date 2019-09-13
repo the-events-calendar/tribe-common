@@ -115,6 +115,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-modal__content").
+	 *     @type string  $title_classes           The dialog title classes ("tribe-dialog__title tribe-modal__title").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
 	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_modal`).
@@ -155,6 +156,7 @@ class View extends \Tribe__Template {
 			'overlay_classes'         => 'tribe-dialog__overlay tribe-modal__overlay',
 			'overlay_click_closes'    => true,
 			'template'                => 'modal',
+			'title_classes'           => [ 'tribe-dialog__title', 'tribe-modal__title' ],
 		];
 
 		$args = wp_parse_args( $args, $default_args );
@@ -218,6 +220,7 @@ class View extends \Tribe__Template {
 			'overlay_classes'         => 'tribe-dialog__overlay tribe-confirm__overlay',
 			'show_event'              => 'tribe_dialog_show_confirm',
 			'template'                => 'confirm',
+			'title_classes'           => [ 'tribe-dialog__title', 'tribe-confirm__title' ],
 		];
 
 		$args = wp_parse_args( $args, $default_args );
@@ -242,6 +245,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-alert__content").
+	 *     @type string  $title_classes           The dialog title classes ("tribe-dialog__title tribe-alert__title").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
 	 *     @type string  $template                The dialog template name (alert).
@@ -279,6 +283,7 @@ class View extends \Tribe__Template {
 			'overlay_classes'         => 'tribe-dialog__overlay tribe-alert__overlay',
 			'show_event'              => 'tribe_dialog_show_alert',
 			'template'                => 'alert',
+			'title_classes'           => [ 'tribe-dialog__title', 'tribe-alert__title' ],
 		];
 
 		$args = wp_parse_args( $args, $default_args );
@@ -302,6 +307,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content").
+	 *     @type string  $title_classes           The dialog title classes ("tribe-dialog__title").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
 	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_modal`).
@@ -328,16 +334,17 @@ class View extends \Tribe__Template {
 	 */
 	private function build_dialog( $content, $id, $args ) {
 		$default_args = [
-			'button_id'               => '',
 			'button_classes'          => '',
+			'button_id'               => '',
 			'button_name'             => '',
 			'button_text'             => __( 'Open the dialog window', 'tribe-common' ),
 			'button_type'             => '',
 			'button_value'            => '',
-			'content_classes'         => 'tribe-dialog__content', // Dialog content classes.
+			'content_classes'         => 'tribe-dialog__content',
 			'context'                 => '',
 			'show_event'              => 'tribe_dialog_show_modal',
 			'template'                => 'dialog',
+			'title_classes'           => 'tribe-dialog__title',
 			'title'                   => '',
 			'trigger_classes'         => 'tribe_dialog_trigger',
 			// Dialog script options.
@@ -356,8 +363,8 @@ class View extends \Tribe__Template {
 
 		$args = wp_parse_args( $args, $default_args );
 
-		$args['content'] = $content;
-		$args['id'] = $id;
+		$args[ 'content' ] = $content;
+		$args[ 'id' ] = $id;
 
 		/**
 		 * Allow us to filter the dialog arguments.
@@ -369,7 +376,7 @@ class View extends \Tribe__Template {
 		 */
 		$args = apply_filters( 'tribe_dialog_args', $args, $content );
 
-		$template = $args['template'];
+		$template = $args[ 'template' ];
 		/**
 		 * Allow us to filter the dialog template name.
 		 *
@@ -411,20 +418,20 @@ class View extends \Tribe__Template {
 	 */
 	public function get_dialog_script( $args, $echo = true ) {
 		$args = [
-			'appendTarget'         => $args['append_target'],
-			'bodyLock'             => $args['body_lock'],
-			'closeButtonAriaLabel' => $args['close_button_aria_label'],
-			'closeButtonClasses'   => $args['close_button_classes'],
-			'contentClasses'       => $args['content_wrapper_classes'],
-			'effect'               => $args['effect'],
-			'effectEasing'         => $args['effect_easing'],
-			'effectSpeed'          => $args['effect_speed'],
-			'id'                   => $args['id'],
-			'overlayClasses'       => $args['overlay_classes'],
-			'overlayClickCloses'   => $args['overlay_click_closes'],
-			'showEvent'            => $args['show_event'],
-			'template'             => $args['template'],
-			'wrapperClasses'       => esc_attr( $args['wrapper_classes'] ),
+			'appendTarget'         => $args[ 'append_target' ],
+			'bodyLock'             => $args[ 'body_lock' ],
+			'closeButtonAriaLabel' => $args[ 'close_button_aria_label' ],
+			'closeButtonClasses'   => $args[ 'close_button_classes' ],
+			'contentClasses'       => $args[ 'content_wrapper_classes' ],
+			'effect'               => $args[ 'effect' ],
+			'effectEasing'         => $args[ 'effect_easing' ],
+			'effectSpeed'          => $args[ 'effect_speed' ],
+			'id'                   => $args[ 'id' ],
+			'overlayClasses'       => $args[ 'overlay_classes' ],
+			'overlayClickCloses'   => $args[ 'overlay_click_closes' ],
+			'showEvent'            => $args[ 'show_event' ],
+			'template'             => $args[ 'template' ],
+			'wrapperClasses'       => esc_attr( $args[ 'wrapper_classes' ] ),
 		];
 
 		/**
@@ -439,7 +446,7 @@ class View extends \Tribe__Template {
 		// Escape all argument values.
 		$args = array_map( 'esc_html', $args );
 
-		$args['trigger'] = "[data-js='" . esc_attr( 'trigger-dialog-' . $args['id'] ) . "']";
+		$args[ 'trigger' ] = "[data-js='" . esc_attr( 'trigger-dialog-' . $args[ 'id' ] ) . "' ]";
 
 		ob_start();
 		?>
@@ -466,7 +473,7 @@ class View extends \Tribe__Template {
 			 *
 			 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
 			 */
-			do_action( 'tribe_dialog_additional_scripts_'  . $args['template'], $args );
+			do_action( 'tribe_dialog_additional_scripts_'  . $args[ 'template' ], $args );
 
 			/**
 			 * Allows for injecting additional scripts (button actions, etc) by dialog ID.
@@ -475,7 +482,7 @@ class View extends \Tribe__Template {
 			 *
 			 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
 			 */
-			do_action( 'tribe_dialog_additional_scripts_' . $args['id'], $args );
+			do_action( 'tribe_dialog_additional_scripts_' . $args[ 'id' ], $args );
 			?>
 		</script>
 		<?php
