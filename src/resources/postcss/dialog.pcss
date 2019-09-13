@@ -74,7 +74,6 @@ Adding these here for now until common-styles are live
 	background-color: var(--tribe-dialog-background-color);
 	border-radius: var(--tribe-dialog-border-radius);
 	box-shadow: 0 2px 54px 0 var(--tribe-modal-overlay-color);
-	max-height: calc(100vh - 160px);
 	width: 800px;
 	overflow-y: scroll;
 	padding: var(--tribe-dialog-padding);
@@ -90,6 +89,7 @@ Adding these here for now until common-styles are live
 	}
 
 	@media screen and (min-width:768px) {
+		max-height: calc(100vh - 160px);
 		padding: var(--tribe-dialog-padding-top) var(--tribe-dialog-padding-side);
 	}
 }
