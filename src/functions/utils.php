@@ -659,16 +659,17 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	 *
 	 * @param string|object $class The plugin class' singleton name, class name, or instance.
 	 *
-	 * @return mixed|object|Tribe__Container|null
+	 * @return mixed|object|Tribe__Container|null Null if not found, else the result from tribe().
 	 */
 	function tribe_get_class_instance( $class ) {
 		if ( is_object( $class ) ) {
 			return $class;
 		}
-		
+
 		if ( ! is_string( $class ) ) {
 			return null;
-			
+		}
+
 		// Check if class exists and has instance getter method.
 		if ( class_exists( $class ) ) {
 			if ( method_exists( $class, 'instance' ) ) {
