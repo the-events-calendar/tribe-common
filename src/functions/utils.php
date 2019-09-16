@@ -134,7 +134,7 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 *
 	 * The variable being tested for can be an array if you wish to find a nested value.
 	 *
-	 * @since TBD Included explicit check against $_REQUEST.
+	 * @since 4.9.17 Included explicit check against $_REQUEST.
 	 *
 	 * @see   Tribe__Utils__Array::get()
 	 *

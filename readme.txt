@@ -12,12 +12,13 @@
 * Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. [133048]
 * Feature - Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions.  [133048]
 
-= [4.9.17] TBD =
+= [4.9.17] 2019-09-16 =
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
 * Tweak - Smarter plugin dependency checking with more accurate admin notices if not all requirements are satisfied [131080]
 * Tweak - `tribe_get_request_var()` now includes explicit check against $_REQUEST [132248]
 * Fix - Enqueue Thickbox script on all admin pages when needed [131080]
+* Language - 2 new strings added, 48 updated, 1 fuzzied, and 2 obsoleted
 
 = [4.9.16] 2019-09-04 =
 
