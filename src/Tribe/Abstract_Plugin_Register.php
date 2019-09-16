@@ -17,23 +17,42 @@ abstract class Tribe__Abstract_Plugin_Register {
 	 * @var string
 	 */
 	protected $base_dir;
+
+	/**
+	 * @var string
+	 */
 	protected $main_class;
+
+	/**
+	 * @var string
+	 */
 	protected $version;
-	protected $dependencies = array(
-		'parent-dependencies' => array(),
-		'co-dependencies' => array(),
-		'addon-dependencies' => array(),
-	);
+
+	/**
+	 * @since 4.9.17
+	 *
+	 * @var array
+	 */
+	protected $classes_req = [];
+
+	/**
+	 * @var array
+	 */
+	protected $dependencies = [
+		'parent-dependencies' => [],
+		'co-dependencies'     => [],
+		'addon-dependencies'  => [],
+	];
 
 	/**
 	 * Registers a plugin with dependencies
 	 */
 	public function register_plugin() {
-		return tribe_register_plugin(
+		tribe_register_plugin(
 			$this->base_dir,
 			$this->main_class,
 			$this->version,
-			array(),
+			$this->classes_req,
 			$this->dependencies
 		);
 	}
@@ -43,8 +62,11 @@ abstract class Tribe__Abstract_Plugin_Register {
 	 *
 	 * This is basically an aliased function - register_plugins, upon
 	 * second calling, returns whether or not a plugin should load.
+	 *
+	 * @deprecated since 4.9.17 It is unused by any Tribe plugins and returned void.
+	 * @todo       remove in 4.11
 	 */
 	public function has_valid_dependencies() {
-		return $this->register_plugin();
+		_deprecated_function( __METHOD__, '4.9.17' );
 	}
 }
