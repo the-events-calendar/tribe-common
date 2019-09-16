@@ -30,6 +30,13 @@ tribe.dialogs = tribe.dialogs || {};
 
 						jQuery( tribe_ev.events ).trigger( dialog.showEvent, [dialogEl, event] );
 					});
+
+					window[objName].on('hide', function (dialogEl, event) {
+						event.preventDefault();
+						event.stopPropagation();
+
+						jQuery( tribe_ev.events ).trigger( dialog.closeEvent, [dialogEl, event] );
+					});
 				});
 			}
 		)

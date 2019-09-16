@@ -48,10 +48,11 @@ class View extends \Tribe__Template {
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
 	 *     @type string  $button_type             The type for the trigger button (optinoal).
 	 *     @type string  $button_value            The value for the trigger button (optional).
+	 *     @type string  $close_event             The dialog close event hook name (`tribe_dialog_close_dialog`).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
-	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_modal`).
+	 *     @type string  $show_event              The dialog event show hook name (`tribe_dialog_show_dialog`).
 	 *     @type string  $template                The dialog template name (dialog).
 	 *     @type string  $title                   The dialog title (optional).
 	 *     @type string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
@@ -114,6 +115,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the modal window").
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
+	 *     @type string  $close_event             The dialog close event hook name (`tribe_dialog_close_modal`).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-modal__content").
 	 *     @type string  $title_classes           The dialog title classes ("tribe-dialog__title tribe-modal__title").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
@@ -149,12 +151,14 @@ class View extends \Tribe__Template {
 			'button_text'             => __( 'Open the modal window', 'tribe-common' ),
 			'close_button_aria_label' => __( 'Close this modal window', 'tribe-common' ),
 			'close_button_classes'    => 'tribe-dialog__close-button tribe-modal__close-button',
+			'close_event'             => 'tribe_dialog_close_modal',
 			'content_classes'         => 'tribe-dialog__content tribe-modal__content',
 			'content_wrapper_classes' => 'tribe-dialog__wrapper tribe-modal__wrapper',
 			'effect'                  => 'fade',
 			'effect_speed'            => 300,
 			'overlay_classes'         => 'tribe-dialog__overlay tribe-modal__overlay',
 			'overlay_click_closes'    => true,
+			'show_event'              => 'tribe_dialog_show_modal',
 			'template'                => 'modal',
 			'title_classes'           => [ 'tribe-dialog__title', 'tribe-modal__title' ],
 		];
@@ -194,6 +198,7 @@ class View extends \Tribe__Template {
 	 *     @type boolean $body_lock               Whether to lock the body while dialog open (true).
 	 *     @type string  $close_button_aria_label Aria label for the close button (optional).
 	 *     @type string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button--hidden").
+	 *     @type string  $close_event             The dialog close event hook name (`tribe_dialog_close_confirm`).
 	 *     @type string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper tribe-confirm__wrapper").
 	 *     @type string  $effect                  CSS effect on open. none or fade (optional).
 	 *     @type string  $effect_easing           A css easing string to apply ("ease-in-out").
@@ -215,6 +220,7 @@ class View extends \Tribe__Template {
 			'continue_button_text'    => __( 'Confirm', 'tribe-common' ),
 			'close_button_aria_label' => '',
 			'close_button_classes'    => 'tribe-dialog__close-button--hidden',
+			'close_event'             => 'tribe_dialog_close_confirm',
 			'content_classes'         => 'tribe-dialog__content tribe-confirm__content',
 			'content_wrapper_classes' => 'tribe-dialog__wrapper tribe-confirm__wrapper',
 			'overlay_classes'         => 'tribe-dialog__overlay tribe-confirm__overlay',
@@ -258,6 +264,7 @@ class View extends \Tribe__Template {
 	 *     @type boolean $body_lock               Whether to lock the body while dialog open (true).
 	 *     @type string  $close_button_aria_label Aria label for the close button (optional).
 	 *     @type string  $close_button_classes    Classes for the close button ("tribe-dialog__close-button--hidden").
+	 *     @type string  $close_event             The dialog close event hook name (`tribe_dialog_close_alert`).
 	 *     @type string  $content_wrapper_classes Dialog content wrapper classes. This wrapper includes the close button ("tribe-dialog__wrapper tribe-alert__wrapper").
 	 *     @type string  $effect                  CSS effect on open. none or fade (optional).
 	 *     @type string  $effect_easing           A css easing string to apply ("ease-in-out").
@@ -278,6 +285,7 @@ class View extends \Tribe__Template {
 			'body_lock'               => true,
 			'close_button_aria_label' => '',
 			'close_button_classes'    => 'tribe-dialog__close-button--hidden',
+			'close_event'             => 'tribe_dialog_close_alert',
 			'content_classes'         => 'tribe-dialog__content tribe-alert__content',
 			'content_wrapper_classes' => 'tribe-dialog__wrapper tribe-alert__wrapper',
 			'overlay_classes'         => 'tribe-dialog__overlay tribe-alert__overlay',
@@ -306,11 +314,12 @@ class View extends \Tribe__Template {
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
+	 *     @type string  $close_event             The dialog event hook name (`tribe_dialog_close_dialog`).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content").
 	 *     @type string  $title_classes           The dialog title classes ("tribe-dialog__title").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
-	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_modal`).
+	 *     @type string  $show_event              The dialog event hook name (`tribe_dialog_show_dialog`).
 	 *     @type string  $template                The dialog template name (dialog).
 	 *     @type string  $title                   The dialog title (optional).
 	 *     @type string  $trigger_classes         Classes for the dialog trigger ("tribe_dialog_trigger").
@@ -340,9 +349,10 @@ class View extends \Tribe__Template {
 			'button_text'             => __( 'Open the dialog window', 'tribe-common' ),
 			'button_type'             => '',
 			'button_value'            => '',
+			'close_event'             => 'tribe_dialog_close_dialog',
 			'content_classes'         => 'tribe-dialog__content',
 			'context'                 => '',
-			'show_event'              => 'tribe_dialog_show_modal',
+			'show_event'              => 'tribe_dialog_show_dialog',
 			'template'                => 'dialog',
 			'title_classes'           => 'tribe-dialog__title',
 			'title'                   => '',
@@ -422,6 +432,7 @@ class View extends \Tribe__Template {
 			'bodyLock'             => $args[ 'body_lock' ],
 			'closeButtonAriaLabel' => $args[ 'close_button_aria_label' ],
 			'closeButtonClasses'   => $args[ 'close_button_classes' ],
+			'closeEvent'           => $args[ 'close_event' ],
 			'contentClasses'       => $args[ 'content_wrapper_classes' ],
 			'effect'               => $args[ 'effect' ],
 			'effectEasing'         => $args[ 'effect_easing' ],
@@ -430,6 +441,7 @@ class View extends \Tribe__Template {
 			'overlayClasses'       => $args[ 'overlay_classes' ],
 			'overlayClickCloses'   => $args[ 'overlay_click_closes' ],
 			'showEvent'            => $args[ 'show_event' ],
+			'closeEvent'           => $args[ 'close_event' ],
 			'template'             => $args[ 'template' ],
 			'wrapperClasses'       => esc_attr( $args[ 'wrapper_classes' ] ),
 		];
