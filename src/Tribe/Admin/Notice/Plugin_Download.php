@@ -27,7 +27,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * @since 4.8.3 Method introduced.
 	 * @since 4.9 Added $version and $addon parameters.
 	 * @since 4.9.12 Add $has_pue_notice param
-	 * @since TBD Appended "+" to all version numbers to indicate "or any later version".
+	 * @since 4.9.17 Appended "+" to all version numbers to indicate "or any later version".
 	 *
 	 * @param string $name           Name of the required plugin
 	 * @param null   $thickbox_url   Download or purchase URL for plugin from within /wp-admin/ thickbox
@@ -52,7 +52,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 *
 	 * @see \Tribe__Admin__Notice__Plugin_Download::add_required_plugin()
 	 *
-	 * @since TBD Altered the notice to remove "latest version" verbiage since "+" is now added to the version numbers.
+	 * @since 4.9.17 Altered the notice to remove "latest version" verbiage since "+" is now added to the version numbers.
 	 */
 	public function show_inactive_plugins_alert() {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
@@ -137,7 +137,9 @@ class Tribe__Admin__Notice__Plugin_Download {
 	}
 
 	/**
-	 * Implodes a list items using 'and' as the final separator and a comma everywhere else
+	 * Implodes a list of items with proper grammar.
+	 *
+	 * If only 1 item, no grammar. If 2 items, just conjunction. If 3+ items, commas with conjunction.
 	 *
 	 * @param array $items List of items to implode
 	 *
@@ -145,11 +147,17 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 */
 	public function implode_with_grammar( $items ) {
 		$separator   = _x( ', ', 'separator used in a list of items', 'tribe-common' );
-		$conjunction = _x( ', and ', 'the final separator in a list of two or more items', 'tribe-common' );
+		$conjunction = _x( ' and ', 'the final separator in a list of two or more items', 'tribe-common' );
 		$output      = $last_item = array_pop( $items );
 
 		if ( $items ) {
-			$output = implode( $separator, $items ) . $conjunction . $last_item;
+			$output = implode( $separator, $items );
+
+			if ( 1 < count( $items ) ) {
+				$output .= $separator;
+			}
+
+			$output .= $conjunction . $last_item;
 		}
 
 		return $output;
