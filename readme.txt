@@ -4,6 +4,7 @@
 
 = [TBD] TBD =
 
+* Tweak - Added a missing space to the plugin list in the system information
 * Fix - Use the correct name for North Macedonia
 
 = [4.9.16] 2019-09-04 =
