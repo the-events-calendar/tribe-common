@@ -1511,4 +1511,34 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, $populated );
 	}
+
+
+	/**
+	 * It should allow getting a value calling a function on a location value.
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_a_value_calling_a_fucntion_on_a_location_value() {
+		$context = tribe_context()->add_locations( [
+			'test_location' => [
+				'read' => [
+					Context::FUNC => static function () {
+						return 66;
+					}
+				]
+			],
+			'location_func' => [
+				'read' => [
+					Context::LOCATION_FUNC => [
+						'test_location',
+						static function ( $val ) {
+							return (int) $val + 23;
+						}
+					]
+				]
+			],
+		] );
+
+		$this->assertEquals( 89, $context->get( 'location_func' ) );
+	}
 }

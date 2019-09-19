@@ -78,7 +78,7 @@ abstract class Base {
 		}
 
 		// Cache by post ID and filter.
-		$cache_key  = $cache_slug . $this->post->ID . '_' . $filter;
+		$cache_key  = $cache_slug . '_' . $this->post->ID . '_' . $filter;
 
 		return ( new Cache() )->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST );
 	}
@@ -112,7 +112,22 @@ abstract class Base {
 			return $cached;
 		}
 
-		return $this->build_properties( $filter );
+		$props = $this->build_properties( $filter );
+
+		$cache_slug = $this->get_cache_slug();
+
+		/**
+		 * Filters the array of properties that will be used to decorate the post object handled by the class.
+		 *
+		 * @since TBD
+		 *
+		 * @param array    $props An associative array of all the properties that will be set on the "decorated" post
+		 *                        object.
+		 * @param \WP_Post $post  The post object handled by the class.
+		 */
+		$props = apply_filters( "tribe_post_type_{$cache_slug}_properties", $props, $this->post );
+
+		return $props;
 	}
 
 	/**
@@ -166,7 +181,7 @@ abstract class Base {
 		}
 
 		// Cache by post ID and filter.
-		$cache_key  = $cache_slug . $this->post->ID . '_' . $filter;
+		$cache_key  = $cache_slug . '_' . $this->post->ID . '_' . $filter;
 		$cache      = new Cache();
 
 		// Define a function to cache this event when, and if, one of the lazy properties is loaded.
