@@ -176,11 +176,33 @@ These reset styles are also meant to normalize cross-browser style differences. 
 
 ### Utilities
 
-The utilities are a set of common PostCSS variables, icons, and mixins used throughout the plugins. These come from the Tribe Common Styles repository.
+The utilities are a set of common PostCSS variables, icons, and mixins used throughout the plugins. These come from the Tribe Common Styles repository. See Tribe Common Styles for more details.
 
 ### Base
 
 The base styles are base element styles, both on the element target (e.g. `button`) and class target (e.g. `.tribe-common-l-container`). These provide a base on which to build component and block/view styles.
+
+A large portion of the base styles are forms, grid, and typography.
+
+#### Forms
+
+Base form styles are for things such as checkboxes, radios, text inputs, sliders, and toggles. These include a `form-control-` prefix (e.g. `.tribe-common-form-control-checkbox`). The combination of form styles and markup work to match the design system for form elements.
+
+#### Grid
+
+Base grid styles are for layout and grids provided by the design system. Prefixed by `g-` (e.g. `.tribe-common-g-row`), they are a combination of rows and columns to build a consistent grid structure.
+
+#### Typography
+
+Base typography styles are for anything typography-related. These include anchors, body text, call to actions, headings, and lists. For body text, we've used the classes `.tribe-common-b1` to `.tribe-common-b3`. These body text classes are used to mimic the design system body text styles. For headings, we've used the classes `.tribe-common-h1` to `.tribe-common-h8`. These heading classes are also used to mimic the design system heading styles.
+
+There are also classes in body text and heading styles with the `--min-medium` modifier. Each body text and heading class has a style for mobile and desktop (`@media (--viewport-medium)`). However, the designs may not follow the styles exactly for each class upon reaching the `--viewport-medium` breakpoint, but instead use another class style. For this reason, we've added the `--min-medium` modifier for each body text and heading class to apply a different style upon reaching this breakpoint. See example below:
+
+```
+<h2 class="tribe-common-h6 tribe-common-h5--min-medium">Test heading</h2>
+```
+
+In this case, the heading will use the mobile `.tribe-common-h6` styles and desktop `.tribe-common-h5` styles.
 
 ### A11y
 
@@ -189,6 +211,10 @@ Accessibility styles are utility classes for repeatable patterns regarding acces
 ### Components
 
 Components are groups of reusable markup and styles. The component style structure is meant to mirror the markup structure.
+
+### Media queries
+
+These styles use a mobile-first approach. Given this, there are only `min-width:` breakpoints, never `max-width:` breakpoints. This also lends to using the `--min-medium` modifier.
 
 ## Theme overrides
 
