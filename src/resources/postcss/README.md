@@ -6,11 +6,11 @@ Historically, CSS for Modern Tribe plugins have not held up to the highest stand
 
 ## Class naming consistency and BEM
 
-One of the issues we've had previously with templates for Modern Tribe plugins was inconsistent class naming and the class naming structure. To deal with this, we've adopted the use of [BEM](http://getbem.com/naming/) for class naming, combined with the use of `tribe-common-` as a block prefix.
+A couple of issues we've had previously with templates for Modern Tribe plugins was inconsistent class naming and the class naming structure. To deal with this, we've adopted the use of [BEM](http://getbem.com/naming/) for class naming, combined with the use of `tribe-common-` as a block prefix.
 
 First is the use of [BEM](http://getbem.com/naming/) for class naming (see link for more details). BEM stands for Block Element Modifier. We've used BEM as a guide to help us name classes and maintain consistency. This helps us structure the CSS around the HTML that we are styling without running into class naming chaos.
 
-Secondly, we've added prefixes to our classes. The first prefix we've used is `tribe-common-`. This is mainly to avoid style clashing with other theme styles. For example, if we used a class `h1`, a theme that the user may apply may also use a class `h1` and the theme styles may unintentionally affect the plugin styles. Instead, we use `tribe-common-h1`. The second prefix we've used is context-based prefixes. Some of these prefixes include `a11y-` for accessibility, `g-` for grid, `l-` for layout, and `c-` for component. These prefixes help determine the context of these reusable style classes. For example, the `tribe-common-a11y-hidden` can be applied to hide content from sighted users and screenreaders. The `tribe-common-c-btn` can be applied to a link or button to apply button styles.
+Secondly, we've added prefixes to our classes. The first prefix we've used is `tribe-common-`. This is mainly to avoid styles clashing with other theme styles. For example, if we used a class `h1`, a theme that the user may apply may also use a class `h1` and the theme styles may unintentionally affect the plugin styles. Instead, we use `tribe-common-h1`. The second prefix we've used is context-based prefixes. Some of these prefixes include `a11y-` for accessibility, `g-` for grid, `l-` for layout, and `c-` for component. These prefixes help determine the context of these reusable style classes. For example, the `tribe-common-a11y-hidden` can be applied to hide content from sighted users and screenreaders. The `tribe-common-c-btn` can be applied to a link or button to apply button styles.
 
 ## View/block wrapper class
 
@@ -19,7 +19,7 @@ Aside from classes that apply styles to elements, we also apply resets and base 
 ```
 <div class="tribe-common">
 	...
-	<button class="tribe-common-c-btn">Test Button</button>>
+	<button class="tribe-common-c-btn">Test Button</button>
 	...
 </div>
 ```
@@ -28,14 +28,19 @@ Given this markup, the PostCSS will look like the following:
 
 ```
 .tribe-common {
+	...
 
 	button {
 		/* base button styles here */
 	}
 
+	...
+
 	.tribe-common-c-btn {
 		/* component button styles here */
 	}
+
+	...
 }
 ```
 
@@ -155,11 +160,11 @@ In the case of an element, we might get the following scenario:
 
 ## Structure of common styles
 
-The common styles are comprised of 2 files: `reset.pcss` and `common.pcss`. The reset styles covers cross-browser style normalizations for Modern Tribe plugins and the common styles cover base styles and common components used throughout the plugins.
+The common styles are comprised of 2 files: `reset.pcss` and `common.pcss`. The reset styles cover cross-browser style normalizations for Modern Tribe plugins and the common styles cover base styles and common components used throughout the plugins.
 
 The common styles are broken into 5 main sections: reset, utilities, base, a11y, and components.
 
-Reset styles and common styles both have a reset applied to them. This is due to The Events Calendar having 2 style options: skeleton and full. Skeleton is mainly layout focused, while full is the application of the entire suite of styles.
+Reset styles and common styles both have a reset applied to them. This is due to The Events Calendar having 2 style options: skeleton and full. Skeleton is mainly layout-focused, while full is the application of the entire suite of styles from the design system.
 
 ### Reset
 
@@ -189,20 +194,38 @@ Components are groups of reusable markup and styles. The component style structu
 
 Modern Tribe plugins support a handful of themes. Some themes provide stylesheets that have high specificity for elements and override the common styles. To counter this, we've included theme overrides to ensure our plugin styles display as expected with the supported themes.
 
+The specificity to override the styles are matched to those applied to the theme. This means that if, for example, a theme applied an ID and 2 extra classes to a `button` style, we might see the following theme override:
+
+```
+.tribe-common {
+
+	/* -------------------------------------------------------------------------
+	 * Button: Theme Overrides
+	 * ------------------------------------------------------------------------- */
+
+	#id-1 .class-1 .class-2 & {
+
+		button {
+			/* button theme override styles */
+		}
+	}
+}
+```
+
 ### Reset
 
-The reset theme overrides are used to reapply the reset styles that have been overridden by theme styles.
+The reset theme overrides are used to reapply the reset styles that have been overridden by theme styles. These are found in their own partials in the resets folder.
 
 ### Common
 
-Common theme overrides, mainly in base and components, are applied to the bottom of each affected file. The specificity to override the styles are matched to those applied to the theme.
+Common theme overrides, mainly in base and components, are applied to the bottom of each affected file.
 
 ## How to contribute
 
-You want to contribute to these styles? Great! There are a couple things to consider when making changes to these styles:
+You want to contribute to these styles? Great! There are a couple things to consider when making changes:
 
 1. These styles are the base layer to a number of Modern Tribe plugins. Make changes with care.
-2. Consider whether these styles may be reuseable or not. If they are good candidates for a component for more than one plugin, then it's probably a good idea to put into these styles.
+2. Consider whether these styles may be reuseable or not. If they are good candidates for a component for more than one plugin, then it's probably a good idea to put them into these styles.
 
 ### Additions
 
