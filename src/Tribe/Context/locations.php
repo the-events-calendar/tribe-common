@@ -67,4 +67,11 @@ return [
 			Tribe__Context::QUERY_VAR   => [ 'name', 'post_name' ],
 		],
 	],
+	'post_type' => [
+		'read' => [
+			Tribe__Context::QUERY_PROP  => 'post_type',
+			Tribe__Context::QUERY_VAR   => 'post_type',
+			Tribe__Context::REQUEST_VAR => 'post_type',
+		],
+	],
 ];

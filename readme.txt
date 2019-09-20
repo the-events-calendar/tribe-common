@@ -2,10 +2,19 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.9.18] 2019-09-16 =
 
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 * Tweak - Added a missing space to the plugin list in the system information [134364]
 * Fix - Use the correct name for North Macedonia
+
+= [4.9.17] 2019-09-16 =
+
+* Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
+* Tweak - Smarter plugin dependency checking with more accurate admin notices if not all requirements are satisfied [131080]
+* Tweak - `tribe_get_request_var()` now includes explicit check against $_REQUEST [132248]
+* Fix - Enqueue Thickbox script on all admin pages when needed [131080]
+* Language - 2 new strings added, 48 updated, 1 fuzzied, and 2 obsoleted
 
 = [4.9.16] 2019-09-04 =
 
@@ -30,7 +39,6 @@
 * Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]
 * Fix - Prevent mascot image to get blown up out of proportions to a larger size on buggy CSS loading. [131910]
 * Language - 0 new strings added, 66 updated, 1 fuzzied, and 4 obsoleted
-
 
 = [4.9.13] 2019-07-25 =
 
