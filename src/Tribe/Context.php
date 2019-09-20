@@ -60,6 +60,13 @@ class Tribe__Context {
 	const QUERY_PROP = 'query_prop';
 
 	/**
+	 * The key to locate a context value as the value of the main query (global `$wp_query`) method return value.
+	 *
+	 * @since TBD
+	 */
+	const QUERY_METHOD = 'query_method';
+
+	/**
 	 * The key to locate a context value as the value of a constant.
 	 *
 	 * @since 4.9.11
@@ -1489,5 +1496,43 @@ class Tribe__Context {
 		list( $location, $callback ) = $location_and_callback;
 
 		return $callback( $this->get( $location ) );
+	}
+
+	/**
+	 * Checks whether the current request is a REST API one or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current request is a REST API one or not.
+	 */
+	public function doing_rest() {
+		return defined( 'REST_REQUEST' ) && REST_REQUEST;
+	}
+
+	/**
+	 * Reads the value from one or more global WP_Query object methods.
+	 *
+	 * @since 4.9.5
+	 *
+	 * @param array $query_vars The list of query methods to call, in order.
+	 * @param mixed $default The default value to return if no method was defined on the global `WP_Query` object.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	public function query_method( $methods, $default ) {
+		global $wp_query;
+		$found = $default;
+
+		foreach ( $methods as $method ) {
+			$this_value = $wp_query instanceof WP_Query && method_exists( $wp_query, $method )
+				? call_user_func( [ $wp_query, $method ] )
+				: static::NOT_FOUND;
+
+			if ( static::NOT_FOUND !== $this_value ) {
+				return $this_value;
+			}
+		}
+
+		return $found;
 	}
 }
