@@ -103,6 +103,8 @@ As you get into building upon these styles and creating new styles, the order of
 			}
 		}
 	}
+
+	...
 }
 ```
 
@@ -146,5 +148,70 @@ In the case of an element, we might get the following scenario:
 			}
 		}
 	}
+
+	...
 }
 ```
+
+## Structure of common styles
+
+The common styles are comprised of 2 files: `reset.pcss` and `common.pcss`. The reset styles covers cross-browser style normalizations for Modern Tribe plugins and the common styles cover base styles and common components used throughout the plugins.
+
+The common styles are broken into 5 main sections: reset, utilities, base, a11y, and components.
+
+Reset styles and common styles both have a reset applied to them. This is due to The Events Calendar having 2 style options: skeleton and full. Skeleton is mainly layout focused, while full is the application of the entire suite of styles.
+
+### Reset
+
+The reset styles are meant to normalize cross-browser style differences. These are resets for only layout-focused styles.
+
+### Common reset
+
+These reset styles are also meant to normalize cross-browser style differences. However, common reset styles are more style focused, such as color and font.
+
+### Utilities
+
+The utilities are a set of common PostCSS variables, icons, and mixins used throughout the plugins. These come from the Tribe Common Styles repository.
+
+### Base
+
+The base styles are base element styles, both on the element target (e.g. `button`) and class target (e.g. `.tribe-common-l-container`). These provide a base on which to build component and block/view styles.
+
+### A11y
+
+Accessibility styles are utility classes for repeatable patterns regarding accessibility. The most common are those concerning visibility and screenreader access to content.
+
+### Components
+
+Components are groups of reusable markup and styles. The component style structure is meant to mirror the markup structure.
+
+## Theme overrides
+
+Modern Tribe plugins support a handful of themes. Some themes provide stylesheets that have high specificity for elements and override the common styles. To counter this, we've included theme overrides to ensure our plugin styles display as expected with the supported themes.
+
+### Reset
+
+The reset theme overrides are used to reapply the reset styles that have been overridden by theme styles.
+
+### Common
+
+Common theme overrides, mainly in base and components, are applied to the bottom of each affected file. The specificity to override the styles are matched to those applied to the theme.
+
+## How to contribute
+
+You want to contribute to these styles? Great! There are a couple things to consider when making changes to these styles:
+
+1. These styles are the base layer to a number of Modern Tribe plugins. Make changes with care.
+2. Consider whether these styles may be reuseable or not. If they are good candidates for a component for more than one plugin, then it's probably a good idea to put into these styles.
+
+### Additions
+
+Additions are generally safe, as long as the selectors do not conflict with existing selectors. Confirm that the styles you are adding are reuseable and are a consistent part of the design system before adding.
+
+### Alterations
+
+Alterations should be done carefully, as they will affect all downstream styles using the selectors being altered. Multiple plugins use these styles and should be cross-checked before making the change.
+
+### Deletions
+
+Deletions should also be done carefully, for the same reasons as **Alterations** above. Removing a style from a selector that is still being used will result in unintended styles.
