@@ -109,8 +109,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates a field as a string containing only letters and numbers
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function alpha_numeric() {
 			if ( preg_match( '/^[a-zA-Z0-9]+$/', $this->value ) ) {
@@ -124,8 +122,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * validates a field as a string containing only letters,
 		 * numbers and carriage returns
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function alpha_numeric_multi_line() {
 			if ( preg_match( '/^[a-zA-Z0-9\s]+$/', $this->value ) ) {
@@ -140,8 +136,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * Validates a field as a string containing only letters,
 		 * numbers, dots and carriage returns
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function alpha_numeric_multi_line_with_dots_and_dashes() {
 			if ( preg_match( '/^[a-zA-Z0-9\s.-]+$/', $this->value ) ) {
@@ -156,8 +150,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * Validates a field as a string containing only letters,
 		 * numbers, dashes and underscores
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function alpha_numeric_with_dashes_and_underscores() {
 			$this->value = trim( $this->value );
@@ -173,8 +165,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * Validates a field as just "not empty".
 		 *
 		 * @since 4.7.6
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function not_empty() {
 			$this->value = trim( $this->value );
@@ -189,8 +179,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates a field as being positive decimal
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function positive_decimal() {
 			if ( preg_match( '/^[0-9]+(\.[0-9]+)?$/', $this->value ) && $this->value > 0 ) {
@@ -203,8 +191,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates a field as being positive decimal or percent
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function positive_decimal_or_percent() {
 			if ( preg_match( '/^[0-9]+(\.[0-9]+)?%?$/', $this->value ) && $this->value > 0 ) {
@@ -217,8 +203,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates a field as being positive integers
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function positive_int() {
 			if ( preg_match( '/^[0-9]+$/', $this->value ) && $this->value > 0 ) {
@@ -237,8 +221,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * with a similar name: positive_int(). This method WILL validate whole numbers that go beyond
 		 * values that PHP's int type supports, however, if someone enters something like that, that's
 		 * on them. Smart people do smart things.
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function int() {
 			if ( preg_match( '/^-?[0-9]+$/', $this->value ) ) {
@@ -251,8 +233,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates & sanitizes fields as URL slugs
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function slug() {
 			$maybe_valid_value = esc_url_raw( $this->value );
@@ -270,8 +250,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates & sanitizes fields as URLs
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function url() {
 
@@ -279,15 +257,13 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must be a valid absolute URL.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a valid URL.', 'tribe-common' ), $this->label );
 			}
 		}
 
 		/**
 		 * validates fields that have options (radios, dropdowns, etc.)
 		 * by making sure the value is part of the options array
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function options() {
 			if ( array_key_exists( $this->value, $this->field['options'] ) ) {
@@ -328,10 +304,8 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * validates fields that have options (radios, dropdowns, etc.)
 		 * by making sure the value is part of the options array
-		 * then combines the value into an array containg the value
+		 * then combines the value into an array containing the value
 		 * and name from the option
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function options_with_label() {
 			if ( array_key_exists( $this->value, $this->field['options'] ) ) {
@@ -350,8 +324,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		 * validates a field as not being able to be the same
 		 * as the specified value as specified in
 		 * $this->additional_args['compare_name']
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function cannot_be_the_same_as() {
 			if ( ! isset( $this->additional_args['compare'] ) ) {
@@ -373,8 +345,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates a field as being a number or a percentage
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function number_or_percent() {
 			if ( preg_match( '/^[0-9]+%{0,1}$/', $this->value ) ) {
@@ -387,8 +357,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * sanitizes an html field
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function html() {
 			$this->value         = balanceTags( $this->value );
@@ -397,8 +365,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * sanitizes a license key
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function license_key() {
 			$this->value         = trim( $this->value );
@@ -407,18 +373,14 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * sanitizes a textarea field
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function textarea() {
-			$this->value         = wp_kses( $this->value, array() );
+			$this->value         = wp_kses( $this->value, [] );
 			$this->result->valid = true;
 		}
 
 		/**
-		 * sanitizes a field as beeing a boolean
-		 *
-		 * @return stdClass validation result object
+		 * sanitizes a field as being a boolean
 		 */
 		public function boolean() {
 			$this->value         = (bool) $this->value;
@@ -427,8 +389,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates a Google Maps Zoom field
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function google_maps_zoom() {
 			if ( preg_match( '/^([0-9]|[0-1][0-9]|2[0-1])$/', $this->value ) ) {
@@ -441,9 +401,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates a field as being part of an address
-		 * allows for letters, numbers, dashses and spaces only
-		 *
-		 * @return stdClass validation result object
+		 * allows for letters, numbers, dashes and spaces only
 		 */
 		public function address() {
 			$this->value = stripslashes( $this->value );
@@ -457,9 +415,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates a field as being a city or province
-		 * allows for letters, dashses and spaces only
-		 *
-		 * @return stdClass validation result object
+		 * allows for letters, dashes and spaces only
 		 */
 		public function city_or_province() {
 			$this->value = stripslashes( $this->value );
@@ -473,8 +429,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates a field as being a zip code
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function zip() {
 			if ( preg_match( '/^[0-9]{5}$/', $this->value ) ) {
@@ -487,8 +441,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates a field as being a phone number
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function phone() {
 			if ( preg_match( '/^[0-9\(\)\+ -]+$/', $this->value ) ) {
@@ -501,8 +453,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 		/**
 		 * validates & sanitizes a field as being a country list
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function country_list() {
 			$country_rows = explode( "\n", $this->value );
@@ -524,8 +474,6 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		/**
 		 * automatically validate a field regardless of the value
 		 * Don't use this unless you know what you are doing
-		 *
-		 * @return stdClass validation result object
 		 */
 		public function none() {
 			$this->result->valid = true;

@@ -36,14 +36,10 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	 * @param string $version      The version
 	 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run
 	 * @param array  $dependencies an array of dependencies to check
-	 *
-	 * @return bool Indicates if plugin should continue initialization
 	 */
-	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
-
-		$tribe_dependency  = Tribe__Dependency::instance();
+	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = [], $dependencies = [] ) {
+		$tribe_dependency = tribe( Tribe__Dependency::class );
 		$tribe_dependency->register_plugin( $file_path, $main_class, $version, $classes_req, $dependencies );
-
 	}
 }
 
@@ -136,7 +132,9 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 *
 	 * The variable being tested for can be an array if you wish to find a nested value.
 	 *
-	 * @see Tribe__Utils__Array::get()
+	 * @since 4.9.17 Included explicit check against $_REQUEST.
+	 *
+	 * @see   Tribe__Utils__Array::get()
 	 *
 	 * @param string|array $var
 	 * @param mixed        $default
@@ -144,7 +142,7 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tribe_get_request_var( $var, $default = null ) {
-		return Tribe__Utils__Array::get_in_any( array( $_GET, $_POST ), $var, $default );
+		return Tribe__Utils__Array::get_in_any( array( $_GET, $_POST, $_REQUEST ), $var, $default );
 	}
 }
 
