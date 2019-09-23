@@ -1535,4 +1535,17 @@ class Tribe__Context {
 
 		return $found;
 	}
+
+	/**
+	 * Whether the current request is for a PHP-rendered initial state or not.
+	 *
+	 * This method is a shortcut to make sure we're not doing an AJAX, REST or Cron request.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current request is for a PHP-rendered initial state or not.
+	 */
+	public function doing_php_initial_state() {
+		return ! $this->doing_rest() && ! $this->doing_ajax() && ! $this->doing_cron();
+	}
 }
