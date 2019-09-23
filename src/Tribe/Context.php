@@ -1512,7 +1512,7 @@ class Tribe__Context {
 	/**
 	 * Reads the value from one or more global WP_Query object methods.
 	 *
-	 * @since 4.9.5
+	 * @since TBD
 	 *
 	 * @param array $query_vars The list of query methods to call, in order.
 	 * @param mixed $default The default value to return if no method was defined on the global `WP_Query` object.
