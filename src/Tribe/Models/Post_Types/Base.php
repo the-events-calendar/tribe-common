@@ -2,7 +2,7 @@
 /**
  * The base, abstract, class modeling a post.
  *
- * @since   TBD
+ * @since   4.9.18
  *
  * @package Tribe\Models\Post_Types
  */
@@ -16,7 +16,7 @@ use Tribe__Cache_Listener as Cache_Listener;
 /**
  * Class Base
  *
- * @since   TBD
+ * @since   4.9.18
  *
  * @package Tribe\Models\Post_Types
  */
@@ -24,7 +24,7 @@ abstract class Base {
 	/**
 	 * The post object base for this post type instance.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @var \WP_Post
 	 */
@@ -33,7 +33,7 @@ abstract class Base {
 	/**
 	 * Builds, and returns, a post type model from a given post.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @param \WP_Post|int $post The post ID or post object.
 	 *
@@ -55,7 +55,7 @@ abstract class Base {
 	/**
 	 * Returns the slug that will be prefixed to the cache key for the model.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @return string The slug that will be prefixed to the cache key for the model.
 	 */
@@ -64,7 +64,7 @@ abstract class Base {
 	/**
 	 * Returns the cached model properties for the specified filter, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @param string $filter Type of filter to apply, used here as the stored post values might change.
 	 *
@@ -88,7 +88,7 @@ abstract class Base {
 	 *
 	 * In this method child classes should also implement any caching trigger mechanism, if any.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @param string $filter The type of filter to build the properties for.
 	 *
@@ -99,7 +99,7 @@ abstract class Base {
 	/**
 	 * Returns an array of the model properties.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @param string $filter The type of filter to get the properties for.
 	 *
@@ -119,7 +119,7 @@ abstract class Base {
 		/**
 		 * Filters the array of properties that will be used to decorate the post object handled by the class.
 		 *
-		 * @since TBD
+		 * @since 4.9.18
 		 *
 		 * @param array    $props An associative array of all the properties that will be set on the "decorated" post
 		 *                        object.
@@ -133,7 +133,7 @@ abstract class Base {
 	/**
 	 * Returns the WP_Post version of this model.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @param string $output The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which correspond to a WP_Post
 	 *                       object,an associative array, or a numeric array, respectively.
@@ -167,7 +167,7 @@ abstract class Base {
 	/**
 	 * Returns the closure that should be used to cache the post type model when, and if, caching it is required.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @param string $filter The kind of filter applied to the model.
 	 *

@@ -132,7 +132,7 @@ class Tribe__Context {
 	/**
 	 * The key to indicate a location should be read by applying a callback to the value of another context location.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 */
 	const LOCATION_FUNC = 'location_func';
 
@@ -1462,7 +1462,7 @@ class Tribe__Context {
 	/**
 	 * Convenience method to get and check if a location has a truthy value or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @param string $flag_key The location to check.
 	 * @param bool   $default  The default value to return if the location is not set.
@@ -1478,7 +1478,7 @@ class Tribe__Context {
 	/**
 	 * Reads the value from one callback, passing it the value of another Context location.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @param array $location_and_callback An array of two elements: the location key and the callback to call on the
 	 *                                     location value. The callback will receive the location value as argument.

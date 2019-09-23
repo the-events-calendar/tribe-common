@@ -568,7 +568,7 @@ class Tribe__Rewrite {
 		/**
 		 * Filters the list of rewrite rules handled by our code to add or remove some as required.
 		 *
-		 * @since  TBD
+		 * @since  4.9.18
 		 *
 		 * @param array $our_rules An array of rewrite rules handled by our code, in the shape
 		 *                         `[ <rewrite_rule_regex_pattern> => <query_string> ]`.
