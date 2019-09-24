@@ -2,6 +2,12 @@
 
 == Changelog ==
 
+= [4.9.18] 2019-09-16 =
+
+* Tweak - Added a missing space to the plugin list in the system information [134364]
+* Fix - Use the correct name for North Macedonia
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.9.17] 2019-09-16 =
 
 * Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
