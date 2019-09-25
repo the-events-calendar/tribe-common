@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.18] 2019-09-16 =
+= [4.9.18] 2019-09-25 =
 
 * Tweak - Added a missing space to the plugin list in the system information [134364]
 * Fix - Use the correct name for North Macedonia
