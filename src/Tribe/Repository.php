@@ -1072,7 +1072,7 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function by( $key, $value = null ) {
-		if ( $this->void_query || ( $key === 'void_query' && false !== $value ) ) {
+		if ( $this->void_query || ( 'void_query' === $key && false !== $value ) ) {
 			$this->void_query = true;
 
 			// No point in doing more computations if the query is void.
