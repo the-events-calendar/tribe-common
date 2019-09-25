@@ -474,6 +474,7 @@ class Tribe__Context {
 
 		foreach ( $request_vars as $request_var ) {
 			$the_value = tribe_get_request_var( $request_var, self::NOT_FOUND );
+			$the_value = filter_var( $the_value, FILTER_SANITIZE_STRING );
 			if ( $the_value !== self::NOT_FOUND ) {
 				$value = $the_value;
 				break;
