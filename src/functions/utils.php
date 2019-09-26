@@ -142,7 +142,9 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tribe_get_request_var( $var, $default = null ) {
-		return Tribe__Utils__Array::get_in_any( array( $_GET, $_POST, $_REQUEST ), $var, $default );
+		$unsafe = Tribe__Utils__Array::get_in_any( array( $_GET, $_POST, $_REQUEST ), $var, $default );
+
+		return tribe_sanitize_deep( $unsafe );
 	}
 }
 
@@ -675,5 +677,41 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 		);
 
 		return $cache;
+	}
+}
+
+if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
+
+	/**
+	 * Sanitizes a value according to its type.
+	 *
+	 * The function will recursively sanitize array values.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $value The value, or values, to sanitize.
+	 *
+	 * @return mixed|null Either the sanitized version of the value, or `null` if the value is not a string, number or
+	 *                    array.
+	 */
+	function tribe_sanitize_deep( &$value ) {
+		if ( is_string( $value ) ) {
+			$value = filter_var( $value, FILTER_SANITIZE_STRING );
+			return $value;
+		}
+		if ( is_int( $value ) ) {
+			filter_var( $value, FILTER_VALIDATE_INT );
+			return $value;
+		}
+		if ( is_float( $value ) ) {
+			filter_var( $value, FILTER_VALIDATE_FLOAT );
+			return $value;
+		}
+		if ( is_array( $value ) ) {
+			array_walk( $value, 'tribe_sanitize_deep' );
+			return $value;
+		}
+
+		return null;
 	}
 }
