@@ -936,3 +936,43 @@ if ( ! function_exists( 'tribe_installed_on' ) ) {
 		return 0 === version_compare( $install_version, $version );
 	}
 }
+
+if ( ! function_exists( 'tribe_get_request_vars' ) ) {
+	/**
+	 * Returns the sanitized version of the `$_REQUEST` super-global array.
+	 *
+	 * Note: the return value is cached. It will be resolve the first time the function is called, per HTTP request,
+	 * then the same return value will be returned. After the function has been called the first time, changes to the
+	 * `$_REQUEST` super-global will NOT be reflected in the function return value.
+	 * Call the function with `$refresh` set to `true` to refresh the function value.
+	 *
+	 * @since 4.9.18
+	 *
+	 * @param bool $refresh Whether to parse the `$_REQUEST` cache again and refresh the cache or not; defaults to
+	 *                      `false`.
+	 *
+	 * @return array The sanitized version of the `$_REQUEST` super-global.
+	 */
+	function tribe_get_request_vars( $refresh = false ) {
+		static $cache;
+
+		if ( ! isset( $_REQUEST ) ) {
+			return [];
+		}
+
+		if ( null !== $cache && ! $refresh ) {
+			return $cache;
+		}
+
+		$cache = array_combine(
+			array_keys( $_REQUEST ),
+			array_map( static function ( $v )
+			{
+				return filter_var( $v, FILTER_SANITIZE_STRING );
+			},
+				$_REQUEST )
+		);
+
+		return $cache;
+	}
+}
