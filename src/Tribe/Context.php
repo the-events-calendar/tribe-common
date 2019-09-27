@@ -129,6 +129,13 @@ class Tribe__Context {
 	 */
 	const WP_MATCHED_QUERY = 'wp_matched_query';
 
+	/**
+	 * The key to indicate a location should be read by applying a callback to the value of another context location.
+	 *
+	 * @since 4.9.18
+	 */
+	const LOCATION_FUNC = 'location_func';
+
 	/*
 	 *
 	 * An array defining the properties the context will be able to read and (dangerously) write.
@@ -155,6 +162,7 @@ class Tribe__Context {
 	 * method - get the value calling a method on a tribe() container binding.
 	 * func - get the value from a function or a closure.
 	 * filter - get the value by applying a filter.
+	 * location_func - get the value by applying a callback to the value of a location.
 	 *
 	 * For each location additional arguments can be specified:
 	 * orm_arg - if `false` then the location will never produce an ORM argument, if provided the ORM arg produced bye the
@@ -1449,5 +1457,37 @@ class Tribe__Context {
 		}
 
 		return $filled;
+	}
+
+	/**
+	 * Convenience method to get and check if a location has a truthy value or not.
+	 *
+	 * @since 4.9.18
+	 *
+	 * @param string $flag_key The location to check.
+	 * @param bool   $default  The default value to return if the location is not set.
+	 *
+	 * @return bool Whether the location has a truthy value or not.
+	 */
+	public function is( $flag_key, $default = false ) {
+		$val = $this->get( $flag_key, $default );
+
+		return ! empty( $val ) || tribe_is_truthy( $val );
+	}
+
+	/**
+	 * Reads the value from one callback, passing it the value of another Context location.
+	 *
+	 * @since 4.9.18
+	 *
+	 * @param array $location_and_callback An array of two elements: the location key and the callback to call on the
+	 *                                     location value. The callback will receive the location value as argument.
+	 *
+	 * @return mixed The return value of the callback, called on the location value.
+	 */
+	public function location_func( array $location_and_callback ) {
+		list( $location, $callback ) = $location_and_callback;
+
+		return $callback( $this->get( $location ) );
 	}
 }
