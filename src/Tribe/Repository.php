@@ -833,6 +833,10 @@ abstract class Tribe__Repository
 		if ( ! empty( $query->request ) ) {
 			$ids = $this->get_ids();
 
+			if ( empty( $ids ) ) {
+				return null;
+			}
+
 			return $return_id ? reset( $ids ) : $this->format_item( reset( $ids ) );
 		}
 
@@ -892,6 +896,10 @@ abstract class Tribe__Repository
 		// The request property will be set during the `get_posts` method and empty before it.
 		if ( ! empty( $query->request ) ) {
 			$ids = $this->get_ids();
+
+			if ( empty( $ids ) ) {
+				return null;
+			}
 
 			return $return_id ? end( $ids ) : $this->format_item( end( $ids ) );
 		}
@@ -2783,7 +2791,7 @@ abstract class Tribe__Repository
 
 		$created = call_user_func( $this->get_create_callback( $postarr ), $postarr );
 
-		$post = get_post( $created );
+		$post = $this->format_item( $created );
 
 		return $post instanceof WP_Post && $post->ID === $created ? $post : false;
 	}
