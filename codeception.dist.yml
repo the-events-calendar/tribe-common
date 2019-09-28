@@ -18,7 +18,8 @@ extensions:
         - 'Codeception\Command\GenerateWPCanonical'
         - 'Codeception\Command\GenerateWPXMLRPC'
 params:
-  - .env
+  # read dynamic configuration parameters from the local environment file
+  - .env.testing.local
 coverage:
   enabled: true
   include:
