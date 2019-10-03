@@ -161,7 +161,6 @@ if ( ! function_exists( 'tribe_uc_first_letter' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'tribe_strpos' ) ) {
 	/**
 	 * Find the numeric position of the first occurrence of needle in the haystack string using multibyte function if available.
