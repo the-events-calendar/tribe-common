@@ -160,3 +160,34 @@ if ( ! function_exists( 'tribe_uc_first_letter' ) ) {
 		return $letter;
 	}
 }
+
+
+if ( ! function_exists( 'tribe_strpos' ) ) {
+	/**
+	 * Find String position, using multibyte functions if available
+	 *
+	 * @param $haystack String to search
+	 * @param $needle String target to find
+	 * @param int $offset
+	 * @param null $encoding
+	 *
+	 * @since TBD
+	 *
+	 * @return bool|int
+	 */
+	function tribe_strpos( $haystack, $needle, $offset = 0) {
+		if ( function_exists( 'mb_strpos' ) ) {
+
+			$encoding = tribe_detect_encoding( $haystack );
+
+			// we test for encoding and pass it if we get it
+			if ( $encoding ) {
+				return mb_strpos( $haystack, $needle, $offset, $encoding );
+			}
+
+			return mb_strpos( $haystack, $needle, $offset );
+		}
+
+		return strpos( $haystack, $needle, $offset );
+	}
+}
