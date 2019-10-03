@@ -167,9 +167,9 @@ if ( ! function_exists( 'tribe_strpos' ) ) {
 	 *
 	 * @since TBD
 	 *
-	 * @param $haystack The string to search in.
-	 * @param $needle The string to find in haystack.
-	 * @param int $offset The search offset. If it is not specified, 0 is used. A negative offset counts from the end of the string.
+	 * @param string $haystack The string to search in.
+	 * @param string $needle   The string to find in haystack.
+	 * @param int    $offset   The search offset. If it is not specified, 0 is used. A negative offset counts from the end of the string.
 	 *
 	 * @return int|false The numeric position of the first occurrence of needle in the haystack string. If needle is not found, it returns false.
 	 *
