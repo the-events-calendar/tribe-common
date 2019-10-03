@@ -976,3 +976,39 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 		return $cache;
 	}
 }
+
+if ( ! function_exists( 'tribe_localize_maybe_append' ) ) {
+	/**
+	 * `wp_localize_script` just adds new data as a new line item regardless of whether or not the
+	 * object exists. This is not ideal, so we check and see if any localized data already exists
+	 * for our script. Then we edit existing elements rather than duplicating them.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|object $enqueued_script The script handle we're saving data for - must already be loaded!
+	 * @param array         $localized_data The data we want to save.
+	 *
+	 * @return void
+	 */
+	function tribe_localize_maybe_append( $enqueued_script, $localized_data = [] ) {
+		global $wp_scripts;
+		$data = $wp_scripts->get_data( $enqueued_script, 'data');
+
+		if ( empty($data ) ) {
+			// If no data, then just do the default
+			wp_localize_script($enqueued_script, 'obj', $localized_data );
+		} else {
+			// If we have data, we append to the existing data!
+			if ( ! is_array( $data ) ) {
+				$data = json_decode(str_replace('var obj = ', '', substr($data, 0, -1)), true);
+			}
+			foreach($data as $key => $value) {
+				$localized_data[$key] = $value;
+			}
+
+			$wp_scripts->add_data($enqueued_script, 'data', '');
+
+			wp_localize_script($enqueued_script, 'obj', $localized_data);
+		}
+	}
+}
