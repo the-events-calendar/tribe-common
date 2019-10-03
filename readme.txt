@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.9.19] TBD =
+
+* Feature - Added new `tribe_strpos()` function that helps prevent fatal errors when hosting environments do not have support for multibyte functionality [135202]
+
 = [4.9.18] 2019-09-25 =
 
 * Tweak - Added a missing space to the plugin list in the system information [134364]
