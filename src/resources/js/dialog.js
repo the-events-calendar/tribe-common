@@ -1,4 +1,5 @@
 var tribe = tribe || {};
+var tribe_ev = tribe_ev || {};
 tribe.dialogs = tribe.dialogs || {};
 
 	( function ( obj ) {
