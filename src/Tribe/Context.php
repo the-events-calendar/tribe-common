@@ -1548,4 +1548,27 @@ class Tribe__Context {
 	public function doing_php_initial_state() {
 		return ! $this->doing_rest() && ! $this->doing_ajax() && ! $this->doing_cron();
 	}
+
+	/**
+	 * Returns the first key, if there are many, that will be used to read a location.
+	 *
+	 * The type ar
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $location The location to get the read key for.
+	 * @param string|null $type     The type of read location to return the key for; default to `static::REQUEST_VAR`.
+	 *
+	 * @return string Either the first key for the type of read location, or the input location if not found.
+	 */
+	public function get_read_key_for( $location, $type = null ) {
+		$type = $type ?: static::REQUEST_VAR;
+		if ( isset( static::$locations[ $location ]['read'][ $type ] ) ) {
+			$keys = (array) static::$locations[ $location ]['read'][ $type ];
+
+			return reset( $keys );
+		}
+
+		return $location;
+	}
 }
