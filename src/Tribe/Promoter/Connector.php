@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Custom class for communicating with the Promoter Auth Connector
+ * Custom class for communicating with the Promoter Auth Connector the class is created
+ * early in the process and many functions that come from utils are not available during the
+ * execution of the methods from this class
  *
  * @since 4.9
  */
