@@ -197,7 +197,7 @@ class Tribe__Promoter__Connector {
 
 		$token = \Firebase\JWT\JWT::encode( $payload, $secret_key );
 
-		$url = $this->base_url();
+		$url = $this->base_url()  . 'connect/notify';
 
 		$args = [
 			'body' => [ 'token' => $token ],
