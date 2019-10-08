@@ -7,14 +7,13 @@
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvider {
+class Tribe__Service_Providers__Promoter extends tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.
 	 */
 	public function register() {
 		tribe_singleton( 'promoter.auth', 'Tribe__Promoter__Auth' );
-		tribe_singleton( 'promoter.connector', 'Tribe__Promoter__Connector' );
 		tribe_singleton( 'promoter.pue', 'Tribe__Promoter__PUE', array( 'load' ) );
 		tribe_singleton( 'promoter.view', 'Tribe__Promoter__View' );
 
@@ -27,10 +26,13 @@ class Tribe__Service_Providers__Promoter_Connector extends tad_DI52_ServiceProvi
 	private function hook() {
 		add_action( 'template_redirect', tribe_callback( 'promoter.view', 'display_auth_check_view' ), 10, 0 );
 		add_action( 'init', tribe_callback( 'promoter.view', 'add_rewrites' ) );
-		// Add early-firing filter for user auth on REST.
-		add_filter( 'determine_current_user', tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' ), 10, 1 );
 
 		tribe( 'promoter.pue' );
+
+		add_filter(
+			'tribe_promoter_secret_key',
+			tribe_callback( 'promoter.auth', 'filter_promoter_secret_key' )
+		);
 
 		// The usage of a high priority so we can push the icon to the end
 		add_action( 'admin_bar_menu', array( $this, 'add_promoter_logo_on_admin_bar' ), 1000 );
