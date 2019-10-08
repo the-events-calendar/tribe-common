@@ -80,7 +80,13 @@ class Tribe__Promoter__Connector {
 	public function authenticate_user_with_connector( $user_id ) {
 		$this->authorized = false;
 
-		$token = tribe_get_request_var( 'tribe_promoter_auth_token' );
+		// If user is already authenticated no need to move forward (wp-admin) and others.
+		if ( ! empty( $user_id ) ) {
+			$this->authorized = true;
+			return $user_id;
+		}
+
+		$token = $this->get_token();
 
 		if ( empty( $token ) ) {
 			return $user_id;
@@ -102,6 +108,63 @@ class Tribe__Promoter__Connector {
 		$this->authorized = true;
 
 		return $response;
+	}
+
+	/**
+	 * Get the token either from a request or a header
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	protected function get_token() {
+		$request_token = $this->get_token_from_request();
+
+		return ( $request_token )
+			? sanitize_text_field( $request_token )
+			: $this->get_token_from_headers();
+	}
+
+	/**
+	 * Get the token from a Request variable if present, otherwise fallback to `null`
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	protected function get_token_from_request() {
+		// Used in favor of tribe_get_request_var as at this point tribe_get_request_var is not defined.
+		return \Tribe__Utils__Array::get_in_any(
+			[ $_GET, $_POST, $_REQUEST ],
+			'tribe_promoter_auth_token'
+		);
+	}
+
+	/**
+	 * Get the token directly from a Bearer Authentication Header, for hosts that
+	 * does not support large Query strings
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	protected function get_token_from_headers() {
+		$headers = [
+			'HTTP_AUTHORIZATION',
+			'REDIRECT_HTTP_AUTHORIZATION',
+		];
+
+		foreach ( $headers as $header ) {
+			if ( empty( $_SERVER[ $header ] ) ) {
+				continue;
+			}
+
+			list( $token ) = sscanf( $_SERVER[ $header ], 'Bearer %s' );
+
+			if ( $token ) {
+				return sanitize_text_field( $token );
+			}
+		}
 	}
 
 	/**
@@ -208,5 +271,4 @@ class Tribe__Promoter__Connector {
 	public function is_user_authorized() {
 		return $this->authorized;
 	}
-
 }
