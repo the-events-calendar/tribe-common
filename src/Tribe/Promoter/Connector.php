@@ -24,13 +24,11 @@ class Tribe__Promoter__Connector {
 	 * @since 4.9
 	 */
 	public function base_url() {
-		$url = 'https://us-central1-promoter-auth-connector.cloudfunctions.net/promoterConnector/';
-
 		if ( defined( 'TRIBE_PROMOTER_AUTH_CONNECTOR_URL' ) ) {
-			$url = TRIBE_PROMOTER_AUTH_CONNECTOR_URL;
+			return TRIBE_PROMOTER_AUTH_CONNECTOR_URL;
 		}
 
-		return $url;
+		return 'https://us-central1-promoter-auth-connector.cloudfunctions.net/promoterConnector/';
 	}
 
 	/**
