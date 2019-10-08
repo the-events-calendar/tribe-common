@@ -165,7 +165,7 @@ if ( ! function_exists( 'tribe_strpos' ) ) {
 	/**
 	 * Find the numeric position of the first occurrence of needle in the haystack string using multibyte function if available.
 	 *
-	 * @since TBD
+	 * @since 4.9.19
 	 *
 	 * @param string $haystack The string to search in.
 	 * @param string $needle   The string to find in haystack.
