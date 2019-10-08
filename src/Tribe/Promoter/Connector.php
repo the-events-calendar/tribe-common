@@ -48,22 +48,18 @@ class Tribe__Promoter__Connector {
 	public function authorize_with_connector( $user_id, $secret_key, $promoter_key, $license_key ) {
 		$url = $this->base_url() . 'connect';
 
-		$payload = array(
+		$payload = [
 			'clientSecret' => $secret_key,
-			'licenseKey'   => $license_key,
-			'userId'       => $user_id,
-		);
-
-		tribe( 'logger' )->log( $url );
+			'licenseKey' => $license_key,
+			'userId' => $user_id,
+		];
 
 		$token = \Firebase\JWT\JWT::encode( $payload, $promoter_key );
 
-		$args = array(
-			'body'      => array( 'token' => $token ),
+		$response = $this->make_call( $url, [
+			'body' => [ 'token' => $token ],
 			'sslverify' => false,
-		);
-
-		$response = $this->make_call( $url, $args );
+		] );
 
 		return (bool) $response;
 	}
@@ -94,12 +90,10 @@ class Tribe__Promoter__Connector {
 
 		$url = $this->base_url() . 'connect/auth';
 
-		$args = array(
-			'body'      => array( 'token' => $token ),
+		$response = $this->make_call( $url, [
+			'body' => [ 'token' => $token ],
 			'sslverify' => false,
-		);
-
-		$response = $this->make_call( $url, $args );
+		] );
 
 		if ( ! $response ) {
 			return $user_id;
@@ -177,7 +171,7 @@ class Tribe__Promoter__Connector {
 	public function notify_promoter_of_changes( $post_id ) {
 		$post_type = get_post_type( $post_id );
 
-		if ( ! in_array( $post_type, array( 'tribe_events', 'tribe_tickets' ), true ) ) {
+		if ( ! in_array( $post_type, [ 'tribe_events', 'tribe_tickets' ], true ) ) {
 			return;
 		}
 
@@ -196,19 +190,19 @@ class Tribe__Promoter__Connector {
 			return;
 		}
 
-		$payload = array(
+		$payload = [
 			'licenseKey' => $license_key,
-			'sourceId'   => $post_id,
-		);
+			'sourceId' => $post_id,
+		];
 
 		$token = \Firebase\JWT\JWT::encode( $payload, $secret_key );
 
-		$url = $this->base_url() . 'connect/notify';
+		$url = $this->base_url();
 
-		$args = array(
-			'body'      => array( 'token' => $token ),
+		$args = [
+			'body' => [ 'token' => $token ],
 			'sslverify' => false,
-		);
+		];
 
 		$this->make_call( $url, $args );
 	}
