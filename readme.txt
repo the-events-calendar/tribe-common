@@ -7,6 +7,8 @@
 * Tweak - added the `tribe_sanitize_deep` function to sanitize and validate input values [134427]
 * Tweak - use the `tribe_sanitize_deep` function to sanitize the values returned by the `tribe_get_request_var` function [134427]
 * Tweak - Rename "Datepicker Date Format" to "Compact Date Format" [134526]
+* Tweak - Adjust Promoter loading order to increase compatibility with plugins that use authentication early in the process [134862]
+* Tweak - Add support for Authentication using a Header when using Promoter [133922]
 
 = [4.9.17] 2019-09-16 =
 
