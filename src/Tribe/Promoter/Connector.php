@@ -240,15 +240,7 @@ class Tribe__Promoter__Connector {
 		$code     = wp_remote_retrieve_response_code( $response );
 		$body     = wp_remote_retrieve_body( $response );
 
-		if ( is_wp_error( $response ) ) {
-			tribe( 'logger' )->log( $response->get_error_message() );
-
-			return false;
-		}
-
-		if ( $code > 299 ) {
-			tribe( 'logger' )->log( $body, 0 );
-
+		if ( is_wp_error( $response ) || $code > 299 ) {
 			return false;
 		}
 
