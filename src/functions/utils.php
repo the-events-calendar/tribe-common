@@ -689,6 +689,25 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	}
 }
 
+
+
+if ( ! function_exists( 'tribe_get_normalized_version' ) ) {
+	/**
+	 * Strips off anything that isn't a "standard" version character [1-0.].
+	 * Used in our version comaprisons - not the "get version" functions.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $version the version string.
+	 * @return string Normalized version string.
+	 */
+	function tribe_get_normalized_version( $version ) {
+		preg_match('/\d*\.\d*\.\d*/', $version, $matches );
+
+		return array_shift( $matches );
+	}
+}
+
 if ( ! function_exists( 'tribe_get_least_version_ever_installed' ) ) {
 	/**
 	 * Gets the lowest version number ever installed for the specified class of a plugin having a
@@ -885,7 +904,10 @@ if ( ! function_exists( 'tribe_installed_before' ) ) {
 			return true;
 		}
 
-		return 0 > version_compare( $install_version, $version );
+		return 0 > version_compare(
+			tribe_get_normalized_version( $install_version ),
+			tribe_get_normalized_version( $version )
+		);
 	}
 }
 
@@ -909,7 +931,10 @@ if ( ! function_exists( 'tribe_installed_after' ) ) {
 			return false;
 		}
 
-		return 0 < version_compare( $install_version, $version );
+		return 0 < version_compare(
+			tribe_get_normalized_version( $install_version ),
+			tribe_get_normalized_version( $version )
+		);
 	}
 }
 
@@ -933,7 +958,10 @@ if ( ! function_exists( 'tribe_installed_on' ) ) {
 			return false;
 		}
 
-		return 0 === version_compare( $install_version, $version );
+		return 0 === version_compare(
+			tribe_get_normalized_version( $install_version ),
+			tribe_get_normalized_version( $version )
+		);
 	}
 }
 
