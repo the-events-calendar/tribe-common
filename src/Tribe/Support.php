@@ -87,7 +87,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 						$plugin .= sprintf( ' by %s', $plugin_details['Author'] );
 					}
 					if ( ! empty( $plugin_details['AuthorURI'] ) ) {
-						$plugin .= sprintf( '(%s)', $plugin_details['AuthorURI'] );
+						$plugin .= sprintf( ' (%s)', $plugin_details['AuthorURI'] );
 					}
 					$plugins[] = $plugin;
 				}
@@ -106,7 +106,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 						$plugin .= sprintf( ' by %s', $plugin_details['Author'] );
 					}
 					if ( ! empty( $plugin_details['AuthorURI'] ) ) {
-						$plugin .= sprintf( '(%s)', $plugin_details['AuthorURI'] );
+						$plugin .= sprintf( ' (%s)', $plugin_details['AuthorURI'] );
 					}
 					$network_plugins[] = $plugin;
 				}
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 						$plugin .= sprintf( ' by %s', $v['Author'] );
 					}
 					if ( ! empty( $v['AuthorURI'] ) ) {
-						$plugin .= sprintf( '(%s)', $v['AuthorURI'] );
+						$plugin .= sprintf( ' (%s)', $v['AuthorURI'] );
 					}
 					$mu_plugins[] = $plugin;
 				}
