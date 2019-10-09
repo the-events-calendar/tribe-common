@@ -649,7 +649,7 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 	 * `$_REQUEST` super-global will NOT be reflected in the function return value.
 	 * Call the function with `$refresh` set to `true` to refresh the function value.
 	 *
-	 * @since TBD
+	 * @since 4.9.18
 	 *
 	 * @param bool $refresh Whether to parse the `$_REQUEST` cache again and refresh the cache or not; defaults to
 	 *                      `false`.
