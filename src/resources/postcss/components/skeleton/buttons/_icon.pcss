@@ -10,7 +10,6 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-common-c-btn-icon {
-		@mixin button-global;
 
 		&:before {
 			background-repeat: no-repeat;
@@ -29,10 +28,6 @@
 	 * <a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--filter">...</a>
 	 *
 	 * ----------------------------------------------------------------------------- */
-
-	.tribe-common-c-btn-icon--border {
-		@mixin button-icon-border;
-	}
 
 	/* -----------------------------------------------------------------------------
 	 * Button: Icon Caret Left
@@ -155,18 +150,4 @@
 	 * Button: Icon Border - Theme Overrides
 	 *
 	 * ------------------------------------------------------------------------- */
-
-	/* -------------------------------------------------------------------------
-	 * Theme Overrides - Twenty Seventeen
-	 * ------------------------------------------------------------------------- */
-
-	.tribe-theme-twentyseventeen & {
-
-		.tribe-common-c-btn-icon--border {
-
-			&:hover {
-				background-color: var(--color-background);
-			}
-		}
-	}
 }
