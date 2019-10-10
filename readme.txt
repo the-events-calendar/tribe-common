@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [AR Modal] TBD =
+= [AR Modal] 2019-10-28 =
 
 * Feature - Add new tribe-dialog object. Implements mt-a11y-dialog as `tribe-dialog` (or `tribe('dialog.view')`) as an extension of `Tribe_Template`. [129434]
 * Feature - New dialogs can be created with a simple call to `tribe( 'dialog.view' )->render_dialog( $args )` in php. [129434]
@@ -12,11 +12,16 @@
 * Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. [133048]
 * Feature - Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions.  [133048]
 
+= [4.9.19] 2019-10-14 =
+
+* Feature - Added new `tribe_strpos()` function that helps prevent fatal errors when hosting environments do not have support for multibyte functionality [135202]
+* Language - 1 new strings added, 32 updated, 1 fuzzied, and 1 obsoleted
+
 = [4.9.18] 2019-09-25 =
 
 * Tweak - Added a missing space to the plugin list in the system information [134364]
 * Fix - Use the correct name for North Macedonia
-* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+* Language - 1 new strings added, 32 updated, 1 fuzzied, and 1 obsoleted
 
 = [4.9.17] 2019-09-16 =
 
