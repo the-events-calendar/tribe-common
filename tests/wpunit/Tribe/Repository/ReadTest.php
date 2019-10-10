@@ -1041,4 +1041,23 @@ class ReadTest extends ReadTestBase {
 		$this->assertContainsOnlyInstancesOf( \WP_Post::class, $results );
 		$this->assertEquals( $queries_count + 1, $this->queries()->countQueries() );
 	}
+
+	/**
+	 * It should allow invalidating a query using args
+	 *
+	 * @test
+	 */
+	public function should_allow_invalidating_a_query_using_args() {
+		$repository = $this->repository();
+
+		foreach ( range( 1, 3 ) as $i ) {
+			static::factory()->post->create( [ 'post_type' => 'book' ] );
+		}
+
+		$this->assertCount( 3, $repository->all() );
+		$this->assertEmpty( $repository->by( 'void_query', true )->all() );
+		$this->assertEmpty( $repository->by_args( [ 'void_query' => true ] )->all() );
+		$this->assertCount( 0, $repository->by_args( [ 'void_query' => false ] )->all() );
+		$this->assertCount( 0, $repository->by( 'void_query', false )->all() );
+	}
 }

@@ -33,8 +33,8 @@ $displayTab = array(
 			),
 			'datepickerFormat'                   => array(
 				'type'            => 'dropdown',
-				'label'           => esc_html__( 'Datepicker Date Format', 'tribe-common' ),
-				'tooltip'         => esc_html__( 'Select the date format to use in datepickers', 'tribe-common' ),
+				'label'           => esc_html__( 'Compact Date Format', 'tribe-common' ),
+				'tooltip'         => esc_html__( 'Select the date format used for elements with minimal space, such as in datepickers.', 'tribe-common' ),
 				'default'         => 'Y-m-d',
 				'options'         => array(
 					'0' => date( 'Y-m-d', $sample_date ),
