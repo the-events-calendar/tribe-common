@@ -1,19 +1,7 @@
 .tribe-common {
 
 	a {
-		color: var(--color-text-primary);
 		cursor: pointer;
-		outline: 0;
-		text-decoration: none;
-
-		&:hover,
-		&:focus,
-		&:active,
-		&:visited {
-			color: var(--color-text-primary);
-			outline: 0;
-			text-decoration: none;
-		}
 	}
 
 	/* -------------------------------------------------------------------------
@@ -21,29 +9,6 @@
 	 * Anchor: Theme Overrides
 	 *
 	 * ------------------------------------------------------------------------- */
-
-	a {
-		/* -------------------------------------------------------------------------
-		 * Theme Overrides - Twenty Seventeen
-		 * ------------------------------------------------------------------------- */
-
-		.tribe-theme-twentyseventeen & {
-
-			&:hover,
-			&:focus {
-				box-shadow: none;
-				color: var(--color-text-primary);
-			}
-		}
-
-		/* -------------------------------------------------------------------------
-		 * Theme Overrides - Twenty Nineteen
-		 * ------------------------------------------------------------------------- */
-
-		.tribe-theme-twentynineteen .entry & {
-			text-decoration: none;
-		}
-	}
 
 	/* -------------------------------------------------------------------------
 	 *
@@ -56,36 +21,9 @@
 	 *
 	 * ------------------------------------------------------------------------- */
 
-	.tribe-common-anchor {
-		@mixin anchor-default;
-	}
-
-	.tribe-common-anchor-alt {
-		@mixin anchor-alt;
-	}
-
-	.tribe-common-anchor-thin {
-		@mixin anchor-thin;
-	}
-
 	/* -------------------------------------------------------------------------
 	 *
 	 * Anchor: Theme Overrides
 	 *
 	 * ------------------------------------------------------------------------- */
-
-	/* -------------------------------------------------------------------------
-	 * Theme Overrides - Twenty Seventeen
-	 * ------------------------------------------------------------------------- */
-
-	.tribe-theme-twentyseventeen & {
-
-		.tribe-common-anchor-alt {
-
-			&:hover,
-			&:focus {
-				color: var(--color-accent-primary);
-			}
-		}
-	}
 }
