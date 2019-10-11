@@ -695,7 +695,6 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 	 */
 	function tribe_sanitize_deep( &$value ) {
 		if ( is_bool( $value ) ) {
-			$value = filter_var( $value, FILTER_VALIDATE_BOOLEAN );
 			return $value;
 		}
 		if ( is_string( $value ) ) {
