@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.9.20] TBD =
 
 * Tweak - added the `tribe_sanitize_deep` function to sanitize and validate input values [134427]
 * Tweak - use the `tribe_sanitize_deep` function to sanitize the values returned by the `tribe_get_request_var` function [134427]
