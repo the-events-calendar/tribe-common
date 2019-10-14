@@ -992,23 +992,25 @@ if ( ! function_exists( 'tribe_localize_maybe_append' ) ) {
 	 */
 	function tribe_localize_maybe_append( $enqueued_script, $localized_data = [] ) {
 		global $wp_scripts;
-		$data = $wp_scripts->get_data( $enqueued_script, 'data');
+
+		$data = $wp_scripts->get_data( $enqueued_script, 'data' );
 
 		if ( empty($data ) ) {
 			// If no data, then just do the default
-			wp_localize_script($enqueued_script, 'obj', $localized_data );
+			wp_localize_script( $enqueued_script, 'obj', $localized_data );
 		} else {
 			// If we have data, we append to the existing data!
 			if ( ! is_array( $data ) ) {
-				$data = json_decode(str_replace('var obj = ', '', substr($data, 0, -1)), true);
-			}
-			foreach($data as $key => $value) {
-				$localized_data[$key] = $value;
+				$data = json_decode( str_replace( 'var obj = ', '', substr( $data, 0, -1 ) ), true );
 			}
 
-			$wp_scripts->add_data($enqueued_script, 'data', '');
+			foreach( $data as $key => $value ) {
+				$localized_data[ $key ] = $value;
+			}
 
-			wp_localize_script($enqueued_script, 'obj', $localized_data);
+			$wp_scripts->add_data( $enqueued_script, 'data', '' );
+
+			wp_localize_script( $enqueued_script, 'obj', $localized_data );
 		}
 	}
 }
