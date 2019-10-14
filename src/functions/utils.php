@@ -996,10 +996,10 @@ if ( ! function_exists( 'tribe_localize_maybe_append' ) ) {
 		$data = $wp_scripts->get_data( $enqueued_script, 'data' );
 
 		if ( empty($data ) ) {
-			// If no data, then just do the default
+			// If no data, then just do the default.
 			wp_localize_script( $enqueued_script, 'obj', $localized_data );
 		} else {
-			// If we have data, we append to the existing data!
+			// If we have data, we append to the existing data.
 			if ( ! is_array( $data ) ) {
 				$data = json_decode( str_replace( 'var obj = ', '', substr( $data, 0, -1 ) ), true );
 			}
