@@ -29,4 +29,7 @@ $classes = implode( ' ' , (array) $classes );
 	<?php if ( ! empty( $button_value ) && 0 !== absint( $button_value ) ) : ?>
 		value="<?php echo esc_attr( $button_value ); ?>"
 	<?php endif; ?>
+	<?php if ( ! empty( $button_disabled ) && tribe_is_truthy( $button_disabled ) ) : ?>
+		<?php tribe_disabled( true ); ?>
+	<?php endif; ?>
 ><?php echo esc_html( $button_text ); ?></button>
