@@ -45,6 +45,7 @@ class View extends \Tribe__Template {
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
 	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
+	 *     @type boolean $button_disabled         Should the button be disabled (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
 	 *     @type string  $button_type             The type for the trigger button (optinoal).
 	 *     @type string  $button_value            The value for the trigger button (optional).
@@ -112,6 +113,7 @@ class View extends \Tribe__Template {
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
 	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
+	 *     @type boolean $button_disabled         Should the button be disabled (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the modal window").
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
@@ -180,6 +182,7 @@ class View extends \Tribe__Template {
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
 	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
+	 *     @type boolean $button_disabled         Should the button be disabled (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
@@ -247,6 +250,7 @@ class View extends \Tribe__Template {
 	 *     @type string  $alert_button_text       Text for the "OK" button ("OK").
 	 *     @type string  $button_id               The ID for the trigger button (optional).
 	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
+	 *     @type boolean $button_disabled         Should the button be disabled (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
@@ -311,6 +315,7 @@ class View extends \Tribe__Template {
 	 *
 	 *     @type string  $button_id               The ID for the trigger button (optional).
 	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
+	 *     @type boolean $button_disabled         Should the button be disabled (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
@@ -344,6 +349,7 @@ class View extends \Tribe__Template {
 	private function build_dialog( $content, $id, $args ) {
 		$default_args = [
 			'button_classes'          => '',
+			'button_diabled'          => false,
 			'button_id'               => '',
 			'button_name'             => '',
 			'button_text'             => __( 'Open the dialog window', 'tribe-common' ),
@@ -465,8 +471,9 @@ class View extends \Tribe__Template {
 		<script>
 			var tribe = tribe || {};
 			tribe.dialogs = tribe.dialogs || [];
+			tribe.dialogs.dialogs = tribe.dialogs.dialogs || [];
 
-			tribe.dialogs.push( <?php echo json_encode( $args ); ?> );
+			tribe.dialogs.dialogs.push( <?php echo json_encode( $args ); ?> );
 
 			<?php
 			/**

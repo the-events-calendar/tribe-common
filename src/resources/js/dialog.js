@@ -1,6 +1,7 @@
 var tribe = tribe || {};
-var tribe_ev = tribe_ev || {};
 tribe.dialogs = tribe.dialogs || {};
+tribe.dialogs.dialogs = tribe.dialogs.dialogs || {};
+tribe.dialogs.events = tribe.dialogs.events || {};
 
 	( function ( obj ) {
 		'use strict';
@@ -8,7 +9,7 @@ tribe.dialogs = tribe.dialogs || {};
 		document.addEventListener(
 			'DOMContentLoaded',
 			function () {
-				tribe.dialogs.forEach(function(dialog) {
+				tribe.dialogs.dialogs.forEach(function(dialog) {
 					var objName     = 'dialog_obj_' + dialog.id;
 					window[objName] = new window.A11yDialog({
 						appendTarget: dialog.appendTarget,
@@ -26,17 +27,21 @@ tribe.dialogs = tribe.dialogs || {};
 					});
 
 					window[objName].on('show', function (dialogEl, event) {
-						event.preventDefault();
-						event.stopPropagation();
+						if ( event ) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
 
-						jQuery( tribe_ev.events ).trigger( dialog.showEvent, [dialogEl, event] );
+						jQuery( tribe.dialogs.events ).trigger( dialog.showEvent, [dialogEl, event] );
 					});
 
 					window[objName].on('hide', function (dialogEl, event) {
-						event.preventDefault();
-						event.stopPropagation();
+						if ( event ) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
 
-						jQuery( tribe_ev.events ).trigger( dialog.closeEvent, [dialogEl, event] );
+						jQuery( tribe.dialogs.events ).trigger( dialog.closeEvent, [dialogEl, event] );
 					});
 				});
 			}
