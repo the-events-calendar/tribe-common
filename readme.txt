@@ -9,6 +9,7 @@
 * Tweak - Rename "Datepicker Date Format" to "Compact Date Format" [134526]
 * Tweak - Adjust Promoter loading order to increase compatibility with plugins that use authentication early in the process [134862]
 * Tweak - Add support for Authentication using a Header when using Promoter [133922]
+* Language - 2 new strings added, 21 updated, 1 fuzzied, and 2 obsoleted
 
 = [4.9.19] 2019-10-14 =
 
