@@ -29,43 +29,13 @@
 	 *
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-common-form-control-toggle {
-		line-height: 0;
-	}
-
 	.tribe-common-form-control-toggle__input {
-		@mixin form-control-slider-toggle-track;
-
-		appearance: none;
-		background-color: var(--form-color-border-secondary);
 		cursor: pointer;
 		display: inline-block;
 		vertical-align: middle;
-		width: 40px;
-
-		&:after {
-			@mixin form-control-slider-toggle-thumb;
-
-			content: '';
-			left: 0;
-			position: absolute;
-			top: -5px;
-			transition: var(--transition-transform);
-		}
-
-		&:checked {
-			background-color: var(--form-color-accent-primary);
-
-			&:after {
-				transform: translateX(20px);
-			}
-		}
 	}
 
 	.tribe-common-form-control-toggle__label {
-		@mixin desktop-body-3;
-
-		color: var(--color-text-secondary);
 		cursor: pointer;
 		display: inline-block;
 		margin-left: 11px;
@@ -95,11 +65,6 @@
 		.tribe-common-form-control-toggle__input {
 			display: inline-block;
 			margin: 5px 0;
-		}
-
-		.tribe-common-form-control-toggle__label {
-			font-weight: var(--font-weight-regular);
-			font-size: var(--font-size-1);
 		}
 	}
 }
