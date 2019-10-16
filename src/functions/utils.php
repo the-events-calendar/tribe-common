@@ -686,7 +686,7 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 	 *
 	 * The function will recursively sanitize array values.
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 *
 	 * @param mixed $value The value, or values, to sanitize.
 	 *

@@ -594,7 +594,7 @@ class Tribe__Main {
 	 *
 	 * Add a filter to determine_current_user during the setup of common library.
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 */
 	public function promoter_connector() {
 		tribe_singleton( 'promoter.connector', 'Tribe__Promoter__Connector' );
