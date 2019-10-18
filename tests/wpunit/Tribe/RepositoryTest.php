@@ -5,7 +5,6 @@ namespace Tribe;
 require_once codecept_data_dir( 'classes/Repository/Book_Repository.php' );
 
 use Tribe\Common\Tests\Repository\Book_Repository as Repository;
-use Tribe__Repository__Read_Interface as Read_Interface;
 
 class RepositoryTest extends \Codeception\TestCase\WPTestCase {
 	/**

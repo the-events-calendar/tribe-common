@@ -559,6 +559,10 @@ abstract class Tribe__Repository
 	public function build_query( $use_query_builder = true ) {
 		$query = null;
 
+		if ( array_key_exists( 'void_query', $this->query_args ) && false !== $this->query_args['void_query'] ) {
+			$this->void_query = true;
+		}
+
 		// We'll let the query builder decide if the query has to be rebuilt or not.
 		if ( $use_query_builder && null !== $this->query_builder ) {
 			$query = $this->build_query_with_builder();
@@ -1068,7 +1072,9 @@ abstract class Tribe__Repository
 	 * {@inheritdoc}
 	 */
 	public function by( $key, $value = null ) {
-		if ( $this->void_query ) {
+		if ( $this->void_query || ( 'void_query' === $key && false !== $value ) ) {
+			$this->void_query = true;
+
 			// No point in doing more computations if the query is void.
 			return $this;
 		}
