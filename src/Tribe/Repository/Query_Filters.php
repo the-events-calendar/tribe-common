@@ -8,6 +8,13 @@
 class Tribe__Repository__Query_Filters {
 
 	/**
+	 * Indicates something has to happen "after" something else. The specific meaning is contextual.
+	 *
+	 * @since TBD
+	 */
+	CONST AFTER = 'after:';
+
+	/**
 	 * @var array
 	 */
 	protected static $initial_query_vars = array(
@@ -693,18 +700,23 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @since 4.9.5
 	 * @since 4.9.14 Added the `$id` and `$override` parameters.
+	 * @since TBD Added the `$after` parameter.
 	 *
 	 * @param string      $orderby  The order by criteria.
 	 * @param null|string $id       Optional ORDER ID to prevent duplicating order-by clauses..
 	 * @param boolean     $override Whether to override the clause if another by the same ID exists.
+	 * @param bool        $after Whether to append the order by clause to the ones managed by WordPress or not.
+	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
 	 */
-	public function orderby( $orderby, $id = null , $override = false) {
+	public function orderby( $orderby, $id = null, $override = false, $after = false ) {
+		$orderby_key = $after ? static::AFTER . 'orderby' : 'orderby';
+
 		if ( $id ) {
-			if ( $override || ! isset( $this->query_vars['orderby'][ $id ] ) ) {
-				$this->query_vars['orderby'][ $id ] = $orderby;
+			if ( $override || ! isset( $this->query_vars[ $orderby_key ][ $id ] ) ) {
+				$this->query_vars[ $orderby_key ][ $id ] = $orderby;
 			}
 		} else {
-			$this->query_vars['orderby'][] = $orderby;
+			$this->query_vars[ $orderby_key ][] = $orderby;
 		}
 
 		if ( ! has_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ) ) ) {
@@ -952,13 +964,27 @@ class Tribe__Repository__Query_Filters {
 			return $orderby;
 		}
 
-		if ( empty( $this->query_vars['orderby'] ) ) {
+		$after_key = static::AFTER . 'orderby';
+
+		if ( empty( $this->query_vars['orderby'] ) && empty( $this->query_vars[ $after_key ] ) ) {
 			return $orderby;
 		}
 
 		$order = $query->get( 'order', 'ASC' );
 
-		return implode( ' ' . $order . ', ', $this->query_vars['orderby'] ) . ' ' . $order . ', ' . $orderby;
+		$frags = [ $orderby ];
+
+		if ( ! empty( $this->query_vars['orderby'] ) ) {
+			$before = implode( ' ' . $order . ', ', $this->query_vars['orderby'] ) . ' ' . $order;
+			$frags  = [ $before, $orderby ];
+		}
+
+		if ( ! empty( $this->query_vars[ $after_key ] ) ) {
+			$after   = implode( ' ' . $order . ', ', $this->query_vars[ $after_key ] ) . ' ' . $order;
+			$frags[] = $after;
+		}
+
+		return implode( ', ', $frags );
 	}
 
 	/**
