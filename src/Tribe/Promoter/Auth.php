@@ -21,16 +21,6 @@ class Tribe__Promoter__Auth {
 	 */
 	public function __construct( Tribe__Promoter__Connector $connector ) {
 		$this->connector = $connector;
-		$this->hook();
-	}
-
-	/**
-	 * Attach hooks to this class.
-	 *
-	 * @since  4.9.12
-	 */
-	public function hook() {
-		add_filter( 'tribe_promoter_secret_key', [ $this, 'filter_promoter_secret_key' ] );
 	}
 
 	/**

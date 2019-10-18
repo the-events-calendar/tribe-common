@@ -12,6 +12,15 @@
 * Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. [133048]
 * Feature - Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions.  [133048]
 
+= [4.9.20] 2019-10-16 =
+
+* Tweak - added the `tribe_sanitize_deep` function to sanitize and validate input values [134427]
+* Tweak - use the `tribe_sanitize_deep` function to sanitize the values returned by the `tribe_get_request_var` function [134427]
+* Tweak - Rename "Datepicker Date Format" to "Compact Date Format" [134526]
+* Tweak - Adjust Promoter loading order to increase compatibility with plugins that use authentication early in the process [134862]
+* Tweak - Add support for Authentication using a Header when using Promoter [133922]
+* Language - 2 new strings added, 21 updated, 1 fuzzied, and 2 obsoleted
+
 = [4.9.19] 2019-10-14 =
 
 * Feature - Added new `tribe_strpos()` function that helps prevent fatal errors when hosting environments do not have support for multibyte functionality [135202]
