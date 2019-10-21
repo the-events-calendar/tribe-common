@@ -700,23 +700,37 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @since 4.9.5
 	 * @since 4.9.14 Added the `$id` and `$override` parameters.
-	 * @since TBD Added the `$after` parameter.
+	 * @since TBD Added the `$order` and `$after` parameters.
 	 *
-	 * @param string      $orderby  The order by criteria.
-	 * @param null|string $id       Optional ORDER ID to prevent duplicating order-by clauses..
-	 * @param boolean     $override Whether to override the clause if another by the same ID exists.
-	 * @param bool        $after Whether to append the order by clause to the ones managed by WordPress or not.
-	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
+	 * @param string|array $orderby       The order by criteria; this argument can be specified in array form to specify
+	 *                                    multiple order by clauses and orders associated to each,
+	 *                                    e.g. `[ '_meta_1' => 'ASC', '_meta_2' => 'DESC' ]`. If a simple array is
+	 *                                    passed, then the order will be set to the default one for each entry.
+	 *                                    This arguments supports the same formats of the `WP_Query` `orderby` argument.
+	 * @param null|string  $id            Optional ORDER ID to prevent duplicating order-by clauses
+	 * @param boolean      $override      Whether to override the clause if another by the same ID exists.
+	 * @param bool         $after         Whether to append the order by clause to the ones managed by WordPress or not.
+	 *                                    Defaults to `false`,to prepend them to the ones managed by WordPress.
 	 */
 	public function orderby( $orderby, $id = null, $override = false, $after = false ) {
 		$orderby_key = $after ? static::AFTER . 'orderby' : 'orderby';
 
-		if ( $id ) {
-			if ( $override || ! isset( $this->query_vars[ $orderby_key ][ $id ] ) ) {
-				$this->query_vars[ $orderby_key ][ $id ] = $orderby;
+		foreach ( (array) $orderby as $the_orderby => $the_order ) {
+			/*
+			 * As WordPress does, we support "simple" entries, like `[ 'menu_order', 'post_date' ]` and entries in the
+			 * shape `[ 'menu_order' => 'ASC', 'post_date' => 'DESC' ]`.
+			 */
+			$the_order   = is_numeric( $the_orderby ) ? 'ASC' : $the_order;
+			$the_orderby = is_numeric( $the_orderby ) ? $the_order : $the_orderby;
+
+			// Use the `$id` parameter to allow later method calls to replace values set in previous calls.
+			if ( $id ) {
+				if ( $override || ! isset( $this->query_vars[ $orderby_key ][ $id ] ) ) {
+					$this->query_vars[ $orderby_key ][ $id ] = [ $the_orderby, $the_order ];
+				}
+			} else {
+				$this->query_vars[ $orderby_key ][] = [ $the_orderby, $the_order ];
 			}
-		} else {
-			$this->query_vars[ $orderby_key ][] = $orderby;
 		}
 
 		if ( ! has_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ) ) ) {
@@ -964,23 +978,29 @@ class Tribe__Repository__Query_Filters {
 			return $orderby;
 		}
 
-		$after_key = static::AFTER . 'orderby';
-
-		if ( empty( $this->query_vars['orderby'] ) && empty( $this->query_vars[ $after_key ] ) ) {
+		if ( empty( $this->query_vars['orderby'] ) && empty( $this->query_vars[ static::AFTER . 'orderby' ] ) ) {
 			return $orderby;
 		}
 
-		$order = $query->get( 'order', 'ASC' );
-
 		$frags = [ $orderby ];
 
+		/*
+		 * Entries will be set, from the `orderby` method, to the `[ [ <orderby>, <order> ], [ <orderby>, <order> ] ]`
+		 * format.
+		 */
+		$build_entry = static function ( $entry ) {
+			list( $orderby, $order ) = $entry;
+
+			return sprintf( '%s %s', $orderby, $order );
+		};
+
 		if ( ! empty( $this->query_vars['orderby'] ) ) {
-			$before = implode( ' ' . $order . ', ', $this->query_vars['orderby'] ) . ' ' . $order;
+			$before = implode( ', ', array_map( $build_entry, $this->query_vars['orderby'] ) );
 			$frags  = [ $before, $orderby ];
 		}
 
-		if ( ! empty( $this->query_vars[ $after_key ] ) ) {
-			$after   = implode( ' ' . $order . ', ', $this->query_vars[ $after_key ] ) . ' ' . $order;
+		if ( ! empty( $this->query_vars[ static::AFTER . 'orderby' ] ) ) {
+			$after   = implode( ', ', array_map( $build_entry, $this->query_vars[ static::AFTER . 'orderby' ] ) );
 			$frags[] = $after;
 		}
 
