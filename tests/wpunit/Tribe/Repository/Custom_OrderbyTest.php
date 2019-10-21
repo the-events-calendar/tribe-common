@@ -37,6 +37,21 @@ class Custom_OrderbyTest extends ReadTestBase {
 
 				return $this;
 			}
+
+			public function multi_meta_orderby_after( $orderby_array ) {
+				global $wpdb;
+
+				$this->filter_query->orderby( $orderby_array, 'multi_meta', true, true );
+
+				foreach ($orderby_array as $orderby => $order){
+					$join_clause = "LEFT JOIN {$wpdb->postmeta} AS {$orderby} ON ( {$wpdb->posts}.ID = {$orderby}.post_id" .
+					               " AND {$orderby}.meta_key = '{$orderby}')";
+					$this->filter_query->join( $join_clause );
+					$this->filter_query->fields( "{$orderby}.meta_value  AS {$orderby}", $orderby );
+				}
+
+				return $this;
+			}
 		};
 	}
 
@@ -143,5 +158,10 @@ class Custom_OrderbyTest extends ReadTestBase {
 			     ->set_query_arg( 'orderby', [ 'menu_order' => 'DESC' ] )
 			     ->get_ids()
 		);
+		$ids = $this->repository()->multi_meta_orderby_after( [
+			'_release_year'   => 'DESC',
+			'_active_readers' => 'ASC'
+		] )->set_query_arg( 'orderby', [ 'menu_order' => 'ASC' ] )->get_ids();
+		$this->assertEquals( [ $book_2, $book_1, $book_3 ], $ids );
 	}
 }

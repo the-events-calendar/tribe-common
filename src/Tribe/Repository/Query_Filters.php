@@ -707,30 +707,35 @@ class Tribe__Repository__Query_Filters {
 	 *                                    e.g. `[ '_meta_1' => 'ASC', '_meta_2' => 'DESC' ]`. If a simple array is
 	 *                                    passed, then the order will be set to the default one for each entry.
 	 *                                    This arguments supports the same formats of the `WP_Query` `orderby` argument.
-	 * @param null|string  $id            Optional ORDER ID to prevent duplicating order-by clauses
+	 * @param null|string  $id            Optional ORDER ID to prevent duplicating order-by clauses.
 	 * @param boolean      $override      Whether to override the clause if another by the same ID exists.
 	 * @param bool         $after         Whether to append the order by clause to the ones managed by WordPress or not.
 	 *                                    Defaults to `false`,to prepend them to the ones managed by WordPress.
 	 */
 	public function orderby( $orderby, $id = null, $override = false, $after = false ) {
 		$orderby_key = $after ? static::AFTER . 'orderby' : 'orderby';
+		$entries = [];
 
-		foreach ( (array) $orderby as $the_orderby => $the_order ) {
+		foreach ( (array) $orderby as $key => $value ) {
 			/*
 			 * As WordPress does, we support "simple" entries, like `[ 'menu_order', 'post_date' ]` and entries in the
 			 * shape `[ 'menu_order' => 'ASC', 'post_date' => 'DESC' ]`.
 			 */
-			$the_order   = is_numeric( $the_orderby ) ? 'ASC' : $the_order;
-			$the_orderby = is_numeric( $the_orderby ) ? $the_order : $the_orderby;
+			$the_orderby = is_numeric( $key ) ? $value : $key;
+			$the_order   = is_numeric( $key ) ? 'DESC' : $value;
 
-			// Use the `$id` parameter to allow later method calls to replace values set in previous calls.
-			if ( $id ) {
-				if ( $override || ! isset( $this->query_vars[ $orderby_key ][ $id ] ) ) {
-					$this->query_vars[ $orderby_key ][ $id ] = [ $the_orderby, $the_order ];
-				}
-			} else {
-				$this->query_vars[ $orderby_key ][] = [ $the_orderby, $the_order ];
+			$entries[] = [ $the_orderby, $the_order ];
+		}
+
+		$id = $id ?: 'default';
+
+		// Use the `$id` parameter to allow later method calls to replace values set in previous calls.
+		if ( $id ) {
+			if ( $override || ! isset( $this->query_vars[ $orderby_key ][ $id ] ) ) {
+				$this->query_vars[ $orderby_key ][ $id ] = $entries;
 			}
+		} else {
+			$this->query_vars[ $orderby_key ][$id] = array_merge( $this->query_vars[ $orderby_key ][$id], $entries );
 		}
 
 		if ( ! has_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ) ) ) {
@@ -988,10 +993,14 @@ class Tribe__Repository__Query_Filters {
 		 * Entries will be set, from the `orderby` method, to the `[ [ <orderby>, <order> ], [ <orderby>, <order> ] ]`
 		 * format.
 		 */
-		$build_entry = static function ( $entry ) {
-			list( $orderby, $order ) = $entry;
+		$build_entry = static function ( $entries ) {
+			$buffer  = [];
 
-			return sprintf( '%s %s', $orderby, $order );
+			foreach ( $entries as list( $orderby, $order ) ) {
+				$buffer[] = sprintf( '%s %s', $orderby, $order );
+			}
+
+			return implode( ', ', $buffer );
 		};
 
 		if ( ! empty( $this->query_vars['orderby'] ) ) {
@@ -1000,8 +1009,7 @@ class Tribe__Repository__Query_Filters {
 		}
 
 		if ( ! empty( $this->query_vars[ static::AFTER . 'orderby' ] ) ) {
-			$after   = implode( ', ', array_map( $build_entry, $this->query_vars[ static::AFTER . 'orderby' ] ) );
-			$frags[] = $after;
+			$frags[] = implode( ', ', array_map( $build_entry, $this->query_vars[ static::AFTER . 'orderby' ] ) );
 		}
 
 		return implode( ', ', $frags );
