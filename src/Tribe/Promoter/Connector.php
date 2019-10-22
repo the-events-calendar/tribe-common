@@ -107,7 +107,7 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Get the token either from a request or a header
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 *
 	 * @return mixed
 	 */
@@ -122,7 +122,7 @@ class Tribe__Promoter__Connector {
 	/**
 	 * Get the token from a Request variable if present, otherwise fallback to `null`
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 *
 	 * @return mixed
 	 */
@@ -138,7 +138,7 @@ class Tribe__Promoter__Connector {
 	 * Get the token directly from a Bearer Authentication Header, for hosts that
 	 * does not support large Query strings
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 *
 	 * @return mixed
 	 */

@@ -62,7 +62,7 @@ class Tribe__Context {
 	/**
 	 * The key to locate a context value as the value of the main query (global `$wp_query`) method return value.
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 */
 	const QUERY_METHOD = 'query_method';
 
@@ -1501,7 +1501,7 @@ class Tribe__Context {
 	/**
 	 * Checks whether the current request is a REST API one or not.
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 *
 	 * @return bool Whether the current request is a REST API one or not.
 	 */
@@ -1512,7 +1512,7 @@ class Tribe__Context {
 	/**
 	 * Reads the value from one or more global WP_Query object methods.
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 *
 	 * @param array $query_vars The list of query methods to call, in order.
 	 * @param mixed $default The default value to return if no method was defined on the global `WP_Query` object.
@@ -1541,7 +1541,7 @@ class Tribe__Context {
 	 *
 	 * This method is a shortcut to make sure we're not doing an AJAX, REST or Cron request.
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 *
 	 * @return bool Whether the current request is for a PHP-rendered initial state or not.
 	 */
@@ -1554,7 +1554,7 @@ class Tribe__Context {
 	 *
 	 * The type ar
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 *
 	 * @param string      $location The location to get the read key for.
 	 * @param string|null $type     The type of read location to return the key for; default to `static::REQUEST_VAR`.
