@@ -735,7 +735,7 @@ class Tribe__Repository__Query_Filters {
 				$this->query_vars[ $orderby_key ][ $id ] = $entries;
 			}
 		} else {
-			$this->query_vars[ $orderby_key ][$id] = array_merge( $this->query_vars[ $orderby_key ][$id], $entries );
+			$this->query_vars[ $orderby_key ][ $id ] = array_merge( $this->query_vars[ $orderby_key ][ $id ], $entries );
 		}
 
 		if ( ! has_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ) ) ) {
