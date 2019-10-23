@@ -188,7 +188,10 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		$srcset                   = wp_get_attachment_image_srcset( $thumbnail_id );
 		$thumbnail_data['srcset'] = ! empty( $srcset ) ? $srcset : false;
 
-		$alt                   = get_the_title( $thumbnail_id );
+		$title                   = get_the_title( $thumbnail_id );
+		$thumbnail_data['title'] = ! empty( $title ) ? $title : false;
+
+		$alt                   = trim( strip_tags( get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) );
 		$thumbnail_data['alt'] = ! empty( $alt ) ? $alt : false;
 
 		/**
