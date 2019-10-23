@@ -188,6 +188,9 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		$srcset                   = wp_get_attachment_image_srcset( $thumbnail_id );
 		$thumbnail_data['srcset'] = ! empty( $srcset ) ? $srcset : false;
 
+		$alt                   = get_the_title( $thumbnail_id );
+		$thumbnail_data['alt'] = ! empty( $alt ) ? $alt : false;
+
 		/**
 		 * Filters the post thumbnail data and information that will be returned for a specific post.
 		 *
