@@ -142,8 +142,7 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tribe_get_request_var( $var, $default = null ) {
-		$unsafe = Tribe__Utils__Array::get_in_any( array( $_GET, $_POST, $_REQUEST ), $var, $default );
-
+		$unsafe = Tribe__Utils__Array::get_in_any( [ $_GET, $_POST, $_REQUEST ], $var, $default );
 		return tribe_sanitize_deep( $unsafe );
 	}
 }
@@ -687,7 +686,7 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 	 *
 	 * The function will recursively sanitize array values.
 	 *
-	 * @since TBD
+	 * @since 4.9.20
 	 *
 	 * @param mixed $value The value, or values, to sanitize.
 	 *
@@ -695,16 +694,19 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 	 *                    array.
 	 */
 	function tribe_sanitize_deep( &$value ) {
+		if ( is_bool( $value ) ) {
+			return $value;
+		}
 		if ( is_string( $value ) ) {
 			$value = filter_var( $value, FILTER_SANITIZE_STRING );
 			return $value;
 		}
 		if ( is_int( $value ) ) {
-			filter_var( $value, FILTER_VALIDATE_INT );
+			$value = filter_var( $value, FILTER_VALIDATE_INT );
 			return $value;
 		}
 		if ( is_float( $value ) ) {
-			filter_var( $value, FILTER_VALIDATE_FLOAT );
+			$value = filter_var( $value, FILTER_VALIDATE_FLOAT );
 			return $value;
 		}
 		if ( is_array( $value ) ) {
