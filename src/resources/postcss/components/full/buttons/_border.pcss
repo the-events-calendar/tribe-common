@@ -1,0 +1,48 @@
+.tribe-common {
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Button: Border
+	 *
+	 * Example:
+	 * <button class="tribe-common-c-btn-border">...</button>
+	 * <a href="#" class="tribe-common-c-btn-border">...</a>
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-common-c-btn-border,
+	a.tribe-common-c-btn-border {
+		@mixin button-border;
+
+		color: var(--color-text-secondary);
+
+		&:active,
+		&:focus,
+		&:hover {
+			color: var(--color-text-primary);
+		}
+
+		&:disabled {
+			color: var(--color-text-disabled)
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 *
+	 * Button: Border - Theme Overrides
+	 *
+	 * ------------------------------------------------------------------------- */
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-twentyseventeen & {
+
+		.tribe-common-c-btn-border {
+
+			&:hover {
+				background-color: var(--color-background);
+			}
+		}
+	}
+}
