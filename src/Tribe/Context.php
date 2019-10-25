@@ -383,7 +383,7 @@ class Tribe__Context {
 			foreach ( $locations[ $key ]['read'] as $location => $keys ) {
 				$the_value = $this->$location( (array) $keys, $default );
 
-				if ( $default !== $the_value ) {
+				if ( $default !== $the_value && static::NOT_FOUND !== $the_value ) {
 					$value = $the_value;
 					break;
 				}
