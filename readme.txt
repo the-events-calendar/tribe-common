@@ -3,7 +3,7 @@
 == Changelog ==
 
 = [TBD] TBD =
-* Fix - Add some sanity checks to `is_editing_post` to ensure we don't throw notices in some edge cases [122334]
+* Fix - Add some sanity checks to `is_editing_post` to ensure we don't show PHP error notices in some edge cases [122334]
 
 = [4.9.20] 2019-10-16 =
 
