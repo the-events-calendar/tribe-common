@@ -22,7 +22,7 @@ class Query {
 	 * Builds a new `WP_Query` object and sets the post, and accessory flags, on it.
 	 *
 	 * The query is built to yield to run a query that will yield no result and to have a `request` property that
-	 * will never yield results; calls on the `WP_Query::get_posts` method are filtered to return always the post set.
+	 * will never yield results; calls on the `WP_Query::get_posts` method are filtered to always return the post set.
 	 * Queries built by this function can be spotted by looking for the `tribe_mock_query` property.
 	 *
 	 * @since TBD
@@ -47,8 +47,7 @@ class Query {
 		$query->request = "SELECT ID FROM {$wpdb->posts} WHERE 1=0";
 
 		// Return the same set of posts on each method requiring posts.
-		$filter_posts_pre_query = static function ( $the_posts, $the_query ) use ( $posts, $query )
-		{
+		$filter_posts_pre_query = static function ( $the_posts, $the_query ) use ( $posts, $query ) {
 			if ( $the_query !== $query ) {
 				return $the_posts;
 			}
