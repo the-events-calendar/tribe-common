@@ -2,8 +2,10 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.9.21] 2019-11-12 =
+
 * Fix - Add some sanity checks to `is_editing_post` to ensure we don't show PHP error notices in some edge cases [122334]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.20] 2019-10-16 =
 
