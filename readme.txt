@@ -4,8 +4,9 @@
 
 = [TBD] TBD =
 
-* Tweak - update the Repository implementation to handle more complex `orderby` constructs [133303]
-* Tweak - add the `Tribe__Date_Utils::get_week_start_end` method [133303]
+* Tweak - Added additional datepicker formats for simpler selection [116086, 126472, 117909]
+* Tweak - Updated the Repository implementation to handle more complex `orderby` constructs [133303]
+* Tweak - Added the `Tribe__Date_Utils::get_week_start_end` method [133303]
 
 = [4.9.20] 2019-10-16 =
 
