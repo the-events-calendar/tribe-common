@@ -2,7 +2,7 @@
 /**
  * Provides utility method related to the creation and manipulation of queries and query objects.
  *
- * @since   TBD
+ * @since   4.9.21
  *
  * @package Tribe\Utils
  */
@@ -12,7 +12,7 @@ namespace Tribe\Utils;
 /**
  * Class Query
  *
- * @since   TBD
+ * @since   4.9.21
  *
  * @package Tribe\Utils
  */
@@ -25,7 +25,7 @@ class Query {
 	 * will never yield results; calls on the `WP_Query::get_posts` method are filtered to always return the post set.
 	 * Queries built by this function can be spotted by looking for the `tribe_mock_query` property.
 	 *
-	 * @since TBD
+	 * @since 4.9.21
 	 *
 	 * @param array $posts The array of posts that should be used to build the query.
 	 *
