@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.9.21] 2019-11-12 =
 
 * Tweak - Added additional datepicker formats for simpler selection [116086, 126472, 117909]
 * Tweak - Updated the Repository implementation to handle more complex `orderby` constructs [133303]
