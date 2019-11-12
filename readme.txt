@@ -2,10 +2,16 @@
 
 == Changelog ==
 
-= [4.9.21] 2019-11-12 =
+= [4.9.22] 2019-11-14 =
 
 * Fix - Add some sanity checks to `is_editing_post` to ensure we don't show PHP error notices in some edge cases [122334]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.21] 2019-11-12 =
+
+* Tweak - Added additional datepicker formats for simpler selection [116086, 126472, 117909]
+* Tweak - Updated the Repository implementation to handle more complex `orderby` constructs [133303]
+* Tweak - Added the `Tribe__Date_Utils::get_week_start_end` method [133303]
 
 = [4.9.20] 2019-10-16 =
 

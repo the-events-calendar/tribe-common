@@ -40,7 +40,7 @@ class Query_FiltersTest extends \Codeception\TestCase\WPTestCase {
 				'fields'  => 'wp_posts.post_title as alternate_title',
 				'join'    => 'left join wp_postmeta pm on pm.post_id = wp_posts.ID',
 				'where'   => "(pm.meta_key = 'baz')",
-				'orderby' => 'post_date',
+				'orderby' => [ [ 'post_date', 'DESC' ] ],
 			],
 			$id_filters
 		);
@@ -72,7 +72,7 @@ class Query_FiltersTest extends \Codeception\TestCase\WPTestCase {
 				'fields'  => 'wp_posts.post_title as alternate_title',
 				'join'    => 'left join wp_postmeta pm on pm.post_id = wp_posts.ID',
 				'where'   => "(pm.meta_key = 'baz')",
-				'orderby' => 'post_date',
+				'orderby' => [ [ 'post_date', 'DESC' ] ],
 			],
 			$id_filters
 		);
