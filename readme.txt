@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.22] 2019-11-14 =
+= [4.9.22] 2019-11-13 =
 
 * Fix - Add some sanity checks to `is_editing_post` to ensure we don't show PHP error notices in some edge cases [122334]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
