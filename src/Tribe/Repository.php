@@ -1564,7 +1564,7 @@ abstract class Tribe__Repository
 	 *
 	 * @param string|array $meta_keys One ore more `meta_keys` relating the queried post type(s)
 	 *                                to another post type.
-	 * @param string       $compare   The SQL compoarison operator.
+	 * @param string       $compare   The SQL comparison operator.
 	 * @param string       $field     One (a column in the `posts` table) that should match
 	 *                                the comparison criteria; required if the comparison operator is not `EXISTS` or
 	 *                                `NOT EXISTS`.
