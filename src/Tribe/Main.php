@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.9.21';
+	const VERSION             = '4.9.23';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -216,8 +216,8 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			[
-				[ 'tribe-reset-style', 'reset.css' ],
-				[ 'tribe-common-style', 'common.css', [ 'tribe-reset-style' ] ],
+				[ 'tribe-common-skeleton-style', 'common-skeleton.css' ],
+				[ 'tribe-common-full-style', 'common-full.css', [ 'tribe-common-skeleton-style' ] ],
 			],
 			null
 		);

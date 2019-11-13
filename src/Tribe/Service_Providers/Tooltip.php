@@ -42,8 +42,8 @@ class Tooltip extends \tad_DI52_ServiceProvider {
 			$main,
 			'tribe-tooltip',
 			'tooltip.css',
-			[ 'tribe-common-style' ],
-			[],
+			[ 'tribe-common-skeleton-style' ],
+			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ],
 			[ 'groups' => 'tribe-tooltip' ]
 		);
 
