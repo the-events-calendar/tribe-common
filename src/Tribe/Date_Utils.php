@@ -1254,7 +1254,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns the DateTime object representing the start of the week for a date.
 		 *
-		 * @since TBD
+		 * @since 4.9.21
 		 *
 		 * @param string|int|\DateTime $date          The date string, timestamp or object.
 		 * @param int|null             $start_of_week The number representing the start of week day as handled by

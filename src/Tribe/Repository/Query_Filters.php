@@ -10,7 +10,7 @@ class Tribe__Repository__Query_Filters {
 	/**
 	 * Indicates something has to happen "after" something else. The specific meaning is contextual.
 	 *
-	 * @since TBD
+	 * @since 4.9.21
 	 */
 	CONST AFTER = 'after:';
 
@@ -700,7 +700,7 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @since 4.9.5
 	 * @since 4.9.14 Added the `$id` and `$override` parameters.
-	 * @since TBD Added the `$order` and `$after` parameters.
+	 * @since 4.9.21 Added the `$order` and `$after` parameters.
 	 *
 	 * @param string|array $orderby       The order by criteria; this argument can be specified in array form to specify
 	 *                                    multiple order by clauses and orders associated to each,
