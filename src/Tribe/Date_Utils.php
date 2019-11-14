@@ -66,18 +66,30 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			// The datepicker has issues when a period separator and no leading zero is used. Those formats are purposefully omitted.
 			$formats = array(
-				'Y-m-d',
-				'n/j/Y',
-				'm/d/Y',
-				'j/n/Y',
-				'd/m/Y',
-				'n-j-Y',
-				'm-d-Y',
-				'j-n-Y',
-				'd-m-Y',
-				'Y.m.d',
-				'm.d.Y',
-				'd.m.Y',
+				0     => 'Y-m-d',
+				1     => 'n/j/Y',
+				2     => 'm/d/Y',
+				3     => 'j/n/Y',
+				4     => 'd/m/Y',
+				5     => 'n-j-Y',
+				6     => 'm-d-Y',
+				7     => 'j-n-Y',
+				8     => 'd-m-Y',
+				9     => 'Y.m.d',
+				10    => 'm.d.Y',
+				11    => 'd.m.Y',
+				'm0'  => 'Y-m',
+				'm1'  => 'n/Y',
+				'm2'  => 'm/Y',
+				'm3'  => 'n/Y',
+				'm4'  => 'm/Y',
+				'm5'  => 'n-Y',
+				'm6'  => 'm-Y',
+				'm7'  => 'n-Y',
+				'm8'  => 'm-Y',
+				'm9'  => 'Y.m',
+				'm10' => 'm.Y',
+				'm11' => 'm.Y',
 			);
 
 			if ( is_null( $translate ) ) {
@@ -1237,6 +1249,59 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function is_valid_date( $date ) {
 			return self::build_date_object( $date, null, false ) instanceof DateTime;
+		}
+
+		/**
+		 * Returns the DateTime object representing the start of the week for a date.
+		 *
+		 * @since 4.9.21
+		 *
+		 * @param string|int|\DateTime $date          The date string, timestamp or object.
+		 * @param int|null             $start_of_week The number representing the start of week day as handled by
+		 *                                            WordPress: `0` (for Sunday) through `6` (for Saturday).
+		 *
+		 * @return array An array of objects representing the week start and end days, or `false` if the
+		 *                        supplied date is invalid. The timezone of the returned object is set to the site one.
+		 *                        The week start has its time set to `00:00:00`, the week end will have its time set
+		 *                        `23:59:59`.
+		 */
+		public static function get_week_start_end( $date, $start_of_week = null ) {
+			$week_start = static::build_date_object( $date );
+			$week_start->setTime( 0, 0, 0 );
+
+			// `0` (for Sunday) through `6` (for Saturday); we correct Sunday to stick w/ ISO notation.
+			$week_start_day = null !== $start_of_week ? (int) $start_of_week : (int) get_option( 'start_of_week', 0 );
+			if ( 0 === $week_start_day ) {
+				$week_start_day = 7;
+			}
+			// `1` (for Monday) through `7` (for Sunday).
+			$date_day = (int) $week_start->format( 'N' );
+
+			/*
+			 * From the PHP docs, the `W` format stands for:
+			 * - ISO-8601 week number of year, weeks starting on Monday
+			 * We compensate for weeks starting on Sunday here.
+			 */
+			$week_offset = array_sum(
+				[
+					// If the week starts on Sunday move to the next week.
+					0 === $week_start_day ? 1 : 0,
+					// If the current date is before the start of the week, move back a week.
+					$date_day < $week_start_day ? - 1 : 0,
+				]
+			);
+			$week_start->setISODate(
+				(int) $week_start->format( 'o' ),
+				(int) $week_start->format( 'W' ) + $week_offset,
+				$week_start_day
+			);
+
+			$week_end = clone $week_start;
+			// Add 6 days, then move at the end of the day.
+			$week_end->add( new DateInterval( 'P6D' ) );
+			$week_end->setTime( 23, 59, 59 );
+
+			return [ $week_start, $week_end ];
 		}
 	}
 }
