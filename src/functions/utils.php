@@ -725,7 +725,7 @@ if ( ! function_exists( 'tribe_get_query_var' ) ) {
 	 * @since TBD
 	 *
 	 * @param string     $url       The URL to parse.
-	 * @param string     $query_arg The query variable to parse and return.
+	 * @param string|arrayy     $query_arg The query variable(s) to parse and return.
 	 * @param mixed|null $default   The default value to return if the URL cannot be parsed, or the query variable is
 	 *                              not found.
 	 *
@@ -744,6 +744,15 @@ if ( ! function_exists( 'tribe_get_query_var' ) ) {
 
 		wp_parse_str( $query, $parsed );
 
-		return Tribe__Utils__Array::get( $parsed, $query_arg, $default );
+		if (!is_array($query_arg)) {
+			return Tribe__Utils__Array::get( $parsed, $query_arg, $default );
+		}
+
+		$query_args = (array) ( $query_arg );
+
+		return array_intersect_key(
+			(array) $parsed,
+			array_combine( $query_args, $query_args )
+		);
 	}
 }
