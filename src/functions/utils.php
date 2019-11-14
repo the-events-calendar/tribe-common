@@ -744,6 +744,6 @@ if ( ! function_exists( 'tribe_get_query_var' ) ) {
 
 		wp_parse_str( $query, $parsed );
 
-		return ! empty( $parsed ) && isset( $parsed[ $query_arg ] ) ? $parsed[ $query_arg ] : $default;
+		return Tribe__Utils__Array::get( $parsed, $query_arg, $default );
 	}
 }
