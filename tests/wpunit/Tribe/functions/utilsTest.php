@@ -218,4 +218,24 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	public function test_tribe_sanitize_deep( $input, $expected ) {
 		$this->assertEquals( $expected, tribe_sanitize_deep( $input ) );
 	}
+
+	public function tribe_get_query_var_data_set() {
+		return [
+			'empty'                 => [ '', 'test', null ],
+			'not_a_url'             => [ 'foo-bar-baz', 'test', null ],
+			'abs_no_query'          => [ 'http://example.com/', 'test', null ],
+			'rel_no_query'          => [ '/index.php', 'test', null ],
+			'abs_query_arg_not_set' => [ 'http://example.com/?foo=bar', 'test', null ],
+			'rel_query_arg_not_set' => [ '/index.php?foo=bar', 'test', null ],
+			'abs_query_arg_set'     => [ 'http://example.com/?test=bar', 'test', 'bar' ],
+			'rel_query_arg_set'     => [ '/index.php?test=bar', 'test', 'bar' ],
+		];
+	}
+
+	/**
+	 * @dataProvider  tribe_get_query_var_data_set
+	 */
+	public function test_tribe_get_query_var( $input, $query_arg, $expected, $default = null ) {
+		$this->assertEquals( $expected, tribe_get_query_var( $input, $query_arg, $default ) );
+	}
 }

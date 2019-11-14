@@ -717,3 +717,33 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 		return null;
 	}
 }
+
+if ( ! function_exists( 'tribe_get_query_var' ) ) {
+	/**
+	 * Returns a query var parsing an input URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param string     $url       The URL to parse.
+	 * @param string     $query_arg The query variable to parse and return.
+	 * @param mixed|null $default   The default value to return if the URL cannot be parsed, or the query variable is
+	 *                              not found.
+	 *
+	 * @return mixed|null The query variable value, if set, or the default value.
+	 */
+	function tribe_get_query_var( $url, $query_arg, $default = null ) {
+		if ( empty( $url ) ) {
+			return $default;
+		}
+
+		$query = wp_parse_url( $url, PHP_URL_QUERY );
+
+		if ( empty( $query ) ) {
+			return $default;
+		}
+
+		wp_parse_str( $query, $parsed );
+
+		return ! empty( $parsed ) && isset( $parsed[ $query_arg ] ) ? $parsed[ $query_arg ] : $default;
+	}
+}
