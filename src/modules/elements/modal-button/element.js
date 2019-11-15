@@ -52,15 +52,9 @@ class ModalButton extends PureComponent {
 
 	onClose = (e) => this.props.onClose && this.props.onClose(e);
 
-	preventClick = (e) => {
-		e.stopPropagation();
-		console.log('prevented click!');
-	}
-	preventBlur = (e) => {
-		e.stopPropagation();
-		console.log('prevented blur!');
-	}
+	preventClick = (e) => e.stopPropagation();
 
+	preventBlur = (e) => e.stopPropagation();
 
 	renderModal = () => {
 		const {
