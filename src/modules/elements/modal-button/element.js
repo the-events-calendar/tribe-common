@@ -4,7 +4,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import EventCatcher from './catcher';
 
 /**
  * WordPress dependencies
@@ -44,18 +43,22 @@ class ModalButton extends PureComponent {
 		this.props.isOpen === undefined && this.setState( { isOpen: true } );
 	};
 
-	onRequestClose = () => {
-		this.onClose();
+	onRequestClose = (e) => {
+		this.onClose(e);
 		this.props.isOpen === undefined && this.setState( { isOpen: false } );
 	}
 
 	onOpen = () => this.props.onOpen && this.props.onOpen();
 
-	onClose = () => this.props.onClose && this.props.onClose();
+	onClose = (e) => this.props.onClose && this.props.onClose(e);
 
 	preventClick = (e) => {
 		e.stopPropagation();
-		console.log('prevented!');
+		console.log('prevented click!');
+	}
+	preventBlur = (e) => {
+		e.stopPropagation();
+		console.log('prevented blur!');
 	}
 
 
@@ -82,10 +85,7 @@ class ModalButton extends PureComponent {
 				) }
 				title={ modalTitle }
 			>
-				<EventCatcher onClick={ this.preventClick } >
-					{ modalContent }
-				</EventCatcher>
-
+				{ modalContent }
 			</Modal>
 		) );
 	};
