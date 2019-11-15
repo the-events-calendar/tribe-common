@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+
+= [4.9.21.1] 2019-11-15 =
+
+* Fix - pass the event to the onRequestClose handlers for the admin modal. [137394]
+
 = [4.9.22] 2019-11-13 =
 
 * Fix - Add some sanity checks to `is_editing_post` to ensure we don't show PHP error notices in some edge cases [122334]
