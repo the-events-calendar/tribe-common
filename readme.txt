@@ -4,7 +4,7 @@
 
 = [4.9.22.1] 2019-11-15 =
 
-* Fix - pass the event to the onRequestClose handlers for the admin modal. [137394]
+* Fix - Pass the event to the onRequestClose handlers for the admin modal. [137394]
 
 = [4.9.22] 2019-11-13 =
 
