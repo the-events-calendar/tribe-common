@@ -11,6 +11,13 @@
  */
 
 return [
+	'post_id' => [
+		'read' => [
+			Tribe__Context::FUNC => static function () {
+				return get_the_ID();
+			}
+		],
+	],
 	'posts_per_page' => [
 		'read'  => [
 			Tribe__Context::REQUEST_VAR  => 'posts_per_page',
@@ -74,4 +81,14 @@ return [
 			Tribe__Context::REQUEST_VAR => 'post_type',
 		],
 	],
+	'single' => [
+		'read' => [ Tribe__Context::QUERY_METHOD => 'is_single' ]
+	],
+	'taxonomy' => [
+		'read' => [
+			Tribe__Context::QUERY_PROP  => [ 'taxonomy' ],
+			Tribe__Context::QUERY_VAR   => [ 'taxonomy' ],
+			Tribe__Context::REQUEST_VAR => [ 'taxonomy' ],
+		],
+	]
 ];

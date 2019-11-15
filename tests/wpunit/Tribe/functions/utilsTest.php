@@ -142,4 +142,80 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( tribe_post_exists( $user_id, 'page' ) );
 		$this->assertFalse( tribe_post_exists( $user_id, [ 'post', 'page' ] ) );
 	}
+
+	public function tribe_sanitize_deep_data_set() {
+		return [
+			'empty_string'            => [ '', '' ],
+			'spaces'                  => [ '  ', '  ' ],
+			'string'                  => [ 'hello world', 'hello world' ],
+			'int_zero'                => [ 0, 0 ],
+			'float_zero'              => [ 0.0, 0.0 ],
+			'int_value'               => [ 23, 23 ],
+			'float_value_wo_decimals' => [ 23.00, 23.00 ],
+			'float_value_w_decimals'  => [ 23.89, 23.89 ],
+			'string_w_tag'            => [ '<h1>Hello World!</h1>', 'Hello World!' ],
+			'string_url'              => [ 'http://example.org', 'http://example.org' ],
+			'string_ip_address'       => [ '1.1.2.3', '1.1.2.3' ],
+			'object'                  => [ new \stdClass(), null ],
+			'good_array'              => [
+				[
+					'string'                  => 'hello world',
+					'int_zero'                => 0,
+					'float_zero'              => 0.0,
+					'int_value'               => 23,
+					'float_value_wo_decimals' => 23.00,
+					'string_w_tag'            => '<h1>Hello World!</h1>',
+				],
+				[
+					'string'                  => 'hello world',
+					'int_zero'                => 0,
+					'float_zero'              => 0.0,
+					'int_value'               => 23,
+					'float_value_wo_decimals' => 23.00,
+					'string_w_tag'            => 'Hello World!',
+				],
+			],
+			'nested_array'            => [
+				[
+					'string'       => 'hello world',
+					'int_zero'     => 0,
+					'float_zero'   => 0.0,
+					'string_w_tag' => '<h1>Hello World!</h1>',
+					'sub_1'        => [
+						'int_value'               => 23,
+						'float_value_wo_decimals' => 23.00,
+						'string_w_tag'            => '<h1>Hello World!</h1>',
+						'sub_2'                   => [
+							'int_zero'     => 0,
+							'float_zero'   => 0.0,
+							'string_w_tag' => '<h1>Hello World!</h1>',
+						]
+					]
+				],
+				[
+					'string'       => 'hello world',
+					'int_zero'     => 0,
+					'float_zero'   => 0.0,
+					'string_w_tag' => 'Hello World!',
+					'sub_1'        => [
+						'int_value'               => 23,
+						'float_value_wo_decimals' => 23.00,
+						'string_w_tag'            => 'Hello World!',
+						'sub_2'                   => [
+							'int_zero'     => 0,
+							'float_zero'   => 0.0,
+							'string_w_tag' => 'Hello World!',
+						]
+					]
+				],
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider  tribe_sanitize_deep_data_set
+	 */
+	public function test_tribe_sanitize_deep( $input, $expected ) {
+		$this->assertEquals( $expected, tribe_sanitize_deep( $input ) );
+	}
 }
