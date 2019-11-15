@@ -4,6 +4,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import EventCatcher from './catcher';
 
 /**
  * WordPress dependencies
@@ -52,6 +53,12 @@ class ModalButton extends PureComponent {
 
 	onClose = () => this.props.onClose && this.props.onClose();
 
+	preventClick = (e) => {
+		e.stopPropagation();
+		console.log('prevented!');
+	}
+
+
 	renderModal = () => {
 		const {
 			modalClassName,
@@ -75,7 +82,10 @@ class ModalButton extends PureComponent {
 				) }
 				title={ modalTitle }
 			>
-				{ modalContent }
+				<EventCatcher onClick={ this.preventClick } >
+					{ modalContent }
+				</EventCatcher>
+
 			</Modal>
 		) );
 	};
