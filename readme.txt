@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.9.23] 2019-11-20 =
 
 * Tweak - Add the `tribe_get_query_var` function [137262]
 
