@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.22.1] 2019-11-15 =
+= [4.9.22.1] 2019-11-18 =
 
 * Fix - Pass the event to the onRequestClose handlers for the admin modal. [137394]
 
