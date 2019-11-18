@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.23] 2019-10-28 =
+= [4.9.23] 2019-12-02 =
 
 * Feature - Add new tribe-dialog object. Implements mt-a11y-dialog as `tribe-dialog` (or `tribe('dialog.view')`) as an extension of `Tribe_Template`. [129434]
 * Feature - New dialogs can be created with a simple call to `tribe( 'dialog.view' )->render_dialog( $args )` in php. [129434]
@@ -11,6 +11,10 @@
 * Feature - Add methods `render_modal()`, `render_confirm()` and `render_alert()` to streamline common dialog types in Dialog View class. [129434]
 * Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. [133048]
 * Feature - Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions.  [133048]
+
+= [4.9.22.1] 2019-11-18 =
+
+* Fix - Pass the event to the onRequestClose handlers for the admin modal. [137394]
 
 = [4.9.22] 2019-11-13 =
 
