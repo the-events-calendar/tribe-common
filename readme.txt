@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add the `tribe_get_query_var` function [137262]
+
 = [4.9.21] 2019-11-12 =
 
 * Tweak - Added additional datepicker formats for simpler selection [116086, 126472, 117909]
