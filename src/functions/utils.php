@@ -722,7 +722,7 @@ if ( ! function_exists( 'tribe_get_query_var' ) ) {
 	/**
 	 * Returns a query var parsing an input URL.
 	 *
-	 * @since TBD
+	 * @since 4.9.23
 	 *
 	 * @param string       $url       The URL to parse.
 	 * @param string|array $query_arg The query variable(s) to parse and return.
