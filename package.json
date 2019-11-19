@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "4.9.21",
+  "version": "4.9.23-beta1",
   "repository": "git@github.com:moderntribe/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -28,6 +28,7 @@
     "build:gulp": "cross-env NODE_ENV=production gulp",
     "prebuild": "npm install",
     "build": "npm run build:webpack && npm run build:gulp",
+    "rebuild": "rm -rf node_modules && npm install && npm run build",
     "dev": "cross-env NODE_ENV=development webpack -d --watch",
     "gettext-strings": "cross-env BABEL_ENV=gettext webpack",
     "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",

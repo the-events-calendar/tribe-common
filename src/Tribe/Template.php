@@ -1,7 +1,5 @@
 <?php
 
-use Tribe\Events\Views\V2\Template;
-
 class Tribe__Template {
 	/**
 	 * The folders into which we will look for the template.
