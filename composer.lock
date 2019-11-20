@@ -4,8 +4,18 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a30db36e769768fae462ab86b41a814",
+    "content-hash": "9b58def219da368262f15bb7c51d23bf",
     "packages": [
+        {
+            "name": "faction23/a11y-dialog",
+            "version": "5.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/faction23/a11y-dialog",
+                "reference": "master"
+            },
+            "type": "library"
+        },
         {
             "name": "firebase/php-jwt",
             "version": "v5.0.0",
