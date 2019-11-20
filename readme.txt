@@ -19,6 +19,7 @@
 
 * Tweak - Add the `tribe_get_query_var` function [137262]
 * Tweak - Add `tribe_get_the_content()` and `tribe_the_content()` for PHP 7.2 compatibility with WordPress 5.2
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.9.22.1] 2019-11-18 =
 
