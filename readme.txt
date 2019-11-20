@@ -12,6 +12,11 @@
 * Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. [133048]
 * Feature - Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions.  [133048]
 
+= [4.9.23] 2019-11-20 =
+
+* Tweak - Add the `tribe_get_query_var` function [137262]
+* Tweak - Add `tribe_get_the_content()` and `tribe_the_content()` for PHP 7.2 compatibility with WordPress 5.2
+
 = [4.9.22.1] 2019-11-18 =
 
 * Fix - Pass the event to the onRequestClose handlers for the admin modal. [137394]
