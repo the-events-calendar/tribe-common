@@ -7,6 +7,10 @@
 * Tweak - Add the `tribe_get_query_var` function [137262]
 * Tweak - Add `tribe_get_the_content()` and `tribe_the_content()` for PHP 7.2 compatibility with WordPress 5.2
 
+= [4.9.22.1] 2019-11-18 =
+
+* Fix - Pass the event to the onRequestClose handlers for the admin modal. [137394]
+
 = [4.9.22] 2019-11-13 =
 
 * Fix - Add some sanity checks to `is_editing_post` to ensure we don't show PHP error notices in some edge cases [122334]
