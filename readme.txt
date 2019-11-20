@@ -11,7 +11,7 @@
 * Feature - Add methods `render_modal()`, `render_confirm()` and `render_alert()` to streamline common dialog types in Dialog View class. [129434]
 * Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions. [133048]
 * Tweak - Added filters: `tribe_dialog_args`, `tribe_dialog_template`, `tribe_dialog_html`, `tribe_dialog_script_args`, `tribe_dialog_script_html`, `the_content`
-* Tweak - Added actions: `tribe_dialog_additional_scripts`, `tribe_dialog_additional_scripts_`, `tribe_dialog_additional_scripts_`, `tribe_dialog_register`, `tribe_dialog_hooks`, `tribe_dialog_assets_registered`
+* Tweak - Added actions: `tribe_dialog_additional_scripts`, `tribe_dialog_additional_scripts_$template`, `tribe_dialog_additional_scripts_$id`, `tribe_dialog_register`, `tribe_dialog_hooks`, `tribe_dialog_assets_registered`
 * Tweak - Changed views: `dialog/alert`, `dialog/button`, `dialog/confirm`, `dialog/dialog`, `dialog/modal`, `tooltip/tooltip`
 * Language - TBD
 
