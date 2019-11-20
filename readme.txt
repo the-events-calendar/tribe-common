@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.9.23] 2019-12-02 =
+= [4.10] 2019-11-21 =
 
 * Feature - Add new tribe-dialog object. Implements mt-a11y-dialog as `tribe-dialog` (or `tribe('dialog.view')`) as an extension of `Tribe_Template`. [129434]
 * Feature - New dialogs can be created with a simple call to `tribe( 'dialog.view' )->render_dialog( $args )` in php. [129434]
