@@ -1541,4 +1541,28 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( 89, $context->get( 'location_func' ) );
 	}
+
+	/**
+	 * It should allow safe seting of values
+	 *
+	 * @test
+	 */
+	public function should_allow_safe_seting_of_values() {
+		$context = tribe_context()->add_locations( [
+			'test_location' => [
+				'read' => [
+					Context::FUNC => static function ()
+					{
+						return 66;
+					}
+				]
+			],
+		] );
+
+		$context->safe_set( 'test_location', 23 );
+		$context->safe_set( [ 'test_location_2' => 89 ] );
+
+		$this->assertEquals( 66, $context->get( 'test_location' ) );
+		$this->assertEquals( 89, $context->get( 'test_location_2' ) );
+	}
 }
