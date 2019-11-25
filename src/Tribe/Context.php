@@ -1571,4 +1571,29 @@ class Tribe__Context {
 
 		return $location;
 	}
+
+	/**
+	 * Safely set the value of a group of locations.
+	 *
+	 * This method can only augment the context, without altering it; it can only add new values.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string $values The values to set, if not already set or the key of the value to set, requires
+	 *                             the `$value` to be passed.
+	 * @param mixed|null $value    The value to set for the key, this parameter will be ignored if the `$values_or_key`
+	 *                             parameter is not a string.
+	 */
+	public function safe_set( $values_or_key, $value = null ) {
+		$values = func_num_args() === 2
+			? [ $values_or_key => $value ]
+			: $values_or_key;
+
+		foreach ( $values as $key => $val ) {
+			if ( static::NOT_FOUND !== $this->get( $key, static::NOT_FOUND ) ) {
+				continue;
+			}
+			$this->request_cache[ $key ] = $val;
+		}
+	}
 }
