@@ -4,6 +4,7 @@
 
 = [4.10.1] TBD =
 
+* Feature - Add Repository filter for getting a post by the meta value an associated post. [133333]
 * Fix - Correct missing block when switching from blocks to classic editor. [131493]
 
 = [4.10] 2019-11-21 =
