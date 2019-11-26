@@ -1609,6 +1609,60 @@ abstract class Tribe__Repository
 
 		return $this;
 	}
+	/**
+	 * Filters the query to only return posts that are related, via a meta key, to posts
+	 * that satisfy a condition.
+	 *
+	 * @param string|array $meta_keys   One or more `meta_keys` relating the queried post type(s)
+	 *                                  to another post type.
+	 * @param string       $compare     The SQL comparison operator.
+	 * @param string       $meta_field  One (a column in the `postmeta` table) that should match
+	 *                                  the comparison criteria; required if the comparison operator is not `EXISTS` or
+	 *                                  `NOT EXISTS`.
+	 * @param string|array $meta_values One or more values the post field(s) should be compared to;
+	 *                                  required if the comparison operator is not `EXISTS` or `NOT EXISTS`.
+	 *
+	 * @return $this
+	 * @throws Tribe__Repository__Usage_Error If the comparison operator requires
+	 */
+	public function where_meta_related_by_meta( $meta_keys, $compare, $meta_field = null, $meta_values = null ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+
+		if ( ! in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ), true ) ) {
+			if ( empty( $meta_field ) || empty( $meta_values ) ) {
+				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this );
+			}
+			$meta_field = esc_sql( $meta_field );
+		}
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$p   = $this->sql_slug( 'post_meta_related_post', $compare, $meta_keys );
+		$pm  = $this->sql_slug( 'post_meta_related_post_meta', $compare, $meta_keys );
+		$pmm = $this->sql_slug( 'meta_post_meta_related_post_meta', $compare, $meta_keys );
+
+		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} {$pm} ON {$wpdb->posts}.ID = {$pm}.post_id" );
+		$this->filter_query->join( "LEFT JOIN {$wpdb->posts} {$p} ON {$pm}.meta_value = {$p}.ID" );
+		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} {$pmm} ON {$pm}.meta_value = {$pmm}.post_id" );
+
+		$keys_in = $this->prepare_interval( $meta_keys );
+
+		if ( 'EXISTS' === $compare ) {
+			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$pm}.meta_id IS NOT NULL" );
+		} elseif ( 'NOT EXISTS' === $compare ) {
+			$this->filter_query->where( "{$pm}.meta_id IS NULL" );
+		} else {
+			if ( in_array( $compare, self::$multi_value_keys, true ) ) {
+				$meta_values = $this->prepare_interval( $meta_values );
+			} else {
+				$meta_values = $this->prepare_value( $meta_values );
+			}
+
+			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$pmm}.meta_key = '{$meta_field}' AND {$pmm}.meta_value {$compare} {$meta_values}" );
+		}
+
+		return $this;
+	}
 
 	/**
 	 * Builds a fenced group of WHERE clauses that will be used with OR logic.
