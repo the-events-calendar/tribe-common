@@ -4,7 +4,7 @@
  * Gets the post content. Basically a wrapper around `get_the_content` that will prevent warnings on PHP 7.3
  * and be compatible with WP 5.3
  *
- * @since TBD
+ * @since 4.9.23
  *
  * @global WP_Post  $post          Current post on the loop
  * @global string   $wp_version    Which version of WordPress we are currently dealing with
@@ -48,7 +48,7 @@ function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $
 /**
  * Prints the post content.
  *
- * @since TBD
+ * @since 4.9.23
  *
  * @global WP_Post  $post          Current post on the loop
  * @global string   $wp_version    Which version of WordPress we are currently dealing with

@@ -2,9 +2,28 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.10] 2019-11-21 =
+
+* Feature - Add new tribe-dialog object. Implements mt-a11y-dialog as `tribe-dialog` (or `tribe('dialog.view')`) as an extension of `Tribe_Template`. [129434]
+* Feature - New dialogs can be created with a simple call to `tribe( 'dialog.view' )->render_dialog( $args )` in php. [129434]
+* Feature - The tribe-dialog object sets up all necessary javascript and HTML via passed parameters. [129434]
+* Feature - Add a basic dialog, modal, confirmation dialog, and alert as templates. [129434]
+* Feature - Add methods `render_modal()`, `render_confirm()` and `render_alert()` to streamline common dialog types in Dialog View class. [129434]
+* Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions. [133048]
+* Tweak - Added filters: `tribe_dialog_args`, `tribe_dialog_template`, `tribe_dialog_html`, `tribe_dialog_script_args`, `tribe_dialog_script_html`
+* Tweak - Added actions: `tribe_dialog_additional_scripts`, `tribe_dialog_additional_scripts_$template`, `tribe_dialog_additional_scripts_$id`, `tribe_dialog_register`, `tribe_dialog_hooks`, `tribe_dialog_assets_registered`
+* Tweak - Changed views: `dialog/alert`, `dialog/button`, `dialog/confirm`, `dialog/dialog`, `dialog/modal`, `tooltip/tooltip`
+* Language - TBD
+
+= [4.9.23] 2019-11-20 =
 
 * Tweak - Add the `tribe_get_query_var` function [137262]
+* Tweak - Add `tribe_get_the_content()` and `tribe_the_content()` for PHP 7.2 compatibility with WordPress 5.2
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.22.1] 2019-11-18 =
+
+* Fix - Pass the event to the onRequestClose handlers for the admin modal. [137394]
 
 = [4.9.22] 2019-11-13 =
 
@@ -119,7 +138,7 @@
 
 = [4.9.8] 2019-05-14 =
 
-* Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
+* Feature - Add new `tooltip.view` PHP class to render new tooltips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
 * Tweak - Added filters: `tribe_context_locations`, `tribe_tooltip_template`, `tribe_tooltip_html`
 * Tweak - Changed views: `tooltip/tooltip`
 
