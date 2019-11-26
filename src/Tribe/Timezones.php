@@ -10,24 +10,12 @@ class Tribe__Timezones {
 	const SITE_TIMEZONE  = 'site';
 	const EVENT_TIMEZONE = 'event';
 
-
 	/**
 	 * Container for reusable DateTimeZone objects.
 	 *
 	 * @var array
 	 */
 	protected static $timezones = array();
-
-	/**
-	 * A static cache.
-	 *
-	 * @since TBD
-	 *
-	 * @var array
-	 */
-	protected static $cache = [
-		'build_timezone_object' => [],
-	];
 
 	public static function init() {
 		self::invalidate_caches();
@@ -591,8 +579,11 @@ class Tribe__Timezones {
 			return $timezone;
 		}
 
-		if ( is_string( $timezone ) && isset( static::$cache['build_timezone_object'][ $timezone ] ) ) {
-			return clone static::$cache['build_timezone_object'][ $timezone ];
+		/** @var Tribe__Cache $cache */
+		$cache = tribe('cache');
+
+		if ( is_string( $timezone ) && $cached = $cache[ __METHOD__ . $timezone ] ) {
+			return clone $cached;
 		}
 
 		$timezone = null === $timezone ? self::wp_timezone_string() : $timezone;
@@ -604,7 +595,7 @@ class Tribe__Timezones {
 		}
 
 		if ( is_string( $timezone ) ) {
-			static::$cache['build_timezone_object'][ $timezone ] = $object;
+			$cache[ __METHOD__ . $timezone ] = $object;
 		}
 
 		return $object;
