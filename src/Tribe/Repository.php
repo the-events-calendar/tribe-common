@@ -1613,6 +1613,10 @@ abstract class Tribe__Repository
 	 * Filters the query to only return posts that are related, via a meta key, to posts
 	 * that satisfy a condition.
 	 *
+	 * @since TBD
+	 *
+	 * @throws Tribe__Repository__Usage_Error If the comparison operator requires and no value provided.
+	 *
 	 * @param string|array $meta_keys   One or more `meta_keys` relating the queried post type(s)
 	 *                                  to another post type.
 	 * @param string       $compare     The SQL comparison operator.
@@ -1623,7 +1627,6 @@ abstract class Tribe__Repository
 	 *                                  required if the comparison operator is not `EXISTS` or `NOT EXISTS`.
 	 *
 	 * @return $this
-	 * @throws Tribe__Repository__Usage_Error If the comparison operator requires
 	 */
 	public function where_meta_related_by_meta( $meta_keys, $compare, $meta_field = null, $meta_values = null ) {
 		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
