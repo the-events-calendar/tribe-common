@@ -374,7 +374,7 @@ class Tribe__Template {
 		$path = array_merge( (array) $base, (array) $this->get_template_public_namespace() );
 
 		// Pick up if the folder needs to be aded to the public tempalte path
-		$folder = array_diff( $this->get_template_origin_base_folder(), $this->folder );
+		$folder = array_diff( $this->folder, $this->get_template_origin_base_folder() );
 
 		if ( ! empty( $folder ) ) {
 			$path = array_merge( $path, $folder );
