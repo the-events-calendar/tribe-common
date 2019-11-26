@@ -4,7 +4,7 @@
 
 = [4.10.1] TBD =
 
-* Fix - correct missing block when swithcing from blocks to classic editor. [131493]
+* Fix - Correct missing block when switching from blocks to classic editor. [131493]
 
 = [4.10] 2019-11-21 =
 
