@@ -18,6 +18,16 @@ class Tribe__Timezones {
 	 */
 	protected static $timezones = array();
 
+	/**
+	 * A static cache.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected static $cache = [
+		'build_timezone_object' => [],
+	];
 
 	public static function init() {
 		self::invalidate_caches();
@@ -581,12 +591,20 @@ class Tribe__Timezones {
 			return $timezone;
 		}
 
+		if ( is_string( $timezone ) && isset( static::$cache['build_timezone_object'][ $timezone ] ) ) {
+			return clone static::$cache['build_timezone_object'][ $timezone ];
+		}
+
 		$timezone = null === $timezone ? self::wp_timezone_string() : $timezone;
 
 		try {
 			$object = new DateTimeZone( self::get_valid_timezone( $timezone ) );
 		} catch ( Exception $e ) {
 			return new DateTimeZone( 'UTC' );
+		}
+
+		if ( is_string( $timezone ) ) {
+			static::$cache['build_timezone_object'][ $timezone ] = $object;
 		}
 
 		return $object;
