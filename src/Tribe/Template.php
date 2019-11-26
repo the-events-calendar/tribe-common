@@ -345,16 +345,16 @@ class Tribe__Template {
 	 *
 	 * @since  TBD
 	 *
-	 * @return array
+	 * @return array The base folders we look for templates in the origin plugin.
 	 */
 	public function get_template_origin_base_folder() {
 		/**
-		 * Allows filtering of the base path for templates
+		 * Allows filtering of the base path for templates.
 		 *
 		 * @since TBD
 		 *
 		 * @param array  $namespace Which is the base folder we will look for files in the plugin.
-		 * @param self   $template  Current instance of the Tribe__Template
+		 * @param self   $template  Current instance of the Tribe__Template.
 		 */
 		return apply_filters( 'tribe_template_origin_base_folder', $this->template_origin_base_folder, $this );
 	}
@@ -373,7 +373,7 @@ class Tribe__Template {
 		// Craft the plugin Path
 		$path = array_merge( (array) $base, (array) $this->get_template_public_namespace() );
 
-		// Pick up if the folder needs to be aded to the public tempalte path
+		// Pick up if the folder needs to be aded to the public template path.
 		$folder = array_diff( $this->folder, $this->get_template_origin_base_folder() );
 
 		if ( ! empty( $folder ) ) {
