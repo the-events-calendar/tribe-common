@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.10.1] TBD =
+
+* Fix - correct missing block when swithcing from blocks to classic editor. [131493]
+
 = [4.10] 2019-11-21 =
 
 * Feature - Add new tribe-dialog object. Implements mt-a11y-dialog as `tribe-dialog` (or `tribe('dialog.view')`) as an extension of `Tribe_Template`. [129434]
