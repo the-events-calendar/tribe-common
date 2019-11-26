@@ -1581,8 +1581,9 @@ abstract class Tribe__Repository
 			if ( empty( $field ) || empty( $values ) ) {
 				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this );
 			}
-			$field = esc_sql( $field );
 		}
+
+		$field = esc_sql( $field );
 
 		/** @var wpdb $wpdb */
 		global $wpdb;
@@ -1635,8 +1636,9 @@ abstract class Tribe__Repository
 			if ( empty( $meta_field ) || empty( $meta_values ) ) {
 				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this );
 			}
-			$meta_field = esc_sql( $meta_field );
 		}
+
+		$meta_field = esc_sql( $meta_field );
 
 		/** @var wpdb $wpdb */
 		global $wpdb;
