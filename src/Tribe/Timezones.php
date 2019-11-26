@@ -25,7 +25,9 @@ class Tribe__Timezones {
 	 *
 	 * @var array
 	 */
-	protected static $cache;
+	protected static $cache = [
+		'build_timezone_object' => [],
+	];
 
 	public static function init() {
 		self::invalidate_caches();
@@ -589,8 +591,8 @@ class Tribe__Timezones {
 			return $timezone;
 		}
 
-		if ( is_string( $timezone ) && isset( static::$cache[ $timezone ] ) ) {
-			return clone static::$cache[ $timezone ];
+		if ( is_string( $timezone ) && isset( static::$cache['build_timezone_object'][ $timezone ] ) ) {
+			return clone static::$cache['build_timezone_object'][ $timezone ];
 		}
 
 		$timezone = null === $timezone ? self::wp_timezone_string() : $timezone;
@@ -602,7 +604,7 @@ class Tribe__Timezones {
 		}
 
 		if ( is_string( $timezone ) ) {
-			static::$cache[ $timezone ] = $object;
+			static::$cache['build_timezone_object'][ $timezone ] = $object;
 		}
 
 		return $object;
