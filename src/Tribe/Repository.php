@@ -1562,7 +1562,7 @@ abstract class Tribe__Repository
 	 * Filters the query to only return posts that are related, via a meta key, to posts
 	 * that satisfy a condition.
 	 *
-	 * @param string|array $meta_keys One ore more `meta_keys` relating the queried post type(s)
+	 * @param string|array $meta_keys One or more `meta_keys` relating the queried post type(s)
 	 *                                to another post type.
 	 * @param string       $compare   The SQL comparison operator.
 	 * @param string       $field     One (a column in the `posts` table) that should match
