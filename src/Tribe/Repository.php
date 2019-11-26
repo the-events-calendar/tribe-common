@@ -1648,9 +1648,9 @@ abstract class Tribe__Repository
 		$keys_in = $this->prepare_interval( $meta_keys );
 
 		if ( 'EXISTS' === $compare ) {
-			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$pm}.meta_id IS NOT NULL" );
+			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$pmm}.meta_key = '{$meta_field}' AND {$pmm}.meta_value IS NOT NULL" );
 		} elseif ( 'NOT EXISTS' === $compare ) {
-			$this->filter_query->where( "{$pm}.meta_id IS NULL" );
+			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$pmm}.meta_key = '{$meta_field}' AND {$pmm}.meta_value IS NULL" );
 		} else {
 			if ( in_array( $compare, self::$multi_value_keys, true ) ) {
 				$meta_values = $this->prepare_interval( $meta_values );
