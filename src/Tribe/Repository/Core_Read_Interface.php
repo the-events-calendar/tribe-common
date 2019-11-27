@@ -392,4 +392,11 @@ interface Core_Read_Interface {
 	 * @return \Tribe__Utils__Post_Collection
 	 */
 	public function collect();
+
+	/**
+	 * Gets the ids of the posts matching the query.
+	 *
+	 * @return array An array containing the post IDs to update.
+	 */
+	public function get_ids();
 }
