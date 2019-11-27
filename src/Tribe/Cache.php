@@ -328,14 +328,14 @@ class Tribe__Cache implements ArrayAccess {
 			$these_ids    = array_splice( $buffer, 0, $limit );
 			$interval     = implode( ',', array_map( 'absint', $these_ids ) );
 			$posts_query  = "SELECT * FROM {$wpdb->posts} WHERE ID IN ({$interval}) {$limit_clause}";
-			$post_objects = (array) $wpdb->get_results( $posts_query );
+			$post_objects = $wpdb->get_results( $posts_query );
 			if ( is_array( $post_objects ) && ! empty( $post_objects ) ) {
 				foreach ( $post_objects as $post_object ) {
 					$post = new \WP_Post( $post_object );
 					wp_cache_set( $post_object->ID, $post, 'posts' );
 				}
 			}
-		} while ( count( $post_objects ) < count( $post_ids ) );
+		} while ( ! empty( $post_objects ) && is_array( $post_objects ) && count( $post_objects ) < count( $post_ids ) );
 	}
 }
 
