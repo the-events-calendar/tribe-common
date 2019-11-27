@@ -149,4 +149,64 @@ class Tribe__Feature_Detection {
 
 		return ! empty( $lock_option );
 	}
+
+	/**
+	 * Returns the value of the `max_allowed_packet`  MYSQL variable, if set, or a default value.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The byte size of the `max_allowed_packet`  MYSQL variable.
+	 */
+	public function get_mysql_max_packet_size() {
+		/**
+		 * Filters the value of the `max_allowed_packet` variable before it's read from the database.
+		 *
+		 * If the value returned from this filter is not `null`, then it will be assumed to be the value.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $mysql_max_packet_size The vlue of the `max_allowed_packet` variable, initialy `null`.
+		 */
+		$mysql_max_packet_size = apply_filters( 'tribe_max_allowed_packet_size', null );
+
+		if ( null !== $mysql_max_packet_size ) {
+			return absint( $mysql_max_packet_size );
+		}
+
+		/** @var Tribe__Cache $cache */
+		$cache = tribe( 'cache' );
+
+		$cached = $cache->get( 'max_allowed_packet' );
+
+		if ( false !== $cached ) {
+			return $cached;
+		}
+
+		global $wpdb;
+		$mysql_max_packet_size = $wpdb->get_var( "SHOW VARIABLES LIKE 'max_allowed_packet'", 1 );
+		// At min set it to 2 MBs.
+		$mysql_max_packet_size = absint( max( absint( $mysql_max_packet_size ), 2097152 ) );
+
+		$cache->set( 'max_allowed_packet', $mysql_max_packet_size, WEEK_IN_SECONDS );
+
+		return $mysql_max_packet_size;
+	}
+
+	/**
+	 * Returns the suggested SQL LIMIT value, based on the `max_allowed_packet` size and example string length.
+	 *
+	 * This is useful to size "reasonable" LIMITs when dealing with either very long queries or potentially long
+	 * result sets.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $example_string The example string.
+	 *
+	 * @return int The suggested LIMIT value.
+	 */
+	public function mysql_limit_for_string( $example_string ) {
+		$max_packet_size = $this->get_mysql_max_packet_size();
+
+		return absint( floor( $max_packet_size / strlen( $example_string ) ) * 0.8 );
+	}
 }
