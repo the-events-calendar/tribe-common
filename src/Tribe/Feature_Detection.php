@@ -165,7 +165,7 @@ class Tribe__Feature_Detection {
 		 *
 		 * @since TBD
 		 *
-		 * @param int $mysql_max_packet_size The vlue of the `max_allowed_packet` variable, initialy `null`.
+		 * @param int $mysql_max_packet_size The value of the `max_allowed_packet` variable, initially `null`.
 		 */
 		$mysql_max_packet_size = apply_filters( 'tribe_max_allowed_packet_size', null );
 
