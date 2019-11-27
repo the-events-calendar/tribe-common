@@ -1657,7 +1657,7 @@ abstract class Tribe__Repository
 		} elseif ( 'NOT EXISTS' === $compare ) {
 			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$pmm}.meta_key = '{$meta_field}' AND {$pmm}.meta_value IS NULL" );
 		} else {
-			if ( in_array( $compare, self::$multi_value_keys, true ) ) {
+			if ( in_array( $compare, static::$multi_value_keys, true ) ) {
 				$meta_values = $this->prepare_interval( $meta_values );
 			} else {
 				$meta_values = $this->prepare_value( $meta_values );
