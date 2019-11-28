@@ -302,6 +302,10 @@ class Tribe__Cache implements ArrayAccess {
 			return;
 		}
 
+		/** @var Tribe__Feature_Detection $feature_detection */
+		$feature_detection = tribe('feature-detection');
+		$limit = $feature_detection->mysql_limit_for_example( 'post_result' );
+
 		/**
 		 * Filters the LIMIT that should be used to warm-up post caches.
 		 *
@@ -312,7 +316,7 @@ class Tribe__Cache implements ArrayAccess {
 		 *
 		 * @param int $limit The number of posts whose caches will be warmed up, per query.
 		 */
-		$limit = (int) apply_filters( 'tribe_cache_warmup_post_cache_limit', min( 10000, count( $post_ids ) ) );
+		$limit = (int) apply_filters( 'tribe_cache_warmup_post_cache_limit', min( $limit, count( $post_ids ) ) );
 
 		if ( 0 === $limit ) {
 			// Warmup disabled.
@@ -335,6 +339,10 @@ class Tribe__Cache implements ArrayAccess {
 					wp_cache_set( $post_object->ID, $post, 'posts' );
 				}
 			}
-		} while ( ! empty( $post_objects ) && is_array( $post_objects ) && count( $post_objects ) < count( $post_ids ) );
+		} while (
+			! empty( $post_objects )
+			&& is_array( $post_objects )
+			&& count( $post_objects ) < count( $post_ids )
+		);
 	}
 }

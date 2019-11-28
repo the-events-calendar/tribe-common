@@ -6,6 +6,8 @@
  * @since 4.7.23
  */
 
+use Tribe__Utils__Array as Arr;
+
 /**
  * Class Tribe__Feature_Detection
  *
@@ -19,6 +21,17 @@ class Tribe__Feature_Detection {
 	 * @var string
 	 */
 	public static $transient = 'tribe_feature_detection';
+
+	/**
+	 * A set of example byte sizes of result sets.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	public static $example_size = [
+		'post_result' => 6000,
+	];
 
 	/**
 	 * The name of the option that will be used to indicate a feature detection is running.
@@ -205,8 +218,41 @@ class Tribe__Feature_Detection {
 	 * @return int The suggested LIMIT value.
 	 */
 	public function mysql_limit_for_string( $example_string ) {
-		$max_packet_size = $this->get_mysql_max_packet_size();
+		$byte_size = function_exists( 'mb_strlen' )
+			? mb_strlen( $example_string )
+			: strlen( $example_string );
 
-		return absint( floor( $max_packet_size / strlen( $example_string ) ) * 0.8 );
+		return $this->mysql_limit_for_size( $byte_size );
+	}
+
+	/**
+	 * Returns the SQL LIMIT for a byte size, in relation to the `max_allowed_packet` value.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $byte_size The byte size to check.
+	 *
+	 * @return int The SQL LIMIT value.
+	 */
+	public function mysql_limit_for_size( $byte_size ) {
+		return absint( floor( $this->get_mysql_max_packet_size() / $byte_size ) * 0.8 );
+	}
+
+	/**
+	 * Provides the SQL LIMIT value, in relation to the `max_allowed_packet` value, for a pre-existing example.
+	 *
+	 * Defaults to the complete post result example string if the example is not found.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $example The name of the example to return. See the `Tribe__Feature_Detection::$example_sizes`
+	 *                        prop for the available examples. Defaults to the `post_result` one.
+	 *
+	 * @return int The SQL LIMIT value for the example.
+	 */
+	public function mysql_limit_for_example( $example ) {
+		$example_size = Arr::get( static::$example_size, $example, static::$example_size['post_result'] );
+
+		return $this->mysql_limit_for_size( $example_size );
 	}
 }
