@@ -314,7 +314,7 @@ class Tribe__Cache implements ArrayAccess {
 		 */
 		$limit = (int) apply_filters( 'tribe_cache_warmup_post_cache_limit', min( 10000, count( $post_ids ) ) );
 
-		if ( $limit === 0 ) {
+		if ( 0 === $limit ) {
 			// Warmup disabled.
 			return;
 		}
@@ -338,4 +338,3 @@ class Tribe__Cache implements ArrayAccess {
 		} while ( ! empty( $post_objects ) && is_array( $post_objects ) && count( $post_objects ) < count( $post_ids ) );
 	}
 }
-
