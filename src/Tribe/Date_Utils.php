@@ -1303,5 +1303,25 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			return [ $week_start, $week_end ];
 		}
+
+		/**
+		 * Builds and returns a `DateInterval` object from the interval specification.
+		 *
+		 * For performance purposes the use of `DateInterval` specifications is preferred, so `P1D` is better than
+		 * `1 day`.
+		 *
+		 * @since TBD
+		 *
+		 * @return DateInterval The built date interval object.
+		 */
+		public static function interval( $interval_spec ) {
+			try {
+				$interval = new \DateInterval( $interval_spec );
+			} catch ( \Exception $e ) {
+				$interval = DateInterval::createFromDateString( $interval_spec );
+			}
+
+			return $interval;
+		}
 	}
 }

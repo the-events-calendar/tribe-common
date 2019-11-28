@@ -168,4 +168,16 @@ trait Collection_Trait {
 	public function seek( $position ) {
 		$this->items_index = $position;
 	}
+
+	/**
+	 * Applies a filter callback to each element of this collection.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable $filter_callback The filter callback that will be applied to each element of the collection; the
+	 *                                  callback will receive the element as parameter.
+	 */
+	public function filter( $filter_callback ) {
+		$this->event_results = array_filter( $this->all(), $filter_callback );
+	}
 }
