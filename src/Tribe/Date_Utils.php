@@ -243,7 +243,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function round_nearest_half_hour( $date ) {
 			$date_object = static::build_date_object( $date );
-			$rounded_minutes = round( $date_object->format( 'i' ) / 30 ) * 30;
+			$rounded_minutes = floor( $date_object->format( 'i' ) / 30 ) * 30;
 
 			return $date_object->format( 'Y-m-d H:' ) . $rounded_minutes . ':00';
 		}
