@@ -975,7 +975,7 @@ class Tribe__Rewrite {
 			return home_url();
 		}
 
-		$clean = $this->get_canonical_url( add_query_arg( $parsed_vars, home_url() ) );
+		$clean = $this->get_canonical_url( add_query_arg( $parsed_vars, home_url() ), $force );
 
 		$this->clean_url_cache[ $url ] = $clean;
 
