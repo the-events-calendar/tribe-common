@@ -278,9 +278,10 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @since TBD
 	 *
-	 * @param array|int $post_ids A post ID, or a collection of post IDs.
+	 * @param array|int $post_ids               A post ID, or a collection of post IDs.
+	 * @param bool      $update_post_meta_cache Whether to warm-up the post meta cache for the posts or not.
 	 */
-	public function warmup_post_caches( $post_ids ) {
+	public function warmup_post_caches( $post_ids, $update_post_meta_cache = false ) {
 		if ( empty( $post_ids ) ) {
 			return;
 		}
@@ -307,7 +308,8 @@ class Tribe__Cache implements ArrayAccess {
 		$limit = $feature_detection->mysql_limit_for_example( 'post_result' );
 
 		/**
-		 * Filters the LIMIT that should be used to warm-up post caches.
+		 * Filters the LIMIT that should be used to warm-up post caches and postmeta caches (if the
+		 * `$update_post_meta_cache` parameter is `true`).
 		 *
 		 * Lower this value on less powerful hosts. Return `0` to disable the warm-up completely, and `-1` to remove the
 		 * limit (not recommended).
@@ -338,11 +340,16 @@ class Tribe__Cache implements ArrayAccess {
 					$post = new \WP_Post( $post_object );
 					wp_cache_set( $post_object->ID, $post, 'posts' );
 				}
+
+				if ( $update_post_meta_cache ) {
+					update_meta_cache( 'post', $these_ids );
+				}
 			}
 		} while (
 			! empty( $post_objects )
 			&& is_array( $post_objects )
 			&& count( $post_objects ) < count( $post_ids )
 		);
-	}
+
+    }
 }
