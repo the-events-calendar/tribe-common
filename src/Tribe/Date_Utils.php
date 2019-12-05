@@ -1219,36 +1219,50 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return clone $datetime;
 			}
 
-			if ( class_exists('DateTimeImmutable') && $datetime instanceof DateTimeImmutable ) {
+			$cache_key = md5( __METHOD__ . serialize( func_get_args() ) );
+			/** @var Tribe__Cache $cache */
+			$cache = tribe( 'cache' );
+
+			/*
+			 * This check implies a small inefficiency when we deal with a request w/o fallback and there is an
+			 * exception, yet this is such a small percentage we can re-calculate in those instances.
+			 */
+			if ( false !== $cached = $cache[ $cache_key ] ) {
+				return $cached;
+			}
+
+			if ( class_exists( 'DateTimeImmutable' ) && $datetime instanceof DateTimeImmutable ) {
 				// Return the mutable version of the date.
-				return new DateTime( $datetime->format( 'Y-m-d H:i:s' ), $datetime->getTimezone() );
+				$date = new DateTime( $datetime->format( 'Y-m-d H:i:s' ), $datetime->getTimezone() );
+			} else {
+				$timezone_object = null;
+
+				try {
+					// PHP 5.2 will not throw an exception but will generate an error.
+					$utc = new DateTimeZone( 'UTC' );
+
+					if ( self::is_timestamp( $datetime ) ) {
+						// Timestamps timezone is always UTC.
+						$date = new DateTime( '@' . $datetime, $utc );
+					} else {
+						$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+
+						set_error_handler( 'tribe_catch_and_throw' );
+						$date = new DateTime( $datetime, $timezone_object );
+						restore_error_handler();
+					}
+				} catch ( Exception $e ) {
+					if ( $timezone_object === null ) {
+						$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+					}
+
+					$date = $with_fallback
+						? new DateTime( 'now', $timezone_object )
+						: false;
+				}
 			}
 
-			$timezone_object = null;
-
-			try {
-				// PHP 5.2 will not throw an exception but will generate an error.
-				$utc = new DateTimeZone( 'UTC' );
-
-				if ( self::is_timestamp( $datetime ) ) {
-					// Timestamps timezone is always UTC.
-					return new DateTime( '@' . $datetime, $utc );
-				}
-
-				$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
-
-				set_error_handler( 'tribe_catch_and_throw' );
-				$date = new DateTime( $datetime, $timezone_object );
-				restore_error_handler();
-			} catch ( Exception $e ) {
-				if ( $timezone_object === null ) {
-					$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
-				}
-
-				return $with_fallback
-					? new DateTime( 'now', $timezone_object )
-					: false;
-			}
+			$cache[ $cache_key ] = $date;
 
 			return $date;
 		}
