@@ -458,14 +458,16 @@ class Tribe__Context {
 			? array_merge( self::$locations, $this->override_locations )
 			: $this->override_locations;
 
-		/**
-		 * Filters the locations registered in the Context.
-		 *
-		 * @since TBD
-		 *
-		 * @param  array  $locations  An array of locations registered on the Context object.
-		 */
-		$locations = apply_filters( 'tribe_context_locations', $locations, $this );
+		if ( $this->use_default_locations ) {
+			/**
+			 * Filters the locations registered in the Context.
+			 *
+			 * @since TBD
+			 *
+			 * @param  array  $locations  An array of locations registered on the Context object.
+			 */
+			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
+		}
 
 		return $locations;
 	}
