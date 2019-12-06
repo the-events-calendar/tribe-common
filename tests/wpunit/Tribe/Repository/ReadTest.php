@@ -961,6 +961,111 @@ class ReadTest extends ReadTestBase {
 	}
 
 	/**
+	 * It should allow filtering posts by related post meta fields
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_posts_by_related_post_meta_fields() {
+		$books = $this->factory()->post->create_many( 4, [ 'post_type' => 'book' ] );
+		list( $first_book, $second_book, $third_book, $fourth_book ) = $books;
+
+		$reviewer           = function ( array $reviews, $review_status ) {
+			$reviews[] = $this->factory()->post->create( [
+				'post_type'   => 'review',
+				'post_status' => $review_status
+			] );
+
+			return $reviews;
+		};
+
+		$first_book_reviews = array_reduce( [ 'good', 'good', 'good' ], $reviewer, [] );
+
+		$i = 0;
+		foreach ( $first_book_reviews as $review ) {
+			add_post_meta( $first_book, '_review', $review );
+			++$i;
+			add_post_meta( $review->ID, '_counter', $i );
+		}
+
+		$second_book_reviews = array_reduce( [ 'good', 'good', 'bad' ], $reviewer, [] );
+
+		$i = 0;
+		foreach ( $second_book_reviews as $review ) {
+			add_post_meta( $second_book, '_review', $review );
+			++$i;
+			add_post_meta( $review->ID, '_counter', $i );
+		}
+
+		$third_book_reviews  = [];
+
+		$fourth_book_reviews = array_reduce( [ 'bad' ], $reviewer, [] );
+
+		$i = 0;
+		foreach ( $fourth_book_reviews as $review ) {
+			add_post_meta( $fourth_book, '_review', $review );
+			++$i;
+			add_post_meta( $review->ID, '_counter', $i );
+		}
+
+		$w_reviews = $this->repository()->where_meta_related_by_meta(
+		                      '_counter',
+		                      '=' ,
+		                      2
+		                    )
+		                  ->fields( 'ids' )
+		                  ->all();
+
+		$this->assertEquals(
+			[
+				$first_book,
+				$second_book,
+				$fourth_book,
+			],
+			$w_reviews
+		);
+
+		$wo_reviews = $this->repository()
+		                   ->where_meta_related_by( '_review', 'NOT EXISTS' )
+		                   ->fields( 'ids' )
+		                   ->all();
+		$this->assertEquals( [
+			$third_book,
+		], $wo_reviews );
+
+		$w_good_reviews = $this->repository()
+		                       ->where_meta_related_by( '_review', '=', 'post_status', 'good' )
+		                       ->fields( 'ids' )
+		                       ->all();
+		$this->assertEquals( [
+			$first_book,
+			$second_book
+		], $w_good_reviews );
+
+		$wo_good_reviews = $this->repository()
+		                        ->where_meta_related_by( '_review', '!=', 'post_status', 'good' )
+		                        ->fields( 'ids' )
+		                        ->all();
+		$this->assertEquals( [
+			$second_book,
+			$fourth_book
+		], $wo_good_reviews );
+
+		$repository                   = $this->repository();
+		$w_good_reviews_or_no_reviews = $repository
+			->where_or(
+				[ 'where_meta_related_by', '_review', 'NOT EXISTS' ],
+				[ 'where_meta_related_by', '_review', '=', 'post_status', 'good' ]
+			)
+			->fields( 'ids' )
+			->all();
+		$this->assertEquals( [
+			$first_book,
+			$second_book,
+			$third_book,
+		], $w_good_reviews_or_no_reviews );
+	}
+
+	/**
 	 * It should allow checking if a READ filter will be applied
 	 *
 	 * @test
