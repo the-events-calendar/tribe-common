@@ -454,9 +454,22 @@ class Tribe__Context {
 	public function get_locations() {
 		$this->populate_locations();
 
-		return $this->use_default_locations
+		$locations = $this->use_default_locations
 			? array_merge( self::$locations, $this->override_locations )
 			: $this->override_locations;
+
+		if ( $this->use_default_locations ) {
+			/**
+			 * Filters the locations registered in the Context.
+			 *
+			 * @since TBD
+			 *
+			 * @param  array  $locations  An array of locations registered on the Context object.
+			 */
+			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
+		}
+
+		return $locations;
 	}
 
 	/**
@@ -1563,9 +1576,9 @@ class Tribe__Context {
 	 */
 	public function get_read_key_for( $location, $type = null ) {
 		$type = $type ?: static::REQUEST_VAR;
-		if ( isset( static::$locations[ $location ]['read'][ $type ] ) ) {
-			$keys = (array) static::$locations[ $location ]['read'][ $type ];
-
+		$locations = $this->get_locations();
+		if ( isset( $locations[ $location ]['read'][ $type ] ) ) {
+			$keys = (array) $locations[ $location ]['read'][ $type ];
 			return reset( $keys );
 		}
 

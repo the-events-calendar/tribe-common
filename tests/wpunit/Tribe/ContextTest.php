@@ -954,7 +954,11 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 				'orm_arg' => false
 			],
 			'four' => [
-				'read' => [Context::FUNC => function(){return 23;}]
+				'read' => [
+					Context::FUNC => function(){
+						return 23;
+					}
+				]
 			]
 		], false );
 
