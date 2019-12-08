@@ -3,6 +3,9 @@
  * Date utility functions used throughout TEC + Addons
  */
 
+use Tribe\Utils\Date_I18n;
+use Tribe\Utils\Date_I18n_Immutable;
+
 // Don't load directly
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -1233,7 +1236,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			if ( class_exists( 'DateTimeImmutable' ) && $datetime instanceof DateTimeImmutable ) {
 				// Return the mutable version of the date.
-				$date = new DateTime( $datetime->format( 'Y-m-d H:i:s' ), $datetime->getTimezone() );
+				$date = new Date_I18n( $datetime->format( 'Y-m-d H:i:s' ), $datetime->getTimezone() );
 			} else {
 				$timezone_object = null;
 
@@ -1243,12 +1246,12 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 					if ( self::is_timestamp( $datetime ) ) {
 						// Timestamps timezone is always UTC.
-						$date = new DateTime( '@' . $datetime, $utc );
+						$date = new Date_I18n( '@' . $datetime, $utc );
 					} else {
 						$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
 
 						set_error_handler( 'tribe_catch_and_throw' );
-						$date = new DateTime( $datetime, $timezone_object );
+						$date = new Date_I18n( $datetime, $timezone_object );
 						restore_error_handler();
 					}
 				} catch ( Exception $e ) {
@@ -1257,7 +1260,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 					}
 
 					$date = $with_fallback
-						? new DateTime( 'now', $timezone_object )
+						? new Date_I18n( 'now', $timezone_object )
 						: false;
 				}
 			}
@@ -1386,7 +1389,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			if ( $datetime instanceof DateTime ) {
-				return DateTimeImmutable::createFromMutable( $datetime );
+				return ( new Date_I18n_Immutable() )->setTimestamp( DateTimeImmutable::createFromMutable( $datetime )->getTimestamp() );
 			}
 
 			$mutable = static::build_date_object( $datetime, $timezone, $with_fallback );
@@ -1402,7 +1405,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return $cached;
 			}
 
-			$immutable = DateTimeImmutable::createFromMutable( $mutable );
+			$immutable = ( new Date_I18n_Immutable() )->setTimestamp( $mutable->getTimestamp() );
 
 			$cache[ $cache_key ] = $immutable;
 
