@@ -5,13 +5,13 @@ namespace Tribe\Dialog;
 /**
  * Class View
  *
- * @since TBD
+ * @since 4.10.0
  */
 class View extends \Tribe__Template {
 	/**
 	 * Where in the themes we will look for templates.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @var string
 	 */
@@ -20,7 +20,7 @@ class View extends \Tribe__Template {
 	/**
 	 * View constructor
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 */
 	public function __construct() {
 		$this->set_template_origin( \Tribe__Main::instance() );
@@ -37,7 +37,7 @@ class View extends \Tribe__Template {
 	 * Public wrapper for build method.
 	 * Contains all the logic/validation checks.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string  $content Content as an HTML string.
 	 * @param array   $args    {
@@ -105,7 +105,7 @@ class View extends \Tribe__Template {
 	 * Syntactic sugar for `render_dialog()` to make creating modals easier.
 	 * Adds sensible defaults for modals.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string  $content Content as an HTML string.
 	 * @param array   $args    {
@@ -174,7 +174,7 @@ class View extends \Tribe__Template {
 	 * Syntactic sugar for `render_dialog()` to make creating custom confirmation dialogs easier.
 	 * Adds sensible defaults for confirmation dialogs.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string  $content Content as an HTML string.
 	 * @param array   $args    {
@@ -241,7 +241,7 @@ class View extends \Tribe__Template {
 	 * Syntactic sugar for `render_dialog()` to make creating custom alerts easier.
 	 * Adds sensible defaults for alerts.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string  $content Content as an HTML string.
 	 * @param array   $args    {
@@ -306,7 +306,7 @@ class View extends \Tribe__Template {
 	/**
 	 * Factory method for dialog HTML
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string $content HTML dialog content.
 	 * @param string $id      The unique ID for this dialog (`uniqid()`) Gets prepended to the data attributes.
@@ -385,7 +385,7 @@ class View extends \Tribe__Template {
 		/**
 		 * Allow us to filter the dialog arguments.
 		 *
-		 * @since  TBD
+		 * @since  4.10.0
 		 *
 		 * @param array $args The dialog arguments.
 		 * @param string $content HTML content string.
@@ -396,7 +396,7 @@ class View extends \Tribe__Template {
 		/**
 		 * Allow us to filter the dialog template name.
 		 *
-		 * @since  TBD
+		 * @since  4.10.0
 		 *
 		 * @param string $template The dialog template name.
 		 * @param array $args The dialog arguments.
@@ -414,7 +414,7 @@ class View extends \Tribe__Template {
 		/**
 		 * Allow us to filter the dialog output (HTML string).
 		 *
-		 * @since  TBD
+		 * @since  4.10.0
 		 *
 		 * @param string $html The dialog HTML string.
 		 * @param array $args The dialog arguments.
@@ -425,7 +425,7 @@ class View extends \Tribe__Template {
 	/**
 	 * Get dialog <script> to be rendered.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param array   $args List of arguments for the dialog script. See \Tribe\Dialog\View->build_dialog().
 	 * @param boolean $echo Whether to echo the script or to return it (default: true).
@@ -455,7 +455,7 @@ class View extends \Tribe__Template {
 		/**
 		 * Allows for modifying the arguments before they are passed to the dialog script.
 		 *
-		 * @since TBD
+		 * @since 4.10.0
 		 *
 		 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
 		 */
@@ -479,7 +479,7 @@ class View extends \Tribe__Template {
 			/**
 			 * Allows for injecting additional scripts (button actions, etc).
 			 *
-			 * @since TBD
+			 * @since 4.10.0
 			 *
 			 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
 			 */
@@ -488,7 +488,7 @@ class View extends \Tribe__Template {
 			/**
 			 * Allows for injecting additional scripts (button actions, etc) by template.
 			 *
-			 * @since TBD
+			 * @since 4.10.0
 			 *
 			 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
 			 */
@@ -497,7 +497,7 @@ class View extends \Tribe__Template {
 			/**
 			 * Allows for injecting additional scripts (button actions, etc) by dialog ID.
 			 *
-			 * @since TBD
+			 * @since 4.10.0
 			 *
 			 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
 			 */
@@ -510,7 +510,7 @@ class View extends \Tribe__Template {
 		/**
 		 * Allows for modifying the HTML before it is echoed or returned.
 		 *
-		 * @since TBD
+		 * @since 4.10.0
 		 *
 		 * @param array $args List of arguments to override dialog script. See \Tribe\Dialog\View->build_dialog().
 		 */
