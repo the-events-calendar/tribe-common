@@ -13,9 +13,8 @@ class Date_I18n extends \DateTime {
 	 */
 	public function format_i18n( $string ) {
 		$formatted = $this->format( $string );
-		$unix_date =$this->format( 'U' );
+		$unix_date = $this->format( 'U' );
 		$translated = date_i18n( $string, $unix_date );
 		return $translated;
 	}
 }
-
