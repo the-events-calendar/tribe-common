@@ -2,7 +2,12 @@
 
 == Changelog ==
 
-= [4.10] 2019-11-21 =
+= [4.10.1] 2019-12-09 =
+
+* Fix - Updated the .pot file as it was outdated when shipping Tribe Common 4.10
+* Language - 8 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [4.10] 2019-11-20 =
 
 * Feature - Add new tribe-dialog object. Implements mt-a11y-dialog as `tribe-dialog` (or `tribe('dialog.view')`) as an extension of `Tribe_Template`. [129434]
 * Feature - New dialogs can be created with a simple call to `tribe( 'dialog.view' )->render_dialog( $args )` in php. [129434]
@@ -13,7 +18,6 @@
 * Tweak - Added filters: `tribe_dialog_args`, `tribe_dialog_template`, `tribe_dialog_html`, `tribe_dialog_script_args`, `tribe_dialog_script_html`
 * Tweak - Added actions: `tribe_dialog_additional_scripts`, `tribe_dialog_additional_scripts_$template`, `tribe_dialog_additional_scripts_$id`, `tribe_dialog_register`, `tribe_dialog_hooks`, `tribe_dialog_assets_registered`
 * Tweak - Changed views: `dialog/alert`, `dialog/button`, `dialog/confirm`, `dialog/dialog`, `dialog/modal`, `tooltip/tooltip`
-* Language - TBD
 
 = [4.9.23] 2019-11-20 =
 
