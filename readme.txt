@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.10.1] 2019-12-09 =
+= [4.10.1] 2019-12-10 =
 
 * Fix - Updated the .pot file as it was outdated when shipping Tribe Common 4.10
 * Language - 8 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
