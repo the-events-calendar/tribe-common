@@ -401,6 +401,10 @@ class Tribe__Context {
 		 */
 		$value = apply_filters( "tribe_context_{$key}", $value );
 
+		if ( $value !== static::NOT_FOUND ) {
+			$this->request_cache[ $key ] = $value;
+		}
+
 		return $value;
 	}
 
