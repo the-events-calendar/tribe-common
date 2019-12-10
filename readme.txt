@@ -6,6 +6,7 @@
 
 * Tweak - Add the `Tribe__Cache::warmup_post_caches` method to warmup the post caches for a set of posts [136624]
 * Tweak - Add the `tribe_cache_warmup_post_cache_limit` filter to allow filtering the LIMIT of those warmup fetches [136624]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.10] 2019-11-21 =
 
