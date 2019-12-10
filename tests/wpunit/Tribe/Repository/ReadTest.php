@@ -978,13 +978,18 @@ class ReadTest extends ReadTestBase {
 			return $reviews;
 		};
 
+		$test_reviews = [];
+
 		$first_book_reviews = array_reduce( [ 'good', 'good', 'good' ], $reviewer, [] );
 
 		$i = 0;
 		foreach ( $first_book_reviews as $review ) {
 			add_post_meta( $first_book, '_review', $review );
-			++$i;
-			add_post_meta( $review->ID, '_counter', $i );
+			add_post_meta( $review, '_counter', ++$i );
+
+			if ( 2 === $i ) {
+				$test_reviews[] = $first_book;
+			}
 		}
 
 		$second_book_reviews = array_reduce( [ 'good', 'good', 'bad' ], $reviewer, [] );
@@ -992,8 +997,11 @@ class ReadTest extends ReadTestBase {
 		$i = 0;
 		foreach ( $second_book_reviews as $review ) {
 			add_post_meta( $second_book, '_review', $review );
-			++$i;
-			add_post_meta( $review->ID, '_counter', $i );
+			add_post_meta( $review, '_counter', ++$i );
+
+			if ( 2 === $i ) {
+				$test_reviews[] = $second_book;
+			}
 		}
 
 		$third_book_reviews  = [];
@@ -1003,66 +1011,28 @@ class ReadTest extends ReadTestBase {
 		$i = 0;
 		foreach ( $fourth_book_reviews as $review ) {
 			add_post_meta( $fourth_book, '_review', $review );
-			++$i;
-			add_post_meta( $review->ID, '_counter', $i );
+			add_post_meta( $review, '_counter', ++$i );
+
+			if ( 2 === $i ) {
+				$test_reviews[] = $fourth_book;
+			}
 		}
 
 		$w_reviews = $this->repository()->where_meta_related_by_meta(
-		                      '_counter',
-		                      '=' ,
-		                      2
-		                    )
-		                  ->fields( 'ids' )
-		                  ->all();
+			'_review',
+			'=' ,
+			'_counter',
+			2
+		)->fields( 'ids' )->all();
 
-		$this->assertEquals(
-			[
-				$first_book,
-				$second_book,
-				$fourth_book,
-			],
-			$w_reviews
-		);
+		// Test that all experted books are returned.
+		foreach( $w_reviews as $key => $review_id ) {
+			$this->assertContains( $review_id, $test_reviews, 'Incorrect book idetified' );
+			unset( $w_reviews[ $key ] );
+		}
 
-		$wo_reviews = $this->repository()
-		                   ->where_meta_related_by( '_review', 'NOT EXISTS' )
-		                   ->fields( 'ids' )
-		                   ->all();
-		$this->assertEquals( [
-			$third_book,
-		], $wo_reviews );
-
-		$w_good_reviews = $this->repository()
-		                       ->where_meta_related_by( '_review', '=', 'post_status', 'good' )
-		                       ->fields( 'ids' )
-		                       ->all();
-		$this->assertEquals( [
-			$first_book,
-			$second_book
-		], $w_good_reviews );
-
-		$wo_good_reviews = $this->repository()
-		                        ->where_meta_related_by( '_review', '!=', 'post_status', 'good' )
-		                        ->fields( 'ids' )
-		                        ->all();
-		$this->assertEquals( [
-			$second_book,
-			$fourth_book
-		], $wo_good_reviews );
-
-		$repository                   = $this->repository();
-		$w_good_reviews_or_no_reviews = $repository
-			->where_or(
-				[ 'where_meta_related_by', '_review', 'NOT EXISTS' ],
-				[ 'where_meta_related_by', '_review', '=', 'post_status', 'good' ]
-			)
-			->fields( 'ids' )
-			->all();
-		$this->assertEquals( [
-			$first_book,
-			$second_book,
-			$third_book,
-		], $w_good_reviews_or_no_reviews );
+		// Test that all returned books are expected.
+		$this->assertEmpty( $w_reviews, 'Book missed!' );
 	}
 
 	/**
