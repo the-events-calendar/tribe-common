@@ -5,10 +5,10 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/alert.php
  *
- * @since 4.10.2
+ * @since 4.10.0
  *
  * @package Tribe
- * @version 4.10.2
+ * @version 4.10.0
  */
 
 /** @var \Tribe\Dialog\View $dialog_view */

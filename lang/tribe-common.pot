@@ -2,6 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
+
 "Project-Id-Version: Tribe Common 4.10.2\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
 "POT-Creation-Date: 2019-12-10 00:34:42+00:00\n"
@@ -9,6 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2019-12-10 00:34\n"
+
 "Last-Translator: \n"
 "Language-Team: \n"
 
