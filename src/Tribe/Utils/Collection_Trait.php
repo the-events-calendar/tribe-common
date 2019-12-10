@@ -173,7 +173,7 @@ trait Collection_Trait {
 	 * Applies a filter callback to each element of this collection changing the collection elements to only those
 	 * passing the filter.
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @param callable $filter_callback The filter callback that will be applied to each element of the collection; the
 	 *                                  callback will receive the element as parameter.

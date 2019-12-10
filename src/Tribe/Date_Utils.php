@@ -235,7 +235,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns as string the nearest half a hour for a given valid string datetime.
 		 *
-		 * @since  TBD
+		 * @since  4.10.2
 		 *
 		 * @param string $date Valid DateTime string.
 		 *
@@ -1336,7 +1336,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * For performance purposes the use of `DateInterval` specifications is preferred, so `P1D` is better than
 		 * `1 day`.
 		 *
-		 * @since TBD
+		 * @since 4.10.2
 		 *
 		 * @return DateInterval The built date interval object.
 		 */
@@ -1355,7 +1355,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * It's the immutable version of the `Tribe__Date_Utils::build_date_object` method.
 		 *
-		 * @since TBD
+		 * @since 4.10.2
 		 *
 		 * @param string|DateTime|int      $datetime      A `strtotime` parse-able string, a DateTime object or
 		 *                                                a timestamp; defaults to `now`.
@@ -1403,7 +1403,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * An alias of the `Tribe__Date_Utils::build_date_object` function.
 		 *
-		 * @since TBD
+		 * @since 4.10.2
 		 *
 		 * @param string|DateTime|int      $datetime      A `strtotime` parse-able string, a DateTime object or
 		 *                                                a timestamp; defaults to `now`.

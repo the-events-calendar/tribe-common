@@ -40,7 +40,7 @@ class Tribe__Template {
 	/**
 	 * Used for finding templates for public templates on themes inside of a folder.
 	 *
-	 * @since  TBD
+	 * @since  4.10.2
 	 *
 	 * @var string[]
 	 */
@@ -343,7 +343,7 @@ class Tribe__Template {
 	/**
 	 * Fetches which base folder we look for templates in the origin plugin.
 	 *
-	 * @since  TBD
+	 * @since  4.10.2
 	 *
 	 * @return array The base folders we look for templates in the origin plugin.
 	 */
@@ -351,7 +351,7 @@ class Tribe__Template {
 		/**
 		 * Allows filtering of the base path for templates.
 		 *
-		 * @since TBD
+		 * @since 4.10.2
 		 *
 		 * @param array  $namespace Which is the base folder we will look for files in the plugin.
 		 * @param self   $template  Current instance of the Tribe__Template.

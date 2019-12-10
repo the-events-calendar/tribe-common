@@ -25,7 +25,7 @@ class Tribe__Feature_Detection {
 	/**
 	 * A set of example byte sizes of result sets.
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @var array
 	 */
@@ -166,7 +166,7 @@ class Tribe__Feature_Detection {
 	/**
 	 * Returns the value of the `max_allowed_packet`  MYSQL variable, if set, or a default value.
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @return int The byte size of the `max_allowed_packet`  MYSQL variable.
 	 */
@@ -176,7 +176,7 @@ class Tribe__Feature_Detection {
 		 *
 		 * If the value returned from this filter is not `null`, then it will be assumed to be the value.
 		 *
-		 * @since TBD
+		 * @since 4.10.2
 		 *
 		 * @param int $mysql_max_packet_size The value of the `max_allowed_packet` variable, initially `null`.
 		 */
@@ -211,7 +211,7 @@ class Tribe__Feature_Detection {
 	 * This is useful to size "reasonable" LIMITs when dealing with either very long queries or potentially long
 	 * result sets.
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @param string $example_string The example string.
 	 *
@@ -228,7 +228,7 @@ class Tribe__Feature_Detection {
 	/**
 	 * Returns the SQL LIMIT for a byte size, in relation to the `max_allowed_packet` value.
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @param int $byte_size The byte size to check.
 	 *
@@ -243,7 +243,7 @@ class Tribe__Feature_Detection {
 	 *
 	 * Defaults to the complete post result example string if the example is not found.
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @param string $example The name of the example to return. See the `Tribe__Feature_Detection::$example_sizes`
 	 *                        prop for the available examples. Defaults to the `post_result` one.

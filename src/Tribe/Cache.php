@@ -276,7 +276,7 @@ class Tribe__Cache implements ArrayAccess {
 	/**
 	 * Warms up the caches for a collection of posts.
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @param array|int $post_ids               A post ID, or a collection of post IDs.
 	 * @param bool      $update_post_meta_cache Whether to warm-up the post meta cache for the posts or not.
@@ -314,7 +314,7 @@ class Tribe__Cache implements ArrayAccess {
 		 * Lower this value on less powerful hosts. Return `0` to disable the warm-up completely, and `-1` to remove the
 		 * limit (not recommended).
 		 *
-		 * @since TBD
+		 * @since 4.10.2
 		 *
 		 * @param int $limit The number of posts whose caches will be warmed up, per query.
 		 */

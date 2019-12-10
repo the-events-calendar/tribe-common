@@ -248,7 +248,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates the client code is trying to call a filter without the correct number of req. parameters.
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @param string $filter        The called filter.
 	 * @param array  $required_args The human-readable name of the required arguments.
@@ -269,7 +269,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	/**
 	 * Indicates the client code is trying to call a filter with an invalid parameter.
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @param string $filter   The called filter.
 	 * @param string $arg_name The human-readable name of the parameter.

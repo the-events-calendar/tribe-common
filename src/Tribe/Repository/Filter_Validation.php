@@ -2,7 +2,7 @@
 /**
  * Provides methods to validate repository filters.
  *
- * @since   TBD
+ * @since   4.10.2
  *
  * @package Tribe\Repository
  */
@@ -23,7 +23,7 @@ trait Filter_Validation {
 	 *  ]
 	 * ```
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @param       string $filter The name of the filter currently validating.
 	 * @param array        $call_args The current filter call args, usually `func_get_args()`.
