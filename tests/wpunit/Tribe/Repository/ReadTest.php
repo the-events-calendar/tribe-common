@@ -987,20 +987,32 @@ class ReadTest extends ReadTestBase {
 			add_post_meta( $first_book, '_review', $review );
 			add_post_meta( $review, '_counter', ++$i );
 
+			if ( 1 === $i ) {
+				$test_reviews_one[] = $first_book;
+			}
+
 			if ( 2 === $i ) {
-				$test_reviews[] = $first_book;
+				$test_reviews_two[] = $first_book;
+			}
+
+			if ( 3 === $i ) {
+				$test_reviews_three[] = $first_book;
 			}
 		}
 
-		$second_book_reviews = array_reduce( [ 'good', 'good', 'bad' ], $reviewer, [] );
+		$second_book_reviews = array_reduce( [ 'good', 'bad' ], $reviewer, [] );
 
 		$i = 0;
 		foreach ( $second_book_reviews as $review ) {
 			add_post_meta( $second_book, '_review', $review );
 			add_post_meta( $review, '_counter', ++$i );
 
+			if ( 1 === $i ) {
+				$test_reviews_one[] = $second_book;
+			}
+
 			if ( 2 === $i ) {
-				$test_reviews[] = $second_book;
+				$test_reviews_two[] = $second_book;
 			}
 		}
 
@@ -1013,12 +1025,28 @@ class ReadTest extends ReadTestBase {
 			add_post_meta( $fourth_book, '_review', $review );
 			add_post_meta( $review, '_counter', ++$i );
 
-			if ( 2 === $i ) {
-				$test_reviews[] = $fourth_book;
+			if ( 1 === $i ) {
+				$test_reviews_one[] = $fourth_book;
 			}
 		}
 
-		$w_reviews = $this->repository()->where_meta_related_by_meta(
+		$w_reviews_one = $this->repository()->where_meta_related_by_meta(
+			'_review',
+			'=' ,
+			'_counter',
+			1
+		)->fields( 'ids' )->all();
+
+		// Test that all experted books are returned.
+		foreach( $w_reviews_one as $key => $review_id ) {
+			$this->assertContains( $review_id, $test_reviews_one, 'Incorrect book idetified' );
+			unset( $w_reviews_one[ $key ] );
+		}
+
+		// Test that all returned books are expected.
+		$this->assertEmpty( $w_reviews_one, 'Book missed!' );
+
+		$w_reviews_two = $this->repository()->where_meta_related_by_meta(
 			'_review',
 			'=' ,
 			'_counter',
@@ -1026,13 +1054,29 @@ class ReadTest extends ReadTestBase {
 		)->fields( 'ids' )->all();
 
 		// Test that all experted books are returned.
-		foreach( $w_reviews as $key => $review_id ) {
-			$this->assertContains( $review_id, $test_reviews, 'Incorrect book idetified' );
-			unset( $w_reviews[ $key ] );
+		foreach( $w_reviews_two as $key => $review_id ) {
+			$this->assertContains( $review_id, $test_reviews_two, 'Incorrect book idetified' );
+			unset( $w_reviews_two[ $key ] );
 		}
 
 		// Test that all returned books are expected.
-		$this->assertEmpty( $w_reviews, 'Book missed!' );
+		$this->assertEmpty( $w_reviews_two, 'Book missed!' );
+
+		$w_reviews_three = $this->repository()->where_meta_related_by_meta(
+			'_review',
+			'=' ,
+			'_counter',
+			3
+		)->fields( 'ids' )->all();
+
+		// Test that all experted books are returned.
+		foreach( $w_reviews_three as $key => $review_id ) {
+			$this->assertContains( $review_id, $test_reviews_three, 'Incorrect book idetified' );
+			unset( $w_reviews_three[ $key ] );
+		}
+
+		// Test that all returned books are expected.
+		$this->assertEmpty( $w_reviews_three, 'Book missed!' );
 	}
 
 	/**
