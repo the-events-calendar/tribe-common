@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.10.2] 2019-12-11 =
+= [4.10.2] 2019-12-10 =
 
 * Tweak - Add the `Tribe__Cache::warmup_post_caches` method to warmup the post caches for a set of posts [136624]
 * Tweak - Add the `tribe_cache_warmup_post_cache_limit` filter to allow filtering the LIMIT of those warmup fetches [136624]
