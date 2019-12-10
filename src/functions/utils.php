@@ -653,7 +653,7 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	/**
 	 * Gets the class instance / Tribe Container from the passed object or string.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @see   \tad_DI52_Container::isBound()
 	 * @see   \tribe()
@@ -700,7 +700,7 @@ if ( ! function_exists( 'tribe_get_least_version_ever_installed' ) ) {
 	 * If no version info found, it will return false.
 	 * Zero may have been logged as a past version but gets ignored.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string|object $class The plugin class' singleton name, class name, or instance.
 	 *
@@ -747,7 +747,7 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
 	 * If no version info found, it will return false.
 	 * Zero may have been logged as a past version but gets ignored.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @see \tribe_get_currently_installed_version() To get the current version, even if it's not the greatest.
 	 *
@@ -796,7 +796,7 @@ if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
 	 * If no version info found, it will return false.
 	 * Zero may have been logged as a past version but gets ignored.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string|object $class The plugin class' singleton name, class name, or instance.
 	 *
@@ -843,7 +843,7 @@ if ( ! function_exists( 'tribe_get_currently_installed_version' ) ) {
 	 * If user initially installed v2, downgraded to v1, then updated to v3, this will return v3.
 	 * Only looks at the class' current version, else false.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @see \tribe_get_greatest_version_ever_installed() To get the greatest ever installed, even if not the current.
 	 *
@@ -871,7 +871,7 @@ if ( ! function_exists( 'tribe_installed_before' ) ) {
 	 * Checks if a plugin's initially-installed version was prior to the passed version.
 	 * If no info found, it will assume the plugin is old and return true.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string|object $class   The plugin class' singleton name, class name, or instance.
 	 * @param string        $version The SemVer version string to compare.
@@ -895,7 +895,7 @@ if ( ! function_exists( 'tribe_installed_after' ) ) {
 	 * Checks if a plugin's initially-installed version was after the passed version.
 	 * If no info found, it will assume the plugin is old and return false.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string|object $class   The plugin class' singleton name, class name, or instance.
 	 * @param string        $version The SemVer version string to compare.
@@ -919,7 +919,7 @@ if ( ! function_exists( 'tribe_installed_on' ) ) {
 	 * Checks if a plugin was installed at/on the passed version.
 	 * If no info found, it will assume the plugin is old and return false.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string|object $class   The plugin class' singleton name, class name, or instance.
 	 * @param string        $version The SemVer version string to compare.

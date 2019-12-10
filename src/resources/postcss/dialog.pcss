@@ -97,7 +97,7 @@ Adding these here for now until common-styles are live
 
 	/* The "close" button */
 	.tribe-dialog__close-button {
-		background-color: var(--tribe-dialog-close-background);
+		background: var(--tribe-dialog-close-background);
 		background-image: svg-inline( 'close-secondary' );
 		background-repeat: no-repeat;
 		background-size: contain;
@@ -119,6 +119,7 @@ Adding these here for now until common-styles are live
 
 		&:focus,
 		&:hover {
+			background: var(--tribe-dialog-close-background);
 			background-image: svg-inline( 'close' );
 			background-size: contain;
 			outline: none;

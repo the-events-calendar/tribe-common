@@ -5,10 +5,10 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/buton.php
  *
- * @since TBD
+ * @since 4.10.0
  *
  * @package Tribe
- * @version TBD
+ * @version 4.10.0
  */
 $classes = $button_classes ?: 'tribe-button';
 $classes = implode( ' ' , (array) $classes );
