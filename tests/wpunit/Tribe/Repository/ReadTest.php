@@ -989,18 +989,14 @@ class ReadTest extends ReadTestBase {
 
 			if ( 1 === $i ) {
 				$test_reviews_one[] = $first_book;
-			}
-
-			if ( 2 === $i ) {
+			} elseif ( 2 === $i ) {
 				$test_reviews_two[] = $first_book;
-			}
-
-			if ( 3 === $i ) {
+			} elseif ( 3 === $i ) {
 				$test_reviews_three[] = $first_book;
 			}
 		}
 
-		$second_book_reviews = array_reduce( [ 'good', 'bad' ], $reviewer, [] );
+		$second_book_reviews = array_reduce( [ 'good', 'good' ], $reviewer, [] );
 
 		$i = 0;
 		foreach ( $second_book_reviews as $review ) {
@@ -1009,16 +1005,14 @@ class ReadTest extends ReadTestBase {
 
 			if ( 1 === $i ) {
 				$test_reviews_one[] = $second_book;
-			}
-
-			if ( 2 === $i ) {
+			} elseif ( 2 === $i ) {
 				$test_reviews_two[] = $second_book;
 			}
 		}
 
 		$third_book_reviews  = [];
 
-		$fourth_book_reviews = array_reduce( [ 'bad' ], $reviewer, [] );
+		$fourth_book_reviews = array_reduce( [ 'good' ], $reviewer, [] );
 
 		$i = 0;
 		foreach ( $fourth_book_reviews as $review ) {
@@ -1039,12 +1033,12 @@ class ReadTest extends ReadTestBase {
 
 		// Test that all experted books are returned.
 		foreach( $w_reviews_one as $key => $review_id ) {
-			$this->assertContains( $review_id, $test_reviews_one, 'Incorrect book idetified' );
+			$this->assertContains( $review_id, $test_reviews_one, 'Incorrect book identified' );
 			unset( $w_reviews_one[ $key ] );
 		}
 
 		// Test that all returned books are expected.
-		$this->assertEmpty( $w_reviews_one, 'Book missed!' );
+		$this->assertEmpty( $w_reviews_one, 'Book missed by query!' );
 
 		$w_reviews_two = $this->repository()->where_meta_related_by_meta(
 			'_review',
@@ -1055,12 +1049,12 @@ class ReadTest extends ReadTestBase {
 
 		// Test that all experted books are returned.
 		foreach( $w_reviews_two as $key => $review_id ) {
-			$this->assertContains( $review_id, $test_reviews_two, 'Incorrect book idetified' );
+			$this->assertContains( $review_id, $test_reviews_two, 'Incorrect book identified' );
 			unset( $w_reviews_two[ $key ] );
 		}
 
 		// Test that all returned books are expected.
-		$this->assertEmpty( $w_reviews_two, 'Book missed!' );
+		$this->assertEmpty( $w_reviews_two, 'Book missed by query!' );
 
 		$w_reviews_three = $this->repository()->where_meta_related_by_meta(
 			'_review',
@@ -1071,12 +1065,12 @@ class ReadTest extends ReadTestBase {
 
 		// Test that all experted books are returned.
 		foreach( $w_reviews_three as $key => $review_id ) {
-			$this->assertContains( $review_id, $test_reviews_three, 'Incorrect book idetified' );
+			$this->assertContains( $review_id, $test_reviews_three, 'Incorrect book identified' );
 			unset( $w_reviews_three[ $key ] );
 		}
 
 		// Test that all returned books are expected.
-		$this->assertEmpty( $w_reviews_three, 'Book missed!' );
+		$this->assertEmpty( $w_reviews_three, 'Book missed by query!' );
 	}
 
 	/**
