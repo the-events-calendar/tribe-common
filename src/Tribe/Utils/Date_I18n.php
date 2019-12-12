@@ -1,10 +1,22 @@
 <?php
+/**
+ * Extends DateTime and includes translation capabilities.
+ *
+ * @package Tribe\Utils
+ * @since   TBD
+ */
 namespace Tribe\Utils;
 
 use Tribe__Date_Utils as Dates;
 use DateTime;
 use DateTimeImmutable;
 
+/**
+ * Class Date i18n
+ *
+ * @package Tribe\Utils
+ * @since   TBD
+ */
 class Date_I18n extends DateTime {
 	/**
 	 * {@inheritDoc}
@@ -20,13 +32,13 @@ class Date_I18n extends DateTime {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  string $string Format to be used in the translation.
+	 * @param  string $date_format Format to be used in the translation.
 	 *
 	 * @return string         Translated date.
 	 */
-	public function format_i18n( $string ) {
-		$unix_date  = $this->format( 'U' );
-		$translated = date_i18n( $string, $unix_date );
+	public function format_i18n( $date_format ) {
+		$unix_with_tz = $this->format( 'U' );
+		$translated   = date_i18n( $date_format, $unix_with_tz );
 		return $translated;
 	}
 }
