@@ -244,4 +244,45 @@ class Tribe__Repository__Usage_Error extends Exception {
 	public static function because_query_cannot_be_set_after_it_ran() {
 		return new self( "You are trying to set the repository query after it ran!" );
 	}
+
+	/**
+	 * Indicates the client code is trying to call a filter without the correct number of req. parameters.
+	 *
+	 * @since 4.10.2
+	 *
+	 * @param string $filter        The called filter.
+	 * @param array  $required_args The human-readable name of the required arguments.
+	 *
+	 * @return static A ready to throw instance of the class.
+	 */
+	public static function because_filter_requires_args( $filter, array $required_args ) {
+		return new static(
+			sprintf(
+				'The "%s" filter requires %d arguments: %s',
+				$filter,
+				count( $required_args ),
+				implode( ', ', $required_args )
+			)
+		);
+	}
+
+	/**
+	 * Indicates the client code is trying to call a filter with an invalid parameter.
+	 *
+	 * @since 4.10.2
+	 *
+	 * @param string $filter   The called filter.
+	 * @param string $arg_name The human-readable name of the parameter.
+	 *
+	 * @return static A ready to throw instance of the class.
+	 */
+	public static function because_filter_arg_is_not_valid( $filter, $arg_name ) {
+		return new static(
+			sprintf(
+				'The "%s" filter "%s" argument is not valid.',
+				$filter,
+				$arg_name
+			)
+		);
+	}
 }

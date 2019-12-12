@@ -401,6 +401,10 @@ class Tribe__Context {
 		 */
 		$value = apply_filters( "tribe_context_{$key}", $value );
 
+		if ( $value !== static::NOT_FOUND ) {
+			$this->request_cache[ $key ] = $value;
+		}
+
 		return $value;
 	}
 
@@ -454,9 +458,22 @@ class Tribe__Context {
 	public function get_locations() {
 		$this->populate_locations();
 
-		return $this->use_default_locations
+		$locations = $this->use_default_locations
 			? array_merge( self::$locations, $this->override_locations )
 			: $this->override_locations;
+
+		if ( $this->use_default_locations ) {
+			/**
+			 * Filters the locations registered in the Context.
+			 *
+			 * @since 4.10.2
+			 *
+			 * @param  array  $locations  An array of locations registered on the Context object.
+			 */
+			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
+		}
+
+		return $locations;
 	}
 
 	/**
@@ -1563,12 +1580,37 @@ class Tribe__Context {
 	 */
 	public function get_read_key_for( $location, $type = null ) {
 		$type = $type ?: static::REQUEST_VAR;
-		if ( isset( static::$locations[ $location ]['read'][ $type ] ) ) {
-			$keys = (array) static::$locations[ $location ]['read'][ $type ];
-
+		$locations = $this->get_locations();
+		if ( isset( $locations[ $location ]['read'][ $type ] ) ) {
+			$keys = (array) $locations[ $location ]['read'][ $type ];
 			return reset( $keys );
 		}
 
 		return $location;
+	}
+
+	/**
+	 * Safely set the value of a group of locations.
+	 *
+	 * This method can only augment the context, without altering it; it can only add new values.
+	 *
+	 * @since 4.10.2
+	 *
+	 * @param array|string $values The values to set, if not already set or the key of the value to set, requires
+	 *                             the `$value` to be passed.
+	 * @param mixed|null $value    The value to set for the key, this parameter will be ignored if the `$values_or_key`
+	 *                             parameter is not a string.
+	 */
+	public function safe_set( $values_or_key, $value = null ) {
+		$values = func_num_args() === 2
+			? [ $values_or_key => $value ]
+			: $values_or_key;
+
+		foreach ( $values as $key => $val ) {
+			if ( static::NOT_FOUND !== $this->get( $key, static::NOT_FOUND ) ) {
+				continue;
+			}
+			$this->request_cache[ $key ] = $val;
+		}
 	}
 }
