@@ -3,6 +3,9 @@
  * Date utility functions used throughout TEC + Addons
  */
 
+use Tribe\Utils\Date_I18n;
+use Tribe\Utils\Date_I18n_Immutable;
+
 // Don't load directly
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -1219,13 +1222,13 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return clone $datetime;
 			}
 
-			if ( class_exists('DateTimeImmutable') && $datetime instanceof DateTimeImmutable ) {
+			if ( class_exists( 'DateTimeImmutable' ) && $datetime instanceof DateTimeImmutable ) {
 				// Return the mutable version of the date.
-				return new DateTime( $datetime->format( 'Y-m-d H:i:s' ), $datetime->getTimezone() );
+				return Date_I18n::createFromImmutable( $datetime );
 			}
 
 			$timezone_object = null;
-			$datetime = empty($datetime) ? 'now' : $datetime;
+			$datetime = empty( $datetime ) ? 'now' : $datetime;
 
 			try {
 				// PHP 5.2 will not throw an exception but will generate an error.
@@ -1235,11 +1238,11 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				if ( self::is_timestamp( $datetime ) ) {
 					$timestamp_timezone = $timezone ? $timezone_object : $utc;
 
-					return  new DateTime( '@' . $datetime, $timestamp_timezone );
+					return new Date_I18n( '@' . $datetime, $timestamp_timezone );
 				}
 
 				set_error_handler( 'tribe_catch_and_throw' );
-				$date = new DateTime( $datetime, $timezone_object );
+				$date = new Date_I18n( $datetime, $timezone_object );
 				restore_error_handler();
 			} catch ( Exception $e ) {
 				if ( $timezone_object === null ) {
@@ -1247,7 +1250,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				}
 
 				return $with_fallback
-					? new DateTime( 'now', $timezone_object )
+					? new Date_I18n( 'now', $timezone_object )
 					: false;
 			}
 
@@ -1373,7 +1376,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			if ( $datetime instanceof DateTime ) {
-				return DateTimeImmutable::createFromMutable( $datetime );
+				return Date_I18n_Immutable::createFromMutable( $datetime );
 			}
 
 			$mutable = static::build_date_object( $datetime, $timezone, $with_fallback );
@@ -1389,7 +1392,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return $cached;
 			}
 
-			$immutable = DateTimeImmutable::createFromMutable( $mutable );
+			$immutable = Date_I18n_Immutable::createFromMutable( $mutable );
 
 			$cache[ $cache_key ] = $immutable;
 

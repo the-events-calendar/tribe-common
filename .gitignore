@@ -6,6 +6,7 @@ node_modules
 codeception.yml
 tests/*.suite.yml
 phpunit.xml
+.env.local
 .env.*.local
 
 # Tests - local output files
