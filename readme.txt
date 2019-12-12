@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Set the default datepicker (compact) format to MM/D/YYYY [136789]
+
 = [4.10.2] 2019-12-10 =
 
 * Tweak - Add the `Tribe__Cache::warmup_post_caches` method to warmup the post caches for a set of posts [136624]
