@@ -25,9 +25,8 @@ class Date_I18n_Immutable extends DateTimeImmutable {
 	 * @return string         Translated date.
 	 */
 	public function format_i18n( $string ) {
-		$unix_date = $this->format( 'U' );
+		$unix_date  = $this->format( 'U' );
 		$translated = date_i18n( $string, $unix_date );
 		return $translated;
 	}
 }
-
