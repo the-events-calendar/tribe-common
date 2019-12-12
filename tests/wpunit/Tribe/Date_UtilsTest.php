@@ -301,7 +301,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		];
 		yield '2019-12-01 08:00:00 timestamp w/ timezone' => [
 			( new DateTime( '2019-12-01 08:00:00', $timezone_obj ) )->getTimestamp(),
-			'2019-12-01 08:00:00',
+			'2019-12-01 07:00:00',
 			$timezone_str,
 		];
 
@@ -322,7 +322,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		];
 		yield '2019-12-01 08:00:00 timestamp w/ timezone obj' => [
 			( new DateTimeImmutable( '2019-12-01 08:00:00', $timezone_obj ) )->getTimestamp(),
-			'2019-12-01 08:00:00',
+			'2019-12-01 07:00:00',
 			$timezone_obj,
 		];
 	}

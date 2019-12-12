@@ -1233,11 +1233,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
 
 				if ( self::is_timestamp( $datetime ) ) {
-					// Timestamps timezone is always UTC.
-					$date =  new DateTime( '@' . $datetime, $utc );
+					$timestamp_timezone = $timezone ? $timezone_object : $utc;
 
-					// If we have a timezone, then set it.
-					return $timezone ? $date->setTimezone( $timezone_object ) : $date;
+					return  new DateTime( '@' . $datetime, $timestamp_timezone );
 				}
 
 				set_error_handler( 'tribe_catch_and_throw' );
