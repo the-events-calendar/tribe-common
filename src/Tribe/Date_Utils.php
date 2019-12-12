@@ -238,7 +238,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Returns as string the nearest half a hour for a given valid string datetime.
 		 *
-		 * @since  TBD
+		 * @since  4.10.2
 		 *
 		 * @param string $date Valid DateTime string.
 		 *
@@ -1222,50 +1222,37 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return clone $datetime;
 			}
 
-			$cache_key = md5( __METHOD__ . serialize( func_get_args() ) );
-			/** @var Tribe__Cache $cache */
-			$cache = tribe( 'cache' );
-
-			/*
-			 * This check implies a small inefficiency when we deal with a request w/o fallback and there is an
-			 * exception, yet this is such a small percentage we can re-calculate in those instances.
-			 */
-			if ( false !== $cached = $cache[ $cache_key ] ) {
-				return $cached;
-			}
-
 			if ( class_exists( 'DateTimeImmutable' ) && $datetime instanceof DateTimeImmutable ) {
 				// Return the mutable version of the date.
-				$date = new Date_I18n( $datetime->format( 'Y-m-d H:i:s' ), $datetime->getTimezone() );
-			} else {
-				$timezone_object = null;
-
-				try {
-					// PHP 5.2 will not throw an exception but will generate an error.
-					$utc = new DateTimeZone( 'UTC' );
-
-					if ( self::is_timestamp( $datetime ) ) {
-						// Timestamps timezone is always UTC.
-						$date = new Date_I18n( '@' . $datetime, $utc );
-					} else {
-						$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
-
-						set_error_handler( 'tribe_catch_and_throw' );
-						$date = new Date_I18n( $datetime, $timezone_object );
-						restore_error_handler();
-					}
-				} catch ( Exception $e ) {
-					if ( $timezone_object === null ) {
-						$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
-					}
-
-					$date = $with_fallback
-						? new Date_I18n( 'now', $timezone_object )
-						: false;
-				}
+				return Date_I18n::createFromImmutable( $datetime );
 			}
 
-			$cache[ $cache_key ] = $date;
+			$timezone_object = null;
+			$datetime = empty( $datetime ) ? 'now' : $datetime;
+
+			try {
+				// PHP 5.2 will not throw an exception but will generate an error.
+				$utc = new DateTimeZone( 'UTC' );
+				$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+
+				if ( self::is_timestamp( $datetime ) ) {
+					$timestamp_timezone = $timezone ? $timezone_object : $utc;
+
+					return new Date_I18n( '@' . $datetime, $timestamp_timezone );
+				}
+
+				set_error_handler( 'tribe_catch_and_throw' );
+				$date = new Date_I18n( $datetime, $timezone_object );
+				restore_error_handler();
+			} catch ( Exception $e ) {
+				if ( $timezone_object === null ) {
+					$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+				}
+
+				return $with_fallback
+					? new Date_I18n( 'now', $timezone_object )
+					: false;
+			}
 
 			return $date;
 		}
@@ -1350,7 +1337,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * For performance purposes the use of `DateInterval` specifications is preferred, so `P1D` is better than
 		 * `1 day`.
 		 *
-		 * @since TBD
+		 * @since 4.10.2
 		 *
 		 * @return DateInterval The built date interval object.
 		 */
@@ -1369,7 +1356,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * It's the immutable version of the `Tribe__Date_Utils::build_date_object` method.
 		 *
-		 * @since TBD
+		 * @since 4.10.2
 		 *
 		 * @param string|DateTime|int      $datetime      A `strtotime` parse-able string, a DateTime object or
 		 *                                                a timestamp; defaults to `now`.
@@ -1389,7 +1376,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			if ( $datetime instanceof DateTime ) {
-				return ( new Date_I18n_Immutable() )->setTimestamp( DateTimeImmutable::createFromMutable( $datetime )->getTimestamp() );
+				return Date_I18n_Immutable::createFromMutable( $datetime );
 			}
 
 			$mutable = static::build_date_object( $datetime, $timezone, $with_fallback );
@@ -1405,7 +1392,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return $cached;
 			}
 
-			$immutable = ( new Date_I18n_Immutable() )->setTimestamp( $mutable->getTimestamp() );
+			$immutable = Date_I18n_Immutable::createFromMutable( $mutable );
 
 			$cache[ $cache_key ] = $immutable;
 
@@ -1417,7 +1404,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * An alias of the `Tribe__Date_Utils::build_date_object` function.
 		 *
-		 * @since TBD
+		 * @since 4.10.2
 		 *
 		 * @param string|DateTime|int      $datetime      A `strtotime` parse-able string, a DateTime object or
 		 *                                                a timestamp; defaults to `now`.

@@ -4,7 +4,7 @@
  *
  * This interface is the minimal one a repository should implement to be called such.
  *
- * @since   TBD
+ * @since   4.10.2
  *
  * @package Tribe\Repository
  */
@@ -17,7 +17,7 @@ use WP_Post;
 /**
  * Class Core_Read_Interface
  *
- * @since   TBD
+ * @since   4.10.2
  *
  * @package Tribe\Repository
  */

@@ -401,6 +401,10 @@ class Tribe__Context {
 		 */
 		$value = apply_filters( "tribe_context_{$key}", $value );
 
+		if ( $value !== static::NOT_FOUND ) {
+			$this->request_cache[ $key ] = $value;
+		}
+
 		return $value;
 	}
 
@@ -462,7 +466,7 @@ class Tribe__Context {
 			/**
 			 * Filters the locations registered in the Context.
 			 *
-			 * @since TBD
+			 * @since 4.10.2
 			 *
 			 * @param  array  $locations  An array of locations registered on the Context object.
 			 */
@@ -1590,7 +1594,7 @@ class Tribe__Context {
 	 *
 	 * This method can only augment the context, without altering it; it can only add new values.
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @param array|string $values The values to set, if not already set or the key of the value to set, requires
 	 *                             the `$value` to be passed.

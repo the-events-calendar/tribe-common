@@ -5,7 +5,7 @@ namespace Tribe\Service_Providers;
 /**
  * Class Dialog
  *
- * @since TBD
+ * @since 4.10.0
  *
  * Handles the registration and creation of our async process handlers.
  */
@@ -14,7 +14,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 */
 	public function register() {
 		tribe_singleton( 'dialog.view', '\Tribe\Dialog\View' );
@@ -22,7 +22,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allows plugins to hook into the register action to register views, etc
 		 *
-		 * @since TBD
+		 * @since 4.10.0
 		 *
 		 * @param Tribe\Service_Providers\Dialog $dialog
 		 */
@@ -34,7 +34,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	/**
 	 * Set up hooks for classes.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 */
 	private function hooks() {
 		add_action( 'tribe_common_loaded', [ $this, 'register_dialog_assets' ] );
@@ -43,7 +43,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allows plugins to hook into the hooks action to register their own hooks
 		 *
-		 * @since TBD
+		 * @since 4.10.0
 		 *
 		 * @param Tribe\Service_Providers\Dialog $dialog
 		 */
@@ -53,7 +53,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	/**
 	  * {@inheritdoc}
 	 *
-	 * @since  TBD
+	 * @since  4.10.0
 	 */
 	public function template_public_namespace( $namespace, $obj ) {
 		if ( ! empty( $obj->template_namespace ) && 'dialog' === $obj->template_namespace ) {
@@ -66,7 +66,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register assets associated with dialog
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 */
 	public function register_dialog_assets() {
 		$main = \Tribe__Main::instance();
@@ -101,7 +101,7 @@ class Dialog extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allows plugins to hook into the assets action to register their own assets
 		 *
-		 * @since TBD
+		 * @since 4.10.0
 		 *
 		 * @param Tribe\Service_Providers\Dialog $dialog
 		 */
