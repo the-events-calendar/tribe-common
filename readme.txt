@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add the `Tribe\Traits\Cache_User::reset_caches` method to clear cache entries [138357]
+
 = [4.10.2] 2019-12-10 =
 
 * Tweak - Add the `Tribe__Cache::warmup_post_caches` method to warmup the post caches for a set of posts [136624]
