@@ -131,7 +131,7 @@ trait Cache_User {
 	 *
 	 * @since TBD
 	 *
-	 * @return array<string> A list of the emptied cache properties.
+	 * @return string[] A list of the emptied cache properties.
 	 */
 	public function reset_caches() {
 		$emptied = [];
