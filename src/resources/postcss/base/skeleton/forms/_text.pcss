@@ -26,7 +26,7 @@
 		padding: var(--spacer-2) var(--spacer-6) var(--spacer-2) 0;
 		width: 100%;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			padding: var(--spacer-4) var(--spacer-4) var(--spacer-4) var(--spacer-8);
 		}
 	}
@@ -46,10 +46,10 @@
 		.tribe-common-form-control-text__input {
 			padding: var(--spacer-2) var(--spacer-6) var(--spacer-2) 0;
 			width: 100%;
+		}
 
-			@media (--viewport-medium) {
-				padding: var(--spacer-4) var(--spacer-4) var(--spacer-4) var(--spacer-8);
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-form-control-text__input {
+			padding: var(--spacer-4) var(--spacer-4) var(--spacer-4) var(--spacer-8);
 		}
 	}
 }
