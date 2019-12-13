@@ -24,7 +24,10 @@ class Date_I18n extends DateTime {
 	 * @return Date_I18n Localizable variation of DateTime.
 	 */
 	public static function createFromImmutable( $datetime ) {
-		return new self( $datetime->format( Dates::DBDATETIMEFORMAT ), $datetime->getTimezone() );
+		$date_object = new self;
+		$date_object->setTimestamp( $datetime->getTimestamp() );
+		$date_object->setTimezone( $datetime->getTimezone() );
+		return $date_object;
 	}
 
 	/**
@@ -37,7 +40,7 @@ class Date_I18n extends DateTime {
 	 * @return string         Translated date.
 	 */
 	public function format_i18n( $date_format ) {
-		$unix_with_tz = $this->format( 'U' );
+		$unix_with_tz = strtotime( $this->format( Dates::DBDATETIMEFORMAT ) );
 		$translated   = date_i18n( $date_format, $unix_with_tz );
 		return $translated;
 	}
