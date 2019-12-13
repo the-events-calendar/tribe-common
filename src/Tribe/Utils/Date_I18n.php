@@ -24,7 +24,10 @@ class Date_I18n extends DateTime {
 	 * @return Date_I18n Localizable variation of DateTime.
 	 */
 	public static function createFromImmutable( $datetime ) {
-		return new self( $datetime->format( Dates::DBDATETIMEFORMAT ), $datetime->getTimezone() );
+		$date_object = new self;
+		$date_object->setTimestamp( $datetime->getTimestamp() );
+		$date_object->setTimezone( $datetime->getTimezone() );
+		return $date_object;
 	}
 
 	/**
