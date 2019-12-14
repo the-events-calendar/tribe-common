@@ -248,4 +248,100 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $date->format( $format ), Date_Utils::reformat( $date->format( 'U' ), $format ) );
 		$this->assertEquals( $date->format( 'U' ), Date_Utils::reformat( $date->format( 'U' ), 'U' ) );
 	}
+
+	public function build_date_object_empty_data_set() {
+		return [
+			'zero'           => [ 0 ],
+			'empty_string'   => [ '' ],
+			'false'          => [ false ],
+			'foo_bar_string' => [ 'foo bar' ],
+		];
+	}
+
+	/**
+	 * @dataProvider build_date_object_empty_data_set
+	 */
+	public function test_building_date_object_for_empty_will_return_today_date( $input ) {
+		$expected = ( new \DateTime( 'now' ) )->format( 'Y-m-d' );
+		// Do not test to the second as run times might yield false negatives.
+		$this->assertEquals( $expected, Date_Utils::build_date_object( $input )->format( Date_Utils::DBDATEFORMAT ) );
+		$this->assertEquals( $expected, Date_Utils::mutable( $input )->format( Date_Utils::DBDATEFORMAT ) );
+		$this->assertEquals( $expected, Date_Utils::immutable( $input )->format( Date_Utils::DBDATEFORMAT ) );
+	}
+
+	public function build_date_object_data_set() {
+		yield '2019-12-01 08:00:00 string' => [ '2019-12-01 08:00:00', '2019-12-01 08:00:00' ];
+		yield '2019-12-01 08:00:00 DateTime' => [ new DateTime( '2019-12-01 08:00:00' ), '2019-12-01 08:00:00' ];
+		yield '2019-12-01 08:00:00 DateTimeImmutable' => [
+			new DateTimeImmutable( '2019-12-01 08:00:00' ),
+			'2019-12-01 08:00:00'
+		];
+		yield '2019-12-01 08:00:00 timestamp' => [
+			( new DateTime( '2019-12-01 08:00:00' ) )->getTimestamp(),
+			'2019-12-01 08:00:00'
+		];
+
+		$timezone_str = 'Europe/Paris';
+		$timezone_obj = new DateTimeZone($timezone_str);
+
+		yield '2019-12-01 08:00:00 string w/ timezone' => [
+			'2019-12-01 08:00:00',
+			'2019-12-01 08:00:00',
+			$timezone_str,
+		];
+		yield '2019-12-01 08:00:00 DateTime w/timezone' => [
+			new DateTime( '2019-12-01 08:00:00', $timezone_obj ),
+			'2019-12-01 08:00:00',
+			$timezone_str,
+		];
+		yield '2019-12-01 08:00:00 DateTimeImmutable w/ timezone' => [
+			new DateTimeImmutable( '2019-12-01 08:00:00', $timezone_obj ),
+			'2019-12-01 08:00:00',
+			$timezone_str,
+		];
+		yield '2019-12-01 08:00:00 timestamp w/ timezone' => [
+			( new DateTime( '2019-12-01 08:00:00', $timezone_obj ) )->getTimestamp(),
+			'2019-12-01 08:00:00',
+			$timezone_str,
+		];
+
+		yield '2019-12-01 08:00:00 string w/ timezone obj' => [
+			'2019-12-01 08:00:00',
+			'2019-12-01 08:00:00',
+			$timezone_obj,
+		];
+		yield '2019-12-01 08:00:00 DateTime w/timezone' => [
+			new DateTime( '2019-12-01 08:00:00', $timezone_obj ),
+			'2019-12-01 08:00:00',
+			$timezone_obj,
+		];
+		yield '2019-12-01 08:00:00 DateTimeImmutable w/ timezone obj' => [
+			new DateTimeImmutable( '2019-12-01 08:00:00', $timezone_obj ),
+			'2019-12-01 08:00:00',
+			$timezone_obj,
+		];
+		yield '2019-12-01 08:00:00 timestamp w/ timezone obj' => [
+			( new DateTimeImmutable( '2019-12-01 08:00:00', $timezone_obj ) )->getTimestamp(),
+			'2019-12-01 08:00:00',
+			$timezone_obj,
+		];
+	}
+
+	/**
+	 * @dataProvider build_date_object_data_set
+	 */
+	public function test_build_date_object( $input, $expected, $timezone = null ) {
+		$this->assertEquals(
+			$expected,
+			Date_Utils::build_date_object( $input, $timezone )->format( Date_Utils::DBDATETIMEFORMAT )
+		);
+		$this->assertEquals(
+			$expected,
+			Date_Utils::mutable( $input, $timezone )->format( Date_Utils::DBDATETIMEFORMAT )
+		);
+		$this->assertEquals(
+			$expected,
+			Date_Utils::immutable( $input, $timezone )->format( Date_Utils::DBDATETIMEFORMAT )
+		);
+	}
 }

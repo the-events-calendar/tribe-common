@@ -2,10 +2,16 @@
 
 == Changelog ==
 
-= [4.10.2] TBD =
+= [4.10.3] TBD =
 
 * Feature - Add Repository filter `where_meta_related_by_meta` for getting a post by the meta value an associated post. [133333]
 * Fix - Correct missing block when switching from blocks to classic editor. [131493]
+
+= [4.10.2] 2019-12-10 =
+
+* Tweak - Add the `Tribe__Cache::warmup_post_caches` method to warmup the post caches for a set of posts [136624]
+* Tweak - Add the `tribe_cache_warmup_post_cache_limit` filter to allow filtering the LIMIT of those warmup fetches [136624]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.10.1] 2019-12-10 =
 
