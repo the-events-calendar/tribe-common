@@ -1628,7 +1628,7 @@ abstract class Tribe__Repository
 	 * @param string|array $meta_values   One or more values the post field(s) should be compared to;
 	 *                                    required if the comparison operator is not `EXISTS` or `NOT EXISTS`.
 	 * @param boolean      $or_not_exists Whether or not to also include a clause to check if value IS NULL.
-	 *                                    Example with this as true: value = X OR value IS NULL
+	 *                                    Example with this as true: `value = X OR value IS NULL`.
 	 *
 	 * @return $this
 	 */
