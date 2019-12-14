@@ -1626,10 +1626,12 @@ abstract class Tribe__Repository
 	 *                                  `NOT EXISTS`.
 	 * @param string|array $meta_values One or more values the post field(s) should be compared to;
 	 *                                  required if the comparison operator is not `EXISTS` or `NOT EXISTS`.
+	 * @param boolean      $or_not_exists Whether or not to also include a clause to check if value IS NULL.
+	 *                                    Example with this as true: value = X OR value IS NULL
 	 *
 	 * @return $this
 	 */
-	public function where_meta_related_by_meta( $meta_keys, $compare, $meta_field = null, $meta_values = null ) {
+	public function where_meta_related_by_meta( $meta_keys, $compare, $meta_field = null, $meta_values = null, $or_not_exists = false ) {
 		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
 
 		if ( ! in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ), true ) ) {
@@ -1642,20 +1644,29 @@ abstract class Tribe__Repository
 
 		/** @var wpdb $wpdb */
 		global $wpdb;
-		$p   = $this->sql_slug( 'post_meta_related_post', $compare, $meta_keys );
+
 		$pm  = $this->sql_slug( 'post_meta_related_post_meta', $compare, $meta_keys );
 		$pmm = $this->sql_slug( 'meta_post_meta_related_post_meta', $compare, $meta_keys );
 
-		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} {$pm} ON {$wpdb->posts}.ID = {$pm}.post_id" );
-		$this->filter_query->join( "LEFT JOIN {$wpdb->posts} {$p} ON {$pm}.meta_value = {$p}.ID" );
-		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} {$pmm} ON {$pm}.meta_value = {$pmm}.post_id" );
+		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} {$pm} ON {$pm}.post_id = {$wpdb->posts}.ID" );
+		$this->filter_query->join( "
+			LEFT JOIN {$wpdb->postmeta} {$pmm}
+				ON {$pmm}.post_id = {$pm}.meta_value
+					AND {$pmm}.meta_key = '{$meta_field}'
+		" );
 
 		$keys_in = $this->prepare_interval( $meta_keys );
 
 		if ( 'EXISTS' === $compare ) {
-			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$pmm}.meta_key = '{$meta_field}' AND {$pmm}.meta_value IS NOT NULL" );
+			$this->filter_query->where( "
+				{$pm}.meta_key IN {$keys_in}
+				AND {$pmm}.meta_id IS NOT NULL
+			" );
 		} elseif ( 'NOT EXISTS' === $compare ) {
-			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$pmm}.meta_key = '{$meta_field}' AND {$pmm}.meta_value IS NULL" );
+			$this->filter_query->where( "
+				{$pm}.meta_key IN {$keys_in}
+				AND {$pmm}.meta_id IS NULL
+			" );
 		} else {
 			if ( in_array( $compare, static::$multi_value_keys, true ) ) {
 				$meta_values = $this->prepare_interval( $meta_values );
@@ -1663,7 +1674,21 @@ abstract class Tribe__Repository
 				$meta_values = $this->prepare_value( $meta_values );
 			}
 
-			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$pmm}.meta_key = '{$meta_field}' AND {$pmm}.meta_value {$compare} {$meta_values}" );
+			$clause = "{$pmm}.meta_value {$compare} {$meta_values}";
+
+			if ( $or_not_exists ) {
+				$clause = "
+					(
+						{$clause}
+						OR {$pmm}.meta_id IS NULL
+					)
+				";
+			}
+
+			$this->filter_query->where( "
+				{$pm}.meta_key IN {$keys_in}
+				AND {$clause}
+			" );
 		}
 
 		return $this;
