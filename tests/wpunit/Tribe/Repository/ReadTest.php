@@ -887,24 +887,16 @@ class ReadTest extends ReadTestBase {
 		$books = $this->factory()->post->create_many( 4, [ 'post_type' => 'book' ] );
 		list( $first_book, $second_book, $third_book, $fourth_book ) = $books;
 
-		$reviewer           = function ( array $reviews, $review_status ) {
-			$reviews[] = $this->factory()->post->create( [
-				'post_type'   => 'review',
-				'post_status' => $review_status
-			] );
-
-			return $reviews;
-		};
-		$first_book_reviews = array_reduce( [ 'good', 'good', 'good' ], $reviewer, [] );
+		$first_book_reviews = array_reduce( [ 'good', 'good', 'good' ], [ $this, 'create_review' ], [] );
 		foreach ( $first_book_reviews as $review ) {
 			add_post_meta( $first_book, '_review', $review );
 		}
-		$second_book_reviews = array_reduce( [ 'good', 'good', 'bad' ], $reviewer, [] );
+		$second_book_reviews = array_reduce( [ 'good', 'good', 'bad' ], [ $this, 'create_review' ], [] );
 		foreach ( $second_book_reviews as $review ) {
 			add_post_meta( $second_book, '_review', $review );
 		}
 		$third_book_reviews  = [];
-		$fourth_book_reviews = array_reduce( [ 'bad' ], $reviewer, [] );
+		$fourth_book_reviews = array_reduce( [ 'bad' ], [ $this, 'create_review' ], [] );
 		foreach ( $fourth_book_reviews as $review ) {
 			add_post_meta( $fourth_book, '_review', $review );
 		}
@@ -966,111 +958,105 @@ class ReadTest extends ReadTestBase {
 	 * @test
 	 */
 	public function should_allow_filtering_posts_by_related_post_meta_fields() {
-		$books = $this->factory()->post->create_many( 4, [ 'post_type' => 'book' ] );
-		list( $first_book, $second_book, $third_book, $fourth_book ) = $books;
+		// Create books.
+		$books = $this->factory()->post->create_many( 5, [ 'post_type' => 'book' ] );
+		list( $first_book, $second_book, $third_book, $fourth_book, $fifth_book ) = $books;
 
-		$reviewer           = function ( array $reviews, $review_status ) {
-			$reviews[] = $this->factory()->post->create( [
-				'post_type'   => 'review',
-				'post_status' => $review_status
-			] );
+		$first_book_reviews = array_reduce( [ 'good', 'good', 'good' ], [ $this, 'create_review' ], [] );
 
-			return $reviews;
-		};
-
-		$test_reviews = [];
-
-		$first_book_reviews = array_reduce( [ 'good', 'good', 'good' ], $reviewer, [] );
-
-		$i = 0;
 		foreach ( $first_book_reviews as $review ) {
 			add_post_meta( $first_book, '_review', $review );
-			add_post_meta( $review, '_counter', ++$i );
-
-			if ( 1 === $i ) {
-				$test_reviews_one[] = $first_book;
-			} elseif ( 2 === $i ) {
-				$test_reviews_two[] = $first_book;
-			} elseif ( 3 === $i ) {
-				$test_reviews_three[] = $first_book;
-			}
+			add_post_meta( $review, '_short_line', 'Would read it again!' );
 		}
 
-		$second_book_reviews = array_reduce( [ 'good', 'good' ], $reviewer, [] );
+		$second_book_reviews = array_reduce( [ 'good', 'good', 'bad' ], [ $this, 'create_review' ], [] );
 
-		$i = 0;
 		foreach ( $second_book_reviews as $review ) {
 			add_post_meta( $second_book, '_review', $review );
-			add_post_meta( $review, '_counter', ++$i );
-
-			if ( 1 === $i ) {
-				$test_reviews_one[] = $second_book;
-			} elseif ( 2 === $i ) {
-				$test_reviews_two[] = $second_book;
-			}
+			add_post_meta( $review, '_short_line', 'Would not read it again!' );
 		}
 
-		$third_book_reviews  = [];
+		// Intentionally left empty.
+		$third_book_reviews = [];
 
-		$fourth_book_reviews = array_reduce( [ 'good' ], $reviewer, [] );
+		$fourth_book_reviews = array_reduce( [ 'bad' ], [ $this, 'create_review' ], [] );
 
-		$i = 0;
 		foreach ( $fourth_book_reviews as $review ) {
 			add_post_meta( $fourth_book, '_review', $review );
-			add_post_meta( $review, '_counter', ++$i );
-
-			if ( 1 === $i ) {
-				$test_reviews_one[] = $fourth_book;
-			}
+			add_post_meta( $review, '_short_line', 'Would totally read it again!' );
 		}
 
-		$w_reviews_one = $this->repository()->where_meta_related_by_meta(
+		$fifth_book_reviews = array_reduce( [ 'bad' ], [ $this, 'create_review' ], [] );
+
+		foreach ( $fifth_book_reviews as $review ) {
+			add_post_meta( $fifth_book, '_review', $review );
+			// Intentionally do not set short line.
+		}
+
+		// Check for books that have _short_line set.
+		$w_reviews = $this->repository()->where_meta_related_by_meta( '_review', 'EXISTS', '_short_line' )
+		                  ->fields( 'ids' )->all();
+		$this->assertEquals( [
+			$first_book,
+			$second_book,
+			$fourth_book,
+		], $w_reviews );
+
+		// Check for books that have no _short_line set.
+		$wo_reviews = $this->repository()->where_meta_related_by_meta( '_review', 'NOT EXISTS', '_short_line' )
+		                   ->fields( 'ids' )->all();
+		$this->assertEquals( [
+			$fifth_book,
+		], $wo_reviews );
+
+		// Check for books that have _short_line set as a specific value.
+		$w_good_reviews = $this->repository()
+		                       ->where_meta_related_by_meta( '_review', '=', '_short_line', 'Would read it again!' )
+		                       ->fields( 'ids' )->all();
+		$this->assertEquals( [
+			$first_book,
+		], $w_good_reviews );
+
+		// Check for books that do NOT have _short_line set as a specific value.
+		$wo_good_reviews = $this->repository()
+		                        ->where_meta_related_by_meta( '_review', '!=', '_short_line', 'Would read it again!' )
+		                        ->fields( 'ids' )->all();
+		$this->assertEquals( [
+			$second_book,
+			$fourth_book,
+		], $wo_good_reviews );
+
+		// Check for books that do NOT have _short_line set as a specific value OR that value does NOT EXIST.
+		$wo_good_reviews = $this->repository()
+		                        ->where_meta_related_by_meta( '_review', '!=', '_short_line', 'Would read it again!', true )
+		                        ->fields( 'ids' )->all();
+		$this->assertEquals( [
+			$second_book,
+			$fourth_book,
+			$fifth_book,
+		], $wo_good_reviews );
+
+		// Check for books that have no _review set OR _short_line set as a specific value.
+		$first_match = [
+			'where_meta_related_by_meta',
 			'_review',
-			'=' ,
-			'_counter',
-			1
-		)->fields( 'ids' )->all();
+			'NOT EXISTS',
+			'_short_line',
+		];
 
-		// Test that all experted books are returned.
-		foreach( $w_reviews_one as $key => $review_id ) {
-			$this->assertContains( $review_id, $test_reviews_one, 'Incorrect book identified' );
-			unset( $w_reviews_one[ $key ] );
-		}
-
-		// Test that all returned books are expected.
-		$this->assertEmpty( $w_reviews_one, 'Book missed by query!' );
-
-		$w_reviews_two = $this->repository()->where_meta_related_by_meta(
+		$second_match = [
+			'where_meta_related_by_meta',
 			'_review',
-			'=' ,
-			'_counter',
-			2
-		)->fields( 'ids' )->all();
-
-		// Test that all experted books are returned.
-		foreach( $w_reviews_two as $key => $review_id ) {
-			$this->assertContains( $review_id, $test_reviews_two, 'Incorrect book identified' );
-			unset( $w_reviews_two[ $key ] );
-		}
-
-		// Test that all returned books are expected.
-		$this->assertEmpty( $w_reviews_two, 'Book missed by query!' );
-
-		$w_reviews_three = $this->repository()->where_meta_related_by_meta(
-			'_review',
-			'=' ,
-			'_counter',
-			3
-		)->fields( 'ids' )->all();
-
-		// Test that all experted books are returned.
-		foreach( $w_reviews_three as $key => $review_id ) {
-			$this->assertContains( $review_id, $test_reviews_three, 'Incorrect book identified' );
-			unset( $w_reviews_three[ $key ] );
-		}
-
-		// Test that all returned books are expected.
-		$this->assertEmpty( $w_reviews_three, 'Book missed by query!' );
+			'=',
+			'_short_line',
+			'Would read it again!',
+		];
+		$w_good_reviews_or_no_reviews = $this->repository()->where_or( $first_match, $second_match )->fields( 'ids' )
+		                                     ->all();
+		$this->assertEquals( [
+			$first_book,
+			$fifth_book,
+		], $w_good_reviews_or_no_reviews );
 	}
 
 	/**
@@ -1172,5 +1158,22 @@ class ReadTest extends ReadTestBase {
 		$this->assertEmpty( $repository->by_args( [ 'void_query' => true ] )->all() );
 		$this->assertCount( 0, $repository->by_args( [ 'void_query' => false ] )->all() );
 		$this->assertCount( 0, $repository->by( 'void_query', false )->all() );
+	}
+
+	/**
+	 * Create review using array_reduce().
+	 *
+	 * @param array  $reviews       List of ongoing reviews.
+	 * @param string $review_status Review post status.
+	 *
+	 * @return array List of reviews.
+	 */
+	protected function create_review( array $reviews, $review_status ) {
+		$reviews[] = $this->factory()->post->create( [
+			'post_type'   => 'review',
+			'post_status' => $review_status,
+		] );
+
+		return $reviews;
 	}
 }
