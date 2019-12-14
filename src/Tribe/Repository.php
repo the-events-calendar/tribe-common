@@ -1610,6 +1610,7 @@ abstract class Tribe__Repository
 
 		return $this;
 	}
+
 	/**
 	 * Filters the query to only return posts that are related, via a meta key, to posts
 	 * that satisfy a condition.
@@ -1618,14 +1619,14 @@ abstract class Tribe__Repository
 	 *
 	 * @throws Tribe__Repository__Usage_Error If the comparison operator requires and no value provided.
 	 *
-	 * @param string|array $meta_keys   One or more `meta_keys` relating the queried post type(s)
-	 *                                  to another post type.
-	 * @param string       $compare     The SQL comparison operator.
-	 * @param string       $meta_field  One (a column in the `postmeta` table) that should match
-	 *                                  the comparison criteria; required if the comparison operator is not `EXISTS` or
-	 *                                  `NOT EXISTS`.
-	 * @param string|array $meta_values One or more values the post field(s) should be compared to;
-	 *                                  required if the comparison operator is not `EXISTS` or `NOT EXISTS`.
+	 * @param string|array $meta_keys     One or more `meta_keys` relating the queried post type(s)
+	 *                                    to another post type.
+	 * @param string       $compare       The SQL comparison operator.
+	 * @param string       $meta_field    One (a column in the `postmeta` table) that should match
+	 *                                    the comparison criteria; required if the comparison operator is not `EXISTS` or
+	 *                                    `NOT EXISTS`.
+	 * @param string|array $meta_values   One or more values the post field(s) should be compared to;
+	 *                                    required if the comparison operator is not `EXISTS` or `NOT EXISTS`.
 	 * @param boolean      $or_not_exists Whether or not to also include a clause to check if value IS NULL.
 	 *                                    Example with this as true: value = X OR value IS NULL
 	 *
