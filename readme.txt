@@ -4,6 +4,7 @@
 
 = [4.10.3] TBD =
 
+* Feature - Add Repository filter `where_meta_related_by_meta` for getting a post by the meta value an associated post. [133333]
 * Fix - Correct missing block when switching from blocks to classic editor. [131493]
 
 = [4.10.2] 2019-12-10 =
