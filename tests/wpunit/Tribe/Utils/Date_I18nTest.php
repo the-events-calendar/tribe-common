@@ -32,7 +32,7 @@ class Date_I18n_Test extends WPTestCase {
 	 * @dataProvider data_dates_and_timezones
 	 * @group utils
 	 */
-	public function it_should_properly_include_timezones( $datetime, $timezone, $expected ) {
+	public function it_should_properly_convert_to_utc_from_provided_timezone( $datetime, $timezone, $expected ) {
 		$timezone = new DateTimeZone( $timezone );
 		$date_object = new Date_I18n( $datetime, $timezone );
 		$date_object = Date_I18n::createFromImmutable( $date_object );
