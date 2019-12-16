@@ -4,6 +4,7 @@
 
 = [TBD] TBD =
 
+* Tweak - Set the default datepicker (compact) format to MM/D/YYYY [136789]
 * Tweak - Add the `Tribe\Traits\Cache_User::reset_caches` method to clear cache entries [138357]
 
 = [4.10.2] 2019-12-10 =

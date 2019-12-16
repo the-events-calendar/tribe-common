@@ -49,7 +49,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$datepicker = self::datepicker_formats( $datepicker );
 			}
 
-			$default_datepicker = self::datepicker_formats( 0 );
+			$default_datepicker = self::datepicker_formats( 1 );
 
 			// If the current datepicker is the default we don't care
 			if ( $datepicker === $default_datepicker ) {
@@ -99,7 +99,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return $formats;
 			}
 
-			return isset( $formats[ $translate ] ) ? $formats[ $translate ] : $formats[0];
+			return isset( $formats[ $translate ] ) ? $formats[ $translate ] : $formats[1];
 		}
 
 		/**
