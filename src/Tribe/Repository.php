@@ -1615,7 +1615,7 @@ abstract class Tribe__Repository
 	 * Filters the query to only return posts that are related, via a meta key, to posts
 	 * that satisfy a condition.
 	 *
-	 * @since TBD
+	 * @since 4.10.3
 	 *
 	 * @throws Tribe__Repository__Usage_Error If the comparison operator requires and no value provided.
 	 *
