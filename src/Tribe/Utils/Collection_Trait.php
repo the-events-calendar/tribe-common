@@ -152,14 +152,27 @@ trait Collection_Trait {
 	 * {@inheritDoc}
 	 */
 	public function serialize() {
-		return serialize( $this->all() );
+		$to_serialize = $this->all();
+
+		if ( method_exists( $this, 'before_serialize' ) ) {
+			$to_serialize = $this->before_serialize( $this->all() );
+		}
+
+		return serialize( $to_serialize );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function unserialize( $serialized ) {
-		$this->items = unserialize( $serialized );
+		$to_unserialize = $serialized;
+
+		if ( method_exists( $this, 'custom_unserialize' ) ) {
+			$this->items = $this->custom_unserialize( $to_unserialize );
+			return;
+		}
+
+		$this->items = unserialize( $to_unserialize );
 	}
 
 	/**
