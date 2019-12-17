@@ -23,7 +23,7 @@
 		border: 0;
 		border-bottom: 1px solid var(--color-border-default);
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			@mixin desktop-body-2;
 
 			border: 0;
@@ -80,16 +80,16 @@
 			border: 0;
 			border-bottom: 1px solid var(--color-border-default);
 
-			@media (--viewport-medium) {
-				@mixin desktop-body-2;
-
-				border: 0;
-			}
-
 			&:focus {
 				border-bottom-color: var(--color-border-active);
 				box-shadow: none;
 			}
+		}
+
+		&.tribe-common--breakpoint-medium .tribe-common-form-control-text__input {
+			@mixin desktop-body-2;
+
+			border: 0;
 		}
 	}
 }

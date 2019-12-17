@@ -13,8 +13,13 @@
 	a.tribe-common-c-btn {
 		@mixin button-solid;
 
-		padding: 11px 20px 11px;
 		background-color: var(--color-accent-primary);
+		padding: 11px 20px 11px;
+		width: 100%;
+
+		.tribe-common--breakpoint-medium& {
+			width: auto;
+		}
 
 		&:focus,
 		&:hover {
