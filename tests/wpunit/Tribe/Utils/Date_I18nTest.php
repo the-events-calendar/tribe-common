@@ -1,9 +1,10 @@
 <?php
+
 namespace Tribe\Utils;
 
-use Tribe__Date_Utils as Dates;
+use Codeception\TestCase\WPTestCase;
 use DateTimeZone;
-use \Codeception\TestCase\WPTestCase;
+use Tribe__Date_Utils as Dates;
 
 class Date_I18n_Test extends WPTestCase {
 	/**
@@ -24,21 +25,23 @@ class Date_I18n_Test extends WPTestCase {
 	}
 
 	public function data_dates_and_timezones() {
-		$timezones         = [
+		$timezones = [
 			'UTC',
 			'America/Sao_Paulo',
 			'Europe/Berlin',
 			'Pacific/Honolulu',
 		];
+
 		$input_to_expected = [
 			'2018-02-01 18:00:00' => '2018-02-01 18:00:00',
 		];
-		foreach ($timezones as $default_timezone){
-			foreach ($timezones as $date_timezone){
-				foreach ($input_to_expected as $input => $expected){
+
+		foreach ( $timezones as $default_timezone ) {
+			foreach ( $timezones as $date_timezone ) {
+				foreach ( $input_to_expected as $input => $expected ) {
 					{
 						yield $date_timezone . ' on ' . $default_timezone . ' default timezone' =>
-						[ $input,$date_timezone,$default_timezone, $expected];
+						[ $input, $date_timezone, $default_timezone, $expected ];
 					};
 				}
 			}
@@ -58,16 +61,21 @@ class Date_I18n_Test extends WPTestCase {
 	/**
 	 * @test
 	 * @dataProvider data_dates_and_timezones
-	 * @group utils
+	 * @group        utils
 	 */
-	public function it_should_retain_timezone_and_timestamp_when_created_from_immutable_object( $datetime, $timezone,$date_default_timezone,$expected  ) {
+	public function it_should_retain_timezone_and_timestamp_when_created_from_immutable_object(
+		$datetime,
+		$timezone,
+		$date_default_timezone,
+		$expected
+	) {
 		date_default_timezone_set( $date_default_timezone );
 
 		$this->assertEquals( $date_default_timezone, date_default_timezone_get() );
 
-		$timezone  = new DateTimeZone( $timezone );
+		$timezone = new DateTimeZone( $timezone );
 		$immutable = new Date_I18n_Immutable( $datetime, $timezone );
-		$mutable   = Date_I18n::createFromImmutable( $immutable );
+		$mutable = Date_I18n::createFromImmutable( $immutable );
 
 		$this->assertEquals( $immutable->getTimestamp(), $mutable->getTimestamp() );
 		$this->assertEquals( $expected, $mutable->format_i18n( Dates::DBDATETIMEFORMAT ) );
