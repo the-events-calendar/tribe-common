@@ -73,12 +73,46 @@ class Date_I18n_Test extends WPTestCase {
 
 		$this->assertEquals( $date_default_timezone, date_default_timezone_get() );
 
-		$timezone = new DateTimeZone( $timezone );
+		$timezone  = new DateTimeZone( $timezone );
 		$immutable = new Date_I18n_Immutable( $datetime, $timezone );
-		$mutable = Date_I18n::createFromImmutable( $immutable );
+		$mutable   = Date_I18n::createFromImmutable( $immutable );
 
 		$this->assertEquals( $immutable->getTimestamp(), $mutable->getTimestamp() );
 		$this->assertEquals( $expected, $mutable->format_i18n( Dates::DBDATETIMEFORMAT ) );
 		$this->assertEquals( $timezone, $mutable->getTimezone() );
+	}
+
+	public function timestamp_timezones() {
+		// Build the timestamp in a system-timezone independent way.
+		$timestamp = ( new \DateTime( '2018-02-01 18:00:00', new DateTimeZone( 'UTC' ) ) )
+			->getTimestamp();
+
+		return [
+			'UTC'               => [ $timestamp, 'UTC' ],
+			'America/Sao_Paulo' => [ $timestamp, 'America/Sao_Paulo' ],
+			'Europe/Berlin'     => [ $timestamp, 'Europe/Berlin' ],
+			'Pacific/Honolulu'  => [ $timestamp, 'Pacific/Honolulu' ],
+		];
+	}
+
+	/**
+	 * It should ignore the timezone when built from timestamp
+	 *
+	 * @test
+	 * @dataProvider timestamp_timezones
+	 */
+	public function should_ignore_the_timezone_when_built_from_timestamp( $timestamp, $timezone ) {
+		$date = new Date_I18n( '@' . $timestamp, new DateTimeZone( $timezone ) );
+
+		$this->assertEquals(
+			$timestamp,
+			$date->getTimestamp(),
+			'DateTime behavior is to ignore the DateTimezone when building from timestamp: we should stick w/ that.'
+		);
+		$this->assertEquals(
+			new DateTimeZone( 'GMT+0' ),
+			$date->getTimezone(),
+			'DateTime behavior is to ignore the DateTimezone when building from timestamp: we should stick w/ that.'
+		);
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Tribe\Utils;
 
 use Codeception\TestCase\WPTestCase;
@@ -33,12 +34,12 @@ class Date_I18n_Immutable_Test extends WPTestCase {
 		$input_to_expected = [
 			'2018-02-01 18:00:00' => '2018-02-01 18:00:00',
 		];
-		foreach ($timezones as $default_timezone){
-			foreach ($timezones as $date_timezone){
-				foreach ($input_to_expected as $input => $expected){
+		foreach ( $timezones as $default_timezone ) {
+			foreach ( $timezones as $date_timezone ) {
+				foreach ( $input_to_expected as $input => $expected ) {
 					{
 						yield $date_timezone . ' on ' . $default_timezone . ' default timezone' =>
-						[ $input,$date_timezone,$default_timezone, $expected];
+						[ $input, $date_timezone, $default_timezone, $expected ];
 					};
 				}
 			}
@@ -58,19 +59,61 @@ class Date_I18n_Immutable_Test extends WPTestCase {
 	/**
 	 * @test
 	 * @dataProvider data_dates_and_timezones
-	 * @group utils
+	 * @group        utils
 	 */
-	public function it_should_retain_timezone_and_timestamp_when_created_from_mutable_object( $datetime, $timezone,$date_default_timezone,$expected ) {
+	public function it_should_retain_timezone_and_timestamp_when_created_from_mutable_object(
+		$datetime,
+		$timezone,
+		$date_default_timezone,
+		$expected
+	) {
 		date_default_timezone_set( $date_default_timezone );
 
 		$this->assertEquals( $date_default_timezone, date_default_timezone_get() );
 
-		$timezone    = new DateTimeZone( $timezone );
-		$mutable = new Date_I18n( $datetime, $timezone );
-		$immutable = Date_I18n_Immutable::createFromMutable( $mutable);
+		$timezone  = new DateTimeZone( $timezone );
+		$mutable   = new Date_I18n( $datetime, $timezone );
+		$immutable = Date_I18n_Immutable::createFromMutable( $mutable );
 
 		$this->assertEquals( $mutable->getTimestamp(), $immutable->getTimestamp() );
 		$this->assertEquals( $expected, $immutable->format_i18n( Dates::DBDATETIMEFORMAT ) );
 		$this->assertEquals( $timezone, $immutable->getTimezone() );
+	}
+
+	public function timestamp_timezones() {
+		// Build the timestamp in a system-timezone independent way.
+		$timestamp = ( new \DateTime( '2018-02-01 18:00:00', new DateTimeZone( 'UTC' ) ) )
+			->getTimestamp();
+
+		return [
+			'UTC'               => [ $timestamp, 'UTC' ],
+			'America/Sao_Paulo' => [ $timestamp, 'America/Sao_Paulo' ],
+			'Europe/Berlin'     => [ $timestamp, 'Europe/Berlin' ],
+			'Pacific/Honolulu'  => [ $timestamp, 'Pacific/Honolulu' ],
+		];
+	}
+
+	/**
+	 * It should ignore the timezone when built from timestamp
+	 *
+	 * @test
+	 * @dataProvider timestamp_timezones
+	 */
+	public function should_ignore_the_timezone_when_built_from_timestamp( $timestamp, $timezone ) {
+		$this_timezone = new DateTimeZone( $timezone );
+		$date          = new Date_I18n( '@' . $timestamp, $this_timezone );
+		$gmt_timezone  = new DateTimeZone( 'GMT+0' );
+
+		$this->assertNotEquals( $gmt_timezone, $this_timezone );
+		$this->assertEquals(
+			$timestamp,
+			$date->getTimestamp(),
+			'DateTime behavior is to ignore the DateTimezone when building from timestamp: we should stick w/ that.'
+		);
+		$this->assertEquals(
+			$gmt_timezone,
+			$date->getTimezone(),
+			'DateTime behavior is to ignore the DateTimezone when building from timestamp: we should stick w/ that.'
+		);
 	}
 }
