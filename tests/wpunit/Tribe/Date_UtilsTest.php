@@ -28,6 +28,9 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// your set up methods here
+
+		// Default timezone to UTC at beginning of each test
+		date_default_timezone_set( 'UTC' );
 	}
 
 	public function tearDown() {
