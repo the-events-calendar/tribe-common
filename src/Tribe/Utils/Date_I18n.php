@@ -31,7 +31,7 @@ class Date_I18n extends DateTime {
 	}
 
 	/**
-	 * Returns a translated string usign the params from this DateTime instance.
+	 * Returns a translated string using the params from this DateTime instance.
 	 *
 	 * @since  TBD
 	 *
@@ -40,8 +40,9 @@ class Date_I18n extends DateTime {
 	 * @return string         Translated date.
 	 */
 	public function format_i18n( $date_format ) {
-		$unix_with_tz = strtotime( $this->format( Dates::DBDATETIMEFORMAT ) );
+		$unix_with_tz = $this->getTimestamp() + $this->getOffset();
 		$translated   = date_i18n( $date_format, $unix_with_tz );
+
 		return $translated;
 	}
 }
