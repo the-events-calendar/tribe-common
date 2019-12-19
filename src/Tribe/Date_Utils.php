@@ -1245,6 +1245,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$date = new Date_I18n( $datetime, $timezone_object );
 				restore_error_handler();
 			} catch ( Exception $e ) {
+				// if we encounter an error, we need to restore after catching
+				restore_error_handler();
+
 				if ( $timezone_object === null ) {
 					$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
 				}
