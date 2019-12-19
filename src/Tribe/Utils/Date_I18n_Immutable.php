@@ -40,7 +40,7 @@ class Date_I18n_Immutable extends DateTimeImmutable {
 	 * @return string         Translated date.
 	 */
 	public function format_i18n( $date_format ) {
-		$unix_with_tz = $this->format( 'U' );
+		$unix_with_tz = strtotime( $this->format( Dates::DBDATETIMEFORMAT ) );
 		$translated   = date_i18n( $date_format, $unix_with_tz );
 		return $translated;
 	}
