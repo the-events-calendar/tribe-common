@@ -28,11 +28,11 @@ class QuerySetTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow setting th query on the repository
+	 * It should allow setting the query on the repository
 	 *
 	 * @test
 	 */
-	public function should_allow_setting_th_query_on_the_repository() {
+	public function should_allow_setting_the_query_on_the_repository() {
 		$query = new \WP_Query();
 
 		$repository = $this->repository();
