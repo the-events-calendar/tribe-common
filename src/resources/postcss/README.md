@@ -69,7 +69,7 @@ In this case, the label is an element of the toggle. However, the `--vertical` m
 
 For overriding styles, it is recommended to only use classes to keep overriding specificity consistent. All elements should have classes and should be targetted using those classes.
 
-## Modifiers and pseudo-classes, and container query classes
+## Modifiers, pseudo-classes, and container query classes
 
 As you get into building upon these styles and creating new styles, the order of modifiers, pseudo-classes, and container query classes comes into question. The general rule is to apply them in the following order: container query classes, pseudo-classes, modifiers. See the examples below:
 
