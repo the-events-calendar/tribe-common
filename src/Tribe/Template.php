@@ -502,13 +502,27 @@ class Tribe__Template {
 	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
 	public function template( $name, $context = array(), $echo = true ) {
-		// If name is String make it an Array
-		if ( is_string( $name ) ) {
-			$name = (array) explode( '/', $name );
+		static $file_exists    = [];
+		static $files          = [];
+		static $template_names = [];
+
+		// Key we'll use for in-memory caching of expensive operations.
+		$cache_name_key = $name;
+
+		// Cache template name massaging so we don't have to repeat these actions.
+		if ( ! isset( $template_names[ $cache_name_key ] ) ) {
+			// If name is String make it an Array
+			if ( is_string( $name ) ) {
+				$name = (array) explode( '/', $name );
+			}
+
+			// Clean this Variable
+			$name = array_map( 'sanitize_title_with_dashes', $name );
+
+			$template_names[ $cache_name_key ] = $name;
 		}
 
-		// Clean this Variable
-		$name = array_map( 'sanitize_title_with_dashes', $name );
+		$name = $template_names[ $cache_name_key ];
 
 		if ( ! empty( $this->origin->template_namespace ) ) {
 			$namespace = array_merge( (array) $this->origin->template_namespace, $name );
@@ -519,18 +533,31 @@ class Tribe__Template {
 		// Setup the Hook name
 		$hook_name = implode( '/', $namespace );
 
-		// Check if the file exists
-		$file = $this->get_template_file( $name );
+		// Cache file location and existence.
+		if ( ! isset( $file_exists[ $cache_name_key ] ) || ! isset( $files[ $cache_name_key ] ) ) {
+			// Check if the file exists
+			$files[ $cache_name_key ] = $file = $this->get_template_file( $name );
 
-		// Check if it's a valid variable
-		if ( ! $file ) {
+			// Check if it's a valid variable
+			if ( ! $file ) {
+				return $file_exists[ $cache_name_key ] = false;
+			}
+
+			// Before we load the file we check if it exists
+			if ( ! file_exists( $file ) ) {
+				return $file_exists[ $cache_name_key ] = false;
+			}
+
+			$file_exists[ $cache_name_key ] = true;
+		}
+
+		// If the file doesn't exist, bail.
+		if ( ! $file_exists[ $cache_name_key ] ) {
 			return false;
 		}
 
-		// Before we load the file we check if it exists
-		if ( ! file_exists( $file ) ) {
-			return false;
-		}
+		// Use filename stored in cache.
+		$file = $files[ $cache_name_key ];
 
 		ob_start();
 
