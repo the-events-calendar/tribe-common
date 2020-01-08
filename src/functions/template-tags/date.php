@@ -290,6 +290,13 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 			return '';
 		}
 
+		static $start_dates = [];
+		$cache_key = "{$event->ID}:{$display_time}:{$date_format}:{$timezone}";
+
+		if ( isset( $start_dates[ $cache_key ] ) ) {
+			return $start_dates[ $cache_key ];
+		}
+
 		if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			$display_time = false;
 		}
@@ -307,7 +314,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 		 * @param string  $start_date
 		 * @param WP_Post $event
 		 */
-		return apply_filters( 'tribe_get_start_date', tribe_format_date( $start_date, $display_time, $date_format ), $event );
+		return $start_dates[ $cache_key ] = apply_filters( 'tribe_get_start_date', tribe_format_date( $start_date, $display_time, $date_format ), $event );
 	}
 }
 
@@ -342,6 +349,13 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 			return '';
 		}
 
+		static $end_dates = [];
+		$cache_key = "{$event->ID}:{$display_time}:{$date_format}:{$timezone}";
+
+		if ( isset( $end_dates[ $cache_key ] ) ) {
+			return $end_dates[ $cache_key ];
+		}
+
 		if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			$display_time = false;
 		}
@@ -359,7 +373,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 		 * @param string  $end_date
 		 * @param WP_Post $event
 		 */
-		return apply_filters( 'tribe_get_end_date', tribe_format_date( $end_date, $display_time, $date_format ), $event );
+		return $end_dates[ $cache_key ] = apply_filters( 'tribe_get_end_date', tribe_format_date( $end_date, $display_time, $date_format ), $event );
 	}
 }
 
