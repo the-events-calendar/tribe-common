@@ -533,6 +533,32 @@ class Tribe__Template {
 		// Setup the Hook name
 		$hook_name = implode( '/', $namespace );
 
+		// Cache file location and existence.
+		if ( ! isset( $file_exists[ $cache_name_key ] ) || ! isset( $files[ $cache_name_key ] ) ) {
+			// Check if the file exists
+			$files[ $cache_name_key ] = $file = $this->get_template_file( $name );
+
+			// Check if it's a valid variable
+			if ( ! $file ) {
+				return $file_exists[ $cache_name_key ] = false;
+			}
+
+			// Before we load the file we check if it exists
+			if ( ! file_exists( $file ) ) {
+				return $file_exists[ $cache_name_key ] = false;
+			}
+
+			$file_exists[ $cache_name_key ] = true;
+		}
+
+		// If the file doesn't exist, bail.
+		if ( ! $file_exists[ $cache_name_key ] ) {
+			return false;
+		}
+
+		// Use filename stored in cache.
+		$file = $files[ $cache_name_key ];
+
 		/**
 		 * Allow users to filter the HTML before rendering
 		 *
@@ -565,32 +591,6 @@ class Tribe__Template {
 		if ( null !== $pre_html ) {
 			return $pre_html;
 		}
-
-		// Cache file location and existence.
-		if ( ! isset( $file_exists[ $cache_name_key ] ) || ! isset( $files[ $cache_name_key ] ) ) {
-			// Check if the file exists
-			$files[ $cache_name_key ] = $file = $this->get_template_file( $name );
-
-			// Check if it's a valid variable
-			if ( ! $file ) {
-				return $file_exists[ $cache_name_key ] = false;
-			}
-
-			// Before we load the file we check if it exists
-			if ( ! file_exists( $file ) ) {
-				return $file_exists[ $cache_name_key ] = false;
-			}
-
-			$file_exists[ $cache_name_key ] = true;
-		}
-
-		// If the file doesn't exist, bail.
-		if ( ! $file_exists[ $cache_name_key ] ) {
-			return false;
-		}
-
-		// Use filename stored in cache.
-		$file = $files[ $cache_name_key ];
 
 		ob_start();
 
