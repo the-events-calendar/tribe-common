@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [5.0.1] TBD =
+
+* Fix - Fix style overrides for new view shortcodes for Genesis theme. [ECP-316]
+* Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
+
 = [4.11] TBD =
 
 * Tweak - Set the default datepicker (compact) format to MM/D/YYYY [136789]
