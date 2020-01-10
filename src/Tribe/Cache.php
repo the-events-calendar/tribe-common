@@ -219,6 +219,12 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return float The time (microtime) an action last occurred, or the current microtime if it never occurred.
 	 */
 	public function get_last_occurrence( $action ) {
+		static $cache_last_actions = [];
+
+		if ( isset( $cache_last_actions[ $action ] ) ) {
+			return $cache_last_actions[ $action ];
+		}
+
 		$last_action = (float) get_option( 'tribe_last_' . $action, null );
 
 		if ( ! $last_action ) {
@@ -227,7 +233,7 @@ class Tribe__Cache implements ArrayAccess {
 			update_option( 'tribe_last_' . $action, $last_action );
 		}
 
-		return (float) $last_action;
+		return $cache_last_actions[ $action ] = (float) $last_action;
 	}
 
 	/**
