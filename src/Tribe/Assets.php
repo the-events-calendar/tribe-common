@@ -281,29 +281,45 @@ class Tribe__Assets {
 		static $wp_plugin_url;
 		static $wp_content_url;
 		static $plugins_url;
-		static $base_dir;
-		static $base_url;
+		static $base_dirs;
 
-		$urls            = [];
-		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
-		$wp_plugin_url   = set_url_scheme( WP_PLUGIN_URL );
-		$wp_content_url  = set_url_scheme( WP_CONTENT_URL );
-		$plugins_url     = plugins_url();
+		$urls = [];
+		if ( ! isset( $wpmu_plugin_url ) ) {
+			$wpmu_plugin_url = set_url_scheme(WPMU_PLUGIN_URL );
+		}
+
+		if ( ! isset( $wp_plugin_url ) ) {
+			$wp_plugin_url = set_url_scheme(WP_PLUGIN_URL );
+		}
+
+		if ( ! isset( $wp_content_url ) ) {
+			$wp_content_url = set_url_scheme( WP_CONTENT_URL );
+		}
+
+		if ( ! isset( $plugins_url ) ) {
+			$plugins_url = plugins_url();
+		}
+
+		if ( ! isset( $base_dirs ) ) {
+			$base_dirs[ WPMU_PLUGIN_DIR ] = wp_normalize_path( WPMU_PLUGIN_DIR );
+			$base_dirs[ WP_PLUGIN_DIR ]   = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dirs[ WP_CONTENT_DIR ]  = wp_normalize_path( WP_CONTENT_DIR );
+		}
 
 		if ( 0 === strpos( $url, $wpmu_plugin_url ) ) {
 			// URL inside WPMU plugin dir.
-			$base_dir = wp_normalize_path( WPMU_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WPMU_PLUGIN_DIR ];
 			$base_url = $wpmu_plugin_url;
 		} elseif ( 0 === strpos( $url, $wp_plugin_url ) ) {
 			// URL inside WP plugin dir.
-			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WP_PLUGIN_DIR ];
 			$base_url = $wp_plugin_url;
 		} elseif ( 0 === strpos( $url, $wp_content_url ) ) {
 			// URL inside WP content dir.
-			$base_dir = wp_normalize_path( WP_CONTENT_DIR );
+			$base_dir = $base_dirs[ WP_CONTENT_DIR ];
 			$base_url = $wp_content_url;
 		} elseif ( 0 === strpos( $url, $plugins_url ) ) {
-			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WP_PLUGIN_DIR ];
 			$base_url = $plugins_url;
 		} else {
 			// Resource needs to be inside wp-content or a plugins dir.
