@@ -10,6 +10,7 @@
  * When used in its ArrayAccess API the cache will provide non persistent storage.
  */
 class Tribe__Cache implements ArrayAccess {
+	const SCHEDULED_EVENT_DELETE_TRANSIENT = 'tribe_schedule_transient_purge';
 	const NO_EXPIRATION  = 0;
 	const NON_PERSISTENT = - 1;
 
@@ -17,6 +18,17 @@ class Tribe__Cache implements ArrayAccess {
 	 * @var array
 	 */
 	protected $non_persistent_keys = array();
+
+	/**
+	 * Bootstrap hook
+	 */
+	public function hook() {
+		if ( ! wp_next_scheduled( self::SCHEDULED_EVENT_DELETE_TRANSIENT ) ) {
+			wp_schedule_event( time(), 'twicedaily', self::SCHEDULED_EVENT_DELETE_TRANSIENT );
+		}
+
+		add_action( self::SCHEDULED_EVENT_DELETE_TRANSIENT, [ $this, 'delete_expired_transients' ] );
+	}
 
 	public static function setup() {
 		wp_cache_add_non_persistent_groups( array( 'tribe-events-non-persistent' ) );
@@ -141,6 +153,32 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
+	 * Purge all expired tribe_ transients.
+	 *
+	 * This uses a modification of the the query from https://core.trac.wordpress.org/ticket/20316
+	 */
+	public function delete_expired_transients() {
+		global $wpdb;
+
+		$time = time();
+
+		$sql = "
+			DELETE
+				a,
+				b
+			FROM
+				{$wpdb->options} a
+				INNER JOIN {$wpdb->options} b
+					ON b.option_name = CONCAT( '_transient_timeout_tribe_', SUBSTRING( a.option_name, 12 ) )
+					AND b.option_value < {$time}
+			WHERE
+				a.option_name LIKE '\_transient_tribe\_%'
+				AND a.option_name NOT LIKE '\_transient\_timeout_tribe\_%'
+		";
+		$wpdb->query( $sql );
+	}
+
+	/**
 	 * @param string $key
 	 * @param string|array $expiration_trigger
 	 *
@@ -165,7 +203,7 @@ class Tribe__Cache implements ArrayAccess {
 		$last = empty( $last ) ? '' : $last;
 		$id   = $key . $last;
 		if ( strlen( $id ) > 80 ) {
-			$id = md5( $id );
+			$id = 'tribe_' . md5( $id );
 		}
 
 		return $id;
@@ -205,6 +243,8 @@ class Tribe__Cache implements ArrayAccess {
 			$timestamp = microtime( true );
 		}
 		update_option( 'tribe_last_' . $action, (float) $timestamp );
+
+		$this->delete_expired_transients();
 	}
 
 	/**
