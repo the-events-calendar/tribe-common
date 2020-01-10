@@ -56,7 +56,10 @@ class Tribe__Assets {
 			$assets = [ $assets ];
 		}
 
-		uasort( $assets, [ $this, 'order_by_priority' ] );
+		// Sorts by priority.
+		uasort( $this->assets, static function( $a, $b ) {
+			return (int) $a->priority === (int) $b->priority ? 0 : (int) $a->priority > (int) $b->priority;
+		} );
 
 		foreach ( $assets as $asset ) {
 			// Asset is already registered.
@@ -274,6 +277,13 @@ class Tribe__Assets {
 	 * @return string|false The url to the minified version or false, if file not found.
 	 */
 	public static function maybe_get_min_file( $url ) {
+		static $wpmu_plugin_url;
+		static $wp_plugin_url;
+		static $wp_content_url;
+		static $plugins_url;
+		static $base_dir;
+		static $base_url;
+
 		$urls            = [];
 		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
 		$wp_plugin_url   = set_url_scheme( WP_PLUGIN_URL );
@@ -320,7 +330,7 @@ class Tribe__Assets {
 		// Check for all Urls added to the array.
 		foreach ( $urls as $partial_path ) {
 			$file_path = wp_normalize_path( $base_dir . $partial_path );
-			$file_url  = plugins_url( basename( $file_path ), $file_path );
+			$file_url  = $base_url . $partial_path;
 
 			if ( file_exists( $file_path ) ) {
 				return $file_url;
@@ -366,7 +376,7 @@ class Tribe__Assets {
 	 */
 	public function register( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
 		// Prevent weird stuff here.
-		$slug = sanitize_title_with_dashes( $slug );
+		// $slug = sanitize_title_with_dashes( $slug );
 
 		if ( $this->exists( $slug ) ) {
 			return $this->get( $slug );
@@ -514,9 +524,6 @@ class Tribe__Assets {
 		// Set the Asset on the array of notices.
 		$this->assets[ $slug ] = $asset;
 
-		// Sorts by priority.
-		uasort( $this->assets, [ $this, 'order_by_priority' ] );
-
 		// Return the Slug because it might be modified.
 		return $asset;
 	}
@@ -585,34 +592,18 @@ class Tribe__Assets {
 	 *                           it was not in the array of objects.
 	 */
 	public function get( $slug = null ) {
-		uasort( $this->assets, [ $this, 'order_by_priority' ] );
-
 		if ( is_null( $slug ) ) {
 			return $this->assets;
 		}
 
 		// Prevent weird stuff here.
-		$slug = sanitize_title_with_dashes( $slug );
+		// $slug = sanitize_title_with_dashes( $slug );
 
 		if ( ! empty( $this->assets[ $slug ] ) ) {
 			return $this->assets[ $slug ];
 		}
 
 		return null;
-	}
-
-	/**
-	 * Add the Priority ordering, which was causing an issue of not respecting which order stuff was registered.
-	 *
-	 * @since  4.7
-	 *
-	 * @param object $a First Subject to compare.
-	 * @param object $b Second subject to compare.
-	 *
-	 * @return boolean
-	 */
-	public function order_by_priority( $a, $b ) {
-		return (int) $a->priority === (int) $b->priority ? 0 : (int) $a->priority > (int) $b->priority;
 	}
 
 	/**
