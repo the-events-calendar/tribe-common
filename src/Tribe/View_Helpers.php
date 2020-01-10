@@ -20,7 +20,11 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		 * @return array The countries array.
 		 */
 		public static function constructCountries( $postId = '', $useDefault = true ) {
-			$eventCountries = tribe_get_option( 'tribeEventsCountries' );
+			static $eventCountries;
+
+			if ( ! $eventCountries ) {
+				$eventCountries = tribe_get_option( 'tribeEventsCountries' );
+			}
 
 			if ( $eventCountries != '' ) {
 				$countries = array();
