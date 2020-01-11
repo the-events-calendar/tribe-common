@@ -507,7 +507,7 @@ class Tribe__Template {
 		static $template_names = [];
 
 		// Key we'll use for in-memory caching of expensive operations.
-		$cache_name_key = $name;
+		$cache_name_key = is_array( $name ) ? implode( '/', $name ) : $name;
 
 		// Cache template name massaging so we don't have to repeat these actions.
 		if ( ! isset( $template_names[ $cache_name_key ] ) ) {
