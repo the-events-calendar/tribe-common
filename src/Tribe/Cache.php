@@ -188,11 +188,15 @@ class Tribe__Cache implements ArrayAccess {
 		if ( is_array( $expiration_trigger ) ) {
 			$triggers = $expiration_trigger;
 		} else {
-			$triggers = explode( '|', $expiration_trigger );
+			$triggers = array_filter( explode( '|', $expiration_trigger ) );
 		}
 
 		$last = 0;
 		foreach ( $triggers as $trigger ) {
+			// Bail on empty trigger otherwise it creates a `tribe_last_` opt on the DB.
+			if ( empty( $trigger ) ) {
+				continue;
+			}
 			$occurrence = $this->get_last_occurrence( $trigger );
 
 			if ( $occurrence > $last ) {
