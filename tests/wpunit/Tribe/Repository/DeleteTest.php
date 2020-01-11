@@ -95,7 +95,7 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_deleting_in_async_mode() {
-		add_filter( 'tribe_repository_delete_async_activated', '__return_true' );
+		add_filter( 'tribe_repository_delete_background_activated', '__return_true' );
 		add_filter( 'tribe_repository_delete_background_threshold', function () {
 			// Since we're deleting 3 posts let's make sure async mode is kicking in.
 			return 2;
