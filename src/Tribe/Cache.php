@@ -188,11 +188,16 @@ class Tribe__Cache implements ArrayAccess {
 		if ( is_array( $expiration_trigger ) ) {
 			$triggers = $expiration_trigger;
 		} else {
-			$triggers = explode( '|', $expiration_trigger );
+			$triggers = array_filter( explode( '|', $expiration_trigger ) );
 		}
 
 		$last = 0;
 		foreach ( $triggers as $trigger ) {
+			// Bail on empty trigger otherwise it creates a `tribe_last_` opt on the DB.
+			if ( empty( $trigger ) ) {
+				continue;
+			}
+			
 			$occurrence = $this->get_last_occurrence( $trigger );
 
 			if ( $occurrence > $last ) {
@@ -219,6 +224,12 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return float The time (microtime) an action last occurred, or the current microtime if it never occurred.
 	 */
 	public function get_last_occurrence( $action ) {
+		static $cache_last_actions = [];
+
+		if ( isset( $cache_last_actions[ $action ] ) ) {
+			return $cache_last_actions[ $action ];
+		}
+
 		$last_action = (float) get_option( 'tribe_last_' . $action, null );
 
 		if ( ! $last_action ) {
@@ -227,7 +238,7 @@ class Tribe__Cache implements ArrayAccess {
 			update_option( 'tribe_last_' . $action, $last_action );
 		}
 
-		return (float) $last_action;
+		return $cache_last_actions[ $action ] = (float) $last_action;
 	}
 
 	/**
