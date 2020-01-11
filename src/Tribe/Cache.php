@@ -197,7 +197,7 @@ class Tribe__Cache implements ArrayAccess {
 			if ( empty( $trigger ) ) {
 				continue;
 			}
-			
+
 			$occurrence = $this->get_last_occurrence( $trigger );
 
 			if ( $occurrence > $last ) {
