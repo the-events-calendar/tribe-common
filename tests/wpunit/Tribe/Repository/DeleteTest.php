@@ -95,10 +95,10 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_deleting_in_async_mode() {
-		$filter_name = $this->repository()->get_filter_name();
-		add_filter( "tribe_repository_{$filter_name}_delete_background_activated", '__return_true' );
-		add_filter( "tribe_repository_{$filter_name}_delete_background_threshold", function () {
-			return 1;
+		add_filter( 'tribe_repository_delete_async_activated', '__return_true' );
+		add_filter( 'tribe_repository_delete_background_threshold', function () {
+			// Since we're deleting 3 posts let's make sure async mode is kicking in.
+			return 2;
 		} );
 		list( $john, $from_john ) = $this->create_books_by_authors();
 
