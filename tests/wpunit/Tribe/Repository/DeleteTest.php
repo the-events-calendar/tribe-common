@@ -95,7 +95,8 @@ class DeleteTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_deleting_in_async_mode() {
-		$this->markTestSkipped( 'Locally the test passes with flying collors, but on Travis it fails randomly. Nothing introduced was supposed to break it.' );
+		// Keeping this skip, because it will come in handy.
+		// $this->markTestSkipped( 'Locally the test passes with flying collors, but on Travis it fails randomly. Nothing introduced was supposed to break it.' );
 
 		add_filter( 'tribe_repository_delete_async_activated', '__return_true' );
 		add_filter( 'tribe_repository_delete_background_threshold', function () {
