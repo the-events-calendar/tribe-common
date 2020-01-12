@@ -551,7 +551,7 @@ class Tribe__Rewrite {
 	 */
 	protected function get_handled_rewrite_rules() {
 		static $cache_var_name = __METHOD__;
-		codecept_debug( $cache_var_name );
+
 		$our_rules = tribe_get_var( $cache_var_name, null );
 
 		// We need to make sure we are have WP_Rewrite setup
