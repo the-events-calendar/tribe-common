@@ -392,7 +392,7 @@ class Tribe__Assets {
 	 */
 	public function register( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
 		// Prevent weird stuff here.
-		// $slug = sanitize_title_with_dashes( $slug );
+		$slug = sanitize_title_with_dashes( $slug );
 
 		if ( $this->exists( $slug ) ) {
 			return $this->get( $slug );
@@ -613,7 +613,7 @@ class Tribe__Assets {
 		}
 
 		// Prevent weird stuff here.
-		// $slug = sanitize_title_with_dashes( $slug );
+		$slug = sanitize_title_with_dashes( $slug );
 
 		if ( ! empty( $this->assets[ $slug ] ) ) {
 			return $this->assets[ $slug ];
