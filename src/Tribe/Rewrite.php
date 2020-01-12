@@ -550,14 +550,16 @@ class Tribe__Rewrite {
 	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
 	 */
 	protected function get_handled_rewrite_rules() {
-		static $our_rules;
+		static $cache_var_name = __METHOD__;
+
+		$our_rules = tribe_get_var( $cache_var_name, null );
 
 		// We need to make sure we are have WP_Rewrite setup
 		if ( ! $this->rewrite ) {
 			$this->setup();
 		}
 
-		if ( ! isset( $our_rules ) ) {
+		if ( null === $our_rules ) {
 			// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 			$pattern = '/post_type=tribe_(events|venue|organizer)/';
 			// Reverse the rules to try and match the most complex first.
@@ -567,6 +569,8 @@ class Tribe__Rewrite {
 					return preg_match( $pattern, $rule_query_string );
 				}
 			);
+
+			tribe_set_var( $cache_var_name, $our_rules );
 		}
 
 		/**
@@ -591,10 +595,13 @@ class Tribe__Rewrite {
 	 * @return array A map of localized regex matchers in the shape `[ <localized_regex> => <query_var> ]`.
 	 */
 	protected function get_localized_matchers() {
+		static $cache_var_name = __METHOD__;
+
 		$bases         = (array) $this->get_bases();
 		$query_var_map = $this->get_matcher_to_query_var_map();
 
-		static $localized_matchers = [];
+		$localized_matchers = tribe_get_var( $cache_var_name, [] );
+
 		foreach ( $bases as $base => $localized_matcher ) {
 			if ( isset( $localized_matchers[ $localized_matcher ] ) ) {
 				continue;
@@ -624,6 +631,8 @@ class Tribe__Rewrite {
 			}
 		}
 
+		tribe_set_var( $cache_var_name, $localized_matchers );
+
 		return $localized_matchers;
 	}
 
@@ -650,7 +659,9 @@ class Tribe__Rewrite {
 	 * @return array A list of all the query vars handled in the rules.
 	 */
 	protected function get_rules_query_vars( array $rules ) {
-		static $cached_rules = [];
+		static $cache_var_name = __METHOD__;
+
+		$cached_rules = tribe_get_var( $cache_var_name, [] );
 		$cache_key = md5( json_encode( $rules ) );
 
 		if ( ! isset( $cached_rules[ $cache_key ] ) ) {
@@ -670,6 +681,8 @@ class Tribe__Rewrite {
 					)
 				)
 			);
+
+			tribe_set_var( $cache_var_name, $cached_rules );
 		}
 
 		return $cached_rules[ $cache_key ];

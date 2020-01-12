@@ -1,16 +1,9 @@
 <?php
 class Tribe__Settings_Manager {
+	const OPTION_CACHE_VAR_NAME = 'Tribe__Settings_Manager:option_cache';
+
 	protected static $network_options;
 	public static $tribe_events_mu_defaults;
-
-	/**
-	 * Caching for the options, avoids unnecessary method calls.
-	 *
-	 * @since TBD
-	 *
-	 * @var array
-	 */
-	protected static $options = [];
 
 	/**
 	 * constructor
@@ -58,7 +51,7 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
-		static::$options = $value;
+		tribe_set_var( self::OPTION_CACHE_VAR_NAME, $value );
 	}
 
 	/**
@@ -96,10 +89,14 @@ class Tribe__Settings_Manager {
 	 * @return array of options
 	 */
 	public static function get_options() {
-		if ( ! static::$options ) {
-			static::$options = (array) get_option( Tribe__Main::OPTIONNAME, [] );
+		$options = tribe_get_var( self::OPTION_CACHE_VAR_NAME, [] );
+
+		if ( ! $options ) {
+			$options = (array) get_option( Tribe__Main::OPTIONNAME, [] );
+
+			tribe_set_var( self::OPTION_CACHE_VAR_NAME, $options );
 		}
-		return static::$options;
+		return $options;
 	}
 
 	/**
@@ -144,7 +141,7 @@ class Tribe__Settings_Manager {
 		$updated = update_option( Tribe__Main::OPTIONNAME, $options );
 
 		if ( $updated ) {
-			static::$options = $options;
+			tribe_set_var( self::OPTION_CACHE_VAR_NAME, $options );
 		}
 
 		return $updated;

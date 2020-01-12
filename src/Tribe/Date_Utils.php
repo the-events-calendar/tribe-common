@@ -1271,13 +1271,19 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *              like `strtotime`, or not.
 		 */
 		public static function is_valid_date( $date ) {
-			static $cache_date_check = [];
+			static $cache_var_name = __FUNCTION__;
+
+			$cache_date_check = tribe_get_var( $cache_var_name, [] );
 
 			if ( isset( $cache_date_check[ $date ] ) ) {
 				return $cache_date_check[ $date ];
 			}
 
-			return $cache_date_check[ $date ] = self::build_date_object( $date, null, false ) instanceof DateTime;
+			$cache_date_check[ $date ] = self::build_date_object( $date, null, false ) instanceof DateTime;
+
+			tribe_set_var( $cache_var_name, $cache_date_check );
+
+			return $cache_date_check[ $date ];
 		}
 
 		/**
@@ -1295,7 +1301,9 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *                        `23:59:59`.
 		 */
 		public static function get_week_start_end( $date, $start_of_week = null ) {
-			static $cache_week_start_end;
+			static $cache_var_name = __FUNCTION__;
+
+			$cache_week_start_end = tribe_get_var( $cache_var_name, [] );
 
 			$week_start = static::build_date_object( $date );
 			$week_start->setTime( 0, 0, 0 );
@@ -1348,6 +1356,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			$cache[ $cache_key ]                       = [ $week_start, $week_end ];
 			$cache_week_start_end[ $memory_cache_key ] = [ $week_start, $week_end ];
+
+			tribe_set_var( $cache_var_name, $cache_week_start_end );
 
 			return [ $week_start, $week_end ];
 		}
