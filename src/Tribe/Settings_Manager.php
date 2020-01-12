@@ -91,11 +91,12 @@ class Tribe__Settings_Manager {
 	public static function get_options() {
 		$options = tribe_get_var( self::OPTION_CACHE_VAR_NAME, [] );
 
-		if ( ! $options ) {
+		if ( empty( $options ) ) {
 			$options = (array) get_option( Tribe__Main::OPTIONNAME, [] );
 
 			tribe_set_var( self::OPTION_CACHE_VAR_NAME, $options );
-		}
+ 		}
+
 		return $options;
 	}
 
@@ -158,6 +159,7 @@ class Tribe__Settings_Manager {
 	public static function set_option( $name, $value ) {
 		$options          = self::get_options();
 		$options[ $name ] = $value;
+
 		return self::set_options( $options );
 	}
 

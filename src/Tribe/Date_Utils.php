@@ -1310,16 +1310,16 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			$date_string = $week_start->format( static::DBDATEFORMAT );
 
-			$memory_cache_key = "{$date_string}:{$start_of_week}";
-
-			if ( isset( $cache_week_start_end[ $memory_cache_key ] ) ) {
-				return $cache_week_start_end[ $memory_cache_key ];
-			}
-
 			// `0` (for Sunday) through `6` (for Saturday), the way WP handles the `start_of_week` option.
 			$week_start_day = null !== $start_of_week
 				? (int) $start_of_week
 				: (int) get_option( 'start_of_week', 0 );
+
+			$memory_cache_key = "{$date_string}:{$week_start_day}";
+
+			if ( isset( $cache_week_start_end[ $memory_cache_key ] ) ) {
+				return $cache_week_start_end[ $memory_cache_key ];
+			}
 
 			$cache_key = md5(
 				__METHOD__ . serialize( [ $week_start->format( static::DBDATEFORMAT ), $week_start_day ] )
