@@ -224,6 +224,46 @@ if ( ! function_exists( 'tribe_get_var' ) ) {
 	}
 }
 
+if ( ! function_exists( 'tribe_unset_var' ) ) {
+	/**
+	 * Returns the value of a registered variable.
+	 *
+	 * Example use:
+	 *
+	 *      tribe_set_var( 'tec.url', 'http://example.com' );
+	 *
+	 *      tribe_unset_var( 'tec.url' );
+	 *
+	 * @param string $slug    The slug of the variable registered using `tribe_unset_var`.
+	 *
+	 * @return void
+	 */
+	function tribe_unset_var( $slug ) {
+		$container = Tribe__Container::init();
+		$container->offsetUnset( $slug );
+	}
+}
+
+if ( ! function_exists( 'tribe_isset_var' ) ) {
+	/**
+	 * Returns the value of a registered variable.
+	 *
+	 * Example use:
+	 *
+	 *      tribe_set_var( 'tec.url', 'http://example.com' );
+	 *
+	 *      tribe_isset_var( 'tec.url' );
+	 *
+	 * @param  string   $slug    The slug of the variable checked using `tribe_isset_var`.
+	 *
+	 * @return boolean  Either a the given slug exists.
+	 */
+	function tribe_isset_var( $slug ) {
+		$container = Tribe__Container::init();
+		return $container->offsetExists( $slug );
+	}
+}
+
 if ( ! function_exists( 'tribe_register_provider' ) ) {
 	/**
 	 * Registers a service provider in the container.
