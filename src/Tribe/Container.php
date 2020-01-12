@@ -240,7 +240,9 @@ if ( ! function_exists( 'tribe_unset_var' ) ) {
 	 */
 	function tribe_unset_var( $slug ) {
 		$container = Tribe__Container::init();
-		$container->offsetUnset( $slug );
+		try {
+			$container->offsetUnset( $slug );
+		} catch ( Exception $e ) {}
 	}
 }
 
