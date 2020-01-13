@@ -21,6 +21,8 @@ class Tribe__Cache implements ArrayAccess {
 
 	/**
 	 * Bootstrap hook
+	 *
+	 * @since 5.0.0
 	 */
 	public function hook() {
 		if ( ! wp_next_scheduled( self::SCHEDULED_EVENT_DELETE_TRANSIENT ) ) {
@@ -156,6 +158,8 @@ class Tribe__Cache implements ArrayAccess {
 	 * Purge all expired tribe_ transients.
 	 *
 	 * This uses a modification of the the query from https://core.trac.wordpress.org/ticket/20316
+	 *
+	 * @since 5.0.0
 	 */
 	public function delete_expired_transients() {
 		global $wpdb;
