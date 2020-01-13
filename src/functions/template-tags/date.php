@@ -277,6 +277,8 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 	 * @return string|null Date
 	 */
 	function tribe_get_start_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
+		static $cache_var_name = __FUNCTION__;
+
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -290,7 +292,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 			return '';
 		}
 
-		static $start_dates = [];
+		$start_dates = tribe_get_var( $cache_var_name, [] );
 		$cache_key = "{$event->ID}:{$display_time}:{$date_format}:{$timezone}";
 
 		if ( ! isset( $start_dates[ $cache_key ] ) ) {
@@ -306,6 +308,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 			}
 
 			$start_dates[ $cache_key ] = tribe_format_date( $start_date, $display_time, $date_format );
+			tribe_set_var( $cache_var_name, $start_dates );
 		}
 
 		/**
@@ -336,6 +339,8 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 	 * @return string|null Date
 	 */
 	function tribe_get_end_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
+		static $cache_var_name = __FUNCTION__;
+
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -349,7 +354,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 			return '';
 		}
 
-		static $end_dates = [];
+		$end_dates = tribe_get_var( $cache_var_name, [] );
 		$cache_key = "{$event->ID}:{$display_time}:{$date_format}:{$timezone}";
 
 		if ( ! isset( $end_dates[ $cache_key ] ) ) {
@@ -365,6 +370,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 			}
 
 			$end_dates[ $cache_key ] = tribe_format_date( $end_date, $display_time, $date_format );
+			tribe_set_var( $cache_var_name, $end_dates );
 		}
 
 		/**

@@ -550,20 +550,28 @@ class Tribe__Rewrite {
 	 * @return array An array of rewrite rules handled by the implementation in the shape `[ <regex> => <path> ]`.
 	 */
 	protected function get_handled_rewrite_rules() {
+		static $cache_var_name = __METHOD__;
+
+		$our_rules = tribe_get_var( $cache_var_name, null );
+
 		// We need to make sure we are have WP_Rewrite setup
 		if ( ! $this->rewrite ) {
 			$this->setup();
 		}
 
-		// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
-		$pattern = '/post_type=tribe_(events|venue|organizer)/';
-		// Reverse the rules to try and match the most complex first.
-		$rules     = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
-		$our_rules = array_filter( $rules,
-			static function ( $rule_query_string ) use ( $pattern ) {
-				return preg_match( $pattern, $rule_query_string );
-			}
-		);
+		if ( null === $our_rules ) {
+			// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
+			$pattern = '/post_type=tribe_(events|venue|organizer)/';
+			// Reverse the rules to try and match the most complex first.
+			$rules     = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
+			$our_rules = array_filter( $rules,
+				static function ( $rule_query_string ) use ( $pattern ) {
+					return preg_match( $pattern, $rule_query_string );
+				}
+			);
+
+			tribe_set_var( $cache_var_name, $our_rules );
+		}
 
 		/**
 		 * Filters the list of rewrite rules handled by our code to add or remove some as required.
@@ -587,11 +595,18 @@ class Tribe__Rewrite {
 	 * @return array A map of localized regex matchers in the shape `[ <localized_regex> => <query_var> ]`.
 	 */
 	protected function get_localized_matchers() {
+		static $cache_var_name = __METHOD__;
+
 		$bases         = (array) $this->get_bases();
 		$query_var_map = $this->get_matcher_to_query_var_map();
 
-		$localized_matchers = [];
+		$localized_matchers = tribe_get_var( $cache_var_name, [] );
+
 		foreach ( $bases as $base => $localized_matcher ) {
+			if ( isset( $localized_matchers[ $localized_matcher ] ) ) {
+				continue;
+			}
+
 			if ( isset( $query_var_map[ $base ] ) ) {
 				$localized_matchers[ $localized_matcher ] = [
 					'query_var'       => $query_var_map[ $base ],
@@ -615,6 +630,8 @@ class Tribe__Rewrite {
 				}
 			}
 		}
+
+		tribe_set_var( $cache_var_name, $localized_matchers );
 
 		return $localized_matchers;
 	}
@@ -642,13 +659,33 @@ class Tribe__Rewrite {
 	 * @return array A list of all the query vars handled in the rules.
 	 */
 	protected function get_rules_query_vars( array $rules ) {
-		return array_unique( array_filter( array_merge( [], ...
-				array_values( array_map( static function ( $rule_string ) {
-					wp_parse_str( parse_url( $rule_string, PHP_URL_QUERY ), $vars );
+		static $cache_var_name = __METHOD__;
 
-					return array_keys( $vars );
-				}, $rules ) ) ) )
-		);
+		$cached_rules = tribe_get_var( $cache_var_name, [] );
+		$cache_key = md5( json_encode( $rules ) );
+
+		if ( ! isset( $cached_rules[ $cache_key ] ) ) {
+			$cached_rules[ $cache_key ] = array_unique(
+				array_filter(
+					array_merge(
+						[],
+						...array_values(
+							array_map(
+								static function ( $rule_string ) {
+									wp_parse_str( parse_url( $rule_string, PHP_URL_QUERY ), $vars );
+									return array_keys( $vars );
+								},
+								$rules
+							)
+						)
+					)
+				)
+			);
+
+			tribe_set_var( $cache_var_name, $cached_rules );
+		}
+
+		return $cached_rules[ $cache_key ];
 	}
 
 	/**

@@ -1271,7 +1271,19 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *              like `strtotime`, or not.
 		 */
 		public static function is_valid_date( $date ) {
-			return self::build_date_object( $date, null, false ) instanceof DateTime;
+			static $cache_var_name = __FUNCTION__;
+
+			$cache_date_check = tribe_get_var( $cache_var_name, [] );
+
+			if ( isset( $cache_date_check[ $date ] ) ) {
+				return $cache_date_check[ $date ];
+			}
+
+			$cache_date_check[ $date ] = self::build_date_object( $date, null, false ) instanceof DateTimeInterface;
+
+			tribe_set_var( $cache_var_name, $cache_date_check );
+
+			return $cache_date_check[ $date ];
 		}
 
 		/**
@@ -1289,12 +1301,25 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *                        `23:59:59`.
 		 */
 		public static function get_week_start_end( $date, $start_of_week = null ) {
+			static $cache_var_name = __FUNCTION__;
+
+			$cache_week_start_end = tribe_get_var( $cache_var_name, [] );
+
 			$week_start = static::build_date_object( $date );
 			$week_start->setTime( 0, 0, 0 );
+
+			$date_string = $week_start->format( static::DBDATEFORMAT );
+
 			// `0` (for Sunday) through `6` (for Saturday), the way WP handles the `start_of_week` option.
 			$week_start_day = null !== $start_of_week
 				? (int) $start_of_week
 				: (int) get_option( 'start_of_week', 0 );
+
+			$memory_cache_key = "{$date_string}:{$week_start_day}";
+
+			if ( isset( $cache_week_start_end[ $memory_cache_key ] ) ) {
+				return $cache_week_start_end[ $memory_cache_key ];
+			}
 
 			$cache_key = md5(
 				__METHOD__ . serialize( [ $week_start->format( static::DBDATEFORMAT ), $week_start_day ] )
@@ -1329,7 +1354,10 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			$week_start = static::immutable( $week_start );
 			$week_end   = static::immutable( $week_end );
 
-			$cache[ $cache_key ] = [ $week_start, $week_end ];
+			$cache[ $cache_key ]                       = [ $week_start, $week_end ];
+			$cache_week_start_end[ $memory_cache_key ] = [ $week_start, $week_end ];
+
+			tribe_set_var( $cache_var_name, $cache_week_start_end );
 
 			return [ $week_start, $week_end ];
 		}

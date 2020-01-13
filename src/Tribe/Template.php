@@ -559,6 +559,39 @@ class Tribe__Template {
 		// Use filename stored in cache.
 		$file = $files[ $cache_name_key ];
 
+		/**
+		 * Allow users to filter the HTML before rendering
+		 *
+		 * @since  TBD
+		 *
+		 * @param string $html      The initial HTML
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		$pre_html = apply_filters( 'tribe_template_pre_html', null, $file, $name, $this );
+
+		/**
+		 * Allow users to filter the HTML by the name before rendering
+		 *
+		 * E.g.:
+		 *    `tribe_template_pre_html:events/blocks/parts/details`
+		 *    `tribe_template_pre_html:events/embed`
+		 *    `tribe_template_pre_html:tickets/login-to-purchase`
+		 *
+		 * @since  TBD
+		 *
+		 * @param string $html      The initial HTML
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		$pre_html = apply_filters( "tribe_template_pre_html:$hook_name", $pre_html, $file, $name, $this );
+
+		if ( null !== $pre_html ) {
+			return $pre_html;
+		}
+
 		ob_start();
 
 		// Merges the local data passed to template to the global scope
