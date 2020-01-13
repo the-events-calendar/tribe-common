@@ -85,13 +85,13 @@
 	     * @param mixed  $value     The new option value.
 		 */
 		public function update_last_save_post( $option_name, $old_value, $value ) {
-			$triggers = array(
-				'tribe_events_calendar_options',
-				'permalink_structure',
-				'rewrite_rules',
-				'start_of_week',
-			);
-			if ( in_array( $option_name, $triggers, true ) ) {
+			$triggers = [
+				'tribe_events_calendar_options' => true,
+				'permalink_structure'           => true,
+				'rewrite_rules'                 => true,
+				'start_of_week'                 => true,
+			];
+			if ( ! empty( $triggers[ $option_name ] ) ) {
 				$this->cache->set_last_occurrence( self::TRIGGER_SAVE_POST );
 			}
 		}
@@ -107,17 +107,17 @@
 		 */
 		public function update_last_updated_option( $option_name, $old_value, $value ) {
 			$triggers = [
-				'active_plugins',
-				'tribe_events_calendar_options',
-				'permalink_structure',
-				'rewrite_rules',
-				'start_of_week',
-				'sidebars_widgets',
-				'stylesheet',
-				'template',
+				'active_plugins'                => true,
+				'tribe_events_calendar_options' => true,
+				'permalink_structure'           => true,
+				'rewrite_rules'                 => true,
+				'start_of_week'                 => true,
+				'sidebars_widgets'              => true,
+				'stylesheet'                    => true,
+				'template'                      => true,
 			];
 
-			if ( in_array( $option_name, $triggers, true ) ) {
+			if ( ! empty( $triggers[ $option_name ] ) ) {
 				$this->cache->set_last_occurrence( self::TRIGGER_UPDATED_OPTION );
 			}
 		}

@@ -5,6 +5,8 @@ use Tribe__Utils__Array as Arr;
 abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
 
+	const MAX_NUMBER_OF_POSTS_PER_PAGE = 99999999999;
+
 	/**
 	 * @var  array An array of keys that cannot be updated on this repository.
 	 */
@@ -3198,7 +3200,7 @@ abstract class Tribe__Repository
 				unset( $this->query_args['offset'] );
 			}
 
-			$query_args['posts_per_page'] = $per_page === -1 ? 99999999999 : $per_page;
+			$query_args['posts_per_page'] = $per_page === -1 ? self::MAX_NUMBER_OF_POSTS_PER_PAGE : $per_page;
 		}
 
 		foreach ( $query_args as $key => $value ) {

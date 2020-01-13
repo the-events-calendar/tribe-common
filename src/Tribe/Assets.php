@@ -285,11 +285,11 @@ class Tribe__Assets {
 
 		$urls = [];
 		if ( ! isset( $wpmu_plugin_url ) ) {
-			$wpmu_plugin_url = set_url_scheme(WPMU_PLUGIN_URL );
+			$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
 		}
 
 		if ( ! isset( $wp_plugin_url ) ) {
-			$wp_plugin_url = set_url_scheme(WP_PLUGIN_URL );
+			$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
 		}
 
 		if ( ! isset( $wp_content_url ) ) {
