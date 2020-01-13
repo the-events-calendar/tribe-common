@@ -56,7 +56,10 @@ class Tribe__Assets {
 			$assets = [ $assets ];
 		}
 
-		uasort( $assets, [ $this, 'order_by_priority' ] );
+		// Sorts by priority.
+		uasort( $this->assets, static function( $a, $b ) {
+			return (int) $a->priority === (int) $b->priority ? 0 : (int) $a->priority > (int) $b->priority;
+		} );
 
 		foreach ( $assets as $asset ) {
 			// Asset is already registered.
@@ -274,26 +277,49 @@ class Tribe__Assets {
 	 * @return string|false The url to the minified version or false, if file not found.
 	 */
 	public static function maybe_get_min_file( $url ) {
-		$urls            = [];
-		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
-		$wp_plugin_url   = set_url_scheme( WP_PLUGIN_URL );
-		$wp_content_url  = set_url_scheme( WP_CONTENT_URL );
-		$plugins_url     = plugins_url();
+		static $wpmu_plugin_url;
+		static $wp_plugin_url;
+		static $wp_content_url;
+		static $plugins_url;
+		static $base_dirs;
+
+		$urls = [];
+		if ( ! isset( $wpmu_plugin_url ) ) {
+			$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
+		}
+
+		if ( ! isset( $wp_plugin_url ) ) {
+			$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
+		}
+
+		if ( ! isset( $wp_content_url ) ) {
+			$wp_content_url = set_url_scheme( WP_CONTENT_URL );
+		}
+
+		if ( ! isset( $plugins_url ) ) {
+			$plugins_url = plugins_url();
+		}
+
+		if ( ! isset( $base_dirs ) ) {
+			$base_dirs[ WPMU_PLUGIN_DIR ] = wp_normalize_path( WPMU_PLUGIN_DIR );
+			$base_dirs[ WP_PLUGIN_DIR ]   = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dirs[ WP_CONTENT_DIR ]  = wp_normalize_path( WP_CONTENT_DIR );
+		}
 
 		if ( 0 === strpos( $url, $wpmu_plugin_url ) ) {
 			// URL inside WPMU plugin dir.
-			$base_dir = wp_normalize_path( WPMU_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WPMU_PLUGIN_DIR ];
 			$base_url = $wpmu_plugin_url;
 		} elseif ( 0 === strpos( $url, $wp_plugin_url ) ) {
 			// URL inside WP plugin dir.
-			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WP_PLUGIN_DIR ];
 			$base_url = $wp_plugin_url;
 		} elseif ( 0 === strpos( $url, $wp_content_url ) ) {
 			// URL inside WP content dir.
-			$base_dir = wp_normalize_path( WP_CONTENT_DIR );
+			$base_dir = $base_dirs[ WP_CONTENT_DIR ];
 			$base_url = $wp_content_url;
 		} elseif ( 0 === strpos( $url, $plugins_url ) ) {
-			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WP_PLUGIN_DIR ];
 			$base_url = $plugins_url;
 		} else {
 			// Resource needs to be inside wp-content or a plugins dir.
@@ -320,7 +346,7 @@ class Tribe__Assets {
 		// Check for all Urls added to the array.
 		foreach ( $urls as $partial_path ) {
 			$file_path = wp_normalize_path( $base_dir . $partial_path );
-			$file_url  = plugins_url( basename( $file_path ), $file_path );
+			$file_url  = $base_url . $partial_path;
 
 			if ( file_exists( $file_path ) ) {
 				return $file_url;
@@ -514,9 +540,6 @@ class Tribe__Assets {
 		// Set the Asset on the array of notices.
 		$this->assets[ $slug ] = $asset;
 
-		// Sorts by priority.
-		uasort( $this->assets, [ $this, 'order_by_priority' ] );
-
 		// Return the Slug because it might be modified.
 		return $asset;
 	}
@@ -585,8 +608,6 @@ class Tribe__Assets {
 	 *                           it was not in the array of objects.
 	 */
 	public function get( $slug = null ) {
-		uasort( $this->assets, [ $this, 'order_by_priority' ] );
-
 		if ( is_null( $slug ) ) {
 			return $this->assets;
 		}
@@ -599,20 +620,6 @@ class Tribe__Assets {
 		}
 
 		return null;
-	}
-
-	/**
-	 * Add the Priority ordering, which was causing an issue of not respecting which order stuff was registered.
-	 *
-	 * @since  4.7
-	 *
-	 * @param object $a First Subject to compare.
-	 * @param object $b Second subject to compare.
-	 *
-	 * @return boolean
-	 */
-	public function order_by_priority( $a, $b ) {
-		return (int) $a->priority === (int) $b->priority ? 0 : (int) $a->priority > (int) $b->priority;
 	}
 
 	/**

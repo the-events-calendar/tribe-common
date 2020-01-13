@@ -20,10 +20,18 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 		 * @return array The countries array.
 		 */
 		public static function constructCountries( $postId = '', $useDefault = true ) {
+			static $cache_var_name = __METHOD__;
+
+			$countries = tribe_get_var( $cache_var_name, null );
+
+			if ( $countries ) {
+				return $countries;
+			}
+
 			$eventCountries = tribe_get_option( 'tribeEventsCountries' );
 
 			if ( $eventCountries != '' ) {
-				$countries = array();
+				$countries = [];
 
 				$country_rows = explode( "\n", $eventCountries );
 				foreach ( $country_rows as $crow ) {
@@ -65,11 +73,11 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 					$countries = array( '' => $selectCountry ) + $countries;
 					array_unique( $countries );
 				}
-
-				return $countries;
-			} else {
-				return $countries;
 			}
+
+			tribe_set_var( $cache_var_name, $countries );
+
+			return $countries;
 		}
 
 		/**
