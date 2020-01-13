@@ -2,15 +2,63 @@
 
 == Changelog ==
 
-= [AR Modal] 2019-10-28 =
+= [4.10.3] 2019-12-19 =
+
+* Feature - Add Repository filter `where_meta_related_by_meta` for getting a post by the meta value an associated post. [133333]
+* Fix - Correct missing block when switching from blocks to classic editor. [131493]
+
+= [4.10.2] 2019-12-10 =
+
+* Tweak - Add the `Tribe__Cache::warmup_post_caches` method to warmup the post caches for a set of posts [136624]
+* Tweak - Add the `tribe_cache_warmup_post_cache_limit` filter to allow filtering the LIMIT of those warmup fetches [136624]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.10.1] 2019-12-10 =
+
+* Fix - Updated the .pot file as it was outdated when shipping Tribe Common 4.10
+* Language - 8 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [4.10] 2019-11-20 =
 
 * Feature - Add new tribe-dialog object. Implements mt-a11y-dialog as `tribe-dialog` (or `tribe('dialog.view')`) as an extension of `Tribe_Template`. [129434]
 * Feature - New dialogs can be created with a simple call to `tribe( 'dialog.view' )->render_dialog( $args )` in php. [129434]
 * Feature - The tribe-dialog object sets up all necessary javascript and HTML via passed parameters. [129434]
-* Feature - Add a basic dialog, modal, confirmation dialog, and alert as templates.
+* Feature - Add a basic dialog, modal, confirmation dialog, and alert as templates. [129434]
 * Feature - Add methods `render_modal()`, `render_confirm()` and `render_alert()` to streamline common dialog types in Dialog View class. [129434]
-* Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. [133048]
-* Feature - Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions.  [133048]
+* Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions. [133048]
+* Tweak - Added filters: `tribe_dialog_args`, `tribe_dialog_template`, `tribe_dialog_html`, `tribe_dialog_script_args`, `tribe_dialog_script_html`
+* Tweak - Added actions: `tribe_dialog_additional_scripts`, `tribe_dialog_additional_scripts_`, `tribe_dialog_additional_scripts_`, `tribe_dialog_register`, `tribe_dialog_hooks`, `tribe_dialog_assets_registered`
+* Tweak - Changed views: `dialog/alert`, `dialog/button`, `dialog/confirm`, `dialog/dialog`, `dialog/modal`, `tooltip/tooltip`
+
+= [4.9.23] 2019-11-20 =
+
+* Tweak - Add the `tribe_get_query_var` function [137262]
+* Tweak - Add `tribe_get_the_content()` and `tribe_the_content()` for PHP 7.2 compatibility with WordPress 5.2
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.22.1] 2019-11-18 =
+
+* Fix - Pass the event to the onRequestClose handlers for the admin modal. [137394]
+
+= [4.9.22] 2019-11-13 =
+
+* Fix - Add some sanity checks to `is_editing_post` to ensure we don't show PHP error notices in some edge cases [122334]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.21] 2019-11-12 =
+
+* Tweak - Added additional datepicker formats for simpler selection [116086, 126472, 117909]
+* Tweak - Updated the Repository implementation to handle more complex `orderby` constructs [133303]
+* Tweak - Added the `Tribe__Date_Utils::get_week_start_end` method [133303]
+
+= [4.9.20] 2019-10-16 =
+
+* Tweak - added the `tribe_sanitize_deep` function to sanitize and validate input values [134427]
+* Tweak - use the `tribe_sanitize_deep` function to sanitize the values returned by the `tribe_get_request_var` function [134427]
+* Tweak - Rename "Datepicker Date Format" to "Compact Date Format" [134526]
+* Tweak - Adjust Promoter loading order to increase compatibility with plugins that use authentication early in the process [134862]
+* Tweak - Add support for Authentication using a Header when using Promoter [133922]
+* Language - 2 new strings added, 21 updated, 1 fuzzied, and 2 obsoleted
 
 = [4.9.19] 2019-10-14 =
 

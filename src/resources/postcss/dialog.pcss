@@ -6,14 +6,14 @@ This can include modals, toasters, confirms. alerts.
 Adding these here for now until common-styles are live
 @TODO: remove when that happens.
 */
-@svg-load close url('utilities/icons/close.svg') {
+@svg-load close-secondary url('utilities/icons/close.svg') {
 
 	path {
 		stroke: var(--color-icon-secondary);
 	}
 }
 
-@svg-load close-secondary url('utilities/icons/close.svg') {
+@svg-load close url('utilities/icons/close.svg') {
 
 	path {
 		stroke: var(--color-icon-primary);
@@ -97,8 +97,8 @@ Adding these here for now until common-styles are live
 
 	/* The "close" button */
 	.tribe-dialog__close-button {
-		background-color: var(--tribe-dialog-close-background);
-		background-image: svg-inline( 'close' );
+		background: var(--tribe-dialog-close-background);
+		background-image: svg-inline( 'close-secondary' );
 		background-repeat: no-repeat;
 		background-size: contain;
 		cursor: pointer;
@@ -119,8 +119,10 @@ Adding these here for now until common-styles are live
 
 		&:focus,
 		&:hover {
-			background-image: svg-inline( 'close-secondary' );
+			background: var(--tribe-dialog-close-background);
+			background-image: svg-inline( 'close' );
 			background-size: contain;
+			outline: none;
 		}
 	}
 
@@ -156,6 +158,12 @@ Adding these here for now until common-styles are live
 
 	.tribe-dialog__title + .tribe-dialog__content {
 		padding: 0;
+	}
+
+	@media screen and (max-width:768px) {
+		.tribe-dialog__content:last-of-type {
+			padding-bottom: 36px;
+		}
 	}
 
 	/* Modal Styles */

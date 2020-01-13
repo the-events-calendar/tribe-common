@@ -12,7 +12,7 @@ class View extends \Tribe__Template {
 	/**
 	 * Where in the themes we will look for templates
 	 *
-	 * @since TBD
+	 * @since 4.10.2
 	 *
 	 * @var string
 	 */

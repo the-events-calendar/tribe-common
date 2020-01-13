@@ -35,7 +35,7 @@ function tribe_classes() {
 /**
  * Get attributes for required fields.
  *
- * @since TBD
+ * @since 4.10.0
  *
  * @param boolean $required If the field is required.
  * @param boolean $echo     Whether to echo the string or return it.
@@ -57,7 +57,7 @@ function tribe_required( $required, $echo = true ) {
 /**
  * Get string for required field labels.
  *
- * @since TBD
+ * @since 4.10.0
  *
  * @param boolean $required If the field is required.
  * @param boolean $echo     Whether to echo the string or return it.
@@ -81,7 +81,7 @@ function tribe_required_label( $required, $echo = true ) {
 /**
  * Get attributes for disabled fields.
  *
- * @since TBD
+ * @since 4.10.0
  *
  * @param boolean $disabled If the field is disabled.
  * @param boolean $echo     Whether to echo the string or return it.

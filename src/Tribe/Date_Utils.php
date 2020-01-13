@@ -66,18 +66,30 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			// The datepicker has issues when a period separator and no leading zero is used. Those formats are purposefully omitted.
 			$formats = array(
-				'Y-m-d',
-				'n/j/Y',
-				'm/d/Y',
-				'j/n/Y',
-				'd/m/Y',
-				'n-j-Y',
-				'm-d-Y',
-				'j-n-Y',
-				'd-m-Y',
-				'Y.m.d',
-				'm.d.Y',
-				'd.m.Y',
+				0     => 'Y-m-d',
+				1     => 'n/j/Y',
+				2     => 'm/d/Y',
+				3     => 'j/n/Y',
+				4     => 'd/m/Y',
+				5     => 'n-j-Y',
+				6     => 'm-d-Y',
+				7     => 'j-n-Y',
+				8     => 'd-m-Y',
+				9     => 'Y.m.d',
+				10    => 'm.d.Y',
+				11    => 'd.m.Y',
+				'm0'  => 'Y-m',
+				'm1'  => 'n/Y',
+				'm2'  => 'm/Y',
+				'm3'  => 'n/Y',
+				'm4'  => 'm/Y',
+				'm5'  => 'n-Y',
+				'm6'  => 'm-Y',
+				'm7'  => 'n-Y',
+				'm8'  => 'm-Y',
+				'm9'  => 'Y.m',
+				'm10' => 'm.Y',
+				'm11' => 'm.Y',
 			);
 
 			if ( is_null( $translate ) ) {
@@ -218,6 +230,22 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			return date( $format, $date );
+		}
+
+		/**
+		 * Returns as string the nearest half a hour for a given valid string datetime.
+		 *
+		 * @since  4.10.2
+		 *
+		 * @param string $date Valid DateTime string.
+		 *
+		 * @return string Rounded datetime string
+		 */
+		public static function round_nearest_half_hour( $date ) {
+			$date_object = static::build_date_object( $date );
+			$rounded_minutes = floor( $date_object->format( 'i' ) / 30 ) * 30;
+
+			return $date_object->format( 'Y-m-d H:' ) . $rounded_minutes . ':00';
 		}
 
 		/**
@@ -1197,17 +1225,20 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			$timezone_object = null;
+			$datetime = empty($datetime) ? 'now' : $datetime;
 
 			try {
 				// PHP 5.2 will not throw an exception but will generate an error.
 				$utc = new DateTimeZone( 'UTC' );
+				$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
 
 				if ( self::is_timestamp( $datetime ) ) {
 					// Timestamps timezone is always UTC.
-					return new DateTime( '@' . $datetime, $utc );
-				}
+					$date =  new DateTime( '@' . $datetime, $utc );
 
-				$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
+					// If we have a timezone, then set it.
+					return $timezone ? $date->setTimezone( $timezone_object ) : $date;
+				}
 
 				set_error_handler( 'tribe_catch_and_throw' );
 				$date = new DateTime( $datetime, $timezone_object );
@@ -1237,6 +1268,156 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function is_valid_date( $date ) {
 			return self::build_date_object( $date, null, false ) instanceof DateTime;
+		}
+
+		/**
+		 * Returns the DateTime object representing the start of the week for a date.
+		 *
+		 * @since 4.9.21
+		 *
+		 * @param string|int|\DateTime $date          The date string, timestamp or object.
+		 * @param int|null             $start_of_week The number representing the start of week day as handled by
+		 *                                            WordPress: `0` (for Sunday) through `6` (for Saturday).
+		 *
+		 * @return array An array of objects representing the week start and end days, or `false` if the
+		 *                        supplied date is invalid. The timezone of the returned object is set to the site one.
+		 *                        The week start has its time set to `00:00:00`, the week end will have its time set
+		 *                        `23:59:59`.
+		 */
+		public static function get_week_start_end( $date, $start_of_week = null ) {
+			$week_start = static::build_date_object( $date );
+			$week_start->setTime( 0, 0, 0 );
+			// `0` (for Sunday) through `6` (for Saturday), the way WP handles the `start_of_week` option.
+			$week_start_day = null !== $start_of_week
+				? (int) $start_of_week
+				: (int) get_option( 'start_of_week', 0 );
+
+			$cache_key = md5(
+				__METHOD__ . serialize( [ $week_start->format( static::DBDATEFORMAT ), $week_start_day ] )
+			);
+			$cache = tribe( 'cache' );
+
+			if ( false !== $cached = $cache[ $cache_key ] ) {
+				return $cached;
+			}
+
+			// `0` (for Sunday) through `6` (for Saturday), the way WP handles the `start_of_week` option.
+			$date_day = (int) $week_start->format( 'w' );
+
+			// If the current date is before the start of the week, move back a week.
+			$week_offset = $date_day < $week_start_day ? - 1 : 0;
+
+			/*
+			 * From the PHP docs, the `W` format stands for:
+			 * - ISO-8601 week number of year, weeks starting on Monday
+			 */
+			$week_start->setISODate(
+				(int) $week_start->format( 'o' ),
+				(int) $week_start->format( 'W' ) + $week_offset,
+				$week_start_day
+			);
+
+			$week_end = clone $week_start;
+			// Add 6 days, then move at the end of the day.
+			$week_end->add( new DateInterval( 'P6D' ) );
+			$week_end->setTime( 23, 59, 59 );
+
+			$week_start = static::immutable( $week_start );
+			$week_end   = static::immutable( $week_end );
+
+			$cache[ $cache_key ] = [ $week_start, $week_end ];
+
+			return [ $week_start, $week_end ];
+		}
+
+		/**
+		 * Builds and returns a `DateInterval` object from the interval specification.
+		 *
+		 * For performance purposes the use of `DateInterval` specifications is preferred, so `P1D` is better than
+		 * `1 day`.
+		 *
+		 * @since 4.10.2
+		 *
+		 * @return DateInterval The built date interval object.
+		 */
+		public static function interval( $interval_spec ) {
+			try {
+				$interval = new \DateInterval( $interval_spec );
+			} catch ( \Exception $e ) {
+				$interval = DateInterval::createFromDateString( $interval_spec );
+			}
+
+			return $interval;
+		}
+
+		/**
+		 * Builds the immutable version of a date from a string, integer (timestamp) or \DateTime object.
+		 *
+		 * It's the immutable version of the `Tribe__Date_Utils::build_date_object` method.
+		 *
+		 * @since 4.10.2
+		 *
+		 * @param string|DateTime|int      $datetime      A `strtotime` parse-able string, a DateTime object or
+		 *                                                a timestamp; defaults to `now`.
+		 * @param string|DateTimeZone|null $timezone      A timezone string, UTC offset or DateTimeZone object;
+		 *                                                defaults to the site timezone; this parameter is ignored
+		 *                                                if the `$datetime` parameter is a DatTime object.
+		 * @param bool                     $with_fallback Whether to return a DateTime object even when the date data is
+		 *                                                invalid or not; defaults to `true`.
+		 *
+		 * @return DateTimeImmutable|false A DateTime object built using the specified date, time and timezone; if
+		 *                                 `$with_fallback` is set to `false` then `false` will be returned if a
+		 *                                 DateTime object could not be built.
+		 */
+		static function immutable( $datetime = 'now', $timezone = null, $with_fallback = true ) {
+			if ( $datetime instanceof DateTimeImmutable ) {
+				return $datetime;
+			}
+
+			if ( $datetime instanceof DateTime ) {
+				return DateTimeImmutable::createFromMutable( $datetime );
+			}
+
+			$mutable = static::build_date_object( $datetime, $timezone, $with_fallback );
+
+			if ( false === $mutable ) {
+				return false;
+			}
+
+			$cache_key = md5( ( __METHOD__ . $mutable->getTimestamp() ) );
+			$cache     = tribe( 'cache' );
+
+			if ( false !== $cached = $cache[ $cache_key ] ) {
+				return $cached;
+			}
+
+			$immutable = DateTimeImmutable::createFromMutable( $mutable );
+
+			$cache[ $cache_key ] = $immutable;
+
+			return $immutable;
+		}
+
+		/**
+		 * Builds a date object from a given datetime and timezone.
+		 *
+		 * An alias of the `Tribe__Date_Utils::build_date_object` function.
+		 *
+		 * @since 4.10.2
+		 *
+		 * @param string|DateTime|int      $datetime      A `strtotime` parse-able string, a DateTime object or
+		 *                                                a timestamp; defaults to `now`.
+		 * @param string|DateTimeZone|null $timezone      A timezone string, UTC offset or DateTimeZone object;
+		 *                                                defaults to the site timezone; this parameter is ignored
+		 *                                                if the `$datetime` parameter is a DatTime object.
+		 * @param bool                     $with_fallback Whether to return a DateTime object even when the date data is
+		 *                                                invalid or not; defaults to `true`.
+		 *
+		 * @return DateTime|false A DateTime object built using the specified date, time and timezone; if `$with_fallback`
+		 *                        is set to `false` then `false` will be returned if a DateTime object could not be built.
+		 */
+		public static function mutable( $datetime = 'now', $timezone = null, $with_fallback = true ) {
+			return static::build_date_object( $datetime, $timezone, $with_fallback );
 		}
 	}
 }

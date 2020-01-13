@@ -60,6 +60,13 @@ class Tribe__Context {
 	const QUERY_PROP = 'query_prop';
 
 	/**
+	 * The key to locate a context value as the value of the main query (global `$wp_query`) method return value.
+	 *
+	 * @since 4.9.20
+	 */
+	const QUERY_METHOD = 'query_method';
+
+	/**
 	 * The key to locate a context value as the value of a constant.
 	 *
 	 * @since 4.9.11
@@ -273,7 +280,7 @@ class Tribe__Context {
 			return false;
 		}
 
-		if ( null !== $post_or_type ) {
+		if ( ! empty( $post_or_type ) ) {
 			$lookup = array( $_GET, $_POST, $_REQUEST );
 
 			$current_post = Tribe__Utils__Array::get_in_any( $lookup, 'post', get_post() );
@@ -287,7 +294,7 @@ class Tribe__Context {
 
 			$post_types = is_array( $post_or_type ) ? $post_or_type : array( $post_or_type );
 
-			$post = $is_post ? $current_post : null;
+			$post = $is_post ? get_post( $current_post ) : null;
 
 			if ( count( array_filter( $post_types, 'is_numeric' ) ) === count( $post_types ) ) {
 				return ! empty( $post ) && in_array( $post->ID, $post_types );
@@ -376,7 +383,7 @@ class Tribe__Context {
 			foreach ( $locations[ $key ]['read'] as $location => $keys ) {
 				$the_value = $this->$location( (array) $keys, $default );
 
-				if ( $default !== $the_value ) {
+				if ( $default !== $the_value && static::NOT_FOUND !== $the_value ) {
 					$value = $the_value;
 					break;
 				}
@@ -393,6 +400,10 @@ class Tribe__Context {
 		 * @param  mixed  $value  The value as fetched from the context.
 		 */
 		$value = apply_filters( "tribe_context_{$key}", $value );
+
+		if ( $value !== static::NOT_FOUND ) {
+			$this->request_cache[ $key ] = $value;
+		}
 
 		return $value;
 	}
@@ -447,9 +458,22 @@ class Tribe__Context {
 	public function get_locations() {
 		$this->populate_locations();
 
-		return $this->use_default_locations
+		$locations = $this->use_default_locations
 			? array_merge( self::$locations, $this->override_locations )
 			: $this->override_locations;
+
+		if ( $this->use_default_locations ) {
+			/**
+			 * Filters the locations registered in the Context.
+			 *
+			 * @since 4.10.2
+			 *
+			 * @param  array  $locations  An array of locations registered on the Context object.
+			 */
+			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
+		}
+
+		return $locations;
 	}
 
 	/**
@@ -1489,5 +1513,104 @@ class Tribe__Context {
 		list( $location, $callback ) = $location_and_callback;
 
 		return $callback( $this->get( $location ) );
+	}
+
+	/**
+	 * Checks whether the current request is a REST API one or not.
+	 *
+	 * @since 4.9.20
+	 *
+	 * @return bool Whether the current request is a REST API one or not.
+	 */
+	public function doing_rest() {
+		return defined( 'REST_REQUEST' ) && REST_REQUEST;
+	}
+
+	/**
+	 * Reads the value from one or more global WP_Query object methods.
+	 *
+	 * @since 4.9.20
+	 *
+	 * @param array $query_vars The list of query methods to call, in order.
+	 * @param mixed $default The default value to return if no method was defined on the global `WP_Query` object.
+	 *
+	 * @return mixed The first valid value found or the default value.
+	 */
+	public function query_method( $methods, $default ) {
+		global $wp_query;
+		$found = $default;
+
+		foreach ( $methods as $method ) {
+			$this_value = $wp_query instanceof WP_Query && method_exists( $wp_query, $method )
+				? call_user_func( [ $wp_query, $method ] )
+				: static::NOT_FOUND;
+
+			if ( static::NOT_FOUND !== $this_value ) {
+				return $this_value;
+			}
+		}
+
+		return $found;
+	}
+
+	/**
+	 * Whether the current request is for a PHP-rendered initial state or not.
+	 *
+	 * This method is a shortcut to make sure we're not doing an AJAX, REST or Cron request.
+	 *
+	 * @since 4.9.20
+	 *
+	 * @return bool Whether the current request is for a PHP-rendered initial state or not.
+	 */
+	public function doing_php_initial_state() {
+		return ! $this->doing_rest() && ! $this->doing_ajax() && ! $this->doing_cron();
+	}
+
+	/**
+	 * Returns the first key, if there are many, that will be used to read a location.
+	 *
+	 * The type ar
+	 *
+	 * @since 4.9.20
+	 *
+	 * @param string      $location The location to get the read key for.
+	 * @param string|null $type     The type of read location to return the key for; default to `static::REQUEST_VAR`.
+	 *
+	 * @return string Either the first key for the type of read location, or the input location if not found.
+	 */
+	public function get_read_key_for( $location, $type = null ) {
+		$type = $type ?: static::REQUEST_VAR;
+		$locations = $this->get_locations();
+		if ( isset( $locations[ $location ]['read'][ $type ] ) ) {
+			$keys = (array) $locations[ $location ]['read'][ $type ];
+			return reset( $keys );
+		}
+
+		return $location;
+	}
+
+	/**
+	 * Safely set the value of a group of locations.
+	 *
+	 * This method can only augment the context, without altering it; it can only add new values.
+	 *
+	 * @since 4.10.2
+	 *
+	 * @param array|string $values The values to set, if not already set or the key of the value to set, requires
+	 *                             the `$value` to be passed.
+	 * @param mixed|null $value    The value to set for the key, this parameter will be ignored if the `$values_or_key`
+	 *                             parameter is not a string.
+	 */
+	public function safe_set( $values_or_key, $value = null ) {
+		$values = func_num_args() === 2
+			? [ $values_or_key => $value ]
+			: $values_or_key;
+
+		foreach ( $values as $key => $val ) {
+			if ( static::NOT_FOUND !== $this->get( $key, static::NOT_FOUND ) ) {
+				continue;
+			}
+			$this->request_cache[ $key ] = $val;
+		}
 	}
 }

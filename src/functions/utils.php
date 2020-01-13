@@ -144,7 +144,8 @@ if ( ! function_exists( 'tribe_get_request_var' ) ) {
 	 * @return mixed
 	 */
 	function tribe_get_request_var( $var, $default = null ) {
-		return Tribe__Utils__Array::get_in_any( [ $_GET, $_POST, $_REQUEST ], $var, $default );
+		$unsafe = Tribe__Utils__Array::get_in_any( [ $_GET, $_POST, $_REQUEST ], $var, $default );
+		return tribe_sanitize_deep( $unsafe );
 	}
 }
 
@@ -652,7 +653,7 @@ if ( ! function_exists( 'tribe_get_class_instance' ) ) {
 	/**
 	 * Gets the class instance / Tribe Container from the passed object or string.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @see   \tad_DI52_Container::isBound()
 	 * @see   \tribe()
@@ -699,7 +700,7 @@ if ( ! function_exists( 'tribe_get_least_version_ever_installed' ) ) {
 	 * If no version info found, it will return false.
 	 * Zero may have been logged as a past version but gets ignored.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string|object $class The plugin class' singleton name, class name, or instance.
 	 *
@@ -746,7 +747,7 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
 	 * If no version info found, it will return false.
 	 * Zero may have been logged as a past version but gets ignored.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @see \tribe_get_currently_installed_version() To get the current version, even if it's not the greatest.
 	 *
@@ -795,7 +796,7 @@ if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
 	 * If no version info found, it will return false.
 	 * Zero may have been logged as a past version but gets ignored.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string|object $class The plugin class' singleton name, class name, or instance.
 	 *
@@ -842,7 +843,7 @@ if ( ! function_exists( 'tribe_get_currently_installed_version' ) ) {
 	 * If user initially installed v2, downgraded to v1, then updated to v3, this will return v3.
 	 * Only looks at the class' current version, else false.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @see \tribe_get_greatest_version_ever_installed() To get the greatest ever installed, even if not the current.
 	 *
@@ -870,7 +871,7 @@ if ( ! function_exists( 'tribe_installed_before' ) ) {
 	 * Checks if a plugin's initially-installed version was prior to the passed version.
 	 * If no info found, it will assume the plugin is old and return true.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string|object $class   The plugin class' singleton name, class name, or instance.
 	 * @param string        $version The SemVer version string to compare.
@@ -894,7 +895,7 @@ if ( ! function_exists( 'tribe_installed_after' ) ) {
 	 * Checks if a plugin's initially-installed version was after the passed version.
 	 * If no info found, it will assume the plugin is old and return false.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string|object $class   The plugin class' singleton name, class name, or instance.
 	 * @param string        $version The SemVer version string to compare.
@@ -918,7 +919,7 @@ if ( ! function_exists( 'tribe_installed_on' ) ) {
 	 * Checks if a plugin was installed at/on the passed version.
 	 * If no info found, it will assume the plugin is old and return false.
 	 *
-	 * @since TBD
+	 * @since 4.10.0
 	 *
 	 * @param string|object $class   The plugin class' singleton name, class name, or instance.
 	 * @param string        $version The SemVer version string to compare.
@@ -1012,5 +1013,83 @@ if ( ! function_exists( 'tribe_localize_maybe_append' ) ) {
 
 			wp_localize_script( $enqueued_script, 'obj', $localized_data );
 		}
+	}
+}
+
+if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
+
+	/**
+	 * Sanitizes a value according to its type.
+	 *
+	 * The function will recursively sanitize array values.
+	 *
+	 * @since 4.9.20
+	 *
+	 * @param mixed $value The value, or values, to sanitize.
+	 *
+	 * @return mixed|null Either the sanitized version of the value, or `null` if the value is not a string, number or
+	 *                    array.
+	 */
+	function tribe_sanitize_deep( &$value ) {
+		if ( is_bool( $value ) ) {
+			return $value;
+		}
+		if ( is_string( $value ) ) {
+			$value = filter_var( $value, FILTER_SANITIZE_STRING );
+			return $value;
+		}
+		if ( is_int( $value ) ) {
+			$value = filter_var( $value, FILTER_VALIDATE_INT );
+			return $value;
+		}
+		if ( is_float( $value ) ) {
+			$value = filter_var( $value, FILTER_VALIDATE_FLOAT );
+			return $value;
+		}
+		if ( is_array( $value ) ) {
+			array_walk( $value, 'tribe_sanitize_deep' );
+			return $value;
+		}
+
+		return null;
+	}
+}
+
+if ( ! function_exists( 'tribe_get_query_var' ) ) {
+	/**
+	 * Returns a query var parsing an input URL.
+	 *
+	 * @since 4.9.23
+	 *
+	 * @param string       $url       The URL to parse.
+	 * @param string|array $query_arg The query variable(s) to parse and return.
+	 * @param mixed|null   $default   The default value to return if the URL cannot be parsed, or the query variable is
+	 *                                not found.
+	 *
+	 * @return mixed|null The query variable value, if set, or the default value.
+	 */
+	function tribe_get_query_var( $url, $query_arg, $default = null ) {
+		if ( empty( $url ) ) {
+			return $default;
+		}
+
+		$query = wp_parse_url( $url, PHP_URL_QUERY );
+
+		if ( empty( $query ) ) {
+			return $default;
+		}
+
+		wp_parse_str( $query, $parsed );
+
+		if ( ! is_array( $query_arg ) ) {
+			return Tribe__Utils__Array::get( $parsed, $query_arg, $default );
+		}
+
+		$query_args = (array) ( $query_arg );
+
+		return array_intersect_key(
+			(array) $parsed,
+			array_combine( $query_args, $query_args )
+		);
 	}
 }

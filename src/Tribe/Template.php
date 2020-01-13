@@ -1,7 +1,5 @@
 <?php
 
-use Tribe\Events\Views\V2\Template;
-
 class Tribe__Template {
 	/**
 	 * The folders into which we will look for the template.
@@ -38,6 +36,15 @@ class Tribe__Template {
 	 * @var array
 	 */
 	protected $global = array();
+
+	/**
+	 * Used for finding templates for public templates on themes inside of a folder.
+	 *
+	 * @since  4.10.2
+	 *
+	 * @var string[]
+	 */
+	protected $template_origin_base_folder = [ 'src', 'views' ];
 
 	/**
 	 * Allow chaing if class will extract data from the local context
@@ -334,6 +341,25 @@ class Tribe__Template {
 	}
 
 	/**
+	 * Fetches which base folder we look for templates in the origin plugin.
+	 *
+	 * @since  4.10.2
+	 *
+	 * @return array The base folders we look for templates in the origin plugin.
+	 */
+	public function get_template_origin_base_folder() {
+		/**
+		 * Allows filtering of the base path for templates.
+		 *
+		 * @since 4.10.2
+		 *
+		 * @param array  $namespace Which is the base folder we will look for files in the plugin.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		return apply_filters( 'tribe_template_origin_base_folder', $this->template_origin_base_folder, $this );
+	}
+
+	/**
 	 * Fetches the path for locating files given a base folder normally theme related
 	 *
 	 * @since  4.7.20
@@ -343,8 +369,16 @@ class Tribe__Template {
 	 * @return string
 	 */
 	protected function get_template_public_path( $base ) {
+
 		// Craft the plugin Path
 		$path = array_merge( (array) $base, (array) $this->get_template_public_namespace() );
+
+		// Pick up if the folder needs to be aded to the public template path.
+		$folder = array_diff( $this->folder, $this->get_template_origin_base_folder() );
+
+		if ( ! empty( $folder ) ) {
+			$path = array_merge( $path, $folder );
+		}
 
 		// Implode to avoid Window Problems
 		$path = implode( DIRECTORY_SEPARATOR, $path );

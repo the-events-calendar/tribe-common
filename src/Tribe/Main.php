@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.9.19';
+	const VERSION             = '4.10.3';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -85,6 +85,8 @@ class Tribe__Main {
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
+
+		$this->promoter_connector();
 
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
 		add_action( 'tribe_common_loaded', array( $this, 'tribe_common_app_store' ), 10 );
@@ -168,6 +170,7 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
 
 		Tribe__Debug::instance();
 		tribe( 'assets' );
@@ -214,8 +217,8 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			[
-				[ 'tribe-reset-style', 'reset.css' ],
-				[ 'tribe-common-style', 'common.css', [ 'tribe-reset-style' ] ],
+				[ 'tribe-common-skeleton-style', 'common-skeleton.css' ],
+				[ 'tribe-common-full-style', 'common-full.css', [ 'tribe-common-skeleton-style' ] ],
 			],
 			null
 		);
@@ -580,12 +583,29 @@ class Tribe__Main {
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
-		tribe_register_provider( Tribe__Service_Providers__Promoter_Connector::class );
+		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
 		tribe_register_provider( Tribe\Service_Providers\PUE::class );
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 	}
+
+	/**
+	 * Create the Promoter connector singleton early to allow hook into the filters early.
+	 *
+	 * Add a filter to determine_current_user during the setup of common library.
+	 *
+	 * @since 4.9.20
+	 */
+	public function promoter_connector() {
+		tribe_singleton( 'promoter.connector', 'Tribe__Promoter__Connector' );
+
+		add_filter(
+			'determine_current_user',
+			tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' )
+		);
+	}
+
 
 	/************************
 	 *                      *

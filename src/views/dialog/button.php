@@ -5,10 +5,10 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/buton.php
  *
- * @since TBD
+ * @since 4.10.0
  *
  * @package Tribe
- * @version TBD
+ * @version 4.10.0
  */
 $classes = $button_classes ?: 'tribe-button';
 $classes = implode( ' ' , (array) $classes );
@@ -28,5 +28,8 @@ $classes = implode( ' ' , (array) $classes );
 	<?php endif; ?>
 	<?php if ( ! empty( $button_value ) && 0 !== absint( $button_value ) ) : ?>
 		value="<?php echo esc_attr( $button_value ); ?>"
+	<?php endif; ?>
+	<?php if ( ! empty( $button_disabled ) && tribe_is_truthy( $button_disabled ) ) : ?>
+		<?php tribe_disabled( true ); ?>
 	<?php endif; ?>
 ><?php echo esc_html( $button_text ); ?></button>
