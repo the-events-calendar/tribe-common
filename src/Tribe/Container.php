@@ -256,6 +256,8 @@ if ( ! function_exists( 'tribe_isset_var' ) ) {
 	 *
 	 *      tribe_isset_var( 'tec.url' );
 	 *
+	 * @since 5.0.0
+	 *
 	 * @param  string   $slug    The slug of the variable checked using `tribe_isset_var`.
 	 *
 	 * @return boolean  Either a the given slug exists.
