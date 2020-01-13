@@ -1279,7 +1279,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return $cache_date_check[ $date ];
 			}
 
-			$cache_date_check[ $date ] = self::build_date_object( $date, null, false ) instanceof DateTime;
+			$cache_date_check[ $date ] = self::build_date_object( $date, null, false ) instanceof DateTimeInterface;
 
 			tribe_set_var( $cache_var_name, $cache_date_check );
 
