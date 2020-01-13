@@ -3176,7 +3176,8 @@ abstract class Tribe__Repository
 		 *
 		 * @since 5.0.0
 		 *
-		 * @param null|int Offset parameter setting.
+		 * @param null|int $filtered_offset Offset parameter setting.
+		 * @param array    $query_args      List of query arguments.
 		 */
 		$filtered_offset = apply_filters( 'tribe_repository_query_arg_offset_override', null, $query_args );
 

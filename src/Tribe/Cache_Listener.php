@@ -101,6 +101,8 @@
 		 *
 		 * @see 'updated_option'
 		 *
+		 * @since 5.0.0
+		 *
 		 * @param string $option_name    Name of the updated option.
 		 * @param mixed  $old_value The old option value.
 		 * @param mixed  $value     The new option value.
