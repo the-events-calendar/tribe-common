@@ -3186,12 +3186,11 @@ abstract class Tribe__Repository
 			if ( $filtered_offset ) {
 				$query_args['offset'] = $filtered_offset;
 			} elseif ( isset( $query_args['offset'] ) ) {
-				$offset   = absint( $query_args['offset'] );
-				$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
-				$page     = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
+				$offset = absint( $query_args['offset'] );
+				$page   = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
 
-				$real_offset                  = $per_page === -1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
-				$query_args['offset']         = $real_offset;
+				$real_offset          = $per_page === -1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
+				$query_args['offset'] = $real_offset;
 
 				/**
 				 * Unset the `offset` query argument to avoid applying it multiple times when this method
