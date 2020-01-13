@@ -190,7 +190,7 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 						return (object) [
 							'url'             => Arr::get( $size_data, 0, '' ),
 							'width'           => Arr::get( $size_data, 1, '' ),
-							'heigth'          => Arr::get( $size_data, 2, '' ),
+							'height'          => Arr::get( $size_data, 2, '' ),
 							'is_intermediate' => (bool) Arr::get( $size_data, 3, false ),
 						];
 					},
