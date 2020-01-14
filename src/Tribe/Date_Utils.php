@@ -1339,7 +1339,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$week_offset = -1;
 			} elseif ( 0 === $date_day ) {
 				// When start of the week is on a sunday we add a week.
-				$week_offset = +1;
+				$week_offset = 1;
 			}
 
 			/*
