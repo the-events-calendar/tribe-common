@@ -3,16 +3,22 @@ if ( ! class_exists( 'Tribe__Container' ) ) {
 	/**
 	 * Class Tribe__Container
 	 *
+	 * @since 4.4
+	 *
 	 * Tribe Dependency Injection Container.
 	 */
 	class Tribe__Container extends tad_DI52_Container {
 
 		/**
+		 * @since 4.4
+		 *
 		 * @var Tribe__Container
 		 */
 		protected static $instance;
 
 		/**
+		 * @since 4.4
+		 *
 		 * @return Tribe__Container
 		 */
 		public static function init() {
@@ -71,6 +77,8 @@ if ( ! function_exists( 'tribe_singleton' ) ) {
 	 *
 	 * The class will be built only once (if passing the class name or a callback function), stored
 	 * and the same instance will be returned from that moment on.
+	 *
+	 * @since 4.4
 	 *
 	 * @param string                 $slug                The human-readable and catchy name of the class.
 	 * @param string|object|callable $class               The full class name or an instance of the class
@@ -137,6 +145,8 @@ if ( ! function_exists( 'tribe_register' ) ) {
 	 *      // the `hook` and `register` methods will be called on the built instance.
 	 *      tribe( 'tec.admin.class' )->doSomething();
 	 *
+	 * @since 4.4
+	 *
 	 * @param string                 $slug                The human-readable and catchy name of the class.
 	 * @param string|object|callable $class               The full class name or an instance of the class
 	 *                                                    or a callback that will return the instance of the class.
@@ -160,6 +170,8 @@ if ( ! function_exists( 'tribe' ) ) {
 	 *      // some code later...
 	 *
 	 *      tribe( 'common.main' )->do_something();
+	 *
+	 * @since 4.4
 	 *
 	 * @param string|null $slug_or_class Either the slug of a binding previously registered using `tribe_singleton` or
 	 *                                   `tribe_register` or the full class name that should be automagically created or
@@ -185,12 +197,17 @@ if ( ! function_exists( 'tribe_set_var' ) ) {
 	 *
 	 *      tribe_set_var( 'tec.url', 'http://example.com' );
 	 *
+	 * @since 4.4
+	 *
 	 * @param string $slug  The human-readable and catchy name of the var.
 	 * @param mixed  $value The variable value.
+	 *
+	 * @return mixed       Returns the set value, which allows for shorter code.
 	 */
 	function tribe_set_var( $slug, $value ) {
 		$container = Tribe__Container::init();
 		$container->setVar( $slug, $value );
+		return $value;
 	}
 }
 
@@ -203,6 +220,8 @@ if ( ! function_exists( 'tribe_get_var' ) ) {
 	 *      tribe_set_var( 'tec.url', 'http://example.com' );
 	 *
 	 *      $url = tribe_get_var( 'tec.url' );
+	 *
+	 * @since 4.4
 	 *
 	 * @param string $slug    The slug of the variable registered using `tribe_set_var`.
 	 * @param null   $default The value that should be returned if the variable slug
@@ -276,6 +295,8 @@ if ( ! function_exists( 'tribe_register_provider' ) ) {
 	 *
 	 * Service providers must implement the `tad_DI52_ServiceProviderInterface` interface or extend
 	 * the `tad_DI52_ServiceProvider` class.
+	 *
+	 * @since 4.4
 	 *
 	 * @see tad_DI52_ServiceProvider
 	 * @see tad_DI52_ServiceProviderInterface

@@ -29,6 +29,17 @@ class Tribe__Timezones {
 	protected static function invalidate_caches() {
 		add_filter( 'pre_update_option_gmt_offset', array( __CLASS__, 'clear_site_timezone_abbr' ) );
 		add_filter( 'pre_update_option_timezone_string', array( __CLASS__, 'clear_site_timezone_abbr' ) );
+		add_action( 'update_option_gmt_offset', [ __CLASS__, 'clear_timezone_cache' ] );
+		add_action( 'update_option_timezone_string', [ __CLASS__, 'clear_timezone_cache' ] );
+	}
+
+	/**
+	 * Wipes local cache for WP timezone options.
+	 *
+	 * @since 5.0
+	 */
+	public static function clear_timezone_cache() {
+		tribe_unset_var( 'Tribe__Timezones::wp_timezone_string' );
 	}
 
 	/**
@@ -66,22 +77,29 @@ class Tribe__Timezones {
 	 * @return string
 	 */
 	public static function wp_timezone_string() {
+		static $cache_key = __METHOD__;
+		$cached_value = tribe_get_var( $cache_key );
+
+		if ( $cached_value ) {
+			return $cached_value;
+		}
+
 		$current_offset = get_option( 'gmt_offset' );
 		$tzstring       = get_option( 'timezone_string' );
 
 		// Return the timezone string if already set
 		if ( ! empty( $tzstring ) ) {
-			return $tzstring;
+			return tribe_set_var( $cache_key, $tzstring );
 		}
 
 		// Otherwise return the UTC offset
 		if ( 0 == $current_offset ) {
-			return 'UTC+0';
+			return tribe_set_var( $cache_key, 'UTC+0' );
 		} elseif ( $current_offset < 0 ) {
-			return 'UTC' . $current_offset;
+			return tribe_set_var( $cache_key, 'UTC' . $current_offset );
 		}
 
-		return 'UTC+' . $current_offset;
+		return tribe_set_var( $cache_key, 'UTC+' . $current_offset );
 	}
 
 	/**
@@ -580,7 +598,7 @@ class Tribe__Timezones {
 		}
 
 		/** @var Tribe__Cache $cache */
-		$cache = tribe('cache');
+		$cache = tribe( 'cache' );
 
 		if ( is_string( $timezone ) && $cached = $cache[ __METHOD__ . $timezone ] ) {
 			return clone $cached;
