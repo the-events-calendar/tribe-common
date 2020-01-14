@@ -1333,8 +1333,14 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			// `0` (for Sunday) through `6` (for Saturday), the way WP handles the `start_of_week` option.
 			$date_day = (int) $week_start->format( 'w' );
 
-			// If the current date is before the start of the week, move back a week.
-			$week_offset = $date_day < $week_start_day ? - 1 : 0;
+			$week_offset = 0;
+			if ( $date_day < $week_start_day ) {
+				// If the current date of the week is before the start of the week, move back a week.
+				$week_offset = -1;
+			} elseif ( 0 === $date_day ) {
+				// When start of the week is on a sunday we add a week.
+				$week_offset = +1;
+			}
 
 			/*
 			 * From the PHP docs, the `W` format stands for:
