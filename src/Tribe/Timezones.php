@@ -78,7 +78,7 @@ class Tribe__Timezones {
 	 */
 	public static function wp_timezone_string() {
 		static $cache_key = __METHOD__;
-		$cached_value = tribe_get_var( $cache_key );
+		$cached_value     = tribe_get_var( $cache_key );
 
 		if ( $cached_value ) {
 			return $cached_value;
