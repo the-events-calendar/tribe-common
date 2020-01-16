@@ -139,7 +139,7 @@ class Tribe__Template {
 	 *
 	 * @since  4.7.20
 	 *
-	 * @param  mixed   $value  Should we look for template files in the list of folders
+	 * @param  mixed $value Should we look for template files in the list of folders.
 	 *
 	 * @return self
 	 */
@@ -522,20 +522,20 @@ class Tribe__Template {
 			$template_names[ $cache_name_key ] = $name;
 		}
 
-		$name = $template_names[ $cache_name_key ];
+		$name                   = $template_names[ $cache_name_key ];
 		$origin_folder_appendix = array_diff( $this->folder, $this->template_origin_base_folder );
 
 		if ( ! empty( $this->origin->template_namespace ) ) {
 			$legacy_namespace = array_merge( (array) $this->origin->template_namespace, $name );
-			$namespace = array_merge( (array) $this->origin->template_namespace, $origin_folder_appendix, $name );
+			$namespace        = array_merge( (array) $this->origin->template_namespace, $origin_folder_appendix, $name );
 		} else {
 			$legacy_namespace = $name;
-			$namespace = array_merge( $origin_folder_appendix, $legacy_namespace );
+			$namespace        = array_merge( $origin_folder_appendix, $legacy_namespace );
 		}
 
 		// Setup the Hook name
 		$legacy_hook_name = implode( '/', $legacy_namespace );
-		$hook_name = implode( '/', $namespace );
+		$hook_name        = implode( '/', $namespace );
 
 		// Cache file location and existence.
 		if ( ! isset( $file_exists[ $cache_name_key ] ) || ! isset( $files[ $cache_name_key ] ) ) {
