@@ -583,17 +583,14 @@ class Tribe__Template {
 		 *    `tribe_template_pre_html:events/embed`
 		 *    `tribe_template_pre_html:tickets/login-to-purchase`
 		 *
-		 * @since  TBD
+		 * @since  4.11.0
 		 *
 		 * @param string $html      The initial HTML
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		$pre_html = apply_filters( "tribe_template_pre_html:$legacy_hook_name", $pre_html, $file, $name, $this );
 		$pre_html = apply_filters( "tribe_template_pre_html:$hook_name", $pre_html, $file, $name, $this );
-
-		var_dump( $hook_name );
 
 		if ( null !== $pre_html ) {
 			return $pre_html;
@@ -608,7 +605,7 @@ class Tribe__Template {
 		 * Fires an Action before including the template file
 		 *
 		 * @since  4.6.2
-		 * @since  4.7.20   The $name param no longers contains the extension
+		 * @since  4.7.20   The $name param no longer contains the extension
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
@@ -624,6 +621,7 @@ class Tribe__Template {
 		 *    `tribe_template_before_include:events/embed`
 		 *    `tribe_template_before_include:tickets/login-to-purchase`
 		 *
+		 * @deprecated   4.11.0
 		 * @since  4.7.20
 		 *
 		 * @param string $file      Complete path to include the PHP File
@@ -631,6 +629,21 @@ class Tribe__Template {
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		do_action( "tribe_template_before_include:$legacy_hook_name", $file, $name, $this );
+
+		/**
+		 * Fires an Action for a given template name before including the template file
+		 *
+		 * E.g.:
+		 *    `tribe_template_before_include:events/blocks/parts/details`
+		 *    `tribe_template_before_include:events/embed`
+		 *    `tribe_template_before_include:tickets/login-to-purchase`
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
 		do_action( "tribe_template_before_include:$hook_name", $file, $name, $this );
 
 		// Only do this if really needed (by default it wont).
@@ -646,7 +659,7 @@ class Tribe__Template {
 			}
 
 			// Make any provided variables available in the template variable scope.
-			extract( $this->context ); // @codingStandardsIgnoreLine
+			extract( $this->context ); // @phpcs:ignore
 		}
 
 		include $file;
@@ -671,6 +684,7 @@ class Tribe__Template {
 		 *    `tribe_template_after_include:events/embed`
 		 *    `tribe_template_after_include:tickets/login-to-purchase`
 		 *
+		 * @deprecated 4.11.0
 		 * @since  4.7.20
 		 *
 		 * @param string $file      Complete path to include the PHP File
@@ -678,6 +692,21 @@ class Tribe__Template {
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		do_action( "tribe_template_after_include:$legacy_hook_name", $file, $name, $this );
+
+		/**
+		 * Fires an Action for a given template name after including the template file
+		 *
+		 * E.g.:
+		 *    `tribe_template_after_include:events/blocks/parts/details`
+		 *    `tribe_template_after_include:events/embed`
+		 *    `tribe_template_after_include:tickets/login-to-purchase`
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
 		do_action( "tribe_template_after_include:$hook_name", $file, $name, $this );
 
 		// Only fetch the contents after the action
@@ -687,7 +716,7 @@ class Tribe__Template {
 		 * Allow users to filter the final HTML
 		 *
 		 * @since  4.6.2
-		 * @since  4.7.20   The $name param no longers contains the extension
+		 * @since  4.7.20   The $name param no longer contains the extension
 		 *
 		 * @param string $html      The final HTML
 		 * @param string $file      Complete path to include the PHP File
@@ -704,6 +733,7 @@ class Tribe__Template {
 		 *    `tribe_template_html:events/embed`
 		 *    `tribe_template_html:tickets/login-to-purchase`
 		 *
+		 * @deprecated   4.11.0
 		 * @since  4.7.20
 		 *
 		 * @param string $html      The final HTML
@@ -712,6 +742,22 @@ class Tribe__Template {
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		$html = apply_filters( "tribe_template_html:$legacy_hook_name", $html, $file, $name, $this );
+
+		/**
+		 * Allow users to filter the final HTML by the name
+		 *
+		 * E.g.:
+		 *    `tribe_template_html:events/blocks/parts/details`
+		 *    `tribe_template_html:events/embed`
+		 *    `tribe_template_html:tickets/login-to-purchase`
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param string $html      The final HTML
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
 		$html = apply_filters( "tribe_template_html:$hook_name", $html, $file, $name, $this );
 
 		if ( $echo ) {
