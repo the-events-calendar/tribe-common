@@ -1426,7 +1426,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return false;
 			}
 
-			$cache_key = md5( ( __METHOD__ . $mutable->getTimestamp() ) );
+			$cache_key = md5( ( __METHOD__ . $mutable->getTimezone()->getName() . $mutable->getTimestamp() ) );
 			$cache     = tribe( 'cache' );
 
 			if ( false !== $cached = $cache[ $cache_key ] ) {
