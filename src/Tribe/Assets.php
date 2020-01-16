@@ -49,17 +49,12 @@ class Tribe__Assets {
 	 */
 	public function register_in_wp( $assets = null ) {
 		if ( is_null( $assets ) ) {
-			$assets = $this->assets;
+			$assets = $this->get();
 		}
 
 		if ( ! is_array( $assets ) ) {
 			$assets = [ $assets ];
 		}
-
-		// Sorts by priority.
-		uasort( $this->assets, static function( $a, $b ) {
-			return (int) $a->priority === (int) $b->priority ? 0 : (int) $a->priority > (int) $b->priority;
-		} );
 
 		foreach ( $assets as $asset ) {
 			// Asset is already registered.
@@ -98,9 +93,9 @@ class Tribe__Assets {
 			foreach ( (array) $asset->action as $action ) {
 				// Enqueue the registered assets at the appropriate time.
 				if ( did_action( $action ) > 0 ) {
-					$this->enqueue();
+					$this->enqueue( $asset->slug );
 				} else {
-					add_action( $action, [ $this, 'enqueue' ], $asset->priority );
+					add_action( $action, [ $this, 'enqueue' ], $asset->priority, 0 );
 				}
 			}
 		}
@@ -116,7 +111,7 @@ class Tribe__Assets {
 	 * @param string|array $groups Which groups will be enqueued.
 	 */
 	public function enqueue_group( $groups ) {
-		$assets = $this->get();
+		$assets = $this->get( null, false );
 		$enqueue = [];
 
 		foreach ( $assets as $asset ) {
@@ -129,7 +124,6 @@ class Tribe__Assets {
 			if ( empty( $intersect ) ) {
 				continue;
 			}
-
 			$enqueue[] = $asset->slug;
 		}
 
@@ -151,7 +145,11 @@ class Tribe__Assets {
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
 		$forcibly_enqueue = array_filter( (array) $forcibly_enqueue );
-		$assets = $this->get();
+		if ( ! empty( $forcibly_enqueue ) ) {
+			$assets = (array) $this->get( $forcibly_enqueue );
+		} else {
+			$assets = $this->get();
+		}
 
 		foreach ( $assets as $asset ) {
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
@@ -602,14 +600,51 @@ class Tribe__Assets {
 	 *
 	 * @since 4.3
 	 *
-	 * @param string $slug Slug of the Asset.
+	 * @param string|array $slug Slug of the Asset.
+	 * @param boolean      sort  If we should do any sorting before returning.
 	 *
 	 * @return array|object|null Array of asset objects, single asset object, or null if looking for a single asset but
 	 *                           it was not in the array of objects.
 	 */
-	public function get( $slug = null ) {
+	public function get( $slug = null, $sort = true ) {
 		if ( is_null( $slug ) ) {
+			if ( $sort ) {
+				$cache_key_count = __METHOD__ . ':count';
+				// Sorts by priority.
+				$cache_count = tribe_get_var( $cache_key_count, 0 );
+				$count = count( $this->assets );
+
+				if ( $count !== $cache_count ) {
+					uasort( $this->assets, 'tribe_sort_by_priority' );
+					tribe_set_var( $cache_key_count, $count );
+				}
+			}
 			return $this->assets;
+		}
+
+		// If slug is an array we return all of those.
+		if ( is_array( $slug ) ) {
+			$assets = [];
+			foreach ( $slug as $asset_slug ) {
+				$asset_slug = sanitize_title_with_dashes( $asset_slug );
+				// Skip empty assets.
+				if ( empty( $this->assets[ $asset_slug ] ) ) {
+					continue;
+				}
+
+				$assets[ $asset_slug ] = $this->assets[ $asset_slug ];
+			}
+
+			if ( empty( $assets ) ) {
+				return null;
+			}
+
+			if ( $sort ) {
+				// Sorts by priority.
+				uasort( $assets, 'tribe_sort_by_priority' );
+			}
+
+			return $assets;
 		}
 
 		// Prevent weird stuff here.
@@ -625,7 +660,7 @@ class Tribe__Assets {
 	/**
 	 * Checks if an Asset exists.
 	 *
-	 * @param  string $slug Slug of the Asset.
+	 * @param  string|array $slug Slug of the Asset.
 	 *
 	 * @return bool
 	 */
