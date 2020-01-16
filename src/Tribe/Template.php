@@ -263,7 +263,7 @@ class Tribe__Template {
 	 *
 	 * @return array
 	 */
-	public function merge_context($context = [], $file = null, $name = null ) {
+	public function merge_context( $context = [], $file = null, $name = null ) {
 		// Allow for simple null usage as well as array() for nothing
 		if ( is_null( $context ) ) {
 			$context = [];
