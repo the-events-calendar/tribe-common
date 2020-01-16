@@ -93,7 +93,7 @@ class Tribe__Assets {
 			foreach ( (array) $asset->action as $action ) {
 				// Enqueue the registered assets at the appropriate time.
 				if ( did_action( $action ) > 0 ) {
-					$this->enqueue( $asset->slug );
+					$this->enqueue();
 				} else {
 					add_action( $action, [ $this, 'enqueue' ], $asset->priority, 0 );
 				}
