@@ -111,7 +111,7 @@ class Tribe__Assets {
 	 * @param string|array $groups Which groups will be enqueued.
 	 */
 	public function enqueue_group( $groups ) {
-		$assets = $this->get( null, false );
+		$assets  = $this->get( null, false );
 		$enqueue = [];
 
 		foreach ( $assets as $asset ) {
@@ -599,9 +599,10 @@ class Tribe__Assets {
 	 * Get the Asset Object configuration.
 	 *
 	 * @since 4.3
+	 * @since 4.11.0  Added $sort param.
 	 *
 	 * @param string|array $slug Slug of the Asset.
-	 * @param boolean      sort  If we should do any sorting before returning.
+	 * @param boolean      $sort  If we should do any sorting before returning.
 	 *
 	 * @return array|object|null Array of asset objects, single asset object, or null if looking for a single asset but
 	 *                           it was not in the array of objects.
@@ -612,7 +613,7 @@ class Tribe__Assets {
 				$cache_key_count = __METHOD__ . ':count';
 				// Sorts by priority.
 				$cache_count = tribe_get_var( $cache_key_count, 0 );
-				$count = count( $this->assets );
+				$count       = count( $this->assets );
 
 				if ( $count !== $cache_count ) {
 					uasort( $this->assets, 'tribe_sort_by_priority' );
