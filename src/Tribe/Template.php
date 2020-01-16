@@ -139,7 +139,7 @@ class Tribe__Template {
 	 *
 	 * @since  4.7.20
 	 *
-	 * @param  mixed   $use  Should we look for template files in the list of folders
+	 * @param  mixed $value Should we look for template files in the list of folders.
 	 *
 	 * @return self
 	 */
@@ -263,10 +263,10 @@ class Tribe__Template {
 	 *
 	 * @return array
 	 */
-	public function merge_context( $context = array(), $file = null, $name = null ) {
+	public function merge_context( $context = [], $file = null, $name = null ) {
 		// Allow for simple null usage as well as array() for nothing
 		if ( is_null( $context ) ) {
-			$context = array();
+			$context = [];
 		}
 
 		// Applies local context on top of Global one
@@ -321,9 +321,9 @@ class Tribe__Template {
 	 * @return array
 	 */
 	protected function get_template_public_namespace() {
-		$namespace = array(
+		$namespace = [
 			'tribe',
-		);
+		];
 
 		if ( ! empty( $this->origin->template_namespace ) ) {
 			$namespace[] = $this->origin->template_namespace;
@@ -402,27 +402,27 @@ class Tribe__Template {
 	 * @return array
 	 */
 	protected function get_template_path_list() {
-		$folders = array();
+		$folders = [];
 
 		// Only look into public folders if we tell to use folders
 		if ( $this->template_folder_lookup ) {
-			$folders[] = array(
+			$folders[] = [
 				'id' => 'child-theme',
 				'priority' => 10,
 				'path' => $this->get_template_public_path( STYLESHEETPATH ),
-			);
-			$folders[] = array(
+			];
+			$folders[] = [
 				'id' => 'parent-theme',
 				'priority' => 15,
 				'path' => $this->get_template_public_path( TEMPLATEPATH ),
-			);
+			];
 		}
 
-		$folders[] = array(
+		$folders[] = [
 			'id' => 'plugin',
 			'priority' => 20,
 			'path' => $this->get_template_plugin_path(),
-		);
+		];
 
 		/**
 		 * Allows filtering of the list of folders in which we will look for the
@@ -476,7 +476,7 @@ class Tribe__Template {
 				 * A more Specific Filter that will include the template name
 				 *
 				 * @since  4.6.2
-				 * @since  4.7.20   The $name param no longers contains the extension
+				 * @since  4.7.20   The $name param no longer contains the extension
 				 *
 				 * @param string $file      Complete path to include the PHP File
 				 * @param array  $name      Template name
@@ -501,7 +501,7 @@ class Tribe__Template {
 	 *
 	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
-	public function template( $name, $context = array(), $echo = true ) {
+	public function template( $name, $context = [], $echo = true ) {
 		static $file_exists    = [];
 		static $files          = [];
 		static $template_names = [];
@@ -522,16 +522,20 @@ class Tribe__Template {
 			$template_names[ $cache_name_key ] = $name;
 		}
 
-		$name = $template_names[ $cache_name_key ];
+		$name                   = $template_names[ $cache_name_key ];
+		$origin_folder_appendix = array_diff( $this->folder, $this->template_origin_base_folder );
 
 		if ( ! empty( $this->origin->template_namespace ) ) {
-			$namespace = array_merge( (array) $this->origin->template_namespace, $name );
+			$legacy_namespace = array_merge( (array) $this->origin->template_namespace, $name );
+			$namespace        = array_merge( (array) $this->origin->template_namespace, $origin_folder_appendix, $name );
 		} else {
-			$namespace = $name;
+			$legacy_namespace = $name;
+			$namespace        = array_merge( $origin_folder_appendix, $legacy_namespace );
 		}
 
 		// Setup the Hook name
-		$hook_name = implode( '/', $namespace );
+		$legacy_hook_name = implode( '/', $legacy_namespace );
+		$hook_name        = implode( '/', $namespace );
 
 		// Cache file location and existence.
 		if ( ! isset( $file_exists[ $cache_name_key ] ) || ! isset( $files[ $cache_name_key ] ) ) {
@@ -579,7 +583,7 @@ class Tribe__Template {
 		 *    `tribe_template_pre_html:events/embed`
 		 *    `tribe_template_pre_html:tickets/login-to-purchase`
 		 *
-		 * @since  TBD
+		 * @since  4.11.0
 		 *
 		 * @param string $html      The initial HTML
 		 * @param string $file      Complete path to include the PHP File
@@ -601,13 +605,30 @@ class Tribe__Template {
 		 * Fires an Action before including the template file
 		 *
 		 * @since  4.6.2
-		 * @since  4.7.20   The $name param no longers contains the extension
+		 * @since  4.7.20   The $name param no longer contains the extension
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		do_action( 'tribe_template_before_include', $file, $name, $this );
+
+		/**
+		 * Fires an Action for a given template name before including the template file
+		 *
+		 * E.g.:
+		 *    `tribe_template_before_include:events/blocks/parts/details`
+		 *    `tribe_template_before_include:events/embed`
+		 *    `tribe_template_before_include:tickets/login-to-purchase`
+		 *
+		 * @deprecated   4.11.0
+		 * @since  4.7.20
+		 *
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		do_action( "tribe_template_before_include:$legacy_hook_name", $file, $name, $this );
 
 		/**
 		 * Fires an Action for a given template name before including the template file
@@ -627,7 +648,7 @@ class Tribe__Template {
 
 		// Only do this if really needed (by default it wont).
 		if ( true === $this->template_context_extract && ! empty( $this->context ) ) {
-			// We don't allow Extrating of a variable called $name
+			// We don't allow Extracting of a variable called $name
 			if ( isset( $this->context['name'] ) ) {
 				unset( $this->context['name'] );
 			}
@@ -638,7 +659,7 @@ class Tribe__Template {
 			}
 
 			// Make any provided variables available in the template variable scope.
-			extract( $this->context ); // @codingStandardsIgnoreLine
+			extract( $this->context ); // @phpcs:ignore
 		}
 
 		include $file;
@@ -647,13 +668,30 @@ class Tribe__Template {
 		 * Fires an Action after including the template file
 		 *
 		 * @since  4.6.2
-		 * @since  4.7.20   The $name param no longers contains the extension
+		 * @since  4.7.20   The $name param no longer contains the extension
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		do_action( 'tribe_template_after_include', $file, $name, $this );
+
+		/**
+		 * Fires an Action for a given template name after including the template file
+		 *
+		 * E.g.:
+		 *    `tribe_template_after_include:events/blocks/parts/details`
+		 *    `tribe_template_after_include:events/embed`
+		 *    `tribe_template_after_include:tickets/login-to-purchase`
+		 *
+		 * @deprecated 4.11.0
+		 * @since  4.7.20
+		 *
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		do_action( "tribe_template_after_include:$legacy_hook_name", $file, $name, $this );
 
 		/**
 		 * Fires an Action for a given template name after including the template file
@@ -678,7 +716,7 @@ class Tribe__Template {
 		 * Allow users to filter the final HTML
 		 *
 		 * @since  4.6.2
-		 * @since  4.7.20   The $name param no longers contains the extension
+		 * @since  4.7.20   The $name param no longer contains the extension
 		 *
 		 * @param string $html      The final HTML
 		 * @param string $file      Complete path to include the PHP File
@@ -686,6 +724,24 @@ class Tribe__Template {
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
 		$html = apply_filters( 'tribe_template_html', $html, $file, $name, $this );
+
+		/**
+		 * Allow users to filter the final HTML by the name
+		 *
+		 * E.g.:
+		 *    `tribe_template_html:events/blocks/parts/details`
+		 *    `tribe_template_html:events/embed`
+		 *    `tribe_template_html:tickets/login-to-purchase`
+		 *
+		 * @deprecated   4.11.0
+		 * @since  4.7.20
+		 *
+		 * @param string $html      The final HTML
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		$html = apply_filters( "tribe_template_html:$legacy_hook_name", $html, $file, $name, $this );
 
 		/**
 		 * Allow users to filter the final HTML by the name
