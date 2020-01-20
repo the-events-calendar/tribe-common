@@ -13,6 +13,7 @@ class Tribe__Cache implements ArrayAccess {
 	const SCHEDULED_EVENT_DELETE_TRANSIENT = 'tribe_schedule_transient_purge';
 	const NO_EXPIRATION  = 0;
 	const NON_PERSISTENT = - 1;
+	const PERSISTENT_GROUP = 'tribe-events';
 
 	/**
 	 * @var array
@@ -30,6 +31,7 @@ class Tribe__Cache implements ArrayAccess {
 		}
 
 		add_action( self::SCHEDULED_EVENT_DELETE_TRANSIENT, [ $this, 'delete_expired_transients' ] );
+		add_action( 'tribe_cache_flush_expired_transients', 'wp_cache_flush' );
 	}
 
 	public static function setup() {
@@ -68,7 +70,7 @@ class Tribe__Cache implements ArrayAccess {
 			// Add so we know what group to use in the future.
 			$this->non_persistent_keys[] = $key;
 		} else {
-			$group = 'tribe-events';
+			$group = self::PERSISTENT_GROUP;
 		}
 
 		return wp_cache_set( $key, $value, $group, $expiration );
@@ -100,7 +102,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return mixed
 	 */
 	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = array() ) {
-		$group = in_array( $id, $this->non_persistent_keys ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		$group = in_array( $id, $this->non_persistent_keys ) ? 'tribe-events-non-persistent' : self::PERSISTENT_GROUP;
 		$value = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
 
 		// Value found.
@@ -141,7 +143,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return bool
 	 */
 	public function delete( $id, $expiration_trigger = '' ) {
-		return wp_cache_delete( $this->get_id( $id, $expiration_trigger ), 'tribe-events' );
+		return wp_cache_delete( $this->get_id( $id, $expiration_trigger ), self::PERSISTENT_GROUP );
 	}
 
 	/**
@@ -165,8 +167,7 @@ class Tribe__Cache implements ArrayAccess {
 		global $wpdb;
 
 		$time = time();
-
-		$sql = "
+		$sql  = "
 			DELETE
 				a,
 				b
@@ -180,6 +181,36 @@ class Tribe__Cache implements ArrayAccess {
 				AND a.option_name NOT LIKE '\_transient\_timeout_tribe\_%'
 		";
 		$wpdb->query( $sql );
+
+		if ( wp_using_ext_object_cache() ) {
+			/**
+			 * Toggle trigger to control if WordPress cache should be flushed or not.
+			 *
+			 * When using real object cache we cannot selectively flush a specific cache group.
+			 * This filter allows third-party code to handle the flush request in a more precise way by flushing only
+			 * the persistent cache group.
+			 *
+			 * @since TBD
+			 *
+			 *
+			 * @param bool   $flush Whether to flush the WordPress cache or not.
+			 * @param string $group The name of the group, `tribe-events`, we want to flush.
+			 */
+			$flush = apply_filters( 'tribe_cache_should_flush_expired_transients', true, self::PERSISTENT_GROUP );
+
+			if ( ! $flush ) {
+				return;
+			}
+
+			/**
+			 * Fires when we need to delete expired transients in a WordPress installation using real object caching.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $group The name of the group, `tribe-events`, we want to flush.
+			 */
+			do_action( 'tribe_cache_flush_expired_transients', self::PERSISTENT_GROUP );
+		}
 	}
 
 	/**
@@ -220,7 +251,6 @@ class Tribe__Cache implements ArrayAccess {
 
 	/**
 	 * Returns the time of an action last occurrence.
-	 *
 	 * @param string $action The action to return the time for.
 	 *
 	 * @since 4.9.14 Changed the return value type from `int` to `float`.
