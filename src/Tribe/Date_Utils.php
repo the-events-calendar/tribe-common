@@ -1305,10 +1305,10 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			$cache_week_start_end = tribe_get_var( $cache_var_name, [] );
 
-			$week_start = static::build_date_object( $date );
-			$week_start->setTime( 0, 0, 0 );
+			$date_obj = static::build_date_object( $date );
+			$date_obj->setTime( 0, 0, 0 );
 
-			$date_string = $week_start->format( static::DBDATEFORMAT );
+			$date_string = $date_obj->format( static::DBDATEFORMAT );
 
 			// `0` (for Sunday) through `6` (for Saturday), the way WP handles the `start_of_week` option.
 			$week_start_day = null !== $start_of_week
@@ -1322,7 +1322,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			$cache_key = md5(
-				__METHOD__ . serialize( [ $week_start->format( static::DBDATEFORMAT ), $week_start_day ] )
+				__METHOD__ . serialize( [ $date_obj->format( static::DBDATEFORMAT ), $week_start_day ] )
 			);
 			$cache = tribe( 'cache' );
 
@@ -1331,10 +1331,20 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			// `0` (for Sunday) through `6` (for Saturday), the way WP handles the `start_of_week` option.
-			$date_day = (int) $week_start->format( 'w' );
+			$date_day = (int) $date_obj->format( 'w' );
 
-			// If the current date is before the start of the week, move back a week.
-			$week_offset = $date_day < $week_start_day ? - 1 : 0;
+			$week_offset = 0;
+			if ( 0 === $date_day && 0 !== $week_start_day ) {
+				$week_offset = 0;
+			} elseif ( $date_day < $week_start_day ) {
+				// If the current date of the week is before the start of the week, move back a week.
+				$week_offset = -1;
+			} elseif ( 0 === $date_day ) {
+				// When start of the week is on a sunday we add a week.
+				$week_offset = 1;
+			}
+
+			$week_start = clone $date_obj;
 
 			/*
 			 * From the PHP docs, the `W` format stands for:
@@ -1416,7 +1426,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return false;
 			}
 
-			$cache_key = md5( ( __METHOD__ . $mutable->getTimestamp() ) );
+			$cache_key = md5( ( __METHOD__ . $mutable->getTimezone()->getName() . $mutable->getTimestamp() ) );
 			$cache     = tribe( 'cache' );
 
 			if ( false !== $cached = $cache[ $cache_key ] ) {
