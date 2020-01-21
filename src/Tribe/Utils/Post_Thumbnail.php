@@ -293,10 +293,10 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	 * {@inheritDoc}
 	 */
 	public function unserialize( $serialized ) {
-		$data          = json_decode( $serialized, true );
+		$data = json_decode( $serialized, true );
 		array_walk( $data, static function ( &$data_entry ) {
 			if ( is_array( $data_entry ) ) {
-				$data_entry = (object)$data_entry;
+				$data_entry = (object) $data_entry;
 			}
 		} );
 		$this->post_id = $data['post_id'];
