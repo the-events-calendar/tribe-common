@@ -278,7 +278,7 @@ class Tribe__Template {
 			$context = [];
 		}
 
-		// Applies local context on top of Global one
+		// Applies new local context on top of Global + Previous local
 		$context = wp_parse_args( (array) $context, $this->get_values() );
 
 		/**
