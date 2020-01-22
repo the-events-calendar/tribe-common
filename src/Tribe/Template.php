@@ -47,7 +47,7 @@ class Tribe__Template {
 	protected $template_origin_base_folder = [ 'src', 'views' ];
 
 	/**
-	 * Allow chaing if class will extract data from the local context
+	 * Allow changing if class will extract data from the local context
 	 *
 	 * @since  4.6.2
 	 *
@@ -141,6 +141,10 @@ class Tribe__Template {
 		$this->folder = (array) $folder;
 
 		return $this;
+	}
+
+	public function get_template_folder() {
+		return $this->folder;
 	}
 
 	/**
@@ -410,27 +414,27 @@ class Tribe__Template {
 	 *
 	 * @return array
 	 */
-	protected function get_template_path_list() {
+	protected function get_template_path_list( $public = false ) {
 		$folders = [];
 
 		// Only look into public folders if we tell to use folders
-		if ( $this->template_folder_lookup ) {
-			$folders[] = [
-				'id' => 'child-theme',
+		if ( $public ) {
+			$folders['child-theme'] = [
+				'id'       => 'child-theme',
 				'priority' => 10,
-				'path' => $this->get_template_public_path( STYLESHEETPATH ),
+				'path'     => $this->get_template_public_path( STYLESHEETPATH ),
 			];
-			$folders[] = [
-				'id' => 'parent-theme',
+			$folders['parent-theme'] = [
+				'id'       => 'parent-theme',
 				'priority' => 15,
-				'path' => $this->get_template_public_path( TEMPLATEPATH ),
+				'path'     => $this->get_template_public_path( TEMPLATEPATH ),
 			];
 		}
 
-		$folders[] = [
-			'id' => 'plugin',
-			'priority' => 20,
-			'path' => $this->get_template_plugin_path(),
+		$folders['plugin'] = [
+			'id'        => 'plugin',
+			'priority'  => 20,
+			'path'      => $this->get_template_plugin_path(),
 		];
 
 		/**
@@ -465,7 +469,7 @@ class Tribe__Template {
 			$name = (array) explode( '/', $name );
 		}
 
-		$folders = $this->get_template_path_list();
+		$folders = $this->get_template_path_list( $this->template_folder_lookup );
 
 		foreach ( $folders as $folder ) {
 			$folder['path'] = trim( $folder['path'] );
@@ -531,21 +535,6 @@ class Tribe__Template {
 			$template_names[ $cache_name_key ] = $name;
 		}
 
-		$name                   = $template_names[ $cache_name_key ];
-		$origin_folder_appendix = array_diff( $this->folder, $this->template_origin_base_folder );
-
-		if ( ! empty( $this->origin->template_namespace ) ) {
-			$legacy_namespace = array_merge( (array) $this->origin->template_namespace, $name );
-			$namespace        = array_merge( (array) $this->origin->template_namespace, $origin_folder_appendix, $name );
-		} else {
-			$legacy_namespace = $name;
-			$namespace        = array_merge( $origin_folder_appendix, $legacy_namespace );
-		}
-
-		// Setup the Hook name
-		$legacy_hook_name = implode( '/', $legacy_namespace );
-		$hook_name        = implode( '/', $namespace );
-
 		// Cache file location and existence.
 		if ( ! isset( $file_exists[ $cache_name_key ] ) || ! isset( $files[ $cache_name_key ] ) ) {
 			// Check if the file exists
@@ -570,7 +559,21 @@ class Tribe__Template {
 		}
 
 		// Use filename stored in cache.
-		$file = $files[ $cache_name_key ];
+		$file                   = $files[ $cache_name_key ];
+		$name                   = $template_names[ $cache_name_key ];
+		$origin_folder_appendix = array_diff( $this->folder, $this->template_origin_base_folder );
+
+		if ( $origin_namespace = $this->template_get_origin_namespace( $file ) ) {
+			$legacy_namespace = array_merge( (array) $origin_namespace, $name );
+			$namespace        = array_merge( (array) $origin_namespace, $origin_folder_appendix, $name );
+		} else {
+			$legacy_namespace = $name;
+			$namespace        = array_merge( $origin_folder_appendix, $legacy_namespace );
+		}
+
+		// Setup the Hook name
+		$legacy_hook_name = implode( '/', $legacy_namespace );
+		$hook_name        = implode( '/', $namespace );
 
 		/**
 		 * Allow users to filter the HTML before rendering
@@ -758,6 +761,47 @@ class Tribe__Template {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Based on a path it determines what is the namespace that should be used.
+	 *
+	 * @since 4.11.0
+	 *
+	 * @param string $path Which file we are going to load.
+	 *
+	 * @return string|false The found namespace for that path or false.
+	 */
+	public function template_get_origin_namespace( $path ) {
+		$matching_namespace = false;
+		/**
+		 * Allows more namespaces to be added based on the path of the file we are loading.
+		 *
+		 * @since 4.11.0
+		 *
+		 * @param array  $namespace_map Indexed array containing the namespace as the key and path to `strpos`.
+		 * @param string $path          Path we will do the `strpos` to validate a given namespace.
+		 * @param self   $template      Current instance of the template class.
+		 */
+		$namespace_map = (array) apply_filters( 'tribe_template_origin_namespace_map', [], $path, $this );
+
+		foreach ( $namespace_map as $namespace => $contains_string ) {
+			// Skip when we dont have the namespace path.
+			if ( false === strpos( $path, $contains_string ) ) {
+				continue;
+			}
+
+			$matching_namespace = $namespace;
+
+			// Once the first namespace is found it breaks out.
+			break;
+		}
+
+		if ( empty( $matching_namespace ) && ! empty( $this->origin->template_namespace ) ) {
+			$matching_namespace = $this->origin->template_namespace;
+		}
+
+		return $matching_namespace;
 	}
 
 	/**
