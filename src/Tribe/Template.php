@@ -143,6 +143,13 @@ class Tribe__Template {
 		return $this;
 	}
 
+	/**
+	 * Returns the array for which folder this template instance is looking into.
+	 *
+	 * @since 4.11.0
+	 *
+	 * @return array
+	 */
 	public function get_template_folder() {
 		return $this->folder;
 	}
@@ -333,12 +340,14 @@ class Tribe__Template {
 	 *
 	 * @return array
 	 */
-	protected function get_template_public_namespace() {
+	protected function get_template_public_namespace( $plugin_namespace ) {
 		$namespace = [
 			'tribe',
 		];
 
-		if ( ! empty( $this->origin->template_namespace ) ) {
+		if ( ! empty( $plugin_namespace ) ) {
+			$namespace[] = $plugin_namespace;
+		} elseif ( ! empty( $this->origin->template_namespace ) ) {
 			$namespace[] = $this->origin->template_namespace;
 		}
 
@@ -373,18 +382,20 @@ class Tribe__Template {
 	}
 
 	/**
-	 * Fetches the path for locating files given a base folder normally theme related
+	 * Fetches the path for locating files given a base folder normally theme related.
 	 *
 	 * @since  4.7.20
+	 * @since  4.11.0 Added the param $namespace.
 	 *
-	 * @param  mixed  $base  Base path to look into
+	 * @param  mixed  $base      Base path to look into.
+	 * @param  string $namespace Adds the plugin namespace to the path returned.
 	 *
-	 * @return string
+	 * @return string  Returns the public path for a given base.
 	 */
-	protected function get_template_public_path( $base ) {
+	protected function get_template_public_path( $base, $namespace ) {
 
 		// Craft the plugin Path
-		$path = array_merge( (array) $base, (array) $this->get_template_public_namespace() );
+		$path = array_merge( (array) $base, (array) $this->get_template_public_namespace( $namespace ) );
 
 		// Pick up if the folder needs to be aded to the public template path.
 		$folder = array_diff( $this->folder, $this->get_template_origin_base_folder() );
@@ -414,22 +425,8 @@ class Tribe__Template {
 	 *
 	 * @return array
 	 */
-	protected function get_template_path_list( $public = false ) {
+	protected function get_template_path_list() {
 		$folders = [];
-
-		// Only look into public folders if we tell to use folders
-		if ( $public ) {
-			$folders['child-theme'] = [
-				'id'       => 'child-theme',
-				'priority' => 10,
-				'path'     => $this->get_template_public_path( STYLESHEETPATH ),
-			];
-			$folders['parent-theme'] = [
-				'id'       => 'parent-theme',
-				'priority' => 15,
-				'path'     => $this->get_template_public_path( TEMPLATEPATH ),
-			];
-		}
 
 		$folders['plugin'] = [
 			'id'        => 'plugin',
@@ -446,7 +443,46 @@ class Tribe__Template {
 		 * @param  array  $folders   Complete path to include the base public folder
 		 * @param  self   $template  Current instance of the Tribe__Template
 		 */
-		$folders = apply_filters( 'tribe_template_path_list', $folders, $this );
+		$folders = (array) apply_filters( 'tribe_template_path_list', $folders, $this );
+
+		uasort( $folders, 'tribe_sort_by_priority' );
+
+		return $folders;
+	}
+
+	/**
+	 * Get the list of theme related folders we will look up for the template.
+	 *
+	 * @since 4.11.0
+	 *
+	 * @param string $namespace Which plugin namespace we are looking for.
+	 *
+	 * @return array
+	 */
+	protected function get_template_theme_path_list( $namespace ) {
+		$folders = [];
+
+		$folders['child-theme'] = [
+			'id'       => 'child-theme',
+			'priority' => 10,
+			'path'     => $this->get_template_public_path( STYLESHEETPATH, $namespace ),
+		];
+		$folders['parent-theme'] = [
+			'id'       => 'parent-theme',
+			'priority' => 15,
+			'path'     => $this->get_template_public_path( TEMPLATEPATH, $namespace ),
+		];
+
+		/**
+		 * Allows filtering of the list of theme folders in which we will look for the template.
+		 *
+		 * @since  4.11.0
+		 *
+		 * @param  array   $folders     Complete path to include the base public folder.
+		 * @param  string  $namespace   Loads the files from a specified folder from the themes.
+		 * @param  self    $template    Current instance of the Tribe__Template.
+		 */
+		$folders = (array) apply_filters( 'tribe_template_theme_path_list', $folders, $namespace, $this );
 
 		uasort( $folders, 'tribe_sort_by_priority' );
 
@@ -469,11 +505,12 @@ class Tribe__Template {
 			$name = (array) explode( '/', $name );
 		}
 
-		$folders = $this->get_template_path_list( $this->template_folder_lookup );
+		$folders    = $this->get_template_path_list();
+		$found_file = false;
+		$namespace  = false;
 
 		foreach ( $folders as $folder ) {
-			$folder['path'] = trim( $folder['path'] );
-			if ( ! $folder['path'] ) {
+			if ( empty( $folder['path'] ) ) {
 				continue;
 			}
 
@@ -485,18 +522,45 @@ class Tribe__Template {
 
 			// Skip non-existent files
 			if ( file_exists( $file ) ) {
-				/**
-				 * A more Specific Filter that will include the template name
-				 *
-				 * @since  4.6.2
-				 * @since  4.7.20   The $name param no longer contains the extension
-				 *
-				 * @param string $file      Complete path to include the PHP File
-				 * @param array  $name      Template name
-				 * @param self   $template  Current instance of the Tribe__Template
-				 */
-				return apply_filters( 'tribe_template_file', $file, $name, $this );
+				$found_file = $file;
+				$namespace = ! empty(  $folder['namespace'] ) ?  $folder['namespace'] : false;
+				break;
 			}
+		}
+
+		if ( $this->template_folder_lookup ) {
+			$theme_folders = $this->get_template_theme_path_list( $namespace );
+
+			foreach ( $theme_folders as $folder ) {
+				if ( empty( $folder['path'] ) ) {
+					continue;
+				}
+
+				// Build the File Path
+				$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $folder['path'], $name ) );
+
+				// Append the Extension to the file path
+				$file .= '.php';
+
+				// Skip non-existent files
+				if ( file_exists( $file ) ) {
+					$found_file = $file;
+				}
+			}
+		}
+
+		if ( $found_file ) {
+			/**
+			 * A more Specific Filter that will include the template name
+			 *
+			 * @since  4.6.2
+			 * @since  4.7.20   The $name param no longer contains the extension
+			 *
+			 * @param string $file      Complete path to include the PHP File
+			 * @param array  $name      Template name
+			 * @param self   $template  Current instance of the Tribe__Template
+			 */
+			return apply_filters( 'tribe_template_file', $found_file, $name, $this );
 		}
 
 		// Couldn't find a template on the Stack
