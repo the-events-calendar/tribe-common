@@ -148,7 +148,7 @@ class Tribe__Template {
 	 *
 	 * @since 4.11.0
 	 *
-	 * @return array
+	 * @return array Current folder we are looking for templates.
 	 */
 	public function get_template_folder() {
 		return $this->folder;
@@ -337,8 +337,11 @@ class Tribe__Template {
 	 * in the theme's directory.
 	 *
 	 * @since  4.7.20
+	 * @since  4.11.0  Added param $plugin_namespace.
 	 *
-	 * @return array
+	 * @param string $plugin_namespace Overwrite the origin namespace with a given one.
+	 *
+	 * @return array Namespace where we to look for templates.
 	 */
 	protected function get_template_public_namespace( $plugin_namespace ) {
 		$namespace = [
