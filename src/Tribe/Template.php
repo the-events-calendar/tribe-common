@@ -393,7 +393,7 @@ class Tribe__Template {
 	 * @param  mixed  $base      Base path to look into.
 	 * @param  string $namespace Adds the plugin namespace to the path returned.
 	 *
-	 * @return string  Returns the public path for a given base.
+	 * @return string  The public path for a given base.˙˙
 	 */
 	protected function get_template_public_path( $base, $namespace ) {
 
