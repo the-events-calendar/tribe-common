@@ -2,7 +2,7 @@
 /**
  * Extends DateTimeImmutable and includes translation capabilities.
  *
- * @since   TBD
+ * @since   4.11.0
  * @package Tribe\Utils
  */
 
@@ -13,7 +13,7 @@ use DateTimeImmutable;
 /**
  * Class Date i18n Immutable
  *
- * @since   TBD
+ * @since   4.11.0
  * @package Tribe\Utils
  */
 class Date_I18n_Immutable extends DateTimeImmutable {
@@ -33,7 +33,7 @@ class Date_I18n_Immutable extends DateTimeImmutable {
 	/**
 	 * Returns a translated string using the params from this Immutable DateTime instance.
 	 *
-	 * @since  TBD
+	 * @since  4.11.0
 	 *
 	 * @param string $date_format Format to be used in the translation.
 	 *

@@ -645,7 +645,7 @@ class Tribe__Template {
 		/**
 		 * Allow users to filter the HTML before rendering
 		 *
-		 * @since  TBD
+		 * @since  4.11.0
 		 *
 		 * @param string $html      The initial HTML
 		 * @param string $file      Complete path to include the PHP File

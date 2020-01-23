@@ -3174,7 +3174,7 @@ abstract class Tribe__Repository
 		 *
 		 * This should only be used if doing creating pagination for performance purposes.
 		 *
-		 * @since 5.0.0
+		 * @since 4.11.0
 		 *
 		 * @param null|int $filtered_offset Offset parameter setting.
 		 * @param array    $query_args      List of query arguments.
