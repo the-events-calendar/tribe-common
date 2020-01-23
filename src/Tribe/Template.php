@@ -74,6 +74,15 @@ class Tribe__Template {
 	protected $template_folder_lookup = false;
 
 	/**
+	 * Create a class variable for the include path, to avoid conflicting with extract.
+	 *
+	 * @since  4.11.0
+	 *
+	 * @var  string
+	 */
+	protected $template_current_file_path;
+
+	/**
 	 * Configures the class origin plugin path
 	 *
 	 * @since  4.6.2
@@ -269,8 +278,8 @@ class Tribe__Template {
 			$context = [];
 		}
 
-		// Applies local context on top of Global one
-		$context = wp_parse_args( (array) $context, $this->global );
+		// Applies new local context on top of Global + Previous local.
+		$context = wp_parse_args( (array) $context, $this->get_values() );
 
 		/**
 		 * Allows filtering the Local context
@@ -646,23 +655,7 @@ class Tribe__Template {
 		 */
 		do_action( "tribe_template_before_include:$hook_name", $file, $name, $this );
 
-		// Only do this if really needed (by default it wont).
-		if ( true === $this->template_context_extract && ! empty( $this->context ) ) {
-			// We don't allow Extracting of a variable called $name
-			if ( isset( $this->context['name'] ) ) {
-				unset( $this->context['name'] );
-			}
-
-			// We don't allow the extraction of a variable called `$file`.
-			if ( isset( $this->context['file'] ) ) {
-				unset( $this->context['file'] );
-			}
-
-			// Make any provided variables available in the template variable scope.
-			extract( $this->context ); // @phpcs:ignore
-		}
-
-		include $file;
+		$this->template_safe_include( $file );
 
 		/**
 		 * Fires an Action after including the template file
@@ -765,6 +758,36 @@ class Tribe__Template {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Includes a give PHP inside of a safe context.
+	 *
+	 * This method is required to prevent template files messing with local variables used inside of the
+	 * `self::template` method. Also shelters the template loading from any possible variables that could
+	 * be overwritten by the context.
+	 *
+	 * @since 4.11.0
+	 *
+	 * @param string $file Which file will be included with safe context.
+	 *
+	 * @return void
+	 */
+	public function template_safe_include( $file ) {
+		// We use this instance variable to prevent collisions.
+		$this->template_current_file_path = $file;
+		unset( $file );
+
+		// Only do this if really needed (by default it wont).
+		if ( true === $this->template_context_extract && ! empty( $this->context ) ) {
+			// Make any provided variables available in the template variable scope.
+			extract( $this->context ); // @phpcs:ignore
+		}
+
+		include $this->template_current_file_path;
+
+		// After the include we reset the variable.
+		unset( $this->template_current_file_path );
 	}
 
 	/**
