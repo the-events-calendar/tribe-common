@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.11] TBD =
+= [4.11.0] 2020-01-27 =
 
 * Tweak - Set the default datepicker (compact) format to MM/D/YYYY [136789]
 * Tweak - Add the `Tribe\Traits\Cache_User::reset_caches` method to clear cache entries [138357]
