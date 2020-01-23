@@ -10,6 +10,7 @@
 * Tweak - Add the `Tribe\Traits\Cache_User::reset_caches` method to clear cache entries [138357]
 * Fix - Template class now will properly create file name for the hooks when in a different namespace.
 * Fix - Template class now will properly determine the Theme folder when dealing with a different namespace.
+* Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.10.3] 2019-12-19 =
 
