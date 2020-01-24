@@ -100,10 +100,11 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return mixed
 	 */
 	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = array() ) {
-		$group = isset( array_flip( $this->non_persistent_keys )[ $id ] ) ?
+		$flipped = array_flip( $this->non_persistent_keys );
+		$group   = isset( $flipped[ $id ] ) ?
 			'tribe-events-non-persistent'
 			: 'tribe-events';
-		$value = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
+		$value   = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
 
 		// Value found.
 		if ( false !== $value ) {
@@ -311,7 +312,9 @@ class Tribe__Cache implements ArrayAccess {
 	 * @since 5.0.0
 	 */
 	public function offsetExists( $offset ) {
-		return isset( array_flip( $this->non_persistent_keys )[ $offset ] );
+		$flipped = array_flip( $this->non_persistent_keys );
+
+		return isset( $flipped[ $offset ] );
 	}
 
 	/**
