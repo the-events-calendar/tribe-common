@@ -31,12 +31,12 @@ $displayTab = array(
 					)
 					. '</p>',
 			),
-			'datepickerFormat'                   => array(
+			'datepickerFormat'                   => [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'Compact Date Format', 'tribe-common' ),
 				'tooltip'         => esc_html__( 'Select the date format used for elements with minimal space, such as in datepickers.', 'tribe-common' ),
-				'default'         => 'Y-m-d',
-				'options'         => array(
+				'default'         => 1,
+				'options'         => [
 					'0' => date( 'Y-m-d', $sample_date ),
 					'1' => date( 'n/j/Y', $sample_date ),
 					'2' => date( 'm/d/Y', $sample_date ),
@@ -49,13 +49,13 @@ $displayTab = array(
 					'9' => date( 'Y.m.d', $sample_date ),
 					'10' => date( 'm.d.Y', $sample_date ),
 					'11' => date( 'd.m.Y', $sample_date ),
-				),
+				],
 				'validation_type' => 'options',
-			),
-			'tribe-form-content-end' => array(
+			],
+			'tribe-form-content-end' => [
 				'type' => 'html',
 				'html' => '</div>',
-			),
+			],
 		)
 	),
 );

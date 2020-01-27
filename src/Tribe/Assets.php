@@ -49,14 +49,12 @@ class Tribe__Assets {
 	 */
 	public function register_in_wp( $assets = null ) {
 		if ( is_null( $assets ) ) {
-			$assets = $this->assets;
+			$assets = $this->get();
 		}
 
 		if ( ! is_array( $assets ) ) {
 			$assets = [ $assets ];
 		}
-
-		uasort( $assets, [ $this, 'order_by_priority' ] );
 
 		foreach ( $assets as $asset ) {
 			// Asset is already registered.
@@ -97,7 +95,7 @@ class Tribe__Assets {
 				if ( did_action( $action ) > 0 ) {
 					$this->enqueue();
 				} else {
-					add_action( $action, [ $this, 'enqueue' ], $asset->priority );
+					add_action( $action, [ $this, 'enqueue' ], $asset->priority, 0 );
 				}
 			}
 		}
@@ -113,7 +111,7 @@ class Tribe__Assets {
 	 * @param string|array $groups Which groups will be enqueued.
 	 */
 	public function enqueue_group( $groups ) {
-		$assets = $this->get();
+		$assets  = $this->get( null, false );
 		$enqueue = [];
 
 		foreach ( $assets as $asset ) {
@@ -126,7 +124,6 @@ class Tribe__Assets {
 			if ( empty( $intersect ) ) {
 				continue;
 			}
-
 			$enqueue[] = $asset->slug;
 		}
 
@@ -148,7 +145,11 @@ class Tribe__Assets {
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
 		$forcibly_enqueue = array_filter( (array) $forcibly_enqueue );
-		$assets = $this->get();
+		if ( ! empty( $forcibly_enqueue ) ) {
+			$assets = (array) $this->get( $forcibly_enqueue );
+		} else {
+			$assets = $this->get();
+		}
 
 		foreach ( $assets as $asset ) {
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
@@ -274,26 +275,49 @@ class Tribe__Assets {
 	 * @return string|false The url to the minified version or false, if file not found.
 	 */
 	public static function maybe_get_min_file( $url ) {
-		$urls            = [];
-		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
-		$wp_plugin_url   = set_url_scheme( WP_PLUGIN_URL );
-		$wp_content_url  = set_url_scheme( WP_CONTENT_URL );
-		$plugins_url     = plugins_url();
+		static $wpmu_plugin_url;
+		static $wp_plugin_url;
+		static $wp_content_url;
+		static $plugins_url;
+		static $base_dirs;
+
+		$urls = [];
+		if ( ! isset( $wpmu_plugin_url ) ) {
+			$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
+		}
+
+		if ( ! isset( $wp_plugin_url ) ) {
+			$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
+		}
+
+		if ( ! isset( $wp_content_url ) ) {
+			$wp_content_url = set_url_scheme( WP_CONTENT_URL );
+		}
+
+		if ( ! isset( $plugins_url ) ) {
+			$plugins_url = plugins_url();
+		}
+
+		if ( ! isset( $base_dirs ) ) {
+			$base_dirs[ WPMU_PLUGIN_DIR ] = wp_normalize_path( WPMU_PLUGIN_DIR );
+			$base_dirs[ WP_PLUGIN_DIR ]   = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dirs[ WP_CONTENT_DIR ]  = wp_normalize_path( WP_CONTENT_DIR );
+		}
 
 		if ( 0 === strpos( $url, $wpmu_plugin_url ) ) {
 			// URL inside WPMU plugin dir.
-			$base_dir = wp_normalize_path( WPMU_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WPMU_PLUGIN_DIR ];
 			$base_url = $wpmu_plugin_url;
 		} elseif ( 0 === strpos( $url, $wp_plugin_url ) ) {
 			// URL inside WP plugin dir.
-			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WP_PLUGIN_DIR ];
 			$base_url = $wp_plugin_url;
 		} elseif ( 0 === strpos( $url, $wp_content_url ) ) {
 			// URL inside WP content dir.
-			$base_dir = wp_normalize_path( WP_CONTENT_DIR );
+			$base_dir = $base_dirs[ WP_CONTENT_DIR ];
 			$base_url = $wp_content_url;
 		} elseif ( 0 === strpos( $url, $plugins_url ) ) {
-			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WP_PLUGIN_DIR ];
 			$base_url = $plugins_url;
 		} else {
 			// Resource needs to be inside wp-content or a plugins dir.
@@ -320,7 +344,7 @@ class Tribe__Assets {
 		// Check for all Urls added to the array.
 		foreach ( $urls as $partial_path ) {
 			$file_path = wp_normalize_path( $base_dir . $partial_path );
-			$file_url  = plugins_url( basename( $file_path ), $file_path );
+			$file_url  = $base_url . $partial_path;
 
 			if ( file_exists( $file_path ) ) {
 				return $file_url;
@@ -514,9 +538,6 @@ class Tribe__Assets {
 		// Set the Asset on the array of notices.
 		$this->assets[ $slug ] = $asset;
 
-		// Sorts by priority.
-		uasort( $this->assets, [ $this, 'order_by_priority' ] );
-
 		// Return the Slug because it might be modified.
 		return $asset;
 	}
@@ -578,17 +599,53 @@ class Tribe__Assets {
 	 * Get the Asset Object configuration.
 	 *
 	 * @since 4.3
+	 * @since 4.11.0  Added $sort param.
 	 *
-	 * @param string $slug Slug of the Asset.
+	 * @param string|array $slug Slug of the Asset.
+	 * @param boolean      $sort  If we should do any sorting before returning.
 	 *
 	 * @return array|object|null Array of asset objects, single asset object, or null if looking for a single asset but
 	 *                           it was not in the array of objects.
 	 */
-	public function get( $slug = null ) {
-		uasort( $this->assets, [ $this, 'order_by_priority' ] );
-
+	public function get( $slug = null, $sort = true ) {
 		if ( is_null( $slug ) ) {
+			if ( $sort ) {
+				$cache_key_count = __METHOD__ . ':count';
+				// Sorts by priority.
+				$cache_count = tribe_get_var( $cache_key_count, 0 );
+				$count       = count( $this->assets );
+
+				if ( $count !== $cache_count ) {
+					uasort( $this->assets, 'tribe_sort_by_priority' );
+					tribe_set_var( $cache_key_count, $count );
+				}
+			}
 			return $this->assets;
+		}
+
+		// If slug is an array we return all of those.
+		if ( is_array( $slug ) ) {
+			$assets = [];
+			foreach ( $slug as $asset_slug ) {
+				$asset_slug = sanitize_title_with_dashes( $asset_slug );
+				// Skip empty assets.
+				if ( empty( $this->assets[ $asset_slug ] ) ) {
+					continue;
+				}
+
+				$assets[ $asset_slug ] = $this->assets[ $asset_slug ];
+			}
+
+			if ( empty( $assets ) ) {
+				return null;
+			}
+
+			if ( $sort ) {
+				// Sorts by priority.
+				uasort( $assets, 'tribe_sort_by_priority' );
+			}
+
+			return $assets;
 		}
 
 		// Prevent weird stuff here.
@@ -602,23 +659,9 @@ class Tribe__Assets {
 	}
 
 	/**
-	 * Add the Priority ordering, which was causing an issue of not respecting which order stuff was registered.
-	 *
-	 * @since  4.7
-	 *
-	 * @param object $a First Subject to compare.
-	 * @param object $b Second subject to compare.
-	 *
-	 * @return boolean
-	 */
-	public function order_by_priority( $a, $b ) {
-		return (int) $a->priority === (int) $b->priority ? 0 : (int) $a->priority > (int) $b->priority;
-	}
-
-	/**
 	 * Checks if an Asset exists.
 	 *
-	 * @param  string $slug Slug of the Asset.
+	 * @param  string|array $slug Slug of the Asset.
 	 *
 	 * @return bool
 	 */

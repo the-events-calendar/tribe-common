@@ -10,6 +10,7 @@
  * When used in its ArrayAccess API the cache will provide non persistent storage.
  */
 class Tribe__Cache implements ArrayAccess {
+	const SCHEDULED_EVENT_DELETE_TRANSIENT = 'tribe_schedule_transient_purge';
 	const NO_EXPIRATION  = 0;
 	const NON_PERSISTENT = - 1;
 
@@ -18,15 +19,28 @@ class Tribe__Cache implements ArrayAccess {
 	 */
 	protected $non_persistent_keys = array();
 
+	/**
+	 * Bootstrap hook
+	 *
+	 * @since 4.11.0
+	 */
+	public function hook() {
+		if ( ! wp_next_scheduled( self::SCHEDULED_EVENT_DELETE_TRANSIENT ) ) {
+			wp_schedule_event( time(), 'twicedaily', self::SCHEDULED_EVENT_DELETE_TRANSIENT );
+		}
+
+		add_action( self::SCHEDULED_EVENT_DELETE_TRANSIENT, [ $this, 'delete_expired_transients' ] );
+	}
+
 	public static function setup() {
 		wp_cache_add_non_persistent_groups( array( 'tribe-events-non-persistent' ) );
 	}
 
 	/**
-	 * @param string $id
-	 * @param mixed  $value
-	 * @param int    $expiration
-	 * @param string $expiration_trigger
+	 * @param string       $id
+	 * @param mixed        $value
+	 * @param int          $expiration
+	 * @param string|array $expiration_trigger
 	 *
 	 * @return bool
 	 */
@@ -37,11 +51,11 @@ class Tribe__Cache implements ArrayAccess {
 		 * Filters the expiration for cache objects to provide the ability
 		 * to make non-persistent objects be treated as persistent.
 		 *
-		 * @param int    $expiration         Cache expiration time.
-		 * @param string $id                 Cache ID.
-		 * @param mixed  $value              Cache value.
-		 * @param string $expiration_trigger Action that triggers automatic expiration.
-		 * @param string $key                Unique cache key based on Cache ID and expiration trigger last run time.
+		 * @param int          $expiration         Cache expiration time.
+		 * @param string       $id                 Cache ID.
+		 * @param mixed        $value              Cache value.
+		 * @param string|array $expiration_trigger Action that triggers automatic expiration.
+		 * @param string       $key                Unique cache key based on Cache ID and expiration trigger last run time.
 		 *
 		 * @since 4.8
 		 */
@@ -61,10 +75,10 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param        $id
-	 * @param        $value
-	 * @param int    $expiration
-	 * @param string $expiration_trigger
+	 * @param              $id
+	 * @param              $value
+	 * @param int          $expiration
+	 * @param string|array $expiration_trigger
 	 *
 	 * @return bool
 	 */
@@ -77,11 +91,11 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * Note: When a default value or callback is specified, this value gets set in the cache.
 	 *
-	 * @param string $id                 The key for the cached value.
-	 * @param string $expiration_trigger Optional. Hook to trigger cache invalidation.
-	 * @param mixed  $default            Optional. A default value or callback that returns a default value.
-	 * @param int    $expiration         Optional. When the default value expires, if it gets set.
-	 * @param mixed  $args               Optional. Args passed to callback.
+	 * @param string       $id                 The key for the cached value.
+	 * @param string|array $expiration_trigger Optional. Hook to trigger cache invalidation.
+	 * @param mixed        $default            Optional. A default value or callback that returns a default value.
+	 * @param int          $expiration         Optional. When the default value expires, if it gets set.
+	 * @param mixed        $args               Optional. Args passed to callback.
 	 *
 	 * @return mixed
 	 */
@@ -112,7 +126,7 @@ class Tribe__Cache implements ArrayAccess {
 
 	/**
 	 * @param string $id
-	 * @param string $expiration_trigger
+	 * @param string|array $expiration_trigger
 	 *
 	 * @return mixed
 	 */
@@ -122,7 +136,7 @@ class Tribe__Cache implements ArrayAccess {
 
 	/**
 	 * @param string $id
-	 * @param string $expiration_trigger
+	 * @param string|array $expiration_trigger
 	 *
 	 * @return bool
 	 */
@@ -132,7 +146,7 @@ class Tribe__Cache implements ArrayAccess {
 
 	/**
 	 * @param string $id
-	 * @param string $expiration_trigger
+	 * @param string|array $expiration_trigger
 	 *
 	 * @return bool
 	 */
@@ -141,16 +155,64 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
+	 * Purge all expired tribe_ transients.
+	 *
+	 * This uses a modification of the the query from https://core.trac.wordpress.org/ticket/20316
+	 *
+	 * @since 4.11.0
+	 */
+	public function delete_expired_transients() {
+		global $wpdb;
+
+		$time = time();
+
+		$sql = "
+			DELETE
+				a,
+				b
+			FROM
+				{$wpdb->options} a
+				INNER JOIN {$wpdb->options} b
+					ON b.option_name = CONCAT( '_transient_timeout_tribe_', SUBSTRING( a.option_name, 12 ) )
+					AND b.option_value < {$time}
+			WHERE
+				a.option_name LIKE '\_transient_tribe\_%'
+				AND a.option_name NOT LIKE '\_transient\_timeout_tribe\_%'
+		";
+		$wpdb->query( $sql );
+	}
+
+	/**
 	 * @param string $key
-	 * @param string $expiration_trigger
+	 * @param string|array $expiration_trigger
 	 *
 	 * @return string
 	 */
 	public function get_id( $key, $expiration_trigger = '' ) {
-		$last = empty( $expiration_trigger ) ? '' : $this->get_last_occurrence( $expiration_trigger );
+		if ( is_array( $expiration_trigger ) ) {
+			$triggers = $expiration_trigger;
+		} else {
+			$triggers = array_filter( explode( '|', $expiration_trigger ) );
+		}
+
+		$last = 0;
+		foreach ( $triggers as $trigger ) {
+			// Bail on empty trigger otherwise it creates a `tribe_last_` opt on the DB.
+			if ( empty( $trigger ) ) {
+				continue;
+			}
+
+			$occurrence = $this->get_last_occurrence( $trigger );
+
+			if ( $occurrence > $last ) {
+				$last = $occurrence;
+			}
+		}
+
+		$last = empty( $last ) ? '' : $last;
 		$id   = $key . $last;
-		if ( strlen( $id ) > 40 ) {
-			$id = md5( $id );
+		if ( strlen( $id ) > 80 ) {
+			$id = 'tribe_' . md5( $id );
 		}
 
 		return $id;
@@ -166,7 +228,27 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return float The time (microtime) an action last occurred, or the current microtime if it never occurred.
 	 */
 	public function get_last_occurrence( $action ) {
-		return (float) get_option( 'tribe_last_' . $action, microtime( true ) );
+		static $cache_var_name = __METHOD__;
+
+		$cache_last_actions = tribe_get_var( $cache_var_name, [] );
+
+		if ( isset( $cache_last_actions[ $action ] ) ) {
+			return $cache_last_actions[ $action ];
+		}
+
+		$last_action = (float) get_option( 'tribe_last_' . $action, null );
+
+		if ( ! $last_action ) {
+			$last_action = microtime( true );
+
+			update_option( 'tribe_last_' . $action, $last_action );
+		}
+
+		$cache_last_actions[ $action ] = (float) $last_action;
+
+		tribe_set_var( $cache_var_name, $cache_last_actions );
+
+		return $cache_last_actions[ $action ];
 	}
 
 	/**
@@ -182,6 +264,8 @@ class Tribe__Cache implements ArrayAccess {
 			$timestamp = microtime( true );
 		}
 		update_option( 'tribe_last_' . $action, (float) $timestamp );
+
+		$this->delete_expired_transients();
 	}
 
 	/**
@@ -222,7 +306,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *                      </p>
 	 *                      <p>
 	 *                      The return value will be casted to boolean if non-boolean was returned.
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetExists( $offset ) {
 		return in_array( $offset, $this->non_persistent_keys );
@@ -236,7 +320,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *                      The offset to retrieve.
 	 *                      </p>
 	 * @return mixed Can return all value types.
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetGet( $offset ) {
 		return $this->get( $offset );
@@ -253,7 +337,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *                      The value to set.
 	 *                      </p>
 	 * @return void
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetSet( $offset, $value ) {
 		$this->set( $offset, $value, self::NON_PERSISTENT );
@@ -267,7 +351,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *                      The offset to unset.
 	 *                      </p>
 	 * @return void
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetUnset( $offset ) {
 		$this->delete( $offset );

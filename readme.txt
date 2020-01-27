@@ -2,6 +2,16 @@
 
 == Changelog ==
 
+= [4.11.0] 2020-01-27 =
+
+* Feature - Inclusion of `Date_I18n_Immutable` and `Date_I18n` as WP friendly options to `DateTimeImmutable` and `DateTime` respectively.
+* Tweak - Caching of Tribe Options in memory to improve performance.
+* Tweak - Set the default datepicker (compact) format to MM/D/YYYY [136789]
+* Tweak - Add the `Tribe\Traits\Cache_User::reset_caches` method to clear cache entries [138357]
+* Fix - Template class now will properly create file name for the hooks when in a different namespace.
+* Fix - Template class now will properly determine the Theme folder when dealing with a different namespace.
+* Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.10.3] 2019-12-19 =
 
 * Feature - Add Repository filter `where_meta_related_by_meta` for getting a post by the meta value an associated post. [133333]
