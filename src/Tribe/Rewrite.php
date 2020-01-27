@@ -407,8 +407,8 @@ class Tribe__Rewrite {
 		$query         = (string) parse_url( $url, PHP_URL_QUERY );
 		wp_parse_str( $query, $query_vars );
 
-		// Remove the `paged` query var if it's 1.
 		if ( isset( $query_vars['paged'] ) && 1 === (int) $query_vars['paged'] ) {
+			// Remove the `paged` query var if it's 1.
 			unset( $query_vars['paged'] );
 		}
 
@@ -416,10 +416,16 @@ class Tribe__Rewrite {
 
 		$our_rules          = $this->get_handled_rewrite_rules();
 		$handled_query_vars = $this->get_rules_query_vars( $our_rules );
+		$handled_post_types = $this->get_post_types();
 
 		if (
+			// The rules we handle should not be empty.
 			empty( $our_rules )
-			|| ! in_array( Arr::get( $query_vars, 'post_type', 'post' ), $this->get_post_types(), true )
+			|| ! (
+				// Supported post types should be either keys or values, of the `post_type` argument, in the query vars.
+				count( array_intersect_key( array_flip( $handled_post_types ), $query_vars ) )
+				|| in_array( Arr::get( $query_vars, 'post_type', 'post' ), $handled_post_types, true )
+			)
 		) {
 			$wp_canonical = redirect_canonical( $canonical_url, false );
 			if ( empty( $wp_canonical ) ) {
@@ -559,12 +565,13 @@ class Tribe__Rewrite {
 			$this->setup();
 		}
 
+		$all_rules     = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
+
 		if ( null === $our_rules ) {
 			// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 			$pattern = '/post_type=tribe_(events|venue|organizer)/';
 			// Reverse the rules to try and match the most complex first.
-			$rules     = isset( $this->rewrite->rules ) ? (array) $this->rewrite->rules : [];
-			$our_rules = array_filter( $rules,
+			$our_rules = array_filter( $all_rules,
 				static function ( $rule_query_string ) use ( $pattern ) {
 					return preg_match( $pattern, $rule_query_string );
 				}
@@ -581,8 +588,11 @@ class Tribe__Rewrite {
 		 * @param array $our_rules An array of rewrite rules handled by our code, in the shape
 		 *                         `[ <rewrite_rule_regex_pattern> => <query_string> ]`.
 		 *                         E.g. `[ '(?:events)/(?:list)/?$' => 'index.php?post_type=tribe_events&eventDisplay=list' ]`.
+		 * @param array<string,string> All the current rewrite rules, before any filtering is applied; these have the
+		 *                             same `<pattern => rewrite >` format as the previous argument, which is the
+		 *                             format used by WordPress rewrite rules.
 		 */
-		$our_rules = apply_filters( 'tribe_rewrite_handled_rewrite_rules', $our_rules );
+		$our_rules = apply_filters( 'tribe_rewrite_handled_rewrite_rules', $our_rules, $all_rules );
 
 		return $our_rules;
 	}
@@ -637,7 +647,7 @@ class Tribe__Rewrite {
 	}
 
 	/**
-	 * Returns a map relating localize matcher slugs to the corresponding query var.
+	 * Returns a map relating localized matcher slugs to the corresponding query var.
 	 *
 	 * @since 4.9.11
 	 *
@@ -750,6 +760,8 @@ class Tribe__Rewrite {
 	 * Returns a list of post types supported by the implementation.
 	 *
 	 * @since 4.9.11
+	 *
+	 * @return array<string> An array of post types supported and handled by the rewrite implementation.
 	 */
 	protected function get_post_types() {
 		throw new BadMethodCallException( 'Method get_post_types should be implemented by extending classes.' );
