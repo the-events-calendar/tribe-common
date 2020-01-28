@@ -22,7 +22,7 @@ class Tribe__Cache implements ArrayAccess {
 	/**
 	 * Bootstrap hook
 	 *
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function hook() {
 		if ( ! wp_next_scheduled( self::SCHEDULED_EVENT_DELETE_TRANSIENT ) ) {
@@ -162,7 +162,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * This uses a modification of the the query from https://core.trac.wordpress.org/ticket/20316
 	 *
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function delete_expired_transients() {
 		global $wpdb;
@@ -309,7 +309,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *                      </p>
 	 *                      <p>
 	 *                      The return value will be casted to boolean if non-boolean was returned.
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetExists( $offset ) {
 		$flipped = array_flip( $this->non_persistent_keys );
@@ -325,7 +325,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *                      The offset to retrieve.
 	 *                      </p>
 	 * @return mixed Can return all value types.
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetGet( $offset ) {
 		return $this->get( $offset );
@@ -342,7 +342,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *                      The value to set.
 	 *                      </p>
 	 * @return void
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetSet( $offset, $value ) {
 		$this->set( $offset, $value, self::NON_PERSISTENT );
@@ -356,7 +356,7 @@ class Tribe__Cache implements ArrayAccess {
 	 *                      The offset to unset.
 	 *                      </p>
 	 * @return void
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetUnset( $offset ) {
 		$this->delete( $offset );

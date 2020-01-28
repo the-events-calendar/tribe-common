@@ -66,7 +66,7 @@ function tribe_the_content( $more_link_text = null, $strip_teaser = false, $post
 /**
  * Wrapper for post_class function that allows us to in-memory cache
  *
- * @since TBD
+ * @since 4.11.0
  *
  * @param string|string[] $class   Space-separated string or array of class names to add to the class list.
  * @param int|WP_Post     $post_id Optional. Post ID or post object.

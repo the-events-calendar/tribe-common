@@ -37,7 +37,7 @@ class Tribe__Settings_Manager {
 	 * For performance reasons our options are saved in memory, but we need to make sure we update it when WordPress
 	 * updates the variable directly.
 	 *
-	 * @since TBD
+	 * @since 4.11.0
 	 *
 	 * @param string $option    Name of the updated option.
 	 * @param mixed  $old_value The old option value.
