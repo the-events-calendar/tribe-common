@@ -234,7 +234,7 @@ if ( ! function_exists( 'tribe_unset_var' ) ) {
 	 *
 	 *      tribe_unset_var( 'tec.url' );
 	 *
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 *
 	 * @param string $slug    The slug of the variable registered using `tribe_unset_var`.
 	 *
@@ -258,7 +258,7 @@ if ( ! function_exists( 'tribe_isset_var' ) ) {
 	 *
 	 *      tribe_isset_var( 'tec.url' );
 	 *
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 *
 	 * @param  string   $slug    The slug of the variable checked using `tribe_isset_var`.
 	 *
