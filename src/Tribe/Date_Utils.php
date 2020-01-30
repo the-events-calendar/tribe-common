@@ -1363,8 +1363,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			$week_end->add( new DateInterval( 'P6D' ) );
 			$week_end->setTime( 23, 59, 59 );
 
-			$week_start = static::immutable( static::get_shifted_start_of_day( $week_start ) );
-			$week_end   = static::immutable( static::get_shifted_end_of_day( $week_end ) );
+			$week_start = static::immutable( $week_start );
+			$week_end   = static::immutable( $week_end );
 
 			$cache[ $cache_key ]                       = [ $week_start, $week_end ];
 			$cache_week_start_end[ $memory_cache_key ] = [ $week_start, $week_end ];
