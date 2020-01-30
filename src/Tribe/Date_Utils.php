@@ -1291,6 +1291,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * @since 4.9.21
 		 *
+		 * @throws Exception
+		 *
 		 * @param string|int|\DateTime $date          The date string, timestamp or object.
 		 * @param int|null             $start_of_week The number representing the start of week day as handled by
 		 *                                            WordPress: `0` (for Sunday) through `6` (for Saturday).
@@ -1361,8 +1363,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			$week_end->add( new DateInterval( 'P6D' ) );
 			$week_end->setTime( 23, 59, 59 );
 
-			$week_start = static::immutable( $week_start );
-			$week_end   = static::immutable( $week_end );
+			$week_start = static::immutable( static::get_shifted_start_of_day( $week_start ) );
+			$week_end   = static::immutable( static::get_shifted_end_of_day( $week_end ) );
 
 			$cache[ $cache_key ]                       = [ $week_start, $week_end ];
 			$cache_week_start_end[ $memory_cache_key ] = [ $week_start, $week_end ];
@@ -1370,6 +1372,110 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			tribe_set_var( $cache_var_name, $cache_week_start_end );
 
 			return [ $week_start, $week_end ];
+		}
+
+		/**
+		 * Given a specific DateTime we determine the end of that day based on our Internal End of Day Cut-off.
+		 *
+		 * @since TBD
+		 *
+		 * @param string|DateTimeInterface $date    Date that we are getting the end of day from.
+		 * @param null|string              $cutoff  Which cutoff to use.
+		 *
+		 * @return DateTimeInterface|false Returns a DateTimeInterface when a valid date is given or false.
+		 */
+		public static function get_shifted_end_of_day( $date, $cutoff = null ) {
+			$date_obj = static::build_date_object( $date );
+
+			if ( ! $date_obj ) {
+				return false;
+			}
+
+			$start_of_day = clone $date_obj;
+			$end_of_day   = clone $date_obj;
+
+			if ( empty( $cutoff ) || ! is_string( $cutoff ) || false === strpos( $cutoff, ':' ) ) {
+				$cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
+			}
+
+			list( $hours_to_add, $minutes_to_add ) = array_map( 'absint', explode( ':', $cutoff ) );
+
+			$seconds_to_add = ( $hours_to_add * HOUR_IN_SECONDS ) + ( $minutes_to_add * MINUTE_IN_SECONDS );
+			if ( 0 !== $seconds_to_add ) {
+				$interval = static::interval( "PT{$seconds_to_add}S" );
+			}
+
+			$start_of_day->setTime( '0', '0', '0' );
+			$end_of_day->setTime( '23', '59', '59' );
+
+			if ( 0 !== $seconds_to_add ) {
+				$start_of_day->add( $interval );
+				$end_of_day->add( $interval );
+			}
+
+			if ( $end_of_day >= $date_obj && $date_obj >= $start_of_day ) {
+				return $end_of_day;
+			}
+
+			$start_of_day->sub( static::interval( 'P1D' ) );
+
+			if ( $start_of_day < $date_obj ) {
+				$end_of_day->sub( static::interval( 'P1D' ) );
+			}
+
+			return $end_of_day;
+		}
+
+		/**
+		 * Given a specific DateTime we determine the start of that day based on our Internal End of Day Cut-off.
+		 *
+		 * @since TBD
+		 *
+		 * @param string|DateTimeInterface $date    Date that we are getting the start of day from.
+		 * @param null|string              $cutoff  Which cutoff to use.
+		 *
+		 * @return DateTimeInterface|false Returns a DateTimeInterface when a valid date is given or false.
+		 */
+		public static function get_shifted_start_of_day( $date, $cutoff = null ) {
+			$date_obj = static::build_date_object( $date );
+
+			if ( ! $date_obj ) {
+				return false;
+			}
+
+			$start_of_day = clone $date_obj;
+			$end_of_day   = clone $date_obj;
+
+			if ( empty( $cutoff ) || ! is_string( $cutoff ) || false === strpos( $cutoff, ':' ) ) {
+				$cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
+			}
+
+			list( $hours_to_add, $minutes_to_add ) = array_map( 'absint', explode( ':', $cutoff ) );
+
+			$seconds_to_add = ( $hours_to_add * HOUR_IN_SECONDS ) + ( $minutes_to_add * MINUTE_IN_SECONDS );
+			if ( 0 !== $seconds_to_add ) {
+				$interval = static::interval( "PT{$seconds_to_add}S" );
+			}
+
+			$start_of_day->setTime( '0', '0', '0' );
+			$end_of_day->setTime( '23', '59', '59' );
+
+			if ( 0 !== $seconds_to_add ) {
+				$start_of_day->add( $interval );
+				$end_of_day->add( $interval );
+			}
+
+			if ( $end_of_day <= $date_obj && $date_obj >= $start_of_day ) {
+				return $start_of_day;
+			}
+
+			$end_of_day->sub( static::interval( 'P1D' ) );
+
+			if ( $end_of_day > $date_obj ) {
+				$start_of_day->sub( static::interval( 'P1D' ) );
+			}
+
+			return $start_of_day;
 		}
 
 		/**
