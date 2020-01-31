@@ -25,15 +25,15 @@ export default ( WrappedComponent ) => {
 		static displayName = `WithBlockCloser( ${ WrappedComponent.displayName || WrappedComponent.name || 'Component ' }`
 
 		static propTypes = {
-			onClose: PropTypes.func.isRequired,
+			onClose: PropTypes.func,
+			onOpen: PropTypes.func,
 			classNameClickBlacklist: PropTypes.arrayOf( PropTypes.string ).isRequired,
-			isOpen: PropTypes.bool.isRequired,
 		};
 
 		static defaultProps = {
 			classNameClickBlacklist: [ '.edit-post-sidebar' ],
 			onClose: noop,
-			isOpen: false,
+			onOpen: noop,
 		}
 
 		nodeRef = React.createRef();
@@ -50,6 +50,16 @@ export default ( WrappedComponent ) => {
 		// Prevent CustomEvents from propagating to document proxy listeners
 		_interceptClickProxyEvent = intercept;
 
+		constructor( props ) {
+			super( props );
+			this.state = { isOpen: false };
+		}
+
+		open = () => {
+			this.setState( { isOpen: true } );
+			this.props.onOpen();
+		}
+
 		/**
 		 * keydown handler
 		 *
@@ -58,19 +68,19 @@ export default ( WrappedComponent ) => {
 		 */
 		handleKeyDown = ( e ) => {
 			if ( e.keyCode === ESCAPE_KEY ) {
+				this.setState( { isOpen: false } );
 				this.props.onClose();
 			}
 		}
 
-		handleClick = () => this.props.onClose()
-
-		componentDidMount() {
-			this.props.isOpen && this._addEventListeners();
+		handleClick = () => {
+			this.setState( { isOpen: false } );
+			this.props.onClose();
 		}
 
-		componentDidUpdate( prevProps ) {
-			if ( prevProps.isOpen !== this.props.isOpen ) {
-				this.props.isOpen
+		componentDidUpdate( prevProps, prevState ) {
+			if ( prevState.isOpen !== this.state.isOpen ) {
+				this.state.isOpen
 					? this._addEventListeners()
 					: this._removeEventListeners();
 			}
@@ -117,9 +127,11 @@ export default ( WrappedComponent ) => {
 		}
 
 		render() {
+			const additionalProps = { open: this.open, isOpen: this.state.isOpen };
+
 			return (
 				<div ref={ this.nodeRef }>
-					<WrappedComponent { ...this.props } />
+					<WrappedComponent { ...this.props } { ...additionalProps } />
 				</div>
 			);
 		}
