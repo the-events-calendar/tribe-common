@@ -32,6 +32,7 @@
 		&::placeholder {
 			color: var(--color-text-secondary);
 			font-style: normal;
+			opacity: var(--opacity-default);
 		}
 
 		&:focus {
@@ -72,11 +73,13 @@
 	 * Theme Overrides - Enfold
 	 * ------------------------------------------------------------------------- */
 
-	#top.tribe-theme-enfold & {
+	#top.tribe-theme-enfold &,
+	#top .main_color & {
 
 		.tribe-common-form-control-text__input {
 			@mixin desktop-body-1;
 
+			background: var(--color-background);
 			border: 0;
 			border-bottom: 1px solid var(--color-border-default);
 

@@ -321,7 +321,7 @@ export const resetTimes = ( start ) => {
  * @returns {{start: {moment}, end: {moment}}} Object with two keys: start, end
  */
 export const adjustStart = ( start, end ) => {
-	if ( end.isSameOrBefore( start ) ) {
+	if ( end.isBefore( start ) ) {
 		return resetTimes( start );
 	}
 
