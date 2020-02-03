@@ -395,7 +395,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @dataProvider build_start_of_day
+	 * @dataProvider build_shifted_start_of_day
 	 */
 	public function test_get_shifted_start_of_day( $input, $expected, $cutoff ){
 		$start_of_day = Date_Utils::get_shifted_start_of_day( $input, $cutoff );
@@ -454,7 +454,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * @dataProvider build_end_of_day
+	 * @dataProvider build_shifted_end_of_day
 	 */
 	public function test_shifted_end_start_of_day( $input, $expected, $cutoff ){
 		$end_of_day = Date_Utils::get_shifted_end_of_day( $input, $cutoff );
