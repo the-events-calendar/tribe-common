@@ -286,17 +286,22 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 		$data            = $this->fetch_data();
 		$data['post_id'] = $this->post_id;
 
-		return serialize( $data );
+		return wp_json_encode( $data );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function unserialize( $serialized ) {
-		$data          = unserialize( $serialized );
+		$data = json_decode( $serialized, true );
+		array_walk( $data, static function ( &$data_entry ) {
+			if ( is_array( $data_entry ) ) {
+				$data_entry = (object) $data_entry;
+			}
+		} );
 		$this->post_id = $data['post_id'];
 		unset( $data['post_id'] );
-		$this->data = $data;
+		$this->data = ! empty( $data ) ? $data : null;
 	}
 
 	/**
