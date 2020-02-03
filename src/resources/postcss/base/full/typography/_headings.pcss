@@ -16,7 +16,7 @@
 		@mixin heading;
 		@mixin mobile-heading-1;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			@mixin desktop-heading-1;
 		}
 	}
@@ -29,7 +29,7 @@
 		@mixin heading;
 		@mixin mobile-heading-2;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			@mixin desktop-heading-2;
 		}
 	}
@@ -42,7 +42,7 @@
 		@mixin heading;
 		@mixin mobile-heading-3;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			@mixin desktop-heading-3;
 		}
 	}
@@ -55,7 +55,7 @@
 		@mixin heading;
 		@mixin mobile-heading-4;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			@mixin desktop-heading-4;
 		}
 	}
@@ -77,7 +77,7 @@
 		@mixin heading;
 		@mixin mobile-heading-6;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			@mixin desktop-heading-6;
 		}
 	}
@@ -105,7 +105,8 @@
 	 * ------------------------------------------------------------------------- */
 
 	.tribe-common-h3--min-medium {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			@mixin desktop-heading-3;
 		}
 	}
@@ -115,7 +116,8 @@
 	 * ------------------------------------------------------------------------- */
 
 	.tribe-common-h4--min-medium {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			@mixin desktop-heading-4;
 		}
 	}
@@ -125,7 +127,8 @@
 	 * ------------------------------------------------------------------------- */
 
 	.tribe-common-h5--min-medium {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			@mixin heading-5;
 		}
 	}
@@ -135,7 +138,8 @@
 	 * ------------------------------------------------------------------------- */
 
 	.tribe-common-h6--min-medium {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			@mixin desktop-heading-6;
 		}
 	}
@@ -145,7 +149,8 @@
 	 * ------------------------------------------------------------------------- */
 
 	.tribe-common-h7--min-medium {
-		@media (--viewport-medium) {
+
+		.tribe-common--breakpoint-medium& {
 			@mixin heading-7;
 		}
 	}
@@ -168,7 +173,7 @@
 	 * Theme Overrides - Avada
 	 * ------------------------------------------------------------------------- */
 
-	 .tribe-theme-avada #main & {
+	.tribe-theme-avada #main & {
 
 		/* -------------------------------------------------------------------------
 		 * Heading: h1
@@ -177,10 +182,10 @@
 		.tribe-common-h1 {
 			@mixin heading;
 			@mixin mobile-heading-1;
+		}
 
-			@media (--viewport-medium) {
-				@mixin desktop-heading-1;
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-h1 {
+			@mixin desktop-heading-1;
 		}
 
 		/* -------------------------------------------------------------------------
@@ -190,10 +195,10 @@
 		.tribe-common-h2 {
 			@mixin heading;
 			@mixin mobile-heading-2;
+		}
 
-			@media (--viewport-medium) {
-				@mixin desktop-heading-2;
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-h2 {
+			@mixin desktop-heading-2;
 		}
 
 		/* -------------------------------------------------------------------------
@@ -203,10 +208,10 @@
 		.tribe-common-h3 {
 			@mixin heading;
 			@mixin mobile-heading-3;
+		}
 
-			@media (--viewport-medium) {
-				@mixin desktop-heading-3;
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-h3 {
+			@mixin desktop-heading-3;
 		}
 
 		/* -------------------------------------------------------------------------
@@ -216,10 +221,10 @@
 		.tribe-common-h4 {
 			@mixin heading;
 			@mixin mobile-heading-4;
+		}
 
-			@media (--viewport-medium) {
-				@mixin desktop-heading-4;
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-h4 {
+			@mixin desktop-heading-4;
 		}
 
 		/* -------------------------------------------------------------------------
@@ -238,10 +243,10 @@
 		.tribe-common-h6 {
 			@mixin heading;
 			@mixin mobile-heading-6;
+		}
 
-			@media (--viewport-medium) {
-				@mixin desktop-heading-6;
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-h6 {
+			@mixin desktop-heading-6;
 		}
 
 		/* -------------------------------------------------------------------------
@@ -266,50 +271,40 @@
 		 * Heading: h3 for --viewport-medium
 		 * ------------------------------------------------------------------------- */
 
-		.tribe-common-h3--min-medium {
-			@media (--viewport-medium) {
-				@mixin desktop-heading-3;
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-h3--min-medium {
+			@mixin desktop-heading-3;
 		}
 
 		/* -------------------------------------------------------------------------
 		 * Heading: h4 for --viewport-medium
 		 * ------------------------------------------------------------------------- */
 
-		.tribe-common-h4--min-medium {
-			@media (--viewport-medium) {
-				@mixin desktop-heading-4;
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-h4--min-medium {
+			@mixin desktop-heading-4;
 		}
 
 		/* -------------------------------------------------------------------------
 		 * Heading: h5 for --viewport-medium
 		 * ------------------------------------------------------------------------- */
 
-		.tribe-common-h5--min-medium {
-			@media (--viewport-medium) {
-				@mixin heading-5;
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-h5--min-medium {
+			@mixin heading-5;
 		}
 
 		/* -------------------------------------------------------------------------
 		 * Heading: h6 for --viewport-medium
 		 * ------------------------------------------------------------------------- */
 
-		.tribe-common-h6--min-medium {
-			@media (--viewport-medium) {
-				@mixin desktop-heading-6;
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-h6--min-medium {
+			@mixin desktop-heading-6;
 		}
 
 		/* -------------------------------------------------------------------------
 		 * Heading: h7 for --viewport-medium
 		 * ------------------------------------------------------------------------- */
 
-		.tribe-common-h7--min-medium {
-			@media (--viewport-medium) {
-				@mixin heading-7;
-			}
+		&.tribe-common--breakpoint-medium .tribe-common-h7--min-medium {
+			@mixin heading-7;
 		}
 
 		/* -------------------------------------------------------------------------

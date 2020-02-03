@@ -215,7 +215,15 @@ if ( ! function_exists( 'tribe_get_time_format' ) ) {
 	 * @return mixed|void
 	 */
 	function tribe_get_time_format( ) {
-		$format = get_option( 'time_format' );
+		static $cache_var_name = __FUNCTION__;
+
+		$format = tribe_get_var( $cache_var_name, null );
+
+		if ( ! $format ) {
+			$format = get_option( 'time_format' );
+			tribe_set_var( $cache_var_name, $format );
+		}
+
 		return apply_filters( 'tribe_time_format', $format );
 	}
 }//end if

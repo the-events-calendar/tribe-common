@@ -63,3 +63,32 @@ function tribe_the_content( $more_link_text = null, $strip_teaser = false, $post
 	echo tribe_get_the_content( $more_link_text, $strip_teaser, $post_id );
 }
 
+/**
+ * Wrapper for post_class function that allows us to in-memory cache
+ *
+ * @since 4.11.0
+ *
+ * @param string|string[] $class   Space-separated string or array of class names to add to the class list.
+ * @param int|WP_Post     $post_id Optional. Post ID or post object.
+ *
+ * @return string[] Array of class names.
+ */
+function tribe_get_post_class( $class, $post ) {
+	static $post_classes = [];
+
+	if ( is_numeric( $post ) ) {
+		$post_id = $post;
+	} else {
+		$post_id = $post->ID;
+	}
+
+	if ( ! isset( $post_classes[ $post_id ] ) ) {
+		$post_classes[ $post_id ] = get_post_class( [], $post );
+	}
+
+	if ( ! is_array( $class ) ) {
+		$class = explode( ' ', $class );
+	}
+
+	return array_merge( $class, $post_classes[ $post_id ] );
+}

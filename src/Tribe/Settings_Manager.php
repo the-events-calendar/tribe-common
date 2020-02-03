@@ -1,6 +1,7 @@
 <?php
-
 class Tribe__Settings_Manager {
+	const OPTION_CACHE_VAR_NAME = 'Tribe__Settings_Manager:option_cache';
+
 	protected static $network_options;
 	public static $tribe_events_mu_defaults;
 
@@ -29,6 +30,28 @@ class Tribe__Settings_Manager {
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_setting_tabs' ) );
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_network_settings_tab' ), 400 );
 		add_action( 'tribe_settings_validate_tab_network', array( $this, 'save_all_tabs_hidden' ) );
+		add_action( 'updated_option', [ $this, 'update_options_cache' ], 10, 3 );
+	}
+
+	/**
+	 * For performance reasons our options are saved in memory, but we need to make sure we update it when WordPress
+	 * updates the variable directly.
+	 *
+	 * @since 4.11.0
+	 *
+	 * @param string $option    Name of the updated option.
+	 * @param mixed  $old_value The old option value.
+	 * @param mixed  $value     The new option value.
+	 *
+	 * @return void
+	 */
+	public function update_options_cache( $option, $old_value, $value ) {
+		// Bail when no our option.
+		if ( Tribe__Main::OPTIONNAME !== $option ) {
+			return;
+		}
+
+		tribe_set_var( self::OPTION_CACHE_VAR_NAME, $value );
 	}
 
 	/**
@@ -66,11 +89,14 @@ class Tribe__Settings_Manager {
 	 * @return array of options
 	 */
 	public static function get_options() {
-		$options = (array) get_option( Tribe__Main::OPTIONNAME, array() );
-		if ( has_filter( 'tribe_get_options' ) ) {
-			_deprecated_function( 'tribe_get_options', '3.10', 'option_' . Tribe__Main::OPTIONNAME );
-			$options = apply_filters( 'tribe_get_options', $options );
-		}
+		$options = tribe_get_var( self::OPTION_CACHE_VAR_NAME, [] );
+
+		if ( empty( $options ) ) {
+			$options = (array) get_option( Tribe__Main::OPTIONNAME, [] );
+
+			tribe_set_var( self::OPTION_CACHE_VAR_NAME, $options );
+ 		}
+
 		return $options;
 	}
 
@@ -86,7 +112,7 @@ class Tribe__Settings_Manager {
 		if ( ! $option_name ) {
 			return null;
 		}
-		$options = self::get_options();
+		$options = static::get_options();
 
 		$option = $default;
 		if ( array_key_exists( $option_name, $options ) ) {
@@ -110,10 +136,16 @@ class Tribe__Settings_Manager {
 		if ( ! is_array( $options ) ) {
 			return false;
 		}
-		if ( $apply_filters == true ) {
+		if ( true === $apply_filters ) {
 			$options = apply_filters( 'tribe-events-save-options', $options );
 		}
-		return update_option( Tribe__Main::OPTIONNAME, $options );
+		$updated = update_option( Tribe__Main::OPTIONNAME, $options );
+
+		if ( $updated ) {
+			tribe_set_var( self::OPTION_CACHE_VAR_NAME, $options );
+		}
+
+		return $updated;
 	}
 
 	/**
@@ -125,10 +157,10 @@ class Tribe__Settings_Manager {
 	 * @return bool
 	 */
 	public static function set_option( $name, $value ) {
-		$newOption        = array();
-		$newOption[ $name ] = $value;
 		$options          = self::get_options();
-		return self::set_options( wp_parse_args( $newOption, $options ) );
+		$options[ $name ] = $value;
+
+		return self::set_options( $options );
 	}
 
 	/**
@@ -139,7 +171,7 @@ class Tribe__Settings_Manager {
 	 */
 	public static function get_network_options() {
 		if ( ! isset( self::$network_options ) ) {
-			$options              = get_site_option( Tribe__Main::OPTIONNAMENETWORK, array() );
+			$options               = get_site_option( Tribe__Main::OPTIONNAMENETWORK, array() );
 			self::$network_options = apply_filters( 'tribe_get_network_options', $options );
 		}
 

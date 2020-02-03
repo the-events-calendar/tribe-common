@@ -5,6 +5,8 @@ use Tribe__Utils__Array as Arr;
 abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
 
+	const MAX_NUMBER_OF_POSTS_PER_PAGE = 99999999999;
+
 	/**
 	 * @var  array An array of keys that cannot be updated on this repository.
 	 */
@@ -3167,20 +3169,38 @@ abstract class Tribe__Repository
 		 */
 		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
 
-		if ( isset( $query_args['offset'] ) ) {
-			$offset = absint( $query_args['offset'] );
+		/**
+		 * Provides a last-ditch effort to override the filtered offset.
+		 *
+		 * This should only be used if doing creating pagination for performance purposes.
+		 *
+		 * @since 4.11.0
+		 *
+		 * @param null|int $filtered_offset Offset parameter setting.
+		 * @param array    $query_args      List of query arguments.
+		 */
+		$filtered_offset = apply_filters( 'tribe_repository_query_arg_offset_override', null, $query_args );
+
+		if ( $filtered_offset || isset( $query_args['offset'] ) ) {
 			$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
-			$page = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
 
-			$real_offset = $per_page === - 1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
-			$query_args['offset'] = $real_offset;
-			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
+			if ( $filtered_offset ) {
+				$query_args['offset'] = $filtered_offset;
+			} elseif ( isset( $query_args['offset'] ) ) {
+				$offset = absint( $query_args['offset'] );
+				$page   = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
 
-			/**
-			 * Unset the `offset` query argument to avoid applying it multiple times when this method
-			 * is used, on the same repository, more than once.
-			 */
-			unset( $this->query_args['offset'] );
+				$real_offset          = $per_page === -1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
+				$query_args['offset'] = $real_offset;
+
+				/**
+				 * Unset the `offset` query argument to avoid applying it multiple times when this method
+				 * is used, on the same repository, more than once.
+				 */
+				unset( $this->query_args['offset'] );
+			}
+
+			$query_args['posts_per_page'] = $per_page === -1 ? self::MAX_NUMBER_OF_POSTS_PER_PAGE : $per_page;
 		}
 
 		foreach ( $query_args as $key => $value ) {
