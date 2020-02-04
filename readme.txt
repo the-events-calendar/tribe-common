@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.11.0.1] TBD =
+
+* Fix - Fatal in Context when global query object is not set [TEC-3228]
+
 = [4.11.0] 2020-01-27 =
 
 * Feature - Inclusion of `Date_I18n_Immutable` and `Date_I18n` as WP friendly options to `DateTimeImmutable` and `DateTime` respectively.
