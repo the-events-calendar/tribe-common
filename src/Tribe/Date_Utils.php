@@ -55,7 +55,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			 *
 			 * @param int $format_index Index of datepickerFormat.
 			 */
-			return apply_filters( 'tribe_datepickerFormat_index', tribe_get_option( 'datepickerFormat', static::$default_datepicker_format_index ) );
+			return apply_filters( 'tribe_datepicker_format_index', tribe_get_option( 'datepickerFormat', static::$default_datepicker_format_index ) );
 		}
 
 		/**
