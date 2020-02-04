@@ -2,9 +2,10 @@
 
 == Changelog ==
 
-= [4.11.0.1] TBD =
+= [4.11.0.1] 2020-02-06 =
 
-* Fix - Fatal in Context when global query object is not set [TEC-3228]
+* Tweak - Add filtered method to Date Utils for fetching the datepickerFormat. [TEC-3229]
+* Fix - Fatal in Context when global query object is not set. [TEC-3228]
 
 = [4.11.0] 2020-01-27 =
 
