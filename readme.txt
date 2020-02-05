@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.11.1] TBD =
+
+* Tweak - Add theme compatibility for the AR Modal [ETP-156]
+
 = [4.11.0.1] 2020-02-05 =
 
 * Tweak - Add filtered method to Date Utils for fetching the datepickerFormat. [TEC-3229]
