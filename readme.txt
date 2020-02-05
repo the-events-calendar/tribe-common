@@ -4,7 +4,7 @@
 
 = [4.11.1] TBD =
 
-* Tweak - Add theme compatibility for the AR Modal [ETP-156]
+* Tweak - Add theme compatibility for the tribe dialog [ETP-156]
 
 = [4.11.0.1] 2020-02-05 =
 
