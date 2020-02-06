@@ -6,8 +6,6 @@ export const google = () => get( 'google' );
 export const wpApi = wp.api;
 export const wpApiRequest = wp.apiRequest;
 export const wpData = wp.data;
-export const wpCore = wpData.select( 'core' );
-export const wpCoreEditor = wpData.select( 'core/editor' );
 
 // Localized Config
 export const config = () => get( 'tribe_editor_config', {} );
