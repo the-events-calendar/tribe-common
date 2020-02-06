@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.11.1] TBD =
+= [4.11.2] TBD =
 
 * Tweak - Add theme compatibility for the tribe dialog [ETP-156]
 
