@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add some visibility-related methods to the `Tribe__Admin__Notices` class [TEC-2994]
+
 = [4.11.1] TBD =
 
 * Fix - Fix style overrides for new view shortcodes for Genesis theme. [ECP-316]
