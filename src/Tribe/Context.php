@@ -514,6 +514,11 @@ class Tribe__Context {
 		$value = $default;
 
 		global $wp_query;
+
+		if ( ! $wp_query instanceof \WP_Query ) {
+			return $value;
+		}
+
 		foreach ( $query_vars as $query_var ) {
 			$the_value = $wp_query->get( $query_var, self::NOT_FOUND );
 			if ( $the_value !== self::NOT_FOUND ) {
