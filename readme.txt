@@ -2,11 +2,20 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add some visibility-related methods to the `Tribe__Admin__Notices` class [TEC-2994]
+
 = [4.11.1] TBD =
 
 * Fix - Fix style overrides for new view shortcodes for Genesis theme. [ECP-316]
 * Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
 * Tweak - Update `adjustStart()` function in moment utils to allow start and end time to be the same. [TEC-3009]
+
+= [4.11.0.1] 2020-02-05 =
+
+* Tweak - Add filtered method to Date Utils for fetching the datepickerFormat. [TEC-3229]
+* Fix - Fatal in Context when global query object is not set. [TEC-3228]
 
 = [4.11.0] 2020-01-27 =
 
