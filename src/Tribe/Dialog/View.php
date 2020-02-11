@@ -349,7 +349,7 @@ class View extends \Tribe__Template {
 	private function build_dialog( $content, $id, $args ) {
 		$default_args = [
 			'button_classes'          => '',
-			'button_diabled'          => false,
+			'button_disabled'         => false,
 			'button_id'               => '',
 			'button_name'             => '',
 			'button_text'             => __( 'Open the dialog window', 'tribe-common' ),
