@@ -43,7 +43,7 @@ tribe.dialogs = tribe.dialogs || {};
 				overlayClasses: dialog.overlayClasses,
 				overlayClickCloses: dialog.overlayClickCloses,
 				trigger: dialog.trigger,
-				wrapperClasses: dialog.wrapperClasses
+				wrapperClasses: dialog.wrapperClasses,
 			} );
 
 			window[ objName ].on( 'show', function( dialogEl, event ) {
@@ -64,7 +64,6 @@ tribe.dialogs = tribe.dialogs || {};
 				$( tribe.dialogs.events ).trigger( dialog.closeEvent, [ dialogEl, event ] );
 			} );
 		} );
-
 	};
 
 	$document.ready( obj.init );
