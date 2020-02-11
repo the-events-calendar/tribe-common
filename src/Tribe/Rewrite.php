@@ -198,7 +198,7 @@ class Tribe__Rewrite {
 	 */
 	public function is_plain_permalink() {
 		/* @var $cache Tribe__Cache */
-		$cache = tribe( 'cache' );
+		$cache     = tribe( 'cache' );
 		$permalink = $cache['rewrite_permalink_structure'];
 
 		if ( false === $permalink ) {
