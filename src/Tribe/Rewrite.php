@@ -190,17 +190,6 @@ class Tribe__Rewrite {
 	}
 
 	/**
-	 * Determines if we have plain permalink.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool If we use plain permalink or not.
-	 */
-	public static function is_plain_permalink() {
-		return tribe_context()->is( 'plain_permalink' );
-	}
-
-	/**
 	 * Get the base slugs for the rewrite rules.
 	 *
 	 * WARNING: Don't mess with the filters below if you don't know what you are doing
