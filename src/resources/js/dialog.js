@@ -15,7 +15,7 @@ tribe.dialogs = tribe.dialogs || {};
 	 *
 	 * @param {obj} dialog The dialog object
 	 *
-	 * @return {void}
+	 * @return {string} the dialog name.
 	 */
 	obj.getDialogName = function( dialog ) {
 		return 'dialog_obj_' + dialog.id;
