@@ -8,16 +8,7 @@
  * This file is meant to be included by the `Tribe__Context::populate_locations` method.
  *
  * @since 4.9.11
- */function print_filters_for( $hook = '' ) {
-	global $wp_filter;
-	if( empty( $hook ) || !isset( $wp_filter[$hook] ) )
-		return;
-
-	print '<pre>';
-	print_r( $wp_filter[$hook] );
-	print '</pre>';
-}
-
+ */
 return [
 	'post_id' => [
 		'read' => [
