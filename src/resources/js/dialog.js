@@ -1,6 +1,6 @@
 var tribe = tribe || {};
 tribe.dialogs = tribe.dialogs || {};
-tribe.dialogs.dialogs = tribe.dialogs.dialogs || {};
+tribe.dialogs.dialogs = tribe.dialogs.dialogs || [];
 tribe.dialogs.events = tribe.dialogs.events || {};
 
 	( function ( obj ) {
