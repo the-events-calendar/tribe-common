@@ -8,7 +8,15 @@
  * This file is meant to be included by the `Tribe__Context::populate_locations` method.
  *
  * @since 4.9.11
- */
+ */function print_filters_for( $hook = '' ) {
+	global $wp_filter;
+	if( empty( $hook ) || !isset( $wp_filter[$hook] ) )
+		return;
+
+	print '<pre>';
+	print_r( $wp_filter[$hook] );
+	print '</pre>';
+}
 
 return [
 	'post_id' => [
@@ -16,6 +24,21 @@ return [
 			Tribe__Context::FUNC => static function () {
 				return get_the_ID();
 			}
+		],
+	],
+	'plain_permalink' => [
+		'read'  => [
+			Tribe__Context::FUNC => static function () {
+				/* @var $cache Tribe__Cache */
+				$cache = tribe( 'cache' );
+				$permalink = $cache['rewrite_permalink_structure'];
+
+				if ( false === $permalink ) {
+					$permalink = get_option( 'permalink_structure' );
+				}
+
+				return empty( $permalink );
+			},
 		],
 	],
 	'posts_per_page' => [

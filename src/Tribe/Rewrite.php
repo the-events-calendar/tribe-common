@@ -196,16 +196,8 @@ class Tribe__Rewrite {
 	 *
 	 * @return bool If we use plain permalink or not.
 	 */
-	public function is_plain_permalink() {
-		/* @var $cache Tribe__Cache */
-		$cache = tribe( 'cache' );
-		$permalink = $cache['rewrite_permalink_structure'];
-
-		if ( false === $permalink ) {
-			$permalink = get_option( 'permalink_structure' );
-		}
-
-		return empty( $permalink );
+	public static function is_plain_permalink() {
+		return tribe_context()->is( 'plain_permalink' );
 	}
 
 	/**
