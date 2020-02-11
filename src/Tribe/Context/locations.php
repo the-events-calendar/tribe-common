@@ -9,13 +9,27 @@
  *
  * @since 4.9.11
  */
-
 return [
 	'post_id' => [
 		'read' => [
 			Tribe__Context::FUNC => static function () {
 				return get_the_ID();
 			}
+		],
+	],
+	'plain_permalink' => [
+		'read'  => [
+			Tribe__Context::FUNC => static function () {
+				/* @var $cache Tribe__Cache */
+				$cache = tribe( 'cache' );
+				$permalink = $cache['rewrite_permalink_structure'];
+
+				if ( false === $permalink ) {
+					$permalink = get_option( 'permalink_structure' );
+				}
+
+				return empty( $permalink );
+			},
 		],
 	],
 	'posts_per_page' => [
