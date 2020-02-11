@@ -5,6 +5,7 @@
 = [TBD] TBD =
 
 * Tweak - Add some visibility-related methods to the `Tribe__Admin__Notices` class [TEC-2994]
+* Tweak - Include Rewrites::is_plain_permalink() with proper caching [TEC-3120]
 
 = [4.11.1] TBD =
 
