@@ -190,6 +190,25 @@ class Tribe__Rewrite {
 	}
 
 	/**
+	 * Determines if we have plain permalink.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool If we use plain permalink or not.
+	 */
+	public function is_plain_permalink() {
+		/* @var $cache Tribe__Cache */
+		$cache = tribe( 'cache' );
+		$permalink = $cache['rewrite_permalink_structure'];
+
+		if ( false === $permalink ) {
+			$permalink = get_option( 'permalink_structure' );
+		}
+
+		return empty( $permalink );
+	}
+
+	/**
 	 * Get the base slugs for the rewrite rules.
 	 *
 	 * WARNING: Don't mess with the filters below if you don't know what you are doing
