@@ -5,8 +5,8 @@ tribe.dialogs = tribe.dialogs || {};
 	'use strict';
 
 	var $document = $( document );
-	tribe.dialogs.dialogs = tribe.dialogs.dialogs || [];
-	tribe.dialogs.events = tribe.dialogs.events || {};
+	obj.dialogs = obj.dialogs || [];
+	obj.events = obj.events || {};
 
 	/**
 	 * Get the dialog name.
@@ -29,9 +29,9 @@ tribe.dialogs = tribe.dialogs || {};
 	 * @return {void}
 	 */
 	obj.init = function() {
-		tribe.dialogs.dialogs.forEach( function( dialog ) {
-			var objName       = obj.getDialogName( dialog );
-			window[ objName ] = new window.A11yDialog( {
+		obj.dialogs.forEach( function( dialog ) {
+			var objName      = obj.getDialogName( dialog );
+			var a11yInstance = new window.A11yDialog( {
 				appendTarget: dialog.appendTarget,
 				bodyLock: dialog.bodyLock,
 				closeButtonAriaLabel: dialog.closeButtonAriaLabel,
@@ -46,13 +46,16 @@ tribe.dialogs = tribe.dialogs || {};
 				wrapperClasses: dialog.wrapperClasses,
 			} );
 
+			window[ objName ] = a11yInstance;
+			dialog.a11yInstance = a11yInstance;
+
 			window[ objName ].on( 'show', function( dialogEl, event ) {
 				if ( event ) {
 					event.preventDefault();
 					event.stopPropagation();
 				}
 
-				$( tribe.dialogs.events ).trigger( dialog.showEvent, [ dialogEl, event ] );
+				$( obj.events ).trigger( dialog.showEvent, [ dialogEl, event ] );
 			} );
 
 			window[ objName ].on( 'hide', function ( dialogEl, event ) {
@@ -61,7 +64,7 @@ tribe.dialogs = tribe.dialogs || {};
 					event.stopPropagation();
 				}
 
-				$( tribe.dialogs.events ).trigger( dialog.closeEvent, [ dialogEl, event ] );
+				$( obj.events ).trigger( dialog.closeEvent, [ dialogEl, event ] );
 			} );
 		} );
 	};
