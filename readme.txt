@@ -2,15 +2,13 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.11.1] 2020-02-12 =
 
 * Tweak - Add some visibility-related methods to the `Tribe__Admin__Notices` class [TEC-2994]
-
-= [4.11.1] TBD =
-
 * Fix - Fix style overrides for new view shortcodes for Genesis theme. [ECP-316]
 * Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
 * Tweak - Update `adjustStart()` function in moment utils to allow start and end time to be the same. [TEC-3009]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.11.0.1] 2020-02-05 =
 
