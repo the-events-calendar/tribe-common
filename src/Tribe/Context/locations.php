@@ -17,19 +17,19 @@ return [
 			}
 		],
 	],
+	'permalink_structure' => [
+		'read' => [
+			Tribe__Context::OPTION => [ 'permalink_structure' ],
+		],
+	],
 	'plain_permalink' => [
-		'read'  => [
-			Tribe__Context::FUNC => static function () {
-				/* @var $cache Tribe__Cache */
-				$cache = tribe( 'cache' );
-				$permalink = $cache['rewrite_permalink_structure'];
-
-				if ( false === $permalink ) {
-					$permalink = get_option( 'permalink_structure' );
-				}
-
-				return empty( $permalink );
-			},
+		'read' => [
+			Tribe__Context::LOCATION_FUNC => [
+				'permalink_structure',
+				static function( $struct ){
+					return empty( $struct );
+				},
+			],
 		],
 	],
 	'posts_per_page' => [
