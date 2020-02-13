@@ -26,10 +26,37 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		const DBTIMEFORMAT          = 'H:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
 
+		/**
+		 * Default datepicker format index.
+		 *
+		 * @since 4.11.0.1
+		 *
+		 * @var int
+		 */
+		private static $default_datepicker_format_index = 1;
+
 		private static $localized_months_full  = array();
 		private static $localized_months_short = array();
 		private static $localized_weekdays     = array();
 		private static $localized_months       = array();
+
+		/**
+		 * Get the datepickerFormat index.
+		 *
+		 * @since 4.11.0.1
+		 *
+		 * @return int
+		 */
+		public static function get_datepicker_format_index() {
+			/**
+			 * Filter the datepickerFormat index.
+			 *
+			 * @since 4.11.0.1
+			 *
+			 * @param int $format_index Index of datepickerFormat.
+			 */
+			return apply_filters( 'tribe_datepicker_format_index', tribe_get_option( 'datepickerFormat', static::$default_datepicker_format_index ) );
+		}
 
 		/**
 		 * Try to format a Date to the Default Datepicker format
@@ -99,7 +126,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return $formats;
 			}
 
-			return isset( $formats[ $translate ] ) ? $formats[ $translate ] : $formats[1];
+			return isset( $formats[ $translate ] ) ? $formats[ $translate ] : $formats[ static::get_datepicker_format_index() ];
 		}
 
 		/**

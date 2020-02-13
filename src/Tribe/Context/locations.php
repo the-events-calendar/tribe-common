@@ -9,13 +9,27 @@
  *
  * @since 4.9.11
  */
-
 return [
 	'post_id' => [
 		'read' => [
 			Tribe__Context::FUNC => static function () {
 				return get_the_ID();
 			}
+		],
+	],
+	'permalink_structure' => [
+		'read' => [
+			Tribe__Context::OPTION => [ 'permalink_structure' ],
+		],
+	],
+	'plain_permalink' => [
+		'read' => [
+			Tribe__Context::LOCATION_FUNC => [
+				'permalink_structure',
+				static function( $struct ){
+					return empty( $struct );
+				},
+			],
 		],
 	],
 	'posts_per_page' => [
