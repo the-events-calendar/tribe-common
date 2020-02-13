@@ -1569,4 +1569,25 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 66, $context->get( 'test_location' ) );
 		$this->assertEquals( 89, $context->get( 'test_location_2' ) );
 	}
+
+	/**
+	 * It should not cache first default value
+	 *
+	 * @test
+	 */
+	public function should_not_cache_first_default_value() {
+		$context = tribe_context()->add_locations( [
+			'test_location' => [
+				'read' => [
+					Context::FUNC => static function () {
+						return Context::NOT_FOUND;
+					}
+				]
+			],
+		] );
+
+		$this->assertEquals( $context->get( 'test_location', 23 ), 23 );
+		$this->assertEquals( $context->get( 'test_location', 89 ), 89 );
+		$this->assertEquals( $context->get( 'test_location', 23 ), 23 );
+	}
 }
