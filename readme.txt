@@ -2,16 +2,18 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.11.2]  =
 
 * Tweak - Add some visibility-related methods to the `Tribe__Admin__Notices` class [TEC-2994]
 * Tweak - Include Rewrites::is_plain_permalink() with proper caching [TEC-3120]
+* Tweak - Included two new locations for `tribe_context()`: `plain_permalink` and `permalink_structure` [TEC-3120]
 
-= [4.11.1] TBD =
+= [4.11.1] 2020-02-12 =
 
 * Fix - Fix style overrides for new view shortcodes for Genesis theme. [ECP-316]
 * Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
 * Tweak - Update `adjustStart()` function in moment utils to allow start and end time to be the same. [TEC-3009]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.11.0.1] 2020-02-05 =
 

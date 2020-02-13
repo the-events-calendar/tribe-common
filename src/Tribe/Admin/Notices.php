@@ -592,7 +592,7 @@ class Tribe__Admin__Notices {
 	 * dismissible status.
 	 *
 	 *
-	 * @since TBD
+	 * @since 4.11.1
 	 *
 	 * @param string|array $slug The slug, or slugs, of the transient notices to check. This is the same slug used
 	 *                           to register the transient notice in the `tribe_transient_notice` function or the
@@ -611,7 +611,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Checks whether a transient notice expired or not.
 	 *
-	 * @since TBD
+	 * @since 4.11.1
 	 *
 	 * @param string|array $slug The slug, or slugs, of the transient notices to check. This is the same slug used
 	 *                           to register the transient notice in the `tribe_transient_notice` function or the
@@ -638,7 +638,7 @@ class Tribe__Admin__Notices {
 	 * Checks whether a notice is being shown or not; the result takes the notice callback and dismissible status into
 	 * account.
 	 *
-	 * @since TBD
+	 * @since 4.11.1
 	 *
 	 * @param string|array $slug The slug, or slugs, of the transient notices to check. This is the same slug used
 	 *                           to register the transient notice in the `tribe_transient_notice` function or the
