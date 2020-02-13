@@ -2,6 +2,12 @@
 
 == Changelog ==
 
+= [TBD] TBD  =
+
+* Tweak - Add the `trib_cache` function as proxy to `tribe( 'cache' )` [TEC-3241]
+* Tweak - Add the a JSON-LD data dedicated Debug Bar panel [TEC-3241]
+* Tweak - Add the `post_tag` location to the context [TEC-3241]
+
 = [4.11.2]  =
 
 * Tweak - Add some visibility-related methods to the `Tribe__Admin__Notices` class [TEC-2994]
