@@ -90,5 +90,12 @@ return [
 			Tribe__Context::QUERY_VAR   => [ 'taxonomy' ],
 			Tribe__Context::REQUEST_VAR => [ 'taxonomy' ],
 		],
-	]
+	],
+	'post_tag' => [
+		'read' => [
+			Tribe__Context::QUERY_PROP  => [ 'post_tag', 'tag' ],
+			Tribe__Context::QUERY_VAR   => [ 'post_tag', 'tag' ],
+			Tribe__Context::REQUEST_VAR => [ 'post_tag', 'tag' ],
+		],
+	],
 ];
