@@ -8,6 +8,7 @@
 * Tweak - Include Rewrites::is_plain_permalink() with proper caching [TEC-3120]
 * Tweak - Included two new locations for `tribe_context()`: `plain_permalink` and `permalink_structure` [TEC-3120]
 * Tweak - Update version of Freemius internally to 2.3.1 [TEC-3171]
+* Fix - Prevent warning on when saving slug 
 
 = [4.11.1] 2020-02-12 =
 
