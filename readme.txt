@@ -5,6 +5,7 @@
 = [4.11.2] TBD =
 
 * Tweak - Add theme compatibility for the tribe dialog [ETP-156]
+* Fix - JavaScript error in tribe dialog when there are no dialogs. Change fallback from object to array. [TCMN-34]
 
 = [4.11.0.1] 2020-02-05 =
 
