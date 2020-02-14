@@ -156,7 +156,7 @@ if ( ! function_exists( 'tribe_get_global_query_object' ) ) {
 	 *
 	 * @since 4.7.8
 	 *
-	 * @return object The $wp_query, the $wp_the_query if $wp_query empty, null otherwise.
+	 * @return WP_Query The $wp_query, the $wp_the_query if $wp_query empty, null otherwise.
 	 */
 	function tribe_get_global_query_object() {
 		global $wp_query;

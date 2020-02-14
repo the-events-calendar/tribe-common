@@ -973,10 +973,10 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param string   $orderby
-	 * @param WP_Query $query
+	 * @param string   $orderby The `ORDER BY` clause of the query being filtered.
+	 * @param WP_Query $query   The query object currently being filtered.
 	 *
-	 * @return string
+	 * @return string The filtered `ORDER BY` clause.
 	 */
 	public function filter_posts_orderby( $orderby, WP_Query $query ) {
 		if ( $query !== $this->current_query ) {
