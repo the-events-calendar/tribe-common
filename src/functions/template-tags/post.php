@@ -11,9 +11,9 @@
  *
  * @param string             $more_link_text Optional. Content for when there is more text.
  * @param bool               $strip_teaser   Optional. Strip teaser content before the more text. Default is false.
- * @param WP_Post|object|int $post           Optional. WP_Post instance or Post ID/object. Default is null.
+ * @param WP_Post|object|int $post_id        Optional. WP_Post instance or Post ID/object. Default is null.
  *
- * @return void
+ * @return string
  */
 function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $post_id = null ) {
 	global $post, $wp_version;
@@ -55,7 +55,7 @@ function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $
  *
  * @param string             $more_link_text Optional. Content for when there is more text.
  * @param bool               $strip_teaser   Optional. Strip teaser content before the more text. Default is false.
- * @param WP_Post|object|int $post           Optional. WP_Post instance or Post ID/object. Default is null.
+ * @param WP_Post|object|int $post_id        Optional. WP_Post instance or Post ID/object. Default is null.
  *
  * @return void
  */
@@ -69,7 +69,7 @@ function tribe_the_content( $more_link_text = null, $strip_teaser = false, $post
  * @since 4.11.0
  *
  * @param string|string[] $class   Space-separated string or array of class names to add to the class list.
- * @param int|WP_Post     $post_id Optional. Post ID or post object.
+ * @param int|WP_Post     $post    Optional. Post ID or post object.
  *
  * @return string[] Array of class names.
  */

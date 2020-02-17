@@ -239,7 +239,10 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 			// esc_url_raw does the work of validating chars, but returns the checked string with a
 			// prepended URL protocol; so let's use strpos to match the values.
-			if ( false !== strpos( $maybe_valid_value, $this->value ) ) {
+			if (
+				! empty( $maybe_valid_value )
+				&& false !== strpos( $maybe_valid_value, $this->value )
+			) {
 				$this->result->valid = true;
 				$this->value         = sanitize_title( $this->value );
 			} else {
