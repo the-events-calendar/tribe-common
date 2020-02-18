@@ -77,4 +77,65 @@ class Query_FiltersTest extends \Codeception\TestCase\WPTestCase {
 			$id_filters
 		);
 	}
+
+	public function orderby_input_set() {
+		yield 'single string' => [
+			'event_date',
+			'event_date DESC, wp_posts.ID ASC',
+		];
+
+		yield 'array of strings' => [
+			[ 'event_date', 'event_venue' ],
+			'event_date DESC, event_venue DESC, wp_posts.ID ASC',
+		];
+
+		yield 'map of fields and orders' => [
+			[ 'event_date' => 'ASC', 'event_venue' => 'DESC' ],
+			'event_date ASC, event_venue DESC, wp_posts.ID ASC',
+		];
+
+		yield 'id map of fields and orders' => [
+			[ 'event_date' => 'ASC', ],
+			'event_date ASC, wp_posts.ID ASC',
+			'order_by_date'
+		];
+
+		yield 'id map of fields and orders w/ 2 entries' => [
+			[ 'event_date' => 'ASC', 'event_venue' => 'DESC' ],
+			'event_date ASC, event_venue DESC, wp_posts.ID ASC',
+			'order_by_multi'
+		];
+
+		yield 'id map of fields and orders w/ 2 entries, appending' => [
+			[ 'event_date' => 'ASC', 'event_venue' => 'DESC' ],
+			'wp_posts.ID ASC, event_date ASC, event_venue DESC',
+			'order_by_multi',
+			false,
+			true
+		];
+	}
+
+	/**
+	 * It should correctly handle orderby in diff formats
+	 *
+	 * @test
+	 * @dataProvider orderby_input_set
+	 */
+	public function should_correctly_handle_orderby_in_diff_formats(
+		$orderby_input,
+		$expected,
+		$id = null,
+		$override = false,
+		$after = false
+	) {
+		$orderby_sql = 'wp_posts.ID ASC';
+		$query       = new \WP_Query();
+
+		$filters = new Query_Filters();
+		$filters->set_query( $query );
+		$filters->orderby( $orderby_input, $id, false, $after );
+		$filtered = $filters->filter_posts_orderby( $orderby_sql, $query );
+
+		$this->assertEquals( $expected, $filtered );
+	}
 }
