@@ -1,15 +1,13 @@
 <?php
 /**
- * ${CARET}
+ * JSON-LD information Debug Bar panel.
  *
  * @since   TBD
  *
  * @package Tribe\Debug_Bar\Panels
  */
 
-namespace Tribe\Debug_Bar\Panels;
-
-class Json_Ld extends \Debug_Bar_Panel {
+class Tribe__Debug_Bar__Panels__Json_Ld extends Debug_Bar_Panel {
 	/**
 	 * Returns the Panel name.
 	 *
@@ -59,8 +57,21 @@ class Json_Ld extends \Debug_Bar_Panel {
 			         '</a>' .
 			         ' to test it using the Code Snippet option.</p><br>';
 
-			foreach ( $json_ld_data as $json_ld_entry ) {
-				$html .= sprintf( '<pre><code>%s</code></pre>', esc_html( $json_ld_entry ) );
+			foreach ( $json_ld_data as $full_entry ) {
+				preg_match(
+					'/(?<open>^\\s*<script[^>]*?>\\s*)(?<json>.*)(?<close>\\s<\\/script>)$/uism',
+					$full_entry,
+					$frags
+				);
+
+				if ( isset( $frags['open'], $frags['json'], $frags['close'] ) ) {
+					// Let's try and format it if we've got all the pieces.
+					$full_entry = $frags['open']
+					              . json_encode( json_decode( $frags['json'], true ), JSON_PRETTY_PRINT )
+					              . $frags['close'];
+				}
+
+				$html .= sprintf( '<pre><code>%s</code></pre>', esc_html( $full_entry ) );
 			}
 
 			$html .= '</div>';
