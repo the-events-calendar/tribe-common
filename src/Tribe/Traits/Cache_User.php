@@ -129,7 +129,7 @@ trait Cache_User {
 	/**
 	 * Resets the instance caches for the this instance.
 	 *
-	 * @since TBD
+	 * @since 4.11.0
 	 *
 	 * @return string[] A list of the emptied cache properties.
 	 */

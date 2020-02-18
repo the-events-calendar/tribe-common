@@ -31,7 +31,7 @@ class Data implements \ArrayAccess {
 	 *                      </p>
 	 *                      <p>
 	 *                      The return value will be casted to boolean if non-boolean was returned.
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetExists( $offset ) {
 		return isset( $this->data[ $offset ] );
@@ -45,7 +45,7 @@ class Data implements \ArrayAccess {
 	 *                      The offset to retrieve.
 	 *                      </p>
 	 * @return mixed Can return all value types.
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetGet( $offset ) {
 		return isset( $this->data[ $offset ] )
@@ -64,7 +64,7 @@ class Data implements \ArrayAccess {
 	 *                      The value to set.
 	 *                      </p>
 	 * @return void
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetSet( $offset, $value ) {
 		$this->data[ $offset ] = $value;
@@ -78,7 +78,7 @@ class Data implements \ArrayAccess {
 	 *                      The offset to unset.
 	 *                      </p>
 	 * @return void
-	 * @since 5.0.0
+	 * @since 4.11.0
 	 */
 	public function offsetUnset( $offset ) {
 		unset( $this->data[ $offset ] );
