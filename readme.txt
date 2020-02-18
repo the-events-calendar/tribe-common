@@ -6,6 +6,8 @@
 
 * Tweak - Add theme compatibility for the tribe dialog [ETP-156]
 * Fix - JavaScript error in tribe dialog when there are no dialogs. Change fallback from object to array. [TCMN-34]
+* Fix - Dialog wasn't working in Safari 12 mobile. [ETP-155]
+* Fix - Bring back the dialog icons. [ETP-155]
 
 = [4.11.0.1] 2020-02-05 =
 
