@@ -190,6 +190,17 @@ class Tribe__Rewrite {
 	}
 
 	/**
+	 * Determines if we have plain permalink.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool If we use plain permalink or not.
+	 */
+	public static function is_plain_permalink() {
+		return tribe_context()->is( 'plain_permalink' );
+	}
+
+	/**
 	 * Get the base slugs for the rewrite rules.
 	 *
 	 * WARNING: Don't mess with the filters below if you don't know what you are doing
@@ -406,6 +417,9 @@ class Tribe__Rewrite {
 
 		$query         = (string) parse_url( $url, PHP_URL_QUERY );
 		wp_parse_str( $query, $query_vars );
+
+		// Drop any query var that is not a scalar; it should not be handled.
+		$query_vars = array_filter( $query_vars, 'is_scalar' );
 
 		if ( isset( $query_vars['paged'] ) && 1 === (int) $query_vars['paged'] ) {
 			// Remove the `paged` query var if it's 1.
