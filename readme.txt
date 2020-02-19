@@ -8,7 +8,6 @@
 * Fix - JavaScript error in tribe dialog when there are no dialogs. Change fallback from object to array. [TCMN-34]
 * Fix - Fix display of Dialogs in Safari 12 mobile. [ETP-155]
 * Fix - Bring back the dialog icons. [ETP-155]
-* Fix - Use the default `datepickerFormat` value if the option hasn't been set yet when setting up datepicker from specific format. [ET-727]
 
 = [4.11.2] TBD =
 
