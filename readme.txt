@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.11.2] TBD =
+= [4.11.3] TBD =
 
 * Tweak - Add the `trib_cache` function as proxy to `tribe( 'cache' )` [TEC-3241]
 * Tweak - Add the a JSON-LD data dedicated Debug Bar panel [TEC-3241]
