@@ -192,7 +192,7 @@ class Tribe__Rewrite {
 	/**
 	 * Determines if we have plain permalink.
 	 *
-	 * @since TBD
+	 * @since 4.11.2
 	 *
 	 * @return bool If we use plain permalink or not.
 	 */
