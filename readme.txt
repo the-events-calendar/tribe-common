@@ -9,17 +9,18 @@
 * Fix - Fix display of Dialogs in Safari 12 mobile. [ETP-155]
 * Fix - Bring back the dialog icons. [ETP-155]
 
-= [4.11.2] TBD =
+= [4.11.2] 2020-02-19 =
 
 * Tweak - Add the `tribe_cache` function as proxy to `tribe( 'cache' )` [TEC-3241]
 * Tweak - Add the a JSON-LD data dedicated Debug Bar panel [TEC-3241]
 * Tweak - Add the `post_tag` location to the context [TEC-3241]
 * Tweak - Add some visibility-related methods to the `Tribe__Admin__Notices` class [TEC-2994]
-* Tweak - Include Rewrites::is_plain_permalink() with proper caching [TEC-3120]
+* Tweak - Include `Rewrites::is_plain_permalink()` with proper caching [TEC-3120]
 * Tweak - Included two new locations for `tribe_context()`: `plain_permalink` and `permalink_structure` [TEC-3120]
 * Tweak - Update version of Freemius internally to 2.3.2 [TEC-3171]
 * Fix - Prevent warning on when saving empty slug for Tribe Setting Fields.
 * Fix - Set a default value for the datepicker format option to avoid issues in some settings combinations, thanks @helgatheviking. [TEC-3229]
+* Language - 1 new strings added, 35 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.11.1] 2020-02-12 =
 
