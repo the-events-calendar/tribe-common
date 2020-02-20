@@ -2,6 +2,8 @@
 
 == Changelog ==
 
+= [4.11.4] TBD =
+
 = [4.11.2] 2020-02-19 =
 
 * Tweak - Add the `tribe_cache` function as proxy to `tribe( 'cache' )` [TEC-3241]
