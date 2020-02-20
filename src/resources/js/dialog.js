@@ -11,7 +11,7 @@ tribe.dialogs = tribe.dialogs || {};
 	/**
 	 * Get the dialog name.
 	 *
-	 * @since TBD
+	 * @since 4.11.3
 	 *
 	 * @param {obj} dialog The dialog object
 	 *
@@ -24,7 +24,7 @@ tribe.dialogs = tribe.dialogs || {};
 	/**
 	 * Initialize tribe dialogs.
 	 *
-	 * @since TBD
+	 * @since 4.11.3
 	 *
 	 * @return {void}
 	 */

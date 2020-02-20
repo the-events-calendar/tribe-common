@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.11.3] TBD =
+= [4.11.3] 2020-02-26 =
 
 * Tweak - Add theme compatibility for the tribe dialog [ETP-156]
 * Fix - JavaScript error in tribe dialog when there are no dialogs. Change fallback from object to array. [TCMN-34]
