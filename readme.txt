@@ -4,6 +4,8 @@
 
 = [4.11.4] TBD =
 
+* Tweak - Expired transient garbage collector will only run once per request and when needed [TCMN-38]
+
 = [4.11.2] 2020-02-19 =
 
 * Tweak - Add the `tribe_cache` function as proxy to `tribe( 'cache' )` [TEC-3241]
