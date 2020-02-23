@@ -11,13 +11,24 @@
  */
 class Tribe__Cache implements ArrayAccess {
 	const SCHEDULED_EVENT_DELETE_TRANSIENT = 'tribe_schedule_transient_purge';
-	const NO_EXPIRATION  = 0;
-	const NON_PERSISTENT = - 1;
+
+	const NO_EXPIRATION = 0;
+
+	const NON_PERSISTENT = -1;
 
 	/**
 	 * @var array
 	 */
-	protected $non_persistent_keys = array();
+	protected $non_persistent_keys = [];
+
+	/**
+	 * A flag checked on Shutdown of the request for deleting the expired transients.
+	 *
+	 * @since TBD
+	 *
+	 * @var boolean
+	 */
+	protected $should_delete_expired_transients = false;
 
 	/**
 	 * Bootstrap hook
@@ -25,15 +36,17 @@ class Tribe__Cache implements ArrayAccess {
 	 * @since 4.11.0
 	 */
 	public function hook() {
-		if ( ! wp_next_scheduled( self::SCHEDULED_EVENT_DELETE_TRANSIENT ) ) {
+		if ( !wp_next_scheduled( self::SCHEDULED_EVENT_DELETE_TRANSIENT ) ) {
 			wp_schedule_event( time(), 'twicedaily', self::SCHEDULED_EVENT_DELETE_TRANSIENT );
 		}
 
 		add_action( self::SCHEDULED_EVENT_DELETE_TRANSIENT, [ $this, 'delete_expired_transients' ] );
+
+		add_action( 'shutdown', [ $this, 'maybe_delete_expired_transients' ] );
 	}
 
 	public static function setup() {
-		wp_cache_add_non_persistent_groups( array( 'tribe-events-non-persistent' ) );
+		wp_cache_add_non_persistent_groups( [ 'tribe-events-non-persistent' ] );
 	}
 
 	/**
@@ -51,13 +64,14 @@ class Tribe__Cache implements ArrayAccess {
 		 * Filters the expiration for cache objects to provide the ability
 		 * to make non-persistent objects be treated as persistent.
 		 *
-		 * @param int          $expiration         Cache expiration time.
+		 * @since 4.8
+		 *
 		 * @param string       $id                 Cache ID.
 		 * @param mixed        $value              Cache value.
 		 * @param string|array $expiration_trigger Action that triggers automatic expiration.
 		 * @param string       $key                Unique cache key based on Cache ID and expiration trigger last run time.
 		 *
-		 * @since 4.8
+		 * @param int          $expiration         Cache expiration time.
 		 */
 		$expiration = apply_filters( 'tribe_cache_expiration', $expiration, $id, $value, $expiration_trigger, $key );
 
@@ -99,11 +113,9 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @return mixed
 	 */
-	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = array() ) {
+	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = [] ) {
 		$flipped = array_flip( $this->non_persistent_keys );
-		$group   = isset( $flipped[ $id ] ) ?
-			'tribe-events-non-persistent'
-			: 'tribe-events';
+		$group   = isset( $flipped[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
 		$value   = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
 
 		// Value found.
@@ -128,7 +140,7 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string $id
+	 * @param string       $id
 	 * @param string|array $expiration_trigger
 	 *
 	 * @return mixed
@@ -138,7 +150,7 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string $id
+	 * @param string       $id
 	 * @param string|array $expiration_trigger
 	 *
 	 * @return bool
@@ -148,7 +160,7 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string $id
+	 * @param string       $id
 	 * @param string|array $expiration_trigger
 	 *
 	 * @return bool
@@ -186,7 +198,35 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string $key
+	 * Flag if we should delete
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $value If we should delete transients or not on shutdown.
+	 *
+	 * @return void No return for setting the flag.
+	 */
+	public function flag_required_delete_transients( $value = true ) {
+		$this->should_delete_expired_transients = $value;
+	}
+
+	/**
+	 * Runs on hook `shutdown` and will delete transients on the end of the request.
+	 *
+	 * @since TBD
+	 *
+	 * @return void No return for action hook method.
+	 */
+	public function maybe_delete_expired_transients() {
+		if ( !$this->should_delete_expired_transients ) {
+			return;
+		}
+
+		$this->delete_expired_transients();
+	}
+
+	/**
+	 * @param string       $key
 	 * @param string|array $expiration_trigger
 	 *
 	 * @return string
@@ -224,9 +264,9 @@ class Tribe__Cache implements ArrayAccess {
 	/**
 	 * Returns the time of an action last occurrence.
 	 *
-	 * @param string $action The action to return the time for.
-	 *
 	 * @since 4.9.14 Changed the return value type from `int` to `float`.
+	 *
+	 * @param string $action The action to return the time for.
 	 *
 	 * @return float The time (microtime) an action last occurred, or the current microtime if it never occurred.
 	 */
@@ -241,10 +281,9 @@ class Tribe__Cache implements ArrayAccess {
 
 		$last_action = (float) get_option( 'tribe_last_' . $action, null );
 
-		if ( ! $last_action ) {
+		if ( !$last_action ) {
 			$last_action = microtime( true );
-
-			update_option( 'tribe_last_' . $action, $last_action );
+			$this->set_last_occurrence( $action, $last_action );
 		}
 
 		$cache_last_actions[ $action ] = (float) $last_action;
@@ -259,16 +298,23 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @since 4.9.14 Changed the type of the time stored from an `int` to a `float`.
 	 *
-	 * @param string $action The action to record the last occurrence of.
-	 * @param int    $timestamp The timestamp to assign to the action last occurrence or the current time (microtime).
+	 * @param string    $action    The action to record the last occurrence of.
+	 * @param int|float $timestamp The timestamp to assign to the action last occurrence or the current time (microtime).
+	 *
+	 * @return boolean IF we were able to set the last occurrence or not.
 	 */
 	public function set_last_occurrence( $action, $timestamp = 0 ) {
 		if ( empty( $timestamp ) ) {
 			$timestamp = microtime( true );
 		}
-		update_option( 'tribe_last_' . $action, (float) $timestamp );
+		$updated = update_option( 'tribe_last_' . $action, (float) $timestamp );
 
-		$this->delete_expired_transients();
+		// For performance reasons we will only expire cache once per request, when needed.
+		if ( $updated ) {
+			$this->flag_required_delete_transients( true );
+		}
+
+		return $updated;
 	}
 
 	/**
@@ -276,13 +322,14 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @param mixed  $components Either a single component of the key or an array of key components.
 	 * @param string $prefix
-	 * @param bool   $sort Whether component arrays should be sorted or not to generate the key; defaults to `true`.
+	 * @param bool   $sort       Whether component arrays should be sorted or not to generate the key; defaults to
+	 *                           `true`.
 	 *
 	 * @return string The resulting key.
 	 */
 	public function make_key( $components, $prefix = '', $sort = true ) {
-		$key = '';
-		$components = is_array( $components ) ? $components : array( $components );
+		$key        = '';
+		$components = is_array( $components ) ? $components : [ $components ];
 		foreach ( $components as $component ) {
 			if ( $sort && is_array( $component ) ) {
 				$is_associative = count( array_filter( array_keys( $component ), 'is_numeric' ) ) < count( array_keys( $component ) );
@@ -299,17 +346,15 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * Whether a offset exists
+	 * Whether a offset exists.
+	 *
+	 * @since 4.11.0
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
-	 * @param mixed $offset <p>
-	 *                      An offset to check for.
-	 *                      </p>
-	 * @return boolean true on success or false on failure.
-	 *                      </p>
-	 *                      <p>
-	 *                      The return value will be casted to boolean if non-boolean was returned.
-	 * @since 4.11.0
+	 *
+	 * @param mixed $offset An offset to check for.
+	 *
+	 * @return boolean Whether the offset exists in the cache.
 	 */
 	public function offsetExists( $offset ) {
 		$flipped = array_flip( $this->non_persistent_keys );
@@ -318,45 +363,46 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * Offset to retrieve
+	 * Offset to retrieve.
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-	 * @param mixed $offset <p>
-	 *                      The offset to retrieve.
-	 *                      </p>
-	 * @return mixed Can return all value types.
+	 *
 	 * @since 4.11.0
+	 *
+	 * @param mixed $offset The offset to retrieve.
+	 *
+	 * @return mixed Can return all value types.
 	 */
 	public function offsetGet( $offset ) {
 		return $this->get( $offset );
 	}
 
 	/**
-	 * Offset to set
+	 * Offset to set.
+	 *
+	 * @since 4.11.0
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetset.php
-	 * @param mixed $offset <p>
-	 *                      The offset to assign the value to.
-	 *                      </p>
-	 * @param mixed $value  <p>
-	 *                      The value to set.
-	 *                      </p>
+	 *
+	 * @param mixed $offset The offset to assign the value to.
+	 * @param mixed $value  The value to set.
+	 *
 	 * @return void
-	 * @since 4.11.0
 	 */
 	public function offsetSet( $offset, $value ) {
 		$this->set( $offset, $value, self::NON_PERSISTENT );
 	}
 
 	/**
-	 * Offset to unset
+	 * Offset to unset.
+	 *
+	 * @since 4.11.0
 	 *
 	 * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
-	 * @param mixed $offset <p>
-	 *                      The offset to unset.
-	 *                      </p>
+	 *
+	 * @param mixed $offset The offset to unset.
+	 *
 	 * @return void
-	 * @since 4.11.0
 	 */
 	public function offsetUnset( $offset ) {
 		$this->delete( $offset );
@@ -393,8 +439,8 @@ class Tribe__Cache implements ArrayAccess {
 		}
 
 		/** @var Tribe__Feature_Detection $feature_detection */
-		$feature_detection = tribe('feature-detection');
-		$limit = $feature_detection->mysql_limit_for_example( 'post_result' );
+		$feature_detection = tribe( 'feature-detection' );
+		$limit             = $feature_detection->mysql_limit_for_example( 'post_result' );
 
 		/**
 		 * Filters the LIMIT that should be used to warm-up post caches and postmeta caches (if the
@@ -419,12 +465,12 @@ class Tribe__Cache implements ArrayAccess {
 
 		do {
 			$limit_clause = $limit < 0 ? sprintf( 'LIMIT %d,%d', $limit * $page, $limit ) : '';
-			$page ++;
+			$page++;
 			$these_ids    = array_splice( $buffer, 0, $limit );
 			$interval     = implode( ',', array_map( 'absint', $these_ids ) );
 			$posts_query  = "SELECT * FROM {$wpdb->posts} WHERE ID IN ({$interval}) {$limit_clause}";
 			$post_objects = $wpdb->get_results( $posts_query );
-			if ( is_array( $post_objects ) && ! empty( $post_objects ) ) {
+			if ( is_array( $post_objects ) && !empty( $post_objects ) ) {
 				foreach ( $post_objects as $post_object ) {
 					$post = new \WP_Post( $post_object );
 					wp_cache_set( $post_object->ID, $post, 'posts' );
@@ -434,11 +480,6 @@ class Tribe__Cache implements ArrayAccess {
 					update_meta_cache( 'post', $these_ids );
 				}
 			}
-		} while (
-			! empty( $post_objects )
-			&& is_array( $post_objects )
-			&& count( $post_objects ) < count( $post_ids )
-		);
-
-    }
+		} while ( !empty( $post_objects ) && is_array( $post_objects ) && count( $post_objects ) < count( $post_ids ) );
+	}
 }
