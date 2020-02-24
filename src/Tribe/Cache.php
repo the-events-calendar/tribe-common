@@ -175,6 +175,8 @@ class Tribe__Cache implements ArrayAccess {
 	 * This uses a modification of the the query from https://core.trac.wordpress.org/ticket/20316
 	 *
 	 * @since 4.11.0
+	 *
+	 * @return void Just execute the database SQL no return required.
 	 */
 	public function delete_expired_transients() {
 		global $wpdb;
@@ -194,6 +196,20 @@ class Tribe__Cache implements ArrayAccess {
 				a.option_name LIKE '\_transient_tribe\_%'
 				AND a.option_name NOT LIKE '\_transient\_timeout_tribe\_%'
 		";
+
+		/**
+		 * Allow third party filtering of the SQL used for deleting expired transients.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $sql   The SQL we execute to delete all the expired transients.
+		 * @param int    $time  Time we are using to determine what is expired.
+		 */
+		$sql = apply_filters( 'tribe_cache_delete_expired_transients_sql', $sql, $time );
+
+		if ( empty( $sql ) ) {
+			return;
+		}
 		$wpdb->query( $sql );
 	}
 

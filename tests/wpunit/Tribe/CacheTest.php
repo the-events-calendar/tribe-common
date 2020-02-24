@@ -88,4 +88,24 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertNotEquals( $cache->make_key( $components_1, 'foo' ), $cache->make_key( $components_2, 'pre' ) );
 		$this->assertNotEquals( $cache->make_key( $components_1, '', false ), $cache->make_key( $components_2, '', false ) );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_try_to_delete_transients_right_away() {
+		$cache = $this->make_instance();
+
+		$cache->set_transient( 'foo', 'bar', -2, 'foo_bar' );
+
+		$passed = false;
+
+		add_filter( 'tribe_cache_delete_expired_transients_sql', static function( $sql ) use ( $passed ) {
+			$passed = true;
+			return $sql;
+		} );
+		
+		$cache->set_last_occurrence( 'foo_bar' );
+
+		$this->assertFalse( $passed );
+	}
 }
