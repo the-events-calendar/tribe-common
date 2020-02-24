@@ -36,7 +36,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @since 4.11.0
 	 */
 	public function hook() {
-		if ( !wp_next_scheduled( self::SCHEDULED_EVENT_DELETE_TRANSIENT ) ) {
+		if ( ! wp_next_scheduled( self::SCHEDULED_EVENT_DELETE_TRANSIENT ) ) {
 			wp_schedule_event( time(), 'twicedaily', self::SCHEDULED_EVENT_DELETE_TRANSIENT );
 		}
 
@@ -218,7 +218,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return void No return for action hook method.
 	 */
 	public function maybe_delete_expired_transients() {
-		if ( !$this->should_delete_expired_transients ) {
+		if ( ! $this->should_delete_expired_transients ) {
 			return;
 		}
 
@@ -281,7 +281,7 @@ class Tribe__Cache implements ArrayAccess {
 
 		$last_action = (float) get_option( 'tribe_last_' . $action, null );
 
-		if ( !$last_action ) {
+		if ( ! $last_action ) {
 			$last_action = microtime( true );
 			$this->set_last_occurrence( $action, $last_action );
 		}
@@ -470,7 +470,7 @@ class Tribe__Cache implements ArrayAccess {
 			$interval     = implode( ',', array_map( 'absint', $these_ids ) );
 			$posts_query  = "SELECT * FROM {$wpdb->posts} WHERE ID IN ({$interval}) {$limit_clause}";
 			$post_objects = $wpdb->get_results( $posts_query );
-			if ( is_array( $post_objects ) && !empty( $post_objects ) ) {
+			if ( is_array( $post_objects ) && ! empty( $post_objects ) ) {
 				foreach ( $post_objects as $post_object ) {
 					$post = new \WP_Post( $post_object );
 					wp_cache_set( $post_object->ID, $post, 'posts' );
@@ -480,6 +480,6 @@ class Tribe__Cache implements ArrayAccess {
 					update_meta_cache( 'post', $these_ids );
 				}
 			}
-		} while ( !empty( $post_objects ) && is_array( $post_objects ) && count( $post_objects ) < count( $post_ids ) );
+		} while ( ! empty( $post_objects ) && is_array( $post_objects ) && count( $post_objects ) < count( $post_ids ) );
 	}
 }
