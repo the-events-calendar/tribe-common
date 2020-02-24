@@ -185,11 +185,11 @@ class Tribe__Cache implements ArrayAccess {
 			FROM
 				{$wpdb->options} a
 				INNER JOIN {$wpdb->options} b
-					ON b.option_name = CONCAT( '_transient_timeout_tribe_', SUBSTRING( a.option_name, 12 ) )
+					ON b.option_name = CONCAT( '_transient_timeout_', SUBSTRING( a.option_name, 12 ) )
 					AND b.option_value < {$time}
 			WHERE
-				a.option_name LIKE '\_transient_tribe\_%'
-				AND a.option_name NOT LIKE '\_transient\_timeout_tribe\_%'
+				a.option_name LIKE '\_transient\_tribe\_%'
+				AND a.option_name NOT LIKE '\_transient\_timeout\_tribe\_%'
 		";
 
 		/**
