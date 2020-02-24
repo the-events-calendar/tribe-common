@@ -170,6 +170,10 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return void Just execute the database SQL no return required.
 	 */
 	public function delete_expired_transients() {
+		if ( tribe_get_var( 'has_deleted_expired_transients', false ) ) {
+			return;
+		}
+
 		global $wpdb;
 
 		$time = time();
@@ -201,7 +205,11 @@ class Tribe__Cache implements ArrayAccess {
 		if ( empty( $sql ) ) {
 			return;
 		}
+
 		$wpdb->query( $sql );
+
+		// Set the variable to prevent this call from running twice.
+		tribe_set_var( 'has_deleted_expired_transients', true );
 	}
 
 	/**
