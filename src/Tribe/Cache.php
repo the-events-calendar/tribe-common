@@ -22,15 +22,6 @@ class Tribe__Cache implements ArrayAccess {
 	protected $non_persistent_keys = [];
 
 	/**
-	 * A flag checked on Shutdown of the request for deleting the expired transients.
-	 *
-	 * @since TBD
-	 *
-	 * @var boolean
-	 */
-	protected $should_delete_expired_transients = false;
-
-	/**
 	 * Bootstrap hook
 	 *
 	 * @since 4.11.0
@@ -223,7 +214,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return void No return for setting the flag.
 	 */
 	public function flag_required_delete_transients( $value = true ) {
-		$this->should_delete_expired_transients = $value;
+		tribe_set_var( 'should_delete_expired_transients', $value );
 	}
 
 	/**
@@ -234,7 +225,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return void No return for action hook method.
 	 */
 	public function maybe_delete_expired_transients() {
-		if ( ! $this->should_delete_expired_transients ) {
+		if ( ! tribe_get_var( 'should_delete_expired_transients', false ) ) {
 			return;
 		}
 

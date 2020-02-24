@@ -103,7 +103,7 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 			$passed = true;
 			return $sql;
 		} );
-		
+
 		$cache->set_last_occurrence( 'foo_bar' );
 
 		$this->assertFalse( $passed );

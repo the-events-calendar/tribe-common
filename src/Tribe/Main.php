@@ -537,6 +537,7 @@ class Tribe__Main {
 	 */
 	public function tribe_plugins_loaded() {
 		tribe( 'admin.notice.php.version' );
+		tribe( 'cache' );
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 
