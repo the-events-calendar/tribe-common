@@ -489,7 +489,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				return false;
 			}
 
-			// check parent dependencies in add-on
+			// Check parent dependencies in add-on.
 			if ( ! empty( $plugin['dependencies']['parent-dependencies'] ) ) {
 				$parent_dependencies = $this->has_valid_dependencies( $plugin, $plugin['dependencies']['parent-dependencies'] );
 			}
