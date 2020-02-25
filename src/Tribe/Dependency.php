@@ -521,18 +521,17 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool  returns false if any dependency is invalid
 		 */
 		protected function check_addon_dependencies( $main_class ) {
-
-			$addon_dependencies = 0;
+			$addon_dependencies = [];
 
 			foreach ( $this->registered_plugins as $registered ) {
 				if ( empty( $registered['dependencies']['addon-dependencies'][ $main_class ] ) ) {
 					continue;
 				}
 
-				$addon_dependencies = $this->has_valid_dependencies( $registered, $registered['dependencies']['addon-dependencies'], true );
+				$addon_dependencies[ $main_class ] = $this->has_valid_dependencies( $registered, $registered['dependencies']['addon-dependencies'], true );
 			}
 
-			return $addon_dependencies;
+			return in_array( true,  $addon_dependencies, true );
 		}
 
 		/**
