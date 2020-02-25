@@ -409,11 +409,11 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @param       $file_path
-		 * @param       $main_class
-		 * @param       $version
-		 * @param array $classes_req
-		 * @param array $dependencies
+		 * @param string $file_path    Full file path to the base plugin file
+		 * @param string $main_class   The Main/base class for this plugin
+		 * @param string $version      The version
+		 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run
+		 * @param array  $dependencies an array of dependencies to check
 		 */
 		public function register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
 			/**
@@ -475,11 +475,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @param string $file_path    Full file path to the base plugin file
 		 * @param string $main_class   The Main/base class for this plugin
-		 * @param string $version      The version
-		 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run
-		 * @param array  $dependencies an array of dependencies to check
 		 *
 		 * @return bool Indicates if plugin should continue initialization
 		 */
