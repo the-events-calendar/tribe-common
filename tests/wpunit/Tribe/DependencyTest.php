@@ -154,9 +154,6 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 				'parent-dependencies' => [
 					'Tribe_One' => '2.0.0',
 				],
-				'addon-dependencies' => [
-					'Tribe_Two' => '2.0.0',
-				],
 			],
 		];
 
@@ -176,17 +173,15 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 			[
 				'one'   => array_merge( $one, [
 					'should_initialize' => true,
-					'failure_message'   => 'Plugin One should activate; Two and Three add-ons have the correct versions.',
+					'failure_message'   => 'Plugin One should activate.',
 				] ),
 				'two'   => array_merge( $two, [
 					'should_initialize' => true,
-					'failure_message'   => 'Plugin Two depends on One and it should activate; One has the correct ' .
-					                       'version and Two has the correct version.',
+					'failure_message'   => 'Plugin Two should activate: its version satisfies One\'s requirements.',
 				] ),
 				'three' => array_merge( $three, [
 					'should_initialize' => true,
-					'failure_message'   => 'Plugin Three depends on One and Two and  it should activate; One has the ' .
-					                       'correct version and Two has the correct version.',
+					'failure_message'   => 'Plugin Three should activate: its version satisfies One\'s requirements.',
 				] ),
 			],
 		];
@@ -195,8 +190,7 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 			[
 				'one'   => array_merge( $one, [
 					'should_initialize' => true,
-					'failure_message'   => 'Plugin One should activate, its requirement will prevent Two from' .
-					                       'activating and, as a consequence, Three will not activate.',
+					'failure_message'   => 'Plugin One should activate.',
 				] ),
 				'two'   => array_merge( $two, [
 					'version' => '1.0.0',
@@ -204,8 +198,8 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 					'failure_message'   => 'Plugin Two should not activate: its version is too low.',
 				] ),
 				'three' => array_merge( $three, [
-					'should_initialize' => false,
-					'failure_message'   => 'Plugin Three should not activate: it depends on Two that is not activating.',
+					'should_initialize' => true,
+					'failure_message'   => 'Plugin Three should activate: its version satisfies One\'s requirements.',
 				] ),
 			],
 		];
@@ -214,12 +208,11 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 			[
 				'one'   => array_merge( $one, [
 					'should_initialize' => true,
-					'failure_message'   => 'Plugin One should activate: its requirement will prevent Three from' .
-					                       'activating.',
+					'failure_message'   => 'Plugin One should activate.',
 				] ),
 				'two'   => array_merge( $two, [
 					'should_initialize' => true,
-					'failure_message'   => 'Plugin Two should activate: its version is the one required by One.',
+					'failure_message'   => 'Plugin Two should activate: its version satisfies One\'s requirements.',
 				] ),
 				'three' => array_merge( $three, [
 					'version' => '1.0.0',
@@ -233,16 +226,15 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 			[
 				'one'   => array_merge( $one, [
 					'should_initialize' => true,
-					'failure_message'   => 'Plugin One should activate: its requirement will prevent Three from' .
-					                       'activating.',
+					'failure_message'   => 'Plugin One should activate.',
 				] ),
 				'two'   => array_merge( $two, [
 					'should_initialize' => true,
-					'failure_message'   => 'Plugin Two should activate: its version is the one required by One.',
+					'failure_message'   => 'Plugin Two should activate: its version satisfies One\'s requirements.',
 				] ),
 				'three'   => array_merge( $three, [
 					'should_initialize' => true,
-					'failure_message'   => 'Plugin Three should activate: its version is the one required by One.',
+					'failure_message'   => 'Plugin Three should activate: its version satisfies One\'s requirements.',
 				] ),
 				'four' => array_merge( $four, [
 					'version' => '1.0.0',
@@ -256,10 +248,9 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * It should activate other plugins if one is not fulfilling dependencies
 	 *
-	 * @test
 	 * @dataProvider plugin_data_set
 	 */
-	public function should_activate_other_plugins_if_one_is_not_fulfilling_dependencies( array $mock_plugins ) {
+	public function test_activation_matrix( array $mock_plugins ) {
 		$dependency   = new \Tribe__Dependency();
 
 		foreach ( $mock_plugins as $mock_plugin ) {
@@ -273,11 +264,8 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 		}
 
 		foreach ( $mock_plugins as $mock_plugin ) {
-			$this->assertEquals(
-				$mock_plugin['should_initialize'],
-				$dependency->check_plugin( $mock_plugin['main_class'] ),
-				$mock_plugin['failure_message']
-			);
+			$check_plugin = $dependency->check_plugin( $mock_plugin['main_class'] );
+			$this->assertEquals( $mock_plugin['should_initialize'], $check_plugin, $mock_plugin['failure_message'] );
 		}
 	}
 }
