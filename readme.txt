@@ -9,6 +9,10 @@
 * Fix - Bring back the dialog icons. [ETP-155]
 * Tweak - Add theme compatibility for the tribe dialog [ETP-156]
 
+= [4.11.2.1] 2020-02-24 =
+
+* Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last loaded fails. [FBAR-78]
+
 = [4.11.2] 2020-02-19 =
 
 * Tweak - Add the `tribe_cache` function as proxy to `tribe( 'cache' )` [TEC-3241]
@@ -24,7 +28,6 @@
 
 = [4.11.1] 2020-02-12 =
 
-* Tweak - Add some visibility-related methods to the `Tribe__Admin__Notices` class [TEC-2994]
 * Fix - Fix style overrides for new view shortcodes for Genesis theme. [ECP-316]
 * Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
 * Tweak - Update `adjustStart()` function in moment utils to allow start and end time to be the same. [TEC-3009]
