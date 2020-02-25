@@ -1,7 +1,6 @@
 <?php
 namespace Tribe;
 
-use org\bovigo\vfs\vfsStream;
 use Tribe__Dependency as Dependency;
 use Tribe__PUE__Checker;
 
@@ -10,12 +9,6 @@ include codecept_data_dir( 'classes/Dependency/Filterbar.php' );
 include codecept_data_dir( 'classes/Dependency/Pro.php' );
 
 class DependencyTest extends \Codeception\TestCase\WPTestCase {
-	/**
-	 * A mock, virtual, plugin filesystem.
-	 * @var \org\bovigo\vfs\vfsStreamDirectory
-	 */
-	protected $mock_fs;
-
 	/**
 	 * @return Dependency
 	 */
@@ -103,38 +96,23 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $pue );
 	}
 
-	public function plugin_data_set() {
-		$this->mock_fs = vfsStream::setup( 'fs', 0777, [
-			'one' => [
-				'plugin.php' => '<?php /** Plugin Name: One */'
-			],
-			'two' => [
-				'plugin.php' => '<?php /** Plugin Name: Two */'
-			],
-			'three' => [
-				'plugin.php' => '<?php /** Plugin Name: Three */'
-			],
-			'four' => [
-				'plugin.php' => '<?php /** Plugin Name: Four */'
-			],
-		] );
-
+	public function dependency_matrix() {
 		$one = [
-			'file_path'    => $this->mock_fs->url() . '/one/plugin.php',
+			'file_path'    => codecept_data_dir( '/dependency/plugins/one/plugin.php' ),
 			'main_class'   => 'Tribe_One',
 			'version'      => '2.0.0',
 			'classes_req'  => [],
 			'dependencies' => [
 				'addon-dependencies' => [
-					'Tribe_Two' => '2.0.0',
+					'Tribe_Two'   => '2.0.0',
 					'Tribe_Three' => '2.0.0',
-					'Tribe_Four' => '2.0.0',
+					'Tribe_Four'  => '2.0.0',
 				],
 			],
 		];
 
 		$two = [
-			'file_path'    => $this->mock_fs->url() . '/two/plugin.php',
+			'file_path'    => codecept_data_dir( '/dependency/plugins/two/plugin.php' ),
 			'main_class'   => 'Tribe_Two',
 			'version'      => '2.0.0',
 			'classes_req'  => [],
@@ -146,7 +124,7 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 		];
 
 		$three = [
-			'file_path'    => $this->mock_fs->url() . '/three/plugin.php',
+			'file_path'    => codecept_data_dir( '/dependency/plugins/three/plugin.php' ),
 			'main_class'   => 'Tribe_Three',
 			'version'      => '2.0.0',
 			'classes_req'  => [],
@@ -158,7 +136,7 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 		];
 
 		$four = [
-			'file_path'    => $this->mock_fs->url() . '/four/plugin.php',
+			'file_path'    => codecept_data_dir( '/dependency/plugins/four/plugin.php' ),
 			'main_class'   => 'Tribe_Four',
 			'version'      => '2.0.0',
 			'classes_req'  => [],
@@ -166,6 +144,21 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 				'parent-dependencies' => [
 					'Tribe_One' => '2.0.0',
 				],
+			],
+		];
+
+		$five = [
+			'file_path' => codecept_data_dir( '/dependency/plugins/five/plugin.php' ),
+			'main_class'   => 'Tribe_Five',
+			'version'      => '2.0.0',
+			'classes_req'  => [],
+			'dependencies' => [
+				'parent-dependencies' => [
+					'Tribe_One' => '2.0.0',
+				],
+				'co-dependencies' => [
+					'Tribe_Two' => '1.0.0',
+				]
 			],
 		];
 
@@ -243,12 +236,35 @@ class DependencyTest extends \Codeception\TestCase\WPTestCase {
 				] ),
 			],
 		];
+
+		// @todo fix the handling of co-dependencies!
+//		yield 'Two version too low and Five depends on Two.' => [
+//			[
+//				'one'   => array_merge( $one, [
+//					'should_initialize' => true,
+//					'failure_message'   => 'Plugin One should activate.',
+//				] ),
+//				'two'   => array_merge( $two, [
+//					'version' => '1.0.0',
+//					'should_initialize' => false,
+//					'failure_message'   => 'Plugin Two should not activate: its version is too low.',
+//				] ),
+//				'three'   => array_merge( $three, [
+//					'should_initialize' => true,
+//					'failure_message'   => 'Plugin Three should activate: its version satisfies One\'s requirements.',
+//				] ),
+//				'five' => array_merge( $five, [
+//					'should_initialize' => false,
+//					'failure_message'   => 'Plugin Five should not activate: it depends on Two.',
+//				] ),
+//			],
+//		];
 	}
 
 	/**
 	 * It should activate other plugins if one is not fulfilling dependencies
 	 *
-	 * @dataProvider plugin_data_set
+	 * @dataProvider dependency_matrix
 	 */
 	public function test_activation_matrix( array $mock_plugins ) {
 		$dependency   = new \Tribe__Dependency();
