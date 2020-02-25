@@ -305,7 +305,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @param array $dependencies An array of dependencies for a plugin.
 		 * @param bool  $addon        Indicates if the plugin is an add-on for The Events Calendar or Event Tickets.
 		 *
-		 * @return true|int  The number of failed dependency checks or `true` to indicate the check passed.
+		 * @return true|int  The number of failed dependency checks; `true` or `0` to indicate no checks failed.
 		 */
 		public function has_valid_dependencies( $plugin, $dependencies = array(), $addon = false ) {
 			if ( empty( $dependencies ) ) {
@@ -521,17 +521,21 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 * @return bool  Returns false if any dependency is invalid.
 		 */
 		protected function check_addon_dependencies( $main_class ) {
-			$addon_dependencies = [];
-
 			foreach ( $this->registered_plugins as $registered ) {
 				if ( empty( $registered['dependencies']['addon-dependencies'][ $main_class ] ) ) {
 					continue;
 				}
 
-				$addon_dependencies[ $main_class ] = $this->has_valid_dependencies( $registered, $registered['dependencies']['addon-dependencies'], true );
+				$dependencies = [ $main_class => $registered['dependencies']['addon-dependencies'][ $main_class ] ];
+				$check        = $this->has_valid_dependencies( $registered, $dependencies, true );
+
+				// A value of `true` or `0` indicates there are no failing checks. So here we check for ints gt 0.
+				if ( is_int( $check ) && $check > 0 ) {
+					return true;
+				}
 			}
 
-			return in_array( true,  $addon_dependencies, true );
+			return false;
 		}
 
 		/**
