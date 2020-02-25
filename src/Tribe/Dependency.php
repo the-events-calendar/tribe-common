@@ -301,11 +301,11 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @param array  $plugin        An array of data for given registered plugin
-		 * @param array  $dependencies  An array of dependencies for a plugin
-		 * @param bool   $addon         Indicates if the plugin is an add-on for The Events Calendar or Event Tickets
+		 * @param array $plugin       An array of data for given registered plugin.,
+		 * @param array $dependencies An array of dependencies for a plugin.
+		 * @param bool  $addon        Indicates if the plugin is an add-on for The Events Calendar or Event Tickets.
 		 *
-		 * @return bool  returns false if any dependency is invalid
+		 * @return true|int  The number of failed dependency checks or `true` to indicate the check passed.
 		 */
 		public function has_valid_dependencies( $plugin, $dependencies = array(), $addon = false ) {
 			if ( empty( $dependencies ) ) {
@@ -483,7 +483,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 			$parent_dependencies = $co_dependencies = $addon_dependencies = 0;
 
-			//check if plugin is registered, if not return false
+			// Check if plugin is registered, if not return false.
 			$plugin = $this->get_registered_plugin( $main_class );
 			if ( empty( $plugin ) ) {
 				return false;
@@ -493,15 +493,15 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 			if ( ! empty( $plugin['dependencies']['parent-dependencies'] ) ) {
 				$parent_dependencies = $this->has_valid_dependencies( $plugin, $plugin['dependencies']['parent-dependencies'] );
 			}
-			//check co-dependencies in add-on
+			// Check co-dependencies in add-on.
 			if ( ! empty( $plugin['dependencies']['co-dependencies'] ) ) {
 				$co_dependencies = $this->has_valid_dependencies( $plugin, $plugin['dependencies']['co-dependencies'] );
 			}
 
-			//check add-on dependencies from parent
+			// Check add-on dependencies from parent.
 			$addon_dependencies = $this->check_addon_dependencies( $main_class );
 
-			//if good then we set as active plugin and continue to load
+			// If good then we set as active plugin and continue to load.
 			if ( ! $parent_dependencies && ! $co_dependencies && ! $addon_dependencies ) {
 				$this->add_active_plugin( $main_class, $plugin['version'], $plugin['path'] );
 
@@ -516,9 +516,9 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @param string  $main_class   a string of the main class for the plugin being checked
+		 * @param string $main_class A string of the main class for the plugin being checked.
 		 *
-		 * @return bool  returns false if any dependency is invalid
+		 * @return bool  Returns false if any dependency is invalid.
 		 */
 		protected function check_addon_dependencies( $main_class ) {
 			$addon_dependencies = [];
