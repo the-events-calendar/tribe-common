@@ -47,7 +47,7 @@ class View extends \Tribe__Template {
 	 *     @type array   $button_classes          Any desired classes for the trigger button (optional).
 	 *     @type boolean $button_disabled         Should the button be disabled (optional).
 	 *     @type string  $button_text             The text for the dialog trigger button ("Open the dialog window").
-	 *     @type string  $button_type             The type for the trigger button (optinoal).
+	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
 	 *     @type string  $close_event             The dialog close event hook name (`tribe_dialog_close_dialog`).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content").
@@ -349,7 +349,7 @@ class View extends \Tribe__Template {
 	private function build_dialog( $content, $id, $args ) {
 		$default_args = [
 			'button_classes'          => '',
-			'button_diabled'          => false,
+			'button_disabled'         => false,
 			'button_id'               => '',
 			'button_name'             => '',
 			'button_text'             => __( 'Open the dialog window', 'tribe-common' ),
