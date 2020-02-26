@@ -9,9 +9,9 @@
 * Fix - Bring back the dialog icons. [ETP-155]
 * Tweak - Add theme compatibility for the tribe dialog [ETP-156]
 
-= [4.11.2.1] 2020-02-24 =
+= [4.11.2.1] 2020-02-25 =
 
-* Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last loaded fails. [FBAR-78]
+* Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last loaded fails. [TCMN-41]
 
 = [4.11.2] 2020-02-19 =
 
