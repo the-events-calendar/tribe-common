@@ -2,7 +2,9 @@
 
 == Changelog ==
 
-= [4.11.4] TBD =
+= [TBD] TBD =
+
+* Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
 
 = [4.11.3] 2020-02-26 =
 
