@@ -2,7 +2,6 @@
   "lang/*.pot",
   "lang/*.mo",
   "README.md",
-  "src/**/*",
   "src/admin-views/**/*",
   "src/deprecated/**/*",
   "src/functions/**/*",
