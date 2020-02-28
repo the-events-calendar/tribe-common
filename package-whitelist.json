@@ -1,4 +1,5 @@
 [
+  "lang/*.txt",
   "lang/*.pot",
   "lang/*.mo",
   "README.md",
