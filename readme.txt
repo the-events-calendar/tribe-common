@@ -4,7 +4,7 @@
 
 = [4.11.4] TBD =
 
-* Tweak - Add check if in `the_content` filter to prevent it from being called again [ECP-345]
+* Tweak - Add check if in `the_content` filter to prevent it from being called again. [ECP-345]
 
 = [4.11.2.1] 2020-02-25 =
 
