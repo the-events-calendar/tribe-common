@@ -192,7 +192,7 @@ class Tribe__Promoter__Connector {
 
 		$payload = [
 			'licenseKey' => $license_key,
-			'sourceId' => $post_id,
+			'sourceId' => $post_id instanceof WP_Post ? $post_id->ID : $post_id,
 		];
 
 		$token = \Firebase\JWT\JWT::encode( $payload, $secret_key );
