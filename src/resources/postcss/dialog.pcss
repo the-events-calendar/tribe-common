@@ -2,23 +2,9 @@
 This can include modals, toasters, confirms. alerts.
 ============================ */
 
-/*
-Adding these here for now until common-styles are live
-@TODO: remove when that happens.
-*/
-@svg-load close-secondary url('utilities/icons/close.svg') {
+/* Utilities */
+@import "utilities/_all.pcss";
 
-	path {
-		stroke: var(--color-icon-secondary);
-	}
-}
-
-@svg-load close url('utilities/icons/close.svg') {
-
-	path {
-		stroke: var(--color-icon-primary);
-	}
-}
 .tribe-common {
 	/* vars */
 	.tribe-dialog {
@@ -80,6 +66,9 @@ Adding these here for now until common-styles are live
 		max-height: 100vh;
 		max-width: 100vw;
 		z-index: 2;
+		-webkit-transform: translateZ(0px);
+		-webkit-transform: translate3d(0,0,0);
+		-webkit-perspective: 1000;
 
 		div[role="document"] {
 			align-items: flex-end;
@@ -98,7 +87,7 @@ Adding these here for now until common-styles are live
 	/* The "close" button */
 	.tribe-dialog__close-button {
 		background: var(--tribe-dialog-close-background);
-		background-image: svg-inline( 'close-secondary' );
+		background-image: svg-inline(close-secondary);
 		background-repeat: no-repeat;
 		background-size: contain;
 		cursor: pointer;
@@ -120,7 +109,7 @@ Adding these here for now until common-styles are live
 		&:focus,
 		&:hover {
 			background: var(--tribe-dialog-close-background);
-			background-image: svg-inline( 'close' );
+			background-image: svg-inline(close);
 			background-size: contain;
 			outline: none;
 		}
@@ -182,6 +171,40 @@ Adding these here for now until common-styles are live
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: flex-end;
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ------------------------------------------------------------------------- */
+
+	 .tribe-theme-avada & {
+
+		div.tribe-dialog {
+			z-index: 99999;
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Divi
+	 * ------------------------------------------------------------------------- */
+
+	 .tribe-theme-divi & {
+
+		div.tribe-dialog {
+			z-index: 99999;
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ------------------------------------------------------------------------- */
+
+	#top.tribe-theme-enfold &,
+	#top .main_color & {
+
+		div.tribe-dialog {
+			z-index: 99999;
+		}
 	}
 
 }
