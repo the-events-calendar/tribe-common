@@ -8,7 +8,6 @@
 * Fix - Fix display of Dialogs in Safari 12 mobile. [ETP-155]
 * Fix - Bring back the dialog icons. [ETP-155]
 * Tweak - Add theme compatibility for the tribe dialog [ETP-156]
->>>>>>> master
 
 = [4.11.2.1] 2020-02-25 =
 
