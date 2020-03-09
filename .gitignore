@@ -30,8 +30,9 @@ vendor/freemius/languages/*.po
 
 # Resources Ignoring
 src/resources/**/app
-src/resources/css/**
-src/resources/**/*.min.js
+src/resources/css
+src/resources/js/**/*.min.js
 
 # get from translate.wordpress.org as needed
 lang/*.po
+lang/*.mo
