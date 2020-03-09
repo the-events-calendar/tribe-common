@@ -4,6 +4,8 @@
 
 = [4.11.4] TBD =
 
+* Fix - Increase range of actions that trigger changes on Promoter with a `WP_Post` instance or using an ID. [TCMN-47]
+
 = [4.11.3] 2020-02-26 =
 
 * Fix - JavaScript error in tribe dialog when there are no dialogs. Change fallback from object to array. [TCMN-34]
