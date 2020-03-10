@@ -2,7 +2,9 @@
 
 == Changelog ==
 
-= [4.11.4] TBD =
+= [TBD] TBD =
+
+* Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
 
 * Fix - Increase range of actions that trigger changes on Promoter with a `WP_Post` instance or using an ID. [TCMN-47]
 
@@ -12,6 +14,8 @@
 * Fix - Fix display of Dialogs in Safari 12 mobile. [ETP-155]
 * Fix - Bring back the dialog icons. [ETP-155]
 * Tweak - Add theme compatibility for the tribe dialog [ETP-156]
+
+* Tweak - Add check if in `the_content` filter to prevent it from being called again. [ECP-345]
 
 = [4.11.2.1] 2020-02-25 =
 
