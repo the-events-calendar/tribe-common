@@ -3,6 +3,9 @@
  */
 export const get = ( key, defaultValue ) => window[ key ] || defaultValue;
 export const google = () => get( 'google' );
+export const wpApi = wp.api;
+export const wpApiRequest = wp.apiRequest;
+export const wpData = wp.data;
 
 // Localized Config
 export const config = () => get( 'tribe_editor_config', {} );
