@@ -27,7 +27,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 		 *
 		 * @var string $log_dir
 		 */
-		$this->log_dir = apply_filters( 'tribe_file_logger_directory', sys_get_temp_dir() );
+		$this->log_dir = apply_filters( 'tribe_file_logger_directory', get_temp_dir() );
 	}
 
 	/**
