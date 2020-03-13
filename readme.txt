@@ -5,6 +5,7 @@
 = [TBD] TBD =
 
 * Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
+* Allow uploads of images with a large size and images with no extension provided from the URL, as the extension from the URL was used to define the type of the file to be uploaded and when the extension was not present on the URL the file was considered invalid. [TCMN-46]
 
 = [4.11.3] 2020-02-26 =
 
