@@ -47,8 +47,14 @@ class Tribe__Image__Uploader {
 		$existing = false;
 
 		if ( is_string( $this->featured_image ) && ! is_numeric( $this->featured_image ) ) {
-			$existing = $this->get_attachment_ID_from_url( $this->featured_image );
-			$id = $existing ? $existing : $this->upload_file( $this->featured_image );
+			// Assume image exists in the local file system.
+			$id = $this->get_attachment_ID_from_url( $this->featured_image );
+			if ( ! $id ) {
+				$id = $this->upload_file( $this->featured_image );
+				$id = $this->maybe_retry_upload( $id );
+			} else {
+				$existing = true;
+			}
 		} elseif ( $post = get_post( $this->featured_image ) ) {
 			$id = $post && 'attachment' === $post->post_type ? $this->featured_image : false;
 		} else {
@@ -61,12 +67,42 @@ class Tribe__Image__Uploader {
 			__CLASS__,
 			[
 				'featured_image' => $this->featured_image,
-				'exists'         => (bool) $existing,
+				'exists'         => $existing,
 				'id'             => $id,
 			]
 		);
 
 		return $id;
+	}
+
+	/**
+	 * Retry to upload an image after it failed as was provided, try to decode the URL as in some cases the
+	 * original URL might be encoded HTML components such as: "&" and some CDNs does not handle well different URLs
+	 * as they were provided so we try to recreate the original URL where it might be required.
+	 *
+	 * @since TBD
+	 *
+	 * @param int|bool $id The id of the attachment if was uploaded correctly, false otherwise.
+	 *
+	 * @return int The ID of the attachment after the upload retry.
+	 */
+	protected function maybe_retry_upload( $id ) {
+		if ( $id ) {
+			do_action( 'tribe_log', 'debug', __CLASS__, [ 'message' => "ID: {$id} is already a valid one." ] );
+
+			return $id;
+		}
+
+		$decoded = esc_url_raw( html_entity_decode( $this->featured_image ) );
+
+		do_action( 'tribe_log', 'debug', __CLASS__, [
+			'message' => 'Retry upload decoding the URL of the image',
+			'url'     => $this->featured_image,
+			'decoded' => $decoded,
+		] );
+
+		// Maybe the URL was encoded and we need to convert it to a valid URL.
+		return $this->upload_file( $decoded );
 	}
 
 	/**
@@ -77,9 +113,6 @@ class Tribe__Image__Uploader {
 	protected function upload_file( $file_url ) {
 		/**
 		 * Allow plugins to enable local URL uploads, mainly used for testing.
-		 *
-		 * @param bool   $allow_local_urls Whether to allow local URLs.
-		 * @param string $file_url         File URL.
 		 *
 		 * @since 4.9.5
 		 *
@@ -97,72 +130,49 @@ class Tribe__Image__Uploader {
 		 * them now has the potential of blocking the image fetching completely so we
 		 * let them be here.
 		 */
-		try {
-			$contents = file_get_contents( $file_url );
-		} catch ( Exception $e ) {
-			$message = sprintf( 'Could not upload image file "%s": with message "%s"', $file_url, $e->getMessage() );
-			tribe( 'logger' )->log_error( $message, 'Image Uploader' );
+		$file = download_url( $file_url );
 
-			restore_error_handler();
-
-			return false;
-		}
-
-		restore_error_handler();
-
-		if ( false === $contents ) {
-			$message = sprintf( 'Could not upload image file "%s": failed getting the contents.', $file_url );
-			tribe( 'logger' )->log_error( $message, 'Image Uploader' );
+		if ( is_wp_error( $file ) ) {
+			do_action( 'tribe_log', 'error', __CLASS__, [
+				'message' => $file->get_error_message(),
+				'url'     => $file_url,
+				'error'   => $file,
+			] );
 
 			return false;
 		}
 
-		/*
-		 * We use the path basename only here to provided WordPress with a good filename
-		 * that will allow it to correctly detect and validate the extension.
-		 */
-		$path   = parse_url( $file_url, PHP_URL_PATH );
-		$upload = wp_upload_bits( basename( $path ), null, $contents );
+		// Upload file into WP and leave WP handle the resize and such..
+		$attachment_id = media_handle_sideload( [
+			'name'           => $this->create_file_name( $file ),
+			'tmp_name'       => $file,
+			'post_mime_type' => 'image',
+		] );
 
-		if ( isset( $upload['error'] ) && $upload['error'] ) {
-			$message = sprintf( 'Could not upload image file "%s" with message "%s"', $file_url, $upload['error'] );
-			tribe( 'logger' )->log_error( $message, 'Image Uploader' );
+		// Remove the temporary file as is no longer required at this point.
+		if ( file_exists( $file ) ) {
+			@unlink( $file );
+		}
+
+		if ( is_wp_error( $attachment_id ) ) {
+			do_action( 'tribe_log', 'error', __CLASS__, [
+				'message' => $attachment_id->get_error_message(),
+				'url'     => $file_url,
+				'error'   => $attachment_id,
+			] );
 
 			return false;
 		}
 
-		$type = '';
-		if ( ! empty( $upload['type'] ) ) {
-			$type = $upload['type'];
-		} else {
-			$mime = wp_check_filetype( $upload['file'] );
-			if ( $mime ) {
-				$type = $mime['type'];
-			}
-		}
-
-		$attachment = array(
-			'post_title'     => basename( $upload['file'] ),
-			'post_content'   => '',
-			'post_type'      => 'attachment',
-			'post_mime_type' => $type,
-			'guid'           => $upload['url'],
-		);
-
-		$id = wp_insert_attachment( $attachment, $upload['file'] );
-
-		require_once( ABSPATH . 'wp-admin/includes/image.php' );
-
-		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $upload['file'] ) );
-		update_post_meta( $id, '_tribe_importer_original_url', $file_url );
+		update_post_meta( $attachment_id, '_tribe_importer_original_url', $file_url );
 
 		$this->maybe_init_attachment_guids_cache();
 		$this->maybe_init_attachment_original_urls_cache();
 
-		self::$attachment_guids_cache[ get_post( $id )->guid ] = $id;
-		self::$original_urls_cache[ $file_url ] = $id;
+		self::$attachment_guids_cache[ get_post( $attachment_id )->guid ] = $attachment_id;
+		self::$original_urls_cache[ $file_url ]                           = $attachment_id;
 
-		return $id;
+		return $attachment_id;
 	}
 
 	/**
