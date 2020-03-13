@@ -88,7 +88,7 @@ class Tribe__Image__Uploader {
 		 */
 		$allow_local_urls = apply_filters( 'tribe_image_uploader_local_urls', false, $file_url );
 
-		if ( ! filter_var( $file_url, FILTER_VALIDATE_URL ) && ! $allow_local_urls ) {
+		if ( ! $allow_local_urls && ! filter_var( $file_url, FILTER_VALIDATE_URL ) ) {
 			return false;
 		}
 
