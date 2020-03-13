@@ -165,6 +165,60 @@ class Tribe__Image__Uploader {
 		return $id;
 	}
 
+	/**
+	 * WordPress requires to have an extension in all all files as uses `wp_check_filetype` which uses the extension
+	 * of the file to define if a file is valid or not, in this case the extension might not be present in some URLs of
+	 * attachments or media files, in those cases we try to guess the right extension using the mime of the file as
+	 * an alternative, if the $filename is a path we can verify the mime type using native WP functions.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $filename The name of the file or URL.
+	 *
+	 * @return string Returned a file name with an extension if is not already part of the file name.
+	 */
+	protected function create_file_name( $filename ) {
+		/**
+		 * We use the path basename only here to provided WordPress with a good filename
+		 * that will allow it to correctly detect and validate the extension.
+		 */
+		$path = parse_url( $filename, PHP_URL_PATH );
+
+		$name       = basename( $path );
+		$properties = wp_check_filetype( $name );
+
+		// Type can be defined from the name use that one instead.
+		if ( ! empty( $properties['type'] ) ) {
+			return $name;
+		}
+
+		// This is not a file that exists on the system, use the name instead.
+		if ( ! file_exists( $filename ) ) {
+			return $name;
+		}
+
+		$mime = wp_get_image_mime( $filename );
+
+		// There's no mime defined for the file use the plain name instead.
+		if ( $mime === '' ) {
+			return $name;
+		}
+
+		// create an array with the mimes as the keys and extensions as values.
+		$mime_to_extensions = array_flip( wp_get_mime_types() );
+
+		// No mime was found for the file on the array of allowed mime types, fallback to the name.
+		if ( ! isset( $mime_to_extensions[ $mime ] ) ) {
+			return $name;
+		}
+
+		// If there are more than one extension just ose one.
+		$parts = explode( '|', $mime_to_extensions[ $mime ] );
+
+		// Create a new name with extension.
+		return implode( '.', [ $name, reset( $parts ) ] );
+	}
+
 	protected function get_attachment_ID_from_url( $featured_image ) {
 		$this->maybe_init_attachment_guids_cache();
 		$this->maybe_init_attachment_original_urls_cache();
@@ -173,7 +227,9 @@ class Tribe__Image__Uploader {
 		$original_urls_cache = self::$original_urls_cache;
 		if ( isset( $guids_cache[ $featured_image ] ) ) {
 			return $guids_cache[ $featured_image ];
-		} elseif ( isset( $original_urls_cache[ $featured_image ] ) ) {
+		}
+
+		if ( isset( $original_urls_cache[ $featured_image ] ) ) {
 			return $original_urls_cache[ $featured_image ];
 		}
 
