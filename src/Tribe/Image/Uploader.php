@@ -29,13 +29,14 @@ class Tribe__Image__Uploader {
 	 */
 	public static function reset_cache() {
 		self::$attachment_guids_cache = false;
-		self::$original_urls_cache = false;
+		self::$original_urls_cache    = false;
 	}
 
 	/**
 	 * Uploads a file and creates the media attachment or simply returns the attachment ID if existing.
 	 *
-	 * @return int|bool The attachment post ID if the uploading and attachment is successful or the ID refers to an attachment;
+	 * @return int|bool The attachment post ID if the uploading and attachment is successful or the ID refers to an
+	 *                  attachment;
 	 *                  `false` otherwise.
 	 */
 	public function upload_and_get_attachment_id() {
@@ -81,6 +82,9 @@ class Tribe__Image__Uploader {
 		 * @param string $file_url         File URL.
 		 *
 		 * @since 4.9.5
+		 *
+		 * @param bool   $allow_local_urls Whether to allow local URLs.
+		 * @param string $file_url         File URL.
 		 */
 		$allow_local_urls = apply_filters( 'tribe_image_uploader_local_urls', false, $file_url );
 
@@ -88,13 +92,7 @@ class Tribe__Image__Uploader {
 			return false;
 		}
 
-		/*
-		 * Since `file_get_contents` would fail silently we set an explicit
-		 * error handler to catch the content of error.s.
-		 */
-		set_error_handler( array( $this, 'handle_error' ) );
-
-		/*
+		/**
 		 * Some CDN services will append query arguments to the image URL; removing
 		 * them now has the potential of blocking the image fetching completely so we
 		 * let them be here.
@@ -171,7 +169,7 @@ class Tribe__Image__Uploader {
 		$this->maybe_init_attachment_guids_cache();
 		$this->maybe_init_attachment_original_urls_cache();
 
-		$guids_cache = self::$attachment_guids_cache;
+		$guids_cache         = self::$attachment_guids_cache;
 		$original_urls_cache = self::$original_urls_cache;
 		if ( isset( $guids_cache[ $featured_image ] ) ) {
 			return $guids_cache[ $featured_image ];
@@ -189,11 +187,11 @@ class Tribe__Image__Uploader {
 			$guids = $wpdb->get_results( "SELECT ID, guid FROM $wpdb->posts where post_type = 'attachment'" );
 
 			if ( $guids ) {
-				$keys = wp_list_pluck( $guids, 'guid' );
-				$values = wp_list_pluck( $guids, 'ID' );
+				$keys                         = wp_list_pluck( $guids, 'guid' );
+				$values                       = wp_list_pluck( $guids, 'ID' );
 				self::$attachment_guids_cache = array_combine( $keys, $values );
 			} else {
-				self::$attachment_guids_cache = array();
+				self::$attachment_guids_cache = [];
 			}
 		}
 	}
@@ -211,11 +209,11 @@ class Tribe__Image__Uploader {
 			" );
 
 			if ( $original_urls ) {
-				$keys = wp_list_pluck( $original_urls, 'meta_value' );
-				$values = wp_list_pluck( $original_urls, 'ID' );
+				$keys                      = wp_list_pluck( $original_urls, 'meta_value' );
+				$values                    = wp_list_pluck( $original_urls, 'ID' );
 				self::$original_urls_cache = array_combine( $keys, $values );
 			} else {
-				self::$original_urls_cache = array();
+				self::$original_urls_cache = [];
 			}
 		}
 	}
@@ -227,7 +225,7 @@ class Tribe__Image__Uploader {
 	 * @since 4.7.22
 	 *
 	 * @param string $unused_error_code The error numeric code.
-	 * @param string $message The error message.
+	 * @param string $message           The error message.
 	 *
 	 * @throws RuntimeException To pass the error as an exception to
 	 *                          the handler.
