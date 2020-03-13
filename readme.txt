@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.11.4] TBD =
+= [4.11.4] 2020-03-18 =
 
 * Fix - Increase range of actions that trigger changes on Promoter with a `WP_Post` instance or using an ID. [TCMN-47]
 
