@@ -376,6 +376,7 @@ class Tribe__Context {
 
 		$value     = $default;
 		$locations = $this->get_locations();
+		$found     = false;
 
 		if ( ! $force && isset( $this->request_cache[ $key ] ) ) {
 			$value = $this->request_cache[ $key ];
@@ -384,6 +385,7 @@ class Tribe__Context {
 				$the_value = $this->$location( (array) $keys, $default );
 
 				if ( $default !== $the_value && static::NOT_FOUND !== $the_value ) {
+					$found = true;
 					$value = $the_value;
 					break;
 				}
@@ -401,7 +403,8 @@ class Tribe__Context {
 		 */
 		$value = apply_filters( "tribe_context_{$key}", $value );
 
-		if ( $value !== static::NOT_FOUND ) {
+		// Only cache if the value was found.
+		if ( $found ) {
 			$this->request_cache[ $key ] = $value;
 		}
 
@@ -514,6 +517,11 @@ class Tribe__Context {
 		$value = $default;
 
 		global $wp_query;
+
+		if ( ! $wp_query instanceof \WP_Query ) {
+			return $value;
+		}
+
 		foreach ( $query_vars as $query_var ) {
 			$the_value = $wp_query->get( $query_var, self::NOT_FOUND );
 			if ( $the_value !== self::NOT_FOUND ) {

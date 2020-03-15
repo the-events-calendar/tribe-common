@@ -26,10 +26,37 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		const DBTIMEFORMAT          = 'H:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
 
+		/**
+		 * Default datepicker format index.
+		 *
+		 * @since 4.11.0.1
+		 *
+		 * @var int
+		 */
+		private static $default_datepicker_format_index = 1;
+
 		private static $localized_months_full  = array();
 		private static $localized_months_short = array();
 		private static $localized_weekdays     = array();
 		private static $localized_months       = array();
+
+		/**
+		 * Get the datepickerFormat index.
+		 *
+		 * @since 4.11.0.1
+		 *
+		 * @return int
+		 */
+		public static function get_datepicker_format_index() {
+			/**
+			 * Filter the datepickerFormat index.
+			 *
+			 * @since 4.11.0.1
+			 *
+			 * @param int $format_index Index of datepickerFormat.
+			 */
+			return apply_filters( 'tribe_datepicker_format_index', tribe_get_option( 'datepickerFormat', static::$default_datepicker_format_index ) );
+		}
 
 		/**
 		 * Try to format a Date to the Default Datepicker format
@@ -42,7 +69,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function maybe_format_from_datepicker( $date, $datepicker = null ) {
 			if ( ! is_numeric( $datepicker ) ) {
-				$datepicker = tribe_get_option( 'datepickerFormat' );
+				$datepicker = self::get_datepicker_format_index();
 			}
 
 			if ( is_numeric( $datepicker ) ) {
@@ -99,7 +126,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return $formats;
 			}
 
-			return isset( $formats[ $translate ] ) ? $formats[ $translate ] : $formats[1];
+			return isset( $formats[ $translate ] ) ? $formats[ $translate ] : $formats[ static::get_datepicker_format_index() ];
 		}
 
 		/**
@@ -1291,6 +1318,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *
 		 * @since 4.9.21
 		 *
+		 * @throws Exception
+		 *
 		 * @param string|int|\DateTime $date          The date string, timestamp or object.
 		 * @param int|null             $start_of_week The number representing the start of week day as handled by
 		 *                                            WordPress: `0` (for Sunday) through `6` (for Saturday).
@@ -1370,6 +1399,110 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			tribe_set_var( $cache_var_name, $cache_week_start_end );
 
 			return [ $week_start, $week_end ];
+		}
+
+		/**
+		 * Given a specific DateTime we determine the end of that day based on our Internal End of Day Cut-off.
+		 *
+		 * @since 4.11.2
+		 *
+		 * @param string|DateTimeInterface $date    Date that we are getting the end of day from.
+		 * @param null|string              $cutoff  Which cutoff to use.
+		 *
+		 * @return DateTimeInterface|false Returns a DateTimeInterface when a valid date is given or false.
+		 */
+		public static function get_shifted_end_of_day( $date, $cutoff = null ) {
+			$date_obj = static::build_date_object( $date );
+
+			if ( ! $date_obj ) {
+				return false;
+			}
+
+			$start_of_day = clone $date_obj;
+			$end_of_day   = clone $date_obj;
+
+			if ( empty( $cutoff ) || ! is_string( $cutoff ) || false === strpos( $cutoff, ':' ) ) {
+				$cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
+			}
+
+			list( $hours_to_add, $minutes_to_add ) = array_map( 'absint', explode( ':', $cutoff ) );
+
+			$seconds_to_add = ( $hours_to_add * HOUR_IN_SECONDS ) + ( $minutes_to_add * MINUTE_IN_SECONDS );
+			if ( 0 !== $seconds_to_add ) {
+				$interval = static::interval( "PT{$seconds_to_add}S" );
+			}
+
+			$start_of_day->setTime( '0', '0', '0' );
+			$end_of_day->setTime( '23', '59', '59' );
+
+			if ( 0 !== $seconds_to_add ) {
+				$start_of_day->add( $interval );
+				$end_of_day->add( $interval );
+			}
+
+			if ( $end_of_day >= $date_obj && $date_obj >= $start_of_day ) {
+				return $end_of_day;
+			}
+
+			$start_of_day->sub( static::interval( 'P1D' ) );
+
+			if ( $start_of_day < $date_obj ) {
+				$end_of_day->sub( static::interval( 'P1D' ) );
+			}
+
+			return $end_of_day;
+		}
+
+		/**
+		 * Given a specific DateTime we determine the start of that day based on our Internal End of Day Cut-off.
+		 *
+		 * @since 4.11.2
+		 *
+		 * @param string|DateTimeInterface $date    Date that we are getting the start of day from.
+		 * @param null|string              $cutoff  Which cutoff to use.
+		 *
+		 * @return DateTimeInterface|false Returns a DateTimeInterface when a valid date is given or false.
+		 */
+		public static function get_shifted_start_of_day( $date, $cutoff = null ) {
+			$date_obj = static::build_date_object( $date );
+
+			if ( ! $date_obj ) {
+				return false;
+			}
+
+			$start_of_day = clone $date_obj;
+			$end_of_day   = clone $date_obj;
+
+			if ( empty( $cutoff ) || ! is_string( $cutoff ) || false === strpos( $cutoff, ':' ) ) {
+				$cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
+			}
+
+			list( $hours_to_add, $minutes_to_add ) = array_map( 'absint', explode( ':', $cutoff ) );
+
+			$seconds_to_add = ( $hours_to_add * HOUR_IN_SECONDS ) + ( $minutes_to_add * MINUTE_IN_SECONDS );
+			if ( 0 !== $seconds_to_add ) {
+				$interval = static::interval( "PT{$seconds_to_add}S" );
+			}
+
+			$start_of_day->setTime( '0', '0', '0' );
+			$end_of_day->setTime( '23', '59', '59' );
+
+			if ( 0 !== $seconds_to_add ) {
+				$start_of_day->add( $interval );
+				$end_of_day->add( $interval );
+			}
+
+			if ( $end_of_day <= $date_obj && $date_obj >= $start_of_day ) {
+				return $start_of_day;
+			}
+
+			$end_of_day->sub( static::interval( 'P1D' ) );
+
+			if ( $end_of_day > $date_obj ) {
+				$start_of_day->sub( static::interval( 'P1D' ) );
+			}
+
+			return $start_of_day;
 		}
 
 		/**

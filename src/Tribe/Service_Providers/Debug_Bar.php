@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hooks and manages the plugins Debug Bar integrations.
  *
@@ -34,6 +35,7 @@ class Tribe__Service_Providers__Debug_Bar extends tad_DI52_ServiceProvider {
 		 */
 		$tribe_panels = apply_filters( 'tribe_debug_bar_panels', array(
 			new Tribe__Debug_Bar__Panels__Context(),
+			new Tribe__Debug_Bar__Panels__Json_Ld(),
 		) );
 
 		if ( count( $tribe_panels ) > 0 ) {

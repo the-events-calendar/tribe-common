@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.11.0\n"
+"Project-Id-Version: Tribe Common 4.11.2\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2020-01-23 20:33:04+00:00\n"
+"POT-Creation-Date: 2020-02-19 15:59:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-01-23 20:33\n"
+"PO-Revision-Date: 2020-02-19 15:59\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -288,6 +288,11 @@ msgstr ""
 
 #: src/Tribe/Debug_Bar/Panels/Context.php:91
 msgid "State"
+msgstr ""
+
+#: src/Tribe/Debug_Bar/Panels/Json_Ld.php:21
+#: src/Tribe/Debug_Bar/Panels/Json_Ld.php:40
+msgid "Modern Tribe JSON-LD Data"
 msgstr ""
 
 #: src/Tribe/Dialog/View.php:153
@@ -1710,87 +1715,87 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:284
+#: src/Tribe/Main.php:283
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:285
+#: src/Tribe/Main.php:284
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:286
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:287
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:289
+#: src/Tribe/Main.php:288
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:290
+#: src/Tribe/Main.php:289
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:291
+#: src/Tribe/Main.php:290
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:292
+#: src/Tribe/Main.php:291
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:293
+#: src/Tribe/Main.php:292
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:294
+#: src/Tribe/Main.php:293
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:295
+#: src/Tribe/Main.php:294
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:296
+#: src/Tribe/Main.php:295
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:298
+#: src/Tribe/Main.php:297
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:299 src/Tribe/Main.php:316
+#: src/Tribe/Main.php:298 src/Tribe/Main.php:315
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:300
+#: src/Tribe/Main.php:299
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:305
+#: src/Tribe/Main.php:304
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:306
+#: src/Tribe/Main.php:305
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:317
+#: src/Tribe/Main.php:316
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:318 src/Tribe/Main.php:320
+#: src/Tribe/Main.php:317 src/Tribe/Main.php:319
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:319
+#: src/Tribe/Main.php:318
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:321
+#: src/Tribe/Main.php:320
 msgid "Clear"
 msgstr ""
 
@@ -2263,65 +2268,65 @@ msgstr ""
 msgid "%s must be a whole number."
 msgstr ""
 
-#: src/Tribe/Validate.php:247
+#: src/Tribe/Validate.php:250
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr ""
 
-#: src/Tribe/Validate.php:260
+#: src/Tribe/Validate.php:263
 msgid "%s must be a valid URL."
 msgstr ""
 
-#: src/Tribe/Validate.php:274 src/Tribe/Validate.php:286
-#: src/Tribe/Validate.php:299 src/Tribe/Validate.php:319
+#: src/Tribe/Validate.php:277 src/Tribe/Validate.php:289
+#: src/Tribe/Validate.php:302 src/Tribe/Validate.php:322
 msgid "%s must have a value that's part of its options."
 msgstr ""
 
-#: src/Tribe/Validate.php:331
+#: src/Tribe/Validate.php:334
 msgid ""
 "Comparison validation failed because no comparison value was provided, for "
 "field %s"
 msgstr ""
 
-#: src/Tribe/Validate.php:338
+#: src/Tribe/Validate.php:341
 msgid "%s cannot be the same as %s."
 msgstr ""
 
-#: src/Tribe/Validate.php:340
+#: src/Tribe/Validate.php:343
 msgid "%s cannot be a duplicate"
 msgstr ""
 
-#: src/Tribe/Validate.php:354
+#: src/Tribe/Validate.php:357
 msgid "%s must be a number or percentage."
 msgstr ""
 
-#: src/Tribe/Validate.php:398
+#: src/Tribe/Validate.php:401
 msgid "%s must be a number between 0 and 21."
 msgstr ""
 
-#: src/Tribe/Validate.php:412
+#: src/Tribe/Validate.php:415
 msgid ""
 "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 
-#: src/Tribe/Validate.php:426
+#: src/Tribe/Validate.php:429
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr ""
 
-#: src/Tribe/Validate.php:438
+#: src/Tribe/Validate.php:441
 msgid "%s must consist of 5 numbers."
 msgstr ""
 
-#: src/Tribe/Validate.php:450
+#: src/Tribe/Validate.php:453
 msgid "%s must be a phone number."
 msgstr ""
 
-#: src/Tribe/Validate.php:464
+#: src/Tribe/Validate.php:467
 msgid ""
 "Country List must be formatted as one country per line in the following "
 "format: <br>US, United States <br> UK, United Kingdom."
 msgstr ""
 
-#: src/Tribe/Validate.php:493
+#: src/Tribe/Validate.php:496
 msgid "%s must be an email address."
 msgstr ""
 

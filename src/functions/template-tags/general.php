@@ -766,3 +766,16 @@ if ( ! function_exists( 'tribe_context' ) ) {
 		return $context;
 	}
 }
+
+if ( ! function_exists( 'tribe_cache' ) ) {
+	/**
+	 * Returns the current Tribe Cache instance.
+	 *
+	 * @since 4.11.2
+	 *
+	 * @return Tribe__Cache The current cache instance.
+	 */
+	function tribe_cache() {
+		return tribe( 'cache' );
+	}
+}

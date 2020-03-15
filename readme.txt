@@ -2,6 +2,48 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
+
+= [4.11.3] 2020-02-26 =
+
+* Fix - JavaScript error in tribe dialog when there are no dialogs. Change fallback from object to array. [TCMN-34]
+* Fix - Fix display of Dialogs in Safari 12 mobile. [ETP-155]
+* Fix - Bring back the dialog icons. [ETP-155]
+* Tweak - Add theme compatibility for the tribe dialog [ETP-156]
+
+* Tweak - Add check if in `the_content` filter to prevent it from being called again. [ECP-345]
+
+= [4.11.2.1] 2020-02-25 =
+
+* Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last loaded fails. [TCMN-41]
+
+= [4.11.2] 2020-02-19 =
+
+* Tweak - Add the `tribe_cache` function as proxy to `tribe( 'cache' )` [TEC-3241]
+* Tweak - Add the a JSON-LD data dedicated Debug Bar panel [TEC-3241]
+* Tweak - Add the `post_tag` location to the context [TEC-3241]
+* Tweak - Add some visibility-related methods to the `Tribe__Admin__Notices` class [TEC-2994]
+* Tweak - Include `Rewrites::is_plain_permalink()` with proper caching [TEC-3120]
+* Tweak - Included two new locations for `tribe_context()`: `plain_permalink` and `permalink_structure` [TEC-3120]
+* Tweak - Update version of Freemius internally to 2.3.2 [TEC-3171]
+* Fix - Prevent warning on when saving empty slug for Tribe Setting Fields.
+* Fix - Set a default value for the datepicker format option to avoid issues in some settings combinations, thanks @helgatheviking. [TEC-3229]
+* Language - 1 new strings added, 35 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.11.1] 2020-02-12 =
+
+* Fix - Fix style overrides for new view shortcodes for Genesis theme. [ECP-316]
+* Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
+* Tweak - Update `adjustStart()` function in moment utils to allow start and end time to be the same. [TEC-3009]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.11.0.1] 2020-02-05 =
+
+* Tweak - Add filtered method to Date Utils for fetching the datepickerFormat. [TEC-3229]
+* Fix - Fatal in Context when global query object is not set. [TEC-3228]
+
 = [4.11.0] 2020-01-27 =
 
 * Feature - Inclusion of `Date_I18n_Immutable` and `Date_I18n` as WP friendly options to `DateTimeImmutable` and `DateTime` respectively.

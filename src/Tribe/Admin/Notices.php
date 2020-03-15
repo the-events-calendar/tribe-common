@@ -111,23 +111,15 @@ class Tribe__Admin__Notices {
 		$transients = $this->get_transients();
 
 		foreach ( $transients as $slug => $transient ) {
-			list( $html, $args, $expire ) = $transient;
-			if ( $expire < time() ) {
+			if ( $this->transient_notice_expired( $slug ) ) {
 				continue;
 			}
+			list( $html, $args, $expire ) = $transients[ $slug ];
 			$this->register( $slug, $html, $args );
 		}
 
 		foreach ( $this->notices as $notice ) {
-			if ( $notice->dismiss && $this->has_user_dimissed( $notice->slug ) ) {
-				continue;
-			}
-
-			if (
-				! empty( $notice->active_callback )
-				&& is_callable( $notice->active_callback )
-				&& false == call_user_func( $notice->active_callback )
-			) {
+			if ( ! $this->showing_notice( $notice->slug ) ) {
 				continue;
 			}
 
@@ -557,6 +549,12 @@ class Tribe__Admin__Notices {
 	 * @return array An associative array in the shape [ <slug> => [ <html>, <args>, <expire timestamp> ] ]
 	 */
 	protected function get_transients() {
+		$cached = tribe( 'cache' )['transient_admin_notices'];
+
+		if ( false !== $cached ) {
+			return $cached;
+		}
+
 		$transient = self::$transient_notices_name;
 		$notices   = get_transient( $transient );
 		$notices   = is_array( $notices ) ? $notices : array();
@@ -572,6 +570,8 @@ class Tribe__Admin__Notices {
 			}
 		}
 
+		tribe( 'cache' )['transient_admin_notices'] = $notices;
+
 		return $notices;
 	}
 
@@ -585,5 +585,85 @@ class Tribe__Admin__Notices {
 	protected function set_transients( $notices ) {
 		$transient = self::$transient_notices_name;
 		set_transient( $transient, $notices, MONTH_IN_SECONDS );
+	}
+
+	/**
+	 * Checks whether a specific transient admin notices is being shown or not, depending on its expiration and
+	 * dismissible status.
+	 *
+	 *
+	 * @since 4.11.1
+	 *
+	 * @param string|array $slug The slug, or slugs, of the transient notices to check. This is the same slug used
+	 *                           to register the transient notice in the `tribe_transient_notice` function or the
+	 *                           `Tribe__Admin__Notices::register_transient()` method.
+	 *
+	 * @return bool Whether the transient notice is showing or not.
+	 */
+	public function showing_transient_notice( $slug ) {
+		$transient_notices = (array) $this->get_transients();
+
+		return isset( $transient_notices[ $slug ] )
+		       && ! $this->has_user_dimissed( $slug )
+		       && ! $this->transient_notice_expired( $slug );
+	}
+
+	/**
+	 * Checks whether a transient notice expired or not.
+	 *
+	 * @since 4.11.1
+	 *
+	 * @param string|array $slug The slug, or slugs, of the transient notices to check. This is the same slug used
+	 *                           to register the transient notice in the `tribe_transient_notice` function or the
+	 *                           `Tribe__Admin__Notices::register_transient()` method.
+	 *
+	 * @return bool Whether the transient notice is expired or not.
+	 */
+	protected function transient_notice_expired( $slug ) {
+		$transients = (array) $this->get_transients();
+
+		if ( ! isset( $transients[ $slug ] ) ) {
+			return true;
+		}
+
+		list( $html, $args, $expire ) = $transients[ $slug ];
+		if ( $expire < time() ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks whether a notice is being shown or not; the result takes the notice callback and dismissible status into
+	 * account.
+	 *
+	 * @since 4.11.1
+	 *
+	 * @param string|array $slug The slug, or slugs, of the transient notices to check. This is the same slug used
+	 *                           to register the transient notice in the `tribe_transient_notice` function or the
+	 *                           `Tribe__Admin__Notices::register_transient()` method.
+	 *
+	 * @return bool Whether the notice is showing or not.
+	 */
+	public function showing_notice( $slug ) {
+		if ( ! isset( $this->notices[ $slug ] ) ) {
+			return false;
+		}
+
+		$notice = $this->notices[ $slug ];
+		if ( $notice->dismiss && $this->has_user_dimissed( $notice->slug ) ) {
+			return false;
+		}
+
+		if (
+			! empty( $notice->active_callback )
+			&& is_callable( $notice->active_callback )
+			&& false == call_user_func( $notice->active_callback )
+		) {
+			return false;
+		}
+
+		return true;
 	}
 }
