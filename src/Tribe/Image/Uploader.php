@@ -197,7 +197,7 @@ class Tribe__Image__Uploader {
 		 * We use the path basename only here to provided WordPress with a good filename
 		 * that will allow it to correctly detect and validate the extension.
 		 */
-		$path = parse_url( $filename, PHP_URL_PATH );
+		$path = wp_parse_url( $filename, PHP_URL_PATH );
 
 		$name       = basename( $path );
 		$properties = wp_check_filetype( $name );
