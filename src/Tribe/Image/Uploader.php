@@ -174,8 +174,12 @@ class Tribe__Image__Uploader {
 		$this->maybe_init_attachment_guids_cache();
 		$this->maybe_init_attachment_original_urls_cache();
 
-		self::$attachment_guids_cache[ get_post( $attachment_id )->guid ] = $attachment_id;
-		self::$original_urls_cache[ $file_url ]                           = $attachment_id;
+		$attachment_post = get_post( $attachment_id );
+		// Only update the cache if is a valid attachment.
+		if ( $attachment_post instanceof WP_Post ) {
+			self::$attachment_guids_cache[ $attachment_post->guid ] = $attachment_id;
+			self::$original_urls_cache[ $file_url ]                 = $attachment_id;
+		}
 
 		return $attachment_id;
 	}
