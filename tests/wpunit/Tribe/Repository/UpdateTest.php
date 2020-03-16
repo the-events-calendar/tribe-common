@@ -248,6 +248,42 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should to set an image without extension
+	 *
+	 * @test
+	 */
+	public function it_should_to_set_an_image_without_extension() {
+		$post = $this->factory()->post->create( [ 'post_type' => 'book' ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$name = 'images/featured-image';
+		// Create a copy of the file without an extension
+		@copy(
+			codecept_data_dir( 'images/featured-image.jpg' ),
+			codecept_data_dir( $name )
+		);
+
+		$image = codecept_data_dir( $name );
+
+		add_filter( 'tribe_image_uploader_local_urls', '__return_true' );
+		$this->repository()->where( 'id', $post )->set_featured_image( $image )->save();
+		remove_filter( 'tribe_image_uploader_local_urls', '__return_true' );
+
+		clean_post_cache( $post );
+
+		$this->assertTrue( has_post_thumbnail( $post ), "Post does not have a featured image for post {$post}" );
+
+		$parts = explode( '.', get_the_post_thumbnail_url( $post ) );
+
+		$this->assertEquals(
+			'jpg',
+			end( $parts ),
+			'The extension of the file was not able to set as .jpg'
+		);
+	}
+
+	/**
 	 * It should allow setting featured image with ID using method
 	 *
 	 * @test
@@ -265,7 +301,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $ids as $id ) {
 			clean_post_cache( $id );
 
-			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+			$this->assertTrue( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
 	}
 
@@ -289,7 +325,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $ids as $id ) {
 			clean_post_cache( $id );
 
-			$this->assertEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+			$this->assertFalse( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
 	}
 
@@ -313,7 +349,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $ids as $id ) {
 			clean_post_cache( $id );
 
-			$this->assertEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+			$this->assertFalse( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
 	}
 
@@ -337,7 +373,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $ids as $id ) {
 			clean_post_cache( $id );
 
-			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+			$this->assertTrue( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
 	}
 
@@ -361,7 +397,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $ids as $id ) {
 			clean_post_cache( $id );
 
-			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+			$this->assertTrue( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
 	}
 
