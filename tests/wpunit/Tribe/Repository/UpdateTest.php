@@ -227,7 +227,14 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
-		$image = codecept_data_dir( 'images/featured-image.jpg' );
+		$name = 'images/featured-image-' . uniqid() . '.jpg';
+		// Create a copy of the file as the file will be removed after the upload is completed
+		@copy(
+			codecept_data_dir( 'images/featured-image.jpg' ),
+			codecept_data_dir( $name )
+		);
+
+		$image = codecept_data_dir( $name );
 
 		add_filter( 'tribe_image_uploader_local_urls', '__return_true' );
 		$this->repository()->where( 'post__in', $ids )->set_featured_image( $image )->save();
@@ -236,7 +243,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $ids as $id ) {
 			clean_post_cache( $id );
 
-			$this->assertNotEquals( '', get_post( $id )->_thumbnail_id, "Post does not have a featured image for post {$id}" );
+			$this->assertTrue( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
 	}
 

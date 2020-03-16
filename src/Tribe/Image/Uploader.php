@@ -52,9 +52,8 @@ class Tribe__Image__Uploader {
 			if ( ! $id ) {
 				$id = $this->upload_file( $this->featured_image );
 				$id = $this->maybe_retry_upload( $id );
-			} else {
-				$existing = true;
 			}
+			$existing = (bool) $id;
 		} elseif ( $post = get_post( $this->featured_image ) ) {
 			$id = $post && 'attachment' === $post->post_type ? $this->featured_image : false;
 		} else {
@@ -125,24 +124,30 @@ class Tribe__Image__Uploader {
 			return false;
 		}
 
-		/**
-		 * Some CDN services will append query arguments to the image URL; removing
-		 * them now has the potential of blocking the image fetching completely so we
-		 * let them be here.
-		 */
-		$file = download_url( $file_url );
+		$is_local = false;
+		// This is a local file no need to fetch it from the wire.
+		if ( $allow_local_urls && file_exists( $file_url ) ) {
+			$file = $file_url;
+			$is_local = true;
+		} else {
+			/**
+			 * Some CDN services will append query arguments to the image URL; removing
+			 * them now has the potential of blocking the image fetching completely so we
+			 * let them be here.
+			 */
+			$file = download_url( $file_url );
+			if ( is_wp_error( $file ) ) {
+				do_action( 'tribe_log', 'error', __CLASS__, [
+					'message' => $file->get_error_message(),
+					'url'     => $file_url,
+					'error'   => $file,
+				] );
 
-		if ( is_wp_error( $file ) ) {
-			do_action( 'tribe_log', 'error', __CLASS__, [
-				'message' => $file->get_error_message(),
-				'url'     => $file_url,
-				'error'   => $file,
-			] );
-
-			return false;
+				return false;
+			}
 		}
 
-		// Upload file into WP and leave WP handle the resize and such..
+		// Upload file into WP and leave WP handle the resize and such.
 		$attachment_id = media_handle_sideload( [
 			'name'           => $this->create_file_name( $file ),
 			'tmp_name'       => $file,
@@ -150,7 +155,7 @@ class Tribe__Image__Uploader {
 		] );
 
 		// Remove the temporary file as is no longer required at this point.
-		if ( file_exists( $file ) ) {
+		if ( ! $is_local && file_exists( $file ) ) {
 			@unlink( $file );
 		}
 
