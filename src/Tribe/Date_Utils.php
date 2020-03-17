@@ -69,7 +69,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function maybe_format_from_datepicker( $date, $datepicker = null ) {
 			if ( ! is_numeric( $datepicker ) ) {
-				$datepicker = tribe_get_option( 'datepickerFormat', self::get_datepicker_format_index() );
+				$datepicker = self::get_datepicker_format_index();
 			}
 
 			if ( is_numeric( $datepicker ) ) {
@@ -1404,7 +1404,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Given a specific DateTime we determine the end of that day based on our Internal End of Day Cut-off.
 		 *
-		 * @since TBD
+		 * @since 4.11.2
 		 *
 		 * @param string|DateTimeInterface $date    Date that we are getting the end of day from.
 		 * @param null|string              $cutoff  Which cutoff to use.
@@ -1456,7 +1456,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		/**
 		 * Given a specific DateTime we determine the start of that day based on our Internal End of Day Cut-off.
 		 *
-		 * @since TBD
+		 * @since 4.11.2
 		 *
 		 * @param string|DateTimeInterface $date    Date that we are getting the start of day from.
 		 * @param null|string              $cutoff  Which cutoff to use.

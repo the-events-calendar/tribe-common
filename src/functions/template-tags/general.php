@@ -771,7 +771,7 @@ if ( ! function_exists( 'tribe_cache' ) ) {
 	/**
 	 * Returns the current Tribe Cache instance.
 	 *
-	 * @since TBD
+	 * @since 4.11.2
 	 *
 	 * @return Tribe__Cache The current cache instance.
 	 */

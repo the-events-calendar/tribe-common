@@ -2,7 +2,7 @@
 /**
  * JSON-LD information Debug Bar panel.
  *
- * @since   TBD
+ * @since   4.11.2
  *
  * @package Tribe\Debug_Bar\Panels
  */
@@ -11,7 +11,7 @@ class Tribe__Debug_Bar__Panels__Json_Ld extends Debug_Bar_Panel {
 	/**
 	 * Returns the Panel name.
 	 *
-	 * @since TBD
+	 * @since 4.11.2
 	 *
 	 * @param null $title The panel input title.
 	 *
