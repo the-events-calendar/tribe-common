@@ -124,6 +124,11 @@ class Tribe__Image__Uploader {
 			return false;
 		}
 
+		// These files need to be included as dependencies
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		require_once( ABSPATH . 'wp-admin/includes/media.php' );
+
 		$is_local = false;
 		// This is a local file no need to fetch it from the wire.
 		if ( $allow_local_urls && file_exists( $file_url ) ) {
