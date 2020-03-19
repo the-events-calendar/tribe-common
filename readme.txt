@@ -7,6 +7,7 @@
 * Tweak - Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
 * Tweak - Allow uploads of images with a large size and images with no extension provided from the URL, as the extension from the URL was used to define the type of the file to be uploaded and when the extension was not present on the URL the file was considered invalid. [TCMN-46]
 * Tweak - Expired transient garbage collector will only run once per request and when needed [TCMN-38]
+* Language - 2 new strings added, 0 updated, 1 fuzzied, and 1 obsoleted
 
 = [4.11.4] 2020-03-18 =
 
