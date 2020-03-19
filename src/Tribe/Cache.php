@@ -194,7 +194,7 @@ class Tribe__Cache implements ArrayAccess {
 		/**
 		 * Allow third party filtering of the SQL used for deleting expired transients.
 		 *
-		 * @since TBD
+		 * @since 4.11.5
 		 *
 		 * @param string $sql   The SQL we execute to delete all the expired transients.
 		 * @param int    $time  Time we are using to determine what is expired.
@@ -214,7 +214,7 @@ class Tribe__Cache implements ArrayAccess {
 	/**
 	 * Flag if we should delete
 	 *
-	 * @since TBD
+	 * @since 4.11.5
 	 *
 	 * @param boolean $value If we should delete transients or not on shutdown.
 	 *
@@ -227,7 +227,7 @@ class Tribe__Cache implements ArrayAccess {
 	/**
 	 * Runs on hook `shutdown` and will delete transients on the end of the request.
 	 *
-	 * @since TBD
+	 * @since 4.11.5
 	 *
 	 * @return void No return for action hook method.
 	 */

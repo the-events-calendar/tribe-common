@@ -79,7 +79,7 @@ class Tribe__Image__Uploader {
 	 * original URL might be encoded HTML components such as: "&" and some CDNs does not handle well different URLs
 	 * as they were provided so we try to recreate the original URL where it might be required.
 	 *
-	 * @since TBD
+	 * @since 4.11.5
 	 *
 	 * @param int|bool $id The id of the attachment if was uploaded correctly, false otherwise.
 	 *
@@ -195,7 +195,7 @@ class Tribe__Image__Uploader {
 	 * attachments or media files, in those cases we try to guess the right extension using the mime of the file as
 	 * an alternative, if the $filename is a path we can verify the mime type using native WP functions.
 	 *
-	 * @since TBD
+	 * @since 4.11.5
 	 *
 	 * @param string $filename The name of the file or URL.
 	 *
