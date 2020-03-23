@@ -337,7 +337,7 @@ class Tribe__Assets {
 			$urls[] = substr_replace( $relative_location, '.min', - 3, 0 );
 		}
 
-		if ( substr( $relative_location, - 4, 4 ) === '.css' ) {
+		if ( substr( $relative_location, -4, 4 ) === '.css' ) {
 			$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
 		}
 
