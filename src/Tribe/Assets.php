@@ -333,7 +333,7 @@ class Tribe__Assets {
 		}
 
 		// If needed add the Min Files.
-		if ( substr( $relative_location, - 3, 3 ) === '.js' ) {
+		if ( substr( $relative_location, -3, 3 ) === '.js' ) {
 			$urls[] = substr_replace( $relative_location, '.min', - 3, 0 );
 		}
 
