@@ -341,7 +341,7 @@ class Tribe__Assets {
 			$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
 		}
 
-		if ( ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false ) {
+		if ( ! defined( 'SCRIPT_DEBUG' ) || ( defined( 'SCRIPT_DEBUG' ) && ! SCRIPT_DEBUG )  ) {
 			// Add the actual url after having the min file added.
 			$urls[] = $relative_location;
 		}
