@@ -327,19 +327,24 @@ class Tribe__Assets {
 		// Strip the plugin URL and make this relative.
 		$relative_location = str_replace( $base_url, '', $url );
 
-		// If needed add the Min Files.
-		if ( ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false ) {
-			if ( substr( $relative_location, - 3, 3 ) === '.js' ) {
-				$urls[] = substr_replace( $relative_location, '.min', - 3, 0 );
-			}
-
-			if ( substr( $relative_location, - 4, 4 ) === '.css' ) {
-				$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
-			}
+		if ( defined( 'SCRIPT_DEBUG' ) &&  SCRIPT_DEBUG ) {
+			// Add the actual url after having the min file added.
+			$urls[] = $relative_location;
 		}
 
-		// Add the actual url after having the min file added.
-		$urls[] = $relative_location;
+		// If needed add the Min Files.
+		if ( substr( $relative_location, -3, 3 ) === '.js' ) {
+			$urls[] = substr_replace( $relative_location, '.min', - 3, 0 );
+		}
+
+		if ( substr( $relative_location, -4, 4 ) === '.css' ) {
+			$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
+		}
+
+		if ( ! defined( 'SCRIPT_DEBUG' ) || ( defined( 'SCRIPT_DEBUG' ) && ! SCRIPT_DEBUG )  ) {
+			// Add the actual url after having the min file added.
+			$urls[] = $relative_location;
+		}
 
 		// Check for all Urls added to the array.
 		foreach ( $urls as $partial_path ) {
