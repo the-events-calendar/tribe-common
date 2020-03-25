@@ -324,10 +324,12 @@ class Tribe__Assets {
 			return false;
 		}
 
+		$script_debug = defined( 'SCRIPT_DEBUG' ) &&  SCRIPT_DEBUG;
+
 		// Strip the plugin URL and make this relative.
 		$relative_location = str_replace( $base_url, '', $url );
 
-		if ( defined( 'SCRIPT_DEBUG' ) &&  SCRIPT_DEBUG ) {
+		if ( $script_debug ) {
 			// Add the actual url after having the min file added.
 			$urls[] = $relative_location;
 		}
@@ -341,7 +343,7 @@ class Tribe__Assets {
 			$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
 		}
 
-		if ( ! defined( 'SCRIPT_DEBUG' ) || ( defined( 'SCRIPT_DEBUG' ) && ! SCRIPT_DEBUG )  ) {
+		if ( empty( $script_debug ) ) {
 			// Add the actual url after having the min file added.
 			$urls[] = $relative_location;
 		}
