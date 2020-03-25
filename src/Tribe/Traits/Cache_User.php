@@ -15,8 +15,8 @@
  *
  *          protected $computation_cache = [];
  *
- *          public function __destruct(){
- *              $this->dump_cache();
+ *          public function __construct(){
+ *              add_action( 'shutdown', [ $this, 'dump_cache' ] );
  *          }
  *
  *          public function calculate_something( $key ){
@@ -124,5 +124,22 @@ trait Cache_User {
 				$this->{$key . '_cache'} = [];
 			}
 		}
+	}
+
+	/**
+	 * Resets the instance caches for the this instance.
+	 *
+	 * @since 4.11.0
+	 *
+	 * @return string[] A list of the emptied cache properties.
+	 */
+	public function reset_caches() {
+		$emptied = [];
+		foreach ( array_keys( $this->caches ) as $key ) {
+			$emptied[]              = $key;
+			$this->{"{$key}_cache"} = [];
+		}
+
+		return $emptied;
 	}
 }

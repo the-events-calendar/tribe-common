@@ -160,3 +160,34 @@ if ( ! function_exists( 'tribe_uc_first_letter' ) ) {
 		return $letter;
 	}
 }
+
+if ( ! function_exists( 'tribe_strpos' ) ) {
+	/**
+	 * Find the numeric position of the first occurrence of needle in the haystack string using multibyte function if available.
+	 *
+	 * @since 4.9.19
+	 *
+	 * @param string $haystack The string to search in.
+	 * @param string $needle   The string to find in haystack.
+	 * @param int    $offset   The search offset. If it is not specified, 0 is used. A negative offset counts from the end of the string.
+	 *
+	 * @return int|false The numeric position of the first occurrence of needle in the haystack string. If needle is not found, it returns false.
+	 *
+	 * @see strpos    The fallback function used if mb_strpos does not exist.
+	 * @see mb_strpos The multibyte compatible version of strpos.
+	 */
+	function tribe_strpos( $haystack, $needle, $offset = 0 ) {
+		if ( function_exists( 'mb_strpos' ) ) {
+			$encoding = tribe_detect_encoding( $haystack );
+
+			// Use encoding if it was detected.
+			if ( $encoding ) {
+				return mb_strpos( $haystack, $needle, $offset, $encoding );
+			}
+
+			return mb_strpos( $haystack, $needle, $offset );
+		}
+
+		return strpos( $haystack, $needle, $offset );
+	}
+}

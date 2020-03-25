@@ -954,7 +954,11 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 				'orm_arg' => false
 			],
 			'four' => [
-				'read' => [Context::FUNC => function(){return 23;}]
+				'read' => [
+					Context::FUNC => function(){
+						return 23;
+					}
+				]
 			]
 		], false );
 
@@ -1451,5 +1455,139 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$wp->matched_query     = "p={$post_id}&animal=platipus&country=france&river=seine";
 
 		$this->assertEquals( $expected, $context->get( 'test', $default ) );
+	}
+
+	/**
+	 * Test populate_aliases throws if direction is not read or write
+	 */
+	public function test_populate_aliases_throws_if_direction_is_not_read_or_write() {
+		/** @var Context $context */
+		$context = tribe_context()->set_locations( [
+			'car' => [
+				'read' => [
+					Context::QUERY_VAR => [ 'car', 'vehicle', 'transport_mean' ],
+				],
+			],
+		], false );
+
+		$this->expectException( \InvalidArgumentException::class );
+
+		$context->translate_sub_locations( [ 'vehicle' => 'hyunday' ], Context::QUERY_VAR, 'not-supported' );
+	}
+
+	public function translate_sub_locations_data_set() {
+		return [
+			'empty_values'         => [ [], [] ],
+			'unknown_sub_location' => [ [ 'animal' => 'bird' ], [] ],
+			'first_location'       => [
+				[ 'carriage' => 'golf' ],
+				[ 'car' => 'golf' ],
+			],
+			'second_location'      => [
+				[ 'vehicle' => 'golf' ],
+				[ 'car' => 'golf' ],
+			],
+			'third_location'       => [
+				[ 'transport_mean' => 'golf' ],
+				[ 'car' => 'golf' ],
+			],
+			'location_identity'    => [
+				[ 'car' => 'golf' ],
+				[ 'car' => 'golf' ],
+			]
+		];
+}
+	/**
+	 * Test populate_aliases
+	 * @dataProvider translate_sub_locations_data_set
+	 */
+	public function test_translate_sub_locations($values,$expected) {
+		/** @var Context $context */
+		$context = tribe_context()->set_locations( [
+			'car' => [
+				'read' => [
+					Context::QUERY_VAR => [ 'carriage', 'vehicle', 'transport_mean' ],
+				],
+			],
+		], false );
+
+		$populated = $context->translate_sub_locations( $values, Context::QUERY_VAR, 'read' );
+
+		$this->assertEquals( $expected, $populated );
+	}
+
+
+	/**
+	 * It should allow getting a value calling a function on a location value.
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_a_value_calling_a_fucntion_on_a_location_value() {
+		$context = tribe_context()->add_locations( [
+			'test_location' => [
+				'read' => [
+					Context::FUNC => static function () {
+						return 66;
+					}
+				]
+			],
+			'location_func' => [
+				'read' => [
+					Context::LOCATION_FUNC => [
+						'test_location',
+						static function ( $val ) {
+							return (int) $val + 23;
+						}
+					]
+				]
+			],
+		] );
+
+		$this->assertEquals( 89, $context->get( 'location_func' ) );
+	}
+
+	/**
+	 * It should allow safe seting of values
+	 *
+	 * @test
+	 */
+	public function should_allow_safe_seting_of_values() {
+		$context = tribe_context()->add_locations( [
+			'test_location' => [
+				'read' => [
+					Context::FUNC => static function ()
+					{
+						return 66;
+					}
+				]
+			],
+		] );
+
+		$context->safe_set( 'test_location', 23 );
+		$context->safe_set( [ 'test_location_2' => 89 ] );
+
+		$this->assertEquals( 66, $context->get( 'test_location' ) );
+		$this->assertEquals( 89, $context->get( 'test_location_2' ) );
+	}
+
+	/**
+	 * It should not cache first default value
+	 *
+	 * @test
+	 */
+	public function should_not_cache_first_default_value() {
+		$context = tribe_context()->add_locations( [
+			'test_location' => [
+				'read' => [
+					Context::FUNC => static function () {
+						return Context::NOT_FOUND;
+					}
+				]
+			],
+		] );
+
+		$this->assertEquals( $context->get( 'test_location', 23 ), 23 );
+		$this->assertEquals( $context->get( 'test_location', 89 ), 89 );
+		$this->assertEquals( $context->get( 'test_location', 23 ), 23 );
 	}
 }

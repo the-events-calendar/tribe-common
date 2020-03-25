@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.9.11.1';
+	const VERSION             = '4.11.5.1';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -55,7 +55,6 @@ class Tribe__Main {
 	/**
 	 * Constructor for Common Class
 	 *
-	 * @access public
 	 * We are using a `public` constructor here for backwards compatibility.
 	 *
 	 * The way our code used to work we would have `new Tribe__Main()` called directly
@@ -86,8 +85,10 @@ class Tribe__Main {
 		$parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
 
-		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
-		add_action( 'tribe_common_loaded', array( $this, 'tribe_common_app_store' ), 10 );
+		$this->promoter_connector();
+
+		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
+		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
 	}
 
 	/**
@@ -128,7 +129,7 @@ class Tribe__Main {
 
 		$autoloader = Tribe__Autoloader::instance();
 
-		$prefixes = array( 'Tribe__' => dirname( __FILE__ ) );
+		$prefixes = [ 'Tribe__' => dirname( __FILE__ ) ];
 		$autoloader->register_prefixes( $prefixes );
 
 		foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
@@ -167,6 +168,8 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/multibyte.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
 
 		Tribe__Debug::instance();
 		tribe( 'assets' );
@@ -213,8 +216,8 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			[
-				[ 'tribe-reset-style', 'reset.css' ],
-				[ 'tribe-common-style', 'common.css', [ 'tribe-reset-style' ] ],
+				[ 'tribe-common-skeleton-style', 'common-skeleton.css' ],
+				[ 'tribe-common-full-style', 'common-full.css', [ 'tribe-common-skeleton-style' ] ],
 			],
 			null
 		);
@@ -222,35 +225,49 @@ class Tribe__Main {
 		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
 		tribe_assets(
 			$this,
-			array(
-				array( 'tribe-ui', 'tribe-ui.css' ),
-				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),
-				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ) ),
-				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ) ),
-				array( 'tribe-validation-style', 'validation.css', array( 'tribe-tooltipster-css' ) ),
-				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore', 'tribe-common' ) ),
-				array( 'tribe-dependency-style', 'dependency.css', array( 'tribe-select2-css' ) ),
-				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
-				array( 'tribe-datepicker', 'datepicker.css' ),
-			),
+			[
+				[ 'tribe-ui', 'tribe-ui.css' ],
+				[ 'tribe-buttonset', 'buttonset.js', [ 'jquery', 'underscore' ] ],
+				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
+				[ 'tribe-validation', 'validation.js', [ 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ] ],
+				[ 'tribe-validation-style', 'validation.css', [ 'tribe-tooltipster-css' ] ],
+				[ 'tribe-dependency', 'dependency.js', [ 'jquery', 'underscore', 'tribe-common' ] ],
+				[ 'tribe-dependency-style', 'dependency.css', [ 'tribe-select2-css' ] ],
+				[ 'tribe-pue-notices', 'pue-notices.js', [ 'jquery' ] ],
+				[ 'tribe-datepicker', 'datepicker.css' ],
+			],
 			'admin_enqueue_scripts',
-			array(
-				'conditionals' => array( $this, 'should_load_common_admin_css' ),
-				'priority'     => 5,
-			)
+			[
+				'conditionals' => [ $this, 'should_load_common_admin_css' ],
+				'priority' => 5,
+			]
 		);
 
 		tribe_asset(
 			$this,
 			'tribe-common',
 			'tribe-common.js',
-			array( 'tribe-clipboard' ),
+			[],
 			'admin_enqueue_scripts',
-			array(
+			[
 				'priority' => 0,
-			)
+			]
 		);
-	 }
+
+		tribe_asset(
+			$this,
+			'tribe-admin-url-fragment-scroll',
+			'admin/url-fragment-scroll.js',
+			[ 'tribe-common' ],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [ $this, 'should_load_common_admin_css' ],
+				'priority' => 5,
+			]
+		);
+
+		tribe( Tribe__Admin__Help_Page::class )->register_assets();
+	}
 
 	/**
 	 * Load All localization data create by `asset.data`
@@ -262,11 +279,11 @@ class Tribe__Main {
 	public function load_localize_data() {
 		$datepicker_months = array_values( Tribe__Date_Utils::get_localized_months_full() );
 
-		tribe( 'asset.data' )->add( 'tribe_l10n_datatables', array(
-			'aria' => array(
+		tribe( 'asset.data' )->add( 'tribe_l10n_datatables', [
+			'aria' => [
 				'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
 				'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
-			),
+			],
 			'length_menu'       => __( 'Show _MENU_ entries', 'tribe-common' ),
 			'empty_table'       => __( 'No data available in table', 'tribe-common' ),
 			'info'              => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'tribe-common' ),
@@ -277,19 +294,19 @@ class Tribe__Main {
 			'all_selected_text' => __( 'All items on this page were selected. ', 'tribe-common' ),
 			'select_all_link'   => __( 'Select all pages', 'tribe-common' ),
 			'clear_selection'   => __( 'Clear Selection.', 'tribe-common' ),
-			'pagination' => array(
+			'pagination' => [
 				'all' => __( 'All', 'tribe-common' ),
 				'next' => __( 'Next', 'tribe-common' ),
 				'previous' => __( 'Previous', 'tribe-common' ),
-			),
-			'select' => array(
-				'rows' => array(
+			],
+			'select' => [
+				'rows' => [
 					0 => '',
 					'_' => __( ': Selected %d rows', 'tribe-common' ),
 					1 => __( ': Selected 1 row', 'tribe-common' ),
-				),
-			),
-			'datepicker' => array(
+				],
+			],
+			'datepicker' => [
 				'dayNames'        => Tribe__Date_Utils::get_localized_weekdays_full(),
 				'dayNamesShort'   => Tribe__Date_Utils::get_localized_weekdays_short(),
 				'dayNamesMin'     => Tribe__Date_Utils::get_localized_weekdays_initial(),
@@ -302,35 +319,37 @@ class Tribe__Main {
 				'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
 				'today'           => esc_html__( 'Today', 'the-events-calendar' ),
 				'clear'           => esc_html__( 'Clear', 'the-events-calendar' ),
-			),
-		) );
-
-		tribe( 'asset.data' )->add( 'tribe_system_info', array(
-			'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
-			'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
-			'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
-			'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
-		) );
+			],
+		] );
 	}
 
 	/**
 	 * Adds core hooks
 	 */
 	public function add_hooks() {
-		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
-		add_action( 'plugins_loaded', array( $this, 'tribe_plugins_loaded' ), PHP_INT_MAX );
+		add_action( 'plugins_loaded', [ 'Tribe__App_Shop', 'instance' ] );
+		add_action( 'plugins_loaded', [ $this, 'tribe_plugins_loaded' ], PHP_INT_MAX );
 
 		// Register for the assets to be available everywhere
-		add_action( 'tribe_common_loaded', array( $this, 'load_assets' ), 1 );
-		add_action( 'init', array( $this, 'load_localize_data' ) );
-		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'store_admin_notices' ) );
+		add_action( 'tribe_common_loaded', [ $this, 'load_assets' ], 1 );
+		add_action( 'init', [ $this, 'load_localize_data' ] );
+		add_action( 'plugins_loaded', [ 'Tribe__Admin__Notices', 'instance' ], 1 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'store_admin_notices' ] );
 
-		add_filter( 'body_class', array( $this, 'add_js_class' ) );
-		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
+		add_filter( 'body_class', [ $this, 'add_js_class' ] );
+		add_action( 'wp_footer', [ $this, 'toggle_js_class' ] );
 	}
 
-	public function add_js_class( $classes = array() ) {
+	/**
+	 * Adds `tribe-no-js` class to all pages when common is active.
+	 *
+	 * @since 4.3.4
+	 *
+	 * @param array|string $classes Previous classes on body.
+	 *
+	 * @return array       All classes that will be printed on `<body>`.
+	 */
+	public function add_js_class( $classes = [] ) {
 		if ( ! is_array( $classes ) ) {
 			$classes = explode( ' ', $classes );
 		}
@@ -340,6 +359,13 @@ class Tribe__Main {
 		return array_filter( array_unique( $classes ) );
 	}
 
+	/**
+	 * Removes `tribe-no-js` and replaces with `tribe-js` when the Javascript of the page is enabled.
+	 *
+	 * @since 4.3.4
+	 *
+	 * @return void  This method only prints HTML to the screen no return.
+	 */
 	public function toggle_js_class() {
 		?>
 		<script>
@@ -359,7 +385,7 @@ class Tribe__Main {
 	 *
 	 * @since 4.5.7
 	 *
-	 * @return bool
+	 * @return bool Whether we should load Common Admin CSS or not.
 	 */
 	public function should_load_common_admin_css() {
 		$helper = Tribe__Admin__Helpers::instance();
@@ -379,13 +405,15 @@ class Tribe__Main {
 
 	/**
 	 * A Helper method to load text domain
-	 * First it tries to load the wp-content/languages translation then if falls to the
-	 * try to load $dir language files
+	 * First it tries to load the wp-content/languages translation then if falls to the try to load $dir language files.
 	 *
-	 * @param string $domain The text domain that will be loaded
-	 * @param string $dir    What directory should be used to try to load if the default doenst work
+	 * @since  4.0.1 Introduced.
+	 * @since  4.2   Included $domain and $dir params.
 	 *
-	 * @return bool  If it was able to load the text domain
+	 * @param string       $domain The text domain that will be loaded.
+	 * @param string|false $dir    What directory should be used to try to load if the default doesnt work.
+	 *
+	 * @return bool  If it was able to load the text domain.
 	 */
 	public function load_text_domain( $domain, $dir = false ) {
 		// Added safety just in case this runs twice...
@@ -397,13 +425,13 @@ class Tribe__Main {
 		$plugin_rel_path = WP_LANG_DIR . '/plugins/';
 
 		/**
-		 * Allows users to filter the file location for a given text domain
+		 * Allows users to filter the file location for a given text domain..
 		 * Be careful when using this filter, it will apply across the whole plugin suite.
 		 *
-		 * @param string      $plugin_rel_path The relative path for the language files
-		 * @param string      $domain Which plugin domain we are trying to load
-		 * @param string      $locale Which Language we will load
-		 * @param string|bool $dir    If there was a custom directory passed on the method call
+		 * @param string      $plugin_rel_path The relative path for the language files.
+		 * @param string      $domain Which plugin domain we are trying to load.
+		 * @param string      $locale Which Language we will load.
+		 * @param string|bool $dir    If there was a custom directory passed on the method call.
 		 */
 		$plugin_rel_path = apply_filters( 'tribe_load_text_domain', $plugin_rel_path, $domain, $locale, $dir );
 
@@ -417,11 +445,21 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Returns the post types registered by Tribe plugins
+	 * Returns the post types registered by Tribe plugins.
+	 *
+	 * @since 4.0.1 Introduced the method.
+	 *
+	 * @return array Slugs for all Post Types registered.
 	 */
 	public static function get_post_types() {
-		// we default the post type array to empty in tribe-common. Plugins like TEC add to it
-		return apply_filters( 'tribe_post_types', array() );
+		/**
+		 * We default the post type array to empty in tribe-common. Plugins like TEC add to it.
+		 *
+		 * @since 4.0.1
+		 *
+		 * @param array Slugs for all Post Types registered.
+		 */
+		return apply_filters( 'tribe_post_types', [] );
 	}
 
 	/**
@@ -432,7 +470,6 @@ class Tribe__Main {
 	 * @param $insert_array
 	 *
 	 * @return array
-	 *
 	 */
 	public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 		if ( array_key_exists( $key, $source_array ) ) {
@@ -485,6 +522,113 @@ class Tribe__Main {
 	}
 
 	/**
+	 * Adds a hook
+	 *
+	 */
+	public function store_admin_notices( $page ) {
+		if ( 'plugins.php' !== $page ) {
+			return;
+		}
+		$notices = apply_filters( 'tribe_plugin_notices', array() );
+		wp_localize_script( 'tribe-pue-notices', 'tribe_plugin_notices', $notices );
+	}
+
+	/**
+	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
+	 */
+	public function tribe_plugins_loaded() {
+		tribe( 'admin.notice.php.version' );
+		tribe( 'cache' );
+		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
+		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
+
+		if ( ! defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {
+			tribe( 'admin.notice.marketing' );
+		}
+
+		/**
+		 * Runs after all plugins including Tribe ones have loaded
+		 *
+		 * @since 4.3
+		 */
+		do_action( 'tribe_plugins_loaded' );
+	}
+
+	/**
+	 * Registers the slug bound to the implementations in the container.
+	 *
+	 * @since 4.4
+	 *
+	 * @return void Implementation of components loader doesnt return anything.
+	 */
+	public function bind_implementations() {
+		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
+		tribe_singleton( 'settings', 'Tribe__Settings', [ 'hook' ] );
+		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', [ 'hook' ] );
+		tribe_singleton( 'assets', 'Tribe__Assets' );
+		tribe_singleton( 'assets.pipeline', 'Tribe__Assets_Pipeline', [ 'hook' ] );
+		tribe_singleton( 'asset.data', 'Tribe__Asset__Data', [ 'hook' ] );
+		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
+		tribe_singleton( 'tracker', 'Tribe__Tracker', [ 'hook' ] );
+		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', [ 'set_post_types', 'hook' ] );
+		tribe_singleton( 'cache', 'Tribe__Cache', [ 'hook' ] );
+		tribe_singleton( 'languages.locations', 'Tribe__Languages__Locations' );
+		tribe_singleton( 'plugins.api', new Tribe__Plugins_API );
+		tribe_singleton( 'logger', 'Tribe__Log' );
+		tribe_singleton( 'cost-utils', [ 'Tribe__Cost_Utils', 'instance' ] );
+		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
+		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
+		tribe_singleton( 'context', 'Tribe__Context' );
+		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
+		tribe_singleton( 'db', 'Tribe__Db' );
+		tribe_singleton( 'freemius', 'Tribe__Freemius' );
+
+		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
+
+		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
+		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
+
+		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class );
+
+		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', [ 'hook' ] );
+		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', [ 'hook' ] );
+
+		tribe_register_provider( Tribe__Editor__Provider::class );
+		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
+		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
+		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
+		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
+		tribe_register_provider( Tribe\Service_Providers\PUE::class );
+		tribe_register_provider( Tribe\Log\Service_Provider::class );
+	}
+
+	/**
+	 * Create the Promoter connector singleton early to allow hook into the filters early.
+	 *
+	 * Add a filter to determine_current_user during the setup of common library.
+	 *
+	 * @since 4.9.20
+	 *
+	 * @return void  Internal method without any return.
+	 */
+	public function promoter_connector() {
+		tribe_singleton( 'promoter.connector', 'Tribe__Promoter__Connector' );
+
+		add_filter(
+			'determine_current_user',
+			tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' )
+		);
+	}
+
+
+	/************************
+	 *                      *
+	 *  Deprecated Methods  *
+	 *                      *
+	 ************************/
+	// @codingStandardsIgnoreStart
+
+	/**
 	 * Helper function to indicate whether the current execution context is AJAX
 	 *
 	 * This method exists to allow us test code that behaves differently depending on the execution
@@ -503,82 +647,6 @@ class Tribe__Main {
 	public function doing_ajax( $doing_ajax = null ) {
 		return tribe( 'context' )->doing_ajax( $doing_ajax );
 	}
-
-	/**
-	 * Adds a hook
-	 *
-	 */
-	public function store_admin_notices( $page ) {
-		if ( 'plugins.php' !== $page ) {
-			return;
-		}
-		$notices = apply_filters( 'tribe_plugin_notices', array() );
-		wp_localize_script( 'tribe-pue-notices', 'tribe_plugin_notices', $notices );
-	}
-
-	/**
-	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
-	 */
-	public function tribe_plugins_loaded() {
-		tribe( 'admin.notice.php.version' );
-		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
-		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
-
-		if ( ! defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {
-			tribe( 'admin.notice.marketing' );
-		}
-
-		/**
-		 * Runs after all plugins including Tribe ones have loaded
-		 *
-		 * @since 4.3
-		 */
-		do_action( 'tribe_plugins_loaded' );
-	}
-
-	/**
-	 * Registers the slug bound to the implementations in the container.
-	 */
-	public function bind_implementations() {
-		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
-		tribe_singleton( 'settings', 'Tribe__Settings', array( 'hook' ) );
-		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', array( 'hook' ) );
-		tribe_singleton( 'assets', 'Tribe__Assets' );
-		tribe_singleton( 'assets.pipeline', 'Tribe__Assets_Pipeline', array( 'hook' ) );
-		tribe_singleton( 'asset.data', 'Tribe__Asset__Data', array( 'hook' ) );
-		tribe_singleton( 'admin.helpers', 'Tribe__Admin__Helpers' );
-		tribe_singleton( 'tracker', 'Tribe__Tracker', array( 'hook' ) );
-		tribe_singleton( 'chunker', 'Tribe__Meta__Chunker', array( 'set_post_types', 'hook' ) );
-		tribe_singleton( 'cache', 'Tribe__Cache' );
-		tribe_singleton( 'languages.locations', 'Tribe__Languages__Locations' );
-		tribe_singleton( 'plugins.api', new Tribe__Plugins_API );
-		tribe_singleton( 'logger', 'Tribe__Log' );
-		tribe_singleton( 'cost-utils', array( 'Tribe__Cost_Utils', 'instance' ) );
-		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
-		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
-		tribe_singleton( 'context', 'Tribe__Context' );
-		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
-		tribe_singleton( 'db', 'Tribe__Db' );
-		tribe_singleton( 'freemius', 'Tribe__Freemius' );
-
-		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
-		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
-
-		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', array( 'hook' ) );
-		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', array( 'hook' ) );
-
-		tribe_register_provider( 'Tribe__Editor__Provider' );
-		tribe_register_provider( 'Tribe__Service_Providers__Debug_Bar' );
-		tribe_register_provider( 'Tribe__Service_Providers__Promoter_Connector' );
-		tribe_register_provider( 'Tribe__Service_Providers__Tooltip' );
-	}
-
-	/************************
-	 *                      *
-	 *  Deprecated Methods  *
-	 *                      *
-	 ************************/
-	// @codingStandardsIgnoreStart
 
 	/**
 	 * Manages PUE license key notifications.

@@ -2,6 +2,195 @@
 
 == Changelog ==
 
+= [4.11.5.1] 2020-03-23 =
+
+* Fix - Assets class modification to prevent JavaScript and CSS failing to load when `SCRIPT_DEBUG=true` [TCMN-52]
+
+= [4.11.5] 2020-03-23 =
+
+* Tweak - Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
+* Tweak - Allow uploads of images with a large size and images with no extension provided from the URL, as the extension from the URL was used to define the type of the file to be uploaded and when the extension was not present on the URL the file was considered invalid. [TCMN-46]
+* Tweak - Expired transient garbage collector will only run once per request and when needed [TCMN-38]
+* Language - 2 new strings added, 0 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.11.4] 2020-03-18 =
+
+* Fix - Increase range of actions that trigger changes on Promoter with a `WP_Post` instance or using an ID. [TCMN-47]
+
+= [4.11.3] 2020-02-26 =
+
+* Fix - JavaScript error in tribe dialog when there are no dialogs. Change fallback from object to array. [TCMN-34]
+* Fix - Fix display of Dialogs in Safari 12 mobile. [ETP-155]
+* Fix - Bring back the dialog icons. [ETP-155]
+* Tweak - Add theme compatibility for the tribe dialog [ETP-156]
+
+* Tweak - Add check if in `the_content` filter to prevent it from being called again. [ECP-345]
+
+= [4.11.2.1] 2020-02-25 =
+
+* Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last loaded fails. [TCMN-41]
+
+= [4.11.2] 2020-02-19 =
+
+* Tweak - Add the `tribe_cache` function as proxy to `tribe( 'cache' )` [TEC-3241]
+* Tweak - Add the a JSON-LD data dedicated Debug Bar panel [TEC-3241]
+* Tweak - Add the `post_tag` location to the context [TEC-3241]
+* Tweak - Add some visibility-related methods to the `Tribe__Admin__Notices` class [TEC-2994]
+* Tweak - Include `Rewrites::is_plain_permalink()` with proper caching [TEC-3120]
+* Tweak - Included two new locations for `tribe_context()`: `plain_permalink` and `permalink_structure` [TEC-3120]
+* Tweak - Update version of Freemius internally to 2.3.2 [TEC-3171]
+* Fix - Prevent warning on when saving empty slug for Tribe Setting Fields.
+* Fix - Set a default value for the datepicker format option to avoid issues in some settings combinations, thanks @helgatheviking. [TEC-3229]
+* Language - 1 new strings added, 35 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.11.1] 2020-02-12 =
+
+* Fix - Fix style overrides for new view shortcodes for Genesis theme. [ECP-316]
+* Fix - Fix style overrides for new view shortcodes for Enfold theme. [ECP-315]
+* Tweak - Update `adjustStart()` function in moment utils to allow start and end time to be the same. [TEC-3009]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.11.0.1] 2020-02-05 =
+
+* Tweak - Add filtered method to Date Utils for fetching the datepickerFormat. [TEC-3229]
+* Fix - Fatal in Context when global query object is not set. [TEC-3228]
+
+= [4.11.0] 2020-01-27 =
+
+* Feature - Inclusion of `Date_I18n_Immutable` and `Date_I18n` as WP friendly options to `DateTimeImmutable` and `DateTime` respectively.
+* Tweak - Caching of Tribe Options in memory to improve performance.
+* Tweak - Set the default datepicker (compact) format to MM/D/YYYY [136789]
+* Tweak - Add the `Tribe\Traits\Cache_User::reset_caches` method to clear cache entries [138357]
+* Fix - Template class now will properly create file name for the hooks when in a different namespace.
+* Fix - Template class now will properly determine the Theme folder when dealing with a different namespace.
+* Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.10.3] 2019-12-19 =
+
+* Feature - Add Repository filter `where_meta_related_by_meta` for getting a post by the meta value an associated post. [133333]
+* Fix - Correct missing block when switching from blocks to classic editor. [131493]
+
+= [4.10.2] 2019-12-10 =
+
+* Tweak - Add the `Tribe__Cache::warmup_post_caches` method to warmup the post caches for a set of posts [136624]
+* Tweak - Add the `tribe_cache_warmup_post_cache_limit` filter to allow filtering the LIMIT of those warmup fetches [136624]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.10.1] 2019-12-10 =
+
+* Fix - Updated the .pot file as it was outdated when shipping Tribe Common 4.10
+* Language - 8 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [4.10] 2019-11-20 =
+
+* Feature - Add new tribe-dialog object. Implements mt-a11y-dialog as `tribe-dialog` (or `tribe('dialog.view')`) as an extension of `Tribe_Template`. [129434]
+* Feature - New dialogs can be created with a simple call to `tribe( 'dialog.view' )->render_dialog( $args )` in php. [129434]
+* Feature - The tribe-dialog object sets up all necessary javascript and HTML via passed parameters. [129434]
+* Feature - Add a basic dialog, modal, confirmation dialog, and alert as templates. [129434]
+* Feature - Add methods `render_modal()`, `render_confirm()` and `render_alert()` to streamline common dialog types in Dialog View class. [129434]
+* Feature - Add `tribe_installed_before`, `tribe_installed_after` and `tribe_installed_on` to test the install version against a passed version. Requires the plugin have the `VERSION` constant and `$version_history_slug` property set. `$version_history_slug` is a new property being added specifically for these functions. [133048]
+* Tweak - Added filters: `tribe_dialog_args`, `tribe_dialog_template`, `tribe_dialog_html`, `tribe_dialog_script_args`, `tribe_dialog_script_html`
+* Tweak - Added actions: `tribe_dialog_additional_scripts`, `tribe_dialog_additional_scripts_`, `tribe_dialog_additional_scripts_`, `tribe_dialog_register`, `tribe_dialog_hooks`, `tribe_dialog_assets_registered`
+* Tweak - Changed views: `dialog/alert`, `dialog/button`, `dialog/confirm`, `dialog/dialog`, `dialog/modal`, `tooltip/tooltip`
+
+= [4.9.23] 2019-11-20 =
+
+* Tweak - Add the `tribe_get_query_var` function [137262]
+* Tweak - Add `tribe_get_the_content()` and `tribe_the_content()` for PHP 7.2 compatibility with WordPress 5.2
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.22.1] 2019-11-18 =
+
+* Fix - Pass the event to the onRequestClose handlers for the admin modal. [137394]
+
+= [4.9.22] 2019-11-13 =
+
+* Fix - Add some sanity checks to `is_editing_post` to ensure we don't show PHP error notices in some edge cases [122334]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.21] 2019-11-12 =
+
+* Tweak - Added additional datepicker formats for simpler selection [116086, 126472, 117909]
+* Tweak - Updated the Repository implementation to handle more complex `orderby` constructs [133303]
+* Tweak - Added the `Tribe__Date_Utils::get_week_start_end` method [133303]
+
+= [4.9.20] 2019-10-16 =
+
+* Tweak - added the `tribe_sanitize_deep` function to sanitize and validate input values [134427]
+* Tweak - use the `tribe_sanitize_deep` function to sanitize the values returned by the `tribe_get_request_var` function [134427]
+* Tweak - Rename "Datepicker Date Format" to "Compact Date Format" [134526]
+* Tweak - Adjust Promoter loading order to increase compatibility with plugins that use authentication early in the process [134862]
+* Tweak - Add support for Authentication using a Header when using Promoter [133922]
+* Language - 2 new strings added, 21 updated, 1 fuzzied, and 2 obsoleted
+
+= [4.9.19] 2019-10-14 =
+
+* Feature - Added new `tribe_strpos()` function that helps prevent fatal errors when hosting environments do not have support for multibyte functionality [135202]
+* Language - 1 new strings added, 32 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.9.18] 2019-09-25 =
+
+* Tweak - Added a missing space to the plugin list in the system information [134364]
+* Fix - Use the correct name for North Macedonia
+* Language - 1 new strings added, 32 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.9.17] 2019-09-16 =
+
+* Tweak - Changed the 'url' validation error text to just say it needs to be valid, not that it has to be a valid *absolute* URL [72214]
+* Tweak - Smarter plugin dependency checking with more accurate admin notices if not all requirements are satisfied [131080]
+* Tweak - `tribe_get_request_var()` now includes explicit check against $_REQUEST [132248]
+* Fix - Enqueue Thickbox script on all admin pages when needed [131080]
+* Language - 2 new strings added, 48 updated, 1 fuzzied, and 2 obsoleted
+
+= [4.9.16] 2019-09-04 =
+
+* Tweak - Added the Monolog logging library as alternative logging backend [120785]
+* Tweak - Hook Monolog logger on `tribe_log` action [120785]
+* Tweak - Add redirection of `tribe( 'logger' )->log()` calls to the Monolog logger using the `tribe_log_use_action_logger` filter [120785]
+* Fix - Handling of featured image setting [127132]
+* Language - 1 new strings added, 5 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.15.1] 2019-08-27 =
+
+* Fix - Resolve JS console warnings from tooltip.js by adding missing `tribe` var when the var is not setup on the current page already [133207]
+
+= [4.9.15] 2019-08-22 =
+
+* Tweak - Add IDs to radio fields so we can target them with tribe-dependency [131428]
+* Fix - Fixed alignment of description text for checkbox and radio fields in admin settings screens [131353]
+* Language - 0 new strings added, 73 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.14] 2019-08-19 =
+
+* Tweak - Update Lodash version on Block editor to prevent any possibility of a security issue with the package. From v4.17.11 to v4.17.15 [131421]
+* Fix - Prevent mascot image to get blown up out of proportions to a larger size on buggy CSS loading. [131910]
+* Language - 0 new strings added, 66 updated, 1 fuzzied, and 4 obsoleted
+
+= [4.9.13] 2019-07-25 =
+
+* Tweak - Update Freemius library to `2.3.0` [130281]
+* Fix - Location filtering for Context class moved out of construct, resolving lots of navigation problems across The Events Calendar [130754]
+* Language - 0 new strings added, 21 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.12] 2019-07-03 =
+
+* Feature - Include `tribe_classes()` and `tribe_get_classes()` for HTML class attribute handling in a similar way as the JS `classNames()`
+* Tweak - Include proper documentation of why the plugin has been deactivated and a knowledgebase article about how to downgrade [129726]
+* Tweak - When trying to update The Events Calendar with an incompatible version of an Addon that is expired, it will stop the upgrade [129727]
+* Tweak - Add filter `tribe_is_classic_editor_plugin_active` to change the output if the classic editor is active or not [121267]
+* Tweak - Create a new key if `AUTH_KEY` is not defined or is empty and add a new filter `tribe_promoter_secret_key` to filter the result [127183]
+* Tweak - Divide the `tribe-common.js` file to prevent that file from being bloated with external dependencies. [129526]
+* Tweak - Make sure `UTC-0` is converted back to `UTC` instead of `UTC-01` [129240]
+* Tweak - Add new function `tribe_register_rest_route` Wrapper around `register_rest_route` to filter the arguments when a new REST endpoint is created [129517]
+* Tweak - Add new method `Tribe__Cost_Utils::parse_separators` to infer decimal and thousands separators from a value that might have been formatted in a local different from the current one [98061]
+* Fix - Prevent Clipboard Javascript from loading all over the place on `/wp-admin/` [129526]
+* Fix - PHP 5.6 compatibility for `trait Cache_User` by using WP action `shutdown` instead of `__destruct` on our `WP_Rewrite` [129860]
+* Language - 4 new strings added, 66 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.9.11.2] 2019-06-20 =
+
+* Fix - Add Promoter PCSS file so that the proper CSS will be generated on package build [129584]
+
 = [4.9.11.1] 2019-06-13 =
 
 * Fix - Resolve fatal errors with references directly to The Events Calendar class constants [129107]
@@ -28,7 +217,7 @@
 
 = [4.9.8] 2019-05-14 =
 
-* Tweak - Add new `tooltip.view` PHP class to render new tool tips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
+* Feature - Add new `tooltip.view` PHP class to render new tooltips that utilize the existing `tribe-tooltip` CSS class for universal utility [120856]
 * Tweak - Added filters: `tribe_context_locations`, `tribe_tooltip_template`, `tribe_tooltip_html`
 * Tweak - Changed views: `tooltip/tooltip`
 

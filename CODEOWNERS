@@ -1,2 +1,5 @@
 # Any changes to Main or Bootstrapping files needs Lead Review
 /src/Tribe/Main.php tribe-common.php tribe-autoload.php @bordoni
+
+# Changes to postcss files
+/src/resources/postcss/common.pcss /src/resources/postcss/reset.pcss /src/resources/postcss/a11y/ /src/resources/postcss/base/ /src/resources/postcss/components/ /src/resources/postcss/resets/ @paulmskim

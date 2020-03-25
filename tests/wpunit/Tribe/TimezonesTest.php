@@ -138,6 +138,26 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Test get_valid_timezone
+	 *
+	 * @dataProvider get_valid_timezone
+	 *
+	 * @param $input
+	 * @param $expected
+	 */
+	public function test_get_valid_timezone( $input, $expected ) {
+		$this->assertEquals( $expected, \Tribe__Timezones::get_valid_timezone( $input ) );
+	}
+
+	public function get_valid_timezone() {
+		return [
+			[ 'UTC', 'UTC' ],
+			[ 'UTC-0', 'UTC' ],
+			[ 'UTC+0', 'UTC' ],
+		];
+	}
+
+	/**
 	 * Test generate_timezone_string_from_utc_offset
 	 *
 	 * @dataProvider  is_utc_offset_input

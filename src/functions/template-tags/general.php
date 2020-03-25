@@ -215,7 +215,15 @@ if ( ! function_exists( 'tribe_get_time_format' ) ) {
 	 * @return mixed|void
 	 */
 	function tribe_get_time_format( ) {
-		$format = get_option( 'time_format' );
+		static $cache_var_name = __FUNCTION__;
+
+		$format = tribe_get_var( $cache_var_name, null );
+
+		if ( ! $format ) {
+			$format = get_option( 'time_format' );
+			tribe_set_var( $cache_var_name, $format );
+		}
+
 		return apply_filters( 'tribe_time_format', $format );
 	}
 }//end if
@@ -588,43 +596,49 @@ function tribe_register_error( $indexes, $message ) {
  *
  * @since 4.3
  *
- * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
- * @param  string   $slug       Slug to save the asset
- * @param  string   $file       Which file will be loaded, either CSS or JS
- * @param  array    $deps       Dependencies
- * @param  string   $action     A WordPress Action, needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
- * @param  array    $arguments  Look at `Tribe__Assets::register()` for more info
+ * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
+ * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
+ * @param string            $file      The asset file to load (CSS or JS), including non-minified file extension.
+ * @param array             $deps      The list of dependencies.
+ * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
+ *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
+ * @param array             $arguments See `Tribe__Assets::register()` for more info.
  *
- * @return array             Which Assets was registered
+ * @return object|false     The asset that got registered or false on error.
  */
-function tribe_asset( $origin, $slug, $file, $deps = array(), $action = null, $arguments = array() ) {
-	return tribe( 'assets' )->register( $origin, $slug, $file, $deps, $action, $arguments );
+function tribe_asset( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
+	/** @var Tribe__Assets $assets */
+	$assets = tribe( 'assets' );
+
+	return $assets->register( $origin, $slug, $file, $deps, $action, $arguments );
 }
 
 /**
- * Shortcut for Tribe__Assets::enqueue(), include assets
+ * Shortcut for Tribe__Assets::enqueue() to include assets.
  *
- * @since  4.7
+ * @since 4.7
  *
- * @param  string|array  $slug  Slug to enqueue
- *
- * @return string
+ * @param string|array $slug Slug to enqueue
  */
 function tribe_asset_enqueue( $slug ) {
-	return tribe( 'assets' )->enqueue( $slug );
+	/** @var Tribe__Assets $assets */
+	$assets = tribe( 'assets' );
+
+	$assets->enqueue( $slug );
 }
 
 /**
- * Shortcut for Tribe__Assets::enqueue_group() include assets by groups
+ * Shortcut for Tribe__Assets::enqueue_group() include assets by groups.
  *
- * @since  4.7
+ * @since 4.7
  *
- * @param  string|array  $group  Which group(s) should be enqueued
- *
- * @return string
+ * @param string|array  $group  Which group(s) should be enqueued.
  */
 function tribe_asset_enqueue_group( $group ) {
-	return tribe( 'assets' )->enqueue_group( $group );
+	/** @var Tribe__Assets $assets */
+	$assets = tribe( 'assets' );
+
+	$assets->enqueue_group( $group );
 }
 
 /**
@@ -750,5 +764,18 @@ if ( ! function_exists( 'tribe_context' ) ) {
 		$context = apply_filters( 'tribe_global_context', $context );
 
 		return $context;
+	}
+}
+
+if ( ! function_exists( 'tribe_cache' ) ) {
+	/**
+	 * Returns the current Tribe Cache instance.
+	 *
+	 * @since 4.11.2
+	 *
+	 * @return Tribe__Cache The current cache instance.
+	 */
+	function tribe_cache() {
+		return tribe( 'cache' );
 	}
 }

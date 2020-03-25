@@ -48,7 +48,8 @@ before_install:
 
   # tweak git to correctly work with submodules
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
-  - git submodule update --init --recursive
+  - git submodule update --init
+  - git submodule foreach --recursive "[ -f .gitmodules ] && sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules; git submodule update --init;"
 
 install:
   # disable XDebug to speed up the tests
@@ -87,7 +88,8 @@ before_script:
   - if [ ${TEC_BRANCH} ]; then git checkout ${TEC_BRANCH}; fi
   - git branch -l
   - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
-  - git submodule update --init --recursive
+  - git submodule update --init
+  - git submodule foreach --recursive "[ -f .gitmodules ] && sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules; git submodule update --init;"
   - composer dump-autoload --no-dev -a
 
   # Copy the Dependency Test plugin in the plugins folder.
@@ -106,11 +108,11 @@ before_script:
   - wp core update-db
   - wp plugin deactivate --all
 
-  # pull the correct common branch we are testing
+  # Pull the correct common branch we are testing.
   - export PLUGIN_DIR="$WP_ROOT_FOLDER/wp-content/plugins/the-events-calendar/common"
-
   - cd $PLUGIN_DIR
-  - git checkout origin/$CURRENT_BRANCH
+  # Reset HARD first to avoid changes we might have done while updating TEC stopping the checkout.
+  - git reset HEAD --hard && git checkout origin/$CURRENT_BRANCH
   - composer update
 
   # get to the common dir

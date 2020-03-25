@@ -9,136 +9,40 @@
  *
  * @since 4.9.11
  */
-
 return [
-	'posts_per_page'              => [
+	'post_id' => [
+		'read' => [
+			Tribe__Context::FUNC => static function () {
+				return get_the_ID();
+			}
+		],
+	],
+	'permalink_structure' => [
+		'read' => [
+			Tribe__Context::OPTION => [ 'permalink_structure' ],
+		],
+	],
+	'plain_permalink' => [
+		'read' => [
+			Tribe__Context::LOCATION_FUNC => [
+				'permalink_structure',
+				static function( $struct ){
+					return empty( $struct );
+				},
+			],
+		],
+	],
+	'posts_per_page' => [
 		'read'  => [
 			Tribe__Context::REQUEST_VAR  => 'posts_per_page',
-			Tribe__Context::TRIBE_OPTION => [ 'posts_per_page', 'postsPerPage' ],
 			Tribe__Context::OPTION       => 'posts_per_page',
+			Tribe__Context::TRIBE_OPTION => [ 'posts_per_page', 'postsPerPage' ],
 		],
 		'write' => [
 			Tribe__Context::REQUEST_VAR => 'posts_per_page',
 		],
 	],
-	'event_display'               => [
-		'read'  => [
-			Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
-			Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
-			Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
-			Tribe__Context::QUERY_VAR        => 'eventDisplay',
-			Tribe__Context::TRIBE_OPTION     => 'viewOption',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
-			Tribe__Context::QUERY_VAR   => 'eventDisplay',
-		],
-	],
-	'view'                        => [
-		'read'  => [
-			Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
-			Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
-			Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
-			Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
-			Tribe__Context::TRIBE_OPTION     => 'viewOption',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
-			Tribe__Context::QUERY_VAR   => [ 'tribe_view', 'eventDisplay' ],
-		],
-	],
-	'view_data'                   => [
-		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'tribe_view_data',
-			Tribe__Context::QUERY_VAR   => 'tribe_view_data',
-			Tribe__Context::FILTER      => 'tribe_view_data',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => 'tribe_view_data',
-			Tribe__Context::QUERY_VAR   => 'tribe_view_data',
-		],
-	],
-	'event_date'                  => [
-		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'eventDate',
-			Tribe__Context::QUERY_VAR   => 'eventDate',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => 'eventDate',
-			Tribe__Context::QUERY_VAR   => 'eventDate',
-		],
-	],
-	'event_sequence'              => [
-		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'eventSequence',
-			Tribe__Context::QUERY_VAR   => 'eventSequence',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => 'eventSequence',
-			Tribe__Context::QUERY_VAR   => 'eventSequence',
-		],
-	],
-	'ical'                        => [
-		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'ical',
-			Tribe__Context::QUERY_VAR   => 'ical',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => 'ical',
-			Tribe__Context::QUERY_VAR   => 'ical',
-		],
-	],
-	'start_date'                  => [
-		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'start_date',
-			Tribe__Context::QUERY_VAR   => 'start_date',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => 'start_date',
-			Tribe__Context::QUERY_VAR   => 'start_date',
-		],
-	],
-	'end_date'                    => [
-		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'end_date',
-			Tribe__Context::QUERY_VAR   => 'end_date',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => 'end_date',
-			Tribe__Context::QUERY_VAR   => 'end_date',
-		],
-	],
-	'featured'                    => [
-		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'featured',
-			Tribe__Context::QUERY_VAR   => 'featured',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => 'featured',
-			Tribe__Context::QUERY_VAR   => 'featured',
-		],
-	],
-	'tribe_events_cat' => [
-		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'tribe_events_cat',
-			Tribe__Context::QUERY_VAR   => 'tribe_events_cat',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => 'tribe_events_cat',
-			Tribe__Context::QUERY_VAR   => 'tribe_events_cat',
-		],
-	],
-	'remove_date_filters'         => [
-		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'tribe_remove_date_filters',
-			Tribe__Context::QUERY_VAR   => 'tribe_remove_date_filters',
-		],
-		'write' => [
-			Tribe__Context::REQUEST_VAR => 'tribe_remove_date_filters',
-			Tribe__Context::QUERY_VAR   => 'tribe_remove_date_filters',
-		],
-	],
-	'is_main_query'               => [
+	'is_main_query'  => [
 		'read'  => [
 			Tribe__Context::FUNC => static function () {
 				global $wp_query;
@@ -153,26 +57,83 @@ return [
 			},
 		],
 	],
-	'paged' => [
+	'paged'          => [
 		'read'  => [
-			Tribe__Context::REQUEST_VAR => 'paged',
-			Tribe__Context::QUERY_VAR   => 'paged',
+			Tribe__Context::REQUEST_VAR => [ 'paged', 'page' ],
+			Tribe__Context::QUERY_VAR   => [ 'paged', 'page' ],
 		],
 		'write' => [
 			Tribe__Context::REQUEST_VAR => 'paged',
 			Tribe__Context::QUERY_VAR   => 'paged',
 		],
 	],
-	'event_display_mode' => [
-		/**
-		 * We use the `eventDisplay` query var with duplicity: when parsed from the path it represents the View, when
-		 * appended as a query var it represents the "view mode". Here we invert the order to read the appended query
-		 * var first and get, from its position, a clean variable we can consume in Views.
-		 */
+	'page'           => [
+		'read'  => [
+			Tribe__Context::REQUEST_VAR => [ 'page', 'paged' ],
+			Tribe__Context::QUERY_VAR   => [ 'page', 'paged' ],
+		],
+		'write' => [
+			Tribe__Context::REQUEST_VAR => 'page',
+			Tribe__Context::QUERY_VAR   => 'page',
+		],
+	],
+	'name'           => [
+		'read'  => [
+			Tribe__Context::REQUEST_VAR => [ 'name', 'post_name' ],
+			Tribe__Context::WP_PARSED   => [ 'name', 'post_name' ],
+			Tribe__Context::QUERY_VAR   => [ 'name', 'post_name' ],
+		],
+		'write' => [
+			Tribe__Context::REQUEST_VAR => [ 'name', 'post_name' ],
+			Tribe__Context::QUERY_VAR   => [ 'name', 'post_name' ],
+		],
+	],
+	'post_type' => [
 		'read' => [
-			Tribe__Context::REQUEST_VAR => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
-			Tribe__Context::WP_PARSED   => [ 'eventDisplay' ],
-			Tribe__Context::QUERY_VAR   => 'eventDisplay',
+			Tribe__Context::FUNC        => static function() {
+				$post_type_objs = get_post_types(
+					[
+						'public' => true,
+						'_builtin' => false,
+					],
+					'objects'
+				);
+
+				foreach( $post_type_objs as $post_type ) {
+					if ( empty( $post_type->query_var ) ) {
+						continue;
+					}
+
+					$url_value = tribe_get_request_var( $post_type->query_var, false );
+					if ( empty( $url_value ) ) {
+						continue;
+					}
+
+					return $post_type->name;
+				}
+
+				return Tribe__Context::NOT_FOUND;
+			},
+			Tribe__Context::QUERY_PROP  => 'post_type',
+			Tribe__Context::QUERY_VAR   => 'post_type',
+			Tribe__Context::REQUEST_VAR => 'post_type',
+		],
+	],
+	'single' => [
+		'read' => [ Tribe__Context::QUERY_METHOD => 'is_single' ]
+	],
+	'taxonomy' => [
+		'read' => [
+			Tribe__Context::QUERY_PROP  => [ 'taxonomy' ],
+			Tribe__Context::QUERY_VAR   => [ 'taxonomy' ],
+			Tribe__Context::REQUEST_VAR => [ 'taxonomy' ],
+		],
+	],
+	'post_tag' => [
+		'read' => [
+			Tribe__Context::QUERY_PROP  => [ 'post_tag', 'tag' ],
+			Tribe__Context::QUERY_VAR   => [ 'post_tag', 'tag' ],
+			Tribe__Context::REQUEST_VAR => [ 'post_tag', 'tag' ],
 		],
 	],
 ];

@@ -486,4 +486,52 @@ class Tribe__Cost_Utils {
 
 		return ! empty( $currency_positions ) ? reset( $currency_positions ) : false;
 	}
+
+	/**
+	 * Parses the cost value and current locale to infer decimal and thousands separators.
+	 *
+	 * The cost values stored in the meta table might not use the same decimal and thousands separator as the current
+	 * locale.
+	 * To work around this we parse the value assuming the decimal separator will be the last non-numeric symbol,
+	 * if any.
+	 *
+	 * @since 4.9.12
+	 *
+	 * @param string|int|float $value The cost value to parse.
+	 *
+	 * @return array An array containing the parsed decimal and thousands separator symbols.
+	 */
+	public function parse_separators( $value ) {
+		global $wp_locale;
+		$locale_decimal_point = $wp_locale->number_format['decimal_point'];
+		$locale_thousands_sep = $wp_locale->number_format['thousands_sep'];
+		$decimal_sep          = $locale_decimal_point;
+		$thousands_sep        = $locale_thousands_sep;
+
+		preg_match_all( '/[\\.,]+/', $value, $matches );
+
+		if ( ! empty( $matches[0] ) ) {
+			$matched_separators = $matches[0];
+			if ( count( array_unique( $matched_separators ) ) > 1 ) {
+				// We have both, the decimal separator will be the last non-numeric symbol.
+				$decimal_sep   = end( $matched_separators );
+				$thousands_sep = reset( $matched_separators );
+			} else {
+				/*
+				 * We only have one, we can assume it's the decimal separator if it comes before a number of numeric
+				 * symbols that is not exactly 3. If there are exactly 3 number after the symbols we fall back on the
+				 * locale; we did our best and cannot guess any further.
+				 */
+				$frags = explode( end( $matched_separators ), $value );
+				if ( strlen( end( $frags ) ) !== 3 ) {
+					$decimal_sep   = end( $matched_separators );
+					$thousands_sep = $decimal_sep === $locale_decimal_point ?
+						$locale_thousands_sep
+						: $locale_decimal_point;
+				}
+			}
+		}
+
+		return [ $decimal_sep, $thousands_sep ];
+	}
 }

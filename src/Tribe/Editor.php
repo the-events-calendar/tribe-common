@@ -27,10 +27,11 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function should_load_blocks() {
-		return (
-			$this->is_gutenberg_active() || $this->is_wp_version()
-		)
-		&& $this->is_blocks_editor_active();
+		$gutenberg = $this->is_gutenberg_active() || $this->is_wp_version();
+		$blocks    = $this->is_blocks_editor_active();
+		$classic   = $this->is_classic_plugin_active() || $this->is_classic_option_active();
+
+		return $gutenberg && $blocks && ! $classic;
 	}
 
 	/**
@@ -161,7 +162,15 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function is_classic_plugin_active() {
-		return function_exists( 'classic_editor_replace' ) || class_exists( 'Classic_Editor' );
+		$is_plugin_active = function_exists( 'classic_editor_replace' ) || class_exists( 'Classic_Editor' );
+		/**
+		 * Filter to change the output of calling: `is_classic_plugin_active`
+		 *
+		 * @since 4.9.12
+		 *
+		 * @param $is_plugin_active bool Value that indicates if the plugin is active or not.
+		 */
+		return apply_filters( 'tribe_is_classic_editor_plugin_active', $is_plugin_active );
 	}
 
 	/**

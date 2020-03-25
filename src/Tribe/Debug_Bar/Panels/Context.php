@@ -76,8 +76,8 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 
 			$html .= '<tr>';
 			$html .= '<td><code>' . $key . '</code></td>';
-			$html .= '<td><code>' . ( isset( $context[ $key ] ) ? $context[ $key ] : 'undefined' ) . '</code></td>';
-			$html .= '<td>' . ( false !== $orm_arg_key ? '<code>' . $orm_arg_key . ' => ' . $orm_arg_value . '</code>' : '' ) . '</td>';
+			$html .= '<td><code>' . ( isset( $context[ $key ] ) ? print_r( $context[ $key ], true ) : 'undefined' ) . '</code></td>';
+			$html .= '<td>' . ( false !== $orm_arg_key ? '<code>' . print_r( $orm_arg_key, true )  . ' => ' . print_r( $orm_arg_value, true ) . '</code>' : '' ) . '</td>';
 			$html .= '<td><code>' . ( isset( $locations[ $key ]['read'] ) ? 'yes' : 'no' ) . '</code></td>';
 			$html .= '<td><code>' . ( isset( $locations[ $key ]['write'] ) ? 'yes' : 'no' ) . '</code></td>';
 			$html .= '</tr>';

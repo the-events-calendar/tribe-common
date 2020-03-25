@@ -1,26 +1,26 @@
 <?php
 /**
- * Class used to register and enqueue assets across our plugins
+ * Class used to register and enqueue assets across our plugins.
  *
  * @since 4.3
  */
 class Tribe__Assets {
 	/**
-	 * Stores all the Assets and it's configurations
+	 * Stores all the Assets and it's configurations.
 	 *
 	 * @var array
 	 */
-	protected $assets = array();
+	protected $assets = [];
 
 	/**
-	 * Stores the localized scripts for reference
+	 * Stores the localized scripts for reference.
 	 *
 	 * @var array
 	 */
-	private $localized = array();
+	private $localized = [];
 
 	/**
-	 * Static Singleton Factory Method
+	 * Static Singleton Factory Method.
 	 *
 	 * @since 4.3
 	 *
@@ -31,17 +31,17 @@ class Tribe__Assets {
 	}
 
 	/**
-	 * Register the Methods in the correct places
+	 * Register the Methods in the correct places.
 	 *
 	 * @since 4.3
 	 */
 	public function __construct() {
-		// Hook the actual registering of
-		add_action( 'init', array( $this, 'register_in_wp' ), 1, 0 );
+		// Hook the actual registering of.
+		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
 	}
 
 	/**
-	 * Register the Assets on the correct hooks
+	 * Register the Assets on the correct hooks.
 	 *
 	 * @since 4.3
 	 *
@@ -49,37 +49,53 @@ class Tribe__Assets {
 	 */
 	public function register_in_wp( $assets = null ) {
 		if ( is_null( $assets ) ) {
-			$assets = $this->assets;
+			$assets = $this->get();
 		}
 
 		if ( ! is_array( $assets ) ) {
-			$assets = array( $assets );
+			$assets = [ $assets ];
 		}
 
-		uasort( $assets, array( $this, 'order_by_priority' ) );
-
 		foreach ( $assets as $asset ) {
-			if ( 'js' === $asset->type ) {
-				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
-			} else {
-				wp_register_style( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->media );
+			// Asset is already registered.
+			if ( $asset->is_registered ) {
+				continue;
 			}
 
-			// Register that this asset is actually registered on the WP methods
-			$asset->is_registered = true;
+			if ( 'js' === $asset->type ) {
+				// Script is already registered.
+				if ( wp_script_is( $asset->slug, 'registered' ) ) {
+					continue;
+				}
 
-			// If we don't have an action we don't even register the action to enqueue
+				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
+
+				// Register that this asset is actually registered on the WP methods.
+				$asset->is_registered = wp_script_is( $asset->slug, 'registered' );
+			} else {
+				// Style is already registered.
+				if ( wp_style_is( $asset->slug, 'registered' ) ) {
+					continue;
+				}
+
+				wp_register_style( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->media );
+
+				// Register that this asset is actually registered on the WP methods.
+				$asset->is_registered = wp_style_is( $asset->slug, 'registered' );
+			}
+
+			// If we don't have an action we don't even register the action to enqueue.
 			if ( empty( $asset->action ) ) {
 				continue;
 			}
 
-			// Now add an action to enqueue the registered assets
+			// Now add an action to enqueue the registered assets.
 			foreach ( (array) $asset->action as $action ) {
-				// Enqueue the registered assets at the appropriate time
+				// Enqueue the registered assets at the appropriate time.
 				if ( did_action( $action ) > 0 ) {
 					$this->enqueue();
 				} else {
-					add_action( $action, array( $this, 'enqueue' ), $asset->priority );
+					add_action( $action, [ $this, 'enqueue' ], $asset->priority, 0 );
 				}
 			}
 		}
@@ -88,29 +104,26 @@ class Tribe__Assets {
 	/**
 	 * Enqueues registered assets based on their groups.
 	 *
-	 * @since   4.7
+	 * @since 4.7
 	 *
-	 * @uses    self::enqueue
+	 * @uses  Tribe__Assets::enqueue()
 	 *
-	 * @param   string|array $groups Which groups will be enqueued
-	 *
-	 * @return  void
+	 * @param string|array $groups Which groups will be enqueued.
 	 */
 	public function enqueue_group( $groups ) {
-		$assets = $this->get();
-		$enqueue = array();
+		$assets  = $this->get( null, false );
+		$enqueue = [];
 
 		foreach ( $assets as $asset ) {
 			if ( empty( $asset->groups ) ) {
 				continue;
 			}
 
-			$instersect = array_intersect( (array) $groups, $asset->groups );
+			$intersect = array_intersect( (array) $groups, $asset->groups );
 
-			if ( empty( $instersect ) ) {
+			if ( empty( $intersect ) ) {
 				continue;
 			}
-
 			$enqueue[] = $asset->slug;
 		}
 
@@ -132,19 +145,23 @@ class Tribe__Assets {
 	 */
 	public function enqueue( $forcibly_enqueue = null ) {
 		$forcibly_enqueue = array_filter( (array) $forcibly_enqueue );
-		$assets = $this->get();
+		if ( ! empty( $forcibly_enqueue ) ) {
+			$assets = (array) $this->get( $forcibly_enqueue );
+		} else {
+			$assets = $this->get();
+		}
 
 		foreach ( $assets as $asset ) {
 			// Should this asset be enqueued regardless of the current filter/any conditional requirements?
 			$must_enqueue = in_array( $asset->slug, $forcibly_enqueue );
 			$in_filter    = in_array( current_filter(), (array) $asset->action );
 
-			// Skip if we are not on the correct filter (unless we are forcibly enqueuing)
+			// Skip if we are not on the correct filter (unless we are forcibly enqueuing).
 			if ( ! $in_filter && ! $must_enqueue ) {
 				continue;
 			}
 
-			// If any single conditional returns true, then we need to enqueue the asset
+			// If any single conditional returns true, then we need to enqueue the asset.
 			if ( empty( $asset->action ) && ! $must_enqueue ) {
 				continue;
 			}
@@ -155,17 +172,17 @@ class Tribe__Assets {
 			}
 
 			// Default to enqueuing the asset if there are no conditionals,
-			// and default to not enqueuing it if there *are* conditionals
+			// and default to not enqueuing it if there *are* conditionals.
 			$enqueue = empty( $asset->conditionals );
 
 			if ( ! $enqueue ) {
-				// Reset Enqeue
-				$enqueue = array();
+				// Reset Enqueue.
+				$enqueue = [];
 
 				// Which is the operator?
 				$conditional_operator = Tribe__Utils__Array::get( $asset->conditionals, 'operator', 'OR' );
 
-				// If we have a set of conditionals we loop on then and get if they are true
+				// If we have a set of conditionals we loop on then and get if they are true.
 				foreach ( $asset->conditionals as $key => $conditional ) {
 					// Avoid doing anything to the operator
 					if ( 'operator' === $key ) {
@@ -175,7 +192,7 @@ class Tribe__Assets {
 					$enqueue[] = call_user_func( $conditional );
 				}
 
-				// By default we use OR for backwards compatibility
+				// By default we use OR for backwards compatibility.
 				if ( 'OR' === $conditional_operator ) {
 					$enqueue = in_array( true, $enqueue );
 				} else {
@@ -184,12 +201,12 @@ class Tribe__Assets {
 			}
 
 			/**
-			 * Allows developers to hook-in and prevent an asset from been loaded
+			 * Allows developers to hook-in and prevent an asset from been loaded.
 			 *
 			 * @since 4.3
 			 *
-			 * @param bool   $enqueue If we should enqueue or not a given asset
-			 * @param object $asset   Which asset we are dealing with
+			 * @param bool   $enqueue If we should enqueue or not a given asset.
+			 * @param object $asset   Which asset we are dealing with.
 			 */
 			$enqueue = apply_filters( 'tribe_asset_enqueue', $enqueue, $asset );
 
@@ -198,10 +215,10 @@ class Tribe__Assets {
 			 *
 			 * @since 4.3
 			 *
-			 * @param bool   $enqueue If we should enqueue or not a given asset
-			 * @param object $asset   Which asset we are dealing with
+			 * @param bool   $enqueue If we should enqueue or not a given asset.
+			 * @param object $asset   Which asset we are dealing with.
 			 */
-			$enqueue = apply_filters( 'tribe_asset_enqueue_' . $asset->slug, $enqueue, $asset );
+			$enqueue = apply_filters( "tribe_asset_enqueue_{$asset->slug}", $enqueue, $asset );
 
 			if ( ! $enqueue && ! $must_enqueue ) {
 				continue;
@@ -210,17 +227,18 @@ class Tribe__Assets {
 			if ( 'js' === $asset->type ) {
 				wp_enqueue_script( $asset->slug );
 
-				// Only localize on JS and if we have data
+				// Only localize on JS and if we have data.
 				if ( ! empty( $asset->localize ) ) {
-					// Makes sure we have an Array of Localize data
+					// Makes sure we have an Array of Localize data.
 					if ( is_object( $asset->localize ) ) {
-						$localization = array( $asset->localize );
+						$localization = [ $asset->localize ];
 					} else {
 						$localization = (array) $asset->localize;
 					}
 
 					/**
-					 * Check to ensure we haven't already localized it before
+					 * Check to ensure we haven't already localized it before.
+					 *
 					 * @since 4.5.8
 					 */
 					foreach ( $localization as $localize ) {
@@ -228,9 +246,9 @@ class Tribe__Assets {
 							continue;
 						}
 
-						// If we have a Callable as the Localize data we execute it
+						// If we have a Callable as the Localize data we execute it.
 						if ( is_callable( $localize->data ) ) {
-							$localize->data = call_user_func_array( $localize->data, array( $asset ) );
+							$localize->data = call_user_func( $localize->data, $asset );
 						}
 
 						wp_localize_script( $asset->slug, $localize->name, $localize->data );
@@ -257,26 +275,49 @@ class Tribe__Assets {
 	 * @return string|false The url to the minified version or false, if file not found.
 	 */
 	public static function maybe_get_min_file( $url ) {
-		$urls = array();
-		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
-		$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
-		$wp_content_url = set_url_scheme( WP_CONTENT_URL );
-		$plugins_url = plugins_url();
+		static $wpmu_plugin_url;
+		static $wp_plugin_url;
+		static $wp_content_url;
+		static $plugins_url;
+		static $base_dirs;
+
+		$urls = [];
+		if ( ! isset( $wpmu_plugin_url ) ) {
+			$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
+		}
+
+		if ( ! isset( $wp_plugin_url ) ) {
+			$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
+		}
+
+		if ( ! isset( $wp_content_url ) ) {
+			$wp_content_url = set_url_scheme( WP_CONTENT_URL );
+		}
+
+		if ( ! isset( $plugins_url ) ) {
+			$plugins_url = plugins_url();
+		}
+
+		if ( ! isset( $base_dirs ) ) {
+			$base_dirs[ WPMU_PLUGIN_DIR ] = wp_normalize_path( WPMU_PLUGIN_DIR );
+			$base_dirs[ WP_PLUGIN_DIR ]   = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dirs[ WP_CONTENT_DIR ]  = wp_normalize_path( WP_CONTENT_DIR );
+		}
 
 		if ( 0 === strpos( $url, $wpmu_plugin_url ) ) {
 			// URL inside WPMU plugin dir.
-			$base_dir = wp_normalize_path( WPMU_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WPMU_PLUGIN_DIR ];
 			$base_url = $wpmu_plugin_url;
 		} elseif ( 0 === strpos( $url, $wp_plugin_url ) ) {
 			// URL inside WP plugin dir.
-			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WP_PLUGIN_DIR ];
 			$base_url = $wp_plugin_url;
 		} elseif ( 0 === strpos( $url, $wp_content_url ) ) {
 			// URL inside WP content dir.
-			$base_dir = wp_normalize_path( WP_CONTENT_DIR );
+			$base_dir = $base_dirs[ WP_CONTENT_DIR ];
 			$base_url = $wp_content_url;
 		} elseif ( 0 === strpos( $url, $plugins_url ) ) {
-			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_dir = $base_dirs[ WP_PLUGIN_DIR ];
 			$base_url = $plugins_url;
 		} else {
 			// Resource needs to be inside wp-content or a plugins dir.
@@ -286,66 +327,74 @@ class Tribe__Assets {
 		// Strip the plugin URL and make this relative.
 		$relative_location = str_replace( $base_url, '', $url );
 
-		// If needed add the Min Files.
-		if ( ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false ) {
-			if ( substr( $relative_location, - 3, 3 ) === '.js' ) {
-				$urls[] = substr_replace( $relative_location, '.min', - 3, 0 );
-			}
-
-			if ( substr( $relative_location, - 4, 4 ) === '.css' ) {
-				$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
-			}
+		if ( defined( 'SCRIPT_DEBUG' ) &&  SCRIPT_DEBUG ) {
+			// Add the actual url after having the min file added.
+			$urls[] = $relative_location;
 		}
 
-		// Add the actual url after having the min file added.
-		$urls[] = $relative_location;
+		// If needed add the Min Files.
+		if ( substr( $relative_location, -3, 3 ) === '.js' ) {
+			$urls[] = substr_replace( $relative_location, '.min', - 3, 0 );
+		}
+
+		if ( substr( $relative_location, -4, 4 ) === '.css' ) {
+			$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
+		}
+
+		if ( ! defined( 'SCRIPT_DEBUG' ) || ( defined( 'SCRIPT_DEBUG' ) && ! SCRIPT_DEBUG )  ) {
+			// Add the actual url after having the min file added.
+			$urls[] = $relative_location;
+		}
 
 		// Check for all Urls added to the array.
 		foreach ( $urls as $partial_path ) {
 			$file_path = wp_normalize_path( $base_dir . $partial_path );
-			$file_url  = plugins_url( basename( $file_path ), $file_path );
+			$file_url  = $base_url . $partial_path;
 
 			if ( file_exists( $file_path ) ) {
 				return $file_url;
 			}
 		}
 
-		// If we don't have any real file return false
+		// If we don't have any real file return false.
 		return false;
 	}
 
 	/**
-	 * Register an Asset and attach a callback to the required action to display it correctly
+	 * Register an Asset and attach a callback to the required action to display it correctly.
 	 *
 	 * @since 4.3
 	 *
-	 * @param  object       $origin    The main Object for the plugin you are enqueueing the script/style for
-	 * @param  string       $slug      Slug to save the asset
-	 * @param  string       $file      Which file will be loaded, either CSS or JS
-	 * @param  array        $deps      Dependencies
-	 * @param  string|null  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
-	 * @param  string|array $arguments {
-	 *     Optional. Array or string of parameters for this asset
+	 * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
+	 * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
+	 * @param string            $file      The asset file to load (CSS or JS), including non-minified file extension.
+	 * @param array             $deps      The list of dependencies.
+	 * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
+	 *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
+	 * @param string|array      $arguments {
+	 *     Optional. Array or string of parameters for this asset.
 	 *
-	 *     @type string|null  $action         Which WordPress action this asset will be loaded on
-	 *     @type int          $priority       Priority in which this asset will be loaded on the WordPress action
-	 *     @type string       $file           The relative path to the File that will be enqueued, uses the $origin to get the full path
-	 *     @type string       $type           Asset Type, `js` or `css`
-	 *     @type array        $deps           An array of other asset as dependencies
-	 *     @type string       $version        Version number, used for cache expiring
-	 *     @type string       $media          Used only for CSS, when to load the file
-	 *     @type bool         $in_footer      A boolean determining if the javascript should be loaded on the footer
-	 *     @type array|object $localize       Variables needed on the JavaScript side {
-	 *          @type string 		$name     Name of the JS variable
-	 *          @type string|array  $data     Contents of the JS variable
+	 *     @type array|string|null  $action         The WordPress action(s) this asset will be enqueued on.
+	 *     @type int                $priority       Priority in which this asset will be loaded on the WordPress action.
+	 *     @type string             $file           The relative path to the File that will be enqueued, uses the $origin to get the full path.
+	 *     @type string             $type           Asset Type, `js` or `css`.
+	 *     @type array              $deps           An array of other asset as dependencies.
+	 *     @type string             $version        Version number, used for cache expiring.
+	 *     @type string             $media          Used only for CSS, when to load the file.
+	 *     @type bool               $in_footer      A boolean determining if the javascript should be loaded on the footer.
+	 *     @type array|object       $localize       {
+	 *          Variables needed on the JavaScript side.
+	 *
+	 *          @type string       $name     Name of the JS variable.
+	 *          @type string|array $data     Contents of the JS variable.
 	 *     }
-	 *     @type callable[]   $conditionals   An callable method or an array of them, that will determine if the asset is loaded or not
+	 *     @type callable[]   $conditionals   An callable method or an array of them, that will determine if the asset is loaded or not.
 	 * }
 	 *
-	 * @return string
+	 * @return object|false The registered object or false on error.
 	 */
-	public function register( $origin, $slug, $file, $deps = array(), $action = null, $arguments = array() ) {
-		// Prevent weird stuff here
+	public function register( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
+		// Prevent weird stuff here.
 		$slug = sanitize_title_with_dashes( $slug );
 
 		if ( $this->exists( $slug ) ) {
@@ -353,9 +402,9 @@ class Tribe__Assets {
 		}
 
 		if ( is_string( $origin ) ) {
-			// Origin needs to be a class with a `instance` method and a Version constant
+			// Origin needs to be a class with a `instance` method and a Version constant.
 			if ( class_exists( $origin ) && method_exists( $origin, 'instance' ) && defined( $origin . '::VERSION' ) ) {
-				$origin = call_user_func( array( $origin, 'instance' ) );
+				$origin = call_user_func( [ $origin, 'instance' ] );
 			}
 		}
 
@@ -363,26 +412,26 @@ class Tribe__Assets {
 			$origin_name = get_class( $origin );
 
 			if ( ! defined( $origin_name . '::VERSION' ) ) {
-				// If we have a Object and we don't have instance or version
+				// If we have a Object and we don't have instance or version.
 				return false;
 			}
 		} else {
 			return false;
 		}
 
-		// Fetches the version on the Origin Version constant
+		// Fetches the version on the Origin Version constant.
 		$version = constant( $origin_name . '::VERSION' );
 
-		// Default variables to prevent notices
-		$defaults = array(
+		// Default variables to prevent notices.
+		$defaults = [
 			'slug'          => null,
 			'file'          => false,
 			'url'           => false,
 			'action'        => null,
 			'priority'      => 10,
 			'type'          => null,
-			'deps'          => array(),
-			'groups'        => array(),
+			'deps'          => [],
+			'groups'        => [],
 			'version'       => $version,
 			'media'         => 'all',
 			'in_footer'     => true,
@@ -391,15 +440,15 @@ class Tribe__Assets {
 			'origin_url'    => null,
 			'origin_name'   => null,
 
-			// Bigger Variables at the end
-			'localize'      => array(),
-			'conditionals'  => array(),
-		);
+			// Bigger Variables at the end.
+			'localize'      => [],
+			'conditionals'  => [],
+		];
 
-		// Merge Arguments
+		// Merge Arguments.
 		$asset = (object) wp_parse_args( $arguments, $defaults );
 
-		// Enforce these one
+		// Enforce these one.
 		$asset->slug        = $slug;
 		$asset->file        = $file;
 		$asset->deps        = $deps;
@@ -407,14 +456,14 @@ class Tribe__Assets {
 		$asset->origin_path = trailingslashit( ! empty( $origin->plugin_path ) ? $origin->plugin_path : $origin->pluginPath );
 		$asset->origin_name = $origin_name;
 
-		// Origin URL might throw notices so we double check
+		// Origin URL might throw notices so we double check.
 		$asset->origin_url  = ! empty( $origin->plugin_url ) ? $origin->plugin_url : null;
 		$asset->origin_url  = ! empty( $origin->pluginUrl ) ? $origin->pluginUrl : null;
 		if ( ! empty( $asset->origin_url ) ) {
 			$asset->origin_url = trailingslashit( $asset->origin_url );
 		}
 
-		// If we don't have a type on the arguments we grab from the File path
+		// If we don't have a type on the arguments we grab from the File path.
 		if ( is_null( $asset->type ) ) {
 			if ( substr( $asset->file, -3, 3 ) === '.js' ) {
 				$asset->type = 'js';
@@ -423,13 +472,13 @@ class Tribe__Assets {
 			}
 		}
 
-		// If asset type is wrong don't register
-		if ( ! in_array( $asset->type, array( 'js', 'css' ) ) ) {
+		// If asset type is wrong don't register.
+		if ( ! in_array( $asset->type, [ 'js', 'css' ], true ) ) {
 			return false;
 		}
 
 		/**
-		 * Deprecated filter to allow changing version based on the type of Asset
+		 * Deprecated filter to allow changing version based on the type of Asset.
 		 *
 		 * @todo remove on 4.6
 		 * @deprecated 4.3
@@ -439,7 +488,9 @@ class Tribe__Assets {
 		$asset->version = apply_filters( "tribe_events_{$asset->type}_version", $asset->version );
 
 		/**
-		 * Filter to change version number on assets
+		 * Filter to change version number on assets.
+		 *
+		 * @since 4.3
 		 *
 		 * @param string $version
 		 * @param object $asset
@@ -451,42 +502,29 @@ class Tribe__Assets {
 		$asset->in_footer = (bool) $asset->in_footer;
 		$asset->media     = esc_attr( $asset->media );
 
-		// Ensures that we have a priority over 1
+		// Ensures that we have a priority over 1.
 		if ( $asset->priority < 1 ) {
 			$asset->priority = 1;
 		}
 
 		$is_vendor = strpos( $asset->file, 'vendor/' ) !== false ? true : false;
 
-		// Setup the actual URL
+		// Setup the actual URL.
 		if ( filter_var( $asset->file, FILTER_VALIDATE_URL ) ) {
 			$asset->url = $asset->file;
 		} else {
 			$asset->url = $this->maybe_get_min_file( tribe_resource_url( $asset->file, false, ( $is_vendor ? '' : null ), $origin ) );
 		}
 
-		// If you are passing localize, you need `name` and `data`
-		if ( ! empty( $asset->localize ) && ( is_array( $asset->localize ) || is_object( $asset->localize ) ) ) {
-			if ( is_array( $asset->localize ) && empty( $asset->localize['name'] )  ) {
-				foreach ( $asset->localize as $index => $local ) {
-					$asset->localize[ $index ] = (object) $local;
-				}
-			} else {
-				$asset->localize = (object) $asset->localize;
+		// Parse the Localize asset arguments.
+		$asset = $this->parse_argument_localize( $asset );
 
-				// if we don't have both reset localize
-				if ( ! isset( $asset->localize->data, $asset->localize->name ) ) {
-					$asset->localize = array();
-				}
-			}
-		}
-
-		// Looks for a single conditional callable and places it in an Array
+		// Looks for a single conditional callable and places it in an Array.
 		if ( ! empty( $asset->conditionals ) && is_callable( $asset->conditionals ) ) {
-			$asset->conditionals = array( $asset->conditionals );
+			$asset->conditionals = [ $asset->conditionals ];
 		}
 
-		// Groups is always an array of unique strings
+		// Groups is always an array of unique strings.
 		if ( ! empty( $asset->groups ) ) {
 			$asset->groups = (array) $asset->groups;
 			$asset->groups = array_filter( $asset->groups, 'is_string' );
@@ -494,28 +532,62 @@ class Tribe__Assets {
 		}
 
 		/**
-		 * Filter an Asset loading variables
+		 * Filter an Asset loading variables.
+		 *
+		 * @since  4.3
 		 *
 		 * @param object $asset
 		 */
 		$asset = apply_filters( 'tribe_asset_pre_register', $asset );
 
-		// Set the Asset on the array of notices
+		// Set the Asset on the array of notices.
 		$this->assets[ $slug ] = $asset;
 
-		// Sorts by priority
-		uasort( $this->assets, array( $this, 'order_by_priority' ) );
-
-		// Return the Slug because it might be modified
+		// Return the Slug because it might be modified.
 		return $asset;
 	}
 
 	/**
-	 * Removes an Asset from been registered and enqueue
+	 * Parse the localize argument for a given asset object.
+	 *
+	 * @since 4.9.12
+	 *
+	 * @param  stdClass $asset Argument that set that asset.
+	 *
+	 * @return stdClass
+	 */
+	public function parse_argument_localize( stdClass $asset ) {
+		if ( empty( $asset->localize ) ) {
+			return $asset;
+		}
+
+		if ( ! is_array( $asset->localize ) && ! is_object( $asset->localize ) ) {
+			return $asset;
+		}
+
+		// Cast to array for safety.
+		$asset->localize = (array) $asset->localize;
+
+		// Allow passing of a single instance.
+		if ( ! empty( $asset->localize['name'] ) ) {
+			// Reset to empty when name was not empty data was not set.
+			$asset->localize = ! isset( $asset->localize['data'] ) ? [] : [ (object) $asset->localize ];
+		}
+
+		// Cast all instances as object.
+		$asset->localize = array_map( function( $values ) {
+			return (object) $values;
+		}, $asset->localize );
+
+		return $asset;
+	}
+
+	/**
+	 * Removes an Asset from been registered and enqueue.
 	 *
 	 * @since 4.3
 	 *
-	 * @param  string $slug Slug of the Asset
+	 * @param  string $slug Slug of the Asset.
 	 *
 	 * @return bool
 	 */
@@ -529,22 +601,59 @@ class Tribe__Assets {
 	}
 
 	/**
-	 * Get the Asset Object configuration
+	 * Get the Asset Object configuration.
 	 *
 	 * @since 4.3
+	 * @since 4.11.0  Added $sort param.
 	 *
-	 * @param  string $slug Slug of the Asset
+	 * @param string|array $slug Slug of the Asset.
+	 * @param boolean      $sort  If we should do any sorting before returning.
 	 *
-	 * @return bool
+	 * @return array|object|null Array of asset objects, single asset object, or null if looking for a single asset but
+	 *                           it was not in the array of objects.
 	 */
-	public function get( $slug = null ) {
-		uasort( $this->assets, array( $this, 'order_by_priority' ) );
-
+	public function get( $slug = null, $sort = true ) {
 		if ( is_null( $slug ) ) {
+			if ( $sort ) {
+				$cache_key_count = __METHOD__ . ':count';
+				// Sorts by priority.
+				$cache_count = tribe_get_var( $cache_key_count, 0 );
+				$count       = count( $this->assets );
+
+				if ( $count !== $cache_count ) {
+					uasort( $this->assets, 'tribe_sort_by_priority' );
+					tribe_set_var( $cache_key_count, $count );
+				}
+			}
 			return $this->assets;
 		}
 
-		// Prevent weird stuff here
+		// If slug is an array we return all of those.
+		if ( is_array( $slug ) ) {
+			$assets = [];
+			foreach ( $slug as $asset_slug ) {
+				$asset_slug = sanitize_title_with_dashes( $asset_slug );
+				// Skip empty assets.
+				if ( empty( $this->assets[ $asset_slug ] ) ) {
+					continue;
+				}
+
+				$assets[ $asset_slug ] = $this->assets[ $asset_slug ];
+			}
+
+			if ( empty( $assets ) ) {
+				return null;
+			}
+
+			if ( $sort ) {
+				// Sorts by priority.
+				uasort( $assets, 'tribe_sort_by_priority' );
+			}
+
+			return $assets;
+		}
+
+		// Prevent weird stuff here.
 		$slug = sanitize_title_with_dashes( $slug );
 
 		if ( ! empty( $this->assets[ $slug ] ) ) {
@@ -555,23 +664,9 @@ class Tribe__Assets {
 	}
 
 	/**
-	 * Add the Priority ordering, which was causing an issue of not respecting which order stuff was registered
+	 * Checks if an Asset exists.
 	 *
-	 * @since  4.7
-	 *
-	 * @param  object  $a  First Subject to compare
-	 * @param  object  $b  Second subject to compare
-	 *
-	 * @return boolean
-	 */
-	public function order_by_priority( $a, $b ) {
-		return (int) $a->priority === (int) $b->priority ? 0 : (int) $a->priority > (int) $b->priority;
-	}
-
-	/**
-	 * Checks if an Asset exists
-	 *
-	 * @param  string $slug Slug of the Asset
+	 * @param  string|array $slug Slug of the Asset.
 	 *
 	 * @return bool
 	 */

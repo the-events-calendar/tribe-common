@@ -8,6 +8,13 @@
 class Tribe__Repository__Query_Filters {
 
 	/**
+	 * Indicates something has to happen "after" something else. The specific meaning is contextual.
+	 *
+	 * @since 4.9.21
+	 */
+	CONST AFTER = 'after:';
+
+	/**
 	 * @var array
 	 */
 	protected static $initial_query_vars = array(
@@ -20,6 +27,15 @@ class Tribe__Repository__Query_Filters {
 		'join'   => array(),
 		'where'  => array(),
 	);
+
+	/**
+	 * An array of the filters that can be set and unset by id.
+	 *
+	 * @since 4.9.14
+	 *
+	 * @var array
+	 */
+	protected static $identifiable_filters = [ 'fields', 'join', 'where', 'orderby' ];
 
 	/**
 	 * @var array
@@ -626,14 +642,29 @@ class Tribe__Repository__Query_Filters {
 	 * Add a custom WHERE clause to the query.
 	 *
 	 * @since 4.7.19
+	 * @since 4.9.14 Added the `$id` and `$override` parameters.
 	 *
 	 * @param string $where_clause
+	 * @param null|string $id          Optional WHERE ID to prevent duplicating clauses.
+	 * @param boolean     $override    Whether to override the clause if a WHERE by the same ID exists or not.
 	 */
-	public function where( $where_clause ) {
+	public function where( $where_clause, $id = null, $override =false  ) {
 		if ( $this->buffer_where_clauses ) {
-			$this->buffered_where_clauses[] = '(' . $where_clause . ')';
+			if ( $id ) {
+				if ( $override || ! isset( $this->buffered_where_clauses[ $id ] ) ) {
+					$this->buffered_where_clauses[ $id ] = $where_clause;
+				}
+			} else {
+				$this->buffered_where_clauses[] = '(' . $where_clause . ')';
+			}
 		} else {
-			$this->query_vars['where'][] = '(' . $where_clause . ')';
+			if ( $id ) {
+				if ( $override || ! isset( $this->query_vars['where'][ $id ] ) ) {
+					$this->query_vars['where'][ $id ] = '(' . $where_clause . ')';
+				}
+			} else {
+				$this->query_vars['where'][] = '(' . $where_clause . ')';
+			}
 
 			if ( ! has_filter( 'posts_where', array( $this, 'filter_posts_where' ) ) ) {
 				add_filter( 'posts_where', array( $this, 'filter_posts_where' ), 10, 2 );
@@ -652,7 +683,7 @@ class Tribe__Repository__Query_Filters {
 	 */
 	public function join( $join_clause, $id = null, $override = false ) {
 		if ( $id ) {
-			if ( ! isset( $this->query_vars['join'][ $id ] ) ) {
+			if ( $override || ! isset( $this->query_vars['join'][ $id ] ) ) {
 				$this->query_vars['join'][ $id ] = $join_clause;
 			}
 		} else {
@@ -668,11 +699,44 @@ class Tribe__Repository__Query_Filters {
 	 * Add a custom ORDER BY to the query.
 	 *
 	 * @since 4.9.5
+	 * @since 4.9.14 Added the `$id` and `$override` parameters.
+	 * @since 4.9.21 Added the `$order` and `$after` parameters.
 	 *
-	 * @param string $orderby
+	 * @param string|array $orderby       The order by criteria; this argument can be specified in array form to specify
+	 *                                    multiple order by clauses and orders associated to each,
+	 *                                    e.g. `[ '_meta_1' => 'ASC', '_meta_2' => 'DESC' ]`. If a simple array is
+	 *                                    passed, then the order will be set to the default one for each entry.
+	 *                                    This arguments supports the same formats of the `WP_Query` `orderby` argument.
+	 * @param null|string  $id            Optional ORDER ID to prevent duplicating order-by clauses.
+	 * @param boolean      $override      Whether to override the clause if another by the same ID exists.
+	 * @param bool         $after         Whether to append the order by clause to the ones managed by WordPress or not.
+	 *                                    Defaults to `false`,to prepend them to the ones managed by WordPress.
 	 */
-	public function orderby( $orderby ) {
-		$this->query_vars['orderby'][] = $orderby;
+	public function orderby( $orderby, $id = null, $override = false, $after = false ) {
+		$orderby_key = $after ? static::AFTER . 'orderby' : 'orderby';
+		$entries = [];
+
+		foreach ( (array) $orderby as $key => $value ) {
+			/*
+			 * As WordPress does, we support "simple" entries, like `[ 'menu_order', 'post_date' ]` and entries in the
+			 * shape `[ 'menu_order' => 'ASC', 'post_date' => 'DESC' ]`.
+			 */
+			$the_orderby = is_numeric( $key ) ? $value : $key;
+			$the_order   = is_numeric( $key ) ? 'DESC' : $value;
+
+			$entries[] = [ $the_orderby, $the_order ];
+		}
+
+		$id = $id ?: 'default';
+
+		// Use the `$id` parameter to allow later method calls to replace values set in previous calls.
+		if ( $id ) {
+			if ( $override || ! isset( $this->query_vars[ $orderby_key ][ $id ] ) ) {
+				$this->query_vars[ $orderby_key ][ $id ] = $entries;
+			}
+		} else {
+			$this->query_vars[ $orderby_key ][ $id ] = array_merge( $this->query_vars[ $orderby_key ][ $id ], $entries );
+		}
 
 		if ( ! has_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ) ) ) {
 			add_filter( 'posts_orderby', array( $this, 'filter_posts_orderby' ), 10, 2 );
@@ -683,11 +747,20 @@ class Tribe__Repository__Query_Filters {
 	 * Add custom select fields to the query.
 	 *
 	 * @since 4.9.5
+	 * @since 4.9.14 Added the `$id` and `$override` parameters.
 	 *
-	 * @param string $field
+	 * @param string $field The field to add to the result.
+	 * @param null|string $id       Optional ORDER ID to prevent duplicating order-by clauses..
+	 * @param boolean     $override Whether to override the clause if another by the same ID exists.
 	 */
-	public function fields( $field ) {
-		$this->query_vars['fields'][] = $field;
+	public function fields( $field, $id = null, $override = false ) {
+		if ( $id ) {
+			if ( $override || ! isset( $this->query_vars['fields'][ $id ] ) ) {
+				$this->query_vars['fields'][ $id ] = $field;
+			}
+		} else {
+			$this->query_vars['fields'][] = $field;
+		}
 
 		if ( ! has_filter( 'posts_fields', array( $this, 'filter_posts_fields' ) ) ) {
 			add_filter( 'posts_fields', array( $this, 'filter_posts_fields' ), 10, 2 );
@@ -900,23 +973,46 @@ class Tribe__Repository__Query_Filters {
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param string   $orderby
-	 * @param WP_Query $query
+	 * @param string   $orderby The `ORDER BY` clause of the query being filtered.
+	 * @param WP_Query $query   The query object currently being filtered.
 	 *
-	 * @return string
+	 * @return string The filtered `ORDER BY` clause.
 	 */
 	public function filter_posts_orderby( $orderby, WP_Query $query ) {
 		if ( $query !== $this->current_query ) {
 			return $orderby;
 		}
 
-		if ( empty( $this->query_vars['orderby'] ) ) {
+		if ( empty( $this->query_vars['orderby'] ) && empty( $this->query_vars[ static::AFTER . 'orderby' ] ) ) {
 			return $orderby;
 		}
 
-		$order = $query->get( 'order', 'ASC' );
+		$frags = [ $orderby ];
 
-		return implode( ' ' . $order . ', ', $this->query_vars['orderby'] ) . ' ' . $order . ', ' . $orderby;
+		/*
+		 * Entries will be set, from the `orderby` method, to the `[ [ <orderby>, <order> ], [ <orderby>, <order> ] ]`
+		 * format.
+		 */
+		$build_entry = static function ( $entries ) {
+			$buffer  = [];
+
+			foreach ( $entries as list( $orderby, $order ) ) {
+				$buffer[] = sprintf( '%s %s', $orderby, $order );
+			}
+
+			return implode( ', ', $buffer );
+		};
+
+		if ( ! empty( $this->query_vars['orderby'] ) ) {
+			$before = implode( ', ', array_map( $build_entry, $this->query_vars['orderby'] ) );
+			$frags  = [ $before, $orderby ];
+		}
+
+		if ( ! empty( $this->query_vars[ static::AFTER . 'orderby' ] ) ) {
+			$frags[] = implode( ', ', array_map( $build_entry, $this->query_vars[ static::AFTER . 'orderby' ] ) );
+		}
+
+		return implode( ', ', $frags );
 	}
 
 	/**
@@ -996,5 +1092,48 @@ class Tribe__Repository__Query_Filters {
 		$this->current_query->get_posts();
 
 		return $this->last_request;
+	}
+
+	/**
+	 * Returns the fields, join, where and orderby clauses for an id.
+	 *
+	 * @since 4.9.14
+	 *
+	 * @param string $id The identifier of the group to remove.
+	 *
+	 * @return array An associative array of identifiable filters and their values, if any.
+	 *
+	 * @see Tribe__Repository__Query_Filters::$identifiable_filters
+	 */
+	public function get_filters_by_id( $id ) {
+		$entries = [];
+
+		foreach ( static::$identifiable_filters as $key ) {
+			if ( empty( $this->query_vars[ $key ][ $id ] ) ) {
+				continue;
+			}
+			$entries[ $key ] = $this->query_vars[ $key ][ $id ];
+		}
+
+		return $entries;
+	}
+
+	/**
+	 * Removes fields, join, where and orderby clauses for an id.
+	 *
+	 * @since 4.9.14
+	 *
+	 * @param string $id The identifier of the group to remove.
+	 */
+	public function remove_filters_by_id( $id ) {
+		array_walk(
+			$this->query_vars,
+			static function ( array &$filters, $key ) use ( $id ) {
+				if ( ! in_array( $key, static::$identifiable_filters, true ) ) {
+					return;
+				}
+				unset( $filters[ $id ] );
+			}
+		);
 	}
 }

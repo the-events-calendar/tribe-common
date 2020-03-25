@@ -187,13 +187,6 @@ interface Tribe__Repository__Interface
 	public function by_related_to_between( $by_meta_keys, $min, $max, $keys = null, $values = null );
 
 	/**
-	 * Gets the ids of the posts matching the query.
-	 *
-	 * @return array An array containing the post IDs to update.
-	 */
-	public function get_ids();
-
-	/**
 	 * Adds an entry to the repository filter schema.
 	 *
 	 * @since 4.9.5
@@ -316,4 +309,15 @@ interface Tribe__Repository__Interface
 	 * @return \Tribe__Repository__Interface The repository instance, for chaining.
 	 */
 	public function set_found_rows( $found_rows );
+
+	/**
+	 * Voids the repositories queries preventing the repository from running any query.
+	 *
+	 * @since 4.9.14
+	 *
+	 * @param bool $void Whether to void the repository queries or not.
+	 *
+	 * @return Tribe__Repository__Interface $this The repository instance.
+	 */
+	public function void_query( $void_query = true );
 }
