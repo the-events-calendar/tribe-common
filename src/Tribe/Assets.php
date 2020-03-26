@@ -324,7 +324,7 @@ class Tribe__Assets {
 			return false;
 		}
 
-		$script_debug = defined( 'SCRIPT_DEBUG' ) &&  SCRIPT_DEBUG;
+		$script_debug = defined( 'SCRIPT_DEBUG' ) && tribe_is_truthy( SCRIPT_DEBUG );
 
 		// Strip the plugin URL and make this relative.
 		$relative_location = str_replace( $base_url, '', $url );
