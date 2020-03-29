@@ -4,6 +4,7 @@
 
 = [4.11.6] TBD =
 
+* Fix - Blocks editor CSS compatibility with WordPress 5.4 with new module classes: `.block-editor-inner-blocks`
 
 = [4.11.5.1] 2020-03-23 =
 
