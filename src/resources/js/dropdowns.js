@@ -192,10 +192,10 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			'conditionIsNotNumeric',
 			'condition-is-not-numeric',
 			'conditionChecked',
-			'condition-is-checked'
+			'condition-is-checked',
 		];
 		var $container;
-		var original_classes = $select.attr( 'class' );
+		args.originalClasses = $select.attr( 'class' );
 
 		// Add a class for dropdown created
 		$select.addClass( obj.selector.created.className() );
@@ -400,11 +400,13 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		$container = $select.select2( args );
 
-		// Propagating original input classes to the select2 container.
-		$container.data('select2').$container.addClass( original_classes );
+		console.log( $container.data( 'select2' ) );
 
 		// Propagating original input classes to the select2 container.
-		$container.data('select2').$container.removeClass( 'hide-before-select2-init' );
+		$container.data( 'select2' ).$container.addClass( args.originalClasses );
+
+		// Propagating original input classes to the select2 container.
+		$container.data( 'select2' ).$container.removeClass( 'hide-before-select2-init' );
 
 		// TODO: Revisit
 		//
@@ -520,8 +522,17 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	};
 
 	obj.action_select2_open = function( event ) {
-		var $select = $( this ),
-			$search = $( '.select2-drop .select2-input:visible' );
+		var $select = $( this );
+		var $search = $( '.select2-drop .select2-input:visible' );
+		var args = $select.data( 'dropdown' );
+		var select2Data = $select.data( 'select2' );
+
+		// Remove some classes.
+		args.originalClasses = _.filter( args.originalClasses, function( value ) {
+			return 'hide-if-js' !== value;
+		} );
+
+		select2Data.$dropdown.addClass( args.originalClasses );
 
 		// If we have a placeholder for search, apply it!
 		if ( $select.is( '[data-search-placeholder]' ) ) {
@@ -560,15 +571,16 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			args = {};
 		}
 
-		$elements.each( function( index, element ) {
-			// Apply element to all given items and pass args
-			obj.element( element, args );
-		} )
-		.on( 'select2-open', obj.action_select2_open )
-		.on( 'select2-close', obj.action_select2_close )
-		.on( 'select2-removed', obj.action_select2_removed )
-		.on( 'select2-loaded', obj.action_bugfix_group_select )
-		.on( 'change', obj.action_change );
+		$elements
+			.each( function( index, element ) {
+				// Apply element to all given items and pass args
+				obj.element( element, args );
+			} )
+			.on( 'select2:open', obj.action_select2_open )
+			.on( 'select2:close', obj.action_select2_close )
+			.on( 'select2:removed', obj.action_select2_removed )
+			.on( 'select2:loaded', obj.action_bugfix_group_select )
+			.on( 'change', obj.action_change );
 
 		// return to be able to chain jQuery calls
 		return $elements;

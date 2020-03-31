@@ -1432,6 +1432,19 @@ a.tribe-rating-link {
 	max-width: 100%;
 	width: auto;
 
+	.select2-selection--single {
+		height: 32px;
+
+		.select2-selection__clear {
+			line-height: 28px;
+		}
+
+		.select2-selection__rendered {
+			line-height: 32px;
+			padding-right: 28px;
+		}
+	}
+
 	&.select2-container--focus {
 		.select2-selection--single {
 			border-color: #5897fb;
@@ -1440,10 +1453,28 @@ a.tribe-rating-link {
 	}
 
 	&.select2-container--open {
+		.select2-search__field {
+			padding: 0;
+		}
+
+		.select2-dropdown--below {
+			margin-top: -6px;
+			border-top: 1px solid #aaa;
+		}
+
+		.select2-dropdown--above {
+			margin-bottom: -6px;
+			border-bottom: 1px solid #aaa;
+		}
+
 		.select2-selection--single {
 			border-bottom-left-radius: 0;
 			border-bottom-right-radius: 0;
 			border-color: #aaa;
+		}
+
+		.select2-selection__arrow b {
+			transform: rotate(180deg);
 		}
 	}
 
@@ -1451,6 +1482,7 @@ a.tribe-rating-link {
 		background-image: none;
 		border-radius: 3px;
 		border: 1px solid #ccc;
+		overflow: hidden;
 
 		> .select2-selection__rendered {
 			white-space: normal;
@@ -1460,6 +1492,24 @@ a.tribe-rating-link {
 			background-image: none;
 			background: transparent;
 			border-left: 0;
+			top: 2px;
+			width: 26px;
+
+			b {
+				background: #fff url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E') no-repeat right 5px top 55%;
+				background-size: auto;
+				background-size: 16px 16px;
+				border: 0;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				display: block;
+				width: auto;
+				height: auto;
+				margin: 0;
+				padding: 0;
+			}
 		}
 	}
 
