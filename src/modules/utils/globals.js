@@ -38,3 +38,6 @@ export const editorDefaults = () => pro().defaults || {};
 
 // Tickets
 export const tickets = () => config().tickets || {};
+
+// Post Objects
+export const postObjects = () => config().post_objects || {};
