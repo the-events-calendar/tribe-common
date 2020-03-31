@@ -1,4 +1,4 @@
-var tribe_dropdowns = tribe_dropdowns || {};
+var tribe_dropdowns = window.tribe_dropdowns || {};
 
 ( function( $, obj, _ ) {
 	'use strict';
@@ -10,7 +10,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 	// Setup a Dependent
 	$.fn.tribe_dropdowns = function () {
-		obj.dropdown( this );
+		obj.dropdown( this, [] );
 
 		return this;
 	};
@@ -112,7 +112,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 	 * @param {function} make_selection
 	 */
 	obj.init_selection = function( $select, make_selection ) {
-		var is_multiple    = $select.is( '[multiple]' );
+		var isMultiple     = $select.is( '[multiple]' );
 		var options        = $select.data( 'dropdown' );
 		var current_values = $select.val().split( options.regexSplit );
 		var selected_items = [];
@@ -127,7 +127,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			}
 		} );
 
-		if ( selected_items.length && is_multiple ) {
+		if ( selected_items.length && isMultiple ) {
 			make_selection( selected_items );
 		} else if ( selected_items.length ) {
 			make_selection( selected_items[ 0 ] );
@@ -400,8 +400,6 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		$container = $select.select2( args );
 
-		console.log( $container.data( 'select2' ) );
-
 		// Propagating original input classes to the select2 container.
 		$container.data( 'select2' ).$container.addClass( args.originalClasses );
 
@@ -462,7 +460,7 @@ var tribe_dropdowns = tribe_dropdowns || {};
 			return TEC.ajaxurl;
 		}
 
-		console.error( 'Dropdowns framework cannot properly do an AJAX request without the WordPress `ajaxurl` variable setup.' )
+		console.error( 'Dropdowns framework cannot properly do an AJAX request without the WordPress `ajaxurl` variable setup.' );
 	};
 
 	obj.action_select2_removed = function( event ) {
@@ -488,9 +486,9 @@ var tribe_dropdowns = tribe_dropdowns || {};
 
 		// Loop on all selected items to see which match our bug
 		$drop.find( '.select2-selected' ).each( function(  ) {
-			var $item = $( this ),
-				item = $item.data( 'select2-data' ),
-				remove = true;
+			var $item = $( this );
+			var item = $item.data( 'select2-data' );
+			var remove = true;
 
 			// Dont mess with non-parent items
 			if ( 'undefined' === typeof item.children ) {
