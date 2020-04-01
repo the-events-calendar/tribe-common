@@ -10,15 +10,19 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 	// Setup a Dependent
 	$.fn.tribe_dropdowns = function () {
-		obj.dropdown( this, [] );
+		obj.dropdown( this, {} );
 
 		return this;
 	};
 
 	obj.freefrom_create_search_choice = function( params ) {
+		var term = $.trim( params.term );
+
+		if ( '' === term) {
+			return null;
+		}
 
 		var args = this.options.options;
-		var term = params.term;
 		var $select = args.$select;
 
 		if (
@@ -37,10 +41,10 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				choice.text = _.template( $select.data( 'createChoiceTemplate' ) )( { term: term } );
 			}
 
-			$select.trigger( 'change' );
-
 			return choice;
 		}
+
+		return null;
 	};
 
 	obj.allow_html_markup = function ( m ) {
@@ -211,6 +215,8 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		// Add a class for dropdown created
 		$select.addClass( obj.selector.created.className() );
 
+		args.debug = true;
+
 		// For Reference we save the jQuery element as an Arg
 		args.$select = $select;
 
@@ -263,9 +269,9 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		if ( $select.is( '[data-options]' ) ) {
 			args.data = $select.data( 'options' );
 
-			if ( ! $select.is( 'select' ) ) {
-				args.initSelection = obj.init_selection;
-			}
+			// if ( ! $select.is( 'select' ) ) {
+			// 	args.initSelection = obj.init_selection;
+			// }
 		}
 
 		// If we are dealing with a Input Hidden we need to set the Data for it to work
@@ -287,7 +293,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		if ( $select.is( '[data-freeform]' ) ) {
 			args.createTag = obj.freefrom_create_search_choice;
 			args.tags = true;
-			$select.attr( 'data-tags', 'true' );
+			$select.data( 'tags', true );
 		}
 
 		if ( $select.is( '[multiple]' ) ) {
@@ -331,7 +337,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		if ( $select.is( '[data-tags]' ) ) {
 			args.tags = $select.data( 'tags' );
 
-			args.initSelection = obj.init_selection;
+			// args.initSelection = obj.init_selection;
 
 			args.createSearchChoice = function( term, data ) {
 				if ( term.match( args.regexToken ) ) {
@@ -413,8 +419,8 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		$container = $select.select2( args );
 		if ( $select.data( 'isEmpty' ) ) {
-			$container.data( 'select2' ).$container.find( '.select2-selection__clear' ).trigger( 'mousedown' );
-			$select.trigger( 'mousedown' );
+			console.log( args );
+			console.log( $select.val(0).trigger('change').find( ':selected' ).prop( 'selected', false ) );
 		}
 
 		// Propagating original input classes to the select2 container.
@@ -438,8 +444,11 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	};
 
 	obj.action_change = function( event ) {
+		return;
 		var $select = $( this );
 		var data    = $select.data( 'value' );
+
+		console.log( data );
 
 		if ( ! $select.is( '[multiple]' ) ) {
 			return;
@@ -480,11 +489,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 	obj.action_select2_removed = function( event ) {
 		var $select = $( this );
-
-		// Remove the Search
-		if ( $select.is( '[data-sticky-search]' ) && $select.is( '[data-last-search]' )  ) {
-			$select.removeAttr( 'data-last-search' ).removeData( 'lastSearch' );
-		}
 	};
 
 	/**
@@ -527,11 +531,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	obj.action_select2_close = function( event ) {
 		var $select = $( this ),
 			$search = $( '.select2-drop .select2-input.select2-focused' );
-
-		// If we had a value we apply it again
-		if ( $select.is( '[data-sticky-search]' ) ) {
-			$search.off( 'keyup-change.tribe' );
-		}
 	};
 
 	obj.action_select2_open = function( event ) {
@@ -543,17 +542,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		// If we have a placeholder for search, apply it!
 		if ( $select.is( '[data-search-placeholder]' ) ) {
 			$search.attr( 'placeholder', $select.data( 'searchPlaceholder' ) );
-		}
-
-		// If we had a value we apply it again
-		if ( $select.is( '[data-sticky-search]' ) ) {
-			$search.on( 'keyup-change.tribe', function() {
-				$select.data( 'lastSearch', $( this ).val() ).attr( 'data-last-search', $( this ).val() );
-			} );
-
-			if ( $select.is( '[data-last-search]' ) ) {
-				$search.val( $select.data( 'lastSearch' ) ).trigger( 'keyup-change' );
-			}
 		}
 	};
 
