@@ -423,18 +423,18 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		// Propagating original input classes to the select2 container.
 		$container.data( 'select2' ).$container.removeClass( 'hide-before-select2-init' );
 
-		if ( carryOverData.length > 0 ) {
-			carryOverData.map( function( dataKey ) {
-				var attr = 'data-' + dataKey;
-				var val = $select.attr( attr );
-
-				if ( ! val ) {
-					return;
-				}
-
-				this.attr( attr, val );
-			}, $container );
-		}
+		// if ( carryOverData.length > 0 ) {
+		// 	carryOverData.map( function( dataKey ) {
+		// 		var attr = 'data-' + dataKey;
+		// 		var val = $select.attr( attr );
+		//
+		// 		if ( ! val ) {
+		// 			return;
+		// 		}
+		//
+		// 		this.attr( attr, val );
+		// 	}, $container );
+		// }
 	};
 
 	obj.action_change = function( event ) {
