@@ -41,3 +41,6 @@ export const tickets = () => config().tickets || {};
 
 // Post Objects
 export const postObjects = () => config().post_objects || {};
+
+// Blocks
+export const blocks = () => config().blocks || {};
