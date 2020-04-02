@@ -79,6 +79,7 @@
 		var $field = $( this );
 		var selector = '#' + $field.attr( 'id' );
 		var value = $field.val();
+		console.log( value );
 
 		// We need an ID to make something depend on this
 		if ( ! selector ) {
@@ -160,7 +161,8 @@
 			}
 
 			if ( passes && ! isDisabled ) {
-				if ( $dependent.is( '.tribe-dropdown' ) ) {
+				console.log( $dependent );
+				if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
 					$dependent.select2().data( 'select2' ).$container.addClass( activeClass );
 
 					// ideally the class should be enough, but just in case...
@@ -183,7 +185,7 @@
 				$dependent.find( obj.selectors.fields ).prop( 'disabled', false );
 
 				if ( 'undefined' !== typeof $().select2 ) {
-					$dependent.find( '.tribe-dropdown' ).select2().prop( 'disabled', false );
+					$dependent.find( '.tribe-dropdown, .tribe-ea-dropdown' ).select2().prop( 'disabled', false );
 				}
 			} else {
 				$dependent.removeClass( activeClass );
@@ -198,10 +200,10 @@
 				}
 
 				if ( 'undefined' !== typeof $().select2 ) {
-					$dependent.find( '.tribe-dropdown' ).select2().prop( 'disabled', true );
+					$dependent.find( '.tribe-dropdown, .tribe-ea-dropdown' ).select2().prop( 'disabled', true );
 				}
 
-				if ( $dependent.is( '.tribe-dropdown' ) ) {
+				if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
 					$dependent.select2().data( 'select2' ).$container.removeClass( activeClass );
 				}
 
@@ -210,7 +212,7 @@
 					$dependent.addClass( activeClass ).show();
 					$dependent.filter( obj.selectors.fields ).prop( 'disabled', true );
 
-					if ( $dependent.is( '.tribe-dropdown' ) ) {
+					if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
 						$dependent.select2().data( 'select2' ).$container.addClass( activeClass ).show();
 					}
 				}
