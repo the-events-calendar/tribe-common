@@ -586,6 +586,11 @@ class Tribe__Template {
 		static $files          = [];
 		static $template_names = [];
 
+		$done = apply_filters('tribe_template_done', null,$name,$context,$echo);
+		if(null !== $done){
+			return;
+		}
+
 		// Key we'll use for in-memory caching of expensive operations.
 		$cache_name_key = is_array( $name ) ? implode( '/', $name ) : $name;
 
