@@ -79,7 +79,6 @@
 		var $field = $( this );
 		var selector = '#' + $field.attr( 'id' );
 		var value = $field.val();
-		console.log( value );
 
 		// We need an ID to make something depend on this
 		if ( ! selector ) {

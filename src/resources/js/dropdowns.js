@@ -6,6 +6,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	obj.selector = {
 		dropdown: '.tribe-dropdown',
 		created: '.tribe-dropdown-created',
+		searchField: '.select2-search__field',
 	};
 
 	// Setup a Dependent
@@ -217,17 +218,20 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		args.debug = true;
 
-		// For Reference we save the jQuery element as an Arg
+		// For Reference we save the jQuery element as an Arg.
 		args.$select = $select;
 
-		// Auto define the Width of the Select2
+		// Auto define the Width of the Select2.
 		args.dropdownAutoWidth = true;
 		args.width             = 'resolve';
+
+		// With less then 10 args we wouldn't show the search.
+		args.minimumResultsForSearch = 10;
 
 		// CSS for the container
 		args.containerCss = {};
 
-		// Only apply visibility when it's a Visible Select2
+		// Only apply visibility when it's a Visible Select2.
 		if ( $select.is( ':visible' ) ) {
 			args.containerCss.display  = 'inline-block';
 			args.containerCss.position = 'relative';
@@ -237,20 +241,22 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		args.dropdownCss = {};
 		args.dropdownCss.width = 'auto';
 
-		// When we have this we replace the default with what's in the param
+		// When we have this we replace the default with what's in the param.
 		if ( $select.is( '[data-dropdown-css-width]' ) ) {
 			args.dropdownCss.width = $select.data( 'dropdown-css-width' );
+			console.log( args.dropdownCss.width );
 
 			if ( ! args.dropdownCss.width ) {
 				delete args.dropdownCss.width;
+				delete args.containerCss;
 			}
 		}
 
-		// How do we match the Search
+		// How do we match the Search.
 		// args.matcher = obj.matcher;
 
+		// Better Method for finding the ID
 		if ( ! $select.is( 'select' ) ) {
-			// Better Method for finding the ID
 			args.id = obj.search_id;
 		}
 
@@ -274,6 +280,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			// }
 		}
 
+		args.placeholder = 'Select an option';
 		// If we are dealing with a Input Hidden we need to set the Data for it to work
 		if ( ! $select.is( '[data-placeholder]' ) && $select.is( '[placeholder]' ) ) {
 			args.placeholder = $select.attr( 'placeholder' );
@@ -418,10 +425,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		$select.data( 'dropdown', args );
 
 		$container = $select.select2( args );
-		if ( $select.data( 'isEmpty' ) ) {
-			console.log( args );
-			console.log( $select.val(0).trigger('change').find( ':selected' ).prop( 'selected', false ) );
-		}
 
 		// Propagating original input classes to the select2 container.
 		$container.data( 'select2' ).$container.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
@@ -446,9 +449,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	obj.action_change = function( event ) {
 		return;
 		var $select = $( this );
-		var data    = $select.data( 'value' );
-
-		console.log( data );
+		var data = $select.data( 'value' );
 
 		if ( ! $select.is( '[multiple]' ) ) {
 			return;
@@ -475,7 +476,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		$select.data( 'value', data ).attr( 'data-value', JSON.stringify( data ) );
 	};
 
-	obj.ajaxurl = function () {
+	obj.ajaxurl = function() {
 		if ( 'undefined' !== typeof window.ajaxurl ) {
 			return window.ajaxurl;
 		}
@@ -535,9 +536,11 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 	obj.action_select2_open = function( event ) {
 		var $select = $( this );
-		var $search = $( '.select2-drop .select2-input:visible' );
 		var args = $select.data( 'dropdown' );
 		var select2Data = $select.data( 'select2' );
+		var $search = select2Data.$dropdown.find( obj.selector.searchField );
+
+		select2Data.$dropdown.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
 
 		// If we have a placeholder for search, apply it!
 		if ( $select.is( '[data-search-placeholder]' ) ) {
