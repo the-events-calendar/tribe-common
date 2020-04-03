@@ -2,6 +2,17 @@
 
 == Changelog ==
 
+= [4.11.5.1] 2020-03-23 =
+
+* Fix - Assets class modification to prevent JavaScript and CSS failing to load when `SCRIPT_DEBUG=true` [TCMN-52]
+
+= [4.11.5] 2020-03-23 =
+
+* Tweak - Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
+* Tweak - Allow uploads of images with a large size and images with no extension provided from the URL, as the extension from the URL was used to define the type of the file to be uploaded and when the extension was not present on the URL the file was considered invalid. [TCMN-46]
+* Tweak - Expired transient garbage collector will only run once per request and when needed [TCMN-38]
+* Language - 2 new strings added, 0 updated, 1 fuzzied, and 1 obsoleted
+
 = [4.11.4] 2020-03-18 =
 
 * Fix - Increase range of actions that trigger changes on Promoter with a `WP_Post` instance or using an ID. [TCMN-47]
@@ -12,6 +23,8 @@
 * Fix - Fix display of Dialogs in Safari 12 mobile. [ETP-155]
 * Fix - Bring back the dialog icons. [ETP-155]
 * Tweak - Add theme compatibility for the tribe dialog [ETP-156]
+
+* Tweak - Add check if in `the_content` filter to prevent it from being called again. [ECP-345]
 
 = [4.11.2.1] 2020-02-25 =
 
