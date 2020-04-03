@@ -111,7 +111,7 @@ class Tribe__Template {
 			$this->origin = $origin;
 			$this->template_base_path = untrailingslashit( ! empty( $this->origin->plugin_path ) ? $this->origin->plugin_path : $this->origin->pluginPath );
 		} else {
-			$this->template_base_path = untrailingslashit( (array) explode( '/', $origin ) );
+			$this->template_base_path = untrailingslashit( (array) explode( DIRECTORY_SEPARATOR, $origin ) );
 		}
 
 		return $this;
@@ -134,7 +134,7 @@ class Tribe__Template {
 
 		// If Folder is String make it an Array
 		if ( is_string( $folder ) ) {
-			$folder = (array) explode( '/', $folder );
+			$folder = (array) explode( DIRECTORY_SEPARATOR, $folder );
 		}
 
 		// Cast as Array and save
@@ -505,7 +505,7 @@ class Tribe__Template {
 	public function get_template_file( $name ) {
 		// If name is String make it an Array
 		if ( is_string( $name ) ) {
-			$name = (array) explode( '/', $name );
+			$name = (array) explode( DIRECTORY_SEPARATOR, $name );
 		}
 
 		$folders    = $this->get_template_path_list();
@@ -588,13 +588,13 @@ class Tribe__Template {
 		static $template_names = [];
 
 		// Key we'll use for in-memory caching of expensive operations.
-		$cache_name_key = is_array( $name ) ? implode( '/', $name ) : $name;
+		$cache_name_key = is_array( $name ) ? implode( DIRECTORY_SEPARATOR, $name ) : $name;
 
 		// Cache template name massaging so we don't have to repeat these actions.
 		if ( ! isset( $template_names[ $cache_name_key ] ) ) {
 			// If name is String make it an Array
 			if ( is_string( $name ) ) {
-				$name = (array) explode( '/', $name );
+				$name = (array) explode( DIRECTORY_SEPARATOR, $name );
 			}
 
 			// Clean this Variable
@@ -604,7 +604,10 @@ class Tribe__Template {
 		}
 
 		// Cache file location and existence.
-		if ( ! isset( $file_exists[ $cache_name_key ] ) || ! isset( $files[ $cache_name_key ] ) ) {
+		if (
+			! isset( $file_exists[ $cache_name_key ] )
+			|| ! isset( $files[ $cache_name_key ] )
+		) {
 			// Check if the file exists
 			$files[ $cache_name_key ] = $file = $this->get_template_file( $name );
 
@@ -640,18 +643,18 @@ class Tribe__Template {
 		}
 
 		// Setup the Hook name
-		$legacy_hook_name = implode( '/', $legacy_namespace );
-		$hook_name        = implode( '/', $namespace );
+		$legacy_hook_name = implode( DIRECTORY_SEPARATOR, $legacy_namespace );
+		$hook_name        = implode( DIRECTORY_SEPARATOR, $namespace );
 
 		/**
 		 * Allow users to filter the HTML before rendering
 		 *
 		 * @since  4.11.0
 		 *
-		 * @param string $html      The initial HTML
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
+		 * @param string $html     The initial HTML
+		 * @param string $file     Complete path to include the PHP File
+		 * @param array  $name     Template name
+		 * @param self   $template Current instance of the Tribe__Template
 		 */
 		$pre_html = apply_filters( 'tribe_template_pre_html', null, $file, $name, $this );
 
