@@ -575,9 +575,10 @@ class Tribe__Template {
 	 *
 	 * @since  4.6.2
 	 *
-	 * @param string  $name    Which file we are talking about including
-	 * @param array   $context Any context data you need to expose to this file
-	 * @param boolean $echo    If we should also print the Template
+	 * @param string|array $name    Which file we are talking about including.
+	 *                              If an array, each item will add a directory separator to get to the single template.
+	 * @param array        $context Any context data you need to expose to this file
+	 * @param boolean      $echo    If we should also print the Template
 	 *
 	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
