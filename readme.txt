@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [4.11.6] TBD =
+
+
 = [4.11.5.1] 2020-03-23 =
 
 * Fix - Assets class modification to prevent JavaScript and CSS failing to load when `SCRIPT_DEBUG=true` [TCMN-52]
