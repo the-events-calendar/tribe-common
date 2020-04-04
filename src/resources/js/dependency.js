@@ -160,7 +160,6 @@
 			}
 
 			if ( passes && ! isDisabled ) {
-				console.log( $dependent );
 				if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
 					$dependent.select2().data( 'select2' ).$container.addClass( activeClass );
 

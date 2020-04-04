@@ -1,3 +1,4 @@
+/* global console, jQuery */
 var tribe_dropdowns = window.tribe_dropdowns || {};
 
 ( function( $, obj, _ ) {
@@ -19,7 +20,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	obj.freefrom_create_search_choice = function( params ) {
 		var term = $.trim( params.term );
 
-		if ( '' === term) {
+		if ( '' === term ) {
 			return null;
 		}
 
@@ -252,9 +253,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			}
 		}
 
-		// How do we match the Search.
-		// args.matcher = obj.matcher;
-
 		// Better Method for finding the ID
 		if ( ! $select.is( 'select' ) ) {
 			args.id = obj.search_id;
@@ -274,10 +272,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		// If we are dealing with a Input Hidden we need to set the Data for it to work
 		if ( $select.is( '[data-options]' ) ) {
 			args.data = $select.data( 'options' );
-
-			// if ( ! $select.is( 'select' ) ) {
-			// 	args.initSelection = obj.init_selection;
-			// }
 		}
 
 		args.placeholder = 'Select an option';
@@ -344,8 +338,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		if ( $select.is( '[data-tags]' ) ) {
 			args.tags = $select.data( 'tags' );
 
-			// args.initSelection = obj.init_selection;
-
 			args.createSearchChoice = function( term, data ) {
 				if ( term.match( args.regexToken ) ) {
 					return { id: term, text: term };
@@ -378,11 +370,14 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				return item.text;
 			};
 
-			args.ajax = { // instead of writing the function to execute the request we use Select2's convenient helper
+			// instead of writing the function to execute the request we use Select2's convenient helper.
+			args.ajax = {
 				dataType: 'json',
 				type: 'POST',
 				url: obj.ajaxurl(),
-				processResults: function ( response, page, query ) { // parse the results into the format expected by Select2.
+
+				// parse the results into the format expected by Select2.
+				processResults: function ( response, page, query ) {
 					if ( ! $.isPlainObject( response ) || 'undefined' === typeof response.success ) {
 						console.error( 'We received a malformed Object, could not complete the Select2 Search.' );
 						return { results: [] };
@@ -406,7 +401,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 					}
 
 					return response.data;
-				}
+				},
 			};
 
 			// By default only send the source
@@ -432,18 +427,22 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		// Propagating original input classes to the select2 container.
 		$container.data( 'select2' ).$container.removeClass( 'hide-before-select2-init' );
 
-		// if ( carryOverData.length > 0 ) {
-		// 	carryOverData.map( function( dataKey ) {
-		// 		var attr = 'data-' + dataKey;
-		// 		var val = $select.attr( attr );
-		//
-		// 		if ( ! val ) {
-		// 			return;
-		// 		}
-		//
-		// 		this.attr( attr, val );
-		// 	}, $container );
-		// }
+		/**
+		 * @todo @bordoni Investigate how and if we should be doing this.
+		 *
+		if ( carryOverData.length > 0 ) {
+			carryOverData.map( function( dataKey ) {
+				var attr = 'data-' + dataKey;
+				var val = $select.attr( attr );
+
+				if ( ! val ) {
+					return;
+				}
+
+				this.attr( attr, val );
+			}, $container );
+		}
+		 */
 	};
 
 	obj.action_change = function( event ) {
@@ -488,10 +487,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		console.error( 'Dropdowns framework cannot properly do an AJAX request without the WordPress `ajaxurl` variable setup.' );
 	};
 
-	obj.action_select2_removed = function( event ) {
-		var $select = $( this );
-	};
-
 	/**
 	 * When a Group of Items is selected and it has an ID attached
 	 * all the child items will be hidden too because of a bug inside of select2 Core Code
@@ -527,11 +522,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				$item.removeClass( 'select2-selected' );
 			}
 		} );
-	};
-
-	obj.action_select2_close = function( event ) {
-		var $select = $( this ),
-			$search = $( '.select2-drop .select2-input.select2-focused' );
 	};
 
 	obj.action_select2_open = function( event ) {
@@ -574,8 +564,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				obj.element( element, args );
 			} )
 			.on( 'select2:open', obj.action_select2_open )
-			.on( 'select2:close', obj.action_select2_close )
-			.on( 'select2:removed', obj.action_select2_removed )
 			.on( 'select2:loaded', obj.action_bugfix_group_select )
 			.on( 'change', obj.action_change );
 
