@@ -531,7 +531,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		var select2Data = $select.data( 'select2' );
 		var $search = select2Data.$dropdown.find( obj.selector.searchField );
 
-		select2Data.$dropdown.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
+		select2Data.$dropdown.addClass( obj.getSelectClasses( select2Data.$container ).join( ' ' ) );
 
 		// If we have a placeholder for search, apply it!
 		if ( $select.is( '[data-search-placeholder]' ) ) {
