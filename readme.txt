@@ -4,6 +4,7 @@
 
 = [4.11.6] TBD =
 
+* Tweak - Add the `tribe_template_done` filter to be able to disable a template before rendering. [TEC-3385]
 
 = [4.11.5.1] 2020-03-23 =
 
