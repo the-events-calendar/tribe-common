@@ -139,7 +139,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_event_tickets_active() {
+		public static function is_event_tickets_active() {
 			return class_exists( 'Tribe__Tickets__Main' );
 		}
 
@@ -151,7 +151,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_event_tickets_plus_active() {
+		public static function is_event_tickets_plus_active() {
 			return class_exists( 'Tribe__Tickets_Plus__Main' );
 		}
 
@@ -163,7 +163,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_the_events_calendar_active() {
+		public static function is_the_events_calendar_active() {
 			return class_exists( 'Tribe__Events__Main' );
 		}
 
@@ -175,7 +175,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_the_events_calendar_pro_active() {
+		public static function is_the_events_calendar_pro_active() {
 			return class_exists( 'Tribe__Events__Pro__Main' );
 		}
 
@@ -187,7 +187,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_community_events_active() {
+		public static function is_community_events_active() {
 			return class_exists( 'Tribe__Events__Community__Main' );
 		}
 
@@ -199,7 +199,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_community_tickets_active() {
+		public static function is_community_tickets_active() {
 			return class_exists( 'Tribe__Events__Community__Tickets__Main' );
 		}
 
@@ -211,7 +211,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_filter_bar_active() {
+		public static function is_filter_bar_active() {
 			return class_exists( 'Tribe__Events__Filterbar__View' );
 		}
 
@@ -223,7 +223,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_facebook_events_importer_active() {
+		public static function is_facebook_events_importer_active() {
 			return class_exists( 'Tribe__Events__Facebook__Importer' );
 		}
 
@@ -235,7 +235,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_ical_importer_active() {
+		public static function is_ical_importer_active() {
 			return class_exists( 'Tribe__Events__Ical_Importer__Main' );
 		}
 
@@ -247,7 +247,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_eventbrite_tickets_active() {
+		public static function is_eventbrite_tickets_active() {
 			return class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' );
 		}
 
@@ -259,7 +259,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_advanced_post_manager_active() {
+		public static function is_advanced_post_manager_active() {
 			return class_exists( 'Tribe_APM' );
 		}
 	}
