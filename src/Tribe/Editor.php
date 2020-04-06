@@ -211,4 +211,17 @@ class Tribe__Editor {
 
 		return $is_classic_editor_request || $disabled_by_plugin || $disabled_by_filter;
 	}
+
+	/**
+	 * Returns whether Blocks are being used for Events
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_events_using_blocks() {
+		$is_blocks_active_for_events = tribe_is_truthy( tribe_get_option( 'toggle_blocks_editor', false ) );
+
+		return $this->should_load_blocks() && $is_blocks_active_for_events;
+	}
 }
