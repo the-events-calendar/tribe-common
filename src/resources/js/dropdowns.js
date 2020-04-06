@@ -529,6 +529,10 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		var $select = $( this );
 		var args = $select.data( 'dropdown' );
 		var select2Data = $select.data( 'select2' );
+
+		if ( ! select2Data ) {
+			return;
+		}
 		var $search = select2Data.$dropdown.find( obj.selector.searchField );
 
 		select2Data.$dropdown.addClass( obj.getSelectClasses( select2Data.$container ).join( ' ' ) );
