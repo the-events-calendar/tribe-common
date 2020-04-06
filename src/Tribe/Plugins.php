@@ -131,5 +131,136 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			return apply_filters( 'tribe_plugins_get_list', $this->tribe_plugins );
 		}
 
+		/**
+		 * Returns true if the plugin "Event Tickets" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_event_tickets_active() {
+			return class_exists( 'Tribe__Tickets__Main' );
+		}
+
+		/**
+		 * Returns true if the plugin "Event Tickets Plus" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_event_tickets_plus_active() {
+			return class_exists( 'Tribe__Tickets_Plus__Main' );
+		}
+
+		/**
+		 * Returns true if the plugin "The Events Calendar" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_the_events_calendar_active() {
+			return class_exists( 'Tribe__Events__Main' );
+		}
+
+		/**
+		 * Returns true if the plugin "Events Calendar Pro" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_the_events_calendar_pro_active() {
+			return class_exists( 'Tribe__Events__Pro__Main' );
+		}
+
+		/**
+		 * Returns true if the plugin "Community Events" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_community_events_active() {
+			return class_exists( 'Tribe__Events__Community__Main' );
+		}
+
+		/**
+		 * Returns true if the plugin "Community Tickets" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_community_tickets_active() {
+			return class_exists( 'Tribe__Events__Community__Tickets__Main' );
+		}
+
+		/**
+		 * Returns true if the plugin "Filter Bar" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_filter_bar_active() {
+			return class_exists( 'Tribe__Events__Filterbar__View' );
+		}
+
+		/**
+		 * Returns true if the plugin "Facebook Events" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_facebook_events_importer_active() {
+			return class_exists( 'Tribe__Events__Facebook__Importer' );
+		}
+
+		/**
+		 * Returns true if the plugin "iCal Importer" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_ical_importer_active() {
+			return class_exists( 'Tribe__Events__Ical_Importer__Main' );
+		}
+
+		/**
+		 * Returns true if the plugin "Eventbrite Tickets" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_eventbrite_tickets_active() {
+			return class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' );
+		}
+
+		/**
+		 * Returns true if the plugin "Advanced Post Manager" is active.
+		 * Only reliable after "plugins_loaded" has been called.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool
+		 */
+		public function is_advanced_post_manager_active() {
+			return class_exists( 'Tribe_APM' );
+		}
 	}
 }
