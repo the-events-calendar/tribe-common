@@ -187,6 +187,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	obj.getSelectClasses = function( $select ) {
 		var classesToRemove = [
 			'select2-hidden-accessible',
+			'hide-before-select2-init',
 		];
 		var originalClasses = $select.attr( 'class' ).split( /\s+/ );
 		return _.difference( originalClasses, classesToRemove );
