@@ -254,11 +254,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			}
 		}
 
-		// Better Method for finding the ID
-		if ( ! $select.is( 'select' ) ) {
-			args.id = obj.search_id;
-		}
-
 		// By default we allow The field to be cleared
 		args.allowClear = true;
 		if ( $select.is( '[data-prevent-clear]' ) ) {
@@ -270,12 +265,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			args.formatSearching = $select.data( 'searching-placeholder' );
 		}
 
-		// If we are dealing with a Input Hidden we need to set the Data for it to work
-		if ( $select.is( '[data-options]' ) ) {
-			args.data = $select.data( 'options' );
-		}
-
-		args.placeholder = 'Select an option';
 		// If we are dealing with a Input Hidden we need to set the Data for it to work
 		if ( ! $select.is( '[data-placeholder]' ) && $select.is( '[placeholder]' ) ) {
 			args.placeholder = $select.attr( 'placeholder' );
@@ -428,6 +417,8 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		// Propagating original input classes to the select2 container.
 		$container.data( 'select2' ).$container.removeClass( 'hide-before-select2-init' );
 
+		$container.on( 'select2:open', obj.action_select2_open );
+
 		/**
 		 * @todo @bordoni Investigate how and if we should be doing this.
 		 *
@@ -446,36 +437,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		 */
 	};
 
-	obj.action_change = function( event ) {
-		return;
-		var $select = $( this );
-		var data = $select.data( 'value' );
-
-		if ( ! $select.is( '[multiple]' ) ) {
-			return;
-		}
-
-		if ( ! $select.is( '[data-source]' ) ) {
-			return;
-		}
-
-		if ( event.added ){
-			if ( _.isArray( data ) ) {
-				data.push( event.added );
-			} else {
-				data = [ event.added ];
-			}
-		} else {
-			if ( _.isArray( data ) ) {
-				data = _.without( data, event.removed );
-			} else {
-				data = [];
-			}
-		}
-
-		$select.data( 'value', data ).attr( 'data-value', JSON.stringify( data ) );
-	};
-
 	obj.ajaxurl = function() {
 		if ( 'undefined' !== typeof window.ajaxurl ) {
 			return window.ajaxurl;
@@ -492,13 +453,9 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		var $select = $( this );
 		var args = $select.data( 'dropdown' );
 		var select2Data = $select.data( 'select2' );
-
-		if ( ! select2Data ) {
-			return;
-		}
 		var $search = select2Data.$dropdown.find( obj.selector.searchField );
 
-		select2Data.$dropdown.addClass( obj.getSelectClasses( select2Data.$container ).join( ' ' ) );
+		select2Data.$dropdown.addClass( obj.selector.dropdown.className() );
 
 		// If we have a placeholder for search, apply it!
 		if ( $select.is( '[data-search-placeholder]' ) ) {
@@ -530,9 +487,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			.each( function( index, element ) {
 				// Apply element to all given items and pass args
 				obj.element( element, args );
-			} )
-			// .on( 'select2:open', obj.action_select2_open )
-			.on( 'change', obj.action_change );
+			} );
 
 		// return to be able to chain jQuery calls
 		return $elements;
