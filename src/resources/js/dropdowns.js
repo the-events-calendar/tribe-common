@@ -488,43 +488,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		console.error( 'Dropdowns framework cannot properly do an AJAX request without the WordPress `ajaxurl` variable setup.' );
 	};
 
-	/**
-	 * When a Group of Items is selected and it has an ID attached
-	 * all the child items will be hidden too because of a bug inside of select2 Core Code
-	 *
-	 * This method will be applied on `select2-loaded` to remove `select2-selected` class
-	 * from all items that were not actually selected
-	 */
-	obj.action_bugfix_group_select = function( event ) {
-		var $select = $( this ),
-			items = $select.select2( 'data' ),
-			$drop = $( '.select2-drop:visible' );
-
-		// Loop on all selected items to see which match our bug
-		$drop.find( '.select2-selected' ).each( function(  ) {
-			var $item = $( this );
-			var item = $item.data( 'select2-data' );
-			var remove = true;
-
-			// Dont mess with non-parent items
-			if ( 'undefined' === typeof item.children ) {
-				return;
-			}
-
-			// Loop on Selected items mark them as not to remove class
-			$.each( items, function( k, selected ) {
-				if ( obj.search_id( item ) == obj.search_id( selected ) ) {
-					remove = false;
-				}
-			} );
-
-			// Actually remove the class
-			if ( remove ) {
-				$item.removeClass( 'select2-selected' );
-			}
-		} );
-	};
-
 	obj.action_select2_open = function( event ) {
 		var $select = $( this );
 		var args = $select.data( 'dropdown' );
@@ -568,8 +531,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				// Apply element to all given items and pass args
 				obj.element( element, args );
 			} )
-			.on( 'select2:open', obj.action_select2_open )
-			.on( 'select2:loaded', obj.action_bugfix_group_select )
+			// .on( 'select2:open', obj.action_select2_open )
 			.on( 'change', obj.action_change );
 
 		// return to be able to chain jQuery calls
