@@ -586,6 +586,22 @@ class Tribe__Template {
 		static $files          = [];
 		static $template_names = [];
 
+		/**
+		 * Allow users to disable templates before rendering it by returning empty string.
+		 *
+		 * @since  TBD
+		 *
+		 * @param string  null     Whether to continue displaying the template or not.
+		 * @param array   $name    Template name.
+		 * @param array   $context Any context data you need to expose to this file.
+		 * @param boolean $echo    If we should also print the Template.
+		 */
+		$done = apply_filters( 'tribe_template_done', null, $name, $context, $echo );
+
+		if ( null !== $done ) {
+			return false;
+		}
+
 		// Key we'll use for in-memory caching of expensive operations.
 		$cache_name_key = is_array( $name ) ? implode( '/', $name ) : $name;
 
