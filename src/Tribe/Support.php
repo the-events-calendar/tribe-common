@@ -167,11 +167,10 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$homepage = get_option( 'show_on_front' );
 			$homepage_page_id = get_option( 'page_on_front' );
 
-			if ( $homepage == 'page' ) {
-				if ( $homepage_page_id == -10 ) {
+			if ( 'page' === $homepage ) {
+				if ( -10 === (int) $homepage_page_id ) {
 					$homepage_page_id .= ' (Main Events Page)';
-				}
-				else {
+				} else {
 					$homepage_page_id .= ' (' . esc_html( get_the_title( $homepage_page_id ) ) . ')';
 				}
 			}
