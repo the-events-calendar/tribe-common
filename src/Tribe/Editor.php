@@ -213,11 +213,11 @@ class Tribe__Editor {
 	}
 
 	/**
-	 * Returns whether Blocks are being used for Events
+	 * Returns whether Blocks are being used for Events.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool
+	 * @return bool Whether Blocks are being used for Events or not.
 	 */
 	public function is_events_using_blocks() {
 		return $this->should_load_blocks()
