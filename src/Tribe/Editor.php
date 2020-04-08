@@ -220,8 +220,7 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function is_events_using_blocks() {
-		$is_blocks_active_for_events = tribe_is_truthy( tribe_get_option( 'toggle_blocks_editor', false ) );
-
-		return $this->should_load_blocks() && $is_blocks_active_for_events;
+		return $this->should_load_blocks()
+		    && tribe_is_truthy( tribe_get_option( 'toggle_blocks_editor' ) );
 	}
 }
