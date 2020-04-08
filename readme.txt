@@ -6,6 +6,7 @@
 
 * Tweak - Added homepage settings to system information
 * Tweak - Add the `tribe_template_done` filter to be able to disable a template before rendering. [TEC-3385]
+* Fix - Blocks editor CSS compatibility with WordPress 5.4 with new module classes: `.block-editor-inner-blocks`
 
 = [4.11.5.1] 2020-03-23 =
 
