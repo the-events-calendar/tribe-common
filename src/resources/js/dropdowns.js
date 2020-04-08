@@ -242,7 +242,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		if ( $select.is( '[data-dropdown-css-width]' ) ) {
 			args.dropdownCss.width = $select.data( 'dropdown-css-width' );
 
-			if ( ! args.dropdownCss.width ) {
+			if ( ! args.dropdownCss.width || 'false' === args.dropdownCss.width ) {
 				delete args.dropdownCss.width;
 				delete args.containerCss;
 			}
