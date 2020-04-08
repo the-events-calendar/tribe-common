@@ -80,8 +80,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	 * @return {boolean}
 	 */
 	obj.matcher = function ( params, data ) {
-		console.log( arguments );
-
 		// If there are no search terms, return all of the data
 		if ( $.trim( params.term ) === '') {
 			return data;
@@ -218,7 +216,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		// Add a class for dropdown created
 		$select.addClass( obj.selector.created.className() );
 
-		args.debug = true;
+		// args.debug = true;
 
 		// For Reference we save the jQuery element as an Arg.
 		args.$select = $select;
@@ -226,9 +224,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		// Auto define the Width of the Select2.
 		args.dropdownAutoWidth = true;
 		args.width             = 'resolve';
-
-		// With less then 10 args we wouldn't show the search.
-		args.minimumResultsForSearch = 10;
 
 		// CSS for the container
 		args.containerCss = {};
@@ -246,7 +241,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		// When we have this we replace the default with what's in the param.
 		if ( $select.is( '[data-dropdown-css-width]' ) ) {
 			args.dropdownCss.width = $select.data( 'dropdown-css-width' );
-			console.log( args.dropdownCss.width );
 
 			if ( ! args.dropdownCss.width ) {
 				delete args.dropdownCss.width;
@@ -275,9 +269,17 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			args.escapeMarkup = obj.allow_html_markup;
 		}
 
+		// With less then 10 args we wouldn't show the search.
+		args.minimumResultsForSearch = 10;
+
 		// Prevents the Search box to show
 		if ( $select.is( '[data-hide-search]' ) ) {
 			args.minimumResultsForSearch = Infinity;
+		}
+
+		// Makes sure search shows up.
+		if ( $select.is( '[data-force-search]' ) ) {
+			delete args.minimumResultsForSearch;
 		}
 
 		// Allows freeform entry
