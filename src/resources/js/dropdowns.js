@@ -269,6 +269,11 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			args.escapeMarkup = obj.allow_html_markup;
 		}
 
+		// If we are dealing with a Input Hidden we need to set the Data for it to work
+		if ( $select.is( '[data-options]' ) ) {
+			args.data = $select.data( 'options' );
+		}
+
 		// With less then 10 args we wouldn't show the search.
 		args.minimumResultsForSearch = 10;
 
