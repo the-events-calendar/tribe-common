@@ -8,6 +8,7 @@
 * Tweak - Added homepage settings to system information
 * Tweak - Add the `tribe_template_done` filter to be able to disable a template before rendering. [TEC-3385]
 * Fix - Blocks editor CSS compatibility with WordPress 5.4 with new module classes: `.block-editor-inner-blocks`
+* Fix - Add style override for <ul> in Divi due to theme use of IDs [TEC-3235]
 
 = [4.11.5.1] 2020-03-23 =
 
