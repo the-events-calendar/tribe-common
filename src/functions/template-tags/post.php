@@ -30,14 +30,17 @@ function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $
 		$content = get_the_content( $more_link_text, $strip_teaser );
 	}
 
-	/**
-	 * Filters the post content.
-	 *
-	 * @since 0.71 of WordPress
-	 *
-	 * @param string $content Content of the current post.
-	 */
-	$content = apply_filters( 'the_content', $content );
+	if ( ! doing_filter( 'the_content' ) ) {
+		/**
+		 * Filters the post content.
+		 *
+		 * @since 0.71 of WordPress
+		 *
+		 * @param string $content Content of the current post.
+		 */
+		$content = apply_filters( 'the_content', $content );
+	}
+
 	$content = str_replace( ']]>', ']]&gt;', $content );
 
 	$post = $previous_post;

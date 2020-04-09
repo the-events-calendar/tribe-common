@@ -90,6 +90,30 @@ return [
 	],
 	'post_type' => [
 		'read' => [
+			Tribe__Context::FUNC        => static function() {
+				$post_type_objs = get_post_types(
+					[
+						'public' => true,
+						'_builtin' => false,
+					],
+					'objects'
+				);
+
+				foreach( $post_type_objs as $post_type ) {
+					if ( empty( $post_type->query_var ) ) {
+						continue;
+					}
+
+					$url_value = tribe_get_request_var( $post_type->query_var, false );
+					if ( empty( $url_value ) ) {
+						continue;
+					}
+
+					return $post_type->name;
+				}
+
+				return Tribe__Context::NOT_FOUND;
+			},
 			Tribe__Context::QUERY_PROP  => 'post_type',
 			Tribe__Context::QUERY_VAR   => 'post_type',
 			Tribe__Context::REQUEST_VAR => 'post_type',
