@@ -213,14 +213,33 @@ class Tribe__Editor {
 	}
 
 	/**
-	 * Returns whether Blocks are being used for Events.
+	 * Whether the events are being served using Blocks or the Classical Editor.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether Blocks are being used for Events or not.
+	 * @return bool True is using Blocks. False if using the Classical Editor.
 	 */
 	public function is_events_using_blocks() {
-		return $this->should_load_blocks()
-		    && tribe_is_truthy( tribe_get_option( 'toggle_blocks_editor' ) );
+		/**
+		 * Whether the event is being served through blocks
+		 * or the classical editor.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $is_using_blocks True if using blocks. False if using the classical editor.
+		 */
+		$is_using_blocks = apply_filters( 'tribe_is_using_blocks', null );
+
+		// Early bail: The filter was overridden to return either true or false.
+		if ( is_bool( $is_using_blocks ) ) {
+			return $is_using_blocks;
+		}
+
+		// Early bail: The site itself is not using blocks.
+		if ( ! $this->should_load_blocks() ) {
+			return false;
+		}
+
+		return tribe_is_truthy( tribe_get_option( 'toggle_blocks_editor' ) );
 	}
 }
