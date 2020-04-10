@@ -99,7 +99,7 @@ class Tribe__Template {
 		if ( is_string( $origin ) ) {
 			// Origin needs to be a class with a `instance` method
 			if ( class_exists( $origin ) && method_exists( $origin, 'instance' ) ) {
-				$origin = call_user_func( array( $origin, 'instance' ) );
+				$origin = call_user_func( [ $origin, 'instance' ] );
 			}
 		}
 
@@ -109,7 +109,12 @@ class Tribe__Template {
 
 		if ( ! is_string( $origin ) ) {
 			$this->origin = $origin;
-			$this->template_base_path = untrailingslashit( ! empty( $this->origin->plugin_path ) ? $this->origin->plugin_path : $this->origin->pluginPath );
+
+			$this->template_base_path = untrailingslashit(
+				! empty( $this->origin->plugin_path )
+					? $this->origin->plugin_path
+					: $this->origin->pluginPath
+			);
 		} else {
 			$this->template_base_path = (array) explode( '/', untrailingslashit( $origin ) );
 		}
