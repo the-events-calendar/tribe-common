@@ -205,7 +205,7 @@ implements Tribe__Editor__Blocks__Interface {
 	}
 
 	/**
-	 * Returns the block data for the block editor
+	 * Returns the block data for the block editor.
 	 *
 	 * @since TBD
 	 *
@@ -217,18 +217,22 @@ implements Tribe__Editor__Blocks__Interface {
 		];
 
 		/**
-		 * Filters the block data
+		 * Filters the block data.
 		 *
-		 * @param array  $block_data The block data
-		 * @param object $this       The current object
+		 * @since TBD
+		 *
+		 * @param array  $block_data The block data.
+		 * @param object $this       The current object.
 		 */
 		$block_data = apply_filters( 'tribe_block_block_data', $block_data, $this );
 
 		/**
-		 * Filters the block data for the block
+		 * Filters the block data for the block.
 		 *
-		 * @param array  $block_data The block data
-		 * @param object $this       The current object
+		 * @since TBD
+		 *
+		 * @param array  $block_data The block data.
+		 * @param object $this       The current object.
 		 */
 		$block_data = apply_filters( 'tribe_block_block_data_' . $this->slug(), $block_data, $this );
 
