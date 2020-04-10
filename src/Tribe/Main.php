@@ -360,7 +360,7 @@ class Tribe__Main {
 
 		// Register for the assets to be available everywhere
 		add_action( 'tribe_common_loaded', [ $this, 'load_assets' ], 1 );
-		add_action( 'init', [ $this, 'common_load_text_domain' ] );
+		add_action( 'init', [ $this, 'hook_load_text_domain' ] );
 		add_action( 'init', [ $this, 'load_localize_data' ] );
 		add_action( 'plugins_loaded', [ 'Tribe__Admin__Notices', 'instance' ], 1 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'store_admin_notices' ] );
