@@ -217,7 +217,7 @@ class Tribe__Editor {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool True is using Blocks. False if using the Classical Editor.
+	 * @return bool True if using Blocks. False if using the Classical Editor.
 	 */
 	public function is_events_using_blocks() {
 		/**
@@ -231,7 +231,7 @@ class Tribe__Editor {
 		$is_using_blocks = apply_filters( 'tribe_is_using_blocks', null );
 
 		// Early bail: The filter was overridden to return either true or false.
-		if ( is_bool( $is_using_blocks ) ) {
+		if ( null !== $is_using_blocks ) {
 			return $is_using_blocks;
 		}
 
