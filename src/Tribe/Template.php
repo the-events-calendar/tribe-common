@@ -116,7 +116,12 @@ class Tribe__Template {
 					: $this->origin->pluginPath
 			);
 		} else {
-			$this->template_base_path = (array) explode( '/', untrailingslashit( $origin ) );
+			$this->template_base_path = array_filter(
+				(array) explode(
+					'/',
+					untrailingslashit( $origin )
+				)
+			);
 		}
 
 		return $this;
