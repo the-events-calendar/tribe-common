@@ -111,7 +111,7 @@ class Tribe__Template {
 			$this->origin = $origin;
 			$this->template_base_path = untrailingslashit( ! empty( $this->origin->plugin_path ) ? $this->origin->plugin_path : $this->origin->pluginPath );
 		} else {
-			$this->template_base_path = untrailingslashit( (array) explode( DIRECTORY_SEPARATOR, $origin ) );
+			$this->template_base_path = untrailingslashit( (array) explode( '/', $origin ) );
 		}
 
 		return $this;
@@ -134,7 +134,7 @@ class Tribe__Template {
 
 		// If Folder is String make it an Array
 		if ( is_string( $folder ) ) {
-			$folder = (array) explode( DIRECTORY_SEPARATOR, $folder );
+			$folder = (array) explode( '/', $folder );
 		}
 
 		// Cast as Array and save
@@ -505,7 +505,7 @@ class Tribe__Template {
 	public function get_template_file( $name ) {
 		// If name is String make it an Array
 		if ( is_string( $name ) ) {
-			$name = (array) explode( DIRECTORY_SEPARATOR, $name );
+			$name = (array) explode( '/', $name );
 		}
 
 		$folders    = $this->get_template_path_list();
@@ -610,7 +610,7 @@ class Tribe__Template {
 		if ( ! isset( $template_names[ $cache_name_key ] ) ) {
 			// If name is String make it an Array
 			if ( is_string( $name ) ) {
-				$name = (array) explode( DIRECTORY_SEPARATOR, $name );
+				$name = (array) explode( '/', $name );
 			}
 
 			// Clean this Variable
@@ -659,8 +659,8 @@ class Tribe__Template {
 		}
 
 		// Setup the Hook name
-		$legacy_hook_name = implode( DIRECTORY_SEPARATOR, $legacy_namespace );
-		$hook_name        = implode( DIRECTORY_SEPARATOR, $namespace );
+		$legacy_hook_name = implode( '/', $legacy_namespace );
+		$hook_name        = implode( '/', $namespace );
 
 		/**
 		 * Allow users to filter the HTML before rendering
