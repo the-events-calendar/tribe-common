@@ -111,7 +111,7 @@ class Tribe__Template {
 			$this->origin = $origin;
 			$this->template_base_path = untrailingslashit( ! empty( $this->origin->plugin_path ) ? $this->origin->plugin_path : $this->origin->pluginPath );
 		} else {
-			$this->template_base_path = untrailingslashit( (array) explode( '/', $origin ) ); // passing an array instead of a string?
+			$this->template_base_path = (array) explode( '/', untrailingslashit( $origin ) );
 		}
 
 		return $this;
