@@ -117,6 +117,7 @@
 				'sidebars_widgets'              => true,
 				'stylesheet'                    => true,
 				'template'                      => true,
+				'WPLANG'                        => true,
 			];
 
 			if ( ! empty( $triggers[ $option_name ] ) ) {

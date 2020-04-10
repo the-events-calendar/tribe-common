@@ -96,8 +96,6 @@ class Tribe__Main {
 	 */
 	public function plugins_loaded() {
 
-		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
-
 		$this->init_autoloading();
 
 		$this->bind_implementations();
@@ -261,11 +259,42 @@ class Tribe__Main {
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [ $this, 'should_load_common_admin_css' ],
-				'priority' => 5,
+				'priority'     => 5,
 			]
 		);
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
+	}
+
+	/**
+	 * Load Common's text domain, then fire the hook for other plugins to do the same.
+	 *
+	 * Make sure this fires on 'init', per WordPress best practices.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function hook_load_text_domain() {
+		$loaded = $this->load_text_domain(
+			'tribe-common',
+			basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/'
+		);
+
+		/**
+		 * After attempting (hopefully successfully) to load Common's text domain.
+		 *
+		 * Load other plugin text domains on this hook, but make sure they're setup on this hook prior to 'init'.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $loaded Whether or not Common's text domain was loaded.
+		 *
+		 * @return bool
+		 */
+		do_action( 'tribe_load_text_domains', $loaded );
+
+		return $loaded;
 	}
 
 	/**
@@ -331,6 +360,7 @@ class Tribe__Main {
 
 		// Register for the assets to be available everywhere
 		add_action( 'tribe_common_loaded', [ $this, 'load_assets' ], 1 );
+		add_action( 'init', [ $this, 'hook_load_text_domain' ] );
 		add_action( 'init', [ $this, 'load_localize_data' ] );
 		add_action( 'plugins_loaded', [ 'Tribe__Admin__Notices', 'instance' ], 1 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'store_admin_notices' ] );
@@ -410,7 +440,7 @@ class Tribe__Main {
 	 * @since  4.2   Included $domain and $dir params.
 	 *
 	 * @param string       $domain The text domain that will be loaded.
-	 * @param string|false $dir    What directory should be used to try to load if the default doesnt work.
+	 * @param string|false $dir    What directory should be used to try to load if the default doesn't work.
 	 *
 	 * @return bool  If it was able to load the text domain.
 	 */
