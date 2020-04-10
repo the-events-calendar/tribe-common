@@ -275,7 +275,7 @@ class Tribe__Main {
 	 *
 	 * @return bool
 	 */
-	public function common_load_text_domain() {
+	public function hook_load_text_domain() {
 		$loaded = $this->load_text_domain(
 			'tribe-common',
 			basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/'
