@@ -292,7 +292,7 @@ class Tribe__Main {
 		 *
 		 * @return bool
 		 */
-		do_action( 'tribe_common_load_text_domain', $loaded );
+		do_action( 'tribe_load_text_domains', $loaded );
 
 		return $loaded;
 	}
