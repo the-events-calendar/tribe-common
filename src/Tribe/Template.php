@@ -107,20 +107,20 @@ class Tribe__Template {
 			throw new InvalidArgumentException( 'Invalid Origin Class for Template Instance' );
 		}
 
-		if ( ! is_string( $origin ) ) {
+		if ( is_string( $origin ) ) {
+			$this->template_base_path = array_filter(
+				(array) explode(
+					'/',
+					untrailingslashit( $origin )
+				)
+			);
+		} else {
 			$this->origin = $origin;
 
 			$this->template_base_path = untrailingslashit(
 				! empty( $this->origin->plugin_path )
 					? $this->origin->plugin_path
 					: $this->origin->pluginPath
-			);
-		} else {
-			$this->template_base_path = array_filter(
-				(array) explode(
-					'/',
-					untrailingslashit( $origin )
-				)
 			);
 		}
 
