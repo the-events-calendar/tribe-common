@@ -1224,11 +1224,6 @@ a.tribe-rating-link {
 	z-index: 1000000;
 }
 
-/* Select2 Specific rule */
-.select2-container .select2-choice abbr {
-	top: 6px;
-}
-
 .wp-list-table.plugins {
 
 	.column-description {
@@ -1437,54 +1432,101 @@ a.tribe-rating-link {
 	max-width: 100%;
 	width: auto;
 
-	&.select2-container-active {
-
-		.select2-choice {
-			border-color: #5897fb;
-			box-shadow: 0 0 5px rgba( 0, 0, 0, .1 );
+	&.select2-container {
+		.selection {
+			margin-top: inherit;
 		}
 	}
 
-	&.select2-dropdown-open {
+	.select2-selection--single {
+		height: 32px;
 
-		.select2-choice {
+		.select2-selection__clear {
+			line-height: 28px;
+		}
+
+		.select2-selection__rendered {
+			line-height: 32px;
+			padding-right: 28px;
+		}
+	}
+
+	&.select2-container--focus {
+		.select2-selection--single {
+			border-color: #5897fb;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	&.select2-container--open {
+		.select2-search__field {
+			padding: 0;
+		}
+
+		.select2-dropdown--below {
+			margin-top: -1px;
+			border-top: 1px solid #aaa;
+		}
+
+		.select2-dropdown--above {
+			margin-bottom: -16px;
+			border-bottom: 1px solid #aaa;
+		}
+
+		.select2-selection--single {
 			border-bottom-left-radius: 0;
 			border-bottom-right-radius: 0;
 			border-color: #aaa;
 		}
+
+		.select2-selection__arrow b {
+			transform: rotate(180deg);
+		}
 	}
 
-	.select2-choice {
+	&.select2-selection--single {
 		background-image: none;
 		border-radius: 3px;
 		border: 1px solid #ccc;
+		overflow: hidden;
 
-		> .select2-chosen {
+		> .select2-selection__rendered {
 			white-space: normal;
 		}
 
-		.select2-arrow {
+		.select2-selection__arrow {
 			background-image: none;
 			background: transparent;
 			border-left: 0;
-		}
+			top: 2px;
+			width: 26px;
 
-		div {
-			background-image: none;
-			background: none;
-			border-left: 0;
+			b {
+				background: #fff url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E') no-repeat right 5px top 55%;
+				background-size: auto;
+				background-size: 16px 16px;
+				border: 0;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				display: block;
+				width: auto;
+				height: auto;
+				margin: 0;
+				padding: 0;
+			}
 		}
 	}
 
-	&.select2-container-multi {
-
-		.select2-choices {
+	.select2-selection--multiple {
+		.select2-selection__rendered {
 			background-image: none;
 			border-radius: 3px;
 			border: 1px solid #ccc;
 			min-height: 25px;
 
-			.select2-search-field {
+			.select2-search--inline {
 				line-height: 25px;
 
 				input {
@@ -1493,7 +1535,7 @@ a.tribe-rating-link {
 				}
 			}
 
-			.select2-search-choice {
+			.select2-selection__choice {
 				margin-top: 2px;
 				padding-top: 0;
 				padding-bottom: 0;
@@ -1504,7 +1546,7 @@ a.tribe-rating-link {
 				}
 			}
 
-			.select2-search-choice-close {
+			.select2-selection__choice__remove {
 				top: 3px;
 				left: 4px;
 				transition-property: border,color;
@@ -1515,40 +1557,22 @@ a.tribe-rating-link {
 
 .select2-results {
 
-	.select2-selected {
-		display: block;
+	.select2-results__option {
+		color: #939393;
+		font-weight: normal;
+		margin-bottom: 0;
 
-		> .select2-result-label {
-			background-color: #efefef;
-			color: #a1a1a1;
-			cursor: default;
+		&[aria-disabled="true"] {
+			background-color: #e0e0e0;
 		}
 	}
 
-	li.select2-result-with-children {
 
-		> .select2-result-label {
-			font-weight: normal;
-		}
-
-		&.select2-selected {
-			display: block;
-
-			.select2-result {
-				display: block;
-			}
-
-			> .select2-result-label {
-				background-color: #efefef;
-				color: #a1a1a1;
-				cursor: default;
-			}
-		}
-
-		&.select2-result-unselectable > .select2-result-label {
-			color: #939393;
-			font-weight: normal;
-		}
+	&.select2-results__option--highlighted {
+		background-color: #efefef;
+		color: #a1a1a1;
+		cursor: default;
+		display: block;
 	}
 }
 
@@ -1609,10 +1633,8 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .ticket_form {
 
 	.select2-container {
-
-		.select2-choice {
-
-			.select2-arrow {
+		.select2-selection--single {
+			.select2-selection__arrow {
 				display: none;
 			}
 		}

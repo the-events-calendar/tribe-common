@@ -192,8 +192,8 @@ class Tribe__Main {
 				[ 'tribe-query-string', 'utils/query-string.js' ],
 				[ 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
-				[ 'tribe-select2', 'vendor/tribe-select2/select2.js', [ 'jquery' ] ],
-				[ 'tribe-select2-css', 'vendor/tribe-select2/select2.css' ],
+				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
+				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
 				[ 'tribe-utils-camelcase', 'utils-camelcase.js', [ 'underscore' ] ],
 				[ 'tribe-moment', 'vendor/momentjs/moment.js' ],
 				[ 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', [ 'jquery' ] ],
@@ -224,6 +224,7 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			[
+				[ 'tribe-ui', 'tribe-ui.css' ],
 				[ 'tribe-buttonset', 'buttonset.js', [ 'jquery', 'underscore' ] ],
 				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
 				[ 'tribe-validation', 'validation.js', [ 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ] ],

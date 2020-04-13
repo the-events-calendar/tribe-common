@@ -35,6 +35,8 @@
   "vendor/lucatume/di52/src/**",
   "vendor/momentjs/*.min.js",
   "vendor/faction23/a11y-dialog/*.min.js",
+  "vendor/tribe-selectWoo/dist/css/*.css",
+  "vendor/tribe-selectWoo/dist/js/*.js",
   "vendor/tribe-select2/*.css",
   "vendor/tribe-select2/*.gif",
   "vendor/tribe-select2/*.min.js",
