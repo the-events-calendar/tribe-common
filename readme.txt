@@ -5,11 +5,12 @@
 = [4.12.0] TBD =
 
 * Fix - Clear the views HTML cache on language settings changes to ensure we don't mix up translated strings. [TEC-3326]
+* Fix - Blocks editor CSS compatibility with WordPress 5.4 with new module classes: `.block-editor-inner-blocks`
+* Fix - Add style override for <ul> in Divi due to theme use of IDs. [TEC-3235]
+* Fix - Change text domain loading to occur on 'init' hook instead of 'plugins_loaded'. Added new `tribe_load_text_domains` action hook for our other plugins to use for their own text domain loading on 'init' as well. [TCMN-58]
+* Tweak - Added a method that returns whether the events are being served through Blocks or the Classical Editor. [ETP-234]
 * Tweak - Added homepage settings to system information.
 * Tweak - Add the `tribe_template_done` filter to be able to disable a template before rendering. [TEC-3385]
-* Fix - Blocks editor CSS compatibility with WordPress 5.4 with new module classes: `.block-editor-inner-blocks`
-* Fix - Add style override for <ul> in Divi due to theme use of IDs [TEC-3235]
-* Fix - Change text domain loading to occur on 'init' hook instead of 'plugins_loaded'. Added new `tribe_load_text_domains` action hook for our other plugins to use for their own text domain loading on 'init' as well. [TCMN-58]
 
 = [4.11.5.1] 2020-03-23 =
 
