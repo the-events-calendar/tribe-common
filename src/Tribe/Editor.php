@@ -31,7 +31,18 @@ class Tribe__Editor {
 		$blocks    = $this->is_blocks_editor_active();
 		$classic   = $this->is_classic_plugin_active() || $this->is_classic_option_active();
 
-		return $gutenberg && $blocks && ! $classic;
+		$should_load_blocks = $gutenberg && $blocks && ! $classic;
+
+		/**
+		 * Filters whether the Blocks Editor should be activated or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $should_load_blocks Whether the blocks editor should be activated or not.
+		 */
+		$should_load_blocks = (bool) apply_filters( 'tribe_editor_should_load_blocks', $should_load_blocks );
+
+		return $should_load_blocks;
 	}
 
 	/**
