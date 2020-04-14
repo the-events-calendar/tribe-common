@@ -29,7 +29,7 @@ class Tribe__Rewrite {
 	/**
 	 * A delimiter used to separate  a localized matcher from its base in the format `<loc_matcher><delim><base>`.
 	 *
-	 * @since TBD
+	 * @since 4.11.5
 	 *
 	 * @var string
 	 */

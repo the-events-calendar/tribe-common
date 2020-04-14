@@ -2,10 +2,30 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.12.0] TBD =
 
-* Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
+* Fix - Clear the views HTML cache on language settings changes to ensure we don't mix up translated strings. [TEC-3326]
+* Fix - Blocks editor CSS compatibility with WordPress 5.4 with new module classes: `.block-editor-inner-blocks`
+* Fix - Add style override for <ul> in Divi due to theme use of IDs. [TEC-3235]
+* Fix - Change text domain loading to occur on 'init' hook instead of 'plugins_loaded'. Added new `tribe_load_text_domains` action hook for our other plugins to use for their own text domain loading on 'init' as well. [TCMN-58]
+* Tweak - Added a method that returns whether the events are being served through Blocks or the Classical Editor. [ETP-234]
+* Tweak - Added homepage settings to system information.
+* Tweak - Add the `tribe_template_done` filter to be able to disable a template before rendering. [TEC-3385]
+
+= [4.11.5.1] 2020-03-23 =
+
+* Fix - Assets class modification to prevent JavaScript and CSS failing to load when `SCRIPT_DEBUG=true` [TCMN-52]
+
+= [4.11.5] 2020-03-23 =
+
+* Tweak - Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
 * Tweak - Allow uploads of images with a large size and images with no extension provided from the URL, as the extension from the URL was used to define the type of the file to be uploaded and when the extension was not present on the URL the file was considered invalid. [TCMN-46]
+* Tweak - Expired transient garbage collector will only run once per request and when needed [TCMN-38]
+* Language - 2 new strings added, 0 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.11.4] 2020-03-18 =
+
+* Fix - Increase range of actions that trigger changes on Promoter with a `WP_Post` instance or using an ID. [TCMN-47]
 
 = [4.11.3] 2020-02-26 =
 
