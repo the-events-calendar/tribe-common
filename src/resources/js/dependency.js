@@ -160,12 +160,12 @@
 			}
 
 			if ( passes && ! isDisabled ) {
-				if ( $dependent.data( 'select2' ) ) {
-					$dependent.data( 'select2' ).container.addClass( activeClass );
+				if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
+					$dependent.select2().data( 'select2' ).$container.addClass( activeClass );
 
 					// ideally the class should be enough, but just in case...
-					if ( $dependent.data( 'select2' ).container.is( ':hidden' ) ) {
-						$dependent.data( 'select2' ).container.show();
+					if ( $dependent.select2().data( 'select2' ).$container.is( ':hidden' ) ) {
+						$dependent.select2().data( 'select2' ).$container.show();
 					}
 				} else {
 					$dependent.addClass( activeClass );
@@ -183,7 +183,7 @@
 				$dependent.find( obj.selectors.fields ).prop( 'disabled', false );
 
 				if ( 'undefined' !== typeof $().select2 ) {
-					$dependent.find( '.select2-container' ).select2( 'enable', true );
+					$dependent.find( '.tribe-dropdown, .tribe-ea-dropdown' ).select2().prop( 'disabled', false );
 				}
 			} else {
 				$dependent.removeClass( activeClass );
@@ -198,11 +198,11 @@
 				}
 
 				if ( 'undefined' !== typeof $().select2 ) {
-					$dependent.find( '.select2-container' ).select2( 'enable', false );
+					$dependent.find( '.tribe-dropdown, .tribe-ea-dropdown' ).select2().prop( 'disabled', true );
 				}
 
-				if ( $dependent.data( 'select2' ) ) {
-					$dependent.data( 'select2' ).container.removeClass( activeClass );
+				if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
+					$dependent.select2().data( 'select2' ).$container.removeClass( activeClass );
 				}
 
 				// When we have a flag to always display the field we display when disabled
@@ -210,8 +210,8 @@
 					$dependent.addClass( activeClass ).show();
 					$dependent.filter( obj.selectors.fields ).prop( 'disabled', true );
 
-					if ( $dependent.data( 'select2' ) ) {
-						$dependent.data( 'select2' ).container.addClass( activeClass ).show();
+					if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
+						$dependent.select2().data( 'select2' ).$container.addClass( activeClass ).show();
 					}
 				}
 			}
