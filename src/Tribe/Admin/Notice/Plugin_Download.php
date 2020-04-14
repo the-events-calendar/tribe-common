@@ -121,7 +121,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 
 		$notice_html_content = '<p>' . esc_html__( 'To begin using %2$s, please install and activate %3$s.', 'tribe-common' ) . '</p>';
 
-		$read_more_link = '<a href="http://m.tri.be/1aev" target="_blank">' . esc_html__( 'Read more.', 'tribe-common' ) . '</a>';
+		$read_more_link = '<a href="http://m.tri.be/1aev" target="_blank">' . esc_html__( 'Read more', 'tribe-common' ) . '.</a>';
 		$pue_notice_text = esc_html__( 'There’s a new version of %1$s available, but your license is expired. You’ll need to renew your license to get access to the latest version. If you plan to continue using your current version of the plugin(s), be sure to use a compatible version of The Events Calendar. %2$s', 'tribe-common' );
 		$pue_notice_html = '<p>' . sprintf( $pue_notice_text, $plugin_names_clean_text, $read_more_link ) . '</p>';
 
