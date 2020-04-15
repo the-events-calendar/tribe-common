@@ -216,7 +216,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		 * @param  array  $default_arguments   Current set of default arguments.
 		 * @param  static $instance            Which instance of shortcode we are dealing with.
 		 */
-		$default_arguments = apply_filters( "tribe_shortcode_{$registration_slug}_default_arguments", $this->default_arguments, $this );
+		$default_arguments = apply_filters( "tribe_shortcode_{$registration_slug}_default_arguments", $default_arguments, $this );
 
 		return $default_arguments;
 	}
