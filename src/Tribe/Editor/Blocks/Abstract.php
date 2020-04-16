@@ -209,7 +209,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return array<string,mixed> The block editor data.
 	 */
 	public function block_data() {
 		$block_data = [
@@ -239,4 +239,3 @@ implements Tribe__Editor__Blocks__Interface {
 		return $block_data;
 	}
 }
-
