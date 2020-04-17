@@ -44,7 +44,7 @@ class Manager {
 	 *
 	 * @param  string $slug Which slug we are checking if is registered.
 	 *
-	 * @return bool
+	 * @return bool Whether a shortcode is registered or not.
 	 */
 	public function is_shortcode_registered( $slug ) {
 		$registered_shortcodes = $this->get_registered_shortcodes();
