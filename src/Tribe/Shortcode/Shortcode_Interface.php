@@ -90,7 +90,7 @@ interface Shortcode_Interface {
 	public function get_arguments();
 
 	/**
-	 * Returns a shortcode argument after been parsed.
+	 * Returns a shortcode argument after it has been parsed.
 	 *
 	 * @uses  Tribe__Utils__Array::get For index fetching and Default.
 	 *
