@@ -90,7 +90,7 @@ class Manager {
 	 * @param string $content   Contents passed to the shortcode, inside of the open and close brackets.
 	 * @param string $shortcode Which shortcode tag are we handling here.
 	 *
-	 * @return string
+	 * @return string The rendered shortcode HTML.
 	 */
 	public function handle( $arguments, $content, $shortcode ) {
 		$registered_shortcodes = $this->get_registered_shortcodes();
