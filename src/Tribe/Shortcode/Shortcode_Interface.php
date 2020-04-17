@@ -47,7 +47,7 @@ interface Shortcode_Interface {
 	 *
 	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
 	 *
-	 * @return array
+	 * @return array<string,mixed> The parsed shortcode arguments map.
 	 */
 	public function parse_arguments( $arguments );
 
