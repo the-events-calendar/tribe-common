@@ -30,7 +30,7 @@ class Manager {
 		 *
 		 * @since  TBD
 		 *
-		 * @var array An associative array of shortcodes in the shape `[ <slug> => <class> ]`
+		 * @var array An associative array of shortcodes in the shape `[ <slug> => <class> ]`.
 		 */
 		$shortcodes = apply_filters( 'tribe_shortcodes', $shortcodes );
 
