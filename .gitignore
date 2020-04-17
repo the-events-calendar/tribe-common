@@ -8,6 +8,8 @@ tests/*.suite.yml
 phpunit.xml
 .env.local
 .env.*.local
+codeception.tric.yml
+.env.testing.tric
 
 # Tests - local output files
 tests/_output
