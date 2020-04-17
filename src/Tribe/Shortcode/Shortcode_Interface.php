@@ -45,7 +45,7 @@ interface Shortcode_Interface {
 	 *
 	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
 	 *
-	 * @return array
+	 * @return array<string,mixed> The parsed shortcode arguments map.
 	 */
 	public function parse_arguments( $arguments );
 
@@ -56,7 +56,7 @@ interface Shortcode_Interface {
 	 *
 	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
 	 *
-	 * @return array
+	 * @return array<string,mixed> The validated shortcode arguments map.
 	 */
 	public function validate_arguments( $arguments );
 
@@ -65,7 +65,7 @@ interface Shortcode_Interface {
 	 *
 	 * @since  TBD
 	 *
-	 * @return array
+	 * @return array<string,mixed> A map of the shortcode arguments that have survived validation.
 	 */
 	public function get_validated_arguments_map();
 
@@ -74,7 +74,7 @@ interface Shortcode_Interface {
 	 *
 	 * @since  TBD
 	 *
-	 * @return array
+	 * @return array<string,mixed> The shortcode default arguments map.
 	 */
 	public function get_default_arguments();
 
