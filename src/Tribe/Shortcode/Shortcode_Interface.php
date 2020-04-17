@@ -85,7 +85,7 @@ interface Shortcode_Interface {
 	 *
 	 * @since  TBD
 	 *
-	 * @return array
+	 * @return array<string,mixed> The shortcode arguments, as set by the user in the shortcode string.
 	 */
 	public function get_arguments();
 
