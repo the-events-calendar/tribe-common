@@ -10,7 +10,7 @@ use Tribe\Shortcode\Manager;
  *
  * @package Tribe\Service_Providers
  */
-class Shortcode extends \tad_DI52_ServiceProvider {
+class Shortcodes extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.
