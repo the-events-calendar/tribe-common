@@ -58,7 +58,7 @@ class Manager {
 	 *
 	 * @param  string $class_name Which class name we are checking if is registered.
 	 *
-	 * @return bool
+	 * @return bool Whether a shortcode is registered, by class.
 	 */
 	public function is_shortcode_registered_by_class( $class_name ) {
 		$registered_shortcodes = $this->get_registered_shortcodes();
