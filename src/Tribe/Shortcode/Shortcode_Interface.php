@@ -76,7 +76,7 @@ interface Shortcode_Interface {
 	 *
 	 * @since  TBD
 	 *
-	 * @return array
+	 * @return array<string,mixed> The shortcode default arguments map.
 	 */
 	public function get_default_arguments();
 
