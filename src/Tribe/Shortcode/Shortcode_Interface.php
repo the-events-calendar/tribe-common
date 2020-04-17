@@ -67,7 +67,7 @@ interface Shortcode_Interface {
 	 *
 	 * @since  TBD
 	 *
-	 * @return array
+	 * @return array<string,mixed> A map of the shortcode arguments that have survived validation.
 	 */
 	public function get_validate_arguments_map();
 
