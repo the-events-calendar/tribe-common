@@ -49,7 +49,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Registers the provider handling all the assets for this service provider.
+	 * Register all the assets associated with this service provider.
 	 *
 	 * @since TBD
 	 */
