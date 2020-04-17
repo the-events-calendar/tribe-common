@@ -69,8 +69,6 @@ class Manager {
 	 * Add new shortcodes handler to catch the correct strings.
 	 *
 	 * @since  TBD
-	 *
-	 * @return void
 	 */
 	public function add_shortcodes() {
 		$registered_shortcodes = $this->get_registered_shortcodes();
