@@ -108,7 +108,7 @@ interface Shortcode_Interface {
 	 *
 	 * @since  TBD
 	 *
-	 * @return string
+	 * @return string The shortcode rendered HTML code.
 	 */
 	public function get_html();
 }
