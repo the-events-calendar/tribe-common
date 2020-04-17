@@ -101,7 +101,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_validate_arguments_map() {
+	public function get_validated_arguments_map() {
 		/**
 		 * Applies a filter to instance arguments validation callbacks.
 		 *
