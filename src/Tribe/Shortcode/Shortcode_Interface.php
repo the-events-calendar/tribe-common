@@ -35,8 +35,6 @@ interface Shortcode_Interface {
 	 *
 	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
 	 * @param string $content   Contents passed to the shortcode, inside of the open and close brackets.
-	 *
-	 * @return void
 	 */
 	public function setup( $arguments, $content );
 
@@ -69,7 +67,7 @@ interface Shortcode_Interface {
 	 *
 	 * @return array
 	 */
-	public function get_validate_arguments_map();
+	public function get_validated_arguments_map();
 
 	/**
 	 * Returns a shortcode default arguments.
@@ -99,7 +97,7 @@ interface Shortcode_Interface {
 	 * @param array  $index   Which index we indent to fetch from the arguments.
 	 * @param array  $default Default value if it doesnt exist.
 	 *
-	 * @return array
+	 * @return mixed  Value for the Index passed as the first argument.
 	 */
 	public function get_argument( $index, $default = null );
 

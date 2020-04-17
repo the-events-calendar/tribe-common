@@ -75,7 +75,7 @@ class Manager {
 
 		// Add to WordPress all of the registered Shortcodes
 		foreach ( $registered_shortcodes as $shortcode => $class_name ) {
-			add_shortcode( $shortcode, [ $this, 'handle' ] );
+			add_shortcode( $shortcode, [ $this, 'render_shortcode' ] );
 		}
 	}
 
@@ -90,7 +90,7 @@ class Manager {
 	 *
 	 * @return string The rendered shortcode HTML.
 	 */
-	public function handle( $arguments, $content, $shortcode ) {
+	public function render_shortcode( $arguments, $content, $shortcode ) {
 		$registered_shortcodes = $this->get_registered_shortcodes();
 
 		// Bail when we try to handle an unregistered shortcode (shouldn't happen)
@@ -98,6 +98,7 @@ class Manager {
 			return false;
 		}
 
+		/** @var Shortcode_Interface $instance */
 		$instance = new $registered_shortcodes[ $shortcode ];
 		$instance->setup( $arguments, $content );
 
