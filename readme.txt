@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.11.6.0] 2020-04-20 =
+
+* Feature - Added a helper method to check if a given plugin is active. Usually a Modern Tribe plugin.
+
 = [4.11.5.1] 2020-03-23 =
 
 * Fix - Assets class modification to prevent JavaScript and CSS failing to load when `SCRIPT_DEBUG=true` [TCMN-52]
