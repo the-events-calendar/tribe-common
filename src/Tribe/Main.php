@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.11.6';
+	const VERSION             = '4.12.0';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -629,6 +629,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
 		tribe_register_provider( Tribe\Service_Providers\PUE::class );
+		tribe_register_provider( Tribe\Service_Providers\Shortcodes::class );
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 	}
 

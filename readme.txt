@@ -4,6 +4,7 @@
 
 = [4.12.0] TBD =
 
+* Feature - Management of Shortcodes now are fully controlled by Common Manager classes [TCMN-56]
 * Fix - Clear the views HTML cache on language settings changes to ensure we don't mix up translated strings. [TEC-3326]
 * Fix - Blocks editor CSS compatibility with WordPress 5.4 with new module classes: `.block-editor-inner-blocks`
 * Fix - Add style override for <ul> in Divi due to theme use of IDs. [TEC-3235]

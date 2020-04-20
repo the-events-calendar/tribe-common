@@ -8,6 +8,8 @@ tests/*.suite.yml
 phpunit.xml
 .env.local
 .env.*.local
+codeception.tric.yml
+.env.testing.tric
 
 # Tests - local output files
 tests/_output
@@ -39,3 +41,7 @@ src/resources/js/**/*.min.js
 # get from translate.wordpress.org as needed
 lang/*.po
 lang/*.mo
+
+# tric files
+*.tric
+*.tric.*
