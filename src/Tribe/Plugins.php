@@ -138,7 +138,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @since TBD
 		 *
-		 * @return bool|null True if plugin is active. False if plugin is not active. Null if called incorrectly.
+		 * @return bool True if plugin is active. False if plugin is not active.
 		 */
 		public static function is_active( $plugin_name ) {
 			if ( ! did_action( "plugins_loaded" ) ) {
