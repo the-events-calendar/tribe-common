@@ -184,6 +184,17 @@ class Tribe__Template {
 	}
 
 	/**
+	 * Gets in this instance of the template engine whether we are looking public folders like themes.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool If we are looking into theme folders
+	 */
+	public function get_template_folder_lookup() {
+		return $this->template_folder_lookup;
+	}
+
+	/**
 	 * Configures the class global context
 	 *
 	 * @since  4.6.2
@@ -545,7 +556,7 @@ class Tribe__Template {
 			}
 		}
 
-		if ( $this->template_folder_lookup ) {
+		if ( $this->get_template_folder_lookup() ) {
 			$theme_folders = $this->get_template_theme_path_list( $namespace );
 
 			foreach ( $theme_folders as $folder ) {
@@ -562,6 +573,7 @@ class Tribe__Template {
 				// Skip non-existent files
 				if ( file_exists( $file ) ) {
 					$found_file = $file;
+					break;
 				}
 			}
 		}
