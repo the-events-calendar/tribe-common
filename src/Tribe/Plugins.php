@@ -150,7 +150,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			}
 
 			/**
-			 * The array that each Tribe plugin overrides to
+			 * Filters the array that each Tribe plugin overrides to
 			 * set itself as active when this function is called.
 			 *
 			 * @example [ 'the-events-calendar' => true, 'event-tickets' => true ]
