@@ -161,7 +161,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			 */
 			$plugins = apply_filters( 'tribe_active_plugins', [] );
 
-			return isset( $plugins[ $plugin_name ] ) && $plugins[ $plugin_name ];
+			return isset( $plugins[ $plugin_name ] ) && tribe_is_truthy( $plugins[ $plugin_name ] );
 		}
 	}
 }
