@@ -272,7 +272,7 @@ class Tribe__Main {
 	 *
 	 * Make sure this fires on 'init', per WordPress best practices.
 	 *
-	 * @since TBD
+	 * @since 4.12.0
 	 *
 	 * @return bool
 	 */
@@ -287,7 +287,7 @@ class Tribe__Main {
 		 *
 		 * Load other plugin text domains on this hook, but make sure they're setup on this hook prior to 'init'.
 		 *
-		 * @since TBD
+		 * @since 4.12.0
 		 *
 		 * @param bool $loaded Whether or not Common's text domain was loaded.
 		 *

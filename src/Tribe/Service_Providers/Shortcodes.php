@@ -6,7 +6,7 @@ use Tribe\Shortcode\Manager;
 /**
  * Class Shortcode
  *
- * @since   TBD
+ * @since   4.12.0
  *
  * @package Tribe\Service_Providers
  */
@@ -15,7 +15,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.12.0
 	 */
 	public function register() {
 		if ( static::is_active() ) {
@@ -33,7 +33,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	/**
 	 * Static method wrapper around a filter to allow full deactivation of this provider
 	 *
-	 * @since TBD
+	 * @since 4.12.0
 	 *
 	 * @return boolean If this service provider is active.
 	 */
@@ -41,7 +41,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allows filtering to deactivate all shortcodes loading.
 		 *
-		 * @since TBD
+		 * @since 4.12.0
 		 *
 		 * @param boolean $is_active If shortcodes should be loaded or not.
 		 */
@@ -51,7 +51,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register all the assets associated with this service provider.
 	 *
-	 * @since TBD
+	 * @since 4.12.0
 	 */
 	protected function register_assets() {
 
@@ -60,7 +60,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the provider handling all the 1st level filters and actions for this service provider.
 	 *
-	 * @since TBD
+	 * @since 4.12.0
 	 */
 	protected function register_hooks() {
 		add_action( 'init', [ $this, 'action_add_shortcodes' ], 20 );
@@ -72,7 +72,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	 *
 	 * It's important to leave gaps on priority for better injection.
 	 *
-	 * @since TBD
+	 * @since 4.12.0
 	 */
 	public function action_add_shortcodes() {
 		$this->container->make( Manager::class )->add_shortcodes();

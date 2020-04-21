@@ -604,7 +604,7 @@ class Tribe__Template {
 		/**
 		 * Allow users to disable templates before rendering it by returning empty string.
 		 *
-		 * @since  TBD
+		 * @since  4.12.0
 		 *
 		 * @param string  null     Whether to continue displaying the template or not.
 		 * @param array   $name    Template name.
