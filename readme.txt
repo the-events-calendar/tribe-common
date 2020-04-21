@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.0] TBD =
+= [4.12.0] 2020-04-22 =
 
 * Feature - Management of Shortcodes now are fully controlled by Common Manager classes [TCMN-56]
 * Fix - Clear the views HTML cache on language settings changes to ensure we don't mix up translated strings. [TEC-3326]
@@ -12,6 +12,7 @@
 * Tweak - Added a method that returns whether the events are being served through Blocks or the Classical Editor. [ETP-234]
 * Tweak - Added homepage settings to system information.
 * Tweak - Add the `tribe_template_done` filter to be able to disable a template before rendering. [TEC-3385]
+* Language - 0 new strings added, 38 updated, 2 fuzzied, and 1 obsoleted
 
 = [4.11.5.1] 2020-03-23 =
 
