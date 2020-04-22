@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.0] 2020-04-22 =
+= [4.12.0] 2020-04-23 =
 
 * Feature - Management of Shortcodes now are fully controlled by Common Manager classes [TCMN-56]
 * Fix - Prevent Blocks editor from throwing browser alert when leaving the page without any changes applied to the edited post.
