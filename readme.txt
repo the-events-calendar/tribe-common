@@ -5,6 +5,7 @@
 = [4.12.0] 2020-04-22 =
 
 * Feature - Management of Shortcodes now are fully controlled by Common Manager classes [TCMN-56]
+* Fix - Prevent Blocks editor from throwing browser alert when leaving the page without any changes applied to the edited post.
 * Fix - Clear the views HTML cache on language settings changes to ensure we don't mix up translated strings. [TEC-3326]
 * Fix - Blocks editor CSS compatibility with WordPress 5.4 with new module classes: `.block-editor-inner-blocks`
 * Fix - Add style override for <ul> in Divi due to theme use of IDs. [TEC-3235]
@@ -12,6 +13,8 @@
 * Tweak - Added a method that returns whether the events are being served through Blocks or the Classical Editor. [ETP-234]
 * Tweak - Added homepage settings to system information.
 * Tweak - Add the `tribe_template_done` filter to be able to disable a template before rendering. [TEC-3385]
+* Tweak - Improved on meta data handling of for Blocks editor.
+* Tweak - Deprecate Select2 3.5.4 in favor of SelectWoo
 * Language - 0 new strings added, 38 updated, 2 fuzzied, and 1 obsoleted
 
 = [4.11.5.1] 2020-03-23 =
