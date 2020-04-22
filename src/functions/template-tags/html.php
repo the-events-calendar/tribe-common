@@ -68,7 +68,7 @@ function tribe_required_label( $required, $echo = true ) {
 	if ( $required ) {
 		$required_string = '<span class="screen-reader-text">'
 			. esc_html_x( '(required)', 'The associated field is required.', 'tribe-common' )
-			. '</span><span class="tribe-required" aria-hidden=”true” role=”presentation”>*</span>';
+			. '</span><span class="tribe-required" aria-hidden="true" role="presentation">*</span>';
 
 		if ( ! $echo ) {
 			return $required_string;
