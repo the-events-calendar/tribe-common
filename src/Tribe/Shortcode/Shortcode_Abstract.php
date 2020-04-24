@@ -2,7 +2,7 @@
 /**
  * The abstract all shortcodes should implement.
  *
- * @since  TBD
+ * @since  4.12.0
  *
  * @package Tribe\Shortcode
  */
@@ -13,7 +13,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Interface Shortcode_Interface
  *
- * @since   TBD
+ * @since   4.12.0
  *
  * @package Tribe\Shortcode
  */
@@ -21,7 +21,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	/**
 	 * Slug of the current shortcode.
 	 *
-	 * @since   TBD
+	 * @since   4.12.0
 	 *
 	 * @var   string
 	 */
@@ -30,7 +30,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	/**
 	 * Default arguments to be merged into final arguments of the shortcode.
 	 *
-	 * @since   TBD
+	 * @since   4.12.0
 	 *
 	 * @var   array
 	 */
@@ -39,7 +39,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	/**
 	 * Array of callbacks for arguments validation
 	 *
-	 * @since   TBD
+	 * @since   4.12.0
 	 *
 	 * @var   array
 	 */
@@ -48,7 +48,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	/**
 	 * Arguments of the current shortcode.
 	 *
-	 * @since   TBD
+	 * @since   4.12.0
 	 *
 	 * @var   array
 	 */
@@ -57,7 +57,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	/**
 	 * Content of the current shortcode.
 	 *
-	 * @since   TBD
+	 * @since   4.12.0
 	 *
 	 * @var   string
 	 */
@@ -105,7 +105,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		/**
 		 * Applies a filter to instance arguments validation callbacks.
 		 *
-		 * @since   TBD
+		 * @since   4.12.0
 		 *
 		 * @param  array  $validate_arguments_map   Current set of callbacks for arguments.
 		 * @param  static $instance                 Which instance of shortcode we are dealing with.
@@ -117,7 +117,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		/**
 		 * Applies a filter to instance arguments validation callbacks based on the registration slug of the shortcode.
 		 *
-		 * @since   TBD
+		 * @since   4.12.0
 		 *
 		 * @param  array  $validate_arguments_map   Current set of callbacks for arguments.
 		 * @param  static $instance                 Which instance of shortcode we are dealing with.
@@ -134,7 +134,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		/**
 		 * Applies a filter to instance arguments.
 		 *
-		 * @since   TBD
+		 * @since   4.12.0
 		 *
 		 * @param  array  $arguments  Current set of arguments.
 		 * @param  static $instance   Which instance of shortcode we are dealing with.
@@ -146,7 +146,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		/**
 		 * Applies a filter to instance arguments based on the registration slug of the shortcode.
 		 *
-		 * @since   TBD
+		 * @since   4.12.0
 		 *
 		 * @param  array  $arguments   Current set of arguments.
 		 * @param  static $instance    Which instance of shortcode we are dealing with.
@@ -166,7 +166,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		/**
 		 * Applies a filter to a specific shortcode argument, catch all for all shortcodes..
 		 *
-		 * @since   TBD
+		 * @since   4.12.0
 		 *
 		 * @param  mixed  $argument   The argument.
 		 * @param  array  $index      Which index we indent to fetch from the arguments.
@@ -180,7 +180,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		/**
 		 * Applies a filter to a specific shortcode argument, to a particular registration slug.
 		 *
-		 * @since   TBD
+		 * @since   4.12.0
 		 *
 		 * @param  mixed  $argument   The argument value.
 		 * @param  array  $index      Which index we indent to fetch from the arguments.
@@ -199,7 +199,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		/**
 		 * Applies a filter to instance default arguments.
 		 *
-		 * @since   TBD
+		 * @since   4.12.0
 		 *
 		 * @param  array  $default_arguments  Current set of default arguments.
 		 * @param  static $instance           Which instance of shortcode we are dealing with.
@@ -211,7 +211,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		/**
 		 * Applies a filter to instance default arguments based on the registration slug of the shortcode.
 		 *
-		 * @since   TBD
+		 * @since   4.12.0
 		 *
 		 * @param  array  $default_arguments   Current set of default arguments.
 		 * @param  static $instance            Which instance of shortcode we are dealing with.

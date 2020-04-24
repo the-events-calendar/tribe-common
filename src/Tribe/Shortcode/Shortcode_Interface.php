@@ -2,7 +2,7 @@
 /**
  * The interface all shortcodes should implement.
  *
- * @since   TBD
+ * @since   4.12.0
  *
  * @package Tribe\Shortcode
  */
@@ -11,7 +11,7 @@ namespace Tribe\Shortcode;
 /**
  * Interface Shortcode_Interface
  *
- * @since   TBD
+ * @since   4.12.0
  *
  * @package Tribe\Shortcode
  */
@@ -22,7 +22,7 @@ interface Shortcode_Interface {
 	 *
 	 * The slug should be the one that will allow the shortcode to be built by the shortcode class by slug.
 	 *
-	 * @since  TBD
+	 * @since  4.12.0
 	 *
 	 * @return string The shortcode slug.
 	 */
@@ -31,7 +31,7 @@ interface Shortcode_Interface {
 	/**
 	 * Configures the base variables for an instance of shortcode.
 	 *
-	 * @since  TBD
+	 * @since  4.12.0
 	 *
 	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
 	 * @param string $content   Contents passed to the shortcode, inside of the open and close brackets.
@@ -41,7 +41,7 @@ interface Shortcode_Interface {
 	/**
 	 * Returns the arguments for the shortcode parsed correctly with defaults applied.
 	 *
-	 * @since  TBD
+	 * @since  4.12.0
 	 *
 	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
 	 *
@@ -52,7 +52,7 @@ interface Shortcode_Interface {
 	/**
 	 * Returns the array of arguments for this shortcode after applying the validation callbacks.
 	 *
-	 * @since  TBD
+	 * @since  4.12.0
 	 *
 	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
 	 *
@@ -63,7 +63,7 @@ interface Shortcode_Interface {
 	/**
 	 * Returns the array of callbacks for this shortcode's arguments.
 	 *
-	 * @since  TBD
+	 * @since  4.12.0
 	 *
 	 * @return array<string,mixed> A map of the shortcode arguments that have survived validation.
 	 */
@@ -72,7 +72,7 @@ interface Shortcode_Interface {
 	/**
 	 * Returns a shortcode default arguments.
 	 *
-	 * @since  TBD
+	 * @since  4.12.0
 	 *
 	 * @return array<string,mixed> The shortcode default arguments map.
 	 */
@@ -81,7 +81,7 @@ interface Shortcode_Interface {
 	/**
 	 * Returns a shortcode arguments after been parsed.
 	 *
-	 * @since  TBD
+	 * @since  4.12.0
 	 *
 	 * @return array<string,mixed> The shortcode arguments, as set by the user in the shortcode string.
 	 */
@@ -92,7 +92,7 @@ interface Shortcode_Interface {
 	 *
 	 * @uses  Tribe__Utils__Array::get For index fetching and Default.
 	 *
-	 * @since  TBD
+	 * @since  4.12.0
 	 *
 	 * @param array  $index   Which index we indent to fetch from the arguments.
 	 * @param array  $default Default value if it doesnt exist.
@@ -104,7 +104,7 @@ interface Shortcode_Interface {
 	/**
 	 * Returns a shortcode HTML code.
 	 *
-	 * @since  TBD
+	 * @since  4.12.0
 	 *
 	 * @return string The shortcode rendered HTML code.
 	 */

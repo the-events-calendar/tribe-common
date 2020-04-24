@@ -207,7 +207,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/**
 	 * Returns the block data for the block editor.
 	 *
-	 * @since TBD
+	 * @since 4.12.0
 	 *
 	 * @return array<string,mixed> The block editor data.
 	 */
@@ -219,7 +219,7 @@ implements Tribe__Editor__Blocks__Interface {
 		/**
 		 * Filters the block data.
 		 *
-		 * @since TBD
+		 * @since 4.12.0
 		 *
 		 * @param array  $block_data The block data.
 		 * @param object $this       The current object.
@@ -229,7 +229,7 @@ implements Tribe__Editor__Blocks__Interface {
 		/**
 		 * Filters the block data for the block.
 		 *
-		 * @since TBD
+		 * @since 4.12.0
 		 *
 		 * @param array  $block_data The block data.
 		 * @param object $this       The current object.

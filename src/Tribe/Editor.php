@@ -36,7 +36,7 @@ class Tribe__Editor {
 		/**
 		 * Filters whether the Blocks Editor should be activated or not.
 		 *
-		 * @since TBD
+		 * @since 4.12.0
 		 *
 		 * @param bool $should_load_blocks Whether the blocks editor should be activated or not.
 		 */
@@ -226,7 +226,7 @@ class Tribe__Editor {
 	/**
 	 * Whether the events are being served using Blocks or the Classical Editor.
 	 *
-	 * @since TBD
+	 * @since 4.12.0
 	 *
 	 * @return bool True if using Blocks. False if using the Classical Editor.
 	 */
@@ -235,7 +235,7 @@ class Tribe__Editor {
 		 * Whether the event is being served through blocks
 		 * or the classical editor.
 		 *
-		 * @since TBD
+		 * @since 4.12.0
 		 *
 		 * @param bool $is_using_blocks True if using blocks. False if using the classical editor.
 		 */
