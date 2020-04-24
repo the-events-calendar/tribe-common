@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.11.5.1';
+	const VERSION             = '4.12.0';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -95,8 +95,6 @@ class Tribe__Main {
 	 *
 	 */
 	public function plugins_loaded() {
-
-		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		$this->init_autoloading();
 
@@ -194,8 +192,8 @@ class Tribe__Main {
 				[ 'tribe-query-string', 'utils/query-string.js' ],
 				[ 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
-				[ 'tribe-select2', 'vendor/tribe-select2/select2.js', [ 'jquery' ] ],
-				[ 'tribe-select2-css', 'vendor/tribe-select2/select2.css' ],
+				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
+				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
 				[ 'tribe-utils-camelcase', 'utils-camelcase.js', [ 'underscore' ] ],
 				[ 'tribe-moment', 'vendor/momentjs/moment.js' ],
 				[ 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', [ 'jquery' ] ],
@@ -226,6 +224,7 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			[
+				[ 'tribe-ui', 'tribe-ui.css' ],
 				[ 'tribe-buttonset', 'buttonset.js', [ 'jquery', 'underscore' ] ],
 				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
 				[ 'tribe-validation', 'validation.js', [ 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ] ],
@@ -261,11 +260,42 @@ class Tribe__Main {
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [ $this, 'should_load_common_admin_css' ],
-				'priority' => 5,
+				'priority'     => 5,
 			]
 		);
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
+	}
+
+	/**
+	 * Load Common's text domain, then fire the hook for other plugins to do the same.
+	 *
+	 * Make sure this fires on 'init', per WordPress best practices.
+	 *
+	 * @since 4.12.0
+	 *
+	 * @return bool
+	 */
+	public function hook_load_text_domain() {
+		$loaded = $this->load_text_domain(
+			'tribe-common',
+			basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/'
+		);
+
+		/**
+		 * After attempting (hopefully successfully) to load Common's text domain.
+		 *
+		 * Load other plugin text domains on this hook, but make sure they're setup on this hook prior to 'init'.
+		 *
+		 * @since 4.12.0
+		 *
+		 * @param bool $loaded Whether or not Common's text domain was loaded.
+		 *
+		 * @return bool
+		 */
+		do_action( 'tribe_load_text_domains', $loaded );
+
+		return $loaded;
 	}
 
 	/**
@@ -331,6 +361,7 @@ class Tribe__Main {
 
 		// Register for the assets to be available everywhere
 		add_action( 'tribe_common_loaded', [ $this, 'load_assets' ], 1 );
+		add_action( 'init', [ $this, 'hook_load_text_domain' ] );
 		add_action( 'init', [ $this, 'load_localize_data' ] );
 		add_action( 'plugins_loaded', [ 'Tribe__Admin__Notices', 'instance' ], 1 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'store_admin_notices' ] );
@@ -410,7 +441,7 @@ class Tribe__Main {
 	 * @since  4.2   Included $domain and $dir params.
 	 *
 	 * @param string       $domain The text domain that will be loaded.
-	 * @param string|false $dir    What directory should be used to try to load if the default doesnt work.
+	 * @param string|false $dir    What directory should be used to try to load if the default doesn't work.
 	 *
 	 * @return bool  If it was able to load the text domain.
 	 */
@@ -598,6 +629,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
 		tribe_register_provider( Tribe\Service_Providers\PUE::class );
+		tribe_register_provider( Tribe\Service_Providers\Shortcodes::class );
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 	}
 

@@ -2,9 +2,25 @@
 
 == Changelog ==
 
-= [4.11.6.0] 2020-04-20 =
+= [4.12.1] 2020-04-20 =
 
 * Feature - Added a helper method to check if a given plugin is active. Usually a Modern Tribe plugin.
+
+= [4.12.0] 2020-04-23 =
+
+* Feature - Management of Shortcodes now are fully controlled by Common Manager classes [TCMN-56]
+* Fix - Prevent Blocks editor from throwing browser alert when leaving the page without any changes applied to the edited post.
+* Fix - Clear the views HTML cache on language settings changes to ensure we don't mix up translated strings. [TEC-3326]
+* Fix - Blocks editor CSS compatibility with WordPress 5.4 with new module classes: `.block-editor-inner-blocks`
+* Fix - Add style override for <ul> in Divi due to theme use of IDs. [TEC-3235]
+* Fix - Change text domain loading to occur on 'init' hook instead of 'plugins_loaded'. Added new `tribe_load_text_domains` action hook for our other plugins to use for their own text domain loading on 'init' as well. [TCMN-58]
+* Fix - Change curly quotes to straight quotes in some HTML markup when doing 'tribe_required_label' for Modal dialogs.
+* Tweak - Added a method that returns whether the events are being served through Blocks or the Classical Editor. [ETP-234]
+* Tweak - Added homepage settings to system information.
+* Tweak - Add the `tribe_template_done` filter to be able to disable a template before rendering. [TEC-3385]
+* Tweak - Improved on meta data handling of for Blocks editor.
+* Tweak - Deprecate Select2 3.5.4 in favor of SelectWoo
+* Language - 0 new strings added, 38 updated, 2 fuzzied, and 1 obsoleted
 
 = [4.11.5.1] 2020-03-23 =
 

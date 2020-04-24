@@ -38,7 +38,7 @@ implements Tribe__Editor__Blocks__Interface {
 		return $this->namespace;
 	}
 
-	/*
+	/**
 	 * Return the block attributes
 	 *
 	 * @since 4.8
@@ -69,7 +69,7 @@ implements Tribe__Editor__Blocks__Interface {
 		return $attributes;
 	}
 
-	/*
+	/**
 	 * Return the block default attributes
 	 *
 	 * @since 4.8
@@ -203,5 +203,39 @@ implements Tribe__Editor__Blocks__Interface {
 	 */
 	public function hook() {
 	}
-}
 
+	/**
+	 * Returns the block data for the block editor.
+	 *
+	 * @since 4.12.0
+	 *
+	 * @return array<string,mixed> The block editor data.
+	 */
+	public function block_data() {
+		$block_data = [
+			'id' => $this->slug(),
+		];
+
+		/**
+		 * Filters the block data.
+		 *
+		 * @since 4.12.0
+		 *
+		 * @param array  $block_data The block data.
+		 * @param object $this       The current object.
+		 */
+		$block_data = apply_filters( 'tribe_block_block_data', $block_data, $this );
+
+		/**
+		 * Filters the block data for the block.
+		 *
+		 * @since 4.12.0
+		 *
+		 * @param array  $block_data The block data.
+		 * @param object $this       The current object.
+		 */
+		$block_data = apply_filters( 'tribe_block_block_data_' . $this->slug(), $block_data, $this );
+
+		return $block_data;
+	}
+}

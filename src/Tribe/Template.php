@@ -99,19 +99,33 @@ class Tribe__Template {
 		if ( is_string( $origin ) ) {
 			// Origin needs to be a class with a `instance` method
 			if ( class_exists( $origin ) && method_exists( $origin, 'instance' ) ) {
-				$origin = call_user_func( array( $origin, 'instance' ) );
+				$origin = call_user_func( [ $origin, 'instance' ] );
 			}
 		}
 
-		if ( empty( $origin->plugin_path ) && empty( $origin->pluginPath ) && ! is_dir( $origin ) ) {
+		if (
+			empty( $origin->plugin_path )
+			&& empty( $origin->pluginPath )
+			&& ! is_dir( $origin )
+		) {
 			throw new InvalidArgumentException( 'Invalid Origin Class for Template Instance' );
 		}
 
-		if ( ! is_string( $origin ) ) {
-			$this->origin = $origin;
-			$this->template_base_path = untrailingslashit( ! empty( $this->origin->plugin_path ) ? $this->origin->plugin_path : $this->origin->pluginPath );
+		if ( is_string( $origin ) ) {
+			$this->template_base_path = array_filter(
+				(array) explode(
+					'/',
+					untrailingslashit( $origin )
+				)
+			);
 		} else {
-			$this->template_base_path = untrailingslashit( (array) explode( '/', $origin ) );
+			$this->origin = $origin;
+
+			$this->template_base_path = untrailingslashit(
+				! empty( $this->origin->plugin_path )
+					? $this->origin->plugin_path
+					: $this->origin->pluginPath
+			);
 		}
 
 		return $this;
@@ -575,9 +589,10 @@ class Tribe__Template {
 	 *
 	 * @since  4.6.2
 	 *
-	 * @param string  $name    Which file we are talking about including
-	 * @param array   $context Any context data you need to expose to this file
-	 * @param boolean $echo    If we should also print the Template
+	 * @param string|array $name    Which file we are talking about including.
+	 *                              If an array, each item will add a directory separator to get to the single template.
+	 * @param array        $context Any context data you need to expose to this file
+	 * @param boolean      $echo    If we should also print the Template
 	 *
 	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
@@ -585,6 +600,22 @@ class Tribe__Template {
 		static $file_exists    = [];
 		static $files          = [];
 		static $template_names = [];
+
+		/**
+		 * Allow users to disable templates before rendering it by returning empty string.
+		 *
+		 * @since  4.12.0
+		 *
+		 * @param string  null     Whether to continue displaying the template or not.
+		 * @param array   $name    Template name.
+		 * @param array   $context Any context data you need to expose to this file.
+		 * @param boolean $echo    If we should also print the Template.
+		 */
+		$done = apply_filters( 'tribe_template_done', null, $name, $context, $echo );
+
+		if ( null !== $done ) {
+			return false;
+		}
 
 		// Key we'll use for in-memory caching of expensive operations.
 		$cache_name_key = is_array( $name ) ? implode( '/', $name ) : $name;
@@ -603,7 +634,10 @@ class Tribe__Template {
 		}
 
 		// Cache file location and existence.
-		if ( ! isset( $file_exists[ $cache_name_key ] ) || ! isset( $files[ $cache_name_key ] ) ) {
+		if (
+			! isset( $file_exists[ $cache_name_key ] )
+			|| ! isset( $files[ $cache_name_key ] )
+		) {
 			// Check if the file exists
 			$files[ $cache_name_key ] = $file = $this->get_template_file( $name );
 
@@ -647,10 +681,10 @@ class Tribe__Template {
 		 *
 		 * @since  4.11.0
 		 *
-		 * @param string $html      The initial HTML
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
+		 * @param string $html     The initial HTML
+		 * @param string $file     Complete path to include the PHP File
+		 * @param array  $name     Template name
+		 * @param self   $template Current instance of the Tribe__Template
 		 */
 		$pre_html = apply_filters( 'tribe_template_pre_html', null, $file, $name, $this );
 

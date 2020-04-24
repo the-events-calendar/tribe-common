@@ -324,10 +324,12 @@ class Tribe__Assets {
 			return false;
 		}
 
+		$script_debug = defined( 'SCRIPT_DEBUG' ) && tribe_is_truthy( SCRIPT_DEBUG );
+
 		// Strip the plugin URL and make this relative.
 		$relative_location = str_replace( $base_url, '', $url );
 
-		if ( defined( 'SCRIPT_DEBUG' ) &&  SCRIPT_DEBUG ) {
+		if ( $script_debug ) {
 			// Add the actual url after having the min file added.
 			$urls[] = $relative_location;
 		}
@@ -335,13 +337,11 @@ class Tribe__Assets {
 		// If needed add the Min Files.
 		if ( substr( $relative_location, -3, 3 ) === '.js' ) {
 			$urls[] = substr_replace( $relative_location, '.min', - 3, 0 );
-		}
-
-		if ( substr( $relative_location, -4, 4 ) === '.css' ) {
+		} elseif ( substr( $relative_location, -4, 4 ) === '.css' ) {
 			$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
 		}
 
-		if ( ! defined( 'SCRIPT_DEBUG' ) || ( defined( 'SCRIPT_DEBUG' ) && ! SCRIPT_DEBUG )  ) {
+		if ( ! $script_debug ) {
 			// Add the actual url after having the min file added.
 			$urls[] = $relative_location;
 		}

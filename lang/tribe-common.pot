@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.11.5\n"
+"Project-Id-Version: Tribe Common 4.12.0\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2020-03-19 04:42:49+00:00\n"
+"POT-Creation-Date: 2020-04-21 02:58:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-03-19 04:42\n"
+"PO-Revision-Date: 2020-04-21 02:58\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -203,7 +203,8 @@ msgid "To begin using %2$s, please install and activate %3$s."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:124
-msgid "Read more."
+#: src/Tribe/PUE/Update_Prevention.php:181
+msgid "Read more"
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Plugin_Download.php:125
@@ -440,24 +441,24 @@ msgid "Problem loading the block, please remove this block to restart."
 msgstr ""
 
 #. translators: %s: duration
-#: src/Tribe/Editor/Configuration.php:88
+#: src/Tribe/Editor/Configuration.php:89
 msgid "%s from now"
 msgstr ""
 
 #. translators: %s: duration
-#: src/Tribe/Editor/Configuration.php:90
+#: src/Tribe/Editor/Configuration.php:91
 msgid "%s ago"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:94 src/Tribe/Editor/Configuration.php:97
+#: src/Tribe/Editor/Configuration.php:95 src/Tribe/Editor/Configuration.php:98
 msgid "g:i a"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:95 src/Tribe/Editor/Configuration.php:97
+#: src/Tribe/Editor/Configuration.php:96 src/Tribe/Editor/Configuration.php:98
 msgid "F j, Y"
 msgstr ""
 
-#: src/Tribe/Editor/Configuration.php:96
+#: src/Tribe/Editor/Configuration.php:97
 msgid "F j"
 msgstr ""
 
@@ -485,19 +486,19 @@ msgid ""
 "debug_backtrace() for Tribe Extensions to work."
 msgstr ""
 
-#: src/Tribe/Field.php:231
+#: src/Tribe/Field.php:233
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:539
+#: src/Tribe/Field.php:541
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:575
+#: src/Tribe/Field.php:577
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:633
+#: src/Tribe/Field.php:638
 msgid "No select options specified"
 msgstr ""
 
@@ -1721,87 +1722,87 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:283
+#: src/Tribe/Main.php:313
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:284
+#: src/Tribe/Main.php:314
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:286
+#: src/Tribe/Main.php:316
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:287
+#: src/Tribe/Main.php:317
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:288
+#: src/Tribe/Main.php:318
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:289
+#: src/Tribe/Main.php:319
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:290
+#: src/Tribe/Main.php:320
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:291
+#: src/Tribe/Main.php:321
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:292
+#: src/Tribe/Main.php:322
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:293
+#: src/Tribe/Main.php:323
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:294
+#: src/Tribe/Main.php:324
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:295
+#: src/Tribe/Main.php:325
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:297
+#: src/Tribe/Main.php:327
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:298 src/Tribe/Main.php:315
+#: src/Tribe/Main.php:328 src/Tribe/Main.php:345
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:299
+#: src/Tribe/Main.php:329
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:304
+#: src/Tribe/Main.php:334
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:305
+#: src/Tribe/Main.php:335
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:316
+#: src/Tribe/Main.php:346
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:317 src/Tribe/Main.php:319
+#: src/Tribe/Main.php:347 src/Tribe/Main.php:349
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:318
+#: src/Tribe/Main.php:348
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:320
+#: src/Tribe/Main.php:350
 msgid "Clear"
 msgstr ""
 
@@ -1946,10 +1947,6 @@ msgstr ""
 #: src/Tribe/PUE/Notices.php:458 src/Tribe/PUE/Notices.php:501
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
-msgstr ""
-
-#: src/Tribe/PUE/Update_Prevention.php:181
-msgid "Read More."
 msgstr ""
 
 #: src/Tribe/PUE/Update_Prevention.php:184
@@ -2189,42 +2186,42 @@ msgid ""
 "overrides is provided below."
 msgstr ""
 
-#: src/Tribe/Support.php:171
+#: src/Tribe/Support.php:182
 msgid "English"
 msgstr ""
 
-#: src/Tribe/Support.php:188 src/Tribe/Support.php:189
+#: src/Tribe/Support.php:201 src/Tribe/Support.php:202
 msgid "Unknown or not set"
 msgstr ""
 
-#: src/Tribe/Support.php:199
+#: src/Tribe/Support.php:212
 msgid ""
 "Rewrite rules were purged on load of this help page. Chances are there is a "
 "rewrite rule flush occurring in a plugin or theme!"
 msgstr ""
 
-#: src/Tribe/Support.php:305
+#: src/Tribe/Support.php:318
 msgid ""
 "Yes, automatically share my system information with the Modern Tribe support "
 "team"
 msgstr ""
 
-#: src/Tribe/Support.php:306
+#: src/Tribe/Support.php:319
 msgid ""
 "Your system information will only be used by the Modern Tribe support team. "
 "All information is stored securely. We do not share this information with "
 "any third parties."
 msgstr ""
 
-#: src/Tribe/Support.php:325 src/Tribe/Support.php:330
+#: src/Tribe/Support.php:338 src/Tribe/Support.php:343
 msgid "Invalid Key"
 msgstr ""
 
-#: src/Tribe/Support.php:358 src/Tribe/Support.php:384
+#: src/Tribe/Support.php:371 src/Tribe/Support.php:397
 msgid "Permission Error"
 msgstr ""
 
-#: src/Tribe/Support.php:372
+#: src/Tribe/Support.php:385
 msgid "Unique System Info Key Generated"
 msgstr ""
 
