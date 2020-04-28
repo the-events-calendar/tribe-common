@@ -173,11 +173,6 @@
 				foreach ( $this->prefixes as $prefix => $dirs ) {
 					$is_namespaced = false !== strpos( $prefix, '\\' );
 
-					if ( $is_namespaced ) {
-						// If the prefix is a namespace, then normalize it.
-						$prefix = trim( $prefix, '\\' ) . '\\';
-					}
-
 					if ( strpos( $class, $prefix ) !== 0 ) {
 						continue;
 					}
