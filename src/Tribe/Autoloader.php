@@ -121,6 +121,14 @@
 			public function register_prefix( $prefix, $root_dir, $slug = '' ) {
 				$root_dir = $this->normalize_root_dir( $root_dir );
 
+				// Determine if we need to normalize the $prefix.
+				$is_namespaced = false !== strpos( $prefix, '\\' );
+
+				if ( $is_namespaced ) {
+					// If the prefix is a namespace, then normalize it.
+					$prefix = trim( $prefix, '\\' ) . '\\';
+				}
+
 				if ( ! isset( $this->prefixes[ $prefix ] ) ) {
 					$this->prefixes[ $prefix ] = array();
 				}
