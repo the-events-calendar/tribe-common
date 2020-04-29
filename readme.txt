@@ -5,6 +5,7 @@
 = [4.12.1] 2020-04-20 =
 
 * Feature - Added a helper method to check if a given plugin is active. Usually a Modern Tribe plugin.
+* Tweak - Extended support for namespaced classes in the Autoloader.
 
 = [4.12.0] 2020-04-23 =
 
