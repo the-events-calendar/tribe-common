@@ -5,8 +5,8 @@
 = [TBD] TBD =
 
 * Tweak - Extended support for namespaced classes in the Autoloader.
-* Fix - Correctly enqueue Customizer stylesheets for TEC. [TEC-3401]
 * Tweak - Make Customizer stylesheet enqueue filterable via `tribe_customizer_inline_stylesheets`. [TEC-3401]
+* Fix - Correctly enqueue Customizer stylesheets for TEC. [TEC-3401]
 
 = [4.12.0] 2020-04-23 =
 
