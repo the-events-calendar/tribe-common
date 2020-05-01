@@ -136,4 +136,11 @@ return [
 			Tribe__Context::REQUEST_VAR => [ 'post_tag', 'tag' ],
 		],
 	],
+	'locale' => [
+		'read' => [
+			Tribe__Context::FUNC => static function(){
+				return get_locale();
+			},
+		],
+	],
 ];
