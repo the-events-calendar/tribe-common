@@ -30,7 +30,7 @@ function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $
 		$content = get_the_content( $more_link_text, $strip_teaser );
 	}
 
-	if ( ! doing_filter( 'the_content' ) ) {
+	if ( ! doing_filter( 'wptexturize' ) ) {
 		/**
 		 * Filters the post content.
 		 *
