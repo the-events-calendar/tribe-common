@@ -623,7 +623,7 @@ class Tribe__Template {
 	 * Runs the entry point hooks and filters
 	 *
 	 * @param string  $entry_point_name The name of the entry point.
-	 * @param boolean $echo             If we should also print the entrypoint content.
+	 * @param boolean $echo             If we should also print the entry point content.
 	 *
 	 * @return null|string
 	 */
@@ -635,14 +635,14 @@ class Tribe__Template {
 		 *
 		 * @since TBD
 		 *
-		 * @param boolean $is_enabled       Is entrypoint enabled.
+		 * @param boolean $is_enabled       Is entry_point enabled.
 		 * @param string  $hook_name        For which template include this entry point belongs.
 		 * @param string  $entry_point_name Which entry point specifically we are triggering.
-		 * @param self    $template         Current instance of the template class doing this entrypoint.
+		 * @param self    $template         Current instance of the template class doing this entry point.
 		 */
-		$is_entrypoint_enabled = apply_filters( 'tribe_template_entrypoint_is_enabled', true, $hook_name, $entry_point_name, $this );
+		$is_entry_point_enabled = apply_filters( 'tribe_template_entry_point_is_enabled', true, $hook_name, $entry_point_name, $this );
 
-		if ( ! $is_entrypoint_enabled ) {
+		if ( ! $is_entry_point_enabled ) {
 			return null;
 		}
 
@@ -655,9 +655,9 @@ class Tribe__Template {
 		 *
 		 * @param string $hook_name        For which template include this entry point belongs.
 		 * @param string $entry_point_name Which entry point specifically we are triggering.
-		 * @param self   $template         Current instance of the template class doing this entrypoint.
+		 * @param self   $template         Current instance of the template class doing this entry point.
 		 */
-		do_action( "tribe_template_entrypoint:$hook_name", $hook_name, $entry_point_name, $this );
+		do_action( "tribe_template_entry_point:$hook_name", $hook_name, $entry_point_name, $this );
 
 		/**
 		 * Specific named entry point action called.
@@ -666,9 +666,9 @@ class Tribe__Template {
 		 *
 		 * @param string $hook_name        For which template include this entry point belongs.
 		 * @param string $entry_point_name Which entry point specifically we are triggering.
-		 * @param self   $template         Current instance of the template class doing this entrypoint.
+		 * @param self   $template         Current instance of the template class doing this entry point.
 		 */
-		do_action( "tribe_template_entrypoint:$hook_name:$entry_point_name", $hook_name, $entry_point_name, $this );
+		do_action( "tribe_template_entry_point:$hook_name:$entry_point_name", $hook_name, $entry_point_name, $this );
 
 		$html = ob_get_clean();
 
@@ -677,24 +677,24 @@ class Tribe__Template {
 		 *
 		 * @since TBD
 		 *
-		 * @param string $html             HTML returned and/or echoed for this for this entrypoint.
+		 * @param string $html             HTML returned and/or echoed for this for this entry point.
 		 * @param string $hook_name        For which template include this entry point belongs.
 		 * @param string $entry_point_name Which entry point specifically we are triggering.
-		 * @param self   $template         Current instance of the template class doing this entrypoint.
+		 * @param self   $template         Current instance of the template class doing this entry point.
 		 */
-		$html = apply_filters( "tribe_template_entrypoint_html:$hook_name", $html, $hook_name, $entry_point_name, $this );
+		$html = apply_filters( "tribe_template_entry_point_html:$hook_name", $html, $hook_name, $entry_point_name, $this );
 
 		/**
 		 * Specific named entry point action called.
 		 *
 		 * @since TBD
 		 *
-		 * @param string $html             HTML returned and/or echoed for this for this entrypoint.
+		 * @param string $html             HTML returned and/or echoed for this for this entry point.
 		 * @param string $hook_name        For which template include this entry point belongs.
 		 * @param string $entry_point_name Which entry point specifically we are triggering.
-		 * @param self   $template         Current instance of the template class doing this entrypoint.
+		 * @param self   $template         Current instance of the template class doing this entry point.
 		 */
-		$html = apply_filters( "tribe_template_entrypoint_html:$hook_name:$entry_point_name", $html, $hook_name, $entry_point_name, $this );
+		$html = apply_filters( "tribe_template_entry_point_html:$hook_name:$entry_point_name", $html, $hook_name, $entry_point_name, $this );
 
 		if ( $echo ) {
 			echo $html;
@@ -979,8 +979,8 @@ class Tribe__Template {
 		 */
 		$html = apply_filters( "tribe_template_html:$hook_name", $html, $file, $name, $this );
 
-		// Tries to hook container entrypoints in the HTML.
-		$html = $this->template_hook_container_entrypoints( $html );
+		// Tries to hook container entry points in the HTML.
+		$html = $this->template_hook_container_entry_points( $html );
 
 		if ( $echo ) {
 			echo $html;
@@ -1007,7 +1007,7 @@ class Tribe__Template {
 	 *
 	 * @return string|false Either the final entry point content HTML or `false` if no entry point could be found or set to false.
 	 */
-	private function template_hook_container_entrypoints( $html ) {
+	private function template_hook_container_entry_points( $html ) {
 		$regexp = '/<(?<is_end>\/)*(?<tag>[A-Z0-9]*)(?:\b)*[^>]*>/mi';
 
 		preg_match_all( $regexp, $html, $matches );
@@ -1047,11 +1047,11 @@ class Tribe__Template {
 		$first_tag_html = reset( $html_matches );
 		$last_tag_html  = end( $html_matches );
 
-		$open_container_entrypoint_html  = $this->do_entry_point( 'after_container_open', false );
-		$close_container_entrypoint_html = $this->do_entry_point( 'before_container_close', false );
+		$open_container_entry_point_html  = $this->do_entry_point( 'after_container_open', false );
+		$close_container_entry_point_html = $this->do_entry_point( 'before_container_close', false );
 
-		$html = \Tribe\Utils\Strings::replace_first( $first_tag_html, $first_tag_html . $open_container_entrypoint_html, $html );
-		$html = \Tribe\Utils\Strings::replace_last( $last_tag_html, $last_tag_html . $close_container_entrypoint_html, $html );
+		$html = \Tribe\Utils\Strings::replace_first( $first_tag_html, $first_tag_html . $open_container_entry_point_html, $html );
+		$html = \Tribe\Utils\Strings::replace_last( $last_tag_html, $last_tag_html . $close_container_entry_point_html, $html );
 
 		return $html;
 	}
