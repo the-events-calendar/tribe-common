@@ -28,6 +28,9 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// your set up methods here
+
+		// Default timezone to UTC at beginning of each test
+		date_default_timezone_set( 'UTC' );
 	}
 
 	public function tearDown() {
@@ -301,7 +304,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		];
 		yield '2019-12-01 08:00:00 timestamp w/ timezone' => [
 			( new DateTime( '2019-12-01 08:00:00', $timezone_obj ) )->getTimestamp(),
-			'2019-12-01 08:00:00',
+			'2019-12-01 07:00:00',
 			$timezone_str,
 		];
 
@@ -322,7 +325,7 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		];
 		yield '2019-12-01 08:00:00 timestamp w/ timezone obj' => [
 			( new DateTimeImmutable( '2019-12-01 08:00:00', $timezone_obj ) )->getTimestamp(),
-			'2019-12-01 08:00:00',
+			'2019-12-01 07:00:00',
 			$timezone_obj,
 		];
 	}
@@ -343,5 +346,119 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 			$expected,
 			Date_Utils::immutable( $input, $timezone )->format( Date_Utils::DBDATETIMEFORMAT )
 		);
+	}
+
+
+	/**
+	 * @todo 2020 March 8 America/Chicago 2am day-light savings starts
+	 * @todo 2020 November 1 America/Chicago 2am day-light savings ends
+	 */
+	public function build_shifted_start_of_day() {
+		$date           = '2020-02-05';
+		$date_plus_one  = '2020-02-06';
+		$date_minus_one = '2020-02-04';
+		$array_of_tests = [
+			[ "$date 00:00:00", "$date 00:00:00", "00:00" ],
+			[ "$date 00:00:00", "$date_minus_one 00:30:00", "00:30" ],
+			[ "$date 00:00:00", "$date_minus_one 01:00:00", "01:00" ],
+			[ "$date 00:00:00", "$date_minus_one 01:30:00", "01:30" ],
+			[ "$date 00:00:00", "$date_minus_one 02:00:00", "02:00" ],
+			[ "$date 00:00:00", "$date_minus_one 02:30:00", "02:30" ],
+			[ "$date 00:00:00", "$date_minus_one 03:00:00", "03:00" ],
+			[ "$date 00:00:00", "$date_minus_one 03:30:00", "03:30" ],
+			[ "$date 00:00:00", "$date_minus_one 04:00:00", "04:00" ],
+			[ "$date 00:00:00", "$date_minus_one 04:30:00", "04:30" ],
+			[ "$date 00:00:00", "$date_minus_one 05:00:00", "05:00" ],
+			[ "$date 00:00:00", "$date_minus_one 05:30:00", "05:30" ],
+			[ "$date 00:00:00", "$date_minus_one 06:00:00", "06:00" ],
+			[ "$date 00:00:00", "$date_minus_one 06:30:00", "06:30" ],
+			[ "$date 00:00:00", "$date_minus_one 07:00:00", "07:00" ],
+			[ "$date 00:00:00", "$date_minus_one 07:30:00", "07:30" ],
+			[ "$date 00:00:00", "$date_minus_one 08:00:00", "08:00" ],
+			[ "$date 00:00:00", "$date_minus_one 08:30:00", "08:30" ],
+			[ "$date 00:00:00", "$date_minus_one 09:00:00", "09:00" ],
+			[ "$date 00:00:00", "$date_minus_one 09:30:00", "09:30" ],
+			[ "$date 00:00:00", "$date_minus_one 10:00:00", "10:00" ],
+			[ "$date 00:00:00", "$date_minus_one 10:30:00", "10:30" ],
+			[ "$date 00:00:00", "$date_minus_one 11:00:00", "11:00" ],
+			[ "$date 00:00:00", "$date_minus_one 11:30:00", "11:30" ],
+			[ "$date 00:00:00", "$date_minus_one 12:00:00", "12:00" ],
+
+			// On a given day after the end so move to next day
+			[ "$date 03:00:00", "$date 02:00:00", "02:00" ],
+
+			// On a next day before the end so move to given day
+			[ "$date_plus_one 01:00:00", "$date 02:00:00", "02:00" ],
+		];
+
+		return $array_of_tests;
+	}
+
+	/**
+	 * @dataProvider build_shifted_start_of_day
+	 */
+	public function test_get_shifted_start_of_day( $input, $expected, $cutoff ){
+		$start_of_day = Date_Utils::get_shifted_start_of_day( $input, $cutoff );
+
+		$this->assertEquals( $expected, $start_of_day->format( Date_Utils::DBDATETIMEFORMAT ) );
+	}
+
+	/**
+	 * @todo 2020 March 8 America/Chicago 2am day-light savings starts
+	 * @todo 2020 November 1 America/Chicago 2am day-light savings ends
+	 */
+	public function build_shifted_end_of_day() {
+		$date           = '2020-02-05';
+		$date_plus_one  = '2020-02-06';
+		$array_of_tests = [
+			[ "$date 00:00:00", "$date 23:59:59", "00:00" ],
+			[ "$date 00:00:00", "$date 00:29:59", "00:30" ],
+			[ "$date 00:00:00", "$date 00:59:59", "01:00" ],
+			[ "$date 00:00:00", "$date 01:29:59", "01:30" ],
+			[ "$date 00:00:00", "$date 01:59:59", "02:00" ],
+			[ "$date 00:00:00", "$date 02:29:59", "02:30" ],
+			[ "$date 00:00:00", "$date 02:59:59", "03:00" ],
+			[ "$date 00:00:00", "$date 03:29:59", "03:30" ],
+			[ "$date 00:00:00", "$date 03:59:59", "04:00" ],
+			[ "$date 00:00:00", "$date 04:29:59", "04:30" ],
+			[ "$date 00:00:00", "$date 04:59:59", "05:00" ],
+			[ "$date 00:00:00", "$date 05:29:59", "05:30" ],
+			[ "$date 00:00:00", "$date 05:59:59", "06:00" ],
+			[ "$date 00:00:00", "$date 06:29:59", "06:30" ],
+			[ "$date 00:00:00", "$date 06:59:59", "07:00" ],
+			[ "$date 00:00:00", "$date 07:29:59", "07:30" ],
+			[ "$date 00:00:00", "$date 07:59:59", "08:00" ],
+			[ "$date 00:00:00", "$date 08:29:59", "08:30" ],
+			[ "$date 00:00:00", "$date 08:59:59", "09:00" ],
+			[ "$date 00:00:00", "$date 09:29:59", "09:30" ],
+			[ "$date 00:00:00", "$date 09:59:59", "10:00" ],
+			[ "$date 00:00:00", "$date 10:29:59", "10:30" ],
+			[ "$date 00:00:00", "$date 10:59:59", "11:00" ],
+			[ "$date 00:00:00", "$date 11:29:59", "11:30" ],
+			[ "$date 00:00:00", "$date 11:59:59", "12:00" ],
+
+			// On a given day after the end so move to next day
+			[ "$date 03:00:00", "$date_plus_one 01:59:59", "02:00" ],
+
+			// On a next day before the end so move to given day
+			[ "$date_plus_one 01:00:00", "$date_plus_one 01:59:59", "02:00" ],
+
+			// On a next day before the end so move to given day
+			[ "$date_plus_one 01:59:59", "$date_plus_one 01:59:59", "02:00" ],
+
+			// On a next day before the end so move to given day
+			[ "$date 02:00:00", "$date_plus_one 01:59:59", "02:00" ],
+		];
+
+		return $array_of_tests;
+	}
+
+	/**
+	 * @dataProvider build_shifted_end_of_day
+	 */
+	public function test_shifted_end_start_of_day( $input, $expected, $cutoff ){
+		$end_of_day = Date_Utils::get_shifted_end_of_day( $input, $cutoff );
+
+		$this->assertEquals( $expected, $end_of_day->format( Date_Utils::DBDATETIMEFORMAT ) );
 	}
 }

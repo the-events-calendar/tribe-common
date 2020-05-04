@@ -69,9 +69,9 @@ In this case, the label is an element of the toggle. However, the `--vertical` m
 
 For overriding styles, it is recommended to only use classes to keep overriding specificity consistent. All elements should have classes and should be targetted using those classes.
 
-## Modifiers, pseudo-classes, and media queries
+## Modifiers, pseudo-classes, and container query classes
 
-As you get into building upon these styles and creating new styles, the order of modifiers, pseudo-classes, and media queries comes into question. The general rule is to apply them in the following order: media queries, pseudo-classes, modifiers. See the examples below:
+As you get into building upon these styles and creating new styles, the order of modifiers, pseudo-classes, and container query classes comes into question. The general rule is to apply them in the following order: container query classes, pseudo-classes, modifiers. See the examples below:
 
 ```
 .tribe-common {
@@ -80,15 +80,15 @@ As you get into building upon these styles and creating new styles, the order of
 	.tribe-common-form-control-toggle {
 		/* toggle styles */
 
-		@media (--viewport-medium) {
-			/* viewport medium toggle styles */
+		.tribe-common--breakpoint-medium& {
+			/* container medium toggle styles */
 		}
 
 		&:after {
 			/* :after pseudo-class styles */
 
-			@media (--viewport-medium) {
-				/* viewport medium :after pseudo-class styles */
+			.tribe-common--breakpoint-medium& {
+				/* container medium :after pseudo-class styles */
 			}
 		}
 	}
@@ -96,15 +96,15 @@ As you get into building upon these styles and creating new styles, the order of
 	.tribe-common-form-control-toggle--vertical {
 		/* vertical toggle styles */
 
-		@media (--viewport-medium) {
-			/* viewport medium vertical toggle styles */
+		.tribe-common--breakpoint-medium& {
+			/* container medium vertical toggle styles */
 		}
 
 		&:after {
 			/* :after pseudo-class styles */
 
-			@media (--viewport-medium) {
-				/* viewport medium :after pseudo-class styles */
+			.tribe-common--breakpoint-medium& {
+				/* container medium :after pseudo-class styles */
 			}
 		}
 	}
@@ -122,15 +122,15 @@ In the case of an element, we might get the following scenario:
 	.tribe-common-form-control-toggle__input {
 		/* toggle input styles */
 
-		@media (--viewport-medium) {
-			/* viewport medium toggle input styles */
+		.tribe-common--breakpoint-medium& {
+			/* container medium toggle input styles */
 		}
 
 		&:after {
 			/* :after pseudo-class styles */
 
-			@media (--viewport-medium) {
-				/* viewport medium :after pseudo-class styles */
+			.tribe-common--breakpoint-medium& {
+				/* container medium :after pseudo-class styles */
 			}
 		}
 	}
@@ -140,15 +140,15 @@ In the case of an element, we might get the following scenario:
 		.tribe-common-form-control-toggle__input {
 			/* vertical toggle input styles */
 
-			@media (--viewport-medium) {
-				/* viewport medium vertical toggle input styles */
+			.tribe-common--breakpoint-medium& {
+				/* container medium vertical toggle input styles */
 			}
 
 			&:after {
 				/* :after pseudo-class styles */
 
-				@media (--viewport-medium) {
-					/* viewport medium :after pseudo-class styles */
+				.tribe-common--breakpoint-medium& {
+					/* container medium :after pseudo-class styles */
 				}
 			}
 		}
@@ -196,7 +196,7 @@ Base grid styles are for layout and grids provided by the design system. Prefixe
 
 Base typography styles are for anything typography-related. These include anchors, body text, call to actions, headings, and lists. For body text, we've used the classes `.tribe-common-b1` to `.tribe-common-b3`. These body text classes are used to mimic the design system body text styles. For headings, we've used the classes `.tribe-common-h1` to `.tribe-common-h8`. These heading classes are also used to mimic the design system heading styles.
 
-There are also classes in body text and heading styles with the `--min-medium` modifier. Each body text and heading class has a style for mobile and desktop (`@media (--viewport-medium)`). However, the designs may not follow the styles exactly for each class upon reaching the `--viewport-medium` breakpoint, but instead use another class style. For this reason, we've added the `--min-medium` modifier for each body text and heading class to apply a different style upon reaching this breakpoint. See example below:
+There are also classes in body text and heading styles with the `--min-medium` modifier. Each body text and heading class has a style for mobile and desktop (`.tribe-common--breakpoint-medium`). However, the designs may not follow the styles exactly for each class upon reaching the `.tribe-common--breakpoint-medium` breakpoint, but instead use another class style. For this reason, we've added the `--min-medium` modifier for each body text and heading class to apply a different style upon reaching this breakpoint. See example below:
 
 ```
 <h2 class="tribe-common-h6 tribe-common-h5--min-medium">Test heading</h2>
@@ -212,9 +212,13 @@ Accessibility styles are utility classes for repeatable patterns regarding acces
 
 Components are groups of reusable markup and styles. The component style structure is meant to mirror the markup structure.
 
-### Media queries
+### Container queries
 
-These styles use a mobile-first approach. Given this, there are only `min-width:` breakpoints, never `max-width:` breakpoints. This also lends to using the `--min-medium` modifier.
+These styles use a mobile-first approach. Given this, styles build on top of each other at various breakpoints. However, they don't use the traditional `min-width:` media queries most of us are used to. Instead, the styles use container queries based on the `.tribe-common` container.
+
+The reasoning for this is simple. Many of the views for The Events Calendar and Event Tickets depend on the theme to which they are applied. Some themes have an extremely wide spacing on the left and right while others have none. At our usual 768px breakpoint for the `--min-medium` modifier, the `.tribe-common` container could have very different widths based on the theme used and display the view inconsistently.
+
+To counter this, we've applied a type of container media queries. By applying JavaScript that runs as soon as the container is printed, we are able apply classes to the container based on its width rather than the viewport width. We currently use 3 breakpoints: `.tribe-common--breakpoint-xsmall`, `.tribe-common--breakpoint-medium`, and `.tribe-common--breakpoint-full`. These correspond to 500px, 768px, and 960px, respectively. These values can also be filtered to customize the breakpoint values.
 
 ## Theme overrides
 

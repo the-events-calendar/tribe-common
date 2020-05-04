@@ -301,11 +301,11 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @param array  $plugin        An array of data for given registered plugin
-		 * @param array  $dependencies  An array of dependencies for a plugin
-		 * @param bool   $addon         Indicates if the plugin is an add-on for The Events Calendar or Event Tickets
+		 * @param array $plugin       An array of data for given registered plugin.,
+		 * @param array $dependencies An array of dependencies for a plugin.
+		 * @param bool  $addon        Indicates if the plugin is an add-on for The Events Calendar or Event Tickets.
 		 *
-		 * @return bool  returns false if any dependency is invalid
+		 * @return true|int  The number of failed dependency checks; `true` or `0` to indicate no checks failed.
 		 */
 		public function has_valid_dependencies( $plugin, $dependencies = array(), $addon = false ) {
 			if ( empty( $dependencies ) ) {
@@ -409,11 +409,11 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @param       $file_path
-		 * @param       $main_class
-		 * @param       $version
-		 * @param array $classes_req
-		 * @param array $dependencies
+		 * @param string $file_path    Full file path to the base plugin file.
+		 * @param string $main_class   The Main/base class for this plugin.
+		 * @param string $version      The plugin version.
+		 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run.
+		 * @param array  $dependencies an array of dependencies to check.
 		 */
 		public function register_plugin( $file_path, $main_class, $version, $classes_req = array(), $dependencies = array() ) {
 			/**
@@ -475,11 +475,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @param string $file_path    Full file path to the base plugin file
 		 * @param string $main_class   The Main/base class for this plugin
-		 * @param string $version      The version
-		 * @param array  $classes_req  Any Main class files/tribe plugins required for this to run
-		 * @param array  $dependencies an array of dependencies to check
 		 *
 		 * @return bool Indicates if plugin should continue initialization
 		 */
@@ -487,25 +483,25 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 
 			$parent_dependencies = $co_dependencies = $addon_dependencies = 0;
 
-			//check if plugin is registered, if not return false
+			// Check if plugin is registered, if not return false.
 			$plugin = $this->get_registered_plugin( $main_class );
 			if ( empty( $plugin ) ) {
 				return false;
 			}
 
-			// check parent dependencies in add-on
+			// Check parent dependencies in add-on.
 			if ( ! empty( $plugin['dependencies']['parent-dependencies'] ) ) {
 				$parent_dependencies = $this->has_valid_dependencies( $plugin, $plugin['dependencies']['parent-dependencies'] );
 			}
-			//check co-dependencies in add-on
+			// Check co-dependencies in add-on.
 			if ( ! empty( $plugin['dependencies']['co-dependencies'] ) ) {
 				$co_dependencies = $this->has_valid_dependencies( $plugin, $plugin['dependencies']['co-dependencies'] );
 			}
 
-			//check add-on dependencies from parent
+			// Check add-on dependencies from parent.
 			$addon_dependencies = $this->check_addon_dependencies( $main_class );
 
-			//if good then we set as active plugin and continue to load
+			// If good then we set as active plugin and continue to load.
 			if ( ! $parent_dependencies && ! $co_dependencies && ! $addon_dependencies ) {
 				$this->add_active_plugin( $main_class, $plugin['version'], $plugin['path'] );
 
@@ -520,23 +516,26 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @param string  $main_class   a string of the main class for the plugin being checked
+		 * @param string $main_class A string of the main class for the plugin being checked.
 		 *
-		 * @return bool  returns false if any dependency is invalid
+		 * @return bool  Returns false if any dependency is invalid.
 		 */
 		protected function check_addon_dependencies( $main_class ) {
-
-			$addon_dependencies = 0;
-
 			foreach ( $this->registered_plugins as $registered ) {
 				if ( empty( $registered['dependencies']['addon-dependencies'][ $main_class ] ) ) {
 					continue;
 				}
 
-				$addon_dependencies = $this->has_valid_dependencies( $registered, $registered['dependencies']['addon-dependencies'], true );
+				$dependencies = [ $main_class => $registered['dependencies']['addon-dependencies'][ $main_class ] ];
+				$check        = $this->has_valid_dependencies( $registered, $dependencies, true );
+
+				// A value of `true` or `0` indicates there are no failing checks. So here we check for ints gt 0.
+				if ( is_int( $check ) && $check > 0 ) {
+					return true;
+				}
 			}
 
-			return $addon_dependencies;
+			return false;
 		}
 
 		/**
