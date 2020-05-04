@@ -6,6 +6,7 @@
 
 * Tweak - Extended support for namespaced classes in the Autoloader.
 * Tweak - Normalize namespaced prefixes with trailing backslash when registering them in the Autoloader. [VE-14]
+* Tweak - Fix where a text settings field would show up empty if the saved value is '0' [BTRIA-338]
 
 = [4.12.0] 2020-04-23 =
 
