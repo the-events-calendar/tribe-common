@@ -56,6 +56,15 @@ class Tribe__Template {
 	protected $template_context_extract = false;
 
 	/**
+	 * Current template hook name.
+	 *
+	 * @since TBD
+	 *
+	 * @var string|null
+	 */
+	protected $template_current_hook_name;
+
+	/**
 	 * Base template for where to look for template
 	 *
 	 * @since  4.6.2
@@ -213,6 +222,32 @@ class Tribe__Template {
 		$this->template_context_extract = tribe_is_truthy( $value );
 
 		return $this;
+	}
+
+	/**
+	 * Set the current hook name for the template include.
+	 *
+	 * @since  TBD
+	 *
+	 * @param  string  $value  Which value will be saved as the current hookname.
+	 *
+	 * @return self  Allow daisy-chaining.
+	 */
+	 public function set_template_current_hook_name( $value ) {
+		$this->template_current_hook_name = (string) $value;
+
+		return $this;
+	}
+
+	/**
+	 * Gets the hook name for the current template setup.
+	 *
+	 * @since  TBD
+	 *
+	 * @return string Hook name currently set on the class.
+	 */
+	public function get_template_current_hook_name() {
+		return $this->template_current_hook_name;
 	}
 
 	/**
@@ -585,6 +620,90 @@ class Tribe__Template {
 	}
 
 	/**
+	 * Runs the entry point hooks and filters
+	 *
+	 * @param string  $entry_point_name The name of the entry point.
+	 * @param boolean $echo             If we should also print the entrypoint content.
+	 *
+	 * @return null|string
+	 */
+	public function do_entry_point( $entry_point_name, $echo = true ) {
+		$hook_name = $this->get_template_current_hook_name();
+
+		/**
+		 * Filter if the entry points are enabled.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $is_enabled       Is entrypoint enabled.
+		 * @param string  $hook_name        For which template include this entry point belongs.
+		 * @param string  $entry_point_name Which entry point specifically we are triggering.
+		 * @param self    $template         Current instance of the template class doing this entrypoint.
+		 */
+		$is_entrypoint_enabled = apply_filters( 'tribe_template_entrypoint_is_enabled', true, $hook_name, $entry_point_name, $this );
+
+		if ( ! $is_entrypoint_enabled ) {
+			return null;
+		}
+
+		ob_start();
+
+		/**
+		 * Generic entry point action for the current template.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $hook_name        For which template include this entry point belongs.
+		 * @param string $entry_point_name Which entry point specifically we are triggering.
+		 * @param self   $template         Current instance of the template class doing this entrypoint.
+		 */
+		do_action( "tribe_template_entrypoint:$hook_name", $hook_name, $entry_point_name, $this );
+
+		/**
+		 * Specific named entry point action called.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $hook_name        For which template include this entry point belongs.
+		 * @param string $entry_point_name Which entry point specifically we are triggering.
+		 * @param self   $template         Current instance of the template class doing this entrypoint.
+		 */
+		do_action( "tribe_template_entrypoint:$hook_name:$entry_point_name", $hook_name, $entry_point_name, $this );
+
+		$html = ob_get_clean();
+
+		/**
+		 * Generic entry point action for the current template.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $html             HTML returned and/or echoed for this for this entrypoint.
+		 * @param string $hook_name        For which template include this entry point belongs.
+		 * @param string $entry_point_name Which entry point specifically we are triggering.
+		 * @param self   $template         Current instance of the template class doing this entrypoint.
+		 */
+		$html = apply_filters( "tribe_template_entrypoint_html:$hook_name", $html, $hook_name, $entry_point_name, $this );
+
+		/**
+		 * Specific named entry point action called.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $html             HTML returned and/or echoed for this for this entrypoint.
+		 * @param string $hook_name        For which template include this entry point belongs.
+		 * @param string $entry_point_name Which entry point specifically we are triggering.
+		 * @param self   $template         Current instance of the template class doing this entrypoint.
+		 */
+		$html = apply_filters( "tribe_template_entrypoint_html:$hook_name:$entry_point_name", $html, $hook_name, $entry_point_name, $this );
+
+		if ( $echo ) {
+			echo $html;
+		}
+
+		return $html;
+	}
+
+	/**
 	 * A very simple method to include a Template, allowing filtering and additions using hooks.
 	 *
 	 * @since  4.6.2
@@ -672,9 +791,12 @@ class Tribe__Template {
 			$namespace        = array_merge( $origin_folder_appendix, $legacy_namespace );
 		}
 
-		// Setup the Hook name
+		// Setup the Hook name.
 		$legacy_hook_name = implode( '/', $legacy_namespace );
 		$hook_name        = implode( '/', $namespace );
+
+		// Store the current hookname for the purposes of entry-points.
+		$this->set_template_current_hook_name( $hook_name );
 
 		/**
 		 * Allow users to filter the HTML before rendering
@@ -857,9 +979,79 @@ class Tribe__Template {
 		 */
 		$html = apply_filters( "tribe_template_html:$hook_name", $html, $file, $name, $this );
 
+		// Tries to hook container entrypoints in the HTML.
+		$html = $this->template_hook_container_entrypoints( $html );
+
 		if ( $echo ) {
 			echo $html;
 		}
+
+		// Revert the current hook name.
+		$this->set_template_current_hook_name( null );
+
+		return $html;
+	}
+
+	/**
+	 * @param $html
+	 *
+	 * @return string
+	 */
+
+	/**
+	 * Run the hooks for the container entry points.
+	 *
+	 * @since  TBD
+	 *
+	 * @param string $html The html of the current template.
+	 *
+	 * @return string|false Either the final entry point content HTML or `false` if no entry point could be found or set to false.
+	 */
+	private function template_hook_container_entrypoints( $html ) {
+		$regexp = '/<(?<is_end>\/)*(?<tag>[A-Z0-9]*)(?:\b)*[^>]*>/mi';
+
+		preg_match_all( $regexp, $html, $matches );
+
+		$html_matches = $matches[0];
+
+		if ( 0 === count( $html_matches ) ) {
+			return $html;
+		}
+
+		$html_tags      = $matches['tag'];
+		$html_tags_ends = $matches['is_end'];
+
+		// Get first and last tags.
+		$first_tag = reset( $html_tags );
+		$last_tag  = end( $html_tags );
+
+		// Determine if first last tags are tag ends.
+		$first_tag_is_end = '/' === reset( $html_tags_ends );
+		$last_tag_is_end  = '/' === end( $html_tags_ends );
+
+		// When first and last tag are not the same, bail.
+		if ( $first_tag !== $last_tag ) {
+			return $html;
+		}
+
+		// If the first tag is a html tag end, bail.
+		if ( $first_tag_is_end ) {
+			return $html;
+		}
+
+		// If the last tag is not and html tag end, bail.
+		if ( ! $last_tag_is_end ) {
+			return $html;
+		}
+
+		$first_tag_html = reset( $html_matches );
+		$last_tag_html  = end( $html_matches );
+
+		$open_container_entrypoint_html  = $this->do_entry_point( 'after_container_open', false );
+		$close_container_entrypoint_html = $this->do_entry_point( 'before_container_close', false );
+
+		$html = \Tribe\Utils\Strings::replace_first( $first_tag_html, $first_tag_html . $open_container_entrypoint_html, $html );
+		$html = \Tribe\Utils\Strings::replace_last( $last_tag_html, $last_tag_html . $close_container_entrypoint_html, $html );
 
 		return $html;
 	}
