@@ -135,4 +135,21 @@ class AutoloaderTest extends Unit {
 			$autoloader->get_class_path( 'Tribe\\CCNested\\CCNestedSubOne\\CCNestedSubTwo\\SubTwo' )
 		);
 	}
+
+	/**
+	 * It should correctly get prefix by slug.
+	 *
+	 * @test
+	 * @dataProvider cc_namespace_data_provider
+	 */
+	public function should_correctly_get_prefix_by_slug( $prefix ) {
+		$autoloader = new Autoloader();
+		$autoloader->register_prefix( $prefix, codecept_data_dir( 'Tribe/CCNested' ), 'ccnested' );
+
+		// Confirm prefix is normalized already.
+		$this->assertEquals(
+			trim( $prefix, '\\' ) . '\\',
+			$autoloader->get_prefix_by_slug( $prefix )
+		);
+	}
 }
