@@ -404,7 +404,7 @@ final class Tribe__Customizer {
 	 * @return void
 	 */
 	public function inline_style() {
-		//Only load once on front end
+		// Only load once on front-end.
 		if ( is_customize_preview() || is_admin() || $this->inline_style ) {
 			return false;
 		}
@@ -428,7 +428,9 @@ final class Tribe__Customizer {
 		$sheets = [];
 
 		/**
-		 * Allow plugins to add themselves to this list
+		 * Allow plugins to add themselves to this list.
+		 * 
+		 * @since TBD	 
 		 *
 		 * @param array $sheets An array of sheets to search for.
 		 * @param string $css_template String containing the inline css to add.
@@ -439,7 +441,7 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		// add customizer styles inline with whichever stylesheet is enqueued
+		// add customizer styles inline with whichever stylesheet is enqueued.
 		foreach ( $sheets as $sheet ) {
 			if ( wp_style_is( $sheet ) ) {
 				wp_add_inline_style( $sheet, wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
