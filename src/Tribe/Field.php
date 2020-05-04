@@ -349,7 +349,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public function do_field_value() {
 			$return = '';
-			if ( $this->value ) {
+			if ( '' != $this->value ) {
 				$return = ' value="' . $this->value . '"';
 			}
 
