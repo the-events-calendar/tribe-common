@@ -1,6 +1,6 @@
 <?php
 /**
- * A dummy implementation of the process handler.
+ * A dummy implementation of Dummy Template Origin
  *
  * @package Tribe\Common\Tests
  */
@@ -24,6 +24,6 @@ class Dummy_Plugin_Origin {
 
 	public function __construct() {
 		$this->plugin_file = __FILE__;
-		$this->pluginPath  = $this->plugin_path = trailingslashit( dirname( dirname( $this->plugin_file ) ) . '/plugin-views/' );
+		$this->pluginPath  = $this->plugin_path = trailingslashit( dirname( dirname( $this->plugin_file ) ) . '/plugin-views/templates/' );
 	}
 }
