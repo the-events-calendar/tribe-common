@@ -929,7 +929,7 @@ class Tribe__Template {
 			extract( $this->context ); // @phpcs:ignore
 		}
 
-		include $this->template_current_file_path;
+		include_once $this->template_current_file_path;
 
 		// After the include we reset the variable.
 		unset( $this->template_current_file_path );
