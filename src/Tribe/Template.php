@@ -1051,7 +1051,7 @@ class Tribe__Template {
 		$close_container_entry_point_html = $this->do_entry_point( 'before_container_close', false );
 
 		$html = \Tribe\Utils\Strings::replace_first( $first_tag_html, $first_tag_html . $open_container_entry_point_html, $html );
-		$html = \Tribe\Utils\Strings::replace_last( $last_tag_html, $last_tag_html . $close_container_entry_point_html, $html );
+		$html = \Tribe\Utils\Strings::replace_last( $last_tag_html, $close_container_entry_point_html . $last_tag_html, $html );
 
 		return $html;
 	}

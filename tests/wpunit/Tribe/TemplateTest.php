@@ -1,8 +1,10 @@
 <?php
 
 namespace Tribe;
-
+use Tribe\Common\Tests\Dummy_Plugin_Origin;
 use Tribe__Template as Template;
+
+include_once codecept_data_dir( 'classes/Dummy_Plugin_Origin.php' );
 
 class TemplateTest extends \Codeception\TestCase\WPTestCase {
 	/**
@@ -57,4 +59,33 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $local_set, $template->get_local_values() );
 		$this->assertEquals( array_merge( $global_values, $local_set ), $template->get_values() );
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_include_entry_points_on_template_html() {
+		$plugin   = new Dummy_Plugin_Origin();
+		$template = new Template();
+		$template->set_template_origin( $plugin );
+
+
+		add_filter( 'tribe_template_entry_point:dummy/dummy-template:after_container_open', function() {
+			echo '%%after_container_open%%';
+		} );
+		add_filter( 'tribe_template_entry_point:dummy/dummy-template:before_container_close', function() {
+			echo '%%before_container_close%%';
+		} );
+
+		$html = $template->template( 'dummy-template', [], false );
+
+		$this->assertContains(  );
+		var_dump( $html );
+
+	}
+	//todo add custom entry  $this->do_entry('customname')
+	//todo assert if invalid html - </div>
+	//todo test with valid lots of html in tags
+	//todo test filter to disable
+
+
 }
