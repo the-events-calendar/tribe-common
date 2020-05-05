@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.12.1] TBD =
+
+* Fix - Prevent other Select2 that were no loaded with full version to create failing scenarios with our loading of SelectWoo [TEC-3448]
+
 = [4.12.0] 2020-04-23 =
 
 * Feature - Management of Shortcodes now are fully controlled by Common Manager classes [TCMN-56]
