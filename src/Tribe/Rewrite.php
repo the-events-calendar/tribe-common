@@ -513,6 +513,11 @@ class Tribe__Rewrite {
 					return '';
 				}
 
+				if ( isset( $localized_matcher['localized_slug'] ) ) {
+					// If available, then return the localized slug instead of inferring it as we do below.
+					return $localized_matcher['localized_slug'];
+				}
+
 				/*
 				 * We use `end` as, by default, the localized version of the slug in the current language will be at the
 				 * end of the array.
