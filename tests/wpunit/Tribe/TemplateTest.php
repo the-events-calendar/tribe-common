@@ -8,10 +8,6 @@ include_once codecept_data_dir( 'classes/Dummy_Plugin_Origin.php' );
 
 class TemplateTest extends \Codeception\TestCase\WPTestCase {
 
-	function setUp() {
-		parent::setUp();
-	}
-
 	/**
 	 * It should allow setting a number of values at the same time
 	 *
@@ -114,7 +110,6 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		// Invalid Test 1
 		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-01:after_container_open', function () {
 			echo '%%after_container_open%%';
 		} );
@@ -125,8 +120,16 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertNotContains( '%%after_container_open%%', $html );
 		$this->assertStringEndsNotWith( '%%before_container_close%%', $html );
+	}
 
-		// Invalid Test 2
+	/**
+	 * @test
+	 */
+	public function should_not_include_with_invalid_html_02() {
+		$plugin   = new Dummy_Plugin_Origin();
+		$template = new Template();
+		$template->set_template_origin( $plugin );
+
 		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-02:after_container_open', function () {
 			echo '%%after_container_open%%';
 		} );
@@ -137,8 +140,16 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertNotContains( '%%after_container_open%%', $html );
 		$this->assertStringEndsNotWith( '%%before_container_close%%', $html );
+	}
 
-		// Invalid Test 3
+	/**
+	 * @test
+	 */
+	public function should_not_include_with_invalid_html_03() {
+		$plugin   = new Dummy_Plugin_Origin();
+		$template = new Template();
+		$template->set_template_origin( $plugin );
+
 		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-03:after_container_open', function () {
 			echo '%%after_container_open%%';
 		} );
@@ -149,8 +160,16 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertNotContains( '%%after_container_open%%', $html );
 		$this->assertStringEndsNotWith( '%%before_container_close%%', $html );
+	}
 
-		// Invalid Test 4
+	/**
+	 * @test
+	 */
+	public function should_not_include_with_invalid_html_04() {
+		$plugin   = new Dummy_Plugin_Origin();
+		$template = new Template();
+		$template->set_template_origin( $plugin );
+
 		add_action( 'tribe_template_entry_point:dummy/dummy-invalid-template-04:after_container_open', function () {
 			echo '%%after_container_open%%';
 		} );
@@ -171,7 +190,6 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$template = new Template();
 		$template->set_template_origin( $plugin );
 
-		// Valid Test 1
 		add_action( 'tribe_template_entry_point:dummy/dummy-valid-template-01:after_container_open', function () {
 			echo '%%after_container_open%%';
 		} );
@@ -183,7 +201,16 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertContains( '<a href="https://tri.be" class="test" target="_blank" title="Test Link" data-link="automated-tests">%%after_container_open%%', $html );
 		$this->assertStringEndsWith( '%%before_container_close%%</a>', $html );
 
-		// Valid Test 2
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_include_with_valid_html_02() {
+		$plugin   = new Dummy_Plugin_Origin();
+		$template = new Template();
+		$template->set_template_origin( $plugin );
+
 		add_action( 'tribe_template_entry_point:dummy/dummy-valid-template-02:after_container_open', function () {
 			echo '%%after_container_open%%';
 		} );
@@ -195,8 +222,16 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 		$replaced_html = str_replace( array( "\n", "\r" ), '', $html );
 		$this->assertContains( 'data-view-breakpoint-pointer="99ccf293-c1b0-41b2-a1c8-033776ac6f10">%%after_container_open%%', $replaced_html );
 		$this->assertStringEndsWith( '%%before_container_close%%</div>', $html );
+	}
 
-		// Valid Test 3
+	/**
+	 * @test
+	 */
+	public function should_include_with_valid_html_03() {
+		$plugin   = new Dummy_Plugin_Origin();
+		$template = new Template();
+		$template->set_template_origin( $plugin );
+
 		add_action( 'tribe_template_entry_point:dummy/dummy-valid-template-03:after_container_open', function () {
 			echo '%%after_container_open%%';
 		} );
