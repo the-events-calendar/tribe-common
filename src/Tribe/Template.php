@@ -1012,10 +1012,8 @@ class Tribe__Template {
 	 * @return string|false Either the final entry point content HTML or `false` if no entry point could be found or set to false.
 	 */
 	private function template_hook_container_entry_points( $html ) {
-		$regexp = '/<(?<is_end>\/)*(?<tag>[A-Z0-9]*)(?:\b)*[^>]*>/mi';
 
-		preg_match_all( $regexp, $html, $matches );
-
+		$matches      = $this->get_entry_point_matches( $html );
 		$html_matches = $matches[0];
 
 		if ( 0 === count( $html_matches ) ) {
@@ -1181,4 +1179,33 @@ class Tribe__Template {
 	public function get_values() {
 		return array_merge( $this->get_global_values(), $this->get_local_values() );
 	}
+
+	/**
+	 * Get the Entry Point Matches.
+	 *
+	 * @since  TBD
+	 *
+	 * @param string $html The html of the current template.
+	 *
+	 * @return array An array of matches from the regular expression.
+	 */
+	private function get_entry_point_matches( $html ) {
+
+		$key    = md5( $html );
+		$cache  = tribe_cache();
+		$cached = $cache[ $key ];
+
+		if ( false !== $cached ) {
+			return $cached;
+		}
+
+		$regexp = '/<(?<is_end>\/)*(?<tag>[A-Z0-9]*)(?:\b)*[^>]*>/mi';
+
+		preg_match_all( $regexp, $html, $matches );
+
+		$cache[ $key ] = $matches;
+
+		return $matches;
+	}
+
 }
