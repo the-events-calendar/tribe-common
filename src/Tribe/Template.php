@@ -805,7 +805,9 @@ class Tribe__Template {
 		$legacy_hook_name = implode( '/', $legacy_namespace );
 		$hook_name        = implode( '/', $namespace );
 
-		// Store the current hookname for the purposes of entry-points.
+		$prev_hook_name = $this->get_template_current_hook_name();
+
+		// Store the current hook name for the purposes of entry-points.
 		$this->set_template_current_hook_name( $hook_name );
 
 		/**
@@ -997,7 +999,7 @@ class Tribe__Template {
 		}
 
 		// Revert the current hook name.
-		$this->set_template_current_hook_name( null );
+		$this->set_template_current_hook_name( $prev_hook_name );
 
 		return $html;
 	}
