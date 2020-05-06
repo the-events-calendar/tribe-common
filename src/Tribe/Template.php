@@ -188,7 +188,7 @@ class Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool If we are looking into theme folders
+	 * @return bool Whether we are looking into theme folders.
 	 */
 	public function get_template_folder_lookup() {
 		return $this->template_folder_lookup;
