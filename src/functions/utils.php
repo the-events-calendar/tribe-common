@@ -996,7 +996,7 @@ if ( ! function_exists( 'tribe_localize_maybe_append' ) ) {
 
 		$data = $wp_scripts->get_data( $enqueued_script, 'data' );
 
-		if ( empty($data ) ) {
+		if ( empty( $data ) ) {
 			// If no data, then just do the default.
 			wp_localize_script( $enqueued_script, 'obj', $localized_data );
 		} else {
