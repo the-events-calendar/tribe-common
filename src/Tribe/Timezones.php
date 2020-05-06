@@ -408,7 +408,7 @@ class Tribe__Timezones {
 	 */
 	public static function timezone_from_utc_offset( $utc_offset_string ) {
 		// Test for strings looking like "UTC-2" or "UTC+5.25" etc
-		if ( ! preg_match( '/^UTC[\-+][0-9.]{1,4}$/', $utc_offset_string ) ) {
+		if ( ! preg_match( '/^UTC[+-][0-9.]{1,4}$/', $utc_offset_string ) ) {
 			return false;
 		}
 
@@ -623,4 +623,3 @@ class Tribe__Timezones {
 		return $timezone_string;
 	}
 }
-
