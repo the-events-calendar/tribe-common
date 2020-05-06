@@ -432,7 +432,7 @@ final class Tribe__Customizer {
 		 * 
 		 * @since TBD	 
 		 *
-		 * @param array $sheets An array of sheets to search for.
+		 * @param array<string> $sheets An array of sheets to search for.
 		 * @param string $css_template String containing the inline css to add.
 		 */
 		$sheets = apply_filters( 'tribe_customizer_inline_stylesheets', $sheets, $css_template );
