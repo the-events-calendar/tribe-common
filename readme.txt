@@ -5,6 +5,8 @@
 = [4.12.1] 2020-04-20 =
 
 * Feature - Added a helper method `Tribe__Plugins::is_active( 'slug' )` to check if a given plugin is active.
+* Feature - Add entry points through filters to be able to add content after the opening html tag or before the closing html tag. [TCMN-65]
+* Fix - Prevent third-party Select2 usage from breaking SelectWoo for The Events Calendar and Event Tickets dropdowns [TEC-3448]
 * Tweak - Extended support for namespaced classes in the Autoloader.
 * Tweak - Make Customizer stylesheet enqueue filterable via `tribe_customizer_inline_stylesheets`. [TEC-3401]
 * Tweak - Normalize namespaced prefixes with trailing backslash when registering them in the Autoloader. [VE-14]
