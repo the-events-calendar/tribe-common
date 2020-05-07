@@ -18,7 +18,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	 * @since 4.12.0
 	 */
 	public function register() {
-		if ( static::is_active() ) {
+		if ( ! static::is_active() ) {
 			return;
 		}
 
