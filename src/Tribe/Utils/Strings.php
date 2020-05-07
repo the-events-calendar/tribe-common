@@ -51,7 +51,7 @@ class Strings {
 	 * @param string $replace The replacement string.
 	 * @param string $subject The string to do the search and replace from.
 	 *
-	 * @return string
+	 * @return string The string with the last occurrence of a given value replaced.
 	 */
 	public static function replace_last( $search, $replace, $subject ) {
 		$position = strrpos( $subject, $search );
