@@ -41,8 +41,8 @@ class Tribe__Assets_Pipeline {
 		return $tag;
 	}
 	/**
-	 * Before underscore is loaded to the FE we add two scripts on before and one after to prevent underscore from
-	 * taking place on the global namespace if lodash is present.
+	 * Before selectWoo is loaded to the FE we add two scripts on before and one after to prevent selectWoo from
+	 * taking place on the global namespace if select2 is present.
 	 *
 	 * @since TBD
 	 *

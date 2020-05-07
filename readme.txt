@@ -4,7 +4,7 @@
 
 = [TBD] TBD =
 
-* Fix - Prevent other Select2 that were no loaded with full version to create failing scenarios with our loading of SelectWoo [TEC-3448]
+* Fix - Prevent third-party Select2 usage from breaking SelectWoo for The Events Calendar and Event Tickets dropdowns [TEC-3448]
 * Tweak - Extended support for namespaced classes in the Autoloader.
 * Tweak - Normalize namespaced prefixes with trailing backslash when registering them in the Autoloader. [VE-14]
 
