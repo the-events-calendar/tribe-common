@@ -71,7 +71,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 */
 	public function setup( $arguments, $content ) {
 		$this->arguments = $this->parse_aliases( $arguments );
-		$this->arguments = $this->parse_arguments( $arguments );
+		$this->arguments = $this->parse_arguments( $this->arguments );
 		$this->content   = $content;
 	}
 
