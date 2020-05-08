@@ -37,6 +37,15 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	protected $default_arguments = [];
 
 	/**
+	 * Account for this shortcode having aliased arguments.
+	 *
+	 * The array keys are aliases of the array values (i.e. the "real" shortcode attributes to allow parsing).
+	 *
+	 * @var string[]
+	 */
+	public $aliased_arguments = [];
+
+	/**
 	 * Array of callbacks for arguments validation
 	 *
 	 * @since   4.12.0
@@ -67,8 +76,28 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 * {@inheritDoc}
 	 */
 	public function setup( $arguments, $content ) {
+		$this->arguments = $this->parse_aliases( $arguments );
 		$this->arguments = $this->parse_arguments( $arguments );
 		$this->content   = $content;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function parse_aliases( $arguments ) {
+		foreach ( $this->aliased_arguments as $from => $to ) {
+			if ( ! isset( $arguments[ $from ] ) ) {
+				continue;
+			}
+
+			if ( ! isset( $arguments[ $to ] ) ) {
+				$arguments[ $to ] = $arguments[ $from ];
+			}
+
+			unset ( $arguments[ $from ] );
+		}
+
+		return $arguments;
 	}
 
 	/**
