@@ -1,31 +1,17 @@
 <?php
-/**
- * The abstract all shortcodes should implement.
- *
- * @since  4.12.0
- *
- * @package Tribe\Shortcode
- */
+
 namespace Tribe\Shortcode;
 
 use Tribe__Utils__Array as Arr;
 
 /**
- * Interface Shortcode_Interface
- *
- * @since   4.12.0
+ * The abstract all shortcodes should implement.
  *
  * @package Tribe\Shortcode
+ *
+ * @since   4.12.0
  */
 abstract class Shortcode_Abstract implements Shortcode_Interface {
-	/**
-	 * Slug of the current shortcode.
-	 *
-	 * @since   4.12.0
-	 *
-	 * @var   string
-	 */
-	protected $slug;
 
 	/**
 	 * Default arguments to be merged into final arguments of the shortcode.
@@ -64,6 +50,51 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	protected $content;
 
 	/**
+	 * Get the shortcode tag, forced to lowercase with underscores.
+	 *
+	 * If `$this->tag` exists, use it, else it will be created dynamically from this class' name.
+	 *
+	 * @return string
+	 */
+	public function get_tag() {
+		if (
+			! empty( $this->tag )
+			&& is_string( $this->tag )
+		) {
+			$tag = $this->tag;
+		} else {
+			$tag = $this->start_tag_from_class_name();
+		}
+
+		/**
+		 * This shortcode's tag, which will be forced to lowercase with underscores.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $tag      The default tag for this shortcode.
+		 * @param static $instance Which instance of shortcode we are dealing with.
+		 */
+		$tag = apply_filters( 'tribe_shortcode_get_tag', $tag, $this );
+
+		$tag = str_replace( '-', '_', sanitize_key( $tag ) );
+
+		return $tag;
+	}
+
+	/**
+	 * Get a shortcode tag based on this class' name.
+	 *
+	 * @return string
+	 */
+	private function start_tag_from_class_name() {
+		$namespace = substr( static::class, 0, strrpos( static::class, '\\' ) );
+
+		$tag = str_replace( $namespace, '', static::class );
+
+		return str_replace( '\\', '', $tag );
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function setup( $arguments, $content ) {
@@ -75,7 +106,8 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 * {@inheritDoc}
 	 */
 	public function parse_arguments( $arguments ) {
-		$arguments = shortcode_atts( $this->get_default_arguments(), $arguments, $this->slug );
+		$arguments = shortcode_atts( $this->get_default_arguments(), $arguments, $this->get_tag() );
+
 		return $this->validate_arguments( $arguments );
 	}
 
@@ -94,33 +126,26 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_registration_slug() {
-		return $this->slug;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	public function get_validated_arguments_map() {
 		/**
 		 * Applies a filter to instance arguments validation callbacks.
 		 *
 		 * @since   4.12.0
 		 *
-		 * @param  array  $validate_arguments_map   Current set of callbacks for arguments.
-		 * @param  static $instance                 Which instance of shortcode we are dealing with.
+		 * @param array  $validate_arguments_map Current set of callbacks for arguments.
+		 * @param static $instance               Which instance of shortcode we are dealing with.
 		 */
 		$validate_arguments_map = apply_filters( 'tribe_shortcode_validate_arguments_map', $this->validate_arguments_map, $this );
 
-		$registration_slug = $this->get_registration_slug();
+		$registration_slug = $this->get_tag();
 
 		/**
 		 * Applies a filter to instance arguments validation callbacks based on the registration slug of the shortcode.
 		 *
 		 * @since   4.12.0
 		 *
-		 * @param  array  $validate_arguments_map   Current set of callbacks for arguments.
-		 * @param  static $instance                 Which instance of shortcode we are dealing with.
+		 * @param array  $validate_arguments_map Current set of callbacks for arguments.
+		 * @param static $instance               Which instance of shortcode we are dealing with.
 		 */
 		$validate_arguments_map = apply_filters( "tribe__shortcode_{$registration_slug}_validate_arguments_map", $validate_arguments_map, $this );
 
@@ -136,20 +161,20 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		 *
 		 * @since   4.12.0
 		 *
-		 * @param  array  $arguments  Current set of arguments.
-		 * @param  static $instance   Which instance of shortcode we are dealing with.
+		 * @param array  $arguments Current set of arguments.
+		 * @param static $instance  Which instance of shortcode we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_shortcode_arguments', $this->arguments, $this );
 
-		$registration_slug = $this->get_registration_slug();
+		$registration_slug = $this->get_tag();
 
 		/**
 		 * Applies a filter to instance arguments based on the registration slug of the shortcode.
 		 *
 		 * @since   4.12.0
 		 *
-		 * @param  array  $arguments   Current set of arguments.
-		 * @param  static $instance    Which instance of shortcode we are dealing with.
+		 * @param array  $arguments Current set of arguments.
+		 * @param static $instance  Which instance of shortcode we are dealing with.
 		 */
 		$arguments = apply_filters( "tribe_shortcode_{$registration_slug}_arguments", $arguments, $this );
 
@@ -168,24 +193,24 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		 *
 		 * @since   4.12.0
 		 *
-		 * @param  mixed  $argument   The argument.
-		 * @param  array  $index      Which index we indent to fetch from the arguments.
-		 * @param  array  $default    Default value if it doesnt exist.
-		 * @param  static $instance   Which instance of shortcode we are dealing with.
+		 * @param mixed  $argument The argument.
+		 * @param array  $index    Which index we indent to fetch from the arguments.
+		 * @param array  $default  Default value if it doesnt exist.
+		 * @param static $instance Which instance of shortcode we are dealing with.
 		 */
 		$argument = apply_filters( 'tribe_shortcode_argument', $argument, $index, $default, $this );
 
-		$registration_slug = $this->get_registration_slug();
+		$registration_slug = $this->get_tag();
 
 		/**
 		 * Applies a filter to a specific shortcode argument, to a particular registration slug.
 		 *
 		 * @since   4.12.0
 		 *
-		 * @param  mixed  $argument   The argument value.
-		 * @param  array  $index      Which index we indent to fetch from the arguments.
-		 * @param  array  $default    Default value if it doesnt exist.
-		 * @param  static $instance   Which instance of shortcode we are dealing with.
+		 * @param mixed  $argument The argument value.
+		 * @param array  $index    Which index we indent to fetch from the arguments.
+		 * @param array  $default  Default value if it doesnt exist.
+		 * @param static $instance Which instance of shortcode we are dealing with.
 		 */
 		$argument = apply_filters( "tribe_shortcode_{$registration_slug}_argument", $argument, $index, $default, $this );
 
@@ -201,20 +226,20 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 		 *
 		 * @since   4.12.0
 		 *
-		 * @param  array  $default_arguments  Current set of default arguments.
-		 * @param  static $instance           Which instance of shortcode we are dealing with.
+		 * @param array  $default_arguments Current set of default arguments.
+		 * @param static $instance          Which instance of shortcode we are dealing with.
 		 */
 		$default_arguments = apply_filters( 'tribe_shortcode_default_arguments', $this->default_arguments, $this );
 
-		$registration_slug = $this->get_registration_slug();
+		$registration_slug = $this->get_tag();
 
 		/**
 		 * Applies a filter to instance default arguments based on the registration slug of the shortcode.
 		 *
 		 * @since   4.12.0
 		 *
-		 * @param  array  $default_arguments   Current set of default arguments.
-		 * @param  static $instance            Which instance of shortcode we are dealing with.
+		 * @param array  $default_arguments Current set of default arguments.
+		 * @param static $instance          Which instance of shortcode we are dealing with.
 		 */
 		$default_arguments = apply_filters( "tribe_shortcode_{$registration_slug}_default_arguments", $default_arguments, $this );
 

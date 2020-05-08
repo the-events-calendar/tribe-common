@@ -1,32 +1,15 @@
 <?php
-/**
- * The interface all shortcodes should implement.
- *
- * @since   4.12.0
- *
- * @package Tribe\Shortcode
- */
+
 namespace Tribe\Shortcode;
 
 /**
- * Interface Shortcode_Interface
- *
- * @since   4.12.0
+ * The interface all shortcodes should implement.
  *
  * @package Tribe\Shortcode
+ * @since   4.12.0
+ *
  */
 interface Shortcode_Interface {
-
-	/**
-	 * Returns the shortcode slug.
-	 *
-	 * The slug should be the one that will allow the shortcode to be built by the shortcode class by slug.
-	 *
-	 * @since  4.12.0
-	 *
-	 * @return string The shortcode slug.
-	 */
-	public function get_registration_slug();
 
 	/**
 	 * Configures the base variables for an instance of shortcode.
@@ -43,7 +26,7 @@ interface Shortcode_Interface {
 	 *
 	 * @since  4.12.0
 	 *
-	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
+	 * @param array $arguments Set of arguments passed to the Shortcode at hand.
 	 *
 	 * @return array<string,mixed> The parsed shortcode arguments map.
 	 */
@@ -54,7 +37,7 @@ interface Shortcode_Interface {
 	 *
 	 * @since  4.12.0
 	 *
-	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
+	 * @param array $arguments Set of arguments passed to the Shortcode at hand.
 	 *
 	 * @return array<string,mixed> The validated shortcode arguments map.
 	 */
@@ -90,14 +73,14 @@ interface Shortcode_Interface {
 	/**
 	 * Returns a shortcode argument after it has been parsed.
 	 *
-	 * @uses  Tribe__Utils__Array::get For index fetching and Default.
-	 *
 	 * @since  4.12.0
 	 *
-	 * @param array  $index   Which index we indent to fetch from the arguments.
-	 * @param array  $default Default value if it doesnt exist.
+	 * @param array $index   Which index we indent to fetch from the arguments.
+	 * @param array $default Default value if it doesn't exist.
 	 *
 	 * @return mixed  Value for the Index passed as the first argument.
+	 * @uses   Tribe__Utils__Array::get For index fetching and Default.
+	 *
 	 */
 	public function get_argument( $index, $default = null );
 
