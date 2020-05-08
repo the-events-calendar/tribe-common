@@ -9,6 +9,7 @@
 * Tweak - Extended support for namespaced classes in the Autoloader.
 * Tweak - Make Customizer stylesheet enqueue filterable via `tribe_customizer_inline_stylesheets`. [TEC-3401]
 * Tweak - Normalize namespaced prefixes with trailing backslash when registering them in the Autoloader. [VE-14]
+* Language - 1 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.0] 2020-04-23 =
 
