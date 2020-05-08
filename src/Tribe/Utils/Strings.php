@@ -2,7 +2,7 @@
 /**
  * String Utilities
  *
- * @since   TBD
+ * @since   4.12.1
  * @package Tribe\Utils
  */
 
@@ -11,7 +11,7 @@ namespace Tribe\Utils;
 /**
  * Class Strings
  *
- * @since TBD
+ * @since 4.12.1
  *
  * @package Tribe\Utils
  */
@@ -20,7 +20,7 @@ class Strings {
 	/**
 	 * Replace the first occurrence of a given value in the string.
 	 *
-	 * @since TBD
+	 * @since 4.12.1
 	 *
 	 * @param string $search  The string to search for and replace.
 	 * @param string $replace The replacement string.
@@ -45,7 +45,7 @@ class Strings {
 	/**
 	 * Replace the last occurrence of a given value in the string.
 	 *
-	 * @since TBD
+	 * @since 4.12.1
 	 *
 	 * @param string $search  The string to search for and replace.
 	 * @param string $replace The replacement string.

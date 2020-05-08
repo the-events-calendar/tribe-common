@@ -60,7 +60,7 @@ class Tribe__Template {
 	/**
 	 * Current template hook name.
 	 *
-	 * @since TBD
+	 * @since 4.12.1
 	 *
 	 * @var string|null
 	 */
@@ -197,7 +197,7 @@ class Tribe__Template {
 	/**
 	 * Gets in this instance of the template engine whether we are looking public folders like themes.
 	 *
-	 * @since TBD
+	 * @since 4.12.1
 	 *
 	 * @return bool Whether we are looking into theme folders.
 	 */
@@ -240,7 +240,7 @@ class Tribe__Template {
 	/**
 	 * Set the current hook name for the template include.
 	 *
-	 * @since  TBD
+	 * @since  4.12.1
 	 *
 	 * @param  string  $value  Which value will be saved as the current hookname.
 	 *
@@ -255,7 +255,7 @@ class Tribe__Template {
 	/**
 	 * Gets the hook name for the current template setup.
 	 *
-	 * @since  TBD
+	 * @since  4.12.1
 	 *
 	 * @return string Hook name currently set on the class.
 	 */
@@ -647,7 +647,7 @@ class Tribe__Template {
 		/**
 		 * Filter if the entry points are enabled.
 		 *
-		 * @since TBD
+		 * @since 4.12.1
 		 *
 		 * @param boolean $is_enabled       Is entry_point enabled.
 		 * @param string  $hook_name        For which template include this entry point belongs.
@@ -666,7 +666,7 @@ class Tribe__Template {
 			/**
 			 * Generic entry point action for the current template.
 			 *
-			 * @since TBD
+			 * @since 4.12.1
 			 *
 			 * @param string $hook_name        For which template include this entry point belongs.
 			 * @param string $entry_point_name Which entry point specifically we are triggering.
@@ -679,7 +679,7 @@ class Tribe__Template {
 			/**
 			 * Specific named entry point action called.
 			 *
-			 * @since TBD
+			 * @since 4.12.1
 			 *
 			 * @param string $hook_name        For which template include this entry point belongs.
 			 * @param string $entry_point_name Which entry point specifically we are triggering.
@@ -694,7 +694,7 @@ class Tribe__Template {
 			/**
 			 * Generic entry point action for the current template.
 			 *
-			 * @since TBD
+			 * @since 4.12.1
 			 *
 			 * @param string $html             HTML returned and/or echoed for this for this entry point.
 			 * @param string $hook_name        For which template include this entry point belongs.
@@ -708,7 +708,7 @@ class Tribe__Template {
 			/**
 			 * Specific named entry point action called.
 			 *
-			 * @since TBD
+			 * @since 4.12.1
 			 *
 			 * @param string $html             HTML returned and/or echoed for this for this entry point.
 			 * @param string $hook_name        For which template include this entry point belongs.
@@ -1019,7 +1019,7 @@ class Tribe__Template {
 	/**
 	 * Run the hooks for the container entry points.
 	 *
-	 * @since  TBD
+	 * @since  4.12.1
 	 *
 	 * @param string $html The html of the current template.
 	 *
@@ -1197,7 +1197,7 @@ class Tribe__Template {
 	/**
 	 * Get the Entry Point Matches.
 	 *
-	 * @since  TBD
+	 * @since  4.12.1
 	 *
 	 * @param string $html The html of the current template.
 	 *
