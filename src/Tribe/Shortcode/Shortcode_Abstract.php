@@ -70,38 +70,9 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 * {@inheritDoc}
 	 */
 	public function setup( $arguments, $content ) {
-		$this->arguments = $this->parse_aliases( $arguments );
+		$this->arguments = Arr::parse_associative_array_alias( (array) $arguments, $this->aliased_arguments );
 		$this->arguments = $this->parse_arguments( $this->arguments );
 		$this->content   = $content;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function parse_aliases( $arguments ) {
-		foreach ( $this->aliased_arguments as $from => $to ) {
-			if ( ! isset( $arguments[ $from ] ) ) {
-				continue;
-			}
-
-			/**
-			 * If the shortcode *explicitly* passed both (even though they shouldn't), keep the canonical's value, else
-			 * set the canonical from the alias.
-			 */
-			if (
-				! isset( $arguments[ $to ] )
-				|| (
-					isset( $this->default_arguments[ $to ] )
-					&& $arguments[ $to ] == $this->default_arguments[ $to ]
-				)
-			) {
-				$arguments[ $to ] = $arguments[ $from ];
-			}
-
-			unset ( $arguments[ $from ] );
-		}
-
-		return $arguments;
 	}
 
 	/**

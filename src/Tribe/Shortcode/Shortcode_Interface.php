@@ -39,17 +39,6 @@ interface Shortcode_Interface {
 	public function setup( $arguments, $content );
 
 	/**
-	 * Converts aliased attributes to their canonical attribute names.
-	 *
-	 * @since  TBD
-	 *
-	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
-	 *
-	 * @return array<string,mixed> The parsed shortcode arguments map.
-	 */
-	public function parse_aliases( $arguments );
-
-	/**
 	 * Returns the arguments for the shortcode parsed correctly with defaults applied.
 	 *
 	 * @since  4.12.0

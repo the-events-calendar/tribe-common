@@ -442,5 +442,57 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 
 			return $default;
 		}
+
+		/**
+		 * Build an array from migrating aliased key values to their canonical key values, removing all alias keys.
+		 *
+		 * If the original array has values for both the alias and its canonical, keep the canonical's value and
+		 * discard the alias' value.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $original  An associative array of values, such as passed shortcode arguments.
+		 * @param array $alias_map An associative array of aliases: key as alias, value as mapped canonical.
+		 *                         Example: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
+		 *
+		 * @return array
+		 */
+		public static function parse_associative_array_alias( array $original, array $alias_map ) {
+			// Ensure array values.
+			$original  = (array) $original;
+			$alias_map = (array) $alias_map;
+
+			// Fail gracefully if alias array wasn't setup as [ 'from' => 'to' ].
+			$alias_keys   = array_keys( $alias_map );
+			$alias_values = array_values( $alias_map );
+
+			if (
+				empty( $alias_keys )
+				|| is_int( $alias_keys[0] ) // Alias map needs to be an associative array.
+				|| ! is_scalar( $alias_values[0] ) // Alias map cannot be unset, nor a multidimensional array.
+			) {
+				return $original;
+			}
+
+			$result = $original;
+
+			// Parse aliases.
+			foreach ( $alias_map as $from => $to ) {
+				// If this alias isn't in use, go onto the next.
+				if ( ! isset( $result[ $from ] ) ) {
+					continue;
+				}
+
+				// Only allow setting alias value if canonical value is not already present.
+				if ( ! isset( $result[ $to ] ) ) {
+					$result[ $to ] = $result[ $from ];
+				}
+
+				// Always remove the alias key.
+				unset( $result[ $from ] );
+			}
+
+			return $result;
+		}
 	}
 }
