@@ -429,8 +429,8 @@ final class Tribe__Customizer {
 
 		/**
 		 * Allow plugins to add themselves to this list.
-		 * 
-		 * @since TBD	 
+		 *
+		 * @since 4.12.1
 		 *
 		 * @param array<string> $sheets An array of sheets to search for.
 		 * @param string $css_template String containing the inline css to add.

@@ -83,7 +83,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 * {@inheritDoc}
 	 */
 	public function validate_arguments( $arguments ) {
-		$validate_arguments_map = $this->get_validate_arguments_map();
+		$validate_arguments_map = $this->get_validated_arguments_map();
 		foreach ( $validate_arguments_map as $key => $callback ) {
 			$arguments[ $key ] = $callback( isset( $arguments[ $key ] ) ? $arguments[ $key ] : null );
 		}
