@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.1] 2020-04-20 =
+= [4.12.1] 2020-05-11 =
 
 * Feature - Added a helper method `Tribe__Plugins::is_active( 'slug' )` to check if a given plugin is active.
 * Feature - Add entry points through filters to be able to add content after the opening html tag or before the closing html tag. [TCMN-65]
