@@ -54,6 +54,8 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 *
 	 * If `$this->tag` exists, use it, else it will be created dynamically from this class' name.
 	 *
+	 * @since TBD
+	 *
 	 * @return string
 	 */
 	public function get_tag() {
@@ -83,6 +85,8 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 
 	/**
 	 * Get a shortcode tag based on this class' name.
+	 *
+	 * @since TBD
 	 *
 	 * @return string
 	 */
