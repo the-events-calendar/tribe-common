@@ -136,7 +136,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		 *
 		 * @param string $plugin_name The name of the plugin. Each plugin defines their name upon hooking on the filter.
 		 *
-		 * @since TBD
+		 * @since 4.12.1
 		 *
 		 * @return bool True if plugin is active. False if plugin is not active.
 		 */
@@ -155,7 +155,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			 *
 			 * @example [ 'the-events-calendar' => true, 'event-tickets' => true ]
 			 *
-			 * @since   TBD
+			 * @since   4.12.1
 			 *
 			 * @return array Plugin slugs as keys and bool as value for whether it's active or not.
 			 */
