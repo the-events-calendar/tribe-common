@@ -84,7 +84,17 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 				continue;
 			}
 
-			if ( ! isset( $arguments[ $to ] ) ) {
+			/**
+			 * If the shortcode *explicitly* passed both (even though they shouldn't), keep the canonical's value, else
+			 * set the canonical from the alias.
+			 */
+			if (
+				! isset( $arguments[ $to ] )
+				|| (
+					isset( $this->default_arguments[ $to ] )
+					&& $arguments[ $to ] == $this->default_arguments[ $to ]
+				)
+			) {
 				$arguments[ $to ] = $arguments[ $from ];
 			}
 
