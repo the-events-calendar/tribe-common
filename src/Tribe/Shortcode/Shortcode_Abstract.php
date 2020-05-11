@@ -70,7 +70,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 * {@inheritDoc}
 	 */
 	public function setup( $arguments, $content ) {
-		$this->arguments = Arr::parse_associative_array_alias( (array) $arguments, $this->aliased_arguments );
+		$this->arguments = Arr::parse_associative_array_alias( (array) $arguments, (array) $this->aliased_arguments );
 		$this->arguments = $this->parse_arguments( $this->arguments );
 		$this->content   = $content;
 	}
