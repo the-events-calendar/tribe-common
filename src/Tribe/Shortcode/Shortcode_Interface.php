@@ -25,7 +25,7 @@ interface Shortcode_Interface {
 	 *
 	 * @since 4.12.0
 	 *
-	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
+	 * @param array|string  $arguments Set of arguments passed to the Shortcode at hand. Empty string if no args.
 	 * @param string $content   Contents passed to the shortcode, inside of the open and close brackets.
 	 */
 	public function setup( $arguments, $content );
