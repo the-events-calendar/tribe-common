@@ -39,7 +39,7 @@ interface Shortcode_Interface {
 	 *
 	 * @return array<string,mixed> The parsed shortcode arguments map.
 	 */
-	public function parse_arguments( $arguments );
+	public function parse_arguments( array $arguments );
 
 	/**
 	 * Returns the array of arguments for this shortcode after applying the validation callbacks.
@@ -50,7 +50,7 @@ interface Shortcode_Interface {
 	 *
 	 * @return array<string,mixed> The validated shortcode arguments map.
 	 */
-	public function validate_arguments( $arguments );
+	public function validate_arguments( array $arguments );
 
 	/**
 	 * Returns the array of callbacks for this shortcode's arguments.
