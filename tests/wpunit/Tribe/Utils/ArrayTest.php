@@ -120,7 +120,7 @@ class ArrayTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			// $original, $alias_map, $expected
 			'empty'                 => [ [], [], [] ],
-			'wo_alias'              => [ $starter, null, $starter ],
+			'wo_alias'              => [ $starter, [], $starter ],
 			'non_associative_alias' => [ $starter, [ 'ace' ], $starter ],
 			'non_scalar_alias'      => [ $starter, [ [ 'ace' ] ], $starter ],
 			'wo_canonical_conflict' => [
