@@ -444,6 +444,40 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		}
 
 		/**
+		 * Discards everything other than array values having string keys and scalar values, ensuring a
+		 * one-dimensional, associative array result.
+		 *
+		 * @link  https://www.php.net/manual/language.types.array.php Keys cast to non-strings will be discarded.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $array
+		 *
+		 * @return array Associative or empty array.
+		 */
+		public static function filter_to_flat_scalar_associative_array( array $array ) {
+			$result = [];
+
+			if ( ! is_array( $array ) ) {
+				return $result;
+			}
+
+			foreach ( $array as $k => $v ) {
+				if ( ! is_string( $k ) ) {
+					continue;
+				}
+
+				if ( ! is_scalar( $v ) ) {
+					continue;
+				}
+
+				$result[ $k ] = $v;
+			}
+
+			return $result;
+		}
+
+		/**
 		 * Build an array from migrating aliased key values to their canonical key values, removing all alias keys.
 		 *
 		 * If the original array has values for both the alias and its canonical, keep the canonical's value and
@@ -460,17 +494,10 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		public static function parse_associative_array_alias( array $original, array $alias_map ) {
 			// Ensure array values.
 			$original  = (array) $original;
-			$alias_map = (array) $alias_map;
+			$alias_map = static::filter_to_flat_scalar_associative_array( (array) $alias_map );
 
 			// Fail gracefully if alias array wasn't setup as [ 'from' => 'to' ].
-			$alias_keys   = array_keys( $alias_map );
-			$alias_values = array_values( $alias_map );
-
-			if (
-				empty( $alias_keys )
-				|| is_int( $alias_keys[0] ) // Alias map needs to be an associative array.
-				|| ! is_scalar( $alias_values[0] ) // Alias map cannot be unset, nor a multidimensional array.
-			) {
+			if ( empty( $alias_map ) ) {
 				return $original;
 			}
 

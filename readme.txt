@@ -5,7 +5,7 @@
 = [4.12.1] 2020-05-11 =
 
 * Feature - Added a helper method `Tribe__Plugins::is_active( 'slug' )` to check if a given plugin is active.
-* Feature - Added a utility method `Tribe__Utils__Array::parse_associative_array_alias( $original, $alias_map )` to build an array with canonical keys while taking alias keys into account. Useful for aliasing shortcode arguments, for example.
+* Feature - Added array utility methods: `parse_associative_array_alias` to build an array with canonical keys while taking alias keys into account and `filter_to_flat_scalar_associative_array` to help do so. Useful for aliasing shortcode arguments, for example.
 * Feature - Add entry points through filters to be able to add content after the opening html tag or before the closing html tag. [TCMN-65]
 * Tweak - Extended support for namespaced classes in the Autoloader.
 * Tweak - Make Customizer stylesheet enqueue filterable via `tribe_customizer_inline_stylesheets`. [TEC-3401]
