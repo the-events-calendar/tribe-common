@@ -113,4 +113,34 @@ class ArrayTest extends \Codeception\TestCase\WPTestCase {
 	public function test_get_first_set( $input, $indexes, $default, $expected ) {
 		$this->assertEquals( $expected, \Tribe__Utils__Array::get_first_set( $input, $indexes, $default ) );
 	}
+
+	public function parse_associative_array_alias_data_sets() {
+		$starter = [ 'card' => 'ace' ];
+
+		return [
+			// $original, $alias_map, $expected
+			'empty'                 => [ [], [], [] ],
+			'wo_alias'              => [ $starter, null, $starter ],
+			'non_associative_alias' => [ $starter, [ 'ace' ], $starter ],
+			'non_scalar_alias'      => [ $starter, [ [ 'ace' ] ], $starter ],
+			'wo_canonical_conflict' => [
+				$starter + [ 'player' => 'John' ],
+				[ 'player' => 'name' ],
+				$starter + [ 'name' => 'John' ],
+			],
+			'w_canonical_conflict'  => [
+				$starter + [ 'player' => 'John', 'name' => 'Sally' ],
+				[ 'player' => 'name' ],
+				$starter + [ 'name' => 'Sally' ],
+			],
+		];
+	}
+
+	/**
+	 * Test parse_associative_array_alias
+	 * @dataProvider parse_associative_array_alias_data_sets
+	 */
+	public function test_parse_associative_array_alias( $original, $alias_map, $expected ) {
+		$this->assertEquals( $expected, \Tribe__Utils__Array::parse_associative_array_alias( $original, $alias_map ) );
+	}
 }
