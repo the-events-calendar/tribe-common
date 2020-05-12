@@ -74,22 +74,9 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 * {@inheritDoc}
 	 */
 	public function setup( $arguments, $content ) {
-		$this->pre_setup();
 		$this->arguments = $this->parse_arguments( (array) $arguments );
 		$this->content   = $content;
 	}
-
-	/**
-	 * Optional method to implement that is the first code that runs when a shortcode class gets called.
-	 *
-	 * Like a WordPress action hook (as is done elsewhere in this class) but via PHP classes.
-	 * Useful for things like setting up shortcode argument aliases or setting default values via an expression.
-	 *
-	 * @since TBD
-	 *
-	 * @return void|mixed
-	 */
-	public function pre_setup() {}
 
 	/**
 	 * {@inheritDoc}
