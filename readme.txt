@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Added the `bulk_edit` and `inline_save` locations to the Context. [VE-8]
+
 = [4.12.1] 2020-05-11 =
 
 * Feature - Added a helper method `Tribe__Plugins::is_active( 'slug' )` to check if a given plugin is active.
