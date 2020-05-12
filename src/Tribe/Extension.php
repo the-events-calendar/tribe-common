@@ -164,13 +164,40 @@ abstract class Tribe__Extension {
 			$this->get_plugin_file(),
 			$this->get( 'class' ),
 			$this->get_version(),
-			$this->get( 'requires', array() )
+			$this->get( 'requires', [] )
 		);
 
 		$dependency = Tribe__Dependency::instance();
 
 		// check requisite plugins are active for this extension
-		$is_plugin_authorized = $dependency->has_requisite_plugins( $this->get( 'requires', array() ) );
+		$is_plugin_authorized = $dependency->has_requisite_plugins( $this->get( 'requires', [] ) );
+
+		/**
+		 * Explicitly disallow an extension, such as a core plugin having absorbed/replaced its functionality.
+		 *
+		 * @since TBD
+		 *
+		 * @param                  $is_disallowed        False by default.
+		 * @param string           $extension_class_name This extension's class name string
+		 *                                               (without initial forward slash for namespaced classes).
+		 * @param Tribe__Extension $this_instance        This extension class' instance.
+		 *
+		 * @return bool
+		 */
+		$is_disallowed = (bool) apply_filters( 'tribe_extension_is_disallowed', false, $this->get( 'class' ), $this );
+
+		if ( $is_disallowed ) {
+			if (
+				is_admin()
+				&& current_user_can( 'activate_plugins' )
+			) {
+				tribe_notice( 'tribe_extension_is_disallowed', [ $this, 'notice_disallowed' ], [ 'type' => 'error' ] );
+			}
+
+			deactivate_plugins( $this->get_plugin_file(), true );
+
+			return;
+		}
 
 		if ( $is_plugin_authorized ) {
 			$this->init();
@@ -229,7 +256,7 @@ abstract class Tribe__Extension {
 	}
 
 	/**
-	 * Get's the action/hook for the extensions init()
+	 * Gets the action/hook for the extensions' init().
 	 *
 	 * @return string Action/hook
 	 */
@@ -375,6 +402,21 @@ abstract class Tribe__Extension {
 		printf(
 			'<p>%s</p>',
 			esc_html__( 'Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work.', 'tribe-common' )
+		);
+	}
+
+	/**
+	 * Gets the error message about being explicitly disallowed.
+	 */
+	public function notice_disallowed() {
+		return sprintf(
+			'<p><strong>%1$s:</strong> %2$s</p>',
+			$this->get_name(),
+			esc_html_x(
+				"This extension has been programmatically disallowed. The most common reason is due to another Modern Tribe plugin having absorbed or replaced this extension's functionality. This extension plugin has been deactivated, and you should likely delete it.",
+				'extension disallowed',
+				'tribe-common'
+			)
 		);
 	}
 
