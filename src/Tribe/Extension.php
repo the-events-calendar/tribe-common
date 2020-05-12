@@ -177,7 +177,7 @@ abstract class Tribe__Extension {
 		 *
 		 * @since TBD
 		 *
-		 * @param                  $is_disallowed        False by default.
+		 * @param bool             $is_disallowed        False by default.
 		 * @param string           $extension_class_name This extension's class name string
 		 *                                               (without initial forward slash for namespaced classes).
 		 * @param Tribe__Extension $this_instance        This extension class' instance.
