@@ -160,17 +160,22 @@ abstract class Tribe__Extension {
 	 * Checks if the extension has permission to run, if so runs init() in child class
 	 */
 	final public function register() {
+		$extension_file       = $this->get_plugin_file();
+		$extension_class_name = $this->get( 'class' );
+		$extension_version    = $this->get_version();
+		$plugins_required     = $this->get( 'requires', [] );
+
 		tribe_register_plugin(
-			$this->get_plugin_file(),
-			$this->get( 'class' ),
-			$this->get_version(),
-			$this->get( 'requires', [] )
+			$extension_file,
+			$extension_class_name,
+			$extension_version,
+			$plugins_required
 		);
 
 		$dependency = Tribe__Dependency::instance();
 
 		// check requisite plugins are active for this extension
-		$is_plugin_authorized = $dependency->has_requisite_plugins( $this->get( 'requires', [] ) );
+		$is_plugin_authorized = $dependency->has_requisite_plugins( $plugins_required );
 
 		/**
 		 * Explicitly disallow an extension, such as a core plugin having absorbed/replaced its functionality.
@@ -184,7 +189,7 @@ abstract class Tribe__Extension {
 		 *
 		 * @return bool
 		 */
-		$is_disallowed = (bool) apply_filters( 'tribe_extension_is_disallowed', false, $this->get( 'class' ), $this );
+		$is_disallowed = (bool) apply_filters( 'tribe_extension_is_disallowed', false, $extension_class_name, $this );
 
 		if ( $is_disallowed ) {
 			if (
@@ -194,7 +199,7 @@ abstract class Tribe__Extension {
 				tribe_notice( 'tribe_extension_is_disallowed', [ $this, 'notice_disallowed' ], [ 'type' => 'error' ] );
 			}
 
-			deactivate_plugins( $this->get_plugin_file(), true );
+			deactivate_plugins( $extension_file, true );
 
 			return;
 		}
@@ -202,10 +207,9 @@ abstract class Tribe__Extension {
 		if ( $is_plugin_authorized ) {
 			$this->init();
 
-			//add extension as active to dependency checker
-			$dependency->add_active_plugin( $this->get( 'class' ), $this->get_version(), $this->get_plugin_file() );
+			// Add extension as active to dependency checker.
+			$dependency->add_active_plugin( $extension_class_name, $extension_version, $extension_file );
 		}
-
 	}
 
 	/**
