@@ -5,7 +5,7 @@ namespace Tribe\Shortcode;
 use Tribe__Utils__Array as Arr;
 
 /**
- * Interface Shortcode_Interface
+ * The abstract all shortcodes should implement.
  *
  * @package Tribe\Shortcode
  *
@@ -31,7 +31,20 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	protected $default_arguments = [];
 
 	/**
-	 * Array of callbacks for arguments validation
+	 * Array map allowing aliased shortcode arguments.
+	 *
+	 * The array keys are aliases of the array values (i.e. the "real" shortcode attributes to parse).
+	 * Example array: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
+	 * Example shortcode usage: [some_tag alias=17 to='Fred'] will be parsed as [some_tag canonical=17 to='Fred']
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,string>
+	 */
+	protected $aliased_arguments = [];
+
+	/**
+	 * Array of callbacks for arguments validation.
 	 *
 	 * @since 4.12.0
 	 *
@@ -61,14 +74,29 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 * {@inheritDoc}
 	 */
 	public function setup( $arguments, $content ) {
-		$this->arguments = $this->parse_arguments( $arguments );
+		$this->arguments = $this->parse_arguments( (array) $arguments );
 		$this->content   = $content;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function parse_arguments( $arguments ) {
+	public function set_aliased_arguments( array $alias_map ) {
+		$this->aliased_arguments = Arr::filter_to_flat_scalar_associative_array( (array) $alias_map );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_aliased_arguments() {
+		return $this->aliased_arguments;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function parse_arguments( array $arguments ) {
+		$arguments = Arr::parse_associative_array_alias( (array) $arguments, (array) $this->get_aliased_arguments() );
 		$arguments = shortcode_atts( $this->get_default_arguments(), $arguments, $this->slug );
 
 		return $this->validate_arguments( $arguments );
@@ -77,7 +105,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate_arguments( $arguments ) {
+	public function validate_arguments( array $arguments ) {
 		$validate_arguments_map = $this->get_validated_arguments_map();
 		foreach ( $validate_arguments_map as $key => $callback ) {
 			$arguments[ $key ] = $callback( isset( $arguments[ $key ] ) ? $arguments[ $key ] : null );

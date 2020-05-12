@@ -25,10 +25,31 @@ interface Shortcode_Interface {
 	 *
 	 * @since 4.12.0
 	 *
-	 * @param array  $arguments Set of arguments passed to the Shortcode at hand.
+	 * @param array|string  $arguments Set of arguments passed to the Shortcode at hand. Empty string if no args.
 	 * @param string $content   Contents passed to the shortcode, inside of the open and close brackets.
 	 */
 	public function setup( $arguments, $content );
+
+	/**
+	 * Sets the aliased arguments array.
+	 *
+	 * @see Tribe__Utils__Array::parse_associative_array_alias() The expected format.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $alias_map An associative array of aliases: key as alias, value as mapped canonical.
+	 *                         Example: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
+	 */
+	public function set_aliased_arguments( array $alias_map );
+
+	/**
+	 * Gets the aliased arguments array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,string> The associative array map of aliases and their canonical arguments.
+	 */
+	public function get_aliased_arguments();
 
 	/**
 	 * Returns the arguments for the shortcode parsed correctly with defaults applied.
@@ -39,7 +60,7 @@ interface Shortcode_Interface {
 	 *
 	 * @return array<string,mixed> The parsed shortcode arguments map.
 	 */
-	public function parse_arguments( $arguments );
+	public function parse_arguments( array $arguments );
 
 	/**
 	 * Returns the array of arguments for this shortcode after applying the validation callbacks.
@@ -50,7 +71,7 @@ interface Shortcode_Interface {
 	 *
 	 * @return array<string,mixed> The validated shortcode arguments map.
 	 */
-	public function validate_arguments( $arguments );
+	public function validate_arguments( array $arguments );
 
 	/**
 	 * Returns the array of callbacks for this shortcode's arguments.
