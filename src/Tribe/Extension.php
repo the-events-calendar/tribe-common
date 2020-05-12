@@ -186,8 +186,6 @@ abstract class Tribe__Extension {
 		 * @param string           $extension_class_name This extension's class name string
 		 *                                               (without initial forward slash for namespaced classes).
 		 * @param Tribe__Extension $this_instance        This extension class' instance.
-		 *
-		 * @return bool
 		 */
 		$is_disallowed = (bool) apply_filters( 'tribe_extension_is_disallowed', false, $extension_class_name, $this );
 
