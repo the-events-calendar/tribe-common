@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.12.2] 2020-05-19 =
+
+* Feature - Added array utility methods: `parse_associative_array_alias` to build an array with canonical keys while taking alias keys into account and `filter_to_flat_scalar_associative_array` to help do so. Useful for aliasing shortcode arguments, for example.
+
 = [4.12.1] 2020-05-11 =
 
 * Feature - Added a helper method `Tribe__Plugins::is_active( 'slug' )` to check if a given plugin is active.
