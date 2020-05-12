@@ -31,6 +31,27 @@ interface Shortcode_Interface {
 	public function setup( $arguments, $content );
 
 	/**
+	 * Sets the aliased arguments array.
+	 *
+	 * @see Tribe__Utils__Array::parse_associative_array_alias() The expected format.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $alias_map An associative array of aliases: key as alias, value as mapped canonical.
+	 *                         Example: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
+	 */
+	public function set_aliased_arguments( array $alias_map );
+
+	/**
+	 * Gets the aliased arguments array.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,string> The associative array map of aliases and their canonical arguments.
+	 */
+	public function get_aliased_arguments();
+
+	/**
 	 * Returns the arguments for the shortcode parsed correctly with defaults applied.
 	 *
 	 * @since 4.12.0
