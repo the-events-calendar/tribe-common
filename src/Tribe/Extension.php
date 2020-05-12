@@ -407,6 +407,10 @@ abstract class Tribe__Extension {
 
 	/**
 	 * Gets the error message about being explicitly disallowed.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Notice text.
 	 */
 	public function notice_disallowed() {
 		return sprintf(
