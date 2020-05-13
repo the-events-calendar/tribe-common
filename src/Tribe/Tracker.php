@@ -96,11 +96,7 @@ class Tribe__Tracker {
 		$modified = get_post_meta( $post_id, self::$field_key, true );
 
 		// If the key is missing or empty/null return false - no recorded change.
-		if ( empty( $modified[ $meta_key ] ) ) {
-			return false;
-		}
-
-		return $modified[ $meta_key ];
+		return Tribe__Utils__Array::get( $modified, $meta_key, false );
 	}
 
 	/**
