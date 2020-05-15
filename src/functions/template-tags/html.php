@@ -26,7 +26,7 @@ function tribe_get_classes() {
  *
  * @param  mixed $classes,... unlimited Any amount of params to be rendered as classes.
  *
- * @return string
+ * @return void
  */
 function tribe_classes() {
 	$element_classes = new Element_Classes( func_get_args() );
@@ -54,11 +54,11 @@ function tribe_get_attributes() {
  *
  * @param  mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
  *
- * @return string
+ * @return void
  */
 function tribe_attributes() {
 	$element_attributes = new Element_Attributes( func_get_args() );
-	return $element_attributes->get_attributes();
+	echo $element_attributes->get_attributes();
 }
 
 /**
