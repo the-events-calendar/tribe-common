@@ -449,7 +449,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 *
 		 * @link  https://www.php.net/manual/language.types.array.php Keys cast to non-strings will be discarded.
 		 *
-		 * @since TBD
+		 * @since 4.12.2
 		 *
 		 * @param array $array
 		 *
@@ -483,7 +483,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 * If the original array has values for both the alias and its canonical, keep the canonical's value and
 		 * discard the alias' value.
 		 *
-		 * @since TBD
+		 * @since 4.12.2
 		 *
 		 * @param array $original  An associative array of values, such as passed shortcode arguments.
 		 * @param array $alias_map An associative array of aliases: key as alias, value as mapped canonical.

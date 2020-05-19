@@ -6,6 +6,7 @@
 
 * Feature - Added array utility methods: `parse_associative_array_alias` to build an array with canonical keys while taking alias keys into account and `filter_to_flat_scalar_associative_array` to help do so. Useful for aliasing shortcode arguments, for example.
 * Feature - Added `tribe_extension_is_disallowed` filter for Modern Tribe's core plugins to deactivate an extension whose functionality has become duplicative or conflicting.
+* Language - 1 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.1] 2020-05-11 =
 

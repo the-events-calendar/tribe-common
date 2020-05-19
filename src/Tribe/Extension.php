@@ -180,7 +180,7 @@ abstract class Tribe__Extension {
 		/**
 		 * Explicitly disallow an extension, such as a core plugin having absorbed/replaced its functionality.
 		 *
-		 * @since TBD
+		 * @since 4.12.2
 		 *
 		 * @param bool             $is_disallowed        False by default.
 		 * @param string           $extension_class_name This extension's class name string
@@ -410,7 +410,7 @@ abstract class Tribe__Extension {
 	/**
 	 * Gets the error message about being explicitly disallowed.
 	 *
-	 * @since TBD
+	 * @since 4.12.2
 	 *
 	 * @return string Notice text.
 	 */

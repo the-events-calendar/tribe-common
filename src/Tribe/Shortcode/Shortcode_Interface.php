@@ -35,7 +35,7 @@ interface Shortcode_Interface {
 	 *
 	 * @see Tribe__Utils__Array::parse_associative_array_alias() The expected format.
 	 *
-	 * @since TBD
+	 * @since 4.12.2
 	 *
 	 * @param array $alias_map An associative array of aliases: key as alias, value as mapped canonical.
 	 *                         Example: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
@@ -45,7 +45,7 @@ interface Shortcode_Interface {
 	/**
 	 * Gets the aliased arguments array.
 	 *
-	 * @since TBD
+	 * @since 4.12.2
 	 *
 	 * @return array<string,string> The associative array map of aliases and their canonical arguments.
 	 */

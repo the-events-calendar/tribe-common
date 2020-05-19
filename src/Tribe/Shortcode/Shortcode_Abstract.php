@@ -37,7 +37,7 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 * Example array: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
 	 * Example shortcode usage: [some_tag alias=17 to='Fred'] will be parsed as [some_tag canonical=17 to='Fred']
 	 *
-	 * @since TBD
+	 * @since 4.12.2
 	 *
 	 * @var array<string,string>
 	 */
