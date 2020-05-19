@@ -14,7 +14,7 @@ class Element_Attributes {
 	 *
 	 * @since  TBD
 	 *
-	 * @var array
+	 * @var array<string,string>
 	 */
 	protected $results = [];
 
@@ -78,7 +78,7 @@ class Element_Attributes {
 			return '';
 		}
 
-		return " $attributes ";
+		return " {$attributes} ";
 	}
 
 	/**
@@ -113,6 +113,8 @@ class Element_Attributes {
 			if ( is_bool( $val ) ) {
 				$attributes[] = esc_attr( $key );
 			} else {
+				// Remove double quotes that might be surrounding the value.
+				trim( $val, '"' );
 				$attributes[] = esc_attr( $key ) . '="' . esc_attr( $val ) . '"';
 			}
 		}
@@ -194,6 +196,13 @@ class Element_Attributes {
 		$attrs = [];
 
 		foreach ( $values as $key => $value ) {
+			if ( preg_match( '/^(?<key>[^=]+)="*(?<value>.*?)"*$/', $value, $m ) ) {
+				// Something like `f="boo"` or `foo=bar`.
+				$attrs[ $m['key'] ] = $m['value'];
+
+				continue;
+			}
+
 			$attrs[ $value ] = true;
 		}
 
@@ -216,6 +225,8 @@ class Element_Attributes {
 	/**
 	 * Parses a callable method or function into the array of considered attributes.
 	 *
+	 * The result of the callable will REPLACE the current attributes, callables will work like filters.
+	 *
 	 * @since  TBD
 	 *
 	 * @param  callable  $method_or_function  Method or Function to be called.
@@ -223,6 +234,8 @@ class Element_Attributes {
 	 * @return void
 	 */
 	protected function parse_callable( callable $method_or_function ) {
-		$this->parse( $method_or_function( $this->results ) );
+		$filtered = $method_or_function( $this->results );
+		$this->results = [];
+		$this->parse( $filtered );
 	}
 }

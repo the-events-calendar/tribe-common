@@ -40,7 +40,7 @@ function tribe_classes() {
  *
  * @param  mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
  *
- * @return string
+ * @return array<string> An array of the parsed string attributes.
  */
 function tribe_get_attributes() {
 	$element_attributes = new Element_Attributes( func_get_args() );
