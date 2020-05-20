@@ -128,6 +128,11 @@ foreach ( $products as $product ) {
 							</div>
 
 							<p><?php echo esc_html( $bundle->description ); ?></p>
+
+							<div class="cta wide">
+								<a class="button" href="<?php echo esc_url( $bundle->link ); ?>"><?php esc_html_e( 'Save With A Bundle', 'tribe-common' ); ?></a>
+								<span class="discount"><?php echo esc_html( $bundle->discount );?></span>
+							</div>
 						</div>
 
 						<div class="includes">
@@ -153,7 +158,7 @@ foreach ( $products as $product ) {
 							</ul>
 						</div>
 
-						<div class="cta">
+						<div class="cta narrow">
 							<a class="button" href="<?php echo esc_url( $bundle->link ); ?>"><?php esc_html_e( 'Save With A Bundle', 'tribe-common' ); ?></a>
 							<span class="discount"><?php echo esc_html( $bundle->discount );?></span>
 						</div>
@@ -201,6 +206,7 @@ foreach ( $products as $product ) {
 
 </div>
 
+<?php // this is inline jQuery / javascript for extra simiplicity */ ?>
 <script type="text/javascript">
 	jQuery( document ).ready( function($) {
 		var current_tab = "#tribe-all-solutions";

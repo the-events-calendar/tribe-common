@@ -1,3 +1,9 @@
+/* note, the structure of this CSS is not BEM…
+ * the reality is that we rarely update the App Shop and as such, we are
+ * intentionally taking shortcuts here. The main goal is to have it done
+ * quickly, not as a bastion of quality.
+ */
+
 body.tribe_events_page_tribe-app-shop {
 	background-color: #f7f7f4;
 
@@ -21,15 +27,16 @@ body.tribe_events_page_tribe-app-shop {
 
 	.content-wrapper {
 		margin: 0 auto;
+		width: 360px;
 		max-width: 1060px;
-		width: 100%;
 
-		@media screen and (max-width: 1217px) {
+		@media screen and (min-width: 710px) {
 			width: 710px;
 		}
 
-		@media screen and (max-width: 710px) {
-			width: 360px;
+		@media screen and (min-width: 1217px) {
+			width: 100%;
+
 		}
 	}
 
@@ -92,12 +99,12 @@ body.tribe_events_page_tribe-app-shop {
 				font-size: 16px;
 				font-weight: 500;
 				line-height: 20px;
-				margin: 0 12px;
+				margin: 0 6px;
 				padding: 24px 0 17px 0;
 				text-align: center;
 
-				@media screen and (max-width: 1217px) {
-					margin: 0 6px;
+				@media screen and (min-width: 1217px) {
+					margin: 0 12px;
 				}
 
 				&.selected,
@@ -178,10 +185,10 @@ body.tribe_events_page_tribe-app-shop {
 
 			.details {
 				display: inline-block;
-				width: 506px;
+				width: 100%;
 
-				@media screen and (max-width: 1217px) {
-					width: 100%;
+				@media screen and (min-width: 1217px) {
+					width: 506px;
 				}
 
 				.headline {
@@ -193,14 +200,14 @@ body.tribe_events_page_tribe-app-shop {
 
 					a {
 						display: table-cell;
-						font-size: 20px;
+						font-size: 17px;
 						font-weight: bold;
-						line-height: 24px;
 						letter-spacing: 1px;
+						line-height: 21px;
 
-						@media screen and (max-width: 710px) {
-							font-size: 17px;
-							line-height: 21px;
+						@media screen and (min-width: 710px) {
+							font-size: 20px;
+							line-height: 24px;
 						}
 					}
 
@@ -211,34 +218,55 @@ body.tribe_events_page_tribe-app-shop {
 				}
 
 				p {
-
-					font-size: 16px;
-					line-height: 26px;
-
+					font-size: 14px;
+					line-height: 22px;
 					margin: 0;
 
-					@media screen and (max-width: 710px) {
-						font-size: 14px;
-						line-height: 22px;
+					@media screen and (min-width: 710px) {
+
+						font-size: 16px;
+						line-height: 26px;
 					}
 				}
 			}
 
 			.cta {
-				/* this is hacky to get the button to fill the whitespace
-				 * it likely won't work well in the context of i18n
-				 * needs to be reconsidered
-				 */
-				margin-top: -54px;
-				@media screen and (max-width: 1217px) {
+				margin-top: 0;
+
+				@media screen and (min-width: 1217px) {
 					margin-top: 0;
 				}
 
-				.button {
-					@media screen and (max-width: 710px) {
-						display: block;
-						margin: auto;
+				&.wide {
+					display: none;
+					margin: 24px 0 0 0;
+
+					@media screen and (min-width: 1217px) {
+						display: table;
 					}
+
+					.button {
+						display: inline-block;
+					}
+
+					.discount {
+						display: table-cell;
+						height: 20px;
+						padding-left: 11px;
+						text-align: left;
+						vertical-align: middle;
+					}
+				}
+
+				&.narrow {
+					@media screen and (min-width: 1217px) {
+						display: none;
+					}
+				}
+
+				.button {
+					display: block;
+					margin: auto;
 				}
 
 				.discount {
@@ -248,24 +276,20 @@ body.tribe_events_page_tribe-app-shop {
 					letter-spacing: 1px;
 					line-height: 58px;
 					margin-left: 11px;
-
-					@media screen and (max-width: 710px) {
-						width: 100%;
-						display: block;
-						text-align: center;
-					}
+					width: 100%;
+					display: block;
+					text-align: center;
 				}
 			}
 
 			.includes {
 				display: inline-block;
-				/* design called for 65px, but Ultimate Bundle didn't fit… */
-				padding-left: 50px;
-				padding-top: 10px;
+				padding: 0 0 28px 0;
 				vertical-align: top;
 
-				@media screen and (max-width: 1217px) {
-					padding: 0 0 28px 0;
+				@media screen and (min-width: 1217px) {
+					/* design called for 65px, but Ultimate Bundle didn't fit… */
+					padding: 10px 0 0 50px;
 				}
 
 				h4 {
@@ -273,11 +297,11 @@ body.tribe_events_page_tribe-app-shop {
 					font-weight: bold;
 					letter-spacing: 1px;
 					line-height: 15px;
-					margin: 16px 0 19px 0;
+					margin: 24px 0 8px 0;
 					text-transform: uppercase;
 
-					@media screen and (max-width: 1217px) {
-						margin: 24px 0 8px 0;
+					@media screen and (min-width: 1217px) {
+						margin: 16px 0 19px 0;
 					}
 				}
 
