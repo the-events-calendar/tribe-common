@@ -32,9 +32,6 @@ function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $
 
 	$has_blocks = function_exists( 'has_blocks' ) && has_blocks( $content );
 	// If blocks are present we need to run the content filter.
-	if ( function_exists( 'has_blocks' ) ) {
-		$has_blocks = has_blocks( $content );
-	}
 
 	if ( $has_blocks || ! doing_filter( 'the_content' ) ) {
 		/**
