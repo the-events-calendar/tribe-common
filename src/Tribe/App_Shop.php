@@ -123,30 +123,164 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		public function do_menu_page() {
 			$main = Tribe__Main::instance();
 			$products = $this->get_all_products();
+			$bundles = $this->get_bundles();
+			$extensions = $this->get_extensions();
 			include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/app-shop.php';
 		}
 
 		/**
-		 * Get's all products from the API
+		 * Gets all products from the API
 		 *
 		 * @return array|WP_Error
 		 */
 		private function get_all_products() {
 			$all_products = tribe( 'plugins.api' )->get_products();
 
-			$products = array(
-				(object) $all_products['event-aggregator'],
-				(object) $all_products['events-calendar-pro'],
-				(object) $all_products['event-tickets-plus'],
-				(object) $all_products['promoter'],
-				(object) $all_products['tribe-filterbar'],
-				(object) $all_products['events-community'],
-				(object) $all_products['events-community-tickets'],
-				(object) $all_products['tribe-eventbrite'],
-				(object) $all_products['image-widget-plus'],
-			);
+			$products = [
+				'the-events-calendar' =>      (object) $all_products['the-events-calendar'],
+				'events-calendar-pro' =>      (object) $all_products['events-calendar-pro'],
+				'virtual-events' =>           (object) $all_products['virtual-events'],
+				'event-aggregator' =>         (object) $all_products['event-aggregator'],
+				'event-tickets' =>            (object) $all_products['event-tickets'],
+				'event-tickets-plus' =>       (object) $all_products['event-tickets-plus'],
+				'promoter' =>                 (object) $all_products['promoter'],
+				'tribe-filterbar' =>          (object) $all_products['tribe-filterbar'],
+				'events-community' =>         (object) $all_products['events-community'],
+				'events-community-tickets' => (object) $all_products['events-community-tickets'],
+				'tribe-eventbrite' =>         (object) $all_products['tribe-eventbrite'],
+				'image-widget-plus' =>        (object) $all_products['image-widget-plus'],
+			];
 
 			return $products;
+		}
+
+		/**
+		 * Gets product bundles
+		 *
+		 * @return array|WP_Error
+		 */
+		private function get_bundles() {
+			$bundles = [
+				(object) [
+					'title' => __( 'Events Marketing Bundle', 'tribe-common' ),
+					'logo' => 'images/logo/bundle-event-marketing.svg',
+					'link' => 'https://m.tri.be/somewhere',
+					'discount' => __( 'Save over 40%', 'tribe-common' ),
+					'description' => __( 'No third party websites, no extra ticket processing fees… just you, your attendees, and one kick ass event. Take full control of the event ticketing and marketing process and customize it to suit your needs.', 'tribe-common' ),
+					'includes' => [
+						'events-calendar-pro',
+						'event-tickets-plus',
+						'promoter',
+					],
+				],
+				(object) [
+					'title' => __( 'Event Importer Bundle', 'tribe-common' ),
+					'logo' => 'images/logo/bundle-event-importer.svg',
+					'link' => 'https://m.tri.be/somewhere',
+					'discount' => __( 'Save over 40%', 'tribe-common' ),
+					'description' => __( 'Fill your calendar with events from across the web', 'tribe-common' ),
+					'includes' => [
+						'events-calendar-pro',
+						'tribe-filterbar',
+						'event-aggregator'
+					],
+				],
+				(object) [
+					'title' => __( 'Virtual Event Marketing Bundle', 'tribe-common' ),
+					'logo' => 'images/logo/bundle-virtual-events.svg',
+					'link' => 'https://m.tri.be/somewhere',
+					'discount' => __( 'Save over 40%', 'tribe-common' ),
+					'description' => __( '[description]', 'tribe-common' ),
+					'includes' => [
+						'events-calendar-pro',
+						'event-tickets-plus',
+						'virtual-events',
+						'promoter',
+					],
+				],
+				(object) [
+					'title' => __( 'Community Manager Bundle', 'tribe-common' ),
+					'logo' => 'images/logo/bundle-community-manager.svg',
+					'link' => 'https://m.tri.be/somewhere',
+					'discount' => __( 'Save over 40%', 'tribe-common' ),
+					'description' => __( 'Essential tools to build a robust community', 'tribe-common' ),
+					'includes' => [
+						'event-tickets-plus',
+						'events-community',
+						'events-community-tickets',
+						'tribe-filterbar',
+					],
+				],
+				(object) [
+					'title' => __( 'Ultimate Bundle', 'tribe-common' ),
+					'logo' => 'images/logo/bundle-ultimate.svg',
+					'link' => 'https://m.tri.be/somewhere',
+					'discount' => __( 'Save over 40%', 'tribe-common' ),
+					'description' => __( 'All of our premium plugins in one big convenient package]', 'tribe-common' ),
+					'includes' => [
+						'events-calendar-pro',
+						'event-tickets-plus',
+						'virtual-events', /* code review: not true today, confirm this has changed before shipping! */
+						'events-community',
+						'events-community-tickets',
+						'tribe-filterbar',
+						'event-aggregator',
+						'tribe-eventbrite',
+						'promoter', /* code review: not true today, confirm this has changed before shipping! */
+					],
+				],
+
+			];
+
+			return $bundles;
+		}
+
+		/**
+		 * Gets product extensions
+		 *
+		 * @return array|WP_Error
+		 */
+		private function get_extensions() {
+			$extensions = [
+				(object) [
+					'title' => __( 'Web URL CTA', 'tribe-common' ),
+					'link' => 'https://m.tri.be/something',
+					'image' => 'images/shop/extension-web-url-cta.jpg',
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+				],
+				(object) [
+					'title' => __( 'Link to Webinar', 'tribe-common' ),
+					'link' => 'https://m.tri.be/something',
+					'image' => 'images/shop/extension-link-to-webinar.jpg',
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+				],
+				(object) [
+					'title' => __( 'Events Happening Now', 'tribe-common' ),
+					'link' => 'https://m.tri.be/something',
+					'image' => 'images/shop/extension-events-happening-now.jpg',
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+				],
+				(object) [
+					'title' => __( 'Venue Links', 'tribe-common' ),
+					'link' => 'https://m.tri.be/something',
+					'image' => 'images/shop/extension-custom-venue-links.jpg',
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+				],
+				(object) [
+					'title' => __( 'Change Label', 'tribe-common' ),
+					'link' => 'https://m.tri.be/something',
+					'image' => 'images/shop/extension-change-label.jpg',
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+				],
+				(object) [
+					'title' => __( 'Advanced Options', 'tribe-common' ),
+					'link' => 'https://m.tri.be/something',
+					'image' => 'images/shop/extension-advanced-options.jpg',
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+				],
+			];
+
+			return $extensions;
 		}
 
 		/**

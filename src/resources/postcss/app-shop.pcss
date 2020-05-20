@@ -1,96 +1,453 @@
-#tribe-app-shop {
-	max-width: 960px;
+body.tribe_events_page_tribe-app-shop {
+	background-color: #f7f7f4;
 
-	.addon-grid {
-		width: 100%;
+	/* hide WordPress update notices on this page */
+	.update-nag {
+		display: none;
 	}
 
-	.header {
+	#wpcontent {
+		padding: 0;
+	}
+}
+
+#tribe-app-shop {
+	color: #0F1031;
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+
+	a {
+		text-decoration: none;
+	}
+
+	.content-wrapper {
+		margin: 0 auto;
+		max-width: 1060px;
+		width: 100%;
+
+		@media screen and (max-width: 1217px) {
+			width: 710px;
+		}
+
+		@media screen and (max-width: 710px) {
+			width: 360px;
+		}
+	}
+
+	.tribe-header {
+		background-color: #fff;
+		border-bottom: 1px solid rgba(225, 225, 228, 0.5);
+		height: 64px;
+		margin: 0 auto;
+		position: relative;
+		text-align: center;
+		width: 100%;
+
+		.logo-word-mark {
+			margin: auto;
+
+			@media screen and (min-width: 710px) {
+				margin: 0;
+				position: absolute;
+			}
+		}
+
 		h1 {
 			display: inline-block;
-		}
+			font-size: 18px;
+			font-weight: normal;
+			line-height: 22px;
+			margin-right: 12px;
+			vertical-align: middle;
 
-		.button {
-			margin-top: 10px;
-		}
-	}
-
-	.tribe-addon {
-		background-color: #fff;
-		border-bottom: 1px solid #dfdfdf;
-		display: inline-block;
-		margin: 0 15px 15px 0;
-		overflow: hidden;
-		padding: 0;
-		position: relative;
-		vertical-align: top;
-		width: 300px;
-		border-radius: 3px 3px 3px 3px;
-		box-sizing: border-box;
-
-		h4 {
-			font-size: 1.17em;
-			margin: 15px 0;
-
-			a {
-				text-decoration: none;
+			span {
+				font-weight: bold;
 			}
 		}
 
-		.button {
-			bottom: 15px;
-			display: block;
-			position: absolute;
+		img {
+			display: inline-block;
+			height: 46px;
+			margin: 9px 11px 9px 22px;
+			vertical-align: middle;
 		}
 
-		.button-disabled {
-			padding-left: 3px;
+		ul {
+			display: none;
+			margin: 0 auto;
+			padding: 0 14px;
 
-			.dashicons {
-				font-size: 28px;
-				padding-right: 9px;
-			}
-		}
-
-		.caption {
-			padding: 0 15px 45px 15px;
-		}
-
-		.thumb {
-			img {
-				height: 228px;
-				max-width: 100%;
-				width: 300px;
-			}
-		}
-
-		&.first {
-			margin: 20px 0;
-			overflow: hidden;
-			padding: 0;
-			width: 937px;
-
-			h4 {
-				font-size: 20px;
-				line-height: 1.4;
-				margin: 15px 0 0 0;
+			@media screen and (min-width: 710px) {
+				display: block;
+				float: right;
 			}
 
-			.caption {
+			/* for now we'll hide this nav on really narrow screens */
+			@media screen and (min-width: 1217px) {
+				float: none;
+			}
+
+			li {
+				cursor: pointer;
 				display: inline-block;
-				padding-left: 20px;
-				width: 600px;
-			}
+				font-size: 16px;
+				font-weight: 500;
+				line-height: 20px;
+				margin: 0 12px;
+				padding: 24px 0 17px 0;
+				text-align: center;
 
-			.thumb {
-				float: left;
-				height: 228px;
-				width: 300px;
+				@media screen and (max-width: 1217px) {
+					margin: 0 6px;
+				}
+
+				&.selected,
+				&:hover {
+					border-bottom: 3px solid #334aff;
+					color: #334aff;
+				}
 			}
 		}
 	}
 
-  .tribe-installed-headline {
-	margin-bottom: 20px;
-  }
+	.tribe-content {
+		padding-top: 48px;
+	}
+
+	.addon-grid {
+		& > p {
+			font-size: 18px;
+			font-weight: normal;
+			line-height: 28px;
+			margin: 0 0 39px 0;
+			padding: 0 20px;
+			text-align: center;
+		}
+
+		h2 {
+			font-size: 34px;
+			font-weight: 500;
+			line-height: 42px;
+			margin: 0 0 13px 0;
+			text-align: center;
+		}
+
+		.tribe-addon {
+			width: 310px;
+
+			.headline {
+				img {
+					height: 40px;
+					margin-right: 8px;
+					width: 40px;
+				}
+
+				a {
+					display: table-cell;
+
+				}
+
+				h3 {
+					display: table;
+					float: left;
+					font-size: 15px;
+					font-weight: bold;
+					height: 36px;
+					line-height: 18px;
+
+					&.has-pill {
+						max-width: 130px;
+					}
+				}
+			}
+
+			p {
+				font-size: 15px;
+				font-weight: 500;
+				line-height: 24px;
+				margin: 0;
+
+				/* an attempt at flexibility for 2-lines */
+				height: 48px;
+				display: table-cell;
+				vertical-align: bottom;
+			}
+		}
+
+		.tribe-bundle {
+			width: calc(100% - 40px);
+
+			.details {
+				display: inline-block;
+				width: 506px;
+
+				@media screen and (max-width: 1217px) {
+					width: 100%;
+				}
+
+				.headline {
+					img {
+						height: 60px;
+						margin-right: 12px;
+						width: 60px;
+					}
+
+					a {
+						display: table-cell;
+						font-size: 20px;
+						font-weight: bold;
+						line-height: 24px;
+						letter-spacing: 1px;
+
+						@media screen and (max-width: 710px) {
+							font-size: 17px;
+							line-height: 21px;
+						}
+					}
+
+					h3 {
+						display: table;
+						height: 60px;
+					}
+				}
+
+				p {
+
+					font-size: 16px;
+					line-height: 26px;
+
+					margin: 0;
+
+					@media screen and (max-width: 710px) {
+						font-size: 14px;
+						line-height: 22px;
+					}
+				}
+			}
+
+			.cta {
+				/* this is hacky to get the button to fill the whitespace
+				 * it likely won't work well in the context of i18n
+				 * needs to be reconsidered
+				 */
+				margin-top: -54px;
+				@media screen and (max-width: 1217px) {
+					margin-top: 0;
+				}
+
+				.button {
+					@media screen and (max-width: 710px) {
+						display: block;
+						margin: auto;
+					}
+				}
+
+				.discount {
+					color: #007363;
+					font-size: 14px;
+					font-weight: bold;
+					letter-spacing: 1px;
+					line-height: 58px;
+					margin-left: 11px;
+
+					@media screen and (max-width: 710px) {
+						width: 100%;
+						display: block;
+						text-align: center;
+					}
+				}
+			}
+
+			.includes {
+				display: inline-block;
+				/* design called for 65px, but Ultimate Bundle didn't fit… */
+				padding-left: 50px;
+				padding-top: 10px;
+				vertical-align: top;
+
+				@media screen and (max-width: 1217px) {
+					padding: 0 0 28px 0;
+				}
+
+				h4 {
+					font-size: 12px;
+					font-weight: bold;
+					letter-spacing: 1px;
+					line-height: 15px;
+					margin: 16px 0 19px 0;
+					text-transform: uppercase;
+
+					@media screen and (max-width: 1217px) {
+						margin: 24px 0 8px 0;
+					}
+				}
+
+				ul {
+					display: inline-block;
+					margin: 0;
+					vertical-align: top;
+
+					&.second {
+						margin-left: 30px;
+					}
+				}
+
+				li {
+					color: #0F1031;
+					font-size: 14px;
+					font-weight: 500;
+					height: 40px;
+					margin-bottom: 8px;
+
+					img {
+						float: left;
+						height: 40px;
+						width: 40px;
+						margin-right: 16px;
+					}
+
+					span {
+						float: left;
+						line-height: 40px;
+					}
+				}
+			}
+		}
+
+		.tribe-addon,
+		.tribe-bundle {
+			background-color: #fff;
+			border-radius: 16px;
+			border: 1px solid #E1E1E4;
+			box-sizing: border-box;
+			display: inline-block;
+			margin: 0 20px 40px 20px;
+			padding: 28px;
+			position: relative;
+			vertical-align: top;
+
+			.headline {
+
+				img {
+					float: left;
+				}
+
+				a {
+					color: #0F1031;
+					vertical-align: middle;
+				}
+
+				h3 {
+
+					letter-spacing: 1px;
+					margin: 0;
+				}
+
+				.pill {
+					border-radius: 100px;
+					display: inline-block;
+					float: right;
+					font-size: 10px;
+					font-weight: bold;
+					letter-spacing: 1px;
+					line-height: 12px;
+					margin-top: 8px;
+					padding: 5px 0;
+					text-align: center;
+					text-transform: uppercase;
+					width: 62px;
+
+					&.free {
+						background: rgba(80, 176, 120, 0.28);
+						color: #007363;
+					}
+
+					&.active {
+						background: rgba(61, 84, 255, 0.16);
+						color: #3D54FF;
+					}
+				}
+			}
+
+			.promo-image img {
+				width: 255px;
+			}
+
+			p {
+				color: #0F1031;
+				text-align: left;
+			}
+
+			.features {
+				/* could use this to get more height consistency */
+				height: 142px;
+
+				li {
+					font-size: 15px;
+
+					font-weight: normal;
+					line-height: 24px;
+					color: #0F1031;
+
+					.check {
+						padding-right: 12px;
+					}
+
+					.feature-text {
+						max-width: 224px;
+						vertical-align: middle;
+					}
+
+					span {
+						display: inline-block;
+					}
+
+					svg {
+						color: #3D54FF;
+						height: 12px;
+						width: 16px;
+					}
+				}
+
+				margin-bottom: 16px;
+			}
+		}
+
+		.button {
+			background: #3D54FF;
+			border-radius: 100px;
+			color: #fff;
+			font-size: 16px;
+			font-weight: bold;
+			letter-spacing: 1px;
+			line-height: 20px;
+			margin-bottom: 13px;
+			padding: 18px 0;
+			text-align: center;
+			width: 255px;
+
+			&.secondary {
+				background: #f7f7f4;
+				border: 1px solid #0F1031;
+				color: #0F1031;
+				display: block;
+				margin: auto;
+			}
+		}
+	}
+
+	#tribe-extensions {
+		p {
+			color: #0F1031;
+			font-size: 15px;
+			font-weight: normal;
+			line-height: 24px;
+			padding-bottom: 16px;
+		}
+	}
+}
+
+/*#tribe-bundles,*/
+#tribe-all-solutions,
+#tribe-extensions {
+	display: none;
 }
