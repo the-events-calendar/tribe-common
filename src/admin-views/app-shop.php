@@ -97,11 +97,11 @@ foreach ( $products as $product ) {
 							<?php
 							if ( 'installed' == $status ) {
 								?>
-								<a class="button" href="<?php echo esc_url( $product->link ); ?>"><?php esc_html_e( 'Learn More', 'tribe-common' ); ?></a>
+								<a class="button" href="https://m.tri.be/1aiz"><?php esc_html_e( 'Manage', 'tribe-common' ); ?></a>
 								<?php
 							} else {
 								?>
-								<a class="button" href="https://m.tri.be/1aiz"><?php esc_html_e( 'Manage', 'tribe-common' ); ?></a>
+								<a class="button" href="<?php echo esc_url( $product->link ); ?>"><?php esc_html_e( 'Learn More', 'tribe-common' ); ?></a>
 								<?php
 							}
 							?>
