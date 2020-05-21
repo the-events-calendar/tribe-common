@@ -164,8 +164,8 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				(object) [
 					'title' => __( 'Events Marketing Bundle', 'tribe-common' ),
 					'logo' => 'images/logo/bundle-event-marketing.svg',
-					'link' => 'https://m.tri.be/somewhere',
-					'discount' => __( 'Save over 40%', 'tribe-common' ),
+					'link' => 'https://m.tri.be/somewhere', /* code review: fix this */
+					'discount' => __( 'Save over 40%', 'tribe-common' ), /* code review: fix this */
 					'description' => __( 'No third party websites, no extra ticket processing fees… just you, your attendees, and one kick ass event. Take full control of the event ticketing and marketing process and customize it to suit your needs.', 'tribe-common' ),
 					'includes' => [
 						'events-calendar-pro',
@@ -176,8 +176,8 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				(object) [
 					'title' => __( 'Event Importer Bundle', 'tribe-common' ),
 					'logo' => 'images/logo/bundle-event-importer.svg',
-					'link' => 'https://m.tri.be/somewhere',
-					'discount' => __( 'Save over 40%', 'tribe-common' ),
+					'link' => 'https://m.tri.be/somewhere', /* code review: fix this */
+					'discount' => __( 'Save over 40%', 'tribe-common' ), /* code review: fix this */
 					'description' => __( 'Fill your calendar with events from across the web', 'tribe-common' ),
 					'includes' => [
 						'events-calendar-pro',
@@ -188,9 +188,9 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				(object) [
 					'title' => __( 'Virtual Event Marketing Bundle', 'tribe-common' ),
 					'logo' => 'images/logo/bundle-virtual-events.svg',
-					'link' => 'https://m.tri.be/somewhere',
-					'discount' => __( 'Save over 40%', 'tribe-common' ),
-					'description' => __( '[description]', 'tribe-common' ),
+					'link' => 'https://m.tri.be/somewhere', /* code review: fix this */
+					'discount' => __( 'Save over 40%', 'tribe-common' ), /* code review: fix this */
+					'description' => __( '[description]', 'tribe-common' ), /* code review: fix this */
 					'includes' => [
 						'events-calendar-pro',
 						'event-tickets-plus',
@@ -201,8 +201,8 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				(object) [
 					'title' => __( 'Community Manager Bundle', 'tribe-common' ),
 					'logo' => 'images/logo/bundle-community-manager.svg',
-					'link' => 'https://m.tri.be/somewhere',
-					'discount' => __( 'Save over 40%', 'tribe-common' ),
+					'link' => 'https://m.tri.be/somewhere', /* code review: fix this */
+					'discount' => __( 'Save over 40%', 'tribe-common' ), /* code review: fix this */
 					'description' => __( 'Essential tools to build a robust community', 'tribe-common' ),
 					'includes' => [
 						'event-tickets-plus',
@@ -214,8 +214,8 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				(object) [
 					'title' => __( 'Ultimate Bundle', 'tribe-common' ),
 					'logo' => 'images/logo/bundle-ultimate.svg',
-					'link' => 'https://m.tri.be/somewhere',
-					'discount' => __( 'Save over 40%', 'tribe-common' ),
+					'link' => 'https://m.tri.be/somewhere', /* code review: fix this */
+					'discount' => __( 'Save over 40%', 'tribe-common' ), /* code review: fix this */
 					'description' => __( 'All of our premium plugins in one big convenient package]', 'tribe-common' ),
 					'includes' => [
 						'events-calendar-pro',
@@ -244,39 +244,39 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$extensions = [
 				(object) [
 					'title' => __( 'Web URL CTA', 'tribe-common' ),
-					'link' => 'https://m.tri.be/something',
+					'link' => 'https://m.tri.be/something', /* code review: fix this */
 					'image' => 'images/shop/extension-web-url-cta.jpg',
-					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ), /* code review: fix this */
 				],
 				(object) [
 					'title' => __( 'Link to Webinar', 'tribe-common' ),
-					'link' => 'https://m.tri.be/something',
+					'link' => 'https://m.tri.be/something', /* code review: fix this */
 					'image' => 'images/shop/extension-link-to-webinar.jpg',
-					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ), /* code review: fix this */
 				],
 				(object) [
 					'title' => __( 'Events Happening Now', 'tribe-common' ),
-					'link' => 'https://m.tri.be/something',
+					'link' => 'https://m.tri.be/something', /* code review: fix this */
 					'image' => 'images/shop/extension-events-happening-now.jpg',
-					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ), /* code review: fix this */
 				],
 				(object) [
 					'title' => __( 'Venue Links', 'tribe-common' ),
-					'link' => 'https://m.tri.be/something',
+					'link' => 'https://m.tri.be/something', /* code review: fix this */
 					'image' => 'images/shop/extension-custom-venue-links.jpg',
-					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ), /* code review: fix this */
 				],
 				(object) [
 					'title' => __( 'Change Label', 'tribe-common' ),
-					'link' => 'https://m.tri.be/something',
+					'link' => 'https://m.tri.be/something', /* code review: fix this */
 					'image' => 'images/shop/extension-change-label.jpg',
-					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ), /* code review: fix this */
 				],
 				(object) [
 					'title' => __( 'Advanced Options', 'tribe-common' ),
-					'link' => 'https://m.tri.be/something',
+					'link' => 'https://m.tri.be/something', /* code review: fix this */
 					'image' => 'images/shop/extension-advanced-options.jpg',
-					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ),
+					'description' => __( 'Use this shortcode to display events that are currently in progress, like webinars and livestreams', 'tribe-common' ), /* code review: fix this */
 				],
 			];
 

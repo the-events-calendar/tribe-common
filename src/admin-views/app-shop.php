@@ -45,7 +45,7 @@ foreach ( $products as $product ) {
 					}
 					else {
 						?>
-						<h2><?php esc_html_e( 'Already Installed', 'tribe-common' ); ?></h2>
+						<h2 class="already-installed"><?php esc_html_e( 'Already Installed', 'tribe-common' ); ?></h2>
 						<?php
 					}
 					?>
@@ -74,7 +74,10 @@ foreach ( $products as $product ) {
 								<a href="<?php echo esc_url( $product->link ); ?>" target="_blank"><img src="<?php echo esc_url( tribe_resource_url( $product->image, false, null, $main ) ); ?>" /></a>
 							</div>
 
-							<p><?php echo esc_html( $product->description ); ?></p>
+							<div class="description">
+								<p><?php echo esc_html( $product->description ); ?></p>
+							</div>
+
 							<ul class="features">
 								<?php
 								foreach( $product->features as $feature ) {

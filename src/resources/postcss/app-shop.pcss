@@ -43,7 +43,7 @@ body.tribe_events_page_tribe-app-shop {
 	.tribe-header {
 		background-color: #fff;
 		border-bottom: 1px solid rgba(225, 225, 228, 0.5);
-		height: 64px;
+		height: 72px;
 		margin: 0 auto;
 		position: relative;
 		text-align: center;
@@ -100,7 +100,8 @@ body.tribe_events_page_tribe-app-shop {
 				font-weight: 500;
 				line-height: 20px;
 				margin: 0 6px;
-				padding: 24px 0 17px 0;
+				padding: 24px 0 28px 0;
+				position: relative;
 				text-align: center;
 
 				@media screen and (min-width: 1217px) {
@@ -109,15 +110,26 @@ body.tribe_events_page_tribe-app-shop {
 
 				&.selected,
 				&:hover {
-					border-bottom: 3px solid #334aff;
 					color: #334aff;
+				}
+
+				&.selected:after {
+					background: #334AFF;
+					border-radius: 100px;
+					bottom: 0;
+					content: '';
+					display: block;
+					height: 3px;
+					left: 0;
+					position: absolute;
+					right: 0;
 				}
 			}
 		}
 	}
 
 	.tribe-content {
-		padding-top: 48px;
+		padding-top: 54px;
 	}
 
 	.addon-grid {
@@ -125,7 +137,7 @@ body.tribe_events_page_tribe-app-shop {
 			font-size: 18px;
 			font-weight: normal;
 			line-height: 28px;
-			margin: 0 0 39px 0;
+			margin: 0 0 40px 0;
 			padding: 0 20px;
 			text-align: center;
 		}
@@ -136,16 +148,23 @@ body.tribe_events_page_tribe-app-shop {
 			line-height: 42px;
 			margin: 0 0 13px 0;
 			text-align: center;
+
+			&.already-installed {
+				margin-bottom: 40px;
+			}
 		}
 
 		.tribe-addon {
+			padding: 28px;
 			width: 310px;
 
 			.headline {
+				height: 40px;
+				margin-bottom: 12px;
+
 				img {
 					height: 40px;
 					margin-right: 8px;
-					width: 40px;
 				}
 
 				a {
@@ -162,25 +181,64 @@ body.tribe_events_page_tribe-app-shop {
 					line-height: 18px;
 
 					&.has-pill {
-						max-width: 130px;
+						/* this really should be updated to work better for translated strings */
+						max-width: 140px;
 					}
 				}
 			}
 
-			p {
-				font-size: 15px;
-				font-weight: 500;
-				line-height: 24px;
-				margin: 0;
-
+			.description {
+				display: table;
 				/* an attempt at flexibility for 2-lines */
-				height: 48px;
-				display: table-cell;
-				vertical-align: bottom;
+				min-height: 48px;
+
+				p {
+					display: table-cell;
+					font-size: 15px;
+					font-weight: 500;
+					line-height: 24px;
+					margin: 0;
+					vertical-align: bottom;
+				}
+			}
+
+			.features {
+				/* attempting to get more height consistency */
+				min-height: 142px;
+
+				li {
+					color: #0F1031;
+					font-size: 15px;
+					font-weight: normal;
+					line-height: 24px;
+					margin-bottom: 4px;
+
+					.check {
+						padding-right: 12px;
+					}
+
+					.feature-text {
+						max-width: 224px;
+						vertical-align: middle;
+					}
+
+					span {
+						display: inline-block;
+					}
+
+					svg {
+						color: #3D54FF;
+						height: 12px;
+						width: 16px;
+					}
+				}
+
+				margin-bottom: 16px;
 			}
 		}
 
 		.tribe-bundle {
+			padding: 28px 32px 36px 32px;
 			width: calc(100% - 40px);
 
 			.details {
@@ -188,7 +246,7 @@ body.tribe_events_page_tribe-app-shop {
 				width: 100%;
 
 				@media screen and (min-width: 1217px) {
-					width: 506px;
+					width: 502px;
 				}
 
 				.headline {
@@ -221,6 +279,7 @@ body.tribe_events_page_tribe-app-shop {
 					font-size: 14px;
 					line-height: 22px;
 					margin: 0;
+					padding-top: 4px;
 
 					@media screen and (min-width: 710px) {
 
@@ -252,7 +311,7 @@ body.tribe_events_page_tribe-app-shop {
 					.discount {
 						display: table-cell;
 						height: 20px;
-						padding-left: 11px;
+						padding-left: 16px;
 						text-align: left;
 						vertical-align: middle;
 					}
@@ -345,7 +404,6 @@ body.tribe_events_page_tribe-app-shop {
 			box-sizing: border-box;
 			display: inline-block;
 			margin: 0 20px 40px 20px;
-			padding: 28px;
 			position: relative;
 			vertical-align: top;
 
@@ -400,40 +458,6 @@ body.tribe_events_page_tribe-app-shop {
 				color: #0F1031;
 				text-align: left;
 			}
-
-			.features {
-				/* could use this to get more height consistency */
-				height: 142px;
-
-				li {
-					font-size: 15px;
-
-					font-weight: normal;
-					line-height: 24px;
-					color: #0F1031;
-
-					.check {
-						padding-right: 12px;
-					}
-
-					.feature-text {
-						max-width: 224px;
-						vertical-align: middle;
-					}
-
-					span {
-						display: inline-block;
-					}
-
-					svg {
-						color: #3D54FF;
-						height: 12px;
-						width: 16px;
-					}
-				}
-
-				margin-bottom: 16px;
-			}
 		}
 
 		.button {
@@ -449,13 +473,24 @@ body.tribe_events_page_tribe-app-shop {
 			text-align: center;
 			width: 255px;
 
+			&:hover {
+				background: #1C39BB;
+			}
+
 			&.secondary {
 				background: #f7f7f4;
 				border: 1px solid #0F1031;
 				color: #0F1031;
 				display: block;
 				margin: auto;
+
+				&:hover {
+					color: #fff;
+					background: #3D54FF;
+				}
 			}
+
+
 		}
 	}
 

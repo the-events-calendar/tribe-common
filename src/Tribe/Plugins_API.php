@@ -24,7 +24,7 @@ class Tribe__Plugins_API {
 			'the-events-calendar' => array(
 				'title' => __( 'The Events Calendar', 'tribe-common' ),
 				'slug' => 'the-events-calendar',
-				'link' => 'https://theeventscalendar.com/product/wordpress-events-calendar-pro/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-calendar-pro&utm_content=appstoreembedded-1',
+				'link' => 'https://m.tri.be/1ai-',
 				'description' => __( 'Our flagship free calendar', 'tribe-common' ),
 				'features' => [
 					__( 'Customizable', 'tribe-common' ),
@@ -41,13 +41,13 @@ class Tribe__Plugins_API {
 			'event-aggregator' => array(
 				'title' => __( 'Event Aggregator', 'tribe-common' ),
 				'slug' => 'event-aggregator',
-				'link' => 'https://theeventscalendar.com/product/event-aggregator/?utm_campaign=in-app&utm_source=addonspage&utm_medium=event-aggregator&utm_content=appstoreembedded-1',
-				'description' => __( 'Massive import functionality for your calendar', 'tribe-common' ),
+				'link' => 'https://m.tri.be/1aj0',
+				'description' => __( 'Automated imports for your calendar', 'tribe-common' ),
 				'features' => [
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
+					__( 'Schedule automated imports', 'tribe-common' ),
+					__( 'Customizable', 'tribe-common' ),
+					__( 'Works with Google Calendar, Meetup, and more', 'tribe-common' ),
+					__( 'Refine by date, location, or keyword', 'tribe-common' ),
 				],
 				'image' => 'images/shop/aggregator.jpg',
 				'logo' => 'images/logo/event-aggregator.svg',
@@ -58,8 +58,7 @@ class Tribe__Plugins_API {
 			'events-calendar-pro' => array(
 				'title' => __( 'Events Calendar PRO', 'tribe-common' ),
 				'slug' => 'events-calendar-pro',
-				'link' => 'https://theeventscalendar.com/product/wordpress-events-calendar-pro/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-calendar-pro&utm_content=appstoreembedded-1',
-				'buy-now' => 'http://m.tri.be/19o4',
+				'link' => 'https://m.tri.be/1ai-',
 				'description' => __( 'Power up your calendar with Pro', 'tribe-common' ),
 				'features' => [
 					__( 'Premium support', 'tribe-common' ),
@@ -76,7 +75,7 @@ class Tribe__Plugins_API {
 			'event-tickets' => array(
 				'title' => __( 'Event Tickets', 'tribe-common' ),
 				'slug' => 'event-tickets',
-				'link' => null,
+				'link' => 'https://m.tri.be/1aj1',
 				'description' => __( 'Manage ticketing and RSVPs', 'tribe-common' ),
 				'features' => [
 					__( 'Add tickets and RSVP to any post', 'tribe-common' ),
@@ -93,8 +92,7 @@ class Tribe__Plugins_API {
 			'event-tickets-plus' => array(
 				'title' => __( 'Event Tickets Plus', 'tribe-common' ),
 				'slug' => 'event-tickets-plus',
-				'link' => 'https://theeventscalendar.com/product/wordpress-event-tickets-plus/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-event-tickets-plus&utm_content=appstoreembedded-1',
-				'buy-now' => 'http://m.tri.be/19o5',
+				'link' => 'http://m.tri.be/1aj1',
 				'description' => __( 'Monetize your events', 'tribe-common' ),
 				'features' => [
 					__( 'Custom registration fields', 'tribe-common' ),
@@ -111,14 +109,13 @@ class Tribe__Plugins_API {
 			'promoter' => array(
 				'title' => __( 'Promoter', 'tribe-common' ),
 				'slug' => 'promoter',
-				'link' => 'https://theeventscalendar.com/product/promoter/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-promoter&utm_content=appstoreembedded-1',
-				'buy-now' => 'http://m.tri.be/1acy',
-				'description' => __( 'Connect with your community', 'tribe-common' ),
+				'link' => 'https://m.tri.be/1acy',
+				'description' => __( 'An email marketing solution for events and the people running them', 'tribe-common' ),
 				'features' => [
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
+					__( 'Automate email touchpoints', 'tribe-common' ),
+					__( 'Customize email templates', 'tribe-common' ),
+					__( 'Streamline your email process', 'tribe-common' ),
+					__( 'Segment your attendee lists', 'tribe-common' ),
 				],
 				'image' => 'images/shop/promoter.jpg',
 				'logo' => 'images/logo/promoter.svg',
@@ -129,14 +126,13 @@ class Tribe__Plugins_API {
 			'tribe-filterbar' => array(
 				'title' => __( 'Filter Bar', 'tribe-common' ),
 				'slug' => 'tribe-filterbar',
-				'link' => 'https://theeventscalendar.com/product/wordpress-events-filterbar/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-events-filterbar&utm_content=appstoreembedded-1',
-				'buy-now' => 'http://m.tri.be/19o6',
-				'description' => __( '[Powerful filtering]', 'tribe-common' ),
+				'link' => 'https://m.tri.be/19o6',
+				'description' => __( 'Help users find exactly the right event', 'tribe-common' ),
 				'features' => [
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
+					__( 'Configurable set of filters', 'tribe-common' ),
+					__( 'Horizontal or vertical', 'tribe-common' ),
+					__( 'Filter category, price, and more', 'tribe-common' ),
+					__( 'Filter distance (for Events Calendar Pro)', 'tribe-common' ),
 				],
 				'image' => 'images/shop/filter-bar.jpg',
 				'logo' => 'images/logo/filterbar.svg',
@@ -147,8 +143,7 @@ class Tribe__Plugins_API {
 			'events-community' => array(
 				'title' => __( 'Community Events', 'tribe-common' ),
 				'slug' => 'events-community',
-				'link' => 'https://theeventscalendar.com/product/wordpress-community-events/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-community-events&utm_content=appstoreembedded-1',
-				'buy-now' => 'http://m.tri.be/19o7',
+				'link' => 'https://m.tri.be/19o7',
 				'description' => __( 'Users submit events to your calendar', 'tribe-common' ),
 				'features' => [
 					__( 'Publishing Control', 'tribe-common' ),
@@ -165,14 +160,13 @@ class Tribe__Plugins_API {
 			'events-community-tickets' => array(
 				'title' => __( 'Community Tickets', 'tribe-common' ),
 				'slug' => 'events-community-tickets',
-				'link' => 'https://theeventscalendar.com/product/community-tickets/?utm_campaign=in-app&utm_source=addonspage&utm_medium=community-tickets&utm_content=appstoreembedded-1',
-				'buy-now' => 'http://m.tri.be/19o8',
+				'link' => 'https://m.tri.be/19o8',
 				'description' => __( 'Run your own events marketplace', 'tribe-common' ),
 				'features' => [
 					__( 'Users submit events and sell tickets', 'tribe-common' ),
 					__( 'Split commission with users', 'tribe-common' ),
-					__( '[Feature]', 'tribe-common' ), /* code review: fail this */
-					__( '[Feature]', 'tribe-common' ),
+					__( 'No admin access required', 'tribe-common' ), /* code review: fail this */
+					__( 'Sales reporting', 'tribe-common' ),
 				],
 				'requires' => _x( 'Event Tickets Plus and Community Events', 'Names of required plugins for Community Tickets', 'tribe-common' ),
 				'image' => 'images/shop/community-tickets.jpg',
@@ -184,18 +178,13 @@ class Tribe__Plugins_API {
 			'tribe-eventbrite' => array(
 				'title' => __( 'Eventbrite Tickets', 'tribe-common' ),
 				'slug' => 'tribe-eventbrite',
-				'link' => 'https://theeventscalendar.com/product/wordpress-eventbrite-tickets/?utm_campaign=in-app&utm_source=addonspage&utm_medium=wordpress-eventbrite-tickets&utm_content=appstoreembedded-1',
-				'buy-now' => 'http://m.tri.be/19o9',
-				'description' => sprintf(
-					__( 'Create & sell tickets using the power of Eventbrite.', 'tribe-common' ),
-					'<a href="http://www.eventbrite.com/r/etp">',
-					'</a>'
-				),
+				'link' => 'https://m.tri.be/19o9',
+				'description' => __( 'Unite the power of TEC with the ticketing of Eventbrite', 'tribe-common' ),
 				'features' => [
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
+					__( 'Manage tickets from WordPress', 'tribe-common' ),
+					__( 'Ticket availability automatically updates', 'tribe-common' ),
+					__( 'Integrated with your events on Eventbrite', 'tribe-common' ),
+					__( 'Automatically import your events', 'tribe-common' ),
 				],
 				'image' => 'images/shop/eventbrite.jpg',
 				'logo' => 'images/logo/eventbrite-tickets.svg',
@@ -206,14 +195,13 @@ class Tribe__Plugins_API {
 			'image-widget-plus' => array(
 				'title' => __( 'Image Widget Plus', 'tribe-common' ),
 				'slug' => 'image-widget-plus',
-				'link' => 'http://m.tri.be/19nv',
-				'buy-now' => 'http://m.tri.be/19oa',
-				'description' => __( 'Amp up your images.', 'tribe-common' ),
+				'link' => 'https://m.tri.be/19nv',
+				'description' => __( 'Beautiful display options for your favorite photos.', 'tribe-common' ),
 				'features' => [
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
+					__( 'Multi-Image Support', 'tribe-common' ),
+					__( 'Lightbox', 'tribe-common' ),
+					__( 'Slideshow', 'tribe-common' ),
+					__( 'Random Images', 'tribe-common' ),
 				],
 				'image' => 'images/shop/image-widget-plus.jpg',
 				'logo' => 'images/logo/image-widget-plus.svg',
@@ -225,7 +213,6 @@ class Tribe__Plugins_API {
 				'title' => __( 'Virtual Events', 'tribe-common' ),
 				'slug' => 'events-virtual',
 				'link' => 'http://m.tri.be/19nv', /* CODE REVIEW: this link needs updating */
-				'buy-now' => 'http://m.tri.be/19oa', /* CODE REVIEW: this link needs updating */
 				'description' => __( '[ADD DESCRIPTION]', 'tribe-common' ), /* CODE REVIEW: this desciption needs updating */
 				'features' => [
 					__( 'Feature', 'tribe-common' ),
