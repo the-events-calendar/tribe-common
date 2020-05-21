@@ -91,8 +91,8 @@ foreach ( $products as $product ) {
 	<div id="tribe-bundles" class="tribe-content">
 		<div class="content-wrapper">
 			<div class="addon-grid">
-				<h2><?php esc_html_e( 'Get more for less', 'tribe-common' ); ?></h2>
-				<p><?php esc_html_e( 'Some text about why bundles are great', 'tribe-common' ); ?></p>
+				<h2><?php esc_html_e( 'The plugins you need at one discounted price', 'tribe-common' ); ?></h2>
+				<p><?php esc_html_e( 'We\'ve packaged our most popular plugins into bundles jam-packed with value.', 'tribe-common' ); ?></p>
 				<?php foreach ( $bundles as $bundle ) : ?>
 					<div class="tribe-bundle">
 						<div class="details">
@@ -144,8 +144,8 @@ foreach ( $products as $product ) {
 	<div id="tribe-extensions" class="tribe-content">
 		<div class="content-wrapper">
 			<div class="addon-grid">
-				<h2><?php esc_html_e( 'Extensions Headline', 'tribe-common' ); ?></h2>
-				<p><?php esc_html_e( 'Some text about why extensions are great', 'tribe-common' ); ?></p>
+				<h2><?php esc_html_e( 'Free extensions to power up your plugins', 'tribe-common' ); ?></h2>
+				<p><?php esc_html_e( 'Extensions are quick solutions our team came up with to solve specific issues you may need. (Just a note - extensions are not covered by our support team.)', 'tribe-common' ); ?></p>
 				<?php foreach ( $extensions as $extension ) : ?>
 					<div class="tribe-addon">
 						<div class="headline">
