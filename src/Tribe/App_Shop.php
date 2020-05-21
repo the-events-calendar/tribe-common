@@ -139,7 +139,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$products = [
 				'the-events-calendar' =>      (object) $all_products['the-events-calendar'],
 				'events-calendar-pro' =>      (object) $all_products['events-calendar-pro'],
-				'virtual-events' =>           (object) $all_products['virtual-events'],
+				'events-virtual' =>           (object) $all_products['events-virtual'],
 				'event-aggregator' =>         (object) $all_products['event-aggregator'],
 				'event-tickets' =>            (object) $all_products['event-tickets'],
 				'event-tickets-plus' =>       (object) $all_products['event-tickets-plus'],
@@ -194,7 +194,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'includes' => [
 						'events-calendar-pro',
 						'event-tickets-plus',
-						'virtual-events',
+						'events-virtual',
 						'promoter',
 					],
 				],
@@ -220,7 +220,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'includes' => [
 						'events-calendar-pro',
 						'event-tickets-plus',
-						'virtual-events', /* code review: not true today, confirm this has changed before shipping! */
+						'events-virtual', /* code review: not true today, confirm this has changed before shipping! */
 						'events-community',
 						'events-community-tickets',
 						'tribe-filterbar',

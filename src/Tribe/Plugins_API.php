@@ -209,7 +209,7 @@ class Tribe__Plugins_API {
 				'free' => false,
 				'active_installs' => 2500,
 			),
-			'virtual-events' => array(
+			'events-virtual' => array(
 				'title' => __( 'Virtual Events', 'tribe-common' ),
 				'slug' => 'events-virtual',
 				'link' => 'http://m.tri.be/19nv', /* CODE REVIEW: this link needs updating */

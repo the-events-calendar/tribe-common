@@ -118,7 +118,10 @@ foreach ( $products as $product ) {
 									$product = $products[ $product_key ];
 									?>
 
-									<li><img src="<?php echo esc_url( tribe_resource_url( $product->logo, false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'TEC Logo', 'tribe-common' ); ?>" /><span><?php echo esc_html( $product->title ); ?></span></li>
+									<li>
+										<img src="<?php echo esc_url( tribe_resource_url( $product->logo, false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'TEC Logo', 'tribe-common' ); ?>" />
+										<span><?php echo esc_html( $product->title ); ?></span>
+									</li>
 
 									<?php if ( $i == 4 ) : // if there are 5 products included, then we need 2 lists ?>
 										</ul><ul class="second">
