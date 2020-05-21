@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - When using Block Editor we ensure that `apply_filters` for `the_content` on `tribe_get_the_content`, the lack of that filter prevented blocks from rendering. [TEC-3456]
+* Tweak - Added the `bulk_edit` and `inline_save` locations to the Context. [VE-8]
+
 = [4.12.1] 2020-05-11 =
 
 * Feature - Added a helper method `Tribe__Plugins::is_active( 'slug' )` to check if a given plugin is active.
