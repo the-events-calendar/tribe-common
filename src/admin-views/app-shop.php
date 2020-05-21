@@ -115,8 +115,8 @@ foreach ( $products as $product ) {
 	<div id="tribe-bundles" class="tribe-content">
 		<div class="content-wrapper">
 			<div class="addon-grid">
-				<h2><?php _e( 'Get more for less', 'tribe-common' );?></h2>
-				<p><?php _e( 'Some text about why bundles are great', 'tribe-common' ); ?></p>
+				<h2><?php esc_html_e( 'Get more for less', 'tribe-common' ); ?></h2>
+				<p><?php esc_html_e( 'Some text about why bundles are great', 'tribe-common' ); ?></p>
 				<?php
 				foreach ( $bundles as $bundle ) {
 					?>
@@ -131,7 +131,7 @@ foreach ( $products as $product ) {
 
 							<div class="cta wide">
 								<a class="button" href="<?php echo esc_url( $bundle->link ); ?>"><?php esc_html_e( 'Save With A Bundle', 'tribe-common' ); ?></a>
-								<span class="discount"><?php echo esc_html( $bundle->discount );?></span>
+								<span class="discount"><?php echo esc_html( $bundle->discount ); ?></span>
 							</div>
 						</div>
 
@@ -160,7 +160,7 @@ foreach ( $products as $product ) {
 
 						<div class="cta narrow">
 							<a class="button" href="<?php echo esc_url( $bundle->link ); ?>"><?php esc_html_e( 'Save With A Bundle', 'tribe-common' ); ?></a>
-							<span class="discount"><?php echo esc_html( $bundle->discount );?></span>
+							<span class="discount"><?php echo esc_html( $bundle->discount ); ?></span>
 						</div>
 
 					</div>
@@ -174,8 +174,8 @@ foreach ( $products as $product ) {
 	<div id="tribe-extensions" class="tribe-content">
 		<div class="content-wrapper">
 			<div class="addon-grid">
-				<h2><?php _e( 'Extensions Headline', 'tribe-common' );?></h2>
-				<p><?php _e( 'Some text about why extensions are great', 'tribe-common' ); ?></p>
+				<h2><?php esc_html_e( 'Extensions Headline', 'tribe-common' ); ?></h2>
+				<p><?php esc_html_e( 'Some text about why extensions are great', 'tribe-common' ); ?></p>
 				<?php
 				foreach ( $extensions as $extension ) {
 					?>
