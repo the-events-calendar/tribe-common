@@ -156,7 +156,11 @@ body.tribe_events_page_tribe-app-shop {
 
 		.tribe-addon {
 			padding: 28px;
-			width: 310px;
+			width: calc(100% - 40px);
+
+			@media screen and (min-width: 710px) {
+				width: 310px;
+			}
 
 			.headline {
 				height: 40px;

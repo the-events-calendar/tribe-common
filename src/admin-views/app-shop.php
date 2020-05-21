@@ -34,40 +34,25 @@ foreach ( $products as $product ) {
 	<div id="tribe-all-solutions" class="tribe-content">
 		<div class="content-wrapper">
 			<div class="addon-grid">
-				<?php
-				foreach ( $all_products as $status => $some_products ) {
-
-					if ( 'for-sale' == $status ) {
-						?>
+				<?php foreach ( $all_products as $status => $some_products ) : ?>
+					<?php if ( 'for-sale' == $status ) :?>
 						<h2><?php esc_html_e( 'One calendar. Countless ways to make it your own.', 'tribe-common' ); ?></h2>
 						<p><?php esc_html_e( 'Calendars, ticketing, and powerful WordPress tools to manage your events from start to finish.', 'tribe-common' ); ?></p>
-						<?php
-					}
-					else {
-						?>
+					<?php else: ?>
 						<h2 class="already-installed"><?php esc_html_e( 'Already Installed', 'tribe-common' ); ?></h2>
-						<?php
-					}
-					?>
+					<?php endif; ?>
 
-					<?php
-					foreach ( $some_products as $product ) {
-						?>
+					<?php foreach ( $some_products as $product ) : ?>
 						<div class="tribe-addon">
 							<div class="headline">
 								<img src="<?php echo esc_url( tribe_resource_url( $product->logo, false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'TEC Logo', 'tribe-common' ); ?>" />
 								<h3 <?php echo ( 'installed' == $status || $product->free ) ? 'class="has-pill"' : ''; ?>><a href="<?php echo esc_url( $product->link ); ?>" target="_blank"><?php echo esc_html( $product->title ); ?></a></h3>
 
-								<?php
-								if ( 'installed' == $status ) {
-									?>
+								<?php if ( 'installed' == $status ) : ?>
 									<span class="pill active"><?php esc_html_e( 'Active', 'tribe-common' ); ?></span>
-									<?php
-								} elseif ( $product->free ) {
-									?>
+								<?php elseif ( $product->free ) : ?>
 									<span class="pill free"><?php esc_html_e( 'FREE', 'tribe-common' ); ?></span>
-									<?php
-								} ?>
+								<?php endif; ?>
 
 							</div>
 							<div class="promo-image">
@@ -79,9 +64,7 @@ foreach ( $products as $product ) {
 							</div>
 
 							<ul class="features">
-								<?php
-								foreach( $product->features as $feature ) {
-									?>
+								<?php foreach( $product->features as $feature ) : ?>
 									<li>
 										<span class="check">
 											<svg fill="none" height="12" viewBox="0 0 16 12" width="16" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m13.7357.374803-8.40784 8.402337-3.06361-3.06158c-.52424-.506-1.357557-.49877-1.872924.01626s-.522608 1.34779-.016275 1.87169l4.008209 4.00559c.52173.5212 1.36747.5212 1.8892 0l9.35244-9.34634c.5064-.5239.4991-1.356665-.0162-1.871692-.5154-.515027-1.3487-.522264-1.873-.016265z" fill="#3d54ff" fill-rule="evenodd"/></svg>
@@ -89,28 +72,18 @@ foreach ( $products as $product ) {
 											<?php echo esc_html( $feature ); ?>
 										</span>
 									</li>
-									<?php
-								};
-								?>
+								<?php endforeach; ?>
 							</ul>
 
-							<?php
-							if ( 'installed' == $status ) {
-								?>
+							<?php if ( 'installed' == $status ) : ?>
 								<a class="button" href="https://m.tri.be/1aiz"><?php esc_html_e( 'Manage', 'tribe-common' ); ?></a>
-								<?php
-							} else {
-								?>
+							<?php else : ?>
 								<a class="button" href="<?php echo esc_url( $product->link ); ?>"><?php esc_html_e( 'Learn More', 'tribe-common' ); ?></a>
-								<?php
-							}
-							?>
+							<?php endif; ?>
 
 						</div>
-						<?php
-					}
-				}
-				?>
+					<?php endforeach; ?>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>
@@ -120,9 +93,7 @@ foreach ( $products as $product ) {
 			<div class="addon-grid">
 				<h2><?php esc_html_e( 'Get more for less', 'tribe-common' ); ?></h2>
 				<p><?php esc_html_e( 'Some text about why bundles are great', 'tribe-common' ); ?></p>
-				<?php
-				foreach ( $bundles as $bundle ) {
-					?>
+				<?php foreach ( $bundles as $bundle ) : ?>
 					<div class="tribe-bundle">
 						<div class="details">
 							<div class="headline">
@@ -139,25 +110,20 @@ foreach ( $products as $product ) {
 						</div>
 
 						<div class="includes">
-							<h4><?php _e( 'Includes', 'tribe-common' ); ?></h4>
+							<h4><?php esc_html_e( 'Includes', 'tribe-common' ); ?></h4>
 							<ul>
-								<?php
-								foreach ( $bundle->includes as $i => $product_key ) {
+								<?php foreach ( $bundle->includes as $i => $product_key ) : ?>
+									<?php
 									// get $product object
 									$product = $products[ $product_key ];
-
 									?>
-									<li><img src="<?php echo esc_url( tribe_resource_url( $product->logo, false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'TEC Logo', 'tribe-common' ); ?>" /><span><?php echo esc_html( $product->title ); ?></span></li>
-									<?php
 
-									if ( $i == 4 ) {
-										// if there are 5 products included, then we need 2 lists
-										?>
+									<li><img src="<?php echo esc_url( tribe_resource_url( $product->logo, false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'TEC Logo', 'tribe-common' ); ?>" /><span><?php echo esc_html( $product->title ); ?></span></li>
+
+									<?php if ( $i == 4 ) : // if there are 5 products included, then we need 2 lists ?>
 										</ul><ul class="second">
-										<?php
-									}
-								}
-								?>
+									<?php endif; ?>
+								<?php endforeach; ?>
 							</ul>
 						</div>
 
@@ -167,9 +133,7 @@ foreach ( $products as $product ) {
 						</div>
 
 					</div>
-					<?php
-				}
-				?>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>
@@ -179,9 +143,7 @@ foreach ( $products as $product ) {
 			<div class="addon-grid">
 				<h2><?php esc_html_e( 'Extensions Headline', 'tribe-common' ); ?></h2>
 				<p><?php esc_html_e( 'Some text about why extensions are great', 'tribe-common' ); ?></p>
-				<?php
-				foreach ( $extensions as $extension ) {
-					?>
+				<?php foreach ( $extensions as $extension ) : ?>
 					<div class="tribe-addon">
 						<div class="headline">
 							<h3 class="has-pill"><a href="<?php echo esc_url( $extension->link ); ?>" target="_blank"><?php echo esc_html( $extension->title ); ?></a></h3>
@@ -196,9 +158,7 @@ foreach ( $products as $product ) {
 
 						<a class="button" href="<?php echo esc_url( $extension->link ); ?>"><?php esc_html_e( 'Download', 'tribe-common' ); ?></a>
 					</div>
-					<?php
-				}
-				?>
+				<?php endforeach; ?>
 
 				<a class="button secondary" href="https://m.tri.be/somewhere"><?php esc_html_e( 'Browse Extensions', 'tribe-common' ); ?></a>
 
