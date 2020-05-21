@@ -69,7 +69,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function maybe_format_from_datepicker( $date, $datepicker = null ) {
 			if ( ! is_numeric( $datepicker ) ) {
-				$datepicker = tribe_get_option( 'datepickerFormat', self::get_datepicker_format_index() );
+				$datepicker = self::get_datepicker_format_index();
 			}
 
 			if ( is_numeric( $datepicker ) ) {

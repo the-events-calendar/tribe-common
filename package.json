@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "4.11.2",
+  "version": "4.12.1",
   "repository": "git@github.com:moderntribe/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -58,7 +58,7 @@
     "moment": "2.19.3",
     "moment-timezone": "0.5.13",
     "prop-types": "^15.6.2",
-    "querystringify": "^1.0.0",
+    "querystringify": "^2.0.0",
     "react": "16.3.0",
     "react-day-picker": "^7.2.4",
     "react-dom": "16.3.0",
@@ -128,7 +128,7 @@
     "postcss-preset-env": "^6.0.10",
     "product-taskmaster": "github:moderntribe/product-taskmaster",
     "react-svg-loader": "^2.1.0",
-    "react-test-renderer": "^16.5.2",
+    "react-test-renderer": "16.3.0",
     "redux-devtools-extension": "^2.13.7",
     "redux-mock-store": "^1.5.3",
     "require-dir": "^0.3.0",
@@ -137,7 +137,7 @@
     "style-loader": "0.18.2",
     "unminified-webpack-plugin": "^2.0.0",
     "webpack": "^4.26.1",
-    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.4"
   }

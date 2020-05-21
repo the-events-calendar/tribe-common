@@ -39,6 +39,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 				'countries'    => tribe( 'languages.locations' )->get_countries(),
 				'usStates'     => Tribe__View_Helpers::loadStates(),
 			),
+			'blocks' => [],
 		);
 
 		/**

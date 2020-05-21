@@ -2,6 +2,7 @@
 /**
  * HTML functions (template-tags) for use in WordPress templates.
  */
+use Tribe\Utils\Element_Attributes;
 use Tribe\Utils\Element_Classes;
 
 /**
@@ -25,11 +26,39 @@ function tribe_get_classes() {
  *
  * @param  mixed $classes,... unlimited Any amount of params to be rendered as classes.
  *
- * @return string
+ * @return void
  */
 function tribe_classes() {
 	$element_classes = new Element_Classes( func_get_args() );
 	echo $element_classes->get_attribute();
+}
+
+/**
+ * Parse input values into a valid array of attributes to be used in the templates.
+ *
+ * @since  TBD
+ *
+ * @param  mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
+ *
+ * @return array<string> An array of the parsed string attributes.
+ */
+function tribe_get_attributes() {
+	$element_attributes = new Element_Attributes( func_get_args() );
+	return $element_attributes->get_attributes_array();
+}
+
+/**
+ * Parse input values into a valid html attributes to be used in the templates.
+ *
+ * @since  TBD
+ *
+ * @param  mixed $attributes,... unlimited Any amount of params to be rendered as attributes.
+ *
+ * @return void
+ */
+function tribe_attributes() {
+	$element_attributes = new Element_Attributes( func_get_args() );
+	echo $element_attributes->get_attributes();
 }
 
 /**
@@ -68,7 +97,7 @@ function tribe_required_label( $required, $echo = true ) {
 	if ( $required ) {
 		$required_string = '<span class="screen-reader-text">'
 			. esc_html_x( '(required)', 'The associated field is required.', 'tribe-common' )
-			. '</span><span class="tribe-required" aria-hidden=”true” role=”presentation”>*</span>';
+			. '</span><span class="tribe-required" aria-hidden="true" role="presentation">*</span>';
 
 		if ( ! $echo ) {
 			return $required_string;

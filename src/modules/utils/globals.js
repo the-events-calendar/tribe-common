@@ -3,6 +3,10 @@
  */
 export const get = ( key, defaultValue ) => window[ key ] || defaultValue;
 export const google = () => get( 'google' );
+export const wpApi = wp.api;
+export const wpApiRequest = wp.apiRequest;
+export const wpData = wp.data;
+export const wpHooks = wp.hooks;
 
 // Localized Config
 export const config = () => get( 'tribe_editor_config', {} );
@@ -35,3 +39,9 @@ export const editorDefaults = () => pro().defaults || {};
 
 // Tickets
 export const tickets = () => config().tickets || {};
+
+// Post Objects
+export const postObjects = () => config().post_objects || {};
+
+// Blocks
+export const blocks = () => config().blocks || {};

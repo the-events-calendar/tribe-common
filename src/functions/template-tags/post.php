@@ -30,14 +30,20 @@ function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $
 		$content = get_the_content( $more_link_text, $strip_teaser );
 	}
 
-	/**
-	 * Filters the post content.
-	 *
-	 * @since 0.71 of WordPress
-	 *
-	 * @param string $content Content of the current post.
-	 */
-	$content = apply_filters( 'the_content', $content );
+	$has_blocks = function_exists( 'has_blocks' ) && has_blocks( $content );
+	// If blocks are present we need to run the content filter.
+
+	if ( $has_blocks || ! doing_filter( 'the_content' ) ) {
+		/**
+		 * Filters the post content.
+		 *
+		 * @since 0.71 of WordPress
+		 *
+		 * @param string $content Content of the current post.
+		 */
+		$content = apply_filters( 'the_content', $content );
+	}
+
 	$content = str_replace( ']]>', ']]&gt;', $content );
 
 	$post = $previous_post;

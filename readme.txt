@@ -2,6 +2,60 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - When using Block Editor we ensure that `apply_filters` for `the_content` on `tribe_get_the_content`, the lack of that filter prevented blocks from rendering. [TEC-3456]
+* Tweak - Added the `bulk_edit` and `inline_save` locations to the Context. [VE-8]
+
+= [4.12.1] 2020-05-11 =
+
+* Feature - Added a helper method `Tribe__Plugins::is_active( 'slug' )` to check if a given plugin is active.
+* Feature - Add entry points through filters to be able to add content after the opening html tag or before the closing html tag. [TCMN-65]
+* Tweak - Extended support for namespaced classes in the Autoloader.
+* Tweak - Make Customizer stylesheet enqueue filterable via `tribe_customizer_inline_stylesheets`. [TEC-3401]
+* Tweak - Normalize namespaced prefixes with trailing backslash when registering them in the Autoloader. [VE-14]
+* Language - 1 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.12.0] 2020-04-23 =
+
+* Feature - Management of Shortcodes now are fully controlled by Common Manager classes [TCMN-56]
+* Fix - Prevent Blocks editor from throwing browser alert when leaving the page without any changes applied to the edited post.
+* Fix - Clear the views HTML cache on language settings changes to ensure we don't mix up translated strings. [TEC-3326]
+* Fix - Blocks editor CSS compatibility with WordPress 5.4 with new module classes: `.block-editor-inner-blocks`
+* Fix - Add style override for <ul> in Divi due to theme use of IDs. [TEC-3235]
+* Fix - Change text domain loading to occur on 'init' hook instead of 'plugins_loaded'. Added new `tribe_load_text_domains` action hook for our other plugins to use for their own text domain loading on 'init' as well. [TCMN-58]
+* Fix - Change curly quotes to straight quotes in some HTML markup when doing 'tribe_required_label' for Modal dialogs.
+* Tweak - Added a method that returns whether the events are being served through Blocks or the Classical Editor. [ETP-234]
+* Tweak - Added homepage settings to system information.
+* Tweak - Add the `tribe_template_done` filter to be able to disable a template before rendering. [TEC-3385]
+* Tweak - Improved on meta data handling of for Blocks editor.
+* Tweak - Deprecate Select2 3.5.4 in favor of SelectWoo
+* Language - 0 new strings added, 38 updated, 2 fuzzied, and 1 obsoleted
+
+= [4.11.5.1] 2020-03-23 =
+
+* Fix - Assets class modification to prevent JavaScript and CSS failing to load when `SCRIPT_DEBUG=true` [TCMN-52]
+
+= [4.11.5] 2020-03-23 =
+
+* Tweak - Added context to the country and the state of Georgia to allow separate translation [BTRIA-63]
+* Tweak - Allow uploads of images with a large size and images with no extension provided from the URL, as the extension from the URL was used to define the type of the file to be uploaded and when the extension was not present on the URL the file was considered invalid. [TCMN-46]
+* Tweak - Expired transient garbage collector will only run once per request and when needed [TCMN-38]
+* Language - 2 new strings added, 0 updated, 1 fuzzied, and 1 obsoleted
+
+= [4.11.4] 2020-03-18 =
+
+* Fix - Increase range of actions that trigger changes on Promoter with a `WP_Post` instance or using an ID. [TCMN-47]
+
+= [4.11.3] 2020-02-26 =
+
+* Fix - JavaScript error in tribe dialog when there are no dialogs. Change fallback from object to array. [TCMN-34]
+* Fix - Fix display of Dialogs in Safari 12 mobile. [ETP-155]
+* Fix - Bring back the dialog icons. [ETP-155]
+* Tweak - Add theme compatibility for the tribe dialog [ETP-156]
+
+* Tweak - Add check if in `the_content` filter to prevent it from being called again. [ECP-345]
+
 = [4.11.2.1] 2020-02-25 =
 
 * Fix - Plugin dependency registration with `Plugin_Register` will not prevent loading of all plugins in list if the last loaded fails. [TCMN-41]

@@ -1,49 +1,74 @@
 var tribe = tribe || {};
 tribe.dialogs = tribe.dialogs || {};
-tribe.dialogs.dialogs = tribe.dialogs.dialogs || {};
-tribe.dialogs.events = tribe.dialogs.events || {};
 
-	( function ( obj ) {
-		'use strict';
+( function( $, obj ) {
+	'use strict';
 
-		document.addEventListener(
-			'DOMContentLoaded',
-			function () {
-				tribe.dialogs.dialogs.forEach(function(dialog) {
-					var objName     = 'dialog_obj_' + dialog.id;
-					window[objName] = new window.A11yDialog({
-						appendTarget: dialog.appendTarget,
-						bodyLock: dialog.bodyLock,
-						closeButtonAriaLabel: dialog.closeButtonAriaLabel,
-						closeButtonClasses: dialog.closeButtonClasses,
-						contentClasses: dialog.contentClasses,
-						effect: dialog.effect,
-						effectEasing: dialog.effectEasing,
-						effectSpeed: dialog.effectSpeed,
-						overlayClasses: dialog.overlayClasses,
-						overlayClickCloses: dialog.overlayClickCloses,
-						trigger: dialog.trigger,
-						wrapperClasses: dialog.wrapperClasses
-					});
+	var $document = $( document );
+	obj.dialogs = obj.dialogs || [];
+	obj.events = obj.events || {};
 
-					window[objName].on('show', function (dialogEl, event) {
-						if ( event ) {
-							event.preventDefault();
-							event.stopPropagation();
-						}
+	/**
+	 * Get the dialog name.
+	 *
+	 * @since 4.11.3
+	 *
+	 * @param {obj} dialog The dialog object
+	 *
+	 * @return {string} the dialog name.
+	 */
+	obj.getDialogName = function( dialog ) {
+		return 'dialog_obj_' + dialog.id;
+	};
 
-						jQuery( tribe.dialogs.events ).trigger( dialog.showEvent, [dialogEl, event] );
-					});
+	/**
+	 * Initialize tribe dialogs.
+	 *
+	 * @since 4.11.3
+	 *
+	 * @return {void}
+	 */
+	obj.init = function() {
+		obj.dialogs.forEach( function( dialog ) {
+			var objName      = obj.getDialogName( dialog );
+			var a11yInstance = new window.A11yDialog( {
+				appendTarget: dialog.appendTarget,
+				bodyLock: dialog.bodyLock,
+				closeButtonAriaLabel: dialog.closeButtonAriaLabel,
+				closeButtonClasses: dialog.closeButtonClasses,
+				contentClasses: dialog.contentClasses,
+				effect: dialog.effect,
+				effectEasing: dialog.effectEasing,
+				effectSpeed: dialog.effectSpeed,
+				overlayClasses: dialog.overlayClasses,
+				overlayClickCloses: dialog.overlayClickCloses,
+				trigger: dialog.trigger,
+				wrapperClasses: dialog.wrapperClasses,
+			} );
 
-					window[objName].on('hide', function (dialogEl, event) {
-						if ( event ) {
-							event.preventDefault();
-							event.stopPropagation();
-						}
+			window[ objName ] = a11yInstance;
+			dialog.a11yInstance = a11yInstance;
 
-						jQuery( tribe.dialogs.events ).trigger( dialog.closeEvent, [dialogEl, event] );
-					});
-				});
-			}
-		)
-	})(tribe.dialog);
+			window[ objName ].on( 'show', function( dialogEl, event ) {
+				if ( event ) {
+					event.preventDefault();
+					event.stopPropagation();
+				}
+
+				$( obj.events ).trigger( dialog.showEvent, [ dialogEl, event ] );
+			} );
+
+			window[ objName ].on( 'hide', function ( dialogEl, event ) {
+				if ( event ) {
+					event.preventDefault();
+					event.stopPropagation();
+				}
+
+				$( obj.events ).trigger( dialog.closeEvent, [ dialogEl, event ] );
+			} );
+		} );
+	};
+
+	$document.ready( obj.init );
+
+} )( jQuery, tribe.dialogs );
