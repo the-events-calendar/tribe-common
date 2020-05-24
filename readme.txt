@@ -2,6 +2,21 @@
 
 == Changelog ==
 
+= [4.12.2] 2020-05-20 =
+
+* Feature - Added array utility methods: `parse_associative_array_alias` to build an array with canonical keys while taking alias keys into account and `filter_to_flat_scalar_associative_array` to help do so. Useful for aliasing shortcode arguments, for example.
+* Feature - Added `tribe_extension_is_disallowed` filter for Modern Tribe's core plugins to deactivate an extension whose functionality has become duplicative or conflicting.
+* Language - 1 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.12.1] 2020-05-11 =
+
+* Feature - Added a helper method `Tribe__Plugins::is_active( 'slug' )` to check if a given plugin is active.
+* Feature - Add entry points through filters to be able to add content after the opening html tag or before the closing html tag. [TCMN-65]
+* Tweak - Extended support for namespaced classes in the Autoloader.
+* Tweak - Make Customizer stylesheet enqueue filterable via `tribe_customizer_inline_stylesheets`. [TEC-3401]
+* Tweak - Normalize namespaced prefixes with trailing backslash when registering them in the Autoloader. [VE-14]
+* Language - 1 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.12.0] 2020-04-23 =
 
 * Feature - Management of Shortcodes now are fully controlled by Common Manager classes [TCMN-56]

@@ -287,7 +287,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		}
 
 		/**
-		 * Logs the occurence of rewrite rule purging
+		 * Logs the occurrence of rewrite rule purging
 		 */
 		public function log_rewrite_rule_purge() {
 			$this->rewrite_rules_purged = true;
