@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.12.1\n"
+"Project-Id-Version: Tribe Common 4.12.2\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
 "POT-Creation-Date: 2020-05-26 16:16:47+00:00\n"
 "MIME-Version: 1.0\n"
@@ -584,12 +584,21 @@ msgstr ""
 msgid "Tutorial"
 msgstr ""
 
-#: src/Tribe/Extension.php:377
+#: src/Tribe/Extension.php:406
 msgid ""
 "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or "
 "older, and has likely disabled or misconfigured debug_backtrace(). You, or "
 "your website host, will need to upgrade PHP or properly configure "
 "debug_backtrace() for Tribe Extensions to work."
+msgstr ""
+
+#: src/Tribe/Extension.php:421
+msgctxt "extension disallowed"
+msgid ""
+"This extension has been programmatically disallowed. The most common reason "
+"is due to another Modern Tribe plugin having absorbed or replaced this "
+"extension's functionality. This extension plugin has been deactivated, and "
+"you should likely delete it."
 msgstr ""
 
 #: src/Tribe/Field.php:233
