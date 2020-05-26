@@ -1204,25 +1204,9 @@ class Tribe__Template {
 	 * @return array An array of matches from the regular expression.
 	 */
 	private function get_entry_point_matches( $html ) {
-		// Set up cache key using current hook name.
-		$hook_name = $this->get_template_current_hook_name();
-		$key       = "tribe_template_entry_point_cache:{$hook_name}";
-
-		// Get cache instance.
-		$cache = tribe_cache();
-
-		// Get cached value (if set).
-		$cached = $cache[ $key ];
-
-		if ( false !== $cached ) {
-			return $cached;
-		}
-
 		$regexp = '/<(?<is_end>\/)*(?<tag>[A-Z0-9]*)(?:\b)*[^>]*>/mi';
 
 		preg_match_all( $regexp, $html, $matches );
-
-		$cache[ $key ] = $matches;
 
 		return $matches;
 	}
