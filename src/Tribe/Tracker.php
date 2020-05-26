@@ -85,7 +85,7 @@ class Tribe__Tracker {
 	/**
 	 * Get the date(timestamp) of last modification for a tracked field.
 	 *
-	 * @since TBD
+	 * @since 4.12.3
 	 *
 	 * @param string $meta_key The key for the meta field we're interested in.
 	 * @param int $post_id The ID of the post to check.

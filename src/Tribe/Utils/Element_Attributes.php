@@ -4,7 +4,7 @@ namespace Tribe\Utils;
 /**
  * Class Element_Attributes to handle HTML attributes for elements.
  *
- * @since  TBD
+ * @since  4.12.3
  *
  * @package Tribe\Utils
  */
@@ -12,7 +12,7 @@ class Element_Attributes {
 	/**
 	 * Store the results of parsing the attributes.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @var array<string,string>
 	 */
@@ -21,7 +21,7 @@ class Element_Attributes {
 	/**
 	 * Stores the arguments passed.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @var array
 	 */
@@ -30,7 +30,7 @@ class Element_Attributes {
 	/**
 	 * Setups an instance of Element Attributes.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @return void
 	 */
@@ -41,7 +41,7 @@ class Element_Attributes {
 	/**
 	 * When invoked this class will return the full HTML attributes.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @return string In the format ` attribute1="value1" attribute2="value2" `
 	 */
@@ -54,7 +54,7 @@ class Element_Attributes {
 	/**
 	 * When cast to string an instance will return the full HTML attributes.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @return string In the format ` attribute1="value1" attribute2="value2" `
 	 */
@@ -66,7 +66,7 @@ class Element_Attributes {
 	 * Gets the full HTML attributes for this instance of Element Attributes.
 	 * It will contain a space on each end of the attribute.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @return string In the format ` attribute1="value1" attribute2="value2" `
 	 */
@@ -84,7 +84,7 @@ class Element_Attributes {
 	/**
 	 * Gets a space separated string of all attributes to be printed.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @return string
 	 */
@@ -95,7 +95,7 @@ class Element_Attributes {
 	/**
 	 * Get the array of attributes to be printed.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @return array
 	 */
@@ -125,7 +125,7 @@ class Element_Attributes {
 	/**
 	 * Parse arguments or argument for this instance, and store values on results.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @param  mixed  $arguments  Any possible set of arguments that this class supports.
 	 *
@@ -156,7 +156,7 @@ class Element_Attributes {
 	/**
 	 * Parse an array into an array of acceptable values for the instance.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @param  array  $values  Array of values to be parsed.
 	 *
@@ -179,7 +179,7 @@ class Element_Attributes {
 	/**
 	 * Parse a string into an array of acceptable values for the instance.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @param  string  $arguments  Space separated string of attributes to be parsed.
 	 *
@@ -212,7 +212,7 @@ class Element_Attributes {
 	/**
 	 * Parses an object into the array of considered attributes.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @param  mixed  $object  Object to be converted into array and parsed.
 	 *
@@ -227,7 +227,7 @@ class Element_Attributes {
 	 *
 	 * The result of the callable will REPLACE the current attributes, callables will work like filters.
 	 *
-	 * @since  TBD
+	 * @since  4.12.3
 	 *
 	 * @param  callable  $method_or_function  Method or Function to be called.
 	 *
