@@ -163,7 +163,7 @@ foreach ( $products as $product ) {
 					</div>
 				<?php endforeach; ?>
 
-				<a class="button secondary" href="https://m.tri.be/somewhere"><?php esc_html_e( 'Browse Extensions', 'tribe-common' ); ?></a>
+				<a class="button secondary" href="https://m.tri.be/1ajd"><?php esc_html_e( 'Browse Extensions', 'tribe-common' ); ?></a>
 
 			</div>
 
