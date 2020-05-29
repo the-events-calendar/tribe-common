@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feat - Added the `Tribe\Traits\With_Meta_Updates_Handling` trait to provide methods useful in handling with meta. 
+
 = [4.12.3] 2020-05-27 =
 
 * Fix - When using Block Editor we ensure that `apply_filters` for `the_content` on `tribe_get_the_content`, the lack of that filter prevented blocks from rendering. [TEC-3456]
