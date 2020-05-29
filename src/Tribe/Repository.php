@@ -1,9 +1,11 @@
 <?php
 
+use Tribe\Traits\With_Meta_Updates_Handling;
 use Tribe__Utils__Array as Arr;
 
 abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
+	use With_Meta_Updates_Handling;
 
 	const MAX_NUMBER_OF_POSTS_PER_PAGE = 99999999999;
 
