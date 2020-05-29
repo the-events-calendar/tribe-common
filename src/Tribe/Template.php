@@ -662,7 +662,7 @@ class Tribe__Template {
 
 		ob_start();
 
-		if ( has_action( "tribe_template_entry_point:$hook_name" ) ) {
+		if ( has_action( "tribe_template_entry_point:{$hook_name}" ) ) {
 			/**
 			 * Generic entry point action for the current template.
 			 *
@@ -672,10 +672,10 @@ class Tribe__Template {
 			 * @param string $entry_point_name Which entry point specifically we are triggering.
 			 * @param self   $template         Current instance of the template class doing this entry point.
 			 */
-			do_action( "tribe_template_entry_point:$hook_name", $hook_name, $entry_point_name, $this );
+			do_action( "tribe_template_entry_point:{$hook_name}", $hook_name, $entry_point_name, $this );
 		}
 
-		if ( has_action( "tribe_template_entry_point:$hook_name:$entry_point_name" ) ) {
+		if ( has_action( "tribe_template_entry_point:{$hook_name}:{$entry_point_name}" ) ) {
 			/**
 			 * Specific named entry point action called.
 			 *
@@ -685,12 +685,12 @@ class Tribe__Template {
 			 * @param string $entry_point_name Which entry point specifically we are triggering.
 			 * @param self   $template         Current instance of the template class doing this entry point.
 			 */
-			do_action( "tribe_template_entry_point:$hook_name:$entry_point_name", $hook_name, $entry_point_name, $this );
+			do_action( "tribe_template_entry_point:{$hook_name}:{$entry_point_name}", $hook_name, $entry_point_name, $this );
 		}
 
 		$html = ob_get_clean();
 
-		if ( has_filter( "tribe_template_entry_point_html:$hook_name" ) ) {
+		if ( has_filter( "tribe_template_entry_point_html:{$hook_name}" ) ) {
 			/**
 			 * Generic entry point action for the current template.
 			 *
@@ -701,10 +701,10 @@ class Tribe__Template {
 			 * @param string $entry_point_name Which entry point specifically we are triggering.
 			 * @param self   $template         Current instance of the template class doing this entry point.
 			 */
-			$html = apply_filters( "tribe_template_entry_point_html:$hook_name", $html, $hook_name, $entry_point_name, $this );
+			$html = apply_filters( "tribe_template_entry_point_html:{$hook_name}", $html, $hook_name, $entry_point_name, $this );
 		}
 
-		if ( has_filter( "tribe_template_entry_point_html:$hook_name:$entry_point_name" ) ) {
+		if ( has_filter( "tribe_template_entry_point_html:{$hook_name}:{$entry_point_name}" ) ) {
 			/**
 			 * Specific named entry point action called.
 			 *
@@ -715,7 +715,7 @@ class Tribe__Template {
 			 * @param string $entry_point_name Which entry point specifically we are triggering.
 			 * @param self   $template         Current instance of the template class doing this entry point.
 			 */
-			$html = apply_filters( "tribe_template_entry_point_html:$hook_name:$entry_point_name", $html, $hook_name, $entry_point_name, $this );
+			$html = apply_filters( "tribe_template_entry_point_html:{$hook_name}:{$entry_point_name}", $html, $hook_name, $entry_point_name, $this );
 		}
 
 		if ( $echo ) {
@@ -849,7 +849,7 @@ class Tribe__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		$pre_html = apply_filters( "tribe_template_pre_html:$hook_name", $pre_html, $file, $name, $this );
+		$pre_html = apply_filters( "tribe_template_pre_html:{$hook_name}", $pre_html, $file, $name, $this );
 
 		if ( null !== $pre_html ) {
 			return $pre_html;
@@ -872,22 +872,30 @@ class Tribe__Template {
 		 */
 		do_action( 'tribe_template_before_include', $file, $name, $this );
 
-		/**
-		 * Fires an Action for a given template name before including the template file
-		 *
-		 * E.g.:
-		 *    `tribe_template_before_include:events/blocks/parts/details`
-		 *    `tribe_template_before_include:events/embed`
-		 *    `tribe_template_before_include:tickets/login-to-purchase`
-		 *
-		 * @deprecated   4.11.0
-		 * @since  4.7.20
-		 *
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		do_action( "tribe_template_before_include:$legacy_hook_name", $file, $name, $this );
+		if ( $legacy_hook_name !== $hook_name ) {
+			/**
+			 * Fires an Action for a given template name before including the template file
+			 *
+			 * E.g.:
+			 *    `tribe_template_before_include:events/blocks/parts/details`
+			 *    `tribe_template_before_include:events/embed`
+			 *    `tribe_template_before_include:tickets/login-to-purchase`
+			 *
+			 * @since        4.7.20
+			 *
+			 * @deprecated   4.11.0
+			 *
+			 * @param string $file     Complete path to include the PHP File
+			 * @param array  $name     Template name
+			 * @param self   $template Current instance of the Tribe__Template
+			 */
+			do_action_deprecated(
+				"tribe_template_before_include:{$legacy_hook_name}",
+				[ $file, $name, $this ],
+				'4.11.0',
+				"Replacement: 'tribe_template_before_include:{$hook_name}'"
+			);
+		}
 
 		/**
 		 * Fires an Action for a given template name before including the template file
@@ -903,7 +911,7 @@ class Tribe__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		do_action( "tribe_template_before_include:$hook_name", $file, $name, $this );
+		do_action( "tribe_template_before_include:{$hook_name}", $file, $name, $this );
 
 		$this->template_safe_include( $file );
 
@@ -919,22 +927,30 @@ class Tribe__Template {
 		 */
 		do_action( 'tribe_template_after_include', $file, $name, $this );
 
-		/**
-		 * Fires an Action for a given template name after including the template file
-		 *
-		 * E.g.:
-		 *    `tribe_template_after_include:events/blocks/parts/details`
-		 *    `tribe_template_after_include:events/embed`
-		 *    `tribe_template_after_include:tickets/login-to-purchase`
-		 *
-		 * @deprecated 4.11.0
-		 * @since  4.7.20
-		 *
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		do_action( "tribe_template_after_include:$legacy_hook_name", $file, $name, $this );
+		if ( $legacy_hook_name !== $hook_name ) {
+			/**
+			 * Fires an Action for a given template name after including the template file
+			 *
+			 * E.g.:
+			 *    `tribe_template_after_include:events/blocks/parts/details`
+			 *    `tribe_template_after_include:events/embed`
+			 *    `tribe_template_after_include:tickets/login-to-purchase`
+			 *
+			 * @since      4.7.20
+			 *
+			 * @deprecated 4.11.0
+			 *
+			 * @param string $file     Complete path to include the PHP File
+			 * @param array  $name     Template name
+			 * @param self   $template Current instance of the Tribe__Template
+			 */
+			do_action_deprecated(
+				"tribe_template_after_include:{$legacy_hook_name}",
+				[ $file, $name, $this ],
+				'4.11.0',
+				"Replacement: 'tribe_template_after_include:{$hook_name}'"
+			);
+		}
 
 		/**
 		 * Fires an Action for a given template name after including the template file
@@ -950,7 +966,7 @@ class Tribe__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		do_action( "tribe_template_after_include:$hook_name", $file, $name, $this );
+		do_action( "tribe_template_after_include:{$hook_name}", $file, $name, $this );
 
 		// Only fetch the contents after the action
 		$html = ob_get_clean();
@@ -968,23 +984,31 @@ class Tribe__Template {
 		 */
 		$html = apply_filters( 'tribe_template_html', $html, $file, $name, $this );
 
-		/**
-		 * Allow users to filter the final HTML by the name
-		 *
-		 * E.g.:
-		 *    `tribe_template_html:events/blocks/parts/details`
-		 *    `tribe_template_html:events/embed`
-		 *    `tribe_template_html:tickets/login-to-purchase`
-		 *
-		 * @deprecated   4.11.0
-		 * @since  4.7.20
-		 *
-		 * @param string $html      The final HTML
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		$html = apply_filters( "tribe_template_html:$legacy_hook_name", $html, $file, $name, $this );
+		if ( $legacy_hook_name !== $hook_name ) {
+			/**
+			 * Allow users to filter the final HTML by the name
+			 *
+			 * E.g.:
+			 *    `tribe_template_html:events/blocks/parts/details`
+			 *    `tribe_template_html:events/embed`
+			 *    `tribe_template_html:tickets/login-to-purchase`
+			 *
+			 * @since        4.7.20
+			 *
+			 * @deprecated   4.11.0
+			 *
+			 * @param string $html     The final HTML
+			 * @param string $file     Complete path to include the PHP File
+			 * @param array  $name     Template name
+			 * @param self   $template Current instance of the Tribe__Template
+			 */
+			$html = apply_filters_deprecated(
+				"tribe_template_html:{$legacy_hook_name}",
+				[ $html, $file, $name, $this ],
+				'4.11.0',
+				"Replacement: 'tribe_template_html:{$hook_name}'"
+			);
+		}
 
 		/**
 		 * Allow users to filter the final HTML by the name
@@ -1001,7 +1025,7 @@ class Tribe__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		$html = apply_filters( "tribe_template_html:$hook_name", $html, $file, $name, $this );
+		$html = apply_filters( "tribe_template_html:{$hook_name}", $html, $file, $name, $this );
 
 		// Tries to hook container entry points in the HTML.
 		$html = $this->template_hook_container_entry_points( $html );
