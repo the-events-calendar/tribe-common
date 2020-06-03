@@ -872,7 +872,10 @@ class Tribe__Template {
 		 */
 		do_action( 'tribe_template_before_include', $file, $name, $this );
 
-		if ( $legacy_hook_name !== $hook_name ) {
+		if (
+			$legacy_hook_name !== $hook_name
+			&& has_action( "tribe_template_before_include:{$legacy_hook_name}" )
+		) {
 			/**
 			 * Fires an Action for a given template name before including the template file
 			 *
@@ -927,7 +930,10 @@ class Tribe__Template {
 		 */
 		do_action( 'tribe_template_after_include', $file, $name, $this );
 
-		if ( $legacy_hook_name !== $hook_name ) {
+		if (
+			$legacy_hook_name !== $hook_name
+			&& has_action( "tribe_template_after_include:{$legacy_hook_name}" )
+		) {
 			/**
 			 * Fires an Action for a given template name after including the template file
 			 *
@@ -984,7 +990,11 @@ class Tribe__Template {
 		 */
 		$html = apply_filters( 'tribe_template_html', $html, $file, $name, $this );
 
-		if ( $legacy_hook_name !== $hook_name ) {
+		if (
+			$legacy_hook_name !== $hook_name
+			&& has_action( "tribe_template_html:{$legacy_hook_name}" )
+
+		) {
 			/**
 			 * Allow users to filter the final HTML by the name
 			 *
