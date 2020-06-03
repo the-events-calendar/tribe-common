@@ -83,7 +83,24 @@ class Tribe__Tracker {
 	}
 
 	/**
-	 * Easy way to see currently which post types are been tracked by our code.
+	 * Get the date(timestamp) of last modification for a tracked field.
+	 *
+	 * @since 4.12.3
+	 *
+	 * @param string $meta_key The key for the meta field we're interested in.
+	 * @param int $post_id The ID of the post to check.
+	 *
+	 * @return boolean|string The change timestamp or false if the field is not found/empty.
+	 */
+	public function get_modified_date( $meta_key, $post_id ) {
+		$modified = get_post_meta( $post_id, self::$field_key, true );
+
+		// If the key is missing or empty/null return false - no recorded change.
+		return Tribe__Utils__Array::get( $modified, $meta_key, false );
+	}
+
+	/**
+	 * Easy way to see currently which post types are being tracked by our code.
 	 *
 	 * @return array
 	 */

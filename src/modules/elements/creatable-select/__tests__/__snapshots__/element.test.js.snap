@@ -2,11 +2,11 @@
 
 exports[`CreatableSelect element Should render the component 1`] = `
 <div
-  className="css-10nd86i tribe-editor__creatable-select"
+  className="css-1pcexqc-container tribe-editor__creatable-select"
   onKeyDown={[Function]}
 >
   <div
-    className="css-vj8t7z tribe-editor__creatable-select__control"
+    className="css-bg1rzq-control tribe-editor__creatable-select__control"
     onMouseDown={[Function]}
     onTouchEnd={[Function]}
   >
@@ -14,7 +14,7 @@ exports[`CreatableSelect element Should render the component 1`] = `
       className="css-1hwfws3 tribe-editor__creatable-select__value-container"
     >
       <div
-        className="css-1492t68 tribe-editor__creatable-select__placeholder"
+        className="css-151xaom-placeholder tribe-editor__creatable-select__placeholder"
       >
         Select...
       </div>
@@ -47,6 +47,7 @@ exports[`CreatableSelect element Should render the component 1`] = `
                 "boxSizing": "content-box",
                 "color": "inherit",
                 "fontSize": "inherit",
+                "label": "input",
                 "opacity": 1,
                 "outline": 0,
                 "padding": 0,
@@ -80,7 +81,7 @@ exports[`CreatableSelect element Should render the component 1`] = `
     >
       <div
         aria-hidden="true"
-        className="css-1ep9fjw tribe-editor__creatable-select__indicator tribe-editor__creatable-select__dropdown-indicator"
+        className="css-16pqwjk-indicatorContainer tribe-editor__creatable-select__indicator tribe-editor__creatable-select__dropdown-indicator"
         onMouseDown={[Function]}
         onTouchEnd={[Function]}
       >
@@ -97,11 +98,11 @@ exports[`CreatableSelect element Should render the component 1`] = `
 
 exports[`CreatableSelect element Should render the component with class 1`] = `
 <div
-  className="css-10nd86i tribe-editor__creatable-select test-class"
+  className="css-1pcexqc-container tribe-editor__creatable-select test-class"
   onKeyDown={[Function]}
 >
   <div
-    className="css-vj8t7z tribe-editor__creatable-select__control"
+    className="css-bg1rzq-control tribe-editor__creatable-select__control"
     onMouseDown={[Function]}
     onTouchEnd={[Function]}
   >
@@ -109,7 +110,7 @@ exports[`CreatableSelect element Should render the component with class 1`] = `
       className="css-1hwfws3 tribe-editor__creatable-select__value-container"
     >
       <div
-        className="css-1492t68 tribe-editor__creatable-select__placeholder"
+        className="css-151xaom-placeholder tribe-editor__creatable-select__placeholder"
       >
         Select...
       </div>
@@ -142,6 +143,7 @@ exports[`CreatableSelect element Should render the component with class 1`] = `
                 "boxSizing": "content-box",
                 "color": "inherit",
                 "fontSize": "inherit",
+                "label": "input",
                 "opacity": 1,
                 "outline": 0,
                 "padding": 0,
@@ -175,7 +177,7 @@ exports[`CreatableSelect element Should render the component with class 1`] = `
     >
       <div
         aria-hidden="true"
-        className="css-1ep9fjw tribe-editor__creatable-select__indicator tribe-editor__creatable-select__dropdown-indicator"
+        className="css-16pqwjk-indicatorContainer tribe-editor__creatable-select__indicator tribe-editor__creatable-select__dropdown-indicator"
         onMouseDown={[Function]}
         onTouchEnd={[Function]}
       >
@@ -192,11 +194,11 @@ exports[`CreatableSelect element Should render the component with class 1`] = `
 
 exports[`CreatableSelect element Should render the component with extra props 1`] = `
 <div
-  className="css-10nd86i tribe-editor__creatable-select"
+  className="css-1pcexqc-container tribe-editor__creatable-select"
   onKeyDown={[Function]}
 >
   <div
-    className="css-vj8t7z tribe-editor__creatable-select__control"
+    className="css-bg1rzq-control tribe-editor__creatable-select__control"
     onMouseDown={[Function]}
     onTouchEnd={[Function]}
   >
@@ -204,12 +206,12 @@ exports[`CreatableSelect element Should render the component with extra props 1`
       className="css-1hwfws3 tribe-editor__creatable-select__value-container"
     >
       <div
-        className="css-1492t68 tribe-editor__creatable-select__placeholder"
+        className="css-151xaom-placeholder tribe-editor__creatable-select__placeholder"
       >
         Select...
       </div>
       <input
-        className="css-14uuagi"
+        className="css-gj7qu5-dummyInput"
         disabled={false}
         id="react-select-4-input"
         onBlur={[Function]}
@@ -225,7 +227,7 @@ exports[`CreatableSelect element Should render the component with extra props 1`
     >
       <div
         aria-hidden="true"
-        className="css-1ep9fjw tribe-editor__creatable-select__indicator tribe-editor__creatable-select__dropdown-indicator"
+        className="css-16pqwjk-indicatorContainer tribe-editor__creatable-select__indicator tribe-editor__creatable-select__dropdown-indicator"
         onMouseDown={[Function]}
         onTouchEnd={[Function]}
       >
