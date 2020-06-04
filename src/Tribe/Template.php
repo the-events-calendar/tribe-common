@@ -242,7 +242,7 @@ class Tribe__Template {
 	 *
 	 * @since  4.12.1
 	 *
-	 * @param  string  $value  Which value will be saved as the current hookname.
+	 * @param  string  $value  Which value will be saved as the current hook name.
 	 *
 	 * @return self  Allow daisy-chaining.
 	 */
@@ -287,7 +287,7 @@ class Tribe__Template {
 
 		/**
 		 * Allows filtering the the getting of Context variables, also short circuiting
-		 * Following the same strucuture as WP Core
+		 * Following the same structure as WP Core
 		 *
 		 * @since  4.6.2
 		 *
@@ -816,8 +816,7 @@ class Tribe__Template {
 		// Setup the Hook name.
 		$legacy_hook_name = implode( '/', $legacy_namespace );
 		$hook_name        = implode( '/', $namespace );
-
-		$prev_hook_name = $this->get_template_current_hook_name();
+		$prev_hook_name   = $this->get_template_current_hook_name();
 
 		// Store the current hook name for the purposes of entry-points.
 		$this->set_template_current_hook_name( $hook_name );
@@ -884,20 +883,22 @@ class Tribe__Template {
 			 *    `tribe_template_before_include:events/embed`
 			 *    `tribe_template_before_include:tickets/login-to-purchase`
 			 *
-			 * @since        4.7.20
+			 * @since 4.7.20
 			 *
-			 * @deprecated   4.11.0
+			 * @TODO: Deprecate once all calls to legacy hook are at least > 1 yr old.
+			 * do_action_deprecated(
+			 *		"tribe_template_before_include:{$legacy_hook_name}",
+			 *		[ $file, $name, $this ],
+			 *		'TBD',
+			 *		"Replacement: 'tribe_template_before_include:{$hook_name}'"
+			 * );
 			 *
 			 * @param string $file     Complete path to include the PHP File
 			 * @param array  $name     Template name
 			 * @param self   $template Current instance of the Tribe__Template
 			 */
-			do_action_deprecated(
-				"tribe_template_before_include:{$legacy_hook_name}",
-				[ $file, $name, $this ],
-				'4.11.0',
-				"Replacement: 'tribe_template_before_include:{$hook_name}'"
-			);
+			do_action( "tribe_template_before_include:{$legacy_hook_name}", $file, $name, $this );
+
 		}
 
 		/**
@@ -944,18 +945,19 @@ class Tribe__Template {
 			 *
 			 * @since      4.7.20
 			 *
-			 * @deprecated 4.11.0
+			 * @TODO: Deprecate once all calls to legacy hook are at least > 1 yr old.
+			 * do_action_deprecated(
+			 *		"tribe_template_after_include:{$legacy_hook_name}",
+			 *		[ $file, $name, $this ],
+			 *		'TBD',
+			 *		"Replacement: 'tribe_template_after_include:{$hook_name}'"
+			 * );
 			 *
 			 * @param string $file     Complete path to include the PHP File
 			 * @param array  $name     Template name
 			 * @param self   $template Current instance of the Tribe__Template
 			 */
-			do_action_deprecated(
-				"tribe_template_after_include:{$legacy_hook_name}",
-				[ $file, $name, $this ],
-				'4.11.0',
-				"Replacement: 'tribe_template_after_include:{$hook_name}'"
-			);
+			do_action( "tribe_template_after_include:{$legacy_hook_name}", $file, $name, $this );
 		}
 
 		/**
@@ -1005,19 +1007,22 @@ class Tribe__Template {
 			 *
 			 * @since        4.7.20
 			 *
-			 * @deprecated   4.11.0
+			 * @TODO: Deprecate once all calls to legacy hook are at least > 1 yr old.
+			 *
+			 * $html = apply_filters_deprecated(
+			 * 		"tribe_template_html:{$legacy_hook_name}",
+			 *		[ $html, $file, $name, $this ],
+			 *		'TBD',
+			 *		"Replacement: 'tribe_template_html:{$hook_name}'"
+			 * );
 			 *
 			 * @param string $html     The final HTML
 			 * @param string $file     Complete path to include the PHP File
 			 * @param array  $name     Template name
 			 * @param self   $template Current instance of the Tribe__Template
 			 */
-			$html = apply_filters_deprecated(
-				"tribe_template_html:{$legacy_hook_name}",
-				[ $html, $file, $name, $this ],
-				'4.11.0',
-				"Replacement: 'tribe_template_html:{$hook_name}'"
-			);
+			$html = apply_filters( "tribe_template_html:{$legacy_hook_name}", $html, $file, $name, $this );
+
 		}
 
 		/**
@@ -1132,7 +1137,7 @@ class Tribe__Template {
 			// Normalize the trailing slash to the current OS directory separator.
 			$contains_string = rtrim( $contains_string, '\\/' ) . DIRECTORY_SEPARATOR;
 
-			// Skip when we dont have the namespace path.
+			// Skip when we don't have the namespace path.
 			if ( false === strpos( $path, $contains_string ) ) {
 				continue;
 			}
