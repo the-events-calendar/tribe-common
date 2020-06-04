@@ -409,10 +409,6 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 			$url   = $url ? $url : urlencode( str_replace( array( 'http://', 'https://' ), '', get_site_url() ) );
 
-			if ( defined( 'TEC_URL' ) ) {
-				$teccom_url = trailingslashit( TEC_URL );
-			}
-
 			$query = 'https://support-api.tri.be/sysinfo/optin/' . $optin_key . '/' . $url;
 
 			if ( $remove ) {
