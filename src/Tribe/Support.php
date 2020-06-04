@@ -409,13 +409,11 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 			$url   = $url ? $url : urlencode( str_replace( array( 'http://', 'https://' ), '', get_site_url() ) );
 
-			$teccom_url = 'https://theeventscalendar.com/';
-
 			if ( defined( 'TEC_URL' ) ) {
 				$teccom_url = trailingslashit( TEC_URL );
 			}
 
-			$query = $teccom_url . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url;
+			$query = 'https://support-api.tri.be/sysinfo/optin/' . $optin_key . '/' . $url;
 
 			if ( $remove ) {
 				$query .= '?status=remove';
