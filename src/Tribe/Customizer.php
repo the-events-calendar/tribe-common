@@ -404,8 +404,7 @@ final class Tribe__Customizer {
 	 * @return void
 	 */
 	public function inline_style() {
-
-		//Only load on front end
+		// Only load once on front-end.
 		if ( is_customize_preview() || is_admin() || $this->inline_style ) {
 			return false;
 		}
@@ -426,29 +425,30 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		// add customizer styles inline with either main stylesheet is enqueued or widgets
-		if ( wp_style_is( 'tribe-events-calendar-style' ) ) {
+		$sheets = [];
 
-			wp_add_inline_style( 'tribe-events-calendar-style', wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
-			$this->inline_style = true;
+		/**
+		 * Allow plugins to add themselves to this list.
+		 *
+		 * @since 4.12.1
+		 *
+		 * @param array<string> $sheets An array of sheets to search for.
+		 * @param string $css_template String containing the inline css to add.
+		 */
+		$sheets = apply_filters( 'tribe_customizer_inline_stylesheets', $sheets, $css_template );
 
-			return;
+		if ( empty( $sheets ) ) {
+			return false;
 		}
 
-		if ( wp_style_is( 'tribe-events-calendar-pro-style' ) ) {
+		// add customizer styles inline with whichever stylesheet is enqueued.
+		foreach ( $sheets as $sheet ) {
+			if ( wp_style_is( $sheet ) ) {
+				wp_add_inline_style( $sheet, wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
+				$this->inline_style = true;
 
-			wp_add_inline_style( 'tribe-events-calendar-pro-style', wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
-			$this->inline_style = true;
-
-			return;
-		}
-
-		if ( wp_style_is( 'widget-calendar-pro-style' ) ) {
-
-			wp_add_inline_style( 'widget-calendar-pro-style', wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
-			$this->inline_style = true;
-
-			return;
+				break;
+			}
 		}
 	}
 
