@@ -1095,6 +1095,9 @@ class Tribe__Template {
 		$namespace_map = (array) apply_filters( 'tribe_template_origin_namespace_map', [], $path, $this );
 
 		foreach ( $namespace_map as $namespace => $contains_string ) {
+			// Normalize the trailing slash to the current OS directory separator.
+			$contains_string = rtrim( $contains_string, '\\/' ) . DIRECTORY_SEPARATOR;
+
 			// Skip when we dont have the namespace path.
 			if ( false === strpos( $path, $contains_string ) ) {
 				continue;
