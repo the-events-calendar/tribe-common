@@ -163,7 +163,7 @@ function tribe_rel( $rel, $echo = true ) {
  * @param array|string $rel Value(s) for rel attribute.
  * @param boolean $echo     Whether to echo the string or return it.
  *
- * @return string the rel attribute
+ * @return string The rel attribute.
  */
 function tribe_target( $target, $rel = [], $echo = true ) {
 	if ( empty( $rel ) ) {
