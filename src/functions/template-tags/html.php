@@ -128,3 +128,69 @@ function tribe_disabled( $disabled, $echo = true ) {
 		}
 	}
 }
+
+/**
+ * Adds rel attribute for links.
+ *
+ * @since TBD
+ *
+ * @param string|array $rel  Value(s) for rel attribute.
+ * @param boolean      $echo Whether to echo the string or return it.
+ *
+ * @return string the rel attribute
+ */
+function tribe_rel( $rel, $echo = true ) {
+	if ( empty( $rel ) ) {
+		return;
+	}
+
+	$attr = 'rel="' .esc_attr( $rel ) . '"';
+
+	if ( ! $echo ) {
+		return $attr;
+	} else {
+		echo $attr;
+	}
+}
+
+/**
+ * Adds target attribute for links.
+ * If target is '_blank' also adds appropriate rel attributes.
+ *
+ * @since TBD
+ *
+ * @param string  $target   Value for the target attribute.
+ * @param array|string $rel Value(s) for rel attribute.
+ * @param boolean $echo     Whether to echo the string or return it.
+ *
+ * @return string the rel attribute
+ */
+function tribe_target( $target, $rel = [], $echo = true ) {
+	if ( empty( $rel ) ) {
+		return;
+	}
+
+	if ( ! empty( $rel ) ) {
+		if ( ! is_array( $rel ) ) {
+			$rel = explode( ' ', $rel );
+		}
+	}
+
+	$attr = 'target="' .esc_attr( $target ) . '"';
+
+	if ( '_blank' === $target ) {
+		$rel[] = 'noopener';
+		$rel[] = 'nofollow';
+	}
+
+	if ( ! empty( $rel ) ) {
+		$attr .= tribe_rel( $rel, false );
+	}
+
+
+	if ( ! $echo ) {
+		return $attr;
+	} else {
+		echo $attr;
+	}
+}
