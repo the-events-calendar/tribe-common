@@ -1005,7 +1005,7 @@ if ( ! function_exists( 'tribe_localize_maybe_append' ) ) {
 				$data = json_decode( str_replace( 'var obj = ', '', substr( $data, 0, -1 ) ), true );
 			}
 
-			foreach( $data as $key => $value ) {
+			foreach ( $data as $key => $value ) {
 				$localized_data[ $key ] = $value;
 			}
 
