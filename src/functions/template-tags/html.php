@@ -144,7 +144,7 @@ function tribe_rel( $rel, $echo = true ) {
 		return;
 	}
 
-	$attr = 'rel="' .esc_attr( $rel ) . '"';
+	$attr = 'rel="' . esc_attr( $rel ) . '"';
 
 	if ( ! $echo ) {
 		return $attr;
@@ -176,7 +176,7 @@ function tribe_target( $target, $rel = [], $echo = true ) {
 		}
 	}
 
-	$attr = 'target="' .esc_attr( $target ) . '"';
+	$attr = 'target="' . esc_attr( $target ) . '"';
 
 	if ( '_blank' === $target ) {
 		$rel[] = 'noopener';
