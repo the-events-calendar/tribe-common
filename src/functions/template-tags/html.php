@@ -170,10 +170,8 @@ function tribe_target( $target, $rel = [], $echo = true ) {
 		return;
 	}
 
-	if ( ! empty( $rel ) ) {
-		if ( ! is_array( $rel ) ) {
-			$rel = explode( ' ', $rel );
-		}
+	if ( ! is_array( $rel ) ) {
+		$rel = explode( ' ', $rel );
 	}
 
 	$attr = 'target="' . esc_attr( $target ) . '"';
