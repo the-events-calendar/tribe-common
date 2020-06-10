@@ -78,6 +78,7 @@ function tribe_required( $required, $echo = true ) {
 		if ( ! $echo ) {
 			return $required_string;
 		}
+
 		echo $required_string;
 	}
 }
