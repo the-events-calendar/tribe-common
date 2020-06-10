@@ -77,9 +77,8 @@ function tribe_required( $required, $echo = true ) {
 
 		if ( ! $echo ) {
 			return $required_string;
-		} else {
-			echo $required_string;
 		}
+		echo $required_string;
 	}
 }
 
@@ -101,9 +100,9 @@ function tribe_required_label( $required, $echo = true ) {
 
 		if ( ! $echo ) {
 			return $required_string;
-		} else {
-			echo $required_string;
 		}
+
+		echo $required_string;
 	}
 }
 
@@ -123,9 +122,9 @@ function tribe_disabled( $disabled, $echo = true ) {
 
 		if ( ! $echo ) {
 			return $disabled_string;
-		} else {
-			echo $disabled_string;
 		}
+
+		echo $disabled_string;
 	}
 }
 
@@ -148,9 +147,9 @@ function tribe_rel( $rel, $echo = true ) {
 
 	if ( ! $echo ) {
 		return $attr;
-	} else {
-		echo $attr;
 	}
+
+	echo $attr;
 }
 
 /**
@@ -190,7 +189,7 @@ function tribe_target( $target, $rel = [], $echo = true ) {
 
 	if ( ! $echo ) {
 		return $attr;
-	} else {
-		echo $attr;
 	}
+
+	echo $attr;
 }
