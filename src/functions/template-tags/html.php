@@ -144,6 +144,10 @@ function tribe_rel( $rel, $echo = true ) {
 		return;
 	}
 
+	if ( is_array( $rel )) {
+		$rel = implode( ' ', $rel );
+	}
+
 	$attr = 'rel="' . esc_attr( $rel ) . '"';
 
 	if ( ! $echo ) {
@@ -166,21 +170,24 @@ function tribe_rel( $rel, $echo = true ) {
  * @return string The rel attribute.
  */
 function tribe_target( $target, $rel = [], $echo = true ) {
-	if ( empty( $rel ) ) {
+	if ( empty( $target ) ) {
 		return;
 	}
 
+	// Format $rel as an array.
 	if ( ! is_array( $rel ) ) {
 		$rel = explode( ' ', $rel );
 	}
 
 	$attr = 'target="' . esc_attr( $target ) . '"';
 
+	// If we're opening in a new window, let's be safe.
 	if ( '_blank' === $target ) {
 		$rel[] = 'noopener';
 		$rel[] = 'nofollow';
 	}
 
+	// If we have $rel, add a rel attribute.
 	if ( ! empty( $rel ) ) {
 		$attr .= tribe_rel( $rel, false );
 	}
