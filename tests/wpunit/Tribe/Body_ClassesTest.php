@@ -2,18 +2,12 @@
 
 namespace Tribe;
 
-use Tribe__Cache as Cache;
+use Body_Classes;
 
 class ClassesTest extends \Codeception\TestCase\WPTestCase {
-	/**
-	 * @return Classes
-	 */
-	protected function make_instance() {
-		return Classes::instance();
-	}
 
 	public function create_classes() {
-		$classes = $this->make_instance();
+		$classes = new Body_Classes;
 
 		$classes->add_classes( [ 'vampire', 'mummy', 'wolfman', 'chupacabra' ] );
 
@@ -26,7 +20,7 @@ class ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function be_instantiatable() {
-		$this->assertInstanceOf( Classes::class, $this->make_instance() );
+		$this->assertInstanceOf( 'Body_Classes', Body_Classes::class );
 	}
 
 	/**
@@ -97,7 +91,7 @@ class ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_add_a_single_class() {
-		$classes = $this->make_instance();
+		$classes = new Body_Classes;
 
 		$classes->add_class( 'vampire' );
 
@@ -110,7 +104,7 @@ class ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_add_an_array_of_classes() {
-		$classes = $this->make_instance();
+		$classes = new Body_Classes;
 
 		$classes->add_classes( [ 'vampire', 'mummy' ] );
 
