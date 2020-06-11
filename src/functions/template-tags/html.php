@@ -137,7 +137,7 @@ function tribe_disabled( $disabled, $echo = true ) {
  * @param string|array $rel  Value(s) for rel attribute.
  * @param boolean      $echo Whether to echo the string or return it.
  *
- * @return string the rel attribute
+ * @return string The rel attribute.
  */
 function tribe_rel( $rel, $echo = true ) {
 	if ( empty( $rel ) ) {
@@ -167,7 +167,7 @@ function tribe_rel( $rel, $echo = true ) {
  * @param array|string $rel Value(s) for rel attribute.
  * @param boolean $echo     Whether to echo the string or return it.
  *
- * @return string The rel attribute.
+ * @return string The target attribute. Potentially also the rel attribute.
  */
 function tribe_target( $target, $rel = [], $echo = true ) {
 	if ( empty( $target ) ) {
