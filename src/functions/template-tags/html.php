@@ -189,7 +189,7 @@ function tribe_target( $target, $rel = [], $echo = true ) {
 
 	// If we have $rel, add a rel attribute.
 	if ( ! empty( $rel ) ) {
-		$attr .= tribe_rel( $rel, false );
+		$attr .= ' ' . tribe_rel( $rel, false );
 	}
 
 
