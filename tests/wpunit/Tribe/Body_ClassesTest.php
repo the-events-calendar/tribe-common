@@ -140,8 +140,8 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 
 		$classes->dequeue_class( 'chupacabra' );
 
-		$this->assertTrue( $classes->class_exists[ 'chupacabra' ] );
-		$this->assertFalse( $classes->class_is_enqueued[ 'chupacabra' ] );
+		$this->assertTrue( $classes->class_exists( 'chupacabra' ) );
+		$this->assertFalse( $classes->class_is_enqueued( 'chupacabra' ) );
 	}
 
 	/**
@@ -155,6 +155,6 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 		$classes->dequeue_class( 'wolfman' );
 
 		$classes->enqueue_class( 'wolfman' );
-		$this->assertTrue( $classes->class_is_enqueued[ 'wolfman' ] );
+		$this->assertTrue( $classes->class_is_enqueued( 'wolfman' ) );
 	}
 }
