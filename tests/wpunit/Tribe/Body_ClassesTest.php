@@ -2,9 +2,9 @@
 
 namespace Tribe;
 
-use Body_Classes;
+use Tribe\Body_Classes;
 
-class ClassesTest extends \Codeception\TestCase\WPTestCase {
+class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 
 	public function create_classes() {
 		$classes = new Body_Classes;
@@ -12,15 +12,6 @@ class ClassesTest extends \Codeception\TestCase\WPTestCase {
 		$classes->add_classes( [ 'vampire', 'mummy', 'wolfman', 'chupacabra' ] );
 
 		return $classes;
-	}
-
-	/**
-	 * It should be instantiatable
-	 *
-	 * @test
-	 */
-	public function be_instantiatable() {
-		$this->assertInstanceOf( 'Body_Classes', Body_Classes::class );
 	}
 
 	/**
