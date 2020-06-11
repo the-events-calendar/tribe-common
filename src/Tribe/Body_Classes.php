@@ -96,6 +96,38 @@ if ( ! class_exists( 'Body_Classes' ) ) {
 		}
 
 		/**
+		 * Dequeues a class.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $class
+		 * @return void|false
+		 */
+		public function dequeue_class( $class ) {
+			if ( ! $this->class_exists( $class ) ) {
+				return false;
+			}
+
+			$this->classes[$class] = false;
+		}
+
+		/**
+		 * Enqueues a class.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $class
+		 * @return void|false
+		 */
+		public function enqueue_class( $class ) {
+			if ( ! $this->class_exists( $class ) ) {
+				return false;
+			}
+
+			$this->classes[$class] = true;
+		}
+
+		/**
 		 * Add a single class to the queue.
 		 *
 		 * @since TBD
@@ -137,7 +169,14 @@ if ( ! class_exists( 'Body_Classes' ) ) {
 			}
 		}
 
-		//remove from queue
+		/**
+		 * Remove a single class from the queue.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $class The class to remove.
+		 * @return void
+		 */
 		public function remove_class( $class ) {
 			$this->classes = array_filter(
 				$this->classes,
@@ -147,6 +186,14 @@ if ( ! class_exists( 'Body_Classes' ) ) {
 			);
 		}
 
+		/**
+		 * Remove an array of classes from the queue.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $classes The classes to remove.
+		 * @return void
+		 */
 		public function remove_classes( array $classes ) {
 			if ( empty( $classes ) || ! is_array( $classes) ) {
 				return;
@@ -157,6 +204,14 @@ if ( ! class_exists( 'Body_Classes' ) ) {
 			}
 		}
 
+		/**
+		 * Adds the enqueued classes to the body class array.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $classes An array of body class names.
+		 * @return void
+		 */
 		private function maybe_add_body_classes( $classes = [] ) {
 			if ( empty( $this->classes ) ) {
 				return $classes;
