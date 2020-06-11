@@ -872,7 +872,7 @@ class Tribe__Rewrite {
 		$perma_query_vars     = [];
 		$url_components = parse_url($url);
 		$url_path = Arr::get( $url_components, 'path', '/' );
-		$site_path = parse_url(home_url(),PHP_URL_PATH);
+		$site_path = parse_url( home_url(), PHP_URL_PATH );
 		if ( ! ( empty( $site_path ) && '/' !== $site_path ) ) {
 			// The current site is in a sub-directory: the site path should be dropped from the request path.
 			$url_path = str_replace( $site_path, '', $url_path );
