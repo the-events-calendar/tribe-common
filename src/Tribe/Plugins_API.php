@@ -213,7 +213,7 @@ class Tribe__Plugins_API {
 				'title' => __( 'Virtual Events', 'tribe-common' ),
 				'slug' => 'events-virtual',
 				'link' => 'http://m.tri.be/19nv', /* CODE REVIEW: this link needs updating */
-				'description' => __( '[ADD DESCRIPTION]', 'tribe-common' ), /* CODE REVIEW: this desciption needs updating */
+				'description' => __( '[ADD DESCRIPTION]', 'tribe-common' ), /* CODE REVIEW: this description needs updating */
 				'features' => [
 					__( 'Feature', 'tribe-common' ),
 					__( 'Feature', 'tribe-common' ),
