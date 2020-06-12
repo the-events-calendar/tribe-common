@@ -181,7 +181,10 @@
 					$dependent.filter( obj.selectors.fields ).prop( 'disabled', false );
 				}
 
-				$dependent.find( obj.selectors.fields ).not( obj.selectors.dependencyManualControl ).prop( 'disabled', false );
+				$dependent
+					.find( obj.selectors.fields )
+					.not( obj.selectors.dependencyManualControl )
+					.prop( 'disabled', false );
 
 				if ( 'undefined' !== typeof $().select2 ) {
 					$dependent.find( '.tribe-dropdown, .tribe-ea-dropdown' ).select2().prop( 'disabled', false );
@@ -195,7 +198,10 @@
 				}
 
 				if ( ! $dependent.data( 'dependency-dont-disable' ) ) {
-					$dependent.find( obj.selectors.fields ).not( obj.selectors.dependencyManualControl ).prop( 'disabled', true );
+					$dependent
+						.find( obj.selectors.fields )
+						.not( obj.selectors.dependencyManualControl )
+						.prop( 'disabled', true );
 				}
 
 				if ( 'undefined' !== typeof $().select2 ) {
