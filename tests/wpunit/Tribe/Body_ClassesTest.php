@@ -6,12 +6,27 @@ use Tribe\Body_Classes;
 
 class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 
+	protected $class_object;
+
+	function setUp() {
+		parent::setUp();
+
+
+		$this->class_object = new Body_Classes;
+
+	}
+
 	public function create_classes() {
-		$classes = new Body_Classes;
+		$this->class_object->add_classes( [ 'vampire', 'mummy', 'wolfman', 'chupacabra' ] );
+	}
 
-		$classes->add_classes( [ 'vampire', 'mummy', 'wolfman', 'chupacabra' ] );
+	public function create_admin_classes() {
+		$this->class_object->add_classes( [ 'vampire', 'mummy', 'wolfman', 'chupacabra' ], 'admin' );
+	}
 
-		return $classes;
+	public function create_mixed_classes() {
+		$this->class_object->add_classes( [ 'vampire', 'mummy', 'wolfman', 'chupacabra' ] );
+		$this->class_object->add_classes( [ 'van-helsing', 'invisible-man', 'frankenstein', 'ygor' ], 'admin' );
 	}
 
 	/**
@@ -20,9 +35,11 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_detect_a_class_is_in_the_queue() {
-		$classes = $this->create_classes();
+		$this->class_object->create_classes();
+		codecept_debug( $this->class_object );
+		codecept_debug( $this->class_object->get_classes() );
 
-		$this->assertTrue( $classes->class_exists( 'mummy' ) );
+		$this->assertTrue( $this->class_object->class_exists( 'mummy' ) );
 	}
 
 	/**
@@ -31,9 +48,9 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_detect_an_enqueued_class() {
-		$classes = $this->create_classes();
+		$this->class_object->create_classes();
 
-		$this->assertTrue( $classes->class_is_enqueued( 'wolfman' ) );
+		$this->assertTrue( $this->class_object->class_is_enqueued( 'wolfman' ) );
 	}
 
 	/**
@@ -42,11 +59,11 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_detect_a_dequeued_class() {
-		$classes = $this->create_classes();
+		$this->class_object->create_classes();
 
-		$classes->dequeue_class( 'mummy' );
+		$this->class_object->dequeue_class( 'mummy' );
 
-		$this->assertFalse( $classes->class_is_enqueued( 'mummy' ) );
+		$this->assertFalse( $this->class_object->class_is_enqueued( 'mummy' ) );
 	}
 
 	/**
@@ -55,9 +72,9 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_an_associative_array() {
-		$classes = $this->create_classes();
+		$this->class_object->create_classes();
 
-		$class_array = $classes->get_classes();
+		$class_array = $this->class_object->get_classes();
 
 		$this->assertTrue( array_key_exists( 'chupacabra', $class_array ) );
 		$this->assertTrue( $class_array['chupacabra'] === true );
@@ -69,9 +86,9 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_an_array_of_strings() {
-		$classes = $this->create_classes();
+		$this->class_object->create_classes();
 
-		$class_array = $classes->get_class_names();
+		$class_array = $this->class_object->get_class_names();
 
 		$this->assertTrue( in_array( 'chupacabra', $class_array ) );
 	}
@@ -82,11 +99,9 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_add_a_single_class() {
-		$classes = new Body_Classes;
+		$this->class_object->add_class( 'vampire' );
 
-		$classes->add_class( 'vampire' );
-
-		$this->assertTrue( $classes->class_exists( 'vampire' ) );
+		$this->assertTrue( $this->class_object->class_exists( 'vampire' ) );
 	}
 
 	/**
@@ -95,12 +110,10 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_add_an_array_of_classes() {
-		$classes = new Body_Classes;
+		$this->class_object->add_classes( [ 'vampire', 'mummy' ] );
 
-		$classes->add_classes( [ 'vampire', 'mummy' ] );
-
-		$this->assertTrue( $classes->class_exists( 'vampire' ) );
-		$this->assertTrue( $classes->class_exists( 'mummy' ) );
+		$this->assertTrue( $this->class_object->class_exists( 'vampire' ) );
+		$this->assertTrue( $this->class_object->class_exists( 'mummy' ) );
 	}
 
 	/**
@@ -109,11 +122,11 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_remove_a_single_class() {
-		$classes = $this->create_classes();
+		$this->class_object->create_classes();
 
-		$classes->remove_class( 'chupacabra' );
+		$this->class_object->remove_class( 'chupacabra' );
 
-		$this->assertFalse( $classes->class_exists( 'chupacabra' ) );
+		$this->assertFalse( $this->class_object->class_exists( 'chupacabra' ) );
 	}
 
 	/**
@@ -122,12 +135,12 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_remove_an_array_of_classes() {
-		$classes = $this->create_classes();
+		$this->class_object->create_classes();
 
-		$classes->remove_classes( [ 'vampire', 'mummy' ] );
+		$this->class_object->remove_classes( [ 'vampire', 'mummy' ] );
 
-		$this->assertFalse( $classes->class_exists( 'vampire' ) );
-		$this->assertFalse( $classes->class_exists( 'mummy' ) );
+		$this->assertFalse( $this->class_object->class_exists( 'vampire' ) );
+		$this->assertFalse( $this->class_object->class_exists( 'mummy' ) );
 	}
 
 	/**
@@ -136,12 +149,12 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_dequeue_a_class() {
-		$classes = $this->create_classes();
+		$this->class_object->create_classes();
 
-		$classes->dequeue_class( 'chupacabra' );
+		$this->class_object->dequeue_class( 'chupacabra' );
 
-		$this->assertTrue( $classes->class_exists( 'chupacabra' ) );
-		$this->assertFalse( $classes->class_is_enqueued( 'chupacabra' ) );
+		$this->assertTrue( $this->class_object->class_exists( 'chupacabra' ) );
+		$this->assertFalse( $this->class_object->class_is_enqueued( 'chupacabra' ) );
 	}
 
 	/**
@@ -150,11 +163,11 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_enqueue_a_class() {
-		$classes = $this->create_classes();
+		$this->class_object->create_classes();
 
-		$classes->dequeue_class( 'wolfman' );
+		$this->class_object->dequeue_class( 'wolfman' );
 
-		$classes->enqueue_class( 'wolfman' );
-		$this->assertTrue( $classes->class_is_enqueued( 'wolfman' ) );
+		$this->class_object->enqueue_class( 'wolfman' );
+		$this->assertTrue( $this->class_object->class_is_enqueued( 'wolfman' ) );
 	}
 }

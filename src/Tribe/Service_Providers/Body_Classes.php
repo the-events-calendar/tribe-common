@@ -38,6 +38,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	 */
 	private function hooks() {
 		add_filter( 'body_class', [ $this, 'add_body_classes' ] );
+		add_filter( 'admin_body_class', [ $this, 'add_admin_body_classes' ] );
 
 		/**
 		 * Allows plugins to hook into the hooks action to register their own hooks
@@ -50,7 +51,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Undocumented function
+	 * Hook in and add FE body classes.
 	 *
 	 * @since TBD
 	 *
@@ -62,6 +63,21 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 		$body_classes = tribe( 'body-classes' );
 
 		return $body_classes->add_body_classes( $classes );
+	}
+
+	/**
+	 * Hook in and add admin body classes.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $classes An array of body class names.
+	 * @return array The modified array of body class names.
+	 */
+	public function add_admin_body_classes( $classes = [] ) {
+		/** @var Body_Classes $body_classes */
+		$body_classes = tribe( 'body-classes' );
+
+		return $body_classes->add_admin_body_classes( $classes );
 	}
 
 }
