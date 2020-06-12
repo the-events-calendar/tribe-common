@@ -3,7 +3,7 @@
 namespace Tribe\Traits;
 
 class With_Db_LockTest extends \Codeception\TestCase\WPTestCase {
-	use With_Db_Lock;
+	use With_DB_Lock;
 
 	/**
 	 * @var \PDO
