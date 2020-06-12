@@ -161,7 +161,7 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 			if ( is_array( $this->fields ) && ! empty( $this->fields ) ) {
 				foreach ( $this->fields as $key => $field ) {
 					if ( isset( $sent_data[ $key ] ) ) {
-						// if we just saved [or attempted to], get the value that was inputed
+						// If we just saved [or attempted to], get the value that was input.
 						$value = $sent_data[ $key ];
 					} else {
 						// Some options should always be stored at network level
