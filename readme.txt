@@ -5,6 +5,7 @@
 = [4.12.4] TBD =
 
 * Feature - Added the `Tribe\Traits\With_Meta_Updates_Handling` trait to provide methods useful in handling with meta.
+* Tweak - Added case for manual control of field in dependency JS.
 * Fix - Prevent `$legacy_hook_name` and `$hook_name` template Actions and Filters to be fired if they are the same, preventing duplicated hook calls.
 
 = [4.12.3] 2020-05-27 =
