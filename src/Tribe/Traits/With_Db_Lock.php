@@ -21,7 +21,7 @@ namespace Tribe\Traits;
  *
  * @package Tribe\Traits
  */
-trait With_Db_Lock {
+trait With_DB_Lock {
 
 	/**
 	 * Acquires a db lock.
@@ -45,7 +45,7 @@ trait With_Db_Lock {
 		 * @param int    $timeout The timeout, in seconds, of the lock acquisition attempt.
 		 * @param static $this    The object that's trying to acquire the lock by means of the trait.
 		 */
-		$timeout = apply_filters( 'tribe_db_lock_timeout', 3, $this );
+		$timeout = apply_filters( 'tribe_db_lock_timeout', 3, $lock_key, $this );
 
 		/*
 		 * On MySQL 5.6 if a session (a db connection) fires two requests of `GET_LOCK`, the lock is
