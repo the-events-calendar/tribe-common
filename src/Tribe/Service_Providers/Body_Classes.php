@@ -49,9 +49,18 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 		do_action( 'tribe_body_classes_hooks', $this );
 	}
 
+	/**
+	 * Undocumented function
+	 *
+	 * @since TBD
+	 *
+	 * @param array $classes
+	 * @return void
+	 */
 	public function add_body_classes( $classes = [] ) {
-		$body_classes = tribe('body-classes');
+		/** @var Body_Classes $body_classes */
+		$body_classes = tribe( 'body-classes' );
 
-		return $body_classes->add_body_classes($classes);
+		return $body_classes->add_body_classes( $classes );
 	  }
 }

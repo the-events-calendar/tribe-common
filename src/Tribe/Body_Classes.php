@@ -70,7 +70,7 @@ class Body_Classes {
 			return false;
 		}
 
-		return $this->classes[$class];
+		return $this->classes[ $class ];
 	}
 
 	/**
@@ -86,7 +86,7 @@ class Body_Classes {
 			return false;
 		}
 
-		$this->classes[$class] = false;
+		$this->classes[ $class ] = false;
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Body_Classes {
 			return false;
 		}
 
-		$this->classes[$class] = true;
+		$this->classes[ $class ] = true;
 	}
 
 	/**
@@ -122,7 +122,7 @@ class Body_Classes {
 			$this->add_classes( $class );
 		} else {
 			$class = sanitize_html_class( $class );
-			$this->classes[$class] = true ;
+			$this->classes[ $class ] = true ;
 		}
 	}
 
