@@ -37,7 +37,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	private function hooks() {
-		add_action( 'body_class', [ $this, 'add_body_classes' ] );
+		add_filter( 'body_class', [ $this, 'add_body_classes' ] );
 
 		/**
 		 * Allows plugins to hook into the hooks action to register their own hooks
@@ -54,13 +54,14 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $classes
-	 * @return void
+	 * @param array $classes An array of body class names.
+	 * @return array The modified array of body class names.
 	 */
 	public function add_body_classes( $classes = [] ) {
 		/** @var Body_Classes $body_classes */
 		$body_classes = tribe( 'body-classes' );
 
 		return $body_classes->add_body_classes( $classes );
-	  }
+	}
+
 }

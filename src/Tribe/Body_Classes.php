@@ -192,6 +192,42 @@ class Body_Classes {
 	 * @return void
 	 */
 	private function add_body_classes( $classes = [] ) {
+		// Make sure they should be added.
+		if( ! $this->should_add_body_classes( $this->get_class_names(), $classes ) ) {
+			return $classes;
+		}
+
 		return array_merge( $classes, $this->get_class_names() );
+	}
+	/**
+	 * Undocumented function
+	 *
+	 * @since TBD
+	 *
+	 * @param array $add_classes      An array of body class names to add.
+	 * @param array $existing_classes An array of existing body class names from WP.
+	 * @return boolean
+	 */
+	private function should_add_body_classes( array $add_classes, array $existing_classes ) {
+		global $post;
+		// default to false!
+		$add = false;
+		// If we are doing an event query, or on an event single, set to true.
+		if (
+			tribe_is_event_query()
+			|| ( $post instanceof \WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
+		) {
+			$add = true;
+		}
+
+		/**
+		 * Filter whether to add tribe body classes or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean Whether to add classes or not.
+		 * @param array $classes The array of body class names to add.
+		 */
+		return apply_filters( 'tribe_should_add_body_classes', $add, $add_classes, $existing_classes );
 	}
 }
