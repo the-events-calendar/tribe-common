@@ -102,4 +102,19 @@ class With_Db_LockTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( '1', $is_free->fetchColumn() );
 	}
+
+	/**
+	 * It should not allow acquiring lock two times in same session
+	 *
+	 * @test
+	 */
+	public function should_not_allow_acquiring_lock_two_times_in_same_session() {
+		$test_lock = uniqid( 'lock', true );
+		$acquired  = $this->acquire_db_lock( $test_lock );
+
+		$this->assertTrue( $acquired );
+		$this->assertFalse( $this->acquire_db_lock( $test_lock ) );
+		$this->assertFalse( $this->acquire_db_lock( $test_lock ) );
+		$this->assertFalse( $this->acquire_db_lock( $test_lock ) );
+	}
 }
