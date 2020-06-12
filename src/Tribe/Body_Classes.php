@@ -120,7 +120,7 @@ class Body_Classes {
 
 		if ( is_array( $class ) ) {
 			$this->add_classes( $class );
-		} else {
+		} elseif ( $this->should_add_body_class_to_queue( $class ) ) {
 			$class = sanitize_html_class( $class );
 			$this->classes[ $class ] = true ;
 		}
@@ -199,8 +199,41 @@ class Body_Classes {
 
 		return array_merge( $classes, $this->get_class_names() );
 	}
+
+
 	/**
-	 * Undocumented function
+	 * Should a individual class be added to the queue.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $class The body class we wish to add.
+	 * @return boolean
+	 */
+	private function should_add_body_class_to_queue( string $class ) {
+		global $post;
+		// default to false!
+		$add = false;
+		// If we are doing an event query, or on an event single, set to true.
+		if (
+			tribe_is_event_query()
+			|| ( $post instanceof \WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
+		) {
+			$add = true;
+		}
+
+		/**
+		 * Filter whether to add the body class to the queue or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean Whether to add the class to the queue or not.
+		 * @param array $class The array of body class names to add.
+		 */
+		return apply_filters( 'tribe_should_add_body_class_to_queue', $add, $class );
+	}
+
+	/**
+	 * Logic for whether the body classes, as a whole, should be added.
 	 *
 	 * @since TBD
 	 *
