@@ -168,9 +168,10 @@ class Body_Classes {
 	public function remove_class( $class ) {
 		$this->classes = array_filter(
 			$this->classes,
-			function( $v ) use ( $class ) {
-				return $v !== sanitize_html_class( $class );
-			}
+			function( $k ) use ( $class ) {
+				return $k !== sanitize_html_class( $class );
+			},
+			ARRAY_FILTER_USE_KEY
 		);
 	}
 
