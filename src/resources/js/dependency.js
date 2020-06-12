@@ -28,6 +28,7 @@
 		active: '.tribe-active',
 		dependency: '.tribe-dependency',
 		dependencyVerified: '.tribe-dependency-verified',
+		dependencyManualControl: '[data-dependency-manual-control]',
 		fields: 'input, select, textarea',
 		advanced_fields: '.select2-container',
 		linked: '.tribe-dependent-linked'
@@ -180,7 +181,10 @@
 					$dependent.filter( obj.selectors.fields ).prop( 'disabled', false );
 				}
 
-				$dependent.find( obj.selectors.fields ).prop( 'disabled', false );
+				$dependent
+					.find( obj.selectors.fields )
+					.not( obj.selectors.dependencyManualControl )
+					.prop( 'disabled', false );
 
 				if ( 'undefined' !== typeof $().select2 ) {
 					$dependent.find( '.tribe-dropdown, .tribe-ea-dropdown' ).select2().prop( 'disabled', false );
@@ -194,7 +198,10 @@
 				}
 
 				if ( ! $dependent.data( 'dependency-dont-disable' ) ) {
-					$dependent.find( obj.selectors.fields ).prop( 'disabled', true );
+					$dependent
+						.find( obj.selectors.fields )
+						.not( obj.selectors.dependencyManualControl )
+						.prop( 'disabled', true );
 				}
 
 				if ( 'undefined' !== typeof $().select2 ) {
