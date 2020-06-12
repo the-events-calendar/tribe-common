@@ -16,16 +16,6 @@ class Body_Classes {
 	protected $classes = [];
 
 	/**
-	 * Register our methods in the correct places.
-	 *
-	 * @since TBD
-	 */
-	public function __construct() {
-		// Hook the actual adding of body classes.
-
-	}
-
-	/**
 	 * Returns the array of classes to add.
 	 *
 	 * @since TBD
