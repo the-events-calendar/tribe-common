@@ -2,7 +2,7 @@
 
 namespace Tribe\Traits;
 
-class With_Db_LockTest extends \Codeception\TestCase\WPTestCase {
+class With_DB_LockTest extends \Codeception\TestCase\WPTestCase {
 	use With_DB_Lock;
 
 	/**
