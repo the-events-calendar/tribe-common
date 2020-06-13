@@ -4,7 +4,9 @@
  *
  * @since TBD
  */
-namespace Tribe;
+namespace Tribe\Utils;
+
+use Tribe\Utils\Element_Classes;
 
 class Body_Classes {
 	/**
@@ -29,7 +31,7 @@ class Body_Classes {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $queue The queue we want to get 'admin', 'display', 'all'
+	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
 	 * @return array
 	 */
 	public function get_classes_for_queue( $queue = 'display' ) {
@@ -51,7 +53,7 @@ class Body_Classes {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $queue The queue we want to get 'admin', 'display', 'all'
+	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
 	 * @return array
 	 */
 	public function get_classes( $queue = 'display' ) {
@@ -63,7 +65,7 @@ class Body_Classes {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $queue The queue we want to get 'admin', 'display', 'all'
+	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
 	 * @return array
 	 */
 	public function get_class_names( $queue = 'display' ) {
@@ -72,7 +74,7 @@ class Body_Classes {
 		return array_keys(
 			array_filter(
 				$classes,
-				function( $v ) {
+				static function( $v ) {
 					return $v;
 				},
 				ARRAY_FILTER_USE_KEY
@@ -192,8 +194,6 @@ class Body_Classes {
 	 * @return void
 	 */
 	public function add_classes( array $classes, $queue = 'display' ) {
-		$classes = array_map( 'sanitize_html_class', $classes );
-
 		foreach ( $classes as $key => $value ) {
 			// If the classes are passed as class => bool, only add ones set to true.
 			if ( ! is_string( $value ) && false !== $value  ) {
@@ -218,8 +218,8 @@ class Body_Classes {
 		if ( 'admin' !== $queue ) {
 			$this->classes = array_filter(
 				$this->classes,
-				function( $k ) use ( $class ) {
-					return $k !== sanitize_html_class( $class );
+				static function( $k ) use ( $class ) {
+					return $k !== $class;
 				},
 				ARRAY_FILTER_USE_KEY
 			);
@@ -228,8 +228,8 @@ class Body_Classes {
 		if ( 'display' !== $queue ) {
 			$this->admin_classes = array_filter(
 				$this->admin_classes,
-				function( $k ) use ( $class ) {
-					return $k !== sanitize_html_class( $class );
+				static function( $k ) use ( $class ) {
+					return $k !== $class;
 				},
 				ARRAY_FILTER_USE_KEY
 			);
@@ -268,7 +268,8 @@ class Body_Classes {
 			return $classes;
 		}
 
-		return array_merge( $classes, $this->get_class_names() );
+		$element_classes = new Element_Classes( $this->get_class_names() );
+		return array_merge( $classes, $element_classes->get_classes() );
 	}
 
 	/**
@@ -285,7 +286,8 @@ class Body_Classes {
 			return $classes;
 		}
 
-		return array_merge( $classes, $this->get_class_names( 'admin' ) );
+		$element_classes = new Element_Classes( $this->get_class_names( 'admin' ) );
+		return array_merge( $classes, $element_classes->get_classes() );
 	}
 
 	/**
@@ -323,7 +325,7 @@ class Body_Classes {
 		 * @param boolean Whether to add the class to the queue or not.
 		 * @param array $class The array of body class names to add.
 		 */
-		return apply_filters( 'tribe_should_add_body_class_to_queue', $add, $class, $queue );
+		return apply_filters( 'tribe_body_class_should_add_to_queue', $add, $class, $queue );
 	}
 
 	/**
@@ -333,35 +335,21 @@ class Body_Classes {
 	 *
 	 * @param array $add_classes      An array of body class names to add.
 	 * @param array $existing_classes An array of existing body class names from WP.
+	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
 	 * @return boolean
 	 */
 	private function should_add_body_classes( array $add_classes, array $existing_classes, $queue = 'display' ) {
-		global $post;
-		// default to false!
-		$add = false;
-		// If we are doing an event query, or on an event single, set to true.
-		if (
-			tribe_is_event_query()
-			|| ( $post instanceof \WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
-		) {
-			$add = true;
-		}
-
-		if (
-			'admin' === $queue
-			&& ! is_admin()
-		) {
-			$add = false;
-		}
-
 		/**
 		 * Filter whether to add tribe body classes or not.
 		 *
 		 * @since TBD
 		 *
-		 * @param boolean Whether to add classes or not.
-		 * @param array $classes The array of body class names to add.
+		 * @param boolean $add              Whether to add classes or not.
+		 * @param array   $add_classes      The array of body class names to add.
+		 * @param array   $existing_classes An array of existing body class names from WP.
+		 * @param string  $queue            The queue we want to get 'admin', 'display', 'all'.
+		 *
 		 */
-		return apply_filters( 'tribe_should_add_body_classes', $add, $add_classes, $existing_classes, $queue );
+		return apply_filters( 'tribe_body_classes_should_add', false, $add_classes, $existing_classes, $queue );
 	}
 }

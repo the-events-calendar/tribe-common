@@ -2,7 +2,7 @@
 
 namespace Tribe;
 
-use Tribe\Body_Classes;
+use Tribe\Utils\Body_Classes;
 
 class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 

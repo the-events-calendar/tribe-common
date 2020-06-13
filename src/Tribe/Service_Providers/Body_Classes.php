@@ -2,6 +2,8 @@
 
 namespace Tribe\Service_Providers;
 
+use Tribe\Utils\Body_Classes;
+
 /**
  * Class Body_Classes
  *
@@ -9,7 +11,7 @@ namespace Tribe\Service_Providers;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Body_Classes extends \tad_DI52_ServiceProvider {
+class Tribe__Service_Providers__Body_Classes extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.
@@ -17,7 +19,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function register() {
-		tribe_singleton( 'body-classes', '\Tribe\Body_Classes' );
+		tribe_singleton( Body_Classes::class, Body_Classes::class );
 
 		/**
 		 * Allows plugins to hook into the register action to register views, etc
@@ -60,7 +62,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	 */
 	public function add_body_classes( $classes = [] ) {
 		/** @var Body_Classes $body_classes */
-		$body_classes = tribe( 'body-classes' );
+		$body_classes = tribe( Body_Classes::class );
 
 		return $body_classes->add_body_classes( $classes );
 	}
@@ -75,7 +77,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	 */
 	public function add_admin_body_classes( $classes = [] ) {
 		/** @var Body_Classes $body_classes */
-		$body_classes = tribe( 'body-classes' );
+		$body_classes = tribe( Body_Classes::class );
 
 		return $body_classes->add_admin_body_classes( $classes );
 	}
