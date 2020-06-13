@@ -7,6 +7,12 @@
 * Tweak - Add filter `tribe_promoter_max_retries_on_failure` to set the maximum number of attempts to notify promoter of a change on the WordPress installation, default to 3.
 * Tweak - Register logs when notifications to promoter failed and retry to notify until the limit of `tribe_promoter_max_retries_on_failure` is reached per notification.
 
+= [4.12.3] 2020-05-27 =
+
+* Fix - When using Block Editor we ensure that `apply_filters` for `the_content` on `tribe_get_the_content`, the lack of that filter prevented blocks from rendering. [TEC-3456]
+* Tweak - Added the `bulk_edit` and `inline_save` locations to the Context. [VE-8]
+* Language - 99 new strings added, 14 updated, 1 fuzzied, and 17 obsoleted
+
 = [4.12.2] 2020-05-20 =
 
 * Feature - Added array utility methods: `parse_associative_array_alias` to build an array with canonical keys while taking alias keys into account and `filter_to_flat_scalar_associative_array` to help do so. Useful for aliasing shortcode arguments, for example.
