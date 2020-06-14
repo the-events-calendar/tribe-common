@@ -278,12 +278,13 @@ class Body_Classes {
 	 * @since TBD
 	 *
 	 * @param array<string> $classes An array of body class names.
-	 * @return void
+	 *
+	 * @return array|false Current list of admin body classes if added, otherwise false.
 	 */
 	private function add_admin_body_classes( $classes = [] ) {
 		// Make sure they should be added.
-		if( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), $classes, 'admin' ) ) {
-			return $classes;
+		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), $classes, 'admin' ) ) {
+			return false;
 		}
 
 		$element_classes = new Element_Classes( $this->get_class_names( 'admin' ) );
@@ -296,7 +297,8 @@ class Body_Classes {
 	 * @since TBD
 	 *
 	 * @param string $class The body class we wish to add.
-	 * @return boolean
+	 *
+	 * @return boolean Whether to add tribe body classes to the queue.
 	 */
 	private function should_add_body_class_to_queue( string $class, $queue = 'display' ) {
 		global $post;
@@ -336,7 +338,8 @@ class Body_Classes {
 	 * @param array $add_classes      An array of body class names to add.
 	 * @param array $existing_classes An array of existing body class names from WP.
 	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
-	 * @return boolean
+	 *
+	 * @return boolean Whether to add tribe body classes.
 	 */
 	private function should_add_body_classes( array $add_classes, array $existing_classes, $queue = 'display' ) {
 		/**
