@@ -213,7 +213,9 @@ class Tribe__Promoter__Connector {
 		 * @param int $max_attempts The maximum number of retries if the response was a failure.
 		 */
 		$max_attempts = apply_filters( 'tribe_promoter_max_retries_on_failure', 3 );
-		$attempts     = 0;
+
+		$attempts = 0;
+
 		do {
 			$result = $this->make_call( $url, $args );
 		} while ( false === $result && ++$attempts < $max_attempts );
