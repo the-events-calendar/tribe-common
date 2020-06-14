@@ -163,9 +163,9 @@ function tribe_rel( $rel, $echo = true ) {
  *
  * @since TBD
  *
- * @param string  $target   Value for the target attribute.
- * @param array|string $rel Value(s) for rel attribute.
- * @param boolean $echo     Whether to echo the string or return it.
+ * @param string       $target Value for the target attribute.
+ * @param array|string $rel    Value(s) for rel attribute.
+ * @param boolean      $echo   Whether to echo the string or return it.
  *
  * @return string The target attribute. Potentially also the rel attribute.
  */
