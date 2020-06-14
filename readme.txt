@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [] TBD =
+
+* Tweak - Add filter `tribe_promoter_max_retries_on_failure` to set the maximum number of attempts to notify promoter of a change on the WordPress installation, default to 3.
+* Tweak - Register logs when notifications to promoter failed and retry to notify until the limit of `tribe_promoter_max_retries_on_failure` is reached per notification.
+
 = [4.12.3] 2020-05-27 =
 
 * Fix - When using Block Editor we ensure that `apply_filters` for `the_content` on `tribe_get_the_content`, the lack of that filter prevented blocks from rendering. [TEC-3456]
