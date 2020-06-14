@@ -210,8 +210,7 @@ class Tribe__Promoter__Connector {
 		 *
 		 * @since TBD
 		 *
-		 * @param int The maximum number of retries if the response was a failure.
-		 * @return int The maximum number of retries if the response was a failure.
+		 * @param int $max_attempts The maximum number of retries if the response was a failure.
 		 */
 		$max_attempts = apply_filters( 'tribe_promoter_max_retries_on_failure', 3 );
 		$attempts     = 0;
