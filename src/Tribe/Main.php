@@ -630,7 +630,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
 		tribe_register_provider( Tribe\Service_Providers\PUE::class );
 		tribe_register_provider( Tribe\Service_Providers\Shortcodes::class );
-		tribe_register_provider( Tribe\Service_Providers\Body_Classes::class );
+		tribe_register_provider( Tribe\Service_Providers\Tribe__Service_Providers__Body_Classes::class );
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 	}
 
