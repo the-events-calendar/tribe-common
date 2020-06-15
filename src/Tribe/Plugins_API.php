@@ -212,13 +212,13 @@ class Tribe__Plugins_API {
 			'events-virtual' => array(
 				'title' => __( 'Virtual Events', 'tribe-common' ),
 				'slug' => 'events-virtual',
-				'link' => 'http://m.tri.be/19nv', /* CODE REVIEW: this link needs updating */
-				'description' => __( '[ADD DESCRIPTION]', 'tribe-common' ), /* CODE REVIEW: this desciption needs updating */
+				'link' => 'http://m.tri.be/virtual-events',
+				'description' => __( 'Features to optimize your calendar for virtual events.', 'tribe-common' ),
 				'features' => [
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
-					__( 'Feature', 'tribe-common' ),
+					__( 'Zoom integration', 'tribe-common' ),
+					__( 'Virtual event labels', 'tribe-common' ),
+					__( 'Status control for canceled or postponed events', 'tribe-common' ),
+					__( 'Embed livestreams and videos', 'tribe-common' ),
 				],
 				'image' => 'images/shop/virtual-events.jpg',
 				'logo' => 'images/logo/virtual-events.svg',
