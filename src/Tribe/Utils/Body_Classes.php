@@ -292,7 +292,8 @@ class Body_Classes {
 	 *
 	 * @return array|false Current list of admin body classes if added, otherwise false.
 	 */
-	public function add_admin_body_classes( $classes = [] ) {
+	public function add_admin_body_classes( $classes ) {
+		$classes = explode( ' ', $classes );
 		// Make sure they should be added.
 		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), (array) $classes, 'admin' ) ) {
 			return false;
