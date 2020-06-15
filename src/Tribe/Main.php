@@ -4,6 +4,8 @@
  */
 
 // Don't load directly
+use Tribe\DB_Lock;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -611,6 +613,7 @@ class Tribe__Main {
 		tribe_singleton( 'context', 'Tribe__Context' );
 		tribe_singleton( 'post-transient', 'Tribe__Post_Transient' );
 		tribe_singleton( 'db', 'Tribe__Db' );
+		tribe_singleton( 'db-lock', DB_Lock::class );
 		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 
 		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
@@ -631,6 +634,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\PUE::class );
 		tribe_register_provider( Tribe\Service_Providers\Shortcodes::class );
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
+		tribe_register_provider( Tribe\Service_Providers\Crons::class );
 	}
 
 	/**
