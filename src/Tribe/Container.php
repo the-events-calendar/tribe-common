@@ -81,7 +81,19 @@ if ( ! function_exists( 'tribe_singleton' ) ) {
 	 *                                                    construction.
 	 */
 	function tribe_singleton( $slug, $class, array $after_build_methods = null ) {
-		Tribe__Container::init()->singleton( $slug, $class, $after_build_methods );
+		$container = Tribe__Container::init();
+		$container->singleton( $slug, $class, $after_build_methods );
+
+		if ( is_string( $class ) && $class !== $slug && class_exists( $class ) ) {
+			$container->singleton( $class, static function () use ( $container, $slug ) {
+				return $container->make( $slug );
+			} );
+		} elseif ( is_object( $class ) && $class instanceof \Closure ) {
+			$obj_class = get_class( $class );
+			$container->singleton( $obj_class, static function () use ( $container, $slug ) {
+				return $container->make( $slug );
+			} );
+		}
 	}
 }
 
@@ -145,7 +157,20 @@ if ( ! function_exists( 'tribe_register' ) ) {
 	 *                                                    will be called each time after the instance contstruction.
 	 */
 	function tribe_register( $slug, $class, array $after_build_methods = null ) {
-		Tribe__Container::init()->bind( $slug, $class, $after_build_methods );
+		$container = Tribe__Container::init();
+
+		$container->bind( $slug, $class, $after_build_methods );
+
+		if ( is_string( $class ) && $class !== $slug && class_exists( $class ) ) {
+			$container->bind( $class, static function () use ( $container, $slug ) {
+				return $container->make( $slug );
+			} );
+		} elseif ( is_object( $class ) && $class instanceof \Closure ) {
+			$obj_class = get_class( $class );
+			$container->bind( $obj_class, static function () use ( $container, $slug ) {
+				return $container->make( $slug );
+			} );
+		}
 	}
 }
 
