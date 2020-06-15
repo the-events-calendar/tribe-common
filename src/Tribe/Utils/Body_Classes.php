@@ -275,7 +275,7 @@ class Body_Classes {
 	 */
 	public function add_body_classes( $classes = [] ) {
 		// Make sure they should be added.
-		if( ! $this->should_add_body_classes( $this->get_class_names(), (array) $classes ) ) {
+		if( ! $this->should_add_body_classes( $this->get_class_names(), (array) $classes, 'display' ) ) {
 			return $classes;
 		}
 
@@ -300,7 +300,7 @@ class Body_Classes {
 		}
 
 		$element_classes = new Element_Classes( $this->get_class_names( 'admin' ) );
-		return array_merge( $classes, $element_classes->get_classes() );
+		return implode( ' ', array_merge( $classes, $element_classes->get_classes() ) );
 	}
 
 	/**
@@ -321,7 +321,9 @@ class Body_Classes {
 		 * @param boolean Whether to add the class to the queue or not.
 		 * @param array $class The array of body class names to add.
 		 */
-		return apply_filters( 'tribe_body_class_should_add_to_queue', false, $class, $queue );
+		$add = apply_filters( 'tribe_body_class_should_add_to_queue', true, $class, $queue );
+
+		return $add;
 	}
 
 	/**
@@ -335,7 +337,7 @@ class Body_Classes {
 	 *
 	 * @return boolean Whether to add tribe body classes.
 	 */
-	private function should_add_body_classes( array $add_classes, array $existing_classes, $queue = 'display' ) {
+	private function should_add_body_classes( array $add_classes, array $existing_classes, $queue ) {
 		/**
 		 * Filter whether to add tribe body classes or not.
 		 *
@@ -347,6 +349,6 @@ class Body_Classes {
 		 * @param string  $queue            The queue we want to get 'admin', 'display', 'all'.
 		 *
 		 */
-		return apply_filters( 'tribe_body_classes_should_add', false, $add_classes, $existing_classes, $queue );
+		return apply_filters( 'tribe_body_classes_should_add', false, $queue, $add_classes, $existing_classes );
 	}
 }
