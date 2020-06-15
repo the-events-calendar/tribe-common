@@ -262,7 +262,7 @@ class Body_Classes {
 	 * @param array<string> $classes An array of body class names.
 	 * @return void
 	 */
-	private function add_body_classes( $classes = [] ) {
+	public function add_body_classes( $classes = [] ) {
 		// Make sure they should be added.
 		if( ! $this->should_add_body_classes( $this->get_class_names(), $classes ) ) {
 			return $classes;
@@ -281,7 +281,7 @@ class Body_Classes {
 	 *
 	 * @return array|false Current list of admin body classes if added, otherwise false.
 	 */
-	private function add_admin_body_classes( $classes = [] ) {
+	public function add_admin_body_classes( $classes = [] ) {
 		// Make sure they should be added.
 		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), $classes, 'admin' ) ) {
 			return false;
