@@ -12,8 +12,9 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 
-		$this->class_object = new Body_Classes;
-
+		$this->class_object = new Body_Classes();
+		add_filter( 'tribe_body_class_should_add_to_queue', '__return_true' );
+		add_filter( 'tribe_body_classes_should_add', '__return_true' );
 	}
 
 	public function create_classes() {
@@ -35,9 +36,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_detect_a_class_is_in_the_queue() {
-		$this->class_object->create_classes();
-		codecept_debug( $this->class_object );
-		codecept_debug( $this->class_object->get_classes() );
+		$this->create_classes();
 
 		$this->assertTrue( $this->class_object->class_exists( 'mummy' ) );
 	}
@@ -48,7 +47,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_detect_an_enqueued_class() {
-		$this->class_object->create_classes();
+		$this->create_classes();
 
 		$this->assertTrue( $this->class_object->class_is_enqueued( 'wolfman' ) );
 	}
@@ -59,9 +58,11 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_detect_a_dequeued_class() {
-		$this->class_object->create_classes();
+		$this->create_classes();
 
 		$this->class_object->dequeue_class( 'mummy' );
+
+		codecept_debug( $this->class_object->get_classes_for_queue() );
 
 		$this->assertFalse( $this->class_object->class_is_enqueued( 'mummy' ) );
 	}
@@ -72,7 +73,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_an_associative_array() {
-		$this->class_object->create_classes();
+		$this->create_classes();
 
 		$class_array = $this->class_object->get_classes();
 
@@ -86,7 +87,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_an_array_of_strings() {
-		$this->class_object->create_classes();
+		$this->create_classes();
 
 		$class_array = $this->class_object->get_class_names();
 
@@ -122,7 +123,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_remove_a_single_class() {
-		$this->class_object->create_classes();
+		$this->create_classes();
 
 		$this->class_object->remove_class( 'chupacabra' );
 
@@ -135,7 +136,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_remove_an_array_of_classes() {
-		$this->class_object->create_classes();
+		$this->create_classes();
 
 		$this->class_object->remove_classes( [ 'vampire', 'mummy' ] );
 
@@ -149,7 +150,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_dequeue_a_class() {
-		$this->class_object->create_classes();
+		$this->create_classes();
 
 		$this->class_object->dequeue_class( 'chupacabra' );
 
@@ -163,7 +164,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_enqueue_a_class() {
-		$this->class_object->create_classes();
+		$this->create_classes();
 
 		$this->class_object->dequeue_class( 'wolfman' );
 

@@ -131,7 +131,14 @@ class Body_Classes {
 			return false;
 		}
 
-		$classes[ $class ] = false;
+		if ( 'admin' !== $queue ) {
+			$this->classes[ $class ] = false;
+		}
+
+		if ( 'display' !== $queue ) {
+			$this->admin_classes[ $class ] = false;
+		}
+
 	}
 
 	/**
@@ -149,7 +156,13 @@ class Body_Classes {
 			return false;
 		}
 
-		$classes[ $class ] = true;
+		if ( 'admin' !== $queue ) {
+			$this->classes[ $class ] = true;
+		}
+
+		if ( 'display' !== $queue ) {
+			$this->admin_classes[ $class ] = true;
+		}
 	}
 
 	/**
@@ -173,13 +186,11 @@ class Body_Classes {
 			$class   = sanitize_html_class( $class );
 
 			if ( 'admin' !== $queue ) {
-				$classes = $this->get_classes_for_queue();
-				$classes[ $class ] = true ;
+				$this->classes[ $class ] = true ;
 			}
 
 			if ( 'display' !== $queue ) {
-				$classes = $this->get_classes_for_queue( 'admin' );
-				$classes[ $class ] = true ;
+				$this->admin_classes[ $class ] = true ;
 			}
 
 		}
@@ -196,7 +207,7 @@ class Body_Classes {
 	public function add_classes( array $classes, $queue = 'display' ) {
 		foreach ( $classes as $key => $value ) {
 			// If the classes are passed as class => bool, only add ones set to true.
-			if ( ! is_string( $value ) && false !== $value  ) {
+			if ( is_bool( $value ) && false !== $value  ) {
 				$this->add_class( $key, $queue );
 			} else {
 				$this->add_class( $value, $queue );
@@ -264,7 +275,7 @@ class Body_Classes {
 	 */
 	public function add_body_classes( $classes = [] ) {
 		// Make sure they should be added.
-		if( ! $this->should_add_body_classes( $this->get_class_names(), $classes ) ) {
+		if( ! $this->should_add_body_classes( $this->get_class_names(), (array) $classes ) ) {
 			return $classes;
 		}
 
@@ -283,7 +294,7 @@ class Body_Classes {
 	 */
 	public function add_admin_body_classes( $classes = [] ) {
 		// Make sure they should be added.
-		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), $classes, 'admin' ) ) {
+		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), (array) $classes, 'admin' ) ) {
 			return false;
 		}
 
@@ -301,24 +312,6 @@ class Body_Classes {
 	 * @return boolean Whether to add tribe body classes to the queue.
 	 */
 	private function should_add_body_class_to_queue( string $class, $queue = 'display' ) {
-		global $post;
-		// default to false!
-		$add = false;
-		// If we are doing an event query, or on an event single, set to true.
-		if (
-			tribe_is_event_query()
-			|| ( $post instanceof \WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
-		) {
-			$add = true;
-		}
-
-		if (
-			'admin' === $queue
-			&& ! is_admin()
-		) {
-			$add = false;
-		}
-
 		/**
 		 * Filter whether to add the body class to the queue or not.
 		 *
@@ -327,7 +320,7 @@ class Body_Classes {
 		 * @param boolean Whether to add the class to the queue or not.
 		 * @param array $class The array of body class names to add.
 		 */
-		return apply_filters( 'tribe_body_class_should_add_to_queue', $add, $class, $queue );
+		return apply_filters( 'tribe_body_class_should_add_to_queue', false, $class, $queue );
 	}
 
 	/**
