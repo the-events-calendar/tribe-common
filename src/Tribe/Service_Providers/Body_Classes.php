@@ -2,7 +2,7 @@
 
 namespace Tribe\Service_Providers;
 
-use Tribe\Utils\Body_Classes;
+use Tribe\Utils\Body_Classes as Body_Class_Object;
 
 /**
  * Class Body_Classes
@@ -11,7 +11,7 @@ use Tribe\Utils\Body_Classes;
  *
  * Handles the registration and creation of our async process handlers.
  */
-class Tribe__Service_Providers__Body_Classes extends \tad_DI52_ServiceProvider {
+class Body_Classes extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.
@@ -19,7 +19,7 @@ class Tribe__Service_Providers__Body_Classes extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function register() {
-		tribe_singleton( Body_Classes::class, Body_Classes::class );
+		tribe_singleton( Body_Class_Object::class, Body_Class_Object::class );
 
 		/**
 		 * Allows plugins to hook into the register action to register views, etc
@@ -61,8 +61,8 @@ class Tribe__Service_Providers__Body_Classes extends \tad_DI52_ServiceProvider {
 	 * @return array The modified array of body class names.
 	 */
 	public function add_body_classes( $classes = [] ) {
-		/** @var Body_Classes $body_classes */
-		$body_classes = tribe( Body_Classes::class );
+		/** @var Body_Class_Object $body_classes */
+		$body_classes = tribe( Body_Class_Object::class );
 
 		return $body_classes->add_body_classes( $classes );
 	}
@@ -76,8 +76,8 @@ class Tribe__Service_Providers__Body_Classes extends \tad_DI52_ServiceProvider {
 	 * @return array The modified array of body class names.
 	 */
 	public function add_admin_body_classes( $classes = [] ) {
-		/** @var Body_Classes $body_classes */
-		$body_classes = tribe( Body_Classes::class );
+		/** @var Body_Class_Object $body_classes */
+		$body_classes = tribe( Body_Class_Object::class );
 
 		return $body_classes->add_admin_body_classes( $classes );
 	}
