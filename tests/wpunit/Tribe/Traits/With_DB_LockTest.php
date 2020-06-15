@@ -119,13 +119,13 @@ class With_DB_LockTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow falling back on update queries using a filter
+	 * It should allow falling back on queries using a filter
 	 *
 	 * @test
 	 */
-	public function should_allow_falling_back_on_update_queries_using_a_filter() {
+	public function should_allow_falling_back_on_queries_using_a_filter() {
 		$test_lock = uniqid( 'lock', true );
-		add_filter( 'tribe_db_lock_use_functions', '__return_false' );
+		add_filter( 'tribe_db_lock_use_msyql_functions', '__return_false' );
 
 		$locked = $this->acquire_db_lock( $test_lock );
 
@@ -133,6 +133,7 @@ class With_DB_LockTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $locked );
 		$option_name  = tribe( 'db-lock' )->get_db_lock_option_name( $test_lock );
 		$option_value = $wpdb->get_var( "SELECT option_value FROM {$wpdb->options} WHERE option_name = '{$option_name}'" );
+		codecept_debug($option_value);
 		$this->assertTrue( is_numeric( $option_value ) );
 	}
 
