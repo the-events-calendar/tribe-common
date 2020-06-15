@@ -152,19 +152,16 @@ class DB_Lock {
 
 		global $wpdb;
 
-		// phpcs:ignore
 		$free = $wpdb->get_var(
-			$wpdb->prepare( "SELECT IS_FREE_LOCK( SHA1( %s ) )", $lock_key )
-
+			$wpdb->prepare( 'SELECT IS_FREE_LOCK( SHA1( %s ) )', $lock_key )
 		);
 
 		if ( ! $free ) {
 			return false;
 		}
 
-		// phpcs:ignore
 		$acquired = $wpdb->get_var(
-			$wpdb->prepare( "SELECT GET_LOCK( SHA1( %s ),%d )", $lock_key, $timeout )
+			$wpdb->prepare( 'SELECT GET_LOCK( SHA1( %s ),%d )', $lock_key, $timeout )
 
 		);
 
