@@ -22,7 +22,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 		tribe_singleton( Body_Class_Object::class, Body_Class_Object::class );
 
 		/**
-		 * Allows plugins to hook into the register action to register views, etc
+		 * Allows plugins to hook into the register action to register views, etc.
 		 *
 		 * @since TBD
 		 *
@@ -43,7 +43,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 		add_filter( 'admin_body_class', [ $this, 'add_admin_body_classes' ] );
 
 		/**
-		 * Allows plugins to hook into the hooks action to register their own hooks
+		 * Allows plugins to hook into the hooks action to register their own hooks.
 		 *
 		 * @since TBD
 		 *
