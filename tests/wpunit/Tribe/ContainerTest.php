@@ -61,6 +61,22 @@ class G {
 	}
 }
 
+class H {
+
+}
+
+class I {
+	private $h;
+
+	public function __construct( H $h ) {
+		$this->h = $h;
+	}
+
+	public function get_h() {
+		return $this->h;
+	}
+}
+
 class ContainerTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * It should bind the class when binding a slug for the class
@@ -148,5 +164,21 @@ class ContainerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertSame( $g->get_f(), tribe( 'some-f' ) );
 		$this->assertSame( tribe( 'some-f' ), tribe( F::class ) );
 		$this->assertEquals( 1, F::$setup_called_times );
+	}
+
+	/**
+	 * It should auto-wire implicitly when passing instances
+	 *
+	 * @test
+	 */
+	public function should_auto_wire_implicitly_when_passing_instances() {
+		tribe_singleton( 'some-h', new H() );
+
+		$i = tribe( I::class );
+
+		$this->assertInstanceOf( I::class, $i );
+		$this->assertSame( tribe( 'some-h' ), $i->get_h() );
+		$this->assertSame( tribe( 'some-h' ), tribe( H::class ) );
+
 	}
 }

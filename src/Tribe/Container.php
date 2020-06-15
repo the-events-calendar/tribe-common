@@ -88,7 +88,7 @@ if ( ! function_exists( 'tribe_singleton' ) ) {
 			$container->singleton( $class, static function () use ( $container, $slug ) {
 				return $container->make( $slug );
 			} );
-		} elseif ( is_object( $class ) && $class instanceof \Closure ) {
+		} elseif ( is_object( $class ) && ! $class instanceof \Closure ) {
 			$obj_class = get_class( $class );
 			$container->singleton( $obj_class, static function () use ( $container, $slug ) {
 				return $container->make( $slug );
@@ -165,7 +165,7 @@ if ( ! function_exists( 'tribe_register' ) ) {
 			$container->bind( $class, static function () use ( $container, $slug ) {
 				return $container->make( $slug );
 			} );
-		} elseif ( is_object( $class ) && $class instanceof \Closure ) {
+		} elseif ( is_object( $class ) && ! $class instanceof \Closure ) {
 			$obj_class = get_class( $class );
 			$container->bind( $obj_class, static function () use ( $container, $slug ) {
 				return $container->make( $slug );
