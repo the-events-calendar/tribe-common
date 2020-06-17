@@ -346,7 +346,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 			// For AJAX we reset the data
 			args.data = { results: [] };
-			
+
 			// Format for Parents breadcrumbs
 			args.formatResult = function ( item, container, query ) {
 				if ( 'undefined' !== typeof item.breadcrumbs ) {
