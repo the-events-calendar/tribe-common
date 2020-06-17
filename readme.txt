@@ -2,14 +2,21 @@
 
 == Changelog ==
 
-= [4.12.4] TBD =
+= [4.12.5] TBD =
 
-* Feature - Added the `Tribe\Traits\With_Meta_Updates_Handling` trait to provide methods useful in handling with meta.
 * Feature - Added the `Tribe\Traits\With_Db_Lock` trait to provide methods useful to acquire and release database locks.
 * Feature - Added the `tribe_db_lock_use_msyql_functions` filter to control whether Database locks should be managed using MySQL functions (default, compatible with MySQL 5.6+) or SQL queries.
 * Tweak - Added case for manual control of field in dependency JS.
-* Fix - Prevent `$legacy_hook_name` and `$hook_name` template Actions and Filters to be fired if they are the same, preventing duplicated hook calls.
 * Fix - Backwards compatibility for `tribe_upload_image` allow to use the function on versionf of WordPress before 5.2.x`
+
+= [4.12.4] TBD =
+
+* Feature - Added the `Tribe\Traits\With_Meta_Updates_Handling` trait to provide methods useful in handling with meta.
+* Fix - Prevent `$legacy_hook_name` and `$hook_name` template Actions and Filters to be fired if they are the same, preventing duplicated hook calls.
+
+= [4.12.3.1] 2020-06-09 =
+
+* Security - Remove deprecated usage of escapeMarkup in Select2 (props to miha.jirov for reporting this).
 
 = [4.12.3] 2020-05-27 =
 

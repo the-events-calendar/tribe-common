@@ -1137,7 +1137,7 @@ class Tribe__Template {
 			// Normalize the trailing slash to the current OS directory separator.
 			$contains_string = rtrim( $contains_string, '\\/' ) . DIRECTORY_SEPARATOR;
 
-			// Skip when we dont have the namespace path.
+			// Skip when we don't have the namespace path.
 			if ( false === strpos( $path, $contains_string ) ) {
 				continue;
 			}
