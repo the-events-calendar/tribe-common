@@ -88,7 +88,7 @@ class Body_Classes {
 	public function class_exists( $class, $queue = 'display' ) {
 		$classes = $this->get_classes( $queue );
 
-		return array_key_exists( $class, $classes );
+		return array_key_exists(strtolower( $class ), array_change_key_case( $classes ));
 	}
 
 	/**
@@ -119,7 +119,6 @@ class Body_Classes {
 	 * @return false
 	 */
 	public function dequeue_class( $class, $queue = 'display' ) {
-		$classes = $this->get_classes( $queue );
 		if ( ! $this->class_exists( $class ) ) {
 			return false;
 		}
@@ -146,7 +145,6 @@ class Body_Classes {
 	 * @return false
 	 */
 	public function enqueue_class( $class, $queue = 'display' ) {
-		$classes = $this->get_classes( $queue );
 		if ( ! $this->class_exists( $class ) ) {
 			return false;
 		}
@@ -180,7 +178,7 @@ class Body_Classes {
 			$this->add_classes( $class, $queue );
 		} elseif ( $this->should_add_body_class_to_queue( $class, $queue ) ) {
 
-			$class   = sanitize_html_class( $class );
+			$class = sanitize_html_class( strtolower( $class ) );
 
 			if ( 'admin' !== $queue ) {
 				$this->classes[ $class ] = true ;
@@ -221,8 +219,6 @@ class Body_Classes {
 	 * @return void
 	 */
 	public function remove_class( $class, $queue = 'display' ) {
-		$classes = $this->get_classes( $queue );
-
 		if ( 'admin' !== $queue ) {
 			$this->classes = array_filter(
 				$this->classes,
