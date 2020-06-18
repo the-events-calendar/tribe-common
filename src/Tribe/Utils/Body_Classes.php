@@ -1,6 +1,6 @@
 <?php
 /**
- * Class used to manage and body classes across our plugins.
+ * Class used to manage and add body classes via a queue across our plugins.
  *
  * @since TBD
  */
@@ -8,12 +8,17 @@ namespace Tribe\Utils;
 
 use Tribe\Utils\Element_Classes;
 
+/**
+ * Body_Classes class
+ *
+ * @since TBD
+ */
 class Body_Classes {
 	/**
 	 * Stores all the classes.
 	 * In the format: ['class' => true, 'class => false ]
 	 *
-	 * @var array
+	 * @var array<string,bool>
 	 */
 	protected $classes = [];
 
@@ -21,20 +26,20 @@ class Body_Classes {
 	 * Stores all the admin classes.
 	 * In the format: ['class' => true, 'class => false ]
 	 *
-	 * @var array
+	 * @var array<string,bool>
 	 */
 	protected $admin_classes = [];
 
-
 	/**
 	 * Queue-aware method to get the classes array.
+	 * Returns the array of classes to add.
 	 *
 	 * @since TBD
 	 *
 	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
 	 * @return array
 	 */
-	public function get_classes_for_queue( $queue = 'display' ) {
+	public function get_classes( $queue = 'display' ) {
 		switch( $queue ) {
 			case 'admin':
 				return $this->admin_classes;
@@ -49,18 +54,6 @@ class Body_Classes {
 	}
 
 	/**
-	 * Returns the array of classes to add.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
-	 * @return array
-	 */
-	public function get_classes( $queue = 'display' ) {
-		return $this->get_classes_for_queue( $queue );
-	}
-
-	/**
 	 * Returns the array of classnames to add
 	 *
 	 * @since TBD
@@ -69,7 +62,7 @@ class Body_Classes {
 	 * @return array
 	 */
 	public function get_class_names( $queue = 'display' ) {
-		$classes = $this->get_classes_for_queue( $queue );
+		$classes = $this->get_classes( $queue );
 
 		return array_keys(
 			array_filter(
@@ -93,7 +86,7 @@ class Body_Classes {
 	 * @return boolean
 	 */
 	public function class_exists( $class, $queue = 'display' ) {
-		$classes = $this->get_classes_for_queue( $queue );
+		$classes = $this->get_classes( $queue );
 
 		return array_key_exists( $class, $classes );
 	}
@@ -108,7 +101,7 @@ class Body_Classes {
 	 * @return boolean
 	 */
 	public function class_is_enqueued( $class, $queue = 'display' ) {
-		$classes = $this->get_classes_for_queue( $queue );
+		$classes = $this->get_classes( $queue );
 		if ( ! $this->class_exists( $class ) ) {
 			return false;
 		}
@@ -123,10 +116,10 @@ class Body_Classes {
 	 *
 	 * @param string $class
 	 * @param string $queue The queue we want to alter 'admin', 'display', 'all'
-	 * @return void|false
+	 * @return false
 	 */
 	public function dequeue_class( $class, $queue = 'display' ) {
-		$classes = $this->get_classes_for_queue( $queue );
+		$classes = $this->get_classes( $queue );
 		if ( ! $this->class_exists( $class ) ) {
 			return false;
 		}
@@ -139,6 +132,8 @@ class Body_Classes {
 			$this->admin_classes[ $class ] = false;
 		}
 
+		return true;
+
 	}
 
 	/**
@@ -148,10 +143,10 @@ class Body_Classes {
 	 *
 	 * @param string $class
 	 * @param string $queue The queue we want to alter 'admin', 'display', 'all'
-	 * @return void|false
+	 * @return false
 	 */
 	public function enqueue_class( $class, $queue = 'display' ) {
-		$classes = $this->get_classes_for_queue( $queue );
+		$classes = $this->get_classes( $queue );
 		if ( ! $this->class_exists( $class ) ) {
 			return false;
 		}
@@ -163,6 +158,8 @@ class Body_Classes {
 		if ( 'display' !== $queue ) {
 			$this->admin_classes[ $class ] = true;
 		}
+
+		return true;
 	}
 
 	/**
@@ -224,7 +221,7 @@ class Body_Classes {
 	 * @return void
 	 */
 	public function remove_class( $class, $queue = 'display' ) {
-		$classes = $this->get_classes_for_queue( $queue );
+		$classes = $this->get_classes( $queue );
 
 		if ( 'admin' !== $queue ) {
 			$this->classes = array_filter(
@@ -280,6 +277,7 @@ class Body_Classes {
 		}
 
 		$element_classes = new Element_Classes( $this->get_class_names() );
+
 		return array_merge( $classes, $element_classes->get_classes() );
 	}
 
@@ -300,7 +298,9 @@ class Body_Classes {
 		}
 
 		$element_classes = new Element_Classes( $this->get_class_names( 'admin' ) );
+
 		return implode( ' ', array_merge( $classes, $element_classes->get_classes() ) );
+
 	}
 
 	/**
@@ -324,7 +324,7 @@ class Body_Classes {
 		 */
 		$add = apply_filters( 'tribe_body_class_should_add_to_queue', false, $class, $queue );
 
-		return $add;
+		return (bool)$add;
 	}
 
 	/**
@@ -350,6 +350,6 @@ class Body_Classes {
 		 * @param string  $queue            The queue we want to get 'admin', 'display', 'all'.
 		 *
 		 */
-		return apply_filters( 'tribe_body_classes_should_add', false, $queue, $add_classes, $existing_classes );
+		return (bool)apply_filters( 'tribe_body_classes_should_add', false, $queue, $add_classes, $existing_classes );
 	}
 }
