@@ -318,9 +318,7 @@ class Body_Classes {
 		 * @param array   $class The array of body class names to add.
 		 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
 		 */
-		$add = apply_filters( 'tribe_body_class_should_add_to_queue', false, $class, $queue );
-
-		return (bool)$add;
+		return (bool) apply_filters( 'tribe_body_class_should_add_to_queue', false, $class, $queue );
 	}
 
 	/**
