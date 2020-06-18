@@ -37,7 +37,7 @@ class Body_Classes {
 	 * @since TBD
 	 *
 	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
-	 * @return array
+	 * @return array<string,bool> A map of the classes for the queue.
 	 */
 	public function get_classes( $queue = 'display' ) {
 		switch( $queue ) {
@@ -59,7 +59,7 @@ class Body_Classes {
 	 * @since TBD
 	 *
 	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
-	 * @return array
+	 * @return array<string> The list of class names.
 	 */
 	public function get_class_names( $queue = 'display' ) {
 		$classes = $this->get_classes( $queue );
@@ -83,7 +83,7 @@ class Body_Classes {
 	 *
 	 * @param string $class The class we are checking for.
 	 * @param string $queue The queue we want to check 'admin', 'display', 'all'
-	 * @return boolean
+	 * @return boolean Whether a class exists or not in the queue.
 	 */
 	public function class_exists( $class, $queue = 'display' ) {
 		$classes = $this->get_classes( $queue );
@@ -98,7 +98,7 @@ class Body_Classes {
 	 *
 	 * @param string $class The class we are checking for.
 	 * @param string $queue The queue we want to check 'admin', 'display', 'all'
-	 * @return boolean
+	 * @return boolean Whether a class is currently queued or not.
 	 */
 	public function class_is_enqueued( $class, $queue = 'display' ) {
 		$classes = $this->get_classes( $queue );
@@ -116,7 +116,7 @@ class Body_Classes {
 	 *
 	 * @param string $class
 	 * @param string $queue The queue we want to alter 'admin', 'display', 'all'
-	 * @return false
+	 * @return boolean
 	 */
 	public function dequeue_class( $class, $queue = 'display' ) {
 		$classes = $this->get_classes( $queue );
