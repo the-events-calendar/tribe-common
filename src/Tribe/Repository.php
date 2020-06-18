@@ -1512,7 +1512,7 @@ abstract class Tribe__Repository
 	 */
 	public function set( $key, $value ) {
 		if ( ! is_string( $key ) ) {
-			throw Tribe__Repository__Usage_Error::because_udpate_key_should_be_a_string( $this );
+			throw Tribe__Repository__Usage_Error::because_update_key_should_be_a_string( $this );
 		}
 
 		$this->updates[ $key ] = $value;
