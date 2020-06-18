@@ -62,7 +62,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->class_object->dequeue_class( 'mummy' );
 
-		codecept_debug( $this->class_object->get_classes_for_queue() );
+		codecept_debug( $this->class_object->get_classes() );
 
 		$this->assertFalse( $this->class_object->class_is_enqueued( 'mummy' ) );
 	}
