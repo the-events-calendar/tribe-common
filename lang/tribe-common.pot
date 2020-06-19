@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.12.2\n"
+"Project-Id-Version: Tribe Common 4.12.4\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2020-05-26 16:16:47+00:00\n"
+"POT-Creation-Date: 2020-06-19 04:15:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-05-26 16:16\n"
+"PO-Revision-Date: 2020-06-19 04:15\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -236,107 +236,131 @@ msgstr ""
 msgid "Event Add-Ons"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:166
+#: src/Tribe/App_Shop.php:165
 msgid "Events Marketing Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:169 src/Tribe/App_Shop.php:208
-#: src/Tribe/App_Shop.php:221
+#: src/Tribe/App_Shop.php:168 src/Tribe/App_Shop.php:192
+#: src/Tribe/App_Shop.php:211 src/Tribe/App_Shop.php:224
 msgid "Save over 20%"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:170
+#: src/Tribe/App_Shop.php:169
 msgid "Ticket sales, attendee management, and email marketing for your events."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:178
+#: src/Tribe/App_Shop.php:177
 msgid "Event Importer Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:181
+#: src/Tribe/App_Shop.php:180
 msgid "Save over 25%"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:182
+#: src/Tribe/App_Shop.php:181
 msgid ""
 "Fill your calendar with events from across the web, including Google "
 "Calendar, Meetup, and more."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:205
+#: src/Tribe/App_Shop.php:189
+msgid "Virtual Events Marketing Bundle"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:193
+msgid "Streamline your online events and increase revenue."
+msgstr ""
+
+#: src/Tribe/App_Shop.php:201
+msgid "Sell tickets and earn revenue for online events"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:202 src/Tribe/Plugins_API.php:218
+msgid "Zoom integration"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:203
+msgid "Automated emails optimized for virtual events"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:204
+msgid "Add recurring events"
+msgstr ""
+
+#: src/Tribe/App_Shop.php:208
 msgid "Community Manager Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:209
+#: src/Tribe/App_Shop.php:212
 msgid ""
 "Handle event submissions with ticket sales and everything you need to build "
 "a robust community."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:218
+#: src/Tribe/App_Shop.php:221
 msgid "Ultimate Bundle"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:222
+#: src/Tribe/App_Shop.php:225
 msgid "All of our premium events management plugins at a deep discount."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:249
+#: src/Tribe/App_Shop.php:252
 msgid "Website URL CTA"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:252
+#: src/Tribe/App_Shop.php:255
 msgid ""
 "Create a strong call-to-action for attendees to \"Join Webinar\" instead of "
 "only sharing a website address."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:255
+#: src/Tribe/App_Shop.php:258
 msgid "Link Directly to Webinar"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:258
+#: src/Tribe/App_Shop.php:261
 msgid ""
 "When users click on the event title, they’ll be taken right to the source of "
 "your event, offering a direct route to join."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:261
+#: src/Tribe/App_Shop.php:264
 msgid "Events Happening Now"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:264
+#: src/Tribe/App_Shop.php:267
 msgid ""
 "Use this shortcode to display events that are currently in progress, like "
 "webinars and livestreams."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:267
+#: src/Tribe/App_Shop.php:270
 msgid "Custom Venue Links"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:270
+#: src/Tribe/App_Shop.php:273
 msgid ""
 "Turn the venue name for your event into a clickable URL — a great way to "
 "link directly to a venue’s website or a virtual meeting."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:273
+#: src/Tribe/App_Shop.php:276
 msgid "Adjust Label"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:276
+#: src/Tribe/App_Shop.php:279
 msgid ""
 "Change \"Events\" to \"Webinars,\" or \"Venues\" to \"Livestream,\" or "
 "\"Organizers\" to \"Hosts.\" Tailor your calendar for virtual events and "
 "meetings."
 msgstr ""
 
-#: src/Tribe/App_Shop.php:279
+#: src/Tribe/App_Shop.php:282
 msgid "Reach Attendees"
 msgstr ""
 
-#: src/Tribe/App_Shop.php:282
+#: src/Tribe/App_Shop.php:285
 msgid ""
 "From registration to attendance history, view every step of the event "
 "lifecycle with this HubSpot integration."
@@ -605,15 +629,15 @@ msgstr ""
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:541
+#: src/Tribe/Field.php:543
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:577
+#: src/Tribe/Field.php:579
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:638
+#: src/Tribe/Field.php:641
 msgid "No select options specified"
 msgstr ""
 
@@ -2312,12 +2336,19 @@ msgid "Virtual Events"
 msgstr ""
 
 #: src/Tribe/Plugins_API.php:216
-msgid "[ADD DESCRIPTION]"
+msgid "Features to optimize your calendar for virtual events."
 msgstr ""
 
-#: src/Tribe/Plugins_API.php:218 src/Tribe/Plugins_API.php:219
-#: src/Tribe/Plugins_API.php:220 src/Tribe/Plugins_API.php:221
-msgid "Feature"
+#: src/Tribe/Plugins_API.php:219
+msgid "Virtual event labels"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:220
+msgid "Status control for canceled or postponed events"
+msgstr ""
+
+#: src/Tribe/Plugins_API.php:221
+msgid "Embed livestreams and videos"
 msgstr ""
 
 #: src/Tribe/Process/Queue.php:1024
