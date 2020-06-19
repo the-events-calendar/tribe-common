@@ -15,6 +15,7 @@
 
 * Feature - Added the `Tribe\Traits\With_Meta_Updates_Handling` trait to provide methods useful in handling with meta.
 * Fix - Prevent `$legacy_hook_name` and `$hook_name` template Actions and Filters to be fired if they are the same, preventing duplicated hook calls.
+* Language - 10 new strings added, 27 updated, 1 fuzzied, and 2 obsoleted
 
 = [4.12.3.1] 2020-06-09 =
 
