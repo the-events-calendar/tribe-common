@@ -308,7 +308,7 @@ class Body_Classes {
 	 *
 	 * @return boolean Whether to add tribe body classes to the queue.
 	 */
-	private function should_add_body_class_to_queue( string $class, $queue = 'display' ) {
+	private function should_add_body_class_to_queue( $class, $queue = 'display' ) {
 		/**
 		 * Filter whether to add the body class to the queue or not.
 		 *
