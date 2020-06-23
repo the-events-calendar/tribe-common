@@ -8,8 +8,8 @@
 * Feature - Added the `tribe_db_lock_use_msyql_functions` filter to control whether Database locks should be managed using MySQL functions (default, compatible with MySQL 5.6+) or SQL queries.
 * Tweak - Added case for manual control of field in dependency JS.
 * Tweak - Add filter `tribe_promoter_max_retries_on_failure` to set the maximum number of attempts to notify promoter of a change on the WordPress installation, default to 3.
-* Tweak - Register logs when notifications to promoter failed and retry to notify until the limit of `tribe_promoter_max_retries_on_failure` is reached per notification.
-* Fix - Backwards compatibility for `tribe_upload_image` allow to use the function on version of WordPress before 5.2.x`
+* Tweak - Register logs when notifications to Promoter failed and retry to notify until the limit of `tribe_promoter_max_retries_on_failure` is reached per notification.
+* Fix - Backwards compatibility for `tribe_upload_image` allow to use the function on version of WordPress before `5.2.x`
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.4] 2020-06-22 =
