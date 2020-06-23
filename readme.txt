@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.5] TBD =
+= [4.12.5] 2020-06-24 =
 
 * Feature - Added the `Tribe\Traits\With_Db_Lock` trait to provide methods useful to acquire and release database locks.
 * Feature - Added the `tribe_db_lock_use_msyql_functions` filter to control whether Database locks should be managed using MySQL functions (default, compatible with MySQL 5.6+) or SQL queries.
