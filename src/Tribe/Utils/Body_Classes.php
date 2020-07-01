@@ -287,15 +287,15 @@ class Body_Classes {
 	 * @return array|false Current list of admin body classes if added, otherwise false.
 	 */
 	public function add_admin_body_classes( $classes ) {
-		$classes = explode( ' ', $classes );
+		$existing_classes = explode( ' ', $classes );
 		// Make sure they should be added.
-		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), (array) $classes, 'admin' ) ) {
-			return false;
+		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), (array) $existing_classes, 'admin' ) ) {
+			return $classes;
 		}
 
 		$element_classes = new Element_Classes( $this->get_class_names( 'admin' ) );
 
-		return implode( ' ', array_merge( $classes, $element_classes->get_classes() ) );
+		return implode( ' ', array_merge( $existing_classes, $element_classes->get_classes() ) );
 
 	}
 
