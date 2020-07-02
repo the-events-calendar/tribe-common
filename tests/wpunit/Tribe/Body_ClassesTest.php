@@ -242,10 +242,13 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_return_an_unchanged_classlist_when_not_adding_to_admin_queue() {
 		add_filter( 'tribe_body_class_should_add_to_queue', '__return_false' );
 		$classes = [ 'the-blob','them', 'godzilla', 'ro-man', 'gor' ];
+		$class_string = implode( ' ', $classes );
 		$this->create_mixed_classes();
 
-		$classes = tribe( Body_Classes::class )->add_admin_body_classes( $classes );
-		$this->assertFalse( in_array( 'wolfman', $classes ) );
+		$class_string = tribe( Body_Classes::class )->add_admin_body_classes( $class_string );
+		$class_array  = explode( ' ', $class_string );
+
+		$this->assertEquals( $class_array, $classes );
 	}
 
 	/**
@@ -256,9 +259,12 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_return_an_unchanged_classlist_when_not_adding_to_admin_classes() {
 		add_filter( 'tribe_body_classes_should_add', '__return_false' );
 		$classes = [ 'the-blob','them', 'godzilla', 'ro-man', 'gor' ];
+		$class_string = implode( ' ', $classes );
 		$this->create_mixed_classes();
 
-		$classes = tribe( Body_Classes::class )->add_admin_body_classes( $classes );
-		$this->assertFalse( in_array( 'wolfman', $classes ) );
+		$class_string = tribe( Body_Classes::class )->add_admin_body_classes( $class_string );
+		$class_array  = explode( ' ', $class_string );
+
+		$this->assertEquals( $class_array, $classes );
 	}
 }
