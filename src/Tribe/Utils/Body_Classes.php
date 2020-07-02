@@ -102,7 +102,7 @@ class Body_Classes {
 	 */
 	public function class_is_enqueued( $class, $queue = 'display' ) {
 		$classes = $this->get_classes( $queue );
-		if ( ! $this->class_exists( $class ) ) {
+		if ( ! $this->class_exists( $class, $queue ) ) {
 			return false;
 		}
 
@@ -119,7 +119,7 @@ class Body_Classes {
 	 * @return boolean
 	 */
 	public function dequeue_class( $class, $queue = 'display' ) {
-		if ( ! $this->class_exists( $class ) ) {
+		if ( ! $this->class_exists( $class, $queue ) ) {
 			return false;
 		}
 
@@ -145,7 +145,7 @@ class Body_Classes {
 	 * @return false
 	 */
 	public function enqueue_class( $class, $queue = 'display' ) {
-		if ( ! $this->class_exists( $class ) ) {
+		if ( ! $this->class_exists( $class, $queue ) ) {
 			return false;
 		}
 

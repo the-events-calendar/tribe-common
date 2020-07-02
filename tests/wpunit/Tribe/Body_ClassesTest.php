@@ -42,6 +42,18 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should not detect a class in the wrong queue.
+	 *
+	 * @test
+	 */
+	public function it_should_not_detect_a_class_in_the_wrong_queue() {
+		$this->create_mixed_classes();
+
+		$this->assertFalse( $this->class_object->class_exists( 'mummy', 'admin' ) );
+		$this->assertFalse( $this->class_object->class_exists( 'ygor' ) );
+	}
+
+	/**
 	 * It should properly detect an enqueued class.
 	 *
 	 * @test
@@ -50,6 +62,17 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 		$this->create_classes();
 
 		$this->assertTrue( $this->class_object->class_is_enqueued( 'wolfman' ) );
+	}
+
+	/**
+	 * It should properly detect an enqueued admin class.
+	 *
+	 * @test
+	 */
+	public function it_should_detect_an_enqueued_admin_class() {
+		$this->create_mixed_classes();
+
+		$this->assertTrue( $this->class_object->class_is_enqueued( 'frankenstein', 'admin' ) );
 	}
 
 	/**
@@ -62,13 +85,24 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->class_object->dequeue_class( 'mummy' );
 
-		codecept_debug( $this->class_object->get_classes() );
-
 		$this->assertFalse( $this->class_object->class_is_enqueued( 'mummy' ) );
 	}
 
 	/**
-	 * It should remove a single class
+	 * It should properly detect a dequeued admin class.
+	 *
+	 * @test
+	 */
+	public function it_should_detect_a_dequeued_admin_class() {
+		$this->create_classes();
+
+		$this->class_object->dequeue_class( 'ygor', 'admin' );
+
+		$this->assertFalse( $this->class_object->class_is_enqueued( 'ygor', 'admin' ) );
+	}
+
+	/**
+	 * It should return an associative array.
 	 *
 	 * @test
 	 */
@@ -82,7 +116,7 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should remove a single class
+	 * It should return an array of strings.
 	 *
 	 * @test
 	 */
@@ -159,16 +193,72 @@ class Body_ClassesTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should properly enqueue a class.
+	 * It should properly re-enqueue a class.
 	 *
 	 * @test
 	 */
-	public function it_should_enqueue_a_class() {
+	public function it_should_re_enqueue_a_class() {
 		$this->create_classes();
 
 		$this->class_object->dequeue_class( 'wolfman' );
 
 		$this->class_object->enqueue_class( 'wolfman' );
 		$this->assertTrue( $this->class_object->class_is_enqueued( 'wolfman' ) );
+	}
+
+	/**
+	 * It should return an unchanged classlist when not adding to queue.
+	 *
+	 * @test
+	 */
+	public function it_should_return_an_unchanged_classlist_when_not_adding_to_queue() {
+		add_filter( 'tribe_body_class_should_add_to_queue', '__return_false' );
+		$classes = [ 'the-blob','them', 'godzilla', 'ro-man', 'gor' ];
+		$this->create_mixed_classes();
+
+		$classes = tribe( Body_Classes::class )->add_body_classes( $classes );
+		$this->assertFalse( in_array( 'wolfman', $classes ) );
+	}
+
+	/**
+	 * It should return an unchanged classlist when not adding to classes.
+	 *
+	 * @test
+	 */
+	public function it_should_return_an_unchanged_classlist_when_not_adding_to_classes() {
+		add_filter( 'tribe_body_classes_should_add', '__return_false' );
+		$classes = [ 'the-blob','them', 'godzilla', 'ro-man', 'gor' ];
+		$this->create_mixed_classes();
+
+		$classes = tribe( Body_Classes::class )->add_body_classes( $classes );
+		$this->assertFalse( in_array( 'wolfman', $classes ) );
+	}
+
+	/**
+	 * It should return an unchanged classlist when not adding to admin queue.
+	 *
+	 * @test
+	 */
+	public function it_should_return_an_unchanged_classlist_when_not_adding_to_admin_queue() {
+		add_filter( 'tribe_body_class_should_add_to_queue', '__return_false' );
+		$classes = [ 'the-blob','them', 'godzilla', 'ro-man', 'gor' ];
+		$this->create_mixed_classes();
+
+		$classes = tribe( Body_Classes::class )->add_admin_body_classes( $classes );
+		$this->assertFalse( in_array( 'wolfman', $classes ) );
+	}
+
+	/**
+	 * It should return an unchanged classlist when not adding to admin classes.
+	 *
+	 * @test
+	 */
+	public function it_should_return_an_unchanged_classlist_when_not_adding_to_admin_classes() {
+		add_filter( 'tribe_body_classes_should_add', '__return_false' );
+		$classes = [ 'the-blob','them', 'godzilla', 'ro-man', 'gor' ];
+		$this->create_mixed_classes();
+
+		$classes = tribe( Body_Classes::class )->add_admin_body_classes( $classes );
+		$this->assertFalse( in_array( 'wolfman', $classes ) );
 	}
 }
