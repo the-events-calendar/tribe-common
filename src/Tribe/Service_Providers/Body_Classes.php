@@ -20,6 +20,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	 */
 	public function register() {
 		tribe_singleton( Body_Class_Object::class, Body_Class_Object::class );
+		tribe_singleton( 'tribe_body_classes_provider', $this );
 
 		/**
 		 * Allows plugins to hook into the register action to register views, etc.
