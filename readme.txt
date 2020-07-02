@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [ TBD ] TBD =
+* Fix - Correct issue with Body_Classes removing classes added by other plugins. [TEC-3537]
+
 = [4.12.5] 2020-06-24 =
 
 * Feature - Added the `Tribe\Traits\With_Db_Lock` trait to provide methods useful to acquire and release database locks.
