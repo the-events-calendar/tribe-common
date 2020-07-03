@@ -30,7 +30,10 @@ function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $
 		$content = get_the_content( $more_link_text, $strip_teaser );
 	}
 
-	if ( ! doing_filter( 'the_content' ) ) {
+	$has_blocks = function_exists( 'has_blocks' ) && has_blocks( $content );
+	// If blocks are present we need to run the content filter.
+
+	if ( $has_blocks || ! doing_filter( 'the_content' ) ) {
 		/**
 		 * Filters the post content.
 		 *

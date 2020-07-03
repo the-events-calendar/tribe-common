@@ -55,7 +55,7 @@ class Tribe__Credits {
 					esc_html__( 'Rate %1$sThe Events Calendar%2$s %3$s', 'tribe-common' ),
 					'<strong>',
 					'</strong>',
-					'<a href="' . $review_url . '" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+					'<a href="' . $review_url . '" target="_blank" class="tribe-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
 				);
 			} else {
 				$review_url = 'https://wordpress.org/support/plugin/event-tickets/reviews/?filter=5';
@@ -64,7 +64,7 @@ class Tribe__Credits {
 					esc_html__( 'Rate %1$sEvent Tickets%2$s %3$s', 'tribe-common' ),
 					'<strong>',
 					'</strong>',
-					'<a href="' . $review_url . '" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+					'<a href="' . $review_url . '" target="_blank" class="tribe-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
 				);
 			}
 		}

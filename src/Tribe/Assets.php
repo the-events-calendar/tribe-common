@@ -201,7 +201,7 @@ class Tribe__Assets {
 			}
 
 			/**
-			 * Allows developers to hook-in and prevent an asset from been loaded.
+			 * Allows developers to hook-in and prevent an asset from being loaded.
 			 *
 			 * @since 4.3
 			 *
@@ -211,7 +211,7 @@ class Tribe__Assets {
 			$enqueue = apply_filters( 'tribe_asset_enqueue', $enqueue, $asset );
 
 			/**
-			 * Allows developers to hook-in and prevent an asset from been loaded
+			 * Allows developers to hook-in and prevent an asset from being loaded.
 			 *
 			 * @since 4.3
 			 *
