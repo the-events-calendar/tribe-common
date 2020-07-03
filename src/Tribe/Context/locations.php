@@ -136,4 +136,20 @@ return [
 			Tribe__Context::REQUEST_VAR => [ 'post_tag', 'tag' ],
 		],
 	],
+	'bulk_edit' => [
+		'read' => [
+			Tribe__Context::REQUEST_VAR => [ 'bulk_edit' ],
+		],
+	],
+	'inline_save' => [
+		'read' => [
+			Tribe__Context::FUNC => [
+				static function () {
+					return tribe_get_request_var( 'action', false ) === 'inline-save'
+						? true
+						: Tribe__Context::NOT_FOUND;
+				}
+			],
+		],
+	],
 ];

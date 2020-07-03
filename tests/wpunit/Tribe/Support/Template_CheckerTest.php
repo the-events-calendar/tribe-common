@@ -22,13 +22,21 @@ class Template_CheckerTest extends WPTestCase {
 	public function test_detects_shipped_views() {
 		$found_views    = $this->template_checker->get_views();
 		$expected_views = [
-			'primary.php'         => '2.1',
-			'secondary.php'       => '',
-			'modules/alpha.php'   => '1.4',
-			'modules/beta.php'    => '',
-			'modules/gamma.php'   => '',
-			'modules/delta.php'   => '2.1',
-			'modules/epsilon.php' => '1.9',
+			'primary.php'                             => '2.1',
+			'secondary.php'                           => '',
+			'templates/dummy-invalid-template-01.php' => '',
+			'templates/dummy-invalid-template-02.php' => '',
+			'templates/dummy-invalid-template-03.php' => '',
+			'templates/dummy-invalid-template-04.php' => '',
+			'templates/dummy-template.php'            => '',
+			'templates/dummy-valid-template-01.php'   => '',
+			'templates/dummy-valid-template-03.php'   => '',
+			'templates/dummy-valid-template-02.php'   => '',
+			'modules/alpha.php'                       => '1.4',
+			'modules/beta.php'                        => '',
+			'modules/gamma.php'                       => '',
+			'modules/delta.php'                       => '2.1',
+			'modules/epsilon.php'                     => '1.9',
 		];
 
 		$this->assertTrue(

@@ -1,95 +1,189 @@
-<div id="tribe-app-shop" class="wrap">
+<?php
+// $main, $products, $bundles, $extensions must be defined before loading this file
 
-	<div class="header">
-		<h1><?php esc_html_e( 'Events Add-Ons', 'tribe-common' ); ?></h1>
-		<a class="button" href="https://theeventscalendar.com/?utm_campaign=in-app&utm_source=addonspage&utm_medium=top-banner" target="_blank"><?php esc_html_e( 'Browse All Add-Ons', 'tribe-common' ); ?></a>
-	</div>
-	<?php
-	$all_products = array(
-		'for-sale' => array(),
-		'installed' => array(),
-	);
-	foreach ( $products as $product ) {
-		if ( $product->is_installed ) {
-			$all_products['installed'][] = $product;
-		} else {
-			$all_products['for-sale'][] = $product;
-		}
+$all_products = [
+	'for-sale' => [],
+	'installed' => [],
+];
+foreach ( $products as $product ) {
+	if ( $product->is_installed ) {
+		$all_products['installed'][] = $product;
+	} else {
+		$all_products['for-sale'][] = $product;
 	}
+}
+?>
 
-	$products = array();
-	foreach ( $all_products as $type => $products ) {
-		if ( empty( $products ) ) {
-			continue;
-		}
+<div id="tribe-app-shop">
 
-		$button_label = esc_html__( 'Buy This Add-On', 'tribe-common' );
-		$button_class = 'button-primary';
-		if ( 'installed' === $type ) {
-			?><h1 class="tribe-installed-headline"><?php esc_html_e( 'Installed Add-Ons', 'tribe-common' ); ?></h1><?php
-			$button_class = 'button-disabled';
-			$button_label = '<span class="dashicons dashicons-yes"></span>' . esc_html__( 'Installed', 'tribe-common' );
-		}
+	<div class="tribe-header">
+		<div class="content-wrapper">
+			<div class="logo-word-mark">
+				<img src="<?php echo esc_url( tribe_resource_url( 'images/icons/horns.svg', false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'TEC Logo', 'tribe-common' ); ?>" />
+				<h1><span>TEC</span>&nbsp;<?php esc_html_e( 'Add-Ons', 'tribe-common' ); ?></h1>
+			</div>
 
-		?>
+			<ul>
+				<li class="selected" data-tab="tribe-all-solutions"><?php esc_html_e( 'All Solutions', 'tribe-common' ); ?></li>
+				<li data-tab="tribe-bundles"><?php esc_html_e( 'Save with Bundles', 'tribe-common' ); ?></li>
+				<li data-tab="tribe-extensions"><?php esc_html_e( 'Extensions', 'tribe-common' ); ?></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="tribe-all-solutions" class="tribe-content">
 		<div class="content-wrapper">
 			<div class="addon-grid">
-				<?php
+				<?php foreach ( $all_products as $status => $some_products ) : ?>
+					<?php if ( 'for-sale' == $status ) :?>
+						<h2><?php esc_html_e( 'One calendar. Countless ways to make it your own.', 'tribe-common' ); ?></h2>
+						<p><?php esc_html_e( 'Calendars, ticketing, and powerful WordPress tools to manage your events from start to finish.', 'tribe-common' ); ?></p>
+					<?php else: ?>
+						<h2 class="already-installed"><?php esc_html_e( 'Already Installed', 'tribe-common' ); ?></h2>
+					<?php endif; ?>
 
-				$count = count( $products );
+					<?php foreach ( $some_products as $product ) : ?>
+						<div class="tribe-addon">
+							<div class="headline">
+								<img src="<?php echo esc_url( tribe_resource_url( $product->logo, false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'TEC Logo', 'tribe-common' ); ?>" />
+								<h3 <?php echo ( 'installed' == $status || $product->free ) ? 'class="has-pill"' : ''; ?>><a href="<?php echo esc_url( $product->link ); ?>" target="_blank"><?php echo esc_html( $product->title ); ?></a></h3>
 
-				switch ( $count ) {
-					case 0:
-					case 3:
-					case 6:
-						$wide_indexes = array();
-						break;
+								<?php if ( 'installed' == $status ) : ?>
+									<span class="pill active"><?php esc_html_e( 'Active', 'tribe-common' ); ?></span>
+								<?php elseif ( $product->free ) : ?>
+									<span class="pill free"><?php esc_html_e( 'FREE', 'tribe-common' ); ?></span>
+								<?php endif; ?>
 
-					case 2:
-						$wide_indexes = array( 0, 1 );
-						break;
-
-					case 5:
-						$wide_indexes = array( 0, 4 );
-						break;
-
-					case 1:
-					case 4:
-					case 7:
-					default:
-						$wide_indexes = array( 0 );
-				}
-
-				foreach ( $products as $i => $product ) {
-					?>
-					<div class="tribe-addon<?php echo in_array( $i, $wide_indexes ) ? ' first' : ''; ?>">
-						<div class="thumb">
-							<a href="<?php echo esc_url( $product->link ); ?>" target="_blank"><img src="<?php echo esc_url( tribe_resource_url( $product->image, false, null, $main ) ); ?>" /></a>
-						</div>
-						<div class="caption">
-							<h4><a href="<?php echo esc_url( $product->link ); ?>" target="_blank"><?php echo esc_html( $product->title ); ?></a></h4>
-
-							<div class="description">
-								<p><?php echo $product->description; ?></p>
-								<?php
-								if ( isset( $product->requires ) ) {
-									?>
-									<p><strong><?php esc_html_e( 'Requires:', 'tribe-common' );?></strong> <?php echo esc_html( $product->requires ); ?></p>
-									<?php
-								}
-								?>
+							</div>
+							<div class="promo-image">
+								<a href="<?php echo esc_url( $product->link ); ?>" target="_blank"><img src="<?php echo esc_url( tribe_resource_url( $product->image, false, null, $main ) ); ?>" /></a>
 							</div>
 
-							<a class="button <?php esc_attr_e( $button_class ); ?>" href="<?php echo esc_url( $product->link ); ?>"><?php echo $button_label; // escaped above ?></a>
-						</div>
-					</div>
+							<div class="description">
+								<p><?php echo esc_html( $product->description ); ?></p>
+							</div>
 
-					<?php
-				}
-				?>
+							<ul class="features">
+								<?php foreach( $product->features as $feature ) : ?>
+									<li>
+										<span class="check">
+											<svg fill="none" height="12" viewBox="0 0 16 12" width="16" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m13.7357.374803-8.40784 8.402337-3.06361-3.06158c-.52424-.506-1.357557-.49877-1.872924.01626s-.522608 1.34779-.016275 1.87169l4.008209 4.00559c.52173.5212 1.36747.5212 1.8892 0l9.35244-9.34634c.5064-.5239.4991-1.356665-.0162-1.871692-.5154-.515027-1.3487-.522264-1.873-.016265z" fill="#3d54ff" fill-rule="evenodd"/></svg>
+										</span><span class="feature-text">
+											<?php echo esc_html( $feature ); ?>
+										</span>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+
+							<?php if ( 'installed' == $status ) : ?>
+								<a class="button" href="https://m.tri.be/1aiz"><?php esc_html_e( 'Manage', 'tribe-common' ); ?></a>
+							<?php else : ?>
+								<a class="button" href="<?php echo esc_url( $product->link ); ?>"><?php esc_html_e( 'Learn More', 'tribe-common' ); ?></a>
+							<?php endif; ?>
+
+						</div>
+					<?php endforeach; ?>
+				<?php endforeach; ?>
 			</div>
 		</div>
-		<?php
-	}
-	?>
+	</div>
+
+	<div id="tribe-bundles" class="tribe-content">
+		<div class="content-wrapper">
+			<div class="addon-grid">
+				<h2><?php esc_html_e( 'The plugins you need at one discounted price', 'tribe-common' ); ?></h2>
+				<p><?php esc_html_e( 'We\'ve packaged our most popular plugins into bundles jam-packed with value.', 'tribe-common' ); ?></p>
+				<?php foreach ( $bundles as $bundle ) : ?>
+					<div class="tribe-bundle">
+						<div class="details">
+							<div class="headline">
+								<img src="<?php echo esc_url( tribe_resource_url( $bundle->logo, false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'TEC Logo', 'tribe-common' ); ?>" />
+								<h3><a href="<?php echo esc_url( $bundle->link ); ?>" target="_blank"><?php echo esc_html( $bundle->title ); ?></a></h3>
+							</div>
+
+							<p><?php echo esc_html( $bundle->description ); ?></p>
+
+							<div class="cta wide">
+								<a class="button" href="<?php echo esc_url( $bundle->link ); ?>"><?php esc_html_e( 'Save With A Bundle', 'tribe-common' ); ?></a>
+								<span class="discount"><?php echo esc_html( $bundle->discount ); ?></span>
+							</div>
+						</div>
+
+						<div class="includes">
+							<h4><?php esc_html_e( 'Includes', 'tribe-common' ); ?></h4>
+							<ul>
+								<?php foreach ( $bundle->includes as $i => $product_key ) : ?>
+									<?php
+									// get $product object
+									$product = $products[ $product_key ];
+									?>
+
+									<li>
+										<img src="<?php echo esc_url( tribe_resource_url( $product->logo, false, null, $main ) ); ?>" alt="<?php esc_attr_e( 'TEC Logo', 'tribe-common' ); ?>" />
+										<span><?php echo esc_html( $product->title ); ?></span>
+									</li>
+
+									<?php if ( $i == 4 ) : // if there are 5 products included, then we need 2 lists ?>
+										</ul><ul class="second">
+									<?php endif; ?>
+								<?php endforeach; ?>
+							</ul>
+						</div>
+
+						<div class="cta narrow">
+							<a class="button" href="<?php echo esc_url( $bundle->link ); ?>"><?php esc_html_e( 'Save With A Bundle', 'tribe-common' ); ?></a>
+							<span class="discount"><?php echo esc_html( $bundle->discount ); ?></span>
+						</div>
+
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div>
+
+	<div id="tribe-extensions" class="tribe-content">
+		<div class="content-wrapper">
+			<div class="addon-grid">
+				<h2><?php esc_html_e( 'Free extensions to power up your plugins', 'tribe-common' ); ?></h2>
+				<p><?php esc_html_e( 'Extensions are quick solutions our team came up with to solve specific issues you may need. (Just a note - extensions are not covered by our support team.)', 'tribe-common' ); ?></p>
+				<?php foreach ( $extensions as $extension ) : ?>
+					<div class="tribe-addon">
+						<div class="headline">
+							<h3 class="has-pill"><a href="<?php echo esc_url( $extension->link ); ?>" target="_blank"><?php echo esc_html( $extension->title ); ?></a></h3>
+							<span class="pill free"><?php esc_html_e( 'FREE', 'tribe-common' ); ?></span>
+						</div>
+
+						<div class="promo-image">
+							<a href="<?php echo esc_url( $extension->link ); ?>" target="_blank"><img src="<?php echo esc_url( tribe_resource_url( $extension->image, false, null, $main ) ); ?>" /></a>
+						</div>
+
+						<p><?php echo esc_html( $extension->description ); ?></p>
+
+						<a class="button" href="<?php echo esc_url( $extension->link ); ?>"><?php esc_html_e( 'Download', 'tribe-common' ); ?></a>
+					</div>
+				<?php endforeach; ?>
+
+				<a class="button secondary" href="https://m.tri.be/1ajd"><?php esc_html_e( 'Browse Extensions', 'tribe-common' ); ?></a>
+
+			</div>
+
+		</div>
+	</div>
+
 </div>
+
+<?php // this is inline jQuery / javascript for extra simiplicity */ ?>
+<script type="text/javascript">
+	jQuery( document ).ready( function($) {
+		var current_tab = "#tribe-all-solutions";
+		$( 'body' ).on( "click", ".tribe-header li", function() {
+			var tab = "#" + $( this ).data( "tab" );
+			$( current_tab ).hide();
+			$( '.tribe-header li' ).removeClass( "selected" );
+			$( this ).addClass( "selected" );
+
+			$( tab ).show();
+			current_tab = tab;
+		} );
+	} );
+</script>

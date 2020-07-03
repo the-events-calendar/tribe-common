@@ -121,6 +121,14 @@
 			public function register_prefix( $prefix, $root_dir, $slug = '' ) {
 				$root_dir = $this->normalize_root_dir( $root_dir );
 
+				// Determine if we need to normalize the $prefix.
+				$is_namespaced = false !== strpos( $prefix, '\\' );
+
+				if ( $is_namespaced ) {
+					// If the prefix is a namespace, then normalize it.
+					$prefix = trim( $prefix, '\\' ) . '\\';
+				}
+
 				if ( ! isset( $this->prefixes[ $prefix ] ) ) {
 					$this->prefixes[ $prefix ] = array();
 				}
@@ -163,11 +171,20 @@
 
 			protected function get_prefixed_path( $class ) {
 				foreach ( $this->prefixes as $prefix => $dirs ) {
+					$is_namespaced = false !== strpos( $prefix, '\\' );
+
 					if ( strpos( $class, $prefix ) !== 0 ) {
 						continue;
 					}
+
 					$class_name = str_replace( $prefix, '', $class );
-					$class_path_frag = implode( '/', explode( $this->dir_separator, $class_name ) ) . '.php';
+
+					if ( ! $is_namespaced ) {
+						$class_path_frag = implode( '/', explode( $this->dir_separator, $class_name ) ) . '.php';
+					} else {
+						$class_path_frag = implode( '/', explode( '\\', $class_name ) ) . '.php';
+					}
+
 					foreach ( $dirs as $dir ) {
 						$path = $dir . '/' . $class_path_frag;
 						if ( ! file_exists( $path ) ) {

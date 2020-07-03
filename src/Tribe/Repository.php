@@ -1,9 +1,11 @@
 <?php
 
+use Tribe\Traits\With_Meta_Updates_Handling;
 use Tribe__Utils__Array as Arr;
 
 abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
+	use With_Meta_Updates_Handling;
 
 	const MAX_NUMBER_OF_POSTS_PER_PAGE = 99999999999;
 
@@ -1510,7 +1512,7 @@ abstract class Tribe__Repository
 	 */
 	public function set( $key, $value ) {
 		if ( ! is_string( $key ) ) {
-			throw Tribe__Repository__Usage_Error::because_udpate_key_should_be_a_string( $this );
+			throw Tribe__Repository__Usage_Error::because_update_key_should_be_a_string( $this );
 		}
 
 		$this->updates[ $key ] = $value;
