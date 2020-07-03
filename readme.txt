@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [] TBD =
+
+* Tweak - Improve regular expressions to parse UTC timezones by removing non required grouping and characters [TCMN-68]
+
 = [4.12.0] 2020-04-23 =
 
 * Feature - Management of Shortcodes now are fully controlled by Common Manager classes [TCMN-56]
