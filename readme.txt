@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Adjust verbosity level to report connection issues with Promoter [PRMTR-404]
+
 = [4.12.5] 2020-06-24 =
 
 * Feature - Added the `Tribe\Traits\With_Db_Lock` trait to provide methods useful to acquire and release database locks.
