@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format.
+
 = [4.12.5] 2020-06-24 =
 
 * Feature - Added the `Tribe\Traits\With_Db_Lock` trait to provide methods useful to acquire and release database locks.
