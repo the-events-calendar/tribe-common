@@ -2,8 +2,11 @@
 
 == Changelog ==
 
-= [ TBD ] TBD =
+= [4.12.6] TBD =
+
+* Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format.
 * Fix - Correct issue with Body_Classes removing classes added by other plugins. [TEC-3537]
+* Tweak - Adjust verbosity level to report connection issues with Promoter [PRMTR-404]
 
 = [4.12.5] 2020-06-24 =
 
