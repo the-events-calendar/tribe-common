@@ -247,7 +247,7 @@ class Tribe__Promoter__Connector {
 		if ( $code > 299 || is_wp_error( $response ) ) {
 			do_action(
 				'tribe_log',
-				'warning',
+				'debug',
 				__METHOD__,
 				[
 					'url'           => $url,
