@@ -109,4 +109,68 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected_multi_cat, $collection->pluck( 'category', false, $args ) );
 		$this->assertEquals( $expected_multi_cat, $collection->pluck_taxonomy( 'category', false, $args ) );
 	}
+
+	/**
+	 * It should allow to pluck combine
+	 *
+	 * @test
+	 */
+	public function should_allow_to_pluck_combine() {
+		// Become an administrator to add taxonomy terms during post insertion.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$posts   = [];
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 1' ] );
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 2' ] );
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 3' ] );
+		// The `tax_input` creation argument works in tricky ways, avoid it completely and use explict assignment.
+		foreach ( $posts as $id ) {
+			foreach (
+				[
+					'post_tag' => [ 'tag1', 'tag2', 'tag3' ],
+					'category' => [ 'cat1', 'cat2', 'meow' ]
+				] as $tax => $terms
+			) {
+				wp_set_object_terms( $id, $terms, $tax );
+			}
+		}
+
+		$collection = new Collection( $posts );
+
+		$this->assertEquals(
+			array_combine( $posts, array_fill( 0, 3, 'tag1' ) ),
+			$collection->pluck_combine( 'ID', 'post_tag' )
+		);
+		$this->assertEquals(
+			[
+				$posts[0] => [ 'post_title' => 'Post 1', 'post_tag' => 'tag1' ],
+				$posts[1] => [ 'post_title' => 'Post 2', 'post_tag' => 'tag1' ],
+				$posts[2] => [ 'post_title' => 'Post 3', 'post_tag' => 'tag1' ],
+			],
+			$collection->pluck_combine( 'ID', [ 'post_title', 'post_tag' ] )
+		);
+		$combined_pluck = $collection->pluck_combine(
+			'ID',
+			[ 'post_title', 'post_tag', 'category' => [ 'single' => false, 'args' => [ 'fields' => 'names' ] ] ]
+		);
+		$this->assertEquals(
+			[
+				$posts[0] => [
+					'post_title' => 'Post 1',
+					'post_tag'   => 'tag1',
+					'category'   => [ 'cat1', 'cat2', 'meow' ]
+				],
+				$posts[1] => [
+					'post_title' => 'Post 2',
+					'post_tag'   => 'tag1',
+					'category'   => [ 'cat1', 'cat2', 'meow' ]
+				],
+				$posts[2] => [
+					'post_title' => 'Post 3',
+					'post_tag'   => 'tag1',
+					'category'   => [ 'cat1', 'cat2', 'meow' ]
+				],
+			],
+			$combined_pluck
+		);
+	}
 }

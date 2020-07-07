@@ -37,6 +37,85 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	}
 
 	/**
+	 * Plucks fields from the posts in the collection creating a map using a field value as key and one
+	 * or more fields as values.
+	 *
+	 * Note: the method does not make any check on the uniqueness of the fields used as keys, e.g. this will
+	 * probably not return what intended: `$collection->pluck_combine( 'post_status', 'post_title' );`.
+	 * If there's a chance of the key fields not being unique, then use `#` as key field to simply return an
+	 * array of plucked values.
+	 *
+	 * @since TBD
+	 *
+	 * @param string                            $key_field    The field to key the return map by, or `#` to use
+	 *                                                        progressive integers to key the return value. Use fields
+	 *                                                        as keys only when their uniqueness is sure.
+	 * @param string|array<string>|array<array> $value_fields Either a single field name to populate the values with;
+	 *                                                        a list of fields, each plucked with default settings;
+	 *                                                        a map of fields to fetch, each defining a `single` and
+	 *                                                        `args` key to define the pluck `$single` and `$args`
+	 *                                                        parameters where applicable.
+	 *
+	 * @return array<int|string,string|array> A list of plucked fields or a map of plucked fields keyed by the
+	 *                                        specified
+	 *                                        field.
+	 */
+	public function pluck_combine( $key_field = '#', $value_fields ) {
+		$value_fields = (array) $value_fields;
+		if ( 1 === count( $value_fields ) ) {
+			list( $single, $args ) = $this->parse_field_args( $value_fields[0] );
+			$values = $this->pluck( $value_fields[0], $single, $args );
+		} else {
+			$rows        = [];
+			$field_names = [];
+			$field_index = 0;
+			foreach ( $value_fields as $k => $field ) {
+				list( $single, $args ) = $this->parse_field_args( $field );
+				if ( is_array( $field ) ) {
+					$field                       = $k;
+					$field_names[ $field_index ] = $field;
+				}
+				$rows[ $field ] = $this->pluck( $field, $single, $args );
+				$field_index ++;
+			}
+			$values      = [];
+			$fields_list = array_replace( array_filter( $value_fields, 'is_string' ), $field_names );
+			for ( $i = 0, $count = count( $this->items ); $i < $count; $i ++ ) {
+				$values[ $i ] = array_combine( $fields_list, array_column( $rows, $i ) );
+			}
+		}
+
+		// If the key field i
+		$keys = '#' === $key_field
+			? range( 0, count( $this->items ) - 1 )
+			: $this->pluck( $key_field, true );
+
+		return array_combine( $keys, $values );
+	}
+
+	/**
+	 * Parses a single field request to extract the `$single` and `$args` parameters from it.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array<string,string|array> $field The field name or the field arguments map.
+	 *
+	 * @return array<string,array> The `$single` and `$args` parameters extracted from the field.
+	 */
+	protected function parse_field_args( $field ) {
+		$field = (array) $field;
+
+		$single = isset( $field['single'] )
+			? (bool) $field['single']
+			: true;
+		$args   = isset( $field['args'] )
+			? (array) $field['args']
+			: null;
+
+		return [ $single, $args ];
+	}
+
+	/**
 	 * Plucks a post field, a taxonomy or a custom field from the collection.
 	 *
 	 * @since TBD
@@ -54,7 +133,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 *                                    custom fields or taxonomy terms, or an array of arrays, each one a list
 	 *                                    of all the taxonomy terms or custom fields entries for each post.
 	 */
-	public function pluck( $key, $single = true, ...$args ) {
+	public function pluck( $key, $single = true, array $args = null ) {
 		$type = $this->detect_field_type( $key );
 
 		switch ( $type ) {
@@ -62,7 +141,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 				return $this->pluck_field( $key );
 				break;
 			case 'taxonomy':
-				return $this->pluck_taxonomy( $key, $single, ...$args );
+				return $this->pluck_taxonomy( $key, $single, $args );
 				break;
 			default:
 				return $this->pluck_meta( $key, $single );
@@ -116,7 +195,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 		}
 
 		// Use the first post to detect the taxonomies.
-		$this->taxonomies = get_object_taxonomies( reset($this->items), 'names' );
+		$this->taxonomies = get_object_taxonomies( reset( $this->items ), 'names' );
 	}
 
 	/**
@@ -133,6 +212,34 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 */
 	public function pluck_field( $field ) {
 		return wp_list_pluck( $this->items, $field );
+	}
+
+	/**
+	 * Plucks taxonomy terms assigned to the posts in the collection.
+	 *
+	 * Note: there is no check on the taxonomy being an existing one or not; that responsibility
+	 * is on the user code.
+	 *
+	 * @since TBD
+	 *
+	 * @param string                     $taxonomy The name of the post taxonomy to pluck terms for.
+	 * @param bool                       $single   Whether to return only the first results or all of them.
+	 * @param array<string,string|array> $args     A set of arguments as supported by the `WP_Term_Query::__construct`
+	 *                                             method.
+	 *
+	 * @return array<mixed>|array<array> Either an array of the requested results if `$single` is `true`
+	 *                                   or an array of arrays if `$single` is `false`.
+	 */
+	public function pluck_taxonomy( $taxonomy, $single = true, array $args = null ) {
+		$plucked = [];
+		$args    = null === $args ? [ 'fields' => 'names' ] : $args;
+
+		foreach ( $this as $item ) {
+			$terms     = wp_get_object_terms( $item->ID, $taxonomy, $args );
+			$plucked[] = $single ? reset( $terms ) : $terms;
+		}
+
+		return $plucked;
 	}
 
 	/**
@@ -155,37 +262,6 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 
 		foreach ( $this as $item ) {
 			$plucked[] = get_post_meta( $item->ID, $meta_key, $single );
-		}
-
-		return $plucked;
-	}
-
-	/**
-	 * Plucks taxonomy terms assigned to the posts in the collection.
-	 *
-	 * Note: there is no check on the taxonomy being an existing one or not; that responsibility
-	 * is on the user code.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $taxonomy The name of the post taxonomy to pluck terms for.
-	 * @param bool   $single   Whether to return only the first results or all of them.
-	 * @param array  $args     A set of arguments as supported by the `WP_Term_Query::__construct` method.
-	 *
-	 * @return array<mixed>|array<array> Either an array of the requested results if `$single` is `true`
-	 *                                   or an array of arrays if `$single` is `false`.
-	 */
-	public function pluck_taxonomy( $taxonomy, $single = true, array $args = [ 'fields' => 'names' ] ) {
-		$plucked = [];
-
-		if ( $single ) {
-			// Let's avoid wasting queries.
-			$args['limit'] = 1;
-		}
-
-		foreach ( $this as $item ) {
-			$terms     = wp_get_object_terms( $item->ID, $taxonomy, $args );
-			$plucked[] = $single ? reset( $terms ) : $terms;
 		}
 
 		return $plucked;
