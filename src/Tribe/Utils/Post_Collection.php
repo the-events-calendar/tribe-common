@@ -55,27 +55,28 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 *                                                        a map of fields to fetch, each defining a `single` and
 	 *                                                        `args` key to define the pluck `$single` and `$args`
 	 *                                                        parameters where applicable.
+	 *                                                        Additionally an `as` parameter can be specifed to alias
+	 *                                                        the field in the results.
 	 *
 	 * @return array<int|string,string|array> A list of plucked fields or a map of plucked fields keyed by the
 	 *                                        specified
 	 *                                        field.
 	 */
-	public function pluck_combine( $key_field = '#', $value_fields ) {
+	public function pluck_combine( $key_field = '#', $value_fields = 'post_title' ) {
 		$value_fields = (array) $value_fields;
 		if ( 1 === count( $value_fields ) ) {
-			list( $single, $args ) = $this->parse_field_args( $value_fields[0] );
+			list( $as, $single, $args ) = $this->parse_field_args( $value_fields[0] );
 			$values = $this->pluck( $value_fields[0], $single, $args );
 		} else {
 			$rows        = [];
 			$field_names = [];
 			$field_index = 0;
 			foreach ( $value_fields as $k => $field ) {
-				list( $single, $args ) = $this->parse_field_args( $field );
-				if ( is_array( $field ) ) {
-					$field                       = $k;
-					$field_names[ $field_index ] = $field;
-				}
-				$rows[ $field ] = $this->pluck( $field, $single, $args );
+				list( $as, $single, $args ) = $this->parse_field_args( $field );
+				$field                       = is_array( $field ) ? $k : $field;
+				$field_name                  = null === $as ? $field : $as;
+				$field_names[ $field_index ] = $field_name;
+				$rows[ $field_name ]         = $this->pluck( $field, $single, $args );
 				$field_index ++;
 			}
 			$values      = [];
@@ -100,11 +101,14 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 *
 	 * @param string|array<string,string|array> $field The field name or the field arguments map.
 	 *
-	 * @return array<string,array> The `$single` and `$args` parameters extracted from the field.
+	 * @return array<string,string,array> The `$as`, `$single` and `$args` parameters extracted from the field.
 	 */
 	protected function parse_field_args( $field ) {
 		$field = (array) $field;
 
+		$as     = isset( $field['as'] )
+			? (string) $field['as']
+			: null;
 		$single = isset( $field['single'] )
 			? (bool) $field['single']
 			: true;
@@ -112,7 +116,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 			? (array) $field['args']
 			: null;
 
-		return [ $single, $args ];
+		return [ $as, $single, $args ];
 	}
 
 	/**

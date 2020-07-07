@@ -140,6 +140,7 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 			array_combine( $posts, array_fill( 0, 3, 'tag1' ) ),
 			$collection->pluck_combine( 'ID', 'post_tag' )
 		);
+
 		$this->assertEquals(
 			[
 				$posts[0] => [ 'post_title' => 'Post 1', 'post_tag' => 'tag1' ],
@@ -148,10 +149,7 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 			],
 			$collection->pluck_combine( 'ID', [ 'post_title', 'post_tag' ] )
 		);
-		$combined_pluck = $collection->pluck_combine(
-			'ID',
-			[ 'post_title', 'post_tag', 'category' => [ 'single' => false, 'args' => [ 'fields' => 'names' ] ] ]
-		);
+
 		$this->assertEquals(
 			[
 				$posts[0] => [
@@ -170,7 +168,38 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 					'category'   => [ 'cat1', 'cat2', 'meow' ]
 				],
 			],
-			$combined_pluck
+			$collection->pluck_combine(
+				'ID',
+				[ 'post_title', 'post_tag', 'category' => [ 'single' => false, 'args' => [ 'fields' => 'names' ] ] ]
+			)
+		);
+
+		$this->assertEquals(
+			[
+				$posts[0] => [
+					'title' => 'Post 1',
+					'tag'   => 'tag1',
+					'category'   => [ 'cat1', 'cat2', 'meow' ]
+				],
+				$posts[1] => [
+					'title' => 'Post 2',
+					'tag'   => 'tag1',
+					'category'   => [ 'cat1', 'cat2', 'meow' ]
+				],
+				$posts[2] => [
+					'title' => 'Post 3',
+					'tag'   => 'tag1',
+					'category'   => [ 'cat1', 'cat2', 'meow' ]
+				],
+			],
+			$collection->pluck_combine(
+				'ID',
+				[
+					'post_title' => [ 'as' => 'title' ],
+					'post_tag'   => [ 'as' => 'tag' ],
+					'category'   => [ 'single' => false, 'args' => [ 'fields' => 'names' ] ]
+				]
+			)
 		);
 	}
 }
