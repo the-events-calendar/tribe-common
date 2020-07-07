@@ -6,6 +6,8 @@
 
 * Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format.
 * Tweak - Adjust verbosity level to report connection issues with Promoter [PRMTR-404]
+* Tweak - Update process to generate promoter keys [TCMN-85]
+* Tweak - Register promoter key as part of the WP Settings API [CMN-85]]
 
 = [4.12.5] 2020-06-24 =
 
