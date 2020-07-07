@@ -2,9 +2,10 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.12.6] TBD =
 
 * Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format.
+* Tweak - Adjust verbosity level to report connection issues with Promoter [PRMTR-404]
 
 = [4.12.5] 2020-06-24 =
 
