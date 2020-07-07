@@ -86,7 +86,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 			}
 		}
 
-		// If the key field i
+		// If the key field is `#` then use a progressive number as key, else use the specified field.
 		$keys = '#' === $key_field
 			? range( 0, count( $this->items ) - 1 )
 			: $this->pluck( $key_field, true );
