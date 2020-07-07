@@ -2,6 +2,26 @@
 
 == Changelog ==
 
+= [4.12.5] 2020-06-24 =
+
+* Feature - Added the `Tribe\Traits\With_Db_Lock` trait to provide methods useful to acquire and release database locks.
+* Feature - Added the `tribe_db_lock_use_msyql_functions` filter to control whether Database locks should be managed using MySQL functions (default, compatible with MySQL 5.6+) or SQL queries.
+* Tweak - Added case for manual control of field in dependency JS.
+* Tweak - Add filter `tribe_promoter_max_retries_on_failure` to set the maximum number of attempts to notify promoter of a change on the WordPress installation, default to 3.
+* Tweak - Register logs when notifications to Promoter failed and retry to notify until the limit of `tribe_promoter_max_retries_on_failure` is reached per notification.
+* Fix - Backwards compatibility for `tribe_upload_image` allow to use the function on version of WordPress before `5.2.x`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.12.4] 2020-06-22 =
+
+* Feature - Added the `Tribe\Traits\With_Meta_Updates_Handling` trait to provide methods useful in handling with meta.
+* Fix - Prevent `$legacy_hook_name` and `$hook_name` template Actions and Filters to be fired if they are the same, preventing duplicated hook calls.
+* Language - 10 new strings added, 27 updated, 1 fuzzied, and 2 obsoleted
+
+= [4.12.3.1] 2020-06-09 =
+
+* Security - Remove deprecated usage of escapeMarkup in Select2 (props to miha.jirov for reporting this).
+
 = [4.12.3] 2020-05-27 =
 
 * Fix - When using Block Editor we ensure that `apply_filters` for `the_content` on `tribe_get_the_content`, the lack of that filter prevented blocks from rendering. [TEC-3456]
