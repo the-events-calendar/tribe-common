@@ -2,6 +2,9 @@
 /**
  * Provides methods to detect whether a field is a post field, a taxonomy or a custom field in relation to a post type.
  *
+ * Note that the trait does not include a `is_a_custom_field` method as that's implied from a field not being
+ * a post field and not being a taxonomy.
+ *
  * @since   TBD
  *
  * @package Tribe\Traits
@@ -67,12 +70,13 @@ trait With_Post_Attribute_Detection {
 	 * @return bool Whether the key indicates a taxonomy of the post type or not.
 	 */
 	protected function is_a_taxonomy( $key ) {
-		if(!isset($this->taxonomies))	{
-			// If we're here, then the developer made an error: throw an excpetion to bring this up as early as possible.
-			throw new \RuntimeException('The '. __TRAIT__ . ' trait requires the user class to define a $taxonomies array parameter.');
+		if ( ! isset( $this->taxonomies ) ) {
+			// If we're here, then the developer made an error: throw an exception to bring this up as early as possible.
+			throw new \RuntimeException(
+				'The ' . __TRAIT__ . ' trait requires the user class to define a $taxonomies array parameter.'
+			);
 		}
 
 		return in_array( $key, $this->taxonomies, true );
 	}
-
 }

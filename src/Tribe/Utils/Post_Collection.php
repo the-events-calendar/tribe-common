@@ -59,8 +59,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 *                                                        the field in the results.
 	 *
 	 * @return array<int|string,string|array> A list of plucked fields or a map of plucked fields keyed by the
-	 *                                        specified
-	 *                                        field.
+	 *                                        specified field.
 	 */
 	public function pluck_combine( $key_field = '#', $value_fields = 'post_title' ) {
 		$value_fields = (array) $value_fields;
