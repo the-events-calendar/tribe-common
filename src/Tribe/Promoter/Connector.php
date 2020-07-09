@@ -203,7 +203,6 @@ class Tribe__Promoter__Connector {
 		$args = [
 			'body'      => [ 'token' => $token ],
 			'sslverify' => false,
-			'timeout'   => 30,
 		];
 
 		$this->make_call( $url, $args );
@@ -240,7 +239,7 @@ class Tribe__Promoter__Connector {
 	 *
 	 */
 	private function make_call( $url, $args ) {
-		$response = wp_remote_post( $url, $args );
+		$response = wp_remote_post( $url, wp_parse_args( $args,  [ 'timeout' => 30 ] ) );
 		$code     = wp_remote_retrieve_response_code( $response );
 		$body     = wp_remote_retrieve_body( $response );
 
