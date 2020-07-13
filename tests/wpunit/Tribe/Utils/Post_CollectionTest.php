@@ -202,4 +202,76 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 			)
 		);
 	}
+
+	/**
+	 * It should allow to pluck_combine one field w/ args
+	 *
+	 * @test
+	 */
+	public function should_allow_to_pluck_combine_one_field_w_args() {
+		$posts   = [];
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 1' ] );
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 2' ] );
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 3' ] );
+
+		$collection = new Collection( $posts );
+		$result     = $collection->pluck_combine( 'ID', [ 'post_title' => [ 'as' => 'title' ] ] );
+
+		$expected =
+			[
+				$posts[0] => [ 'title' => 'Post 1' ],
+				$posts[1] => [ 'title' => 'Post 2' ],
+				$posts[2] => [ 'title' => 'Post 3' ],
+			];
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * It should allow to alias results with flat map
+	 *
+	 * @test
+	 */
+	public function should_allow_to_alias_results_with_flat_map() {
+		$posts   = [];
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 1' ] );
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 2' ] );
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 3' ] );
+
+		$collection = new Collection( $posts );
+		$result     = $collection->pluck_combine( 'ID', [ 'post_title' => 'title' ] );
+
+		$expected =
+			[
+				$posts[0] => [ 'title' => 'Post 1' ],
+				$posts[1] => [ 'title' => 'Post 2' ],
+				$posts[2] => [ 'title' => 'Post 3' ],
+			];
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * It should allow to alias multi with a flat map
+	 *
+	 * @test
+	 */
+	public function should_allow_to_alias_multi_with_a_flat_map() {
+		$posts   = [];
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 1', 'post_status' => 'private' ] );
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 2', 'post_status' => 'draft' ] );
+		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 3', 'post_status' => 'publish' ] );
+
+		$collection = new Collection( $posts );
+		$result     = $collection->pluck_combine( 'ID', [
+			'post_title'  => 'title',
+			'post_status' => 'status',
+		] );
+
+		$expected =
+			[
+				$posts[0] => [ 'title' => 'Post 1', 'status' => 'private' ],
+				$posts[1] => [ 'title' => 'Post 2', 'status' => 'draft' ],
+				$posts[2] => [ 'title' => 'Post 3', 'status' => 'publish' ],
+			];
+		$this->assertEquals( $expected, $result );
+	}
 }
