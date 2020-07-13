@@ -34,4 +34,34 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '12F', tribe_format_currency( 12, $post_id, 'F', true ) );
 		$this->assertEquals( '12Q', tribe_format_currency( 12, $post_id, 'Q', true ) );
 	}
+
+	/**
+	 * Test tribe_asset_print_group
+	 */
+	public function test_tribe_asset_print_group() {
+		// Register a group of assets that would never be printed.
+		tribe_assets(
+			\Tribe__Main::instance(),
+			[
+				[ 'tribe-test-css', 'tests/_data/resources/test-style-1.css' ],
+				[ 'tribe-test-js', 'tests/_data/resources/test-script-1.js' ],
+			],
+			// This action cannot possibly have happened.
+			'test_test_test',
+			[
+				// This would never be queued in normal conditions.
+				'conditionals' => '__return_false',
+				'groups'       => [ 'test-group' ],
+			]
+		);
+
+		$output = tribe_asset_print_group( 'test-group', false );
+
+		$expected = <<< TAG
+<script src='http://wordpress.testtests/_data/resources/test-script-1.js?ver=4.12.5'></script>
+<link rel='stylesheet' id='tribe-test-css-css'  href='http://wordpress.testtests/_data/resources/test-style-1.css?ver=4.12.5' media='all' />
+
+TAG;
+		$this->assertEquals( $expected, $output );
+	}
 }
