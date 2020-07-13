@@ -55,34 +55,54 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 *                                                        a map of fields to fetch, each defining a `single` and
 	 *                                                        `args` key to define the pluck `$single` and `$args`
 	 *                                                        parameters where applicable.
-	 *                                                        Additionally an `as` parameter can be specifed to alias
+	 *                                                        Additionally an `as` parameter can be specified to alias
 	 *                                                        the field in the results.
+	 *                                                        If the only requirement is to alias fields, just use a
+	 *                                                        flat map like `[ <orig_key_1> => <alias_1>, ... ]`.
 	 *
 	 * @return array<int|string,string|array> A list of plucked fields or a map of plucked fields keyed by the
 	 *                                        specified field.
 	 */
 	public function pluck_combine( $key_field = '#', $value_fields = 'post_title' ) {
-		$value_fields = (array) $value_fields;
-		if ( 1 === count( $value_fields ) ) {
-			list( $as, $single, $args ) = $this->parse_field_args( $value_fields[0] );
-			$values = $this->pluck( $value_fields[0], $single, $args );
-		} else {
-			$rows        = [];
-			$field_names = [];
-			$field_index = 0;
-			foreach ( $value_fields as $k => $field ) {
+		$value_req_is_array = is_array( $value_fields );
+		$value_fields       = (array) $value_fields;
+		$rows               = [];
+		$field_names        = [];
+		$field_index        = 0;
+		foreach ( $value_fields as $k => $field ) {
+			if ( is_string( $k ) && is_string( $field ) ) {
+				$single     = true;
+				$args       = [];
+				$field_name = $field;
+				$pluck      = $k;
+			} else {
 				list( $as, $single, $args ) = $this->parse_field_args( $field );
-				$field                       = is_array( $field ) ? $k : $field;
-				$field_name                  = null === $as ? $field : $as;
-				$field_names[ $field_index ] = $field_name;
-				$rows[ $field_name ]         = $this->pluck( $field, $single, $args );
-				$field_index ++;
+				$field      = is_array( $field ) ? $k : $field;
+				$field_name = null === $as ? $field : $as;
+				$pluck      = $field;
 			}
-			$values      = [];
-			$fields_list = array_replace( array_filter( $value_fields, 'is_string' ), $field_names );
-			for ( $i = 0, $count = count( $this->items ); $i < $count; $i ++ ) {
-				$values[ $i ] = array_combine( $fields_list, array_column( $rows, $i ) );
-			}
+			$field_names[ $field_index ] = $field_name;
+			$rows[ $field_name ]         = $this->pluck( $pluck, $single, $args );
+			$field_index ++;
+		}
+		$values = [];
+
+		// Build a list with only numeric keys and string values.
+		$fields_list = array_replace(
+			array_filter(
+				array_filter( $value_fields, 'is_string' ),
+				'is_numeric',
+				ARRAY_FILTER_USE_KEY
+			),
+			$field_names
+		);
+
+		for ( $i = 0, $count = count( $this->items ); $i < $count; $i ++ ) {
+			$values[ $i ] = array_combine( $fields_list, array_column( $rows, $i ) );
+		}
+
+		if ( ! $value_req_is_array ) {
+			$values = array_column( $values, reset( $fields_list ) );
 		}
 
 		// If the key field is `#` then use a progressive number as key, else use the specified field.
