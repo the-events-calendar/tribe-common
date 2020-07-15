@@ -120,7 +120,7 @@ final class Tribe__Customizer {
 		add_action( 'wp_print_footer_scripts', array( $this, 'print_css_template' ), 15 );
 
 		// front end styles from customizer
-		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 15 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 20 );
 		add_action( 'tribe_events_pro_widget_render', array( $this, 'inline_style' ), 101 );
 
 		add_filter( "default_option_{$this->ID}", array( $this, 'maybe_fallback_get_option' ) );
@@ -441,8 +441,8 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		// add customizer styles inline with whichever stylesheet is enqueued.
-		foreach ( $sheets as $sheet ) {
+		// add customizer styles inline with the latest stylesheet that is enqueued.
+		foreach ( array_reverse( $sheets ) as $sheet ) {
 			if ( wp_style_is( $sheet ) ) {
 				wp_add_inline_style( $sheet, wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
 				$this->inline_style = true;
