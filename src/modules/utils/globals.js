@@ -32,6 +32,7 @@ export const priceSettings = () => tec().priceSettings || {};
 export const tecDateSettings = () => tec().dateSettings || {};
 export const timezoneHtml = () => tec().timezoneHTML || '';
 export const defaultTimes = () => tec().defaultTimes || {};
+export const timezone = () => tec().timeZone || {};
 
 // PRO
 export const pro = () => config().eventsPRO || {};
