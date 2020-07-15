@@ -426,6 +426,17 @@ class Tribe__Rewrite {
 		$query         = (string) parse_url( $url, PHP_URL_QUERY );
 		wp_parse_str( $query, $query_vars );
 
+		// For the purpose of matching flatten the arrays with one element.
+		$query_vars = array_combine(
+			array_keys( $query_vars ),
+			array_map( static function ( $query_var ) {
+				return is_array( $query_var ) && count( $query_var ) === 1
+					? (string) reset( $query_var )
+					: $query_var;
+			}, $query_vars )
+		);
+
+		// Casting to int will implicitly turn arrays into `1`; that is fine as it makes for a reasonable def. behavior.
 		if ( isset( $query_vars['paged'] ) && 1 === (int) $query_vars['paged'] ) {
 			// Remove the `paged` query var if it's 1.
 			unset( $query_vars['paged'] );
