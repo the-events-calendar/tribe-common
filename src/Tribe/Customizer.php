@@ -120,7 +120,7 @@ final class Tribe__Customizer {
 		add_action( 'wp_print_footer_scripts', array( $this, 'print_css_template' ), 15 );
 
 		// front end styles from customizer
-		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 20 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 15 );
 		add_action( 'tribe_events_pro_widget_render', array( $this, 'inline_style' ), 101 );
 
 		add_filter( "default_option_{$this->ID}", array( $this, 'maybe_fallback_get_option' ) );
