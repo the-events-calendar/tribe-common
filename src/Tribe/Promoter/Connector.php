@@ -238,7 +238,7 @@ class Tribe__Promoter__Connector {
 	 * @return string|false The response body or false if not successful.
 	 *
 	 */
-	private function make_call( $url, $args ) {
+	public function make_call( $url, $args ) {
 		$response = wp_remote_post( $url, wp_parse_args( $args,  [ 'timeout' => 30 ] ) );
 		$code     = wp_remote_retrieve_response_code( $response );
 		$body     = wp_remote_retrieve_body( $response );
