@@ -5,20 +5,6 @@ namespace Tribe;
 use Tribe__Customizer as Customizer;
 
 class CustomizerTest extends \Codeception\TestCase\WPTestCase {
-	public function setUp() {
-		// before
-		parent::setUp();
-
-		// your set up methods here
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
-	}
-
 	/**
 	 * It should allow getting Customizer styles
 	 *
