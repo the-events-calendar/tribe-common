@@ -61,11 +61,12 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 
 		$output = tribe_asset_print_group( 'test-group', false );
 
-		$expected = <<< TAG
-<script src='http://wordpress.test/tests/_data/resources/test-script-1.js?ver=1.0.0'></script>
-<link rel='stylesheet' id='tribe-test-css-css'  href='http://wordpress.test/tests/_data/resources/test-style-1.css?ver=1.0.0' media='all' />
+		$expected_tmpl = <<< TAG
+<script src='{{ home_url }}/tests/_data/resources/test-script-1.js?ver=1.0.0'></script>
+<link rel='stylesheet' id='tribe-test-css-css'  href='{{ home_url }}/tests/_data/resources/test-style-1.css?ver=1.0.0' media='all' />
 
 TAG;
+		$expected = str_replace( '{{ home_url }}', home_url(), $expected_tmpl );
 		$this->assertEquals( $expected, $output );
 	}
 }
