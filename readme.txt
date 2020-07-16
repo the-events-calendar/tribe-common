@@ -13,6 +13,7 @@
 * Tweak - Include Virtual Events on Help Page sidebar widget [TEC-3547]
 * Tweak - Update process to generate Promoter keys. [TCMN-85]
 * Tweak - Register Promoter key as part of the WP Settings API. [TCMN-85]
+* Tweak - Adjust level of access (protected to public) in 'Tribe__Promoter__Connector' class for external use of connector calls. [TCMN-82]
 * Fix - Correct issue with Body_Classes removing classes added by other plugins. [TEC-3537]
 * Fix - Set proper timezone on block editor when creating a new event. [TEC-3543]
 * Fix - Properly enqueue the customizer styles to allow overriding of theme styles. [TEC-3531]
