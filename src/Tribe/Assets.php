@@ -701,11 +701,11 @@ class Tribe__Assets {
 
 
 		// Make sure each script is registered.
-		foreach ($to_print as $slug => $data){
-			if($data->is_registered){
+		foreach ( $to_print as $slug => $data ){
+			if ( $data->is_registered ){
 				continue;
 			}
-			$data->type === 'js'
+			'js' === $data->type
 				? wp_register_script( $slug, $data->file, $data->deps, $data->version )
 				: wp_register_style( $slug, $data->file, $data->deps, $data->version );
 		}
