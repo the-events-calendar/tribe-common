@@ -9,6 +9,8 @@
 * Tweak - Adjust verbosity level to report connection issues with Promoter [PRMTR-404]
 * Tweak - Add the `tribe_asset_print_group` function to allow printing scripts or styles managed by the `tribe_assets` function in the page HTML. [ECP-374, ECP-376]
 * Tweak - Add the `Tribe__Customizer::get_styles_scripts` method to allow getting the Theme Customizer scripts or styles managed managed by the plugins. [ECP-374, ECP-376]
+* Tweak - Adjust verbosity level to report connection issues with Promoter. [PRMTR-404]
+* Tweak - Include Virtual Events on Help Page sidebar widget [TEC-3547]
 * Tweak - Update process to generate Promoter keys. [TCMN-85]
 * Tweak - Register Promoter key as part of the WP Settings API. [TCMN-85]
 * Fix - Set proper timezone on block editor when creating a new event. [TEC-3543]
