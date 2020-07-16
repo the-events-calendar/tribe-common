@@ -212,7 +212,7 @@ class Tribe__Promoter__Connector {
 		 *
 		 * @param int $max_attempts The maximum number of retries if the response was a failure.
 		 */
-		$max_attempts = apply_filters( 'tribe_promoter_max_retries_on_failure', 3 );
+		$max_attempts = apply_filters( 'tribe_promoter_max_retries_on_failure', 1 );
 
 		$attempts = 0;
 
@@ -228,7 +228,7 @@ class Tribe__Promoter__Connector {
 	 *
 	 * @return mixed
 	 */
-	protected function get_secret_key() {
+	public function get_secret_key() {
 		$secret_key = get_option( 'tribe_promoter_auth_key' );
 
 		/**
@@ -251,7 +251,7 @@ class Tribe__Promoter__Connector {
 	 * @return string|false The response body or false if not successful.
 	 *
 	 */
-	private function make_call( $url, $args ) {
+	public function make_call( $url, $args ) {
 		$response = wp_remote_post( $url, $args );
 		$code     = wp_remote_retrieve_response_code( $response );
 		$body     = wp_remote_retrieve_body( $response );
