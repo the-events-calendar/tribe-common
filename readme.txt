@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.12.7] TBD =
+
+* Tweak - Adjust level of access (protected to public) in 'Tribe__Promoter__Connector' class for external use of connector calls. [TCMN-82]
+
 = [4.12.6] TBD =
 
 * Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format. [TEC-3548]
