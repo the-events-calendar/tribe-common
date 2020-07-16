@@ -102,7 +102,7 @@ class Body_Classes {
 	 */
 	public function class_is_enqueued( $class, $queue = 'display' ) {
 		$classes = $this->get_classes( $queue );
-		if ( ! $this->class_exists( $class ) ) {
+		if ( ! $this->class_exists( $class, $queue ) ) {
 			return false;
 		}
 
@@ -119,7 +119,7 @@ class Body_Classes {
 	 * @return boolean
 	 */
 	public function dequeue_class( $class, $queue = 'display' ) {
-		if ( ! $this->class_exists( $class ) ) {
+		if ( ! $this->class_exists( $class, $queue ) ) {
 			return false;
 		}
 
@@ -145,7 +145,7 @@ class Body_Classes {
 	 * @return false
 	 */
 	public function enqueue_class( $class, $queue = 'display' ) {
-		if ( ! $this->class_exists( $class ) ) {
+		if ( ! $this->class_exists( $class, $queue ) ) {
 			return false;
 		}
 
@@ -264,7 +264,7 @@ class Body_Classes {
 	 * @since TBD
 	 *
 	 * @param array<string> $classes An array of body class names.
-	 * @return void
+	 * @return array Array of body classes.
 	 */
 	public function add_body_classes( $classes = [] ) {
 		// Make sure they should be added.
@@ -282,20 +282,21 @@ class Body_Classes {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string> $classes An array of body class names.
+	 * @param string $classes The existing body class names.
 	 *
-	 * @return array|false Current list of admin body classes if added, otherwise false.
+	 * @return string String of admin body classes.
 	 */
 	public function add_admin_body_classes( $classes ) {
-		$classes = explode( ' ', $classes );
+		$existing_classes = explode( ' ', $classes );
 		// Make sure they should be added.
-		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), (array) $classes, 'admin' ) ) {
-			return false;
+		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), (array) $existing_classes, 'admin' ) ) {
+			// Ensure we return the current string on false!
+			return $classes;
 		}
 
 		$element_classes = new Element_Classes( $this->get_class_names( 'admin' ) );
 
-		return implode( ' ', array_merge( $classes, $element_classes->get_classes() ) );
+		return implode( ' ', array_merge( $existing_classes, $element_classes->get_classes() ) );
 
 	}
 
