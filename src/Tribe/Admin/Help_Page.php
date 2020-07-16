@@ -243,12 +243,20 @@ class Tribe__Admin__Help_Page {
 		);
 
 		$addons['events-filter-bar'] = array(
-			'id'        => 'events-filter-bar',
-			'title'     => esc_html__( 'Filter Bar', 'tribe-common' ),
-			'link'      => 'http://m.tri.be/hu',
-			'plugin'    => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'Tribe__Events__Filterbar__View' ),
+				'id'        => 'events-filter-bar',
+				'title'     => esc_html__( 'Filter Bar', 'tribe-common' ),
+				'link'      => 'http://m.tri.be/hu',
+				'plugin'    => array( 'the-events-calendar' ),
+				'is_active' => class_exists( 'Tribe__Events__Filterbar__View' ),
 		);
+
+		$addons['events-virtual'] = [
+				'id'        => 'events-virtual',
+				'title'     => esc_html__( 'Virtual Events', 'tribe-common' ),
+				'link'      => 'http://m.tri.be/1alb',
+				'plugin'    => [ 'the-events-calendar' ],
+				'is_active' => class_exists( '\Tribe\Events\Virtual\Plugin' ),
+		];
 
 		$addons['event-tickets-plus'] = array(
 			'id'        => 'event-tickets-plus',
