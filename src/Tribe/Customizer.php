@@ -357,7 +357,7 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer on `wp_print_footer_scripts`
 	 *
-	 * @since TBD Moved the template building code to the `get_css_template` method.
+	 * @since TBD Moved the template building code to the `get_styles_scripts` method.
 	 *
 	 * @return void
 	 */
@@ -368,7 +368,7 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		echo $this->get_css_template();
+		echo $this->get_styles_scripts();
 	}
 
 	/**
@@ -710,7 +710,7 @@ final class Tribe__Customizer {
 	 *
 	 * @return string The CSS template contents.
 	 */
-	public function get_css_template() {
+	public function get_styles_scripts() {
 		/**
 		 * Use this filter to add more CSS, using Underscore Template style.
 		 *
