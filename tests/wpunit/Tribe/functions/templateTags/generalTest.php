@@ -39,12 +39,16 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 	 * Test tribe_asset_print_group
 	 */
 	public function test_tribe_asset_print_group() {
+		// Ensure teh version will stay fixed.
+		add_filter( 'tribe_asset_version', static function () {
+			return '1.0.0';
+		} );
 		// Register a group of assets that would never be printed.
 		tribe_assets(
 			\Tribe__Main::instance(),
 			[
-				[ 'tribe-test-css', 'tests/_data/resources/test-style-1.css' ],
-				[ 'tribe-test-js', 'tests/_data/resources/test-script-1.js' ],
+				[ 'tribe-test-css', '/tests/_data/resources/test-style-1.css' ],
+				[ 'tribe-test-js', '/tests/_data/resources/test-script-1.js' ],
 			],
 			// This action cannot possibly have happened.
 			'test_test_test',
@@ -58,8 +62,8 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 		$output = tribe_asset_print_group( 'test-group', false );
 
 		$expected = <<< TAG
-<script src='http://wordpress.testtests/_data/resources/test-script-1.js?ver=4.12.5'></script>
-<link rel='stylesheet' id='tribe-test-css-css'  href='http://wordpress.testtests/_data/resources/test-style-1.css?ver=4.12.5' media='all' />
+<script src='http://wordpress.test/tests/_data/resources/test-script-1.js?ver=1.0.0'></script>
+<link rel='stylesheet' id='tribe-test-css-css'  href='http://wordpress.test/tests/_data/resources/test-style-1.css?ver=1.0.0' media='all' />
 
 TAG;
 		$this->assertEquals( $expected, $output );
