@@ -7,7 +7,8 @@
 * Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format. [TEC-3548]
 * Feature - Added the `pluck`, `pluck_field`, `pluck_taxonomy` and `pluck_combine` methods to the `Tribe__Utils__Post_Collection` class to allow  more flexible result handling when dealing with ORM result sets. [TEC-3548]
 * Tweak - Adjust verbosity level to report connection issues with Promoter [PRMTR-404]
-* Tweak - Add the `tribe_asset_print_group` function to allow printing scripts or styles managed by the `tribe_assets` function in the page HTML.
+* Tweak - Add the `tribe_asset_print_group` function to allow printing scripts or styles managed by the `tribe_assets` function in the page HTML. [ECP-374, ECP-376]
+* Tweak - Add the `Tribe__Customizer::get_styles_scripts` method to allow getting the Theme Customizer scripts or styles managed managed by the plugins. [ECP-374, ECP-376]
 * Tweak - Update process to generate Promoter keys. [TCMN-85]
 * Tweak - Register Promoter key as part of the WP Settings API. [TCMN-85]
 * Fix - Set proper timezone on block editor when creating a new event. [TEC-3543]
