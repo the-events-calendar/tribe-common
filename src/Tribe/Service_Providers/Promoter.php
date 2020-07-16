@@ -27,12 +27,16 @@ class Tribe__Service_Providers__Promoter extends tad_DI52_ServiceProvider {
 		add_action( 'template_redirect', tribe_callback( 'promoter.view', 'display_auth_check_view' ), 10, 0 );
 		add_action( 'init', tribe_callback( 'promoter.view', 'add_rewrites' ) );
 
-		tribe( 'promoter.pue' );
+		/** @var Tribe__Promoter__PUE $pue */
+		$pue = tribe( 'promoter.pue' );
 
-		add_filter(
-			'tribe_promoter_secret_key',
-			tribe_callback( 'promoter.auth', 'filter_promoter_secret_key' )
-		);
+		// Only add the setting if a promoter key is present.
+		if ( $pue->has_license_key() ) {
+			add_action(
+				'init',
+				tribe_callback( 'promoter.auth', 'register_setting' )
+			);
+		}
 
 		// The usage of a high priority so we can push the icon to the end
 		add_action( 'admin_bar_menu', array( $this, 'add_promoter_logo_on_admin_bar' ), 1000 );
