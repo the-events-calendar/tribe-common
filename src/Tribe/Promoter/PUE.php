@@ -71,9 +71,7 @@ class Tribe__Promoter__PUE {
 	 * @since 4.9
 	 */
 	public function has_license_key() {
-		$license_info = $this->get_license_info();
-
-		return ! empty( $license_info );
+		return ! empty(  $this->get_license_info() );
 	}
 
 	/**

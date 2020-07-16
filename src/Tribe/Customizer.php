@@ -11,19 +11,14 @@ defined( 'WPINC' ) or die;
  */
 final class Tribe__Customizer {
 	/**
- 	 * Static Singleton Holder
-	 *
-	 * @var self
-	 */
-	protected static $instance;
-
-	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return self
+	 *
+	 * @deprecated since TBD, use `tribe( 'customizer' )` instead.
 	 */
 	public static function instance() {
-		return self::$instance ? self::$instance : self::$instance = new self;
+		return tribe( 'customizer' );
 	}
 
 	/**
@@ -99,7 +94,7 @@ final class Tribe__Customizer {
 	 *
 	 * @return void
 	 */
-	private function __construct() {
+	public function __construct() {
 		if ( ! $this->is_active() ) {
 			return;
 		}
@@ -122,6 +117,7 @@ final class Tribe__Customizer {
 		// front end styles from customizer
 		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 15 );
 		add_action( 'tribe_events_pro_widget_render', array( $this, 'inline_style' ), 101 );
+		add_action( 'wp_print_footer_scripts', array( $this, 'inline_style' ), 5 );
 
 		add_filter( "default_option_{$this->ID}", array( $this, 'maybe_fallback_get_option' ) );
 	}
@@ -361,6 +357,8 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer on `wp_print_footer_scripts`
 	 *
+	 * @since TBD Moved the template building code to the `get_styles_scripts` method.
+	 *
 	 * @return void
 	 */
 	public function print_css_template() {
@@ -370,32 +368,7 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		/**
-		 * Use this filter to add more CSS, using Underscore Template style
-		 *
-		 * @since 4.4
-		 *
-		 * @link  http://underscorejs.org/#template
-		 *
-		 * @param string $template
-		 */
-		$css_template = trim( apply_filters( 'tribe_customizer_css_template', '' ) );
-
-		// If we don't have anything on the customizer don't print empty styles
-		// On Customize Page, we don't care we need this
-		if ( ! is_customize_preview() && empty( $css_template ) ) {
-			return false;
-		}
-
-		// All sections should use this action to print their template
-		echo '<script type="text/css" id="' . esc_attr( 'tmpl-' . $this->ID . '_css' ) . '">';
-		echo $css_template;
-		echo '</script>';
-
-		// Place where the template will be rendered to
-		echo '<style type="text/css" id="' . esc_attr( $this->ID . '_css' ) . '">';
-		echo $this->parse_css_template( $css_template );
-		echo '</style>';
+		echo $this->get_styles_scripts();
 	}
 
 	/**
@@ -441,8 +414,8 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		// add customizer styles inline with whichever stylesheet is enqueued.
-		foreach ( $sheets as $sheet ) {
+		// add customizer styles inline with the latest stylesheet that is enqueued.
+		foreach ( array_reverse( $sheets ) as $sheet ) {
 			if ( wp_style_is( $sheet ) ) {
 				wp_add_inline_style( $sheet, wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
 				$this->inline_style = true;
@@ -725,5 +698,45 @@ final class Tribe__Customizer {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Builds and returns the Customizer CSS template contents.
+	 *
+	 * The method DOES NOT check if the current context is the one where the Customizer template should
+	 * be printed or not; that care is left to the code calling this method.
+	 *
+	 * @since TBD Extracted this method from the `print_css_template` one.
+	 *
+	 * @return string The CSS template contents.
+	 */
+	public function get_styles_scripts() {
+		/**
+		 * Use this filter to add more CSS, using Underscore Template style.
+		 *
+		 * @since 4.4
+		 *
+		 * @param string $template The Customizer template.
+		 *
+		 * @link  http://underscorejs.org/#template
+		 */
+		$css_template = trim( apply_filters( 'tribe_customizer_css_template', '' ) );
+
+		// If we don't have anything on the Customizer, then don't print empty styles.
+		if ( empty( $css_template ) ) {
+			return '';
+		}
+
+		// Prepare the customizer scripts.
+		$result = '<script type="text/css" id="' . esc_attr( 'tmpl-' . $this->ID . '_css' ) . '">';
+		$result .= $css_template;
+		$result .= '</script>';
+
+		// Prepare the customizer styles.
+		$result .= '<style type="text/css" id="' . esc_attr( $this->ID . '_css' ) . '">';
+		$result .= $this->parse_css_template( $css_template );
+		$result .= '</style>';
+
+		return $result;
 	}
 }
