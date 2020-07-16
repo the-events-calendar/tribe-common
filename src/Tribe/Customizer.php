@@ -441,8 +441,8 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		// add customizer styles inline with whichever stylesheet is enqueued.
-		foreach ( $sheets as $sheet ) {
+		// add customizer styles inline with the latest stylesheet that is enqueued.
+		foreach ( array_reverse( $sheets ) as $sheet ) {
 			if ( wp_style_is( $sheet ) ) {
 				wp_add_inline_style( $sheet, wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
 				$this->inline_style = true;
