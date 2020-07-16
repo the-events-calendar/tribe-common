@@ -11,19 +11,14 @@ defined( 'WPINC' ) or die;
  */
 final class Tribe__Customizer {
 	/**
- 	 * Static Singleton Holder
-	 *
-	 * @var self
-	 */
-	protected static $instance;
-
-	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return self
+	 *
+	 * @deprecated since TBD, use `tribe( 'customizer' )` instead.
 	 */
 	public static function instance() {
-		return self::$instance ? self::$instance : self::$instance = new self;
+		return tribe( 'customizer' );
 	}
 
 	/**
@@ -99,7 +94,7 @@ final class Tribe__Customizer {
 	 *
 	 * @return void
 	 */
-	private function __construct() {
+	public function __construct() {
 		if ( ! $this->is_active() ) {
 			return;
 		}
