@@ -382,9 +382,9 @@ final class Tribe__Customizer {
 		 *
 		 * @since TBD
 		 *
-		 * @param boolean $should_print
+		 * @param boolean $should_print Whether the inline styles should be printed on screen.
 		 */
-		$should_print = apply_filters( 'tribe_customizer_shortcode_should_print', false );
+		$should_print = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
 
 		if ( empty( $should_print ) ) {
 			return;
