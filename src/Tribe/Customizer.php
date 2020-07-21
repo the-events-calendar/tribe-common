@@ -117,7 +117,7 @@ final class Tribe__Customizer {
 		// front end styles from customizer
 		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 15 );
 		add_action( 'tribe_events_pro_widget_render', array( $this, 'inline_style' ), 101 );
-		add_action( 'wp_print_footer_scripts', array( $this, 'inline_style' ), 5 );
+		add_action( 'wp_print_footer_scripts', array( $this, 'shortcode_inline_style' ), 5 );
 
 		add_filter( "default_option_{$this->ID}", array( $this, 'maybe_fallback_get_option' ) );
 	}
@@ -369,6 +369,28 @@ final class Tribe__Customizer {
 		}
 
 		echo $this->get_styles_scripts();
+	}
+
+	/**
+	 * Print the CSS for the customizer for shortcodes.
+	 *
+	 * @return void
+	 */
+	public function shortcode_inline_style() {
+		/**
+		 * Whether customizer styles should print for shortcodes or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $should_print
+		 */
+		$should_print = apply_filters( 'tribe_customizer_shortcode_should_print', false );
+
+		if ( empty( $should_print ) ) {
+			return;
+		}
+
+		$this->inline_style();
 	}
 
 	/**
