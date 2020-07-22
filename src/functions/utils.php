@@ -649,7 +649,7 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 		if (
 			! empty( $args['callback'] )
 			&& is_callable( $args['callback'] )
-			&& empty( $args['permission_callback'] )
+			&& ! isset( $args['permission_callback'] )
 		) {
 			$args['permission_callback'] = '__return_true';
 		}
