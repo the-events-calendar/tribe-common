@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.6] TBD =
+= [4.12.6] 2020-07-27 =
 
 * Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format. [TEC-3548]
 * Feature - Added the `pluck`, `pluck_field`, `pluck_taxonomy` and `pluck_combine` methods to the `Tribe__Utils__Post_Collection` class to allow  more flexible result handling when dealing with ORM result sets. [TEC-3548]
