@@ -19,6 +19,7 @@
 * Fix - Set proper timezone on block editor when creating a new event. [TEC-3543]
 * Fix - Properly enqueue the customizer styles to allow overriding of theme styles. [TEC-3531]
 * Fix - Allow customizer styles to be applied on shortcode events views via the use of the filter `tribe_customizer_shortcode_should_print`. [ECP-450]
+* Language = 1 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.5] 2020-06-24 =
 
