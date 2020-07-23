@@ -679,7 +679,7 @@ class Tribe__Assets {
 	 *
 	 * The method will force the scripts and styles to print overriding their registration and conditional.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string|array $group Which group(s) should be enqueued.
 	 * @param bool         $echo  Whether to print the group(s) tag(s) to the page or not; default to `true` to

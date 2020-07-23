@@ -15,7 +15,7 @@ final class Tribe__Customizer {
 	 *
 	 * @return self
 	 *
-	 * @deprecated since TBD, use `tribe( 'customizer' )` instead.
+	 * @deprecated since 4.12.6, use `tribe( 'customizer' )` instead.
 	 */
 	public static function instance() {
 		return tribe( 'customizer' );
@@ -357,7 +357,7 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer on `wp_print_footer_scripts`
 	 *
-	 * @since TBD Moved the template building code to the `get_styles_scripts` method.
+	 * @since 4.12.6 Moved the template building code to the `get_styles_scripts` method.
 	 *
 	 * @return void
 	 */
@@ -380,7 +380,7 @@ final class Tribe__Customizer {
 		/**
 		 * Whether customizer styles should print for shortcodes or not.
 		 *
-		 * @since TBD
+		 * @since 4.12.6
 		 *
 		 * @param boolean $should_print Whether the inline styles should be printed on screen.
 		 */
@@ -728,7 +728,7 @@ final class Tribe__Customizer {
 	 * The method DOES NOT check if the current context is the one where the Customizer template should
 	 * be printed or not; that care is left to the code calling this method.
 	 *
-	 * @since TBD Extracted this method from the `print_css_template` one.
+	 * @since 4.12.6 Extracted this method from the `print_css_template` one.
 	 *
 	 * @return string The CSS template contents.
 	 */

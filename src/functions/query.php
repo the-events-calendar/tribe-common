@@ -63,7 +63,7 @@ if ( ! function_exists( 'tribe_normalize_orderby' ) ) {
 	 * Note the function and the variables use the "orderby" (no spaces) name to stick
 	 * with the WordPress query standard.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string|array<string,string> $orderby Either an `orderby` key, a list of `orderby`
 	 *                                             keys or a map of `orderby` clauses.

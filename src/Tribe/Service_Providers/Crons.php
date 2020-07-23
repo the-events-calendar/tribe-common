@@ -2,7 +2,7 @@
 /**
  * Handles common cron functions.
  *
- * @since   TBD
+ * @since   4.12.6
  *
  * @package Tribe\Service_Providers
  */
@@ -14,7 +14,7 @@ use Tribe\DB_Lock;
 /**
  * Class Crons
  *
- * @since   TBD
+ * @since   4.12.6
  *
  * @package Tribe\Service_Providers
  */
@@ -23,7 +23,7 @@ class Crons extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the filters required by the provider to manage cron processes.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 */
 	public function register() {
 		// Schedule a cron event happening once a day.

@@ -18,7 +18,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	/**
 	 * A list of the taxonomies supported by the post types in the collection.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @var array<string>
 	 */
@@ -45,7 +45,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * If there's a chance of the key fields not being unique, then use `#` as key field to simply return an
 	 * array of plucked values.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string                            $key_field    The field to key the return map by, or `#` to use
 	 *                                                        progressive integers to key the return value. Use fields
@@ -116,7 +116,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	/**
 	 * Parses a single field request to extract the `$single` and `$args` parameters from it.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string|array<string,string|array> $field The field name or the field arguments map.
 	 *
@@ -141,7 +141,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	/**
 	 * Plucks a post field, a taxonomy or a custom field from the collection.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $key      The name of the field to pluck; the method will try to detect the type of field
 	 *                         from its name. If any issues might arise due to fields of different types with the
@@ -175,7 +175,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	/**
 	 * Detects the type of a post field from its name.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $key The name of the field to check.
 	 *
@@ -202,7 +202,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * Note the collection will use the first post in the collection to fill the taxonomies array,
 	 * this assumes the collection is homogeneous in its post types.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 */
 	protected function init_taxonomies() {
 		if ( ! empty( $this->taxonomies ) ) {
@@ -227,7 +227,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * Note: there is no check on the name of the plucked post field: if a non-existing post field is requested, then
 	 * the method will return an empty array.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $field The name of the post field to pluck.
 	 *
@@ -243,7 +243,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * Note: there is no check on the taxonomy being an existing one or not; that responsibility
 	 * is on the user code.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string                     $taxonomy The name of the post taxonomy to pluck terms for.
 	 * @param bool                       $single   Whether to return only the first results or all of them.
