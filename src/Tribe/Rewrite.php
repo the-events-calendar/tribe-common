@@ -426,8 +426,10 @@ class Tribe__Rewrite {
 		$query         = (string) parse_url( $url, PHP_URL_QUERY );
 		wp_parse_str( $query, $query_vars );
 
-		// Drop any query var that is not a scalar; it should not be handled.
-		$query_vars = array_filter( $query_vars, 'is_scalar' );
+		// Non-scalar value query vars should not be handled, but they should survive the resolution and not be cached.
+		$scalar_query_vars = array_filter( $query_vars, 'is_scalar' );
+		$passthru_vars     = array_diff_key( $query_vars, $scalar_query_vars );
+		$query_vars        = array_intersect_key( $query_vars, $scalar_query_vars );
 
 		if ( isset( $query_vars['paged'] ) && 1 === (int) $query_vars['paged'] ) {
 			// Remove the `paged` query var if it's 1.
@@ -587,6 +589,11 @@ class Tribe__Rewrite {
 		if ( $found ) {
 			// Since we're caching let's not cache unmatched rules to allow for their later, valid resolution.
 			$this->canonical_url_cache[ $url ] = $resolved;
+		}
+
+		if ( count( $passthru_vars ) ) {
+			// If there are pass-through query vars, then re-apply them to the clean URL after it's been cached.
+			$resolved = add_query_arg( $passthru_vars, $resolved );
 		}
 
 		return $resolved;
