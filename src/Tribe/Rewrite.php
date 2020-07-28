@@ -412,6 +412,17 @@ class Tribe__Rewrite {
 			return $home_url;
 		}
 
+		// Passthru vars are additional salts for the cache that would render it useless: parse them here.
+		$query = (string) parse_url( $url, PHP_URL_QUERY );
+		wp_parse_str( $query, $query_vars );
+		// Non-scalar value query vars should not be handled, but they should survive the resolution and not be cached.
+		$scalar_query_vars = array_filter( $query_vars, 'is_scalar' );
+		$passthru_vars     = array_diff_key( $query_vars, $scalar_query_vars );
+		// Remove the passthru query vars from the URL to match the correct cache.
+		$url = remove_query_arg( array_keys( $passthru_vars ), $url );
+		// Normalize the URL to make sure there's a trailing slash at the end of the path, before the query or fragment.
+		$url = preg_replace( '~(?<!/)([?#])~', '/$1', $url );
+
 		if ( ! $force ) {
 			$this->warmup_cache(
 				'canonical_url',
@@ -419,17 +430,12 @@ class Tribe__Rewrite {
 				Listener::TRIGGER_GENERATE_REWRITE_RULES
 			);
 			if ( isset( $this->canonical_url_cache[ $url ] ) ) {
-				return $this->canonical_url_cache[ $url ];
+				// Re-apply passthru vars now, if any.
+				return add_query_arg( $passthru_vars, $this->canonical_url_cache[ $url ] );
 			}
 		}
 
-		$query         = (string) parse_url( $url, PHP_URL_QUERY );
-		wp_parse_str( $query, $query_vars );
-
-		// Non-scalar value query vars should not be handled, but they should survive the resolution and not be cached.
-		$scalar_query_vars = array_filter( $query_vars, 'is_scalar' );
-		$passthru_vars     = array_diff_key( $query_vars, $scalar_query_vars );
-		$query_vars        = array_intersect_key( $query_vars, $scalar_query_vars );
+		$query_vars = array_intersect_key( $query_vars, $scalar_query_vars );
 
 		if ( isset( $query_vars['paged'] ) && 1 === (int) $query_vars['paged'] ) {
 			// Remove the `paged` query var if it's 1.
@@ -591,10 +597,8 @@ class Tribe__Rewrite {
 			$this->canonical_url_cache[ $url ] = $resolved;
 		}
 
-		if ( count( $passthru_vars ) ) {
-			// If there are pass-through query vars, then re-apply them to the clean URL after it's been cached.
-			$resolved = add_query_arg( $passthru_vars, $resolved );
-		}
+		// Re-apply passthru vars now, if any. After the caching to allow salting the cache key too much.
+		$resolved = add_query_arg( $passthru_vars, $resolved );
 
 		return $resolved;
 	}
