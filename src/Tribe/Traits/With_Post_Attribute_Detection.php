@@ -5,7 +5,7 @@
  * Note that the trait does not include a `is_a_custom_field` method as that's implied from a field not being
  * a post field and not being a taxonomy.
  *
- * @since   TBD
+ * @since   4.12.6
  *
  * @package Tribe\Traits
  */
@@ -15,7 +15,7 @@ namespace Tribe\Traits;
 /**
  * Trait With_Post_Attribute_Detection
  *
- * @since   TBD
+ * @since   4.12.6
  *
  * @package Tribe\Traits
  */
@@ -25,7 +25,7 @@ trait With_Post_Attribute_Detection {
 	 * Whether the key is a field of the posts table or not.
 	 *
 	 * @since 4.7.19 Created in the `Tribe__Repository` class.
-	 * @since TBD Refactored out of the `Tribe__Repository` class into this trait.
+	 * @since 4.12.6 Refactored out of the `Tribe__Repository` class into this trait.
 	 *
 	 * @param string $key The field to check.
 	 *
@@ -63,7 +63,7 @@ trait With_Post_Attribute_Detection {
 	 * Whether the current key identifies one of the supported taxonomies or not.
 	 *
 	 * @since 4.7.19 Created in the `Tribe__Repository` class.
-	 * @since TBD Refactored out of the `Tribe__Repository` class into this trait.
+	 * @since 4.12.6 Refactored out of the `Tribe__Repository` class into this trait.
 	 *
 	 * @param string $key The field to check.
 	 *

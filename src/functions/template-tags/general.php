@@ -784,7 +784,7 @@ if ( ! function_exists( 'tribe_asset_print_group' ) ) {
 	/**
 	 * Prints the `script` (JS) and `link` (CSS) HTML tags associated with one or more assets groups.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string|array $group Which group(s) should be enqueued.
 	 * @param bool         $echo  Whether to print the group(s) tag(s) to the page or not; default to `true` to

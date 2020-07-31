@@ -15,7 +15,7 @@ final class Tribe__Customizer {
 	 *
 	 * @return self
 	 *
-	 * @deprecated since TBD, use `tribe( 'customizer' )` instead.
+	 * @deprecated since 4.12.6, use `tribe( 'customizer' )` instead.
 	 */
 	public static function instance() {
 		return tribe( 'customizer' );
@@ -117,7 +117,7 @@ final class Tribe__Customizer {
 		// front end styles from customizer
 		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 15 );
 		add_action( 'tribe_events_pro_widget_render', array( $this, 'inline_style' ), 101 );
-		add_action( 'wp_print_footer_scripts', array( $this, 'inline_style' ), 5 );
+		add_action( 'wp_print_footer_scripts', array( $this, 'shortcode_inline_style' ), 5 );
 
 		add_filter( "default_option_{$this->ID}", array( $this, 'maybe_fallback_get_option' ) );
 	}
@@ -357,7 +357,7 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer on `wp_print_footer_scripts`
 	 *
-	 * @since TBD Moved the template building code to the `get_styles_scripts` method.
+	 * @since 4.12.6 Moved the template building code to the `get_styles_scripts` method.
 	 *
 	 * @return void
 	 */
@@ -369,6 +369,28 @@ final class Tribe__Customizer {
 		}
 
 		echo $this->get_styles_scripts();
+	}
+
+	/**
+	 * Print the CSS for the customizer for shortcodes.
+	 *
+	 * @return void
+	 */
+	public function shortcode_inline_style() {
+		/**
+		 * Whether customizer styles should print for shortcodes or not.
+		 *
+		 * @since 4.12.6
+		 *
+		 * @param boolean $should_print Whether the inline styles should be printed on screen.
+		 */
+		$should_print = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
+
+		if ( empty( $should_print ) ) {
+			return;
+		}
+
+		$this->inline_style();
 	}
 
 	/**
@@ -706,7 +728,7 @@ final class Tribe__Customizer {
 	 * The method DOES NOT check if the current context is the one where the Customizer template should
 	 * be printed or not; that care is left to the code calling this method.
 	 *
-	 * @since TBD Extracted this method from the `print_css_template` one.
+	 * @since 4.12.6 Extracted this method from the `print_css_template` one.
 	 *
 	 * @return string The CSS template contents.
 	 */

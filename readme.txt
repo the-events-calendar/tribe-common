@@ -2,11 +2,12 @@
 
 == Changelog ==
 
-= [4.12.6] TBD =
+= [4.12.6] 2020-07-27 =
 
 * Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format. [TEC-3548]
 * Feature - Added the `pluck`, `pluck_field`, `pluck_taxonomy` and `pluck_combine` methods to the `Tribe__Utils__Post_Collection` class to allow  more flexible result handling when dealing with ORM result sets. [TEC-3548]
 * Tweak - Adjust verbosity level to report connection issues with Promoter [PRMTR-404]
+* Tweak - Modify default parameters on `tribe_register_rest_route` for `permission_callback` to prevent notices on WordPress 5.5.
 * Tweak - Add the `tribe_asset_print_group` function to allow printing scripts or styles managed by the `tribe_assets` function in the page HTML. [ECP-374, ECP-376]
 * Tweak - Add the `Tribe__Customizer::get_styles_scripts` method to allow getting the Theme Customizer scripts or styles managed managed by the plugins. [ECP-374, ECP-376]
 * Tweak - Adjust verbosity level to report connection issues with Promoter. [PRMTR-404]
@@ -17,7 +18,8 @@
 * Fix - Correct issue with Body_Classes removing classes added by other plugins. [TEC-3537]
 * Fix - Set proper timezone on block editor when creating a new event. [TEC-3543]
 * Fix - Properly enqueue the customizer styles to allow overriding of theme styles. [TEC-3531]
-* Fix - Allow customizer styles to be applied on shortcode events views. [ECP-450]
+* Fix - Allow customizer styles to be applied on shortcode events views via the use of the filter `tribe_customizer_shortcode_should_print`. [ECP-450]
+* Language = 1 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.5] 2020-06-24 =
 

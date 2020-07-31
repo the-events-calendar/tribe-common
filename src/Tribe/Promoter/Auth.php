@@ -27,7 +27,7 @@ class Tribe__Promoter__Auth {
 	/**
 	 * Register the promoter auth key as part of the settings in order to make it available into the REST API.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @return void
 	 */
@@ -55,7 +55,7 @@ class Tribe__Promoter__Auth {
 	 */
 	public function filter_promoter_secret_key( $secret_key ) {
 
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '4.12.6' );
 
 		return empty( $secret_key ) ? $this->generate_secret_key() : $secret_key;
 	}

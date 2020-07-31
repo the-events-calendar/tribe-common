@@ -2,7 +2,7 @@
 /**
  * Provides methods useful to deal with meta updates.
  *
- * @since   TBD
+ * @since   4.12.6
  *
  * @package Tribe\Traits
  */
@@ -12,7 +12,7 @@ namespace Tribe\Traits;
 /**
  * Trait With_Meta_Updates_Handling
  *
- * @since   TBD
+ * @since   4.12.6
  *
  * @package Tribe\Traits
  */
@@ -26,7 +26,7 @@ trait With_Meta_Updates_Handling {
 	 * This is the case, as an example, with Event Organizers, where we want a meta entry for each Organizer, not an
 	 * array of Organizer IDs in a single meta.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string   $target_meta_key The meta key that should be "unpacked" for updates.
 	 * @param int|null $target_post_id  The specific post ID to target, or null to target the next update.
