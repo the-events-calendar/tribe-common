@@ -8,6 +8,11 @@
 
 namespace Tribe\Utils;
 class Links {
+	/**
+	 * Contains the local host.
+	 *
+	 * @var string
+	 */
 	public $local_host;
 
 	/**
@@ -22,6 +27,26 @@ class Links {
 	}
 
 	/**
+	 * Normalize the url.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	public function normalize( $url ) {
+		// strip off "www";
+		$url = preg_replace('/^www\./', '', $url );
+
+		return $url;
+
+	}
+
+	public function __return_blank() {
+		return '__blank';
+	}
+
+	/**
 	 * Get the link host.
 	 *
 	 * @since TBD
@@ -32,7 +57,9 @@ class Links {
 	 */
 	public function get_link_host( $url ) {
 		$url_components   = wp_parse_url( $url );
-
+		if ( empty( $url_components['host'] ) ) {
+			$url_components['host'] = '';
+		}
 		return strtolower( $url_components['host'] );
 	}
 
@@ -46,6 +73,10 @@ class Links {
 	 * @return boolean
 	 */
 	public function is_relative_url( $url ) {
+		if ( empty( $url ) ) {
+			return false;
+		}
+
 		$url_host = trim( $this->get_link_host( $url ) );
 
 		return empty( $url_host );
@@ -61,7 +92,11 @@ class Links {
 	 * @return boolean
 	 */
 	public function is_local_subdomain( $url ) {
-		return (bool) strrpos( $this->get_link_host( $url ), '.' . $this->local_host );
+		// Prevent issue with "www" and such.
+		$normalized_url   = $this->normalize( $url );
+		$normalized_local = $this->normalize( $this->get_link_host( $this->local_host ) );
+
+		return (bool) strrpos( $normalized_url, $normalized_local );
 	}
 
 	/**
@@ -74,11 +109,12 @@ class Links {
 	 * @return boolean
 	 */
 	public function is_local_link( $url ) {
-		$url_host = $this->get_link_host( $url );
+		$url_host     = $this->normalize( $this->get_link_host( $url ) );
+		$local_hosted = $this->normalize( $this->get_link_host( $this->local_host ) );
 
-		return 0 === strcasecmp( $url_host, $this->local_host )
-				|| $this->is_relative_url( $url )
-				|| $this->is_local_subdomain( $url );
+		return $this->is_relative_url( $url )
+				|| $this->is_local_subdomain( $url )
+				|| 0 === strcasecmp( $url_host, $local_hosted );
 	}
 
 	/**
@@ -101,14 +137,14 @@ class Links {
 
 		// Safety dance!
 		if ( '_blank' === $this->get_target_attr( $url ) ) {
-			$rel = 'noopener noreferrer';
+			$rel .= empty( $rel ) ? 'noopener noreferrer' : ' noopener noreferrer';
 		}
 
-		return add_filter( 'tribe_get_link_rel_attribute', $rel );
+		return apply_filters( 'tribe_get_link_rel_attribute', $rel );
 	}
 
 	/**
-	 * Get teh appropriate target for a link.
+	 * Get the appropriate target for a link.
 	 *
 	 * @since TBD
 	 *
@@ -120,48 +156,93 @@ class Links {
 		// The default target is _self -> the same window/tab.
 		$target = "_self";
 
-
-		return add_filter( 'tribe_get_link_target_attribute', $target );
+		/**
+		 * Allows filtering the default target.
+		 * @param string $target The default target value.
+		 * @param string $url The URL we are setting the target for.
+		 */
+		return apply_filters( 'tribe_get_link_target_attribute', $target, $url );
 	}
 
+	/**
+	 * Build the args array.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url The URL we are building a link for.
+	 * @param array  $args  Additional arguments. This should be additional attributes in format
+	 * 							[
+	 *								'class' => 'fnord',
+	 *								'download' => false,
+	 * 							]
+	 * 							Where false values will be purposefully ignored.
+	 * @return array
+	 */
 	public function build( $url, $args = [] ) {
+		if ( isset( $args['target'] ) && '_blank' === $args['target'] ) {
+			add_filter(
+				'tribe_get_link_target_attribute',
+				[
+					$this,
+					'__return_blank'
+				]
+			);
+		}
+
 		$default_args = [
-			'target' => empty( $this->get_target_attr( $url ) ) ? '' : 'target=" ' . esc_attr( $this->get_target_attr( $url ) ) . ' "',
-			'rel'    => empty( $this->get_rel_attr( $url ) ) ? '' : 'rel=" ' . esc_attr( $this->get_rel_attr( $url ) ) . ' "',
+			'target' => empty( $this->get_target_attr( $url ) ) ? false : esc_attr( $this->get_target_attr( $url ) ),
+			'rel'    => empty( $this->get_rel_attr( $url ) ) ? false : esc_attr( $this->get_rel_attr( $url ) ),
 		];
+
+		remove_filter(
+			'tribe_get_link_target_attribute',
+			[
+				$this,
+				'__return_blank'
+			]
+		);
 
 		return wp_parse_args( $args, $default_args );
 	}
 
-	public function build_arg_string( $args ) {
-		if ( empty( $args ) ) {
-			return;
-		}
+	/**
+	 * Build the attributes string.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url The URL we are building the attributes for.
+	 * @param array  $additional_args  Additional arguments. This should be additional attributes in format
+	 *                                 [
+	 *                                     'class' => 'fnord',
+	 *                                     'download' => false,
+	 *                                 ]
+	 * 							Where false values will be purposefully ignored.
+	 * @return string
+	 */
+	public function build_attr_string( $url, $additional_args = [] ) {
+		$args = $this->build( $url, $additional_args );
 
-		$args = implode(
-			' ',
-			array_map(
-				function ( $key, $val ) {
-					// Explicitly setting false skips the attribute.
-					if ( false === $val ) {
-						return;
-					}
+		foreach ( $args as $key => $val ) {
+				// Explicitly setting false skips the attribute.
+				if ( false === $val ) {
+					unset( $args[ $key ] );
+					continue;
+				}
 
-					// Using preg_replace since for the key we don't want to convert special chars, but remove them.
-					$key = preg_replace('/[^A-Za-z_]/', '', $key);
+				// Using preg_replace since for the key we don't want to convert special chars, but remove them.
+				$key = preg_replace('/[^A-Za-z_]/', '', $key);
 
-					// Setting true or an empty string is a no-value attribute.
-					if ( true === $val || '' === $val ) {
-						return $key;
-					}
+				// Setting true or an empty string is a no-value attribute.
+				if ( true === $val || '' === $val ) {
+					$args[ $key ] = esc_attr( $key );
+					continue;
+				}
 
-					//$key="$value" attribute.
-					return $key .'="'. esc_attr( $val ) .'"';
-				},
-				array_keys($args),
-				$args
-			)
-		);
+				//$key="$value" attribute.
+				$args[ $key ] = esc_html( $key ) .'="'. esc_attr( $val ) .'"';
+			}
+
+		$args = implode( ' ', $args );
 
 		return $args;
 	}
@@ -173,26 +254,15 @@ class Links {
 	 *
 	 * @param string  $url   The URL to assess.
 	 * @param string  $label The link text.
-	 * @param array   $args  Additional arguments. This should be additional attributes in format
-	 * 							[
-	 *								'class' => 'fnord',
-	 *								'download' => false,
-	 * 							]
-	 * 							Where false values will be purposefully ignored.
 	 * @param boolean $echo  Echo or return the string.
 	 *
 	 * @return string|void HTML string return, or echo, determined by $echo, above.
 	 */
-	public function render( $url, $label, $args = [], $echo = false ) {
-		$args = $this->build( $url, $args );
-
-
-
-
+	public function render( $url, $label, $additional_args = [], $echo = false ) {
 		$html   = sprintf(
-			'<a href="%s" target="%s" rel="%s">%s</a>',
+			'<a href="%s" %s>%s</a>',
 			esc_url( $url ),
-			$args,
+			$this->build_attr_string( $url, $additional_args ),
 			esc_html( $label )
 		);
 
