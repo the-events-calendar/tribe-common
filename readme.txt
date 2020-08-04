@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Added IE11 compatibility for the toggles styles. [ET-865]
+
 = [4.12.6] 2020-07-27 =
 
 * Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format. [TEC-3548]
