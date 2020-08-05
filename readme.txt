@@ -4,7 +4,7 @@
 
 = [TBD] TBD =
 
-* Fix - Added IE11 compatibility for the toggles styles. [ET-865]
+* Fix - Added IE11 compatibility for the toggles styles using `tribe-common-form-control-toggle` CSS class. [ET-865]
 
 = [4.12.6] 2020-07-27 =
 
