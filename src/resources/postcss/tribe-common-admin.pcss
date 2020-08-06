@@ -1669,6 +1669,8 @@ body.tribe-welcome {
 
 
 .tribe-events-admin-content-wrapper {
+	font-family: Helvetica;
+	font-style: normal;
 	margin: 0 auto;
 	padding: 20px;
 	width: calc( 100% - 40px );
@@ -1914,27 +1916,26 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-card__button {
+	background-color: white;
+	border: none;
+	color: #3D54FF;
+	font-size: 14px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	line-height: 16px;
 	position: absolute;
 	right: 20px;
-	top: 17px;
-	border: none;
-	background-color: white;
 	text-transform: uppercase;
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 16px;
-	letter-spacing: 1px;
-	color: #3D54FF;
+	top: 17px;
 }
 
 .tribe-events-admin-card__description {
-	font-family: Helvetica;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 14px;
-	line-height: 22px;
 	color: #000000;
 
+	font-size: 14px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 22px;
 	margin-top: 16px;
 }
 
@@ -1945,41 +1946,37 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-card__link {
+	color: #3D54FF;
+	display: inline-block;
+	font-size: 16px;
 	font-style: normal;
 	font-weight: bold;
-	font-size: 16px;
 	line-height: 18px;
-	text-decoration: none;
 	margin-top: 24px;
-	display: inline-block;
 	position: relative;
-	color: #3D54FF;
+	text-decoration: none;
 
 	&:hover {
 		color: #3D54FF;
 	}
 
 	&:after {
-		content: '';
-
-		width: 100%;
-		position: absolute;
-		left: 0;
-		bottom: -4px;
-
-		border-width: 0 0 1px;
 		border-style: solid;
+		border-width: 0 0 1px;
+		bottom: -4px;
+		content: '';
+		left: 0;
+		position: absolute;
+		width: 100%;
 	}
 }
 
 .tribe-events-admin-card__title {
-	font-family: Helvetica;
-	font-style: normal;
-	font-weight: bold;
+	color: #0F1031;
 	font-size: 20px;
+	font-weight: bold;
 	line-height: 23px;
 	margin: auto;
-	color: #0F1031;
 
 	@media screen and (min-width: 710px) {
 		font-size: 20px;
@@ -1991,16 +1988,12 @@ input[type="email"].tribe-events-admin-card__input {
 	max-width: 1048px;
 }
 
-.tribe-events-admin-footer-logo {
-
-}
-
 .tribe-events-admin-quick-nav {
-	display: block;
 	background: #FFFFFF;
+	border-radius: 16px;
 	border: 1px solid #E1E1E4;
 	box-sizing: border-box;
-	border-radius: 16px;
+	display: block;
 	margin: 40px 0 78px 0;
 	padding: 18px 23px 2px 23px;
 
@@ -2014,15 +2007,12 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-quick-nav__link {
-	font-family: Helvetica;
-	font-style: normal;
-	font-weight: bold;
+	color: #3D54FF;
 	font-size: 16px;
+	font-weight: bold;
 	line-height: 18px;
 	text-align: center;
 	text-decoration: none;
-
-	color: #3D54FF;
 
 	&:hover {
 		color: #3D54FF;
@@ -2043,14 +2033,12 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-quick-nav__title {
+	color: rgba(15, 16, 49, 0.72);
 	display: inline-block;
-	font-family: Helvetica;
-	font-style: normal;
-	font-weight: normal;
 	font-size: 14px;
+	font-weight: normal;
 	line-height: 16px;
 	padding-bottom: 14px;
-	color: rgba(15, 16, 49, 0.72);
 	text-transform: uppercase;
 
 	@media screen and (min-width: 710px) {
@@ -2058,14 +2046,11 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-
 .tribe-events-admin-section-header {
-	font-family: Helvetica;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 24px;
-	line-height: 28px;
 	color: #000000;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 28px;
 	margin: 21px 0 24px 0;
 
 	@media screen and (min-width: 710px) {
@@ -2074,7 +2059,6 @@ input[type="email"].tribe-events-admin-card__input {
 		margin-bottom: 21px;
 	}
 }
-
 
 .tribe-events-admin-title {
 	padding-top: 14px;
@@ -2086,9 +2070,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin-title__description {
 	color: #0F1031;
-	font-family: Helvetica;
 	font-size: 16px;
-	font-style: normal;
 	font-weight: normal;
 	line-height: 24px;
 	max-width: 584px;
@@ -2102,9 +2084,7 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin-title__heading {
 	color: #0F1031;
 	display: inline-block;
-	font-family: Helvetica;
 	font-size: 24px;
-	font-style: normal;
 	font-weight: bold;
 	line-height: 28px;
 	margin: 5px 0 0 0;
@@ -2128,3 +2108,44 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
+/* -- Freemius tweaks -- */
+body.tribe-welcome #fs_connect {
+	border: 1px solid #E1E1E4;
+	box-sizing: border-box;
+	border-radius: 16px;
+	margin-left: 22px;
+	box-shadow: none;
+
+	.fs-actions {
+		background-color: transparent;
+	}
+
+	.fs-permissions {
+		border-top: 1px solid #E1E1E4;
+		margin: 0 16px;
+	}
+
+	button {
+		background-color: #3D54FF;
+		border-color: #3D54FF;
+	}
+
+	.button-secondary {
+		border-color: #3D54FF;
+		color: #3D54FF;
+		background: white;
+	}
+
+	a {
+		color: #3D54FF;
+
+		&:focus {
+			box-shadow: none;
+			outline: none;
+		}
+
+		&:hover {
+			color: #3D54FF;
+		}
+	}
+}
