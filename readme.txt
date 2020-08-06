@@ -4,6 +4,7 @@
 
 = [4.12.7] TBD =
 
+* Tweak - Adjust the border radius of the form checkbox styles. [FBAR-126]
 * Fix - Correctly handle array format query arguments while generating clean, or canonical, URLs; this solves some issues with Filter Bar and Views v2 where filters would be dropped when changing Views, paginating or using the datepicker. [FBAR-74, FBAR-85, FBAR-86]
 
 = [4.12.6] 2020-07-27 =
