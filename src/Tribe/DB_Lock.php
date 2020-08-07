@@ -7,7 +7,7 @@
  *
  * @see     https://dev.mysql.com/doc/refman/5.6/en/locking-functions.html#function_get-lock
  *
- * @since   TBD
+ * @since   4.12.6
  *
  * @package Tribe
  */
@@ -17,7 +17,7 @@ namespace Tribe;
 /**
  * Class DB_Lock
  *
- * @since   TBD
+ * @since   4.12.6
  *
  * @package Tribe
  */
@@ -27,7 +27,7 @@ class DB_Lock {
 	 * The prefix of the options used to manage the database lock without use of MySQL functions
 	 * in the options table.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ class DB_Lock {
 	 * A map, shared among all instance of this trait in the session, of the currently held locks the
 	 * time the locks where acquired, a UNIX timestamp w/ micro-seconds.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @var array<string,float>
 	 */
@@ -46,7 +46,7 @@ class DB_Lock {
 	/**
 	 * Prunes the stale locks stored in the options table.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @return int|false The number of pruned locks, or `false` to indicate the query to prune the locks generated
 	 *                   an error (logged).
@@ -55,8 +55,8 @@ class DB_Lock {
 		global $wpdb;
 		$prefix        = static::$db_lock_option_prefix;
 		$affected_rows = $wpdb->query(
-			"DELETE FROM {$wpdb->options} 
-				WHERE option_name LIKE '{$prefix}%' 
+			"DELETE FROM {$wpdb->options}
+				WHERE option_name LIKE '{$prefix}%'
 				AND option_value < ( UNIX_TIMESTAMP() - 86400 )"
 		);
 
@@ -78,7 +78,7 @@ class DB_Lock {
 	 *
 	 * To ensure back-compatibility with MySQL 5.6, the lock will hash the lock key using SHA1.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $lock_key The name of the db lock key to acquire.
 	 *
@@ -91,7 +91,7 @@ class DB_Lock {
 		 * The timeout will not be used when locks are managed using queries in place of
 		 * MySQL functions.
 		 *
-		 * @since TBD
+		 * @since 4.12.6
 		 *
 		 * @param int    $timeout  The timeout, in seconds, of the lock acquisition attempt.
 		 * @param string $lock_key The lock key the target of the acquisition attempt.
@@ -112,7 +112,7 @@ class DB_Lock {
 	 *
 	 * If not, then the trait will manage the locks by means of direct SQL queries on the options table.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @return bool Whether the trait should use MySQL functions to manage the locks, or not.
 	 */
@@ -124,7 +124,7 @@ class DB_Lock {
 		 * If the filter returns a falsy value, then the trait will attempt to manage locks using `SELECT`
 		 * and `UPDATE` queries on the options table.
 		 *
-		 * @since TBD
+		 * @since 4.12.6
 		 */
 		return tribe_is_truthy( apply_filters( 'tribe_db_lock_use_msyql_functions', true ) );
 	}
@@ -132,7 +132,7 @@ class DB_Lock {
 	/**
 	 * Tries to acquire the database lock using MySQL functions (`GET_LOCK` and `IS_FREE_LOCK`).
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $lock_key The lock key to try and acquire the lock for.
 	 * @param int    $timeout  The timeout, in seconds, to try and acquire the lock.
@@ -188,7 +188,7 @@ class DB_Lock {
 	 * The method leverages `INSERT IGNORE` that it's available on MySQL 5.6 and is atomic provided one of the values
 	 * we're trying to insert is UNIQUE or PRIMARY: `option_name` is UNIQUE in the `options` table.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $lock_key The lock key to try and acquire the lock for.
 	 *
@@ -201,8 +201,8 @@ class DB_Lock {
 
 		//phpcs:disable
 		$rows_affected = $wpdb->query(
-			$wpdb->prepare( "INSERT IGNORE INTO {$wpdb->options} 
-				(option_name, option_value, autoload) 
+			$wpdb->prepare( "INSERT IGNORE INTO {$wpdb->options}
+				(option_name, option_value, autoload)
 				VALUES
 				(%s, %s, 'no')",
 				$option_name,
@@ -239,7 +239,7 @@ class DB_Lock {
 	/**
 	 * Returns the option name used to manage the lock for a key in the options table.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $lock_key The lock key to build the option name for.
 	 *
@@ -255,7 +255,7 @@ class DB_Lock {
 	 *
 	 * Release a not held db lock will return `null`, not `false`.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $lock_key The name of the lock to release.
 	 *
@@ -273,7 +273,7 @@ class DB_Lock {
 	 * Releases a DB lock held by the current database session (`$wpdb` instance) by
 	 * using the MySQL `RELEASE_LOCK` function.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $lock_key The lock key to release the lock for.
 	 *
@@ -307,7 +307,7 @@ class DB_Lock {
 	 * even if the current session is not the one holding the lock.
 	 * To protect from this the trait uses a map of registered locks and when the locks where registered.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $lock_key The lock key to release the lock for.
 	 *

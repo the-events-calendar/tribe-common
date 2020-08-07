@@ -2,7 +2,7 @@
 /**
  * Provides methods to acquire and release a database (SQL) lock using the `Tribe\DB_Lock` class.
  *
- * @since   TBD
+ * @since   4.12.6
  *
  * @package Tribe\Traits
  */
@@ -12,7 +12,7 @@ namespace Tribe\Traits;
 /**
  * Trait With_Db_Lock
  *
- * @since   TBD
+ * @since   4.12.6
  *
  * @package Tribe\Traits
  */
@@ -23,7 +23,7 @@ trait With_DB_Lock {
 	 *
 	 * To ensure back-compatibility with MySQL 5.6, the lock will hash the lock key using SHA1.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $lock_key The name of the db lock key to acquire.
 	 *
@@ -38,7 +38,7 @@ trait With_DB_Lock {
 	 *
 	 * Release a not held db lock will return `null`, not `false`.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $lock_key The name of the lock to release.
 	 *

@@ -175,6 +175,12 @@ class Tribe__Promoter__Connector {
 			return;
 		}
 
+		$secret_key  = $this->get_secret_key();
+
+		if ( empty( $secret_key ) ) {
+			return;
+		}
+
 		/** @var Tribe__Promoter__PUE $promoter_pue */
 		$promoter_pue = tribe( 'promoter.pue' );
 		$license_info = $promoter_pue->get_license_info();
@@ -184,11 +190,6 @@ class Tribe__Promoter__Connector {
 		}
 
 		$license_key = $license_info['key'];
-		$secret_key  = $this->get_secret_key();
-
-		if ( empty( $secret_key ) ) {
-			return;
-		}
 
 		$payload = [
 			'licenseKey' => $license_key,
@@ -202,23 +203,9 @@ class Tribe__Promoter__Connector {
 		$args = [
 			'body'      => [ 'token' => $token ],
 			'sslverify' => false,
-			'timeout'   => 15,
 		];
 
-		/**
-		 * Allow to customize the number of maximum number of retries per call to notify promoter.
-		 *
-		 * @since TBD
-		 *
-		 * @param int $max_attempts The maximum number of retries if the response was a failure.
-		 */
-		$max_attempts = apply_filters( 'tribe_promoter_max_retries_on_failure', 3 );
-
-		$attempts = 0;
-
-		do {
-			$result = $this->make_call( $url, $args );
-		} while ( false === $result && ++$attempts < $max_attempts );
+		$this->make_call( $url, $args );
 	}
 
 	/**
@@ -228,7 +215,7 @@ class Tribe__Promoter__Connector {
 	 *
 	 * @return mixed
 	 */
-	protected function get_secret_key() {
+	public function get_secret_key() {
 		$secret_key = get_option( 'tribe_promoter_auth_key' );
 
 		/**
@@ -251,15 +238,15 @@ class Tribe__Promoter__Connector {
 	 * @return string|false The response body or false if not successful.
 	 *
 	 */
-	private function make_call( $url, $args ) {
-		$response = wp_remote_post( $url, $args );
+	public function make_call( $url, $args ) {
+		$response = wp_remote_post( $url, wp_parse_args( $args,  [ 'timeout' => 30 ] ) );
 		$code     = wp_remote_retrieve_response_code( $response );
 		$body     = wp_remote_retrieve_body( $response );
 
 		if ( $code > 299 || is_wp_error( $response ) ) {
 			do_action(
 				'tribe_log',
-				'warning',
+				'debug',
 				__METHOD__,
 				[
 					'url'           => $url,

@@ -31,6 +31,7 @@
 
 	.tribe-common-form-control-toggle {
 		line-height: 0;
+		position: relative;
 	}
 
 	.tribe-common-form-control-toggle__input {
@@ -40,20 +41,23 @@
 		background-color: var(--form-color-border-secondary);
 		width: 40px;
 
-		&:after {
+		&::-ms-check {
+			display: none;
+		}
+
+		+ label:before {
 			@mixin form-control-slider-toggle-thumb;
 
 			content: '';
 			left: 0;
 			position: absolute;
-			top: -5px;
 			transition: var(--transition-transform);
 		}
 
 		&:checked {
 			background-color: var(--form-color-accent-primary);
 
-			&:after {
+			+ label:before {
 				transform: translateX(20px);
 			}
 		}

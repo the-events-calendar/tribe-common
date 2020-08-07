@@ -7,7 +7,7 @@ use Tribe\Utils\Body_Classes as Body_Class_Object;
 /**
  * Class Body_Classes
  *
- * @since TBD
+ * @since 4.12.6
  *
  * Handles the registration and creation of our async process handlers.
  */
@@ -16,15 +16,16 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 */
 	public function register() {
 		tribe_singleton( Body_Class_Object::class, Body_Class_Object::class );
+		tribe_singleton( 'common.service_providers.body_classes', $this );
 
 		/**
 		 * Allows plugins to hook into the register action to register views, etc.
 		 *
-		 * @since TBD
+		 * @since 4.12.6
 		 *
 		 * @param Tribe\Service_Providers\Dialog $dialog
 		 */
@@ -36,7 +37,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	/**
 	 * Set up hooks for classes.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 */
 	private function hooks() {
 		add_filter( 'body_class', [ $this, 'add_body_classes' ] );
@@ -45,7 +46,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allows plugins to hook into the hooks action to register their own hooks.
 		 *
-		 * @since TBD
+		 * @since 4.12.6
 		 *
 		 * @param Tribe\Service_Providers\Dialog $dialog
 		 */
@@ -55,7 +56,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	/**
 	 * Hook in and add FE body classes.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param array $classes An array of body class names.
 	 * @return array The modified array of body class names.
@@ -70,7 +71,7 @@ class Body_Classes extends \tad_DI52_ServiceProvider {
 	/**
 	 * Hook in and add admin body classes.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param array $classes An array of body class names.
 	 * @return array The modified array of body class names.
