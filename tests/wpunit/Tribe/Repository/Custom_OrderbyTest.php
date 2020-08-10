@@ -22,7 +22,7 @@ class Custom_OrderbyTest extends ReadTestBase {
 				               " AND {$orderby}.meta_key = '{$orderby}')";
 				$this->filter_query->join( $join_clause );
 				$this->filter_query->orderby( [ $orderby => $order ], $orderby, true, false );
-				$this->filter_query->fields( "{$orderby}.meta_value AS {$orderby}", $orderby );
+				$this->filter_query->fields( "CAST( {$orderby}.meta_value AS DECIMAL ) AS {$orderby}", $orderby );
 
 				return $this;
 			}
@@ -33,7 +33,7 @@ class Custom_OrderbyTest extends ReadTestBase {
 				               " AND {$orderby}.meta_key = '{$orderby}')";
 				$this->filter_query->join( $join_clause );
 				$this->filter_query->orderby( [ $orderby => $order ], $orderby . '_after', true, true );
-				$this->filter_query->fields( "{$orderby}.meta_value  AS {$orderby}", $orderby );
+				$this->filter_query->fields( "CAST( {$orderby}.meta_value AS DECIMAL ) AS {$orderby}", $orderby );
 
 				return $this;
 			}
@@ -47,7 +47,7 @@ class Custom_OrderbyTest extends ReadTestBase {
 					$join_clause = "LEFT JOIN {$wpdb->postmeta} AS {$orderby} ON ( {$wpdb->posts}.ID = {$orderby}.post_id" .
 					               " AND {$orderby}.meta_key = '{$orderby}')";
 					$this->filter_query->join( $join_clause );
-					$this->filter_query->fields( "{$orderby}.meta_value  AS {$orderby}", $orderby );
+					$this->filter_query->fields( "CAST( {$orderby}.meta_value AS DECIMAL ) AS {$orderby}", $orderby );
 				}
 
 				return $this;
@@ -86,13 +86,13 @@ class Custom_OrderbyTest extends ReadTestBase {
 			],
 		] );
 
-		$this->assertEquals(
-			[ $book_3, $book_1, $book_2 ],
-			$this->repository()
-			     ->orderby_meta( '_active_readers', 'DESC' )
-			     ->set_query_arg( 'orderby', [ 'menu_order' => 'ASC' ] )
-			     ->get_ids()
-		);
+		$repo = $this->repository();
+		$results = $repo->orderby_meta( '_active_readers', 'DESC' )
+			->set_query_arg( 'orderby', [ 'menu_order' => 'ASC' ] )
+			->get_ids();
+		codecept_debug('Query:');
+		codecept_debug($repo->get_query()->request);
+		$this->assertEquals( [ $book_3, $book_1, $book_2 ],$results );
 		$this->assertEquals(
 			[ $book_2, $book_1, $book_3 ],
 			$this->repository()

@@ -889,7 +889,7 @@ class Tribe__Template {
 			 * do_action_deprecated(
 			 *		"tribe_template_before_include:{$legacy_hook_name}",
 			 *		[ $file, $name, $this ],
-			 *		'TBD',
+			 *		'4.12.6',
 			 *		"Replacement: 'tribe_template_before_include:{$hook_name}'"
 			 * );
 			 *
@@ -949,7 +949,7 @@ class Tribe__Template {
 			 * do_action_deprecated(
 			 *		"tribe_template_after_include:{$legacy_hook_name}",
 			 *		[ $file, $name, $this ],
-			 *		'TBD',
+			 *		'4.12.6',
 			 *		"Replacement: 'tribe_template_after_include:{$hook_name}'"
 			 * );
 			 *
@@ -1012,7 +1012,7 @@ class Tribe__Template {
 			 * $html = apply_filters_deprecated(
 			 * 		"tribe_template_html:{$legacy_hook_name}",
 			 *		[ $html, $file, $name, $this ],
-			 *		'TBD',
+			 *		'4.12.6',
 			 *		"Replacement: 'tribe_template_html:{$hook_name}'"
 			 * );
 			 *

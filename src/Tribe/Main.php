@@ -19,7 +19,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.12.5';
+	const VERSION             = '4.12.6';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -615,6 +615,7 @@ class Tribe__Main {
 		tribe_singleton( 'db', 'Tribe__Db' );
 		tribe_singleton( 'db-lock', DB_Lock::class );
 		tribe_singleton( 'freemius', 'Tribe__Freemius' );
+		tribe_singleton( 'customizer', 'Tribe__Customizer' );
 
 		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
 

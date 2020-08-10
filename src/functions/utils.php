@@ -645,6 +645,15 @@ if ( ! function_exists( 'tribe_register_rest_route' ) ) {
 		 */
 		$args = apply_filters( 'tribe_register_rest_route_args', $args, $namespace, $route, $override );
 
+		// Compatibility with version 5.5 of WordPress to avoid notices.
+		if (
+			! empty( $args['callback'] )
+			&& is_callable( $args['callback'] )
+			&& ! isset( $args['permission_callback'] )
+		) {
+			$args['permission_callback'] = '__return_true';
+		}
+
 		return register_rest_route( $namespace, $route, $args, $override );
 	}
 }

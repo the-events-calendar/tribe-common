@@ -2,7 +2,7 @@
 /**
  * Class used to manage and add body classes via a queue across our plugins.
  *
- * @since TBD
+ * @since 4.12.6
  */
 namespace Tribe\Utils;
 
@@ -11,7 +11,7 @@ use Tribe\Utils\Element_Classes;
 /**
  * Body_Classes class
  *
- * @since TBD
+ * @since 4.12.6
  */
 class Body_Classes {
 	/**
@@ -34,7 +34,7 @@ class Body_Classes {
 	 * Queue-aware method to get the classes array.
 	 * Returns the array of classes to add.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
 	 * @return array<string,bool> A map of the classes for the queue.
@@ -56,7 +56,7 @@ class Body_Classes {
 	/**
 	 * Returns the array of classnames to add
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
 	 * @return array<string> The list of class names.
@@ -79,7 +79,7 @@ class Body_Classes {
 	 * Checks if a class is in the queue,
 	 * wether it's going to be added or not.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $class The class we are checking for.
 	 * @param string $queue The queue we want to check 'admin', 'display', 'all'
@@ -94,7 +94,7 @@ class Body_Classes {
 	/**
 	 * Checks if a class is in the queue and going to be added.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $class The class we are checking for.
 	 * @param string $queue The queue we want to check 'admin', 'display', 'all'
@@ -102,7 +102,7 @@ class Body_Classes {
 	 */
 	public function class_is_enqueued( $class, $queue = 'display' ) {
 		$classes = $this->get_classes( $queue );
-		if ( ! $this->class_exists( $class ) ) {
+		if ( ! $this->class_exists( $class, $queue ) ) {
 			return false;
 		}
 
@@ -112,14 +112,14 @@ class Body_Classes {
 	/**
 	 * Dequeues a class.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $class
 	 * @param string $queue The queue we want to alter 'admin', 'display', 'all'
 	 * @return boolean
 	 */
 	public function dequeue_class( $class, $queue = 'display' ) {
-		if ( ! $this->class_exists( $class ) ) {
+		if ( ! $this->class_exists( $class, $queue ) ) {
 			return false;
 		}
 
@@ -138,14 +138,14 @@ class Body_Classes {
 	/**
 	 * Enqueues a class.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $class
 	 * @param string $queue The queue we want to alter 'admin', 'display', 'all'
 	 * @return false
 	 */
 	public function enqueue_class( $class, $queue = 'display' ) {
-		if ( ! $this->class_exists( $class ) ) {
+		if ( ! $this->class_exists( $class, $queue ) ) {
 			return false;
 		}
 
@@ -163,7 +163,7 @@ class Body_Classes {
 	/**
 	 * Add a single class to the queue.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $class The class to add.
 	 * @param string $queue The queue we want to alter 'admin', 'display', 'all'
@@ -194,7 +194,7 @@ class Body_Classes {
 	/**
 	 * Add an array of classes to the queue.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param array<string> $class The classes to add.
 	 * @return void
@@ -213,7 +213,7 @@ class Body_Classes {
 	/**
 	 * Remove a single class from the queue.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $class The class to remove.
 	 * @return void
@@ -243,7 +243,7 @@ class Body_Classes {
 	/**
 	 * Remove an array of classes from the queue.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param array<string> $classes The classes to remove.
 	 * @return void
@@ -261,10 +261,10 @@ class Body_Classes {
 	/**
 	 * Adds the enqueued classes to the body class array.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param array<string> $classes An array of body class names.
-	 * @return void
+	 * @return array Array of body classes.
 	 */
 	public function add_body_classes( $classes = [] ) {
 		// Make sure they should be added.
@@ -280,29 +280,30 @@ class Body_Classes {
 	/**
 	 * Adds the enqueued classes to the body class array.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
-	 * @param array<string> $classes An array of body class names.
+	 * @param string $classes The existing body class names.
 	 *
-	 * @return array|false Current list of admin body classes if added, otherwise false.
+	 * @return string String of admin body classes.
 	 */
 	public function add_admin_body_classes( $classes ) {
-		$classes = explode( ' ', $classes );
+		$existing_classes = explode( ' ', $classes );
 		// Make sure they should be added.
-		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), (array) $classes, 'admin' ) ) {
-			return false;
+		if ( ! $this->should_add_body_classes( $this->get_class_names( 'admin' ), (array) $existing_classes, 'admin' ) ) {
+			// Ensure we return the current string on false!
+			return $classes;
 		}
 
 		$element_classes = new Element_Classes( $this->get_class_names( 'admin' ) );
 
-		return implode( ' ', array_merge( $classes, $element_classes->get_classes() ) );
+		return implode( ' ', array_merge( $existing_classes, $element_classes->get_classes() ) );
 
 	}
 
 	/**
 	 * Should a individual class be added to the queue.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param string $class The body class we wish to add.
 	 *
@@ -312,7 +313,7 @@ class Body_Classes {
 		/**
 		 * Filter whether to add the body class to the queue or not.
 		 *
-		 * @since TBD
+		 * @since 4.12.6
 		 *
 		 * @param boolean $add Whether to add the class to the queue or not.
 		 * @param array   $class The array of body class names to add.
@@ -324,7 +325,7 @@ class Body_Classes {
 	/**
 	 * Logic for whether the body classes, as a whole, should be added.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @param array $add_classes      An array of body class names to add.
 	 * @param array $existing_classes An array of existing body class names from WP.
@@ -336,7 +337,7 @@ class Body_Classes {
 		/**
 		 * Filter whether to add tribe body classes or not.
 		 *
-		 * @since TBD
+		 * @since 4.12.6
 		 *
 		 * @param boolean $add              Whether to add classes or not.
 		 * @param array   $add_classes      The array of body class names to add.

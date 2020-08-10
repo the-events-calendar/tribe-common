@@ -82,7 +82,7 @@ class Tribe__Repository__Usage_Error extends Exception {
 	 * "Sugar" method to correct a typo in a public method name.
 	 * Indicates that the `set` method of the Update repository is being used incorrectly.
 	 *
-	 * @since TBD
+	 * @since 4.12.6
 	 *
 	 * @TODO: perhaps we should deprecate this at some point?
 	 *
