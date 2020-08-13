@@ -162,7 +162,7 @@ foreach ( $products as $product ) {
 		<div class="content-wrapper">
 			<div class="addon-grid">
 				<h2><?php esc_html_e( 'Free extensions to power up your plugins', 'tribe-common' ); ?></h2>
-				<p><?php esc_html_e( 'Extensions are quick solutions our team came up with to solve specific issues you may need. (Just a note - extensions are not covered by our support team.)', 'tribe-common' ); ?></p>
+				<p><?php esc_html_e( 'Extensions are quick solutions our team came up with to solve specific issues you may need. (Note - extensions are not covered by our support team.)', 'tribe-common' ); ?></p>
 				<?php foreach ( $extensions as $extension ) : ?>
 					<div class="tribe-addon">
 						<div class="headline">

@@ -6,6 +6,8 @@
 
 body.tribe_events_page_tribe-app-shop {
 	background-color: white;
+	/* fixes an issue at very narrow widths */
+	min-width: 350px;
 
 	/* hide WordPress update notices on this page */
 	.update-nag {
@@ -50,7 +52,7 @@ body.tribe_events_page_tribe-app-shop {
 
 
 	.tribe-header {
-		height: 62px;
+		height: 120px;
 		margin: 36px auto 0 auto;
 		position: relative;
 		text-align: center;
@@ -58,11 +60,22 @@ body.tribe_events_page_tribe-app-shop {
 
 		@media screen and (min-width: 710px) {
 			border-bottom: 1px solid rgba(225, 225, 228, 0.5);
-			height: 155px;
+			height: 147px;
 			margin-top: 44px;
 
 			.logo-word-mark {
 				text-align: left;
+			}
+		}
+
+		.content-wrapper {
+			width: 100%;
+
+			@media screen and (min-width: 710px) {
+				width: 710px;
+			}
+			@media screen and (min-width: 1217px) {
+				width: 100%;
 			}
 		}
 
@@ -93,13 +106,18 @@ body.tribe_events_page_tribe-app-shop {
 
 		ul {
 			/* for now we are hiding this nav on small screen sizes */
-			display: none;
+			border-bottom: 1px solid #E1E1E4;
+			display: block;
 			margin: 0 auto;
+			overflow: scroll;
 			padding: 0 14px;
 			text-align: left;
+			white-space: nowrap;
 
 			@media screen and (min-width: 710px) {
+				border-bottom: none;
 				display: block;
+				overflow: auto;
 			}
 
 			li {
@@ -109,16 +127,23 @@ body.tribe_events_page_tribe-app-shop {
 				font-weight: 500;
 				line-height: 20px;
 				margin: 0 18px 0 6px;
-				padding: 0 0 28px 0;
+				padding: 0 0 10px 0;
 				position: relative;
 				text-align: center;
+
+				@media screen and (min-width: 710px) {
+					padding: 0 0 20px 0;
+				}
 
 				@media screen and (min-width: 1217px) {
 					margin: 0 12px;
 				}
 
-				&.selected,
 				&:hover {
+					color: #161B7D;
+				}
+
+				&.selected {
 					color: #334aff;
 				}
 
@@ -138,7 +163,11 @@ body.tribe_events_page_tribe-app-shop {
 	}
 
 	.tribe-content {
-		padding-top: 54px;
+		padding-top: 28px;
+
+		@media screen and (min-width: 710px) {
+			padding-top: 54px;
+		}
 	}
 
 	.addon-grid {
@@ -211,13 +240,12 @@ body.tribe_events_page_tribe-app-shop {
 					font-weight: 500;
 					line-height: 24px;
 					margin: 0;
-					vertical-align: bottom;
 				}
 			}
 
 			.features {
 				/* attempting to get more height consistency */
-				min-height: 142px;
+				min-height: 158px;
 
 				li {
 					color: #0F1031;
@@ -232,7 +260,7 @@ body.tribe_events_page_tribe-app-shop {
 
 					.feature-text {
 						max-width: 224px;
-						vertical-align: middle;
+						vertical-align: top;
 					}
 
 					span {
@@ -432,8 +460,6 @@ body.tribe_events_page_tribe-app-shop {
 				}
 
 				h3 {
-
-					letter-spacing: 1px;
 					margin: 0;
 				}
 
@@ -485,6 +511,11 @@ body.tribe_events_page_tribe-app-shop {
 			padding: 18px 0;
 			text-align: center;
 			width: 255px;
+
+			/* these 3 override WordPress button styles */
+			border: none;
+			box-shadow: none;
+			height: auto;
 
 			&:hover {
 				background: #1C39BB;
