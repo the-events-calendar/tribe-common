@@ -5,7 +5,7 @@
  */
 
 body.tribe_events_page_tribe-app-shop {
-	background-color: #f7f7f4;
+	background-color: white;
 
 	/* hide WordPress update notices on this page */
 	.update-nag {
@@ -40,21 +40,29 @@ body.tribe_events_page_tribe-app-shop {
 		}
 	}
 
+	.tribe-events-admin-graphic {
+		top: 0;
+		height: 40px;
+		@media screen and (min-width: 710px) {
+			height: 131px;
+		}
+	}
+
+
 	.tribe-header {
-		background-color: #fff;
-		border-bottom: 1px solid rgba(225, 225, 228, 0.5);
-		height: 72px;
-		margin: 0 auto;
+		height: 62px;
+		margin: 36px auto 0 auto;
 		position: relative;
 		text-align: center;
 		width: 100%;
 
-		.logo-word-mark {
-			margin: auto;
+		@media screen and (min-width: 710px) {
+			border-bottom: 1px solid rgba(225, 225, 228, 0.5);
+			height: 155px;
+			margin-top: 44px;
 
-			@media screen and (min-width: 710px) {
-				margin: 0;
-				position: absolute;
+			.logo-word-mark {
+				text-align: left;
 			}
 		}
 
@@ -73,24 +81,25 @@ body.tribe_events_page_tribe-app-shop {
 
 		img {
 			display: inline-block;
-			height: 46px;
-			margin: 9px 11px 9px 22px;
+			height: 57px;
+			margin: 0 0 32px 22px;
 			vertical-align: middle;
+
+			@media screen and (min-width: 710px) {
+				height: 65px;
+				margin-bottom: 42px;
+			}
 		}
 
 		ul {
+			/* for now we are hiding this nav on small screen sizes */
 			display: none;
 			margin: 0 auto;
 			padding: 0 14px;
+			text-align: left;
 
 			@media screen and (min-width: 710px) {
 				display: block;
-				float: right;
-			}
-
-			/* for now we'll hide this nav on really narrow screens */
-			@media screen and (min-width: 1217px) {
-				float: none;
 			}
 
 			li {
@@ -99,8 +108,8 @@ body.tribe_events_page_tribe-app-shop {
 				font-size: 16px;
 				font-weight: 500;
 				line-height: 20px;
-				margin: 0 6px;
-				padding: 24px 0 28px 0;
+				margin: 0 18px 0 6px;
+				padding: 0 0 28px 0;
 				position: relative;
 				text-align: center;
 
@@ -516,7 +525,7 @@ body.tribe_events_page_tribe-app-shop {
 
 /**
  * Button compatibility for App Shop.
- */
+
 .branch-4-9 {
 	#tribe-app-shop {
 		.addon-grid {
@@ -527,3 +536,5 @@ body.tribe_events_page_tribe-app-shop {
 		}
 	}
 }
+
+*/
