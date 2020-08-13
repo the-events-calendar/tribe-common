@@ -4,6 +4,7 @@
 
 = [4.12.7] TBD =
 
+* Tweak - Allow SelectWoo dropdown to be attached to the container via the `data-attach-container` attribute. [FBAR-129]
 * Tweak - Adjust the border radius of the form checkbox styles. [FBAR-126]
 * Tweak - Adjust the layout styles for tribe common checkboxes and radios. [FBAR-126] [FBAR-127]
 * Fix - Correctly handle array format query arguments while generating clean, or canonical, URLs; this solves some issues with Filter Bar and Views v2 where filters would be dropped when changing Views, paginating or using the datepicker. [FBAR-74, FBAR-85, FBAR-86]
