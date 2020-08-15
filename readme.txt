@@ -5,7 +5,7 @@
 = [TBD] TBD =
 
 * Fix - Added IE11 compatibility for the toggles styles using `tribe-common-form-control-toggle` CSS class. [ET-865]
-* Tweak - Improve regular expressions to parse UTC timezones by removing non required grouping and characters [TCMN-68]
+* Tweak - Improve regular expressions used to parse UTC timezones by removing non-required grouping and characters. [TCMN-68]
 
 = [4.12.6] 2020-07-27 =
 
