@@ -38,10 +38,14 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 	 * Example shortcode usage: [some_tag alias=17 to='Fred'] will be parsed as [some_tag canonical=17 to='Fred']
 	 *
 	 * @since 4.12.2
+	 * @since TBD Added 'event' and 'event_id' as aliases of 'post_id' by default.
 	 *
 	 * @var array<string,string>
 	 */
-	protected $aliased_arguments = [];
+	protected $aliased_arguments = [
+		'event'    => 'post_id',
+		'event_id' => 'post_id',
+	];
 
 	/**
 	 * Array of callbacks for arguments validation.
