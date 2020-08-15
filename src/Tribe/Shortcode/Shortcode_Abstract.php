@@ -98,10 +98,12 @@ abstract class Shortcode_Abstract implements Shortcode_Interface {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD Use the `get_registration_slug()` method instead of the `slug` property directly.
 	 */
 	public function parse_arguments( array $arguments ) {
 		$arguments = Arr::parse_associative_array_alias( (array) $arguments, (array) $this->get_aliased_arguments() );
-		$arguments = shortcode_atts( $this->get_default_arguments(), $arguments, $this->slug );
+		$arguments = shortcode_atts( $this->get_default_arguments(), $arguments, $this->get_registration_slug() );
 
 		return $this->validate_arguments( $arguments );
 	}
