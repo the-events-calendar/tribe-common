@@ -26,6 +26,7 @@ const LabelWithModal = ( {
 	onClick,
 	onClose,
 	onOpen,
+	...restProps,
 } ) => (
 	<LabeledItem
 		className={ classNames( 'tribe-editor__label-with-modal', className ) }
@@ -43,6 +44,7 @@ const LabelWithModal = ( {
 			onClick={ onClick }
 			onClose={ onClose }
 			onOpen={ onOpen }
+			{ ...restProps }
 		/>
 	</LabeledItem>
 );

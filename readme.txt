@@ -7,6 +7,10 @@
 * Fix - Added IE11 compatibility for the toggles styles using `tribe-common-form-control-toggle` CSS class. [ET-865]
 * Tweak - Improve regular expressions used to parse UTC timezones by removing non-required grouping and characters. [TCMN-68]
 
+= [4.12.6.1] 2020-08-17 =
+
+* Fix - Pass extra props down to Modal component to allow addition of extra properties. [GTRIA-275]
+
 = [4.12.6] 2020-07-27 =
 
 * Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format. [TEC-3548]
