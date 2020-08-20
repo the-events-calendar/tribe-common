@@ -9,6 +9,10 @@
 * Tweak - Adjust the layout styles for tribe common checkboxes and radios. [FBAR-126] [FBAR-127]
 * Fix - Correctly handle array format query arguments while generating clean, or canonical, URLs; this solves some issues with Filter Bar and Views v2 where filters would be dropped when changing Views, paginating or using the datepicker. [FBAR-74, FBAR-85, FBAR-86]
 
+= [4.12.6.1] 2020-08-17 =
+
+* Fix - Pass extra props down to Modal component to allow addition of extra properties. [GTRIA-275]
+
 = [4.12.6] 2020-07-27 =
 
 * Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format. [TEC-3548]
