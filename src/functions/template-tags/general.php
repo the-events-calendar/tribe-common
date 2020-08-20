@@ -645,6 +645,7 @@ function tribe_asset_enqueue_group( $group ) {
  * Function to include more the one asset, based on `tribe_asset`
  *
  * @since 4.3
+ * @since TBD Added support for overriding arguments for individual assets
  *
  * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
  * @param  array    $assets     {
@@ -676,7 +677,13 @@ function tribe_assets( $origin, $assets, $action = null, $arguments = array() ) 
 		$file = $asset[1];
 		$deps = ! empty( $asset[2] ) ? $asset[2] : array();
 
-		$registered[] = tribe_asset( $origin, $slug, $file, $deps, $action, $arguments );
+		// if no action is defined we should get the group action.
+		$action = ! empty( $asset[3] ) ? $asset[3] : $action;
+
+		$asset_args = ! empty( $asset[4] ) ? $asset[4] : [];
+
+		$registered[] = tribe_asset( $origin, $slug, $file, $deps, $action, array_merge( $arguments, $asset_args ) );
+
 	}
 
 	return $registered;
