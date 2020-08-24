@@ -1,5 +1,9 @@
 === Tribe Common ===
 
+= [TBD] =
+
+* Tweak - Added Support for overriding individual arguments while registering group assets using `tribe_assets`
+
 == Changelog ==
 
 = [4.12.6] 2020-07-27 =
