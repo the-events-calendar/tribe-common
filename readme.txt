@@ -4,6 +4,7 @@
 
 = [4.12.7] TBD =
 
+* Tweak - Move border style button styles to border-small and add various border button styles that match the solid button style. [FBAR-143]
 * Tweak - Allow SelectWoo dropdown to be attached to the container via the `data-attach-container` attribute. [FBAR-129]
 * Tweak - Adjust the border radius of the form checkbox styles. [FBAR-126]
 * Tweak - Adjust the layout styles for tribe common checkboxes and radios. [FBAR-126] [FBAR-127]
