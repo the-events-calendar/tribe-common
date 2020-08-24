@@ -2,13 +2,18 @@
 
 == Changelog ==
 
-= [4.12.7] TBD =
+= [4.12.9] TBD =
+
+
+
+= [4.12.7] 2020-08-24 =
 
 * Tweak - Move border style button styles to border-small and add various border button styles that match the solid button style. [FBAR-143]
 * Tweak - Allow SelectWoo dropdown to be attached to the container via the `data-attach-container` attribute. [FBAR-129]
 * Tweak - Adjust the border radius of the form checkbox styles. [FBAR-126]
 * Tweak - Adjust the layout styles for tribe common checkboxes and radios. [FBAR-126] [FBAR-127]
 * Fix - Correctly handle array format query arguments while generating clean, or canonical, URLs; this solves some issues with Filter Bar and Views v2 where filters would be dropped when changing Views, paginating or using the datepicker. [FBAR-74, FBAR-85, FBAR-86]
+* Language - 3 new strings added, 30 updated, 3 fuzzied, and 1 obsoleted
 
 = [4.12.6.1] 2020-08-17 =
 
