@@ -64,6 +64,8 @@ function tribe_attributes() {
 /**
  * Get attributes for required fields.
  *
+ * @deprecated 4.12.6
+ *
  * @since 4.10.0
  *
  * @param boolean $required If the field is required.
@@ -109,6 +111,8 @@ function tribe_required_label( $required, $echo = true ) {
 
 /**
  * Get attributes for disabled fields.
+ *
+ * @deprecated 4.12.6
  *
  * @since 4.10.0
  *

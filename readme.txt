@@ -2,6 +2,57 @@
 
 == Changelog ==
 
+= [4.12.7] 2020-08-24 =
+
+* Tweak - Allow SelectWoo dropdown to be attached to the container via the `data-attach-container` attribute. [FBAR-129]
+* Tweak - Adjust the border radius of the form checkbox styles. [FBAR-126]
+* Tweak - Adjust the layout styles for tribe common checkboxes and radios. [FBAR-126] [FBAR-127]
+* Fix - Correctly handle array format query arguments while generating clean, or canonical, URLs; this solves some issues with Filter Bar and Views v2 where filters would be dropped when changing Views, paginating or using the datepicker. [FBAR-74, FBAR-85, FBAR-86]
+* Language - 3 new strings added, 30 updated, 3 fuzzied, and 1 obsoleted
+
+= [4.12.6.1] 2020-08-17 =
+
+* Fix - Pass extra props down to Modal component to allow addition of extra properties. [GTRIA-275]
+
+= [4.12.6] 2020-07-27 =
+
+* Feature - Added the `tribe_normalize_orderby` function to parse and build WP_Query `orderby` in a normalized format. [TEC-3548]
+* Feature - Added the `pluck`, `pluck_field`, `pluck_taxonomy` and `pluck_combine` methods to the `Tribe__Utils__Post_Collection` class to allow  more flexible result handling when dealing with ORM result sets. [TEC-3548]
+* Tweak - Adjust verbosity level to report connection issues with Promoter [PRMTR-404]
+* Tweak - Modify default parameters on `tribe_register_rest_route` for `permission_callback` to prevent notices on WordPress 5.5.
+* Tweak - Add the `tribe_asset_print_group` function to allow printing scripts or styles managed by the `tribe_assets` function in the page HTML. [ECP-374, ECP-376]
+* Tweak - Add the `Tribe__Customizer::get_styles_scripts` method to allow getting the Theme Customizer scripts or styles managed managed by the plugins. [ECP-374, ECP-376]
+* Tweak - Adjust verbosity level to report connection issues with Promoter. [PRMTR-404]
+* Tweak - Include Virtual Events on Help Page sidebar widget [TEC-3547]
+* Tweak - Update process to generate Promoter keys. [TCMN-85]
+* Tweak - Register Promoter key as part of the WP Settings API. [TCMN-85]
+* Tweak - Adjust level of access (protected to public) in 'Tribe__Promoter__Connector' class for external use of connector calls. [TCMN-82]
+* Fix - Correct issue with Body_Classes removing classes added by other plugins. [TEC-3537]
+* Fix - Set proper timezone on block editor when creating a new event. [TEC-3543]
+* Fix - Properly enqueue the customizer styles to allow overriding of theme styles. [TEC-3531]
+* Fix - Allow customizer styles to be applied on shortcode events views via the use of the filter `tribe_customizer_shortcode_should_print`. [ECP-450]
+* Language = 1 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.12.5] 2020-06-24 =
+
+* Feature - Added the `Tribe\Traits\With_Db_Lock` trait to provide methods useful to acquire and release database locks.
+* Feature - Added the `tribe_db_lock_use_msyql_functions` filter to control whether Database locks should be managed using MySQL functions (default, compatible with MySQL 5.6+) or SQL queries.
+* Tweak - Added case for manual control of field in dependency JS.
+* Tweak - Add filter `tribe_promoter_max_retries_on_failure` to set the maximum number of attempts to notify promoter of a change on the WordPress installation, default to 3.
+* Tweak - Register logs when notifications to Promoter failed and retry to notify until the limit of `tribe_promoter_max_retries_on_failure` is reached per notification.
+* Fix - Backwards compatibility for `tribe_upload_image` allow to use the function on version of WordPress before `5.2.x`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.12.4] 2020-06-22 =
+
+* Feature - Added the `Tribe\Traits\With_Meta_Updates_Handling` trait to provide methods useful in handling with meta.
+* Fix - Prevent `$legacy_hook_name` and `$hook_name` template Actions and Filters to be fired if they are the same, preventing duplicated hook calls.
+* Language - 10 new strings added, 27 updated, 1 fuzzied, and 2 obsoleted
+
+= [4.12.3.1] 2020-06-09 =
+
+* Security - Remove deprecated usage of escapeMarkup in Select2 (props to miha.jirov for reporting this).
+
 = [4.12.3] 2020-05-27 =
 
 * Fix - When using Block Editor we ensure that `apply_filters` for `the_content` on `tribe_get_the_content`, the lack of that filter prevented blocks from rendering. [TEC-3456]
