@@ -4,7 +4,7 @@
 
 = [4.12.9] TBD =
 
-
+* Tweak - Move border style button styles to border-small and add various border button styles that match the solid button style. [FBAR-143]
 
 = [4.12.7] 2020-08-24 =
 
