@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [4.12.10] TBD =
+
+
 = [4.12.8] 2020-08-26 =
 
 * Fix - Added IE11 compatibility for the toggles styles using `tribe-common-form-control-toggle` CSS class. [ET-865]
