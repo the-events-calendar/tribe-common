@@ -2,6 +2,12 @@
 
 == Changelog ==
 
+= [4.12.8] 2020-08-26 =
+
+* Fix - Added IE11 compatibility for the toggles styles using `tribe-common-form-control-toggle` CSS class. [ET-865]
+* Tweak - Improve regular expressions used to parse UTC timezones by removing non-required grouping and characters. [TCMN-68]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.12.7] 2020-08-24 =
 
 * Tweak - Allow SelectWoo dropdown to be attached to the container via the `data-attach-container` attribute. [FBAR-129]
