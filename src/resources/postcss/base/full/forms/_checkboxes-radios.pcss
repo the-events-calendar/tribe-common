@@ -67,15 +67,18 @@
 	.tribe-common-form-control-radio {
 		line-height: 0;
 
-		&:focus,
 		&:hover {
-			opacity: .8;
+			opacity: var(--opacity-icon-hover);
 		}
 	}
 
 	.tribe-common-form-control-checkbox__label,
 	.tribe-common-form-control-radio__label {
 		@mixin desktop-body-2;
+
+		&:hover {
+			opacity: var(--opacity-icon-hover);
+		}
 	}
 
 	.tribe-common-form-control-checkbox__input,
@@ -91,6 +94,12 @@
 		&:focus,
 		&:hover {
 			border: 1px solid var(--form-color-border-active);
+			opacity: var(--opacity-icon-hover);
+
+			+ .tribe-common-form-control-checkbox__label,
+			+ .tribe-common-form-control-radio__label {
+				opacity: var(--opacity-icon-hover);
+			}
 		}
 
 		&:checked {
