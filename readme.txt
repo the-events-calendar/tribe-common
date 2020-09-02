@@ -5,6 +5,8 @@
 = [4.12.9] TBD =
 
 * Tweak - Move border style button styles to border-small and add various border button styles that match the solid button style. [FBAR-143]
+* Tweak - Add the common views folder to the `Tribe__Template` lookup folders, the folder will be searched for matching template files only if no plugin-provided template was found. [FBAR-148]
+* Tweak - Add the `tribe_template_common_path` filter to allow controlling the path of the template file provided by common [FBAR-148]
 
 = [4.12.7] 2020-08-24 =
 
