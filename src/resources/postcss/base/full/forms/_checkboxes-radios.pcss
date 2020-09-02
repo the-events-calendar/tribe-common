@@ -66,13 +66,16 @@
 	.tribe-common-form-control-checkbox,
 	.tribe-common-form-control-radio {
 		line-height: 0;
+
+		&:focus,
+		&:hover {
+			opacity: .8;
+		}
 	}
 
 	.tribe-common-form-control-checkbox__label,
 	.tribe-common-form-control-radio__label {
 		@mixin desktop-body-2;
-
-		color: var(--color-text-secondary);
 	}
 
 	.tribe-common-form-control-checkbox__input,
