@@ -779,3 +779,23 @@ if ( ! function_exists( 'tribe_cache' ) ) {
 		return tribe( 'cache' );
 	}
 }
+
+if ( ! function_exists( 'tribe_asset_print_group' ) ) {
+	/**
+	 * Prints the `script` (JS) and `link` (CSS) HTML tags associated with one or more assets groups.
+	 *
+	 * @since 4.12.6
+	 *
+	 * @param string|array $group Which group(s) should be enqueued.
+	 * @param bool         $echo  Whether to print the group(s) tag(s) to the page or not; default to `true` to
+	 *                            print the HTML `script` (JS) and `link` (CSS) tags to the page.
+	 *
+	 * @return string The `script` and `link` HTML tags produced for the group(s).
+	 */
+	function tribe_asset_print_group( $group, $echo = true ) {
+		/** @var \Tribe__Assets $assets */
+		$assets     = tribe( 'assets' );
+
+		return $assets->print_group($group, $echo);
+	}
+}

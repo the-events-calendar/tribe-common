@@ -153,11 +153,14 @@ class Tribe__Image__Uploader {
 		}
 
 		// Upload file into WP and leave WP handle the resize and such.
-		$attachment_id = media_handle_sideload( [
-			'name'           => $this->create_file_name( $file ),
-			'tmp_name'       => $file,
-			'post_mime_type' => 'image',
-		] );
+		$attachment_id = media_handle_sideload(
+			[
+				'name'           => $this->create_file_name( $file ),
+				'tmp_name'       => $file,
+				'post_mime_type' => 'image',
+			],
+			0
+		);
 
 		// Remove the temporary file as is no longer required at this point.
 		if ( ! $is_local && file_exists( $file ) ) {
