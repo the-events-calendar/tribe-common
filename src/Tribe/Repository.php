@@ -1,9 +1,13 @@
 <?php
 
+use Tribe\Traits\With_Meta_Updates_Handling;
+use Tribe\Traits\With_Post_Attribute_Detection;
 use Tribe__Utils__Array as Arr;
 
 abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
+	use With_Meta_Updates_Handling;
+	use With_Post_Attribute_Detection;
 
 	const MAX_NUMBER_OF_POSTS_PER_PAGE = 99999999999;
 
@@ -1408,43 +1412,6 @@ abstract class Tribe__Repository
 	}
 
 	/**
-	 * Whether the key is a field of the posts table or not.
-	 *
-	 * @since 4.7.19
-	 *
-	 * @param string $key
-	 *
-	 * @return bool
-	 */
-	protected function is_a_post_field( $key ) {
-		return in_array( $key, array(
-			'ID',
-			'post_author',
-			'post_date',
-			'post_date_gmt',
-			'post_content',
-			'post_title',
-			'post_excerpt',
-			'post_status',
-			'comment_status',
-			'ping_status',
-			'post_password',
-			'post_name',
-			'to_ping',
-			'pinged',
-			'post_modified',
-			'post_modified_gmt',
-			'post_content_filtered',
-			'post_parent',
-			'guid',
-			'menu_order',
-			'post_type',
-			'post_mime_type',
-			'comment_count',
-		), true );
-	}
-
-	/**
 	 * Whether the current key is a date one requiring a converted key pair too or not.
 	 *
 	 * @param string $key
@@ -1475,19 +1442,6 @@ abstract class Tribe__Repository
 	}
 
 	/**
-	 * Whether the current key identifies one of the supported taxonomies or not.
-	 *
-	 * @since 4.7.19
-	 *
-	 * @param string $key
-	 *
-	 * @return bool
-	 */
-	protected function is_a_taxonomy( $key ) {
-		return in_array( $key, $this->taxonomies, true );
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
 	public function set_args( array $update_map ) {
@@ -1510,7 +1464,7 @@ abstract class Tribe__Repository
 	 */
 	public function set( $key, $value ) {
 		if ( ! is_string( $key ) ) {
-			throw Tribe__Repository__Usage_Error::because_udpate_key_should_be_a_string( $this );
+			throw Tribe__Repository__Usage_Error::because_update_key_should_be_a_string( $this );
 		}
 
 		$this->updates[ $key ] = $value;

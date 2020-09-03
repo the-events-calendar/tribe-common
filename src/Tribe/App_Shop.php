@@ -139,8 +139,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 			$products = [
 				'the-events-calendar' =>      (object) $all_products['the-events-calendar'],
 				'events-calendar-pro' =>      (object) $all_products['events-calendar-pro'],
-				/// this is coming soon, but not yet finalized
-				// 'events-virtual' =>           (object) $all_products['events-virtual'],
+				'events-virtual' =>           (object) $all_products['events-virtual'],
 				'event-aggregator' =>         (object) $all_products['event-aggregator'],
 				'event-tickets' =>            (object) $all_products['event-tickets'],
 				'event-tickets-plus' =>       (object) $all_products['event-tickets-plus'],
@@ -167,7 +166,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 					'logo' => 'images/logo/bundle-event-marketing.svg',
 					'link' => 'https://m.tri.be/1aj3',
 					'discount' => __( 'Save over 20%', 'tribe-common' ),
-					'description' => __( 'Ticket sales, attendee management, and email marketing for your events.', 'tribe-common' ),
+					'description' => __( 'Ticket sales, attendee management, and email marketing for your events', 'tribe-common' ),
 					'includes' => [
 						'events-calendar-pro',
 						'event-tickets-plus',
@@ -186,21 +185,25 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 						'event-aggregator'
 					],
 				],
-				/* this is coming soon, but not yet finalized
 				(object) [
-					'title' => __( 'Virtual Event Marketing Bundle', 'tribe-common' ),
+					'title' => __( 'Virtual Events Marketing Bundle', 'tribe-common' ),
 					'logo' => 'images/logo/bundle-virtual-events.svg',
-					'link' => 'https://m.tri.be/somewhere', // code review: fix this
-					'discount' => __( 'Save over 20%', 'tribe-common' ), // code review: fix this
-					'description' => __( '[description]', 'tribe-common' ), // code review: fix this
+					'link' => 'http://m.tri.be/ve-bundle',
+					'discount' => __( 'Save over 20%', 'tribe-common' ),
+					'description' => __( 'Streamline your online events and increase revenue.', 'tribe-common' ),
 					'includes' => [
 						'events-calendar-pro',
 						'event-tickets-plus',
 						'events-virtual',
 						'promoter',
 					],
+					'features' => [
+						__( 'Sell tickets and earn revenue for online events', 'tribe-common' ),
+						__( 'Zoom integration', 'tribe-common' ),
+						__( 'Automated emails optimized for virtual events', 'tribe-common' ),
+						__( 'Add recurring events', 'tribe-common' ),
+					],
 				],
-				*/
 				(object) [
 					'title' => __( 'Community Manager Bundle', 'tribe-common' ),
 					'logo' => 'images/logo/bundle-community-manager.svg',

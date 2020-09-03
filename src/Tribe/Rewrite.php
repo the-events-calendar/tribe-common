@@ -412,6 +412,17 @@ class Tribe__Rewrite {
 			return $home_url;
 		}
 
+		// Passthru vars are additional salts for the cache that would render it useless: parse them here.
+		$query = (string) parse_url( $url, PHP_URL_QUERY );
+		wp_parse_str( $query, $query_vars );
+		// Non-scalar value query vars should not be handled, but they should survive the resolution and not be cached.
+		$scalar_query_vars = array_filter( $query_vars, 'is_scalar' );
+		$passthru_vars     = array_diff_key( $query_vars, $scalar_query_vars );
+		// Remove the passthru query vars from the URL to match the correct cache.
+		$url = remove_query_arg( array_keys( $passthru_vars ), $url );
+		// Normalize the URL to make sure there's a trailing slash at the end of the path, before the query or fragment.
+		$url = preg_replace( '~(?<!/)([?#])~', '/$1', $url );
+
 		if ( ! $force ) {
 			$this->warmup_cache(
 				'canonical_url',
@@ -419,15 +430,12 @@ class Tribe__Rewrite {
 				Listener::TRIGGER_GENERATE_REWRITE_RULES
 			);
 			if ( isset( $this->canonical_url_cache[ $url ] ) ) {
-				return $this->canonical_url_cache[ $url ];
+				// Re-apply passthru vars now, if any.
+				return add_query_arg( $passthru_vars, $this->canonical_url_cache[ $url ] );
 			}
 		}
 
-		$query         = (string) parse_url( $url, PHP_URL_QUERY );
-		wp_parse_str( $query, $query_vars );
-
-		// Drop any query var that is not a scalar; it should not be handled.
-		$query_vars = array_filter( $query_vars, 'is_scalar' );
+		$query_vars = array_intersect_key( $query_vars, $scalar_query_vars );
 
 		if ( isset( $query_vars['paged'] ) && 1 === (int) $query_vars['paged'] ) {
 			// Remove the `paged` query var if it's 1.
@@ -588,6 +596,9 @@ class Tribe__Rewrite {
 			// Since we're caching let's not cache unmatched rules to allow for their later, valid resolution.
 			$this->canonical_url_cache[ $url ] = $resolved;
 		}
+
+		// Re-apply passthru vars now, if any. After the caching to allow salting the cache key too much.
+		$resolved = add_query_arg( $passthru_vars, $resolved );
 
 		return $resolved;
 	}
@@ -872,10 +883,16 @@ class Tribe__Rewrite {
 		$perma_query_vars     = [];
 		$url_components = parse_url($url);
 		$url_path = Arr::get( $url_components, 'path', '/' );
+		$site_path = parse_url( home_url(), PHP_URL_PATH );
+		if ( ! ( empty( $site_path ) && '/' !== $site_path ) ) {
+			// The current site is in a sub-directory: the site path should be dropped from the request path.
+			$url_path = str_replace( $site_path, '', $url_path );
+		}
 		$url_query = Arr::get( $url_components, 'query', '' );
 		parse_str( $url_query, $url_query_vars );
 		// Look for matches, removing leading `/` char.
-		$request_match = ltrim( $url_path, '/' );
+		$request_match         = ltrim( $url_path, '/' );
+		$decoded_request_match = urldecode( $request_match );
 
 		// Fetch the rewrite rules.
 		$rewrite_rules = $this->rewrite->wp_rewrite_rules();
@@ -884,7 +901,7 @@ class Tribe__Rewrite {
 		if ( ! empty( $rewrite_rules ) ) {
 			foreach ( (array) $rewrite_rules as $match => $query ) {
 				$matches_regex = preg_match( "#^$match#", $request_match, $matches )
-				                 || preg_match( "#^$match#", urldecode( $request_match ), $matches );
+				                 || preg_match( "#^$match#", $decoded_request_match, $matches );
 
 				if ( ! $matches_regex ) {
 					continue;
