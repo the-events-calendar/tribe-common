@@ -8,6 +8,7 @@
 * Tweak - Add the common views folder to the `Tribe__Template` lookup folders, the folder will be searched for matching template files only if no plugin-provided template was found. [FBAR-148]
 * Tweak - Add the `tribe_template_common_path` filter to allow controlling the path of the template file provided by common. [FBAR-148]
 * Tweak - Add the `tribe_without_filters` function to run a callback or closure suspending a set of filters and actions. [TEC-3579]
+* Tweak - Added hover and focus colors, update default colors to make them accessible. [FBAR-165]
 
 = [4.12.7] 2020-08-24 =
 
