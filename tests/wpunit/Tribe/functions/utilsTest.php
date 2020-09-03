@@ -362,7 +362,7 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow running a callback detaching filters
+	 * It should allow running a callback detaching filters.
 	 *
 	 * @test
 	 */
@@ -378,7 +378,7 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow running a callback detaching actions
+	 * It should allow running a callback detaching actions.
 	 *
 	 * @test
 	 */
@@ -398,7 +398,7 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow running a callback detaching filters and actions
+	 * It should allow running a callback detaching filters and actions.
 	 *
 	 * @test
 	 */
@@ -421,7 +421,7 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should not detach filters that are not in the list of filters to suspend
+	 * It should not detach filters that are not in the list of filters to suspend.
 	 *
 	 * @test
 	 */
