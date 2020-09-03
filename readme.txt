@@ -5,6 +5,7 @@
 = [4.12.9] TBD =
 
 * Tweak - Move border style button styles to border-small and add various border button styles that match the solid button style. [FBAR-143]
+* Tweak - Add the `tribe_without_filters` function to run a callback or closure suspending a set of filters and actions. [TEC-3579]
 
 = [4.12.7] 2020-08-24 =
 
