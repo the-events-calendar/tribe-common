@@ -2,7 +2,7 @@
 
 = [TBD] =
 
-* Tweak - Added Support for overriding individual arguments while registering group assets using `tribe_assets`
+* Tweak - Added Support for overriding individual arguments while registering group assets using `tribe_assets`. [TCMN-88]
 
 == Changelog ==
 
