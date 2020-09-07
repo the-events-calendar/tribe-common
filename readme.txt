@@ -4,6 +4,7 @@
 
 = [4.12.10] TBD =
 
+* Tweak - Introduce the `tribe_doing_shortcode()` template tag to check if one of our shortcodes is being done. [ET-904]
 
 = [4.12.8] 2020-08-26 =
 
