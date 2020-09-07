@@ -144,7 +144,6 @@ class Manager {
 	public function filter_do_shortcode_tag( $output, $tag, $attr, $m ) {
 		global $tribe_current_shortcode;
 
-
 		if ( ! $this->is_shortcode_registered( $tag ) ) {
 			return $output;
 		}
