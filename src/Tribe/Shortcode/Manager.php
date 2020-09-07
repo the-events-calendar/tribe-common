@@ -6,7 +6,11 @@
  * @since   4.12.0
  */
 namespace Tribe\Shortcode;
+global $tribe_current_shortcode;
 
+if ( ! isset( $tribe_current_shortcode ) ) {
+	$tribe_current_shortcode = [];
+}
 /**
  * Class Shortcode Manager.
  *
@@ -103,5 +107,70 @@ class Manager {
 		$instance->setup( $arguments, $content );
 
 		return $instance->get_html();
+	}
+
+	/**
+	 * Filter `pre_do_shortcode_tag` to add the current shortcode.
+	 *
+	 * @param bool|string $return      Short-circuit return value. Either false or the value to replace the shortcode with.
+	 * @param string      $tag         Shortcode name.
+	 * @param array       $attr        Shortcode attributes array,
+	 * @param array       $m           Regular expression match array.
+	 * @return void
+	 */
+	public function filter_pre_do_shortcode_tag( $return, $tag, $attr, $m ) {
+		global $tribe_current_shortcode;
+
+		if ( ! $this->is_shortcode_registered( $tag ) ) {
+			return $return;
+		}
+
+		// Add to the doing shortcode.
+		$tribe_current_shortcode[] = $tag;
+
+		return $return;
+	}
+
+	/**
+	 * Filter `do_shortcode_tag` to remove the shortcode from the `$tribe_current_shortcode` list.
+	 *
+	 * @param string       $output Shortcode output.
+	 * @param string       $tag    Shortcode name.
+	 * @param array|string $attr   Shortcode attributes array or empty string.
+	 * @param array        $m      Regular expression match array.
+	 *
+	 * @return string Shortcode output.
+	 */
+	public function filter_do_shortcode_tag( $output, $tag, $attr, $m ) {
+		global $tribe_current_shortcode;
+
+
+		if ( ! $this->is_shortcode_registered( $tag ) ) {
+			return $output;
+		}
+
+		// Remove the shortcode from the list once it's done.
+		if ( isset( $tribe_current_shortcode[ $tag ] ) ) {
+			unset( $tribe_current_shortcode[ $tag ] );
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Check if a shortcode is being done.
+	 *
+	 * @param string|null $tag Shortcode name.
+	 *
+	 * @return bool If the shortcode is being done or not.
+	 */
+	public function is_doing_shortcode( $tag = null ) {
+		global $tribe_current_shortcode;
+
+		if ( null === $tag ) {
+			return ! empty( $tribe_current_shortcode );
+		}
+
+		return in_array( $tag, $tribe_current_shortcode );
 	}
 }

@@ -799,3 +799,18 @@ if ( ! function_exists( 'tribe_asset_print_group' ) ) {
 		return $assets->print_group($group, $echo);
 	}
 }
+
+if ( ! function_exists( 'tribe_doing_shortcode' ) ) {
+	/**
+	 * Check if it's the doing the tribe_shortcode.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $tag
+	 *
+	 * @return bool If it's doing the shortcode
+	 */
+	function tribe_doing_shortcode( $tag = null ) {
+		return tribe( 'shortcode.manager' )->is_doing_shortcode( $tag );
+	}
+}
