@@ -153,7 +153,6 @@ class Manager {
 	 * @return string Shortcode output.
 	 */
 	public function filter_do_shortcode_tag( $output, $tag, $attr, $m ) {
-
 		if ( ! $this->is_shortcode_registered( $tag ) ) {
 			return $output;
 		}
@@ -175,11 +174,10 @@ class Manager {
 	 * @return bool If the shortcode is being done or not.
 	 */
 	public function is_doing_shortcode( $tag = null ) {
-
 		if ( null === $tag ) {
 			return ! empty( $this->current_shortcode );
 		}
 
-		return in_array( $tag, $this->current_shortcode );
+		return in_array( $tag, $this->current_shortcode, true );
 	}
 }
