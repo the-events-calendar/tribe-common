@@ -799,3 +799,20 @@ if ( ! function_exists( 'tribe_asset_print_group' ) ) {
 		return $assets->print_group($group, $echo);
 	}
 }
+
+if ( ! function_exists( 'tribe_doing_shortcode' ) ) {
+	/**
+	 * Check whether a specific shortcode is being run.
+	 *
+	 * This is limited to only shortcodes registered with Tribe\Shortcode\Manager.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|string $tag The shortcode tag name, or null to check if doing any shortcode.
+	 *
+	 * @return bool Whether the shortcode is currently being run.
+	 */
+	function tribe_doing_shortcode( $tag = null ) {
+		return tribe( 'shortcode.manager' )->is_doing_shortcode( $tag );
+	}
+}
