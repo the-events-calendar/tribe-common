@@ -8,9 +8,6 @@
 namespace Tribe\Shortcode;
 global $tribe_current_shortcode;
 
-if ( ! isset( $tribe_current_shortcode ) ) {
-	$tribe_current_shortcode = [];
-}
 /**
  * Class Shortcode Manager.
  *
@@ -19,6 +16,16 @@ if ( ! isset( $tribe_current_shortcode ) ) {
  * @package Tribe\Shortcode
  */
 class Manager {
+
+	/**
+	 * Current shortcodes.
+	 *
+	 * @since TBD
+	 *
+	 * @var array $current_shortcode An array containing the current shortcodes being executed.
+	 */
+	public $current_shortcode = [];
+
 	/**
 	 * Get the list of shortcodes available for handling.
 	 *
@@ -122,14 +129,13 @@ class Manager {
 	 * @return bool|string Short-circuit return value.
 	 */
 	public function filter_pre_do_shortcode_tag( $return, $tag, $attr, $m ) {
-		global $tribe_current_shortcode;
 
 		if ( ! $this->is_shortcode_registered( $tag ) ) {
 			return $return;
 		}
 
 		// Add to the doing shortcode.
-		$tribe_current_shortcode[] = $tag;
+		$this->current_shortcode[] = $tag;
 
 		return $return;
 	}
@@ -147,15 +153,13 @@ class Manager {
 	 * @return string Shortcode output.
 	 */
 	public function filter_do_shortcode_tag( $output, $tag, $attr, $m ) {
-		global $tribe_current_shortcode;
 
 		if ( ! $this->is_shortcode_registered( $tag ) ) {
 			return $output;
 		}
 
-		// Remove the shortcode from the list once it's done.
-		if ( isset( $tribe_current_shortcode[ $tag ] ) ) {
-			unset( $tribe_current_shortcode[ $tag ] );
+		if ( isset( $this->current_shortcode[ $tag ] ) ) {
+			unset( $this->current_shortcode[ $tag ] );
 		}
 
 		return $output;
@@ -171,12 +175,11 @@ class Manager {
 	 * @return bool If the shortcode is being done or not.
 	 */
 	public function is_doing_shortcode( $tag = null ) {
-		global $tribe_current_shortcode;
 
 		if ( null === $tag ) {
-			return ! empty( $tribe_current_shortcode );
+			return ! empty( $this->current_shortcode );
 		}
 
-		return in_array( $tag, $tribe_current_shortcode );
+		return in_array( $tag, $this->current_shortcode );
 	}
 }
