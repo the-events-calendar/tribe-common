@@ -804,9 +804,11 @@ if ( ! function_exists( 'tribe_doing_shortcode' ) ) {
 	/**
 	 * Check whether a specific shortcode is being run.
 	 *
+	 * This is limited to only shortcodes registered with Tribe\Shortcode\Manager.
+	 *
 	 * @since TBD
 	 *
-	 * @param string $tag The shortcode tag name.
+	 * @param null|string $tag The shortcode tag name, or null to check if doing any shortcode.
 	 *
 	 * @return bool Whether the shortcode is currently being run.
 	 */

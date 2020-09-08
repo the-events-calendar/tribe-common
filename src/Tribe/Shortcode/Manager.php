@@ -169,7 +169,7 @@ class Manager {
 	 *
 	 * @since TBD
 	 *
-	 * @param string|null $tag Shortcode name.
+	 * @param null|string $tag The shortcode tag name, or null to check if doing any shortcode.
 	 *
 	 * @return bool If the shortcode is being done or not.
 	 */
