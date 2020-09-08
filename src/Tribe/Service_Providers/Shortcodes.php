@@ -22,7 +22,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		$this->container->singleton( Manager::class, $manager );
+		$this->container->singleton( Manager::class, Manager::class );
 		$this->container->singleton(
 			'shortcode.manager',
 			function() {
