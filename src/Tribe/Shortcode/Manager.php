@@ -5,8 +5,8 @@
  * @package Tribe\Shortcode
  * @since   4.12.0
  */
+
 namespace Tribe\Shortcode;
-global $tribe_current_shortcode;
 
 /**
  * Class Shortcode Manager.
