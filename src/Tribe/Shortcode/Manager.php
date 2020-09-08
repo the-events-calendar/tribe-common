@@ -129,7 +129,6 @@ class Manager {
 	 * @return bool|string Short-circuit return value.
 	 */
 	public function filter_pre_do_shortcode_tag( $return, $tag, $attr, $m ) {
-
 		if ( ! $this->is_shortcode_registered( $tag ) ) {
 			return $return;
 		}
