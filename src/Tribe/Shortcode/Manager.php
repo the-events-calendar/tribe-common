@@ -112,11 +112,14 @@ class Manager {
 	/**
 	 * Filter `pre_do_shortcode_tag` to add the current shortcode.
 	 *
+	 * @since TBD
+	 *
 	 * @param bool|string $return      Short-circuit return value. Either false or the value to replace the shortcode with.
 	 * @param string      $tag         Shortcode name.
 	 * @param array       $attr        Shortcode attributes array,
 	 * @param array       $m           Regular expression match array.
-	 * @return void
+	 *
+	 * @return bool|string Short-circuit return value.
 	 */
 	public function filter_pre_do_shortcode_tag( $return, $tag, $attr, $m ) {
 		global $tribe_current_shortcode;
@@ -133,6 +136,8 @@ class Manager {
 
 	/**
 	 * Filter `do_shortcode_tag` to remove the shortcode from the `$tribe_current_shortcode` list.
+	 *
+	 * @since TBD
 	 *
 	 * @param string       $output Shortcode output.
 	 * @param string       $tag    Shortcode name.
@@ -158,6 +163,8 @@ class Manager {
 
 	/**
 	 * Check if a shortcode is being done.
+	 *
+	 * @since TBD
 	 *
 	 * @param string|null $tag Shortcode name.
 	 *

@@ -84,11 +84,13 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters `pre_do_shortcode_tag` to mark that a tribe shortcode is currently being done.
 	 *
+	 * @since TBD
+	 *
 	 * @param bool|string $return      Short-circuit return value. Either false or the value to replace the shortcode with.
 	 * @param string      $tag         Shortcode name.
 	 * @param array       $attr        Shortcode attributes array,
 	 * @param array       $m           Regular expression match array.
-	 * @return void
+	 * @return bool|string Short-circuit return value.
 	 */
 	public function filter_pre_do_shortcode_tag( $false, $tag, $attr, $m ) {
 		return $this->container->make( Manager::class )->filter_pre_do_shortcode_tag( $false, $tag, $attr, $m );
@@ -103,6 +105,8 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	 * @param string       $tag    Shortcode name.
 	 * @param array|string $attr   Shortcode attributes array or empty string.
 	 * @param array        $m      Regular expression match array.
+	 *
+	 * @return string Shortcode output.
 	 */
 	public function filter_do_shortcode_tag( $output, $tag, $attr, $m ) {
 		return $this->container->make( Manager::class )->filter_do_shortcode_tag( $output, $tag, $attr, $m );

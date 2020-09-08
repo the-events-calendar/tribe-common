@@ -802,13 +802,13 @@ if ( ! function_exists( 'tribe_asset_print_group' ) ) {
 
 if ( ! function_exists( 'tribe_doing_shortcode' ) ) {
 	/**
-	 * Check if it's the doing the tribe_shortcode.
+	 * Check whether a specific shortcode is being run.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $tag
+	 * @param string $tag The shortcode tag name.
 	 *
-	 * @return bool If it's doing the shortcode
+	 * @return bool Whether the shortcode is currently being run.
 	 */
 	function tribe_doing_shortcode( $tag = null ) {
 		return tribe( 'shortcode.manager' )->is_doing_shortcode( $tag );
