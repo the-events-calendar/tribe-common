@@ -96,6 +96,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	 * @param string      $tag         Shortcode name.
 	 * @param array       $attr        Shortcode attributes array,
 	 * @param array       $m           Regular expression match array.
+	 *
 	 * @return bool|string Short-circuit return value.
 	 */
 	public function filter_pre_do_shortcode_tag( $false, $tag, $attr, $m ) {
