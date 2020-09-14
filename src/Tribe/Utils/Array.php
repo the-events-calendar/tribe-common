@@ -442,5 +442,84 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 
 			return $default;
 		}
+
+		/**
+		 * Discards everything other than array values having string keys and scalar values, ensuring a
+		 * one-dimensional, associative array result.
+		 *
+		 * @link  https://www.php.net/manual/language.types.array.php Keys cast to non-strings will be discarded.
+		 *
+		 * @since 4.12.2
+		 *
+		 * @param array $array
+		 *
+		 * @return array Associative or empty array.
+		 */
+		public static function filter_to_flat_scalar_associative_array( array $array ) {
+			$result = [];
+
+			if ( ! is_array( $array ) ) {
+				return $result;
+			}
+
+			foreach ( $array as $k => $v ) {
+				if ( ! is_string( $k ) ) {
+					continue;
+				}
+
+				if ( ! is_scalar( $v ) ) {
+					continue;
+				}
+
+				$result[ $k ] = $v;
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Build an array from migrating aliased key values to their canonical key values, removing all alias keys.
+		 *
+		 * If the original array has values for both the alias and its canonical, keep the canonical's value and
+		 * discard the alias' value.
+		 *
+		 * @since 4.12.2
+		 *
+		 * @param array $original  An associative array of values, such as passed shortcode arguments.
+		 * @param array $alias_map An associative array of aliases: key as alias, value as mapped canonical.
+		 *                         Example: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
+		 *
+		 * @return array
+		 */
+		public static function parse_associative_array_alias( array $original, array $alias_map ) {
+			// Ensure array values.
+			$original  = (array) $original;
+			$alias_map = static::filter_to_flat_scalar_associative_array( (array) $alias_map );
+
+			// Fail gracefully if alias array wasn't setup as [ 'from' => 'to' ].
+			if ( empty( $alias_map ) ) {
+				return $original;
+			}
+
+			$result = $original;
+
+			// Parse aliases.
+			foreach ( $alias_map as $from => $to ) {
+				// If this alias isn't in use, go onto the next.
+				if ( ! isset( $result[ $from ] ) ) {
+					continue;
+				}
+
+				// Only allow setting alias value if canonical value is not already present.
+				if ( ! isset( $result[ $to ] ) ) {
+					$result[ $to ] = $result[ $from ];
+				}
+
+				// Always remove the alias key.
+				unset( $result[ $from ] );
+			}
+
+			return $result;
+		}
 	}
 }
