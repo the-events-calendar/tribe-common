@@ -195,8 +195,8 @@ class Tribe__Main {
 				[ 'tribe-query-string', 'utils/query-string.js' ],
 				[ 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
-				[ 'tribe-select2', 'vendor/tribe-select2/select2.js', [ 'jquery' ] ],
-				[ 'tribe-select2-css', 'vendor/tribe-select2/select2.css' ],
+				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
+				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
 				[ 'tribe-utils-camelcase', 'utils-camelcase.js', [ 'underscore' ] ],
 				[ 'tribe-moment', 'vendor/momentjs/moment.js' ],
 				[ 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', [ 'jquery' ] ],
@@ -226,16 +226,17 @@ class Tribe__Main {
 		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
 		tribe_assets(
 			$this,
-			array(
-				array( 'tribe-buttonset', 'buttonset.js', array( 'jquery', 'underscore' ) ),
-				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ) ),
-				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ) ),
-				array( 'tribe-validation-style', 'validation.css', array( 'tribe-tooltipster-css' ) ),
-				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore', 'tribe-common' ) ),
-				array( 'tribe-dependency-style', 'dependency.css', array( 'tribe-select2-css' ) ),
-				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
-				array( 'tribe-datepicker', 'datepicker.css' ),
-			),
+			[
+				[ 'tribe-ui', 'tribe-ui.css' ],
+				[ 'tribe-buttonset', 'buttonset.js', [ 'jquery', 'underscore' ] ],
+				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
+				[ 'tribe-validation', 'validation.js', [ 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ] ],
+				[ 'tribe-validation-style', 'validation.css', [ 'tribe-tooltipster-css' ] ],
+				[ 'tribe-dependency', 'dependency.js', [ 'jquery', 'underscore', 'tribe-common' ] ],
+				[ 'tribe-dependency-style', 'dependency.css', [ 'tribe-select2-css' ] ],
+				[ 'tribe-pue-notices', 'pue-notices.js', [ 'jquery' ] ],
+				[ 'tribe-datepicker', 'datepicker.css' ],
+			],
 			'admin_enqueue_scripts',
 			array(
 				'conditionals' => array( $this, 'should_load_common_admin_css' ),
@@ -294,19 +295,19 @@ class Tribe__Main {
 			'all_selected_text' => __( 'All items on this page were selected. ', 'tribe-common' ),
 			'select_all_link'   => __( 'Select all pages', 'tribe-common' ),
 			'clear_selection'   => __( 'Clear Selection.', 'tribe-common' ),
-			'pagination' => array(
+			'pagination' => [
 				'all' => __( 'All', 'tribe-common' ),
 				'next' => __( 'Next', 'tribe-common' ),
 				'previous' => __( 'Previous', 'tribe-common' ),
-			),
-			'select' => array(
-				'rows' => array(
+			],
+			'select' => [
+				'rows' => [
 					0 => '',
 					'_' => __( ': Selected %d rows', 'tribe-common' ),
 					1 => __( ': Selected 1 row', 'tribe-common' ),
-				),
-			),
-			'datepicker' => array(
+				],
+			],
+			'datepicker' => [
 				'dayNames'        => Tribe__Date_Utils::get_localized_weekdays_full(),
 				'dayNamesShort'   => Tribe__Date_Utils::get_localized_weekdays_short(),
 				'dayNamesMin'     => Tribe__Date_Utils::get_localized_weekdays_initial(),
@@ -319,7 +320,7 @@ class Tribe__Main {
 				'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
 				'today'           => esc_html__( 'Today', 'the-events-calendar' ),
 				'clear'           => esc_html__( 'Clear', 'the-events-calendar' ),
-			),
+			],
 		) );
 	}
 
