@@ -3,6 +3,9 @@
  * Date utility functions used throughout TEC + Addons
  */
 
+use Tribe\Utils\Date_I18n;
+use Tribe\Utils\Date_I18n_Immutable;
+
 // Don't load directly
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,10 +26,37 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		const DBTIMEFORMAT          = 'H:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
 
+		/**
+		 * Default datepicker format index.
+		 *
+		 * @since 4.11.0.1
+		 *
+		 * @var int
+		 */
+		private static $default_datepicker_format_index = 1;
+
 		private static $localized_months_full  = array();
 		private static $localized_months_short = array();
 		private static $localized_weekdays     = array();
 		private static $localized_months       = array();
+
+		/**
+		 * Get the datepickerFormat index.
+		 *
+		 * @since 4.11.0.1
+		 *
+		 * @return int
+		 */
+		public static function get_datepicker_format_index() {
+			/**
+			 * Filter the datepickerFormat index.
+			 *
+			 * @since 4.11.0.1
+			 *
+			 * @param int $format_index Index of datepickerFormat.
+			 */
+			return apply_filters( 'tribe_datepicker_format_index', tribe_get_option( 'datepickerFormat', static::$default_datepicker_format_index ) );
+		}
 
 		/**
 		 * Try to format a Date to the Default Datepicker format
@@ -39,14 +69,14 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function maybe_format_from_datepicker( $date, $datepicker = null ) {
 			if ( ! is_numeric( $datepicker ) ) {
-				$datepicker = tribe_get_option( 'datepickerFormat' );
+				$datepicker = self::get_datepicker_format_index();
 			}
 
 			if ( is_numeric( $datepicker ) ) {
 				$datepicker = self::datepicker_formats( $datepicker );
 			}
 
-			$default_datepicker = self::datepicker_formats( 0 );
+			$default_datepicker = self::datepicker_formats( 1 );
 
 			// If the current datepicker is the default we don't care
 			if ( $datepicker === $default_datepicker ) {
@@ -96,7 +126,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return $formats;
 			}
 
-			return isset( $formats[ $translate ] ) ? $formats[ $translate ] : $formats[0];
+			return isset( $formats[ $translate ] ) ? $formats[ $translate ] : $formats[ static::get_datepicker_format_index() ];
 		}
 
 		/**
@@ -1219,13 +1249,13 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return clone $datetime;
 			}
 
-			if ( class_exists('DateTimeImmutable') && $datetime instanceof DateTimeImmutable ) {
+			if ( class_exists( 'DateTimeImmutable' ) && $datetime instanceof DateTimeImmutable ) {
 				// Return the mutable version of the date.
-				return new DateTime( $datetime->format( 'Y-m-d H:i:s' ), $datetime->getTimezone() );
+				return Date_I18n::createFromImmutable( $datetime );
 			}
 
 			$timezone_object = null;
-			$datetime = empty($datetime) ? 'now' : $datetime;
+			$datetime = empty( $datetime ) ? 'now' : $datetime;
 
 			try {
 				// PHP 5.2 will not throw an exception but will generate an error.
@@ -1233,23 +1263,24 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
 
 				if ( self::is_timestamp( $datetime ) ) {
-					// Timestamps timezone is always UTC.
-					$date =  new DateTime( '@' . $datetime, $utc );
+					$timestamp_timezone = $timezone ? $timezone_object : $utc;
 
-					// If we have a timezone, then set it.
-					return $timezone ? $date->setTimezone( $timezone_object ) : $date;
+					return new Date_I18n( '@' . $datetime, $timestamp_timezone );
 				}
 
 				set_error_handler( 'tribe_catch_and_throw' );
-				$date = new DateTime( $datetime, $timezone_object );
+				$date = new Date_I18n( $datetime, $timezone_object );
 				restore_error_handler();
 			} catch ( Exception $e ) {
+				// If we encounter an error, we need to restore after catching.
+				restore_error_handler();
+
 				if ( $timezone_object === null ) {
 					$timezone_object = Tribe__Timezones::build_timezone_object( $timezone );
 				}
 
 				return $with_fallback
-					? new DateTime( 'now', $timezone_object )
+					? new Date_I18n( 'now', $timezone_object )
 					: false;
 			}
 
@@ -1267,13 +1298,27 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *              like `strtotime`, or not.
 		 */
 		public static function is_valid_date( $date ) {
-			return self::build_date_object( $date, null, false ) instanceof DateTime;
+			static $cache_var_name = __FUNCTION__;
+
+			$cache_date_check = tribe_get_var( $cache_var_name, [] );
+
+			if ( isset( $cache_date_check[ $date ] ) ) {
+				return $cache_date_check[ $date ];
+			}
+
+			$cache_date_check[ $date ] = self::build_date_object( $date, null, false ) instanceof DateTimeInterface;
+
+			tribe_set_var( $cache_var_name, $cache_date_check );
+
+			return $cache_date_check[ $date ];
 		}
 
 		/**
 		 * Returns the DateTime object representing the start of the week for a date.
 		 *
 		 * @since 4.9.21
+		 *
+		 * @throws Exception
 		 *
 		 * @param string|int|\DateTime $date          The date string, timestamp or object.
 		 * @param int|null             $start_of_week The number representing the start of week day as handled by
@@ -1285,15 +1330,28 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 *                        `23:59:59`.
 		 */
 		public static function get_week_start_end( $date, $start_of_week = null ) {
-			$week_start = static::build_date_object( $date );
-			$week_start->setTime( 0, 0, 0 );
+			static $cache_var_name = __FUNCTION__;
+
+			$cache_week_start_end = tribe_get_var( $cache_var_name, [] );
+
+			$date_obj = static::build_date_object( $date );
+			$date_obj->setTime( 0, 0, 0 );
+
+			$date_string = $date_obj->format( static::DBDATEFORMAT );
+
 			// `0` (for Sunday) through `6` (for Saturday), the way WP handles the `start_of_week` option.
 			$week_start_day = null !== $start_of_week
 				? (int) $start_of_week
 				: (int) get_option( 'start_of_week', 0 );
 
+			$memory_cache_key = "{$date_string}:{$week_start_day}";
+
+			if ( isset( $cache_week_start_end[ $memory_cache_key ] ) ) {
+				return $cache_week_start_end[ $memory_cache_key ];
+			}
+
 			$cache_key = md5(
-				__METHOD__ . serialize( [ $week_start->format( static::DBDATEFORMAT ), $week_start_day ] )
+				__METHOD__ . serialize( [ $date_obj->format( static::DBDATEFORMAT ), $week_start_day ] )
 			);
 			$cache = tribe( 'cache' );
 
@@ -1302,10 +1360,20 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			// `0` (for Sunday) through `6` (for Saturday), the way WP handles the `start_of_week` option.
-			$date_day = (int) $week_start->format( 'w' );
+			$date_day = (int) $date_obj->format( 'w' );
 
-			// If the current date is before the start of the week, move back a week.
-			$week_offset = $date_day < $week_start_day ? - 1 : 0;
+			$week_offset = 0;
+			if ( 0 === $date_day && 0 !== $week_start_day ) {
+				$week_offset = 0;
+			} elseif ( $date_day < $week_start_day ) {
+				// If the current date of the week is before the start of the week, move back a week.
+				$week_offset = -1;
+			} elseif ( 0 === $date_day ) {
+				// When start of the week is on a sunday we add a week.
+				$week_offset = 1;
+			}
+
+			$week_start = clone $date_obj;
 
 			/*
 			 * From the PHP docs, the `W` format stands for:
@@ -1325,9 +1393,116 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			$week_start = static::immutable( $week_start );
 			$week_end   = static::immutable( $week_end );
 
-			$cache[ $cache_key ] = [ $week_start, $week_end ];
+			$cache[ $cache_key ]                       = [ $week_start, $week_end ];
+			$cache_week_start_end[ $memory_cache_key ] = [ $week_start, $week_end ];
+
+			tribe_set_var( $cache_var_name, $cache_week_start_end );
 
 			return [ $week_start, $week_end ];
+		}
+
+		/**
+		 * Given a specific DateTime we determine the end of that day based on our Internal End of Day Cut-off.
+		 *
+		 * @since 4.11.2
+		 *
+		 * @param string|DateTimeInterface $date    Date that we are getting the end of day from.
+		 * @param null|string              $cutoff  Which cutoff to use.
+		 *
+		 * @return DateTimeInterface|false Returns a DateTimeInterface when a valid date is given or false.
+		 */
+		public static function get_shifted_end_of_day( $date, $cutoff = null ) {
+			$date_obj = static::build_date_object( $date );
+
+			if ( ! $date_obj ) {
+				return false;
+			}
+
+			$start_of_day = clone $date_obj;
+			$end_of_day   = clone $date_obj;
+
+			if ( empty( $cutoff ) || ! is_string( $cutoff ) || false === strpos( $cutoff, ':' ) ) {
+				$cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
+			}
+
+			list( $hours_to_add, $minutes_to_add ) = array_map( 'absint', explode( ':', $cutoff ) );
+
+			$seconds_to_add = ( $hours_to_add * HOUR_IN_SECONDS ) + ( $minutes_to_add * MINUTE_IN_SECONDS );
+			if ( 0 !== $seconds_to_add ) {
+				$interval = static::interval( "PT{$seconds_to_add}S" );
+			}
+
+			$start_of_day->setTime( '0', '0', '0' );
+			$end_of_day->setTime( '23', '59', '59' );
+
+			if ( 0 !== $seconds_to_add ) {
+				$start_of_day->add( $interval );
+				$end_of_day->add( $interval );
+			}
+
+			if ( $end_of_day >= $date_obj && $date_obj >= $start_of_day ) {
+				return $end_of_day;
+			}
+
+			$start_of_day->sub( static::interval( 'P1D' ) );
+
+			if ( $start_of_day < $date_obj ) {
+				$end_of_day->sub( static::interval( 'P1D' ) );
+			}
+
+			return $end_of_day;
+		}
+
+		/**
+		 * Given a specific DateTime we determine the start of that day based on our Internal End of Day Cut-off.
+		 *
+		 * @since 4.11.2
+		 *
+		 * @param string|DateTimeInterface $date    Date that we are getting the start of day from.
+		 * @param null|string              $cutoff  Which cutoff to use.
+		 *
+		 * @return DateTimeInterface|false Returns a DateTimeInterface when a valid date is given or false.
+		 */
+		public static function get_shifted_start_of_day( $date, $cutoff = null ) {
+			$date_obj = static::build_date_object( $date );
+
+			if ( ! $date_obj ) {
+				return false;
+			}
+
+			$start_of_day = clone $date_obj;
+			$end_of_day   = clone $date_obj;
+
+			if ( empty( $cutoff ) || ! is_string( $cutoff ) || false === strpos( $cutoff, ':' ) ) {
+				$cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
+			}
+
+			list( $hours_to_add, $minutes_to_add ) = array_map( 'absint', explode( ':', $cutoff ) );
+
+			$seconds_to_add = ( $hours_to_add * HOUR_IN_SECONDS ) + ( $minutes_to_add * MINUTE_IN_SECONDS );
+			if ( 0 !== $seconds_to_add ) {
+				$interval = static::interval( "PT{$seconds_to_add}S" );
+			}
+
+			$start_of_day->setTime( '0', '0', '0' );
+			$end_of_day->setTime( '23', '59', '59' );
+
+			if ( 0 !== $seconds_to_add ) {
+				$start_of_day->add( $interval );
+				$end_of_day->add( $interval );
+			}
+
+			if ( $end_of_day <= $date_obj && $date_obj >= $start_of_day ) {
+				return $start_of_day;
+			}
+
+			$end_of_day->sub( static::interval( 'P1D' ) );
+
+			if ( $end_of_day > $date_obj ) {
+				$start_of_day->sub( static::interval( 'P1D' ) );
+			}
+
+			return $start_of_day;
 		}
 
 		/**
@@ -1375,7 +1550,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			}
 
 			if ( $datetime instanceof DateTime ) {
-				return DateTimeImmutable::createFromMutable( $datetime );
+				return Date_I18n_Immutable::createFromMutable( $datetime );
 			}
 
 			$mutable = static::build_date_object( $datetime, $timezone, $with_fallback );
@@ -1384,14 +1559,14 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return false;
 			}
 
-			$cache_key = md5( ( __METHOD__ . $mutable->getTimestamp() ) );
+			$cache_key = md5( ( __METHOD__ . $mutable->getTimezone()->getName() . $mutable->getTimestamp() ) );
 			$cache     = tribe( 'cache' );
 
 			if ( false !== $cached = $cache[ $cache_key ] ) {
 				return $cached;
 			}
 
-			$immutable = DateTimeImmutable::createFromMutable( $mutable );
+			$immutable = Date_I18n_Immutable::createFromMutable( $mutable );
 
 			$cache[ $cache_key ] = $immutable;
 

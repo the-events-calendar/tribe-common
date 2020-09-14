@@ -1,96 +1,570 @@
-#tribe-app-shop {
-	max-width: 960px;
+/* note, the structure of this CSS is not BEM…
+ * the reality is that we rarely update the App Shop and as such, we are
+ * intentionally taking shortcuts here. The main goal is to have it done
+ * quickly, not as a bastion of quality.
+ */
 
-	.addon-grid {
-		width: 100%;
+body.tribe_events_page_tribe-app-shop {
+	background-color: white;
+	/* fixes an issue at very narrow widths */
+	min-width: 350px;
+
+	/* hide WordPress update notices on this page */
+	.update-nag {
+		display: none;
 	}
 
-	.header {
+	#wpcontent {
+		padding: 0;
+	}
+}
+
+#tribe-app-shop {
+	color: #0F1031;
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+
+	a {
+		text-decoration: none;
+	}
+
+	.content-wrapper {
+		margin: 0 auto;
+		width: 360px;
+		max-width: 1060px;
+
+		@media screen and (min-width: 710px) {
+			width: 710px;
+		}
+
+		@media screen and (min-width: 1217px) {
+			width: 100%;
+
+		}
+	}
+
+	.tribe-events-admin-graphic {
+		top: 0;
+		height: 40px;
+		@media screen and (min-width: 710px) {
+			height: 131px;
+		}
+	}
+
+
+	.tribe-header {
+		height: 120px;
+		margin: 36px auto 0 auto;
+		position: relative;
+		text-align: center;
+		width: 100%;
+
+		@media screen and (min-width: 710px) {
+			border-bottom: 1px solid rgba(225, 225, 228, 0.5);
+			height: 147px;
+			margin-top: 44px;
+
+			.logo-word-mark {
+				text-align: left;
+			}
+		}
+
+		.content-wrapper {
+			width: 100%;
+
+			@media screen and (min-width: 710px) {
+				width: 710px;
+			}
+			@media screen and (min-width: 1217px) {
+				width: 100%;
+			}
+		}
+
 		h1 {
 			display: inline-block;
-		}
+			font-size: 18px;
+			font-weight: normal;
+			line-height: 22px;
+			margin-right: 12px;
+			vertical-align: middle;
 
-		.button {
-			margin-top: 10px;
-		}
-	}
-
-	.tribe-addon {
-		background-color: #fff;
-		border-bottom: 1px solid #dfdfdf;
-		display: inline-block;
-		margin: 0 15px 15px 0;
-		overflow: hidden;
-		padding: 0;
-		position: relative;
-		vertical-align: top;
-		width: 300px;
-		border-radius: 3px 3px 3px 3px;
-		box-sizing: border-box;
-
-		h4 {
-			font-size: 1.17em;
-			margin: 15px 0;
-
-			a {
-				text-decoration: none;
+			span {
+				font-weight: bold;
 			}
 		}
 
-		.button {
-			bottom: 15px;
+		img {
+			display: inline-block;
+			height: 57px;
+			margin: 0 0 32px 22px;
+			vertical-align: middle;
+
+			@media screen and (min-width: 710px) {
+				height: 65px;
+				margin-bottom: 42px;
+			}
+		}
+
+		ul {
+			/* for now we are hiding this nav on small screen sizes */
+			border-bottom: 1px solid #E1E1E4;
 			display: block;
-			position: absolute;
-		}
+			margin: 0 auto;
+			overflow: scroll;
+			padding: 0 14px;
+			text-align: left;
+			white-space: nowrap;
 
-		.button-disabled {
-			padding-left: 3px;
-
-			.dashicons {
-				font-size: 28px;
-				padding-right: 9px;
-			}
-		}
-
-		.caption {
-			padding: 0 15px 45px 15px;
-		}
-
-		.thumb {
-			img {
-				height: 228px;
-				max-width: 100%;
-				width: 300px;
-			}
-		}
-
-		&.first {
-			margin: 20px 0;
-			overflow: hidden;
-			padding: 0;
-			width: 937px;
-
-			h4 {
-				font-size: 20px;
-				line-height: 1.4;
-				margin: 15px 0 0 0;
+			@media screen and (min-width: 710px) {
+				border-bottom: none;
+				display: block;
+				overflow: auto;
 			}
 
-			.caption {
+			li {
+				cursor: pointer;
 				display: inline-block;
-				padding-left: 20px;
-				width: 600px;
-			}
+				font-size: 16px;
+				font-weight: 500;
+				line-height: 20px;
+				margin: 0 18px 0 6px;
+				padding: 0 0 10px 0;
+				position: relative;
+				text-align: center;
 
-			.thumb {
-				float: left;
-				height: 228px;
-				width: 300px;
+				@media screen and (min-width: 710px) {
+					padding: 0 0 20px 0;
+				}
+
+				@media screen and (min-width: 1217px) {
+					margin: 0 12px;
+				}
+
+				&:hover {
+					color: #161B7D;
+				}
+
+				&.selected {
+					color: #334aff;
+				}
+
+				&.selected:after {
+					background: #334AFF;
+					border-radius: 100px;
+					bottom: 0;
+					content: '';
+					display: block;
+					height: 3px;
+					left: 0;
+					position: absolute;
+					right: 0;
+				}
 			}
 		}
 	}
 
-  .tribe-installed-headline {
-	margin-bottom: 20px;
-  }
+	.tribe-content {
+		padding-top: 28px;
+
+		@media screen and (min-width: 710px) {
+			padding-top: 54px;
+		}
+	}
+
+	.addon-grid {
+		& > p {
+			font-size: 18px;
+			font-weight: normal;
+			line-height: 28px;
+			margin: 0 0 40px 0;
+			padding: 0 20px;
+			text-align: center;
+		}
+
+		h2 {
+			font-size: 34px;
+			font-weight: 500;
+			line-height: 42px;
+			margin: 0 0 13px 0;
+			text-align: center;
+
+			&.already-installed {
+				margin-bottom: 40px;
+			}
+		}
+
+		.tribe-addon {
+			padding: 28px;
+			width: calc(100% - 40px);
+
+			@media screen and (min-width: 710px) {
+				width: 310px;
+			}
+
+			.headline {
+				height: 40px;
+				margin-bottom: 12px;
+
+				img {
+					height: 40px;
+					margin-right: 8px;
+				}
+
+				a {
+					display: table-cell;
+
+				}
+
+				h3 {
+					display: table;
+					float: left;
+					font-size: 15px;
+					font-weight: bold;
+					height: 36px;
+					line-height: 18px;
+
+					&.has-pill {
+						/* this really should be updated to work better for translated strings */
+						max-width: 140px;
+					}
+				}
+			}
+
+			.description {
+				display: table;
+				/* an attempt at flexibility for 2-lines */
+				min-height: 48px;
+
+				p {
+					display: table-cell;
+					font-size: 15px;
+					font-weight: 500;
+					line-height: 24px;
+					margin: 0;
+				}
+			}
+
+			.features {
+				/* attempting to get more height consistency */
+				min-height: 158px;
+
+				li {
+					color: #0F1031;
+					font-size: 15px;
+					font-weight: normal;
+					line-height: 24px;
+					margin-bottom: 4px;
+
+					.check {
+						padding-right: 12px;
+					}
+
+					.feature-text {
+						max-width: 224px;
+						vertical-align: top;
+					}
+
+					span {
+						display: inline-block;
+					}
+
+					svg {
+						color: #3D54FF;
+						height: 12px;
+						width: 16px;
+					}
+				}
+
+				margin-bottom: 16px;
+			}
+		}
+
+		.tribe-bundle {
+			padding: 28px 32px 36px 32px;
+			width: calc(100% - 40px);
+
+			.details {
+				display: inline-block;
+				width: 100%;
+
+				@media screen and (min-width: 1217px) {
+					width: 502px;
+				}
+
+				.headline {
+					img {
+						height: 60px;
+						margin-right: 12px;
+						width: 60px;
+					}
+
+					a {
+						display: table-cell;
+						font-size: 17px;
+						font-weight: bold;
+						line-height: 21px;
+
+						@media screen and (min-width: 710px) {
+							font-size: 20px;
+							line-height: 24px;
+						}
+					}
+
+					h3 {
+						display: table;
+						height: 60px;
+					}
+				}
+
+				p {
+					font-size: 14px;
+					line-height: 22px;
+					margin: 0;
+					padding-top: 4px;
+
+					@media screen and (min-width: 710px) {
+
+						font-size: 16px;
+						line-height: 26px;
+					}
+				}
+			}
+
+			.cta {
+				margin-top: 0;
+
+				@media screen and (min-width: 1217px) {
+					margin-top: 0;
+				}
+
+				&.wide {
+					display: none;
+					margin: 24px 0 0 0;
+
+					@media screen and (min-width: 1217px) {
+						display: table;
+					}
+
+					.button {
+						display: inline-block;
+					}
+
+					.discount {
+						display: table-cell;
+						height: 20px;
+						padding-left: 16px;
+						text-align: left;
+						vertical-align: middle;
+					}
+				}
+
+				&.narrow {
+					@media screen and (min-width: 1217px) {
+						display: none;
+					}
+				}
+
+				.button {
+					display: block;
+					margin: auto;
+				}
+
+				.discount {
+					color: #007363;
+					font-size: 14px;
+					font-weight: bold;
+					letter-spacing: 1px;
+					line-height: 58px;
+					margin-left: 11px;
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+			}
+
+			.includes {
+				display: inline-block;
+				padding: 0 0 28px 0;
+				vertical-align: top;
+
+				@media screen and (min-width: 1217px) {
+					/* design called for 65px, but Ultimate Bundle didn't fit… */
+					padding: 10px 0 0 50px;
+				}
+
+				h4 {
+					font-size: 12px;
+					font-weight: bold;
+					letter-spacing: 1px;
+					line-height: 15px;
+					margin: 24px 0 8px 0;
+					text-transform: uppercase;
+
+					@media screen and (min-width: 1217px) {
+						margin: 16px 0 19px 0;
+					}
+				}
+
+				ul {
+					display: inline-block;
+					margin: 0;
+					vertical-align: top;
+
+					&.second {
+						margin-left: 30px;
+					}
+				}
+
+				li {
+					color: #0F1031;
+					font-size: 14px;
+					font-weight: 500;
+					height: 40px;
+					margin-bottom: 8px;
+
+					img {
+						float: left;
+						height: 40px;
+						width: 40px;
+						margin-right: 16px;
+					}
+
+					span {
+						float: left;
+						line-height: 40px;
+					}
+				}
+			}
+		}
+
+		.tribe-addon,
+		.tribe-bundle {
+			background-color: #fff;
+			border-radius: 16px;
+			border: 1px solid #E1E1E4;
+			box-sizing: border-box;
+			display: inline-block;
+			margin: 0 20px 40px 20px;
+			position: relative;
+			vertical-align: top;
+
+			.headline {
+
+				img {
+					float: left;
+				}
+
+				a {
+					color: #0F1031;
+					vertical-align: middle;
+				}
+
+				h3 {
+					margin: 0;
+				}
+
+				.pill {
+					border-radius: 100px;
+					display: inline-block;
+					float: right;
+					font-size: 10px;
+					font-weight: bold;
+					letter-spacing: 1px;
+					line-height: 12px;
+					margin-top: 8px;
+					padding: 5px 0;
+					text-align: center;
+					text-transform: uppercase;
+					width: 62px;
+
+					&.free {
+						background: rgba(80, 176, 120, 0.28);
+						color: #007363;
+					}
+
+					&.active {
+						background: rgba(61, 84, 255, 0.16);
+						color: #3D54FF;
+					}
+				}
+			}
+
+			.promo-image img {
+				width: 255px;
+			}
+
+			p {
+				color: #0F1031;
+				text-align: left;
+			}
+		}
+
+		.button {
+			background: #3D54FF;
+			border-radius: 100px;
+			color: #fff;
+			font-size: 16px;
+			font-weight: bold;
+			letter-spacing: 1px;
+			line-height: 20px;
+			margin-bottom: 13px;
+			padding: 18px 0;
+			text-align: center;
+			width: 255px;
+
+			/* these 3 override WordPress button styles */
+			border: none;
+			box-shadow: none;
+			height: auto;
+
+			&:hover {
+				background: #1C39BB;
+			}
+
+			&.secondary {
+				background: #fff;
+				border: 1px solid #0F1031;
+				color: #0F1031;
+				display: block;
+				margin: auto;
+
+				&:hover {
+					color: #fff;
+					background: #3D54FF;
+				}
+			}
+
+
+		}
+	}
+
+	#tribe-extensions {
+		p {
+			color: #0F1031;
+			font-size: 15px;
+			font-weight: normal;
+			line-height: 24px;
+			padding-bottom: 16px;
+		}
+	}
 }
+
+#tribe-bundles,
+#tribe-extensions {
+	display: none;
+}
+
+/**
+ * Button compatibility for App Shop.
+
+.branch-4-9 {
+	#tribe-app-shop {
+		.addon-grid {
+			.button {
+				height: 58px;
+				box-shadow: none;
+			}
+		}
+	}
+}
+
+*/
