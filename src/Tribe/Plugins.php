@@ -145,7 +145,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 				_doing_it_wrong(
 					__METHOD__,
 					__( 'Using this function before "plugins_loaded" action has fired can return unreliable results.', 'tribe-common' ),
-					'TBD'
+					'4.12.6'
 				);
 			}
 
