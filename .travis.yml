@@ -127,3 +127,4 @@ script:
   - codecept run wpunit
   - codecept run muwpunit
   - codecept run dependency
+  - codecept run snapshots
