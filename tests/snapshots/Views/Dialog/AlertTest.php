@@ -1,11 +1,11 @@
 <?php
 
-namespace Tribe\Tests\Snapshots\views\dialog;
+namespace Tribe\Tests\Snapshots\Views\Dialog;
 
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Tests\Snapshots\Snapshot_Test_Case;
 
-class alertTest extends Snapshot_Test_Case {
+class AlertTest extends Snapshot_Test_Case {
 	use SnapshotAssertions;
 
 	/**
