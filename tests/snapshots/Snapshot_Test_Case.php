@@ -33,9 +33,10 @@ class Snapshot_Test_Case extends \Codeception\TestCase\WPTestCase {
 			throw new \RuntimeException( 'Extending test cases should define the "template_path" property.' );
 		}
 
-		$template_file = is_dir( $this->template_path )
+		$template_root_dir = dirname( __DIR__, 2 ) . '/src';
+		$template_file     = is_dir( $this->template_path )
 			? $this->template_path
-			: dirname( __DIR__ ) . '/../src/' . ltrim( $this->template_path, '\\/' );
+			: $template_root_dir . '/' . preg_replace( '/\\.php$/', '', ltrim( $this->template_path, '\\/' ) . '.php' );
 
 		if ( ! is_file( $template_file ) ) {
 			throw new \RuntimeException( "The {$template_file} file does not exist." );
@@ -47,15 +48,22 @@ class Snapshot_Test_Case extends \Codeception\TestCase\WPTestCase {
 		}
 
 		// To streamline the set up create the template as instance of an anonymous class set up for success.
-		$this->template = new class( $template_file ) extends Template {
+		$this->template = new class( $template_file, $template_root_dir ) extends Template {
 			protected $template_context_extract = true;
 
-			public function __construct( string $template_file ) {
-				$this->template_file = $template_file;
+			public function __construct( string $template_file, string $template_root_dir ) {
+				$this->template_file     = $template_file;
+				$this->template_root_dir = $template_root_dir;
+				$this->template_name     = str_replace( $this->template_root_dir . '/', '', $this->template_file );
 			}
 
 			public function get_template_file( $name ) {
-				return $this->template_file;
+				$string_name = implode( DIRECTORY_SEPARATOR, array_filter( $name ) );
+				$string_name = preg_replace( '/([.\-])php$/', '', $string_name ) . '.php';
+
+				return $string_name === $this->template_name
+					? $this->template_file
+					: $this->template_root_dir . '/' . $string_name;
 			}
 		};
 	}
