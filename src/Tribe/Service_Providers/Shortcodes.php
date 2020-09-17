@@ -90,7 +90,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters `pre_do_shortcode_tag` to mark that a tribe shortcode is currently being done.
 	 *
-	 * @since TBD
+	 * @since 4.12.9
 	 *
 	 * @param bool|string $return      Short-circuit return value. Either false or the value to replace the shortcode with.
 	 * @param string      $tag         Shortcode name.
@@ -106,7 +106,7 @@ class Shortcodes extends \tad_DI52_ServiceProvider {
 	/**
 	 * * Filters `do_shortcode_tag` to mark that a tribe shortcode is complete, and remove it from the current list.
 	 *
-	 * @since TBD
+	 * @since 4.12.9
 	 *
 	 * @param string       $output Shortcode output.
 	 * @param string       $tag    Shortcode name.

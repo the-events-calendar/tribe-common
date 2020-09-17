@@ -20,7 +20,7 @@ class Manager {
 	/**
 	 * Current shortcodes.
 	 *
-	 * @since TBD
+	 * @since 4.12.9
 	 *
 	 * @var array $current_shortcode An array containing the current shortcodes being executed.
 	 */
@@ -119,7 +119,7 @@ class Manager {
 	/**
 	 * Filter `pre_do_shortcode_tag` to add the current shortcode.
 	 *
-	 * @since TBD
+	 * @since 4.12.9
 	 *
 	 * @param bool|string $return      Short-circuit return value. Either false or the value to replace the shortcode with.
 	 * @param string      $tag         Shortcode name.
@@ -142,7 +142,7 @@ class Manager {
 	/**
 	 * Filter `do_shortcode_tag` to remove the shortcode from the `$tribe_current_shortcode` list.
 	 *
-	 * @since TBD
+	 * @since 4.12.9
 	 *
 	 * @param string       $output Shortcode output.
 	 * @param string       $tag    Shortcode name.
@@ -166,7 +166,7 @@ class Manager {
 	/**
 	 * Check if a shortcode is being done.
 	 *
-	 * @since TBD
+	 * @since 4.12.9
 	 *
 	 * @param null|string $tag The shortcode tag name, or null to check if doing any shortcode.
 	 *
