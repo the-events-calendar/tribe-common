@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "473a9f925f99415db699d1cc70c62ace",
+    "content-hash": "df9da8977071068f3eb2400365106f0f",
     "packages": [
         {
             "name": "faction23/a11y-dialog",
@@ -1168,12 +1168,12 @@
             "version": "1.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/facebook/php-webdriver.git",
+                "url": "https://github.com/php-webdriver/php-webdriver-archive.git",
                 "reference": "e43de70f3c7166169d0f14a374505392734160e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/e43de70f3c7166169d0f14a374505392734160e5",
+                "url": "https://api.github.com/repos/php-webdriver/php-webdriver-archive/zipball/e43de70f3c7166169d0f14a374505392734160e5",
                 "reference": "e43de70f3c7166169d0f14a374505392734160e5",
                 "shasum": ""
             },
@@ -1221,7 +1221,53 @@
                 "selenium",
                 "webdriver"
             ],
+            "abandoned": "php-webdriver/webdriver",
             "time": "2019-06-13T08:02:18+00:00"
+        },
+        {
+            "name": "gajus/dindent",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gajus/dindent.git",
+                "reference": "d81c3a6f78fbe1ab26f5e753098bbbef6b6a9f3c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gajus/dindent/zipball/d81c3a6f78fbe1ab26f5e753098bbbef6b6a9f3c",
+                "reference": "d81c3a6f78fbe1ab26f5e753098bbbef6b6a9f3c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gajus\\Dindent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Gajus Kuizinas",
+                    "email": "gk@anuary.com"
+                }
+            ],
+            "description": "HTML indentation library for development and testing.",
+            "homepage": "https://github.com/gajus/dindent",
+            "keywords": [
+                "format",
+                "html",
+                "indent"
+            ],
+            "time": "2014-10-08T10:03:04+00:00"
         },
         {
             "name": "gumlet/php-image-resize",
@@ -1724,6 +1770,47 @@
             "time": "2019-07-29T11:03:54+00:00"
         },
         {
+            "name": "lucatume/codeception-snapshot-assertions",
+            "version": "0.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lucatume/codeception-snapshot-assertions.git",
+                "reference": "077108237a121d3ddcf7070aa8519dea25459a6a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lucatume/codeception-snapshot-assertions/zipball/077108237a121d3ddcf7070aa8519dea25459a6a",
+                "reference": "077108237a121d3ddcf7070aa8519dea25459a6a",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "^2.5 || ^3.0 || ^4.0",
+                "ext-dom": "*",
+                "gajus/dindent": "^2.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "tad\\Codeception\\SnapshotAssertions\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "theAverageDev (Luca Tumedei)",
+                    "email": "luca@theaveragedev.com"
+                }
+            ],
+            "description": "Snapshot assertions sugar for Codeception.",
+            "time": "2020-02-05T20:17:49+00:00"
+        },
+        {
             "name": "lucatume/function-mocker-le",
             "version": "1.0.1",
             "source": {
@@ -2004,16 +2091,16 @@
         },
         {
             "name": "moderntribe/tribe-testing-facilities",
-            "version": "dev-spotfix/include-views-exclusion-for-data-attr-breakpoints",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moderntribe/tribe-testing-facilities",
-                "reference": "239335c62f7c0ed0dcd572e7aacc76d61bef2a1b"
+                "reference": "e56f9268210214c422f0e15444d476c5191d44ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/239335c62f7c0ed0dcd572e7aacc76d61bef2a1b",
-                "reference": "239335c62f7c0ed0dcd572e7aacc76d61bef2a1b",
+                "url": "https://api.github.com/repos/moderntribe/tribe-testing-facilities/zipball/e56f9268210214c422f0e15444d476c5191d44ea",
+                "reference": "e56f9268210214c422f0e15444d476c5191d44ea",
                 "shasum": ""
             },
             "require": {
@@ -2022,8 +2109,10 @@
                 "php": ">=7.0"
             },
             "require-dev": {
+                "codeception/codeception": "^3.0",
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
                 "phpunit/phpunit": "^6.0",
+                "vlucas/phpdotenv": "^3.0",
                 "wordpress/wordpress": "dev-master",
                 "wp-coding-standards/wpcs": "^2.1"
             },
@@ -2075,7 +2164,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2020-02-05T04:31:52+00:00"
+            "time": "2020-06-19T14:48:33+00:00"
         },
         {
             "name": "mustache/mustache",
@@ -2943,6 +3032,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2017-11-27T05:48:46+00:00"
         },
         {
@@ -3319,7 +3409,7 @@
                 "array_column",
                 "column"
             ],
-            "abandoned": true,
+            "abandoned": "it-for-free/array_column",
             "time": "2015-03-20T22:07:39+00:00"
         },
         {
@@ -5145,6 +5235,7 @@
             ],
             "description": "Composer plugin for splitting a generated autoloader into two distinct parts.",
             "homepage": "https://wp-cli.org",
+            "abandoned": true,
             "time": "2017-08-03T08:40:16+00:00"
         },
         {
@@ -6960,6 +7051,7 @@
             ],
             "description": "Handlebars processor for php",
             "homepage": "https://github.com/XaminProject/handlebars.php",
+            "abandoned": true,
             "time": "2016-12-12T13:51:02+00:00"
         }
     ],

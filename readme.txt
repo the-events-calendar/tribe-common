@@ -10,6 +10,8 @@
 * Tweak - Add the `tribe_without_filters` function to run a callback or closure suspending a set of filters and actions. [TEC-3579]
 * Tweak - Added hover and focus colors, update default colors to make them accessible. [FBAR-165]
 * Tweak - Modifications to Tooltip code to prevent enqueuing on all pages unnecessarily.
+* Fix - Prevent `register_rest_route` from throwing notices related to `permission_callback` (props @hanswitteprins)
+
 
 = [4.12.7] 2020-08-24 =
 
