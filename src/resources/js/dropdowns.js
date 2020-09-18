@@ -1,4 +1,5 @@
 /* global console, jQuery */
+/* eslint-disable no-var, strict */
 var tribe_dropdowns = window.tribe_dropdowns || {};
 
 ( function( $, obj, _ ) {
