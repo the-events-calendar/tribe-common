@@ -9,6 +9,7 @@
 * Tweak - Add the `tribe_template_common_path` filter to allow controlling the path of the template file provided by common. [FBAR-148]
 * Tweak - Add the `tribe_without_filters` function to run a callback or closure suspending a set of filters and actions. [TEC-3579]
 * Tweak - Added hover and focus colors, update default colors to make them accessible. [FBAR-165]
+* Fix - Prevent `register_rest_route` from throwing notices related to `permission_callback` (props @hanswitteprins)
 
 = [4.12.7] 2020-08-24 =
 
