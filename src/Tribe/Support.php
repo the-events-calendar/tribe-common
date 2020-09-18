@@ -358,6 +358,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				register_rest_route( 'tribe_events/v2', '/(?P<key>[a-z0-9\-]+)/sysinfo/', array(
 					'methods'  => 'GET',
 					'callback' => array( 'Tribe__Support', 'sysinfo_query' ),
+					'permission_callback' => '__return_true',
 				) );
 			}
 		}
