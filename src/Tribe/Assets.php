@@ -448,7 +448,7 @@ class Tribe__Assets {
 			// Bigger Variables at the end.
 			'localize'      => [],
 			'conditionals'  => [],
-
+			// Used to handle Translations handled in the JavaScript side of the Assets.
 			'translations'  => [],
 		];
 
