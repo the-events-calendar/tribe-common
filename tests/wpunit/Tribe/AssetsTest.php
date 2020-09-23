@@ -36,7 +36,7 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 		$assets->register_in_wp( [ $assets->get( $asset_slug ) ] );
 		$translations_string = wp_scripts()->print_translations( $asset_slug, false );
 
-		self::assertContains( $expected_msgid, $translations_string );
-		self::assertContains( $expected_msgstr, $translations_string );
+		$this->assertStringContainsString( $expected_msgid, $translations_string );
+		$this->assertStringContainsString( $expected_msgstr, $translations_string );
 	}
 }
