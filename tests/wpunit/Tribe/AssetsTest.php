@@ -12,7 +12,7 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_have_translations() {
 		$locale = 'en';
-		add_filter( 'pre_determine_locale', function() use ( $locale ) {
+		add_filter( 'pre_determine_locale', static function() use ( $locale ) {
 			return $locale;
 		} );
 
