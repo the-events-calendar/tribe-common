@@ -15,10 +15,11 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 		$expected_msgstr = 'Translations MSGID';
 		$domain = 'tribe-common';
 		$plugin = Plugin::instance();
+		$assets = new Assets;
 
 		$asset_slug = 'tribe-common-test-script-1';
 
-		tribe_asset(
+		$assets->register(
 			$plugin,
 			$asset_slug,
 			codecept_data_dir( 'resources/test-script-1.js' ),
@@ -32,7 +33,7 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 			]
 		);
 
-		tribe( 'assets' )->register_in_wp( [ $asset_slug ] );
+		$assets->register_in_wp( [ $asset_slug ] );
 		$translations_string = wp_scripts()->print_translations( $asset_slug, false );
 
 		self::assertContains( $expected_msgid, $translations_string );
