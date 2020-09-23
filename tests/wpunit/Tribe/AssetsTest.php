@@ -11,13 +11,19 @@ class AssetsTest extends \Codeception\TestCase\WPTestCase {
 	 * @since TBD
 	 */
 	public function it_should_have_translations() {
+		$locale = 'en';
+		add_filter( 'pre_determine_locale', function() use ( $locale ) {
+			return $locale;
+		} );
+
 		$expected_msgid = 'Translations MSGID';
 		$expected_msgstr = 'Translations MSGID';
 		$domain = 'tribe-common';
+
 		$plugin = Plugin::instance();
 		$assets = new Assets;
 
-		$asset_slug = 'tribe-common-test-script-1';
+		$asset_slug = 'test-script';
 
 		$assets->register(
 			$plugin,
