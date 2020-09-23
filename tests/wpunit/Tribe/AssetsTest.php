@@ -1,0 +1,41 @@
+<?php
+namespace Tribe;
+
+use Tribe__Assets as Assets;
+use Tribe__Main as Plugin;
+
+class AssetsTest extends \Codeception\TestCase\WPTestCase {
+	/**
+	 * @test
+	 *
+	 * @since TBD
+	 */
+	public function it_should_have_translations() {
+		$expected_msgid = 'Translations MSGID';
+		$expected_msgstr = 'Translations MSGID';
+		$domain = 'tribe-common';
+		$plugin = Plugin::instance();
+
+		$asset_slug = 'tribe-common-test-script-1';
+
+		tribe_asset(
+			$plugin,
+			$asset_slug,
+			codecept_data_dir( 'resources/test-script-1.js' ),
+			[],
+			null,
+			[
+				'translations' => [
+					'domain' => $domain,
+					'path'   => codecept_data_dir( 'lang/' ),
+				]
+			]
+		);
+
+		tribe( 'assets' )->register_in_wp( [ $asset_slug ] );
+		$translations_string = wp_scripts()->print_translations( $asset_slug, false );
+
+		self::assertContains( $expected_msgid, $translations_string );
+		self::assertContains( $expected_msgstr, $translations_string );
+	}
+}
