@@ -645,7 +645,7 @@ function tribe_asset_enqueue_group( $group ) {
  * Function to include more the one asset, based on `tribe_asset`
  *
  * @since 4.3
- * @since TBD Added support for overriding arguments for individual assets.
+ * @since 4.12.10 Added support for overriding arguments for individual assets.
  *
  * @param  object   $origin     The main Object for the plugin you are enqueueing the script/style for
  * @param  array    $assets     {
@@ -814,7 +814,7 @@ if ( ! function_exists( 'tribe_doing_shortcode' ) ) {
 	 *
 	 * This is limited to only shortcodes registered with Tribe\Shortcode\Manager.
 	 *
-	 * @since TBD
+	 * @since 4.12.10
 	 *
 	 * @param null|string $tag The shortcode tag name, or null to check if doing any shortcode.
 	 *
