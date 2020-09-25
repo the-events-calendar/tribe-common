@@ -1074,7 +1074,7 @@ if ( ! function_exists( 'tribe_without_filters' ) ) {
 	 * The function guarantees the existing filters will be detached and re-attached only to run the callback, avoiding
 	 * issues where some piece of code might detach some filters and not re-attach them due to errors.
 	 *
-	 * @since TBD
+	 * @since 4.12.10
 	 *
 	 * @param array<string> $filters    A set of filter, or actions, handles to detach before running the callback and
 	 *                                  re-attach after.

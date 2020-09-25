@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.9] TBD =
+= [4.12.10] 2020-09-28 =
 
 * Tweak - Adjust SelectWoo dropdown container attachment to include search and minimum results for search. [FBAR-139]
 * Tweak - Move border style button styles to border-small and add various border button styles that match the solid button style. [FBAR-143]
@@ -11,6 +11,19 @@
 * Tweak - Add the `tribe_without_filters` function to run a callback or closure suspending a set of filters and actions. [TEC-3579]
 * Tweak - Added hover and focus colors, update default colors to make them accessible. [FBAR-165]
 * Fix - Prevent `register_rest_route` from throwing notices related to `permission_callback` (props @hanswitteprins)
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.12.9] 2020-09-21 =
+
+* Tweak - Added Support for overriding individual arguments while registering group assets using `tribe_assets`. [TCMN-88]
+* Tweak - Introduce the `tribe_doing_shortcode()` template tag to check if one of our shortcodes is being done. [ET-904]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.12.8] 2020-08-26 =
+
+* Fix - Added IE11 compatibility for the toggles styles using `tribe-common-form-control-toggle` CSS class. [ET-865]
+* Tweak - Improve regular expressions used to parse UTC timezones by removing non-required grouping and characters. [TCMN-68]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.7] 2020-08-24 =
 

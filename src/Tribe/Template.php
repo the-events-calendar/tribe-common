@@ -96,7 +96,7 @@ class Tribe__Template {
 	/**
 	 * Whether to look for template files in common or not; defaults to true.
 	 *
-	 * @since TBD
+	 * @since 4.12.10
 	 *
 	 * @var bool
 	 */
@@ -106,7 +106,7 @@ class Tribe__Template {
 	 * A map of aliases to add a rewritten version of the paths to the template lists.
 	 * The map has format `original => alias`.
 	 *
-	 * @since TBD
+	 * @since 4.12.10
 	 *
 	 * @var array<string,string>
 	 */
@@ -506,7 +506,7 @@ class Tribe__Template {
 	 * Fetches the folders in which we will look for a given file
 	 *
 	 * @since  4.7.20
-	 * @since TBD Add support for common lookup.
+	 * @since 4.12.10 Add support for common lookup.
 	 *
 	 * @return array<string,array> A list of possible locations for the template file.
 	 */
@@ -1292,7 +1292,7 @@ class Tribe__Template {
 	 * most recent and the ET version of Common does not have a template file, then the template file will not be found.
 	 * This will allow versioning the existence and nature of the template files part of common.
 	 *
-	 * @since TBD
+	 * @since 4.12.10
 	 *
 	 * @return string The absolute path, with no guarantee of its existence, to the Common version of the template file.
 	 */
@@ -1307,7 +1307,7 @@ class Tribe__Template {
 		/**
 		 * Allows filtering the path to a template provided by Common.
 		 *
-		 * @since  TBD
+		 * @since  4.12.10
 		 *
 		 * @param string $path     Complete path to include the base folder of common part of the plugin.
 		 * @param self   $template Current instance of the Tribe__Template.
@@ -1318,7 +1318,7 @@ class Tribe__Template {
 	/**
 	 * Sets the aliases the template should use.
 	 *
-	 * @since TBD
+	 * @since 4.12.10
 	 *
 	 * @param array<string,string> $aliases A map of aliases that should be used to add lookup locations, in the format
 	 *                                      `[ original => alias ]`;
@@ -1334,7 +1334,7 @@ class Tribe__Template {
 	/**
 	 * Applies the template path aliases, if any, to a list of folders.
 	 *
-	 * @since TBD
+	 * @since 4.12.10
 	 *
 	 * @param array<string,array> $folders The list of folder to apply the aliases to, if any.
 	 *
