@@ -2,6 +2,12 @@
 
 == Changelog ==
 
+= [4.12.9] 2020-09-21 =
+
+* Tweak - Added Support for overriding individual arguments while registering group assets using `tribe_assets`. [TCMN-88]
+* Tweak - Introduce the `tribe_doing_shortcode()` template tag to check if one of our shortcodes is being done. [ET-904]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.12.8] 2020-08-26 =
 
 * Fix - Added IE11 compatibility for the toggles styles using `tribe-common-form-control-toggle` CSS class. [ET-865]
