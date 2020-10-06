@@ -2,6 +2,17 @@
 
 == Changelog ==
 
+= [4.12.10] 2020-09-28 =
+
+* Tweak - Adjust SelectWoo dropdown container attachment to include search and minimum results for search. [FBAR-139]
+* Tweak - Move border style button styles to border-small and add various border button styles that match the solid button style. [FBAR-143]
+* Tweak - Add the common views folder to the `Tribe__Template` lookup folders, the folder will be searched for matching template files only if no plugin-provided template was found. [FBAR-148]
+* Tweak - Add the `tribe_template_common_path` filter to allow controlling the path of the template file provided by common. [FBAR-148]
+* Tweak - Add the `tribe_without_filters` function to run a callback or closure suspending a set of filters and actions. [TEC-3579]
+* Tweak - Added hover and focus colors, update default colors to make them accessible. [FBAR-165]
+* Fix - Prevent `register_rest_route` from throwing notices related to `permission_callback` (props @hanswitteprins)
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.12.9] 2020-09-21 =
 
 * Tweak - Added Support for overriding individual arguments while registering group assets using `tribe_assets`. [TCMN-88]
