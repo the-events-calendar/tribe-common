@@ -81,6 +81,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 
 		$arguments = $this->get_arguments();
 
+		//$this->set_view( Arr::get( $arguments, 'view', '' ) );
+
 		parent::__construct(
 			Arr::get( $arguments, 'id_base', '' ),
 			Arr::get( $arguments, 'name', '' ),
@@ -125,7 +127,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	public function parse_arguments( array $arguments ) {
 		$arguments = Arr::parse_associative_array_alias( (array) $arguments, (array) $this->get_aliased_arguments() );
-		//$arguments = shortcode_atts( $this->get_default_arguments(), $arguments, $this->slug );
 
 		return $this->validate_arguments( $arguments );
 	}
@@ -296,10 +297,16 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		return $default_arguments;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function set_view( View_Interface $view ) {
 		$this->view = $view;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function get_view() {
 		return $this->view;
 	}

@@ -2,12 +2,12 @@
 
 namespace Tribe\Widget;
 
-/**
+use Tribe\Events\Views\V2\View_Interface;/**
  * Interface Widget_Interface
  *
- * @package Tribe\Widget
- *
  * @since   TBD
+ *@package Tribe\Widget
+ *
  */
 interface Widget_Interface {
 
@@ -203,4 +203,22 @@ interface Widget_Interface {
 	 * @return string The widget rendered HTML code.
 	 */
 	public function get_html();
+
+	/**
+	 * Sets the template view.
+	 *
+	 * @since TBD
+	 *
+	 * @param View_Interface  $view  Which view we are using this template on.
+	 */
+	public function set_view( View_Interface $view );
+
+	/**
+	 * Returns the current template view, either set in the constructor or using the `set_view` method.
+	 *
+	 * @since TBD
+	 *
+	 * @return View_Interface The current template view.
+	 */
+	public function get_view();
 }
