@@ -81,7 +81,7 @@ class Manager {
 	 *
 	 * @since  TBD
 	 */
-	public function add_widgets() {
+	public function register_widget() {
 		$registered_widgets = $this->get_registered_widgets();
 
 		// Add to WordPress all of the registered Widgets
@@ -97,7 +97,7 @@ class Manager {
 	 *
 	 * @param string $class_name The class name of the widget to unregister.
 	 */
-	public function remove_widget( $class_name ) {
+	public function unregister_widget( $class_name ) {
 		unregister_widget( $class_name );
 	}
 }

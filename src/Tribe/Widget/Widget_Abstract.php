@@ -2,8 +2,10 @@
 
 namespace Tribe\Widget;
 
+use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Utils__Array as Arr;
+use Tribe__Context as Context;
 
 /**
  * The abstract all widgets should implement.
@@ -23,7 +25,19 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	protected $slug;
 
+	/**
+	 * The view interface for the widget.
+	 *
+	 * @var View_Interface;
+	 */
 	protected $view;
+
+	/**
+	 * The slug of the widget view.
+	 *
+	 * @var string
+	 */
+	protected $view_slug;
 
 	/**
 	 * Default arguments to be merged into final arguments of the widget.
@@ -81,14 +95,48 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 
 		$arguments = $this->get_arguments();
 
-		//$this->set_view( Arr::get( $arguments, 'view', '' ) );
-
 		parent::__construct(
 			Arr::get( $arguments, 'id_base', '' ),
 			Arr::get( $arguments, 'name', '' ),
 			Arr::get( $arguments, 'widget_options', [] ),
 			Arr::get( $arguments, 'control_options', [] )
 		);
+
+		// Setup a view instance for the widget.
+		$this->setup_view();
+
+		// todo add what this does in in TEC-3612 & TEC-3613
+		$this->setup();
+	}
+
+	/**
+	 * Setup the widget.
+	 *
+	 * @todo update in TEC-3612 & TEC-3613
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	public abstract function setup();
+
+	/**
+	 * Setup the view for the widget.
+	 *
+	 * @since TBD
+	 */
+	public function setup_view() {
+		$context = tribe_context();
+
+		// Modifies the Context for the shortcode params.
+		$context = $this->alter_context( $context );
+
+		// Setup the view instance.
+		$view = View::make( $this->get_view_slug(), $context );
+
+		$view->get_template()->set_values( $this->get_arguments(), false );
+
+		$this->set_view( $view );
 	}
 
 	/**
@@ -106,7 +154,16 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		echo $html;
 	}
 
-	public abstract function get_html();
+	/**
+	 * @todo
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_html() {
+		return $this->get_view()->get_html();
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -311,4 +368,49 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		return $this->view;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_view_slug() {
+		return $this->view_slug;
+	}
+
+	/**
+	 * Alters the shortcode context with its arguments.
+	 *
+	 * @todo update in TEC-3612 & TEC-3613
+	 *
+	 * @since  TBD
+	 *
+	 * @param \Tribe__Context $context   Context we will use to build the view.
+	 * @param array           $arguments Current set of arguments.
+	 *
+	 * @return \Tribe__Context Context after shortcodes changes.
+	 */
+	public function alter_context( Context $context, array $arguments = [] ) {
+
+		$alter_context = $this->args_to_context( $arguments, $context );
+
+		$context = $context->alter( $alter_context );
+
+		return $context;
+	}
+
+	/**
+	 * Translates widget arguments to their Context argument counterpart.
+	 *
+	 * @todo update in TEC-3612 & TEC-3613
+	 *
+	 * @since TBD
+	 *
+	 * @param array   $arguments Current set of arguments.
+	 * @param Context $context   The request context.
+	 *
+	 * @return array The translated widget arguments.
+	 */
+	protected function args_to_context( array $arguments, Context $context ) {
+		$context_args = [];
+
+		return $context_args;
+	}
 }
