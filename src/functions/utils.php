@@ -289,21 +289,21 @@ if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
 
 		return $normalized;
 	}
+}
 
-	if ( ! function_exists( 'tribe_upload_image' ) ) {
-		/**
-		 * @see Tribe__Image__Uploader::upload_and_get_attachment_id()
-		 *
-		 * @param string|int $image The path to an image file, an image URL or an attachment post ID.
-		 *
-		 * @return int|bool The attachment post ID if the uploading and attachment is successful or the ID refers to an attachment;
-		 *                  `false` otherwise.
-		 */
-		function tribe_upload_image( $image ) {
-			$uploader = new Tribe__Image__Uploader( $image );
+if ( ! function_exists( 'tribe_upload_image' ) ) {
+	/**
+	 * @see Tribe__Image__Uploader::upload_and_get_attachment_id()
+	 *
+	 * @param string|int $image The path to an image file, an image URL or an attachment post ID.
+	 *
+	 * @return int|bool The attachment post ID if the uploading and attachment is successful or the ID refers to an attachment;
+	 *                  `false` otherwise.
+	 */
+	function tribe_upload_image( $image ) {
+		$uploader = new Tribe__Image__Uploader( $image );
 
-			return $uploader->upload_and_get_attachment_id();
-		}
+		return $uploader->upload_and_get_attachment_id();
 	}
 }
 
