@@ -74,6 +74,7 @@ class Manager {
 	 */
 	public function is_widget_registered_by_class( $class_name ) {
 		$registered_widgets = $this->get_registered_widgets();
+		
 		return in_array( $class_name, $registered_widgets );
 	}
 
