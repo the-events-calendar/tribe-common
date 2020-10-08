@@ -376,7 +376,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	}
 
 	/**
-	 * Alters the shortcode context with its arguments.
+	 * Alters the widget context with its arguments.
 	 *
 	 * @todo update in TEC-3612 & TEC-3613
 	 *
