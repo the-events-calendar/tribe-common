@@ -75,7 +75,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @var array
+	 * @var array<string,mixed>
 	 */
 	protected $arguments;
 
