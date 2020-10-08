@@ -6,7 +6,7 @@ use Tribe\Widget\Manager;
 /**
  * Class Widget
  *
- * @since   tBD
+ * @since   TBD
  *
  * @package Tribe\Service_Providers
  */
