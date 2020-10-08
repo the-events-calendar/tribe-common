@@ -155,7 +155,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	}
 
 	/**
-	 * @todo
+	 * Returns the rendered View HTML code.
 	 *
 	 * @since TBD
 	 *
