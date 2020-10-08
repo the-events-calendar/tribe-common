@@ -385,7 +385,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @param \Tribe__Context $context   Context we will use to build the view.
 	 * @param array           $arguments Current set of arguments.
 	 *
-	 * @return \Tribe__Context Context after shortcodes changes.
+	 * @return \Tribe__Context Context after widget changes.
 	 */
 	public function alter_context( Context $context, array $arguments = [] ) {
 
