@@ -85,7 +85,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	protected $arguments;
 
 	/**
-	 * Content of the current widget.
+	 * HTML content of the current widget.
 	 *
 	 * @since TBD
 	 *

@@ -18,7 +18,7 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string              $id_base         Optional. Base ID for the widget, lowercase and unique. If left empty,
+	 * @param string              $id_base         Optional. Base ID for the widget, lowercase. If left empty,
 	 *                                             a portion of the widget's class name will be used. Has to be unique.
 	 * @param string              $name            Name for the widget displayed on the configuration page.
 	 * @param array<string,mixed> $widget_options  Optional. Widget options. See wp_register_sidebar_widget() for
@@ -102,7 +102,7 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $arguments Set of arguments passed to the Widget at hand.
+	 * @param array $arguments Set of arguments passed to the widget at hand.
 	 *
 	 * @return array<string,mixed> The parsed widget arguments map.
 	 */
@@ -153,7 +153,7 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string|int   $index   Which index we indent to fetch from the arguments.
+	 * @param string|int   $index   Which index we intend to fetch from the arguments.
 	 * @param array|mixed  $default Default value if it doesn't exist.
 	 *
 	 * @uses  Tribe__Utils__Array::get For index fetching and Default.
