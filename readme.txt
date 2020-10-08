@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [4.12.11] TBD =
+
+
 = [4.12.10] 2020-09-28 =
 
 * Tweak - Adjust SelectWoo dropdown container attachment to include search and minimum results for search. [FBAR-139]
