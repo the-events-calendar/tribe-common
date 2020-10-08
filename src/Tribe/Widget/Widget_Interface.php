@@ -113,7 +113,7 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $arguments Set of arguments passed to the Widget at hand.
+	 * @param array $arguments Set of arguments passed to the widget at hand.
 	 *
 	 * @return array<string,mixed> The validated widget arguments map.
 	 */
@@ -138,7 +138,7 @@ interface Widget_Interface {
 	public function get_arguments();
 
 	/**
-	 * Returns a widget arguments after been parsed.
+	 * Get a widget's arguments after they have been been parsed.
 	 *
 	 * @since TBD
 	 *
@@ -149,7 +149,7 @@ interface Widget_Interface {
 	public function filter_arguments( $arguments );
 
 	/**
-	 * Returns a widget argument after it has been parsed and filtered.
+	 * Get a single widget argument after it has been parsed and filtered.
 	 *
 	 * @since TBD
 	 *
@@ -168,7 +168,7 @@ interface Widget_Interface {
 	 * @since TBD
 	 *
 	 * @param mixed       $argument The argument value.
-	 * @param string|int  $index    Which index we indent to fetch from the arguments.
+	 * @param string|int  $index    Which index we intend to fetch from the arguments.
 	 * @param array|mixed $default  Default value if it doesn't exist.
 	 *
 	 * @uses  Tribe__Utils__Array::get For index fetching and Default.
@@ -178,22 +178,22 @@ interface Widget_Interface {
 	public function filter_argument( $argument, $index, $default = null );
 
 	/**
-	 * Returns a widget default arguments.
+	 * Get default arguments for a widget.
 	 *
 	 * @since TBD
 	 *
-	 * @return array<string,mixed> The widget default arguments map.
+	 * @return array<string,mixed> The map of widget default arguments.
 	 */
 	public function get_default_arguments();
 
 	/**
-	 * Returns a widget default arguments.
+	 * Get a widget's default arguments.
 	 *
 	 * @since TBD
 	 *
 	 * @param array<string,mixed> $default_arguments Current set of default arguments.
 	 *
-	 * @return array<string,mixed> The widget default arguments map.
+	 * @return array<string,mixed> The map of widget default arguments.
 	 */
 	public function filter_default_arguments( array $default_arguments = [] );
 
@@ -202,7 +202,7 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return string The widget rendered HTML code.
+	 * @return string The rendered widget's HTML code.
 	 */
 	public function get_html();
 
