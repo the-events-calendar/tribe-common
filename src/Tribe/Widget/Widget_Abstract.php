@@ -409,7 +409,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @return array The translated widget arguments.
 	 */
 	protected function args_to_context( array $arguments, Context $context ) {
-		$context_args = [];
+		$context_args = [ 'widget' => true ];
 
 		return $context_args;
 	}
