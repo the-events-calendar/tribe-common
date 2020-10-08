@@ -59,6 +59,7 @@ class Manager {
 	 */
 	public function is_widget_registered( $slug ) {
 		$registered_widgets = $this->get_registered_widgets();
+		
 		return isset( $registered_widgets[ $slug ] );
 	}
 
