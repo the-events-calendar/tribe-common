@@ -146,7 +146,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @param array $args     Display arguments including 'before_title', 'after_title',
 	 *                        'before_widget', and 'after_widget'.
-	 * @param array $instance The settings for the particular instance of the widget.
+	 * @param array<string,mixed> $instance The settings for the particular instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
 		$html = $this->get_html();
