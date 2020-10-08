@@ -328,7 +328,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function filter_default_arguments( $default_arguments ) {
+	public function filter_default_arguments( array $default_arguments = [] ) {
 		/**
 		 * Applies a filter to instance default arguments.
 		 *
