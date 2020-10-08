@@ -82,6 +82,6 @@ class Widgets extends \tad_DI52_ServiceProvider {
 	 * @since tBD
 	 */
 	public function action_add_widgets() {
-		$this->container->make( Manager::class )->register_widget();
+		$this->container->make( Manager::class )->register_widgets();
 	}
 }
