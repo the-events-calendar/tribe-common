@@ -24,7 +24,7 @@ class Canonical_Formatter extends LineFormatter {
 	 *
 	 * @return mixed The formatted record.
 	 */
-	public function format( array $record ) {
+	public function format( array $record ) : string {
 		$has_context = ! empty( $record['context'] );
 
 		if ( $has_context ) {
