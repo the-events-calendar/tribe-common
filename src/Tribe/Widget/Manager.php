@@ -81,7 +81,7 @@ class Manager {
 	 *
 	 * @since  TBD
 	 */
-	public function register_widget() {
+	public function register_widgets() {
 		$registered_widgets = $this->get_registered_widgets();
 
 		// Add to WordPress all of the registered Widgets
