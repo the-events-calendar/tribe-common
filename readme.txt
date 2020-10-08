@@ -4,6 +4,7 @@
 
 = [4.12.11] TBD =
 
+* Fix - Dropdown AJAX search for taxonomy terms properly using SelectWoo search formatting, used in Community Events tags and Event categories. [CE-96]
 
 = [4.12.10] 2020-09-28 =
 
