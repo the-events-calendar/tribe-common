@@ -18,15 +18,6 @@ namespace Tribe\Widget;
 class Manager {
 
 	/**
-	 * Current widgets.
-	 *
-	 * @since TBD
-	 *
-	 * @var array $current_widget An array containing the current widgets being executed.
-	 */
-	public $current_widget = [];
-
-	/**
 	 * Get the list of widgets available for handling.
 	 *
 	 * @since  TBD
@@ -59,7 +50,7 @@ class Manager {
 	 */
 	public function is_widget_registered( $slug ) {
 		$registered_widgets = $this->get_registered_widgets();
-		
+
 		return isset( $registered_widgets[ $slug ] );
 	}
 
@@ -74,7 +65,7 @@ class Manager {
 	 */
 	public function is_widget_registered_by_class( $class_name ) {
 		$registered_widgets = $this->get_registered_widgets();
-		
+
 		return in_array( $class_name, $registered_widgets, true );
 	}
 
@@ -83,7 +74,7 @@ class Manager {
 	 *
 	 * @since  TBD
 	 */
-	public function register_widgets() {
+	public function register_widgets_with_wp() {
 		$registered_widgets = $this->get_registered_widgets();
 
 		// Add to WordPress all of the registered Widgets
@@ -99,7 +90,7 @@ class Manager {
 	 *
 	 * @param string $class_name The class name of the widget to unregister.
 	 */
-	public function unregister_widget( $class_name ) {
+	public function unregister_widget_from_wp( $class_name ) {
 		unregister_widget( $class_name );
 	}
 }

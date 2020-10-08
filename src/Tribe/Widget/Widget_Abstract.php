@@ -129,6 +129,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		$context = tribe_context();
 
 		// Modifies the Context for the widget params.
+		// todo update per https://github.com/moderntribe/tribe-common/pull/1451#discussion_r501498990
 		$context = $this->alter_context( $context );
 
 		// Setup the view instance.
@@ -149,9 +150,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @param array<string,mixed> $instance The settings for the particular instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
-		$html = $this->get_html();
-
-		echo $html;
+		echo $this->get_html();
 	}
 
 	/**
@@ -387,7 +386,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @return \Tribe__Context Context after widget changes.
 	 */
 	public function alter_context( Context $context, array $arguments = [] ) {
-
+		// todo update per https://github.com/moderntribe/tribe-common/pull/1451#discussion_r501498990
 		$alter_context = $this->args_to_context( $arguments, $context );
 
 		$context = $context->alter( $alter_context );

@@ -60,7 +60,7 @@ class Widgets extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	protected function register_hooks() {
-		add_action( 'widgets_init', [ $this, 'register_widgets' ], 20 );
+		add_action( 'widgets_init', [ $this, 'register_widgets_with_wp' ], 20 );
 	}
 
 	/**
@@ -71,7 +71,7 @@ class Widgets extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 */
-	public function register_widgets() {
-		$this->container->make( Manager::class )->register_widgets();
+	public function register_widgets_with_wp() {
+		$this->container->make( Manager::class )->register_widgets_with_wp();
 	}
 }
