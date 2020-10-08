@@ -15,7 +15,7 @@ class Widgets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since tBD
+	 * @since TBD
 	 */
 	public function register() {
 		if ( ! static::is_active() ) {
@@ -31,16 +31,15 @@ class Widgets extends \tad_DI52_ServiceProvider {
 		);
 
 		$this->register_hooks();
-		$this->register_assets();
 
 		$this->container->singleton( static::class, $this );
-
+		$this->container->singleton( 'widgets', $this );
 	}
 
 	/**
 	 * Static method wrapper around a filter to allow full deactivation of this provider
 	 *
-	 * @since tBD
+	 * @since TBD
 	 *
 	 * @return boolean If this service provider is active.
 	 */
@@ -48,7 +47,7 @@ class Widgets extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allows filtering to deactivate all widgets loading.
 		 *
-		 * @since tBD
+		 * @since TBD
 		 *
 		 * @param boolean $is_active If widgets should be loaded or not.
 		 */
@@ -56,21 +55,12 @@ class Widgets extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Register all the assets associated with this service provider.
-	 *
-	 * @since tBD
-	 */
-	protected function register_assets() {
-
-	}
-
-	/**
 	 * Registers the provider handling all the 1st level filters and actions for this service provider.
 	 *
-	 * @since tBD
+	 * @since TBD
 	 */
 	protected function register_hooks() {
-		add_action( 'widgets_init', [ $this, 'action_add_widgets' ], 20 );
+		add_action( 'widgets_init', [ $this, 'register_widgets' ], 20 );
 	}
 
 	/**
@@ -79,9 +69,9 @@ class Widgets extends \tad_DI52_ServiceProvider {
 	 *
 	 * It's important to leave gaps on priority for better injection.
 	 *
-	 * @since tBD
+	 * @since TBD
 	 */
-	public function action_add_widgets() {
+	public function register_widgets() {
 		$this->container->make( Manager::class )->register_widgets();
 	}
 }

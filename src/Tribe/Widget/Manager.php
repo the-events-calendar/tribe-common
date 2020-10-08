@@ -11,9 +11,9 @@ namespace Tribe\Widget;
 /**
  * Class Widget Manager.
  *
- * @since  TBD
- *
  * @package Tribe\Widget
+ *
+ * @since  TBD
  */
 class Manager {
 

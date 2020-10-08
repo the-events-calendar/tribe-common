@@ -2,7 +2,9 @@
 
 namespace Tribe\Widget;
 
-use Tribe\Events\Views\V2\View_Interface;/**
+use Tribe\Events\Views\V2\View_Interface;
+
+/**
  * Interface Widget_Interface
  *
  * @since   TBD
