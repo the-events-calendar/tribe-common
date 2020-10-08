@@ -18,13 +18,13 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $id_base         Optional. Base ID for the widget, lowercase and unique. If left empty,
-	 *                                a portion of the widget's class name will be used. Has to be unique.
-	 * @param string $name            Name for the widget displayed on the configuration page.
-	 * @param array<string,mixed>  $widget_options  Optional. Widget options. See wp_register_sidebar_widget() for
-	 *                                information on accepted arguments. Default empty array.
-	 * @param array  $control_options Optional. Widget control options. See wp_register_widget_control() for
-	 *                                information on accepted arguments. Default empty array.
+	 * @param string              $id_base         Optional. Base ID for the widget, lowercase and unique. If left empty,
+	 *                                             a portion of the widget's class name will be used. Has to be unique.
+	 * @param string              $name            Name for the widget displayed on the configuration page.
+	 * @param array<string,mixed> $widget_options  Optional. Widget options. See wp_register_sidebar_widget() for
+	 *                                             information on accepted arguments. Default empty array.
+	 * @param array<string,mixed> $control_options Optional. Widget control options. See wp_register_widget_control() for
+	 *                                             information on accepted arguments. Default empty array.
 	 */
 	public function __construct( $id_base = '', $name = '', $widget_options = [], $control_options = [] );
 
@@ -33,9 +33,9 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $args     Display arguments including 'before_title', 'after_title',
-	 *                        'before_widget', and 'after_widget'.
-	 * @param array $instance The settings for the particular instance of the widget.
+	 * @param array<string,mixed> $args     Display arguments including 'before_title', 'after_title',
+	 *                                      'before_widget', and 'after_widget'.
+	 * @param array<string,mixed> $instance The settings for the particular instance of the widget.
 	 */
 	public function widget( $args, $instance );
 
@@ -48,11 +48,11 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $new_instance New settings for this instance as input by the user via
-	 *                            WP_Widget::form().
-	 * @param array $old_instance Old settings for this instance.
+	 * @param array<string,mixed> $new_instance New settings for this instance as input by the user via
+	 *                                          WP_Widget::form().
+	 * @param array<string,mixed> $old_instance Old settings for this instance.
 	 *
-	 * @return array Settings to save or bool false to cancel saving.
+	 * @return array<string,mixed> Settings to save or bool false to cancel saving.
 	 */
 	public function update( $new_instance, $old_instance );
 
@@ -61,7 +61,7 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $instance Current settings.
+	 * @param array<string,mixed> $instance Current settings.
 	 *
 	 * @return string Default return is 'noform'.
 	 */
@@ -83,7 +83,7 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $alias_map An associative array of aliases: key as alias, value as mapped canonical.
+	 * @param array<string,mixed> $alias_map An associative array of aliases: key as alias, value as mapped canonical.
 	 *                         Example: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
 	 */
 	public function set_aliased_arguments( array $alias_map );
@@ -142,7 +142,7 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array  $arguments Current set of arguments.
+	 * @param array<string,mixed> $arguments Current set of arguments.
 	 *
 	 * @return array<string,mixed> The widget arguments, as set by the user in the widget string.
 	 */
@@ -153,8 +153,8 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array|string $index   Which index we indent to fetch from the arguments.
-	 * @param array        $default Default value if it doesn't exist.
+	 * @param string|int   $index   Which index we indent to fetch from the arguments.
+	 * @param array|mixed  $default Default value if it doesn't exist.
 	 *
 	 * @uses  Tribe__Utils__Array::get For index fetching and Default.
 	 *
@@ -167,9 +167,9 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param mixed        $argument The argument value.
-	 * @param array|string $index    Which index we indent to fetch from the arguments.
-	 * @param array        $default  Default value if it doesn't exist.
+	 * @param mixed       $argument The argument value.
+	 * @param string|int  $index    Which index we indent to fetch from the arguments.
+	 * @param array|mixed $default  Default value if it doesn't exist.
 	 *
 	 * @uses  Tribe__Utils__Array::get For index fetching and Default.
 	 *
@@ -191,11 +191,11 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array  $default_arguments Current set of default arguments.
+	 * @param array<string,mixed> $default_arguments Current set of default arguments.
 	 *
 	 * @return array<string,mixed> The widget default arguments map.
 	 */
-	public function filter_default_arguments( $default_arguments );
+	public function filter_default_arguments( array $default_arguments = [] );
 
 	/**
 	 * Returns a widget's HTML.

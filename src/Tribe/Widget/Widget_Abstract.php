@@ -44,7 +44,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @var array
+	 * @var array<string,mixed>
 	 */
 	protected $default_arguments = [];
 
@@ -144,8 +144,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $args     Display arguments including 'before_title', 'after_title',
-	 *                        'before_widget', and 'after_widget'.
+	 * @param array<string,mixed> $args     Display arguments including 'before_title', 'after_title',
+	 *                                      'before_widget', and 'after_widget'.
 	 * @param array<string,mixed> $instance The settings for the particular instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
@@ -253,8 +253,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param array  $arguments Current set of arguments.
-		 * @param static $instance  Which instance of widget we are dealing with.
+		 * @param array<string,mixed> $arguments Current set of arguments.
+		 * @param static              $instance  Which instance of widget we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_widget_arguments', $arguments, $this );
 
@@ -265,8 +265,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param array  $arguments Current set of arguments.
-		 * @param static $instance  Which instance of widget we are dealing with.
+		 * @param array<string,mixed> $arguments Current set of arguments.
+		 * @param static              $instance  Which instance of widget we are dealing with.
 		 */
 		$arguments = apply_filters( "tribe_widget_{$registration_slug}_arguments", $arguments, $this );
 
@@ -293,10 +293,10 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param mixed  $argument The argument.
-		 * @param array  $index    Which index we indent to fetch from the arguments.
-		 * @param array  $default  Default value if it doesn't exist.
-		 * @param static $instance Which instance of widget we are dealing with.
+		 * @param mixed               $argument The argument.
+		 * @param string|int          $index    Which index we indent to fetch from the arguments.
+		 * @param array<string,mixed> $default  Default value if it doesn't exist.
+		 * @param static              $instance Which instance of widget we are dealing with.
 		 */
 		$argument = apply_filters( 'tribe_widget_argument', $argument, $index, $default, $this );
 
@@ -307,10 +307,10 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param mixed  $argument The argument value.
-		 * @param array  $index    Which index we indent to fetch from the arguments.
-		 * @param array  $default  Default value if it doesn't exist.
-		 * @param static $instance Which instance of widget we are dealing with.
+		 * @param mixed      $argument The argument value.
+		 * @param string|int $index    Which index we indent to fetch from the arguments.
+		 * @param array      $default  Default value if it doesn't exist.
+		 * @param static     $instance Which instance of widget we are dealing with.
 		 */
 		$argument = apply_filters( "tribe_widget_{$registration_slug}_argument", $argument, $index, $default, $this );
 
@@ -333,8 +333,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param array  $default_arguments Current set of default arguments.
-		 * @param static $instance          Which instance of widget we are dealing with.
+		 * @param array<string,mixed>  $default_arguments Current set of default arguments.
+		 * @param static               $instance          Which instance of widget we are dealing with.
 		 */
 		$default_arguments = apply_filters( 'tribe_widget_default_arguments', $default_arguments, $this );
 
@@ -345,8 +345,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param array  $default_arguments Current set of default arguments.
-		 * @param static $instance          Which instance of widget we are dealing with.
+		 * @param array<string,mixed>  $default_arguments Current set of default arguments.
+		 * @param static               $instance          Which instance of widget we are dealing with.
 		 */
 		$default_arguments = apply_filters( "tribe_widget_{$registration_slug}_default_arguments", $default_arguments, $this );
 
@@ -382,7 +382,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @since  TBD
 	 *
 	 * @param \Tribe__Context $context   Context we will use to build the view.
-	 * @param array           $arguments Current set of arguments.
+	 * @param array<string,mixed>        $arguments Current set of arguments.
 	 *
 	 * @return \Tribe__Context Context after widget changes.
 	 */
@@ -402,10 +402,10 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array   $arguments Current set of arguments.
-	 * @param Context $context   The request context.
+	 * @param array<string,mixed>   $arguments Current set of arguments.
+	 * @param Context               $context   The request context.
 	 *
-	 * @return array The translated widget arguments.
+	 * @return array<string,mixed> The translated widget arguments.
 	 */
 	protected function args_to_context( array $arguments, Context $context ) {
 		$context_args = [ 'widget' => true ];
