@@ -216,7 +216,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param array  $validate_arguments_map Current set of callbacks for arguments.
+		 * @param array<string,callable>  $validate_arguments_map Current set of callbacks for arguments.
 		 * @param static $instance               Which instance of widget we are dealing with.
 		 */
 		$validate_arguments_map = apply_filters( 'tribe_widget_validate_arguments_map', $this->validate_arguments_map, $this );
