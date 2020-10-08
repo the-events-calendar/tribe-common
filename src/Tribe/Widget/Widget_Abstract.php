@@ -66,7 +66,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @var array
+	 * @var array<string,callable>
 	 */
 	protected $validate_arguments_map = [];
 
