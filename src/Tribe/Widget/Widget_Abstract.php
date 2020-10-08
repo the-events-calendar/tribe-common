@@ -128,7 +128,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	public function setup_view() {
 		$context = tribe_context();
 
-		// Modifies the Context for the shortcode params.
+		// Modifies the Context for the widget params.
 		$context = $this->alter_context( $context );
 
 		// Setup the view instance.
