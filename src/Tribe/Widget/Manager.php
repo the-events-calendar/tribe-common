@@ -2,8 +2,9 @@
 /**
  * Widgets manager for Tribe plugins.
  *
- * @package Tribe\Widget
  * @since   TBD
+ *
+ * @package Tribe\Widget
  */
 
 namespace Tribe\Widget;
