@@ -11,6 +11,7 @@ use Tribe__Context as Context;
  * The abstract all widgets should implement.
  *
  * @since   TBD
+ *
  * @package Tribe\Widget
  *
  */
@@ -28,12 +29,16 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * The view interface for the widget.
 	 *
+	 * @since TBD
+	 *
 	 * @var View_Interface;
 	 */
 	protected $view;
 
 	/**
 	 * The slug of the widget view.
+	 *
+	 * @since TBD
 	 *
 	 * @var string
 	 */
@@ -62,7 +67,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	protected $aliased_arguments = [];
 
 	/**
-	 * Array of callbacks for arguments validation.
+	 * Array of callbacks for validation of arguments.
 	 *
 	 * @since TBD
 	 *
@@ -92,7 +97,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function __construct( $id_base = '', $name = '', $widget_options = [], $control_options = [] ) {
-
 		$arguments = $this->get_arguments();
 
 		parent::__construct(
@@ -105,7 +109,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		// Setup a view instance for the widget.
 		$this->setup_view();
 
-		// todo add what this does in in TEC-3612 & TEC-3613
+		// @todo add what this does in in TEC-3612 & TEC-3613.
 		$this->setup();
 	}
 
@@ -211,12 +215,12 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	public function get_validated_arguments_map() {
 		/**
-		 * Applies a filter to instance arguments validation callbacks.
+		 * Applies a filter to the validation map for instance arguments.
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string,callable>  $validate_arguments_map Current set of callbacks for arguments.
-		 * @param static $instance               Which instance of widget we are dealing with.
+		 * @param array<string,callable> $validate_arguments_map Current set of callbacks for arguments.
+		 * @param static                             $instance                            The widget instance we are dealing with.
 		 */
 		$validate_arguments_map = apply_filters( 'tribe_widget_validate_arguments_map', $this->validate_arguments_map, $this );
 
@@ -227,8 +231,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string,callable>  $validate_arguments_map Current set of callbacks for arguments.
-		 * @param static $instance               Which instance of widget we are dealing with.
+		 * @param array<string,callable> $validate_arguments_map Current set of callbacks for arguments.
+		 * @param static                            $instance                             The widget instance we are dealing with.
 		 */
 		$validate_arguments_map = apply_filters( "tribe__widget_{$registration_slug}_validate_arguments_map", $validate_arguments_map, $this );
 
@@ -253,7 +257,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 * @since TBD
 		 *
 		 * @param array<string,mixed> $arguments Current set of arguments.
-		 * @param static              $instance  Which instance of widget we are dealing with.
+		 * @param static              $instance  The widget instance we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_widget_arguments', $arguments, $this );
 
@@ -265,7 +269,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 * @since TBD
 		 *
 		 * @param array<string,mixed> $arguments Current set of arguments.
-		 * @param static              $instance  Which instance of widget we are dealing with.
+		 * @param static              $instance  The widget instance we are dealing with.
 		 */
 		$arguments = apply_filters( "tribe_widget_{$registration_slug}_arguments", $arguments, $this );
 
@@ -293,9 +297,9 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 * @since TBD
 		 *
 		 * @param mixed               $argument The argument.
-		 * @param string|int          $index    Which index we indent to fetch from the arguments.
+		 * @param string|int          $index    Which index we intend to fetch from the arguments.
 		 * @param array<string,mixed> $default  Default value if it doesn't exist.
-		 * @param static              $instance Which instance of widget we are dealing with.
+		 * @param static              $instance The widget instance we are dealing with.
 		 */
 		$argument = apply_filters( 'tribe_widget_argument', $argument, $index, $default, $this );
 
@@ -307,9 +311,9 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 * @since TBD
 		 *
 		 * @param mixed      $argument The argument value.
-		 * @param string|int $index    Which index we indent to fetch from the arguments.
+		 * @param string|int $index    Which index we intend to fetch from the arguments.
 		 * @param array      $default  Default value if it doesn't exist.
-		 * @param static     $instance Which instance of widget we are dealing with.
+		 * @param static     $instance The widget instance we are dealing with.
 		 */
 		$argument = apply_filters( "tribe_widget_{$registration_slug}_argument", $argument, $index, $default, $this );
 
@@ -328,24 +332,24 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	public function filter_default_arguments( array $default_arguments = [] ) {
 		/**
-		 * Applies a filter to instance default arguments.
+		 * Applies a filter to default instance arguments.
 		 *
 		 * @since TBD
 		 *
 		 * @param array<string,mixed>  $default_arguments Current set of default arguments.
-		 * @param static               $instance          Which instance of widget we are dealing with.
+		 * @param static               $instance          The widget instance we are dealing with.
 		 */
 		$default_arguments = apply_filters( 'tribe_widget_default_arguments', $default_arguments, $this );
 
 		$registration_slug = $this->get_registration_slug();
 
 		/**
-		 * Applies a filter to instance default arguments based on the registration slug of the widget.
+		 * Applies a filter to default instance arguments based on the registration slug of the widget.
 		 *
 		 * @since TBD
 		 *
 		 * @param array<string,mixed>  $default_arguments Current set of default arguments.
-		 * @param static               $instance          Which instance of widget we are dealing with.
+		 * @param static               $instance          The widget instance we are dealing with.
 		 */
 		$default_arguments = apply_filters( "tribe_widget_{$registration_slug}_default_arguments", $default_arguments, $this );
 

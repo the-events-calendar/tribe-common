@@ -37,7 +37,7 @@ class Widgets extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Static method wrapper around a filter to allow full deactivation of this provider
+	 * Static method wrapper around a filter to allow full deactivation of this provider.
 	 *
 	 * @since TBD
 	 *
@@ -45,7 +45,7 @@ class Widgets extends \tad_DI52_ServiceProvider {
 	 */
 	public static function is_active() {
 		/**
-		 * Allows filtering to deactivate all widgets loading.
+		 * Allows filtering to prevent all Tribe widgets from loading.
 		 *
 		 * @since TBD
 		 *
@@ -64,10 +64,10 @@ class Widgets extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Adds the new widgets, this normally will trigger on `init@P20` due to how we the
-	 * v1 is added on `init@P10` and we remove them on `init@P15`.
+	 * Adds the new widgets.
 	 *
-	 * It's important to leave gaps on priority for better injection.
+	 * This triggers on `init@P20` due to how v1 is added on `init@P10` and removed on `init@P15`,
+	 * as it's important to leave gaps on priority for future flexibility.
 	 *
 	 * @since TBD
 	 */

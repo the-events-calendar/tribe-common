@@ -11,9 +11,9 @@ namespace Tribe\Widget;
 /**
  * Class Widget Manager.
  *
- * @package Tribe\Widget
- *
  * @since  TBD
+ *
+ * @package Tribe\Widget
  */
 class Manager {
 
@@ -22,13 +22,13 @@ class Manager {
 	 *
 	 * @since  TBD
 	 *
-	 * @return array An associative array of widgets in the shape `[ <slug> => <class> ]`
+	 * @return array An associative array of widgets in the shape `[ <slug> => <class> ]`.
 	 */
 	public function get_registered_widgets() {
 		$widgets = [];
 
 		/**
-		 * Allow the registering of widgets into the our Tribe plugins.
+		 * Allow the registering of widgets from other plugins.
 		 *
 		 * @since  TBD
 		 *
@@ -44,9 +44,9 @@ class Manager {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  string $slug Which slug we are checking if is registered.
+	 * @param  string $slug The widget slug we are checking for registration.
 	 *
-	 * @return bool Whether a widget is registered or not.
+	 * @return bool Whether the widget is registered or not.
 	 */
 	public function is_widget_registered( $slug ) {
 		$registered_widgets = $this->get_registered_widgets();
@@ -59,9 +59,9 @@ class Manager {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  string $class_name Which class name we are checking if is registered.
+	 * @param  string $class_name The widget class name we are checking for registration.
 	 *
-	 * @return bool Whether a widget is registered, by class.
+	 * @return bool Whether the widget is registered, by class.
 	 */
 	public function is_widget_registered_by_class( $class_name ) {
 		$registered_widgets = $this->get_registered_widgets();
@@ -70,14 +70,14 @@ class Manager {
 	}
 
 	/**
-	 * Add new widgets handler to catch the correct strings.
+	 * Add new widgets handler to ensure our list of widget slugs is registered by class name.
 	 *
 	 * @since  TBD
 	 */
 	public function register_widgets_with_wp() {
 		$registered_widgets = $this->get_registered_widgets();
 
-		// Add to WordPress all of the registered Widgets
+		// Add to WordPress all of the registered Widgets.
 		foreach ( $registered_widgets as $widget => $class_name ) {
 			register_widget( $class_name );
 		}
