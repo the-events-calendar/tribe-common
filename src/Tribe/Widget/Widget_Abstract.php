@@ -64,7 +64,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	protected $arguments;
 
 	/**
-	 * Content of the current widget.
+	 * HTML content of the current widget.
 	 *
 	 * @since TBD
 	 *
@@ -193,7 +193,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		$registration_slug = $this->get_registration_slug();
 
 		/**
-		 * Applies a filter to instance arguments validation callbacks based on the registration slug of the widget.
+		 * Applies a filter to the validation map for instance arguments for a specific widget. Based on the registration slug of the widget
 		 *
 		 * @since TBD
 		 *
