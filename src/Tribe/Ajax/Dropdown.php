@@ -43,7 +43,7 @@ class Tribe__Ajax__Dropdown {
 		$args['hide_empty'] = isset( $args['hide_empty'] ) ? $args['hide_empty'] : false;
 
 		if ( ! empty( $search ) ) {
-			if ( empty( $search['term'] ) ) {
+			if ( ! is_array( $search ) ) {
 				// For older pieces that still use Select2 format.
 				$args['search'] = $search;
 			} else {
