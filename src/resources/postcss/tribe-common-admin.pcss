@@ -1738,6 +1738,21 @@ body.tribe-welcome {
 	}
 }
 
+.tribe-events-admin-video {
+	-webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+	-webkit-transform: rotate(0.000001deg);
+	-webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+	height: 200px; /* this is overridden by JS, but is a starting point for less flicker */
+	margin-bottom: 72px;
+	overflow: hidden;
+
+	iframe {
+		width: 100%;
+	}
+}
+
 .tribe-events-admin-card--2up {
 
 	.tribe-events-admin-card__title {
@@ -2115,6 +2130,77 @@ input[type="email"].tribe-events-admin-card__input {
 		margin-right: 14px;
 		padding-top: 5px;
 		width: 40px;
+	}
+}
+
+.tribe-events-admin-notice {
+	background-color: #3D54FF;
+	height: 65px;
+	padding-top: 13px;
+
+	.tribe-events-admin-content-wrapper {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	p {
+		color: #fff;
+		display: inline-block;
+		font-family: Helvetica;
+		font-size: 16px;
+		line-height: 18px;
+		margin-top: 0px;
+		padding-bottom: 12px;
+		padding-left: 16px;
+		vertical-align: middle;
+	}
+}
+
+.tribe-events-admin-notice__logo {
+	display: inline-block;
+}
+
+/* -- Event Tickets tweaks -- */
+.tribe-events-admin-tickets {
+	.tribe-events-admin-quick-nav {
+		@media screen and (min-width: 750px) {
+			width: 750px;
+		}
+	}
+
+	.tribe-events-admin-section-header {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	tribe-events-admin-graphic--desktop-only {
+		width: 365px;
+	}
+
+	.tribe-events-admin-graphic--mobile-only {
+		width: 300px;
+		top: 230px;
+	}
+
+	.tribe-events-admin-title__heading {
+		margin-top: 0;
+	}
+
+	.tribe-events-admin-card__title {
+		@media screen and (min-width: 710px) {
+			font-size: 18px;
+		}
+	}
+
+	.tribe-events-admin-title__logo {
+		margin-right: 4px;
+		width: 32px;
+
+		@media screen and (min-width: 710px) {
+			margin-right: 8px;
+			padding-top: 4px;
+			width: 60px;
+		}
 	}
 }
 
