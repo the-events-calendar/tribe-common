@@ -5,12 +5,11 @@ namespace Tribe\Widget;
 use Tribe__Utils__Array as Arr;
 
 /**
- * The abstract all widgets should implement.
+ * The abstract base without Views that all widgets should implement.
  *
  * @since   TBD
  *
  * @package Tribe\Widget
- *
  */
 abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 
