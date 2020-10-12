@@ -68,7 +68,7 @@ interface Widget_Interface {
 	public function form( $instance );
 
 	/**
-	 * Returns the widget slug that allows the widget to be built via the widget class by slug.
+	 * Returns the widget slug that allows the widget to be built via the widget class using that slug.
 	 *
 	 * @since TBD
 	 *
