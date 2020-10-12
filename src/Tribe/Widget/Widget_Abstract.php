@@ -102,7 +102,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Echoes the widget content.
 	 *
-	 * @todo widget display will be apart of TEC-3620 & TEC-3597
+	 * @todo Widget display will be handled in TEC-3620 & TEC-3597.
+	 * @todo Add future support for passing along `$args` and `$instance` for the widget HTML view.
 	 *
 	 * @since TBD
 	 *
