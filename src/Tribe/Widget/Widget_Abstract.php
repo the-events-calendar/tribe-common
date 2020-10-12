@@ -84,9 +84,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 			Arr::get( $arguments, 'control_options', [] )
 		);
 
-		// Setup a view instance for the widget.
-		$this->setup_view();
-
 		// @todo add what this does in in TEC-3612 & TEC-3613.
 		$this->setup();
 	}
@@ -101,13 +98,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @return mixed
 	 */
 	public abstract function setup();
-
-	/**
-	 * Setup the view for the widget.
-	 *
-	 * @since TBD
-	 */
-	public abstract function setup_view();
 
 	/**
 	 * Echoes the widget content.
