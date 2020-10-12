@@ -102,6 +102,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Echoes the widget content.
 	 *
+	 * @todo widget display will be apart of TEC-3620 & TEC-3597
+	 *
 	 * @since TBD
 	 *
 	 * @param array<string,mixed> $args     Display arguments including 'before_title', 'after_title',
@@ -114,6 +116,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 
 	/**
 	 * Returns the rendered View HTML code.
+	 *
+	 * @todo widget display will be apart of TEC-3620 & TEC-3597
 	 *
 	 * @since TBD
 	 *
