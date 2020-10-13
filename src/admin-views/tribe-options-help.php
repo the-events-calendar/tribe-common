@@ -52,6 +52,9 @@ $help->add_section_content( 'system-info', '<div class="system-info-copy"><butto
 $help->add_section( 'template-changes', __( 'Recent Template Changes', 'tribe-common' ), 40 );
 $help->add_section_content( 'template-changes', Tribe__Support__Template_Checker_Report::generate() );
 
+$help->add_section( 'filter-overrides', __( 'Overridden Filters', 'tribe-common' ), 40 );
+$help->add_section_content( 'template-changes', Tribe__Support__Template_Checker_Report::generate() );
+
 $help->add_section( 'event-log', __( 'Event Log', 'tribe-common' ), 50 );
 $help->add_section_content( 'event-log', tribe( 'logger' )->admin()->display_log() );
 ?>

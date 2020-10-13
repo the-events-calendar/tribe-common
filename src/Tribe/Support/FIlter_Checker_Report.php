@@ -4,17 +4,13 @@
  * possible revision, for each plugin that registers itself and its template
  * filepaths.
  */
-class Tribe__Support__Template_Checker_Report {
-	const VERSION_INDEX         = 0;
-	const INCLUDED_VIEWS_INDEX  = 1;
-	const THEME_OVERRIDES_INDEX = 2;
-
+class Tribe__Support__Filter_Checker_Report {
 	/**
-	 * Contains the individual view/template reports for each registered plugin.
+	 * Contains the individual reports for each registered plugin.
 	 *
 	 * @var array
 	 */
-	protected static $plugin_reports = array();
+	protected static $plugin_reports = [];
 
 	/**
 	 * Container for finished report.
@@ -24,55 +20,55 @@ class Tribe__Support__Template_Checker_Report {
 	protected static $complete_report = '';
 
 	/**
-	 * Provides an up-to-date report concerning template changes.
+	 * Provides an up-to-date report concerning filter overrides.
 	 *
 	 * @return string
 	 */
 	public static function generate() {
-		foreach ( self::registered_plugins() as $plugin_name => $plugin_template_system ) {
-			self::generate_for( $plugin_name, $plugin_template_system );
+		foreach ( self::registered_filters() as $plugin_name => $plugin_filters ) {
+			self::generate_for( $plugin_name, $plugin_filters );
 		}
 
 		self::wrap_report();
 		return self::$complete_report;
 	}
 
-	protected static function registered_plugins() {
+	protected static function registered_filters() {
 		/**
-		 * Provides a mechanism for plugins to register information about their template/view
-		 * setups.
+		 * Provides a mechanism for plugins to register information about their filters.
 		 *
-		 * This should be done by adding an entry to $registered_template_systems where the key
-		 * should be the plugin name and the element an array structured as follows:
+		 * This should be done by adding an entry to $plugin_filters where the key
+		 * should be the plugin name and the value an array of filter slugs and their default value:
 		 *
-		 *     [
-		 *       plugin_version,
-		 *       path_to_included_views,
-		 *       path_to_theme_overrides
-		 *     ]
+		 *     plugin_name => [
+		 *         filter_slug         => [value,
+		 *         another_filter_slug => [
+		 *             value,
+		 *             num_args
+		 *     ],
 		 *
-		 * @var array $registered_template_systems
+		 * @var array $plugin_filters
 		 */
-		return apply_filters( 'tribe_support_registered_template_systems', array() );
+		return apply_filters( 'tribe_support_registered_filter_overrides', [] );
 	}
 
 	/**
 	 * Creates a report for the specified plugin.
 	 *
 	 * @param string $plugin_name
-	 * @param array  $template_system
+	 * @param array  $plugin_filters
 	 */
-	protected static function generate_for( $plugin_name, array $template_system ) {
+	protected static function generate_for( $plugin_name, array $plugin_filters ) {
 		$report = '<dt>' . esc_html( $plugin_name ) . '</dt>';
 
-		$scanner = new Tribe__Support__Template_Checker(
-			$template_system[ self::VERSION_INDEX ],
-			$template_system[ self::INCLUDED_VIEWS_INDEX ],
-			$template_system[ self::THEME_OVERRIDES_INDEX ]
-		);
+		foreach ( $plugin_filters[ $plugin_name ] as $filter_slug => $filter_value ) {
+			$filtered_value = apply_filters( $filter_slug, $filter_value );
+			if ( $filtered_value === $filter_value ) {
 
-		$newly_introduced_or_updated = $scanner->get_views_tagged_this_release();
-		$outdated_or_unknown = $scanner->get_outdated_overrides( true );
+			}
+
+			$plugin_filters[ $plugin_name ][ $filter_slug ] = $filtered_value
+		}
 
 		if ( empty( $newly_introduced_or_updated ) && empty( $outdated_or_unknown ) ) {
 			$report .= '<dd>' . __( 'No notable changes detected', 'tribe-common' ) . '</dd>';
