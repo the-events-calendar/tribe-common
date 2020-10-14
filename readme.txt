@@ -5,6 +5,7 @@
 = [4.12.11] 2020-10-19 =
 
 * Fix - Dropdown AJAX search for taxonomy terms properly using SelectWoo search formatting, used in Community Events tags and Event categories. [CE-96]
+* Language - 0 new strings added, 7 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.10] 2020-09-28 =
 
