@@ -2,13 +2,12 @@
 
 namespace Tribe\Widget;
 
-use Tribe\Events\Views\V2\View_Interface;
-
 /**
  * Interface Widget_Interface
  *
  * @since   TBD
- *@package Tribe\Widget
+ *
+ * @package Tribe\Widget
  *
  */
 interface Widget_Interface {
