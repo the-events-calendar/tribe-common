@@ -38,18 +38,30 @@ class Tribe__Support__Filter_Checker_Report {
 		 * Provides a mechanism for plugins to register information about their filters.
 		 *
 		 * This should be done by adding an entry to $plugin_filters where the key
-		 * should be the plugin name and the value an array of filter slugs and their default value:
+		 * should be the plugin name and the value an array of filter slugs to check:
 		 *
 		 *     plugin_name => [
-		 *         filter_slug         => [value,
-		 *         another_filter_slug => [
-		 *             value,
-		 *             num_args
-		 *     ],
+		 *         filter_slug,
+		 *         another_filter_slug,
+		 * 		],
 		 *
 		 * @var array $plugin_filters
 		 */
-		return apply_filters( 'tribe_support_registered_filter_overrides', [] );
+		return apply_filters(
+			'tribe_support_registered_filter_overrides',
+			[
+				'the-events-calendar' => [
+					'tribe_events_views_v2_is_enabled',
+					'tribe_settings_fields',
+					'tribe_get_template_part_content',
+					'tribe_tickets_settings_post_types',
+					'tribe_events_get_link',
+					'tribe_get_ical_link',
+					'tribe_events_before_html',
+
+				],
+			]
+		);
 	}
 
 	/**
@@ -60,45 +72,44 @@ class Tribe__Support__Filter_Checker_Report {
 	 */
 	protected static function generate_for( $plugin_name, array $plugin_filters ) {
 		$report = '<dt>' . esc_html( $plugin_name ) . '</dt>';
+		$applied_filters = [];
 
-		foreach ( $plugin_filters[ $plugin_name ] as $filter_slug => $filter_value ) {
-			$filtered_value = apply_filters( $filter_slug, $filter_value );
-			if ( $filtered_value === $filter_value ) {
-
+		foreach ( $plugin_filters as $filter_slug ) {
+			if ( has_filter( $filter_slug ) ) {
+				$applied_filters[ $plugin_name ][] = $filter_slug;
 			}
-
-			$plugin_filters[ $plugin_name ][ $filter_slug ] = $filtered_value
 		}
 
-		if ( empty( $newly_introduced_or_updated ) && empty( $outdated_or_unknown ) ) {
-			$report .= '<dd>' . __( 'No notable changes detected', 'tribe-common' ) . '</dd>';
-		}
+		if ( empty( $applied_filters ) ) {
+			$report .= '<dd><p>' . _x( 'No filters applied.', 'Message for no applied filters found', 'tribe-common' ) . '</p>';
+		} else {
+			$report = '<ul>';
+			//$applied_filters[ $plugin_name ][ $filter_slug ]
+			foreach ( $applied_filters as $plugin_name => $filters ) {
 
-		if ( ! empty( $newly_introduced_or_updated ) ) {
-			$report .= '<dd><p>' . sprintf( __( 'Templates introduced or updated with this release (%s):', 'tribe-common' ), $template_system[ self::VERSION_INDEX ] ) . '</p><ul>';
-
-			foreach ( $newly_introduced_or_updated as $view_name => $version ) {
-				$report .= '<li>' . esc_html( $view_name ) . '</li>';
+				$report .= '<ul>';
+				foreach ( $filters as $filter ) {
+					$count = self::filter_callbacks( $filter );
+					$report .= sprintf(
+						'<li>%s (%d)</li>',
+						esc_html( $filter ),
+						esc_html( $count )
+					);
+				}
+				$report .= '</ul>';
 			}
 
-			$report .= '</ul></dd>';
-		}
-
-		if ( ! empty( $outdated_or_unknown ) ) {
-			$report .= '<dd><p>' . __( 'Existing theme overrides that may need revision:', 'tribe-common' ) . '</p><ul>';
-
-			foreach ( $outdated_or_unknown as $view_name => $version ) {
-				$version_note = empty( $version )
-					? __( 'version data missing from override', 'tribe-common' )
-					: sprintf( __( 'based on %s version', 'tribe-common' ), $version );
-
-				$report .= '<li>' . esc_html( $view_name ) . ' (' . $version_note . ') </li>';
-			}
-
-			$report .= '</ul></dd>';
+			$report .= '</dd>';
 		}
 
 		self::$plugin_reports[ $plugin_name ] = $report;
+	}
+
+	protected static function filter_callbacks( $hook_name ) {
+		global $wp_filter;
+		$action = $wp_filter[$hook_name];
+
+		return count( $action->callbacks );
 	}
 
 	/**
@@ -108,7 +119,7 @@ class Tribe__Support__Filter_Checker_Report {
 		if ( empty( self::$plugin_reports ) ) {
 			self::$complete_report = '<p>' . __( 'No notable template changes detected.', 'tribe-common' ) . '</p>';
 		} else {
-			self::$complete_report = '<p>' . __( 'Information about recent template changes and potentially impacted template overrides is provided below.', 'tribe-common' ) . '</p>'
+			self::$complete_report = '<p>' . __( 'A list of hooked filters is provided below.', 'tribe-common' ) . '</p>'
 				. '<div class="template-updates-wrapper">' . join( ' ', self::$plugin_reports ) . '</div>';
 		}
 	}

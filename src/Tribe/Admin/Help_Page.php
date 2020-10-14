@@ -570,7 +570,7 @@ class Tribe__Admin__Help_Page {
 			return false;
 		}
 
-		// Everytime you call this we will add this up
+		// Every time you call this we will add this up
 		self::$section_count++;
 
 		$possible_types = (array) apply_filters( 'tribe_help_available_section_types', array( 'default', 'box' ) );
