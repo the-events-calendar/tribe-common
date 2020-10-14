@@ -23,6 +23,15 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	protected $slug;
 
 	/**
+	 * An instance of template.
+	 *
+	 * @since TBD
+	 *
+	 * @var \Tribe__Template
+	 */
+	protected $admin_template;
+
+	/**
 	 * Default arguments to be merged into final arguments of the widget.
 	 *
 	 * @since TBD
@@ -98,6 +107,26 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @return mixed
 	 */
 	public abstract function setup();
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function form( $instance ) {
+
+		add_filter(
+			"tribe_widget_{$this->get_registration_slug()}_arguments",
+			static function ( array $arguments ) use ( $instance ) {
+				return wp_parse_args(
+					$instance,
+					$arguments
+				);
+			}
+		);
+
+		$arguments = $this->get_arguments();
+
+		$this->get_admin_template()->template( 'widgets/list', $arguments );
+	}
 
 	/**
 	 * Echoes the widget content.
@@ -198,7 +227,15 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
+	public abstract function get_admin_fields();
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function get_arguments() {
+
+		// Setup admin fields.
+		$this->arguments['admin_fields'] = $this->get_admin_fields();
 
 		return $this->filter_arguments( $this->arguments );
 	}
@@ -310,5 +347,27 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		$default_arguments = apply_filters( "tribe_widget_{$registration_slug}_default_arguments", $default_arguments, $this );
 
 		return $default_arguments;
+	}
+
+	/**
+	 * Sets the admin template.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Template $template The admin template to use.
+	 */
+	public function set_admin_template( \Tribe__Template $template ) {
+		$this->admin_template = $template;
+	}
+
+	/**
+	 * Returns the current admin template.
+	 *
+	 * @since TBD
+	 *
+	 * @return \Tribe__Template The current admin template.
+	 */
+	public function get_admin_template() {
+		return $this->admin_template;
 	}
 }

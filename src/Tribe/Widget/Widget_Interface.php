@@ -128,6 +128,15 @@ interface Widget_Interface {
 	public function get_validated_arguments_map();
 
 	/**
+	 * Returns an array of admin fields for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> The array of widget admin fields.
+	 */
+	public function get_admin_fields();
+
+	/**
 	 * Returns a widget arguments after been parsed.
 	 *
 	 * @since TBD
