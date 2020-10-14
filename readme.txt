@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.11] TBD =
+= [4.12.11] 2020-10-19 =
 
 * Fix - Dropdown AJAX search for taxonomy terms properly using SelectWoo search formatting, used in Community Events tags and Event categories. [CE-96]
 
