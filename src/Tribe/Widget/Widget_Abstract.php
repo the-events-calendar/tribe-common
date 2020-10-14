@@ -118,15 +118,11 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Returns the rendered View HTML code.
 	 *
-	 * @todo widget display will be apart of TEC-3620 & TEC-3597
-	 *
 	 * @since TBD
 	 *
 	 * @return string
 	 */
-	public function get_html() {
-		return $this->get_view()->get_html();
-	}
+	public abstract function get_html();
 
 	/**
 	 * {@inheritDoc}
