@@ -33,7 +33,7 @@ class Manager {
 		 *
 		 * @since  TBD
 		 *
-		 * @var array An associative array of widgets in the shape `[ <slug> => <class> ]`.
+		 * @var array<string,string> An associative array of widgets in the shape `[ <slug> => <class> ]`.
 		 */
 		$widgets = apply_filters( 'tribe_widgets', $widgets );
 

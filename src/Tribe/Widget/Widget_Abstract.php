@@ -272,7 +272,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 *
 		 * @param mixed      $argument The argument value.
 		 * @param string|int $index    Which index we intend to fetch from the arguments.
-		 * @param array      $default  Default value if it doesn't exist.
+		 * @param mixed      $default  Default value if it doesn't exist.
 		 * @param static     $instance The widget instance we are dealing with.
 		 */
 		$argument = apply_filters( "tribe_widget_{$registration_slug}_argument", $argument, $index, $default, $this );
