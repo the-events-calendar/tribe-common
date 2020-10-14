@@ -93,14 +93,11 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 			Arr::get( $arguments, 'control_options', [] )
 		);
 
-		// @todo add what this does in in TEC-3612 & TEC-3613.
 		$this->setup();
 	}
 
 	/**
 	 * Setup the widget.
-	 *
-	 * @todo update in TEC-3612 & TEC-3613
 	 *
 	 * @since TBD
 	 *
