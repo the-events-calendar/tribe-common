@@ -2,29 +2,29 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.12.7\n"
+"Project-Id-Version: Tribe Common 4.12.11\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2020-08-20 16:27:52+00:00\n"
+"POT-Creation-Date: 2020-10-14 15:50:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-08-20 16:27\n"
+"PO-Revision-Date: 2020-10-14 15:50\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
-#: src/Tribe/Admin/Activation_Page.php:84
+#: src/Tribe/Admin/Activation_Page.php:106
 msgid "Go to plugins page"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:84
+#: src/Tribe/Admin/Activation_Page.php:106
 msgid "Return to Plugins page"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:92
+#: src/Tribe/Admin/Activation_Page.php:114
 msgid "Go to WordPress Updates page"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:92
+#: src/Tribe/Admin/Activation_Page.php:114
 msgid "Return to WordPress Updates"
 msgstr ""
 
@@ -223,15 +223,15 @@ msgstr ""
 msgid "Cannot look for Terms without a taxonomy"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:180
+#: src/Tribe/Ajax/Dropdown.php:186
 msgid "Missing data source for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:193
+#: src/Tribe/Ajax/Dropdown.php:199
 msgid "Empty data set for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:243
+#: src/Tribe/Ajax/Dropdown.php:249
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
 msgstr ""
 
@@ -2510,11 +2510,11 @@ msgstr ""
 msgid "Invalid Key"
 msgstr ""
 
-#: src/Tribe/Support.php:371 src/Tribe/Support.php:397
+#: src/Tribe/Support.php:376 src/Tribe/Support.php:402
 msgid "Permission Error"
 msgstr ""
 
-#: src/Tribe/Support.php:385
+#: src/Tribe/Support.php:390
 msgid "Unique System Info Key Generated"
 msgstr ""
 
