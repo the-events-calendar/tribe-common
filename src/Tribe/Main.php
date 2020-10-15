@@ -637,6 +637,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Body_Classes::class );
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 		tribe_register_provider( Tribe\Service_Providers\Crons::class );
+		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
 	}
 
 	/**
