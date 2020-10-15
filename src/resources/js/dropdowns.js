@@ -449,13 +449,18 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		$select.data( 'dropdown', args );
 
 		$container = $select.select2( args );
+		var $fieldContainer = $container.data( 'select2' ).$container;
 
-		if ( $container.data( 'select2' ).$container ) {
+		if ( undefined === $fieldContainer ) {
+			$fieldContainer = $( field );
+		}
+
+		if ( $fieldContainer ) {
 			// Propagating original input classes to the select2 container.
-			$container.data( 'select2' ).$container.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
+			$fieldContainer.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
 
 			// Propagating original input classes to the select2 container.
-			$container.data( 'select2' ).$container.removeClass( 'hide-before-select2-init' );
+			$fieldContainer.removeClass( 'hide-before-select2-init' );
 		}
 
 		$container.on( 'select2:open', obj.action_select2_open );
