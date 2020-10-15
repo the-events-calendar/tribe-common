@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Correctly register and handle Block Editor translations. [ECP-458]
+
 = [4.12.10] 2020-09-28 =
 
 * Tweak - Adjust SelectWoo dropdown container attachment to include search and minimum results for search. [FBAR-139]
