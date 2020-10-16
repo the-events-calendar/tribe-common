@@ -459,7 +459,6 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			// Propagating original input classes to the select2 container.
 			$fieldContainer.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
 
-			// Propagating original input classes to the select2 container.
 			$fieldContainer.removeClass( 'hide-before-select2-init' );
 		}
 
