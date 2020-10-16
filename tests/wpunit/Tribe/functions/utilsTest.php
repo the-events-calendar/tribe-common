@@ -472,7 +472,9 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 		add_filter( 'test_filter', $callback_two, 13, 5 );
 
 		$this->assertEquals( 'one', apply_filters( 'test_filter', 'original', ...range( 1, 10 ) ) );
-		$this->assertEquals( 'two', tribe_suspending_filter(
+		$this->assertEquals(
+			'two',
+			tribe_suspending_filter(
 				'test_filter',
 				$callback_one,
 				function () use ( $callback_one, $callback_two ) {
@@ -481,11 +483,14 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 
 					return apply_filters( 'test_filter', 'original', ...range( 1, 10 ) );
 				},
-				3 )
+				3
+			)
 		);
 		$this->assertEquals( 23, has_filter( 'test_filter', $callback_one ) );
 		$this->assertEquals( 13, has_filter( 'test_filter', $callback_two ) );
-		$this->assertEquals( 'one', tribe_suspending_filter(
+		$this->assertEquals(
+			'one',
+			tribe_suspending_filter(
 				'test_filter',
 				$callback_two,
 				function () use ( $callback_one, $callback_two ) {
@@ -494,7 +499,8 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 
 					return apply_filters( 'test_filter', 'original', ...range( 1, 10 ) );
 				},
-				3 )
+				3
+			)
 		);
 	}
 }
