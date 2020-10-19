@@ -314,7 +314,7 @@ class Tribe__Template {
 		 * @param array|string $index    Specify each nested index in order.
 		 *                               Example: array( 'lvl1', 'lvl2' );
 		 * @param mixed        $default  Default value if the search finds nothing.
-		 * @param boolean      $is_local Use the Local or Global context,
+		 * @param boolean      $is_local Use the Local or Global context.
 		 * @param self         $template Current instance of the Tribe__Template.
 		 */
 		$value = apply_filters( 'tribe_template_context_get', null, $index, $default, $is_local, $this );
