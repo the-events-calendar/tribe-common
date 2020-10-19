@@ -32,6 +32,15 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	protected $admin_template;
 
 	/**
+	 * The slug of the admin widget view.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $view_admin_slug;
+
+	/**
 	 * Default arguments to be merged into final arguments of the widget.
 	 *
 	 * @since TBD
@@ -109,20 +118,9 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function form( $instance ) {
+		$arguments = $this->get_arguments( $instance );
 
-		add_filter(
-			"tribe_widget_{$this->get_registration_slug()}_arguments",
-			static function ( array $arguments ) use ( $instance ) {
-				return wp_parse_args(
-					$instance,
-					$arguments
-				);
-			}
-		);
-
-		$arguments = $this->get_arguments();
-
-		$this->get_admin_template()->template( 'widgets/list', $arguments );
+		$this->get_admin_html( $arguments );
 	}
 
 	/**
@@ -229,10 +227,48 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_arguments() {
+	public function filter_updated_instance( $updated_instance ) {
+		/**
+		 * Applies a filter to updated instance of a widget.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $updated_instance The updated instance of the widget.
+		 * @param static              $instance  The widget instance we are dealing with.
+		 */
+		$updated_instance = apply_filters( 'tribe_widget_updated_instance', $updated_instance, $this );
 
-		// Setup admin fields.
-		$this->arguments['admin_fields'] = $this->get_admin_fields();
+		$registration_slug = $this->get_registration_slug();
+
+		/**
+		 * Applies a filter to updated instance of a widget arguments based on the registration slug of the widget.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $updated_instance The updated instance of the widget.
+		 * @param static              $instance  The widget instance we are dealing with.
+		 */
+		$updated_instance = apply_filters( "tribe_widget_{$registration_slug}_arguments", $updated_instance, $this );
+
+		return $updated_instance;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_arguments( array $instance = [] ) {
+
+		$arguments = $this->arguments;
+
+		$arguments = wp_parse_args(
+			$arguments,
+			$this->get_default_arguments()
+		);
+
+		$arguments = wp_parse_args(
+			$instance,
+			$arguments
+		);
 
 		return $this->filter_arguments( $this->arguments );
 	}
@@ -314,6 +350,13 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_default_arguments() {
+
+		// Setup admin fields.
+		$this->default_arguments['admin_fields'] = $this->get_admin_fields();
+
+		// Add the Widget to the arguments to pass to the admin template.
+		$this->default_arguments['widget_obj'] = $this;
+
 		return $this->filter_default_arguments( $this->default_arguments );
 	}
 
@@ -366,5 +409,16 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	public function get_admin_template() {
 		return $this->admin_template;
+	}
+
+	/**
+	 * Get the admin html for the widget form.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $arguments Current set of arguments.
+	 */
+	public function get_admin_html( $arguments ) {
+		$this->get_admin_template()->template( $this->view_admin_slug, $arguments );
 	}
 }

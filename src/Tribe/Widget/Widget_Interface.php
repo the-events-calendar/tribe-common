@@ -137,16 +137,29 @@ interface Widget_Interface {
 	public function get_admin_fields();
 
 	/**
+	 * Filters a widget's updated instance.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $updated_instance The updated instance of the widget.
+	 *
+	 * @return array<string,mixed> The updated instance to be saved for the widget.
+	 */
+	public function filter_updated_instance( $updated_instance );
+
+	/**
 	 * Returns a widget arguments after been parsed.
 	 *
 	 * @since TBD
 	 *
+	 * @param array<string,mixed> $instance Saved values for the widget instance.
+	 *
 	 * @return array<string,mixed> The widget arguments, as set by the user in the widget string.
 	 */
-	public function get_arguments();
+	public function get_arguments( array $instance = [] );
 
 	/**
-	 * Get a widget's arguments after they have been been parsed.
+	 * Filter a widget's arguments after they have been been parsed.
 	 *
 	 * @since TBD
 	 *
@@ -195,7 +208,7 @@ interface Widget_Interface {
 	public function get_default_arguments();
 
 	/**
-	 * Get a widget's default arguments.
+	 * Filter a widget's default arguments.
 	 *
 	 * @since TBD
 	 *
