@@ -15,6 +15,33 @@ use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 
 class Canonical_Formatter implements FormatterInterface {
+	/**
+	 * @since TBD
+	 *
+	 * @var string Our standard format for the Monolog LineFormatter.
+	 */
+	protected $standard_format = 'tribe.%channel%.%level_name%: %message%';
+
+	/**
+	 * @since TBD
+	 *
+	 * @var string Our standard format Monolog LineFormatter.
+	 */
+	protected $standard_formatter;
+
+	/**
+	 * @since TBD
+	 *
+	 * @var string Our context-aware format for the Monolog LineFormatter.
+	 */
+	protected $context_format  = 'tribe-canonical-line channel=%channel% %message%';
+
+	/**
+	 * @since TBD
+	 *
+	 * @var string Our context-aware Monolog LineFormatter.
+	 */
+	protected $context_formatter;
 
 	/**
 	 * Formats a log record.
@@ -30,16 +57,43 @@ class Canonical_Formatter implements FormatterInterface {
 
 		if ( $has_context ) {
 			$record['message'] = $this->format_record_message( $record );
-
-			$format = 'tribe-canonical-line channel=%channel% %message%';
+			$formatter         = $this->get_context_formatter();
 		} else {
 			// Fall-back on a standard format if the message does not have a context.
-			$format = 'tribe.%channel%.%level_name%: %message%';
+			$formatter         = $this->get_standard_formatter();
 		}
 
-		$line_formatter = new LineFormatter( $format );
+		return $formatter->format( $record );
+	}
 
-		return $line_formatter->format( $record );
+	/**
+	 * Gets a LineFormatter whose format is context aware.
+	 *
+	 * @since TBD
+	 *
+	 * @return LineFormatter
+	 */
+	public function get_context_formatter() {
+		if ( empty( $this->context_formatter ) ) {
+			$this->context_formatter = new LineFormatter( $this->context_format );
+		}
+
+		return $this->context_formatter;
+	}
+
+	/**
+	 * Gets a LineFormatter whose format is our standard logging format.
+	 *
+	 * @since TBD
+	 *
+	 * @return LineFormatter
+	 */
+	public function get_standard_formatter() {
+		if ( empty( $this->standard_formatter ) ) {
+			$this->standard_formatter = new LineFormatter( $this->standard_format );
+		}
+
+		return $this->standard_formatter;
 	}
 
 	/**
