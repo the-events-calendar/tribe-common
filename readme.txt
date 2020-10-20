@@ -2,6 +2,11 @@
 
 == Changelog ==
 
+= [4.12.12] 2020-10-26 =
+
+* Tweak - Add the `tribe_suspending_filter` function to run a callback detaching and reattaching a filter. [TEC-3587]
+* Fix - Correctly register and handle Block Editor translations. [ECP-458]
+
 = [4.12.11] 2020-10-19 =
 
 * Fix - Dropdown AJAX search for taxonomy terms properly using SelectWoo search formatting, used in Community Events tags and Event categories. [CE-96]
