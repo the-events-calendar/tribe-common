@@ -136,6 +136,11 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @param array<string,mixed> $instance The settings for the particular instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
+		$arguments = $this->get_arguments( $instance );
+
+		// Setup the View for the frontend.
+		$this->setup_view( $arguments );
+
 		echo $this->get_html();
 	}
 
