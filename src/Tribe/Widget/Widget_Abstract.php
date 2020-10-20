@@ -7,7 +7,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * The abstract base without Views that all widgets should implement.
  *
- * @since   TBD
+ * @since   5.12.12
  *
  * @package Tribe\Widget
  */
@@ -16,7 +16,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Slug of the current widget.
 	 *
-	 * @since TBD
+	 * @since 5.12.12
 	 *
 	 * @var string
 	 */
@@ -43,7 +43,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Default arguments to be merged into final arguments of the widget.
 	 *
-	 * @since TBD
+	 * @since 5.12.12
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -56,7 +56,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * Example array: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
 	 * Example widget usage: [some_tag alias=17 to='Fred'] will be parsed as [some_tag canonical=17 to='Fred']
 	 *
-	 * @since TBD
+	 * @since 5.12.12
 	 *
 	 * @var array<string,string>
 	 */
@@ -65,7 +65,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Array of callbacks for validation of arguments.
 	 *
-	 * @since TBD
+	 * @since 5.12.12
 	 *
 	 * @var array<string,callable>
 	 */
@@ -74,7 +74,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Arguments of the current widget.
 	 *
-	 * @since TBD
+	 * @since 5.12.12
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -83,7 +83,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * HTML content of the current widget.
 	 *
-	 * @since TBD
+	 * @since 5.12.12
 	 *
 	 * @var string
 	 */
@@ -108,7 +108,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Setup the widget.
 	 *
-	 * @since TBD
+	 * @since 5.12.12
 	 *
 	 * @return mixed
 	 */
@@ -129,7 +129,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @todo Widget display will be handled in TEC-3620 & TEC-3597.
 	 * @todo Add future support for passing along `$args` and `$instance` for the widget HTML view.
 	 *
-	 * @since TBD
+	 * @since 5.12.12
 	 *
 	 * @param array<string,mixed> $args     Display arguments including 'before_title', 'after_title',
 	 *                                      'before_widget', and 'after_widget'.
@@ -142,7 +142,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Returns the rendered View HTML code.
 	 *
-	 * @since TBD
+	 * @since 5.12.12
 	 *
 	 * @return string
 	 */
@@ -197,7 +197,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to the validation map for instance arguments.
 		 *
-		 * @since TBD
+		 * @since 5.12.12
 		 *
 		 * @param array<string,callable> $validate_arguments_map Current set of callbacks for arguments.
 		 * @param static                             $instance                            The widget instance we are dealing with.
@@ -209,7 +209,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to the validation map for instance arguments for a specific widget. Based on the registration slug of the widget
 		 *
-		 * @since TBD
+		 * @since 5.12.12
 		 *
 		 * @param array<string,callable> $validate_arguments_map Current set of callbacks for arguments.
 		 * @param static                            $instance                             The widget instance we are dealing with.
@@ -292,7 +292,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to instance arguments.
 		 *
-		 * @since TBD
+		 * @since 5.12.12
 		 *
 		 * @param array<string,mixed> $arguments Current set of arguments.
 		 * @param static              $instance  The widget instance we are dealing with.
@@ -304,7 +304,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to instance arguments based on the registration slug of the widget.
 		 *
-		 * @since TBD
+		 * @since 5.12.12
 		 *
 		 * @param array<string,mixed> $arguments Current set of arguments.
 		 * @param static              $instance  The widget instance we are dealing with.
@@ -332,7 +332,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to a specific widget argument, catch all for all widgets.
 		 *
-		 * @since TBD
+		 * @since 5.12.12
 		 *
 		 * @param mixed               $argument The argument.
 		 * @param string|int          $index    Which index we intend to fetch from the arguments.
@@ -346,7 +346,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to a specific widget argument, to a particular registration slug.
 		 *
-		 * @since TBD
+		 * @since 5.12.12
 		 *
 		 * @param mixed      $argument The argument value.
 		 * @param string|int $index    Which index we intend to fetch from the arguments.
@@ -391,7 +391,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to default instance arguments.
 		 *
-		 * @since TBD
+		 * @since 5.12.12
 		 *
 		 * @param array<string,mixed>  $default_arguments Current set of default arguments.
 		 * @param static               $instance          The widget instance we are dealing with.
@@ -403,7 +403,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to default instance arguments based on the registration slug of the widget.
 		 *
-		 * @since TBD
+		 * @since 5.12.12
 		 *
 		 * @param array<string,mixed>  $default_arguments Current set of default arguments.
 		 * @param static               $instance          The widget instance we are dealing with.
