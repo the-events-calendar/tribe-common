@@ -366,7 +366,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @return array<string,mixed> The default widget arguments.
 	 */
 	protected function setup_default_arguments() {
-		$default_arguments = [];
+		$default_arguments = $this->default_arguments;
 
 		// Setup admin fields.
 		$default_arguments['admin_fields'] = $this->get_admin_fields();
