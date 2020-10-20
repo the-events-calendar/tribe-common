@@ -93,7 +93,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function __construct( $id_base = '', $name = '', $widget_options = [], $control_options = [] ) {
-		$arguments = $this->get_arguments();
+		$arguments = $this->setup_arguments();
 
 		parent::__construct(
 			Arr::get( $arguments, 'id_base', '' ),
@@ -118,7 +118,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function form( $instance ) {
-		$arguments = $this->get_arguments( $instance );
+		$arguments = $this->setup_arguments( $instance );
 
 		$this->get_admin_html( $arguments );
 	}
@@ -256,8 +256,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_arguments( array $instance = [] ) {
-
+	protected function setup_arguments( array $instance = [] ) {
 		$arguments = $this->arguments;
 
 		$arguments = wp_parse_args(
@@ -270,7 +269,11 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 			$arguments
 		);
 
-		return $this->filter_arguments( $this->arguments );
+		return $arguments;
+	}
+
+	public function get_arguments( array $instance = [] ) {
+		return $this->filter_arguments( $this->setup_arguments( $instance ) );
 	}
 
 	/**
@@ -307,7 +310,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_argument( $index, $default = null ) {
-		$arguments = $this->get_arguments();
+		$arguments = $this->setup_arguments();
 		$argument  = Arr::get( $arguments, $index, $default );
 
 		return $this->filter_argument( $argument, $index, $default );
@@ -350,14 +353,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_default_arguments() {
-
-		// Setup admin fields.
-		$this->default_arguments['admin_fields'] = $this->get_admin_fields();
-
-		// Add the Widget to the arguments to pass to the admin template.
-		$this->default_arguments['widget_obj'] = $this;
-
-		return $this->filter_default_arguments( $this->default_arguments );
+		return $this->filter_default_arguments( $this->setup_default_arguments() );
 	}
 
 	/**
@@ -420,5 +416,17 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	public function get_admin_html( $arguments ) {
 		$this->get_admin_template()->template( $this->view_admin_slug, $arguments );
+	}
+
+	protected function setup_default_arguments() {
+		$default_arguments = [];
+
+		// Setup admin fields.
+		$default_arguments['admin_fields'] = $this->get_admin_fields();
+
+		// Add the Widget to the arguments to pass to the admin template.
+		$default_arguments['widget_obj'] = $this;
+
+		return $default_arguments;
 	}
 }
