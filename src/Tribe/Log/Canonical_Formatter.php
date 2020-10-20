@@ -11,9 +11,10 @@
 namespace Tribe\Log;
 
 
+use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 
-class Canonical_Formatter extends LineFormatter {
+class Canonical_Formatter implements FormatterInterface {
 
 	/**
 	 * Formats a log record.
@@ -30,13 +31,31 @@ class Canonical_Formatter extends LineFormatter {
 		if ( $has_context ) {
 			$record['message'] = $this->format_record_message( $record );
 
-			$this->format = 'tribe-canonical-line channel=%channel% %message%';
+			$format = 'tribe-canonical-line channel=%channel% %message%';
 		} else {
 			// Fall-back on a standard format if the message does not have a context.
-			$this->format = 'tribe.%channel%.%level_name%: %message%';
+			$format = 'tribe.%channel%.%level_name%: %message%';
 		}
 
-		return parent::format( $record );
+		$line_formatter = new LineFormatter( $format );
+
+		return $line_formatter->format( $record );
+	}
+
+	/**
+	 * Formats a set of log records.
+	 *
+	 * This simply hands off the work of formatting Batches to the LineFormatter.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array $records A set of records to format
+	 * @return mixed The formatted set of records
+	 */
+	public function formatBatch( array $records ) {
+		$line_formatter = new LineFormatter();
+
+		return $line_formatter->formatBatch( $records );
 	}
 
 	/**
