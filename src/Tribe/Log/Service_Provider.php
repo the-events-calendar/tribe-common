@@ -70,7 +70,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		 */
 		$level_threshold = apply_filters( 'tribe_log_level', Logger::WARNING );
 
-		$error_log_handler = new ErrorLogHandler( null, $level_threshold );
+		$error_log_handler = new ErrorLogHandler( ErrorLogHandler::OPERATING_SYSTEM, $level_threshold );
 
 		/**
 		 * Filters whether to use canonical format for the logs or not.
