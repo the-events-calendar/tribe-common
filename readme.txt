@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.12] 2020-10-26 =
+= [4.12.12] 2020-10-22 =
 
 * Tweak - Add the `tribe_suspending_filter` function to run a callback detaching and reattaching a filter. [TEC-3587]
 * Fix - Correctly register and handle Block Editor translations. [ECP-458]
