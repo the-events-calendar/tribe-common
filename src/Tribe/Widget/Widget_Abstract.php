@@ -115,6 +115,15 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	public abstract function setup();
 
 	/**
+	 * Setup the widget.
+	 *
+	 * @since  TBD
+	 *
+	 * @param array<string,mixed> $arguments The widget arguments, as set by the user in the widget string.
+	 */
+	public abstract function setup_view( $arguments );
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function form( $instance ) {
