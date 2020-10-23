@@ -137,15 +137,27 @@ interface Widget_Interface {
 	public function get_admin_fields();
 
 	/**
+	 * Filter a widget's admin fields.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $admin_fields The array of widget admin fields.
+	 *
+	 * @return array<string,mixed> The array of widget admin fields.
+	 */
+	public function filter_admin_fields( $admin_fields );
+
+	/**
 	 * Filters a widget's updated instance.
 	 *
 	 * @since TBD
 	 *
 	 * @param array<string,mixed> $updated_instance The updated instance of the widget.
+	 * @param array<string,mixed> $new_instance The new values for the widget instance.
 	 *
 	 * @return array<string,mixed> The updated instance to be saved for the widget.
 	 */
-	public function filter_updated_instance( $updated_instance );
+	public function filter_updated_instance( $updated_instance, $new_instance );
 
 	/**
 	 * Returns a widget arguments after been parsed.

@@ -108,7 +108,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Setup the widget.
 	 *
-	 * @since 5.12.12
+	 * @since  5.2.1
 	 *
 	 * @return mixed
 	 */
@@ -126,9 +126,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Echoes the widget content.
 	 *
-	 * @todo Widget display will be handled in TEC-3620 & TEC-3597.
-	 * @todo Add future support for passing along `$args` and `$instance` for the widget HTML view.
-	 *
 	 * @since 5.12.12
 	 *
 	 * @param array<string,mixed> $args     Display arguments including 'before_title', 'after_title',
@@ -136,6 +133,11 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @param array<string,mixed> $instance The settings for the particular instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
+		$arguments = $this->get_arguments( $instance );
+
+		// Setup the View for the frontend.
+		$this->setup_view( $arguments );
+
 		echo $this->get_html();
 	}
 
@@ -220,23 +222,64 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Sets up the widgets default admin fields.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> The array of widget admin fields.
 	 */
-	public abstract function get_admin_fields();
+	protected abstract function setup_admin_fields();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function filter_updated_instance( $updated_instance ) {
+	public function get_admin_fields() {
+		return $this->filter_admin_fields( $this->setup_admin_fields() );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function filter_admin_fields( $admin_fields ) {
+		/**
+		 * Applies a filter to a widget's admin fields.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $admin_fields The array of widget admin fields.
+		 * @param static              $instance     The widget instance we are dealing with.
+		 */
+		$admin_fields = apply_filters( 'tribe_widget_admin_fields', $admin_fields, $this );
+
+		$registration_slug = $this->get_registration_slug();
+
+		/**
+		 * Applies a filter to a widget's admin fields based on the registration slug of the widget.
+		 *
+		 * @since TBE
+		 *
+		 * @param array<string,mixed> $admin_fields The array of widget admin fields.
+		 * @param static              $instance     The widget instance we are dealing with.
+		 */
+		$admin_fields = apply_filters( "tribe_widget_{$registration_slug}_admin_fields", $admin_fields, $this );
+
+		return $admin_fields;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function filter_updated_instance( $updated_instance, $new_instance ) {
 		/**
 		 * Applies a filter to updated instance of a widget.
 		 *
 		 * @since TBD
 		 *
 		 * @param array<string,mixed> $updated_instance The updated instance of the widget.
+		 * @param array<string,mixed> $new_instance The new values for the widget instance.
 		 * @param static              $instance  The widget instance we are dealing with.
 		 */
-		$updated_instance = apply_filters( 'tribe_widget_updated_instance', $updated_instance, $this );
+		$updated_instance = apply_filters( 'tribe_widget_updated_instance', $updated_instance, $new_instance, $this );
 
 		$registration_slug = $this->get_registration_slug();
 
@@ -246,9 +289,10 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 * @since TBD
 		 *
 		 * @param array<string,mixed> $updated_instance The updated instance of the widget.
+		 * @param array<string,mixed> $new_instance The new values for the widget instance.
 		 * @param static              $instance  The widget instance we are dealing with.
 		 */
-		$updated_instance = apply_filters( "tribe_widget_{$registration_slug}_arguments", $updated_instance, $this );
+		$updated_instance = apply_filters( "tribe_widget_{$registration_slug}_updated_instance", $updated_instance, $new_instance, $this );
 
 		return $updated_instance;
 	}
