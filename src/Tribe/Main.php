@@ -428,6 +428,9 @@ class Tribe__Main {
 		// Are we on the Plugins page?
 		$is_plugins = $helper->is_screen( 'plugins' );
 
+		// Are we on the Widgets page?
+		$is_plugins = $helper->is_screen( 'widgets' );
+
 		// Are we viewing a generic Tribe screen?
 		// Includes: Events > Settings, Events > Help, App Shop page, and more.
 		$is_tribe_screen = $helper->is_screen();
