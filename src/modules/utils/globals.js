@@ -42,7 +42,7 @@ export const editorDefaults = () => pro().defaults || {};
 export const tickets = () => config().tickets || {};
 
 // Tickets Plus IAC
-export const ticketsPlusIacVars = () => config().tribe_tickets_plus_iac_vars || {};
+export const ticketsPlusIacVars = () => get( 'tribe_tickets_plus_iac_vars', {} );
 
 // Post Objects
 export const postObjects = () => config().post_objects || {};
