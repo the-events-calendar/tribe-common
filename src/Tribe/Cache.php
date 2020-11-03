@@ -387,8 +387,9 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @return mixed Can return all value types.
 	 */
-	public function offsetGet( $offset ) {
-		return $this->get( $offset );
+	public function &offsetGet( $offset ) {
+		$value = $this->get( $offset );
+		return $value;
 	}
 
 	/**
