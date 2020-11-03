@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.12.13] TBD =
+
+* Fix - Prevent items without children to be marked as groups in SelectWoo UI [CE-106]
+
 = [4.12.12] 2020-10-22 =
 
 * Tweak - Add the `tribe_suspending_filter` function to run a callback detaching and reattaching a filter. [TEC-3587]
