@@ -41,8 +41,9 @@ export const editorDefaults = () => pro().defaults || {};
 // Tickets
 export const tickets = () => config().tickets || {};
 
-// Tickets Plus IAC
-export const ticketsPlusIacVars = () => get( 'tribe_tickets_plus_iac_vars', {} );
+// Tickets Plus
+export const ticketsPlus = () => config().ticketsPlus || {};
+export const iacVars = () => ticketsPlus().iacVars || {};
 
 // Post Objects
 export const postObjects = () => config().post_objects || {};
