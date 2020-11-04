@@ -146,7 +146,10 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return bool
 	 */
 	public function delete( $id, $expiration_trigger = '' ) {
-		return wp_cache_delete( $this->get_id( $id, $expiration_trigger ), 'tribe-events' );
+		$flipped = array_flip( $this->non_persistent_keys );
+		$group   = isset( $flipped[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
+
+		return wp_cache_delete( $this->get_id( $id, $expiration_trigger ), $group );
 	}
 
 	/**
@@ -419,9 +422,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return void
 	 */
 	public function offsetUnset( $offset ) {
-		$flipped = array_flip( $this->non_persistent_keys );
-		$index   = $flipped[ $offset ];
-		unset( $this->non_persistent_keys[ $index ] );
+		$this->delete( $offset );
 	}
 
 	/**
