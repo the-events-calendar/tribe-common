@@ -109,7 +109,7 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache[ $key ] = 'bar';
 
 		$this->assertTrue( isset( $cache[ $key ] ) );
-		$this->assertEquals('bar', $cache[ $key ] );
+		$this->assertEquals( 'bar', $cache[ $key ] );
 	}
 
 	/**
