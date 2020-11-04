@@ -4,7 +4,7 @@
 
 = [4.12.13] TBD =
 
-* Fix - Prevent items without children to be marked as groups in SelectWoo UI [CE-106]
+* Fix - Prevent items without children to be marked as groups in SelectWoo UI  [CE-106]
 
 = [4.12.12] 2020-10-22 =
 
