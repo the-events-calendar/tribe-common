@@ -38,6 +38,46 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should allow changing value using ArrayAccess API
+	 *
+	 * @test
+	 */
+	public function it_should_allow_changing_value_using_array_access_api() {
+		$cache = $this->make_instance();
+
+		$this->assertFalse( isset( $cache['foo'] ) );
+
+		$cache['foo'] = 'bar';
+
+		$this->assertTrue( isset( $cache['foo'] ) );
+		$this->assertEquals( 'bar', $cache['foo'] );
+
+		// Change the value.
+		$cache['foo'] = 'rob';
+
+		$this->assertTrue( isset( $cache['foo'] ) );
+		$this->assertEquals( 'rob', $cache['foo'] );
+	}
+
+	/**
+	 * It should allow removing value using ArrayAccess API
+	 *
+	 * @test
+	 */
+	public function it_should_allow_removing_value_using_array_access_api() {
+		$cache = $this->make_instance();
+
+		$this->assertFalse( isset( $cache['foo'] ) );
+
+		$cache['foo'] = 'bar';
+
+		unset( $cache['foo'] );
+
+		$this->assertFalse( isset( $cache['foo'] ) );
+		$this->assertEquals( null, $cache['foo'] );
+	}
+
+	/**
 	 * It should correctly fabricate keys
 	 *
 	 * @test
@@ -69,7 +109,7 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache[ $key ] = 'bar';
 
 		$this->assertTrue( isset( $cache[ $key ] ) );
-		$this->assertEquals('bar',$cache[$key]);
+		$this->assertEquals('bar', $cache[ $key ] );
 	}
 
 	/**
