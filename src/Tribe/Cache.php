@@ -149,6 +149,13 @@ class Tribe__Cache implements ArrayAccess {
 		$flipped = array_flip( $this->non_persistent_keys );
 		$group   = isset( $flipped[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
 
+		// Delete from non-persistent keys list.
+		if ( 'tribe-events-non-persistent' === $group && isset( $flipped[ $id ] ) ) {
+			$index = $flipped[ $id ];
+
+			unset( $this->non_persistent_keys[ $index ] );
+		}
+
 		return wp_cache_delete( $this->get_id( $id, $expiration_trigger ), $group );
 	}
 
