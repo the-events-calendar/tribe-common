@@ -283,17 +283,17 @@ class Tribe__Template {
 	}
 
 	/**
-	 * Sets a Index inside of the global or local context
-	 * Final to prevent extending the class when the `get` already exists on the child class
+	 * Sets an Index inside of the global or local context.
+	 * Final to prevent extending the class when the `get` already exists on the child class.
+	 *
+	 * @see    Tribe__Utils__Array::set()
 	 *
 	 * @since  4.6.2
 	 *
-	 * @see    Tribe__Utils__Array::set
-	 *
-	 * @param  array    $index     Specify each nested index in order.
-	 *                             Example: array( 'lvl1', 'lvl2' );
-	 * @param  mixed    $default   Default value if the search finds nothing.
-	 * @param  boolean  $is_local  Use the Local or Global context
+	 * @param array|string $index    Specify each nested index in order.
+	 *                               Example: array( 'lvl1', 'lvl2' );
+	 * @param mixed        $default  Default value if the search finds nothing.
+	 * @param boolean      $is_local Use the Local or Global context.
 	 *
 	 * @return mixed The value of the specified index or the default if not found.
 	 */
@@ -310,14 +310,15 @@ class Tribe__Template {
 		 *
 		 * @since  4.6.2
 		 *
-		 * @param  mixed    $value     The value that will be filtered
-		 * @param  array    $index     Specify each nested index in order.
-		 *                             Example: array( 'lvl1', 'lvl2' );
-		 * @param  mixed    $default   Default value if the search finds nothing.
-		 * @param  boolean  $is_local  Use the Local or Global context
-		 * @param  self     $template  Current instance of the Tribe__Template
+		 * @param mixed        $value    The value that will be filtered.
+		 * @param array|string $index    Specify each nested index in order.
+		 *                               Example: array( 'lvl1', 'lvl2' );
+		 * @param mixed        $default  Default value if the search finds nothing.
+		 * @param boolean      $is_local Use the Local or Global context.
+		 * @param self         $template Current instance of the Tribe__Template.
 		 */
 		$value = apply_filters( 'tribe_template_context_get', null, $index, $default, $is_local, $this );
+
 		if ( null !== $value ) {
 			return $value;
 		}

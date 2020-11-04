@@ -135,6 +135,9 @@ class Tribe__Ajax__Dropdown {
 	public function convert_children_to_array( $results ) {
 		if ( isset( $results->children ) ) {
 			$results->children = $this->convert_children_to_array( $results->children );
+			if ( empty( $results->children ) ) {
+				unset( $results->children );
+			}
 		} else {
 			foreach ( $results as $key => $item ) {
 				$item = $this->convert_children_to_array( $item );
