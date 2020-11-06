@@ -3,7 +3,7 @@
  * View: Featured Icon
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/v2/components/icons/close.php
+ * [your-theme]/tribe/v2/components/icons/featured.php
  *
  * See more documentation about our views templating system.
  *
@@ -11,7 +11,7 @@
  *
  * @var array<string> $classes Additional classes to add to the svg icon.
  *
- * @version 4.12.10
+ * @version 4.12.12
  *
  */
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--featured' ];
