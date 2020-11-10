@@ -5,13 +5,13 @@ namespace Tribe\Tests\Snapshots\Views\V2\Components\Icons;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Tests\Snapshots\Snapshot_Test_Case;
 
-class DotsTest extends Snapshot_Test_Case {
+class DotTest extends Snapshot_Test_Case {
 	use SnapshotAssertions;
 
 	/**
 	 * @var string The path to the template, either relative to the `/src` directory, or absolute.
 	 */
-	protected $template_path = 'views/v2/components/icons/dots.php';
+	protected $template_path = 'views/v2/components/icons/dot.php';
 
 	/**
 	 * Test render without classes.

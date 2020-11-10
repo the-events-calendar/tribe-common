@@ -6,28 +6,25 @@
 	 *
 	 * Example:
 	 * <div class="tribe-events-view-loader__dots tribe-common-c-loader">
-	 *    <?php $this->template( 'components/icons/dots', [ 'classes' => [ 'tribe-common-c-loader__dot-svg' ] ] ); ?>
+	 *    <?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot-svg' ] ] ); ?>
+	 *    <?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot-svg' ] ] ); ?>
+	 *    <?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot-svg' ] ] ); ?>
 	 * </div>
 	 *
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-common-c-loader-dots__svg-dot {
-		animation-name: tribe-common-c-loader-bounce;
-		animation-duration: 2.24s;
-		animation-iteration-count: infinite;
-		animation-direction: normal;
-	}
-
-	.tribe-common-c-loader-dots__svg-dot-first {
-		animation-delay: 0.45s;
-	}
-
-	.tribe-common-c-loader-dots__svg-dot-second {
-		animation-delay: 1.05s;
-	}
-
-	.tribe-common-c-loader-dots__svg-dot-third {
-		animation-delay: 1.35s;
+	.tribe-common-c-loader__dot-svg {
+		circle {
+			animation-name: tribe-common-c-loader-bounce;
+			animation-duration: 2.24s;
+			animation-iteration-count: infinite;
+			animation-direction: normal;
+			fill: var(--color-accent-primary-background);
+		}
+		
+		&:nth-child(1) circle { animation-delay: 0.45s; }
+		&:nth-child(2) circle { animation-delay: 1.05s; }
+		&:nth-child(3) circle { animation-delay: 1.35s; }
 	}
 
 	@keyframes tribe-common-c-loader-bounce {
