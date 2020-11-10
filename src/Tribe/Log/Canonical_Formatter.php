@@ -11,9 +11,37 @@
 namespace Tribe\Log;
 
 
+use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 
-class Canonical_Formatter extends LineFormatter {
+class Canonical_Formatter implements FormatterInterface {
+	/**
+	 * @since TBD
+	 *
+	 * @var string Our standard format for the Monolog LineFormatter.
+	 */
+	protected $standard_format = 'tribe.%channel%.%level_name%: %message%';
+
+	/**
+	 * @since TBD
+	 *
+	 * @var string Our standard format Monolog LineFormatter.
+	 */
+	protected $standard_formatter;
+
+	/**
+	 * @since TBD
+	 *
+	 * @var string Our context-aware format for the Monolog LineFormatter.
+	 */
+	protected $context_format  = 'tribe-canonical-line channel=%channel% %message%';
+
+	/**
+	 * @since TBD
+	 *
+	 * @var string Our context-aware Monolog LineFormatter.
+	 */
+	protected $context_formatter;
 
 	/**
 	 * Formats a log record.
@@ -29,14 +57,59 @@ class Canonical_Formatter extends LineFormatter {
 
 		if ( $has_context ) {
 			$record['message'] = $this->format_record_message( $record );
-
-			$this->format = 'tribe-canonical-line channel=%channel% %message%';
+			$formatter         = $this->get_context_formatter();
 		} else {
 			// Fall-back on a standard format if the message does not have a context.
-			$this->format = 'tribe.%channel%.%level_name%: %message%';
+			$formatter         = $this->get_standard_formatter();
 		}
 
-		return parent::format( $record );
+		return $formatter->format( $record );
+	}
+
+	/**
+	 * Gets a LineFormatter whose format is context aware.
+	 *
+	 * @since TBD
+	 *
+	 * @return LineFormatter
+	 */
+	public function get_context_formatter() {
+		if ( empty( $this->context_formatter ) ) {
+			$this->context_formatter = new LineFormatter( $this->context_format );
+		}
+
+		return $this->context_formatter;
+	}
+
+	/**
+	 * Gets a LineFormatter whose format is our standard logging format.
+	 *
+	 * @since TBD
+	 *
+	 * @return LineFormatter
+	 */
+	public function get_standard_formatter() {
+		if ( empty( $this->standard_formatter ) ) {
+			$this->standard_formatter = new LineFormatter( $this->standard_format );
+		}
+
+		return $this->standard_formatter;
+	}
+
+	/**
+	 * Formats a set of log records.
+	 *
+	 * This simply hands off the work of formatting Batches to the LineFormatter.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array $records A set of records to format
+	 * @return mixed The formatted set of records
+	 */
+	public function formatBatch( array $records ) {
+		$line_formatter = new LineFormatter();
+
+		return $line_formatter->formatBatch( $records );
 	}
 
 	/**
