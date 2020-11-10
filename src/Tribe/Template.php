@@ -299,13 +299,7 @@ class Tribe__Template {
 	 * @return mixed The value of the specified index or the default if not found.
 	 */
 	final public function get( $index, $default = null, $is_local = true ) {
-		if ( true === $is_local ) {
-			$context = $this->get_local_values();
-		}
-
-		if ( empty( $context ) ) {
-			$context = $this->get_global_values();
-		}
+		$context = $this->get_global_values();
 
 		/**
 		 * Allows filtering or short-circuiting of the getting of Context variables.
@@ -326,7 +320,16 @@ class Tribe__Template {
 			return $value;
 		}
 
-		return Tribe__Utils__Array::get( $context, $index, $default );
+		$value = Tribe__Utils__Array::get( $context, $index, $default );
+
+		if ( true === $is_local ) {
+			$local_context = $this->get_local_values();
+			if ( ! empty( $local_context ) ) {
+				$value = Tribe__Utils__Array::get( $local_context, $index, $value );
+			}
+		}
+
+		return $value;
 	}
 
 	/**
