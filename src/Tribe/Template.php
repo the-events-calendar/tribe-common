@@ -289,23 +289,26 @@ class Tribe__Template {
 	 * @see    Tribe__Utils__Array::set()
 	 *
 	 * @since  4.6.2
+	 * @since  TBD Fallback to Global if Local is true but value of Local is empty.
 	 *
 	 * @param array|string $index    Specify each nested index in order.
 	 *                               Example: array( 'lvl1', 'lvl2' );
 	 * @param mixed        $default  Default value if the search finds nothing.
-	 * @param boolean      $is_local Use the Local or Global context.
+	 * @param boolean      $is_local Use the Local or Global context. If Local but it's empty, will fallback to Global.
 	 *
 	 * @return mixed The value of the specified index or the default if not found.
 	 */
 	final public function get( $index, $default = null, $is_local = true ) {
-		$context = $this->get_global_values();
-
 		if ( true === $is_local ) {
 			$context = $this->get_local_values();
 		}
 
+		if ( empty( $context ) ) {
+			$context = $this->get_global_values();
+		}
+
 		/**
-		 * Allows filtering the the getting of Context variables, also short circuiting
+		 * Allows filtering or short-circuiting of the getting of Context variables.
 		 * Following the same structure as WP Core
 		 *
 		 * @since  4.6.2
