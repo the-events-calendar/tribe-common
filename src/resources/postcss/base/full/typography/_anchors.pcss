@@ -26,7 +26,8 @@
 		 * Theme Overrides - Twenty Seventeen
 		 * ------------------------------------------------------------------------- */
 
-		.tribe-theme-twentyseventeen & {
+		.tribe-theme-twentyseventeen &,
+		.tribe-theme-twentyseventeen .site-footer .widget-area & {
 			box-shadow: none;
 
 			&:hover,
@@ -92,6 +93,19 @@
 			&:focus {
 				color: var(--color-accent-primary);
 			}
+		}
+	}
+
+	.tribe-theme-twentyseventeen .site-footer .widget-area & {
+
+		.tribe-common-anchor,
+		.tribe-common-anchor-thin {
+			transition: var(--transition-border-color);
+		}
+
+		.tribe-common-anchor-alt,
+		.tribe-common-anchor-thin-alt {
+			transition: var(--transition-color);
 		}
 	}
 }
