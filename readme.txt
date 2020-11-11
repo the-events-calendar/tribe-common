@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.12.12.1] 2020-11-12 =
+
+* Tweak - Update version of Freemius to the latest version 2.4.1 [TEC-3668]
+
 = [4.12.12] 2020-10-22 =
 
 * Tweak - Add the `tribe_suspending_filter` function to run a callback detaching and reattaching a filter. [TEC-3587]
