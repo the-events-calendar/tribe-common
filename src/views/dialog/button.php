@@ -3,7 +3,7 @@
  * Dialog Button Template
  * The button template for Tribe Dialog trigger.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/buton.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/button.php
  *
  * @since 4.10.0
  *
