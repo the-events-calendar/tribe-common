@@ -534,7 +534,7 @@ class Tribe__Cache implements ArrayAccess {
 		/** @var Tribe__Feature_Detection $feature_detection */
 		$feature_detection = tribe( 'feature-detection' );
 
-		// If the size of the string si above 90% of the database `max_allowed_packet` setting, then it should not be written to the db.
+		// If the size of the string is above 90% of the database `max_allowed_packet` setting, then it should not be written to the db.
 		return $size > ( $feature_detection->get_mysql_max_packet_size() * .9 );
 	}
 }
