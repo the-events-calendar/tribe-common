@@ -544,6 +544,18 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 			return static::array_visit_recursive( $input, $visitor );
 		}
 
+		/**
+		 * The inverse of the `stringify_keys` method, it will restore numeric keys for previously
+		 * stringified keys.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<int|string,mixed> $input  The input array whose stringified keys should be
+		 *                                        destringified.
+		 * @param string                  $prefix The prefix that should be used to target only specific string keys.
+		 *
+		 * @return array<int|string,mixed> The input array, its stringified keys destringified.
+		 */
 		public static function destringify_keys( array $input, $prefix = 'sk_' ) {
 			$visitor = static function ( $key, $value ) use ( $prefix ) {
 				$destringified_key = 0 === self::strpos( $key, $prefix ) ? null : $key;
