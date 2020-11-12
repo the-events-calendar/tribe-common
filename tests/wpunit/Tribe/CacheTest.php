@@ -188,11 +188,11 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should not cache too large strings in transients
+	 * It should not cache overly large strings in transients
 	 *
 	 * @test
 	 */
-	public function should_not_cache_too_large_strings_in_transients() {
+	public function should_not_cache_overly_large_strings_in_transients() {
 		$max_allow_packet = 200;
 		// Filter the feature detection (tested elsewhere).
 		add_filter( 'tribe_max_allowed_packet_size', static function () use ( $max_allow_packet ) {
@@ -223,11 +223,11 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should not cache too large values in database
+	 * It should not cache overly large values in database
 	 *
 	 * @test
 	 */
-	public function should_not_cache_too_large_values_in_database() {
+	public function should_not_cache_overly_large_values_in_database() {
 		$max_allow_packet = 200;
 		// Filter the feature detection (tested elsewhere).
 		add_filter( 'tribe_max_allowed_packet_size', static function () use ( $max_allow_packet ) {
