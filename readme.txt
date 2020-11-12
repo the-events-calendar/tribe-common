@@ -5,6 +5,7 @@
 = [TBD] TBD =
 
 * Fix - Correctly handle mutltiple calls to the Repository `by` or `where` method that would cause issues in some Views [ECP-357]
+* Fix - Do not try to store overly large values in transients when not using external object cache. [TEC-3615]
 * Tweak - Add the `Tribe__Utils__Array::merge_recursive_query_vars` method to correctly recursively merge nested arrays in the format used by `WP_Query` [ECP-357]
 
 = [4.12.12] 2020-10-22 =
