@@ -87,11 +87,11 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return bool
 	 */
 	public function set_transient( $id, $value, $expiration = 0, $expiration_trigger = '' ) {
-		if ( $this->data_size_over_packet_size( $value, $serialized_value ) ) {
+		if ( $this->data_size_over_packet_size( $value ) ) {
 			return false;
 		}
 
-		return set_transient( $this->get_id( $id, $expiration_trigger ), $serialized_value, $expiration );
+		return set_transient( $this->get_id( $id, $expiration_trigger ), $value, $expiration );
 	}
 
 	/**
@@ -507,18 +507,13 @@ class Tribe__Cache implements ArrayAccess {
 	 *
 	 * @since TBD
 	 *
-	 * @param string|array|object $value            The value to check.
-	 * @param mixed|null          $serialized_value The serialized value, set by reference. Serialization is costly, since
-	 *                                              it's the only way to know the data size, the value is set by reference
-	 *                                              to allow wasting a perfectly good serialized result.
+	 * @param string|array|object $value The value to check.
 	 *
 	 * @return bool Whether the data, in its serialized form, would fit into the current database `max_allowed_packet`
 	 *              setting or not.
 	 */
-	public function data_size_over_packet_size( $value, &$serialized_value = null ) {
+	public function data_size_over_packet_size( $value ) {
 		if ( wp_using_ext_object_cache() ) {
-			$serialized_value = $value;
-
 			// We cannot know and that is a concern of the external caching system.
 			return false;
 		}

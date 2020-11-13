@@ -209,17 +209,13 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache = tribe( 'cache' );
 
 		$this->assertTrue( $cache->set_transient( 'test', $small_size_value ) );
-		$this->assertFalse( $cache->data_size_over_packet_size( $small_size_value, $serialized ) );
-		$this->assertEquals( $small_size_value, $serialized );
+		$this->assertFalse( $cache->data_size_over_packet_size( $small_size_value ) );
 		$this->assertTrue( $cache->set_transient( 'test', $medium_size_value ) );
-		$this->assertFalse( $cache->data_size_over_packet_size( $medium_size_value, $serialized ) );
-		$this->assertEquals( $medium_size_value, $serialized );
+		$this->assertFalse( $cache->data_size_over_packet_size( $medium_size_value ) );
 		$this->assertTrue( $cache->set_transient( 'test', $large_size_value ) );
-		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value, $serialized ) );
-		$this->assertEquals( $large_size_value, $serialized );
+		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value ) );
 		$this->assertFalse( $cache->set_transient( 'test', $too_large_size_value ) );
-		$this->assertTrue( $cache->data_size_over_packet_size( $too_large_size_value, $serialized ) );
-		$this->assertEquals( $too_large_size_value, $serialized );
+		$this->assertTrue( $cache->data_size_over_packet_size( $too_large_size_value ) );
 	}
 
 	/**
@@ -259,14 +255,11 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache = tribe( 'cache' );
 
 		$this->assertTrue( $cache->set_transient( 'test', $medium_size_value ) );
-		$this->assertFalse( $cache->data_size_over_packet_size( $medium_size_value, $serialized ) );
-		$this->assertEquals( serialize( $medium_size_value ), $serialized );
+		$this->assertFalse( $cache->data_size_over_packet_size( $medium_size_value ) );
 		$this->assertTrue( $cache->set_transient( 'test', $large_size_value ) );
-		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value, $serialized ) );
-		$this->assertEquals( serialize( $large_size_value ), $serialized );
+		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value ) );
 		$this->assertFalse( $cache->set_transient( 'test', $too_large_size_value ) );
-		$this->assertTrue( $cache->data_size_over_packet_size( $too_large_size_value, $serialized ) );
-		$this->assertEquals( serialize( $too_large_size_value ), $serialized );
+		$this->assertTrue( $cache->data_size_over_packet_size( $too_large_size_value ) );
 	}
 
 	/**
@@ -289,8 +282,8 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache = tribe( 'cache' );
 
 		$this->assertTrue( $cache->set_transient( 'test', $large_size_value ) );
-		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value, $serialized ) );
+		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value) );
 		$this->assertTrue( $cache->set_transient( 'test', $too_large_size_value ) );
-		$this->assertFalse( $cache->data_size_over_packet_size( $too_large_size_value, $serialized ) );
+		$this->assertFalse( $cache->data_size_over_packet_size( $too_large_size_value ) );
 	}
 }
