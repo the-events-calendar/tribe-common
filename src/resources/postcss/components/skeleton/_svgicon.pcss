@@ -9,28 +9,24 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-common-c-svgicon--featured {
-		height: 10px;
 		width: 8px;
 	}
 
 	.tribe-common-c-svgicon--recurring {
-		height: 12px;
 		width: 12px;
 	}
 
 	.tribe-common-c-svgicon--search {
-		height: 16px;
 		width: 16px;
 	}
 
 	.tribe-common-c-svgicon--location {
-		height: 16px;
 		width: 10px;
 	}
 
 	.tribe-common-c-svgicon--list {
 
-		.tribe-events-c-icons__svg-fill {
+		.tribe-common-c-svgicon__svg-fill {
 			fill: var(--color-icon-active);
 		}
 	}
@@ -58,11 +54,11 @@
 	.tribe-common-c-svgicon--no-map {
 		fill: none;
 
-		.tribe-events-c-icons__svg-fill {
+		.tribe-common-c-svgicon__svg-fill {
 			fill: #111;
 		}
 
-		.tribe-events-c-icons__svg-stroke {
+		.tribe-common-c-svgicon__svg-stroke {
 			stroke: var(--color-icon-active);
 		}
 	}
@@ -80,17 +76,29 @@
 	
 	.tribe-common-c-svgicon--caret-alt-left,
 	.tribe-common-c-svgicon--caret-alt-right,
-	.tribe-common-c-svgicon--caret-alt-down {
+	.tribe-common-c-svgicon--caret-alt-down,
+	.tribe-common-c-svgicon--video,
+	.tribe-common-c-svgicon--arrow-right {
 		path {
 			fill: var(--color-icon-active);
 		}
 	}
 	
 	.tribe-common-c-svgicon--messages-not-found {
-		height: 24px;
 		width: 22px;
 		
 		path {
+			stroke: var(--color-icon-active);
+		}
+	}
+	
+	.tribe-common-c-svgicon--virtual {
+		g {
+			fill: none;
+		}
+		
+		path,
+		ellipse {
 			stroke: var(--color-icon-active);
 		}
 	}
