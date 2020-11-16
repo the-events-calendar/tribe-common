@@ -35,30 +35,31 @@
 
 	.tribe-common-c-btn-icon--caret-left,
 	.tribe-common-c-btn-icon--caret-right {
-
-		.tribe-common-c-svgicon {
-			height: 19px;
-			width: 11px;
-			
-			path {
-				fill: var(--color-icon-secondary);
-			}
-		}
-
+		
 		&:active,
 		&:hover,
 		&:focus {
 
-			.tribe-common-c-svgicon path {
+			.tribe-common-c-btn-icon-svg path {
 				fill: var(--color-icon-primary);
 			}
 		}
 
 		&:disabled {
 
-			.tribe-common-c-svgicon path {
+			.tribe-common-c-btn-icon-svg path {
 				fill: var(--color-icon-disabled);
 			}
+		}
+	}
+	
+	.tribe-common-c-btn-icon-svg--caret-left,
+	.tribe-common-c-btn-icon-svg--caret-right {
+		height: 19px;
+		width: 11px;
+		
+		path {
+			fill: var(--color-icon-secondary);
 		}
 	}
 
