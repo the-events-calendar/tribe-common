@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.13] TBD =
+= [4.12.13] 2020-11-19 =
 
 * Tweak - Allow deletion of non persistent keys from Tribe__Cache handling. [ET-917]
 * Fix - Prevent items without children to be marked as groups in SelectWoo UI. [CE-106]
