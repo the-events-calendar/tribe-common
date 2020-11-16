@@ -20,4 +20,4 @@ if ( ! empty( $classes ) ) {
 	$svg_classes = array_merge( $svg_classes, $classes );
 }
 ?>
-<svg <?php tribe_classes( $svg_classes ); ?> viewBox="0 0 9 15" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M.07 13.155l5.553-5.588L.07 1.978 1.403.637l6.886 6.93-6.886 6.93L.07 13.154z"/></svg>
+<svg <?php tribe_classes( $svg_classes ); ?> viewBox="0 0 9 15" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M.07 13.155l5.553-5.588L.07 1.978 1.403.637l6.886 6.93-6.886 6.93L.07 13.154z" class="tribe-common-c-svgicon__svg-fill"/></svg>
