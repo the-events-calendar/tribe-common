@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Caret Alt Down Icon
+ * View: Caret Down Icon
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/v2/components/icons/caret-alt-down.php
+ * [your-theme]/tribe/v2/components/icons/caret-down.php
  *
  * See more documentation about our views templating system.
  *
@@ -14,7 +14,7 @@
  * @version TBD
  *
  */
-$svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--caret-alt-down' ];
+$svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--caret-down' ];
 
 if ( ! empty( $classes ) ) {
 	$svg_classes = array_merge( $svg_classes, $classes );
