@@ -7,6 +7,7 @@
 * Tweak - Allow deletion of non persistent keys from Tribe__Cache handling. [ET-917]
 * Fix - Prevent items without children to be marked as groups in SelectWoo UI. [CE-106]
 * Fix - Update the MomentJS version to 2.19.3 for the `tribe-moment` asset. [BTRIA-574]
+* Language - 0 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.12] 2020-10-22 =
 
