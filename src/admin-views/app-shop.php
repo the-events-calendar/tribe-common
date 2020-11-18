@@ -13,6 +13,7 @@ foreach ( $products as $product ) {
 	}
 }
 ?>
+
 <div id="tribe-app-shop">
 
 	<div class="tribe-header">
