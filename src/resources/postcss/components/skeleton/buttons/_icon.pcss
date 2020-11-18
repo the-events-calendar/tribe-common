@@ -30,59 +30,34 @@
 	 * ----------------------------------------------------------------------------- */
 
 	/* -----------------------------------------------------------------------------
-	 * Button: Icon Caret Left
+	 * Button: Icon Caret Left/Right
 	 * ----------------------------------------------------------------------------- */
 
-	.tribe-common-c-btn-icon--caret-left {
-
-		&:before {
-			background-image: svg-inline(caret-left-secondary);
-			height: 20px;
-			width: 12px;
-		}
-
-		&:active,
-		&:hover,
-		&:focus {
-
-			&:before {
-				background-image: svg-inline(caret-left);
-			}
-		}
-
-		&:disabled {
-
-			&:before {
-				background-image: svg-inline(caret-left-disabled);
-			}
-		}
-	}
-
-	/* -----------------------------------------------------------------------------
-	 * Button: Icon Caret Right
-	 * ----------------------------------------------------------------------------- */
-
+	.tribe-common-c-btn-icon--caret-left,
 	.tribe-common-c-btn-icon--caret-right {
-
-		&:before {
-			background-image: svg-inline(caret-right-secondary);
-			height: 20px;
-			width: 12px;
-		}
-
+		
 		&:active,
 		&:hover,
 		&:focus {
 
-			&:before {
-				background-image: svg-inline(caret-right);
+			.tribe-common-c-btn-icon__icon-svg path {
+				fill: var(--color-icon-primary);
 			}
 		}
 
 		&:disabled {
 
-			&:before {
-				background-image: svg-inline(caret-right-disabled);
+			.tribe-common-c-btn-icon__icon-svg path {
+				fill: var(--color-icon-disabled);
+			}
+		}
+		
+		.tribe-common-c-btn-icon__icon-svg,
+		.tribe-common-c-btn-icon__icon-svg {
+			width: 11px;
+			
+			path {
+				fill: var(--color-icon-secondary);
 			}
 		}
 	}

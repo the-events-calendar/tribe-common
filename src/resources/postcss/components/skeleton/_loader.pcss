@@ -6,9 +6,9 @@
 	 *
 	 * Example:
 	 * <div class="tribe-events-view-loader__dots tribe-common-c-loader">
-	 *    <div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--first"></div>
-	 *    <div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--second"></div>
-	 *    <div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--third"></div>
+	 *    <?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot tribe-common-c-loader__dot--first' ] ] ); ?>
+	 *    <?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot tribe-common-c-loader__dot--second' ] ] ); ?>
+	 *    <?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot tribe-common-c-loader__dot--third' ] ] ); ?>
 	 * </div>
 	 *
 	 * ----------------------------------------------------------------------------- */
@@ -21,15 +21,16 @@
 			padding-top: calc(var(--spacer-13) * 3);
 		}
 	}
-
+	
 	.tribe-common-c-loader__dot {
-		background-color: var(--color-accent-primary-background);
-		height: 15px;
 		width: 15px;
-		border-radius: 50%;
-
+		
 		&:not(:first-of-type) {
 			margin-left: 8px;
+		}
+		
+		circle {
+			fill: var(--color-icon-active);
 		}
 	}
 }
