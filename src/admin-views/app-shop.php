@@ -13,58 +13,6 @@ foreach ( $products as $product ) {
 	}
 }
 ?>
-<style>
-	#wpcontent .notice-banner {
-		background: #161B7D;
-		border: 0;
-		box-shadow: none;
-		margin: 0 0 16px 0;
-		padding-right: 0;
-	}
-
-	.notice-banner .tribe-notice-icon {
-		padding: 0;
-		position: static;
-		width: auto;
-	}
-
-	.notice-banner .tribe-notice-content {
-		margin-left: 0;
-		padding: 0;
-	}
-
-	.notice-banner h3 {
-		color: #fff;
-		display: inline-block;
-		font-size: 1rem;
-		line-height: 1.15em;
-		margin: 0 0.5rem 0 0;
-	}
-
-	.notice-banner a {
-		border-bottom: 1px solid #fff;
-		margin: 0;
-		text-decoration: none;
-	}
-
-	.notice-banner a,
-	.notice-banner p {
-		color: #fff;
-		display: inline-block;
-		font-size: 1rem;
-		line-height: 1.15em;
-	}
-
-	.notice-banner p {
-		margin: 0 0.5rem 0 0;
-	}
-
-	.notice-banner .tribe-marketing-notice {
-		display: flex;
-		margin: 0 auto;
-		max-width: 1038px;
-	}
-</style>
 <div id="tribe-app-shop">
 
 	<div class="tribe-header">
