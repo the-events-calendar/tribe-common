@@ -24,13 +24,6 @@
 		width: 10px;
 	}
 
-	.tribe-common-c-svgicon--list {
-
-		.tribe-common-c-svgicon__svg-fill {
-			fill: var(--color-icon-active);
-		}
-	}
-
 	.tribe-common-c-svgicon--month,
 	.tribe-common-c-svgicon--day,
 	.tribe-common-c-svgicon--photo,
@@ -38,10 +31,6 @@
 	.tribe-common-c-svgicon--map {
 		height: 100%;
 		width: 100%;
-
-		path {
-			fill: var(--color-icon-active);
-		}
 	}
 
 	.tribe-common-c-svgicon--close,
@@ -51,36 +40,18 @@
 		}
 	}
 
-	.tribe-common-c-svgicon--no-map {
-		fill: none;
-
-		.tribe-common-c-svgicon__svg-fill {
-			fill: #111;
-		}
-
-		.tribe-common-c-svgicon__svg-stroke {
-			stroke: var(--color-icon-active);
-		}
-	}
-
+	.tribe-common-c-svgicon--no-map,
 	.tribe-common-c-svgicon--phone,
 	.tribe-common-c-svgicon--mail,
 	.tribe-common-c-svgicon--website,
 	.tribe-common-c-svgicon--map-pin {
 		fill: none;
-
-		path {
-			stroke: var(--color-icon-active);
-		}
 	}
 	
-	.tribe-common-c-svgicon--caret-alt-left,
-	.tribe-common-c-svgicon--caret-alt-right,
-	.tribe-common-c-svgicon--caret-alt-down,
-	.tribe-common-c-svgicon--video,
-	.tribe-common-c-svgicon--arrow-right {
-		path {
-			fill: var(--color-icon-active);
+	.tribe-common-c-svgicon--messages-not-found,
+	.tribe-common-c-svgicon--virtual {
+		g {
+			fill: none;
 		}
 	}
 	
@@ -92,14 +63,19 @@
 		}
 	}
 	
-	.tribe-common-c-svgicon--virtual {
+	.tribe-common-c-svgicon--error {
+		width: 18px;
+		
 		g {
 			fill: none;
 		}
-		
-		path,
-		ellipse {
-			stroke: var(--color-icon-active);
-		}
+	}
+	
+	.tribe-common-c-svgicon__svg-fill {
+		fill: var(--color-icon-active);
+	}
+	
+	.tribe-common-c-svgicon__svg-stroke {
+		stroke: var(--color-icon-active);
 	}
 }

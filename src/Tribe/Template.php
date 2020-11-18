@@ -1,5 +1,6 @@
 <?php
 
+use Tribe\Utils\Paths;
 use Tribe\Utils\Strings;
 
 class Tribe__Template {
@@ -611,7 +612,7 @@ class Tribe__Template {
 			}
 
 			// Build the File Path
-			$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $folder['path'], $name ) );
+			$file = Paths::merge( $folder['path'], $name );
 
 			// Append the Extension to the file path
 			$file .= '.php';
