@@ -136,7 +136,7 @@ class Tribe__Admin__Notice__Marketing {
 		];
 
 		// If not a valid screen, don't display.
-		if ( empty( $current_screen->id ) || ! in_array( $current_screen->id, $screens ) ) {
+		if ( empty( $current_screen->id ) || ! in_array( $current_screen->id, $screens, true ) ) {
 			return false;
 		}
 
