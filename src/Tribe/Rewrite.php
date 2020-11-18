@@ -553,7 +553,8 @@ class Tribe__Rewrite {
 				$replace
 			);
 
-			$replaced = str_replace( array_keys( $replace ), $replace, $link_template );
+			// Use case-insensitive replace to make sure to work with some decoding using uppercase escaped chars.
+			$replaced = str_ireplace( array_keys( $replace ), $replace, $link_template );
 
 			// Remove trailing chars.
 			$path     = rtrim( $replaced, '?$' );
