@@ -132,7 +132,10 @@ class Tribe__Admin__Notice__Marketing {
 
 		$screens = [
 			'tribe_events_page_tribe-app-shop', // App shop.
+			'events_page_tribe-app-shop', // App shop.
 			'tribe_events_page_tribe-common', // Settings & Welcome.
+			'events_page_tribe-common', // Settings & Welcome.
+			'toplevel_page_tribe-common', // Settings & Welcome.
 		];
 
 		// If not a valid screen, don't display.
@@ -159,7 +162,14 @@ class Tribe__Admin__Notice__Marketing {
 		$cta_url  = 'https://m.tri.be/bf' . date( 'Y' );
 
 		// If we are on the settings page or a welcome page, change the Black Friday URL.
-		if ( ! empty( $current_screen->id ) && 'tribe_events_page_tribe-common' === $current_screen->id ) {
+		if (
+			! empty( $current_screen->id )
+			&& (
+				'tribe_events_page_tribe-common' === $current_screen->id
+				|| 'events_page_tribe-common' === $current_screen->id
+				|| 'toplevel_page_tribe-common' === $current_screen->id
+			)
+		) {
 			if ( isset( $_GET['welcome-message-the-events-calendar'] ) || isset( $_GET['welcome-message-event-tickets' ] ) ) {
 				$cta_url .= 'welcome';
 			} else {
