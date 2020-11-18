@@ -40,7 +40,6 @@ class Tribe__Admin__Notice__Marketing {
 	 */
 	public function hook() {
 		$this->black_friday_hook_notice();
-		$this->gutenberg_release_notice();
 	}
 
 	/**
@@ -171,81 +170,6 @@ class Tribe__Admin__Notice__Marketing {
 		ob_start();
 
 		include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-general.php';
-
-		return ob_get_clean();
-	}
-
-	/**
-	 * Register the Gutenberg Release notice (November 2018).
-	 *
-	 * @since 4.7.23
-	 */
-	public function gutenberg_release_notice() {
-
-		tribe_notice(
-			'gutenberg-release-2018',
-			array( $this, 'gutenberg_release_display_notice' ),
-			array(
-				'type'    => 'warning',
-				'dismiss' => 1,
-				'wrap'    => false,
-			),
-			array( $this, 'gutenberg_release_should_display' )
-		);
-	}
-
-	/**
-	 * Gets the end time for the Gutenberg release notice.
-	 *
-	 * @since 4.7.23
-	 *
-	 * @return int
-	 */
-	public function get_gutenberg_release_end_time() {
-
-		/**
-		 * Allows filtering of the default Gutenberg Release Notice's end time, mainly for testing purposes.
-		 *
-		 * @since 4.7.23
-		 *
-		 * @param int $gutenberg_release_end_time Defaults to Nov 17 2018 @ midnight, California time.
-		 */
-		return apply_filters( 'tribe_gutenberg_release_notice_end_time', 1542434400 );
-	}
-
-	/**
-	 * Whether the Gutenberg Release notice should display.
-	 *
-	 * @since 4.7.23
-	 *
-	 * @return boolean
-	 */
-	public function gutenberg_release_should_display() {
-		return time() < $this->get_gutenberg_release_end_time();
-	}
-
-	/**
-	 * HTML for the Gutenberg Release notice (November 2018).
-	 *
-	 * @since 4.7.23
-	 *
-	 * @return string
-	 */
-	public function gutenberg_release_display_notice() {
-
-		Tribe__Assets::instance()->enqueue( array( 'tribe-common-admin' ) );
-
-		$end_time = $this->get_gutenberg_release_end_time();
-
-		if ( $this->et_is_active && ! $this->tec_is_active ) {
-			$icon_url = Tribe__Main::instance()->plugin_url . 'src/resources/images/gutenberg-admin-notice-tickets.png';
-		} else {
-			$icon_url = Tribe__Main::instance()->plugin_url . 'src/resources/images/gutenberg-admin-notice-TEC.png';
-		}
-
-		ob_start();
-
-		include Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-gutenberg-release.php';
 
 		return ob_get_clean();
 	}
