@@ -16,7 +16,7 @@ $tabs = $view->get_visibles();
 				<?php echo esc_html( $view->get_label() ); ?>
 				<?php
 					/**
-					 * Add an action to insert content after text label
+					 * Add an action to render content after text label.
 					 *
 					 * @since TBD
 					 *
