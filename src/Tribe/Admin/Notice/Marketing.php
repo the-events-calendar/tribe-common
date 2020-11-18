@@ -39,7 +39,7 @@ class Tribe__Admin__Notice__Marketing {
 	 * @since 4.7.23
 	 */
 	public function hook() {
-		$this->bf_hook_notice();
+		$this->black_friday_hook_notice();
 		$this->gutenberg_release_notice();
 	}
 
@@ -48,7 +48,7 @@ class Tribe__Admin__Notice__Marketing {
 	 *
 	 * @since TBD
 	 */
-	public function bf_hook_notice() {
+	public function black_friday_hook_notice() {
 
 		tribe_notice(
 			'black-friday',
@@ -64,7 +64,7 @@ class Tribe__Admin__Notice__Marketing {
 	}
 
 	/**
-	 * Unix time for Monday of Thanksgiving week @ 11am UTC. (11am UTC is 6am for TheEventsCalendar.com, which uses the America/Los_Angeles time zone).
+	 * Unix time for Monday of Thanksgiving week @ 11am UTC. (11am UTC is 6am EST).
 	 *
 	 * @since TBD
 	 *
@@ -88,7 +88,7 @@ class Tribe__Admin__Notice__Marketing {
 	}
 
 	/**
-	 * Unix time for Dec 1 @ 6am UTC. (6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone).
+	 * Unix time for Dec 1 @ 5am UTC. (5am UTC is 12am EST).
 	 *
 	 * @since TBD
 	 *
@@ -96,7 +96,7 @@ class Tribe__Admin__Notice__Marketing {
 	 */
 	public function get_black_friday_end_time() {
 		$date = Dates::build_date_object( 'December 1st', 'UTC' );
-		$date = $date->setTime( 6, 0 );
+		$date = $date->setTime( 5, 0 );
 
 		$end_time = $date->format( 'U' );
 
@@ -120,6 +120,12 @@ class Tribe__Admin__Notice__Marketing {
 	 * @return boolean
 	 */
 	public function black_friday_should_display() {
+		// If upsells have been manually hidden, respect that.
+		if ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ) {
+			return false;
+		}
+
+		$now           = Dates::build_date_object( 'now', 'UTC' )->format( 'U' );
 		$bf_sale_start = $this->get_black_friday_start_time();
 		$bf_sale_end   = $this->get_black_friday_end_time();
 
@@ -135,7 +141,7 @@ class Tribe__Admin__Notice__Marketing {
 			return false;
 		}
 
-		return $bf_sale_start <= time() && time() < $bf_sale_end;
+		return $bf_sale_start <= $now && $now < $bf_sale_end;
 	}
 
 	/**
@@ -146,15 +152,14 @@ class Tribe__Admin__Notice__Marketing {
 	 * @return string
 	 */
 	public function black_friday_display_notice() {
-
 		Tribe__Assets::instance()->enqueue( array( 'tribe-common-admin' ) );
 
 		$current_screen = get_current_screen();
 
 		$icon_url = Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg';
-		$end_time = $this->get_black_friday_end_time();
 		$cta_url  = 'https://m.tri.be/bf' . date( 'Y' );
 
+		// If we are on the settings page or a welcome page, change the Black Friday URL.
 		if ( ! empty( $current_screen->id ) && 'tribe_events_page_tribe-common' === $current_screen->id ) {
 			if ( isset( $_GET['welcome-message-the-events-calendar'] ) || isset( $_GET['welcome-message-event-tickets' ] ) ) {
 				$cta_url .= 'welcome';

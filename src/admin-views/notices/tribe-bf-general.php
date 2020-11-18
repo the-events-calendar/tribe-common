@@ -6,7 +6,6 @@
  *
  * @var string $icon_url The local URL for the notice's image.
  * @var string $cta_url The short URL for black friday.
- * @var int $end_time The Unix timestamp for the sale's end time.
  */
 ?>
 <div class="tribe-marketing-notice">
