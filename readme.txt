@@ -5,6 +5,7 @@
 = [4.12.12.1] 2020-11-12 =
 
 * Tweak - Update version of Freemius to the latest version 2.4.1 [TEC-3668]
+* Tweak - Include a new Notice style for Banners [TCMN-90]
 
 = [4.12.12] 2020-10-22 =
 
