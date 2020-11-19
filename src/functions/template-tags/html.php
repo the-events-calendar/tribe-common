@@ -134,12 +134,13 @@ function tribe_disabled( $disabled, $echo = true ) {
 }
 
 /**
- * Generates a string for the Tribe-dependency attributes
+ * Generates a string for the tribe-dependency attributes.
  *
  * @since TBD
  *
- * @param array<string,mixed> $deps
- * @return void
+ * @param array<string,mixed> $deps       The passed array of dependencies.
+ *
+ * @return string             $dependency The string of dependencies attributes to add to the input.
  */
 function tribe_format_field_dependency( $deps ) {
 	// Sanity check.
