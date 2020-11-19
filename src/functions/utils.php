@@ -1107,4 +1107,35 @@ if ( ! function_exists( 'tribe_without_filters' ) ) {
 
 		return $result;
 	}
+
+	/**
+	 * Runs a callbacks while suspending, removing and re-adding, a filter or action.
+	 *
+	 * The function will infer the priority of the filter, required for its correct detachment and re-attachment, on
+	 * its own.
+	 *
+	 * @since 5.12.12
+	 *
+	 * @param string   $filter_tag      The filter tag to suspend.
+	 * @param callable $filter_callback The filter_callback currently attached to the filter.
+	 * @param callable $do              The filter_callback that will be run detaching the `$filter_callback`.
+	 * @param int      $args            The number of arguments that should be used to re-attach the filtering callback to the filter.
+	 *
+	 * @return mixed The return value of the `$do` callback.
+	 */
+	function tribe_suspending_filter( $filter_tag, callable $filter_callback, callable $do, $args = 1 ) {
+		$priority = has_filter( $filter_tag, $filter_callback );
+
+		if ( false !== $priority ) {
+			remove_filter( $filter_tag, $filter_callback, $priority );
+		}
+
+		$result = $do();
+
+		if ( false !== $priority ) {
+			add_filter( $filter_tag, $filter_callback, $priority, $args );
+		}
+
+		return $result;
+	}
 }
