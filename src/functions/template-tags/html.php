@@ -201,7 +201,6 @@ function tribe_format_field_dependency( $deps ) {
 		}
 
 		// Handle string and "empty" values
-		// "Missing" quotes is intentional - they are added automagically and we want to avoid doubles.
 		if( 0 === strlen( $value ) ) {
 			$dependency .= " data-{$attr}";
 		} else if ( 'is' === $attr ) {
