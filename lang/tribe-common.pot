@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.12.11\n"
+"Project-Id-Version: Tribe Common 4.12.13\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2020-10-14 15:50:53+00:00\n"
+"POT-Creation-Date: 2020-11-17 16:56:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-10-14 15:50\n"
+"PO-Revision-Date: 2020-11-17 16:56\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -223,15 +223,15 @@ msgstr ""
 msgid "Cannot look for Terms without a taxonomy"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:186
+#: src/Tribe/Ajax/Dropdown.php:189
 msgid "Missing data source for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:199
+#: src/Tribe/Ajax/Dropdown.php:202
 msgid "Empty data set for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:249
+#: src/Tribe/Ajax/Dropdown.php:252
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
 msgstr ""
 
