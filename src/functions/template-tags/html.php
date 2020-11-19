@@ -178,8 +178,7 @@ function tribe_format_field_dependency( $deps ) {
 
 		// Handle the ID component.
 		if ( 'id' === $attr ) {
-			// "Missing" quotes is intentional - they are added automagically and we want to avoid doubles.
-			$dependency .= " data-depends={$value}";
+			$dependency .= " data-depends=\"{$value}\"";
 			continue;
 		}
 
@@ -206,9 +205,9 @@ function tribe_format_field_dependency( $deps ) {
 		if( 0 === strlen( $value ) ) {
 			$dependency .= " data-{$attr}";
 		} else if ( 'is' === $attr ) {
-			$dependency .= " data-condition={$value}";
+			$dependency .= " data-condition=\"{$value}\"";
 		} else if ( 'is-not' === $attr ) {
-			$dependency .= " data-condition-not={$value}";
+			$dependency .= " data-condition-not=\"{$value}\"";
 		}
 	}
 
