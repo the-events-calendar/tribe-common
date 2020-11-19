@@ -133,82 +133,83 @@ function tribe_disabled( $disabled, $echo = true ) {
 	}
 }
 
+/**
+ * Generates a string for the Tribe-dependency attributes
+ *
+ * @since TBD
+ *
+ * @param array<string,mixed> $deps
+ * @return void
+ */
 function tribe_format_field_dependency( $deps ) {
-    // Sanity check.
-    if ( empty( $deps ) ) {
-        return '';
+	// Sanity check.
+	if ( empty( $deps ) ) {
+		return '';
 	}
 
 	// Let's be case-insensitive!
-	if ( isset( $deps['ID'] ) ) {
-		$deps['id'] = $deps['ID'];
-		unset( $deps['ID'] );
+	$deps = array_combine( array_map( 'strtolower', array_keys( $deps ) ), $deps );
+
+	// No ID to hook to? Bail.
+	if ( empty( $deps['id'] ) ) {
+		return;
 	}
 
-    // No ID to hook to? Bail.
-    if ( empty( $deps['id'] ) ) {
-        return;
-    }
+	$dependency = '';
 
-    $dependency = '';
+	$accepted = [
+		'id',
+		'is',
+		'is-not',
+		'is-empty',
+		'is-not-empty',
+		'is-numeric',
+		'is-not-numeric',
+		'is-checked',
+		'is-not-checked',
+	];
 
-    $accepted = [
-        'id',
-        'is',
-        'is-not',
-        'is-empty',
-        'is-not-empty',
-        'is-numeric',
-        'is-not-numeric',
-        'is-checked',
-        'is-not-checked',
-    ];
+	$valid_deps = array_intersect_key( $deps, array_flip( $accepted ) );
 
-    foreach ( $deps as $attr => $value ) {
-        // Attributes are always lower case.
-        $attr = strtolower( $attr );
+	foreach ( $valid_deps as $attr => $value ) {
+		// Attributes are always lower case.
+		$attr = strtolower( $attr );
 
-        // Valid dependency check.
-        // Note this means the dependency has to begin with "is", except for "id"!
-        if ( ! in_array( $attr, $accepted ) ) {
-            continue;
-        }
-
-        // Handle the ID component.
-        if ( 'id' === $attr ) {
+		// Handle the ID component.
+		if ( 'id' === $attr ) {
 			// "Missing" quotes is intentional - they are added automagically and we want to avoid doubles.
-            $dependency .= " data-depends={$value}";
-            continue;
-        }
+			$dependency .= " data-depends={$value}";
+			continue;
+		}
 
-        // Handle boolean values.
-        if ( is_bool( $value ) ) {
-            if ( $value ) {
-                $dependency .= " data-{$attr}";
-            } else {
-                if ( false !== stripos( $attr, 'is-not-' ) ) {
-                    $attr = str_replace( 'is-not-', 'is-', $attr );
-                } else {
-                    $attr = str_replace( 'is-', 'is-not-', $attr );
-                }
+		// Handle boolean values.
+		if ( is_bool( $value ) ) {
+			if ( $value ) {
+				$dependency .= " data-{$attr}";
+			} else {
+				if ( false !== stripos( $attr, 'is-not-' ) ) {
+					$attr = str_replace( 'is-not-', 'is-', $attr );
+				} else {
+					$attr = str_replace( 'is-', 'is-not-', $attr );
+				}
 
-                $dependency .= " data-{$attr}";
-                continue;
-            }
+				$dependency .= " data-{$attr}";
+				continue;
+			}
 
-            continue;
-        }
+			continue;
+		}
 
 		// Handle string and "empty" values
 		// "Missing" quotes is intentional - they are added automagically and we want to avoid doubles.
-        if( 0 === strlen( $value ) ) {
-            $dependency .= " data-{$attr}";
-        } else if ( 'is' === $attr ) {
-            $dependency .= " data-condition={$value}";
-        } else if ( 'is-not' === $attr ) {
-            $dependency .= " data-condition-not={$value}";
-        }
-    }
+		if( 0 === strlen( $value ) ) {
+			$dependency .= " data-{$attr}";
+		} else if ( 'is' === $attr ) {
+			$dependency .= " data-condition={$value}";
+		} else if ( 'is-not' === $attr ) {
+			$dependency .= " data-condition-not={$value}";
+		}
+	}
 
-    return $dependency;
+	return $dependency;
 }
