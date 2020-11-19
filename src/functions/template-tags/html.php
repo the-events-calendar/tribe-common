@@ -187,7 +187,7 @@ function tribe_format_field_dependency( $deps ) {
 			if ( $value ) {
 				$dependency .= " data-{$attr}";
 			} else {
-				if ( false !== stripos( $attr, 'is-not-' ) ) {
+				if ( 0 === stripos( $attr, 'is-not-' ) ) {
 					$attr = str_replace( 'is-not-', 'is-', $attr );
 				} else {
 					$attr = str_replace( 'is-', 'is-not-', $attr );
