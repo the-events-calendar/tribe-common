@@ -202,22 +202,24 @@ class Tribe__Editor {
 	}
 
 	/**
-	 * Detect if is the classic editor is forced activated via plugin or if it comes from a request
+	 * Detect if the classic editor is force-activated via plugin or if it comes from a request.
 	 *
 	 * @since 4.8
 	 *
 	 * @return bool
 	 */
 	public function is_classic_editor() {
-		$disabled_by_plugin        = $this->is_classic_plugin_active() && $this->is_classic_option_active();
+		$disabled_by_plugin = $this->is_classic_plugin_active() && $this->is_classic_option_active();
+
 		/**
-		 * Allow other addons to disabled classic editor based on options
+		 * Allow other addons to disable classic editor based on options.
 		 *
 		 * @since  4.8.5
 		 *
 		 * @param bool $classic_is_active Whether the classic editor should be used.
 		 */
-		$disabled_by_filter        = apply_filters( 'tribe_editor_classic_is_active', false );
+		$disabled_by_filter = apply_filters( 'tribe_editor_classic_is_active', false );
+
 		$is_classic_editor_request = tribe_get_request_var( 'classic-editor', null );
 
 		return $is_classic_editor_request || $disabled_by_plugin || $disabled_by_filter;
