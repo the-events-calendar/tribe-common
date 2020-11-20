@@ -20,22 +20,12 @@
 	}
 
 	/* -----------------------------------------------------------------------------
-	 *
-	 * Button: Icon Border
-	 *
-	 * Example:
-	 * <button class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--filter">...</button>
-	 * <a href="#" class="tribe-common-c-btn-icon tribe-common-c-btn-icon--border tribe-common-c-btn-icon--filter">...</a>
-	 *
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
 	 * Button: Icon Caret Left/Right
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-common-c-btn-icon--caret-left,
 	.tribe-common-c-btn-icon--caret-right {
-		
+
 		&:active,
 		&:hover,
 		&:focus {
@@ -51,78 +41,14 @@
 				fill: var(--color-icon-disabled);
 			}
 		}
-		
+
 		.tribe-common-c-btn-icon__icon-svg,
 		.tribe-common-c-btn-icon__icon-svg {
 			width: 11px;
-			
+
 			path {
 				fill: var(--color-icon-secondary);
 			}
 		}
 	}
-
-	/* -----------------------------------------------------------------------------
-	 * Button: Icon Filters
-	 * ----------------------------------------------------------------------------- */
-
-	.tribe-common-c-btn-icon--filters {
-
-		&:before {
-			background-image: svg-inline(filters);
-			height: 20px;
-			width: 24px;
-		}
-
-		&:active,
-		&:hover,
-		&:focus {
-
-			&:before {
-				background-image: svg-inline(filters-active);
-			}
-		}
-
-		&:disabled {
-
-			&:before {
-				background-image: svg-inline(filters-disabled);
-			}
-		}
-	}
-
-	/* -----------------------------------------------------------------------------
-	 * Button: Icon Search
-	 * ----------------------------------------------------------------------------- */
-
-	.tribe-common-c-btn-icon--search {
-
-		&:before {
-			background-image: svg-inline(search);
-			height: 20px;
-			width: 20px;
-		}
-
-		&:active,
-		&:hover,
-		&:focus {
-
-			&:before {
-				background-image: svg-inline(search-active);
-			}
-		}
-
-		&:disabled {
-
-			&:before {
-				background-image: svg-inline(search-disabled);
-			}
-		}
-	}
-
-	/* -------------------------------------------------------------------------
-	 *
-	 * Button: Icon Border - Theme Overrides
-	 *
-	 * ------------------------------------------------------------------------- */
 }
