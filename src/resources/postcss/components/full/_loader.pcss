@@ -18,17 +18,18 @@
 		animation-duration: 2.24s;
 		animation-iteration-count: infinite;
 		animation-direction: normal;
-		fill: var(--color-accent-primary-background);
+		fill: currentColor;
+		opacity: var(--opacity-background);
 	}
-	
+
 	.tribe-common-c-loader__dot--first circle {
 		animation-delay: 0.45s;
 	}
-	
+
 	.tribe-common-c-loader__dot--second circle {
 		animation-delay: 1.05s;
 	}
-	
+
 	.tribe-common-c-loader__dot--third circle {
 		animation-delay: 1.35s;
 	}
@@ -37,7 +38,7 @@
 		0% {}
 
 		50% {
-			fill: var(--color-accent-primary);
+			opacity: var(--opacity-default);
 		}
 
 		100% {}
