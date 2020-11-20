@@ -716,6 +716,14 @@ if ( ! function_exists( 'tribe_get_least_version_ever_installed' ) ) {
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
 	function tribe_get_least_version_ever_installed( $class ) {
+		if ( ! is_string( $class ) ) {
+			$class = get_class( $class );
+
+			if ( false === $class ) {
+				return false;
+			}
+		}
+
 		$history = tribe_plugin_version_history( $class );
 
 		// Try for the version history first.
@@ -761,6 +769,14 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
 	function tribe_get_greatest_version_ever_installed( $class ) {
+		if ( ! is_string( $class ) ) {
+			$class = get_class( $class );
+
+			if ( false === $class ) {
+				return false;
+			}
+		}
+
 		$history = tribe_plugin_version_history( $class );
 
 		// Try for the version history first.
@@ -841,6 +857,14 @@ if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
 	function tribe_get_first_ever_installed_version( $class ) {
+		if ( ! is_string( $class ) ) {
+			$class = get_class( $class );
+
+			if ( false === $class ) {
+				return false;
+			}
+		}
+
 		$history = tribe_plugin_version_history( $class );
 
 		// Try for the version history first.
