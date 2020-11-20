@@ -216,11 +216,11 @@ class Tribe__Settings_Manager {
 		if ( ! is_array( $options ) ) {
 			return;
 		}
+
 		if ( $apply_filters == true ) {
 			$options = apply_filters( 'tribe-events-save-network-options', $options );
 		}
 
-		// @TODO use getNetworkOptions + force
 		if ( update_site_option( Tribe__Main::OPTIONNAMENETWORK, $options ) ) {
 			self::$network_options = apply_filters( 'tribe_get_network_options', $options );
 		} else {
