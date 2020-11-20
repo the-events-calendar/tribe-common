@@ -741,7 +741,7 @@ if ( ! function_exists( 'tribe_get_least_version_ever_installed' ) ) {
 		}
 
 		// Fall back to the current plugin version.
-		if ( defined( get_class( $class ) . '::VERSION' ) ) {
+		if ( defined( $class . '::VERSION' ) ) {
 			return $class::VERSION;
 		}
 
@@ -794,7 +794,7 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
 		}
 
 		// Fall back to the current plugin version.
-		if ( defined( get_class( $class ) . '::VERSION' ) ) {
+		if ( defined( $class . '::VERSION' ) ) {
 			return $class::VERSION;
 		}
 
