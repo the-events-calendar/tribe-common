@@ -812,31 +812,33 @@ if ( ! function_exists( 'tribe_get_first_ever_installed_version' ) ) {
 	 * @return string|boolean The SemVer version string or false if no info found.
 	 */
 	function tribe_get_first_ever_installed_version( $class ) {
-		$instance = tribe_get_class_instance( $class );
+		$map = [
+			'Tribe__Events__Main' => 'previous_ecp_versions',
+			'Tribe__Tickets__Main' => 'previous_event_tickets_versions',
+			'Tribe__Tickets_Plus__Main' => 'previous_event_tickets_plus_versions',
+		];
 
-		if ( $instance ) {
-			// Try for the version history first.
-			if ( ! empty( $instance->version_history_slug ) ) {
-				$history = (array) Tribe__Settings_Manager::get_option( $instance->version_history_slug );
+		// Try for the version history first.
+		if ( ! isset( $map[ $class ] ) ) {
+			$history = (array) Tribe__Settings_Manager::get_option( $map[ $class ] );
 
-				// '0' may be logged as a version number, which isn't useful, so we remove it
-				while (
-					! empty( $history )
-					&& empty( $history[0] )
-				) {
-					array_shift( $history );
-				}
-
-				// Found it so return it
-				if ( ! empty( $history[0] ) ) {
-					return $history[0];
-				}
+			// '0' may be logged as a version number, which isn't useful, so we remove it
+			while (
+				! empty( $history )
+				&& empty( $history[0] )
+			) {
+				array_shift( $history );
 			}
 
-			// Fall back to the current plugin version.
-			if ( defined( get_class( $instance ) . '::VERSION' ) ) {
-				return $instance::VERSION;
+			// Found it so return it
+			if ( ! empty( $history[0] ) ) {
+				return $history[0];
 			}
+		}
+
+		// Fall back to the current plugin version.
+		if ( defined( $class . '::VERSION' ) ) {
+			return $class::VERSION;
 		}
 
 		// No version set.
