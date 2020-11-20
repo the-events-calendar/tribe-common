@@ -155,7 +155,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 			return;
 		}
 
-		fputcsv( $this->handle, array( date_i18n( 'Y-m-d H:i:s' ), $entry, $type, $src ) );
+		fputcsv( $this->handle, [ date_i18n( 'Y-m-d H:i:s' ), $entry, $type, $src ] );
 	}
 
 	/**
@@ -171,7 +171,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	 *
 	 * @return array
 	 */
-	public function retrieve( $limit = 0, array $args = array() ) {
+	public function retrieve( $limit = 0, array $args = [] ) {
 		// Ensure we're in 'read' mode before we try to retrieve
 		if ( 'r' !== $this->context ) {
 			$this->set_context( 'r' );
@@ -179,10 +179,10 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 
 		// Couldn't obtain the file handle? We'll bail out without causing further disruption
 		if ( ! $this->handle ) {
-			return array();
+			return [];
 		}
 
-		$rows = array();
+		$rows = [];
 
 		while ( $current_row = fgetcsv( $this->handle ) ) {
 			if ( $limit && $limit === count( $rows ) ) {
@@ -212,7 +212,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	 * @return array
 	 */
 	public function list_available_logs() {
-		$logs = array();
+		$logs = [];
 
 		// This could be called when the log dir is not accessible.
 		if ( ! $this->is_available() ) {

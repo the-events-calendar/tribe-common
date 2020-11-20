@@ -10,7 +10,7 @@ class Tribe__Template {
 	 *
 	 * @var array
 	 */
-	protected $folder = array();
+	protected $folder = [];
 
 	/**
 	 * The origin class for the plugin where the template lives
@@ -37,7 +37,7 @@ class Tribe__Template {
 	 *
 	 * @var array
 	 */
-	protected $global = array();
+	protected $global = [];
 
 	/**
 	 * Used for finding templates for public templates on themes inside of a folder.
@@ -233,7 +233,7 @@ class Tribe__Template {
 	 *
 	 * @return self
 	 */
-	public function add_template_globals( $context = array() ) {
+	public function add_template_globals( $context = [] ) {
 		// Cast as Array merge and save
 		$this->global = wp_parse_args( (array) $context, $this->global );
 

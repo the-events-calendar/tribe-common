@@ -561,7 +561,7 @@ class Tribe__Main {
 		if ( 'plugins.php' !== $page ) {
 			return;
 		}
-		$notices = apply_filters( 'tribe_plugin_notices', array() );
+		$notices = apply_filters( 'tribe_plugin_notices', [] );
 		wp_localize_script( 'tribe-pue-notices', 'tribe_plugin_notices', $notices );
 	}
 
