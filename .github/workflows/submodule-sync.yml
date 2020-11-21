@@ -16,6 +16,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
+          tools: composer:v1
         env:
           fail-fast: true
 
@@ -39,32 +40,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
 
-      - name: Cache PHP dependencies
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-
       - name: Install tut dependencies
-        uses: php-actions/composer@v4
-        working-directory: ./tut
-        with:
-          command: install
-          dev: no
-          args: --ignore-platform-reqs
-          composer_version: 1
-          php_version: 7.4
+        shell: bash
+        run: |
+          cd tut && composer install --no-dev --ignore-platform-reqs
 
-      - name: Create envfile
-        uses: SpicyPizza/create-envfile@v1
-        working-directory: ./tut
-        with:
-          envkey_GITHUB_USER: tr1b0t
-          envkey_GITHUB_OAUTH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-          file_name: .env
+      - name: Create .env
+        shell: bash
+        run: |
+          cd tut && echo "GITHUB_USER=$GITHUB_USER" >> .env && echo "GITHUB_OAUTH_TOKEN=$GITHUB_OAUTH_TOKEN" >> .env
+        env:
+          GITHUB_USER: tr1b0t
+          GITHUB_OAUTH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
 
       - name: Synchronize submodules
-        working-directory: ./tut
+        shell: bash
         run: |
-          ./tut submodule-sync
+          cd tut && ./tut submodule-sync
 
