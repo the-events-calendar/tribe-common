@@ -1,0 +1,70 @@
+name: 'Submodule synchronization'
+on:
+  push:
+    branches-ignore:
+      - 'main'
+      - 'master'
+  pull_request:
+    branches-ignore:
+      - 'main'
+      - 'master'
+jobs:
+  submodule-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+        env:
+          fail-fast: true
+
+      - name: Fetch tut
+        uses: actions/checkout@v2
+        with:
+          repository: 'moderntribe/tut'
+          ref: 'main'
+          path: 'tut'
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer Downloads
+        uses: actions/cache@v2
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+
+      - name: Cache PHP dependencies
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+
+      - name: Install tut dependencies
+        uses: php-actions/composer@v4
+        working-directory: ./tut
+        with:
+          command: install
+          dev: no
+          args: --ignore-platform-reqs
+          composer_version: 1
+          php_version: 7.4
+
+      - name: Create envfile
+        uses: SpicyPizza/create-envfile@v1
+        working-directory: ./tut
+        with:
+          envkey_GITHUB_USER: tr1b0t
+          envkey_GITHUB_OAUTH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+          file_name: .env
+
+      - name: Synchronize submodules
+        working-directory: ./tut
+        run: |
+          ./tut submodule-sync
+
