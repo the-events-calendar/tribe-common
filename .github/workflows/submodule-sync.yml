@@ -62,4 +62,3 @@ jobs:
         shell: bash
         run: |
           cd tut && ./tut submodule-sync --branch=${{ steps.extract_branch.outputs.branch }}
-
