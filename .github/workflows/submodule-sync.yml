@@ -56,5 +56,5 @@ jobs:
       - name: Synchronize submodules
         shell: bash
         run: |
-          cd tut && ./tut submodule-sync
+          echo ${{GITHUB_REF}} #cd tut && ./tut submodule-sync --branch=${{GITHUB_REF}}
 
