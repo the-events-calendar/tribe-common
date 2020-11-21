@@ -61,5 +61,5 @@ jobs:
       - name: Synchronize submodules
         shell: bash
         run: |
-          echo ${{ steps.extract_branch.outputs.branch }} #cd tut && ./tut submodule-sync --branch=${{ steps.extract_branch.outputs.branch }}
+          cd tut && ./tut submodule-sync --branch=${{ steps.extract_branch.outputs.branch }}
 
