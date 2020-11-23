@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Allow usage of HTML within the Tribe Dialog button. [ETP-523]
+
 = [4.12.13] 2020-11-19 =
 
 * Tweak - Allow deletion of non persistent keys from Tribe__Cache handling. [ET-917]
