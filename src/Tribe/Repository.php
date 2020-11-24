@@ -1141,20 +1141,11 @@ abstract class Tribe__Repository
 					 */
 					$this->query_args = array_merge( $this->query_args, $query_modifier );
 				} else {
-					$query_args = $this->query_args;
-
-					// Handle relation separately because we do not want that to merge recursively
-					foreach ( $this->relation_query_args as $query_arg ) {
-						if ( isset( $query_args[ $query_arg ]['relation'], $query_modifier[ $query_arg ]['relation'] ) ) {
-							unset( $query_args[ $query_arg ]['relation'] );
-						}
-					}
-
 					/**
 					 * We do a recursive merge to allow "stacking" of same kind of queries;
-					 * e.g. two or more `tax_query`.
+					 * e.g. two or more `tax_query` or `meta_query` entries should merge into one.
 					 */
-					$this->query_args = array_merge_recursive( $query_args, $query_modifier );
+					$this->query_args = Arr::merge_recursive_query_vars( $this->query_args, $query_modifier );
 				}
 			} else {
 				/**

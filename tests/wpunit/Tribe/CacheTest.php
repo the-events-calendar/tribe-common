@@ -226,4 +226,104 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( 1, $passed );
 	}
+
+	/**
+	 * It should not cache overly large strings in transients
+	 *
+	 * @test
+	 */
+	public function should_not_cache_overly_large_strings_in_transients() {
+		$max_allow_packet = 200;
+		// Filter the feature detection (tested elsewhere).
+		add_filter( 'tribe_max_allowed_packet_size', static function () use ( $max_allow_packet ) {
+			return $max_allow_packet;
+		} );
+		// Simulate a case where external object caching is NOT in use.
+		$GLOBALS['_wp_using_ext_object_cache'] = false;
+		$small_size_value                      = str_repeat( '#', $max_allow_packet * .1 );
+		$medium_size_value                     = str_repeat( '#', $max_allow_packet * .5 );
+		$large_size_value                      = str_repeat( '#', $max_allow_packet * .9 );
+		$too_large_size_value                  = str_repeat( '#', $max_allow_packet * 1.1 );
+
+		/** @var \Tribe__Cache $cache */
+		$cache = tribe( 'cache' );
+
+		$this->assertTrue( $cache->set_transient( 'test', $small_size_value ) );
+		$this->assertFalse( $cache->data_size_over_packet_size( $small_size_value ) );
+		$this->assertTrue( $cache->set_transient( 'test', $medium_size_value ) );
+		$this->assertFalse( $cache->data_size_over_packet_size( $medium_size_value ) );
+		$this->assertTrue( $cache->set_transient( 'test', $large_size_value ) );
+		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value ) );
+		$this->assertFalse( $cache->set_transient( 'test', $too_large_size_value ) );
+		$this->assertTrue( $cache->data_size_over_packet_size( $too_large_size_value ) );
+	}
+
+	/**
+	 * It should not cache overly large values in database
+	 *
+	 * @test
+	 */
+	public function should_not_cache_overly_large_values_in_database() {
+		$max_allow_packet = 200;
+		// Filter the feature detection (tested elsewhere).
+		add_filter( 'tribe_max_allowed_packet_size', static function () use ( $max_allow_packet ) {
+			return $max_allow_packet;
+		} );
+		// Build an object whose serialized size is known before-hand.
+		$build_object_to_size = function ( int $size ) {
+			$template_size = 33;
+			$template      = 'O:8:"stdClass":1:{s:1:"0";s:{{ size }}:"{{ v }}";}';
+			$v_size        = $size - $template_size - ( strlen( $size - $template_size ) );
+			$t             = [
+				'{{ size }}' => $v_size,
+				'{{ v }}'    => str_repeat( '#', $v_size ),
+			];
+
+			$serialized = str_replace( array_keys( $t ), $t, $template );
+
+			$this->assertEquals( $size, strlen( $serialized ) );
+
+			return unserialize( $serialized );
+		};
+		// Simulate a case where external object caching is NOT in use.
+		$GLOBALS['_wp_using_ext_object_cache'] = false;
+		$medium_size_value                     = $build_object_to_size( $max_allow_packet * .5 );
+		$large_size_value                      = $build_object_to_size( $max_allow_packet * .9 );
+		$too_large_size_value                  = $build_object_to_size( $max_allow_packet * 1.1 );
+
+		/** @var \Tribe__Cache $cache */
+		$cache = tribe( 'cache' );
+
+		$this->assertTrue( $cache->set_transient( 'test', $medium_size_value ) );
+		$this->assertFalse( $cache->data_size_over_packet_size( $medium_size_value ) );
+		$this->assertTrue( $cache->set_transient( 'test', $large_size_value ) );
+		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value ) );
+		$this->assertFalse( $cache->set_transient( 'test', $too_large_size_value ) );
+		$this->assertTrue( $cache->data_size_over_packet_size( $too_large_size_value ) );
+	}
+
+	/**
+	 * It should not prevent caching of large values when using external cache
+	 *
+	 * @test
+	 */
+	public function should_not_prevent_caching_of_large_values_when_using_external_cache() {
+		$max_allow_packet = 200;
+		// Filter the feature detection (tested elsewhere).
+		add_filter( 'tribe_max_allowed_packet_size', static function () use ( $max_allow_packet ) {
+			return $max_allow_packet;
+		} );
+		// Simulate a case where external object caching is NOT in use.
+		$GLOBALS['_wp_using_ext_object_cache'] = true;
+		$large_size_value                      = str_repeat( '#', $max_allow_packet * .9 );
+		$too_large_size_value                  = str_repeat( '#', $max_allow_packet * 1.1 );
+
+		/** @var \Tribe__Cache $cache */
+		$cache = tribe( 'cache' );
+
+		$this->assertTrue( $cache->set_transient( 'test', $large_size_value ) );
+		$this->assertFalse( $cache->data_size_over_packet_size( $large_size_value) );
+		$this->assertTrue( $cache->set_transient( 'test', $too_large_size_value ) );
+		$this->assertFalse( $cache->data_size_over_packet_size( $too_large_size_value ) );
+	}
 }
