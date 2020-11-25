@@ -19,7 +19,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.12.13';
+	const VERSION             = '4.12.13.1';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -67,12 +67,7 @@ class Tribe__Main {
 			return;
 		}
 
-		// the 5.2 compatible autoload file
-		if ( version_compare( PHP_VERSION, '5.2.17', '<=' ) ) {
-			require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload_52.php' );
-		} else {
-			require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload.php' );
-		}
+		require_once realpath( dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload.php' );
 
 		// the DI container class
 		require_once dirname( __FILE__ ) . '/Container.php';

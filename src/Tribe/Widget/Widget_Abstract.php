@@ -461,9 +461,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 * @param array<string,mixed>  $default_arguments Current set of default arguments.
 		 * @param static               $instance          The widget instance we are dealing with.
 		 */
-		$default_arguments = apply_filters( "tribe_widget_{$registration_slug}_default_arguments", $default_arguments, $this );
-
-		return $default_arguments;
+		return apply_filters( "tribe_widget_{$registration_slug}_default_arguments", $default_arguments, $this );
 	}
 
 	/**
