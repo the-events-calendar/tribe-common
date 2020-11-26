@@ -8,6 +8,7 @@
  * @since 4.10.0
  * @since TBD Add data attributes to the button.
  * @since TBD Don't render template if `$button_display` is set to false.
+ * @since TBD Allow having basic HTMl within the button content so we can add elements with texts for a11y.
  *
  * @package Tribe
  * @version TBD
@@ -42,4 +43,4 @@ $attributes = $button_attributes ?: [];
 	<?php if ( ! empty( $button_disabled ) && tribe_is_truthy( $button_disabled ) ) : ?>
 		<?php tribe_disabled( true ); ?>
 	<?php endif; ?>
-><?php echo esc_html( $button_text ); ?></button>
+><?php echo wp_kses_post( $button_text ); ?></button>
