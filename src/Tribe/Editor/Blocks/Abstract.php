@@ -103,11 +103,7 @@ implements Tribe__Editor__Blocks__Interface {
 	 * @return string
 	 */
 	public function render( $attributes = array() ) {
-		if ( version_compare( phpversion(), '5.4', '>=' ) ) {
-			$json_string = json_encode( $attributes, JSON_PRETTY_PRINT );
-		} else {
-			$json_string = json_encode( $attributes );
-		}
+		$json_string = json_encode( $attributes, JSON_PRETTY_PRINT );
 
 		return
 		'<pre class="tribe-placeholder-text-' . $this->name() . '">' .
