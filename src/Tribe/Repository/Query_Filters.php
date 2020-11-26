@@ -408,7 +408,7 @@ class Tribe__Repository__Query_Filters {
 		 * Handles meta-based relations between posts.
 		 */
 		foreach ( $this->query_vars['found_posts_filters']['meta_related'] as $info ) {
-			[ $meta_keys, $field, $field_values, $compare ] = $info;
+			list( $meta_keys, $field, $field_values, $compare ) = $info;
 			$post_ids          = $ids_only ? $query->posts : wp_list_pluck( $query->posts, 'ID' );
 			$post_ids_interval = '(' . implode( ',', $post_ids ) . ')';
 			$meta_keys         = "('" . implode( "','", array_map( 'esc_sql', $meta_keys ) ) . "')";
@@ -633,7 +633,7 @@ class Tribe__Repository__Query_Filters {
 	 */
 	public function remove_filters() {
 		foreach ( $this->active_filters as $filters ) {
-			[ $tag, $function_to_add, $priority ] = $filters;
+			list( $tag, $function_to_add, $priority ) = $filters;
 			remove_filter( $tag, $function_to_add, $priority );
 		}
 	}
@@ -996,7 +996,7 @@ class Tribe__Repository__Query_Filters {
 		$build_entry = static function ( $entries ) {
 			$buffer  = [];
 
-			foreach ( $entries as [ $orderby, $order ] ) {
+			foreach ( $entries as list( $orderby, $order ) ) {
 				$buffer[] = sprintf( '%s %s', $orderby, $order );
 			}
 
