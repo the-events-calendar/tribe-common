@@ -396,11 +396,13 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer using wp_add_inline_style
 	 *
-	 * @return void
+	 * @since TBD Added the `$force` parameter to force the print of the style inline.
+	 *
+	 * @param bool $force Whether to ignore the context to try and printe the style inline, or not.
 	 */
-	public function inline_style() {
+	public function inline_style( $force = false ) {
 		// Only load once on front-end.
-		if ( is_customize_preview() || is_admin() || $this->inline_style ) {
+		if ( ! $force && ( is_customize_preview() || is_admin() || $this->inline_style ) ) {
 			return false;
 		}
 
@@ -436,10 +438,22 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		// add customizer styles inline with the latest stylesheet that is enqueued.
+		// Add customizer styles inline with the latest stylesheet that is enqueued.
 		foreach ( array_reverse( $sheets ) as $sheet ) {
 			if ( wp_style_is( $sheet ) ) {
-				wp_add_inline_style( $sheet, wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
+				$inline_style = wp_strip_all_tags( $this->parse_css_template( $css_template ) );
+
+				/**
+				 * Fires before a style is, possibly, printed inline depending on the stylesheet.
+				 *
+				 * @since TBD
+				 *
+				 * @param string $sheet The handle of the stylesheet the style will be printed inline for.
+				 * @param string $inline_style The inline style contents, as they will be printed on the page.
+				 */
+				do_action( 'tribe_customizer_before_inline_style', $sheet, $inline_style );
+
+				wp_add_inline_style( $sheet, $inline_style );
 				$this->inline_style = true;
 
 				break;
