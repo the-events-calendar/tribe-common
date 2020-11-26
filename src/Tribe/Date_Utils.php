@@ -1425,7 +1425,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
 			}
 
-			[ $hours_to_add, $minutes_to_add ] = array_map( 'absint', explode( ':', $cutoff ) );
+			list( $hours_to_add, $minutes_to_add ) = array_map( 'absint', explode( ':', $cutoff ) );
 
 			$seconds_to_add = ( $hours_to_add * HOUR_IN_SECONDS ) + ( $minutes_to_add * MINUTE_IN_SECONDS );
 			if ( 0 !== $seconds_to_add ) {
