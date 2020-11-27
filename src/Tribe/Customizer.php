@@ -64,7 +64,7 @@ final class Tribe__Customizer {
 	 * @access private
 	 * @var array
 	 */
-	private $sections_class = array();
+	private $sections_class = [];
 
 	/**
 	 * Array of Sections Classes, for non-panel pages
@@ -73,7 +73,7 @@ final class Tribe__Customizer {
 	 * @access private
 	 * @var array
 	 */
-	private $settings = array();
+	private $settings = [];
 
 	/**
 	 * Inline Style has been added
@@ -138,7 +138,7 @@ final class Tribe__Customizer {
 			return $sections;
 		}
 
-		return get_option( 'tribe_events_pro_customizer', array() );
+		return get_option( 'tribe_events_pro_customizer', [] );
 	}
 
 	/**
@@ -231,7 +231,7 @@ final class Tribe__Customizer {
 	 *
 	 * @return mixed            Return the variable based on the index
 	 */
-	public static function search_var( $variable = null, $indexes = array(), $default = null ) {
+	public static function search_var( $variable = null, $indexes = [], $default = null ) {
 		if ( is_object( $variable ) ) {
 			$variable = (array) $variable;
 		}
@@ -271,7 +271,7 @@ final class Tribe__Customizer {
 			 *
 			 * @param array $defaults
 			 */
-			$defaults[ $section->ID ] = apply_filters( "tribe_events_pro_customizer_section_{$section->ID}_defaults", array() );
+			$defaults[ $section->ID ] = apply_filters( "tribe_events_pro_customizer_section_{$section->ID}_defaults", [] );
 
 			/**
 			 * Allow filtering the defaults for each settings to be filtered before the Ghost options to be set
@@ -280,7 +280,7 @@ final class Tribe__Customizer {
 			 *
 			 * @param array $defaults
 			 */
-			$settings = isset( $sections[ $section->ID ] ) ? $sections[ $section->ID ] : array();
+			$settings                 = isset( $sections[ $section->ID ] ) ? $sections[ $section->ID ] : [];
 			$defaults[ $section->ID ] = apply_filters( "tribe_customizer_section_{$section->ID}_defaults", $settings );
 			$sections[ $section->ID ] = wp_parse_args( $settings, $defaults[ $section->ID ] );
 		}
@@ -337,7 +337,7 @@ final class Tribe__Customizer {
 	public function has_option() {
 		$search = func_get_args();
 		$option = self::get_option();
-		$real_option = get_option( $this->ID, array() );
+		$real_option = get_option( $this->ID, [] );
 
 		// Get section and Settign based on keys
 		$section = reset( $search );
@@ -482,15 +482,15 @@ final class Tribe__Customizer {
 		$css      = $template;
 		$sections = $this->get_option();
 
-		$search  = array();
-		$replace = array();
+		$search  = [];
+		$replace = [];
 
 		foreach ( $sections as $section => $settings ) {
 			if ( ! is_array( $settings ) ) {
 				continue;
 			}
 			foreach ( $settings as $setting => $value ) {
-				$index = array( $section, $setting );
+				$index = [ $section, $setting ];
 
 				// Add search based on Underscore template
 				$search[] = '<%= ' . implode( '.', $index ) . ' %>';
@@ -579,13 +579,13 @@ final class Tribe__Customizer {
 			return $panel;
 		}
 
-		$panel_args = array(
-			'title' => esc_html__( 'The Events Calendar', 'tribe-common' ),
+		$panel_args = [
+			'title'       => esc_html__( 'The Events Calendar', 'tribe-common' ),
 			'description' => esc_html__( 'Use the following panel of your customizer to change the styling of your Calendar and Event pages.', 'tribe-common' ),
 
 			// After `static_front_page`
-			'priority' => 125,
-		);
+			'priority'    => 125,
+		];
 
 		/**
 		 * Filter the Panel Arguments for WP Customize
@@ -739,10 +739,10 @@ final class Tribe__Customizer {
 			// Add the Partial
 			$this->manager->selective_refresh->add_partial(
 				$name,
-				array(
+				[
 					'selector'        => '#' . esc_attr( $this->ID . '_css' ),
-					'render_callback' => array( $this, 'print_css_template' ),
-				)
+					'render_callback' => [ $this, 'print_css_template' ],
+				]
 			);
 		}
 	}
