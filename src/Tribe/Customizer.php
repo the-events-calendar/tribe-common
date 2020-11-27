@@ -118,6 +118,7 @@ final class Tribe__Customizer {
 		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 15 );
 		add_action( 'tribe_events_pro_widget_render', array( $this, 'inline_style' ), 101 );
 		add_action( 'wp_print_footer_scripts', array( $this, 'shortcode_inline_style' ), 5 );
+		add_action( 'wp_print_footer_scripts', array( $this, 'widget_inline_style' ), 5 );
 
 		add_filter( "default_option_{$this->ID}", array( $this, 'maybe_fallback_get_option' ) );
 	}
@@ -394,6 +395,28 @@ final class Tribe__Customizer {
 	}
 
 	/**
+	 * Print the CSS for the customizer for widgets.
+	 *
+	 * @return void
+	 */
+	public function widget_inline_style() {
+		/**
+		 * Whether customizer styles should print for widgets or not.
+		 *
+		 * @since 4.12.6
+		 *
+		 * @param boolean $should_print Whether the inline styles should be printed on screen.
+		 */
+		$should_print = apply_filters( 'tribe_customizer_should_print_widget_customizer_styles', false );
+
+		if ( empty( $should_print ) ) {
+			return;
+		}
+
+		$this->inline_style();
+	}
+
+	/**
 	 * Print the CSS for the customizer using wp_add_inline_style
 	 *
 	 * @return void
@@ -420,7 +443,9 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		$sheets = [];
+		$sheets = [
+			'tribe-common-full-style',
+		];
 
 		/**
 		 * Allow plugins to add themselves to this list.
