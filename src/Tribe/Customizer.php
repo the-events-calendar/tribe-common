@@ -110,17 +110,17 @@ final class Tribe__Customizer {
 		$this->ID = apply_filters( 'tribe_customizer_panel_id', 'tribe_customizer', $this );
 
 		// Hook the Registering methods
-		add_action( 'customize_register', array( $this, 'register' ), 15 );
+		add_action( 'customize_register', [ $this, 'register' ], 15 );
 
-		add_action( 'wp_print_footer_scripts', array( $this, 'print_css_template' ), 15 );
+		add_action( 'wp_print_footer_scripts', [ $this, 'print_css_template' ], 15 );
 
 		// front end styles from customizer
-		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 15 );
-		add_action( 'tribe_events_pro_widget_render', array( $this, 'inline_style' ), 101 );
-		add_action( 'wp_print_footer_scripts', array( $this, 'shortcode_inline_style' ), 5 );
-		add_action( 'wp_print_footer_scripts', array( $this, 'widget_inline_style' ), 5 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'inline_style' ], 15 );
+		add_action( 'tribe_events_pro_widget_render', [ $this, 'inline_style' ], 101 );
+		add_action( 'wp_print_footer_scripts', [ $this, 'shortcode_inline_style' ], 5 );
+		add_action( 'wp_print_footer_scripts', [ $this, 'widget_inline_style' ], 5 );
 
-		add_filter( "default_option_{$this->ID}", array( $this, 'maybe_fallback_get_option' ) );
+		add_filter( "default_option_{$this->ID}", [ $this, 'maybe_fallback_get_option' ] );
 	}
 
 	/**
@@ -375,7 +375,7 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer for shortcodes.
 	 *
-	 * @return void
+	 * @since 4.12.6
 	 */
 	public function shortcode_inline_style() {
 		/**
@@ -397,13 +397,13 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer for widgets.
 	 *
-	 * @return void
+	 * @since TBD
 	 */
 	public function widget_inline_style() {
 		/**
 		 * Whether customizer styles should print for widgets or not.
 		 *
-		 * @since 4.12.6
+		 * @since TBD
 		 *
 		 * @param boolean $should_print Whether the inline styles should be printed on screen.
 		 */
