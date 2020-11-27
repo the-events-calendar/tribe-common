@@ -115,9 +115,11 @@ final class Tribe__Customizer {
 		add_action( 'wp_print_footer_scripts', [ $this, 'print_css_template' ], 15 );
 
 		// front end styles from customizer
-		add_action( 'wp_enqueue_scripts', [ $this, 'inline_style' ], 15 );
 		add_action( 'tribe_events_pro_widget_render', [ $this, 'inline_style' ], 101 );
 		add_action( 'wp_print_footer_scripts', [ $this, 'shortcode_inline_style' ], 5 );
+		// dkjsflkjsdfkjsdjf
+		$print_styles_action = tribe_events_views_v2_is_enabled() ? 'wp_print_footer_scripts' : 'wp_enqueue_scripts';
+		add_action( $print_styles_action, [ $this, 'inline_style' ], 15 );
 
 		add_filter( "default_option_{$this->ID}", [ $this, 'maybe_fallback_get_option' ] );
 	}
@@ -453,7 +455,19 @@ final class Tribe__Customizer {
 				 */
 				do_action( 'tribe_customizer_before_inline_style', $sheet, $inline_style );
 
-				wp_add_inline_style( $sheet, $inline_style );
+				// kldjfljskdf
+				$just_print = (bool) doing_action( 'wp_print_footer_scripts' );
+
+				if ( $just_print ) {
+					printf(
+						"<style id='%s-inline-css' type='text/css'>\n%s\n</style>\n",
+						esc_attr( $sheet ),
+						$inline_style
+					);
+				} else {
+					wp_add_inline_style( $sheet, $inline_style );
+				}
+
 				$this->inline_style = true;
 
 				break;
