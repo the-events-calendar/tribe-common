@@ -38,7 +38,7 @@ class Tribe__Simple_Table {
 	 * @param array $tbody Multidimension array containing table rows/columns
 	 * @param array $thead Single dimension array containing table headings
 	 */
-	public function __construct( $tbody, $thead = array() ) {
+	public function __construct( $tbody, $thead = [] ) {
 		$this->thead = $thead;
 		$this->tbody = $tbody;
 	}
@@ -143,7 +143,7 @@ class Tribe__Simple_Table {
 	 *
 	 * @return string HTML element
 	 */
-	private function output_element( $html_tag, $data = null, $attributes = array() ) {
+	private function output_element( $html_tag, $data = null, $attributes = [] ) {
 		$output = '<' . tag_escape( $html_tag );
 
 		if ( ! empty( $attributes ) ) {
