@@ -154,7 +154,7 @@ class Tribe__Admin__Notice__Marketing {
 	 * @return string
 	 */
 	public function black_friday_display_notice() {
-		Tribe__Assets::instance()->enqueue( array( 'tribe-common-admin' ) );
+		Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
 
 		$current_screen = get_current_screen();
 
