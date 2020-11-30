@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * A class for outputting a multidimensional array as a straightforward HTML table
  *
- * @TODO Remove this in version 5 if it does not see much usage
+ * @todo Remove this in version 5 if it does not see much usage
  */
 class Tribe__Simple_Table {
 
