@@ -2,9 +2,13 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.12.15] TBD =
 
 * Tweak - Allow usage of HTML within the Tribe Dialog button. [ETP-523]
+
+= [4.12.13.1] 2020-11-20 =
+
+* Fix - Prevent `tribe_get_first_ever_installed_version()` from having to spawn an instance of the Main class for version history.
 
 = [4.12.13] 2020-11-19 =
 
