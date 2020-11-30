@@ -2,9 +2,16 @@
 
 == Changelog ==
 
-= [4.12.15] =
+= [4.12.15] = TBD
 
 
+
+= [4.12.14] TBD =
+
+* Fix - Correctly handle mutltiple calls to the Repository `by` or `where` method that would cause issues in some Views [ECP-357]
+* Fix - Do not try to store overly large values in transients when not using external object cache. [TEC-3615]
+* Fix - Improve the Rewrite component to correctly parse and handle URLs containing accented chars. [TEC-3608]
+* Tweak - Add the `Tribe__Utils__Array::merge_recursive_query_vars` method to correctly recursively merge nested arrays in the format used by `WP_Query` [ECP-357]
 
 = [4.12.13.1] 2020-11-20 =
 

@@ -1,5 +1,6 @@
 <?php
 
+use Tribe\Utils\Paths;
 use Tribe\Utils\Strings;
 
 class Tribe__Template {
@@ -10,7 +11,7 @@ class Tribe__Template {
 	 *
 	 * @var array
 	 */
-	protected $folder = array();
+	protected $folder = [];
 
 	/**
 	 * The origin class for the plugin where the template lives
@@ -37,7 +38,7 @@ class Tribe__Template {
 	 *
 	 * @var array
 	 */
-	protected $global = array();
+	protected $global = [];
 
 	/**
 	 * Used for finding templates for public templates on themes inside of a folder.
@@ -233,7 +234,7 @@ class Tribe__Template {
 	 *
 	 * @return self
 	 */
-	public function add_template_globals( $context = array() ) {
+	public function add_template_globals( $context = [] ) {
 		// Cast as Array merge and save
 		$this->global = wp_parse_args( (array) $context, $this->global );
 
@@ -612,7 +613,7 @@ class Tribe__Template {
 			}
 
 			// Build the File Path
-			$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $folder['path'], $name ) );
+			$file = Paths::merge( $folder['path'], $name );
 
 			// Append the Extension to the file path
 			$file .= '.php';
