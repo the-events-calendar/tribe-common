@@ -64,7 +64,7 @@ final class Tribe__Customizer {
 	 * @access private
 	 * @var array
 	 */
-	private $sections_class = array();
+	private $sections_class = [];
 
 	/**
 	 * Array of Sections Classes, for non-panel pages
@@ -73,7 +73,7 @@ final class Tribe__Customizer {
 	 * @access private
 	 * @var array
 	 */
-	private $settings = array();
+	private $settings = [];
 
 	/**
 	 * Inline Style has been added
@@ -110,16 +110,17 @@ final class Tribe__Customizer {
 		$this->ID = apply_filters( 'tribe_customizer_panel_id', 'tribe_customizer', $this );
 
 		// Hook the Registering methods
-		add_action( 'customize_register', array( $this, 'register' ), 15 );
+		add_action( 'customize_register', [ $this, 'register' ], 15 );
 
-		add_action( 'wp_print_footer_scripts', array( $this, 'print_css_template' ), 15 );
+		add_action( 'wp_print_footer_scripts', [ $this, 'print_css_template' ], 15 );
 
 		// front end styles from customizer
-		add_action( 'wp_enqueue_scripts', array( $this, 'inline_style' ), 15 );
-		add_action( 'tribe_events_pro_widget_render', array( $this, 'inline_style' ), 101 );
-		add_action( 'wp_print_footer_scripts', array( $this, 'shortcode_inline_style' ), 5 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'inline_style' ], 15 );
+		add_action( 'tribe_events_pro_widget_render', [ $this, 'inline_style' ], 101 );
+		add_action( 'wp_print_footer_scripts', [ $this, 'shortcode_inline_style' ], 5 );
+		add_action( 'wp_print_footer_scripts', [ $this, 'widget_inline_style' ], 5 );
 
-		add_filter( "default_option_{$this->ID}", array( $this, 'maybe_fallback_get_option' ) );
+		add_filter( "default_option_{$this->ID}", [ $this, 'maybe_fallback_get_option' ] );
 	}
 
 	/**
@@ -137,7 +138,7 @@ final class Tribe__Customizer {
 			return $sections;
 		}
 
-		return get_option( 'tribe_events_pro_customizer', array() );
+		return get_option( 'tribe_events_pro_customizer', [] );
 	}
 
 	/**
@@ -230,7 +231,7 @@ final class Tribe__Customizer {
 	 *
 	 * @return mixed            Return the variable based on the index
 	 */
-	public static function search_var( $variable = null, $indexes = array(), $default = null ) {
+	public static function search_var( $variable = null, $indexes = [], $default = null ) {
 		if ( is_object( $variable ) ) {
 			$variable = (array) $variable;
 		}
@@ -270,7 +271,7 @@ final class Tribe__Customizer {
 			 *
 			 * @param array $defaults
 			 */
-			$defaults[ $section->ID ] = apply_filters( "tribe_events_pro_customizer_section_{$section->ID}_defaults", array() );
+			$defaults[ $section->ID ] = apply_filters( "tribe_events_pro_customizer_section_{$section->ID}_defaults", [] );
 
 			/**
 			 * Allow filtering the defaults for each settings to be filtered before the Ghost options to be set
@@ -279,7 +280,7 @@ final class Tribe__Customizer {
 			 *
 			 * @param array $defaults
 			 */
-			$settings = isset( $sections[ $section->ID ] ) ? $sections[ $section->ID ] : array();
+			$settings                 = isset( $sections[ $section->ID ] ) ? $sections[ $section->ID ] : [];
 			$defaults[ $section->ID ] = apply_filters( "tribe_customizer_section_{$section->ID}_defaults", $settings );
 			$sections[ $section->ID ] = wp_parse_args( $settings, $defaults[ $section->ID ] );
 		}
@@ -336,7 +337,7 @@ final class Tribe__Customizer {
 	public function has_option() {
 		$search = func_get_args();
 		$option = self::get_option();
-		$real_option = get_option( $this->ID, array() );
+		$real_option = get_option( $this->ID, [] );
 
 		// Get section and Settign based on keys
 		$section = reset( $search );
@@ -374,7 +375,7 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer for shortcodes.
 	 *
-	 * @return void
+	 * @since 4.12.6
 	 */
 	public function shortcode_inline_style() {
 		/**
@@ -385,6 +386,28 @@ final class Tribe__Customizer {
 		 * @param boolean $should_print Whether the inline styles should be printed on screen.
 		 */
 		$should_print = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
+
+		if ( empty( $should_print ) ) {
+			return;
+		}
+
+		$this->inline_style();
+	}
+
+	/**
+	 * Print the CSS for the customizer for widgets.
+	 *
+	 * @since TBD
+	 */
+	public function widget_inline_style() {
+		/**
+		 * Whether customizer styles should print for widgets or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $should_print Whether the inline styles should be printed on screen.
+		 */
+		$should_print = apply_filters( 'tribe_customizer_should_print_widget_customizer_styles', false );
 
 		if ( empty( $should_print ) ) {
 			return;
@@ -420,7 +443,9 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		$sheets = [];
+		$sheets = [
+			'tribe-common-full-style',
+		];
 
 		/**
 		 * Allow plugins to add themselves to this list.
@@ -457,15 +482,15 @@ final class Tribe__Customizer {
 		$css      = $template;
 		$sections = $this->get_option();
 
-		$search  = array();
-		$replace = array();
+		$search  = [];
+		$replace = [];
 
 		foreach ( $sections as $section => $settings ) {
 			if ( ! is_array( $settings ) ) {
 				continue;
 			}
 			foreach ( $settings as $setting => $value ) {
-				$index = array( $section, $setting );
+				$index = [ $section, $setting ];
 
 				// Add search based on Underscore template
 				$search[] = '<%= ' . implode( '.', $index ) . ' %>';
@@ -554,13 +579,13 @@ final class Tribe__Customizer {
 			return $panel;
 		}
 
-		$panel_args = array(
-			'title' => esc_html__( 'The Events Calendar', 'tribe-common' ),
+		$panel_args = [
+			'title'       => esc_html__( 'The Events Calendar', 'tribe-common' ),
 			'description' => esc_html__( 'Use the following panel of your customizer to change the styling of your Calendar and Event pages.', 'tribe-common' ),
 
 			// After `static_front_page`
-			'priority' => 125,
-		);
+			'priority'    => 125,
+		];
 
 		/**
 		 * Filter the Panel Arguments for WP Customize
@@ -714,10 +739,10 @@ final class Tribe__Customizer {
 			// Add the Partial
 			$this->manager->selective_refresh->add_partial(
 				$name,
-				array(
+				[
 					'selector'        => '#' . esc_attr( $this->ID . '_css' ),
-					'render_callback' => array( $this, 'print_css_template' ),
-				)
+					'render_callback' => [ $this, 'print_css_template' ],
+				]
 			);
 		}
 	}
