@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.12.15] TBD =
+
+
+
 = [4.12.14] TBD =
 
 * Fix - Correctly handle mutltiple calls to the Repository `by` or `where` method that would cause issues in some Views [ECP-357]
@@ -19,6 +23,11 @@
 * Fix - Prevent items without children to be marked as groups in SelectWoo UI. [CE-106]
 * Fix - Update the MomentJS version to 2.19.3 for the `tribe-moment` asset. [BTRIA-574]
 * Language - 0 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.12.12.1] 2020-11-19 =
+
+* Tweak - Update version of Freemius to the latest version 2.4.1 [TEC-3668]
+* Tweak - Include a new Notice style for Banners [TCMN-90]
 
 = [4.12.12] 2020-10-22 =
 
