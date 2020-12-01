@@ -189,7 +189,7 @@ if ( ! function_exists( 'tribe_get_start_time' ) ) {
 			return;
 		}
 
-		// @todo move timezones to Common
+		// @todo [BTRIA-584]: Move timezones to Common.
 		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
 			$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
 		}
@@ -240,7 +240,7 @@ if ( ! function_exists( 'tribe_get_end_time' ) ) {
 			return;
 		}
 
-		// @todo move timezones to Common
+		// @todo [BTRIA-584]: Move timezones to Common.
 		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
 			$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 		}
@@ -300,7 +300,7 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 				$display_time = false;
 			}
 
-			// @todo move timezones to Common
+			// @todo [BTRIA-584]: Move timezones to Common.
 			if ( class_exists( 'Tribe__Events__Timezones' ) ) {
 				$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
 			} else {
@@ -362,7 +362,7 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 				$display_time = false;
 			}
 
-			// @todo move timezones to Common
+			// @todo [BTRIA-584]: Move timezones to Common.
 			if ( class_exists( 'Tribe__Events__Timezones' ) ) {
 				$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID );
 			} else {

@@ -117,6 +117,7 @@ final class Tribe__Customizer {
 		// front end styles from customizer
 		add_action( 'tribe_events_pro_widget_render', [ $this, 'inline_style' ], 101 );
 		add_action( 'wp_print_footer_scripts', [ $this, 'shortcode_inline_style' ], 5 );
+		add_action( 'wp_print_footer_scripts', [ $this, 'widget_inline_style' ], 5 );
 
 		// Get print styles action based on whether v2 events or v2 tickets exist and are enabled.
 		$is_events_v2        = function_exists( 'tribe_events_views_v2_is_enabled' ) && tribe_events_views_v2_is_enabled();
@@ -379,7 +380,7 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer for shortcodes.
 	 *
-	 * @return void
+	 * @since 4.12.6
 	 */
 	public function shortcode_inline_style() {
 		/**
@@ -390,6 +391,28 @@ final class Tribe__Customizer {
 		 * @param boolean $should_print Whether the inline styles should be printed on screen.
 		 */
 		$should_print = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
+
+		if ( empty( $should_print ) ) {
+			return;
+		}
+
+		$this->inline_style();
+	}
+
+	/**
+	 * Print the CSS for the customizer for widgets.
+	 *
+	 * @since TBD
+	 */
+	public function widget_inline_style() {
+		/**
+		 * Whether customizer styles should print for widgets or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $should_print Whether the inline styles should be printed on screen.
+		 */
+		$should_print = apply_filters( 'tribe_customizer_should_print_widget_customizer_styles', false );
 
 		if ( empty( $should_print ) ) {
 			return;
@@ -427,7 +450,9 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		$sheets = [];
+		$sheets = [
+			'tribe-common-full-style',
+		];
 
 		/**
 		 * Allow plugins to add themselves to this list.
