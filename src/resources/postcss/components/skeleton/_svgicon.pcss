@@ -35,8 +35,9 @@
 
 	.tribe-common-c-svgicon--close,
 	.tribe-common-c-svgicon--close-alt {
+
 		path {
-			stroke: var(--color-icon-secondary);
+			stroke: currentColor;
 		}
 	}
 
@@ -47,35 +48,40 @@
 	.tribe-common-c-svgicon--map-pin {
 		fill: none;
 	}
-	
+
 	.tribe-common-c-svgicon--messages-not-found,
 	.tribe-common-c-svgicon--virtual {
+
 		g {
 			fill: none;
 		}
 	}
-	
+
 	.tribe-common-c-svgicon--messages-not-found {
 		width: 22px;
-		
+
 		path {
-			stroke: var(--color-icon-active);
+			stroke: currentColor;
 		}
 	}
-	
+
 	.tribe-common-c-svgicon--error {
 		width: 18px;
-		
+
 		g {
 			fill: none;
 		}
 	}
-	
-	.tribe-common-c-svgicon__svg-fill {
-		fill: var(--color-icon-active);
+
+	.tribe-common-c-svgicon--reset path {
+		fill: none;
 	}
-	
+
+	.tribe-common-c-svgicon__svg-fill {
+		fill: currentColor;
+	}
+
 	.tribe-common-c-svgicon__svg-stroke {
-		stroke: var(--color-icon-active);
+		stroke: currentColor;
 	}
 }

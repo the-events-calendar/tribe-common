@@ -44,9 +44,9 @@ class Tribe__Exception extends Exception {
 	 * @return string
 	 */
 	private function get_log_type_for_exception_code( $code ) {
-		$map = [
-			// @todo: let's add a decent exception code to log type map here
-		];
+		$map = array(
+			// @todo [BTRIA-583]: Let's add a decent exception code to log type map here.
+		);
 
 		return isset( $map[ $code ] ) ? $map[ $code ] : Tribe__Log::ERROR;
 	}

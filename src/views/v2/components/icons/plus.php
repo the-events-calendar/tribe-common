@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Minus Icon
+ * View: Plus Icon
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/v2/components/icons/minus.php
+ * [your-theme]/tribe/v2/components/icons/plus.php
  *
  * See more documentation about our views templating system.
  *
@@ -14,7 +14,7 @@
  * @version TBD
  *
  */
-$svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--minus' ];
+$svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--plus' ];
 
 if ( ! empty( $classes ) ) {
 	$svg_classes = array_merge( $svg_classes, $classes );
