@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.14] TBD =
+= [4.12.14] 2020-12-02 =
 
 * Fix - Correctly handle mutltiple calls to the Repository `by` or `where` method that would cause issues in some Views [ECP-357]
 * Fix - Do not try to store overly large values in transients when not using external object cache. [TEC-3615]
