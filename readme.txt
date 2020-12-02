@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro [BTRIA-650]
+
 = [4.12.13.1] 2020-11-20 =
 
 * Fix - Prevent `tribe_get_first_ever_installed_version()` from having to spawn an instance of the Main class for version history.
