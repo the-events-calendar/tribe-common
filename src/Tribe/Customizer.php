@@ -115,10 +115,24 @@ final class Tribe__Customizer {
 		add_action( 'wp_print_footer_scripts', [ $this, 'print_css_template' ], 15 );
 
 		// front end styles from customizer
-		add_action( 'wp_enqueue_scripts', [ $this, 'inline_style' ], 15 );
 		add_action( 'tribe_events_pro_widget_render', [ $this, 'inline_style' ], 101 );
 		add_action( 'wp_print_footer_scripts', [ $this, 'shortcode_inline_style' ], 5 );
 		add_action( 'wp_print_footer_scripts', [ $this, 'widget_inline_style' ], 5 );
+
+		/**
+		 * Allows filtering the action that will be used to trigger the printing of inline scripts.
+		 *
+		 * By default inline scripts will be printed on the `wp_enqueue_scripts` action, but other
+		 * plugins or later iterations might require inline styles to be printed on other actions.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $inline_script_action_handle The handle of the action that will be used to try
+		 *                                            and attempt to print inline scripts.
+		 */
+		$print_styles_action = apply_filters( 'tribe_customizer_print_styles_action', 'wp_enqueue_scripts' );
+
+		add_action( $print_styles_action, [ $this, 'inline_style' ], 15 );
 
 		add_filter( "default_option_{$this->ID}", [ $this, 'maybe_fallback_get_option' ] );
 	}
@@ -478,7 +492,19 @@ final class Tribe__Customizer {
 				 */
 				do_action( 'tribe_customizer_before_inline_style', $sheet, $inline_style );
 
-				wp_add_inline_style( $sheet, $inline_style );
+				// Just print styles if doing 'wp_print_footer_scripts' action.
+				$just_print = (bool) doing_action( 'wp_print_footer_scripts' );
+
+				if ( $just_print ) {
+					printf(
+						"<style id='%s-inline-css' type='text/css'>\n%s\n</style>\n",
+						esc_attr( $sheet ),
+						$inline_style
+					);
+				} else {
+					wp_add_inline_style( $sheet, $inline_style );
+				}
+
 				$this->inline_style = true;
 
 				break;
