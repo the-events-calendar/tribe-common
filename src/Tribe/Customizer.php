@@ -119,10 +119,19 @@ final class Tribe__Customizer {
 		add_action( 'wp_print_footer_scripts', [ $this, 'shortcode_inline_style' ], 5 );
 		add_action( 'wp_print_footer_scripts', [ $this, 'widget_inline_style' ], 5 );
 
-		// Get print styles action based on whether v2 events or v2 tickets exist and are enabled.
-		$is_events_v2        = function_exists( 'tribe_events_views_v2_is_enabled' ) && tribe_events_views_v2_is_enabled();
-		$is_tickets_v2       = function_exists( 'tribe_events_tickets_views_v2_is_enabled' ) && tribe_events_tickets_views_v2_is_enabled();
-		$print_styles_action = $is_events_v2 || $is_tickets_v2 ? 'wp_print_footer_scripts' : 'wp_enqueue_scripts';
+		/**
+		 * Allows filtering the action that will be used to trigger the printing of inline scripts.
+		 *
+		 * By default inline scripts will be printed on the `wp_enqueue_scripts` action, but other
+		 * plugins or later iterations might require inline styles to be printed on other actions.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $inline_script_action_handle The handle of the action that will be used to try
+		 *                                            and attempt to print inline scripts.
+		 */
+		$print_styles_action = apply_filters( 'tribe_customizer_print_styles_action', 'wp_enqueue_scripts' );
+
 		add_action( $print_styles_action, [ $this, 'inline_style' ], 15 );
 
 		add_filter( "default_option_{$this->ID}", [ $this, 'maybe_fallback_get_option' ] );
