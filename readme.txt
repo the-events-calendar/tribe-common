@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro. [BTRIA-650]
+
 = [4.12.15] TBD =
 
 * Tweak - Add the `tribe_customizer_print_styles_action` to allow filtering the action the Customizer will use to print inline styles. [TEC-3686]
