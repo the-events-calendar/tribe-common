@@ -136,7 +136,7 @@ function tribe_disabled( $disabled, $echo = true ) {
 /**
  * Generates a string for the tribe-dependency attributes.
  *
- * @since TBD
+ * @since 4.12.14
  *
  * @param array<string,mixed> $deps       The passed array of dependencies.
  *

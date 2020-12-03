@@ -810,7 +810,7 @@ if ( ! function_exists( 'tribe_get_greatest_version_ever_installed' ) ) {
  * use static mapping here, since generating a full instance will effectively
  * activate parts of the plugin behind the scenes.
  *
- * @since TBD
+ * @since 4.12.14
  *
  * @param string $class Which plugin main class we are looking for.
  *

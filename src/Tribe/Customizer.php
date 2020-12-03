@@ -411,13 +411,13 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer for widgets.
 	 *
-	 * @since TBD
+	 * @since 4.12.14
 	 */
 	public function widget_inline_style() {
 		/**
 		 * Whether customizer styles should print for widgets or not.
 		 *
-		 * @since TBD
+		 * @since 4.12.14
 		 *
 		 * @param boolean $should_print Whether the inline styles should be printed on screen.
 		 */
