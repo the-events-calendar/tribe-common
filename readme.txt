@@ -4,7 +4,7 @@
 
 = [TBD] TBD =
 
-* Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro [BTRIA-650]
+* Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro. [BTRIA-650]
 
 = [4.12.15] TBD =
 
