@@ -583,11 +583,13 @@ final class Tribe__Customizer {
 			 * Allows people to Register and de-register the method to register more Fields
 			 *
 			 * @since 4.4
+			 * @since TBD Add Customizer instance as a parameter.
 			 *
 			 * @param array                $section
 			 * @param WP_Customize_Manager $manager
+			 * @param Tribe__Customizer    $customizer The current customizer instance.
 			 */
-			do_action( "tribe_customizer_register_{$id}_settings", $this->sections[ $id ], $this->manager );
+			do_action( "tribe_customizer_register_{$id}_settings", $this->sections[ $id ], $this->manager, $this );
 		}
 
 		/**
