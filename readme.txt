@@ -6,6 +6,17 @@
 
 * Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro [BTRIA-650]
 
+= [4.12.15] TBD =
+
+* Tweak - Add the `tribe_customizer_print_styles_action` to allow filtering the action the Customizer will use to print inline styles. [TEC-3686]
+
+= [4.12.14] TBD =
+
+* Fix - Correctly handle mutltiple calls to the Repository `by` or `where` method that would cause issues in some Views [ECP-357]
+* Fix - Do not try to store overly large values in transients when not using external object cache. [TEC-3615]
+* Fix - Improve the Rewrite component to correctly parse and handle URLs containing accented chars. [TEC-3608]
+* Tweak - Add the `Tribe__Utils__Array::merge_recursive_query_vars` method to correctly recursively merge nested arrays in the format used by `WP_Query` [ECP-357]
+
 = [4.12.13.1] 2020-11-20 =
 
 * Fix - Prevent `tribe_get_first_ever_installed_version()` from having to spawn an instance of the Main class for version history.
@@ -16,6 +27,11 @@
 * Fix - Prevent items without children to be marked as groups in SelectWoo UI. [CE-106]
 * Fix - Update the MomentJS version to 2.19.3 for the `tribe-moment` asset. [BTRIA-574]
 * Language - 0 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.12.12.1] 2020-11-19 =
+
+* Tweak - Update version of Freemius to the latest version 2.4.1 [TEC-3668]
+* Tweak - Include a new Notice style for Banners [TCMN-90]
 
 = [4.12.12] 2020-10-22 =
 
