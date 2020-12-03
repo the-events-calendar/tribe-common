@@ -2,7 +2,7 @@
 /**
  * The base class for any custom Control.
  *
- * @since   TBD
+ * @since   4.12.14
  *
  * @package Tribe\Customizer
  */
@@ -12,7 +12,7 @@ namespace Tribe\Customizer;
 /**
  * Class Control
  *
- * @since   TBD
+ * @since   4.12.14
  *
  * @package Tribe\Customizer
  */

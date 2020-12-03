@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 4.12.14
  *
  * @var array $classes Additional classes to add to the svg icon.
  */

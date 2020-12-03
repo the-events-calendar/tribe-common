@@ -525,7 +525,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		/**
 		 * Stringifies the numeric keys of an array.
 		 *
-		 * @since TBD
+		 * @since 4.12.14
 		 *
 		 * @param array<int|string,mixed> $input  The input array whose keys should be stringified.
 		 * @param string|null             $prefix The prefix that should be use to stringify the keys, if not provided
@@ -548,7 +548,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 * The inverse of the `stringify_keys` method, it will restore numeric keys for previously
 		 * stringified keys.
 		 *
-		 * @since TBD
+		 * @since 4.12.14
 		 *
 		 * @param array<int|string,mixed> $input  The input array whose stringified keys should be
 		 *                                        destringified.
@@ -570,7 +570,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 * Recursively visits all elements of an array applying the specified callback to each element
 		 * key and value.
 		 *
-		 * @since TBD
+		 * @since 4.12.14
 		 *
 		 * @param         array $input The input array whose nodes should be visited.
 		 * @param callable $visitor A callback function that will be called on each array item; the callback will
@@ -609,7 +609,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		/**
 		 * Recursively remove associative, non numeric, keys from an array.
 		 *
-		 * @since TBD
+		 * @since 4.12.14
 		 *
 		 * @param array<string|int,mixed> $input The input array.
 		 *
@@ -627,7 +627,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		/**
 		 * Recursively remove numeric keys from an array.
 		 *
-		 * @since TBD
+		 * @since 4.12.14
 		 *
 		 * @param array<string|int,mixed> $input The input array.
 		 *
@@ -648,7 +648,7 @@ if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 		 * The method will recursively replace named keys and merge numeric keys. The method takes its name from its intended
 		 * primary use, but it's not limited to query arguments only.
 		 *
-		 * @since TBD
+		 * @since 4.12.14
 		 *
 		 * @param array<string|int,mixed> ...$arrays A set of arrays to merge.
 		 *
