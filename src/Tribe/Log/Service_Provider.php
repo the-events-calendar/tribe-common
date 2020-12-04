@@ -158,7 +158,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		remove_action( 'tribe_log', [ $this, 'dispatch_log' ] );
+		add_action( 'tribe_log', [ $this, 'dispatch_log' ] );
 	}
 
 	/**
