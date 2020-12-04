@@ -45,7 +45,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Register the Black Friday notice.
 	 *
-	 * @since TBD
+	 * @since 4.12.14
 	 */
 	public function black_friday_hook_notice() {
 
@@ -65,7 +65,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Unix time for Monday of Thanksgiving week @ 11am UTC. (11am UTC is 6am EST).
 	 *
-	 * @since TBD
+	 * @since 4.12.14
 	 *
 	 * @return int
 	 */
@@ -79,7 +79,7 @@ class Tribe__Admin__Notice__Marketing {
 		/**
 		 * Allow filtering of the Black Friday sale start date, mainly for testing purposes.
 		 *
-		 * @since TBD
+		 * @since 4.12.14
 		 *
 		 * @param int $bf_start_date Unix time for the Monday of Thanksgiving week @ 6am UTC.
 		 */
@@ -89,7 +89,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * Unix time for Dec 1 @ 5am UTC. (5am UTC is 12am EST).
 	 *
-	 * @since TBD
+	 * @since 4.12.14
 	 *
 	 * @return int
 	 */
@@ -102,7 +102,7 @@ class Tribe__Admin__Notice__Marketing {
 		/**
 		 * Allow filtering of the Black Friday sale end date, mainly for testing purposes.
 		 *
-		 * @since TBD
+		 * @since 4.12.14
 		 *
 		 * @param int $bf_end_date Unix time for Dec 1 @ 6am UTC.
 		 */
@@ -114,7 +114,7 @@ class Tribe__Admin__Notice__Marketing {
 	 * Unix times for Monday of Thanksgiving week @ 6am UTC and Dec 1 2020 @ 6am UTC.
 	 * 6am UTC is midnight for TheEventsCalendar.com, which uses the America/Los_Angeles time zone.
 	 *
-	 * @since TBD
+	 * @since 4.12.14
 	 *
 	 * @return boolean
 	 */
@@ -149,7 +149,7 @@ class Tribe__Admin__Notice__Marketing {
 	/**
 	 * HTML for the Black Friday notice.
 	 *
-	 * @since TBD
+	 * @since 4.12.14
 	 *
 	 * @return string
 	 */

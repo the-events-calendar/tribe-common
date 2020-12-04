@@ -411,13 +411,13 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer for widgets.
 	 *
-	 * @since TBD
+	 * @since 4.12.14
 	 */
 	public function widget_inline_style() {
 		/**
 		 * Whether customizer styles should print for widgets or not.
 		 *
-		 * @since TBD
+		 * @since 4.12.14
 		 *
 		 * @param boolean $should_print Whether the inline styles should be printed on screen.
 		 */
@@ -583,11 +583,13 @@ final class Tribe__Customizer {
 			 * Allows people to Register and de-register the method to register more Fields
 			 *
 			 * @since 4.4
+			 * @since TBD Add Customizer instance as a parameter.
 			 *
 			 * @param array                $section
 			 * @param WP_Customize_Manager $manager
+			 * @param Tribe__Customizer    $customizer The current customizer instance.
 			 */
-			do_action( "tribe_customizer_register_{$id}_settings", $this->sections[ $id ], $this->manager );
+			do_action( "tribe_customizer_register_{$id}_settings", $this->sections[ $id ], $this->manager, $this );
 		}
 
 		/**
