@@ -172,5 +172,5 @@ var tribe_logger_data  = tribe_logger_data || {};
 	current_engine = get_current_engine();
 
 	update_download_link();
-	$options.change( update );
+	$options.on( 'change', update );
 } )( jQuery, tribe_logger_admin );
