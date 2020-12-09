@@ -515,7 +515,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * If NOT using an external object caching system, then check if the size, in bytes, of the data
 	 * to write to the database would fit into the `max_allowed_packet` setting or not.
 	 *
-	 * @since TBD
+	 * @since 4.12.14
 	 *
 	 * @param string|array|object $value The value to check.
 	 *

@@ -2,7 +2,7 @@
 /**
  * Utilities to manipulate file-system paths.
  *
- * @since   TBD
+ * @since   4.12.14
  *
  * @package Tribe\Utils
  */
@@ -12,7 +12,7 @@ namespace Tribe\Utils;
 /**
  * Class Paths
  *
- * @since   TBD
+ * @since   4.12.14
  *
  * @package Tribe\Utils
  */
@@ -24,7 +24,7 @@ class Paths {
 	 * The function will take care of merging the paths intersecting their common fragments.
 	 * E.g. `foo/bar/baz` and `bar/baz/test.php` will be merged int `foo/bar/baz/test.php`.
 	 *
-	 * @since TBD
+	 * @since 4.12.14
 	 *
 	 * @param array<string<array<string>> ...$paths A set of paths to merge, each one either a string or an array
 	 *                                              of path fragments.
