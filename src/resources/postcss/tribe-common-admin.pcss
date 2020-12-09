@@ -1014,6 +1014,17 @@ a.tribe-rating-link {
 	display: none;
 }
 
+/* = Widget Admin Screen
+============================ */
+.tribe-events-widget-admin-form__input-section p {
+	margin: 0;
+}
+
+.tribe-events-widget-admin-form__input-section h4 {
+	margin: .5em 0;
+}
+
+
 /* Media Queries for Mobile Dashboard */
 @media screen and (max-width: 782px) {
 
@@ -1224,7 +1235,6 @@ a.tribe-rating-link {
 		}
 	}
 }
-
 .tribe-marketing-notice {
 	padding: 1em;
 
@@ -1248,41 +1258,26 @@ a.tribe-rating-link {
 		clear: both;
 	}
 
-	.tribe-notice-icon {
-		bottom: 0;
+	.tribe-marketing-notice__icon {
 		display: none;
-		padding: 1rem;
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 125px;
+		flex-shrink: 0;
+		padding: 0;
+		position: static;
 
-		&:before {
-			content: '';
-			display: inline-block;
-			height: 100%;
-			width: 1%;
-			vertical-align: middle;
+		@media screen and (min-width: 320px) {
+			display: block;
 		}
 
 		img {
 			display: inline-block;
 			max-height: 100%;
-			max-width: 96%;
+			max-width: none;
 			vertical-align: middle;
-		}
-
-		@media screen and (min-width: 600px) and (max-width: 782px ) {
-			width: 135px;
-		}
-
-		@media screen and (min-width: 600px) {
-			display: block;
+			width: 100%;
 		}
 	}
 
-	.tribe-notice-content {
-
+	.tribe-marketing-notice__content {
 		@media screen and (min-width: 600px) and (max-width: 782px ) {
 			margin-left: 145px;
 		}
@@ -1309,26 +1304,149 @@ a.tribe-rating-link {
 			text-decoration: underline;
 		}
 	}
+}
 
-	&.tribe-bf-2018-tec {
+#wpcontent .notice-tribe-banner {
+	align-items: center;
+	background: #161B7D;
+	border: 0;
+	box-shadow: none;
+	display: flex;
+	justify-content: flex-start;
+	margin: 0 0 16px 0;
+	padding-right: 0;
+}
 
-		.button.button-primary {
-			margin: 10px 10px 0 0;
+.notice-tribe-banner {
+	.tribe-marketing-notice__icon {
+		width: 47px;
+
+		@media screen and (min-width: 400px) {
+			width: 67px;
+		}
+	}
+
+	.tribe-marketing-notice__content {
+		margin-left: 0;
+		padding: 1em 0;
+
+		@media screen and (min-width: 320px) {
+			margin-left: 22px;
 		}
 
-		@media screen and (max-width: 956px) {
+		@media screen and (min-width: 600px) and (max-width: 782px ) {
+			margin-left: 22px;
+			padding: 0;
+		}
 
-			.button.button-primary {
-				margin: 0 0 10px 0;
+		@media screen and (min-width: 782px) {
+			margin-left: 22px;
+			padding: 0;
+		}
+	}
+
+	h3 {
+		color: #fff;
+		display: block;
+		font-size: 0.875rem;
+		line-height: 1.25;
+		margin: 0 0 0.25rem 0;
+
+		@media screen and (min-width: 800px) {
+			display: inline-block;
+			font-size: 1rem;
+			margin: 0 0.5rem 0 0;
+		}
+	}
+
+	a {
+		border-bottom: 1px solid #fff;
+		line-height: 1.25;
+		margin: 0;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: none;
+		}
+
+		@media screen and (min-width: 800px) {
+			line-height: 1.5;
+		}
+	}
+
+	a,
+	p {
+		color: #fff;
+		display: inline-block;
+		font-size: 0.875rem;
+		line-height: 1.25;
+
+		@media screen and (min-width: 800px) {
+			font-size: 1rem;
+		}
+	}
+
+	p {
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+
+		@media screen and (min-width: 800px) {
+			margin: 0 0.5rem 0 0;
+		}
+	}
+
+	.tribe-marketing-notice {
+		align-items: center;
+		display: flex;
+		justify-content: flex-start;
+		margin: 0 auto;
+		min-height: 65px;
+		padding: 0 0.75rem;
+		width: 100%;
+
+		.events_page_tribe-app-shop &,
+		.tribe_events_page_tribe-app-shop & {
+			max-width: 100%;
+
+			@media screen and (min-width: 782px) {
+				max-width: 642px;
 			}
 
-			em {
-				clear: both;
-				display: block;
+			@media screen and (min-width: 1215px) {
+				max-width: 992px;
+			}
+		}
+
+		.tribe-welcome & {
+			max-width: 100%;
+
+			@media screen and (min-width: 782px) {
+				max-width: 642px;
+			}
+
+			@media screen and (min-width: 1215px) {
+				max-width: 1036px;
 			}
 		}
 	}
+
+	.notice-dismiss {
+		position: static;
+
+		&:before {
+			color: #eaf1ff;
+		}
+	}
+
+	.tribe-marketing-notice__cta {
+		@media screen and (min-width: 800px) {
+			display: inline-block;
+			margin-left: 0.5rem;
+		}
+	}
 }
+
 
 .tribe-ea-dropdown,
 .tribe-dropdown {
@@ -1671,6 +1789,11 @@ body.tribe-welcome {
 	#wpbody-content {
 		padding-bottom: 25px;
 	}
+
+	/* hide our dependency errors so we don't make a bad first impression */
+	.tribe-dependency-error {
+		display: none;
+	}
 }
 
 
@@ -1735,6 +1858,21 @@ body.tribe-welcome {
 			margin: 0 48px 10px 0;
 		}
 
+	}
+}
+
+.tribe-events-admin-video {
+	-webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+	-webkit-transform: rotate(0.000001deg);
+	-webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+	height: 200px; /* this is overridden by JS, but is a starting point for less flicker */
+	margin-bottom: 72px;
+	overflow: hidden;
+
+	iframe {
+		width: 100%;
 	}
 }
 
@@ -2007,12 +2145,13 @@ input[type="email"].tribe-events-admin-card__input {
 	margin: 40px 0 78px 0;
 	padding: 18px 23px 2px 23px;
 
-	@media screen and (min-width: 710px) {
+	@media screen and (min-width: 1217px) {
+		display: inline-block;
 		border-radius: 100px;
 		margin: 24px 0 94px 0;
-		padding: 0;
+		max-width: 1010px;
+		padding: 0 36px 0 0;
 		height: 54px;
-		width: 620px;
 	}
 }
 
@@ -2032,7 +2171,7 @@ input[type="email"].tribe-events-admin-card__input {
 	display: block;
 	padding-bottom: 19px;
 
-	@media screen and (min-width: 710px) {
+	@media screen and (min-width: 1217px) {
 		display: inline-block;
 		padding: 18px 10px 0 10px;
 	}
@@ -2051,7 +2190,7 @@ input[type="email"].tribe-events-admin-card__input {
 	padding-bottom: 14px;
 	text-transform: uppercase;
 
-	@media screen and (min-width: 710px) {
+	@media screen and (min-width: 1217px) {
 		padding: 19px 6px 17px 32px;
 	}
 }
@@ -2117,6 +2256,84 @@ input[type="email"].tribe-events-admin-card__input {
 		width: 40px;
 	}
 }
+
+.tribe-events-admin-notice {
+	background-color: #3D54FF;
+	height: 65px;
+
+	.tribe-events-admin-content-wrapper {
+		padding-top: 8px;
+		padding-bottom: 0;
+	}
+
+	p {
+		color: #fff;
+		display: inline-block;
+		font-family: Helvetica;
+		font-size: 16px;
+		line-height: 18px;
+		margin-top: 0px;
+		padding-bottom: 12px;
+		padding-left: 16px;
+		vertical-align: middle;
+		width: calc(100% - 60px);
+	}
+}
+
+.tribe-events-admin-notice__logo {
+	display: inline-block;
+}
+
+/* -- Event Tickets tweaks for welcome screen -- */
+.tribe-events-admin-tickets {
+
+	.tribe-events-admin-section-header {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.tribe-events-admin-graphic--desktop-only {
+		width: 365px;
+	}
+
+	.tribe-events-admin-graphic--mobile-only {
+		width: 300px;
+		top: 230px;
+	}
+
+	.tribe-events-admin-title__heading {
+		margin-top: 0;
+	}
+
+	.tribe-events-admin-card__title {
+		@media screen and (min-width: 710px) {
+			font-size: 18px;
+		}
+	}
+
+	.tribe-events-admin-card--2up .tribe-events-admin-card__title {
+		@media screen and (min-width: 710px) {
+			font-size: 18px;
+			height: 66px;
+		}
+
+		@media screen and (min-width: 1217px) {
+			height: auto;
+		}
+	}
+
+	.tribe-events-admin-title__logo {
+		margin-right: 4px;
+		width: 32px;
+
+		@media screen and (min-width: 710px) {
+			margin-right: 8px;
+			padding-top: 4px;
+			width: 60px;
+		}
+	}
+}
+
 
 /* -- Freemius tweaks -- */
 body.tribe-welcome #fs_connect {
