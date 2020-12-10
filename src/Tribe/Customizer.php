@@ -119,9 +119,6 @@ final class Tribe__Customizer {
 		add_action( 'wp_print_footer_scripts', [ $this, 'shortcode_inline_style' ], 5 );
 		add_action( 'wp_print_footer_scripts', [ $this, 'widget_inline_style' ], 5 );
 
-		// Styles for the Customizer controls.
-		add_action('customize_controls_print_styles', [$this,'enqueue_customizer_controls_styles']);
-
 		/**
 		 * Allows filtering the action that will be used to trigger the printing of inline scripts.
 		 *
@@ -830,15 +827,5 @@ final class Tribe__Customizer {
 		$result .= '</style>';
 
 		return $result;
-	}
-
-	/**
-	 * Enqueues the Customizer controls custom styles.
-	 *
-	 * @since TBD
-	 */
-	public function enqueue_customizer_controls_styles() {
-		$src = Tribe__Events__Main::instance()->pluginUrl . 'src/resources/css/customizer-controls.css';
-		wp_enqueue_style( 'tribe-customizer-controls-sytle', $src );
 	}
 }
