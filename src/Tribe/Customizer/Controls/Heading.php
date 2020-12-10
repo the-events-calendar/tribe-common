@@ -44,7 +44,7 @@ class Heading extends Control {
 	 */
 	public function render_content() {
 		?>
-		<h4 class="tribe-customize-control-heading">
+		<h4 style="font-size: 20px; font-weight: normal; line-height: 1.75; margin-top: 0; margin-bottom: 0px;">
 			<?php echo esc_html( $this->label ); ?>
 		</h4>
 		<?php
