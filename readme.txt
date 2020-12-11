@@ -7,6 +7,7 @@
 * Tweak - Add the `tribe_customizer_print_styles_action` to allow filtering the action the Customizer will use to print inline styles. [TEC-3686]
 * Tweak - Allow disabling and enabling logging functionality by calling hte `tribe( 'log' )->disable()` and `tribe( 'log' )->enable()` methods on the Log service provider.
 * Tweak - Update di52 containers to latest version for compatibility with WPStaging Pro. [BTRIA-650]
+* Language - 0 new strings added, 9 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.14] 2020-12-02 =
 
@@ -26,7 +27,7 @@
 
 * Fix - Prevent `tribe_get_first_ever_installed_version()` from having to spawn an instance of the Main class for version history.
 
-= [4.12.13] 2020-11-19 =
+= [4.12.13] 2020-11-19 =w
 
 * Tweak - Allow deletion of non persistent keys from Tribe__Cache handling. [ET-917]
 * Fix - Prevent items without children to be marked as groups in SelectWoo UI. [CE-106]
