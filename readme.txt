@@ -2,11 +2,7 @@
 
 == Changelog ==
 
-= [4.12.16] TBD =
-
-
-
-= [4.12.15] TBD =
+= [4.12.15] 2020-12-16 =
 
 * Tweak - Add the `tribe_customizer_print_styles_action` to allow filtering the action the Customizer will use to print inline styles. [TEC-3686]
 * Tweak - Allow disabling and enabling logging functionality by calling hte `tribe( 'log' )->disable()` and `tribe( 'log' )->enable()` methods on the Log service provider.
