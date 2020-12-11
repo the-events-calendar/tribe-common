@@ -151,7 +151,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Enables logging in the service provider, if not already enabled.
 	 *
-	 * @since TBD
+	 * @since 4.12.15
 	 */
 	public function enable() {
 		if ( has_action( 'tribe_log', [ $this, 'dispatch_log' ] ) ) {
@@ -164,7 +164,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Disables the logging functions.
 	 *
-	 * @since TBD
+	 * @since 4.12.15
 	 */
 	public function disable() {
 		if ( ! has_action( 'tribe_log', [ $this, 'dispatch_log' ] ) ) {

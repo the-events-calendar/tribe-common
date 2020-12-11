@@ -125,7 +125,7 @@ final class Tribe__Customizer {
 		 * By default inline scripts will be printed on the `wp_enqueue_scripts` action, but other
 		 * plugins or later iterations might require inline styles to be printed on other actions.
 		 *
-		 * @since TBD
+		 * @since 4.12.15
 		 *
 		 * @param string $inline_script_action_handle The handle of the action that will be used to try
 		 *                                            and attempt to print inline scripts.
@@ -433,7 +433,7 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer using wp_add_inline_style
 	 *
-	 * @since TBD Added the `$force` parameter to force the print of the style inline.
+	 * @since 4.12.15 Added the `$force` parameter to force the print of the style inline.
 	 *
 	 * @param bool $force Whether to ignore the context to try and printe the style inline, or not.
 	 */
@@ -485,7 +485,7 @@ final class Tribe__Customizer {
 				/**
 				 * Fires before a style is, possibly, printed inline depending on the stylesheet.
 				 *
-				 * @since TBD
+				 * @since 4.12.15
 				 *
 				 * @param string $sheet The handle of the stylesheet the style will be printed inline for.
 				 * @param string $inline_style The inline style contents, as they will be printed on the page.
@@ -583,7 +583,7 @@ final class Tribe__Customizer {
 			 * Allows people to Register and de-register the method to register more Fields
 			 *
 			 * @since 4.4
-			 * @since TBD Add Customizer instance as a parameter.
+			 * @since 4.12.15 Add Customizer instance as a parameter.
 			 *
 			 * @param array                $section
 			 * @param WP_Customize_Manager $manager
