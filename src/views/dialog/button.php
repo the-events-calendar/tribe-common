@@ -6,8 +6,8 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/button.php
  *
  * @since 4.10.0
- * @since TBD Add data attributes to the button.
- * @since TBD Don't render template if `$button_display` is set to false.
+ * @since 4.12.15 Add data attributes to the button.
+ * @since 4.12.15 Don't render template if `$button_display` is set to false.
  * @since TBD Allow having basic HTMl within the button content so we can add elements with texts for a11y.
  *
  * @package Tribe
