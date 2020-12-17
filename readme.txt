@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.12.16] TBD =
+
+
+
 = [4.12.15] 2020-12-15 =
 
 * Tweak - Add the `tribe_customizer_print_styles_action` to allow filtering the action the Customizer will use to print inline styles. [TEC-3686]
