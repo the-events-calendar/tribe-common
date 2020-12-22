@@ -4,6 +4,7 @@
 
 = [4.12.17] TBD =
 
+* Fix - Increase the minimum width of the datetime dropdown when editing an event with the block editor. [TEC-3126]
 
 = [4.12.16] TBD =
 
