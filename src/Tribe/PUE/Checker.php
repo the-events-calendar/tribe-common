@@ -235,7 +235,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string
 		 */
 		public function get_pue_update_url() {
-			$pue_update_url = 'https://pue.tri.be';
+			$pue_update_url = 'https://pue.theeventscalendar.com';
 
 			if ( defined( 'PUE_UPDATE_URL' ) ) {
 				$pue_update_url = PUE_UPDATE_URL;
