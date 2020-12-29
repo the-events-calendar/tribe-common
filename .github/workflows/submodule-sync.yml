@@ -28,7 +28,7 @@ jobs:
       - name: Fetch tut
         uses: actions/checkout@v2
         with:
-          repository: 'moderntribe/tut'
+          repository: 'the-events-calendar/tut'
           ref: 'main'
           path: 'tut'
 
