@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.12.15.1] 2020-12-29 =
+
+* Tweak - Point PUE URLs to the correct servers to avoid redirects
+
 = [4.12.15] 2020-12-15 =
 
 * Tweak - Add the `tribe_customizer_print_styles_action` to allow filtering the action the Customizer will use to print inline styles. [TEC-3686]
