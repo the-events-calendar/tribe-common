@@ -4,7 +4,7 @@
 
 = [4.12.15.1] 2020-12-29 =
 
-* Tweak - Point PUE URLs to the correct servers to avoid redirects
+* Tweak - Point PUE URLs to the correct servers to avoid redirects.
 
 = [4.12.15] 2020-12-15 =
 
