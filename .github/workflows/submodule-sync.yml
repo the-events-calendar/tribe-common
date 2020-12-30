@@ -28,7 +28,7 @@ jobs:
       - name: Fetch tut
         uses: actions/checkout@v2
         with:
-          repository: 'moderntribe/tut'
+          repository: 'the-events-calendar/tut'
           ref: 'main'
           path: 'tut'
 
@@ -55,7 +55,7 @@ jobs:
         run: |
           cd tut && echo "GITHUB_USER=$GITHUB_USER" >> .env && echo "GITHUB_OAUTH_TOKEN=$GITHUB_OAUTH_TOKEN" >> .env
         env:
-          GITHUB_USER: tr1b0t
+          GITHUB_USER: ${{ secrets.GH_BOT_USER }}
           GITHUB_OAUTH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
 
       - name: Synchronize submodules
