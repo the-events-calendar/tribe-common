@@ -95,13 +95,62 @@ class Tribe__Ajax__Dropdown {
 	}
 
 	/**
-	 * Sorts Hierarchically all the Terms for Select2
+	 * Search for Posts using Select2
+	 *
+	 * @since  TBD
+	 *
+	 * @param  string|array        $search   Search string from Select2.
+	 * @param  int                 $page     When we deal with pagination.
+	 * @param  array,string,mixed> $args     Arguments to pass to the query.
+	 * @param  string|int          $selected Selected item ID.
+	 *
+	 * @return array
+	 */
+	public function search_posts( $search, $page = 1, $args, $selected ) {
+		$posts_per_page = 10;
+		$data           = [];
+
+		if ( ! empty( $search ) ) {
+			if ( is_array( $search ) ) {
+				// Newer SelectWoo uses a new search format.
+				$args['s'] = $search['term']; // post?
+			} else {
+				// For older pieces that still use Select2 format.
+				$args['s'] = $search;
+			}
+		}
+
+		$args['posts_per_page'] = $posts_per_page;
+		$args['paged']          = $page;
+
+		$results = new WP_Query( $args );
+
+		if ( ! $results->have_posts() ) {
+			return $data;
+		}
+
+		foreach( $results->posts as $post ) {
+			// Prep for Select2
+			$post->id        = $post->ID;
+			$post->text      = $post->post_title;
+			$post->selected  = ! empty( $selected ) && (int) $post->id === (int) $selected;
+			$data['posts'][] = $post;
+		}
+
+		// Handle pagination while we have post count.
+		$data['pagination'] = $results->found_posts > $posts_per_page;
+
+		return $data;
+	}
+
+	/**
+	 * Sorts all the Terms for Select2 hierarchically.
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array   &$terms Array of Terms from `get_terms`
-	 * @param  array   &$into  Variable where we will store the
-	 * @param  integer $parent Used for the recursion
+	 * @param  array   &$terms Array of Terms from `get_terms`.
+	 * @param  array   &$into  Variable where we will store the.
+	 * @param  integer $parent Used for the recursion.
 	 *
 	 * @return array
 	 */
@@ -128,7 +177,7 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array  $results  The Select2
+	 * @param  array|object  $results  The Select2
 	 *
 	 * @return array
 	 */
@@ -189,7 +238,7 @@ class Tribe__Ajax__Dropdown {
 			$this->error( esc_attr__( 'Missing data source for this dropdown', 'tribe-common' ) );
 		}
 
-		// Define a Filter to allow external calls to our Select2 Dropboxes
+		// Define a Filter to allow external calls to our Select2 Dropdowns.
 		$filter = sanitize_key( 'tribe_dropdown_' . $args->source );
 		if ( has_filter( $filter ) ) {
 			$data = apply_filters( $filter, [], $args->search, $args->page, $args->args, $args->source );
@@ -197,7 +246,7 @@ class Tribe__Ajax__Dropdown {
 			$data = call_user_func_array( [ $this, $args->source ], (array) $args );
 		}
 
-		// if we got a empty dataset we return an error
+		// If we've got a empty dataset we return an error.
 		if ( empty( $data ) ) {
 			$this->error( esc_attr__( 'Empty data set for this dropdown', 'tribe-common' ) );
 		} else {

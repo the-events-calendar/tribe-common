@@ -160,6 +160,7 @@ function tribe_format_field_dependency( $deps ) {
 
 	$accepted = [
 		'id',
+		'parent',
 		'is',
 		'is-not',
 		'is-empty',
@@ -178,14 +179,20 @@ function tribe_format_field_dependency( $deps ) {
 
 		// Handle the ID component.
 		if ( 'id' === $attr ) {
-			$dependency .= " data-depends=\"{$value}\"";
+			$dependency .= " data-depends=\"#{$value}\"";
+			continue;
+		}
+
+		// Handle the dependent parent component.
+		if ( 'parent' === $attr ) {
+			$dependency .= " data-dependent-parent=\"{$value}\"";
 			continue;
 		}
 
 		// Handle boolean values.
 		if ( is_bool( $value ) ) {
 			if ( $value ) {
-				$dependency .= " data-{$attr}";
+				$dependency .= " data-condition-{$attr}";
 			} else {
 				if ( 0 === stripos( $attr, 'is-not-' ) ) {
 					$attr = str_replace( 'is-not-', 'is-', $attr );
@@ -193,8 +200,7 @@ function tribe_format_field_dependency( $deps ) {
 					$attr = str_replace( 'is-', 'is-not-', $attr );
 				}
 
-				$dependency .= " data-{$attr}";
-				continue;
+				$dependency .= " data-condition-{$attr}";
 			}
 
 			continue;
@@ -202,7 +208,7 @@ function tribe_format_field_dependency( $deps ) {
 
 		// Handle string and "empty" values
 		if( 0 === strlen( $value ) ) {
-			$dependency .= " data-{$attr}";
+			$dependency .= " data-condition-{$attr}";
 		} else if ( 'is' === $attr ) {
 			$dependency .= " data-condition=\"{$value}\"";
 		} else if ( 'is-not' === $attr ) {
