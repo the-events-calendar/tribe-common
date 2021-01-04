@@ -101,7 +101,7 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @param  string|array        $search   Search string from Select2.
 	 * @param  int                 $page     When we deal with pagination.
-	 * @param  array,string,mixed> $args     Arguments to pass to the query.
+	 * @param  array<string,mixed> $args     Arguments to pass to the query.
 	 * @param  string|int          $selected Selected item ID.
 	 *
 	 * @return array
@@ -122,6 +122,8 @@ class Tribe__Ajax__Dropdown {
 
 		$args['posts_per_page'] = $posts_per_page;
 		$args['paged']          = $page;
+		$args['update_post_meta_cache'] = false;
+		$args['update_post_term_cache'] = false;
 
 		$results = new WP_Query( $args );
 
