@@ -100,7 +100,7 @@ class Tribe__Ajax__Dropdown {
 	 * @since  TBD
 	 *
 	 * @param  string|array        $search   Search string from Select2.
-	 * @param  int                 $page     When we deal with pagination.
+	 * @param  int                 $page     Page we want when we're dealing with pagination.
 	 * @param  array<string,mixed> $args     Arguments to pass to the query.
 	 * @param  string|int          $selected Selected item ID.
 	 *
@@ -120,27 +120,40 @@ class Tribe__Ajax__Dropdown {
 			}
 		}
 
-		$args['posts_per_page'] = $posts_per_page;
-		$args['paged']          = $page;
+		$args['posts_per_page']         = $posts_per_page;
+		$args['paged']                  = $page;
 		$args['update_post_meta_cache'] = false;
 		$args['update_post_term_cache'] = false;
+		$args['field']                  = 'ids';
 
 		$results = new WP_Query( $args );
-
-		if ( ! $results->have_posts() ) {
-			return $data;
+		if ( empty( $results ) ) {
+			return false;
 		}
 
-		foreach( $results->posts as $post ) {
+
+		$events = wp_list_pluck( $results->posts, 'ID' ) ;
+		if ( ! empty( $selected ) && ! in_array( $selected, $events) ) {
+			$events[] = $selected;
+		}
+
+		$events_list = implode( ',', $events );
+
+		global $wpdb;
+		$sql = "SELECT ID, post_title FROM {$wpdb->prefix}posts WHERE ID in ({$events_list})";
+		$option_list = $wpdb->get_results( $sql, OBJECT_K );
+
+		foreach( $events as $id ) {
 			// Prep for Select2
-			$post->id        = $post->ID;
-			$post->text      = $post->post_title;
-			$post->selected  = ! empty( $selected ) && (int) $post->id === (int) $selected;
-			$data['posts'][] = $post;
+			$data['posts'][] = [
+				'id'        => $id,
+				'text'      => $option_list[$id]->post_title,
+				'selected'  => ! empty( $selected ) && (int) $id === (int) $selected,
+			];
 		}
 
 		// Handle pagination while we have post count.
-		$data['pagination'] = $results->found_posts > $posts_per_page;
+		$data['pagination'] = $results->found_posts > ( $page * $posts_per_page );
 
 		return $data;
 	}
