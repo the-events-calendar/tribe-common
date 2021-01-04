@@ -30,7 +30,7 @@ class dependenciesTest extends \Codeception\TestCase\WPTestCase {
 		$dependencies = tribe_format_field_dependency( $deps );
 
 		// Note the leading space - this is intentional, so we're not trim()-ing it to ensure it gets added!
-		$this->assertEquals( ' data-depends="1" data-is-not-empty', $dependencies );
+		$this->assertEquals( ' data-depends="#1" data-condition-is-not-empty', $dependencies );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class dependenciesTest extends \Codeception\TestCase\WPTestCase {
 		];
 		$dependencies = tribe_format_field_dependency( $deps );
 
-		$this->assertEquals( ' data-depends="2" data-condition="1"', $dependencies );
+		$this->assertEquals( ' data-depends="#2" data-condition="1"', $dependencies );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class dependenciesTest extends \Codeception\TestCase\WPTestCase {
 		];
 		$dependencies = tribe_format_field_dependency( $deps );
 
-		$this->assertEquals( ' data-depends="3" data-condition="yes"', $dependencies );
+		$this->assertEquals( ' data-depends="#3" data-condition="yes"', $dependencies );
 	}
 
 }

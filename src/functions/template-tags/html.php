@@ -181,7 +181,7 @@ function tribe_format_field_dependency( $deps ) {
 		if ( 'id' === $attr ) {
 			// Prepend a hash "#" if it's missing.
 			if ( '#' !== substr( $value, 0, 1 ) ) {
-				$value = '#' + $value;
+				$value = '#' . $value;
 			}
 
 			$dependency .= " data-depends=\"{$value}\"";
@@ -205,7 +205,7 @@ function tribe_format_field_dependency( $deps ) {
 					$attr = str_replace( 'is-', 'is-not-', $attr );
 				}
 
-				$dependency .= " data-condition-{$attr}";
+				$dependency .= " data-{$attr}";
 			}
 
 			continue;
