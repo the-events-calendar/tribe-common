@@ -24,12 +24,12 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  string|array $search Search string from Select2
-	 * @param  int          $page   When we deal with pagination
-	 * @param  array        $args   Which arguments we got from the Template
-	 * @param  string       $source What source it is
+	 * @param  string|array<string|mixed> $search Search string from Select2
+	 * @param  int                        $page   When we deal with pagination
+	 * @param  array<string|mixed>        $args   Which arguments we got from the Template
+	 * @param  string                     $source What source it is
 	 *
-	 * @return array
+	 * @return array<string|mixed>
 	 */
 	public function search_terms( $search, $page, $args, $source ) {
 		$data = [];
@@ -104,7 +104,7 @@ class Tribe__Ajax__Dropdown {
 	 * @param  array<string,mixed> $args     Arguments to pass to the query.
 	 * @param  string|int          $selected Selected item ID.
 	 *
-	 * @return array
+	 * @return array<string|mixed>
 	 */
 	public function search_posts( $search, $page = 1, $args, $selected ) {
 		$posts_per_page = 10;
@@ -150,11 +150,11 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array   &$terms Array of Terms from `get_terms`.
-	 * @param  array   &$into  Variable where we will store the.
-	 * @param  integer $parent Used for the recursion.
+	 * @param  array<int|object>   &$terms Array of Terms from `get_terms`.
+	 * @param  array<string|mixed> &$into  Variable where we will store the.
+	 * @param  integer             $parent Used for the recursion.
 	 *
-	 * @return array
+	 * @return array<string|mixed>
 	 */
 	public function sort_terms_hierarchically( &$terms, &$into, $parent = 0 ) {
 		foreach ( $terms as $i => $term ) {
@@ -179,9 +179,9 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array|object  $results  The Select2
+	 * @param  object|array<string|mixed>  $results The Select2 results
 	 *
-	 * @return array
+	 * @return array<string|mixed>
 	 */
 	public function convert_children_to_array( $results ) {
 		if ( isset( $results->children ) ) {
@@ -207,7 +207,7 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array  $params Params to overwrite the defaults
+	 * @param  array<string|mixed>  $params Params to overwrite the defaults
 	 * @return object
 	 */
 	public function parse_params( $params ) {
@@ -259,9 +259,10 @@ class Tribe__Ajax__Dropdown {
 	/**
 	 * Prints a success message and ensures that we don't hit bugs on Select2
 	 *
-	 * @since  4.6
+	 * @since 4.6
 	 *
-	 * @param  array $data
+	 * @param array $data
+	 *
 	 * @return void
 	 */
 	private function success( $data ) {
@@ -278,7 +279,8 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array $data
+	 * @param array<string|mixed> $data
+	 *
 	 * @return void
 	 */
 	private function error( $message ) {

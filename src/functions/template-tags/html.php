@@ -179,7 +179,12 @@ function tribe_format_field_dependency( $deps ) {
 
 		// Handle the ID component.
 		if ( 'id' === $attr ) {
-			$dependency .= " data-depends=\"#{$value}\"";
+			// Prepend a hash "#" if it's missing.
+			if ( '#' !== substr( $value, 0, 1 ) ) {
+				$value = '#' + $value;
+			}
+
+			$dependency .= " data-depends=\"{$value}\"";
 			continue;
 		}
 
