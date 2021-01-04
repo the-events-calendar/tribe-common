@@ -2,7 +2,10 @@
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.12.17] TBD =
+
+
+= [4.12.16] TBD =
 
 * Fix - Resolve PHP 8.0 incompatibility with `__wakeup` and `__clone` visibility on Extension class.
 * Fix - Prevent `tribe_sort_by_priority` from throwing warnings on `uasort` usage for PHP 8+ compatibility.
