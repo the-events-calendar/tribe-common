@@ -39,13 +39,13 @@
     {
       "name": "moderntribe/tribe-testing-facilities",
       "type": "github",
-      "url": "https://github.com/moderntribe/tribe-testing-facilities",
+      "url": "https://github.com/the-events-calendar/tec-testing-facilities",
       "no-api": true
     },
     {
       "name": "moderntribe/TribalScents",
       "type": "github",
-      "url": "https://github.com/moderntribe/TribalScents",
+      "url": "https://github.com/the-events-calendar/TribalScents",
       "no-api": true
     },
     {
