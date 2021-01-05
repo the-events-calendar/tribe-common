@@ -26,8 +26,8 @@ class Paths {
 	 *
 	 * @since 4.12.14
 	 *
-	 * @param array<string<array<string>> ...$paths A set of paths to merge, each one either a string or an array
-	 *                                              of path fragments.
+	 * @param string|array<string<array<string>> ...$paths A set of paths to merge, each one either a string or an array
+	 *                                                     of path fragments.
 	 *
 	 * @return string The merged path, the path intersecting fragments removed.
 	 */
@@ -39,12 +39,21 @@ class Paths {
 			$paths = array_merge( $slice, [ static::merge( ...$paths ) ] );
 		}
 
-		$path_1                 = isset( $paths[0] ) ? $paths[0] : '';
-		$lead_slash             = is_string( $path_1 ) && $path_1 !== ltrim( $path_1, '\\/' ) ? DIRECTORY_SEPARATOR : '';
-		$path_2                 = isset( $paths[1] ) ? $paths[1] : '';
-		$trail_slash            = is_string( $path_2 ) && $path_2 !== rtrim( $path_2, '\\/' ) ? DIRECTORY_SEPARATOR : '';
-		$path_1_frags           = is_array( $path_1 ) ? $path_1 : array_filter( (array) preg_split( '/[\\\\\\/]/', $path_1 ) );
-		$path_2_frags           = is_array( $path_2 ) ? $path_2 : array_filter( (array) preg_split( '/[\\\\\\/]/', $path_2 ) );
+		$path_1             = isset( $paths[0] ) ? $paths[0] : '';
+		$lead_slash         = is_string( $path_1 ) && $path_1 !== ltrim( $path_1, '\\/' ) ? DIRECTORY_SEPARATOR : '';
+		$path_2             = isset( $paths[1] ) ? $paths[1] : '';
+		$trail_slash        = is_string( $path_2 ) && $path_2 !== rtrim( $path_2, '\\/' ) ? DIRECTORY_SEPARATOR : '';
+		$drop_empty_strings = static function ( $frag ) {
+			return $frag !== '';
+		};
+		// Handle *nix spacing escape sequence (`\ `) correctly. The Windows one (`^ `) is already handled.
+		$break_pattern          = '/[\\\\\\/](?!\\s)/';
+		$path_1_frags           = is_array( $path_1 )
+			? $path_1
+			: array_filter( (array) preg_split( $break_pattern, $path_1 ), $drop_empty_strings );
+		$path_2_frags           = is_array( $path_2 )
+			? $path_2
+			: array_filter( (array) preg_split( $break_pattern, $path_2 ), $drop_empty_strings );
 		$non_consecutive_common = array_intersect( $path_1_frags, $path_2_frags );
 		$trimmed_path_2         = trim(
 			preg_replace(
@@ -53,7 +62,7 @@ class Paths {
 			),
 			'\\/'
 		);
-		$merged_paths .= $lead_slash . implode( DIRECTORY_SEPARATOR, $path_1_frags );
+		$merged_paths           .= $lead_slash . implode( DIRECTORY_SEPARATOR, $path_1_frags );
 		if ( $trimmed_path_2 ) {
 			$merged_paths .= DIRECTORY_SEPARATOR . $trimmed_path_2 . $trail_slash;
 		}
