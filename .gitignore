@@ -41,7 +41,3 @@ src/resources/js/**/*.min.js
 # get from translate.wordpress.org as needed
 lang/*.po
 lang/*.mo
-
-# tric files
-*.tric
-*.tric.*

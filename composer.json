@@ -13,7 +13,7 @@
     "codeception/codeception": "^2.5.5",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
     "lucatume/function-mocker-le": "^1.0",
-    "lucatume/wp-browser": "^2.2.4",
+    "lucatume/wp-browser": "^2.6.17",
     "moderntribe/tribalscents": "dev-master",
     "moderntribe/tribe-testing-facilities": "dev-master",
     "phpunit/phpunit": "~6.0",
