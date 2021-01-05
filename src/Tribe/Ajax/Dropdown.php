@@ -134,7 +134,7 @@ class Tribe__Ajax__Dropdown {
 
 		$events = wp_list_pluck( $results->posts, 'ID' ) ;
 
-		$events_list = implode( ',', $events );
+		$events_list = implode( ',', array_filter( $events, 'absint' ) );
 
 		global $wpdb;
 		$sql = "SELECT ID, post_title FROM {$wpdb->prefix}posts WHERE ID in ({$events_list})";
