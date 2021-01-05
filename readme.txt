@@ -7,6 +7,7 @@
 
 = [4.12.16] TBD =
 
+* Fix - Correctly handle *nix and Windows server paths that contain falsy values (e.g. `0` or spaces) when building template paths. [TEC-3712]
 
 
 = [4.12.15] 2020-12-15 =
