@@ -133,9 +133,6 @@ class Tribe__Ajax__Dropdown {
 
 
 		$events = wp_list_pluck( $results->posts, 'ID' ) ;
-		if ( ! empty( $selected ) && ! in_array( $selected, $events) ) {
-			$events[] = $selected;
-		}
 
 		$events_list = implode( ',', $events );
 
