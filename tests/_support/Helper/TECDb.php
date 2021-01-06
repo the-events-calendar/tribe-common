@@ -4,7 +4,7 @@ namespace Tribe\Tests\Helper;
 
 use Codeception\Module\WPDb;
 
-class TribeDb extends \Codeception\Module {
+class TECDb extends \Codeception\Module {
 
 	/**
 	 * @var WPDb
