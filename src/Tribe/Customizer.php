@@ -115,10 +115,24 @@ final class Tribe__Customizer {
 		add_action( 'wp_print_footer_scripts', [ $this, 'print_css_template' ], 15 );
 
 		// front end styles from customizer
-		add_action( 'wp_enqueue_scripts', [ $this, 'inline_style' ], 15 );
 		add_action( 'tribe_events_pro_widget_render', [ $this, 'inline_style' ], 101 );
 		add_action( 'wp_print_footer_scripts', [ $this, 'shortcode_inline_style' ], 5 );
 		add_action( 'wp_print_footer_scripts', [ $this, 'widget_inline_style' ], 5 );
+
+		/**
+		 * Allows filtering the action that will be used to trigger the printing of inline scripts.
+		 *
+		 * By default inline scripts will be printed on the `wp_enqueue_scripts` action, but other
+		 * plugins or later iterations might require inline styles to be printed on other actions.
+		 *
+		 * @since 4.12.15
+		 *
+		 * @param string $inline_script_action_handle The handle of the action that will be used to try
+		 *                                            and attempt to print inline scripts.
+		 */
+		$print_styles_action = apply_filters( 'tribe_customizer_print_styles_action', 'wp_enqueue_scripts' );
+
+		add_action( $print_styles_action, [ $this, 'inline_style' ], 15 );
 
 		add_filter( "default_option_{$this->ID}", [ $this, 'maybe_fallback_get_option' ] );
 	}
@@ -419,11 +433,13 @@ final class Tribe__Customizer {
 	/**
 	 * Print the CSS for the customizer using wp_add_inline_style
 	 *
-	 * @return void
+	 * @since 4.12.15 Added the `$force` parameter to force the print of the style inline.
+	 *
+	 * @param bool $force Whether to ignore the context to try and printe the style inline, or not.
 	 */
-	public function inline_style() {
+	public function inline_style( $force = false ) {
 		// Only load once on front-end.
-		if ( is_customize_preview() || is_admin() || $this->inline_style ) {
+		if ( ! $force && ( is_customize_preview() || is_admin() || $this->inline_style ) ) {
 			return false;
 		}
 
@@ -461,10 +477,34 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		// add customizer styles inline with the latest stylesheet that is enqueued.
+		// Add customizer styles inline with the latest stylesheet that is enqueued.
 		foreach ( array_reverse( $sheets ) as $sheet ) {
 			if ( wp_style_is( $sheet ) ) {
-				wp_add_inline_style( $sheet, wp_strip_all_tags( $this->parse_css_template( $css_template ) ) );
+				$inline_style = wp_strip_all_tags( $this->parse_css_template( $css_template ) );
+
+				/**
+				 * Fires before a style is, possibly, printed inline depending on the stylesheet.
+				 *
+				 * @since 4.12.15
+				 *
+				 * @param string $sheet The handle of the stylesheet the style will be printed inline for.
+				 * @param string $inline_style The inline style contents, as they will be printed on the page.
+				 */
+				do_action( 'tribe_customizer_before_inline_style', $sheet, $inline_style );
+
+				// Just print styles if doing 'wp_print_footer_scripts' action.
+				$just_print = (bool) doing_action( 'wp_print_footer_scripts' );
+
+				if ( $just_print ) {
+					printf(
+						"<style id='%s-inline-css' type='text/css'>\n%s\n</style>\n",
+						esc_attr( $sheet ),
+						$inline_style
+					);
+				} else {
+					wp_add_inline_style( $sheet, $inline_style );
+				}
+
 				$this->inline_style = true;
 
 				break;
@@ -543,11 +583,13 @@ final class Tribe__Customizer {
 			 * Allows people to Register and de-register the method to register more Fields
 			 *
 			 * @since 4.4
+			 * @since 4.12.15 Add Customizer instance as a parameter.
 			 *
 			 * @param array                $section
 			 * @param WP_Customize_Manager $manager
+			 * @param Tribe__Customizer    $customizer The current customizer instance.
 			 */
-			do_action( "tribe_customizer_register_{$id}_settings", $this->sections[ $id ], $this->manager );
+			do_action( "tribe_customizer_register_{$id}_settings", $this->sections[ $id ], $this->manager, $this );
 		}
 
 		/**
