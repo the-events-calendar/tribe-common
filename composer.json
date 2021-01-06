@@ -6,7 +6,7 @@
     "wordpress",
     "events"
   ],
-  "homepage": "http://tri.be/shop/wordpress-events-calendar/",
+  "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
   "require-dev": {
     "automattic/vipwpcs": "^2.0",
