@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4dcd4ba9bc81baaf35fefb82e3ba840",
+    "content-hash": "dbc8c822a1ff288ca85d2429610c4fda",
     "packages": [
         {
             "name": "faction23/a11y-dialog",
