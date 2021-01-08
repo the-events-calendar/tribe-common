@@ -11,6 +11,7 @@
 * Fix - Prevent `tribe_sort_by_priority` from throwing warnings on `uasort` usage for PHP 8+ compatibility.
 * Fix - Update Di52 to include PHP 8+ compatibility.
 * Fix - Modify Freemius `class-fs-logger.php` file to prevent PHP 8+ warnings.
+* Fix - Correctly handle *nix and Windows server paths that contain falsy values (e.g. `0` or spaces) when building template paths. [TEC-3712]
 
 = [4.12.15] 2020-12-15 =
 
