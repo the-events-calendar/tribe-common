@@ -99,12 +99,12 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  string|array        $search   Search string from Select2.
-	 * @param  int                 $page     Page we want when we're dealing with pagination.
-	 * @param  array<string,mixed> $args     Arguments to pass to the query.
-	 * @param  string|int          $selected Selected item ID.
+	 * @param  string|array<string,mixed> $search   Search string from Select2.
+	 * @param  int                        $page     Page we want when we're dealing with pagination.
+	 * @param  array<string,mixed>        $args     Arguments to pass to the query.
+	 * @param  string|int                 $selected Selected item ID.
 	 *
-	 * @return array<string|mixed>
+	 * @return array<string|mixed>        An Array of results.
 	 */
 	public function search_posts( $search, $page = 1, $args, $selected ) {
 		$posts_per_page = 10;
@@ -120,32 +120,38 @@ class Tribe__Ajax__Dropdown {
 			}
 		}
 
+		$show_date = false;
+
+		if ( ! empty( $args['show_date'] ) ) {
+			$show_date = true;
+			// We don't want to pass it to the query.
+			unset( $args['show_date'] );
+		}
+
 		$args['posts_per_page']         = $posts_per_page;
 		$args['paged']                  = $page;
 		$args['update_post_meta_cache'] = false;
 		$args['update_post_term_cache'] = false;
-		$args['field']                  = 'ids';
 
 		$results = new WP_Query( $args );
+
 		if ( empty( $results ) ) {
-			return false;
+			return [];
 		}
 
+		foreach( $results->posts as $event ) {
+			$title = $event->post_title;
 
-		$events = wp_list_pluck( $results->posts, 'ID' ) ;
+			// If we want the event date
+			if ( $show_date && tribe_is_event( $event )) {
+				$title .= ' (' . tribe_get_start_date( $event, false, Tribe__Date_Utils::DBDATEFORMAT ) . ')';
+			}
 
-		$events_list = implode( ',', array_filter( $events, 'absint' ) );
-
-		global $wpdb;
-		$sql = "SELECT ID, post_title FROM {$wpdb->prefix}posts WHERE ID in ({$events_list})";
-		$option_list = $wpdb->get_results( $sql, OBJECT_K );
-
-		foreach( $events as $id ) {
 			// Prep for Select2
 			$data['posts'][] = [
-				'id'        => $id,
-				'text'      => $option_list[$id]->post_title,
-				'selected'  => ! empty( $selected ) && (int) $id === (int) $selected,
+				'id'        => $event->ID,
+				'text'      => $title,
+				'selected'  => ! empty( $selected ) && (int) $event->ID === (int) $selected,
 			];
 		}
 
@@ -285,11 +291,11 @@ class Tribe__Ajax__Dropdown {
 	}
 
 	/**
-	 * Prints a error message and ensures that we don't hit bugs on Select2
+	 * Prints an error message and ensures that we don't hit bugs on Select2
 	 *
 	 * @since  4.6
 	 *
-	 * @param array<string|mixed> $data
+	 * @param string $message
 	 *
 	 * @return void
 	 */
@@ -298,6 +304,7 @@ class Tribe__Ajax__Dropdown {
 			'message' => $message,
 			'results' => [],
 		];
+
 		wp_send_json_error( $data );
 	}
 
