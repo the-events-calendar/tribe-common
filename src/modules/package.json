@@ -9,7 +9,7 @@
     "common"
   ],
   "private": true,
-  "repository": "git+https://github.com/moderntribe/tribe-common.git",
+  "repository": "git+https://github.com/modethe-events-calendarrntribe/tribe-common.git",
   "author": "Modern Tribe",
   "license": "GPL-2.0-or-later",
   "dependencies": {
