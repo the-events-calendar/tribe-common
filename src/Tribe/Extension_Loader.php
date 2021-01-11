@@ -145,7 +145,7 @@ class Tribe__Extension_Loader {
 	 *
 	 * @return void
 	 */
-	private function __clone() {
+	public function __clone() {
 		_doing_it_wrong(
 			__FUNCTION__,
 			'Can not use this method on singletons.',
@@ -158,7 +158,7 @@ class Tribe__Extension_Loader {
 	 *
 	 * @return void
 	 */
-	private function __wakeup() {
+	public function __wakeup() {
 		_doing_it_wrong(
 			__FUNCTION__,
 			'Can not use this method on singletons.',
