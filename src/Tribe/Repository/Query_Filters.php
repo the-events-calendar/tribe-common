@@ -1055,7 +1055,7 @@ class Tribe__Repository__Query_Filters {
 	 *                    value, if the query is not the one attached to this filter or the method
 	 *                    is called not in the context of the `posts_pre_query` filter;
 	 */
-	public function capture_request( $posts = null, WP_Query $query ) {
+	public function capture_request( $posts = null, WP_Query $query = null ) {
 		if ( ! doing_filter( 'posts_pre_query' ) ) {
 			// Let's make sure nothing bad happens if this runs outside of its natural context.
 			return null;
