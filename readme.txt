@@ -4,11 +4,15 @@
 
 = [4.12.17] TBD =
 
+* Fix - Increase the minimum width of the datetime dropdown when editing an event with the block editor. [TEC-3126]
 
 = [4.12.16] TBD =
 
+* Fix - Resolve PHP 8.0 incompatibility with `__wakeup` and `__clone` visibility on Extension class.
+* Fix - Prevent `tribe_sort_by_priority` from throwing warnings on `uasort` usage for PHP 8+ compatibility.
+* Fix - Update Di52 to include PHP 8+ compatibility.
+* Fix - Modify Freemius `class-fs-logger.php` file to prevent PHP 8+ warnings.
 * Fix - Correctly handle *nix and Windows server paths that contain falsy values (e.g. `0` or spaces) when building template paths. [TEC-3712]
-
 
 = [4.12.15] 2020-12-15 =
 

@@ -431,7 +431,7 @@ abstract class Tribe__Extension {
 	 *
 	 * @return void
 	 */
-	final private function __clone() {
+	final public function __clone() {
 		_doing_it_wrong(
 			__FUNCTION__,
 			'Can not use this method on singletons.',
@@ -444,7 +444,7 @@ abstract class Tribe__Extension {
 	 *
 	 * @return void
 	 */
-	final private function __wakeup() {
+	final public function __wakeup() {
 		_doing_it_wrong(
 			__FUNCTION__,
 			'Can not use this method on singletons.',
