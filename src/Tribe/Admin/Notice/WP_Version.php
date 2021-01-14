@@ -60,7 +60,7 @@ class WP_Version {
 	 * @return string
 	 */
 	public function wp_version_57_display_notice() {
-		$html = esc_html__( 'WordPress 5.7 includes a major jQuery update that may cause compatibility issues with past versions of The Events Calendar and other plugins.', 'tribe-common' );
+		$html = esc_html__( 'WordPress 5.7 includes a major jQuery update that may cause compatibility issues with past versions of The Events Calendar, Event Tickets and other plugins.', 'tribe-common' );
 		$html .= ' <a target="_blank" href="https://evnt.is/wp5-7">' . esc_html__( 'Read more.', 'tribe-common' ) . '</a>';
 
 		return $html;
