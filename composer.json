@@ -1,5 +1,5 @@
 {
-  "name": "moderntribe/tribe-common",
+  "name": "the-events-calendar/tribe-common",
   "description": "Common classes and functions used in our plugins",
   "type": "wordpress-plugin",
   "keywords": [
@@ -37,13 +37,13 @@
   },
   "repositories": [
     {
-      "name": "moderntribe/tribe-testing-facilities",
+      "name": "the-events-calendar/tec-testing-facilities",
       "type": "github",
       "url": "https://github.com/the-events-calendar/tec-testing-facilities",
       "no-api": true
     },
     {
-      "name": "moderntribe/TribalScents",
+      "name": "the-events-calendar/TribalScents",
       "type": "github",
       "url": "https://github.com/the-events-calendar/TribalScents",
       "no-api": true
