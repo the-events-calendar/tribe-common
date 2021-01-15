@@ -40,14 +40,12 @@ class WP_Version {
 	public function wp_version_57_should_display() {
 		global $wp_version;
 
-		$wp_version_min_version_required = '5.6';
-		$wp_version_max_version_required = '5.8';
-		$common_version_required = '4.12.16';
+		$wp_version_min_version_required = '5.8';
+		$common_version_required = '4.12.18-dev';
 
 		return
-			version_compare( Common::VERSION, $common_version_required, '>=' )
-			&& version_compare( $wp_version, $wp_version_min_version_required, '>=' )
-			&& version_compare( $wp_version, $wp_version_max_version_required, '<' );
+			version_compare( Common::VERSION, $common_version_required, '<' )
+			&& version_compare( $wp_version, $wp_version_min_version_required, '<' );
 	}
 
 	/**
@@ -60,7 +58,15 @@ class WP_Version {
 	 * @return string
 	 */
 	public function wp_version_57_display_notice() {
-		$html = esc_html__( 'WordPress 5.7 includes a major jQuery update that may cause compatibility issues with past versions of The Events Calendar, Event Tickets and other plugins.', 'tribe-common' );
+		global $wp_version;
+		$is_wp_57 = version_compare( $wp_version, '5.7-beta', '>=' );
+		$html = '';
+
+		if ( $is_wp_57 ) {
+			$html .= esc_html__( 'You are using WordPress 5.7 which included a major jQuery update that may cause compatibility issues with past versions of The Events Calendar, Event Tickets and other plugins.', 'tribe-common' );
+		} else {
+			$html .= esc_html__( 'WordPress 5.7 includes a major jQuery update that may cause compatibility issues with past versions of The Events Calendar, Event Tickets and other plugins.', 'tribe-common' );
+		}
 		$html .= ' <a target="_blank" href="https://evnt.is/wp5-7">' . esc_html__( 'Read more.', 'tribe-common' ) . '</a>';
 
 		return $html;
