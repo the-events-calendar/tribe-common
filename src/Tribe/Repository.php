@@ -755,7 +755,7 @@ abstract class Tribe__Repository
 
 		// Based on `WP_Query->parse_orderby` we should ignore the global order passed, and use the value on for each item in array.
 		if ( ! is_array( $order_by ) ) {
-			$this->query_args['order']   = $order;
+			$this->query_args['order'] = $order;
 		}
 
 		return $this;
