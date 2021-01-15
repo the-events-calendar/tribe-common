@@ -149,7 +149,7 @@ interface Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param string $order_by The post field, custom field or alias key to order posts by.
+	 * @param string|string[] $order_by The post field, custom field or alias key to order posts by.
 	 * @param string $order    The order direction; optional; shortcut for the `order` method; defaults
 	 *                         to `DESC`.
 	 *
