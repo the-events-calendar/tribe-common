@@ -1,15 +1,15 @@
 <?php
 namespace Tribe\Admin\Notice;
 
+use \Tribe__Date_Utils as Dates;
+use Tribe__Main as Common;
+
+
 /**
  * Various WordPress version notices.
  *
  * @since TBD
  */
-
-use \Tribe__Date_Utils as Dates;
-use Tribe__Main as Common;
-
 class WP_Version {
 	/**
 	 * Register the various WordPress version notices.
