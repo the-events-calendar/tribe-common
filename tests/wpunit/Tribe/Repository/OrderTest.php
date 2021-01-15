@@ -43,7 +43,7 @@ class OrderTest extends ReadTestBase {
 	}
 
 	/**
-	 * It should override the order direction specified w/ order w/ the orderby one.w
+	 * It should override the order direction specified w/ order w/ the orderby one.
 	 *
 	 * @test
 	 */
