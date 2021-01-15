@@ -251,7 +251,7 @@ if ( ! function_exists( 'tribe_sort_by_priority' ) ) {
 			return 0;
 		}
 
-		return (int) $a_priority > (int) $b_priority ? -1 : 1;
+		return (int) $a_priority > (int) $b_priority ? 1 : -1;
 	}
 }
 
