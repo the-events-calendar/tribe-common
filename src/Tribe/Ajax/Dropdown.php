@@ -24,12 +24,12 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  string|array $search Search string from Select2
-	 * @param  int          $page   When we deal with pagination
-	 * @param  array        $args   Which arguments we got from the Template
-	 * @param  string       $source What source it is
+	 * @param  string|array<string|mixed> $search Search string from Select2
+	 * @param  int                        $page   When we deal with pagination
+	 * @param  array<string|mixed>        $args   Which arguments we got from the Template
+	 * @param  string                     $source What source it is
 	 *
-	 * @return array
+	 * @return array<string|mixed>
 	 */
 	public function search_terms( $search, $page, $args, $source ) {
 		$data = [];
@@ -95,15 +95,82 @@ class Tribe__Ajax__Dropdown {
 	}
 
 	/**
-	 * Sorts Hierarchically all the Terms for Select2
+	 * Search for Posts using Select2
+	 *
+	 * @since  TBD
+	 *
+	 * @param  string|array<string,mixed> $search   Search string from Select2.
+	 * @param  int                        $page     Page we want when we're dealing with pagination.
+	 * @param  array<string,mixed>        $args     Arguments to pass to the query.
+	 * @param  string|int                 $selected Selected item ID.
+	 *
+	 * @return array<string|mixed>        An Array of results.
+	 */
+	public function search_posts( $search, $page = 1, $args, $selected ) {
+		$posts_per_page = 10;
+		$data           = [];
+
+		if ( ! empty( $search ) ) {
+			if ( is_array( $search ) ) {
+				// Newer SelectWoo uses a new search format.
+				$args['s'] = $search['term']; // post?
+			} else {
+				// For older pieces that still use Select2 format.
+				$args['s'] = $search;
+			}
+		}
+
+		$show_date = false;
+
+		if ( ! empty( $args['show_date'] ) ) {
+			$show_date = true;
+			// We don't want to pass it to the query.
+			unset( $args['show_date'] );
+		}
+
+		$args['posts_per_page']         = $posts_per_page;
+		$args['paged']                  = $page;
+		$args['update_post_meta_cache'] = false;
+		$args['update_post_term_cache'] = false;
+
+		$results = new WP_Query( $args );
+
+		if ( empty( $results ) ) {
+			return [];
+		}
+
+		foreach( $results->posts as $event ) {
+			$title = $event->post_title;
+
+			// If we want the event date
+			if ( $show_date && tribe_is_event( $event )) {
+				$title .= ' (' . tribe_get_start_date( $event, false, Tribe__Date_Utils::DBDATEFORMAT ) . ')';
+			}
+
+			// Prep for Select2
+			$data['posts'][] = [
+				'id'        => $event->ID,
+				'text'      => $title,
+				'selected'  => ! empty( $selected ) && (int) $event->ID === (int) $selected,
+			];
+		}
+
+		// Handle pagination while we have post count.
+		$data['pagination'] = $results->found_posts > ( $page * $posts_per_page );
+
+		return $data;
+	}
+
+	/**
+	 * Sorts all the Terms for Select2 hierarchically.
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array   &$terms Array of Terms from `get_terms`
-	 * @param  array   &$into  Variable where we will store the
-	 * @param  integer $parent Used for the recursion
+	 * @param  array<int|object>   &$terms Array of Terms from `get_terms`.
+	 * @param  array<string|mixed> &$into  Variable where we will store the.
+	 * @param  integer             $parent Used for the recursion.
 	 *
-	 * @return array
+	 * @return array<string|mixed>
 	 */
 	public function sort_terms_hierarchically( &$terms, &$into, $parent = 0 ) {
 		foreach ( $terms as $i => $term ) {
@@ -128,9 +195,9 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array  $results  The Select2
+	 * @param  object|array<string|mixed>  $results The Select2 results
 	 *
-	 * @return array
+	 * @return array<string|mixed>
 	 */
 	public function convert_children_to_array( $results ) {
 		if ( isset( $results->children ) ) {
@@ -156,7 +223,7 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array  $params Params to overwrite the defaults
+	 * @param  array<string|mixed>  $params Params to overwrite the defaults
 	 * @return object
 	 */
 	public function parse_params( $params ) {
@@ -189,7 +256,7 @@ class Tribe__Ajax__Dropdown {
 			$this->error( esc_attr__( 'Missing data source for this dropdown', 'tribe-common' ) );
 		}
 
-		// Define a Filter to allow external calls to our Select2 Dropboxes
+		// Define a Filter to allow external calls to our Select2 Dropdowns.
 		$filter = sanitize_key( 'tribe_dropdown_' . $args->source );
 		if ( has_filter( $filter ) ) {
 			$data = apply_filters( $filter, [], $args->search, $args->page, $args->args, $args->source );
@@ -197,7 +264,7 @@ class Tribe__Ajax__Dropdown {
 			$data = call_user_func_array( [ $this, $args->source ], (array) $args );
 		}
 
-		// if we got a empty dataset we return an error
+		// If we've got a empty dataset we return an error.
 		if ( empty( $data ) ) {
 			$this->error( esc_attr__( 'Empty data set for this dropdown', 'tribe-common' ) );
 		} else {
@@ -208,9 +275,10 @@ class Tribe__Ajax__Dropdown {
 	/**
 	 * Prints a success message and ensures that we don't hit bugs on Select2
 	 *
-	 * @since  4.6
+	 * @since 4.6
 	 *
-	 * @param  array $data
+	 * @param array $data
+	 *
 	 * @return void
 	 */
 	private function success( $data ) {
@@ -223,11 +291,12 @@ class Tribe__Ajax__Dropdown {
 	}
 
 	/**
-	 * Prints a error message and ensures that we don't hit bugs on Select2
+	 * Prints an error message and ensures that we don't hit bugs on Select2
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array $data
+	 * @param string $message
+	 *
 	 * @return void
 	 */
 	private function error( $message ) {
@@ -235,6 +304,7 @@ class Tribe__Ajax__Dropdown {
 			'message' => $message,
 			'results' => [],
 		];
+
 		wp_send_json_error( $data );
 	}
 
