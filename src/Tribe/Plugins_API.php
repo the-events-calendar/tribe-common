@@ -24,7 +24,7 @@ class Tribe__Plugins_API {
 			'the-events-calendar'      => [
 				'title'           => __( 'The Events Calendar', 'tribe-common' ),
 				'slug'            => 'the-events-calendar',
-				'link'            => 'https://m.tri.be/1ai-',
+				'link'            => 'https://evnt.is/1ai-',
 				'description'     => __( 'Our flagship free calendar', 'tribe-common' ),
 				'features'        => [
 					__( 'Customizable', 'tribe-common' ),
@@ -41,7 +41,7 @@ class Tribe__Plugins_API {
 			'event-aggregator'         => [
 				'title'           => __( 'Event Aggregator', 'tribe-common' ),
 				'slug'            => 'event-aggregator',
-				'link'            => 'https://m.tri.be/1aj0',
+				'link'            => 'https://evnt.is/1aj0',
 				'description'     => __( 'Automated imports for your calendar', 'tribe-common' ),
 				'features'        => [
 					__( 'Schedule automated imports', 'tribe-common' ),
@@ -58,7 +58,7 @@ class Tribe__Plugins_API {
 			'events-calendar-pro'      => [
 				'title'           => __( 'Events Calendar Pro', 'tribe-common' ),
 				'slug'            => 'events-calendar-pro',
-				'link'            => 'https://m.tri.be/1ai-',
+				'link'            => 'https://evnt.is/1ai-',
 				'description'     => __( 'Power up your calendar with Pro', 'tribe-common' ),
 				'features'        => [
 					__( 'Premium support', 'tribe-common' ),
@@ -75,7 +75,7 @@ class Tribe__Plugins_API {
 			'event-tickets'            => [
 				'title'           => __( 'Event Tickets', 'tribe-common' ),
 				'slug'            => 'event-tickets',
-				'link'            => 'https://m.tri.be/1aj1',
+				'link'            => 'https://evnt.is/1aj1',
 				'description'     => __( 'Manage ticketing and RSVPs', 'tribe-common' ),
 				'features'        => [
 					__( 'Add tickets and RSVP to any post', 'tribe-common' ),
@@ -92,7 +92,7 @@ class Tribe__Plugins_API {
 			'event-tickets-plus'       => [
 				'title'           => __( 'Event Tickets Plus', 'tribe-common' ),
 				'slug'            => 'event-tickets-plus',
-				'link'            => 'http://m.tri.be/1aj1',
+				'link'            => 'http://evnt.is/1aj1',
 				'description'     => __( 'Monetize your events', 'tribe-common' ),
 				'features'        => [
 					__( 'Custom registration fields', 'tribe-common' ),
@@ -109,7 +109,7 @@ class Tribe__Plugins_API {
 			'promoter'                 => [
 				'title'           => __( 'Promoter', 'tribe-common' ),
 				'slug'            => 'promoter',
-				'link'            => 'https://m.tri.be/1acy',
+				'link'            => 'https://evnt.is/1acy',
 				'description'     => __( 'An email marketing solution for events and the people running them', 'tribe-common' ),
 				'features'        => [
 					__( 'Automate email touchpoints', 'tribe-common' ),
@@ -126,7 +126,7 @@ class Tribe__Plugins_API {
 			'tribe-filterbar'          => [
 				'title'           => __( 'Filter Bar', 'tribe-common' ),
 				'slug'            => 'tribe-filterbar',
-				'link'            => 'https://m.tri.be/19o6',
+				'link'            => 'https://evnt.is/19o6',
 				'description'     => __( 'Help users find exactly the right event', 'tribe-common' ),
 				'features'        => [
 					__( 'Configurable set of filters', 'tribe-common' ),
@@ -143,7 +143,7 @@ class Tribe__Plugins_API {
 			'events-community'         => [
 				'title'           => __( 'Community Events', 'tribe-common' ),
 				'slug'            => 'events-community',
-				'link'            => 'https://m.tri.be/19o7',
+				'link'            => 'https://evnt.is/19o7',
 				'description'     => __( 'Users submit events to your calendar', 'tribe-common' ),
 				'features'        => [
 					__( 'Publishing Control', 'tribe-common' ),
@@ -160,7 +160,7 @@ class Tribe__Plugins_API {
 			'events-community-tickets' => [
 				'title'           => __( 'Community Tickets', 'tribe-common' ),
 				'slug'            => 'events-community-tickets',
-				'link'            => 'https://m.tri.be/19o8',
+				'link'            => 'https://evnt.is/19o8',
 				'description'     => __( 'Run your own events marketplace', 'tribe-common' ),
 				'features'        => [
 					__( 'Users submit events and sell tickets', 'tribe-common' ),
@@ -178,7 +178,7 @@ class Tribe__Plugins_API {
 			'tribe-eventbrite'         => [
 				'title'           => __( 'Eventbrite Tickets', 'tribe-common' ),
 				'slug'            => 'tribe-eventbrite',
-				'link'            => 'https://m.tri.be/19o9',
+				'link'            => 'https://evnt.is/19o9',
 				'description'     => __( 'Unite the power of TEC with the ticketing of Eventbrite', 'tribe-common' ),
 				'features'        => [
 					__( 'Manage tickets from WordPress', 'tribe-common' ),
@@ -195,7 +195,7 @@ class Tribe__Plugins_API {
 			'image-widget-plus'        => [
 				'title'           => __( 'Image Widget Plus', 'tribe-common' ),
 				'slug'            => 'image-widget-plus',
-				'link'            => 'https://m.tri.be/19nv',
+				'link'            => 'https://evnt.is/19nv',
 				'description'     => __( 'Beautiful display options for your favorite photos.', 'tribe-common' ),
 				'features'        => [
 					__( 'Multi-Image Support', 'tribe-common' ),
@@ -212,7 +212,7 @@ class Tribe__Plugins_API {
 			'events-virtual'           => [
 				'title'           => __( 'Virtual Events', 'tribe-common' ),
 				'slug'            => 'events-virtual',
-				'link'            => 'http://m.tri.be/virtual-events',
+				'link'            => 'http://evnt.is/virtual-events',
 				'description'     => __( 'Features to optimize your calendar for virtual events.', 'tribe-common' ),
 				'features'        => [
 					__( 'Zoom integration', 'tribe-common' ),

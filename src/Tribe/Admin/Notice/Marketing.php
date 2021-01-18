@@ -159,7 +159,7 @@ class Tribe__Admin__Notice__Marketing {
 		$current_screen = get_current_screen();
 
 		$icon_url = Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg';
-		$cta_url  = 'https://m.tri.be/bf' . date( 'Y' );
+		$cta_url  = 'https://evnt.is/bf' . date( 'Y' );
 
 		// If we are on the settings page or a welcome page, change the Black Friday URL.
 		if (
