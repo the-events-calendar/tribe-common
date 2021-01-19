@@ -6,7 +6,7 @@
 jQuery( document ).ready( function( $ ) {
 	// Whenever the input field for a date format changes, update the matching
 	// live preview area
-	$( ".live-date-preview" ).siblings( "input" ).change( function() {
+	$( ".live-date-preview" ).siblings( "input" ).on( 'change', function() {
 		var $format_field  = $( this );
 		var new_format     = $format_field.val();
 		var $preview_field = $format_field.siblings( ".live-date-preview" );
