@@ -3,7 +3,7 @@
  * to (and using the same ajax mechanism as) the date format preview in WP's
  * general settings screen.
  */
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	// Whenever the input field for a date format changes, update the matching
 	// live preview area
 	$( ".live-date-preview" ).siblings( "input" ).on( 'change', function() {
