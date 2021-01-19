@@ -114,6 +114,6 @@ tribe.urlFragmentScroll = tribe.urlFragmentScroll || {};
 		return fragment[1];
 	};
 
-	$document.ready( obj.setup );
+	$( obj.setup );
 
 } )( jQuery, tribe.urlFragmentScroll );
