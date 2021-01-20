@@ -2,6 +2,8 @@
 
 == Changelog ==
 
+= [4.12.17] TBD =
+
 = [4.12.16] TBD =
 
 * Fix - Resolve PHP 8.0 incompatibility with `__wakeup` and `__clone` visibility on Extension class.
