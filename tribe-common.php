@@ -2,9 +2,9 @@
 /*
 Plugin Name: Tribe Common
 Description: An event settings framework for managing shared options
-Version: 4.12.8
+Version: 4.12.15.1
 Author: Modern Tribe, Inc.
-Author URI: http://m.tri.be/1x
+Author URI: http://evnt.is/1x
 Text Domain: tribe-common
 License: GPLv2 or later
 */

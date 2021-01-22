@@ -1,4 +1,5 @@
 /* global console, jQuery */
+/* eslint-disable no-var, strict */
 var tribe_dropdowns = window.tribe_dropdowns || {};
 
 ( function( $, obj, _ ) {
@@ -152,7 +153,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	 * @return {Object|boolean}
 	 */
 	function find_item( description, haystack ) {
-		if ( ! $.isArray( haystack ) ) {
+		if ( ! _.isArray( haystack ) ) {
 			return false;
 		}
 
@@ -167,7 +168,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 				return possible_match;
 			}
 
-			if ( possible_match.hasOwnProperty( 'children' ) && $.isArray( possible_match.children ) ) {
+			if ( possible_match.hasOwnProperty( 'children' ) && _.isArray( possible_match.children ) ) {
 				var subsearch = find_item( description, possible_match.children );
 
 				if ( subsearch ) {
@@ -404,19 +405,44 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		// Attach dropdown to container in DOM.
 		if ( $select.is( '[data-attach-container]' ) ) {
-			$.fn.select2.amd.define(
-				'CustomDropdownAdapter',
-				[
-					'select2/utils',
-					'select2/dropdown',
-					'select2/dropdown/attachContainer',
-				],
-				function( utils, dropdown, attachContainer ) {
-					return utils.Decorate( dropdown, attachContainer );
-				}
-			);
 
-			args.dropdownAdapter = $.fn.select2.amd.require( 'CustomDropdownAdapter' );
+			// If multiple, attach container without search.
+			if ( $select.is( '[multiple]' ) ) {
+				$.fn.select2.amd.define(
+					'AttachedDropdownAdapter',
+					[
+						'select2/utils',
+						'select2/dropdown',
+						'select2/dropdown/attachContainer',
+					],
+					function( utils, dropdown, attachContainer ) {
+						return utils.Decorate( dropdown, attachContainer );
+					}
+				);
+
+				args.dropdownAdapter = $.fn.select2.amd.require( 'AttachedDropdownAdapter' );
+
+			// If not multiple, attach container with search.
+			} else {
+				$.fn.select2.amd.define(
+					'AttachedWithSearchDropdownAdapter',
+					[
+						'select2/utils',
+						'select2/dropdown',
+						'select2/dropdown/search',
+						'select2/dropdown/minimumResultsForSearch',
+						'select2/dropdown/attachContainer',
+					],
+					function( utils, dropdown, search, minimumResultsForSearch, attachContainer ) {
+						var adapter = utils.Decorate( dropdown, attachContainer );
+						adapter = utils.Decorate( adapter, search );
+						adapter = utils.Decorate( adapter, minimumResultsForSearch );
+						return adapter;
+					}
+				);
+
+				args.dropdownAdapter = $.fn.select2.amd.require( 'AttachedWithSearchDropdownAdapter' );
+			}
 		}
 
 		// Save data on Dropdown

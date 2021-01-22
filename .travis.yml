@@ -42,6 +42,9 @@ env:
     - WP_ADMIN_PASSWORD="password"
 
 before_install:
+  # Rollback Composer to version 1.
+  - composer self-update --rollback
+
   # create the databases needed for the tests
   - mysql -e "create database IF NOT EXISTS $DB_NAME;" -uroot
   - mysql -e "create database IF NOT EXISTS $TEST_DB_NAME;" -uroot
@@ -113,7 +116,7 @@ before_script:
   - cd $PLUGIN_DIR
   # Reset HARD first to avoid changes we might have done while updating TEC stopping the checkout.
   - git reset HEAD --hard && git checkout origin/$CURRENT_BRANCH
-  - composer update
+  - composer install
 
   # get to the common dir
   - cd $PLUGIN_DIR
@@ -127,3 +130,4 @@ script:
   - codecept run wpunit
   - codecept run muwpunit
   - codecept run dependency
+  - codecept run snapshots
