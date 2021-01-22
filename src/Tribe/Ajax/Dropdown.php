@@ -24,10 +24,10 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  string|array<string|mixed> $search Search string from Select2
-	 * @param  int                        $page   When we deal with pagination
-	 * @param  array<string|mixed>        $args   Which arguments we got from the Template
-	 * @param  string                     $source What source it is
+	 * @param string|array<string|mixed> $search Search string from Select2
+	 * @param int                        $page   When we deal with pagination
+	 * @param array<string|mixed>        $args   Which arguments we got from the Template
+	 * @param string                     $source What source it is
 	 *
 	 * @return array<string|mixed>
 	 */
@@ -39,7 +39,7 @@ class Tribe__Ajax__Dropdown {
 		}
 
 		// We always want all the fields so we overwrite it
-		$args['fields'] = isset( $args['fields'] ) ? $args['fields'] : 'all';
+		$args['fields']     = isset( $args['fields'] ) ? $args['fields'] : 'all';
 		$args['hide_empty'] = isset( $args['hide_empty'] ) ? $args['hide_empty'] : false;
 
 		if ( ! empty( $search ) ) {
@@ -88,7 +88,7 @@ class Tribe__Ajax__Dropdown {
 			}
 		}
 
-		$data['results'] = $results;
+		$data['results']    = $results;
 		$data['taxonomies'] = get_taxonomies();
 
 		return $data;
@@ -99,17 +99,14 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  TBD
 	 *
-	 * @param  string|array<string,mixed> $search   Search string from Select2.
-	 * @param  int                        $page     Page we want when we're dealing with pagination.
-	 * @param  array<string,mixed>        $args     Arguments to pass to the query.
-	 * @param  string|int                 $selected Selected item ID.
+	 * @param string|array<string,mixed> $search   Search string from Select2.
+	 * @param int                        $page     Page we want when we're dealing with pagination.
+	 * @param array<string,mixed>        $args     Arguments to pass to the query.
+	 * @param string|int                 $selected Selected item ID.
 	 *
 	 * @return array<string|mixed>        An Array of results.
 	 */
-	public function search_posts( $search, $page = 1, $args, $selected ) {
-		$posts_per_page = 10;
-		$data           = [];
-
+	public function search_posts( $search, $page = 1, $args = [], $selected = null ) {
 		if ( ! empty( $search ) ) {
 			if ( is_array( $search ) ) {
 				// Newer SelectWoo uses a new search format.
@@ -120,43 +117,55 @@ class Tribe__Ajax__Dropdown {
 			}
 		}
 
-		$show_date = false;
-
-		if ( ! empty( $args['show_date'] ) ) {
-			$show_date = true;
-			// We don't want to pass it to the query.
-			unset( $args['show_date'] );
-		}
-
-		$args['posts_per_page']         = $posts_per_page;
 		$args['paged']                  = $page;
 		$args['update_post_meta_cache'] = false;
 		$args['update_post_term_cache'] = false;
 
-		$results = new WP_Query( $args );
+		$results        = new WP_Query( $args );
+		$has_pagination = $results->post_count < $results->found_posts;
 
-		if ( empty( $results ) ) {
-			return [];
+		return $this->format_posts_for_dropdown( $results->posts, $selected, $has_pagination );
+	}
+
+	/**
+	 * Formats a given array of posts to be displayed into the Dropdown.js module with SelectWoo.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<WP_Post>    $posts
+	 * @param null|int $selected
+	 * @param boolean  $pagination
+	 *
+	 * @return array
+	 */
+	public function format_posts_for_dropdown( array $posts, $selected = null, $pagination = false ) {
+		$data = [
+			'posts'      => [],
+			'pagination' => $pagination,
+		];
+
+		// Skip when we dont have posts
+		if ( empty( $posts ) ) {
+			return $data;
 		}
 
-		foreach( $results->posts as $event ) {
-			$title = $event->post_title;
-
-			// If we want the event date
-			if ( $show_date && tribe_is_event( $event )) {
-				$title .= ' (' . tribe_get_start_date( $event, false, Tribe__Date_Utils::DBDATEFORMAT ) . ')';
+		foreach ( $posts as $post ) {
+			if ( ! $post instanceof \WP_Post ) {
+				$post = get_post( $post );
 			}
 
-			// Prep for Select2
+			// Skip non WP Post Objects.
+			if ( ! $post instanceof \WP_Post ) {
+				continue;
+			}
+
+			// Prep for Select2.
 			$data['posts'][] = [
-				'id'        => $event->ID,
-				'text'      => $title,
-				'selected'  => ! empty( $selected ) && (int) $event->ID === (int) $selected,
+				'id'       => $post->ID,
+				'text'     => ! empty( $post->post_title_formatted ) ? $post->post_title_formatted : $post->post_title,
+				'selected' => ! empty( $selected ) && (int) $post->ID === (int) $selected,
 			];
 		}
-
-		// Handle pagination while we have post count.
-		$data['pagination'] = $results->found_posts > ( $page * $posts_per_page );
 
 		return $data;
 	}
@@ -166,9 +175,9 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array<int|object>   &$terms Array of Terms from `get_terms`.
-	 * @param  array<string|mixed> &$into  Variable where we will store the.
-	 * @param  integer             $parent Used for the recursion.
+	 * @param array<int|object>   &$terms  Array of Terms from `get_terms`.
+	 * @param array<string|mixed> &$into   Variable where we will store the.
+	 * @param integer              $parent Used for the recursion.
 	 *
 	 * @return array<string|mixed>
 	 */
@@ -195,7 +204,7 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  object|array<string|mixed>  $results The Select2 results
+	 * @param object|array<string|mixed> $results The Select2 results
 	 *
 	 * @return array<string|mixed>
 	 */
@@ -223,7 +232,8 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  array<string|mixed>  $params Params to overwrite the defaults
+	 * @param array<string|mixed> $params Params to overwrite the defaults
+	 *
 	 * @return object
 	 */
 	public function parse_params( $params ) {
@@ -313,13 +323,14 @@ class Tribe__Ajax__Dropdown {
 	 *
 	 * @since  4.6
 	 *
-	 * @param  string $name
-	 * @param  mixed  $arguments
+	 * @param string $name
+	 * @param mixed  $arguments
 	 *
 	 * @return void
 	 */
 	public function __call( $name, $arguments ) {
 		$message = __( 'The "%s" source is invalid and cannot be reached on "%s" instance.', 'tribe-common' );
+
 		return $this->error( sprintf( $message, $name, __CLASS__ ) );
 	}
 }
