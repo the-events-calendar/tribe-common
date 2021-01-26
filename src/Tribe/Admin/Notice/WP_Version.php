@@ -41,7 +41,7 @@ class WP_Version {
 		global $wp_version;
 
 		$wp_version_min_version_required = '5.8';
-		$common_version_required = '4.12.17-dev';
+		$common_version_required = '4.12.18-dev';
 
 		return
 			version_compare( Common::VERSION, $common_version_required, '<' )
