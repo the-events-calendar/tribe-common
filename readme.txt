@@ -2,13 +2,10 @@
 
 == Changelog ==
 
-= [4.12.17] TBD =
+= [4.12.16] 2021-02-01 =
 
 * Fix - Increase the minimum width of the datetime dropdown when editing an event with the block editor. [TEC-3126]
 * Fix - Ordering with an Array when using `Tribe__Repository` now properly ignores the global order passed as the default. [ECP-598]
-
-= [4.12.16] TBD =
-
 * Fix - Resolve PHP 8.0 incompatibility with `__wakeup` and `__clone` visibility on Extension class.
 * Fix - Prevent `tribe_sort_by_priority` from throwing warnings on `uasort` usage for PHP 8+ compatibility.
 * Fix - Update Di52 to include PHP 8+ compatibility.
