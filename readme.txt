@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.16] 2021-02-01 =
+= [4.12.16] 2021-01-28 =
 
 * Fix - Increase the minimum width of the datetime dropdown when editing an event with the block editor. [TEC-3126]
 * Fix - Ordering with an Array when using `Tribe__Repository` now properly ignores the global order passed as the default. [ECP-598]
