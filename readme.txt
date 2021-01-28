@@ -2,6 +2,9 @@
 
 == Changelog ==
 
+= [4.12.18] TBD =
+
+
 = [4.12.16] 2021-01-28 =
 
 * Fix - Increase the minimum width of the datetime dropdown when editing an event with the block editor. [TEC-3126]
