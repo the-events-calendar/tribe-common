@@ -288,7 +288,7 @@ class Tribe__PUE__Notices {
 				'tribe-common'
 			),
 			$plugin_names,
-			'<a href="http://m.tri.be/19n4" target="_blank">',
+			'<a href="http://evnt.is/19n4" target="_blank">',
 			'</a>'
 		);
 
@@ -333,12 +333,12 @@ class Tribe__PUE__Notices {
 				'tribe-common'
 			),
 			$plugin_names,
-			'<a href="http://m.tri.be/195d" target="_blank">',
+			'<a href="http://evnt.is/195d" target="_blank">',
 			'</a>'
 		);
 
 		$renew_action =
-			'<a href="http://m.tri.be/195y" target="_blank" class="button button-primary">' .
+			'<a href="http://evnt.is/195y" target="_blank" class="button button-primary">' .
 			__( 'Renew Your License Now', 'tribe-common' ) .
 			'<span class="screen-reader-text">' .
 			__( ' (opens in a new window)', 'tribe-common' ) .
@@ -364,7 +364,7 @@ class Tribe__PUE__Notices {
 				'tribe-common'
 			),
 			$plugin_names,
-			'<a href="http://m.tri.be/195d" target="_blank">',
+			'<a href="http://evnt.is/195d" target="_blank">',
 			'</a>'
 		);
 
@@ -401,7 +401,7 @@ class Tribe__PUE__Notices {
 	protected function find_your_key_text() {
 		return sprintf(
 			__( 'You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s.', 'tribe-common' ),
-			'<a href="http://m.tri.be/195d" target="_blank">',
+			'<a href="http://evnt.is/195d" target="_blank">',
 			'</a>'
 		);
 	}

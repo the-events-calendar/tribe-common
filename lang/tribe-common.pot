@@ -1,14 +1,14 @@
-# Copyright (C) 2020 Modern Tribe
+# Copyright (C) 2021 Modern Tribe
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.12.15\n"
+"Project-Id-Version: Tribe Common 4.12.16\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2020-12-11 06:24:08+00:00\n"
+"POT-Creation-Date: 2021-01-27 06:50:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-12-11 06:24\n"
+"PO-Revision-Date: 2021-01-27 06:50\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -219,19 +219,37 @@ msgid ""
 "compatible version of The Events Calendar. %2$s"
 msgstr ""
 
+#: src/Tribe/Admin/Notice/WP_Version.php:66
+msgid ""
+"You are using WordPress 5.7 which included a major jQuery update that may "
+"cause compatibility issues with past versions of The Events Calendar, Event "
+"Tickets and other plugins."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/WP_Version.php:68
+msgid ""
+"WordPress 5.7 includes a major jQuery update that may cause compatibility "
+"issues with past versions of The Events Calendar, Event Tickets and other "
+"plugins."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/WP_Version.php:70
+msgid "Read more."
+msgstr ""
+
 #: src/Tribe/Ajax/Dropdown.php:38
 msgid "Cannot look for Terms without a taxonomy"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:189
+#: src/Tribe/Ajax/Dropdown.php:266
 msgid "Missing data source for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:202
+#: src/Tribe/Ajax/Dropdown.php:279
 msgid "Empty data set for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:252
+#: src/Tribe/Ajax/Dropdown.php:332
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
 msgstr ""
 
@@ -3063,5 +3081,5 @@ msgid "Modern Tribe, Inc."
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://m.tri.be/1x"
+msgid "http://evnt.is/1x"
 msgstr ""
