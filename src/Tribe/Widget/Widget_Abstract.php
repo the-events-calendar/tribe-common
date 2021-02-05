@@ -3,6 +3,7 @@
 namespace Tribe\Widget;
 
 use Tribe__Utils__Array as Arr;
+use Tribe__Template;
 
 /**
  * The abstract base without Views that all widgets should implement.
@@ -27,7 +28,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since 4.12.14
 	 *
-	 * @var \Tribe__Template
+	 * @var Tribe__Template
 	 */
 	protected $admin_template;
 
@@ -48,6 +49,15 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @var array<string,mixed>
 	 */
 	protected $default_arguments = [];
+
+	/**
+	 * Default Asset slug prefix for assets associated with this widget.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $asset_slug_prefix;
 
 	/**
 	 * Array map allowing aliased widget arguments.
@@ -112,7 +122,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @return mixed
 	 */
-	public abstract function setup();
+	abstract public function setup();
 
 	/**
 	 * Setup the widget.
@@ -121,7 +131,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @param array<string,mixed> $arguments The widget arguments, as set by the user in the widget string.
 	 */
-	public abstract function setup_view( $arguments );
+	abstract public function setup_view( $arguments );
 
 	/**
 	 * {@inheritDoc}
@@ -129,7 +139,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	public function form( $instance ) {
 		$arguments = $this->setup_arguments( $instance );
 
-		$this->get_admin_html( $arguments );
+		return $this->get_admin_html( $arguments );
 	}
 
 	/**
@@ -157,7 +167,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @return string
 	 */
-	public abstract function get_html();
+	abstract public function get_html();
 
 	/**
 	 * {@inheritDoc}
@@ -237,7 +247,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @return array<string,mixed> The array of widget admin fields.
 	 */
-	protected abstract function setup_admin_fields();
+	abstract protected function setup_admin_fields();
 
 	/**
 	 * {@inheritDoc}
@@ -367,7 +377,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		return $arguments;
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -492,8 +501,23 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @since 4.12.14
 	 *
 	 * @param array<string,mixed> $arguments Current set of arguments.
+	 *
+	 * @return string  HTML for the admin fields.
 	 */
 	public function get_admin_html( $arguments ) {
-		$this->get_admin_template()->template( $this->view_admin_slug, $arguments );
+		return $this->get_admin_template()->template( $this->view_admin_slug, $arguments );
+	}
+
+	/**
+	 * Get the asset name for this widget, properly prefixing it.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $append Which should be appended to the prefix.
+	 *
+	 * @return string Slug for the asset after appending the prefix.
+	 */
+	public static function get_asset_slug( $append = '' ) {
+		return static::$asset_slug_prefix . ( ! empty( $append ) ? '-' . $append : '' );
 	}
 }
