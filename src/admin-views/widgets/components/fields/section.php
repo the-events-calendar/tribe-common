@@ -18,10 +18,8 @@
  * @var string              $classes     Classes to add to the section. (optional)
  * @var string              $dependency  The dependency attributes for the control wrapper.
  * @var array<string,mixed> $children    Child elements for the section.
- * @var Widget_Abstract     $widget_obj  The widget object.
  */
 
-use \Tribe\Events\Views\V2\Widgets\Widget_Abstract;
 use Tribe__Utils__Array as Arr;
 
 $section_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form-control--section' ], Arr::list_to_array( $classes, ' ' ) );
