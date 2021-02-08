@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.12.17] TBD =
+
+* Tweak - Allow usage of HTML within the Tribe Dialog button. [ETP-523]
+
 = [4.12.16] 2021-01-28 =
 
 * Fix - Increase the minimum width of the datetime dropdown when editing an event with the block editor. [TEC-3126]
