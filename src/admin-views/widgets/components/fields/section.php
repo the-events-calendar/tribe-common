@@ -33,7 +33,7 @@ $section_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-for
 	?>
 >
 	<?php if ( ! empty( $label ) ) : ?>
-		<?php // Note: the actual widget title/handle is an <h3>. ?>
+		<?php // Note: the actual widget title/handle is an <h2>. ?>
 		<h4 class="tribe-widget-form-control__section-title"><?php echo esc_html( $label ); ?></h4>
 	<?php endif; ?>
 
