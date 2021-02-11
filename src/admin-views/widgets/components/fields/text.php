@@ -2,8 +2,7 @@
 /**
  * Admin View: Widget Component Text field
  *
- * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/admin-views/widgets/components/fields/text.php
+ * Administration Views cannot be overwritten by default from your theme.
  *
  * See more documentation about our views templating system.
  *

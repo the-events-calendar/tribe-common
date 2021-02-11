@@ -4,8 +4,7 @@
  *
  * This component is different in that it calls other components!
  *
- * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/admin-views/widgets/components/fields/fieldset.php
+ * Administration Views cannot be overwritten by default from your theme.
  *
  * See more documentation about our views templating system.
  *
