@@ -19,7 +19,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.12.15.1';
+	const VERSION             = '4.12.16';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -576,6 +576,8 @@ class Tribe__Main {
 			tribe( 'admin.notice.marketing' );
 		}
 
+		tribe( \Tribe\Admin\Notice\WP_Version::class );
+
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
 		 *
@@ -624,6 +626,7 @@ class Tribe__Main {
 
 		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', [ 'hook' ] );
 		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', [ 'hook' ] );
+		tribe_singleton( \Tribe\Admin\Notice\WP_Version::class, \Tribe\Admin\Notice\WP_Version::class, [ 'hook' ] );
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
