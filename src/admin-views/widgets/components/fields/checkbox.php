@@ -9,7 +9,7 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version 5.3.0
+ * @version TBD
  *
  * @var string $label      Label for the checkbox.
  * @var string $value      Value for the checkbox.

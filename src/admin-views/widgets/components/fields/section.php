@@ -11,7 +11,7 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version 5.3.0
+ * @version TBD
  *
  * @var string              $label       Title for the section. (optional)
  * @var string              $description Description for the section. (optional)

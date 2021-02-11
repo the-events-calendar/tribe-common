@@ -4,6 +4,7 @@
 
 = [4.12.18] TBD =
 
+* Tweak - Created templates for admin Widgets form `admin-views/widgets/components/fields.php`, `admin-views/widgets/components/form.php`, `admin-views/widgets/components/fields/fieldset.php`, `admin-views/widgets/components/fields/section.php` ,`admin-views/widgets/components/fields/text.php`, `admin-views/widgets/components/fields/radio.php`, `admin-views/widgets/components/fields/checkbox.php`, `admin-views/widgets/components/fields/dropdown.php` [ECP-486]
 
 = [4.12.16] 2021-01-28 =
 
