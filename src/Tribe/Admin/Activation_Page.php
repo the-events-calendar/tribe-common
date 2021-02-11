@@ -221,7 +221,7 @@ class Tribe__Admin__Activation_Page {
 	 * Disused since TEC PR 88 (targeting Tribe__Events__Activation_Page,
 	 * which this class was derived from).
 	 *
-	 * @see https://github.com/moderntribe/the-events-calendar/pull/88
+	 * @see https://github.com/the-events-calendar/the-events-calendar/pull/88
 	 *
 	 * @todo decide whether to reinstate or remove
 	 */
