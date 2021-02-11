@@ -18,7 +18,7 @@ $tabs = $view->get_visibles();
 					/**
 					 * Add an action to render content after text label.
 					 *
-					 * @since TBD
+					 * @since 4.12.17
 					 *
 					 * @param Tribe__Tabbed_View $view Tabbed View Object.
 					 */
