@@ -17,7 +17,7 @@ export const wpREST = async ( params ) => {
 
 	/**
 	 * @todo refactor this method as for more details look into:
-	 * - https://github.com/moderntribe/events-gutenberg/pull/346#discussion_r222217138
+	 * - https://github.com/the-events-calendar/events-gutenberg/pull/346#discussion_r222217138
 	 */
 	const options = {
 		path: '',
