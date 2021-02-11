@@ -4,6 +4,7 @@
 
 = [4.12.18] TBD =
 
+* Fix - Ensure we don't enqueue widget customizer styles before the widget stylesheets. [ECP-574]
 * Tweak - Created templates for admin Widgets form `admin-views/widgets/components/fields.php`, `admin-views/widgets/components/form.php`, `admin-views/widgets/components/fields/fieldset.php`, `admin-views/widgets/components/fields/section.php` ,`admin-views/widgets/components/fields/text.php`, `admin-views/widgets/components/fields/radio.php`, `admin-views/widgets/components/fields/checkbox.php`, `admin-views/widgets/components/fields/dropdown.php` [ECP-486]
 
 = [4.12.16] 2021-01-28 =
@@ -30,7 +31,7 @@
 
 = [4.12.14] 2020-12-02 =
 
-* Fix - Correctly handle mutltiple calls to the Repository `by` or `where` method that would cause issues in some Views [ECP-357]
+* Fix - Correctly handle multiple calls to the Repository `by` or `where` method that would cause issues in some Views [ECP-357]
 * Fix - Do not try to store overly large values in transients when not using external object cache. [TEC-3615]
 * Fix - Improve the Rewrite component to correctly parse and handle URLs containing accented chars. [TEC-3608]
 * Tweak - Add the `Tribe__Utils__Array::merge_recursive_query_vars` method to correctly recursively merge nested arrays in the format used by `WP_Query` [ECP-357]
@@ -384,7 +385,7 @@
 = [4.9.9] 2019-05-16 =
 
 * Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translations.theeventscalendar.com
-* Tweak - Optimize the autoloader function to eliminate duplicate path checkings.
+* Tweak - Optimize the autoloader function to eliminate duplicate path checks.
 * Fix - Fixed incorrect position of arg in filter_var function of email validation in Validate.php (props @dharmin) [125915]
 
 = [4.9.8] 2019-05-14 =
@@ -400,7 +401,7 @@
 
 = [4.9.6.2] 2019-04-26 =
 
-* Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]
+* Fix - Prevent Composer autoloader from throwing Fatal due to nonexistent `setClassMapAuthoritative()` method [126590]
 
 = [4.9.6.1] 2019-04-25 =
 
@@ -510,7 +511,7 @@
 * Fix - Interface and Abstracts for REST base structures are now PHP 5.2 compatible
 * Fix - Ensure admin CSS is enqueued any time a notice is displayed atop an admin page [119452]
 * Fix - Prevent to trigger error when using `array_combine` with empty arrays
-* Fix - Compatiblity with classic editor plugin [119426]
+* Fix - Compatibility with classic editor plugin [119426]
 * Tweak - Add functions to remove inner blocks [119426]
 
 = [4.8.1] 2018-12-05 =
@@ -594,7 +595,7 @@
 
 = [4.7.13] 2018-05-16 =
 
-* Fix - Prevent PHP 5.2 error on new Queuing Proccess `T_PAAMAYIM_NEKUDOTAYIM` [106696]
+* Fix - Prevent PHP 5.2 error on new Queuing Process `T_PAAMAYIM_NEKUDOTAYIM` [106696]
 * Fix - Modify some language and typos
 
 = [4.7.12] 2018-05-09 =
@@ -690,7 +691,7 @@
 = [4.7] 2017-11-09 =
 
 * Feature - Included a new Validation.js for Forms and Fields
-* Feature - Included a Camelcase Utils for JavaScript
+* Feature - Included a Camel case Utils for JavaScript
 * Tweak - Added Groups functionality for Tribe Assets class
 * Tweak - Improve Dependency.js with better Documentation
 * Tweak - Timepicker.js is now part of Common instead of The Events Calendar
