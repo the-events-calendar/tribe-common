@@ -7,6 +7,11 @@
 * Fix - Ensure we don't enqueue widget customizer styles before the widget stylesheets. [ECP-574]
 * Tweak - Created templates for admin Widgets form `admin-views/widgets/components/fields.php`, `admin-views/widgets/components/form.php`, `admin-views/widgets/components/fields/fieldset.php`, `admin-views/widgets/components/fields/section.php` ,`admin-views/widgets/components/fields/text.php`, `admin-views/widgets/components/fields/radio.php`, `admin-views/widgets/components/fields/checkbox.php`, `admin-views/widgets/components/fields/dropdown.php` [ECP-486]
 
+= [4.12.17] 2021-02-15 =
+
+* Tweak - Allow usage of HTML within the Tribe Dialog button. [ETP-523]
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 1 obsoleted
+
 = [4.12.16] 2021-01-28 =
 
 * Fix - Increase the minimum width of the datetime dropdown when editing an event with the block editor. [TEC-3126]

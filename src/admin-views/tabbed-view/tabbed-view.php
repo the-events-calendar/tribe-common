@@ -12,7 +12,19 @@ $tabs = $view->get_visibles();
 <?php if ( count( $tabs ) > 1 ) : ?>
     <div class="tabbed-view-wrap wrap">
 		<?php if ( $view->get_label() ) : ?>
-			<h1><?php echo esc_html( $view->get_label() ); ?></h1>
+			<h1>
+				<?php echo esc_html( $view->get_label() ); ?>
+				<?php
+					/**
+					 * Add an action to render content after text label.
+					 *
+					 * @since 4.12.17
+					 *
+					 * @param Tribe__Tabbed_View $view Tabbed View Object.
+					 */
+					do_action( 'tribe_tabbed_view_heading_after_text_label', $view );
+				?>
+			</h1>
 		<?php endif; ?>
 
 		<h2 class="nav-tab-wrapper">

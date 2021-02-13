@@ -97,7 +97,7 @@ class Tribe__Ajax__Dropdown {
 	/**
 	 * Search for Posts using Select2
 	 *
-	 * @since  TBD
+	 * @since  4.12.17
 	 *
 	 * @param string|array<string,mixed> $search   Search string from Select2.
 	 * @param int                        $page     Page we want when we're dealing with pagination.
@@ -130,7 +130,7 @@ class Tribe__Ajax__Dropdown {
 	/**
 	 * Formats a given array of posts to be displayed into the Dropdown.js module with SelectWoo.
 	 *
-	 * @since TBD
+	 * @since 4.12.17
 	 *
 	 * @param array<WP_Post>    $posts
 	 * @param null|int $selected

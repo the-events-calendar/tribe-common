@@ -18,6 +18,8 @@ class AlertTest extends Snapshot_Test_Case {
 			'title'             => 'A test alert',
 			'title_classes'     => 'test-alert__title',
 			'id'                => 'test-alert',
+			'button_display'    => true,
+			'button_attributes' => [],
 			'button_classes'    => 'test-alert__button test-alert__button-red',
 			'button_text'       => 'Understood',
 			'button_display'    => true,
@@ -38,6 +40,8 @@ class AlertTest extends Snapshot_Test_Case {
 			'button_display'    => true,
 			'button_attributes' => [],
 			'content_classes'   => 'test-alert__content',
+			'button_display'    => true,
+			'button_attributes' => [],
 			'content'           => '<p>Lorem alert</p>',
 			'alert_button_text' => 'Alert',
 		] );

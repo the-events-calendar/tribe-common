@@ -514,7 +514,7 @@ class Tribe__Assets {
 			$asset->priority = 1;
 		}
 
-		$is_vendor = strpos( $asset->file, 'vendor/' ) !== false ? true : false;
+		$is_vendor = strpos( $asset->file, 'vendor/' ) !== false || strpos( $asset->file, 'node_modules/' ) !== false ? true : false;
 
 		// Setup the actual URL.
 		if ( filter_var( $asset->file, FILTER_VALIDATE_URL ) ) {
