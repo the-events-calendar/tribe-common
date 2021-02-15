@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.17] 2021-02-15 =
+= [4.12.17] 2021-02-16 =
 
 * Tweak - Allow usage of HTML within the Tribe Dialog button. [ETP-523]
 * Language - 0 new strings added, 1 updated, 1 fuzzied, and 1 obsoleted
