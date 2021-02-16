@@ -16,11 +16,7 @@ tribe.validation = {};
 	/**
 	 * Object containing all the selectors for Validation
 	 *
-<<<<<<< HEAD
-	 * @since  4.7
-=======
 	 * @since  4.7.1
->>>>>>> e5cee261c2c27fea1b9f7f5b247a1f9d2d0afca7
 	 *
 	 * @type   {object}
 	 */
