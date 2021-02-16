@@ -6,7 +6,7 @@
     "wordpress",
     "events"
   ],
-    "homepage": "https://theeventscalendar.com",
+  "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
   "require-dev": {
     "automattic/vipwpcs": "^2.0",
@@ -32,7 +32,6 @@
   "require": {
     "lucatume/di52": "~2.1.0",
     "firebase/php-jwt": "~5.0.0",
-    "faction23/a11y-dialog": "~5.0.0",
     "monolog/monolog": "1.24.*"
   },
   "repositories": [
@@ -47,18 +46,6 @@
       "type": "github",
       "url": "https://github.com/the-events-calendar/TribalScents",
       "no-api": true
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "faction23/a11y-dialog",
-        "version": "5.0.4",
-        "source": {
-          "url": "https://github.com/faction23/a11y-dialog",
-          "type": "git",
-          "reference": "master"
-        }
-      }
     }
   ],
   "scripts": {

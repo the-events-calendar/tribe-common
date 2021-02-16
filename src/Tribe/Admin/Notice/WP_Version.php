@@ -8,13 +8,13 @@ use Tribe__Main as Common;
 /**
  * Various WordPress version notices.
  *
- * @since TBD
+ * @since 4.12.17
  */
 class WP_Version {
 	/**
 	 * Register the various WordPress version notices.
 	 *
-	 * @since TBD
+	 * @since 4.12.17
 	 */
 	public function hook() {
 		tribe_notice(
@@ -33,7 +33,7 @@ class WP_Version {
 	/**
 	 * Whether the WordPress 5.7 notice should display.
 	 *
-	 * @since TBD
+	 * @since 4.12.17
 	 *
 	 * @return boolean
 	 */
@@ -51,7 +51,7 @@ class WP_Version {
 	/**
 	 * HTML for the WordPress 5.7 notice.
 	 *
-	 * @since TBD
+	 * @since 4.12.17
 	 *
 	 * @see https://evnt.is/wp5-7
 	 *
