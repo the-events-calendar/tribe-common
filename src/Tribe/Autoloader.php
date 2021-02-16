@@ -53,7 +53,7 @@
 			 * An arrays of arrays each containing absolute paths.
 			 *
 			 * Paths are stored trimming any trailing `/`.
-			 * E.g. `/var/www/tribe-pro/wp-content/plugins/the-event-calendar/src/Tribe`
+			 * E.g. `/var/www/tribe-pro/wp-content/plugins/the-events-calendar/src/Tribe`
 			 *
 			 * @var string[][]
 			 */

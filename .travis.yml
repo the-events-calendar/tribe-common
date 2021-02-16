@@ -78,7 +78,7 @@ before_script:
 
   # clone The Events Calendar in the plugins folder
   - cd ${WP_ROOT_FOLDER}/wp-content/plugins
-  - git clone --branch=master https://github.com/moderntribe/the-events-calendar.git the-events-calendar
+  - git clone --branch=master https://github.com/the-events-calendar/the-events-calendar.git the-events-calendar
   - cd the-events-calendar
   - git fetch
   # if the plugin has the current branch as a remote use that
