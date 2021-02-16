@@ -23,8 +23,8 @@ var tribe_timepickers = tribe_timepickers || {};
 	};
 
 	obj.timezone = {
-		link: _.template( '<a href="#" class="tribe-change-timezone"><%= label %> <%= timezone %></a>' )
-	}
+		link: _.template( '<a href="#" class="tribe-change-timezone"><%= label %> <%= timezone %></a>' ),
+	};
 
 	obj.$ = {};
 
@@ -104,5 +104,5 @@ var tribe_timepickers = tribe_timepickers || {};
 		} );
 	};
 
-	$( document ).ready( obj.init );
+	$( obj.init );
 } ( jQuery, tribe_timepickers ) );

@@ -1,7 +1,7 @@
 (function( $, _ ) {
 	'use strict';
 	// Configure on Document ready for the default trigger
-	$( document ).ready( function() {
+	$( function() {
 		$( '.tribe-bumpdown-trigger' ).bumpdown();
 	} );
 

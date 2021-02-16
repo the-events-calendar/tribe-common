@@ -95,6 +95,6 @@ tribe.helpPage = tribe.helpPage || {};
 
 	};
 
-	$( document ).ready( obj.setup )
+	$( obj.setup );
 
 } )( jQuery, tribe.helpPage );
