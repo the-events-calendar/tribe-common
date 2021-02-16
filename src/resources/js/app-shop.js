@@ -1,4 +1,4 @@
-jQuery( document ).ready( function() {
+jQuery( function() {
 
 	var maxHeight = 0;
 	jQuery( "div.tribe-addon .caption" ).each( function() {

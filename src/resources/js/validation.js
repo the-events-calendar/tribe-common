@@ -1,3 +1,5 @@
+/* global tribe, console, jQuery */
+
 /**
  * Configures this Object in the Global Tribe variable
  *
@@ -14,7 +16,7 @@ tribe.validation = {};
 	/**
 	 * Object containing all the selectors for Validation
 	 *
-	 * @since  4.7
+	 * @since  4.7.1
 	 *
 	 * @type   {object}
 	 */
@@ -28,7 +30,7 @@ tribe.validation = {};
 		notice: '.tribe-notice-validation',
 		noticeAfter: '.wp-header-end',
 		noticeFallback: '.wrap > h1',
-		noticeDismiss: '.notice-dismiss'
+		noticeDismiss: '.notice-dismiss',
 	};
 
 	/**
@@ -43,7 +45,7 @@ tribe.validation = {};
 			return '' != value;
 		},
 		isGreaterThan: function( value, constraint, $field ) {
-			var condition = obj.parseConditon( 'isGreaterThan', value, constraint, $field );
+			var condition = obj.parseCondition( 'isGreaterThan', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -53,7 +55,7 @@ tribe.validation = {};
 			return condition.constraint < condition.value;
 		},
 		isGreaterOrEqualTo: function( value, constraint, $field ) {
-			var condition = obj.parseConditon( 'isGreaterOrEqualTo', value, constraint, $field );
+			var condition = obj.parseCondition( 'isGreaterOrEqualTo', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -63,7 +65,7 @@ tribe.validation = {};
 			return condition.constraint <= condition.value;
 		},
 		isLessThan: function( value, constraint, $field ) {
-			var condition = obj.parseConditon( 'isLessThan', value, constraint, $field );
+			var condition = obj.parseCondition( 'isLessThan', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -73,7 +75,7 @@ tribe.validation = {};
 			return condition.constraint > condition.value;
 		},
 		isLessOrEqualTo: function( value, constraint, $field ) {
-			var condition = obj.parseConditon( 'isLessOrEqualTo', value, constraint, $field );
+			var condition = obj.parseCondition( 'isLessOrEqualTo', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -83,7 +85,7 @@ tribe.validation = {};
 			return condition.constraint >= condition.value;
 		},
 		isEqualTo: function( value, constraint, $field ) {
-			var condition = obj.parseConditon( 'isEqualTo', value, constraint, $field );
+			var condition = obj.parseCondition( 'isEqualTo', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -93,7 +95,7 @@ tribe.validation = {};
 			return condition.constraint == condition.value;
 		},
 		isNotEqualTo: function( value, constraint, $field ) {
-			var condition = obj.parseConditon( 'isNotEqualTo', value, constraint, $field );
+			var condition = obj.parseCondition( 'isNotEqualTo', value, constraint, $field );
 
 			// If we failed to parse Condition we don't check
 			if ( false === condition ) {
@@ -179,7 +181,7 @@ tribe.validation = {};
 	 *
 	 * @return {object}
 	 */
-	obj.parseConditon = function( conditional, value, constraint, $field ) {
+	obj.parseCondition = function( conditional, value, constraint, $field ) {
 		var type = $field.data( 'validationType' );
 		var $constraint = null;
 		var condition = { value: value, constraint: constraint };
@@ -330,8 +332,8 @@ tribe.validation = {};
 			}
 
 			return value;
-		}
-	}
+		},
+	};
 
 	/**
 	 * FN (prototype) method from jQuery
@@ -349,8 +351,8 @@ tribe.validation = {};
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {int}  index  Field Index
-	 * @param  {DOM}  item   DOM element for the item
+	 * @param  {int}  i     Field Index
+	 * @param  {DOM}  item  DOM element for the item
 	 *
 	 * @type   {function}
 	 */
@@ -431,28 +433,28 @@ tribe.validation = {};
 	 *
 	 * @param  {object}  $field  jQuery Object for the Section been validated
 	 *
-	 * @return {bool}
+	 * @return {boolean}
 	 */
 	obj.hasErrors = function( $item ) {
 		var $errors = $item.find( obj.selectors.error ).not( ':disabled' );
 
 		return 0 !== $errors.length;
-	}
+	};
 
 	/**
-	 * Gets which constrains have Passed
+	 * Gets which constrains have Passed.
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object}  $field  jQuery Object for the field
+	 * @param  {object}  $field  jQuery Object for the field.
 	 *
-	 * @return {object}
+	 * @return {object} Constraints that have passed.
 	 */
 	obj.getConstraints = function( $field ) {
 		var isDisabled = $field.is( ':disabled' );
 		var valid = true;
 
-		// Bail if it's a disabled field
+		// Bail if it's a disabled field.
 		if ( isDisabled ) {
 			return valid;
 		}
@@ -460,27 +462,27 @@ tribe.validation = {};
 		var constraints = obj.getConstraintsValue( $field );
 		var value = $field.val();
 
-		// When we don't have constrains it's always valid
+		// When we don't have constrains it's always valid.
 		if ( _.isEmpty( constraints ) ) {
 			return valid;
 		}
 
-		// Verifies if we have a valid set of constraints
+		// Verifies if we have a valid set of constraints.
 		constraints = _.mapObject( constraints, function( constraint, key ) {
 			return obj.conditions[ key ]( value, constraint, $field );
 		} );
 
 		return constraints;
-	}
+	};
 
 	/**
-	 * Gets which constrainst have valid values
+	 * Gets which constraint have valid values.
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object}  $constraints  Object with all the values for the contraints of a field
+	 * @param  {object}  $field  Object with all the values for the constraints of a field.
 	 *
-	 * @return {object}
+	 * @return {object}  Specific constraint value.
 	 */
 	obj.getConstraintsValue = function( $field ) {
 		var isDisabled = $field.is( ':disabled' );
@@ -491,7 +493,7 @@ tribe.validation = {};
 			return constraints;
 		}
 
-		// Set to all contraints
+		// Set to all constraints
 		constraints = obj.constraints;
 
 		// Fetch the values for each one of these
@@ -512,9 +514,9 @@ tribe.validation = {};
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object}  $fields  jQuery Object for the fields
+	 * @param  {object}  $field  jQuery Object for the fields
 	 *
-	 * @return {object}
+	 * @return {object} Constraints for validation.
 	 */
 	obj.getConstraintsFields = function( $field ) {
 		var constraints = obj.getConstraintsValue( $field );
@@ -529,19 +531,19 @@ tribe.validation = {};
 			return $constraint;
 		} );
 
-		// Check which ones of these are not null
+		// Check which ones of these are not null.
 		constraints = _.pick( constraints, function( value ) {
 			return value instanceof jQuery;
 		} );
 
-		// Turn this into an proper array
+		// Turn this into an proper array.
 		constraints = _.values( constraints );
 
-		// Add the current field
+		// Add the current field.
 		constraints.unshift( $field );
 
-		// Conver to jQuery collection
-		constraints = $( constraints ).map( function () {
+		// Convert to jQuery collection.
+		constraints = $( constraints ).map( function() {
 			return this.get();
 		} );
 
@@ -555,7 +557,7 @@ tribe.validation = {};
 	 *
 	 * @param  {object} event JQuery Event
 	 *
-	 * @return {void|false}
+	 * @return {void}
 	 */
 	obj.onValidation = function( event ) {
 		var $item = $( this );
@@ -642,15 +644,15 @@ tribe.validation = {};
 	};
 
 	/**
-	 * Validates a single Field
+	 * Validates a single Field.
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {string}  message  Message to be Attached
-	 * @param  {object}  $field   jQuery Object for the field
-	 * @param  {object}  $list    jQuery Object for list of Errors
+	 * @param  {string}  message  Message to be Attached.
+	 * @param  {object}  $field   jQuery Object for the field.
+	 * @param  {object}  $list    jQuery Object for list of Errors.
 	 *
-	 * @return {void}
+	 * @return {void} No return.
 	 */
 	obj.addErrorLine = function( message, $field, $list ) {
 		var $listItem = $( '<li>' ).text( message );
@@ -665,13 +667,13 @@ tribe.validation = {};
 	};
 
 	/**
-	 * Hooks to the submit and if invalid prevents submit from completing
+	 * Hooks to the submit and if invalid prevents submit from completing.
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object} event JQuery Event
+	 * @param  {object} event JQuery Event.
 	 *
-	 * @return {void|false}
+	 * @return {void|boolean}  When invalid it prevent bubble.
 	 */
 	obj.onSubmit = function( event ) {
 		var $item = $( this );
@@ -688,12 +690,12 @@ tribe.validation = {};
 	};
 
 	/**
-	 * Hijack the Browser the Invalidation
+	 * Hijack the Browser the Invalidation.
 	 *
 	 * Note that it this weird multi-method is required to go around
 	 * the usage of 'invalid' event, which doesn't bubble up to 'form'
 	 * only happens on the Field, which prevents us to use it on
-	 * the ones that are created by JavaScript Templates
+	 * the ones that are created by JavaScript Templates.
 	 *
 	 * @since  4.7
 	 *
@@ -701,7 +703,7 @@ tribe.validation = {};
 	 *
 	 * @param  {object} event JQuery Event
 	 *
-	 * @return {void}
+	 * @return {void} No return.
 	 */
 	obj.onClickSubmitButtons = function( event ) {
 		var $submit = $( this );
@@ -726,15 +728,15 @@ tribe.validation = {};
 
 	/**
 	 * Add a class to mark fields that are invalid and add an one time
-	 * event for these same fields to remove the class on `change`
+	 * event for these same fields to remove the class on `change`.
 	 *
 	 * @since  4.7
 	 *
 	 * @uses obj.onChangeFieldRemoveError
 	 *
-	 * @param  {object} event JQuery Event
+	 * @param  {Event} event JQuery Event.
 	 *
-	 * @return {void|false}
+	 * @return {boolean} Return false to avoid bubble up.
 	 */
 	obj.onInvalidField = function( event ) {
 		var $field = $( this );
@@ -758,7 +760,9 @@ tribe.validation = {};
 	 *
 	 * @since  4.7
 	 *
-	 * @return {void}
+	 * @param  {Event} event JQuery Event.
+	 *
+	 * @return {void} No return.
 	 */
 	obj.onChangeFieldRemoveError = function( event ) {
 		var $field = $( this );
@@ -770,11 +774,13 @@ tribe.validation = {};
 	};
 
 	/**
-	 * Removes the Notice
+	 * Removes the Notice.
 	 *
 	 * @since  4.7
 	 *
-	 * @return {void}
+	 * @param  {Event} event JQuery Event.
+	 *
+	 * @return {void} No return.
 	 */
 	obj.onClickDismissNotice = function( event ) {
 		var $dismiss = $( this );
@@ -789,9 +795,9 @@ tribe.validation = {};
 	 *
 	 * @since  4.7
 	 *
-	 * @param  {object} event jQuery Event
+	 * @param  {Event} event JQuery Event.
 	 *
-	 * @return {void}
+	 * @return {void} No return.
 	 */
 	obj.onReady = function( event ) {
 		$( obj.selectors.item ).validation();
@@ -802,7 +808,7 @@ tribe.validation = {};
 	 *
 	 * @since  4.7
 	 *
-	 * @return {void}
+	 * @return {void} No return.
 	 */
 	$.fn.validation = obj.fn;
 
@@ -811,5 +817,5 @@ tribe.validation = {};
 	 *
 	 * @since  4.7
 	 */
-	$document.ready( obj.onReady );
+	$( obj.onReady );
 }( tribe.validation, jQuery, window.underscore || window._ ) );

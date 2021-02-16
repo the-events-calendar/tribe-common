@@ -19,7 +19,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	};
 
 	obj.freefrom_create_search_choice = function( params ) {
-		var term = $.trim( params.term );
+		var term = params.term.trim();
 
 		if ( '' === term ) {
 			return null;
@@ -79,7 +79,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	 */
 	obj.matcher = function ( params, data ) {
 		// If there are no search terms, return all of the data
-		if ( $.trim( params.term ) === '') {
+		if ( params.term.trim() === '') {
 			return data;
 		}
 
@@ -88,7 +88,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 			return null;
 		}
 
-		var term = $.trim( params.term );
+		var term = params.term.trim();
 		var text = data.text;
 		var $select = $( data.element ).closest( 'select' );
 		var args = $select.data( 'dropdown' );

@@ -4,10 +4,11 @@
 
 = [4.12.18] TBD =
 
+* Tweak - Modify all of the jQuery to be compatible with 3.5.X in preparation for WordPress 5.7 [TCMN-99]
 * Fix - Ensure we don't enqueue widget customizer styles before the widget stylesheets. [ECP-574]
 * Tweak - Created templates for admin Widgets form `admin-views/widgets/components/fields.php`, `admin-views/widgets/components/form.php`, `admin-views/widgets/components/fields/fieldset.php`, `admin-views/widgets/components/fields/section.php` ,`admin-views/widgets/components/fields/text.php`, `admin-views/widgets/components/fields/radio.php`, `admin-views/widgets/components/fields/checkbox.php`, `admin-views/widgets/components/fields/dropdown.php` [ECP-486]
 
-= [4.12.17] 2021-02-15 =
+= [4.12.17] 2021-02-16 =
 
 * Tweak - Allow usage of HTML within the Tribe Dialog button. [ETP-523]
 * Language - 0 new strings added, 1 updated, 1 fuzzied, and 1 obsoleted

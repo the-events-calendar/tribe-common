@@ -587,7 +587,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						var $el = $( this );
 						var $field = $el.find( 'input' );
 
-						if ( '' === $.trim( $field.val() ) ) {
+						if ( '' === $field.val().trim() ) {
 							$el.find( '.license-test-results' ).hide();
 						}
 					} );

@@ -69,6 +69,6 @@ tribe.dialogs = tribe.dialogs || {};
 		} );
 	};
 
-	$document.ready( obj.init );
+	$( obj.init );
 
 } )( jQuery, tribe.dialogs );
