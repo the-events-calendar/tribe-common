@@ -116,8 +116,8 @@ final class Tribe__Customizer {
 
 		// front end styles from customizer
 		add_action( 'tribe_events_pro_widget_render', [ $this, 'inline_style' ], 101 );
-		add_action( 'wp_print_footer_scripts', [ $this, 'shortcode_inline_style' ], 5 );
-		add_action( 'wp_print_footer_scripts', [ $this, 'widget_inline_style' ], 5 );
+		add_action( 'wp_print_footer_scripts', [ $this, 'shortcode_inline_style' ], 10 );
+		add_action( 'wp_print_footer_scripts', [ $this, 'widget_inline_style' ], 10 );
 
 		/**
 		 * Allows filtering the action that will be used to trigger the printing of inline scripts.
@@ -346,14 +346,14 @@ final class Tribe__Customizer {
 	 *
 	 * @param strings Using the following structure: self::has_option( 'section_name', 'setting_name' );
 	 *
-	 * @return boolean Wheter the option exists in the database
+	 * @return boolean Whether the option exists in the database
 	 */
 	public function has_option() {
 		$search = func_get_args();
 		$option = self::get_option();
 		$real_option = get_option( $this->ID, [] );
 
-		// Get section and Settign based on keys
+		// Get section and Settings based on keys
 		$section = reset( $search );
 		$setting = end( $search );
 
@@ -435,7 +435,7 @@ final class Tribe__Customizer {
 	 *
 	 * @since 4.12.15 Added the `$force` parameter to force the print of the style inline.
 	 *
-	 * @param bool $force Whether to ignore the context to try and printe the style inline, or not.
+	 * @param bool $force Whether to ignore the context to try and print the style inline, or not.
 	 */
 	public function inline_style( $force = false ) {
 		// Only load once on front-end.
@@ -567,7 +567,7 @@ final class Tribe__Customizer {
 		$this->panel = apply_filters( 'tribe_customizer_panel', $this->register_panel(), $this );
 
 		/**
-		 * Filter the Sections within our Panel before they are added to the Cutomize Manager
+		 * Filter the Sections within our Panel before they are added to the Customize Manager
 		 *
 		 * @since 4.4
 		 *

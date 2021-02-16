@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "4.12.16",
+  "version": "4.12.18",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -18,8 +18,8 @@
     "waiting_strings": false
   },
   "engines": {
-    "node": "0.10.30",
-    "npm": "1.4.23"
+    "node": "10.16.0",
+    "npm": "6.9.0"
   },
   "scripts": {
     "analyze": "webpack-bundle-analyzer -m static stats.json",
@@ -77,7 +77,8 @@
     "url-loader": "^0.6.2",
     "validator": "^9.4.1",
     "whatwg-fetch": "^2.0.4",
-    "zero-fill": "^2.2.3"
+    "zero-fill": "^2.2.3",
+    "mt-a11y-dialog": "^5.1.1"
   },
   "devDependencies": {
     "@babel/runtime": "7.0.0-beta.52",

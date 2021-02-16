@@ -7,16 +7,6 @@
     "content-hash": "dbc8c822a1ff288ca85d2429610c4fda",
     "packages": [
         {
-            "name": "faction23/a11y-dialog",
-            "version": "5.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/faction23/a11y-dialog",
-                "reference": "master"
-            },
-            "type": "library"
-        },
-        {
             "name": "firebase/php-jwt",
             "version": "v5.0.0",
             "source": {
@@ -5665,7 +5655,7 @@
                     "email": "vendors@theeventscalendar.com"
                 }
             ],
-            "description": "Code sniffing rules for Modern Tribe products",
+            "description": "Code sniffing rules for The Events Calendar products",
             "keywords": [
                 "WordPress",
                 "phpcs",
