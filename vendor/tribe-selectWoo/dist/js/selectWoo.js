@@ -3532,7 +3532,7 @@ S2.define('select2/data/ajax',[
 
     if (this._request != null) {
       // JSONP requests cannot always be aborted
-      if ($.isFunction(this._request.abort)) {
+      if ( 'function' === typeof this._request.abort ) {
         this._request.abort();
       }
 
@@ -3692,7 +3692,7 @@ S2.define('select2/data/tags',[
   };
 
   Tags.prototype.createTag = function (decorated, params) {
-    var term = $.trim(params.term);
+    var term = params.term.trim();
 
     if (term === '') {
       return null;
@@ -4926,7 +4926,7 @@ S2.define('select2/defaults',[
 
     function matcher (params, data) {
       // Always return the object if there is nothing to compare
-      if ($.trim(params.term) === '') {
+      if (params.term.trim() === '') {
         return data;
       }
 
