@@ -3557,7 +3557,7 @@ S2.define('select2/data/ajax',[
 
         if (self.options.get('debug') && window.console && console.error) {
           // Check to make sure that the response included a `results` key.
-          if (!results || !results.results || !$.isArray(results.results)) {
+          if (!results || !results.results || !Array.isArray(results.results)) {
             console.error(
               'Select2: The AJAX results did not return an array in the ' +
               '`results` key of the response.'
@@ -3616,7 +3616,7 @@ S2.define('select2/data/tags',[
 
     decorated.call(this, $element, options);
 
-    if ($.isArray(tags)) {
+    if (Array.isArray(tags)) {
       for (var t = 0; t < tags.length; t++) {
         var tag = tags[t];
         var item = this._normalizeItem(tag);
@@ -4863,7 +4863,7 @@ S2.define('select2/defaults',[
       }
     }
 
-    if ($.isArray(options.language)) {
+    if (Array.isArray(options.language)) {
       var languages = new Translation();
       options.language.push('en');
 
@@ -5710,7 +5710,7 @@ S2.define('select2/core',[
 
     var newVal = args[0];
 
-    if ($.isArray(newVal)) {
+    if (Array.isArray(newVal)) {
       newVal = $.map(newVal, function (obj) {
         return obj.toString();
       });
@@ -5971,7 +5971,7 @@ S2.define('select2/compat/initSelection',[
     this.initSelection.call(null, this.$element, function (data) {
       self._isInitialized = true;
 
-      if (!$.isArray(data)) {
+      if (!Array.isArray(data)) {
         data = [data];
       }
 
