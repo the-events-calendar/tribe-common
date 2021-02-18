@@ -35,6 +35,17 @@
 	};
 
 	/**
+	 * Replacemente for jQuery $.isNumeric that was deprecated on version 5.7 of WP.
+	 *
+	 * @param {string|int} number
+	 *
+	 * @returns {boolean}
+	 */
+	obj.isNumeric = function( number ) {
+		return ! isNaN( parseFloat( number ) ) && isFinite( number );
+	};
+
+	/**
 	 * Set up each constraint truth condition
 	 * Each function will be passed the value, the constraint and the dependent field
 	 *
@@ -56,10 +67,10 @@
 			return '' === val;
 		},
 		'is_numeric': function ( val ) {
-			return $.isNumeric( val );
+			return obj.isNumeric( val );
 		},
 		'is_not_numeric': function ( val ) {
-			return ! $.isNumeric( val );
+			return ! obj.isNumeric( val );
 		},
 		'is_checked': function ( _, __, $field ) {
 			return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? $field.is( ':checked' ) : false;
@@ -266,8 +277,8 @@
 	 * @type  {Function}
 	 */
 	$.fn.dependency = function () {
-		return this.each( function(){
-			var $el = $(this);
+		return this.each( function() {
+			var $el = $( this );
 			var selector = $el.data( 'depends' );
 			var $selector = $( selector );
 
@@ -282,7 +293,6 @@
 			}
 		} );
 	};
-
 
 	/**
 	 * Listen on async recurrent elements.

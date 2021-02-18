@@ -87,5 +87,5 @@ var tribe_buttonset = tribe_buttonset || {};
 		return false;
 	};
 
-	$( document ).ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe_buttonset, window.underscore || window._ );

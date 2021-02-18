@@ -59,6 +59,6 @@ tribe.tooltip = tribe.tooltip || {};
 		}
 	};
 
-	$document.ready( obj.setup );
+	$( obj.setup );
 
 } )( jQuery, tribe.tooltip );
