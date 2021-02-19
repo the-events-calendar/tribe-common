@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.18] TBD =
+= [4.12.18] 2021-02-24 =
 
 * Tweak - Modify all of the jQuery to be compatible with 3.5.X in preparation for WordPress 5.7 [TCMN-99]
 * Fix - Ensure we don't enqueue widget customizer styles before the widget stylesheets. [ECP-574]

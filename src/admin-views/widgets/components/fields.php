@@ -13,7 +13,7 @@
  * @var Widget_Abstract      $widget_obj                An instance of the widget abstract.
  * @var array<array,mixed>   $fields                    An array of admin fields to display in the widget form.
  *
- * @version TBD
+ * @version 4.12.18
  */
 
 use  Tribe\Widget\Widget_Abstract;

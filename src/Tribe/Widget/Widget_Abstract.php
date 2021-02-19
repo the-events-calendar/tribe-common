@@ -53,7 +53,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Default Asset slug prefix for assets associated with this widget.
 	 *
-	 * @since TBD
+	 * @since 4.12.18
 	 *
 	 * @var string
 	 */
@@ -511,7 +511,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Get the asset name for this widget, properly prefixing it.
 	 *
-	 * @since TBD
+	 * @since 4.12.18
 	 *
 	 * @param string $append Which should be appended to the prefix.
 	 *
