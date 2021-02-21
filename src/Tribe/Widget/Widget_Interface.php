@@ -5,7 +5,7 @@ namespace Tribe\Widget;
 /**
  * Interface Widget_Interface
  *
- * @since   5.12.12
+ * @since   4.12.12
  *
  * @package Tribe\Widget
  *
@@ -15,7 +15,7 @@ interface Widget_Interface {
 	/**
 	 * Constructor for V2 Widgets.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param string              $id_base         Optional. Base ID for the widget, lowercase. If left empty,
 	 *                                             a portion of the widget's class name will be used. Has to be unique.
@@ -28,9 +28,38 @@ interface Widget_Interface {
 	public function __construct( $id_base = '', $name = '', $widget_options = [], $control_options = [] );
 
 	/**
+	 * Returns the widget slug that allows the widget to be built via the widget class using that slug.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The widget slug.
+	 */
+	public static function get_widget_slug();
+
+	/**
+	 * Returns if the widget is in use on this current page.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool If this widget is in use.
+	 */
+	public static function is_widget_in_use();
+
+	/**
+	 * Sets if this widget is in use on the current page.
+	 *
+	 * @since TBD
+	 *
+	 * @see tribe_is_truthy()
+	 *
+	 * @param bool $toggle Toggle true or false if a widget is in use.
+	 */
+	public static function widget_in_use( $toggle = true );
+
+	/**
 	 * Echoes the widget content.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param array<string,mixed> $args     Display arguments including 'before_title', 'after_title',
 	 *                                      'before_widget', and 'after_widget'.
@@ -45,7 +74,7 @@ interface Widget_Interface {
 	 * value of `$instance` should be returned. If false is returned, the instance won't be
 	 * saved/updated.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param array<string,mixed> $new_instance New settings for this instance as input by the user via
 	 *                                          WP_Widget::form().
@@ -58,7 +87,7 @@ interface Widget_Interface {
 	/**
 	 * Outputs the settings update form.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param array<string,mixed> $instance Current settings.
 	 *
@@ -67,20 +96,11 @@ interface Widget_Interface {
 	public function form( $instance );
 
 	/**
-	 * Returns the widget slug that allows the widget to be built via the widget class using that slug.
-	 *
-	 * @since 5.12.12
-	 *
-	 * @return string The widget slug.
-	 */
-	public function get_registration_slug();
-
-	/**
 	 * Sets the aliased arguments array.
 	 *
 	 * @see Tribe__Utils__Array::parse_associative_array_alias() The expected format.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param array<string,mixed> $alias_map An associative array of aliases: key as alias, value as mapped canonical.
 	 *                         Example: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
@@ -90,7 +110,7 @@ interface Widget_Interface {
 	/**
 	 * Gets the aliased arguments array.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @return array<string,string> The associative array map of aliases and their canonical arguments.
 	 */
@@ -99,7 +119,7 @@ interface Widget_Interface {
 	/**
 	 * Returns the arguments for the widget parsed correctly with defaults applied.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param array $arguments Set of arguments passed to the widget at hand.
 	 *
@@ -110,7 +130,7 @@ interface Widget_Interface {
 	/**
 	 * Returns the array of arguments for this widget after applying the validation callbacks.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param array $arguments Set of arguments passed to the widget at hand.
 	 *
@@ -121,7 +141,7 @@ interface Widget_Interface {
 	/**
 	 * Returns the array of callbacks for this widget's arguments.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @return array<string,mixed> A map of the widget arguments that have survived validation.
 	 */
@@ -162,7 +182,7 @@ interface Widget_Interface {
 	/**
 	 * Returns a widget arguments after been parsed.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param array<string,mixed> $instance Saved values for the widget instance.
 	 *
@@ -173,7 +193,7 @@ interface Widget_Interface {
 	/**
 	 * Filter a widget's arguments after they have been been parsed.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param array<string,mixed> $arguments Current set of arguments.
 	 *
@@ -184,7 +204,7 @@ interface Widget_Interface {
 	/**
 	 * Get a single widget argument after it has been parsed and filtered.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param string|int   $index   Which index we intend to fetch from the arguments.
 	 * @param array|mixed  $default Default value if it doesn't exist.
@@ -198,7 +218,7 @@ interface Widget_Interface {
 	/**
 	 * Filter a widget argument.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param mixed       $argument The argument value.
 	 * @param string|int  $index    Which index we intend to fetch from the arguments.
@@ -213,7 +233,7 @@ interface Widget_Interface {
 	/**
 	 * Get default arguments for a widget.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @return array<string,mixed> The map of widget default arguments.
 	 */
@@ -222,7 +242,7 @@ interface Widget_Interface {
 	/**
 	 * Filter a widget's default arguments.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param array<string,mixed> $default_arguments Current set of default arguments.
 	 *
@@ -233,9 +253,27 @@ interface Widget_Interface {
 	/**
 	 * Returns a widget's HTML.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @return string The rendered widget's HTML code.
 	 */
 	public function get_html();
+
+
+	/**********************
+	 * Deprecated Methods *
+	 **********************/
+
+	/**
+	 * Returns the widget slug that allows the widget to be built via the widget class using that slug.
+	 *
+	 * @since 4.12.12
+	 *
+	 * @deprecated TBD In favor of static::get_widget_slug()
+	 * @todo remove after 2021-08-01
+	 *
+	 * @return string The widget slug.
+	 */
+	public function get_registration_slug();
+
 }

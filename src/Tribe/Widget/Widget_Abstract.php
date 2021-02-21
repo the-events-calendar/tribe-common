@@ -8,20 +8,28 @@ use Tribe__Template;
 /**
  * The abstract base without Views that all widgets should implement.
  *
- * @since   5.12.12
+ * @since   4.12.12
  *
  * @package Tribe\Widget
  */
 abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
-
 	/**
 	 * Slug of the current widget.
 	 *
-	 * @since 5.12.12
+	 * @since TBD
 	 *
 	 * @var string
 	 */
-	protected $slug;
+	protected static $widget_slug;
+
+	/**
+	 * If this Widget was rendered on the screen, often useful for Assets.
+	 *
+	 * @since TBD
+	 *
+	 * @var boolean
+	 */
+	protected static $widget_in_use;
 
 	/**
 	 * An instance of template.
@@ -44,7 +52,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Default arguments to be merged into final arguments of the widget.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -66,7 +74,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * Example array: [ 'alias' => 'canonical', 'from' => 'to', 'that' => 'becomes_this' ]
 	 * Example widget usage: [some_tag alias=17 to='Fred'] will be parsed as [some_tag canonical=17 to='Fred']
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @var array<string,string>
 	 */
@@ -75,7 +83,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Array of callbacks for validation of arguments.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @var array<string,callable>
 	 */
@@ -84,7 +92,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Arguments of the current widget.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -93,16 +101,22 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * HTML content of the current widget.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @var string
 	 */
 	protected $content;
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritDoc}1
 	 */
 	public function __construct( $id_base = '', $name = '', $widget_options = [], $control_options = [] ) {
+		/**
+		 * For backwards compatibility purposes alone.
+		 * @todo remove after 2021-08-01
+		 */
+		$this->slug = static::get_widget_slug();
+
 		$arguments = $this->setup_arguments();
 
 		parent::__construct(
@@ -113,6 +127,28 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		);
 
 		$this->setup();
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_widget_slug() {
+		return static::$widget_slug;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function is_widget_in_use() {
+		return static::$widget_in_use;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function widget_in_use( $toggle = true ) {
+		static::$widget_in_use = tribe_is_truthy( $toggle );
 	}
 
 	/**
@@ -145,7 +181,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Echoes the widget content.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param array<string,mixed> $args     Display arguments including 'before_title', 'after_title',
 	 *                                      'before_widget', and 'after_widget'.
@@ -157,13 +193,16 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		// Setup the View for the frontend.
 		$this->setup_view( $arguments );
 
+		// Once the widget is rendered we trigger that it is in use.
+		static::widget_in_use( true );
+
 		echo $this->get_html();
 	}
 
 	/**
 	 * Returns the rendered View HTML code.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @return string
 	 */
@@ -207,35 +246,28 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_registration_slug() {
-		return $this->slug;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	public function get_validated_arguments_map() {
 		/**
 		 * Applies a filter to the validation map for instance arguments.
 		 *
-		 * @since 5.12.12
+		 * @since 4.12.12
 		 *
 		 * @param array<string,callable> $validate_arguments_map Current set of callbacks for arguments.
-		 * @param static                             $instance                            The widget instance we are dealing with.
+		 * @param static                 $instance               The widget instance we are dealing with.
 		 */
 		$validate_arguments_map = apply_filters( 'tribe_widget_validate_arguments_map', $this->validate_arguments_map, $this );
 
-		$registration_slug = $this->get_registration_slug();
+		$widget_slug = static::get_widget_slug();
 
 		/**
-		 * Applies a filter to the validation map for instance arguments for a specific widget. Based on the registration slug of the widget
+		 * Applies a filter to the validation map for instance arguments for a specific widget. Based on the widget slug of the widget
 		 *
-		 * @since 5.12.12
+		 * @since 4.12.12
 		 *
 		 * @param array<string,callable> $validate_arguments_map Current set of callbacks for arguments.
-		 * @param static                            $instance                             The widget instance we are dealing with.
+		 * @param static                 $instance               The widget instance we are dealing with.
 		 */
-		$validate_arguments_map = apply_filters( "tribe__widget_{$registration_slug}_validate_arguments_map", $validate_arguments_map, $this );
+		$validate_arguments_map = apply_filters( "tribe__widget_{$widget_slug}_validate_arguments_map", $validate_arguments_map, $this );
 
 		return $validate_arguments_map;
 	}
@@ -270,17 +302,17 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 */
 		$admin_fields = apply_filters( 'tribe_widget_admin_fields', $admin_fields, $this );
 
-		$registration_slug = $this->get_registration_slug();
+		$widget_slug = static::get_widget_slug();
 
 		/**
-		 * Applies a filter to a widget's admin fields based on the registration slug of the widget.
+		 * Applies a filter to a widget's admin fields based on the widget slug of the widget.
 		 *
 		 * @since TBE
 		 *
 		 * @param array<string,mixed> $admin_fields The array of widget admin fields.
 		 * @param static              $instance     The widget instance we are dealing with.
 		 */
-		$admin_fields = apply_filters( "tribe_widget_{$registration_slug}_admin_fields", $admin_fields, $this );
+		$admin_fields = apply_filters( "tribe_widget_{$widget_slug}_admin_fields", $admin_fields, $this );
 
 		return $admin_fields;
 	}
@@ -300,10 +332,10 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 */
 		$updated_instance = apply_filters( 'tribe_widget_updated_instance', $updated_instance, $new_instance, $this );
 
-		$registration_slug = $this->get_registration_slug();
+		$widget_slug = static::get_widget_slug();
 
 		/**
-		 * Applies a filter to updated instance of a widget arguments based on the registration slug of the widget.
+		 * Applies a filter to updated instance of a widget arguments based on the widget slug of the widget.
 		 *
 		 * @since 4.12.14
 		 *
@@ -311,7 +343,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 * @param array<string,mixed> $new_instance The new values for the widget instance.
 		 * @param static              $instance  The widget instance we are dealing with.
 		 */
-		$updated_instance = apply_filters( "tribe_widget_{$registration_slug}_updated_instance", $updated_instance, $new_instance, $this );
+		$updated_instance = apply_filters( "tribe_widget_{$widget_slug}_updated_instance", $updated_instance, $new_instance, $this );
 
 		return $updated_instance;
 	}
@@ -355,24 +387,24 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to instance arguments.
 		 *
-		 * @since 5.12.12
+		 * @since 4.12.12
 		 *
 		 * @param array<string,mixed> $arguments Current set of arguments.
 		 * @param static              $instance  The widget instance we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_widget_arguments', $arguments, $this );
 
-		$registration_slug = $this->get_registration_slug();
+		$widget_slug = static::get_widget_slug();
 
 		/**
-		 * Applies a filter to instance arguments based on the registration slug of the widget.
+		 * Applies a filter to instance arguments based on the widget slug of the widget.
 		 *
-		 * @since 5.12.12
+		 * @since 4.12.12
 		 *
 		 * @param array<string,mixed> $arguments Current set of arguments.
 		 * @param static              $instance  The widget instance we are dealing with.
 		 */
-		$arguments = apply_filters( "tribe_widget_{$registration_slug}_arguments", $arguments, $this );
+		$arguments = apply_filters( "tribe_widget_{$widget_slug}_arguments", $arguments, $this );
 
 		return $arguments;
 	}
@@ -394,7 +426,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to a specific widget argument, catch all for all widgets.
 		 *
-		 * @since 5.12.12
+		 * @since 4.12.12
 		 *
 		 * @param mixed               $argument The argument.
 		 * @param string|int          $index    Which index we intend to fetch from the arguments.
@@ -403,19 +435,19 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 */
 		$argument = apply_filters( 'tribe_widget_argument', $argument, $index, $default, $this );
 
-		$registration_slug = $this->get_registration_slug();
+		$widget_slug = static::get_widget_slug();
 
 		/**
-		 * Applies a filter to a specific widget argument, to a particular registration slug.
+		 * Applies a filter to a specific widget argument, to a particular widget slug.
 		 *
-		 * @since 5.12.12
+		 * @since 4.12.12
 		 *
 		 * @param mixed      $argument The argument value.
 		 * @param string|int $index    Which index we intend to fetch from the arguments.
 		 * @param mixed      $default  Default value if it doesn't exist.
 		 * @param static     $instance The widget instance we are dealing with.
 		 */
-		$argument = apply_filters( "tribe_widget_{$registration_slug}_argument", $argument, $index, $default, $this );
+		$argument = apply_filters( "tribe_widget_{$widget_slug}_argument", $argument, $index, $default, $this );
 
 		return $argument;
 	}
@@ -453,24 +485,24 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to default instance arguments.
 		 *
-		 * @since 5.12.12
+		 * @since 4.12.12
 		 *
 		 * @param array<string,mixed>  $default_arguments Current set of default arguments.
 		 * @param static               $instance          The widget instance we are dealing with.
 		 */
 		$default_arguments = apply_filters( 'tribe_widget_default_arguments', $default_arguments, $this );
 
-		$registration_slug = $this->get_registration_slug();
+		$widget_slug = static::get_widget_slug();
 
 		/**
-		 * Applies a filter to default instance arguments based on the registration slug of the widget.
+		 * Applies a filter to default instance arguments based on the widget slug of the widget.
 		 *
-		 * @since 5.12.12
+		 * @since 4.12.12
 		 *
 		 * @param array<string,mixed>  $default_arguments Current set of default arguments.
 		 * @param static               $instance          The widget instance we are dealing with.
 		 */
-		return apply_filters( "tribe_widget_{$registration_slug}_default_arguments", $default_arguments, $this );
+		return apply_filters( "tribe_widget_{$widget_slug}_default_arguments", $default_arguments, $this );
 	}
 
 	/**
@@ -519,5 +551,28 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	public static function get_asset_slug( $append = '' ) {
 		return static::$asset_slug_prefix . ( ! empty( $append ) ? '-' . $append : '' );
+	}
+
+	/**********************
+	 * Deprecated Methods *
+	 **********************/
+
+	/**
+	 * Slug of the current widget.
+	 *
+	 * @since 4.12.12
+	 *
+	 * @deprecated TBD Moved into using static::$widget_slug
+	 * @todo remove after 2021-08-01
+	 *
+	 * @var string
+	 */
+	protected $slug;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_registration_slug() {
+		return static::get_widget_slug();
 	}
 }

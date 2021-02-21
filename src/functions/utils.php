@@ -1182,7 +1182,7 @@ if ( ! function_exists( 'tribe_without_filters' ) ) {
 	 * The function will infer the priority of the filter, required for its correct detachment and re-attachment, on
 	 * its own.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param string   $filter_tag      The filter tag to suspend.
 	 * @param callable $filter_callback The filter_callback currently attached to the filter.
