@@ -358,6 +358,10 @@ class Tribe__Assets {
 				wp_enqueue_style( $asset->slug );
 			}
 
+			if ( ! empty( $asset->after_enqueue ) && is_callable( $asset->after_enqueue ) ) {
+				call_user_func_array( $asset->after_enqueue, [ $asset ] );
+			}
+
 			$asset->already_enqueued = true;
 		}
 	}
@@ -550,8 +554,12 @@ class Tribe__Assets {
 			// Bigger Variables at the end.
 			'localize'      => [],
 			'conditionals'  => [],
+
 			// Used to handle Translations handled in the JavaScript side of the Assets.
 			'translations'  => [],
+
+			// Execute after the asset is enqueued.
+			'after_enqueue' => null,
 		];
 
 		// Merge Arguments.
