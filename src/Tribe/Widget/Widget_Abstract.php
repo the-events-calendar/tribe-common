@@ -59,15 +59,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	protected $default_arguments = [];
 
 	/**
-	 * Default Asset slug prefix for assets associated with this widget.
-	 *
-	 * @since 4.12.18
-	 *
-	 * @var string
-	 */
-	protected static $asset_slug_prefix;
-
-	/**
 	 * Array map allowing aliased widget arguments.
 	 *
 	 * The array keys are aliases of the array values (i.e. the "real" widget attributes to parse).
@@ -537,19 +528,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	public function get_admin_html( $arguments ) {
 		return $this->get_admin_template()->template( $this->view_admin_slug, $arguments );
-	}
-
-	/**
-	 * Get the asset name for this widget, properly prefixing it.
-	 *
-	 * @since 4.12.18
-	 *
-	 * @param string $append Which should be appended to the prefix.
-	 *
-	 * @return string Slug for the asset after appending the prefix.
-	 */
-	public static function get_asset_slug( $append = '' ) {
-		return static::$asset_slug_prefix . ( ! empty( $append ) ? '-' . $append : '' );
 	}
 
 	/**********************
