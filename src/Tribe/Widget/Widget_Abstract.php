@@ -129,7 +129,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		$this->setup();
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -188,13 +187,13 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @param array<string,mixed> $instance The settings for the particular instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
+		// Once the widget is rendered we trigger that it is in use.
+		static::widget_in_use( true );
+
 		$arguments = $this->get_arguments( $instance );
 
 		// Setup the View for the frontend.
 		$this->setup_view( $arguments );
-
-		// Once the widget is rendered we trigger that it is in use.
-		static::widget_in_use( true );
 
 		echo $this->get_html();
 	}
