@@ -140,14 +140,14 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Get's the instantiated context of this class. I.e. the object that instantiated this one.
+	 * Gets the instantiated context of this class. I.e. the object that instantiated this one.
 	 */
 	public function context() {
 		return $this->plugin_context;
 	}
 
 	/**
-	 * Get's the class name of the instantiated plugin context of this class. I.e. the class name of the object that instantiated this one.
+	 * Gets the class name of the instantiated plugin context of this class. I.e. the class name of the object that instantiated this one.
 	 */
 	public function context_class() {
 		return $this->plugin_context_class;
@@ -591,7 +591,7 @@ class Tribe__Main {
 	 *
 	 * @since 4.4
 	 *
-	 * @return void Implementation of components loader doesnt return anything.
+	 * @return void Implementation of components loader doesn't return anything.
 	 */
 	public function bind_implementations() {
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
