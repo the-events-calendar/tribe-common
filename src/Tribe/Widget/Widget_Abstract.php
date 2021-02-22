@@ -40,14 +40,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	protected $admin_template;
 
-	/**
-	 * The slug of the admin widget view.
-	 *
-	 * @since 4.12.14
-	 *
-	 * @var string
-	 */
-	protected $view_admin_slug;
 
 	/**
 	 * Default arguments to be merged into final arguments of the widget.
@@ -99,7 +91,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	protected $content;
 
 	/**
-	 * {@inheritDoc}1
+	 * {@inheritDoc}
 	 */
 	public function __construct( $id_base = '', $name = '', $widget_options = [], $control_options = [] ) {
 		/**
@@ -257,7 +249,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 * @param array<string,callable> $validate_arguments_map Current set of callbacks for arguments.
 		 * @param static                 $instance               The widget instance we are dealing with.
 		 */
-		$validate_arguments_map = apply_filters( "tribe__widget_{$widget_slug}_validate_arguments_map", $validate_arguments_map, $this );
+		$validate_arguments_map = apply_filters( "tribe_widget_{$widget_slug}_validate_arguments_map", $validate_arguments_map, $this );
 
 		return $validate_arguments_map;
 	}
@@ -496,6 +488,35 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	public function filter_args_to_context( array $alterations = [], array $arguments = [] ) {
+		/**
+		 * Applies a filter to arguments before they get turned into context.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed>  $alterations Current set of alterations for the context.
+		 * @param array<string,mixed>  $arguments   Current set of arguments in the widget.
+		 * @param static               $instance    The widget instance we are dealing with.
+		 */
+		$alterations = apply_filters( 'tribe_widget_args_to_context', $alterations, $arguments, $this );
+
+		$widget_slug = static::get_widget_slug();
+
+		/**
+		 * Applies a filter to arguments before they get turned into context based on the widget slug of the widget.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed>  $alterations Current set of alterations for the context.
+		 * @param array<string,mixed>  $arguments   Current set of arguments in the widget.
+		 * @param static               $instance    The widget instance we are dealing with.
+		 */
+		return apply_filters( "tribe_widget_{$widget_slug}_args_to_context", $alterations, $arguments, $this );
+	}
+
+	/**
 	 * Sets the admin template.
 	 *
 	 * @since 4.12.14
@@ -527,7 +548,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @return string  HTML for the admin fields.
 	 */
 	public function get_admin_html( $arguments ) {
-		return $this->get_admin_template()->template( $this->view_admin_slug, $arguments );
+		return $this->get_admin_template()->template( [ 'widgets', static::get_widget_slug() ], $arguments );
 	}
 
 	/**********************
@@ -545,6 +566,18 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @var string
 	 */
 	protected $slug;
+
+	/**
+	 * The slug of the admin widget view.
+	 *
+	 * @since 4.12.14
+	 *
+	 * @deprecated TBD Moved into using static::$widget_slug
+	 * @todo remove after 2021-08-01
+	 *
+	 * @var string
+	 */
+	protected $view_admin_slug;
 
 	/**
 	 * {@inheritDoc}

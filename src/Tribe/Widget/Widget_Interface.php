@@ -250,6 +250,19 @@ interface Widget_Interface {
 	 */
 	public function filter_default_arguments( array $default_arguments = [] );
 
+
+	/**
+	 * Filter a widget's arguments before they are passed to the context.
+	 *
+	 * @since TBD
+	 *
+		 * @param array<string,mixed>  $alterations Current set of alterations for the context.
+		 * @param array<string,mixed>  $arguments   Current set of arguments in the widget.
+	 *
+	 * @return array<string,mixed> The map of arguments after filtering.
+	 */
+	public function filter_args_to_context( array $alterations = [], array $arguments = [] );
+
 	/**
 	 * Returns a widget's HTML.
 	 *
@@ -258,7 +271,6 @@ interface Widget_Interface {
 	 * @return string The rendered widget's HTML code.
 	 */
 	public function get_html();
-
 
 	/**********************
 	 * Deprecated Methods *
