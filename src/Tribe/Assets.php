@@ -57,6 +57,11 @@ class Tribe__Assets {
 			return $tag;
 		}
 
+		// Bail when not dealing with JS assets.
+		if ( 'js' !== $asset->type ) {
+			return $tag;
+		}
+
 		// When async and defer are false we bail with the tag.
 		if ( ! $asset->defer && ! $asset->async ) {
 			return $tag;
