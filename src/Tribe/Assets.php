@@ -79,9 +79,10 @@ class Tribe__Assets {
 			$replacement .= 'defer ';
 		}
 
-		$replacement .= 'src=';
+		$replacement_src  = $replacement . 'src=';
+		$replacement_type = $replacement . 'type=';
 
-		return str_replace( '<script src=', $replacement, $tag );
+		return str_replace( [ '<script src=', '<script type=' ], [ $replacement_src, $replacement_type ], $tag );
 	}
 
 	/**
