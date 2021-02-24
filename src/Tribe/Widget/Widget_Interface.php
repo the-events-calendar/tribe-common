@@ -143,9 +143,20 @@ interface Widget_Interface {
 	 *
 	 * @since 4.12.12
 	 *
-	 * @return array<string,mixed> A map of the widget arguments that have survived validation.
+	 * @return array<string,callable> A map of the widget arguments that have survived validation.
 	 */
 	public function get_validated_arguments_map();
+
+	/**
+	 * Returns the array of callbacks for this widget's arguments.
+	 *
+	 * @since 4.12.12
+	 *
+	 * @param array<string,callable> $validate_arguments_map Array of callbacks for this widget's arguments.
+	 *
+	 * @return array<string,callable> A map of the widget arguments that have survived validation.
+	 */
+	public function filter_validated_arguments_map( $validate_arguments_map = [] );
 
 	/**
 	 * Returns an array of admin fields for the widget.
@@ -183,12 +194,13 @@ interface Widget_Interface {
 	 * Returns a widget arguments after been parsed.
 	 *
 	 * @since 4.12.12
+	 * @since TBD Deprecated the instance method as that is passed only to setup_arguments method.
 	 *
-	 * @param array<string,mixed> $instance Saved values for the widget instance.
+	 * @param array<string,mixed> $_deprecated Saved values for the widget instance.
 	 *
 	 * @return array<string,mixed> The widget arguments, as set by the user in the widget string.
 	 */
-	public function get_arguments( array $instance = [] );
+	public function get_arguments( array $_deprecated = [] );
 
 	/**
 	 * Filter a widget's arguments after they have been been parsed.
