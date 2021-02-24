@@ -1,7 +1,7 @@
 (function( $, _ ) {
 	'use strict';
 	// Configure on Document ready for the default trigger
-	$( function() {
+	$ (window ).on( 'load', function() {
 		$( '.tribe-bumpdown-trigger' ).bumpdown();
 	} );
 
@@ -102,23 +102,26 @@
 			}
 		} );
 
+		if ( 'function' === typeof $.fn.hoverIntent ) {
+			$document
+				// Use hoverIntent to make sure we are not opening Bumpdown on a fast hover
+				.hoverIntent( {
+					over: function() {
+						var data = $( this ).data( 'bumpdown' );
+
+						// Flags that it's open
+						data.$trigger.data( 'is_hoverintent_queued', false );
+
+						// Actually opens
+						data.$bumpdown.trigger( 'open.bumpdown' );
+					},
+					out: function() {}, // Prevents Notice on JS
+					selector: selectors.hover_trigger,
+					interval: 200,
+				} );
+		}
+
 		$document
-			// Use hoverIntent to make sure we are not opening Bumpdown on a fast hover
-			.hoverIntent( {
-				over: function() {
-					var data = $( this ).data( 'bumpdown' );
-
-					// Flags that it's open
-					data.$trigger.data( 'is_hoverintent_queued', false );
-
-					// Actually opens
-					data.$bumpdown.trigger( 'open.bumpdown' );
-				},
-				out: function() {}, // Prevents Notice on JS
-				selector: selectors.hover_trigger,
-				interval: 200
-			} )
-
 			// Setup Events on Trigger
 			.on( {
 				mouseenter: function() {
@@ -189,19 +192,19 @@
 		// Configure all the fields
 		return this.each( function() {
 			var data = {
-					// Store the jQuery Elements
-					$trigger: $( this ),
-					$parent: null,
-					$bumpdown: null,
+				// Store the jQuery Elements
+				$trigger: $( this ),
+				$parent: null,
+				$bumpdown: null,
 
-					// Store other Variables
-					ID: null,
-					html: null,
-					type: 'block',
+				// Store other Variables
+				ID: null,
+				html: null,
+				type: 'block',
 
-					// Flags
-					is_permanent: false
-				};
+				// Flags
+				is_permanent: false,
+			};
 
 			// We need a ID for this Bumpdown
 			data.ID = data.$trigger.attr( 'id' );

@@ -57,6 +57,11 @@ class Tribe__Assets {
 			return $tag;
 		}
 
+		// Bail when not dealing with JS assets.
+		if ( 'js' !== $asset->type ) {
+			return $tag;
+		}
+
 		// When async and defer are false we bail with the tag.
 		if ( ! $asset->defer && ! $asset->async ) {
 			return $tag;
@@ -74,9 +79,10 @@ class Tribe__Assets {
 			$replacement .= 'defer ';
 		}
 
-		$replacement .= 'src=';
+		$replacement_src  = $replacement . 'src=';
+		$replacement_type = $replacement . 'type=';
 
-		return str_replace( '<script src=', $replacement, $tag );
+		return str_replace( [ '<script src=', '<script type=' ], [ $replacement_src, $replacement_type ], $tag );
 	}
 
 	/**
