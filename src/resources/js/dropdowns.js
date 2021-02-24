@@ -536,7 +536,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		return $elements;
 	};
 
-	$( window ).on( 'load', function() {
+	$( function() {
 		$( obj.selector.dropdown ).tribe_dropdowns();
 	} );
 
