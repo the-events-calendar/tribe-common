@@ -40,7 +40,6 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	protected $admin_template;
 
-
 	/**
 	 * Default arguments to be merged into final arguments of the widget.
 	 *
@@ -79,7 +78,16 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @var array<string,mixed>
 	 */
-	protected $arguments;
+	protected $arguments = [];
+
+	/**
+	 * Current set of Admin Fields used on the admin form.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,mixed>
+	 */
+	protected $admin_fields = [];
 
 	/**
 	 * HTML content of the current widget.
@@ -100,18 +108,121 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 */
 		$this->slug = static::get_widget_slug();
 
-		$arguments = $this->setup_arguments();
-
 		parent::__construct(
-			Arr::get( $arguments, 'id_base', '' ),
-			Arr::get( $arguments, 'name', '' ),
-			Arr::get( $arguments, 'widget_options', [] ),
-			Arr::get( $arguments, 'control_options', [] )
+			$this->parse_id_base( $id_base ),
+			$this->parse_name( $name ),
+			$this->parse_widget_options( $widget_options ),
+			$this->parse_control_options( $control_options )
 		);
 
 		$this->setup();
 	}
 
+
+	/**
+	 * Parse the ID base sent to the __construct method.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id_base The ID base that we will use for this Widget instance.
+	 *
+	 * @return string|null
+	 */
+	protected function parse_id_base( $id_base ) {
+		// When empty use the one default to the widget.
+		if ( empty( $id_base ) ) {
+			$id_base = 'tribe-widget-' . static::get_widget_slug();
+		}
+
+		return $id_base;
+	}
+
+	/**
+	 * Parse the ID base sent to the __construct method.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name The ID base that we will use for this Widget instance.
+	 *
+	 * @return string
+	 */
+	protected function parse_name( $name ) {
+		// When empty use the one default to the widget.
+		if ( empty( $name ) ) {
+			$name = static::get_default_widget_name();
+		}
+
+		return $name;
+	}
+
+	/**
+	 * Sets up the Widget name,
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public static function get_default_widget_name() {
+		return __( 'Widget', 'tribe-common' );
+	}
+
+	/**
+	 * Parse the widget options base sent to the __construct method.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $widget_options The widget options base that we will use for this Widget instance.
+	 *
+	 * @return array  Widget options that will be passed to the __construct.
+	 */
+	protected function parse_widget_options( $widget_options ) {
+		// When empty use the one default to the widget.
+		if ( empty( $widget_options ) ) {
+			$widget_options = static::get_default_widget_options();
+		}
+
+		return $widget_options;
+	}
+
+	/**
+	 * Gets the default widget options.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public static function get_default_widget_options() {
+		return [];
+	}
+
+	/**
+	 * Parse the control options base sent to the __construct method.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $control_options The base control options passed to the construct method.
+	 *
+	 * @return array
+	 */
+	protected function parse_control_options( $control_options ) {
+		// When empty use the one default to the widget.
+		if ( empty( $control_options ) ) {
+			$control_options = static::get_default_control_options();
+		}
+
+		return $control_options;
+	}
+
+	/**
+	 * Gets the default control options..
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public static function get_default_control_options() {
+		return [];
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -138,46 +249,36 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * Setup the widget.
 	 *
 	 * @since  5.2.1
+	 * @since TBD include $args and $instance params.
+	 *
+	 * @param array $args     Display arguments including 'before_title', 'after_title',
+	 *                        'before_widget', and 'after_widget'.
+	 * @param array $instance The settings for the particular instance of the widget.
 	 *
 	 * @return mixed
 	 */
-	abstract public function setup();
-
-	/**
-	 * Setup the widget.
-	 *
-	 * @since  4.12.14
-	 *
-	 * @param array<string,mixed> $arguments The widget arguments, as set by the user in the widget string.
-	 */
-	abstract public function setup_view( $arguments );
+	abstract public function setup( $args = [], $instance = [] );
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function form( $instance ) {
-		$arguments = $this->setup_arguments( $instance );
+		$this->setup( [], $instance );
 
-		return $this->get_admin_html( $arguments );
+		// Specifically on the admin we force the admin fields into the arguments.
+		$this->arguments['admin_fields'] = $this->get_admin_fields();
+
+		return $this->get_admin_html( $this->get_arguments() );
 	}
 
 	/**
-	 * Echoes the widget content.
-	 *
-	 * @since 4.12.12
-	 *
-	 * @param array<string,mixed> $args     Display arguments including 'before_title', 'after_title',
-	 *                                      'before_widget', and 'after_widget'.
-	 * @param array<string,mixed> $instance The settings for the particular instance of the widget.
+	 * {@inheritDoc}
 	 */
 	public function widget( $args, $instance ) {
-		$arguments = $this->get_arguments( $instance );
-
-		// Setup the View for the frontend.
-		$this->setup_view( $arguments );
-
 		// Once the widget is rendered we trigger that it is in use.
 		static::widget_in_use( true );
+
+		$this->setup( $args, $instance );
 
 		echo $this->get_html();
 	}
@@ -218,9 +319,11 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function validate_arguments( array $arguments ) {
-		$validate_arguments_map = $this->get_validated_arguments_map();
+		$validate_arguments_map = $this->filter_validated_arguments_map( $this->get_validated_arguments_map() );
+
+		// Only overwrite methods that have a validation, the rest stay as-is.
 		foreach ( $validate_arguments_map as $key => $callback ) {
-			$arguments[ $key ] = $callback( isset( $arguments[ $key ] ) ? $arguments[ $key ] : null );
+			$arguments[ $key ] = $callback( Arr::get( $arguments, $key, null ) );
 		}
 
 		return $arguments;
@@ -230,6 +333,13 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_validated_arguments_map() {
+		return $this->validate_arguments_map;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function filter_validated_arguments_map( $validate_arguments_map = [] ) {
 		/**
 		 * Applies a filter to the validation map for instance arguments.
 		 *
@@ -238,7 +348,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		 * @param array<string,callable> $validate_arguments_map Current set of callbacks for arguments.
 		 * @param static                 $instance               The widget instance we are dealing with.
 		 */
-		$validate_arguments_map = apply_filters( 'tribe_widget_validate_arguments_map', $this->validate_arguments_map, $this );
+		$validate_arguments_map = apply_filters( 'tribe_widget_validate_arguments_map', $validate_arguments_map, $this );
 
 		$widget_slug = static::get_widget_slug();
 
@@ -268,7 +378,13 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_admin_fields() {
-		return $this->filter_admin_fields( $this->setup_admin_fields() );
+		$fields = $this->setup_admin_fields();
+		$arguments = $this->get_arguments();
+
+		foreach ( $fields as $field_name => $field ) {
+			$fields[ $field_name ] = $this->get_admin_data( $arguments, $field_name, $field );
+		}
+		return $this->filter_admin_fields( $fields );
 	}
 
 	/**
@@ -341,26 +457,73 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @return array<string,mixed> The widget arguments, as set by the user in the widget string.
 	 */
 	protected function setup_arguments( array $instance = [] ) {
-		$arguments = $this->arguments;
+		// First Setup the Defaults to make sure dynamic values are present.
+		$this->setup_default_arguments();
 
-		$arguments = wp_parse_args(
-			$arguments,
-			$this->get_default_arguments()
+		// Now merge instance into the arguments then to the defaults.
+		$this->arguments = array_merge(
+			$this->get_default_arguments(),
+			$this->arguments,
+			$instance
 		);
 
-		$arguments = wp_parse_args(
-			$instance,
-			$arguments
-		);
+		// Parse these arguments to avoid problems.
+		$this->arguments = $this->parse_arguments( $this->arguments );
 
-		return $arguments;
+		return $this->arguments;
+	}
+
+	/**
+	 * Handles gathering the data for admin fields.
+	 *
+	 * @since 5.3.0
+	 * @since TBD Move into common from Events Abstract
+	 *
+	 * @param array<string,mixed> $arguments   Current set of arguments.
+	 * @param int                 $field_name  The ID of the field.
+	 * @param array<string,mixed> $field       The field info.
+	 *
+	 * @return array<string,mixed> $data The assembled field data.
+	 */
+	public function get_admin_data( $arguments, $field_name, $field ) {
+		$data = [
+			'classes'     => Arr::get( $field, 'classes', '' ),
+			'dependency'  => $this->format_dependency( $field ),
+			'id'          => $this->get_field_id( $field_name ),
+			'label'       => Arr::get( $field, 'label', '' ),
+			'name'        => $this->get_field_name( $field_name ),
+			'options'     => Arr::get( $field, 'options', [] ),
+			'placeholder' => Arr::get( $field, 'placeholder', '' ),
+			'value'       => Arr::get( $arguments, $field_name ),
+		];
+
+		$children = Arr::get( $field, 'children', [] );
+
+		if ( ! empty( $children ) ) {
+			foreach ( $children as $child_name => $child ) {
+				$input_name =  ( 'radio' === $child['type'] ) ? $field_name : $child_name;
+
+				$child_data = $this->get_admin_data(
+					$arguments,
+					$input_name,
+					$child
+				);
+
+				$data['children'][ $child_name ] = $child_data;
+			}
+		}
+
+		$data = array_merge( $field, $data );
+
+		// @todo properly filter this.
+		return apply_filters( 'tribe_widget_field_data', $data, $field_name, $this );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_arguments( array $instance = [] ) {
-		return $this->filter_arguments( $this->setup_arguments( $instance ) );
+	public function get_arguments( array $_deprecated = [] ) {
+		return $this->filter_arguments( $this->arguments );
 	}
 
 	/**
@@ -396,8 +559,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_argument( $index, $default = null ) {
-		$arguments = $this->setup_arguments();
-		$argument  = Arr::get( $arguments, $index, $default );
+		$argument  = Arr::get( $this->get_arguments(), $index, $default );
 
 		return $this->filter_argument( $argument, $index, $default );
 	}
@@ -405,7 +567,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function filter_argument( $argument, $index, $default = null  ) {
+	public function filter_argument( $argument, $index, $default = null ) {
 		/**
 		 * Applies a filter to a specific widget argument, catch all for all widgets.
 		 *
@@ -443,22 +605,20 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * @return array<string,mixed> The default widget arguments.
 	 */
 	protected function setup_default_arguments() {
-		$default_arguments = $this->default_arguments;
-
 		// Setup admin fields.
-		$default_arguments['admin_fields'] = $this->get_admin_fields();
+		$this->default_arguments['admin_fields'] = $this->get_admin_fields();
 
 		// Add the Widget to the arguments to pass to the admin template.
-		$default_arguments['widget_obj'] = $this;
+		$this->default_arguments['widget_obj'] = $this;
 
-		return $default_arguments;
+		return $this->default_arguments;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function get_default_arguments() {
-		return $this->filter_default_arguments( $this->setup_default_arguments() );
+		return $this->filter_default_arguments( $this->default_arguments );
 	}
 
 	/**
