@@ -4,10 +4,10 @@
  *
  * To rebuild or modify this file with the latest versions of the included
  * software please visit:
- *   https://datatables.net/download/#dt/jq-3.3.1/dt-1.10.23/af-2.3.5/b-1.6.5/cr-1.5.3/fc-3.3.2/fh-3.1.8/kt-2.6.0/r-2.2.7/rr-1.2.7/sc-2.0.3/sl-1.3.1
+ *   https://datatables.net/download/#dt/dt-1.10.23/af-2.3.5/b-1.6.5/cr-1.5.3/fc-3.3.2/fh-3.1.8/kt-2.6.1/r-2.2.7/rr-1.2.7/sc-2.0.3/sl-1.3.1
  *
  * Included libraries:
- *  jQuery 3.3.1, DataTables 1.10.23, AutoFill 2.3.5, Buttons 1.6.5, ColReorder 1.5.3, FixedColumns 3.3.2, FixedHeader 3.1.8, KeyTable 2.6.0, Responsive 2.2.7, RowReorder 1.2.7, Scroller 2.0.3, Select 1.3.1
+ *   DataTables 1.10.23, AutoFill 2.3.5, Buttons 1.6.5, ColReorder 1.5.3, FixedColumns 3.3.2, FixedHeader 3.1.8, KeyTable 2.6.1, Responsive 2.2.7, RowReorder 1.2.7, Scroller 2.0.3, Select 1.3.1
  */
 
 /*
@@ -55,19 +55,19 @@ table.dataTable thead .sorting_desc_disabled {
   background-position: center right;
 }
 table.dataTable thead .sorting {
-  background-image: url("/DataTables-1.10.23/images/sort_both.png");
+  background-image: url("DataTables-1.10.23/images/sort_both.png");
 }
 table.dataTable thead .sorting_asc {
-  background-image: url("/DataTables-1.10.23/images/sort_asc.png");
+  background-image: url("DataTables-1.10.23/images/sort_asc.png");
 }
 table.dataTable thead .sorting_desc {
-  background-image: url("/DataTables-1.10.23/images/sort_desc.png");
+  background-image: url("DataTables-1.10.23/images/sort_desc.png");
 }
 table.dataTable thead .sorting_asc_disabled {
-  background-image: url("/DataTables-1.10.23/images/sort_asc_disabled.png");
+  background-image: url("DataTables-1.10.23/images/sort_asc_disabled.png");
 }
 table.dataTable thead .sorting_desc_disabled {
-  background-image: url("/DataTables-1.10.23/images/sort_desc_disabled.png");
+  background-image: url("DataTables-1.10.23/images/sort_desc_disabled.png");
 }
 table.dataTable tbody tr {
   background-color: #ffffff;
@@ -471,102 +471,7 @@ table.dataTable td {
 }
 
 
-div.dt-autofill-handle {
-  position: absolute;
-  height: 8px;
-  width: 8px;
-  z-index: 102;
-  box-sizing: border-box;
-  background: #3366ff;
-  cursor: pointer;
-}
-
-div.dtk-focus-alt div.dt-autofill-handle {
-  background: #ff8b33;
-}
-
-div.dt-autofill-select {
-  position: absolute;
-  z-index: 1001;
-  background-color: #4989de;
-  background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255, 255, 255, 0.5) 5px, rgba(255, 255, 255, 0.5) 10px);
-}
-div.dt-autofill-select.top, div.dt-autofill-select.bottom {
-  height: 3px;
-  margin-top: -1px;
-}
-div.dt-autofill-select.left, div.dt-autofill-select.right {
-  width: 3px;
-  margin-left: -1px;
-}
-
-div.dt-autofill-list {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 500px;
-  margin-left: -250px;
-  background-color: white;
-  border-radius: 6px;
-  box-shadow: 0 0 5px #555;
-  border: 2px solid #444;
-  z-index: 11;
-  box-sizing: border-box;
-  padding: 1.5em 2em;
-}
-div.dt-autofill-list ul {
-  display: table;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  width: 100%;
-}
-div.dt-autofill-list ul li {
-  display: table-row;
-}
-div.dt-autofill-list ul li:last-child div.dt-autofill-question, div.dt-autofill-list ul li:last-child div.dt-autofill-button {
-  border-bottom: none;
-}
-div.dt-autofill-list ul li:hover {
-  background-color: #f6f6f6;
-}
-div.dt-autofill-list div.dt-autofill-question {
-  display: table-cell;
-  padding: 0.5em 0;
-  border-bottom: 1px solid #ccc;
-}
-div.dt-autofill-list div.dt-autofill-question input[type=number] {
-  padding: 6px;
-  width: 30px;
-  margin: -2px 0;
-}
-div.dt-autofill-list div.dt-autofill-button {
-  display: table-cell;
-  padding: 0.5em 0;
-  border-bottom: 1px solid #ccc;
-}
-div.dt-autofill-list div.dt-autofill-button button {
-  color: white;
-  margin: 0;
-  padding: 6px 12px;
-  text-align: center;
-  border: 1px solid #2e6da4;
-  background-color: #337ab7;
-  border-radius: 4px;
-  cursor: pointer;
-  vertical-align: middle;
-}
-
-div.dt-autofill-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  background: radial-gradient(ellipse farthest-corner at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
-  z-index: 10;
-}
+div.dt-autofill-handle{position:absolute;height:8px;width:8px;z-index:102;box-sizing:border-box;background:#3366ff;cursor:pointer}div.dtk-focus-alt div.dt-autofill-handle{background:#ff8b33}div.dt-autofill-select{position:absolute;z-index:1001;background-color:#4989de;background-image:repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.5) 5px, rgba(255,255,255,0.5) 10px)}div.dt-autofill-select.top,div.dt-autofill-select.bottom{height:3px;margin-top:-1px}div.dt-autofill-select.left,div.dt-autofill-select.right{width:3px;margin-left:-1px}div.dt-autofill-list{position:fixed;top:50%;left:50%;width:500px;margin-left:-250px;background-color:white;border-radius:6px;box-shadow:0 0 5px #555;border:2px solid #444;z-index:11;box-sizing:border-box;padding:1.5em 2em}div.dt-autofill-list ul{display:table;margin:0;padding:0;list-style:none;width:100%}div.dt-autofill-list ul li{display:table-row}div.dt-autofill-list ul li:last-child div.dt-autofill-question,div.dt-autofill-list ul li:last-child div.dt-autofill-button{border-bottom:none}div.dt-autofill-list ul li:hover{background-color:#f6f6f6}div.dt-autofill-list div.dt-autofill-question{display:table-cell;padding:0.5em 0;border-bottom:1px solid #ccc}div.dt-autofill-list div.dt-autofill-question input[type=number]{padding:6px;width:30px;margin:-2px 0}div.dt-autofill-list div.dt-autofill-button{display:table-cell;padding:0.5em 0;border-bottom:1px solid #ccc}div.dt-autofill-list div.dt-autofill-button button{color:white;margin:0;padding:6px 12px;text-align:center;border:1px solid #2e6da4;background-color:#337ab7;border-radius:4px;cursor:pointer;vertical-align:middle}div.dt-autofill-background{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);background:radial-gradient(ellipse farthest-corner at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);z-index:10}
 
 
 @keyframes dtb-spinner {
