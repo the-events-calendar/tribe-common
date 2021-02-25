@@ -9,7 +9,7 @@ export const wpData = wp.data;
 export const wpEditor = wp.blockEditor || wp.editor;
 export const wpHooks = wp.hooks;
 
-export const wpDataSelectCoreEditor = wpData.select( 'core/editor' ) ||
+export const wpDataSelectCoreEditor = () => wpData.select( 'core/editor' ) ||
 	wpData.select( 'core/block-editor' );
 
 // Localized Config
