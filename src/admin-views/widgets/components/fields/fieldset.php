@@ -10,7 +10,7 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 4.12.18
  *
  * @var string              $label       Title for the fieldset.
  * @var string              $description Description for the fieldset.

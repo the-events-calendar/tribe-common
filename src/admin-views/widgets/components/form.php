@@ -13,7 +13,7 @@
  * @var array<mixed>        $form_classes  (optional) HTML classes used for the form element
  * @var array<string,mixed> $admin_fields  Fields to be rendered.
  *
- * @version TBD
+ * @version 4.12.18
  */
 
 $default_classes = [

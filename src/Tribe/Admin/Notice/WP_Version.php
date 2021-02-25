@@ -40,6 +40,19 @@ class WP_Version {
 	public function wp_version_57_should_display() {
 		global $wp_version;
 
+		$screens = [
+			'tribe_events_page_tribe-app-shop', // App shop.
+			'events_page_tribe-app-shop', // App shop.
+			'tribe_events_page_tribe-common', // Settings & Welcome.
+			'events_page_tribe-common', // Settings & Welcome.
+			'toplevel_page_tribe-common', // Settings & Welcome.
+		];
+
+		// If not a valid screen, don't display.
+		if ( empty( $current_screen->id ) || ! in_array( $current_screen->id, $screens, true ) ) {
+			return false;
+		}
+
 		$wp_version_min_version_required = '5.8';
 		$common_version_required = '4.12.18-dev';
 

@@ -1424,7 +1424,7 @@ S2.define('select2/selection/base',[
       // This needs to be delayed as the active element is the body when the
       // key is pressed.
       window.setTimeout(function () {
-        self.$selection.focus();
+        self.$selection.trigger( 'focus' );
       }, 1);
 
       self._detachCloseHandler(container);
@@ -1481,7 +1481,7 @@ S2.define('select2/selection/base',[
         // Timeout of 1 required for close to finish wrapping up.
         setTimeout(function(){
          $this.find('*:focus').blur();
-         $target.focus();
+         $target.trigger( 'focus' );
         }, 1);
       });
     });
@@ -1578,7 +1578,7 @@ S2.define('select2/selection/single',[
 
     container.on('focus', function (evt) {
       if (!container.isOpen()) {
-        self.$selection.focus();
+        self.$selection.trigger( 'focus' );
       }
     });
 
@@ -1724,7 +1724,7 @@ S2.define('select2/selection/multiple',[
         // This gets reset automatically when focus is triggered.
         self._keyUpPrevented = true;
 
-        self.$search.focus();
+        self.$search.trigger( 'focus' );
       }, 1);
     }
   }
@@ -2094,7 +2094,7 @@ S2.define('select2/selection/search',[
 
     this.resizeSearch();
     if (searchHadFocus) {
-      this.$search.focus();
+      this.$search.trigger( 'focus' );
     }
   };
 
@@ -3692,6 +3692,10 @@ S2.define('select2/data/tags',[
   };
 
   Tags.prototype.createTag = function (decorated, params) {
+  	if ( 'string' !== typeof params.term ) {
+  		return null;
+	}
+
     var term = params.term.trim();
 
     if (term === '') {
@@ -3785,7 +3789,7 @@ S2.define('select2/data/tokenizer',[
       // Replace the search term if we have the search box
       if (this.$search.length) {
         this.$search.val(tokenData.term);
-        this.$search.focus();
+        this.$search.trigger( 'focus' );
       }
 
       params.term = tokenData.term;
@@ -4032,10 +4036,10 @@ S2.define('select2/dropdown/search',[
     container.on('open', function () {
       self.$search.attr('tabindex', 0);
       self.$search.attr('aria-owns', resultsId);
-      self.$search.focus();
+      self.$search.trigger( 'focus' );
 
       window.setTimeout(function () {
-        self.$search.focus();
+        self.$search.trigger( 'focus' );
       }, 0);
     });
 
@@ -4048,7 +4052,7 @@ S2.define('select2/dropdown/search',[
 
     container.on('focus', function () {
       if (!container.isOpen()) {
-        self.$search.focus();
+        self.$search.trigger( 'focus' );
       }
     });
 
@@ -4926,7 +4930,7 @@ S2.define('select2/defaults',[
 
     function matcher (params, data) {
       // Always return the object if there is nothing to compare
-      if (params.term.trim() === '') {
+      if ('string' !== typeof params.term || params.term.trim() === '') {
         return data;
       }
 
@@ -5499,7 +5503,7 @@ S2.define('select2/core',[
             self.focusOnActiveElement();
         } else {
           // Focus on the search if user starts typing.
-          $searchField.focus();
+          $searchField.trigger( 'focus' );
           // Focus back to active selection when finished typing.
           // Small delay so typed character can be read by screen reader.
           setTimeout(function(){
@@ -5519,7 +5523,7 @@ S2.define('select2/core',[
   Select2.prototype.focusOnActiveElement = function () {
     // Don't mess with the focus on touchscreens because it causes havoc with on-screen keyboards.
     if (this.isOpen() && ! Utils.isTouchscreen()) {
-      this.$results.find('li.select2-results__option--highlighted').focus();
+      this.$results.find('li.select2-results__option--highlighted').trigger( 'focus' );
     }
   };
 

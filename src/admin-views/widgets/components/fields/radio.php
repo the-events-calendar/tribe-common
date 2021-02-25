@@ -8,7 +8,7 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 4.12.18
  *
  * @var string $label        Label for the radio group.
  * @var string $value        Value for the radio group.

@@ -38,6 +38,51 @@ class Tribe__Assets {
 	public function __construct() {
 		// Hook the actual registering of.
 		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
+		add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer'], 50, 2 );
+	}
+
+	/**
+	 * Filters the Script tags to attach Async and/or Defer based on the rules we set in our Asset class.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $tag    Tag we are filtering.
+	 * @param string $handle Which is the ID/Handle of the tag we are about to print.
+	 *
+	 * @return string Script tag with the defer and/or async attached.
+	 */
+	public function filter_tag_async_defer( $tag, $handle ) {
+		// Only filter for own own filters.
+		if ( ! $asset = $this->get( $handle ) ) {
+			return $tag;
+		}
+
+		// Bail when not dealing with JS assets.
+		if ( 'js' !== $asset->type ) {
+			return $tag;
+		}
+
+		// When async and defer are false we bail with the tag.
+		if ( ! $asset->defer && ! $asset->async ) {
+			return $tag;
+		}
+
+		$tag_has_async = false !== strpos( $tag, ' async ' );
+		$tag_has_defer = false !== strpos( $tag, ' defer ' );
+		$replacement = '<script ';
+
+		if ( $asset->async && ! $tag_has_async ) {
+			$replacement .= 'async ';
+		}
+
+		if ( $asset->defer && ! $tag_has_defer ) {
+			$replacement .= 'defer ';
+		}
+
+		$replacement_src  = $replacement . 'src=';
+		$replacement_type = $replacement . 'type=';
+
+		return str_replace( [ '<script src=', '<script type=' ], [ $replacement_src, $replacement_type ], $tag );
 	}
 
 	/**
@@ -439,8 +484,14 @@ class Tribe__Assets {
 			'groups'        => [],
 			'version'       => $version,
 			'media'         => 'all',
+
+			'async'         => false,
+			'defer'         => false,
+
 			'in_footer'     => true,
 			'is_registered' => false,
+
+			// Origin related params
 			'origin_path'   => null,
 			'origin_url'    => null,
 			'origin_name'   => null,

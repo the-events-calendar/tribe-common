@@ -19,6 +19,10 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	};
 
 	obj.freefrom_create_search_choice = function( params ) {
+		if ( 'string' !== typeof params.term ) {
+			return null;
+		}
+
 		var term = params.term.trim();
 
 		if ( '' === term ) {
@@ -79,7 +83,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	 */
 	obj.matcher = function ( params, data ) {
 		// If there are no search terms, return all of the data
-		if ( params.term.trim() === '') {
+		if ( 'string' !== typeof params.term || params.term.trim() === '') {
 			return data;
 		}
 
