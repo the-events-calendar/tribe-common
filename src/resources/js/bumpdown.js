@@ -1,7 +1,7 @@
 (function( $, _ ) {
 	'use strict';
 	// Configure on Document ready for the default trigger
-	$ (window ).on( 'load', function() {
+	$( function() {
 		$( '.tribe-bumpdown-trigger' ).bumpdown();
 	} );
 
@@ -19,7 +19,7 @@
 				hover_trigger: '.tribe-bumpdown-trigger:not(.tribe-bumpdown-nohover)',
 				close: '.tribe-bumpdown-close',
 				permanent: '.tribe-bumpdown-permanent',
-				active: '.tribe-bumpdown-active'
+				active: '.tribe-bumpdown-active',
 			},
 			methods = {
 				open: function( $bumpdown ) {
