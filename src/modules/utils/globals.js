@@ -6,6 +6,7 @@ export const google = () => get( 'google' );
 export const wpApi = wp.api;
 export const wpApiRequest = wp.apiRequest;
 export const wpData = wp.data;
+export const wpEditor = wp.blockEditor || wp.editor;
 export const wpHooks = wp.hooks;
 
 // Localized Config
