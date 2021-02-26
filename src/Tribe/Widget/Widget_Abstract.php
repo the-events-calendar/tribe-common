@@ -50,6 +50,15 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	protected $default_arguments = [];
 
 	/**
+	 * Sidebar arguments passed to the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,mixed>
+	 */
+	protected $sidebar_arguments = [];
+
+	/**
 	 * Array map allowing aliased widget arguments.
 	 *
 	 * The array keys are aliases of the array values (i.e. the "real" widget attributes to parse).
@@ -127,7 +136,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @return string|null
 	 */
-	protected function parse_id_base( $id_base ) {
+	protected function parse_id_base( $id_base = null ) {
 		// When empty use the one default to the widget.
 		if ( empty( $id_base ) ) {
 			$id_base = 'tribe-widget-' . static::get_widget_slug();
@@ -145,7 +154,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @return string
 	 */
-	protected function parse_name( $name ) {
+	protected function parse_name( $name = null ) {
 		// When empty use the one default to the widget.
 		if ( empty( $name ) ) {
 			$name = static::get_default_widget_name();
@@ -174,7 +183,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @return array  Widget options that will be passed to the __construct.
 	 */
-	protected function parse_widget_options( $widget_options ) {
+	protected function parse_widget_options( $widget_options = [] ) {
 		// When empty use the one default to the widget.
 		if ( empty( $widget_options ) ) {
 			$widget_options = static::get_default_widget_options();
@@ -203,7 +212,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @return array
 	 */
-	protected function parse_control_options( $control_options ) {
+	protected function parse_control_options( $control_options = [] ) {
 		// When empty use the one default to the widget.
 		if ( empty( $control_options ) ) {
 			$control_options = static::get_default_control_options();
@@ -213,7 +222,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	}
 
 	/**
-	 * Gets the default control options..
+	 * Gets the default control options.
 	 *
 	 * @since TBD
 	 *
@@ -594,6 +603,49 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		$argument = apply_filters( "tribe_widget_{$widget_slug}_argument", $argument, $index, $default, $this );
 
 		return $argument;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setup_sidebar_arguments( $arguments ) {
+		$this->sidebar_arguments = $arguments;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_sidebar_arguments() {
+		return $this->filter_sidebar_arguments( $this->sidebar_arguments );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function filter_sidebar_arguments( $arguments ) {
+		/**
+		 * Applies a filter to the widget sidebar arguments, catch all for all widgets.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed   $arguments The argument.
+		 * @param static  $instance  The widget instance we are dealing with.
+		 */
+		$arguments = apply_filters( 'tribe_widget_sidebar_arguments', $arguments, $this );
+
+		$widget_slug = static::get_widget_slug();
+
+		/**
+		 * Applies a filter to the widget sidebar arguments, to a particular widget slug.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed   $arguments The argument.
+		 * @param static  $instance  The widget instance we are dealing with.
+		 */
+		$arguments = apply_filters( "tribe_widget_{$widget_slug}_sidebar_arguments", $arguments, $this );
+
+		return $arguments;
 	}
 
 	/**
