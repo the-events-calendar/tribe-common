@@ -4,7 +4,7 @@
 
 = [4.12.19] TBD =
 
-* Fix - Prevent problems when using longer array keys in `Tribe__Cache` so the correct non-persistent groups are referenced.
+* Fix - Prevent problems when using longer array keys in `Tribe__Cache` so the correct non-persistent groups are referenced. [ET-1023]
 
 = [4.12.18] 2021-02-24 =
 
