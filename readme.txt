@@ -4,7 +4,8 @@
 
 = [4.13.0] TBD =
 
-
+* Feature - JavaScript and Styles can be set to be printed as soon as enqueued, allowing usages like shortcodes to not have jumpy styles.
+* Fix - Makes sure Javascript extra data is loaded following WordPress architecture, respecting it's dependencies.
 
 = [4.12.18] 2021-02-24 =
 
