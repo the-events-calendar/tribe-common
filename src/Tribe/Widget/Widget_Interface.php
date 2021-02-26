@@ -11,7 +11,6 @@ namespace Tribe\Widget;
  *
  */
 interface Widget_Interface {
-
 	/**
 	 * Constructor for V2 Widgets.
 	 *
@@ -268,8 +267,8 @@ interface Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-		 * @param array<string,mixed>  $alterations Current set of alterations for the context.
-		 * @param array<string,mixed>  $arguments   Current set of arguments in the widget.
+	 * @param array<string,mixed>  $alterations Current set of alterations for the context.
+	 * @param array<string,mixed>  $arguments   Current set of arguments in the widget.
 	 *
 	 * @return array<string,mixed> The map of arguments after filtering.
 	 */
@@ -283,6 +282,35 @@ interface Widget_Interface {
 	 * @return string The rendered widget's HTML code.
 	 */
 	public function get_html();
+
+	/**
+	 * Sets the sidebar arguments sent by the theme.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $arguments Arguments passed by the theme.
+	 */
+	public function setup_sidebar_arguments( $arguments );
+
+	/**
+	 * Sets the sidebar arguments sent by the theme.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, mixed> Arguments sent by the theme and stored in this class.
+	 */
+	public function get_sidebar_arguments();
+
+	/**
+	 * Sets the sidebar arguments sent by the theme.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $arguments Arguments passed by the theme.
+	 *
+	 * @return array<string, mixed> Arguments sent by the theme and stored in this class.
+	 */
+	public function filter_sidebar_arguments( $arguments );
 
 	/**********************
 	 * Deprecated Methods *
