@@ -41,20 +41,21 @@ class Tribe__Assets {
 		add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
 
 		// Enqueue late.
-		add_filter( 'script_loader_tag', [ $this, 'filter_add_dependency_data' ], 500, 2 );
+		add_filter( 'script_loader_tag', [ $this, 'filter_add_localization_data' ], 500, 2 );
 	}
 
 	/**
-	 * Filters the Script tags to attach Async and/or Defer based on the rules we set in our Asset class.
+	 * Handles adding localization data, when attached to `script_loader_tag` which allows dependencies to load in their
+	 * localization data as well.
 	 *
 	 * @since TBD
 	 *
 	 * @param string $tag    Tag we are filtering.
 	 * @param string $handle Which is the ID/Handle of the tag we are about to print.
 	 *
-	 * @return string Script tag with the defer and/or async attached.
+	 * @return string Script tag with the localization variable HTML attached to it.
 	 */
-	public function filter_add_dependency_data( $tag, $handle ) {
+	public function filter_add_localization_data( $tag, $handle ) {
 		// Only filter for own own filters.
 		if ( ! $asset = $this->get( $handle ) ) {
 			return $tag;
