@@ -70,7 +70,7 @@ class Tribe__Cache implements ArrayAccess {
 			$expiration = 1;
 
 			// Add so we know what group to use in the future.
-			$this->non_persistent_keys[] = $key;
+			$this->non_persistent_keys[ $id ] = $id;
 		} else {
 			$group = 'tribe-events';
 		}
@@ -108,8 +108,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return mixed
 	 */
 	public function get( $id, $expiration_trigger = '', $default = false, $expiration = 0, $args = [] ) {
-		$flipped = array_flip( $this->non_persistent_keys );
-		$group   = isset( $flipped[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		$group   = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
 		$value   = wp_cache_get( $this->get_id( $id, $expiration_trigger ), $group );
 
 		// Value found.
@@ -150,14 +149,11 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return bool
 	 */
 	public function delete( $id, $expiration_trigger = '' ) {
-		$flipped = array_flip( $this->non_persistent_keys );
-		$group   = isset( $flipped[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
+		$group   = isset( $this->non_persistent_keys[ $id ] ) ? 'tribe-events-non-persistent' : 'tribe-events';
 
 		// Delete from non-persistent keys list.
 		if ( 'tribe-events-non-persistent' === $group ) {
-			$index = $flipped[ $id ];
-
-			unset( $this->non_persistent_keys[ $index ] );
+			unset( $this->non_persistent_keys[ $id ] );
 		}
 
 		return wp_cache_delete( $this->get_id( $id, $expiration_trigger ), $group );
@@ -385,9 +381,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * @return boolean Whether the offset exists in the cache.
 	 */
 	public function offsetExists( $offset ) {
-		$flipped = array_flip( $this->non_persistent_keys );
-
-		return isset( $flipped[ $offset ] );
+		return isset( $this->non_persistent_keys[ $offset ] );
 	}
 
 	/**

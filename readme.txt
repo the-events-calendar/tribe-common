@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.12.19] TBD =
+
+* Fix - Prevent problems when using longer array keys in `Tribe__Cache` so the correct non-persistent groups are referenced. [ET-1023]
+
 = [4.12.18] 2021-02-24 =
 
 * Feature - JavaScript Assets can now be marked for async or defer, giving the asset manager more flexibility.
