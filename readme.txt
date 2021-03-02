@@ -5,6 +5,7 @@
 = [4.12.19] 2021-03-02 =
 
 * Fix - Prevent problems when using longer array keys in `Tribe__Cache` so the correct non-persistent groups are referenced. [ET-1023]
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsolete
 
 = [4.12.18] 2021-02-24 =
 
