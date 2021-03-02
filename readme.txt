@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.12.19] TBD =
+= [4.12.19] 2021-03-02 =
 
 * Fix - Prevent problems when using longer array keys in `Tribe__Cache` so the correct non-persistent groups are referenced. [ET-1023]
 
