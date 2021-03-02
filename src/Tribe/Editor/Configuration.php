@@ -8,11 +8,15 @@
  * @since 4.8
  */
 class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Interface {
+
 	/**
-	 * Convert HTML entities in country names to their corresponding characters 
+	 * Convert HTML entities in country names to their corresponding characters.
+	 * 
+	 * @since TBD
 	 *
-	 * @param array $countries The array of countries
-	 * @return array
+	 * @param array $countries The list of countries.
+	 * 
+	 * @return array The list of countries.
 	 */
 	public function decodeCountryNames( $countries ) {
 		return array_map( function( $country ) {
