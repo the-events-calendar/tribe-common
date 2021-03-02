@@ -2,6 +2,12 @@
 
 == Changelog ==
 
+= [4.13.0] TBD =
+
+* Feature - JavaScript and Styles can be set to be printed as soon as enqueued, allowing usages like shortcodes to not have jumpy styles.
+* Fix - Makes sure Javascript extra data is loaded following WordPress architecture, respecting it's dependencies.
+* Tweak - Remove deprecated filter `tribe_events_{$asset->type}_version`
+
 = [4.12.18] 2021-02-24 =
 
 * Feature - JavaScript Assets can now be marked for async or defer, giving the asset manager more flexibility.
