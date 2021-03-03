@@ -10,21 +10,6 @@
 class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Interface {
 
 	/**
-	 * Convert HTML entities in country names to their corresponding characters.
-	 * 
-	 * @since TBD
-	 *
-	 * @param array $countries The list of countries.
-	 * 
-	 * @return array The list of countries.
-	 */
-	public function decodeCountryNames( $countries ) {
-		return array_map( function( $country ) {
-			return html_entity_decode( $country, ENT_QUOTES );
-		}, $countries );
-	}
-	
-	/**
 	 * Localize variables that are part of common
 	 *
 	 * @since 4.8
@@ -32,6 +17,10 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 	 * @return array
 	 */
 	public function localize() {
+		/**
+		 * @var Tribe__Languages__Locations $languages_locations
+		 */
+		$languages_locations = tribe( 'languages.locations' );
 		$editor_config = [
 			'common' => [
 				'adminUrl'     => admin_url(),
@@ -52,7 +41,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 				'constants'    => [
 					'hideUpsell' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
 				],
-				'countries'    => $this->decodeCountryNames( tribe( 'languages.locations' )->get_countries() ),
+				'countries'    => $languages_locations->get_countries( true ),
 				'usStates'     => Tribe__View_Helpers::loadStates(),
 			],
 			'blocks' => [],
