@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= TBD =
+
+* Fix - Decode country picker names [TEC-3360]
+
 = [4.13.0] TBD =
 
 * Feature - JavaScript and Styles can be set to be printed as soon as enqueued, allowing usages like shortcodes to not have jumpy styles.
