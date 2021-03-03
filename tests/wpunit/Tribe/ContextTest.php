@@ -1590,4 +1590,50 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $context->get( 'test_location', 89 ), 89 );
 		$this->assertEquals( $context->get( 'test_location', 23 ), 23 );
 	}
+
+	/**
+	 * It should allow resetting locations after it was already cached.
+	 *
+	 * @test
+	 */
+	public function should_allow_repopulating_locations_after_it_was_already_cached() {
+		$context = tribe_context()->add_locations( [
+			'__closure__' => [
+				'read' => [
+					Context::FUNC => [
+						function () {
+							return '__value_before_repopulate__';
+						},
+					],
+				],
+			],
+		] );
+
+		// Both are diff context instances, locations are one and the same.
+		$this->assertNotSame( $context, tribe_context() );
+
+		$value_before_reset = $context->get( '__closure__' );
+
+		add_filter( 'tribe_context_locations', static function( $locations ) {
+			$locations['__closure__'] = [
+				'read' => [
+					Context::FUNC => [
+						static function () {
+							return '__value_after_repopulate__';
+						}
+					]
+				]
+			];
+			return $locations;
+		} );
+
+		$context->dangerously_repopulate_locations();
+
+		$value_after_reset = $context->get( '__closure__' );
+
+		$this->assertEquals( '__value_before_repopulate__', $value_before_reset );
+		$this->assertEquals( '__value_after_repopulate__', $value_after_reset );
+	}
+
+
 }
