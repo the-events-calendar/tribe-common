@@ -1590,4 +1590,154 @@ class ContextTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $context->get( 'test_location', 89 ), 89 );
 		$this->assertEquals( $context->get( 'test_location', 23 ), 23 );
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_not_change_values_after_repopulating_with_cache() {
+		$method_name = __METHOD__;
+		$context_key = static function ( $append ) use ( $method_name ) {
+			return $method_name . $append;
+		};
+
+		tribe_update_option( '__before_repopulate__', '__value_before_repopulate__' );
+		tribe_update_option( '__after_repopulate__', '__value_after_repopulate__' );
+
+		$context = tribe_context();
+
+		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
+			$locations[ $context_key( '__closure__' ) ] = [
+				'read' => [
+					Context::TRIBE_OPTION => [ '__before_repopulate__' ]
+				]
+			];
+			return $locations;
+		} );
+
+		$value_before_reset = $context->get( $context_key( '__closure__' ) );
+
+		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
+			$locations[ $context_key( '__closure__' ) ] = [
+				'read' => [
+					Context::TRIBE_OPTION => [ '__after_repopulate__' ]
+				]
+			];
+			return $locations;
+		}, 15 );
+
+		$context->dangerously_repopulate_locations();
+
+		$value_after_reset = $context->get( $context_key( '__closure__' ) );
+
+		$this->assertEquals( '__value_before_repopulate__', $value_before_reset );
+		$this->assertEquals( '__value_before_repopulate__', $value_after_reset );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_allow_repopulating_locations_and_require_cache_purge() {
+		$method_name = __METHOD__;
+		$context_key = static function ( $append ) use ( $method_name ) {
+			return $method_name . $append;
+		};
+
+		tribe_update_option( '__before_repopulate__', '__value_before_repopulate__' );
+		tribe_update_option( '__after_repopulate__', '__value_after_repopulate__' );
+
+		$context = tribe_context();
+
+		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
+			$locations[ $context_key( '__closure__' ) ] = [
+				'read' => [
+					Context::TRIBE_OPTION => [ '__before_repopulate__' ]
+				]
+			];
+			return $locations;
+		} );
+
+		$value_before_reset = $context->get( $context_key( '__closure__' ) );
+
+		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
+			$locations[ $context_key( '__closure__' ) ] = [
+				'read' => [
+					Context::TRIBE_OPTION => [ '__after_repopulate__' ]
+				]
+			];
+			return $locations;
+		}, 15 );
+
+		$context->dangerously_repopulate_locations();
+		$context->refresh();
+
+		$value_after_reset = $context->get( $context_key( '__closure__' ) );
+
+		$this->assertEquals( '__value_before_repopulate__', $value_before_reset );
+		$this->assertEquals( '__value_after_repopulate__', $value_after_reset );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_overwrite_locations_will_be_repopulated_when_using_default_locations() {
+		$method_name = __METHOD__;
+		$context_key = static function ( $append ) use ( $method_name ) {
+			return $method_name . $append;
+		};
+
+		tribe_update_option( '__before_repopulate__', '__value_before_repopulate__' );
+		tribe_update_option( '__after_repopulate__', '__value_after_repopulate__' );
+
+		$context = tribe_context()->add_locations( [
+			$context_key('__closure_overwrite__' ) => [
+				'read' => [
+					Context::TRIBE_OPTION => [ '__before_repopulate__' ]
+				],
+			],
+		] );
+
+		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
+			$locations[ $context_key( '__closure__' ) ] = [
+				'read' => [
+					Context::TRIBE_OPTION => [ '__before_repopulate__' ]
+				]
+			];
+			return $locations;
+		} );
+
+		// Both are diff context instances, locations are one and the same.
+		$this->assertNotSame( $context, tribe_context() );
+
+		$value_overwrite_before_reset = $context->get( $context_key( '__closure_overwrite__' ) );
+		$value_before_reset = $context->get( $context_key( '__closure__' ) );
+
+		add_filter( 'tribe_context_locations', static function( $locations ) use ( $context_key ) {
+			$locations[ $context_key( '__closure__' ) ] = [
+				'read' => [
+					Context::TRIBE_OPTION => [ '__after_repopulate__' ]
+				]
+			];
+			$locations[ $context_key( '__closure_overwrite__' ) ] = [
+				'read' => [
+					Context::TRIBE_OPTION => [ '__after_repopulate__' ]
+				]
+			];
+			return $locations;
+		}, 15 );
+
+		$context->dangerously_repopulate_locations();
+		$context->refresh();
+
+		$value_overwrite_after_reset = $context->get( $context_key( '__closure_overwrite__' ) );
+		$value_after_reset = $context->get( $context_key( '__closure__' ) );
+
+		$this->assertEquals( '__value_before_repopulate__', $value_before_reset );
+		$this->assertEquals( '__value_after_repopulate__', $value_after_reset );
+
+		// For locations added with `add_locations` instead of the filter the are added as an overwrite
+		$this->assertEquals( '__value_before_repopulate__', $value_overwrite_before_reset );
+		$this->assertEquals( '__value_after_repopulate__', $value_overwrite_after_reset );
+	}
+
+
 }

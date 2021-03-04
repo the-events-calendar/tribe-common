@@ -7,6 +7,7 @@
 * Feature - JavaScript and Styles can be set to be printed as soon as enqueued, allowing usages like shortcodes to not have jumpy styles.
 * Fix - Makes sure Javascript extra data is loaded following WordPress architecture, respecting it's dependencies.
 * Fix - Decode country picker names [TEC-3360]
+* Tweak - Include a way for the context locations to be regenerated, with plenty of warnings about the risk [FBAR-36]
 * Tweak - Remove deprecated filter `tribe_events_{$asset->type}_version`
 
 = [4.12.18] 2021-02-24 =
