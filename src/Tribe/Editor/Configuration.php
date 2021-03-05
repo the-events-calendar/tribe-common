@@ -8,6 +8,7 @@
  * @since 4.8
  */
 class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Interface {
+
 	/**
 	 * Localize variables that are part of common
 	 *
@@ -16,6 +17,10 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 	 * @return array
 	 */
 	public function localize() {
+		/**
+		 * @var Tribe__Languages__Locations $languages_locations
+		 */
+		$languages_locations = tribe( 'languages.locations' );
 		$editor_config = [
 			'common' => [
 				'adminUrl'     => admin_url(),
@@ -36,7 +41,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 				'constants'    => [
 					'hideUpsell' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
 				],
-				'countries'    => tribe( 'languages.locations' )->get_countries(),
+				'countries'    => $languages_locations->get_countries( true ),
 				'usStates'     => Tribe__View_Helpers::loadStates(),
 			],
 			'blocks' => [],
