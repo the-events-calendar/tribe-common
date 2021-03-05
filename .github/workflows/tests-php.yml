@@ -8,6 +8,7 @@ on:
       - 'composer.json'
       - 'codeception.*.yml'
       - '.github/workflows/tests-php.yml'
+      - '.env.testing.tric'
 jobs:
   test:
     strategy:
