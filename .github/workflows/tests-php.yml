@@ -160,8 +160,8 @@ jobs:
       - name: Handle the dependency testing requirements
         if: ${{ matrix.suite == 'dependency' }}
         run: |
-          cp -r ${GITHUB_WORKSPACE}/tribe-common/tests/_data/dependency-test ${GITHUB_WORKSPACE}
-          ${TRIC_BIN} cli db export ${GITHUB_WORKSPACE}/tribe-common/tests/_data/dependency-dump.sql
+          cp -r ${GITHUB_WORKSPACE}/tests/_data/dependency/dependency-test ${GITHUB_WORKSPACE}/../
+          ${TRIC_BIN} cli db export ${GITHUB_WORKSPACE}/tests/_data/dependency-dump.sql
       # ------------------------------------------------------------------------------
       # Run tests
       # ------------------------------------------------------------------------------
