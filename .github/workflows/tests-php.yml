@@ -153,8 +153,8 @@ jobs:
       - name: Init the WordPress container
         run: |
           ${TRIC_BIN} up wordpress
-          ${TRIC_BIN} site-cli core version wp
-          ${TRIC_BIN} site-cli core update-db
+          ${TRIC_BIN} cli core version
+          ${TRIC_BIN} cli core update-db
       # ------------------------------------------------------------------------------
       # Run tests
       # ------------------------------------------------------------------------------
