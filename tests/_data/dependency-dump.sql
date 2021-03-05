@@ -389,7 +389,7 @@ CREATE TABLE `wp_users` (
 
 LOCK TABLES `wp_users` WRITE;
 /*!40000 ALTER TABLE `wp_users` DISABLE KEYS */;
-INSERT INTO `wp_users` VALUES (1,'admin','$P$B5.R7h3ojtSk8iz42Qm4C35xXNlPI5/','admin','dev-email@flywheel.local','','2019-01-08 12:32:39','',0,'admin');
+INSERT INTO `wp_users` VALUES (1,'admin','$P$BP.vQ64qKh8Zs0tpPOkehbpnHXTHtL/','admin','dev-email@flywheel.local','','2019-01-08 12:32:39','',0,'admin');
 /*!40000 ALTER TABLE `wp_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
