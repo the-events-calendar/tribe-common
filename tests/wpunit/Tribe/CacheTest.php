@@ -60,6 +60,48 @@ class CacheTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should allow setting many different values using ArrayAccess API with long cache keys.
+	 *
+	 * @test
+	 */
+	public function it_should_allow_setting_many_different_values_using_array_access_api_with_long_cache_keys() {
+		$cache = $this->make_instance();
+
+		$expected = [
+			'foo1'  => '',
+			'foo2'  => '0',
+			'foo3'  => '-1',
+			'foo4'  => '100',
+			'foo5'  => 0,
+			'foo6'  => - 1,
+			'foo7'  => 100,
+			'foo8'  => [],
+			'foo9'  => 'false',
+			'foo10' => 'null',
+			'foo11' => false,
+			'foo12' => null,
+		];
+
+		foreach ( $expected as $key => $value ) {
+			// Attempt to add a longer cache key to trigger the md5() cache key logic.
+			$key .= __METHOD__ . '-' . $key;
+
+			$cache[ $key ] = $value;
+		}
+
+		foreach ( $expected as $key => $value ) {
+			// Attempt to add a longer cache key to trigger the md5() cache key logic.
+			$key .= __METHOD__ . '-' . $key;
+
+			// Any value set will always come back as 'set' because it exists in the non-persistent keys list.
+			$this->assertTrue( isset( $cache[ $key ] ) );
+
+			// The value will always match the type and value what we set.
+			$this->assertSame( $value, $cache[ $key ] );
+		}
+	}
+
+	/**
 	 * It should allow removing value using ArrayAccess API
 	 *
 	 * @test
