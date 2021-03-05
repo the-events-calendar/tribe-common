@@ -10,14 +10,15 @@ import { noop } from 'lodash';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { MediaUpload } from '@wordpress/editor';
 
 /**
  * Internal dependencies
  */
 import { Button, Image } from '@moderntribe/common/elements';
 import { Close as CloseIcon } from '@moderntribe/common/icons';
+import { wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
+const { MediaUpload } = wpEditor;
 
 export const renderImageUploadButton = ( disabled, label ) => ( { open } ) => (
 	<Button

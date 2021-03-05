@@ -4,9 +4,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { map, reduce, includes, isArray } from 'lodash';
-import { InnerBlocks } from '@wordpress/editor';
 import { select } from '@wordpress/data';
+
+/**
+ * Internal dependencies
+ */
+import { wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
+const { InnerBlocks } = wpEditor;
 
 /**
  * Allows for dynamic plugin templates based on current plugins available
