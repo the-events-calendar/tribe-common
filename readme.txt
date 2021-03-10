@@ -10,6 +10,11 @@
 * Tweak - Include a way for the context locations to be regenerated, with plenty of warnings about the risk [FBAR-36]
 * Tweak - Remove deprecated filter `tribe_events_{$asset->type}_version`
 
+= [4.12.19] 2021-03-02 =
+
+* Fix - Prevent problems when using longer array keys in `Tribe__Cache` so the correct non-persistent groups are referenced. [ET-1023]
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsolete
+
 = [4.12.18] 2021-02-24 =
 
 * Feature - JavaScript Assets can now be marked for async or defer, giving the asset manager more flexibility.
