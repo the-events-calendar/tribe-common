@@ -17,7 +17,7 @@ class Utils {
 	 * @param array<string,mixed> $settings Widget settings.
 	 * @param array<string>       $allowed  Allowed settings for shortcode.
 	 *
-	 * @return string
+	 * @return string Shortcode attributes string.
 	 */
 	public static function get_attributes_string( $settings, $allowed = [] ) {
 		$settings_string = '';

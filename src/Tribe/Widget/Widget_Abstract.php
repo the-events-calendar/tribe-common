@@ -134,7 +134,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @param string $id_base The ID base that we will use for this Widget instance.
 	 *
-	 * @return string|null
+	 * @return string|null    Parsed value given by the __construct.
 	 */
 	protected function parse_id_base( $id_base = null ) {
 		// When empty use the one default to the widget.
@@ -152,7 +152,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @param string $name The ID base that we will use for this Widget instance.
 	 *
-	 * @return string
+	 * @return string      Parsed value given by the __construct.
 	 */
 	protected function parse_name( $name = null ) {
 		// When empty use the one default to the widget.
@@ -168,7 +168,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @return string Returns the default widget name.
 	 */
 	public static function get_default_widget_name() {
 		return __( 'Widget', 'tribe-common' );
@@ -181,7 +181,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @param array $widget_options The widget options base that we will use for this Widget instance.
 	 *
-	 * @return array  Widget options that will be passed to the __construct.
+	 * @return array                Widget options that will be passed to the __construct.
 	 */
 	protected function parse_widget_options( $widget_options = [] ) {
 		// When empty use the one default to the widget.
@@ -197,7 +197,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return array Default widget options.
 	 */
 	public static function get_default_widget_options() {
 		return [];
@@ -210,7 +210,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @param array $control_options The base control options passed to the construct method.
 	 *
-	 * @return array
+	 * @return array Parsed value given by the __construct.
 	 */
 	protected function parse_control_options( $control_options = [] ) {
 		// When empty use the one default to the widget.
@@ -226,7 +226,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return array Default control options.
 	 */
 	public static function get_default_control_options() {
 		return [];
@@ -793,6 +793,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 
 	/**
 	 * {@inheritDoc}
+	 * @deprecated TBD Moved into using static::get_widget_slug
 	 */
 	public function get_registration_slug() {
 		return static::get_widget_slug();

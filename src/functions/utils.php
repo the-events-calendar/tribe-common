@@ -182,7 +182,7 @@ if ( ! function_exists( 'tribe_null_or_truthy' ) ) {
 	 *
 	 * @param mixed $value Which value will be validated.
 	 *
-	 * @return bool|null   Allows Both Null and truthy values.
+	 * @return bool|null   Sanitizes the value passed as a boolean or null.
 	 */
 	function tribe_null_or_truthy( $value = null ) {
 		if ( null === $value || 'null' === $value ) {
