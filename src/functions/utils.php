@@ -241,6 +241,23 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 	}
 }
 
+/**
+ * Determines if the provided value should be regarded as 'true' or in case of null allow it.
+ *
+ * @since TBD
+ *
+ * @param mixed $value Variable we are checking if it is null or truthy.
+ *
+ * @return bool
+ */
+function tribe_null_or_truthy( $value ) {
+	if ( null === $value || 'null' === $value ) {
+		return null;
+	}
+
+	return tribe_is_truthy( $value );
+}
+
 if ( ! function_exists( 'tribe_sort_by_priority' ) ) {
 	/**
 	 * Sorting function based on Priority
