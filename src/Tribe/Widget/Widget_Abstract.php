@@ -14,6 +14,15 @@ use Tribe__Template;
  */
 abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
+	 * Prefix for WordPress registration of the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const PREFIX = 'tribe-widget-';
+
+	/**
 	 * Slug of the current widget.
 	 *
 	 * @since TBD
@@ -139,7 +148,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	protected function parse_id_base( $id_base = null ) {
 		// When empty use the one default to the widget.
 		if ( empty( $id_base ) ) {
-			$id_base = 'tribe-widget-' . static::get_widget_slug();
+			$id_base = static::PREFIX . static::get_widget_slug();
 		}
 
 		return $id_base;
@@ -276,7 +285,12 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		// Specifically on the admin we force the admin fields into the arguments.
 		$this->arguments['admin_fields'] = $this->get_admin_fields();
 
-		return $this->get_admin_html( $this->get_arguments() );
+		$this->toggle_hooks( true );
+
+		$html = $this->get_admin_html( $this->get_arguments() );
+
+		$this->toggle_hooks( false );
+		return $html;
 	}
 
 	/**
@@ -288,7 +302,15 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 
 		$this->setup( $args, $instance );
 
-		echo $this->get_html();
+		$this->toggle_hooks( true );
+
+		$html = $this->get_html();
+
+		$this->toggle_hooks( false );
+
+		echo $html;
+
+		return $html;
 	}
 
 	/**
@@ -762,6 +784,55 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 */
 	public function get_admin_html( $arguments ) {
 		return $this->get_admin_template()->template( [ 'widgets', static::get_widget_slug() ], $arguments );
+	}
+
+	/**
+	 * Toggles hooks for the widget, will be deactivated after the rendering has happened.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $toggle Whether to turn the hooks on or off.
+	 *
+	 * @return void
+	 */
+	public function toggle_hooks( $toggle ) {
+		if ( $toggle ) {
+			$this->add_hooks();
+		} else {
+			$this->remove_hooks();
+		}
+
+		/**
+		 * Fires after widget was setup while rendering a widget.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $toggle Whether the hooks should be turned on or off. This value is `true` before a widget
+		 *                       HTML is rendered and `false` after the widget HTML rendered.
+		 * @param static $this   The widget object that is toggling the hooks.
+		 */
+		do_action( 'tribe_shortcode_toggle_hooks', $toggle, $this );
+	}
+
+	/**
+	 * Toggles off portions of the template based on widget params.
+	 * This runs on the `tribe_shortcode_toggle_hooks` hook when the toggle is true.
+	 *
+	 * @since TBD
+	 */
+	protected function add_hooks() {
+
+	}
+
+	/**
+	 * Toggles on portions of the template that were modified in `add_template_mods()` above.
+	 * This runs on the `tribe_shortcode_toggle_hooks` hook when the toggle is false.
+	 * Thus encapsulating our control of these shared pieces to only when the widget is rendering.
+	 *
+	 * @since TBD
+	 */
+	protected function remove_hooks() {
+
 	}
 
 	/**********************
