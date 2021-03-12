@@ -380,6 +380,7 @@ class Tribe__Assets {
 		static $plugins_url;
 		static $base_dirs;
 
+
 		$urls = [];
 		if ( ! isset( $wpmu_plugin_url ) ) {
 			$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
