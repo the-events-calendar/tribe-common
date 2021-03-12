@@ -32,6 +32,7 @@ class Parent_Plugin_RequirementsCest {
 
 	/**
 	 * It should show a notice if addon version is lower than required by parent
+	 *
 	 * @skip Problematic addon dependency testing. Need to review.
 	 * @test
 	 */
