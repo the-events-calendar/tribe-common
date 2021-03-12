@@ -393,6 +393,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		foreach ( $fields as $field_name => $field ) {
 			$fields[ $field_name ] = $this->get_admin_data( $arguments, $field_name, $field );
 		}
+
 		return $this->filter_admin_fields( $fields );
 	}
 
