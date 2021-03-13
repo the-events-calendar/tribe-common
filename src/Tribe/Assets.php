@@ -340,8 +340,8 @@ class Tribe__Assets {
 			}
 
 			if ( 'js' === $asset->type ) {
-				if ( $asset->print ) {
-					wp_print_styles( [ $asset->slug ] );
+				if ( $asset->print && ! $asset->already_enqueued ) {
+					wp_print_scripts( [ $asset->slug ] );
 				}
 				// We print first, and tell the system it was enqueued, WP is smart not to do it twice.
 				wp_enqueue_script( $asset->slug );
@@ -351,11 +351,15 @@ class Tribe__Assets {
 					wp_set_script_translations( $asset->slug, $asset->translations['domain'], $asset->translations['path'] );
 				}
 			} else {
-				if ( $asset->print ) {
+				if ( $asset->print && ! $asset->already_enqueued ) {
 					wp_print_styles( [ $asset->slug ] );
 				}
 				// We print first, and tell the system it was enqueued, WP is smart not to do it twice.
 				wp_enqueue_style( $asset->slug );
+			}
+
+			if ( ! empty( $asset->after_enqueue ) && is_callable( $asset->after_enqueue ) ) {
+				call_user_func_array( $asset->after_enqueue, [ $asset ] );
 			}
 
 			$asset->already_enqueued = true;
@@ -550,8 +554,13 @@ class Tribe__Assets {
 			// Bigger Variables at the end.
 			'localize'      => [],
 			'conditionals'  => [],
+
 			// Used to handle Translations handled in the JavaScript side of the Assets.
 			'translations'  => [],
+
+			// Execute after the asset is enqueued.
+			'after_enqueue' => null,
+			'already_enqueued' => false,
 		];
 
 		// Merge Arguments.

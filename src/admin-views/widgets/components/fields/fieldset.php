@@ -17,7 +17,6 @@
  * @var string              $classes     Classes to add to the fieldset.
  * @var string              $dependency  Dependency attribute for the fieldset.
  * @var array<string,mixed> $children    Child elements for the fieldset.
- * @var string              $name        Name to pass through to child inputs.
  */
 
 use Tribe__Utils__Array as Arr;

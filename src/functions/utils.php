@@ -174,6 +174,25 @@ if ( ! function_exists( 'tribe_get_global_query_object' ) ) {
 	}
 }
 
+if ( ! function_exists( 'tribe_null_or_truthy' ) ) {
+	/**
+	 * Validation of Null or Truthy values for Shortcode Attributes.
+	 *
+	 * @since 5.1.4
+	 *
+	 * @param mixed $value Which value will be validated.
+	 *
+	 * @return bool|null   Sanitizes the value passed as a boolean or null.
+	 */
+	function tribe_null_or_truthy( $value = null ) {
+		if ( null === $value || 'null' === $value ) {
+			return null;
+		}
+
+		return tribe_is_truthy( $value );
+	}
+}
+
 if ( ! function_exists( 'tribe_is_truthy' ) ) {
 	/**
 	 * Determines if the provided value should be regarded as 'true'.
@@ -1182,7 +1201,7 @@ if ( ! function_exists( 'tribe_without_filters' ) ) {
 	 * The function will infer the priority of the filter, required for its correct detachment and re-attachment, on
 	 * its own.
 	 *
-	 * @since 5.12.12
+	 * @since 4.12.12
 	 *
 	 * @param string   $filter_tag      The filter tag to suspend.
 	 * @param callable $filter_callback The filter_callback currently attached to the filter.
