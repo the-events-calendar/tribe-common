@@ -9,6 +9,7 @@
 * Fix - Decode country picker names [TEC-3360]
 * Tweak - Include a way for the context locations to be regenerated, with plenty of warnings about the risk [FBAR-36]
 * Tweak - Remove deprecated filter `tribe_events_{$asset->type}_version`
+* Tweak - Include Utils for dealing with Taxonomies with two methods, one for translating terms query into a repository arguments and another for translating shortcode arguments to term IDs. [ECP-728]
 
 = [4.12.19] 2021-03-02 =
 
