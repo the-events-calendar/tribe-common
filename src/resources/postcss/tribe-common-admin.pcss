@@ -1759,7 +1759,8 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 
 /* = TEC Welcome & new BEM tribe admin styles
 ==============================================*/
-body.tribe-welcome {
+body.tribe-welcome,
+body.tribe_events_page_tribe-help {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: white;
@@ -1796,6 +1797,108 @@ body.tribe-welcome {
 	}
 }
 
+
+.tribe-events-admin-header {
+	margin: 36px auto 0 auto;
+	position: relative;
+	width: 100%;
+
+	@media screen and (min-width: 710px) {
+		border-bottom: 1px solid rgba(225, 225, 228, 0.5);
+		margin-top: 44px;
+	}
+}
+
+.tribe-events-admin-header__content-wrapper {
+	margin: 0 auto;
+	max-width: 1060px;
+	text-align: center;
+	width: 100%;
+
+	@media screen and (min-width: 710px) {
+		text-align: left;
+		width: 710px;
+	}
+	@media screen and (min-width: 1217px) {
+		width: 100%;
+	}
+}
+
+.tribe-events-admin-header__logo-word-mark {
+	display: inline-block;
+	height: 57px;
+	margin: 0 0 26px 0;
+	vertical-align: middle;
+
+	@media screen and (min-width: 710px) {
+		height: 65px;
+		text-align: left;
+	}
+}
+
+.tribe-events-admin-header__title {
+	font-size: 48px;
+	line-height: 48px;
+	margin: 0 0 18px 0;
+}
+
+.tribe-events-admin-header__description {
+	font-size: 18px;
+	line-height: 28px;
+	margin-bottom: 44px;
+	max-width: 527px;
+}
+
+.tribe-events-admin-tab-nav {
+	border-bottom: 1px solid #E1E1E4;
+	display: block;
+	margin: 0 auto;
+	overflow: scroll;
+	text-align: left;
+	white-space: nowrap;
+
+	@media screen and (min-width: 710px) {
+		border-bottom: none;
+		display: block;
+		overflow: auto;
+	}
+}
+
+.tribe-events-admin-tab-nav__link-item {
+	cursor: pointer;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 20px;
+	margin: 0 18px 0 0;
+	padding: 0 0 10px 0;
+	position: relative;
+	text-align: center;
+
+	@media screen and (min-width: 710px) {
+		padding: 0 0 20px 0;
+	}
+
+	&:hover {
+		color: #161B7D;
+	}
+}
+
+.tribe-events-admin-tab-nav__link-item--selected {
+	color: #334aff;
+
+	&:after {
+		background: #334AFF;
+		border-radius: 100px;
+		bottom: 0;
+		content: '';
+		display: block;
+		height: 3px;
+		left: 0;
+		position: absolute;
+		right: 0;
+	}
+}
 
 .tribe-events-admin-content-wrapper {
 	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
@@ -1857,7 +1960,67 @@ body.tribe-welcome {
 			float: left;
 			margin: 0 48px 10px 0;
 		}
+	}
+}
 
+.tribe-events-admin-card--no-pad {
+	padding: 0;
+
+	@media screen and (min-width: 710px) {
+		height: 154px;
+		padding: 0;
+	}
+
+	@media screen and (min-width: 1217px) {
+		padding: 0;
+	}
+
+	.tribe-events-admin-card__image {
+		display: block;
+		height: 152px;
+
+		margin: 0;
+		padding: 0;
+
+		@media screen and (min-width: 1217px) {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.tribe-events-admin-card__title {
+		font-size: 28px;
+		line-height: 34px;
+		text-align: left;
+
+		@media screen and (min-width: 710px) {
+			margin-left: 50%;
+			padding: 42px 0 10px 0;
+		}
+
+		@media screen and (min-width: 1217px) {
+			margin-left: 50%;
+			padding: 42px 0 10px 0;
+		}
+	}
+
+	.tribe-events-admin-card__description {
+		margin: 0;
+		padding: 0;
+		text-align: left;
+
+		@media screen and (min-width: 710px) {
+			margin-left: 50%;
+		}
+
+		@media screen and (min-width: 1217px) {
+			margin-left: 50%;
+		}
+	}
+
+	.tribe-events-admin-card__link {
+		margin: 0;
+		padding: 0;
 	}
 }
 
@@ -2334,6 +2497,109 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
+/* -- Help page overrides -- */
+
+/* these styles are reused from App Shop */
+
+
+/* these styles are reused from Welcome */
+.tribe_events_page_tribe-help {
+
+	#tec-help-ticketing,
+	#tec-help-community {
+		display: none;
+	}
+
+	.tribe-events-admin-title {
+		padding-top: 25px;
+
+		img {
+			height: 67px;
+		}
+	}
+
+
+	.tribe-events-admin-card--1up {
+		@media screen and (min-width: 710px) {
+			display: block;
+			width: 100%;
+			margin-left: 0;
+		}
+
+		.tribe-events-admin-card__image {
+			float: left;
+		}
+	}
+
+	.tribe-events-admin-description {
+		font-size: 14px;
+		line-height: 28px;
+		width: 500px;
+	}
+
+	.tribe-events-admin-card--product {
+		height: 75px;
+		padding: 0;
+		text-align: left;
+		position: relative;
+
+		.tribe-events-admin-card__icon {
+			height: 38px;
+			padding: 17px;
+		}
+
+		.tribe-events-admin-card__title {
+			font-size: 16px;
+			line-height: 16px;
+			margin: 0;
+			padding-bottom: 6px;
+		}
+
+		.tribe-events-admin-card__description {
+			font-size: 12px;
+			line-height: 14px;
+			margin: 0;
+			width: 269px;
+		}
+
+		.tribe-events-admin-card__button {
+			position: absolute;
+			top: 19px;
+			right: 16px;
+
+			font-weight: bold;
+			font-size: 12px;
+			line-height: 15px;
+
+			height: 29px;
+			width: 97px;
+
+			text-align: center;
+
+			border: 1px solid #E1E1E4;
+			box-sizing: border-box;
+			border-radius: 16px;
+
+			text-transform: none;
+			color: #0F1031;
+
+			cursor: pointer;
+		}
+
+		.tribe-events-admin-ard__button--active {
+			background: rgba(61, 84, 255, 0.16);
+			color: #334AFF;
+			text-transform: uppercase;
+		}
+	}
+}
+
+.tribe-events-admin-card__group {
+	display: inline-block;
+	padding-top: 16px;
+	vertical-align: top;
+	width: calc(100% - 80px);
+}
 
 /* -- Freemius tweaks -- */
 body.tribe-welcome #fs_connect {

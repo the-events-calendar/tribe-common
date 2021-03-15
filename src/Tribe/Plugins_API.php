@@ -26,6 +26,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'the-events-calendar',
 				'link'            => 'https://evnt.is/1ai-',
 				'description'     => __( 'Our flagship free calendar', 'tribe-common' ),
+				'description-help' => __( 'The #1 calendar for WordPress', 'tribe-common' ),
 				'features'        => [
 					__( 'Customizable', 'tribe-common' ),
 					__( 'Import & export events', 'tribe-common' ),
@@ -43,6 +44,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'event-aggregator',
 				'link'            => 'https://evnt.is/1aj0',
 				'description'     => __( 'Automated imports for your calendar', 'tribe-common' ),
+				'description-help' => __( 'Import events from Meetup, Eventbrite, iCal, Google Calendar, and more.', 'tribe-common' ),
 				'features'        => [
 					__( 'Schedule automated imports', 'tribe-common' ),
 					__( 'Customizable', 'tribe-common' ),
@@ -60,6 +62,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'events-calendar-pro',
 				'link'            => 'https://evnt.is/1ai-',
 				'description'     => __( 'Power up your calendar with Pro', 'tribe-common' ),
+				'description-help' => __( 'The #1 calendar for WordPress', 'tribe-common' ),
 				'features'        => [
 					__( 'Premium support', 'tribe-common' ),
 					__( 'Recurring events', 'tribe-common' ),
@@ -77,6 +80,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'event-tickets',
 				'link'            => 'https://evnt.is/1aj1',
 				'description'     => __( 'Manage ticketing and RSVPs', 'tribe-common' ),
+				'description-help' => __( 'Collect RSVPs and sell tickets', 'tribe-common' ),
 				'features'        => [
 					__( 'Add tickets and RSVP to any post', 'tribe-common' ),
 					__( 'Paypal integration', 'tribe-common' ),
@@ -94,6 +98,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'event-tickets-plus',
 				'link'            => 'http://evnt.is/1aj1',
 				'description'     => __( 'Monetize your events', 'tribe-common' ),
+				'description-help' => __( 'Collect RSVPs and sell tickets', 'tribe-common' ),
 				'features'        => [
 					__( 'Custom registration fields', 'tribe-common' ),
 					__( 'WooCommerce compatibility', 'tribe-common' ),
@@ -111,6 +116,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'promoter',
 				'link'            => 'https://evnt.is/1acy',
 				'description'     => __( 'An email marketing solution for events and the people running them', 'tribe-common' ),
+				'description-help' => __( 'Email marketing to promote your events', 'tribe-common' ),
 				'features'        => [
 					__( 'Automate email touchpoints', 'tribe-common' ),
 					__( 'Customize email templates', 'tribe-common' ),
@@ -128,6 +134,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'tribe-filterbar',
 				'link'            => 'https://evnt.is/19o6',
 				'description'     => __( 'Help users find exactly the right event', 'tribe-common' ),
+				'description-help' => __( 'Create Eventbrite tickets and events right from your WordPress dashboard.', 'tribe-common' ),
 				'features'        => [
 					__( 'Configurable set of filters', 'tribe-common' ),
 					__( 'Horizontal or vertical', 'tribe-common' ),
@@ -145,6 +152,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'events-community',
 				'link'            => 'https://evnt.is/19o7',
 				'description'     => __( 'Users submit events to your calendar', 'tribe-common' ),
+				'description-help' => __( 'Enable 3rd party event submissions.', 'tribe-common' ),
 				'features'        => [
 					__( 'Publishing Control', 'tribe-common' ),
 					__( 'Event Submission Form', 'tribe-common' ),
@@ -162,6 +170,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'events-community-tickets',
 				'link'            => 'https://evnt.is/19o8',
 				'description'     => __( 'Run your own events marketplace', 'tribe-common' ),
+				'description-help' => __( 'Let users create and sell tickets for events they submit to your calendar.', 'tribe-common' ),
 				'features'        => [
 					__( 'Users submit events and sell tickets', 'tribe-common' ),
 					__( 'Split commission with users', 'tribe-common' ),
@@ -180,6 +189,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'tribe-eventbrite',
 				'link'            => 'https://evnt.is/19o9',
 				'description'     => __( 'Unite the power of TEC with the ticketing of Eventbrite', 'tribe-common' ),
+				'description-help' => __( 'Create Eventbrite tickets and events right from your WordPress dashboard.', 'tribe-common' ),
 				'features'        => [
 					__( 'Manage tickets from WordPress', 'tribe-common' ),
 					__( 'Ticket availability automatically updates', 'tribe-common' ),
@@ -214,6 +224,7 @@ class Tribe__Plugins_API {
 				'slug'            => 'events-virtual',
 				'link'            => 'http://evnt.is/virtual-events',
 				'description'     => __( 'Features to optimize your calendar for virtual events.', 'tribe-common' ),
+				'description-help' => __( 'Highlight virtual events on you calendar and integrate with your favorite online meeting tools.', 'tribe-common' ),
 				'features'        => [
 					__( 'Zoom integration', 'tribe-common' ),
 					__( 'Virtual event labels', 'tribe-common' ),
