@@ -49,7 +49,7 @@ class Taxonomy {
 	 *
 	 * @return array A fully qualified `tax_query` array, merge using `array_merge_recursively`.
 	 */
-	public static function translate_to_repo( $taxonomy, $terms, $operand = self::OPERAND_OR ) {
+	public static function translate_to_repository_args( $taxonomy, $terms, $operand = self::OPERAND_OR ) {
 		$tax_query = [];
 		// Prevent empty values from even trying.
 		if ( empty( $taxonomy ) ) {
@@ -87,7 +87,7 @@ class Taxonomy {
 	 *
 	 * @return array List of IDs of terms.
 	 */
-	public static function sanitize_shortcode_terms_to_id( $terms, $taxonomy ) {
+	public static function normalize_to_term_ids( $terms, $taxonomy ) {
 		if ( empty( $terms ) ) {
 			return $terms;
 		}
