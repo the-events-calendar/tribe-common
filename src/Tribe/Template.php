@@ -1036,7 +1036,7 @@ class Tribe__Template {
 		$this->template_current_file_path = $file;
 		unset( $file );
 
-		// Only do this if really needed (by default it wont).
+		// Only do this if really needed (by default it won't).
 		if ( true === $this->template_context_extract && ! empty( $this->context ) ) {
 			// Make any provided variables available in the template variable scope.
 			extract( $this->context ); // @phpcs:ignore

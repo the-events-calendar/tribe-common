@@ -171,7 +171,7 @@
 = [4.12.2] 2020-05-20 =
 
 * Feature - Added array utility methods: `parse_associative_array_alias` to build an array with canonical keys while taking alias keys into account and `filter_to_flat_scalar_associative_array` to help do so. Useful for aliasing shortcode arguments, for example.
-* Feature - Added `tribe_extension_is_disallowed` filter for Modern Tribe's core plugins to deactivate an extension whose functionality has become duplicative or conflicting.
+* Feature - Added `tribe_extension_is_disallowed` filter for The Events Calendar's core plugins to deactivate an extension whose functionality has become duplicative or conflicting.
 * Language - 1 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.1] 2020-05-11 =
@@ -445,7 +445,7 @@
 * Feature - Include Freemius integration on our Common Libraries to enable information collection opt-in for some new users
 * Tweak - Improve Object Relation Mapping base repository and filter classes to support usage of events
 * Tweak - Modify `Date_Utils.php` and include another way of building DateTime object with Timezone `build_date_object`
-* Tweak - Include Modern Tribe Context panel in the Debug Bar plugin
+* Tweak - Include The Events Calendar Context panel in the Debug Bar plugin
 * Tweak - Include the `tribe_image_uploader_local_urls` filter in Image Uploader class
 * Tweak - Include `tribe_process_allow_nopriv_handling` for non-logged users to improve control when async requests fire
 * Tweak - Fork `WP_Background_Process` to `Tribe__Process__Handler` to allow for better internal maintenance by our team
@@ -644,7 +644,7 @@
 
 = [4.7.10] 2018-03-28 =
 
-* Tweak - Adjusted app shop text in relation to Modern Tribe's ticketing solutions [101655]
+* Tweak - Adjusted app shop text in relation to The Events Calendar's ticketing solutions [101655]
 * Tweak - Added wrapper function around use of `tribe_events_get_the_excerpt` for safety [95034]
 
 = [4.7.9] 2018-03-12 =

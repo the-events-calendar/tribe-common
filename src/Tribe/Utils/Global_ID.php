@@ -15,7 +15,7 @@ class Tribe__Utils__Global_ID {
 
 
 	/**
-	 * Dont allow creation of Global IDs for other types of source
+	 * Don't allow creation of Global IDs for other types of source
 	 * @var array
 	 */
 	protected $valid_types = [

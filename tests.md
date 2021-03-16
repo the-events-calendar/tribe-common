@@ -3,7 +3,7 @@ This is a brief and quick guide that covers the bare essentials needed to set up
 Please refer to [Codeception](http://codeception.com/docs) and [WP Browser](https://github.com/lucatume/wp-browser) documentation for any PHP test issues or [Jest](https://jestjs.io/docs/en/getting-started) for any JS test issues that not TEC related.
 
 ## The commitment
-Modern Tribe has a long-term commitment to automate testing and improve test coverage.
+The Events Calendar has a long-term commitment to automate testing and improve test coverage.
 Writing test for the your code is not a fashion, someone's mania or a passing whim: do your part.
 
 ## PHP Tests

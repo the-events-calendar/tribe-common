@@ -11,7 +11,7 @@ $generalTabFields = [
 	],
 	'event-tickets-info' => [
 		'type'        => 'html',
-		'html'        => '<p>' . sprintf( esc_html__( 'Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we\'re excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started.', 'tribe-common' ), '<a href="http://evnt.is/18nd">', '</a>' ) . '</p>',
+		'html'        => '<p>' . sprintf( esc_html__( 'Thank you for using Event Tickets! All of us at The Events Calendar sincerely appreciate your support and we\'re excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started.', 'tribe-common' ), '<a href="http://evnt.is/18nd">', '</a>' ) . '</p>',
 		'conditional' => ! class_exists( 'Tribe__Events__Main' ),
 	],
 	'event-tickets-upsell-info' => [
@@ -31,7 +31,7 @@ $generalTabFields = [
 	],
 	'donate-link-info'              => [
 		'type'        => 'html',
-		'html'        => '<p>' . esc_html__( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-common' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-screenshot.png', dirname( __FILE__ ) ) ) . '" class="thickbox">' . esc_html__( 'See an example of the link', 'tribe-common' ) . '</a>.</p>',
+		'html'        => '<p>' . esc_html__( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to The Events Calendar for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-common' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-screenshot.png', dirname( __FILE__ ) ) ) . '" class="thickbox">' . esc_html__( 'See an example of the link', 'tribe-common' ) . '</a>.</p>',
 		'conditional' => class_exists( 'Tribe__Events__Main' ),
 	],
 	'donate-link'                   => [
@@ -78,4 +78,3 @@ $generalTab = [
 	'priority' => 10,
 	'fields'   => apply_filters( 'tribe_general_settings_tab_fields', $generalTabFields ),
 ];
-
