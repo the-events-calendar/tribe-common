@@ -44,7 +44,7 @@ Given this markup, the PostCSS will look like the following:
 }
 ```
 
-This allows us to target only the buttons within the The Events Calendar plugin views.
+This allows us to target only the buttons within The Events Calendar's plugin views.
 
 ## CSS specificity
 

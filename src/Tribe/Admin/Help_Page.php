@@ -367,7 +367,7 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Gets the Feed items from the The Events Calendar Blog
+	 * Gets the Feed items from The Events Calendar's Blog
 	 *
 	 * @since  4.0
 	 *
