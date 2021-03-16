@@ -5,6 +5,7 @@
 = [4.13.0] TBD =
 
 * Feature - JavaScript and Styles can be set to be printed as soon as enqueued, allowing usages like shortcodes to not have jumpy styles.
+* Feature - Include code around administration notices to support recurring notices. [TEC-3809]
 * Fix - Makes sure Javascript extra data is loaded following WordPress architecture, respecting it's dependencies.
 * Fix - Decode country picker names [TEC-3360]
 * Tweak - Include a way for the context locations to be regenerated, with plenty of warnings about the risk [FBAR-36]
