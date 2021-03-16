@@ -163,8 +163,8 @@ class Tribe__Admin__Notices {
 	 *
 	 * @since 4.3
 	 *
-	 * @param string $name      Name of the Method used to create the Slug of the Notice
-	 * @param array  $arguments Which arguments were used, normally empty
+	 * @param string $name      Name of the method used to create the slug of the notice.
+	 * @param array  $arguments Which arguments were used, normally empty.
 	 *
 	 * @return string
 	 */
@@ -204,9 +204,9 @@ class Tribe__Admin__Notices {
 	 *
 	 * @since 4.3
 	 *
-	 * @param string      $slug    The Name of the Notice
-	 * @param string      $content The content of the notice
-	 * @param boolean     $return  Echo or return the content
+	 * @param string      $slug    The name of the notice.
+	 * @param string      $content The content of the notice.
+	 * @param boolean     $return  Echo or return the content.
 	 * @param string|bool $wrap    An optional HTML tag to wrap the content.
 	 *
 	 * @return bool|string
@@ -259,9 +259,9 @@ class Tribe__Admin__Notices {
 	 *
 	 * @since 4.3
 	 *
-	 * @param string  $slug    The Name of the Notice
-	 * @param string  $content The content of the notice
-	 * @param boolean $return  Echo or return the content
+	 * @param string  $slug    The name of the notice.
+	 * @param string  $content The content of the notice.
+	 * @param boolean $return  Echo or return the content.
 	 *
 	 * @return boolean|string
 	 */
@@ -274,7 +274,7 @@ class Tribe__Admin__Notices {
 	 *
 	 * @since  4.7.10
 	 *
-	 * @param string $slug Which notice to check
+	 * @param string $slug Which notice to check.
 	 *
 	 * @return boolean
 	 */
@@ -293,8 +293,8 @@ class Tribe__Admin__Notices {
 	 *
 	 * @since  4.7.10
 	 *
-	 * @param string $slug Which notice to check
-	 * @param string $html Which html string we are check
+	 * @param string $slug Which notice to check.
+	 * @param string $html Which html string we are check.
 	 *
 	 * @return boolean
 	 */
@@ -313,8 +313,8 @@ class Tribe__Admin__Notices {
 	 *
 	 * @since TBD
 	 *
-	 * @param string   $slug    The Name of the Notice
-	 * @param int|null $user_id The user ID
+	 * @param string   $slug    The name of the notice.
+	 * @param int|null $user_id The user ID.
 	 *
 	 * @return boolean
 	 */
