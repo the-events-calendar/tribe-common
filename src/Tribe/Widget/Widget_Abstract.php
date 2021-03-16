@@ -408,9 +408,9 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_admin_fields() {
-		$fields = $this->setup_admin_fields();
+		$fields    = $this->setup_admin_fields();
 		$arguments = $this->get_arguments();
-		$fields = $this->filter_admin_fields( $fields );
+		$fields    = $this->filter_admin_fields( $fields );
 
 		foreach ( $fields as $field_name => $field ) {
 			$fields[ $field_name ] = $this->get_admin_data( $arguments, $field_name, $field );

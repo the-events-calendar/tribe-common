@@ -107,6 +107,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'dropdown_select2', // Deprecated use `dropdown`
 				'dropdown_chosen', // Deprecated use `dropdown`
 				'license_key',
+				'number',
 				'wrapped_html',
 				'email',
 			];
