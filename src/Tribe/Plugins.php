@@ -132,7 +132,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 		}
 
 		/**
-		 * Checks if given plugin is active. Usually a Modern Tribe plugin.
+		 * Checks if given plugin is active. Usually a The Events Calendar plugin.
 		 *
 		 * @param string $plugin_name The name of the plugin. Each plugin defines their name upon hooking on the filter.
 		 *

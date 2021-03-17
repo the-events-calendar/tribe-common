@@ -144,7 +144,7 @@ class Tribe__Ajax__Dropdown {
 			'pagination' => $pagination,
 		];
 
-		// Skip when we dont have posts
+		// Skip when we don't have posts
 		if ( empty( $posts ) ) {
 			return $data;
 		}

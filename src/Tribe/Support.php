@@ -315,8 +315,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				$checked = 'checked';
 			}
 
-			$opt_in = '<p class="system-info"><input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin" ' . esc_attr( $checked ) . '/><label for="tribe_auto_sysinfo_opt_in">' . esc_html__( 'Yes, automatically share my system information with the Modern Tribe support team', 'tribe-common' ) . '</label></p>';
-			$opt_in .= '<p class="tooltip description">' . esc_html__( 'Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties.', 'tribe-common' ) . '</p>';
+			$opt_in = '<p class="system-info"><input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin" ' . esc_attr( $checked ) . '/><label for="tribe_auto_sysinfo_opt_in">' . esc_html__( 'Yes, automatically share my system information with The Events Calendar\'s support team', 'tribe-common' ) . '</label></p>';
+			$opt_in .= '<p class="tooltip description">' . esc_html__( 'Your system information will only be used by The Events Calendar\'s support team. All information is stored securely. We do not share this information with any third parties.', 'tribe-common' ) . '</p>';
 			$opt_in .= '<p class="tribe-sysinfo-optin-msg"></p>';
 
 			return $opt_in;

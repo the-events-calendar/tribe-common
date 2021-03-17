@@ -2,11 +2,11 @@
 
 ## Why common styles?
 
-Historically, CSS for Modern Tribe plugins have not held up to the highest standards for structuring CSS and naming CSS classes. These common styles help to build a foundation for standardizing class naming as well as following the Modern Tribe products design system.
+Historically, CSS for The Events Calendar plugins have not held up to the highest standards for structuring CSS and naming CSS classes. These common styles help to build a foundation for standardizing class naming as well as following The Events Calendar's products design system.
 
 ## Class naming consistency and BEM
 
-A couple of issues we've had previously with templates for Modern Tribe plugins was inconsistent class naming and the class naming structure. To deal with this, we've adopted the use of [BEM](http://getbem.com/naming/) for class naming, combined with the use of `tribe-common-` as a block prefix.
+A couple of issues we've had previously with templates for The Events Calendar plugins was inconsistent class naming and the class naming structure. To deal with this, we've adopted the use of [BEM](http://getbem.com/naming/) for class naming, combined with the use of `tribe-common-` as a block prefix.
 
 First is the use of [BEM](http://getbem.com/naming/) for class naming (see link for more details). BEM stands for Block Element Modifier. We've used BEM as a guide to help us name classes and maintain consistency. This helps us structure the CSS around the HTML that we are styling without running into class naming chaos.
 
@@ -14,7 +14,7 @@ Secondly, we've added prefixes to our classes. The first prefix we've used is `t
 
 ## View/block wrapper class
 
-Aside from classes that apply styles to elements, we also apply resets and base styles. In order to not override theme styles and elements outside of Modern Tribe plugins, we've added a wrapper class `tribe-common` around all of Modern Tribe plugins blocks and views. For example, the markup for a specific view or block might look like the following:
+Aside from classes that apply styles to elements, we also apply resets and base styles. In order to not override theme styles and elements outside of The Events Calendar plugins, we've added a wrapper class `tribe-common` around all of The Events Calendar plugins blocks and views. For example, the markup for a specific view or block might look like the following:
 
 ```
 <div class="tribe-common">
@@ -44,7 +44,7 @@ Given this markup, the PostCSS will look like the following:
 }
 ```
 
-This allows us to target only the buttons within the Modern Tribe plugin views.
+This allows us to target only the buttons within The Events Calendar's plugin views.
 
 ## CSS specificity
 
@@ -160,7 +160,7 @@ In the case of an element, we might get the following scenario:
 
 ## Structure of common styles
 
-The common styles are comprised of 2 files: `reset.pcss` and `common.pcss`. The reset styles cover cross-browser style normalizations for Modern Tribe plugins and the common styles cover base styles and common components used throughout the plugins.
+The common styles are comprised of 2 files: `reset.pcss` and `common.pcss`. The reset styles cover cross-browser style normalizations for The Events Calendar plugins and the common styles cover base styles and common components used throughout the plugins.
 
 The common styles are broken into 5 main sections: reset, utilities, base, a11y, and components.
 
@@ -222,7 +222,7 @@ To counter this, we've applied a type of container media queries. By applying Ja
 
 ## Theme overrides
 
-Modern Tribe plugins support a handful of themes. Some themes provide stylesheets that have high specificity for elements and override the common styles. To counter this, we've included theme overrides to ensure our plugin styles display as expected with the supported themes.
+The Events Calendar plugins support a handful of themes. Some themes provide stylesheets that have high specificity for elements and override the common styles. To counter this, we've included theme overrides to ensure our plugin styles display as expected with the supported themes.
 
 The specificity to override the styles are matched to those applied to the theme. This means that if, for example, a theme applied an ID and 2 extra classes to a `button` style, we might see the following theme override:
 
@@ -254,7 +254,7 @@ Common theme overrides, mainly in base and components, are applied to the bottom
 
 You want to contribute to these styles? Great! There are a couple things to consider when making changes:
 
-1. These styles are the base layer to a number of Modern Tribe plugins. Make changes with care.
+1. These styles are the base layer to a number of The Events Calendar plugins. Make changes with care.
 2. Consider whether these styles may be reuseable or not. If they are good candidates for a component for more than one plugin, then it's probably a good idea to put them into these styles.
 
 ### Additions

@@ -419,7 +419,7 @@ abstract class Tribe__Extension {
 			'<p><strong>%1$s:</strong> %2$s</p>',
 			$this->get_name(),
 			esc_html_x(
-				"This extension has been programmatically disallowed. The most common reason is due to another Modern Tribe plugin having absorbed or replaced this extension's functionality. This extension plugin has been deactivated, and you should likely delete it.",
+				"This extension has been programmatically disallowed. The most common reason is due to another The Events Calendar plugin having absorbed or replaced this extension's functionality. This extension plugin has been deactivated, and you should likely delete it.",
 				'extension disallowed',
 				'tribe-common'
 			)
