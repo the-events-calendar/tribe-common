@@ -19,7 +19,7 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 	 * @return string The panel title
 	 */
 	public function title( $title = null ) {
-		return __( 'Modern Tribe Context', 'tribe-common' );
+		return __( 'The Events Calendar Context', 'tribe-common' );
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 			</style>';
 		$html .= '<div id="mt-debug-bar" class="mt-debug-bar-context">';
 
-		$html .= '<header class="mt-debug-bar-title"><h2>' . esc_html__( 'Modern Tribe Context', 'tribe-common' ) . '</h2></header>';
+		$html .= '<header class="mt-debug-bar-title"><h2>' . esc_html__( 'The Events Calendar Context', 'tribe-common' ) . '</h2></header>';
 
 		$html .= '<section>';
 		$html .= '<header class="mt-debug-bar-section-header"><h3>' . esc_html__( 'PHP Render Context', 'tribe-common' ) . '</h3></header>';
