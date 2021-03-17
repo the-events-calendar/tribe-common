@@ -82,7 +82,7 @@ class Taxonomy {
 	 *
 	 * @since TBD
 	 *
-	 * @param string|int|array $terms Terms to be cleaned up.
+	 * @param string|int|array $terms    Terms to be cleaned up.
 	 * @param string           $taxonomy Which taxonomy we are querying for.
 	 *
 	 * @return array List of IDs of terms.
@@ -90,6 +90,20 @@ class Taxonomy {
 	public static function normalize_to_term_ids( $terms, $taxonomy ) {
 		if ( empty( $terms ) ) {
 			return $terms;
+		}
+
+		/**
+		 * Allow filtering of the needle for splitting terms, by default it will be a comma.
+		 *
+		 * @since TBD
+		 *
+		 * @param string       $needle   Defaults to a comma. Which character that we will split terms by.
+		 * @param string|array $terms    Terms string that we will split by the needle filtered.
+		 * @param string       $taxonomy Which taxonomy this will be for.
+		 */
+		$needle = apply_filters( 'tribe_normalize_to_term_ids_needle', ',', $terms, $taxonomy );
+		if ( is_string( $terms ) && false !== strpos( $terms, $needle ) ) {
+			$terms = array_map( 'trim', explode( $needle, $terms ) );
 		}
 
 		$terms = array_map( static function ( $param ) use ( $taxonomy ) {
