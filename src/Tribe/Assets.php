@@ -340,7 +340,8 @@ class Tribe__Assets {
 			}
 
 			if ( 'js' === $asset->type ) {
-				if ( $asset->print && ! $asset->already_enqueued ) {
+				if ( $asset->print && ! $asset->already_printed ) {
+					$asset->already_printed = true;
 					wp_print_scripts( [ $asset->slug ] );
 				}
 				// We print first, and tell the system it was enqueued, WP is smart not to do it twice.
@@ -351,7 +352,8 @@ class Tribe__Assets {
 					wp_set_script_translations( $asset->slug, $asset->translations['domain'], $asset->translations['path'] );
 				}
 			} else {
-				if ( $asset->print && ! $asset->already_enqueued ) {
+				if ( $asset->print && ! $asset->already_printed ) {
+					$asset->already_printed = true;
 					wp_print_styles( [ $asset->slug ] );
 				}
 				// We print first, and tell the system it was enqueued, WP is smart not to do it twice.
@@ -559,8 +561,9 @@ class Tribe__Assets {
 			'translations'  => [],
 
 			// Execute after the asset is enqueued.
-			'after_enqueue' => null,
+			'after_enqueue'    => null,
 			'already_enqueued' => false,
+			'already_printed'  => false,
 		];
 
 		// Merge Arguments.
