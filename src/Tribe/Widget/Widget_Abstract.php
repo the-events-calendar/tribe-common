@@ -34,6 +34,8 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * If this Widget was rendered on the screen, often useful for Assets.
 	 *
+	 * Every widget needs this to be defined internally otherwise it wont work.
+	 *
 	 * @since TBD
 	 *
 	 * @var boolean
