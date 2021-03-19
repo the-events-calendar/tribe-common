@@ -244,7 +244,7 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 /**
  * Determines if the provided value should be regarded as 'true' or in case of null allow it.
  *
- * @since TBD
+ * @since 4.13.0
  *
  * @param mixed $value Variable we are checking if it is null or truthy.
  *

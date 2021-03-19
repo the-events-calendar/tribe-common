@@ -1331,7 +1331,7 @@ class Tribe__Context {
 	 *
 	 * With great power comes great responsibility: think a lot before using this.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 */
 	public function dangerously_repopulate_locations() {
 		static::$did_populate_locations = false;

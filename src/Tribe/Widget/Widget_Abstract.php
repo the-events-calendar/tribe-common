@@ -16,7 +16,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Prefix for WordPress registration of the widget.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @var string
 	 */
@@ -25,7 +25,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Slug of the current widget.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * Every widget needs this to be defined internally otherwise it wont work.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @var boolean
 	 */
@@ -63,7 +63,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Sidebar arguments passed to the widget.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -103,7 +103,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Current set of Admin Fields used on the admin form.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -141,7 +141,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Parse the ID base sent to the __construct method.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string $id_base The ID base that we will use for this Widget instance.
 	 *
@@ -159,7 +159,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Parse the ID base sent to the __construct method.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string $name The ID base that we will use for this Widget instance.
 	 *
@@ -177,7 +177,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Sets up the Widget name,
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @return string Returns the default widget name.
 	 */
@@ -188,7 +188,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Parse the widget options base sent to the __construct method.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param array $widget_options The widget options base that we will use for this Widget instance.
 	 *
@@ -206,7 +206,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Gets the default widget options.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @return array Default widget options.
 	 */
@@ -217,7 +217,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Parse the control options base sent to the __construct method.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param array $control_options The base control options passed to the construct method.
 	 *
@@ -235,7 +235,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Gets the default control options.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @return array Default control options.
 	 */
@@ -268,7 +268,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * Setup the widget.
 	 *
 	 * @since  5.2.1
-	 * @since TBD include $args and $instance params.
+	 * @since 4.13.0 include $args and $instance params.
 	 *
 	 * @param array $args     Display arguments including 'before_title', 'after_title',
 	 *                        'before_widget', and 'after_widget'.
@@ -511,7 +511,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * Handles gathering the data for admin fields.
 	 *
 	 * @since 5.3.0
-	 * @since TBD Move into common from Events Abstract
+	 * @since 4.13.0 Move into common from Events Abstract
 	 *
 	 * @param array<string,mixed> $arguments   Current set of arguments.
 	 * @param int                 $field_name  The ID of the field.
@@ -652,7 +652,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to the widget sidebar arguments, catch all for all widgets.
 		 *
-		 * @since TBD
+		 * @since 4.13.0
 		 *
 		 * @param mixed   $arguments The argument.
 		 * @param static  $instance  The widget instance we are dealing with.
@@ -664,7 +664,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to the widget sidebar arguments, to a particular widget slug.
 		 *
-		 * @since TBD
+		 * @since 4.13.0
 		 *
 		 * @param mixed   $arguments The argument.
 		 * @param static  $instance  The widget instance we are dealing with.
@@ -732,7 +732,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to arguments before they get turned into context.
 		 *
-		 * @since TBD
+		 * @since 4.13.0
 		 *
 		 * @param array<string,mixed>  $alterations Current set of alterations for the context.
 		 * @param array<string,mixed>  $arguments   Current set of arguments in the widget.
@@ -745,7 +745,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Applies a filter to arguments before they get turned into context based on the widget slug of the widget.
 		 *
-		 * @since TBD
+		 * @since 4.13.0
 		 *
 		 * @param array<string,mixed>  $alterations Current set of alterations for the context.
 		 * @param array<string,mixed>  $arguments   Current set of arguments in the widget.
@@ -792,7 +792,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	/**
 	 * Toggles hooks for the widget, will be deactivated after the rendering has happened.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param bool $toggle Whether to turn the hooks on or off.
 	 *
@@ -808,7 +808,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 		/**
 		 * Fires after widget was setup while rendering a widget.
 		 *
-		 * @since TBD
+		 * @since 4.13.0
 		 *
 		 * @param bool   $toggle Whether the hooks should be turned on or off. This value is `true` before a widget
 		 *                       HTML is rendered and `false` after the widget HTML rendered.
@@ -821,7 +821,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * Toggles off portions of the template based on widget params.
 	 * This runs on the `tribe_shortcode_toggle_hooks` hook when the toggle is true.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 */
 	protected function add_hooks() {
 
@@ -832,7 +832,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 * This runs on the `tribe_shortcode_toggle_hooks` hook when the toggle is false.
 	 * Thus encapsulating our control of these shared pieces to only when the widget is rendering.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 */
 	protected function remove_hooks() {
 
@@ -847,7 +847,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since 4.12.12
 	 *
-	 * @deprecated TBD Moved into using static::$widget_slug
+	 * @deprecated 4.13.0 Moved into using static::$widget_slug
 	 * @todo remove after 2021-08-01
 	 *
 	 * @var string
@@ -859,7 +859,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 	 *
 	 * @since 4.12.14
 	 *
-	 * @deprecated TBD Moved into using static::$widget_slug
+	 * @deprecated 4.13.0 Moved into using static::$widget_slug
 	 * @todo remove after 2021-08-01
 	 *
 	 * @var string
@@ -868,7 +868,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 
 	/**
 	 * {@inheritDoc}
-	 * @deprecated TBD Moved into using static::get_widget_slug
+	 * @deprecated 4.13.0 Moved into using static::get_widget_slug
 	 */
 	public function get_registration_slug() {
 		return static::get_widget_slug();

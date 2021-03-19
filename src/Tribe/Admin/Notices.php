@@ -61,7 +61,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * User Meta Key prefix that stores when notices have been dismissed.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @var string
 	 */
@@ -311,7 +311,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Checks if a given user has dismissed a given notice.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string   $slug    The name of the notice.
 	 * @param int|null $user_id The user ID.
@@ -350,7 +350,7 @@ class Tribe__Admin__Notices {
 	 * Checks if a given user has dismissed a given notice.
 	 *
 	 * @since      4.3
-	 * @deprecated TBD Deprecated in favor of correcting the typo.
+	 * @deprecated 4.13.0 Deprecated in favor of correcting the typo.
 	 *
 	 * @param string   $slug    The Name of the Notice
 	 * @param int|null $user_id The user ID
@@ -364,7 +364,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Gets the last Dismissal for a given notice slug and user.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string   $slug    Slug of the notice to look for.
 	 * @param int|null $user_id Which user? If null will default to current user.
@@ -388,7 +388,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Determines if a given notice needs to be re-displayed in case of recurring notice.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string   $slug    Slug of the notice to look for.
 	 * @param int|null $user_id Which user? If null will default to current user.

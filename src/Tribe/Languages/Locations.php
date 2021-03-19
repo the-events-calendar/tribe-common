@@ -16,7 +16,7 @@ class Tribe__Languages__Locations {
 	 *
 	 * Adds array to object cache to speed up subsequent retrievals.
 	 *
-	 * @since TBD add $escape param.
+	 * @since 4.13.0 add $escape param.
 	 *
 	 * @param bool $escape Weather to escape for translations or not.
 	 *

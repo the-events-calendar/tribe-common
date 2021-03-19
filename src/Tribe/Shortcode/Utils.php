@@ -4,7 +4,7 @@ namespace Tribe\Shortcode;
 /**
  * Class Utils.
  *
- * @since   TBD
+ * @since   4.13.0
  *
  * @package Tribe\Shortcode
  */
@@ -12,7 +12,7 @@ class Utils {
 	/**
 	 * Convert settings to a set of shortcode attributes.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param array<string,mixed> $settings Widget settings.
 	 * @param array<string>       $allowed  Allowed settings for shortcode.

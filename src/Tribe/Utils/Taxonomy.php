@@ -5,7 +5,7 @@ namespace Tribe\Utils;
 /**
  * Class Taxonomy.
  *
- * @since   TBD
+ * @since   4.13.0
  *
  * @package Tribe\Utils
  */
@@ -13,8 +13,8 @@ class Taxonomy {
 	/**
 	 * Match any operand.
 	 *
-	 * @since TBD
-	 * @since TBD
+	 * @since 4.13.0
+	 * @since 4.13.0
 	 *
 	 * @var string
 	 */
@@ -23,7 +23,7 @@ class Taxonomy {
 	/**
 	 * Match all operand.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Taxonomy {
 	/**
 	 * Default operand for taxonomy filters.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Taxonomy {
 	/**
 	 * Translates a given argument to repository arguments.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string       $taxonomy Which taxonomy we are using to setup.
 	 * @param string|array $terms    Which terms we are going to use here.
@@ -80,7 +80,7 @@ class Taxonomy {
 	/**
 	 * Transform all Term IDs and Slugs into IDs of existing terms in a given taxonomy.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string|int|array $terms    Terms to be cleaned up.
 	 * @param string           $taxonomy Which taxonomy we are querying for.
@@ -95,7 +95,7 @@ class Taxonomy {
 		/**
 		 * Allow filtering of the needle for splitting terms, by default it will be a comma.
 		 *
-		 * @since TBD
+		 * @since 4.13.0
 		 *
 		 * @param string       $needle   Defaults to a comma. Which character that we will split terms by.
 		 * @param string|array $terms    Terms string that we will split by the needle filtered.

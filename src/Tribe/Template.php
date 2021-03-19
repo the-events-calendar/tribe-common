@@ -1202,7 +1202,7 @@ class Tribe__Template {
 	/**
 	 * Filters the full HTML for the template.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string $html      The final HTML.
 	 * @param string $file      Complete path to include the PHP File.
@@ -1248,7 +1248,7 @@ class Tribe__Template {
 	/**
 	 * Filters the HTML for the Before include actions.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string $html      The final HTML.
 	 * @param string $file      Complete path to include the PHP File.
@@ -1261,7 +1261,7 @@ class Tribe__Template {
 		/**
 		 * Allow users to filter the Before include actions.
 		 *
-		 * @since  TBD
+		 * @since  4.13.0
 		 *
 		 * @param string $html      The final HTML.
 		 * @param string $file      Complete path to include the PHP File.
@@ -1278,7 +1278,7 @@ class Tribe__Template {
 		 *    `tribe_template_before_include_html:events/embed`
 		 *    `tribe_template_before_include_html:tickets/login-to-purchase`
 		 *
-		 * @since  TBD
+		 * @since  4.13.0
 		 *
 		 * @param string $html      The final HTML.
 		 * @param string $file      Complete path to include the PHP File.
@@ -1293,7 +1293,7 @@ class Tribe__Template {
 	/**
 	 * Filters the HTML for the PHP safe include.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string $html      The final HTML.
 	 * @param string $file      Complete path to include the PHP File.
@@ -1306,7 +1306,7 @@ class Tribe__Template {
 		/**
 		 * Allow users to filter the PHP template include actions.
 		 *
-		 * @since  TBD
+		 * @since  4.13.0
 		 *
 		 * @param string $html      The final HTML.
 		 * @param string $file      Complete path to include the PHP File.
@@ -1323,7 +1323,7 @@ class Tribe__Template {
 		 *    `tribe_template_include_html:events/embed`
 		 *    `tribe_template_include_html:tickets/login-to-purchase`
 		 *
-		 * @since  TBD
+		 * @since  4.13.0
 		 *
 		 * @param string $html      The final HTML.
 		 * @param string $file      Complete path to include the PHP File.
@@ -1338,7 +1338,7 @@ class Tribe__Template {
 	/**
 	 * Filters the HTML for the after include actions.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string $html      The final HTML.
 	 * @param string $file      Complete path to include the PHP File.
@@ -1351,7 +1351,7 @@ class Tribe__Template {
 		/**
 		 * Allow users to filter the after include actions.
 		 *
-		 * @since  TBD
+		 * @since  4.13.0
 		 *
 		 * @param string $html      The final HTML.
 		 * @param string $file      Complete path to include the PHP File.
@@ -1368,7 +1368,7 @@ class Tribe__Template {
 		 *    `tribe_template_after_include_html:events/embed`
 		 *    `tribe_template_after_include_html:tickets/login-to-purchase`
 		 *
-		 * @since  TBD
+		 * @since  4.13.0
 		 *
 		 * @param string $html      The final HTML.
 		 * @param string $file      Complete path to include the PHP File.
@@ -1383,7 +1383,7 @@ class Tribe__Template {
 	/**
 	 * Fires of actions before including the template.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string $file      Complete path to include the PHP File.
 	 * @param array  $name      Template name.
@@ -1397,7 +1397,7 @@ class Tribe__Template {
 		/**
 		 * Fires an Action before including the template file
 		 *
-		 * @since  TBD
+		 * @since  4.13.0
 		 *
 		 * @param string $file      Complete path to include the PHP File
 		 * @param array  $name      Template name
@@ -1413,7 +1413,7 @@ class Tribe__Template {
 		 *    `tribe_template_before_include:events/embed`
 		 *    `tribe_template_before_include:tickets/login-to-purchase`
 		 *
-		 * @since  TBD
+		 * @since  4.13.0
 		 *
 		 * @param string $file      Complete path to include the PHP File.
 		 * @param array  $name      Template name.
@@ -1427,7 +1427,7 @@ class Tribe__Template {
 	/**
 	 * Fires of actions after including the template.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param string $file      Complete path to include the PHP File.
 	 * @param array  $name      Template name.
@@ -1440,7 +1440,7 @@ class Tribe__Template {
 		/**
 		 * Fires an Action after including the template file.
 		 *
-		 * @since  TBD
+		 * @since  4.13.0
 		 *
 		 * @param string $file      Complete path to include the PHP File.
 		 * @param array  $name      Template name.
@@ -1456,7 +1456,7 @@ class Tribe__Template {
 		 *    `tribe_template_after_include:events/embed`
 		 *    `tribe_template_after_include:tickets/login-to-purchase`
 		 *
-		 * @since  TBD
+		 * @since  4.13.0
 		 *
 		 * @param string $file      Complete path to include the PHP File.
 		 * @param array  $name      Template name.

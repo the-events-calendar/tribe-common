@@ -29,7 +29,7 @@ interface Widget_Interface {
 	/**
 	 * Returns the widget slug that allows the widget to be built via the widget class using that slug.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @return string The widget slug.
 	 */
@@ -38,7 +38,7 @@ interface Widget_Interface {
 	/**
 	 * Returns if the widget is in use on this current page.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @return bool If this widget is in use.
 	 */
@@ -47,7 +47,7 @@ interface Widget_Interface {
 	/**
 	 * Sets if this widget is in use on the current page.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @see tribe_is_truthy()
 	 *
@@ -193,7 +193,7 @@ interface Widget_Interface {
 	 * Returns a widget arguments after been parsed.
 	 *
 	 * @since 4.12.12
-	 * @since TBD Deprecated the instance method as that is passed only to setup_arguments method.
+	 * @since 4.13.0 Deprecated the instance method as that is passed only to setup_arguments method.
 	 *
 	 * @param array<string,mixed> $_deprecated Saved values for the widget instance.
 	 *
@@ -265,7 +265,7 @@ interface Widget_Interface {
 	/**
 	 * Filter a widget's arguments before they are passed to the context.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param array<string,mixed>  $alterations Current set of alterations for the context.
 	 * @param array<string,mixed>  $arguments   Current set of arguments in the widget.
@@ -286,7 +286,7 @@ interface Widget_Interface {
 	/**
 	 * Sets the sidebar arguments sent by the theme.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param array<string,mixed> $arguments Arguments passed by the theme.
 	 */
@@ -295,7 +295,7 @@ interface Widget_Interface {
 	/**
 	 * Sets the sidebar arguments sent by the theme.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @return array<string, mixed> Arguments sent by the theme and stored in this class.
 	 */
@@ -304,7 +304,7 @@ interface Widget_Interface {
 	/**
 	 * Sets the sidebar arguments sent by the theme.
 	 *
-	 * @since TBD
+	 * @since 4.13.0
 	 *
 	 * @param array<string,mixed> $arguments Arguments passed by the theme.
 	 *
@@ -321,7 +321,7 @@ interface Widget_Interface {
 	 *
 	 * @since 4.12.12
 	 *
-	 * @deprecated TBD In favor of static::get_widget_slug()
+	 * @deprecated 4.13.0 In favor of static::get_widget_slug()
 	 * @todo remove after 2021-08-01
 	 *
 	 * @return string The widget slug.
