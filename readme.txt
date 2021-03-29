@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.13.0] 2021-03-25 =
+= [4.13.0] 2021-03-29 =
 
 * Feature - JavaScript and Styles can be set to be printed as soon as enqueued, allowing usages like shortcodes to not have jumpy styles.
 * Feature - Include code around administration notices to support recurring notices. [TEC-3809]
