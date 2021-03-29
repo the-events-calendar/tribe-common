@@ -5,15 +5,8 @@ export const get = ( key, defaultValue ) => window[ key ] || defaultValue;
 export const google = () => get( 'google' );
 export const wpApi = wp.api;
 export const wpApiRequest = wp.apiRequest;
-export const wpComponents = wp.components;
 export const wpData = wp.data;
-export const wpEditor = wp.blockEditor || wp.editor;
 export const wpHooks = wp.hooks;
-
-export const wpDataSelectCoreEditor = () => wpData.select( 'core/block-editor' ) ||
-	wpData.select( 'core/editor' );
-
-export const IconButton = wpComponents.Button || wpComponents.IconButton;
 
 // Localized Config
 export const config = () => get( 'tribe_editor_config', {} );
