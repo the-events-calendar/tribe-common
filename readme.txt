@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.13.1] TBD =
+
+
+
 = [4.13.0] 2021-03-29 =
 
 * Feature - JavaScript and Styles can be set to be printed as soon as enqueued, allowing usages like shortcodes to not have jumpy styles.
