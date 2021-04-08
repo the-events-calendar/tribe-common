@@ -4,6 +4,7 @@
 
 = [4.13.1] TBD =
 
+* Feature - Add the hybrid icon as a template. [VE-303]
 
 
 = [4.13.0] 2021-03-29 =
