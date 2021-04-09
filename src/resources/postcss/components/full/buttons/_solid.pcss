@@ -73,4 +73,21 @@
 			}
 		}
 	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty TwentyOne
+	 * ------------------------------------------------------------------------- */
+
+	 .tribe-theme-twentytwentyone & {
+
+		button::not(:hover):not(:active) {
+			background-color: inherit;
+			color: inherit;
+		}
+
+		.tribe-common-c-btn:not(:hover):not(:active) {
+			background-color: var(--color-accent-primary);
+			color: var(--color-background);
+		}
+	}
 }
