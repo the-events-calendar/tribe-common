@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.13.2] TBD =
+= [4.13.1] TBD =
 
 * Fix - Add compatibility for the new default theme, TwentyTwentyOne. [ET-1047]
 
