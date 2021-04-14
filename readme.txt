@@ -2,10 +2,14 @@
 
 == Changelog ==
 
+= [4.13.2] TBD =
+
+* Language -
+
 = [4.13.1] TBD =
 
 * Feature - Add the hybrid icon as a template. [VE-303]
-
+* Fix - Add compatibility for the new default theme, TwentyTwentyOne. [ET-1047]
 
 = [4.13.0.1] 2021-04-05 =
 
