@@ -12,8 +12,8 @@ jQuery.fn.select2.amd.define( 'jquery.select2TEC', [
 		$.fn.select2TEC = function( options ) {
 			options = options || {};
 
-			if (typeof options === 'object') {
-				this.each(function () {
+			if ( typeof options === 'object' ) {
+				this.each( function() {
 					var instanceOptions = $.extend( true, {}, options );
 
 					var instance = new Select2( $( this ), instanceOptions );
@@ -50,7 +50,7 @@ jQuery.fn.select2.amd.define( 'jquery.select2TEC', [
 	}
 
 	if ( $.fn.select2TEC.defaults == null ) {
-		$.fn. select2TEC.defaults = Defaults;
+		$.fn.select2TEC.defaults = Defaults;
 	}
 
 	return Select2;
