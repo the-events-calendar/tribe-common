@@ -1,3 +1,4 @@
+/* global console, jQuery */
 jQuery.fn.select2.amd.define( 'jquery.select2TEC', [
 	'jquery',
 	'jquery-mousewheel',
