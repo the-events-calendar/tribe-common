@@ -50,7 +50,7 @@ jQuery.fn.select2.amd.define( 'jquery.select2TEC', [
 	}
 
 	if ( $.fn.select2TEC.defaults == null ) {
-		$.fn.select2TEC.defaults = Defaults;
+		$.fn. select2TEC.defaults = Defaults;
 	}
 
 	return Select2;
