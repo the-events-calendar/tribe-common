@@ -412,7 +412,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 			// If multiple, attach container without search.
 			if ( $select.is( '[multiple]' ) ) {
-				$.fn.select2.amd.define(
+				$.fn.select2TEC.amd.define(
 					'AttachedDropdownAdapter',
 					[
 						'select2/utils',
@@ -424,11 +424,11 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 					}
 				);
 
-				args.dropdownAdapter = $.fn.select2.amd.require( 'AttachedDropdownAdapter' );
+				args.dropdownAdapter = $.fn.select2TEC.amd.require( 'AttachedDropdownAdapter' );
 
 			// If not multiple, attach container with search.
 			} else {
-				$.fn.select2.amd.define(
+				$.fn.select2TEC.amd.define(
 					'AttachedWithSearchDropdownAdapter',
 					[
 						'select2/utils',
@@ -445,14 +445,14 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 					}
 				);
 
-				args.dropdownAdapter = $.fn.select2.amd.require( 'AttachedWithSearchDropdownAdapter' );
+				args.dropdownAdapter = $.fn.select2TEC.amd.require( 'AttachedWithSearchDropdownAdapter' );
 			}
 		}
 
 		// Save data on Dropdown
 		$select.data( 'dropdown', args );
 
-		$container = $select.select2( args );
+		$container = $select.select2TEC( args );
 
 		// Propagating original input classes to the select2 container.
 		$container.data( 'select2' ).$container.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
