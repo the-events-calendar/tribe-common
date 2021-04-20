@@ -815,6 +815,8 @@ class Tribe__Rewrite {
 			$dynamic_matchers[ $feed_regex ] = "feed/{$query_vars['feed']}";
 		}
 
+		$dynamic_matchers = apply_filters( 'tribe_rewrite_dynamic_matchers', $dynamic_matchers, $query_vars );
+
 		return $dynamic_matchers;
 	}
 
