@@ -2,7 +2,7 @@
 
 == Changelog ==
 
-= [4.13.1] 2021-04-21 =
+= [4.13.1] 2021-04-22 =
 
 * Fix - Add compatibility for the new default theme, TwentyTwentyOne. [ET-1047]
 * Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted
