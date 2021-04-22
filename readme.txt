@@ -7,10 +7,11 @@
 * Fix - Modify Select2 to clone the `jQuery.fn.select2` into `jQuery.fn.select2TEC` to avoid conflicting with third-party usage that didn't include the full version of Select2 [TEC-3748]
 * Language -
 
-= [4.13.1] TBD =
+= [4.13.1] 2021-04-22 =
 
 * Feature - Add the hybrid icon as a template. [VE-303]
 * Fix - Add compatibility for the new default theme, TwentyTwentyOne. [ET-1047]
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.13.0.1] 2021-04-05 =
 
