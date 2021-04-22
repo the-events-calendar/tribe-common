@@ -20,10 +20,10 @@ if ( ! empty( $classes ) ) {
 	$svg_classes = array_merge( $svg_classes, $classes );
 }
 ?>
-<svg <?php tribe_classes( $svg_classes ); ?> viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-	<circle cx="4.863" cy="12.026" r="2.619" transform="rotate(-45 4.863 12.026)" stroke="#0F0F30" stroke-width="1.103"/>
-	<circle cx="9.651" cy="4.619" r="2.619" transform="rotate(-45 9.651 4.619)" stroke="#0F0F30" stroke-width="1.103"/>
-	<path d="M5.948 10.068l2.424-3.491" stroke="#0F0F30"/>
-	<circle r="2.619" transform="scale(-1 1) rotate(-45 7.288 23.463)" stroke="#0F0F30" stroke-width="1.103"/>
-	<path d="M13.372 10.068l-2.425-3.492" stroke="#0F0F30"/>
+<svg <?php tribe_classes( $svg_classes ); ?> viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<circle cx="3.661" cy="9.515" r="2.121" transform="rotate(-45 3.661 9.515)" stroke="#0F0F30" stroke-width="1.103"/>
+	<circle cx="7.54" cy="3.515" r="2.121" transform="rotate(-45 7.54 3.515)" stroke="#0F0F30" stroke-width="1.103"/>
+	<path d="M4.54 7.929l1.964-2.828" stroke="#0F0F30"/>
+	<circle r="2.121" transform="scale(-1 1) rotate(-45 5.769 18.558)" stroke="#0F0F30" stroke-width="1.103"/>
+	<path d="M10.554 7.929L8.59 5.1" stroke="#0F0F30"/>
 </svg>
