@@ -12,7 +12,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	};
 
 	// Setup a Dependent
-	$.fn.tribe_dropdowns = function () {
+	$.fn.tribe_dropdowns = function() {
 		obj.dropdown( this, {} );
 
 		return this;
@@ -54,21 +54,20 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		return null;
 	};
 
-
 	/**
 	 * Better Search ID for Select2, compatible with WordPress ID from WP_Query
 	 *
 	 * @param  {object|string} e Searched object or the actual ID
 	 * @return {string}   ID of the object
 	 */
-	obj.search_id = function ( e ) {
+	obj.search_id = function( e ) {
 		var id = undefined;
 
-		if ( 'undefined' !== typeof e.id ){
+		if ( 'undefined' !== typeof e.id ) {
 			id = e.id;
-		} else if ( 'undefined' !== typeof e.ID ){
+		} else if ( 'undefined' !== typeof e.ID ) {
 			id = e.ID;
-		} else if ( 'undefined' !== typeof e.value ){
+		} else if ( 'undefined' !== typeof e.value ) {
 			id = e.value;
 		}
 		return undefined === e ? undefined : id;
@@ -81,7 +80,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	 * @param  {string} text Search here
 	 * @return {boolean}
 	 */
-	obj.matcher = function ( params, data ) {
+	obj.matcher = function( params, data ) {
 		// If there are no search terms, return all of the data
 		if ( 'string' !== typeof params.term || params.term.trim() === '') {
 			return data;
@@ -412,7 +411,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 			// If multiple, attach container without search.
 			if ( $select.is( '[multiple]' ) ) {
-				$.fn.select2TEC.amd.define(
+				$.fn.select2.amd.define(
 					'AttachedDropdownAdapter',
 					[
 						'select2/utils',
@@ -424,11 +423,11 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 					}
 				);
 
-				args.dropdownAdapter = $.fn.select2TEC.amd.require( 'AttachedDropdownAdapter' );
+				args.dropdownAdapter = $.fn.select2.amd.require( 'AttachedDropdownAdapter' );
 
 			// If not multiple, attach container with search.
 			} else {
-				$.fn.select2TEC.amd.define(
+				$.fn.select2.amd.define(
 					'AttachedWithSearchDropdownAdapter',
 					[
 						'select2/utils',
@@ -445,7 +444,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 					}
 				);
 
-				args.dropdownAdapter = $.fn.select2TEC.amd.require( 'AttachedWithSearchDropdownAdapter' );
+				args.dropdownAdapter = $.fn.select2.amd.require( 'AttachedWithSearchDropdownAdapter' );
 			}
 		}
 
