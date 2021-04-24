@@ -399,7 +399,7 @@ class Tribe__Template {
 		 * @param array  $name      Template name.
 		 * @param self   $template  Current instance of the Tribe__Template.
 		 */
-		$this->context = apply_filters( "tribe_template_context:{$hook_name}", $context, $file, $name, $this );
+		$this->context = apply_filters( "tribe_template_context:{$hook_name}", $this->context, $file, $name, $this );
 
 		return $this->context;
 	}
