@@ -142,7 +142,7 @@ class Tribe__Cache_Listener {
 	 *
 	 * @return array
 	 */
-	public function filter_action_last_occurrence_triggers( $triggers, $action, array $args = [] ) {
+	public function filter_action_last_occurrence_triggers( array $triggers = [], $action = '', array $args = [] ) {
 
 		/**
 		 * Filters the contents of which options will trigger expiring a given actions cache.
