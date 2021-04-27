@@ -1,7 +1,7 @@
 <?php
 
 namespace PHPSTORM_META {
-	// Allow PHP Storm Editor to resolve return types when calling tribe( Object_Type::class ) or tribe( `Object_type` )
+	// Allow PhpStorm IDE to resolve return types when calling tribe( Object_Type::class ) or tribe( `Object_Type` )
 	override(
 		\tribe( 0 ),
 		map( [
