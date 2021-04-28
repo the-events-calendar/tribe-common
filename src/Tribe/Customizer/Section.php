@@ -4,6 +4,7 @@ defined( 'WPINC' ) or die;
 
 use Tribe\Customizer\Controls\Heading;
 use Tribe\Customizer\Controls\Radio;
+use Tribe\Customizer\Controls\Separator;
 
 /**
  * The Events Calendar Customizer Section Abstract.
@@ -111,7 +112,7 @@ abstract class Tribe__Customizer__Section {
     }
 
     /**
-     * This method will be executed when the Class in Initialized.
+     * This method will be executed when the Class is Initialized.
      * Overwrite this method to be able to setup the arguments of your section.
      *
      * @return void
@@ -318,8 +319,8 @@ abstract class Tribe__Customizer__Section {
 	}
 
     /**
-     * Sugar syntax to add a heading section to the customizer content.
-     * This is a control only in name: it does not, actually, control or save any setting.
+     * Sugar syntax to add heading and separator sections to the customizer content.
+     * These are controls only in name: they do not actually control or save any setting.
      *
      * @since TBD
      *
@@ -329,8 +330,6 @@ abstract class Tribe__Customizer__Section {
      *
      */
     protected function add_heading( $section, $manager, $name, $args ) {
-		$args['type'] = 'heading';
-
 		$this->add_control( $section, $manager, $name, $args );
     }
 
@@ -404,8 +403,9 @@ abstract class Tribe__Customizer__Section {
 			'dropdown-pages' => WP_Customize_Control::class,
 			'heading'        => Heading::class,
 			'image'          => WP_Customize_Image_Control::class,
-			'radio'          => WP_Customize_Control::class,//Radio::class,
+			'radio'          => Radio::class,
 			'select'         => WP_Customize_Control::class,
+			'separator'      => Separator::class,
 			'textarea'       => WP_Customize_Control::class,
 		];
         /**
