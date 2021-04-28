@@ -191,7 +191,7 @@ final class Tribe__Customizer {
 		 * @deprecated
 		 * @since 4.0
 		 *
-		 * @param array $selection_class
+		 * @param array $sections_class
 		 * @param self  $customizer
 		 */
 		$this->sections_class = apply_filters( 'tribe_events_pro_customizer_sections_class', $this->sections_class, $this );
@@ -201,12 +201,22 @@ final class Tribe__Customizer {
 		 *
 		 * @since 4.4
 		 *
-		 * @param array $selection_class
+		 * @param array $sections_class
 		 * @param self  $customizer
 		 */
 		$this->sections_class = apply_filters( 'tribe_customizer_sections_class', $this->sections_class, $this );
 
 		return $this->sections_class;
+	}
+
+	public function get_section( $id ) {
+		$sections = $this->get_loaded_sections();
+
+		if ( empty( $sections[ $id ] ) ) {
+			return false;
+		}
+
+		return $sections[ $id ];
 	}
 
 	/**
@@ -553,7 +563,7 @@ final class Tribe__Customizer {
 	 * @return void
 	 */
 	public function register( WP_Customize_Manager $customizer ) {
-		// Set the Cutomizer on a class variable
+		// Set the Customizer on a class variable
 		$this->manager = $customizer;
 
 		/**
@@ -707,7 +717,7 @@ final class Tribe__Customizer {
 	 * @param  string $slug    The actual Setting name
 	 * @param  string|WP_Customize_Section $section [description]
 	 *
-	 * @return string          HTML name Attribute name o the setting
+	 * @return string          HTML name Attribute name of the setting.
 	 */
 	public function get_setting_name( $slug, $section = null ) {
 		$name = $this->panel->id;
