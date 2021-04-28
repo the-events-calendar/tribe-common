@@ -2,11 +2,11 @@
 
 == Changelog ==
 
-= [4.13.2] TBD =
+= [4.13.2] 2021-04-29 =
 
 * Fix - Modify Select2 to clone the `jQuery.fn.select2` into `jQuery.fn.select2TEC` to avoid conflicting with third-party usage that didn't include the full version of Select2 [TEC-3748]
 * Fix - Add filtering hooks to Cache Listener to allow modifications of which options trigger an occurrence. [ECP-826] [ECP-824]
-* Language -
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.13.1] 2021-04-22 =
 
