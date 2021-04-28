@@ -720,7 +720,7 @@ final class Tribe__Customizer {
 	 * @return string          HTML name Attribute name of the setting.
 	 */
 	public function get_setting_name( $slug, $section = null ) {
-		$name = $this->panel->id;
+		$name = ! empty( $this->panel->id ) ? $this->panel->id : '';
 
 		// If there is a section set append it
 		if ( $section instanceof WP_Customize_Section ) {

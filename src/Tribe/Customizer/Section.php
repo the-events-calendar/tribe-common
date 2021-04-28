@@ -131,14 +131,13 @@ abstract class Tribe__Customizer__Section {
      */
     public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = tribe( 'customizer' );
-		$section_id = $section->id;
 
 		$headings = $this->get_content_headings();
 
 		if ( ! empty( $headings ) ) {
 			foreach( $headings as $name => $args ) {
 				$setting_name = $customizer->get_setting_name( $name, $section );
-				$this->add_heading(  $section_id, $manager, $setting_name, $args );
+				$this->add_heading(  $section, $manager, $setting_name, $args );
 			}
 		}
 
@@ -202,13 +201,9 @@ abstract class Tribe__Customizer__Section {
         return strtolower( $slug );
     }
 
-	public function setup_defaults() {
+	public function setup_defaults() {}
 
-	}
-
-	public function setup_arguments() {
-
-	}
+	public function setup_arguments() {}
 
     /**
      * A way to apply filters when getting the Customizer options.
@@ -332,10 +327,10 @@ abstract class Tribe__Customizer__Section {
      * @param array<string,mixed>  $arguments The control arguments.
      *
      */
-    protected function add_heading( $section_id, $manager, $name, $args ) {
+    protected function add_heading( $section, $manager, $name, $args ) {
 		$args['type'] = 'heading';
 
-		$this->add_control( $section_id, $manager, $name, $args );
+		$this->add_control( $section, $manager, $name, $args );
     }
 
 	/* Settings */
@@ -502,22 +497,28 @@ abstract class Tribe__Customizer__Section {
 
 		$type = $this->get_control_type( $type );
 
+		if ( $section instanceof WP_Customize_Section ) {
+			$section = (string) $section->id;
+		}
+
+		if ( ! is_string( $section ) ) {
+			return;
+		}
+
 		// Get the default values.
 		$defaults = [
-			'section' => $section->id,
+			'section' => $section,
 		];
 
 		$args = array_merge( $defaults, $args );
 
-		$foo = $manager->add_control(
+		$manager->add_control(
 			new $type(
 				$manager,
 				$setting_name,
 				$args
 			)
 		);
-
-		bdump($foo);
     }
 
 }
