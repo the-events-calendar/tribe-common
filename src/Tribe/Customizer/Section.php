@@ -3,6 +3,7 @@
 defined( 'WPINC' ) or die;
 
 use Tribe\Customizer\Controls\Heading;
+use Tribe\Customizer\Controls\Radio;
 
 /**
  * The Events Calendar Customizer Section Abstract.
@@ -397,10 +398,15 @@ abstract class Tribe__Customizer__Section {
 
 	public function get_accepted_control_types() {
 		$accepted_control_types = [
-			'color'   => WP_Customize_Color_Control::class,
-			'default' => WP_Customize_Control::class,
-			'heading' => Heading::class,
-			'image'   => WP_Customize_Image_Control::class,
+			'checkbox'       => WP_Customize_Control::class,
+			'color'          => WP_Customize_Color_Control::class,
+			'default'        => WP_Customize_Control::class,
+			'dropdown-pages' => WP_Customize_Control::class,
+			'heading'        => Heading::class,
+			'image'          => WP_Customize_Image_Control::class,
+			'radio'          => WP_Customize_Control::class,//Radio::class,
+			'select'         => WP_Customize_Control::class,
+			'textarea'       => WP_Customize_Control::class,
 		];
         /**
          * Allows filtering the accepted control types.
@@ -485,11 +491,11 @@ abstract class Tribe__Customizer__Section {
      */
     protected function add_control( $section, $manager, $setting_name, $args  ) {
         // Validate our control choice.
-        if ( ! isset( $args['control_type'] ) ) {
+        if ( ! isset( $args['type'] ) ) {
 			return;
 		}
 
-		$type = $args['control_type'];
+		$type = $args['type'];
 
 		if ( ! $this->is_control_type_accepted( $type ) ) {
 			return;
@@ -520,5 +526,4 @@ abstract class Tribe__Customizer__Section {
 			)
 		);
     }
-
 }
