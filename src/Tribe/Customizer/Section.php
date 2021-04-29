@@ -203,12 +203,24 @@ abstract class Tribe__Customizer__Section {
         return strtolower( $slug );
     }
 
+	/**
+	 * Set up default values.
+	 *
+	 * @since TBD
+	 */
 	public function setup_defaults() {}
 
+	/**
+	 * Set up default arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function setup_arguments() {}
 
     /**
-     * A way to apply filters when getting the Customizer options.
+     * Get the default settings.
      *
      * @return array The filtered defaults.
      */
@@ -220,7 +232,7 @@ abstract class Tribe__Customizer__Section {
     }
 
     /**
-     * Get the Default Value requested.
+     * Get a single Default Value by key.
      *
      * @param string $key The key for the requested value.
      *
@@ -279,6 +291,11 @@ abstract class Tribe__Customizer__Section {
         return $sections;
     }
 
+	/**
+	 * Sets up the Customizer section content.
+	 *
+	 * @since TBD
+	 */
 	public function setup_content_arguments(){
 		$this->setup_content_headings();
 		$this->setup_content_settings();
@@ -286,12 +303,35 @@ abstract class Tribe__Customizer__Section {
 	}
 
 	/* Headings */
+
+	/**
+	 * Sets up the Customizer section Header and Separator arguments.
+	 *
+	 * @since TBD
+	 */
 	public function setup_content_headings() {}
 
+	/**
+	 * Get the (filtered) content headings and separator arguments.
+	 * @see filter_content_headings()
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> The filtered arguments.
+	 */
 	public function get_content_headings() {
 		return $this->filter_content_headings( $this->content_headings );
 	}
 
+	/**
+	 * Filter the content headings arguments
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $arguments The list of arguments for headings and separators.
+	 *
+	 * @return array<string,mixed> $arguments The filtered array of arguments.
+	 */
 	public function filter_content_headings( $arguments ) {
 		/**
 		 * Applies a filter to the validation map for instance arguments.
@@ -335,12 +375,34 @@ abstract class Tribe__Customizer__Section {
 
 	/* Settings */
 
+	/**
+	 * Sets up the Customizer settings arguments.
+	 *
+	 * @since TBD
+	 */
 	public function setup_content_settings() {}
 
+	/**
+	 * Get the (filtered) content setting arguments.
+	 * @see filter_content_settings()
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> The filtered arguments.
+	 */
 	public function get_content_settings() {
 		return $this->filter_content_settings( $this->content_settings );
 	}
 
+	/**
+	 * Filter the content settings arguments
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $arguments The list of arguments for settings.
+	 *
+	 * @return array<string,mixed> $arguments The filtered array of arguments.
+	 */
 	public function filter_content_settings( $arguments ) {
 		/**
 		 * Applies a filter to the validation map for instance arguments.
@@ -393,8 +455,21 @@ abstract class Tribe__Customizer__Section {
 
 	/* Controls */
 
+	/**
+	 * Sets up the Customizer controls arguments.
+	 *
+	 * @since TBD
+	 */
 	public function setup_content_controls() {}
 
+	/**
+	 * Get a list (array) of accepted control types.
+	 * In the format slug => control class object.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,object> The array of control types and their associate classes.
+	 */
 	public function get_accepted_control_types() {
 		$accepted_control_types = [
 			'checkbox'       => WP_Customize_Control::class,
@@ -408,6 +483,7 @@ abstract class Tribe__Customizer__Section {
 			'separator'      => Separator::class,
 			'textarea'       => WP_Customize_Control::class,
 		];
+
         /**
          * Allows filtering the accepted control types.
          *
@@ -418,6 +494,15 @@ abstract class Tribe__Customizer__Section {
         return apply_filters( 'tribe_customizer_accepted_control_types', $accepted_control_types, $this );
 	}
 
+	/**
+	 * Determine if a control type is in our list of accepted ones.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $type The "slug" of the control type.
+	 *
+	 * @return boolean If a control type is in our list of accepted ones.
+	 */
 	public function is_control_type_accepted( $type ) {
 		$types = $this->get_accepted_control_types();
 
@@ -436,6 +521,15 @@ abstract class Tribe__Customizer__Section {
 		return true;
 	}
 
+	/**
+	 * Gets the class object associated with a control type.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $type The "slug" of the control type.
+	 *
+	 * @return object|false The control type class or false if type not found.
+	 */
 	public function get_control_type( $type ) {
 		$types = $this->get_accepted_control_types();
 
@@ -450,10 +544,27 @@ abstract class Tribe__Customizer__Section {
 		return $types[ $type ];
 	}
 
+	/**
+	 * Get the (filtered) content control arguments.
+	 * @see filter_content_controls()
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> The filtered arguments.
+	 */
 	public function get_content_controls() {
 		return $this->filter_content_controls( $this->content_controls );
 	}
 
+	/**
+	 * Filter the content control arguments
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $arguments The list of arguments for controls.
+	 *
+	 * @return array<string,mixed> $arguments The filtered array of arguments.
+	 */
 	public function filter_content_controls( $arguments ) {
 		/**
 		 * Applies a filter to the validation map for instance arguments.
