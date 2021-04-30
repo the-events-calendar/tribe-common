@@ -1,0 +1,259 @@
+<?php
+/**
+ * Add theme compatibility classes.
+ *
+ * @since   TBD
+ *
+ * @package Tribe\Utils
+ */
+namespace Tribe\Utils;
+
+use Compatibility_Classes;
+use \WP_Theme;
+
+class Theme_Compatibility {
+	/**
+	 * List of themes which have compatibility requirements.
+	 *
+	 * @since TBD
+	 *
+	 * @var   array
+	 */
+	protected $themes = [
+		'avada',
+		'divi',
+		'enfold',
+		'genesis',
+		'twentyseventeen',
+		'twentynineteen',
+		'twentytwenty',
+		'twentytwentyone',
+	];
+
+	/**
+	 * Checks if theme needs a compatibility fix.
+	 *
+	 * @since  TBD
+   *
+	 * @return boolean
+	 */
+	public static function is_compatibility_required() {
+		$template   = strtolower( get_template() );
+		$stylesheet = strtolower( get_stylesheet() );
+
+		// Prevents empty stylesheet or template
+		if ( empty( $template ) || empty( $stylesheet ) ) {
+			return false;
+		}
+
+		$required = in_array( $template, static::get_registered_themes() );
+
+		return tribe_is_truthy( apply_filters( 'tribe_compatibility_required', $required ) );
+	}
+
+	/**
+	 * Contains the logic for if this object's classes should be added to the queue.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $add   Whether to add the class to the queue or not.
+	 * @param array   $class The array of compatibility class names to add.
+	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
+
+	 * @return boolean Whether compatibility classes should be added or not.
+	 */
+	public static function should_add_compatibility_class_to_queue( $add, $class, $queue ) {
+		if (
+			'admin' === $queue
+			|| ! static::is_compatibility_required()
+		) {
+			return $add;
+		}
+
+		if ( in_array( $class, static::get_compatibility_classes() ) ) {
+			$add = true;
+		}
+
+		/**
+		 * Filters whether we should add a specific class to the queue.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $add   Whether to add the class to the queue or not.
+		 * @param array   $class The array of compatibility class names to add.
+		 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
+		 */
+		return apply_filters( 'tribe_compatibility_add_class', $add, $class, $queue );
+	}
+
+	/**
+	 * Add compatibility classes.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public static function add_compatibility_classes() {
+		tribe( Compatibility_Classes::class )->add_classes( static::get_compatibility_classes() );
+	}
+
+	/**
+	 * Fetches the correct class strings for theme and child theme if available + the container class.
+	 *
+	 * @since TBD
+	 *
+	 * @return array $classes
+	 */
+	public static function get_container_classes() {
+		$classes =  [ 'tribe-compatibility-container' ];
+
+		if ( static::is_compatibility_required() ) {
+			$classes = array_merge( $classes, static::get_compatibility_classes() );
+		}
+
+		/**
+		 * Filters the HTML classes applied to a compatibility container.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $html_classes Array of classes used for this container.
+		 */
+		return apply_filters( 'tribe_compatibility_container_classes', $classes );
+	}
+
+	/**
+	 * Fetches the correct class strings for theme and child theme if available.
+	 *
+	 * @since TBD
+	 *
+	 * @return array $classes
+	 */
+	public static function get_compatibility_classes() {
+		$classes      = [];
+		$child_theme  = strtolower( get_stylesheet() );
+		$parent_theme = strtolower( get_template() );
+
+		// Prevents empty stylesheet or template
+		if ( empty( $parent_theme ) || empty( $child_theme ) ) {
+			return $classes;
+		}
+
+		$classes[] = sanitize_html_class( "tribe-theme-$parent_theme" );
+
+		// if the 2 options are the same, then there is no child theme.
+		if ( $child_theme !== $parent_theme ) {
+			$classes[] = sanitize_html_class( "tribe-theme-child-$child_theme" );
+		}
+
+		/**
+		 * Filters the list of classes we're adding.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $classes An array of classes in the shape `[ <slug> => boolean ]`.
+		 */
+		return apply_filters( 'tribe_compatibility_classes', $classes );
+	}
+
+	/**
+	 * Returns a list of themes registered for compatibility with our Views.
+	 *
+	 * @since  TBD
+	 *
+	 * @return array An array of the themes registered.
+	 */
+	public static function get_registered_themes() {
+		/**
+		 * Filters the list of themes that are registered for compatibility.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $registered An array of views in the shape `[ <slug> ]`.
+		 */
+		return (array) apply_filters( 'tribe_theme_compatibility_registered', self::$themes );
+	}
+
+	/**
+	 * Returns an array of active themes (parent and child).
+	 *
+	 * @since TBD
+	 *
+	 * @return array $themes An array in the format [ 'parent' => 'theme name', 'child' => 'theme name' ].
+	 *                       Empty array if none found.
+	 */
+	public static function get_active_themes() {
+		$themes        = [];
+		$current_theme = static::get_current_theme( true );
+
+		if ( empty( $current_theme ) ) {
+			return $themes;
+		}
+
+		$parent_theme  = $current_theme->get( 'parent_theme' );
+		$child_theme   = $current_theme->get( 'stylesheet' );
+
+		if ( empty( $parent_theme ) || empty( $child_theme ) ) {
+			return $themes;
+		}
+
+		$themes['parent'] = strtolower( $parent_theme );
+
+		// if the 2 options are the same, then there is no child theme.
+		if ( $child_theme !== $parent_theme ) {
+			$themes['child'] = strtolower( $child_theme );
+		}
+
+		return $themes;
+	}
+
+	/**
+	 * Get the current theme.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $object Pass true if you want the theme object returned instead of the name.
+	 *
+	 * @return string|object|boolean Will return the theme name by default.
+	 *                               Will return the theme object if passed boolean true as the parameter.
+	 *                               Will return boolean false if the theme is not found.
+	 */
+	public static function get_current_theme( $object = false ) {
+		$current_theme = wp_get_theme();
+
+		// If we can't get it for some reason...
+		if ( ! $current_theme instanceof WP_Theme || ! $current_theme->exists() ) {
+			return false;
+		}
+
+		if ( $object ) {
+			return $current_theme;
+		}
+
+		return $current_theme->get( 'Name' );
+	}
+
+	/**
+	 * Checks if the provided theme is active.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $theme The theme name like 'avada' or 'twentytwenty',
+	 *
+	 * @return boolean True if the requested theme is active,
+	 *                 false if the current theme could not be found or is not the requested theme.
+	 */
+	public static function is_active_theme( $check ) {
+		$current_theme = wp_get_theme();
+
+		// Current theme is not
+		if ( ! $current_theme instanceof \WP_Theme ) {
+			$theme = false;
+		} elseif ( ! $current_theme->exists() ) {
+			$theme = false;
+		} else {
+			$theme = $current_theme->get( 'Name' );
+		}
+
+		return ! empty( $theme ) && strtolower( $check ) === strtolower( $theme );
+	}
+}
