@@ -134,7 +134,7 @@ class Tribe__Cache_Listener {
 	/**
 	 * Filtering for last occurrence triggers.
 	 *
-	 * @since TBD
+	 * @since 4.13.2
 	 *
 	 * @param array<string,bool> $triggers Which options will trigger this given action last occurrence.
 	 * @param string             $action   Which action this trigger will set.
@@ -147,7 +147,7 @@ class Tribe__Cache_Listener {
 		/**
 		 * Filters the contents of which options will trigger expiring a given actions cache.
 		 *
-		 * @since TBD
+		 * @since 4.13.2
 		 *
 		 * @param array<string,bool> $triggers Which options will trigger this given action last occurrence.
 		 * @param string             $action   Which action this trigger will set.
@@ -159,7 +159,7 @@ class Tribe__Cache_Listener {
 		 * Filters the contents of which options will trigger expiring a given actions cache.
 		 * Allows filtering a specific action.
 		 *
-		 * @since TBD
+		 * @since 4.13.2
 		 *
 		 * @param array<string,bool> $triggers Which options will trigger this given action last occurrence.
 		 * @param string             $action   Which action this trigger will set.
