@@ -23,22 +23,6 @@
 
 	a {
 		/* -------------------------------------------------------------------------
-		 * Theme Overrides - Twenty Seventeen
-		 * ------------------------------------------------------------------------- */
-
-		.tribe-theme-twentyseventeen &,
-		.tribe-theme-twentyseventeen .site-footer .widget-area &,
-		.site-footer .widget-area & {
-			box-shadow: none;
-
-			&:hover,
-			&:focus {
-				box-shadow: none;
-				color: var(--color-text-primary);
-			}
-		}
-
-		/* -------------------------------------------------------------------------
 		 * Theme Overrides - Twenty Nineteen
 		 * ------------------------------------------------------------------------- */
 
@@ -98,41 +82,5 @@
 
 	.tribe-common-anchor-thin-alt {
 		@mixin anchor-thin-alt;
-	}
-
-	/* -------------------------------------------------------------------------
-	 *
-	 * Anchor: Theme Overrides
-	 *
-	 * ------------------------------------------------------------------------- */
-
-	/* -------------------------------------------------------------------------
-	 * Theme Overrides - Twenty Seventeen
-	 * ------------------------------------------------------------------------- */
-
-	.tribe-theme-twentyseventeen & {
-
-		.tribe-common-anchor-alt,
-		.tribe-common-anchor-thin-alt {
-
-			&:hover,
-			&:focus {
-				color: var(--color-accent-primary);
-			}
-		}
-	}
-
-	.tribe-theme-twentyseventeen .site-footer .widget-area &,
-	.site-footer .widget-area & {
-
-		.tribe-common-anchor,
-		.tribe-common-anchor-thin {
-			transition: var(--transition-border-color);
-		}
-
-		.tribe-common-anchor-alt,
-		.tribe-common-anchor-thin-alt {
-			transition: var(--transition-color);
-		}
 	}
 }
