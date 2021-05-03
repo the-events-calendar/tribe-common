@@ -277,11 +277,14 @@ final class Tribe__Customizer {
 	}
 
 	/**
-	 * Get an option from the database, using index search you can retrieve the full panel, a section or even a setting
+	 * Get an option from the database, using index search you can retrieve the full panel, a section or even a setting.
 	 *
-	 * @param  array $search   Index search, array( 'section_name', 'setting_name' )
-	 * @param  mixed $default  The default, if the requested variable doesn't exits
-	 * @return mixed           The requested option or the default
+	 * @since 4.4
+	 *
+	 * @param  array $search   Index search, array( 'section_name', 'setting_name' ).
+	 * @param  mixed $default  The default, if the requested variable doesn't exits.
+	 *
+	 * @return mixed           The requested option or the default.
 	 */
 	public function get_option( $search = null, $default = null ) {
 		$sections = get_option( $this->ID, $default );

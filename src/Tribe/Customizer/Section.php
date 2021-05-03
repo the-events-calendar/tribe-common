@@ -63,6 +63,13 @@ abstract class Tribe__Customizer__Section {
 	];
 
 	/**
+	 * Allows sections to be loaded in order for overrides.
+	 *
+	 * @var integer
+	 */
+	public $queue_priority = 15;
+
+	/**
 	 * Private variable holding the class Instance.
 	 *
 	 * @since 4.0
@@ -99,7 +106,7 @@ abstract class Tribe__Customizer__Section {
 		add_filter( 'tribe_customizer_pre_sections', [ $this, 'register' ], 10, 2 );
 
 		// Append this section CSS template
-		add_filter( 'tribe_customizer_css_template', [ $this, 'get_css_template' ], 15 );
+		add_filter( 'tribe_customizer_css_template', [ $this, 'get_css_template' ], $this->queue_priority );
 		add_filter( "tribe_customizer_section_{$this->ID}_defaults", [ $this, 'get_defaults' ], 10 );
 
 		// Create the Ghost Options
@@ -174,6 +181,50 @@ abstract class Tribe__Customizer__Section {
 				$this->add_control(  $section, $manager, $setting_name, $args );
 			}
 		}
+	}
+
+	/**
+	 * Function that encapsulates the logic for if a setting should be added to the Customizer style template.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $setting The setting slug, like 'grid_lines_color'.
+	 *
+	 * @return boolean If the setting should be added to the style template.
+	 */
+	public function should_include_setting( $setting ) {
+		if ( empty( $setting ) ) {
+			return false;
+		}
+
+		$setting_value =  tribe( 'customizer' )->get_option( [ $this->ID, $setting ] );
+
+		return ! empty( $setting_value ) && $this->defaults[ $setting ] !== $setting_value;
+	}
+
+	/**
+	 * Function to simplify getting an option value.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $setting The setting slug, like 'grid_lines_color'.
+	 *
+	 * @return string The setting value;
+	 */
+	public function get_option( $setting ) {
+		if ( empty( $setting ) ) {
+			return '';
+		}
+
+		return tribe( 'customizer' )->get_option( [ $this->ID, $setting ] );
+	}
+
+	public function to_rgb( $color ) {
+		$color_object  = new \Tribe__Utils__Color( $color );
+		$color_rgb_arr = $color_object::hexToRgb( $color );
+		$color_rgb     = $color_rgb_arr['R'] . ',' . $color_rgb_arr['G'] . ',' . $color_rgb_arr['B'];
+
+		return $color_rgb;
 	}
 
 	/**
