@@ -2,6 +2,33 @@
 
 == Changelog ==
 
+= [4.13.2] 2021-04-29 =
+
+* Fix - Modify Select2 to clone the `jQuery.fn.select2` into `jQuery.fn.select2TEC` to avoid conflicting with third-party usage that didn't include the full version of Select2 [TEC-3748]
+* Fix - Add filtering hooks to Cache Listener to allow modifications of which options trigger an occurrence. [ECP-826] [ECP-824]
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.13.1] 2021-04-22 =
+
+* Feature - Add the hybrid icon as a template. [VE-303]
+* Fix - Add compatibility for the new default theme, TwentyTwentyOne. [ET-1047]
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.13.0.1] 2021-04-05 =
+
+* Fix - Reduce overhead of widget setup on every page load by setting up the widgets only as needed. [TEC-3833]
+
+= [4.13.0] 2021-03-29 =
+
+* Feature - JavaScript and Styles can be set to be printed as soon as enqueued, allowing usages like shortcodes to not have jumpy styles.
+* Feature - Include code around administration notices to support recurring notices. [TEC-3809]
+* Fix - Makes sure Javascript extra data is loaded following WordPress architecture, respecting it's dependencies.
+* Fix - Decode country picker names [TEC-3360]
+* Tweak - Include a way for the context locations to be regenerated, with plenty of warnings about the risk [FBAR-36]
+* Tweak - Remove deprecated filter `tribe_events_{$asset->type}_version`
+* Tweak - Include Utils for dealing with Taxonomies with two methods, one for translating terms query into a repository arguments and another for translating shortcode arguments to term IDs. [ECP-728]
+* Language - 3 new strings added, 304 updated, 8 fuzzied, and 2 obsoleted
+
 = [4.12.19] 2021-03-02 =
 
 * Fix - Prevent problems when using longer array keys in `Tribe__Cache` so the correct non-persistent groups are referenced. [ET-1023]
@@ -161,7 +188,7 @@
 = [4.12.2] 2020-05-20 =
 
 * Feature - Added array utility methods: `parse_associative_array_alias` to build an array with canonical keys while taking alias keys into account and `filter_to_flat_scalar_associative_array` to help do so. Useful for aliasing shortcode arguments, for example.
-* Feature - Added `tribe_extension_is_disallowed` filter for Modern Tribe's core plugins to deactivate an extension whose functionality has become duplicative or conflicting.
+* Feature - Added `tribe_extension_is_disallowed` filter for The Events Calendar's core plugins to deactivate an extension whose functionality has become duplicative or conflicting.
 * Language - 1 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.12.1] 2020-05-11 =
@@ -435,7 +462,7 @@
 * Feature - Include Freemius integration on our Common Libraries to enable information collection opt-in for some new users
 * Tweak - Improve Object Relation Mapping base repository and filter classes to support usage of events
 * Tweak - Modify `Date_Utils.php` and include another way of building DateTime object with Timezone `build_date_object`
-* Tweak - Include Modern Tribe Context panel in the Debug Bar plugin
+* Tweak - Include The Events Calendar Context panel in the Debug Bar plugin
 * Tweak - Include the `tribe_image_uploader_local_urls` filter in Image Uploader class
 * Tweak - Include `tribe_process_allow_nopriv_handling` for non-logged users to improve control when async requests fire
 * Tweak - Fork `WP_Background_Process` to `Tribe__Process__Handler` to allow for better internal maintenance by our team
@@ -634,7 +661,7 @@
 
 = [4.7.10] 2018-03-28 =
 
-* Tweak - Adjusted app shop text in relation to Modern Tribe's ticketing solutions [101655]
+* Tweak - Adjusted app shop text in relation to The Events Calendar's ticketing solutions [101655]
 * Tweak - Added wrapper function around use of `tribe_events_get_the_excerpt` for safety [95034]
 
 = [4.7.9] 2018-03-12 =

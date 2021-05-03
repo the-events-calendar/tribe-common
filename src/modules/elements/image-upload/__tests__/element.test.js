@@ -11,8 +11,10 @@ import ImageUpload, {
 	renderImage,
 } from '@moderntribe/common/elements/image-upload/element';
 
-jest.mock( '@wordpress/editor', () => ( {
-	MediaUpload: () => ( <button>Media Upload</button> ),
+jest.mock( '@moderntribe/common/utils/globals', () => ( {
+	wpEditor: {
+		MediaUpload: () => ( <button>Media Upload</button> ),
+	},
 } ) );
 
 jest.mock( '@moderntribe/common/icons', () => ( {

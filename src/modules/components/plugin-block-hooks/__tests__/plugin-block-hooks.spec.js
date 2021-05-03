@@ -9,8 +9,10 @@ import renderer from 'react-test-renderer';
  */
 import PluginBlockHooks from '../component';
 
-jest.mock( '@wordpress/editor', () => ( {
-	InnerBlocks: 'InnerBlocks',
+jest.mock( '@moderntribe/common/utils/globals', () => ( {
+	wpEditor: {
+		InnerBlocks: 'InnerBlocks',
+	}
 } ) );
 jest.mock( '@wordpress/data', () => ( {
 	select: jest.fn( () => ( {

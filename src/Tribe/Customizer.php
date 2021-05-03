@@ -156,7 +156,7 @@ final class Tribe__Customizer {
 	}
 
 	/**
-	 * Loads a Section to the Customizer on the The Events Calendar Panel
+	 * Loads a Section to the Customizer on The Events Calendar's Panel
 	 *
 	 * @since  4.4
 	 *

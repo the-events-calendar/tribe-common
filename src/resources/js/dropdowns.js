@@ -12,7 +12,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	};
 
 	// Setup a Dependent
-	$.fn.tribe_dropdowns = function () {
+	$.fn.tribe_dropdowns = function() {
 		obj.dropdown( this, {} );
 
 		return this;
@@ -54,21 +54,20 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		return null;
 	};
 
-
 	/**
 	 * Better Search ID for Select2, compatible with WordPress ID from WP_Query
 	 *
 	 * @param  {object|string} e Searched object or the actual ID
 	 * @return {string}   ID of the object
 	 */
-	obj.search_id = function ( e ) {
+	obj.search_id = function( e ) {
 		var id = undefined;
 
-		if ( 'undefined' !== typeof e.id ){
+		if ( 'undefined' !== typeof e.id ) {
 			id = e.id;
-		} else if ( 'undefined' !== typeof e.ID ){
+		} else if ( 'undefined' !== typeof e.ID ) {
 			id = e.ID;
-		} else if ( 'undefined' !== typeof e.value ){
+		} else if ( 'undefined' !== typeof e.value ) {
 			id = e.value;
 		}
 		return undefined === e ? undefined : id;
@@ -81,7 +80,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 	 * @param  {string} text Search here
 	 * @return {boolean}
 	 */
-	obj.matcher = function ( params, data ) {
+	obj.matcher = function( params, data ) {
 		// If there are no search terms, return all of the data
 		if ( 'string' !== typeof params.term || params.term.trim() === '') {
 			return data;
@@ -452,7 +451,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		// Save data on Dropdown
 		$select.data( 'dropdown', args );
 
-		$container = $select.select2( args );
+		$container = $select.select2TEC( args );
 
 		// Propagating original input classes to the select2 container.
 		$container.data( 'select2' ).$container.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
