@@ -189,14 +189,16 @@ class Theme_Compatibility {
 			return $themes;
 		}
 
-		$parent_theme  = $current_theme->get( 'parent_theme' );
-		$child_theme   = $current_theme->get( 'stylesheet' );
+		$parent_theme  = $current_theme->parent();
 
-		if ( empty( $parent_theme ) || empty( $child_theme ) ) {
+		// No parent theme.
+		if ( empty( $parent_theme ) ) {
+			$themes['parent'] = strtolower( $current_theme->get_template() );
 			return $themes;
 		}
 
-		$themes['parent'] = strtolower( $parent_theme );
+		$themes['parent'] = strtolower( $parent_theme->get_template() );
+		$child_theme      = $current_theme->get( 'stylesheet' );
 
 		// if the 2 options are the same, then there is no child theme.
 		if ( $child_theme !== $parent_theme ) {
@@ -229,7 +231,7 @@ class Theme_Compatibility {
 			return $current_theme;
 		}
 
-		return $current_theme->get( 'Name' );
+		return $current_theme->get_template();
 	}
 
 	/**
@@ -251,7 +253,7 @@ class Theme_Compatibility {
 		} elseif ( ! $current_theme->exists() ) {
 			$theme = false;
 		} else {
-			$theme = $current_theme->get( 'Name' );
+			$theme = $current_theme->get_template();
 		}
 
 		return ! empty( $theme ) && strtolower( $check ) === strtolower( $theme );
