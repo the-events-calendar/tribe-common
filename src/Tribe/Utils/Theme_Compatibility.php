@@ -19,7 +19,7 @@ class Theme_Compatibility {
 	 *
 	 * @var   array
 	 */
-	protected $themes = [
+	protected static $themes = [
 		'avada',
 		'divi',
 		'enfold',
