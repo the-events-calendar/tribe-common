@@ -38,15 +38,13 @@ class Theme_Compatibility {
 	 * @return boolean
 	 */
 	public static function is_compatibility_required() {
-		$template   = strtolower( get_template() );
-		$stylesheet = strtolower( get_stylesheet() );
+		$current_theme = static::get_current_theme( true );
 
-		// Prevents empty stylesheet or template
-		if ( empty( $template ) || empty( $stylesheet ) ) {
+		if ( empty( $current_theme ) || empty( $current_theme->get_template() ) ) {
 			return false;
 		}
 
-		$required = in_array( $template, static::get_registered_themes() );
+		$required = in_array( $current_theme->get_template(), static::get_registered_themes() );
 
 		return tribe_is_truthy( apply_filters( 'tribe_compatibility_required', $required ) );
 	}
@@ -130,19 +128,18 @@ class Theme_Compatibility {
 	 */
 	public static function get_compatibility_classes() {
 		$classes      = [];
-		$child_theme  = strtolower( get_stylesheet() );
-		$parent_theme = strtolower( get_template() );
+		$current_theme = static::get_current_theme( true );
 
-		// Prevents empty stylesheet or template
-		if ( empty( $parent_theme ) || empty( $child_theme ) ) {
+		if ( empty( $current_theme ) || empty( $current_theme->get_template() ) ) {
 			return $classes;
 		}
 
-		$classes[] = sanitize_html_class( "tribe-theme-$parent_theme" );
-
-		// if the 2 options are the same, then there is no child theme.
-		if ( $child_theme !== $parent_theme ) {
-			$classes[] = sanitize_html_class( "tribe-theme-child-$child_theme" );
+		// Detect if we're using a child theme.
+		if ( $parent = $current_theme->parent ) {
+			$classes[] = sanitize_html_class( 'tribe-theme-' . $parent->get_template() );
+			$classes[] = sanitize_html_class( 'tribe-theme-child-' . $current_theme->get_template() );
+		} else {
+			$classes[] = sanitize_html_class( 'tribe-theme-' . $current_theme->get_template() );
 		}
 
 		/**
