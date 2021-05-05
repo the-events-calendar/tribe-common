@@ -198,7 +198,7 @@ if ( ! function_exists( 'tribe_null_or_number' ) ) {
 	 * Validation of Null or Numerical values for Shortcode Attributes.
 	 * We don't use absint() since -1 is a common number used to indicate "all" or "infinite".
 	 *
-	 * @since TBD
+	 * @since 4.13.2
 	 *
 	 * @param mixed $value Which value will be validated.
 	 *
