@@ -209,6 +209,15 @@ final class Tribe__Customizer {
 		return $this->sections_class;
 	}
 
+	/**
+	 * Returns the section requested by ID.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id The ID of the desired section.
+	 *
+	 * @return boolean|Tribe__Customizer__Section The requested section or boolean false if not found.
+	 */
 	public function get_section( $id ) {
 		$sections = $this->get_loaded_sections();
 
