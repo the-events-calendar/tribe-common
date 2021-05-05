@@ -4,7 +4,7 @@
 
 = [4.13.3] TBD =
 
-
+* Fix - Compatibility with Avada themes and third party plugins or themes loading `selectWoo` at the same time. [ECP-737]
 
 = [4.13.2] 2021-04-29 =
 
