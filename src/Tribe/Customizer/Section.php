@@ -80,7 +80,7 @@ abstract class Tribe__Customizer__Section {
 	}
 
 	/**
-	 * Overwrite this method to be able to creaty dynamic settings
+	 * Overwrite this method to be able to create dynamic settings
 	 *
 	 * @param  array  $settings The actual options on the database
 	 * @return array
@@ -159,7 +159,7 @@ abstract class Tribe__Customizer__Section {
 
 		// By Default Invoking a new Section will load, unless `load` is set to false
 		if ( true === (bool) $this->load ) {
-			Tribe__Customizer::instance()->load_section( $this );
+			tribe( 'customizer' )->load_section( $this );
 		}
 	}
 
