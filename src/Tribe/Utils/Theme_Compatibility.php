@@ -31,22 +31,30 @@ class Theme_Compatibility {
 	];
 
 	/**
-	 * Checks if theme needs a compatibility fix.
+	 * Checks if the current theme needs a compatibility fix.
 	 *
 	 * @since  TBD
-   *
+	 *
+	 * @param string $theme Optionally, pass a specific theme name in to see if compatibility
+	 *                      is required for that theme.
+     *
 	 * @return boolean
 	 */
-	public static function is_compatibility_required() {
-		$current_theme = static::get_current_theme( true );
+	public static function is_compatibility_required( $theme = null ) {
+		// Passing a theme name skips these checks.
+		if ( empty( $theme ) ) {
+			$current_theme = static::get_current_theme( true );
 
-		if ( empty( $current_theme ) || empty( $current_theme->get_template() ) ) {
-			return false;
+			if ( empty( $current_theme ) || empty( $current_theme->get_template() ) ) {
+				return false;
+			}
+
+			$theme = $current_theme->get_template();
 		}
 
-		$required = in_array( $current_theme->get_template(), static::get_registered_themes() );
+		$required = in_array( $theme, static::get_registered_themes() );
 
-		return tribe_is_truthy( apply_filters( 'tribe_compatibility_required', $required ) );
+		return tribe_is_truthy( apply_filters( 'tribe_compatibility_required', $required, $theme ) );
 	}
 
 	/**
