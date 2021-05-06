@@ -4,7 +4,7 @@
 
 = [4.13.3] TBD =
 
-
+* Tweak - Adjust the actions used to register and load the styles for the tooltip component [TEC-3796]
 
 = [4.13.2] 2021-04-29 =
 
