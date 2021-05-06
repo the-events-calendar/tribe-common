@@ -73,10 +73,7 @@ class Theme_CompatibilityTest extends WPTestCase {
 	 * @dataProvider themes_supported_data_set
 	 */
 	public function should_need_compatibility_for_supported_themes( $input ) {
-		update_option( 'stylesheet', $input );
-		update_option( 'template', $input );
-
-		$is_compatibility_required = Theme_Compatibility::is_compatibility_required();
+		$is_compatibility_required = Theme_Compatibility::is_compatibility_required( $input );
 
 		$this->assertTrue( $is_compatibility_required, true );
 	}
