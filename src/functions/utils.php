@@ -193,6 +193,26 @@ if ( ! function_exists( 'tribe_null_or_truthy' ) ) {
 	}
 }
 
+if ( ! function_exists( 'tribe_null_or_number' ) ) {
+	/**
+	 * Validation of Null or Numerical values for Shortcode Attributes.
+	 * We don't use absint() since -1 is a common number used to indicate "all" or "infinite".
+	 *
+	 * @since 4.13.2
+	 *
+	 * @param mixed $value Which value will be validated.
+	 *
+	 * @return int|null   Sanitizes the value passed as an integer or null.
+	 */
+	function tribe_null_or_number( $value = null ) {
+		if ( null === $value || 'null' === $value ) {
+			return null;
+		}
+
+		return (int) $value;
+	}
+}
+
 if ( ! function_exists( 'tribe_is_truthy' ) ) {
 	/**
 	 * Determines if the provided value should be regarded as 'true'.
@@ -239,23 +259,6 @@ if ( ! function_exists( 'tribe_is_truthy' ) ) {
 		// For other types (ints, floats etc) cast to bool
 		return (bool) $var;
 	}
-}
-
-/**
- * Determines if the provided value should be regarded as 'true' or in case of null allow it.
- *
- * @since 4.13.0
- *
- * @param mixed $value Variable we are checking if it is null or truthy.
- *
- * @return bool
- */
-function tribe_null_or_truthy( $value ) {
-	if ( null === $value || 'null' === $value ) {
-		return null;
-	}
-
-	return tribe_is_truthy( $value );
 }
 
 if ( ! function_exists( 'tribe_sort_by_priority' ) ) {
