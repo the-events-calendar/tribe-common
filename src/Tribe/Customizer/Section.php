@@ -185,6 +185,8 @@ abstract class Tribe__Customizer__Section {
 
 	/**
 	 * Function that encapsulates the logic for if a setting should be added to the Customizer style template.
+	 * Note: this depends on a default value being set -
+	 *       if the setting value is empty OR the default value it's not displayed.
 	 *
 	 * @since TBD
 	 *

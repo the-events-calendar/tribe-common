@@ -8,6 +8,7 @@
 
 = [4.13.3] TBD =
 
+* Feature - Create new functionality in Tribe__Customizer__Section to allow for simpler craetion of controls and sections. [TEC-3836]
 * Fix - Compatibility with Avada themes and third party plugins or themes loading `selectWoo` at the same time. [ECP-737]
 
 = [4.13.2] 2021-04-29 =

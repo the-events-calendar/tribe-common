@@ -11,7 +11,7 @@ namespace Tribe\Customizer\Controls;
 
 use Tribe\Customizer\Control;
 
-class Separator extends Control{
+class Separator extends Control {
 
 	/**
 	 * Control's Type.
@@ -45,7 +45,7 @@ class Separator extends Control{
 	 *
 	 * @since TBD
 	 */
-	public function render_content(){
+	public function render_content() {
 		?>
 		<p>
 			<hr>
