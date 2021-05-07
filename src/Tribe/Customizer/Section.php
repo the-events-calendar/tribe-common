@@ -192,7 +192,7 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @return boolean If the setting should be added to the style template.
 	 */
-	public function should_include_setting( $setting ) {
+	public function should_include_setting_css( $setting ) {
 		if ( empty( $setting ) ) {
 			return false;
 		}
