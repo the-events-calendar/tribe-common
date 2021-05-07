@@ -37,7 +37,7 @@ class Theme_Compatibility {
 	 *
 	 * @param string $theme Optionally, pass a specific theme name in to see if compatibility
 	 *                      is required for that theme.
-     *
+	 *
 	 * @return boolean
 	 */
 	public static function is_compatibility_required( $theme = null ) {
@@ -65,7 +65,7 @@ class Theme_Compatibility {
 	 * @param boolean $add   Whether to add the class to the queue or not.
 	 * @param array   $class The array of compatibility class names to add.
 	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
-
+	 *
 	 * @return boolean Whether compatibility classes should be added or not.
 	 */
 	public static function should_add_compatibility_class_to_queue( $add, $class, $queue ) {
