@@ -185,6 +185,8 @@ abstract class Tribe__Customizer__Section {
 
 	/**
 	 * Function that encapsulates the logic for if a setting should be added to the Customizer style template.
+	 * Note: this depends on a default value being set -
+	 *       if the setting value is empty OR the default value it's not displayed.
 	 *
 	 * @since TBD
 	 *
@@ -192,7 +194,7 @@ abstract class Tribe__Customizer__Section {
 	 *
 	 * @return boolean If the setting should be added to the style template.
 	 */
-	public function should_include_setting( $setting ) {
+	public function should_include_setting_css( $setting ) {
 		if ( empty( $setting ) ) {
 			return false;
 		}
