@@ -191,17 +191,23 @@ abstract class Tribe__Customizer__Section {
 	 * @since TBD
 	 *
 	 * @param string $setting The setting slug, like 'grid_lines_color'.
+	 * @param int $section_id The ID for the section - defaults to the current one if not set.
 	 *
 	 * @return boolean If the setting should be added to the style template.
 	 */
-	public function should_include_setting_css( $setting ) {
+	public function should_include_setting_css( $setting, $section_id = null ) {
 		if ( empty( $setting ) ) {
 			return false;
 		}
 
-		$setting_value =  tribe( 'customizer' )->get_option( [ $this->ID, $setting ] );
+		if ( empty( $section_id ) ) {
+			$section_id = $this->ID;
+		}
 
-		return ! empty( $setting_value ) && $this->defaults[ $setting ] !== $setting_value;
+		$setting_value = tribe( 'customizer' )->get_option( [ $section_id, $setting ] );
+		$section       = tribe( 'customizer' )->get_section( $section_id );
+
+		return ! empty( $setting_value ) && $section->get_default(  $setting ) !== $setting_value;
 	}
 
 	/**
@@ -286,7 +292,25 @@ abstract class Tribe__Customizer__Section {
 		// Create Ghost Options
 		$settings = $this->create_ghost_settings( wp_parse_args( $settings, $this->defaults ) );
 
-		return apply_filters( 'tribe_customizer_default_settings', $settings, $this );
+		/**
+		 * Allows filtering the default values for all sections.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                      $settings The default settings
+		 * @param Tribe__Customizer__Section $section The section object.
+		 */
+		$settings = apply_filters( 'tribe_customizer_default_settings', $settings, $this );
+
+		/**
+		 * Allows filtering the default values for a specific section.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                      $settings The default settings
+		 * @param Tribe__Customizer__Section $section The section object.
+		 */
+		return apply_filters( "tribe_customizer_{$this->ID}_default_settings", $settings, $this );
 	}
 
 	/**
