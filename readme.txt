@@ -5,8 +5,9 @@
 = [4.13.3] TBD =
 
 * Feature - Create new functionality in Tribe__Customizer__Section to allow for simpler craetion of controls and sections. [TEC-3836]
-* Tweak - Adjust the actions used to register and load the styles for the tooltip component [TEC-3796]
 * Fix - Compatibility with Avada themes and third party plugins or themes loading `selectWoo` at the same time. [ECP-737]
+* Tweak - Adjust the actions used to register and load the styles for the tooltip component [TEC-3796]
+* Tweak - Update lodash to 4.17.21. [TEC-3885]
 
 = [4.13.2] 2021-04-29 =
 
