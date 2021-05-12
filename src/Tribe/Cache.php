@@ -556,14 +556,14 @@ class Tribe__Cache implements ArrayAccess {
 		}
 
 		$chunks = [];
-		$i      = 0;
+		$i      = 1;
 		do {
-			$chunk_transient            = $transient . '_' . $i ++;
+			$chunk_transient            = $transient . '_' . $i++;
 			$chunk                      = get_transient( $chunk_transient );
 			$chunks[ $chunk_transient ] = (string) $chunk;
 		} while ( ! empty( $chunk ) );
 
-		if ( count( array_filter( $chunks ) ) === 0 ) {
+		if ( empty( array_filter( $chunks ) ) ) {
 			return false;
 		}
 
@@ -574,6 +574,7 @@ class Tribe__Cache implements ArrayAccess {
 			if ( is_string( $unserialized ) && $unserialized === $data && $is_serialized ) {
 				// Something was messed up.
 				return false;
+				return true;
 			}
 		} catch ( Exception $e ) {
 			return false;
@@ -605,7 +606,7 @@ class Tribe__Cache implements ArrayAccess {
 
 		$inserted         = [];
 		$serialized_value = maybe_serialize( $value );
-		$chunk_size       = tribe( 'feature-detection' )->get_mysql_max_packet_size() * .9;
+		$chunk_size       = tribe( 'feature-detection' )->get_mysql_max_packet_size() * 0.9;
 		$chunks           = str_split( $serialized_value, $chunk_size );
 		foreach ( $chunks as $i => $chunk ) {
 			$chunk_transient = $transient . '_' . $i;
