@@ -574,8 +574,9 @@ class Tribe__Cache implements ArrayAccess {
 			if ( is_string( $unserialized ) && $unserialized === $data && $is_serialized ) {
 				// Something was messed up.
 				return false;
-				return true;
 			}
+			
+			return true;
 		} catch ( Exception $e ) {
 			return false;
 		}
