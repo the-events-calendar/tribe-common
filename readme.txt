@@ -8,6 +8,7 @@
 * Fix - Compatibility with Avada themes and third party plugins or themes loading `selectWoo` at the same time. [ECP-737]
 * Tweak - Adjust the actions used to register and load the styles for the tooltip component [TEC-3796]
 * Tweak - Update lodash to 4.17.21. [TEC-3885]
+* Tweak - Display draft events if the current user is able to read private posts [TCMN-107]
 
 = [4.13.2] 2021-04-29 =
 
