@@ -2,6 +2,10 @@
 
 == Changelog ==
 
+= [4.13.4] TBD =
+
+
+
 = [4.13.2] 2021-04-29 =
 
 * Fix - Modify Select2 to clone the `jQuery.fn.select2` into `jQuery.fn.select2TEC` to avoid conflicting with third-party usage that didn't include the full version of Select2 [TEC-3748]
