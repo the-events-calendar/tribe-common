@@ -6559,7 +6559,7 @@ S2.define('jquery.select2',[
   }
 
   // Also register select2TEC under select2 if select2 is not already present.
-  $.fn.select2 = $.fn.select2 || $.fn.select2TEC;
+  $.fn.select2TEC = $.fn.select2 || $.fn.select2TEC;
 
   return Select2;
 });
