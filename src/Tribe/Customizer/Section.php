@@ -79,8 +79,31 @@ abstract class Tribe__Customizer__Section {
 	 */
 	private static $instances;
 
+	/**
+	 * Contains the arguments for the section headings.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
 	protected $content_headings = [];
+
+	/**
+	 * Contains the arguments for the section settings.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
 	protected $content_settings = [];
+
+	/**
+	 * Contains the arguments for the section controls.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
 	protected $content_controls = [];
 
 	/**
@@ -128,6 +151,17 @@ abstract class Tribe__Customizer__Section {
 		$this->setup_defaults();
 		$this->setup_arguments();
 		$this->setup_content_arguments();
+	}
+
+	/**
+	 * Sets up the Customizer section content.
+	 *
+	 * @since TBD
+	 */
+	public function setup_content_arguments(){
+		$this->setup_content_headings();
+		$this->setup_content_settings();
+		$this->setup_content_controls();
 	}
 
 	/**
@@ -186,7 +220,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Function that encapsulates the logic for if a setting should be added to the Customizer style template.
 	 * Note: this depends on a default value being set -
-	 *       if the setting value is empty OR the default value it's not displayed.
+	 *       if the setting value is empty OR set to the default value, it's not displayed.
 	 *
 	 * @since TBD
 	 *
@@ -292,6 +326,11 @@ abstract class Tribe__Customizer__Section {
 		// Create Ghost Options
 		$settings = $this->create_ghost_settings( wp_parse_args( $settings, $this->defaults ) );
 
+		return $this->filter_defaults( $settings );
+	}
+
+	public function filter_defaults( $settings ) {
+
 		/**
 		 * Allows filtering the default values for all sections.
 		 *
@@ -360,7 +399,7 @@ abstract class Tribe__Customizer__Section {
 	}
 
 	/**
-	 * Set up section arguments.
+	 * Set up the section arguments.
 	 *
 	 * @since TBD
 	 *
@@ -369,14 +408,47 @@ abstract class Tribe__Customizer__Section {
 	public function setup_arguments() {}
 
 	/**
-	 * Sets up the Customizer section content.
+	 * Get the section arguments.
 	 *
 	 * @since TBD
+	 *
+	 * @return void
 	 */
-	public function setup_content_arguments(){
-		$this->setup_content_headings();
-		$this->setup_content_settings();
-		$this->setup_content_controls();
+	public function get_arguments() {
+		return $this->filter_arguments( $this->arguments );
+	}
+
+	/**
+	 * Filter the section arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function filter_arguments( $arguments ) {
+		/**
+		 * Applies a filter to section arguments.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,callable> $arguments Current set of arguments.
+		 * @param static				 $instance  The section instance we are dealing with.
+		 */
+		$arguments = apply_filters( 'tribe_customizer_section_arguments', $arguments, $this );
+
+		$section_slug = static::get_section_slug( get_class( $this ) );
+
+		/**
+		 * Applies a filter to a specific section's arguments.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,callable> $arguments Current set of arguments.
+		 * @param static				 $instance  The section instance we are dealing with.
+		 */
+		$arguments = apply_filters( "tribe_customizer_section_{$section_slug}_arguments", $arguments, $this );
+
+		return $arguments;
 	}
 
 	/* Headings */
@@ -411,24 +483,24 @@ abstract class Tribe__Customizer__Section {
 	 */
 	public function filter_content_headings( $arguments ) {
 		/**
-		 * Applies a filter to the validation map for instance arguments.
+		 * Applies a filter to the content headings arguments.
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The widget instance we are dealing with.
+		 * @param array<string,callable> $arguments Current set of headings arguments.
+		 * @param static				 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_customizer_section_content_headings', $arguments, $this );
 
 		$section_slug = static::get_section_slug( get_class( $this ) );
 
 		/**
-		 * Applies a filter to the validation map for instance arguments for a specific widget. Based on the widget slug of the widget
+		 * Applies a filter to the content headings arguments for a specific section.
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The widget instance we are dealing with.
+		 * @param array<string,callable> $arguments Current set of headings arguments.
+		 * @param static				 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( "tribe_customizer_section_{$section_slug}_content_headings", $arguments, $this );
 
@@ -487,19 +559,19 @@ abstract class Tribe__Customizer__Section {
 		 * @since TBD
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The widget instance we are dealing with.
+		 * @param static				 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_customizer_section_content_settings', $arguments, $this );
 
 		$section_slug = static::get_section_slug( get_class( $this ) );
 
 		/**
-		 * Applies a filter to the validation map for instance arguments for a specific widget. Based on the widget slug of the widget
+		 * Applies a filter to the content arguments for a specific section.
 		 *
 		 * @since TBD
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The widget instance we are dealing with.
+		 * @param static				 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( "tribe_customizer_section_{$section_slug}_content_settings", $arguments, $this );
 
@@ -649,19 +721,19 @@ abstract class Tribe__Customizer__Section {
 		 * @since TBD
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The widget instance we are dealing with.
+		 * @param static				 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( 'tribe_customizer_section_content_controls', $arguments, $this );
 
 		$section_slug = static::get_section_slug( get_class( $this ) );
 
 		/**
-		 * Applies a filter to the validation map for instance arguments for a specific widget. Based on the widget slug of the widget
+		 * Applies a filter to the validation map for instance arguments for a specific section. Based on the section slug of the section
 		 *
 		 * @since TBD
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
-		 * @param static				 $instance  The widget instance we are dealing with.
+		 * @param static				 $instance  The section instance we are dealing with.
 		 */
 		$arguments = apply_filters( "tribe_customizer_section_{$section_slug}_content_controls", $arguments, $this );
 
