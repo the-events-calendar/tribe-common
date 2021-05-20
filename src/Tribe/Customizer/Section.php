@@ -129,7 +129,7 @@ abstract class Tribe__Customizer__Section {
 		add_filter( 'tribe_customizer_pre_sections', [ $this, 'register' ], 10, 2 );
 
 		// Append this section CSS template
-		add_filter( 'tribe_customizer_css_template', [ $this, 'get_css_template' ], $this->queue_priority );
+		add_filter( 'tribe_customizer_css_template', [ $this, 'filter_css_template' ], $this->queue_priority );
 		add_filter( "tribe_customizer_section_{$this->ID}_defaults", [ $this, 'get_defaults' ], 10 );
 
 		// Create the Ghost Options
@@ -269,13 +269,42 @@ abstract class Tribe__Customizer__Section {
 		return $color_rgb;
 	}
 
+	public function filter_css_template( $css_template ) {
+		$css_template = $this->get_css_template( $css_template );
+
+		/**
+		 * Allows filtering of the TEC customizer output for this section. Targeted specifically to this section.
+		 * Return boolean false to prevent CSS output.
+		 *
+		 * @param string $css_template        The current TEC Customizer CSS output for this section after the above filter.
+		 * @param \Tribe__Customizer__Section The instance of this Customizer section.
+		 */
+		$css_template = apply_filters( "tribe_customizer_css_template_output", $css_template, $this );
+
+		/**
+		 * Allows filtering of the TEC customizer output for this section. Targeted specifically to this section.
+		 * Return boolean false to prevent CSS output.
+		 *
+		 * @param string $css_template        The current TEC Customizer CSS output for this section after the above filter.
+		 * @param \Tribe__Customizer__Section The instance of this Customizer section.
+		 */
+		$css_template = apply_filters( "tribe_customizer_{$this->ID}_css_template_output", $css_template, $this );
+
+		// Allows returning falsy (false, 0, empty string) values above to prevent the CSS output.
+		if ( empty( $css_template ) ) {
+			return '';
+		}
+
+		return $css_template;
+	}
+
 	/**
 	 * Overwrite this method to be able to implement the CSS template related to this section.
 	 *
 	 * @return string The CSS template.
 	 */
-	public function get_css_template( $template ) {
-		return $template;
+	public function get_css_template( $css_template ) {
+		return $css_template;
 	}
 
 	/**
