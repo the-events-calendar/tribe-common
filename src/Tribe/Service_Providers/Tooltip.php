@@ -53,7 +53,7 @@ class Tooltip extends \tad_DI52_ServiceProvider {
 			'tribe-tooltip-js',
 			'tooltip.js',
 			[ 'jquery', 'tribe-common' ],
-			[ 'wp_register_script' ],
+			[ 'wp_register_script', 'admin_enqueue_scripts' ],
 			[ 'groups' => 'tribe-tooltip' ]
 		);
 	}
