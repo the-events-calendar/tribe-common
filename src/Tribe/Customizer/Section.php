@@ -227,14 +227,6 @@ abstract class Tribe__Customizer__Section {
 		return tribe( 'customizer' )->get_option( [ $this->ID, $setting ] );
 	}
 
-	public function to_rgb( $color ) {
-		$color_object  = new \Tribe__Utils__Color( $color );
-		$color_rgb_arr = $color_object::hexToRgb( $color );
-		$color_rgb     = $color_rgb_arr['R'] . ',' . $color_rgb_arr['G'] . ',' . $color_rgb_arr['B'];
-
-		return $color_rgb;
-	}
-
 	/**
 	 * Overwrite this method to be able to implement the CSS template related to this section.
 	 *
@@ -377,6 +369,61 @@ abstract class Tribe__Customizer__Section {
 		$this->setup_content_headings();
 		$this->setup_content_settings();
 		$this->setup_content_controls();
+	}
+
+	/**
+	 * Sugar function that returns the results of Tribe__Customizer->get_section_url() for the current section.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The URL to the TEC Customizer section.
+	 */
+	public function get_section_url() {
+		return tribe( 'customizer' )->get_section_url( $this->ID );
+	}
+
+	/**
+	 * Sugar function that returns the results of Tribe__Customizer->get_section_link() for the current section.
+	 * Gets the HTML link to the current section in the TEC Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $link_text The text for the link.
+	 *
+	 * @return string The HTML anchor element, linking to the TEC Customizer section.
+	 *                An empty string is returned if missing a parameter.
+	 */
+	public function get_section_link( $link_text ) {
+		return tribe( 'customizer' )->get_section_link( $this->ID, $link_text );
+	}
+
+	/**
+	 * Sugar function that returns the results of Tribe__Customizer->get_settings_url()
+	 * for the specified setting in the _current section_.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $setting    The setting "slug" to link to.
+	 *
+	 * @return string The URL to the setting.
+	 */
+	public function get_setting_url( $setting ) {
+		return tribe( 'customizer' )->get_setting_url( $this->ID, $setting );
+	}
+
+	/**
+	 * Sugar function that returns the results of Tribe__Customizer->get_settings_url()
+	 * for the specified setting in the _current section_.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $setting    The setting "slug" to link to.
+	 * @param string $link_text The translated text for the link.
+	 *
+	 * @return string The HTML anchor element, linking to the TEC Customizer setting.
+	 */
+	public function get_setting_link( $setting, $link_text ) {
+		return tribe( 'customizer' )->get_setting_link( $this->ID, $setting, $link_text );
 	}
 
 	/* Headings */
