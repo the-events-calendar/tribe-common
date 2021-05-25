@@ -2,7 +2,7 @@ h
 
 == Changelog ==
 
-= [4.13.3] TBD =
+= [4.13.3] 2021-05-27 =
 
 * Feature - Create new functionality in Tribe__Customizer__Section to allow for simpler craetion of controls and sections. [TEC-3836]
 * Feature - Added the `set_chunkable_transient` and `get_chunkable_transient` functions to the Cache class, see doc-blocks. [TEC-3627]
