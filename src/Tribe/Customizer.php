@@ -212,7 +212,7 @@ final class Tribe__Customizer {
 	/**
 	 * Returns the section requested by ID.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param string $id The ID of the desired section.
 	 *

@@ -2,7 +2,7 @@
 /**
  * Models a Customizer separator, a Control just in name, it does not control any setting.
  *
- * @since   TBD
+ * @since   4.13.3
  *
  * @package Tribe\Customizer\Controls
  */
@@ -16,7 +16,7 @@ class Separator extends Control {
 	/**
 	 * Control's Type.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @var string
 	 */
@@ -25,7 +25,7 @@ class Separator extends Control {
 	/**
 	 * Anyone able to set theme options will be able to see the header.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class Separator extends Control {
 	/**
 	 * The heading does not control any setting.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -43,7 +43,7 @@ class Separator extends Control {
 	/**
 	 * Render the control's content
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 */
 	public function render_content() {
 		?>

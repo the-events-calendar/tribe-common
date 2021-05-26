@@ -23,7 +23,7 @@ class Heading extends Control {
 	/**
 	 * Control's Type.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @var string
 	 */
