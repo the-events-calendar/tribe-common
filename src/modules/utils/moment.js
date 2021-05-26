@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { isString } from 'lodash';
-import moment, { isMoment } from 'moment';
+import moment, { isMoment } from 'moment'; // eslint-disable-line import/named
 
 /**
  * Internal dependencies
@@ -89,13 +89,39 @@ export const roundTime = ( date ) => {
 };
 
 /**
+ * Convert a Date() object into a Moment.js object avoiding warnings of different formats
+ * used by Date
+ *
+ * @param {(Date|moment|string)} date The date to be converted.
+ * @param {string} format The format of the data to be used
+ * @param {bool} parseFormat the parse of the format default to true
+ * @returns {moment} A moment object
+ */
+export const toMoment = (
+	date,
+	format = dateUtil.FORMATS.DATABASE.datetime,
+	parseFormat = true
+) => {
+	if ( isMoment( date ) || date instanceof Date ) {
+		return moment( date );
+	} else if ( isString( date ) ) {
+		return moment( date, parseFormat ? toFormat( format ) : format );
+	}
+
+	return moment();
+};
+
+/**
  * Parse multiple formats in a date to ensure the generated dates are valid
  *
  * @param {string} date The date to be converted
  * @param {array} formats The list of formats used to format
  * @returns {moment} moment Object with the date or current date if is non valid
  */
-export const parseFormats = ( date, formats = [ dateUtil.FORMATS.DATABASE.datetime, dateUtil.FORMATS.WP.datetime ] ) => {
+export const parseFormats = (
+	date,
+	formats = [ dateUtil.FORMATS.DATABASE.datetime, dateUtil.FORMATS.WP.datetime ]
+) => {
 	for ( let i = 0; i < formats.length; i++ ) {
 		const format = formats[ i ];
 		const result = toMoment( date, format );
@@ -106,25 +132,6 @@ export const parseFormats = ( date, formats = [ dateUtil.FORMATS.DATABASE.dateti
 
 	const noFormat = moment( date );
 	return noFormat.isValid() ? noFormat : moment();
-};
-
-/**
- * Convert a Date() object into a Moment.js object avoiding warnings of different formats
- * used by Date
- *
- * @param {(Date|moment|string)} date The date to be converted.
- * @param {string} format The format of the data to be used
- * @param {bool} Force the parse of the format default to true
- * @returns {moment} A moment object
- */
-export const toMoment = ( date, format = dateUtil.FORMATS.DATABASE.datetime, parseFormat = true ) => {
-	if ( isMoment( date ) || date instanceof Date ) {
-		return moment( date );
-	} else if ( isString( date ) ) {
-		return moment( date, parseFormat ? toFormat( format ) : format );
-	}
-
-	return moment();
 };
 
 export const toMomentFromDate = ( date ) => {
@@ -147,11 +154,11 @@ export const toMomentFromDate = ( date ) => {
  * Convert a Date() object or date string and time into a moment object
  *
  * @param {(Date|moment|string)} date The date to be converted.
- * @param {string} time The time string in HH:mm format..
+ * @param {string} timeString The time string in HH:mm format..
  * @returns {moment} A moment object
  */
-export const toMomentFromDateTime = ( date, time ) => {
-	const [ hours, minutes ] = time.split( ':' );
+export const toMomentFromDateTime = ( date, timeString ) => {
+	const [ hours, minutes ] = timeString.split( ':' );
 	return moment( date ).hours( hours ).minutes( minutes );
 };
 

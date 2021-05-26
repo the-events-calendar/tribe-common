@@ -57,6 +57,7 @@ export default () => ( WrappedComponent ) => {
 		}
 	}
 
+	// eslint-disable-next-line max-len
 	WithSelected.displayName = `WithIsSelected( ${ WrappedComponent.displayName || WrappedComponent.name || 'Component ' }`;
 
 	return WithSelected;

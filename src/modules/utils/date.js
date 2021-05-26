@@ -45,17 +45,17 @@ export const FORMATS = {
 
 export const TODAY = new Date();
 
+export const timezones = () => {
+	return timezoneUtil.getItems()
+		.map( ( group ) => group.options || [] )
+		.reduce( ( prev, current ) => [ ...prev, ...current ], [] );
+};
+
 export const timezonesAsSelectData = () => {
 	return timezones().map( ( tzone ) => ( {
 		value: tzone.key,
 		label: tzone.text,
 	} ) );
-};
-
-export const timezones = () => {
-	return timezoneUtil.getItems()
-		.map( ( group ) => group.options || [] )
-		.reduce( ( prev, current ) => [ ...prev, ...current ], [] );
 };
 
 export const toNaturalLanguage = ( params = {} ) => {
@@ -93,6 +93,7 @@ export const toNaturalLanguage = ( params = {} ) => {
 			time: `${ parsed.moment.format( options.format.time ) }`,
 		};
 		const { detail } = parsed;
+		// eslint-disable-next-line max-len
 		parsed.text = `${ detail.month } ${ detail.day } ${ detail.year } ${ options.separator } ${ detail.time }`;
 	}
 	return parsed;
@@ -126,6 +127,7 @@ export const rangeToNaturalLanguage = ( start = '', end = '', separators = {} ) 
 			 * - Current Behavior: 'Oct 8 2018 at 12:00 pm - Oct 24 2018 12:30 pm'
 			 * - New Behavior: 'Oct 8 2018 at 12:00 pm - Oct 24 12:30 pm'
 			 */
+			// eslint-disable-next-line max-len
 			parts.push( `${ to.detail.month } ${ to.detail.day } ${ separatorOptions.time } ${ to.detail.time }` );
 		} else {
 			// Otherwise just use the full text

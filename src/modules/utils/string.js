@@ -60,7 +60,8 @@ export const getWords = ( text = '' ) => {
  * the last separator instead
  *
  * @param {array} words The list of words to join
- * @param {string} startSeparator the separator applied if there are more than 2 words between all the words except the last one
+ * @param {string} startSeparator the separator applied if there are more than 2 words between all
+ *                                the words except the last one
  * @param {string} endSeparator separator applied between the last words
  * @returns {string} return a string with custom separators between words
  */

@@ -1,8 +1,8 @@
+/* eslint-disable max-len */
 /**
  * Internal dependencies
  */
 import { time } from '@moderntribe/common/utils';
-import { roundTime } from '../moment';
 
 describe( 'Tests for time.js', () => {
 	test( 'MINUTE_IN_SECONDS', () => {

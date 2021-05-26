@@ -192,17 +192,24 @@ describe( 'Tests for moment.js', () => {
 	} );
 
 	test( 'isSameMonth', () => {
-		const date = moment( 'October 8, 2018 5:30 pm', 'MMMM D, Y h:mm a' );
+		const dateMoment = moment( 'October 8, 2018 5:30 pm', 'MMMM D, Y h:mm a' );
 
 		expect( momentUtil.isSameMonth() ).toBe( false );
 		expect( momentUtil.isSameMonth( false, '' ) ).toBe( false );
 		expect( momentUtil.isSameMonth( 0, null ) ).toBe( false );
-		expect( momentUtil.isSameMonth( date, date.clone().add( 24, 'days' ) ) ).toBe( false );
-		expect( momentUtil.isSameMonth( date, date.clone().add( 23, 'days' ) ) ).toBe( true );
-		expect( momentUtil.isSameMonth( date, date.clone().endOf( 'month' ) ) ).toBe( true );
-		expect( momentUtil.isSameMonth( date.clone().endOf( 'month' ), date.clone().endOf( 'month' ) ) ).toBe( true );
-		expect( momentUtil.isSameMonth( date, date.clone().add( 10, 'days' ) ) ).toBe( true );
-		expect( momentUtil.isSameMonth( date, date ) ).toBe( true );
+		expect( momentUtil.isSameMonth( dateMoment, dateMoment.clone().add( 24, 'days' ) ) )
+			.toBe( false );
+		expect( momentUtil.isSameMonth( dateMoment, dateMoment.clone().add( 23, 'days' ) ) )
+			.toBe( true );
+		expect( momentUtil.isSameMonth( dateMoment, dateMoment.clone().endOf( 'month' ) ) )
+			.toBe( true );
+		expect( momentUtil.isSameMonth(
+			dateMoment.clone().endOf( 'month' ),
+			dateMoment.clone().endOf( 'month' )
+		) ).toBe( true );
+		expect( momentUtil.isSameMonth( dateMoment, dateMoment.clone().add( 10, 'days' ) ) )
+			.toBe( true );
+		expect( momentUtil.isSameMonth( dateMoment, dateMoment ) ).toBe( true );
 	} );
 
 	test( 'isSameYear', () => {

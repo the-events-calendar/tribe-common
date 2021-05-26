@@ -1,6 +1,7 @@
 /**
  * Create chainable validator with isRequired check
- * @param {function} validator
+ * @param {function} validator validator to create chainable validator from.
+ * @returns {function} returns a chainable validator.
  */
 export const createChainableValidator = ( validator ) => {
 	const createChainedValidator = (
@@ -37,9 +38,10 @@ export const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
  * PropTypes check for type string and time format using 24h clock in hh:mm format
  * e.g. 00:24, 03:57, 21:12
  *
- * @param {object} props
- * @param {string} propName
- * @param {string} componentName
+ * @param {object} props collection of props.
+ * @param {string} propName name of prop to check.
+ * @param {string} componentName component name that was supplied props.
+ * @returns {Error|null} returns Error if invalid type or format, otherwise null.
  */
 export const timeFormat = ( props, propName, componentName ) => {
 	const propValue = props[ propName ];

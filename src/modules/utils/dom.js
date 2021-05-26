@@ -20,6 +20,14 @@ export const hasClass = ( node, classNames = [] ) => {
 };
 
 /**
+ * Test if a node is the same as the root element or the base node of the document.
+ *
+ * @param {Element} node A Document Node
+ * @returns {boolean} true if node is the root Node Document
+ */
+export const isRootNode = ( node ) => node === window.top.document;
+
+/**
  * Utility to search the parent of a node looking from the current node Up to the highest
  * node on the DOM Tree
  *
@@ -40,11 +48,3 @@ export const searchParent = ( node = {}, callback = noop ) => {
 
 	return found;
 };
-
-/**
- * Test if a node is the same as the root element or the base node of the document.
- *
- * @param {Element} node A Document Node
- * @returns {boolean} true if node is the root Node Document
- */
-export const isRootNode = ( node ) => node === window.top.document;

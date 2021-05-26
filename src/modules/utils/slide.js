@@ -13,6 +13,7 @@ const requestIds = {};
 /**
  * Check that request id exists, if not create an entry
  * @param {string} id Unique ID of animation
+ * @returns {object} Request IDs for up and down animations.
  */
 export const checkRequestIds = ( id ) => {
 	if ( ! requestIds[ id ] ) {
