@@ -1,0 +1,6 @@
+src/resources/postcss/*.pcss
+!src/resources/postcss/common-full.pcss
+!src/resources/postcss/common-skeleton.pcss
+!src/resources/postcss/dialog.pcss
+!src/resources/postcss/promoter.pcss
+!src/resources/postcss/tooltip.pcss
