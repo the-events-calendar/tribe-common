@@ -58,7 +58,7 @@ export const getTimezoneOpts = () => {
 	timezoneOpts = groups;
 
 	return groups;
-}
+};
 
 export const getItems = ( searchFor ) => {
 	const groups = getTimezoneOpts();
@@ -69,4 +69,4 @@ export const getItems = ( searchFor ) => {
 	}
 
 	return groups;
-}
+};

@@ -67,11 +67,10 @@ export const getWords = ( text = '' ) => {
 export const wordsAsList = ( words, startSeparator = ', ', endSeparator = ' & ' ) => {
 	if ( words.length <= 1 ) {
 		return words.join( '' );
-	} else {
-		const start = words.slice( 0, words.length - 1 ).join( startSeparator );
-		const last = words[ words.length - 1 ];
-		return `${ start }${ endSeparator }${ last }`;
 	}
+	const start = words.slice( 0, words.length - 1 ).join( startSeparator );
+	const last = words[ words.length - 1 ];
+	return `${ start }${ endSeparator }${ last }`;
 };
 
 /**
@@ -105,5 +104,5 @@ export const toBlockName = ( text = '' ) => {
 	}
 
 	// Remove any non numeric, a-z or - value
-	return text.replace(/[^a-zA-Z0-9-]/g, '' );
-}
+	return text.replace( /[^a-zA-Z0-9-]/g, '' );
+};

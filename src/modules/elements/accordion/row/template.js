@@ -45,8 +45,8 @@ class Row extends PureComponent {
 			'aria-controls': this.contentId,
 			'aria-expanded': _isActive,
 			'aria-selected': _isActive,
-			id: this.headerId,
-			role: 'tab',
+			'id': this.headerId,
+			'role': 'tab',
 			...this.props.headerAttrs,
 		};
 	};
@@ -54,8 +54,8 @@ class Row extends PureComponent {
 	getContentAttrs = () => ( {
 		'aria-hidden': this.state.isActive ? 'false' : 'true',
 		'aria-labelledby': this.headerId,
-		id: this.contentId,
-		role: 'tabpanel',
+		'id': this.contentId,
+		'role': 'tabpanel',
 		...this.props.contentAttrs,
 	} );
 

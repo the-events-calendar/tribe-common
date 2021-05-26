@@ -13,7 +13,6 @@ import {
 } from '@moderntribe/common/utils/globals';
 
 describe( 'Tests for globals.js', () => {
-
 	beforeAll( () => {
 		window.tribe_editor_config = {
 			common: {
@@ -35,12 +34,12 @@ describe( 'Tests for globals.js', () => {
 				googleMap: {},
 			},
 			tickets: {
-				providers: [ {
+				providers: [{
 					class: 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main',
 					currency: '$',
 					currency_position: 'prefix',
 					name: 'WooCommerce',
-				} ],
+				}],
 				default_provider: 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main',
 				default_currency: '$',
 			},

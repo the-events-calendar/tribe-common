@@ -65,7 +65,7 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect( meta.actions.error ).not.toHaveBeenCalled();
 	} );
 
-	it( 'Should execute the correct actions on success', async () => {
+	it( 'Should execute the correct actions on success', async() => {
 		const { invoke } = create();
 
 		const body = {
@@ -99,14 +99,14 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect( meta.actions.success ).toHaveBeenCalledTimes( 1 );
 	} );
 
-	it( 'execute success actions on 201 response code - creation code', async () => {
+	it( 'execute success actions on 201 response code - creation code', async() => {
 		const { invoke } = create();
 
 		const body = {
 			id: 201,
 			date: '2018-05-26T23:07:05',
 			meta: {
-				title: 'Creating a post....'
+				title: 'Creating a post....',
 			},
 		};
 
@@ -134,7 +134,7 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect( meta.actions.success ).toHaveBeenCalledTimes( 1 );
 	} );
 
-	it( 'Should reject on 404 status code', async () => {
+	it( 'Should reject on 404 status code', async() => {
 		const { invoke } = create();
 
 		global.fetch = jest.fn().mockImplementation( () => Promise.resolve( { status: 404 } ) );
@@ -149,7 +149,7 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect( meta.actions.error ).toHaveBeenCalledWith( error );
 	} );
 
-	it( 'Should execute the correct actions on failure', async () => {
+	it( 'Should execute the correct actions on failure', async() => {
 		const { invoke } = create();
 
 		global.fetch = jest.fn().mockImplementation( () => Promise.reject( 'Wrong path' ) );

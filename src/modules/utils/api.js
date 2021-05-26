@@ -12,7 +12,7 @@ import 'whatwg-fetch';
  *
  * @returns {Promise<Response>} return a fetch promise
  */
-export const wpREST = async ( params ) => {
+export const wpREST = async( params ) => {
 	const { url = '', nonce = {}, namespaces = {} } = rest();
 
 	/**

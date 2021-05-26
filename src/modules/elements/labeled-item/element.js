@@ -30,7 +30,8 @@ const LabeledItem = ( {
 		<div className={ classNames(
 			'tribe-editor__labeled-item',
 			className,
-		) }>
+		) }
+		>
 			{ renderLabel }
 			{ children }
 		</div>

@@ -45,7 +45,6 @@ const TimePicker = ( {
 	step,
 	timeFormat,
 } ) => {
-
 	const renderLabel = ( onAllDayClick ) => {
 		if ( allDay ) {
 			return (

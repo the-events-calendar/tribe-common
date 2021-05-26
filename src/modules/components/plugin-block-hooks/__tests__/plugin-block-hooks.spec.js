@@ -12,7 +12,7 @@ import PluginBlockHooks from '../component';
 jest.mock( '@moderntribe/common/utils/globals', () => ( {
 	wpEditor: {
 		InnerBlocks: 'InnerBlocks',
-	}
+	},
 } ) );
 jest.mock( '@wordpress/data', () => ( {
 	select: jest.fn( () => ( {

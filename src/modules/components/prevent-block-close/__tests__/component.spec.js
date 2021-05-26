@@ -10,6 +10,6 @@ describe( 'PreventBlockClose', () => {
 		);
 		const child = component.find( 'span' );
 		expect( child ).toHaveLength( 1 );
-		expect( child.text() ).toEqual( "Test children" );
+		expect( child.text() ).toEqual( 'Test children' );
 	} );
 } );

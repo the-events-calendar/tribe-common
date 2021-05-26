@@ -121,7 +121,7 @@ describe( 'ImageUpload', () => {
 		const component = renderer.create(
 			<ImageUpload
 				image={ image }
-				onSelect={ onSelect}
+				onSelect={ onSelect }
 				onRemove={ onRemove }
 				description="The Next Generation of Digital Agency"
 			/>

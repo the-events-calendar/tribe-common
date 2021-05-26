@@ -63,7 +63,7 @@ export const down = ( elem, id, time = 400, callback = null ) => {
 		const timeDiff = timestamp - startTime;
 		const progress = ease( timeDiff / time );
 		const height = ( progress * ( endHeight - startHeight ) ) + startHeight;
-		elem.style.maxHeight = `${height}px`;
+		elem.style.maxHeight = `${ height }px`;
 
 		if ( timeDiff < time ) {
 			requestIds[ id ].down = window.requestAnimationFrame( step );
@@ -90,7 +90,7 @@ export const up = ( elem, id, time = 400, callback = null ) => {
 	const startHeight = elem.offsetHeight;
 	const endHeight = 0;
 	let startTime = null;
-	elem.style.maxHeight = `${startHeight}px`;
+	elem.style.maxHeight = `${ startHeight }px`;
 
 	checkRequestIds( id );
 	cancelAnimations( id );
@@ -102,7 +102,7 @@ export const up = ( elem, id, time = 400, callback = null ) => {
 		const timeDiff = timestamp - startTime;
 		const progress = ease( timeDiff / time );
 		const height = ( progress * ( endHeight - startHeight ) ) + startHeight;
-		elem.style.maxHeight = `${height}px`;
+		elem.style.maxHeight = `${ height }px`;
 
 		if ( timeDiff < time ) {
 			requestIds[ id ].up = window.requestAnimationFrame( step );

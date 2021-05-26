@@ -105,8 +105,8 @@ describe( 'Tests for time.js', () => {
 
 		// Input validation
 		expect( () => time.fromMilliseconds( null ) ).toThrowErrorMatchingSnapshot();
-		expect( () => time.fromMilliseconds('text') ).toThrowErrorMatchingSnapshot();
-		expect( () => time.fromMilliseconds(0, 'mm:hh:ss') ).toThrowErrorMatchingSnapshot();
+		expect( () => time.fromMilliseconds( 'text' ) ).toThrowErrorMatchingSnapshot();
+		expect( () => time.fromMilliseconds( 0, 'mm:hh:ss' ) ).toThrowErrorMatchingSnapshot();
 	} );
 
 	test( 'fromSeconds() test', () => {
@@ -199,24 +199,24 @@ describe( 'Tests for time.js', () => {
 		 */
 
 		// 930s = 15m 30s
-		expect( time.toSeconds( time.fromSeconds( 930, 'mm:ss' ), 'mm:ss') ).toEqual( 930 );
-		expect( time.toSeconds( time.fromSeconds( 930, 'mm:ss.sss' ), 'mm:ss.sss') ).toEqual( 930 );
-		expect( time.toSeconds( time.fromSeconds( 930, 'hh:mm' ), 'hh:mm') ).toEqual( 930 );
-		expect( time.toSeconds( time.fromSeconds( 930, 'hh:mm:ss' ), 'hh:mm:ss') ).toEqual( 930 );
-		expect( time.toSeconds( time.fromSeconds( 930, 'hh:mm:ss.sss' ), 'hh:mm:ss.sss') ).toEqual( 930 );
+		expect( time.toSeconds( time.fromSeconds( 930, 'mm:ss' ), 'mm:ss' ) ).toEqual( 930 );
+		expect( time.toSeconds( time.fromSeconds( 930, 'mm:ss.sss' ), 'mm:ss.sss' ) ).toEqual( 930 );
+		expect( time.toSeconds( time.fromSeconds( 930, 'hh:mm' ), 'hh:mm' ) ).toEqual( 930 );
+		expect( time.toSeconds( time.fromSeconds( 930, 'hh:mm:ss' ), 'hh:mm:ss' ) ).toEqual( 930 );
+		expect( time.toSeconds( time.fromSeconds( 930, 'hh:mm:ss.sss' ), 'hh:mm:ss.sss' ) ).toEqual( 930 );
 
 		// 4850s = 1h 20m 50s
-		expect( time.toSeconds( time.fromSeconds( 4850, 'mm:ss' ), 'mm:ss') ).toEqual( 4850 );
-		expect( time.toSeconds( time.fromSeconds( 4850, 'mm:ss.sss' ), 'mm:ss.sss') ).toEqual( 4850 );
-		expect( time.toSeconds( time.fromSeconds( 4850, 'hh:mm' ), 'hh:mm') ).toEqual( 4850 );
-		expect( time.toSeconds( time.fromSeconds( 4850, 'hh:mm:ss' ), 'hh:mm:ss') ).toEqual( 4850 );
-		expect( time.toSeconds( time.fromSeconds( 4850, 'hh:mm:ss.sss' ), 'hh:mm:ss.sss') ).toEqual( 4850 );
+		expect( time.toSeconds( time.fromSeconds( 4850, 'mm:ss' ), 'mm:ss' ) ).toEqual( 4850 );
+		expect( time.toSeconds( time.fromSeconds( 4850, 'mm:ss.sss' ), 'mm:ss.sss' ) ).toEqual( 4850 );
+		expect( time.toSeconds( time.fromSeconds( 4850, 'hh:mm' ), 'hh:mm' ) ).toEqual( 4850 );
+		expect( time.toSeconds( time.fromSeconds( 4850, 'hh:mm:ss' ), 'hh:mm:ss' ) ).toEqual( 4850 );
+		expect( time.toSeconds( time.fromSeconds( 4850, 'hh:mm:ss.sss' ), 'hh:mm:ss.sss' ) ).toEqual( 4850 );
 
 		// -300s = -5m
-		expect( time.toSeconds( time.fromSeconds( -300, 'mm:ss' ), 'mm:ss') ).toEqual( -300 );
-		expect( time.toSeconds( time.fromSeconds( -300, 'mm:ss.sss' ), 'mm:ss.sss') ).toEqual( -300 );
-		expect( time.toSeconds( time.fromSeconds( -300, 'hh:mm' ), 'hh:mm') ).toEqual( -300 );
-		expect( time.toSeconds( time.fromSeconds( -300, 'hh:mm:ss' ), 'hh:mm:ss') ).toEqual( -300 );
-		expect( time.toSeconds( time.fromSeconds( -300, 'hh:mm:ss.sss' ), 'hh:mm:ss.sss') ).toEqual( -300 );
+		expect( time.toSeconds( time.fromSeconds( -300, 'mm:ss' ), 'mm:ss' ) ).toEqual( -300 );
+		expect( time.toSeconds( time.fromSeconds( -300, 'mm:ss.sss' ), 'mm:ss.sss' ) ).toEqual( -300 );
+		expect( time.toSeconds( time.fromSeconds( -300, 'hh:mm' ), 'hh:mm' ) ).toEqual( -300 );
+		expect( time.toSeconds( time.fromSeconds( -300, 'hh:mm:ss' ), 'hh:mm:ss' ) ).toEqual( -300 );
+		expect( time.toSeconds( time.fromSeconds( -300, 'hh:mm:ss.sss' ), 'hh:mm:ss.sss' ) ).toEqual( -300 );
 	} );
 } );

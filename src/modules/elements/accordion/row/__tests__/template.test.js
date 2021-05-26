@@ -38,7 +38,7 @@ describe( 'Accordion Row Element', () => {
 		expect( row.onClick ).toHaveBeenCalledTimes( 1 );
 	} );
 
-	it( 'executes onOpen and onClose handlers', async () => {
+	it( 'executes onOpen and onClose handlers', async() => {
 		const component = mount( <Row { ...row } /> );
 		component.find( 'button' ).simulate( 'click' );
 		await setTimeout( () => {

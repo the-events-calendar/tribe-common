@@ -24,7 +24,7 @@ export const roundTime = ( time, format = TIME_FORMAT_MM_SS ) => {
 	const overage = seconds % ( MINUTE_IN_SECONDS * 30 );
 	const roundedSeconds = seconds - overage;
 	return fromSeconds( roundedSeconds, format );
-}
+};
 
 /**
  * The code below is copied from the library hh-mm-ss
@@ -132,10 +132,10 @@ export const toMilliseconds = ( time, format = TIME_FORMAT_MM_SS ) => {
 	}
 
 	return ( negative ? -1 : 1 ) * (
-		hours * HOUR_IN_MS
-		+ minutes * MINUTE_IN_MS
-		+ seconds * SECOND_IN_MS
-		+ miliseconds
+		hours * HOUR_IN_MS +
+		minutes * MINUTE_IN_MS +
+		seconds * SECOND_IN_MS +
+		miliseconds
 	);
 };
 
@@ -200,8 +200,8 @@ export const formatTime = ( time, format ) => {
 	const sss = zeroFill( 3, time.miliseconds );
 
 	return ( time.negative ? '-' : '' ) + ( showHr ? (
-		showMs ? `${hh}:${mm}:${ss}.${sss}` : showSc ? `${hh}:${mm}:${ss}` : `${hh}:${mm}`
+		showMs ? `${ hh }:${ mm }:${ ss }.${ sss }` : showSc ? `${ hh }:${ mm }:${ ss }` : `${ hh }:${ mm }`
 	) : (
-		showMs ? `${mm}:${ss}.${sss}` : `${mm}:${ss}`
+		showMs ? `${ mm }:${ ss }.${ sss }` : `${ mm }:${ ss }`
 	) );
 };

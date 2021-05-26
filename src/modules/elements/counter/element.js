@@ -18,7 +18,8 @@ const Counter = ( {
 	<div className={ classNames(
 		'tribe-editor__counter',
 		className,
-	) }>
+	) }
+	>
 		<span className="tribe-editor__counter__count">
 			{ count }
 		</span>

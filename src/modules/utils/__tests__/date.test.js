@@ -106,13 +106,13 @@ describe( 'Tests for date.js', () => {
 				moment: undefined,
 				text: '',
 				detail: defaultDetail,
-				isValid: false
+				isValid: false,
 			} );
 			expect( toNaturalLanguage( { date: '' } ) ).toEqual( {
 				moment: '',
 				text: '',
 				detail: defaultDetail,
-				isValid: false
+				isValid: false,
 			} );
 		} );
 
@@ -185,5 +185,4 @@ describe( 'Tests for date.js', () => {
 				.toEqual( { start: momentUtil.toDateTime( momentDate ), end: momentUtil.toDateTime( momentDate ) } );
 		} );
 	} );
-
 } );

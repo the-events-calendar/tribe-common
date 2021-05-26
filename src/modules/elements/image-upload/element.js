@@ -68,7 +68,8 @@ const ImageUpload = ( {
 			'tribe-editor__image-upload',
 			hasImageClass,
 			className,
-		) }>
+		) }
+		>
 			{ title && <h3 className="tribe-editor__image-upload__title">{ title }</h3> }
 			<div className="tribe-editor__image-upload__content">
 				{ description && (

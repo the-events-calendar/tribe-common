@@ -11,7 +11,7 @@ describe( '<Placeholder> component', () => {
 
 	test( 'Custom Class name attached', () => {
 		const component = renderer.create(
-			<Placeholder className='custom-class-name'>Custom Text</Placeholder>
+			<Placeholder className="custom-class-name">Custom Text</Placeholder>
 		);
 		expect( component.toJSON() ).toMatchSnapshot();
 	} );

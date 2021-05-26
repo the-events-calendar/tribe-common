@@ -96,7 +96,7 @@ export const roundTime = ( date ) => {
  * @returns {moment} moment Object with the date or current date if is non valid
  */
 export const parseFormats = ( date, formats = [ dateUtil.FORMATS.DATABASE.datetime, dateUtil.FORMATS.WP.datetime ] ) => {
-	for ( let i = 0; i < formats.length; i ++ ) {
+	for ( let i = 0; i < formats.length; i++ ) {
 		const format = formats[ i ];
 		const result = toMoment( date, format );
 		if ( result.isValid() ) {
@@ -254,7 +254,6 @@ export const toDatePicker = ( date = moment(), format = 'YYYY-MM-DDTHH:mm:ss' ) 
  * @returns {boolean} if the start and end dates are the same day
  */
 export const isSameDay = ( start, end ) => {
-
 	if ( ! start || ! end ) {
 		return false;
 	}
@@ -270,7 +269,6 @@ export const isSameDay = ( start, end ) => {
  * @returns {boolean} true if start and end are on the same month
  */
 export const isSameMonth = ( start, end ) => {
-
 	if ( ! start || ! end ) {
 		return false;
 	}

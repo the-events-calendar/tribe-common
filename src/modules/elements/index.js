@@ -33,4 +33,4 @@ export { default as Textarea } from './textarea/element';
  * @todo move this into Editor Module
  */
 
-import './style.pcss'
+import './style.pcss';

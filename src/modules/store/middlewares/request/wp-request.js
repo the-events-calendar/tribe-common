@@ -10,7 +10,7 @@ import 'whatwg-fetch';
 import { rest } from '@moderntribe/common/utils/globals';
 import { types } from '@moderntribe/common/store/middlewares/request';
 
-export default () => ( next ) => async ( action ) => {
+export default () => ( next ) => async( action ) => {
 	if ( action.type !== types.WP_REQUEST ) {
 		return next( action );
 	}

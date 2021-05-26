@@ -125,7 +125,7 @@ describe( 'Tests for proptypes utils', () => {
 		test( 'valid prop types', () => {
 			const props = {
 				name: null,
-			}
+			};
 			const format = jest.fn( () => proptypes.nullType( props, 'name', 'Test Type' ) );
 			format();
 			expect( format ).toHaveReturned();
@@ -135,11 +135,11 @@ describe( 'Tests for proptypes utils', () => {
 		test( 'invalid prop types', () => {
 			const props = {
 				name: 'Modern Tribe',
-			}
+			};
 			const format = jest.fn( () => proptypes.nullType( props, 'name', 'Test Type' ) );
 			format();
 			expect( format ).toHaveReturned();
-			expect( format ).toHaveReturnedWith( Error( 'Invalid prop: `name` supplied to `Test Type`, expect null.') );
+			expect( format ).toHaveReturnedWith( Error( 'Invalid prop: `name` supplied to `Test Type`, expect null.' ) );
 		} );
 	} );
 } );
