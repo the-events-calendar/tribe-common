@@ -188,7 +188,7 @@ abstract class Tribe__Customizer__Section {
 	 * Note: this depends on a default value being set -
 	 *       if the setting value is empty OR the default value it's not displayed.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param string $setting The setting slug, like 'grid_lines_color'.
 	 * @param int $section_id The ID for the section - defaults to the current one if not set.
@@ -213,7 +213,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Function to simplify getting an option value.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param string $setting The setting slug, like 'grid_lines_color'.
 	 *
@@ -271,7 +271,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Set up default values.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 */
 	public function setup_defaults() {}
 
@@ -287,7 +287,7 @@ abstract class Tribe__Customizer__Section {
 		/**
 		 * Allows filtering the default values for all sections.
 		 *
-		 * @since TBD
+		 * @since 4.13.3
 		 *
 		 * @param array                      $settings The default settings
 		 * @param Tribe__Customizer__Section $section The section object.
@@ -297,7 +297,7 @@ abstract class Tribe__Customizer__Section {
 		/**
 		 * Allows filtering the default values for a specific section.
 		 *
-		 * @since TBD
+		 * @since 4.13.3
 		 *
 		 * @param array                      $settings The default settings
 		 * @param Tribe__Customizer__Section $section The section object.
@@ -354,7 +354,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Set up section arguments.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @return void
 	 */
@@ -363,7 +363,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Sets up the Customizer section content.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 */
 	public function setup_content_arguments(){
 		$this->setup_content_headings();
@@ -431,7 +431,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Sets up the Customizer section Header and Separator arguments.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 */
 	public function setup_content_headings() {}
 
@@ -439,7 +439,7 @@ abstract class Tribe__Customizer__Section {
 	 * Get the (filtered) content headings and separator arguments.
 	 * @see filter_content_headings()
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @return array<string,mixed> The filtered arguments.
 	 */
@@ -450,7 +450,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Filter the content headings arguments
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param array<string,mixed> $arguments The list of arguments for headings and separators.
 	 *
@@ -460,7 +460,7 @@ abstract class Tribe__Customizer__Section {
 		/**
 		 * Applies a filter to the validation map for instance arguments.
 		 *
-		 * @since TBD
+		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
 		 * @param static				 $instance  The widget instance we are dealing with.
@@ -472,7 +472,7 @@ abstract class Tribe__Customizer__Section {
 		/**
 		 * Applies a filter to the validation map for instance arguments for a specific widget. Based on the widget slug of the widget
 		 *
-		 * @since TBD
+		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
 		 * @param static				 $instance  The widget instance we are dealing with.
@@ -486,7 +486,7 @@ abstract class Tribe__Customizer__Section {
 	 * Sugar syntax to add heading and separator sections to the customizer content.
 	 * These are controls only in name: they do not actually control or save any setting.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param WP_Customize_Manager $manager   The instance of the Customizer Manager.
 	 * @param string			   $name	  HTML name Attribute name of the setting.
@@ -502,7 +502,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Sets up the Customizer settings arguments.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 */
 	public function setup_content_settings() {}
 
@@ -510,7 +510,7 @@ abstract class Tribe__Customizer__Section {
 	 * Get the (filtered) content setting arguments.
 	 * @see filter_content_settings()
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @return array<string,mixed> The filtered arguments.
 	 */
@@ -521,7 +521,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Filter the content settings arguments
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param array<string,mixed> $arguments The list of arguments for settings.
 	 *
@@ -531,7 +531,7 @@ abstract class Tribe__Customizer__Section {
 		/**
 		 * Applies a filter to the validation map for instance arguments.
 		 *
-		 * @since TBD
+		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
 		 * @param static				 $instance  The widget instance we are dealing with.
@@ -543,7 +543,7 @@ abstract class Tribe__Customizer__Section {
 		/**
 		 * Applies a filter to the validation map for instance arguments for a specific widget. Based on the widget slug of the widget
 		 *
-		 * @since TBD
+		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
 		 * @param static				 $instance  The widget instance we are dealing with.
@@ -556,7 +556,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Sugar syntax to add a setting to the customizer content.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param WP_Customize_Manager $manager	  The instance of the Customizer Manager.
 	 * @param string			   $setting_name HTML name Attribute name of the setting.
@@ -582,7 +582,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Sets up the Customizer controls arguments.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 */
 	public function setup_content_controls() {}
 
@@ -590,7 +590,7 @@ abstract class Tribe__Customizer__Section {
 	 * Get a list (array) of accepted control types.
 	 * In the format slug => control class name.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @return array<string,string> The array of control types and their associated classes.
 	 */
@@ -611,7 +611,7 @@ abstract class Tribe__Customizer__Section {
 		/**
 		 * Allows filtering the accepted control types.
 		 *
-		 * @since TBD
+		 * @since 4.13.3
 		 *
 		 * @param array<string,string> $control_types The map of keys to WP Control classes.
 		 */
@@ -621,7 +621,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Determine if a control type is in our list of accepted ones.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param string $type The "slug" of the control type.
 	 *
@@ -648,7 +648,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Gets the class object associated with a control type.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param string $type The "slug" of the control type.
 	 *
@@ -672,7 +672,7 @@ abstract class Tribe__Customizer__Section {
 	 * Get the (filtered) content control arguments.
 	 * @see filter_content_controls()
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @return array<string,mixed> The filtered arguments.
 	 */
@@ -683,7 +683,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Filter the content control arguments
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param array<string,mixed> $arguments The list of arguments for controls.
 	 *
@@ -693,7 +693,7 @@ abstract class Tribe__Customizer__Section {
 		/**
 		 * Applies a filter to the validation map for instance arguments.
 		 *
-		 * @since TBD
+		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
 		 * @param static				 $instance  The widget instance we are dealing with.
@@ -705,7 +705,7 @@ abstract class Tribe__Customizer__Section {
 		/**
 		 * Applies a filter to the validation map for instance arguments for a specific widget. Based on the widget slug of the widget
 		 *
-		 * @since TBD
+		 * @since 4.13.3
 		 *
 		 * @param array<string,callable> $arguments Current set of callbacks for arguments.
 		 * @param static				 $instance  The widget instance we are dealing with.
@@ -718,7 +718,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Sugar syntax to add a control to the customizer content.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param WP_Customize_Manager $manager	  The instance of the Customizer Manager.
 	 * @param string			   $setting_name HTML name Attribute name of the setting.
