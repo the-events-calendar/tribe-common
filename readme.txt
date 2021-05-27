@@ -2,6 +2,7 @@
 
 = [4.13.4] TBD =
 
+* Tweak - When using The Events Calendar and Event Tickets split the admin footer rating link 50/50. [ET-1120]
 
 = [4.13.3] 2021-05-27 =
 
