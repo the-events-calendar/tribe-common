@@ -16,8 +16,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function register() {
-		tribe_singleton( 'onboarding.tour', '\Tribe\Onboarding\Tour' );
-		tribe_singleton( 'onboarding.hints', '\Tribe\Onboarding\Hints' );
+		tribe_singleton( 'onboarding', '\Tribe\Onboarding\Main' );
 
 		$this->hooks();
 	}
@@ -30,8 +29,8 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	private function hooks() {
 		add_action( 'tribe_common_loaded', [ $this, 'register_assets' ] );
 
-		add_action( 'admin_enqueue_scripts', tribe_callback( 'onboarding.tour', 'localize' ) );
-		add_action( 'admin_enqueue_scripts', tribe_callback( 'onboarding.hints', 'localize' ) );
+		add_action( 'admin_enqueue_scripts', tribe_callback( 'onboarding', 'localize_tour' ) );
+		add_action( 'admin_enqueue_scripts', tribe_callback( 'onboarding', 'localize_hints' ) );
 	}
 
 	/**
@@ -102,11 +101,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	}
 
 	public function should_enqueue_assets() {
-		$is_enabled = $this->is_enabled();
-		$tour_data  = tribe( 'onboarding.tour' )->data();
-		$hints_data = tribe( 'onboarding.hints' )->data();
-
-		return $is_enabled && ( ! empty( $tour_data ) || ! empty( $hints_data ) );
+		return $this->is_enabled();
 	}
 
 	/**
