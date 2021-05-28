@@ -540,7 +540,7 @@ class Tribe__Cache implements ArrayAccess {
 	/**
 	 * Returns a transient that might have been stored, due ot its size, in chunks.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param string               $id                 The name of the transients to return.
 	 * @param string|array<string> $expiration_trigger The transient expiration trigger(s).
@@ -575,7 +575,7 @@ class Tribe__Cache implements ArrayAccess {
 				// Something was messed up.
 				return false;
 			}
-			
+
 			return true;
 		} catch ( Exception $e ) {
 			return false;
@@ -589,7 +589,7 @@ class Tribe__Cache implements ArrayAccess {
 	 * The method will redirect to the `set_transient` function if the site is using object caching.
 	 *
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @param string               $id                 The transient ID.
 	 * @param mixed                $value              The value to store, that could be chunked.

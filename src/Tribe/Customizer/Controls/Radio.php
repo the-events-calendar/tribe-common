@@ -2,7 +2,7 @@
 /**
  * Models a Customizer radio.
  *
- * @since   TBD
+ * @since   4.13.3
  *
  * @package Tribe\Customizer\Controls
  */
@@ -14,7 +14,7 @@ use Tribe\Customizer\Control;
 /**
  * Class Heading
  *
- * @since   TBD
+ * @since   4.13.3
  *
  * @package Tribe\Customizer\Controls
  */
@@ -22,7 +22,7 @@ class Radio extends Control {
 	/**
 	 * Anyone able to set theme options will be able to see the header.
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 *
 	 * @var string
 	 */
@@ -31,7 +31,7 @@ class Radio extends Control {
 	/**
 	 * Render the control's content
 	 *
-	 * @since TBD
+	 * @since 4.13.3
 	 */
 	public function render_content() {
 		if ( empty( $this->choices ) ) {
