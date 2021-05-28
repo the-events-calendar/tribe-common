@@ -809,8 +809,8 @@ final class Tribe__Customizer {
 	 *
 	 * @since  4.0
 	 *
-	 * @param  string $slug    The actual Setting name
-	 * @param  string|WP_Customize_Section $section [description]
+	 * @param  string $slug                         The actual Setting name
+	 * @param  string|WP_Customize_Section $section The section the setting lives in.
 	 *
 	 * @return string          HTML name Attribute name of the setting.
 	 */
@@ -835,9 +835,9 @@ final class Tribe__Customizer {
 	 *
 	 * @since  4.2
 	 *
-	 * @param  string $name    The actual Setting name
+	 * @param  string $name The actual Setting name
 	 *
-	 * @return array           The list of existing Settings, the new one included
+	 * @return array The list of existing Settings, the new one included
 	 */
 	public function add_setting_name( $name ) {
 		$this->settings[] = $name;
@@ -849,8 +849,8 @@ final class Tribe__Customizer {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $section    The section "slug" to link into.
-	 * @param string $setting    The setting "slug" to link to.
+	 * @param string $section The section "slug" to link into.
+	 * @param string $setting The setting "slug" to link to.
 	 *
 	 * @return string The URL to the setting.
 	 *                An empty string is returned if a parameter is missing or the setting control cannot be found.
@@ -877,8 +877,8 @@ final class Tribe__Customizer {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $section    The section "slug" to link into.
-	 * @param string $setting    The setting "slug" to link to.
+	 * @param string $section   The section "slug" to link into.
+	 * @param string $setting   The setting "slug" to link to.
 	 * @param string $link_text The translated text for the link.
 	 *
 	 * @return string The HTML anchor element, linking to the TEC Customizer setting.
