@@ -25,6 +25,7 @@ abstract class Tour_Abstract {
 	 * @return bool True if it is on page.
 	 */
 	public function is_on_page() {
+		// @todo: check if we want to abstract this or do something different.
 		return true;
 	}
 
@@ -37,6 +38,8 @@ abstract class Tour_Abstract {
 		if ( ! $this->is_on_page() ) {
 			return false;
 		}
+
+		// @todo: Check if we can implement a way to save how many times it was seen/displayed and use that as a bool.
 
 		return true;
 	}

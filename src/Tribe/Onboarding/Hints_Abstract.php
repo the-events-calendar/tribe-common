@@ -25,6 +25,7 @@ abstract class Hints_Abstract {
 	 * @return bool True if it is on page.
 	 */
 	public function is_on_page() {
+		// @todo: check if we want to abstract this or do something different.
 		return true;
 	}
 
@@ -38,7 +39,9 @@ abstract class Hints_Abstract {
 			return false;
 		}
 
-		return true;
+		// @todo: check if we can implement a way to save how many times it was seen/displayed and use that as a bool.
+
+		return $this->is_on_page();
 	}
 
 	/**
