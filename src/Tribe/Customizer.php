@@ -867,7 +867,7 @@ final class Tribe__Customizer {
 			return '';
 		}
 
-		$query['autofocus[control]'] = 'tribe_customizer' . $control;
+		$query['autofocus[control]'] = $control;
 
 		return add_query_arg( $query, admin_url( 'customize.php' ) );
 	}
