@@ -564,7 +564,7 @@ class Tribe__Cache implements ArrayAccess {
 		} while ( ! empty( $chunk ) );
 
 		// Remove any piece of data that was added but is not relevant.
-		$chunks = array_filter($chunks);
+		$chunks = array_filter( $chunks );
 
 		if ( empty( $chunks ) ) {
 			return false;
