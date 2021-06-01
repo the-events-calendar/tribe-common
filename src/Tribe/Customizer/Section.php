@@ -228,7 +228,7 @@ abstract class Tribe__Customizer__Section {
 	 * @return boolean If the setting should be added to the style template.
 	 */
 	public function should_include_setting_css( $setting, $section_id = null ) {
-		if ( empty( $setting ) ) {
+		if ( empty( $setting ) || ! is_string( $setting ) ) {
 			return false;
 		}
 
@@ -239,7 +239,12 @@ abstract class Tribe__Customizer__Section {
 		$setting_value = tribe( 'customizer' )->get_option( [ $section_id, $setting ] );
 		$section       = tribe( 'customizer' )->get_section( $section_id );
 
-		return ! empty( $setting_value ) && $section->get_default(  $setting ) !== $setting_value;
+		// Something has gone wrong and we can't get the section.
+		if ( false === $section ) {
+			return;
+		}
+
+		return ! empty( $setting_value ) && $section->get_default( $setting ) !== $setting_value;
 	}
 
 	/**
