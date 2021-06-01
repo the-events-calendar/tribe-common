@@ -10,11 +10,16 @@
  *
  * @version 4.12.18
  *
- * @var string $label      Label for the dropdown.
- * @var string $value      Value for the dropdown.
- * @var string $id         ID of the dropdown.
- * @var string $name       Name attribute for the dropdown.
- * @var string $dependency The dependency attributes for the control wrapper.
+ * @var string                      $label      Label for the dropdown.
+ * @var string                      $value      Value for the dropdown.
+ * @var string                      $id         ID of the dropdown.
+ * @var string                      $name       Name attribute for the dropdown.
+ * @var string                      $dependency The dependency attributes for the control wrapper.
+ * @var array<array<string,string>> $options    An array of options in the format
+ *                                              [
+ *                                                  'value => string|int,
+ *                                                  'text' => string
+ *                                              ]
  */
 
 ?>

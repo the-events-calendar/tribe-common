@@ -16,14 +16,38 @@ class Tribe__Languages__Locations {
 	 *
 	 * Adds array to object cache to speed up subsequent retrievals.
 	 *
+	 * @since 4.13.0 add $escape param.
+	 *
+	 * @param bool $escape Weather to escape for translations or not.
+	 *
 	 * @return array {
 	 *      List of countries
 	 *
 	 *      @type string $country_code Country name.
 	 * }
 	 */
-	public function get_countries() {
-		return tribe( 'cache' )->get( 'tribe_country_list', '', [ $this, 'build_country_array' ] );
+	public function get_countries( $escape = false ) {
+		/**
+		 * @var Tribe__Cache $cache
+		 */
+		$cache     = tribe( 'cache' );
+		$cache_key = 'tribe_country_list' . ( $escape ? '-escaped' : '' );
+		$countries = $cache->get( $cache_key , '', null );
+
+		if ( null === $countries ) {
+			$countries = $this->build_country_array();
+
+			if ( $escape ) {
+				$countries = array_map( static function( $country ) {
+					return html_entity_decode( $country, ENT_QUOTES );
+				}, $countries );
+			}
+
+			// Actually set the cache in case it's not in place.
+			$cache->set( $cache_key, $countries );
+		}
+
+		return $countries;
 	}
 
 	/**

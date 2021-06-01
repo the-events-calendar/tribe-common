@@ -472,7 +472,9 @@ class Tribe__Context {
 			 *
 			 * @since 4.10.2
 			 *
-			 * @param  array  $locations  An array of locations registered on the Context object.
+			 * @param $locations array           An array of read and write location in the shape of the `Tribe__Context::$locations` one,
+			 *                                   `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+			 * @param $context   Tribe__Context  Current instance of the context.
 			 */
 			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
 		}
@@ -1318,6 +1320,22 @@ class Tribe__Context {
 		static::$locations = apply_filters( 'tribe_context_locations', static::$locations, $this );
 
 		static::$did_populate_locations = true;
+	}
+
+	/**
+	 * Just dont...
+	 * Unless you very specifically know what you are doing **DO NOT USE THIS METHOD**!
+	 *
+	 * Please keep in mind this will set force the context to repopulate all locations for the whole request, expensive
+	 * and very dangerous overall since it could affect all this things we hold dear in the request.
+	 *
+	 * With great power comes great responsibility: think a lot before using this.
+	 *
+	 * @since 4.13.0
+	 */
+	public function dangerously_repopulate_locations() {
+		static::$did_populate_locations = false;
+		$this->populate_locations();
 	}
 
 	/**

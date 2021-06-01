@@ -18,7 +18,7 @@ class Tribe__Debug_Bar__Panels__Json_Ld extends Debug_Bar_Panel {
 	 * @return string The panel title
 	 */
 	public function title( $title = null ) {
-		return __( 'Modern Tribe JSON-LD Data', 'tribe-common' );
+		return __( 'The Events Calendar JSON-LD Data', 'tribe-common' );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Tribe__Debug_Bar__Panels__Json_Ld extends Debug_Bar_Panel {
 			</style>';
 		$html .= '<div id="mt-debug-bar" class="mt-debug-bar-json-ld">';
 
-		$html .= '<header class="mt-debug-bar-title"><h2>' . esc_html__( 'Modern Tribe JSON-LD Data',
+		$html .= '<header class="mt-debug-bar-title"><h2>' . esc_html__( 'The Events Calendar JSON-LD Data',
 				'tribe-common' ) . '</h2></header>';
 
 

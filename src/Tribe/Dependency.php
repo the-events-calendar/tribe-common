@@ -362,7 +362,7 @@ if ( ! class_exists( 'Tribe__Dependency' ) ) {
 				return false;
 			}
 
-			// If class doesnt exist the plugin doesnt exist.
+			// If class doesn't exist the plugin doesn't exist.
 			if ( ! class_exists( $class ) ) {
 				return false;
 			}
