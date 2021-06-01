@@ -1,10 +1,17 @@
-=== Tribe Common ===
-
 == Changelog ==
 
 = [TBD] TBD =
 
 * Tweak - Add central compatibility functionality. A step in the move from using body classes to container classes.
+
+= [4.13.3] 2021-05-27 =
+
+* Feature - Create new functionality in Tribe__Customizer__Section to allow for simpler craetion of controls and sections. [TEC-3836]
+* Feature - Added the `set_chunkable_transient` and `get_chunkable_transient` functions to the Cache class, see doc-blocks. [TEC-3627]
+* Fix - Compatibility with Avada themes and third party plugins or themes loading `selectWoo` at the same time. [ECP-737]
+* Tweak - Adjust the actions used to register and load the styles for the tooltip component [TEC-3796]
+* Tweak - Update lodash to 4.17.21. [TEC-3885]
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.13.2] 2021-04-29 =
 
