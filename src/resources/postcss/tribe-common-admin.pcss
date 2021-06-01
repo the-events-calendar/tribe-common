@@ -2024,6 +2024,86 @@ body.tribe_events_page_tribe-help {
 	}
 }
 
+.tribe-events-admin-card-grid--info-cards {
+
+	background-color:pink;
+
+	.tribe-events-admin-card--3up {
+		display: inline-block;
+		height: 354px;
+		padding: 0;
+		vertical-align: top;
+
+		@media screen and (min-width: 710px) {
+			width: calc(50% - 18px);
+		}
+
+		@media screen and (min-width: 1217px) {
+			width: 314px;
+		}
+	}
+
+	.tribe-events-admin-card__image {
+		height: 140px;
+		width: 312px;
+	}
+
+	.tribe-events-admin-card__title {
+		text-align: left;
+		margin-left: 48px;
+		font-size: 20px;
+		line-height: 23px;
+	}
+
+	.tribe-events-admin-card__link-list {
+		text-align: left;
+		margin: 13px 0 28px 48px;
+		padding-right: 1em;
+
+		a {
+			color: #334AFF;
+			font-size: 14px;
+			line-height: 26px;
+			text-decoration: none;
+		}
+	}
+}
+
+
+
+.tribe-events-admin-card--faq {
+	height: 147px;
+	width: 230px;
+	display: inline-block;
+	margin: 0 0 0 30px;
+	padding: 24px 16px 22px 20px;
+	font-size: 0; /* fix an inline-block spacing bug */
+	&:first-child {
+		margin-left: 0;
+	}
+
+	img {
+		float: left;
+		height: 22px;
+		width: 16px;
+	}
+
+	.tribe-events-admin-faq__question {
+		margin: 0 0 12px 26px;
+		text-align: left;
+		font-size: 16px;
+		line-height: 19px;
+		color: #334AFF;
+	}
+
+	.tribe-events-admin-faq__answer {
+		text-align: left;
+		margin-left: 26px;
+		font-size: 13px;
+		line-height: 16px;
+	}
+}
+
 .tribe-events-admin-video {
 	-webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
 	-webkit-transform: rotate(0.000001deg);
@@ -2447,6 +2527,16 @@ input[type="email"].tribe-events-admin-card__input {
 	display: inline-block;
 }
 
+.tribe-events-admin-more-info-link {
+	color: #334AFF;
+	float: right;
+	font-size: 14px;
+	line-height: 16px;
+	position: relative;
+	text-align: right;
+	top: -46px;
+}
+
 /* -- Event Tickets tweaks for welcome screen -- */
 .tribe-events-admin-tickets {
 
@@ -2498,12 +2588,19 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 /* -- Help page overrides -- */
-
-/* these styles are reused from App Shop */
-
-
-/* these styles are reused from Welcome */
+/*
+TODO:
+- fix right side alignment
+*/
 .tribe_events_page_tribe-help {
+
+	.tribe-events-admin-card-grid {
+		font-size: 0; /* fix an inline-block spacing bug */
+		@media screen and (min-width: 1217px) {
+			max-width: 1060px;
+			width: 1060px;
+		}
+	}
 
 	#tec-help-ticketing,
 	#tec-help-community {

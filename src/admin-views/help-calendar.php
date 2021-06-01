@@ -66,8 +66,11 @@ $extensions = apply_filters( 'tec-help-calendar-extensions', [
 	<?php // list of products ?>
 	<div class="tribe-events-admin-card-grid">
 
+		<?php $i = 0; ?>
 		<?php foreach ( $calendar_products as $slug ) : ?>
-			<div class="tribe-events-admin-card tribe-events-admin-card--product tribe-events-admin-card--2up">
+			<?php $i++; ?>
+
+			<div class="tribe-events-admin-card tribe-events-admin-card--product tribe-events-admin-card--2up tribe-events-admin-card--<?php echo $i%2 ? 'first' : 'second';?>">
 				<img
 					class="tribe-events-admin-card__icon"
 					src="<?php echo esc_url( tribe_resource_url( $products[ $slug ]['logo'], false, null, $main ) ); ?>"
@@ -89,42 +92,42 @@ $extensions = apply_filters( 'tec-help-calendar-extensions', [
 	<h3 class="tribe-events-admin-section-header"><?php esc_html_e( 'Start Here', 'tribe-common' ); ?></h3>
 	<a class="tribe-events-admin-more-info-link" href="https://event.is/kb-help"><?php esc_html_e( 'Visit Knowledgebase', 'tribe-common' ); ?></a>
 
-	<div class="tribe-events-admin-card-grid">
-		<div class="tribe-events-admin-card">
+	<div class="tribe-events-admin-card-grid tribe-events-admin-card-grid--info-cards">
+		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--first">
 			<img
 				class="tribe-events-admin-card__image"
 				src="<?php echo esc_url( tribe_resource_url( 'images/help/getting-started.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events Calendar logo', 'tribe-common' ); ?>"
 			/>
 			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Getting Started Guides', 'tribe-common' ); ?></div>
-			<ul>
+			<ul class="tribe-events-admin-card__link-list">
 				<li><a href="https://evnt.is/guide-tec" target="_blank"><?php esc_html_e( 'The Events Calendar', 'tribe-common' ); ?></a></li>
 				<li><a href="https://evnt.is/guide-ea" target="_blank"><?php esc_html_e( 'Event Aggregator', 'tribe-common' ); ?></a></li>
 				<li><a href="https://evnt.is/guide-fb" target="_blank"><?php esc_html_e( 'Filter Bar', 'tribe-common' ); ?></a></li>
 				<li><a href="https://evnt.is/guide-ve" target="_blank"><?php esc_html_e( 'Virtual Events', 'tribe-common' ); ?></a></li>
 			</ul>
 		</div>
-		<div class="tribe-events-admin-card">
+		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--middle">
 			<img
 				class="tribe-events-admin-card__image"
 				src="<?php echo esc_url( tribe_resource_url( 'images/help/customizing.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events Calendar logo', 'tribe-common' ); ?>"
 			/>
 			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Customizing', 'tribe-common' ); ?></div>
-			<ul>
+			<ul class="tribe-events-admin-card__link-list">
 				<li><a href="https://evnt.is/guide-tec" target="_blank"><?php esc_html_e( 'Getting started with customizations', 'tribe-common' ); ?></a></li>
 				<li><a href="https://evnt.is/guide-ea" target="_blank"><?php esc_html_e( 'Highlighting events', 'tribe-common' ); ?></a></li>
 				<li><a href="https://evnt.is/guide-fb" target="_blank"><?php esc_html_e( 'Another link', 'tribe-common' ); ?></a></li>
 			</ul>
 		</div>
-		<div class="tribe-events-admin-card">
+		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--last">
 			<img
 				class="tribe-events-admin-card__image"
 				src="<?php echo esc_url( tribe_resource_url( 'images/help/common-issues.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events Calendar logo', 'tribe-common' ); ?>"
 			/>
 			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Common Issues', 'tribe-common' ); ?></div>
-			<ul>
+			<ul class="tribe-events-admin-card__link-list">
 				<li><a href="https://evnt.is/guide-tec" target="_blank"><?php esc_html_e( 'Known Issues', 'tribe-common' ); ?></a></li>
 				<li><a href="https://evnt.is/guide-ea" target="_blank"><?php esc_html_e( 'Release notes', 'tribe-common' ); ?></a></li>
 				<li><a href="https://evnt.is/guide-fb" target="_blank"><?php esc_html_e( 'Integrations', 'tribe-common' ); ?></a></li>
@@ -138,14 +141,14 @@ $extensions = apply_filters( 'tec-help-calendar-extensions', [
 
 	<div class="tribe-events-admin-card-grid">
 		<?php foreach ( $faqs as $faq ) : ?>
-			<div class="">
+			<div class="tribe-events-admin-card tribe-events-admin-card--faq">
 				<img
 					class="tribe-events-admin-card__image"
-					src="<?php echo esc_url( tribe_resource_url( 'images/icon/faq.svg', false, null, $main ) ); ?>"
+					src="<?php echo esc_url( tribe_resource_url( 'images/icons/faq.png', false, null, $main ) ); ?>"
 					alt="<?php esc_attr_e( 'lightbulb icon', 'tribe-common' ); ?>"
 				/>
-				<div class="tribe-events-admin-faq__question"><?php esc_html( $faq['question'] ); ?></div>
-				<div class="tribe-events-admin-faq__answer"><?php esc_html( $faq['answer'] ); ?></div>
+				<div class="tribe-events-admin-faq__question"><?php echo esc_html( $faq['question'] ); ?></div>
+				<div class="tribe-events-admin-faq__answer"><?php echo esc_html( $faq['answer'] ); ?></div>
 			</div>
 		<?php endforeach; ?>
 	</div>
@@ -156,10 +159,10 @@ $extensions = apply_filters( 'tec-help-calendar-extensions', [
 
 	<div class="tribe-events-admin-card-grid">
 		<?php foreach ( $extensions as $extension ) : ?>
-			<div class="">
-				<div class="tribe-events-admin-simple-card__title"><?php esc_html( $extension['title'] ); ?></div>
-				<div class="tribe-events-admin-simple-card__description"><?php esc_html( $extension['description'] ); ?></div>
-				<div class="tribe-events-admin-simple-card__description"><?php esc_html( $products[ $extension['product'] ]['title'] ); ?></div>
+			<div class="tribe-events-admin-card tribe-events-admin-card--top-stripe">
+				<div class="tribe-events-admin-simple-card__title"><?php echo esc_html( $extension['title'] ); ?></div>
+				<div class="tribe-events-admin-simple-card__description"><?php echo esc_html( $extension['description'] ); ?></div>
+				<div class="tribe-events-admin-simple-card__description"><?php echo esc_html( $products[ $extension['product'] ]['title'] ); ?></div>
 			</div>
 		<?php endforeach; ?>
 	</div>
