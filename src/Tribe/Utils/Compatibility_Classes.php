@@ -296,9 +296,9 @@ class Compatibility_Classes {
 			return $classes;
 		}
 
-		$element_classes = new Element_Classes( $this->get_class_names( 'admin' ) );
+		$element_classes = new Element_Classes( array_merge( $existing_classes, $this->get_class_names( 'admin' ) ) );
 
-		return implode( ' ', array_merge( $existing_classes, $element_classes->get_classes() ) );
+		return $element_classes->get_classes_as_string();
 
 	}
 
