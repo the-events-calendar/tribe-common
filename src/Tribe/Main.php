@@ -261,6 +261,15 @@ class Tribe__Main {
 			]
 		);
 
+		// Register the asset for Customizer controls.
+		tribe_asset(
+			$this,
+			'tribe-customizer-controls',
+			'customizer-controls.css',
+			[],
+			'customize_controls_print_styles'
+		);
+
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
 	}
 
