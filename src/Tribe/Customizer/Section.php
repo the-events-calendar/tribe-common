@@ -4,7 +4,9 @@ defined( 'WPINC' ) or die;
 
 use Tribe\Customizer\Controls\Heading;
 use Tribe\Customizer\Controls\Radio;
+use Tribe\Customizer\Controls\Range_Slider;
 use Tribe\Customizer\Controls\Separator;
+use Tribe\Customizer\Controls\Toggle;
 
 /**
  * The Events Calendar Customizer Section Abstract.
@@ -655,7 +657,11 @@ abstract class Tribe__Customizer__Section {
 			'radio'		     => Radio::class,
 			'select'		 => WP_Customize_Control::class,
 			'separator'	     => Separator::class,
+			'text'	         => WP_Customize_Control::class,
 			'textarea'	     => WP_Customize_Control::class,
+			'number'	     => WP_Customize_Control::class,
+			'range-slider'   => Range_Slider::class,
+			'toggle'         => Toggle::class,
 		];
 
 		/**
