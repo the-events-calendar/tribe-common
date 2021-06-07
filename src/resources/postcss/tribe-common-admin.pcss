@@ -1798,25 +1798,6 @@ body.tribe_events_page_tribe-help {
 	}
 }
 
-
-.tribe-events-admin-header {
- 	padding: 45px 0 0 130px;
-	border-bottom: 1px solid rgba(225, 225, 228, 0.5);
-	background-image: url("../images/help/help-hero-header.png");
-	background-position: top right;
-	background-repeat: no-repeat;
-	background-size: contain;
-}
-
-.tribe-events-admin-header__content-wrapper {
-	margin: 0 auto;
-
-	@media screen and (min-width: 710px) {
-	}
-	@media screen and (min-width: 1217px) {
-	}
-}
-
 .tribe-events-admin-header__logo-word-mark {
 	display: inline-block;
 	height: 57px;
@@ -1829,96 +1810,152 @@ body.tribe_events_page_tribe-help {
 	}
 }
 
-.tribe-events-admin-header__title {
-	font-size: 48px;
-	line-height: 48px;
-	margin: 0 0 18px 0;
-}
 
-.tribe-events-admin-header__description {
-	font-size: 18px;
-	line-height: 28px;
-	margin-bottom: 44px;
-	max-width: 527px;
-}
+.tribe-events-admin {
+	/* content wrapper */
+	&-content-wrapper {
+		font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+		padding: 30px 130px;
+		margin: 0 auto;
+	}
 
-.tribe-events-admin-tab-nav {
-	border-bottom: 1px solid #E1E1E4;
-	display: block;
-	margin: 0 auto;
-	overflow: scroll;
-	text-align: left;
-	white-space: nowrap;
+	/* header section */
+	&-header {
+		padding: 45px 0 0 130px;
+		border-bottom: 1px solid rgba(225, 225, 228, 0.5);
+		background-image: url("../images/help/help-hero-header.png");
+		background-position: top right;
+		background-repeat: no-repeat;
+		background-size: contain;
 
-	@media screen and (min-width: 710px) {
-		border-bottom: none;
+		&__title {
+			font-size: 48px;
+			line-height: 48px;
+			margin: 0 0 18px 0;
+		}
+
+		&__description {
+			font-size: 18px;
+			line-height: 28px;
+			margin-bottom: 44px;
+			max-width: 527px;
+		}
+	}
+	
+	/* tab section */
+	&-tab-nav {
+		border-bottom: 1px solid #E1E1E4;
 		display: block;
-		overflow: auto;
-	}
-}
+		margin: 0 auto;
+		overflow: scroll;
+		text-align: left;
+		white-space: nowrap;
 
-.tribe-events-admin-tab-nav__link-item {
-	cursor: pointer;
-	display: inline-block;
-	font-size: 16px;
-	font-weight: 500;
-	line-height: 20px;
-	margin: 0 18px 0 0;
-	padding: 0 0 10px 0;
-	position: relative;
-	text-align: center;
+		@media screen and (min-width: 710px) {
+			border-bottom: none;
+			display: block;
+			overflow: auto;
+		}
 
-	@media screen and (min-width: 710px) {
-		padding: 0 0 20px 0;
-	}
+		&__link-item {
+			cursor: pointer;
+			display: inline-block;
+			font-size: 16px;
+			font-weight: 500;
+			line-height: 20px;
+			margin: 0 18px 0 0;
+			padding: 0 0 10px 0;
+			position: relative;
+			text-align: center;
 
-	&:hover {
-		color: #161B7D;
-	}
-}
+			@media screen and (min-width: 710px) {
+				padding: 0 0 20px 0;
+			}
 
-.tribe-events-admin-tab-nav__link-item--selected {
-	color: #334aff;
+			&:hover {
+				color: #161B7D;
+			}
+			
+			&--selected {
+				color: #334aff;
 
-	&:after {
-		background: #334AFF;
-		border-radius: 100px;
-		bottom: 0;
-		content: '';
-		display: block;
-		height: 3px;
-		left: 0;
-		position: absolute;
-		right: 0;
-	}
-}
-
-.tribe-events-admin-content-wrapper {
-	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-	font-style: normal;
-	margin: 0 auto;
-	padding: 20px;
-	width: calc( 100% - 40px );
-
-	@media screen and (min-width: 710px) {
-		width: 670px;
+				&:after {
+					background: #334AFF;
+					border-radius: 100px;
+					bottom: 0;
+					content: '';
+					display: block;
+					height: 3px;
+					left: 0;
+					position: absolute;
+					right: 0;
+				}
+			}
+		}
 	}
 
-	@media screen and (min-width: 1217px) {
-		width: 100%;
-		max-width: 1060px;
+	&-description {
+		font-size: 14px;
+		line-height: 2;
+		color: #0f1031;
 	}
-}
 
-.tribe-events-admin-card {
-	background: #FFFFFF;
-	border: 1px solid #E1E1E4;
-	box-sizing: border-box;
-	border-radius: 16px;
-	display: block;
-	margin: 0 auto 36px auto;
-	padding: 27px;
-	text-align: center;
+	/* single products card */
+	&-card {
+		display: flex;
+		align-items: center;
+		padding: 18px 15px;
+		border: 1px solid #e1e1e4;
+		border-radius: 20px;
+		
+		&__icon {
+			height: 40px;
+			width: 40px;
+			object-fit: contain;
+		}
+
+		&__group {
+			max-width: 60%;
+			margin: 0 20px;
+
+			&-title {
+				font-size: 16px;
+				font-weight: bold;
+				line-height: 1;
+				color: #0f1031;
+			}
+
+			&-description {
+				font-size: 14px;
+				margin-top: 5px;
+			}
+		}
+
+		&__button {
+			margin-left: auto;
+			background-color: white;
+			border: none;
+			color: #3d54ff;
+			font-size: 14px;
+			font-weight: bold;
+			letter-spacing: 1px;
+			line-height: 16px;
+			text-transform: uppercase;
+			padding: 10px 15px;
+			border: 1px solid #e1e1e4;
+			border-radius: 20px;
+
+			&:hover {
+				color: #161b7d;
+			}
+
+			&--active {
+				background: rgba(61, 84, 255, 0.16);
+				color: #334aff;
+				text-transform: uppercase;
+			}
+		}
+	}
 }
 
 .tribe-events-admin-card--1up {
@@ -2112,82 +2149,6 @@ body.tribe_events_page_tribe-help {
 	}
 }
 
-.tribe-events-admin-card--2up {
-
-	.tribe-events-admin-card__title {
-		max-width: 260px;
-	}
-
-	@media screen and (min-width: 710px) {
-		display: inline-block;
-		width: calc(50% - 20px);
-
-		&.tribe-events-admin-card--first {
-			margin-right: 36px;
-		}
-
-		&.tribe-events-admin-card--last {
-			margin-right: 0;
-		}
-
-		.tribe-events-admin-card__image {
-			height: 100px;
-			margin-bottom: 12px;
-		}
-
-		.tribe-events-admin-card__title {
-			max-width: 340px;
-			margin-bottom: 27px;
-		}
-	}
-
-	@media screen and (min-width: 1217px) {
-		margin-right: 36px;
-		width: 486px;
-	}
-}
-
-.tribe-events-admin-card--3up {
-
-	@media screen and (min-width: 710px) {
-		display: inline-block;
-		margin-bottom: 32px;
-		width: calc( 50% - 18px );
-
-		&.tribe-events-admin-card--first {
-			margin-right: 32px;
-		}
-
-		&.tribe-events-admin-card--middle {
-			margin-right: 0;
-		}
-	}
-
-	@media screen and (min-width: 1217px) {
-		width: 310px;
-
-		&.tribe-events-admin-card--first {
-			margin-right: 36px;
-		}
-
-		&.tribe-events-admin-card--middle {
-			margin-right: 36px;
-		}
-
-		&.tribe-events-admin-card--last {
-			margin-right: 0;
-		}
-	}
-
-	.tribe-events-admin-card__description {
-		height: 71px;
-	}
-
-	.tribe-events-admin-card__image {
-		margin-bottom: 28px;
-	}
-}
-
 .tribe-events-admin-card--promo-blue {
 	background-color: #3D54FF;
 	background-image: url("../images/welcome/promo.jpg");
@@ -2295,81 +2256,14 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-.tribe-events-admin-card__button {
-	background-color: white;
-	border: none;
-	color: #3D54FF;
-	font-size: 14px;
-	font-weight: bold;
-	letter-spacing: 1px;
-	line-height: 16px;
-	position: absolute;
-	right: 20px;
-	text-transform: uppercase;
-	top: 17px;
-
-	&:hover {
-		color: #161B7D;
-	}
-}
-
-.tribe-events-admin-card__description {
-	color: #000000;
-
-	font-size: 14px;
-	font-style: normal;
-	font-weight: normal;
-	line-height: 22px;
-	margin-top: 16px;
-}
-
-.tribe-events-admin-card__image {
-	display: block;
-	margin: 0 auto 0 auto;
-	height: 100px;
-}
-
-.tribe-events-admin-card__link {
-	color: #3D54FF;
-	display: inline-block;
-	font-size: 16px;
-	font-style: normal;
-	font-weight: bold;
-	line-height: 18px;
-	margin-top: 24px;
-	position: relative;
-	text-decoration: none;
-
-	&:hover {
-		color: #161B7D;
-	}
-
-	&:after {
-		border-style: solid;
-		border-width: 0 0 1px;
-		bottom: -4px;
-		content: '';
-		left: 0;
-		position: absolute;
-		width: 100%;
-	}
-}
-
-.tribe-events-admin-card__title {
-	color: #0F1031;
-	font-size: 20px;
-	font-weight: bold;
-	line-height: 23px;
-	margin: auto;
-
-	@media screen and (min-width: 710px) {
-		font-size: 20px;
-		line-height: 23px;
-	}
-}
-
 .tribe-events-admin-card-grid {
-	max-width: 1048px;
+	     display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr;
+		gap: 30px 50px;
+		grid-template-areas:
+			". .";
+		margin: 30px 0;
 }
 
 .tribe-events-admin-quick-nav {
@@ -2587,14 +2481,6 @@ TODO:
 */
 .tribe_events_page_tribe-help {
 
-	.tribe-events-admin-card-grid {
-		font-size: 0; /* fix an inline-block spacing bug */
-		@media screen and (min-width: 1217px) {
-			max-width: 1060px;
-			width: 1060px;
-		}
-	}
-
 	#tec-help-ticketing,
 	#tec-help-community {
 		display: none;
@@ -2607,88 +2493,6 @@ TODO:
 			height: 67px;
 		}
 	}
-
-
-	.tribe-events-admin-card--1up {
-		@media screen and (min-width: 710px) {
-			display: block;
-			width: 100%;
-			margin-left: 0;
-		}
-
-		.tribe-events-admin-card__image {
-			float: left;
-		}
-	}
-
-	.tribe-events-admin-description {
-		font-size: 14px;
-		line-height: 28px;
-		width: 500px;
-	}
-
-	.tribe-events-admin-card--product {
-		height: 75px;
-		padding: 0;
-		text-align: left;
-		position: relative;
-
-		.tribe-events-admin-card__icon {
-			height: 38px;
-			padding: 17px;
-		}
-
-		.tribe-events-admin-card__title {
-			font-size: 16px;
-			line-height: 16px;
-			margin: 0;
-			padding-bottom: 6px;
-		}
-
-		.tribe-events-admin-card__description {
-			font-size: 12px;
-			line-height: 14px;
-			margin: 0;
-			width: 269px;
-		}
-
-		.tribe-events-admin-card__button {
-			position: absolute;
-			top: 19px;
-			right: 16px;
-
-			font-weight: bold;
-			font-size: 12px;
-			line-height: 15px;
-
-			height: 29px;
-			width: 97px;
-
-			text-align: center;
-
-			border: 1px solid #E1E1E4;
-			box-sizing: border-box;
-			border-radius: 16px;
-
-			text-transform: none;
-			color: #0F1031;
-
-			cursor: pointer;
-		}
-
-		.tribe-events-admin-ard__button--active {
-			background: rgba(61, 84, 255, 0.16);
-			color: #334AFF;
-			text-transform: uppercase;
-		}
-	}
-}
-
-.tribe-events-admin-card__group {
-	display: inline-block;
-	padding-top: 16px;
-	vertical-align: top;
-	width: calc(100% - 80px);
 }
 
 /* -- Freemius tweaks -- */
