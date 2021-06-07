@@ -1,3 +1,3 @@
 <div id="tec-help-community">
-	Coming soon.
+	Hey there from the community tab
 </div>

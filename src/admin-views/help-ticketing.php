@@ -1,3 +1,3 @@
 <div id="tec-help-ticketing">
-	Coming soon.
+	Hey there from the ticketing tab
 </div>
