@@ -79,4 +79,53 @@ class Main {
 
 		wp_localize_script( 'tribe-onboarding-js', 'TribeOnboardingHints', $data );
 	}
+
+	/**
+	 * Get the views for an onboarding element.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id The onboarding ID (tour or hint).
+	 *
+	 * @return mixed The views for the given ID.
+	 */
+	public function get_views( $id = '' ) {
+
+		if ( empty( $id ) ) {
+			return;
+		}
+
+		$option = tribe_get_option( 'tribe_onboarding_views', [] );
+
+		if ( ! isset( $option[ $id ] ) ) {
+			return;
+		}
+
+		return intval( $option[ $id ] );
+	}
+
+	/**
+	 * Increment views for an onboarding element.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $id The onboarding ID (tour or hint).
+	 * @return void
+	 */
+	public function increment_views( $id ) {
+		$option = tribe_get_option( 'tribe_onboarding_views', [] );
+		$views  = 0;
+
+		if ( isset( $option[ $id ] ) ) {
+			$views = intval( $option[ $id ] );
+		}
+
+		// Increment views and save.
+		$views++;
+		$option[ $id ] = $views;
+
+		tribe_update_option( 'tribe_onboarding_views', $option );
+
+		return $views;
+	}
 }

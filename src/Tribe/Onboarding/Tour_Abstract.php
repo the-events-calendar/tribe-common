@@ -18,6 +18,15 @@ abstract class Tour_Abstract {
 	public $tour_id;
 
 	/**
+	 * Times to display the tour.
+	 *
+	 * @since TBD
+	 *
+	 * @var int
+	 */
+	public $times_to_display;
+
+	/**
 	 * Return if it's on page where it should be displayed.
 	 *
 	 * @since TBD
@@ -25,27 +34,37 @@ abstract class Tour_Abstract {
 	 * @return bool True if it is on page.
 	 */
 	public function is_on_page() {
-		// @todo: check if we want to abstract this or do something different.
-		return true;
+		return false;
 	}
 
 	/**
 	 * Should the tour display.
 	 *
+	 * @since TBD
+	 *
 	 * @return boolean True if it should display.
 	 */
 	public function should_display() {
+		// Bail if it's not on the page we want to display.
 		if ( ! $this->is_on_page() ) {
 			return false;
 		}
 
-		// @todo: Check if we can implement a way to save how many times it was seen/displayed and use that as a bool.
+		// Bail if the `Times to display` is set and it was reached.
+		if (
+			is_numeric( $this->times_to_display )
+			&& ( tribe( 'onboarding' )->get_views( $this->tour_id ) > $this->times_to_display )
+		) {
+			return false;
+		}
 
 		return true;
 	}
 
 	/**
 	 * Return the tour steps.
+	 *
+	 * @since TBD
 	 *
 	 * @return array The tour steps.
 	 */
@@ -54,10 +73,33 @@ abstract class Tour_Abstract {
 	/**
 	 * Return the CSS classes.
 	 *
+	 * @since TBD
+	 *
 	 * @return array The CSS classes.
 	 */
 	public function css_classes() {
 		return [];
+	}
+
+	/**
+	 * Handle the display.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	private function display() {
+		/**
+		 * We're displaying the tour.
+		 *
+		 * @since TBD.
+		 *
+		 * @param string $tour_id The tour id.
+		 */
+		do_action( 'tribe_onboarding_tour_display', $this->tour_id );
+
+		// Increment the views when the tour is displayed.
+		tribe( 'onboarding' )->increment_views( $this->tour_id );
 	}
 
 	/**
@@ -73,6 +115,9 @@ abstract class Tour_Abstract {
 		if ( ! $this->should_display() ) {
 			return $data;
 		}
+
+		// Trigger display action.
+		$this->display();
 
 		$data['steps']   = $this->steps();
 		$data['classes'] = $this->css_classes();

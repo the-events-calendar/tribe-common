@@ -18,6 +18,15 @@ abstract class Hints_Abstract {
 	public $hints_id;
 
 	/**
+	 * Times to display the hints.
+	 *
+	 * @since TBD
+	 *
+	 * @var int
+	 */
+	public $times_to_display;
+
+	/**
 	 * Return if it's on page where it should be displayed.
 	 *
 	 * @since TBD
@@ -25,27 +34,37 @@ abstract class Hints_Abstract {
 	 * @return bool True if it is on page.
 	 */
 	public function is_on_page() {
-		// @todo: check if we want to abstract this or do something different.
-		return true;
+		return false;
 	}
 
 	/**
 	 * Should the hints display.
 	 *
+	 * @since TBD
+	 *
 	 * @return boolean True if it should display.
 	 */
 	public function should_display() {
+		// Bail if it's not on the page we want to display.
 		if ( ! $this->is_on_page() ) {
 			return false;
 		}
 
-		// @todo: check if we can implement a way to save how many times it was seen/displayed and use that as a bool.
+		// Bail if the `Times to display` is set and it was reached.
+		if (
+			is_numeric( $this->times_to_display )
+			&& ( tribe( 'onboarding' )->get_views( $this->hints_id ) > $this->times_to_display )
+		) {
+			return false;
+		}
 
-		return $this->is_on_page();
+		return true;
 	}
 
 	/**
 	 * Return the hints data.
+	 *
+	 * @since TBD
 	 *
 	 * @return array The hints.
 	 */
@@ -54,6 +73,8 @@ abstract class Hints_Abstract {
 	/**
 	 * Return the CSS classes.
 	 *
+	 * @since TBD
+	 *
 	 * @return array The CSS classes.
 	 */
 	public function css_classes() {
@@ -61,18 +82,42 @@ abstract class Hints_Abstract {
 	}
 
 	/**
-	 * Maybe localize tour data.
+	 * Handle the display.
 	 *
 	 * @since TBD
 	 *
-	 * @param array $data The tour data.
-	 * @return array $data The tour data.
+	 * @return void
 	 */
-	public function maybe_localize_tour( $data ) {
+	private function display() {
+		/**
+		 * We're displaying the hints.
+		 *
+		 * @since TBD.
+		 *
+		 * @param string $hints_id The hints id.
+		 */
+		do_action( 'tribe_onboarding_hints_display', $this->hints_id );
+
+		// Increment the views when the hints are displayed.
+		tribe( 'onboarding' )->increment_views( $this->hints_id );
+	}
+
+	/**
+	 * Maybe localize hints data.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data The hints data.
+	 * @return array $data The hints data.
+	 */
+	public function maybe_localize_hints( $data ) {
 
 		if ( ! $this->should_display() ) {
 			return $data;
 		}
+
+		// Trigger display action.
+		$this->display();
 
 		$data['hints']   = $this->hints();
 		$data['classes'] = $this->css_classes();
