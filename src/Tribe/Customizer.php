@@ -519,7 +519,7 @@ final class Tribe__Customizer {
 
 				if ( $just_print ) {
 					printf(
-						"<style id='%s-inline-css' type='text/css'>\n%s\n</style>\n",
+						"<style id='%s-inline-css' class='tec-customizer-inline-style' type='text/css'>\n%s\n</style>\n",
 						esc_attr( $sheet ),
 						$inline_style
 					);
