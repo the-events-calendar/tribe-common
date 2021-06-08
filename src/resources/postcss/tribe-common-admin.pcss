@@ -1810,153 +1810,151 @@ body.tribe_events_page_tribe-help {
 	}
 }
 
-
-.tribe-events-admin {
-	/* content wrapper */
-	&-content-wrapper {
-		font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-		padding: 30px 130px;
-		margin: 0 auto;
-	}
-
-	/* header section */
-	&-header {
-		padding: 45px 0 0 130px;
-		border-bottom: 1px solid rgba(225, 225, 228, 0.5);
-		background-image: url("../images/help/help-hero-header.png");
-		background-position: top right;
-		background-repeat: no-repeat;
-		background-size: contain;
-
-		&__title {
-			font-size: 48px;
-			line-height: 48px;
-			margin: 0 0 18px 0;
-		}
-
-		&__description {
-			font-size: 18px;
-			line-height: 28px;
-			margin-bottom: 44px;
-			max-width: 527px;
-		}
-	}
-	
-	/* tab section */
-	&-tab-nav {
-		border-bottom: 1px solid #E1E1E4;
-		display: block;
-		margin: 0 auto;
-		overflow: scroll;
-		text-align: left;
-		white-space: nowrap;
-
-		@media screen and (min-width: 710px) {
-			border-bottom: none;
-			display: block;
-			overflow: auto;
-		}
-
-		&__link-item {
-			cursor: pointer;
-			display: inline-block;
-			font-size: 16px;
-			font-weight: 500;
-			line-height: 20px;
-			margin: 0 18px 0 0;
-			padding: 0 0 10px 0;
-			position: relative;
-			text-align: center;
-
-			@media screen and (min-width: 710px) {
-				padding: 0 0 20px 0;
-			}
-
-			&:hover {
-				color: #161B7D;
-			}
-			
-			&--selected {
-				color: #334aff;
-
-				&:after {
-					background: #334AFF;
-					border-radius: 100px;
-					bottom: 0;
-					content: '';
-					display: block;
-					height: 3px;
-					left: 0;
-					position: absolute;
-					right: 0;
-				}
-			}
-		}
-	}
-
-	&-description {
-		font-size: 14px;
-		line-height: 2;
-		color: #0f1031;
-	}
-
-	/* single products card */
-	&-card {
-		display: flex;
-		align-items: center;
-		padding: 18px 15px;
-		border: 1px solid #e1e1e4;
-		border-radius: 20px;
-		
-		&__icon {
-			height: 40px;
-			width: 40px;
-			object-fit: contain;
-		}
-
-		&__group {
-			max-width: 60%;
-			margin: 0 20px;
-
-			&-title {
-				font-size: 16px;
-				font-weight: bold;
-				line-height: 1;
-				color: #0f1031;
-			}
-
-			&-description {
-				font-size: 14px;
-				margin-top: 5px;
-			}
-		}
-
-		&__button {
-			margin-left: auto;
-			background-color: white;
-			border: none;
-			color: #3d54ff;
-			font-size: 14px;
-			font-weight: bold;
-			letter-spacing: 1px;
-			line-height: 16px;
-			text-transform: uppercase;
-			padding: 10px 15px;
-			border: 1px solid #e1e1e4;
-			border-radius: 20px;
-
-			&:hover {
-				color: #161b7d;
-			}
-
-			&--active {
-				background: rgba(61, 84, 255, 0.16);
-				color: #334aff;
-				text-transform: uppercase;
-			}
-		}
-	}
+.tribe-events-admin-content-wrapper {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  padding: 30px 130px;
+  margin: 0 auto;
 }
+
+.tribe-events-admin-header {
+  padding: 45px 0 0 130px;
+  border-bottom: 1px solid rgba(225, 225, 228, 0.5);
+  background-image: url("../images/help/help-hero-header.png");
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.tribe-events-admin-header__title {
+  font-size: 48px;
+  line-height: 48px;
+  margin: 0 0 18px 0;
+}
+
+.tribe-events-admin-header__description {
+  font-size: 18px;
+  line-height: 28px;
+  margin-bottom: 44px;
+  max-width: 527px;
+}
+
+.tribe-events-admin-tab-nav {
+  border-bottom: 1px solid #E1E1E4;
+  display: block;
+  margin: 0 auto;
+  overflow: scroll;
+  text-align: left;
+  white-space: nowrap;
+}
+
+@media screen and (min-width: 710px) {
+  .tribe-events-admin-tab-nav {
+    border-bottom: none;
+    display: block;
+    overflow: auto;
+  }
+}
+
+.tribe-events-admin-tab-nav__link-item {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin: 0 18px 0 0;
+  padding: 0 0 10px 0;
+  position: relative;
+  text-align: center;
+}
+
+@media screen and (min-width: 710px) {
+  .tribe-events-admin-tab-nav__link-item {
+    padding: 0 0 20px 0;
+  }
+}
+
+.tribe-events-admin-tab-nav__link-item:hover {
+  color: #161B7D;
+}
+
+.tribe-events-admin-tab-nav__link-item--selected {
+  color: #334aff;
+}
+
+.tribe-events-admin-tab-nav__link-item--selected:after {
+  background: #334AFF;
+  border-radius: 100px;
+  bottom: 0;
+  content: '';
+  display: block;
+  height: 3px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.tribe-events-admin-description {
+  font-size: 14px;
+  line-height: 2;
+  color: #0f1031;
+}
+
+.tribe-events-admin-card {
+  display: flex;
+  align-items: center;
+  padding: 18px 15px;
+  border: 1px solid #e1e1e4;
+  border-radius: 20px;
+}
+
+.tribe-events-admin-card__icon {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
+.tribe-events-admin-card__group {
+  max-width: 60%;
+  margin: 0 20px;
+}
+
+.tribe-events-admin-card__group-title {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  color: #0f1031;
+}
+
+.tribe-events-admin-card__group-description {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.tribe-events-admin-card__button {
+  margin-left: auto;
+  background-color: white;
+  border: none;
+  color: #3d54ff;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  line-height: 16px;
+  text-transform: uppercase;
+  padding: 10px 15px;
+  border: 1px solid #e1e1e4;
+  border-radius: 20px;
+}
+
+.tribe-events-admin-card__button:hover {
+  color: #161b7d;
+}
+
+.tribe-events-admin-card__button--active {
+  background: rgba(61, 84, 255, 0.16);
+  color: #334aff;
+  text-transform: uppercase;
+}
+
 
 .tribe-events-admin-card--1up {
 	width: 100%;
