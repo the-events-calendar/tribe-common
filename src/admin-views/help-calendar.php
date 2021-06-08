@@ -64,7 +64,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 	<p class="tribe-events-admin-description"><?php esc_html_e('Get help for these products and learn more about products you don\'t have.', 'tribe-common'); ?></p>
 
 	<?php // list of products?>
-	<div class="tribe-events-admin-card-grid">
+	<div class="tribe-events-admin-products-grid">
 
 		<?php $i = 0; ?>
 		<?php foreach ($calendar_products as $slug) : ?>
@@ -89,45 +89,54 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 		<?php endforeach; ?>
 	</div>
 
-	<h3 class="tribe-events-admin-section-header"><?php esc_html_e('Start Here', 'tribe-common'); ?></h3>
-	<a class="tribe-events-admin-more-info-link" href="https://event.is/kb-help"><?php esc_html_e('Visit Knowledgebase', 'tribe-common'); ?></a>
+	<div class="tribe-events-admin-section-header">
+		<h3>
+			<?php esc_html_e('Start Here', 'tribe-common'); ?>
+		</h3>
+		
+		<a href="https://event.is/kb-help">
+			<?php esc_html_e('Visit Knowledgebase', 'tribe-common'); ?>
+		</a>
+	</div>
 
-	<div class="tribe-events-admin-card-grid tribe-events-admin-card-grid--info-cards">
-		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--first">
+	<div class="tribe-events-admin-kb-grid">
+		<div class="tribe-events-admin-kb-card">
 			<img
-				class="tribe-events-admin-card__image"
+				class="tribe-events-admin-kb-card__image"
 				src="<?php echo esc_url(tribe_resource_url('images/help/getting-started.png', false, null, $main)); ?>"
 				alt="<?php esc_attr_e('book with The Events Calendar logo', 'tribe-common'); ?>"
 			/>
-			<div class="tribe-events-admin-card__title"><?php esc_html_e('Getting Started Guides', 'tribe-common'); ?></div>
-			<ul class="tribe-events-admin-card__link-list">
+			<div class="tribe-events-admin-kb-card__title"><?php esc_html_e('Getting Started Guides', 'tribe-common'); ?></div>
+			<ul class="tribe-events-admin-kb-card__links">
 				<li><a href="https://evnt.is/guide-tec" target="_blank"><?php esc_html_e('The Events Calendar', 'tribe-common'); ?></a></li>
 				<li><a href="https://evnt.is/guide-ea" target="_blank"><?php esc_html_e('Event Aggregator', 'tribe-common'); ?></a></li>
 				<li><a href="https://evnt.is/guide-fb" target="_blank"><?php esc_html_e('Filter Bar', 'tribe-common'); ?></a></li>
 				<li><a href="https://evnt.is/guide-ve" target="_blank"><?php esc_html_e('Virtual Events', 'tribe-common'); ?></a></li>
 			</ul>
 		</div>
-		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--middle">
+
+		<div class="tribe-events-admin-kb-card">
 			<img
-				class="tribe-events-admin-card__image"
+				class="tribe-events-admin-kb-card__image"
 				src="<?php echo esc_url(tribe_resource_url('images/help/customizing.png', false, null, $main)); ?>"
 				alt="<?php esc_attr_e('book with The Events Calendar logo', 'tribe-common'); ?>"
 			/>
-			<div class="tribe-events-admin-card__title"><?php esc_html_e('Customizing', 'tribe-common'); ?></div>
-			<ul class="tribe-events-admin-card__link-list">
+			<div class="tribe-events-admin-kb-card__title"><?php esc_html_e('Customizing', 'tribe-common'); ?></div>
+			<ul class="tribe-events-admin-kb-card__links">
 				<li><a href="https://evnt.is/guide-tec" target="_blank"><?php esc_html_e('Getting started with customizations', 'tribe-common'); ?></a></li>
 				<li><a href="https://evnt.is/guide-ea" target="_blank"><?php esc_html_e('Highlighting events', 'tribe-common'); ?></a></li>
 				<li><a href="https://evnt.is/guide-fb" target="_blank"><?php esc_html_e('Another link', 'tribe-common'); ?></a></li>
 			</ul>
 		</div>
-		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--last">
+
+		<div class="tribe-events-admin-kb-card">
 			<img
-				class="tribe-events-admin-card__image"
+				class="tribe-events-admin-kb-card__image"
 				src="<?php echo esc_url(tribe_resource_url('images/help/common-issues.png', false, null, $main)); ?>"
 				alt="<?php esc_attr_e('book with The Events Calendar logo', 'tribe-common'); ?>"
 			/>
-			<div class="tribe-events-admin-card__title"><?php esc_html_e('Common Issues', 'tribe-common'); ?></div>
-			<ul class="tribe-events-admin-card__link-list">
+			<div class="tribe-events-admin-kb-card__title"><?php esc_html_e('Common Issues', 'tribe-common'); ?></div>
+			<ul class="tribe-events-admin-kb-card__links">
 				<li><a href="https://evnt.is/guide-tec" target="_blank"><?php esc_html_e('Known Issues', 'tribe-common'); ?></a></li>
 				<li><a href="https://evnt.is/guide-ea" target="_blank"><?php esc_html_e('Release notes', 'tribe-common'); ?></a></li>
 				<li><a href="https://evnt.is/guide-fb" target="_blank"><?php esc_html_e('Integrations', 'tribe-common'); ?></a></li>
@@ -136,8 +145,16 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 		</div>
 	</div>
 
-	<h3 class="tribe-events-admin-section-header"><?php esc_html_e('FAQs', 'tribe-common'); ?></h3>
-	<a class="tribe-events-admin-more-info-link" href="https://event.is/faqs-help"><?php esc_html_e('All FAQs', 'tribe-common'); ?></a>
+	<!-- FAQ Section -->
+	<div class="tribe-events-admin-section-header">
+		<h3>
+			<?php esc_html_e('FAQs', 'tribe-common'); ?>
+		</h3>
+		
+		<a href="https://event.is/faqs-help">
+			<?php esc_html_e('All FAQs', 'tribe-common'); ?>
+		</a>
+	</div>
 
 	<div class="tribe-events-admin-card-grid">
 		<?php foreach ($faqs as $faq) : ?>
@@ -153,8 +170,17 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 		<?php endforeach; ?>
 	</div>
 
-	<h3 class="tribe-events-admin-section-header"><?php esc_html_e('Extensions', 'tribe-common'); ?></h3>
-	<a class="tribe-events-admin-more-info-link" href="https://event.is/exts-help"><?php esc_html_e('All Extensions', 'tribe-common'); ?></a>
+	<!-- Extensions Section -->
+	<div class="tribe-events-admin-section-header">
+		<h3>
+			<?php esc_html_e('Extensions', 'tribe-common'); ?>
+		</h3>
+		
+		<a href="https://event.is/exts-help">
+			<?php esc_html_e('All Extensions', 'tribe-common'); ?>
+		</a>
+	</div>
+
 	<p><?php esc_html_e('Small, lightweight WordPress plugins that add new capabilities to our core plugins. Sorry, support is not offered for extensions.', 'tribe-common'); ?></p>
 
 	<div class="tribe-events-admin-card-grid">
