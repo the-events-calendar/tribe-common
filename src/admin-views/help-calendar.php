@@ -61,7 +61,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 
 ?>
 <div id="tec-help-calendar">
-	<p class="tribe-events-admin-description"><?php esc_html_e('Get help for these products and learn more about products you don\'t have.', 'tribe-common'); ?></p>
+	<p class="tribe-events-admin-products-description"><?php esc_html_e('Get help for these products and learn more about products you don\'t have.', 'tribe-common'); ?></p>
 
 	<?php // list of products?>
 	<div class="tribe-events-admin-products-grid">
@@ -70,20 +70,20 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 		<?php foreach ($calendar_products as $slug) : ?>
 			<?php $i++; ?>
 
-			<div class="tribe-events-admin-card">
+			<div class="tribe-events-admin-products-card">
 				<img
-					class="tribe-events-admin-card__icon"
+					class="tribe-events-admin-products-card__icon"
 					src="<?php echo esc_url(tribe_resource_url($products[ $slug ]['logo'], false, null, $main)); ?>"
 					alt="<?php esc_attr_e('logo icon', 'tribe-common'); ?>"
 				/>
-				<div class="tribe-events-admin-card__group">
-					<div class="tribe-events-admin-card__group-title"><?php echo esc_html($products[ $slug ]['title']); ?></div>
-					<div class="tribe-events-admin-card__group-description"><?php echo esc_html($products[ $slug ]['description-help']); ?></div>
+				<div class="tribe-events-admin-products-card__group">
+					<div class="tribe-events-admin-products-card__group-title"><?php echo esc_html($products[ $slug ]['title']); ?></div>
+					<div class="tribe-events-admin-products-card__group-description"><?php echo esc_html($products[ $slug ]['description-help']); ?></div>
 				</div>
 				<?php if ($products[ $slug ]['is_installed']) : ?>
-				<button class="tribe-events-admin-card__button tribe-events-admin-card__button--active"><?php esc_html_e('Active', 'tribe-common'); ?></button>
+				<button class="tribe-events-admin-products-card__button tribe-events-admin-products-card__button--active"><?php esc_html_e('Active', 'tribe-common'); ?></button>
 				<?php else : ?>
-					<button class="tribe-events-admin-card__button"><?php esc_html_e('Learn More', 'tribe-common'); ?></button>
+					<button class="tribe-events-admin-products-card__button"><?php esc_html_e('Learn More', 'tribe-common'); ?></button>
 				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
@@ -156,11 +156,11 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 		</a>
 	</div>
 
-	<div class="tribe-events-admin-card-grid">
+	<div class="tribe-events-admin-products-card-grid">
 		<?php foreach ($faqs as $faq) : ?>
-			<div class="tribe-events-admin-card tribe-events-admin-card--faq">
+			<div class="tribe-events-admin-products-card tribe-events-admin-products-card--faq">
 				<img
-					class="tribe-events-admin-card__image"
+					class="tribe-events-admin-products-card__image"
 					src="<?php echo esc_url(tribe_resource_url('images/icons/faq.png', false, null, $main)); ?>"
 					alt="<?php esc_attr_e('lightbulb icon', 'tribe-common'); ?>"
 				/>
@@ -183,9 +183,9 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 
 	<p><?php esc_html_e('Small, lightweight WordPress plugins that add new capabilities to our core plugins. Sorry, support is not offered for extensions.', 'tribe-common'); ?></p>
 
-	<div class="tribe-events-admin-card-grid">
+	<div class="tribe-events-admin-products-card-grid">
 		<?php foreach ($extensions as $extension) : ?>
-			<div class="tribe-events-admin-card tribe-events-admin-card--top-stripe">
+			<div class="tribe-events-admin-products-card tribe-events-admin-products-card--top-stripe">
 				<div class="tribe-events-admin-simple-card__title"><?php echo esc_html($extension['title']); ?></div>
 				<div class="tribe-events-admin-simple-card__description"><?php echo esc_html($extension['description']); ?></div>
 				<div class="tribe-events-admin-simple-card__description"><?php echo esc_html($products[ $extension['product'] ]['title']); ?></div>

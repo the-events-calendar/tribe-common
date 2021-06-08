@@ -1893,49 +1893,53 @@ body.tribe_events_page_tribe-help {
   right: 0;
 }
 
-.tribe-events-admin-description {
+.tribe-events-admin-products-description {
   font-size: 14px;
   line-height: 2;
   color: #0f1031;
 }
 
-.tribe-events-admin-card {
+.tribe-events-admin-products-card {
   display: flex;
   align-items: center;
-  padding: 18px 15px;
+  padding: 10px 15px;
   border: 1px solid #e1e1e4;
   border-radius: 20px;
 }
 
-.tribe-events-admin-card__icon {
+.tribe-events-admin-products-card__icon {
   height: 40px;
   width: 40px;
   object-fit: contain;
 }
 
-.tribe-events-admin-card__group {
-  max-width: 60%;
-  margin: 0 20px;
+.tribe-events-admin-products-card__group {
+	max-width: 55%;
+	margin: 0 20px;
+
+	@media screen and (min-width: 1200px) {
+		max-width: 47%;
+	}
 }
 
-.tribe-events-admin-card__group-title {
+.tribe-events-admin-products-card__group-title {
   font-size: 16px;
   font-weight: bold;
   line-height: 1;
   color: #0f1031;
 }
 
-.tribe-events-admin-card__group-description {
-  font-size: 14px;
+.tribe-events-admin-products-card__group-description {
+  font-size: 12px;
   margin-top: 5px;
 }
 
-.tribe-events-admin-card__button {
+.tribe-events-admin-products-card__button {
   margin-left: auto;
   background-color: white;
   border: none;
-  color: #3d54ff;
-  font-size: 14px;
+  color: #0f1031;
+  font-size: 12px;
   font-weight: bold;
   letter-spacing: 1px;
   line-height: 16px;
@@ -1945,16 +1949,15 @@ body.tribe_events_page_tribe-help {
   border-radius: 20px;
 }
 
-.tribe-events-admin-card__button:hover {
+.tribe-events-admin-products-card__button:hover {
   color: #161b7d;
 }
 
-.tribe-events-admin-card__button--active {
+.tribe-events-admin-products-card__button--active {
   background: rgba(61, 84, 255, 0.16);
   color: #334aff;
   text-transform: uppercase;
 }
-
 
 .tribe-events-admin-card--1up {
 	width: 100%;
@@ -2211,7 +2214,7 @@ input[type="email"].tribe-events-admin-card__input {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: 1fr;
-		gap: 30px 50px;
+		gap: 15px 30px;
 		grid-template-areas:
 			". .";
 		margin: 30px 0;
@@ -2408,7 +2411,7 @@ input[type="email"].tribe-events-admin-card__input {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-rows: 1fr;
-	gap: 30px 50px;
+	gap: 30px;
 	grid-template-areas:
 	". . .";
 	margin: 30px 0;
