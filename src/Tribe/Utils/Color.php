@@ -330,7 +330,7 @@ class Tribe__Utils__Color {
 		return $this->_hsl;
 	}
 	/**
-	 * Returns your original color
+	 * Returns your original color minus any hash mark.
 	 */
 	public function getHex() {
 		return $this->_hex;
