@@ -167,7 +167,9 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 				</div>
 				<div class="tribe-events-admin-faq-card__content">
 					<div class="tribe-events-admin-faq__question">
-						<?php echo esc_html($faq['question']); ?>
+						<a href="<?php echo esc_html($faq['link']); ?>" target="_blank">
+							<?php echo esc_html($faq['question']); ?>						
+						</a>
 					</div>
 					<div class="tribe-events-admin-faq__answer">
 						<?php echo esc_html($faq['answer']); ?>
