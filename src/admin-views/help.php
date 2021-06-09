@@ -6,32 +6,37 @@
 $main = Tribe__Main::instance();
 
 // Fetch the Help page Instance
-$help = tribe( Tribe__Admin__Help_Page::class );
+$help = tribe(Tribe__Admin__Help_Page::class);
 
 // get the products list
-$products = tribe( 'plugins.api' )->get_products();
+$products = tribe('plugins.api')->get_products();
 
 //echo '<pre>' . print_r( $products, true ) . '</pre>';
 ?>
 
 <div class="tribe-events-admin-header">
-	<?php do_action( 'tec-admin-notice-area', 'help' ); ?>
+	<?php do_action('tec-admin-notice-area', 'help'); ?>
 	<div class="tribe-events-admin-header__content-wrapper">
 
 		<img
 			class="tribe-events-admin-header__logo-word-mark"
-			src="<?php echo esc_url( tribe_resource_url( 'images/logo/tec-brand.svg', false, null, $main ) ); ?>"
-			alt="<?php esc_attr_e( 'The Events Calendar brand logo', 'tribe-common' ); ?>"
+			src="<?php echo esc_url(tribe_resource_url('images/logo/tec-brand.svg', false, null, $main)); ?>"
+			alt="<?php esc_attr_e('The Events Calendar brand logo', 'tribe-common'); ?>"
 		/>
 
-		<h2 class="tribe-events-admin-header__title"><?php esc_html_e( 'Help', 'tribe-common' ); ?></h2>
-		<p class="tribe-events-admin-header__description"><?php esc_html_e( 'We\'re committed to helping make your calendar spectacular and have a wealth of resources available.', 'tribe-common' ); ?></p>
+		<img
+			class="tribe-events-admin-header__right-image"
+			src="<?php echo esc_url(tribe_resource_url('images/help/help-hero-header.png', false, null, $main)); ?>"
+		/>
+
+		<h2 class="tribe-events-admin-header__title"><?php esc_html_e('Help', 'tribe-common'); ?></h2>
+		<p class="tribe-events-admin-header__description"><?php esc_html_e('We\'re committed to helping make your calendar spectacular and have a wealth of resources available.', 'tribe-common'); ?></p>
 
 		<ul class="tribe-events-admin-tab-nav">
-			<li class="tribe-events-admin-tab-nav__link-item tribe-events-admin-tab-nav__link-item--selected" data-tab="tec-help-calendar"><?php esc_html_e( 'Calendar', 'tribe-common' ); ?></li>
-			<li class="tribe-events-admin-tab-nav__link-item" data-tab="tec-help-ticketing"><?php esc_html_e( 'Ticketing & RSVP', 'tribe-common' ); ?></li>
-			<li class="tribe-events-admin-tab-nav__link-item" data-tab="tec-help-community"><?php esc_html_e( 'Community', 'tribe-common' ); ?></li>
-			<li class="tribe-events-admin-tab-nav__link-item" data-tab="tec-help-troubleshooting"><?php esc_html_e( 'Troubleshooting', 'tribe-common' ); ?></li>
+			<li class="tribe-events-admin-tab-nav__link-item tribe-events-admin-tab-nav__link-item--selected" data-tab="tec-help-calendar"><?php esc_html_e('Calendar', 'tribe-common'); ?></li>
+			<li class="tribe-events-admin-tab-nav__link-item" data-tab="tec-help-ticketing"><?php esc_html_e('Ticketing & RSVP', 'tribe-common'); ?></li>
+			<li class="tribe-events-admin-tab-nav__link-item" data-tab="tec-help-community"><?php esc_html_e('Community', 'tribe-common'); ?></li>
+			<li class="tribe-events-admin-tab-nav__link-item" data-tab="tec-help-troubleshooting"><?php esc_html_e('Troubleshooting', 'tribe-common'); ?></li>
 		</ul>
 	</div>
 </div>
@@ -41,36 +46,36 @@ $products = tribe( 'plugins.api' )->get_products();
 
 	<?php
 
-	// Calendar Tab
-	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-calendar.php';
+    // Calendar Tab
+    include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-calendar.php';
 
-	// Ticketing & RSVP Tab
-	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-ticketing.php';
+    // Ticketing & RSVP Tab
+    include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-ticketing.php';
 
-	// Ticketing & RSVP Tab
-	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-community.php';
-	?>
+    // Ticketing & RSVP Tab
+    include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-community.php';
+    ?>
 
-	<?php // Shared footer area ?>
+	<?php // Shared footer area?>
 	<div class="tribe-events-admin-card tribe-events-admin-card--1up tribe-events-admin-card--no-pad">
 		<img
 			class="tribe-events-admin-card__image"
-			src="<?php echo esc_url( tribe_resource_url( 'images/help/troubleshooting.png', false, null, $main ) ); ?>"
-			alt="<?php esc_attr_e( 'Graphic with an electrical plug and gears', 'tribe-common' ); ?>"
+			src="<?php echo esc_url(tribe_resource_url('images/help/troubleshooting.png', false, null, $main)); ?>"
+			alt="<?php esc_attr_e('Graphic with an electrical plug and gears', 'tribe-common'); ?>"
 		/>
 
-		<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Need additional support?', 'tribe-common' ); ?></div>
-		<div class="tribe-events-admin-card__description"><a class="tribe-events-admin-card__link" href="#troubleshooting"><?php esc_html_e( 'Visit Troubleshooting next', 'tribe-common' ); ?></a></div>
+		<div class="tribe-events-admin-card__title"><?php esc_html_e('Need additional support?', 'tribe-common'); ?></div>
+		<div class="tribe-events-admin-card__description"><a class="tribe-events-admin-card__link" href="#troubleshooting"><?php esc_html_e('Visit Troubleshooting next', 'tribe-common'); ?></a></div>
 	</div>
 
 	<img
 		class="tribe-events-admin-footer-logo"
-		src="<?php echo esc_url( tribe_resource_url( 'images/logo/tec-brand.svg', false, null, $main ) ); ?>"
-		alt="<?php esc_attr_e( 'The Events Calendar brand logo', 'tribe-common' ); ?>"
+		src="<?php echo esc_url(tribe_resource_url('images/logo/tec-brand.svg', false, null, $main)); ?>"
+		alt="<?php esc_attr_e('The Events Calendar brand logo', 'tribe-common'); ?>"
 	/>
 </div>
 
-<?php // this is inline jQuery / javascript for extra simplicity */ ?>
+<?php // this is inline jQuery / javascript for extra simplicity */?>
 <script type="text/javascript">
 	jQuery( document ).ready( function($) {
 		var current_tab = "#tribe-calendar";
