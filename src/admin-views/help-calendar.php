@@ -10,23 +10,23 @@ $calendar_products = apply_filters('tec-help-calendar-products', [
 // there should only be 4 in this list
 $faqs = apply_filters('tec-help-calendar-faqs', [
     [
-        'question' => __('Can I have more than one calendar on my site?', 'tribe-common'),
-        'answer' => __('You can, but…', 'tribe-common'),
+        'question' => __('Can I have more than one calendar?', 'tribe-common'),
+        'answer' => __('No, but you can use event categories or tags to display certain events like having...', 'tribe-common'),
         'link' => 'https://evnt.is/somewhere',
     ],
     [
-        'question' => __('Can I have more than one calendar on my site?', 'tribe-common'),
-        'answer' => __('No. The answer is no.', 'tribe-common'),
+        'question' => __('What do I get with The Events Calendar Pro?', 'tribe-common'),
+        'answer' => __('Events Calendar Pro runs alongside The Events Calendar and enhances...'),
         'link' => 'https://evnt.is/somewhere',
     ],
     [
-        'question' => __('Can I have more than one calendar on my site?', 'tribe-common'),
-        'answer' => __('Stop asking.', 'tribe-common'),
+        'question' => __('How do I sell tickets to events?', 'tribe-common'),
+        'answer' => __('Use our free Event Tickets plugin to get started with tickets and RSVPs.', 'tribe-common'),
         'link' => 'https://evnt.is/somewhere',
     ],
     [
-        'question' => __('Can I have more than one calendar on my site?', 'tribe-common'),
-        'answer' => __('Seriously, I am dying.', 'tribe-common'),
+        'question' => __('What happens if I disable the plugin?', 'tribe-common'),
+        'answer' => __('Nothing. Whether you disable the plugin or uninstall it, your events...', 'tribe-common'),
         'link' => 'https://evnt.is/somewhere',
     ],
 ]);
@@ -156,16 +156,23 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 		</a>
 	</div>
 
-	<div class="tribe-events-admin-products-card-grid">
+	<div class="tribe-events-admin-faq-card-grid">
 		<?php foreach ($faqs as $faq) : ?>
-			<div class="tribe-events-admin-products-card tribe-events-admin-products-card--faq">
-				<img
-					class="tribe-events-admin-products-card__image"
-					src="<?php echo esc_url(tribe_resource_url('images/icons/faq.png', false, null, $main)); ?>"
-					alt="<?php esc_attr_e('lightbulb icon', 'tribe-common'); ?>"
-				/>
-				<div class="tribe-events-admin-faq__question"><?php echo esc_html($faq['question']); ?></div>
-				<div class="tribe-events-admin-faq__answer"><?php echo esc_html($faq['answer']); ?></div>
+			<div class="tribe-events-admin-faq-card">
+				<div class="tribe-events-admin-faq-card__icon">
+					<img
+						src="<?php echo esc_url(tribe_resource_url('images/icons/faq.png', false, null, $main)); ?>"
+						alt="<?php esc_attr_e('lightbulb icon', 'tribe-common'); ?>"
+					/>
+				</div>
+				<div class="tribe-events-admin-faq-card__content">
+					<div class="tribe-events-admin-faq__question">
+						<?php echo esc_html($faq['question']); ?>
+					</div>
+					<div class="tribe-events-admin-faq__answer">
+						<?php echo esc_html($faq['answer']); ?>
+					</div>
+				</div>
 			</div>
 		<?php endforeach; ?>
 	</div>
