@@ -35,25 +35,25 @@ $faqs = apply_filters('tec-help-calendar-faqs', [
 $extensions = apply_filters('tec-help-calendar-extensions', [
     [
         'title' => __('Calendar widget areas', 'tribe-common'),
-        'description' => __('This extension creates a variety of WordPress widget areas (a.k.a. sidebars)', 'tribe-common'),
+        'description' => __('This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars).', 'tribe-common'),
         'link' => 'https://evnt.is/ext-cal-widget-areas',
         'product-slug' => 'the-events-calendar',
     ],
     [
         'title' => __('Event block patterns', 'tribe-common'),
-        'description' => __('Add a set of block patterns for events to the WordPress block editor.', 'tribe-common'),
+        'description' => __('This extension adds a set of block patterns for events to the WordPress block editor.', 'tribe-common'),
         'link' => 'https://evnt.is/ext-block-patterns',
         'product-slug' => 'the-events-calendar',
     ],
     [
         'title' => __('Alternative photo view', 'tribe-common'),
-        'description' => __('Replace photo view with a beautiful alternative.', 'tribe-common'),
+        'description' => __('This extension replaces photo view with a tiled grid of cards featuring event images.', 'tribe-common'),
         'link' => 'https://evnt.is/ext-alt-photo-view',
         'product-slug' => 'events-calendar-pro',
     ],
     [
-        'title' => __('GraphQL', 'tribe-common'),
-        'description' => __('Add a GraphQL API for your event data.', 'tribe-common'),
+        'title' => __('Test data generator', 'tribe-common'),
+        'description' => __('This extension adds a tool to generate realistic dummy content for events.', 'tribe-common'),
         'link' => 'https://evnt.is/ext-graphql',
         'product-slug' => 'the-events-calendar',
     ],
@@ -182,7 +182,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 	<!-- Extensions Section -->
 	<div class="tribe-events-admin-section-header">
 		<h3>
-			<?php esc_html_e('Extensions', 'tribe-common'); ?>
+			<?php esc_html_e('Free extensions', 'tribe-common'); ?>
 		</h3>
 		
 		<a href="https://event.is/exts-help">
@@ -190,14 +190,21 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 		</a>
 	</div>
 
-	<p><?php esc_html_e('Small, lightweight WordPress plugins that add new capabilities to our core plugins. Sorry, support is not offered for extensions.', 'tribe-common'); ?></p>
+	<p class="tribe-events-admin-extensions-title">
+		<?php esc_html_e('Small, lightweight WordPress plugins that add new capabilities to our core plugins. Support is not offered for extensions, but they do enhance your calendar with bonus features.', 'tribe-common'); ?>
+	</p>
 
-	<div class="tribe-events-admin-products-card-grid">
+	<div class="tribe-events-admin-extensions-card-grid">
 		<?php foreach ($extensions as $extension) : ?>
-			<div class="tribe-events-admin-products-card tribe-events-admin-products-card--top-stripe">
-				<div class="tribe-events-admin-simple-card__title"><?php echo esc_html($extension['title']); ?></div>
-				<div class="tribe-events-admin-simple-card__description"><?php echo esc_html($extension['description']); ?></div>
-				<div class="tribe-events-admin-simple-card__description"><?php echo esc_html($products[ $extension['product'] ]['title']); ?></div>
+			<div class="tribe-events-admin-extensions-card">
+				<div class="tribe-events-admin-extensions-card__title">
+					<a href="<?php echo esc_html($extension['link']); ?>" target="_blank">
+						<?php echo esc_html($extension['title']); ?>
+					</a>
+				</div>
+				<div class="tribe-events-admin-extensions-card__description">
+					<?php echo esc_html($extension['description']); ?>
+				</div>
 			</div>
 		<?php endforeach; ?>
 	</div>
