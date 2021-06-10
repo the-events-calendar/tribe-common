@@ -64,7 +64,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 	<p class="tribe-events-admin-products-description"><?php esc_html_e('Get help for these products and learn more about products you don\'t have.', 'tribe-common'); ?></p>
 
 	<?php // list of products?>
-	<div class="tribe-events-admin-products-grid">
+	<div class="tribe-events-admin-products tribe-events-admin-2col-grid">
 
 		<?php $i = 0; ?>
 		<?php foreach ($calendar_products as $slug) : ?>
@@ -99,7 +99,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 		</a>
 	</div>
 
-	<div class="tribe-events-admin-kb-grid">
+	<div class="tribe-events-admin-kb tribe-events-admin-3col-grid">
 		<div class="tribe-events-admin-kb-card">
 			<img
 				class="tribe-events-admin-kb-card__image"
@@ -156,7 +156,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 		</a>
 	</div>
 
-	<div class="tribe-events-admin-faq-card-grid">
+	<div class="tribe-events-admin-faq tribe-events-admin-4col-grid">
 		<?php foreach ($faqs as $faq) : ?>
 			<div class="tribe-events-admin-faq-card">
 				<div class="tribe-events-admin-faq-card__icon">
@@ -194,7 +194,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 		<?php esc_html_e('Small, lightweight WordPress plugins that add new capabilities to our core plugins. Support is not offered for extensions, but they do enhance your calendar with bonus features.', 'tribe-common'); ?>
 	</p>
 
-	<div class="tribe-events-admin-extensions-card-grid">
+	<div class="tribe-events-admin-extensions tribe-events-admin-4col-grid">
 		<?php foreach ($extensions as $extension) : ?>
 			<div class="tribe-events-admin-extensions-card">
 				<div class="tribe-events-admin-extensions-card__title">

@@ -14,7 +14,7 @@ $products = tribe('plugins.api')->get_products();
 //echo '<pre>' . print_r( $products, true ) . '</pre>';
 ?>
 
-<div class="tribe-events-admin-header">
+<div class="tribe-events-admin-header tribe-events-admin-container">
 	<?php do_action('tec-admin-notice-area', 'help'); ?>
 	<div class="tribe-events-admin-header__content-wrapper">
 
@@ -42,7 +42,7 @@ $products = tribe('plugins.api')->get_products();
 </div>
 
 
-<div class="tribe-events-admin-content-wrapper">
+<div class="tribe-events-admin-content-wrapper tribe-events-admin-container">
 
 	<?php
 
