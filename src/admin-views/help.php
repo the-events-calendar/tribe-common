@@ -57,15 +57,24 @@ $products = tribe('plugins.api')->get_products();
     ?>
 
 	<?php // Shared footer area?>
-	<div class="tribe-events-admin-card tribe-events-admin-card--1up tribe-events-admin-card--no-pad">
+	<div class="tribe-events-admin-cta">
 		<img
-			class="tribe-events-admin-card__image"
+			class="tribe-events-admin-cta__image"
 			src="<?php echo esc_url(tribe_resource_url('images/help/troubleshooting.png', false, null, $main)); ?>"
 			alt="<?php esc_attr_e('Graphic with an electrical plug and gears', 'tribe-common'); ?>"
 		/>
 
-		<div class="tribe-events-admin-card__title"><?php esc_html_e('Need additional support?', 'tribe-common'); ?></div>
-		<div class="tribe-events-admin-card__description"><a class="tribe-events-admin-card__link" href="#troubleshooting"><?php esc_html_e('Visit Troubleshooting next', 'tribe-common'); ?></a></div>
+		<div class="tribe-events-admin-cta__content">
+			<div class="tribe-events-admin-cta__content-title">
+				<?php esc_html_e('Need additional support?', 'tribe-common'); ?>
+			</div>
+
+			<div class="tribe-events-admin-cta__content-description">
+				<a href="#troubleshooting">
+					<?php esc_html_e('Visit Troubleshooting next', 'tribe-common'); ?>
+				</a>
+			</div>
+		</div>
 	</div>
 
 	<img
