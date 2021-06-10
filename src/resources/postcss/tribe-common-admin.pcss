@@ -1863,46 +1863,51 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-tab-nav {
-  border-bottom: 1px solid #E1E1E4;
-  display: block;
-  margin: 0 auto;
-  overflow: scroll;
-  text-align: left;
-  white-space: nowrap;
+  	border-bottom: 1px solid #E1E1E4;
+	display: flex;
+
+	@media screen and (max-width: 480px) {
+		border: 1px solid #e1e1e4;
+		border-radius: 20px;
+		padding: 18px 22px;
+		flex-direction: column;
+	}
 }
 
-@media screen and (min-width: 710px) {
-  .tribe-events-admin-tab-nav {
-    border-bottom: none;
-    display: block;
-    overflow: auto;
-  }
-}
 
 .tribe-events-admin-tab-nav__link-item {
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
-  margin: 0 18px 0 0;
-  padding: 0 0 10px 0;
-  position: relative;
-  text-align: center;
-}
+	font-size: 16px;
+	font-weight: 500;
+	margin-right: 30px;
 
-@media screen and (min-width: 710px) {
-  .tribe-events-admin-tab-nav__link-item {
-    padding: 0 0 20px 0;
-  }
+	@media screen and (max-width: 768px) {
+		margin-right: 20px;
+	}
+
+	@media screen and (max-width: 480px) {
+		margin-right: 0;
+		margin-bottom: 18px
+	}
 }
 
 .tribe-events-admin-tab-nav__link-item:hover {
-  color: #161B7D;
+	color: #334aff;
 }
 
 .tribe-events-admin-tab-nav__link-item--selected {
-  color: #334aff;
+	color: #334aff;
+	border-bottom: 3px solid #334aff;
+	padding-bottom: 17px;
+
+	@media screen and (max-width: 768px) {
+		border-bottom: 2px solid #334aff;
+		padding-bottom: 10px;
+	}
+
+	@media screen and (max-width: 480px) {
+		border-bottom: 2px solid #334aff;
+		padding-bottom: 10px;
+	}
 }
 
 .tribe-events-admin-tab-nav__link-item--selected:after {
