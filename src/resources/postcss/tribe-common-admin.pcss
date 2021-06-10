@@ -1800,13 +1800,17 @@ body.tribe_events_page_tribe-help {
 
 .tribe-events-admin-header__logo-word-mark {
 	display: inline-block;
-	height: 57px;
+	width: 312px;
+	height: auto;
 	margin: 0 0 26px 0;
 	vertical-align: middle;
 
-	@media screen and (min-width: 710px) {
-		height: 65px;
-		text-align: left;
+	@media screen and (max-width: 768px) {
+		width: 285px;
+	}
+	
+	@media screen and (max-width: 480px) {
+		width: 260px;  
 	}
 }
 
@@ -1828,16 +1832,12 @@ body.tribe_events_page_tribe-help {
 	width: auto;
 	height: 280px;
 
-	@media screen and (max-width: 1217px) {
-		height: 131px;
+	@media screen and (max-width: 768px) {
+		height: 160px;
 	}
-
-	@media screen and (max-width: 710px) {
-		width: 710px;
-	}
-
-	@media screen and (max-width: 360px) {
-		height: 40px;
+	
+	@media screen and (max-width: 480px) {
+		height: 120px;  
 	}
 }
 
@@ -1851,7 +1851,15 @@ body.tribe_events_page_tribe-help {
   font-size: 18px;
   line-height: 28px;
   margin-bottom: 44px;
-  max-width: 527px;
+  max-width: 60%;
+
+  @media screen and (max-width: 768px) {
+	max-width: 100%;
+  }
+
+  @media screen and (max-width: 480px) {
+	max-width: 100%;  
+  }
 }
 
 .tribe-events-admin-tab-nav {
@@ -2231,19 +2239,8 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin-container {
 	margin: 0 auto;
 	max-width: 1024px;
-  
-	  @media screen and (max-width: 1217px) {
-		  width: 100%;
-	  }
-  
-	  @media screen and (max-width: 710px) {
-		  width: 710px;
-	  }
-  
-	  @media screen and (max-width: 360px) {
-		  width: 360px;
-	  }
-  }
+    width: 90%;
+}
 
 /* columns */
 
@@ -2255,13 +2252,13 @@ input[type="email"].tribe-events-admin-card__input {
 	grid-template-areas:
 		". .";
 
-	@media screen and (max-width: 710px) {
+	@media screen and (max-width: 768px) {
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 		grid-template-areas:
 			".";
 	}
 
-	@media screen and (max-width: 360px) {
+	@media screen and (max-width: 480px) {
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 		grid-template-areas:
 			".";
@@ -2276,13 +2273,13 @@ input[type="email"].tribe-events-admin-card__input {
 	grid-template-areas:
 	". . .";
 
-	@media screen and (max-width: 710px) {
+	@media screen and (max-width: 768px) {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		grid-template-areas:
 			". .";
 	}
 
-	@media screen and (max-width: 360px) {
+	@media screen and (max-width: 480px) {
 		grid-template-columns: repeat(1, minmax(0, 1fr));
 		grid-template-areas:
 			".";
@@ -2296,6 +2293,18 @@ input[type="email"].tribe-events-admin-card__input {
 	gap: 30px;
 	grid-template-areas:
 	". . . .";
+
+	@media screen and (max-width: 768px) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-areas:
+			". .";
+	}
+
+	@media screen and (max-width: 480px) {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		grid-template-areas:
+			".";
+	}
 }
 
 .tribe-events-admin-products {
@@ -2586,6 +2595,14 @@ input[type="email"].tribe-events-admin-card__input {
 	color: #0f1031;
 	max-width: 70%;
 	margin: 0 0 30px;
+
+	@media screen and (max-width: 768px) {
+		max-width: 100%;
+	}
+
+	@media screen and (max-width: 480px) {
+		max-width: 100%;  
+	}
 }
 
 .tribe-events-admin-extensions {
@@ -2623,12 +2640,21 @@ input[type="email"].tribe-events-admin-card__input {
 	margin: 60px 0;
 	border: 1px solid #e1e1e4;
 	border-radius: 20px;
+
+	@media screen and (max-width: 480px) {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }
 
 .tribe-events-admin-cta__image {
 	width: 310px;
 	height: 152px;
-	object-fit: contain;
+	object-fit: cover;
+
+	@media screen and (max-width: 480px) {
+		width: 90%;
+	}
 }
 
 .tribe-events-admin-cta__content {
@@ -2637,6 +2663,10 @@ input[type="email"].tribe-events-admin-card__input {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	@media screen and (max-width: 480px) {
+		padding: 32px 23px 45px;
+	}
 }
 
 .tribe-events-admin-cta__content-title {
@@ -2654,12 +2684,15 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin-footer-logo {
 	display: inline-block;
-	height: 40px;
+	width: 228px;
 	vertical-align: middle;
 
-	@media screen and (min-width: 710px) {
-		height: 48px;
-		text-align: left;
+	@media screen and (max-width: 768px) {
+		width: 225px;
+	}
+	
+	@media screen and (max-width: 480px) {
+		width: 210px;  
 	}
 }
 
