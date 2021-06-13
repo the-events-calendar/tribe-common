@@ -33,10 +33,10 @@ $products = tribe('plugins.api')->get_products();
 		<p class="tribe-events-admin-header__description"><?php esc_html_e('We\'re committed to helping make your calendar spectacular and have a wealth of resources available.', 'tribe-common'); ?></p>
 
 		<ul class="tribe-events-admin-tab-nav">
-			<li class="tribe-events-admin-tab-nav__link-item tribe-events-admin-tab-nav__link-item--selected" data-tab="tec-help-calendar"><?php esc_html_e('Calendar', 'tribe-common'); ?></li>
-			<li class="tribe-events-admin-tab-nav__link-item" data-tab="tec-help-ticketing"><?php esc_html_e('Ticketing & RSVP', 'tribe-common'); ?></li>
-			<li class="tribe-events-admin-tab-nav__link-item" data-tab="tec-help-community"><?php esc_html_e('Community', 'tribe-common'); ?></li>
-			<li class="tribe-events-admin-tab-nav__link-item" data-tab="tec-help-troubleshooting"><?php esc_html_e('Troubleshooting', 'tribe-common'); ?></li>
+			<li class="selected" data-tab="tribe-calendar"><?php esc_html_e('Calendar', 'tribe-common'); ?></li>
+			<li data-tab="tribe-ticketing"><?php esc_html_e('Ticketing & RSVP', 'tribe-common'); ?></li>
+			<li data-tab="tribe-community"><?php esc_html_e('Community', 'tribe-common'); ?></li>
+			<li data-tab="tribe-troubleshooting"><?php esc_html_e('Troubleshooting', 'tribe-common'); ?></li>
 		</ul>
 	</div>
 </div>
@@ -88,11 +88,11 @@ $products = tribe('plugins.api')->get_products();
 <script type="text/javascript">
 	jQuery( document ).ready( function($) {
 		var current_tab = "#tribe-calendar";
-		$( 'body' ).on( "click", ".tribe-events-admin-tab-nav__link-item", function() {
+		$( 'body' ).on( "click", ".tribe-events-admin-tab-nav li", function() {
 			var tab = "#" + $( this ).data( "tab" );
 			$( current_tab ).hide();
-			$( '.tribe-events-admin-tab-nav__link-item' ).removeClass( "tribe-events-admin-tab-nav__link-item--selected" );
-			$( this ).addClass( "tribe-events-admin-tab-nav__link-item--selected" );
+			$( '.tribe-events-admin-tab-nav li' ).removeClass( "selected" );
+			$( this ).addClass( "selected" );
 
 			$( tab ).show();
 			current_tab = tab;

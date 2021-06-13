@@ -60,7 +60,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 ]);
 
 ?>
-<div id="tec-help-calendar">
+<div id="tribe-calendar">
 	<p class="tribe-events-admin-products-description"><?php esc_html_e('Get help for these products and learn more about products you don\'t have.', 'tribe-common'); ?></p>
 
 	<?php // list of products?>
