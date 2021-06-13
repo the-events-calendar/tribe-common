@@ -9,23 +9,23 @@ $ticketing_products = apply_filters('tec-help-ticketing-products', [
 // there should only be 4 in this list
 $faqs = apply_filters('tec-help-ticketing-faqs', [
     [
-        'question' => __('Can I have more than one ticketing?', 'tribe-common'),
-        'answer' => __('No, but you can use event categories or tags to display certain events like having...', 'tribe-common'),
+        'question' => __('Is The Events Calendar required?', 'tribe-common'),
+        'answer' => __('Yep! The Events Calendar provides the calendar, and Community Events adds...', 'tribe-common'),
         'link' => 'https://evnt.is/somewhere',
     ],
     [
-        'question' => __('What do I get with The Events ticketing Pro?', 'tribe-common'),
-        'answer' => __('Events ticketing Pro runs alongside The Events ticketing and enhances...'),
+        'question' => __('Can people sell tickets for submitted events?', 'tribe-common'),
+        'answer' => __('Absolutely, but this function requires a few extra plugins. More info.'),
         'link' => 'https://evnt.is/somewhere',
     ],
     [
-        'question' => __('How do I sell tickets to events?', 'tribe-common'),
-        'answer' => __('Use our free Event Tickets plugin to get started with tickets and RSVPs.', 'tribe-common'),
+        'question' => __('Can I review events before they publish?', 'tribe-common'),
+        'answer' => __('Yes. There’s a setting that puts all incoming submissions in draft mode.', 'tribe-common'),
         'link' => 'https://evnt.is/somewhere',
     ],
     [
-        'question' => __('What happens if I disable the plugin?', 'tribe-common'),
-        'answer' => __('Nothing. Whether you disable the plugin or uninstall it, your events...', 'tribe-common'),
+        'question' => __('Can people edit events after submitting them?', 'tribe-common'),
+        'answer' => __('They can, as long as they’re logged in. In fact, there’s a page they can use.', 'tribe-common'),
         'link' => 'https://evnt.is/somewhere',
     ],
 ]);
@@ -33,28 +33,28 @@ $faqs = apply_filters('tec-help-ticketing-faqs', [
 // there should only be 4 in this list
 $extensions = apply_filters('tec-help-ticketing-extensions', [
     [
-        'title' => __('ticketing widget areas', 'tribe-common'),
-        'description' => __('This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars).', 'tribe-common'),
-        'link' => 'https://evnt.is/ext-cal-widget-areas',
-        'product-slug' => 'the-events-ticketing',
+        'title' => __('Display Google Maps Setting', 'tribe-common'),
+        'description' => __('This extension adds options for people to display a Google map on their events.', 'tribe-common'),
+        'link' => '',
+        'product-slug' => 'event-tickets',
     ],
     [
-        'title' => __('Event block patterns', 'tribe-common'),
-        'description' => __('This extension adds a set of block patterns for events to the WordPress block editor.', 'tribe-common'),
+        'title' => __('Hide Additional Fields', 'tribe-common'),
+        'description' => __('This extension prevents your custom fields from displaying in the event submission form.', 'tribe-common'),
         'link' => 'https://evnt.is/ext-block-patterns',
-        'product-slug' => 'the-events-ticketing',
+        'product-slug' => 'event-tickets',
     ],
     [
-        'title' => __('Alternative photo view', 'tribe-common'),
-        'description' => __('This extension replaces photo view with a tiled grid of cards featuring event images.', 'tribe-common'),
+        'title' => __('Hide Venues & Organizers', 'tribe-common'),
+        'description' => __('This extension hides venues and organizers created during event submissions.', 'tribe-common'),
         'link' => 'https://evnt.is/ext-alt-photo-view',
-        'product-slug' => 'events-ticketing-pro',
+        'product-slug' => 'event-tickets',
     ],
     [
-        'title' => __('Test data generator', 'tribe-common'),
-        'description' => __('This extension adds a tool to generate realistic dummy content for events.', 'tribe-common'),
+        'title' => __('Submission Form Custom HTML', 'tribe-common'),
+        'description' => __('This extension allows you to add custom HTML to the top of the submission form.', 'tribe-common'),
         'link' => 'https://evnt.is/ext-graphql',
-        'product-slug' => 'the-events-ticketing',
+        'product-slug' => 'event-tickets',
     ],
 ]);
 
@@ -121,17 +121,17 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
 					<a href="https://evnt.is/guide-et" target="_blank">
-						<?php esc_html_e('The Events ticketing', 'tribe-common'); ?>
+						<?php esc_html_e('Event Tickets', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
 					<a href="" target="_blank">
-						<?php esc_html_e('Event Aggregator', 'tribe-common'); ?>
+						<?php esc_html_e('Calendar & Ticket Shortcodes', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
 					<a href="https://evnt.is/guide-pmt" target="_blank">
-						<?php esc_html_e('Filter Bar', 'tribe-common'); ?>
+						<?php esc_html_e('Promoter', 'tribe-common'); ?>
 					</a>
 				</li>
 			</ul>
@@ -141,26 +141,32 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 			<img
 				class="tribe-events-admin-kb-card__image"
 				src="<?php echo esc_url(tribe_resource_url('images/help/customizing.png', false, null, $main)); ?>"
-				alt="<?php esc_attr_e('book with The Events ticketing logo', 'tribe-common'); ?>"
+				alt="<?php esc_attr_e('book with Event Tickets logo', 'tribe-common'); ?>"
 			/>
 			<div class="tribe-events-admin-kb-card__title">
-				<?php esc_html_e('Customizing', 'tribe-common'); ?>
+				<?php esc_html_e('Creating Tickets & RSVPs', 'tribe-common'); ?>
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/guide-tec" target="_blank">
-						<?php esc_html_e('Getting started with customizations', 'tribe-common'); ?>
+					<a href="" target="_blank">
+						<?php esc_html_e('Creating Tickets', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-ea" target="_blank">
-						<?php esc_html_e('Highlighting events', 'tribe-common'); ?>
+					<a href="" target="_blank">
+						<?php esc_html_e('Creating RSVPs', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-fb" target="_blank">
-						<?php esc_html_e('Another link', 'tribe-common'); ?>
+					<a href="" target="_blank">
+						<?php esc_html_e('Configuring Tribe Commerce', 'tribe-common'); ?>
 					</a>
+				</li>
+				<li>
+					<a href="" target="_blank">
+						<?php esc_html_e('Shortcodes', 'tribe-common'); ?>
+					</a>
+					<?php esc_html_e('(Event Tickets Plus)', 'tribe-common'); ?>
 				</li>
 			</ul>
 		</div>
@@ -172,27 +178,27 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 				alt="<?php esc_attr_e('book with The Events ticketing logo', 'tribe-common'); ?>"
 			/>
 			<div class="tribe-events-admin-kb-card__title">
-				<?php esc_html_e('Common Issues', 'tribe-common'); ?>
+				<?php esc_html_e('Plugin Maintenance', 'tribe-common'); ?>
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/guide-tec" target="_blank">
-						<?php esc_html_e('Known Issues', 'tribe-common'); ?>
+					<a href="" target="_blank">
+						<?php esc_html_e('Troubleshooting', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-ea" target="_blank">
+					<a href="" target="_blank">
 						<?php esc_html_e('Release notes', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-fb" target="_blank">
+					<a href="" target="_blank">
 						<?php esc_html_e('Integrations', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-ve" target="_blank">
-						<?php esc_html_e('Shortcodes', 'tribe-common'); ?>
+					<a href="" target="_blank">
+						<?php esc_html_e('Automatic Updates', 'tribe-common'); ?>
 					</a>
 				</li>
 			</ul>
