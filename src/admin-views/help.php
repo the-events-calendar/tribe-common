@@ -24,11 +24,6 @@ $products = tribe('plugins.api')->get_products();
 			alt="<?php esc_attr_e('The Events Calendar brand logo', 'tribe-common'); ?>"
 		/>
 
-		<img
-			class="tribe-events-admin-header__right-image"
-			src="<?php echo esc_url(tribe_resource_url('images/help/help-hero-header.png', false, null, $main)); ?>"
-		/>
-
 		<h2 class="tribe-events-admin-header__title"><?php esc_html_e('Help', 'tribe-common'); ?></h2>
 		<p class="tribe-events-admin-header__description"><?php esc_html_e('We\'re committed to helping make your calendar spectacular and have a wealth of resources available.', 'tribe-common'); ?></p>
 

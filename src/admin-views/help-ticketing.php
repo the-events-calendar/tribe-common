@@ -60,6 +60,10 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 
 ?>
 <div id="tribe-ticketing">
+	<img
+		class="tribe-events-admin-header__right-image"
+		src="<?php echo esc_url(tribe_resource_url('images/help/help-ticketing-header.png', false, null, $main)); ?>"
+	/>
 	<p class="tribe-events-admin-products-description">
 		<?php esc_html_e('Get help for these products and learn more about products you don\'t have.', 'tribe-common'); ?>
 	</p>
