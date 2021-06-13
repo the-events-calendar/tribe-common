@@ -1863,8 +1863,8 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-tab-nav {
-  	border-bottom: 1px solid #E1E1E4;
 	display: flex;
+	margin: 0;
 
 	@media screen and (max-width: 480px) {
 		border: 1px solid #e1e1e4;
@@ -1880,6 +1880,7 @@ body.tribe_events_page_tribe-help {
 	font-weight: 500;
 	cursor: pointer;
 	margin-right: 30px;
+	margin-bottom: 0;
 
 	@media screen and (max-width: 768px) {
 		margin-right: 20px;
@@ -1911,7 +1912,7 @@ body.tribe_events_page_tribe-help {
 	}
 }
 
-.tribe-events-admin-tab-nav__link-item--selected:after {
+.tribe-events-admin-tab-nav li:after {
   background: #334AFF;
   border-radius: 100px;
   bottom: 0;
@@ -1921,6 +1922,14 @@ body.tribe_events_page_tribe-help {
   left: 0;
   position: absolute;
   right: 0;
+}
+
+.tribe-events-admin__line {
+	border-top: 1px solid #E1E1E4;
+
+	@media screen and (max-width: 480px) {
+		border: none;
+	}
 }
 
 .tribe-events-admin-products-description {

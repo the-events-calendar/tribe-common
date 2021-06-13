@@ -41,6 +41,9 @@ $products = tribe('plugins.api')->get_products();
 	</div>
 </div>
 
+<div class="tribe-events-admin__line">
+	&nbsp;
+</div>
 
 <div class="tribe-events-admin-content-wrapper tribe-events-admin-container">
 
