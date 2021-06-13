@@ -61,7 +61,9 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 
 ?>
 <div id="tribe-calendar">
-	<p class="tribe-events-admin-products-description"><?php esc_html_e('Get help for these products and learn more about products you don\'t have.', 'tribe-common'); ?></p>
+	<p class="tribe-events-admin-products-description">
+		<?php esc_html_e('Get help for these products and learn more about products you don\'t have.', 'tribe-common'); ?>
+	</p>
 
 	<?php // list of products?>
 	<div class="tribe-events-admin-products tribe-events-admin-2col-grid">
@@ -77,13 +79,21 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 					alt="<?php esc_attr_e('logo icon', 'tribe-common'); ?>"
 				/>
 				<div class="tribe-events-admin-products-card__group">
-					<div class="tribe-events-admin-products-card__group-title"><?php echo esc_html($products[ $slug ]['title']); ?></div>
-					<div class="tribe-events-admin-products-card__group-description"><?php echo esc_html($products[ $slug ]['description-help']); ?></div>
+					<div class="tribe-events-admin-products-card__group-title">
+						<?php echo esc_html($products[ $slug ]['title']); ?>
+					</div>
+					<div class="tribe-events-admin-products-card__group-description">
+						<?php echo esc_html($products[ $slug ]['description-help']); ?>
+					</div>
 				</div>
 				<?php if ($products[ $slug ]['is_installed']) : ?>
-				<button class="tribe-events-admin-products-card__button tribe-events-admin-products-card__button--active"><?php esc_html_e('Active', 'tribe-common'); ?></button>
+				<button class="tribe-events-admin-products-card__button tribe-events-admin-products-card__button--active">
+					<?php esc_html_e('Active', 'tribe-common'); ?>
+				</button>
 				<?php else : ?>
-					<button class="tribe-events-admin-products-card__button"><?php esc_html_e('Learn More', 'tribe-common'); ?></button>
+					<button class="tribe-events-admin-products-card__button">
+						<?php esc_html_e('Learn More', 'tribe-common'); ?>
+					</button>
 				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
@@ -106,12 +116,30 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 				src="<?php echo esc_url(tribe_resource_url('images/help/getting-started.png', false, null, $main)); ?>"
 				alt="<?php esc_attr_e('book with The Events Calendar logo', 'tribe-common'); ?>"
 			/>
-			<div class="tribe-events-admin-kb-card__title"><?php esc_html_e('Getting Started Guides', 'tribe-common'); ?></div>
+			<div class="tribe-events-admin-kb-card__title">
+				<?php esc_html_e('Getting Started Guides', 'tribe-common'); ?>
+			</div>
 			<ul class="tribe-events-admin-kb-card__links">
-				<li><a href="https://evnt.is/guide-tec" target="_blank"><?php esc_html_e('The Events Calendar', 'tribe-common'); ?></a></li>
-				<li><a href="https://evnt.is/guide-ea" target="_blank"><?php esc_html_e('Event Aggregator', 'tribe-common'); ?></a></li>
-				<li><a href="https://evnt.is/guide-fb" target="_blank"><?php esc_html_e('Filter Bar', 'tribe-common'); ?></a></li>
-				<li><a href="https://evnt.is/guide-ve" target="_blank"><?php esc_html_e('Virtual Events', 'tribe-common'); ?></a></li>
+				<li>
+					<a href="https://evnt.is/guide-tec" target="_blank">
+						<?php esc_html_e('The Events Calendar', 'tribe-common'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="https://evnt.is/guide-ea" target="_blank">
+						<?php esc_html_e('Event Aggregator', 'tribe-common'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="https://evnt.is/guide-fb" target="_blank">
+						<?php esc_html_e('Filter Bar', 'tribe-common'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="https://evnt.is/guide-ve" target="_blank">
+						<?php esc_html_e('Virtual Events', 'tribe-common'); ?>
+					</a>
+				</li>
 			</ul>
 		</div>
 
@@ -121,11 +149,25 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 				src="<?php echo esc_url(tribe_resource_url('images/help/customizing.png', false, null, $main)); ?>"
 				alt="<?php esc_attr_e('book with The Events Calendar logo', 'tribe-common'); ?>"
 			/>
-			<div class="tribe-events-admin-kb-card__title"><?php esc_html_e('Customizing', 'tribe-common'); ?></div>
+			<div class="tribe-events-admin-kb-card__title">
+				<?php esc_html_e('Customizing', 'tribe-common'); ?>
+			</div>
 			<ul class="tribe-events-admin-kb-card__links">
-				<li><a href="https://evnt.is/guide-tec" target="_blank"><?php esc_html_e('Getting started with customizations', 'tribe-common'); ?></a></li>
-				<li><a href="https://evnt.is/guide-ea" target="_blank"><?php esc_html_e('Highlighting events', 'tribe-common'); ?></a></li>
-				<li><a href="https://evnt.is/guide-fb" target="_blank"><?php esc_html_e('Another link', 'tribe-common'); ?></a></li>
+				<li>
+					<a href="https://evnt.is/guide-tec" target="_blank">
+						<?php esc_html_e('Getting started with customizations', 'tribe-common'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="https://evnt.is/guide-ea" target="_blank">
+						<?php esc_html_e('Highlighting events', 'tribe-common'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="https://evnt.is/guide-fb" target="_blank">
+						<?php esc_html_e('Another link', 'tribe-common'); ?>
+					</a>
+				</li>
 			</ul>
 		</div>
 
@@ -135,12 +177,30 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 				src="<?php echo esc_url(tribe_resource_url('images/help/common-issues.png', false, null, $main)); ?>"
 				alt="<?php esc_attr_e('book with The Events Calendar logo', 'tribe-common'); ?>"
 			/>
-			<div class="tribe-events-admin-kb-card__title"><?php esc_html_e('Common Issues', 'tribe-common'); ?></div>
+			<div class="tribe-events-admin-kb-card__title">
+				<?php esc_html_e('Common Issues', 'tribe-common'); ?>
+			</div>
 			<ul class="tribe-events-admin-kb-card__links">
-				<li><a href="https://evnt.is/guide-tec" target="_blank"><?php esc_html_e('Known Issues', 'tribe-common'); ?></a></li>
-				<li><a href="https://evnt.is/guide-ea" target="_blank"><?php esc_html_e('Release notes', 'tribe-common'); ?></a></li>
-				<li><a href="https://evnt.is/guide-fb" target="_blank"><?php esc_html_e('Integrations', 'tribe-common'); ?></a></li>
-				<li><a href="https://evnt.is/guide-ve" target="_blank"><?php esc_html_e('Shortcodes', 'tribe-common'); ?></a></li>
+				<li>
+					<a href="https://evnt.is/guide-tec" target="_blank">
+						<?php esc_html_e('Known Issues', 'tribe-common'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="https://evnt.is/guide-ea" target="_blank">
+						<?php esc_html_e('Release notes', 'tribe-common'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="https://evnt.is/guide-fb" target="_blank">
+						<?php esc_html_e('Integrations', 'tribe-common'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="https://evnt.is/guide-ve" target="_blank">
+						<?php esc_html_e('Shortcodes', 'tribe-common'); ?>
+					</a>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -208,5 +268,4 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 			</div>
 		<?php endforeach; ?>
 	</div>
-
 </div>
