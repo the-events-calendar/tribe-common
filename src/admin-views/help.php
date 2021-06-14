@@ -43,15 +43,14 @@ $products = tribe('plugins.api')->get_products();
 <div class="tribe-events-admin-content-wrapper tribe-events-admin-container">
 
 	<?php
+        // Calendar Tab
+        include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-calendar.php';
 
-    // Calendar Tab
-    include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-calendar.php';
+        // Ticketing & RSVP Tab
+        include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-ticketing.php';
 
-    // Ticketing & RSVP Tab
-    include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-ticketing.php';
-
-    // Ticketing & RSVP Tab
-    include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-community.php';
+        // Community Tab
+        include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-community.php';
     ?>
 
 	<?php // Shared footer area?>
