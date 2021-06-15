@@ -1,8 +1,72 @@
+<?php
+    // there should only be 4 in this list
+    $commonIssues = apply_filters('tec-help-troubleshooting-issues', [
+        [
+            'issue' => __('I got an error message. Now what?', 'tribe-common'),
+            'solution' => __('Here’s an overview of common error messages and what they mean.', 'tribe-common'),
+            'link' => 'https://evnt.is/somewhere',
+        ],
+        [
+            'issue' => __('My calendar doesn’t look right.', 'tribe-common'),
+            'solution' => __('This can happen when other plugins try to improve performance. More info.'),
+            'link' => 'https://evnt.is/somewhere',
+        ],
+        [
+            'issue' => __('I installed the calendar and it crashed my site.', 'tribe-common'),
+            'solution' => __('Find solutions to this and other common installation issues.', 'tribe-common'),
+            'link' => 'https://evnt.is/somewhere',
+        ],
+        [
+            'issue' => __('I keep getting “Page Not Found” on events.', 'tribe-common'),
+            'solution' => __('There are a few things you can do to resolve and prevent 404 errors.', 'tribe-common'),
+            'link' => 'https://evnt.is/somewhere',
+        ],
+    ]);
+?>
+
 <div id="tribe-troubleshooting">
     <img
         class="tribe-events-admin-header__right-image"
         src="<?php echo esc_url(tribe_resource_url('images/help/troubleshooting-hero.png', false, null, $main)); ?>"
     />
+
+	<div class="tribe-events-admin-section-header">
+		<h3>
+			<?php esc_html_e('We’ve detected the following issues', 'tribe-common'); ?>
+		</h3>
+	</div>
+
+	<!-- toggles to appear here -->
+
+	<!-- Common Issues -->
+	<div class="tribe-events-admin-section-header">
+		<h3>
+			<?php esc_html_e('Common Problems', 'tribe-common'); ?>
+		</h3>
+	</div>
+
+	<div class="tribe-events-admin-faq tribe-events-admin-4col-grid">
+		<?php foreach ($commonIssues as $commonIssue) : ?>
+			<div class="tribe-events-admin-faq-card">
+				<div class="tribe-events-admin-faq-card__icon">
+					<img
+						src="<?php echo esc_url(tribe_resource_url('images/icons/faq.png', false, null, $main)); ?>"
+						alt="<?php esc_attr_e('lightbulb icon', 'tribe-common'); ?>"
+					/>
+				</div>
+				<div class="tribe-events-admin-faq-card__content">
+					<div class="tribe-events-admin-faq__question">
+						<a href="<?php echo esc_html($commonIssue['link']); ?>" target="_blank">
+							<?php echo esc_html($commonIssue['issue']); ?>						
+						</a>
+					</div>
+					<div class="tribe-events-admin-faq__answer">
+						<?php echo esc_html($commonIssue['solution']); ?>
+					</div>
+				</div>
+			</div>
+		<?php endforeach; ?>
+	</div>
     
     <!-- cta -->
 	<div class="tribe-events-admin-cta">
