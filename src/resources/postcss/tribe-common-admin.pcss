@@ -2762,6 +2762,70 @@ input[type="email"].tribe-events-admin-card__input {
 	margin-top: 18px;
 }
 
+.tribe-events-admin__system-information {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-rows: 1fr;
+	gap: 15px 30px;
+	grid-template-areas: ". .";
+	margin: 100px 0;
+
+	@media screen and (max-width: 768px) {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		grid-template-areas: ".";
+		margin: 50px 0;
+	}
+
+	@media screen and (max-width: 480px) {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		grid-template-areas: ".";
+		margin: 50px 0;
+	}
+}
+
+.tribe-events-admin__system-information-title {
+	font-size: 28px;
+	line-height: 1;
+	font-weight: bold;
+	color: #0f1031;
+	margin: 0;
+}
+
+.tribe-events-admin__system-information-description {
+	font-size: 18px;
+	line-height: 1.44;
+	color: #0f1031;
+	line-height: 1.2;
+	margin: 20px 0;
+}
+
+.tribe-events-admin__system-information-select {
+	margin: 30px 0 20px;
+	display: flex;
+}
+
+.tribe-events-admin__system-information-select input[type="checkbox"] {
+	margin: 0 10px 0 0;
+}
+
+.tribe-events-admin__system-information-select label {
+	font-size: 16px;
+	color: #0f1031;
+	line-height: 1.2;
+}
+
+.tribe-events-admin__system-information-content small {
+	font-size: 12px;
+	color: #0f1031;
+	line-height: 1.2;
+}
+
+.tribe-events-admin__system-information-widget {
+	background: #0f1031;
+	padding: 12px 0 0 27px;
+	border-radius: 30px;
+}
+
 /* -- Help page overrides -- */
 /*
 TODO:
