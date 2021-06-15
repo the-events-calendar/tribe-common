@@ -51,6 +51,9 @@ $products = tribe('plugins.api')->get_products();
 
         // Community Tab
         include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-community.php';
+
+        // Troubleshooting Tab
+        include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-troubleshooting.php';
     ?>
 
 	<?php // Shared footer area?>

@@ -2648,12 +2648,13 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-cta__image {
-	width: 310px;
+	width: auto;
 	height: 152px;
-	object-fit: cover;
+	object-fit: contain;
 
 	@media screen and (max-width: 480px) {
 		width: 90%;
+		height: auto;
 	}
 }
 
@@ -2666,12 +2667,38 @@ input[type="email"].tribe-events-admin-card__input {
 
 	@media screen and (max-width: 480px) {
 		padding: 32px 23px 45px;
+		align-items: flex-start;
+	}
+}
+
+.tribe-events-admin__troubleshooting-cta {
+	align-items: flex-start;
+	margin-left: 140px;
+
+	@media screen and (max-width: 768px) {
+		margin-left: 20px;
+	}
+	
+	@media screen and (max-width: 480px) {
+		margin-left: 0;
 	}
 }
 
 .tribe-events-admin-cta__content-title {
 	font-size: 28px;
 	font-weight: bold;
+	color: #0f1031;
+	line-height: normal;
+	margin-bottom: 10px;
+
+	@media screen and (max-width: 480px) {
+		font-size: 25px;
+	}
+}
+
+.tribe-events-admin-cta__content-subtitle {
+	font-size: 16px;
+	line-height: 1.5;
 	color: #0f1031;
 	margin-bottom: 10px;
 }
