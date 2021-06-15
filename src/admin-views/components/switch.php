@@ -11,27 +11,27 @@
  *
  * @version TBD
  *
- * @var string               $label         Label for the dropdown input.
- * @var string               $id            ID of the dropdown input.
+ * @var string               $label         Label for the switch input.
+ * @var string               $id            ID of the switch input.
  * @var array<string,string> $classes_wrap  An array of classes for the switch wrap.
  * @var array<string,string> $classes_input An array of classes for the switch input.
  * @var array<string,string> $classes_label An array of classes for the switch label.
- * @var string               $name          Name attribute for the dropdown input.
- * @var string|int           $value         The value of the swtich.
+ * @var string               $name          Name attribute for the switch input.
+ * @var string|int           $value         The value of the switch.
  * @var string|int           $checked       Whether the switch is enabled or not.
- * @var array<string,string> $attrs         Associative array of attributes of the dropdown.
+ * @var array<string,string> $attrs         Associative array of attributes of the switch.
  */
-$switch_wrap_classes = [ 'tribe-events-common-control', 'tribe-events-common-control--switch' ];
+$switch_wrap_classes = [ 'tribe-common-control', 'tribe-common-control--switch' ];
 if ( ! empty( $classes_wrap ) ) {
 	$switch_wrap_classes = array_merge( $switch_wrap_classes, $classes_wrap );
 }
 
-$switch_input_classes = [ 'tribe-events-common-switch__input' ];
+$switch_input_classes = [ 'tribe-common-switch__input' ];
 if ( ! empty( $classes_input ) ) {
 	$switch_input_classes = array_merge( $switch_input_classes, $classes_input );
 }
 
-$switch_label_classes = [ 'tribe-events-common-switch__label' ];
+$switch_label_classes = [ 'tribe-common-switch__label' ];
 if ( ! empty( $classes_label ) ) {
 	$switch_label_classes = array_merge( $switch_label_classes, $classes_label );
 }

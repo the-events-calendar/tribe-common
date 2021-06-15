@@ -2379,10 +2379,10 @@ body.tribe-welcome #fs_connect {
 }
 
 /* -- CSS Toggle based off https://codepen.io/mallendeo/pen/eLIiG  -- */
-input[type="checkbox"].tribe-events-common-switch__input {
+input[type="checkbox"].tribe-common-switch__input {
 	display: none;
 
-	+ .tribe-events-common-switch__label {
+	+ .tribe-common-switch__label {
 		background: #fff;
 		border: 1px solid #aaa;
 		border-radius: 4px;
@@ -2422,7 +2422,7 @@ input[type="checkbox"].tribe-events-common-switch__input {
 		}
 	}
 
-	&:checked + .tribe-events-common-switch__label {
+	&:checked + .tribe-common-switch__label {
 
 		&:after {
 			background: #2e709d;
@@ -2431,3 +2431,42 @@ input[type="checkbox"].tribe-events-common-switch__input {
 	}
 }
 
+/* -- Slide Toggle  -- */
+.tribe-common-slide-toggle {
+	background-color: #fff;
+	margin: 15px 0;
+	width: 100%;
+
+	.tribe-common-slide-toggle__button {
+		background: transparent;
+		border: 1px solid #c3c4c7;
+		cursor: pointer;
+		display: flex;
+		font-size: 14px;
+		font-weight: 700;
+		justify-content: space-between;
+		line-height: 16px;
+		padding: 12px 14px;
+		text-align: left;
+		width: 100%;
+	}
+
+	.tribe-common-slide-toggle__button-icon-caret-svg {
+		transition: 300ms linear all;
+		width: 13px;
+	}
+
+	.tribe-common-slide-toggle__content {
+		border: 1px solid #c3c4c7;
+		border-top: none;
+		display: none;
+		padding: 15px 25px;
+	}
+
+	&.active {
+		.tribe-common-slide-toggle__button-icon-caret-svg {
+			transform: rotate(-180deg);
+		}
+	}
+
+}
