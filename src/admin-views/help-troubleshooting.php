@@ -194,6 +194,10 @@
 		</div>	
 	</div>
 
+	<div class="tribe-events-admin__system-information-widget">
+		<?php esc_html_e('The selected log file is empty or has not been generated yet.', 'tribe-common'); ?>
+	</div>
+
     <?php // cta section?>
 	<div class="tribe-events-admin-cta">
 		<img
