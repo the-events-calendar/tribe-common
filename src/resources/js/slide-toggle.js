@@ -40,7 +40,7 @@ tribe.events.slideToggle = tribe.events.slideToggle || {};
 	 */
 	obj.selector = {
 		slideButton: '.tribe-common-slide-toggle__button',
-		slideContent: '.tribe-common-slide-toggle__content',
+		slidePanel: '.tribe-common-slide-toggle__panel',
 		slideWrap: '.tribe-common-slide-toggle',
 	};
 
@@ -63,7 +63,7 @@ tribe.events.slideToggle = tribe.events.slideToggle || {};
 		// Set parent and find panel to display and toggle aria-hidden.
 		var $parent = $button.closest( obj.selector.slideWrap );
 		$parent.toggleClass( 'active' );
-		$parent.find( obj.selector.slideContent ).slideToggle().attr( 'aria-hidden', function ( i, attr ) {
+		$parent.find( obj.selector.slidePanel ).slideToggle().attr( 'aria-hidden', function ( i, attr ) {
 			return 'true' === attr ? 'false' : 'true';
 		} );
 	};
