@@ -2693,7 +2693,7 @@ input[type="email"].tribe-events-admin-card__input {
 	margin-bottom: 10px;
 
 	@media screen and (max-width: 480px) {
-		font-size: 25px;
+		font-size: 23px;
 	}
 }
 
@@ -2839,10 +2839,28 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin__recent-log-filters {
 	display: flex;
 	padding: 20px 0 40px;
+
+	@media only screen and (max-width: 768px) {
+		flex-direction: column;
+	}
+
+	@media only screen and (max-width: 480px) {
+		flex-direction: column;
+	}
 }
 
 .tribe-events-admin__recent-log-filters-field {
 	margin-right: 40px;
+
+	@media only screen and (max-width: 768px) {
+		margin-right: 0;
+		margin-bottom: 30px
+	}
+
+	@media only screen and (max-width: 480px) {
+		margin-right: 0;
+		margin-bottom: 30px
+	}
 }
 
 .tribe-events-admin__recent-log-filters-field label {
@@ -2883,8 +2901,12 @@ input[type="email"].tribe-events-admin-card__input {
 	-webkit-appearance: none;
 	background: #fff;
 
+	@media only screen and (max-width: 768px) {
+		width: 500px;
+	}
+
 	@media only screen and (max-width: 480px) {
-		width: 100%;
+		width: 300px;
 	}
 }
 
@@ -2896,6 +2918,10 @@ input[type="email"].tribe-events-admin-card__input {
 	font-size: 14px;
 	line-height: 1.14;
 	color: #0f1031;
+}
+
+.tribe-events-admin__ea-status {
+	margin-top: 100px;
 }
 
 /* -- Help page overrides -- */

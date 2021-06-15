@@ -198,6 +198,11 @@
 		<?php esc_html_e('The selected log file is empty or has not been generated yet.', 'tribe-common'); ?>
 	</div>
 
+	<?php // EA status?>
+	<h3 class="tribe-events-admin__troubleshooting-title tribe-events-admin__ea-status">
+		<?php esc_html_e('Event Aggregator system status ', 'tribe-common'); ?>
+	</h3>
+
     <?php // cta section?>
 	<div class="tribe-events-admin-cta">
 		<img
