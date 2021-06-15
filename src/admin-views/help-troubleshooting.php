@@ -1,4 +1,18 @@
 <?php
+
+    $firstSteps = apply_filters('tec-help-troubleshooting-steps', [
+        [
+            'title' => __('I got an error message. Now what?', 'tribe-common'),
+            'description' => __('Here’s an overview of common error messages and what they mean.', 'tribe-common'),
+            'link' => 'https://evnt.is/somewhere',
+        ],
+        [
+            'title' => __('I got an error message. Now what?', 'tribe-common'),
+            'description' => __('Here’s an overview of common error messages and what they mean.', 'tribe-common'),
+            'link' => 'https://evnt.is/somewhere',
+        ],
+    ]);
+
     // there should only be 4 in this list
     $commonIssues = apply_filters('tec-help-troubleshooting-issues', [
         [
@@ -37,6 +51,34 @@
 	</div>
 
 	<!-- toggles to appear here -->
+
+	<!-- First Steps -->
+	<div class="tribe-events-admin-section-header">
+		<h3>
+			<?php esc_html_e('First Steps', 'tribe-common'); ?>
+		</h3>
+	</div>
+
+	<div class="tribe-events-admin-step tribe-events-admin-2col-grid">
+		<?php foreach ($firstSteps as $firstStep) : ?>
+			<div class="tribe-events-admin-step-card">
+				<div class="tribe-events-admin-step-card__icon">
+					<img
+						src="<?php echo esc_url(tribe_resource_url('images/icons/faq.png', false, null, $main)); ?>"
+						alt="<?php esc_attr_e('lightbulb icon', 'tribe-common'); ?>"
+					/>
+				</div>
+				<div class="tribe-events-admin-step-card__content">
+					<div class="tribe-events-admin-step__title">
+						<?php echo esc_html($firstStep['title']); ?>	
+					</div>
+					<div class="tribe-events-admin-step__description">
+						<?php echo esc_html($firstStep['description']); ?>
+					</div>
+				</div>
+			</div>
+		<?php endforeach; ?>
+	</div>
 
 	<!-- Common Issues -->
 	<div class="tribe-events-admin-section-header">
