@@ -37,9 +37,9 @@
 		</h3>
 	</div>
 
-	<!-- toggles to appear here -->
+	<?php // toggles to appear here?>
 
-	<!-- First Steps -->
+	<?php // first steps?>
 	<div class="tribe-events-admin-section-header">
 		<h3>
 			<?php esc_html_e('First Steps', 'tribe-common'); ?>
@@ -82,7 +82,7 @@
 		</div>
 	</div>
 
-	<!-- Common Issues -->
+	<?php // common issues?>
 	<div class="tribe-events-admin-section-header">
 		<h3>
 			<?php esc_html_e('Common Problems', 'tribe-common'); ?>
@@ -112,7 +112,7 @@
 		<?php endforeach; ?>
 	</div>
     
-    <!-- cta -->
+    <?php // cta section?>
 	<div class="tribe-events-admin-cta">
 		<img
 			class="tribe-events-admin-cta__image"

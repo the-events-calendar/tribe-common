@@ -212,7 +212,7 @@ $extensions = apply_filters('tec-help-community-extensions', [
 		</div>
 	</div>
 
-	<!-- FAQ Section -->
+	<?php // faq section?>
 	<div class="tribe-events-admin-section-header">
 		<h3>
 			<?php esc_html_e('FAQs', 'tribe-common'); ?>
@@ -246,7 +246,7 @@ $extensions = apply_filters('tec-help-community-extensions', [
 		<?php endforeach; ?>
 	</div>
 
-	<!-- Extensions Section -->
+	<?php // extensions section?>
 	<div class="tribe-events-admin-section-header">
 		<h3>
 			<?php esc_html_e('Free extensions', 'tribe-common'); ?>
