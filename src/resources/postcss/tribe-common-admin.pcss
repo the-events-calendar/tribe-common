@@ -2823,7 +2823,7 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin__system-information-widget {
 	background: #0f1031;
 	padding: 12px 0 0 27px;
-	border-radius: 30px;
+	border-radius: 16px;
 	min-height: 200px;
 }
 
@@ -2848,14 +2848,49 @@ input[type="email"].tribe-events-admin-card__input {
 	margin-bottom: 10px;
 }
 
-.tribe-events-admin__recent-log-filters-field select {
+.tribe-events-admin__recent-log-filters-select-wrapper {
+	position: relative;
+	display: inline-block;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper::after {
+	content: url("../images/help/polygon.svg");
+	right: 22px;
+	top: 20px;
+	position: absolute;
+	pointer-events: none;
+	width: 14px;
+	height: 13px;
+
+	@media only screen and (max-width: 480px) {
+		right: 25px;
+	}
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper select {
 	font-size: 14px;
 	line-height: 1.14;
 	color: #0f1031;
 	padding: 18px 22px 18px 23px;
 	border: 1px solid #e1e1e4;
-	border-radius: 30px;
+	border-radius: 16px;
 	width: 300px;
+	-webkit-appearance: none;
+	background: #fff;
+
+	@media only screen and (max-width: 480px) {
+		width: 100%;
+	}
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper select:focus-visivble {
+	outline: none;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper select option {
+	font-size: 14px;
+	line-height: 1.14;
+	color: #0f1031;
 }
 
 /* -- Help page overrides -- */

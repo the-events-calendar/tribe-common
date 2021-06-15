@@ -158,33 +158,39 @@
 			<label>
 				<?php esc_html_e('Logging level', 'tribe-common'); ?>
 			</label>
-			<select name="" id="">
-				<option value="errors">
-					<?php esc_html_e('Only errors', 'tribe-common'); ?>
-				</option>
-			</select>
+			<div class="tribe-events-admin__recent-log-filters-select-wrapper">
+				<select name="" id="">
+					<option value="errors">
+						<?php esc_html_e('Only errors', 'tribe-common'); ?>
+					</option>
+				</select>
+			</div>
 		</div>	
 
 		<div class="tribe-events-admin__recent-log-filters-field">
 			<label>
 				<?php esc_html_e('Method', 'tribe-common'); ?>
 			</label>
-			<select name="" id="">
-				<option value="default">
-					<?php esc_html_e('Default (uses temporary file)', 'tribe-common'); ?>
-				</option>
-			</select>
+			<div class="tribe-events-admin__recent-log-filters-select-wrapper">
+				<select name="" id="">
+					<option value="default">
+						<?php esc_html_e('Default (uses temporary file)', 'tribe-common'); ?>
+					</option>
+				</select>
+			</div>
 		</div>	
 
 		<div class="tribe-events-admin__recent-log-filters-field">
 			<label>
 				<?php esc_html_e('View', 'tribe-common'); ?>
 			</label>
-			<select name="" id="">
-				<option value="none">
-					<?php esc_html_e('None currently available', 'tribe-common'); ?>
-				</option>
-			</select>
+			<div class="tribe-events-admin__recent-log-filters-select-wrapper">
+				<select name="" id="">
+					<option value="none">
+						<?php esc_html_e('None currently available', 'tribe-common'); ?>
+					</option>
+				</select>
+			</div>
 		</div>	
 	</div>
 
