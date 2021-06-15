@@ -115,10 +115,10 @@
 	<?php // sys info?>
 	<div class="tribe-events-admin__system-information">
 		<div class="tribe-events-admin__system-information-content">
-			<h3 class="tribe-events-admin__system-information-title">
+			<h3 class="tribe-events-admin__troubleshooting-title">
 				<?php esc_html_e('System Information', 'tribe-common'); ?>
 			</h3>	
-			<p class="tribe-events-admin__system-information-description">
+			<p class="tribe-events-admin__troubleshooting-description">
 				<?php esc_html_e('Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk.', 'tribe-common'); ?>	
 			</p>
 			<div class="tribe-events-admin__system-information-select">
@@ -138,14 +138,54 @@
 	</div>
 
 	<?php // recent teamplate changes?>
-	<h3 class="tribe-events-admin__system-information-title">
+	<h3 class="tribe-events-admin__troubleshooting-title">
 		<?php esc_html_e('Recent template changes', 'tribe-common'); ?>
 	</h3>	
-	<p class="tribe-events-admin__system-information-description">
+	<p class="tribe-events-admin__troubleshooting-description">
 		<?php esc_html_e('Information about recent template changes and potentiallly impacted template overrides is provided below.', 'tribe-common'); ?>	
 	</p>
 	<div class="tribe-events-admin__system-information-widget">
 		&nbsp;
+	</div>
+
+	<?php // revent log section?>
+	<h3 class="tribe-events-admin__troubleshooting-title tribe-events-admin__recent-log">
+		<?php esc_html_e('Event log', 'tribe-common'); ?>
+	</h3>
+
+	<div class="tribe-events-admin__recent-log-filters">
+		<div class="tribe-events-admin__recent-log-filters-field">
+			<label>
+				<?php esc_html_e('Logging level', 'tribe-common'); ?>
+			</label>
+			<select name="" id="">
+				<option value="errors">
+					<?php esc_html_e('Only errors', 'tribe-common'); ?>
+				</option>
+			</select>
+		</div>	
+
+		<div class="tribe-events-admin__recent-log-filters-field">
+			<label>
+				<?php esc_html_e('Method', 'tribe-common'); ?>
+			</label>
+			<select name="" id="">
+				<option value="default">
+					<?php esc_html_e('Default (uses temporary file)', 'tribe-common'); ?>
+				</option>
+			</select>
+		</div>	
+
+		<div class="tribe-events-admin__recent-log-filters-field">
+			<label>
+				<?php esc_html_e('View', 'tribe-common'); ?>
+			</label>
+			<select name="" id="">
+				<option value="none">
+					<?php esc_html_e('None currently available', 'tribe-common'); ?>
+				</option>
+			</select>
+		</div>	
 	</div>
 
     <?php // cta section?>
