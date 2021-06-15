@@ -11,14 +11,14 @@
  *
  * @version TBD
  *
- * @var string               $label_id        The id for the slide toggle button.
- * @var string               $label           Label for the slide toggle button.
- * @var array<string,string> $classes_wrap    An array of classes for the toggle wrap.
- * @var array<string,string> $classes_button  An array of classes for the toggle button.
- * @var array<string,string> $classes_content An array of classes for the toggle content.
- * @var string               $panel_id        The id of the panel for the slide toggle.
- * @var string               $panel           The content of the panel for the slide toggle.
- * @var bool                 $expanded        Whether the panel starts open or closed.
+ * @var string               $label_id       The id for the slide toggle button.
+ * @var string               $label          Label for the slide toggle button.
+ * @var array<string,string> $classes_wrap   An array of classes for the toggle wrap.
+ * @var array<string,string> $classes_button An array of classes for the toggle button.
+ * @var array<string,string> $classes_panel  An array of classes for the toggle content.
+ * @var string               $panel_id       The id of the panel for the slide toggle.
+ * @var string               $panel          The content of the panel for the slide toggle.
+ * @var bool                 $expanded       Whether the panel starts open or closed.
  */
 $toggle_wrap_classes = [ 'tribe-common-slide-toggle' ];
 if ( ! empty( $classes_wrap ) ) {
@@ -33,9 +33,9 @@ if ( ! empty( $classes_button ) ) {
 	$toggle_button_classes = array_merge( $toggle_button_classes, $classes_button );
 }
 
-$toggle_content_classes = [ 'tribe-common-slide-toggle__content' ];
-if ( ! empty( $classes_content ) ) {
-	$toggle_label_classes = array_merge( $toggle_content_classes, $classes_content );
+$toggle_panel_classes = [ 'tribe-common-slide-toggle__panel' ];
+if ( ! empty( $classes_panel ) ) {
+	$toggle_panel_classes = array_merge( $toggle_panel_classes, $classes_panel );
 }
 ?>
 <div <?php tribe_classes( $toggle_wrap_classes ); ?>>
@@ -56,13 +56,13 @@ if ( ! empty( $classes_content ) ) {
 	</button>
 	<div
 		id="<?php echo esc_attr( $panel_id ); ?>"
-		<?php tribe_classes( $toggle_content_classes ); ?>
+		<?php tribe_classes( $toggle_panel_classes ); ?>
 		role="region"
 		aria-labelledby="<?php echo esc_attr( $label_id ); ?>"
 		aria-hidden="<?php echo $expanded ? 'false' : 'true'; ?>"
 		<?php
-			// Add inline style if expanded on initial load for slideToggle to work correctly.
-			echo $expanded ? 'style="display:block"' : '';
+		// Add inline style if expanded on initial load for slideToggle to work correctly.
+		echo $expanded ? 'style="display:block"' : '';
 		?>
 	>
 		<?php echo $panel; ?>

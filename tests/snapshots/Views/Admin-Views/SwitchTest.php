@@ -6,24 +6,47 @@ use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Tests\Snapshots\Snapshot_Test_Case;
 
 class SwitchTest extends Snapshot_Test_Case {
+
 	use SnapshotAssertions;
 
 	/**
 	 * @var string The path to the template, either relative to the `/src` directory, or absolute.
 	 */
-	protected $template_path = 'components/switch.php';
+	protected $template_path = 'admin-views/components/switch.php';
 
 	/**
-	 * Test render without classes.
+	 * @test
 	 */
-	public function test_render_without_classes() {
-		$this->assertMatchesHtmlSnapshot( $this->render( [ 'classes_wrap' => [] ] ) );
+	public function should_render_without_classes_and_not_checked() {
+		$context = [
+			'id'            => 'switch-id',
+			'label'         => 'Switch Label',
+			'classes_wrap'  => [],
+			'classes_input' => [],
+			'classes_label' => [],
+			'name'          => 'switch-status',
+			'value'         => 1,
+			'checked'       => false,
+			'attrs'         => [],
+		];
+		$this->assertMatchesHtmlSnapshot( $this->render( $context ) );
 	}
 
 	/**
-	 * Test render with classes.
+	 * @test
 	 */
-	public function test_render_with_classes() {
-		$this->assertMatchesHtmlSnapshot( $this->render( [ 'classes_wrap' => [ 'test-class-1', 'test-class-2' ] ] ) );
+	public function should_render_with_classes_and_checked() {
+		$context = [
+			'id'            => 'switch-id',
+			'label'         => 'Switch Label',
+			'classes_wrap'  => [ 'test-class-1', 'test-class-4' ],
+			'classes_input' => [ 'test-class-2' ],
+			'classes_label' => [ 'test-class-3' ],
+			'name'          => 'switch-status',
+			'value'         => 0,
+			'checked'       => true,
+			'attrs'         => [],
+		];
+		$this->assertMatchesHtmlSnapshot( $this->render( $context ) );
 	}
 }
