@@ -137,6 +137,17 @@
 		</div>
 	</div>
 
+	<?php // recent teamplate changes?>
+	<h3 class="tribe-events-admin__system-information-title">
+		<?php esc_html_e('Recent template changes', 'tribe-common'); ?>
+	</h3>	
+	<p class="tribe-events-admin__system-information-description">
+		<?php esc_html_e('Information about recent template changes and potentiallly impacted template overrides is provided below.', 'tribe-common'); ?>	
+	</p>
+	<div class="tribe-events-admin__system-information-widget">
+		&nbsp;
+	</div>
+
     <?php // cta section?>
 	<div class="tribe-events-admin-cta">
 		<img
