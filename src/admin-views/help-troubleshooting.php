@@ -1,5 +1,32 @@
 <?php
 
+    $issuesFound = apply_filters('tec-help-troubleshooting-issues-found', [
+        [
+            'title' => __('Time zone is not set', 'tribe-common'),
+            'description' => __('We recommend that our users use a location time zone and avoid using UTC offsets.', 'tribe-common'),
+            'more_info' => 'https://evnt.is/somewhere',
+            'fix' => 'https://evnt.is/somewhere',
+        ],
+        [
+            'title' => __('Install max has been reached', 'tribe-common'),
+            'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
+            'more_info' => 'https://evnt.is/somewhere',
+            'fix' => 'https://evnt.is/somewhere',
+        ],
+        [
+            'title' => __('Geolocation code is missing', 'tribe-common'),
+            'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
+            'more_info' => 'https://evnt.is/somewhere',
+            'fix' => 'https://evnt.is/somewhere',
+        ],
+        [
+            'title' => __('Plugin versions are out of date', 'tribe-common'),
+            'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
+            'more_info' => 'https://evnt.is/somewhere',
+            'fix' => 'https://evnt.is/somewhere',
+        ],
+    ]);
+
     // there should only be 4 in this list
     $commonIssues = apply_filters('tec-help-troubleshooting-issues', [
         [
@@ -38,33 +65,35 @@
 	</div>
 
 	<?php // toggles to appear here?>
-	<div class="tribe-events-admin__issues-found-card">
-        <div class="tribe-events-admin__issues-found-card-title">
-			<img
-				src="<?php echo esc_url(tribe_resource_url('images/help/error-icon.svg', false, null, $main)); ?>"
-				alt="<?php esc_attr_e('error-icon', 'tribe-common'); ?>"
-			/>
-            <h3>
-				<i></i>
-				<span>
-					<?php esc_attr_e('Time zone is not set', 'tribe-common'); ?>
-				</span>
-            </h3>
-        </div>
-        <div class="tribe-events-admin__issues-found-card-description">
-            <p>
-				<?php esc_attr_e('We recommend that our users use a location time zone and avoid using UTC offsets.', 'tribe-common'); ?>
-            </p>
-			<div class="tribe-events-admin__issues-found-card-description-actions">
-				<a href="#">
-					<?php esc_attr_e('Learn more', 'tribe-common'); ?>
-				</a>
-				<a href="#">
-					<?php esc_attr_e('Resolve it now', 'tribe-common'); ?>
-				</a>
+	<?php foreach ($issuesFound as $issue) : ?>
+		<div class="tribe-events-admin__issues-found-card">
+			<div class="tribe-events-admin__issues-found-card-title">
+				<img
+					src="<?php echo esc_url(tribe_resource_url('images/help/error-icon.svg', false, null, $main)); ?>"
+					alt="<?php esc_attr_e('error-icon', 'tribe-common'); ?>"
+				/>
+				<h3>
+					<i></i>
+					<span>
+						<?php echo esc_html($issue['title']); ?>
+					</span>
+				</h3>
 			</div>
-        </div>
-    </div>
+			<div class="tribe-events-admin__issues-found-card-description">
+				<p>
+					<?php echo esc_html($issue['description']); ?>
+				</p>
+				<div class="tribe-events-admin__issues-found-card-description-actions">
+					<a href="<?php echo esc_html($issue['more_info']); ?>" target="_blank">
+						<?php esc_attr_e('Learn more', 'tribe-common'); ?>
+					</a>
+					<a href="<?php echo esc_html($issue['fix']); ?>">
+						<?php esc_attr_e('Resolve it now', 'tribe-common'); ?>
+					</a>
+				</div>
+			</div>
+		</div>
+	<?php endforeach; ?>
 
 	<?php // first steps?>
 	<div class="tribe-events-admin-section-header">
