@@ -55,6 +55,14 @@
             <p>
 				<?php esc_attr_e('We recommend that our users use a location time zone and avoid using UTC offsets.', 'tribe-common'); ?>
             </p>
+			<div class="tribe-events-admin__issues-found-card-description-actions">
+				<a href="#">
+					<?php esc_attr_e('Learn more', 'tribe-common'); ?>
+				</a>
+				<a href="#">
+					<?php esc_attr_e('Resolve it now', 'tribe-common'); ?>
+				</a>
+			</div>
         </div>
     </div>
 

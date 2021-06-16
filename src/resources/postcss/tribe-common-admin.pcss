@@ -2950,8 +2950,6 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__issues-found-card-title h3 {
-	font-size: 16px;
-	color: #0f1031;
 	margin: 0;
 
 	@media only screen and (max-width: 768px)  {
@@ -2964,6 +2962,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__issues-found-card-title span {
+	color: #0f1031;
 	display: block;
 }
 
@@ -3002,8 +3001,18 @@ input[type="email"].tribe-events-admin-card__input {
 	margin: 0;
 }
 
-.tribe-events-admin__issues-found-card-description div {
-	max-width: 100%;
+.tribe-events-admin__issues-found-card-description-actions {
+	display: flex;
+	padding: 20px 0 10px;
+}
+
+.tribe-events-admin__issues-found-card-description-actions a {
+	font-size: 16px;
+	text-decoration: none;
+	color: #334aff;
+	margin-right: 20px;
+	padding-bottom: 5px;
+    border-bottom: 2px solid #334aff;
 }
 
 /* -- Help page overrides -- */
