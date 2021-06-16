@@ -69,8 +69,8 @@
 		<div class="tribe-events-admin__issues-found-card">
 			<div class="tribe-events-admin__issues-found-card-title">
 				<img
-					src="<?php echo esc_url(tribe_resource_url('images/help/error-icon.svg', false, null, $main)); ?>"
-					alt="<?php esc_attr_e('error-icon', 'tribe-common'); ?>"
+					src="<?php echo esc_url(tribe_resource_url('images/help/warning-icon.svg', false, null, $main)); ?>"
+					alt="<?php esc_attr_e('warning-icon', 'tribe-common'); ?>"
 				/>
 				<h3>
 					<i></i>
