@@ -4,6 +4,13 @@
 
 * Tweak - Add central compatibility functionality. A step in the move from using body classes to container classes.
 
+
+= [4.13.4] 2021-06-09 =
+
+* Tweak - When using The Events Calendar and Event Tickets split the admin footer rating link 50/50. [ET-1120]
+* Language - 1 new strings added, 2 updated, 1 fuzzied, and 1 obsoleted
+
+
 = [4.13.3] 2021-05-27 =
 
 * Feature - Create new functionality in Tribe__Customizer__Section to allow for simpler craetion of controls and sections. [TEC-3836]
