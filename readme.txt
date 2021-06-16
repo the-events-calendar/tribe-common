@@ -4,6 +4,10 @@
 
 * Tweak - Add central compatibility functionality. A step in the move from using body classes to container classes.
 
+= [TBD] TBD =
+* Fix - Fix call to call_user_func_array( 'array_merge'... ) to make PHP8 compatible
+* Tweak - Set up recurring, featured, and virtual icons to not rely on aria-labeled. [TEC-3396]
+
 
 = [4.13.4] 2021-06-09 =
 
