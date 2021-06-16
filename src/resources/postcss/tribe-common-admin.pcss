@@ -2925,8 +2925,85 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 /* issues found section */
+.tribe-events-admin__issues-found-card {
+	background-color: #f3eee8;
+  	border-radius: 8px;
+}
+
+.tribe-events-admin__issues-found-card:last-of-type {
+	margin-bottom: 100px;
+}
+
+.tribe-events-admin__issues-found-card-title {
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 10px 20px 10px 17px;
+	cursor: pointer;
+}
+
+.tribe-events-admin__issues-found-card-title img {
+	width: 21px;
+	height: 21px;
+	object-fit: contain;
+	margin-right: 14px;
+}
+
+.tribe-events-admin__issues-found-card-title h3 {
+	font-size: 16px;
+	color: #0f1031;
+	margin: 0;
+
+	@media only screen and (max-width: 768px)  {
+		max-width: 90%;
+	}
+
+	@media only screen and (max-width: 480px)  {
+		max-width: 90%;
+	}
+}
+
+.tribe-events-admin__issues-found-card-title span {
+	display: block;
+}
+
+.tribe-events-admin__issues-found-card-title i {
+	position: absolute;
+	background-image: url("../images/help/arrow-down.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	width: 15px;
+	height: 15px;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	margin: 12px 20px;
+	right: 0;
+	top: 0;
+}
+
+.tribe-events-admin__issues-found-card-title.active i {
+	background-image: url("../images/help/arrow-up.svg");
+	background-repeat: no-repeat;
+	top: 5px;
+}
+
 .tribe-events-admin__issues-found-card-description {
+	padding: 0 20px 20px 55px;
 	display: none;
+}
+
+.tribe-events-admin__issues-found-card-description p {
+	font-size: 16px;
+	color: #0f1031;
+	margin: 0;
+}
+
+.tribe-events-admin__issues-found-card-description div {
+	max-width: 100%;
 }
 
 /* -- Help page overrides -- */
