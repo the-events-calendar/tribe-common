@@ -3036,6 +3036,11 @@ input[type="email"].tribe-events-admin-card__input {
 	align-items: center;
 	margin: 12px 0;
 	padding: 5px 25px;
+
+	@media only screen and (max-width: 480px)  {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }
 
 .tribe-events-admin__ea-status-table th {
@@ -3051,10 +3056,20 @@ input[type="email"].tribe-events-admin-card__input {
 	display: flex;
 	align-items: center;
 	width: 25%;
+
+	@media only screen and (max-width: 480px)  {
+		width: 100%;
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }
 
 .tribe-events-admin__ea-status-table td:nth-child(2){
-	width: 50%
+	width: 50%;
+
+	@media only screen and (max-width: 480px)  {
+		width: 100%;
+	}
 }
 
 .tribe-events-admin__ea-status-table-dark{
@@ -3066,6 +3081,10 @@ input[type="email"].tribe-events-admin-card__input {
 	height: 21px;
 	object-fit: contain;
 	margin-right: 14px;
+
+	@media only screen and (max-width: 480px) {
+		margin: 10px 0;
+	}
 }
 
 /* -- Help page overrides -- */
