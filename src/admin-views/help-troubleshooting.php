@@ -267,7 +267,7 @@
 			</th>
 		</tr>
 
-		<tr>
+		<tr class="tribe-events-admin__ea-status-table-dark">
 			<td>
 				<?php esc_html_e('License Key', 'tribe-common'); ?>
 			</td>
@@ -300,7 +300,7 @@
 			</th>
 		</tr>
 
-		<tr>
+		<tr class="tribe-events-admin__ea-status-table-dark">
 			<td>
 				<?php esc_html_e('Server Connection', 'tribe-common'); ?>
 			</td>
@@ -309,9 +309,8 @@
 					src="<?php echo esc_url(tribe_resource_url('images/help/error-icon.svg', false, null, $main)); ?>"
 					alt="<?php esc_attr_e('error-icon', 'tribe-common'); ?>"
 				/>
-				<?php esc_html_e('Connected to https://ea.theeventscalendar.com/', 'tribe-common'); ?>
-			</td>
-		</tr>
+				<?php esc_html_e('Connected to https://ea.theeventscalendar.com', 'tribe-common'); ?></td>
+			</tr>
 
 		<tr>
 			<td>
@@ -334,7 +333,7 @@
 		</tr>
 
 		<tr>
-			<td>
+			<td class="tribe-events-admin__ea-status-table-dark">
 				<?php esc_html_e('Eventbrite', 'tribe-common'); ?>
 			</td>
 			<td>
