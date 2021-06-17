@@ -31,7 +31,6 @@ $products = tribe('plugins.api')->get_products();
 			<li class="selected" data-tab="tribe-calendar"><?php esc_html_e('Calendar', 'tribe-common'); ?></li>
 			<li data-tab="tribe-ticketing"><?php esc_html_e('Ticketing & RSVP', 'tribe-common'); ?></li>
 			<li data-tab="tribe-community"><?php esc_html_e('Community', 'tribe-common'); ?></li>
-			<li data-tab="tribe-troubleshooting"><?php esc_html_e('Troubleshooting', 'tribe-common'); ?></li>
 		</ul>
 	</div>
 </div>
@@ -51,9 +50,6 @@ $products = tribe('plugins.api')->get_products();
 
         // Community Tab
         include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-community.php';
-
-        // Troubleshooting Tab
-        include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-troubleshooting.php';
     ?>
 
 	<?php // Shared footer area?>
