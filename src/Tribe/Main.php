@@ -365,8 +365,8 @@ class Tribe__Main
      */
     public function add_hooks()
     {
-        add_action('plugins_loaded', [ 'Tribe__App_Shop', 'instance' ]);
         add_action('plugins_loaded', [ 'Tribe__Troubleshooting', 'instance' ]);
+        add_action('plugins_loaded', [ 'Tribe__App_Shop', 'instance' ]);
         add_action('plugins_loaded', [ $this, 'tribe_plugins_loaded' ], PHP_INT_MAX);
 
         // Register for the assets to be available everywhere

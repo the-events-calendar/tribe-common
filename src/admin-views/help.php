@@ -66,7 +66,7 @@ $products = tribe('plugins.api')->get_products();
 			</div>
 
 			<div class="tribe-events-admin-cta__content-description">
-				<a href="#troubleshooting">
+				<a href="/edit.php?post_type=tribe_events&page=tribe-troubleshooting">
 					<?php esc_html_e('Visit Troubleshooting next', 'tribe-common'); ?>
 				</a>
 			</div>
