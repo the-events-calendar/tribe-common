@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fix call to call_user_func_array( 'array_merge'... ) to make PHP8 compatible
+* Tweak - Set up recurring, featured, and virtual icons to not rely on aria-labeled. [TEC-3396]
+
 = [4.13.4] 2021-06-09 =
 
 * Tweak - When using The Events Calendar and Event Tickets split the admin footer rating link 50/50. [ET-1120]
