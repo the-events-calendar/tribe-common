@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Feature - Add checkbox switch template and css [VE-353]
 * Fix - Fix call to call_user_func_array( 'array_merge'... ) to make PHP8 compatible
 * Tweak - Set up recurring, featured, and virtual icons to not rely on aria-labeled. [TEC-3396]
 
