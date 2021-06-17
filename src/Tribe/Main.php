@@ -223,7 +223,6 @@ class Tribe__Main {
 			[
 				[ 'tribe-ui', 'tribe-ui.css' ],
 				[ 'tribe-buttonset', 'buttonset.js', [ 'jquery', 'underscore' ] ],
-				[ 'tribe-slide-toggle', 'slide-toggle.js', [ 'jquery' ] ],
 				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
 				[ 'tribe-validation', 'validation.js', [ 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ] ],
 				[ 'tribe-validation-style', 'validation.css', [ 'tribe-tooltipster-css' ] ],
