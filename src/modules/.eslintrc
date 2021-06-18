@@ -11,6 +11,14 @@
           "moment"
         ]
       }
+    ],
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": [
+          "^@wordpress/"
+        ]
+      }
     ]
   },
   "globals": {
