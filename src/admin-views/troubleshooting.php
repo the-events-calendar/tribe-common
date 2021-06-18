@@ -52,6 +52,19 @@
     ]);
 ?>
 
+<div class="tribe-events-admin__troubleshooting-notice">
+	<div class="tribe-events-admin__troubleshooting-notice_title">
+		<?php 
+			esc_html_e('Hey there... did you check out the ', 'tribe-common');  
+		?>
+		<a href="/wp-admin/edit.php?post_type=tribe_events&page=tribe-help" >
+			<?php 
+				esc_html_e('Help page?', 'tribe-common');  
+			?>
+		</a>
+	</div>
+</div>
+
 <div class="tribe-events-admin-header tribe-events-admin-container">
 	<?php do_action('tec-admin-notice-area', 'help'); ?>
 	<div class="tribe-events-admin-header__content-wrapper">
