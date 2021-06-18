@@ -29,9 +29,9 @@ jobs:
           restore-keys: ${{ runner.os }}-npm-
       - name: Install node modules
         run: |
-          npm ci
+          nvm use && npm ci
       - name: Run linting tasks
         run: |
-          npm run lint
+          nvm use && npm run lint
 
 
