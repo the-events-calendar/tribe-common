@@ -58,7 +58,7 @@ export const timezonesAsSelectData = () => {
 	} ) );
 };
 
-export const toNaturalLanguage = (params = {}) => {
+export const toNaturalLanguage = ( params = {} ) => {
 	const options = {
 		date: null,
 		format: {
