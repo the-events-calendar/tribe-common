@@ -43,7 +43,7 @@ class Troubleshooting
      */
     public function hook()
     {
-        add_action('admin_menu', [ $this, 'add_menu_page' ], 100);
+        add_action('admin_menu', [ $this, 'add_menu_page' ], 90);
         add_action('wp_before_admin_bar_render', [ $this, 'add_toolbar_item' ], 20);
     }
 
