@@ -98,7 +98,9 @@ class Troubleshooting
     /**
      * Checks if the current page is the troubleshooting page
      *
-     * @since 4.5.7
+     * @since TBD
+     * 
+     * @var string
      *
      * @return bool
      */
@@ -122,6 +124,10 @@ class Troubleshooting
 
     /**
      * Renders the Troubleshooting page
+     * 
+     * @since TBD
+     * 
+     * @var string
      */
     public function do_menu_page()
     {
