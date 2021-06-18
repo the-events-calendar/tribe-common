@@ -3,6 +3,16 @@
   "extends": [
     "../../node_modules/@the-events-calendar/product-taskmaster/config/eslint.react.js"
   ],
+  "rules": {
+    "jsdoc/no-undefined-types": [
+      "error",
+      {
+        "definedTypes": [
+          "moment"
+        ]
+      }
+    ]
+  },
   "globals": {
     "wp": true,
     "jQuery": true,
