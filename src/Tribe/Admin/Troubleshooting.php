@@ -9,6 +9,9 @@
  */
 
 namespace Tribe\Admin;
+use \Tribe__Settings;
+use \Tribe__Main;
+use \Tribe__Admin__Helpers;
 
 /**
  * Class Admin Troubleshooting.
@@ -38,7 +41,7 @@ class Troubleshooting
     /**
      * Class constructor
      */
-    public function __construct()
+    public function hook()
     {
         add_action('admin_menu', [ $this, 'add_menu_page' ], 100);
         add_action('wp_before_admin_bar_render', [ $this, 'add_toolbar_item' ], 20);
@@ -124,20 +127,5 @@ class Troubleshooting
     {
         $main = Tribe__Main::instance();
         include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting.php';
-    }
-
-    /**
-     * Static Singleton Factory Method
-     *
-     * @return Tribe__Troubleshooting
-     */
-    public static function instance()
-    {
-        if (! isset(self::$instance)) {
-            $className      = __CLASS__;
-            self::$instance = new $className;
-        }
-
-        return self::$instance;
     }
 }
