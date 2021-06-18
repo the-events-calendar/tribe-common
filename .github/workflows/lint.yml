@@ -7,9 +7,6 @@ on:
       - 'src/resources/postcss/**.pcss'
 jobs:
   lint:
-    strategy:
-      matrix:
-        suite: [ 'lint:eslint', 'lint:stylelint' ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
