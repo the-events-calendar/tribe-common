@@ -425,6 +425,8 @@ abstract class Tribe__Customizer__Section {
 		 */
 		$settings = apply_filters( 'tribe_customizer_section_default_settings', $settings, $this );
 
+		$section_slug = static::get_section_slug( get_class( $this ) );
+
 		/**
 		 * Allows filtering the default values for a specific section.
 		 *
@@ -433,7 +435,7 @@ abstract class Tribe__Customizer__Section {
 		 * @param array                      $settings The default settings
 		 * @param Tribe__Customizer__Section $section The section object.
 		 */
-		$settings = apply_filters( "tribe_customizer_section_{$this->ID}_default_settings", $settings, $this );
+		$settings = apply_filters( "tribe_customizer_section_{$section_slug}_default_settings", $settings, $this );
 
 		return $settings;
 	}
