@@ -1,55 +1,11 @@
 <?php
 
-    $issuesFound = apply_filters('tec-help-troubleshooting-issues-found', [
-        [
-            'title' => __('Time zone is not set', 'tribe-common'),
-            'description' => __('We recommend that our users use a location time zone and avoid using UTC offsets.', 'tribe-common'),
-            'more_info' => 'https://evnt.is/somewhere',
-            'fix' => 'https://evnt.is/somewhere',
-        ],
-        [
-            'title' => __('Install max has been reached', 'tribe-common'),
-            'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
-            'more_info' => 'https://evnt.is/somewhere',
-            'fix' => 'https://evnt.is/somewhere',
-        ],
-        [
-            'title' => __('Geolocation code is missing', 'tribe-common'),
-            'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
-            'more_info' => 'https://evnt.is/somewhere',
-            'fix' => 'https://evnt.is/somewhere',
-        ],
-        [
-            'title' => __('Plugin versions are out of date', 'tribe-common'),
-            'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
-            'more_info' => 'https://evnt.is/somewhere',
-            'fix' => 'https://evnt.is/somewhere',
-        ],
-    ]);
+	use \Tribe\Admin\Troubleshooting;
 
-    // there should only be 4 in this list
-    $commonIssues = apply_filters('tec-help-troubleshooting-issues', [
-        [
-            'issue' => __('I got an error message. Now what?', 'tribe-common'),
-            'solution' => __('Here’s an overview of common error messages and what they mean.', 'tribe-common'),
-            'link' => 'https://evnt.is/somewhere',
-        ],
-        [
-            'issue' => __('My calendar doesn’t look right.', 'tribe-common'),
-            'solution' => __('This can happen when other plugins try to improve performance. More info.'),
-            'link' => 'https://evnt.is/somewhere',
-        ],
-        [
-            'issue' => __('I installed the calendar and it crashed my site.', 'tribe-common'),
-            'solution' => __('Find solutions to this and other common installation issues.', 'tribe-common'),
-            'link' => 'https://evnt.is/somewhere',
-        ],
-        [
-            'issue' => __('I keep getting “Page Not Found” on events.', 'tribe-common'),
-            'solution' => __('There are a few things you can do to resolve and prevent 404 errors.', 'tribe-common'),
-            'link' => 'https://evnt.is/somewhere',
-        ],
-    ]);
+	$issues_found = tribe( Troubleshooting::class )->get_issues_found();
+
+	$common_issues = tribe( Troubleshooting::class )->get_common_issues();
+
 ?>
 
 <div class="tribe-events-admin__troubleshooting-notice">
@@ -93,7 +49,7 @@
 	</div>
 
 	<?php // toggles to appear here?>
-	<?php foreach ($issuesFound as $issue) : ?>
+	<?php foreach ($issues_found as $issue) : ?>
 		<div class="tribe-events-admin__issues-found-card">
 			<div class="tribe-events-admin__issues-found-card-title">
 				<img
@@ -174,7 +130,7 @@
 	</div>
 
 	<div class="tribe-events-admin-faq tribe-events-admin-4col-grid">
-		<?php foreach ($commonIssues as $commonIssue) : ?>
+		<?php foreach ($common_issues as $commonIssue) : ?>
 			<div class="tribe-events-admin-faq-card">
 				<div class="tribe-events-admin-faq-card__icon">
 					<img

@@ -129,9 +129,67 @@ class Troubleshooting
      * 
      * @var string
      */
-    public function do_menu_page()
-    {
+    public function do_menu_page() {
         $main = Tribe__Main::instance();
         include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting.php';
+    }
+
+    public function get_issues_found() {
+        $issues_found = apply_filters( 'tec_help_troubleshooting_issues_found', [
+            [
+                'title' => __('Time zone is not set', 'tribe-common'),
+                'description' => __('We recommend that our users use a location time zone and avoid using UTC offsets.', 'tribe-common'),
+                'more_info' => 'https://evnt.is/somewhere',
+                'fix' => 'https://evnt.is/somewhere',
+            ],
+            [
+                'title' => __('Install max has been reached', 'tribe-common'),
+                'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
+                'more_info' => 'https://evnt.is/somewhere',
+                'fix' => 'https://evnt.is/somewhere',
+            ],
+            [
+                'title' => __('Geolocation code is missing', 'tribe-common'),
+                'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
+                'more_info' => 'https://evnt.is/somewhere',
+                'fix' => 'https://evnt.is/somewhere',
+            ],
+            [
+                'title' => __('Plugin versions are out of date', 'tribe-common'),
+                'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
+                'more_info' => 'https://evnt.is/somewhere',
+                'fix' => 'https://evnt.is/somewhere',
+            ],
+        ] );
+
+        return $issues_found;
+    }
+
+    public function get_common_issues() {
+    // there should only be 4 in this list
+    $commonIssues = apply_filters( 'tec_help_troubleshooting_issues', [
+        [
+            'issue' => __('I got an error message. Now what?', 'tribe-common'),
+            'solution' => __('Here’s an overview of common error messages and what they mean.', 'tribe-common'),
+            'link' => 'https://evnt.is/somewhere',
+        ],
+        [
+            'issue' => __('My calendar doesn’t look right.', 'tribe-common'),
+            'solution' => __('This can happen when other plugins try to improve performance. More info.'),
+            'link' => 'https://evnt.is/somewhere',
+        ],
+        [
+            'issue' => __('I installed the calendar and it crashed my site.', 'tribe-common'),
+            'solution' => __('Find solutions to this and other common installation issues.', 'tribe-common'),
+            'link' => 'https://evnt.is/somewhere',
+        ],
+        [
+            'issue' => __('I keep getting “Page Not Found” on events.', 'tribe-common'),
+            'solution' => __('There are a few things you can do to resolve and prevent 404 errors.', 'tribe-common'),
+            'link' => 'https://evnt.is/somewhere',
+        ],
+    ] );
+
+        return $commonIssues;
     }
 }
