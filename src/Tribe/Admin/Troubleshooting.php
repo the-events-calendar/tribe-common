@@ -12,6 +12,7 @@ namespace Tribe\Admin;
 use \Tribe__Settings;
 use \Tribe__Main;
 use \Tribe__Admin__Helpers;
+use \Tribe__Timezones as Timezones;
 
 /**
  * Class Admin Troubleshooting.
@@ -134,6 +135,23 @@ class Troubleshooting
         include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting.php';
     }
 
+    public function is_any_issue_active() {
+        $issues = $this->get_issues_found();
+        $active_issues = wp_list_pluck( $issues, 'active' );
+        return in_array( true, $active_issues );
+    }
+
+    public function is_active_issue( $slug ) {
+        if ( 'timezone' === $slug ) {
+            return Timezones::is_utc_offset( Timezones::wp_timezone_string() );
+        }
+        if ( 'install-max' === $slug ) {
+            
+        }
+
+        return false;
+    }
+
     public function get_issues_found() {
         $issues_found = apply_filters( 'tec_help_troubleshooting_issues_found', [
             [
@@ -141,24 +159,28 @@ class Troubleshooting
                 'description' => __('We recommend that our users use a location time zone and avoid using UTC offsets.', 'tribe-common'),
                 'more_info' => 'https://evnt.is/somewhere',
                 'fix' => 'https://evnt.is/somewhere',
+                'active' => $this->is_active_issue( 'timezone' ),
             ],
             [
                 'title' => __('Install max has been reached', 'tribe-common'),
                 'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
                 'more_info' => 'https://evnt.is/somewhere',
                 'fix' => 'https://evnt.is/somewhere',
+                'active' => $this->is_active_issue( 'install-max' ),
             ],
             [
                 'title' => __('Geolocation code is missing', 'tribe-common'),
                 'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
                 'more_info' => 'https://evnt.is/somewhere',
                 'fix' => 'https://evnt.is/somewhere',
+                'active' => $this->is_active_issue( 'geolocation' ),
             ],
             [
                 'title' => __('Plugin versions are out of date', 'tribe-common'),
                 'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
                 'more_info' => 'https://evnt.is/somewhere',
                 'fix' => 'https://evnt.is/somewhere',
+                'active' => $this->is_active_issue( 'out-of-date' ),
             ],
         ] );
 
