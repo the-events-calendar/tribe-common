@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.13.5] 2021-06-23 =
 
 * Feature - Add checkbox switch template and css [VE-353]
 * Fix - Fix call to call_user_func_array( 'array_merge'... ) to make PHP8 compatible
