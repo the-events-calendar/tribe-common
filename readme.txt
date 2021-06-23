@@ -5,9 +5,12 @@
 * Tweak - Add central compatibility functionality. A step in the move from using body classes to container classes.
 * Feature - Add new custom Customizer controls.
 
-= [TBD] TBD =
+= [4.13.5] 2021-06-23 =
+
+* Feature - Add checkbox switch template and css [VE-353]
 * Fix - Fix call to call_user_func_array( 'array_merge'... ) to make PHP8 compatible
 * Tweak - Set up recurring, featured, and virtual icons to not rely on aria-labeled. [TEC-3396]
+* Language - 3 new strings added, 1 updated, 2 fuzzied, and 0 obsoleted
 
 
 = [4.13.4] 2021-06-09 =
