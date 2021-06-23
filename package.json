@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "4.13.4",
+  "version": "4.13.5",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -36,7 +36,7 @@
     "lint:eslint": "npm run lint:eslint:js && npm run lint:eslint:modules",
     "lint:eslint:js": "gulp eslint --filePath 'src/resources/js/dialog.js' --filePath 'src/resources/js/tooltip.js'",
     "lint:eslint:modules": "gulp eslint --filePath 'src/modules/**/*.js'",
-    "lint:stylelint" : "npm run lint:stylelint:views",
+    "lint:stylelint": "npm run lint:stylelint:views",
     "lint:stylelint:views": "gulp stylelint --filePath 'src/resources/postcss/a11y/**/*.pcss' --filePath 'src/resources/postcss/base/**/*.pcss' --filePath 'src/resources/postcss/components/**/*.pcss' --filePath 'src/resources/postcss/resets/**/*.pcss' --filePath 'src/resources/postcss/utilities/**/*.pcss'",
     "test": "TZ=UTC jest --config jest.config.json",
     "test:travis": "npm run test -- --maxWorkers=4",
