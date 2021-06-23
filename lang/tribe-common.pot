@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.13.3\n"
+"Project-Id-Version: Tribe Common 4.13.5\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2021-05-26 06:14:01+00:00\n"
+"POT-Creation-Date: 2021-06-22 20:47:59+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-05-26 06:14\n"
+"PO-Revision-Date: 2021-06-22 20:47\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -40,7 +40,7 @@ msgstr ""
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.13.3)  #-#-#-#-#
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.13.5)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Admin/Help_Page.php:79 src/Tribe/Customizer.php:647
 #: src/Tribe/Plugins_API.php:25
@@ -398,12 +398,14 @@ msgstr ""
 msgid "This calendar is powered by The Events Calendar."
 msgstr ""
 
-#: src/Tribe/Credits.php:55
+#: src/Tribe/Credits.php:48
 msgid "Rate %1$sThe Events Calendar%2$s %3$s"
 msgstr ""
 
-#: src/Tribe/Credits.php:64
-msgid "Rate %1$sEvent Tickets%2$s %3$s"
+#: src/Tribe/Credits.php:51
+msgid ""
+"If you like %1$sEvent Tickets%2$s please leave us a %3$s. It takes a minute "
+"and it helps a lot."
 msgstr ""
 
 #: src/Tribe/Customizer.php:648
@@ -3074,6 +3076,22 @@ msgstr ""
 
 #: src/views/promoter/auth.php:81
 msgid "Terms"
+msgstr ""
+
+#: src/views/v2/components/icons/featured.php:24
+msgid "Featured"
+msgstr ""
+
+#: src/views/v2/components/icons/hybrid.php:24
+msgid "Hybrid"
+msgstr ""
+
+#: src/views/v2/components/icons/recurring.php:25
+msgid "Recurring"
+msgstr ""
+
+#: src/views/v2/components/icons/virtual.php:24
+msgid "Virtual"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
