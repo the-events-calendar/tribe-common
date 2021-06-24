@@ -71,7 +71,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 
 	<?php // list of products?>
 	<div class="tribe-events-admin-products tribe-events-admin-2col-grid">
-
+	<?php //requires valid links for all the products ?>
 		<?php $i = 0; ?>
 		<?php foreach ($calendar_products as $slug) : ?>
 			<?php $i++; ?>
@@ -108,7 +108,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 			<?php esc_html_e('Start Here', 'tribe-common'); ?>
 		</h3>
 		
-		<a href="https://event.is/kb-help">
+		<a href="https://event.is/kb-help"> <?php //requires valid link ?>
 			<?php esc_html_e('Visit Knowledgebase', 'tribe-common'); ?>
 		</a>
 	</div>
@@ -158,18 +158,23 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/guide-tec" target="_blank">
+					<a href="https://evnt.is/1apf" target="_blank">
 						<?php esc_html_e('Getting started with customizations', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-ea" target="_blank">
+					<a href="https://evnt.is/1apg" target="_blank">
 						<?php esc_html_e('Highlighting events', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-fb" target="_blank">
-						<?php esc_html_e('Another link', 'tribe-common'); ?>
+					<a href="https://evnt.is/1aph" target="_blank">
+						<?php esc_html_e('How to Customize Template Files', 'tribe-common'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="https://evnt.is/1api" target="_blank">
+						<?php esc_html_e('Customizing CSS (Video)', 'tribe-common'); ?>
 					</a>
 				</li>
 			</ul>
@@ -186,22 +191,22 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/guide-tec" target="_blank">
+					<a href="https://evnt.is/1apj" target="_blank">
 						<?php esc_html_e('Known Issues', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-ea" target="_blank">
+					<a href="https://evnt.is/1apk" target="_blank">
 						<?php esc_html_e('Release notes', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-fb" target="_blank">
+					<a href="https://evnt.is/1apl" target="_blank">
 						<?php esc_html_e('Integrations', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-ve" target="_blank">
+					<a href="https://evnt.is/1apm" target="_blank">
 						<?php esc_html_e('Shortcodes', 'tribe-common'); ?>
 					</a>
 				</li>
