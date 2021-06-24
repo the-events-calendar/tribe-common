@@ -148,7 +148,6 @@ class Troubleshooting
         if ( 'install-max' === $slug ) {
             
         }
-
         return false;
     }
 
