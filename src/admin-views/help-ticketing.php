@@ -70,7 +70,7 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 
 	<?php // list of products?>
 	<div class="tribe-events-admin-products tribe-events-admin-2col-grid">
-
+	<?php //requires valid links for all the products ?>
 		<?php $i = 0; ?>
 		<?php foreach ($ticketing_products as $slug) : ?>
 			<?php $i++; ?>
@@ -108,7 +108,7 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 		</h3>
 		
 		<a href="https://event.is/kb-help">
-			<?php esc_html_e('Visit Knowledgebase', 'tribe-common'); ?>
+			<?php esc_html_e('Visit Knowledgebase', 'tribe-common'); ?><?php //requires valid link ?>
 		</a>
 	</div>
 
@@ -124,17 +124,17 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/guide-et" target="_blank">
+					<a href="https://evnt.is/1apn" target="_blank">
 						<?php esc_html_e('Event Tickets', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="" target="_blank">
+					<a href="https://evnt.is/1apo" target="_blank">
 						<?php esc_html_e('Calendar & Ticket Shortcodes', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-pmt" target="_blank">
+					<a href="https://evnt.is/1app" target="_blank">
 						<?php esc_html_e('Promoter', 'tribe-common'); ?>
 					</a>
 				</li>
@@ -152,22 +152,22 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="" target="_blank">
+					<a href="https://evnt.is/1apq" target="_blank">
 						<?php esc_html_e('Creating Tickets', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="" target="_blank">
+					<a href="https://evnt.is/1apr" target="_blank">
 						<?php esc_html_e('Creating RSVPs', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="" target="_blank">
+					<a href="https://evnt.is/1aps" target="_blank">
 						<?php esc_html_e('Configuring Tribe Commerce', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="" target="_blank">
+					<a href="https://evnt.is/1apt" target="_blank">
 						<?php esc_html_e('Shortcodes', 'tribe-common'); ?>
 					</a>
 					<?php esc_html_e('(Event Tickets Plus)', 'tribe-common'); ?>
@@ -186,22 +186,22 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="" target="_blank">
+					<a href="https://evnt.is/1apu" target="_blank">
 						<?php esc_html_e('Troubleshooting', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="" target="_blank">
+					<a href="https://evnt.is/1apv" target="_blank">
 						<?php esc_html_e('Release notes', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="" target="_blank">
+					<a href="https://evnt.is/1apw" target="_blank">
 						<?php esc_html_e('Integrations', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="" target="_blank">
+					<a href="https://evnt.is/1apx" target="_blank">
 						<?php esc_html_e('Automatic Updates', 'tribe-common'); ?>
 					</a>
 				</li>
