@@ -125,22 +125,22 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/guide-tec" target="_blank">
+					<a href="https://evnt.is/1ap9" target="_blank">
 						<?php esc_html_e('The Events Calendar', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-ea" target="_blank">
+					<a href="https://evnt.is/1apc" target="_blank">
 						<?php esc_html_e('Event Aggregator', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-fb" target="_blank">
+					<a href="https://evnt.is/1apd" target="_blank">
 						<?php esc_html_e('Filter Bar', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/guide-ve" target="_blank">
+					<a href="https://evnt.is/1ape" target="_blank">
 						<?php esc_html_e('Virtual Events', 'tribe-common'); ?>
 					</a>
 				</li>
