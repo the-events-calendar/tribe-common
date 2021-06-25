@@ -82,43 +82,14 @@ abstract class Tour_Abstract {
 	}
 
 	/**
-	 * Handle the display.
+	 * The tour data, publicly accessible.
 	 *
-	 * @since TBD
+	 * @since TBD.
 	 *
-	 * @return void
+	 * @param array $data An array with the tour data.
+	 * @return array
 	 */
-	private function display() {
-		/**
-		 * We're displaying the tour.
-		 *
-		 * @since TBD.
-		 *
-		 * @param string $tour_id The tour id.
-		 */
-		do_action( 'tribe_onboarding_tour_display', $this->tour_id );
-
-		// Increment the views when the tour is displayed.
-		tribe( 'onboarding' )->increment_views( $this->tour_id );
-	}
-
-	/**
-	 * Maybe localize tour data.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $data The tour data.
-	 * @return array $data The tour data.
-	 */
-	public function maybe_localize_tour( $data ) {
-
-		if ( ! $this->should_display() ) {
-			return $data;
-		}
-
-		// Trigger display action.
-		$this->display();
-
+	public function tour_data( array $data = [] ) {
 		$data['steps']   = $this->steps();
 		$data['classes'] = $this->css_classes();
 

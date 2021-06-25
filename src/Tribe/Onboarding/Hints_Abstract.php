@@ -82,43 +82,14 @@ abstract class Hints_Abstract {
 	}
 
 	/**
-	 * Handle the display.
+	 * The hints data, publicly accessible.
 	 *
-	 * @since TBD
+	 * @since TBD.
 	 *
-	 * @return void
+	 * @param array $data An array with the hints data.
+	 * @return array
 	 */
-	private function display() {
-		/**
-		 * We're displaying the hints.
-		 *
-		 * @since TBD.
-		 *
-		 * @param string $hints_id The hints id.
-		 */
-		do_action( 'tribe_onboarding_hints_display', $this->hints_id );
-
-		// Increment the views when the hints are displayed.
-		tribe( 'onboarding' )->increment_views( $this->hints_id );
-	}
-
-	/**
-	 * Maybe localize hints data.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $data The hints data.
-	 * @return array $data The hints data.
-	 */
-	public function maybe_localize_hints( $data ) {
-
-		if ( ! $this->should_display() ) {
-			return $data;
-		}
-
-		// Trigger display action.
-		$this->display();
-
+	public function hints_data( array $data = [] ) {
 		$data['hints']   = $this->hints();
 		$data['classes'] = $this->css_classes();
 
