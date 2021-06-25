@@ -1,5 +1,17 @@
 == Changelog ==
 
+= [4.13.5] 2021-06-23 =
+
+* Feature - Add checkbox switch template and css [VE-353]
+* Fix - Fix call to call_user_func_array( 'array_merge'... ) to make PHP8 compatible
+* Tweak - Set up recurring, featured, and virtual icons to not rely on aria-labeled. [TEC-3396]
+* Language - 3 new strings added, 1 updated, 2 fuzzied, and 0 obsoleted
+
+= [4.13.4] 2021-06-09 =
+
+* Tweak - When using The Events Calendar and Event Tickets split the admin footer rating link 50/50. [ET-1120]
+* Language - 1 new strings added, 2 updated, 1 fuzzied, and 1 obsoleted
+
 = [4.13.3] 2021-05-27 =
 
 * Feature - Create new functionality in Tribe__Customizer__Section to allow for simpler craetion of controls and sections. [TEC-3836]
