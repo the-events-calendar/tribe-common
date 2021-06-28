@@ -69,7 +69,9 @@ class Range_Slider extends Control {
 							class="tec-range-slider-option"
 							value="<?php echo esc_attr( $value ); ?>"
 							label="<?php echo esc_attr( $label ); ?>"
-						><?php echo esc_html( $label ); ?></option>
+						>
+							<?php echo esc_html( $label ); ?>
+						</option>
 					<?php endforeach;?>
 				</datalist>
 			<?php endif; ?>
@@ -84,7 +86,7 @@ class Range_Slider extends Control {
 				<?php if ( ! empty( $this->choices ) ) : ?>
 					list="<?php echo esc_attr( $input_id . '-range-slider-datalist' ); ?>"
 				<?php endif; ?>
-				/>
+			/>
 		</span>
 		<?php
 	}

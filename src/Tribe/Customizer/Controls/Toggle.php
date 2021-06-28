@@ -59,11 +59,11 @@ class Toggle extends Control {
 
 		<span class="customize-inside-control-row">
 			<label class="tec-switch-label">
-					<?php if ( ! empty( $this->choices['on'] ) ) { ?>
+					<?php if ( ! empty( $this->choices['on'] ) ) : ?>
 						<span class="toggle-label-on">
 							<?php echo wp_kses_post( $this->choices['on'] ); ?>
 						</span>
-					<?php } ?>
+					<?php endif; ?>
 					<input
 						id="<?php echo esc_attr( $input_id . '-toggle' ); ?>"
 						type="checkbox"
@@ -75,11 +75,13 @@ class Toggle extends Control {
 					/>
 				<span class="tec-switch-toggle"></span>
 				<span class="toggle-label-off">
-					<?php if ( ! empty( $this->choices['off'] ) ) {
+					<?php
+					if ( ! empty( $this->choices['off'] ) ) {
 						echo wp_kses_post( $this->choices['off'] );
 					} else {
 						echo wp_kses_post( $this->label );
-					} ?>
+					}
+					?>
 				</span>
 			</label>
 		</span>
