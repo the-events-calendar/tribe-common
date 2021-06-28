@@ -148,6 +148,9 @@ class Troubleshooting
         if ( defined( 'TRIBE_EVENTS_FILE' ) ) {
             $plugins[] = TRIBE_EVENTS_FILE;
         }
+        if ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
+            $plugins[] = EVENTS_CALENDAR_PRO_FILE;
+        }
         $plugins = array_map( static function( $file ) {
             $file = \str_replace( WP_PLUGIN_DIR . '/', '', $file );
             return $file;
