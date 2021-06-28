@@ -13,6 +13,7 @@ use \Tribe__Settings;
 use \Tribe__Main;
 use \Tribe__Admin__Helpers;
 use \Tribe__Timezones as Timezones;
+use \Tribe__Events__Google__Maps_API_Key;
 
 /**
  * Class Admin Troubleshooting.
@@ -141,12 +142,43 @@ class Troubleshooting
         return in_array( true, $active_issues );
     }
 
+    public function is_any_tec_plugin_out_of_date() {
+        $current = get_site_transient( 'update_plugins' );
+        $plugins = [];
+        if ( defined( 'TRIBE_EVENTS_FILE' ) ) {
+            $plugins[] = TRIBE_EVENTS_FILE;
+        }
+        $plugins = array_map( static function( $file ) {
+            $file = \str_replace( WP_PLUGIN_DIR . '/', '', $file );
+            return $file;
+        }, $plugins );
+        // @todo do this for every tec plugin, need to check if plugin is active first 
+        
+        foreach ( $plugins as $file ) {
+            if ( ! isset( $current->response[ $file ] ) ) {
+                continue;
+            }
+            $response = $current->response[ $file ];
+            if ( ! empty( $response->new_version ) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function is_active_issue( $slug ) {
         if ( 'timezone' === $slug ) {
             return Timezones::is_utc_offset( Timezones::wp_timezone_string() );
         }
         if ( 'install-max' === $slug ) {
-            
+            // Tribe__PUE__Checker::validate_key()
+        }
+        if ( 'geolocation' === $slug && class_exists( 'Tribe__Events__Google__Maps_API_Key' ) ) {
+            $key = \tribe_get_option( 'google_maps_js_api_key', false );
+            return empty( $key ) || Tribe__Events__Google__Maps_API_Key::$default_api_key === $key ;
+        }
+        if ( 'out-of-date' === $slug ) {
+            return $this->is_any_tec_plugin_out_of_date();
         }
         return false;
     }
