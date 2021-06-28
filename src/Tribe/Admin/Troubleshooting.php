@@ -151,6 +151,33 @@ class Troubleshooting
         if ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
             $plugins[] = EVENTS_CALENDAR_PRO_FILE;
         }
+        if ( defined( 'EVENT_TICKETS_PLUS_FILE' ) ) {
+            $plugins[] = EVENT_TICKETS_PLUS_FILE;
+        }
+        if ( defined( 'EVENTS_VIRTUAL_FILE' ) ) {
+            $plugins[] = EVENTS_VIRTUAL_FILE;
+        }
+        if ( defined( 'EVENT_TICKETS_MAIN_PLUGIN_FILE' ) ) {
+            $plugins[] = EVENT_TICKETS_MAIN_PLUGIN_FILE;
+        }
+        if ( defined( 'TRIBE_EVENTS_FILTERBAR_FILE' ) ) {
+            $plugins[] = TRIBE_EVENTS_FILTERBAR_FILE;
+        }
+        if ( defined( 'EVENTS_COMMUNITY_TICKETS_FILE' ) ) {
+            $plugins[] = EVENTS_COMMUNITY_TICKETS_FILE;
+        }
+        if ( defined( 'EVENTS_COMMUNITY_FILE' ) ) {
+            $plugins[] = EVENTS_COMMUNITY_FILE;
+        }
+        if ( defined( 'EVENTBRITE_PLUGIN_FILE' ) ) {
+            $plugins[] = EVENTBRITE_PLUGIN_FILE;
+        }
+        if ( defined( 'TRIBE_APM_FILE' ) ) {
+            $plugins[] = TRIBE_APM_FILE;
+        }
+        if ( defined( 'IMAGE_WIDGET_PLUS_DIR' ) ) {
+            $plugins[] = IMAGE_WIDGET_PLUS_DIR;
+        }
         $plugins = array_map( static function( $file ) {
             $file = \str_replace( WP_PLUGIN_DIR . '/', '', $file );
             return $file;
