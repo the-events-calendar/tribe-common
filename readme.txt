@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.13.6] TBD =
 
 * Tweak - Add central compatibility functionality. A step in the move from using body classes to container classes.
 * Feature - Add new custom Customizer controls.
