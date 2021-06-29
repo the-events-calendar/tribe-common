@@ -105,7 +105,7 @@
 				</div>
 				<div class="tribe-events-admin-step__description">
 					<?php 
-						$article = '<br /><a href="https://theeventscalendar.com/knowledgebase/k/sharing-your-system-information/" target="_blank" rel="noreferrer">' . esc_html__( 'View article', 'tribe-common' ) . '</a>';
+						$article = '<br /> <a href="https://theeventscalendar.com/knowledgebase/k/sharing-your-system-information/" target="_blank" rel="noreferrer">' . esc_html__( 'View article', 'tribe-common' ) . '</a>';
 						echo sprintf( __( 'Most issues are casued by conflicts with the theme or other plugins. Follow these steps as a first point of action. %s', 'tribe-common' ), $article );
 					?>
 				</div>
@@ -377,7 +377,7 @@
             </div>
 
 			<div class="tribe-events-admin-cta__content-description">
-				<a href="">
+				<a href="https://theeventscalendar.com/support/#contact" target="_blank" rel="noreferrer">
 					<?php esc_html_e('Open a ticket', 'tribe-common'); ?>
 				</a>
 			</div>
