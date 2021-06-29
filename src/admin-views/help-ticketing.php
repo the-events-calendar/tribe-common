@@ -107,7 +107,7 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 			<?php esc_html_e('Start Here', 'tribe-common'); ?>
 		</h3>
 		
-		<a href="https://event.is/kb-help">
+		<a href="https://theeventscalendar.com/knowledgebase/" target="_blank" rel="noreferrer">
 			<?php esc_html_e('Visit Knowledgebase', 'tribe-common'); ?><?php //requires valid link ?>
 		</a>
 	</div>
