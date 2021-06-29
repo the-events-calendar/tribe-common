@@ -94,9 +94,9 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 					<?php esc_html_e('Active', 'tribe-common'); ?>
 				</button>
 				<?php else : ?>
-					<button class="tribe-events-admin-products-card__button">
+					<a href="<?php echo $products[ $slug ]['link'] ?>" target="_blank" rel="noreferrer" class="tribe-events-admin-products-card__button">
 						<?php esc_html_e('Learn More', 'tribe-common'); ?>
-					</button>
+					</a>
 				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
