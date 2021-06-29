@@ -215,7 +215,7 @@ $extensions = apply_filters('tec-help-ticketing-extensions', [
 			<?php esc_html_e('FAQs', 'tribe-common'); ?>
 		</h3>
 		
-		<a href="https://event.is/faqs-help">
+		<a href="https://theeventscalendar.com/products/wordpress-event-tickets#faqs" target="_blank" rel="noreferrer">
 			<?php esc_html_e('All FAQs', 'tribe-common'); ?>
 		</a>
 	</div>
