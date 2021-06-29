@@ -266,13 +266,13 @@ class Troubleshooting
         [
             'issue' => __('I installed the calendar and it crashed my site.', 'tribe-common'),
             'solution' => __('%s and other common installation issues.', 'tribe-common'),
-            'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/',
+            'link' => 'https://evnt.is/1aqg',
             'link_label' => 'Find solutions to this',
         ],
         [
             'issue' => __('I keep getting “Page Not Found” on events.', 'tribe-common'),
             'solution' => __('There are a few %s to resolve and prevent 404 errors.', 'tribe-common'),
-            'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/',
+            'link' => 'https://evnt.is/1aqg',
             'link_label' => 'things you can do',
         ],
     ] );
