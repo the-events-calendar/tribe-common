@@ -123,22 +123,22 @@ $extensions = apply_filters('tec-help-community-extensions', [
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/1apy" target="_blank">
+					<a href="https://evnt.is/1apy" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Community Events', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1apz" target="_blank">
+					<a href="https://evnt.is/1apz" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Community Tickets', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1ap-" target="_blank">
+					<a href="https://evnt.is/1ap-" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Calendar & Ticket Shortcodes', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq0" target="_blank">
+					<a href="https://evnt.is/1aq0" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Promoter', 'tribe-common'); ?>
 					</a>
 				</li>
@@ -156,22 +156,22 @@ $extensions = apply_filters('tec-help-community-extensions', [
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/1aq1" target="_blank">
+					<a href="https://evnt.is/1aq1" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Managing Submissions Overview', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq2" target="_blank">
+					<a href="https://evnt.is/1aq2" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Setting Notifications', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq3" target="_blank">
+					<a href="https://evnt.is/1aq3" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Community Events Shortcodes', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq4" target="_blank">
+					<a href="https://evnt.is/1aq4" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Preventing Spam Submissions', 'tribe-common'); ?>
 					</a>
 				</li>
@@ -192,17 +192,17 @@ $extensions = apply_filters('tec-help-community-extensions', [
 					<?php esc_html_e('Troubleshooting', 'tribe-common'); ?>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq6" target="_blank">
+					<a href="https://evnt.is/1aq6" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Release notes', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq7" target="_blank">
+					<a href="https://evnt.is/1aq7" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Integrations', 'tribe-common'); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq8" target="_blank">
+					<a href="https://evnt.is/1aq8" target="_blank" rel="noreferrer">
 						<?php esc_html_e('Automatic Updates', 'tribe-common'); ?>
 					</a>
 				</li>
@@ -261,7 +261,7 @@ $extensions = apply_filters('tec-help-community-extensions', [
 		<?php foreach ($extensions as $extension) : ?>
 			<div class="tribe-events-admin-extensions-card">
 				<div class="tribe-events-admin-extensions-card__title">
-					<a href="<?php echo esc_html($extension['link']); ?>" target="_blank">
+					<a href="<?php echo esc_html($extension['link']); ?>" target="_blank" rel="noreferrer">
 						<?php echo esc_html($extension['title']); ?>
 					</a>
 				</div>
