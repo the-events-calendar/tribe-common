@@ -72,7 +72,7 @@
 						<?php echo esc_html($issue['description']); ?>
 					</p>
 					<div class="tribe-events-admin__issues-found-card-description-actions">
-						<a href="<?php echo esc_html($issue['more_info']); ?>" target="_blank">
+						<a href="<?php echo esc_html($issue['more_info']); ?>" target="_blank" rel="noreferrer">
 							<?php esc_attr_e('Learn more', 'tribe-common'); ?>
 						</a>
 						<a href="<?php echo esc_html($issue['fix']); ?>">
@@ -334,7 +334,7 @@
 				<?php esc_html_e('Event Aggregator is not connected to Eventbrite', 'tribe-common'); ?>
 			</td>
 			<td>
-				<a href="" target="_blank">
+				<a href="" target="_blank" rel="noreferrer">
 					<?php esc_html_e('Connect to Eventbrite', 'tribe-common'); ?>
 				</a>
 			</td>
@@ -352,7 +352,7 @@
 				<?php esc_html_e('Event Aggregator is not connected to Meetup', 'tribe-common'); ?>
 			</td>
 			<td>
-				<a href="" target="_blank">
+				<a href="" target="_blank" rel="noreferrer">
 					<?php esc_html_e('Connect to Meetup', 'tribe-common'); ?>
 				</a>
 			</td>
