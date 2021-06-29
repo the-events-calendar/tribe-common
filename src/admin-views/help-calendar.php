@@ -108,7 +108,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 			<?php esc_html_e('Start Here', 'tribe-common'); ?>
 		</h3>
 		
-		<a href="https://theeventscalendar.com/knowledgebase/" target="_blank" rel="noreferrer"> <?php //requires valid link ?>
+		<a href="https://evnt.is/1aq9" target="_blank" rel="noreferrer"> <?php //requires valid link ?>
 			<?php esc_html_e('Visit Knowledgebase', 'tribe-common'); ?>
 		</a>
 	</div>
