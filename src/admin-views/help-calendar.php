@@ -252,7 +252,7 @@ $extensions = apply_filters('tec-help-calendar-extensions', [
 			<?php esc_html_e('Free extensions', 'tribe-common'); ?>
 		</h3>
 		
-		<a href="https://theeventscalendar.com/extensions/" target="_blank" rel="noreferrer">
+		<a href="https://evnt.is/1aqa" target="_blank" rel="noreferrer">
 			<?php esc_html_e('All Extensions', 'tribe-common'); ?>
 		</a>
 	</div>
