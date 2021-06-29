@@ -11,6 +11,8 @@ class CustomizerTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_getting_customizer_styles() {
+		add_action( 'tribe_events_views_v2_is_enabled', '__return_true' );
+
 		// Unset the global Customizer object, if any, to ensure we're running out of Customizer context.
 		unset( $GLOBALS['wp_customizer'] );
 
