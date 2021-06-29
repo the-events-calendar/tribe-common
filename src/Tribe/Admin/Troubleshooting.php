@@ -253,23 +253,27 @@ class Troubleshooting
     $commonIssues = apply_filters( 'tec_help_troubleshooting_issues', [
         [
             'issue' => __('I got an error message. Now what?', 'tribe-common'),
-            'solution' => __('Here’s an overview of common error messages and what they mean.', 'tribe-common'),
-            'link' => 'https://evnt.is/somewhere',
+            'solution' => __('Here’s an overview of %s and what they mean.', 'tribe-common'),
+            'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#fatal-errors',
+            'link_label' => 'common error messages',
         ],
         [
             'issue' => __('My calendar doesn’t look right.', 'tribe-common'),
-            'solution' => __('This can happen when other plugins try to improve performance. More info.'),
-            'link' => 'https://evnt.is/somewhere',
+            'solution' => __('This can happen when other plugins try to improve performance. %s.'),
+            'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#layout-issue',
+            'link_label' => 'More info',
         ],
         [
             'issue' => __('I installed the calendar and it crashed my site.', 'tribe-common'),
-            'solution' => __('Find solutions to this and other common installation issues.', 'tribe-common'),
-            'link' => 'https://evnt.is/somewhere',
+            'solution' => __('%s and other common installation issues.', 'tribe-common'),
+            'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/',
+            'link_label' => 'Find solutions to this',
         ],
         [
             'issue' => __('I keep getting “Page Not Found” on events.', 'tribe-common'),
-            'solution' => __('There are a few things you can do to resolve and prevent 404 errors.', 'tribe-common'),
-            'link' => 'https://evnt.is/somewhere',
+            'solution' => __('There are a few %s to resolve and prevent 404 errors.', 'tribe-common'),
+            'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/',
+            'link_label' => 'things you can do',
         ],
     ] );
 

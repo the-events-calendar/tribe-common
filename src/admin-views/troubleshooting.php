@@ -151,7 +151,10 @@
 						<?php echo esc_html($commonIssue['issue']); ?>	
 					</div>
 					<div class="tribe-events-admin-faq__answer">
-						<?php echo esc_html($commonIssue['solution']); ?>
+						<?php 
+							$label = '<a href=" ' . $commonIssue['link'] . ' " target="_blank" rel="noreferrer">' . esc_html__( $commonIssue['link_label'], 'tribe-common' ) . '</a>';
+							echo sprintf( __( $commonIssue['solution'], 'tribe-common' ), $label );
+						?>
 					</div>
 				</div>
 			</div>
