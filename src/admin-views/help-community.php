@@ -216,7 +216,7 @@ $extensions = apply_filters('tec-help-community-extensions', [
 			<?php esc_html_e('FAQs', 'tribe-common'); ?>
 		</h3>
 		
-		<a href="https://theeventscalendar.com/products/community-events#faq" target="_blank" rel="noreferrer">
+		<a href="https://theeventscalendar.com/products/community-events/#faq" target="_blank" rel="noreferrer">
 			<?php esc_html_e('All FAQs', 'tribe-common'); ?>
 		</a>
 	</div>

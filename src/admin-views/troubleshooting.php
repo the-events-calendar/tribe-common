@@ -149,9 +149,7 @@
 				</div>
 				<div class="tribe-events-admin-faq-card__content">
 					<div class="tribe-events-admin-faq__question">
-						<a href="<?php echo esc_html($commonIssue['link']); ?>" target="_blank">
-							<?php echo esc_html($commonIssue['issue']); ?>						
-						</a>
+						<?php echo esc_html($commonIssue['issue']); ?>	
 					</div>
 					<div class="tribe-events-admin-faq__answer">
 						<?php echo esc_html($commonIssue['solution']); ?>
