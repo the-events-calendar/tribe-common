@@ -1984,13 +1984,24 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-products-card__button:hover {
-	color: #161b7d;
+	color: #fff;
+	background-color: #334aff;
 }
 
-.tribe-events-admin-products-card__button--active {
+.tribe-events-admin-products-card__button:active,
+.tribe-events-admin-products-card__button:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+.tribe-events-admin-products-card__button--active,
+.tribe-events-admin-products-card__button--active:hover,
+.tribe-events-admin-products-card__button--active:active,
+.tribe-events-admin-products-card__button--active:focus {
 	background: rgba(61, 84, 255, 0.16);
 	color: #334aff;
 	text-transform: uppercase;
+	cursor: not-allowed;
 }
 
 .tribe-events-admin-card--1up {
