@@ -22,8 +22,7 @@ use \Tribe__Events__Google__Maps_API_Key;
  *
  * @package Tribe\Admin
  */
-class Troubleshooting
-{
+class Troubleshooting {
     /**
      * Slug of the WP admin menu item
      *
@@ -43,24 +42,22 @@ class Troubleshooting
     /**
      * Class constructor
      */
-    public function hook()
-    {
-        add_action('admin_menu', [ $this, 'add_menu_page' ], 90);
-        add_action('wp_before_admin_bar_render', [ $this, 'add_toolbar_item' ], 20);
+    public function hook() {
+        add_action( 'admin_menu', [ $this, 'add_menu_page' ], 90 );
+        add_action( 'wp_before_admin_bar_render', [ $this, 'add_toolbar_item' ], 20 );
     }
 
     /**
      * Adds the page to the admin menu
      */
-    public function add_menu_page()
-    {
-        if (! Tribe__Settings::instance()->should_setup_pages()) {
+    public function add_menu_page() {
+        if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
             return;
         }
 
-        $page_title = esc_html__('Troubleshooting', 'tribe-common');
-        $menu_title = esc_html__('Troubleshooting', 'tribe-common');
-        $capability = apply_filters('tribe_events_troubleshooting_capability', 'install_plugins');
+        $page_title = esc_html__( 'Troubleshooting', 'tribe-common' );
+        $menu_title = esc_html__( 'Troubleshooting', 'tribe-common' );
+        $capability = apply_filters( 'tribe_events_troubleshooting_capability', 'install_plugins' );
 
         $where = Tribe__Settings::instance()->get_parent_slug();
 
@@ -80,20 +77,19 @@ class Troubleshooting
     /**
      * Adds a link to the the WP admin bar
      */
-    public function add_toolbar_item()
-    {
-        $capability = apply_filters('tribe_events_troubleshooting_capability', 'install_plugins');
+    public function add_toolbar_item() {
+        $capability = apply_filters( 'tribe_events_troubleshooting_capability', 'install_plugins' );
 
         // prevent users who cannot install plugins from seeing addons link
-        if (current_user_can($capability)) {
+        if ( current_user_can( $capability ) ) {
             global $wp_admin_bar;
 
-            $wp_admin_bar->add_menu([
+            $wp_admin_bar->add_menu( [
                 'id'     => 'tribe-events-troubleshooting',
-                'title'  => esc_html__('Event Add-Ons', 'tribe-common'),
-                'href'   => Tribe__Settings::instance()->get_url([ 'page' => self::MENU_SLUG ]),
+                'title'  => esc_html__( 'Event Add-Ons', 'tribe-common' ),
+                'href'   => Tribe__Settings::instance()->get_url( [ 'page' => self::MENU_SLUG ] ),
                 'parent' => 'tribe-events-settings-group',
-            ]);
+            ] );
         }
     }
 
@@ -106,13 +102,12 @@ class Troubleshooting
      *
      * @return bool
      */
-    public function is_current_page()
-    {
-        if (! Tribe__Settings::instance()->should_setup_pages() || ! did_action('admin_menu')) {
+    public function is_current_page() {
+        if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
             return false;
         }
 
-        if (is_null($this->admin_page)) {
+        if ( is_null( $this->admin_page ) ) {
             _doing_it_wrong(
                 __FUNCTION__,
                 'Function was called before it is possible to accurately determine what the current page is.',
@@ -121,7 +116,7 @@ class Troubleshooting
             return false;
         }
 
-        return Tribe__Admin__Helpers::instance()->is_screen($this->admin_page);
+        return Tribe__Admin__Helpers::instance()->is_screen( $this->admin_page );
     }
 
     /**
@@ -216,29 +211,29 @@ class Troubleshooting
     public function get_issues_found() {
         $issues_found = apply_filters( 'tec_help_troubleshooting_issues_found', [
             [
-                'title' => __('Time zone is not set', 'tribe-common'),
-                'description' => __('We recommend that our users use a location time zone and avoid using UTC offsets.', 'tribe-common'),
+                'title' => __( 'Time zone is not set', 'tribe-common' ),
+                'description' => __( 'We recommend that our users use a location time zone and avoid using UTC offsets.', 'tribe-common' ),
                 'more_info' => 'https://evnt.is/somewhere',
                 'fix' => 'https://evnt.is/somewhere',
                 'active' => $this->is_active_issue( 'timezone' ),
             ],
             [
-                'title' => __('Install max has been reached', 'tribe-common'),
-                'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
+                'title' => __( 'Install max has been reached', 'tribe-common' ),
+                'description' => __( '	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common' ),
                 'more_info' => 'https://evnt.is/somewhere',
                 'fix' => 'https://evnt.is/somewhere',
                 'active' => $this->is_active_issue( 'install-max' ),
             ],
             [
-                'title' => __('Geolocation code is missing', 'tribe-common'),
-                'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
+                'title' => __( 'Geolocation code is missing', 'tribe-common' ),
+                'description' => __( '	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common' ),
                 'more_info' => 'https://evnt.is/somewhere',
                 'fix' => 'https://evnt.is/somewhere',
                 'active' => $this->is_active_issue( 'geolocation' ),
             ],
             [
-                'title' => __('Plugin versions are out of date', 'tribe-common'),
-                'description' => __('	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common'),
+                'title' => __( 'Plugin versions are out of date', 'tribe-common' ),
+                'description' => __( '	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common' ),
                 'more_info' => 'https://evnt.is/somewhere',
                 'fix' => 'https://evnt.is/somewhere',
                 'active' => $this->is_active_issue( 'out-of-date' ),
@@ -252,26 +247,26 @@ class Troubleshooting
     // there should only be 4 in this list
     $commonIssues = apply_filters( 'tec_help_troubleshooting_issues', [
         [
-            'issue' => __('I got an error message. Now what?', 'tribe-common'),
-            'solution' => __('Here’s an overview of %s and what they mean.', 'tribe-common'),
+            'issue' => __( 'I got an error message. Now what?', 'tribe-common' ),
+            'solution' => __( 'Here’s an overview of %s and what they mean.', 'tribe-common' ),
             'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#fatal-errors',
             'link_label' => 'common error messages',
         ],
         [
-            'issue' => __('My calendar doesn’t look right.', 'tribe-common'),
-            'solution' => __('This can happen when other plugins try to improve performance. %s.'),
+            'issue' => __( 'My calendar doesn’t look right.', 'tribe-common' ),
+            'solution' => __( 'This can happen when other plugins try to improve performance. %s.' ),
             'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#layout-issue',
             'link_label' => 'More info',
         ],
         [
-            'issue' => __('I installed the calendar and it crashed my site.', 'tribe-common'),
-            'solution' => __('%s and other common installation issues.', 'tribe-common'),
+            'issue' => __( 'I installed the calendar and it crashed my site.', 'tribe-common' ),
+            'solution' => __( '%s and other common installation issues.', 'tribe-common' ),
             'link' => 'https://evnt.is/1aqg',
             'link_label' => 'Find solutions to this',
         ],
         [
-            'issue' => __('I keep getting “Page Not Found” on events.', 'tribe-common'),
-            'solution' => __('There are a few %s to resolve and prevent 404 errors.', 'tribe-common'),
+            'issue' => __( 'I keep getting “Page Not Found” on events.', 'tribe-common' ),
+            'solution' => __( 'There are a few %s to resolve and prevent 404 errors.', 'tribe-common' ),
             'link' => 'https://evnt.is/1aqg',
             'link_label' => 'things you can do',
         ],
