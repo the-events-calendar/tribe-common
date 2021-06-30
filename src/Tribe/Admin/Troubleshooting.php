@@ -131,12 +131,26 @@ class Troubleshooting {
         include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting.php';
     }
 
+    /**
+     * Checks if there are any active issues
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
     public function is_any_issue_active() {
         $issues = $this->get_issues_found();
         $active_issues = wp_list_pluck( $issues, 'active' );
         return in_array( true, $active_issues );
     }
 
+    /**
+     * Checks if any active TEC plugins require an update
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
     public function is_any_tec_plugin_out_of_date() {
         $current = get_site_transient( 'update_plugins' );
         $plugins = [];
@@ -177,7 +191,6 @@ class Troubleshooting {
             $file = \str_replace( WP_PLUGIN_DIR . '/', '', $file );
             return $file;
         }, $plugins );
-        // @todo do this for every tec plugin, need to check if plugin is active first 
         
         foreach ( $plugins as $file ) {
             if ( ! isset( $current->response[ $file ] ) ) {
@@ -191,6 +204,13 @@ class Troubleshooting {
         return false;
     }
 
+    /**
+     * Checks if any of the issues defined are active
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
     public function is_active_issue( $slug ) {
         if ( 'timezone' === $slug ) {
             return Timezones::is_utc_offset( Timezones::wp_timezone_string() );
@@ -208,6 +228,13 @@ class Troubleshooting {
         return false;
     }
 
+    /**
+     * Displays issues found in the UI
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
     public function get_issues_found() {
         $issues_found = apply_filters( 'tec_help_troubleshooting_issues_found', [
             [
@@ -243,8 +270,14 @@ class Troubleshooting {
         return $issues_found;
     }
 
+    /**
+     * Defines common troubleshooting issues and displays them in the UI
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
     public function get_common_issues() {
-    // there should only be 4 in this list
     $commonIssues = apply_filters( 'tec_help_troubleshooting_issues', [
         [
             'issue' => __( 'I got an error message. Now what?', 'tribe-common' ),
