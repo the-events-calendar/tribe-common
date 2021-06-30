@@ -1,9 +1,10 @@
 == Changelog ==
 
-= [4.13.6] TBD =
+= [4.14.0] 2021-07-01 =
 
-* Tweak - Add central compatibility functionality. A step in the move from using body classes to container classes.
 * Feature - Add new custom Customizer controls.
+* Tweak - Add central compatibility functionality. A step in the move from using body classes to container classes.
+* Language - 0 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.13.5] 2021-06-23 =
 
