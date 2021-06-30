@@ -189,7 +189,9 @@ $extensions = apply_filters( 'tec-help-community-extensions', [
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<?php esc_html_e( 'Troubleshooting', 'tribe-common' ); ?>
+					<a href="https://evnt.is/1apu" target="_blank" rel="noreferrer">
+						<?php esc_html_e( 'Troubleshooting', 'tribe-common' ); ?>
+					</a>
 				</li>
 				<li>
 					<a href="https://evnt.is/1aq6" target="_blank" rel="noreferrer">
