@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.13.6] TBD =
 
 * Tweak - Add central compatibility functionality. A step in the move from using body classes to container classes.
 * Feature - Add new custom Customizer controls.
@@ -12,12 +12,10 @@
 * Tweak - Set up recurring, featured, and virtual icons to not rely on aria-labeled. [TEC-3396]
 * Language - 3 new strings added, 1 updated, 2 fuzzied, and 0 obsoleted
 
-
 = [4.13.4] 2021-06-09 =
 
 * Tweak - When using The Events Calendar and Event Tickets split the admin footer rating link 50/50. [ET-1120]
 * Language - 1 new strings added, 2 updated, 1 fuzzied, and 1 obsoleted
-
 
 = [4.13.3] 2021-05-27 =
 
