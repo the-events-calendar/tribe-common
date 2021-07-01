@@ -689,7 +689,7 @@ final class Tribe__Customizer {
 	/**
 	 * Returns a URL to the TEC Customizer panel.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @return string The URL to the TEC Customizer panel.
 	 */
@@ -701,7 +701,7 @@ final class Tribe__Customizer {
 	/**
 	 * Returns an HTML link directly to the (opened) TEC Customizer panel
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $link_text The (pre)translated text for the link.
 	 *
@@ -777,7 +777,7 @@ final class Tribe__Customizer {
 	/**
 	 * Returns a URL to the a specific TEC Customizer section.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $section The slug for the desired section.
 	 *
@@ -795,7 +795,7 @@ final class Tribe__Customizer {
 	/**
 	 * Gets the HTML link to a section in the TEC Customizer.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $section   The section "slug" to link to.
 	 * @param string $link_text The text for the link.
@@ -864,7 +864,7 @@ final class Tribe__Customizer {
 	/**
 	 * Gets the URL to a specific control/setting in the TEC Customizer.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $section The section "slug" to link into.
 	 * @param string $setting The setting "slug" to link to.
@@ -892,7 +892,7 @@ final class Tribe__Customizer {
 	/**
 	 * Gets the link to the a specific control/setting in the TEC Customizer.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $section   The section "slug" to link into.
 	 * @param string $setting   The setting "slug" to link to.

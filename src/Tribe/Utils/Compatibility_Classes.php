@@ -2,7 +2,7 @@
 /**
  * Class used to manage and add compatibility classes via a queue across our plugins.
  *
- * @since TBD
+ * @since 4.14.0
  */
 namespace Tribe\Utils;
 
@@ -11,7 +11,7 @@ use Tribe\Utils\Element_Classes;
 /**
  * Compatibility_Classes class
  *
- * @since TBD
+ * @since 4.14.0
  */
 class Compatibility_Classes {
 	/**
@@ -34,7 +34,7 @@ class Compatibility_Classes {
 	 * Queue-aware method to get the classes array.
 	 * Returns the array of classes to add.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
 	 * @return array<string,bool> A map of the classes for the queue.
@@ -56,7 +56,7 @@ class Compatibility_Classes {
 	/**
 	 * Returns the array of classnames to add
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $queue The queue we want to get 'admin', 'display', 'all'.
 	 * @return array<string> The list of class names.
@@ -79,7 +79,7 @@ class Compatibility_Classes {
 	 * Checks if a class is in the queue,
 	 * wether it's going to be added or not.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $class The class we are checking for.
 	 * @param string $queue The queue we want to check 'admin', 'display', 'all'
@@ -94,7 +94,7 @@ class Compatibility_Classes {
 	/**
 	 * Checks if a class is in the queue and going to be added.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $class The class we are checking for.
 	 * @param string $queue The queue we want to check 'admin', 'display', 'all'
@@ -112,7 +112,7 @@ class Compatibility_Classes {
 	/**
 	 * Dequeues a class.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $class
 	 * @param string $queue The queue we want to alter 'admin', 'display', 'all'
@@ -138,7 +138,7 @@ class Compatibility_Classes {
 	/**
 	 * Enqueues a class.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $class
 	 * @param string $queue The queue we want to alter 'admin', 'display', 'all'
@@ -166,7 +166,7 @@ class Compatibility_Classes {
 	/**
 	 * Add a single class to the queue.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $class The class to add.
 	 * @param string $queue The queue we want to alter 'admin', 'display', 'all'
@@ -196,7 +196,7 @@ class Compatibility_Classes {
 	/**
 	 * Add an array of classes to the queue.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param array<string,boolean> $class The classes to add.
 	 * @return void
@@ -215,7 +215,7 @@ class Compatibility_Classes {
 	/**
 	 * Remove a single class from the queue.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $class The class to remove.
 	 * @return void
@@ -245,7 +245,7 @@ class Compatibility_Classes {
 	/**
 	 * Remove an array of classes from the queue.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param array<string> $classes The classes to remove.
 	 * @return void
@@ -263,7 +263,7 @@ class Compatibility_Classes {
 	/**
 	 * Adds the enqueued classes to the compatibility class array.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param array<string> $classes An array of compatibility class names.
 	 * @return array Array of compatibility classes.
@@ -282,7 +282,7 @@ class Compatibility_Classes {
 	/**
 	 * Adds the enqueued classes to the compatibility class array.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $classes The existing compatibility class names.
 	 *
@@ -305,7 +305,7 @@ class Compatibility_Classes {
 	/**
 	 * Should a individual class be added to the queue.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $class The compatibility class we wish to add.
 	 *
@@ -315,7 +315,7 @@ class Compatibility_Classes {
 		/**
 		 * Filter whether to add the compatibility class to the queue or not.
 		 *
-		 * @since TBD
+		 * @since 4.14.0
 		 *
 		 * @param boolean $add Whether to add the class to the queue or not.
 		 * @param array   $class The array of compatibility class names to add.
@@ -327,7 +327,7 @@ class Compatibility_Classes {
 	/**
 	 * Logic for whether the compatibility classes, as a whole, should be added.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param array $add_classes      An array of compatibility class names to add.
 	 * @param array $existing_classes An array of existing compatibility class names from WP.
@@ -339,7 +339,7 @@ class Compatibility_Classes {
 		/**
 		 * Filter whether to add tribe compatibility classes or not.
 		 *
-		 * @since TBD
+		 * @since 4.14.0
 		 *
 		 * @param boolean $add              Whether to add classes or not.
 		 * @param array   $add_classes      The array of compatibility class names to add.
