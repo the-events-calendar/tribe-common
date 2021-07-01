@@ -313,7 +313,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Filter section arguments.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @return void
 	 */
@@ -344,7 +344,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Retrieve section arguments.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @return void
 	 */
@@ -429,7 +429,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Sugar function that returns the results of Tribe__Customizer->get_section_url() for the current section.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @return string The URL to the TEC Customizer section.
 	 */
@@ -441,7 +441,7 @@ abstract class Tribe__Customizer__Section {
 	 * Sugar function that returns the results of Tribe__Customizer->get_section_link() for the current section.
 	 * Gets the HTML link to the current section in the TEC Customizer.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $link_text The text for the link.
 	 *
@@ -456,7 +456,7 @@ abstract class Tribe__Customizer__Section {
 	 * Sugar function that returns the results of Tribe__Customizer->get_settings_url()
 	 * for the specified setting in the _current section_.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $setting    The setting "slug" to link to.
 	 *
@@ -470,7 +470,7 @@ abstract class Tribe__Customizer__Section {
 	 * Sugar function that returns the results of Tribe__Customizer->get_settings_url()
 	 * for the specified setting in the _current section_.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $setting    The setting "slug" to link to.
 	 * @param string $link_text The translated text for the link.

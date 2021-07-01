@@ -2,7 +2,7 @@
 /**
  * Add theme compatibility classes.
  *
- * @since   TBD
+ * @since   4.14.0
  *
  * @package Tribe\Utils
  */
@@ -15,7 +15,7 @@ class Theme_Compatibility {
 	/**
 	 * List of themes which have compatibility requirements.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @var   array
 	 */
@@ -33,7 +33,7 @@ class Theme_Compatibility {
 	/**
 	 * Checks if the current theme needs a compatibility fix.
 	 *
-	 * @since  TBD
+	 * @since  4.14.0
 	 *
 	 * @param string $theme Optionally, pass a specific theme name in to see if compatibility
 	 *                      is required for that theme.
@@ -60,7 +60,7 @@ class Theme_Compatibility {
 	/**
 	 * Contains the logic for if this object's classes should be added to the queue.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param boolean $add   Whether to add the class to the queue or not.
 	 * @param array   $class The array of compatibility class names to add.
@@ -83,7 +83,7 @@ class Theme_Compatibility {
 		/**
 		 * Filters whether we should add a specific class to the queue.
 		 *
-		 * @since TBD
+		 * @since 4.14.0
 		 *
 		 * @param boolean $add   Whether to add the class to the queue or not.
 		 * @param array   $class The array of compatibility class names to add.
@@ -95,7 +95,7 @@ class Theme_Compatibility {
 	/**
 	 * Add compatibility classes.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @return void
 	 */
@@ -106,7 +106,7 @@ class Theme_Compatibility {
 	/**
 	 * Fetches the correct class strings for theme and child theme if available + the container class.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @return array $classes
 	 */
@@ -120,7 +120,7 @@ class Theme_Compatibility {
 		/**
 		 * Filters the HTML classes applied to a compatibility container.
 		 *
-		 * @since TBD
+		 * @since 4.14.0
 		 *
 		 * @param array  $html_classes Array of classes used for this container.
 		 */
@@ -130,7 +130,7 @@ class Theme_Compatibility {
 	/**
 	 * Fetches the correct class strings for theme and child theme if available.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @return array $classes
 	 */
@@ -153,7 +153,7 @@ class Theme_Compatibility {
 		/**
 		 * Filters the list of classes we're adding.
 		 *
-		 * @since TBD
+		 * @since 4.14.0
 		 *
 		 * @param array $classes An array of classes in the shape `[ <slug> => boolean ]`.
 		 */
@@ -163,7 +163,7 @@ class Theme_Compatibility {
 	/**
 	 * Returns a list of themes registered for compatibility with our Views.
 	 *
-	 * @since  TBD
+	 * @since  4.14.0
 	 *
 	 * @return array An array of the themes registered.
 	 */
@@ -171,7 +171,7 @@ class Theme_Compatibility {
 		/**
 		 * Filters the list of themes that are registered for compatibility.
 		 *
-		 * @since TBD
+		 * @since 4.14.0
 		 *
 		 * @param array $registered An array of views in the shape `[ <slug> ]`.
 		 */
@@ -181,7 +181,7 @@ class Theme_Compatibility {
 	/**
 	 * Returns an array of active themes (parent and child).
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @return array $themes An array in the format [ 'parent' => 'theme name', 'child' => 'theme name' ].
 	 *                       Empty array if none found.
@@ -216,7 +216,7 @@ class Theme_Compatibility {
 	/**
 	 * Get the current theme.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param boolean $object Pass true if you want the theme object returned instead of the name.
 	 *
@@ -242,7 +242,7 @@ class Theme_Compatibility {
 	/**
 	 * Checks if the provided theme is active.
 	 *
-	 * @since TBD
+	 * @since 4.14.0
 	 *
 	 * @param string $theme The theme name like 'avada' or 'twentytwenty',
 	 *
