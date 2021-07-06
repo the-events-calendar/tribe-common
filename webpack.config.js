@@ -3,11 +3,11 @@
  */
 const { resolve } = require( 'path' );
 const merge = require( 'webpack-merge' );
-const common = require( 'product-taskmaster/webpack/common/webpack.config' );
-const wpExternals = require( 'product-taskmaster/webpack/externals/wp.js' );
-const vendor = require( 'product-taskmaster/webpack/externals/vendor.js' );
-const { getDirectoryNames } = require( 'product-taskmaster/webpack/utils/directories' );
-const { generateEntries } = require( 'product-taskmaster/webpack/entry/tribe' );
+const common = require( '@the-events-calendar/product-taskmaster/webpack/common/webpack.config' );
+const wpExternals = require( '@the-events-calendar/product-taskmaster/webpack/externals/wp.js' );
+const vendor = require( '@the-events-calendar/product-taskmaster/webpack/externals/vendor.js' );
+const { getDirectoryNames } = require( '@the-events-calendar/product-taskmaster/webpack/utils/directories' );
+const { generateEntries } = require( '@the-events-calendar/product-taskmaster/webpack/entry/tribe' );
 
 const directoryNames = getDirectoryNames( resolve( __dirname, './src/modules' ) );
 const PLUGIN_SCOPE = 'common';
