@@ -2,15 +2,18 @@
 
 	use \Tribe\Admin\Troubleshooting;
 
-	$issues_found = tribe( Troubleshooting::class )->get_issues_found();
-
-	$common_issues = tribe( Troubleshooting::class )->get_common_issues();
+	$issues_found     = tribe( Troubleshooting::class )->get_issues_found();
+	$common_issues    = tribe( Troubleshooting::class )->get_common_issues();
+	$support          = Tribe__Support::getInstance();
+	$system_info      = $support->formattedSupportStats();
+	$template_changes = Tribe__Support__Template_Checker_Report::generate();
+	$error_log = tribe( 'logger' )->admin()->display_log();
 
 ?>
 
 <div class="tribe-events-admin__troubleshooting-notice">
 	<div class="tribe-events-admin__troubleshooting-notice_title">
-		<?php 
+		<?php
 			$link = '<a href="/wp-admin/edit.php?post_type=tribe_events&page=tribe-help">' . esc_html__( 'Help page?', 'tribe-common' ) . '</a>';
 			echo sprintf( __( 'Hey there... did you check out the %s', 'tribe-common' ), $link );
 		?>
@@ -37,18 +40,18 @@
         class="tribe-events-admin-header__right-image"
         src="<?php echo esc_url(tribe_resource_url('images/help/troubleshooting-hero.png', false, null, $main)); ?>"
     />
-	
-	
+
+
 	<?php if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is there are any active issues before printing ?>
 		<div class="tribe-events-admin-section-header">
 			<h3>
 				<?php esc_html_e('We’ve detected the following issues', 'tribe-common'); ?>
 			</h3>
 		</div>
-	
+
 		<?php // toggles to appear here?>
 		<?php foreach ($issues_found as $issue) : ?>
-			<?php 
+			<?php
 				// yoda conditioning
 				if ( false === $issue['active'] ) {
 					continue;
@@ -101,12 +104,12 @@
 			</div>
 			<div class="tribe-events-admin-step-card__content">
 				<div class="tribe-events-admin-step__title">
-					<?php esc_html_e('Share your system info', 'tribe-common'); ?>	
+					<?php esc_html_e('Share your system info', 'tribe-common'); ?>
 				</div>
 				<div class="tribe-events-admin-step__description">
-					<?php 
+					<?php
 						$article = '<br /> <a href="https://evnt.is/1aqd" target="_blank" rel="noreferrer">' . esc_html__( 'View article', 'tribe-common' ) . '</a>';
-						echo sprintf( __( 'Most issues are casued by conflicts with the theme or other plugins. Follow these steps as a first point of action. %s', 'tribe-common' ), $article );
+						echo sprintf( __( 'Most issues are caused by conflicts with the theme or other plugins. Follow these steps as a first point of action. %s', 'tribe-common' ), $article );
 					?>
 				</div>
 			</div>
@@ -121,7 +124,7 @@
 			</div>
 			<div class="tribe-events-admin-step-card__content">
 				<div class="tribe-events-admin-step__title">
-					<?php esc_html_e('Test for conflicts', 'tribe-common'); ?>	
+					<?php esc_html_e('Test for conflicts', 'tribe-common'); ?>
 				</div>
 				<div class="tribe-events-admin-step__description">
 					<?php esc_html_e('Providing the details of your calendar plugin and settings (located below) helps our support team troubleshoot an issue faster.', 'tribe-common'); ?>
@@ -148,10 +151,10 @@
 				</div>
 				<div class="tribe-events-admin-faq-card__content">
 					<div class="tribe-events-admin-faq__question">
-						<?php echo esc_html($commonIssue['issue']); ?>	
+						<?php echo esc_html($commonIssue['issue']); ?>
 					</div>
 					<div class="tribe-events-admin-faq__answer">
-						<?php 
+						<?php
 							$label = '<a href=" ' . $commonIssue['link'] . ' " target="_blank" rel="noreferrer">' . esc_html__( $commonIssue['link_label'], 'tribe-common' ) . '</a>';
 							echo sprintf( __( $commonIssue['solution'], 'tribe-common' ), $label );
 						?>
@@ -160,15 +163,15 @@
 			</div>
 		<?php endforeach; ?>
 	</div>
-    
+
 	<?php // sys info?>
 	<div class="tribe-events-admin__system-information">
 		<div class="tribe-events-admin__system-information-content">
 			<h3 class="tribe-events-admin__troubleshooting-title">
 				<?php esc_html_e('System Information', 'tribe-common'); ?>
-			</h3>	
+			</h3>
 			<p class="tribe-events-admin__troubleshooting-description">
-				<?php esc_html_e('Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk.', 'tribe-common'); ?>	
+				<?php esc_html_e('Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk.', 'tribe-common'); ?>
 			</p>
 			<div class="tribe-events-admin__system-information-select">
 				<input type="checkbox" name="userToggleSystemInformation" value="1">
@@ -182,22 +185,22 @@
 		</div>
 
 		<div class="tribe-events-admin__system-information-widget">
-			&nbsp;
+			<?php echo $system_info; ?>
 		</div>
 	</div>
 
-	<?php // recent teamplate changes?>
+	<?php // recent template changes?>
 	<h3 class="tribe-events-admin__troubleshooting-title">
 		<?php esc_html_e('Recent template changes', 'tribe-common'); ?>
-	</h3>	
+	</h3>
 	<p class="tribe-events-admin__troubleshooting-description">
-		<?php esc_html_e('Information about recent template changes and potentiallly impacted template overrides is provided below.', 'tribe-common'); ?>	
+		<?php esc_html_e('Information about recent template changes and potentially impacted template overrides is provided below.', 'tribe-common'); ?>
 	</p>
 	<div class="tribe-events-admin__system-information-widget">
-		&nbsp;
+		<?php echo $template_changes; ?>
 	</div>
 
-	<?php // revent log section?>
+	<?php // recent log section?>
 	<h3 class="tribe-events-admin__troubleshooting-title tribe-events-admin__recent-log">
 		<?php esc_html_e('Event log', 'tribe-common'); ?>
 	</h3>
@@ -214,7 +217,7 @@
 					</option>
 				</select>
 			</div>
-		</div>	
+		</div>
 
 		<div class="tribe-events-admin__recent-log-filters-field">
 			<label>
@@ -227,7 +230,7 @@
 					</option>
 				</select>
 			</div>
-		</div>	
+		</div>
 
 		<div class="tribe-events-admin__recent-log-filters-field">
 			<label>
@@ -240,11 +243,15 @@
 					</option>
 				</select>
 			</div>
-		</div>	
+		</div>
 	</div>
 
 	<div class="tribe-events-admin__system-information-widget">
-		<?php esc_html_e('The selected log file is empty or has not been generated yet.', 'tribe-common'); ?>
+		<?php if ( empty( $error_log ) ) : ?>
+			<?php esc_html_e('The selected log file is empty or has not been generated yet.', 'tribe-common'); ?>
+		<?php else: ?>
+			<?php echo $error_log; ?>
+		<?php endif; ?>
 	</div>
 
 	<?php // EA status?>
