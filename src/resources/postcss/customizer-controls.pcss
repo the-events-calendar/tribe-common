@@ -1,5 +1,7 @@
 /* = Customizer Controls (V2)
 ============================ */
+@import "utilities/_variables-full.pcss";
+@import "utilities/_all.pcss";
 
 .wp-customizer {
 
@@ -7,19 +9,19 @@
 
 		.customize-control-description {
 			font-style: normal;
-			margin-bottom: 12px;
+			margin-bottom: var(--tec-spacer-2);
 		}
 
 		.customize-control-title {
 			margin-bottom: 0;
 
 			& ~ .customize-control-content {
-				margin-top: 8px;
+				margin-top: var(--tec-spacer-1);
 			}
 
 			& ~ .customize-control-description {
 				margin-bottom: 3px;
-				margin-top: 4px;
+				margin-top: var(--tec-spacer-0);
 			}
 		}
 
@@ -28,12 +30,12 @@
 		}
 
 		.button.wp-color-result {
-			border-color: #141827;
+			border-color: var(--tec-color-text-primary);
 
 			&:active,
 			&:focus,
 			&:hover {
-				border-color: #141827;
+				border-color: var(--tec-color-text-primary);
 				box-shadow: 0 0 0 0.75px rgba(20, 24, 39, 0.5);
 			}
 		}
@@ -49,17 +51,11 @@
 		/* Range Slider, TEC-style */
 
 		.tec-range-slider-label {
-			border: 0;
-			clip: rect(0 0 0 0);
-			height: 1px;
-			margin: -1px;
-			overflow: hidden;
-			padding: 0;
-			position: absolute;
-			width: 1px;
+			@mixin visually-hide;
 		}
 
 		input[type=range].tec-range-slider {
+			-webkit-appearance: none;
 			background-color: transparent;
 			border-radius: 9px;
 			width: calc(100% - 24px);
@@ -67,100 +63,96 @@
 			&:active,
 			&:focus,
 			&:focus-visible {
-				box-shadow: 0 0 0 2px #334aff;
+				box-shadow: 0 0 0 2px var(--tec-color-accent-primary);
 				outline: none;
 			}
 
 			/* Track styles for allthebrowsers */
 
 			&::-moz-range-track {
-				background-color: #fff;
+				background-color: var(--tec-color-background);
 				border: 0;
-				border-radius: 9px;
+				border-radius: 3px;
 				cursor: pointer;
-				height: 18px;
+				height: 3px;
 				width: 100%;
 			}
 
 			&::-webkit-slider-runnable-track {
-				background-color: #334aff;
+				background-color: #fff;
 				border: 0;
-				border-radius: 9px;
+				border-radius: 3px;
 				cursor: pointer;
-				height: 18px;
+				height: 3px;
 				width: 100%;
 			}
 
 			&::-ms-track {
-				background-color: #fff;
+				background-color: var(--tec-color-background);
 				border: 0;
-				border-radius: 9px;
+				border-radius: 3px;
 				cursor: pointer;
-				height: 18px;
+				height: 3px;
 				width: 100%;
 			}
 
 			&::-moz-range-progress {
-				background-color: #334aff;
-				border-radius: 9px;
-				height: 16px;
+				background-color: var(--tec-color-accent-primary);
+				border-radius: 3px;
+				height: 3px;
 			}
 
 			&::-webkit-progress-value {
-				background-color: #334aff;
+				background-color: var(--tec-color-accent-primary);
 			}
 
 			&::-ms-fill-lower {
-				background-color: #334aff;
+				background-color: var(--tec-color-accent-primary);
 			}
 
 			/* Thumb styles for allthebrowsers */
 
 			&::-moz-range-thumb {
-				background: #fff;
-				border: 1px solid #141827;
-				border-radius: 9px;
+				background-color: var(--tec-color-background);
+				border: 5px solid var(--tec-color-accent-primary);
+				border-radius: 50%;
 				cursor: pointer;
-				height: 16px;
-				width: 16px;
+				height: 5px;
+				width: 5px;
 
 				&:active,
 				&:focus {
-					border-radius: 12px;
-					height: 24px;
-					width: 24px;
+					border-color: var(--tec-color-link-accent-hover);
 				}
 			}
 
 			&::-webkit-slider-thumb {
-				background: #fff;
-				border: 1px solid #141827;
-				border-radius: 9px;
+				background-color: var(--tec-color-background);
+				border: 5px solid var(--tec-color-accent-primary);
+				border-radius: 50%;
 				cursor: pointer;
 				height: 16px;
+				margin-top: -7px;
 				width: 16px;
+				-webkit-appearance: none;
 
 				&:active,
 				&:focus {
-					border-radius: 12px;
-					height: 24px;
-					width: 24px;
+					border-color: var(--tec-color-link-accent-hover);
 				}
 			}
 
 			&::-ms-thumb {
-				background: #fff;
-				border: 1px solid #141827;
-				border-radius: 9px;
+				background-color: var(--tec-color-background);
+				border: 5px solid var(--tec-color-accent-primary);
+				border-radius: 50%;
 				cursor: pointer;
-				height: 16px;
-				width: 16px;
+				height: 5px;
+				width: 5px;
 
 				&:active,
 				&:focus {
-					border-radius: 12px;
-					height: 24px;
-					width: 24px;
+					border-color: var(--tec-color-link-accent-hover);
 				}
 			}
 		}
@@ -205,7 +197,7 @@
 					outline: none;
 
 					.tec-switch-toggle {
-						box-shadow: 0 0 0 2px #334aff;
+						box-shadow: 0 0 0 2px var(--tec-color-accent-primary);
 					}
 				}
 			}
@@ -226,8 +218,8 @@
 				}
 
 				&:before {
-					background-color: #f7f6f6;
-					border: 1px solid #bababa;
+					background-color: var(--tec-color-background-secondary);
+					border: 1px solid var(--tec-color-icon-secondary);
 					border-radius: 0.55em;
 					height: 1.125em;
 					opacity: 0.6;
@@ -235,7 +227,7 @@
 				}
 
 				&:after {
-					background-color: #d5d5d5;
+					background-color: var(--tec-color-icon-disabled);
 					border-radius: 50%;
 					height: 16px;
 					left: 3px;
@@ -247,24 +239,17 @@
 			}
 
 			.tec-switch-input {
-				border: 0;
-				clip: rect(0 0 0 0);
-				height: 1px;
-				margin: -1px;
-				overflow: hidden;
-				padding: 0;
-				position: absolute;
-				width: 1px;
+				@mixin visually-hide;
 
 				&:checked {
 					+ .tec-switch-toggle:before {
-						background: #334aff;
+						background-color: var(--tec-color-accent-primary);
 						border-color: rgba(51, 74, 255, 0.6);
 						opacity: 1;
 					}
 
 					+ .tec-switch-toggle:after {
-						background: #fff;
+						background-color: var(--tec-color-background);
 						transform: translate(calc(41px - 100%), -50%);
 					}
 				}
@@ -279,7 +264,7 @@
 
 				&:focus {
 					+ .tec-switch-toggle:before {
-						border-color: #334aff;
+						border-color: var(--tec-color-accent-primary);
 					}
 				}
 			}
