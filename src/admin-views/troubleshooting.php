@@ -193,10 +193,7 @@
 	<h3 class="tribe-events-admin__troubleshooting-title">
 		<?php esc_html_e('Recent template changes', 'tribe-common'); ?>
 	</h3>
-	<p class="tribe-events-admin__troubleshooting-description">
-		<?php esc_html_e('Information about recent template changes and potentially impacted template overrides is provided below.', 'tribe-common'); ?>
-	</p>
-	<div class="tribe-events-admin__system-information-widget">
+	<div class="tribe-events-admin__recent-template-changes">
 		<?php echo $template_changes; ?>
 	</div>
 

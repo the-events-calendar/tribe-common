@@ -2908,16 +2908,28 @@ input[type="email"].tribe-events-admin-card__input {
 	line-height: 1.2;
 }
 
-.tribe-events-admin__system-information-widget {
+.tribe-events-admin__system-information-widget,
+.tribe-events-admin__recent-template-changes .template-updates-wrapper {
 	background: #0f1031;
 	padding: 12px 0 0 27px;
 	border-radius: 16px;
-	min-height: 100px;
+	max-height: 300px;
 	font-size: 14px;
 	line-height: 1.14;
 	color: #fff;
-	display: flex;
-	align-items: center;
+	overflow: scroll;
+}
+
+.tribe-events-admin__recent-template-changes .template-updates-wrapper {
+	padding: 30px 0 30px 27px;
+}
+
+.tribe-events-admin__recent-template-changes p {
+	font-size: 18px;
+	line-height: 1.44;
+	color: #0f1031;
+	line-height: 1.2;
+	margin: 20px 0;
 }
 
 .tribe-events-admin__recent-log {
