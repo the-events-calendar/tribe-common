@@ -7,7 +7,7 @@
 	$support          = Tribe__Support::getInstance();
 	$system_info      = $support->formattedSupportStats();
 	$template_changes = Tribe__Support__Template_Checker_Report::generate();
-	$error_log = tribe( 'logger' )->admin()->display_log();
+	$error_log = tribe( 'logger' )->admin()->get_log_entries();
 
 ?>
 
@@ -250,7 +250,7 @@
 		<?php if ( empty( $error_log ) ) : ?>
 			<?php esc_html_e('The selected log file is empty or has not been generated yet.', 'tribe-common'); ?>
 		<?php else: ?>
-			<?php echo $error_log; ?>
+			<?php var_dump( $error_log ); ?>
 		<?php endif; ?>
 	</div>
 
