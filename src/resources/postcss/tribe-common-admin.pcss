@@ -2913,15 +2913,22 @@ input[type="email"].tribe-events-admin-card__input {
 	background: #0f1031;
 	padding: 12px 0 0 27px;
 	border-radius: 16px;
-	max-height: 300px;
+	max-height: 280px;
 	font-size: 14px;
 	line-height: 1.14;
 	color: #fff;
 	overflow: scroll;
+	-ms-overflow-style: none;  /* hide scrollbar on IE and Edge */
+	scrollbar-width: none;  /* hide scrollbar on Firefox */
 }
 
 .tribe-events-admin__recent-template-changes .template-updates-wrapper {
 	padding: 30px 0 30px 27px;
+}
+
+.tribe-events-admin__system-information-widget::-webkit-scrollbar,
+.tribe-events-admin__recent-template-changes .template-updates-wrapper::-webkit-scrollbar {
+	display: none; /* hide scrollbar on Chrome */
 }
 
 .tribe-events-admin__recent-template-changes p {
