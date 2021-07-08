@@ -240,8 +240,8 @@ class Troubleshooting {
             [
                 'title' => __( 'Time zone is not set', 'tribe-common' ),
                 'description' => __( 'We recommend that our users use a location time zone and avoid using UTC offsets.', 'tribe-common' ),
-                'more_info' => 'https://evnt.is/somewhere',
-                'fix' => 'https://evnt.is/somewhere',
+                'more_info' => 'https://evnt.is/1aql',
+                'fix' => '/wp-admin/options-general.php',
                 'active' => $this->is_active_issue( 'timezone' ),
             ],
             [
@@ -254,15 +254,15 @@ class Troubleshooting {
             [
                 'title' => __( 'Geolocation code is missing', 'tribe-common' ),
                 'description' => __( '	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common' ),
-                'more_info' => 'https://evnt.is/somewhere',
-                'fix' => 'https://evnt.is/somewhere',
+                'more_info' => 'https://evnt.is/1aqm',
+                'fix' => '/wp-admin/edit.php?page=tribe-common&tab=addons&post_type=tribe_events',
                 'active' => $this->is_active_issue( 'geolocation' ),
             ],
             [
                 'title' => __( 'Plugin versions are out of date', 'tribe-common' ),
                 'description' => __( '	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugit tempora ipsam deserunt voluptatum?', 'tribe-common' ),
-                'more_info' => 'https://evnt.is/somewhere',
-                'fix' => 'https://evnt.is/somewhere',
+                'more_info' => 'https://evnt.is/1aqn',
+                'fix' => '/wp-admin/plugins.php',
                 'active' => $this->is_active_issue( 'out-of-date' ),
             ],
         ] );
