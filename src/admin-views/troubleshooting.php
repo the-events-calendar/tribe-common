@@ -187,6 +187,7 @@
 		<div class="tribe-events-admin__system-information-widget">
 			<?php echo $system_info; ?>
 		</div>
+		
 		<div class="tribe-events-admin__system-information-widget-copy">
 			<button data-clipboard-action="copy" class="system-info-copy-btn" data-clipboard-target=".support-stats" >
 				<?php esc_attr_e('Copy to clipboard', 'tribe-common'); ?>
