@@ -1,4 +1,11 @@
-<?php // first steps?>
+<?php 
+/**
+ * View: Troubleshooting - Initial Troubleshooting Steps
+ * 
+ * @since TBD
+ * 
+ */
+?>
 <div class="tribe-events-admin-section-header">
     <h3>
         <?php esc_html_e('First Steps', 'tribe-common'); ?>

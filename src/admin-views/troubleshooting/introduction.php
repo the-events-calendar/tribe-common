@@ -1,4 +1,11 @@
-<?php ?>
+<?php 
+/**
+ * View: Troubleshooting - Introduction
+ * 
+ * @since TBD
+ * 
+ */
+?>
 <div class="tribe-events-admin-header tribe-events-admin-container">
 	<?php do_action('tec-admin-notice-area', 'help'); ?>
 	<div class="tribe-events-admin-header__content-wrapper">

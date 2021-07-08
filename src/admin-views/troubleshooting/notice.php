@@ -1,4 +1,11 @@
-<?php ?>
+<?php 
+/**
+ * View: Troubleshooting - Admin Notice
+ * 
+ * @since TBD
+ * 
+ */
+?>
 <div class="tribe-events-admin__troubleshooting-notice">
 	<div class="tribe-events-admin__troubleshooting-notice_title">
 		<?php

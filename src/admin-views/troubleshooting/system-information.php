@@ -1,6 +1,13 @@
 <?php 
-    $support          = Tribe__Support::getInstance();
-    $system_info      = $support->formattedSupportStats();
+/**
+ * View: Troubleshooting - System information
+ * 
+ * @since TBD
+ * 
+ */
+
+$support     = Tribe__Support::getInstance();
+$system_info = $support->formattedSupportStats();
 ?>
 <div class="tribe-events-admin__system-information">
     <div class="tribe-events-admin__system-information-content">

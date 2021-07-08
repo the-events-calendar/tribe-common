@@ -1,4 +1,11 @@
-<?php ?>
+<?php 
+/**
+ * View: Troubleshooting - Support Call To Action
+ * 
+ * @since TBD
+ * 
+ */
+?>
 <div class="tribe-events-admin-cta">
     <img
         class="tribe-events-admin-cta__image"

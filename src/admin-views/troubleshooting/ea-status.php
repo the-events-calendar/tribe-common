@@ -1,4 +1,11 @@
-<?php ?>
+<?php 
+/**
+ * View: Troubleshooting - EA Status
+ * 
+ * @since TBD
+ * 
+ */
+?>
 <h3 class="tribe-events-admin__troubleshooting-title tribe-events-admin__ea-status">
     <?php esc_html_e('Event Aggregator system status ', 'tribe-common'); ?>
 </h3>

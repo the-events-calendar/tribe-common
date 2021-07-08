@@ -1,5 +1,12 @@
 <?php 
-    $error_log = tribe( 'logger' )->admin()->get_log_entries();
+/**
+ * View: Troubleshooting - Event Logs
+ * 
+ * @since TBD
+ * 
+ */
+    
+ $error_log = tribe( 'logger' )->admin()->get_log_entries();
 ?>
 <h3 class="tribe-events-admin__troubleshooting-title tribe-events-admin__recent-log">
     <?php esc_html_e('Event log', 'tribe-common'); ?>
