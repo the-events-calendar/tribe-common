@@ -6,7 +6,7 @@
  * 
  */
 
-$support     = Tribe__Support::getInstance();
+$support = Tribe__Support::getInstance();
 $system_info = $support->formattedSupportStats();
 ?>
 <div class="tribe-events-admin__system-information">

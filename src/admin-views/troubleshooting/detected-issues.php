@@ -6,7 +6,7 @@
  * 
  */
 use \Tribe\Admin\Troubleshooting;
-$issues_found     = tribe( Troubleshooting::class )->get_issues_found();
+$issues_found = tribe( Troubleshooting::class )->get_issues_found();
 
 if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is there are any active issues before printing ?>
 	<div class="tribe-events-admin-section-header">
@@ -16,7 +16,7 @@ if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is ther
 	</div>
 
 	<?php // toggles to appear here?>
-	<?php foreach ($issues_found as $issue) : ?>
+	<?php foreach ( $issues_found as $issue ) : ?>
 		<?php
 			// yoda conditioning
 			if ( false === $issue['active'] ) {
@@ -32,19 +32,19 @@ if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is ther
 				<h3>
 					<i></i>
 					<span>
-						<?php echo esc_html($issue['title']); ?>
+						<?php echo esc_html( $issue['title'] ); ?>
 					</span>
 				</h3>
 			</div>
 			<div class="tribe-events-admin__issues-found-card-description">
 				<p>
-					<?php echo esc_html($issue['description']); ?>
+					<?php echo esc_html( $issue['description'] ); ?>
 				</p>
 				<div class="tribe-events-admin__issues-found-card-description-actions">
-					<a href="<?php echo esc_html($issue['more_info']); ?>" target="_blank" rel="noreferrer">
+					<a href="<?php echo esc_html( $issue['more_info'] ); ?>" target="_blank" rel="noreferrer">
 						<?php esc_attr_e('Learn more', 'tribe-common'); ?>
 					</a>
-					<a href="<?php echo esc_html($issue['fix']); ?>">
+					<a href="<?php echo esc_html( $issue['fix'] ); ?>">
 						<?php esc_attr_e('Resolve it now', 'tribe-common'); ?>
 					</a>
 				</div>
