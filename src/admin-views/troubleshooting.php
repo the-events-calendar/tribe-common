@@ -174,7 +174,7 @@
 				<?php esc_html_e('Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk.', 'tribe-common'); ?>
 			</p>
 			<div class="tribe-events-admin__system-information-select">
-				<input type="checkbox" name="userToggleSystemInformation" value="1">
+				<input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin"/>
 				<label>
 					<?php esc_html_e('Yes, automatically share my system information with The Events Calendar support team*', 'tribe-common'); ?>
 				</label>
