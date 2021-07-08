@@ -2922,6 +2922,13 @@ input[type="email"].tribe-events-admin-card__input {
 	-ms-overflow-style: none;  /* hide scrollbar on IE and Edge */
 	scrollbar-width: none;  /* hide scrollbar on Firefox */
 }
+.tribe-events-admin__system-information-widget a {
+	color: #334aff;
+
+	&:hover {
+		opacity: .8;
+	}
+}
 
 .tribe-events-admin__recent-template-changes .template-updates-wrapper {
 	padding: 30px 0 30px 27px;
@@ -2993,6 +3000,54 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin__recent-log {
 	margin-top: 50px;
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper label {
+	font-size: 16px;
+	line-height: 1.63;
+	color: #0f1031;
+	display: block;
+	margin-bottom: 10px;
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-controls {
+	margin: 20px 0 10px;
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-viewer {
+	background: #0f1031;
+	padding: 12px 0 0 27px;
+	border-radius: 16px;
+	max-height: 280px;
+	min-height: 60px;
+	font-size: 14px;
+	line-height: 1.14;
+	color: #fff;
+	overflow: scroll;
+	-ms-overflow-style: none;  /* hide scrollbar on IE and Edge */
+	scrollbar-width: none;  /* hide scrollbar on Firefox */
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-viewer::-webkit-scrollbar {
+	display: none; /* hide scrollbar on Chrome */
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper .download_log {
+	text-decoration: none;
+	font-size: 16px;
+	color: #334aff;
+	padding-bottom: 2px;
+    border-bottom: 2px solid #334aff;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #1c39bb;
+		border-bottom: 2px solid #1c39bb;
+	}
 }
 
 .tribe-events-admin__recent-log-filters {

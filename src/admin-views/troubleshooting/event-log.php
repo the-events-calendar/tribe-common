@@ -8,9 +8,15 @@
     
  $error_log = tribe( 'logger' )->admin()->get_log_entries();
 ?>
-<h3 class="tribe-events-admin__troubleshooting-title tribe-events-admin__recent-log">
-    <?php esc_html_e('Event log', 'tribe-common'); ?>
-</h3>
+<div class="tribe-events-admin__troubleshooting-event-log-wrapper">
+    <h3 class="tribe-events-admin__troubleshooting-title tribe-events-admin__recent-log">
+        <?php esc_html_e('Event log', 'tribe-common'); ?>
+    </h3>
+    <?php 
+        // event log
+        include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/event-log.php';
+    ?>
+</div>
 
 <div class="tribe-events-admin__recent-log-filters">
     <div class="tribe-events-admin__recent-log-filters-field">
@@ -57,6 +63,6 @@
     <?php if ( empty( $error_log ) ) : ?>
         <?php esc_html_e('The selected log file is empty or has not been generated yet.', 'tribe-common'); ?>
     <?php else: ?>
-        <?php var_dump( $error_log ); ?>
+        <?php var_dump( $error_log ); die; ?>
     <?php endif; ?>
 </div>

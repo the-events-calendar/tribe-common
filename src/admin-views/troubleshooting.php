@@ -14,7 +14,7 @@
 	// recent template changes
 	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/recent-template-changes.php';
 	// recent logs
-	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/event-logs.php';
+	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/event-log.php';
 	// ea status
 	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status.php';
 	// support cta
