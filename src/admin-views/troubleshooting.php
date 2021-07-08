@@ -7,7 +7,7 @@
 	$support          = Tribe__Support::getInstance();
 	$system_info      = $support->formattedSupportStats();
 	$template_changes = Tribe__Support__Template_Checker_Report::generate();
-	$error_log = tribe( 'logger' )->admin()->get_log_entries();
+	$error_log        = tribe( 'logger' )->admin()->get_log_entries();
 
 ?>
 
@@ -186,6 +186,11 @@
 
 		<div class="tribe-events-admin__system-information-widget">
 			<?php echo $system_info; ?>
+		</div>
+		<div class="tribe-events-admin__system-information-widget-copy">
+			<button data-clipboard-action="copy" class="system-info-copy-btn" data-clipboard-target=".support-stats" >
+				<?php esc_attr_e('Copy to clipboard', 'tribe-common'); ?>
+			</button>
 		</div>
 	</div>
 
