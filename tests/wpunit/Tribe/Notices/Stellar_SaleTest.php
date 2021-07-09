@@ -1,10 +1,10 @@
 <?php
 
-namespace Tribe\Admin\Notice\Marketing;
-
 use Tribe__Date_Utils as Dates;
+use Tribe\Tests\Traits\With_Uopz;
 
 class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
 
 	/**
 	 * Test ! should_display() when constant is set.
@@ -25,14 +25,13 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Stellar_Sale::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Stellar_Sale::class );
 
 		$this->assertFalse( $notice->should_display() );
 
 		// So we don't muck up later tests.
 		remove_all_filters( "tribe_stellar-sale_notice__start_date" );
 		uopz_undefine( 'TRIBE_HIDE_UPSELL' );
-		uopz_unset_return( 'get_current_screen' );
 	}
 
 	/**
@@ -52,7 +51,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on the wrong screen.
 		set_current_screen( 'edit-post' );
 
-		$notice = tribe( Stellar_Sale::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Stellar_Sale::class );
 
 		$this->assertFalse( $notice->should_display() );
 
@@ -83,7 +82,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Stellar_Sale::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Stellar_Sale::class );
 
 		$this->assertFalse( $notice->should_display() );
 
@@ -115,7 +114,7 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Stellar_Sale::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Stellar_Sale::class );
 
 		$this->assertTrue( $notice->should_display() );
 

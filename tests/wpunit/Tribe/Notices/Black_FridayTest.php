@@ -1,7 +1,5 @@
 <?php
 
-namespace Tribe\Admin\Notice\Marketing;
-
 use Tribe__Date_Utils as Dates;
 
 class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
@@ -25,14 +23,13 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Black_Friday::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
 
 		$this->assertFalse( $notice->should_display() );
 
 		// So we don't muck up later tests.
 		remove_all_filters( "tribe_black-friday_notice__start_date" );
 		uopz_undefine( 'TRIBE_HIDE_UPSELL' );
-		uopz_unset_return( 'get_current_screen' );
 	}
 
 	/**
@@ -52,7 +49,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on the wrong screen.
 		set_current_screen( 'edit-post' );
 
-		$notice = tribe( Black_Friday::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
 
 		$this->assertFalse( $notice->should_display() );
 
@@ -83,7 +80,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Black_Friday::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
 
 		$this->assertFalse( $notice->should_display() );
 
@@ -115,7 +112,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
 
-		$notice = tribe( Black_Friday::class );
+		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
 
 		$this->assertTrue( $notice->should_display() );
 
