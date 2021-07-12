@@ -44,7 +44,8 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * Test ! should_display() when on wrong screen
+	 * Test ! should_display() when on wrong screen.
+	 * Note this test assumes we have not set the constant in our testing environment.
 	 *
 	 * @test
 	 */
@@ -66,7 +67,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 			}
 		);
 
-		// Ensure we're on the wrong screen.
+		// Ensure we're on the WRONG screen.
 		set_current_screen( 'edit-post' );
 
 		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
@@ -78,7 +79,8 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * Test ! should_display() when date passed
+	 * Test ! should_display() when date passed.
+	 * Note this test assumes we have not set the constant in our testing environment.
 	 *
 	 * @test
 	 */
@@ -112,7 +114,8 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * Test ! should_display() when date in future
+	 * Test ! should_display() when date in future.
+	 * Note this test assumes we have not set the constant in our testing environment.
 	 *
 	 * @test
 	 */
@@ -147,6 +150,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * Test should_display() when the stars align (all conditions true).
+	 * Note this test assumes we have not set the constant in our testing environment.
 	 *
 	 * @test
 	 */
