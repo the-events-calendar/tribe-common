@@ -45,7 +45,7 @@ if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is ther
 						<?php esc_attr_e('Learn more', 'tribe-common'); ?>
 					</a>
 					<a href="<?php echo esc_html( $issue['fix'] ); ?>">
-						<?php esc_attr_e('Resolve it now', 'tribe-common'); ?>
+						<?php echo esc_html( $issue['resolve_text'] ); ?>
 					</a>
 				</div>
 			</div>
