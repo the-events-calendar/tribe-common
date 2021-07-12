@@ -560,15 +560,15 @@ class Tribe__Main {
 		$post_id = $candidate_post instanceof WP_Post ? $candidate_post->ID : false;
 
 		/**
-		 * Allow for a modify of the post ID in order to allow redirection of values before any other additional
-		 * wordpress action is called from this result.
+		 * Allows modifying the post ID in order to allow redirection of values before any other additional
+		 * WordPress action is called from on result.
 		 *
 		 * @since TBD
 		 *
 		 * @param int|bool         $post_id   The ID of the post if the $candidate value is a valid WP_Post Object, `false` otherwise.
 		 * @param null|int|WP_Post $candidate Post ID or object, `null` to get the ID of the global post object.
 		 *
-		 * @return  int|bool The ID of the post/
+		 * @return  int|bool The ID of the post.
 		 */
 		return apply_filters( 'tribe_post_id', $post_id, $candidate );
 	}
