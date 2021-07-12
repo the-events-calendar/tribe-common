@@ -66,7 +66,7 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 
 	/**
 	 * Unix time for notice start.
-	 * Note: we could instead use the ...notice__start_date filter to modify the date
+	 * Note: we could instead use the ...notice_start_date filter to modify the date
 	 *       but this seemed more straightforward for now.
 	 *
 	 * @since TBD
@@ -86,17 +86,8 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 		*
 		* @param \DateTime $date Date object for the notice start.
 		*/
-		$date = apply_filters( "tribe_{$this->slug}_notice__start_date", $date );
+		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date );
 
-		$start_time = $date->format( 'U' );
-
-		/**
-		 * Allow filtering of the "final" start date Unix timestamp, mainly for testing purposes.
-		 *
-		 * @since TBD
-		 *
-		 * @param int $start_time Unix timestamp for the when the notice starts.
-		 */
-		return apply_filters( "tribe_{$this->slug}_notice__start_time", $start_time );
+		return $date->format( 'U' );
 	}
 }

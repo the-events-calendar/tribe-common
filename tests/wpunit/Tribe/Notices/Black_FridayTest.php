@@ -16,7 +16,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		uopz_redefine( 'TRIBE_HIDE_UPSELL', true );
 		// Ensure we're on a good date.
 		add_filter(
-			"tribe_black-friday_notice_start_date",
+			'tribe_black-friday_notice_start_date',
 			function( $date ) {
 				// Set the start date to the past.
 				return Dates::build_date_object( '-7 days', 'UTC' );
@@ -24,7 +24,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		add_filter(
-			"tribe_black-friday_notice_end_date",
+			'tribe_black-friday_notice_end_date',
 			function( $date ) {
 				// Set the end date to the future.
 				return Dates::build_date_object( '+7 days', 'UTC' );
@@ -39,7 +39,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $notice->should_display() );
 
 		// So we don't muck up later tests.
-		remove_all_filters( "tribe_black-friday_notice_start_date" );
+		remove_all_filters( 'tribe_black-friday_notice_start_date' );
 		uopz_undefine( 'TRIBE_HIDE_UPSELL' );
 	}
 
@@ -52,7 +52,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 	public function should_not_display_when_wrong_screen() {
 		// Ensure we're on a good date.
 		add_filter(
-			"tribe_black-friday_notice_start_date",
+			'tribe_black-friday_notice_start_date',
 			function( $date ) {
 				// Set the start date to the past.
 				return Dates::build_date_object( '-7 days', 'UTC' );
@@ -60,7 +60,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		add_filter(
-			"tribe_black-friday_notice_end_date",
+			'tribe_black-friday_notice_end_date',
 			function( $date ) {
 				// Set the end date to the future.
 				return Dates::build_date_object( '+7 days', 'UTC' );
@@ -75,7 +75,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $notice->should_display() );
 
 		// So we don't muck up later tests.
-		remove_all_filters( "tribe_black-friday_notice_start_date" );
+		remove_all_filters( 'tribe_black-friday_notice_start_date' );
 	}
 
 	/**
@@ -86,7 +86,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_not_display_when_past() {
 		add_filter(
-			"tribe_black-friday_notice_start_date",
+			'tribe_black-friday_notice_start_date',
 			function( $date ) {
 				// Set the start date to the past.
 				return Dates::build_date_object( '-7 days', 'UTC' );
@@ -94,7 +94,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		add_filter(
-			"tribe_black-friday_notice_end_date",
+			'tribe_black-friday_notice_end_date',
 			function( $date ) {
 				// Set the end date to the past.
 				return Dates::build_date_object( '-5 days', 'UTC' );
@@ -109,8 +109,8 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $notice->should_display() );
 
 		// So we don't muck up later tests.
-		remove_all_filters( "tribe_black-friday_notice_start_date" );
-		remove_all_filters( "tribe_black-friday_notice_end_date" );
+		remove_all_filters( 'tribe_black-friday_notice_start_date' );
+		remove_all_filters( 'tribe_black-friday_notice_end_date' );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_not_display_when_in_future() {
 		add_filter(
-			"tribe_black-friday_notice_start_date",
+			'tribe_black-friday_notice_start_date',
 			function( $date ) {
 				// Set the start date to the future.
 				return Dates::build_date_object( '+5 days', 'UTC' );
@@ -129,7 +129,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		add_filter(
-			"tribe_black-friday_notice_end_date",
+			'tribe_black-friday_notice_end_date',
 			function( $date ) {
 				// Set the end date to the future.
 				return Dates::build_date_object( '+7 days', 'UTC' );
@@ -144,8 +144,8 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $notice->should_display() );
 
 		// So we don't muck up later tests.
-		remove_all_filters( "tribe_black-friday_notice_start_date" );
-		remove_all_filters( "tribe_black-friday_notice_end_date" );
+		remove_all_filters( 'tribe_black-friday_notice_start_date' );
+		remove_all_filters( 'tribe_black-friday_notice_end_date' );
 	}
 
 	/**
@@ -156,7 +156,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_display_when_stars_align() {
 		add_filter(
-			"tribe_black-friday_notice_start_date",
+			'tribe_black-friday_notice_start_date',
 			function( $date ) {
 				// Set the start date to the past.
 				return Dates::build_date_object( '-7 days', 'UTC' );
@@ -164,7 +164,7 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		add_filter(
-			"tribe_black-friday_notice_end_date",
+			'tribe_black-friday_notice_end_date',
 			function( $date ) {
 				// Set the end date to the future.
 				return Dates::build_date_object( '+7 days', 'UTC' );
@@ -176,10 +176,12 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 
 		$notice = tribe( Tribe\Admin\Notice\Marketing\Black_Friday::class );
 
+		codecept_debug($notice);
+
 		$this->assertTrue( $notice->should_display() );
 
 		// So we don't muck up later tests.
-		remove_all_filters( "tribe_black-friday_notice_start_date" );
-		remove_all_filters( "tribe_black-friday_notice_end_date" );
+		remove_all_filters( 'tribe_black-friday_notice_start_date' );
+		remove_all_filters( 'tribe_black-friday_notice_end_date' );
 	}
 }
