@@ -20,7 +20,8 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 			function( $date ) {
 				// Set the start date to today to be sure it's the constant that's stopping us.
 				return Dates::build_date_object( 'today', 'UTC' );
-		} );
+			}
+		);
 
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
@@ -46,7 +47,8 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 			function( $date ) {
 				// Set the start date to today to be sure it's the constant that's stopping us.
 				return Dates::build_date_object( 'today', 'UTC' );
-		} );
+			}
+		);
 
 		// Ensure we're on the wrong screen.
 		set_current_screen( 'edit-post' );
@@ -71,13 +73,16 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 			function( $date ) {
 				// Set the start date to today to be sure it's the constant that's stopping us.
 				return Dates::build_date_object( '-7 days', 'UTC' );
-		} );
+			}
+		);
+
 		add_filter(
 			"tribe_black-friday_notice__end_date",
 			function( $date ) {
 				// Set the start date to today to be sure it's the constant that's stopping us.
 				return Dates::build_date_object( '-5 days', 'UTC' );
-		} );
+			}
+		);
 
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );
@@ -103,13 +108,16 @@ class Black_FridayTest extends \Codeception\TestCase\WPTestCase {
 			function( $date ) {
 				// Set the start date to today to be sure it's the constant that's stopping us.
 				return Dates::build_date_object( '-7 days', 'UTC' );
-		} );
+			}
+		);
+
 		add_filter(
 			"tribe_black-friday_notice__end_date",
 			function( $date ) {
 				// Set the start date to today to be sure it's the constant that's stopping us.
 				return Dates::build_date_object( '+7 days', 'UTC' );
-		} );
+			}
+		);
 
 		// Ensure we're on a good screen.
 		set_current_screen( 'tribe_events_page_tribe-common' );

@@ -131,10 +131,6 @@ abstract class Date_Based {
 			return false;
 		}
 
-		$now           = Dates::build_date_object( 'now', 'UTC' )->format( 'U' );
-		$notice_start = $this->get_start_time();
-		$notice_end   = $this->get_end_time();
-
 		$current_screen = get_current_screen();
 
 		$screens = [
@@ -150,6 +146,10 @@ abstract class Date_Based {
 			return false;
 		}
 
+		$now          = Dates::build_date_object( 'now', 'UTC' )->format( 'U' );
+		$notice_start = $this->get_start_time();
+		$notice_end   = $this->get_end_time();
+
 		$should_display = $notice_start <= $now && $now < $notice_end;
 
 		/**
@@ -158,7 +158,7 @@ abstract class Date_Based {
 		 * @since TBD
 		 *
 		 * @param boolean                          $should_display Whether the notice should display.
-		 * @param Tribe__Admin__Notice__Date_Based $notice  The notice object.
+		 * @param Tribe__Admin__Notice_Date_Based $notice  The notice object.
 		 */
 		return apply_filters( "tribe_{$this->slug}_notice_should_display", $should_display, $this );
 	}
@@ -175,25 +175,16 @@ abstract class Date_Based {
 		$date = $date->setTime( $this->start_time, 0 );
 
 		/**
-		* Allow filtering of the start date DateTime object,
-		* to allow for things like "the day before" ( $date->modify( '-1 day' ) ) and such.
-		*
-		* @since TBD
-		*
-		* @param \DateTime $date Date object for the notice start.
-		*/
-		$date = apply_filters( "tribe_{$this->slug}_notice__start_date", $date );
-
-		$start_time = $date->format( 'U' );
-
-		/**
-		 * Allow filtering of the "final" start date Unix timestamp, mainly for testing purposes.
+		 * Allow filtering of the start date DateTime object,
+		 * to allow for things like "the day before" ( $date->modify( '-1 day' ) ) and such.
 		 *
 		 * @since TBD
 		 *
-		 * @param int $start_time Unix timestamp for the when the notice starts.
+		 * @param \DateTime $date Date object for the notice start.
 		 */
-		return apply_filters( "tribe_{$this->slug}_notice__start_time", $start_time );
+		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date );
+
+		return $date->format( 'U' );
 	}
 
 	/**
@@ -215,17 +206,8 @@ abstract class Date_Based {
 		*
 		* @param \DateTime $date Date object for the notice end.
 		*/
-		$date = apply_filters( "tribe_{$this->slug}_notice__end_date", $date );
+		$date = apply_filters( "tribe_{$this->slug}_notice_end_date", $date );
 
-		$end_time = $date->format( 'U' );
-
-		/**
-		 * Allow filtering of the final end date Unix timestamp, mainly for testing purposes.
-		 *
-		 * @since TBD
-		 *
-		 * @param int $end_time Unix timestamp for the when the notice ends.
-		 */
-		return apply_filters( "tribe_{$this->slug}_notice__end_time", $end_time );
+		return $date->format( 'U' );
 	}
 }

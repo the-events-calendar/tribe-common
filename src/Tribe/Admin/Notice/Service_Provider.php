@@ -42,6 +42,11 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded'] );
 	}
 
+	/**
+	 * Setup for things that require plugins loaded first.
+	 *
+	 * @since TBD
+	 */
 	public function plugins_loaded() {
 		tribe( 'pue.notices' );
 		tribe( 'admin.notice.php.version' );

@@ -43,13 +43,15 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 	 * 5am UTC is 9pm PST (-8) and 12am EST (-5)
 	 */
 	public $end_time = 5;
-
+	/**
+	 * {@inheritDoc}
+	 */
 	public function display_notice() {
 		\Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
 
 		// Used in the template.
 		$cta_url  = 'https://evnt.is/1aqi';
-		$icon_url =  \Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg';
+		$icon_url = \Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg';
 
 		ob_start();
 
