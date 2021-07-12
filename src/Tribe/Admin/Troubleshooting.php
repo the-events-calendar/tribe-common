@@ -262,7 +262,7 @@ class Troubleshooting {
                 'active' => $this->is_active_issue( 'geolocation' ),
             ],
             [
-                'title' => __( 'Plugin versions are out of date', 'tribe-common' ),
+                'title' => __( 'Plugin(s) are out of date', 'tribe-common' ),
                 'description' => __( 'It\'s important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be comprimised if your site is running outdated or mis-matched versions.', 'tribe-common' ),
                 'more_info' => 'https://evnt.is/1aqy',
                 'resolve_text' => __( 'Check for updates', 'tribe-common' ),
