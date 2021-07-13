@@ -18,7 +18,6 @@ class Stellar_SaleTest extends \Codeception\TestCase\WPTestCase {
 		// Set the constant.
 		uopz_redefine( 'TRIBE_HIDE_UPSELL', true );
 		// Ensure we're on a good date.
-		// Ensure we're on a good date.
 		add_filter(
 			"tribe_stellar-sale_notice_start_date",
 			function( $date ) {
