@@ -1,7 +1,6 @@
 <?php
 namespace Tribe\Admin\Notice;
 
-use \Tribe__Date_Utils as Dates;
 use Tribe__Main as Common;
 
 
