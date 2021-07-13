@@ -154,7 +154,7 @@ class Tribe__Admin__Notices {
 
 		$slug = sanitize_title_with_dashes( $_GET[ self::$meta_key ] );
 
-		// Send a JSON answer with the status of dimissal
+		// Send a JSON answer with the status of dismissal
 		wp_send_json( $this->dismiss( $slug ) );
 	}
 
