@@ -25,7 +25,7 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * {@inheritDoc}
 	 */
-	public $start_date = 'fourth Thursday of November ';
+	public $start_date = 'fourth Thursday of November';
 
 	/**
 	 * {@inheritDoc}
@@ -41,21 +41,13 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * 5am UTC is 9pm PST and 12 am EST
 	 */
-	public $end_time = 5;
-
-	public function __construct() {
-		parent::__construct();
-	}
-
 	public function display_notice() {
 		\Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
 
 		// Used in the template.
 		$cta_url  = 'https://evnt.is/1aqi';
-		$icon_url =  \Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg';
+		$icon_url = \Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg';
 
 		ob_start();
 

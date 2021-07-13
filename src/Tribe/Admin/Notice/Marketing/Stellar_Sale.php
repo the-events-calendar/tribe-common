@@ -43,6 +43,7 @@ class Stellar_Sale extends \Tribe\Admin\Notice\Date_Based {
 	 * 5am UTC is 9pm PST (-8) and 12am EST (-5)
 	 */
 	public $end_time = 5;
+
 	/**
 	 * {@inheritDoc}
 	 */
