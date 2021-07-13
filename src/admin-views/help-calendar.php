@@ -36,25 +36,25 @@ $extensions = apply_filters( 'tec-help-calendar-extensions', [
     [
         'title' => __( 'Calendar widget areas', 'tribe-common' ),
         'description' => __( 'This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars).', 'tribe-common' ),
-        'link' => 'https://evnt.is/ext-cal-widget-areas',
+        'link' => 'https://evnt.is/1arc',
         'product-slug' => 'the-events-calendar',
     ],
     [
         'title' => __( 'Event block patterns', 'tribe-common' ),
         'description' => __( 'This extension adds a set of block patterns for events to the WordPress block editor.', 'tribe-common' ),
-        'link' => 'https://evnt.is/ext-block-patterns',
+        'link' => 'https://evnt.is/1ard',
         'product-slug' => 'the-events-calendar',
     ],
     [
         'title' => __( 'Alternative photo view', 'tribe-common' ),
         'description' => __( 'This extension replaces photo view with a tiled grid of cards featuring event images.', 'tribe-common' ),
-        'link' => 'https://evnt.is/ext-alt-photo-view',
+        'link' => 'https://evnt.is/1are',
         'product-slug' => 'events-calendar-pro',
     ],
     [
-        'title' => __( 'Test data generator', 'tribe-common' ),
-        'description' => __( 'This extension adds a tool to generate realistic dummy content for events.', 'tribe-common' ),
-        'link' => 'https://evnt.is/ext-graphql',
+        'title' => __( 'The Events Calendar Tweaks', 'tribe-common' ),
+        'description' => __( 'This extension is a collection of tweaks and snippets for The Events Calendar.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1arg',
         'product-slug' => 'the-events-calendar',
     ],
 ] );
