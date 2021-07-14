@@ -32,27 +32,27 @@ $faqs = apply_filters( 'tec-help-community-faqs', [
 // there should only be 4 in this list
 $extensions = apply_filters( 'tec-help-community-extensions', [
     [
-        'title' => __( 'Calendar widget areas', 'tribe-common' ),
-        'description' => __( 'This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars)', 'tribe-common' ),
-        'link' => '',
+        'title' => __( 'Add Cost Currency Symbol', 'tribe-common' ),
+        'description' => __( 'This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1arn',
         'product-slug' => 'community-events',
     ],
     [
-        'title' => __( 'Event block patterns', 'tribe-common' ),
-        'description' => __( 'This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars)', 'tribe-common' ),
-        'link' => 'https://evnt.is/ext-block-patterns',
+        'title' => __( 'Add Google Maps Display and Link Options', 'tribe-common' ),
+        'description' => __( 'This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1arm',
         'product-slug' => 'community-events',
     ],
     [
-        'title' => __( 'Alternative photo view', 'tribe-common' ),
-        'description' => __( 'This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars)', 'tribe-common' ),
-        'link' => 'https://evnt.is/ext-alt-photo-view',
+        'title' => __( 'Hide Others’ Organizers and Venues', 'tribe-common' ),
+        'description' => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1aro',
         'product-slug' => 'community-events',
     ],
     [
-        'title' => __( 'Test data generator', 'tribe-common' ),
-        'description' => __( 'This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars)', 'tribe-common' ),
-        'link' => 'https://evnt.is/ext-graphql',
+        'title' => __( 'Display Custom HTML', 'tribe-common' ),
+        'description' => __( 'This extension allows you to add custom HTML content to the top of the Community Events submission form.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1arp',
         'product-slug' => 'community-events',
     ],
 ] );
@@ -133,13 +133,13 @@ $extensions = apply_filters( 'tec-help-community-extensions', [
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1ap-" target="_blank" rel="noreferrer">
-						<?php esc_html_e( 'Calendar & Ticket Shortcodes', 'tribe-common' ); ?>
+					<a href="https://evnt.is/1ary" target="_blank" rel="noreferrer">
+						<?php esc_html_e( 'Community Events Shortcodes', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq0" target="_blank" rel="noreferrer">
-						<?php esc_html_e( 'Promoter', 'tribe-common' ); ?>
+					<a href="https://evnt.is/1arz" target="_blank" rel="noreferrer">
+						<?php esc_html_e( 'Locating Links to Your Community Events Pages', 'tribe-common' ); ?>
 					</a>
 				</li>
 			</ul>
