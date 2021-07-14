@@ -187,7 +187,7 @@ $extensions = apply_filters( 'tec-help-ticketing-extensions', [
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
 					<a href="https://evnt.is/1apu" target="_blank" rel="noreferrer">
-						<?php esc_html_e( 'Troubleshooting', 'tribe-common' ); ?>
+						<?php esc_html_e( 'Testing for Conflicts', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
@@ -255,7 +255,7 @@ $extensions = apply_filters( 'tec-help-ticketing-extensions', [
 	</div>
 
 	<p class="tribe-events-admin-extensions-title">
-		<?php esc_html_e( 'Small, lightweight WordPress plugins that add new capabilities to our core plugins. Support is not offered for extensions, but they do enhance your ticketing with bonus features.', 'tribe-common' ); ?>
+		<?php esc_html_e( 'Small, lightweight WordPress plugins that add new capabilities to our core plugins. Support is not offered for extensions; however they provide enhanced functionality and bonus features.', 'tribe-common' ); ?>
 	</p>
 
 	<div class="tribe-events-admin-extensions tribe-events-admin-4col-grid">

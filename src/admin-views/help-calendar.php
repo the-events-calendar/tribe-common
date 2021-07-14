@@ -260,7 +260,7 @@ $extensions = apply_filters( 'tec-help-calendar-extensions', [
 	</div>
 
 	<p class="tribe-events-admin-extensions-title">
-		<?php esc_html_e( 'Small, lightweight WordPress plugins that add new capabilities to our core plugins. Support is not offered for extensions, but they do enhance your calendar with bonus features.', 'tribe-common' ); ?>
+		<?php esc_html_e( 'Small, lightweight WordPress plugins that add new capabilities to our core plugins. Support is not offered for extensions; however they provide enhanced functionality and bonus features.', 'tribe-common' ); ?>
 	</p>
 
 	<div class="tribe-events-admin-extensions tribe-events-admin-4col-grid">
