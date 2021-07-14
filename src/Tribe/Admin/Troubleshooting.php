@@ -286,7 +286,7 @@ class Troubleshooting {
         [
             'issue' => __( 'I got an error message. Now what?', 'tribe-common' ),
             'solution' => __( 'Here’s an overview of %s and what they mean.', 'tribe-common' ),
-            'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#fatal-errors',
+            'link' => 'https://evnt.is/1as0',
             'link_label' => 'common error messages',
         ],
         [
@@ -298,13 +298,13 @@ class Troubleshooting {
         [
             'issue' => __( 'I installed the calendar and it crashed my site.', 'tribe-common' ),
             'solution' => __( '%s and other common installation issues.', 'tribe-common' ),
-            'link' => 'https://evnt.is/1aqg',
+            'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#fatal-errors',
             'link_label' => 'Find solutions to this',
         ],
         [
             'issue' => __( 'I keep getting “Page Not Found” on events.', 'tribe-common' ),
             'solution' => __( 'There are a few %s to resolve and prevent 404 errors.', 'tribe-common' ),
-            'link' => 'https://evnt.is/1aqg',
+            'link' => 'https://evnt.is/1as2',
             'link_label' => 'things you can do',
         ],
     ] );
