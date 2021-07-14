@@ -12,22 +12,22 @@ $faqs = apply_filters( 'tec-help-calendar-faqs', [
     [
         'question' => __( 'Can I have more than one calendar?', 'tribe-common' ),
         'answer' => __( 'No, but you can use event categories or tags to display certain events like having...', 'tribe-common' ),
-        'link' => 'https://evnt.is/somewhere',
+        'link' => 'https://evnt.is/1arh',
     ],
     [
         'question' => __( 'What do I get with The Events Calendar Pro?', 'tribe-common' ),
         'answer' => __( 'Events Calendar Pro runs alongside The Events Calendar and enhances...' ),
-        'link' => 'https://evnt.is/somewhere',
+        'link' => 'https://evnt.is/1arj',
     ],
     [
         'question' => __( 'How do I sell tickets to events?', 'tribe-common' ),
         'answer' => __( 'Use our free Event Tickets plugin to get started with tickets and RSVPs.', 'tribe-common' ),
-        'link' => 'https://evnt.is/somewhere',
+        'link' => 'https://evnt.is/1ark',
     ],
     [
         'question' => __( 'What happens if I disable the plugin?', 'tribe-common' ),
         'answer' => __( 'Nothing. Whether you disable the plugin or uninstall it, your events...', 'tribe-common' ),
-        'link' => 'https://evnt.is/somewhere',
+        'link' => 'https://evnt.is/1arl',
     ],
 ] );
 
@@ -234,9 +234,11 @@ $extensions = apply_filters( 'tec-help-calendar-extensions', [
 						alt="<?php esc_attr_e( 'lightbulb icon', 'tribe-common' ); ?>"
 					/>
 				</div>
-				<div class="tribe-events-admin-faq-card__content">
+				<div class="tribe-events-admin-faq-card__content">					
 					<div class="tribe-events-admin-faq__question">
-						<?php echo esc_html( $faq['question'] ); ?>	
+						<a href="<?php echo esc_html( $faq['link'] ); ?>" target="_blank" rel="noreferrer">
+							<?php echo esc_html( $faq['question'] ); ?>	
+						</a>
 					</div>
 					<div class="tribe-events-admin-faq__answer">
 						<?php echo esc_html( $faq['answer'] ); ?>
