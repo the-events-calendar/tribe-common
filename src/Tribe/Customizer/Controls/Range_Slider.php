@@ -55,8 +55,7 @@ class Range_Slider extends Control {
 			<span id="<?php echo esc_attr( $description_id ); ?>" class="description customize-control-description"><?php echo $this->description; ?></span>
 		<?php endif; ?>
 
-		<span class="customize-inside-control-row tribe-common-form-control-slider">
-
+		<span class="tribe-common-form-control-slider">
 			<label
 				class="tec-range-slider-label tribe-common-a11y-visual-hide"
 				for="<?php echo esc_attr( $input_id . '-range-slider' ); ?>"
