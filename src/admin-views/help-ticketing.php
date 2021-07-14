@@ -9,24 +9,24 @@ $ticketing_products = apply_filters( 'tec-help-ticketing-products', [
 // there should only be 4 in this list
 $faqs = apply_filters( 'tec-help-ticketing-faqs', [
     [
-        'question' => __( 'Is The Events Calendar required?', 'tribe-common' ),
-        'answer' => __( 'Yep! The Events Calendar provides the calendar, and Community Events adds...', 'tribe-common' ),
-        'link' => 'https://evnt.is/somewhere',
+        'question' => __( 'How Do I create events with Tickets or RSVP’s?', 'tribe-common' ),
+        'answer' => __( 'We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1art',
     ],
     [
-        'question' => __( 'Can people sell tickets for submitted events?', 'tribe-common' ),
-        'answer' => __( 'Absolutely, but this function requires a few extra plugins. More info.' ),
-        'link' => 'https://evnt.is/somewhere',
+        'question' => __( 'How Do I Set Up E-Commerce Plugins for Selling Tickets?', 'tribe-common' ),
+        'answer' => __( 'You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1arq',
     ],
     [
-        'question' => __( 'Can I review events before they publish?', 'tribe-common' ),
-        'answer' => __( 'Yes. There’s a setting that puts all incoming submissions in draft mode.', 'tribe-common' ),
-        'link' => 'https://evnt.is/somewhere',
+        'question' => __( 'Can I have a seating chart associated with my tickets?', 'tribe-common' ),
+        'answer' => __( 'Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1arr',
     ],
     [
-        'question' => __( 'Can people edit events after submitting them?', 'tribe-common' ),
-        'answer' => __( 'They can, as long as they’re logged in. In fact, there’s a page they can use.', 'tribe-common' ),
-        'link' => 'https://evnt.is/somewhere',
+        'question' => __( 'How do I process refunds for tickets?', 'tribe-common' ),
+        'answer' => __( 'When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1ars',
     ],
 ] );
 
@@ -231,7 +231,9 @@ $extensions = apply_filters( 'tec-help-ticketing-extensions', [
 				</div>
 				<div class="tribe-events-admin-faq-card__content">
 					<div class="tribe-events-admin-faq__question">
-						<?php echo esc_html( $faq['question'] ); ?>
+						<a href="<?php echo esc_html( $faq['link'] ); ?>" target="_blank" rel="noreferrer">
+							<?php echo esc_html( $faq['question'] ); ?>	
+						</a>
 					</div>
 					<div class="tribe-events-admin-faq__answer">
 						<?php echo esc_html( $faq['answer'] ); ?>
