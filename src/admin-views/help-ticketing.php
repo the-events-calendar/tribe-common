@@ -33,27 +33,27 @@ $faqs = apply_filters( 'tec-help-ticketing-faqs', [
 // there should only be 4 in this list
 $extensions = apply_filters( 'tec-help-ticketing-extensions', [
     [
-        'title' => __( 'Display Google Maps Setting', 'tribe-common' ),
-        'description' => __( 'This extension adds options for people to display a Google map on their events.', 'tribe-common' ),
-        'link' => '',
+        'title' => __( 'Ticket Email Settings', 'tribe-common' ),
+        'description' => __( 'Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1arx',
         'product-slug' => 'event-tickets',
     ],
     [
-        'title' => __( 'Hide Additional Fields', 'tribe-common' ),
-        'description' => __( 'This extension prevents your custom fields from displaying in the event submission form.', 'tribe-common' ),
-        'link' => 'https://evnt.is/ext-block-patterns',
+        'title' => __( 'Per Event Check In API', 'tribe-common' ),
+        'description' => __( 'This extension shows a meta box with an API key on each Event with Ticket/RSVP.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1arw',
         'product-slug' => 'event-tickets',
     ],
     [
-        'title' => __( 'Hide Venues & Organizers', 'tribe-common' ),
-        'description' => __( 'This extension hides venues and organizers created during event submissions.', 'tribe-common' ),
-        'link' => 'https://evnt.is/ext-alt-photo-view',
+        'title' => __( 'Add Event & Attendee Info to WooCommerce Order Details', 'tribe-common' ),
+        'description' => __( 'Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1arv',
         'product-slug' => 'event-tickets',
     ],
     [
-        'title' => __( 'Submission Form Custom HTML', 'tribe-common' ),
-        'description' => __( 'This extension allows you to add custom HTML to the top of the submission form.', 'tribe-common' ),
-        'link' => 'https://evnt.is/ext-graphql',
+        'title' => __( 'Organizer Notification Email', 'tribe-common' ),
+        'description' => __( 'This extension will send an email to event organizers whenever a user registers for their event.', 'tribe-common' ),
+        'link' => 'https://evnt.is/1aru',
         'product-slug' => 'event-tickets',
     ],
 ] );
@@ -163,7 +163,7 @@ $extensions = apply_filters( 'tec-help-ticketing-extensions', [
 				</li>
 				<li>
 					<a href="https://evnt.is/1aps" target="_blank" rel="noreferrer">
-						<?php esc_html_e( 'Configuring Tribe Commerce', 'tribe-common' ); ?>
+						<?php esc_html_e( 'Configuring Paypal for Tickets', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
