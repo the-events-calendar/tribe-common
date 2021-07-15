@@ -902,4 +902,21 @@ abstract class Tribe__Customizer__Section {
 
 		return $template;
 	}
+
+	/**
+	 * Utility function for when we need a color in RGB format,
+	 * since the Customizer always works with hex. Keepin' it DRY.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $option The option slug, like "grid-lines-color"
+	 *
+	 * @return string $color_rgb The hex color expressed as an rgb string, like "255,255,255"
+	 */
+	public function get_rgb_color( $option ) {
+		$color_obj   = new Tribe__Utils__Color( $this->get_option( $option ) );
+		$color_arr   = $color_obj->getRgb();
+		$color_rgb   = $color_arr['R'] . ',' . $color_arr['G'] . ',' . $color_arr['B'];
+		return $color_rgb;
+	}
 }
