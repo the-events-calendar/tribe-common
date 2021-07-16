@@ -284,7 +284,7 @@ class Troubleshooting {
     public function get_common_issues() {
     $commonIssues = apply_filters( 'tec_help_troubleshooting_issues', [
         [
-            'issue' => __( 'I got an error message. Now what?', 'tribe-common' ),
+            'issue' => __( 'Common Error Messages', 'tribe-common' ),
             'solution' => __( 'Here’s an overview of %s and what they mean.', 'tribe-common' ),
             'link' => 'https://evnt.is/1as0',
             'link_label' => 'common error messages',
