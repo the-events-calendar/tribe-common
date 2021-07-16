@@ -88,7 +88,7 @@ $extensions = apply_filters( 'tec-help-ticketing-extensions', [
 					<div class="tribe-events-admin-products-card__group-description">
 						<?php echo esc_html( $products[ $slug ]['description-help'] ); ?>
 					</div>
-				</div> <?php var_dump( $products[ $slug ] ); die; ?>
+				</div>
 				<?php 
 					if ( $products[ $slug ]['is_installed'] ) { ?>
 						<button class="tribe-events-admin-products-card__button tribe-events-admin-products-card__button--active">
