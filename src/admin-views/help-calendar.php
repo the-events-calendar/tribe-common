@@ -90,15 +90,26 @@ $extensions = apply_filters( 'tec-help-calendar-extensions', [
 						<?php echo esc_html( $products[ $slug ]['description-help'] ); ?>
 					</div>
 				</div>
-				<?php if ( $products[ $slug ]['is_installed'] ) : ?>
-				<button class="tribe-events-admin-products-card__button tribe-events-admin-products-card__button--active">
-					<?php esc_html_e( 'Active', 'tribe-common' ); ?>
-				</button>
-				<?php else : ?>
-					<a href="<?php echo $products[ $slug ]['link'] ?>" target="_blank" rel="noreferrer" class="tribe-events-admin-products-card__button">
-						<?php esc_html_e( 'Learn More', 'tribe-common' ); ?>
-					</a>
-				<?php endif; ?>
+				<?php 
+					if ( $products[ $slug ]['is_installed'] ) { ?>
+						<button class="tribe-events-admin-products-card__button tribe-events-admin-products-card__button--active">
+							<?php esc_html_e( 'Active', 'tribe-common' ); ?>
+						</button> 
+						<?php
+					}
+					else if ( !$products[ $slug ]['is_installed'] && $products[ $slug ]['title'] === "Event Aggregator" ) { ?>
+						<a href="/wp-admin/edit.php?page=tribe-common&tab=addons&post_type=tribe_events" class="tribe-events-admin-products-card__button">
+							<?php esc_html_e( 'Add license key', 'tribe-common' ); ?>
+						</a>
+						<?php
+					}
+					else { ?>
+						<a href="<?php echo $products[ $slug ]['link'] ?>" target="_blank" rel="noreferrer" class="tribe-events-admin-products-card__button">
+							<?php esc_html_e( 'Learn More', 'tribe-common' ); ?>
+						</a>
+						<?php
+					}
+				?>
 			</div>
 		<?php endforeach; ?>
 	</div>
