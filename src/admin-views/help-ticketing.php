@@ -90,18 +90,31 @@ $extensions = apply_filters( 'tec-help-ticketing-extensions', [
 					</div>
 				</div>
 				<?php 
+					$plugin_path_url = WP_PLUGIN_DIR .'/'. $products[ $slug ]['plugin-dir'].'/'.$products[ $slug ]['main-file'];
+					$plugin_exists = file_exists( $plugin_path_url );
+
+					// checks if plugin is installed and activated
 					if ( $products[ $slug ]['is_installed'] ) { ?>
 						<button class="tribe-events-admin-products-card__button tribe-events-admin-products-card__button--active">
 							<?php esc_html_e( 'Active', 'tribe-common' ); ?>
 						</button> 
 						<?php
 					}
+					// displays different message for Promoter
 					else if ( !$products[ $slug ]['is_installed'] && $products[ $slug ]['title'] === "Promoter" ) { ?>
 						<a href="/wp-admin/edit.php?page=tribe-common&tab=addons&post_type=tribe_events" class="tribe-events-admin-products-card__button">
 							<?php esc_html_e( 'Add license key', 'tribe-common' ); ?>
 						</a>
 						<?php
 					}
+					// checks if plugin is installed but not activated
+					else if ( !$products[ $slug ]['is_installed'] && $plugin_exists ) { ?>
+						<a href="/wp-admin/plugins.php" class="tribe-events-admin-products-card__button">
+							<?php esc_html_e( 'Activate', 'tribe-common' ); ?>
+						</a>
+						<?php
+					}
+					// adds a learn more link if plugin is neither activated nor installed
 					else { ?>
 						<a href="<?php echo $products[ $slug ]['link'] ?>" target="_blank" rel="noreferrer" class="tribe-events-admin-products-card__button">
 							<?php esc_html_e( 'Learn More', 'tribe-common' ); ?>
