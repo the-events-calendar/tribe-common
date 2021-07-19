@@ -33,14 +33,18 @@ class Troubleshooting {
     const MENU_SLUG = 'tec-troubleshooting';
 
     /**
-     * The slug for the new admin page
+     * The slug for the new admin page.
+     *
+     * @since TBD
      *
      * @var string
      */
     private $admin_page = null;
 
     /**
-     * Class constructor
+     * Class constructor.
+     *
+     * @since TBD
      */
     public function hook() {
         add_action( 'admin_menu', [ $this, 'add_menu_page' ], 90 );
@@ -49,7 +53,7 @@ class Troubleshooting {
 
     /**
      * Creates the troubleshooting page
-     * 
+     *
      * @return void
      */
     public function add_menu_page() {
@@ -59,7 +63,8 @@ class Troubleshooting {
 
         $page_title = esc_html__( 'Troubleshooting', 'tribe-common' );
         $menu_title = esc_html__( 'Troubleshooting', 'tribe-common' );
-        $capability = apply_filters( 'tec_troubleshooting_capability', 'install_plugins' );
+
+        $capability = $this->get_required_capability();
 
         $where = Tribe__Settings::instance()->get_parent_slug();
 
@@ -68,7 +73,7 @@ class Troubleshooting {
             $page_title,
             $menu_title,
             $capability,
-            self::MENU_SLUG,
+            static::MENU_SLUG,
             [
                 $this,
                 'do_menu_page',
@@ -76,13 +81,34 @@ class Troubleshooting {
         );
     }
 
+	/**
+	 * Gets the required capability for the troubleshooting page.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Which capability we required for the troubleshooting page.
+	 */
+    public function get_required_capability() {
+    	/**
+	     * Allows third party filtering of capability required to see the Troubleshooting page.
+	     *
+	     * @since TBD
+	     *
+	     * @param string $capability      Which capability we are using as the one required for the
+	     *                                troubleshooting page.
+	     * @param static $troubleshooting The current instance of the class that handles this page
+	     */
+        $capability = apply_filters( 'tec_troubleshooting_capability', 'install_plugins', $this );
+		return $capability;
+    }
+
     /**
      * Adds the troubleshooting menu to the the WP admin bar under events
-     * 
+     *
      * @return void
      */
     public function add_toolbar_item() {
-        $capability = apply_filters( 'tec_troubleshooting_capability', 'install_plugins' );
+        $capability = $this->get_required_capability();
 
         // prevent users who cannot install plugins from seeing addons link
         if ( current_user_can( $capability ) ) {
@@ -101,7 +127,7 @@ class Troubleshooting {
      * Checks if the current page is the troubleshooting page
      *
      * @since TBD
-     * 
+     *
      * @var string
      *
      * @return bool
@@ -125,9 +151,9 @@ class Troubleshooting {
 
     /**
      * Renders the Troubleshooting page
-     * 
+     *
      * @since TBD
-     * 
+     *
      * @var string
      */
     public function do_menu_page() {
@@ -136,11 +162,11 @@ class Troubleshooting {
     }
 
     /**
-     * Checks if there are any active issues
-     * 
+     * Checks if there are any active issues.
+     *
      * @since TBD
-     * 
-     * @var string
+     *
+     * @return boolean
      */
     public function is_any_issue_active() {
         $issues = $this->get_issues_found();
@@ -149,11 +175,11 @@ class Troubleshooting {
     }
 
     /**
-     * Checks if any active TEC plugins require an update
-     * 
+     * Checks if any active TEC plugins require an update.
+     *
      * @since TBD
-     * 
-     * @var string
+     *
+     * @return boolean
      */
     public function is_any_tec_plugin_out_of_date() {
         $current = get_site_transient( 'update_plugins' );
@@ -195,7 +221,7 @@ class Troubleshooting {
             $file = \str_replace( WP_PLUGIN_DIR . '/', '', $file );
             return $file;
         }, $plugins );
-        
+
         foreach ( $plugins as $file ) {
             if ( ! isset( $current->response[ $file ] ) ) {
                 continue;
@@ -210,9 +236,9 @@ class Troubleshooting {
 
     /**
      * Checks if any of the issues defined are active
-     * 
+     *
      * @since TBD
-     * 
+     *
      * @var string
      */
     public function is_active_issue( $slug ) {
@@ -234,9 +260,9 @@ class Troubleshooting {
 
     /**
      * Displays issues found in the UI
-     * 
+     *
      * @since TBD
-     * 
+     *
      * @var string
      */
     public function get_issues_found() {
@@ -280,9 +306,9 @@ class Troubleshooting {
 
     /**
      * Defines common troubleshooting issues and displays them in the UI
-     * 
+     *
      * @since TBD
-     * 
+     *
      * @var string
      */
     public function get_common_issues() {
