@@ -65,7 +65,7 @@
 
     <tr>
         <td>
-            <?php esc_html_e('Scheduler Status', 'tribe-common'); ?>
+            <?php esc_html_e( 'Scheduler Status', 'tribe-common' ); ?>
         </td>
         <td>
             <img
