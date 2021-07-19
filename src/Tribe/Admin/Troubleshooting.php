@@ -30,7 +30,7 @@ class Troubleshooting {
      *
      * @var string
      */
-    const MENU_SLUG = 'tribe-troubleshooting';
+    const MENU_SLUG = 'tec-troubleshooting';
 
     /**
      * The slug for the new admin page
