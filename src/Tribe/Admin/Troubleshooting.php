@@ -57,7 +57,7 @@ class Troubleshooting {
 
         $page_title = esc_html__( 'Troubleshooting', 'tribe-common' );
         $menu_title = esc_html__( 'Troubleshooting', 'tribe-common' );
-        $capability = apply_filters( 'tribe_events_troubleshooting_capability', 'install_plugins' );
+        $capability = apply_filters( 'tec_troubleshooting_capability', 'install_plugins' );
 
         $where = Tribe__Settings::instance()->get_parent_slug();
 
@@ -78,14 +78,14 @@ class Troubleshooting {
      * Adds a link to the the WP admin bar
      */
     public function add_toolbar_item() {
-        $capability = apply_filters( 'tribe_events_troubleshooting_capability', 'install_plugins' );
+        $capability = apply_filters( 'tec_troubleshooting_capability', 'install_plugins' );
 
         // prevent users who cannot install plugins from seeing addons link
         if ( current_user_can( $capability ) ) {
             global $wp_admin_bar;
 
             $wp_admin_bar->add_menu( [
-                'id'     => 'tribe-events-troubleshooting',
+                'id'     => 'tec-troubleshooting',
                 'title'  => esc_html__( 'Event Add-Ons', 'tribe-common' ),
                 'href'   => Tribe__Settings::instance()->get_url( [ 'page' => self::MENU_SLUG ] ),
                 'parent' => 'tribe-events-settings-group',
