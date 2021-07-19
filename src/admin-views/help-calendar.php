@@ -1,9 +1,10 @@
 <?php
 
 use \Tribe\Admin\Help_Page;
-$faqs       = tribe( Tribe__Admin__Help_Page::class )->get_tec_faqs();
-$extensions = tribe( Tribe__Admin__Help_Page::class )->get_tec_extensions();
-$calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_tec_products();
+
+$faqs              = tribe( Tribe__Admin__Help_Page::class )->get_calendar_faqs();
+$extensions        = tribe( Tribe__Admin__Help_Page::class )->get_calendar_extensions();
+$calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_products();
 
 ?>
 <div id="tribe-calendar">

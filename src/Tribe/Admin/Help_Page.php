@@ -919,9 +919,8 @@ class Tribe__Admin__Help_Page {
      * 
      * @since TBD
      * 
-     * @var string
      */
-    public function get_tec_faqs() {
+    public function get_calendar_faqs() {
 		$faqs = apply_filters( 'tec_help_calendar_faqs', [
 			[
 				'question' => __( 'Can I have more than one calendar?', 'tribe-common' ),
@@ -949,13 +948,12 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-     * Defines TEC extensions and displays them in the UI
+     * Defines calendar extensions and displays them in the UI
      * 
      * @since TBD
      * 
-     * @var string
      */
-    public function get_tec_extensions() {
+    public function get_calendar_extensions() {
 		$extensions = apply_filters( 'tec_help_calendar_extensions', [
 			[
 				'title' => __( 'Calendar widget areas', 'tribe-common' ),
@@ -987,20 +985,194 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-     * Defines TEC products
+     * Defines calendar products
      * 
      * @since TBD
      * 
-     * @var string
      */
-    public function get_tec_products() {
+    public function get_calendar_products() {
 		$calendar_products = apply_filters( 'tec_help_calendar_products', [
 			'events-calendar-pro',
 			'tribe-filterbar',
 			'event-aggregator',
 			'events-virtual',
 		] );
-			
+
 		return $calendar_products;
+	}
+
+	/**
+     * Defines ticketing frequently asked questions and displays them in the UI
+     * 
+     * @since TBD
+     * 
+     */
+    public function get_ticketing_faqs() {
+		$faqs = apply_filters( 'tec_help_ticketing_faqs', [
+			[
+				'question' => __( 'How Do I create events with Tickets or RSVP’s?', 'tribe-common' ),
+				'answer' => __( 'We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1art',
+			],
+			[
+				'question' => __( 'How Do I Set Up E-Commerce Plugins for Selling Tickets?', 'tribe-common' ),
+				'answer' => __( 'You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arq',
+			],
+			[
+				'question' => __( 'Can I have a seating chart associated with my tickets?', 'tribe-common' ),
+				'answer' => __( 'Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arr',
+			],
+			[
+				'question' => __( 'How do I process refunds for tickets?', 'tribe-common' ),
+				'answer' => __( 'When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1ars',
+			],
+		] );
+	
+		return $faqs;
+	}
+
+	/**
+     * Defines ticketing extensions and displays them in the UI
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
+    public function get_ticketing_extensions() {
+		$extensions = apply_filters( 'tec_help_ticketing_extensions', [
+			[
+				'title' => __( 'Ticket Email Settings', 'tribe-common' ),
+				'description' => __( 'Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arx',
+				'product-slug' => 'event-tickets',
+			],
+			[
+				'title' => __( 'Per Event Check In API', 'tribe-common' ),
+				'description' => __( 'This extension shows a meta box with an API key on each Event with Ticket/RSVP.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arw',
+				'product-slug' => 'event-tickets',
+			],
+			[
+				'title' => __( 'Add Event & Attendee Info to WooCommerce Order Details', 'tribe-common' ),
+				'description' => __( 'Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arv',
+				'product-slug' => 'event-tickets',
+			],
+			[
+				'title' => __( 'Organizer Notification Email', 'tribe-common' ),
+				'description' => __( 'This extension will send an email to event organizers whenever a user registers for their event.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1aru',
+				'product-slug' => 'event-tickets',
+			],
+		] );
+	
+		return $extensions;
+	}
+
+	/**
+     * Defines ticketing products
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
+    public function get_ticketing_products() {
+		$ticketing_products = apply_filters( 'tec_help_ticketing_products', [
+			'event-tickets-plus',
+			'tribe-eventbrite',
+			'promoter',
+		] );
+			
+		return $ticketing_products;
+	}
+
+	/**
+     * Defines community frequently asked questions and displays them in the UI
+     * 
+     * @since TBD
+     * 
+     */
+    public function get_community_faqs() {
+		$faqs = apply_filters( 'tec_help_ticketing_faqs', [
+			[
+				'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
+				'answer' => __( 'You can, but if you do, we might have to blah blah...', 'tribe-common' ),
+				'link' => 'https://evnt.is/somewhere',
+			],
+			[
+				'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
+				'answer' => __( 'No. The answer is no.' ),
+				'link' => 'https://evnt.is/somewhere',
+			],
+			[
+				'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
+				'answer' => __( 'If you try to install more than one calendar, you might...', 'tribe-common' ),
+				'link' => 'https://evnt.is/somewhere',
+			],
+			[
+				'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
+				'answer' => __( 'More than one calendar may be problematic, but then...', 'tribe-common' ),
+				'link' => 'https://evnt.is/somewhere',
+			],
+		] );
+	
+		return $faqs;
+	}
+
+	/**
+     * Defines community extensions and displays them in the UI
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
+    public function get_community_extensions() {
+		$extensions = apply_filters( 'tec_help_ticketing_extensions', [
+			[
+				'title' => __( 'Add Cost Currency Symbol', 'tribe-common' ),
+				'description' => __( 'This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arn',
+				'product-slug' => 'community-events',
+			],
+			[
+				'title' => __( 'Add Google Maps Display and Link Options', 'tribe-common' ),
+				'description' => __( 'This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arm',
+				'product-slug' => 'community-events',
+			],
+			[
+				'title' => __( 'Hide Others’ Organizers and Venues', 'tribe-common' ),
+				'description' => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1aro',
+				'product-slug' => 'community-events',
+			],
+			[
+				'title' => __( 'Display Custom HTML', 'tribe-common' ),
+				'description' => __( 'This extension allows you to add custom HTML content to the top of the Community Events submission form.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arp',
+				'product-slug' => 'community-events',
+			],
+		] );
+	
+		return $extensions;
+	}
+
+	/**
+     * Defines community products
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
+    public function get_community_products() {
+		$community_products = apply_filters( 'tec_help_ticketing_products', [
+		    'events-community',
+    		'events-community-tickets',
+		] );
+			
+		return $community_products;
 	}
 }

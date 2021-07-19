@@ -1,61 +1,10 @@
 <?php
-// products that should be highlighted on this page
-$community_products = apply_filters( 'tec-help-community-products', [
-    'events-community',
-    'events-community-tickets',
-] );
 
-// there should only be 4 in this list
-$faqs = apply_filters( 'tec-help-community-faqs', [
-    [
-        'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
-        'answer' => __( 'You can, but if you do, we might have to blah blah...', 'tribe-common' ),
-        'link' => 'https://evnt.is/somewhere',
-    ],
-    [
-        'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
-        'answer' => __( 'No. The answer is no.' ),
-        'link' => 'https://evnt.is/somewhere',
-    ],
-    [
-        'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
-        'answer' => __( 'If you try to install more than one calendar, you might...', 'tribe-common' ),
-        'link' => 'https://evnt.is/somewhere',
-    ],
-    [
-        'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
-        'answer' => __( 'More than one calendar may be problematic, but then...', 'tribe-common' ),
-        'link' => 'https://evnt.is/somewhere',
-    ],
-] );
+use \Tribe\Admin\Help_Page;
 
-// there should only be 4 in this list
-$extensions = apply_filters( 'tec-help-community-extensions', [
-    [
-        'title' => __( 'Add Cost Currency Symbol', 'tribe-common' ),
-        'description' => __( 'This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1arn',
-        'product-slug' => 'community-events',
-    ],
-    [
-        'title' => __( 'Add Google Maps Display and Link Options', 'tribe-common' ),
-        'description' => __( 'This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1arm',
-        'product-slug' => 'community-events',
-    ],
-    [
-        'title' => __( 'Hide Others’ Organizers and Venues', 'tribe-common' ),
-        'description' => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1aro',
-        'product-slug' => 'community-events',
-    ],
-    [
-        'title' => __( 'Display Custom HTML', 'tribe-common' ),
-        'description' => __( 'This extension allows you to add custom HTML content to the top of the Community Events submission form.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1arp',
-        'product-slug' => 'community-events',
-    ],
-] );
+$faqs               = tribe( Tribe__Admin__Help_Page::class )->get_community_faqs();
+$extensions         = tribe( Tribe__Admin__Help_Page::class )->get_community_extensions();
+$community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_products();
 
 ?>
 <div id="tribe-community">

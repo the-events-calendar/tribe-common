@@ -1,62 +1,10 @@
 <?php
-// products that should be highlighted on this page
-$ticketing_products = apply_filters( 'tec-help-ticketing-products', [
-    'event-tickets-plus',
-    'tribe-eventbrite',
-    'promoter',
-] );
 
-// there should only be 4 in this list
-$faqs = apply_filters( 'tec-help-ticketing-faqs', [
-    [
-        'question' => __( 'How Do I create events with Tickets or RSVP’s?', 'tribe-common' ),
-        'answer' => __( 'We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1art',
-    ],
-    [
-        'question' => __( 'How Do I Set Up E-Commerce Plugins for Selling Tickets?', 'tribe-common' ),
-        'answer' => __( 'You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1arq',
-    ],
-    [
-        'question' => __( 'Can I have a seating chart associated with my tickets?', 'tribe-common' ),
-        'answer' => __( 'Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1arr',
-    ],
-    [
-        'question' => __( 'How do I process refunds for tickets?', 'tribe-common' ),
-        'answer' => __( 'When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1ars',
-    ],
-] );
+use \Tribe\Admin\Help_Page;
 
-// there should only be 4 in this list
-$extensions = apply_filters( 'tec-help-ticketing-extensions', [
-    [
-        'title' => __( 'Ticket Email Settings', 'tribe-common' ),
-        'description' => __( 'Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1arx',
-        'product-slug' => 'event-tickets',
-    ],
-    [
-        'title' => __( 'Per Event Check In API', 'tribe-common' ),
-        'description' => __( 'This extension shows a meta box with an API key on each Event with Ticket/RSVP.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1arw',
-        'product-slug' => 'event-tickets',
-    ],
-    [
-        'title' => __( 'Add Event & Attendee Info to WooCommerce Order Details', 'tribe-common' ),
-        'description' => __( 'Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1arv',
-        'product-slug' => 'event-tickets',
-    ],
-    [
-        'title' => __( 'Organizer Notification Email', 'tribe-common' ),
-        'description' => __( 'This extension will send an email to event organizers whenever a user registers for their event.', 'tribe-common' ),
-        'link' => 'https://evnt.is/1aru',
-        'product-slug' => 'event-tickets',
-    ],
-] );
+$faqs               = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_faqs();
+$extensions         = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_extensions();
+$ticketing_products = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_products();
 
 ?>
 <div id="tribe-ticketing">
