@@ -69,8 +69,8 @@
         </td>
         <td>
             <img
-                src="<?php echo esc_url(tribe_resource_url('images/help/success-icon.svg', false, null, $main)); ?>"
-                alt="<?php esc_attr_e('success-icon', 'tribe-common'); ?>"
+                src="<?php echo esc_url( tribe_resource_url( 'images/help/success-icon.svg', false, null, $main ) ); ?>"
+                alt="<?php esc_attr_e( 'success-icon', 'tribe-common' ); ?>"
             />
             <?php esc_html_e( 'WP Cron enabled', 'tribe-common' ); ?>
         </td>
