@@ -79,7 +79,7 @@
     <?php //Third Party Accounts?>
     <tr>
         <th>
-            <?php esc_html_e('Third Party Accounts', 'tribe-common'); ?>
+            <?php esc_html_e( 'Third Party Accounts', 'tribe-common' ); ?>
         </th>
     </tr>
 
