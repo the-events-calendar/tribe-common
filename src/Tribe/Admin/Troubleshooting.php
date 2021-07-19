@@ -48,7 +48,9 @@ class Troubleshooting {
     }
 
     /**
-     * Adds the page to the admin menu
+     * Creates the troubleshooting page
+     * 
+     * @return void
      */
     public function add_menu_page() {
         if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
@@ -75,7 +77,9 @@ class Troubleshooting {
     }
 
     /**
-     * Adds a link to the the WP admin bar
+     * Adds the troubleshooting menu to the the WP admin bar under events
+     * 
+     * @return void
      */
     public function add_toolbar_item() {
         $capability = apply_filters( 'tec_troubleshooting_capability', 'install_plugins' );
