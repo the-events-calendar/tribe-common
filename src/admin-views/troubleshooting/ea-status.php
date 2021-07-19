@@ -85,7 +85,7 @@
 
     <tr class="tribe-events-admin__ea-status-table-dark">
         <td class="tribe-events-admin__ea-status-table-dark">
-            <?php esc_html_e('Eventbrite', 'tribe-common'); ?>
+            <?php esc_html_e( 'Eventbrite', 'tribe-common' ); ?>
         </td>
         <td>
             <img
