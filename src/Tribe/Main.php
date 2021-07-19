@@ -586,7 +586,7 @@ class Tribe__Main {
 		}
 
 		tribe( \Tribe\Admin\Notice\WP_Version::class );
-        tribe( \Tribe\Admin\Troubleshooting::class );
+		tribe( \Tribe\Admin\Troubleshooting::class );
 
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
