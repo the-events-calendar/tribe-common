@@ -913,4 +913,94 @@ class Tribe__Admin__Help_Page {
 		</div>
 		<?php
 	}
+
+	/**
+     * Defines TEC frequently asked questions and displays them in the UI
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
+    public function get_tec_faqs() {
+		$faqs = apply_filters( 'tec_help_calendar_faqs', [
+			[
+				'question' => __( 'Can I have more than one calendar?', 'tribe-common' ),
+				'answer' => __( 'No, but you can use event categories or tags to display certain events like having...', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arh',
+			],
+			[
+				'question' => __( 'What do I get with The Events Calendar Pro?', 'tribe-common' ),
+				'answer' => __( 'Events Calendar Pro runs alongside The Events Calendar and enhances...' ),
+				'link' => 'https://evnt.is/1arj',
+			],
+			[
+				'question' => __( 'How do I sell tickets to events?', 'tribe-common' ),
+				'answer' => __( 'Use our free Event Tickets plugin to get started with tickets and RSVPs.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1ark',
+			],
+			[
+				'question' => __( 'What happens if I disable the plugin?', 'tribe-common' ),
+				'answer' => __( 'Nothing. Whether you disable the plugin or uninstall it, your events...', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arl',
+			],
+		] );
+	
+		return $faqs;
+	}
+
+	/**
+     * Defines TEC extensions and displays them in the UI
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
+    public function get_tec_extensions() {
+		$extensions = apply_filters( 'tec_help_calendar_extensions', [
+			[
+				'title' => __( 'Calendar widget areas', 'tribe-common' ),
+				'description' => __( 'This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars).', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arc',
+				'product-slug' => 'the-events-calendar',
+			],
+			[
+				'title' => __( 'Event block patterns', 'tribe-common' ),
+				'description' => __( 'This extension adds a set of block patterns for events to the WordPress block editor.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1ard',
+				'product-slug' => 'the-events-calendar',
+			],
+			[
+				'title' => __( 'Alternative photo view', 'tribe-common' ),
+				'description' => __( 'This extension replaces photo view with a tiled grid of cards featuring event images.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1are',
+				'product-slug' => 'events-calendar-pro',
+			],
+			[
+				'title' => __( 'The Events Calendar Tweaks', 'tribe-common' ),
+				'description' => __( 'This extension is a collection of tweaks and snippets for The Events Calendar.', 'tribe-common' ),
+				'link' => 'https://evnt.is/1arg',
+				'product-slug' => 'the-events-calendar',
+			],
+		] );
+	
+		return $extensions;
+	}
+
+	/**
+     * Defines TEC products
+     * 
+     * @since TBD
+     * 
+     * @var string
+     */
+    public function get_tec_products() {
+		$calendar_products = apply_filters( 'tec_help_calendar_products', [
+			'events-calendar-pro',
+			'tribe-filterbar',
+			'event-aggregator',
+			'events-virtual',
+		] );
+			
+		return $calendar_products;
+	}
 }
