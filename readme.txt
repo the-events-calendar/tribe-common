@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.14.1] 2021-07-21 =
 
 * Feature - Add new notice for Stellar Sale. [TCMN-111]
 * Feature - Create a Notice Service Provider and some initial tests. Move the BF sale notice to the new provider, as well as several of the others.  [TCMN-111]
