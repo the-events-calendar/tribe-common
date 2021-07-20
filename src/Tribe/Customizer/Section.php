@@ -910,11 +910,16 @@ abstract class Tribe__Customizer__Section {
 	 * @since TBD
 	 *
 	 * @param string $option The option slug, like "grid-lines-color"
+	 * @param string $section The optional section slug, like 'global_elements'
 	 *
 	 * @return string $color_rgb The hex color expressed as an rgb string, like "255,255,255"
 	 */
-	public function get_rgb_color( $option ) {
-		$color_obj   = new Tribe__Utils__Color( $this->get_option( $option ) );
+	public function get_rgb_color( $option, $section = null ) {
+		$color = is_null( $section )
+		? tribe( 'customizer' )->get_option( [ $this, $option ] )
+		: tribe( 'customizer' )->get_option( [ $section, $option ] );
+
+		$color_obj   = new Tribe__Utils__Color( $color );
 		$color_arr   = $color_obj->getRgb();
 		$color_rgb   = $color_arr['R'] . ',' . $color_arr['G'] . ',' . $color_arr['B'];
 		return $color_rgb;
