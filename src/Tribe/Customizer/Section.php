@@ -919,7 +919,7 @@ abstract class Tribe__Customizer__Section {
 	 */
 	public function get_rgb_color( $option, $section = null ) {
 		$color = is_null( $section )
-		? tribe( 'customizer' )->get_option( [ $this, $option ] )
+		? tribe( 'customizer' )->get_option( [ $this->ID, $option ] )
 		: tribe( 'customizer' )->get_option( [ $section, $option ] );
 
 		$color_obj   = new Tribe__Utils__Color( $color );
