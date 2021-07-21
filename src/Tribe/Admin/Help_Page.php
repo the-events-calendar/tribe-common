@@ -915,12 +915,13 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-     * Defines TEC frequently asked questions and displays them in the UI
-     * 
-     * @since TBD
-     * 
-     */
-    public function get_calendar_faqs() {
+	 * Defines TEC frequently asked questions and displays them in the UI
+	 * 
+	 * @since TBD
+	 *
+	 * @return array (description of the return value)
+	 */
+	public function get_calendar_faqs() {
 		$faqs = apply_filters( 'tec_help_calendar_faqs', [
 			[
 				'question' => __( 'Can I have more than one calendar?', 'tribe-common' ),
