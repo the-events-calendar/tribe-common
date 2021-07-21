@@ -3,6 +3,7 @@
 defined( 'WPINC' ) or die;
 
 use Tribe\Customizer\Controls\Heading;
+use Tribe\Customizer\Controls\Number;
 use Tribe\Customizer\Controls\Radio;
 use Tribe\Customizer\Controls\Range_Slider;
 use Tribe\Customizer\Controls\Separator;
@@ -694,7 +695,7 @@ abstract class Tribe__Customizer__Section {
 			'separator'	     => Separator::class,
 			'text'	         => WP_Customize_Control::class,
 			'textarea'	     => WP_Customize_Control::class,
-			'number'	     => WP_Customize_Control::class,
+			'number'	     => Number::class,
 			'range-slider'   => Range_Slider::class,
 			'toggle'         => Toggle::class,
 		];
@@ -880,6 +881,7 @@ abstract class Tribe__Customizer__Section {
 	public function filter_css_template( $template ) {
 		/**
 		 * Applies a filter to the css output.
+		 * Note this is appended to the output - so it's not inside any selectors!
 		 *
 		 * @since 4.13.3
 		 *
@@ -891,7 +893,8 @@ abstract class Tribe__Customizer__Section {
 		$section_slug = static::get_section_slug( get_class( $this ) );
 
 		/**
-		 * Applies a filter to the css output for a specific section. Based on the section slug
+		 * Applies a filter to the css output for a specific section. Based on the section slug.
+		 * Note this is appended to the output - so it's not inside any selectors!
 		 *
 		 * @since 4.13.3
 		 *

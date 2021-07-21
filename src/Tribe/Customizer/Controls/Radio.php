@@ -12,7 +12,7 @@ namespace Tribe\Customizer\Controls;
 use Tribe\Customizer\Control;
 
 /**
- * Class Heading
+ * Class Radio
  *
  * @since   4.13.3
  *
