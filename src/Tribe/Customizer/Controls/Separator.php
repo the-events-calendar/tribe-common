@@ -11,6 +11,13 @@ namespace Tribe\Customizer\Controls;
 
 use Tribe\Customizer\Control;
 
+/**
+ * Class Separator
+ *
+ * @since   4.13.3
+ *
+ * @package Tribe\Customizer\Controls
+ */
 class Separator extends Control {
 
 	/**
