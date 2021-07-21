@@ -1090,39 +1090,6 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-     * Defines community frequently asked questions and displays them in the UI
-     * 
-     * @since TBD
-     * 
-     */
-    public function get_community_faqs() {
-		$faqs = apply_filters( 'tec_help_ticketing_faqs', [
-			[
-				'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
-				'answer' => __( 'You can, but if you do, we might have to blah blah...', 'tribe-common' ),
-				'link' => 'https://evnt.is/somewhere',
-			],
-			[
-				'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
-				'answer' => __( 'No. The answer is no.' ),
-				'link' => 'https://evnt.is/somewhere',
-			],
-			[
-				'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
-				'answer' => __( 'If you try to install more than one calendar, you might...', 'tribe-common' ),
-				'link' => 'https://evnt.is/somewhere',
-			],
-			[
-				'question' => __( 'Can I have more than one calendar on my site?', 'tribe-common' ),
-				'answer' => __( 'More than one calendar may be problematic, but then...', 'tribe-common' ),
-				'link' => 'https://evnt.is/somewhere',
-			],
-		] );
-	
-		return $faqs;
-	}
-
-	/**
      * Defines community extensions and displays them in the UI
      * 
      * @since TBD
