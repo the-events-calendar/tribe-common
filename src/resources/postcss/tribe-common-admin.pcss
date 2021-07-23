@@ -3098,14 +3098,6 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-.tribe-events-admin__recent-log-filters-field label {
-	font-size: 16px;
-	line-height: 1.63;
-	color: #0f1031;
-	display: block;
-	margin-bottom: 10px;
-}
-
 .tribe-events-admin__recent-log-filters-select-wrapper::after {
 	content: url("../images/help/polygon.svg");
 	right: 22px;
@@ -3131,15 +3123,38 @@ input[type="email"].tribe-events-admin-card__input {
 	border: 1px solid #e1e1e4 !important;
 }
 
-#tribe-log-controls div:nth-child(1),
-#tribe-log-controls div:nth-child(2),
-#tribe-log-controls div:nth-child(3) {
-	/* adds a margin between the dropdowns */
-	margin-right: 20px;
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls {
+	padding: 0;
+	margin-bottom: 20px;
 }
 
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls div:nth-child(1),
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls div:nth-child(2),
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls div:nth-child(3) {
+	/* adds a margin between the dropdowns */
+	padding-right: 75px;
+
+	@media only screen and (max-width: 768px)  {
+		padding-right: 30px;
+	}
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-selection__clear {
+	display: none;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
+	right: 5px;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default.select2-container--open.select2-container--below .select2-selection--single, .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+
 .tribe-events-admin__recent-log-filters-select-wrapper .select2-container .select2-selection--single .select2-selection__rendered {
-	width: 100%
+	width: 100%;
 }
 
 .tribe-events-admin__recent-log-filters-select-wrapper select:focus-visivble {
