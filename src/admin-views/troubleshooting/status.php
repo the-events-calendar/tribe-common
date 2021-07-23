@@ -23,19 +23,19 @@ $show_third_party_accounts = ! is_network_admin();
         $ea_active = true; // temporarily set to true to allow development of the rest of the table's features
         if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
             $icon = 'success';
-            $text      = __( 'Your license is valid', 'the-events-calendar' );
+            $message      = __( 'Your license is valid', 'the-events-calendar' );
             $ea_active = true;
         } else {
             $service_status = tribe( 'events-aggregator.service' )->api()->get_error_code();
 
             $icon = 'error';
             if ( 'core:aggregator:invalid-service-key' == $service_status ) {
-                $text   = __( 'You do not have a license', 'the-events-calendar' );
+                $message   = __( 'You do not have a license', 'the-events-calendar' );
                 $notes  = '<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importsettings&utm_medium=plugin-tec&utm_campaign=in-app">';
                 $notes .= esc_html__( 'Buy Event Aggregator to access more event sources and automatic imports!', 'the-events-calendar' );
                 $notes .= '</a>';
             } else {
-                $text  = __( 'Your license is invalid', 'the-events-calendar' );
+                $message  = __( 'Your license is invalid', 'the-events-calendar' );
                 $notes = '<a href="' . esc_url( Tribe__Settings::instance()->get_url( [ 'tab' => 'licenses' ] ) ) . '">' . esc_html__( 'Check your license key', 'the-events-calendar' ) . '</a>';
             }
         }
@@ -55,7 +55,7 @@ $show_third_party_accounts = ! is_network_admin();
                 src="<?php echo esc_url(tribe_resource_url($status_icons[ $icon ], false, null, $main)); ?>"
                 alt="<?php esc_attr_e('success-icon', 'tribe-common'); ?>"
             />
-            <?php echo esc_html( $text ); ?>
+            <?php echo esc_html( $message ); ?>
         </td>
         <td><?php echo $notes; // Escaping handled above. ?></td>
     </tr>
@@ -83,7 +83,7 @@ $show_third_party_accounts = ! is_network_admin();
 			$notes     = esc_html__( 'You are approaching your daily import limit. You may want to adjust your Scheduled Import frequencies.', 'the-events-calendar' );
 		}
 
-		$text = sprintf( // import count and limit
+		$message = sprintf( // import count and limit
 			_n( '%1$d import used out of %2$d available today', '%1$d imports used out of %2$d available today', $import_count, 'the-events-calendar' ),
 			intval( $import_count ),
 			intval( $import_limit )
@@ -99,12 +99,14 @@ $show_third_party_accounts = ! is_network_admin();
                 src="<?php echo esc_url(tribe_resource_url($status_icons[ $icon ], false, null, $main)); ?>"
                 alt="<?php esc_attr_e('success-icon', 'tribe-common'); ?>"
             />
-            <?php echo esc_html( $text ); ?>
+            <?php echo esc_html( $message ); ?>
         </td>
         <td><?php echo $notes;  // Escaping handled above. ?></td>
     </tr>
 
-    
+
+<?php //to be continued ?>
+
 
     <?php //Import Services?>
     <tr>
