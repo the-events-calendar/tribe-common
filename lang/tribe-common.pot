@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.13.6\n"
+"Project-Id-Version: Tribe Common 4.14.1\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2021-06-30 20:59:49+00:00\n"
+"POT-Creation-Date: 2021-07-20 04:15:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-06-30 20:59\n"
+"PO-Revision-Date: 2021-07-20 04:15\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -40,7 +40,7 @@ msgstr ""
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.13.6)  #-#-#-#-#
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.1)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Admin/Help_Page.php:79 src/Tribe/Customizer.php:647
 #: src/Tribe/Plugins_API.php:25
@@ -221,21 +221,21 @@ msgid ""
 "compatible version of The Events Calendar. %2$s"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:79
+#: src/Tribe/Admin/Notice/WP_Version.php:78
 msgid ""
 "You are using WordPress 5.7 which included a major jQuery update that may "
 "cause compatibility issues with past versions of The Events Calendar, Event "
 "Tickets and other plugins."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:81
+#: src/Tribe/Admin/Notice/WP_Version.php:80
 msgid ""
 "WordPress 5.7 includes a major jQuery update that may cause compatibility "
 "issues with past versions of The Events Calendar, Event Tickets and other "
 "plugins."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:83
+#: src/Tribe/Admin/Notice/WP_Version.php:82
 msgid "Read more."
 msgstr ""
 
@@ -1889,87 +1889,87 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:319
+#: src/Tribe/Main.php:320
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:320
+#: src/Tribe/Main.php:321
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:322
+#: src/Tribe/Main.php:323
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:323
+#: src/Tribe/Main.php:324
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:324
+#: src/Tribe/Main.php:325
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:325
+#: src/Tribe/Main.php:326
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:326
+#: src/Tribe/Main.php:327
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:327
+#: src/Tribe/Main.php:328
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:328
+#: src/Tribe/Main.php:329
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:329
+#: src/Tribe/Main.php:330
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:330
+#: src/Tribe/Main.php:331
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:331
+#: src/Tribe/Main.php:332
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:333
+#: src/Tribe/Main.php:334
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:334 src/Tribe/Main.php:351
+#: src/Tribe/Main.php:335 src/Tribe/Main.php:352
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:335
+#: src/Tribe/Main.php:336
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:340
+#: src/Tribe/Main.php:341
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:341
+#: src/Tribe/Main.php:342
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:352
+#: src/Tribe/Main.php:353
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:353 src/Tribe/Main.php:355
+#: src/Tribe/Main.php:354 src/Tribe/Main.php:356
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:354
+#: src/Tribe/Main.php:355
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:356
+#: src/Tribe/Main.php:357
 msgid "Clear"
 msgstr ""
 
