@@ -20,7 +20,7 @@ $show_third_party_accounts = ! is_network_admin();
 <table class="tribe-events-admin__ea-status-table">
     <?php //License & Usage
         $message = '&nbsp;';
-        $ea_active = false;
+        $ea_active = true; // temporarily set to true to allow development of the rest of the table's features
         if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
             $icon = 'success';
             $text      = __( 'Your license is valid', 'the-events-calendar' );
@@ -60,27 +60,51 @@ $show_third_party_accounts = ! is_network_admin();
         <td><?php echo $notes; // Escaping handled above. ?></td>
     </tr>
 
+    <?php
+		// if EA is not active, bail out of the rest of this
+		if ( ! $ea_active ) {
+			echo '</table>';
+			return;
+		}
 
+		$service          = tribe( 'events-aggregator.service' );
+		$import_limit     = $service->get_limit( 'import' );
+		$import_available = $service->get_limit_remaining();
+		$import_count     = $service->get_limit_usage();
 
+		$icon = 'success';
+		$notes     = '&nbsp;';
 
+		if ( 0 === $import_limit || $import_count >= $import_limit ) {
+			$icon = 'error';
+			$notes     = esc_html__( 'You have reached your daily import limit. Scheduled imports will be paused until tomorrow.', 'the-events-calendar' );
+		} elseif ( $import_count / $import_limit >= 0.8 ) {
+			$icon = 'warning';
+			$notes     = esc_html__( 'You are approaching your daily import limit. You may want to adjust your Scheduled Import frequencies.', 'the-events-calendar' );
+		}
 
+		$text = sprintf( // import count and limit
+			_n( '%1$d import used out of %2$d available today', '%1$d imports used out of %2$d available today', $import_count, 'the-events-calendar' ),
+			intval( $import_count ),
+			intval( $import_limit )
+		);
 
-
-
-
-
+		?>
     <tr>
         <td>
             <?php esc_html_e('Current usage	', 'tribe-common'); ?>
         </td>
         <td>
             <img
-                src="<?php echo esc_url(tribe_resource_url('images/help/success-icon.svg', false, null, $main)); ?>"
+                src="<?php echo esc_url(tribe_resource_url($status_icons[ $icon ], false, null, $main)); ?>"
                 alt="<?php esc_attr_e('success-icon', 'tribe-common'); ?>"
             />
-            <?php esc_html_e('100 imports used ouf of 1000 available today', 'tribe-common'); ?>
+            <?php echo esc_html( $text ); ?>
         </td>
+        <td><?php echo $notes;  // Escaping handled above. ?></td>
     </tr>
+
+    
 
     <?php //Import Services?>
     <tr>
