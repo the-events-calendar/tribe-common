@@ -1082,6 +1082,7 @@ class Tribe__Admin__Help_Page {
      */
     public function get_ticketing_products() {
 		$ticketing_products = apply_filters( 'tec_help_ticketing_products', [
+			'event-tickets',
 			'event-tickets-plus',
 			'tribe-eventbrite',
 			'promoter',
