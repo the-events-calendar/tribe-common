@@ -3302,7 +3302,7 @@ input[type="email"].tribe-events-admin-card__input {
 	display: flex;
 	align-items: center;
 	margin: 12px 0;
-	padding: 5px 25px;
+	padding: 10px 25px;
 
 	@media only screen and (max-width: 480px)  {
 		flex-direction: column;
@@ -3332,10 +3332,21 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__ea-status-table td:nth-child(2){
-	width: 50%;
+	width: 45%;
 
 	@media only screen and (max-width: 480px)  {
 		width: 100%;
+	}
+}
+
+.tribe-events-admin__ea-status-table td:nth-child(3){
+	width: 30%;
+	display: flex;
+	justify-content: flex-end;
+
+	@media only screen and (max-width: 480px)  {
+		width: 100%;
+		flex-direction: column;
 	}
 }
 
