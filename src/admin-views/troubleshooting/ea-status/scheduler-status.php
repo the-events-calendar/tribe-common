@@ -1,14 +1,21 @@
 <?php
-    $icon = 'success';
-    $notes = '&nbsp;';
+/**
+ * View: Troubleshooting - EA Status Table Scheduler Status Section 
+ * 
+ * @since TBD
+ * 
+ */
 
-    if ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) {
-        $icon = 'warning';
-        $message      = __( 'WP Cron not enabled', 'tribe-common' );
-        $notes     = esc_html__( 'Scheduled imports may not run reliably', 'tribe-common' );
-    } else {
-        $message = __( 'WP Cron enabled', 'tribe-common' );
-    }
+$icon = 'success';
+$notes = '&nbsp;';
+
+if ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) {
+    $icon = 'warning';
+    $message      = __( 'WP Cron not enabled', 'tribe-common' );
+    $notes     = esc_html__( 'Scheduled imports may not run reliably', 'tribe-common' );
+} else {
+    $message = __( 'WP Cron enabled', 'tribe-common' );
+}
 ?>
 
 <tr>

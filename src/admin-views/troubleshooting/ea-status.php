@@ -1,6 +1,6 @@
 <?php 
 /**
- * View: Troubleshooting - EA Status
+ * View: Troubleshooting - EA Status Section
  * 
  * @since TBD
  * 

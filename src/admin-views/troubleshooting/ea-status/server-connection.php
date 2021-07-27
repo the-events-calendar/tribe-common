@@ -1,4 +1,11 @@
-<?php //Import Services?>
+<?php 
+/**
+ * View: Troubleshooting - EA Status Table Server Connection Section 
+ * 
+ * @since TBD
+ * 
+ */
+?>
 <tr>
     <th>
         <?php esc_html_e('Import Services', 'tribe-common'); ?>
