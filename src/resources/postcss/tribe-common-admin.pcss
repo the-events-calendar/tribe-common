@@ -2752,15 +2752,16 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__troubleshooting-cta {
-	align-items: flex-start;
-	margin-left: 140px;
-
-	@media screen and (max-width: 768px) {
-		margin-left: 20px;
-	}
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px 0;
 
 	@media screen and (max-width: 480px) {
-		margin-left: 0;
+		padding: 32px 23px 45px;
+		align-items: flex-start;
 	}
 }
 
@@ -2770,6 +2771,10 @@ input[type="email"].tribe-events-admin-card__input {
 	color: #0f1031;
 	line-height: normal;
 	margin-bottom: 10px;
+
+	@media screen and (max-width: 768px) {
+		text-align: center;
+	}
 
 	@media screen and (max-width: 480px) {
 		font-size: 23px;
