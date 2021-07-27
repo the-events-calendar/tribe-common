@@ -37,7 +37,12 @@ tribe.utils = tribe.utils || {};
 				isLastLastCharUpper = isLastCharUpper;
 				isLastCharUpper = true;
 				i++;
-			} else if ( isLastCharUpper && isLastLastCharUpper && /[a-zA-Z]/.test( char ) && c.toLowerCase() === char ) {
+			} else if (
+				isLastCharUpper &&
+				isLastLastCharUpper &&
+				/[a-zA-Z]/.test( char ) &&
+				char.toLowerCase() === char // eslint-disable-line no-undef
+			) {
 				str = str.substr( 0, i - 1 ) + '-' + str.substr( i - 1 );
 
 				isLastLastCharUpper = isLastCharUpper;

@@ -1,4 +1,3 @@
-/* global console, jQuery */
 jQuery.fn.select2.amd.define( 'jquery.select2TEC', [
 	'jquery',
 	'jquery-mousewheel',
@@ -17,7 +16,7 @@ jQuery.fn.select2.amd.define( 'jquery.select2TEC', [
 				this.each( function() {
 					var instanceOptions = $.extend( true, {}, options );
 
-					var instance = new Select2( $( this ), instanceOptions );
+					var instance = new Select2( $( this ), instanceOptions ); // eslint-disable-line no-unused-vars,max-len
 				} );
 
 				return this;

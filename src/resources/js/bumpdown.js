@@ -60,7 +60,7 @@
 						}
 					}
 
-					$content.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
+					$content.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' ); // eslint-disable-line max-len
 					$content.prepend( '<span class="tribe-bumpdown-arrow"></span>' );
 					methods.arrow( $bumpdown );
 
@@ -88,9 +88,15 @@
 					var data = $bumpdown.data( 'bumpdown' ),
 						arrow;
 
-					arrow = Math.ceil( data.$trigger.position().left - ( 'block' === data.type ? data.$parent.offset().left : 0 ) );
+					arrow = Math.ceil(
+						data.$trigger.position().left - (
+							'block' === data.type
+								? data.$parent.offset().left
+								: 0
+						)
+					);
 
-					data.$bumpdown.find( '.tribe-bumpdown-arrow' ).css( 'left', arrow );
+					data.$bumpdown.find( '.tribe-bumpdown-arrow' ).css( 'left', arrow ); // eslint-disable-line es5/no-es6-methods,max-len
 				}
 			};
 
@@ -174,7 +180,8 @@
 			// Triggers closing when clicking on the document
 			.on( 'click', function( e ) {
 				var $target = $( e.target ),
-					is_bumpdown = $target.is( selectors.bumpdown ) || 0 !== $target.parents( selectors.bumpdown ).length;
+					is_bumpdown = $target.is( selectors.bumpdown )
+						|| 0 !== $target.parents( selectors.bumpdown ).length;
 
 				if ( is_bumpdown ) {
 					return;
@@ -224,13 +231,17 @@
 			// We fetch from `[data-bumpdown-class]` attr the possible class(es) for this Bumpdown
 			data.class = data.$trigger.attr( 'data-bumpdown-class' );
 
-			// Flags about if this bumpdown is permanent, meaning it only closes when clicking on the close button or the trigger
+			// Flags about if this bumpdown is permanent,
+			// meaning it only closes when clicking on the close button or the trigger
 			data.is_permanent = data.$trigger.is( selectors.permanent );
 
 			// Fetch the first Block-Level parent
 			data.$parent = data.$trigger.parents().filter( function() {
-				return -1 < $.inArray( $( this ).css( 'display' ), [ 'block', 'table', 'table-cell', 'table-row' ] );
-			}).first();
+				return -1 < $.inArray(
+					$( this ).css( 'display' ),
+					[ 'block', 'table', 'table-cell', 'table-row' ]
+				);
+			} ).first();
 
 			if ( ! data.html ) {
 				data.$bumpdown = $( selectors.data_trigger( data.ID ) );
@@ -239,7 +250,10 @@
 				data.type = data.$parent.is( 'td, tr, td, table' ) ? 'table' : 'block';
 
 				if ( 'table' === data.type ) {
-					data.$bumpdown = $( '<td>' ).attr( { colspan: 2 } ).addClass( 'tribe-bumpdown-cell' ).html( data.html );
+					data.$bumpdown = $( '<td>' )
+						.attr( { colspan: 2 } )
+						.addClass( 'tribe-bumpdown-cell' )
+						.html( data.html );
 					var classes = data.class ? 'tribe-bumpdown-row ' + data.class : 'tribe-bumpdown-row',
 						$row = $( '<tr>' ).append( data.$bumpdown ).addClass( classes );
 
