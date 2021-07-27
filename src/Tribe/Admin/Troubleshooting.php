@@ -24,11 +24,11 @@ use \Tribe__Events__Google__Maps_API_Key;
  */
 class Troubleshooting {
     /**
-     * Slug of the WP admin menu item
+     * Slug of the WP admin menu item.
      *
      * @since TBD
      *
-     * @var string
+     * @var string the troubleshooting menu slug.
      */
     const MENU_SLUG = 'tec-troubleshooting';
 
@@ -37,7 +37,6 @@ class Troubleshooting {
      *
      * @since TBD
      *
-     * @var string
      */
     private $admin_page = null;
 
@@ -52,7 +51,7 @@ class Troubleshooting {
     }
 
     /**
-     * Creates the troubleshooting page
+     * Creates the troubleshooting page.
      *
      * @return void
      */
@@ -96,14 +95,14 @@ class Troubleshooting {
 	     *
 	     * @param string $capability      Which capability we are using as the one required for the
 	     *                                troubleshooting page.
-	     * @param static $troubleshooting The current instance of the class that handles this page
+	     * @param static $troubleshooting The current instance of the class that handles this page.
 	     */
         $capability = apply_filters( 'tec_troubleshooting_capability', 'install_plugins', $this );
 		return $capability;
     }
 
     /**
-     * Adds the troubleshooting menu to the the WP admin bar under events
+     * Adds the troubleshooting menu to the the WP admin bar under events.
      *
      * @return void
      */
@@ -124,13 +123,11 @@ class Troubleshooting {
     }
 
     /**
-     * Checks if the current page is the troubleshooting page
+     * Checks if the current page is the troubleshooting page.
      *
      * @since TBD
      *
-     * @var string
-     *
-     * @return bool
+     * @return bool returns true if the current page is the troubleshooting page.
      */
     public function is_current_page() {
         if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
@@ -150,11 +147,10 @@ class Troubleshooting {
     }
 
     /**
-     * Renders the Troubleshooting page
+     * Renders the Troubleshooting page.
      *
      * @since TBD
      *
-     * @var string
      */
     public function do_menu_page() {
         $main = Tribe__Main::instance();
@@ -166,7 +162,7 @@ class Troubleshooting {
      *
      * @since TBD
      *
-     * @return boolean
+     * @return boolean returns true if there are any active issues.
      */
     public function is_any_issue_active() {
         $issues = $this->get_issues_found();
@@ -179,7 +175,7 @@ class Troubleshooting {
      *
      * @since TBD
      *
-     * @return boolean
+     * @return boolean returns true is any of the plugins requires an update.
      */
     public function is_any_tec_plugin_out_of_date() {
         $current = get_site_transient( 'update_plugins' );
@@ -235,18 +231,16 @@ class Troubleshooting {
     }
 
     /**
-     * Checks if any of the issues defined are active
+     * Checks if any of the issues defined are active.
      *
      * @since TBD
      *
-     * @var string
+     * @param string $slug the slug of active issue.
+     * 
      */
     public function is_active_issue( $slug ) {
         if ( 'timezone' === $slug ) {
             return Timezones::is_utc_offset( Timezones::wp_timezone_string() );
-        }
-        if ( 'install-max' === $slug ) {
-            // Tribe__PUE__Checker::validate_key()
         }
         if ( 'geolocation' === $slug && class_exists( 'Tribe__Events__Google__Maps_API_Key' ) ) {
             $key = \tribe_get_option( 'google_maps_js_api_key', false );
@@ -259,11 +253,11 @@ class Troubleshooting {
     }
 
     /**
-     * Displays issues found in the UI
+     * Displays issues found in the UI.
      *
      * @since TBD
      *
-     * @var string
+     * @return array of issues which are displayed on the troubleshooting page.
      */
     public function get_issues_found() {
         $issues_found = apply_filters( 'tec_help_troubleshooting_issues_found', [
@@ -309,7 +303,7 @@ class Troubleshooting {
      *
      * @since TBD
      *
-     * @var string
+     * @return array of common issues which are displayed on the troubleshooting page.
      */
     public function get_common_issues() {
     $commonIssues = apply_filters( 'tec_help_troubleshooting_issues', [
