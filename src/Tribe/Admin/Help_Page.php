@@ -915,11 +915,11 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Defines TEC frequently asked questions and displays them in the UI
+	 * Defines TEC frequently asked questions and displays them in the UI.
 	 * 
 	 * @since TBD
 	 *
-	 * @return array (description of the return value)
+	 * @return array which is displayed on the calendar tab of the in-app help page.
 	 */
 	public function get_calendar_faqs() {
 		$faqs = apply_filters( 'tec_help_calendar_faqs', [
