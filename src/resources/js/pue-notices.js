@@ -11,7 +11,7 @@ var tribe_plugin_notices = tribe_plugin_notices || {};
 
 	my.init = function() {
 		for ( var plugin_file in tribe_plugin_notices ) {
-			if ( ! tribe_plugin_notices.hasOwnProperty( plugin_file ) ) {
+			if ( ! tribe_plugin_notices.hasOwnProperty( plugin_file ) ) { // eslint-disable-line no-prototype-builtins,max-len
 				continue;
 			}
 

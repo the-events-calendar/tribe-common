@@ -1,4 +1,4 @@
-var tribe = tribe || {};
+var tribe = tribe || {}; // eslint-disable-line no-redeclare
 tribe.dialogs = tribe.dialogs || {};
 
 ( function( $, obj ) {
