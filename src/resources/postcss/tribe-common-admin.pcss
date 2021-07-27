@@ -2720,7 +2720,7 @@ input[type="email"].tribe-events-admin-card__input {
 	border: 1px solid #e1e1e4;
 	border-radius: 20px;
 
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 768px) {
 		flex-direction: column;
 		align-items: flex-start;
 		overflow: hidden;
@@ -2744,8 +2744,10 @@ input[type="email"].tribe-events-admin-card__input {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	padding: 20px 0;
 
 	@media screen and (max-width: 480px) {
+		width: auto;
 		padding: 32px 23px 45px;
 		align-items: flex-start;
 	}
@@ -2760,6 +2762,7 @@ input[type="email"].tribe-events-admin-card__input {
 	padding: 20px 0;
 
 	@media screen and (max-width: 480px) {
+		width: auto;
 		padding: 32px 23px 45px;
 		align-items: flex-start;
 	}
@@ -2771,13 +2774,15 @@ input[type="email"].tribe-events-admin-card__input {
 	color: #0f1031;
 	line-height: normal;
 	margin-bottom: 10px;
+	text-align: center;
 
-	@media screen and (max-width: 768px) {
-		text-align: center;
+	@media screen and (max-width: 1080px) {
+		font-size: 24px;
 	}
 
 	@media screen and (max-width: 480px) {
-		font-size: 23px;
+		font-size: 22px;
+		text-align: left;
 	}
 }
 
@@ -2786,6 +2791,11 @@ input[type="email"].tribe-events-admin-card__input {
 	line-height: 1.5;
 	color: #0f1031;
 	margin-bottom: 10px;
+	text-align: center;
+
+	@media screen and (max-width: 480px) {
+		text-align: left;
+	}
 }
 
 .tribe-events-admin-cta__content-description a {
