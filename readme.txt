@@ -2,6 +2,7 @@
 
 = [4.14.0] 2021-07-01 =
 
+* Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
 * Feature - Add new custom Customizer controls.
 * Tweak - Add central compatibility functionality. A step in the move from using body classes to container classes.
 * Language - 0 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
