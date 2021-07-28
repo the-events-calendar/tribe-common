@@ -109,7 +109,7 @@ class Troubleshooting {
     public function add_toolbar_item() {
         $capability = $this->get_required_capability();
 
-        // prevent users who cannot install plugins from seeing addons link
+        // prevent users who cannot install plugins from seeing addons link.
         if ( current_user_can( $capability ) ) {
             global $wp_admin_bar;
 
@@ -299,7 +299,7 @@ class Troubleshooting {
     }
 
     /**
-     * Defines common troubleshooting issues and displays them in the UI
+     * Defines common troubleshooting issues and displays them in the UI.
      *
      * @since TBD
      *

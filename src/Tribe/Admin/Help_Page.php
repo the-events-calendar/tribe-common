@@ -1133,7 +1133,7 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-	 * Defines community products
+	 * Defines community products.
 	 * 
 	 * @since TBD
 	 * 
