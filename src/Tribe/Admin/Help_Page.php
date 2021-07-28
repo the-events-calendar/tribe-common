@@ -925,23 +925,23 @@ class Tribe__Admin__Help_Page {
 		$faqs = apply_filters( 'tec_help_calendar_faqs', [
 			[
 				'question' => __( 'Can I have more than one calendar?', 'tribe-common' ),
-				'answer' => __( 'No, but you can use event categories or tags to display certain events like having...', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arh',
+				'answer'   => __( 'No, but you can use event categories or tags to display certain events like having...', 'tribe-common' ),
+				'link'     => 'https://evnt.is/1arh',
 			],
 			[
 				'question' => __( 'What do I get with The Events Calendar Pro?', 'tribe-common' ),
-				'answer' => __( 'Events Calendar Pro runs alongside The Events Calendar and enhances...' ),
-				'link' => 'https://evnt.is/1arj',
+				'answer'   => __( 'Events Calendar Pro runs alongside The Events Calendar and enhances...' ),
+				'link'     => 'https://evnt.is/1arj',
 			],
 			[
 				'question' => __( 'How do I sell tickets to events?', 'tribe-common' ),
-				'answer' => __( 'Use our free Event Tickets plugin to get started with tickets and RSVPs.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1ark',
+				'answer'   => __( 'Use our free Event Tickets plugin to get started with tickets and RSVPs.', 'tribe-common' ),
+				'link'     => 'https://evnt.is/1ark',
 			],
 			[
 				'question' => __( 'What happens if I disable the plugin?', 'tribe-common' ),
-				'answer' => __( 'Nothing. Whether you disable the plugin or uninstall it, your events...', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arl',
+				'answer'   => __( 'Nothing. Whether you disable the plugin or uninstall it, your events...', 'tribe-common' ),
+				'link'     => 'https://evnt.is/1arl',
 			],
 		] );
 
@@ -958,27 +958,27 @@ class Tribe__Admin__Help_Page {
 	public function get_calendar_extensions() {
 		$extensions = apply_filters( 'tec_help_calendar_extensions', [
 			[
-				'title' => __( 'Calendar widget areas', 'tribe-common' ),
-				'description' => __( 'This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars).', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arc',
+				'title'        => __( 'Calendar widget areas', 'tribe-common' ),
+				'description'  => __( 'This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars).', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1arc',
 				'product-slug' => 'the-events-calendar',
 			],
 			[
-				'title' => __( 'Event block patterns', 'tribe-common' ),
-				'description' => __( 'This extension adds a set of block patterns for events to the WordPress block editor.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1ard',
+				'title'        => __( 'Event block patterns', 'tribe-common' ),
+				'description'  => __( 'This extension adds a set of block patterns for events to the WordPress block editor.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1ard',
 				'product-slug' => 'the-events-calendar',
 			],
 			[
-				'title' => __( 'Alternative photo view', 'tribe-common' ),
-				'description' => __( 'This extension replaces photo view with a tiled grid of cards featuring event images.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1are',
+				'title'        => __( 'Alternative photo view', 'tribe-common' ),
+				'description'  => __( 'This extension replaces photo view with a tiled grid of cards featuring event images.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1are',
 				'product-slug' => 'events-calendar-pro',
 			],
 			[
-				'title' => __( 'The Events Calendar Tweaks', 'tribe-common' ),
-				'description' => __( 'This extension is a collection of tweaks and snippets for The Events Calendar.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arg',
+				'title'        => __( 'The Events Calendar Tweaks', 'tribe-common' ),
+				'description'  => __( 'This extension is a collection of tweaks and snippets for The Events Calendar.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1arg',
 				'product-slug' => 'the-events-calendar',
 			],
 		] );
@@ -1015,23 +1015,23 @@ class Tribe__Admin__Help_Page {
 		$faqs = apply_filters( 'tec_help_ticketing_faqs', [
 			[
 				'question' => __( 'How Do I create events with Tickets or RSVP’s?', 'tribe-common' ),
-				'answer' => __( 'We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1art',
+				'answer'   => __( 'We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more.', 'tribe-common' ),
+				'link'     => 'https://evnt.is/1art',
 			],
 			[
 				'question' => __( 'How Do I Set Up E-Commerce Plugins for Selling Tickets?', 'tribe-common' ),
-				'answer' => __( 'You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arq',
+				'answer'   => __( 'You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce.', 'tribe-common' ),
+				'link'     => 'https://evnt.is/1arq',
 			],
 			[
 				'question' => __( 'Can I have a seating chart associated with my tickets?', 'tribe-common' ),
-				'answer' => __( 'Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arr',
+				'answer'   => __( 'Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets.', 'tribe-common' ),
+				'link'     => 'https://evnt.is/1arr',
 			],
 			[
 				'question' => __( 'How do I process refunds for tickets?', 'tribe-common' ),
-				'answer' => __( 'When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1ars',
+				'answer'   => __( 'When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use.', 'tribe-common' ),
+				'link'     => 'https://evnt.is/1ars',
 			],
 		] );
 
@@ -1048,27 +1048,27 @@ class Tribe__Admin__Help_Page {
 	public function get_ticketing_extensions() {
 		$extensions = apply_filters( 'tec_help_ticketing_extensions', [
 			[
-				'title' => __( 'Ticket Email Settings', 'tribe-common' ),
-				'description' => __( 'Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arx',
+				'title'        => __( 'Ticket Email Settings', 'tribe-common' ),
+				'description'  => __( 'Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1arx',
 				'product-slug' => 'event-tickets',
 			],
 			[
-				'title' => __( 'Per Event Check In API', 'tribe-common' ),
-				'description' => __( 'This extension shows a meta box with an API key on each Event with Ticket/RSVP.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arw',
+				'title'        => __( 'Per Event Check In API', 'tribe-common' ),
+				'description'  => __( 'This extension shows a meta box with an API key on each Event with Ticket/RSVP.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1arw',
 				'product-slug' => 'event-tickets',
 			],
 			[
-				'title' => __( 'Add Event & Attendee Info to WooCommerce Order Details', 'tribe-common' ),
-				'description' => __( 'Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arv',
+				'title'        => __( 'Add Event & Attendee Info to WooCommerce Order Details', 'tribe-common' ),
+				'description'  => __( 'Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1arv',
 				'product-slug' => 'event-tickets',
 			],
 			[
-				'title' => __( 'Organizer Notification Email', 'tribe-common' ),
-				'description' => __( 'This extension will send an email to event organizers whenever a user registers for their event.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1aru',
+				'title'        => __( 'Organizer Notification Email', 'tribe-common' ),
+				'description'  => __( 'This extension will send an email to event organizers whenever a user registers for their event.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1aru',
 				'product-slug' => 'event-tickets',
 			],
 		] );
@@ -1104,27 +1104,27 @@ class Tribe__Admin__Help_Page {
 	public function get_community_extensions() {
 		$extensions = apply_filters( 'tec_help_ticketing_extensions', [
 			[
-				'title' => __( 'Add Cost Currency Symbol', 'tribe-common' ),
-				'description' => __( 'This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arn',
+				'title'        => __( 'Add Cost Currency Symbol', 'tribe-common' ),
+				'description'  => __( 'This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1arn',
 				'product-slug' => 'community-events',
 			],
 			[
-				'title' => __( 'Add Google Maps Display and Link Options', 'tribe-common' ),
-				'description' => __( 'This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arm',
+				'title'        => __( 'Add Google Maps Display and Link Options', 'tribe-common' ),
+				'description'  => __( 'This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1arm',
 				'product-slug' => 'community-events',
 			],
 			[
-				'title' => __( 'Hide Others’ Organizers and Venues', 'tribe-common' ),
-				'description' => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1aro',
+				'title'        => __( 'Hide Others’ Organizers and Venues', 'tribe-common' ),
+				'description'  => __( 'This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community Events submission form.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1aro',
 				'product-slug' => 'community-events',
 			],
 			[
-				'title' => __( 'Display Custom HTML', 'tribe-common' ),
-				'description' => __( 'This extension allows you to add custom HTML content to the top of the Community Events submission form.', 'tribe-common' ),
-				'link' => 'https://evnt.is/1arp',
+				'title'        => __( 'Display Custom HTML', 'tribe-common' ),
+				'description'  => __( 'This extension allows you to add custom HTML content to the top of the Community Events submission form.', 'tribe-common' ),
+				'link'         => 'https://evnt.is/1arp',
 				'product-slug' => 'community-events',
 			],
 		] );

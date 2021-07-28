@@ -165,7 +165,7 @@ class Troubleshooting {
      * @return boolean returns true if there are any active issues.
      */
     public function is_any_issue_active() {
-        $issues = $this->get_issues_found();
+        $issues        = $this->get_issues_found();
         $active_issues = wp_list_pluck( $issues, 'active' );
         return in_array( true, $active_issues );
     }
@@ -262,36 +262,36 @@ class Troubleshooting {
     public function get_issues_found() {
         $issues_found = apply_filters( 'tec_help_troubleshooting_issues_found', [
             [
-                'title' => __( 'Site time zone uses UTC', 'tribe-common' ),
-                'description' => __( 'When using The Events Calendar, we highly recommend that you use a geographic timezone such as "America/Los_Angeles" and avoid using a UTC timezone offset such as “UTC+9”. Choosing a UTC timezone for your site or individual events may cause problems when importing events or with Daylight Saving Time. Go to your the General WordPress settings to adjust your site timezone.', 'tribe-common' ),
-                'more_info' => 'http://evnt.is/1ad3',
+                'title'        => __( 'Site time zone uses UTC', 'tribe-common' ),
+                'description'  => __( 'When using The Events Calendar, we highly recommend that you use a geographic timezone such as "America/Los_Angeles" and avoid using a UTC timezone offset such as “UTC+9”. Choosing a UTC timezone for your site or individual events may cause problems when importing events or with Daylight Saving Time. Go to your the General WordPress settings to adjust your site timezone.', 'tribe-common' ),
+                'more_info'    => 'http://evnt.is/1ad3',
                 'resolve_text' => __( 'Adjust your timezone', 'tribe-common' ),
-                'fix' => '/wp-admin/options-general.php',
-                'active' => $this->is_active_issue( 'timezone' ),
+                'fix'          => '/wp-admin/options-general.php',
+                'active'       => $this->is_active_issue( 'timezone' ),
             ],
             [
-                'title' => __( 'Install max has been reached', 'tribe-common' ),
-                'description' => __( 'License keys can only be used on a limited number of sites, which varies depending on your license level. You\'ll need to remove the license from one or more other site\'s in order to use it on this one.', 'tribe-common' ),
-                'more_info' => 'https://evnt.is/1aqz',
+                'title'        => __( 'Install max has been reached', 'tribe-common' ),
+                'description'  => __( 'License keys can only be used on a limited number of sites, which varies depending on your license level. You\'ll need to remove the license from one or more other site\'s in order to use it on this one.', 'tribe-common' ),
+                'more_info'    => 'https://evnt.is/1aqz',
                 'resolve_text' => __( 'Manage your licenses', 'tribe-common' ),
-                'fix' => 'https://evnt.is/1aq-',
-                'active' => $this->is_active_issue( 'install-max' ),
+                'fix'          => 'https://evnt.is/1aq-',
+                'active'       => $this->is_active_issue( 'install-max' ),
             ],
             [
-                'title' => __( 'Default Google Maps API key', 'tribe-common' ),
-                'description' => __( 'The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins, dynamic map loads, or Events Calendar Pro\'s Location Search and advanced Map View, you’ll need to get your own Google Maps API key and add it to Events > Settings > APIs', 'tribe-common' ),
-                'more_info' => '=https://evnt.is/1aqx',
+                'title'        => __( 'Default Google Maps API key', 'tribe-common' ),
+                'description'  => __( 'The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins, dynamic map loads, or Events Calendar Pro\'s Location Search and advanced Map View, you’ll need to get your own Google Maps API key and add it to Events > Settings > APIs', 'tribe-common' ),
+                'more_info'    => '=https://evnt.is/1aqx',
                 'resolve_text' => __( 'Enter a custom API key', 'tribe-common' ),
-                'fix' => '/wp-admin/edit.php?page=tribe-common&tab=addons&post_type=tribe_events',
-                'active' => $this->is_active_issue( 'geolocation' ),
+                'fix'          => '/wp-admin/edit.php?page=tribe-common&tab=addons&post_type=tribe_events',
+                'active'       => $this->is_active_issue( 'geolocation' ),
             ],
             [
-                'title' => __( 'Plugin(s) are out of date', 'tribe-common' ),
-                'description' => __( 'It\'s important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be comprimised if your site is running outdated or mis-matched versions.', 'tribe-common' ),
-                'more_info' => 'https://evnt.is/1aqy',
+                'title'        => __( 'Plugin(s) are out of date', 'tribe-common' ),
+                'description'  => __( 'It\'s important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be comprimised if your site is running outdated or mis-matched versions.', 'tribe-common' ),
+                'more_info'    => 'https://evnt.is/1aqy',
                 'resolve_text' => __( 'Check for updates', 'tribe-common' ),
-                'fix' => '/wp-admin/update-core.php',
-                'active' => $this->is_active_issue( 'out-of-date' ),
+                'fix'          => '/wp-admin/update-core.php',
+                'active'       => $this->is_active_issue( 'out-of-date' ),
             ],
         ] );
 
@@ -308,27 +308,27 @@ class Troubleshooting {
     public function get_common_issues() {
     $commonIssues = apply_filters( 'tec_help_troubleshooting_issues', [
         [
-            'issue' => __( 'Common Error Messages', 'tribe-common' ),
-            'solution' => __( 'Here’s an overview of %s and what they mean.', 'tribe-common' ),
-            'link' => 'https://evnt.is/1as0',
+            'issue'      => __( 'Common Error Messages', 'tribe-common' ),
+            'solution'   => __( 'Here’s an overview of %s and what they mean.', 'tribe-common' ),
+            'link'       => 'https://evnt.is/1as0',
             'link_label' => 'common error messages',
         ],
         [
-            'issue' => __( 'My calendar doesn’t look right.', 'tribe-common' ),
-            'solution' => __( 'This can happen when other plugins try to improve performance. %s.' ),
-            'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#layout-issue',
+            'issue'      => __( 'My calendar doesn’t look right.', 'tribe-common' ),
+            'solution'   => __( 'This can happen when other plugins try to improve performance. %s.' ),
+            'link'       => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#layout-issue',
             'link_label' => 'More info',
         ],
         [
-            'issue' => __( 'I installed the calendar and it crashed my site.', 'tribe-common' ),
-            'solution' => __( '%s and other common installation issues.', 'tribe-common' ),
-            'link' => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#fatal-errors',
+            'issue'      => __( 'I installed the calendar and it crashed my site.', 'tribe-common' ),
+            'solution'   => __( '%s and other common installation issues.', 'tribe-common' ),
+            'link'       => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#fatal-errors',
             'link_label' => 'Find solutions to this',
         ],
         [
-            'issue' => __( 'I keep getting “Page Not Found” on events.', 'tribe-common' ),
-            'solution' => __( 'There are a few %s to resolve and prevent 404 errors.', 'tribe-common' ),
-            'link' => 'https://evnt.is/1as2',
+            'issue'      => __( 'I keep getting “Page Not Found” on events.', 'tribe-common' ),
+            'solution'   => __( 'There are a few %s to resolve and prevent 404 errors.', 'tribe-common' ),
+            'link'       => 'https://evnt.is/1as2',
             'link_label' => 'things you can do',
         ],
     ] );
