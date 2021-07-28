@@ -80,13 +80,13 @@ class Troubleshooting {
         );
     }
 
-	/**
-	 * Gets the required capability for the troubleshooting page.
-	 *
-	 * @since TBD
-	 *
-	 * @return string Which capability we required for the troubleshooting page.
-	 */
+    /**
+     * Gets the required capability for the troubleshooting page.
+     *
+     * @since TBD
+     *
+     * @return string Which capability we required for the troubleshooting page.
+     */
     public function get_required_capability() {
     	/**
 	     * Allows third party filtering of capability required to see the Troubleshooting page.

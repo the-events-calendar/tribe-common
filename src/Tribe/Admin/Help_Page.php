@@ -944,17 +944,17 @@ class Tribe__Admin__Help_Page {
 				'link' => 'https://evnt.is/1arl',
 			],
 		] );
-	
+
 		return $faqs;
 	}
 
 	/**
-     * Defines calendar extensions and displays them in the UI.
-     * 
-     * @since TBD
-     * 
+	 * Defines calendar extensions and displays them in the UI.
+	 * 
+	 * @since TBD
+	 * 
 	 * @return array of extensions which are displayed on the calendar and community tab of the in-app help page.
-     */
+	 */
     public function get_calendar_extensions() {
 		$extensions = apply_filters( 'tec_help_calendar_extensions', [
 			[
@@ -987,12 +987,12 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-     * Defines calendar products.
-     * 
-     * @since TBD
-     * 
+	 * Defines calendar products.
+	 * 
+	 * @since TBD
+	 * 
 	 * @return array of products which are displayed on the calendar tab of the in-app help page.
-     */
+	 */
     public function get_calendar_products() {
 		$calendar_products = apply_filters( 'tec_help_calendar_products', [
 			'events-calendar-pro',
@@ -1005,12 +1005,12 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-     * Defines ticketing frequently asked questions and displays them in the UI.
-     * 
-     * @since TBD
-     * 
+	 * Defines ticketing frequently asked questions and displays them in the UI.
+	 * 
+	 * @since TBD
+	 * 
 	 * @return array of FAQs which are displayed on the ticketing tab of the in-app help page.
-     */
+	 */
     public function get_ticketing_faqs() {
 		$faqs = apply_filters( 'tec_help_ticketing_faqs', [
 			[
@@ -1039,12 +1039,12 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-     * Defines ticketing extensions and displays them in the UI.
-     * 
-     * @since TBD
-     * 
-     * @return array of extensions which are displayed on the ticketing tab of the in-app help page.
-     */
+	 * Defines ticketing extensions and displays them in the UI.
+	 * 
+	 * @since TBD
+	 * 
+	 * @return array of extensions which are displayed on the ticketing tab of the in-app help page.
+	 */
     public function get_ticketing_extensions() {
 		$extensions = apply_filters( 'tec_help_ticketing_extensions', [
 			[
@@ -1077,12 +1077,12 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-     * Defines ticketing products.
-     * 
-     * @since TBD
-     * 
-     * @return array of products which are displayed on the ticketing tab of the in-app help page.
-     */
+	 * Defines ticketing products.
+	 * 
+	 * @since TBD
+	 * 
+	 * @return array of products which are displayed on the ticketing tab of the in-app help page.
+	 */
     public function get_ticketing_products() {
 		$ticketing_products = apply_filters( 'tec_help_ticketing_products', [
 			'event-tickets',
@@ -1095,12 +1095,12 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-     * Defines community extensions and displays them in the UI.
-     * 
-     * @since TBD
-     * 
-     * @return array of extensions which are displayed on the community tab of the in-app help page.
-     */
+	 * Defines community extensions and displays them in the UI.
+	 * 
+	 * @since TBD
+	 * 
+	 * @return array of extensions which are displayed on the community tab of the in-app help page.
+	 */
     public function get_community_extensions() {
 		$extensions = apply_filters( 'tec_help_ticketing_extensions', [
 			[
@@ -1133,12 +1133,12 @@ class Tribe__Admin__Help_Page {
 	}
 
 	/**
-     * Defines community products
-     * 
-     * @since TBD
-     * 
-     * @return array of products which are displayed on the community tab of the in-app help page.
-     */
+	 * Defines community products
+	 * 
+	 * @since TBD
+	 * 
+	 * @return array of products which are displayed on the community tab of the in-app help page.
+	 */
     public function get_community_products() {
 		$community_products = apply_filters( 'tec_help_ticketing_products', [
 		    'events-community',
