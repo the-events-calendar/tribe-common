@@ -7,7 +7,7 @@
  */
 
 use \Tribe\Admin\Troubleshooting;
-$common_issues    = tribe( Troubleshooting::class )->get_common_issues();
+$common_issues = tribe( Troubleshooting::class )->get_common_issues();
 ?>
 <div class="tribe-events-admin-section-header">
 	<h3>

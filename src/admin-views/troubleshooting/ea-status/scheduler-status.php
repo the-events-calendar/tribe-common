@@ -6,13 +6,13 @@
  * 
  */
 
-$icon = 'success';
+$icon  = 'success';
 $notes = '&nbsp;';
 
 if ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) {
-    $icon = 'warning';
-    $message      = __( 'WP Cron not enabled', 'tribe-common' );
-    $notes     = esc_html__( 'Scheduled imports may not run reliably', 'tribe-common' );
+    $icon    = 'warning';
+    $message = __( 'WP Cron not enabled', 'tribe-common' );
+    $notes   = esc_html__( 'Scheduled imports may not run reliably', 'tribe-common' );
 } else {
     $message = __( 'WP Cron enabled', 'tribe-common' );
 }

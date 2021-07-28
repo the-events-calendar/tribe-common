@@ -10,16 +10,15 @@ $service          = tribe( 'events-aggregator.service' );
 $import_limit     = $service->get_limit( 'import' );
 $import_available = $service->get_limit_remaining();
 $import_count     = $service->get_limit_usage();
-
-$icon = 'success';
-$notes     = '&nbsp;';
+$icon             = 'success';
+$notes            = '&nbsp;';
 
 if ( 0 === $import_limit || $import_count >= $import_limit ) {
-    $icon = 'error';
-    $notes     = esc_html__( 'You have reached your daily import limit. Scheduled imports will be paused until tomorrow.', 'tribe-common' );
+    $icon  = 'error';
+    $notes = esc_html__( 'You have reached your daily import limit. Scheduled imports will be paused until tomorrow.', 'tribe-common' );
 } elseif ( $import_count / $import_limit >= 0.8 ) {
-    $icon = 'warning';
-    $notes     = esc_html__( 'You are approaching your daily import limit. You may want to adjust your Scheduled Import frequencies.', 'tribe-common' );
+    $icon  = 'warning';
+    $notes = esc_html__( 'You are approaching your daily import limit. You may want to adjust your Scheduled Import frequencies.', 'tribe-common' );
 }
 
 $message = sprintf( // import count and limit
