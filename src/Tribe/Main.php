@@ -627,11 +627,8 @@ class Tribe__Main {
 		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 		tribe_singleton( 'customizer', 'Tribe__Customizer' );
 		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
-<<<<<<< HEAD
 		tribe_singleton( \Tribe\Admin\Troubleshooting::class, \Tribe\Admin\Troubleshooting::class, [ 'hook' ] );
 
-=======
->>>>>>> b64d496a1cb09c677412c5a5be69245bbfe5df51
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class );
 
