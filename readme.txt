@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure that $wp_query->is_search is false for calendar views that have no search term. [TEC-4012]
+
 = [4.14.1] 2021-07-21 =
 
 * Feature - Add new notice for Stellar Sale. [TCMN-111]
