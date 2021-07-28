@@ -955,7 +955,7 @@ class Tribe__Admin__Help_Page {
 	 * 
 	 * @return array of extensions which are displayed on the calendar and community tab of the in-app help page.
 	 */
-    public function get_calendar_extensions() {
+	public function get_calendar_extensions() {
 		$extensions = apply_filters( 'tec_help_calendar_extensions', [
 			[
 				'title' => __( 'Calendar widget areas', 'tribe-common' ),
@@ -982,7 +982,7 @@ class Tribe__Admin__Help_Page {
 				'product-slug' => 'the-events-calendar',
 			],
 		] );
-	
+
 		return $extensions;
 	}
 
@@ -993,7 +993,7 @@ class Tribe__Admin__Help_Page {
 	 * 
 	 * @return array of products which are displayed on the calendar tab of the in-app help page.
 	 */
-    public function get_calendar_products() {
+	public function get_calendar_products() {
 		$calendar_products = apply_filters( 'tec_help_calendar_products', [
 			'events-calendar-pro',
 			'tribe-filterbar',
@@ -1011,7 +1011,7 @@ class Tribe__Admin__Help_Page {
 	 * 
 	 * @return array of FAQs which are displayed on the ticketing tab of the in-app help page.
 	 */
-    public function get_ticketing_faqs() {
+	public function get_ticketing_faqs() {
 		$faqs = apply_filters( 'tec_help_ticketing_faqs', [
 			[
 				'question' => __( 'How Do I create events with Tickets or RSVP’s?', 'tribe-common' ),
@@ -1034,7 +1034,7 @@ class Tribe__Admin__Help_Page {
 				'link' => 'https://evnt.is/1ars',
 			],
 		] );
-	
+
 		return $faqs;
 	}
 
@@ -1045,7 +1045,7 @@ class Tribe__Admin__Help_Page {
 	 * 
 	 * @return array of extensions which are displayed on the ticketing tab of the in-app help page.
 	 */
-    public function get_ticketing_extensions() {
+	public function get_ticketing_extensions() {
 		$extensions = apply_filters( 'tec_help_ticketing_extensions', [
 			[
 				'title' => __( 'Ticket Email Settings', 'tribe-common' ),
@@ -1072,7 +1072,7 @@ class Tribe__Admin__Help_Page {
 				'product-slug' => 'event-tickets',
 			],
 		] );
-	
+
 		return $extensions;
 	}
 
@@ -1083,7 +1083,7 @@ class Tribe__Admin__Help_Page {
 	 * 
 	 * @return array of products which are displayed on the ticketing tab of the in-app help page.
 	 */
-    public function get_ticketing_products() {
+	public function get_ticketing_products() {
 		$ticketing_products = apply_filters( 'tec_help_ticketing_products', [
 			'event-tickets',
 			'event-tickets-plus',
@@ -1101,7 +1101,7 @@ class Tribe__Admin__Help_Page {
 	 * 
 	 * @return array of extensions which are displayed on the community tab of the in-app help page.
 	 */
-    public function get_community_extensions() {
+	public function get_community_extensions() {
 		$extensions = apply_filters( 'tec_help_ticketing_extensions', [
 			[
 				'title' => __( 'Add Cost Currency Symbol', 'tribe-common' ),
@@ -1128,7 +1128,7 @@ class Tribe__Admin__Help_Page {
 				'product-slug' => 'community-events',
 			],
 		] );
-	
+
 		return $extensions;
 	}
 
@@ -1139,10 +1139,10 @@ class Tribe__Admin__Help_Page {
 	 * 
 	 * @return array of products which are displayed on the community tab of the in-app help page.
 	 */
-    public function get_community_products() {
+	public function get_community_products() {
 		$community_products = apply_filters( 'tec_help_ticketing_products', [
-		    'events-community',
-    		'events-community-tickets',
+			'events-community',
+			'events-community-tickets',
 		] );
 			
 		return $community_products;
