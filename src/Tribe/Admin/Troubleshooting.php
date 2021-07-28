@@ -88,17 +88,17 @@ class Troubleshooting {
      * @return string Which capability we required for the troubleshooting page.
      */
     public function get_required_capability() {
-    	/**
-	     * Allows third party filtering of capability required to see the Troubleshooting page.
-	     *
-	     * @since TBD
-	     *
-	     * @param string $capability      Which capability we are using as the one required for the
-	     *                                troubleshooting page.
-	     * @param static $troubleshooting The current instance of the class that handles this page.
-	     */
+        /**
+         * Allows third party filtering of capability required to see the Troubleshooting page.
+         *
+         * @since TBD
+         *
+         * @param string $capability      Which capability we are using as the one required for the
+         *                                troubleshooting page.
+         * @param static $troubleshooting The current instance of the class that handles this page.
+         */
         $capability = apply_filters( 'tec_troubleshooting_capability', 'install_plugins', $this );
-		return $capability;
+        return $capability;
     }
 
     /**
