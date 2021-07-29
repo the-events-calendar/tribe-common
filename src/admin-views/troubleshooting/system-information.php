@@ -19,7 +19,7 @@ $system_info = $support->formattedSupportStats();
 		</p>
 		<div class="tribe-events-admin__system-information-select">
 			<input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin"/>
-			<label>
+			<label for="tribe_auto_sysinfo_opt_in">
 				<?php esc_html_e( 'Yes, automatically share my system information with The Events Calendar support team*', 'tribe-common' ); ?>
 			</label>
 		</div>
