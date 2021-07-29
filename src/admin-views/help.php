@@ -61,9 +61,9 @@ $products = tribe( 'plugins.api' )->get_products();
 		/>
 
 		<div class="tribe-events-admin-cta__content">
-			<div class="tribe-events-admin-cta__content-title">
+			<h2 class="tribe-events-admin-cta__content-title">
 				<?php esc_html_e( 'Need additional support?', 'tribe-common' ); ?>
-			</div>
+			</h2>
 
 			<div class="tribe-events-admin-cta__content-description">
 				<a href="/wp-admin/edit.php?post_type=tribe_events&page=tec-troubleshooting">

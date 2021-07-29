@@ -27,9 +27,9 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 					alt="<?php esc_attr_e( 'logo icon', 'tribe-common' ); ?>"
 				/>
 				<div class="tribe-events-admin-products-card__group">
-					<div class="tribe-events-admin-products-card__group-title">
+					<h4 class="tribe-events-admin-products-card__group-title">
 						<?php echo esc_html( $products[ $slug ]['title'] ); ?>
-					</div>
+					</h4>
 					<div class="tribe-events-admin-products-card__group-description">
 						<?php echo esc_html( $products[ $slug ]['description-help'] ); ?>
 					</div>
@@ -234,11 +234,11 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 	<div class="tribe-events-admin-extensions tribe-events-admin-4col-grid">
 		<?php foreach ( $extensions as $extension ) : ?>
 			<div class="tribe-events-admin-extensions-card">
-				<div class="tribe-events-admin-extensions-card__title">
+				<h5 class="tribe-events-admin-extensions-card__title">
 					<a href="<?php echo esc_url( $extension['link'] ); ?>" target="_blank" rel="noopener noreferrer">
 						<?php echo esc_html( $extension['title'] ); ?>
 					</a>
-				</div>
+				</h5>
 				<div class="tribe-events-admin-extensions-card__description">
 					<?php echo esc_html( $extension['description'] ); ?>
 				</div>
