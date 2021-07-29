@@ -52,7 +52,7 @@ $products = tribe( 'plugins.api' )->get_products();
 	?>
 
 	<?php // shared footer area ?>
-	<div class="tribe-events-admin-cta">
+	<footer class="tribe-events-admin-cta">
 		<img
 			class="tribe-events-admin-cta__image"
 			src="<?php echo esc_url( tribe_resource_url( 'images/help/troubleshooting.png', false, null, $main ) ); ?>"
@@ -70,7 +70,7 @@ $products = tribe( 'plugins.api' )->get_products();
 				</a>
 			</div>
 		</div>
-	</div>
+	</footer>
 
 	<img
 		class="tribe-events-admin-footer-logo"
