@@ -11,7 +11,6 @@ $help = tribe( Tribe__Admin__Help_Page::class );
 // get the products list
 $products = tribe( 'plugins.api' )->get_products();
 
-//echo '<pre>' . print_r( $products, true ) . '</pre>';
 ?>
 
 <div class="tribe-events-admin-header tribe-events-admin-container">
