@@ -581,10 +581,6 @@ class Tribe__Main {
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 
-		if ( ! defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {
-			tribe( 'admin.notice.marketing' );
-		}
-
 		tribe( \Tribe\Admin\Notice\WP_Version::class );
 		tribe( \Tribe\Admin\Troubleshooting::class );
 
