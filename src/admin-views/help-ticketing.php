@@ -88,9 +88,9 @@ $ticketing_products = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_pro
 				src="<?php echo esc_url( tribe_resource_url( 'images/help/help-start-guide-tickets.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events ticketing logo', 'tribe-common' ); ?>"
 			/>
-			<div class="tribe-events-admin-kb-card__title">
+			<h4 class="tribe-events-admin-kb-card__title">
 				<?php esc_html_e( 'Getting Started Guides', 'tribe-common' ); ?>
-			</div>
+			</h4>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
 					<a href="https://evnt.is/1apn" target="_blank" rel="noopener noreferrer">
@@ -116,9 +116,9 @@ $ticketing_products = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_pro
 				src="<?php echo esc_url( tribe_resource_url( 'images/help/customizing.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with Event Tickets logo', 'tribe-common' ); ?>"
 			/>
-			<div class="tribe-events-admin-kb-card__title">
+			<h4 class="tribe-events-admin-kb-card__title">
 				<?php esc_html_e( 'Creating Tickets & RSVPs', 'tribe-common' ); ?>
-			</div>
+			</h4>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
 					<a href="https://evnt.is/1apq" target="_blank" rel="noopener noreferrer">
@@ -150,9 +150,9 @@ $ticketing_products = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_pro
 				src="<?php echo esc_url( tribe_resource_url( 'images/help/common-issues.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events ticketing logo', 'tribe-common' ); ?>"
 			/>
-			<div class="tribe-events-admin-kb-card__title">
+			<h4 class="tribe-events-admin-kb-card__title">
 				<?php esc_html_e( 'Plugin Maintenance', 'tribe-common' ); ?>
-			</div>
+			</h4>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
 					<a href="https://evnt.is/1apu" target="_blank" rel="noopener noreferrer">

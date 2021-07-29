@@ -88,9 +88,9 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 				src="<?php echo esc_url( tribe_resource_url( 'images/help/getting-started.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events Calendar logo', 'tribe-common' ); ?>"
 			/>
-			<div class="tribe-events-admin-kb-card__title">
+			<h4 class="tribe-events-admin-kb-card__title">
 				<?php esc_html_e( 'Getting Started Guides', 'tribe-common' ); ?>
-			</div>
+			</h4>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
 					<a href="https://evnt.is/1ap9" target="_blank" rel="noopener noreferrer">
@@ -121,9 +121,9 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 				src="<?php echo esc_url( tribe_resource_url( 'images/help/customizing.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events Calendar logo', 'tribe-common' ); ?>"
 			/>
-			<div class="tribe-events-admin-kb-card__title">
+			<h4 class="tribe-events-admin-kb-card__title">
 				<?php esc_html_e( 'Customizing', 'tribe-common' ); ?>
-			</div>
+			</h4>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
 					<a href="https://evnt.is/1apf" target="_blank" rel="noopener noreferrer">
@@ -154,9 +154,9 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 				src="<?php echo esc_url( tribe_resource_url( 'images/help/common-issues.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events Calendar logo', 'tribe-common' ); ?>"
 			/>
-			<div class="tribe-events-admin-kb-card__title">
+			<h4 class="tribe-events-admin-kb-card__title">
 				<?php esc_html_e( 'Common Issues', 'tribe-common' ); ?>
-			</div>
+			</h4>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
 					<a href="https://evnt.is/1apj" target="_blank" rel="noopener noreferrer">
