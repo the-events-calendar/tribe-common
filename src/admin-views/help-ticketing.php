@@ -18,11 +18,8 @@ $ticketing_products = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_pro
 
 	<?php // list of products?>
 	<div class="tribe-events-admin-products tribe-events-admin-2col-grid">
-	<?php //requires valid links for all the products ?>
-		<?php $i = 0; ?>
-		<?php foreach ( $ticketing_products as $slug ) : ?>
-			<?php $i++; ?>
-
+	<?php //requires valid links for all the products
+		foreach ( $ticketing_products as $slug ) : ?>
 			<div class="tribe-events-admin-products-card">
 				<img
 					class="tribe-events-admin-products-card__icon"
