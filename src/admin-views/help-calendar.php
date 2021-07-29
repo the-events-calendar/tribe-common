@@ -204,7 +204,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 				</div>
 				<div class="tribe-events-admin-faq-card__content">					
 					<div class="tribe-events-admin-faq__question">
-						<a href="<?php echo esc_html( $faq['link'] ); ?>" target="_blank" rel="noopener noreferrer">
+						<a href="<?php echo esc_url( $faq['link'] ); ?>" target="_blank" rel="noopener noreferrer">
 							<?php echo esc_html( $faq['question'] ); ?>	
 						</a>
 					</div>
@@ -235,7 +235,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 		<?php foreach ( $extensions as $extension ) : ?>
 			<div class="tribe-events-admin-extensions-card">
 				<div class="tribe-events-admin-extensions-card__title">
-					<a href="<?php echo esc_html( $extension['link'] ); ?>" target="_blank" rel="noopener noreferrer">
+					<a href="<?php echo esc_url( $extension['link'] ); ?>" target="_blank" rel="noopener noreferrer">
 						<?php echo esc_html( $extension['title'] ); ?>
 					</a>
 				</div>
