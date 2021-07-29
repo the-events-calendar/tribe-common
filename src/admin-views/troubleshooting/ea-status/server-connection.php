@@ -8,14 +8,13 @@
 ?>
 <tr>
 	<th>
-		<?php esc_html_e('Import Services', 'tribe-common'); ?>
+		<?php esc_html_e( 'Import Services', 'tribe-common' ); ?>
 	</th>
 </tr>
 
 <?php
-	$icon  = 'success';
-	$notes = '&nbsp;';
-
+	$icon      = 'success';
+	$notes     = '&nbsp;';
 	$ea_server = tribe( 'events-aggregator.service' )->api()->domain;
 	$up        = tribe( 'events-aggregator.service' )->get( 'status/up' );
 
@@ -43,11 +42,11 @@
 
 <tr class="tribe-events-admin__ea-status-table-dark">
 	<td>
-		<?php esc_html_e('Server Connection', 'tribe-common'); ?>
+		<?php esc_html_e( 'Server Connection', 'tribe-common' ); ?>
 	</td>
 	<td>
 		<img
-			src="<?php echo esc_url(tribe_resource_url($status_icons[ $icon ], false, null, $main)); ?>"
+			src="<?php echo esc_url( tribe_resource_url( $status_icons[ $icon ], false, null, $main ) ); ?>"
 			alt=""
 		/>
 		<?php echo esc_html( $message ); ?>

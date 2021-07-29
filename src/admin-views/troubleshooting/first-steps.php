@@ -8,7 +8,7 @@
 ?>
 <div class="tribe-events-admin-section-header">
 	<h3>
-		<?php esc_html_e('First Steps', 'tribe-common'); ?>
+		<?php esc_html_e( 'First Steps', 'tribe-common' ); ?>
 	</h3>
 </div>
 
@@ -16,13 +16,13 @@
 	<div class="tribe-events-admin-step-card">
 		<div class="tribe-events-admin-step-card__icon">
 			<img
-				src="<?php echo esc_url(tribe_resource_url('images/help/1.png', false, null, $main)); ?>"
-				alt="<?php esc_attr_e('lightbulb icon', 'tribe-common'); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'images/help/1.png', false, null, $main ) ); ?>"
+				alt="<?php esc_attr_e( 'lightbulb icon', 'tribe-common' ); ?>"
 			/>
 		</div>
 		<div class="tribe-events-admin-step-card__content">
 			<div class="tribe-events-admin-step__title">
-				<?php esc_html_e('Test for conflicts', 'tribe-common'); ?>
+				<?php esc_html_e( 'Test for conflicts', 'tribe-common' ); ?>
 			</div>
 			<div class="tribe-events-admin-step__description">
 				<?php
@@ -36,13 +36,13 @@
 	<div class="tribe-events-admin-step-card">
 		<div class="tribe-events-admin-step-card__icon">
 			<img
-				src="<?php echo esc_url(tribe_resource_url('images/help/2.png', false, null, $main)); ?>"
-				alt="<?php esc_attr_e('lightbulb icon', 'tribe-common'); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'images/help/2.png', false, null, $main ) ); ?>"
+				alt="<?php esc_attr_e( 'lightbulb icon', 'tribe-common' ); ?>"
 			/>
 		</div>
 		<div class="tribe-events-admin-step-card__content">
 			<div class="tribe-events-admin-step__title">
-				<?php esc_html_e('Share your system info', 'tribe-common'); ?>
+				<?php esc_html_e( 'Share your system info', 'tribe-common' ); ?>
 			</div>
 			<div class="tribe-events-admin-step__description">
 				<?php 

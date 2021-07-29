@@ -26,11 +26,11 @@ if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'mee
 
 <tr>
 	<td>
-		<?php esc_html_e('Meetup', 'tribe-common'); ?>
+		<?php esc_html_e( 'Meetup', 'tribe-common' ); ?>
 	</td>
 	<td>
 		<img
-			src="<?php echo esc_url(tribe_resource_url($status_icons[ $icon ], false, null, $main)); ?>"
+			src="<?php echo esc_url( tribe_resource_url( $status_icons[ $icon ], false, null, $main ) ); ?>"
 			alt=""
 		/>
 		<?php echo esc_html( $message ); ?>

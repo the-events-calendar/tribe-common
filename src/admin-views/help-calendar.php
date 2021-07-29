@@ -121,7 +121,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 		<div class="tribe-events-admin-kb-card">
 			<img
 				class="tribe-events-admin-kb-card__image"
-				src="<?php echo esc_url(tribe_resource_url( 'images/help/customizing.png', false, null, $main)); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'images/help/customizing.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events Calendar logo', 'tribe-common' ); ?>"
 			/>
 			<div class="tribe-events-admin-kb-card__title">
@@ -154,7 +154,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 		<div class="tribe-events-admin-kb-card">
 			<img
 				class="tribe-events-admin-kb-card__image"
-				src="<?php echo esc_url(tribe_resource_url( 'images/help/common-issues.png', false, null, $main)); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'images/help/common-issues.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events Calendar logo', 'tribe-common' ); ?>"
 			/>
 			<div class="tribe-events-admin-kb-card__title">
@@ -197,11 +197,11 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 	</div>
 
 	<div class="tribe-events-admin-faq tribe-events-admin-4col-grid">
-		<?php foreach ( $faqs as $faq) : ?>
+		<?php foreach ( $faqs as $faq ) : ?>
 			<div class="tribe-events-admin-faq-card">
 				<div class="tribe-events-admin-faq-card__icon">
 					<img
-						src="<?php echo esc_url(tribe_resource_url( 'images/icons/faq.png', false, null, $main)); ?>"
+						src="<?php echo esc_url( tribe_resource_url( 'images/icons/faq.png', false, null, $main ) ); ?>"
 						alt="<?php esc_attr_e( 'lightbulb icon', 'tribe-common' ); ?>"
 					/>
 				</div>
@@ -235,7 +235,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 	</p>
 
 	<div class="tribe-events-admin-extensions tribe-events-admin-4col-grid">
-		<?php foreach ( $extensions as $extension) : ?>
+		<?php foreach ( $extensions as $extension ) : ?>
 			<div class="tribe-events-admin-extensions-card">
 				<div class="tribe-events-admin-extensions-card__title">
 					<a href="<?php echo esc_html( $extension['link'] ); ?>" target="_blank" rel="noreferrer">

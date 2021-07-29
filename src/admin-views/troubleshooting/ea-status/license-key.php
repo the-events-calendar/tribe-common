@@ -30,13 +30,13 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 ?>
 <tr>
 	<th>
-		<?php esc_html_e('License & Usage', 'tribe-common'); ?>
+		<?php esc_html_e( 'License & Usage', 'tribe-common' ); ?>
 	</th>
 </tr>
 
 <tr class="tribe-events-admin__ea-status-table-dark">
 	<td>
-		<?php esc_html_e('License Key', 'tribe-common'); ?>
+		<?php esc_html_e( 'License Key', 'tribe-common' ); ?>
 	</td>
 	<td>
 		<img

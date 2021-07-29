@@ -24,7 +24,7 @@ if ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) {
 	</td>
 	<td>
 		<img
-			src="<?php echo esc_url(tribe_resource_url($status_icons[ $icon ], false, null, $main)); ?>"
+			src="<?php echo esc_url( tribe_resource_url( $status_icons[ $icon ], false, null, $main ) ); ?>"
 			alt=""
 		/>
 		<?php echo esc_html( $message ); ?>

@@ -10,7 +10,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 <div id="tribe-community">
 	<img
 		class="tribe-events-admin-header__right-image"
-		src="<?php echo esc_url(tribe_resource_url( 'images/help/help-community-header.png', false, null, $main)); ?>"
+		src="<?php echo esc_url( tribe_resource_url( 'images/help/help-community-header.png', false, null, $main ) ); ?>"
 	/>
 	<p class="tribe-events-admin-products-description">
 		<?php esc_html_e( 'Get help for these products and learn more about products you don\'t have.', 'tribe-common' ); ?>
@@ -26,7 +26,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 			<div class="tribe-events-admin-products-card">
 				<img
 					class="tribe-events-admin-products-card__icon"
-					src="<?php echo esc_url(tribe_resource_url( $products[ $slug ]['logo'], false, null, $main)); ?>"
+					src="<?php echo esc_url( tribe_resource_url( $products[ $slug ]['logo'], false, null, $main ) ); ?>"
 					alt="<?php esc_attr_e( 'logo icon', 'tribe-common' ); ?>"
 				/>
 				<div class="tribe-events-admin-products-card__group">
@@ -81,7 +81,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 		<div class="tribe-events-admin-kb-card">
 			<img
 				class="tribe-events-admin-kb-card__image"
-				src="<?php echo esc_url(tribe_resource_url( 'images/help/help-start-guide-tickets.png', false, null, $main)); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'images/help/help-start-guide-tickets.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events community logo', 'tribe-common' ); ?>"
 			/>
 			<div class="tribe-events-admin-kb-card__title">
@@ -114,7 +114,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 		<div class="tribe-events-admin-kb-card">
 			<img
 				class="tribe-events-admin-kb-card__image"
-				src="<?php echo esc_url(tribe_resource_url( 'images/help/customizing.png', false, null, $main)); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'images/help/customizing.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with Event Tickets logo', 'tribe-common' ); ?>"
 			/>
 			<div class="tribe-events-admin-kb-card__title">
@@ -147,7 +147,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 		<div class="tribe-events-admin-kb-card">
 			<img
 				class="tribe-events-admin-kb-card__image"
-				src="<?php echo esc_url(tribe_resource_url( 'images/help/common-issues.png', false, null, $main)); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'images/help/common-issues.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'book with The Events community logo', 'tribe-common' ); ?>"
 			/>
 			<div class="tribe-events-admin-kb-card__title">
@@ -190,11 +190,11 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 	</div>
 
 	<div class="tribe-events-admin-faq tribe-events-admin-4col-grid">
-		<?php foreach ( $faqs as $faq) : ?>
+		<?php foreach ( $faqs as $faq ) : ?>
 			<div class="tribe-events-admin-faq-card">
 				<div class="tribe-events-admin-faq-card__icon">
 					<img
-						src="<?php echo esc_url(tribe_resource_url( 'images/icons/faq.png', false, null, $main)); ?>"
+						src="<?php echo esc_url( tribe_resource_url( 'images/icons/faq.png', false, null, $main ) ); ?>"
 						alt="<?php esc_attr_e( 'lightbulb icon', 'tribe-common' ); ?>"
 					/>
 				</div>
@@ -228,7 +228,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 	</p>
 
 	<div class="tribe-events-admin-extensions tribe-events-admin-4col-grid">
-		<?php foreach ( $extensions as $extension) : ?>
+		<?php foreach ( $extensions as $extension ) : ?>
 			<div class="tribe-events-admin-extensions-card">
 				<div class="tribe-events-admin-extensions-card__title">
 					<a href="<?php echo esc_html( $extension['link'] ); ?>" target="_blank" rel="noreferrer">

@@ -11,7 +11,7 @@ $issues_found = tribe( Troubleshooting::class )->get_issues_found();
 if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is there are any active issues before printing ?>
 	<div class="tribe-events-admin-section-header">
 		<h3>
-			<?php esc_html_e('We’ve detected the following issues', 'tribe-common'); ?>
+			<?php esc_html_e( 'We’ve detected the following issues', 'tribe-common' ); ?>
 		</h3>
 	</div>
 
@@ -26,8 +26,8 @@ if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is ther
 		<div class="tribe-events-admin__issues-found-card">
 			<div class="tribe-events-admin__issues-found-card-title">
 				<img
-					src="<?php echo esc_url(tribe_resource_url('images/help/warning-icon.svg', false, null, $main)); ?>"
-					alt="<?php esc_attr_e('warning-icon', 'tribe-common'); ?>"
+					src="<?php echo esc_url( tribe_resource_url( 'images/help/warning-icon.svg', false, null, $main ) ); ?>"
+					alt="<?php esc_attr_e( 'warning-icon', 'tribe-common' ); ?>"
 				/>
 				<h3>
 					<i></i>
@@ -42,7 +42,7 @@ if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is ther
 				</p>
 				<div class="tribe-events-admin__issues-found-card-description-actions">
 					<a href="<?php echo esc_html( $issue['more_info'] ); ?>" target="_blank" rel="noreferrer">
-						<?php esc_attr_e('Learn more', 'tribe-common'); ?>
+						<?php esc_attr_e( 'Learn more', 'tribe-common' ); ?>
 					</a>
 					<a href="<?php echo esc_html( $issue['fix'] ); ?>">
 						<?php echo esc_html( $issue['resolve_text'] ); ?>
