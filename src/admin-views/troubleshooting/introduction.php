@@ -19,6 +19,7 @@
 	</div>
 </div>
 
+<?php //this div is closed in the footer-logo file in this folder ?>
 <div class="tribe-events-admin-content-wrapper tribe-events-admin-container">
 	<img
 		class="tribe-events-admin-header__right-image"

@@ -20,7 +20,7 @@
 	// support cta
 	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/support-cta.php';
 	// footer
-	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/footer.php';
+	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/footer-logo.php';
 ?>
 
 <?php // this is inline jQuery / javascript for extra simplicity */ ?>
