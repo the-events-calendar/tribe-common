@@ -47,7 +47,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 					}
 					// checks if plugin is installed but not activated
 					else if ( ! $products[ $slug ]['is_installed'] && $plugin_exists ) { ?>
-						<a href="/wp-admin/plugins.php" class="tribe-events-admin-products-card__button">
+						<a href="<?php echo admin_url( 'plugins.php', 'admin' ); ?>" class="tribe-events-admin-products-card__button">
 							<?php esc_html_e( 'Activate', 'tribe-common' ); ?>
 						</a>
 						<?php
