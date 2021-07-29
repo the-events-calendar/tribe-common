@@ -15,7 +15,7 @@ if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is ther
 		</h3>
 	</div>
 
-	<?php // toggles to appear here?>
+	<?php // toggles to appear here ?>
 	<?php foreach ( $issues_found as $issue ) : ?>
 		<?php
 			// yoda conditioning

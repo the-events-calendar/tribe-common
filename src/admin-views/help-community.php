@@ -16,7 +16,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 		<?php esc_html_e( 'Get help for these products and learn more about products you don\'t have.', 'tribe-common' ); ?>
 	</p>
 
-	<?php // list of products?>
+	<?php // list of products ?>
 	<div class="tribe-events-admin-products tribe-events-admin-2col-grid">
 	<?php //requires valid links for all the products 
 		foreach ( $community_products as $slug ) : ?>
@@ -175,7 +175,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 		</div>
 	</div>
 
-	<?php // faq section?>
+	<?php // faq section ?>
 	<div class="tribe-events-admin-section-header">
 		<h3>
 			<?php esc_html_e( 'FAQs', 'tribe-common' ); ?>
@@ -209,7 +209,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 		<?php endforeach; ?>
 	</div>
 
-	<?php // extensions section?>
+	<?php // extensions section ?>
 	<div class="tribe-events-admin-section-header">
 		<h3>
 			<?php esc_html_e( 'Free extensions', 'tribe-common' ); ?>

@@ -23,7 +23,7 @@
 	include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/footer.php';
 ?>
 
-<?php // this is inline jQuery / javascript for extra simplicity */?>
+<?php // this is inline jQuery / javascript for extra simplicity */ ?>
 <script>
 	if (jQuery(".tribe-events-admin__issues-found-card .tribe-events-admin__issues-found-title").hasClass('active')) {
 		jQuery(".tribe-events-admin__issues-found-card .tribe-events-admin__issues-found-card-title.active").closest('.tribe-events-admin__issues-found-card').find('.tribe-events-admin__issues-found-description').show();

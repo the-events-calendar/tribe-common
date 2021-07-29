@@ -52,7 +52,7 @@ $products = tribe( 'plugins.api' )->get_products();
 		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/help-community.php';
 	?>
 
-	<?php // Shared footer area?>
+	<?php // shared footer area ?>
 	<div class="tribe-events-admin-cta">
 		<img
 			class="tribe-events-admin-cta__image"
@@ -80,7 +80,7 @@ $products = tribe( 'plugins.api' )->get_products();
 	/>
 </div>
 
-<?php // this is inline jQuery / javascript for extra simplicity */?>
+<?php // this is inline jQuery / javascript for extra simplicity */ ?>
 <script type="text/javascript">
 	jQuery( document ).ready( function($) {
 		var current_tab = "#tribe-calendar";
