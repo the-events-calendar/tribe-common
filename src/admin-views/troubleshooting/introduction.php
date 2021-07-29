@@ -22,7 +22,7 @@
 </div>
 
 <div class="tribe-events-admin-content-wrapper tribe-events-admin-container">
-    <img
-        class="tribe-events-admin-header__right-image"
-        src="<?php echo esc_url(tribe_resource_url('images/help/troubleshooting-hero.png', false, null, $main)); ?>"
-    />
+	<img
+		class="tribe-events-admin-header__right-image"
+		src="<?php echo esc_url(tribe_resource_url('images/help/troubleshooting-hero.png', false, null, $main)); ?>"
+	/>
