@@ -76,7 +76,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 			<?php esc_html_e( 'Start Here', 'tribe-common' ); ?>
 		</h3>
 		
-		<a href="https://evnt.is/1aq9" target="_blank" rel="noopener noreferrer"> <?php //requires valid link ?>
+		<a href="https://evnt.is/1aq9" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'Visit Knowledgebase', 'tribe-common' ); ?>
 		</a>
 	</div>

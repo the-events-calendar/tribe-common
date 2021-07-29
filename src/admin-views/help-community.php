@@ -70,7 +70,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 		</h3>
 		
 		<a href="https://evnt.is/1aq9" target="_blank" rel="noopener noreferrer">
-			<?php esc_html_e( 'Visit Knowledgebase', 'tribe-common' ); ?><?php //requires valid link ?>
+			<?php esc_html_e( 'Visit Knowledgebase', 'tribe-common' ); ?>
 		</a>
 	</div>
 
