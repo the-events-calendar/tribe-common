@@ -41,7 +41,7 @@ if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : //checks is ther
 					<?php echo esc_html( $issue['description'] ); ?>
 				</p>
 				<div class="tribe-events-admin__issues-found-card-description-actions">
-					<a href="<?php echo esc_html( $issue['more_info'] ); ?>" target="_blank" rel="noreferrer">
+					<a href="<?php echo esc_html( $issue['more_info'] ); ?>" target="_blank" rel="noopener noreferrer">
 						<?php esc_attr_e( 'Learn more', 'tribe-common' ); ?>
 					</a>
 					<a href="<?php echo esc_html( $issue['fix'] ); ?>">

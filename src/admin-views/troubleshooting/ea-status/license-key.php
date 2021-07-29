@@ -19,7 +19,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	$icon = 'error';
 	if ( 'core:aggregator:invalid-service-key' == $service_status ) {
 		$message = __( 'You do not have a license', 'tribe-common' );
-		$notes   = '<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importsettings&utm_medium=plugin-tec&utm_campaign=in-app" target="_blank" rel="noreferrer">';
+		$notes   = '<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importsettings&utm_medium=plugin-tec&utm_campaign=in-app" target="_blank" rel="noopener noreferrer">';
 		$notes  .= esc_html__( 'Buy Event Aggregator to access more event sources and automatic imports!', 'tribe-common' );
 		$notes  .= '</a>';
 	} else {

@@ -64,7 +64,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 					}
 					// adds a learn more link if plugin is neither activated nor installed
 					else { ?>
-						<a href="<?php echo $products[ $slug ]['link'] ?>" target="_blank" rel="noreferrer" class="tribe-events-admin-products-card__button">
+						<a href="<?php echo $products[ $slug ]['link'] ?>" target="_blank" rel="noopener noreferrer" class="tribe-events-admin-products-card__button">
 							<?php esc_html_e( 'Learn More', 'tribe-common' ); ?>
 						</a>
 						<?php
@@ -79,7 +79,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 			<?php esc_html_e( 'Start Here', 'tribe-common' ); ?>
 		</h3>
 		
-		<a href="https://evnt.is/1aq9" target="_blank" rel="noreferrer"> <?php //requires valid link ?>
+		<a href="https://evnt.is/1aq9" target="_blank" rel="noopener noreferrer"> <?php //requires valid link ?>
 			<?php esc_html_e( 'Visit Knowledgebase', 'tribe-common' ); ?>
 		</a>
 	</div>
@@ -96,22 +96,22 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/1ap9" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1ap9" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'The Events Calendar', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1apc" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1apc" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Event Aggregator', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1apd" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1apd" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Filter Bar', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1ape" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1ape" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Virtual Events', 'tribe-common' ); ?>
 					</a>
 				</li>
@@ -129,22 +129,22 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/1apf" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1apf" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Getting started with customizations', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1apg" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1apg" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Highlighting events', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aph" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1aph" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'How to Customize Template Files', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1api" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1api" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Customizing CSS (Video)', 'tribe-common' ); ?>
 					</a>
 				</li>
@@ -162,22 +162,22 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/1apj" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1apj" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Known Issues', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1apk" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1apk" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Release notes', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1apl" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1apl" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Integrations', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1apm" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1apm" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Shortcodes', 'tribe-common' ); ?>
 					</a>
 				</li>
@@ -191,7 +191,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 			<?php esc_html_e( 'FAQs', 'tribe-common' ); ?>
 		</h3>
 		
-		<a href="https://theeventscalendar.com/products/wordpress-events-calendar/#faqs" target="_blank" rel="noreferrer">
+		<a href="https://theeventscalendar.com/products/wordpress-events-calendar/#faqs" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'All FAQs', 'tribe-common' ); ?>
 		</a>
 	</div>
@@ -207,7 +207,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 				</div>
 				<div class="tribe-events-admin-faq-card__content">					
 					<div class="tribe-events-admin-faq__question">
-						<a href="<?php echo esc_html( $faq['link'] ); ?>" target="_blank" rel="noreferrer">
+						<a href="<?php echo esc_html( $faq['link'] ); ?>" target="_blank" rel="noopener noreferrer">
 							<?php echo esc_html( $faq['question'] ); ?>	
 						</a>
 					</div>
@@ -225,7 +225,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 			<?php esc_html_e( 'Free extensions', 'tribe-common' ); ?>
 		</h3>
 		
-		<a href="https://evnt.is/1aqa" target="_blank" rel="noreferrer">
+		<a href="https://evnt.is/1aqa" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'All Extensions', 'tribe-common' ); ?>
 		</a>
 	</div>
@@ -238,7 +238,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 		<?php foreach ( $extensions as $extension ) : ?>
 			<div class="tribe-events-admin-extensions-card">
 				<div class="tribe-events-admin-extensions-card__title">
-					<a href="<?php echo esc_html( $extension['link'] ); ?>" target="_blank" rel="noreferrer">
+					<a href="<?php echo esc_html( $extension['link'] ); ?>" target="_blank" rel="noopener noreferrer">
 						<?php echo esc_html( $extension['title'] ); ?>
 					</a>
 				</div>

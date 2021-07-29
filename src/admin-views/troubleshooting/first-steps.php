@@ -26,7 +26,7 @@
 			</div>
 			<div class="tribe-events-admin-step__description">
 				<?php
-					$link = '<br /> <a href="https://evnt.is/1apu" target="_blank" rel="noreferrer">' . esc_html__( 'View article', 'tribe-common' ) . '</a>';
+					$link = '<br /> <a href="https://evnt.is/1apu" target="_blank" rel="noopener noreferrer">' . esc_html__( 'View article', 'tribe-common' ) . '</a>';
 					echo sprintf( __( 'Most issues are caused by conflicts with the theme or other plugins. Follow these steps as a first point of action. %s', 'tribe-common' ), $link );
 				?>
 			</div>
@@ -46,7 +46,7 @@
 			</div>
 			<div class="tribe-events-admin-step__description">
 				<?php 
-					$link = '<br /> <a href="https://evnt.is/1aqd" target="_blank" rel="noreferrer">' . esc_html__( 'View article', 'tribe-common' ) . '</a>';
+					$link = '<br /> <a href="https://evnt.is/1aqd" target="_blank" rel="noopener noreferrer">' . esc_html__( 'View article', 'tribe-common' ) . '</a>';
 					echo sprintf( __( 'Providing the details of your calendar plugin and settings (located below) helps our support team troubleshoot an issue faster. %s', 'tribe-common' ), $link );
 				?>
 			</div>

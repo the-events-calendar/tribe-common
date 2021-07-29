@@ -57,7 +57,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 					}
 					// adds a learn more link if plugin is neither activated nor installed
 					else { ?>
-						<a href="<?php echo $products[ $slug ]['link'] ?>" target="_blank" rel="noreferrer" class="tribe-events-admin-products-card__button">
+						<a href="<?php echo $products[ $slug ]['link'] ?>" target="_blank" rel="noopener noreferrer" class="tribe-events-admin-products-card__button">
 							<?php esc_html_e( 'Learn More', 'tribe-common' ); ?>
 						</a>
 						<?php
@@ -72,7 +72,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 			<?php esc_html_e( 'Start Here', 'tribe-common' ); ?>
 		</h3>
 		
-		<a href="https://evnt.is/1aq9" target="_blank" rel="noreferrer">
+		<a href="https://evnt.is/1aq9" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'Visit Knowledgebase', 'tribe-common' ); ?><?php //requires valid link ?>
 		</a>
 	</div>
@@ -89,22 +89,22 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/1apy" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1apy" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Community Events', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1apz" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1apz" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Community Tickets', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1ary" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1ary" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Community Events Shortcodes', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1arz" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1arz" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Locating Links to Your Community Events Pages', 'tribe-common' ); ?>
 					</a>
 				</li>
@@ -122,22 +122,22 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/1aq1" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1aq1" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Managing Submissions Overview', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq2" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1aq2" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Setting Notifications', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1ar-" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1ar-" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Auto-Publish Events Submitted By Logged-In Users', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq4" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1aq4" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Preventing Spam Submissions', 'tribe-common' ); ?>
 					</a>
 				</li>
@@ -155,22 +155,22 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 			</div>
 			<ul class="tribe-events-admin-kb-card__links">
 				<li>
-					<a href="https://evnt.is/1aq5" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1aq5" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Testing for Conflicts', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq6" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1aq6" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Release notes', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq7" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1aq7" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Integrations', 'tribe-common' ); ?>
 					</a>
 				</li>
 				<li>
-					<a href="https://evnt.is/1aq8" target="_blank" rel="noreferrer">
+					<a href="https://evnt.is/1aq8" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Automatic Updates', 'tribe-common' ); ?>
 					</a>
 				</li>
@@ -184,7 +184,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 			<?php esc_html_e( 'FAQs', 'tribe-common' ); ?>
 		</h3>
 		
-		<a href="https://theeventscalendar.com/products/community-events/#faq" target="_blank" rel="noreferrer">
+		<a href="https://theeventscalendar.com/products/community-events/#faq" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'All FAQs', 'tribe-common' ); ?>
 		</a>
 	</div>
@@ -200,7 +200,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 				</div>
 				<div class="tribe-events-admin-faq-card__content">
 					<div class="tribe-events-admin-faq__question">
-						<a href="<?php echo esc_html( $faq['link'] ); ?>" target="_blank" rel="noreferrer">
+						<a href="<?php echo esc_html( $faq['link'] ); ?>" target="_blank" rel="noopener noreferrer">
 							<?php echo esc_html( $faq['question'] ); ?>	
 						</a>
 					</div>
@@ -218,7 +218,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 			<?php esc_html_e( 'Free extensions', 'tribe-common' ); ?>
 		</h3>
 		
-		<a href="https://evnt.is/1aqa" target="_blank" rel="noreferrer">
+		<a href="https://evnt.is/1aqa" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'All Extensions', 'tribe-common' ); ?>
 		</a>
 	</div>
@@ -231,7 +231,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 		<?php foreach ( $extensions as $extension ) : ?>
 			<div class="tribe-events-admin-extensions-card">
 				<div class="tribe-events-admin-extensions-card__title">
-					<a href="<?php echo esc_html( $extension['link'] ); ?>" target="_blank" rel="noreferrer">
+					<a href="<?php echo esc_html( $extension['link'] ); ?>" target="_blank" rel="noopener noreferrer">
 						<?php echo esc_html( $extension['title'] ); ?>
 					</a>
 				</div>

@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="tribe-events-admin-cta__content-description">
-			<a href="https://theeventscalendar.com/support/#contact" target="_blank" rel="noreferrer">
+			<a href="https://theeventscalendar.com/support/#contact" target="_blank" rel="noopener noreferrer">
 				<?php esc_html_e( 'Open a ticket', 'tribe-common' ); ?>
 			</a>
 		</div>

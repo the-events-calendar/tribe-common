@@ -30,7 +30,7 @@ $common_issues = tribe( Troubleshooting::class )->get_common_issues();
 				</div>
 				<div class="tribe-events-admin-faq__answer">
 					<?php
-						$label = '<a href=" ' . $commonIssue['link'] . ' " target="_blank" rel="noreferrer">' . esc_html__( $commonIssue['link_label'], 'tribe-common' ) . '</a>';
+						$label = '<a href=" ' . $commonIssue['link'] . ' " target="_blank" rel="noopener noreferrer">' . esc_html__( $commonIssue['link_label'], 'tribe-common' ) . '</a>';
 						echo sprintf( __( $commonIssue['solution'], 'tribe-common' ), $label );
 					?>
 				</div>
