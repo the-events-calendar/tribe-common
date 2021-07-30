@@ -11,10 +11,14 @@ $help = tribe( Tribe__Admin__Help_Page::class );
 // get the products list
 $products = tribe( 'plugins.api' )->get_products();
 
+use \Tribe\Admin\Troubleshooting;
+
 ?>
 
 <div class="tribe-events-admin-header tribe-events-admin-container">
-	<?php do_action( 'tec_admin_notice_area', 'help' ); ?>
+	<?php 
+		tribe( Troubleshooting::class )->admin_notice( 'help' );
+	?>
 	<div class="tribe-events-admin-header__content-wrapper">
 
 		<img

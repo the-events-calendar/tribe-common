@@ -5,9 +5,13 @@
  * @since TBD
  * 
  */
+
+use \Tribe\Admin\Troubleshooting;
 ?>
 <div class="tribe-events-admin-header tribe-events-admin-container">
-	<?php do_action( 'tec_admin_notice_area', 'troubleshooting' ); ?>
+	<?php 
+		tribe( Troubleshooting::class )->admin_notice( 'troubleshooting' );
+	?>
 	<div class="tribe-events-admin-header__content-wrapper">
 		<img
 			class="tribe-events-admin-header__logo-word-mark"

@@ -347,4 +347,17 @@ class Troubleshooting {
 
 		return $commonIssues;
 	}
+
+	/**
+	 * Fired to display notices in the admin pages where the method is called. 
+	 *
+	 * @since TBD
+	 * 
+	 * @param string $page the page which the action is being applied.
+	 *
+	 * @return void
+	 */
+	public function admin_notice( $page ) {
+		do_action( 'tec_admin_notice_area', $page );
+	}
 }
