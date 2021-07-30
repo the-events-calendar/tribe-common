@@ -37,7 +37,6 @@ class Troubleshooting {
 	 *
 	 * @since TBD
 	 *
-	 * @return void
 	 */
 	private $admin_page = null;
 
@@ -46,7 +45,6 @@ class Troubleshooting {
 	 *
 	 * @since TBD
 	 * 
-	 * @return void
 	 */
 	public function hook() {
 		add_action( 'admin_menu', [ $this, 'add_menu_page' ], 90 );
@@ -58,7 +56,6 @@ class Troubleshooting {
 	 * 
 	 * @since TBD
 	 *
-	 * @return void
 	 */
 	public function add_menu_page() {
 		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
@@ -111,7 +108,6 @@ class Troubleshooting {
 	 * 
 	 * @since TBD
 	 *
-	 * @return void
 	 */
 	public function add_toolbar_item() {
 		$capability = $this->get_required_capability();
@@ -161,7 +157,6 @@ class Troubleshooting {
 	 *
 	 * @since TBD
 	 * 
-	 * @return void
 	 */
 	public function do_menu_page() {
 		$main = Tribe__Main::instance();
@@ -355,7 +350,6 @@ class Troubleshooting {
 	 * 
 	 * @param string $page the page which the action is being applied.
 	 *
-	 * @return void
 	 */
 	public function admin_notice( $page ) {
 		do_action( 'tec_admin_notice_area', $page );
