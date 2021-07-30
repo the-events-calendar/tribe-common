@@ -46,14 +46,14 @@ $ticketing_products = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_pro
 						<?php
 					}
 					// displays different message for Promoter
-					else if ( ! $products[ $slug ]['is_installed'] && 'Promoter' === $products[ $slug ]['title'] ) { ?>
+					elseif ( ! $products[ $slug ]['is_installed'] && 'Promoter' === $products[ $slug ]['title'] ) { ?>
 						<a href="<?php echo admin_url( 'edit.php?page=tribe-common&tab=licenses&post_type=tribe_events' ); ?>" class="tribe-events-admin-products-card__button">
 							<?php esc_html_e( 'Add license key', 'tribe-common' ); ?>
 						</a>
 						<?php
 					}
 					// checks if plugin is installed but not activated
-					else if ( ! $products[ $slug ]['is_installed'] && $plugin_exists ) { ?>
+					elseif ( ! $products[ $slug ]['is_installed'] && $plugin_exists ) { ?>
 						<a href="<?php echo admin_url( 'plugins.php' ); ?>" class="tribe-events-admin-products-card__button">
 							<?php esc_html_e( 'Activate', 'tribe-common' ); ?>
 						</a>
