@@ -24,7 +24,7 @@ use \Tribe__Events__Google__Maps_API_Key;
  */
 class Troubleshooting {
 	/**
-	 * Slug of the WP admin menu item.
+	 * Defines the slug of the troubleshooting page in the WP admin menu item.
 	 *
 	 * @since TBD
 	 *
@@ -37,6 +37,7 @@ class Troubleshooting {
 	 *
 	 * @since TBD
 	 *
+	 * @return void
 	 */
 	private $admin_page = null;
 
@@ -44,6 +45,8 @@ class Troubleshooting {
 	 * Class constructor.
 	 *
 	 * @since TBD
+	 * 
+	 * @return void
 	 */
 	public function hook() {
 		add_action( 'admin_menu', [ $this, 'add_menu_page' ], 90 );
@@ -51,7 +54,9 @@ class Troubleshooting {
 	}
 
 	/**
-	 * Creates the troubleshooting page.
+	 * This method created the troubleshooting page and adds it to TEC menu.
+	 * 
+	 * @since TBD
 	 *
 	 * @return void
 	 */
@@ -103,6 +108,8 @@ class Troubleshooting {
 
 	/**
 	 * Adds the troubleshooting menu to the the WP admin bar under events.
+	 * 
+	 * @since TBD
 	 *
 	 * @return void
 	 */
@@ -130,7 +137,7 @@ class Troubleshooting {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool returns true if the current page is the troubleshooting page.
+	 * @return boolean returns true if the current page is the troubleshooting page.
 	 */
 	public function is_current_page() {
 		if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
@@ -153,7 +160,8 @@ class Troubleshooting {
 	 * Renders the Troubleshooting page.
 	 *
 	 * @since TBD
-	 *
+	 * 
+	 * @return void
 	 */
 	public function do_menu_page() {
 		$main = Tribe__Main::instance();
@@ -161,7 +169,7 @@ class Troubleshooting {
 	}
 
 	/**
-	 * Checks if there are any active issues.
+	 * This method checks if there are any active issues that need to be flagged.
 	 *
 	 * @since TBD
 	 *
@@ -240,6 +248,7 @@ class Troubleshooting {
 	 *
 	 * @param string $slug the slug of active issue.
 	 * 
+	 * @return boolean returns a boolean value for each individual issue depending on whether it is active or not.
 	 */
 	public function is_active_issue( $slug ) {
 		if ( 'timezone' === $slug ) {
