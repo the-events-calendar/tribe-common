@@ -1,6 +1,7 @@
 == Changelog ==
 
 * Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
+* Fix - Fix issue of month names not being translatable. This was caused by a missing moment js localization dependancy. [ECP-739] 
 
 = [4.14.1] 2021-07-21 =
 
