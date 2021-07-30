@@ -83,11 +83,14 @@ $products = tribe( 'plugins.api' )->get_products();
 <script>
 	jQuery( document ).ready( function($) {
 		var current_tab = '#tribe-calendar';
+
 		$( 'body' ).on( 'click', '.tribe-events-admin-tab-nav li', function() {
-			var tab = '#' + $( this ).data( 'tab' );
+			var x = $( this );
+			var tab = '#' + x.data( 'tab' );
+
 			$( current_tab ).hide();
 			$( '.tribe-events-admin-tab-nav li' ).removeClass( 'selected' );
-			$( this ).addClass( 'selected' );
+			x.addClass( 'selected' );
 
 			$( tab ).show();
 			current_tab = tab;
