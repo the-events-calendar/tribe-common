@@ -1760,7 +1760,8 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 
 /* = TEC Welcome & new BEM tribe admin styles
 ==============================================*/
-body.tribe-welcome {
+body.tribe-welcome,
+body.tribe_events_page_tribe-help {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: white;
@@ -2428,6 +2429,1775 @@ input[type="checkbox"].tribe-common-switch__input {
 		&:after {
 			background: #2e709d;
 			left: 50%;
+		}
+	}
+}
+
+/* = TEC Welcome & new BEM tribe admin styles
+==============================================*/
+body.tribe-welcome,
+body.tribe_events_page_tribe-help {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: white;
+
+	/* hide WordPress update notices on this page */
+	.update-nag {
+		display: none;
+	}
+
+	#wpcontent {
+		padding: 0;
+	}
+
+	/* this is a temporary hack until the Update page and Event Tickets Welcome are re-factored */
+	.tribe_settings {
+		margin: 0;
+
+		& > h1 {
+			display: none;
+		}
+	}
+
+	#wpfooter {
+		display: none;
+	}
+
+	#wpbody-content {
+		padding-bottom: 25px;
+	}
+
+	/* hide our dependency errors so we don't make a bad first impression */
+	.tribe-dependency-error {
+		display: none;
+	}
+}
+
+.tribe-events-admin-header__logo-word-mark {
+	display: inline-block;
+	width: 312px;
+	height: auto;
+	margin: 0 0 26px 0;
+	vertical-align: middle;
+
+	@media screen and (max-width: 768px) {
+		width: 285px;
+	}
+
+	@media screen and (max-width: 480px) {
+		width: 260px;
+	}
+}
+
+.tribe-events-admin-content-wrapper {
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	padding: 0 0 30px;
+}
+
+.tribe-events-admin-header {
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	padding: 45px 0 0;
+}
+
+.tribe-events-admin-header__right-image {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: -1;
+	width: auto;
+	height: 280px;
+
+	@media screen and (max-width: 768px) {
+		height: 160px;
+	}
+
+	@media screen and (max-width: 480px) {
+		height: 120px;
+	}
+}
+
+.tribe-events-admin-header__title {
+	font-size: 48px;
+	line-height: 48px;
+	margin: 0 0 18px 0;
+
+	@media screen and (max-width: 480px) {
+		font-size: 35px;
+	}
+}
+
+.tribe-events-admin-header__description {
+	font-size: 18px;
+	line-height: 28px;
+	margin-bottom: 44px;
+	max-width: 60%;
+
+	@media screen and (max-width: 768px) {
+		max-width: 100%;
+	}
+
+	@media screen and (max-width: 480px) {
+		max-width: 100%;
+	}
+}
+
+.tribe-events-admin-tab-nav {
+	display: flex;
+	margin: 0;
+
+	@media screen and (max-width: 480px) {
+		border: 1px solid #e1e1e4;
+		border-radius: 20px;
+		padding: 18px 22px;
+		flex-direction: column;
+	}
+}
+
+.tribe-events-admin-tab-nav li {
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	margin-right: 30px;
+	margin-bottom: 0;
+
+	@media screen and (max-width: 768px) {
+		margin-right: 20px;
+	}
+
+	@media screen and (max-width: 480px) {
+		margin-right: 0;
+		margin-bottom: 18px;
+	}
+}
+
+.tribe-events-admin-tab-nav li:hover {
+	color: #334aff;
+}
+
+.tribe-events-admin-tab-nav .selected {
+	color: #334aff;
+	border-bottom: 3px solid #334aff;
+	padding-bottom: 17px;
+
+	@media screen and (max-width: 768px) {
+		border-bottom: 2px solid #334aff;
+		padding-bottom: 10px;
+	}
+
+	@media screen and (max-width: 480px) {
+		border-bottom: 2px solid #334aff;
+		padding-bottom: 10px;
+		width: fit-content;
+	}
+}
+
+.tribe-events-admin-tab-nav li:after {
+	background: #334aff;
+	border-radius: 100px;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 3px;
+	left: 0;
+	position: absolute;
+	right: 0;
+}
+
+.tribe-events-admin__line {
+	border-top: 1px solid #e1e1e4;
+
+	@media screen and (max-width: 480px) {
+		border: none;
+	}
+}
+
+.tribe-events-admin-products-description {
+	font-size: 14px;
+	line-height: 2;
+	color: #0f1031;
+
+	/* hide on mobile */
+	@media screen and (max-width: 480px) {
+		display: none;
+	}
+}
+
+.tribe-events-admin-products-card {
+	display: flex;
+	align-items: center;
+	padding: 10px 15px;
+	border: 1px solid #e1e1e4;
+	border-radius: 20px;
+
+	/* hide on mobile */
+	@media screen and (max-width: 480px) {
+		display: none;
+	}
+}
+
+.tribe-events-admin-products-card__icon {
+	height: 40px;
+	width: 40px;
+	object-fit: contain;
+}
+
+.tribe-events-admin-products-card__group {
+	max-width: 55%;
+	margin: 0 20px;
+
+	@media screen and (min-width: 1200px) {
+		max-width: 47%;
+	}
+}
+
+.tribe-events-admin-products-card__group-title {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 1;
+	color: #0f1031;
+	margin: 0;
+}
+
+.tribe-events-admin-products-card__group-description {
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.tribe-events-admin-products-card__button {
+	margin-left: auto;
+	background-color: white;
+	border: none;
+	color: #0f1031;
+	font-size: 12px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	line-height: 16px;
+	text-transform: uppercase;
+	padding: 10px 15px;
+	border: 1px solid #e1e1e4;
+	border-radius: 20px;
+	text-decoration: none;
+}
+
+.tribe-events-admin-products-card__button:hover {
+	color: #fff;
+	background-color: #334aff;
+}
+
+.tribe-events-admin-products-card__button:active,
+.tribe-events-admin-products-card__button:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+.tribe-events-admin-products-card__button--active,
+.tribe-events-admin-products-card__button--active:hover,
+.tribe-events-admin-products-card__button--active:active,
+.tribe-events-admin-products-card__button--active:focus {
+	background: rgba(61, 84, 255, 0.16);
+	color: #334aff;
+	text-transform: uppercase;
+	cursor: not-allowed;
+}
+
+.tribe-events-admin-card--1up {
+	width: 100%;
+
+	/* treat the one-up card like a three-up card at the middle break */
+	@media screen and (min-width: 710px) {
+		display: inline-block;
+		width: calc(50% - 18px);
+		margin-left: 32px;
+
+		.tribe-events-admin-card__description {
+			height: 71px;
+		}
+
+		.tribe-events-admin-card__image {
+			margin-bottom: 28px;
+		}
+	}
+
+	@media screen and (min-width: 1217px) {
+		margin: 0 0 36px 0;
+		padding: 33px 44px 30px 44px;
+		text-align: left;
+		width: 1012px;
+
+		.tribe-events-admin-card__description {
+			height: auto;
+		}
+
+		.tribe-events-admin-card__image {
+			float: left;
+			margin: 0 48px 10px 0;
+		}
+	}
+}
+
+.tribe-events-admin-card--no-pad {
+	padding: 0;
+
+	@media screen and (min-width: 710px) {
+		height: 154px;
+		padding: 0;
+	}
+
+	@media screen and (min-width: 1217px) {
+		padding: 0;
+	}
+
+	.tribe-events-admin-card__image {
+		display: block;
+		height: 152px;
+
+		margin: 0;
+		padding: 0;
+
+		@media screen and (min-width: 1217px) {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.tribe-events-admin-card__title {
+		font-size: 28px;
+		line-height: 34px;
+		text-align: left;
+
+		@media screen and (min-width: 710px) {
+			margin-left: 50%;
+			padding: 42px 0 10px 0;
+		}
+
+		@media screen and (min-width: 1217px) {
+			margin-left: 50%;
+			padding: 42px 0 10px 0;
+		}
+	}
+
+	.tribe-events-admin-card__description {
+		margin: 0;
+		padding: 0;
+		text-align: left;
+
+		@media screen and (min-width: 710px) {
+			margin-left: 50%;
+		}
+
+		@media screen and (min-width: 1217px) {
+			margin-left: 50%;
+		}
+	}
+
+	.tribe-events-admin-card__link {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+.tribe-events-admin-card--faq {
+	height: 147px;
+	width: 230px;
+	display: inline-block;
+	margin: 0 0 0 30px;
+	padding: 24px 16px 22px 20px;
+	font-size: 0;
+
+	/* fix an inline-block spacing bug */
+	&:first-child {
+		margin-left: 0;
+	}
+
+	img {
+		float: left;
+		height: 22px;
+		width: 16px;
+	}
+
+	.tribe-events-admin-faq__question {
+		margin: 0 0 12px 26px;
+		text-align: left;
+		font-size: 16px;
+		line-height: 19px;
+		color: #334aff;
+	}
+
+	.tribe-events-admin-faq__answer {
+		text-align: left;
+		margin-left: 26px;
+		font-size: 13px;
+		line-height: 16px;
+	}
+}
+
+.tribe-events-admin-video {
+	-webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+	-webkit-transform: rotate(0.000001deg);
+	-webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+	height: 200px;
+	/* this is overridden by JS, but is a starting point for less flicker */
+	margin-bottom: 72px;
+	overflow: hidden;
+
+	iframe {
+		width: 100%;
+	}
+}
+
+.tribe-events-admin-card--promo-blue {
+	background-color: #3d54ff;
+	background-image: url("../images/welcome/promo.jpg");
+
+	@media screen and (min-width: 710px) {
+		display: block;
+		margin-left: 0;
+		min-height: 170px;
+		width: 100%;
+	}
+
+	@media screen and (min-width: 1217px) {
+		min-height: 150px;
+	}
+
+	.tribe-events-admin-card__description {
+		color: white;
+		font-size: 16px;
+		text-align: left;
+		margin-bottom: 16px;
+
+		@media screen and (min-width: 710px) {
+			float: left;
+			max-width: 300px;
+		}
+
+		@media screen and (min-width: 1217px) {
+			max-width: 450px;
+		}
+	}
+
+	.tribe-events-admin-card__title {
+		text-align: left;
+		color: white;
+	}
+}
+
+.tribe-events-admin-graphic {
+	position: absolute;
+	top: 106px;
+	right: 0;
+	z-index: -1;
+
+	@media screen and (min-width: 710px) {
+		top: 0;
+		max-width: 250px;
+	}
+
+	@media screen and (min-width: 1217px) {
+		max-width: none;
+	}
+}
+
+.tribe-events-admin-graphic--desktop-only {
+	display: none;
+
+	@media screen and (min-width: 710px) {
+		display: block;
+	}
+}
+
+.tribe-events-admin-graphic--mobile-only {
+	display: block;
+
+	@media screen and (min-width: 710px) {
+		display: none;
+	}
+}
+
+.tribe-events-admin-card__form {
+	position: relative;
+
+	@media screen and (min-width: 710px) {
+		float: right;
+		width: 300px;
+	}
+
+	@media screen and (min-width: 1217px) {
+		width: 365px;
+	}
+}
+
+/* including the specificity on input type to override base WP admin styles */
+input[type="email"].tribe-events-admin-card__input {
+	background: #ffffff;
+	border: 1px solid #e1e1e4;
+	box-sizing: border-box;
+	border-radius: 16px;
+	font-size: 14px;
+	height: 54px;
+
+	@media screen and (min-width: 710px) {
+		width: 300px;
+	}
+
+	@media screen and (min-width: 1217px) {
+		width: 365px;
+	}
+
+	&::placeholder {
+		color: rgba(15, 16, 49, 0.72);
+		letter-spacing: 0.5px;
+		padding-left: 10px;
+	}
+}
+
+/* container */
+
+.tribe-events-admin-container,
+.tribe-events-admin-content-wrapper.tribe-events-admin-container {
+	margin: 0 auto;
+	max-width: 1024px;
+	width: 90%;
+
+	@media screen and (max-width: 480px) {
+		max-width: 90%;
+	}
+}
+
+/* columns */
+
+.tribe-events-admin-2col-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-rows: 1fr;
+	gap: 15px 30px;
+	grid-template-areas: ". .";
+
+	@media screen and (max-width: 768px) {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		grid-template-areas: ".";
+	}
+
+	@media screen and (max-width: 480px) {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		grid-template-areas: ".";
+	}
+}
+
+.tribe-events-admin-3col-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-template-rows: 1fr;
+	gap: 30px;
+	grid-template-areas: ". . .";
+
+	@media screen and (max-width: 768px) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-areas: ". .";
+	}
+
+	@media screen and (max-width: 480px) {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		grid-template-areas: ".";
+	}
+}
+
+.tribe-events-admin-4col-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-rows: 1fr;
+	gap: 30px;
+	grid-template-areas: ". . . .";
+
+	@media screen and (min-width: 500px) and (max-width: 1080px) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-areas: ". .";
+	}
+
+	@media screen and (max-width: 480px) {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		grid-template-areas: ".";
+	}
+}
+
+.tribe-events-admin-products {
+	margin: 10px 0 0;
+}
+
+.tribe-events-admin-quick-nav {
+	background: #ffffff;
+	border-radius: 16px;
+	border: 1px solid #e1e1e4;
+	box-sizing: border-box;
+	display: block;
+	margin: 40px 0 78px 0;
+	padding: 18px 23px 2px 23px;
+
+	@media screen and (min-width: 1217px) {
+		display: inline-block;
+		border-radius: 100px;
+		margin: 24px 0 94px 0;
+		max-width: 1010px;
+		padding: 0 36px 0 0;
+		height: 54px;
+	}
+}
+
+.tribe-events-admin-quick-nav__link {
+	color: #3d54ff;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 18px;
+	text-align: center;
+	text-decoration: none;
+
+	&:hover {
+		color: #161b7d;
+	}
+}
+
+.tribe-events-admin-quick-nav__link-item {
+	display: block;
+	padding-bottom: 19px;
+
+	@media screen and (min-width: 1217px) {
+		display: inline-block;
+		padding: 18px 10px 0 10px;
+	}
+}
+
+.tribe-events-admin-quick-nav__links {
+	display: inline;
+}
+
+.tribe-events-admin-quick-nav__title {
+	color: rgba(15, 16, 49, 0.72);
+	display: inline-block;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 16px;
+	padding-bottom: 14px;
+	text-transform: uppercase;
+
+	@media screen and (min-width: 1217px) {
+		padding: 19px 6px 17px 32px;
+	}
+}
+
+.tribe-events-admin-title {
+	padding-top: 14px;
+
+	@media screen and (min-width: 710px) {
+		padding-top: 50px;
+	}
+}
+
+.tribe-events-admin-title__description {
+	color: #0f1031;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 24px;
+	max-width: 584px;
+	padding-top: 15px;
+
+	@media screen and (min-width: 710px) {
+		padding-top: 15px;
+	}
+}
+
+.tribe-events-admin-title__heading {
+	color: #0f1031;
+	display: inline-block;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 28px;
+	margin: 5px 0 0 0;
+
+	@media screen and (min-width: 710px) {
+		font-size: 48px;
+		line-height: 55px;
+		margin: 0;
+	}
+}
+
+.tribe-events-admin-title__logo {
+	margin-right: 8px;
+	vertical-align: top;
+	width: 34px;
+
+	@media screen and (min-width: 710px) {
+		margin-right: 14px;
+		padding-top: 5px;
+		width: 40px;
+	}
+}
+
+.tribe-events-admin-notice {
+	background-color: #3d54ff;
+	height: 65px;
+
+	.tribe-events-admin-content-wrapper {
+		padding-top: 8px;
+		padding-bottom: 0;
+	}
+
+	p {
+		color: #fff;
+		display: inline-block;
+		font-family: Helvetica;
+		font-size: 16px;
+		line-height: 18px;
+		margin-top: 0px;
+		padding-bottom: 12px;
+		padding-left: 16px;
+		vertical-align: middle;
+		width: calc(100% - 60px);
+	}
+}
+
+.tribe-events-admin-notice__logo {
+	display: inline-block;
+}
+
+/* -- Event Tickets tweaks for welcome screen -- */
+.tribe-events-admin-tickets {
+	.tribe-events-admin-section-header {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.tribe-events-admin-graphic--desktop-only {
+		width: 365px;
+	}
+
+	.tribe-events-admin-graphic--mobile-only {
+		width: 300px;
+		top: 230px;
+	}
+
+	.tribe-events-admin-title__heading {
+		margin-top: 0;
+	}
+
+	.tribe-events-admin-card__title {
+		@media screen and (min-width: 710px) {
+			font-size: 18px;
+		}
+	}
+
+	.tribe-events-admin-card--2up .tribe-events-admin-card__title {
+		@media screen and (min-width: 710px) {
+			font-size: 18px;
+			height: 66px;
+		}
+
+		@media screen and (min-width: 1217px) {
+			height: auto;
+		}
+	}
+
+	.tribe-events-admin-title__logo {
+		margin-right: 4px;
+		width: 32px;
+
+		@media screen and (min-width: 710px) {
+			margin-right: 8px;
+			padding-top: 4px;
+			width: 60px;
+		}
+	}
+}
+
+/* Kb section */
+
+.tribe-events-admin-kb {
+	margin: 10px 0 0;
+}
+
+.tribe-events-admin-kb-card {
+	border: 1px solid #e1e1e4;
+	border-radius: 20px;
+}
+
+.tribe-events-admin-kb-card__image {
+	width: 100%;
+	height: auto;
+}
+
+.tribe-events-admin-kb-card__title {
+	flex-grow: 0;
+	font-size: 20px;
+	line-height: 1.2;
+	font-weight: bold;
+	color: #0f1031;
+	padding: 20px 28px 10px;
+	margin: 0;
+}
+
+.tribe-events-admin-kb-card__links {
+	padding: 0 28px 25px;
+	margin: 0;
+}
+
+.tribe-events-admin-kb-card__links li {
+	margin: 0 0 10px 0;
+}
+
+.tribe-events-admin-kb-card__links li a {
+	font-size: 14px;
+	text-decoration: none;
+	line-height: 1.2;
+	color: #334aff;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #1c39bb;
+	}
+}
+
+.tribe-events-admin-section-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 50px 0 0;
+
+	@media screen and (max-width: 480px) {
+		margin: 0;
+	}
+}
+
+.tribe-events-admin-section-header h3 {
+	font-size: 28px;
+	line-height: 1;
+	font-weight: bold;
+	color: #0f1031;
+}
+
+.tribe-events-admin-section-header a {
+	font-size: 14px;
+	text-decoration: none;
+	color: #334aff;
+	padding-bottom: 2px;
+	border-bottom: 2px solid #334aff;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #1c39bb;
+		border-bottom: 2px solid #1c39bb;
+	}
+}
+
+/* faq section */
+
+.tribe-events-admin-faq {
+	margin: 10px 0 0;
+}
+
+.tribe-events-admin-faq-card {
+	padding: 24px 15px 19px 19px;
+	border: 1px solid #e1e1e4;
+	border-radius: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.tribe-events-admin-faq-card a {
+	color: #0f1031;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #1c39bb;
+	}
+}
+
+.tribe-events-admin-faq-card__icon img {
+	width: 16px;
+	height: 22px;
+}
+
+.tribe-events-admin-faq-card__content {
+	margin-left: 10px;
+}
+
+.tribe-events-admin-faq__question {
+	font-size: 16px;
+	color: #334aff;
+	text-decoration: none;
+}
+
+.tribe-events-admin-faq__question a {
+	font-size: 16px;
+	text-decoration: none;
+	color: #334aff;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #1c39bb;
+	}
+}
+
+.tribe-events-admin-faq__answer {
+	font-size: 13px;
+	color: #0f1031;
+	margin-top: 18px;
+}
+
+.tribe-events-admin-extensions-title {
+	font-size: 16px;
+	line-height: 1.5;
+	color: #0f1031;
+	max-width: 70%;
+	margin: 0 0 30px;
+
+	@media screen and (max-width: 768px) {
+		max-width: 100%;
+	}
+
+	@media screen and (max-width: 480px) {
+		max-width: 100%;
+	}
+}
+
+.tribe-events-admin-extensions {
+	margin: 10px 0 0;
+}
+
+.tribe-events-admin-extensions-card {
+	padding: 48px 35px 24px 25px;
+	border: 1px solid #e1e1e4;
+	border-top: 8px solid #334aff;
+	border-radius: 20px;
+}
+
+.tribe-events-admin-extensions-card__title {
+	font-size: 20px;
+	margin: 0;
+}
+
+.tribe-events-admin-extensions-card__title a {
+	font-family: Helvetica;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 1.2;
+	color: #0f1031;
+	text-decoration: none;
+
+	&:hover,
+	&:active,
+	&:focus {
+		color: #334aff;
+		box-shadow: none;
+	}
+}
+
+.tribe-events-admin-extensions-card__description {
+	font-family: Helvetica;
+	font-size: 14px;
+	line-height: 1.43;
+	color: #0f1031;
+	margin: 20px 0;
+}
+
+.tribe-events-admin-cta {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 60px 0;
+	border: 1px solid #e1e1e4;
+	border-radius: 20px;
+
+	@media screen and (max-width: 768px) {
+		flex-direction: column;
+		align-items: flex-start;
+		overflow: hidden;
+	}
+}
+
+.tribe-events-admin-cta__image {
+	width: auto;
+	height: 152px;
+	object-fit: contain;
+
+	@media screen and (max-width: 480px) {
+		width: 90%;
+		height: auto;
+	}
+}
+
+.tribe-events-admin-cta__content {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px 0;
+
+	@media screen and (max-width: 480px) {
+		width: auto;
+		padding: 32px 23px 45px;
+		align-items: flex-start;
+	}
+}
+
+.tribe-events-admin__troubleshooting-cta {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px 0;
+
+	@media screen and (max-width: 480px) {
+		width: auto;
+		padding: 32px 23px 45px;
+		align-items: flex-start;
+	}
+}
+
+.tribe-events-admin-cta__content-title {
+	font-size: 28px;
+	font-weight: bold;
+	color: #0f1031;
+	line-height: normal;
+	margin: 0 0 10px 0;
+	text-align: center;
+
+	@media screen and (max-width: 1080px) {
+		font-size: 24px;
+	}
+
+	@media screen and (max-width: 480px) {
+		font-size: 22px;
+		text-align: left;
+	}
+}
+
+.tribe-events-admin-cta__content-subtitle {
+	font-size: 16px;
+	line-height: 1.5;
+	color: #0f1031;
+	margin-bottom: 10px;
+	text-align: center;
+
+	@media screen and (max-width: 480px) {
+		text-align: left;
+	}
+}
+
+.tribe-events-admin-cta__content-description a {
+	font-size: 16px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #334aff;
+	padding-bottom: 2px;
+	border-bottom: 2px solid #334aff;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #1c39bb;
+		border-bottom: 2px solid #1c39bb;
+	}
+}
+
+.tribe-events-admin-footer-logo {
+	display: inline-block;
+	width: 228px;
+	vertical-align: middle;
+
+	@media screen and (max-width: 768px) {
+		width: 225px;
+	}
+
+	@media screen and (max-width: 480px) {
+		width: 210px;
+	}
+}
+
+/* first steps section */
+
+.tribe-events-admin-step {
+	margin: 10px 0 0;
+}
+
+.tribe-events-admin-step-card {
+	padding: 24px 15px 19px 19px;
+	border: 1px solid #e1e1e4;
+	border-radius: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.tribe-events-admin-step-card a {
+	text-decoration: none;
+	color: #334aff;
+	padding-bottom: 2px;
+	border-bottom: 2px solid #334aff;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #1c39bb;
+		border-bottom: 2px solid #1c39bb;
+	}
+}
+
+.tribe-events-admin-step-card__icon img {
+	width: 42px;
+	height: 43px;
+	margin-right: 5px;
+}
+
+.tribe-events-admin-step-card__content {
+	margin-left: 10px;
+}
+
+.tribe-events-admin-step__title {
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 1.2;
+	color: #0f1031;
+	margin-bottom: 10px;
+}
+
+.tribe-events-admin-step__answer {
+	font-size: 13px;
+	color: #0f1031;
+	margin-top: 18px;
+}
+
+.tribe-events-admin__system-information {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-rows: 1fr;
+	gap: 15px 30px;
+	grid-template-areas: ". .";
+	margin: 100px 0;
+	position: relative;
+
+	@media screen and (max-width: 768px) {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		grid-template-areas: ".";
+		margin: 50px 0;
+	}
+
+	@media screen and (max-width: 480px) {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		grid-template-areas: ".";
+		margin: 50px 0;
+	}
+}
+
+.tribe-events-admin__troubleshooting-title {
+	font-size: 28px;
+	line-height: 1;
+	font-weight: bold;
+	color: #0f1031;
+	margin: 0;
+}
+
+.tribe-events-admin__troubleshooting-description {
+	font-size: 18px;
+	line-height: 1.44;
+	color: #0f1031;
+	line-height: 1.2;
+	margin: 20px 0;
+}
+
+.tribe-events-admin__system-information-select {
+	margin: 30px 0 20px;
+	display: flex;
+}
+
+.tribe-events-admin__system-information-select input[type="checkbox"] {
+	margin: 0 10px 0 0;
+}
+
+.tribe-events-admin__system-information-select label {
+	font-size: 16px;
+	color: #0f1031;
+	line-height: 1.2;
+}
+
+.tribe-events-admin__system-information-content small {
+	font-size: 12px;
+	color: #0f1031;
+	line-height: 1.2;
+}
+
+.tribe-events-admin__system-information-widget,
+.tribe-events-admin__recent-template-changes .template-updates-wrapper {
+	background: #0f1031;
+	padding: 12px 0 0 27px;
+	border-radius: 16px;
+	max-height: 280px;
+	font-size: 14px;
+	line-height: 1.14;
+	color: #fff;
+	overflow: scroll;
+	-ms-overflow-style: none;  /* hide scrollbar on IE and Edge */
+	scrollbar-width: none;  /* hide scrollbar on Firefox */
+}
+.tribe-events-admin__system-information-widget a {
+	color: #334aff;
+
+	&:hover {
+		opacity: .8;
+	}
+}
+
+.tribe-events-admin__recent-template-changes .template-updates-wrapper {
+	padding: 30px 0 30px 27px;
+}
+
+.tribe-events-admin__system-information-widget::-webkit-scrollbar,
+.tribe-events-admin__recent-template-changes .template-updates-wrapper::-webkit-scrollbar {
+	display: none; /* hide scrollbar on Chrome */
+}
+
+.tribe-events-admin__system-information-widget-copy {
+	position: absolute;
+	bottom: 10px;
+
+	@media only screen and (max-width: 1920px) {
+		right: 20.5vw;
+	}
+
+	@media only screen and (max-width: 1280px) {
+		right: 22vw;
+	}
+
+	@media only screen and (max-width: 768px) {
+		right: auto;
+		left: 10px;
+	}
+
+	@media only screen and (max-width: 480px) {
+		right: auto;
+		left: 10px;
+	}
+}
+
+.tribe-events-admin__system-information-widget-copy button {
+	border: none;
+	outline: none;
+	padding: 18px 25px;
+	border-radius: 100px;
+	background-color: #334aff;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #1c39bb;
+	}
+}
+
+.tribe-events-admin__system-information-widget-copy button .dashicons, .dashicons-before:before {
+	display: none;
+}
+
+.tribe-events-admin__system-information-widget-copy button .optin-success {
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.tribe-events-admin__recent-template-changes p {
+	font-size: 18px;
+	line-height: 1.44;
+	color: #0f1031;
+	line-height: 1.2;
+	margin: 20px 0;
+}
+
+.tribe-events-admin__recent-log {
+	margin-top: 50px;
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper label {
+	font-size: 16px;
+	line-height: 1.63;
+	color: #0f1031;
+	display: block;
+	margin-bottom: 10px;
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-controls {
+	margin: 20px 0 10px;
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-viewer {
+	background: #0f1031;
+	padding: 12px 0 0 27px;
+	border-radius: 16px;
+	max-height: 280px;
+	min-height: 60px;
+	font-size: 14px;
+	line-height: 1.14;
+	color: #fff;
+	overflow: scroll;
+	-ms-overflow-style: none;  /* hide scrollbar on IE and Edge */
+	scrollbar-width: none;  /* hide scrollbar on Firefox */
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-viewer::-webkit-scrollbar {
+	display: none; /* hide scrollbar on Chrome */
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper .download_log {
+	text-decoration: none;
+	font-size: 16px;
+	color: #334aff;
+	padding-bottom: 2px;
+	border-bottom: 2px solid #334aff;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #1c39bb;
+		border-bottom: 2px solid #1c39bb;
+	}
+}
+
+.tribe-events-admin__troubleshooting-event-log-wrapper .tribe-events-admin__recent-log-filters-select-wrapper:after {
+	display: none;
+}
+
+.tribe-events-admin__recent-log-filters {
+	display: flex;
+	padding: 20px 0 40px;
+
+	@media only screen and (max-width: 768px) {
+		flex-direction: column;
+	}
+
+	@media only screen and (max-width: 480px) {
+		flex-direction: column;
+	}
+}
+
+.tribe-events-admin__recent-log-filters-field {
+	margin-right: 40px;
+
+	@media only screen and (max-width: 768px) {
+		margin-right: 0;
+		margin-bottom: 30px
+	}
+
+	@media only screen and (max-width: 480px) {
+		margin-right: 0;
+		margin-bottom: 30px
+	}
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper::after {
+	content: url("../images/help/polygon.svg");
+	right: 22px;
+	top: 20px;
+	position: absolute;
+	pointer-events: none;
+	width: 14px;
+	height: 13px;
+
+	@media only screen and (max-width: 480px) {
+		right: 25px;
+	}
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default .select2-selection--single {
+	/* targets the event log select */
+	font-size: 14px;
+	line-height: 1.14;
+	border-radius: 16px;
+	color: #0f1031;
+	padding: 0 25px 0 15px !important;
+	border: 1px solid #e1e1e4 !important;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls {
+	padding: 0;
+	margin-bottom: 20px;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls div:nth-child(1),
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls div:nth-child(2),
+.tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls div:nth-child(3) {
+	/* adds a margin between the dropdowns */
+	padding-right: 75px;
+
+	@media only screen and (max-width: 768px)  {
+		padding-right: 30px;
+	}
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-selection__clear {
+	display: none;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
+	right: 5px;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default.select2-container--open.select2-container--below .select2-selection--single, .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
+	border-bottom-left-radius: 16px;
+	border-bottom-right-radius: 16px;
+}
+
+
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container .select2-selection--single .select2-selection__rendered {
+	width: 100%;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper select:focus-visivble {
+	outline: none;
+}
+
+.tribe-events-admin__recent-log-filters-select-wrapper select option {
+	font-size: 14px;
+	line-height: 1.14;
+	color: #0f1031;
+}
+
+.tribe-events-admin__ea-status {
+	margin-top: 50px;
+}
+
+/* issues found section */
+.tribe-events-admin__issues-found-card {
+	background-color: #f3eee8;
+  	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+.tribe-events-admin__issues-found-card:last-of-type {
+	margin-bottom: 100px;
+}
+
+.tribe-events-admin__issues-found-card-title {
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 10px 20px 10px 17px;
+	cursor: pointer;
+}
+
+.tribe-events-admin__issues-found-card-title img {
+	width: 21px;
+	height: 21px;
+	object-fit: contain;
+	margin-right: 14px;
+}
+
+.tribe-events-admin__issues-found-card-title h3 {
+	margin: 0;
+
+	@media only screen and (max-width: 768px)  {
+		max-width: 90%;
+	}
+
+	@media only screen and (max-width: 480px)  {
+		max-width: 80%;
+	}
+}
+
+.tribe-events-admin__issues-found-card-title span {
+	color: #0f1031;
+	display: block;
+}
+
+.tribe-events-admin__issues-found-card-title i {
+	position: absolute;
+	background-image: url("../images/help/arrow-down.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	width: 15px;
+	height: 15px;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	margin: 12px 20px;
+	right: 0;
+	top: 0;
+}
+
+.tribe-events-admin__issues-found-card-title.active i {
+	background-image: url("../images/help/arrow-up.svg");
+	background-repeat: no-repeat;
+	top: 5px;
+}
+
+.tribe-events-admin__issues-found-card-description {
+	padding: 0 20px 20px 55px;
+	display: none;
+}
+
+.tribe-events-admin__issues-found-card-description p {
+	font-size: 16px;
+	color: #0f1031;
+	margin: 0;
+}
+
+.tribe-events-admin__issues-found-card-description-actions {
+	display: flex;
+	padding: 20px 0 10px;
+}
+
+.tribe-events-admin__issues-found-card-description-actions a {
+	font-size: 16px;
+	text-decoration: none;
+	color: #334aff;
+	margin-right: 20px;
+	padding-bottom: 5px;
+	border-bottom: 2px solid #334aff;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #1c39bb;
+		border-bottom: 2px solid #1c39bb;
+	}
+}
+
+.tribe-events-admin__ea-status-table {
+	border-radius: 16px;
+	border: 1px solid #e1e1e4;
+	margin: 30px 0 40px;
+	width: 100%;
+	padding: 20px 0;
+	overflow: hidden;
+}
+
+.tribe-events-admin__ea-status-table a {
+	text-decoration: none;
+	color: #334aff;
+	padding-bottom: 2px;
+	border-bottom: 2px solid #334aff;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #1c39bb;
+		border-bottom: 2px solid #1c39bb;
+	}
+}
+
+.tribe-events-admin__ea-status-table tr {
+	display: flex;
+	align-items: center;
+
+	@media only screen and (max-width: 480px)  {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+
+.tribe-events-admin__ea-status-table th {
+	font-weight: bold;
+	line-height: 1.17;
+	color: #0f1031;
+	padding: 5px 25px;
+	margin-top: 10px;
+}
+
+.tribe-events-admin__ea-status-table td {
+	font-size: 16px;
+	line-height: 1.63;
+	color: #0f1031;
+	padding: 10px 25px;
+	display: flex;
+	align-items: center;
+	width: 25%;
+
+	@media only screen and (max-width: 480px)  {
+		width: 100%;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+
+.tribe-events-admin__ea-status-table td:nth-child(2){
+	width: 45%;
+
+	@media only screen and (max-width: 480px)  {
+		width: 100%;
+	}
+}
+
+.tribe-events-admin__ea-status-table td:nth-child(3){
+	width: 30%;
+	display: flex;
+	justify-content: flex-end;
+
+	@media only screen and (max-width: 480px)  {
+		width: 100%;
+		flex-direction: column;
+	}
+}
+
+.tribe-events-admin__ea-status-table-dark{
+	background-color: #f9f7f4;
+}
+
+.tribe-events-admin__ea-status-table td img {
+	width: 21px;
+	height: 21px;
+	object-fit: contain;
+	margin-right: 14px;
+
+	@media only screen and (max-width: 480px) {
+		margin: 10px 0;
+	}
+}
+
+.tribe_events_page_tec-troubleshooting {
+	background-color: #FFF;
+}
+
+#tribe-ticketing,
+#tribe-community {
+	display: none;
+}
+.tribe-events-admin__troubleshooting-notice {
+	background-color: #161b7d;
+	color: #fff;
+	font-size: 16px;
+	padding: 24px 0;
+	line-height: 1;
+	margin-left: -1.55vw;
+
+	@media screen and (max-width: 480px) {
+		margin-left: -20px;
+	}
+}
+
+.tribe-events-admin__troubleshooting-notice_title {
+	margin: 0 auto;
+	max-width: 1024px;
+	width: 90%;
+	padding-left: 25px;
+
+	@media screen and (max-width: 480px) {
+		max-width: 90%;
+	}
+}
+
+.tribe-events-admin__troubleshooting-notice_title a {
+	color: #fff;
+	font-size: 16px;
+	line-height: 1;
+	text-decoration: none;
+	padding-bottom: 2px;
+	border-bottom: 2px solid #fff;
+
+	&:focus {
+		box-shadow: none;
+		outline: none;
+	}
+
+	&:hover {
+		color: #f3eee8;
+		border-bottom: 2px solid #f3eee8;
+	}
+}
+
+/* -- Help page overrides -- */
+/*
+TODO:
+- fix right side alignment
+*/
+.tribe_events_page_tribe-help {
+	#tec-help-ticketing,
+	#tec-help-community {
+		display: none;
+	}
+
+	.tribe-events-admin-title {
+		padding-top: 25px;
+
+		img {
+			height: 67px;
+		}
+	}
+}
+
+/* -- Freemius tweaks -- */
+body.tribe-welcome #fs_connect {
+	border: 1px solid #e1e1e4;
+	box-sizing: border-box;
+	border-radius: 16px;
+	margin-left: 22px;
+	box-shadow: none;
+
+	.fs-actions {
+		background-color: transparent;
+	}
+
+	.fs-permissions {
+		border-top: 1px solid #e1e1e4;
+		margin: 0 16px;
+	}
+
+	button {
+		background-color: #3d54ff;
+		border-color: #3d54ff;
+	}
+
+	.button-secondary {
+		border-color: #3d54ff;
+		color: #3d54ff;
+		background: white;
+	}
+
+	a {
+		color: #3d54ff;
+
+		&:focus {
+			box-shadow: none;
+			outline: none;
+		}
+
+		&:hover {
+			color: #161b7d;
 		}
 	}
 }
