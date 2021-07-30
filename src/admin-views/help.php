@@ -80,14 +80,14 @@ $products = tribe( 'plugins.api' )->get_products();
 </div>
 
 <?php // this is inline jQuery / javascript for extra simplicity */ ?>
-<script type="text/javascript">
+<script>
 	jQuery( document ).ready( function($) {
-		var current_tab = "#tribe-calendar";
-		$( 'body' ).on( "click", ".tribe-events-admin-tab-nav li", function() {
-			var tab = "#" + $( this ).data( "tab" );
+		var current_tab = '#tribe-calendar';
+		$( 'body' ).on( 'click', '.tribe-events-admin-tab-nav li', function() {
+			var tab = '#' + $( this ).data( 'tab' );
 			$( current_tab ).hide();
-			$( '.tribe-events-admin-tab-nav li' ).removeClass( "selected" );
-			$( this ).addClass( "selected" );
+			$( '.tribe-events-admin-tab-nav li' ).removeClass( 'selected' );
+			$( this ).addClass( 'selected' );
 
 			$( tab ).show();
 			current_tab = tab;
