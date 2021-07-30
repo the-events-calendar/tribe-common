@@ -69,7 +69,7 @@ use \Tribe\Admin\Troubleshooting;
 			</h2>
 
 			<div class="tribe-events-admin-cta__content-description">
-				<a href="<?php echo admin_url( 'edit.php?post_type=tribe_events&page=tec-troubleshooting' ); ?>">
+				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=tribe_events&page=tec-troubleshooting' ) ); ?>">
 					<?php esc_html_e( 'Visit Troubleshooting next', 'tribe-common' ); ?>
 				</a>
 			</div>
