@@ -194,6 +194,7 @@ class Tribe__Main {
 				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
 				[ 'tribe-utils-camelcase', 'utils-camelcase.js', [ 'underscore' ] ],
 				[ 'tribe-moment', 'vendor/momentjs/moment.js' ],
+				[ 'tribe-moment-locales', 'vendor/momentjs/locale.min.js' ],
 				[ 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', [ 'jquery' ] ],
 				[ 'tribe-tooltipster-css', 'vendor/tooltipster/tooltipster.bundle.css' ],
 				[ 'datatables-css', 'datatables.css' ],
@@ -581,6 +582,8 @@ class Tribe__Main {
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 
+		tribe( \Tribe\Admin\Notice\WP_Version::class );
+		tribe( \Tribe\Admin\Troubleshooting::class );
 
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
@@ -621,6 +624,8 @@ class Tribe__Main {
 		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 		tribe_singleton( 'customizer', 'Tribe__Customizer' );
 		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
+		tribe_singleton( \Tribe\Admin\Troubleshooting::class, \Tribe\Admin\Troubleshooting::class, [ 'hook' ] );
+
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class );
 
