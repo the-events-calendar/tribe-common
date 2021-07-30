@@ -25,13 +25,15 @@
 
 <?php // this is inline jQuery / javascript for extra simplicity */ ?>
 <script>
-	if ( jQuery( '.tribe-events-admin__issues-found-card .tribe-events-admin__issues-found-title' ).hasClass( 'active' ) ) {
+	if ( jQuery( '.tribe-events-admin__issues-found-card .tribe-events-admin__issues-found-title' )
+	.hasClass( 'active' ) ) {
 		jQuery( '.tribe-events-admin__issues-found-card .tribe-events-admin__issues-found-card-title.active' )
 		.closest( '.tribe-events-admin__issues-found-card' )
 		.find( '.tribe-events-admin__issues-found-description' )
 		.show();
 	}
-	jQuery( '.tribe-events-admin__issues-found-card .tribe-events-admin__issues-found-card-title' ).click(function () {
+	jQuery( '.tribe-events-admin__issues-found-card .tribe-events-admin__issues-found-card-title' )
+	.on( 'click', function () {
 		if ( jQuery( this ).hasClass( 'active' ) ) {
 			jQuery( this )
 			.removeClass( 'active' )
