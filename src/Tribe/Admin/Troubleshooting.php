@@ -318,7 +318,7 @@ class Troubleshooting {
 	 * @return array of common issues which are displayed on the troubleshooting page.
 	 */
 	public function get_common_issues() {
-		$commonIssues = apply_filters( 'tec_help_troubleshooting_issues', [
+		$common_issues = apply_filters( 'tec_help_troubleshooting_issues', [
 			[
 				'issue'      => __( 'Common Error Messages', 'tribe-common' ),
 				'solution'   => __( 'Here’s an overview of %s and what they mean.', 'tribe-common' ),
@@ -345,7 +345,7 @@ class Troubleshooting {
 			],
 		] );
 
-		return $commonIssues;
+		return $common_issues;
 	}
 
 	/**
