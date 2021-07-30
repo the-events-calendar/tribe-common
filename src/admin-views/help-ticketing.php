@@ -230,11 +230,11 @@ $ticketing_products = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_pro
 	<div class="tribe-events-admin-extensions tribe-events-admin-4col-grid">
 		<?php foreach ( $extensions as $extension ) : ?>
 			<div class="tribe-events-admin-extensions-card">
-				<h5 class="tribe-events-admin-extensions-card__title">
+				<h4 class="tribe-events-admin-extensions-card__title">
 					<a href="<?php echo esc_url( $extension['link'] ); ?>" target="_blank" rel="noopener noreferrer">
 						<?php echo esc_html( $extension['title'] ); ?>
 					</a>
-				</h5>
+				</h4>
 				<div class="tribe-events-admin-extensions-card__description">
 					<?php echo esc_html( $extension['description'] ); ?>
 				</div>
