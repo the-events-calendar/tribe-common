@@ -16,7 +16,7 @@ foreach ( $products as $product ) {
 
 <div id="tribe-app-shop">
 
-	<?php do_action( 'tec-admin-notice-area', 'app-shop' ); ?>
+	<?php do_action( 'tec_admin_notice_area', 'app-shop' ); ?>
 
 	<div class="tribe-header">
 		<div class="content-wrapper">

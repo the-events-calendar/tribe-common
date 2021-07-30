@@ -14,7 +14,7 @@ $products = tribe( 'plugins.api' )->get_products();
 ?>
 
 <div class="tribe-events-admin-header tribe-events-admin-container">
-	<?php do_action( 'tec-admin-notice-area', 'help' ); ?>
+	<?php do_action( 'tec_admin_notice_area', 'help' ); ?>
 	<div class="tribe-events-admin-header__content-wrapper">
 
 		<img
