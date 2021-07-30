@@ -16,7 +16,7 @@ $common_issues = tribe( Troubleshooting::class )->get_common_issues();
 </div>
 
 <div class="tribe-events-admin-faq tribe-events-admin-4col-grid">
-	<?php foreach ( $common_issues as $commonIssue ) : ?>
+	<?php foreach ( $common_issues as $common_issue ) : ?>
 		<div class="tribe-events-admin-faq-card">
 			<div class="tribe-events-admin-faq-card__icon">
 				<img
@@ -26,12 +26,12 @@ $common_issues = tribe( Troubleshooting::class )->get_common_issues();
 			</div>
 			<div class="tribe-events-admin-faq-card__content">
 				<div class="tribe-events-admin-faq__question">
-					<?php echo esc_html( $commonIssue['issue'] ); ?>
+					<?php echo esc_html( $common_issue['issue'] ); ?>
 				</div>
 				<div class="tribe-events-admin-faq__answer">
 					<?php
-						$label = '<a href=" ' . $commonIssue['link'] . ' " target="_blank" rel="noopener noreferrer">' . esc_html__( $commonIssue['link_label'], 'tribe-common' ) . '</a>';
-						echo sprintf( __( $commonIssue['solution'], 'tribe-common' ), $label );
+						$label = '<a href=" ' . $common_issue['link'] . ' " target="_blank" rel="noopener noreferrer">' . esc_html__( $common_issue['link_label'], 'tribe-common' ) . '</a>';
+						echo sprintf( __( $common_issue['solution'], 'tribe-common' ), $label );
 					?>
 				</div>
 			</div>
