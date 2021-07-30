@@ -194,7 +194,7 @@ class Tribe__Main {
 				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
 				[ 'tribe-utils-camelcase', 'utils-camelcase.js', [ 'underscore' ] ],
 				[ 'tribe-moment', 'vendor/momentjs/moment.js' ],
-				[ 'tribe-moment-locales', 'vendor/momentjs/locales.min.js' ],
+				[ 'tribe-moment-locales', 'vendor/momentjs/locale.min.js' ],
 				[ 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', [ 'jquery' ] ],
 				[ 'tribe-tooltipster-css', 'vendor/tooltipster/tooltipster.bundle.css' ],
 				[ 'datatables-css', 'datatables.css' ],
