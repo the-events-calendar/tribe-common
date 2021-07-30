@@ -7,7 +7,7 @@
  */
 ?>
 <div class="tribe-events-admin-header tribe-events-admin-container">
-	<?php do_action( 'tec-admin-notice-area', 'help' ); ?>
+	<?php do_action( 'tec-admin-notice-area', 'troubleshooting' ); ?>
 	<div class="tribe-events-admin-header__content-wrapper">
 		<img
 			class="tribe-events-admin-header__logo-word-mark"
