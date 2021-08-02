@@ -10,19 +10,19 @@ This can include modals, toasters, confirms. alerts.
 .tribe-common {
 	/* vars */
 	.tribe-dialog {
-		--tec-dialog-background-color: #FFF;
-		--tec-dialog-close-background: #FFF;
-		--tec-dialog-close-border-color: #BABABA;
-		--tec-dialog-close-border-width: 1px;
-		--tec-dialog-close-color: #BABABA;
-		--tec-dialog-close-height: 12px;
-		--tec-dialog-close-height-desktop: 16px;
-		--tec-dialog-overlay-color: transparent;
-		--tec-modal-overlay-color: rgba(20,24,39,0.9);
-		--tec-dialog-border-radius: 4px;
-		--tec-dialog-padding: 16px;
-		--tec-dialog-padding-top: 24px;
-		--tec-dialog-padding-side: 28px;
+		--tribe-dialog-background-color: #fff;
+		--tribe-dialog-close-background: #fff;
+		--tribe-dialog-close-border-color: #bababa;
+		--tribe-dialog-close-border-width: 1px;
+		--tribe-dialog-close-color: #bababa;
+		--tribe-dialog-close-height: 12px;
+		--tribe-dialog-close-height-desktop: 16px;
+		--tribe-dialog-overlay-color: transparent;
+		--tribe-modal-overlay-color: rgba(20, 24, 39, 0.9);
+		--tribe-dialog-border-radius: 4px;
+		--tribe-dialog-padding: 16px;
+		--tribe-dialog-padding-top: 24px;
+		--tribe-dialog-padding-side: 28px;
 	}
 
 	/* The dialog/popup/modal itself */
@@ -42,35 +42,32 @@ This can include modals, toasters, confirms. alerts.
 		}
 	}
 
-	/* The trigger button" */
-	.tribe-dialog__trigger {}
-
 	/* The overlay */
 	.tribe-dialog__overlay {
 		background-color: var(--tec-tribe-dialog-overlay-color);
 		height: 100vh;
 		left: 0;
-		opacity: .9;
+		opacity: 0.9;
 		position: fixed;
 		top: 0;
 		width: 100vw;
 		z-index: 1;
 	}
 
-	/* Content wrapper - includes close button*/
+	/* Content wrapper - includes close button */
 	.tribe-dialog__wrapper {
-		background-color: var(--tec-tribe-dialog-background-color);
-		border-radius: var(--tec-tribe-dialog-border-radius);
-		box-shadow: 0 2px 54px 0 var(--tec-tribe-modal-overlay-color);
-		width: 800px;
-		overflow-y: scroll;
-		padding: var(--tec-tribe-dialog-padding);
+		background-color: var(--tribe-dialog-background-color);
+		border-radius: var(--tribe-dialog-border-radius);
+		box-shadow: 0 2px 54px 0 var(--tribe-modal-overlay-color);
 		max-height: 100vh;
 		max-width: 100vw;
-		z-index: 2;
-		-webkit-transform: translateZ(0px);
-		-webkit-transform: translate3d(0,0,0);
+		overflow-y: scroll;
+		padding: var(--tribe-dialog-padding);
 		-webkit-perspective: 1000;
+		-webkit-transform: translateZ(0);
+		-webkit-transform: translate3d(0, 0, 0);
+		width: 800px;
+		z-index: 2;
 
 		div[role="document"] {
 			align-items: flex-end;
@@ -80,7 +77,7 @@ This can include modals, toasters, confirms. alerts.
 			position: relative;
 		}
 
-		@media screen and (min-width:768px) {
+		@media screen and (min-width: 768px) {
 			max-height: calc(100vh - 160px);
 			padding: var(--tec-tribe-dialog-padding-top) var(--tec-tribe-dialog-padding-side);
 		}
@@ -102,10 +99,10 @@ This can include modals, toasters, confirms. alerts.
 		width: var(--tec-tribe-dialog-close-height);
 		z-index: 1;
 
-		@media screen and (min-width:768px) {
-			height: var(--tec-tribe-dialog-close-height-desktop);
-			line-height: var(--tec-tribe-dialog-close-height-desktop);
-			width: var(--tec-tribe-dialog-close-height-desktop);
+		@media screen and (min-width: 768px) {
+			height: var(--tribe-dialog-close-height-desktop);
+			line-height: var(--tribe-dialog-close-height-desktop);
+			width: var(--tribe-dialog-close-height-desktop);
 		}
 
 		&:focus,
@@ -134,10 +131,9 @@ This can include modals, toasters, confirms. alerts.
 		margin: 0 0 22px;
 		padding-right: calc(var(--tec-tribe-dialog-close-height) + 0.5em);
 		padding-top: 0;
-
 	}
 
-	/* The content container*/
+	/* The content container */
 	.tribe-dialog__content {
 		color: #141827;
 		font-size: 14px;
@@ -151,7 +147,7 @@ This can include modals, toasters, confirms. alerts.
 		padding: 0;
 	}
 
-	@media screen and (max-width:768px) {
+	@media screen and (max-width: 768px) {
 		.tribe-dialog__content:last-of-type {
 			padding-bottom: 36px;
 		}
@@ -179,7 +175,7 @@ This can include modals, toasters, confirms. alerts.
 	 * Theme Overrides - Avada
 	 * ------------------------------------------------------------------------- */
 
-	 .tribe-theme-avada & {
+	.tribe-theme-avada & {
 
 		div.tribe-dialog {
 			z-index: 99999;
@@ -190,7 +186,7 @@ This can include modals, toasters, confirms. alerts.
 	 * Theme Overrides - Divi
 	 * ------------------------------------------------------------------------- */
 
-	 .tribe-theme-divi & {
+	.tribe-theme-divi & {
 
 		div.tribe-dialog {
 			z-index: 99999;
@@ -208,5 +204,4 @@ This can include modals, toasters, confirms. alerts.
 			z-index: 99999;
 		}
 	}
-
 }

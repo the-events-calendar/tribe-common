@@ -4,7 +4,7 @@ String.prototype.className = function () {
 	if (
 		(
 			'string' !== typeof this
-			&& ! this instanceof String
+			&& ! this instanceof String // eslint-disable-line no-unsafe-negation
 		)
 		|| 'function' !== typeof this.replace
 	) {
@@ -20,7 +20,7 @@ String.prototype.varName = function () {
 	if (
 		(
 			'string' !== typeof this
-			&& ! this instanceof String
+			&& ! this instanceof String // eslint-disable-line no-unsafe-negation
 		)
 		|| 'function' !== typeof this.replace
 	) {
@@ -34,4 +34,4 @@ String.prototype.varName = function () {
  * Creates a global Tribe Variable where we should start to store all the things
  * @type {object}
  */
-var tribe = tribe || {};
+var tribe = tribe || {}; // eslint-disable-line no-redeclare
