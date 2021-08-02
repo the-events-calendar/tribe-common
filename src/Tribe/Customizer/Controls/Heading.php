@@ -61,7 +61,7 @@ class Heading extends Control {
 		<?php if ( ! empty( $this->description ) ) : ?>
 
 			<p class="customize-control-heading-description">
-				<?php echo esc_html( $this->description ); ?>
+				<?php echo wp_kses_post( $this->description ); ?>
 			</p>
 
 		<?php endif;

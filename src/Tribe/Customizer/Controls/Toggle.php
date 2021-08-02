@@ -54,7 +54,9 @@ class Toggle extends Control {
 			<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 		<?php endif; ?>
 		<?php if ( ! empty( $this->description ) ) : ?>
-			<span id="<?php echo esc_attr( $description_id ); ?>" class="description customize-control-description"><?php echo $this->description; ?></span>
+			<span id="<?php echo esc_attr( $description_id ); ?>" class="description customize-control-description">
+				<?php echo wp_kses_post( $this->description ); ?>
+			</span>
 		<?php endif; ?>
 
 		<span class="customize-inside-control-row">
