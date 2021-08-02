@@ -113,7 +113,7 @@ final class Tribe__Customizer {
 		add_action( 'customize_register', [ $this, 'register' ], 15 );
 
 		add_action( 'wp_print_footer_scripts', [ $this, 'print_css_template' ], 15 );
-		add_action( 'customize_controls_print_footer_scripts', [ $this, 'tribe_customize_controls_print_footer_scripts' ], 15 );
+		add_action( 'customize_controls_print_footer_scripts', [ $this, 'customize_controls_print_footer_scripts' ], 15 );
 
 		// front end styles from customizer
 		add_action( 'tribe_events_pro_widget_render', [ $this, 'inline_style' ], 101 );
@@ -393,13 +393,13 @@ final class Tribe__Customizer {
 	}
 
 	/**
-	 * Undocumented function
+	 * Add an action for some backwards compatibility.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
-	public function tribe_customize_controls_print_footer_scripts() {
+	public function customize_controls_print_footer_scripts() {
 		/**
 		 * Allows plugins to hook in and add any scripts they need at the right time.
 		 *

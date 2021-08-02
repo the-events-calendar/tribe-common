@@ -62,12 +62,8 @@
 
 		/* Range Slider, TEC-style */
 
-		.tec-range-slider-label {
-			@mixin visually-hide;
-		}
-
 		input[type=range].tec-range-slider {
-			-webkit-appearance: none;
+			appearance: none;
 			background-color: transparent;
 			border: 1px solid var(--tec-color-border-default);
 			border-radius: 9px;
@@ -140,6 +136,7 @@
 			}
 
 			&::-webkit-slider-thumb {
+				appearance: none;
 				background-color: var(--tec-color-background);
 				border: 5px solid var(--tec-color-accent-primary);
 				border-radius: 50%;
@@ -147,7 +144,6 @@
 				height: 16px;
 				margin-top: -7px;
 				width: 16px;
-				-webkit-appearance: none;
 
 				&:active,
 				&:focus {
@@ -252,7 +248,6 @@
 			}
 
 			.tec-switch-input {
-				@mixin visually-hide;
 
 				&:checked {
 					+ .tec-switch-toggle:before {

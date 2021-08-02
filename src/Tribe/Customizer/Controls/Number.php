@@ -50,7 +50,7 @@ class Number extends Control {
 		$input_id         = '_customize-input-' . $this->id;
 		$description_id   = '_customize-description-' . $this->id;
 		$describedby_attr = ( ! empty( $this->description ) ) ? ' aria-describedby="' . esc_attr( $description_id ) . '" ' : '';
-		$name             = '_customize-radio-' . $this->id;
+		$name             = '_customize-number-' . $this->id;
 
 		if ( ! empty( $this->label ) ) : ?>
 			<label for="<?php echo esc_attr( $input_id ); ?>" class="customize-control-title"><?php echo esc_html( $this->label ); ?></label>
@@ -74,5 +74,3 @@ class Number extends Control {
 	}
 
 }
-
-?>

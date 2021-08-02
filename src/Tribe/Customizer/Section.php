@@ -181,7 +181,7 @@ abstract class Tribe__Customizer__Section {
 		$settings = $this->get_content_settings();
 
 		if ( ! empty( $settings ) ) {
-			foreach( $settings as $name => $args ) {
+			foreach ( $settings as $name => $args ) {
 				$this->add_setting(
 					$manager,
 					$customizer->get_setting_name( $name, $section ),
@@ -194,7 +194,7 @@ abstract class Tribe__Customizer__Section {
 		$headings = $this->get_content_headings();
 
 		if ( ! empty( $headings ) ) {
-			foreach( $headings as $name => $args ) {
+			foreach ( $headings as $name => $args ) {
 				$this->add_heading(
 					$section,
 					$manager,
@@ -207,7 +207,7 @@ abstract class Tribe__Customizer__Section {
 		$controls = $this->get_content_controls();
 
 		if ( ! empty( $controls ) ) {
-			foreach( $controls as $name => $args ) {
+			foreach ( $controls as $name => $args ) {
 				$this->add_control(
 					$section,
 					$manager,
@@ -919,12 +919,12 @@ abstract class Tribe__Customizer__Section {
 	 */
 	public function get_rgb_color( $option, $section = null ) {
 		$color = is_null( $section )
-		? tribe( 'customizer' )->get_option( [ $this->ID, $option ] )
-		: tribe( 'customizer' )->get_option( [ $section, $option ] );
+			? tribe( 'customizer' )->get_option( [ $this->ID, $option ] )
+			: tribe( 'customizer' )->get_option( [ $section, $option ] );
 
-		$color_obj   = new Tribe__Utils__Color( $color );
-		$color_arr   = $color_obj->getRgb();
-		$color_rgb   = $color_arr['R'] . ',' . $color_arr['G'] . ',' . $color_arr['B'];
+		$color_obj = new Tribe__Utils__Color( $color );
+		$color_arr = $color_obj->getRgb();
+		$color_rgb = $color_arr['R'] . ',' . $color_arr['G'] . ',' . $color_arr['B'];
 		return $color_rgb;
 	}
 }

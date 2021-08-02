@@ -60,27 +60,23 @@ class Toggle extends Control {
 		<span class="customize-inside-control-row">
 			<label class="tec-switch-label">
 				<span class="toggle-label-off">
-					<?php if ( ! empty( $this->choices['off'] ) ) {
-						echo wp_kses_post( $this->choices['off'] );
-					} else {
-						echo wp_kses_post( $this->label );
-					} ?>
+					<?php echo wp_kses_post( ! empty( $this->choices['off'] ) ? $this->choices['off'] : $this->label ); ?>
 				</span>
 				<input
 					id="<?php echo esc_attr( $input_id . '-toggle' ); ?>"
 					type="checkbox"
-					class="tec-switch-input"
+					class="tec-switch-input tribe-common-a11y-visual-hide"
 					<?php echo $describedby_attr; ?>
 					name="<?php echo esc_attr( '_customize-toggle-' . $this->id ); ?>"
 					<?php $this->input_attrs(); ?>
 					<?php $this->link(); ?>
 				/>
 				<span class="tec-switch-toggle"></span>
-				<?php if ( ! empty( $this->choices['on'] ) ) { ?>
+				<?php if ( ! empty( $this->choices['on'] ) ) : ?>
 					<span class="toggle-label-on">
 						<?php echo wp_kses_post( $this->choices['on'] ); ?>
 					</span>
-				<?php } ?>
+				<?php endif; ?>
 			</label>
 		</span>
 		<?php

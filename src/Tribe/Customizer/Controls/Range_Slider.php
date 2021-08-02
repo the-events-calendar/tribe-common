@@ -79,14 +79,15 @@ class Range_Slider extends Control {
 					class="tec-range-slider-datalist"
 					id="<?php echo esc_attr( $input_id . '-range-slider-datalist' ); ?>"
 				>
-					<?php foreach( $this->choices as $label => $value) : ?>
+					<?php foreach ( $this->choices as $label => $value ) : ?>
 						<div
 							class="tec-range-slider-option"
 							value="<?php echo esc_attr( $value ); ?>"
 							label="<?php echo esc_attr( $label ); ?>"
-						><?php echo esc_html( $label ); ?></div>
+						>
+							<?php echo esc_html( $label ); ?></div>
 					<?php endforeach;?>
-					</div>
+				</div>
 			<?php endif; ?>
 		</span>
 		<?php
