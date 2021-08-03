@@ -140,5 +140,8 @@
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.4"
+  },
+  "optionalDependencies": {
+    "fsevents": "^1.0.0"
   }
 }
