@@ -1794,7 +1794,7 @@ abstract class Tribe__Repository
 				$args = [ 'p' => $value ];
 				break;
 			case 'search':
-				if ( ! empty( $value ) ) {
+				if ( '' !== $value ) ) { 
 					$args = [ 's' => $value ];
 				}
 				break;
