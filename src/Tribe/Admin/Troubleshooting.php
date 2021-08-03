@@ -44,7 +44,7 @@ class Troubleshooting {
 	 * Class constructor.
 	 *
 	 * @since TBD
-	 * 
+	 *
 	 */
 	public function hook() {
 		add_action( 'admin_menu', [ $this, 'add_menu_page' ], 90 );
@@ -53,7 +53,7 @@ class Troubleshooting {
 
 	/**
 	 * This method created the troubleshooting page and adds it to TEC menu.
-	 * 
+	 *
 	 * @since TBD
 	 *
 	 */
@@ -105,7 +105,7 @@ class Troubleshooting {
 
 	/**
 	 * Adds the troubleshooting menu to the the WP admin bar under events.
-	 * 
+	 *
 	 * @since TBD
 	 *
 	 */
@@ -154,7 +154,7 @@ class Troubleshooting {
 	 * Renders the Troubleshooting page.
 	 *
 	 * @since TBD
-	 * 
+	 *
 	 */
 	public function do_menu_page() {
 		$main = Tribe__Main::instance();
@@ -240,7 +240,7 @@ class Troubleshooting {
 	 * @since TBD
 	 *
 	 * @param string $slug the slug of active issue.
-	 * 
+	 *
 	 * @return boolean returns a boolean value for each individual issue depending on whether it is active or not.
 	 */
 	public function is_active_issue( $slug ) {
@@ -284,7 +284,7 @@ class Troubleshooting {
 			],
 			[
 				'title'        => __( 'Default Google Maps API key', 'tribe-common' ),
-				'description'  => __( 'The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins, dynamic map loads, or Events Calendar Pro\'s Location Search and advanced Map View, you’ll need to get your own Google Maps API key and add it to Events > Settings > APIs', 'tribe-common' ),
+				'description'  => __( 'The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins, dynamic map loads, or Events Calendar Pro\'s Location Search and advanced Map View, you’ll need to get your own Google Maps API key and add it to Events > Settings > Integrations', 'tribe-common' ),
 				'more_info'    => '=https://evnt.is/1aqx',
 				'resolve_text' => __( 'Enter a custom API key', 'tribe-common' ),
 				'fix'          => '/wp-admin/edit.php?page=tribe-common&tab=addons&post_type=tribe_events',
@@ -342,10 +342,10 @@ class Troubleshooting {
 	}
 
 	/**
-	 * Fired to display notices in the admin pages where the method is called. 
+	 * Fired to display notices in the admin pages where the method is called.
 	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @param string $page the page which the action is being applied.
 	 *
 	 */
