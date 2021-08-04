@@ -76,10 +76,10 @@ export const formatTime = ( time, format ) => {
 	const sss = zeroFill( 3, time.miliseconds );
 
 	let formattedTime = time.negative ? '-' : '';
-	formattedTime += showHr ? hh : '';
+	formattedTime += showHr ? `${ hh }:` : '';
 	formattedTime += mm;
-	formattedTime += showSc ? ss : '';
-	formattedTime += showMs ? sss : '';
+	formattedTime += showSc ? `:${ ss }` : '';
+	formattedTime += showMs ? `.${ sss }` : '';
 
 	return formattedTime;
 };
