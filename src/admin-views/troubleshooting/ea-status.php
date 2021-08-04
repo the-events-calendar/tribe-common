@@ -24,7 +24,7 @@ $show_third_party_accounts = ! is_network_admin();
 			include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/license-key.php';
 				// if EA is not active, bail out of the rest of this
 				if ( ! $ea_active ) {
-					echo '</table>';
+					echo '</table></div>';
 					return;
 				} else {
 					// current usage
