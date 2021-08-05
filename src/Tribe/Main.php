@@ -4,6 +4,8 @@
  */
 
 // Don't load directly
+
+use Tribe\Admin\Notice\WP_Version;
 use Tribe\DB_Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,7 +21,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.14.0';
+	const VERSION             = '4.14.1';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -172,7 +174,6 @@ class Tribe__Main {
 		tribe( 'settings.manager' );
 		tribe( 'tracker' );
 		tribe( 'plugins.api' );
-		tribe( 'pue.notices' );
 		tribe( 'ajax.dropdown' );
 		tribe( 'logger' );
 	}
@@ -576,16 +577,10 @@ class Tribe__Main {
 	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
 	 */
 	public function tribe_plugins_loaded() {
-		tribe( 'admin.notice.php.version' );
 		tribe( 'cache' );
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 
-		if ( ! defined( 'TRIBE_HIDE_MARKETING_NOTICES' ) ) {
-			tribe( 'admin.notice.marketing' );
-		}
-
-		tribe( \Tribe\Admin\Notice\WP_Version::class );
 
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
@@ -625,17 +620,9 @@ class Tribe__Main {
 		tribe_singleton( 'db-lock', DB_Lock::class );
 		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 		tribe_singleton( 'customizer', 'Tribe__Customizer' );
-
 		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
-
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
-		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
-
 		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class );
-
-		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', [ 'hook' ] );
-		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', [ 'hook' ] );
-		tribe_singleton( \Tribe\Admin\Notice\WP_Version::class, \Tribe\Admin\Notice\WP_Version::class, [ 'hook' ] );
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
@@ -648,6 +635,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 		tribe_register_provider( Tribe\Service_Providers\Crons::class );
 		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
+		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 	}
 
 	/**
