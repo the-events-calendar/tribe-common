@@ -22,22 +22,22 @@ $show_third_party_accounts = ! is_network_admin();
 		<?php
 			// license key
 			include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/license-key.php';
-				// if EA is not active, bail out of the rest of this
-				if ( $ea_active ) {
-					// current usage
-					include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/current-usage.php';
-					// server connection
-					include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/server-connection.php';
-					// scheduler status
-					include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/scheduler-status.php';
+			// if EA is not active, bail out of the rest of this
+			if ( $ea_active ) {
+				// current usage
+				include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/current-usage.php';
+				// server connection
+				include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/server-connection.php';
+				// scheduler status
+				include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/scheduler-status.php';
 
-					if ( $show_third_party_accounts ) :
-						// eventbrite
-						include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/eventbrite.php';
-						// meetup
-						include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/meetup.php';
-					endif;
-				}
+				if ( $show_third_party_accounts ) :
+					// eventbrite
+					include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/eventbrite.php';
+					// meetup
+					include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/meetup.php';
+				endif;
+			}
 		?>
 	</table>
 </div>
