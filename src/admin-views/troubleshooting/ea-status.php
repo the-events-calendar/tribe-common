@@ -17,15 +17,13 @@ $show_third_party_accounts = ! is_network_admin();
 	<?php esc_html_e( 'Event Aggregator system status ', 'tribe-common' ); ?>
 </h3>
 
-<table class="tribe-events-admin__ea-status-table">
-	<?php
-		// license key
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/license-key.php';
+<div class="tribe-events-admin__ea-status-table-wrapper">
+	<table class="tribe-events-admin__ea-status-table">
+		<?php
+			// license key
+			include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/license-key.php';
 			// if EA is not active, bail out of the rest of this
-			if ( ! $ea_active ) {
-				echo '</table>';
-				return;
-			} else {
+			if ( $ea_active ) {
 				// current usage
 				include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/current-usage.php';
 				// server connection
@@ -40,5 +38,6 @@ $show_third_party_accounts = ! is_network_admin();
 					include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/ea-status/meetup.php';
 				endif;
 			}
-	?>
-</table>
+		?>
+	</table>
+</div>
