@@ -108,7 +108,6 @@ class Main {
 	 * @since TBD
 	 *
 	 * @param string $hook The current admin page.
-	 * @return void
 	 */
 	public function localize_tour( $hook ) {
 		$data = $this->tour_data();
@@ -122,7 +121,6 @@ class Main {
 	 * @since TBD
 	 *
 	 * @param string $hook The current admin page.
-	 * @return void
 	 */
 	public function localize_hints( $hook ) {
 		$data = $this->hints_data();
