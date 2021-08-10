@@ -929,7 +929,7 @@ class Tribe__Admin__Help_Page {
 				'link'     => 'https://evnt.is/1arh',
 			],
 			[
-				'question' => __( 'What do I get with The Events Calendar Pro?', 'tribe-common' ),
+				'question' => __( 'What do I get with Events Calendar Pro?', 'tribe-common' ),
 				'answer'   => __( 'Events Calendar Pro runs alongside The Events Calendar and enhances...' ),
 				'link'     => 'https://evnt.is/1arj',
 			],
@@ -939,8 +939,8 @@ class Tribe__Admin__Help_Page {
 				'link'     => 'https://evnt.is/1ark',
 			],
 			[
-				'question' => __( 'What happens if I disable the plugin?', 'tribe-common' ),
-				'answer'   => __( 'Nothing. Whether you disable the plugin or uninstall it, your events...', 'tribe-common' ),
+				'question' => __( 'Where can I find a list of available shortcodes?', 'tribe-common' ),
+				'answer'   => __( 'Our plugins include many shortcodes that do everything from embedding the calendar...', 'tribe-common' ),
 				'link'     => 'https://evnt.is/1arl',
 			],
 		] );

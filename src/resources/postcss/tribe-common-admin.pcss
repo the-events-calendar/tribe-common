@@ -3973,13 +3973,19 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
+.tribe-events-admin__ea-status-table-wrapper {
+	overflow-x: auto;
+}
+
 .tribe-events-admin__ea-status-table {
 	border: 1px solid #e1e1e4;
 	border-radius: 16px;
 	margin: 30px 0 40px;
 	overflow: hidden;
-	padding: 20px 0;
-	width: 100%;
+
+	@media only screen and (max-width: 480px)  {
+		overflow: scroll;
+	}
 }
 
 .tribe-events-admin__ea-status-table a {
@@ -4000,13 +4006,8 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__ea-status-table tr {
-	align-items: center;
 	display: flex;
-
-	@media only screen and (max-width: 480px) {
-		align-items: flex-start;
-		flex-direction: column;
-	}
+	align-items: center;
 }
 
 .tribe-events-admin__ea-status-table th {
@@ -4026,10 +4027,8 @@ input[type="email"].tribe-events-admin-card__input {
 	padding: 10px 25px;
 	width: 25%;
 
-	@media only screen and (max-width: 480px) {
-		align-items: flex-start;
-		flex-direction: column;
-		width: 100%;
+	@media only screen and (max-width: 480px)  {
+		min-width: 150px;
 	}
 }
 
@@ -4046,8 +4045,7 @@ input[type="email"].tribe-events-admin-card__input {
 	justify-content: flex-end;
 	width: 30%;
 
-	@media only screen and (max-width: 480px) {
-		flex-direction: column;
+	@media only screen and (max-width: 480px)  {
 		width: 100%;
 	}
 }
@@ -4061,10 +4059,6 @@ input[type="email"].tribe-events-admin-card__input {
 	margin-right: 14px;
 	object-fit: contain;
 	width: 21px;
-
-	@media only screen and (max-width: 480px) {
-		margin: 10px 0;
-	}
 }
 
 .tribe_events_page_tec-troubleshooting {

@@ -45,6 +45,8 @@ class Tribe__Plugins_API {
 				'title'           => __( 'Event Aggregator', 'tribe-common' ),
 				'slug'            => 'event-aggregator',
 				'link'            => 'https://evnt.is/1aj0',
+				'plugin-dir'	  => '',
+				'main-file'       => '',
 				'description'     => __( 'Automated imports for your calendar', 'tribe-common' ),
 				'description-help' => __( 'Import events from Meetup, Eventbrite, iCal, Google Calendar, and more.', 'tribe-common' ),
 				'features'        => [
@@ -123,6 +125,8 @@ class Tribe__Plugins_API {
 				'title'           => __( 'Promoter', 'tribe-common' ),
 				'slug'            => 'promoter',
 				'link'            => 'https://evnt.is/1acy',
+				'plugin-dir'	  => '',
+				'main-file'       => '',
 				'description'     => __( 'An email marketing solution for events and the people running them', 'tribe-common' ),
 				'description-help' => __( 'Email marketing to promote your events', 'tribe-common' ),
 				'features'        => [
@@ -141,10 +145,10 @@ class Tribe__Plugins_API {
 				'title'           => __( 'Filter Bar', 'tribe-common' ),
 				'slug'            => 'tribe-filterbar',
 				'link'            => 'https://evnt.is/19o6',
-				'plugin-dir'	  => 'events-filterbar',
+				'plugin-dir'	  => 'the-events-calendar-filterbar',
 				'main-file'       => 'the-events-calendar-filter-view.php',
 				'description'     => __( 'Help users find exactly the right event', 'tribe-common' ),
-				'description-help' => __( 'Create Eventbrite tickets and events right from your WordPress dashboard.', 'tribe-common' ),
+				'description-help' => __( 'Allow users to search for events by category, tag, venue, organizer, day of the week, time of day, and price.', 'tribe-common' ),
 				'features'        => [
 					__( 'Configurable set of filters', 'tribe-common' ),
 					__( 'Horizontal or vertical', 'tribe-common' ),
