@@ -145,10 +145,10 @@ class Tribe__Plugins_API {
 				'title'           => __( 'Filter Bar', 'tribe-common' ),
 				'slug'            => 'tribe-filterbar',
 				'link'            => 'https://evnt.is/19o6',
-				'plugin-dir'	  => 'events-filterbar',
+				'plugin-dir'	  => 'the-events-calendar-filterbar',
 				'main-file'       => 'the-events-calendar-filter-view.php',
 				'description'     => __( 'Help users find exactly the right event', 'tribe-common' ),
-				'description-help' => __( 'Create Eventbrite tickets and events right from your WordPress dashboard.', 'tribe-common' ),
+				'description-help' => __( 'Allow users to search for events by category, tag, venue, organizer, day of the week, time of day, and price.', 'tribe-common' ),
 				'features'        => [
 					__( 'Configurable set of filters', 'tribe-common' ),
 					__( 'Horizontal or vertical', 'tribe-common' ),
