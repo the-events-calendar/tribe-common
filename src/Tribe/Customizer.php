@@ -395,7 +395,7 @@ final class Tribe__Customizer {
 	/**
 	 * Add an action for some backwards compatibility.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return void
 	 */

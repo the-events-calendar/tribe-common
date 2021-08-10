@@ -7,8 +7,7 @@
 * Feature - Add new custom Customizer controls - Number, Range Slider, Toggle. [TEC-3897]
 * Tweak - Split pcss variable imports so we only import hte necessary variables for skeleton, and don't import more than once. [TCMN-104]
 * Tweak - added new `get_hex_with_hash` function to Tribe/Utils/Color.php to reduce need for manual string concatenation. [TCMN-104]
-
-* Language -
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.1] 2021-07-21 =
 

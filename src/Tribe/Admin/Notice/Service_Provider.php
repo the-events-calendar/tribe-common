@@ -2,7 +2,7 @@
 /**
  * Handles admin notice functions.
  *
- * @since   TBD
+ * @since   4.14.2
  *
  * @package Tribe\Admin\Notice;
  */
@@ -12,7 +12,7 @@ namespace Tribe\Admin\Notice;
 /**
  * Class Notice
  *
- * @since TBD
+ * @since 4.14.2
  *
  * @package Tribe\Admin\Notice
  */
@@ -21,7 +21,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the objects and filters required by the provider to manage admin notices.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 */
 	public function register() {
 		tribe_singleton( 'pue.notices', 'Tribe__PUE__Notices' );
@@ -36,7 +36,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Set up hooks for classes.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 */
 	private function hooks() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded'] );
@@ -45,7 +45,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Setup for things that require plugins loaded first.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 */
 	public function plugins_loaded() {
 		tribe( 'pue.notices' );
