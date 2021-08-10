@@ -85,7 +85,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Contains the arguments for the section headings.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var array
 	 */
@@ -94,7 +94,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Contains the arguments for the section settings.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var array
 	 */
@@ -103,7 +103,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Contains the arguments for the section controls.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var array
 	 */
@@ -910,7 +910,7 @@ abstract class Tribe__Customizer__Section {
 	 * Utility function for when we need a color in RGB format,
 	 * since the Customizer always works with hex. Keepin' it DRY.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @param string $option The option slug, like "grid-lines-color"
 	 * @param string $section The optional section slug, like 'global_elements'

@@ -8,7 +8,7 @@ defined( 'WPINC' ) or die;
  * @package Common
  * @since 4.3
  *
- * @since TBD Added get_hex_with_hash function.
+ * @since 4.14.2 Added get_hex_with_hash function.
  */
 
 /**
@@ -337,7 +337,7 @@ class Tribe__Utils__Color {
 	/**
 	 * Returns your original color with the hash mark.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return string Hex color code with hash prefix.
 	 */
