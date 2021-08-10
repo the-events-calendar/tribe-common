@@ -2,7 +2,7 @@
 
 = [4.14.2] 2021-08-10 =
 
-* Language -
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.1] 2021-07-21 =
 
