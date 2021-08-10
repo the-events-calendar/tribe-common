@@ -2,6 +2,12 @@
 
 = [4.14.2] 2021-08-10 =
 
+* Feature - Alter common postcss to leverage exposed namespaced custom properties from common-styles. [TCMN-104]
+* Tweak - Alter Customizer and Section objects to be more versatile. [TCMN-104]
+* Feature - Add new custom Customizer controls - Number, Range Slider, Toggle. [TEC-3897]
+* Tweak - Split pcss variable imports so we only import hte necessary variables for skeleton, and don't import more than once. [TCMN-104]
+* Tweak - added new `get_hex_with_hash` function to Tribe/Utils/Color.php to reduce need for manual string concatenation. [TCMN-104]
+
 * Language -
 
 = [4.14.1] 2021-07-21 =
