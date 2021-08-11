@@ -14,7 +14,20 @@
   ],
   "_filePath": {
     "eslint": [
-      "src/modules/**/*.js"
+      "src/modules/**/*.js",
+      "src/resources/js/**/*.js",
+      "!src/resources/js/**/*.min.js",
+      "!src/resources/js/app/**/*.js",
+      "!src/resources/js/utils/query-string.js"
+    ],
+    "stylelint": [
+      "src/resources/postcss/**/*.pcss",
+      "!src/resources/postcss/app-shop.pcss",
+      "!src/resources/postcss/bumpdown.pcss",
+      "!src/resources/postcss/buttonset.pcss",
+      "!src/resources/postcss/datatables.pcss",
+      "!src/resources/postcss/datepicker.pcss",
+      "!src/resources/postcss/tribe-ui.pcss"
     ]
   },
   "_glotPressFilter": {
@@ -37,13 +50,9 @@
     "dev": "cross-env NODE_ENV=development webpack -d --watch",
     "gettext-strings": "cross-env BABEL_ENV=gettext webpack",
     "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
-    "testEslint": "gulp eslint",
     "lint": "npm run lint:eslint && npm run lint:stylelint",
-    "lint:eslint": "npm run lint:eslint:js && npm run lint:eslint:modules",
-    "lint:eslint:js": "gulp eslint --filePath 'src/resources/js/**/*.js' --filePath '!src/resources/js/**/*.min.js' --filePath '!src/resources/js/app/**/*.js' --filePath '!src/resources/js/utils/query-string.js'",
-    "lint:eslint:modules": "gulp eslint --filePath 'src/modules/**/*.js'",
-    "lint:stylelint": "npm run lint:stylelint:pcss",
-    "lint:stylelint:pcss": "gulp stylelint --filePath 'src/resources/postcss/**/*.pcss' --filePath '!src/resources/postcss/app-shop.pcss' --filePath '!src/resources/postcss/bumpdown.pcss' --filePath '!src/resources/postcss/buttonset.pcss' --filePath '!src/resources/postcss/datatables.pcss' --filePath '!src/resources/postcss/datepicker.pcss' --filePath '!src/resources/postcss/tribe-ui.pcss'",
+    "lint:eslint": "gulp eslint",
+    "lint:stylelint": "gulp stylelint",
     "test": "TZ=UTC jest --config jest.config.json",
     "test:travis": "npm run test -- --maxWorkers=4",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
