@@ -186,9 +186,9 @@ class Tribe__Editor__Assets {
 			'wp-editor',
 		];
 
-		if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php'  ) {
-			if ( ( $key = array_search( 'wp-editor', $deps ) ) !== false) {
-				unset($deps[$key]);
+		if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' ) {
+			if ( ( $key = array_search( 'wp-editor', $deps ) ) !== false ) {
+				unset( $deps[ $key ] );
 			}
 		}
 
