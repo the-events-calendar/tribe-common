@@ -1,5 +1,5 @@
 /* = Shared CSS Elements
-=============================================*/
+============================================= */
 .invalid input,
 input:out-of-range {
 	border: 2px solid red !important;
@@ -69,7 +69,7 @@ td.tribe_message {
 }
 
 /* = Upgrade Screen
-=============================================*/
+============================================= */
 #tribe-upgrade {
 	background: #f6f6f6;
 	border: 1px solid #ccc;
@@ -88,7 +88,7 @@ td.tribe_message {
 }
 
 /* = Plugin Screen
-=============================================*/
+============================================= */
 table.plugins {
 
 	.tribe-plugin-update-message {
@@ -116,7 +116,7 @@ table.plugins {
 }
 
 /* = Settings Screen
-=============================================*/
+============================================= */
 .tribe-settings-form {
 	max-width: 1000px;
 
@@ -149,13 +149,13 @@ table.plugins {
 	.tribe-field-radio,
 	.tribe-field-checkbox_list {
 		label {
-			display:     block;
-			margin:      5px 0 5px 20px;
+			display: block;
+			margin: 5px 0 5px 20px;
 			text-indent: -20px;
 
 			> p {
-				text-indent: 0;
 				margin-left: 1px;
+				text-indent: 0;
 			}
 
 			input {
@@ -183,6 +183,7 @@ table.plugins {
 				margin-bottom: 18px;
 			}
 		}
+
 		#tribe-field-stylesheetOption {
 			.description {
 				color: #999;
@@ -319,7 +320,7 @@ table.plugins {
 .tribe-field-wrapped_html.tribe-size-large .tribe-field-wrap {
 	max-width: 600px;
 
-	.description{
+	.description {
 		max-width: 100%;
 	}
 }
@@ -358,7 +359,7 @@ table.plugins {
 			padding-right: 12px;
 		}
 
-		&.tribe-field-radio{
+		&.tribe-field-radio {
 
 			.tribe-field-wrap {
 				clear: left;
@@ -436,7 +437,7 @@ table.plugins {
 }
 
 .tribe-arrangeable-item {
-	border: 1px solid lightGrey;
+	border: 1px solid lightgrey;
 	border-radius: 3px;
 }
 
@@ -458,7 +459,7 @@ table.plugins {
 
 .tribe-arrangeable-child {
 	background-color: #f9f9f9;
-	border-top: 1px solid lightGrey;
+	border-top: 1px solid lightgrey;
 	display: none;
 	padding: 25px;
 }
@@ -494,7 +495,7 @@ table.plugins {
 }
 
 /* = Help Screen
-=============================================*/
+============================================= */
 
 #tribe-help-general,
 #tribe-help-sidebar {
@@ -605,7 +606,7 @@ table.plugins {
 }
 
 #tribe-system-info dl.support-stats dd,
-.template-updates-wrapper  dd {
+.template-updates-wrapper dd {
 	margin-left: 25%;
 	padding-left: 10px;
 }
@@ -645,13 +646,13 @@ table.plugins {
 	font-weight: bold;
 }
 
-.tribe-help-plugin-info dd::after {
+.tribe-help-plugin-info dd:after {
 	content: '';
 	display: block;
-	height: .4em;
+	height: 0.4em;
 }
 
-.tribe-help-plugin-info dd:last-child::after {
+.tribe-help-plugin-info dd:last-child:after {
 	height: 0;
 }
 
@@ -691,19 +692,19 @@ table.plugins {
 }
 
 /* = jQuery UI
-=============================================*/
+============================================= */
 .ui-widget-overlay {
 	background: #666;
-	filter: Alpha(Opacity=50);
-	opacity: .50;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
 }
 
 .ui-widget-shadow {
 	background: #000;
 	border-radius: 5px;
-	filter: Alpha(Opacity=20);
+	filter: alpha(opacity=20);
 	margin: -5px 0 0 -5px;
-	opacity: .20;
+	opacity: 0.2;
 	padding: 5px;
 }
 
@@ -713,7 +714,7 @@ table.plugins {
 
 .ui-resizable-handle {
 	display: block;
-	font-size: .1px;
+	font-size: 0.1px;
 	position: absolute;
 	z-index: 99999;
 }
@@ -788,19 +789,19 @@ table.plugins {
 }
 
 .ui-dialog {
-	padding: .2em;
+	padding: 0.2em;
 	position: relative;
 	width: 375px;
 }
 
 .ui-dialog .ui-dialog-titlebar {
-	padding: .5em .3em .3em 1em;
+	padding: 0.5em 0.3em 0.3em 1em;
 	position: relative;
 }
 
 .ui-dialog .ui-dialog-title {
 	float: left;
-	margin: .1em 0 .2em;
+	margin: 0.1em 0 0.2em;
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
@@ -808,7 +809,7 @@ table.plugins {
 	margin: -10px 0 0 0;
 	padding: 1px;
 	position: absolute;
-	right: .3em;
+	right: 0.3em;
 	top: 50%;
 	width: 19px;
 }
@@ -828,24 +829,24 @@ table.plugins {
 	background: none;
 	border: 0;
 	overflow: auto;
-	padding: .5em 1em;
+	padding: 0.5em 1em;
 	zoom: 1;
 }
 
 .ui-dialog .ui-dialog-buttonpane {
 	background-image: none;
 	border-width: 1px 0 0 0;
-	margin: .5em 0 0 0;
-	padding: .3em 1em .5em !important;
+	margin: 0.5em 0 0 0;
+	padding: 0.3em 1em 0.5em !important;
 	text-align: right;
 }
 
 .ui-dialog .ui-dialog-buttonpane button {
 	cursor: pointer;
 	line-height: 1.4em;
-	margin: .5em .4em .5em !important;
+	margin: 0.5em 0.4em 0.5em !important;
 	overflow: visible;
-	padding: .2em .6em .3em;
+	padding: 0.2em 0.6em 0.3em;
 	text-shadow: none;
 	width: auto;
 }
@@ -867,7 +868,7 @@ table.plugins {
 }
 
 .ui-button-text-only .ui-button-text {
-	padding: .4em 1em;
+	padding: 0.4em 1em;
 }
 
 .ui-button .ui-button-text {
@@ -881,7 +882,7 @@ table.plugins {
 
 #tribe-loading {
 	background: #fff;
-	background: rgba(255, 255, 255, .8);
+	background: rgba(255, 255, 255, 0.8);
 	display: none;
 	height: 100%;
 	left: 0;
@@ -893,7 +894,7 @@ table.plugins {
 }
 
 #tribe-loading span {
-	background: url(../images/tribe-loading.gif) 0 0 no-repeat;
+	background: url('../images/tribe-loading.gif') 0 0 no-repeat;
 	background-size: 32px 32px;
 	height: 32px;
 	left: 50%;
@@ -904,20 +905,19 @@ table.plugins {
 }
 
 /* = Admin Retina Bits
-=============================================*/
-@media
-only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
+============================================= */
+@media only screen and (min--moz-device-pixel-ratio: 2),
+	only screen and (-o-min-device-pixel-ratio: 2/1),
+	only screen and (-webkit-min-device-pixel-ratio: 2),
+	only screen and (min-device-pixel-ratio: 2) {
 
 	#tribe-loading span {
-		background-image: url(../images/tribe-loading@2x.gif);
+		background-image: url('../images/tribe-loading@2x.gif');
 	}
 }
 
 /* = Update Pages // Displays after plugin update
-===============================================================================*/
+=============================================================================== */
 
 .tribe_update_page {
 	max-width: 850px;
@@ -1022,9 +1022,8 @@ a.tribe-rating-link {
 }
 
 .tribe-events-widget-admin-form__input-section h4 {
-	margin: .5em 0;
+	margin: 0.5em 0;
 }
-
 
 /* Media Queries for Mobile Dashboard */
 @media screen and (max-width: 782px) {
@@ -1040,7 +1039,7 @@ a.tribe-rating-link {
 	}
 }
 
-@media screen and ( max-width: 782px ) {
+@media screen and (max-width: 782px) {
 
 	.events-cal .subsubsub {
 		float: none;
@@ -1072,13 +1071,9 @@ a.tribe-rating-link {
 }
 
 .tribe-update-bar .progress .bar {
-	background: #ffba00;
+	background: #7ad03a;
 	height: 1rem;
 	width: 1%;
-}
-
-.tribe-update-bar .progress .bar {
-	background: #7ad03a;
 }
 
 /* = Modals/thickbox dialogs
@@ -1104,8 +1099,8 @@ a.tribe-rating-link {
 
 	.select-single-container {
 		border: 1px solid #888;
-		overflow-y: scroll;
 		height: 300px;
+		overflow-y: scroll;
 
 		label {
 			opacity: 1;
@@ -1150,8 +1145,8 @@ a.tribe-rating-link {
 }
 
 .api-check {
-	padding: 1em;
 	min-height: 100px;
+	padding: 1em;
 
 	& + .notice-dismiss {
 
@@ -1183,11 +1178,11 @@ a.tribe-rating-link {
 
 		img {
 			display: inline-block;
+			height: 100%;
 			max-height: 150px;
 			max-width: 150px;
-			height: 100%;
-			width: auto;
 			vertical-align: middle;
+			width: auto;
 		}
 
 		@media screen and (min-width: 500px) {
@@ -1196,7 +1191,6 @@ a.tribe-rating-link {
 	}
 
 	.notice-content {
-
 		@media screen and (min-width: 500px) {
 			margin-right: 180px;
 		}
@@ -1236,6 +1230,7 @@ a.tribe-rating-link {
 		}
 	}
 }
+
 .tribe-marketing-notice {
 	padding: 1em;
 
@@ -1279,7 +1274,7 @@ a.tribe-rating-link {
 	}
 
 	.tribe-marketing-notice__content {
-		@media screen and (min-width: 600px) and (max-width: 782px ) {
+		@media screen and (min-width: 600px) and (max-width: 782px) {
 			margin-left: 145px;
 		}
 
@@ -1309,7 +1304,7 @@ a.tribe-rating-link {
 
 #wpcontent .notice-tribe-banner {
 	align-items: center;
-	background: #161B7D;
+	background: #161b7d;
 	border: 0;
 	box-shadow: none;
 	display: flex;
@@ -1335,7 +1330,7 @@ a.tribe-rating-link {
 			margin-left: 22px;
 		}
 
-		@media screen and (min-width: 600px) and (max-width: 782px ) {
+		@media screen and (min-width: 600px) and (max-width: 782px) {
 			margin-left: 22px;
 			padding: 0;
 		}
@@ -1448,7 +1443,6 @@ a.tribe-rating-link {
 	}
 }
 
-
 .tribe-ea-dropdown,
 .tribe-dropdown {
 	max-width: 100%;
@@ -1486,13 +1480,13 @@ a.tribe-rating-link {
 		}
 
 		.select2-dropdown--below {
-			margin-top: -1px;
 			border-top: 1px solid #aaa;
+			margin-top: -1px;
 		}
 
 		.select2-dropdown--above {
-			margin-bottom: -16px;
 			border-bottom: 1px solid #aaa;
+			margin-bottom: -16px;
 		}
 
 		.select2-selection--single {
@@ -1508,8 +1502,8 @@ a.tribe-rating-link {
 
 	&.select2-selection--single {
 		background-image: none;
-		border-radius: 3px;
 		border: 1px solid #ccc;
+		border-radius: 3px;
 		overflow: hidden;
 
 		> .select2-selection__rendered {
@@ -1517,8 +1511,8 @@ a.tribe-rating-link {
 		}
 
 		.select2-selection__arrow {
-			background-image: none;
 			background: transparent;
+			background-image: none;
 			border-left: 0;
 			top: 2px;
 			width: 26px;
@@ -1528,15 +1522,15 @@ a.tribe-rating-link {
 				background-size: auto;
 				background-size: 16px 16px;
 				border: 0;
-				top: 0;
 				bottom: 0;
-				left: 0;
-				right: 0;
 				display: block;
-				width: auto;
 				height: auto;
+				left: 0;
 				margin: 0;
 				padding: 0;
+				right: 0;
+				top: 0;
+				width: auto;
 			}
 		}
 	}
@@ -1544,24 +1538,24 @@ a.tribe-rating-link {
 	.select2-selection--multiple {
 		.select2-selection__rendered {
 			background-image: none;
-			border-radius: 3px;
 			border: 1px solid #ccc;
+			border-radius: 3px;
 			min-height: 25px;
 
 			.select2-search--inline {
 				line-height: 25px;
 
 				input {
-					padding-top: 0;
 					padding-bottom: 0;
+					padding-top: 0;
 				}
 			}
 
 			.select2-selection__choice {
-				margin-top: 2px;
-				padding-top: 0;
-				padding-bottom: 0;
 				line-height: 19px;
+				margin-top: 2px;
+				padding-bottom: 0;
+				padding-top: 0;
 
 				div {
 					line-height: inherit;
@@ -1569,9 +1563,9 @@ a.tribe-rating-link {
 			}
 
 			.select2-selection__choice__remove {
-				top: 3px;
 				left: 4px;
-				transition-property: border,color;
+				top: 3px;
+				transition-property: border, color;
 			}
 		}
 	}
@@ -1589,7 +1583,6 @@ a.tribe-rating-link {
 		}
 	}
 
-
 	&.select2-results__option--highlighted {
 		background-color: #efefef;
 		color: #a1a1a1;
@@ -1602,15 +1595,14 @@ a.tribe-rating-link {
 Red button styles.
 
 Credit to https://github.com/jensjns/wp-admin-red-button
-=============================================*/
+============================================= */
 .wp-core-ui .button-red {
 	background-color: #a00;
-	border-bottom-color: #8D1F21;
-	border-color: #9B2124;
-	box-shadow: inset 0 1px 0 rgba(120,200,230,0.5);
+	border-color: #9b2124;
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.5);
 	color: #fff;
 	text-decoration: none;
-	text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .wp-core-ui .button-red.hover,
@@ -1618,38 +1610,38 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .wp-core-ui .button-red.focus,
 .wp-core-ui .button-red:focus {
 	background-color: #a00;
-	border-color: #7F1C1F;
-	box-shadow: inset 0 1px 0 rgba(120,200,230,0.6);
+	border-color: #7f1c1f;
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.6);
 	color: #fff;
-	text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
 .wp-core-ui .button-red.focus,
 .wp-core-ui .button-red:focus {
-	border-color: #500F0E;
-	box-shadow: inset 0 1px 0 rgba(120,200,230,0.6), 1px 1px 2px rgba(0,0,0,0.4);
+	border-color: #500f0e;
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.6), 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .wp-core-ui .button-red.active,
 .wp-core-ui .button-red.active:hover,
 .wp-core-ui .button-red.active:focus,
 .wp-core-ui .button-red:active {
-	background: #7F1C1F;
-	border-color: #601312 #AE2426 #AE2426 #AE2426;
-	box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
-	color: rgba(255,255,255,0.95);
-	text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+	background: #7f1c1f;
+	border-color: #601312 #ae2426 #ae2426 #ae2426;
+	box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
+	color: rgba(255, 255, 255, 0.95);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .wp-core-ui .button-red[disabled],
 .wp-core-ui .button-red:disabled,
 .wp-core-ui .button-red-disabled {
-	color: #E79496 !important;
-	background: #BA292B !important;
-	border-color: #7F1C1F !important;
+	background: #ba292b !important;
+	border-color: #7f1c1f !important;
 	box-shadow: none !important;
-	text-shadow: 0 -1px 0 rgba(0,0,0,0.1) !important;
+	color: #e79496 !important;
 	cursor: default;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
 }
 
 .ticket_form {
@@ -1683,20 +1675,13 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .checkmark {
 
 	&:after {
-		/*Add another block-level blank space*/
+		border: solid #0ab152;
+		border-width: 0 3px 3px 0;
 		content: '';
 		display: block;
-
-		/*Make it a small rectangle so the border will create an L-shape*/
-		width: 8px;
 		height: 15px;
-
-		/*Add a white border on the bottom and left, creating that 'L' */
-		border: solid #0AB152;
-		border-width: 0 3px 3px 0;
-
-		/*Rotate the L 45 degrees to turn it into a checkmark*/
 		transform: rotate(45deg);
+		width: 8px;
 	}
 
 	&.checkmark-right:after {
@@ -1722,7 +1707,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 [data-status="ok"],
 [data-status="yes"],
 [data-status="on"] {
-	color: #0AB152;
+	color: #0ab152;
 }
 
 .incomplete,
@@ -1733,7 +1718,7 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 [data-status="ko"],
 [data-status="no"],
 [data-status="off"] {
-	color: #FF2500;
+	color: #ff2500;
 }
 
 /*
@@ -1757,14 +1742,13 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	}
 }
 
-
 /* = TEC Welcome & new BEM tribe admin styles
-==============================================*/
+============================================== */
 body.tribe-welcome,
 body.tribe_events_page_tribe-help {
+	background-color: white;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: white;
 
 	/* hide WordPress update notices on this page */
 	.update-nag {
@@ -1798,29 +1782,28 @@ body.tribe_events_page_tribe-help {
 	}
 }
 
-
 .tribe-events-admin-content-wrapper {
-	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 	font-style: normal;
 	margin: 0 auto;
 	padding: 20px;
-	width: calc( 100% - 40px );
+	width: calc(100% - 40px);
 
 	@media screen and (min-width: 710px) {
 		width: 670px;
 	}
 
 	@media screen and (min-width: 1217px) {
-		width: 100%;
 		max-width: 1060px;
+		width: 100%;
 	}
 }
 
 .tribe-events-admin-card {
-	background: #FFFFFF;
-	border: 1px solid #E1E1E4;
-	box-sizing: border-box;
+	background: #fff;
+	border: 1px solid #e1e1e4;
 	border-radius: 16px;
+	box-sizing: border-box;
 	display: block;
 	margin: 0 auto 36px auto;
 	padding: 27px;
@@ -1833,8 +1816,8 @@ body.tribe_events_page_tribe-help {
 	/* treat the one-up card like a three-up card at the middle break */
 	@media screen and (min-width: 710px) {
 		display: inline-block;
-		width: calc( 50% - 18px );
 		margin-left: 32px;
+		width: calc(50% - 18px);
 
 		.tribe-events-admin-card__description {
 			height: 71px;
@@ -1859,19 +1842,18 @@ body.tribe_events_page_tribe-help {
 			float: left;
 			margin: 0 48px 10px 0;
 		}
-
 	}
 }
 
 .tribe-events-admin-video {
-	-webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
-	-webkit-transform: rotate(0.000001deg);
 	-webkit-border-radius: 16px;
 	-moz-border-radius: 16px;
 	border-radius: 16px;
 	height: 200px; /* this is overridden by JS, but is a starting point for less flicker */
 	margin-bottom: 72px;
+	-webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
 	overflow: hidden;
+	-webkit-transform: rotate(0.000001deg);
 
 	iframe {
 		width: 100%;
@@ -1902,8 +1884,8 @@ body.tribe_events_page_tribe-help {
 		}
 
 		.tribe-events-admin-card__title {
-			max-width: 340px;
 			margin-bottom: 27px;
+			max-width: 340px;
 		}
 	}
 
@@ -1914,11 +1896,10 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-card--3up {
-
 	@media screen and (min-width: 710px) {
 		display: inline-block;
 		margin-bottom: 32px;
-		width: calc( 50% - 18px );
+		width: calc(50% - 18px);
 
 		&.tribe-events-admin-card--first {
 			margin-right: 32px;
@@ -1955,7 +1936,7 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-card--promo-blue {
-	background-color: #3D54FF;
+	background-color: #3d54ff;
 	background-image: url("../images/welcome/promo.jpg");
 
 	@media screen and (min-width: 710px) {
@@ -1972,8 +1953,8 @@ body.tribe_events_page_tribe-help {
 	.tribe-events-admin-card__description {
 		color: white;
 		font-size: 16px;
-		text-align: left;
 		margin-bottom: 16px;
+		text-align: left;
 
 		@media screen and (min-width: 710px) {
 			float: left;
@@ -1983,24 +1964,23 @@ body.tribe_events_page_tribe-help {
 		@media screen and (min-width: 1217px) {
 			max-width: 450px;
 		}
-
 	}
 
 	.tribe-events-admin-card__title {
-		text-align: left;
 		color: white;
+		text-align: left;
 	}
 }
 
 .tribe-events-admin-graphic {
 	position: absolute;
-	top: 106px;
 	right: 0;
+	top: 106px;
 	z-index: -1;
 
 	@media screen and (min-width: 710px) {
-		top: 0;
 		max-width: 250px;
+		top: 0;
 	}
 
 	@media screen and (min-width: 1217px) {
@@ -2039,10 +2019,10 @@ body.tribe_events_page_tribe-help {
 
 /* including the specificity on input type to override base WP admin styles */
 input[type="email"].tribe-events-admin-card__input {
-	background: #FFFFFF;
-	border: 1px solid #E1E1E4;
-	box-sizing: border-box;
+	background: #fff;
+	border: 1px solid #e1e1e4;
 	border-radius: 16px;
+	box-sizing: border-box;
 	font-size: 14px;
 	height: 54px;
 
@@ -2064,7 +2044,7 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin-card__button {
 	background-color: white;
 	border: none;
-	color: #3D54FF;
+	color: #3d54ff;
 	font-size: 14px;
 	font-weight: bold;
 	letter-spacing: 1px;
@@ -2075,13 +2055,12 @@ input[type="email"].tribe-events-admin-card__input {
 	top: 17px;
 
 	&:hover {
-		color: #161B7D;
+		color: #161b7d;
 	}
 }
 
 .tribe-events-admin-card__description {
-	color: #000000;
-
+	color: #000;
 	font-size: 14px;
 	font-style: normal;
 	font-weight: normal;
@@ -2091,12 +2070,12 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin-card__image {
 	display: block;
-	margin: 0 auto 0 auto;
 	height: 100px;
+	margin: 0 auto 0 auto;
 }
 
 .tribe-events-admin-card__link {
-	color: #3D54FF;
+	color: #3d54ff;
 	display: inline-block;
 	font-size: 16px;
 	font-style: normal;
@@ -2107,7 +2086,7 @@ input[type="email"].tribe-events-admin-card__input {
 	text-decoration: none;
 
 	&:hover {
-		color: #161B7D;
+		color: #161b7d;
 	}
 
 	&:after {
@@ -2122,7 +2101,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-card__title {
-	color: #0F1031;
+	color: #0f1031;
 	font-size: 20px;
 	font-weight: bold;
 	line-height: 23px;
@@ -2139,26 +2118,26 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-quick-nav {
-	background: #FFFFFF;
+	background: #fff;
+	border: 1px solid #e1e1e4;
 	border-radius: 16px;
-	border: 1px solid #E1E1E4;
 	box-sizing: border-box;
 	display: block;
 	margin: 40px 0 78px 0;
 	padding: 18px 23px 2px 23px;
 
 	@media screen and (min-width: 1217px) {
-		display: inline-block;
 		border-radius: 100px;
+		display: inline-block;
+		height: 54px;
 		margin: 24px 0 94px 0;
 		max-width: 1010px;
 		padding: 0 36px 0 0;
-		height: 54px;
 	}
 }
 
 .tribe-events-admin-quick-nav__link {
-	color: #3D54FF;
+	color: #3d54ff;
 	font-size: 16px;
 	font-weight: bold;
 	line-height: 18px;
@@ -2166,9 +2145,10 @@ input[type="email"].tribe-events-admin-card__input {
 	text-decoration: none;
 
 	&:hover {
-		color: #161B7D;
+		color: #161b7d;
 	}
 }
+
 .tribe-events-admin-quick-nav__link-item {
 	display: block;
 	padding-bottom: 19px;
@@ -2198,7 +2178,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-section-header {
-	color: #000000;
+	color: #000;
 	font-size: 24px;
 	font-weight: bold;
 	line-height: 28px;
@@ -2220,7 +2200,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-title__description {
-	color: #0F1031;
+	color: #0f1031;
 	font-size: 16px;
 	font-weight: normal;
 	line-height: 24px;
@@ -2233,7 +2213,7 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-title__heading {
-	color: #0F1031;
+	color: #0f1031;
 	display: inline-block;
 	font-size: 24px;
 	font-weight: bold;
@@ -2260,12 +2240,12 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-notice {
-	background-color: #3D54FF;
+	background-color: #3d54ff;
 	height: 65px;
 
 	.tribe-events-admin-content-wrapper {
-		padding-top: 8px;
 		padding-bottom: 0;
+		padding-top: 8px;
 	}
 
 	p {
@@ -2274,7 +2254,7 @@ input[type="email"].tribe-events-admin-card__input {
 		font-family: Helvetica;
 		font-size: 16px;
 		line-height: 18px;
-		margin-top: 0px;
+		margin-top: 0;
 		padding-bottom: 12px;
 		padding-left: 16px;
 		vertical-align: middle;
@@ -2299,8 +2279,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	.tribe-events-admin-graphic--mobile-only {
-		width: 300px;
 		top: 230px;
+		width: 300px;
 	}
 
 	.tribe-events-admin-title__heading {
@@ -2336,37 +2316,36 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 }
 
-
 /* -- Freemius tweaks -- */
 body.tribe-welcome #fs_connect {
-	border: 1px solid #E1E1E4;
-	box-sizing: border-box;
+	border: 1px solid #e1e1e4;
 	border-radius: 16px;
-	margin-left: 22px;
 	box-shadow: none;
+	box-sizing: border-box;
+	margin-left: 22px;
 
 	.fs-actions {
 		background-color: transparent;
 	}
 
 	.fs-permissions {
-		border-top: 1px solid #E1E1E4;
+		border-top: 1px solid #e1e1e4;
 		margin: 0 16px;
 	}
 
 	button {
-		background-color: #3D54FF;
-		border-color: #3D54FF;
+		background-color: #3d54ff;
+		border-color: #3d54ff;
 	}
 
 	.button-secondary {
-		border-color: #3D54FF;
-		color: #3D54FF;
 		background: white;
+		border-color: #3d54ff;
+		color: #3d54ff;
 	}
 
 	a {
-		color: #3D54FF;
+		color: #3d54ff;
 
 		&:focus {
 			box-shadow: none;
@@ -2374,7 +2353,7 @@ body.tribe-welcome #fs_connect {
 		}
 
 		&:hover {
-			color: #161B7D;
+			color: #161b7d;
 		}
 	}
 }
@@ -2434,12 +2413,12 @@ input[type="checkbox"].tribe-common-switch__input {
 }
 
 /* = TEC Welcome & new BEM tribe admin styles
-==============================================*/
+============================================== */
 body.tribe-welcome,
 body.tribe_events_page_tribe-help {
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 	background-color: white;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
 
 	/* hide WordPress update notices on this page */
 	.update-nag {
@@ -2475,10 +2454,10 @@ body.tribe_events_page_tribe-help {
 
 .tribe-events-admin-header__logo-word-mark {
 	display: inline-block;
-	width: 312px;
 	height: auto;
 	margin: 0 0 26px 0;
 	vertical-align: middle;
+	width: 312px;
 
 	@media screen and (max-width: 768px) {
 		width: 285px;
@@ -2500,12 +2479,12 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-header__right-image {
-	position: absolute;
-	top: 0;
-	right: 0;
-	z-index: -1;
-	width: auto;
 	height: 280px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: auto;
+	z-index: -1;
 
 	@media screen and (max-width: 768px) {
 		height: 160px;
@@ -2548,25 +2527,25 @@ body.tribe_events_page_tribe-help {
 	@media screen and (max-width: 480px) {
 		border: 1px solid #e1e1e4;
 		border-radius: 20px;
-		padding: 18px 22px;
 		flex-direction: column;
+		padding: 18px 22px;
 	}
 }
 
 .tribe-events-admin-tab-nav li {
+	cursor: pointer;
 	font-size: 16px;
 	font-weight: 500;
-	cursor: pointer;
-	margin-right: 30px;
 	margin-bottom: 0;
+	margin-right: 30px;
 
 	@media screen and (max-width: 768px) {
 		margin-right: 20px;
 	}
 
 	@media screen and (max-width: 480px) {
-		margin-right: 0;
 		margin-bottom: 18px;
+		margin-right: 0;
 	}
 }
 
@@ -2575,8 +2554,8 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-tab-nav .selected {
-	color: #334aff;
 	border-bottom: 3px solid #334aff;
+	color: #334aff;
 	padding-bottom: 17px;
 
 	@media screen and (max-width: 768px) {
@@ -2612,9 +2591,9 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-products-description {
+	color: #0f1031;
 	font-size: 14px;
 	line-height: 2;
-	color: #0f1031;
 
 	/* hide on mobile */
 	@media screen and (max-width: 480px) {
@@ -2623,11 +2602,11 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-products-card {
-	display: flex;
 	align-items: center;
-	padding: 10px 15px;
 	border: 1px solid #e1e1e4;
 	border-radius: 20px;
+	display: flex;
+	padding: 10px 15px;
 
 	/* hide on mobile */
 	@media screen and (max-width: 480px) {
@@ -2637,13 +2616,13 @@ body.tribe_events_page_tribe-help {
 
 .tribe-events-admin-products-card__icon {
 	height: 40px;
-	width: 40px;
 	object-fit: contain;
+	width: 40px;
 }
 
 .tribe-events-admin-products-card__group {
-	max-width: 55%;
 	margin: 0 20px;
+	max-width: 55%;
 
 	@media screen and (min-width: 1200px) {
 		max-width: 47%;
@@ -2651,10 +2630,10 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-products-card__group-title {
+	color: #0f1031;
 	font-size: 16px;
 	font-weight: bold;
 	line-height: 1;
-	color: #0f1031;
 	margin: 0;
 }
 
@@ -2664,24 +2643,23 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-products-card__button {
-	margin-left: auto;
 	background-color: white;
-	border: none;
+	border: 1px solid #e1e1e4;
+	border-radius: 20px;
 	color: #0f1031;
 	font-size: 12px;
 	font-weight: bold;
 	letter-spacing: 1px;
 	line-height: 16px;
-	text-transform: uppercase;
+	margin-left: auto;
 	padding: 10px 15px;
-	border: 1px solid #e1e1e4;
-	border-radius: 20px;
 	text-decoration: none;
+	text-transform: uppercase;
 }
 
 .tribe-events-admin-products-card__button:hover {
-	color: #fff;
 	background-color: #334aff;
+	color: #fff;
 }
 
 .tribe-events-admin-products-card__button:active,
@@ -2696,8 +2674,8 @@ body.tribe_events_page_tribe-help {
 .tribe-events-admin-products-card__button--active:focus {
 	background: rgba(61, 84, 255, 0.16);
 	color: #334aff;
-	text-transform: uppercase;
 	cursor: not-allowed;
+	text-transform: uppercase;
 }
 
 .tribe-events-admin-card--1up {
@@ -2706,8 +2684,8 @@ body.tribe_events_page_tribe-help {
 	/* treat the one-up card like a three-up card at the middle break */
 	@media screen and (min-width: 710px) {
 		display: inline-block;
-		width: calc(50% - 18px);
 		margin-left: 32px;
+		width: calc(50% - 18px);
 
 		.tribe-events-admin-card__description {
 			height: 71px;
@@ -2750,7 +2728,6 @@ body.tribe_events_page_tribe-help {
 	.tribe-events-admin-card__image {
 		display: block;
 		height: 152px;
-
 		margin: 0;
 		padding: 0;
 
@@ -2797,12 +2774,12 @@ body.tribe_events_page_tribe-help {
 }
 
 .tribe-events-admin-card--faq {
-	height: 147px;
-	width: 230px;
 	display: inline-block;
+	font-size: 0;
+	height: 147px;
 	margin: 0 0 0 30px;
 	padding: 24px 16px 22px 20px;
-	font-size: 0;
+	width: 230px;
 
 	/* fix an inline-block spacing bug */
 	&:first-child {
@@ -2816,31 +2793,30 @@ body.tribe_events_page_tribe-help {
 	}
 
 	.tribe-events-admin-faq__question {
-		margin: 0 0 12px 26px;
-		text-align: left;
+		color: #334aff;
 		font-size: 16px;
 		line-height: 19px;
-		color: #334aff;
+		margin: 0 0 12px 26px;
+		text-align: left;
 	}
 
 	.tribe-events-admin-faq__answer {
-		text-align: left;
-		margin-left: 26px;
 		font-size: 13px;
 		line-height: 16px;
+		margin-left: 26px;
+		text-align: left;
 	}
 }
 
 .tribe-events-admin-video {
-	-webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
-	-webkit-transform: rotate(0.000001deg);
-	-webkit-border-radius: 16px;
 	-moz-border-radius: 16px;
+	-webkit-border-radius: 16px;
 	border-radius: 16px;
 	height: 200px;
-	/* this is overridden by JS, but is a starting point for less flicker */
 	margin-bottom: 72px;
+	-webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
 	overflow: hidden;
+	-webkit-transform: rotate(0.000001deg);
 
 	iframe {
 		width: 100%;
@@ -2865,8 +2841,8 @@ body.tribe_events_page_tribe-help {
 	.tribe-events-admin-card__description {
 		color: white;
 		font-size: 16px;
-		text-align: left;
 		margin-bottom: 16px;
+		text-align: left;
 
 		@media screen and (min-width: 710px) {
 			float: left;
@@ -2879,20 +2855,20 @@ body.tribe_events_page_tribe-help {
 	}
 
 	.tribe-events-admin-card__title {
-		text-align: left;
 		color: white;
+		text-align: left;
 	}
 }
 
 .tribe-events-admin-graphic {
 	position: absolute;
-	top: 106px;
 	right: 0;
+	top: 106px;
 	z-index: -1;
 
 	@media screen and (min-width: 710px) {
-		top: 0;
 		max-width: 250px;
+		top: 0;
 	}
 
 	@media screen and (min-width: 1217px) {
@@ -2931,10 +2907,10 @@ body.tribe_events_page_tribe-help {
 
 /* including the specificity on input type to override base WP admin styles */
 input[type="email"].tribe-events-admin-card__input {
-	background: #ffffff;
+	background: #fff;
 	border: 1px solid #e1e1e4;
-	box-sizing: border-box;
 	border-radius: 16px;
+	box-sizing: border-box;
 	font-size: 14px;
 	height: 54px;
 
@@ -2970,55 +2946,55 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin-2col-grid {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	grid-template-rows: 1fr;
 	gap: 15px 30px;
 	grid-template-areas: ". .";
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-rows: 1fr;
 
 	@media screen and (max-width: 768px) {
-		grid-template-columns: repeat(1, minmax(0, 1fr));
 		grid-template-areas: ".";
+		grid-template-columns: repeat(1, minmax(0, 1fr));
 	}
 
 	@media screen and (max-width: 480px) {
-		grid-template-columns: repeat(1, minmax(0, 1fr));
 		grid-template-areas: ".";
+		grid-template-columns: repeat(1, minmax(0, 1fr));
 	}
 }
 
 .tribe-events-admin-3col-grid {
 	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	grid-template-rows: 1fr;
 	gap: 30px;
 	grid-template-areas: ". . .";
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-template-rows: 1fr;
 
 	@media screen and (max-width: 768px) {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
 		grid-template-areas: ". .";
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	@media screen and (max-width: 480px) {
-		grid-template-columns: repeat(1, minmax(0, 1fr));
 		grid-template-areas: ".";
+		grid-template-columns: repeat(1, minmax(0, 1fr));
 	}
 }
 
 .tribe-events-admin-4col-grid {
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
-	grid-template-rows: 1fr;
 	gap: 30px;
 	grid-template-areas: ". . . .";
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-rows: 1fr;
 
 	@media screen and (min-width: 500px) and (max-width: 1080px) {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
 		grid-template-areas: ". .";
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	@media screen and (max-width: 480px) {
-		grid-template-columns: repeat(1, minmax(0, 1fr));
 		grid-template-areas: ".";
+		grid-template-columns: repeat(1, minmax(0, 1fr));
 	}
 }
 
@@ -3027,21 +3003,21 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-quick-nav {
-	background: #ffffff;
-	border-radius: 16px;
+	background: #fff;
 	border: 1px solid #e1e1e4;
+	border-radius: 16px;
 	box-sizing: border-box;
 	display: block;
 	margin: 40px 0 78px 0;
 	padding: 18px 23px 2px 23px;
 
 	@media screen and (min-width: 1217px) {
-		display: inline-block;
 		border-radius: 100px;
+		display: inline-block;
+		height: 54px;
 		margin: 24px 0 94px 0;
 		max-width: 1010px;
 		padding: 0 36px 0 0;
-		height: 54px;
 	}
 }
 
@@ -3139,8 +3115,8 @@ input[type="email"].tribe-events-admin-card__input {
 	height: 65px;
 
 	.tribe-events-admin-content-wrapper {
-		padding-top: 8px;
 		padding-bottom: 0;
+		padding-top: 8px;
 	}
 
 	p {
@@ -3149,7 +3125,7 @@ input[type="email"].tribe-events-admin-card__input {
 		font-family: Helvetica;
 		font-size: 16px;
 		line-height: 18px;
-		margin-top: 0px;
+		margin-top: 0;
 		padding-bottom: 12px;
 		padding-left: 16px;
 		vertical-align: middle;
@@ -3173,8 +3149,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	.tribe-events-admin-graphic--mobile-only {
-		width: 300px;
 		top: 230px;
+		width: 300px;
 	}
 
 	.tribe-events-admin-title__heading {
@@ -3222,23 +3198,23 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-kb-card__image {
-	width: 100%;
 	height: auto;
+	width: 100%;
 }
 
 .tribe-events-admin-kb-card__title {
+	color: #0f1031;
 	flex-grow: 0;
 	font-size: 20px;
-	line-height: 1.2;
 	font-weight: bold;
-	color: #0f1031;
-	padding: 20px 28px 10px;
+	line-height: 1.2;
 	margin: 0;
+	padding: 20px 28px 10px;
 }
 
 .tribe-events-admin-kb-card__links {
-	padding: 0 28px 25px;
 	margin: 0;
+	padding: 0 28px 25px;
 }
 
 .tribe-events-admin-kb-card__links li {
@@ -3246,10 +3222,10 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-kb-card__links li a {
-	font-size: 14px;
-	text-decoration: none;
-	line-height: 1.2;
 	color: #334aff;
+	font-size: 14px;
+	line-height: 1.2;
+	text-decoration: none;
 
 	&:focus {
 		box-shadow: none;
@@ -3262,9 +3238,9 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-section-header {
+	align-items: center;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
 	margin: 50px 0 0;
 
 	@media screen and (max-width: 480px) {
@@ -3273,18 +3249,18 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-section-header h3 {
-	font-size: 28px;
-	line-height: 1;
-	font-weight: bold;
 	color: #0f1031;
+	font-size: 28px;
+	font-weight: bold;
+	line-height: 1;
 }
 
 .tribe-events-admin-section-header a {
-	font-size: 14px;
-	text-decoration: none;
-	color: #334aff;
-	padding-bottom: 2px;
 	border-bottom: 2px solid #334aff;
+	color: #334aff;
+	font-size: 14px;
+	padding-bottom: 2px;
+	text-decoration: none;
 
 	&:focus {
 		box-shadow: none;
@@ -3292,8 +3268,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		color: #1c39bb;
 		border-bottom: 2px solid #1c39bb;
+		color: #1c39bb;
 	}
 }
 
@@ -3304,11 +3280,11 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-faq-card {
-	padding: 24px 15px 19px 19px;
 	border: 1px solid #e1e1e4;
 	border-radius: 20px;
 	display: flex;
 	justify-content: space-between;
+	padding: 24px 15px 19px 19px;
 }
 
 .tribe-events-admin-faq-card a {
@@ -3325,8 +3301,8 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-faq-card__icon img {
-	width: 16px;
 	height: 22px;
+	width: 16px;
 }
 
 .tribe-events-admin-faq-card__content {
@@ -3334,15 +3310,15 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-faq__question {
-	font-size: 16px;
 	color: #334aff;
+	font-size: 16px;
 	text-decoration: none;
 }
 
 .tribe-events-admin-faq__question a {
+	color: #334aff;
 	font-size: 16px;
 	text-decoration: none;
-	color: #334aff;
 
 	&:focus {
 		box-shadow: none;
@@ -3355,17 +3331,17 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-faq__answer {
-	font-size: 13px;
 	color: #0f1031;
+	font-size: 13px;
 	margin-top: 18px;
 }
 
 .tribe-events-admin-extensions-title {
+	color: #0f1031;
 	font-size: 16px;
 	line-height: 1.5;
-	color: #0f1031;
-	max-width: 70%;
 	margin: 0 0 30px;
+	max-width: 70%;
 
 	@media screen and (max-width: 768px) {
 		max-width: 100%;
@@ -3381,10 +3357,10 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-extensions-card {
-	padding: 48px 35px 24px 25px;
 	border: 1px solid #e1e1e4;
-	border-top: 8px solid #334aff;
 	border-radius: 20px;
+	border-top: 8px solid #334aff;
+	padding: 48px 35px 24px 25px;
 }
 
 .tribe-events-admin-extensions-card__title {
@@ -3393,89 +3369,89 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-extensions-card__title a {
+	color: #0f1031;
 	font-family: Helvetica;
 	font-size: 20px;
 	font-weight: bold;
 	line-height: 1.2;
-	color: #0f1031;
 	text-decoration: none;
 
 	&:hover,
 	&:active,
 	&:focus {
-		color: #334aff;
 		box-shadow: none;
+		color: #334aff;
 	}
 }
 
 .tribe-events-admin-extensions-card__description {
+	color: #0f1031;
 	font-family: Helvetica;
 	font-size: 14px;
 	line-height: 1.43;
-	color: #0f1031;
 	margin: 20px 0;
 }
 
 .tribe-events-admin-cta {
-	display: flex;
-	justify-content: space-between;
 	align-items: center;
-	margin: 60px 0;
 	border: 1px solid #e1e1e4;
 	border-radius: 20px;
+	display: flex;
+	justify-content: space-between;
+	margin: 60px 0;
 
 	@media screen and (max-width: 768px) {
-		flex-direction: column;
 		align-items: flex-start;
+		flex-direction: column;
 		overflow: hidden;
 	}
 }
 
 .tribe-events-admin-cta__image {
-	width: auto;
 	height: 152px;
 	object-fit: contain;
+	width: auto;
 
 	@media screen and (max-width: 480px) {
-		width: 90%;
 		height: auto;
+		width: 90%;
 	}
 }
 
 .tribe-events-admin-cta__content {
-	width: 100%;
+	align-items: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 	padding: 20px 0;
+	width: 100%;
 
 	@media screen and (max-width: 480px) {
-		width: auto;
-		padding: 32px 23px 45px;
 		align-items: flex-start;
+		padding: 32px 23px 45px;
+		width: auto;
 	}
 }
 
 .tribe-events-admin__troubleshooting-cta {
-	width: 100%;
+	align-items: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 	padding: 20px 0;
+	width: 100%;
 
 	@media screen and (max-width: 480px) {
-		width: auto;
-		padding: 32px 23px 45px;
 		align-items: flex-start;
+		padding: 32px 23px 45px;
+		width: auto;
 	}
 }
 
 .tribe-events-admin-cta__content-title {
+	color: #0f1031;
 	font-size: 28px;
 	font-weight: bold;
-	color: #0f1031;
 	line-height: normal;
 	margin: 0 0 10px 0;
 	text-align: center;
@@ -3491,9 +3467,9 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-cta__content-subtitle {
+	color: #0f1031;
 	font-size: 16px;
 	line-height: 1.5;
-	color: #0f1031;
 	margin-bottom: 10px;
 	text-align: center;
 
@@ -3503,12 +3479,12 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-cta__content-description a {
+	border-bottom: 2px solid #334aff;
+	color: #334aff;
 	font-size: 16px;
 	font-weight: bold;
-	text-decoration: none;
-	color: #334aff;
 	padding-bottom: 2px;
-	border-bottom: 2px solid #334aff;
+	text-decoration: none;
 
 	&:focus {
 		box-shadow: none;
@@ -3516,15 +3492,15 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		color: #1c39bb;
 		border-bottom: 2px solid #1c39bb;
+		color: #1c39bb;
 	}
 }
 
 .tribe-events-admin-footer-logo {
 	display: inline-block;
-	width: 228px;
 	vertical-align: middle;
+	width: 228px;
 
 	@media screen and (max-width: 768px) {
 		width: 225px;
@@ -3542,18 +3518,18 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-step-card {
-	padding: 24px 15px 19px 19px;
 	border: 1px solid #e1e1e4;
 	border-radius: 20px;
 	display: flex;
 	justify-content: space-between;
+	padding: 24px 15px 19px 19px;
 }
 
 .tribe-events-admin-step-card a {
-	text-decoration: none;
+	border-bottom: 2px solid #334aff;
 	color: #334aff;
 	padding-bottom: 2px;
-	border-bottom: 2px solid #334aff;
+	text-decoration: none;
 
 	&:focus {
 		box-shadow: none;
@@ -3561,15 +3537,15 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		color: #1c39bb;
 		border-bottom: 2px solid #1c39bb;
+		color: #1c39bb;
 	}
 }
 
 .tribe-events-admin-step-card__icon img {
-	width: 42px;
 	height: 43px;
 	margin-right: 5px;
+	width: 42px;
 }
 
 .tribe-events-admin-step-card__content {
@@ -3577,60 +3553,60 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin-step__title {
+	color: #0f1031;
 	font-size: 20px;
 	font-weight: bold;
 	line-height: 1.2;
-	color: #0f1031;
 	margin-bottom: 10px;
 }
 
 .tribe-events-admin-step__answer {
-	font-size: 13px;
 	color: #0f1031;
+	font-size: 13px;
 	margin-top: 18px;
 }
 
 .tribe-events-admin__system-information {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	grid-template-rows: 1fr;
 	gap: 15px 30px;
 	grid-template-areas: ". .";
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-rows: 1fr;
 	margin: 100px 0;
 	position: relative;
 
 	@media screen and (max-width: 768px) {
-		grid-template-columns: repeat(1, minmax(0, 1fr));
 		grid-template-areas: ".";
+		grid-template-columns: repeat(1, minmax(0, 1fr));
 		margin: 50px 0;
 	}
 
 	@media screen and (max-width: 480px) {
-		grid-template-columns: repeat(1, minmax(0, 1fr));
 		grid-template-areas: ".";
+		grid-template-columns: repeat(1, minmax(0, 1fr));
 		margin: 50px 0;
 	}
 }
 
 .tribe-events-admin__troubleshooting-title {
-	font-size: 28px;
-	line-height: 1;
-	font-weight: bold;
 	color: #0f1031;
+	font-size: 28px;
+	font-weight: bold;
+	line-height: 1;
 	margin: 0;
 }
 
 .tribe-events-admin__troubleshooting-description {
-	font-size: 18px;
-	line-height: 1.44;
 	color: #0f1031;
+	font-size: 18px;
 	line-height: 1.2;
+	line-height: 1.44;
 	margin: 20px 0;
 }
 
 .tribe-events-admin__system-information-select {
-	margin: 30px 0 20px;
 	display: flex;
+	margin: 30px 0 20px;
 }
 
 .tribe-events-admin__system-information-select input[type="checkbox"] {
@@ -3638,35 +3614,36 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__system-information-select label {
-	font-size: 16px;
 	color: #0f1031;
+	font-size: 16px;
 	line-height: 1.2;
 }
 
 .tribe-events-admin__system-information-content small {
-	font-size: 12px;
 	color: #0f1031;
+	font-size: 12px;
 	line-height: 1.2;
 }
 
 .tribe-events-admin__system-information-widget,
 .tribe-events-admin__recent-template-changes .template-updates-wrapper {
 	background: #0f1031;
-	padding: 12px 0 0 27px;
 	border-radius: 16px;
-	max-height: 280px;
+	color: #fff;
 	font-size: 14px;
 	line-height: 1.14;
-	color: #fff;
+	max-height: 280px;
 	overflow: scroll;
 	-ms-overflow-style: none;  /* hide scrollbar on IE and Edge */
+	padding: 12px 0 0 27px;
 	scrollbar-width: none;  /* hide scrollbar on Firefox */
 }
+
 .tribe-events-admin__system-information-widget a {
 	color: #334aff;
 
 	&:hover {
-		opacity: .8;
+		opacity: 0.8;
 	}
 }
 
@@ -3680,8 +3657,8 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__system-information-widget-copy {
-	position: absolute;
 	bottom: 10px;
+	position: absolute;
 
 	@media only screen and (max-width: 1920px) {
 		right: 20.5vw;
@@ -3692,49 +3669,50 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	@media only screen and (max-width: 768px) {
-		right: auto;
 		left: 10px;
+		right: auto;
 	}
 
 	@media only screen and (max-width: 480px) {
-		right: auto;
 		left: 10px;
+		right: auto;
 	}
 }
 
 .tribe-events-admin__system-information-widget-copy button {
-	border: none;
-	outline: none;
-	padding: 18px 25px;
-	border-radius: 100px;
 	background-color: #334aff;
+	border: none;
+	border-radius: 100px;
 	color: #fff;
+	cursor: pointer;
 	font-size: 16px;
 	font-weight: bold;
+	outline: none;
+	padding: 18px 25px;
 	text-align: center;
-	cursor: pointer;
 
 	&:hover {
 		background-color: #1c39bb;
 	}
-}
 
-.tribe-events-admin__system-information-widget-copy button .dashicons, .dashicons-before:before {
-	display: none;
-}
+	.dashicons,
+	.dashicons-before:before {
+		display: none;
+	}
 
-.tribe-events-admin__system-information-widget-copy button .optin-success {
-	color: #fff;
-	font-size: 16px;
-	font-weight: bold;
-	text-align: center;
+	.optin-success {
+		color: #fff;
+		font-size: 16px;
+		font-weight: bold;
+		text-align: center;
+	}
 }
 
 .tribe-events-admin__recent-template-changes p {
-	font-size: 18px;
-	line-height: 1.44;
 	color: #0f1031;
+	font-size: 18px;
 	line-height: 1.2;
+	line-height: 1.44;
 	margin: 20px 0;
 }
 
@@ -3743,10 +3721,10 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__troubleshooting-event-log-wrapper label {
-	font-size: 16px;
-	line-height: 1.63;
 	color: #0f1031;
 	display: block;
+	font-size: 16px;
+	line-height: 1.63;
 	margin-bottom: 10px;
 }
 
@@ -3756,15 +3734,15 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin__troubleshooting-event-log-wrapper #tribe-log-viewer {
 	background: #0f1031;
-	padding: 12px 0 0 27px;
 	border-radius: 16px;
-	max-height: 280px;
-	min-height: 60px;
+	color: #fff;
 	font-size: 14px;
 	line-height: 1.14;
-	color: #fff;
+	max-height: 280px;
+	min-height: 60px;
 	overflow: scroll;
 	-ms-overflow-style: none;  /* hide scrollbar on IE and Edge */
+	padding: 12px 0 0 27px;
 	scrollbar-width: none;  /* hide scrollbar on Firefox */
 }
 
@@ -3773,11 +3751,11 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__troubleshooting-event-log-wrapper .download_log {
-	text-decoration: none;
-	font-size: 16px;
-	color: #334aff;
-	padding-bottom: 2px;
 	border-bottom: 2px solid #334aff;
+	color: #334aff;
+	font-size: 16px;
+	padding-bottom: 2px;
+	text-decoration: none;
 
 	&:focus {
 		box-shadow: none;
@@ -3785,8 +3763,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		color: #1c39bb;
 		border-bottom: 2px solid #1c39bb;
+		color: #1c39bb;
 	}
 }
 
@@ -3811,24 +3789,24 @@ input[type="email"].tribe-events-admin-card__input {
 	margin-right: 40px;
 
 	@media only screen and (max-width: 768px) {
+		margin-bottom: 30px;
 		margin-right: 0;
-		margin-bottom: 30px
 	}
 
 	@media only screen and (max-width: 480px) {
+		margin-bottom: 30px;
 		margin-right: 0;
-		margin-bottom: 30px
 	}
 }
 
-.tribe-events-admin__recent-log-filters-select-wrapper::after {
+.tribe-events-admin__recent-log-filters-select-wrapper:after {
 	content: url("../images/help/polygon.svg");
+	height: 13px;
+	pointer-events: none;
+	position: absolute;
 	right: 22px;
 	top: 20px;
-	position: absolute;
-	pointer-events: none;
 	width: 14px;
-	height: 13px;
 
 	@media only screen and (max-width: 480px) {
 		right: 25px;
@@ -3837,17 +3815,17 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default .select2-selection--single {
 	/* targets the event log select */
-	font-size: 14px;
-	line-height: 1.14;
+	border: 1px solid #e1e1e4 !important;
 	border-radius: 16px;
 	color: #0f1031;
+	font-size: 14px;
+	line-height: 1.14;
 	padding: 0 25px 0 15px !important;
-	border: 1px solid #e1e1e4 !important;
 }
 
 .tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls {
-	padding: 0;
 	margin-bottom: 20px;
+	padding: 0;
 }
 
 .tribe-events-admin__recent-log-filters-select-wrapper #tribe-log-controls div:nth-child(1),
@@ -3856,7 +3834,7 @@ input[type="email"].tribe-events-admin-card__input {
 	/* adds a margin between the dropdowns */
 	padding-right: 75px;
 
-	@media only screen and (max-width: 768px)  {
+	@media only screen and (max-width: 768px) {
 		padding-right: 30px;
 	}
 }
@@ -3869,24 +3847,24 @@ input[type="email"].tribe-events-admin-card__input {
 	right: 5px;
 }
 
-.tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default.select2-container--open.select2-container--below .select2-selection--single, .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
+.tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default.select2-container--open.select2-container--below .select2-selection--single,
+.select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
 	border-bottom-left-radius: 16px;
 	border-bottom-right-radius: 16px;
 }
-
 
 .tribe-events-admin__recent-log-filters-select-wrapper .select2-container .select2-selection--single .select2-selection__rendered {
 	width: 100%;
 }
 
-.tribe-events-admin__recent-log-filters-select-wrapper select:focus-visivble {
+.tribe-events-admin__recent-log-filters-select-wrapper select:focus-visible {
 	outline: none;
 }
 
 .tribe-events-admin__recent-log-filters-select-wrapper select option {
+	color: #0f1031;
 	font-size: 14px;
 	line-height: 1.14;
-	color: #0f1031;
 }
 
 .tribe-events-admin__ea-status {
@@ -3896,7 +3874,7 @@ input[type="email"].tribe-events-admin-card__input {
 /* issues found section */
 .tribe-events-admin__issues-found-card {
 	background-color: #f3eee8;
-  	border-radius: 8px;
+	border-radius: 8px;
 	margin-bottom: 20px;
 }
 
@@ -3905,28 +3883,28 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__issues-found-card-title {
-	position: relative;
-	display: flex;
 	align-items: center;
-	padding: 10px 20px 10px 17px;
 	cursor: pointer;
+	display: flex;
+	padding: 10px 20px 10px 17px;
+	position: relative;
 }
 
 .tribe-events-admin__issues-found-card-title img {
-	width: 21px;
 	height: 21px;
-	object-fit: contain;
 	margin-right: 14px;
+	object-fit: contain;
+	width: 21px;
 }
 
 .tribe-events-admin__issues-found-card-title h3 {
 	margin: 0;
 
-	@media only screen and (max-width: 768px)  {
+	@media only screen and (max-width: 768px) {
 		max-width: 90%;
 	}
 
-	@media only screen and (max-width: 480px)  {
+	@media only screen and (max-width: 480px) {
 		max-width: 80%;
 	}
 }
@@ -3937,21 +3915,21 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__issues-found-card-title i {
-	position: absolute;
 	background-image: url("../images/help/arrow-down.svg");
-	background-repeat: no-repeat;
 	background-position: center;
+	background-repeat: no-repeat;
 	background-size: contain;
-	width: 15px;
 	height: 15px;
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	-ms-transition: all 0.3s ease;
-	transition: all 0.3s ease;
 	margin: 12px 20px;
+	position: absolute;
 	right: 0;
 	top: 0;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	width: 15px;
 }
 
 .tribe-events-admin__issues-found-card-title.active i {
@@ -3961,13 +3939,13 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__issues-found-card-description {
-	padding: 0 20px 20px 55px;
 	display: none;
+	padding: 0 20px 20px 55px;
 }
 
 .tribe-events-admin__issues-found-card-description p {
-	font-size: 16px;
 	color: #0f1031;
+	font-size: 16px;
 	margin: 0;
 }
 
@@ -3977,12 +3955,12 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__issues-found-card-description-actions a {
-	font-size: 16px;
-	text-decoration: none;
+	border-bottom: 2px solid #334aff;
 	color: #334aff;
+	font-size: 16px;
 	margin-right: 20px;
 	padding-bottom: 5px;
-	border-bottom: 2px solid #334aff;
+	text-decoration: none;
 
 	&:focus {
 		box-shadow: none;
@@ -3990,8 +3968,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		color: #1c39bb;
 		border-bottom: 2px solid #1c39bb;
+		color: #1c39bb;
 	}
 }
 
@@ -4000,23 +3978,21 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__ea-status-table {
-	border-radius: 16px;
 	border: 1px solid #e1e1e4;
+	border-radius: 16px;
 	margin: 30px 0 40px;
-	width: 100%;
-	padding: 20px 0;
 	overflow: hidden;
 
-	@media only screen and (max-width: 480px)  {
+	@media only screen and (max-width: 480px) {
 		overflow: scroll;
 	}
 }
 
 .tribe-events-admin__ea-status-table a {
-	text-decoration: none;
+	border-bottom: 2px solid #334aff;
 	color: #334aff;
 	padding-bottom: 2px;
-	border-bottom: 2px solid #334aff;
+	text-decoration: none;
 
 	&:focus {
 		box-shadow: none;
@@ -4024,8 +4000,8 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		color: #1c39bb;
 		border-bottom: 2px solid #1c39bb;
+		color: #1c39bb;
 	}
 }
 
@@ -4035,71 +4011,72 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__ea-status-table th {
+	color: #0f1031;
 	font-weight: bold;
 	line-height: 1.17;
-	color: #0f1031;
-	padding: 5px 25px;
 	margin-top: 10px;
+	padding: 5px 25px;
 }
 
 .tribe-events-admin__ea-status-table td {
+	align-items: center;
+	color: #0f1031;
+	display: flex;
 	font-size: 16px;
 	line-height: 1.63;
-	color: #0f1031;
 	padding: 10px 25px;
-	display: flex;
-	align-items: center;
 	width: 25%;
 
-	@media only screen and (max-width: 480px)  {
+	@media only screen and (max-width: 480px) {
 		min-width: 150px;
 	}
 }
 
-.tribe-events-admin__ea-status-table td:nth-child(2){
+.tribe-events-admin__ea-status-table td:nth-child(2) {
 	width: 45%;
 
-	@media only screen and (max-width: 480px)  {
+	@media only screen and (max-width: 480px) {
 		width: 100%;
 	}
 }
 
-.tribe-events-admin__ea-status-table td:nth-child(3){
-	width: 30%;
+.tribe-events-admin__ea-status-table td:nth-child(3) {
 	display: flex;
 	justify-content: flex-end;
+	width: 30%;
 
-	@media only screen and (max-width: 480px)  {
+	@media only screen and (max-width: 480px) {
 		width: 100%;
 	}
 }
 
-.tribe-events-admin__ea-status-table-dark{
+.tribe-events-admin__ea-status-table-dark {
 	background-color: #f9f7f4;
 }
 
 .tribe-events-admin__ea-status-table td img {
-	width: 21px;
 	height: 21px;
-	object-fit: contain;
 	margin-right: 14px;
+	object-fit: contain;
+	width: 21px;
 }
 
 .tribe_events_page_tec-troubleshooting {
-	background-color: #FFF;
+	background-color: #fff;
 }
 
 #tribe-ticketing,
 #tribe-community {
 	display: none;
 }
+
 .tribe-events-admin__troubleshooting-notice {
 	background-color: #161b7d;
 	color: #fff;
 	font-size: 16px;
-	padding: 24px 0;
 	line-height: 1;
 	margin-left: -1.55vw;
+	padding: 24px 0;
 
 	@media screen and (max-width: 480px) {
 		margin-left: -20px;
@@ -4109,8 +4086,8 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin__troubleshooting-notice_title {
 	margin: 0 auto;
 	max-width: 1024px;
-	width: 90%;
 	padding-left: 25px;
+	width: 90%;
 
 	@media screen and (max-width: 480px) {
 		max-width: 90%;
@@ -4118,12 +4095,12 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__troubleshooting-notice_title a {
+	border-bottom: 2px solid #fff;
 	color: #fff;
 	font-size: 16px;
 	line-height: 1;
-	text-decoration: none;
 	padding-bottom: 2px;
-	border-bottom: 2px solid #fff;
+	text-decoration: none;
 
 	&:focus {
 		box-shadow: none;
@@ -4131,16 +4108,14 @@ input[type="email"].tribe-events-admin-card__input {
 	}
 
 	&:hover {
-		color: #f3eee8;
 		border-bottom: 2px solid #f3eee8;
+		color: #f3eee8;
 	}
 }
 
 /* -- Help page overrides -- */
-/*
-TODO:
-- fix right side alignment
-*/
+
+/* TODO: fix right side alignment */
 .tribe_events_page_tribe-help {
 	#tec-help-ticketing,
 	#tec-help-community {
@@ -4159,10 +4134,10 @@ TODO:
 /* -- Freemius tweaks -- */
 body.tribe-welcome #fs_connect {
 	border: 1px solid #e1e1e4;
-	box-sizing: border-box;
 	border-radius: 16px;
-	margin-left: 22px;
 	box-shadow: none;
+	box-sizing: border-box;
+	margin-left: 22px;
 
 	.fs-actions {
 		background-color: transparent;
@@ -4179,9 +4154,9 @@ body.tribe-welcome #fs_connect {
 	}
 
 	.button-secondary {
+		background: white;
 		border-color: #3d54ff;
 		color: #3d54ff;
-		background: white;
 	}
 
 	a {
