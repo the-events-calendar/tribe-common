@@ -188,7 +188,7 @@ $calendar_products = tribe( Tribe__Admin__Help_Page::class )->get_calendar_produ
 			<?php esc_html_e( 'FAQs', 'tribe-common' ); ?>
 		</h3>
 		
-		<a href="https://theeventscalendar.com/products/wordpress-events-calendar/#faqs" target="_blank" rel="noopener noreferrer">
+		<a href="https://evnt.is/1av1#faqs" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'All FAQs', 'tribe-common' ); ?>
 		</a>
 	</div>

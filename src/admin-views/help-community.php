@@ -181,7 +181,7 @@ $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_pro
 			<?php esc_html_e( 'FAQs', 'tribe-common' ); ?>
 		</h3>
 		
-		<a href="https://theeventscalendar.com/products/community-events/#faq" target="_blank" rel="noopener noreferrer">
+		<a href="https://evnt.is/1av4#faqs" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'All FAQs', 'tribe-common' ); ?>
 		</a>
 	</div>
