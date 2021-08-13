@@ -184,7 +184,7 @@ $ticketing_products = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_pro
 			<?php esc_html_e( 'FAQs', 'tribe-common' ); ?>
 		</h3>
 		
-		<a href="https://theeventscalendar.com/products/wordpress-event-tickets/#faqs" target="_blank" rel="noopener noreferrer">
+		<a href="https://evnt.is/1av3#faqs" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'All FAQs', 'tribe-common' ); ?>
 		</a>
 	</div>
