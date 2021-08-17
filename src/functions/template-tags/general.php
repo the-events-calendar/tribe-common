@@ -621,7 +621,7 @@ function tribe_register_error( $indexes, $message ) {
  * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
  * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
  * @param string            $file      The asset file to load (CSS or JS), including non-minified file extension.
- * @param array             $deps      The list of dependencies.
+ * @param array             $deps      The list of dependencies or callable function that will return a list of dependencies.
  * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
  *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
  * @param array             $arguments See `Tribe__Assets::register()` for more info.

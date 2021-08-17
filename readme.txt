@@ -1,5 +1,16 @@
 == Changelog ==
 
+= [4.14.2] 2021-08-17 =
+
+* Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
+* Fix - Fix issue of time selector for recurring rules not working for the block editor. [ECP-918]
+* Fix - Ensure that $wp_query->is_search is false for calendar views that have no search term. [TEC-4012]
+* Fix - Fix issue of month names not being translatable. This was caused by a missing moment js localization dependency. [ECP-739]
+* Fix - Ensure that block editor scripts don't enqueue wp-editor on non-post block editor pages (widgets) [TEC-4028]
+* Tweak - Alter Assets->register and tribe_asset() to accept a callable for assets. [TEC-4028]
+* Tweak - Change label of API Settings tab to "Integrations". [TEC_4015]
+* Language - 169 new strings added, 121 updated, 2 fuzzied, and 0 obsoleted
+
 = [4.14.1] 2021-07-21 =
 
 * Feature - Add new notice for Stellar Sale. [TCMN-111]
