@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Added a `tribe_post_id` filter to `post_id_helper` in the Main class.
+
 = [4.14.2] 2021-08-17 =
 
 * Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
