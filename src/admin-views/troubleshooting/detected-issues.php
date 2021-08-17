@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * View: Troubleshooting - Detected Issues
- * 
- * @since TBD
- * 
+ *
+ * @since 4.14.2
+ *
  */
 use \Tribe\Admin\Troubleshooting;
 $issues_found = tribe( Troubleshooting::class )->get_issues_found();

@@ -1,15 +1,15 @@
-<?php 
+<?php
 /**
  * View: Troubleshooting - Introduction
- * 
- * @since TBD
- * 
+ *
+ * @since 4.14.2
+ *
  */
 
 use \Tribe\Admin\Troubleshooting;
 ?>
 <div class="tribe-events-admin-header tribe-events-admin-container">
-	<?php 
+	<?php
 		tribe( Troubleshooting::class )->admin_notice( 'troubleshooting' );
 	?>
 	<div class="tribe-events-admin-header__content-wrapper">

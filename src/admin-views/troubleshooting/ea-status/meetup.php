@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Troubleshooting - EA Status Table Meetup Section 
- * 
- * @since TBD
- * 
+ * View: Troubleshooting - EA Status Table Meetup Section
+ *
+ * @since 4.14.2
+ *
  */
 
 $icon    = 'success';

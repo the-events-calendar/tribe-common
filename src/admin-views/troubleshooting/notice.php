@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * View: Troubleshooting - Admin Notice
- * 
- * @since TBD
- * 
+ *
+ * @since 4.14.2
+ *
  */
 $link = '<a href="' . esc_url( admin_url( 'edit.php?post_type=tribe_events&page=tribe-help' ) ) . '">' . esc_html__( 'Help page?', 'tribe-common' ) . '</a>';
 ?>

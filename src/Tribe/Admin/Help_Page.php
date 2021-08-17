@@ -916,8 +916,8 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Defines TEC frequently asked questions and displays them in the UI.
-	 * 
-	 * @since TBD
+	 *
+	 * @since 4.14.2
 	 *
 	 * @return array of FAQs which are displayed on the calendar tab of the in-app help page.
 	 */
@@ -950,9 +950,9 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Defines calendar extensions and displays them in the UI.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 4.14.2
+	 *
 	 * @return array of extensions which are displayed on the calendar and community tab of the in-app help page.
 	 */
 	public function get_calendar_extensions() {
@@ -988,9 +988,9 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Defines calendar products.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 4.14.2
+	 *
 	 * @return array of products which are displayed on the calendar tab of the in-app help page.
 	 */
 	public function get_calendar_products() {
@@ -1006,9 +1006,9 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Defines ticketing frequently asked questions and displays them in the UI.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 4.14.2
+	 *
 	 * @return array of FAQs which are displayed on the ticketing tab of the in-app help page.
 	 */
 	public function get_ticketing_faqs() {
@@ -1040,9 +1040,9 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Defines ticketing extensions and displays them in the UI.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 4.14.2
+	 *
 	 * @return array of extensions which are displayed on the ticketing tab of the in-app help page.
 	 */
 	public function get_ticketing_extensions() {
@@ -1078,9 +1078,9 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Defines ticketing products.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 4.14.2
+	 *
 	 * @return array of products which are displayed on the ticketing tab of the in-app help page.
 	 */
 	public function get_ticketing_products() {
@@ -1090,15 +1090,15 @@ class Tribe__Admin__Help_Page {
 			'tribe-eventbrite',
 			'promoter',
 		] );
-			
+
 		return $ticketing_products;
 	}
 
 	/**
 	 * Defines community extensions and displays them in the UI.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 4.14.2
+	 *
 	 * @return array of extensions which are displayed on the community tab of the in-app help page.
 	 */
 	public function get_community_extensions() {
@@ -1134,9 +1134,9 @@ class Tribe__Admin__Help_Page {
 
 	/**
 	 * Defines community products.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 4.14.2
+	 *
 	 * @return array of products which are displayed on the community tab of the in-app help page.
 	 */
 	public function get_community_products() {
@@ -1144,7 +1144,7 @@ class Tribe__Admin__Help_Page {
 			'events-community',
 			'events-community-tickets',
 		] );
-			
+
 		return $community_products;
 	}
 }

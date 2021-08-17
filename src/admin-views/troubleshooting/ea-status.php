@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * View: Troubleshooting - EA Status Section
- * 
- * @since TBD
- * 
+ *
+ * @since 4.14.2
+ *
  */
 $status_icons = [
 	'success' => 'images/help/success-icon.svg',

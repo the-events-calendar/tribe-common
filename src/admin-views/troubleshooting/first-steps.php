@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * View: Troubleshooting - Initial Troubleshooting Steps
- * 
- * @since TBD
- * 
+ *
+ * @since 4.14.2
+ *
  */
 ?>
 <div class="tribe-events-admin-section-header">
@@ -45,7 +45,7 @@
 				<?php esc_html_e( 'Share your system info', 'tribe-common' ); ?>
 			</div>
 			<div class="tribe-events-admin-step__description">
-				<?php 
+				<?php
 					$link = '<br /> <a href="https://evnt.is/1aqd" target="_blank" rel="noopener noreferrer">' . esc_html__( 'View article', 'tribe-common' ) . '</a>';
 					echo sprintf( __( 'Providing the details of your calendar plugin and settings (located below) helps our support team troubleshoot an issue faster. %s', 'tribe-common' ), $link );
 				?>

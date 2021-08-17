@@ -3,7 +3,7 @@
 /**
  * Admin Troubleshooting for TEC plugins.
  *
- * @since TBD
+ * @since 4.14.2
  *
  * @package Tribe\Admin
  */
@@ -18,7 +18,7 @@ use \Tribe__Events__Google__Maps_API_Key;
 /**
  * Class Admin Troubleshooting.
  *
- * @since TBD
+ * @since 4.14.2
  *
  * @package Tribe\Admin
  */
@@ -26,7 +26,7 @@ class Troubleshooting {
 	/**
 	 * Defines the slug of the troubleshooting page in the WP admin menu item.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var string the troubleshooting menu slug.
 	 */
@@ -35,7 +35,7 @@ class Troubleshooting {
 	/**
 	 * The slug for the new admin page.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 */
 	private $admin_page = null;
@@ -43,7 +43,7 @@ class Troubleshooting {
 	/**
 	 * Class constructor.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 */
 	public function hook() {
@@ -54,7 +54,7 @@ class Troubleshooting {
 	/**
 	 * This method created the troubleshooting page and adds it to TEC menu.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 */
 	public function add_menu_page() {
@@ -85,7 +85,7 @@ class Troubleshooting {
 	/**
 	 * Gets the required capability for the troubleshooting page.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return string Which capability we required for the troubleshooting page.
 	 */
@@ -93,7 +93,7 @@ class Troubleshooting {
 		/**
 		 * Allows third party filtering of capability required to see the Troubleshooting page.
 		 *
-		 * @since TBD
+		 * @since 4.14.2
 		 *
 		 * @param string $capability      Which capability we are using as the one required for the
 		 *                                troubleshooting page.
@@ -106,7 +106,7 @@ class Troubleshooting {
 	/**
 	 * Adds the troubleshooting menu to the the WP admin bar under events.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 */
 	public function add_toolbar_item() {
@@ -129,7 +129,7 @@ class Troubleshooting {
 	/**
 	 * Checks if the current page is the troubleshooting page.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return boolean returns true if the current page is the troubleshooting page.
 	 */
@@ -153,7 +153,7 @@ class Troubleshooting {
 	/**
 	 * Renders the Troubleshooting page.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 */
 	public function do_menu_page() {
@@ -164,7 +164,7 @@ class Troubleshooting {
 	/**
 	 * This method checks if there are any active issues that need to be flagged.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return boolean returns true if there are any active issues.
 	 */
@@ -177,7 +177,7 @@ class Troubleshooting {
 	/**
 	 * Checks if any active TEC plugins require an update.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return boolean returns true is any of the plugins requires an update.
 	 */
@@ -237,7 +237,7 @@ class Troubleshooting {
 	/**
 	 * Checks if any of the issues defined are active.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @param string $slug the slug of active issue.
 	 *
@@ -260,7 +260,7 @@ class Troubleshooting {
 	/**
 	 * Displays issues found in the UI.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return array of issues which are displayed on the troubleshooting page.
 	 */
@@ -306,7 +306,7 @@ class Troubleshooting {
 	/**
 	 * Defines common troubleshooting issues and displays them in the UI.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return array of common issues which are displayed on the troubleshooting page.
 	 */
@@ -344,7 +344,7 @@ class Troubleshooting {
 	/**
 	 * Fired to display notices in the admin pages where the method is called.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @param string $page the page which the action is being applied.
 	 *

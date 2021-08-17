@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.14.2] 2021-08-17 =
 
 * Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
 * Fix - Fix issue of time selector for recurring rules not working for the block editor. [ECP-918]

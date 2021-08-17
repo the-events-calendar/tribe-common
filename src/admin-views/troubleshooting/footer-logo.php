@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * View: Troubleshooting - Footer
- * 
- * @since TBD
- * 
+ *
+ * @since 4.14.2
+ *
  */
 ?>
 	<img

@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * View: Troubleshooting - Common Issues
- * 
- * @since TBD
- * 
+ *
+ * @since 4.14.2
+ *
  */
 
 use \Tribe\Admin\Troubleshooting;

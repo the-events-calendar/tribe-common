@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
- * View: Troubleshooting - EA Status Table License Key Section 
- * 
- * @since TBD
- * 
+ * View: Troubleshooting - EA Status Table License Key Section
+ *
+ * @since 4.14.2
+ *
  */
 
 $message   = '&nbsp;';

@@ -165,7 +165,7 @@ class Tribe__Editor__Assets {
 	/**
 	 * Filter the dependencies for event blocks
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @param array|object|null $assets Array of asset objects, single asset object, or null.
 	 *
