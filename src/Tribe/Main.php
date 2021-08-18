@@ -5,7 +5,6 @@
 
 // Don't load directly
 
-use Tribe\Admin\Notice\WP_Version;
 use Tribe\DB_Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {

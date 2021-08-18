@@ -2,7 +2,13 @@
 
 = [TBD] TBD =
 
+* Feature - Alter common postcss to leverage exposed namespaced custom properties from common-styles. [TCMN-104]
+* Feature - Add new custom Customizer controls - Number, Range Slider, Toggle. [TEC-3897]
 * Tweak - Added a `tribe_post_id` filter to `post_id_helper` in the Main class.
+* Tweak - Alter Customizer and Section objects to be more versatile. [TCMN-104]
+* Tweak - Split pcss variable imports so we only import hte necessary variables for skeleton, and don't import more than once. [TCMN-104]
+* Tweak - added new `get_hex_with_hash` function to Tribe/Utils/Color.php to reduce need for manual string concatenation. [TCMN-104]
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.2] 2021-08-17 =
 
@@ -34,12 +40,10 @@
 * Tweak - Set up recurring, featured, and virtual icons to not rely on aria-labeled. [TEC-3396]
 * Language - 3 new strings added, 1 updated, 2 fuzzied, and 0 obsoleted
 
-
 = [4.13.4] 2021-06-09 =
 
 * Tweak - When using The Events Calendar and Event Tickets split the admin footer rating link 50/50. [ET-1120]
 * Language - 1 new strings added, 2 updated, 1 fuzzied, and 1 obsoleted
-
 
 = [4.13.3] 2021-05-27 =
 

@@ -1,6 +1,6 @@
 var tribe_buttonset = tribe_buttonset || {};
 
-( function( $, obj, _ ) {
+( function( $, obj, _ ) { // eslint-disable-line no-unused-vars
 	'use strict';
 
 	obj.$body;
@@ -12,18 +12,21 @@ var tribe_buttonset = tribe_buttonset || {};
 		active: '.tribe-active'
 	};
 
-	obj.ready = function( event ) {
+	obj.ready = function( event ) { // eslint-disable-line no-unused-vars
 		obj.$body = $( 'body' );
 		obj.$body.on( 'click.tribe_buttonset', obj.selector.button, obj.click );
-		obj.$body.on( 'change.tribe_buttonset', obj.selector.input, obj.change ).find( obj.selector.input ).trigger( 'change' );
+		obj.$body.on( 'change.tribe_buttonset', obj.selector.input, obj.change )
+			.find( obj.selector.input ).trigger( 'change' ); // eslint-disable-line es5/no-es6-methods
 	};
 
-	obj.change = function( event ) {
+	obj.change = function( event ) { // eslint-disable-line no-unused-vars
 		var $input = $( this ),
 			value = $input.val(),
 			$group = $input.parents( obj.selector.buttonset ).eq( 0 );
 
-		$group.find( '[data-value="' + value + '"]' ).addClass( obj.selector.active.replace( '.', '' ) );
+		$group
+			.find( '[data-value="' + value + '"]' )
+			.addClass( obj.selector.active.replace( '.', '' ) );
 	};
 
 	obj.click = function( event ) {

@@ -3,6 +3,7 @@
 defined( 'WPINC' ) or die;
 
 use Tribe\Customizer\Controls\Heading;
+use Tribe\Customizer\Controls\Number;
 use Tribe\Customizer\Controls\Radio;
 use Tribe\Customizer\Controls\Range_Slider;
 use Tribe\Customizer\Controls\Separator;
@@ -81,8 +82,31 @@ abstract class Tribe__Customizer__Section {
 	 */
 	private static $instances;
 
+	/**
+	 * Contains the arguments for the section headings.
+	 *
+	 * @since 4.14.2
+	 *
+	 * @var array
+	 */
 	protected $content_headings = [];
+
+	/**
+	 * Contains the arguments for the section settings.
+	 *
+	 * @since 4.14.2
+	 *
+	 * @var array
+	 */
 	protected $content_settings = [];
+
+	/**
+	 * Contains the arguments for the section controls.
+	 *
+	 * @since 4.14.2
+	 *
+	 * @var array
+	 */
 	protected $content_controls = [];
 
 	/**
@@ -157,7 +181,7 @@ abstract class Tribe__Customizer__Section {
 		$settings = $this->get_content_settings();
 
 		if ( ! empty( $settings ) ) {
-			foreach( $settings as $name => $args ) {
+			foreach ( $settings as $name => $args ) {
 				$this->add_setting(
 					$manager,
 					$customizer->get_setting_name( $name, $section ),
@@ -170,7 +194,7 @@ abstract class Tribe__Customizer__Section {
 		$headings = $this->get_content_headings();
 
 		if ( ! empty( $headings ) ) {
-			foreach( $headings as $name => $args ) {
+			foreach ( $headings as $name => $args ) {
 				$this->add_heading(
 					$section,
 					$manager,
@@ -183,7 +207,7 @@ abstract class Tribe__Customizer__Section {
 		$controls = $this->get_content_controls();
 
 		if ( ! empty( $controls ) ) {
-			foreach( $controls as $name => $args ) {
+			foreach ( $controls as $name => $args ) {
 				$this->add_control(
 					$section,
 					$manager,
@@ -197,7 +221,7 @@ abstract class Tribe__Customizer__Section {
 	/**
 	 * Function that encapsulates the logic for if a setting should be added to the Customizer style template.
 	 * Note: this depends on a default value being set -
-	 *       if the setting value is empty OR the default value it's not displayed.
+	 *       if the setting value is empty OR set to the default value, it's not displayed.
 	 *
 	 * @since 4.13.3
 	 *
@@ -207,7 +231,7 @@ abstract class Tribe__Customizer__Section {
 	 * @return boolean If the setting should be added to the style template.
 	 */
 	public function should_include_setting_css( $setting, $section_id = null ) {
-		if ( empty( $setting ) ) {
+		if ( empty( $setting ) || ! is_string( $setting ) ) {
 			return false;
 		}
 
@@ -218,7 +242,12 @@ abstract class Tribe__Customizer__Section {
 		$setting_value = tribe( 'customizer' )->get_option( [ $section_id, $setting ] );
 		$section       = tribe( 'customizer' )->get_section( $section_id );
 
-		return ! empty( $setting_value ) && $section->get_default(  $setting ) !== $setting_value;
+		// Something has gone wrong and we can't get the section.
+		if ( false === $section ) {
+			return;
+		}
+
+		return ! empty( $setting_value ) && $section->get_default( $setting ) !== $setting_value;
 	}
 
 	/**
@@ -381,6 +410,11 @@ abstract class Tribe__Customizer__Section {
 	public function get_defaults( $settings = [] ) {
 		// Create Ghost Options
 		$settings = $this->create_ghost_settings( wp_parse_args( $settings, $this->setup_defaults() ) );
+
+		return $this->filter_defaults( $settings );
+	}
+
+	public function filter_defaults( $settings ) {
 
 		/**
 		 * Allows filtering the default values for all sections.
@@ -661,7 +695,7 @@ abstract class Tribe__Customizer__Section {
 			'separator'	     => Separator::class,
 			'text'	         => WP_Customize_Control::class,
 			'textarea'	     => WP_Customize_Control::class,
-			'number'	     => WP_Customize_Control::class,
+			'number'	     => Number::class,
 			'range-slider'   => Range_Slider::class,
 			'toggle'         => Toggle::class,
 		];
@@ -847,6 +881,7 @@ abstract class Tribe__Customizer__Section {
 	public function filter_css_template( $template ) {
 		/**
 		 * Applies a filter to the css output.
+		 * Note this is appended to the output - so it's not inside any selectors!
 		 *
 		 * @since 4.13.3
 		 *
@@ -858,7 +893,8 @@ abstract class Tribe__Customizer__Section {
 		$section_slug = static::get_section_slug( get_class( $this ) );
 
 		/**
-		 * Applies a filter to the css output for a specific section. Based on the section slug
+		 * Applies a filter to the css output for a specific section. Based on the section slug.
+		 * Note this is appended to the output - so it's not inside any selectors!
 		 *
 		 * @since 4.13.3
 		 *
@@ -868,5 +904,27 @@ abstract class Tribe__Customizer__Section {
 		$template = apply_filters( "tribe_customizer_section_{$section_slug}_css_template", $template, $this );
 
 		return $template;
+	}
+
+	/**
+	 * Utility function for when we need a color in RGB format,
+	 * since the Customizer always works with hex. Keepin' it DRY.
+	 *
+	 * @since 4.14.2
+	 *
+	 * @param string $option The option slug, like "grid-lines-color"
+	 * @param string $section The optional section slug, like 'global_elements'
+	 *
+	 * @return string $color_rgb The hex color expressed as an rgb string, like "255,255,255"
+	 */
+	public function get_rgb_color( $option, $section = null ) {
+		$color = is_null( $section )
+			? tribe( 'customizer' )->get_option( [ $this->ID, $option ] )
+			: tribe( 'customizer' )->get_option( [ $section, $option ] );
+
+		$color_obj = new Tribe__Utils__Color( $color );
+		$color_arr = $color_obj->getRgb();
+		$color_rgb = $color_arr['R'] . ',' . $color_arr['G'] . ',' . $color_arr['B'];
+		return $color_rgb;
 	}
 }

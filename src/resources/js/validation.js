@@ -1,5 +1,3 @@
-/* global tribe, console, jQuery */
-
 /**
  * Configures this Object in the Global Tribe variable
  *
@@ -42,7 +40,7 @@ tribe.validation = {};
 	 */
 	obj.conditions = {
 		isRequired: function( value ) {
-			return '' != value;
+			return '' != value; // eslint-disable-line eqeqeq
 		},
 		isGreaterThan: function( value, constraint, $field ) {
 			var condition = obj.parseCondition( 'isGreaterThan', value, constraint, $field );
@@ -92,7 +90,7 @@ tribe.validation = {};
 				return true;
 			}
 
-			return condition.constraint == condition.value;
+			return condition.constraint == condition.value; // eslint-disable-line eqeqeq
 		},
 		isNotEqualTo: function( value, constraint, $field ) {
 			var condition = obj.parseCondition( 'isNotEqualTo', value, constraint, $field );
@@ -102,15 +100,15 @@ tribe.validation = {};
 				return true;
 			}
 
-			return condition.constraint != condition.value;
+			return condition.constraint != condition.value; // eslint-disable-line eqeqeq
 		},
-		matchRegExp: function( value, constraint, $field ) {
+		matchRegExp: function( value, constraint, $field ) { // eslint-disable-line no-unused-vars
 			var exp = new RegExp( constraint, 'g' );
 			var match = exp.exec( value );
 
 			return null !== match;
 		},
-		notMatchRegExp: function( value, constraint, $field ) {
+		notMatchRegExp: function( value, constraint, $field ) { // eslint-disable-line no-unused-vars
 			var exp = new RegExp( constraint, 'g' );
 			var match = exp.exec( value );
 
@@ -126,7 +124,7 @@ tribe.validation = {};
 	 * @type   {object}
 	 */
 	obj.parseType = {
-		datepicker: function( value, $constraint, $field ) {
+		datepicker: function( value, $constraint, $field ) { // eslint-disable-line no-unused-vars
 			var formats = [
 				'yyyy-mm-dd',
 				'm/d/yyyy',
@@ -150,7 +148,10 @@ tribe.validation = {};
 			} else if ( _.isString( formats[ $constraint ] ) ) {
 				formatKey = formats[ $constraint ];
 			} else if ( $constraint.parents( '[data-datepicker_format]' ).length ) {
-				formatKey = $constraint.parents( '[data-datepicker_format]' ).eq( 0 ).data( 'datepicker_format' );
+				formatKey = $constraint
+					.parents( '[data-datepicker_format]' )
+					.eq( 0 )
+					.data( 'datepicker_format' );
 			}
 
 			if ( 'undefined' === typeof formats[ formatKey ] || ! formats[ formatKey ] ) {
@@ -162,7 +163,7 @@ tribe.validation = {};
 
 			return value;
 		},
-		default: function( value, $constraint, $field ) {
+		default: function( value, $constraint, $field ) { // eslint-disable-line no-unused-vars
 			if ( $.isNumeric( value ) ) {
 				value = parseFloat( value, 10 );
 			}
@@ -559,7 +560,7 @@ tribe.validation = {};
 	 *
 	 * @return {void}
 	 */
-	obj.onValidation = function( event ) {
+	obj.onValidation = function( event ) { // eslint-disable-line no-unused-vars
 		var $item = $( this );
 		var $fields = $item.find( obj.selectors.fields );
 
@@ -590,7 +591,7 @@ tribe.validation = {};
 	 *
 	 * @return {void}
 	 */
-	obj.onDisplayErrors = function( event ) {
+	obj.onDisplayErrors = function( event ) { // eslint-disable-line no-unused-vars
 		var $item = $( this );
 		var $errors = $item.find( obj.selectors.error ).not( ':disabled' );
 		var $list = $( '<ul>' );
@@ -598,7 +599,10 @@ tribe.validation = {};
 
 		// Tries to fetch if we have a given notice
 		var $notice = $document.find( obj.selectors.notice );
-		var $newNotice = $( '<div>' ).addClass( 'notice notice-error is-dismissible tribe-notice' ).addClass( obj.selectors.notice.className() ).append( $dismiss );
+		var $newNotice = $( '<div>' )
+			.addClass( 'notice notice-error is-dismissible tribe-notice' )
+			.addClass( obj.selectors.notice.className() )
+			.append( $dismiss );
 
 		// Builds based on the errors found in the form
 		$errors.each( function( i, field ) {
@@ -705,7 +709,7 @@ tribe.validation = {};
 	 *
 	 * @return {void} No return.
 	 */
-	obj.onClickSubmitButtons = function( event ) {
+	obj.onClickSubmitButtons = function( event ) { // eslint-disable-line no-unused-vars
 		var $submit = $( this );
 		var $item = $submit.parents( obj.selectors.item );
 
@@ -764,7 +768,7 @@ tribe.validation = {};
 	 *
 	 * @return {void} No return.
 	 */
-	obj.onChangeFieldRemoveError = function( event ) {
+	obj.onChangeFieldRemoveError = function( event ) { // eslint-disable-line no-unused-vars
 		var $field = $( this );
 		var $relatedFields = obj.getConstraintsFields( $field );
 
@@ -782,7 +786,7 @@ tribe.validation = {};
 	 *
 	 * @return {void} No return.
 	 */
-	obj.onClickDismissNotice = function( event ) {
+	obj.onClickDismissNotice = function( event ) { // eslint-disable-line no-unused-vars
 		var $dismiss = $( this );
 		var $notice = $dismiss.parents( obj.selectors.notice );
 
@@ -799,7 +803,7 @@ tribe.validation = {};
 	 *
 	 * @return {void} No return.
 	 */
-	obj.onReady = function( event ) {
+	obj.onReady = function( event ) { // eslint-disable-line no-unused-vars
 		$( obj.selectors.item ).validation();
 	};
 
