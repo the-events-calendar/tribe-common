@@ -2,7 +2,7 @@
 /**
  * Notice for the Stellar Sale
  *
- * @since TBD
+ * @since 4.14.2
  */
 
 namespace Tribe\Admin\Notice\Marketing;
@@ -10,7 +10,7 @@ namespace Tribe\Admin\Notice\Marketing;
 /**
  * Class Stellar_Sale
  *
- * @since TBD
+ * @since 4.14.2
  *
  * @package Tribe\Admin\Notice\Marketing
  */

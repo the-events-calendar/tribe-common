@@ -1,7 +1,7 @@
 var tribe_logger_admin = tribe_logger_admin || {};
 var tribe_logger_data  = tribe_logger_data || {};
 
-( function( $, obj ) {
+( function( $, obj ) { /* eslint-disable-line no-unused-vars */
 	var working        = false;
 	var current_view   = '';
 	var current_engine = '';
@@ -97,7 +97,7 @@ var tribe_logger_data  = tribe_logger_data || {};
 
 		var url = $download_link.attr( 'href' );
 		var log = encodeURI( get_current_view() );
-		var matches = url.match(/&log=([a-z0-9\-]+)/i);
+		var matches = url.match(/&log=([a-z0-9\-]+)/i); /* eslint-disable-line no-useless-escape */
 
 		// Update or add the log parameter
 		if ( Array.isArray( matches ) && 2 === matches.length ) {

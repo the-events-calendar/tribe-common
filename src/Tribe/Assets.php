@@ -159,6 +159,7 @@ class Tribe__Assets {
 	 * Register the Assets on the correct hooks.
 	 *
 	 * @since 4.3
+	 * @param array|object|null $assets Array of asset objects, single asset object, or null.
 	 *
 	 * @return void
 	 */
@@ -183,7 +184,15 @@ class Tribe__Assets {
 					continue;
 				}
 
-				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
+				$dependencies = $asset->deps;
+
+				// If the asset is a callable, we call the function,
+				// passing it the asset and expecting back an array of dependencies.
+				if ( is_callable( $asset->deps ) ) {
+					$dependencies = call_user_func( $asset->deps, [ $asset ] );
+				}
+
+				wp_register_script( $asset->slug, $asset->url, $dependencies, $asset->version, $asset->in_footer );
 
 				// Register that this asset is actually registered on the WP methods.
 				$asset->is_registered = wp_script_is( $asset->slug, 'registered' );
@@ -473,7 +482,7 @@ class Tribe__Assets {
 	 * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
 	 * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
 	 * @param string            $file      The asset file to load (CSS or JS), including non-minified file extension.
-	 * @param array             $deps      The list of dependencies.
+	 * @param array             $deps      The list of dependencies or callable function that will return a list of dependencies.
 	 * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
 	 *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
 	 * @param string|array      $arguments {

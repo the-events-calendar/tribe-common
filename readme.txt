@@ -3,6 +3,24 @@
 = [TBD] TBD =
 
 * Feature - Added a new Warning dialog for the Dialog API. [ECP-901]
+* Feature - Alter common postcss to leverage exposed namespaced custom properties from common-styles. [TCMN-104]
+* Feature - Add new custom Customizer controls - Number, Range Slider, Toggle. [TEC-3897]
+* Tweak - Added a `tribe_post_id` filter to `post_id_helper` in the Main class.
+* Tweak - Alter Customizer and Section objects to be more versatile. [TCMN-104]
+* Tweak - Split pcss variable imports so we only import hte necessary variables for skeleton, and don't import more than once. [TCMN-104]
+* Tweak - added new `get_hex_with_hash` function to Tribe/Utils/Color.php to reduce need for manual string concatenation. [TCMN-104]
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.14.2] 2021-08-17 =
+
+* Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
+* Fix - Fix issue of time selector for recurring rules not working for the block editor. [ECP-918]
+* Fix - Ensure that $wp_query->is_search is false for calendar views that have no search term. [TEC-4012]
+* Fix - Fix issue of month names not being translatable. This was caused by a missing moment js localization dependency. [ECP-739]
+* Fix - Ensure that block editor scripts don't enqueue wp-editor on non-post block editor pages (widgets) [TEC-4028]
+* Tweak - Alter Assets->register and tribe_asset() to accept a callable for assets. [TEC-4028]
+* Tweak - Change label of API Settings tab to "Integrations". [TEC_4015]
+* Language - 169 new strings added, 121 updated, 2 fuzzied, and 0 obsoleted
 
 = [4.14.1] 2021-07-21 =
 
@@ -23,12 +41,10 @@
 * Tweak - Set up recurring, featured, and virtual icons to not rely on aria-labeled. [TEC-3396]
 * Language - 3 new strings added, 1 updated, 2 fuzzied, and 0 obsoleted
 
-
 = [4.13.4] 2021-06-09 =
 
 * Tweak - When using The Events Calendar and Event Tickets split the admin footer rating link 50/50. [ET-1120]
 * Language - 1 new strings added, 2 updated, 1 fuzzied, and 1 obsoleted
-
 
 = [4.13.3] 2021-05-27 =
 

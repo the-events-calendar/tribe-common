@@ -99,7 +99,7 @@ return [
 					'objects'
 				);
 
-				foreach( $post_type_objs as $post_type ) {
+				foreach ( $post_type_objs as $post_type ) {
 					if ( empty( $post_type->query_var ) ) {
 						continue;
 					}
