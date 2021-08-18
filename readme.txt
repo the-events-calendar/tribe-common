@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Added a new Warning dialog for the Dialog API. [ECP-901]
+
 = [4.14.1] 2021-07-21 =
 
 * Feature - Add new notice for Stellar Sale. [TCMN-111]
