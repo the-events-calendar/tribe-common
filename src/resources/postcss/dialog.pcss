@@ -33,7 +33,7 @@ This can include modals, toasters, confirms. alerts.
 		position: fixed;
 		top: 0;
 		width: 100vw;
-		z-index: 1;
+		z-index: 100;
 
 		&[aria-hidden='true'] {
 			display: none;
@@ -52,7 +52,7 @@ This can include modals, toasters, confirms. alerts.
 		position: fixed;
 		top: 0;
 		width: 100vw;
-		z-index: 1;
+		z-index: 100;
 	}
 
 	/* Content wrapper - includes close button*/
@@ -61,11 +61,11 @@ This can include modals, toasters, confirms. alerts.
 		border-radius: var(--tribe-dialog-border-radius);
 		box-shadow: 0 2px 54px 0 var(--tribe-modal-overlay-color);
 		width: 800px;
-		overflow-y: scroll;
+		overflow-y: auto;
 		padding: var(--tribe-dialog-padding);
 		max-height: 100vh;
 		max-width: 100vw;
-		z-index: 2;
+		z-index: 200;
 		-webkit-transform: translateZ(0px);
 		-webkit-transform: translate3d(0,0,0);
 		-webkit-perspective: 1000;
@@ -149,6 +149,10 @@ This can include modals, toasters, confirms. alerts.
 		padding: 0;
 	}
 
+	.tribe-dialog__content p {
+		font-size: var(--font-size-2);
+	}
+
 	@media screen and (max-width:768px) {
 		.tribe-dialog__content:last-of-type {
 			padding-bottom: 36px;
@@ -171,13 +175,20 @@ This can include modals, toasters, confirms. alerts.
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: flex-end;
+		margin-top: 1rem;
+	}
+
+	.tribe-dialog__button-cancel,
+	.tribe-dialog__button-continue {
+		margin-left: var(--spacer-1);
+		width: auto;
 	}
 
 	/* -------------------------------------------------------------------------
 	 * Theme Overrides - Avada
 	 * ------------------------------------------------------------------------- */
 
-	 .tribe-theme-avada & {
+	.tribe-theme-avada & {
 
 		div.tribe-dialog {
 			z-index: 99999;
@@ -188,7 +199,7 @@ This can include modals, toasters, confirms. alerts.
 	 * Theme Overrides - Divi
 	 * ------------------------------------------------------------------------- */
 
-	 .tribe-theme-divi & {
+	.tribe-theme-divi & {
 
 		div.tribe-dialog {
 			z-index: 99999;
