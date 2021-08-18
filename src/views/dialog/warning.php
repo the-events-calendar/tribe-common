@@ -1,14 +1,14 @@
 <?php
 /**
- * Confirmation Dialog View Template
+ * Warn Dialog View Template
  * The confirmation template for tribe-dialog.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/confirm.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe/dialogs/warn.php
  *
- * @since 4.10.0
+ * @since TBD
  *
  * @package Tribe
- * @version 4.10.0
+ * @version TBD
  */
 
 /** @var \Tribe\Dialog\View $dialog_view */
@@ -23,10 +23,10 @@ $vars        = get_defined_vars();
 			<h2 <?php tribe_classes( $title_classes ) ?>><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
 
-		<?php echo $content; ?>
+		<?php echo wp_kses_post( $content ); ?>
 		<div class="tribe-dialog__button_wrap">
-			<button <?php tribe_classes( $cancel_button_classes ); ?>><?php echo esc_html( $cancel_button_text ); ?></button>
 			<button <?php tribe_classes( $continue_button_classes ); ?>><?php echo esc_html( $continue_button_text ); ?></button>
+			<button <?php tribe_classes( $cancel_button_classes ); ?>><?php echo esc_html( $cancel_button_text ); ?></button>
 		</div>
 	</div>
 </script>

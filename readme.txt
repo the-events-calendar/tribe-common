@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Feature - Added a new Warning dialog for the Dialog API. [ECP-901]
 * Feature - Alter common postcss to leverage exposed namespaced custom properties from common-styles. [TCMN-104]
 * Feature - Add new custom Customizer controls - Number, Range Slider, Toggle. [TEC-3897]
 * Tweak - Added a `tribe_post_id` filter to `post_id_helper` in the Main class.
