@@ -25,8 +25,8 @@ $vars        = get_defined_vars();
 
 		<?php echo $content; ?>
 		<div class="tribe-dialog__button_wrap">
-			<button class="tribe-dialog__button tribe-dialog__button-confirm tribe-common-c-btn-border tribe-common-c-btn-border--alt"><?php echo esc_html( $continue_button_text ); ?></button>
-			<button class="tribe-dialog__button tribe-dialog__button-cancel tribe-common-c-btn tribe-common-c-btn-border"><?php echo esc_html( $cancel_button_text ); ?></button>
+			<button <?php tribe_classes( $continue_button_classes ); ?>><?php echo esc_html( $continue_button_text ); ?></button>
+			<button <?php tribe_classes( $cancel_button_classes ); ?>><?php echo esc_html( $cancel_button_text ); ?></button>
 		</div>
 	</div>
 </script>

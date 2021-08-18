@@ -33,7 +33,7 @@ This can include modals, toasters, confirms. alerts.
 		position: fixed;
 		top: 0;
 		width: 100vw;
-		z-index: 1;
+		z-index: 100;
 
 		&[aria-hidden='true'] {
 			display: none;
@@ -52,7 +52,7 @@ This can include modals, toasters, confirms. alerts.
 		position: fixed;
 		top: 0;
 		width: 100vw;
-		z-index: 1000;
+		z-index: 100;
 	}
 
 	/* Content wrapper - includes close button*/
@@ -65,7 +65,7 @@ This can include modals, toasters, confirms. alerts.
 		padding: var(--tribe-dialog-padding);
 		max-height: 100vh;
 		max-width: 100vw;
-		z-index: 2;
+		z-index: 200;
 		-webkit-transform: translateZ(0px);
 		-webkit-transform: translate3d(0,0,0);
 		-webkit-perspective: 1000;
@@ -179,7 +179,7 @@ This can include modals, toasters, confirms. alerts.
 	}
 
 	.tribe-dialog__button-cancel,
-	.tribe-dialog__button-confirm {
+	.tribe-dialog__button-continue {
 		margin-left: var(--spacer-1);
 		width: auto;
 	}

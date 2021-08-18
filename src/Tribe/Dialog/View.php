@@ -171,7 +171,7 @@ class View extends \Tribe__Template {
 
 		$args = wp_parse_args( $args, $default_args );
 
-		$this->render_dialog( $content, $args, $id, $echo );
+		return $this->render_dialog( $content, $args, $id, $echo );
 	}
 
 	/**
@@ -240,7 +240,7 @@ class View extends \Tribe__Template {
 
 		$args = wp_parse_args( $args, $default_args );
 
-		$this->render_dialog( $content, $args, $id, $echo );
+		return $this->render_dialog( $content, $args, $id, $echo );
 	}
 
 	/**
@@ -262,8 +262,10 @@ class View extends \Tribe__Template {
 	 *     @type string  $button_value            The value for the trigger button (optional).
 	 *     @type boolean $button_display          If the dialog button should be displayed or not (optional).
 	 *     @type string  $cancel_button_text      Text for the "Cancel" button ("Cancel").
+	 *     @type string  $cancel_button_classes   Any desired classes for the cancel button (optional).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content tribe-confirm__content").
 	 *     @type string  $continue_button_text    Text for the "Continue" button ("Confirm").
+	 *     @type string  $continue_button_classes Any desired classes for the continue button (optional).
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
 	 *     @type string  $template                The dialog template name (confirm).
@@ -296,7 +298,9 @@ class View extends \Tribe__Template {
 			'body_lock'               => true,
 			'button_display'          => false,
 			'cancel_button_text'      => __( 'Cancel', 'tribe-common' ),
+			'cancel_button_classes'   => 'tribe-dialog__button tribe-dialog__button-cancel tribe-common-c-btn tribe-common-c-btn-border',
 			'continue_button_text'    => __( 'OK', 'tribe-common' ),
+			'continue_button_classes'  => 'tribe-dialog__button tribe-dialog__button-continue tribe-common-c-btn-border tribe-common-c-btn-border--alt',
 			'close_button_aria_label' => '',
 			'close_button_classes'    => 'tribe-dialog__close-button--hidden',
 			'close_event'             => 'tribe_dialog_close_confirm',
@@ -311,7 +315,7 @@ class View extends \Tribe__Template {
 
 		$args = wp_parse_args( $args, $default_args );
 
-		$this->render_dialog( $content, $args, $id, $echo );
+		return $this->render_dialog( $content, $args, $id, $echo );
 	}
 
 	/**
@@ -379,7 +383,7 @@ class View extends \Tribe__Template {
 
 		$args = wp_parse_args( $args, $default_args );
 
-		$this->render_dialog( $content, $args, $id, $echo );
+		return $this->render_dialog( $content, $args, $id, $echo );
 	}
 
 	/**
@@ -400,8 +404,10 @@ class View extends \Tribe__Template {
 	 *     @type string  $button_type             The type for the trigger button (optional).
 	 *     @type string  $button_value            The value for the trigger button (optional).
 	 *     @type boolean $button_display          If the dialog button should be displayed or not (optional).
+	 *     @type string  $cancel_button_classes   Any desired classes for the cancel button (optional).
 	 *     @type string  $close_event             The dialog event hook name (`tribe_dialog_close_dialog`).
 	 *     @type string  $content_classes         The dialog content classes ("tribe-dialog__content").
+	 *     @type string  $continue_button_classes Any desired classes for the continue button (optional).
 	 *     @type string  $title_classes           The dialog title classes ("tribe-dialog__title").
 	 *     @type array   $context                 Any additional context data you need to expose to this file (optional).
 	 *     @type string  $id                      The unique ID for this dialog (`uniqid()`).
@@ -438,6 +444,8 @@ class View extends \Tribe__Template {
 			'button_type'             => '',
 			'button_value'            => '',
 			'button_display'          => true,
+			'cancel_button_classes'   => 'tribe-dialog__button tribe-dialog__button-cancel tribe-common-c-btn-border tribe-common-c-btn-border--alt',
+			'continue_button_classes' => 'tribe-dialog__button tribe-dialog__button-continue tribe-common-c-btn tribe-common-c-btn-border',
 			'close_event'             => 'tribe_dialog_close_dialog',
 			'content_classes'         => 'tribe-dialog__content',
 			'context'                 => '',
