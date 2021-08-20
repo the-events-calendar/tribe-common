@@ -157,11 +157,11 @@ jobs:
       # ------------------------------------------------------------------------------
       # Handle the dependency testing requirements, copying the plugins + setup db dump
       # ------------------------------------------------------------------------------
-      - name: Handle the dependency testing requirements
-        if: ${{ matrix.suite == 'dependency' }}
-        run: |
-          cp -r ${GITHUB_WORKSPACE}/tests/_data/dependency/dependency-test ${GITHUB_WORKSPACE}/../
-          ${TRIC_BIN} cli db export ${GITHUB_WORKSPACE}/tests/_data/dependency-dump.sql
+      #- name: Handle the dependency testing requirements
+      #  if: ${{ matrix.suite == 'dependency' }}
+      #  run: |
+      #    cp -r ${GITHUB_WORKSPACE}/tests/_data/dependency/dependency-test ${GITHUB_WORKSPACE}/../
+      #    ${TRIC_BIN} cli db export ${GITHUB_WORKSPACE}/tests/_data/dependency-dump.sql
       # ------------------------------------------------------------------------------
       # Run tests
       # ------------------------------------------------------------------------------
