@@ -19,6 +19,16 @@ use Tribe\Customizer\Control;
  * @package Tribe\Customizer\Controls
  */
 class Heading extends Control {
+
+	/**
+	 * Control's Type.
+	 *
+	 * @since 4.13.3
+	 *
+	 * @var string
+	 */
+	public $type = 'heading';
+
 	/**
 	 * Anyone able to set theme options will be able to see the header.
 	 *

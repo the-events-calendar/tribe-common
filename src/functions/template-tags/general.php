@@ -26,7 +26,29 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
 	 */
 	function tribe_get_option( $optionName, $default = '' ) {
-		return apply_filters( 'tribe_get_option', Tribe__Settings_Manager::get_option( $optionName, $default ), $optionName, $default );
+		$value = Tribe__Settings_Manager::get_option( $optionName, $default );
+
+		/**
+		 * Allow filtering of all options retrieved via tribe_get_option().
+		 *
+		 * @since 4.0.1
+		 *
+		 * @param mixed $value Value of the option if found.
+		 * @param string $optionName Name of the option to retrieve.
+		 * @param string $default    Value to return if no such option is found.
+		 */
+		$value = apply_filters( 'tribe_get_option', $value, $optionName, $default );
+
+		/**
+		 * Allow filtering of a specific option retrieved via tribe_get_option().
+		 *
+		 * @since 4.0.1
+		 *
+		 * @param mixed $value Value of the option if found.
+		 * @param string $optionName Name of the option to retrieve.
+		 * @param string $default    Value to return if no such option is found.
+		 */
+		return apply_filters( "tribe_get_option_{$optionName}", $value, $optionName, $default );
 	}
 }//end if
 
@@ -599,7 +621,7 @@ function tribe_register_error( $indexes, $message ) {
  * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
  * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
  * @param string            $file      The asset file to load (CSS or JS), including non-minified file extension.
- * @param array             $deps      The list of dependencies.
+ * @param array             $deps      The list of dependencies or callable function that will return a list of dependencies.
  * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
  *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
  * @param array             $arguments See `Tribe__Assets::register()` for more info.

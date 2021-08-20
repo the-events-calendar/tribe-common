@@ -1,4 +1,5 @@
 <?php
+_deprecated_file(__FILE__, '4.14.2', 'Deprecated to a more granular approach.' );
 /**
  * Various Marketing notices, e.g. Black Friday sales or special coupon initiatives.
  *

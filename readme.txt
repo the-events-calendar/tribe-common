@@ -1,6 +1,54 @@
-=== Tribe Common ===
-
 == Changelog ==
+
+= [TBD] TBD =
+
+* Tweak - Added a `tribe_post_id` filter to `post_id_helper` in the Main class.
+
+= [4.14.2] 2021-08-17 =
+
+* Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
+* Fix - Fix issue of time selector for recurring rules not working for the block editor. [ECP-918]
+* Fix - Ensure that $wp_query->is_search is false for calendar views that have no search term. [TEC-4012]
+* Fix - Fix issue of month names not being translatable. This was caused by a missing moment js localization dependency. [ECP-739]
+* Fix - Ensure that block editor scripts don't enqueue wp-editor on non-post block editor pages (widgets) [TEC-4028]
+* Tweak - Alter Assets->register and tribe_asset() to accept a callable for assets. [TEC-4028]
+* Tweak - Change label of API Settings tab to "Integrations". [TEC_4015]
+* Language - 169 new strings added, 121 updated, 2 fuzzied, and 0 obsoleted
+
+= [4.14.1] 2021-07-21 =
+
+* Feature - Add new notice for Stellar Sale. [TCMN-111]
+* Feature - Create a Notice Service Provider and some initial tests. Move the BF sale notice to the new provider, as well as several of the others.  [TCMN-111]
+* Language - 0 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.14.0] 2021-07-01 =
+
+* Feature - Add new custom Customizer controls.
+* Tweak - Add central compatibility functionality. A step in the move from using body classes to container classes.
+* Language - 0 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.13.5] 2021-06-23 =
+
+* Feature - Add checkbox switch template and css [VE-353]
+* Fix - Fix call to call_user_func_array( 'array_merge'... ) to make PHP8 compatible
+* Tweak - Set up recurring, featured, and virtual icons to not rely on aria-labeled. [TEC-3396]
+* Language - 3 new strings added, 1 updated, 2 fuzzied, and 0 obsoleted
+
+
+= [4.13.4] 2021-06-09 =
+
+* Tweak - When using The Events Calendar and Event Tickets split the admin footer rating link 50/50. [ET-1120]
+* Language - 1 new strings added, 2 updated, 1 fuzzied, and 1 obsoleted
+
+
+= [4.13.3] 2021-05-27 =
+
+* Feature - Create new functionality in Tribe__Customizer__Section to allow for simpler creation of controls and sections. [TEC-3836]
+* Feature - Added the `set_chunkable_transient` and `get_chunkable_transient` functions to the Cache class, see doc-blocks. [TEC-3627]
+* Fix - Compatibility with Avada themes and third party plugins or themes loading `selectWoo` at the same time. [ECP-737]
+* Tweak - Adjust the actions used to register and load the styles for the tooltip component [TEC-3796]
+* Tweak - Update lodash to 4.17.21. [TEC-3885]
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.13.2] 2021-04-29 =
 
