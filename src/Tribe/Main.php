@@ -5,7 +5,6 @@
 
 // Don't load directly
 
-use Tribe\Admin\Notice\WP_Version;
 use Tribe\DB_Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.14.1';
+	const VERSION             = '4.14.2';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -194,6 +193,7 @@ class Tribe__Main {
 				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
 				[ 'tribe-utils-camelcase', 'utils-camelcase.js', [ 'underscore' ] ],
 				[ 'tribe-moment', 'vendor/momentjs/moment.js' ],
+				[ 'tribe-moment-locales', 'vendor/momentjs/locale.min.js' ],
 				[ 'tribe-tooltipster', 'vendor/tooltipster/tooltipster.bundle.js', [ 'jquery' ] ],
 				[ 'tribe-tooltipster-css', 'vendor/tooltipster/tooltipster.bundle.css' ],
 				[ 'datatables-css', 'datatables.css' ],
@@ -558,7 +558,20 @@ class Tribe__Main {
 	public static function post_id_helper( $candidate = null ) {
 		$candidate_post = get_post( $candidate );
 
-		return $candidate_post instanceof WP_Post ? $candidate_post->ID : false;
+		$post_id = $candidate_post instanceof WP_Post ? $candidate_post->ID : false;
+
+		/**
+		 * Allows modifying the post ID in order to allow redirection of values before any other additional
+		 * WordPress action is called from on result.
+		 *
+		 * @since TBD
+		 *
+		 * @param int|bool         $post_id   The ID of the post if the $candidate value is a valid WP_Post Object, `false` otherwise.
+		 * @param null|int|WP_Post $candidate Post ID or object, `null` to get the ID of the global post object.
+		 *
+		 * @return  int|bool The ID of the post.
+		 */
+		return apply_filters( 'tribe_post_id', $post_id, $candidate );
 	}
 
 	/**
@@ -581,6 +594,8 @@ class Tribe__Main {
 		tribe_singleton( 'feature-detection', 'Tribe__Feature_Detection' );
 		tribe_register_provider( 'Tribe__Service_Providers__Processes' );
 
+		tribe( \Tribe\Admin\Notice\WP_Version::class );
+		tribe( \Tribe\Admin\Troubleshooting::class );
 
 		/**
 		 * Runs after all plugins including Tribe ones have loaded
@@ -621,6 +636,8 @@ class Tribe__Main {
 		tribe_singleton( 'freemius', 'Tribe__Freemius' );
 		tribe_singleton( 'customizer', 'Tribe__Customizer' );
 		tribe_singleton( Tribe__Dependency::class, Tribe__Dependency::class );
+		tribe_singleton( \Tribe\Admin\Troubleshooting::class, \Tribe\Admin\Troubleshooting::class, [ 'hook' ] );
+
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class );
 

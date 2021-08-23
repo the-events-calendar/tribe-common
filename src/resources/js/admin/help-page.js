@@ -36,14 +36,14 @@ tribe.helpPage = tribe.helpPage || {};
 
 		clipboard.on( 'success', function ( event ) {
 			event.clearSelection();
-			event.trigger.innerHTML = button_icon + '<span class="optin-success">' + tribe_system_info.clipboard_copied_text + '<span>';
+			event.trigger.innerHTML = button_icon + '<span class="optin-success">' + tribe_system_info.clipboard_copied_text + '<span>'; // eslint-disable-line max-len
 			window.setTimeout( function () {
 				event.trigger.innerHTML = button_icon + button_text;
 			}, 5000 );
 		} );
 
 		clipboard.on( 'error', function ( event ) {
-			event.trigger.innerHTML = button_icon + '<span class="optin-fail">' + tribe_system_info.clipboard_fail_text + '<span>';
+			event.trigger.innerHTML = button_icon + '<span class="optin-fail">' + tribe_system_info.clipboard_fail_text + '<span>'; // eslint-disable-line max-len
 			window.setTimeout( function () {
 				event.trigger.innerHTML = button_icon + button_text;
 			}, 5000 );
@@ -85,9 +85,9 @@ tribe.helpPage = tribe.helpPage || {};
 			request,
 			function ( results ) {
 				if ( results.success ) {
-					obj.$system_info_opt_in_msg.html( "<p class=\'optin-success\'>" + results.data + "</p>" );
+					obj.$system_info_opt_in_msg.html( "<p class='optin-success'>" + results.data + "</p>" );
 				} else {
-					obj.$system_info_opt_in_msg.html( "<p class=\'optin-fail\'>" + results.data.message + " Code:" + results.data.code + " Status:" + results.data.data.status + "</p>" );
+					obj.$system_info_opt_in_msg.html( "<p class='optin-fail'>" + results.data.message + " Code:" + results.data.code + " Status:" + results.data.data.status + "</p>" ); // eslint-disable-line max-len
 					$( "#tribe_auto_sysinfo_opt_in" ).prop( "checked", false );
 				}
 			}

@@ -1794,7 +1794,9 @@ abstract class Tribe__Repository
 				$args = [ 'p' => $value ];
 				break;
 			case 'search':
-				$args = [ 's' => $value ];
+				if ( '' !== $value ) {
+					$args = [ 's' => $value ];
+				}
 				break;
 			case 'post_status':
 				$this->query_args['post_status'] = (array) $value;

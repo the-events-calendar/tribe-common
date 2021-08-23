@@ -1,7 +1,6 @@
 :root {
-	--error-border-color: #dc3232;
+	--tec-error-border-color: #dc3232;
 }
-
 
 .tribe-validation {
 	input[type="text"],
@@ -17,20 +16,19 @@
 	input[type="search"],
 	input[type="radio"],
 	input[type="tel"],
-	input[type="text"],
 	input[type="time"],
 	input[type="url"],
 	input[type="week"],
 	select,
 	textarea {
 		&.tribe-validation-error {
-			border-color: var(--error-border-color);
+			border-color: var(--tec-error-border-color);
 		}
 	}
 
-	.tribe-dropdown.tribe-validation-error{
+	.tribe-dropdown.tribe-validation-error {
 		.select2-choice {
-			border-color: var(--error-border-color);
+			border-color: var(--tec-error-border-color);
 		}
 	}
 }
