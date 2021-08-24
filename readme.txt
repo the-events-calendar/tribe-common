@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
 * Tweak - Added a `tribe_post_id` filter to `post_id_helper` in the Main class.
 
 = [4.14.2] 2021-08-17 =
