@@ -564,7 +564,7 @@ class Tribe__Main {
 		 * Allows modifying the post ID in order to allow redirection of values before any other additional
 		 * WordPress action is called from on result.
 		 *
-		 * @since TBD
+		 * @since 4.12.13
 		 *
 		 * @param int|bool         $post_id   The ID of the post if the $candidate value is a valid WP_Post Object, `false` otherwise.
 		 * @param null|int|WP_Post $candidate Post ID or object, `null` to get the ID of the global post object.

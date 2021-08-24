@@ -247,7 +247,7 @@ class View extends \Tribe__Template {
 	 * Syntactic sugar for `render_dialog()` to make creating custom confirmation dialogs easier.
 	 * Adds sensible defaults for warning dialogs.
 	 *
-	 * @since TBD
+	 * @since 4.12.13
 	 *
 	 * @param string  $content Content as an HTML string.
 	 * @param array   $args    {
