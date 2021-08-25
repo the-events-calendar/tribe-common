@@ -212,8 +212,10 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			[
-				[ 'tribe-common-skeleton-style', 'common-skeleton.css' ],
-				[ 'tribe-common-full-style', 'common-full.css', [ 'tribe-common-skeleton-style' ] ],
+				[ 'tec-variables-skeleton', 'variables-skeleton.css', ],
+				[ 'tribe-common-skeleton-style', 'common-skeleton.css', [ 'tec-variables-skeleton' ] ],
+				[ 'tec-variables-full', 'variables-full.css', ],
+				[ 'tribe-common-full-style', 'common-full.css', [ 'tec-variables-full', 'tribe-common-skeleton-style' ] ],
 			],
 			null
 		);
@@ -222,11 +224,11 @@ class Tribe__Main {
 		tribe_assets(
 			$this,
 			[
-				[ 'tribe-ui', 'tribe-ui.css' ],
+				[ 'tribe-ui', 'tribe-ui.css', [ 'tec-variables-full' ] ],
 				[ 'tribe-buttonset', 'buttonset.js', [ 'jquery', 'underscore' ] ],
-				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
+				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tec-variables-full', 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
 				[ 'tribe-validation', 'validation.js', [ 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ] ],
-				[ 'tribe-validation-style', 'validation.css', [ 'tribe-tooltipster-css' ] ],
+				[ 'tribe-validation-style', 'validation.css', [ 'tec-variables-full', 'tribe-tooltipster-css' ] ],
 				[ 'tribe-dependency', 'dependency.js', [ 'jquery', 'underscore', 'tribe-common' ] ],
 				[ 'tribe-dependency-style', 'dependency.css', [ 'tribe-select2-css' ] ],
 				[ 'tribe-pue-notices', 'pue-notices.js', [ 'jquery' ] ],
@@ -267,7 +269,7 @@ class Tribe__Main {
 			$this,
 			'tribe-customizer-controls',
 			'customizer-controls.css',
-			[],
+			[ 'tec-variables-full' ],
 			'customize_controls_print_styles'
 		);
 
