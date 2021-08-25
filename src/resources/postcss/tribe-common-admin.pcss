@@ -173,6 +173,7 @@ table.plugins {
 	.tribe-settings-form-wrap {
 
 		fieldset {
+
 			.description {
 				margin-left: 0;
 				max-width: 450px;
@@ -185,6 +186,7 @@ table.plugins {
 		}
 
 		#tribe-field-stylesheetOption {
+
 			.description {
 				color: #999;
 				margin-left: 1px;
@@ -906,11 +908,19 @@ table.plugins {
 
 /* = Admin Retina Bits
 ============================================= */
+<<<<<<< HEAD
+=======
+/* stylelint-disable media-feature-name-no-unknown */
+>>>>>>> b509f7a664980817599b22fafa19c531746d5b03
 @media only screen and (min--moz-device-pixel-ratio: 2),
 	only screen and (-o-min-device-pixel-ratio: 2/1),
 	only screen and (-webkit-min-device-pixel-ratio: 2),
 	only screen and (min-device-pixel-ratio: 2) {
+<<<<<<< HEAD
 
+=======
+	/* stylelint-enable media-feature-name-no-unknown */
+>>>>>>> b509f7a664980817599b22fafa19c531746d5b03
 	#tribe-loading span {
 		background-image: url('../images/tribe-loading@2x.gif');
 	}
@@ -1027,7 +1037,6 @@ a.tribe-rating-link {
 
 /* Media Queries for Mobile Dashboard */
 @media screen and (max-width: 782px) {
-
 	.tribe-half-column,
 	.tribe-row .tribe-half-column:last-child {
 		margin: 0 0 20px 0;
@@ -1040,7 +1049,10 @@ a.tribe-rating-link {
 }
 
 @media screen and (max-width: 782px) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> b509f7a664980817599b22fafa19c531746d5b03
 	.events-cal .subsubsub {
 		float: none;
 	}
@@ -1675,10 +1687,15 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 .checkmark {
 
 	&:after {
+		/* Add a white border on the bottom and left, creating that 'L' */
 		border: solid #0ab152;
 		border-width: 0 3px 3px 0;
+
+		/* Add another block-level blank space */
 		content: '';
 		display: block;
+
+		/* Make it a small rectangle so the border will create an L-shape, rotate the L 45 degrees to turn it into a checkmark */
 		height: 15px;
 		transform: rotate(45deg);
 		width: 8px;
@@ -2071,7 +2088,7 @@ input[type="email"].tribe-events-admin-card__input {
 .tribe-events-admin-card__image {
 	display: block;
 	height: 100px;
-	margin: 0 auto 0 auto;
+	margin: 0 auto;
 }
 
 .tribe-events-admin-card__link {
@@ -2123,16 +2140,16 @@ input[type="email"].tribe-events-admin-card__input {
 	border-radius: 16px;
 	box-sizing: border-box;
 	display: block;
-	margin: 40px 0 78px 0;
-	padding: 18px 23px 2px 23px;
+	margin: 40px 0 78px;
+	padding: 18px 23px 2px;
 
 	@media screen and (min-width: 1217px) {
 		border-radius: 100px;
 		display: inline-block;
 		height: 54px;
-		margin: 24px 0 94px 0;
+		margin: 24px 0 94px;
 		max-width: 1010px;
-		padding: 0 36px 0 0;
+		padding: 0 36px 0;
 	}
 }
 
@@ -2155,7 +2172,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 	@media screen and (min-width: 1217px) {
 		display: inline-block;
-		padding: 18px 10px 0 10px;
+		padding: 18px 10px 0;
 	}
 }
 
@@ -2182,7 +2199,7 @@ input[type="email"].tribe-events-admin-card__input {
 	font-size: 24px;
 	font-weight: bold;
 	line-height: 28px;
-	margin: 21px 0 24px 0;
+	margin: 21px 0 24px;
 
 	@media screen and (min-width: 710px) {
 		font-size: 28px;
@@ -2218,7 +2235,7 @@ input[type="email"].tribe-events-admin-card__input {
 	font-size: 24px;
 	font-weight: bold;
 	line-height: 28px;
-	margin: 5px 0 0 0;
+	margin: 5px 0 0;
 
 	@media screen and (min-width: 710px) {
 		font-size: 48px;
@@ -2251,7 +2268,7 @@ input[type="email"].tribe-events-admin-card__input {
 	p {
 		color: #fff;
 		display: inline-block;
-		font-family: Helvetica;
+		font-family: Helvetica; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
 		font-size: 16px;
 		line-height: 18px;
 		margin-top: 0;

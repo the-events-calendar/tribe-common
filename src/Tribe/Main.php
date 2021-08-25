@@ -5,7 +5,6 @@
 
 // Don't load directly
 
-use Tribe\Admin\Notice\WP_Version;
 use Tribe\DB_Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.14.2';
+	const VERSION             = '4.14.3';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -565,7 +564,7 @@ class Tribe__Main {
 		 * Allows modifying the post ID in order to allow redirection of values before any other additional
 		 * WordPress action is called from on result.
 		 *
-		 * @since TBD
+		 * @since 4.12.13
 		 *
 		 * @param int|bool         $post_id   The ID of the post if the $candidate value is a valid WP_Post Object, `false` otherwise.
 		 * @param null|int|WP_Post $candidate Post ID or object, `null` to get the ID of the global post object.
