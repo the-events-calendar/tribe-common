@@ -1,5 +1,7 @@
 == Changelog ==
 
+Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
+
 = [4.14.3] 2021-08-24 =
 
 * Feature - Added a new Warning dialog for the Dialog API. [ECP-901]
