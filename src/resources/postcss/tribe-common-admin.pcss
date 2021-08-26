@@ -908,19 +908,12 @@ table.plugins {
 
 /* = Admin Retina Bits
 ============================================= */
-<<<<<<< HEAD
-=======
 /* stylelint-disable media-feature-name-no-unknown */
->>>>>>> b509f7a664980817599b22fafa19c531746d5b03
 @media only screen and (min--moz-device-pixel-ratio: 2),
 	only screen and (-o-min-device-pixel-ratio: 2/1),
 	only screen and (-webkit-min-device-pixel-ratio: 2),
 	only screen and (min-device-pixel-ratio: 2) {
-<<<<<<< HEAD
-
-=======
 	/* stylelint-enable media-feature-name-no-unknown */
->>>>>>> b509f7a664980817599b22fafa19c531746d5b03
 	#tribe-loading span {
 		background-image: url('../images/tribe-loading@2x.gif');
 	}
@@ -1049,10 +1042,6 @@ a.tribe-rating-link {
 }
 
 @media screen and (max-width: 782px) {
-<<<<<<< HEAD
-
-=======
->>>>>>> b509f7a664980817599b22fafa19c531746d5b03
 	.events-cal .subsubsub {
 		float: none;
 	}
@@ -1759,8 +1748,6 @@ Credit to https://github.com/jensjns/wp-admin-red-button
 	}
 }
 
-/* = TEC Welcome & new BEM tribe admin styles
-============================================== */
 body.tribe-welcome,
 body.tribe_events_page_tribe-help {
 	background-color: white;
@@ -1803,7 +1790,7 @@ body.tribe_events_page_tribe-help {
 	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 	font-style: normal;
 	margin: 0 auto;
-	padding: 20px;
+	padding: 0 0 30px;
 	width: calc(100% - 40px);
 
 	@media screen and (min-width: 710px) {
@@ -1825,56 +1812,6 @@ body.tribe_events_page_tribe-help {
 	margin: 0 auto 36px auto;
 	padding: 27px;
 	text-align: center;
-}
-
-.tribe-events-admin-card--1up {
-	width: 100%;
-
-	/* treat the one-up card like a three-up card at the middle break */
-	@media screen and (min-width: 710px) {
-		display: inline-block;
-		margin-left: 32px;
-		width: calc(50% - 18px);
-
-		.tribe-events-admin-card__description {
-			height: 71px;
-		}
-
-		.tribe-events-admin-card__image {
-			margin-bottom: 28px;
-		}
-	}
-
-	@media screen and (min-width: 1217px) {
-		margin: 0 0 36px 0;
-		padding: 33px 44px 30px 44px;
-		text-align: left;
-		width: 1012px;
-
-		.tribe-events-admin-card__description {
-			height: auto;
-		}
-
-		.tribe-events-admin-card__image {
-			float: left;
-			margin: 0 48px 10px 0;
-		}
-	}
-}
-
-.tribe-events-admin-video {
-	-webkit-border-radius: 16px;
-	-moz-border-radius: 16px;
-	border-radius: 16px;
-	height: 200px; /* this is overridden by JS, but is a starting point for less flicker */
-	margin-bottom: 72px;
-	-webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
-	overflow: hidden;
-	-webkit-transform: rotate(0.000001deg);
-
-	iframe {
-		width: 100%;
-	}
 }
 
 .tribe-events-admin-card--2up {
@@ -1949,112 +1886,6 @@ body.tribe_events_page_tribe-help {
 
 	.tribe-events-admin-card__image {
 		margin-bottom: 28px;
-	}
-}
-
-.tribe-events-admin-card--promo-blue {
-	background-color: #3d54ff;
-	background-image: url("../images/welcome/promo.jpg");
-
-	@media screen and (min-width: 710px) {
-		display: block;
-		margin-left: 0;
-		min-height: 170px;
-		width: 100%;
-	}
-
-	@media screen and (min-width: 1217px) {
-		min-height: 150px;
-	}
-
-	.tribe-events-admin-card__description {
-		color: white;
-		font-size: 16px;
-		margin-bottom: 16px;
-		text-align: left;
-
-		@media screen and (min-width: 710px) {
-			float: left;
-			max-width: 300px;
-		}
-
-		@media screen and (min-width: 1217px) {
-			max-width: 450px;
-		}
-	}
-
-	.tribe-events-admin-card__title {
-		color: white;
-		text-align: left;
-	}
-}
-
-.tribe-events-admin-graphic {
-	position: absolute;
-	right: 0;
-	top: 106px;
-	z-index: -1;
-
-	@media screen and (min-width: 710px) {
-		max-width: 250px;
-		top: 0;
-	}
-
-	@media screen and (min-width: 1217px) {
-		max-width: none;
-	}
-}
-
-.tribe-events-admin-graphic--desktop-only {
-	display: none;
-
-	@media screen and (min-width: 710px) {
-		display: block;
-	}
-}
-
-.tribe-events-admin-graphic--mobile-only {
-	display: block;
-
-	@media screen and (min-width: 710px) {
-		display: none;
-	}
-}
-
-.tribe-events-admin-card__form {
-	position: relative;
-
-	@media screen and (min-width: 710px) {
-		float: right;
-		width: 300px;
-	}
-
-	@media screen and (min-width: 1217px) {
-		width: 365px;
-	}
-}
-
-/* including the specificity on input type to override base WP admin styles */
-input[type="email"].tribe-events-admin-card__input {
-	background: #fff;
-	border: 1px solid #e1e1e4;
-	border-radius: 16px;
-	box-sizing: border-box;
-	font-size: 14px;
-	height: 54px;
-
-	@media screen and (min-width: 710px) {
-		width: 300px;
-	}
-
-	@media screen and (min-width: 1217px) {
-		width: 365px;
-	}
-
-	&::placeholder {
-		color: rgba(15, 16, 49, 0.72);
-		letter-spacing: 0.5px;
-		padding-left: 10px;
 	}
 }
 
@@ -2134,247 +1965,6 @@ input[type="email"].tribe-events-admin-card__input {
 	max-width: 1048px;
 }
 
-.tribe-events-admin-quick-nav {
-	background: #fff;
-	border: 1px solid #e1e1e4;
-	border-radius: 16px;
-	box-sizing: border-box;
-	display: block;
-	margin: 40px 0 78px;
-	padding: 18px 23px 2px;
-
-	@media screen and (min-width: 1217px) {
-		border-radius: 100px;
-		display: inline-block;
-		height: 54px;
-		margin: 24px 0 94px;
-		max-width: 1010px;
-		padding: 0 36px 0;
-	}
-}
-
-.tribe-events-admin-quick-nav__link {
-	color: #3d54ff;
-	font-size: 16px;
-	font-weight: bold;
-	line-height: 18px;
-	text-align: center;
-	text-decoration: none;
-
-	&:hover {
-		color: #161b7d;
-	}
-}
-
-.tribe-events-admin-quick-nav__link-item {
-	display: block;
-	padding-bottom: 19px;
-
-	@media screen and (min-width: 1217px) {
-		display: inline-block;
-		padding: 18px 10px 0;
-	}
-}
-
-.tribe-events-admin-quick-nav__links {
-	display: inline;
-}
-
-.tribe-events-admin-quick-nav__title {
-	color: rgba(15, 16, 49, 0.72);
-	display: inline-block;
-	font-size: 14px;
-	font-weight: normal;
-	line-height: 16px;
-	padding-bottom: 14px;
-	text-transform: uppercase;
-
-	@media screen and (min-width: 1217px) {
-		padding: 19px 6px 17px 32px;
-	}
-}
-
-.tribe-events-admin-section-header {
-	color: #000;
-	font-size: 24px;
-	font-weight: bold;
-	line-height: 28px;
-	margin: 21px 0 24px;
-
-	@media screen and (min-width: 710px) {
-		font-size: 28px;
-		line-height: 32px;
-		margin-bottom: 21px;
-	}
-}
-
-.tribe-events-admin-title {
-	padding-top: 14px;
-
-	@media screen and (min-width: 710px) {
-		padding-top: 50px;
-	}
-}
-
-.tribe-events-admin-title__description {
-	color: #0f1031;
-	font-size: 16px;
-	font-weight: normal;
-	line-height: 24px;
-	max-width: 584px;
-	padding-top: 15px;
-
-	@media screen and (min-width: 710px) {
-		padding-top: 15px;
-	}
-}
-
-.tribe-events-admin-title__heading {
-	color: #0f1031;
-	display: inline-block;
-	font-size: 24px;
-	font-weight: bold;
-	line-height: 28px;
-	margin: 5px 0 0;
-
-	@media screen and (min-width: 710px) {
-		font-size: 48px;
-		line-height: 55px;
-		margin: 0;
-	}
-}
-
-.tribe-events-admin-title__logo {
-	margin-right: 8px;
-	vertical-align: top;
-	width: 34px;
-
-	@media screen and (min-width: 710px) {
-		margin-right: 14px;
-		padding-top: 5px;
-		width: 40px;
-	}
-}
-
-.tribe-events-admin-notice {
-	background-color: #3d54ff;
-	height: 65px;
-
-	.tribe-events-admin-content-wrapper {
-		padding-bottom: 0;
-		padding-top: 8px;
-	}
-
-	p {
-		color: #fff;
-		display: inline-block;
-		font-family: Helvetica; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
-		font-size: 16px;
-		line-height: 18px;
-		margin-top: 0;
-		padding-bottom: 12px;
-		padding-left: 16px;
-		vertical-align: middle;
-		width: calc(100% - 60px);
-	}
-}
-
-.tribe-events-admin-notice__logo {
-	display: inline-block;
-}
-
-/* -- Event Tickets tweaks for welcome screen -- */
-.tribe-events-admin-tickets {
-
-	.tribe-events-admin-section-header {
-		font-size: 28px;
-		line-height: 32px;
-	}
-
-	.tribe-events-admin-graphic--desktop-only {
-		width: 365px;
-	}
-
-	.tribe-events-admin-graphic--mobile-only {
-		top: 230px;
-		width: 300px;
-	}
-
-	.tribe-events-admin-title__heading {
-		margin-top: 0;
-	}
-
-	.tribe-events-admin-card__title {
-		@media screen and (min-width: 710px) {
-			font-size: 18px;
-		}
-	}
-
-	.tribe-events-admin-card--2up .tribe-events-admin-card__title {
-		@media screen and (min-width: 710px) {
-			font-size: 18px;
-			height: 66px;
-		}
-
-		@media screen and (min-width: 1217px) {
-			height: auto;
-		}
-	}
-
-	.tribe-events-admin-title__logo {
-		margin-right: 4px;
-		width: 32px;
-
-		@media screen and (min-width: 710px) {
-			margin-right: 8px;
-			padding-top: 4px;
-			width: 60px;
-		}
-	}
-}
-
-/* -- Freemius tweaks -- */
-body.tribe-welcome #fs_connect {
-	border: 1px solid #e1e1e4;
-	border-radius: 16px;
-	box-shadow: none;
-	box-sizing: border-box;
-	margin-left: 22px;
-
-	.fs-actions {
-		background-color: transparent;
-	}
-
-	.fs-permissions {
-		border-top: 1px solid #e1e1e4;
-		margin: 0 16px;
-	}
-
-	button {
-		background-color: #3d54ff;
-		border-color: #3d54ff;
-	}
-
-	.button-secondary {
-		background: white;
-		border-color: #3d54ff;
-		color: #3d54ff;
-	}
-
-	a {
-		color: #3d54ff;
-
-		&:focus {
-			box-shadow: none;
-			outline: none;
-		}
-
-		&:hover {
-			color: #161b7d;
-		}
-	}
-}
-
 /* -- CSS Switch based off https://codepen.io/mallendeo/pen/eLIiG  -- */
 input[type="checkbox"].tribe-common-switch__input {
 	display: none;
@@ -2431,44 +2021,6 @@ input[type="checkbox"].tribe-common-switch__input {
 
 /* = TEC Welcome & new BEM tribe admin styles
 ============================================== */
-body.tribe-welcome,
-body.tribe_events_page_tribe-help {
-	background-color: white;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased;
-
-	/* hide WordPress update notices on this page */
-	.update-nag {
-		display: none;
-	}
-
-	#wpcontent {
-		padding: 0;
-	}
-
-	/* this is a temporary hack until the Update page and Event Tickets Welcome are re-factored */
-	.tribe_settings {
-		margin: 0;
-
-		& > h1 {
-			display: none;
-		}
-	}
-
-	#wpfooter {
-		display: none;
-	}
-
-	#wpbody-content {
-		padding-bottom: 25px;
-	}
-
-	/* hide our dependency errors so we don't make a bad first impression */
-	.tribe-dependency-error {
-		display: none;
-	}
-}
-
 .tribe-events-admin-header__logo-word-mark {
 	display: inline-block;
 	height: auto;
@@ -2483,11 +2035,6 @@ body.tribe_events_page_tribe-help {
 	@media screen and (max-width: 480px) {
 		width: 260px;
 	}
-}
-
-.tribe-events-admin-content-wrapper {
-	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-	padding: 0 0 30px;
 }
 
 .tribe-events-admin-header {
@@ -3139,7 +2686,7 @@ input[type="email"].tribe-events-admin-card__input {
 	p {
 		color: #fff;
 		display: inline-block;
-		font-family: Helvetica;
+		font-family: Helvetica, sans-serif;
 		font-size: 16px;
 		line-height: 18px;
 		margin-top: 0;
@@ -3256,12 +2803,16 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin-section-header {
 	align-items: center;
+	color: #000;
 	display: flex;
+	font-weight: bold;
 	justify-content: space-between;
-	margin: 50px 0 0;
+	margin: 0;
 
-	@media screen and (max-width: 480px) {
-		margin: 0;
+	@media screen and (min-width: 710px) {
+		font-size: 28px;
+		line-height: 32px;
+		margin: 50px 0 21px 0;
 	}
 }
 
@@ -3387,7 +2938,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin-extensions-card__title a {
 	color: #0f1031;
-	font-family: Helvetica;
+	font-family: Helvetica, sans-serif;
 	font-size: 20px;
 	font-weight: bold;
 	line-height: 1.2;
@@ -3403,7 +2954,7 @@ input[type="email"].tribe-events-admin-card__input {
 
 .tribe-events-admin-extensions-card__description {
 	color: #0f1031;
-	font-family: Helvetica;
+	font-family: Helvetica, sans-serif;
 	font-size: 14px;
 	line-height: 1.43;
 	margin: 20px 0;
@@ -4030,8 +3581,8 @@ input[type="email"].tribe-events-admin-card__input {
 }
 
 .tribe-events-admin__ea-status-table tr {
-	display: flex;
 	align-items: center;
+	display: flex;
 }
 
 .tribe-events-admin__ea-status-table th {
