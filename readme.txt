@@ -1,6 +1,8 @@
 == Changelog ==
 
-= [TBD] TBD =
+Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
+
+= [4.14.3] 2021-08-24 =
 
 * Feature - Added a new Warning dialog for the Dialog API. [ECP-901]
 * Feature - Alter common postcss to leverage exposed namespaced custom properties from common-styles. [TCMN-104]
@@ -9,7 +11,7 @@
 * Tweak - Alter Customizer and Section objects to be more versatile. [TCMN-104]
 * Tweak - Split pcss variable imports so we only import hte necessary variables for skeleton, and don't import more than once. [TCMN-104]
 * Tweak - added new `get_hex_with_hash` function to Tribe/Utils/Color.php to reduce need for manual string concatenation. [TCMN-104]
-* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
+* Language - 0 new strings added, 50 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.2] 2021-08-17 =
 

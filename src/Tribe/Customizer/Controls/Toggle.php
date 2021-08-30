@@ -2,7 +2,7 @@
 /**
  * Models a Customizer toggle switch.
  *
- * @since TBD
+ * @since 4.12.13
  *
  * @package Tribe\Customizer\Controls
  */
@@ -14,7 +14,7 @@ use Tribe\Customizer\Control;
 /**
  * Class Toggle
  *
- * @since TBD
+ * @since 4.12.13
  *
  * @package Tribe\Customizer\Controls
  */
@@ -23,7 +23,7 @@ class Toggle extends Control {
 	/**
 	 * Control's Type.
 	 *
-	 * @since TBD
+	 * @since 4.12.13
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Toggle extends Control {
 	/**
 	 * Anyone able to set theme options will be able to see the slider.
 	 *
-	 * @since TBD
+	 * @since 4.12.13
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Toggle extends Control {
 	/**
 	 * Render the control's content
 	 *
-	 * @since TBD
+	 * @since 4.12.13
 	 */
 	public function render_content() {
 		$input_id         = '_customize-input-' . $this->id;

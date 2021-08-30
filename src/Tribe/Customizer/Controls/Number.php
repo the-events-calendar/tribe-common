@@ -5,7 +5,7 @@
  * to ensure that the input is wrapped in <div class="customize-control-content">
  * so that it matches our other controls stylistically (spacing, etc).
  *
- * @since   TBD
+ * @since   4.12.13
  *
  * @package Tribe\Customizer\Controls
  */
@@ -17,7 +17,7 @@ use Tribe\Customizer\Control;
 /**
  * Class Number
  *
- * @since   TBD
+ * @since   4.12.13
  *
  * @package Tribe\Customizer\Controls
  */
@@ -26,7 +26,7 @@ class Number extends Control {
 	/**
 	 * Control's Type.
 	 *
-	 * @since TBD
+	 * @since 4.12.13
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Number extends Control {
 	/**
 	 * Anyone able to set theme options will be able to see the input.
 	 *
-	 * @since TBD
+	 * @since 4.12.13
 	 *
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Number extends Control {
 	/**
 	 * Render the control's content
 	 *
-	 * @since TBD
+	 * @since 4.12.13
 	 */
 	public function render_content() {
 		$input_id         = '_customize-input-' . $this->id;

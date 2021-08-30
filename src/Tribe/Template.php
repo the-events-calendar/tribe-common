@@ -392,7 +392,7 @@ class Tribe__Template {
 		/**
 		 * Allows filtering the Local context specifically to the template with the hook name passed to the method.
 		 *
-		 * @since  TBD
+		 * @since  4.12.13
 		 *
 		 * @param array  $context   Local Context array of data.
 		 * @param string $file      Complete path to include the PHP File.
