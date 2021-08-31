@@ -3,7 +3,7 @@
 = [4.14.4] 2021-08-31 =
 
 * Tweak - Separation of the CSS variables and the Media Queries which are still compiled into the build Assets.
-* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+* Language - 0 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.3] 2021-08-24 =
 
