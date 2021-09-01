@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
+* Fix - Updated dropdowns controlled via ajax to return unescaped html entities instead of the escaped version. [CE-97]
 
 = [4.14.4] 2021-08-31 =
 
