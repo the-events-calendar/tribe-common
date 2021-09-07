@@ -19,7 +19,7 @@ $optin_key = ! empty( get_option( $support::$option_key ) );
 			<?php esc_html_e( 'Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk.', 'tribe-common' ); ?>
 		</p>
 		<div class="tribe-events-admin__system-information-select">
-			<input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin" <?php checked($optin_key); ?> />
+			<input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin" <?php checked( $optin_key ); ?> />
 			<label for="tribe_auto_sysinfo_opt_in">
 				<?php esc_html_e( 'Yes, automatically share my system information with The Events Calendar support team*', 'tribe-common' ); ?>
 			</label>
