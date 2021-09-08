@@ -1,6 +1,15 @@
 == Changelog ==
 
-Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
+= [TBD] TBD =
+
+* Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
+* Fix - Updated dropdowns controlled via ajax to return unescaped html entities instead of the escaped version. [CE-97]
+* Feature - Adding Onboarding functionality, featuring `Tours` and `Hints`.
+
+= [4.14.4] 2021-08-31 =
+
+* Tweak - Separation of the CSS variables and the Media Queries which are still compiled into the build Assets.
+* Language - 0 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.3] 2021-08-24 =
 
