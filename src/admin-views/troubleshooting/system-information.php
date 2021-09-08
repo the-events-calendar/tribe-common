@@ -27,6 +27,7 @@ $optin_key = ! empty( get_option( $support::$option_key ) );
 		<small>
 			<?php esc_html_e( '* Your system information will only be used by The Events Calendar support team. All information is stored securely. We do not share this information with any third parties.', 'tribe-common' ); ?>
 		</small>
+		<p class="tribe-sysinfo-optin-msg"></p>
 	</div>
 
 	<div class="tribe-events-admin__system-information-widget">
