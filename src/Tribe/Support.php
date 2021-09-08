@@ -417,13 +417,13 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null, $pueadd = false ) {
 			$url = $url ? $url : urlencode( str_replace( [ 'http://', 'https://' ], '', get_site_url() ) );
 
-			$teccom_url = 'https://theeventscalendar.com/';
+			$teccom_url = 'https://support-api.tri.be';
 
 			if ( defined( 'TEC_URL' ) ) {
 				$teccom_url = trailingslashit( TEC_URL );
 			}
 
-			$query = $teccom_url . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url;
+			$query = $teccom_url . 'sysinfo/optin/' . $optin_key . '/' . $url;
 
 			if ( $remove ) {
 				$query .= '?status=remove';
