@@ -59,10 +59,10 @@ tribe.helpPage = tribe.helpPage || {};
 			return;
 		}
 
-		this.$system_info_opt_in     = $( obj.selectors.autoInfoOptIn );
-		this.$system_info_opt_in_msg = $( obj.selectors.optInMsg );
+		obj.$system_info_opt_in     = $( obj.selectors.autoInfoOptIn );
+		obj.$system_info_opt_in_msg = $( obj.selectors.optInMsg );
 
-		this.$system_info_opt_in.on( 'change', function () {
+		obj.$system_info_opt_in.on( 'change', function () {
 			if ( this.checked ) {
 				obj.doAjaxRequest( 'generate' );
 			} else {
@@ -88,7 +88,7 @@ tribe.helpPage = tribe.helpPage || {};
 					obj.$system_info_opt_in_msg.html( "<p class='optin-success'>" + results.data + "</p>" );
 				} else {
 					obj.$system_info_opt_in_msg.html( "<p class='optin-fail'>" + results.data.message + " Code:" + results.data.code + " Status:" + results.data.data.status + "</p>" ); // eslint-disable-line max-len
-					$( "#tribe_auto_sysinfo_opt_in" ).prop( "checked", false );
+					$( obj.selectors.autoInfoOptIn ).prop( "checked", false );
 				}
 			}
 		);
