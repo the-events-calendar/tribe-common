@@ -84,10 +84,30 @@ tribe.helpPage = tribe.helpPage || {};
 			ajaxurl,
 			request,
 			function ( results ) {
+
 				if ( results.success ) {
 					obj.$system_info_opt_in_msg.html( "<p class='optin-success'>" + results.data + "</p>" );
 				} else {
-					obj.$system_info_opt_in_msg.html( "<p class='optin-fail'>" + results.data.message + " Code:" + results.data.code + " Status:" + results.data.data.status + "</p>" ); // eslint-disable-line max-len
+					var html = "<p class='optin-fail'>Something has gone wrong!</p>";
+
+					if ( results.data ) {
+						if ( results.data.message ) {
+							html += ' ' + results.data.message;
+						} else if (  results.message) {
+							html += '<p>' + results.message + '</p>';
+						}
+
+						if ( results.data.code ) {
+							html += '<p>Code:' + results.data.code + '</p>';
+						}
+
+						if ( results.data.status ) {
+							html += '<p>Status:' + results.data.status + '</p>';
+						}
+
+					}
+
+					obj.$system_info_opt_in_msg.html(  html ); // eslint-disable-line max-len
 					$( obj.selectors.autoInfoOptIn ).prop( "checked", false );
 				}
 			}
