@@ -1,9 +1,4 @@
 /**
- * @type {PlainObject}
- */
- var tribe = tribe || {};
-
-/**
  *
  * @type {PlainObject}
  */
@@ -66,7 +61,7 @@ tribe.onboarding = {};
 		} ).start();
 	};
 
-	 /**
+	/**
 	* Init hints.
 	 *
 	 * @since TBD
@@ -92,7 +87,7 @@ tribe.onboarding = {};
 			hintAnimation: true,
 			hints: hints,
 		} ).addHints();
-	 };
+	};
 
 	/**
 	 * Handles the initialization of the enhancer.
