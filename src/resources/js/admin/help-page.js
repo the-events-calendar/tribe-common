@@ -92,8 +92,8 @@ tribe.helpPage = tribe.helpPage || {};
 
 					if ( results.data ) {
 						if ( results.data.message ) {
-							html += ' ' + results.data.message;
-						} else if (  results.message) {
+							html += '<p>' + results.data.message + '</p>';
+						} else if (  results.message ) {
 							html += '<p>' + results.message + '</p>';
 						}
 
@@ -107,7 +107,7 @@ tribe.helpPage = tribe.helpPage || {};
 
 					}
 
-					obj.$system_info_opt_in_msg.html(  html ); // eslint-disable-line max-len
+					obj.$system_info_opt_in_msg.html( html ); // eslint-disable-line max-len
 					$( obj.selectors.autoInfoOptIn ).prop( "checked", false );
 				}
 			}
