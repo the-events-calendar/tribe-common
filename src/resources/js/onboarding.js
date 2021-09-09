@@ -4,7 +4,7 @@
  */
 tribe.onboarding = {};
 
- /**
+/**
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} obj tribe.onboarding
@@ -21,7 +21,7 @@ tribe.onboarding = {};
 	 * @since TBD
 	 *
 	 * @type {PlainObject}
-	*/
+	 */
 	obj.selectors = {};
 
 	/**
@@ -72,11 +72,7 @@ tribe.onboarding = {};
 		const hints = TribeOnboardingHints.hints;
 		const classes = TribeOnboardingHints.classes || [];
 
-		if ( typeof hints === 'undefined' ) {
-			return;
-		}
-
-		if ( ! hints.length ) {
+		if ( ! Array.isArray( hints ) || ! hints.length ) {
 			return;
 		}
 
