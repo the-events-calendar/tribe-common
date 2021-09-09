@@ -88,7 +88,9 @@ tribe.helpPage = tribe.helpPage || {};
 				if ( results.success ) {
 					obj.$system_info_opt_in_msg.html( "<p class='optin-success'>" + results.data + "</p>" );
 				} else {
-					var html = "<p class='optin-fail'>Something has gone wrong!</p>";
+					var html = "<p class='optin-fail'>"
+						+ tribe_system_info.sysinfo_error_message_text
+						+ "</p>";
 
 					if ( results.data ) {
 						if ( results.data.message ) {
@@ -98,11 +100,18 @@ tribe.helpPage = tribe.helpPage || {};
 						}
 
 						if ( results.data.code ) {
-							html += '<p>Code:' + results.data.code + '</p>';
+							html += '<p>'
+							+ tribe_system_info.sysinfo_error_code_text
+							+ ' '
+							+ results.data.code
+							+ '</p>';
 						}
 
 						if ( results.data.status ) {
-							html += '<p>Status:' + results.data.status + '</p>';
+							html += '<p>'
+							+ tribe_system_info.sysinfo_error_status_text
+							+ results.data.status
+							+ '</p>';
 						}
 
 					}
