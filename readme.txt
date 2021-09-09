@@ -4,6 +4,7 @@
 
 * Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
 * Fix - Updated dropdowns controlled via ajax to return unescaped html entities instead of the escaped version. [CE-97]
+* Fix - Ensure Troubleshooting page has the required DOM pieces and the call to TEC.com works as expected. [TEC-4052]
 
 = [4.14.4] 2021-08-31 =
 
