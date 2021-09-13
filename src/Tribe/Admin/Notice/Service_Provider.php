@@ -29,6 +29,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		tribe_singleton( 'admin.notice.php.version', 'Tribe__Admin__Notice__Php_Version', [ 'hook' ] );
 		tribe_singleton( 'admin.notice.marketing', 'Tribe__Admin__Notice__Marketing', [ 'hook' ] );
 		tribe_singleton( Marketing\Stellar_Sale::class, Marketing\Stellar_Sale::class, [ 'hook' ] );
+		tribe_singleton( Marketing\Virtual_Events_Sale::class, Marketing\Virtual_Events_Sale::class, [ 'hook' ] );
 
 		$this->hooks();
 	}
@@ -57,6 +58,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		}
 
 		tribe( Marketing\Stellar_Sale::class );
+		tribe( Marketing\Virtual_Events_Sale::class );
 		tribe( Marketing\Black_Friday::class );
 	}
 }
