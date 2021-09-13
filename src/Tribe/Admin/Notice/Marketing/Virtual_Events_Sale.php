@@ -63,14 +63,14 @@ class Virtual_Events_Sale extends \Tribe\Admin\Notice\Date_Based {
 		return ob_get_clean();
 	}
 
-    /**
+	/**
 	 * {@inheritDoc}
 	 */
 	public function should_display() {
-        // if virtual events is already installed, no need to show notice.
-        if( defined( 'EVENTS_VIRTUAL_FILE' ) ){
-            return false;
-        }
+		// if virtual events is already installed, no need to show notice.
+		if( defined( 'EVENTS_VIRTUAL_FILE' ) ){
+			return false;
+		}
 
 		return parent::should_display();
 	}
