@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add new notice for Virtual Events Sale. [TCMN-119]
+
 = [4.14.4] 2021-08-31 =
 
 * Tweak - Separation of the CSS variables and the Media Queries which are still compiled into the build Assets.
