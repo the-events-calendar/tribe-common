@@ -18,7 +18,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		/**
 		 * The wp_options key used to store the optin_key
 		 *
-		 * @since TBD
+		 * @since 4.14.5
 		 *
 		 * @var string
 		 */
