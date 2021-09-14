@@ -25,6 +25,7 @@
 		<div class="tribe-marketing-notice-virtual_events_sale-banner_ad-button">
 			<a 
 				target="_blank" 
+				rel="noopener noreferrer"
 				href="<?php echo esc_url( $cta_url ); ?>" 
 				class="tribe-marketing-notice-virtual_events_sale-banner_ad-link">
 					Order Now

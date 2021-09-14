@@ -1,6 +1,6 @@
 <?php
 /**
- * Notice for the Virtual Events Sale
+ * Notice for the Virtual Events Sale.
  *
  * @since TBD
  */
@@ -11,7 +11,6 @@ use Tribe__Date_Utils as Dates;
 
 /**
  * Class Virtual_Events_Sale
- *
  *
  * @since TBD
  *
@@ -54,7 +53,7 @@ class Virtual_Events_Sale extends \Tribe\Admin\Notice\Date_Based {
 		\Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
 
 		// Used in the template.
-		$cta_url  = 'https://evnt.is/1awj';
+		$cta_url = 'https://evnt.is/1awj';
 
 		ob_start();
 
@@ -68,7 +67,7 @@ class Virtual_Events_Sale extends \Tribe\Admin\Notice\Date_Based {
 	 */
 	public function should_display() {
 		// if virtual events is already installed, no need to show notice.
-		if( defined( 'EVENTS_VIRTUAL_FILE' ) ){
+		if ( defined( 'EVENTS_VIRTUAL_FILE' ) ){
 			return false;
 		}
 
