@@ -10,7 +10,7 @@
 <div class="tribe-marketing-notice__ve-sale">
 	<div class="tribe-marketing-notice__ve-sale__wrap">
 		<div class="tribe-marketing-notice__ve-sale__title-wrap">
-			<div class="tribe-marketing-notice__ve-sale__ad-title">
+			<div class="tribe-marketing-notice__ve-sale__title">
 				<span class="tribe-marketing-notice__ve-sale__red">S</span>
 				<span class="tribe-marketing-notice__ve-sale__blue">A</span>
 				<span class="tribe-marketing-notice__ve-sale__yellow">L</span>
