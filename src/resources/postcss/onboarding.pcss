@@ -5,20 +5,17 @@
  * These styles go on top of the ones from Intro.js
  */
 
-/* Utilities */
-@import "utilities/_all.pcss";
-
 .introjs-tooltipbuttons {
 	border-top: none;
 }
 
-.introjs-bullets {
-	ul {
-		li a.active {
-			background-color: var(--color-accent-primary);
+.introjs-bullets ul {
+	li {
+		a.active {
+			background-color: var(--tec-color-accent-primary);
 		}
 
-		li:only-child {
+		&:only-child {
 			display: none;
 		}
 	}
@@ -31,7 +28,7 @@
 .introjs-hint-pulse,
 .introjs-hint:hover > .introjs-hint-pulse,
 .introjs-hint-dot {
-	border-color: var(--color-accent-primary);
+	border-color: var(--tec-color-accent-primary);
 }
 
 .introjs-hintReference .tribe-onboarding__tooltip .introjs-tooltiptext p {
@@ -61,7 +58,7 @@
 	}
 
 	.introjs-prevbutton {
-		color: #c9c9c9;
+		color: var(--tec-color-icon-disabled);
 
 		&,
 		&:hover {
@@ -75,8 +72,8 @@
 	}
 
 	.introjs-donebutton {
-		background-color: var(--color-accent-primary);
-		color: var(--color-background);
+		background-color: var(--tec-color-accent-primary);
+		color: var(--tec-color-background);
 	}
 }
 
@@ -98,7 +95,7 @@
 .tribe-onboarding__tooltip--dark {
 	h1,
 	* {
-		color: var(--color-background);
+		color: var(--tec-color-background);
 	}
 }
 
@@ -151,7 +148,7 @@
 
 .tribe-onboarding__tooltip--button-dark-skin {
 	.introjs-button {
-		background-color: var(--color-background);
-		color: var(--color-text-primary);
+		background-color: var(--tec-color-background);
+		color: var(--tec-color-text-primary);
 	}
 }

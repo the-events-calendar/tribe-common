@@ -97,7 +97,7 @@ class Main {
 		 *
 		 * @return array $data An array with the hints data.
 		 */
-		$data = apply_filters( 'tribe_onboarding_hints_data', [] );
+		$data = apply_filters( 'tribe_onboarding_hints_data', $data );
 
 		return $data;
 	}
@@ -158,7 +158,7 @@ class Main {
 	 * @since TBD
 	 *
 	 * @param string $id The onboarding ID (tour or hint).
-	 * @return void
+	 * @return int The views count for the particular `$id`.
 	 */
 	public function increment_views( $id ) {
 		$option = tribe_get_option( 'tribe_onboarding_views', [] );

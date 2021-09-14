@@ -11,6 +11,13 @@ namespace Tribe\Service_Providers;
 class Onboarding extends \tad_DI52_ServiceProvider {
 
 	/**
+	 * The Onboarding assets group identifier.
+	 *
+	 * @var string
+	 */
+	private static $assets_group_id = 'tribe-onboarding';
+
+	/**
 	 * Binds and sets up implementations.
 	 *
 	 * @since TBD
@@ -48,7 +55,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 			[],
 			[ 'admin_enqueue_scripts' ],
 			[
-				'groups'       => 'tribe-onboarding',
+				'groups'       => self::$assets_group_id,
 				'conditionals' => [ $this, 'should_enqueue_assets' ],
 			]
 		);
@@ -60,7 +67,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 			[],
 			[ 'admin_enqueue_scripts' ],
 			[
-				'groups'       => 'tribe-onboarding',
+				'groups'       => self::$assets_group_id,
 				'conditionals' => [ $this, 'should_enqueue_assets' ],
 			]
 		);
@@ -69,10 +76,10 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 			$main,
 			'tribe-onboarding-styles',
 			'onboarding.css',
-			[ 'intro-styles' ],
+			[ 'intro-styles', 'tec-variables-skeleton', 'tec-variables-full' ],
 			[ 'admin_enqueue_scripts' ],
 			[
-				'groups'       => 'tribe-onboarding',
+				'groups'       => self::$assets_group_id,
 				'conditionals' => [ $this, 'should_enqueue_assets' ],
 			]
 		);
@@ -87,7 +94,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 			],
 			[ 'admin_enqueue_scripts' ],
 			[
-				'groups'       => 'tribe-onboarding',
+				'groups'       => self::$assets_group_id,
 				'in_footer'    => false,
 				'localize'     => [
 					'name' => 'TribeOnboarding',
@@ -100,6 +107,13 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 		);
 	}
 
+	/**
+	 * Define if the assets for `Onboarding` should be enqueued or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool If the Onboarding assets should be enqueued or not.
+	 */
 	public function should_enqueue_assets() {
 		return $this->is_enabled();
 	}
