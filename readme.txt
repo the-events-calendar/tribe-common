@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.14.5] 2021-09-14 =
 
 * Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
 * Fix - Updated dropdowns controlled via ajax to return unescaped html entities instead of the escaped version. [CE-97]
