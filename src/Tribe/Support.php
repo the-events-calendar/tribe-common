@@ -18,7 +18,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		/**
 		 * The wp_options key used to store the optin_key
 		 *
-		 * @since TBD
+		 * @since 4.14.5
 		 *
 		 * @var string
 		 */
@@ -399,6 +399,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			} elseif ( 'remove' == $_POST['generate_key'] ) {
 				$optin_key = get_option( self::$option_key );
 
+				delete_option( self::$option_key );
+
 				self::send_sysinfo_key( $optin_key, null, 'remove' );
 
 			}
@@ -415,15 +417,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		 * @param null $pueadd boolean to disable messaging when coming from pue script
 		 */
 		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null, $pueadd = false ) {
-			$url = $url ? $url : urlencode( str_replace( [ 'http://', 'https://' ], '', get_site_url() ) );
-
-			$teccom_url = 'https://theeventscalendar.com/';
-
-			if ( defined( 'TEC_URL' ) ) {
-				$teccom_url = trailingslashit( TEC_URL );
-			}
-
-			$query = $teccom_url . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url;
+			$url        = $url ? $url : urlencode( str_replace( [ 'http://', 'https://' ], '', get_site_url() ) );
+			$teccom_url = defined( 'TEC_URL' ) ? TEC_URL : 'https://theeventscalendar.com';
+			$query      = trailingslashit( $teccom_url ) . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url;
 
 			if ( $remove ) {
 				$query .= '?status=remove';
