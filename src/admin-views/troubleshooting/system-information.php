@@ -8,6 +8,7 @@
 
 $support     = Tribe__Support::getInstance();
 $system_info = $support->formattedSupportStats();
+$optin_key = ! empty( get_option( $support::$option_key ) );
 ?>
 <div class="tribe-events-admin__system-information">
 	<div class="tribe-events-admin__system-information-content">
@@ -18,7 +19,7 @@ $system_info = $support->formattedSupportStats();
 			<?php esc_html_e( 'Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our help desk.', 'tribe-common' ); ?>
 		</p>
 		<div class="tribe-events-admin__system-information-select">
-			<input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin" />
+			<input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin" <?php checked( $optin_key ); ?> />
 			<label for="tribe_auto_sysinfo_opt_in">
 				<?php esc_html_e( 'Yes, automatically share my system information with The Events Calendar support team*', 'tribe-common' ); ?>
 			</label>
@@ -26,6 +27,7 @@ $system_info = $support->formattedSupportStats();
 		<small>
 			<?php esc_html_e( '* Your system information will only be used by The Events Calendar support team. All information is stored securely. We do not share this information with any third parties.', 'tribe-common' ); ?>
 		</small>
+		<p class="tribe-sysinfo-optin-msg"></p>
 	</div>
 
 	<div class="tribe-events-admin__system-information-widget">
