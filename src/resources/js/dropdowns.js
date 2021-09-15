@@ -451,8 +451,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		$container = $select.select2TEC( args );
 
 		// Propagating original input classes to the select2 container.
-		var originalClasses = obj.getSelectClasses( $select ).join( ' ' );
-		$container.data( 'select2' ).$container.addClass( originalClasses );
+		$container.data( 'select2' ).$container.addClass( obj.getSelectClasses( $select ).join( ' ' ) );
 
 		// Propagating original input classes to the select2 container.
 		$container.data( 'select2' ).$container.removeClass( 'hide-before-select2-init' );
@@ -496,6 +495,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		var originalClasses = obj.getSelectClasses( select2Data.$element ).reduce(
 			function ( prev, curr ) {
+				// Don't add this one.
 				if ( 'tribe-dropdown-created' === curr ) {
 					return prev;
 				}
