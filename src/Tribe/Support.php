@@ -18,7 +18,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		/**
 		 * The wp_options key used to store the optin_key
 		 *
-		 * @since TBD
+		 * @since 4.14.5
 		 *
 		 * @var string
 		 */
@@ -398,6 +398,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 			} elseif ( 'remove' == $_POST['generate_key'] ) {
 				$optin_key = get_option( self::$option_key );
+
+				delete_option( self::$option_key );
 
 				self::send_sysinfo_key( $optin_key, null, 'remove' );
 
