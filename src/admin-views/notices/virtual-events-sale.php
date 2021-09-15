@@ -18,9 +18,13 @@
 			</div>
 		</div>
 		<div class="tribe-marketing-notice__ve-sale__copy">
-			Get 20% off the Virtual Events Add-On with coupon code 
-			<span class="tribe-marketing-notice__ve-sale__code">virtual-2021</span>
-			<span class="tribe-marketing-notice__ve-sale__limit"> for a limited time only!</span>
+			<?php esc_html_e( 'Get 20% off the Virtual Events Add-On with coupon code', 'tribe-common' ); ?>
+			<span class="tribe-marketing-notice__ve-sale__code"><?php 
+				esc_html_e( 'virtual-2021', 'tribe-common' ); 
+			?></span>
+			<span class="tribe-marketing-notice__ve-sale__limit"><?php 
+				esc_html_e( ' for a limited time only!', 'tribe-common' ); 
+			?></span>
 		</div>
 		<div class="tribe-marketing-notice__ve-sale__button">
 			<a 
@@ -28,7 +32,7 @@
 				rel="noopener noreferrer"
 				href="<?php echo esc_url( $cta_url ); ?>" 
 				class="tribe-marketing-notice__ve-sale__link">
-					Order Now
+					<?php esc_html_e( 'Order Now', 'tribe-common' ); ?>
 			</a>
 		</div>
 	</div>
