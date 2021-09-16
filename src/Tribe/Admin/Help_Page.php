@@ -52,10 +52,13 @@ class Tribe__Admin__Help_Page {
 				'localize' => [
 					'name' => 'tribe_system_info',
 					'data' => [
-						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
-						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
-						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
-						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
+						'sysinfo_optin_nonce'        => wp_create_nonce( 'sysinfo_optin_nonce' ),
+						'clipboard_btn_text'         => _x( 'Copy to clipboard', 'Copy to clipboard button text.', 'tribe-common' ),
+						'clipboard_copied_text'      => _x( 'System info copied', 'Copy to clipboard success message', 'tribe-common' ),
+						'clipboard_fail_text'        => _x( 'Press "Cmd + C" to copy', 'Copy to clipboard instructions', 'tribe-common' ),
+						'sysinfo_error_message_text' => _x( 'Something has gone wrong!', 'Default error message for system info optin', 'tribe-common' ),
+						'sysinfo_error_code_text'    => _x( 'Code:', 'Error code label for system info optin', 'tribe-common'),
+						'sysinfo_error_status_text'  => _x( 'Status:', 'Error status label for system info optin', 'tribe-common'),
 					],
 				],
 			]
