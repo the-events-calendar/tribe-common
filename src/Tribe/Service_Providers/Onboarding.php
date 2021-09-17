@@ -15,7 +15,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	 *
 	 * @var string
 	 */
-	private static $assets_group_id = 'tribe-onboarding';
+	public static $group_key = 'tribe-onboarding';
 
 	/**
 	 * Binds and sets up implementations.
@@ -55,7 +55,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 			[],
 			[ 'admin_enqueue_scripts' ],
 			[
-				'groups'       => self::$assets_group_id,
+				'groups'       => self::$group_key,
 				'conditionals' => [ $this, 'should_enqueue_assets' ],
 			]
 		);
@@ -67,7 +67,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 			[],
 			[ 'admin_enqueue_scripts' ],
 			[
-				'groups'       => self::$assets_group_id,
+				'groups'       => self::$group_key,
 				'conditionals' => [ $this, 'should_enqueue_assets' ],
 			]
 		);
@@ -79,7 +79,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 			[ 'intro-styles', 'tec-variables-skeleton', 'tec-variables-full' ],
 			[ 'admin_enqueue_scripts' ],
 			[
-				'groups'       => self::$assets_group_id,
+				'groups'       => self::$group_key,
 				'conditionals' => [ $this, 'should_enqueue_assets' ],
 			]
 		);
@@ -94,7 +94,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 			],
 			[ 'admin_enqueue_scripts' ],
 			[
-				'groups'       => self::$assets_group_id,
+				'groups'       => self::$group_key,
 				'in_footer'    => false,
 				'localize'     => [
 					'name' => 'TribeOnboarding',
