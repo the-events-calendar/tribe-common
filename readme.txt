@@ -1,5 +1,7 @@
 == Changelog ==
 
+* Fix - Ensure all SVG elements have unique IDs. [TEC-4064]
+
 = [4.14.5] 2021-09-14 =
 
 * Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
