@@ -8,7 +8,16 @@
 class Tribe__Editor {
 
 	/**
-	 * Meta key for flaging if a post is from classic editor
+	 * Key we store the toggle under in the tribe_events_calendar_options array.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $blocks_editor_key = 'toggle_blocks_editor';
+
+	/**
+	 * Meta key for flagging if a post is from Classic Editor
 	 *
 	 * @since 4.8
 	 *
@@ -16,8 +25,15 @@ class Tribe__Editor {
 	 */
 	public $key_flag_classic_editor = '_tribe_is_classic_editor';
 
+	public $classic_option = 'classic-editor-replace';
+
+	public $classic_override = 'classic-editor__forget';
+
+	public $classic_param = 'classic-editor';
+
 	/**
 	 * Utility function to check if we should load the blocks or not based on two assumptions
+	 * used in ET, ECP, TEC
 	 *
 	 * a) Is gutenberg active?
 	 * b) Is the blocks editor active?
@@ -27,11 +43,9 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function should_load_blocks() {
-		$gutenberg = $this->is_gutenberg_active() || $this->is_wp_version();
-		$blocks    = $this->is_blocks_editor_active();
-		$classic   = $this->is_classic_plugin_active() || $this->is_classic_option_active();
+		$gutenberg = $this->is_gutenberg_plugin_active() || $this->is_wp_version();
 
-		$should_load_blocks = $gutenberg && $blocks && ! $classic;
+		$should_load_blocks = $gutenberg && $this->is_blocks_editor_active();
 
 		/**
 		 * Filters whether the Blocks Editor should be activated or not.
@@ -40,9 +54,7 @@ class Tribe__Editor {
 		 *
 		 * @param bool $should_load_blocks Whether the blocks editor should be activated or not.
 		 */
-		$should_load_blocks = (bool) apply_filters( 'tribe_editor_should_load_blocks', $should_load_blocks );
-
-		return $should_load_blocks;
+		return (bool) apply_filters( 'tribe_editor_should_load_blocks', $should_load_blocks );
 	}
 
 	/**
@@ -62,23 +74,25 @@ class Tribe__Editor {
 	/**
 	 * Checks if we have Gutenberg Project online, only useful while
 	 * its a external plugin
+	 * used in Tribe Gutenberg
 	 *
 	 * @since 4.8
 	 *
 	 * @return boolean
 	 */
-	public function is_gutenberg_active() {
-		return function_exists( 'the_gutenberg_project' );
+	private function is_gutenberg_plugin_active() {
+		return function_exists( 'gutenberg_register_scripts_and_styles' );
 	}
 
 	/**
 	 * Checks if we have Editor Block active
+	 * used in Tribe Gutenberg
 	 *
 	 * @since 4.8
 	 *
 	 * @return boolean
 	 */
-	public function is_blocks_editor_active() {
+	private function is_blocks_editor_active() {
 		return function_exists( 'register_block_type' ) && function_exists( 'unregister_block_type' );
 	}
 
@@ -162,84 +176,77 @@ class Tribe__Editor {
 
 	/**
 	 * classic_editor_replace is function that is created by the plugin:
+	 * used in ECP recurrence and TEC Meta
 	 *
 	 * @see https://wordpress.org/plugins/classic-editor/
 	 *
-	 * prior 1.3 version the classic editor plugin was bundle inside of a unique function:
+	 * prior 1.3 version the Classic Editor plugin was bundle inside of a unique function:
 	 * `classic_editor_replace` now all is bundled inside of a class `Classic_Editor`
 	 *
 	 * @since 4.8
+	 * @deprecated TBD
 	 *
 	 * @return bool
 	 */
 	public function is_classic_plugin_active() {
-		$is_plugin_active = function_exists( 'classic_editor_replace' ) || class_exists( 'Classic_Editor' );
-		/**
-		 * Filter to change the output of calling: `is_classic_plugin_active`
-		 *
-		 * @since 4.9.12
-		 *
-		 * @param $is_plugin_active bool Value that indicates if the plugin is active or not.
-		 */
-		return apply_filters( 'tribe_is_classic_editor_plugin_active', $is_plugin_active );
+		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active');
+
+		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active();
 	}
 
 	/**
-	 * Check if the setting `'classic-editor-replace'` is set to `replace` that option means to
-	 * replace the gutenberg editor with the classic editor.
+	 * Check if the setting `classic-editor-replace` is set to `replace` that option means to
+	 * replace the gutenberg editor with the Classic Editor.
 	 *
-	 * Prior to 1.3 on classic editor plugin the value to identify if is on classic the value
+	 * Prior to 1.3 on Classic Editor plugin the value to identify if is on classic the value
 	 * was `replace`, now the value is `classic`
 	 *
 	 * @since 4.8
+	 * @deprecated TBD
 	 *
 	 * @return bool
 	 */
 	public function is_classic_option_active() {
-		$valid_values = [ 'replace', 'classic' ];
+		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active');
 
-		return in_array( (string) get_option( 'classic-editor-replace' ), $valid_values, true );
+		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active();
 	}
 
 	/**
-	 * Detect if the classic editor is force-activated via plugin or if it comes from a request.
+	 * Detect if the Classic Editor is force-activated via plugin or if it comes from a request.
+	 * Used in ET, ECP, VE, TEC
 	 *
 	 * @since 4.8
 	 *
 	 * @return bool
 	 */
 	public function is_classic_editor() {
-		$disabled_by_plugin = $this->is_classic_plugin_active() && $this->is_classic_option_active();
-
 		/**
-		 * Allow other addons to disable classic editor based on options.
+		 * Allow other addons to disable Classic Editor based on options.
 		 *
 		 * @since  4.8.5
 		 *
-		 * @param bool $classic_is_active Whether the classic editor should be used.
+		 * @param bool $classic_is_active Whether the Classic Editor should be used.
 		 */
-		$disabled_by_filter = apply_filters( 'tribe_editor_classic_is_active', false );
-
-		$is_classic_editor_request = tribe_get_request_var( 'classic-editor', null );
-
-		return $is_classic_editor_request || $disabled_by_plugin || $disabled_by_filter;
+		return apply_filters( 'tribe_editor_classic_is_active', false );
 	}
 
 	/**
-	 * Whether the events are being served using Blocks or the Classical Editor.
+	 * Whether the TEC setting dictates Blocks or the Classic Editor.
+	 * used in ET, ET+ and TEC
 	 *
 	 * @since 4.12.0
 	 *
-	 * @return bool True if using Blocks. False if using the Classical Editor.
+	 * @return bool True if using Blocks. False if using the Classic Editor.
 	 */
 	public function is_events_using_blocks() {
 		/**
 		 * Whether the event is being served through blocks
-		 * or the classical editor.
+		 * or the Classic Editor.
 		 *
 		 * @since 4.12.0
 		 *
-		 * @param bool $is_using_blocks True if using blocks. False if using the classical editor.
+		 * @param bool $is_using_blocks True if using blocks. False if using the Classic Editor.
 		 */
 		$is_using_blocks = apply_filters( 'tribe_is_using_blocks', null );
 
