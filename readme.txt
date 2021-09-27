@@ -1,6 +1,6 @@
 == Changelog ==
 
-* Fix - Ensure SVG elements have unique IDs to improve accessibility. [TEC-4064]
+* Fix - Ensure all SVG elements have unique IDs to improve accessibility. [TEC-4064]
 
 = [4.14.5] 2021-09-14 =
 
