@@ -72,9 +72,7 @@ class Tribe__Editor {
 	}
 
 	/**
-	 * Checks if we have Gutenberg Project online, only useful while
-	 * its a external plugin
-	 * used in Tribe Gutenberg
+	 * Checks if we have the Gutenberg Project plugin active.
 	 *
 	 * @since 4.8
 	 *
@@ -85,27 +83,29 @@ class Tribe__Editor {
 	}
 
 	/**
-	 * Checks if we have Editor Block active
-	 * used in Tribe Gutenberg
+	 * Checks if we have Editor Block active.
 	 *
 	 * @since 4.8
+	 * @since TBD Switch to using the `enqueue_block_assets` check that the Classic Editor plugin uses
 	 *
 	 * @return boolean
 	 */
 	private function is_blocks_editor_active() {
-		return function_exists( 'register_block_type' ) && function_exists( 'unregister_block_type' );
+		return has_action( 'enqueue_block_assets' );
 	}
 
 	/**
 	 * Adds the required fields into the Events Post Type so that we can use Block Editor
 	 *
 	 * @since 4.8
+	 * @deprecated TBD
 	 *
 	 * @param  array $args Arguments used to setup the Post Type
 	 *
 	 * @return array
 	 */
 	public function add_support( $args = [] ) {
+		_deprecated_function( __FUNCTION__, 'TBD' );
 		// Make sure we have the Support argument and it's an array
 		if ( ! isset( $args['supports'] ) || ! is_array( $args['supports'] ) ) {
 			$args['supports'] = [];
@@ -189,7 +189,7 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function is_classic_plugin_active() {
-		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active');
+		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active' );
 
 		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active();
 	}
@@ -207,7 +207,7 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function is_classic_option_active() {
-		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active');
+		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active' );
 
 		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active();
 	}
