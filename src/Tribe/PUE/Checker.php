@@ -446,8 +446,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$domain = self::$domain;
 
 			if ( empty( $domain ) ) {
-				if ( isset( $_SERVER['SERVER_NAME'] ) ) {
-				    $domain = $_SERVER['SERVER_NAME'];
+				$url = wp_parse_url( get_option( 'siteurl' ) );
+				if ( ! empty( $url ) && isset( $url['host'] ) ) {
+					$domain = $url['host'];
+				} elseif ( isset( $_SERVER['SERVER_NAME'] ) ) {
+					$domain = $_SERVER['SERVER_NAME'];
 				}
 
 				if ( is_multisite() ) {
