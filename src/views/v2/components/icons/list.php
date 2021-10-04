@@ -10,17 +10,22 @@
  * @link http://evnt.is/1aiy
  *
  * @var array<string> $classes Additional classes to add to the svg icon.
+ *                             If not empty, the first is used for the clip path IDs.
  *
  * @version 4.12.14
+ * @since   TBD     Prevent duplicate IDs.
  *
  */
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--list' ];
 
 if ( ! empty( $classes ) ) {
 	$svg_classes = array_merge( $svg_classes, $classes );
+	// If we have classes, use the first for the id_prefix for target specificity.
 	$id_prefix   = array_shift( $classes );
 } else {
-	$id_prefix = 'tribe-common-c-svgicon__list-clip-path-' . rand();
+	// If we don't have classes, use a generated ID.
+	$id_prefix = 'tribe-common-c-svgicon__list-clip-path-';
+	$id_prefix .= tribe_get_next_cached_increment( $id_prefix );
 }
 
 $clip0 = $id_prefix . '-0';
