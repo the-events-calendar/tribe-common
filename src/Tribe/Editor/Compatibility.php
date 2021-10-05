@@ -16,7 +16,8 @@ class Compatibility extends \tad_DI52_ServiceProvider {
 
 		// Conditionally load compatibility for the Classic Editor plugin
 		if ( Classic_Editor::is_classic_plugin_active() ) {
-			$this->container->singleton( 'editor.compatibility.classic-editor', Classic_Editor::class, [ 'register' ] );
+			$this->container->singleton( 'editor.compatibility.classic-editor', Classic_Editor::class );
+			tribe( 'editor.compatibility.classic-editor' )->register();
 		}
 
 		// @todo: conditionally load compatibility for Divi

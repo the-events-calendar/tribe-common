@@ -29,6 +29,24 @@ class Classic_Editor {
 	public static $classic_param = 'classic-editor';
 
 	/**
+	 * "Classic Editor" term used for comparisons.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $classic_term = 'classic';
+
+	/**
+	 * "Blocks Editor" term used for comparisons.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $block_param = 'block';
+
+	/**
 	 * "Classic Editor" param for user override
 	 *
 	 * @since TBD
@@ -36,6 +54,18 @@ class Classic_Editor {
 	 * @var string
 	 */
 	public static $classic_override = 'classic-editor__forget';
+
+	/**
+	 * Stores the values used by the Classic Editor plugin to indicate we're using the classic editor.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string>
+	 */
+	public static $classic_values  = [
+		'replace',
+		'classic',
+	];
 
 	public function register() {
 		if ( self::is_classic_plugin_active() ) {
@@ -45,7 +75,7 @@ class Classic_Editor {
 
 	public function hooks() {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ] );
-		add_filter( 'tribe_editor_classic_is_active', [ $this, 'filter_tribe_editor_classic_is_active'] );
+		add_filter( 'tribe_editor_classic_is_active', [ $this, 'filter_tribe_editor_classic_is_active'], 11 );
 	}
 
 	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
@@ -61,15 +91,23 @@ class Classic_Editor {
 	}
 
 	public function filter_tribe_editor_classic_is_active( $is_active ) {
+		// Plugin ins't active.
+		if ( ! self::is_classic_plugin_active() ) {
+			return $is_active;
+		}
+
+		// We always obey URL params.
 		if ( self::is_classic_editor_request() ) {
 			return true;
 		}
 
-		if ( self::is_classic_plugin_active() && self::is_classic_option_active() ) {
-			return true;
+		$profile = self::is_user_override_active();
+
+		if ( empty( $profile ) ) {
+			return self::is_classic_option_active();
 		}
 
-		return $is_active;
+		return self::$classic_term === $profile;
 	}
 
 	/**
@@ -111,10 +149,8 @@ class Classic_Editor {
 	public static function is_classic_option_active() {
 		$valid_values  = [ 'replace', 'classic' ];
 		$replace       = in_array( (string) get_option( self::$classic_option ), $valid_values, true );
-		$user_override = self::is_user_override_active();
-		$return        = $user_override ? ! $replace : $replace;
 
-		return $return;
+		return $replace;
 	}
 
 	/**
@@ -129,18 +165,51 @@ class Classic_Editor {
 	}
 
 	/**
+	 * Gets teh meta value for hte usr profile setting.
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed The <string> value of `wp_classic-editor-settings`.
+	 *               False for an invalid `$user_id` (non-numeric, zero, or negative value).
+	 *               An empty string if a valid but non-existing user ID is passed.
+	 */
+	public static function get_user_profile_override( $user_id = null ) {
+		if ( empty( $user_id ) ) {
+			$user_id = get_current_user_id();
+		}
+
+		return get_user_meta( $user_id, 'wp_classic-editor-settings', true );
+	}
+
+	/**
 	 * Check if user override is active for this editing session.
 	 *
 	 * @since TBD
 	 *
-	 * @return boolean
+	 * @return boolean|string The value of the user's profile setting, or boolean false if it's empty,
+	 *                        or we should ignore it due to things that take precedence.
 	 */
 	public static function is_user_override_active() {
-		$allowed  = self::is_user_override_allowed();
-		$override = ! empty( $_GET[ self::$classic_override ] );
-		$param    = ! empty( $_GET[ self::$classic_param ] );
+		// if we don't allow it, let's just get out of here.
+		if ( ! self::is_user_override_allowed() ) {
+			return false;
+		}
 
-		return $allowed && $override && $param;
+		// If the URL param is set (via intentional link click), obey it.
+		if ( self::is_classic_editor_request() ) {
+			return false;
+		}
+
+		$profile  = self::get_user_profile_override();
+
+		// The user hasn't saved a profile choice.
+		if ( empty( $profile ) ) {
+			return false;
+		}
+
+
+		return $profile;
+
 	}
 
 	public static function is_classic_editor_request() {
