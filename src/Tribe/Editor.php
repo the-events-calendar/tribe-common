@@ -176,7 +176,7 @@ class Tribe__Editor {
 		// Timing means we can't rely on `is_plugin_active()` here.
 		$classic_editor_active = in_array(
 			'classic-editor/classic-editor.php',
-			apply_filters( 'active_plugins', get_option( 'active_plugins' ) )
+			apply_filters( 'active_plugins', get_option( 'active_plugins', [] ) )
 		);
 
 		$is_plugin_active = $classic_editor_active
