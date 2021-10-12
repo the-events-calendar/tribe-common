@@ -188,6 +188,14 @@ class Tribe__Admin__Notices {
 			$content = $notice->content;
 			$wrap    = isset( $notice->wrap ) ? $notice->wrap : false;
 
+			if ( is_array( $content ) && isset( $content[0] ) && $content[0] instanceof __PHP_Incomplete_Class ) {
+				// From a class that no longer exists (e.g. the plugin is not active), clean and bail.
+				$this->remove( $slug );
+				$this->remove_transient( $slug );
+
+				return false;
+			}
+
 			if ( is_callable( $content ) ) {
 				$content = call_user_func_array( $content, [ $notice ] );
 			}

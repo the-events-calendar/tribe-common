@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [RBE] RBE = Switch this to TBD once we're close to release.
+
+* Fix - avoid fatal errors when transient notices are registered from inactive plugins
+
 = [4.14.5] 2021-09-14 =
 
 * Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
