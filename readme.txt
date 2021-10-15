@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.14.6] 2021-10-12 =
 
 * Fix - Ensure all SVG elements have unique IDs to improve accessibility. [TEC-4064]
 * Fix - Ensure the proper domain name is sent to PUE when validating licenses. [TCMN-122]
