@@ -1028,8 +1028,8 @@ final class Tribe__Customizer {
 		// Add a link to the TEC panel in the Customizer.
 		add_submenu_page(
 			'themes.php',
-			__( 'Customize The Events Calendar', 'tribe-common' ),
-			__( 'Customize The Events Calendar', 'tribe-common' ),
+			_x( 'Customize The Events Calendar', 'Page title for the TEC Customizer section.', 'tribe-common' ),
+			_x( 'Customize The Events Calendar', 'Menu item text for the TEC Customizer section link.', 'tribe-common' ),
 			'edit_theme_options',
 			admin_url( 'customize.php?autofocus[panel]=tribe_customizer' )
 		);
