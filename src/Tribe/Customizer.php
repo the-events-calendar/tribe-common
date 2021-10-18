@@ -111,6 +111,7 @@ final class Tribe__Customizer {
 
 		// Hook the Registering methods
 		add_action( 'customize_register', [ $this, 'register' ], 15 );
+		add_action( 'admin_menu', array( $this, 'add_fse_customizer_link' ) );
 
 		add_action( 'wp_print_footer_scripts', [ $this, 'print_css_template' ], 15 );
 		add_action( 'customize_controls_print_footer_scripts', [ $this, 'customize_controls_print_footer_scripts' ], 15 );
@@ -1006,5 +1007,31 @@ final class Tribe__Customizer {
 		$result .= '</style>';
 
 		return $result;
+	}
+
+	/**
+	 * Inserts link to TEC Customizer section for FSE themes.
+	 *
+	 * @since TBD
+	 */
+	public function add_fse_customizer_link() {
+		// Exit early if the FSE theme feature isn't present.
+		if ( ! function_exists( 'gutenberg_is_fse_theme' ) ) {
+			return;
+		}
+
+		// Exit early if the current theme is not a FSE theme.
+		if (  ! gutenberg_is_fse_theme() ) {
+			return;
+		}
+
+		// Add a link to the TEC panel in the Customizer.
+		add_submenu_page(
+			'themes.php',
+			__( 'Customize The Events Calendar', 'tribe-common' ),
+			__( 'Customize The Events Calendar', 'tribe-common' ),
+			'edit_theme_options',
+			admin_url( 'customize.php?autofocus[panel]=tribe_customizer' )
+		);
 	}
 }
