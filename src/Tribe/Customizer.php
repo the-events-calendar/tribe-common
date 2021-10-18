@@ -111,7 +111,8 @@ final class Tribe__Customizer {
 
 		// Hook the Registering methods
 		add_action( 'customize_register', [ $this, 'register' ], 15 );
-		add_action( 'admin_menu', array( $this, 'add_fse_customizer_link' ) );
+		add_action( 'admin_menu', [ $this, 'add_fse_customizer_link' ] );
+		add_action( 'tribe_display_settings_tab_fields', [ $this, 'add_fse_customizer_link_to_display_tab' ], 12 );
 
 		add_action( 'wp_print_footer_scripts', [ $this, 'print_css_template' ], 15 );
 		add_action( 'customize_controls_print_footer_scripts', [ $this, 'customize_controls_print_footer_scripts' ], 15 );
@@ -1009,6 +1010,10 @@ final class Tribe__Customizer {
 		return $result;
 	}
 
+	public function get_fse_customizer_link() {
+
+	}
+
 	/**
 	 * Inserts link to TEC Customizer section for FSE themes.
 	 *
@@ -1031,7 +1036,48 @@ final class Tribe__Customizer {
 			_x( 'Customize The Events Calendar', 'Page title for the TEC Customizer section.', 'tribe-common' ),
 			_x( 'Customize The Events Calendar', 'Menu item text for the TEC Customizer section link.', 'tribe-common' ),
 			'edit_theme_options',
-			admin_url( 'customize.php?autofocus[panel]=tribe_customizer' )
+			esc_url( admin_url( 'customize.php?autofocus[panel]=tribe_customizer' ) )
 		);
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string|mixed> $settings
+	 *
+	 * @return array<string|mixed> $settings
+	 */
+	public function add_fse_customizer_link_to_display_tab( $settings ) {
+		// Exit early if the FSE theme feature isn't present.
+		if ( ! function_exists( 'gutenberg_is_fse_theme' ) ) {
+			return;
+		}
+
+		// Exit early if the current theme is not a FSE theme.
+		if (  ! gutenberg_is_fse_theme() ) {
+			return;
+		}
+
+		$new_settings = [
+			'tribe-customizer-section-title' => [
+				'type' => 'html',
+				'html' => '<h3>' . __( 'Customizer', 'the-events-calendar' ) . '</h3>',
+			],
+			'tribe-customizer-link' => [
+				'type' => 'html',
+				'html' => sprintf(
+					/* translators: %1$s: opening anchor tag; %2$s: closing anchor tag */
+					esc_html_x( '%1$sCustomize The Events Calendar%2$s.', 'Link text added to the TEC->Settings->Display tab.', 'tribe-common' ),
+					'<a href="' . esc_url( admin_url( 'customize.php?autofocus[panel]=tribe_customizer' ) ) . '">',
+					'</a>'
+				),
+			],
+		];
+
+		$settings = Tribe__Main::array_insert_after_key( 'tribe-form-content-start', $settings, $new_settings );
+
+		return $settings;
 	}
 }
