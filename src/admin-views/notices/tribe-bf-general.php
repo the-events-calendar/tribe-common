@@ -13,9 +13,9 @@
 		<img src="<?php echo esc_url( $icon_url ); ?>"/>
 	</div>
 	<div class="tribe-marketing-notice__content">
-		<h3>Save 40% on Every. Single. Plugin.</h3>
+		<h3>Save 40% on every single plugin.</h3>
 		<p>
-			Black Friday Sale now through November 30.
+			Black Friday Sale now through November 29th.
 			<span class="tribe-marketing-notice__cta"><a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">Shop now</a></span>
 		</p>
 	</div>
