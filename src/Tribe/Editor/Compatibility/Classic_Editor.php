@@ -1,14 +1,12 @@
 <?php
 
 namespace Tribe\Editor\Compatibility;
-
 /**
  * Editor Compatibility with classic editor plugins.
  *
  * @since TBD
  */
 class Classic_Editor {
-
 	/**
 	 * "Classic Editor" flag for blocks/classic
 	 *
@@ -76,29 +74,22 @@ class Classic_Editor {
 	public function hooks() {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ] );
 		add_filter( 'tribe_editor_classic_is_active', [ $this, 'filter_tribe_editor_classic_is_active'], 11 );
+		// add_filter( 'tribe_is_using_blocks', [ $this, ] );
 	}
 
 	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
-		if ( self::is_classic_plugin_active() ) {
-			return false;
-		}
-
-		if ( self::is_classic_option_active() ) {
-			return false;
-		}
-
-		return $should_load_blocks;
+		return ! $this->filter_tribe_editor_classic_is_active( $should_load_blocks );
 	}
 
 	public function filter_tribe_editor_classic_is_active( $is_active ) {
-		// Plugin ins't active.
+		// Plugin isn't active.
 		if ( ! self::is_classic_plugin_active() ) {
 			return $is_active;
 		}
 
 		// We always obey URL params.
 		if ( self::is_classic_editor_request() ) {
-			return true;
+			$is_active = true;
 		}
 
 		$profile = self::is_user_override_active();

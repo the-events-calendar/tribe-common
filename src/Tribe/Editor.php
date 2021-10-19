@@ -95,31 +95,6 @@ class Tribe__Editor {
 	}
 
 	/**
-	 * Adds the required fields into the Events Post Type so that we can use Block Editor
-	 *
-	 * @since 4.8
-	 * @deprecated TBD
-	 *
-	 * @param  array $args Arguments used to setup the Post Type
-	 *
-	 * @return array
-	 */
-	public function add_support( $args = [] ) {
-		_deprecated_function( __FUNCTION__, 'TBD' );
-		// Make sure we have the Support argument and it's an array
-		if ( ! isset( $args['supports'] ) || ! is_array( $args['supports'] ) ) {
-			$args['supports'] = [];
-		}
-
-		// Add Editor Support
-		if ( ! in_array( 'editor', $args['supports'] ) ) {
-			$args['supports'][] = 'editor';
-		}
-
-		return $args;
-	}
-
-	/**
 	 * Adds the required fields into the Post Type so that we can the Rest API to update it
 	 *
 	 * @since 4.8
@@ -175,44 +150,6 @@ class Tribe__Editor {
 	}
 
 	/**
-	 * classic_editor_replace is function that is created by the plugin:
-	 * used in ECP recurrence and TEC Meta
-	 *
-	 * @see https://wordpress.org/plugins/classic-editor/
-	 *
-	 * prior 1.3 version the Classic Editor plugin was bundle inside of a unique function:
-	 * `classic_editor_replace` now all is bundled inside of a class `Classic_Editor`
-	 *
-	 * @since 4.8
-	 * @deprecated TBD
-	 *
-	 * @return bool
-	 */
-	public function is_classic_plugin_active() {
-		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active' );
-
-		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active();
-	}
-
-	/**
-	 * Check if the setting `classic-editor-replace` is set to `replace` that option means to
-	 * replace the gutenberg editor with the Classic Editor.
-	 *
-	 * Prior to 1.3 on Classic Editor plugin the value to identify if is on classic the value
-	 * was `replace`, now the value is `classic`
-	 *
-	 * @since 4.8
-	 * @deprecated TBD
-	 *
-	 * @return bool
-	 */
-	public function is_classic_option_active() {
-		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active' );
-
-		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active();
-	}
-
-	/**
 	 * Detect if the Classic Editor is force-activated via plugin or if it comes from a request.
 	 * Used in ET, ECP, VE, TEC
 	 *
@@ -252,7 +189,7 @@ class Tribe__Editor {
 
 		// Early bail: The filter was overridden to return either true or false.
 		if ( null !== $is_using_blocks ) {
-			return $is_using_blocks;
+			return (bool) $is_using_blocks;
 		}
 
 		// Early bail: The site itself is not using blocks.
@@ -260,6 +197,71 @@ class Tribe__Editor {
 			return false;
 		}
 
-		return tribe_is_truthy( tribe_get_option( 'toggle_blocks_editor' ) );
+		return tribe_is_truthy( tribe_get_option( 'toggle_blocks_editor', false ) );
+	}
+
+	/* DEPRECATED FUNCTIONS */
+
+	/**
+	 * Adds the required fields into the Events Post Type so that we can use Block Editor
+	 *
+	 * @since 4.8
+	 * @deprecated TBD
+	 *
+	 * @param  array $args Arguments used to setup the Post Type
+	 *
+	 * @return array
+	 */
+	public function add_support( $args = [] ) {
+		_deprecated_function( __FUNCTION__, 'TBD' );
+		// Make sure we have the Support argument and it's an array
+		if ( ! isset( $args['supports'] ) || ! is_array( $args['supports'] ) ) {
+			$args['supports'] = [];
+		}
+
+		// Add Editor Support
+		if ( ! in_array( 'editor', $args['supports'] ) ) {
+			$args['supports'][] = 'editor';
+		}
+
+		return $args;
+	}
+
+	/**
+	 * classic_editor_replace is function that is created by the plugin:
+	 * used in ECP recurrence and TEC Meta
+	 *
+	 * @see https://wordpress.org/plugins/classic-editor/
+	 *
+	 * prior 1.3 version the Classic Editor plugin was bundle inside of a unique function:
+	 * `classic_editor_replace` now all is bundled inside of a class `Classic_Editor`
+	 *
+	 * @since 4.8
+	 * @deprecated TBD
+	 *
+	 * @return bool
+	 */
+	public function is_classic_plugin_active() {
+		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active' );
+
+		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active();
+	}
+
+	/**
+	 * Check if the setting `classic-editor-replace` is set to `replace` that option means to
+	 * replace the gutenberg editor with the Classic Editor.
+	 *
+	 * Prior to 1.3 on Classic Editor plugin the value to identify if is on classic the value
+	 * was `replace`, now the value is `classic`
+	 *
+	 * @since 4.8
+	 * @deprecated TBD
+	 *
+	 * @return bool
+	 */
+	public function is_classic_option_active() {
+		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active' );
+
+		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active();
 	}
 }
