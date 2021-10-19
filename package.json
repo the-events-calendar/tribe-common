@@ -8,10 +8,7 @@
   "_glotPressUrl": "https://translations.theeventscalendar.com",
   "_glotPressSlug": "tribe-common",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": [
-    "po",
-    "mo"
-  ],
+  "_glotPressFormats": ["po", "mo"],
   "_filePath": {
     "eslint": [
       "src/modules/**/*.js",
@@ -35,16 +32,13 @@
     "minimum_percentage": 30,
     "waiting_strings": false
   },
-  "engines": {
-    "node": "16.6.1",
-    "npm": "7.20.3"
-  },
+  "engines": { "node": "16.6.1", "npm": "7.20.3" },
   "scripts": {
     "analyze": "webpack-bundle-analyzer -m static stats.json",
     "bootstrap": "./scripts/linkDependencies",
     "build:webpack": "cross-env NODE_ENV=production webpack -p",
     "build:gulp": "cross-env NODE_ENV=production gulp",
-    "prebuild": "npm install",
+    "prebuild": "npm install && node node_modules/@the-events-calendar/product-taskmaster/scripts/syncBrowserslistConfig.js",
     "build": "npm run build:webpack && npm run build:gulp",
     "rebuild": "rm -rf node_modules && npm install && npm run build",
     "dev": "cross-env NODE_ENV=development webpack -d --watch",
@@ -139,7 +133,17 @@
     "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.4"
   },
-  "optionalDependencies": {
-    "fsevents": "^1.0.0"
-  }
+  "optionalDependencies": { "fsevents": "^1.0.0" },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "last 2 Opera versions",
+    "last 2 iOS versions",
+    "last 1 Android version",
+    "last 1 ChromeAndroid version",
+    "last 1 FirefoxAndroid version",
+    "> 1%, not op_mini all, not ie <= 11, not ie_mob <= 11"
+  ]
 }
