@@ -93,7 +93,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
-    "@the-events-calendar/product-taskmaster": "git+https://github.com/the-events-calendar/product-taskmaster#task/update-gulp-v4",
+    "@the-events-calendar/product-taskmaster": "^2.0.0",
     "@wordpress/hooks": "^1.3.2",
     "archiver": "^3.0.0",
     "autoprefixer": "6.7.7",
