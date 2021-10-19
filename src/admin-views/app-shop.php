@@ -12,9 +12,15 @@ foreach ( $products as $product ) {
 		$all_products['for-sale'][] = $product;
 	}
 }
+
+use \Tribe\Admin\Troubleshooting;
 ?>
 
 <div id="tribe-app-shop">
+
+	<?php 
+		tribe( Troubleshooting::class )->admin_notice( 'app-shop' );
+	?>
 
 	<div class="tribe-header">
 		<div class="content-wrapper">

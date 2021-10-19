@@ -2,7 +2,7 @@
 /**
  * Abstract for various date-based Marketing notices, e.g. Black Friday sales or special coupon initiatives.
  *
- * @since TBD
+ * @since 4.14.2
  */
 
 namespace Tribe\Admin\Notice;
@@ -13,7 +13,7 @@ abstract class Date_Based {
 	/**
 	 * The slug used to make filters specific to an individual notice.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var string
 	 */
@@ -22,7 +22,7 @@ abstract class Date_Based {
 	/**
 	 * Placeholder for start date string.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var string
 	 */
@@ -31,7 +31,7 @@ abstract class Date_Based {
 	/**
 	 * Placeholder for start time int.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var int
 	 */
@@ -40,7 +40,7 @@ abstract class Date_Based {
 	/**
 	 * Placeholder for end date string.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var string
 	 */
@@ -49,7 +49,7 @@ abstract class Date_Based {
 	/**
 	 * Placeholder for end time int.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var int
 	 */
@@ -58,7 +58,7 @@ abstract class Date_Based {
 	/**
 	 * Whether or not The Events Calendar is active.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var boolean
 	 */
@@ -67,7 +67,7 @@ abstract class Date_Based {
 	/**
 	 * Whether or not Event Tickets is active.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @var boolean
 	 */
@@ -84,7 +84,7 @@ abstract class Date_Based {
 	/**
 	 * Register the various Marketing notices.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 */
 	public function hook() {
 		$this->hook_notice();
@@ -93,7 +93,7 @@ abstract class Date_Based {
 	/**
 	 * Register the notice.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 */
 	public function hook_notice() {
 		tribe_notice(
@@ -112,7 +112,7 @@ abstract class Date_Based {
 	/**
 	 * HTML for the notice.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return string The HTML string to be displayed.
 	 */
@@ -121,7 +121,7 @@ abstract class Date_Based {
 	/**
 	 * Whether the notice should display.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return boolean $should_display Whether the notice should display or not.
 	 */
@@ -155,7 +155,7 @@ abstract class Date_Based {
 		/**
 		 * Allow filtering of whether the notice should display.
 		 *
-		 * @since TBD
+		 * @since 4.14.2
 		 *
 		 * @param boolean                          $should_display Whether the notice should display.
 		 * @param Tribe__Admin__Notice_Date_Based $notice  The notice object.
@@ -166,7 +166,7 @@ abstract class Date_Based {
 	/**
 	 * Unix time for notice start.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return int $end_time The date & time the notice should start displaying, as a Unix timestamp.
 	 */
@@ -178,7 +178,7 @@ abstract class Date_Based {
 		 * Allow filtering of the start date DateTime object,
 		 * to allow for things like "the day before" ( $date->modify( '-1 day' ) ) and such.
 		 *
-		 * @since TBD
+		 * @since 4.14.2
 		 *
 		 * @param \DateTime $date Date object for the notice start.
 		 */
@@ -190,7 +190,7 @@ abstract class Date_Based {
 	/**
 	 * Unix time for notice end.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return int $end_time The date & time the notice should stop displaying, as a Unix timestamp.
 	 */
@@ -202,7 +202,7 @@ abstract class Date_Based {
 		* Allow filtering of the end date DateTime object,
 		* to allow for things like "the day after" ( $date->modify( '+1 day' ) ) and such.
 		*
-		* @since TBD
+		* @since 4.14.2
 		*
 		* @param \DateTime $date Date object for the notice end.
 		*/

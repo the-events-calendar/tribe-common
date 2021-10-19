@@ -2,7 +2,7 @@
 /**
  * The Stellar Sale admin notice.
  *
- * @since TBD
+ * @since 4.14.2
  *
  * @var string $icon_url The local URL for the notice's image.
  * @var string $cta_url The short URL for black friday.

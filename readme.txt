@@ -1,8 +1,45 @@
 == Changelog ==
 
-= [4.14.2] 2021-08-10 =
+= [4.14.6] 2021-10-12 =
 
-* Language -
+* Fix - Ensure all SVG elements have unique IDs to improve accessibility. [TEC-4064]
+* Fix - Ensure the proper domain name is sent to PUE when validating licenses. [TCMN-122]
+* Fix - Correct block use checks around the Classic Editor plugin. [TEC-4099]
+
+= [4.14.5] 2021-09-14 =
+
+* Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
+* Fix - Updated dropdowns controlled via ajax to return unescaped html entities instead of the escaped version. [CE-97]
+* Fix - Ensure Troubleshooting page has the required DOM pieces and the call to TEC.com works as expected. [TEC-4052]
+* Fix - Updated dropdowns controlled via ajax to return unescaped html entities instead of the escaped version. [CE-97]
+* Language - 6 new strings added, 88 updated, 1 fuzzied, and 2 obsoleted
+
+= [4.14.4] 2021-08-31 =
+
+* Tweak - Separation of the CSS variables and the Media Queries which are still compiled into the build Assets.
+* Language - 0 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.14.3] 2021-08-24 =
+
+* Feature - Added a new Warning dialog for the Dialog API. [ECP-901]
+* Feature - Alter common postcss to leverage exposed namespaced custom properties from common-styles. [TCMN-104]
+* Feature - Add new custom Customizer controls - Number, Range Slider, Toggle. [TEC-3897]
+* Tweak - Added a `tribe_post_id` filter to `post_id_helper` in the Main class.
+* Tweak - Alter Customizer and Section objects to be more versatile. [TCMN-104]
+* Tweak - Split pcss variable imports so we only import hte necessary variables for skeleton, and don't import more than once. [TCMN-104]
+* Tweak - added new `get_hex_with_hash` function to Tribe/Utils/Color.php to reduce need for manual string concatenation. [TCMN-104]
+* Language - 0 new strings added, 50 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.14.2] 2021-08-17 =
+
+* Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
+* Fix - Fix issue of time selector for recurring rules not working for the block editor. [ECP-918]
+* Fix - Ensure that $wp_query->is_search is false for calendar views that have no search term. [TEC-4012]
+* Fix - Fix issue of month names not being translatable. This was caused by a missing moment js localization dependency. [ECP-739]
+* Fix - Ensure that block editor scripts don't enqueue wp-editor on non-post block editor pages (widgets) [TEC-4028]
+* Tweak - Alter Assets->register and tribe_asset() to accept a callable for assets. [TEC-4028]
+* Tweak - Change label of API Settings tab to "Integrations". [TEC_4015]
+* Language - 169 new strings added, 121 updated, 2 fuzzied, and 0 obsoleted
 
 = [4.14.1] 2021-07-21 =
 

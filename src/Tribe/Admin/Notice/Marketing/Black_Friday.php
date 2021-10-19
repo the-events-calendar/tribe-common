@@ -2,7 +2,7 @@
 /**
  * Notice for the Black Friday Sale
  *
- * @since TBD
+ * @since 4.14.2
  */
 
 namespace Tribe\Admin\Notice\Marketing;
@@ -12,7 +12,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class Black_Friday
  *
- * @since TBD
+ * @since 4.14.2
  *
  * @package Tribe\Admin\Notice\Marketing
  */
@@ -61,7 +61,7 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	 * Note: we could instead use the ...notice_start_date filter to modify the date
 	 *       but this seemed more straightforward for now.
 	 *
-	 * @since TBD
+	 * @since 4.14.2
 	 *
 	 * @return int $end_time The date & time the notice should start displaying, as a Unix timestamp.
 	 */
@@ -74,7 +74,7 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 		* Allow filtering of the start date DateTime object,
 		* to allow for things like "the day before" ( $date->modify( '-1 day' ) ) and such.
 		*
-		* @since TBD
+		* @since 4.14.2
 		*
 		* @param \DateTime $date Date object for the notice start.
 		*/
