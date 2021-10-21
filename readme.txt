@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TBD]
+
 = [4.14.6] 2021-10-12 =
 
 * Fix - Ensure all SVG elements have unique IDs to improve accessibility. [TEC-4064]
