@@ -25,12 +25,6 @@ class Tribe__Editor {
 	 */
 	public $key_flag_classic_editor = '_tribe_is_classic_editor';
 
-	public $classic_option = 'classic-editor-replace';
-
-	public $classic_override = 'classic-editor__forget';
-
-	public $classic_param = 'classic-editor';
-
 	/**
 	 * Utility function to check if we should load the blocks or not based on two assumptions
 	 * used in ET, ECP, TEC

@@ -124,8 +124,8 @@ implements Tribe__Editor__Blocks__Interface {
 	}
 
 	/**
-	 * Does the registration for PHP rendering for the Block, important due to been
-	 * an dynamic Block
+	 * Does the registration for PHP rendering for the Block,
+	 * important due to being a dynamic Block
 	 *
 	 * @since 4.8
 	 *

@@ -1,8 +1,14 @@
 <?php
 
 namespace Tribe\Editor\Compatibility;
+
+use \Classic_Editor as Plugin_Editor;
 /**
  * Editor Compatibility with classic editor plugins.
+ *
+ * https://dev.tec/wp-admin/post.php?post=796&action=edit&classic-editor
+ * https://dev.tec/wp-admin/post.php?post=796&action=edit&classic-editor__forget
+ * https://dev.tec/wp-admin/post.php?post=796&action=edit&classic-editor&classic-editor__forget
  *
  * @since TBD
  */
@@ -14,7 +20,7 @@ class Classic_Editor {
 	 *
 	 * @var string
 	 */
-	public static $classic_option = 'classic-editor-replace';
+	public static $classic_option_key = 'classic-editor-replace';
 
 	/**
 	 * "Classic Editor" original param for blocks->classic.
@@ -42,7 +48,7 @@ class Classic_Editor {
 	 *
 	 * @var string
 	 */
-	public static $block_param = 'block';
+	public static $block_term = 'block';
 
 	/**
 	 * "Classic Editor" param for user override
@@ -52,6 +58,26 @@ class Classic_Editor {
 	 * @var string
 	 */
 	public static $classic_override = 'classic-editor__forget';
+
+	/**
+	 * "User Choice" key for user override
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $user_choice_key = 'classic-editor-allow-users';
+
+	/**
+	 * User meta "User Choice" key for user override
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $user_meta_choice_key = 'wp_classic-editor-settings';
+
+
 
 	/**
 	 * Stores the values used by the Classic Editor plugin to indicate we're using the classic editor.
@@ -73,32 +99,22 @@ class Classic_Editor {
 
 	public function hooks() {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ] );
-		add_filter( 'tribe_editor_classic_is_active', [ $this, 'filter_tribe_editor_classic_is_active'], 11 );
-		// add_filter( 'tribe_is_using_blocks', [ $this, ] );
 	}
 
 	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
-		return ! $this->filter_tribe_editor_classic_is_active( $should_load_blocks );
-	}
+		global $post;
 
-	public function filter_tribe_editor_classic_is_active( $is_active ) {
-		// Plugin isn't active.
 		if ( ! self::is_classic_plugin_active() ) {
-			return $is_active;
+			return $should_load_blocks;
 		}
 
-		// We always obey URL params.
-		if ( self::is_classic_editor_request() ) {
-			$is_active = true;
+		$blocks = Plugin_Editor::choose_editor( $should_load_blocks, $post );
+
+		if ( $blocks ) {
+			return true;
 		}
 
-		$profile = self::is_user_override_active();
-
-		if ( empty( $profile ) ) {
-			return self::is_classic_option_active();
-		}
-
-		return self::$classic_term === $profile;
+		return $should_load_blocks;
 	}
 
 	/**
@@ -115,7 +131,7 @@ class Classic_Editor {
 	 * @return bool
 	 */
 	public static function is_classic_plugin_active() {
-		$is_plugin_active = function_exists( 'classic_editor_replace' ) || class_exists( 'Classic_Editor' );
+		$is_plugin_active = function_exists( 'classic_editor_replace' ) || class_exists( 'Classic_Editor', false );
 		/**
 		 * Filter to change the output of calling: `is_classic_plugin_active`
 		 *
@@ -139,76 +155,8 @@ class Classic_Editor {
 	 */
 	public static function is_classic_option_active() {
 		$valid_values  = [ 'replace', 'classic' ];
-		$replace       = in_array( (string) get_option( self::$classic_option ), $valid_values, true );
+		$replace       = in_array( (string) get_option( self::$classic_option_key ), $valid_values, true );
 
 		return $replace;
-	}
-
-	/**
-	 * Check if users are allowed to override the Classic Editor setting
-	 *
-	 * @since TBD
-	 *
-	 * @return boolean
-	 */
-	public static function is_user_override_allowed() {
-		return 'allow' === get_option( 'classic-editor-allow-users', 'disallow' );
-	}
-
-	/**
-	 * Gets teh meta value for hte usr profile setting.
-	 *
-	 * @since TBD
-	 *
-	 * @return mixed The <string> value of `wp_classic-editor-settings`.
-	 *               False for an invalid `$user_id` (non-numeric, zero, or negative value).
-	 *               An empty string if a valid but non-existing user ID is passed.
-	 */
-	public static function get_user_profile_override( $user_id = null ) {
-		if ( empty( $user_id ) ) {
-			$user_id = get_current_user_id();
-		}
-
-		return get_user_meta( $user_id, 'wp_classic-editor-settings', true );
-	}
-
-	/**
-	 * Check if user override is active for this editing session.
-	 *
-	 * @since TBD
-	 *
-	 * @return boolean|string The value of the user's profile setting, or boolean false if it's empty,
-	 *                        or we should ignore it due to things that take precedence.
-	 */
-	public static function is_user_override_active() {
-		// if we don't allow it, let's just get out of here.
-		if ( ! self::is_user_override_allowed() ) {
-			return false;
-		}
-
-		// If the URL param is set (via intentional link click), obey it.
-		if ( self::is_classic_editor_request() ) {
-			return false;
-		}
-
-		$profile  = self::get_user_profile_override();
-
-		// The user hasn't saved a profile choice.
-		if ( empty( $profile ) ) {
-			return false;
-		}
-
-
-		return $profile;
-
-	}
-
-	public static function is_classic_editor_request() {
-		// Need to check for function in cases where this gets called early.
-		if ( function_exists( 'tribe_get_request_var' ) ) {
-			return tribe_get_request_var( self::$classic_param, null );
-		} else {
-			return isset( $_GET[ self::$classic_param ] ) ? $_GET[ self::$classic_param ] : false;
-		}
 	}
 }
