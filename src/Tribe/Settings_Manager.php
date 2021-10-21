@@ -164,6 +164,20 @@ class Tribe__Settings_Manager {
 	}
 
 	/**
+	 * Remove an option
+	 *
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	public static function remove_option( $name ) {
+		$options          = self::get_options();
+		unset( $options[ $name ] );
+
+		return self::set_options( $options );
+	}
+
+	/**
 	 * Get all network options for the Events Calendar
 	 *
 	 * @return array of options
