@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Update the way we handle Classic Editor compatibility. Specifically around user choice. [TEC-4016]
+
 = [4.14.6] 2021-10-12 =
 
 * Fix - Ensure all SVG elements have unique IDs to improve accessibility. [TEC-4064]
