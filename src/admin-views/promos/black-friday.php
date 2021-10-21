@@ -40,6 +40,7 @@ $promo_bkg = $images_dir . 'promos/bf-promo.png';
 	}
 
 	.black-friday-promo__text {
+		color: #0F1031;
 		font-family: monospace;
 		font-size: 16px;
 		line-height: 1;
