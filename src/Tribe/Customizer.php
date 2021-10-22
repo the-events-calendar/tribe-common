@@ -1015,7 +1015,7 @@ final class Tribe__Customizer {
 	}
 
 	/**
-	 * Inserts link to TEC Customizer section for FSE themes.
+	 * Inserts link to TEC Customizer section for FSE themes in admin (left) menu.
 	 *
 	 * @since TBD
 	 */
@@ -1041,23 +1041,23 @@ final class Tribe__Customizer {
 	}
 
 	/**
-	 * Undocumented function
+	 * Inserts link to TEC Customizer section for FSE themes in Events > Settings > Display.
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string|mixed> $settings
+	 * @param array<string|mixed> $settings The existing settings array.
 	 *
-	 * @return array<string|mixed> $settings
+	 * @return array<string|mixed> $settings The modified settings array.
 	 */
 	public function add_fse_customizer_link_to_display_tab( $settings ) {
 		// Exit early if the FSE theme feature isn't present.
 		if ( ! function_exists( 'gutenberg_is_fse_theme' ) ) {
-			return;
+			return $settings;
 		}
 
 		// Exit early if the current theme is not a FSE theme.
 		if (  ! gutenberg_is_fse_theme() ) {
-			return;
+			return $settings;
 		}
 
 		$new_settings = [
