@@ -1067,7 +1067,7 @@ final class Tribe__Customizer {
 			],
 			'tribe-customizer-link-description' => [
 				'type' => 'html',
-				'html' => '<p class="contained">' . __( 'This links to the Custmoizer for access when Full Site Editor is active.', 'the-events-calendar' ) . '</p>',
+				'html' => '<p class="contained">' . __( 'This links to the Customizer for access when Full Site Editor is active.', 'the-events-calendar' ) . '</p>',
 			],
 			'tribe-customizer-link' => [
 				'type' => 'html',
