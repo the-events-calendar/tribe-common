@@ -1067,13 +1067,13 @@ final class Tribe__Customizer {
 			],
 			'tribe-customizer-link-description' => [
 				'type' => 'html',
-				'html' => '<p class="contained">' . __( 'This links to the Customizer for access when Full Site Editor is active.', 'the-events-calendar' ) . '</p>',
+				'html' => '<p class="contained">' . __( 'Adjust colors, fonts, and more with the WordPress Customizer.', 'the-events-calendar' ) . '</p>',
 			],
 			'tribe-customizer-link' => [
 				'type' => 'html',
 				'html' => sprintf(
 					/* translators: %1$s: opening anchor tag; %2$s: closing anchor tag */
-					esc_html_x( '%1$sCustomize The Events Calendar%2$s.', 'Link text added to the TEC->Settings->Display tab.', 'tribe-common' ),
+					esc_html_x( '%1$sCustomize The Events Calendar%2$s', 'Link text added to the TEC->Settings->Display tab.', 'tribe-common' ),
 					'<p class="contained"><a href="' . esc_url( admin_url( 'customize.php?autofocus[panel]=tribe_customizer' ) ) . '">',
 					'</a></p>'
 				),
