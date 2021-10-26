@@ -1010,10 +1010,6 @@ final class Tribe__Customizer {
 		return $result;
 	}
 
-	public function get_fse_customizer_link() {
-
-	}
-
 	/**
 	 * Inserts link to TEC Customizer section for FSE themes in admin (left) menu.
 	 *
@@ -1036,7 +1032,7 @@ final class Tribe__Customizer {
 			_x( 'Customize The Events Calendar', 'Page title for the TEC Customizer section.', 'tribe-common' ),
 			_x( 'Customize The Events Calendar', 'Menu item text for the TEC Customizer section link.', 'tribe-common' ),
 			'edit_theme_options',
-			esc_url( admin_url( 'customize.php?autofocus[panel]=tribe_customizer' ) )
+			esc_url( add_query_arg( 'autofocus[panel]', 'tribe_customizer' , admin_url( 'customize.php' ) ) )
 		);
 	}
 
