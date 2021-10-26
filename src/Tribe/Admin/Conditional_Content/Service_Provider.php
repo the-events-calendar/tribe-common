@@ -1,28 +1,27 @@
 <?php
 /**
- * Handles admin promo functions.
+ * Handles admin conditional content.
  *
  * @since   TBD
- * @package Tribe\Admin\Promos;
+ * @package Tribe\Admin\Conditional_Content;
  */
 
-namespace Tribe\Admin\Promos;
+namespace Tribe\Admin\Conditional_Content;
 
 /**
- * Promos Provider.
+ * Conditional Content Provider.
  *
  * @since TBD
  */
 class Service_Provider extends \tad_DI52_ServiceProvider {
 
 	/**
-	 * Registers the objects and filters required by the provider to manage admin notices.
+	 * Registers the required objects and filters.
 	 *
 	 * @since TBD
 	 */
 	public function register() {
-		tribe_singleton(  Black_Friday::class, Black_Friday::class, ['hook'] );
-
+		$this->container->singleton(  Black_Friday::class, Black_Friday::class, [ 'hook' ] );
 		$this->hooks();
 	}
 
@@ -31,7 +30,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 */
-	private function hooks() {
+	protected function hooks() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded' ] );
 	}
 
@@ -41,6 +40,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function plugins_loaded() {
-		tribe( Black_Friday::class );
+		$this->container->make( Black_Friday::class );
 	}
 }

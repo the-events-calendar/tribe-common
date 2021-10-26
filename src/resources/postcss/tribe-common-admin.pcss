@@ -3747,3 +3747,76 @@ body.tribe-welcome #fs_connect {
 		}
 	}
 }
+
+/* -- Black Friday Promo -- */
+.black-friday-promo {
+	align-items: flex-start;
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: space-between;
+}
+
+.black-friday-promo__promo {
+	background-repeat: no-repeat;
+	background-position: center;
+	border-radius: 10px;
+	display: grid;
+	grid-template-areas:
+	"space promo-content";
+	grid-template-columns: auto 150px;
+	height: 150px;
+	margin: 10px 0;
+	max-width: 100%;
+	width: 450px;
+}
+
+.black-friday-promo__content {
+	grid-area: promo-content;
+	padding-top: 8px;
+	text-align: center;
+}
+
+.black-friday-promo__text {
+	color: #0F1031;
+	font-family: monospace;
+	font-size: 16px;
+	line-height: 1;
+	text-transform: uppercase;
+}
+
+.tribe_events_page_tribe-common .black-friday-promo__button {
+	background: #3D54FF;
+	border-color: transparent;
+	border-radius: 20px;
+	color: white;
+	font-size: 12px;
+	height: 34px;
+	line-height: 32px;
+	min-height: unset;
+	width: 115px;
+}
+
+.tribe_events_page_tribe-common .black-friday-promo__button:hover,
+.tribe_events_page_tribe-common .black-friday-promo__button:active,
+.tribe_events_page_tribe-common .black-friday-promo__button:focus {
+	background: #1c39bb;
+	border-color: transparent;
+	color: white;
+}
+
+.black-friday-promo__branding-image {
+	max-width: 390px;
+	width: 100%;
+}
+
+@media (min-width: 1024px) {
+	.black-friday-promo {
+		align-items: center;
+		flex-direction: row;
+	}
+
+	.black-friday-promo__branding {
+		padding-right: 10px;
+		width: calc(100% - 450px);
+	}
+}
