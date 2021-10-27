@@ -17,6 +17,13 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	protected $slug = 'black_friday';
 
 	/**
+	 * Start Date.
+	 *
+	 * @since TBD
+	 */
+	protected $start_date = 'fourth Thursday of November';
+
+	/**
 	 * End Date.
 	 *
 	 * @since TBD
@@ -40,19 +47,10 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	 * @return int - Unix timestamp
 	 */
 	protected function get_start_time() {
-		$date = Dates::build_date_object( 'fourth Thursday of November', 'UTC' );
+		$date = parent::get_start_time();
 		$date = $date->modify( '-3 days' );
-		$date = $date->setTime( $this->start_time, 0 );
 
-		/**
-		 * Allow filtering of the start date for testing.
-		 *
-		 * @since TBD
-		 * @param \DateTime $date - Unix timestamp for start date
-		 */
-		$date = apply_filters( "tec_admin_conditional_content_{$this->slug}_start_date", $date );
-
-		return $date->format( 'U' );
+		return $date;
 	}
 
 	/**
