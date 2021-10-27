@@ -25,19 +25,12 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * {@inheritDoc}
 	 */
-	public $start_date = 'November 22';
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * 11am UTC is 3am PST and 5am EST
-	 */
-	public $start_time = 11;
+	public $end_date = 'November 29th';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public $end_date = 'November 30';
+	public $end_time = 23;
 
 	/**
 	 * {@inheritDoc}
@@ -68,9 +61,9 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	 * @return int $end_time The date & time the notice should start displaying, as a Unix timestamp.
 	 */
 	public function get_start_time() {
-		$date = Dates::build_date_object( $this->start_date, 'UTC' );
+		$date = Dates::build_date_object( 'fourth Thursday of November', 'UTC' );
 		$date = $date->modify( '-3 days' );
-		$date = $date->setTime( $this->start_time, 0 );
+		$date = $date->setTime( $this->start_time, 59 );
 
 		/**
 		* Allow filtering of the start date DateTime object,
