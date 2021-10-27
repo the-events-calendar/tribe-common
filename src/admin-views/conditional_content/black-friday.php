@@ -3,9 +3,9 @@
  * Template for Black Friday Promo.
  *
  * @since TBD
- * @param string $background_image - the url of the background image to use
- * @param string $branding_logo - the url of the TEC branding logo
- * @param string $button_link - the url the button links to
+ * @var string $background_image - the url of the background image to use
+ * @var string $branding_logo - the url of the TEC branding logo
+ * @var string $button_link - the url the button links to
  */
 ?>
 
