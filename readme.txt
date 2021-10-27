@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [4.14.7] TBD =
+
+* Tweak - Update Black Friday banner. [TCMN-126]
+* Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
+
 = [4.14.6] 2021-10-12 =
 
 * Fix - Ensure all SVG elements have unique IDs to improve accessibility. [TEC-4064]
