@@ -114,7 +114,6 @@
     "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.4"
   },
-  "optionalDependencies": { "fsevents": "^1.0.0" },
   "browserslist": [
     "last 2 Chrome versions",
     "last 2 Firefox versions",
