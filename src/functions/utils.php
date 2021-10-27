@@ -1229,3 +1229,23 @@ if ( ! function_exists( 'tribe_without_filters' ) ) {
 		return $result;
 	}
 }
+
+/**
+ * Get the next increment of a cached incremental value.
+ *
+ * @since TBD
+ *
+ * @param string $key Cache key for the incrementor.
+ * @param string $expiration_trigger The trigger that causes the cache key to expire.
+ * @param int $default The default value of the incrementor.
+ *
+ * @return int
+ **/
+function tribe_get_next_cached_increment( $key, $expiration_trigger = '', $default = 0 ) {
+	$cache = tribe( 'cache' );
+	$value = (int) $cache->get( $key, $expiration_trigger, $default );
+	$value++;
+	$cache->set( $key, $value, \Tribe__Cache::NON_PERSISTENT, $expiration_trigger );
+
+	return $value;
+}

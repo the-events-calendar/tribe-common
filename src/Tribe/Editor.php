@@ -29,7 +29,7 @@ class Tribe__Editor {
 	public function should_load_blocks() {
 		$gutenberg = $this->is_gutenberg_active() || $this->is_wp_version();
 		$blocks    = $this->is_blocks_editor_active();
-		$classic   = $this->is_classic_plugin_active() || $this->is_classic_option_active();
+		$classic   = $this->is_classic_option_active();
 
 		$should_load_blocks = $gutenberg && $blocks && ! $classic;
 
@@ -173,7 +173,16 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function is_classic_plugin_active() {
-		$is_plugin_active = function_exists( 'classic_editor_replace' ) || class_exists( 'Classic_Editor' );
+		// Timing means we can't rely on `is_plugin_active()` here.
+		$classic_editor_active = in_array(
+			'classic-editor/classic-editor.php',
+			apply_filters( 'active_plugins', get_option( 'active_plugins', [] ) )
+		);
+
+		$is_plugin_active = $classic_editor_active
+			|| class_exists( 'Classic_Editor' )
+			|| function_exists( 'classic_editor_replace' );
+
 		/**
 		 * Filter to change the output of calling: `is_classic_plugin_active`
 		 *
@@ -196,6 +205,11 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function is_classic_option_active() {
+		// Since the plugin leaves the `classic-editor-replace` value in the database on deactivation, let's make sure it's active first.
+		if ( ! $this->is_classic_plugin_active() ) {
+			return false;
+		}
+
 		$valid_values = [ 'replace', 'classic' ];
 
 		return in_array( (string) get_option( 'classic-editor-replace' ), $valid_values, true );
