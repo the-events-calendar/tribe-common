@@ -45,15 +45,17 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	public function display_notice() {
 		\Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
 
-		// Used in the template.
-		$cta_url  = 'https://evnt.is/1aqi';
-		$icon_url = \Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg';
+		// Set up template variables.
+		$template_args = [
+			'icon_url' => \Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg',
+			'cta_url'  => 'https://evnt.is/1aqi',
+			'end_date' => $this->end_date,
+		];
 
-		ob_start();
+		// Get the Black Friday notice content.
+		$content = $this->get_template()->template( 'notices/tribe-bf-general', $template_args, false );
 
-		include \Tribe__Main::instance()->plugin_path . 'src/admin-views/notices/tribe-bf-general.php';
-
-		return ob_get_clean();
+		return $content;
 	}
 
 	/**

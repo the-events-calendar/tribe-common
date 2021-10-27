@@ -65,6 +65,15 @@ abstract class Date_Based {
 	public $tec_is_active;
 
 	/**
+	 * Stores the instance of the template engine that we will use for rendering the page.
+	 *
+	 * @since TBD
+	 *
+	 * @var \Tribe__Template
+	 */
+	protected $template;
+
+	/**
 	 * Whether or not Event Tickets is active.
 	 *
 	 * @since 4.14.2
@@ -209,5 +218,24 @@ abstract class Date_Based {
 		$date = apply_filters( "tribe_{$this->slug}_notice_end_date", $date );
 
 		return $date->format( 'U' );
+	}
+
+	/**
+	 * Gets the template instance used to setup the rendering of the page.
+	 *
+	 * @since TBD
+	 *
+	 * @return \Tribe__Template
+	 */
+	public function get_template() {
+		if ( empty( $this->template ) ) {
+			$this->template = new \Tribe__Template();
+			$this->template->set_template_origin( \Tribe__Main::instance() );
+			$this->template->set_template_folder( 'src/admin-views' );
+			$this->template->set_template_context_extract( true );
+			$this->template->set_template_folder_lookup( false );
+		}
+
+		return $this->template;
 	}
 }
