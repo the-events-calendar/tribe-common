@@ -3754,6 +3754,26 @@ body.tribe-welcome #fs_connect {
 	display: flex;
 	flex-direction: column-reverse;
 	justify-content: space-between;
+
+	.black-friday-promo__button {
+		background: #3D54FF;
+		border-color: transparent;
+		border-radius: 20px;
+		color: white;
+		font-size: 12px;
+		height: 34px;
+		line-height: 32px;
+		min-height: unset;
+		width: 115px;
+
+		&:hover,
+		&:active,
+		&:focus {
+			background: #1c39bb;
+			border-color: transparent;
+			color: white;
+		}
+	}
 }
 
 .black-friday-promo__promo {
@@ -3761,8 +3781,7 @@ body.tribe-welcome #fs_connect {
 	background-position: center;
 	border-radius: 10px;
 	display: grid;
-	grid-template-areas:
-	"space promo-content";
+	grid-template-areas: "space promo-content";
 	grid-template-columns: auto 150px;
 	height: 150px;
 	margin: 10px 0;
@@ -3782,26 +3801,6 @@ body.tribe-welcome #fs_connect {
 	font-size: 16px;
 	line-height: 1;
 	text-transform: uppercase;
-}
-
-.tribe_events_page_tribe-common .black-friday-promo__button {
-	background: #3D54FF;
-	border-color: transparent;
-	border-radius: 20px;
-	color: white;
-	font-size: 12px;
-	height: 34px;
-	line-height: 32px;
-	min-height: unset;
-	width: 115px;
-}
-
-.tribe_events_page_tribe-common .black-friday-promo__button:hover,
-.tribe_events_page_tribe-common .black-friday-promo__button:active,
-.tribe_events_page_tribe-common .black-friday-promo__button:focus {
-	background: #1c39bb;
-	border-color: transparent;
-	color: white;
 }
 
 .black-friday-promo__branding-image {

@@ -13,7 +13,7 @@
 	<div class="black-friday-promo__branding">
 		<img
 			src="<?php echo esc_url( $branding_logo ); ?>"
-			alt="<?php echo esc_attr( 'The Events Calendar brand logo', 'tribe-common' ); ?>"
+			alt="<?php echo esc_attr__( 'The Events Calendar brand logo', 'tribe-common' ); ?>"
 			class="black-friday-promo__branding-image"
 		/>
 	</div>
@@ -21,7 +21,7 @@
 		<div class="black-friday-promo__content">
 			<p class="black-friday-promo__text">Our biggest<br/> sale of the<br/> year ends<br/> soon</p>
 			<a href="<?php echo esc_url( $button_link ); ?>" class="button black-friday-promo__button">
-				<?php echo esc_html( 'Save now', 'tribe-common' ); ?>
+				<?php echo esc_html__( 'Save now', 'tribe-common' ); ?>
 			</a>
 		</div>
 	</div>
