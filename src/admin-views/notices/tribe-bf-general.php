@@ -16,7 +16,7 @@
 	<div class="tribe-marketing-notice__content">
 		<h3><?php echo esc_html__( 'Save 40% on every single plugin.', 'tribe-common' ); ?></h3>
 		<p>
-			Black Friday Sale now through <?php echo esc_html( $end_date ); ?>.
+			<?php printf( esc_html__( 'Black Friday Sale now through %s.', 'tribe-common' ), $end_date ); ?>
 			<span class="tribe-marketing-notice__cta">
 				<a
 					href="<?php echo esc_url( $cta_url ); ?>"

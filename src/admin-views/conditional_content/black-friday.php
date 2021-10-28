@@ -19,15 +19,17 @@
 	</div>
 	<div class="black-friday-promo__promo" style="background-image: url('<?php echo $background_image; ?>')">
 		<div class="black-friday-promo__content">
-			<p class="black-friday-promo__text">Our biggest<br/> sale of the<br/> year ends<br/> soon</p>
-			<a
-				href="<?php echo esc_url( $button_link ); ?>"
-				class="button black-friday-promo__button"
-				rel="noreferrer noopener"
-				target="_blank"
-			>
-				<?php echo esc_html__( 'Save now', 'tribe-common' ); ?>
-			</a>
+			<p class="black-friday-promo__text">
+				<?php _e( 'Our biggest<br/> sale of the<br/> year ends<br/> soon</p>', 'tribe-common' ); ?>
+				<a
+					href="<?php echo esc_url( $button_link ); ?>"
+					class="button black-friday-promo__button"
+					rel="noreferrer noopener"
+					target="_blank"
+				>
+					<?php echo esc_html__( 'Save now', 'tribe-common' ); ?>
+				</a>
+			</p>
 		</div>
 	</div>
 </div>
