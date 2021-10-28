@@ -77,8 +77,6 @@ class Classic_Editor {
 	 */
 	public static $user_meta_choice_key = 'wp_classic-editor-settings';
 
-
-
 	/**
 	 * Stores the values used by the Classic Editor plugin to indicate we're using the classic editor.
 	 *
@@ -91,16 +89,35 @@ class Classic_Editor {
 		'classic',
 	];
 
+	/**
+	 * Registers the hooks and filters required based on if the Classic Editor plugin is active.
+	 *
+	 * @since TBD
+	 */
 	public function register() {
 		if ( self::is_classic_plugin_active() ) {
 			$this->hooks();
 		}
 	}
 
+	/**
+	 * Hooks for loading logic outside this class.
+	 *
+	 * @since TBD
+	 */
 	public function hooks() {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ] );
 	}
 
+	/**
+	 * Filters tribe_editor_should_load_blocks based on internal logic.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $should_load_blocks Whether we should force blocks over classic.
+	 *
+	 * @return boolean Whether we should force blocks over classic.
+	 */
 	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
 		global $post;
 
@@ -126,7 +143,7 @@ class Classic_Editor {
 	 * prior 1.3 version the Classic Editor plugin was bundle inside of a unique function:
 	 * `classic_editor_replace` now all is bundled inside of a class `Classic_Editor`
 	 *
-	 * @since 4.8
+	 * @since TBD
 	 *
 	 * @return bool
 	 */
@@ -136,6 +153,7 @@ class Classic_Editor {
 		 * Filter to change the output of calling: `is_classic_plugin_active`
 		 *
 		 * @since 4.9.12
+		 * @since TBD moved to separate class.
 		 *
 		 * @param $is_plugin_active bool Value that indicates if the plugin is active or not.
 		 */
@@ -150,6 +168,7 @@ class Classic_Editor {
 	 * was `replace`, now the value is `classic`
 	 *
 	 * @since 4.8
+	 * @since TBD moved to separate class.
 	 *
 	 * @return bool
 	 */
