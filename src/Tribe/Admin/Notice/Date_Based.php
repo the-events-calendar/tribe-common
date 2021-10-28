@@ -191,9 +191,9 @@ abstract class Date_Based {
 		 *
 		 * @param \DateTime $date Date object for the notice start.
 		 */
-		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date );
+		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date, $this );
 
-		return $date->format( 'U' );
+		return $date;
 	}
 
 	/**
@@ -215,9 +215,9 @@ abstract class Date_Based {
 		*
 		* @param \DateTime $date Date object for the notice end.
 		*/
-		$date = apply_filters( "tribe_{$this->slug}_notice_end_date", $date );
+		$date = apply_filters( "tribe_{$this->slug}_notice_end_date", $date, $this );
 
-		return $date->format( 'U' );
+		return $date;
 	}
 
 	/**

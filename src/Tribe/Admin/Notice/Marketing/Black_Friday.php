@@ -25,7 +25,7 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * {@inheritDoc}
 	 */
-	public $end_date = 'November 29th';
+	public $end_date = 'November 29';
 
 	/**
 	 * {@inheritDoc}
@@ -42,7 +42,7 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 		$template_args = [
 			'icon_url' => \Tribe__Main::instance()->plugin_url . 'src/resources/images/icons/sale-burst.svg',
 			'cta_url'  => 'https://evnt.is/1aqi',
-			'end_date' => $this->end_date,
+			'end_date' => $this->get_end_time()->format_i18n( 'F jS' ),
 		];
 
 		// Get the Black Friday notice content.
@@ -73,8 +73,8 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 		*
 		* @param \DateTime $date Date object for the notice start.
 		*/
-		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date );
+		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date, $this );
 
-		return $date->format( 'U' );
+		return $date;
 	}
 }
