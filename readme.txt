@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [4.14.7] TBD =
+= [TBD] TBD =
 
 * Tweak - Update Black Friday banner. [TCMN-126]
 * Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
