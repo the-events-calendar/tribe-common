@@ -14,10 +14,18 @@
 		<img src="<?php echo esc_url( $icon_url ); ?>"/>
 	</div>
 	<div class="tribe-marketing-notice__content">
-		<h3>Save 40% on every single plugin.</h3>
+		<h3><?php echo esc_html__( 'Save 40% on every single plugin.', 'tribe-common' ); ?></h3>
 		<p>
 			Black Friday Sale now through <?php echo esc_html( $end_date ); ?>.
-			<span class="tribe-marketing-notice__cta"><a target="_blank" href="<?php echo esc_url( $cta_url ); ?>">Shop now</a></span>
+			<span class="tribe-marketing-notice__cta">
+				<a
+					href="<?php echo esc_url( $cta_url ); ?>"
+					rel="noreferrer noopener"
+					target="_blank"
+				>
+					<?php echo esc_html__( 'Shop now', 'tribe-common' ); ?>
+				</a>
+			</span>
 		</p>
 	</div>
 </div>
