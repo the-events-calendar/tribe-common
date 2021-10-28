@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TBD]
 * Fix - Update the way we handle Classic Editor compatibility. Specifically around user choice. [TEC-4016]
 
 = [4.14.6] 2021-10-12 =
