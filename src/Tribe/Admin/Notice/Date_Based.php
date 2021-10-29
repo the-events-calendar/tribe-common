@@ -155,7 +155,7 @@ abstract class Date_Based {
 			return false;
 		}
 
-		$now          = Dates::build_date_object( 'now', 'UTC' )->format( 'U' );
+		$now          = Dates::build_date_object( 'now', 'UTC' );
 		$notice_start = $this->get_start_time();
 		$notice_end   = $this->get_end_time();
 
