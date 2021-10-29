@@ -112,7 +112,7 @@ abstract class Datetime_Conditional_Abstract {
 	 * @return boolean - Whether the content should display
 	 */
 	protected function should_display() {
-		$now          = Dates::build_date_object( 'now', 'UTC' )->format( 'U' );
+		$now          = Dates::build_date_object( 'now', 'UTC' );
 		$notice_start = $this->get_start_time();
 		$notice_end   = $this->get_end_time();
 		$display      = $notice_start <= $now && $now < $notice_end;
