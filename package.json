@@ -9,6 +9,11 @@
   "_glotPressSlug": "tribe-common",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
   "_glotPressFormats": ["po", "mo"],
+  "_glotPressFilter": {
+    "translation_sets": false,
+    "minimum_percentage": 30,
+    "waiting_strings": false
+  },
   "_filePath": {
     "eslint": [
       "src/modules/**/*.js",
@@ -26,11 +31,6 @@
       "!src/resources/postcss/datepicker.pcss",
       "!src/resources/postcss/tribe-ui.pcss"
     ]
-  },
-  "_glotPressFilter": {
-    "translation_sets": false,
-    "minimum_percentage": 30,
-    "waiting_strings": false
   },
   "engines": { "node": "16.6.1", "npm": "7.20.3" },
   "scripts": {
