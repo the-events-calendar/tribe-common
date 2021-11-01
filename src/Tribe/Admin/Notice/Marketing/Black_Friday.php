@@ -25,6 +25,11 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * {@inheritDoc}
 	 */
+	protected $start_date = 'fourth Thursday of November';
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public $end_date = 'November 29';
 
 	/**
@@ -53,27 +58,14 @@ class Black_Friday extends \Tribe\Admin\Notice\Date_Based {
 
 	/**
 	 * Unix time for notice start.
-	 * Note: we could instead use the ...notice_start_date filter to modify the date
-	 *       but this seemed more straightforward for now.
 	 *
 	 * @since 4.14.2
 	 *
 	 * @return int $end_time The date & time the notice should start displaying, as a Unix timestamp.
 	 */
 	public function get_start_time() {
-		$date = Dates::build_date_object( 'fourth Thursday of November', 'UTC' );
+		$date = parent::get_start_time();
 		$date = $date->modify( '-3 days' );
-		$date = $date->setTime( $this->start_time, 59 );
-
-		/**
-		* Allow filtering of the start date DateTime object,
-		* to allow for things like "the day before" ( $date->modify( '-1 day' ) ) and such.
-		*
-		* @since 4.14.2
-		*
-		* @param \DateTime $date Date object for the notice start.
-		*/
-		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date, $this );
 
 		return $date;
 	}
