@@ -6,34 +6,34 @@ use Tribe__Date_Utils as Dates;
 /**
  * Set up for Black Friday promo.
  *
- * @since TBD
+ * @since 4.14.7
  */
 class Black_Friday extends Datetime_Conditional_Abstract {
 	/**
 	 * Promo slug.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 */
 	protected $slug = 'black_friday';
 
 	/**
 	 * Start Date.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 */
 	protected $start_date = 'fourth Thursday of November';
 
 	/**
 	 * End Date.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 */
 	protected $end_date = 'November 30th';
 
 	/**
 	 * Register actions and filters.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 * @return void
 	 */
 	public function hook() {
@@ -43,7 +43,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	/**
 	 * Start the Monday before Thanksgiving.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 * @return int - Unix timestamp
 	 */
 	protected function get_start_time() {
@@ -56,7 +56,7 @@ class Black_Friday extends Datetime_Conditional_Abstract {
 	/**
 	 * Replace the opening markup for the general settings info box.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 * @return void
 	 */
 	public function add_conditional_content( $fields ) {

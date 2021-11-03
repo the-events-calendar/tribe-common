@@ -6,48 +6,48 @@ use Tribe__Date_Utils as Dates;
 /**
  * Abstract class for conditional content.
  *
- * @since TBD
+ * @since 4.14.7
  */
 abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Item slug.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 */
 	protected $slug = '';
 
 	/**
 	 * Start date.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 */
 	protected $start_date;
 
 	/**
 	 * Start time.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 */
 	protected $start_time;
 
 	/**
 	 * End date.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 */
 	protected $end_date;
 
 	/**
 	 * End time.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 */
 	protected $end_time;
 
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the page.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 *
 	 * @var \Tribe__Template
 	 */
@@ -56,7 +56,7 @@ abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Register actions and filters.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 * @return void
 	 */
 	abstract function hook();
@@ -64,7 +64,7 @@ abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Unix datetime for content start.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 * @return int - Unix timestamp
 	 */
 	protected function get_start_time() {
@@ -74,7 +74,7 @@ abstract class Datetime_Conditional_Abstract {
 		/**
 		 * Allow filtering of the start date for testing.
 		 *
-		 * @since TBD
+		 * @since 4.14.7
 		 * @param \DateTime $date - Unix timestamp for start date
 		 * @param object $this
 		 */
@@ -86,7 +86,7 @@ abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Unix datetime for content end.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 * @return int - Unix timestamp
 	 */
 	protected function get_end_time() {
@@ -96,7 +96,7 @@ abstract class Datetime_Conditional_Abstract {
 		/**
 		 * Allow filtering of the end date for testing.
 		 *
-		 * @since TBD
+		 * @since 4.14.7
 		 * @param \DateTime $date - Unix timestamp for end date
 		 * @param object $this
 		 */
@@ -108,7 +108,7 @@ abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Whether the content should display.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 * @return boolean - Whether the content should display
 	 */
 	protected function should_display() {
@@ -120,7 +120,7 @@ abstract class Datetime_Conditional_Abstract {
 		/**
 		 * Allow filtering whether the content should display.
 		 *
-		 * @since TBD
+		 * @since 4.14.7
 		 * @param bool $should_display - whether the content should display
 		 * @param object $this - the conditional content object
 		 */
@@ -132,7 +132,7 @@ abstract class Datetime_Conditional_Abstract {
 	/**
 	 * Gets the template instance used to setup the rendering of the page.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 *
 	 * @return \Tribe__Template
 	 */

@@ -67,7 +67,7 @@ abstract class Date_Based {
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the page.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 *
 	 * @var \Tribe__Template
 	 */
@@ -223,7 +223,7 @@ abstract class Date_Based {
 	/**
 	 * Gets the template instance used to setup the rendering of the page.
 	 *
-	 * @since TBD
+	 * @since 4.14.7
 	 *
 	 * @return \Tribe__Template
 	 */
