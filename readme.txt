@@ -1,9 +1,9 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.16.7] 2021-11-04 =
 
-* Tweak - Update Black Friday banner. [TCMN-126]
 * Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
+* Tweak - Update Black Friday banner. [TCMN-126]
 
 = [4.14.6] 2021-10-12 =
 
