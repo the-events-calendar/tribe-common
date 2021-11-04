@@ -65,6 +65,15 @@ abstract class Date_Based {
 	public $tec_is_active;
 
 	/**
+	 * Stores the instance of the template engine that we will use for rendering the page.
+	 *
+	 * @since 4.14.7
+	 *
+	 * @var \Tribe__Template
+	 */
+	protected $template;
+
+	/**
 	 * Whether or not Event Tickets is active.
 	 *
 	 * @since 4.14.2
@@ -146,7 +155,7 @@ abstract class Date_Based {
 			return false;
 		}
 
-		$now          = Dates::build_date_object( 'now', 'UTC' )->format( 'U' );
+		$now          = Dates::build_date_object( 'now', 'UTC' );
 		$notice_start = $this->get_start_time();
 		$notice_end   = $this->get_end_time();
 
@@ -182,9 +191,9 @@ abstract class Date_Based {
 		 *
 		 * @param \DateTime $date Date object for the notice start.
 		 */
-		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date );
+		$date = apply_filters( "tribe_{$this->slug}_notice_start_date", $date, $this );
 
-		return $date->format( 'U' );
+		return $date;
 	}
 
 	/**
@@ -206,8 +215,27 @@ abstract class Date_Based {
 		*
 		* @param \DateTime $date Date object for the notice end.
 		*/
-		$date = apply_filters( "tribe_{$this->slug}_notice_end_date", $date );
+		$date = apply_filters( "tribe_{$this->slug}_notice_end_date", $date, $this );
 
-		return $date->format( 'U' );
+		return $date;
+	}
+
+	/**
+	 * Gets the template instance used to setup the rendering of the page.
+	 *
+	 * @since 4.14.7
+	 *
+	 * @return \Tribe__Template
+	 */
+	public function get_template() {
+		if ( empty( $this->template ) ) {
+			$this->template = new \Tribe__Template();
+			$this->template->set_template_origin( \Tribe__Main::instance() );
+			$this->template->set_template_folder( 'src/admin-views' );
+			$this->template->set_template_context_extract( true );
+			$this->template->set_template_folder_lookup( false );
+		}
+
+		return $this->template;
 	}
 }
