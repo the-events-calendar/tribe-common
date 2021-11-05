@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.16.8] TBD =
+
+* Feature - Adding Onboarding functionality, featuring `Tours` and `Hints`.
+
 = [4.16.7] 2021-11-04 =
 
 * Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
