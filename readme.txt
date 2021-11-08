@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TBD]
+* Tweak - Added the `tribe_repository_{$filter_name}_pre_first_post`, `tribe_repository_{$filter_name}_pre_last_post`, and `tribe_repository_{$filter_name}_pre_get_ids_for_posts` actions. (Props to @sc0ttkclark)
 
 = [4.14.7] 2021-11-04 =
 
