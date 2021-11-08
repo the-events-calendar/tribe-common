@@ -1233,7 +1233,7 @@ if ( ! function_exists( 'tribe_without_filters' ) ) {
 /**
  * Get the next increment of a cached incremental value.
  *
- * @since TBD
+ * @since 4.14.7
  *
  * @param string $key Cache key for the incrementor.
  * @param string $expiration_trigger The trigger that causes the cache key to expire.

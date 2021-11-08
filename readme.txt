@@ -4,6 +4,11 @@
 
 * Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TBD]
 
+= [4.14.7] 2021-11-04 =
+
+* Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
+* Tweak - Update Black Friday banner. [TCMN-126]
+
 = [4.14.6] 2021-10-12 =
 
 * Fix - Ensure all SVG elements have unique IDs to improve accessibility. [TEC-4064]
