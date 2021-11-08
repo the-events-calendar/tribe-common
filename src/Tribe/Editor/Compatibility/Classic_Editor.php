@@ -174,7 +174,7 @@ class Classic_Editor {
 	 */
 	public static function is_classic_option_active() {
 		$valid_values  = [ 'replace', 'classic' ];
-		$replace       = in_array( (string) get_option( self::$classic_option_key ), $valid_values, true );
+		$replace       = in_array( (string) get_option( static::$classic_option_key ), $valid_values, true );
 
 		return $replace;
 	}
