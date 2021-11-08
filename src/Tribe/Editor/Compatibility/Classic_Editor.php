@@ -95,7 +95,7 @@ class Classic_Editor {
 	 * @since TBD
 	 */
 	public function register() {
-		if ( self::is_classic_plugin_active() ) {
+		if ( static::is_classic_plugin_active() ) {
 			$this->hooks();
 		}
 	}
@@ -121,7 +121,7 @@ class Classic_Editor {
 	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
 		global $post;
 
-		if ( ! self::is_classic_plugin_active() ) {
+		if ( ! static::is_classic_plugin_active() ) {
 			return $should_load_blocks;
 		}
 
