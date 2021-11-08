@@ -14,7 +14,7 @@ class Tribe__Editor {
 	 *
 	 * @var string
 	 */
-	public $blocks_editor_key = 'toggle_blocks_editor';
+	public static $blocks_editor_key = 'toggle_blocks_editor';
 
 	/**
 	 * Meta key for flagging if a post is from Classic Editor
