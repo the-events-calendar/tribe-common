@@ -493,18 +493,7 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 		var select2Data = $select.data( 'select2' );
 		var $search = select2Data.$dropdown.find( obj.selector.searchField ); // eslint-disable-line es5/no-es6-methods,max-len
 
-		var originalClasses = obj.getSelectClasses( select2Data.$element ).reduce(
-			function ( prev, curr ) {
-				// Don't add this one.
-				if ( 'tribe-dropdown-created' === curr ) {
-					return prev;
-				}
-
-				return prev + ' ' + curr;
-			}
-		);
-
-		select2Data.$dropdown.addClass( originalClasses );
+		select2Data.$dropdown.addClass( obj.selector.dropdown.className() );
 
 		// If we have a placeholder for search, apply it!
 		if ( $select.is( '[data-search-placeholder]' ) ) {
