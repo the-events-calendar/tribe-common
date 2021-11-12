@@ -1013,7 +1013,7 @@ final class Tribe__Customizer {
 	/**
 	 * Inserts link to TEC Customizer section for FSE themes in admin (left) menu.
 	 *
-	 * @since TBD
+	 * @since 4.14.8
 	 */
 	public function add_fse_customizer_link() {
 		// Exit early if the FSE theme feature isn't present.
@@ -1039,7 +1039,7 @@ final class Tribe__Customizer {
 	/**
 	 * Inserts link to TEC Customizer section for FSE themes in Events > Settings > Display.
 	 *
-	 * @since TBD
+	 * @since 4.14.8
 	 *
 	 * @param array<string|mixed> $settings The existing settings array.
 	 *
