@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.14.5\n"
+"Project-Id-Version: Tribe Common 4.14.7\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2021-10-11 18:13:59+00:00\n"
+"POT-Creation-Date: 2021-11-15 17:01:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-10-11 18:13\n"
+"PO-Revision-Date: 2021-11-15 17:01\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -58,9 +58,9 @@ msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.5)  #-#-#-#-#
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.7)  #-#-#-#-#
 #. Author of the plugin/theme
-#: src/Tribe/Admin/Help_Page.php:82 src/Tribe/Customizer.php:664
+#: src/Tribe/Admin/Help_Page.php:82 src/Tribe/Customizer.php:666
 #: src/Tribe/Plugins_API.php:25 src/admin-views/help-calendar.php:97
 msgid "The Events Calendar"
 msgstr ""
@@ -734,10 +734,34 @@ msgid ""
 "and it helps a lot."
 msgstr ""
 
-#: src/Tribe/Customizer.php:665
+#: src/Tribe/Customizer.php:667
 msgid ""
 "Use the following panel of your customizer to change the styling of your "
 "Calendar and Event pages."
+msgstr ""
+
+#: src/Tribe/Customizer.php:1032
+msgctxt "Page title for the TEC Customizer section."
+msgid "Customize The Events Calendar"
+msgstr ""
+
+#: src/Tribe/Customizer.php:1033
+msgctxt "Menu item text for the TEC Customizer section link."
+msgid "Customize The Events Calendar"
+msgstr ""
+
+#: src/Tribe/Customizer.php:1062
+msgid "Customizer"
+msgstr ""
+
+#: src/Tribe/Customizer.php:1066
+msgid "Adjust colors, fonts, and more with the WordPress Customizer."
+msgstr ""
+
+#. translators: %1$s: opening anchor tag; %2$s: closing anchor tag
+#: src/Tribe/Customizer.php:1072
+msgctxt "Link text added to the TEC->Settings->Display tab."
+msgid "%1$sCustomize The Events Calendar%2$s"
 msgstr ""
 
 #: src/Tribe/Debug_Bar/Panels/Context.php:22
@@ -3029,8 +3053,9 @@ msgstr ""
 msgid "Widget"
 msgstr ""
 
-#: src/admin-views/app-shop.php:30 src/admin-views/help.php:27
-#: src/admin-views/help.php:82
+#: src/admin-views/app-shop.php:30
+#: src/admin-views/conditional_content/black-friday.php:16
+#: src/admin-views/help.php:27 src/admin-views/help.php:82
 #: src/admin-views/troubleshooting/footer-logo.php:12
 #: src/admin-views/troubleshooting/introduction.php:19
 msgid "The Events Calendar brand logo"
@@ -3123,6 +3148,14 @@ msgstr ""
 
 #: src/admin-views/app-shop.php:189
 msgid "Browse Extensions"
+msgstr ""
+
+#: src/admin-views/conditional_content/black-friday.php:23
+msgid "Our biggest<br/> sale of the<br/> year ends<br/> soon</p>"
+msgstr ""
+
+#: src/admin-views/conditional_content/black-friday.php:30
+msgid "Save now"
 msgstr ""
 
 #: src/admin-views/event-log.php:21
@@ -3368,6 +3401,18 @@ msgstr ""
 
 #: src/admin-views/help.php:73
 msgid "Visit Troubleshooting next"
+msgstr ""
+
+#: src/admin-views/notices/tribe-bf-general.php:17
+msgid "Save 40% on every single plugin."
+msgstr ""
+
+#: src/admin-views/notices/tribe-bf-general.php:19
+msgid "Black Friday Sale now through %s."
+msgstr ""
+
+#: src/admin-views/notices/tribe-bf-general.php:26
+msgid "Shop now"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:23
