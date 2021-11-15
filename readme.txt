@@ -1,8 +1,11 @@
 == Changelog ==
 
-= [4.16.8] TBD =
+= [4.14.8] 2021-11-17 =
 
+* Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TBD]
 * Feature - Adding Onboarding functionality, featuring `Tours` and `Hints`.
+* Tweak - Added the `tribe_repository_{$filter_name}_pre_first_post`, `tribe_repository_{$filter_name}_pre_last_post`, and `tribe_repository_{$filter_name}_pre_get_ids_for_posts` actions. (Props to @sc0ttkclark)
+* Language - 10 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.16.7] 2021-11-04 =
 
