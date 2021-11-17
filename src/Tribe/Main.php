@@ -654,7 +654,9 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 		tribe_register_provider( Tribe\Service_Providers\Crons::class );
 		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
+		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
+		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
 	}
 
 	/**

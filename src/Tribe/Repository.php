@@ -871,6 +871,16 @@ abstract class Tribe__Repository
 		}
 
 		$query->set( 'fields', 'ids' );
+
+		/**
+		 * Filters the query object by reference before getting the first post from the query.
+		 *
+		 * @since 4.14.8
+		 *
+		 * @param WP_Query $query The WP_Query object before get_posts() is called.
+		 */
+		do_action( "tribe_repository_{$this->filter_name}_pre_first_post", $query );
+
 		$ids = $query->get_posts();
 
 		$query->set( 'fields', $original_fields_value );
@@ -935,6 +945,16 @@ abstract class Tribe__Repository
 		}
 
 		$query->set( 'fields', 'ids' );
+
+		/**
+		 * Filters the query object by reference before getting the last post from the query.
+		 *
+		 * @since 4.14.8
+		 *
+		 * @param WP_Query $query The WP_Query object before get_posts() is called.
+		 */
+		do_action( "tribe_repository_{$this->filter_name}_pre_last_post", $query );
+
 		$ids = $query->get_posts();
 
 		$query->set( 'fields', $original_fields_value );
@@ -1377,6 +1397,15 @@ abstract class Tribe__Repository
 			// The request property will be set during the `get_posts` method and empty before it.
 			if ( empty( $query->request ) ) {
 				$query->set( 'fields', 'ids' );
+
+				/**
+				 * Filters the query object by reference before getting the post IDs from the query.
+				 *
+				 * @since 4.14.8
+				 *
+				 * @param WP_Query $query The WP_Query object before get_posts() is called.
+				 */
+				do_action( "tribe_repository_{$this->filter_name}_pre_get_ids_for_posts", $query );
 
 				return $query->get_posts();
 			}
