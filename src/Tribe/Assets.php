@@ -805,14 +805,17 @@ class Tribe__Assets {
 	 * The method will force the scripts and styles to print overriding their registration and conditional.
 	 *
 	 * @since 4.12.6
+	 * @since TBD Add the `$localize` parameter to allow localizing script objects when printing.
 	 *
-	 * @param string|array $group Which group(s) should be enqueued.
-	 * @param bool         $echo  Whether to print the group(s) tag(s) to the page or not; default to `true` to
-	 *                            print the HTML `script` (JS) and `link` (CSS) tags to the page.
+	 * @param bool         $localize Whether to print the localized data for each printed script or not; defaults
+	 *                               to `false`.
+	 * @param string|array $group    Which group(s) should be enqueued.
+	 * @param bool         $echo     Whether to print the group(s) tag(s) to the page or not; default to `true` to
+	 *                               print the HTML `script` (JS) and `link` (CSS) tags to the page.
 	 *
 	 * @return string The `script` and `link` HTML tags produced for the group(s).
 	 */
-	public function print_group( $group, $echo = true ) {
+	public function print_group( $group, $echo = true, $localize = false ) {
 		$all_assets = $this->get();
 		$groups     = (array) $group;
 		$to_print   = array_filter( $all_assets, static function ( $asset ) use ( $groups ) {
@@ -836,7 +839,21 @@ class Tribe__Assets {
 		}
 
 		ob_start();
-		wp_scripts()->do_items( $by_type['js'] );
+		$wp_scripts = wp_scripts();
+		$wp_scripts->do_items( $by_type['js'] );
+
+		// If any script has localized data, then print it.
+		if ( $localize ) {
+			foreach ( $by_type['js'] as $handle ) {
+				if ( ! empty( $to_print[ $handle ]->localize ) ) {
+					foreach ( $to_print[ $handle ]->localize as $loc ) {
+						$wp_scripts->localize( $handle, $loc->name, $loc->data );
+						$wp_scripts->print_extra_script( $handle );
+					}
+				}
+			}
+		}
+
 		wp_styles()->do_items( $by_type['css'] );
 		$tags = ob_get_clean();
 
