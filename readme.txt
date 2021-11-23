@@ -3,7 +3,6 @@
 = [RBE] RBE = Switch this to TBD once we're close to release.
 
 * Fix - avoid fatal errors when transient notices are registered from inactive plugins
-* Feat - add the `$localize` parameter to the `tribe_asset_print_group` function to allow printing localization data with scripts
 
 = [4.14.8] 2021-11-17 =
 
