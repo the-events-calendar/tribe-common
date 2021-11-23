@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.14.9] TBD =
+
+* Feature - Add loader template for the admin views. [VE-435]
+
 = [4.14.8] 2021-11-17 =
 
 * Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TBD]
