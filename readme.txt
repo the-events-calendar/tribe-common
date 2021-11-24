@@ -1,12 +1,18 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.14.9] TBD =
+
+* Feature - Add loader template for the admin views. [VE-435]
+* Fix - Update the way we handle Classic Editor compatibility. Specifically around user choice. [TEC-4016]
+
+= [4.14.8] 2021-11-17 =
 
 * Feature - Add link to TEC customizer section in admin menu and on Event->Settings->Display page [TBD]
-* Fix - Update the way we handle Classic Editor compatibility. Specifically around user choice. [TEC-4016]
+* Feature - Adding Onboarding functionality, featuring `Tours` and `Hints`.
 * Tweak - Added the `tribe_repository_{$filter_name}_pre_first_post`, `tribe_repository_{$filter_name}_pre_last_post`, and `tribe_repository_{$filter_name}_pre_get_ids_for_posts` actions. (Props to @sc0ttkclark)
+* Language - 10 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
 
-= [4.14.7] 2021-11-04 =
+= [4.16.7] 2021-11-04 =
 
 * Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
 * Tweak - Update Black Friday banner. [TCMN-126]

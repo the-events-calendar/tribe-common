@@ -875,7 +875,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the query object by reference before getting the first post from the query.
 		 *
-		 * @since TBD
+		 * @since 4.14.8
 		 *
 		 * @param WP_Query $query The WP_Query object before get_posts() is called.
 		 */
@@ -949,7 +949,7 @@ abstract class Tribe__Repository
 		/**
 		 * Filters the query object by reference before getting the last post from the query.
 		 *
-		 * @since TBD
+		 * @since 4.14.8
 		 *
 		 * @param WP_Query $query The WP_Query object before get_posts() is called.
 		 */
@@ -1401,7 +1401,7 @@ abstract class Tribe__Repository
 				/**
 				 * Filters the query object by reference before getting the post IDs from the query.
 				 *
-				 * @since TBD
+				 * @since 4.14.8
 				 *
 				 * @param WP_Query $query The WP_Query object before get_posts() is called.
 				 */
