@@ -144,7 +144,7 @@ abstract class Abstract_Value implements Value_Interface {
 		}
 
 		if ( $this->is_character_block( $amount ) ) {
-			return 0.0;
+			return (float) 0;
 		}
 
 		// If we can split the amount by spaces, remove any blocks that don't contain any digits
@@ -156,8 +156,10 @@ abstract class Abstract_Value implements Value_Interface {
 			}
 		}
 
+
 		// Remove encoded html entities
 		$amount = preg_replace( '/&[^;]+;/', '', trim( $amount ) );
+
 
 		// Get all non-digits from the amount
 		preg_match_all( '/[^\d]/', $amount, $matches );
@@ -166,6 +168,7 @@ abstract class Abstract_Value implements Value_Interface {
 		if ( empty( $matches[0] ) ) {
 			return (float) $amount;
 		}
+
 
 		$tokens    = array_unique( $matches[0] );
 		$separator = '/////';
@@ -179,7 +182,7 @@ abstract class Abstract_Value implements Value_Interface {
 			$amount = str_replace( $token, '', $amount );
 		}
 
-		$pieces  = explode( $separator, $amount );
+		$pieces = explode( $separator, $amount );
 
 		// If the initial amount did not have decimals specified, $pieces will be an array of a single
 		// numeric value, so we just return it as a float.
@@ -189,12 +192,13 @@ abstract class Abstract_Value implements Value_Interface {
 
 		$decimal = array_pop( $pieces );
 
-		return implode( '', $pieces ) . '.' . $decimal;
+		return (float) implode( '', array_merge( $pieces, ['.', $decimal] ) );
 	}
 
 	/**
-	 * Value loader. This method calls all registered `set_$property_value` methods every time the object is updated
-	 * so the values in each of the formats are always kept up to date.
+	 * Value loader. This method uses Reflection to call all registered `set_$property_value` methods in the
+	 * inheritance chain every time the object is updated so the values in each of the formats are always kept up to
+	 * date.
 	 *
 	 * @since TBD
 	 */
@@ -203,7 +207,7 @@ abstract class Abstract_Value implements Value_Interface {
 
 		foreach ( $this->get_setters() as $setter ) {
 			$method = $reflection->getMethod( $setter );
-			$method->setAccessible(true);
+			$method->setAccessible( true );
 			$method->invoke( $this );
 		}
 	}
@@ -253,10 +257,6 @@ abstract class Abstract_Value implements Value_Interface {
 	 */
 	private function set_float_value() {
 		$this->float = $this->normalized_amount;
-	}
-
-	private function set_formatted_value() {
-		return;
 	}
 
 	/**
@@ -332,7 +332,7 @@ abstract class Abstract_Value implements Value_Interface {
 	 */
 	private function is_valid_setter( $name ) {
 
-		$vars = $this->get_object_property_names( $this, \ReflectionProperty::IS_PRIVATE );
+		$vars    = $this->get_object_property_names( $this, \ReflectionProperty::IS_PRIVATE );
 		$methods = $this->get_object_method_names( $this, \ReflectionProperty::IS_PRIVATE );
 
 		if ( ! in_array( $name, $methods, true ) ) {
