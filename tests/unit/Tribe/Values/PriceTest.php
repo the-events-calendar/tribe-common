@@ -41,6 +41,17 @@ class PriceTest extends \Codeception\Test\Unit {
 		$this->assertEquals( $default_currency_format, $price->get_currency() );
 	}
 
+	/**
+	 * @dataProvider numerical_values
+	 */
+	public function test_sub_total_multiplies_values( $value, $float, $integer, $default_currency_format, $decimal, $string ) {
+		$price = new PriceClassStub();
+		$price->set_value( $value );
+		$price->sub_total( $float );
+
+		$this->assertEquals( (float) ($integer * $float), $price->get_normalized_value() );
+	}
+
 	public function numerical_values() {
 		return [
 			[ 10, 10.0, 1000, '$10.00', 10.0, '10.00' ],

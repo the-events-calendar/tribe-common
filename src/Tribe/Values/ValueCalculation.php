@@ -4,6 +4,11 @@ namespace Tribe\Values;
 
 trait ValueCalculation {
 
+	public function sub_total( $multiplier ) {
+		$this->set_value( $this->get_integer() * $multiplier );
+		return $this;
+	}
+
 	public function sum( $amounts ) {
 	}
 

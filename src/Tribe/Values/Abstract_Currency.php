@@ -73,6 +73,4 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	private function set_decimal_value() {
 		$this->decimal = $this->to_decimal( $this->get_normalized_value() );
 	}
-
-	abstract function set_up_currency_details();
 }
