@@ -4,30 +4,34 @@ namespace Tribe\Values;
 
 abstract class Abstract_Currency extends Abstract_Value implements Currency_Interface {
 
-	private $formatted;
+	private $currency = '';
 
-	private $currency_code;
+	private $decimal;
 
-	private $currency_code_fallback = 'USD';
+	private $string;
 
-	private $currency_symbol;
+	private $currency_code = 'USD';
 
-	private $currency_symbol_position;
+	private $currency_separator_decimal = '.';
+
+	private $currency_separator_thousands = ',';
+
+	private $currency_symbol = '$';
+
+	private $currency_symbol_position = 'prefix';
+
+	private $use_tec_currency_locale = true;
 
 	use ValueFormatting;
 
 	public function __construct( $amount = 0 ) {
 		parent::__construct( $amount );
 
-		//$this->set_currency();
+		$this->set_up_currency_details();
 	}
 
 	public function get_currency_code() {
 		return $this->currency_code;
-	}
-
-	public function get_currency_code_fallback() {
-		return $this->currency_code_fallback;
 	}
 
 	public function get_currency_symbol() {
@@ -38,73 +42,37 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		return $this->currency_symbol_position;
 	}
 
-
-	public function set_decimal( $amount ) {
-		$this->decimal = $amount;
+	public function get_currency_separator_decimal() {
+		return $this->currency_separator_decimal;
 	}
 
-	public function get_formatted() {
-		return $this->formatted;
+	public function get_currency_separator_thousands() {
+		return $this->currency_separator_thousands;
 	}
 
-	public function get_decimal( Abstract_Currency $amount ) {
-		return $amount->decimal;
+	public function get_currency() {
+		return $this->currency;
 	}
 
-	private function set_currency() {
-		$this->currency_code_fallback = apply_filters( 'tec_tickets_commerce_currency_code_fallback', 'USD' );
-
-		$this->currency_code = apply_filters(
-			'tec_tickets_commerce_currency_code',
-			\tribe_get_option( 'tickets-commerce-currency-code', $this->currency_code_fallback )
-		);
-
-		$this->currency_symbol = apply_filters(
-			'tec_tickets_commerce_currency_symbol',
-			\tribe_get_option( 'tickets-commerce-currency-symbol', '$' )
-		);
-
-		$this->currency_symbol_position = apply_filters(
-			'tec_tickets_commerce_currency_symbol_position',
-			\tribe_get_option( 'tickets-commerce-currency-symbol-position', 'prefix' )
-		);
+	public function get_decimal() {
+		return $this->decimal;
 	}
 
-	private function set_formatted_value( $amount ) {
-		$this->formatted = $this->format( $amount );
+	public function get_string() {
+		return $this->string;
 	}
 
-	private function format( $value ) {
-
-		$use_currency_locale = \tribe_get_option( 'tickets-commerce-use-currency-locale', false );
-
-		/**
-		 * Whether the currency's own locale should be used to format the price or not.
-		 *
-		 * @since TBD
-		 *
-		 * @param bool             $use_currency_locale If `true` then the currency own locale will override the site one.
-		 * @param string|int|float $value                The value to format without the symbol.
-		 * @param int              $post_id             The current post ID if any.
-		 */
-		$use_currency_locale = apply_filters( 'tribe_tickets_commerce_price_format_use_currency_locale', $use_currency_locale, $value, $post_id );
-
-		if ( ! $use_currency_locale ) {
-			$value = number_format_i18n( $value, 2 );
-		} else {
-			$value = number_format(
-				$value,
-				$this->get_precision(),
-				$this->get_decimal_separator(),
-				$this->get_thousands_separator()
-			);
-		}
-
-		$value = $this->get_currency_symbol_position() === 'prefix'
-			? $this->get_currency_symbol() . $value
-			: $value . $this->get_currency_symbol();
-
-		return $value;
+	private function set_currency_value() {
+		$this->currency = $this->to_currency( $this->get_normalized_value() );
 	}
 
+	private function set_string_value() {
+		$this->string = $this->to_string( $this->get_normalized_value() );
+	}
+
+	private function set_decimal_value() {
+		$this->decimal = $this->to_decimal( $this->get_normalized_value() );
+	}
+
+	abstract function set_up_currency_details();
 }

@@ -2,9 +2,12 @@
 
 namespace Tribe\Values;
 
+use Tribe\Traits\Reflection_Tools;
+
 abstract class Abstract_Value implements Value_Interface {
 
 	use ValueCalculation;
+	use Reflection_Tools;
 
 	/**
 	 * Holds the initial value passed to the constructor. This variable does not change.
@@ -196,8 +199,12 @@ abstract class Abstract_Value implements Value_Interface {
 	 * @since TBD
 	 */
 	private function update() {
+		$reflection = $this->get_reflection_class( $this );
+
 		foreach ( $this->get_setters() as $setter ) {
-			$this->{$setter}();
+			$method = $reflection->getMethod( $setter );
+			$method->setAccessible(true);
+			$method->invoke( $this );
 		}
 	}
 
@@ -246,6 +253,10 @@ abstract class Abstract_Value implements Value_Interface {
 	 */
 	private function set_float_value() {
 		$this->float = $this->normalized_amount;
+	}
+
+	private function set_formatted_value() {
+		return;
 	}
 
 	/**
@@ -300,7 +311,7 @@ abstract class Abstract_Value implements Value_Interface {
 	 * @return array
 	 */
 	private function get_setters() {
-		$methods = get_class_methods( $this );
+		$methods = $this->get_object_method_names( $this, \ReflectionProperty::IS_PRIVATE );
 
 		return array_filter( $methods, function ( $item ) {
 			return $this->is_valid_setter( $item );
@@ -320,9 +331,11 @@ abstract class Abstract_Value implements Value_Interface {
 	 * @return bool
 	 */
 	private function is_valid_setter( $name ) {
-		$vars = get_class_vars( __CLASS__ );
 
-		if ( ! method_exists( $this, $name ) ) {
+		$vars = $this->get_object_property_names( $this, \ReflectionProperty::IS_PRIVATE );
+		$methods = $this->get_object_method_names( $this, \ReflectionProperty::IS_PRIVATE );
+
+		if ( ! in_array( $name, $methods, true ) ) {
 			return false;
 		}
 
@@ -332,7 +345,7 @@ abstract class Abstract_Value implements Value_Interface {
 
 		$name = str_replace( [ 'set_', '_value' ], '', $name );
 
-		if ( in_array( $name, array_keys( $vars ), true ) ) {
+		if ( in_array( $name, $vars, true ) ) {
 			return true;
 		}
 
