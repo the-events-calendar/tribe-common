@@ -45,6 +45,8 @@ abstract class Abstract_Value implements Value_Interface {
 	 */
 	private $precision = 2;
 
+	public $class_name;
+
 	/**
 	 * Initialize class
 	 *
@@ -56,6 +58,7 @@ abstract class Abstract_Value implements Value_Interface {
 		$this->set_initial_representation( $amount );
 		$this->set_normalized_amount( $amount );
 		$this->update();
+		$this->class_name = trim( get_class( $this ), '\\' );
 	}
 
 	/**
@@ -81,7 +84,30 @@ abstract class Abstract_Value implements Value_Interface {
 	 * @return int
 	 */
 	public function get_integer() {
-		return $this->integer;
+		/**
+		 * Filter the value returned for get_integer() when implemented in a specific class name
+		 *
+		 * @since TBD
+		 *
+		 * @param int $value the integer representation of the value
+		 * @param Abstract_Value the object instance
+		 *
+		 * @return int
+		 */
+		$value = apply_filters( "tec_common_value_{$this->class_name}_get_integer", $this->integer, $this );
+
+		/**
+		 * Filter the value returned for get_integer() when implemented in any class
+		 *
+		 * @since TBD
+		 *
+		 * @param int $value the integer representation of the value
+		 * @param Abstract_Value the object instance
+		 *
+		 * @return int
+		 */
+		return apply_filters( 'tec_common_value_get_integer', $value, $this );
+
 	}
 
 	/**
@@ -92,7 +118,29 @@ abstract class Abstract_Value implements Value_Interface {
 	 * @return float
 	 */
 	public function get_float() {
-		return $this->float;
+		/**
+		 * Filter the value returned for get_float() when implemented in a specific class name
+		 *
+		 * @since TBD
+		 *
+		 * @param float $value the float representation of the value
+		 * @param Abstract_Value the object instance
+		 *
+		 * @return float
+		 */
+		$value = apply_filters( "tec_common_value_{$this->class_name}_get_integer", $this->float, $this );
+
+		/**
+		 * Filter the value returned for get_float() when implemented in any class
+		 *
+		 * @since TBD
+		 *
+		 * @param float $value the float representation of the value
+		 * @param Abstract_Value the object instance
+		 *
+		 * @return float
+		 */
+		return apply_filters( 'tec_common_value_get_float', $value, $this );
 	}
 
 	/**
@@ -103,7 +151,29 @@ abstract class Abstract_Value implements Value_Interface {
 	 * @return int
 	 */
 	public function get_precision() {
-		return $this->precision;
+		/**
+		 * Filter the value returned for get_precision() when implemented in a specific class name
+		 *
+		 * @since TBD
+		 *
+		 * @param int $value the precision to which values will be calculated
+		 * @param Abstract_Value the object instance
+		 *
+		 * @return int
+		 */
+		$value = apply_filters( "tec_common_value_{$this->class_name}_get_precision", $this->precision, $this );
+
+		/**
+		 * Filter the value returned for get_precision() when implemented in any class
+		 *
+		 * @since TBD
+		 *
+		 * @param int $value the precision to which values will be calculated
+		 * @param Abstract_Value the object instance
+		 *
+		 * @return int
+		 */
+		return apply_filters( 'tec_common_value_get_precision', $value, $this );
 	}
 
 	/**
@@ -133,56 +203,87 @@ abstract class Abstract_Value implements Value_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $amount the formatted string.
+	 * @param string $value the formatted string.
 	 *
 	 * @return float
 	 */
-	public function normalize( $amount ) {
+	public function normalize( $value ) {
 
-		if ( is_numeric( $amount ) ) {
-			return (float) $amount;
+		if ( is_numeric( $value ) ) {
+			/**
+			 * Filter the value returned for normalize() when implemented in a specific class name
+			 *
+			 * @since TBD
+			 *
+			 * @param float $value the normalized value
+			 * @param Abstract_Value the object instance
+			 *
+			 * @return float
+			 */
+			$value = (float) apply_filters( "tec_common_value_{$this->class_name}_normalized", (float) $value, $this );
+
+			/**
+			 * Filter the value returned for normalize() when implemented in a specific class name
+			 *
+			 * @since TBD
+			 *
+			 * @param float $value the normalized value
+			 * @param Abstract_Value the object instance
+			 *
+			 * @return float
+			 */
+			do_action( 'tec_common_value_normalize_is_numeric', $value, $this );
+
+			/**
+			 * Filter the value returned for get_precision() when implemented in any class
+			 *
+			 * @since TBD
+			 *
+			 * @param float $value the normalized value
+			 * @param Abstract_Value the object instance
+			 *
+			 * @return float
+			 */
+			return (float) apply_filters( 'tec_common_value_normalized', $value, $this );
 		}
 
-		if ( $this->is_character_block( $amount ) ) {
+		if ( $this->is_character_block( $value ) ) {
 			return (float) 0;
 		}
 
 		// If we can split the amount by spaces, remove any blocks that don't contain any digits
 		// This is important in case the currency unit contains the same characters as the decimal/thousands
 		// separators such as in Moroccan Dirham (1,234.56 .د.م.) or Danish Krone (kr. 1.234,56)
-		foreach ( explode( ' ', $amount ) as $block ) {
+		foreach ( explode( ' ', $value ) as $block ) {
 			if ( $this->is_character_block( $block ) ) {
-				$amount = str_replace( $block, '', $amount );
+				$value = str_replace( $block, '', $value );
 			}
 		}
 
-
 		// Remove encoded html entities
-		$amount = preg_replace( '/&[^;]+;/', '', trim( $amount ) );
-
+		$value = preg_replace( '/&[^;]+;/', '', trim( $value ) );
 
 		// Get all non-digits from the amount
-		preg_match_all( '/[^\d]/', $amount, $matches );
+		preg_match_all( '/[^\d]/', $value, $matches );
 
 		// if the string is all digits, it is numeric
 		if ( empty( $matches[0] ) ) {
-			return (float) $amount;
+			return (float) $value;
 		}
-
 
 		$tokens    = array_unique( $matches[0] );
 		$separator = '/////';
 
 		foreach ( $tokens as $token ) {
-			if ( $this->is_decimal_separator( $token, $amount ) ) {
+			if ( $this->is_decimal_separator( $token, $value ) ) {
 				$separator = $token;
 				continue;
 			}
 
-			$amount = str_replace( $token, '', $amount );
+			$value = str_replace( $token, '', $value );
 		}
 
-		$pieces = explode( $separator, $amount );
+		$pieces = explode( $separator, $value );
 
 		// If the initial amount did not have decimals specified, $pieces will be an array of a single
 		// numeric value, so we just return it as a float.
@@ -192,12 +293,12 @@ abstract class Abstract_Value implements Value_Interface {
 
 		$decimal = array_pop( $pieces );
 
-		return (float) implode( '', array_merge( $pieces, ['.', $decimal] ) );
+		return (float) implode( '', array_merge( $pieces, [ '.', $decimal ] ) );
 	}
 
 	/**
 	 * Value loader. This method uses Reflection to call all registered `set_$property_value` methods in the
-	 * inheritance chain every time the object is updated so the values in each of the formats are always kept up to
+	 * inheritance chain every time the object is updated, so the values in each of the formats are always kept up to
 	 * date.
 	 *
 	 * @since TBD

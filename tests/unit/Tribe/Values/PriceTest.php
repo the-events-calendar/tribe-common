@@ -10,6 +10,15 @@ class PriceClassStub extends Abstract_Currency {
 	public function set_up_currency_details() {
 		return;
 	}
+
+}
+
+function apply_filters( $filter, $thing ) {
+	return $thing;
+}
+
+function do_action( $action ) {
+	return;
 }
 
 class PriceTest extends \Codeception\Test\Unit {
