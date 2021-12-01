@@ -173,6 +173,10 @@ class Classic_Editor {
 	 * @return bool
 	 */
 	public static function is_classic_option_active() {
+		if ( ! static::is_classic_plugin_active() ) {
+			return false;
+		}
+
 		$valid_values  = [ 'replace', 'classic' ];
 		$replace       = in_array( (string) get_option( static::$classic_option_key ), $valid_values, true );
 

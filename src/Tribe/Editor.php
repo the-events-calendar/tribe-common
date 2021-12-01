@@ -227,7 +227,7 @@ class Tribe__Editor {
 	 *
 	 * @see https://wordpress.org/plugins/classic-editor/
 	 *
-	 * prior 1.3 version the Classic Editor plugin was bundle inside of a unique function:
+	 * prior 1.3 version the Classic Editor plugin was bundled inside of a unique function:
 	 * `classic_editor_replace` now all is bundled inside of a class `Classic_Editor`
 	 *
 	 * @since 4.8
