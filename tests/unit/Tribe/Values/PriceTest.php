@@ -52,7 +52,7 @@ class PriceTest extends \Codeception\Test\Unit {
 		$price->set_value( $value );
 		$price->sub_total( $float );
 
-		$this->assertEquals( (float) ( $integer * $float ), $price->get_normalized_value() );
+		$this->assertEquals( (float) ( $float * $float ), $price->get_normalized_value() );
 	}
 
 	/**
