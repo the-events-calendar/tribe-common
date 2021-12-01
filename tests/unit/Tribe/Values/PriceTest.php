@@ -2,6 +2,9 @@
 
 namespace Tribe\Values;
 
+/**
+ * Stub class used for testing so we don't depend on a live WP install
+ */
 class PriceClassStub extends Abstract_Currency {
 
 	public function set_up_currency_details() {
@@ -49,7 +52,36 @@ class PriceTest extends \Codeception\Test\Unit {
 		$price->set_value( $value );
 		$price->sub_total( $float );
 
-		$this->assertEquals( (float) ($integer * $float), $price->get_normalized_value() );
+		$this->assertEquals( (float) ( $integer * $float ), $price->get_normalized_value() );
+	}
+
+	/**
+	 * @dataProvider numerical_values
+	 */
+	public function test_total_sums_values( $value, $float, $integer, $default_currency_format, $decimal, $string ) {
+
+		$args = func_get_args();
+		$i    = 0;
+
+		while ( $i < count( $args ) ) {
+			// If working over the integer representation, divide it by the precision before instantiating
+			$values[ $i ] = new PriceClassStub();
+			$value        = $i === 2 ? $args[ $i ] : ( (int) $args[ $i ] / $values[ $i ]->get_precision() );
+			$values[ $i ]->set_value( $value );
+			$to_sum[ $i ] = $value;
+			$i ++;
+		}
+
+		// Assert sum works with a zero'ed instance
+		$price = new PriceClassStub();
+		$price->total( $values );
+		$this->assertEquals( array_sum( $to_sum ), $price->get_float() );
+
+		// Assert sum includes the value already present in the object, if any
+		$price->set_value( $float );
+		$price->total( $values );
+		$this->assertEquals( array_sum( $to_sum ) + $float, $price->get_float() );
+
 	}
 
 	public function numerical_values() {
