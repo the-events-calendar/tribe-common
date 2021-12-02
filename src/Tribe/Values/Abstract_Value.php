@@ -55,21 +55,14 @@ abstract class Abstract_Value implements Value_Interface {
 	 * @param mixed $amount the value to set initially
 	 */
 	public function __construct( $amount = 0 ) {
+		$this->set_class_name();
 		$this->set_initial_representation( $amount );
 		$this->set_normalized_amount( $amount );
 		$this->update();
-		$this->class_name = trim( get_class( $this ), '\\' );
 	}
 
 	/**
-	 * Public setter to use for any object.
-	 *
-	 * Any time the value in a child class needs to be updated, use this method to do it, as it will update
-	 * all properties of the object state.
-	 *
-	 * @since TBD
-	 *
-	 * @param mixed $amount the value to set
+	 * @inheritDoc
 	 */
 	public function set_value( $amount ) {
 		$this->set_normalized_amount( $amount );
@@ -77,11 +70,7 @@ abstract class Abstract_Value implements Value_Interface {
 	}
 
 	/**
-	 * Get the current integer representation of the object value
-	 *
-	 * @since TBD
-	 *
-	 * @return int
+	 * @inheritDoc
 	 */
 	public function get_integer() {
 		/**
@@ -111,11 +100,7 @@ abstract class Abstract_Value implements Value_Interface {
 	}
 
 	/**
-	 * Get the current float representation of the object value
-	 *
-	 * @since TBD
-	 *
-	 * @return float
+	 * @inheritDoc
 	 */
 	public function get_float() {
 		/**
@@ -144,11 +129,7 @@ abstract class Abstract_Value implements Value_Interface {
 	}
 
 	/**
-	 * Get the current decimal precision set for the object
-	 *
-	 * @since TBD
-	 *
-	 * @return int
+	 * @inheritDoc
 	 */
 	public function get_precision() {
 		/**
@@ -177,35 +158,21 @@ abstract class Abstract_Value implements Value_Interface {
 	}
 
 	/**
-	 * Get the current normalized value for the object
-	 *
-	 * @since TBD
-	 *
-	 * @return float
+	 * @inheritDoc
 	 */
 	public function get_normalized_value() {
 		return $this->normalized_amount;
 	}
 
 	/**
-	 * Get the value initially passed when the object was instantiated
-	 *
-	 * @since TBD
-	 *
-	 * @return mixed
+	 * @inheritDoc
 	 */
 	public function get_initial_representation() {
 		return $this->initial_value;
 	}
 
 	/**
-	 * Transforms any formatted numeric string into a numeric value
-	 *
-	 * @since TBD
-	 *
-	 * @param string $value the formatted string.
-	 *
-	 * @return float
+	 * @inheritDoc
 	 */
 	public function normalize( $value ) {
 
