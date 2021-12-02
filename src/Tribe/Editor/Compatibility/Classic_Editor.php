@@ -89,6 +89,9 @@ class Classic_Editor {
 		'classic',
 	];
 
+	public static $classic_url_param = null;
+	public static $classic_url_override = null;
+
 	/**
 	 * Registers the hooks and filters required based on if the Classic Editor plugin is active.
 	 *
@@ -107,6 +110,17 @@ class Classic_Editor {
 	 */
 	public function hooks() {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ] );
+		add_action( 'tribe_plugins_loaded', [ $this, 'classic_url_params' ], 22 );
+	}
+
+	public function classic_url_params() {
+		if ( null === static::$classic_url_param ) {
+			static::$classic_url_param = isset( $_GET[  static::$classic_param ] ) || isset( $_POST[  static::$classic_param ] );
+		}
+
+		if ( null === static::$classic_url_override ) {
+			static::$classic_url_override = isset( $_GET[ static::$classic_override ] ) || isset( $_POST[ static::$classic_override ] );
+		}
 	}
 
 	/**
@@ -119,26 +133,19 @@ class Classic_Editor {
 	 * @return boolean Whether we should force blocks over classic.
 	 */
 	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
-		global $post;
-
 		if ( ! static::is_classic_plugin_active() ) {
 			return (boolean) $should_load_blocks;
 		}
 
-		if ( ! function_exists( 'tribe_get_request_var' ) ) {
-			include_once dirname( dirname( dirname( dirname( __FILE__ ) ) ) )  . '/functions/utils.php';
+		if ( static::$classic_url_override ) {
+			$should_load_blocks = true;
 		}
 
-		$blocks  = (boolean) Plugin_Editor::choose_editor( $should_load_blocks, $post );
-		$classic = isset( $_REQUEST['classic-editor'] ) || isset( $_GET['classic-editor'] );
-		$forget  = isset( $_REQUEST['classic-editor__forget'] ) || isset( $_GET['classic-editor__forget'] );
-
-		//sanity check. If these are set, the user is choosing to use the opposite of what Classic Editor specifies.
-		if ( $classic && $forget) {
-			return (boolean) !$blocks;
+		if ( static::$classic_url_param ) {
+			$should_load_blocks = false;
 		}
 
-		return (boolean) $blocks || $should_load_blocks;
+		return $should_load_blocks;
 	}
 
 	/**
