@@ -2,7 +2,7 @@
 
 namespace Tribe\Values;
 
-trait ValueFormatting {
+trait Value_Formatting {
 
 	/**
 	 * Transforms a normalized value into a string with the decimal representation with significant digits rounded to

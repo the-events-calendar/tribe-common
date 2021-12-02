@@ -2,7 +2,7 @@
 
 namespace Tribe\Values;
 
-trait ValueCalculation {
+trait Value_Calculation {
 
 	public function sub_total( $multiplier ) {
 		$this->set_value( $this->multiply( $multiplier ) );

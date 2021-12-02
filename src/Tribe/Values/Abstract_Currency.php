@@ -10,7 +10,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 
 	private $string;
 
-	use ValueFormatting;
+	use Value_Formatting;
 
 	public function __construct( $amount = 0 ) {
 		$this->set_up_currency_details();

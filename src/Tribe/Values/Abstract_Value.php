@@ -6,7 +6,7 @@ use Tribe\Traits\Reflection_Tools;
 
 abstract class Abstract_Value implements Value_Interface {
 
-	use ValueCalculation;
+	use Value_Calculation;
 	use Reflection_Tools;
 
 	/**
