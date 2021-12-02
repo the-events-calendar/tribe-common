@@ -37,8 +37,7 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function should_load_blocks() {
-		$gutenberg = $this->is_gutenberg_plugin_active() || $this->is_wp_version();
-
+		$gutenberg          = $this->is_gutenberg_plugin_active() || $this->is_wp_version();
 		$should_load_blocks = $gutenberg && $this->is_blocks_editor_active() && ! $this->is_classic_editor();
 
 		/**
@@ -48,7 +47,9 @@ class Tribe__Editor {
 		 *
 		 * @param bool $should_load_blocks Whether the blocks editor should be activated or not.
 		 */
-		return (bool) apply_filters( 'tribe_editor_should_load_blocks', $should_load_blocks );
+		$should_load_blocks = (bool) apply_filters( 'tribe_editor_should_load_blocks', $should_load_blocks );
+
+		return $should_load_blocks;
 	}
 
 	/**

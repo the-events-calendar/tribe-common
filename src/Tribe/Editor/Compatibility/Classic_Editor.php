@@ -122,16 +122,23 @@ class Classic_Editor {
 		global $post;
 
 		if ( ! static::is_classic_plugin_active() ) {
-			return $should_load_blocks;
+			return (boolean) $should_load_blocks;
 		}
 
-		$blocks = Plugin_Editor::choose_editor( $should_load_blocks, $post );
-
-		if ( $blocks ) {
-			return true;
+		if ( ! function_exists( 'tribe_get_request_var' ) ) {
+			include_once dirname( dirname( dirname( dirname( __FILE__ ) ) ) )  . '/functions/utils.php';
 		}
 
-		return $should_load_blocks;
+		$blocks  = (boolean) Plugin_Editor::choose_editor( $should_load_blocks, $post );
+		$classic = isset( $_REQUEST['classic-editor'] ) || isset( $_GET['classic-editor'] );
+		$forget  = isset( $_REQUEST['classic-editor__forget'] ) || isset( $_GET['classic-editor__forget'] );
+
+		//sanity check. If these are set, the user is choosing to use the opposite of what Classic Editor specifies.
+		if ( $classic && $forget) {
+			return (boolean) !$blocks;
+		}
+
+		return (boolean) $blocks || $should_load_blocks;
 	}
 
 	/**
@@ -157,7 +164,7 @@ class Classic_Editor {
 		 *
 		 * @param $is_plugin_active bool Value that indicates if the plugin is active or not.
 		 */
-		return apply_filters( 'tribe_is_classic_editor_plugin_active', $is_plugin_active );
+		return (boolean) apply_filters( 'tribe_is_classic_editor_plugin_active', $is_plugin_active );
 	}
 
 	/**
@@ -180,6 +187,6 @@ class Classic_Editor {
 		$valid_values  = [ 'replace', 'classic' ];
 		$replace       = in_array( (string) get_option( static::$classic_option_key ), $valid_values, true );
 
-		return $replace;
+		return (boolean) $replace;
 	}
 }
