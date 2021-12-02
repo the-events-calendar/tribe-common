@@ -430,7 +430,7 @@ class Tribe__Main {
 		$helper = Tribe__Admin__Helpers::instance();
 
 		// Are we on a post type screen?
-		$is_post_type = $helper->is_post_type_screen();
+		$is_post_type = $helper->is_post_type_screen() || 'post' === get_current_screen()->base;
 
 		// Are we on the Plugins page?
 		$is_plugins = $helper->is_screen( 'plugins' );
