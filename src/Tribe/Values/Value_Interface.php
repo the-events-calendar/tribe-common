@@ -5,6 +5,15 @@ namespace Tribe\Values;
 interface Value_Interface {
 
 	/**
+	 * Returns the class name set, to use in filters
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_class_name();
+
+	/**
 	 * Get the value initially passed when the object was instantiated
 	 *
 	 * @since TBD

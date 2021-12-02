@@ -45,6 +45,11 @@ abstract class Abstract_Value implements Value_Interface {
 	 */
 	private $precision = 2;
 
+	/**
+	 * The class name representation to use when firing scoped filters
+	 *
+	 * @var string
+	 */
 	public $class_name;
 
 	/**
@@ -83,7 +88,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 *
 		 * @return int
 		 */
-		$value = apply_filters( "tec_common_value_{$this->class_name}_get_integer", $this->integer, $this );
+		$value = apply_filters( "tec_common_value_{$this->get_class_name()}_get_integer", $this->integer, $this );
 
 		/**
 		 * Filter the value returned for get_integer() when implemented in any class
@@ -113,7 +118,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 *
 		 * @return float
 		 */
-		$value = apply_filters( "tec_common_value_{$this->class_name}_get_integer", $this->float, $this );
+		$value = apply_filters( "tec_common_value_{$this->get_class_name()}_get_integer", $this->float, $this );
 
 		/**
 		 * Filter the value returned for get_float() when implemented in any class
@@ -142,7 +147,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 *
 		 * @return int
 		 */
-		$value = apply_filters( "tec_common_value_{$this->class_name}_get_precision", $this->precision, $this );
+		$value = apply_filters( "tec_common_value_{$this->get_class_name()}_get_precision", $this->precision, $this );
 
 		/**
 		 * Filter the value returned for get_precision() when implemented in any class
@@ -154,7 +159,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 *
 		 * @return int
 		 */
-		return apply_filters( 'tec_common_value_get_precision', $value, $this );
+		return (int) apply_filters( 'tec_common_value_get_precision', $value, $this );
 	}
 
 	/**
@@ -177,41 +182,7 @@ abstract class Abstract_Value implements Value_Interface {
 	public function normalize( $value ) {
 
 		if ( is_numeric( $value ) ) {
-			/**
-			 * Filter the value returned for normalize() when implemented in a specific class name
-			 *
-			 * @since TBD
-			 *
-			 * @param float $value the normalized value
-			 * @param Abstract_Value the object instance
-			 *
-			 * @return float
-			 */
-			$value = (float) apply_filters( "tec_common_value_{$this->class_name}_normalized", (float) $value, $this );
-
-			/**
-			 * Filter the value returned for normalize() when implemented in a specific class name
-			 *
-			 * @since TBD
-			 *
-			 * @param float $value the normalized value
-			 * @param Abstract_Value the object instance
-			 *
-			 * @return float
-			 */
-			do_action( 'tec_common_value_normalize_is_numeric', $value, $this );
-
-			/**
-			 * Filter the value returned for get_precision() when implemented in any class
-			 *
-			 * @since TBD
-			 *
-			 * @param float $value the normalized value
-			 * @param Abstract_Value the object instance
-			 *
-			 * @return float
-			 */
-			return (float) apply_filters( 'tec_common_value_normalized', $value, $this );
+			return (float) $value;
 		}
 
 		if ( $this->is_character_block( $value ) ) {
@@ -302,7 +273,44 @@ abstract class Abstract_Value implements Value_Interface {
 	 * To set a new value use the public setter `$obj->set_value( $amount )`
 	 */
 	private function set_normalized_amount( $amount ) {
-		$this->normalized_amount = $this->normalize( $amount );
+
+		$normalized_value = $this->normalize( $amount );
+
+		/**
+		 * Filter the value to be set as $normalized_amount for a specific implementation.
+		 *
+		 * @since TBD
+		 *
+		 * @param float $normalized_value the normalized value
+		 * @param Abstract_Value the object instance
+		 *
+		 * @return float
+		 */
+		$normalized_value = (float) apply_filters( "tec_common_{$this->get_class_name()}_value_normalized", $normalized_value, $this );
+
+		/**
+		 * Filter the value to be set as $normalized_amount for all implementations.
+		 *
+		 * @since TBD
+		 *
+		 * @param float $normalized_value the normalized value
+		 * @param Abstract_Value the object instance
+		 *
+		 * @return float
+		 */
+		$normalized_value = (float) apply_filters( "tec_common_value_normalized", $normalized_value, $this );
+
+		/**
+		 * Fire action right before setting the normalized value
+		 *
+		 * @since TBD
+		 *
+		 * @param float $normalized_value the normalized value
+		 * @param Abstract_Value the object instance
+		 */
+		do_action( 'tec_common_value_normalized', $normalized_value, $this );
+
+		$this->normalized_amount = $normalized_value;
 	}
 
 	/**

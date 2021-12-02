@@ -12,12 +12,14 @@ trait Value_Formatting {
 	 *
 	 * @param float $value the normalized value to transform
 	 *
-	 * @param string the value rounded to the specified precision and formatted with proper separators.
+	 * @param string|\WP_Error the value rounded to the specified precision and formatted with proper separators.
 	 */
 	private function to_string( $value ) {
 
-		if ( ! $this->is_value_normalized( $value, __METHOD__ ) ) {
-			return $value;
+		if ( ! $this->is_value_normalized( $value ) ) {
+			return new \WP_Error( 400,
+				sprintf( __( "%s expects a value of type float, %s found.", 'tribe-common' ),
+					__METHOD__, gettype( $value ) ) );
 		}
 
 		return number_format(
@@ -35,13 +37,14 @@ trait Value_Formatting {
 	 *
 	 * @param float $value the normalized value to transform
 	 *
-	 * @param float the value rounded to the specified precision
+	 * @param float|\WP_Error the value rounded to the specified precision
 	 */
 	private function to_decimal( $value ) {
 
-		if ( ! $this->is_value_normalized( $value, __METHOD__ ) ) {
-			return $value;
-
+		if ( ! $this->is_value_normalized( $value ) ) {
+			return new \WP_Error( 400,
+				sprintf( __( "%s expects a value of type float, %s found.", 'tribe-common' ),
+					__METHOD__, gettype( $value ) ) );
 		}
 
 		return round( $value, $this->get_precision() );
@@ -55,31 +58,39 @@ trait Value_Formatting {
 	 *
 	 * @param float $value the normalized value to transform
 	 *
-	 * @return string the currency-formatted string
+	 * @return string|\WP_Error the currency-formatted string
 	 */
 	private function to_currency( $value ) {
 
-		if ( ! $this->is_value_normalized( $value, __METHOD__ ) ) {
-			return $value;
+		if ( ! $this->is_value_normalized( $value ) ) {
+			return new \WP_Error( 400,
+				sprintf( __( "%s expects a value of type float, %s found.", 'tribe-common' ),
+					__METHOD__, gettype( $value ) ) );
 		}
 
 		$value = $this->to_string( $value );
 
-		if( 'prefix' === $this->get_currency_symbol_position() ) {
+		if ( 'prefix' === $this->get_currency_symbol_position() ) {
 			return $this->get_currency_symbol() . $value;
 		}
 
 		return $value . $this->get_currency_symbol();
 	}
 
-	private function is_value_normalized( $value, $method ) {
+	/**
+	 * Checks if a value is a normalized float
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed input value
+	 *
+	 * @return bool
+	 */
+	private function is_value_normalized( $value ) {
 
 		if ( is_float( $value ) ) {
 			return true;
 		}
-
-		$type = gettype( $value );
-		_doing_it_wrong( esc_html_e( "$method expects a float value, $type found in $value", 'tribe-common' ) );
 
 		return false;
 	}
