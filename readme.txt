@@ -3,7 +3,7 @@
 = [4.14.9] TBD =
 
 * Feature - Add loader template for the admin views. [VE-435]
-* Fix - Prevent PHP 8 warnings when using extensions. [TEC-4165]
+* Fix - Prevent PHP 8 warnings when using extensions. (props to @huubl for this fix!) [TEC-4165]
 
 = [4.14.8] 2021-11-17 =
 
