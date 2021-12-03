@@ -28,11 +28,11 @@ class EditorTest extends \Codeception\TestCase\WPTestCase {
 
 	/* Utility Functions */
 	public function tec_blocks_on() {
-		tribe_update_option( $this->editor->blocks_editor_key, '1' );
+		tribe_update_option( $this->editor::$blocks_editor_key, '1' );
 	}
 
 	public function tec_blocks_off() {
-		tribe_update_option( $this->editor->blocks_editor_key, '0' );
+		tribe_update_option( $this->editor::$blocks_editor_key, '0' );
 	}
 
 	/**

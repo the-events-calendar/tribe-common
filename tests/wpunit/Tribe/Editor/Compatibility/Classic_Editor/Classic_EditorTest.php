@@ -60,7 +60,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	public function clear_all() {
 		delete_option( $this->classic_editor::$classic_option_key );
 		delete_option( $this->classic_editor::$user_choice_key );
-		tribe_remove_option( $this->editor->blocks_editor_key );
+		tribe_remove_option( $this->editor::$blocks_editor_key );
 
 		remove_filter( 'tribe_editor_classic_is_active', function() {
 			return $this->classic_editor::is_classic_option_active();
@@ -192,7 +192,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 * @since TBD
 	 */
 	public function tec_blocks_on() {
-		tribe_update_option( $this->editor->blocks_editor_key, '1' );
+		tribe_update_option( $this->editor::$blocks_editor_key, '1' );
 	}
 
 	/**
@@ -201,7 +201,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	 * @since TBD
 	 */
 	public function tec_blocks_off() {
-		tribe_update_option( $this->editor->blocks_editor_key, '0' );
+		tribe_update_option( $this->editor::$blocks_editor_key, '0' );
 	}
 
 	/* Tests */

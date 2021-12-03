@@ -201,7 +201,7 @@ class Tribe__Editor {
 	 * Adds the required fields into the Events Post Type so that we can use Block Editor
 	 *
 	 * @since 4.8
-	 * @deprecated TBD
+	 * @deprecated TBD This is not used anywhere.
 	 *
 	 * @param  array $args Arguments used to setup the Post Type
 	 *
@@ -237,7 +237,7 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function is_classic_plugin_active() {
-		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active' );
+		_deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active' );
 
 		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active();
 	}
