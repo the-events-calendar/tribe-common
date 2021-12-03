@@ -4,6 +4,7 @@
 
 * Feature - Add loader template for the admin views. [VE-435]
 * Fix - Update the way we handle Classic Editor compatibility. Specifically around user choice. [TEC-4016]
+* Fix - Prevent PHP 8 warnings when using extensions. (props to @huubl for this fix!) [TEC-4165]
 
 = [4.14.8] 2021-11-17 =
 
