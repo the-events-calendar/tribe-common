@@ -6,11 +6,53 @@ namespace Tribe\Values;
  * Stub class used for testing so we don't depend on a live WP install
  */
 class PriceClassStub extends Abstract_Currency {
+	private $currency_code = 'USD';
+
+	private $currency_separator_decimal = '.';
+
+	private $currency_separator_thousands = ',';
+
+	private $currency_symbol = '$';
+
+	private $currency_symbol_position = 'prefix';
 
 	public function set_up_currency_details() {
 		return;
 	}
 
+	public function get_currency_code() {
+		return $this->currency_code;
+	}
+
+	public function get_currency_symbol() {
+		return $this->currency_symbol;
+	}
+
+	public function get_currency_symbol_position() {
+		return $this->currency_symbol_position;
+	}
+
+	public function get_currency_separator_decimal() {
+		return $this->currency_separator_decimal;
+	}
+
+	public function get_currency_separator_thousands() {
+		return $this->currency_separator_thousands;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_class_name() {
+		return $this->class_name;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function set_class_name() {
+		$this->class_name = 'test_class';
+	}
 }
 
 function apply_filters( $filter, $thing ) {
@@ -19,6 +61,10 @@ function apply_filters( $filter, $thing ) {
 
 function do_action( $action ) {
 	return;
+}
+
+function wp_strip_all_tags( $thing ) {
+	return strip_tags( $thing );
 }
 
 class PriceTest extends \Codeception\Test\Unit {

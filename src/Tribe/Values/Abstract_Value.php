@@ -189,28 +189,75 @@ abstract class Abstract_Value implements Value_Interface {
 			return (float) 0;
 		}
 
-		// If we can split the amount by spaces, remove any blocks that don't contain any digits
-		// This is important in case the currency unit contains the same characters as the decimal/thousands
-		// separators such as in Moroccan Dirham (1,234.56 .د.م.) or Danish Krone (kr. 1.234,56)
-		foreach ( explode( ' ', $value ) as $block ) {
-			if ( $this->is_character_block( $block ) ) {
-				$value = str_replace( $block, '', $value );
-			}
-		}
-
-		// Remove encoded html entities
-		$value = preg_replace( '/&[^;]+;/', '', trim( $value ) );
+		$value = $this->remove_character_blocks( $value );
+		$value = $this->remove_html( $value );
 
 		// Get all non-digits from the amount
-		preg_match_all( '/[^\d]/', $value, $matches );
+		preg_match_all( '/[^\d]/', $value, $non_digits );
 
 		// if the string is all digits, it is numeric
-		if ( empty( $matches[0] ) ) {
+		if ( empty( $non_digits[0] ) ) {
 			return (float) $value;
 		}
 
-		$tokens    = array_unique( $matches[0] );
-		$separator = '/////';
+		$pieces = $this->remove_non_digits( $value, $non_digits );
+
+		return (float) $this->assemble_normalized_value( $pieces );
+	}
+
+	/**
+	 * Removes any blocks composed of all non-digit characters from the numeric string. These will usually represent
+	 * the currency code and any other pieces of text that may have been sent with the value.
+	 *
+	 * This is specially important in case the currency unit contains the same characters as the decimal/thousands
+	 * separators such as in Moroccan Dirham (1,234.56 .د.م.) or Danish Krone (kr. 1.234,56)
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value the numeric string being normalized
+	 *
+	 * @return string
+	 */
+	private function remove_character_blocks( $value ) {
+		foreach ( explode( ' ', $value ) as $block ) {
+			if ( ! $this->is_character_block( $block ) ) {
+				continue;
+			}
+
+			$value = str_replace( $block, '', $value );
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Removes all html tags and html entities from the value string
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value the value being normalized
+	 *
+	 * @return string
+	 */
+	private function remove_html( $value ) {
+		return wp_strip_all_tags( preg_replace( '/&[^;]+;/', '', trim( $value ) ) );
+	}
+
+	/**
+	 * Takes the value string and a list of non-digit characters and removes any of those characters. If the character
+	 * is found to be a decimal separator, normalize it to a dot, so the number translates to a float.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $value      the value being normalized
+	 * @param string[] $non_digits a list of non-digit characters present in $value
+	 * @param string   $separator  a default separator to use when splitting the string
+	 *
+	 * @return string[]
+	 */
+	private function remove_non_digits( $value, $non_digits, $separator = '>>>' ) {
+
+		$tokens = array_unique( $non_digits[0] );
 
 		foreach ( $tokens as $token ) {
 			if ( $this->is_decimal_separator( $token, $value ) ) {
@@ -221,7 +268,19 @@ abstract class Abstract_Value implements Value_Interface {
 			$value = str_replace( $token, '', $value );
 		}
 
-		$pieces = explode( $separator, $value );
+		return explode( $separator, $value );
+	}
+
+	/**
+	 * Re-assemble the normalized value to store.
+	 *
+	 * @since TBD
+	 *
+	 * @param int[] $pieces the normalized value split in an array.
+	 *
+	 * @return float
+	 */
+	private function assemble_normalized_value( $pieces ) {
 
 		// If the initial amount did not have decimals specified, $pieces will be an array of a single
 		// numeric value, so we just return it as a float.
