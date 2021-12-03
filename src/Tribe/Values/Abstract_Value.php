@@ -2,12 +2,10 @@
 
 namespace Tribe\Values;
 
-use Tribe\Traits\Reflection_Tools;
-
 abstract class Abstract_Value implements Value_Interface {
 
 	use Value_Calculation;
-	use Reflection_Tools;
+	use Value_Update;
 
 	/**
 	 * Holds the initial value passed to the constructor. This variable does not change.
@@ -51,6 +49,8 @@ abstract class Abstract_Value implements Value_Interface {
 	 * @var string
 	 */
 	public $class_name;
+
+	public $setters;
 
 	/**
 	 * Initialize class
@@ -294,23 +294,6 @@ abstract class Abstract_Value implements Value_Interface {
 	}
 
 	/**
-	 * Value loader. This method uses Reflection to call all registered `set_$property_value` methods in the
-	 * inheritance chain every time the object is updated, so the values in each of the formats are always kept up to
-	 * date.
-	 *
-	 * @since TBD
-	 */
-	private function update() {
-		$reflection = $this->get_reflection_class( $this );
-
-		foreach ( $this->get_setters() as $setter ) {
-			$method = $reflection->getMethod( $setter );
-			$method->setAccessible( true );
-			$method->invoke( $this );
-		}
-	}
-
-	/**
 	 * Private setter for the initial value the object was created with. This value cannot be changed during the object
 	 * lifecycle.
 	 *
@@ -379,7 +362,7 @@ abstract class Abstract_Value implements Value_Interface {
 	 *
 	 * To set a new value use the public setter `$obj->set_value( $amount )`
 	 */
-	private function set_integer_value() {
+	protected function set_integer_value() {
 		$this->integer = $this->to_integer( $this->normalized_amount );
 	}
 
@@ -390,7 +373,7 @@ abstract class Abstract_Value implements Value_Interface {
 	 *
 	 * To set a new value use the public setter `$obj->set_value( $amount )`
 	 */
-	private function set_float_value() {
+	protected function set_float_value() {
 		$this->float = $this->normalized_amount;
 	}
 
@@ -436,54 +419,5 @@ abstract class Abstract_Value implements Value_Interface {
 	 */
 	private function is_character_block( $block ) {
 		return empty( preg_replace( '/\D/', '', $block ) );
-	}
-
-	/**
-	 * Get all valid setters registered to this object instance
-	 *
-	 * @since TBD
-	 *
-	 * @return array
-	 */
-	private function get_setters() {
-		$methods = $this->get_object_method_names( $this, \ReflectionProperty::IS_PRIVATE );
-
-		return array_filter( $methods, function ( $item ) {
-			return $this->is_valid_setter( $item );
-		} );
-	}
-
-	/**
-	 * Checks if a given method name represents a valid setter for the current object
-	 *
-	 * Valid setter names are any methods named `set_{$property}_value`, registered to the calling object,
-	 * for an existing object $property name.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $name a method name
-	 *
-	 * @return bool
-	 */
-	private function is_valid_setter( $name ) {
-
-		$vars    = $this->get_object_property_names( $this, \ReflectionProperty::IS_PRIVATE );
-		$methods = $this->get_object_method_names( $this, \ReflectionProperty::IS_PRIVATE );
-
-		if ( ! in_array( $name, $methods, true ) ) {
-			return false;
-		}
-
-		if ( strpos( $name, 'set_' ) !== 0 || strpos( $name, '_value' ) !== strlen( $name ) - 6 ) {
-			return false;
-		}
-
-		$name = str_replace( [ 'set_', '_value' ], '', $name );
-
-		if ( in_array( $name, $vars, true ) ) {
-			return true;
-		}
-
-		return false;
 	}
 }

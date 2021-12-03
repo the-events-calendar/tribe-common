@@ -101,6 +101,28 @@ interface Value_Interface {
 	public function set_class_name();
 
 	/**
+	 * Get all valid setters registered to this object instance, up the inheritance chain.
+	 *
+	 * Implemented in Tribe\Values\Value_Update.php
+	 *
+	 * @since TBD
+	 *
+	 * @return string[]
+	 */
+	public function get_setters();
+
+	/**
+	 * Value loader. This method calls all registered setter methods in the
+	 * inheritance chain every time the object is updated, so the values in each of the formats are always kept up to
+	 * date.
+	 *
+	 * Implemented in Tribe\Values\Value_Update.php
+	 *
+	 * @since TBD
+	 */
+	public function update();
+
+	/**
 	 * Adds the value of the current object to the sum of the values received and return the result.
 	 *
 	 * @since TBD
