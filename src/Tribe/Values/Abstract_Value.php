@@ -118,7 +118,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 *
 		 * @return float
 		 */
-		$value = apply_filters( "tec_common_value_{$this->get_class_name()}_get_integer", $this->float, $this );
+		$value = apply_filters( "tec_common_value_{$this->get_class_name()}_get_float", $this->float, $this );
 
 		/**
 		 * Filter the value returned for get_float() when implemented in any class
