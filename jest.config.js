@@ -4,6 +4,6 @@ module.exports = {
 	...sharedConfig,
 	displayName: 'common',
 	testMatch: [
-		'**/__tests__/*.test.js',
+		'**/__tests__/**/*.js',
 	],
 };
