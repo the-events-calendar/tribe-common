@@ -3,4 +3,7 @@ var sharedConfig = require( '@the-events-calendar/product-taskmaster/config/jest
 module.exports = {
 	...sharedConfig,
 	displayName: 'common',
+	testMatch: [
+		'**/__tests__/*.test.js',
+	],
 };

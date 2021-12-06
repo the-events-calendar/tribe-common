@@ -32,7 +32,7 @@
       "!src/resources/postcss/tribe-ui.pcss"
     ],
     "jest": [
-      "src/modules/**/__tests__/**/*.js"
+      "src/modules"
     ]
   },
   "engines": { "node": "16.6.1", "npm": "7.20.3" },
