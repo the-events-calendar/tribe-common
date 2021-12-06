@@ -10,42 +10,42 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * @var string
 	 */
-	private $currency;
+	protected $currency;
 
 	/**
 	 * @var float
 	 */
-	private $decimal;
+	protected $decimal;
 
 	/**
 	 * @var string
 	 */
-	private $string;
+	protected $string;
 
 	/**
 	 * @var string
 	 */
-	private $currency_code = 'USD';
+	protected $currency_code = 'USD';
 
 	/**
 	 * @var string
 	 */
-	private $currency_separator_decimal = '.';
+	protected $currency_separator_decimal = '.';
 
 	/**
 	 * @var string
 	 */
-	private $currency_separator_thousands = ',';
+	protected $currency_separator_thousands = ',';
 
 	/**
 	 * @var string
 	 */
-	private $currency_symbol = '$';
+	protected $currency_symbol = '$';
 
 	/**
 	 * @var string
 	 */
-	private $currency_symbol_position = 'prefix';
+	protected $currency_symbol_position = 'prefix';
 
 	/**
 	 * Initialize object
