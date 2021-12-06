@@ -5,13 +5,22 @@ namespace Tribe\Values;
 interface Value_Interface {
 
 	/**
-	 * Returns the class name set, to use in filters
+	 * Creates a new instance of the class this method is called from.
+	 *
+	 * @since TBD
+	 *
+	 * @return Abstract_Value
+	 */
+	public static function create();
+
+	/**
+	 * Returns the object type, to use in filters
 	 *
 	 * @since TBD
 	 *
 	 * @return string
 	 */
-	public function get_class_name();
+	public function get_value_type();
 
 	/**
 	 * Get the value initially passed when the object was instantiated
@@ -91,14 +100,6 @@ interface Value_Interface {
 	 * @param mixed $amount the value to set
 	 */
 	public function set_value( $amount );
-
-	/**
-	 * Use this method to set a class name to public $class_name. This name will be used on all class-specific filters
-	 * created in child classes.
-	 *
-	 * @since TBD
-	 */
-	public function set_class_name();
 
 	/**
 	 * Get all valid setters registered to this object instance, up the inheritance chain.

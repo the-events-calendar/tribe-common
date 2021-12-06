@@ -32,7 +32,7 @@ trait Value_Update {
 		 *
 		 * @return string[]
 		 */
-		$setters = apply_filters( "tec_tickets_commerce_{$this->get_class_name()}_value_get_setters", $setters, $this );
+		$setters = apply_filters( "tec_tickets_commerce_{$this->get_value_type()}_value_get_setters", $setters, $this );
 
 		/**
 		 * Filter the value returned for get_setters() for all class names.

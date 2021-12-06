@@ -39,20 +39,6 @@ class PriceClassStub extends Abstract_Currency {
 	public function get_currency_separator_thousands() {
 		return $this->currency_separator_thousands;
 	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function get_class_name() {
-		return $this->class_name;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function set_class_name() {
-		$this->class_name = 'test_class';
-	}
 }
 
 function apply_filters( $filter, $thing ) {

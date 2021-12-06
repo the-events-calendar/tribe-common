@@ -44,26 +44,31 @@ abstract class Abstract_Value implements Value_Interface {
 	private $precision = 2;
 
 	/**
-	 * The class name representation to use when firing scoped filters
+	 * The class type representation to use when firing scoped filters
 	 *
 	 * @var string
 	 */
-	public $class_name;
-
-	public $setters;
+	public $value_type;
 
 	/**
-	 * Initialize class
+	 * Initialize object
 	 *
 	 * @since TBD
 	 *
 	 * @param mixed $amount the value to set initially
 	 */
 	public function __construct( $amount = 0 ) {
-		$this->set_class_name();
 		$this->set_initial_representation( $amount );
 		$this->set_normalized_amount( $amount );
 		$this->update();
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public static function create( $value = 0 ) {
+		$class = get_called_class();
+		return new $class( $value );
 	}
 
 	/**
@@ -83,24 +88,24 @@ abstract class Abstract_Value implements Value_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param int $value the integer representation of the value
+		 * @param int $integer the integer representation of the value
 		 * @param Abstract_Value the object instance
 		 *
 		 * @return int
 		 */
-		$value = apply_filters( "tec_common_value_{$this->get_class_name()}_get_integer", $this->integer, $this );
+		$integer = apply_filters( "tec_common_value_{$this->get_value_type()}_get_integer", $this->integer, $this );
 
 		/**
 		 * Filter the value returned for get_integer() when implemented in any class
 		 *
 		 * @since TBD
 		 *
-		 * @param int $value the integer representation of the value
+		 * @param int $integer the integer representation of the value
 		 * @param Abstract_Value the object instance
 		 *
 		 * @return int
 		 */
-		return apply_filters( 'tec_common_value_get_integer', $value, $this );
+		return apply_filters( 'tec_common_value_get_integer', $integer, $this );
 
 	}
 
@@ -113,24 +118,24 @@ abstract class Abstract_Value implements Value_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param float $value the float representation of the value
+		 * @param float $float the float representation of the value
 		 * @param Abstract_Value the object instance
 		 *
 		 * @return float
 		 */
-		$value = apply_filters( "tec_common_value_{$this->get_class_name()}_get_float", $this->float, $this );
+		$float = apply_filters( "tec_common_value_{$this->get_value_type()}_get_float", $this->float, $this );
 
 		/**
 		 * Filter the value returned for get_float() when implemented in any class
 		 *
 		 * @since TBD
 		 *
-		 * @param float $value the float representation of the value
+		 * @param float $float the float representation of the value
 		 * @param Abstract_Value the object instance
 		 *
 		 * @return float
 		 */
-		return apply_filters( 'tec_common_value_get_float', $value, $this );
+		return apply_filters( 'tec_common_value_get_float', $float, $this );
 	}
 
 	/**
@@ -142,24 +147,24 @@ abstract class Abstract_Value implements Value_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param int $value the precision to which values will be calculated
+		 * @param int $precision the precision to which values will be calculated
 		 * @param Abstract_Value the object instance
 		 *
 		 * @return int
 		 */
-		$value = apply_filters( "tec_common_value_{$this->get_class_name()}_get_precision", $this->precision, $this );
+		$precision = apply_filters( "tec_common_value_{$this->get_value_type()}_get_precision", $this->precision, $this );
 
 		/**
 		 * Filter the value returned for get_precision() when implemented in any class
 		 *
 		 * @since TBD
 		 *
-		 * @param int $value the precision to which values will be calculated
+		 * @param int $precision the precision to which values will be calculated
 		 * @param Abstract_Value the object instance
 		 *
 		 * @return int
 		 */
-		return (int) apply_filters( 'tec_common_value_get_precision', $value, $this );
+		return (int) apply_filters( 'tec_common_value_get_precision', $precision, $this );
 	}
 
 	/**
@@ -174,6 +179,13 @@ abstract class Abstract_Value implements Value_Interface {
 	 */
 	public function get_initial_representation() {
 		return $this->initial_value;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get_value_type() {
+		return $this->value_type;
 	}
 
 	/**
@@ -328,7 +340,7 @@ abstract class Abstract_Value implements Value_Interface {
 		 *
 		 * @return float
 		 */
-		$normalized_value = (float) apply_filters( "tec_common_{$this->get_class_name()}_value_normalized", $normalized_value, $this );
+		$normalized_value = (float) apply_filters( "tec_common_{$this->get_value_type()}_value_normalized", $normalized_value, $this );
 
 		/**
 		 * Filter the value to be set as $normalized_amount for all implementations.
