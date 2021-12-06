@@ -8,8 +8,8 @@ jest.mock( '@moderntribe/common/data/forms/reducers/form', () => {
 	const original = jest.requireActual( '@moderntribe/common/data/forms/reducers/form' );
 	return {
 		__esModule: true,
+		...original,
 		default: jest.fn( ( state = original.DEFAULT_STATE ) => state ),
-		DEFAULT_STATE: original.DEFAULT_STATE,
 	};
 } );
 
