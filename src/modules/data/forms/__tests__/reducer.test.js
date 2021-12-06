@@ -5,11 +5,9 @@ import reducer, { actions } from '@moderntribe/common/data/forms';
 import form, { DEFAULT_STATE } from '@moderntribe/common/data/forms/reducers/form';
 
 jest.mock( '@moderntribe/common/data/forms/reducers/form', () => {
-	const original = require.requireActual( '@moderntribe/common/data/forms/reducers/form' );
 	return {
 		__esModule: true,
-		...original,
-		default: jest.fn( ( state = original.DEFAULT_STATE ) => state ),
+		default: jest.fn( ( state ) => state ),
 	};
 } );
 

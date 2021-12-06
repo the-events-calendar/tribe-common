@@ -13,7 +13,7 @@ import { Tooltip as WpTooltip } from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import { Button } from '@moderntribe/common/elements';
+import Button from '@moderntribe/common/elements/button/element';
 
 class Tooltip extends PureComponent {
 	static defaultProps = {

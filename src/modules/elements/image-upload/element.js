@@ -14,7 +14,8 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { Button, Image } from '@moderntribe/common/elements';
+import Button from '@moderntribe/common/elements/button/element';
+import Image from '@moderntribe/common/elements/image/element';
 import { Close as CloseIcon } from '@moderntribe/common/icons';
 import { wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';

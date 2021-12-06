@@ -1,13 +1,7 @@
 /**
- * External dependencies
- */
-import React from 'react';
-import renderer from 'react-test-renderer';
-
-/**
  * Internal dependencies
  */
-import { Button } from '@moderntribe/common/elements';
+import Button from '@moderntribe/common/elements/button/element';
 
 describe( 'Button Element', () => {
 	it( 'renders button', () => {

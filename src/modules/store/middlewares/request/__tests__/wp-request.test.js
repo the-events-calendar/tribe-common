@@ -3,6 +3,18 @@
  */
 import wpRequest, { actions } from '@moderntribe/common/store/middlewares/request';
 
+jest.mock( '@moderntribe/common/utils/globals', () => ( {
+	rest: () => ( {
+		url: 'https://tec.localhost/',
+		nonce: {
+			namespaces: {
+				core: 'wp/v2',
+			},
+			wp_rest: '123',
+		},
+	} ),
+} ) );
+
 let create;
 const nextMock = jest.fn();
 const meta = {
@@ -90,7 +102,7 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect.assertions( 8 );
 		expect( meta.actions.none ).not.toHaveBeenCalled();
 		expect( meta.actions.error ).not.toHaveBeenCalled();
-		expect( meta.actions.start ).toHaveBeenCalledWith( 'wp/v2/tribe_organizer/1217', {} );
+		expect( meta.actions.start ).toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217', {} );
 		expect( meta.actions.start ).toHaveBeenCalled();
 		expect( meta.actions.start ).toHaveBeenCalledTimes( 1 );
 		expect( meta.actions.success ).toHaveBeenCalled();
@@ -126,7 +138,7 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect.assertions( 8 );
 		expect( meta.actions.none ).not.toHaveBeenCalled();
 		expect( meta.actions.error ).not.toHaveBeenCalled();
-		expect( meta.actions.start ).toHaveBeenCalledWith( 'wp/v2/tribe_organizer/1217', {} );
+		expect( meta.actions.start ).toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217', {} );
 		expect( meta.actions.start ).toHaveBeenCalled();
 		expect( meta.actions.start ).toHaveBeenCalledTimes( 1 );
 		expect( meta.actions.success ).toHaveBeenCalled();
@@ -144,7 +156,7 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect( meta.actions.none ).not.toHaveBeenCalled();
 		expect( meta.actions.success ).not.toHaveBeenCalled();
 		expect( meta.actions.start ).toHaveBeenCalled();
-		expect( meta.actions.start ).toHaveBeenCalledWith( 'wp/v2/tribe_organizer/1217', {} );
+		expect( meta.actions.start ).toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217', {} );
 		expect( meta.actions.error ).toHaveBeenCalled();
 		expect( meta.actions.error ).toHaveBeenCalledWith( error );
 	} );
@@ -162,7 +174,7 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect( meta.actions.none ).not.toHaveBeenCalled();
 		expect( meta.actions.success ).not.toHaveBeenCalled();
 		expect( meta.actions.start ).toHaveBeenCalled();
-		expect( meta.actions.start ).toHaveBeenCalledWith( 'wp/v2/tribe_organizer/1217//////', {} );
+		expect( meta.actions.start ).toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217//////', {} );
 		expect( meta.actions.error ).toHaveBeenCalled();
 		expect( meta.actions.error ).toHaveBeenCalledWith( error );
 	} );
