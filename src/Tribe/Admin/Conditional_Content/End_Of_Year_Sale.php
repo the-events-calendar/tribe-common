@@ -6,34 +6,34 @@ use Tribe__Date_Utils as Dates;
 /**
  * Set up for end of year sale promo.
  *
- * @since 4.14.7
+ * @since TBD
  */
 class End_Of_Year_Sale extends Datetime_Conditional_Abstract {
 	/**
 	 * Promo slug.
 	 *
-	 * @since 4.14.7
+	 * @since TBD
 	 */
 	protected $slug = 'end_of_year_sale';
 
 	/**
 	 * Start Date.
 	 *
-	 * @since 4.14.7
+	 * @since TBD
 	 */
 	protected $start_date = 'December 23';
 
 	/**
 	 * End Date.
 	 *
-	 * @since 4.14.7
+	 * @since TBD
 	 */
 	protected $end_date = 'December 31';
 
 	/**
 	 * Register actions and filters.
 	 *
-	 * @since 4.14.7
+	 * @since TBD
 	 * @return void
 	 */
 	public function hook() {
@@ -43,7 +43,7 @@ class End_Of_Year_Sale extends Datetime_Conditional_Abstract {
 	/**
 	 * Replace the opening markup for the general settings info box.
 	 *
-	 * @since 4.14.7
+	 * @since TBD
 	 * @return void
 	 */
 	public function add_conditional_content( $fields ) {

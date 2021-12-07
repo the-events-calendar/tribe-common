@@ -36,7 +36,7 @@ class End_Of_Year_Sale extends \Tribe\Admin\Notice\Date_Based {
 	 * {@inheritDoc}
 	 */
 	public function display_notice() {
-		\Tribe__Assets::instance()->enqueue( [ 'tribe-common-admin' ] );
+		tribe_asset_enqueue( [ 'tribe-common-admin' ] );
 
 		// Set up template variables.
 		$template_args = [
