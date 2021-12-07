@@ -50,7 +50,6 @@
     "lint:eslint": "gulp eslint",
     "lint:stylelint": "gulp stylelint",
     "jest": "TZ=UTC gulp jest",
-    "test:travis": "npm run test -- --maxWorkers=4",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
     "glotpress": "gulp glotpress"
   },
