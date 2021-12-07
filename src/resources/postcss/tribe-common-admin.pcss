@@ -3849,9 +3849,9 @@ body.tribe-welcome #fs_connect {
 }
 
 .end-of-year-sale-promo__promo {
-	background-position: center;
+	background-color: white;
+	background-position: left top;
 	background-repeat: no-repeat;
-	background-size: cover;
 	border-radius: 10px;
 	display: grid;
 	grid-template-areas: "space promo-content";
@@ -3891,5 +3891,16 @@ body.tribe-welcome #fs_connect {
 	.end-of-year-sale-promo__branding {
 		padding-right: 10px;
 		width: calc(100% - 460px);
+	}
+}
+
+/* EOY Sale Promo Mobile */
+@media (max-width: 525px) {
+	.end-of-year-sale-promo__promo {
+		grid-template-columns: auto;
+		grid-template-areas: "space" "promo-content";
+		margin: 20px auto;
+		padding-top: 100px;
+		width: 300px;
 	}
 }
