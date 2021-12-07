@@ -102,7 +102,8 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect.assertions( 8 );
 		expect( meta.actions.none ).not.toHaveBeenCalled();
 		expect( meta.actions.error ).not.toHaveBeenCalled();
-		expect( meta.actions.start ).toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217', {} );
+		expect( meta.actions.start )
+			.toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217', {} );
 		expect( meta.actions.start ).toHaveBeenCalled();
 		expect( meta.actions.start ).toHaveBeenCalledTimes( 1 );
 		expect( meta.actions.success ).toHaveBeenCalled();
@@ -138,7 +139,8 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect.assertions( 8 );
 		expect( meta.actions.none ).not.toHaveBeenCalled();
 		expect( meta.actions.error ).not.toHaveBeenCalled();
-		expect( meta.actions.start ).toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217', {} );
+		expect( meta.actions.start )
+			.toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217', {} );
 		expect( meta.actions.start ).toHaveBeenCalled();
 		expect( meta.actions.start ).toHaveBeenCalledTimes( 1 );
 		expect( meta.actions.success ).toHaveBeenCalled();
@@ -156,7 +158,8 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect( meta.actions.none ).not.toHaveBeenCalled();
 		expect( meta.actions.success ).not.toHaveBeenCalled();
 		expect( meta.actions.start ).toHaveBeenCalled();
-		expect( meta.actions.start ).toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217', {} );
+		expect( meta.actions.start )
+			.toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217', {} );
 		expect( meta.actions.error ).toHaveBeenCalled();
 		expect( meta.actions.error ).toHaveBeenCalledWith( error );
 	} );
@@ -174,7 +177,8 @@ describe( '[STORE] - wp-request middleware', () => {
 		expect( meta.actions.none ).not.toHaveBeenCalled();
 		expect( meta.actions.success ).not.toHaveBeenCalled();
 		expect( meta.actions.start ).toHaveBeenCalled();
-		expect( meta.actions.start ).toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217//////', {} );
+		expect( meta.actions.start )
+			.toHaveBeenCalledWith( 'https://tec.localhost/wp/v2/tribe_organizer/1217//////', {} );
 		expect( meta.actions.error ).toHaveBeenCalled();
 		expect( meta.actions.error ).toHaveBeenCalledWith( error );
 	} );
