@@ -2,7 +2,8 @@
 
 = [4.14.9] TBD =
 
-
+* Feature - Added End of Year Sale promo to the General Settings panel. [TCMN-129]
+* Feature - Added End of Year Sale banner. [TCMN-129]
 
 = [4.14.8] 2021-11-17 =
 
