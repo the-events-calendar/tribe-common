@@ -14,7 +14,12 @@ trait With_Uopz {
 	public function unset_uopz_returns() {
 		if ( function_exists( 'uopz_set_return' ) ) {
 			foreach ( $this->uopz_set_returns as $f ) {
-				uopz_unset_return( $f );
+				if ( is_array( $f ) ) {
+					list( $class, $method ) = $f;
+					uopz_unset_return( $class, $method );
+				} else {
+					uopz_unset_return( $f );
+				}
 			}
 		}
 
@@ -77,5 +82,13 @@ trait With_Uopz {
 		}
 		uopz_redefine( $const, ...$args );
 		$this->uopz_redefines[] = $restore_callback;
+	}
+
+	private function set_class_fn_return( $class, $method, $value, $execute = false ) {
+		if ( ! function_exists( 'uopz_set_return' ) ) {
+			$this->markTestSkipped( 'uopz extension is not installed' );
+		}
+		uopz_set_return( $class, $method, $value, $execute );
+		$this->uopz_set_returns[] = [ $class, $method ];
 	}
 }
