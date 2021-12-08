@@ -1,12 +1,11 @@
 <?php
 /**
- * ${CARET}
+ * Registers and hooks the default log handler.
  *
  * @since   4.9.16
  *
  * @package Tribe\Log
  */
-
 
 namespace Tribe\Log;
 
