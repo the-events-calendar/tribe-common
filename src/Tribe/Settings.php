@@ -386,7 +386,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		}
 
 		/**
-		 * generate the tabs in the settings screen
+		 * Generate the tabs in the settings screen.
 		 *
 		 * @return void
 		 */
@@ -418,7 +418,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 			do_action( 'tribe_settings_validate_before_checks' );
 
-			// check that the right POST && variables are set
+			// Check that the right POST && variables are set.
 			if ( isset( $_POST['tribeSaveSettings'] ) && isset( $_POST['current-settings-tab'] ) ) {
 				// check permissions
 				if ( ! current_user_can( 'manage_options' ) ) {
@@ -451,34 +451,34 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				do_action( 'tribe_settings_validate' );
 				do_action( 'tribe_settings_validate_tab_' . $this->currentTab );
 
-				// set the current tab and current fields
+				// Set the current tab and current fields.
 				$tab    = $this->currentTab;
 				$fields = $this->current_fields = $this->fields_for_save[ $tab ];
 
 				if ( is_array( $fields ) ) {
-					// loop through the fields and validate them
+					// Loop through the fields and validate them.
 					foreach ( $fields as $field_id => $field ) {
-						// get the value
+						// Get the value.
 						$value = ( isset( $_POST[ $field_id ] ) ) ? $_POST[ $field_id ] : null;
 						$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
 
-						// make sure it has validation set up for it, else do nothing
+						// Make sure it has validation set up for it, else do nothing.
 						if (
 							( ! isset( $field['conditional'] ) || $field['conditional'] )
 							&& ( ! empty( $field['validation_type'] ) || ! empty( $field['validation_callback'] ) )
 						) {
-							// some hooks
+							// Some hooks.
 							do_action( 'tribe_settings_validate_field', $field_id, $value, $field );
 							do_action( 'tribe_settings_validate_field_' . $field_id, $value, $field );
 
-							// validate this field
+							// Validate this field.
 							$validate = new Tribe__Validate( $field_id, $field, $value );
 
 							if ( isset( $validate->result->error ) ) {
-								// uh oh; validation failed
+								// Uh oh; validation failed.
 								$this->errors[ $field_id ] = $validate->result->error;
 							} elseif ( $validate->result->valid ) {
-								// validation passed
+								// Validation passed.
 								$this->validated[ $field_id ]        = new stdClass;
 								$this->validated[ $field_id ]->field = $validate->field;
 								$this->validated[ $field_id ]->value = $validate->value;
@@ -486,22 +486,21 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 						}
 					}
 
-					// do not generate errors for dependent fields that should not show
+					// Do not generate errors for dependent fields that should not show.
 					if ( ! empty( $this->errors ) ) {
 						$keep = array_filter( array_keys( $this->errors ), [ $this, 'dependency_checks' ] );
 						$compare = empty( $keep ) ? [] : array_combine( $keep, $keep );
 						$this->errors = array_intersect_key( $this->errors, $compare );
 					}
 
-					// run the saving method
+					// Run the saving method.
 					$this->save();
 				}
 			}
-
 		}
 
 		/**
-		 * save the settings
+		 * Save the settings.
 		 *
 		 * @return void
 		 */
@@ -511,7 +510,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			do_action( 'tribe_settings_save' );
 			do_action( 'tribe_settings_save_tab_' . $this->currentTab );
 
-			// we'll need this later
+			// We'll need this later.
 			$parent_options = [];
 
 			/**
@@ -522,11 +521,11 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			 */
 			if ( ! empty( $this->validated ) ) {
 				foreach ( $this->validated as $field_id => $validated_field ) {
-					// get the value and filter it
+					// Get the value and filter it.
 					$value = $validated_field->value;
 					$value = apply_filters( 'tribe_settings_save_field_value', $value, $field_id, $validated_field );
 
-					// figure out the parent option [could be set to false] and filter it
+					// Figure out the parent option [could be set to false] and filter it.
 					if ( is_network_admin() ) {
 						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Main::OPTIONNAMENETWORK;
 					}
@@ -537,7 +536,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 					$parent_option  = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
 					$network_option = isset( $validated_field->field['network_option'] ) ? (bool) $validated_field->field['network_option'] : false;
 
-					// some hooks
+					// Some hooks.
 					do_action( 'tribe_settings_save_field', $field_id, $value, $validated_field );
 					do_action( 'tribe_settings_save_field_' . $field_id, $value, $validated_field );
 
@@ -548,7 +547,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 							update_option( $field_id, $value );
 						}
 					} else {
-						// set the parent option
+						// Set the parent option.
 						$parent_options[ $parent_option ][ $field_id ] = $value;
 					}
 				}
@@ -561,23 +560,23 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			 * this will save using the Tribe__Settings_Manager::set_options method.
 			 */
 			foreach ( $parent_options as $option_id => $new_options ) {
-				// get the old options
+				// Get the old options.
 				if ( is_network_admin() ) {
 					$old_options = (array) get_site_option( $option_id );
 				} else {
 					$old_options = (array) get_option( $option_id );
 				}
 
-				// set the options by parsing old + new and filter that
+				// Set the options by parsing old + new and filter that.
 				$options = apply_filters( 'tribe_settings_save_option_array', wp_parse_args( $new_options, $old_options ), $option_id );
 
 				if ( $option_id == Tribe__Main::OPTIONNAME ) {
-					// save using the Tribe__Settings_Manager method
+					// Save using the Tribe__Settings_Manager method.
 					Tribe__Settings_Manager::set_options( $options );
 				} elseif ( $option_id == Tribe__Main::OPTIONNAMENETWORK ) {
 					Tribe__Settings_Manager::set_network_options( $options );
 				} else {
-					// save using regular WP method
+					// Save using regular WP method.
 					if ( is_network_admin() ) {
 						update_site_option( $option_id, $options );
 					} else {
@@ -597,24 +596,24 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		}
 
 		/**
-		 * display errors, if any, after saving
+		 * Display errors, if any, after saving.
 		 *
 		 * @return void
 		 */
 		public function displayErrors() {
 
-			// fetch the errors and filter them
+			// Fetch the errors and filter them.
 			$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors );
 			$count  = apply_filters( 'tribe_settings_count_errors', count( $errors ) );
 
 			if ( apply_filters( 'tribe_settings_display_errors_or_not', ( $count > 0 ) ) ) {
-				// output a message if we have errors
+				// Output a message if we have errors.
 
 				$output = '<div id="message" class="error"><p><strong>';
 				$output .= esc_html__( 'Your form had the following errors:', 'tribe-common' );
 				$output .= '</strong></p><ul class="tribe-errors-list">';
 
-				// loop through each error
+				// Loop through each error.
 				foreach ( $errors as $error ) {
 					$output .= '<li>' . (string) $error . '</li>';
 				}
@@ -627,13 +626,13 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 				$output .= '</ul><p>' . $message . '</p></div>';
 
-				// final output, filtered of course
+				// Final output, filtered of course.
 				echo apply_filters( 'tribe_settings_error_message', $output );
 			}
 		}
 
 		/**
-		 * display success message after saving
+		 * Display success message after saving.
 		 *
 		 * @return void
 		 */
@@ -641,7 +640,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors );
 			$count  = apply_filters( 'tribe_settings_count_errors', count( $errors ) );
 
-			// are we coming from the saving place?
+			// Are we coming from the saving place?
 			if ( isset( $_GET['saved'] ) && ! apply_filters( 'tribe_settings_display_errors_or_not', ( $count > 0 ) ) ) {
 				// output the filtered message
 				$message = esc_html__( 'Settings saved.', 'tribe-common' );
@@ -649,12 +648,12 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				echo apply_filters( 'tribe_settings_success_message', $output, $this->currentTab );
 			}
 
-			//Delete Temporary Options After Display Errors and Success
+			// Delete Temporary Options After Display Errors and Success.
 			$this->deleteOptions();
 		}
 
 		/**
-		 * delete temporary options
+		 * Delete temporary options.
 		 *
 		 * @return void
 		 */
@@ -694,7 +693,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		public function get_parent_slug() {
 			$slug = self::$parent_page;
 
-			// if we don't have an event post type, then we can just use the tribe-common slug
+			// If we don't have an event post type, then we can just use the tribe-common slug.
 			if ( 'edit.php' === $slug || 'admin.php?page=tribe-common' === $slug ) {
 				$slug = self::$parent_slug;
 			}
