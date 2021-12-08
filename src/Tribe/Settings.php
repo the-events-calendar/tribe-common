@@ -601,34 +601,34 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function displayErrors() {
-
 			// Fetch the errors and filter them.
 			$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors );
 			$count  = apply_filters( 'tribe_settings_count_errors', count( $errors ) );
 
-			if ( apply_filters( 'tribe_settings_display_errors_or_not', ( $count > 0 ) ) ) {
-				// Output a message if we have errors.
-
-				$output = '<div id="message" class="error"><p><strong>';
-				$output .= esc_html__( 'Your form had the following errors:', 'tribe-common' );
-				$output .= '</strong></p><ul class="tribe-errors-list">';
-
-				// Loop through each error.
-				foreach ( $errors as $error ) {
-					$output .= '<li>' . (string) $error . '</li>';
-				}
-
-				if ( count( $errors ) ) {
-					$message = ( isset( $this->major_error ) && $this->major_error )
-						? esc_html__( 'None of your settings were saved. Please try again.' )
-						: esc_html( _n( 'The above setting was not saved. Other settings were successfully saved.', 'The above settings were not saved. Other settings were successfully saved.', $count, 'tribe-common' ) );
-				}
-
-				$output .= '</ul><p>' . $message . '</p></div>';
-
-				// Final output, filtered of course.
-				echo apply_filters( 'tribe_settings_error_message', $output );
+			// Bail if we don't have errors.
+			if ( ! apply_filters( 'tribe_settings_display_errors_or_not', ( $count > 0 ) ) ) {
+				return;
 			}
+
+			$output = '<div id="message" class="error"><p><strong>';
+			$output .= esc_html__( 'Your form had the following errors:', 'tribe-common' );
+			$output .= '</strong></p><ul class="tribe-errors-list">';
+
+			// Loop through each error.
+			foreach ( $errors as $error ) {
+				$output .= '<li>' . (string) $error . '</li>';
+			}
+
+			if ( count( $errors ) ) {
+				$message = ( isset( $this->major_error ) && $this->major_error )
+					? esc_html__( 'None of your settings were saved. Please try again.' )
+					: esc_html( _n( 'The above setting was not saved. Other settings were successfully saved.', 'The above settings were not saved. Other settings were successfully saved.', $count, 'tribe-common' ) );
+			}
+
+			$output .= '</ul><p>' . $message . '</p></div>';
+
+			// Final output, filtered of course.
+			echo apply_filters( 'tribe_settings_error_message', $output );
 		}
 
 		/**
