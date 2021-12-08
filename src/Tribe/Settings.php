@@ -302,7 +302,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 				return;
 			}
 
-			// Load settings tab-specific helpers and enhancements
+			// Load settings tab-specific helpers and enhancements.
 			Tribe__Admin__Live_Date_Preview::instance();
 
 			do_action( 'tribe_settings_do_tabs' ); // this is the hook to use to add new tabs
@@ -426,19 +426,19 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 					$this->major_error = true;
 				}
 
-				// check the nonce
+				// Check the nonce.
 				if ( ! wp_verify_nonce( $_POST['tribe-save-settings'], 'saving' ) ) {
 					$this->errors[]    = esc_html__( 'The request was sent insecurely.', 'tribe-common' );
 					$this->major_error = true;
 				}
 
-				// check that the request originated from the current tab
+				// check that the request originated from the current tab.
 				if ( $_POST['current-settings-tab'] != $this->currentTab ) {
 					$this->errors[]    = esc_html__( "The request wasn't sent from this tab.", 'tribe-common' );
 					$this->major_error = true;
 				}
 
-				// bail if we have errors
+				// Bail if we have errors.
 				if ( count( $this->errors ) ) {
 					remove_action( 'shutdown', [ $this, 'deleteOptions' ] );
 					add_option( 'tribe_settings_errors', $this->errors );
