@@ -15,13 +15,6 @@ trait Value_Formatting {
 	 * @param string|\WP_Error the value rounded to the specified precision and formatted with proper separators.
 	 */
 	private function to_string( $value ) {
-
-		if ( ! $this->is_value_normalized( $value ) ) {
-			return new \WP_Error( 400,
-				sprintf( __( "%s expects a value of type float, %s found.", 'tribe-common' ),
-					__METHOD__, gettype( $value ) ) );
-		}
-
 		return number_format(
 			$this->to_decimal( $value ),
 			$this->get_precision(),
@@ -40,13 +33,6 @@ trait Value_Formatting {
 	 * @param float|\WP_Error the value rounded to the specified precision
 	 */
 	private function to_decimal( $value ) {
-
-		if ( ! $this->is_value_normalized( $value ) ) {
-			return new \WP_Error( 400,
-				sprintf( __( "%s expects a value of type float, %s found.", 'tribe-common' ),
-					__METHOD__, gettype( $value ) ) );
-		}
-
 		return round( $value, $this->get_precision() );
 	}
 
@@ -61,13 +47,6 @@ trait Value_Formatting {
 	 * @return string|\WP_Error the currency-formatted string
 	 */
 	private function to_currency( $value ) {
-
-		if ( ! $this->is_value_normalized( $value ) ) {
-			return new \WP_Error( 400,
-				sprintf( __( "%s expects a value of type float, %s found.", 'tribe-common' ),
-					__METHOD__, gettype( $value ) ) );
-		}
-
 		$value = $this->to_string( $value );
 
 		if ( 'prefix' === $this->get_currency_symbol_position() ) {
@@ -76,23 +55,4 @@ trait Value_Formatting {
 
 		return $value . $this->get_currency_symbol();
 	}
-
-	/**
-	 * Checks if a value is a normalized float
-	 *
-	 * @since TBD
-	 *
-	 * @param mixed input value
-	 *
-	 * @return bool
-	 */
-	private function is_value_normalized( $value ) {
-
-		if ( is_float( $value ) ) {
-			return true;
-		}
-
-		return false;
-	}
-
 }
