@@ -10,12 +10,16 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * Holds the initial value passed to the constructor. This variable does not change.
 	 *
+	 * @since TBD
+	 *
 	 * @var mixed
 	 */
 	private $initial_value;
 
 	/**
 	 * Holds the value normalized value calculated when instantiating an object or setting new values.
+	 *
+	 * @since TBD
 	 *
 	 * @var float
 	 */
@@ -25,12 +29,16 @@ abstract class Abstract_Value implements Value_Interface {
 	 * The integer representation of the amount. By default, this is the float value, rounded to the object precision
 	 * places and multiplied by (10^precision).
 	 *
+	 * @since TBD
+	 *
 	 * @var int
 	 */
 	private $integer = 0;
 
 	/**
 	 * The float representation of the amount. By default, this is the same as $normalized_amount
+	 *
+	 * @since TBD
 	 *
 	 * @var float
 	 */
@@ -39,12 +47,16 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * The decimal precision to use in calculations.
 	 *
+	 * @since TBD
+	 *
 	 * @var int
 	 */
 	private $precision = 2;
 
 	/**
 	 * The class type representation to use when firing scoped filters
+	 *
+	 * @since TBD
 	 *
 	 * @var string
 	 */
