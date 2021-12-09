@@ -55,23 +55,4 @@ trait Value_Formatting {
 
 		return $value . $this->get_currency_symbol();
 	}
-
-	/**
-	 * Checks if a value is a normalized float
-	 *
-	 * @since TBD
-	 *
-	 * @param mixed input value
-	 *
-	 * @return bool
-	 */
-	private function is_value_normalized( $value ) {
-
-		if ( is_float( $value ) ) {
-			return true;
-		}
-
-		return false;
-	}
-
 }
