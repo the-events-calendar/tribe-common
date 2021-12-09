@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Ensure the `Event Countdown` widget's assets are loaded onto post type pages to enable the new `Event Countdown` block to function correctly. [ECP-1016]
+
 = [4.14.9] TBD =
 
 * Feature - Add loader template for the admin views. [VE-435]
