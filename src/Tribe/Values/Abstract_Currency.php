@@ -8,41 +8,73 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	use Value_Update;
 
 	/**
+	 * The currency formatter representation, including the currency symbol.
+	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $currency;
 
 	/**
+	 * The currency decimal representation, rounded to the precision.
+	 *
+	 * @since TBD
+	 *
 	 * @var float
 	 */
 	protected $decimal;
 
 	/**
+	 * The currency formatted string representation, without the currency symbol.
+	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $string;
 
 	/**
+	 * The default currency code
+	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $currency_code = 'USD';
 
 	/**
+	 * The default currency decimal separator
+	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $currency_separator_decimal = '.';
 
 	/**
+	 * The default currency thousands separator
+	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $currency_separator_thousands = ',';
 
 	/**
+	 * The default complete currency symbol, such as $, € or R$
+	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $currency_symbol = '$';
 
 	/**
+	 * The default currency symbol position: prefix if $1 or postfix for 1$
+	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $currency_symbol_position = 'prefix';
