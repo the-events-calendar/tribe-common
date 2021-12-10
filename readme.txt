@@ -1,9 +1,11 @@
 == Changelog ==
 
-= [4.14.9] TBD =
+= [4.14.9] 2021-12-14 =
 
-* Feature - Added End of Year Sale promo to the General Settings panel. [TCMN-129]
-* Feature - Added End of Year Sale banner. [TCMN-129]
+* Feature - Add loader template for the admin views. [VE-435]
+* Feature - Included Price, Curreny and Value classes to improve monetary handling from Common [ET-1331]
+* Tweak - Included End of Year Sale promotion to the General Settings panel and banner. [TCMN-129]
+* Fix - Prevent PHP 8 warnings when using extensions. (props to @huubl for this fix!) [TEC-4165]
 
 = [4.14.8] 2021-11-17 =
 
