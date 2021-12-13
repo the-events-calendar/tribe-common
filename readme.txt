@@ -6,6 +6,7 @@
 * Feature - Included Price, Curreny and Value classes to improve monetary handling from Common [ET-1331]
 * Tweak - Included End of Year Sale promotion to the General Settings panel and banner. [TCMN-129]
 * Fix - Prevent PHP 8 warnings when using extensions. (props to @huubl for this fix!) [TEC-4165]
+* Language - 5 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.8] 2021-11-17 =
 
