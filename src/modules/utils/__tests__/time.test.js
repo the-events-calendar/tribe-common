@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { time } from '@moderntribe/common/utils';
+import * as time from '@moderntribe/common/utils/time';
 
 describe( 'Tests for time.js', () => {
 	test( 'MINUTE_IN_SECONDS', () => {

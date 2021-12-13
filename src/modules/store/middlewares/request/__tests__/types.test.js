@@ -2,7 +2,7 @@
  * Internal dependencies
  */
 import { PREFIX_COMMON_STORE } from '@moderntribe/common/data/utils';
-import { types } from '@moderntribe/common/store/middlewares/request';
+import * as types from '@moderntribe/common/store/middlewares/request/types';
 
 describe( '[STORE] - Request types', () => {
 	it( 'Should return the types values', () => {
