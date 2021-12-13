@@ -4,14 +4,14 @@ namespace Tribe\Onboarding;
 /**
  * Class Hints Abstract.
  *
- * @since TBD
+ * @since 4.14.9
  */
 abstract class Hints_Abstract {
 
 	/**
 	 * The hints ID.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var string
 	 */
@@ -20,7 +20,7 @@ abstract class Hints_Abstract {
 	/**
 	 * Times to display the hints.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var int
 	 */
@@ -29,7 +29,7 @@ abstract class Hints_Abstract {
 	/**
 	 * Return if it's on page where it should be displayed.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return bool True if it is on page.
 	 */
@@ -40,7 +40,7 @@ abstract class Hints_Abstract {
 	/**
 	 * Should the hints display.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return boolean True if it should display.
 	 */
@@ -64,7 +64,7 @@ abstract class Hints_Abstract {
 	/**
 	 * Return the hints data.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return array The hints.
 	 */
@@ -73,7 +73,7 @@ abstract class Hints_Abstract {
 	/**
 	 * Return the CSS classes.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return array The CSS classes.
 	 */
@@ -84,7 +84,7 @@ abstract class Hints_Abstract {
 	/**
 	 * The hints data, publicly accessible.
 	 *
-	 * @since TBD.
+	 * @since 4.14.9.
 	 *
 	 * @param array $data An array with the hints data.
 	 * @return array

@@ -2,7 +2,7 @@
 /**
  * The end of year sale admin notice.
  *
- * @since TBD
+ * @since 4.14.9
  *
  * @var string $icon_url The local URL for the notice's image.
  * @var string $cta_url The URL for the sale page.

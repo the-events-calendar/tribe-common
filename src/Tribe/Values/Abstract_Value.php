@@ -10,7 +10,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * Holds the initial value passed to the constructor. This variable does not change.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var mixed
 	 */
@@ -19,7 +19,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * Holds the value normalized value calculated when instantiating an object or setting new values.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var float
 	 */
@@ -29,7 +29,7 @@ abstract class Abstract_Value implements Value_Interface {
 	 * The integer representation of the amount. By default, this is the float value, rounded to the object precision
 	 * places and multiplied by (10^precision).
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var int
 	 */
@@ -38,7 +38,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * The float representation of the amount. By default, this is the same as $normalized_amount
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var float
 	 */
@@ -47,7 +47,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * The decimal precision to use in calculations.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var int
 	 */
@@ -56,7 +56,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * The class type representation to use when firing scoped filters
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var string
 	 */
@@ -65,7 +65,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * Initialize object
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param mixed $amount the value to set initially
 	 */
@@ -98,7 +98,7 @@ abstract class Abstract_Value implements Value_Interface {
 		/**
 		 * Filter the value returned for get_integer() when implemented in a specific class name
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param int $integer the integer representation of the value
 		 * @param Abstract_Value the object instance
@@ -110,7 +110,7 @@ abstract class Abstract_Value implements Value_Interface {
 		/**
 		 * Filter the value returned for get_integer() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param int $integer the integer representation of the value
 		 * @param Abstract_Value the object instance
@@ -128,7 +128,7 @@ abstract class Abstract_Value implements Value_Interface {
 		/**
 		 * Filter the value returned for get_float() when implemented in a specific class name
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param float $float the float representation of the value
 		 * @param Abstract_Value the object instance
@@ -140,7 +140,7 @@ abstract class Abstract_Value implements Value_Interface {
 		/**
 		 * Filter the value returned for get_float() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param float $float the float representation of the value
 		 * @param Abstract_Value the object instance
@@ -157,7 +157,7 @@ abstract class Abstract_Value implements Value_Interface {
 		/**
 		 * Filter the value returned for get_precision() when implemented in a specific class name
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param int $precision the precision to which values will be calculated
 		 * @param Abstract_Value the object instance
@@ -169,7 +169,7 @@ abstract class Abstract_Value implements Value_Interface {
 		/**
 		 * Filter the value returned for get_precision() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param int $precision the precision to which values will be calculated
 		 * @param Abstract_Value the object instance
@@ -236,7 +236,7 @@ abstract class Abstract_Value implements Value_Interface {
 	 * This is specially important in case the currency unit contains the same characters as the decimal/thousands
 	 * separators such as in Moroccan Dirham (1,234.56 .د.م.) or Danish Krone (kr. 1.234,56)
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param string $value the numeric string being normalized
 	 *
@@ -257,7 +257,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * Removes all html tags and html entities from the value string
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param string $value the value being normalized
 	 *
@@ -271,7 +271,7 @@ abstract class Abstract_Value implements Value_Interface {
 	 * Takes the value string and a list of non-digit characters and removes any of those characters. If the character
 	 * is found to be a decimal separator, normalize it to a dot, so the number translates to a float.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param string   $value      the value being normalized
 	 * @param string[] $non_digits a list of non-digit characters present in $value
@@ -298,7 +298,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * Re-assemble the normalized value to store.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param int[] $pieces the normalized value split in an array.
 	 *
@@ -321,7 +321,7 @@ abstract class Abstract_Value implements Value_Interface {
 	 * Private setter for the initial value the object was created with. This value cannot be changed during the object
 	 * lifecycle.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * To set a new value discard the original object and create a new one.
 	 */
@@ -334,7 +334,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * Private setter for the normalized amount extracted from the initial value.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * To set a new value use the public setter `$obj->set_value( $amount )`
 	 */
@@ -345,7 +345,7 @@ abstract class Abstract_Value implements Value_Interface {
 		/**
 		 * Filter the value to be set as $normalized_amount for a specific implementation.
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param float $normalized_value the normalized value
 		 * @param Abstract_Value the object instance
@@ -357,7 +357,7 @@ abstract class Abstract_Value implements Value_Interface {
 		/**
 		 * Filter the value to be set as $normalized_amount for all implementations.
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param float $normalized_value the normalized value
 		 * @param Abstract_Value the object instance
@@ -369,7 +369,7 @@ abstract class Abstract_Value implements Value_Interface {
 		/**
 		 * Fire action right before setting the normalized value
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param float $normalized_value the normalized value
 		 * @param Abstract_Value the object instance
@@ -382,7 +382,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * Private setter for the integer representation of the object amount.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * To set a new value use the public setter `$obj->set_value( $amount )`
 	 */
@@ -393,7 +393,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * Private setter for the floating point representation of the object amount.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * To set a new value use the public setter `$obj->set_value( $amount )`
 	 */
@@ -409,7 +409,7 @@ abstract class Abstract_Value implements Value_Interface {
 	 * in the string and the piece of the string after the separator cannot be longer
 	 * than 2 digits. Anything else is serving another purpose.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param $separator string a separator token, like . or ,
 	 * @param $value     string a number formatted as a string
@@ -435,7 +435,7 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * Tests if a string is composed entirely of non-digit characters
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param string $block the string to check
 	 *
