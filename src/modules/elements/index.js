@@ -26,7 +26,7 @@ export { default as NumberInput } from './number-input';
 export { default as Radio } from './radio';
 export { default as RadioInput } from './radio-input';
 export { default as Checkbox } from './checkbox';
-export { default as CheckboxInput } from './checkbox-inputement';
+export { default as CheckboxInput } from './checkbox-input';
 export { default as Select } from './select';
 export { default as Textarea } from './textarea';
 
