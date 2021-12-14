@@ -13,7 +13,7 @@ import { Modal } from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import Button from '@moderntribe/common/elements/button/element';
+import Button from '@moderntribe/common/elements/button';
 
 class ModalButton extends PureComponent {
 	static propTypes = {

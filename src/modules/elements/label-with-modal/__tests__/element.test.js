@@ -6,7 +6,7 @@ import React from 'react';
 /**
  * Internal dependencies
  */
-import LabelWithModal from '@moderntribe/common/elements/label-with-modal/element';
+import LabelWithModal from '../element';
 
 describe( 'Label With Modal Element', () => {
 	it( 'renders a label with modal', () => {

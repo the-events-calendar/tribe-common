@@ -21,8 +21,8 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { PreventBlockClose } from '@moderntribe/common/components';
-import Button from '@moderntribe/common/elements/button/element';
-import Input from '@moderntribe/common/elements/input/element';
+import Button from '@moderntribe/common/elements/button';
+import Input from '@moderntribe/common/elements/input';
 import {
 	date as dateUtil,
 	moment as momentUtil,

@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import Button from '@moderntribe/common/elements/button/element';
+import Button from '@moderntribe/common/elements/button';
 
 describe( 'Button Element', () => {
 	it( 'renders button', () => {

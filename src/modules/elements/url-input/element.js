@@ -8,7 +8,7 @@ import classNames from 'classnames';
 /**
  * Internal dependencies
  */
-import Input from '@moderntribe/common/elements/input/element';
+import Input from '@moderntribe/common/elements/input';
 
 const UrlInput = ( { checked, className, onChange, ...rest } ) => (
 	<Input

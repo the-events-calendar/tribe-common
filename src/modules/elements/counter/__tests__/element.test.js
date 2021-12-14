@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import Counter from '@moderntribe/common/elements/counter/element';
+import Counter from '../element';
 
 describe( 'Counter Element', () => {
 	it( 'renders counter', () => {

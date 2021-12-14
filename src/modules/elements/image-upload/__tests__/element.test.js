@@ -9,7 +9,7 @@ import React from 'react';
 import ImageUpload, {
 	renderImageUploadButton,
 	renderImage,
-} from '@moderntribe/common/elements/image-upload/element';
+} from '../element';
 
 jest.mock( '@moderntribe/common/utils/globals', () => ( {
 	wpEditor: {

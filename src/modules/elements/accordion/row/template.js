@@ -8,7 +8,7 @@ import classNames from 'classnames';
 /**
  * Internal dependencies
  */
-import Button from '@moderntribe/common/elements/button/element';
+import Button from '@moderntribe/common/elements/button';
 import * as slide from '@moderntribe/common/utils/slide';
 
 class Row extends PureComponent {
