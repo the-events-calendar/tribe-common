@@ -38,6 +38,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		protected $must_escape = [
 			'tribeEventsAfterHTML',
 			'tribeEventsBeforeHTML',
+			'dateWithYearFormat',
+			'dateWithoutYearFormat',
+			'monthAndYearFormat',
 		];
 
 		/**
@@ -265,28 +268,25 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				if ( empty( $v ) ) {
 					$output .= '<dd class="support-stats-null">-</dd>';
 				} elseif ( is_bool( $v ) ) {
-					$output .= sprintf( '<dd class="support-stats-bool">%s</dd>', $v );
+					$output .= sprintf( '<dd class="support-stats-bool">%s</dd>', esc_html( $v ) );
 				} elseif ( is_string( $v ) ) {
-					$output .= sprintf( '<dd class="support-stats-string">%s</dd>', $v );
+					$output .= sprintf( '<dd class="support-stats-string">%s</dd>', esc_html( $v ) );
 				} elseif ( is_array( $v ) && $is_numeric_array ) {
 					$output .= sprintf( '<dd class="support-stats-array"><ul><li>%s</li></ul></dd>', join( '</li><li>', $v ) );
 				} else {
 					$formatted_v = [];
 					foreach ( $v as $obj_key => $obj_val ) {
-						if ( in_array( $obj_key, $this->must_escape ) ) {
-							$obj_val = esc_html( $obj_val );
-						}
-
 						$obj_val = $this->obfuscator->obfuscate( $obj_key, $obj_val );
 
 						if ( is_array( $obj_val ) ) {
-							$formatted_v[] = sprintf( '<li>%s = <pre>%s</pre></li>', $obj_key, print_r( $obj_val, true ) );
+							$formatted_v[] = sprintf( '<li>%s = <pre>%s</pre></li>', $obj_key, esc_html( print_r( $obj_val, true ) ) );
 						} else {
+							$obj_val = esc_html( $obj_val );
 							$formatted_v[] = sprintf( '<li>%s = %s</li>', $obj_key, $obj_val );
 						}
 					}
 					$v = join( "\n", $formatted_v );
-					$output .= sprintf( '<dd class="support-stats-object"><ul>%s</ul></dd>', print_r( $v, true ) );
+					$output .= sprintf( '<dd class="support-stats-object"><ul>%s</ul></dd>',  wp_kses_post( print_r( $v, true ) ) );
 				}
 			}
 

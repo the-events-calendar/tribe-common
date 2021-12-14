@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { utils } from '@moderntribe/common/store/middlewares/request';
+import * as utils from '@moderntribe/common/store/middlewares/request/utils';
 
 const wpParamsExpected = {
 	orderby: 'title',

@@ -6,7 +6,7 @@ import React from 'react';
 /**
  * Internal dependencies
  */
-import { Checkbox } from '@moderntribe/common/elements';
+import Checkbox from '@moderntribe/common/elements/checkbox/element';
 
 describe( 'Checkbox Element', () => {
 	it( 'renders checkbox', () => {

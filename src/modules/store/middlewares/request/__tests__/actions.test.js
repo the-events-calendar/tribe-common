@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { actions } from '@moderntribe/common/store/middlewares/request';
+import * as actions from '@moderntribe/common/store/middlewares/request/actions';
 
 describe( '[STORE] - Request actions', () => {
 	test( 'WP Request action', () => {

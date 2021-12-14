@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import React from 'react';
-
-/**
  * Internal dependencies
  */
 import Row from '@moderntribe/common/elements/accordion/row/template';
