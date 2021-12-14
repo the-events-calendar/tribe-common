@@ -1,13 +1,7 @@
 /**
- * External dependencies
- */
-import React from 'react';
-import renderer from 'react-test-renderer';
-
-/**
  * Internal dependencies
  */
-import { Counter } from '@moderntribe/common/elements';
+import Counter from '../element';
 
 describe( 'Counter Element', () => {
 	it( 'renders counter', () => {

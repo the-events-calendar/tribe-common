@@ -14,6 +14,13 @@ global.jQuery = $;
 global.$ = $;
 global.wp = {
 	element: React,
+	api: {},
+	apiRequest: {},
+	components: {},
+	data: {},
+	blockEditor: {},
+	editor: {},
+	hooks: {},
 };
 global.shallow = shallow;
 global.render = render;

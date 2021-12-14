@@ -12,6 +12,10 @@ import {
 	time,
 } from '@moderntribe/common/utils';
 
+jest.mock( '@moderntribe/common/utils/globals', () => ( {
+	dateSettings: () => {},
+} ) );
+
 const FORMAT = 'MM-DD-YYYY HH:mm:ss';
 
 describe( 'Tests for moment.js', () => {
