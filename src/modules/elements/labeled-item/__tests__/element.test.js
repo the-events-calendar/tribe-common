@@ -6,7 +6,7 @@ import React from 'react';
 /**
  * Internal dependencies
  */
-import LabeledItem from '@moderntribe/common/elements/labeled-item/element';
+import LabeledItem from '../element';
 
 describe( 'Labeled Item Element', () => {
 	it( 'renders labeled item', () => {

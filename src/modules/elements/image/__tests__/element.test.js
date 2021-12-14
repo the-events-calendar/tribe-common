@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import Image from '@moderntribe/common/elements/image/element';
+import Image from '../element';
 
 let imageProps;
 
