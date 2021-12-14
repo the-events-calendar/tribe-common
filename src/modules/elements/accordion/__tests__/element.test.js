@@ -6,7 +6,7 @@ import { noop } from 'lodash';
 /**
  * Internal dependencies
  */
-import Accordion from '@moderntribe/common/elements/accordion/element';
+import Accordion from '../element';
 
 let rows;
 
