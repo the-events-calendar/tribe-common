@@ -8,9 +8,9 @@ import classNames from 'classnames';
 /**
  * Internal dependencies
  */
-import Button from '@moderntribe/common/elements/button/element';
-import LabeledItem from '@moderntribe/common/elements/labeled-item/element';
-import Link from '@moderntribe/common/elements/link/element';
+import Button from '@moderntribe/common/elements/button';
+import LabeledItem from '@moderntribe/common/elements/labeled-item';
+import Link from '@moderntribe/common/elements/link';
 import './style.pcss';
 
 const LabelWithLink = ( {
