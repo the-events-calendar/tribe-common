@@ -4,7 +4,7 @@ namespace Tribe\Service_Providers;
 /**
  * Class Onboarding
  *
- * @since TBD
+ * @since 4.14.9
  *
  * Handles the registration and creation of our async process handlers.
  */
@@ -20,7 +20,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 */
 	public function register() {
 		tribe_singleton( 'onboarding', '\Tribe\Onboarding\Main' );
@@ -31,7 +31,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	/**
 	 * Set up hooks for classes.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 */
 	private function hooks() {
 		add_action( 'tribe_common_loaded', [ $this, 'register_assets' ] );
@@ -43,7 +43,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register assets associated with onboarding.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 */
 	public function register_assets() {
 		$main = \Tribe__Main::instance();
@@ -110,7 +110,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	/**
 	 * Define if the assets for `Onboarding` should be enqueued or not.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return bool If the Onboarding assets should be enqueued or not.
 	 */
@@ -121,7 +121,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	/**
 	 * Check if the onboarding is enabled or not.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return bool
 	 */
@@ -129,7 +129,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 		/**
 		 * Filter to disable tribe onboarding
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param bool $disabled If we want to disable the onboarding.
 		 */

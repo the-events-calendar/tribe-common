@@ -523,7 +523,7 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 		/**
 		 * Filter the entire formatted string returned.
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $cost
 		 * @param int $post_id

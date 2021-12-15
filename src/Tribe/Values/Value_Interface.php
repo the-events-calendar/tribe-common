@@ -7,7 +7,7 @@ interface Value_Interface {
 	/**
 	 * Creates a new instance of the class this method is called from.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return Abstract_Value
 	 */
@@ -16,7 +16,7 @@ interface Value_Interface {
 	/**
 	 * Returns the object type, to use in filters
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return string
 	 */
@@ -25,7 +25,7 @@ interface Value_Interface {
 	/**
 	 * Get the value initially passed when the object was instantiated
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return mixed
 	 */
@@ -34,7 +34,7 @@ interface Value_Interface {
 	/**
 	 * Get the current integer representation of the object value
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return int
 	 */
@@ -43,7 +43,7 @@ interface Value_Interface {
 	/**
 	 * Get the current float representation of the object value
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return float
 	 */
@@ -52,7 +52,7 @@ interface Value_Interface {
 	/**
 	 * Get the current normalized value for the object
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return float
 	 */
@@ -61,7 +61,7 @@ interface Value_Interface {
 	/**
 	 * Get the current decimal precision set for the object
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return int
 	 */
@@ -70,7 +70,7 @@ interface Value_Interface {
 	/**
 	 * Multiplies the value of the current object by the quantity supplied and return the result.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param int|float $multiplier the amount to multiply the object value by.
 	 *
@@ -81,7 +81,7 @@ interface Value_Interface {
 	/**
 	 * Transforms any formatted numeric string into a numeric value
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param int|float|string $value the formatted string.
 	 *
@@ -95,7 +95,7 @@ interface Value_Interface {
 	 * Any time the value in a child class needs to be updated, use this method to do it, as it will update
 	 * all properties of the object state.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param mixed $amount the value to set
 	 */
@@ -106,7 +106,7 @@ interface Value_Interface {
 	 *
 	 * Implemented in Tribe\Values\Value_Update.php
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return string[]
 	 */
@@ -119,14 +119,14 @@ interface Value_Interface {
 	 *
 	 * Implemented in Tribe\Values\Value_Update.php
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 */
 	public function update();
 
 	/**
 	 * Adds the value of the current object to the sum of the values received and return the result.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param array $values an array of float and/or integer values to add.
 	 *

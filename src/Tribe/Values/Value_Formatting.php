@@ -8,7 +8,7 @@ trait Value_Formatting {
 	 * Transforms a normalized value into a string with the decimal representation with significant digits rounded to
 	 * the precision, and with the proper separators.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param float $value the normalized value to transform
 	 *
@@ -26,7 +26,7 @@ trait Value_Formatting {
 	/**
 	 * Transforms a normalized value into a decimal representation by rounding the significant digits to the precision.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param float $value the normalized value to transform
 	 *
@@ -40,7 +40,7 @@ trait Value_Formatting {
 	 * Transforms a normalized value into a currency representation using the defined currency symbol, position,
 	 * separators and precision.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param float $value the normalized value to transform
 	 *

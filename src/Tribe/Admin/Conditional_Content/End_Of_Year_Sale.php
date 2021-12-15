@@ -6,34 +6,34 @@ use Tribe__Date_Utils as Dates;
 /**
  * Set up for end of year sale promo.
  *
- * @since TBD
+ * @since 4.14.9
  */
 class End_Of_Year_Sale extends Datetime_Conditional_Abstract {
 	/**
 	 * Promo slug.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 */
 	protected $slug = 'end_of_year_sale';
 
 	/**
 	 * Start Date.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 */
 	protected $start_date = 'December 23';
 
 	/**
 	 * End Date.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 */
 	protected $end_date = 'December 31';
 
 	/**
 	 * Register actions and filters.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 * @return void
 	 */
 	public function hook() {
@@ -43,7 +43,7 @@ class End_Of_Year_Sale extends Datetime_Conditional_Abstract {
 	/**
 	 * Replace the opening markup for the general settings info box.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 * @return void
 	 */
 	public function add_conditional_content( $fields ) {
@@ -72,7 +72,7 @@ class End_Of_Year_Sale extends Datetime_Conditional_Abstract {
 	/**
 	 * Unix time for notice end.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return int $end_time The date & time the notice should stop displaying, as a Unix timestamp.
 	 */
