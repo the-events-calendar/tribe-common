@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.14.10] 2021-12-20 =
+
+
+
 = [4.14.9] 2021-12-14 =
 
 * Feature - Add loader template for the admin views. [VE-435]
