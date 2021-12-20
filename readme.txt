@@ -2,7 +2,7 @@
 
 = [4.14.10] 2021-12-20 =
 
-
+* Fix - Initial steps to make The Events Calendar compatible with PHP 8.1
 
 = [4.14.9] 2021-12-14 =
 
