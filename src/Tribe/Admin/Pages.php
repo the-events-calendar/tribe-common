@@ -220,7 +220,7 @@ class Pages {
 	 * Define if is a `tec` admin page (registered).
 	 *
 	 * @return boolean
-	 */ */
+	 */
 	public function is_tec_page() {
 		// @todo @juanfra: Check if it's part of the array of `tec_admin_pages`.
 		return true;
