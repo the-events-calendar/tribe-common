@@ -2,13 +2,15 @@
 namespace Tribe\Admin;
 
 /**
- * Class
+ * Class Pages.
  *
  * @since TBD
  */
 class Pages {
 	/**
 	 * Current page ID (or false if not registered with this controller).
+	 *
+	 * @since TBD
 	 *
 	 * @var string
 	 */
@@ -18,12 +20,16 @@ class Pages {
 	 * Registered pages
 	 * Contains information (breadcrumbs, menu info) about TEC admin pages.
 	 *
+	 * @since TBD
+	 *
 	 * @var array
 	 */
 	private $pages = [];
 
 	/**
 	 * Get registered pages.
+	 *
+	 * @since TBD
 	 *
 	 * @return array
 	 */
@@ -120,6 +126,8 @@ class Pages {
 	/**
 	 * Determine the current page.
 	 *
+	 * @since TBD
+	 *
 	 * @return string|boolean Current page or false if not registered with this controller.
 	 */
 	public function determine_current_page() {
@@ -208,8 +216,13 @@ class Pages {
 		return $capability;
 	}
 
+	/**
+	 * Define if is a `tec` admin page (registered).
+	 *
+	 * @return boolean
+	 */ */
 	public function is_tec_page() {
-		// Check if it's part of the array.
+		// @todo @juanfra: Check if it's part of the array of `tec_admin_pages`.
 		return true;
 	}
 
