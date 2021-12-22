@@ -642,6 +642,7 @@ class Tribe__Main {
 
 		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 		tribe_singleton( Tribe__Admin__Help_Page::class, Tribe__Admin__Help_Page::class );
+		tribe_singleton( 'admin.pages', '\Tribe\Admin\Pages' );
 
 		tribe_register_provider( Tribe__Editor__Provider::class );
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
