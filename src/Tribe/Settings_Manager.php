@@ -72,13 +72,7 @@ class Tribe__Settings_Manager {
 		// Make sure Thickbox is available regardless of which admin page we're on
 		add_thickbox();
 
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-general.php';
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-display.php';
-
-		$showNetworkTabs = $this->get_network_option( 'showSettingsTabs', false );
-
-		new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'tribe-common' ), $generalTab );
-		new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
+		// @todo @juanfra: Deprecate this.
 
 		$this->do_licenses_tab();
 	}
@@ -282,6 +276,8 @@ class Tribe__Settings_Manager {
 		 * @var $licenses_tab
 		 */
 		include Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-licenses.php';
+
+		// @todo: Pass page parameter and filter which licenses we display.
 
 		/**
 		 * Allows the fields displayed in the licenses tab to be modified.
