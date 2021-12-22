@@ -47,6 +47,8 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				return;
 			}
 
+			// @todo @juanfra: Move this to the plugins and deprecate.
+
 			$page_title = esc_html__( 'Event Add-Ons', 'tribe-common' );
 			$menu_title = esc_html__( 'Event Add-Ons', 'tribe-common' );
 			$capability = apply_filters( 'tribe_events_addon_page_capability', 'install_plugins' );
@@ -111,6 +113,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * @return bool
 		 */
 		public function is_current_page() {
+			// @todo @juanfra: Define if it's current page based on the slug.
 			if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
 				return false;
 			}

@@ -58,6 +58,9 @@ class Troubleshooting {
 	 *
 	 */
 	public function add_menu_page() {
+		// @todo @juanfra: Move this to the plugins and deprecate.
+		_deprecated_function( __METHOD__, 'TBD' );
+
 		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
 			return;
 		}
@@ -120,7 +123,7 @@ class Troubleshooting {
 
 		$wp_admin_bar->add_menu( [
 			'id'     => 'tec-troubleshooting',
-			'title'  => esc_html__( 'Event Add-Ons', 'tribe-common' ),
+			'title'  => esc_html__( 'Troubleshooting', 'tribe-common' ),
 			'href'   => Tribe__Settings::instance()->get_url( [ 'page' => static::MENU_SLUG ] ),
 			'parent' => 'tribe-events-settings-group',
 		] );
@@ -134,6 +137,7 @@ class Troubleshooting {
 	 * @return boolean returns true if the current page is the troubleshooting page.
 	 */
 	public function is_current_page() {
+		// @todo @juanfra: Define if it's current page based on the slug.
 		if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
 			return false;
 		}
