@@ -569,12 +569,12 @@ if ( ! function_exists( 'tribe_is_regex' ) ) {
 
 		$n = strlen( $candidate );
 		// regex must be at least 2 delimiters + 1 character - invalid regex.
-		if ($n < 3) {
+		if ( $n < 3 ) {
 			return false;
 		}
 
 		// Missing or mismatched delimiters - invalid regex.
-		if ($candidate[0] !== $candidate[$n - 1]) {
+		if ( $candidate[0] !== $candidate[ $n - 1 ] ) {
 			return false;
 		}
 
