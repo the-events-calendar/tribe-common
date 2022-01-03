@@ -1096,7 +1096,7 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 			return $value;
 		}
 		if ( is_string( $value ) ) {
-			$value = filter_var( $value, FILTER_SANITIZE_STRING );
+			$value = filter_var( $value, FILTER_UNSAFE_RAW );
 			return $value;
 		}
 		if ( is_int( $value ) ) {

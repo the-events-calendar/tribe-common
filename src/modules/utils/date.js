@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { identity } from 'lodash';
-import chrono from 'chrono-node';
+import * as chrono from 'chrono-node';
 
 /**
  * Wordpress dependencies
