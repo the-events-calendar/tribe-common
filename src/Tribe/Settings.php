@@ -375,28 +375,20 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return string The current settings page URL.
 		 */
 		public function get_settings_page_url() {
-			$page         = $_GET['page'];
+			$admin_pages  = tribe( 'admin.pages' );
+			$page         = $admin_pages->get_current_page();
 			$tab          = $_GET['tab'];
 			$args         = [
 				'page' => $page,
 				'tab'  => $tab,
 			];
 
-			// @todo @juanfra: checks with multisite.
-
-			if ( post_type_exists( 'tribe_events' ) ) {
-				$args['post_type'] = 'tribe_events';
-				$current_page = admin_url( 'edit.php' );
-			} else {
-				$current_page = admin_url( 'admin.php' );
-			}
-
 			$url = add_query_arg(
 				$args,
-				$current_page
+				admin_url( 'admin.php' )
 			);
 
-			return $url;
+			return apply_filters( 'tribe_settings_page_url', $url, $page, $tab );
 		}
 
 		/**
