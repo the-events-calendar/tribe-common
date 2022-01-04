@@ -567,6 +567,17 @@ if ( ! function_exists( 'tribe_is_regex' ) ) {
 			return false;
 		}
 
+		$n = strlen( $candidate );
+		// regex must be at least 2 delimiters + 1 character - invalid regex.
+		if ( $n < 3 ) {
+			return false;
+		}
+
+		// Missing or mismatched delimiters - invalid regex.
+		if ( $candidate[0] !== $candidate[ $n - 1 ] ) {
+			return false;
+		}
+
 		// We need to have the Try/Catch for Warnings too
 		try {
 			return ! ( @preg_match( $candidate, null ) === false );

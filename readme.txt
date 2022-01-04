@@ -2,6 +2,8 @@
 
 = [TBD] TBD =
 
+* Fix - Alter logic to not test regex with missing delimiters fail them as invalid immediately. [TEC-4180]
+
 = [4.14.10] 2021-12-20 =
 
 * Fix - Initial steps to make The Events Calendar compatible with PHP 8.1
