@@ -9,9 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @since TBD
+ * @since 4.14.9
  *
- * @version TBD
+ * @version 4.14.9
  *
  */
 if ( empty( $text ) ) {

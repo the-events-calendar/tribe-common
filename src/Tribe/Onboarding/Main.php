@@ -4,14 +4,14 @@ namespace Tribe\Onboarding;
 /**
  * Class
  *
- * @since TBD
+ * @since 4.14.9
  */
 class Main {
 
 	/**
 	 * Get the tour steps.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return array $steps The tour data.
 	 */
@@ -31,7 +31,7 @@ class Main {
 				/**
 				 * We're displaying the tour.
 				 *
-				 * @since TBD.
+				 * @since 4.14.9.
 				 *
 				 * @param string $tour_id The tour id.
 				 */
@@ -44,7 +44,7 @@ class Main {
 		/**
 		 * Filter the data we're using to localize the tour steps.
 		 *
-		 * Since TBD
+		 * Since 4.14.9
 		 *
 		 * @param array $data An array with the tour data.
 		 *
@@ -58,7 +58,7 @@ class Main {
 	/**
 	 * Get the hints.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return array $steps The hints data.
 	 */
@@ -78,7 +78,7 @@ class Main {
 				/**
 				 * We're displaying the hints.
 				 *
-				 * @since TBD.
+				 * @since 4.14.9.
 				 *
 				 * @param string $hints_id The hints id.
 				 */
@@ -91,7 +91,7 @@ class Main {
 		/**
 		 * Filter the data we're using to localize the hints.
 		 *
-		 * Since TBD
+		 * Since 4.14.9
 		 *
 		 * @param array $data An array with the hints data.
 		 *
@@ -105,7 +105,7 @@ class Main {
 	/**
 	 * Localize tour data.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param string $hook The current admin page.
 	 */
@@ -118,7 +118,7 @@ class Main {
 	/**
 	 * Localize hints data.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param string $hook The current admin page.
 	 */
@@ -131,7 +131,7 @@ class Main {
 	/**
 	 * Get the views for an onboarding element.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param string $id The onboarding ID (tour or hint).
 	 *
@@ -155,7 +155,7 @@ class Main {
 	/**
 	 * Increment views for an onboarding element.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param string $id The onboarding ID (tour or hint).
 	 * @return int The views count for the particular `$id`.
@@ -180,7 +180,7 @@ class Main {
 	/**
 	 * Get the list of tours available for handling.
 	 *
-	 * @since  TBD
+	 * @since  4.14.9
 	 *
 	 * @return array An associative array of shortcodes in the shape `[ <slug> => <class> ]`
 	 */
@@ -190,7 +190,7 @@ class Main {
 		/**
 		 * Allow the registering of tours into our plugins.
 		 *
-		 * @since  TBD
+		 * @since  4.14.9
 		 *
 		 * @var array An associative array of tours in the shape `[ <id> => <class> ]`.
 		 */
@@ -202,7 +202,7 @@ class Main {
 	/**
 	 * Get the list of hints available for handling.
 	 *
-	 * @since  TBD
+	 * @since  4.14.9
 	 *
 	 * @return array An associative array of hints in the shape `[ <id> => <class> ]`
 	 */
@@ -212,7 +212,7 @@ class Main {
 		/**
 		 * Allow the registering of tours into our plugins.
 		 *
-		 * @since  TBD
+		 * @since  4.14.9
 		 *
 		 * @var array An associative array of hints in the shape `[ <id> => <class> ]`.
 		 */

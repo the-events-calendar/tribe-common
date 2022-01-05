@@ -9,7 +9,7 @@ import { noop } from 'lodash';
 /**
  * Internal dependencies
  */
-import { CheckboxInput } from '@moderntribe/common/elements';
+import CheckboxInput from '@moderntribe/common/elements/checkbox-input';
 
 const Checkbox = ( {
 	checked,

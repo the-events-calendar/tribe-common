@@ -1,12 +1,7 @@
 /**
- * External dependencies
- */
-import React from 'react';
-
-/**
  * Internal dependencies
  */
-import { Image } from '@moderntribe/common/elements';
+import Image from '../element';
 
 let imageProps;
 

@@ -34,6 +34,7 @@
     "afterEach": true,
     "it": true,
     "mount": true,
-    "renderer": true
+    "renderer": true,
+    "React": true
   }
 }
