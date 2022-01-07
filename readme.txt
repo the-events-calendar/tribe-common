@@ -3,6 +3,7 @@
 = [4.14.11] 2022-01-12 =
 
 * Fix - Alter logic to not test regex with missing delimiters fail them as invalid immediately. [TEC-4180]
+* Language - 0 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.10] 2021-12-20 =
 
