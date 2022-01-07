@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] TBD =
+= [4.14.11] 2022-01-12 =
 
 * Fix - Alter logic to not test regex with missing delimiters fail them as invalid immediately. [TEC-4180]
 
