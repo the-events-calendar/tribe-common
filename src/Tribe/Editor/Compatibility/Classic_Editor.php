@@ -1,8 +1,6 @@
 <?php
 
 namespace Tribe\Editor\Compatibility;
-
-use \Classic_Editor as Plugin_Editor;
 /**
  * Editor Compatibility with classic editor plugins.
  *
@@ -75,7 +73,17 @@ class Classic_Editor {
 	 *
 	 * @var string
 	 */
-	public static $user_meta_choice_key = 'wp_classic-editor-settings';
+	public static $user_meta_choice_key = 'classic-editor-settings';
+
+	/**
+	 * Post meta key used for CE "remembering" the last editor used.
+	 * The bane of my existence.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $post_meta_key = 'classic-editor-remember';
 
 	/**
 	 * Stores the values used by the Classic Editor plugin to indicate we're using the classic editor.
@@ -89,6 +97,15 @@ class Classic_Editor {
 		'classic',
 	];
 
+	/**
+	 * Placeholders
+	 *
+	 * @since TBD
+	 *
+	 * @var [type]
+	 */
+	public static $user_choice_allowed = null;
+	public static $user_profile_choice = null;
 	public static $classic_url_param = null;
 	public static $classic_url_override = null;
 
@@ -97,7 +114,7 @@ class Classic_Editor {
 	 *
 	 * @since TBD
 	 */
-	public function register() {
+	public function init() {
 		if ( static::is_classic_plugin_active() ) {
 			$this->hooks();
 		}
@@ -109,18 +126,55 @@ class Classic_Editor {
 	 * @since TBD
 	 */
 	public function hooks() {
-		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ] );
-		add_action( 'tribe_plugins_loaded', [ $this, 'classic_url_params' ], 22 );
+		add_action( 'tribe_plugins_loaded', [ $this, 'set_classic_url_params' ], 22 );
+
+		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 20 );
 	}
 
-	public function classic_url_params() {
-		if ( null === static::$classic_url_param ) {
-			static::$classic_url_param = isset( $_GET[  static::$classic_param ] ) || isset( $_POST[  static::$classic_param ] );
+	/**
+	 * Sets the placeholders for the URL params.
+	 *
+	 * @since TBD
+	 */
+	public function set_classic_url_params() {
+		static::$classic_url_param    = self::get_classic_param();
+		static::$classic_url_override = self::get_classic_override();
+	}
+
+	/**
+	 * Gets the $classic_url_param placeholder if it's set.
+	 * Sets it then returns it if it's not yet set.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	public static function get_classic_param () {
+		if ( null !== static::$classic_url_param ) {
+			return static::$classic_url_param;
 		}
 
-		if ( null === static::$classic_url_override ) {
-			static::$classic_url_override = isset( $_GET[ static::$classic_override ] ) || isset( $_POST[ static::$classic_override ] );
+		static::$classic_url_param = isset( $_GET[  static::$classic_param ] ) || isset( $_POST[  static::$classic_param ] );
+
+		return static::$classic_url_param;
+	}
+
+	/**
+	 * Gets the $classic_url_override placeholder if it's set.
+	 * Sets it then returns it if it's not yet set.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	public static function get_classic_override() {
+		if ( null !== static::$classic_url_override ) {
+			return static::$classic_url_override;
 		}
+
+		static::$classic_url_override = isset( $_GET[ static::$classic_override ] ) || isset( $_POST[ static::$classic_override ] );
+
+		return static::$classic_url_override;
 	}
 
 	/**
@@ -137,11 +191,46 @@ class Classic_Editor {
 			return (boolean) $should_load_blocks;
 		}
 
-		if ( static::$classic_url_override ) {
+		if ( self::is_classic_option_active() ) {
+			$should_load_blocks = false;
+		}
+
+		if ( ! static::get_user_choice_allowed() ) {
+			return $should_load_blocks;
+		}
+
+		$remember = self::classic_editor_remembers();
+
+		if ( false !== $remember ) {
+			$should_load_blocks = static::$block_term === $remember;
+		}
+
+		if ( self::get_classic_override() ) {
 			$should_load_blocks = true;
 		}
 
-		if ( static::$classic_url_param ) {
+		if ( self::get_classic_param() ) {
+			$should_load_blocks = false;
+		}
+
+		global $pagenow;
+
+		// The profile setting only applies to new posts/etc so bail out now if we're not in the admin and creating a new event.
+		if ( ! is_admin() || ! in_array( $pagenow, array( 'post-new.php' ) ) ) {
+			return $should_load_blocks;
+		}
+
+		$profile_choice = self::user_profile_choice();
+
+		// Only override via $profile_choice if it is actually set.
+		if ( empty( $profile_choice ) ) {
+			return $should_load_blocks;
+		}
+
+		// Only override via $profile_choice if it contains an expected value.
+		if ( static::$block_term === $profile_choice ) {
+			$should_load_blocks = true;
+		} else if ( static::$classic_term === $profile_choice ) {
 			$should_load_blocks = false;
 		}
 
@@ -195,5 +284,46 @@ class Classic_Editor {
 		$replace       = in_array( (string) get_option( static::$classic_option_key ), $valid_values, true );
 
 		return (boolean) $replace;
+	}
+
+
+	public static function get_user_choice_allowed() {
+		if ( null !== static::$user_choice_allowed ) {
+			return static::$user_choice_allowed;
+		}
+
+		static::$user_choice_allowed = 'allow' === get_option( static::$user_choice_key, 'disallow' );
+
+		return static::$user_choice_allowed;
+	}
+
+	public static function user_profile_choice() {
+		if ( null !== static::$user_profile_choice ) {
+			return static::$user_profile_choice;
+		}
+
+		global $wpdb;
+
+		$user    = get_current_user_id();
+		static::$user_profile_choice = get_user_option( $wpdb->prefix . static::$user_meta_choice_key, $user );
+
+		return static::$user_profile_choice;
+	}
+
+	public static function classic_editor_remembers() {
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		$id = isset(  $_GET[ 'post' ] ) ? (int) $_GET[ 'post' ] : null;
+
+		$remember = get_post_meta( $id, static::$post_meta_key, true );
+
+		if ( empty( $remember ) ) {
+			return false;
+		}
+
+		// Why WP, why did you use a different term here?
+		return str_replace( '-editor', '', $remember );
 	}
 }

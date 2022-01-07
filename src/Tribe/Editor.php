@@ -39,7 +39,6 @@ class Tribe__Editor {
 	public function should_load_blocks() {
 		$gutenberg          = $this->is_gutenberg_active() || $this->is_wp_version();
 		$should_load_blocks = $gutenberg && $this->is_blocks_editor_active() && ! $this->is_classic_editor();
-
 		/**
 		 * Filters whether the Blocks Editor should be activated or not.
 		 *
