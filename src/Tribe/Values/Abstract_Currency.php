@@ -10,7 +10,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * The currency formatter representation, including the currency symbol.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var string
 	 */
@@ -19,7 +19,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * The currency decimal representation, rounded to the precision.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var float
 	 */
@@ -28,7 +28,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * The currency formatted string representation, without the currency symbol.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * The default currency code
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var string
 	 */
@@ -46,7 +46,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * The default currency decimal separator
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var string
 	 */
@@ -55,7 +55,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * The default currency thousands separator
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var string
 	 */
@@ -64,7 +64,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * The default complete currency symbol, such as $, € or R$
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var string
 	 */
@@ -73,7 +73,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * The default currency symbol position: prefix if $1 or postfix for 1$
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @var string
 	 */
@@ -82,7 +82,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * Initialize object
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param mixed $amount the value to set initially
 	 */
@@ -100,7 +100,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency() when implemented in a specific class type
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -112,7 +112,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -130,7 +130,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_decimal() when implemented in a specific class type
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param float $decimal the float representation of the value, rounded to precision
 		 * @param Abstract_Currency the object instance
@@ -142,7 +142,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_decimal() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param float $decimal the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -160,7 +160,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_string() when implemented in a specific class type
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $string the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -172,7 +172,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_string() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $string the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -190,7 +190,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency_code() when implemented in a specific class type
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency_code the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -202,7 +202,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency_code() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency_code the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -220,7 +220,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency_symbol() when implemented in a specific class type
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency_symbol the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -232,7 +232,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency_symbol() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency_symbol the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -250,7 +250,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency_symbol_position() when implemented in a specific class type
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency_symbol_position the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -262,7 +262,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency_symbol_position() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency_symbol_position the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -280,7 +280,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency_separator_decimal() when implemented in a specific class type
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency_separator_decimal the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -292,7 +292,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency_separator_decimal() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency_separator_decimal the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -310,7 +310,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency_separator_thousands() when implemented in a specific class type
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency_separator_thousands the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -322,7 +322,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 		/**
 		 * Filter the value returned for get_currency_separator_thousands() when implemented in any class
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string $currency_separator_thousands the string representation of the value
 		 * @param Abstract_Currency the object instance
@@ -336,7 +336,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	 * Protected setter for the string representation of the object amount. This is a formatted string, including the
 	 * currency symbol.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * To set a new value use the public setter `$obj->set_value( $amount )`
 	 */
@@ -347,7 +347,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	/**
 	 * Protected setter for the decimal representation of the object amount. This is a float, rounded to the precision.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * To set a new value use the public setter `$obj->set_value( $amount )`
 	 */
@@ -359,7 +359,7 @@ abstract class Abstract_Currency extends Abstract_Value implements Currency_Inte
 	 * Protected setter for the string representation of the object amount. This is a formatted string, without the
 	 * currency symbol.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * To set a new value use the public setter `$obj->set_value( $amount )`
 	 */

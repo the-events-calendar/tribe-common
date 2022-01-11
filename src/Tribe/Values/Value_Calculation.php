@@ -7,7 +7,7 @@ trait Value_Calculation {
 	/**
 	 * Sets the current object with its value multiplied by $multiplier.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param int|float $multiplier the value to multiply by
 	 *
@@ -23,7 +23,7 @@ trait Value_Calculation {
 	 * Sets the current object value to be the sum of its current value plus the values of all objects received in
 	 * $values.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param Abstract_Value[] $values a list of Value objects
 	 *
@@ -59,7 +59,7 @@ trait Value_Calculation {
 	 * Rounds the current value to its precision and multiplies it by 10^precision to get an integer representation
 	 * including decimals.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @param int|float $value the value to transform
 	 *

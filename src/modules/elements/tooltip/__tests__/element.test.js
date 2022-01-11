@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 /**
  * Internal dependencies
  */
-import Tooltip from '@moderntribe/common/elements/tooltip/element';
+import Tooltip from '../element';
 
 jest.mock( '@wordpress/components', () => ( {
 	Tooltip: ( { text, position, children } ) => (

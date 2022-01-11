@@ -7,11 +7,9 @@ import moment, { isMoment } from 'moment'; // eslint-disable-line import/named
 /**
  * Internal dependencies
  */
-import {
-	date as dateUtil,
-	time,
-	string,
-} from '@moderntribe/common/utils';
+import * as dateUtil from '@moderntribe/common/utils/date';
+import * as time from '@moderntribe/common/utils/time';
+import * as string from '@moderntribe/common/utils/string';
 
 export const TIME_FORMAT = 'h:mm a';
 

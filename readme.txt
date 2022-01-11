@@ -4,12 +4,23 @@
 
 * Tweak - Ensure the `Event Countdown` widget's assets are loaded onto post type pages to enable the new `Event Countdown` block to function correctly. [ECP-1016]
 
+= [4.14.11] 2022-01-10 =
+
+* Fix - Alter logic to not test regex with missing delimiters fail them as invalid immediately. [TEC-4180]
+* Language - 0 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.14.10] 2021-12-20 =
+
+* Fix - Initial steps to make The Events Calendar compatible with PHP 8.1
+
 = [4.14.9] 2021-12-14 =
 
 * Feature - Add loader template for the admin views. [VE-435]
 * Feature - Included Price, Curreny and Value classes to improve monetary handling from Common [ET-1331]
 * Tweak - Included End of Year Sale promotion to the General Settings panel and banner. [TCMN-129]
 * Fix - Prevent PHP 8 warnings when using extensions. (props to @huubl for this fix!) [TEC-4165]
+* Fix - Modify the encoding for Help Page data to enable a better experience when sharing with support.
+* Language - 5 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.8] 2021-11-17 =
 
@@ -17,7 +28,7 @@
 * Feature - Adding Onboarding functionality, featuring `Tours` and `Hints`.
 * Tweak - Added the `tribe_repository_{$filter_name}_pre_first_post`, `tribe_repository_{$filter_name}_pre_last_post`, and `tribe_repository_{$filter_name}_pre_get_ids_for_posts` actions. (Props to @sc0ttkclark)
 * Language - 10 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted
-
+w
 = [4.16.7] 2021-11-04 =
 
 * Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
@@ -33,7 +44,7 @@
 
 * Fix - Ensure all the content within the recent template changes section in the troubleshooting page is visible. [TEC-4062]
 * Fix - Updated dropdowns controlled via ajax to return unescaped html entities instead of the escaped version. [CE-97]
-* Fix - Ensure Troubleshooting page has the required DOM pieces and the call to TEC.com works as expected. [TEC-4052]
+* Fix - Ensure Troubleshooting page has the required DOM pieces and the call to TEC.com works as expected. [TEC-4052]w
 * Fix - Updated dropdowns controlled via ajax to return unescaped html entities instead of the escaped version. [CE-97]
 * Language - 6 new strings added, 88 updated, 1 fuzzied, and 2 obsoleted
 

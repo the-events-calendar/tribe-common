@@ -25,7 +25,7 @@ trait Value_Update {
 		/**
 		 * Filter the value returned for get_setters() when implemented in a specific class name
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string[] $setters the list of setter methods returned
 		 * @param Abstract_Value the object instance
@@ -37,7 +37,7 @@ trait Value_Update {
 		/**
 		 * Filter the value returned for get_setters() for all class names.
 		 *
-		 * @since TBD
+		 * @since 4.14.9
 		 *
 		 * @param string[] $setters the list of setter methods returned
 		 * @param Abstract_Value the object instance

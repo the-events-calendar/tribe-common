@@ -2,7 +2,7 @@
 /**
  * Notice for the end of year Sale
  *
- * @since TBD
+ * @since 4.14.9
  */
 
 namespace Tribe\Admin\Notice\Marketing;
@@ -12,7 +12,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class End_Of_Year_Sale
  *
- * @since TBD
+ * @since 4.14.9
  *
  * @package Tribe\Admin\Notice\Marketing
  */
@@ -53,7 +53,7 @@ class End_Of_Year_Sale extends \Tribe\Admin\Notice\Date_Based {
 	/**
 	 * Unix time for notice end.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return int $end_time The date & time the notice should stop displaying, as a Unix timestamp.
 	 */
