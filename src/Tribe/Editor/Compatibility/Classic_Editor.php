@@ -287,6 +287,13 @@ class Classic_Editor {
 	}
 
 
+	/**
+	 * Get and store wether user choice is allowed - lets us bypass some checks.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
 	public static function get_user_choice_allowed() {
 		if ( null !== static::$user_choice_allowed ) {
 			return static::$user_choice_allowed;
@@ -297,6 +304,13 @@ class Classic_Editor {
 		return static::$user_choice_allowed;
 	}
 
+	/**
+	 * Get the and store user's editor of choice - set in the user profile.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
 	public static function user_profile_choice() {
 		if ( null !== static::$user_profile_choice ) {
 			return static::$user_profile_choice;
@@ -310,6 +324,14 @@ class Classic_Editor {
 		return static::$user_profile_choice;
 	}
 
+	/**
+	 * Get whether CE has "remembered" the last editor for a given post.
+	 * If so, this is what the default edit link will send us to.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool|string The string of the editor choice or false on fails.
+	 */
 	public static function classic_editor_remembers() {
 		if ( ! is_admin() ) {
 			return false;
