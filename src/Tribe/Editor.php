@@ -26,29 +26,49 @@ class Tribe__Editor {
 	public $key_flag_classic_editor = '_tribe_is_classic_editor';
 
 	/**
-	 * Utility function to check if we should load the blocks or not based on two assumptions
-	 * used in ET, ECP, TEC
-	 *
-	 * a) Is gutenberg active?
-	 * b) Is the blocks editor active?
+	 * Utility function to check if we should load the blocks or not.
 	 *
 	 * @since 4.8
 	 *
 	 * @return bool
 	 */
 	public function should_load_blocks() {
-		$gutenberg          = $this->is_gutenberg_active() || $this->is_wp_version();
-		$should_load_blocks = $gutenberg && $this->is_blocks_editor_active() && ! $this->is_classic_editor();
+		$should_load_blocks = $this->are_blocks_enabled();
 		/**
-		 * Filters whether the Blocks Editor should be activated or not.
+		 * Filters whether the Blocks Editor should be activated or not for events.
 		 *
 		 * @since 4.12.0
 		 *
-		 * @param bool $should_load_blocks Whether the blocks editor should be activated or not.
+		 * @param bool $should_load_blocks Whether the blocks editor should be activated or not for events.
 		 */
 		$should_load_blocks = (bool) apply_filters( 'tribe_editor_should_load_blocks', $should_load_blocks );
 
 		return $should_load_blocks;
+	}
+
+	/**
+	 * Utility function to check if blocks are enabled based on two assumptions
+	 *
+	 * a) Is gutenberg active?
+	 *     1) Via plugin or WP version
+	 * b) Is the blocks editor active?
+	 *      1) Based on the enqueue_block_assets action.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function are_blocks_enabled() {
+		$gutenberg      = $this->is_gutenberg_active() || $this->is_wp_version();
+		$blocks_enabled = $gutenberg && $this->is_blocks_editor_active();
+		/**
+		 * Filters whether the Blocks Editor is enabled or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $should_load_blocks Whether the Blocks Editor is enabled or not.
+		 */
+		return (bool) apply_filters( 'tribe_editor_are_blocks_enabled', $blocks_enabled );
 	}
 
 	/**
@@ -145,53 +165,29 @@ class Tribe__Editor {
 
 	/**
 	 * Detect if the Classic Editor is force-activated via plugin or if it comes from a request.
-	 * Used in ET, ECP, VE, TEC
 	 *
 	 * @since 4.8
+	 * @deprecated TBD
 	 *
 	 * @return bool
 	 */
 	public function is_classic_editor() {
+		_deprecated_function( __FUNCTION__, 'TBD', 'should_load_blocks' );
 		/**
 		 * Allow other addons to disable Classic Editor based on options.
 		 *
 		 * @since  4.8.5
+		 * @deprecated TBD
 		 *
 		 * @param bool $classic_is_active Whether the Classic Editor should be used.
 		 */
-		return apply_filters( 'tribe_editor_classic_is_active', false );
-	}
-
-	/**
-	 * Whether the TEC setting dictates Blocks or the Classic Editor.
-	 * used in ET, ET+ and TEC
-	 *
-	 * @since 4.12.0
-	 *
-	 * @return bool True if using Blocks. False if using the Classic Editor.
-	 */
-	public function is_events_using_blocks() {
-		/**
-		 * Whether the event is being served through blocks
-		 * or the Classic Editor.
-		 *
-		 * @since 4.12.0
-		 *
-		 * @param bool $is_using_blocks True if using blocks. False if using the Classic Editor.
-		 */
-		$is_using_blocks = apply_filters( 'tribe_is_using_blocks', null );
-
-		// Early bail: The filter was overridden to return either true or false.
-		if ( null !== $is_using_blocks ) {
-			return (bool) $is_using_blocks;
-		}
-
-		// Early bail: The site itself is not using blocks.
-		if ( ! $this->should_load_blocks() ) {
-			return false;
-		}
-
-		return tribe_is_truthy( tribe_get_option( 'toggle_blocks_editor', false ) );
+		return apply_filters_deprecated(
+			'tribe_editor_classic_is_active',
+			[false],
+			'TBD',
+			'tribe_editor_should_load_blocks',
+			'This has been deprecated in favor of the filter in should_load_blocks(). Note however that the logic is inverted!'
+		);
 	}
 
 	/* DEPRECATED FUNCTIONS */
@@ -257,5 +253,39 @@ class Tribe__Editor {
 		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active' );
 
 		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active();
+	}
+
+	/**
+	 * Whether the TEC setting dictates Blocks or the Classic Editor.
+	 * used in ET, ET+ and TEC
+	 *
+	 * @since 4.12.0
+	 * @deprecated TBD
+	 *
+	 * @return bool True if using Blocks. False if using the Classic Editor.
+	 */
+	public function is_events_using_blocks() {
+		_deprecated_function( __FUNCTION__, 'TBD', 'should_load_blocks');
+		/**
+		 * Whether the event is being served through blocks
+		 * or the Classic Editor.
+		 *
+		 * @since 4.12.0
+		 *
+		 * @param bool $is_using_blocks True if using blocks. False if using the Classic Editor.
+		 */
+		$is_using_blocks = apply_filters( 'tribe_is_using_blocks', null );
+
+		// Early bail: The filter was overridden to return either true or false.
+		if ( null !== $is_using_blocks ) {
+			return (bool) $is_using_blocks;
+		}
+
+		// Early bail: The site itself is not using blocks.
+		if ( ! $this->should_load_blocks() ) {
+			return false;
+		}
+
+		return tribe_is_truthy( tribe_get_option( 'toggle_blocks_editor', false ) );
 	}
 }
