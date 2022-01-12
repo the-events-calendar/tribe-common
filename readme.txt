@@ -6,7 +6,9 @@
 
 = [TBD] TBD =
 
-= [4.14.11] 2022-01-12 =
+* Tweak - Ensure the `Event Countdown` widget's assets are loaded onto post type pages to enable the new `Event Countdown` block to function correctly. [ECP-1016]
+
+= [4.14.11] 2022-01-10 =
 
 * Fix - Alter logic to not test regex with missing delimiters fail them as invalid immediately. [TEC-4180]
 * Language - 0 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
