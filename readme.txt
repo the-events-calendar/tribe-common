@@ -2,7 +2,7 @@
 
 = [4.14.12] 2022-01-17 =
 
-* Tweak - Ensure the `Event Countdown` widget's assets are loaded onto post type pages to enable the new `Event Countdown` block to function correctly. [ECP-1016]
+* Fix - Prevent Onboarding assets from loading on the admin when not needed.
 
 = [4.14.11] 2022-01-10 =
 
