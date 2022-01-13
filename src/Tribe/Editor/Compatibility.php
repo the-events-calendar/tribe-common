@@ -3,6 +3,7 @@
 namespace Tribe\Editor;
 
 use Tribe\Editor\Compatibility\Classic_Editor;
+use Tribe\Editor\Compatibility\Divi;
 
 /**
  * Editor Compatibility with other plugins and themes.
@@ -14,13 +15,17 @@ class Compatibility extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( self::class, $this );
 		$this->container->singleton( 'editor.compatibility', $this );
 
-		// Conditionally load compatibility for the Classic Editor plugin
+		// Conditionally load compatibility for the Classic Editor plugin.
 		if ( Classic_Editor::is_classic_plugin_active() ) {
 			$this->container->singleton( 'editor.compatibility.classic-editor', Classic_Editor::class );
 			tribe( 'editor.compatibility.classic-editor' )->init();
 		}
 
-		// @todo: conditionally load compatibility for Divi
-		// @see Divi/includes/builder/feature/ClassicEditor.php
+		// Conditionally load compatibility for Divi themes.
+		if ( Divi::is_divi_active() ) {
+			$this->container->singleton( 'editor.compatibility.divi', Divi::class );
+			tribe( 'editor.compatibility.divi' )->init();
+		}
+
 	}
 }

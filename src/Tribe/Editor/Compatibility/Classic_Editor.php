@@ -4,10 +4,6 @@ namespace Tribe\Editor\Compatibility;
 /**
  * Editor Compatibility with classic editor plugins.
  *
- * https://dev.tec/wp-admin/post.php?post=796&action=edit&classic-editor
- * https://dev.tec/wp-admin/post.php?post=796&action=edit&classic-editor__forget
- * https://dev.tec/wp-admin/post.php?post=796&action=edit&classic-editor&classic-editor__forget
- *
  * @since TBD
  */
 class Classic_Editor {
@@ -192,7 +188,7 @@ class Classic_Editor {
 	 *
 	 * @param boolean $should_load_blocks Whether we should force blocks over classic.
 	 *
-	 * @return boolean Whether we should force blocks over classic.
+	 * @return boolean Whether we should force blocks or classic.
 	 */
 	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
 

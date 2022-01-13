@@ -61,6 +61,7 @@ class Tribe__Editor {
 	public function are_blocks_enabled() {
 		$gutenberg      = $this->is_gutenberg_active() || $this->is_wp_version();
 		$blocks_enabled = $gutenberg && $this->is_blocks_editor_active();
+
 		/**
 		 * Filters whether the Blocks Editor is enabled or not.
 		 *
