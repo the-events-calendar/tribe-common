@@ -20,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.14.11';
+	const VERSION             = '4.14.12';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -458,9 +458,9 @@ class Tribe__Main {
 
 	/**
 	 * Checks if we're on an admin screen that requires the widget dependency assets to load.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @return bool Whether we should load the assets or not.
 	 */
 	public function should_load_common_widget_dependecies() {
