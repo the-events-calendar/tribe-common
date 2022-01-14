@@ -293,20 +293,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return void
 		 */
 		public function addNetworkPage() {
-			if ( ! $this->should_setup_network_pages() ) {
-				return;
-			}
-
-			return;
-
-			// @todo @juanfra: Move this to TEC.
-
-			$this->admin_page = add_submenu_page(
-				'settings.php', esc_html__( 'Events Settings', 'tribe-common' ), esc_html__( 'Events Settings', 'tribe-common' ), $this->requiredCap, $this->adminSlug, [
-					$this,
-					'generatePage',
-				]
-			);
+			// @todo @juanfra: deprecate this one.
 		}
 
 		/**
@@ -385,7 +372,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 
 			$url = add_query_arg(
 				$args,
-				admin_url( 'admin.php' )
+				is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'admin.php' )
 			);
 
 			return apply_filters( 'tribe_settings_page_url', $url, $page, $tab );
@@ -485,11 +472,16 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 		 * @return string $url The URL.
 		 */
 		public function get_tab_url( $tab ) {
-			$admin_pages = tribe( 'admin.pages' );
-			$admin_page  = $admin_pages->get_current_page();
-
-			$current_page = admin_url( 'admin.php?page=' . $admin_page );
-			$url          = $current_page . '&tab=' . urlencode( $tab );
+			$admin_pages  = tribe( 'admin.pages' );
+			$admin_page   = $admin_pages->get_current_page();
+			$wp_page      = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'admin.php' );
+			$url          = add_query_arg(
+				[
+					'page'      => $admin_page,
+					'tab'       => $tab,
+				],
+				$wp_page
+			);
 
 			if ( is_network_admin() ) {
 				return $url;

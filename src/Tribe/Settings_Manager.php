@@ -11,7 +11,7 @@ class Tribe__Settings_Manager {
 	public function __construct() {
 		$this->add_hooks();
 
-		// Load multisite defaults
+		// Load multisite defaults.
 		if ( is_multisite() ) {
 			$tribe_events_mu_defaults = [];
 			if ( file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) ) {
@@ -228,18 +228,8 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function add_network_options_page() {
-		$tribe_settings = Tribe__Settings::instance();
-		add_submenu_page(
-			'settings.php',
-			$tribe_settings->menuName,
-			$tribe_settings->menuName,
-			'manage_network_options',
-			'tribe-common',
-			[
-				$tribe_settings,
-				'generatePage',
-			]
-		);
+		// @todo @juanfra: deprecate this.
+		return;
 	}
 
 	/**
@@ -248,9 +238,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function do_network_settings_tab() {
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-network.php';
-
-		new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'tribe-common' ), $networkTab );
+		// @todo @juanfra: deprecate this.
 	}
 
 	/**
@@ -310,6 +298,7 @@ class Tribe__Settings_Manager {
 	 * @todo move to an admin class
 	 */
 	public function add_help_admin_menu_item() {
+		// @todo @juanfra: Move this to TEC and deprecate.
 		$hidden_settings_tabs = self::get_network_option( 'hideSettingsTabs', [] );
 		if ( in_array( 'help', $hidden_settings_tabs ) ) {
 			return;

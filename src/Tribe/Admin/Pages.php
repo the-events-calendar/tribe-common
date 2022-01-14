@@ -79,7 +79,7 @@ class Pages {
 		$options = wp_parse_args( $options, $defaults );
 
 		if ( is_null( $options['parent'] ) ) {
-			add_menu_page(
+			$page = add_menu_page(
 				$options['title'],
 				$options['title'],
 				$options['capability'],
@@ -89,7 +89,7 @@ class Pages {
 				$options['position']
 			);
 		} else {
-			add_submenu_page(
+			$page = add_submenu_page(
 				$options['parent'],
 				$options['title'],
 				$options['title'],
@@ -100,6 +100,8 @@ class Pages {
 		}
 
 		$this->connect_page( $options );
+
+		return $page;
 	}
 
 	/**
