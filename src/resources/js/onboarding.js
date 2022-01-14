@@ -18,7 +18,7 @@ tribe.onboarding = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @type {PlainObject}
 	 */
@@ -39,7 +39,7 @@ tribe.onboarding = {};
 	/**
 	 * Init onboarding steps.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return void
 	 */
@@ -64,7 +64,7 @@ tribe.onboarding = {};
 	/**
 	* Init hints.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return void
 	 */
@@ -88,7 +88,7 @@ tribe.onboarding = {};
 	/**
 	 * Handles the initialization of the enhancer.
 	 *
-	 * @since TBD
+	 * @since 4.14.9
 	 *
 	 * @return {void}
 	 */

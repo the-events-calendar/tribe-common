@@ -9,8 +9,8 @@ import { noop } from 'lodash';
 /**
  * Internal dependencies
  */
-import LabeledItem from '@moderntribe/common/elements/labeled-item/element';
-import ModalButton from '@moderntribe/common/elements/modal-button/element';
+import LabeledItem from '@moderntribe/common/elements/labeled-item';
+import ModalButton from '@moderntribe/common/elements/modal-button';
 import './style.pcss';
 
 const LabelWithModal = ( {

@@ -520,7 +520,15 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 			? $cost . $currency_symbol
 			: $currency_symbol . $cost;
 
-		return $cost;
+		/**
+		 * Filter the entire formatted string returned.
+		 *
+		 * @since 4.14.9
+		 *
+		 * @param string $cost
+		 * @param int $post_id
+		 */
+		return apply_filters( 'tribe_currency_formatted', $cost, $post_id );
 	}
 }//end if
 

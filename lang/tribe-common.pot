@@ -1,14 +1,14 @@
-# Copyright (C) 2021 Modern Tribe
+# Copyright (C) 2022 Modern Tribe
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.14.7\n"
+"Project-Id-Version: Tribe Common 4.14.11\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2021-11-15 17:01:24+00:00\n"
+"POT-Creation-Date: 2022-01-07 06:37:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-11-15 17:01\n"
+"PO-Revision-Date: 2022-01-07 06:37\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -58,7 +58,7 @@ msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.7)  #-#-#-#-#
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.11)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Admin/Help_Page.php:82 src/Tribe/Customizer.php:666
 #: src/Tribe/Plugins_API.php:25 src/admin-views/help-calendar.php:97
@@ -2782,6 +2782,10 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
+#: src/Tribe/Service_Providers/Onboarding.php:102
+msgid "Got it"
+msgstr ""
+
 #: src/Tribe/Settings.php:177 src/Tribe/Settings.php:241
 #: src/Tribe/Settings.php:242
 msgid "Events"
@@ -2898,15 +2902,15 @@ msgid ""
 "overrides is provided below."
 msgstr ""
 
-#: src/Tribe/Support.php:191
+#: src/Tribe/Support.php:194
 msgid "English"
 msgstr ""
 
-#: src/Tribe/Support.php:210 src/Tribe/Support.php:211
+#: src/Tribe/Support.php:213 src/Tribe/Support.php:214
 msgid "Unknown or not set"
 msgstr ""
 
-#: src/Tribe/Support.php:221
+#: src/Tribe/Support.php:224
 msgid ""
 "Rewrite rules were purged on load of this help page. Chances are there is a "
 "rewrite rule flush occurring in a plugin or theme!"
@@ -3055,6 +3059,7 @@ msgstr ""
 
 #: src/admin-views/app-shop.php:30
 #: src/admin-views/conditional_content/black-friday.php:16
+#: src/admin-views/conditional_content/end-of-year-sale.php:16
 #: src/admin-views/help.php:27 src/admin-views/help.php:82
 #: src/admin-views/troubleshooting/footer-logo.php:12
 #: src/admin-views/troubleshooting/introduction.php:19
@@ -3150,12 +3155,23 @@ msgstr ""
 msgid "Browse Extensions"
 msgstr ""
 
+#: src/admin-views/components/loader.php:18
+msgid "Loading..."
+msgstr ""
+
 #: src/admin-views/conditional_content/black-friday.php:23
 msgid "Our biggest<br/> sale of the<br/> year ends<br/> soon</p>"
 msgstr ""
 
 #: src/admin-views/conditional_content/black-friday.php:30
+#: src/admin-views/conditional_content/end-of-year-sale.php:31
 msgid "Save now"
+msgstr ""
+
+#: src/admin-views/conditional_content/end-of-year-sale.php:23
+msgid ""
+"End of Year Sale!<br/>Save 30% on<br/> all our plugins.<br/>Offer expires "
+"soon!"
 msgstr ""
 
 #: src/admin-views/event-log.php:21
@@ -3403,16 +3419,25 @@ msgstr ""
 msgid "Visit Troubleshooting next"
 msgstr ""
 
+#: src/admin-views/notices/end-of-year-sale.php:16
+msgid "End of year savings!"
+msgstr ""
+
+#: src/admin-views/notices/end-of-year-sale.php:18
+msgid "Get 30% off on all plugins from now through December 31."
+msgstr ""
+
+#: src/admin-views/notices/end-of-year-sale.php:25
+#: src/admin-views/notices/tribe-bf-general.php:26
+msgid "Shop now"
+msgstr ""
+
 #: src/admin-views/notices/tribe-bf-general.php:17
 msgid "Save 40% on every single plugin."
 msgstr ""
 
 #: src/admin-views/notices/tribe-bf-general.php:19
 msgid "Black Friday Sale now through %s."
-msgstr ""
-
-#: src/admin-views/notices/tribe-bf-general.php:26
-msgid "Shop now"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:23

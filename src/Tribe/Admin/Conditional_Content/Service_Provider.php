@@ -22,6 +22,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function register() {
 		$this->container->singleton(  Black_Friday::class, Black_Friday::class, [ 'hook' ] );
+		$this->container->singleton(  End_Of_Year_Sale::class, End_Of_Year_Sale::class, [ 'hook' ] );
 		$this->hooks();
 	}
 
@@ -41,5 +42,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function plugins_loaded() {
 		$this->container->make( Black_Friday::class );
+		$this->container->make( End_Of_Year_Sale::class );
 	}
 }

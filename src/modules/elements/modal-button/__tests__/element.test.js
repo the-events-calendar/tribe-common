@@ -7,7 +7,7 @@ import { noop } from 'lodash';
 /**
  * Internal dependencies
  */
-import ModalButton from '@moderntribe/common/elements/modal-button/element';
+import ModalButton from '../element';
 
 describe( 'Modal Button Element', () => {
 	it( 'renders a modal button', () => {
