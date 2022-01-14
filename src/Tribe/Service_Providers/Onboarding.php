@@ -1,6 +1,8 @@
 <?php
 namespace Tribe\Service_Providers;
 
+use \Tribe\Onboarding\Main as Onboarding_Main;
+
 /**
  * Class Onboarding
  *
@@ -23,7 +25,12 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	 * @since 4.14.9
 	 */
 	public function register() {
-		tribe_singleton( 'onboarding', '\Tribe\Onboarding\Main' );
+		if ( ! $this->is_enabled() ) {
+			return;
+		}
+
+		$this->container->singleton( Onboarding_Main::class, Onboarding_Main::class );
+		$this->container->singleton( static::class, static::class );
 
 		$this->hooks();
 	}
@@ -33,11 +40,11 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 4.14.9
 	 */
-	private function hooks() {
+	protected function hooks() {
 		add_action( 'tribe_common_loaded', [ $this, 'register_assets' ] );
 
-		add_action( 'admin_enqueue_scripts', tribe_callback( 'onboarding', 'localize_tour' ) );
-		add_action( 'admin_enqueue_scripts', tribe_callback( 'onboarding', 'localize_hints' ) );
+		add_action( 'admin_enqueue_scripts', $this->container->make( Onboarding_Main::class, 'localize_tour' ) );
+		add_action( 'admin_enqueue_scripts', $this->container->make( Onboarding_Main::class, 'localize_hints' ) );
 	}
 
 	/**
@@ -50,7 +57,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$main,
-			'intro-js',
+			'tec-intro-js',
 			'node_modules/intro.js/intro.js',
 			[],
 			[ 'admin_enqueue_scripts' ],
@@ -62,7 +69,7 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$main,
-			'intro-styles',
+			'tec-intro-styles',
 			'node_modules/intro.js/introjs.css',
 			[],
 			[ 'admin_enqueue_scripts' ],
@@ -74,9 +81,9 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$main,
-			'tribe-onboarding-styles',
+			'tec-onboarding-styles',
 			'onboarding.css',
-			[ 'intro-styles', 'tec-variables-skeleton', 'tec-variables-full' ],
+			[ 'tec-intro-styles', 'tec-variables-skeleton', 'tec-variables-full' ],
 			[ 'admin_enqueue_scripts' ],
 			[
 				'groups'       => self::$group_key,
@@ -86,11 +93,11 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$main,
-			'tribe-onboarding-js',
+			'tec-onboarding-js',
 			'onboarding.js',
 			[
 				'tribe-common',
-				'intro-js'
+				'tec-intro-js'
 			],
 			[ 'admin_enqueue_scripts' ],
 			[
@@ -131,10 +138,10 @@ class Onboarding extends \tad_DI52_ServiceProvider {
 		 *
 		 * @since 4.14.9
 		 *
-		 * @param bool $disabled If we want to disable the onboarding.
+		 * @param bool $disabled If we want to disable the on boarding.
 		 */
-		$is_disabled = (bool) apply_filters( 'tribe_onboarding_disable', false );
+		$is_enabled = (bool) apply_filters( 'tec_onboarding_enabled', false );
 
-		return is_admin() && ! $is_disabled;
+		return $is_enabled && is_admin();
 	}
 }

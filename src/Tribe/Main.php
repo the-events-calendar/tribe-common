@@ -229,25 +229,14 @@ class Tribe__Main {
 				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tec-variables-full', 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
 				[ 'tribe-validation', 'validation.js', [ 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ] ],
 				[ 'tribe-validation-style', 'validation.css', [ 'tec-variables-full', 'tribe-tooltipster-css' ] ],
+				[ 'tribe-dependency', 'dependency.js', [ 'jquery', 'underscore', 'tribe-common' ] ],
+				[ 'tribe-dependency-style', 'dependency.css', [ 'tribe-select2-css' ] ],
 				[ 'tribe-pue-notices', 'pue-notices.js', [ 'jquery' ] ],
 				[ 'tribe-datepicker', 'datepicker.css' ],
 			],
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [ $this, 'should_load_common_admin_css' ],
-				'priority' => 5,
-			]
-		);
-
-		tribe_assets(
-			$this,
-			[
-				[ 'tribe-dependency', 'dependency.js', [ 'jquery', 'underscore', 'tribe-common' ] ],
-				[ 'tribe-dependency-style', 'dependency.css', [ 'tribe-select2-css' ] ],
-			],
-			'admin_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'should_load_common_widget_dependecies' ],
 				'priority' => 5,
 			]
 		);
@@ -442,32 +431,6 @@ class Tribe__Main {
 
 		// Are we on a post type screen?
 		$is_post_type = $helper->is_post_type_screen();
-
-		// Are we on the Plugins page?
-		$is_plugins = $helper->is_screen( 'plugins' );
-
-		// Are we on the Widgets page?
-		$is_widgets = $helper->is_screen( 'widgets' );
-
-		// Are we viewing a generic Tribe screen?
-		// Includes: Events > Settings, Events > Help, App Shop page, and more.
-		$is_tribe_screen = $helper->is_screen();
-
-		return $is_post_type || $is_plugins || $is_widgets || $is_tribe_screen;
-	}
-
-	/**
-	 * Checks if we're on an admin screen that requires the widget dependency assets to load.
-	 * 
-	 * @since TBD
-	 * 
-	 * @return bool Whether we should load the assets or not.
-	 */
-	public function should_load_common_widget_dependecies() {
-		$helper = Tribe__Admin__Helpers::instance();
-
-		// Are we on a post type screen?
-		$is_post_type = $helper->is_post_type_screen() || 'post' === get_current_screen()->base;
 
 		// Are we on the Plugins page?
 		$is_plugins = $helper->is_screen( 'plugins' );
