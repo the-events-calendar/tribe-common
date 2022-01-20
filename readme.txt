@@ -9,6 +9,7 @@
 = [4.14.12] 2022-01-17 =
 
 * Fix - Prevent Onboarding assets from loading on the admin when not needed.
+* Tweak - Included new filter `tec_system_information` allowing better control over the Troubleshooting Help page.
 
 = [4.14.11] 2022-01-10 =
 
