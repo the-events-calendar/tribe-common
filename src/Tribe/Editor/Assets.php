@@ -96,7 +96,7 @@ class Tribe__Editor__Assets {
 		);
 		tribe_asset(
 			$plugin,
-			'tribe-common-gutenberg-elements-styles',
+			'tribe-common-gutenberg-main-styles',
 			'app/main.css',
 			[],
 			'enqueue_block_editor_assets',
