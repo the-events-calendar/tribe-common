@@ -6,10 +6,9 @@ const merge = require( 'webpack-merge' );
 const common = require( '@the-events-calendar/product-taskmaster/webpack/common/webpack.config' );
 const wpExternals = require( '@the-events-calendar/product-taskmaster/webpack/externals/wp.js' );
 const vendor = require( '@the-events-calendar/product-taskmaster/webpack/externals/vendor.js' );
-const { getDirectoryNames } = require( '@the-events-calendar/product-taskmaster/webpack/utils/directories' );
-const { generateEntries } = require( '@the-events-calendar/product-taskmaster/webpack/entry/tribe' );
+const lodash = require( '@the-events-calendar/product-taskmaster/webpack/externals/lodash.js' );
+const modules = require( '@the-events-calendar/product-taskmaster/webpack/externals/modules.js' );
 
-const directoryNames = getDirectoryNames( resolve( __dirname, './src/modules' ) );
 const PLUGIN_SCOPE = 'common';
 
 const config = merge.strategy( {
@@ -17,13 +16,41 @@ const config = merge.strategy( {
 } )(
 	common,
 	{
-		externals: { ...wpExternals, ...vendor }, // Only use WP externals
-		entry: generateEntries( __dirname, directoryNames ),
+		externals: [
+			wpExternals,
+			vendor,
+			lodash,
+			modules,
+		],
+		entry: {
+			main: resolve( __dirname, './src/modules/index.js' ),
+		},
 		output: {
 			path: __dirname,
-			library: [ 'tribe', PLUGIN_SCOPE, '[name]' ],
+			library: [ 'tribe', PLUGIN_SCOPE ],
 		},
 	}
 );
 
-module.exports = config;
+const modulesConfig = merge.strategy( {
+	externals: 'replace',
+	optimization: 'replace',
+} )(
+	common,
+	{
+		externals: [],
+		entry: {
+			modules: resolve( __dirname, './src/modules/modules.js' ),
+		},
+		output: {
+			path: __dirname,
+			library: [ 'tribe', 'modules' ],
+		},
+		optimization: {},
+	},
+);
+
+module.exports = [
+	config,
+	modulesConfig,
+];
