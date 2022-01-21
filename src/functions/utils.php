@@ -567,6 +567,17 @@ if ( ! function_exists( 'tribe_is_regex' ) ) {
 			return false;
 		}
 
+		$n = strlen( $candidate );
+		// regex must be at least 2 delimiters + 1 character - invalid regex.
+		if ( $n < 3 ) {
+			return false;
+		}
+
+		// Missing or mismatched delimiters - invalid regex.
+		if ( $candidate[0] !== $candidate[ $n - 1 ] ) {
+			return false;
+		}
+
 		// We need to have the Try/Catch for Warnings too
 		try {
 			return ! ( @preg_match( $candidate, null ) === false );
@@ -1096,7 +1107,7 @@ if ( ! function_exists( 'tribe_sanitize_deep' ) ) {
 			return $value;
 		}
 		if ( is_string( $value ) ) {
-			$value = filter_var( $value, FILTER_SANITIZE_STRING );
+			$value = filter_var( $value, FILTER_UNSAFE_RAW );
 			return $value;
 		}
 		if ( is_int( $value ) ) {

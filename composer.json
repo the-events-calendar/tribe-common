@@ -31,7 +31,7 @@
     }
   },
   "require": {
-    "lucatume/di52": "~2.1.0",
+    "lucatume/di52": "~2.1.5",
     "firebase/php-jwt": "~5.0.0",
     "monolog/monolog": "1.24.*"
   },

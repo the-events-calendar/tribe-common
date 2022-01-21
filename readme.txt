@@ -1,5 +1,19 @@
 == Changelog ==
 
+= [4.14.12] 2022-01-17 =
+
+* Fix - Prevent Onboarding assets from loading on the admin when not needed.
+* Tweak - Included new filter `tec_system_information` allowing better control over the Troubleshooting Help page.
+
+= [4.14.11] 2022-01-10 =
+
+* Fix - Alter logic to not test regex with missing delimiters fail them as invalid immediately. [TEC-4180]
+* Language - 0 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.14.10] 2021-12-20 =
+
+* Fix - Initial steps to make The Events Calendar compatible with PHP 8.1
+
 = [4.14.9] 2021-12-14 =
 
 * Feature - Add loader template for the admin views. [VE-435]
