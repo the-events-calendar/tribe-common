@@ -4,7 +4,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import 'react-day-picker/lib/style.css';
-import { DayPickerInput as ReactDayPickerInput } from 'react-day-picker';
+import { Input as ReactDayPickerInput } from 'react-day-picker';
 
 /**
  * Internal dependencies
