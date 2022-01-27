@@ -15,7 +15,7 @@ class Main {
 	 *
 	 * @return array $steps The tour data.
 	 */
-	private function tour_data() {
+	protected function tour_data() {
 		$data             = [];
 		$registered_tours = $this->get_registered_tours();
 
@@ -62,7 +62,7 @@ class Main {
 	 *
 	 * @return array $steps The hints data.
 	 */
-	private function hints_data() {
+	protected function hints_data() {
 		$data             = [];
 		$registered_hints = $this->get_registered_hints();
 
