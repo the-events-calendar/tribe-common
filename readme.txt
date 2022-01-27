@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
+
 = [4.14.12] 2022-01-17 =
 
 * Fix - Prevent Onboarding assets from loading on the admin when not needed.
