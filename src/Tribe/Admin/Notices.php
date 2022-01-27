@@ -200,6 +200,11 @@ class Tribe__Admin__Notices {
 				$content = call_user_func_array( $content, [ $notice ] );
 			}
 
+			if ( empty( $content ) ) {
+				// There is nothing to render, let's avoid the empty notice frame.
+				return false;
+			}
+
 			// Return the rendered HTML.
 			$html = $this->render( $slug, $content, false, $wrap );
 
