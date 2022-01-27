@@ -104,9 +104,43 @@ class Classic_Editor {
 	 *
 	 * @var [type]
 	 */
+
+	/**
+	 * Holds whether Classic Editor allows user choice of editors.
+	 *
+	 * @since TBD
+	 *
+	 * @var null|boolean
+	 */
 	public static $user_choice_allowed = null;
+
+	/**
+	 * Holds the user's preferred editor - set in user profile.
+	 *
+	 * @since TBD
+	 *
+	 * @var null|string
+	 */
 	public static $user_profile_choice = null;
+
+	/**
+	 * Holds the GET variable value for enabling the classic editor, if set.
+	 * (ie the default editor set)
+	 *
+	 * @since TBD
+	 *
+	 * @var null|string
+	 */
 	public static $classic_url_param = null;
+
+	/**
+	 * Holds the GET variable value for overriding the classic editor, if set.
+	 * (ie default is classic, this will change it to blocks)
+	 *
+	 * @since TBD
+	 *
+	 * @var null|string
+	 */
 	public static $classic_url_override = null;
 
 	/**
@@ -134,7 +168,7 @@ class Classic_Editor {
 			'post.php',
 		];
 
-		if ( in_array( $current_screen, $good_screens ) ) {
+		if ( ! empty( $current_screen ) && in_array( $current_screen, $good_screens ) ) {
 			add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 20 );
 		}
 	}
@@ -145,8 +179,8 @@ class Classic_Editor {
 	 * @since TBD
 	 */
 	public function set_classic_url_params() {
-		static::$classic_url_param    = self::get_classic_param();
-		static::$classic_url_override = self::get_classic_override();
+		static::$classic_url_param    = static::get_classic_param();
+		static::$classic_url_override = static::get_classic_override();
 	}
 
 	/**
@@ -200,7 +234,7 @@ class Classic_Editor {
 			return (boolean) $should_load_blocks;
 		}
 
-		if ( self::is_classic_option_active() ) {
+		if ( static::is_classic_option_active() ) {
 			$should_load_blocks = false;
 		}
 
@@ -208,28 +242,28 @@ class Classic_Editor {
 			return $should_load_blocks;
 		}
 
-		$remember = self::classic_editor_remembers();
+		$remember = static::classic_editor_remembers();
 
 		if ( false !== $remember ) {
 			$should_load_blocks = static::$block_term === $remember;
 		}
 
-		if ( self::get_classic_override() ) {
+		if ( static::get_classic_override() ) {
 			$should_load_blocks = true;
 		}
 
-		if ( self::get_classic_param() ) {
+		if ( static::get_classic_param() ) {
 			$should_load_blocks = false;
 		}
 
 		global $pagenow;
 
 		// The profile setting only applies to new posts/etc so bail out now if we're not in the admin and creating a new event.
-		if ( ! is_admin() || ! in_array( $pagenow, array( 'post-new.php' ) ) ) {
+		if ( ! is_admin() || ( ! empty( $pagenow ) && ! in_array( $pagenow, [ 'post-new.php' ] ) ) ) {
 			return $should_load_blocks;
 		}
 
-		$profile_choice = self::user_profile_choice();
+		$profile_choice = static::user_profile_choice();
 
 		// Only override via $profile_choice if it is actually set.
 		if ( empty( $profile_choice ) ) {

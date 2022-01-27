@@ -160,7 +160,7 @@ class Tribe__Settings_Manager {
 		$options          = self::get_options();
 		$options[ $name ] = $value;
 
-		return self::set_options( $options );
+		return static::set_options( $options );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class Tribe__Settings_Manager {
 		$options          = self::get_options();
 		unset( $options[ $name ] );
 
-		return self::set_options( $options );
+		return static::set_options( $options );
 	}
 
 	/**
