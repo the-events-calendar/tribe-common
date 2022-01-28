@@ -48,6 +48,10 @@ class Paths_Test extends \Codeception\Test\Unit {
 
 	public function valid_falsy_paths_data_provider(  ) {
 	return [
+		'dir with v2' => [
+			'/home/vps-49f1a7/v2/staging_html/wp-content/plugins/the-events-calendar/common/src/views',
+			'/home/vps-49f1a7/v2/staging_html/wp-content/plugins/the-events-calendar/common/src/views/v2/base'
+		],
 		'dir called 0' => [
 			'/home/vps-49f1a7/0/staging_html/wp-content/plugins/the-events-calendar/common/src/views',
 			'/home/vps-49f1a7/0/staging_html/wp-content/plugins/the-events-calendar/common/src/views/v2/base'
