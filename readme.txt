@@ -3,6 +3,7 @@
 = [TBD] TBD =
 
 * Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
+* Fix - Fixed troubleshooting page styles for standalone Event Tickets setup [ET-1382]
 
 = [4.14.12] 2022-01-17 =
 
