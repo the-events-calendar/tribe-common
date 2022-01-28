@@ -56,6 +56,12 @@ class Paths {
 			: array_filter( (array) preg_split( $break_pattern, $path_2 ), $drop_empty_strings );
 		$non_consecutive_common = array_intersect( $path_1_frags, $path_2_frags );
 
+		$has_v2 = array_search( 'v2', $non_consecutive_common, true );
+
+		if ( false !== $has_v2 ) {
+			unset( $non_consecutive_common[ $has_v2 ] );
+		}
+
 		$trimmed_path_2 = trim(
 			preg_replace(
 				'#^' . preg_quote( implode( DIRECTORY_SEPARATOR, $non_consecutive_common ), '#' ) . '#', '',
