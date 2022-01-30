@@ -152,7 +152,7 @@ class Tribe__Admin__Notices {
 			wp_send_json( false );
 		}
 
-		$slug = sanitize_title_with_dashes( $_GET[ self::$meta_key ] );
+		$slug = sanitize_key( $_GET[ self::$meta_key ] );
 
 		// Send a JSON answer with the status of dismissal
 		wp_send_json( $this->dismiss( $slug ) );
@@ -514,7 +514,7 @@ class Tribe__Admin__Notices {
 	 */
 	public function register( $slug, $callback, $arguments = [], $active_callback = null ) {
 		// Prevent weird stuff here
-		$slug = sanitize_title_with_dashes( $slug );
+		$slug = sanitize_key( $slug );
 
 		$defaults = [
 			'callback'           => null,
@@ -620,7 +620,7 @@ class Tribe__Admin__Notices {
 	 */
 	public function get( $slug = null ) {
 		// Prevent weird stuff here
-		$slug = sanitize_title_with_dashes( $slug );
+		$slug = sanitize_key( $slug );
 
 		if ( is_null( $slug ) ) {
 			return $this->notices;
