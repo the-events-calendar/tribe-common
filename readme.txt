@@ -2,6 +2,7 @@
 
 = [TBD] TBD =
 
+* Fix - Fixed template paths for WP installs with `v2` in directory path. [ET-1249]
 * Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
 
 = [4.14.12] 2022-01-17 =
