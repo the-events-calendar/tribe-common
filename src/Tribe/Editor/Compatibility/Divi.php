@@ -106,7 +106,7 @@ class Divi {
 
 		if ( false !== $divi ) {
 			// Stored as an int - convert to a boolean.
-			return tribe_is_truthy( $divi );
+			return (bool) $divi;
 		}
 
 		// OK, do it the hard way.
@@ -118,7 +118,7 @@ class Divi {
 		$cache->set( 'is_divi', (int) $divi, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_UPDATED_OPTION );
 
 		// Stored as an int - convert to a boolean.
-		return tribe_is_truthy( $divi );
+		return (bool) $divi;
 	}
 
 	/**
