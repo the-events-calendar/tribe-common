@@ -10,10 +10,31 @@ use WP_Post;
  * @since TBD
  */
 class Divi {
+	/**
+	 * The key for the Divi classic editor.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	public static $classic_key = 'et_enable_classic_editor';
 
+	/**
+	 * The value for enabling the Divi classic editor.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	public static $classic_on = 'on';
 
+	/**
+	 * The value for disabling the Divi classic editor.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	public static $classic_off = 'off';
 
 	/**
@@ -22,9 +43,11 @@ class Divi {
 	 * @since TBD
 	 */
 	public function init() {
-		if ( static::is_divi_active() ) {
-			$this->hooks();
+		if ( ! static::is_divi_active() ) {
+			return;
 		}
+
+		$this->hooks();
 	}
 
 	/**
@@ -70,13 +93,30 @@ class Divi {
 			}
 		}
 
-		$foo = '';
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 20 );
 	}
 
 	public static function is_divi_active() {
-		$theme = wp_get_theme(); // gets the current theme
-		return 'Divi' == $theme->name || 'Divi' == $theme->template || 'Divi' == $theme->parent_theme;
+		/** @var Tribe__Cache $cache */
+		$cache = tribe( 'cache' );
+
+		$divi = $cache->get( 'is_divi' );
+
+		if ( false !== $divi ) {
+			// Stored as an int - convert to a boolean.
+			return tribe_is_truthy( $divi );
+		}
+
+		// OK, do it the hard way.
+		$theme = wp_get_theme();
+		// Handle theme children and variations.
+		$divi = 'Divi' == $theme->name || 'Divi' == $theme->template || 'Divi' == $theme->parent_theme;
+
+		// Cache to save us this work next time.
+		$cache->set( 'is_divi', (int) $divi );
+
+		// Stored as an int - convert to a boolean.
+		return tribe_is_truthy( $divi );
 	}
 
 	/**
