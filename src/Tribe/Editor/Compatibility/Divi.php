@@ -3,6 +3,8 @@
 namespace Tribe\Editor\Compatibility;
 
 use WP_Post;
+use Tribe__Cache;
+use Tribe__Cache_Listener;
 
 /**
  * Editor Compatibility with Divi theme's builder option.
@@ -113,7 +115,7 @@ class Divi {
 		$divi = 'Divi' == $theme->name || 'Divi' == $theme->template || 'Divi' == $theme->parent_theme;
 
 		// Cache to save us this work next time.
-		$cache->set( 'is_divi', (int) $divi );
+		$cache->set( 'is_divi', (int) $divi, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_UPDATED_OPTION );
 
 		// Stored as an int - convert to a boolean.
 		return tribe_is_truthy( $divi );
