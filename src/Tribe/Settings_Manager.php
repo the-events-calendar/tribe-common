@@ -151,8 +151,8 @@ class Tribe__Settings_Manager {
 	/**
 	 * Set an option
 	 *
-	 * @param string $name
-	 * @param mixed  $value
+	 * @param string $name The option key or 'name'.
+	 * @param mixed  $value The value we want to set.
 	 *
 	 * @return bool
 	 */
@@ -164,9 +164,11 @@ class Tribe__Settings_Manager {
 	}
 
 	/**
-	 * Remove an option
+	 * Remove an option. Actually remove (unset), as opposed to setting to null/empty string/etc.
 	 *
-	 * @param string $name
+	 * @since TBD
+	 *
+	 * @param string $name The option key or 'name'.
 	 *
 	 * @return bool
 	 */
