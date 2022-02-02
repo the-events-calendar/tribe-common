@@ -129,6 +129,11 @@ class Tribe__Admin__Helpers {
 			return true;
 		}
 
+		// Match any screen from TEC.
+		if ( is_null( $id ) && false !== strpos( $current_screen->id, 'tec' ) ) {
+			return true;
+		}
+
 		// Match any of the pages set
 		if ( ! is_scalar( $id ) && in_array( $current_screen->id, (array) $id ) ) {
 			return true;
