@@ -4,7 +4,7 @@
 
 * Fix - Update the way we handle Classic Editor compatibility. Specifically around user choice. [TEC-4016]
 * Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
-* Fix - Remove singleton created from a deprecated class. [TBD]
+* Fix - Remove singleton created from a deprecated class.
 
 = [4.14.12] 2022-01-17 =
 
