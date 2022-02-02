@@ -8,10 +8,7 @@
   "_glotPressUrl": "https://translations.theeventscalendar.com",
   "_glotPressSlug": "tribe-common",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": [
-    "po",
-    "mo"
-  ],
+  "_glotPressFormats": ["po", "mo"],
   "_glotPressFilter": {
     "translation_sets": false,
     "minimum_percentage": 30,
@@ -34,14 +31,9 @@
       "!src/resources/postcss/datepicker.pcss",
       "!src/resources/postcss/tribe-ui.pcss"
     ],
-    "jest": [
-      "src/modules/**/__tests__/**/*.js"
-    ]
+    "jest": ["src/modules/**/__tests__/**/*.js"]
   },
-  "engines": {
-    "node": "16.6.1",
-    "npm": "7.20.3"
-  },
+  "engines": { "node": "16.6.1", "npm": "7.20.3" },
   "scripts": {
     "analyze": "webpack-bundle-analyzer -m static stats.json",
     "bootstrap": "./scripts/linkDependencies",

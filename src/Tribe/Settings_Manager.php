@@ -160,7 +160,21 @@ class Tribe__Settings_Manager {
 		$options          = self::get_options();
 		$options[ $name ] = $value;
 
-		return self::set_options( $options );
+		return static::set_options( $options );
+	}
+
+	/**
+	 * Remove an option
+	 *
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	public static function remove_option( $name ) {
+		$options          = self::get_options();
+		unset( $options[ $name ] );
+
+		return static::set_options( $options );
 	}
 
 	/**
