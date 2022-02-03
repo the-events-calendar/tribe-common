@@ -58,43 +58,7 @@ class Divi {
 	 * @since TBD
 	 */
 	public function hooks() {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX  ) {
-			return;
-		}
-
-		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
-			return;
-		}
-
-		// This happens too early for most plugin/theme tests. Let's try and bail when we're not needed.
-		$path = basename( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) );
-		$new = false !== stripos( $path, 'post-new' );
-
-		if ( $new ) {
-			// Are we creating a new event?
-			$post_type = filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE );
-			if ( \Tribe__Events__Main::POSTTYPE !== $post_type ) {
-				return;
-			}
-		} else {
-			// Are we editing an event?
-			if ( false === stripos( $path, 'post' ) ) {
-				return;
-			}
-
-			$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE );
-			if ( 'edit' !== $action ) {
-				return;
-			}
-
-			$post_id = filter_input( INPUT_GET, 'post', FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE );
-			$event = get_post( $post_id );
-
-			if (! $event instanceof WP_Post || \Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
-				return;
-			}
-		}
-
+		// Trying to filter out instances where we shouldn't add this to save cycles is futile.
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 20 );
 	}
 
