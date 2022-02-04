@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] =
+
+* Feature - The PUE Checker now stores a transient with the status of the last license key check.
+
 = [4.14.12] 2022-01-17 =
 
 * Fix - Prevent Onboarding assets from loading on the admin when not needed.
