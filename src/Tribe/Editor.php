@@ -261,11 +261,13 @@ class Tribe__Editor {
 	 * used in ET, ET+ and TEC
 	 *
 	 * @since 4.12.0
-	 * @deprecated TBD
+	 * @todo Deprecate before 6.0.
 	 *
 	 * @return bool True if using Blocks. False if using the Classic Editor.
 	 */
 	public function is_events_using_blocks() {
+		return $this->should_load_blocks();
+
 		_deprecated_function( __FUNCTION__, 'TBD', 'should_load_blocks');
 		/**
 		 * Whether the event is being served through blocks
@@ -275,7 +277,7 @@ class Tribe__Editor {
 		 *
 		 * @param bool $is_using_blocks True if using blocks. False if using the Classic Editor.
 		 */
-		$is_using_blocks = apply_filters( 'tribe_is_using_blocks', null );
+		$is_using_blocks = apply_filters_deprecated( 'tribe_is_using_blocks', null, 'TBD', 'tribe_editor_should_load_blocks', 'Function is slated for deprecation. Please use should_load_blocks, above.' );
 
 		// Early bail: The filter was overridden to return either true or false.
 		if ( null !== $is_using_blocks ) {
