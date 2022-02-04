@@ -88,7 +88,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public $pue_option_name = '';
 
 		/**
-		 * Where to store the temporary status info
+		 * Where to store the temporary status info.
 		 *
 		 * @since TBD
 		 *
@@ -184,7 +184,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Creates a hash for the transient name that holds the current key status
+		 * Creates a hash for the transient name that holds the current key status.
 		 *
 		 * @since TBD
 		 */
@@ -193,18 +193,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		}
 
 		/**
-		 * Sets the key status transient based on the key validation check results
+		 * Sets the key status transient based on the key validation check results.
 		 *
 		 * @since TBD
 		 *
-		 * @param int $valid 0 for invalid, 1 or 2 for valid
+		 * @param int $valid 0 for invalid, 1 or 2 for valid.
 		 */
 		public function set_key_status_transient( $valid ) {
-			if ( $valid ) {
-				set_transient( $this->pue_key_status_transient_name, 'valid', $this->check_period * HOUR_IN_SECONDS );
-			} else {
-				set_transient( $this->pue_key_status_transient_name, 'invalid', $this->check_period * HOUR_IN_SECONDS );
-			}
+			$status = tribe_is_truthy( $valid ) ? 'valid' : 'invalid';
+			set_transient( $this->pue_key_status_transient_name, $status, $this->check_period * HOUR_IN_SECONDS );
 		}
 
 		/**
