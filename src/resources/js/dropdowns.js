@@ -496,6 +496,9 @@ var tribe_dropdowns = window.tribe_dropdowns || {};
 
 		var originalClasses = obj.getSelectClasses( select2Data.$element ).reduce(
 			function ( prev, curr, index, array ) {
+				if( 'hide-if-js' === curr ) {
+					return prev;
+				}
 				if ( 'tribe-dropdown-created' === curr ) {
 					return prev;
 				}
