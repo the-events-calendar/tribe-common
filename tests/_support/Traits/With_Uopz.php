@@ -16,6 +16,19 @@ trait With_Uopz {
 		}
 	}
 
+	/**
+	 * Wrapper for uopz_set_return
+	 *
+	 * @since TBD
+	 *
+	 * @param [type] $fn       The name of an existing function
+	 * @param [type] $value    The value the function should return.
+	 *                         If a Closure is provided and the execute flag is set,
+	 *                         the Closure will be executed in place of the original function.
+	 * @param boolean $execute If true, and a Closure was provided as the value,
+	 *                         the Closure will be executed in place of the original function.
+	 * @return void
+	 */
 	private function set_fn_return( $fn, $value, $execute = false ) {
 		if ( ! function_exists( 'uopz_set_return' ) ) {
 			$this->markTestSkipped( 'uopz extension is not installed' );

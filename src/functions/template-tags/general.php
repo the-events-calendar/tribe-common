@@ -69,6 +69,23 @@ if ( ! function_exists( 'tribe_update_option' ) ) {
 	}
 }//end if
 
+if ( ! function_exists( 'tribe_remove_option' ) ) {
+	/**
+	 * Update Option
+	 *
+	 * Remove specific key from options array
+	 *
+	 * @category Events
+	 * @param string $optionName Name of the option to retrieve.
+	 * @param string $value      Value to save
+	 *
+	 * @return bool
+	 */
+	function tribe_remove_option( $optionName ) {
+		return Tribe__Settings_Manager::remove_option( $optionName );
+	}
+}//end if
+
 if ( ! function_exists( 'tribe_get_network_option' ) ) {
 	/**
 	 * Get Network Options

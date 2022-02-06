@@ -1,5 +1,12 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Update the way we handle Classic Editor compatibility. Specifically around user choice. [TEC-4016]
+* Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
+* Fix - Fixed troubleshooting page styles for standalone Event Tickets setup [ET-1382]
+* Fix - Remove singleton created from a deprecated class.
+
 = [4.14.12] 2022-01-17 =
 
 * Fix - Prevent Onboarding assets from loading on the admin when not needed.
@@ -17,7 +24,7 @@
 = [4.14.9] 2021-12-14 =
 
 * Feature - Add loader template for the admin views. [VE-435]
-* Feature - Included Price, Curreny and Value classes to improve monetary handling from Common [ET-1331]
+* Feature - Included Price, Currency and Value classes to improve monetary handling from Common [ET-1331]
 * Tweak - Included End of Year Sale promotion to the General Settings panel and banner. [TCMN-129]
 * Fix - Prevent PHP 8 warnings when using extensions. (props to @huubl for this fix!) [TEC-4165]
 * Fix - Modify the encoding for Help Page data to enable a better experience when sharing with support.
