@@ -168,11 +168,13 @@ class Tribe__Editor {
 	 * Detect if the Classic Editor is force-activated via plugin or if it comes from a request.
 	 *
 	 * @since 4.8
-	 * @deprecated TBD
+	 * @todo Deprecate before 6.0.
 	 *
 	 * @return bool
 	 */
 	public function is_classic_editor() {
+		return ! $this->should_load_blocks();
+
 		_deprecated_function( __FUNCTION__, 'TBD', 'should_load_blocks' );
 		/**
 		 * Allow other addons to disable Classic Editor based on options.
