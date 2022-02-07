@@ -118,8 +118,6 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 	 * @return string
 	 **/
 	function tribe_resource_url( $resource, $echo = false, $root_dir = null, $origin = null ) {
-		static $_resources_path = [];
-		static $_resources_url = [];
 		static $_plugin_url = [];
 
 		if ( is_object( $origin ) ) {

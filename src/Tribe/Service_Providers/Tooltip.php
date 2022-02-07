@@ -47,9 +47,6 @@ class Tooltip extends \tad_DI52_ServiceProvider {
 			null,
 			[
 				'groups' => 'tribe-tooltip',
-				'conditionals' => [
-
-				]
 			]
 		);
 
