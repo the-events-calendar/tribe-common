@@ -431,7 +431,23 @@ class Tribe__Cache implements ArrayAccess {
 	 */
 	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
+
 		$this->delete( $offset );
+	}
+
+	/**
+	 * Removes a group of the cache, for now only `non_persistent` is supported.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function reset( $group = 'non_persistent' ) {
+		if ( 'non_persistent' !== $group ) {
+			return false;
+		}
+		$this->non_persistent_keys = [];
+		return true;
 	}
 
 	/**
