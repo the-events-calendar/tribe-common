@@ -431,7 +431,6 @@ class Tribe__Cache implements ArrayAccess {
 	 */
 	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
-
 		$this->delete( $offset );
 	}
 
