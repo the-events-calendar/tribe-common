@@ -2,6 +2,11 @@
 
 = [TBD] TBD =
 
+* Tweak - Prevent scripts from loading on all Admin pages, only load on pages needed.
+* Tweak - Performance improvements around Block Asset loading and redundancy.
+* Tweak - Internal caching of values to reduce `get_option()` call count.
+* Tweak - Switch from `sanitize_title_with_dashes` to `sanitize_key` in a couple instances for performance gains.
+* Tweak - Prevent asset loading from repeating calls to plugin URL and path, resulting in some minor performance gains.
 * Fix - Update the way we handle Classic Editor compatibility. Specifically around user choice. [TEC-4016]
 * Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
 * Fix - Fixed troubleshooting page styles for standalone Event Tickets setup [ET-1382]
