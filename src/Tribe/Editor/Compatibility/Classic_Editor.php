@@ -158,7 +158,16 @@ class Classic_Editor {
 	public function hooks() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'set_classic_url_params' ], 22 );
 
-		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 20 );
+		global $current_screen;
+
+		$good_screens = [
+			'post-new.php',
+			'post.php',
+		];
+
+		if ( ! empty( $current_screen ) && in_array( $current_screen, $good_screens ) ) {
+			add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 20 );
+		}
 	}
 
 	/**
