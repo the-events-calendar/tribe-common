@@ -437,7 +437,7 @@ class Tribe__Cache implements ArrayAccess {
 	/**
 	 * Removes a group of the cache, for now only `non_persistent` is supported.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @return bool
 	 */

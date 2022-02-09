@@ -10,7 +10,7 @@ class Tribe__Editor {
 	/**
 	 * Key we store the toggle under in the tribe_events_calendar_options array.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -54,7 +54,7 @@ class Tribe__Editor {
 	 * b) Is the blocks editor active?
 	 *      1) Based on the enqueue_block_assets action.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @return bool
 	 */
@@ -65,7 +65,7 @@ class Tribe__Editor {
 		/**
 		 * Filters whether the Blocks Editor is enabled or not.
 		 *
-		 * @since TBD
+		 * @since 4.14.13
 		 *
 		 * @param bool $should_load_blocks Whether the Blocks Editor is enabled or not.
 		 */
@@ -101,7 +101,7 @@ class Tribe__Editor {
 	 * Checks if we have Editor Block active.
 	 *
 	 * @since 4.8
-	 * @since TBD Switch to using the `enqueue_block_assets` check that the Classic Editor plugin uses
+	 * @since 4.14.13 Switch to using the `enqueue_block_assets` check that the Classic Editor plugin uses
 	 *
 	 * @return boolean
 	 */
@@ -175,19 +175,19 @@ class Tribe__Editor {
 	public function is_classic_editor() {
 		return ! $this->should_load_blocks();
 
-		_deprecated_function( __FUNCTION__, 'TBD', 'should_load_blocks' );
+		_deprecated_function( __FUNCTION__, '4.14.13', 'should_load_blocks' );
 		/**
 		 * Allow other addons to disable Classic Editor based on options.
 		 *
 		 * @since  4.8.5
-		 * @deprecated TBD
+		 * @deprecated 4.14.13
 		 *
 		 * @param bool $classic_is_active Whether the Classic Editor should be used.
 		 */
 		return apply_filters_deprecated(
 			'tribe_editor_classic_is_active',
 			[false],
-			'TBD',
+			'4.14.13',
 			'tribe_editor_should_load_blocks',
 			'This has been deprecated in favor of the filter in should_load_blocks(). Note however that the logic is inverted!'
 		);
@@ -199,14 +199,14 @@ class Tribe__Editor {
 	 * Adds the required fields into the Events Post Type so that we can use Block Editor
 	 *
 	 * @since 4.8
-	 * @deprecated TBD This is not used anywhere.
+	 * @deprecated 4.14.13 This is not used anywhere.
 	 *
 	 * @param  array $args Arguments used to setup the Post Type
 	 *
 	 * @return array
 	 */
 	public function add_support( $args = [] ) {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '4.14.13' );
 		// Make sure we have the Support argument and it's an array
 		if ( ! isset( $args['supports'] ) || ! is_array( $args['supports'] ) ) {
 			$args['supports'] = [];
@@ -230,12 +230,12 @@ class Tribe__Editor {
 	 * `classic_editor_replace` now all is bundled inside of a class `Classic_Editor`
 	 *
 	 * @since 4.8
-	 * @deprecated TBD
+	 * @deprecated 4.14.13
 	 *
 	 * @return bool
 	 */
 	public function is_classic_plugin_active() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active' );
+		_deprecated_function( __FUNCTION__, '4.14.13', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active' );
 
 		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_plugin_active();
 	}
@@ -248,12 +248,12 @@ class Tribe__Editor {
 	 * was `replace`, now the value is `classic`
 	 *
 	 * @since 4.8
-	 * @deprecated TBD
+	 * @deprecated 4.14.13
 	 *
 	 * @return bool
 	 */
 	public function is_classic_option_active() {
-		// _deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active' );
+		// _deprecated_function( __FUNCTION__, '4.14.13', 'Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active' );
 
 		return Tribe\Editor\Compatibility\Classic_Editor::is_classic_option_active();
 	}
@@ -270,7 +270,7 @@ class Tribe__Editor {
 	public function is_events_using_blocks() {
 		return $this->should_load_blocks();
 
-		_deprecated_function( __FUNCTION__, 'TBD', 'should_load_blocks');
+		_deprecated_function( __FUNCTION__, '4.14.13', 'should_load_blocks');
 		/**
 		 * Whether the event is being served through blocks
 		 * or the Classic Editor.
@@ -279,7 +279,7 @@ class Tribe__Editor {
 		 *
 		 * @param bool $is_using_blocks True if using blocks. False if using the Classic Editor.
 		 */
-		$is_using_blocks = apply_filters_deprecated( 'tribe_is_using_blocks', null, 'TBD', 'tribe_editor_should_load_blocks', 'Function is slated for deprecation. Please use should_load_blocks, above.' );
+		$is_using_blocks = apply_filters_deprecated( 'tribe_is_using_blocks', null, '4.14.13', 'tribe_editor_should_load_blocks', 'Function is slated for deprecation. Please use should_load_blocks, above.' );
 
 		// Early bail: The filter was overridden to return either true or false.
 		if ( null !== $is_using_blocks ) {

@@ -280,7 +280,7 @@ class Tribe__Main {
 	/**
 	 * Ensure that the customizer styles get the variables they need.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 */
 	public function load_tec_variables() {
 		tribe_asset_enqueue( 'tec-variables-skeleton' );

@@ -4,13 +4,13 @@ namespace Tribe\Editor\Compatibility;
 /**
  * Editor Compatibility with classic editor plugins.
  *
- * @since TBD
+ * @since 4.14.13
  */
 class Classic_Editor {
 	/**
 	 * "Classic Editor" flag for blocks/classic
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -20,7 +20,7 @@ class Classic_Editor {
 	 * "Classic Editor" original param for blocks->classic.
 	 * Can be overridden by user choice.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -29,7 +29,7 @@ class Classic_Editor {
 	/**
 	 * "Classic Editor" term used for comparisons.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -38,7 +38,7 @@ class Classic_Editor {
 	/**
 	 * "Blocks Editor" term used for comparisons.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -47,7 +47,7 @@ class Classic_Editor {
 	/**
 	 * "Classic Editor" param for user override
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -56,7 +56,7 @@ class Classic_Editor {
 	/**
 	 * "User Choice" key for user override
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -65,7 +65,7 @@ class Classic_Editor {
 	/**
 	 * User meta "User Choice" key for user override
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -75,7 +75,7 @@ class Classic_Editor {
 	 * Post meta key used for CE "remembering" the last editor used.
 	 * The bane of my existence.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -84,7 +84,7 @@ class Classic_Editor {
 	/**
 	 * Stores the values used by the Classic Editor plugin to indicate we're using the classic editor.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var array<string>
 	 */
@@ -96,7 +96,7 @@ class Classic_Editor {
 	/**
 	 * Placeholders
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var [type]
 	 */
@@ -104,7 +104,7 @@ class Classic_Editor {
 	/**
 	 * Holds whether Classic Editor allows user choice of editors.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var null|boolean
 	 */
@@ -113,7 +113,7 @@ class Classic_Editor {
 	/**
 	 * Holds the user's preferred editor - set in user profile.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var null|string
 	 */
@@ -123,7 +123,7 @@ class Classic_Editor {
 	 * Holds the GET variable value for enabling the classic editor, if set.
 	 * (ie the default editor set)
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var null|string
 	 */
@@ -133,7 +133,7 @@ class Classic_Editor {
 	 * Holds the GET variable value for overriding the classic editor, if set.
 	 * (ie default is classic, this will change it to blocks)
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var null|string
 	 */
@@ -142,7 +142,7 @@ class Classic_Editor {
 	/**
 	 * Registers the hooks and filters required based on if the Classic Editor plugin is active.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 */
 	public function init() {
 		if ( static::is_classic_plugin_active() ) {
@@ -153,7 +153,7 @@ class Classic_Editor {
 	/**
 	 * Hooks for loading logic outside this class.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 */
 	public function hooks() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'set_classic_url_params' ], 22 );
@@ -164,7 +164,7 @@ class Classic_Editor {
 	/**
 	 * Sets the placeholders for the URL params.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 */
 	public function set_classic_url_params() {
 		static::$classic_url_param    = static::get_classic_param();
@@ -175,7 +175,7 @@ class Classic_Editor {
 	 * Gets the $classic_url_param placeholder if it's set.
 	 * Sets it then returns it if it's not yet set.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @return boolean
 	 */
@@ -193,7 +193,7 @@ class Classic_Editor {
 	 * Gets the $classic_url_override placeholder if it's set.
 	 * Sets it then returns it if it's not yet set.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @return boolean
 	 */
@@ -210,7 +210,7 @@ class Classic_Editor {
 	/**
 	 * Filters tribe_editor_should_load_blocks based on internal logic.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @param boolean $should_load_blocks Whether we should force blocks over classic.
 	 *
@@ -277,7 +277,7 @@ class Classic_Editor {
 	 * prior 1.3 version the Classic Editor plugin was bundle inside of a unique function:
 	 * `classic_editor_replace` now all is bundled inside of a class `Classic_Editor`
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @return bool
 	 */
@@ -287,7 +287,7 @@ class Classic_Editor {
 		 * Filter to change the output of calling: `is_classic_plugin_active`
 		 *
 		 * @since 4.9.12
-		 * @since TBD moved to separate class.
+		 * @since 4.14.13 moved to separate class.
 		 *
 		 * @param $is_plugin_active bool Value that indicates if the plugin is active or not.
 		 */
@@ -302,7 +302,7 @@ class Classic_Editor {
 	 * was `replace`, now the value is `classic`
 	 *
 	 * @since 4.8
-	 * @since TBD moved to separate class.
+	 * @since 4.14.13 moved to separate class.
 	 *
 	 * @return bool
 	 */
@@ -321,7 +321,7 @@ class Classic_Editor {
 	/**
 	 * Get and store wether user choice is allowed - lets us bypass some checks.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @return boolean
 	 */
@@ -338,7 +338,7 @@ class Classic_Editor {
 	/**
 	 * Get the and store user's editor of choice - set in the user profile.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @return string
 	 */
@@ -359,7 +359,7 @@ class Classic_Editor {
 	 * Get whether CE has "remembered" the last editor for a given post.
 	 * If so, this is what the default edit link will send us to.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @return bool|string The string of the editor choice or false on fails.
 	 */

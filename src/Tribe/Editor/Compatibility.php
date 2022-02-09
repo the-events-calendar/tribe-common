@@ -8,7 +8,7 @@ use Tribe\Editor\Compatibility\Divi;
 /**
  * Editor Compatibility with other plugins and themes.
  *
- * @since TBD
+ * @since 4.14.13
  */
 class Compatibility extends \tad_DI52_ServiceProvider {
 	public function register() {

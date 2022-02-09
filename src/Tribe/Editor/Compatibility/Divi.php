@@ -9,13 +9,13 @@ use Tribe__Cache_Listener;
 /**
  * Editor Compatibility with Divi theme's builder option.
  *
- * @since TBD
+ * @since 4.14.13
  */
 class Divi {
 	/**
 	 * The key for the Divi classic editor.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -24,7 +24,7 @@ class Divi {
 	/**
 	 * The value for enabling the Divi classic editor.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ class Divi {
 	/**
 	 * The value for disabling the Divi classic editor.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @var string
 	 */
@@ -42,7 +42,7 @@ class Divi {
 	/**
 	 * Registers the hooks and filters required based on if the Classic Editor plugin is active.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 */
 	public function init() {
 		if ( ! static::is_divi_active() ) {
@@ -55,7 +55,7 @@ class Divi {
 	/**
 	 * Hooks for loading logic outside this class.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 */
 	public function hooks() {
 		// Trying to filter out instances where we shouldn't add this to save cycles is futile.
@@ -88,7 +88,7 @@ class Divi {
 	/**
 	 * Filters tribe_editor_should_load_blocks based on internal logic.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @param boolean $should_load_blocks Whether we should force blocks over classic.
 	 *

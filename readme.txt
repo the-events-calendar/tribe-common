@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [4.14.13] TBD =
+= [4.14.13] 2022-02-09 =
 
 * Tweak - Prevent scripts from loading on all Admin pages, only load on pages needed.
 * Tweak - Performance improvements around Block Asset loading and redundancy.
@@ -11,6 +11,7 @@
 * Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
 * Fix - Fixed troubleshooting page styles for standalone Event Tickets setup [ET-1382]
 * Fix - Remove singleton created from a deprecated class.
+* Language - 0 new strings added, 38 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.12] 2022-01-17 =
 

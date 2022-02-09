@@ -166,7 +166,7 @@ class Tribe__Settings_Manager {
 	/**
 	 * Remove an option. Actually remove (unset), as opposed to setting to null/empty string/etc.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 *
 	 * @param string $name The option key or 'name'.
 	 *

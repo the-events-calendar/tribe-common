@@ -142,7 +142,7 @@ implements Tribe__Editor__Blocks__Interface {
 	/**
 	 * Registering the block and loading the assets and hooks should be handled separately.
 	 *
-	 * @since TBD
+	 * @since 4.14.13
 	 */
 	public function load() {
 		add_action( 'wp_ajax_' . $this->get_ajax_action(), [ $this, 'ajax' ] );
