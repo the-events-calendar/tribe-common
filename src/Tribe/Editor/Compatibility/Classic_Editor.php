@@ -157,17 +157,7 @@ class Classic_Editor {
 	 */
 	public function hooks() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'set_classic_url_params' ], 22 );
-
-		global $current_screen;
-
-		$good_screens = [
-			'post-new.php',
-			'post.php',
-		];
-
-		if ( ! empty( $current_screen ) && in_array( $current_screen, $good_screens ) ) {
-			add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 20 );
-		}
+		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 20 );
 	}
 
 	/**
@@ -226,6 +216,23 @@ class Classic_Editor {
 	 * @return boolean Whether we should force blocks or classic.
 	 */
 	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
+		global $current_screen;
+		$test = $current_screen;
+
+		$good_screens = [
+			'post-new.php',
+			'post.php',
+		];
+
+		if ( empty( $test ) ) {
+			$test = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
+		} else {
+			$test = $current_screen->base;
+		}
+
+		if ( empty( $test ) || ! in_array( $test, $good_screens ) ) {
+			return $should_load_blocks;
+		}
 
 		if ( ! static::is_classic_plugin_active() ) {
 			return (boolean) $should_load_blocks;
