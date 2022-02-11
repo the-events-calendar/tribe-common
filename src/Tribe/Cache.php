@@ -435,6 +435,21 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
+	 * Removes a group of the cache, for now only `non_persistent` is supported.
+	 *
+	 * @since 4.14.13
+	 *
+	 * @return bool
+	 */
+	public function reset( $group = 'non_persistent' ) {
+		if ( 'non_persistent' !== $group ) {
+			return false;
+		}
+		$this->non_persistent_keys = [];
+		return true;
+	}
+
+	/**
 	 * Warms up the caches for a collection of posts.
 	 *
 	 * @since 4.10.2
