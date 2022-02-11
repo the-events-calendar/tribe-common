@@ -124,8 +124,8 @@ implements Tribe__Editor__Blocks__Interface {
 	}
 
 	/**
-	 * Does the registration for PHP rendering for the Block, important due to been
-	 * an dynamic Block
+	 * Does the registration for PHP rendering for the Block,
+	 * important due to being a dynamic Block
 	 *
 	 * @since 4.8
 	 *
@@ -137,7 +137,14 @@ implements Tribe__Editor__Blocks__Interface {
 		];
 
 		register_block_type( $this->name(), $block_args );
+	}
 
+	/**
+	 * Registering the block and loading the assets and hooks should be handled separately.
+	 *
+	 * @since 4.14.13
+	 */
+	public function load() {
 		add_action( 'wp_ajax_' . $this->get_ajax_action(), [ $this, 'ajax' ] );
 
 		$this->assets();

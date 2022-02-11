@@ -151,8 +151,8 @@ class Tribe__Settings_Manager {
 	/**
 	 * Set an option
 	 *
-	 * @param string $name
-	 * @param mixed  $value
+	 * @param string $name The option key or 'name'.
+	 * @param mixed  $value The value we want to set.
 	 *
 	 * @return bool
 	 */
@@ -160,7 +160,23 @@ class Tribe__Settings_Manager {
 		$options          = self::get_options();
 		$options[ $name ] = $value;
 
-		return self::set_options( $options );
+		return static::set_options( $options );
+	}
+
+	/**
+	 * Remove an option. Actually remove (unset), as opposed to setting to null/empty string/etc.
+	 *
+	 * @since 4.14.13
+	 *
+	 * @param string $name The option key or 'name'.
+	 *
+	 * @return bool
+	 */
+	public static function remove_option( $name ) {
+		$options          = self::get_options();
+		unset( $options[ $name ] );
+
+		return static::set_options( $options );
 	}
 
 	/**
