@@ -44,11 +44,6 @@ class Tribe__Editor {
 		 */
 		$should_load_blocks= (bool) apply_filters( 'tribe_editor_should_load_blocks', $should_load_blocks );
 
-		bdump([
-			current_action(),
-			$should_load_blocks
-		]);
-
 		return $should_load_blocks;
 	}
 
