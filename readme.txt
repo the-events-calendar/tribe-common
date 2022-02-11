@@ -1,6 +1,6 @@
 == Changelog ==
 
-= [TBD] =
+= [4.14.14] =
 
 * Feature - The PUE Checker now stores a transient with the status of the last license key check.
 
