@@ -33,7 +33,8 @@ class Tribe__Editor {
 	 * @return bool
 	 */
 	public function should_load_blocks() {
-		$should_load_blocks = $this->are_blocks_enabled();
+		$should_load_blocks = (boolean) $this->are_blocks_enabled();
+
 		/**
 		 * Filters whether the Blocks Editor should be activated or not for events.
 		 *
@@ -41,7 +42,12 @@ class Tribe__Editor {
 		 *
 		 * @param bool $should_load_blocks Whether the blocks editor should be activated or not for events.
 		 */
-		$should_load_blocks = (bool) apply_filters( 'tribe_editor_should_load_blocks', $should_load_blocks );
+		$should_load_blocks= (bool) apply_filters( 'tribe_editor_should_load_blocks', $should_load_blocks );
+
+		bdump([
+			current_action(),
+			$should_load_blocks
+		]);
 
 		return $should_load_blocks;
 	}

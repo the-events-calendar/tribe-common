@@ -79,7 +79,7 @@ class Classic_Editor {
 	 *
 	 * @var string
 	 */
-	public static $post_meta_key = 'classic-editor-remember';
+	public static $post_remember_meta_key = 'classic-editor-remember';
 
 	/**
 	 * Stores the values used by the Classic Editor plugin to indicate we're using the classic editor.
@@ -215,27 +215,10 @@ class Classic_Editor {
 	 *
 	 * @return boolean Whether we should force blocks or classic.
 	 */
-	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
-		global $current_screen;
-		$test = $current_screen;
-
-		$good_screens = [
-			'post-new.php',
-			'post.php',
-		];
-
-		if ( empty( $test ) ) {
-			$test = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
-		} else {
-			$test = $current_screen->base;
-		}
-
-		if ( empty( $test ) || ! in_array( $test, $good_screens ) ) {
-			return $should_load_blocks;
-		}
+	public function filter_tribe_editor_should_load_blocks( bool $should_load_blocks ) {
 
 		if ( ! static::is_classic_plugin_active() ) {
-			return (boolean) $should_load_blocks;
+			return $should_load_blocks;
 		}
 
 		if ( static::is_classic_option_active() ) {
@@ -263,7 +246,7 @@ class Classic_Editor {
 		global $pagenow;
 
 		// The profile setting only applies to new posts/etc so bail out now if we're not in the admin and creating a new event.
-		if ( ! is_admin() || ( ! empty( $pagenow ) && ! in_array( $pagenow, [ 'post-new.php' ] ) ) ) {
+		if ( ! empty( $pagenow ) && ! in_array( $pagenow, [ 'post-new.php' ] ) ) {
 			return $should_load_blocks;
 		}
 
@@ -379,17 +362,16 @@ class Classic_Editor {
 	 *
 	 * @return bool|string The string of the editor choice or false on fails.
 	 */
-	public static function classic_editor_remembers() {
-		if ( ! is_admin() ) {
-			return false;
+	public static function classic_editor_remembers( $id = null ) {
+		if ( empty( $id ) ) {
+			$id = isset(  $_GET[ 'post' ] ) ? (int) $_GET[ 'post' ] : null;
 		}
 
-		$id = isset(  $_GET[ 'post' ] ) ? (int) $_GET[ 'post' ] : null;
 
-		$remember = get_post_meta( $id, static::$post_meta_key, true );
+		$remember = get_post_meta( $id, static::$post_remember_meta_key, true );
 
 		if ( empty( $remember ) ) {
-			return false;
+			return static::$block_term;
 		}
 
 		// Why WP, why did you use a different term here?
