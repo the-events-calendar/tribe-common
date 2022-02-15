@@ -669,7 +669,7 @@ class Tribe__Assets {
 		if ( filter_var( $asset->file, FILTER_VALIDATE_URL ) ) {
 			$asset->url = $asset->file;
 		} else {
-			$asset->url = $this->maybe_get_min_file( tribe_resource_url( $asset->file, false, ( $is_vendor ? '' : null ), $origin ) );
+			$asset->url = static::maybe_get_min_file( tribe_resource_url( $asset->file, false, ( $is_vendor ? '' : null ), $origin ) );
 		}
 
 		// Parse the Localize asset arguments.
