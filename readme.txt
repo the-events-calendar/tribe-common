@@ -4,7 +4,7 @@
 
 * Feature - The PUE Checker now stores a transient with the status of the last license key check.
 
-= [4.14.13] 2022-02-09 =
+= [4.14.13] 2022-02-15 =
 
 * Tweak - Prevent scripts from loading on all Admin pages, only load on pages needed.
 * Tweak - Performance improvements around Block Asset loading and redundancy.

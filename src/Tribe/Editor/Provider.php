@@ -16,10 +16,6 @@ class Tribe__Editor__Provider extends tad_DI52_ServiceProvider {
 
 		tribe_register_provider( Tribe\Editor\Compatibility::class );
 
-		if ( ! tribe( 'editor' )->should_load_blocks() ) {
-			return;
-		}
-
 		$this->container->singleton( 'editor.assets', 'Tribe__Editor__Assets', [ 'hook' ] );
 
 		$this->hook();
