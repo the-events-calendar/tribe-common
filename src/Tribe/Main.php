@@ -87,6 +87,7 @@ class Tribe__Main {
 
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
+		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
 	}
 
 	/**
@@ -274,6 +275,16 @@ class Tribe__Main {
 		);
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
+	}
+
+	/**
+	 * Ensure that the customizer styles get the variables they need.
+	 *
+	 * @since 4.14.13
+	 */
+	public function load_tec_variables() {
+		tribe_asset_enqueue( 'tec-variables-skeleton' );
+		tribe_asset_enqueue( 'tec-variables-full' );
 	}
 
 	/**
