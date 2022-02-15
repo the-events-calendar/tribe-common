@@ -20,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '6.0.0-RBE-Beta1';
+	const VERSION             = '6.0.0-RBE-Beta2.3';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
