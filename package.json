@@ -101,7 +101,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
-    "@the-events-calendar/product-taskmaster": "^2.1.1",
+    "@the-events-calendar/product-taskmaster": "^2.2.0",
     "@wordpress/hooks": "^1.3.2",
     "cross-env": "^5.2.0",
     "enzyme": "^3.7.0",
