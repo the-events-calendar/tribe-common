@@ -97,6 +97,7 @@ class Tribe__Main {
 
 		$this->init_autoloading();
 
+		$this->init_early_libraries();
 		$this->bind_implementations();
 		$this->init_libraries();
 		$this->add_hooks();
@@ -153,6 +154,16 @@ class Tribe__Main {
 	 */
 	public function context_class() {
 		return $this->plugin_context_class;
+	}
+
+	/**
+	 * Initializes all libraries used/required by our singletons.
+
+	 *
+	 * @since TBD
+	 */
+	public function init_early_libraries(): void {
+		require_once $this->plugin_path . 'src/functions/editor.php';
 	}
 
 	/**
@@ -668,7 +679,6 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
-
 
 		tribe_register_provider( TEC\Common\Editor\Full_Site\Provider::class );
 	}
