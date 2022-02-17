@@ -160,6 +160,7 @@ class Tribe__Main {
 	 */
 	public function init_libraries() {
 		require_once $this->plugin_path . 'src/functions/utils.php';
+		require_once $this->plugin_path . 'src/functions/conditionals.php';
 		require_once $this->plugin_path . 'src/functions/url.php';
 		require_once $this->plugin_path . 'src/functions/query.php';
 		require_once $this->plugin_path . 'src/functions/multibyte.php';
