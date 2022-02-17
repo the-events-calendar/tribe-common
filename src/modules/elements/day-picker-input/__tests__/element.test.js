@@ -20,7 +20,7 @@ describe( 'DayPickerInput element', () => {
 					},
 				} }
 				onDayChange={ jest.fn() }
-			/>
+			/>,
 		);
 		expect( component.toJSON() ).toMatchSnapshot();
 	} );
