@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DayPickerInput element Should render the component 1`] = `
+<div
+  className="tribe-editor__day-picker-input DayPickerInput"
+>
+  <input
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="YYYY-M-D"
+    value="September 7, 2019"
+  />
+</div>
+`;
