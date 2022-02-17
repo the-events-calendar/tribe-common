@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import classnames from 'classnames';
 import propTypes from 'prop-types';
 import reactInputAutosize from 'react-input-autosize';

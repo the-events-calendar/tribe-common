@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import * as components from './components';
 import * as data from './data';
 import * as elements from './elements';
