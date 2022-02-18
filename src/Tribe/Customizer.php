@@ -1016,13 +1016,8 @@ final class Tribe__Customizer {
 	 * @since 4.14.8
 	 */
 	public function add_fse_customizer_link() {
-		// Exit early if the FSE theme feature isn't present.
-		if ( ! function_exists( 'gutenberg_is_fse_theme' ) ) {
-			return;
-		}
-
 		// Exit early if the current theme is not a FSE theme.
-		if (  ! gutenberg_is_fse_theme() ) {
+		if (  ! tec_is_full_site_editor() ) {
 			return;
 		}
 
@@ -1046,13 +1041,8 @@ final class Tribe__Customizer {
 	 * @return array<string|mixed> $settings The modified settings array.
 	 */
 	public function add_fse_customizer_link_to_display_tab( $settings ) {
-		// Exit early if the FSE theme feature isn't present.
-		if ( ! function_exists( 'gutenberg_is_fse_theme' ) ) {
-			return $settings;
-		}
-
 		// Exit early if the current theme is not a FSE theme.
-		if (  ! gutenberg_is_fse_theme() ) {
+		if (  ! tec_is_full_site_editor() ) {
 			return $settings;
 		}
 
