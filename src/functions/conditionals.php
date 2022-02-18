@@ -16,15 +16,27 @@ function tec_hide_upsell( string $slug = 'all' ): bool {
 			return $haystack;
 		}
 
-		// check for truthy or the `all` match.
-		$truthy = tribe_is_truthy( $haystack );
-		if ( $truthy || 'all' === $haystack ) {
-			return $truthy;
+		if ( is_string( $haystack ) ) {
+			// When all just return true to hide.
+			if ( 'all' === $haystack ) {
+				return true;
+			}
+
+			$truthy = tribe_is_truthy( $haystack );
+			if ( $truthy ) {
+				return $truthy;
+			}
 		}
 
 		// Now allow multiple to be targeted as a string.
-		$constant = explode( '|', $haystack );
-		return in_array( 'all', $constant, true ) || in_array( $needle, $constant, true );
+		$haystack = explode( '|', $haystack );
+
+		// If the  `all` string is on the haystack
+		if ( in_array( 'all', $haystack, true ) ) {
+			return true;
+		}
+
+		return in_array( $needle, $haystack, true );
 	};
 
 	// If upsells have been manually hidden, respect that.
@@ -48,8 +60,9 @@ function tec_hide_upsell( string $slug = 'all' ): bool {
 	 * @since TBD
 	 *
 	 * @param bool|string $hide Determines if Upsells are hidden.
+	 * @param bool|string $slug Which slug we are testing against.
 	 */
-	$haystack = apply_filters( 'tec_hide_upsell', false );
+	$haystack = apply_filters( 'tec_hide_upsell', false, $slug );
 
 	return $verify( $slug, $haystack );
 }
