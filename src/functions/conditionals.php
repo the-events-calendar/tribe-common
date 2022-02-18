@@ -5,22 +5,41 @@
  *
  * @since TBD
  *
+ * @param string $slug Which upsell is this conditional for, if nothing passed it will apply to all.
+ *
  * @return bool
  */
-function tec_hide_upsell(): bool {
+function tec_hide_upsell( string $slug = 'all' ): bool {
+	$verify = static function( $needle, $haystack ) {
+		// In all cases if true or false boolean we return that.
+		if ( is_bool( $haystack ) ) {
+			return $haystack;
+		}
+
+		// check for truthy or the `all` match.
+		$truthy = tribe_is_truthy( $haystack );
+		if ( $truthy || 'all' === $haystack ) {
+			return $truthy;
+		}
+
+		// Now allow multiple to be targeted as a string.
+		$constant = explode( '|', $haystack );
+		return in_array( 'all', $constant, true ) || in_array( $needle, $constant, true );
+	};
+
 	// If upsells have been manually hidden, respect that.
 	if ( defined( 'TEC_HIDE_UPSELL' ) ) {
-		return tribe_is_truthy( TEC_HIDE_UPSELL );
+		return $verify( $slug, TEC_HIDE_UPSELL );
 	}
 
 	// If upsells have been manually hidden, respect that.
 	if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
-		return tribe_is_truthy( TRIBE_HIDE_UPSELL );
+		return $verify( $slug, TRIBE_HIDE_UPSELL );
 	}
 
 	$env_var = getenv( 'TEC_HIDE_UPSELL' );
 	if ( false !== $env_var ) {
-		return tribe_is_truthy( $env_var );
+		return $verify( $slug, $env_var );
 	}
 
 	/**
@@ -28,7 +47,9 @@ function tec_hide_upsell(): bool {
 	 *
 	 * @since TBD
 	 *
-	 * @param bool $hide Determines if Upsells are hidden.
+	 * @param bool|string $hide Determines if Upsells are hidden.
 	 */
-	return tribe_is_truthy( apply_filters( 'tec_hide_upsell', false ) );
+	$haystack = apply_filters( 'tec_hide_upsell', false );
+
+	return $verify( $slug, $haystack );
 }
