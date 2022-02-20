@@ -20,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '6.0.0-RBE-Beta1';
+	const VERSION             = '6.0.0-RBE-Beta2.3';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -87,6 +87,7 @@ class Tribe__Main {
 
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
+		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
 	}
 
 	/**
@@ -226,7 +227,7 @@ class Tribe__Main {
 			[
 				[ 'tribe-ui', 'tribe-ui.css', [ 'tec-variables-full' ] ],
 				[ 'tribe-buttonset', 'buttonset.js', [ 'jquery', 'underscore' ] ],
-				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tec-variables-full', 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
+				[ 'tribe-common-admin', 'tribe-common-admin.css', [ 'tec-variables-skeleton', 'tec-variables-full', 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ] ],
 				[ 'tribe-validation', 'validation.js', [ 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase', 'tribe-tooltipster' ] ],
 				[ 'tribe-validation-style', 'validation.css', [ 'tec-variables-full', 'tribe-tooltipster-css' ] ],
 				[ 'tribe-dependency', 'dependency.js', [ 'jquery', 'underscore', 'tribe-common' ] ],
@@ -274,6 +275,16 @@ class Tribe__Main {
 		);
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
+	}
+
+	/**
+	 * Ensure that the customizer styles get the variables they need.
+	 *
+	 * @since 4.14.13
+	 */
+	public function load_tec_variables() {
+		tribe_asset_enqueue( 'tec-variables-skeleton' );
+		tribe_asset_enqueue( 'tec-variables-full' );
 	}
 
 	/**

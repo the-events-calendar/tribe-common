@@ -635,7 +635,15 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				return strtotime( $string );
 			}
 
-			$tz = get_option( 'timezone_string' );
+			$cache = tribe( 'cache' );
+			if ( ! isset( $cache['option_timezone_string'] ) ) {
+				$cache['option_timezone_string'] = get_option( 'timezone_string' );
+			}
+			if ( ! isset( $cache['option_gmt_offset'] ) ) {
+				$cache['option_gmt_offset'] = get_option( 'gmt_offset' );
+			}
+
+			$tz = $cache['option_timezone_string'];
 			if ( ! empty( $tz ) ) {
 				$date = date_create( $string, new DateTimeZone( $tz ) );
 				if ( ! $date ) {
@@ -644,7 +652,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$date->setTimezone( new DateTimeZone( 'UTC' ) );
 				return $date->format( 'U' );
 			} else {
-				$offset = (float) get_option( 'gmt_offset' );
+				$offset = (float) $cache['option_gmt_offset'];
 				$seconds = intval( $offset * HOUR_IN_SECONDS );
 				$timestamp = strtotime( $string ) - $seconds;
 				return $timestamp;
