@@ -157,7 +157,7 @@ class Tribe__Assets {
 	/**
 	 * Filters the Script tags to attach type=module based on the rules we set in our Asset class.
 	 *
-	 * @since TBD
+	 * @since 4.14.14
 	 *
 	 * @param string $tag    Tag we are filtering.
 	 * @param string $handle Which is the ID/Handle of the tag we are about to print.

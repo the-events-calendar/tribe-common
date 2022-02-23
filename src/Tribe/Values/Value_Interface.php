@@ -104,7 +104,7 @@ interface Value_Interface {
 	/**
 	 * Public setter to use for any object.
 	 *
-	 * @since TBD
+	 * @since 4.14.14
 	 *
 	 * @param int $amount the precision value to set
 	 */

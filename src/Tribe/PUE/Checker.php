@@ -90,7 +90,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Where to store the temporary status info.
 		 *
-		 * @since TBD
+		 * @since 4.14.14
 		 *
 		 * @var string
 		 */
@@ -186,7 +186,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Creates a hash for the transient name that holds the current key status.
 		 *
-		 * @since TBD
+		 * @since 4.14.14
 		 */
 		public function set_key_status_transient_name() {
 			$this->pue_key_status_transient_name = md5( $this->get_slug() . $this->get_site_domain() );
@@ -195,7 +195,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Sets the key status transient based on the key validation check results.
 		 *
-		 * @since TBD
+		 * @since 4.14.14
 		 *
 		 * @param int $valid 0 for invalid, 1 or 2 for valid.
 		 */
