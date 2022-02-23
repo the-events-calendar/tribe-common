@@ -1,8 +1,9 @@
 == Changelog ==
 
-= [4.14.14] TBD =
+= [4.14.14] 2022-02-24 =
 
 * Feature - The PUE Checker now stores a transient with the status of the last license key check.
+* Language - 0 new strings added, 49 updated, 1 fuzzied, and 0 obsoleted
 
 = [4.14.13] 2022-02-15 =
 
