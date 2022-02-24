@@ -94,6 +94,14 @@ abstract class Abstract_Value implements Value_Interface {
 	/**
 	 * @inheritDoc
 	 */
+	public function set_precision( $amount ) {
+		$this->precision = $amount;
+	}
+
+
+	/**
+	 * @inheritDoc
+	 */
 	public function get_integer() {
 		/**
 		 * Filter the value returned for get_integer() when implemented in a specific class name
