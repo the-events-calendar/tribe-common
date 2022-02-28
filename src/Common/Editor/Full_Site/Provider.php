@@ -32,7 +32,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Registers the provider handling all the 1st level filters and actions for this Service Provider
+	 * Registers the provider handling all the assets for this Service Provider
 	 *
 	 * @since TBD
 	 */
