@@ -17,7 +17,7 @@ class Tooltip extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.8
 	 */
 	public function register() {
-		tribe_singleton( 'tooltip.view', '\Tribe\Tooltip\View' );
+		tribe_singleton( 'tooltip.view', \Tribe\Tooltip\View::class );
 
 		$this->hook();
 	}
@@ -44,8 +44,10 @@ class Tooltip extends \tad_DI52_ServiceProvider {
 			'tribe-tooltip',
 			'tooltip.css',
 			[ 'tribe-common-skeleton-style' ],
-			[ 'wp_register_style', 'admin_enqueue_scripts' ],
-			[ 'groups' => 'tribe-tooltip' ]
+			null,
+			[
+				'groups' => 'tribe-tooltip',
+			]
 		);
 
 		tribe_asset(
@@ -53,8 +55,10 @@ class Tooltip extends \tad_DI52_ServiceProvider {
 			'tribe-tooltip-js',
 			'tooltip.js',
 			[ 'jquery', 'tribe-common' ],
-			[ 'wp_register_script', 'admin_enqueue_scripts' ],
-			[ 'groups' => 'tribe-tooltip' ]
+			null,
+			[
+				'groups' => 'tribe-tooltip'
+			]
 		);
 	}
 }

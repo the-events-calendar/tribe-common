@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 4.14.11\n"
+"Project-Id-Version: Tribe Common 4.14.14\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2022-01-07 06:37:28+00:00\n"
+"POT-Creation-Date: 2022-02-23 17:47:45+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-01-07 06:37\n"
+"PO-Revision-Date: 2022-02-23 17:47\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -58,7 +58,7 @@ msgctxt "Error status label for system info optin"
 msgid "Status:"
 msgstr ""
 
-#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.11)  #-#-#-#-#
+#. #-#-#-#-#  tribe-common.pot (Tribe Common 4.14.14)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Admin/Help_Page.php:82 src/Tribe/Customizer.php:666
 #: src/Tribe/Plugins_API.php:25 src/admin-views/help-calendar.php:97
@@ -1003,19 +1003,19 @@ msgid ""
 "and you should likely delete it."
 msgstr ""
 
-#: src/Tribe/Field.php:234
+#: src/Tribe/Field.php:235
 msgid "Invalid field type specified"
 msgstr ""
 
-#: src/Tribe/Field.php:544
+#: src/Tribe/Field.php:545
 msgid "No radio options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:580
+#: src/Tribe/Field.php:581
 msgid "No checkbox options specified"
 msgstr ""
 
-#: src/Tribe/Field.php:642
+#: src/Tribe/Field.php:643
 msgid "No select options specified"
 msgstr ""
 
@@ -2239,188 +2239,188 @@ msgstr ""
 msgid "Full debug (all events)"
 msgstr ""
 
-#: src/Tribe/Main.php:322
+#: src/Tribe/Main.php:335
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:323
+#: src/Tribe/Main.php:336
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:325
+#: src/Tribe/Main.php:338
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:326
+#: src/Tribe/Main.php:339
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:327
+#: src/Tribe/Main.php:340
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:328
+#: src/Tribe/Main.php:341
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:329
+#: src/Tribe/Main.php:342
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:330
+#: src/Tribe/Main.php:343
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:331
+#: src/Tribe/Main.php:344
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:332
+#: src/Tribe/Main.php:345
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:333
+#: src/Tribe/Main.php:346
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:334
+#: src/Tribe/Main.php:347
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:336
+#: src/Tribe/Main.php:349
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:337 src/Tribe/Main.php:354
+#: src/Tribe/Main.php:350 src/Tribe/Main.php:367
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:338
+#: src/Tribe/Main.php:351
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:343
+#: src/Tribe/Main.php:356
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:344
+#: src/Tribe/Main.php:357
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:355
+#: src/Tribe/Main.php:368
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:356 src/Tribe/Main.php:358
+#: src/Tribe/Main.php:369 src/Tribe/Main.php:371
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:357
+#: src/Tribe/Main.php:370
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:359
+#: src/Tribe/Main.php:372
 msgid "Clear"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:500
+#: src/Tribe/PUE/Checker.php:531
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:503
+#: src/Tribe/PUE/Checker.php:534
 msgid ""
 "%1$sBuy a license%2$s for the Event Aggregator service to access additional "
 "import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:515 src/Tribe/PUE/Checker.php:526
-#: src/admin-views/troubleshooting/ea-status/license-key.php:40
+#: src/Tribe/PUE/Checker.php:546 src/Tribe/PUE/Checker.php:557
+#: src/admin-views/troubleshooting/ea-status/license-key.php:44
 msgid "License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:535 src/Tribe/PUE/Checker.php:569
+#: src/Tribe/PUE/Checker.php:566 src/Tribe/PUE/Checker.php:600
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:544
+#: src/Tribe/PUE/Checker.php:575
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:545
+#: src/Tribe/PUE/Checker.php:576
 msgid ""
 "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:556
+#: src/Tribe/PUE/Checker.php:587
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:656
+#: src/Tribe/PUE/Checker.php:687
 msgid "License key(s) updated."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:910
+#: src/Tribe/PUE/Checker.php:941
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:923
+#: src/Tribe/PUE/Checker.php:954
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:929
+#: src/Tribe/PUE/Checker.php:960
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:949
+#: src/Tribe/PUE/Checker.php:980
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:954
+#: src/Tribe/PUE/Checker.php:985
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:981 src/Tribe/PUE/Notices.php:342
+#: src/Tribe/PUE/Checker.php:1014 src/Tribe/PUE/Notices.php:342
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:983 src/Tribe/PUE/Notices.php:344
+#: src/Tribe/PUE/Checker.php:1016 src/Tribe/PUE/Notices.php:344
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1000
+#: src/Tribe/PUE/Checker.php:1033
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1020
+#: src/Tribe/PUE/Checker.php:1053
 msgid ""
 "There is an update for %s. You'll need to %scheck your license%s to have "
 "access to updates, downloads, and support."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1077
+#: src/Tribe/PUE/Checker.php:1110
 msgid ""
 "There is an update for %s. %sRenew your license%s to get access to bug "
 "fixes, security updates, and new features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1107
+#: src/Tribe/PUE/Checker.php:1140
 msgid "Update now to version %s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1118
+#: src/Tribe/PUE/Checker.php:1151
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1699
+#: src/Tribe/PUE/Checker.php:1732
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1700
+#: src/Tribe/PUE/Checker.php:1733
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1701
+#: src/Tribe/PUE/Checker.php:1734
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
@@ -2782,7 +2782,7 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/Service_Providers/Onboarding.php:102
+#: src/Tribe/Service_Providers/Onboarding.php:109
 msgid "Got it"
 msgstr ""
 
@@ -2855,16 +2855,16 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: src/Tribe/Settings_Manager.php:259
+#: src/Tribe/Settings_Manager.php:275
 msgid "Network"
 msgstr ""
 
-#: src/Tribe/Settings_Manager.php:293
+#: src/Tribe/Settings_Manager.php:309
 #: src/admin-views/tribe-options-licenses.php:57
 msgid "Licenses"
 msgstr ""
 
-#: src/Tribe/Settings_Manager.php:323 src/admin-views/help.php:30
+#: src/Tribe/Settings_Manager.php:339 src/admin-views/help.php:30
 msgid "Help"
 msgstr ""
 
@@ -2916,28 +2916,28 @@ msgid ""
 "rewrite rule flush occurring in a plugin or theme!"
 msgstr ""
 
-#: src/Tribe/Support.php:324
+#: src/Tribe/Support.php:336
 msgid ""
 "Yes, automatically share my system information with The Events Calendar's "
 "support team"
 msgstr ""
 
-#: src/Tribe/Support.php:325
+#: src/Tribe/Support.php:337
 msgid ""
 "Your system information will only be used by The Events Calendar's support "
 "team. All information is stored securely. We do not share this information "
 "with any third parties."
 msgstr ""
 
-#: src/Tribe/Support.php:344 src/Tribe/Support.php:349
+#: src/Tribe/Support.php:356 src/Tribe/Support.php:361
 msgid "Invalid Key"
 msgstr ""
 
-#: src/Tribe/Support.php:382 src/Tribe/Support.php:408
+#: src/Tribe/Support.php:394 src/Tribe/Support.php:420
 msgid "Permission Error"
 msgstr ""
 
-#: src/Tribe/Support.php:396
+#: src/Tribe/Support.php:408
 msgid "Unique System Info Key Generated"
 msgstr ""
 
@@ -3769,28 +3769,28 @@ msgstr ""
 msgid "Eventbrite"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:15
+#: src/admin-views/troubleshooting/ea-status/license-key.php:19
 msgid "Your license is valid"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:22
+#: src/admin-views/troubleshooting/ea-status/license-key.php:26
 msgid "You do not have a license"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:24
+#: src/admin-views/troubleshooting/ea-status/license-key.php:28
 msgid ""
 "Buy Event Aggregator to access more event sources and automatic imports!"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:27
+#: src/admin-views/troubleshooting/ea-status/license-key.php:31
 msgid "Your license is invalid"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:28
+#: src/admin-views/troubleshooting/ea-status/license-key.php:32
 msgid "Check your license key"
 msgstr ""
 
-#: src/admin-views/troubleshooting/ea-status/license-key.php:34
+#: src/admin-views/troubleshooting/ea-status/license-key.php:38
 msgid "License & Usage"
 msgstr ""
 

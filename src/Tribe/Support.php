@@ -228,8 +228,20 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			 * Allow for customization of the array of information that's turned into the "System Information" screen in the "Help" admin page.
 			 *
 			 * @param array $systeminfo The array of information turned into the "System Information" screen.
+			 *
+			 * @deprecated 4.14.13 Using a newer format of filter.
 			 */
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
+
+			/**
+			 * Allow for customization of the array of information that's turned into the "System Information" screen in the "Help" admin page.
+			 *
+			 * @since 4.14.13
+			 *
+			 * @param array $systeminfo The array of information turned into the "System Information" screen.
+			 *
+			 */
+			$systeminfo = apply_filters( 'tec_system_information', $systeminfo );
 
 			return $systeminfo;
 		}

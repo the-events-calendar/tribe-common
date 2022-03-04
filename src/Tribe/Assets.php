@@ -39,6 +39,7 @@ class Tribe__Assets {
 		// Hook the actual registering of.
 		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
 		add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
+		add_filter( 'script_loader_tag', [ $this, 'filter_modify_to_module' ], 50, 2 );
 
 		// Enqueue late.
 		add_filter( 'script_loader_tag', [ $this, 'filter_add_localization_data' ], 500, 2 );
@@ -149,10 +150,44 @@ class Tribe__Assets {
 			$replacement .= 'defer ';
 		}
 
-		$replacement_src  = $replacement . 'src=';
-		$replacement_type = $replacement . 'type=';
 
-		return str_replace( [ '<script src=', '<script type=' ], [ $replacement_src, $replacement_type ], $tag );
+		return str_replace( '<script ', $replacement, $tag );
+	}
+
+	/**
+	 * Filters the Script tags to attach type=module based on the rules we set in our Asset class.
+	 *
+	 * @since 4.14.14
+	 *
+	 * @param string $tag    Tag we are filtering.
+	 * @param string $handle Which is the ID/Handle of the tag we are about to print.
+	 *
+	 * @return string Script tag with the type=module
+	 */
+	public function filter_modify_to_module( $tag, $handle ) {
+		// Only filter for own own filters.
+		if ( ! $asset = $this->get( $handle ) ) {
+			return $tag;
+		}
+
+		// Bail when not dealing with JS assets.
+		if ( 'js' !== $asset->type ) {
+			return $tag;
+		}
+
+		// When not module we bail with the tag.
+		if ( ! $asset->module ) {
+			return $tag;
+		}
+
+		// Do not add Module to a Script that already has a type.
+		if ( false !== strpos( $tag, ' type=' ) ) {
+			return $tag;
+		}
+
+		$replacement = '<script type="module" ';
+
+		return str_replace( '<script ', $replacement, $tag );
 	}
 
 	/**
@@ -509,7 +544,7 @@ class Tribe__Assets {
 	 */
 	public function register( $origin, $slug, $file, $deps = [], $action = null, $arguments = [] ) {
 		// Prevent weird stuff here.
-		$slug = sanitize_title_with_dashes( $slug );
+		$slug = sanitize_key( $slug );
 
 		if ( $this->exists( $slug ) ) {
 			return $this->get( $slug );
@@ -553,6 +588,7 @@ class Tribe__Assets {
 
 			'async'         => false,
 			'defer'         => false,
+			'module'        => false,
 
 			'in_footer'     => true,
 			'is_registered' => false,
@@ -633,7 +669,7 @@ class Tribe__Assets {
 		if ( filter_var( $asset->file, FILTER_VALIDATE_URL ) ) {
 			$asset->url = $asset->file;
 		} else {
-			$asset->url = $this->maybe_get_min_file( tribe_resource_url( $asset->file, false, ( $is_vendor ? '' : null ), $origin ) );
+			$asset->url = static::maybe_get_min_file( tribe_resource_url( $asset->file, false, ( $is_vendor ? '' : null ), $origin ) );
 		}
 
 		// Parse the Localize asset arguments.
@@ -757,7 +793,7 @@ class Tribe__Assets {
 		if ( is_array( $slug ) ) {
 			$assets = [];
 			foreach ( $slug as $asset_slug ) {
-				$asset_slug = sanitize_title_with_dashes( $asset_slug );
+				$asset_slug = sanitize_key( $asset_slug );
 				// Skip empty assets.
 				if ( empty( $this->assets[ $asset_slug ] ) ) {
 					continue;
@@ -779,7 +815,7 @@ class Tribe__Assets {
 		}
 
 		// Prevent weird stuff here.
-		$slug = sanitize_title_with_dashes( $slug );
+		$slug = sanitize_key( $slug );
 
 		if ( ! empty( $this->assets[ $slug ] ) ) {
 			return $this->assets[ $slug ];

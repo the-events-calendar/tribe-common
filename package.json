@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "4.14.11",
+  "version": "4.14.15",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -8,10 +8,7 @@
   "_glotPressUrl": "https://translations.theeventscalendar.com",
   "_glotPressSlug": "tribe-common",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": [
-    "po",
-    "mo"
-  ],
+  "_glotPressFormats": ["po", "mo"],
   "_glotPressFilter": {
     "translation_sets": false,
     "minimum_percentage": 30,
@@ -34,14 +31,9 @@
       "!src/resources/postcss/datepicker.pcss",
       "!src/resources/postcss/tribe-ui.pcss"
     ],
-    "jest": [
-      "src/modules/**/__tests__/**/*.js"
-    ]
+    "jest": ["src/modules/**/__tests__/**/*.js"]
   },
-  "engines": {
-    "node": "16.6.1",
-    "npm": "7.20.3"
-  },
+  "engines": { "node": "16.6.1", "npm": "7.20.3" },
   "scripts": {
     "analyze": "webpack-bundle-analyzer -m static stats.json",
     "bootstrap": "./scripts/linkDependencies",
@@ -71,6 +63,7 @@
     "bezier-easing": "^2.1.0",
     "chrono-node": "^2.2.4",
     "classnames": "^2.2.6",
+    "clipboard": "^2.0.10",
     "file-loader": "^1.1.6",
     "he": "^1.2.0",
     "intro.js": "^3.4.0",
@@ -83,7 +76,7 @@
     "querystringify": "^2.0.0",
     "react": "16.3.0",
     "react-day-picker": "^7.2.4",
-    "react-dom": "16.3.3",
+    "react-dom": "16.3.0",
     "react-input-autosize": "^2.2.1",
     "react-places-autocomplete": "^6.1.2",
     "react-redux": "^5.0.7",
