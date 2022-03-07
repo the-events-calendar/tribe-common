@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [4.14.15] 2022-03-01 =
+
+* Tweak - Update version of Freemius to 2.4.3.
+
 = [4.14.14] 2022-02-24 =
 
 * Feature - The PUE Checker now stores a transient with the status of the last license key check.
