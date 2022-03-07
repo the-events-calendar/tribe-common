@@ -1,6 +1,7 @@
 == Changelog ==
 
 = [TBD] TBD =
+
 * Fix - Updated Dropdown functionality to work with PHP8, thanks @huubl. [CE-141]
 
 = [4.16.7] 2021-11-04 =
