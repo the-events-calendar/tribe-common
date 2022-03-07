@@ -20,7 +20,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.14.7';
+	const VERSION             = '4.14.15';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -87,6 +87,7 @@ class Tribe__Main {
 
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
+		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
 	}
 
 	/**
@@ -187,7 +188,7 @@ class Tribe__Main {
 			[
 				[ 'tribe-accessibility-css', 'accessibility.css' ],
 				[ 'tribe-query-string', 'utils/query-string.js' ],
-				[ 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ],
+				[ 'tribe-clipboard', 'node_modules/clipboard/dist/clipboard.min.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
 				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
 				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
@@ -206,6 +207,8 @@ class Tribe__Main {
 				[ 'tribe-jquery-timepicker-css', 'vendor/jquery-tribe-timepicker/jquery.timepicker.css' ],
 				[ 'tribe-timepicker', 'timepicker.js', [ 'jquery', 'tribe-jquery-timepicker' ] ],
 				[ 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' ],
+				[ 'tec-ky-module', 'vendor/ky/ky.js', [], null, [ 'module' => true ] ],
+				[ 'tec-ky', 'vendor/ky/tec-ky.js', [ 'tec-ky-module' ], null, [ 'module' => true ] ],
 			]
 		);
 
@@ -274,6 +277,16 @@ class Tribe__Main {
 		);
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
+	}
+
+	/**
+	 * Ensure that the customizer styles get the variables they need.
+	 *
+	 * @since 4.14.13
+	 */
+	public function load_tec_variables() {
+		tribe_asset_enqueue( 'tec-variables-skeleton' );
+		tribe_asset_enqueue( 'tec-variables-full' );
 	}
 
 	/**
@@ -654,6 +667,7 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 		tribe_register_provider( Tribe\Service_Providers\Crons::class );
 		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
+		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
 		tribe_register_provider( Tribe\Admin\Conditional_Content\Service_Provider::class );
 	}

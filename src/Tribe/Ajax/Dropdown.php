@@ -89,7 +89,7 @@ class Tribe__Ajax__Dropdown {
 		}
 
 		foreach ( $results as $result ) {
-			$result->text = wp_kses_post( htmlspecialchars_decode( $result->text ) );
+			$result->text = wp_specialchars_decode( wp_kses( $result->text, [] ) );
 		}
 
 		$data['results']    = $results;

@@ -4,6 +4,7 @@ exports[`HOC - With Store Should add the store property 1`] = `
 <div
   store={
     Object {
+      "@@observable": [Function],
       "dispatch": [Function],
       "getState": [Function],
       "injectReducers": [Function],
@@ -11,7 +12,6 @@ exports[`HOC - With Store Should add the store property 1`] = `
       "replaceReducer": [Function],
       "run": [Function],
       "subscribe": [Function],
-      Symbol(observable): [Function],
     }
   }
 />
