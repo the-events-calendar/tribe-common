@@ -9,7 +9,7 @@
  *
  * @return bool
  */
-function tec_hide_upsell( string $slug = 'all' ): bool {
+function tec_should_hide_upsell( string $slug = 'all' ): bool {
 	$verify = static function( $needle, $haystack ) {
 		// In all cases if true or false boolean we return that.
 		if ( is_bool( $haystack ) ) {
@@ -62,7 +62,7 @@ function tec_hide_upsell( string $slug = 'all' ): bool {
 	 * @param bool|string $hide Determines if Upsells are hidden.
 	 * @param bool|string $slug Which slug we are testing against.
 	 */
-	$haystack = apply_filters( 'tec_hide_upsell', false, $slug );
+	$haystack = apply_filters( 'tec_should_hide_upsell', false, $slug );
 
 	/**
 	 * Allows filtering of the Upsells for anything using Common, for one specific slug.
@@ -72,7 +72,7 @@ function tec_hide_upsell( string $slug = 'all' ): bool {
 	 * @param bool|string $hide Determines if Upsells are hidden.
 	 * @param bool|string $slug Which slug we are testing against.
 	 */
-	$haystack = apply_filters( "tec_hide_upsell_{$slug}", $haystack, $slug );
+	$haystack = apply_filters( "tec_should_hide_upsell_{$slug}", $haystack, $slug );
 
 	return $verify( $slug, $haystack );
 }
