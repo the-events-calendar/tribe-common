@@ -180,12 +180,11 @@ class Tribe__Assets {
 			return $tag;
 		}
 
-		// Do not add Module to a Script that already has a type.
-		if (
-			false !== strpos( $tag, ' type=' )
-			&& current_theme_supports( 'html5', 'script' ) // These themes already have the `type="text/javascript"` added by WordPress core.
-		) {
-			return $tag;
+		// These themes already have the `type='text/javascript'` added by WordPress core.
+		if ( ! current_theme_supports( 'html5', 'script' ) ) {
+			$replacement = 'type="module"';
+
+			return str_replace( "type='text/javascript'", $replacement, $tag );
 		}
 
 		$replacement = '<script type="module" ';
