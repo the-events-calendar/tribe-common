@@ -181,7 +181,10 @@ class Tribe__Assets {
 		}
 
 		// Do not add Module to a Script that already has a type.
-		if ( false !== strpos( $tag, ' type=' ) ) {
+		if (
+			false !== strpos( $tag, ' type=' )
+			&& current_theme_supports( 'html5', 'script' ) // These themes already have the `type="text/javascript"` added by WordPress core.
+		) {
 			return $tag;
 		}
 
