@@ -1,2 +1,4 @@
-import ky from './ky.min.js';
-tribe.ky = ky;
+(async () => {
+	const ky = await import('./ky.min.js');
+	window.tribe.ky = ky;
+})
