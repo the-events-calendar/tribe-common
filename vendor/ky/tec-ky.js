@@ -1,2 +1,2 @@
-import ky from './ky.min';
+import ky from './ky.min.js';
 tribe.ky = ky;
