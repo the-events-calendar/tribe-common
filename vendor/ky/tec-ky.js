@@ -1,4 +1,2 @@
-(async () => {
-	const ky = await import('./ky.min.js');
-	window.tribe.ky = ky;
-})
+import ky from './ky.min';
+tribe.ky = ky;
