@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Correct Troubleshooting Menu Item label in Admin Bar. [TBD]
+
 = [4.14.15] 2022-03-01 =
 
 * Tweak - Update version of Freemius to 2.4.3.
