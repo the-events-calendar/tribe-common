@@ -1,2 +1,3 @@
-import ky from './ky.min.js';
-tribe.ky = ky;
+import( './ky.min.js' ).then( (ky) => {
+	tribe.ky = ky.default;
+});
