@@ -218,7 +218,7 @@ class Tribe__Main {
 			[
 				[ 'tec-variables-skeleton', 'variables-skeleton.css', ],
 				[ 'tribe-common-skeleton-style', 'common-skeleton.css', [ 'tec-variables-skeleton' ] ],
-				[ 'tec-variables-full', 'variables-full.css', ],
+				[ 'tec-variables-full', 'variables-full.css', [ 'tec-variables-skeleton' ] ],
 				[ 'tribe-common-full-style', 'common-full.css', [ 'tec-variables-full', 'tribe-common-skeleton-style' ] ],
 			],
 			null
