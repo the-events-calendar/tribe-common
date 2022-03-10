@@ -5,7 +5,7 @@
 * Fix - Ensure our full common variables file requires the skeleton variables. [TEC-4308]
 * Fix - Correct Troubleshooting Menu Item label in Admin Bar. [TEC-4310]
 
-= [4.14.15] 2022-03-01 =
+= [4.14.16] 2022-03-01 =
 
 * Tweak - Update version of Freemius to 2.4.3.
 
