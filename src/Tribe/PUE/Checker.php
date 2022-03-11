@@ -88,6 +88,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public $pue_option_name = '';
 
 		/**
+		 * Where to store the temporary status info.
+		 *
+		 * @since 4.14.14
+		 *
+		 * @var string
+		 */
+		public $pue_key_status_transient_name;
+
+		/**
 		 * used to hold the install_key if set (included here for addons that will extend PUE to use install key checks)
 		 *
 		 * @var bool
@@ -171,6 +180,28 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$this->set_plugin_file( $plugin_file );
 			$this->set_options( $options );
 			$this->hooks();
+			$this->set_key_status_transient_name();
+		}
+
+		/**
+		 * Creates a hash for the transient name that holds the current key status.
+		 *
+		 * @since 4.14.14
+		 */
+		public function set_key_status_transient_name() {
+			$this->pue_key_status_transient_name = md5( $this->get_slug() . $this->get_site_domain() );
+		}
+
+		/**
+		 * Sets the key status transient based on the key validation check results.
+		 *
+		 * @since 4.14.14
+		 *
+		 * @param int $valid 0 for invalid, 1 or 2 for valid.
+		 */
+		public function set_key_status_transient( $valid ) {
+			$status = tribe_is_truthy( $valid ) ? 'valid' : 'invalid';
+			set_transient( $this->pue_key_status_transient_name, $status, $this->check_period * HOUR_IN_SECONDS );
 		}
 
 		/**
@@ -972,6 +1003,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			}
 
 			$response['message'] = wp_kses( $response['message'], 'data' );
+
+			$this->set_key_status_transient( $response['status'] );
 
 			return $response;
 		}

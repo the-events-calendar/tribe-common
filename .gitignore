@@ -33,6 +33,7 @@ vendor/*
 !vendor/xrstf/composer-php52
 !vendor/a5hleyrich/wp-background-processing
 !vendor/freemius
+!vendor/ky
 vendor/freemius/languages/*.po
 
 # Resources Ignoring

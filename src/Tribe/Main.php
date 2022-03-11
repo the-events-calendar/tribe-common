@@ -188,7 +188,7 @@ class Tribe__Main {
 			[
 				[ 'tribe-accessibility-css', 'accessibility.css' ],
 				[ 'tribe-query-string', 'utils/query-string.js' ],
-				[ 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ],
+				[ 'tribe-clipboard', 'node_modules/clipboard/dist/clipboard.min.js' ],
 				[ 'datatables', 'vendor/datatables/datatables.js', [ 'jquery' ] ],
 				[ 'tribe-select2', 'vendor/tribe-selectWoo/dist/js/selectWoo.full.js', [ 'jquery' ] ],
 				[ 'tribe-select2-css', 'vendor/tribe-selectWoo/dist/css/selectWoo.css' ],
@@ -207,6 +207,8 @@ class Tribe__Main {
 				[ 'tribe-jquery-timepicker-css', 'vendor/jquery-tribe-timepicker/jquery.timepicker.css' ],
 				[ 'tribe-timepicker', 'timepicker.js', [ 'jquery', 'tribe-jquery-timepicker' ] ],
 				[ 'tribe-attrchange', 'vendor/attrchange/js/attrchange.js' ],
+				[ 'tec-ky-module', 'vendor/ky/ky.js', [], null, [ 'module' => true ] ],
+				[ 'tec-ky', 'vendor/ky/tec-ky.js', [ 'tec-ky-module' ], null, [ 'module' => true ] ],
 			]
 		);
 
