@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - New customizable upsell element to offer upgrades, additions and services that are available.
+
 = [4.14.15] 2022-03-01 =
 
 * Tweak - Update version of Freemius to 2.4.3.
