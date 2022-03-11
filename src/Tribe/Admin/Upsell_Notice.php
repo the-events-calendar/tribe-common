@@ -84,8 +84,8 @@ class Upsell_Notice {
 		] );
 
 		// Default args for the link. Modifier classes that can be used: 
-		//   'tec-admin__upsell--link-dark'
-		//   'tec-admin__upsell--link-underlined'
+		//   'tec-admin__upsell-link--dark'
+		//   'tec-admin__upsell-link--underlined'
 		$args['link'] = wp_parse_args( $args['link'], [
 			'classes' => [],
 			'text'    => '',
