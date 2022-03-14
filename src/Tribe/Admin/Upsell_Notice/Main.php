@@ -5,11 +5,12 @@
  *
  * @since TBD
  *
- * @package Tribe\Admin
+ * @package Tribe\Admin\Upsell_Notice
  */
-namespace Tribe\Admin;
 
-class Upsell_Notice {
+namespace Tribe\Admin\Upsell_Notice;
+
+class Main {
 
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the page.
