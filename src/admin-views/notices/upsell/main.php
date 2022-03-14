@@ -36,7 +36,7 @@ if ( ! empty( $link ) && ! empty( $link['classes'] ) ) {
 			</div>
 			<div class="tec-admin__upsell-text-wrap">
 				<span class="tec-admin__upsell-text">
-					<?php echo esc_html( $text ); ?>
+					<?php echo wp_kses_post( $text ); ?>
 				</span>
 				<a 
 					<?php tribe_classes( $link_classes ); ?> 
